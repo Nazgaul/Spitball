@@ -43,6 +43,8 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public IEnumerable<QuizBestUsers> TopUsers { get; set; }
 
+        public string Banner { get; set; }
+
     }
 
     public class QuizBestUsers

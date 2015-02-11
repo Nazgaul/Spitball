@@ -5,10 +5,10 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -55,7 +55,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var user = m_UserRepository.Load(command.UserId);
            
             //Add link to Box 
-            var link = box.AddLink(u.AbsoluteUri, user, LinkStorageSize, command.UrlTitle, ThumbnailProvider.LinkTypePicture,
+            var link = box.AddLink(u.AbsoluteUri, user, LinkStorageSize, command.UrlTitle, FileProcessor.LinkTypePicture,
                m_BlobProvider.GetThumbnailLinkUrl());
 
             m_ItemRepository.Save(link, true);

@@ -74,66 +74,7 @@ namespace Zbang.Zbox.Infrastructure.File
                }, CacheVersion,"image/jpg"
             );
             return new PreviewResult { Content = retVal, ViewName = "Image" };
-            //var blobsNamesInCache = new List<string>();
-            //var parallelTask = new List<Task<string>>();
-            //var tasks = new List<Task>();
-
-            ////var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
-
-            //var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
-            //for (var pageIndex = indexNum; pageIndex < indexOfPageGenerate; pageIndex++)
-            //{
-            //    string value;
-            //    var metaDataKey = CacheVersion + pageIndex;
-            //    var cacheblobName = CreateCacheFileName(blobName, pageIndex);
-
-            //    if (meta.TryGetValue(metaDataKey, out value))
-            //    {
-            //        blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
-            //        meta[metaDataKey] = DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);// DateTime.UtcNow.ToString();
-            //        continue;
-            //    }
-            //    //var cacheBlobNameWithSharedAccessSignature = m_BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);
-            //    //if (!string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature))
-            //    //{
-            //    //    blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
-            //    //    continue;
-            //    //}
-            //    try
-            //    {
-
-            //        var workSheet = excel.Value.Worksheets[pageIndex];
-            //        ScalePageSetupToFitPage(workSheet);
-
-            //        var sr = new SheetRender(workSheet, imgOptions);
-            //        //Render the image for the sheet
-            //        using (var ms = new MemoryStream())
-            //        {
-            //            sr.ToImage(0, ms);
-            //            if (ms.Length == 0)
-            //            {
-            //                break;
-            //            }
-            //            var compressor = new Compress();
-            //            var gzipSr = compressor.CompressToGzip(ms);
-
-            //            parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, gzipSr, "image/jpg", true));
-            //            meta.Add(metaDataKey, DateTime.UtcNow.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
-
-            //        }
-            //    }
-            //    catch (ArgumentOutOfRangeException)
-            //    {
-            //        break;
-            //    }
-            //}
-            //var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
-            //tasks.AddRange(parallelTask);
-            //tasks.Add(t);
-            //await Task.WhenAll(tasks);
-            //blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
-
-            //return new PreviewResult { Content = blobsNamesInCache, ViewName = "Image" };
+           
         }
 
         protected string CreateCacheFileName(string blobName, int index)
@@ -205,7 +146,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override string GetDefaultThumbnailPicture()
         {
-            return ThumbnailProvider.ExcelFileTypePicture;
+            return ExcelFileTypePicture;
         }
     }
 }

@@ -9,7 +9,7 @@
                 },
                 itemsLimit: 50
             };
-            $scope.createUrl = "/" + ($scope.info.boxType === 'private' ? 'box' : 'course') + "/" + $routeParams.uniName + "/" + $routeParams.boxId + "/" + $routeParams.boxName + "/quizcreate/";
+            $scope.createUrl = $location.path() + "quizcreate/";
 
             $scope.qOptions = {
                 currentView: consts.view.thumb,

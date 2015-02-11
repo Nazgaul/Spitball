@@ -103,6 +103,7 @@ input[type="file"] {
   margin-right: 0;
   border: 1px solid #EEE;
   height: 32px;
+  display: none;
 }
 .ta-toolbar svg {
   height: 15px;
@@ -158,7 +159,6 @@ input[type="file"] {
 }
 .ta-editor.ta-html,
 .ta-scroll-window.form-control {
-  min-height: 100px;
   height: auto;
   overflow: auto;
   font-family: inherit;
@@ -221,11 +221,10 @@ input[type="file"] {
   background-color: white;
 }
 .ta-scroll-window.form-control {
-  padding: 10px;
+  padding: 0 3px;
 }
 .ta-scroll-window > .ta-bind {
   height: auto;
-  min-height: 100px;
   padding: 6px 12px;
 }
 .ta-scroll-window .popover {

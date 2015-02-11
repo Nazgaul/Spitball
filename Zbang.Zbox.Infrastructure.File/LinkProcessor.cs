@@ -47,7 +47,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public string GetDefaultThumbnailPicture()
         {
-            return ThumbnailProvider.LinkTypePicture;
+            return FileProcessor.LinkTypePicture;
         }
     }
 }

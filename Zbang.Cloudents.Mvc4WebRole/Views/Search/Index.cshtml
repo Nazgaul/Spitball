@@ -63,6 +63,9 @@
         <div class="stars">
             <div class="full" ng-style="::{width: itemRating(item.rate)}"></div>
         </div>
-        <div data-title="@SharedResources.Views" class="views">{{::item.views || 0}}</div>
+        <div data-title="@SharedResources.Views" class="views">
+            @Html.Svg("~/Images/Defs.svg", "eye", new { @class = "svg-eye" })
+            {{::item.views || 0}}
+        </div>
     </a>
 </script>

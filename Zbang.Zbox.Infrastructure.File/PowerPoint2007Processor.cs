@@ -1,18 +1,13 @@
-﻿using System.Globalization;
-using System.Net;
-using System.Threading;
+﻿using System.Threading;
 using Aspose.Slides;
 using Aspose.Slides.Util;
 using ImageResizer;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -202,7 +197,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override string GetDefaultThumbnailPicture()
         {
-            return Thumbnail.ThumbnailProvider.PowerPointFileTypePicture;
+            return PowerPointFileTypePicture;
         }
     }
 }

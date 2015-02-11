@@ -43,10 +43,6 @@ body.quiz .modal-backdrop.in {
 }
 .createQuiz,
 .quizPreview {
-  -webkit-animation: slideUp 0.5s 0 ease;
-  -moz-animation: slideUp 0.5s 0 ease;
-  -o-animation: slideUp 0.5s 0 ease;
-  animation: slideUp 0.5s 0 ease;
   position: fixed;
   z-index: 14;
   left: 0;
@@ -76,6 +72,15 @@ body.quiz .modal-backdrop.in {
 .quizPreview .closePreview svg {
   fill: #fff;
 }
+<<<<<<< HEAD
+=======
+.quizPreview {
+  -webkit-animation: slideUp 0.5s 0 ease;
+  -moz-animation: slideUp 0.5s 0 ease;
+  -o-animation: slideUp 0.5s 0 ease;
+  animation: slideUp 0.5s 0 ease;
+}
+>>>>>>> 8b6ad9d5b9d59c640d27a702d485c936b3f8e9ce
 .createQuiz .emptyQuiz .quizName:not(.ng-valid) {
   border: 1px solid #d1294d;
 }
@@ -88,8 +93,12 @@ body.quiz .modal-backdrop.in {
 .createQuiz .emptyQuiz .questionHolder:first-child.questionReq .addQuestion {
   display: inline-block;
   position: absolute;
-  right: 21px;
-  top: 15px;
+  left: 27px;
+  top: 36px;
+}
+.createQuiz .emptyQuiz .questionHolder:first-child.questionReq.focus .addQuestion {
+  left: 34px;
+  top: 79px;
 }
 .createQuiz .emptyQuiz .questionHolder:first-child.correctReq .correct {
   color: #d1294d;
@@ -115,8 +124,12 @@ body.quiz .modal-backdrop.in {
 .createQuiz .validated .questionHolder.ng-invalid.questionReq .addQuestion {
   display: inline-block;
   position: absolute;
-  left: 21px;
-  top: 55px;
+  left: 27px;
+  top: 36px;
+}
+.createQuiz .validated .questionHolder.ng-invalid.questionReq.focus .addQuestion {
+  left: 34px;
+  top: 79px;
 }
 .createQuiz .validated .questionHolder.ng-invalid.correctReq .correct {
   color: #d1294d;
@@ -183,12 +196,25 @@ body.quiz .modal-backdrop.in {
   position: relative;
   padding: 12px;
   border: 1px solid rgba(194, 194, 194, 0.5);
+  color: #9d9d9d;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 .questionHolder.focus {
   border-color: #3399ff;
+  color: #383838;
+}
+.questionHolder.focus .ta-toolbar {
+  display: block;
+}
+.questionHolder.focus ta-editor.ta-html,
+.questionHolder.focus .ta-scroll-window.form-control,
+.questionHolder.focus .ta-bind {
+  min-height: 100px;
+}
+.questionHolder.focus .ta-scroll-window.form-control {
+  padding: 10px;
 }
 .questionHolder:hover .closeDialog {
   display: block;
@@ -676,6 +702,10 @@ body.quiz .modal-backdrop.in {
 .afraid .quizPrevWpr .btn1 {
   display: none;
 }
+.checkQuiz .quizQList .noAnswer,
+.afraid .quizQList .noAnswer {
+  display: none;
+}
 .checkQuiz .quizQList .noAnswer:before,
 .afraid .quizQList .noAnswer:before {
   content: '';
@@ -1070,4 +1100,8 @@ body.quiz .modal-backdrop.in {
 }
 .quizPopupBtnWpr .btn1:nth-child(2):hover {
   background: #4f5d67;
+}
+/*#endregion */
+.quizBanner {
+  text-align: center;
 }

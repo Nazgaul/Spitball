@@ -61,7 +61,7 @@ offset @pageNumber*@rowsperpage rows
 fetch next @rowsperpage rows only;";
 
         public const string GetBoxToUploadToSearch =
-            @"select top 500 b.boxid  as Id,b.PictureUrl as Image
+            @"select top 500 b.boxid  as Id
 ,b.BoxName as Name, b.ProfessorName as Professor ,b.CourseCode as CourseCode
 , b.Url as Url, b.University as UniversityId , b.PrivacySetting as PrivacySetting
   from zbox.box b

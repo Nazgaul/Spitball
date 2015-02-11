@@ -51,7 +51,7 @@ body {
 }
 .createQuiz, .quizPreview {
     //margin-top: 100%;
-    .animation(slideUp);
+    
     position: fixed;
     z-index: 14;
     left: 0;
@@ -80,6 +80,13 @@ body {
         }
     }
 }
+<<<<<<< HEAD
+=======
+.quizPreview {
+.animation(slideUp);
+}
+
+>>>>>>> 8b6ad9d5b9d59c640d27a702d485c936b3f8e9ce
 .createQuiz {
     .emptyQuiz {
         .quizName:not(.ng-valid) {
@@ -98,8 +105,14 @@ body {
                 .addQuestion{
                     display: inline-block;
                     position: absolute;
-                    right: 21px;
-                    top: 15px;
+                    left: 27px;
+                    top: 36px;
+                }
+                &.focus {
+                    .addQuestion {
+                        left: 34px;
+                        top: 79px;
+                    }
                 }
             }
             &.correctReq {
@@ -139,8 +152,14 @@ body {
                 .addQuestion{
                     display: inline-block;
                     position: absolute;
-                    left: 21px;
-                    top: 55px;
+                    left: 27px;
+                    top: 36px;
+                }
+                &.focus {
+                    .addQuestion {
+                        left: 34px;
+                        top: 79px;
+                    }
                 }
             }
             &.correctReq {
@@ -223,9 +242,23 @@ body {
     position: relative;
     padding: 12px;
     border: 1px solid rgba(194, 194, 194, 0.5);
+    color: #9d9d9d;
     .boxSizing;
     &.focus {
         border-color: @blue;
+        color: @textColor;
+        .ta-toolbar {
+            display: block;
+        }
+        ta-editor.ta-html, .ta-scroll-window.form-control, .ta-bind {
+            min-height: 100px;
+        }
+        .ta-scroll-window {
+            &.form-control {
+                padding: 10px;
+            }
+        }
+
     }
     &:hover {
         .closeDialog{
@@ -734,6 +767,7 @@ body {
     }
 
     .quizQList .noAnswer {
+        display:none;
         &:before {
             .pseudo;
             width: 0;
@@ -1117,3 +1151,6 @@ body {
     }
 }
 /*#endregion */
+.quizBanner{
+    text-align:center;
+}

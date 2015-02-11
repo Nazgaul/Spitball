@@ -180,7 +180,7 @@
                         $main.addClass('upload');
                         $analytics.eventTrack('Drag Enter', {
                             category: 'Upload',
-                            label:attrs.plDropzoneUploader
+                            label:attrs.plDropzoneUploader 
                         });
                     }
                     elements = elements.add(event.target);

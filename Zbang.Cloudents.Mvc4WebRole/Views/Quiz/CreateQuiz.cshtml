@@ -2,7 +2,7 @@
 
 <section class="createQuiz">
     <div class="createQuizTop">
-        <button type="button" title="@SharedResources.Back" class="closePreview rFloat" ng-click="closeQuiz()">
+        <button type="button" title="@SharedResources.Back" class="closePreview rFloat" ng-click="closeQuiz(quizForm.$valid)">
             @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
         </button>
         <h2>@QuizResources.CreateQuiz</h2>
@@ -10,7 +10,7 @@
     <div class="createQuizWpr">
         <form id="quizForm" name="quizForm" novalidate ng-submit="submit(quizForm.$valid,$event)" ng-class="{validated: quiz.validated, emptyQuiz : quiz.empty}">
             <div data-quizin="@SharedResources.Course:" class="quizLoc">{{quiz.courseName}}</div>
-            <input type="text" class="inputText quizName" autofocus ng-placeholder="@QuizResources.ChooseName" quiz-focus data-focus="{{params.focus}}" ng-blur="saveQuiz()" ng-model="quiz.name" ng-required="true" />
+            <input type="text" class="inputText quizName" autofocus ng-placeholder="@QuizResources.ChooseName" quiz-focus data-focus="{{params.focus}}" ng-change="saveQuiz()" ng-model-options="{debounce:150}" ng-model="quiz.name" ng-required="true" />
             <ul>
                 @*Guy: if user clicks anywhere within the question - add class 'focused' here*@
                 <li class="questionHolder" ng-repeat="question in quiz.questions" ng-include="'quizQuestionTemplate'" ng-form="questionForm" ng-init="outerIndex = $index"
@@ -26,7 +26,7 @@
                 <button type="button" class="quizPreviewBtn rFloat" ng-click="previewQuiz()">@QuizResources.PreviewQuiz</button>
             </div>
         </form>
-    </div> 
+    </div>
 </section>
 
 <div ng-show="quiz.showPreview">
@@ -73,7 +73,7 @@
     <button type="button" class="closeBtn quizRemoveQuestion" ng-click="removeQuestion($index)" ng-show="$index > 0">
         @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
     </button>
-    <div app-file-paste text-angular ng-model="question.text" required bind-textarea on-blur="saveQuestion(question)"></div>
+    <div app-file-paste text-angular ng-model="question.text" required bind-textarea on-blur="saveQuestion(question)" placeholder="@SharedResources.Question #{{$index + 1}}"></div>
     <span class="rFloat error addQuestion">@QuizResources.AddQuestion</span>
     <div class="lFloat answers">@SharedResources.Answers:</div>
     <div class="answerWpr">

@@ -93,7 +93,7 @@
         </ul>
     </div>
  
-    <div ng-if="$root.openSearch" class="searchPopup">
+    <div ng-if="$root.openSearch" class="searchPopup" ng-controller="SearchCtrl">
         @{Html.RenderPartial("_BarSearch");}
     </div>
     
@@ -142,7 +142,6 @@
             </div>
         }
     }
-    @{Html.RenderPartial("_DashLibItem");}
     <script type="text/javascript" src="~/js/CDNFallback.min.js?v=@VersionHelper.CurrentVersion(true)"></script>
     <script type="text/ng-template" id="userToolTip.html">
         <div class="userTooltip" ng-class="::{hidePoints : user.score <= 0}">
@@ -171,31 +170,7 @@
             </div>
         </a>
     </script>*@
-
-    <script type="text/ng-template" id="boxHeaderSearch">
-        <a class="searchLink" ng-href="{{::box.url}}">
-            <div class="vCentered" data-box-letter="{{::box.name[0]}}">
-                <h3 class="elps" ng-bind-html="::box.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></h3>
-                <div class="courseId" ng-bind-html="::box.courseCode"></div>
-                <div ng-bind-html="::box.proffessor"></div>
-            </div>
-        </a>
-    </script>
-
-    <script type="text/ng-template" id="quizHeaderSearch">
-        <a class="searchLink" href="#">
-            <div class="vCentered">
-                <h3 class="elps" ng-bind-html="::quiz.name | highlight:formData.query:false" dir="{{::params.textDirection}}">Name of quiz</h3>
-                <div class="elps">By: <span>author name here</span></div>
-                <div class="content">Quiz content goes here. A maximum of 2 lines of content is displayed here</div>
-            </div>
-            <div class="searchImg" data-box-letter="{{::quiz.name[0]}}">
-                @Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })
-                <div class="elps boxName">Box name to go here</div>
-                <time>19.08.09</time>
-            </div>
-        </a>
-    </script>
+  
     @*Previous search version*@
     @*<script type="text/ng-template" id="itemHeaderSearch0">
         <a ng-href="{{::item.url}}" class="searchLink ghost">
@@ -207,18 +182,6 @@
             </div>
         </a>
     </script>*@
-
-    <script type="text/ng-template" id="itemHeaderSearch">
-        <a class="searchLink" ng-href="{{::item.url}}">
-            <div class="vCentered">
-                <h3 class="elps" ng-bind-html="::item.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></h3>
-                <div class="elps">By: <span>author name here</span></div>
-                <div class="content">Item content goes here. A maximum of 2 lines of content is displayed here</div>
-            </div>
-            <img class="searchImg" width="63" height="88" ng-src="{{::item.image}}" alt="" />
-        </a>
-    </script>
-
         @*<script>
             //check for iframe
             try {
@@ -231,7 +194,10 @@
                 window.iframe = true;
             }
             </script>*@
-        @RenderSection("scripts", false)
+
+    @{Html.RenderPartial("_DashLibItem");}
+    @{Html.RenderPartial("_SearchTemplate");}
+    @RenderSection("scripts", false)
 
 </body>
 </html>

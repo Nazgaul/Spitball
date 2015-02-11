@@ -39,7 +39,6 @@ namespace Zbang.Zbox.Domain
             UserTime = new UserTimeDetails(user.Email);
             Owner = user;
             UserBoxRelationship.Add(new UserBoxRel(user, this, UserRelationshipType.Owner));
-            RemovePicture();
             CalculateMembers();
         }
         // ReSharper restore DoNotCallOverridableMethodsInConstructor
@@ -50,10 +49,7 @@ namespace Zbang.Zbox.Domain
         public virtual PrivacySettings PrivacySettings { get; set; }
         public virtual bool IsDeleted { get; set; }
         public virtual User Owner { get; private set; }
-        public virtual string Picture { get; protected set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
-        public virtual string PictureUrl { get; private set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string Url { get; protected set; }
@@ -72,15 +68,7 @@ namespace Zbang.Zbox.Domain
 
         protected virtual ICollection<Updates> Updates { get; set; }
         public virtual ICollection<InviteToBox> Invites { get; set; }
-        //public virtual void RemoveBox()
-        //{
-        //    UserBoxRelationship.Clear();
-        //    Comments.Clear();
-        //    ItemTabs.Clear();
-        //    Invites.Clear();
-        //    Updates.Clear();
-        //    Quizzes.Clear();
-        //}
+       
 
         public virtual int MembersCount { get; private set; }
         public virtual int ItemCount { get; private set; }
@@ -99,17 +87,7 @@ namespace Zbang.Zbox.Domain
             GenerateUrl();
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "Db call will save as string")]
-        public void AddPicture(string boxPicture, string pictureUrl)
-        {
-            Picture = boxPicture;
-            PictureUrl = pictureUrl;
-        }
-        public void RemovePicture()
-        {
-            Picture = null;
-            PictureUrl = "/images/emptyState/my_default3.png";
-        }
+       
 
         public virtual void GenerateUrl()
         {

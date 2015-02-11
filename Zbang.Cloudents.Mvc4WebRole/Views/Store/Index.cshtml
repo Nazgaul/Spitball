@@ -86,7 +86,7 @@
     <div class="searchCategoriesWpr">
         <button type="button" class="lFloat" products-menu>@StoreResources.Categories</button>
         <form class="searchForm rFloat">
-            <input id="search" autocomplete="off" type="search" class="inputSearch" placeholder="@StoreResources.WhatProduct" ng-model="params.search" @*ng-keyup="search()"*@ />
+            <input id="search" autocomplete="off" type="search" class="inputSearch" ng-placeholder="@StoreResources.WhatProduct" ng-model="params.search" @*ng-keyup="search()"*@ />
             <button type="submit" class="searchProducts" ng-click="search($event)" ng-disabled="params.isSearching || !params.search.length">@StoreResources.Search</button>
         </form>
        @{

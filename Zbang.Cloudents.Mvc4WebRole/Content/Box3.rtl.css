@@ -776,15 +776,10 @@
 .thumbItem .views,
 .listItem .views {
   color: #b1b1b1;
-  margin: 0;
-}
-.thumbItem .views .svg-eye,
-.listItem .views .svg-eye {
-  width: 16px;
-  height: 11px;
-  fill: #b1b1b1;
-  display: inline-block;
-  vertical-align: middle;
+  margin: 0
+  /*.svg-eye {
+            
+        }*/
 }
 .listItem {
   padding: 15px 138px 15px 0;

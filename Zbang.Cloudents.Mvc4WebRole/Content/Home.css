@@ -174,7 +174,7 @@
   display: inline-block;
   width: 289px;
   height: 240px;
-  background: url(/Images/hp18-sprite.png?v=3) -172px -1px no-repeat;
+  background: url(/Images/hp26-sprite.png?v=1) -172px -1px no-repeat;
   float: right;
   margin-top: 35px;
 }
@@ -209,7 +209,7 @@
 .logo {
   width: 190px;
   height: 52px;
-  background: url(/Images/hp18-sprite.png?v=3) -881px -271px no-repeat;
+  background: url(/Images/hp26-sprite.png?v=1) -881px -271px no-repeat;
   margin-top: 20px;
 }
 .videoWpr {
@@ -237,7 +237,7 @@
   display: inline-block;
   width: 69px;
   height: 69px;
-  background: url(/Images/hp18-sprite.png?v=3) -3px -4px no-repeat;
+  background: url(/Images/hp26-sprite.png?v=1) -3px -4px no-repeat;
   position: absolute;
   left: 0;
 }
@@ -327,6 +327,83 @@
 }
 .language .currentItem {
   color: #a7a7a7;
+}
+/*.checkbox:checked {
+    + .gradeback {
+        height: 66px;
+        width: 200px;
+    }
+}
+.labelGradeback {
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+}*/
+.gradeback.gradeback {
+  position: absolute;
+  right: 20px;
+  bottom: 100%;
+  height: 212px;
+  color: #fff;
+  border-radius: 5px 5px 0 0;
+  background: #282828;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #282828 83%, #111111 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(83%, #282828), color-stop(100%, #111111));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #282828 83%, #111111 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #282828 83%, #111111 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #282828 83%, #111111 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #282828 83%, #111111 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#282828', endColorstr='#111111', GradientType=0);
+  /* IE6-9 */
+  padding: 12px 16px 0 16px;
+  font-size: 18px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: height 0.3s, width 0.3s;
+  -moz-transition: height 0.3s, width 0.3s;
+  -o-transition: height 0.3s, width 0.3s;
+  transition: height 0.3s, width 0.3s;
+  overflow: hidden;
+}
+.gradeback.gradeback:before {
+  content: '';
+  display: inline-block;
+  width: 168px;
+  height: 43px;
+  background: url(/Images/hp26-sprite.png?v=1) -972px -22px no-repeat;
+}
+.gradeback.gradeback a {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  z-index: 1;
+}
+.gradeback.gradeback svg {
+  fill: #fff;
+  margin-top: 20px;
+}
+.gradeback.gradeback .svg-android {
+  margin: 20px 42px 0 42px;
+}
+.gradeback.gradeback h3 {
+  font-size: 31px;
+  font-weight: bold;
+  margin: 10px 0 5px;
+  line-height: 20px;
+}
+.gradeback.gradeback h4 {
+  font-size: 24px;
+  font-weight: 100;
 }
 .available {
   margin-top: 45px;
@@ -431,7 +508,7 @@ section.unions {
 .unions li:before {
   content: '';
   display: inline-block;
-  background: url(/Images/hp18-sprite.png?v=3) no-repeat;
+  background: url(/Images/hp26-sprite.png?v=1) no-repeat;
   vertical-align: middle;
 }
 .unions li.gsb:before {
@@ -581,6 +658,9 @@ footer {
 .rtlFix .svgWpr {
   border-radius: 4px 0 0 4px;
 }
+.rtlFix .gradeback {
+  direction: rtl;
+}
 .rtlFix .btn-group > .btn:first-child:not(.dropdown-toggle) {
   border-radius: 0 4px 4px 0;
 }
@@ -609,9 +689,6 @@ footer {
 .rtlFix .thumbItem.quizItem .actionBtns {
   left: 8px;
   right: auto;
-}
-.rtlFix .socialList .contactName {
-  direction: rtl;
 }
 .rtlFix .modal.couponPopup .closeModal {
   right: 120px;
@@ -682,6 +759,9 @@ footer {
 }
 .rtlFix .socialList {
   width: 635px;
+}
+.rtlFix .socialList .contactName {
+  direction: rtl;
 }
 .rtlFix .socialList li.jsInviteSent button:after {
   top: 3px;

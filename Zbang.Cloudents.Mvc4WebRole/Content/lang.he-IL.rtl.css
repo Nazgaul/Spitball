@@ -10,6 +10,16 @@
 .headingTexts .email {
   width: 185px;
 }
+/*.gradeback.gradeback {
+     h3 {
+        font-size: 31px;
+        font-weight: bold;
+    }
+    h4 {
+        font-size:24px;
+        font-weight:100;
+    }
+    }*/
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
   .language.language {
     margin-top: 261px;
@@ -20,9 +30,11 @@
   display: block;
 }
 .quizAnswersList {
+  list-style-type: decimal;
   list-style-type: hebrew;
 }
 .quizAList li {
+  list-style-type: decimal;
   list-style-type: hebrew;
 }
 /*#region IE 9+ ONLY CODE HERE */

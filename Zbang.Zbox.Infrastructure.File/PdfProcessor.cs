@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Aspose.Pdf.Text.TextOptions;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
@@ -180,7 +179,7 @@ namespace Zbang.Zbox.Infrastructure.File
         }
         public override string GetDefaultThumbnailPicture()
         {
-            return ThumbnailProvider.PdfFileTypePicture;
+            return PdfFileTypePicture;
         }
 
 

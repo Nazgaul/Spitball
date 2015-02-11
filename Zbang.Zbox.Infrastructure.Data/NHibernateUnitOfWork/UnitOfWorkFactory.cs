@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                     dbi.Dialect<ZboxDialect>();
                     dbi.Driver<ZboxDriver>();
                     dbi.ConnectionString = ConfigFetcher.Fetch("Zbox");
-                    dbi.SchemaAction = SchemaAutoAction.Validate;
+                    dbi.SchemaAction = SchemaAutoAction.Update;
                     
 #if DEBUG
                     dbi.LogSqlInConsole = true;
@@ -82,14 +82,18 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
         }
         private void SaveConfiguration()
         {
-            var storage = IocFactory.Unity.Resolve<ILocalStorageProvider>();
-
-            using (var ms = new MemoryStream())
+            try
             {
-                IFormatter bf = new BinaryFormatter();
-                bf.Serialize(ms, m_Configuration);
-                storage.SaveFileToStorage(ms, GetConfigurationFileName());
+                var storage = IocFactory.Unity.Resolve<ILocalStorageProvider>();
+
+                using (var ms = new MemoryStream())
+                {
+                    IFormatter bf = new BinaryFormatter();
+                    bf.Serialize(ms, m_Configuration);
+                    storage.SaveFileToStorage(ms, GetConfigurationFileName());
+                }
             }
+            catch { }
         }
 
        

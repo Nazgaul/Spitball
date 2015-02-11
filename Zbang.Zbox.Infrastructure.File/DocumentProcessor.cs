@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
 
@@ -122,18 +120,5 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             return false;
         }
-
-
-
-
-        //protected int CalculateTillWhenToDrawPictures(int indexNum)
-        //{
-        //    var indexOfPageGenerate = NumberOfFilesInGroup;
-        //    if (indexNum > NumberOfFilesInGroup / 2)
-        //    {
-        //        indexOfPageGenerate = (indexNum / 10) * 10 + NumberOfFilesInGroup;
-        //    }
-        //    return indexOfPageGenerate;
-        //}
     }
 }

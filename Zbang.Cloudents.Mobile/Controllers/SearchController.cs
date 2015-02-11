@@ -39,7 +39,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
             return JsonOk(retVal.Select(s => new
             {
                 s.Url,
-                s.Image,
                 s.Name
             }));
         }

@@ -1,0 +1,241 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+@{
+    ViewBag.title = ViewBag.title ?? "Cloudents";
+    ViewBag.metaDescription = ViewBag.metaDescription ?? "Join the social studying revolution at Cloudents";
+    ViewBag.fbImage = ViewBag.fbImage ?? @Url.CdnContent("/images/cloudents-share-fb-1.png");
+    ViewBag.viewport = ViewBag.viewport ?? true;
+    ViewBag.fBox = ViewBag.fBox ?? false;
+}
+<!DOCTYPE html>
+<html data-culture="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name" ng-app="app">
+<head prefix="og: http://ogp.me/ns#">
+    <title>@ViewBag.title</title>
+    <link rel="SHORTCUT ICON" href="~/favicon.ico" />
+
+    @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" ||
+        System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
+    {
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+    }
+
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <meta charset="utf-8">
+    @*For ipad user scalable fix bug of position fixed - bug 260*@
+    @if (ViewBag.viewport)
+    {
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no" />
+    }
+
+    <meta name="title" content="@ViewBag.title" />
+    <meta name="description" content="@ViewBag.metaDescription" />
+    <link rel="image_src" href="@Url.CdnContent("/images/cloudents.png")" />
+
+    <meta property="fb:app_id" content="450314258355338" />
+    <meta property="og:site_name" content="Cloudents" />
+    <meta property="og:image" name="og:image" content="@ViewBag.fbImage" />
+    <meta property="og:description" name="og:description" content="@ViewBag.metaDescription" />
+    <meta property="og:title" name="og:title" content="@ViewBag.title" />
+    <meta property="og:url" content="@Request.Url" />
+    <base href="/">
+    @Html.Css2("newcore3")
+    @*@Html.CssRtl("newrtl3")*@
+    @Html.CssCulture("lang")
+    <link href="https://plus.google.com/116999550356569810034" rel="publisher" />
+</head>
+<body class="@Html.ClassOfRtl()" ng-class="{store: $root.isStore(), quiz: $root.isQuiz(),'jsDark jsCreateDashboard' : $root.params.createBoxWizard}">
+
+    <!--[if IE]>
+    <script>
+        if (!window.document.documentMode || window.document.documentMode < 9) {
+            window.location = "/Error/Unsupported";
+        }
+    </script>
+    <![endif]-->
+    @*this is for seo*@
+    @if (ViewBag.Description != null)
+    {
+        <h1 class="pageHeading">@ViewBag.Description</h1>
+    }
+    <div class="bodyContent" data-version="@VersionHelper.CurrentVersion(true)" id="main" ng-controller="MainCtrl">
+
+        @RenderBody()
+        <div id="fb-root"></div>
+    </div>
+    <div id="mLoading" class="loading" data-loader>
+        <div class="spinner"></div>
+    </div>
+    <div class="ptsPopup" id="ptsPopup" user-points-popup data-pts-before="@SharedResources.SweetPoints" data-pts-after="@SharedResources.Pts">
+        <div class="digitWpr"></div>
+    </div>
+    <div class="uploads" id="uploads" ng-controller="UploadListCtrl" ng-class="{collapsed : uploader.collapsed }" ng-style="{display: uploader.init ? 'block' : 'none'}">
+        @*collapsed*@
+        <div class="uploadTop" ng-click="toggleCollapse()">
+            <span class="lFloat">{{uploader.title}}</span>
+            <span class="uploadDetails elps" ng-show="uploader.collapsed && uploader.currentFile"><q>{{uploader.currentFile.name}}</q></span>
+            <span class="uploadPercent" ng-show="uploader.collapsed && uploader.currentFile">{{uploader.currentFile.percent}}%</span>
+            <div class="uploadBtns">
+                @*<button type="button" class="minimize" id="uploads_minimize"></button>*@<button type="button" class="minimize" id="uploads_minimize"></button>
+                <button type="button" class="stopUpload" ng-click="closeView()" ng-style="{display: !uploader.uploading ? 'inline-block' : 'none' }"></button>
+            </div>
+        </div>
+        <ul class="uploadList" id="uploadList" m-custom-scrollbar scroll-disabled="uploader.scrollDisabled">
+            <li class="uploadItem" ng-repeat="file in uploader.fileList track by file.id">
+                <span class="fileName elps">{{::file.name}}</span>
+                <span class="fileSize">{{::file.size | fileSize:true}}</span>
+                <div class="uploadProgress">
+                    <button type="button" class="fileCancel rFloat" ng-style="{ display: file.plupload ? 'block' : 'none'}" ng-hide="file.uploaded || file.error" ng-click="cancelUpload(file)">@DialogResources.Cancel</button>
+                    <button type="button" class="fileDone rFloat" disabled="disabled" ng-style="{display : file.uploaded ? 'inline-block' : 'none' }"></button>
+                    <button type="button" class="fileError rFloat" disabled="disabled" ng-style="{display : file.error ? 'inline-block' : 'none' }"></button>
+                    <span class="progress rFloat"><span class="progressFill" ng-style="{ width: file.progressWidth }"></span></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+<<<<<<< HEAD
+
+    <div ng-if="$root.openSearch" class="searchPopup">
+        @{Html.RenderPartial("_BarSearch");}
+    </div>
+    
+=======
+    <div class="searchPopup" ng-if="$root.searchOpen">@{Html.RenderPartial("_BarSearch");}</div>
+    @{Html.RenderPartial("_DashLibItem");}
+>>>>>>> 3b67cab3994e11eb269333ae8f735111134a1d54
+    @RenderSection("templates", false)
+    @*DO NOT REMOVE THIS AT ALL TIME*@
+    <div id="cssCheck"></div>
+    @*
+        If arrow is on top no class needed otherwise add class bottom,left,right as needed*@
+    @{
+        if (ViewBag.fBox)
+        {
+            <div id="quizGuideTemplate" class="steps quizGuideTemplate">
+                <div class="tooltip1 left tall" data-step="0" data-tt-position="#addQuiz" data-arrow-position="left">
+                    <button type="button" class="closeDialog"></button>
+                    <div class="stepTip">
+                        <div>@SharedResources.CreateShare</div>
+                        <ul>
+                            <li>@SharedResources.ExamQuestion</li>
+                            <li>@SharedResources.MultipleAnswers</li>
+                            <li>@SharedResources.UseMaterial</li>
+                            <li>@SharedResources.PublishQuiz</li>
+                        </ul>
+                        <div>@SharedResources.CloudentsQuizzes</div>
+                        <div class="ttBtns">
+                            <button type="button" data-done class="rFloat btn3">@SharedResources.Dismiss</button>
+                            <button type="button" data-next class="rFloat btn3">@DialogResources.Next</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tooltip1" data-step="1" data-tt-position=".quizItem:not(.draft)" data-arrow-position="top">
+                    <button type="button" class="closeDialog"></button>
+                    <div class="stepTip">
+                        <div>@SharedResources.PrepareExam</div>
+                        <ul>
+                            <li>@SharedResources.SeeScore</li>
+                            <li>@SharedResources.ShareQuiz</li>
+                            <li>@SharedResources.DiscussQuiz</li>
+                        </ul>
+                        <div>@SharedResources.TryIt</div>
+                        <div class="ttBtns">
+                            <button type="button" data-prev class="lFloat btn3">@SharedResources.Previous</button>
+                            <button type="button" data-done class="rFloat btn3">@SharedResources.Dismiss</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    <script type="text/javascript" src="~/js/CDNFallback.min.js?v=@VersionHelper.CurrentVersion(true)"></script>
+    <script type="text/ng-template" id="userToolTip.html">
+        <div class="userTooltip" ng-class="::{hidePoints : user.score <= 0}">
+            <a ng-href="{{::user.url}}" ng-click="$root.checkReg($event)">
+                <img class="ttImg" ng-src="{{::user.image | defaultImage:'user'}}" width="99" height="99" />
+            </a>
+            <a class="ttUsername elps" ng-href="{{::user.url}}" ng-click="$root.checkReg($event)">{{::user.name}}</a>
+            <div class="ttSchool elps">{{::user.universityName}}</div>
+            <span class="ttPoints lFloat" data-tt-points="{{::user.score}}">&nbsp;@SharedResources.Points</span>
+            <button type="button" class="btn3 rFloat" ng-click="sendUserMessage(user)">@SharedResources.Message</button>
+        </div>
+    </script>
+
+    @*@Search*@
+
+    @*Previous search version*@
+    @*<script type="text/ng-template" id="boxHeaderSearch0">
+        <a ng-href="{{::box.url}}" class="searchLink ghost">
+            <img class="imgBorder" height="66" ng-src="{{::box.image | defaultImage:'box'}}" alt="">
+            <div class="vCentered">
+                <h3 class="elps" ng-bind-html="::box.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></h3>
+                <div>
+                    <span class="searchDetail" ng-style="::{allDetails: box.proffessor && box.courseCode}" ng-bind-html="::box.proffessor | highlight:formData.query:false" dir="{{::params.textDirection}}"></span>
+                    <span class="searchDetail" ng-bind-html="::box.courseCode | highlight:formData.query:false"></span>
+                </div>
+            </div>
+        </a>
+    </script>*@
+
+    <script type="text/ng-template" id="boxHeaderSearch">
+        <a class="searchLink" ng-href="{{::box.url}}">
+            <div class="vCentered" data-box-letter="{{::box.name[0]}}">
+                <h3 class="elps" ng-bind-html="::box.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></h3>
+                <div class="courseId" ng-bind-html="::box.courseCode"></div>
+                <div ng-bind-html="::box.proffessor"></div>
+            </div>
+        </a>
+    </script>
+
+    <script type="text/ng-template" id="quizHeaderSearch">
+        <a class="searchLink" href="#">
+            <div class="vCentered">
+                <h3 class="elps" ng-bind-html="::quiz.name | highlight:formData.query:false" dir="{{::params.textDirection}}">Name of quiz</h3>
+                <div class="elps">By: <span>author name here</span></div>
+                <div class="content">Quiz content goes here. A maximum of 2 lines of content is displayed here</div>
+            </div>
+            <div class="searchImg" data-box-letter="{{::quiz.name[0]}}">
+                @Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })
+                <div class="elps boxName">Box name to go here</div>
+                <time>19.08.09</time>
+            </div>
+        </a>
+    </script>
+    @*Previous search version*@
+    @*<script type="text/ng-template" id="itemHeaderSearch0">
+        <a ng-href="{{::item.url}}" class="searchLink ghost">
+            <div class="otherUni semiFont" ng-if="::item.universityName">{{::item.universityName}}</div>
+            <img class="imgBorder" height="66" ng-src="{{::item.image}}" alt="">
+            <div class="vCentered">
+                <h3 class="elps" ng-bind-html="::item.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></h3>
+                <div class="boxLoc searchDetail" data-search-in="@SharedResources.In">{{::item.boxname}}</div>
+            </div>
+        </a>
+    </script>*@
+
+    <script type="text/ng-template" id="itemHeaderSearch">
+        <a class="searchLink" ng-href="{{::item.url}}">
+            <div class="vCentered">
+                <h3 class="elps" ng-bind-html="::item.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></h3>
+                <div class="elps">By: <span>author name here</span></div>
+                <div class="content">Item content goes here. A maximum of 2 lines of content is displayed here</div>
+            </div>
+            <img class="searchImg" width="63" height="88" ng-src="{{::item.image}}" alt="" />
+        </a>
+    </script>
+
+        @*<script>
+            //check for iframe
+            try {
+                if (window.self !== window.top) {
+                    window.iframe = true;
+                    window.location.href = '/home/iframe/';
+                }
+            } catch (ex) {
+                window.location.href = '/home/iframe/';
+                window.iframe = true;
+            }
+            </script>*@
+        @RenderSection("scripts", false)
+
+</body>
+</html>

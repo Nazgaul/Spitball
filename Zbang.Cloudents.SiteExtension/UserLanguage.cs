@@ -30,7 +30,7 @@ namespace Zbang.Cloudents.SiteExtension
                 //cookie.InjectCookie(CookieName, culture, false);
                 return;
             }
-            if (context.Request.QueryString["lang"] != null)
+            if (!string.IsNullOrEmpty(context.Request.QueryString["lang"]))
             {
                 var culture = ChangeThreadLanguage(context.Request.QueryString["lang"]);
                 InsertCookie(culture, context);
@@ -119,7 +119,7 @@ namespace Zbang.Cloudents.SiteExtension
         }
 
 
-        public static void InsertCookie(string culture,HttpContextBase context)
+        public static void InsertCookie(string culture, HttpContextBase context)
         {
             var cookie = new CookieHelper(context);
             cookie.InjectCookie(CookieName, culture, false);

@@ -1838,7 +1838,7 @@ See README.md or https://github.com/fraywing/textAngular/wiki for requirements a
                         scope.displayElements.resize.anchors[3].on('mousedown', _resizeMouseDown);
 
                         scope.reflowResizeOverlay(_el);
-                        oneEvent(_body, 'click', function () { scope.hideResizeOverlay(); });
+                        oneEvent(_body, 'click keyup', function () { scope.hideResizeOverlay(); });
                     };
                     /* istanbul ignore next: pretty sure phantomjs won't test this */
                     scope.hideResizeOverlay = function () {

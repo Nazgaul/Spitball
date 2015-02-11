@@ -16,7 +16,19 @@ svg.rtl {
   -ms-transform: scaleX(1);
   transform: scaleX(1);
 }
-/*#region general svg's */
+/*#region home page */
+.svg-world {
+  width: 48px;
+  height: 45px;
+}
+.svg-android {
+  width: 39px;
+  height: 47px;
+}
+.svg-apple {
+  width: 44px;
+  height: 43px;
+}
 /*#endregion */
 /*#region Item page */
 .svg-download {
@@ -46,9 +58,11 @@ svg.rtl {
   height: 21px;
 }
 .svg-eye {
-  width: 29px;
-  height: 17px;
-  fill: #fff;
+  width: 16px;
+  height: 11px;
+  fill: #b1b1b1;
+  display: inline-block;
+  vertical-align: middle;
 }
 .svg-star {
   width: 20px;

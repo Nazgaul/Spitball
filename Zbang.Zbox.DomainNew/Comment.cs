@@ -83,7 +83,20 @@ namespace Zbang.Zbox.Domain
         public bool RemoveItem(Item item)
         {
             Items.Remove(item);
-            return Items.Count == 0 && (string.IsNullOrEmpty(Text) || FeedType == Infrastructure.Enums.FeedType.AddedItems);
+            return NeedToRemoveComment();
+        }
+
+        private bool NeedToRemoveComment()
+        {
+            return (Items.Count == 0 && Quizes.Count == 0)
+                && (string.IsNullOrEmpty(Text)
+                || FeedType == Infrastructure.Enums.FeedType.AddedItems);
+        }
+
+        public bool RemoveQuiz(Quiz quiz)
+        {
+            Quizes.Remove(quiz);
+            return NeedToRemoveComment();
         }
     }
 }

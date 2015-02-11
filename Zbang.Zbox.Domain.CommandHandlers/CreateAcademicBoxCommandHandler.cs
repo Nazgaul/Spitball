@@ -4,16 +4,12 @@ using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Thumbnail;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class CreateAcademicBoxCommandHandler : CreateBoxCommandHandler
     {
         private readonly IAcademicBoxRepository m_AcademicRepository;
-        private readonly IAcademicBoxThumbnailProvider m_AcademicBoxThumbnailProvider;
-        private readonly IBlobProvider m_BlobProvider;
         private readonly IRepository<Library> m_DepartmentRepository;
         private readonly IUniversityRepository m_UniversityRepository;
 
@@ -22,15 +18,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IUserRepository userRepository,
             IRepository<UserBoxRel> userBoxRelRepository,
             IAcademicBoxRepository academicRepository,
-            IAcademicBoxThumbnailProvider academicBoxThumbnailProvider,
-            IBlobProvider blobProvider,
             IRepository<Library> departmentRepository,
             IUniversityRepository universityRepository)
             : base(boxRepository, userRepository, userBoxRelRepository)
         {
             m_AcademicRepository = academicRepository;
-            m_AcademicBoxThumbnailProvider = academicBoxThumbnailProvider;
-            m_BlobProvider = blobProvider;
             m_DepartmentRepository = departmentRepository;
             m_UniversityRepository = universityRepository;
         }
@@ -64,10 +56,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new BoxNameAlreadyExistsException();
             }
 
-            var picturePath = m_AcademicBoxThumbnailProvider.GetAcademicBoxThumbnail();
             box = new AcademicBox(academicCommand.BoxName, department,
                   academicCommand.CourseCode, academicCommand.Professor,
-                  picturePath, user, m_BlobProvider.GetThumbnailUrl(picturePath));
+                   user);
 
             box.UserBoxRelationship.Add(new UserBoxRel(user, box, UserRelationshipType.Owner));
             SaveRepositories(user, box);

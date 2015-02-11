@@ -314,7 +314,7 @@
 }
 @-webkit-keyframes loader {
   from {
-    background-position: 0;
+    background-position: 0px;
   }
   to {
     background-position: -303px;
@@ -322,7 +322,7 @@
 }
 @-moz-keyframes loader {
   from {
-    background-position: 0;
+    background-position: 0px;
   }
   to {
     background-position: -303px;
@@ -330,7 +330,7 @@
 }
 @-ms-keyframes loader {
   from {
-    background-position: 0;
+    background-position: 0px;
   }
   to {
     background-position: -303px;
@@ -338,7 +338,7 @@
 }
 @-o-keyframes loader {
   from {
-    background-position: 0;
+    background-position: 0px;
   }
   to {
     background-position: -303px;
@@ -346,7 +346,7 @@
 }
 @keyframes loader {
   from {
-    background-position: 0;
+    background-position: 0px;
   }
   to {
     background-position: -303px;

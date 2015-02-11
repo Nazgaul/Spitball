@@ -51,8 +51,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 .WithStringField(NameField, f => f
                     .IsRetrievable()
                     .IsSearchable())
-                .WithStringField(ImageField, f => f
-                    .IsRetrievable())
                 .WithStringField(ProfessorField, f => f
                     .IsRetrievable()
                     .IsSearchable())
@@ -81,7 +79,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 listOfCommands.AddRange(boxToUpload.Select(s => new IndexOperation(IndexOperationType.Upload, IdField,
                     s.Id.ToString(CultureInfo.InvariantCulture))
                     .WithProperty(NameField, s.Name)
-                    .WithProperty(ImageField, s.Image)
                     .WithProperty(ProfessorField, s.Professor)
                     .WithProperty(CourseField, s.CourseCode)
                     .WithProperty(UrlField, s.Url)
@@ -145,7 +142,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 return searchResult.Body.Records.Select(s => new SearchBoxes(
                     SeachConnection.ConvertToType<long>(s.Properties[IdField]),
                     SeachConnection.ConvertToType<string>(s.Properties[NameField]),
-                    SeachConnection.ConvertToType<string>(s.Properties[ImageField]),
                     SeachConnection.ConvertToType<string>(s.Properties[ProfessorField]),
                     SeachConnection.ConvertToType<string>(s.Properties[CourseField]),
                     SeachConnection.ConvertToType<string>(s.Properties[UrlField])));

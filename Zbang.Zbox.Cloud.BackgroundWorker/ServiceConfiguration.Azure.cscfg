@@ -5,7 +5,7 @@
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxdiagnostic;AccountKey=JragZe0lJsCWYvgdFNzgjit+YPpJUGhpJGNEE3CDFeZ++g2OaBVvAIyP0hIBcZbBUFt4fbzRwPPbeC7TGPNtpg==" />
       <Setting name="StorageConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw==" />
-      <Setting name="ZBox" value="Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;" />
+      <Setting name="ZBox" value="Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="ram" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBlQYJKoZIhvcNAQcDoIIBhjCCAYICAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEFeE4xyigAiqSRqgMSf8fZIwDQYJKoZIhvcNAQEBBQAEggEAU8yFgWxD+aaPd4lnKWvA0aTk4QTb/4RlAUCdvHx7EyG7NAS2+f6P7wSygnG77CFH/QAG6LIbruy0prT/F66FxxGj9gA0+sign8ifeg5v/UkKe28ziMhj4gp4ZShOF/ZpWqSrQK0bzADkVbOUHU9pSNJ4HoKwvxWu0qmBpXBSSDZLa9weB5TltqrWURvc8bHy1ZnOUSveHg5JhUgSaxjvZ/a/M6tip9M5zSsxpMPX0Vbra2FkUyxIipezMg6wSrquLJHcBbQbId03zH6ZNVulXuoZBLZDPq4btosymgOBBWcicdT9EHXDH96973Igo/aNWQIpKSHghnBdaS6ZxI8XqDArBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECGm2xRgbZ0OLgAiLs+oxTGQw4g==" />

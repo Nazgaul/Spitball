@@ -11,7 +11,7 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2015-02-26T23:59:59.0000000+02:00" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
       <Setting name="CdnEndpoint" value="https://az158719.vo.msecnd.net" />
-      <Setting name="ZBox" value="Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;Max Pool Size=1000;Asynchronous Processing=True;" />
+      <Setting name="ZBox" value="Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;Max Pool Size=1000;Asynchronous Processing=True;Connection Timeout=30;" />
       <Setting name="CacheUse" value="true" />
       <Setting name="StorageCdnEndpoint" value="https://az32006.vo.msecnd.net" />
       <Setting name="AzureSearchKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
@@ -20,9 +20,9 @@
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="CF7E246608B64DD62D5BF8558F74CE21A483FCDA" thumbprintAlgorithm="sha1" />
-      <Certificate name="CloudDents" thumbprint="96A712B131425F45B52CBDA6999E92012386C9EF" thumbprintAlgorithm="sha1" />
       <Certificate name="MyIntermediateCertCloudDents" thumbprint="C039A3269EE4B8E82D00C53FA797B5A19E836F47" thumbprintAlgorithm="sha1" />
       <Certificate name="MyRootCertCloudDents" thumbprint="DE28F4A4FFE5B92FA3C503D1A349A7F9962A8212" thumbprintAlgorithm="sha1" />
+      <Certificate name="Cloudents" thumbprint="F0496ECEB40DED029613E0C8027DC459D1780AAC" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
 </ServiceConfiguration>

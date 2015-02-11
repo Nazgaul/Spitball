@@ -8,7 +8,6 @@ using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Infrastructure.File;
@@ -65,7 +64,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             var processor = m_FileProcessorFactory.GetProcessor(new Uri(m_BlobProvider.GetBlobUrl(command.BlobAddressName)));
-            string thumbnailImgLink = ThumbnailProvider.DefaultFileTypePicture;
+            string thumbnailImgLink = FileProcessor.DefaultFileTypePicture;
             if (processor != null)
             {
                 thumbnailImgLink = processor.GetDefaultThumbnailPicture();

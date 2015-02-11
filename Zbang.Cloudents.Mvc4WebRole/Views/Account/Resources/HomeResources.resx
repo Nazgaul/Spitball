@@ -192,4 +192,10 @@ With 10 GB personal storage space your content is always backed up and secure.
   <data name="PlayVideo" xml:space="preserve">
     <value>Play video</value>
   </data>
+  <data name="AppToGrade" xml:space="preserve">
+    <value>Grade your professor</value>
+  </data>
+  <data name="YouAsked" xml:space="preserve">
+    <value>You asked, we listened</value>
+  </data>
 </root>

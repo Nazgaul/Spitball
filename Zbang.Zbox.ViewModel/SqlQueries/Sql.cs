@@ -50,7 +50,7 @@ where uWrap.Id = @UniversityId";
         /// <summary>
         /// Used in user page to get boxes common with current user and his friend
         /// </summary>
-        public const string UserWithFriendBoxes = @"select COALESCE( uMe.UserType,0) as userType, b.boxid as id ,b.BoxName as name,b.pictureurl as picture,
+        public const string UserWithFriendBoxes = @"select COALESCE( uMe.UserType,0) as userType, b.boxid as id ,b.BoxName as name,
         b.Url as Url
                             from 
                         zbox.UserBoxRel uFriend
@@ -82,7 +82,7 @@ b.boxname as boxname,
         /// <summary>
         ///  Used in user page to get question common with current user
         /// </summary>
-        public const string UserWithFriendQuestion = @" select b.pictureurl as boxPicutre,b.BoxName as boxName,q.Text as content, b.BoxId as boxid,
+        public const string UserWithFriendQuestion = @" select b.BoxName as boxName,q.Text as content, b.BoxId as boxid,
                         (select count(*) from zbox.Answer a where a.QuestionId = q.QuestionId) as answersCount,
 						b.url as Url
                           from zbox.Question q
@@ -97,7 +97,7 @@ b.boxname as boxname,
         /// <summary>
         ///  Used in user page to get answers common with current user
         /// </summary>
-        public const string UserWithFriendAnswer = @"select b.pictureurl as boxPicture, b.BoxId as boxid, b.BoxName as boxName, q.UserId as qUserId, q.Text as qContent, 
+        public const string UserWithFriendAnswer = @"select b.BoxId as boxid, b.BoxName as boxName, q.UserId as qUserId, q.Text as qContent, 
                    uQuestion.UserImage as qUserImage, uQuestion.UserName as qUserName, a.Text as Content, 
                    (select count(*) from zbox.Answer a where a.QuestionId = q.QuestionId) as answersCount,
 				  b.url as Url
@@ -116,14 +116,14 @@ b.boxname as boxname,
         /// </summary>
         public const string UserPersonalInvites = @"
    select i.Image as userImage, i.UserName as username, 
- null as boxName,null as boxPicture,null as boxid, i.email,
+ null as boxName,null as boxid, i.email,
  i.IsUsed as status, i.TypeOfMsg as InviteType
    from zbox.Invite i
    where senderid =@Me
    and TypeOfMsg = 3
 union all
 select u.UserImageLarge as userImage, u.UserName as username, 
- b.BoxName as boxName,b.pictureurl as boxPicture,b.boxid as boxid, i.email,
+ b.BoxName as boxName,b.boxid as boxid, i.email,
  i.IsUsed as status, i.TypeOfMsg as InviteType
    from zbox.Invite i
    inner join zbox.UserBoxRel ub on i.UserBoxRelId = ub.UserBoxRelId
@@ -150,7 +150,7 @@ order by isRead asc, i.CreationTime desc ";
 
         public const string RecommendedCourses =
             @"select top(3) b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,
-b.PictureUrl as Picture,b.MembersCount,b.ItemCount , b.url,
+b.MembersCount,b.ItemCount , b.url,
 b.MembersCount+b.ItemCount+(DATEDIFF(MINUTE,'20120101 05:00:00:000', b.UpdateTime)/(DATEDIFF(MINUTE,'20120101 05:00:00:000', GETUTCDATE())/45)) as rank  
 from zbox.Box b
 where b.isdeleted = 0

@@ -116,16 +116,15 @@ function ($scope, $rootScope, $timeout, sAccount, sUserDetails, sModal, sDashboa
         });
 
         function remove(isDelete) {
-            sBox.remove({ id: box.id, 'delete' : isDelete }).then(function () {
-                var index;
-                if (box.boxType === 'academic') {
-                    index = $scope.academicBoxes.indexOf(box);
-                    $scope.academicBoxes.splice(index, 1);
-                } else {
-                    index = $scope.groupBoxes.indexOf(box);
-                    $scope.groupBoxes.splice(index, 1);
-                }
-            });
+            var index;
+            if (box.boxType === 'academic') {
+                index = $scope.academicBoxes.indexOf(box);
+                $scope.academicBoxes.splice(index, 1);
+            } else {
+                index = $scope.groupBoxes.indexOf(box);
+                $scope.groupBoxes.splice(index, 1);
+            }
+            sBox.remove({ id: box.id, 'delete': isDelete });
         }
     };
 
