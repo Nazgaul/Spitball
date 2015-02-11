@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data.Entity;
+using System.Linq;
+using System.Web;
 using System.Web.Http;
 using Autofac;
-using Microsoft.WindowsAzure.Mobile.Service.Config;
-using Zbang.Cloudents.MobileApp.DataObjects;
-using Zbang.Cloudents.MobileApp.Models;
 using Microsoft.WindowsAzure.Mobile.Service;
+using Zbang.Cloudents.MobileApp2.Models;
 using Zbang.Zbox.Infrastructure.Ioc;
 
-namespace Zbang.Cloudents.MobileApp
+namespace Zbang.Cloudents.MobileApp2
 {
     public static class WebApiConfig
     {
@@ -18,7 +16,7 @@ namespace Zbang.Cloudents.MobileApp
         {
             // Use this class to set configuration options for your mobile service
             ConfigOptions options = new ConfigOptions();
-            options.LoginProviders.Add(typeof (CustomLoginProvider));
+            options.LoginProviders.Add(typeof(CustomLoginProvider));
 
             //Microsoft.WindowsAzure.Mobile.Service.Config.StartupOwinAppBuilder.Initialize(appBuilder2 =>
             //{
@@ -36,17 +34,16 @@ namespace Zbang.Cloudents.MobileApp
             //HttpConfiguration config = ServiceConfig.Initialize(new ConfigBuilder(options));
             HttpConfiguration config = ServiceConfig.Initialize(builder);
             //HttpConfiguration config = ServiceConfig.Initialize(new ConfigBuilder(options, ConfigureDependencies));
-
-
+            config.SetIsHosted(true);
 
 
 
             // To display errors in the browser during development, uncomment the following
             // line. Comment it out again when you deploy your service for production use.
             config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Default;
-             
 
-            
+
+
             //Database.SetInitializer(new MobileServiceInitializer());
         }
 
@@ -62,9 +59,9 @@ namespace Zbang.Cloudents.MobileApp
 
             IocFactory.Unity.ContainerBuilder = builder;
             Zbox.Infrastructure.RegisterIoc.Register();
-            Zbox.Infrastructure.Data.RegisterIoc.Register();
+            //Zbox.Infrastructure.Data.RegisterIoc.Register();
             //Zbox.Infrastructure.File.RegisterIoc.Register();
-            Zbox.Domain.Services.RegisterIoc.Register();
+            //Zbox.Domain.Services.RegisterIoc.Register();
 
             Zbox.ReadServices.RegisterIoc.Register();
 
@@ -73,4 +70,3 @@ namespace Zbang.Cloudents.MobileApp
         }
     }
 }
-

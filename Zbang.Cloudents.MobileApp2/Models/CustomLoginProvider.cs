@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Security.Claims;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
-using Zbang.Cloudents.MobileApp.DataObjects;
 
-namespace Zbang.Cloudents.MobileApp.Models
+namespace Zbang.Cloudents.MobileApp2.Models
 {
     public class CustomLoginProvider : LoginProvider
     {

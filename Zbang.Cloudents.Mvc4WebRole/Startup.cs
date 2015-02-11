@@ -12,7 +12,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
     {
         public void Configuration(IAppBuilder app)
         {
-            Zbox.Infrastructure.Security.Startup.ConfigureAuth(app);
+            Zbox.Infrastructure.Security.Startup.ConfigureAuth(app,true);
 
         }
     }
