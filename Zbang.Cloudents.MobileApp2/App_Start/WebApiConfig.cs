@@ -16,6 +16,7 @@ namespace Zbang.Cloudents.MobileApp2
         {
             // Use this class to set configuration options for your mobile service
             ConfigOptions options = new ConfigOptions();
+            
             options.LoginProviders.Add(typeof(CustomLoginProvider));
 
             //Microsoft.WindowsAzure.Mobile.Service.Config.StartupOwinAppBuilder.Initialize(appBuilder2 =>
@@ -35,7 +36,6 @@ namespace Zbang.Cloudents.MobileApp2
             HttpConfiguration config = ServiceConfig.Initialize(builder);
             //HttpConfiguration config = ServiceConfig.Initialize(new ConfigBuilder(options, ConfigureDependencies));
             config.SetIsHosted(true);
-
 
 
             // To display errors in the browser during development, uncomment the following

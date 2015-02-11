@@ -9,6 +9,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using DevTrends.MvcDonutCaching;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Zbang.Cloudents.Mobile.Controllers.Resources;
@@ -39,7 +40,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
         private readonly Lazy<IFacebookService> m_FacebookService;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
-        private ApplicationSignInManager m_SignInManager;
         private UserManager m_UserManager;
 
         // private const string InvId = "invId";
@@ -62,8 +62,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
            Lazy<IFacebookService> facebookService,
            Lazy<IQueueProvider> queueProvider,
            Lazy<IEncryptObject> encryptObject,
-           UserManager userManager,
-           ApplicationSignInManager signInManager
+           UserManager userManager
            )
         {
 
@@ -71,22 +70,10 @@ namespace Zbang.Cloudents.Mobile.Controllers
             m_FacebookService = facebookService;
             m_QueueProvider = queueProvider;
             m_EncryptObject = encryptObject;
-            m_SignInManager = signInManager;
             m_UserManager = userManager;
         }
 
 
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return m_SignInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                m_SignInManager = value;
-            }
-        }
 
         public UserManager UserManager
         {
@@ -175,24 +162,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 }
                 SiteExtension.UserLanguage.InsertCookie(user.Culture, HttpContext);
 
-                var identity = new ClaimsIdentity(new List<Claim>
-                {
-                    new Claim(ClaimConsts.UserIdClaim, user.Id.ToString(CultureInfo.InvariantCulture)),
-                   
-                },
-                    "ApplicationCookie");
-                if (user.UniversityId.HasValue)
-                {
-                    identity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
-                        user.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
-                }
-                if (user.UniversityData.HasValue)
-                {
-                    identity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
-                        user.UniversityData.Value.ToString(CultureInfo.InvariantCulture)));
-                }
-
-
+                var identity = ApplicationUser.GenerateUserIdentity(user.Id, user.UniversityId, user.UniversityData);
                 AuthenticationManager.SignIn(identity);
 
                 cookie.RemoveCookie(Invite.CookieName);
@@ -241,44 +211,40 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 await Task.WhenAll(tSystemData, tUserIdentity);
 
                 var user = tUserIdentity.Result;
-                if (user == null)
-                {
-                    return JsonError();
-                }
                 var systemUser = tSystemData.Result;
-                if (systemUser == null)
+                if (user == null || systemUser == null)
                 {
-                    return JsonError();
+                    ModelState.AddModelError(string.Empty, "user does not exists");
+                    return JsonError(GetModelStateErrors());
                 }
-                user.UserId = systemUser.Id;
-                user.UniversityId = systemUser.UniversityId;
-                user.UniversityData = systemUser.UniversityData;
+                //user.UserId = systemUser.Id;
+                //user.UniversityId = systemUser.UniversityId;
+                //user.UniversityData = systemUser.UniversityData;
 
-
-
-                var loginStatus = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
-                if (loginStatus == SignInStatus.Success)
+                var loginStatus = await UserManager.CheckPasswordAsync(user, model.Password);
+                if (loginStatus)
                 {
-                    try
-                    {
-                        var cookie = new CookieHelper(HttpContext);
-                        cookie.RemoveCookie(Invite.CookieName);
-                        SiteExtension.UserLanguage.InsertCookie(systemUser.Culture, HttpContext);
-
-                        
-                        return JsonOk();
-
-                    }
-                    catch (UserNotFoundException)
-                    {
-                        ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
-                    }
+                    var identity = await user.GenerateUserIdentityAsync(UserManager, systemUser.Id, systemUser.UniversityId,
+                         systemUser.UniversityData);
+                    AuthenticationManager.SignIn(identity);
+                    var cookie = new CookieHelper(HttpContext);
+                    cookie.RemoveCookie(Invite.CookieName);
+                    SiteExtension.UserLanguage.InsertCookie(systemUser.Culture, HttpContext);
+                    return JsonOk();
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, loginStatus.GetEnumDescription());
-                }
+                ModelState.AddModelError(string.Empty, "password incorrect");
 
+
+
+                //var loginStatus = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
+
+
+
+
+            }
+            catch (UserNotFoundException)
+            {
+                ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
             }
             catch (Exception ex)
             {
@@ -311,7 +277,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 var cookie = new CookieHelper(HttpContext);
                 var inv = cookie.ReadCookie<Invite>(Invite.CookieName);
-                var user = new User
+                var user = new ApplicationUser
                 {
                     UserName = model.NewEmail,
                     Email = model.NewEmail,
@@ -580,7 +546,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 return RedirectToRoute("accountLink");
             }
-             return View("ChoosePwd", new NewPassword());
+            return View("ChoosePwd", new NewPassword());
 
         }
 
@@ -648,7 +614,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
         }
         #endregion
-        
+
 
         [HttpGet]
         public async Task<JsonResult> Details()

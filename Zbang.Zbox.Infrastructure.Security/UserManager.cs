@@ -6,9 +6,9 @@ using Microsoft.Owin;
 
 namespace Zbang.Zbox.Infrastructure.Security
 {
-    public class UserManager : UserManager<User>
+    public class UserManager : UserManager<ApplicationUser>
     {
-        public UserManager(IUserStore<User> store)
+        public UserManager(IUserStore<ApplicationUser> store)
               : base(store)
         {
             PasswordHasher = new SqlPasswordHasher();
@@ -17,9 +17,9 @@ namespace Zbang.Zbox.Infrastructure.Security
 
         public static UserManager Create(IdentityFactoryOptions<UserManager> options, IOwinContext context)
         {
-            var manager = new UserManager(new UserStore<User>(context.Get<DbContext>()));
+            var manager = new UserManager(new UserStore<ApplicationUser>(context.Get<DbContext>()));
             // Configure validation logic for usernames
-            manager.UserValidator = new UserValidator<User>(manager)
+            manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
@@ -29,14 +29,14 @@ namespace Zbang.Zbox.Infrastructure.Security
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                RequireNonLetterOrDigit = false,
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireUppercase = false,
             };
 
             // Configure user lockout defaults
-            manager.UserLockoutEnabledByDefault = true;
+            manager.UserLockoutEnabledByDefault = false;
             manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
             manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 
@@ -53,11 +53,12 @@ namespace Zbang.Zbox.Infrastructure.Security
             //});
             //manager.EmailService = new EmailService();
             //manager.SmsService = new SmsService();
+            
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
                 manager.UserTokenProvider =
-                    new DataProtectorTokenProvider<User>(dataProtectionProvider.Create("ASP.NET Identity"));
+                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
         }

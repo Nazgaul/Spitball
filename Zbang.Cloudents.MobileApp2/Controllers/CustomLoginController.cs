@@ -17,7 +17,7 @@ using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.MobileApp2.Controllers
 {
-    [AuthorizeLevel(AuthorizationLevel.Anonymous)]
+    [AuthorizeLevel(AuthorizationLevel.Application)]
     public class CustomLoginController : ApiController
     {
         public ApiServices Services { get; set; }
@@ -31,7 +31,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             get
             {
-                return  HttpContext.Current.GetOwinContext().GetUserManager<UserManager>();
+                return HttpContext.Current.GetOwinContext().GetUserManager<UserManager>();
             }
         }
         //public ApplicationSignInManager SignInManager
@@ -45,7 +45,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         // GET api/CustomLogin
         public async Task<HttpResponseMessage> Post(LogInRequest loginRequest)
         {
-            
+
 
             if (!ModelState.IsValid || loginRequest == null)
             {
@@ -73,10 +73,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 user.UniversityId = systemUser.UniversityId;
                 user.UniversityData = systemUser.UniversityData;
 
-                if (await UserManager.CheckPasswordAsync(user,loginRequest.Password))
+                if (await UserManager.CheckPasswordAsync(user, loginRequest.Password))
                 {
                     var claimsIdentity = new ClaimsIdentity();
-                    claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(CultureInfo.InvariantCulture)));
+                    claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString(CultureInfo.InvariantCulture)));
                     claimsIdentity.AddClaim(new Claim(ClaimConsts.UserIdClaim, user.UserId.ToString(CultureInfo.InvariantCulture)));
                     if (user.UniversityId.HasValue && user.UniversityData.HasValue)
                     {
@@ -87,7 +87,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     return Request.CreateResponse(HttpStatusCode.OK, loginResult);
                 }
                 //Guid membershipUserId;
-                
+
                 //var loginStatus = MembershipService
                 //    .ValidateUser(loginRequest.Email, loginRequest.Password, out membershipUserId);
                 //if (loginStatus == LogInStatus.Success)
@@ -96,7 +96,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 //    {
                 //        var query = new GetUserByMembershipQuery(membershipUserId);
                 //        var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-                        
+
                 //    }
                 //    catch (UserNotFoundException)
                 //    {
@@ -118,7 +118,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 //ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
             }
             return Request.CreateBadRequestResponse();
-           
+
         }
 
     }

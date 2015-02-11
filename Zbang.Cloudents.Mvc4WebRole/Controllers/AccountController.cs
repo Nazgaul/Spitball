@@ -42,7 +42,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IFacebookService> m_FacebookService;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
-        private ApplicationSignInManager m_SignInManager;
         private UserManager m_UserManager;
 
         public AccountController(
@@ -59,27 +58,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
            Lazy<IFacebookService> facebookService,
            Lazy<IQueueProvider> queueProvider,
            Lazy<IEncryptObject> encryptObject,
-           UserManager userManager,
-           ApplicationSignInManager signInManager)
+           UserManager userManager
+           )
         {
             m_FacebookService = facebookService;
             m_QueueProvider = queueProvider;
             m_EncryptObject = encryptObject;
-            m_SignInManager = signInManager;
             m_UserManager = userManager;
         }
 
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return m_SignInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                m_SignInManager = value;
-            }
-        }
 
         public UserManager UserManager
         {
@@ -239,45 +226,37 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 await Task.WhenAll(tSystemData, tUserIdentity);
 
                 var user = tUserIdentity.Result;
-                if (user == null)
-                {
-                    return JsonError();
-                }
                 var systemUser = tSystemData.Result;
-                if (systemUser == null)
+                if (user == null || systemUser == null)
                 {
-                    return JsonError();
-                }
-                user.UserId = systemUser.Id;
-                user.UniversityId = systemUser.UniversityId;
-                user.UniversityData = systemUser.UniversityData;
-
-
-
-                var loginStatus = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
-                if (loginStatus == SignInStatus.Success)
-                {
-                    try
-                    {
-                        var cookie = new CookieHelper(HttpContext);
-                        cookie.RemoveCookie(Invite.CookieName);
-                        SiteExtension.UserLanguage.InsertCookie(systemUser.Culture, HttpContext);
-
-                        var url = systemUser.UniversityId.HasValue
-                            ? Url.Action("Index", "Dashboard")
-                            : Url.Action("Choose", "Library");
-                        return JsonOk(url);
-                    }
-                    catch (UserNotFoundException)
-                    {
-                        ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, loginStatus.GetEnumDescription());
+                    ModelState.AddModelError(string.Empty, "user does not exists");
+                    return JsonError(GetModelStateErrors());
                 }
 
+
+                var loginStatus = await UserManager.CheckPasswordAsync(user, model.Password);
+
+                if (loginStatus)
+                {
+                    var identity = await user.GenerateUserIdentityAsync(UserManager, systemUser.Id,
+                        systemUser.UniversityId,systemUser.UniversityData);
+                    AuthenticationManager.SignIn(identity);
+                    var cookie = new CookieHelper(HttpContext);
+                    cookie.RemoveCookie(Invite.CookieName);
+                    SiteExtension.UserLanguage.InsertCookie(systemUser.Culture, HttpContext);
+
+                    var url = systemUser.UniversityId.HasValue
+                        ? Url.Action("Index", "Dashboard")
+                        : Url.Action("Choose", "Library");
+                    return JsonOk(url);
+
+                }
+                ModelState.AddModelError(string.Empty, "password incorrect");
+
+            }
+            catch (UserNotFoundException)
+            {
+                ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
             }
             catch (Exception ex)
             {
@@ -334,12 +313,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var inv = cookie.ReadCookie<Invite>(Invite.CookieName);
                 // Guid userProviderKey;
 
-                var user = new User
+                var user = new ApplicationUser
                 {
                     UserName = model.NewEmail,
                     Email = model.NewEmail,
-                    UniversityId = model.UniversityId,
-                    UniversityData = model.UniversityId
+                //    UniversityId = model.UniversityId,
+                //    UniversityData = model.UniversityId
                 };
                 var createStatus = await UserManager.CreateAsync(user, model.Password);
 
@@ -366,12 +345,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     var result = await ZboxWriteService.CreateUserAsync(command);
                     SiteExtension.UserLanguage.InsertCookie(result.User.Culture, HttpContext);
 
+                   var identity = await user.GenerateUserIdentityAsync(UserManager, result.User.Id, result.UniversityId,
+                        result.UniversityData);
 
-                    user.UserId = result.User.Id;
-                    user.UniversityId = result.UniversityId;
-                    user.UniversityData = result.UniversityData;
+                    AuthenticationManager.SignIn(identity);
 
-                    await SignInManager.PasswordSignInAsync(user.UserName, model.Password, false, false);
 
                     cookie.RemoveCookie(Invite.CookieName);
                     return
@@ -560,7 +538,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
                 user.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
-                        command.UniversityDataId.HasValue ? 
+                        command.UniversityDataId.HasValue ?
                         command.UniversityDataId.Value.ToString(CultureInfo.InvariantCulture)
                         : command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
@@ -720,7 +698,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost, System.Web.Mvc.ValidateAntiForgeryToken]
         [RequireHttps]
-        public ActionResult Confirmation([ModelBinder(typeof(TrimModelBinder))] Confirmation model, 
+        public ActionResult Confirmation([ModelBinder(typeof(TrimModelBinder))] Confirmation model,
             string @continue)
         {
             if (!ModelState.IsValid)
@@ -737,7 +715,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 //userData.Step = 2;
                 //var key = CrypticElement(userData);
-                return RedirectToAction("PasswordUpdate", new { key=@continue });
+                return RedirectToAction("PasswordUpdate", new { key = @continue });
             }
             ModelState.AddModelError(string.Empty, "This is not the correct code");
             return View(model);

@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Zbang.Zbox.Infrastructure.Security
 {
-    public class DbContext : IdentityDbContext<User>
+    public class DbContext : IdentityDbContext<ApplicationUser>
     {
         public DbContext() :base("Zbox")
         {
