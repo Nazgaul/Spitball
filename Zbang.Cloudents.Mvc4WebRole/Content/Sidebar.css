@@ -124,6 +124,7 @@
 }
 .recommended .vCentered {
   max-width: 200px;
+  padding: 0;
 }
 .recommended .friends,
 .recommended .files {

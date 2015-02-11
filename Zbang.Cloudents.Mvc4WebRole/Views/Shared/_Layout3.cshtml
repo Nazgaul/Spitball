@@ -142,6 +142,7 @@
             </div>
         }
     }
+    @{Html.RenderPartial("_DashLibItem");}
     <script type="text/javascript" src="~/js/CDNFallback.min.js?v=@VersionHelper.CurrentVersion(true)"></script>
     <script type="text/ng-template" id="userToolTip.html">
         <div class="userTooltip" ng-class="::{hidePoints : user.score <= 0}">

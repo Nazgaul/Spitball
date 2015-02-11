@@ -4,51 +4,103 @@
 /*#endregion */
 /*TEMP: UNDO NEW SEARCH*/
 .searchPopup {
-  -webkit-transition: linear .3s;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  border-radius: 0;
   background: #f1f1f1;
   z-index: 11;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transition-property: height, width, top, left, border-radius;
+  transition-property: height, width, top, left, border-radius;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
-.searchPopup.ng-enter {
-  opacity: 0;
+.searchPopup.ng-enter,
+.searchPopup.ng-leave-active {
+  width: 365px;
+  height: 32px;
+  border-radius: 16px;
   top: 67px;
-  left: 530px;
+  left: 500px;
+  background: #fff;
+}
+.searchPopup.ng-enter form,
+.searchPopup.ng-leave-active form {
+  width: 365px;
+  height: 40px;
+  position: relative;
+}
+.searchPopup.ng-enter .dashLibSearchInput,
+.searchPopup.ng-leave-active .dashLibSearchInput {
+  font-size: 18px;
+  width: 100%;
 }
 .searchPopup.ng-enter-active {
-  opacity: 1;
-  width: 100%;
-  height: 100%;
   top: 0;
   left: 0;
-}
-.searchPopup.ng-leave {
-  opacity: 1;
   width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
+  border-radius: 0;
 }
-.searchPopup.ng-leave-active {
-  top: 67px;
-  left: 530px;
-  opacity: 0;
-  width: 0;
-  height: 0;
+.searchPopup.ng-enter-active form {
+  width: 80%;
+  height: 160px;
+}
+.searchPopup.ng-enter-active .dashLibSearchInput {
+  width: 100%;
+  font-size: 7em;
 }
 .searchPopup form {
   width: 80%;
   height: 160px;
-  -webkit-transform: translate3d(0, 3em, 0);
-  transform: translate3d(0, 3em, 0);
+  margin: 0 auto;
+  -webkit-transition-property: width, height, -webkit-transform;
+  transition-property: width, height, transform;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
 }
 .searchPopup .dashLibSearchInput {
-  font-size: 5vw;
+  font-size: 7em;
   padding: 0 10% 8px 0;
-  max-width: none;
+  -webkit-transition: font-size 0.2s cubic-bezier(0.7, 0, 0.3, 1);
+  transition: font-size 0.2s cubic-bezier(0.7, 0, 0.3, 1);
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  color: #3399ff;
+  opacity: 1;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.searchPopup .dashLibSearchInput::-webkit-input-placeholder {
+  color: #c2c2c2;
+}
+.searchPopup .dashLibSearchInput:-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.searchPopup .dashLibSearchInput::-moz-placeholder {
+  color: #c2c2c2;
+  opacity: 1;
+}
+.searchPopup .dashLibSearchInput:-ms-input-placeholder {
+  color: #c2c2c2;
+}
+.searchPopup .dashLibSearchInput:focus {
+  border: none;
+  outline: none;
 }
 .searchPopup .searchBtn {
   background: none;
@@ -121,14 +173,6 @@
   margin: 0;
   line-height: normal;
   background: #fff;
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
-  -webkit-transition-property: height, width, top, left, border-radius;
-  transition-property: height, width, top, left, border-radius;
-  -webkit-transition-duration: 0.5s;
-  transition-duration: 0.5s;
-  -webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-  transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
 }
 .searchInputWpr.searchLib {
   left: 550px;
@@ -154,34 +198,9 @@
   width: calc(100% - 539px);
 }
 .searchInputWpr.open {
-  background: #f1f1f1;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  top: 0;
-  left: 0;
-  border-radius: 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.searchInputWpr.open ~ .siteHeader,
-.searchInputWpr.open ~ .dashboard,
-.searchInputWpr.open ~ .union,
-.searchInputWpr.open ~ .boxPage,
-.searchInputWpr.open ~ .userPage {
-  display: none !important;
-}
-.searchInputWpr.open form {
-  width: 80%;
-  height: 160px;
-  -webkit-transform: translate3d(0, 3em, 0);
-  transform: translate3d(0, 3em, 0);
-}
-.searchInputWpr.open .dashLibSearchInput {
-  font-size: 5vw;
-  padding: 0 10% 8px 0;
-  max-width: none;
+  /*~ .siteHeader, ~ .dashboard, ~ .union, ~ .boxPage, ~ .userPage {
+            display: none !important; //override js
+        }*/
 }
 .searchInputWpr.open .searchBtn {
   background: none;
@@ -248,49 +267,22 @@
   -webkit-transition: color 0.3s;
   transition: color 0.3s;
 }
-.searchInputWpr form {
-  width: 100%;
-  height: 40px;
-  margin: 0 auto;
-  position: relative;
-  -webkit-transition-property: width, height, -webkit-transform;
-  transition-property: width, height, transform;
-  -webkit-transition-duration: 0.5s;
-  transition-duration: 0.5s;
-  -webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-  transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-}
-.dashLibSearchInput {
-  width: 100%;
-  height: 100%;
-  padding: 0 40px 8px 16px;
-  font-size: 18px;
-  background: transparent;
-  color: #3399ff;
-  -webkit-transition: font-size 0.5s cubic-bezier(0.7, 0, 0.3, 1);
-  transition: font-size 0.5s cubic-bezier(0.7, 0, 0.3, 1);
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.dashLibSearchInput::-webkit-input-placeholder {
-  color: #c2c2c2;
-}
-.dashLibSearchInput:-moz-placeholder {
-  color: #c2c2c2;
-  opacity: 1;
-}
-.dashLibSearchInput::-moz-placeholder {
-  color: #c2c2c2;
-  opacity: 1;
-}
-.dashLibSearchInput:-ms-input-placeholder {
-  color: #c2c2c2;
-}
-.dashLibSearchInput:focus {
-  border: none;
-  outline: none;
-}
+/*.dashLibSearchInput {
+	width: 100%;
+	height: 100%;
+	padding: 0 40px 8px 16px; //rtl 
+    font-size: 18px;
+	background: transparent;
+	color: @blue;
+	-webkit-transition: font-size 0.5s cubic-bezier(0.7,0,0.3,1);
+	transition: font-size 0.5s cubic-bezier(0.7,0,0.3,1);
+    .boxSizing;
+    .placeholderColor(@borderColor);
+    &:focus {
+        border: none; //remove red error borders and outlines
+        outline: none;
+    }
+}*/
 .gn-search:focus::-webkit-input-placeholder {
   color: transparent;
 }
