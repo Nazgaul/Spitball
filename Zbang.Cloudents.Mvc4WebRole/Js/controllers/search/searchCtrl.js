@@ -79,4 +79,32 @@ function ($scope, $location, $analytics, sSearch) {
     }
 
     }]
-);
+).directive('showMore',
+   [function () {
+
+       return {
+           restrict: "A",
+           scope: {
+               onScroll: '&'
+           },
+           link: function (scope, element, attr) {
+               var $body = angular.element(document.body);
+
+               $body.on('scroll', isTriggerFunc);
+
+               scope.$on('$destroy', function () {
+                   $body.off('scroll', isTriggerFunc);
+               });
+
+               function isTriggerFunc() {
+                   var scrollTop = document.body.scrollTop,
+                       scrollHeight = document.body.scrollHeight,
+                       windowHeight = window.innerHeight;
+
+                   if (scrollTop + windowHeight >= scrollHeight * 0.8) {
+                       scope.$apply(scope.onScroll);
+                   }
+               }
+           }
+       }
+   }]);
