@@ -2,9 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @*TEMP: UNDO NEW SEARCH*@
-<div class="searchInputWpr searchDash" ng-controller="SearchHeaderCtrl">
-    @{Html.RenderPartial("_BarSearch");}
-</div>
+<div class="searchInputWpr searchDash" ng-click="$root.openSearch=true"></div>
 <header class="siteHeader">
     @{Html.RenderPartial("_Header");}
 </header>
