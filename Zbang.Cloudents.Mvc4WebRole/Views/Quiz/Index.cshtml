@@ -8,19 +8,6 @@
         <div class="quizTitle elps">{{quiz.name}}</div>
     </div>
     <div class="leftPanel lFloat">
-        @*<div class="itemTop">
-            <div tooltip="@SharedResources.Views" class="rFloat quizViews">
-                @Html.Svg("~/Images/Defs.svg", "eye")
-                {{quiz.numberOfViews}}
-            </div>
-            <div class="itemNameWpr">
-                @Html.Svg("~/Images/Defs.svg", "quiz1")
-                <div class="item-name semiFont elps">{{quiz.name}}</div>
-                <div class="itemOwner elps lFloat" user-tooltip-popup="{{quiz.ownerId}}">{{quiz.owner}}</div>
-                <div class="rFloat">{{quiz.date | date: 'dd/MM/yy'}}</div>
-            </div>
-        </div>*@
-
         <div class="timeWpr">
             <div class="quizTime" id="quizTimer">
                 @Html.Svg("~/Images/Defs.svg", "stopper")
@@ -83,7 +70,7 @@
             
         </div>*@
 
-
+        <div class="quizBanner" ng-bind-html="quiz.banner"></div>
         <div class="quizPrevWpr">
             <ul class="quizQList">
                 <li ng-repeat="question in quiz.questions" ng-class="{userCorrect: question.correct, userWrong: question.wrong, noAnswer: question.noAnswer}" data-no-answer="@QuizResources.NoAnswer">

@@ -17,7 +17,7 @@
                                 </button>
                             </li>
                         </ul>
-                        <input ng-model="formData.emailInput" class="inviteInput" type="text" placeholder="@InviteResources.AddEmails" focus-on="emailInput"
+                        <input ng-model="formData.emailInput" class="inviteInput" type="text" ng-placeholder="@InviteResources.AddEmails" focus-on="emailInput"
                                ng-keyup="keyupListener($event)" ng-keydown="keydownListener($event)">
                     </div>
                 </div>
@@ -47,7 +47,7 @@
             <div class="invContentWpr" ng-class="[params.className, params.notConnected]">
                 <div class="invContentTop">
                     <h4>{{params.text}}</h4>
-                    <input type="search" class="inputText" placeholder="@InviteResources.SearchByName" ng-model="params.contactSearch" ng-keyup="filterContacts()" />
+                    <input type="search" class="inputText" ng=placeholder="@InviteResources.SearchByName" ng-model="params.contactSearch" ng-keyup="filterContacts()" />
                 </div>
 
                 <div class="invContent" load-spinner="params.loader" load-spinner-type="init" infinite-scroll="addContacts()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">

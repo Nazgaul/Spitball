@@ -50,14 +50,11 @@
             {{::item.numOfViews}}
         </div>
     </a>
-    @if (User.Identity.IsAuthenticated)
-    {
-        <div class="actionBtns" ng-if="deleteAllow(item)">
-            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="removeQuiz(item)">
-                @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-            </button>
-        </div>
-    }
+    <div class="actionBtns" ng-if="deleteAllow(item)">
+        <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="removeQuiz(item)">
+            @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
+        </button>
+    </div>
 
 </script>
 
@@ -78,14 +75,11 @@
         <span class="tag" ng-if="::item.publish && item.isNew">@SharedResources.New</span>
         <span class="tag" ng-if="::!item.publish">@SharedResources.Draft</span>
     </a>
-    @if (User.Identity.IsAuthenticated)
-    {
-        <div class="actionBtns" ng-if="deleteAllow(item)">
-            <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="removeQuiz(item)">
-                @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-            </button>
-        </div>
-    }
+    <div class="actionBtns" ng-if="deleteAllow(item)">
+        <button type="button" class="lFloat deleteBtn" tooltip="@IndexResources.Delete" ng-click="removeQuiz(item)">
+            @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
+        </button>
+    </div>
     </li>
 </script>
 

@@ -18,7 +18,7 @@
     </div>
 
     <div class="socialContentWpr" ng-class="{jsNotConnected : params.stateClass !==  'js-cloudState' && !params.isConnected }">
-        <input class="cloudInput" type="search" placeholder="@IndexResources.FindFriends" ng-model="params.contactSearch" ng-keyup="filterContacts()"/>
+        <input class="cloudInput" type="search" ng-placeholder="@IndexResources.FindFriends" ng-model="params.contactSearch" ng-keyup="filterContacts()"/>
         <div height="285" m-custom-scrollbar m-custom-scrollbar-class="js-scrolling" add-items="addContacts()">
             <ul class="socialList" ng-class="{noResults : users.length === 0}">
                 <li class="lFloat" ng-repeat="contact in params.contacts | limitTo: params.contactLimit" ng-class="{jsInviteSent : contact.invited}">
@@ -57,7 +57,7 @@
                         </button>
                     </li>
                 </ul>
-                <input ng-model="formData.emailInput" class="inviteInput" type="text" placeholder="@IndexResources.CommaSeparate" focus-on="emailInput"
+                <input ng-model="formData.emailInput" class="inviteInput" type="text" ng-placeholder="@IndexResources.CommaSeparate" focus-on="emailInput"
                        ng-keyup="keyupListener($event)" ng-keydown="keydownListener($event)">
             </div>
         </div>

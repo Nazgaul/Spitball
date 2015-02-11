@@ -111,7 +111,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 if (!ControllerContext.IsChildAction)
                 {
-                    UserLanguage.ChangeLanguage(requestContext.HttpContext, Server, requestContext.RouteData);
+                   // UserLanguage.ChangeLanguage(requestContext.HttpContext, Server, requestContext.RouteData);
                 }
             }
             catch (Exception ex)

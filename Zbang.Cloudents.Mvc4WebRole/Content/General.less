@@ -772,7 +772,6 @@ input[type="radio"] {
 }
 
 .emailImg {
-    background-position: -131px -24px;
     left: 8px; //rtl
     &:after {
         background: #676767;
@@ -2232,7 +2231,7 @@ select.inputText {
             margin-top: -124px;
         }
     } 
-    [data-culture="he-IL"], [data-culture="ar-AE"] {
+    .rtlFix {
         input.radio[type="radio"]:checked + label:after {
             top: 4px; //diff rtl
         }
@@ -2465,7 +2464,14 @@ select.inputText {
 //}
 
 /*#region RTL inconsistencies (TODO: need to verify each one) */
+<<<<<<< HEAD
 [data-culture="he-IL"] {
+=======
+.rtlFix {
+    input[type="radio"]:checked + label:after {
+        top: 3px; //diff rtl
+    }
+>>>>>>> 8b6ad9d5b9d59c640d27a702d485c936b3f8e9ce
     .checkbox {
         ~ .cbLabel2 {
             svg {

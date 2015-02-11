@@ -30,24 +30,11 @@
 .modal .enterCode {
   font-size: 13px;
   background: #faf9fa;
-  direction: ltr;
   padding: 0;
-  text-align: left;
 }
 .modal .enterCode .popupHeader,
 .modal .enterCode .modal-title {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  margin: 0 0 15px;
-  padding: 0 0 0 20px;
-}
-.modal .enterCode .closeDialog {
-  right: 20px;
-  left: auto;
-}
-.modal .enterCode .lFloat {
-  float: right;
+  border-radius: 0;
 }
 .modal .enterCode .inputText {
   width: 268px;
@@ -56,14 +43,16 @@
   display: block;
   margin: 17px 0 0 0;
 }
-.modal .enterCode form,
-.modal .enterCode .noCode {
-  padding: 0 19px 25px 9px;
+.modal .enterCode form {
+  padding: 15px 150px 40px 9px;
   border-bottom: 1px solid #c7c7c7;
 }
+.modal .enterCode form > img {
+  position: absolute;
+  right: 20px;
+}
 .modal .enterCode .noCode {
-  clear: both;
-  padding: 0 0 25px 9px;
+  padding: 15px 30px 40px 9px;
   background: #e8e8e8;
 }
 .modal .enterCode .noCode .boldFont {

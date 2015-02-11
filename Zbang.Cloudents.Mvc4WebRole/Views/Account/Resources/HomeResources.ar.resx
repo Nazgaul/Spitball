@@ -188,4 +188,12 @@
   <data name="PlayVideo" xml:space="preserve">
     <value>تشغيل الفيديو</value>
   </data>
+  <data name="AppToGrade" xml:space="preserve">
+    <value>الصف أستاذك
+</value>
+  </data>
+  <data name="YouAsked" xml:space="preserve">
+    <value>هل سألت، استمعنا
+</value>
+  </data>
 </root>

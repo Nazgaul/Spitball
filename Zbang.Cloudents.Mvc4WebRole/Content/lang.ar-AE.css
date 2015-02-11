@@ -1,4 +1,7 @@
-﻿.quizAList li {
+﻿.gradeback.gradeback h3 {
+  font-size: 40px;
+}
+.quizAList li {
   list-style-type: decimal;
 }
 .profileInfo .changeUni {

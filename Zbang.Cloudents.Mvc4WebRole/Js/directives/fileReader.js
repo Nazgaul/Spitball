@@ -63,23 +63,25 @@
             restrict: 'A',
             link: function (scope, element, attrs) {
                 var textarea = element[0].querySelector('[contenteditable]');
-                if (window.b) {
-                    return;
-                }
-                window.b = true;
+                
                 textarea.onpaste = function (e) {
                     if (e.clipboardData.types.indexOf('text/plain') > -1) {
                         return true;
                     }
-                    handlepaste(this, e);
+                    var blob;
+
+                    if (e && e.clipboardData && e.clipboardData.getData) {// Webkit - get data from clipboard, put into editdiv, cleanup, then cancel event                        
+                        blob = e.clipboardData.items[0].getAsFile();
+                    }
+                    
+                    setTimeout(function(){
+                        handlepaste(blob);
+                    },150)
                 }
 
-                function handlepaste(elem, e) {
-                    var savedcontent = elem.innerHTML;
-                    if (e && e.clipboardData && e.clipboardData.getData) {// Webkit - get data from clipboard, put into editdiv, cleanup, then cancel event                        
-                        var file = e.clipboardData.items[0].getAsFile();                                                
-                        scope.$broadcast('filePaste', file);
-                    }
+                function handlepaste(blob) {
+                    var savedcontent = textarea.innerHTML;
+                    scope.$broadcast('filePaste', blob);                    
                 }
 
                 scope.$on('$destroy', function () {

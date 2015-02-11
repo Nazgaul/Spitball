@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Quiz;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.SiteExtension;
+using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Domain.Commands.Quiz;
@@ -73,7 +75,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     model.BoxName,
                     model.UniversityName,
                     BaseControllerResources.Cloudents);
-                ViewBag.metaDescription = model.FirstQuestion;
+                ViewBag.metaDescription = TextManipulation.RemoveHtmlTags.Replace(model.FirstQuestion, string.Empty);
                 return View("Empty");
             }
             catch (ItemNotFoundException)

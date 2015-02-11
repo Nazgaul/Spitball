@@ -112,8 +112,6 @@
         function publish(isValid) {
             $scope.params.focus = false;
             $scope.submit(isValid);
-            //TODO analytics
-            goToQuizzes();
         }
 
         function deleteQuiz() {
@@ -122,8 +120,7 @@
             }
 
 
-            var quizId = $scope.quiz.id,
-                boxId = $scope.quiz.courseId;
+            var quizId = $scope.quiz.id;
 
 
             sQuiz.delete({
@@ -500,7 +497,7 @@
             sQuiz.save({
                 quizId: $scope.quiz.id
             }
-            ).then(function (data) {
+            ).then(function () {
                 sGmfcnHandler.addPoints({ type: 'quiz' });
                 goToQuizzes();
             }, function (data) {
@@ -576,7 +573,7 @@
                 });
 
                 scope.$on('$destory', function () {
-                    $textarea.off('blur');
+                    element.off('blur');
                 });
 
             }
@@ -618,7 +615,6 @@ directive('quizFocus', [function () {
         return {
             restrict: 'A',
             link: function (scope, element) {
-                var input;
                 element.on('focus', '[contenteditable],[highlighter]', setHighlight);
 
 

@@ -194,4 +194,12 @@
     <value>Просмотр видео
 </value>
   </data>
+  <data name="AppToGrade" xml:space="preserve">
+    <value>Дайте оценку вашему профессору
+</value>
+  </data>
+  <data name="YouAsked" xml:space="preserve">
+    <value>Вы спросили, мы слушали
+</value>
+  </data>
 </root>

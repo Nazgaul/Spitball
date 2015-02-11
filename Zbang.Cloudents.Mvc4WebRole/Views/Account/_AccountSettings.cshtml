@@ -8,8 +8,8 @@
         <div class="propValue">{{data.email}}</div>
         <button ng-show="!params.changingEmail" type="button" class="btnTxt" ng-click="changeEmail()">@AccountSettingsResources.ChangeEmail</button>
         <div class="newEmail" ng-show="params.changingEmail">
-            <input ng-show="params.changingEmail && !params.verifyCode" type="text" class="inputText" placeholder="@AccountSettingsResources.EnterEmail" ng-model="emailForm.email" />
-            <input ng-show="params.verifyCode" type="text" class="inputText" placeholder="@AccountSettingsResources.EnterCode" ng-model="emailForm.verifyCode" />
+            <input ng-show="params.changingEmail && !params.verifyCode" type="text" class="inputText" ng-placeholder="@AccountSettingsResources.EnterEmail" ng-model="emailForm.email" />
+            <input ng-show="params.verifyCode" type="text" class="inputText" ng-placeholder="@AccountSettingsResources.EnterCode" ng-model="emailForm.verifyCode" />
             <button type="button" class="btnTxt" ng-click="changeEmail()" ng-class="{checkMail : params.verifyCode}">{{params.changeEmailBtnText}}</button>
             <span class="validation-summary-errors">{{params.changeEmailError}}</span>
             <div class="checkMailMsg">

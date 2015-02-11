@@ -124,6 +124,10 @@
 .leftPanel .svg-eye {
   position: relative;
   top: 3px;
+  width: 29px;
+  height: 17px;
+  fill: #fff;
+  vertical-align: baseline;
 }
 .leftPanel .svg-download {
   position: relative;

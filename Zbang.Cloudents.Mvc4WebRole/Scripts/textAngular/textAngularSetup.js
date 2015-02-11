@@ -97,10 +97,10 @@ angular.module('textAngularSetup', [])
     //pre: {
     //    tooltip: 'Preformatted text'
     //},
-    'fontUp': {
+    fontUp: {
         tooltip: 'Increase Size'
     },
-    'fontDown': {
+    fontDown: {
         tooltip: 'Decrease Size'
     },
     ul: {
@@ -538,7 +538,7 @@ angular.module('textAngularSetup', [])
             });
             finishEdit();
         });
-        var resetButton = angular.element('<button type="button" class="btn btn-default btn-sm btn-small" unselectable="on" tabindex="-1">' + taTranslations.reset + '</button>');
+        var resetButton = angular.element('<button type="button" class="btn btn-default btn-sm btn-small" unselectable="on" tabindex="-1">' + taTranslations.reset.tooltip + '</button>');
         resetButton.on('click', function (event) {
             event.preventDefault();
             $element.css({
@@ -594,16 +594,27 @@ angular.module('textAngularSetup', [])
 
         buttonGroup = angular.element('<div class="btn-group">');
         var remove = angular.element('<button type="button" class="btn btn-default btn-sm btn-small" unselectable="on" tabindex="-1"><svg class="svg-trash"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/images/Defs.svg?26.0.0#trash"></use></svg></button>');
-        remove.on('click', function (event) {
-            event.preventDefault();
-            $element.remove();
-            finishEdit();
-        });
+        remove.on('click', removeElement);
         buttonGroup.append(remove);
         container.append(buttonGroup);
 
         editorScope.showPopover($element);
         editorScope.showResizeOverlay($element);
+
+        angular.element($window).off('keyup', isDelete).one('keyup', isDelete);
+
+        function isDelete(e) {
+            if (e.keyCode === 46) {
+                removeElement();
+            }
+        }
+
+        function removeElement(e) {
+            event.preventDefault();
+            $element.remove();
+            finishEdit();
+        }
+
     };
 
     taRegisterTool('insertImage', {

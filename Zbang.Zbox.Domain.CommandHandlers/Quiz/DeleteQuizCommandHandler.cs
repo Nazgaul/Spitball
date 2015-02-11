@@ -14,18 +14,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
     {
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
         private readonly IRepository<Box> m_BoxRepository;
+        private readonly IRepository<Comment> m_CommentRepository;
        
         private readonly IUserRepository m_UserRepository;
         private readonly IQueueProvider m_QueueProvider;
 
         public DeleteQuizCommandHandler(IRepository<Domain.Quiz> quizRepository,
-            IUserRepository userRepository, IRepository<Box> boxRepository, IQueueProvider queueProvider)
+            IUserRepository userRepository, IRepository<Box> boxRepository, IQueueProvider queueProvider, IRepository<Comment> commentRepository)
         {
             m_QuizRepository = quizRepository;
           
             m_UserRepository = userRepository;
             m_BoxRepository = boxRepository;
             m_QueueProvider = queueProvider;
+            m_CommentRepository = commentRepository;
         }
         public void Handle(DeleteQuizCommand message)
         {
@@ -43,6 +45,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 throw new UnauthorizedAccessException("User is unauthorized to delete file");
             }
 
+            if (quiz.Comment != null)
+            {
+                var needRemove = quiz.Comment.RemoveQuiz(quiz);
+                if (needRemove)
+                {
+                    m_CommentRepository.Delete(quiz.Comment);
+                }
+                else
+                {
+                    m_CommentRepository.Save(quiz.Comment);
+                }
+            }
             m_QueueProvider.InsertMessageToTranaction(new ReputationData(quiz.Owner.Id));
             m_QuizRepository.Delete(quiz, true);
             quiz.Box.UpdateItemCount();

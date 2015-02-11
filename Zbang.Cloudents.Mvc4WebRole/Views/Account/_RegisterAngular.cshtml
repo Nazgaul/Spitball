@@ -7,14 +7,14 @@
     <div class="ng-message-errors lFloat" ng-messages="registerSubmitted && registerForm.firstName.$error">
         <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>
     </div>
-    <input type="text" class="inputText firstName lFloat" name="firstName" placeholder="@SharedResources.FirstName"
+    <input type="text" class="inputText firstName lFloat" name="firstName" ng-placeholder="@SharedResources.FirstName"
            ng-class="{error: (registerSubmitted || registerForm.firstName.$touched) && loginForm.firstName.$error}"
            ng-model="formData.register.firstName" required focus-on="register.firstname" />
 
     <div class="ng-message-errors rFloat" ng-messages="registerSubmitted && registerForm.lastName.$error">
         <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>
     </div>
-    <input type="text" class="inputText lastName rFloat" name="lastName" placeholder="@SharedResources.LastName"
+    <input type="text" class="inputText lastName rFloat" name="lastName" ng-placeholder="@SharedResources.LastName"
            ng-class="{error: (registerSubmitted || registerForm.lastName.$touched) && loginForm.lastName.$error}"
            ng-model="formData.register.lastName" required />
 
@@ -22,7 +22,7 @@
         <span class="ng-message-error" ng-message="required">@ValidationResources.FieldRequired</span>
         <span class="ng-message-error" ng-message="pattern">@ValidationResources.InvalidEmail</span>
     </div>
-    <input type="text" class="inputText" name="newEmail" placeholder="@SharedResources.Email"
+    <input type="text" class="inputText" name="newEmail" ng-placeholder="@SharedResources.Email"
            ng-class="{error: registerSubmitted && loginForm.newEmail.$error}"
            ng-model="formData.register.newEmail" required
            ng-pattern="params.pattern" />    
@@ -32,7 +32,7 @@
         <span class="ng-message-error" ng-message="pattern">@ValidationResources.InvalidEmail</span>
         <span class="ng-message-error" ng-message="match">@ValidationResources.ConfirmEmailCompare</span>
     </div>
-    <input type="text" class="inputText" name="confirmEmail" placeholder="@RegisterResources.VerifyEmail"
+    <input type="text" class="inputText" name="confirmEmail" ng-placeholder="@RegisterResources.VerifyEmail"
            ng-class="{error: registerSubmitted && loginForm.confirmEmail.$error}"
            ng-model="formData.register.confirmEmail" required ng-match="formData.register.newEmail"
            ng-pattern="params.pattern" />
@@ -42,7 +42,7 @@
         <span class="ng-message-error" ng-message="minlength">@ValidationResources.PwdAtLeast6Chars</span>
     </div>
 
-    <input type="password" class="inputText" name="password" placeholder="@LogOnResources.Password" ng-minlength="6"
+    <input type="password" class="inputText" name="password" ng-placeholder="@LogOnResources.Password" ng-minlength="6"
            ng-class="{error: registerSubmitted && loginForm.password.$error}"
            ng-model="formData.register.password" required />
 

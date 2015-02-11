@@ -86,7 +86,7 @@
             <header>@SharedResources.AddComment</header>
             <form ng-init="showBtn=false" name="addAnnotation" focus-form="feedOpen" class="clearfix itemCommentsForm" ng-submit="create(addAnnotation.$valid)" novalidate>
                 <div class="textareaWpr">
-                    <textarea placeholder="@SharedResources.AddComment" ng-model="formData.Comment" ng-focus="focusComments($event,true)" text-direction class="commentsTextarea" required></textarea>
+                    <textarea ng-placeholder="@SharedResources.AddComment" ng-model="formData.Comment" ng-focus="focusComments($event,true)" text-direction class="commentsTextarea" required></textarea>
                     <div class="rFloat">
                         <button ng-show="showBtn" ng-disabled="commentp || addAnnotation.$invalid" ng-init="commentp=false" type="submit" class="post rFloat">@SharedResources.Post</button>
                         <button ng-show="showBtn" type="reset" class="cancel rFloat" ng-click="showBtn=false">@DialogResources.Cancel</button>

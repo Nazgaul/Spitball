@@ -107,6 +107,7 @@ input[type="color"], input[type="file"] {
     margin-left: 0;
     border: 1px solid #EEE;
     height: 32px;
+    display: none; //only show on li focus
     svg {
         height:15px;
         width:15px;
@@ -170,7 +171,7 @@ input[type="color"], input[type="file"] {
 }
 
 .ta-editor.ta-html, .ta-scroll-window.form-control {
-    min-height: 100px;
+    //min-height: 100px;
     height: auto;
     overflow: auto;
     font-family: inherit;
@@ -244,11 +245,11 @@ input[type="color"], input[type="file"] {
     }
 .ta-scroll-window {
     &.form-control {
-        padding: 10px;
+        padding: 0 3px;
     }
     > .ta-bind {
         height: auto;
-        min-height: 100px;
+        //min-height: 100px;
         padding: 6px 12px;
     }
     //copy the popover code from bootstrap so this will work even without it //
