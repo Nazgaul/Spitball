@@ -7,27 +7,7 @@ namespace Zbang.Zbox.ViewModel.Dto
     public class BoxDto
     {
 
-        //public BoxDto(long boxId, string boxName,
-        //   UserRelationshipType userType, int itemCount, int membersCount,
-        //    int commentCount, string courseCode, string professorName, 
-        //    BoxType boxType, string uniName, string url)
-        //{
-        //    Id = boxId;
-        //    Name = boxName;
-        //    UserType = userType;
-        //    ItemCount = itemCount;
-        //    MembersCount = membersCount;
-        //    CommentCount = commentCount;
-        //    CourseCode = courseCode;
-        //    Professor = professorName;
-        //    BoxType = boxType;
-        //    if (BoxType == BoxType.Academic)
-        //    {
-        //        UniName = uniName;
-        //    }
-        //    Url = url;
-        //}
-        public BoxDto(long id, string boxName, string boxPicture,
+        public BoxDto(long id, string boxName,
             UserRelationshipType userType, int itemCount, int membersCount, int commentCount,
            string courseCode, string professorName, BoxType boxType, string url)
         {
@@ -36,7 +16,6 @@ namespace Zbang.Zbox.ViewModel.Dto
             UserType = userType;
             BoxType = boxType;
             ItemCount = itemCount;
-            BoxPicture = boxPicture;
             MembersCount = membersCount;
             CommentCount = commentCount;
             CourseCode = courseCode;
@@ -51,7 +30,6 @@ namespace Zbang.Zbox.ViewModel.Dto
         public int ItemCount { get;  set; }
         public int MembersCount { get;  set; }
         public int CommentCount { get;  set; }
-        public string BoxPicture { get; set; }
         public long Id { get;  set; }
         public string CourseCode { get;  set; }
         public string Professor { get;  set; }

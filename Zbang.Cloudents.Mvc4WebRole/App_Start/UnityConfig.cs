@@ -54,7 +54,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             //we need that for blob getting the blob container url
             DependencyResolver.Current.GetService<IBlobProvider>();
-            DependencyResolver.Current.GetService<IAcademicBoxThumbnailProvider>();
 
             DependencyResolver.Current.GetService<Zbox.Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
         }

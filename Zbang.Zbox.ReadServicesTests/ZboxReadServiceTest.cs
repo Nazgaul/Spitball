@@ -176,12 +176,12 @@ namespace Zbang.Zbox.ReadServicesTests
         }
 
         [TestMethod]
-        public void GetBox2_Query_ReturnResult()
+        public async Task GetBox2_Query_ReturnResult()
         {
             var query = new GetBoxQuery(4);
             try
             {
-                var x = m_ZboxReadService.GetBox2(query).Result;
+                var x = await m_ZboxReadService.GetBox2(query);
             }
             catch (Exception ex)
             {

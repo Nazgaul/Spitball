@@ -73,8 +73,6 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     TraceLog.WriteError(string.Format("Digest email2 report:{0} user {1}", m_DigestEmailHourBack, user), ex);
                 }
             }
-            // m_Cache.RemoveFromCache(m_CacheRegionName);
-            // m_Cache.Clear();
             Thread.Sleep(m_TimeToSleepAfterExecuting);
         }
 
@@ -88,7 +86,6 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             foreach (var box in boxes.Select(s =>
             {
                 s.Url = UrlConsts.AppendCloudentsUrl(s.Url);
-                s.BoxPicture = UrlConsts.AppendCloudentsUrl(s.BoxPicture);
                 return s;
             }))
             {
@@ -138,15 +135,15 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 UrlConsts.AppendCloudentsUrl(s.Url)
                 , s.UserId));
 
-
+            const string somePicture = "https://zboxstorage.blob.core.windows.net/mailcontainer/box-hold.jpg";
             var questionUpdate = boxUpdates.BoxComments.Select(s => new UpdateMailParams.QuestionUpdate(
-                s.UserName, s.Text, box.BoxPicture, box.Url, s.UserId));
+                s.UserName, s.Text, somePicture, box.Url, s.UserId));
 
             var answersUpdate = boxUpdates.BoxReplies.Select(s => new UpdateMailParams.AnswerUpdate(
-                s.UserName, s.Text, box.BoxPicture, box.Url, s.UserId));
+                s.UserName, s.Text, somePicture, box.Url, s.UserId));
 
             var discussionUpdate = boxUpdates.QuizDiscussions.Select(s => new UpdateMailParams.DiscussionUpdate(
-                s.UserName, s.Text, box.BoxPicture,
+                s.UserName, s.Text, somePicture,
                   UrlConsts.AppendCloudentsUrl(s.Url),
                 s.UserId));
 

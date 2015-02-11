@@ -2,22 +2,7 @@
 {
     public class AnswerToFriendDto
     {
-        private string m_BoxPicture;
-        public string BoxPicture
-        {
-            get
-            {
-                return m_BoxPicture;
-            }
-            set
-            {
-                if (!string.IsNullOrEmpty(value))
-                {
-                    //  var blobProvider = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.IBlobProvider>();
-                    m_BoxPicture = value;// blobProvider.GetThumbnailUrl(value);
-                }
-            }
-        }
+        
         public long Boxid { get; set; }
         public string BoxName { get; set; }
         public long QUserId { get; set; }

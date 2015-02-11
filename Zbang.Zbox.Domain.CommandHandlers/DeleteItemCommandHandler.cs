@@ -8,7 +8,6 @@ using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -18,21 +17,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
-        private readonly IBlobProvider m_BlobProvider;
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<CommentReplies> m_CommentRepliesRepository;
         private readonly IQueueProvider m_QueueProvider;
 
         public DeleteItemCommandHandler(
 
-            IRepository<Box> boxRepository, IBlobProvider blobProvider,
+            IRepository<Box> boxRepository,
             IUserRepository userRepository,
             IRepository<Item> itemRepository,
             IRepository<CommentReplies> commentRepliesRepository, IQueueProvider queueProvider)
         {
 
             m_BoxRepository = boxRepository;
-            m_BlobProvider = blobProvider;
             m_UserRepository = userRepository;
             m_ItemRepository = itemRepository;
             m_CommentRepliesRepository = commentRepliesRepository;
@@ -61,17 +58,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             item.DateTimeUser.UpdateUserTime(user.Email);
 
 
-            var file = item as File;
 
             Box box = m_BoxRepository.Load(command.BoxId);
             
-            if (file != null)
-            {
-                if (file.ThumbnailBlobName == box.Picture)
-                {
-                    ChangeBoxPicture(box, item.Id);
-                }
-            }
+           
 
             var uploaderFileId = item.Uploader.Id;
 
@@ -99,27 +89,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             return Task.WhenAll(t1, t2);
         }
-
-        private void ChangeBoxPicture(Box box, long itemId)
-        {
-            //TODO: LINQ NHIBERNATE
-
-            var itemToTakePicture = box.Items.OfType<File>().Where(w => w.Id != itemId && w.IsDeleted == false)
-                .OrderBy(o => o.DateTimeUser.CreationTime).FirstOrDefault();
-            if (itemToTakePicture == null)
-            {
-                box.RemovePicture();
-                return;
-            }
-            if (itemToTakePicture.ThumbnailBlobName == ThumbnailProvider.DefaultFileTypePicture)
-            {
-                box.RemovePicture();
-                return;
-            }
-            var thumbnailUrl = m_BlobProvider.GetThumbnailUrl(itemToTakePicture.ThumbnailBlobName);
-            box.AddPicture(itemToTakePicture.ThumbnailBlobName, thumbnailUrl);
-        }
-
 
     }
 }

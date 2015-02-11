@@ -10,15 +10,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class UpdateThumbnailCommandHandler : ICommandHandler<UpdateThumbnailCommand>
     {
         private readonly IRepository<File> m_ItemRepository;
-        private readonly IRepository<Box> m_BoxRepository;
         private readonly IBlobProvider m_BlobProvider;
 
         public UpdateThumbnailCommandHandler(IRepository<File> itemRepository,
-            IRepository<Box> boxRepository,
             IBlobProvider blobProvider)
         {
             m_ItemRepository = itemRepository;
-            m_BoxRepository = boxRepository;
             m_BlobProvider = blobProvider;
         }
         public void Handle(UpdateThumbnailCommand command)
@@ -61,14 +58,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             var thumbnailUrl = m_BlobProvider.GetThumbnailUrl(command.ThumbnailUrl);
             file.UpdateThumbnail(command.ThumbnailUrl, thumbnailUrl);
-
-            if (string.IsNullOrEmpty(file.Box.Picture))
-            {
-                file.Box.AddPicture(command.ThumbnailUrl, thumbnailUrl);
-                m_BoxRepository.Save(file.Box);
-            }
-
-
         }
     }
 }

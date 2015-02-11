@@ -5,8 +5,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
     {
         public const string BoxData = @"
 select 
-  b.PictureUrl as Image
- ,b.BoxName as Name
+  b.BoxName as Name
  ,b.CourseCode as CourseId
  ,b.ProfessorName as ProfessorName
  ,b.ItemCount as Items
@@ -99,14 +98,14 @@ order by name;";
 
         public const string RecommendedCourses = @"
 select top 3 b.boxid, b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,
-b.PictureUrl as Picture,b.MembersCount,b.ItemCount , b.url,count(*)  as x
+b.MembersCount,b.ItemCount , b.url,count(*)  as x
 from zbox.userboxrel ub join zbox.box b on ub.boxid = b.boxid and b.isdeleted = 0 and b.discriminator = 2
 where userid in (
 select userid from zbox.userboxrel where boxid = @BoxId)
 and b.boxid <> @BoxId
 and @UserId not in (select ub2.userid from zbox.UserBoxRel ub2 where ub2.BoxId = b.BoxId)
 group by b.boxid, b.BoxName ,b.CourseCode,b.ProfessorName ,
-b.PictureUrl ,b.MembersCount,b.ItemCount , b.url
+b.MembersCount,b.ItemCount , b.url
 order by x desc;
 ";
 

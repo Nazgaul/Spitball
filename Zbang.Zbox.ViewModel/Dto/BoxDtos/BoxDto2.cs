@@ -1,8 +1,5 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-
 using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
@@ -10,7 +7,6 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
     public class BoxDto2
     {
         private DateTime m_Date;
-        public string Image { get; set; }
         public string Name { get; set; }
         public string CourseId { get; set; } 
         public string ProfessorName { get; set; } 

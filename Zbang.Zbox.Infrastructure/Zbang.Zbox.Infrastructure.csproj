@@ -185,7 +185,6 @@
     <Compile Include="Storage\ILocalStorageProvider.cs" />
     <Compile Include="Storage\IQueueProvider.cs" />
     <Compile Include="Storage\QueueName.cs" />
-    <Compile Include="Thumbnail\IAcademicBoxThumbnailProvider.cs" />
     <Compile Include="Thumbnail\ImageResizer.cs" />
     <Compile Include="Url\Base62.cs" />
     <Compile Include="Url\EncryptObject.cs" />
@@ -211,7 +210,6 @@
     <Compile Include="CommandHandlers\ICommandHandler.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ICommandResult.cs" />
-    <Compile Include="Thumbnail\ThumbnailProvider.cs" />
     <Compile Include="UnitsOfWork\IGenericTransaction.cs" />
     <Compile Include="UnitsOfWork\ILocalData.cs" />
     <Compile Include="UnitsOfWork\IUnitOfWork.cs" />

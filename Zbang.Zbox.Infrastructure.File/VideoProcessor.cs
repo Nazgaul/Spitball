@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.MediaServices;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Thumbnail;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
@@ -65,7 +64,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override string GetDefaultThumbnailPicture()
         {
-            return ThumbnailProvider.VideoFileTypePicture;
+            return VideoFileTypePicture;
         }
     }
 }

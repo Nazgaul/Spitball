@@ -43,48 +43,5 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_QueueProvider = MockRepository.GenerateStub<IQueueProvider>();
         }
 
-        [TestMethod]
-        public async Task Handle_LastFileDeletedFromBox_BoxPictureRemoved()
-        {
-            // var stubBox = MockRepository.GenerateStub<Box>();
-            ICollection<Item> itemsInBox = new List<Item>();
-            //var stubFile = MockRepository.GenerateStub<File>();
-            //var stubUser = MockRepository.GenerateStub<User>();
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false, "en-US", false);
-            var someThumbnail = "someThumbnailName";
-            long someUserId = 1L, someBoxId = 2L, someItemId = 3L;
-            someUser.GetType().GetProperty("Id").SetValue(someUser, someUserId);
-            //stubBox.GetType().GetProperty("Id").SetValue(stubBox, someBoxId);
-
-            var someBox = new Box("some box", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
-            var someFile = new File("some ItemName", someUser, 5, "someblobName", someThumbnail, someBox, "some img url");
-            someFile.GetType().GetProperty("Id").SetValue(someFile, someItemId);
-            var userItems = 50;
-
-            someBox.GetType().GetProperty("Picture").SetValue(someBox, someThumbnail);
-            someBox.GetType().GetProperty("Items").SetValue(someBox, itemsInBox);
-            //stubItemInBox.Stub(x=>
-
-            var command = new DeleteItemCommand(someItemId, someUserId, someBoxId);
-            var commandHandler = new DeleteItemCommandHandler(m_StubBoxRepository,
-                m_StubBlobProvider, m_StubUserRepository, m_StubItemRepository,
-                 m_CommentRepliesRepository, m_QueueProvider);
-
-            m_StubUserRepository.Stub(x => x.GetUserToBoxRelationShipType(someUserId, someBoxId)).Return(Infrastructure.Enums.UserRelationshipType.Owner);
-            m_StubUserRepository.Stub(x => x.Load(someUserId)).Return(someUser);
-            m_StubUserRepository.Stub(x => x.GetItemsByUser(someUserId)).Return(userItems);
-
-            m_StubBoxRepository.Stub(x => x.Get(someBoxId)).Return(someBox);
-            m_StubItemRepository.Stub(x => x.Get(someItemId)).Return(someFile);
-
-
-            await commandHandler.HandleAsync(command);
-
-            Assert.AreEqual(someBox.Picture, null);
-
-
-            //stubBox.AssertWasCalled(x => x.RemovePicture());
-
-        }
     }
 }

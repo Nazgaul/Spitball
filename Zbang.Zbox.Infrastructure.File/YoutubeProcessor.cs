@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Thumbnail;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    class YoutubeProcessor : IContentProcessor
+    public class YoutubeProcessor : IContentProcessor
     {
         private static readonly Regex YoutubeRegex = new Regex(
            @"# Match non-linked youtube URL in the wild. (Rev:20111012)
@@ -76,7 +75,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public string GetDefaultThumbnailPicture()
         {
-            return ThumbnailProvider.LinkTypePicture;
+            return FileProcessor.LinkTypePicture;
         }
     }
 }

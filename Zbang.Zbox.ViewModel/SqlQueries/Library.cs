@@ -5,7 +5,6 @@
        public const string GetAcademicBoxesByNode = @"
  select b.boxid as Id,
     b.BoxName as boxName,
-    b.pictureurl as BoxPicture, 
     (select ub2.UserType from zbox.UserBoxRel ub2 where ub2.userid = @UserId and ub2.boxid = b.BoxId) as UserType ,
     b.quizcount + b.itemcount as ItemCount,
     b.MembersCount as MembersCount,

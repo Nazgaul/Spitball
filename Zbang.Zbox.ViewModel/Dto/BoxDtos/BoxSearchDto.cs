@@ -10,7 +10,6 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
     {
 
         public long Id { get; set; }
-        public string Image { get; set; }
         public string Name { get; set; }
         public string Professor { get; set; }
         public string CourseCode { get; set; }

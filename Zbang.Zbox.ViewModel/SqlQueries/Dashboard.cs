@@ -9,7 +9,6 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
         /// </summary>
         public const string UserBoxes = @"select b.boxid as id,
                                 b.BoxName,
-                                b.pictureUrl as BoxPicture,
                                 ub.UserType, 
                                 b.quizcount + b.itemcount as ItemCount,
                                 b.MembersCount as MembersCount,

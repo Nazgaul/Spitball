@@ -11,8 +11,6 @@
     <discriminator column="Discriminator" not-null="false" type="Zbang.Zbox.Infrastructure.Enums.BoxType, Zbang.Zbox.Infrastructure" />
 
     <property name="Name" column="BoxName" not-null="true" length="120"/>
-    <property name="Picture" column="BoxPicture" not-null="false"/>
-    <property name="PictureUrl" />
     <property name="Url" />
     <component name="UserTime" class="UserTimeDetails">
       <property name="CreationTime" not-null="true" insert="true" update="false" />
