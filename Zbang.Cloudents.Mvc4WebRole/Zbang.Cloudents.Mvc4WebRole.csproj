@@ -989,7 +989,6 @@
     <Content Include="Js\controllers\library\libraryCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCtrl.js" />
     <Content Include="Js\controllers\search\searchCtrl.js" />
-    <Content Include="Js\controllers\search\searchHeaderCtrl.js" />
     <Content Include="Js\controllers\store\couponCtrl.js" />
     <Content Include="Js\controllers\store\storeCtrl.js" />
     <Content Include="Js\controllers\store\carouselCtrl.js" />
@@ -1034,7 +1033,6 @@
     <Content Include="Js\directives\departmentsTooltip.js" />
     <Content Include="Js\directives\userTooltip.js" />
     <Content Include="Js\filters\extToClass.js" />
-    <Content Include="Js\filters\highlight.js" />
     <Content Include="Js\directives\mLoader.js" />
     <Content Include="Js\directives\selectOnClick.js" />
     <Content Include="Js\filters\actionText.js" />
@@ -2095,6 +2093,7 @@
     <Content Include="Views\Home\IFrame.cshtml" />
     <Content Include="Views\Box\_LeavePrompt.cshtml" />
     <Content Include="Views\Shared\Partials\_BarSearch.cshtml" />
+    <Content Include="Views\Shared\Partials\_DashLibItem.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

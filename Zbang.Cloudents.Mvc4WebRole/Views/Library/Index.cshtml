@@ -4,7 +4,7 @@
 @using System.Threading
 
 @*TEMP: UNDO NEW SEARCH*@
-<div class="searchInputWpr searchLib" ng-controller="SearchHeaderCtrl">
+<div class="searchInputWpr searchLib">
     @{Html.RenderPartial("_BarSearch");}
 </div>
 <header class="siteHeader">
@@ -95,7 +95,7 @@
                 </div>
             </div>
             <ul id="libraryList" class="libraryList clearfix">
-                <li ng-repeat="item in info.items" ng-include="info.type === 'box' ? 'library-box' : 'library-department'" ng-class="info.type ==='box' ? 'box' : 'libraryItem deptItem'"></li>
+                <li ng-repeat="box in info.items" ng-include="info.type === 'box' ? 'dashLibBox' : 'library-department'" ng-class="info.type ==='box' ? 'box' : 'libraryItem deptItem'"></li>
                 <li class="libraryItem deptItem addDep" ng-if="createDepartmentVisible()">
                     <button class="addBtn" ng-click="createDepartment()" ng-style="{height: createBoxVisible() && createDepartmentVisible() ? '100px' : '58px' }">@MainViewResources.AddItem</button>
                 </li>

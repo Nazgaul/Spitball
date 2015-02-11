@@ -92,7 +92,11 @@
             </li>
         </ul>
     </div>
-
+ 
+    <div ng-if="$root.openSearch" class="searchPopup">
+        @{Html.RenderPartial("_BarSearch");}
+    </div>
+    
     @RenderSection("templates", false)
     @*DO NOT REMOVE THIS AT ALL TIME*@
     <div id="cssCheck"></div>

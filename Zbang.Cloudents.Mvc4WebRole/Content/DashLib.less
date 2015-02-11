@@ -1259,7 +1259,16 @@
     margin: 30px 7px 0 84px;
     overflow: hidden;
 }
-
+.box, .recommended {
+    [data-box-letter]:before {
+        width: 56px;
+        height: 56px;
+        line-height: 56px;
+        left: 11px; //rtl
+        font-size: 28px;
+        background: purple; //TEMP!!!
+    }
+}
 .box {
     color: @textColor;
     vertical-align: top;
@@ -1298,11 +1307,12 @@
     }
     .newCounter {
         border-radius: 12px;
-        top: 17px;
-        left: 52px;
+        top: 15px;
+        left: 50px;
         line-height: 14px;
+        z-index: 1;
         border: 2px solid #fff;
-        display: block; //TEMP!!!!
+        display: inline-block; //TEMP!!!!
     }
     .removeItem {
         left: 5px;
@@ -1325,10 +1335,10 @@
             opacity: .7;
         }*/
         &:hover {
-            .vCentered {
-                //margin-left: -128px;
-                //margin-right: 0;
+            .ghost {
                 margin-left: -76px;
+            }
+            .vCentered {
                 max-width: 254px;
             }
 
@@ -1355,16 +1365,6 @@
     .courseId {
         margin-bottom: 5px;
     }
-
-    [data-box-letter]:before {
-        width: 56px;
-        height: 56px;
-        line-height: 56px;
-        left: 11px; //rtl
-        font-size: 28px;
-        background: purple; //TEMP!!!
-    }
-
     .boxStats {
         width: 128px;
         height: 106px;
@@ -1403,6 +1403,8 @@
     }
     .ghost {
         height: 106px;
+        transition: margin 0.2s 0.5s;
+        position: relative;
     }
 
     .vCentered {
@@ -1413,7 +1415,6 @@
         -webkit-transition: margin 0.2s 0.5s;
         -moz-transition: margin 0.2s 0.5s;
         -o-transition: margin 0.2s 0.5s;
-        transition: margin 0.2s 0.5s;
         position: relative;
     }
 

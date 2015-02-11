@@ -81,7 +81,8 @@ input[type="radio"] {
                     height: 12px;
                     background: @txtColor;
                     border-radius: 100%;
-                    top: 5px; //diff rtl
+                    //top: 5px; //diff rtl
+                    top: 3px;
                     left: 4px; //rtl
                 }
             }
@@ -2465,17 +2466,6 @@ select.inputText {
 
 /*#region RTL inconsistencies (TODO: need to verify each one) */
 [data-culture="he-IL"] {
-    input[type="radio"] {
-        &.radio { 
-            &:checked {
-                + label {
-                    &:after {
-                        top: 3px; //diff rtl
-                    }
-                }
-            }
-        }
-    }
     .checkbox {
         ~ .cbLabel2 {
             svg {

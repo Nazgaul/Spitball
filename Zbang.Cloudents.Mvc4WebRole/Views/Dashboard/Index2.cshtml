@@ -2,9 +2,8 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @*TEMP: UNDO NEW SEARCH*@
-<div class="searchInputWpr searchDash" ng-controller="SearchHeaderCtrl">
-    @{Html.RenderPartial("_BarSearch");}
-</div>
+<div class="searchInputWpr searchDash" ng-click="$root.searchOpen = true" ></div>
+
 <header class="siteHeader">
     @{Html.RenderPartial("_Header");}
 </header>
@@ -76,12 +75,12 @@
 
                         <a ng-href="{{course.url}}" class="courseLink" analytics-on="click" analytics-event="Choose Box" analytics-category="Dashboard Recommended" analytics-label="User choosed a box on recommneded">
                             <div class="rcDetails ghost" ng-class="{ rcFull : course.professor && course.courseCode }">
-                                <div class="vCentered elps">
+                                <div class="vCentered elps" data-box-letter="{{::course.name[0]}}">
                                     <div class="courseName">{{course.name}}</div>
                                     <span class="prof elps">{{course.professor}}</span>
                                     <span class="courseId elps">{{course.courseCode}}</span>
                                 </div>
-                                <img alt="" width="48" height="48" ng-src="{{course.picture | defaultImage:'box'}}" />
+                                @*<img alt="" width="48" height="48" ng-src="{{course.picture | defaultImage:'box'}}" />*@
                             </div>
                             <div class="rcStats">
                                 <div class="friends" data-friends-count="{{course.membersCount}}">
@@ -154,7 +153,8 @@
                         <li class="box browseBtn">
                             <a class="addBtn browse" href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
                         </li>
-                        <li ng-repeat="box in academicBoxes" class="box" dropzone-element ng-include="'dashBoxTemplate'" pl-dropzone></li>
+                        <li ng-repeat="box in academicBoxes" class="box" dropzone-element ng-include="'dashLibBox'" pl-dropzone>
+                        </li>
                     </ol>
                 </section>
 
@@ -170,7 +170,7 @@
                         <li ng-click="openCreateBoxWizard()" class="box createWizard">
                             <button class="addBtn">@SharedResources.CreateNew</button>
                         </li>
-                        <li ng-repeat="box in groupBoxes" class="box" pl-dropzone dropzone-element ng-include="'dashBoxTemplate'">
+                        <li ng-repeat="box in groupBoxes" class="box" pl-dropzone dropzone-element ng-include="'dashLibBox'">
                         </li>
                     </ol>
                 </section>
@@ -178,32 +178,6 @@
             </div>
 
         </div>
-        <script type="text/ng-template" id="dashBoxTemplate">
-            <a ng-href="{{::box.url}}">
-                <div class="boxStats rFloat">
-                    <div class="friends" data-friends-count="{{box.membersCount}}">
-                        @Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })
-                        <span>@SharedResources.Friends</span>
-                    </div>
-                    <div class="files" data-files-count="{{box.itemCount}}">
-                        @Html.Svg("~/Images/Defs.svg", "document", new { @class = "svg-doc" })
-                        <span>@SharedResources.Files</span>
-                    </div>
-                </div>
-                <div class="ghost">
-                    <div class="vCentered" data-box-letter="{{::box.name[0]}}">
-                        <h3 class="elps">{{::box.name}}</h3>
-                        <div class="courseId elps">{{::box.courseCode}}</div>
-                        <div class="elps">{{::box.professor}}</div>
-                    </div>
-                </div>
-                
-            </a>
-            <div class="newCounter">4</div>
-            <button type="button" class="removeItem" ng-show="showRemove(box)" ng-click="removeBox(box)" tooltip-placement="top" tooltip="{{getTitle(box)}}">
-                @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
-            </button>
-        </script>
     </div>
 </div>
 

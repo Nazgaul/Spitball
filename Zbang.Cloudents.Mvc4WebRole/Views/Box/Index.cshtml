@@ -3,7 +3,7 @@
 
 
 @*TEMP: UNDO NEW SEARCH*@
-<div class="searchInputWpr searchBox" ng-class="{open: params.isOpen}" ng-controller="SearchHeaderCtrl">
+<div class="searchInputWpr searchBox" ng-class="{open: params.isOpen}">
         @{Html.RenderPartial("_BarSearch");}
     </div>
 <div id="box" class="page boxPage" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">

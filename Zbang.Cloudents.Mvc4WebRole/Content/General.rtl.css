@@ -79,7 +79,7 @@ input[type="radio"].radio:checked + label:after {
   height: 12px;
   background: #39434a;
   border-radius: 100%;
-  top: 5px;
+  top: 3px;
   right: 4px;
 }
 input[type="radio"]:checked + label:before,
@@ -2208,9 +2208,6 @@ select.inputText {
 }
 /*#endregion*/
 /*#region RTL inconsistencies (TODO: need to verify each one) */
-[data-culture="he-IL"] input[type="radio"].radio:checked + label:after {
-  top: 3px;
-}
 [data-culture="he-IL"] .checkbox ~ .cbLabel2 svg {
   top: 0;
 }

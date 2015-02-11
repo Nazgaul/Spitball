@@ -37,7 +37,7 @@
                 <div class="upSchool elps">{{::profile.universityName}}</div>
             </div>
             <button type="button" class="btn3" ng-if="!profile.isSelf" ng-click="sendUserMessage2()">@SharedResources.Message</button>
-            @{Html.RenderPartial("_BarSearch");}
+            <div class="searchInputWpr searchDash" ng-click="$root.searchOpen = true"></div>
              <button type="button" title="@SharedResources.Invite" ng-click="inviteCloudents()">
                 @*TEMP: UNDO NEW SEARCH*@
                 @*<button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteCloudents()">*@
@@ -204,28 +204,13 @@
                     <span ng-if="boxes.common.list.length">
                         <h4 class="semiFont">@UserResources.InCommon</h4>
                         <ul class="inCommonList clearfix">
-                            <li class="box" ng-repeat="box in boxes.common.list | limitTo: boxes.common.limit">
-                                <a ng-href="{{::box.url}}" analytics-on="click" analytics-category="User" analytics-event="Navigate to box" analytics-label="User clicked on a box in commmon course section">
-                                    <img class="boxImg" alt="" width="74" height="98" src="" ng-src="{{::box.picture | defaultImage:'box'}}">
-                                    <div class="boxWpr clamp2">
-                                        <span class="boxName">{{::box.name}}</span>
-                                    </div>
-                                </a>
-                            </li>
-
+                            <li class="box" ng-repeat="box in boxes.common.list | limitTo: boxes.common.limit" ng-include="'dashLibBox'"></li>
                         </ul>
                     </span>
                     <span ng-if="boxes.following.list.length">
                         <h4 class="semiFont">@SharedResources.Following</h4>
                         <ul class="followingList">
-                            <li class="box" ng-repeat="box in boxes.following.list | limitTo: boxes.following.limit">
-                                <a ng-href="{{::box.url}}" analytics-on="click" analytics-category="User" analytics-event="Navigate to box" analytics-label="User clicked on a box in friend's courses section">
-                                    <img class="boxImg" alt="" width="74" height="98" src="" ng-src="{{::box.picture | defaultImage:'box'}}">
-                                    <div class="boxWpr clamp2">
-                                        <span class="boxName">{{::box.name}}</span>
-                                    </div>
-                                </a>
-                                <button type="button" class="btn3" ng-click="boxes.followBox(box)">@SharedResources.Join</button>
+                            <li class="box" ng-repeat="box in boxes.following.list | limitTo: boxes.following.limit" ng-include="'dashLibBox'">
                             </li>
                         </ul>
                     </span>
