@@ -402,29 +402,29 @@ namespace Zbang.Zbox.ReadServices
         /// <param name="query"></param>
         /// <returns></returns>
         #region Search
-        public async Task<SearchDto> Search(GroupSearchQuery query)
-        {
-            var retVal = new SearchDto();
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
+        //public async Task<SearchDto> Search(GroupSearchQuery query)
+        //{
+        //    var retVal = new SearchDto();
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
 
-                using (var grid = await conn.QueryMultipleAsync(string.Format("{0}",
-                     Sql.Search.Users
-                     ),
-                     new
-                     {
-                         query = query.Query,
-                         universityId = query.UniversityId,
-                         userId = query.UserId,
-                         query.PageNumber,
-                         query.RowsPerPage
-                     }))
-                {
-                    retVal.Users = grid.Read<SearchUsers>();
-                }
-            }
-            return retVal;
-        }
+        //        using (var grid = await conn.QueryMultipleAsync(string.Format("{0}",
+        //             Sql.Search.Users
+        //             ),
+        //             new
+        //             {
+        //                 query = query.Query,
+        //                 universityId = query.UniversityId,
+        //                 userId = query.UserId,
+        //                 query.PageNumber,
+        //                 query.RowsPerPage
+        //             }))
+        //        {
+        //            retVal.Users = grid.Read<SearchUsers>();
+        //        }
+        //    }
+        //    return retVal;
+        //}
 
         public async Task<IEnumerable<SearchItems>> OtherUniversities(GroupSearchQuery query)
         {

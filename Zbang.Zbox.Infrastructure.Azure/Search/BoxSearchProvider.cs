@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         private const string IdField = "id";
         private const string NameField = "name";
-        private const string ImageField = "image";
+        //private const string ImageField = "image";
         private const string ProfessorField = "professor";
         private const string CourseField = "course";
         private const string UrlField = "url";

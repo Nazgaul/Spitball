@@ -25,32 +25,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_ItemSearchService = itemSearchService;
         }
 
-        [HttpGet]
-        [DonutOutputCache(CacheProfile = "PartialPage")]
-        public ActionResult IndexPartial()
-        {
-            return PartialView("Index");
-        }
+        //[HttpGet]
+        //[DonutOutputCache(CacheProfile = "PartialPage")]
+        //public ActionResult IndexPartial()
+        //{
+        //    return PartialView("Index");
+        //}
 
-        [HttpGet]
-        public async Task<ActionResult> DropDown(string q)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(q))
-                {
-                    return JsonError("need query");
-                }
-                var result = await PerformSearch(q, false, 0);
 
-                return JsonOk(result);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("On Seach/DropDown q: " + q + "userid: " + User.GetUserId(), ex);
-                return JsonError("need query");
-            }
-        }
 
         [HttpGet]
         public async Task<ActionResult> Data(string q, int page)
@@ -61,7 +43,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return JsonError("need query");
                 }
-                var result = await PerformSearch(q, true, page);
+                var result = await PerformSearch(q, page);
 
                 return JsonOk(result);
             }
@@ -72,28 +54,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
         [NonAction]
-        private async Task<SearchDto> PerformSearch(string q, bool allResult, int page)
+        private async Task<SearchDto> PerformSearch(string q, int page)
         {
             var universityDataId = User.GetUniversityData();
-            if (universityDataId.HasValue)
-            {
-                var query = new GroupSearchQuery(q, universityDataId.Value, User.GetUserId(), page,
-                    allResult ? 50 : 6);
+            if (!universityDataId.HasValue) return null;
 
-                var t1 = m_BoxSearchService.SearchBox(new BoxSearchQuery(q, User.GetUserId(),
-                    universityDataId.Value, page,
-                     allResult ? 50 : 6));
-                var t2 =
-                    m_ItemSearchService.SearchItem(new ItemSearchQuery(q, User.GetUserId(),
-                    universityDataId.Value, page,
-                        allResult ? 50 : 6));
-                var t3 = ZboxReadService.Search(query);
-                await Task.WhenAll(t1, t2, t3);
-                t3.Result.Boxes = t1.Result;
-                t3.Result.Items = t2.Result;
-                return t3.Result;
-            }
-            return null;
+
+            var t1 = m_BoxSearchService.SearchBox(new BoxSearchQuery(q, User.GetUserId(),
+                universityDataId.Value, page
+                ));
+            var t2 =
+                m_ItemSearchService.SearchItem(new ItemSearchQuery(q, User.GetUserId(),
+                    universityDataId.Value, page));
+
+            await Task.WhenAll(t1, t2);
+            var retVal = new SearchDto
+            {
+                Boxes = t1.Result,
+                Items = t2.Result
+            };
+            return retVal;
         }
 
 
