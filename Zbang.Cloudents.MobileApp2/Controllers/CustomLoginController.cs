@@ -69,21 +69,12 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 {
                     return Request.CreateBadRequestResponse();
                 }
-                user.UserId = systemUser.Id;
-                user.UniversityId = systemUser.UniversityId;
-                user.UniversityData = systemUser.UniversityData;
 
                 if (await UserManager.CheckPasswordAsync(user, loginRequest.Password))
                 {
-                    var claimsIdentity = new ClaimsIdentity();
-                    claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString(CultureInfo.InvariantCulture)));
-                    claimsIdentity.AddClaim(new Claim(ClaimConsts.UserIdClaim, user.UserId.ToString(CultureInfo.InvariantCulture)));
-                    if (user.UniversityId.HasValue && user.UniversityData.HasValue)
-                    {
-                        claimsIdentity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim, user.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
-                        claimsIdentity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim, user.UniversityData.Value.ToString(CultureInfo.InvariantCulture)));
-                    }
-                    var loginResult = new Models.CustomLoginProvider(Handler).CreateLoginResult(claimsIdentity, Services.Settings.MasterKey);
+                    var identity = await user.GenerateUserIdentityAsync(UserManager, systemUser.Id, systemUser.UniversityId,
+                         systemUser.UniversityData);
+                    var loginResult = new Models.CustomLoginProvider(Handler).CreateLoginResult(identity, Services.Settings.MasterKey);
                     return Request.CreateResponse(HttpStatusCode.OK, loginResult);
                 }
                 //Guid membershipUserId;

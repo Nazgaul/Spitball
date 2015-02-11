@@ -280,9 +280,9 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 var user = new ApplicationUser
                 {
                     UserName = model.NewEmail,
-                    Email = model.NewEmail,
-                    UniversityId = model.UniversityId,
-                    UniversityData = model.UniversityId
+                    Email = model.NewEmail
+                    //UniversityId = model.UniversityId,
+                    //UniversityData = model.UniversityId
                 };
                 var createStatus = await UserManager.CreateAsync(user, model.Password);
 
@@ -302,11 +302,11 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     var result = await ZboxWriteService.CreateUserAsync(command);
                     SiteExtension.UserLanguage.InsertCookie(result.User.Culture, HttpContext);
 
-                    user.UserId = result.User.Id;
-                    user.UniversityId = result.UniversityId;
-                    user.UniversityData = result.UniversityData;
+                   var identity = await user.GenerateUserIdentityAsync(UserManager, result.User.Id, result.UniversityId,
+                        result.UniversityData);
 
-                    await SignInManager.PasswordSignInAsync(user.UserName, model.Password, false, false);
+                    AuthenticationManager.SignIn(identity);
+
                     cookie.RemoveCookie(Invite.CookieName);
                     return
                         JsonOk();
