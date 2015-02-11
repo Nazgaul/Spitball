@@ -1,157 +1,205 @@
 ﻿@import "varsAndMixins";
 /*TEMP: UNDO NEW SEARCH*/
 .searchPopup {
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    border-radius:0;
-    background: #f1f1f1;    
-    z-index:11;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    /*width: 365px;
+	height: 32px;
+    top: 67px;
+	left: 500px;*/
+    background: #f1f1f1;
+    //background: aqua;
+    z-index: 11;
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
-	-webkit-transition-property: height, width, top, left, border-radius; //rtl 
-	transition-property: height, width, top, left, border-radius; //rtl 
-	-webkit-transition-duration: 0.5s;
-	transition-duration: 0.5s;
-	-webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-	transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-    
+    -webkit-transition-property: height, width, top, left; //rtl
+    transition-property: height, width, top, left; //rtl
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+    transition-timing-function: cubic-bezier(0.7,0,0.3,1);
     .boxSizing;
     //max-width: none; //override
-        
-
+    /*~ .bodyContent {
+        display: none;
+    }*/
     &.ng-enter, &.ng-leave-active {
         width: 365px;
-	    height: 32px;
+        height: 32px;
         border-radius: 16px;
-	    top: 67px;
-	    left: 500px; //rtl
+        top: 67px;
+        left: 500px;
         background: #fff;
+
         form {
             width: 365px;
-	        height: 40px;
-	        position: relative;
+            height: 32px;
+            position: relative;
         }
+
         .dashLibSearchInput {
             font-size: 18px;
             width: 100%;
+            height: 32px;
+            padding: 4px 10px;
+            border-color: transparent;
+        }
+    }
+    &.ng-leave-active {
+        .searchBtn, .closeSearch  {
+            //display: none;
+            visibility: hidden;
+            opacity: 0;
+        }
+    }
+    &.ng-enter {
+        .searchBtn  {
+            opacity: 0;
+            visibility: hidden;
         }
     }
     &.ng-enter-active {
-        top:0;
-        left:0;
-        width:100%;
-        height:100%;
-        border-radius:0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+
         form {
             width: 80%;
-	        height: 160px;
+            height: 160px;
+            //height: 100%;
         }
+
         .dashLibSearchInput {
             width: 100%;
-            font-size: 7em;
+            height: 100%;
+            font-size: 5vw;
+            padding: 4px 10% 4px 10px;
+            //border-bottom: 2px solid @blue;
+            //height: 32px;
+        }
+        .searchBtn  {
+            opacity: 1;
+            visibility: visible;
         }
     }
+
     form {
-	    width: 80%;
-	    height: 160px;
+        position: relative;
+        width: 80%;
+        height: 160px;
+        //height: 100%;
         margin: 0 auto;
-	    //-webkit-transform: translate3d(0,3em,0);
-	    //transform: translate3d(0,3em,0);
+        //-webkit-transform: translate3d(0,2em,0);
+        //transform: translate3d(0,2em,0);
         -webkit-transition-property: width, height, -webkit-transform;
-	    transition-property: width, height, transform;
-	    -webkit-transition-duration: 0.5s;
-	    transition-duration: 0.5s;
-	    -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-	    transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-    }
-    .dashLibSearchInput {
-        font-size: 7em;
-        padding: 0 10% 8px 0; 
-        -webkit-transition: font-size 0.2s cubic-bezier(0.7,0,0.3,1);
-	    transition: font-size 0.2s cubic-bezier(0.7,0,0.3,1);
-        width: 100%;
-	    height: 100%;
-        background: transparent;
-	    color: @blue;
-	     opacity: 1;   
-        .boxSizing;
-        .placeholderColor(@borderColor);
-        &:focus {
-            border: none; //remove red error borders and outlines
-            outline: none;
-        }
+        transition-property: width, height, transform;
+        -webkit-transition-duration: 0.5s;
+        transition-duration: 0.5s;
+        -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+        transition-timing-function: cubic-bezier(0.7,0,0.3,1);
     }
     .searchBtn {
         background: none; //override
         border-radius: 0; //override
-        top: 50%;
-	    pointer-events: auto;
-        width: 80px;height:80px; //fallback for old android
-        width: 3vw;
-        height: 3vw;
-	    -webkit-transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
-	    transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
-	    -webkit-transition: -webkit-transform 0.3s;
-	    transition: transform 0.3s;
+        top: 40%;
+        position: absolute;
+	    //pointer-events: auto;
+        //width: 80px;height:80px; //fallback for old android
+        //width: 3vw;
+        //height: 3vw;
+	    //-webkit-transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
+	    //transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
+	    transition: opacity .3s;
 	    -webkit-transition-delay: 0.5s;
 	    transition-delay: 0.5s;
+        opacity: 1;
+        visibility: visible;
         .svg-search {
-            width: 80px;height: 80px; //fallback for old android
+            //width: 80px;height: 80px; //fallback for old android
             width: 3vw;
             height: 3vw;
+            fill: @borderColor;
+        
             &:hover {
                 fill: @blue;
             }
         }
     }
-        
+    .dashLibSearchInput {
+        //font-size: 18px;
+        //padding: 4px 10px;
+        //height: 32px;
+        width: 100%;
+        height: 100%;
+        font-size: 5vw;
+        padding: 4px 10% 4px 10px;
+        //border-bottom: 2px solid @blue;
+        -webkit-transition: font-size 0.2s cubic-bezier(0.7,0,0.3,1), border-color .5s;
+        transition: font-size 0.2s cubic-bezier(0.7,0,0.3,1), border-color .5s;
+        background: transparent;
+        color: @blue;
+        //opacity: 1;
+        .boxSizing;
+        .placeholderColor(@borderColor);
+
+        &:focus {
+            border: none; //remove red error borders and outlines
+            outline: none;
+        }
+    }
+
     .closeSearch {
-	    opacity: 1;
-	    pointer-events: auto;
-	    -webkit-transform: scale3d(1,1,1);
-	    transform: scale3d(1,1,1);
-	    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
-	    transition: opacity 0.3s, transform 0.3s;
-	    -webkit-transition-delay: 0.5s;
-	    transition-delay: 0.5s;
+        opacity: 1;
+        pointer-events: auto;
+        -webkit-transform: scale3d(1,1,1);
+        transform: scale3d(1,1,1);
+        -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+        transition: opacity 0.3s, transform 0.3s;
+        -webkit-transition-delay: 0.5s;
+        transition-delay: 0.5s;
     }
+
     .search-content {
-	    opacity: 1;
-	    height: auto;
-	    overflow: visible; // this breaks the transition of the children in FF: https://bugzilla.mozilla.org/show_bug.cgi?id=625289 //
-	    pointer-events: auto;
-	    -webkit-transition: opacity 0.3s 0.5s;
-	    transition: opacity 0.3s 0.5s;
+        opacity: 1;
+        height: auto;
+        overflow: visible; // this breaks the transition of the children in FF: https://bugzilla.mozilla.org/show_bug.cgi?id=625289 //
+        pointer-events: auto;
+        -webkit-transition: opacity 0.3s 0.5s;
+        transition: opacity 0.3s 0.5s;
     }
+
     .column:first-child {
-	    -webkit-transition-delay: 0.4s;
-	    transition-delay: 0.4s;
+        -webkit-transition-delay: 0.4s;
+        transition-delay: 0.4s;
     }
 
     .column:nth-child(2) {
-	    -webkit-transition-delay: 0.45s;
-	    transition-delay: 0.45s;
+        -webkit-transition-delay: 0.45s;
+        transition-delay: 0.45s;
     }
 
     .column:nth-child(3) {
-	    -webkit-transition-delay: 0.5s;
-	    transition-delay: 0.5s;
+        -webkit-transition-delay: 0.5s;
+        transition-delay: 0.5s;
     }
 
     .column {
-	    opacity: 1;
-	    -webkit-transform: translate3d(0,0,0);
-	    transform: translate3d(0,0,0);
+        opacity: 1;
+        -webkit-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
     }
-
 }
 
 .searchInputWpr {
 	width: 365px;
 	height: 32px;
+    //border-radius: 0;
     border-radius: 16px;
 	position: absolute;
 	z-index: 4; //under aside which is 5
@@ -160,6 +208,11 @@
     margin:0;
     line-height: normal;
     background: #fff;
+    color: @borderColor;
+    //padding: 3px 10px 0 10px;
+    padding: 4px 10px;
+    font-size: 18px;
+    .boxSizing;
     &.searchLib {
         left: 550px; //rtl
     }
@@ -187,75 +240,10 @@
         width: ~'calc(100% - 539px)';
 
     }
-    &.open {
-        
+    &.open {     
         /*~ .siteHeader, ~ .dashboard, ~ .union, ~ .boxPage, ~ .userPage {
             display: none !important; //override js
         }*/
-
-        .searchBtn {
-            background: none; //override
-            border-radius: 0; //override
-            top: 50%;
-	        pointer-events: auto;
-            width: 80px;height:80px; //fallback for old android
-            width: 3vw;
-            height: 3vw;
-	        -webkit-transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
-	        transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
-	        -webkit-transition: -webkit-transform 0.3s;
-	        transition: transform 0.3s;
-	        -webkit-transition-delay: 0.5s;
-	        transition-delay: 0.5s;
-            .svg-search {
-                width: 80px;height: 80px; //fallback for old android
-                width: 3vw;
-                height: 3vw;
-                &:hover {
-                    fill: @blue;
-                }
-            }
-        }
-        
-        .closeSearch {
-	        opacity: 1;
-	        pointer-events: auto;
-	        -webkit-transform: scale3d(1,1,1);
-	        transform: scale3d(1,1,1);
-	        -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
-	        transition: opacity 0.3s, transform 0.3s;
-	        -webkit-transition-delay: 0.5s;
-	        transition-delay: 0.5s;
-        }
-        .search-content {
-	        opacity: 1;
-	        height: auto;
-	        overflow: visible; // this breaks the transition of the children in FF: https://bugzilla.mozilla.org/show_bug.cgi?id=625289 //
-	        pointer-events: auto;
-	        -webkit-transition: opacity 0.3s 0.5s;
-	        transition: opacity 0.3s 0.5s;
-        }
-        .column:first-child {
-	        -webkit-transition-delay: 0.4s;
-	        transition-delay: 0.4s;
-        }
-
-        .column:nth-child(2) {
-	        -webkit-transition-delay: 0.45s;
-	        transition-delay: 0.45s;
-        }
-
-        .column:nth-child(3) {
-	        -webkit-transition-delay: 0.5s;
-	        transition-delay: 0.5s;
-        }
-
-        .column {
-	        opacity: 1;
-	        -webkit-transform: translate3d(0,0,0);
-	        transform: translate3d(0,0,0);
-        }
-
     }
     &.hideInput .dashLibSearchInput {
 	    color: transparent;
@@ -264,50 +252,11 @@
     }
     
 }
-/*.dashLibSearchInput {
-	width: 100%;
-	height: 100%;
-	padding: 0 40px 8px 16px; //rtl 
-    font-size: 18px;
-	background: transparent;
-	color: @blue;
-	-webkit-transition: font-size 0.5s cubic-bezier(0.7,0,0.3,1);
-	transition: font-size 0.5s cubic-bezier(0.7,0,0.3,1);
-    .boxSizing;
-    .placeholderColor(@borderColor);
-    &:focus {
-        border: none; //remove red error borders and outlines
-        outline: none;
-    }
-}*/
 
 // hide placeholder when active in Chrome //
 .gn-search:focus::-webkit-input-placeholder {
 	color: transparent;
 }
-
-.searchBtn {
-	position: absolute;
-	width: 60px;
-	height: 60px;
-	overflow: hidden;
-	right: 0; //rtl 
-	top: 43%;
-	border: none;
-	pointer-events: none;
-	transform-origin: 50% 50%;
-	//opacity: 0;
-	-webkit-transform: translate3d(10px,-50%,0) scale3d(0.5,0.5,1); //rtl 
-	transform: translate3d(10px,-50%,0) scale3d(0.5,0.5,1); //rtl 
-    background: #fff; //when searchWpr becomes small
-    border-radius: 50%; //when searchWpr becomes small
-    .svg-search {
-        width: 40px;
-        height: 40px;
-        fill: @borderColor;
-    }
-}
-
 
 .closeSearch {
 	position: absolute;
@@ -462,21 +411,14 @@
     .vCentered {
         //max-width: 98%;
     }
-    //&.noResults
-    //{
-    //    text-align: center;
-    //    .searchList, h3, .showAll //.showAll prob not necessary
-    //    {
-    //        display: none !important;
-    //    }
-    //}
 }
 
+/*#region Search media queries */
 @media screen and (max-width: 53.125em) {
 	.dashLibSearchInput {
 		//padding: 0 25% 0 10px;
 	}
-	.searchInputWpr.open {
+	/*.searchInputWpr.open {
         overflow: auto;
         .dashLibSearchInput {
 		    //font-size: 2em;
@@ -489,7 +431,7 @@
         .search-content {
             margin-top: 1em;
         }   
-	}
+	}*/
 	.column {
 		float: none;
 		width: auto;
@@ -510,12 +452,7 @@
         margin: auto;
 	}
 }
-
-.allDetails:after{
-    content: '|';
-    display: inline-block;
-    padding: 0 4px;
-}
+/*#endregion */
 
 
 /*#endregion */
@@ -698,7 +635,11 @@
         border-radius:100%;
     }
 }
-
+.allDetails:after{
+    content: '|';
+    display: inline-block;
+    padding: 0 4px;
+}
 .box.sCourseItem {
     width: 454px;
     display: inline-block;
