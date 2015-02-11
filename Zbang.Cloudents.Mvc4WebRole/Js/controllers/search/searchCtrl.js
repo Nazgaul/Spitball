@@ -1,184 +1,50 @@
-﻿angular.module('mSearch', []).
-    constant({
-        constants: {
-            tabs: {
-                boxes: 'sTab1',
-                items: 'sTab2',
-                users: 'sTab3',
-            },
-            stars: {
-                width: 69,
-                count: 5
-            }
-        }
-    }).
-controller('SearchCtrl',
+﻿angular.module('mSearch', [])
+    .controller('SearchCtrl',
 ['$scope',
-'$timeout',
 '$location',
 '$analytics',
 'sSearch',
-'textDirectionService',
-'constants',
-'$filter',
-function ($scope, $timeout, $location, $analytics, sSearch, textDirectionService, constants, $filter) {
+function ($scope, $location, $analytics, sSearch) {
     "use strict";
     $scope.params = {
         currentPage: 0,
-        currentTab: constants.tabs.boxes,
-        otherItemsPage: 0,
-        showOtherUnis: false,
-        isOtherItems: false,
-        itemsLoading: false,
-        boxesLoading: false,
-        usersLoading: false
+        loading: false
     };
+
     var analyticsCategory = 'Search';
 
-    $scope.data = {};
+    $scope.data = {
+        boxes: [],
+        quizzes: [],
+        items: []
+    };
+  
+    $scope.search = function (isAppend) {
+        if (isAppend) {
+            search();
+            return;
+        }
 
+        $scope.params.noResults = false;
+        $scope.params.currentPage = 0;
+        $scope.data = {
+            boxes: [],
+            quizzes: [],
+            items: []
+        };
 
-    if ($location.search()['q']) {
-        var query = $location.search()['q'];
-        $scope.params.query = query;
         search();
-    }
-
-    $scope.$on('$routeUpdate', function () {
-        var query = $location.search()['q'];
-        $scope.params.currentPage = $scope.params.otherItemsPage = 0;
-        $scope.params.showOtherUnis = false;
-        $scope.params.isOtherItems = false;
-        $scope.data.boxes = $scope.data.items = $scope.data.otherItems = $scope.data.users = [];
-        if (query) {
-            $scope.params.query = query;
-            $scope.params.textDirection = textDirectionService.isRTL(query) ? 'rtl' : 'ltr';
-            $timeout(search, 300);
-            return;
-        }
-
-        $scope.params.query = null;
-    });
-
-    $scope.showOtherUnisItems = function () {
-        getOtherUnisItems();
-        $scope.params.showOtherUnis = false;
-
-        $analytics.eventTrack('Show more', {
-            category: analyticsCategory,
-            label: 'Show more from other universities'
-        });
-
     };
-
-    $scope.setCurrentTab = function (tab) {
-        var length, tabName = '';
-        $scope.params.currentTab = tab;
-        switch (tab) {
-            case constants.tabs.boxes:
-                length = $scope.data.boxes.length;
-                tabName = 'boxes';
-                break;
-            case constants.tabs.items:
-                length = $scope.data.items.length || $scope.data.otherItems.length;
-                tabName = 'items';
-                break;
-            case constants.tabs.users:
-                length = $scope.data.users.length;
-                tabName = 'users';
-                break;
-        }
-        $analytics.eventTrack('Switch tab', {
-            category: analyticsCategory,
-            label: 'User clicked the ' + tabName + 'tab'
-        });
-        $scope.params.noResults = (length === 0);
-    };
-
-    $scope.itemRating = function (rate) {
-        if (rate) {
-            return constants.stars.width / constants.stars.count * rate;
-        }
-
-        return 0;
-    };
-
-    $scope.addToList = function () {
-        if ($scope.data.loading) {
-            return;
-        }
-
-        var showMore = false;
-        switch ($scope.params.currentTab) {
-            case constants.tabs.boxes:
-                if ($scope.data.boxes.length % 50 === 0) {
-                    $scope.params.currentPage++;
-                    $scope.params.boxesLoading = true;
-                    showMore = true;
-                }
-
-                break;
-            case constants.tabs.items:
-                if ($scope.params.isOtherItems) {
-                    if ($scope.data.otherItems.length % 50 === 0) {
-                        $scope.params.otherItemsPage++;
-                        $scope.params.itemsLoading = true;
-                        getOtherUnisItems();
-                        return;
-                    }
-
-                    break;
-                }
-
-
-                if ($scope.data.items.length % 50 === 0) {
-                    $scope.params.itemsLoading = true;
-                    $scope.params.currentPage++;
-                    showMore = true;
-
-                }
-                break;
-            case constants.tabs.users:
-                if ($scope.data.users.length % 50 === 0) {
-                    $scope.params.usersLoading = true;
-                    $scope.params.currentPage++;
-                    showMore = true;
-
-                }
-
-                break;
-        }
-
-        if (!showMore) {
-            return;
-        }
-
-        $timeout(function () {
-            sSearch.searchByPage({ q: $scope.params.query, page: $scope.params.currentPage }).then(function (data) {
-                parseData(data);
-                $scope.params.itemsLoading = false;
-                $scope.params.boxesLoading = false;
-                $scope.params.usersLoading = false;
-
-
-            }).finally(function () {
-                $scope.params.itemsLoading = false;
-                $scope.params.boxesLoading = false;
-                $scope.params.usersLoading = false;
-            });
-        }, 500);
-
-    };
-
-
-    $timeout(function () {
-        $scope.$emit('viewContentLoaded');
-    });
 
     function search() {
-        var query = $scope.params.query;
-        $scope.data.loading = true;
-        $scope.params.noResults = false;
+
+        if ($scope.params.loading) {
+            return;
+        }        
+      
+        $scope.params.loading = true;
+
+        var query = $scope.formData.query;
 
         $analytics.eventTrack('Search', {
             category: analyticsCategory,
@@ -190,98 +56,55 @@ function ($scope, $timeout, $location, $analytics, sSearch, textDirectionService
             $analytics.searchTrack($location.$$path.replace(/\//g, ''), query, 'search page');
         }
 
-        $timeout(function () {
-            sSearch.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (data) {
-                parseData(data);
-                setInitTab();
-            }, function () {
-                $scope.data.loading = false;
-            }).finally(function () {
-                $scope.data.loading = false;
-
-            });
-        }, 500);
-    }
-
-    function getOtherUnisItems() {
-        var query = $scope.params.query;
-
-        $scope.params.isOtherItems = true;
-
-        sSearch.searchOtherUnis({ q: query, page: $scope.params.otherItemsPage }).then(function (data) {
-            $scope.data.otherItems = $scope.data.otherItems ? $scope.data.otherItems.concat(data) : data;
-            $scope.params.itemsLoading = false;
-        }, function () {
-            $scope.params.itemsLoading = false;
+        sSearch.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (data) {
+            appendData(data);
+            $scope.params.currentPage++;
+        }).finally(function () {
+            $scope.params.loading = false;
         });
     }
-
-    function parseData(data) {
+    
+    function appendData(data) {
         data.boxes = data.boxes || [];
+        data.quizzes = data.quizzes || [];
         data.items = data.items || [];
-        data.users = data.users || [];
-        
-        _.forEach(data.boxes, function (box) {
-            box.name = highlight(box.name);
-            box.courseCode = highlight(box.courseCode);
-            box.professor = highlight(box.professor);
-        });
-        _.forEach(data.items, function (item) {
-            item.name = highlight(item.name);
-            item.content = highlight(item.content);
-        });
-        _.forEach(data.users, function (user) {
-            user.name = highlight(user.name);
-        });
 
-        $scope.data.boxes = $scope.data.boxes ? $scope.data.boxes.concat(data.boxes) : data.boxes;
-        $scope.data.items = $scope.data.items ? $scope.data.items.concat(data.items) : data.items;
-        $scope.data.users = $scope.data.users ? $scope.data.users.concat(data.users) : data.users;
-
-        if ($scope.params.currentPage === 0 && data.items.length < 50) {
-            if (data.items.length === 0) {
-                getOtherUnisItems();
-                return;
-            }
-
-            $scope.params.showOtherUnis = true;
+        if (data.boxes.length + /*data.quizzes.length +*/ data.items.length === 0) {
+            $scope.data.empty = true;
         }
 
-        function highlight(text) {
-            var result;
-            if (_.isUndefined(text)) {
-                return;
-            }
-
-            if (_.isEmpty(text)) {
-                return '';
-            }
-            
-            return $filter('highlight')(text, $scope.params.query, false);
-        }
+        $scope.data.boxes = _.union($scope.data.boxes, data.boxes);
+        $scope.data.quizzes = _.union($scope.data.quizzes, data.quizzes);
+        $scope.data.items = _.union($scope.data.boxes, data.items);
     }
 
-    function setInitTab() {
-        var tab;
+    }]
+).directive('showMore',
+   [function () {
 
-        if ($scope.params.currentTab !== constants.tabs.boxes) {
-            return;
-        }
+       return {
+           restrict: "A",
+           scope: {
+               onScroll: '&'
+           },
+           link: function (scope, element, attr) {
+               var $body = angular.element(document.body);
 
-        //if ($scope.data.boxes.length === 0) {
-        //    if ($scope.data.items.length) {
-        //        tab = constants.tabs.items;
-        //    }
+               $body.on('scroll', isTriggerFunc);
 
-        //    if ($scope.data.users.length === 0) {
-        //        tab = constants.tabs.users;
-        //    }
-        //}
+               scope.$on('$destroy', function () {
+                   $body.off('scroll', isTriggerFunc);
+               });
 
-        tab = constants.tabs.boxes;
+               function isTriggerFunc() {
+                   var scrollTop = document.body.scrollTop,
+                       scrollHeight = document.body.scrollHeight,
+                       windowHeight = window.innerHeight;
 
-        $scope.setCurrentTab(tab);
-    }
-
-}]
-);
+                   if (scrollTop + windowHeight >= scrollHeight * 0.8) {
+                       scope.$apply(scope.onScroll);
+                   }
+               }
+           }
+       }
+   }]);

@@ -1,225 +1,33 @@
-﻿
-@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<form name="newSearch" ng-submit="fullSearch(searchHeaderForm.$valid)" novalidate>
-    <input autocomplete="off" class="dashLibSearchInput" ng-placeholder="@SharedResources.Search" ng-keyup="search()"
-           ng-blur="searchFocusOut()" ng-focus="searchFocus()" type="search" name="query" required ng-model="formData.query" ng-click="openSearch()" />
-    <button class="searchBtn" type="submit">
-        @*ng-disabled="newSearch.query.$invalid"*@
+<form name="newSearch" novalidate>
+    <input autocomplete="off" class="dashLibSearchInput" ng-placeholder="@SharedResources.Search" ng-change=search() ng-model-options="{debounce : 200}"
+           type="search" name="query" ng-model="formData.query" />
+    <button class="searchBtn" type="submit">        
         @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search" })
     </button>
 </form>
-@*ng-style="{display: params.showDropdown? 'block' : 'none'}" ng-class="{noResults : resultCount() === 0}"*@
-<div class="search-content" ng-mouseover="params.hover = true" ng-mouseout="params.hover = false">
-    <section class="column lFloat" ng-if="searchResults.boxes.length">
+<div class="search-content" ng-class="{ noResults : params.noResults }" scroll-paging on-scroll="search(true)">
+    <section class="column lFloat">
         <h2>@SharedResources.Items</h2>
         <ul class="itemList">
-            <li ng-repeat="box in searchResults.boxes track by box.id" ng-include="'boxHeaderSearch'"></li>
+            <li ng-repeat="box in $scope.data.boxes track by box.id" ng-include="'boxHeaderSearch'"></li>
         </ul>
     </section>
-    <section class="column lFloat" ng-if="searchResults.quizzes.length">
+    <section class="column lFloat">
         <h2>@SharedResources.Quizzes</h2>
         <ul class="quizList">
-            <li ng-repeat="item in searchResults.quizzes track by quiz.id" ng-include="'quizHeaderSearch'"></li>
+            <li ng-repeat="item in $scope.data.quizzes track by quiz.id" ng-include="'quizHeaderSearch'"></li>
         </ul>
     </section>
-    <section class="column lFloat" ng-if="searchResults.items.length">
-        <h2>@SharedResources.Courses</h2>
-        <ul>
-            <li ng-repeat="item in searchResults.items track by item.id" ng-include="'itemHeaderSearch'"></li>
-        </ul>
-    </section>
-            @*<div ng-if="searchResults.otherItems.length">
-                    <h3>@SharedResources.ResultsOther</h3>
-                    <ul class="searchList university">
-                        <li ng-repeat="item in searchResults.otherItems" ng-include="'itemHeaderSearch'"></li>
-                    </ul>
-                </div>*@
-
-
-            @*<a ng-href="{{::box.url}}" class="searchItem">
-                    <img class="lFloat imgBorder" width="40" height="50" ng-src="{{::box.image | defaultImage:'box'}}" alt="">
-                    <div class="searchDetails">
-                        <div class="searchTitle semiFont elps" ng-bind-html="::box.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></div>
-                        <span class="searchDetail" ng-style="::{allDetails: box.proffessor && box.courseCode}" ng-bind-html="::box.proffessor | highlight:formData.query:false" dir="{{::params.textDirection}}"></span>
-                        <span class="searchDetail" ng-bind-html="::box.courseCode | highlight:formData.query:false"></span>
-                    </div>
-                </a>*@
-
-            @*<section class="column lFloat">
-                <h2>@SharedResources.Items</h2>
-                <ul class="itemList">
-                    <li>
-                        <a class="searchLink" href="#">
-                            <div class="vCentered">
-                                <h3 class="elps">Name of item</h3>
-                                <div class="elps">By: <span>author name here</span></div>
-                                <div class="content">Item content goes here. A maximum of 2 lines of content is displayed here</div>
-                            </div>
-                            <img class="searchImg" width="63" height="88" src="http://placehold.it/63x88" />
-                        </a>
-                    </li>
-                    <li>
-                        <a class="searchLink" href="#">
-                            <div class="vCentered">
-                                <h3 class="elps">Name of item</h3>
-                                <div class="elps">By: <span>author name here</span></div>
-                                <div class="content">Item content goes here. A maximum of 2 lines of content is displayed here</div>
-                            </div>
-                            <img class="searchImg" width="63" height="88" src="http://placehold.it/63x88" />
-                        </a>
-                    </li>
-                    <li>
-                        <a class="searchLink" href="#">
-                            <div class="vCentered">
-                                <h3 class="elps">Name of item</h3>
-                                <div class="elps">By: <span>author name here</span></div>
-                                <div class="content">Item content goes here. A maximum of 2 lines of content is displayed here</div>
-                            </div>
-                            <img class="searchImg" width="63" height="88" src="http://placehold.it/63x88" />
-                        </a>
-                    </li>
-                    <li>
-                        <a class="searchLink" href="#">
-                            <div class="vCentered">
-                                <h3 class="elps">Name of item</h3>
-                                <div class="elps">By: <span>author name here</span></div>
-                                <div class="content">Item content goes here. A maximum of 2 lines of content is displayed here</div>
-                            </div>
-                            <img class="searchImg" width="63" height="88" src="http://placehold.it/63x88" />
-                        </a>
-                    </li>
-                    <li>
-                        <a class="searchLink" href="#">
-                            <div class="vCentered">
-                                <h3 class="elps">Name of item</h3>
-                                <div class="elps">By: <span>author name here</span></div>
-                                <div class="content">Item content goes here. A maximum of 2 lines of content is displayed here</div>
-                            </div>
-                            <img class="searchImg" width="63" height="88" src="http://placehold.it/63x88" />
-                        </a>
-                    </li>
-                </ul>
-            </section>
-            <section class="column lFloat">
-                <h2>@SharedResources.Quizzes</h2>
-                <ul class="quizList">
-                    <li>
-                        <a class="searchLink" href="#">
-                            <div class="vCentered">
-                                <h3 class="elps">Name of quiz</h3>
-                                <div class="elps">By: <span>author name here</span></div>
-                                <div class="content">Quiz content goes here. A maximum of 2 lines of content is displayed here</div>
-                            </div>
-                            <div class="searchImg" data-box-letter="A">
-                                @Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })
-                                <div class="elps boxName">Box name to go here</div>
-                                <time>19.08.09</time>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="searchLink" href="#">
-                            <div class="vCentered">
-                                <h3 class="elps">Name of quiz</h3>
-                                <div class="elps">By: <span>author name here</span></div>
-                                <div class="content">Quiz content goes here. A maximum of 2 lines of content is displayed here</div>
-                            </div>
-                            <div class="searchImg" data-box-letter="A">
-                                @Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })
-                                <div class="elps boxName">Box name to go here</div>
-                                <time>19.08.09</time>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="searchLink" href="#">
-                            <div class="vCentered">
-                                <h3 class="elps">Name of quiz</h3>
-                                <div class="elps">By: <span>author name here</span></div>
-                                <div class="content">Quiz content goes here. A maximum of 2 lines of content is displayed here</div>
-                            </div>
-                            <div class="searchImg" data-box-letter="A">
-                                @Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })
-                                <div class="elps boxName">Box name to go here</div>
-                                <time>19.08.09</time>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="searchLink" href="#">
-                            <div class="vCentered">
-                                <h3 class="elps">Name of quiz</h3>
-                                <div class="elps">By: <span>author name here</span></div>
-                                <div class="content">Quiz content goes here. A maximum of 2 lines of content is displayed here</div>
-                            </div>
-                            <div class="searchImg" data-box-letter="A">
-                                @Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })
-                                <div class="elps boxName">Box name to go here</div>
-                                <time>19.08.09</time>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="searchLink" href="#">
-                            <div class="vCentered">
-                                <h3 class="elps">Name of quiz</h3>
-                                <div class="elps">By: <span>author name here</span></div>
-                                <div class="content">Quiz content goes here. A maximum of 2 lines of content is displayed here</div>
-                            </div>
-                            <div class="searchImg" data-box-letter="A">
-                                @Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })
-                                <div class="elps boxName">Box name to go here</div>
-                                <time>19.08.09</time>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </section>
     <section class="column lFloat">
         <h2>@SharedResources.Courses</h2>
         <ul>
-            <li>
-                <a class="searchLink" href="http://twitter.com/rachsmithtweets">
-                    <div class="vCentered" data-box-letter="A">
-                        <h3>Arts in contemporary</h3>
-                        <div class="courseId">FREN10028</div>
-                        <div>Dr Shilton</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a class="searchLink" href="http://twitter.com/rachsmithtweets">
-                    <div class="vCentered" data-box-letter="A">
-                        <h3>Arts in contemporary</h3>
-                        <div class="courseId">FREN10028</div>
-                        <div>Dr Shilton</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a class="searchLink" href="http://twitter.com/rachsmithtweets">
-                    <div class="vCentered" data-box-letter="A">
-                        <h3>Arts in contemporary</h3>
-                        <div class="courseId">FREN10028</div>
-                        <div>Dr Shilton</div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a class="searchLink" href="http://twitter.com/rachsmithtweets">
-                    <div class="vCentered" data-box-letter="A">
-                        <h3>Arts in contemporary</h3>
-                        <div class="courseId">FREN10028</div>
-                        <div>Dr Shilton</div>
-                    </div>
-                </a>
-            </li>
+            <li ng-repeat="item in $scope.data.items track by item.id" ng-include="'itemHeaderSearch'"></li>
+        </ul>
+    </section>
 
-    </section>*@
-
-            @*<a class="showAll" ng-href="{{'/search/?q=' + formData.query}}">@SharedResources.AllResults&nbsp;<q>{{formData.query}}</q></a>*@
-            <div class="emptySearch">@SharedResources.NoResults</div>
+    <div class="emptySearch">@SharedResources.NoResults</div>
 </div>
 <button type="button" class="closeSearch" ng-click="$root.openSearch = false">
     @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })

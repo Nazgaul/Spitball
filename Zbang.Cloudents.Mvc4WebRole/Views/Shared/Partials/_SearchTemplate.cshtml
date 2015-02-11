@@ -1,0 +1,35 @@
+﻿<script type="text/ng-template" id="boxHeaderSearch">
+    <a class="searchLink" ng-href="{{::box.url}}">
+        <div class="vCentered" data-box-letter="{{::box.name[0]}}">
+            <h3 class="elps" ng-bind-html="::box.name"></h3>
+            <div class="courseId" ng-bind-html="::box.courseCode"></div>
+            <div ng-bind-html="::box.proffessor"></div>
+        </div>
+    </a>
+</script>
+
+<script type="text/ng-template" id="quizHeaderSearch">
+    <a class="searchLink" href="#">
+        <div class="vCentered">
+            <h3 class="elps" ng-bind-html="::quiz.name">Name of quiz</h3>
+            <div class="elps">By: <span>author name here</span></div>
+            <div class="content">Quiz content goes here. A maximum of 2 lines of content is displayed here</div>
+        </div>
+        <div class="searchImg" data-box-letter="{{::quiz.name[0]}}">
+            @Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })
+            <div class="elps boxName">Box name to go here</div>
+            <time>19.08.09</time>
+        </div>
+    </a>
+</script>
+
+<script type="text/ng-template" id="itemHeaderSearch">
+    <a class="searchLink" ng-href="{{::item.url}}">
+        <div class="vCentered">
+            <h3 class="elps" ng-bind-html="::item.name"></h3>
+            <div class="elps">By: <span>author name here</span></div>
+            <div class="content">Item content goes here. A maximum of 2 lines of content is displayed here</div>
+        </div>
+        <img class="searchImg" width="63" height="88" ng-src="{{::item.image}}" alt="" />
+    </a>
+</script>

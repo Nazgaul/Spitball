@@ -2091,6 +2091,7 @@
     <Content Include="Views\Box\_LeavePrompt.cshtml" />
     <Content Include="Views\Shared\Partials\_BarSearch.cshtml" />
     <Content Include="Views\Shared\Partials\_DashLibItem.cshtml" />
+    <Content Include="Views\Shared\Partials\_SearchTemplate.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
