@@ -940,6 +940,7 @@
     <Content Include="Images\usrPic.png" />
     <Content Include="Images\web_upload.png" />
     <Content Include="Js\app.js" />
+    <Content Include="Js\directives\scroll.js" />
     <Content Include="Js\staticCDNFallback.js" />
     <Content Include="Js\staticCDNFallback.min.js">
       <DependentUpon>staticCDNFallback.js</DependentUpon>
@@ -2094,6 +2095,7 @@
     <Content Include="Views\Box\_LeavePrompt.cshtml" />
     <Content Include="Views\Shared\Partials\_BarSearch.cshtml" />
     <Content Include="Views\Shared\Partials\_DashLibItem.cshtml" />
+    <Content Include="Views\Shared\Partials\_SearchTemplate.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
