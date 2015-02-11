@@ -2206,14 +2206,10 @@ select.inputText {
 }
 /*#endregion*/
 /*#region RTL inconsistencies (TODO: need to verify each one) */
-<<<<<<< HEAD
-[data-culture="he-IL"] .checkbox ~ .cbLabel2 svg {
-=======
 .rtlFix input[type="radio"]:checked + label:after {
   top: 3px;
 }
 .rtlFix .checkbox ~ .cbLabel2 svg {
->>>>>>> 8b6ad9d5b9d59c640d27a702d485c936b3f8e9ce
   top: 0;
 }
 .rtlFix .popover.left {

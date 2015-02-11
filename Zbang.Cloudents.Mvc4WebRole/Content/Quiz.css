@@ -72,15 +72,12 @@ body.quiz .modal-backdrop.in {
 .quizPreview .closePreview svg {
   fill: #fff;
 }
-<<<<<<< HEAD
-=======
 .quizPreview {
   -webkit-animation: slideUp 0.5s 0 ease;
   -moz-animation: slideUp 0.5s 0 ease;
   -o-animation: slideUp 0.5s 0 ease;
   animation: slideUp 0.5s 0 ease;
 }
->>>>>>> 8b6ad9d5b9d59c640d27a702d485c936b3f8e9ce
 .createQuiz .emptyQuiz .quizName:not(.ng-valid) {
   border: 1px solid #d1294d;
 }
