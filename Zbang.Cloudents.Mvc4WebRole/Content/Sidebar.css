@@ -71,9 +71,9 @@
 }
 .recommended .rcDetails {
   width: 100%;
-  height: 63px;
+  height: 80px;
   vertical-align: top;
-  padding: 15px 0 0 69px;
+  padding: 0 0 0 69px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;

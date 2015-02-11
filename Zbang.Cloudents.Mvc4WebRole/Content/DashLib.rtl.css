@@ -1064,6 +1064,15 @@
   margin: 30px 84px 0 7px;
   overflow: hidden;
 }
+.box [data-box-letter]:before,
+.recommended [data-box-letter]:before {
+  width: 56px;
+  height: 56px;
+  line-height: 56px;
+  right: 11px;
+  font-size: 28px;
+  background: purple;
+}
 .box {
   color: #383838;
   vertical-align: top;
@@ -1159,11 +1168,12 @@
 }
 .box .newCounter {
   border-radius: 12px;
-  top: 17px;
-  right: 52px;
+  top: 15px;
+  right: 50px;
   line-height: 14px;
+  z-index: 1;
   border: 2px solid #fff;
-  display: block;
+  display: inline-block;
 }
 .box .removeItem {
   right: 5px;
@@ -1188,9 +1198,12 @@
             opacity: .7;
         }*/
 }
+.box a:hover .ghost,
+.box .addBtn:hover .ghost {
+  margin-right: -76px;
+}
 .box a:hover .vCentered,
 .box .addBtn:hover .vCentered {
-  margin-right: -76px;
   max-width: 254px;
 }
 .box a:hover h3,
@@ -1211,14 +1224,6 @@
 }
 .box .courseId {
   margin-bottom: 5px;
-}
-.box [data-box-letter]:before {
-  width: 56px;
-  height: 56px;
-  line-height: 56px;
-  right: 11px;
-  font-size: 28px;
-  background: purple;
 }
 .box .boxStats {
   width: 128px;
@@ -1260,6 +1265,8 @@
 }
 .box .ghost {
   height: 106px;
+  transition: margin 0.2s 0.5s;
+  position: relative;
 }
 .box .vCentered {
   padding-right: 88px;
@@ -1271,7 +1278,6 @@
   -webkit-transition: margin 0.2s 0.5s;
   -moz-transition: margin 0.2s 0.5s;
   -o-transition: margin 0.2s 0.5s;
-  transition: margin 0.2s 0.5s;
   position: relative;
 }
 .box h3 {

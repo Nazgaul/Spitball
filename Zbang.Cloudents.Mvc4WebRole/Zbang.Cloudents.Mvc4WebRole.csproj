@@ -2093,6 +2093,7 @@
     <Content Include="Views\Home\IFrame.cshtml" />
     <Content Include="Views\Box\_LeavePrompt.cshtml" />
     <Content Include="Views\Shared\Partials\_BarSearch.cshtml" />
+    <Content Include="Views\Shared\Partials\_DashLibItem.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
