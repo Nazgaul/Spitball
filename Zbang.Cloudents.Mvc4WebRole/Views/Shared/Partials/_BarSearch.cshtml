@@ -7,28 +7,28 @@
         @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search" })
     </button>
 </form>
-<div class="search-content" ng-class="{ noResults : params.noResults }" scroll-paging on-scroll="search(true)">
+<div class="search-content" ng-class="{ noResults : params.noResults }" show-more on-scroll="search(true)">
     <section class="column lFloat">
         <h2>@SharedResources.Items</h2>
         <ul class="itemList">
-            <li ng-repeat="box in $scope.data.boxes track by box.id" ng-include="'boxHeaderSearch'"></li>
+            <li ng-repeat="box in data.boxes track by box.id" ng-include="'boxHeaderSearch'"></li>
         </ul>
     </section>
     <section class="column lFloat">
         <h2>@SharedResources.Quizzes</h2>
         <ul class="quizList">
-            <li ng-repeat="item in $scope.data.quizzes track by quiz.id" ng-include="'quizHeaderSearch'"></li>
+            <li ng-repeat="item in data.quizzes track by quiz.id" ng-include="'quizHeaderSearch'"></li>
         </ul>
     </section>
     <section class="column lFloat">
         <h2>@SharedResources.Courses</h2>
         <ul>
-            <li ng-repeat="item in $scope.data.items track by item.id" ng-include="'itemHeaderSearch'"></li>
+            <li ng-repeat="item in data.items track by item.id" ng-include="'itemHeaderSearch'"></li>
         </ul>
     </section>
 
     <div class="emptySearch">@SharedResources.NoResults</div>
 </div>
-<button type="button" class="closeSearch" ng-click="$root.openSearch = false">
+<button type="button" class="closeSearch" ng-click="$root.toggleSearch()">
     @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
 </button>

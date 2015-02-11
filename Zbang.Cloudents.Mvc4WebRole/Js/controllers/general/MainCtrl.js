@@ -38,7 +38,16 @@
 
             };
 
+            $rootScope.toggleSearch = function () {
+                $rootScope.openSearch = !$rootScope.openSearch;
+                $location.hash($rootScope.openSearch ? 'search' : '');
+            };
+           
+
             $scope.$on('$routeChangeSuccess', function (event, current) {
+
+                $rootScope.openSearch = $location.hash().indexOf('search') > -1
+
 
                 try {
                     $rootScope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;

@@ -145,7 +145,7 @@
                route.resolve = {
                    currentUser: ['$q', 'sUserDetails', 'sNewUpdates', function ($q, sUserDetails, sNewUpdates) {
                        return sUserDetails.initDetails().then(sNewUpdates.loadUpdates).finally(function () {
-                           lang = sUserDetails.getDetails().culture;                           
+                           lang = sUserDetails.getDetails().culture;
                        });
                    }]
                };
@@ -166,6 +166,7 @@
                     iterator: function (route) {
                         var obj = createRoute('box', '/box/indexpartial/', 'BoxCtrl', false);
                         obj.params.isPrivate = route.isPrivate;
+                        obj.reloadOnSearch = false;
                         $routeProvider.when(route.url, obj);
                     }
                 },
@@ -190,10 +191,12 @@
                 },
                 {
                     paths: [
-                        { url: '/dashboard/' }
+                        { url: '/dashboard/' },
+                        { url: '/dashboard/#:hash?' }
                     ],
                     iterator: function (route) {
                         var obj = createRoute('dashboard', '/dashboard/indexpartial/', 'DashboardCtrl');
+                        obj.reloadOnSearch = false;
                         $routeProvider.when(route.url, obj);
                     }
                 },
@@ -214,6 +217,7 @@
                     ],
                     iterator: function (route) {
                         var obj = createRoute(route.type, '/library/indexpartial/', 'LibraryCtrl');
+                        obj.reloadOnSearch = false;
                         $routeProvider.when(route.url, obj);
                     }
                 },
@@ -223,6 +227,7 @@
                     ],
                     iterator: function (route) {
                         var obj = createRoute('user', '/user/indexpartial/', 'UserCtrl');
+                        obj.reloadOnSearch = false;
                         $routeProvider.when(route.url, obj);
                     }
                 },
@@ -444,13 +449,18 @@
             })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
 
-
+            if ($location.hash().indexOf('search') > -1) {
+                $location.hash('');
+            }
 
             sVerChecker.checkVersion();
             version = sVerChecker.currentVersion();
 
-            $rootScope.$on('$routeChangeStart', function () {
+            $rootScope.$on('$routeChangeStart', function (event) {
                 $window.scrollTo(0, 0);
+                if ($location.hash().indexOf('search') > -1) {
+                    event.preventDefault();
+                }
             });
 
             $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {

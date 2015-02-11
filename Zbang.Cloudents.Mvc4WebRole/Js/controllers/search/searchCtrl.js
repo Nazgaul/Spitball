@@ -4,14 +4,18 @@
 '$location',
 '$analytics',
 'sSearch',
-function ($scope, $location, $analytics, sSearch) {
+'$rootScope',
+'searchHistory',
+function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
     "use strict";
-    $scope.params = {
-        currentPage: 0,
-        loading: false
-    };
 
     var analyticsCategory = 'Search';
+
+    $scope.params = {
+        currentPage: 0,
+        loading: false,
+        lastPage: false
+    };
 
     $scope.data = {
         boxes: [],
@@ -19,9 +23,14 @@ function ($scope, $location, $analytics, sSearch) {
         items: []
     };
   
+    if (searchHistory.checkData()) {
+        $scope.data = searchHistory.getData();
+        $scope.params.currentPage = searchHistory.getPage();
+    }
+
     $scope.search = function (isAppend) {
         if (isAppend) {
-            search();
+            search(appendMore);
             return;
         }
 
@@ -32,16 +41,17 @@ function ($scope, $location, $analytics, sSearch) {
             quizzes: [],
             items: []
         };
+        searchHistory.clearData();
 
-        search();
+        search(appendFirstPage);
     };
 
-    function search() {
+    function search(parser) {
 
         if ($scope.params.loading) {
             return;
-        }        
-      
+        }
+
         $scope.params.loading = true;
 
         var query = $scope.formData.query;
@@ -57,30 +67,51 @@ function ($scope, $location, $analytics, sSearch) {
         }
 
         sSearch.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (data) {
-            appendData(data);
+            data.boxes = data.boxes || [];
+            data.quizzes = data.quizzes || [];
+            data.items = data.items || [];
+            parser(data);
             $scope.params.currentPage++;
+            searchHistory.setPage($scope.params.currentPage);
         }).finally(function () {
             $scope.params.loading = false;
         });
     }
-    
-    function appendData(data) {
-        data.boxes = data.boxes || [];
-        data.quizzes = data.quizzes || [];
-        data.items = data.items || [];
-
-        if (data.boxes.length + /*data.quizzes.length +*/ data.items.length === 0) {
-            $scope.data.empty = true;
+    function appendFirstPage(data) {
+        if (checkEmptyResult(data)) {
+            $scope.params.noResults = true;
         }
-
-        $scope.data.boxes = _.union($scope.data.boxes, data.boxes);
-        $scope.data.quizzes = _.union($scope.data.quizzes, data.quizzes);
-        $scope.data.items = _.union($scope.data.boxes, data.items);
+        searchHistory.setData($scope.data);
+        appendData(data);
     }
 
-    }]
+    function appendMore(data) {
+        if (checkEmptyResult(data)) {
+            $scope.params.lastPage = true;
+        }
+
+        appendData(data);
+    }
+
+    function appendData(data) {
+        $scope.data.boxes = _.union($scope.data.boxes, data.boxes);
+        $scope.data.quizzes = _.union($scope.data.quizzes, data.quizzes);
+        $scope.data.items = _.union($scope.data.items, data.items);
+
+        searchHistory.setData($scope.data);
+    }
+
+    function checkEmptyResult(data) {
+        if (data.boxes.length + /*data.quizzes.length +*/ data.items.length === 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+}]
 ).directive('showMore',
-   [function () {
+   ['$window', function ($window) {
 
        return {
            restrict: "A",
@@ -88,16 +119,16 @@ function ($scope, $location, $analytics, sSearch) {
                onScroll: '&'
            },
            link: function (scope, element, attr) {
-               var $body = angular.element(document.body);
+               var $win = angular.element($window);
 
-               $body.on('scroll', isTriggerFunc);
+               $win.on('scroll', isTriggerFunc);
 
                scope.$on('$destroy', function () {
-                   $body.off('scroll', isTriggerFunc);
+                   $win.off('scroll', isTriggerFunc);
                });
 
                function isTriggerFunc() {
-                   var scrollTop = document.body.scrollTop,
+                   var scrollTop = $window.pageYOffset,
                        scrollHeight = document.body.scrollHeight,
                        windowHeight = window.innerHeight;
 
@@ -107,4 +138,34 @@ function ($scope, $location, $analytics, sSearch) {
                }
            }
        }
-   }]);
+   }]).service('searchHistory', function () {
+       var service = this,
+           mData, mPage;
+
+
+       service.setData = function (data) {
+           mData = data;
+           
+       };
+
+       service.setPage = function (page) {
+           mPage = page;
+       };
+      
+       service.getData = function () {
+           return mData;
+       };
+
+       service.getPage = function () {
+           return mPage;
+       };
+
+       service.clearData = function () {
+           mData = mPage = null
+       };
+
+       service.checkData = function () {
+           return _.isEmpty(mData) || mPage != 0;
+       };
+
+   });
