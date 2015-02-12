@@ -12,21 +12,22 @@ function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
     var analyticsCategory = 'Search';
 
     $scope.formData = {};
-
     $scope.params = {
         currentPage: 0,
         loading: false,
         lastPage: false
     };
 
-    $scope.data = {
-        boxes: [],
-        quizzes: [],
-        items: []
-    };
+    resetDisplaySettings();
+    resetData();
+
+
+   
+
 
     if (searchHistory.checkData()) {
         $scope.formData.query = searchHistory.getQuery();
+        $scope.$broadcast('search:select');
         $scope.data = searchHistory.getData();
         $scope.params.currentPage = searchHistory.getPage();
     }
@@ -37,13 +38,12 @@ function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
             return;
         }
 
-        $scope.params.noResults = false;
         $scope.params.currentPage = 0;
-        $scope.data = {
-            boxes: [],
-            quizzes: [],
-            items: []
-        };
+
+        resetDisplaySettings();
+
+        resetData();
+
         searchHistory.clearData();
 
         search(appendFirstPage);
@@ -83,8 +83,10 @@ function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
         });
     }
     function appendFirstPage(data) {
-        if (checkEmptyResult(data)) {
-            $scope.params.noResults = true;
+        if (checkEmptyResult(data)) {            
+            $scope.displaySettings = {
+                noResults: true
+            };
         }
         searchHistory.setData($scope.data);
         appendData(data);
@@ -112,6 +114,22 @@ function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
         }
 
         return false;
+    }
+
+    function resetData() {
+        $scope.data = {
+            boxes: [],
+            quizzes: [],
+            items: []
+        };
+    }
+
+    function resetDisplaySettings() {
+        $scope.displaySettings = {
+            boxes: true,
+            quizzes: true,
+            items: true
+        };
     }
 
 }]
