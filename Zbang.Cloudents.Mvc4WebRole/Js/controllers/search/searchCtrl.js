@@ -98,6 +98,7 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
             $scope.displaySettings = {
                 noResults: true
             };
+            return;
         }
         searchHistory.setData($scope.data);
         appendData(data);
@@ -116,11 +117,17 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
         $scope.data.quizzes = _.union($scope.data.quizzes, data.quizzes);
         $scope.data.items = _.union($scope.data.items, data.items);
 
+        $scope.dislpaySettings = {
+            boxes: $scope.data.boxes.length,
+            quizzes: $scope.data.quizzes.length,
+            items: $scope.data.items.length
+        };
+
         searchHistory.setData($scope.data);
     }
 
     function checkEmptyResult(data) {
-        if (data.boxes.length + /*data.quizzes.length +*/ data.items.length === 0) {
+        if (data.boxes.length + data.quizzes.length + data.items.length === 0) {
             return true;
         }
 
