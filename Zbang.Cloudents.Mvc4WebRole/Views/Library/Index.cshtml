@@ -3,14 +3,15 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using System.Threading
 
-@*TEMP: UNDO NEW SEARCH*@
-<div class="searchInputWpr searchLib">
-    @{Html.RenderPartial("_BarSearch");}
-</div>
+
+
 <header class="siteHeader">
     @{Html.RenderPartial("_Header");}
 </header>
 <div id="library" class="page union">
+    <div class="searchInputWpr searchLib">
+        @{Html.RenderPartial("_BarSearch");}
+    </div>
     <div class="libraryContent">
         <aside class="asideDash lFloat">
             <div class="dashLibTop">
