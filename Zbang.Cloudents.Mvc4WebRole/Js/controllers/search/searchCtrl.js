@@ -54,14 +54,15 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
         if ($scope.params.loading) {
             return;
         }
+        if (query && query.length < 0) {
+            return;
+        }
 
         $scope.params.loading = true;
 
         var query = $scope.formData.query;
 
-        if (query && query.length < 0) {
-            return;
-        }
+        
 
         searchHistory.setQuery(query);
 
