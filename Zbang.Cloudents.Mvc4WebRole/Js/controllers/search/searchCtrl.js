@@ -117,7 +117,7 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
         $scope.data.quizzes = _.union($scope.data.quizzes, data.quizzes);
         $scope.data.items = _.union($scope.data.items, data.items);
 
-        $scope.dislpaySettings = {
+        $scope.displaySettings = {
             boxes: $scope.data.boxes.length > 0,
             quizzes: $scope.data.quizzes.length > 0,
             items: $scope.data.items.length > 0

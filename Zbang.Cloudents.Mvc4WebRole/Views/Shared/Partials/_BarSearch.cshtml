@@ -8,19 +8,19 @@
     </button>
 </form>
 <div class="search-content" ng-class="displaySettings" show-more on-scroll="search(true)">
-    <section class="column lFloat">
+    <section class="column boxes lFloat">
         <h2>@SharedResources.Items</h2>
         <ul class="itemList">
             <li ng-repeat="box in data.boxes track by box.id" ng-include="'boxHeaderSearch'"></li>
         </ul>
     </section>
-    <section class="column lFloat">
+    <section class="column quizzes lFloat">
         <h2>@SharedResources.Quizzes</h2>
         <ul class="quizList">
-            <li ng-repeat="item in data.quizzes track by quiz.id" ng-include="'quizHeaderSearch'"></li>
+            <li ng-repeat="quiz in data.quizzes track by quiz.id" ng-include="'quizHeaderSearch'"></li>
         </ul>
     </section>
-    <section class="column lFloat">
+    <section class="column items lFloat">
         <h2>@SharedResources.Courses</h2>
         <ul>
             <li ng-repeat="item in data.items track by item.id" ng-include="'itemHeaderSearch'"></li>
