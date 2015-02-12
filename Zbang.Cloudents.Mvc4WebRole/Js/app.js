@@ -191,8 +191,7 @@
                 },
                 {
                     paths: [
-                        { url: '/dashboard/' },
-                        { url: '/dashboard/#:hash?' }
+                        { url: '/dashboard/' }                      
                     ],
                     iterator: function (route) {
                         var obj = createRoute('dashboard', '/dashboard/indexpartial/', 'DashboardCtrl');
@@ -449,9 +448,7 @@
             })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
 
-            if ($location.hash().indexOf('search') > -1) {
-                $location.hash('');
-            }
+            $location.search('search', null);
 
             sVerChecker.checkVersion();
             version = sVerChecker.currentVersion();

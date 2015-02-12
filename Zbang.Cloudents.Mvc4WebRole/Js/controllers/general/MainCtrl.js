@@ -40,13 +40,13 @@
 
             $rootScope.toggleSearch = function () {
                 $rootScope.openSearch = !$rootScope.openSearch;
-                $location.hash($rootScope.openSearch ? 'search' : '');
+                $location.search('search', $rootScope.openSearch ? true : null);
             };
            
 
             $scope.$on('$routeChangeSuccess', function (event, current) {
 
-                $rootScope.openSearch = $location.hash().indexOf('search') > -1
+                $rootScope.openSearch = $location.search().hasOwnProperty('search');
 
 
                 try {
