@@ -699,10 +699,6 @@ body.quiz .modal-backdrop.in {
 .afraid .quizPrevWpr .btn1 {
   display: none;
 }
-.checkQuiz .quizQList .noAnswer,
-.afraid .quizQList .noAnswer {
-  display: none;
-}
 .checkQuiz .quizQList .noAnswer:before,
 .afraid .quizQList .noAnswer:before {
   content: '';

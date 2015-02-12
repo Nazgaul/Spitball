@@ -106,10 +106,10 @@
                     <span class="dhText">@SharedResources.Dashboard</span>
                     @*TEMP: OLD SEARCH (2 lines)*@
                     @*@{Html.RenderPartial("_BarSearch");}
-                     <button type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">*@
-                        @*TEMP: UNDO NEW SEARCH*@
-                        @{Html.RenderPartial("_BarActions");}
-                        <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
+                        <button type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">*@
+                    @*TEMP: UNDO NEW SEARCH*@
+                    @{Html.RenderPartial("_BarActions");}
+                    <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
                         @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
                     </button>
                 </div>
