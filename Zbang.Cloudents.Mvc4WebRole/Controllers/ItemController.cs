@@ -16,6 +16,7 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure.Azure.Blob;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -36,6 +37,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class ItemController : BaseController
     {
         private readonly IBlobProvider m_BlobProvider;
+        private readonly ICloudBlockProvider m_CloudBlobProvider; 
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IQueueProvider m_QueueProvider;
         private readonly Lazy<IGuidIdGenerator> m_GuidGenerator;
@@ -44,12 +46,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ItemController(
             IBlobProvider blobProvider,
             IFileProcessorFactory fileProcessorFactory,
-            IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator)
+            IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator, ICloudBlockProvider cloudBlobProvider)
         {
             m_BlobProvider = blobProvider;
             m_FileProcessorFactory = fileProcessorFactory;
             m_QueueProvider = queueProvider;
             m_GuidGenerator = guidGenerator;
+            m_CloudBlobProvider = cloudBlobProvider;
         }
 
 
@@ -197,7 +200,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Redirect(item.Blob);
             }
-            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(
+            await m_QueueProvider.InsertMessageToTranactionAsync(
                    new StatisticsData4(new List<StatisticsData4.StatisticItemData>
                     {
                         new StatisticsData4.StatisticItemData
@@ -207,24 +210,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         }
                     }, userId, DateTime.UtcNow));
 
-            //var blob = m_BlobProvider.GetFile(filedto.Blob);
+            var blob = m_CloudBlobProvider.GetFile(filedto.Blob);
             var contentType = defaultMimeType;
 
-            var t1 = m_BlobProvider.DownloadFileAsync(filedto.Blob);
-            //{
-            //    return new FileContentResult(ms.ConvertToByteArray(), defaultMimeType);
-            //}
-
-            await Task.WhenAll(t1,t2);
-            using (var ms = t1.Result)
+            if (!string.IsNullOrWhiteSpace(blob.Properties.ContentType))
             {
-                return new FileContentResult(ms.ConvertToByteArray(), defaultMimeType);
+                contentType = blob.Properties.ContentType;
             }
-            //if (!string.IsNullOrWhiteSpace(blob.Properties.ContentType))
-            //{
-            //    contentType = blob.Properties.ContentType;
-            //}
-            //return new BlobFileStream(blob, contentType, item.Name, true);
+            return new BlobFileStream(blob, contentType, item.Name, true);
         }
 
         [HttpGet, ZboxAuthorize]

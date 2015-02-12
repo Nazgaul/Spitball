@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     class SeachConnection : IDisposable
     {
         // static holder for instance, need to use lambda to construct since constructor private
-// ReSharper disable once InconsistentNaming
+        // ReSharper disable once InconsistentNaming
         private static readonly Lazy<SeachConnection> _instance
             = new Lazy<SeachConnection>(() => new SeachConnection());
 
@@ -88,7 +88,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 return default(T);
             }
-            b = Convert.ChangeType(b, typeof (T));
+           
+            b = Convert.ChangeType(b, typeof(T));
             return (T)b;
         }
     }

@@ -38,6 +38,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         private const string CourseField = "course";
         private const string UrlField = "url";
         private const string UniversityidField = "universityid";
+        private const string UniversityidField2 = "universityid2";
         private const string UseridsField = "userids";
         private const string PrivacySettingsField = "PrivacySettings";
 
@@ -61,6 +62,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     .IsRetrievable())
                 .WithField(UniversityidField, "Edm.Int64", f => f
                     .IsFilterable())
+                .WithStringField(UniversityidField2, f => f
+                    .IsFilterable())
                 .WithStringCollectionField(UseridsField, f => f
                     .IsFilterable())
                 .WithIntegerField(PrivacySettingsField, f => f.IsFilterable());
@@ -83,6 +86,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     .WithProperty(CourseField, s.CourseCode)
                     .WithProperty(UrlField, s.Url)
                     .WithProperty(UniversityidField, s.UniversityId)
+                    .WithProperty(UniversityidField2, s.UniversityId.ToString(CultureInfo.InvariantCulture))
                     .WithProperty(PrivacySettingsField, (int)s.PrivacySettings)
                     .WithProperty(UseridsField, s.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)))));
             }
@@ -113,10 +117,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetBoxIndex());
             }
+            else
+            {
+                await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(GetBoxIndex());
+            }
             m_CheckIndexExists = true;
         }
 
-        public async Task<IEnumerable<SearchBoxes>> SearchBox(BoxSearchQuery query)
+        public async Task<IEnumerable<SearchBoxes>> SearchBox(Zbang.Zbox.ViewModel.Queries.Search.SearchQuery query)
         {
 
             if (string.IsNullOrEmpty(query.Term))
@@ -125,7 +133,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             }
 
             var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
-                new SearchQuery(query.Term + "*")
+                new RedDog.Search.Model.SearchQuery(query.Term + "*")
                 {
                     Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityidField, UseridsField, query.UniversityId, query.UserId),
                     Top = query.RowsPerPage,
@@ -158,6 +166,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
     public interface IBoxReadSearchProvider
     {
-        Task<IEnumerable<SearchBoxes>> SearchBox(BoxSearchQuery query);
+        Task<IEnumerable<SearchBoxes>> SearchBox(Zbang.Zbox.ViewModel.Queries.Search.SearchQuery query);
     }
 }

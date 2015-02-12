@@ -212,15 +212,9 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        //public Task<NodeDto> GetDepartmentByUser(QueryBase query)
-        //{
-        //    return m_ReadService.GetDepartmentByUser(query);
-        //}
+       
 
-        public Task<IEnumerable<SearchItems>> OtherUniversities(GroupSearchQuery query)
-        {
-            return m_ReadService.OtherUniversities(query);
-        }
+       
 
 
         public Task<IEnumerable<UpdatesDto>> GetUpdates(QueryBase query)
@@ -377,15 +371,5 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetUserDataAsync(query);
         }
-
-
-
-        public Task<IEnumerable<SearchItems>> SearchItems(GroupSearchQuery query)
-        {
-            return m_ReadService.SearchItems(query);
-        }
-
-
-
     }
 }

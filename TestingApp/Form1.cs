@@ -35,6 +35,9 @@ namespace TestingApp
             Zbang.Zbox.Infrastructure.Mail.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
+
+            var ioc = IocFactory.Unity;
+            ioc.Build();
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -73,7 +76,7 @@ namespace TestingApp
             var read = iocFactory.Resolve<IBoxReadSearchProvider>();//(new IocParameterOverride("shouldUseProduction", true));
             var sw = new Stopwatch();
             sw.Start();
-            var retVal = await read.SearchBox(new BoxSearchQuery(textBox1.Text, Convert.ToInt64(textBoxUserId.Text),
+            var retVal = await read.SearchBox(new SearchQuery(textBox1.Text, Convert.ToInt64(textBoxUserId.Text),
                 Convert.ToInt64(textBoxUniversityName.Text)));
             sw.Stop();
             textBox2.Text = string.Empty;
@@ -120,7 +123,28 @@ namespace TestingApp
             var read = iocFactory.Resolve<IItemReadSearchProvider>();
             var sw = new Stopwatch();
             sw.Start();
-            var retVal = await read.SearchItem(new ItemSearchQuery(textBox1.Text, Convert.ToInt64(textBoxUserId.Text),
+            var retVal = await read.SearchItem(new SearchQuery(textBox1.Text, Convert.ToInt64(textBoxUserId.Text),
+                Convert.ToInt64(textBoxUniversityName.Text)));
+            sw.Stop();
+            textBox2.Text = string.Empty;
+            textBox2.Text = "took " + sw.ElapsedMilliseconds + "\r\n";
+            if (retVal != null)
+            {
+                foreach (var item in retVal)
+                {
+                    textBox2.Text += string.Format("id: {0} name: {1} ", item.Id, item.Name);
+                    textBox2.Text += "\r\n";
+                }
+            }
+        }
+
+        private async void button7_Click(object sender, EventArgs e)
+        {
+            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
+            var read = iocFactory.Resolve<IQuizReadSearchProvider>();
+            var sw = new Stopwatch();
+            sw.Start();
+            var retVal = await read.SearchQuiz(new SearchQuery(textBox1.Text, Convert.ToInt64(textBoxUserId.Text),
                 Convert.ToInt64(textBoxUniversityName.Text)));
             sw.Stop();
             textBox2.Text = string.Empty;
