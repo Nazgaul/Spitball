@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="ghost">
-            <div class="newCounter">4</div>
+            <div ng-if="::box.numOfUpdates > 0" class="newCounter">{{::box.numOfUpdates}}</div>
             <div class="vCentered" data-box-letter="{{::box.name[0]}}">
                 <h3 class="elps">{{::box.name}}</h3>
                 <div class="courseId elps">{{::box.courseCode}}</div>
