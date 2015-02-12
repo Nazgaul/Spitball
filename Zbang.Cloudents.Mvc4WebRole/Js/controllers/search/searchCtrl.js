@@ -118,9 +118,9 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
         $scope.data.items = _.union($scope.data.items, data.items);
 
         $scope.dislpaySettings = {
-            boxes: $scope.data.boxes.length,
-            quizzes: $scope.data.quizzes.length,
-            items: $scope.data.items.length
+            boxes: $scope.data.boxes.length > 0,
+            quizzes: $scope.data.quizzes.length > 0,
+            items: $scope.data.items.length > 0
         };
 
         searchHistory.setData($scope.data);
