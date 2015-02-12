@@ -92,5 +92,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             b = Convert.ChangeType(b, typeof(T));
             return (T)b;
         }
+
+        
     }
 }

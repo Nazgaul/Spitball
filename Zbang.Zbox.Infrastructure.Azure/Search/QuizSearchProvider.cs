@@ -151,7 +151,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 return null;
             }
-
+            
             var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
                 new RedDog.Search.Model.SearchQuery(query.Term + "*")
                 {
@@ -165,7 +165,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     ScoringParameters = new[] { "university:" + query.UniversityId },
                     Top = query.RowsPerPage,
                     Skip = query.RowsPerPage * query.PageNumber,
-                    Highlight = QuestionsField + "," + NameField + "," + AnswersField
+                    Highlight = QuestionsField + "," + NameField + "," + AnswersField,
+                    
                 });
 
 

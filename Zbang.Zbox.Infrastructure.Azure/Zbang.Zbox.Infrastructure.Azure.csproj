@@ -118,6 +118,7 @@
     </Compile>
     <Compile Include="Queue\IQueueProviderExtract.cs" />
     <Compile Include="Queue\QueueProvider.cs" />
+    <Compile Include="Search\FilterProvider.cs" />
     <Compile Include="Search\BoxSearchProvider.cs" />
     <Compile Include="Search\ItemSearchProvider.cs" />
     <Compile Include="Search\IUniversityReadSearchProvider.cs" />

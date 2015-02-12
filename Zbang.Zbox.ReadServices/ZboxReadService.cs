@@ -10,16 +10,15 @@ using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.Query;
 using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.Library;
-using Zbang.Zbox.ViewModel.Dto.Search;
 using Zbang.Zbox.ViewModel.Dto.Store;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
-using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.ViewModel.Queries.User;
 using Activity = Zbang.Zbox.ViewModel.Dto.ActivityDtos;
 using Box = Zbang.Zbox.ViewModel.Dto.BoxDtos;
@@ -31,7 +30,7 @@ using Sql = Zbang.Zbox.ViewModel.SqlQueries;
 
 namespace Zbang.Zbox.ReadServices
 {
-    public class ZboxReadService : BaseReadService, IZboxReadService
+    public class ZboxReadService : BaseReadService, IZboxReadService, IUniversityWithCode
     {
 
 
@@ -173,7 +172,7 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        
+
 
         public async Task<Box.BoxDto2> GetBox2(GetBoxQuery query)
         {
@@ -329,8 +328,8 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
-               return await con.QueryAsync<Box.RecommendBoxDto>(Sql.Box.RecommendedCourses,
-                   new {query.BoxId, query.UserId});
+                return await con.QueryAsync<Box.RecommendBoxDto>(Sql.Box.RecommendedCourses,
+                    new { query.BoxId, query.UserId });
             }
         }
         public async Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoard(GetLeaderBoardQuery query)
@@ -917,5 +916,14 @@ namespace Zbang.Zbox.ReadServices
         #endregion
 
 
+
+        public async Task<IEnumerable<long>> GetUniversityWithCode()
+        {
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+            {
+                const string sql = "select id from zbox.university where needcode = 1";
+                return await conn.QueryAsync<long>(sql);
+            }
+        }
     }
 }
