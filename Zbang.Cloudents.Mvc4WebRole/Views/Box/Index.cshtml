@@ -3,9 +3,9 @@
 
 
 @*TEMP: UNDO NEW SEARCH*@
-<div class="searchInputWpr searchBox" ng-class="{open: params.isOpen}">
-        @{Html.RenderPartial("_BarSearch");}
-    </div>
+<div class="searchInputWpr searchBox" ng-click="$root.toggleSearch()">
+    @{Html.RenderPartial("_BarSearch");}
+</div>
 <div id="box" class="page boxPage" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
     <header class="siteHeader headerBox">
         <a class="siteLogo lFloat" href="@Url.Action("Index", "Dashboard")">

@@ -122,6 +122,7 @@
     <Compile Include="Search\ItemSearchProvider.cs" />
     <Compile Include="Search\IUniversityReadSearchProvider.cs" />
     <Compile Include="Search\IUniversityWriteSearchProvider.cs" />
+    <Compile Include="Search\QuizSearchProvider.cs" />
     <Compile Include="Search\SeachConnection.cs" />
     <Compile Include="Search\SearchIndex.cs" />
     <Compile Include="Search\SearchUniversity.cs" />
