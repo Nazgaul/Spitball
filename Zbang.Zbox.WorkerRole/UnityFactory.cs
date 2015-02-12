@@ -46,6 +46,7 @@ namespace Zbang.Zbox.WorkerRole
 
             //Unity = new UnityContainer();
             RegisterTypes();
+            Unity.Build();
             Unity.Resolve<IBlobProvider>();
         }
 

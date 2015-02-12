@@ -19,16 +19,18 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private readonly IBoxWriteSearchProvider m_BoxSearchProvider;
         private readonly IItemWriteSearchProvider m_ItemSearchProvider;
         private readonly IZboxWriteService m_ZboxWriteService;
+        private readonly IQuizWriteSearchProvider m_QuizSearchProvider;
 
         public UpdateSearch(IZboxReadServiceWorkerRole zboxReadService,
             IUniversityWriteSearchProvider2 zboxWriteSearchProvider,
-            IZboxWriteService zboxWriteService, IBoxWriteSearchProvider boxSearchProvider, IItemWriteSearchProvider itemSearchProvider)
+            IZboxWriteService zboxWriteService, IBoxWriteSearchProvider boxSearchProvider, IItemWriteSearchProvider itemSearchProvider, IQuizWriteSearchProvider quizSearchProvider)
         {
             m_ZboxReadService = zboxReadService;
             m_UniversitySearchProvider = zboxWriteSearchProvider;
             m_ZboxWriteService = zboxWriteService;
             m_BoxSearchProvider = boxSearchProvider;
             m_ItemSearchProvider = itemSearchProvider;
+            m_QuizSearchProvider = quizSearchProvider;
         }
 
         public void Run()
@@ -42,15 +44,33 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private async Task ExecuteAsync()
         {
-
+            var quizUpdate = await UpdateQuiz();
             var itemUpdate = await UpdateItem();
             var universityUpdate = await UpdateUniversity();
             var boxUpdate = await UpdateBox();
-            if (itemUpdate || boxUpdate || universityUpdate)
+            if (itemUpdate || boxUpdate || universityUpdate || quizUpdate)
             {
                 return;
             }
             await Task.Delay(TimeSpan.FromMinutes(1));
+        }
+
+        private async Task<bool> UpdateQuiz()
+        {
+            var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync();
+            if (updates.QuizzesToUpdate.Any() || updates.QuizzesToDelete.Any())
+            {
+                var isSuccess =
+                    await m_QuizSearchProvider.UpdateData(updates.QuizzesToUpdate, updates.QuizzesToDelete);
+                if (isSuccess)
+                {
+                    //await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
+                    //    new UpdateDirtyToRegularCommand(
+                    //        updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));
+                }
+            }
+            return updates.QuizzesToUpdate.Count() == NumberToReSyncWithoutWait
+              || updates.QuizzesToDelete.Count() == NumberToReSyncWithoutWait;
         }
 
         private async Task<bool> UpdateItem()
