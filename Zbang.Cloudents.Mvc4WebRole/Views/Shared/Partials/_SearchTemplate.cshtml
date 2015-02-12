@@ -9,15 +9,15 @@
 </script>
 
 <script type="text/ng-template" id="quizHeaderSearch">
-    <a class="searchLink" href="#">
+    <a class="searchLink" ng-href="{{::quiz.url}}">
         <div class="vCentered">
-            <h3 class="elps" ng-bind-html="::quiz.name">Name of quiz</h3>
-            <div class="elps">By: <span>author name here</span></div>
-            <div class="content">Quiz content goes here. A maximum of 2 lines of content is displayed here</div>
+            <h3 class="elps">{{::quiz.name}}</h3>
+            <div class="elps">{{::quiz.uniName}}</div>
+            <div class="content" ng-bind-html="::quiz.content"></div>
         </div>
         <div class="searchImg" data-letter="{{::quiz.name[0]}}">
             @Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })
-            <div class="elps boxName">Box name to go here</div>
+            <div class="elps boxName">{{::quiz.boxname}}</div>
             <time>19.08.09</time>
         </div>
     </a>
