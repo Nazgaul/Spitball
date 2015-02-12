@@ -626,6 +626,17 @@
                 right: 14px; //rtl
                 top: 2px;
             }
+            [data-letter] {
+                &:first-child {
+                    display: inline-block;
+                }
+                &:before {
+                    width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                    margin-top: 4px;
+                }
+            }
         }
         &:before {
             content: counter(leaderBoard) ".";
@@ -642,8 +653,6 @@
         display: none;
         vertical-align: middle;
         &:before {
-            width: 50px;
-            height: 50px;
             border: 1px solid #c2c2c2;
             position: static;
             background: #eee;
