@@ -3,11 +3,12 @@
 ['$scope',
 '$location',
 '$analytics',
+'$timeout',
 'sSearch',
 '$rootScope',
 'searchHistory',
 'sFocus',
-function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory, sFocus) {
+function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHistory, sFocus) {
     "use strict";
 
     var analyticsCategory = 'Search';
@@ -26,7 +27,7 @@ function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory, sFo
 
     if (searchHistory.checkData()) {
         $scope.formData.query = searchHistory.getQuery();
-        $scope.$broadcast('search:select');
+        $timeout(function () { $scope.$broadcast('search:select') });
         $scope.data = searchHistory.getData();
         $scope.params.currentPage = searchHistory.getPage();
     }
