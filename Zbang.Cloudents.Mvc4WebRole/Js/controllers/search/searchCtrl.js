@@ -61,9 +61,7 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
         $scope.params.loading = true;
 
         var query = $scope.formData.query;
-
-        
-
+       
         searchHistory.setQuery(query);
 
 
@@ -75,6 +73,13 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
 
         if ($scope.params.currentPage === 0) {
             $analytics.searchTrack($location.$$path.replace(/\//g, ''), query, 'search page');
+        } else {
+
+            $analytics.eventTrack('Show more', {
+                category: 'Search',
+                label: 'User scrolled to page ' + $scope.params.currentPage
+
+            });
         }
 
         sSearch.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (data) {

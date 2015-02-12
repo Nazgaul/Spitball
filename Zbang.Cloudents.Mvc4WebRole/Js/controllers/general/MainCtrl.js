@@ -40,7 +40,21 @@
 
             $rootScope.toggleSearch = function () {
                 $rootScope.openSearch = !$rootScope.openSearch;
-                $location.search('search', $rootScope.openSearch ? true : null);
+                var queryValue,
+                    trackValue;
+
+                if ($rootScope.openSearch) {
+                    queryValue = true;
+                    trackValue = 'Open'
+                } else {
+                    queryValue = null;
+                    trackValue = 'Close';
+                }
+
+                $location.search('search', queryValue);
+                $analytics.eventTrack(trackValue, {
+                    category: 'Search'
+                });
             };
            
 

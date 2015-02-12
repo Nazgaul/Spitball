@@ -449,6 +449,7 @@
 
 
             $location.search('search', null);
+            $location.search('Search', null);
 
             sVerChecker.checkVersion();
             version = sVerChecker.currentVersion();
