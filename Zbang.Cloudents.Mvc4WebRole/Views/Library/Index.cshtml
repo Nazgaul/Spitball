@@ -4,9 +4,7 @@
 @using System.Threading
 
 @*TEMP: UNDO NEW SEARCH*@
-<div class="searchInputWpr searchLib">
-    @{Html.RenderPartial("_BarSearch");}
-</div>
+<div class="searchInputWpr searchLib" ng-click="$root.toggleSearch()"></div>
 <header class="siteHeader">
     @{Html.RenderPartial("_Header");}
 </header>
