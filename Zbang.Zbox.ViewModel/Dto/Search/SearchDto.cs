@@ -8,7 +8,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Search
         //public IEnumerable<SearchUsers> Users { get; set; }
         public IEnumerable<SearchItems> Items { get; set; }
 
-        public IEnumerable<object> Quizzes { get; set; }
+        public IEnumerable<SearchQuizzes> Quizzes { get; set; }
         //public IEnumerable<SearchItems> OtherItems { get; set; }
     }
 }

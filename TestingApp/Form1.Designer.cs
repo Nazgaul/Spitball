@@ -40,6 +40,7 @@
             this.textBoxUserId = new System.Windows.Forms.TextBox();
             this.textBoxUniversityName = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
+            this.button7 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -154,6 +155,17 @@
             this.textBox6.Size = new System.Drawing.Size(10, 20);
             this.textBox6.TabIndex = 7;
             // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(346, 53);
+            this.button7.Margin = new System.Windows.Forms.Padding(2);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(181, 19);
+            this.button7.TabIndex = 4;
+            this.button7.Text = "Search Quiz";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -165,6 +177,7 @@
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
+            this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBox2);
@@ -193,6 +206,7 @@
         private System.Windows.Forms.TextBox textBoxUserId;
         private System.Windows.Forms.TextBox textBoxUniversityName;
         private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Button button7;
     }
 }
 
