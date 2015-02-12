@@ -624,6 +624,15 @@
   left: 14px;
   top: 2px;
 }
+.bestUserList li:nth-child(n + 4) [data-letter]:first-child {
+  display: inline-block;
+}
+.bestUserList li:nth-child(n + 4) [data-letter]:before {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 4px;
+}
 .bestUserList li:before {
   content: counter(leaderBoard) ".";
   counter-increment: leaderBoard;
@@ -639,8 +648,6 @@
   vertical-align: middle;
 }
 .bestUserList [data-letter]:before {
-  width: 50px;
-  height: 50px;
   border: 1px solid #c2c2c2;
   position: static;
   background: #eee;
