@@ -27,5 +27,6 @@ namespace Zbang.Zbox.ReadServices
         Task<BoxToUpdateSearchDto> GetBoxDirtyUpdates();
 
         Task<ItemToUpdateSearchDto> GetItemDirtyUpdatesAsync();
+        Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync();
     }
 }

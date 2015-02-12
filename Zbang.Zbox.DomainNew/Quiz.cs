@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public class Quiz
+    public class Quiz : IDirty
     {
         protected Quiz()
         {
@@ -96,6 +97,22 @@ namespace Zbang.Zbox.Domain
         {
             Average = average;
             Stdevp = stdevp;
+        }
+
+        public bool IsDirty {get;set;}
+
+        public Func<bool> ShouldMakeDirty
+        {
+            get { return () => true; }
+        }
+
+        public bool IsDeleted {get;set;}
+
+        public void DeleteAssociation()
+        {
+            Questions.Clear();
+            SolvedQuizes.Clear();
+            Updates.Clear();
         }
     }
 }

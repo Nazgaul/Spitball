@@ -9,7 +9,7 @@ using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
-    public class QuizSearchProvider
+    public class QuizSearchProvider : IQuizWriteSearchProvider
     {
         private readonly string m_IndexName = "quiz";
         private bool m_CheckIndexExists;
@@ -51,10 +51,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     .IsSearchable())
                 .WithStringField(BoxNameField, f => f
                     .IsRetrievable())
-                .WithStringField(QuestionsField, f => f
+                .WithStringCollectionField(QuestionsField, f => f
                     .IsRetrievable()
                     .IsSearchable())
-                .WithStringField(AnswersField, f => f
+                .WithStringCollectionField(AnswersField, f => f
                     .IsRetrievable()
                     .IsSearchable())
                 .WithStringField(UrlField, f => f
@@ -65,7 +65,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     .IsFilterable())
                 .WithStringCollectionField(UseridsField, f => f
                     .IsFilterable());
-            
+
             //var universityScoreProfile = new ScoringProfile
             //{
             //    Name = "university"
@@ -94,6 +94,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         {
             if (!m_CheckIndexExists)
             {
+                await SeachConnection.Instance.IndexManagement.DeleteIndexAsync(m_IndexName);
                 await BuildIndex();
             }
             var listOfCommands = new List<IndexOperation>();
@@ -107,8 +108,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                             .WithProperty(NameField, quiz.Name)
                             .WithProperty(BoxNameField, quiz.BoxName)
                             .WithProperty(UniversityNameField, quiz.UniversityName)
-                            .WithProperty(QuestionsField,quiz.Questions)
-                            .WithProperty(AnswersField,quiz.Answers)
+                            .WithProperty(QuestionsField, quiz.Questions)
+                            .WithProperty(AnswersField, quiz.Answers)
                             .WithProperty(UrlField, quiz.Url)
                             .WithProperty(UniversityidField, quiz.UniversityId)
                             .WithProperty(UseridsField,
@@ -135,5 +136,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             }
             return true;
         }
+    }
+
+    public interface IQuizWriteSearchProvider
+    {
+        Task<bool> UpdateData(IEnumerable<QuizSearchDto> quizToUpload, IEnumerable<long> itemToDelete);
     }
 }

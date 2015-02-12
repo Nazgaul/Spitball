@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
@@ -20,5 +16,18 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string Url { get; set; }
         public string UniversityName { get; set; }
 
+    }
+
+    public class QuizQuestionAndAnswersSearchDto
+    {
+        public string Text { get; set; }
+        public long QuizId { get; set; }
+    }
+
+    public class QuizToUpdateSearchDto
+    {
+        public IEnumerable<QuizSearchDto> QuizzesToUpdate { get; set; }
+
+        public IEnumerable<long> QuizzesToDelete { get; set; }
     }
 }

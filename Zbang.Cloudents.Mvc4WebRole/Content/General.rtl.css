@@ -1698,8 +1698,9 @@ select.inputText {
         
     }*/
 }
-[data-box-letter]:before {
-  content: attr(data-box-letter);
+/*#region [data-letter] */
+[data-letter]:before {
+  content: attr(data-letter);
   width: 46px;
   height: 46px;
   line-height: 46px;
@@ -1714,6 +1715,38 @@ select.inputText {
   margin: auto;
   right: 8px;
   font-size: 25px;
+}
+.bestUserList .color1:before,
+.boxFeed .color1:before {
+  color: #00bfa5;
+}
+.bestUserList .color2:before,
+.boxFeed .color2:before {
+  color: #f06292;
+}
+.bestUserList .color3:before,
+.boxFeed .color3:before {
+  color: #b388ff;
+}
+.bestUserList .color4:before,
+.boxFeed .color4:before {
+  color: #ff6e40;
+}
+.bestUserList .color5:before,
+.boxFeed .color5:before {
+  color: #e06055;
+}
+.bestUserList .color6:before,
+.boxFeed .color6:before {
+  color: #8e8e8e;
+}
+.bestUserList .color7:before,
+.boxFeed .color7:before {
+  color: #f9a825;
+}
+.bestUserList .color8:before,
+.boxFeed .color8:before {
+  color: #00c853;
 }
 .color1:before {
   background: #00bfa5;
@@ -1739,6 +1772,7 @@ select.inputText {
 .color8:before {
   background: #00c853;
 }
+/*#endregion */
 .topBar {
   position: fixed;
   z-index: 3;

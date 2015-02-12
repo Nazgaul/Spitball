@@ -35,6 +35,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Ioc
 
             ioc.RegisterType<IItemWriteSearchProvider, ItemSearchProvider>();
             ioc.RegisterType<IItemReadSearchProvider, ItemSearchProvider>();
+
+            ioc.RegisterType<IQuizWriteSearchProvider, QuizSearchProvider>();
+            //ioc.RegisterType<IItemReadSearchProvider, ItemSearchProvider>();
+
             ioc.RegisterType<IdGenerator.IIdGenerator, Blob.IdGenerator>(LifeTimeManager.Singleton);
 
 

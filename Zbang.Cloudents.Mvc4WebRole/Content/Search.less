@@ -288,9 +288,8 @@
 	position: absolute;
 	pointer-events: none;
 	opacity: 0;
-    [data-box-letter]:before {
+    [data-letter]:before {
         left: 13px;
-        background: purple; //TEMP!!!
     }
     .courseId {
         margin-bottom: 5px;
@@ -339,8 +338,8 @@
     }
 }
 .quizList {
-    [data-box-letter]:before {
-        content:attr(data-box-letter);
+    [data-letter]:before {
+        content:attr(data-letter);
         width: 25px;
         height: 25px;
         line-height: 25px;
@@ -348,7 +347,6 @@
         bottom: auto; //override
         left: 0;right:0;
         font-size: 18px;
-        background: orange; //TEMP!!!
     }
     .searchImg {
         font-size: 10px;

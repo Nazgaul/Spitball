@@ -40,7 +40,8 @@
       <key column="QuizId" foreign-key="NewUpdatesQuiz"/>
       <one-to-many class="Updates"/>
     </bag>
-    
+    <property name="IsDeleted"/>
+    <property name="IsDirty" />
 
   </class>
 
@@ -85,7 +86,7 @@
       <key column="AnswerId" foreign-key="AnswerIdSolvedQuestion"/>
       <one-to-many class="SolvedQuestion"/>
     </bag>
-    
+
   </class>
 
   <class name="SolvedQuiz" table="SolvedQuiz">

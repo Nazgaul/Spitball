@@ -584,7 +584,7 @@
                 border-color: #8a8a8a;
                 background: #ccc;
                 overflow: hidden;
-                border-radius: 100%;
+                border-radius: 50%;
             }
             svg {
                 fill: #ccc;
@@ -638,13 +638,26 @@
             background: #eee;
         }
     }
+    [data-letter] {
+        display: none;
+        vertical-align: middle;
+        &:before {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #c2c2c2;
+            position: static;
+            background: #eee;
+        }
+        &:first-child {
+            display: block;
+        }
+    }
     .elps {
         display: inline-block;
         max-width: 160px;
         vertical-align: middle;
     }
     img {
-        
         border: 1px solid @borderColor;
         display: inline-block;
         vertical-align: middle;
@@ -664,25 +677,27 @@
         left: -2px; //rtl
         top: 3px;
     }
-    .top3Img {
-        border: 1px solid @color;
-        display: block;
+    .top3Img, [data-letter] {
+        border: 1px solid transparent;
         margin: 0 auto 8px;
         width: 50px;
         height: 50px;
-        //border-radius: 100%;
+        border-radius: 50%;
     }
-
+    .top3Img {
+        display: block;
+        border: 1px solid @color;
+    }
 }
 
 .secondUser {
-    .top3Img {
+    .top3Img, [data-letter] {
         margin-top: 17px;
     }
 }
 
 .thirdUser {
-    .top3Img {
+    .top3Img, [data-letter] {
         margin-top: 35px;
     }
 }

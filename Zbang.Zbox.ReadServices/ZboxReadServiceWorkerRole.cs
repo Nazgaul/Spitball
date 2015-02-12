@@ -271,5 +271,38 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public async Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync()
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                using (var grid = await conn.QueryMultipleAsync
+                    (Search.GetQuizzesToUploadToSearch +
+                     Search.GetQuizzesQuestionToUploadToSearch +
+                     Search.GetQuizzesAnswersToUploadToSearch +
+                     Search.GetQuizzesUsersToUploadToSearch +
+                     Search.GetQuizzesToDeleteFromSearch
+                    ))
+                {
+                    var retVal = new QuizToUpdateSearchDto
+                    {
+                        QuizzesToUpdate = await grid.ReadAsync<QuizSearchDto>()
+                    };
+                    var questions = grid.Read<QuizQuestionAndAnswersSearchDto>().ToList();
+                    var answers = grid.Read<QuizQuestionAndAnswersSearchDto>().ToList();
+                    var usersInQuizzes = grid.Read<UsersInBoxSearchDto>().ToList();
+
+                    foreach (var quiz in retVal.QuizzesToUpdate)
+                    {
+                        long quizId = quiz.Id;
+                        var boxId = quiz.BoxId;
+                        quiz.Questions = questions.Where(w => w.QuizId == quizId).Select(s => s.Text);
+                        quiz.Answers = answers.Where(w => w.QuizId == quizId).Select(s => s.Text);
+                        quiz.UserIds = usersInQuizzes.Where(w => w.BoxId == boxId).Select(s => s.UserId);
+                    }
+                    return retVal;
+                }
+            }
+        }
+
     }
 }

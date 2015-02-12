@@ -3,14 +3,6 @@
     public static class Search
     {
 
-//        public const string Users = @"select  u.UserImageLarge as image,u.UserName as name, u.UserId as id, u.Url as url
-//from zbox.users u
-//where u.UniversityId = @universityId
-//and u.username like '%' +@query + '%'
-//order by len(u.username) - len(REPLACE(u.username,@query,'')) / len(@query) asc
-//offset @pageNumber*@rowsperpage rows
-//fetch next @rowsperpage rows only;";
-
         public const string Items = @"select 
 i.thumbnailurl as image,
 i.Name as name,
@@ -110,7 +102,58 @@ select top 500 i.boxid  from zbox.item i  join zbox.box b on i.BoxId = b.BoxId
   and i.isdeleted = 0 
   and i.discriminator = 'File'
   order by i.ItemId)";
+
+        public const string GetQuizzesUsersToUploadToSearch =
+            @"  select UserId,BoxId from zbox.UserBoxRel where boxId in (
+	select top 500 q.BoxId
+	from zbox.quiz q 
+	where publish = 1
+	and q.isdeleted = 0
+	and q.isdirty = 1
+	order by Id);";
+
+        public const string GetQuizzesToUploadToSearch = @"select top 500 q.Id,
+q.Name,
+ b.BoxName,
+ q.BoxId,
+ q.Url,
+ u.UniversityName as universityName,
+ u.id as universityid
+from zbox.quiz q 
+join zbox.Box b on q.BoxId = b.BoxId
+left join zbox.University u on b.University = u.id
+where publish = 1
+and q.isdeleted = 0
+and q.isdirty = 1
+order by Id;";
+
+
+        public const string GetQuizzesQuestionToUploadToSearch =
+            @"select text, QuizId  from zbox.QuizQuestion where QuizId in (
+select top 500 q.Id
+from zbox.quiz q 
+where publish = 1
+and q.isdeleted = 0
+and q.isdirty = 1
+order by Id);";
+
+
+        public const string GetQuizzesAnswersToUploadToSearch =
+            @"select text,QuizId from zbox.QuizAnswer where QuizId in (
+select top 500 q.Id
+from zbox.quiz q 
+where publish = 1
+and q.isdeleted = 0
+and q.isdirty = 1
+order by Id);";
+
+        public const string GetQuizzesToDeleteFromSearch = @"
+        select top 500 id as id from zbox.Quiz
+        where isdirty = 1 and isdeleted = 1;";
+
     }
 
-    
+
+
+
 }
