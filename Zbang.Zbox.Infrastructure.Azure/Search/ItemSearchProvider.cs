@@ -47,7 +47,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         private const string UrlField = "url";
         private const string UniversityNameField = "universityname";
         private const string UniversityidField = "unidersityid";
-        private const string BoxidField = "boxid";
+        //private const string BoxidField = "boxid";
         private const string UseridsField = "userids";
 
         private Index GetIndexStructure()
@@ -77,8 +77,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     .IsRetrievable())
                 .WithField(UniversityidField, "Edm.Int64", f => f
                     .IsFilterable())
-                .WithField(BoxidField, "Edm.Int64", f => f
-                    .IsFilterable())
+                //.WithField(BoxidField, "Edm.Int64", f => f
+                //    .IsFilterable())
                 .WithStringCollectionField(UseridsField, f => f
                     .IsFilterable());
         }
@@ -166,7 +166,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                             .WithProperty(ContentField, content)
                             .WithProperty(UrlField, item.Url)
                             .WithProperty(UniversityidField, item.UniversityId)
-                            .WithProperty(BoxidField, item.BoxId)
+                            //.WithProperty(BoxidField, item.BoxId)
                             .WithProperty(UseridsField,
                                 item.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture))));
                 }
