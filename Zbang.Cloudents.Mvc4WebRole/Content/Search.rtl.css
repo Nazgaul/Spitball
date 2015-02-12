@@ -270,7 +270,17 @@
 .search-content .courseId {
   margin-bottom: 5px;
 }
+.search-content.boxes .column.boxes {
+  display: block;
+}
+.search-content.quizzes .column.quizzes {
+  display: block;
+}
+.search-content.items .column.items {
+  display: block;
+}
 .column {
+  display: none;
   width: 30%;
   padding: 0 0 6em;
   opacity: 0;

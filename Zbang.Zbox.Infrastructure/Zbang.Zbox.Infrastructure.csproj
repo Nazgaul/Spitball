@@ -161,6 +161,7 @@
     <Compile Include="Profile\ProfilePictureProvider.cs" />
     <Compile Include="Query\IComposite.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Query\IUniversityWithCode.cs" />
     <Compile Include="RegisterIoc.cs" />
     <Compile Include="Repositories\IDirty.cs" />
     <Compile Include="Repositories\ISoftDeletable.cs" />
