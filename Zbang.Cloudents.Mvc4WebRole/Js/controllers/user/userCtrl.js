@@ -260,15 +260,6 @@ mUser.controller('UserCtrl',
                 $scope.boxes.showAll = false;
                 $scope.boxes.common.limit = userConstants.boxes.common.init;
                 $scope.boxes.following.limit = userConstants.boxes.following.init;
-            },
-            followBox: function (box) {
-                $analytics.eventTrack('User Boxes Follow Box', {
-                    category: analyticsCategory
-                });
-
-                sBox.follow({ boxId: box.id }).then(function () {
-                    $location.path(box.url);
-                });
             }
         }
         //#endregion
