@@ -171,8 +171,7 @@ function ($scope, $rootScope, $timeout, sAccount, sUserDetails, sModal, sDashboa
 
     function mapBoxes(boxes) {
         var academic = [], group = [];
-        for (var i = 0, l = boxes.length; i < l; i++) {
-            boxes[i].boxPicture = boxes[i].boxPicture || '/images/emptyState/my_default3.png';
+        for (var i = 0, l = boxes.length; i < l; i++) {            
             if (boxes[i].boxType === 'academic') {
                 academic.push(boxes[i]);
             } else {
@@ -180,7 +179,7 @@ function ($scope, $rootScope, $timeout, sAccount, sUserDetails, sModal, sDashboa
             }
             //show box updates                
             (function (box) {
-                sNewUpdates.getBoxUpdates(boxes[i].id, function (count) {
+                sNewUpdates.getBoxUpdates(box.id, function (count) {
                     box.numOfUpdates = count;
 
                 });

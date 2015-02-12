@@ -4,7 +4,7 @@
       "use strict";
       return {
           restrict: "A",
-          link: function () {
+          link: function (scope,element,attrs) {
               var scrolled, scrolledBottom, $win = angular.element($window), $doc = angular.element(document);
 
               if (sUserDetails.isAuthenticated()) {

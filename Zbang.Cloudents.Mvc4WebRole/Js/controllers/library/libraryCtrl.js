@@ -1,7 +1,7 @@
 ﻿var mLibrary = angular.module('mLibrary', []).
     controller('LibraryCtrl',
-    ['$scope', '$location', 'resManager', '$routeParams', '$timeout', 'sModal', 'sUserDetails', 'sFacebook', 'sLibrary', 'sBox', '$rootScope', '$analytics', 'sNotify', 'sAccount',
-function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDetails, sFacebook, sLibrary, sBox, $rootScope, $analytics, sNotify, sAccount) {
+    ['$scope', '$location', 'resManager', '$routeParams', '$timeout', 'sModal', 'sUserDetails', 'sFacebook', 'sLibrary', 'sBox', '$rootScope', '$analytics', 'sNotify', 'sAccount','sNewUpdates',
+function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDetails, sFacebook, sLibrary, sBox, $rootScope, $analytics, sNotify, sAccount, sNewUpdates) {
     "use strict";
     var types = {
         box: 'box',
@@ -36,6 +36,16 @@ function ($scope, $location, resManager, $routeParams, $timeout, sModal, sUserDe
             $scope.info.type = types.department;
         }
         else if (data.boxes && data.boxes.length) {
+            for (var i = 0, l = data.boxes.length; i < l; i++) {
+                //show box updates
+                (function (box) {
+                    sNewUpdates.getBoxUpdates(box.id, function (count) {
+                        box.numOfUpdates = count;
+
+                    });
+                })(data.boxes[i]);
+            }
+
             pageData = data.boxes;
             $scope.info.type = types.box;
         } else {
