@@ -265,7 +265,6 @@ namespace Zbang.Zbox.Domain
             Comments.Clear();
             ItemTabs.Clear();
             Updates.Clear();
-            Quizzes.Clear();
         }
 
         public virtual void UnFollowBox(long userId)

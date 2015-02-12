@@ -3,30 +3,31 @@
 ['$scope',
 '$location',
 '$analytics',
+'$timeout',
 'sSearch',
 '$rootScope',
 'searchHistory',
-function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
+'sFocus',
+function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHistory, sFocus) {
     "use strict";
 
     var analyticsCategory = 'Search';
 
     $scope.formData = {};
-
     $scope.params = {
         currentPage: 0,
         loading: false,
         lastPage: false
     };
 
-    $scope.data = {
-        boxes: [],
-        quizzes: [],
-        items: []
-    };
+
+    resetDisplaySettings();
+    resetData();
+    sFocus('search:open');
 
     if (searchHistory.checkData()) {
         $scope.formData.query = searchHistory.getQuery();
+        $timeout(function () { $scope.$broadcast('search:select') });
         $scope.data = searchHistory.getData();
         $scope.params.currentPage = searchHistory.getPage();
     }
@@ -37,13 +38,12 @@ function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
             return;
         }
 
-        $scope.params.noResults = false;
         $scope.params.currentPage = 0;
-        $scope.data = {
-            boxes: [],
-            quizzes: [],
-            items: []
-        };
+
+        resetDisplaySettings();
+
+        resetData();
+
         searchHistory.clearData();
 
         search(appendFirstPage);
@@ -84,7 +84,9 @@ function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
     }
     function appendFirstPage(data) {
         if (checkEmptyResult(data)) {
-            $scope.params.noResults = true;
+            $scope.displaySettings = {
+                noResults: true
+            };
         }
         searchHistory.setData($scope.data);
         appendData(data);
@@ -112,6 +114,22 @@ function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
         }
 
         return false;
+    }
+
+    function resetData() {
+        $scope.data = {
+            boxes: [],
+            quizzes: [],
+            items: []
+        };
+    }
+
+    function resetDisplaySettings() {
+        $scope.displaySettings = {
+            boxes: true,
+            quizzes: true,
+            items: true
+        };
     }
 
 }]

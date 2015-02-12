@@ -2,12 +2,12 @@
 
 <form name="newSearch" novalidate>
     <input autocomplete="off" class="dashLibSearchInput" ng-placeholder="@SharedResources.Search" ng-change=search() ng-model-options="{debounce : 200}"
-           type="search" name="query" ng-model="formData.query" />
+           type="search" name="query" ng-model="formData.query" ng-minlength="2" focus-on="search:open" auto-select />
     <button class="searchBtn" type="submit">        
         @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search" })
     </button>
 </form>
-<div class="search-content" ng-class="{ noResults : params.noResults }" show-more on-scroll="search(true)">
+<div class="search-content" ng-class="displaySettings" show-more on-scroll="search(true)">
     <section class="column lFloat">
         <h2>@SharedResources.Items</h2>
         <ul class="itemList">

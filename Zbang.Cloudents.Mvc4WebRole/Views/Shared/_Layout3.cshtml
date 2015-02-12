@@ -195,8 +195,10 @@
         }
         </script>*@
 
-    @{Html.RenderPartial("_DashLibItem");}
-    @{Html.RenderPartial("_SearchTemplate");}
+    @{
+        Html.RenderPartial("_DashLibItem");
+        Html.RenderPartial("_SearchTemplate");
+    }
     @RenderSection("scripts", false)
 
 </body>
