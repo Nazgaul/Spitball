@@ -11,6 +11,8 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string Content { get; set; }
 
         public string Url { get; set; }
+        public string UniversityName { get; set; }
+        public string BoxName { get; set; }
 
         public long? UniversityId { get; set; }
 

@@ -92,11 +92,11 @@
             </li>
         </ul>
     </div>
- 
+
     <div ng-if="$root.openSearch" class="searchPopup" ng-controller="SearchCtrl">
         @{Html.RenderPartial("_BarSearch");}
     </div>
-    
+
     @RenderSection("templates", false)
     @*DO NOT REMOVE THIS AT ALL TIME*@
     <div id="cssCheck"></div>
@@ -159,44 +159,46 @@
 
     @*Previous search version*@
     @*<script type="text/ng-template" id="boxHeaderSearch0">
-        <a ng-href="{{::box.url}}" class="searchLink ghost">
-            <img class="imgBorder" height="66" ng-src="{{::box.image | defaultImage:'box'}}" alt="">
-            <div class="vCentered">
-                <h3 class="elps" ng-bind-html="::box.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></h3>
-                <div>
-                    <span class="searchDetail" ng-style="::{allDetails: box.proffessor && box.courseCode}" ng-bind-html="::box.proffessor | highlight:formData.query:false" dir="{{::params.textDirection}}"></span>
-                    <span class="searchDetail" ng-bind-html="::box.courseCode | highlight:formData.query:false"></span>
+            <a ng-href="{{::box.url}}" class="searchLink ghost">
+                <img class="imgBorder" height="66" ng-src="{{::box.image | defaultImage:'box'}}" alt="">
+                <div class="vCentered">
+                    <h3 class="elps" ng-bind-html="::box.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></h3>
+                    <div>
+                        <span class="searchDetail" ng-style="::{allDetails: box.proffessor && box.courseCode}" ng-bind-html="::box.proffessor | highlight:formData.query:false" dir="{{::params.textDirection}}"></span>
+                        <span class="searchDetail" ng-bind-html="::box.courseCode | highlight:formData.query:false"></span>
+                    </div>
                 </div>
-            </div>
-        </a>
-    </script>*@
-  
+            </a>
+        </script>*@
+
     @*Previous search version*@
     @*<script type="text/ng-template" id="itemHeaderSearch0">
-        <a ng-href="{{::item.url}}" class="searchLink ghost">
-            <div class="otherUni semiFont" ng-if="::item.universityName">{{::item.universityName}}</div>
-            <img class="imgBorder" height="66" ng-src="{{::item.image}}" alt="">
-            <div class="vCentered">
-                <h3 class="elps" ng-bind-html="::item.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></h3>
-                <div class="boxLoc searchDetail" data-search-in="@SharedResources.In">{{::item.boxname}}</div>
-            </div>
-        </a>
-    </script>*@
-        @*<script>
-            //check for iframe
-            try {
-                if (window.self !== window.top) {
-                    window.iframe = true;
-                    window.location.href = '/home/iframe/';
-                }
-            } catch (ex) {
-                window.location.href = '/home/iframe/';
+            <a ng-href="{{::item.url}}" class="searchLink ghost">
+                <div class="otherUni semiFont" ng-if="::item.universityName">{{::item.universityName}}</div>
+                <img class="imgBorder" height="66" ng-src="{{::item.image}}" alt="">
+                <div class="vCentered">
+                    <h3 class="elps" ng-bind-html="::item.name | highlight:formData.query:false" dir="{{::params.textDirection}}"></h3>
+                    <div class="boxLoc searchDetail" data-search-in="@SharedResources.In">{{::item.boxname}}</div>
+                </div>
+            </a>
+        </script>*@
+    @*<script>
+        //check for iframe
+        try {
+            if (window.self !== window.top) {
                 window.iframe = true;
+                window.location.href = '/home/iframe/';
             }
-            </script>*@
+        } catch (ex) {
+            window.location.href = '/home/iframe/';
+            window.iframe = true;
+        }
+        </script>*@
 
-    @{Html.RenderPartial("_DashLibItem");}
-    @{Html.RenderPartial("_SearchTemplate");}
+    @{
+        Html.RenderPartial("_DashLibItem");
+        Html.RenderPartial("_SearchTemplate");
+    }
     @RenderSection("scripts", false)
 
 </body>

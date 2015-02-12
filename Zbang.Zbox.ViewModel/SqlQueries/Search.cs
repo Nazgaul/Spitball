@@ -91,11 +91,13 @@ select top 500 b.boxid  from zbox.box b
   i.blobName as blobName,
   i.Url as url,
   u.id as universityid,
+  b.BoxName as boxname,
+  u.UniversityName as universityName,
   b.BoxId as boxid
    from zbox.item i 
    join zbox.box b on i.BoxId = b.BoxId
    left join zbox.University u on b.University = u.id
-   where i.isdirty =1 
+   where i.isdirty = 1 
    and i.IsDeleted = 0
    and i.discriminator = 'File'
     order by i.ItemId";
