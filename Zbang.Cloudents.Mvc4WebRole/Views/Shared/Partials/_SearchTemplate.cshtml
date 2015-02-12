@@ -28,7 +28,7 @@
         <div class="vCentered">
             <h3 class="elps" ng-bind-html="::item.name"></h3>
             <div class="elps">By: <span>author name here</span></div>
-            <div class="content">Item content goes here. A maximum of 2 lines of content is displayed here</div>
+            <div class="content" ng-bind-html="::item.content"></div>
         </div>
         <img class="searchImg" width="63" height="88" ng-src="{{::item.image}}" alt="" />
     </a>
