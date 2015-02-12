@@ -106,7 +106,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     {
                         return itemToUpload.Content;
                     }
-                   
+
                     var x = new Regex("%.");
                     if (x.IsMatch(retVal, retVal.Length - 2))
                     {
@@ -166,11 +166,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                             .WithProperty(ContentField, content)
                             .WithProperty(UrlField, item.Url)
                             .WithProperty(UniversityidField, item.UniversityId)
-                            //.WithProperty(BoxidField, item.BoxId)
+                        //.WithProperty(BoxidField, item.BoxId)
                             .WithProperty(UseridsField,
                                 item.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture))));
                 }
-               
+
             }
             if (itemToDelete != null)
             {
@@ -202,14 +202,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
                 new SearchQuery(query.Term + "*")
                 {
-                    Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", 
-                        UniversityidField, 
+                    Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')",
+                        UniversityidField,
                         UseridsField,
                         query.UniversityId,
                         query.UserId),
                     Top = query.RowsPerPage,
                     Skip = query.RowsPerPage * query.PageNumber,
-                    Highlight =  ContentField + "," + NameField
+                    Highlight = ContentField + "," + NameField
                 });
 
 
@@ -217,11 +217,21 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 return searchResult.Body.Records.Select(s =>
                 {
+                    string content = String.Empty;
+                    if (s.Highlights.ContainsKey(ContentField))
+                    {
+                        content = String.Join("...", s.Highlights[ContentField]);
+                    }
+                    else
+                    {
+                        SeachConnection.ConvertToType<string>(s.Properties[ContentField]).RemoveEndOfString(100);
+                    }
+
                     return new SearchItems(
                         SeachConnection.ConvertToType<string>(s.Properties[ImageField]),
                         SeachConnection.ConvertToType<string>(s.Properties[NameField]),
                         SeachConnection.ConvertToType<long>(s.Properties[IdField]),
-                        SeachConnection.ConvertToType<string>(String.Join("...", s.Highlights[ContentField])),
+                        SeachConnection.ConvertToType<string>(content),
                         SeachConnection.ConvertToType<string>(s.Properties[BoxNameField]),
                         SeachConnection.ConvertToType<string>(s.Properties[UniversityNameField]),
                         SeachConnection.ConvertToType<string>(s.Properties[UrlField]));
