@@ -577,7 +577,7 @@
   border-color: #8a8a8a;
   background: #ccc;
   overflow: hidden;
-  border-radius: 100%;
+  border-radius: 50%;
 }
 .bestUserList .firstUser.empty svg,
 .bestUserList .secondUser.empty svg,
@@ -624,6 +624,15 @@
   left: 14px;
   top: 2px;
 }
+.bestUserList li:nth-child(n + 4) [data-letter]:first-child {
+  display: inline-block;
+}
+.bestUserList li:nth-child(n + 4) [data-letter]:before {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 4px;
+}
 .bestUserList li:before {
   content: counter(leaderBoard) ".";
   counter-increment: leaderBoard;
@@ -633,6 +642,18 @@
 }
 .bestUserList li:nth-child(2n + 4) {
   background: #eee;
+}
+.bestUserList [data-letter] {
+  display: none;
+  vertical-align: middle;
+}
+.bestUserList [data-letter]:before {
+  border: 1px solid #c2c2c2;
+  position: static;
+  background: #eee;
+}
+.bestUserList [data-letter]:first-child {
+  display: block;
 }
 .bestUserList .elps {
   display: inline-block;
@@ -659,17 +680,24 @@
   right: -2px;
   top: 3px;
 }
-.bestUserList .top3Img {
-  border: 1px solid #0f9d58;
-  display: block;
+.bestUserList .top3Img,
+.bestUserList [data-letter] {
+  border: 1px solid transparent;
   margin: 0 auto 8px;
   width: 50px;
   height: 50px;
+  border-radius: 50%;
 }
-.secondUser .top3Img {
+.bestUserList .top3Img {
+  display: block;
+  border: 1px solid #0f9d58;
+}
+.secondUser .top3Img,
+.secondUser [data-letter] {
   margin-top: 17px;
 }
-.thirdUser .top3Img {
+.thirdUser .top3Img,
+.thirdUser [data-letter] {
   margin-top: 35px;
 }
 .svg-crown {

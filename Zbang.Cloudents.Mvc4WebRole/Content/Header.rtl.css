@@ -269,7 +269,6 @@ body {
 /*#endregion */
 /*#region notifications */
 .newCounter {
-  display: none;
   background: #d1294d;
   border-radius: 10px;
   color: #fff;
@@ -280,6 +279,7 @@ body {
   line-height: 11px;
   text-align: center;
   padding: 4px;
+  display: inline-block;
 }
 .newCounterShow {
   display: inline;
@@ -289,6 +289,9 @@ body {
 }
 .notificationBtn:hover svg {
   fill: #d1294d;
+}
+.notificationBtn .newCounter {
+  display: none;
 }
 .notifyWpr {
   width: 400px;

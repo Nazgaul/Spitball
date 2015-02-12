@@ -264,9 +264,8 @@
   pointer-events: none;
   opacity: 0;
 }
-.search-content [data-box-letter]:before {
+.search-content [data-letter]:before {
   right: 13px;
-  background: purple;
 }
 .search-content .courseId {
   margin-bottom: 5px;
@@ -310,8 +309,8 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.quizList [data-box-letter]:before {
-  content: attr(data-box-letter);
+.quizList [data-letter]:before {
+  content: attr(data-letter);
   width: 25px;
   height: 25px;
   line-height: 25px;
@@ -320,7 +319,6 @@
   right: 0;
   left: 0;
   font-size: 18px;
-  background: orange;
 }
 .quizList .searchImg {
   font-size: 10px;

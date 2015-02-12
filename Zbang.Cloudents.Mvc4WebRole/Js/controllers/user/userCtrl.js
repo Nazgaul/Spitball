@@ -43,11 +43,11 @@
         sort: {
             asc: 0,
             des: 1
-        }        
+        }
     });
 mUser.controller('UserCtrl',
-    ['$scope', '$rootScope', '$timeout', '$routeParams', '$q', '$filter', '$location', 'sModal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'userConstants','$analytics','sFacebook',
-    function ($scope, $rootScope, $timeout, $routeParams, $q, $filter, $location, sModal, debounce, sUserDetails, sUser, sShare, sBox, sLibrary, userConstants, $analytics, sFacebook) {
+    ['$scope', '$rootScope', '$timeout', '$routeParams', '$q', '$filter', '$location', 'sModal', 'debounce', 'sUserDetails', 'sUser', 'sShare', 'sBox', 'sLibrary', 'userConstants', '$analytics', 'sFacebook', 'sNewUpdates',
+    function ($scope, $rootScope, $timeout, $routeParams, $q, $filter, $location, sModal, debounce, sUserDetails, sUser, sShare, sBox, sLibrary, userConstants, $analytics, sFacebook, sNewUpdates) {
         "use strict";
         var analyticsCategory = 'User';
         $scope.params = {
@@ -66,11 +66,11 @@ mUser.controller('UserCtrl',
                 $rootScope.$broadcast('viewContentLoaded');
             });
         });
-            
+
         //sendUserMessage - is on main.js as well
         $scope.sendUserMessage2 = function () {
 
-            sModal.open('shareEmail', { 
+            sModal.open('shareEmail', {
                 data: {
                     users: [$scope.profile],
                     singleMessage: true
@@ -78,7 +78,7 @@ mUser.controller('UserCtrl',
             });
 
             $analytics.eventTrack('Send Message', {
-                category: analyticsCategory, 
+                category: analyticsCategory,
                 label: 'User send a message to another user'
             });
 
@@ -91,7 +91,7 @@ mUser.controller('UserCtrl',
             sModal.open('cloudentsInvite');
 
             $analytics.eventTrack('Invite Cloudents', {
-                category: analyticsCategory                 
+                category: analyticsCategory
             });
         };
 
@@ -136,7 +136,7 @@ mUser.controller('UserCtrl',
             }
 
             $analytics.eventTrack('User Admin Select All Members', {
-                category: analyticsCategory                 
+                category: analyticsCategory
             });
         };
 
@@ -187,7 +187,7 @@ mUser.controller('UserCtrl',
 
             sModal.open('shareEmail', { data: sendData });
             $analytics.eventTrack('User Admin Send message to users', {
-                category: analyticsCategory 
+                category: analyticsCategory
             });
         };
 
@@ -198,15 +198,15 @@ mUser.controller('UserCtrl',
             loading: true,
             currentTab: userConstants.activity.tabs.items,
             items: {
-                limit: userConstants.activity.items.init,                
+                limit: userConstants.activity.items.init,
 
             },
             questions: {
-                limit: userConstants.activity.questions.init,                
+                limit: userConstants.activity.questions.init,
 
             },
             answers: {
-                limit: userConstants.activity.answers.init,                
+                limit: userConstants.activity.answers.init,
             }
         }
 
@@ -326,7 +326,7 @@ mUser.controller('UserCtrl',
                 $scope.invites.showAll = false;
                 $scope.invites.limit = userConstants.invites.list.init;
             },
-            reInvite: function (invite) {                
+            reInvite: function (invite) {
                 if (isNaN(invite.email)) {
                     emailInvite();
                 } else {
@@ -349,12 +349,12 @@ mUser.controller('UserCtrl',
                             to: invite.email
                         }).then(function () {
                             $analytics.eventTrack('Facebook ReInvite ' + invite.inviteType, {
-                                category: analyticsCategory 
+                                category: analyticsCategory
                             });
 
-                            invite.submitted = true;                            
+                            invite.submitted = true;
 
-                        }).finally(function(){
+                        }).finally(function () {
                             $scope.params.facebookInvite = false;
                         });
                     }
@@ -371,7 +371,7 @@ mUser.controller('UserCtrl',
                     sShare.invite.box({ boxId: invite.boxId, recepients: [invite.email] });
 
                     invite.submitted = true;
-                }            
+                }
             }
         }
         //#endregion 
@@ -413,7 +413,7 @@ mUser.controller('UserCtrl',
 
 
             function invitesResponse(response) {
-                $scope.invites.list = response;                
+                $scope.invites.list = response;
             }
 
             function friendsResponse(response) {
@@ -433,6 +433,12 @@ mUser.controller('UserCtrl',
                     box = response[i];
                     if (box.userType === 'subscribe' || box.userType === 'owner') {
                         $scope.boxes.common.list.push(box);
+                        (function (mBox) {
+                            sNewUpdates.getBoxUpdates(mBox.id, function (count) {
+                                mBox.numOfUpdates = count;
+
+                            });
+                        })(box);
                     }
                     else {
                         $scope.boxes.following.list.push(box);

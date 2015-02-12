@@ -1858,8 +1858,9 @@ select.inputText {
         
     }*/
 }
-[data-box-letter]:before {
-    content:attr(data-box-letter);
+/*#region [data-letter] */
+[data-letter]:before {
+    content:attr(data-letter);
     width: 46px;
     height: 46px;
     line-height: 46px;
@@ -1873,6 +1874,48 @@ select.inputText {
     margin: auto;
     left: 8px; //rtl
     font-size: 25px;
+}
+.bestUserList, .boxFeed {
+    .color1 {
+        &:before {
+            color: #00bfa5;
+        } 
+    }
+    .color2 {
+        &:before {
+            color: #f06292;
+        }  
+    }
+    .color3 {
+        &:before {
+            color: #b388ff;
+        } 
+    }
+    .color4 {
+        &:before {
+            color: #ff6e40;
+        } 
+    }
+    .color5 {
+        &:before {
+            color: #e06055;
+        }  
+    }
+    .color6 {
+        &:before {
+            color: #8e8e8e;
+        } 
+    }
+    .color7 {
+        &:before {
+            color: #f9a825;
+        }  
+    }
+    .color8 {
+        &:before {
+            color: #00c853;
+        }     
+    }
 }
 .color1 {
     &:before {
@@ -1914,6 +1957,7 @@ select.inputText {
         background: #00c853;
     }     
 }
+/*#endregion */
 .topBar {
     position: fixed;
     //z-index: 4;

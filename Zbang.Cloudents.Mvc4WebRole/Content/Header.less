@@ -295,7 +295,6 @@ body {
 
 /*#region notifications */
 .newCounter {
-    display: none;
     background: @errorColor;
     border-radius: 10px;
     color: #fff;
@@ -306,6 +305,7 @@ body {
     line-height: 11px;
     text-align: center;
     padding: 4px;
+    display: inline-block;
 }
 
 .newCounterShow {
@@ -317,6 +317,9 @@ body {
         svg {
             fill: #d1294d;
         }
+    }
+    .newCounter {
+        display: none;
     }
 }
 
