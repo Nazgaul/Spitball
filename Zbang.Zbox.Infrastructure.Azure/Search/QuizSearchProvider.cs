@@ -9,17 +9,18 @@ using RedDog.Search.Model;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Search;
-using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
     public class QuizSearchProvider : IQuizWriteSearchProvider, IQuizReadSearchProvider
     {
         private readonly string m_IndexName = "quiz";
+        private readonly ISearchFilterProvider m_FilterProvider;
         private bool m_CheckIndexExists;
 
-        public QuizSearchProvider()
+        public QuizSearchProvider(ISearchFilterProvider filterProvider)
         {
+            m_FilterProvider = filterProvider;
             if (!RoleEnvironment.IsAvailable)
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -145,17 +146,18 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             return true;
         }
 
-        public async Task<IEnumerable<SearchQuizzes>> SearchQuiz(Zbang.Zbox.ViewModel.Queries.Search.SearchQuery query)
+        public async Task<IEnumerable<SearchQuizzes>> SearchQuiz(ViewModel.Queries.Search.SearchQuery query)
         {
             if (string.IsNullOrEmpty(query.Term))
             {
                 return null;
             }
-            
+
             var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
                 new RedDog.Search.Model.SearchQuery(query.Term + "*")
                 {
-
+                    Filter = await m_FilterProvider.BuildFilterExpression(
+                        query.UniversityId, UniversityidField, UseridsField, query.UserId),
                     //Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')",
                     //    UniversityidField,
                     //    UseridsField,
@@ -166,7 +168,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     Top = query.RowsPerPage,
                     Skip = query.RowsPerPage * query.PageNumber,
                     Highlight = QuestionsField + "," + NameField + "," + AnswersField,
-                    
+
                 });
 
 

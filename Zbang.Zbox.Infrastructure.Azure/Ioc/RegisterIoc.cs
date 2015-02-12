@@ -30,6 +30,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Ioc
             ioc.RegisterType<IUniversityReadSearchProvider, UniversitySearchProvider>(LifeTimeManager.Singleton);
             ioc.RegisterType<IUniversityWriteSearchProvider2, UniversitySearchProvider>(LifeTimeManager.Singleton);
 
+            ioc.RegisterType<ISearchFilterProvider, FilterProvider>(LifeTimeManager.Singleton);
+
             ioc.RegisterType<IBoxWriteSearchProvider, BoxSearchProvider>();
             ioc.RegisterType<IBoxReadSearchProvider, BoxSearchProvider>();
 
