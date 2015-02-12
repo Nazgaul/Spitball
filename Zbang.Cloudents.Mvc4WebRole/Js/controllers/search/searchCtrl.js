@@ -6,7 +6,8 @@
 'sSearch',
 '$rootScope',
 'searchHistory',
-function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
+'sFocus',
+function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory, sFocus) {
     "use strict";
 
     var analyticsCategory = 'Search';
@@ -18,12 +19,10 @@ function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
         lastPage: false
     };
 
+
     resetDisplaySettings();
     resetData();
-
-
-   
-
+    sFocus('search:open');
 
     if (searchHistory.checkData()) {
         $scope.formData.query = searchHistory.getQuery();
@@ -83,7 +82,7 @@ function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
         });
     }
     function appendFirstPage(data) {
-        if (checkEmptyResult(data)) {            
+        if (checkEmptyResult(data)) {
             $scope.displaySettings = {
                 noResults: true
             };
