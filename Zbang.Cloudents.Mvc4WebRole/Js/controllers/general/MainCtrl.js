@@ -47,11 +47,11 @@
             $scope.$on('$routeChangeSuccess', function (event, current) {
 
                 $rootScope.openSearch = $location.search().hasOwnProperty('search');
-
-
+                
                 try {
+                    $rootScope.currentRoute = current.$$route.params.type + 'Page';
                     $rootScope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;
-                    $rootScope.params.isDashboard = current.$$route.originalPath.indexOf('dashboard') > -1;
+                    //$rootScope.params.isDashboard = current.$$route.originalPath.indexOf('dashboard') > -1;
                     $rootScope.params.isQuiz = current.$$route.originalPath.indexOf('quiz') > -1 || current.$$route.originalPath.indexOf('item') > -1;                    
                 }
                 catch (ex) {
@@ -68,31 +68,7 @@
 
                 return $rootScope.params.isStore;
             }
-
-            //$rootScope.showSearch = function () {
-            //    if (!$rootScope.params) {
-            //        return false;
-            //    }
-            //    if (!angular.isDefined($rootScope.params.isDashboard) && !angular.isDefined($rootScope.params.isStore)) {
-            //        return false;
-            //    }
-
-            //    return !$rootScope.params.isDashboard && !$rootScope.params.isStore;
-            //}
-
-            //$rootScope.isSearch = function () {
-            //    if (!$rootScope.params) {
-            //        return false;
-            //    }
-            //    if (!angular.isDefined($rootScope.params.isStore)) {
-            //        return false;
-            //    }
-
-
-            //    return !$rootScope.params.isStore;
-            //}
-
-
+   
             $rootScope.isQuiz = function () {
                 if (!$rootScope.params) {
                     return false;
@@ -103,16 +79,7 @@
 
                 return $rootScope.params.isQuiz;
             };
-            $rootScope.isItem = function () {
-                if (!$rootScope.params) {
-                    return false;
-                }
-                if (!angular.isDefined($rootScope.params.isItem)) {
-                    return false;
-                }
 
-                return $rootScope.params.isQuiz;
-            }           
 
             $rootScope.logout = function (e) {
                 e.preventDefault();
@@ -126,29 +93,5 @@
                     category: 'Site Header'
                 });
             };
-
-            //$scope.info = {
-            //    currentLanguage: (function () {
-            //        var language = cookieService('lang');
-            //        if (language) {
-            //            return language;
-            //        }
-
-            //        cookieService('lang', 'he-IL', { path: '/' });
-            //        return 'he-IL'
-
-            //    })()
-            //};
-
-            //$scope.setLanguage = function (val) {
-            //    if ($scope.info.currentLanguage === val) {
-            //        return;
-            //    }
-            //    cookieService('lang', val, { path: '/' });
-            //    $window.location.reload();
-            //};
-
-
-
         }
     ]);

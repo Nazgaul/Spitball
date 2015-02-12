@@ -11,6 +11,8 @@ function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
 
     var analyticsCategory = 'Search';
 
+    $scope.formData = {};
+
     $scope.params = {
         currentPage: 0,
         loading: false,
@@ -22,8 +24,9 @@ function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
         quizzes: [],
         items: []
     };
-  
+
     if (searchHistory.checkData()) {
+        $scope.formData.query = searchHistory.getQuery();
         $scope.data = searchHistory.getData();
         $scope.params.currentPage = searchHistory.getPage();
     }
@@ -55,6 +58,8 @@ function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
         $scope.params.loading = true;
 
         var query = $scope.formData.query;
+        searchHistory.setQuery(query);
+
 
         $analytics.eventTrack('Search', {
             category: analyticsCategory,
@@ -140,18 +145,21 @@ function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
        }
    }]).service('searchHistory', function () {
        var service = this,
-           mData, mPage;
+           mData, mPage, mQuery;
 
 
        service.setData = function (data) {
            mData = data;
-           
        };
 
        service.setPage = function (page) {
            mPage = page;
        };
-      
+
+       service.setQuery = function (query) {
+           mQuery = query;
+       };
+
        service.getData = function () {
            return mData;
        };
@@ -160,8 +168,13 @@ function ($scope, $location, $analytics, sSearch, $rootScope, searchHistory) {
            return mPage;
        };
 
+       service.getQuery = function () {
+           return mQuery;
+       };
+
+
        service.clearData = function () {
-           mData = mPage = null
+           mData = mPage = mQuery = null;
        };
 
        service.checkData = function () {

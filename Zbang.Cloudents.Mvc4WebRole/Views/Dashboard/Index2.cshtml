@@ -1,13 +1,12 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-@*TEMP: UNDO NEW SEARCH*@
-<div class="searchInputWpr searchDash" ng-click="$root.toggleSearch()">@SharedResources.Search</div>
 
 <header class="siteHeader">
     @{Html.RenderPartial("_Header");}
 </header>
 <div id="dashboard" class="page dashboard">
+    <div class="searchInputWpr searchDash" ng-click="$root.toggleSearch()">@SharedResources.Search</div>
     <div class="dashContent">
         <aside class="asideDash lFloat">
             <a class="dashLibTop" href="@Url.RouteUrl("LibraryDesktop",null)">
@@ -100,14 +99,8 @@
 
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
             <div class="dashHeader" ng-class="{setup: !academicBoxes.length && !groupBoxes.length}">
-                @*TEMP: OLD SEARCH (next line)*@
-                @*@{Html.RenderPartial("_BarActions");}*@
                 <div class="dhContent">
                     <span class="dhText">@SharedResources.Dashboard</span>
-                    @*TEMP: OLD SEARCH (2 lines)*@
-                    @*@{Html.RenderPartial("_BarSearch");}
-                        <button type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">*@
-                    @*TEMP: UNDO NEW SEARCH*@
                     @{Html.RenderPartial("_BarActions");}
                     <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
                         @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
