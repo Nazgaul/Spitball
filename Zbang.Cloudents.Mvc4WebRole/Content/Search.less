@@ -27,6 +27,25 @@
     /*~ .bodyContent {
         display: none;
     }*/
+    .userPage & {
+        .userInitial; 
+    }
+     
+    &.searchLib {
+        left: 550px; //rtl
+    }
+    &.searchBox {
+        top: 9px;
+        z-index: 12;
+        left: 320px; //rtl
+        max-width: 365px;
+        width: ~'-webkit-calc(100% - 675px)';
+        width: ~'calc(100% - 675px)';
+        min-width: 40px;
+        position: fixed;
+
+    }
+    
     &.ng-enter, &.ng-leave-active {
         width: 365px;
         height: 32px;
@@ -195,7 +214,16 @@
         transform: translate3d(0,0,0);
     }
 }
-
+.userInitial(){
+    left: auto;
+    right: ~'-webkit-calc(50% - 160px)'; //rtl
+    right: ~'calc(50% - 243px)'; //rtl
+    top: 52px;
+    min-width: 40px;
+    max-width: 365px;
+    width: ~'-webkit-calc(100% - 539px)';
+    width: ~'calc(100% - 539px)';
+}
 .searchInputWpr {
 	width: 365px;
 	height: 32px;
@@ -213,6 +241,21 @@
     padding: 4px 10px;
     font-size: 18px;
     .boxSizing;
+    
+    &.open {     
+        /*~ .siteHeader, ~ .dashboard, ~ .union, ~ .boxPage, ~ .userPage {
+            display: none !important; //override js
+        }*/
+    }
+    &.hideInput .dashLibSearchInput {
+	    color: transparent;
+	    -webkit-transition: color 0.3s;
+	    transition: color 0.3s;
+    }
+    &.searchUser {
+        .userInitial; 
+    }
+     
     &.searchLib {
         left: 550px; //rtl
     }
@@ -226,29 +269,6 @@
         min-width: 40px;
         position: fixed;
 
-    }
-    &.searchUser {
-        //margin: auto;
-        //left:0;right:0;
-        left: auto;
-        right: ~'-webkit-calc(50% - 243px)'; //rtl
-        right: ~'calc(50% - 243px)'; //rtl
-        top: 72px;
-        min-width: 40px;
-        max-width: 365px;
-        width: ~'-webkit-calc(100% - 539px)';
-        width: ~'calc(100% - 539px)';
-
-    }
-    &.open {     
-        /*~ .siteHeader, ~ .dashboard, ~ .union, ~ .boxPage, ~ .userPage {
-            display: none !important; //override js
-        }*/
-    }
-    &.hideInput .dashLibSearchInput {
-	    color: transparent;
-	    -webkit-transition: color 0.3s;
-	    transition: color 0.3s;
     }
     
 }
