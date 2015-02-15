@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using RedDog.Search;
 using RedDog.Search.Http;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -82,7 +84,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             }
         }
 
-        public static T ConvertToType<T>(object b)
+        internal static T ConvertToType<T>(object b)
         {
             if (b == null)
             {
@@ -93,6 +95,21 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             return (T)b;
         }
 
-        
+        public const int DescriptionLength = 250;
+
+        internal static string LimitContentHighlight(IEnumerable<string> highLight)
+        {
+            var sb = new StringBuilder();
+            foreach (var s in highLight)
+            {
+                sb.Append(s);
+                if (sb.Length > DescriptionLength)
+                {
+                    break;
+                }
+                sb.Append("...");
+            }
+            return sb.ToString();
+        }
     }
 }

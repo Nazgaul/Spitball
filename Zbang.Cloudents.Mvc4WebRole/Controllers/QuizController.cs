@@ -75,7 +75,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     model.BoxName,
                     model.UniversityName,
                     BaseControllerResources.Cloudents);
-                ViewBag.metaDescription = TextManipulation.RemoveHtmlTags.Replace(model.FirstQuestion, string.Empty);
+                ViewBag.metaDescription = Zbox.Infrastructure.TextManipulation.RemoveHtmlTags.Replace(model.FirstQuestion, string.Empty);
                 return View("Empty");
             }
             catch (ItemNotFoundException)

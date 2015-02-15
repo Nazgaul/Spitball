@@ -38,11 +38,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         private const string QuestionsField = "questions";
         private const string AnswersField = "answer";
+        private const string ContentField = "description";
 
         private const string UrlField = "url";
         private const string UniversityNameField = "universityname";
         private const string UniversityidField = "unidersityid";
         private const string UseridsField = "userids";
+
+
 
         private Index CreateIndex()
         {
@@ -57,11 +60,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 .WithStringField(BoxNameField, f => f
                     .IsRetrievable())
                 .WithStringCollectionField(QuestionsField, f => f
-                    .IsRetrievable()
                     .IsSearchable())
                 .WithStringCollectionField(AnswersField, f => f
-                    .IsRetrievable()
                     .IsSearchable())
+                .WithStringField(ContentField, f => f
+                    .IsRetrievable())
                 .WithStringField(UrlField, f => f
                     .IsRetrievable())
                 .WithStringField(UniversityNameField, f => f
@@ -111,6 +114,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 foreach (var quiz in quizToUpload)
                 {
+                    var content = TextManipulation.RemoveHtmlTags.Replace(string.Join(" ", quiz.Questions), string.Empty).RemoveEndOfString(SeachConnection.DescriptionLength);
                     listOfCommands.Add(
                         new IndexOperation(IndexOperationType.Upload, IdField,
                             quiz.Id.ToString(CultureInfo.InvariantCulture))
@@ -119,6 +123,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                             .WithProperty(UniversityNameField, quiz.UniversityName)
                             .WithProperty(QuestionsField, quiz.Questions)
                             .WithProperty(AnswersField, quiz.Answers)
+                            .WithProperty(ContentField, content)
                             .WithProperty(UrlField, quiz.Url)
                             .WithProperty(UniversityidField, quiz.UniversityId.ToString())
                             .WithProperty(UseridsField,
@@ -158,11 +163,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 {
                     Filter = await m_FilterProvider.BuildFilterExpression(
                         query.UniversityId, UniversityidField, UseridsField, query.UserId),
-                    //Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')",
-                    //    UniversityidField,
-                    //    UseridsField,
-                    //    query.UniversityId,
-                    //    query.UserId),
                     ScoringProfile = "university",
                     ScoringParameters = new[] { "university:" + query.UniversityId },
                     Top = query.RowsPerPage,
@@ -177,9 +177,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 return searchResult.Body.Records.Select(s =>
                 {
                     return new SearchQuizzes(
-                        SeachConnection.ConvertToType<string>(s.Properties[NameField]),
+                        HighLightInName(s),
                         SeachConnection.ConvertToType<long>(s.Properties[IdField]),
-                        SeachConnection.ConvertToType<string>(ConvertHighlightToProperty(s)),
+                        ConvertHighlightToProperty(s),
                         SeachConnection.ConvertToType<string>(s.Properties[BoxNameField]),
                         SeachConnection.ConvertToType<string>(s.Properties[UniversityNameField]),
                         SeachConnection.ConvertToType<string>(s.Properties[UrlField]));
@@ -190,30 +190,33 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
 
         }
+
+
+
+        private string HighLightInName(SearchQueryRecord record)
+        {
+            string[] highLight;
+            if (record.Highlights.TryGetValue(NameField, out highLight))
+            {
+                return String.Join("...", highLight);
+            }
+            return SeachConnection.ConvertToType<string>(record.Properties[NameField]);
+        }
         private string ConvertHighlightToProperty(SearchQueryRecord record)
         {
-            var retVal = new StringBuilder();
-            string[] highLight;
-            if (record.Highlights.TryGetValue(QuestionsField, out highLight))
+            string[] questionHighLight;
+            string[] answerHighLight;
+
+            if (!record.Highlights.TryGetValue(QuestionsField, out questionHighLight))
             {
-                retVal.Append(string.Join("...", highLight));
+                questionHighLight = new string[0];
             }
-            if (record.Highlights.TryGetValue(AnswersField, out highLight))
+            if (!record.Highlights.TryGetValue(AnswersField, out answerHighLight))
             {
-                retVal.Append(string.Join("...", highLight));
+                answerHighLight = new string[0];
             }
-            if (retVal.Length == 0)
-            {
-                if (record.Properties[QuestionsField] != null)
-                {
-                    retVal.Append(string.Join("\n", record.Properties[QuestionsField]));
-                }
-                if (record.Properties[AnswersField] != null)
-                {
-                    retVal.Append(string.Join("\n", record.Properties[AnswersField]));
-                }
-            }
-            return retVal.ToString();
+            var str = SeachConnection.LimitContentHighlight(questionHighLight.Union(answerHighLight));
+            return string.IsNullOrEmpty(str) ? SeachConnection.ConvertToType<string>(record.Properties[ContentField]) : str;
         }
     }
 

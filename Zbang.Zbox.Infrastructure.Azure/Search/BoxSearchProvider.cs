@@ -60,7 +60,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     .IsSearchable())
                 .WithStringField(UrlField, f => f
                     .IsRetrievable())
-                .WithField(UniversityidField, "Edm.Int64", f => f
+                .WithField(UniversityidField, "Edm.Int64", f => f //obsolete
                     .IsFilterable())
                 .WithStringField(UniversityidField2, f => f
                     .IsFilterable())
@@ -85,7 +85,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     .WithProperty(ProfessorField, s.Professor)
                     .WithProperty(CourseField, s.CourseCode)
                     .WithProperty(UrlField, s.Url)
-                    .WithProperty(UniversityidField, s.UniversityId)
+                    .WithProperty(UniversityidField, s.UniversityId) //obsolete
                     .WithProperty(UniversityidField2, s.UniversityId.ToString(CultureInfo.InvariantCulture))
                     .WithProperty(PrivacySettingsField, (int)s.PrivacySettings)
                     .WithProperty(UseridsField, s.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)))));
