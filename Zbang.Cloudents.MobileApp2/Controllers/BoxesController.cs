@@ -13,7 +13,7 @@ using Zbang.Zbox.ViewModel.Queries.Boxes;
 
 namespace Zbang.Cloudents.MobileApp2.Controllers
 {
-     [AuthorizeLevel(AuthorizationLevel.User)]
+    [AuthorizeLevel(AuthorizationLevel.User)]
     public class BoxesController : ApiController
     {
         public ApiServices Services { get; set; }

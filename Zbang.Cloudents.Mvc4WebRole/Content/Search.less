@@ -1,65 +1,115 @@
 ﻿@import "varsAndMixins";
 
+.dashInitial(){
+    width: 365px;
+	height: 32px;
+	left: 500px; //rtl
+}
+.userInitial(){
+    left:0;right:0;
+    margin: auto;
+    top: 72px;
+    position: absolute;
+}
+.libInitial() {
+    left: 550px;
+}
+.boxInitial() {
+    left: 320px;
+    z-index: 11;
+    top: -41px;
+}
+.searchInputWpr {
+    border-radius: 16px;
+	position: absolute;
+    top: 17px;
+	z-index: 4; //under aside which is 5
+    margin:0;
+    line-height: normal;
+    background: #fff;
+    color: @borderColor;
+    padding: 4px 10px;
+    font-size: 18px;
+    .boxSizing;
+    .dashInitial;
+
+    &.searchUser {
+        .userInitial; 
+        + button .svg-inviteUser {
+            position: relative;
+            top: -9px;
+        }
+    }
+    &.searchLib {
+       .libInitial 
+    }
+    &.searchBox {
+        //top: 9px;
+        //z-index: 12;
+        
+        /*max-width: 365px;
+        width: ~'-webkit-calc(100% - 675px)';
+        width: ~'calc(100% - 675px)';
+        min-width: 40px;
+        position: fixed;*/
+        .boxInitial
+    }
+    
+}
 .searchPopup {
     position: absolute;
     top: 0;
     left: 0;
+    right:0;
     width: 100%;
     height: 100%;
     border-radius: 0;
-    /*width: 365px;
-	height: 32px;
-    top: 67px;
-	left: 500px;*/
     background: #f1f1f1;
-    //background: aqua;
     z-index: 11;
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
-    -webkit-transition-property: height, width, top, left; //rtl
-    transition-property: height, width, top, left; //rtl
+    -webkit-transition-property: height, width, top, left;
+    transition-property: height, width, top, left;
     -webkit-transition-duration: 0.5s;
     transition-duration: 0.5s;
     -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
     transition-timing-function: cubic-bezier(0.7,0,0.3,1);
     .boxSizing;
-    //max-width: none; //override
-    /*~ .bodyContent {
-        display: none;
-    }*/
     ~ .bodyContent {
         overflow: hidden;
         .siteHeader {
-            display: none;
+            //display: none; //this kills the transition
+            //visibility: hidden;
+            margin-top: -50px;
         }
     }
-    .userPage & {
-        .userInitial; 
-    }
+    
      
     &.searchLib {
-        left: 550px; //rtl
+        .libInitial;
     }
     &.searchBox {
-        top: 9px;
+        /*top: 9px;
         z-index: 12;
         left: 320px; //rtl
         max-width: 365px;
         width: ~'-webkit-calc(100% - 675px)';
         width: ~'calc(100% - 675px)';
         min-width: 40px;
-        position: fixed;
+        position: fixed;*/
+        .boxInitial;
 
     }
-    
-    &.ng-enter, &.ng-leave-active {
+    /*.userPage & {
+        .userInitial;
         width: 365px;
-        height: 32px;
-        border-radius: 16px;
+        height: 32px; 
+        background: tomato;
+    }*/
+    &.ng-enter, &.ng-leave-active {
         top: 67px;
-        left: 500px;
         background: #fff;
-
+        .dashInitial;
         form {
             width: 365px;
             height: 32px;
@@ -72,6 +122,15 @@
             height: 32px;
             padding: 4px 10px;
             border-color: transparent;
+        }
+        .userPage & {
+            .userInitial; 
+        }
+        .boxPage & {
+            .boxInitial; 
+        }
+        .libraryPage &,.departmentPage &  {
+            .libInitial; 
         }
     }
     &.ng-leave-active {
@@ -219,64 +278,6 @@
         -webkit-transform: translate3d(0,0,0);
         transform: translate3d(0,0,0);
     }
-}
-.userInitial(){
-    left: auto;
-    right: ~'-webkit-calc(50% - 160px)'; //rtl
-    right: ~'calc(50% - 243px)'; //rtl
-    top: 52px;
-    min-width: 40px;
-    max-width: 365px;
-    width: ~'-webkit-calc(100% - 539px)';
-    width: ~'calc(100% - 539px)';
-}
-.searchInputWpr {
-	width: 365px;
-	height: 32px;
-    //border-radius: 0;
-    border-radius: 16px;
-	position: absolute;
-	z-index: 4; //under aside which is 5
-	top: 17px;
-	left: 500px; //rtl
-    margin:0;
-    line-height: normal;
-    background: #fff;
-    color: @borderColor;
-    //padding: 3px 10px 0 10px;
-    padding: 4px 10px;
-    font-size: 18px;
-    .boxSizing;
-    
-    &.open {     
-        /*~ .siteHeader, ~ .dashboard, ~ .union, ~ .boxPage, ~ .userPage {
-            display: none !important; //override js
-        }*/
-    }
-    &.hideInput .dashLibSearchInput {
-	    color: transparent;
-	    -webkit-transition: color 0.3s;
-	    transition: color 0.3s;
-    }
-    &.searchUser {
-        .userInitial; 
-    }
-     
-    &.searchLib {
-        left: 550px; //rtl
-    }
-    &.searchBox {
-        top: 9px;
-        z-index: 12;
-        left: 320px; //rtl
-        max-width: 365px;
-        width: ~'-webkit-calc(100% - 675px)';
-        width: ~'calc(100% - 675px)';
-        min-width: 40px;
-        position: fixed;
-
-    }
-    
 }
 
 // hide placeholder when active in Chrome //
@@ -442,6 +443,7 @@
         margin-top: 8px;
         max-height: 30px;
         overflow: hidden;
+        line-height: 15px;
     }
     mark {
         background: none;

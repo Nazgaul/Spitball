@@ -2,13 +2,11 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-.userPage,
-.searchPage {
+.userPage {
   text-align: left;
   color: #383838;
 }
-.userPage:after,
-.searchPage:after {
+.userPage:after {
   content: '';
   width: 100%;
   height: 75px;
@@ -19,20 +17,9 @@
   top: 50px;
   z-index: -1;
 }
-.userPage .barActions,
-.searchPage .barActions {
+.userPage .barActions {
   top: 6px;
   margin-right: 23px;
-}
-.userPage .searchInputWpr,
-.searchPage .searchInputWpr {
-  margin: 21px 13px 0 13px;
-  width: 460px;
-}
-.userPage .searchInputWpr + button .svg-inviteUser,
-.searchPage .searchInputWpr + button .svg-inviteUser {
-  position: relative;
-  top: -9px;
 }
 .userPage h1 {
   font-size: 22px;

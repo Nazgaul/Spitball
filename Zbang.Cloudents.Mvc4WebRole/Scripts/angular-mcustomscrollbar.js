@@ -40,12 +40,19 @@
 
 
             function setEvents() {
-                updateEvent = $scope.$on('update-scroll', updateScroll);
                 resizeEvent = $scope.$on('elastic:resize', updateScroll);
                 $win.resize(updateScroll);
+                if ($elem[0].id === 'uploadList') {
+                    updateEvent = $scope.$on('update-scrolllist', updateScrollList);
+                    return;
+                }
+
+                updateEvent = $scope.$on('update-scroll', updateScroll);
+                
+                
             }
 
-            function updateScroll(e, fixHeight) {
+            function updateScrollList(e, fixHeight) {
 
                 if (_.isNumber(fixHeight) && fixHeight >= 0) {
                     lastHeight = $elem.height();
@@ -53,6 +60,10 @@
                     return;
                 }
 
+                updateScroll(e);
+            }
+
+            function updateScroll(e) {
                 calcHeight();
                 $elem.height(height);
                 setTimeout(function () {

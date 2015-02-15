@@ -1,8 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-
-
 <div id="box" class="page boxPage" ng-init="init('@Url.Action("Index", "Dashboard")', '@SharedResources.Dashboard')">
     <header class="siteHeader headerBox">
         <a class="siteLogo lFloat" href="@Url.Action("Index", "Dashboard")">
@@ -51,9 +49,10 @@
         </div>
     </header>
 
-    <div class="searchInputWpr searchBox" ng-click="$root.toggleSearch()">
+    @*<div class="searchInputWpr searchBox" ng-click="$root.toggleSearch()">
         @{Html.RenderPartial("_BarSearch");}
-    </div>
+    </div>*@
+    <div class="searchInputWpr searchBox" ng-click="$root.toggleSearch()">@SharedResources.Search</div>
 
     <div class="leftPanel lFloat">
         <div class="boxTop">

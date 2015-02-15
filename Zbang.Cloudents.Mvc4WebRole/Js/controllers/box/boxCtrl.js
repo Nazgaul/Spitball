@@ -25,8 +25,7 @@
             };
 
             $scope.options = {
-                loader: true,
-                activeTab: 'feed'
+                loader: true
             };
 
             $scope.info = {
@@ -76,6 +75,20 @@
                     $scope.followBox();
                 }
 
+                if ($location.hash()) {
+                    if ($scope.states.hasOwnProperty($location.hash())) {
+                        $scope.setTab($location.hash());
+                    } else {
+                        $location.hash('feed');
+                        $scope.setTab($location.hash());
+
+                    }
+                } else {
+                    $location.hash('feed');
+                    $scope.setTab($location.hash());
+
+                }
+
                 $timeout(function () {
                     $rootScope.$broadcast('viewContentLoaded');
                     $rootScope.$broadcast('update-scroll');
@@ -94,13 +107,7 @@
 
             };
 
-            if ($location.hash()) {
-                if ($scope.states.hasOwnProperty($location.hash())) {
-                    $scope.setTab($location.hash());
-                } else {
-                    $location.hash('');
-                }
-            }
+          
 
 
             $scope.$on('selectTab', function (e, tab) {
