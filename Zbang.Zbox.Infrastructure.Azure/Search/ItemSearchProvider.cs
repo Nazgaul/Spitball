@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
@@ -20,12 +21,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     {
         private readonly string m_IndexName = "item";
         private readonly IBlobProvider m_BlobProvider;
+        private readonly ISearchFilterProvider m_FilterProvider;
         private bool m_CheckIndexExists;
 
 
-        public ItemSearchProvider(IBlobProvider blobProvider)
+        public ItemSearchProvider(IBlobProvider blobProvider, ISearchFilterProvider filterProvider)
         {
             m_BlobProvider = blobProvider;
+            m_FilterProvider = filterProvider;
             if (!RoleEnvironment.IsAvailable)
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -42,6 +45,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         private const string ImageField = "image";
         private const string BoxNameField = "boxname";
         private const string ContentField = "content";
+        private const string SmallContentField = "metaconetent";
         private const string UrlField = "url";
         private const string UniversityNameField = "universityname";
         private const string UniversityidField = "unidersityid";
@@ -63,13 +67,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 .WithStringField(BoxNameField, f => f
                     .IsRetrievable())
                 .WithStringField(ContentField, f => f
-                    .IsRetrievable()
                     .IsSearchable())
+                .WithStringField(SmallContentField, f => f
+                    .IsRetrievable())
                 .WithStringField(UrlField, f => f
                     .IsRetrievable())
                 .WithStringField(UniversityNameField, f => f
                     .IsRetrievable())
-                .WithField(UniversityidField, "Edm.Int64", f => f
+                .WithField(UniversityidField, "Edm.Int64", f => f //obsolete
                     .IsFilterable())
                 .WithStringField(UniversityidField2, f => f
                     .IsFilterable())
@@ -162,8 +167,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                             .WithProperty(BoxNameField, item.BoxName)
                             .WithProperty(UniversityNameField, item.UniversityName)
                             .WithProperty(ContentField, content)
+                            .WithProperty(SmallContentField, content.RemoveEndOfString(SeachConnection.DescriptionLength))
                             .WithProperty(UrlField, item.Url)
-                            .WithProperty(UniversityidField, item.UniversityId)
+                            .WithProperty(UniversityidField, item.UniversityId) //obsolete
                             .WithProperty(UniversityidField2, item.UniversityId.ToString())
                         //.WithProperty(BoxidField, item.BoxId)
                             .WithProperty(UseridsField,
@@ -201,14 +207,20 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
                 new RedDog.Search.Model.SearchQuery(query.Term + "*")
                 {
+                    //Filter = await m_FilterProvider.BuildFilterExpression(
+                    //   query.UniversityId, UniversityidField, UseridsField, query.UserId),
                     Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')",
-                        UniversityidField,
-                        UseridsField,
-                        query.UniversityId,
-                        query.UserId),
+                      UniversityidField,
+                      UseridsField,
+                      query.UniversityId,
+                      query.UserId),
+
                     Top = query.RowsPerPage,
+                    //ScoringProfile = "university",
+                    //ScoringParameters = new[] { "university:" + query.UniversityId },
                     Skip = query.RowsPerPage * query.PageNumber,
-                    Highlight = ContentField + "," + NameField
+                    Highlight = ContentField + "," + NameField,
+                    SearchFields = string.Join(",", new[] { ImageField, NameField, IdField, SmallContentField, BoxNameField, UniversityNameField, UrlField })
                 });
 
 
@@ -216,21 +228,22 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 return searchResult.Body.Records.Select(s =>
                 {
-                    string content = String.Empty;
-                    if (s.Highlights.ContainsKey(ContentField))
+                    string content = string.Empty;
+                    string[] highLight;
+                    if (s.Highlights.TryGetValue(ContentField, out highLight))
                     {
-                        content = String.Join("...", s.Highlights[ContentField]);
+                        content = SeachConnection.LimitContentHighlight(highLight);
                     }
                     else
                     {
-                        SeachConnection.ConvertToType<string>(s.Properties[ContentField]).RemoveEndOfString(100);
+                        content = SeachConnection.ConvertToType<string>(s.Properties[SmallContentField]);
                     }
 
                     return new SearchItems(
                         SeachConnection.ConvertToType<string>(s.Properties[ImageField]),
                         SeachConnection.ConvertToType<string>(s.Properties[NameField]),
                         SeachConnection.ConvertToType<long>(s.Properties[IdField]),
-                        SeachConnection.ConvertToType<string>(content),
+                        content,
                         SeachConnection.ConvertToType<string>(s.Properties[BoxNameField]),
                         SeachConnection.ConvertToType<string>(s.Properties[UniversityNameField]),
                         SeachConnection.ConvertToType<string>(s.Properties[UrlField]));
