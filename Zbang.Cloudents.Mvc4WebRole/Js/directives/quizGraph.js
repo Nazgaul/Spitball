@@ -119,7 +119,32 @@ app.directive('quizGraph',
                        context.textBaseline = 'bottom';
                        context.fillStyle = '#e6ad20';
                        context.font = '12pt arial';
-                       context.fillText('average: ' + scope.quiz.average, canvasWidth / 2, canvasHeight);
+
+
+                       var averageText,
+                       culture = document.getElementsByTagName('html')[0].getAttribute('data-culture');
+
+                       switch (culture) {
+                           case 'he-IL':
+                               averageText ='ממוצע: ';
+                               break;
+                           case 'ar-AE':
+                               averageText ='متوسط: ';
+                               break;
+                           case 'ru-RU':
+                               averageText = 'Средний ';
+                               break;
+                           case 'en-US':                              
+                           case 'en-GB':
+                               averageText = 'Average ';
+                               break;
+
+                           default:
+                               averageText = 'Average ';
+                               break;
+                       }
+
+                       context.fillText(averageText + scope.quiz.average.toString(), canvasWidth / 2, canvasHeight);
                    }
                }
 

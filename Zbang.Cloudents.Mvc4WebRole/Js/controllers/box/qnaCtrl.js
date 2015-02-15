@@ -1,8 +1,8 @@
 ﻿mBox.controller('QnACtrl',
 ['$scope', 'sModal', 'sUserDetails', 'sNewUpdates', 'sQnA', '$rootScope', 'sFocus',
-    '$analytics', 'resManager', 'sNotify', 'sLogin', 'sGmfcnHandler', 'sItem',
+    '$analytics', 'resManager', 'sNotify', 'sLogin', 'sGmfcnHandler', 'sItem', '$sce',
             function ($scope, sModal, sUserDetails, sNewUpdates, sQnA, $rootScope, sFocus, $analytics,
-                resManager, sNotify, sLogin, sGmfcnHandler, sItem) {
+                resManager, sNotify, sLogin, sGmfcnHandler, sItem, $sce) {
                 "use strict";
                 function Question(data) {
                     var that = this;
@@ -11,13 +11,13 @@
                     that.userName = data.userName;
                     that.userImage = data.userImage;
                     that.userId = data.userId;
-                    that.content = data.content ? data.content.replace(/\n/g, '<br/>') : '';
+                    that.content = $sce.trustAsHtml(data.content ? data.content.replace(/\n/g, '<br/>') : '');
                     that.createTime = data.creationTime;
                     sNewUpdates.isNew($scope.boxId, 'questions', that.id, function (isNew) {
                         that.isNew = isNew;
                     });
 
-                 
+
 
                     that.answers = data.answers.map(function (answer) {
                         var answerObj = new Answer(answer);
@@ -56,7 +56,7 @@
                     that.userName = data.userName;
                     that.userImage = data.userImage;
                     that.userId = data.userId;
-                    that.content = data.content ? data.content.replace(/\n/g, '<br/>') : '';
+                    that.content = $sce.trustAsHtml(data.content ? data.content.replace(/\n/g, '<br/>') : '');
                     that.rating = data.rating;
                     that.iRate = data.iRate;
                     that.isAnswer = data.answer;
@@ -82,11 +82,11 @@
                     that.download = that.itemUrl + 'download/';
                 }
 
-               var tagsToReplace = {
-                                    '&': '&amp;',
-                                    '<': '&lt;',
-                                    '>': '&gt;'
-                                };
+                var tagsToReplace = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;'
+                };
 
                 $scope.data = {
                     //$scope.boxId = we get this from parent scope no info
@@ -131,7 +131,7 @@
                 };
 
 
-                $scope.postQuestion = function () {                   
+                $scope.postQuestion = function () {
                     $scope.qFormData.boxId = $scope.boxId;
 
                     var fileDisplay = $scope.qFormData.files;
@@ -176,10 +176,10 @@
                     question.displayComment = !question.displayComment;
                 };
 
-                $scope.postAnswer = function (question) {                  
+                $scope.postAnswer = function (question) {
 
                     $analytics.eventTrack('Feed - Add an answer', {
-                        category: 'Box Feed'                       
+                        category: 'Box Feed'
                     });
                     sGmfcnHandler.addPoints({ type: 'answer' });
 
@@ -269,7 +269,7 @@
                             sNotify.alert(response);
                         });
                     });
-                    
+
 
                     $analytics.eventTrack('Feed - Remove question attachment', {
                         category: 'Box'
@@ -291,7 +291,7 @@
                         });
 
                     });
-                    
+
                     $analytics.eventTrack('Feed - Remove answer attachment', {
                         category: 'Box'
                     });
@@ -307,11 +307,11 @@
                     $scope.followBox();
 
                     $analytics.eventTrack('Feed - Download Item', {
-                        category:'Box'
+                        category: 'Box'
                     });
                 };
 
-                
+
 
                 $scope.$on('BeforeUpload', function (e, data) {
                     data = data || {};
@@ -353,7 +353,7 @@
                         $scope.qFormData.files = [data.itemDto];
 
 
-                        $analytics.eventTrack( 'Feed - Added question attachment',{
+                        $analytics.eventTrack('Feed - Added question attachment', {
                             category: 'Box'
                         });
 
@@ -370,7 +370,7 @@
                             return;
                         }
 
-                    
+
 
                         if (question.aFormData.files && question.aFormData.files.length) {
                             question.aFormData.files.push(data.itemDto);
@@ -380,8 +380,8 @@
                         question.aFormData.files = [data.itemDto];
 
                         $analytics.eventTrack('Feed - Added answer attachment', {
-                            category: 'Box'                            
-                        });                        
+                            category: 'Box'
+                        });
                     }
                 });
 
@@ -400,7 +400,7 @@
                     openUpload(data);
 
                     $analytics.eventTrack('Feed - Question Upload', {
-                        category: 'Box'                        
+                        category: 'Box'
                     });
                 };
 
