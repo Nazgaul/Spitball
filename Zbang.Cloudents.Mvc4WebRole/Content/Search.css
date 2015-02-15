@@ -30,6 +30,12 @@
         display: none;
     }*/
 }
+.searchPopup ~ .bodyContent {
+  overflow: hidden;
+}
+.searchPopup ~ .bodyContent .siteHeader {
+  display: none;
+}
 .userPage .searchPopup {
   left: auto;
   right: -webkit-calc(50% - 160px);
@@ -302,6 +308,9 @@
 .search-content.items .column.items {
   display: block;
 }
+.search-content .vCentered {
+  padding-left: 74px;
+}
 .column {
   display: none;
   width: 30%;
@@ -326,10 +335,6 @@
 }
 .round {
   border-radius: 50%;
-}
-.itemList .vCentered,
-.quizList .vCentered {
-  padding-left: 74px;
 }
 .itemList .searchImg,
 .quizList .searchImg {
@@ -406,6 +411,7 @@
 .searchLink .content {
   margin-top: 8px;
   max-height: 30px;
+  overflow: hidden;
 }
 .searchLink mark {
   background: none;

@@ -27,6 +27,12 @@
     /*~ .bodyContent {
         display: none;
     }*/
+    ~ .bodyContent {
+        overflow: hidden;
+        .siteHeader {
+            display: none;
+        }
+    }
     .userPage & {
         .userInitial; 
     }
@@ -330,6 +336,9 @@
            display:block;
         }
     }
+    .vCentered {
+        padding-left: 74px;
+    }
 }
 
 .column {
@@ -360,9 +369,6 @@
 	border-radius: 50%;
 }
 .itemList, .quizList {
-    .vCentered {
-        padding-left: 74px;
-    }
     .searchImg {
         width: 63px;
         height: 88px;
@@ -435,6 +441,7 @@
     .content {
         margin-top: 8px;
         max-height: 30px;
+        overflow: hidden;
     }
     mark {
         background: none;
@@ -442,9 +449,6 @@
     }
     .userImg {
         border-radius: 50%;
-    }
-    .vCentered {
-        //max-width: 98%;
     }
 }
 
