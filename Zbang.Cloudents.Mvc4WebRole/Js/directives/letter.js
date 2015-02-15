@@ -16,7 +16,13 @@
                if (sum == 0) {
                    sum = 1;
                }
-               element.addClass('color' + sum);
+
+               var c = 'color' + sum;
+               var hebrewChars = new RegExp("^[\u0590-\u05FF]+$");
+               if (hebrewChars.test(char)) {
+                   c += ' heb';
+               }
+               element.addClass(c);
            }
        };
    }
