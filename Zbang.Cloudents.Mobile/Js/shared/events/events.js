@@ -13,7 +13,7 @@
                 });
             }
         }).
-    directive('dragView', function () {
+    directive('dragView', ['$analytics', function ($analytics) {
         return {
             restrict: "A",
             link: function (scope, element, attr) {
@@ -24,7 +24,7 @@
 
                 element.on('touchstart', function (e) {
                     posX = e.touches[0].clientX;
-                    console.log('s ' + posX);
+                    trackAnalytics('touch start')
                 });
                 element.on('touchmove', direction === 'ltr' ? moveLtr : moveRtl);
                 element.on('touchend', direction === 'ltr' ? moveEndLtr : moveEndRtl)
@@ -44,39 +44,47 @@
 
                     if (Math.abs(curPosX - posX) >= 109) {
                         element.css({ marginLeft: '-109px' });
-
+                        trackAnalytics('all the way');
                         return;
                     }
 
                     element.css({ marginLeft: (curPosX - posX) * 1.05 + 'px' });
-
+                    trackAnalytics('touch move');
                 }
 
                 function moveRtl(e) {
                     e.preventDefault();
-                    var curPosX = e.touches[0].clientX;                    
+                    var curPosX = e.touches[0].clientX;
                     if (curPosX < posX) {
                         return;
                     }
 
                     if (Math.abs(curPosX - posX) >= 109) {
                         element.css({ marginRight: '-109px' });
-
+                        trackAnalytics('all the way');
                         return;
                     }
 
                     element.css({ marginRight: (posX - curPosX) * 1.05 + 'px' });
-
+                    trackAnalytics('touch move');
                 }
                 function moveEndLtr() {
                     element.css({ marginLeft: 0 });
+                    trackAnalytics('touch end');
                 }
                 function moveEndRtl() {
                     element.css({ marginRight: 0 });
+                    trackAnalytics('touch end');
+                }
+
+                function trackAnalytics(phase) {
+                    $analytics.trackEvent('Drag recommended ' + phase, {
+                        catogory: 'Dashboard'
+                    });
                 }
             }
         }
-    }).
+    }]).
     directive('focusInvalid', function () {
         return {
             restrict: "A",

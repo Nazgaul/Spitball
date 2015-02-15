@@ -281,9 +281,6 @@ body {
   padding: 4px;
   display: inline-block;
 }
-.newCounterShow {
-  display: inline;
-}
 .notificationBtn {
   margin-top: 13px;
 }
@@ -292,6 +289,9 @@ body {
 }
 .notificationBtn .newCounter {
   display: none;
+}
+.notificationBtn .newCounterShow {
+  display: inline;
 }
 .notifyWpr {
   width: 400px;

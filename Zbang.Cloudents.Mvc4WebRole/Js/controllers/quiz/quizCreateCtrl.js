@@ -94,6 +94,8 @@
                                 saveDraft();
                                 break;
                         }
+
+                        $location.search('quizId', null);
                     }
                 }
             });
