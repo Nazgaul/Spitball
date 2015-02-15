@@ -48,9 +48,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         private const string SmallContentField = "metaconetent";
         private const string UrlField = "url";
         private const string UniversityNameField = "universityname";
-        private const string UniversityidField = "unidersityid";
+        private const string UniversityidField = "unidersityid"; //obsolete
         private const string UniversityidField2 = "unidersityid2";
         private const string UseridsField = "userids";
+
+        private const string BoxidField = "boxid"; //obsolete
+        private const string RateField = "rate";//obsolete
+        private const string ViewsField = "view";//obsolete
 
         private Index GetIndexStructure()
         {
@@ -67,7 +71,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 .WithStringField(BoxNameField, f => f
                     .IsRetrievable())
                 .WithStringField(ContentField, f => f
-                    .IsSearchable())
+                    .IsSearchable()
+                    .IsRetrievable()) //obsolete don't want to retrieve that
                 .WithStringField(SmallContentField, f => f
                     .IsRetrievable())
                 .WithStringField(UrlField, f => f
@@ -79,7 +84,17 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 .WithStringField(UniversityidField2, f => f
                     .IsFilterable())
                 .WithStringCollectionField(UseridsField, f => f
+                    .IsFilterable()
+                    .IsRetrievable()) //obsolete don't want to retrieve that
+
+                .WithDoubleField(RateField, f => f //obsolete
+                    .IsRetrievable())
+                .WithIntegerField(ViewsField, f => f //obsolete
+                    .IsRetrievable())
+                .WithField(BoxidField, "Edm.Int64", f => f //obsolete
                     .IsFilterable());
+
+
         }
         private async Task BuildIndex()
         {
@@ -90,7 +105,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             }
             else
             {
-                await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(GetIndexStructure());
+                var x = await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(GetIndexStructure());
             }
             m_CheckIndexExists = true;
         }
@@ -207,20 +222,20 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
                 new RedDog.Search.Model.SearchQuery(query.Term + "*")
                 {
-                    //Filter = await m_FilterProvider.BuildFilterExpression(
-                    //   query.UniversityId, UniversityidField, UseridsField, query.UserId),
-                    Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')",
-                      UniversityidField,
-                      UseridsField,
-                      query.UniversityId,
-                      query.UserId),
+                    Filter = await m_FilterProvider.BuildFilterExpression(
+                       query.UniversityId, UniversityidField2, UseridsField, query.UserId),
+                    //Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')",
+                    //  UniversityidField,
+                    //  UseridsField,
+                    //  query.UniversityId,
+                    //  query.UserId),
 
                     Top = query.RowsPerPage,
-                    //ScoringProfile = "university",
-                    //ScoringParameters = new[] { "university:" + query.UniversityId },
+                    ScoringProfile = "university",
+                    ScoringParameters = new[] { "university:" + query.UniversityId },
                     Skip = query.RowsPerPage * query.PageNumber,
                     Highlight = ContentField + "," + NameField,
-                    SearchFields = string.Join(",", new[] { ImageField, NameField, IdField, SmallContentField, BoxNameField, UniversityNameField, UrlField })
+                    Select = string.Join(",", new[] { ImageField, NameField, IdField, SmallContentField, BoxNameField, UniversityNameField, UrlField })
                 });
 
 
