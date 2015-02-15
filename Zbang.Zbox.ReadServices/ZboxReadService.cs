@@ -10,16 +10,15 @@ using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.Query;
 using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.Library;
-using Zbang.Zbox.ViewModel.Dto.Search;
 using Zbang.Zbox.ViewModel.Dto.Store;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
-using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.ViewModel.Queries.User;
 using Activity = Zbang.Zbox.ViewModel.Dto.ActivityDtos;
 using Box = Zbang.Zbox.ViewModel.Dto.BoxDtos;
@@ -31,7 +30,7 @@ using Sql = Zbang.Zbox.ViewModel.SqlQueries;
 
 namespace Zbang.Zbox.ReadServices
 {
-    public class ZboxReadService : BaseReadService, IZboxReadService
+    public class ZboxReadService : BaseReadService, IZboxReadService, IUniversityWithCode
     {
 
 
@@ -173,7 +172,7 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        
+
 
         public async Task<Box.BoxDto2> GetBox2(GetBoxQuery query)
         {
@@ -329,8 +328,8 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
-               return await con.QueryAsync<Box.RecommendBoxDto>(Sql.Box.RecommendedCourses,
-                   new {query.BoxId, query.UserId});
+                return await con.QueryAsync<Box.RecommendBoxDto>(Sql.Box.RecommendedCourses,
+                    new { query.BoxId, query.UserId });
             }
         }
         public async Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoard(GetLeaderBoardQuery query)
@@ -374,75 +373,6 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-
-
-       
-
-        public async Task<IEnumerable<SearchItems>> SearchItems(GroupSearchQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-
-                return await conn.QueryAsync<SearchItems>(Sql.Search.Items,
-                    new
-                    {
-                        query = query.Query,
-                        universityId = query.UniversityId,
-                        userId = query.UserId,
-                        query.PageNumber,
-                        query.RowsPerPage
-                    });
-
-            }
-        }
-
-        /// <summary>
-        /// Performs a search, returning the results grouped by category 
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        #region Search
-        //public async Task<SearchDto> Search(GroupSearchQuery query)
-        //{
-        //    var retVal = new SearchDto();
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-
-        //        using (var grid = await conn.QueryMultipleAsync(string.Format("{0}",
-        //             Sql.Search.Users
-        //             ),
-        //             new
-        //             {
-        //                 query = query.Query,
-        //                 universityId = query.UniversityId,
-        //                 userId = query.UserId,
-        //                 query.PageNumber,
-        //                 query.RowsPerPage
-        //             }))
-        //        {
-        //            retVal.Users = grid.Read<SearchUsers>();
-        //        }
-        //    }
-        //    return retVal;
-        //}
-
-        public async Task<IEnumerable<SearchItems>> OtherUniversities(GroupSearchQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<SearchItems>(Sql.Search.ItemFromOtherUniversities,
-                       new
-                       {
-                           query = query.Query,
-                           universityId = query.UniversityId,
-                           userId = query.UserId,
-                           query.PageNumber,
-                           query.RowsPerPage
-                       });
-            }
-        }
-
-        #endregion
         /// <summary>
         /// Used for autocomplete in the share box dialog
         /// </summary>
@@ -986,5 +916,14 @@ namespace Zbang.Zbox.ReadServices
         #endregion
 
 
+
+        public async Task<IEnumerable<long>> GetUniversityWithCode()
+        {
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+            {
+                const string sql = "select id from zbox.university where needcode = 1";
+                return await conn.QueryAsync<long>(sql);
+            }
+        }
     }
 }

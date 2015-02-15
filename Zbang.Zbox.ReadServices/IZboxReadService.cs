@@ -51,7 +51,6 @@ namespace Zbang.Zbox.ReadServices
         Task<BoxDto2> GetBox2(GetBoxQuery query);
         Task<IEnumerable<TabDto>> GetBoxTabs(GetBoxQuery query);
 
-        Task<IEnumerable<SearchItems>> SearchItems(GroupSearchQuery query);
 
         Task<IEnumerable<UserDto>> GetUserFriends(GetUserFriendsQuery query);
 
@@ -105,7 +104,6 @@ namespace Zbang.Zbox.ReadServices
 
         //Task<NodeDto> GetDepartmentByUser(QueryBase query);
 
-        Task<IEnumerable<SearchItems>> OtherUniversities(GroupSearchQuery query);
         Task<IEnumerable<UpdatesDto>> GetUpdates(QueryBase query);
 
         //Quiz

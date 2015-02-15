@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             }
 
             var searchTask = SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
-                  new SearchQuery(query.Term + "*")
+                  new RedDog.Search.Model.SearchQuery(query.Term + "*")
                   {
                       Select = "id,name,imageField",
                       Top = query.RowsPerPage,

@@ -2,56 +2,6 @@
 {
     public static class Search
     {
-
-        public const string Items = @"select 
-i.thumbnailurl as image,
-i.Name as name,
-i.ItemId as id,
-i.Content as content,
-i.Rate as rate,
-i.NumberOfViews as views,
-b.BoxName as boxname,
-b.BoxId as boxid ,
-'' as uniName,
-i.url as Url
-from zbox.item i
-join zbox.box b on i.BoxId = b.BoxId and b.IsDeleted = 0
-where i.IsDeleted = 0
-and b.University = @universityId
-and b.Discriminator = 2
-and (i.Name like '%' +@query + '%')
-order by len(i.Name) - len(REPLACE(i.name,@query,'')) / len(@query) asc
-offset @pageNumber*@rowsperpage rows
-fetch next @rowsperpage rows only;";
-
-        public const string ItemFromOtherUniversities = @"
-select i.thumbnailurl as image,
-i.Name as name,
-i.ItemId as id,
-i.Content as content,
-i.Rate as rate,
-i.NumberOfViews as views,
-b.BoxName as boxname,
-b.BoxId as boxid ,
-universityname as uniName,
-i.url as Url
-from zbox.item i
-join zbox.box b on i.BoxId = b.BoxId and b.IsDeleted = 0
-join zbox.users u2 on u2.UserId = b.OwnerId
-where i.IsDeleted = 0
-and b.University in (
-select id from 
-zbox.University u 
-where u.NeedCode = 0 
-and u.country = (select country from zbox.University where Id = @universityId)
-and u.Id != @universityid
-)
-and b.Discriminator = 2
-and (i.Name like '%' +@query + '%')
-order by len(i.Name) - len(REPLACE(i.name,@query,'')) / len(@query) asc, uniName
-offset @pageNumber*@rowsperpage rows
-fetch next @rowsperpage rows only;";
-
         public const string GetBoxToUploadToSearch =
             @"select top 500 b.boxid  as Id
 ,b.BoxName as Name, b.ProfessorName as Professor ,b.CourseCode as CourseCode

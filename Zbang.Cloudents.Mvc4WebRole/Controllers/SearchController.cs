@@ -18,19 +18,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         private readonly IBoxReadSearchProvider m_BoxSearchService;
         private readonly IItemReadSearchProvider m_ItemSearchService;
+        private readonly IQuizReadSearchProvider m_QuizSearchService;
 
-        public SearchController(IBoxReadSearchProvider boxSearchService, IItemReadSearchProvider itemSearchService)
+        public SearchController(IBoxReadSearchProvider boxSearchService, IItemReadSearchProvider itemSearchService, IQuizReadSearchProvider quizSearchService)
         {
             m_BoxSearchService = boxSearchService;
             m_ItemSearchService = itemSearchService;
+            m_QuizSearchService = quizSearchService;
         }
 
-        //[HttpGet]
-        //[DonutOutputCache(CacheProfile = "PartialPage")]
-        //public ActionResult IndexPartial()
-        //{
-        //    return PartialView("Index");
-        //}
+        
 
 
 
@@ -59,48 +56,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var universityDataId = User.GetUniversityData();
             if (!universityDataId.HasValue) return null;
 
+            var query = new SearchQuery(q, User.GetUserId(),
+                universityDataId.Value, page);
+            var t1 = m_BoxSearchService.SearchBox(query);
+            var t2 = m_ItemSearchService.SearchItem(query);
+            var t3 = m_QuizSearchService.SearchQuiz(query);
 
-            var t1 = m_BoxSearchService.SearchBox(new BoxSearchQuery(q, User.GetUserId(),
-                universityDataId.Value, page
-                ));
-            var t2 =
-                m_ItemSearchService.SearchItem(new ItemSearchQuery(q, User.GetUserId(),
-                    universityDataId.Value, page));
 
-            await Task.WhenAll(t1, t2);
+            await Task.WhenAll(t1, t2, t3);
             var retVal = new SearchDto
             {
                 Boxes = t1.Result,
-                Items = t2.Result
+                Items = t2.Result,
+                Quizzes = t3.Result
             };
             return retVal;
         }
 
 
 
-        [HttpGet]
-        public async Task<ActionResult> OtherUniversities(string q, int page)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(q))
-                {
-                    return JsonError("need query");
-                }
-
-                var universityId = User.GetUniversityId();
-
-                if (!universityId.HasValue) return JsonError("need university");
-                var query = new GroupSearchQuery(q, universityId.Value, User.GetUserId(), page, 50);
-                var result = await ZboxReadService.OtherUniversities(query);
-                return JsonOk(result);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("On OtherUniversities q: " + q + " page: " + page + "userid: " + User.GetUserId(), ex);
-                return JsonError("need query");
-            }
-        }
+        
 
     }
 }

@@ -61,9 +61,7 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
         $scope.params.loading = true;
 
         var query = $scope.formData.query;
-
-        
-
+       
         searchHistory.setQuery(query);
 
 
@@ -75,6 +73,13 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
 
         if ($scope.params.currentPage === 0) {
             $analytics.searchTrack($location.$$path.replace(/\//g, ''), query, 'search page');
+        } else {
+
+            $analytics.eventTrack('Show more', {
+                category: 'Search',
+                label: 'User scrolled to page ' + $scope.params.currentPage
+
+            });
         }
 
         sSearch.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (data) {
@@ -93,6 +98,7 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
             $scope.displaySettings = {
                 noResults: true
             };
+            return;
         }
         searchHistory.setData($scope.data);
         appendData(data);
@@ -111,11 +117,17 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
         $scope.data.quizzes = _.union($scope.data.quizzes, data.quizzes);
         $scope.data.items = _.union($scope.data.items, data.items);
 
+        $scope.displaySettings = {
+            boxes: $scope.data.boxes.length > 0,
+            quizzes: $scope.data.quizzes.length > 0,
+            items: $scope.data.items.length > 0
+        };
+
         searchHistory.setData($scope.data);
     }
 
     function checkEmptyResult(data) {
-        if (data.boxes.length + /*data.quizzes.length +*/ data.items.length === 0) {
+        if (data.boxes.length + data.quizzes.length + data.items.length === 0) {
             return true;
         }
 

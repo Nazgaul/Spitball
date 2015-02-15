@@ -68,7 +68,7 @@ namespace Zbang.Zbox.Infrastructure.Ioc
                     //BuilderContainer.RegisterType(typeof(TTo)).As(typeof(TFrom)).InstancePerRequest();
                     break;
                 case LifeTimeManager.Singleton:
-                    ContainerBuilder.RegisterType(typeof(TTo)).As(typeof(TFrom)).InstancePerLifetimeScope();
+                    ContainerBuilder.RegisterType(typeof(TTo)).As(typeof(TFrom)).SingleInstance();
                     break;
                 default:
                     RegisterType<TFrom, TTo>();
