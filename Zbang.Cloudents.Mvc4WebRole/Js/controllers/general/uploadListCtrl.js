@@ -38,7 +38,7 @@ app.controller('UploadListCtrl',
             $scope.collapsed = false;
             $scope.uploader.uploading = true;
 
-            $scope.$broadcast('update-scroll');
+            $scope.$broadcast('update-scrolllist');
 
 
         });
@@ -98,7 +98,7 @@ app.controller('UploadListCtrl',
             var index = $scope.uploader.fileList.indexOf(file);
             $scope.uploader.fileList.splice(index, 1);
 
-            $scope.$broadcast('update-scroll');
+            $scope.$broadcast('update-scrolllist');
 
             if ($scope.uploader.fileList.length === 0) {
                 $scope.uploader.title = params.title.uploaded;
@@ -129,7 +129,7 @@ app.controller('UploadListCtrl',
 
             $scope.uploader.uploading = true;
 
-            $scope.$broadcast('update-scroll');
+            $scope.$broadcast('update-scrolllist');
 
         });
 
@@ -219,7 +219,7 @@ app.controller('UploadListCtrl',
             }
 
             $scope.uploader.collapsed = !$scope.uploader.collapsed;
-            $scope.$broadcast('update-scroll', $scope.uploader.collapsed ? 0 : null);
+            $scope.$broadcast('update-scrolllist', $scope.uploader.collapsed ? 0 : null);
 
             if (!$scope.uploader.uploading) {
                 return;
