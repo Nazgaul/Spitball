@@ -2,6 +2,48 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+.searchInputWpr {
+  border-radius: 16px;
+  position: absolute;
+  top: 17px;
+  z-index: 4;
+  margin: 0;
+  line-height: normal;
+  background: #fff;
+  color: #c2c2c2;
+  padding: 4px 10px;
+  font-size: 18px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 365px;
+  height: 32px;
+  right: 500px;
+}
+.searchInputWpr.searchUser {
+  right: 0;
+  left: 0;
+  margin: auto;
+  top: 72px;
+  position: absolute;
+}
+.searchInputWpr.searchUser + button .svg-inviteUser {
+  position: relative;
+  top: -9px;
+}
+.searchInputWpr.searchLib {
+  right: 550px;
+}
+.searchInputWpr.searchBox {
+  /*max-width: 365px;
+        width: ~'-webkit-calc(100% - 675px)';
+        width: ~'calc(100% - 675px)';
+        min-width: 40px;
+        position: fixed;*/
+  right: 320px;
+  z-index: 11;
+  top: -41px;
+}
 .searchPopup {
   position: absolute;
   top: 0;
@@ -25,6 +67,7 @@
   box-sizing: border-box
   /*.userPage & {
         .userInitial;
+        width: 365px;
         height: 32px; 
         background: tomato;
     }*/
@@ -33,20 +76,23 @@
   overflow: hidden;
 }
 .searchPopup ~ .bodyContent .siteHeader {
-  visibility: hidden;
+  margin-top: -50px;
 }
 .searchPopup.searchLib {
   right: 550px;
 }
 .searchPopup.searchBox {
-  top: 9px;
-  z-index: 12;
+  /*top: 9px;
+        z-index: 12;
+        left: 320px; //rtl
+        max-width: 365px;
+        width: ~'-webkit-calc(100% - 675px)';
+        width: ~'calc(100% - 675px)';
+        min-width: 40px;
+        position: fixed;*/
   right: 320px;
-  max-width: 365px;
-  width: -webkit-calc(100% - 675px);
-  width: calc(100% - 675px);
-  min-width: 40px;
-  position: fixed;
+  z-index: 11;
+  top: -41px;
 }
 .searchPopup.ng-enter,
 .searchPopup.ng-leave-active {
@@ -72,15 +118,23 @@
 }
 .userPage .searchPopup.ng-enter,
 .userPage .searchPopup.ng-leave-active {
-  right: auto;
-  right: calc(50% - 187px);
+  right: 0;
+  left: 0;
+  margin: auto;
   top: 72px;
-  width: 365px;
-  height: 32px
-  /*min-width: 40px;
-    max-width: 365px;
-    width: ~'-webkit-calc(100% - 539px)';
-    width: ~'calc(100% - 539px)';*/
+  position: absolute;
+}
+.boxPage .searchPopup.ng-enter,
+.boxPage .searchPopup.ng-leave-active {
+  right: 320px;
+  z-index: 11;
+  top: -41px;
+}
+.libraryPage .searchPopup.ng-enter,
+.libraryPage .searchPopup.ng-leave-active,
+.departmentPage .searchPopup.ng-enter,
+.departmentPage .searchPopup.ng-leave-active {
+  right: 550px;
 }
 .searchPopup.ng-leave-active .searchBtn,
 .searchPopup.ng-leave-active .closeSearch {
@@ -208,58 +262,6 @@
   opacity: 1;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-}
-.searchInputWpr {
-  border-radius: 16px;
-  position: absolute;
-  top: 17px;
-  z-index: 4;
-  margin: 0;
-  line-height: normal;
-  background: #fff;
-  color: #c2c2c2;
-  padding: 4px 10px;
-  font-size: 18px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 365px;
-  height: 32px;
-  right: 500px;
-}
-.searchInputWpr.open {
-  /*~ .siteHeader, ~ .dashboard, ~ .union, ~ .boxPage, ~ .userPage {
-            display: none !important; //override js
-        }*/
-}
-.searchInputWpr.hideInput .dashLibSearchInput {
-  color: transparent;
-  -webkit-transition: color 0.3s;
-  transition: color 0.3s;
-}
-.searchInputWpr.searchUser {
-  right: auto;
-  right: calc(50% - 187px);
-  top: 72px;
-  width: 365px;
-  height: 32px
-  /*min-width: 40px;
-    max-width: 365px;
-    width: ~'-webkit-calc(100% - 539px)';
-    width: ~'calc(100% - 539px)';*/
-}
-.searchInputWpr.searchLib {
-  right: 550px;
-}
-.searchInputWpr.searchBox {
-  top: 9px;
-  z-index: 12;
-  right: 320px;
-  max-width: 365px;
-  width: -webkit-calc(100% - 675px);
-  width: calc(100% - 675px);
-  min-width: 40px;
-  position: fixed;
 }
 .gn-search:focus::-webkit-input-placeholder {
   color: transparent;

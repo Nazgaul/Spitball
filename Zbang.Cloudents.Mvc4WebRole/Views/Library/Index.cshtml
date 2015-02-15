@@ -7,10 +7,10 @@
     @{Html.RenderPartial("_Header");}
 </header>
 <div id="library" class="page union">
-    <div class="searchInputWpr searchLib" ng-click="$root.toggleSearch()"></div>
-    <div class="searchInputWpr searchLib">
+    <div class="searchInputWpr searchLib" ng-click="$root.toggleSearch()">@SharedResources.Search</div>
+    @*<div class="searchInputWpr searchLib">
         @{Html.RenderPartial("_BarSearch");}
-    </div>
+    </div>*@
     <div class="libraryContent">
         <aside class="asideDash lFloat">
             <div class="dashLibTop">
