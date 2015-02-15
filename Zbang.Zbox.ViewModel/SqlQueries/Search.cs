@@ -79,23 +79,25 @@ order by Id;";
 
 
         public const string GetQuizzesQuestionToUploadToSearch =
-            @"select text, QuizId  from zbox.QuizQuestion where QuizId in (
+            @"select text, QuizId, Id as questionid  from zbox.QuizQuestion where QuizId in (
 select top 500 q.Id
 from zbox.quiz q 
 where publish = 1
 and q.isdeleted = 0
 and q.isdirty = 1
-order by Id);";
+order by Id)
+order by Id;";
 
 
         public const string GetQuizzesAnswersToUploadToSearch =
-            @"select text,QuizId from zbox.QuizAnswer where QuizId in (
+            @"select text,QuizId, questionid from zbox.QuizAnswer where QuizId in (
 select top 500 q.Id
 from zbox.quiz q 
 where publish = 1
 and q.isdeleted = 0
 and q.isdirty = 1
-order by Id);";
+order by Id)
+order by QuestionId,Id;";
 
         public const string GetQuizzesToDeleteFromSearch = @"
         select top 500 id as id from zbox.Quiz

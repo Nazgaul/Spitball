@@ -64,9 +64,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     await m_QuizSearchProvider.UpdateData(updates.QuizzesToUpdate, updates.QuizzesToDelete);
                 if (isSuccess)
                 {
-                    //await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
-                    //    new UpdateDirtyToRegularCommand(
-                    //        updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));
+                    await m_ZboxWriteService.UpdateSearchQuizDirtyToRegularAsync(
+                        new UpdateDirtyToRegularCommand(
+                            updates.QuizzesToDelete.Union(updates.QuizzesToUpdate.Select(s => s.Id))));
                 }
             }
             return updates.QuizzesToUpdate.Count() == NumberToReSyncWithoutWait

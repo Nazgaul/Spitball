@@ -295,10 +295,12 @@ namespace Zbang.Zbox.ReadServices
                     {
                         long quizId = quiz.Id;
                         var boxId = quiz.BoxId;
+
                         quiz.Questions = questions.Where(w => w.QuizId == quizId).Select(s => s.Text);
                         quiz.Answers = answers.Where(w => w.QuizId == quizId).Select(s => s.Text);
                         quiz.UserIds = usersInQuizzes.Where(w => w.BoxId == boxId).Select(s => s.UserId);
                     }
+                    retVal.QuizzesToDelete = await grid.ReadAsync<long>();
                     return retVal;
                 }
             }

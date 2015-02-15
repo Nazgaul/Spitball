@@ -273,6 +273,15 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
+        public async Task UpdateSearchQuizDirtyToRegularAsync(UpdateDirtyToRegularCommand command)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                const string sql = "update zbox.Quiz set isdirty = 0 where id in @Ids";
+                await conn.ExecuteAsync(sql, new { command.Ids }, commandType: CommandType.Text);
+            }
+        }
+
 
     }
 }

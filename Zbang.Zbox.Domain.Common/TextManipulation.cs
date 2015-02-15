@@ -59,24 +59,6 @@ namespace Zbang.Zbox.Domain.Common
                         str = sb.ToString();
                         index = str.IndexOf(string.Format("&lt;{0}", allowElement), StringComparison.Ordinal);
                     }
-
-
-
-
-
-                    //var match = Regex.Match(sb.ToString(), string.Format("&lt;{0}(.*)&gt;", allowElement));
-                    //while (match.Success)
-                    //{
-                    //    // var matches = Regex.Matches(sb.ToString(), string.Format("&lt;{0}(.*)&gt;", allowElement));
-                    //    const string replace = "&lt;";
-                    //    var patternToReplace = string.Format("{1}{0}", allowElement, replace);
-                    //    sb.Replace(patternToReplace, string.Format("<{0}", allowElement),
-                    //        match.Index, patternToReplace.Length);
-                    //    var indexOfGt = sb.ToString().IndexOf("&gt;", match.Index, StringComparison.InvariantCulture);
-                    //    sb.Replace("&gt;", ">", indexOfGt, 4);
-                    //    match = Regex.Match(sb.ToString(), string.Format("&lt;{0}(.*)&gt;", allowElement));
-                    //}
-
                 }
             }
             return sb.ToString();
@@ -84,7 +66,7 @@ namespace Zbang.Zbox.Domain.Common
 
         public static readonly Regex UrlDetector = new Regex(@"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase);
 
-        public static readonly Regex RemoveHtmlTags = new Regex("<.*?>", RegexOptions.Compiled);
+        
 
         public static string DecodeUrls(string commentText)
         {
@@ -98,63 +80,10 @@ namespace Zbang.Zbox.Domain.Common
                     url = string.Format("http://{0}", url);
                 }
                 sb.Replace(match.Value, string.Format("<a target=\"_Blank\" href=\"{0}\">{1}</a>", url, match.Value));
-                //commentText = commentText.Replace(match.Value, string.Format("<a href=\"{0}\">{0}</a>", match.Value));
-
                 match = match.NextMatch();
             }
             return sb.ToString();
         }
-
-        //public static string CombineUserServerComments(string userComment, string serverComment)
-        //{
-        //    if (string.IsNullOrEmpty(userComment))
-        //    {
-        //        userComment = string.Empty;
-        //    }
-
-        //    string encodeUserComment = EncodeComment(userComment);
-
-        //    var sb = new StringBuilder(encodeUserComment.Trim());
-
-        //    if (sb.Length > 0)
-        //    {
-        //        sb.Append("\n");
-        //    }
-        //    sb.AppendFormat(serverComment);
-
-        //    return sb.ToString();
-        //}
-
-        //public static bool CombineFileServerComments(string sessionId, int batchSize, out string fileServerComments)
-        //{
-        //    var fileCommentList = HttpContext.Current.Session[sessionId] as List<string>;
-        //    if (fileCommentList == null)
-        //    {
-        //        throw new NullReferenceException("file comment is null");
-        //    }
-        //    fileServerComments = string.Join(", ", fileCommentList);
-        //    if (fileCommentList.Count == batchSize)
-        //        HttpContext.Current.Session.Remove(sessionId);
-        //    return fileCommentList.Count == batchSize;
-        //}
-
-        //public static void AddFileServerComments(long itemid, string fileName, string sessionId)
-        //{
-
-        //    string comment = string.Format("<a data-href=\"{0}\" href=\"#\">{1}</a>", itemid, fileName);
-        //    var fileCommentList = HttpContext.Current.Session[sessionId] as List<string>;
-        //    if (fileCommentList == null) // new batch of upload
-        //    {
-        //        fileCommentList = new List<string> { comment };
-        //        HttpContext.Current.Session[sessionId] = fileCommentList;
-        //    }
-        //    else
-        //    {
-        //        fileCommentList.Add(comment);
-        //    }
-        //}
-
-
     }
 
 }
