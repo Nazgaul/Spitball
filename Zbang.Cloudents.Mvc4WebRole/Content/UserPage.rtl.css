@@ -26,8 +26,7 @@
 }
 .userPage .searchInputWpr,
 .searchPage .searchInputWpr {
-  margin: 21px 13px 0 13px;
-  width: 460px;
+  margin: 0 13px;
 }
 .userPage .searchInputWpr + button .svg-inviteUser,
 .searchPage .searchInputWpr + button .svg-inviteUser {
