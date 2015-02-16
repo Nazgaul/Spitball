@@ -202,7 +202,7 @@ textarea:invalid {
 .removeAttach:after {
   content: '';
   display: inline-block;
-  background: url(/Images/common17-sprite.png?v=4) -68px -15px no-repeat;
+  background: url(/Images/common27-sprite.png?v=1) -68px -15px no-repeat;
   width: 10px;
   height: 10px;
   vertical-align: top;

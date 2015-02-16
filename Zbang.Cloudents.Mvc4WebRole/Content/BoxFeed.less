@@ -11,6 +11,22 @@
     width: 598px;
     color: @textColor;
     display: inline-block;
+    [data-letter] {
+        width: 40px;
+        height: 40px;
+        &:before {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 22px;
+            left:0; //override
+            .boxSizing;
+        }
+    }
+    .heb:before {
+        font-size: 26px;
+        line-height: 38px;
+    }
     > .feedForm {
         .feedTA {
             border-color: #282828;
@@ -51,16 +67,9 @@
         padding: 20px 32px 10px 32px;
     }
     .podium {
-        width: 90px;
-        top: 149px;
-        &:before, &:after {
-            width: 90px;
-            left: -91px; //rtl
-        }
-        &:after {
-            right: -91px; //rtl
-            left: auto;
-        }
+        margin: 0; //override;
+        top: -185px;
+        margin-bottom: -80px;
     }
     .bestUserList {
         .firstUser, .secondUser, .thirdUser {
@@ -71,6 +80,12 @@
         }
         li:nth-child(n+4) {
             margin: 0 -40px;
+            .rep {
+                color: @textColor;
+            }
+        }
+        li:nth-child(4) {
+            margin-top: 65px;
         }
         .elps {
             max-width: 200px;
@@ -139,15 +154,17 @@
     text-align:center;
     padding-top: 90px;
 }
-.feedImg {
-    border-radius: 100%;
+.feedImg, .boxFeed [data-letter] {
+    border-radius: 50%;
     margin-right: 15px; //rtl
     border: 1px solid @borderColor;
     .boxSizing;
     position: relative;
     top: 2px;
 }
-
+.boxFeed [data-letter] {
+    border: none;
+}
 .feedTA {
     //width: 436px;
     width: 543px;
@@ -225,7 +242,7 @@
     .feedForm {
         padding-top: 15px;
         /*display: none;*/
-        .feedImg {
+        .feedImg, [data-letter] {
             margin: 0 0 0 15px; //rtl override
         }
         &.show {
@@ -331,7 +348,7 @@
             z-index: 1;
         }
     }
-    .feedImg {
+    .feedImg, [data-letter] {
         margin: 0 0 0 15px; //rtl override
     }
     .userName {
@@ -566,9 +583,14 @@
 .bestUserList {
     text-align: center;  
     counter-reset: leaderBoard;
-    min-height: 180px;
+    //min-height: 180px;
     position: relative;
     top: 8px;
+    a {
+        display: inline-block;
+        position: relative; //position above the podium
+        z-index: 1;
+    }
     .firstUser, .secondUser, .thirdUser {
         width: 86px;
         height: auto;
@@ -576,8 +598,9 @@
         .rep {
             display: block;
             width: auto;
-            //margin-top: 13px;
-            margin-top: 6px; //for dashboard
+            position: relative;
+            top: 16px;
+            z-index: 1;
         }
         &.empty {
             .top3Img {
@@ -616,6 +639,7 @@
                 visibility: hidden;  //don't display counter on top 3 users
             }
         }
+        
         &:nth-child(n + 4) {
             margin: 0 -32px;
             padding: 0 15px;
@@ -629,11 +653,14 @@
             [data-letter] {
                 &:first-child {
                     display: inline-block;
+                    margin: 0 5px 8px 5px;
+                    width: 38px;
+                    height: 38px;
                 }
                 &:before {
-                    width: 40px;
-                    height: 40px;
-                    line-height: 40px;
+                    width: 38px;
+                    height: 38px;
+                    line-height: 38px;
                     margin-top: 4px;
                 }
             }
@@ -650,12 +677,9 @@
         }
     }
     [data-letter] {
-        display: none;
         vertical-align: middle;
         &:before {
-            border: 1px solid #c2c2c2;
             position: static;
-            background: #eee;
         }
         &:first-child {
             display: block;
@@ -710,7 +734,7 @@
         margin-top: 35px;
     }
 }
-.svg-crown {
+/*.svg-crown {
     width: 36px;
     height: 23px;
 }
@@ -721,10 +745,10 @@
 .svg-badge {
     width: 18px;
     height: 30px;
-}
+}*/
 .rep {
     font-weight: bold;
-    color: @textColor;
+    color: #fff;
     display: inline-block;
     width: 64px; //width of the third best user
     text-align: center;
