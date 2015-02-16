@@ -16,7 +16,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 {
     public class UpdateSearch : IJob
     {
-        private const int NumberToReSyncWithoutWait = 500;
+        private const int NumberToReSyncWithoutWait = 100;
         private bool m_KeepRunning;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
@@ -59,11 +59,11 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private async Task ExecuteAsync()
         {
-            var quizUpdate = await UpdateQuiz();
-            var itemUpdate = false;// await UpdateItem();
-            var universityUpdate = await UpdateUniversity();
-            var boxUpdate = await UpdateBox();
-            if (itemUpdate || boxUpdate || universityUpdate || quizUpdate)
+            //var quizUpdate = await UpdateQuiz();
+            var itemUpdate = await UpdateItem();
+            //var universityUpdate = await UpdateUniversity();
+            //var boxUpdate = await UpdateBox();
+            if (itemUpdate /*||  boxUpdate || universityUpdate || quizUpdate*/)
             {
                 return;
             }
@@ -118,6 +118,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             {
                 var blob = m_BlobProvider.GetFile(elem.BlobName);
                 var processor = m_FileProcessorFactory.GetProcessor(blob.Uri);
+                if (processor == null) return null;
                 var tokenSource = new CancellationTokenSource();
                 tokenSource.CancelAfter(TimeSpan.FromMinutes(2));
                 return await processor.ExtractContent(blob.Uri, tokenSource.Token);

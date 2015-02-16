@@ -106,7 +106,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             var domainBuildVersion = domain.GetName().Version.Revision;
             var viewModelBuildVersion = viewModel.GetName().Version.Revision;
             var fileInfo = string.Format("{0}{1}{2}{3}", SerializationFile, buildVersion, domainBuildVersion, viewModelBuildVersion);
-            TraceLog.WriteInfo("nhibernate file config is: " + fileInfo);
             return fileInfo;
         }
 
