@@ -416,13 +416,7 @@ body.quiz .modal-backdrop.in {
   position: relative;
   display: none;
   background: #f1f1f1;
-  padding-right: 10px
-  /*&.show {
-        .quizComments, .imgBorder, .cTextAreaWpr {
-            display: block;
-        }
-        
-    }*/
+  padding-right: 10px;
 }
 .commentWpr .closeDialog {
   background-position: -68px -26px;
@@ -432,8 +426,8 @@ body.quiz .modal-backdrop.in {
 }
 .commentWpr .imgBorder {
   position: absolute;
-  right: 0
-  /*display: none;*/
+  right: 0;
+  border-radius: 50%;
 }
 .commentWpr .askBtn {
   padding: 6px 15px 7px;
@@ -472,6 +466,8 @@ body.quiz .modal-backdrop.in {
 }
 .cTextAreaWpr .imgBorder {
   right: 10px;
+  width: 32px;
+  height: 32px;
 }
 .cTextArea {
   width: 595px;
