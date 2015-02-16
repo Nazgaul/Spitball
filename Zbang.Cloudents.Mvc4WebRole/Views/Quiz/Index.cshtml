@@ -86,9 +86,9 @@
                     <div class="commentWpr">
                         <ul class="quizComments">
                             <li ng-repeat="comment in question.comments">
-                                <button type="button" class="closeDialog" ng-click="deleteComment(question,comment)" ng-if="comment.isDelete"></button>
-                                <img class="imgBorder" user-tooltip-popup="{{comment.userId}}" width=" 32" height="32" alt="" ng-src="{{::comment.userPicture | defaultImage:'user'}}" />
-                                <span class="imgBorder" data-letter="{{comment.userName[0]}}"></span>
+                                <button type="button" class="closeDialog" ng-click="deleteComment(question,comment)" ng-if="::comment.isDelete"></button>
+                                <img class="imgBorder" ng-if="::comment.userPicture" user-tooltip-popup="{{::comment.userId}}" width=" 32" height="32" alt="" ng-src="{{::comment.userPicture}}" />
+                                <span class="imgBorder" data-letter="{{::comment.userName[0]}}" user-tooltip-popup="{{::comment.userId}}"></span>
                                 <span class="semiFont">{{::comment.userName}}</span>
                                 <span class="createTime" display-time="{{::comment.date}}"></span>
                                 <div class="commentTxt" ng-bind-html="::comment.text"></div>
@@ -96,8 +96,8 @@
                         </ul>
 
                         <div class="cTextAreaWpr">
-                            <img class="imgBorder lFloat" ng-if="profile.userImage" src="" alt="" width="32" height="32" ng-src="{{::profile.userImage}}" />
-                            <span class="imgBorder lFloat" data-letter="{{profile.name[0]}}"></span>
+                            <img class="imgBorder lFloat" ng-if="::profile.userImage" src="" alt="" width="32" height="32" ng-src="{{::profile.userImage}}" />
+                            <span class="imgBorder lFloat" data-letter="{{::profile.userName[0]}}"></span>
                             <textarea text-direction msd-elastic class="cTextArea" ng-placeholder="@SharedResources.WriteComment" ng-model="question.newComment"></textarea>
                             <button type="submit" ng-disabled="!question.newComment || question.newComment.length === 0" class="askBtn rFloat btn3" ng-click="createComment(question)" analytics-on="click" analytics-event="Create Comment" analytics-category="Quiz">@SharedResources.Comment</button>
                         </div>
