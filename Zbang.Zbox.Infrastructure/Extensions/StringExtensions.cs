@@ -45,6 +45,17 @@ public static class StringExtensions
 
         return s;
     }
+
+    public static string Replace(this string s, char[] separators, string newVal)
+    {
+        
+        if (s.IndexOf(separators[0]) > -1)
+        {
+            
+        }
+        string[] temp = s.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+        return String.Join(newVal, temp);
+    }
 }
 
 

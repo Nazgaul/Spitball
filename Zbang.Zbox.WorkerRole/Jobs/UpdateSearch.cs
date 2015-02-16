@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
@@ -16,7 +17,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 {
     public class UpdateSearch : IJob
     {
-        private const int NumberToReSyncWithoutWait = 100;
+        private const int NumberToReSyncWithoutWait = 20;
         private bool m_KeepRunning;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
@@ -121,7 +122,21 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 if (processor == null) return null;
                 var tokenSource = new CancellationTokenSource();
                 tokenSource.CancelAfter(TimeSpan.FromMinutes(2));
-                return await processor.ExtractContent(blob.Uri, tokenSource.Token);
+                var str = await processor.ExtractContent(blob.Uri, tokenSource.Token);
+                if (string.IsNullOrEmpty(str))
+                {
+                    return str;
+                }
+                var sb = new StringBuilder();
+                foreach (var ch in str)
+                {
+                    if (char.IsSurrogate(ch))
+                    {
+                        continue;
+                    }
+                    sb.Append(ch);
+                }
+                return System.Net.WebUtility.HtmlEncode(sb.ToString());
             }
             catch (Exception ex)
             {

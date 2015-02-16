@@ -68,7 +68,7 @@ namespace Zbang.Zbox.Domain
 
         protected virtual ICollection<Updates> Updates { get; set; }
         public virtual ICollection<InviteToBox> Invites { get; set; }
-       
+
 
         public virtual int MembersCount { get; private set; }
         public virtual int ItemCount { get; private set; }
@@ -87,7 +87,7 @@ namespace Zbang.Zbox.Domain
             GenerateUrl();
         }
 
-       
+
 
         public virtual void GenerateUrl()
         {
@@ -187,7 +187,7 @@ namespace Zbang.Zbox.Domain
         public virtual void UpdateItemCount()
         {
             ItemCount = Items.Count(file => !file.IsDeleted);
-            QuizCount = Quizzes.Count(quiz => quiz.Publish);
+            QuizCount = Quizzes.Count(quiz => quiz.Publish && !quiz.IsDeleted);
 
         }
         #endregion
