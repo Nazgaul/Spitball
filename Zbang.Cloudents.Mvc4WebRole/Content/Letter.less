@@ -23,7 +23,8 @@
         display: none;
     }
 }
-.bestUserList, .boxFeed, .userTooltip, .profileInfo, .memberItem, .friendsPics, .topUser, .commentWpr {
+//The following are the user image classes 
+.bestUserList, .boxFeed, .userTooltip, .profileInfo, .memberItem, .friendsPics, .topUser, .commentWpr, .singleEmailUserWpr, .socialList, .notifyItem  {
     [data-letter] {
         &:before {
             border: 1px solid #c2c2c2;
@@ -253,17 +254,107 @@
     }
 }
 
+/*#endregion */
+
+/*#region Box */
+.boxTop {
+    &[data-letter]:before {
+        width: 74px;
+        height: 74px;
+        line-height: 74px;
+        left:0;right:0;
+        bottom: auto; //override
+        margin: auto;
+        font-size: 45px;
+    }
+    &.heb:before {
+        line-height: 67px;
+        font-size: 52px;
+    }
+}
+
 
 /*#endregion */
 
-/*#region name */
-
-
+/*#region Message popup; Share */
+.singleEmailUserWpr, .invItem {
+    [data-letter] {
+        &:before {
+            position: static;
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+            font-size: 22px;
+        }
+        
+    }
+    .heb:before {
+        font-size: 25px;
+        line-height: 30px;
+    }
+}
+.singleEmailUserWpr {
+    
+    .eSingleImg {
+        + .eSingleImg {
+            display: none;
+        }
+    }
+    
+}
+.invItem {
+    .friendImg {
+        + .friendImg {
+            display: none;
+        }
+    }
+}
+/*#endregion */
+/*#region Social List */
+.socialList {
+    [data-letter] {
+        &:before {
+            position: static;
+            width: 64px;
+            height: 64px;
+            line-height: 64px;
+            font-size: 40px;
+        }
+        
+    }
+    .heb:before {
+        font-size: 49px;
+        line-height: 60px;
+    }
+    img + .letter {
+        display: none;
+    }
+}
 
 /*#endregion */
+/*#region Notify */
+.notifyItem {
+    [data-letter] {
+        &:before {
+            width: 72px;
+            height: 72px;
+            line-height: 72px;
+            font-size: 45px;
+        }
+    }
+    &.heb:before {
+        line-height: 67px;
+        font-size: 52px;
+    }
+    .notifyImg {
+        + .notifyImg {
+            display: none;
+        }
+    }
+}
 
+/*#endregion */
 /*#region name */
-
 
 
 /*#endregion */

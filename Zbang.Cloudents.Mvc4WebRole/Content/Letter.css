@@ -31,7 +31,10 @@
 .memberItem [data-letter]:before,
 .friendsPics [data-letter]:before,
 .topUser [data-letter]:before,
-.commentWpr [data-letter]:before {
+.commentWpr [data-letter]:before,
+.singleEmailUserWpr [data-letter]:before,
+.socialList [data-letter]:before,
+.notifyItem [data-letter]:before {
   border: 1px solid #c2c2c2;
   background: #eee;
 }
@@ -42,7 +45,10 @@
 .memberItem .color1:before,
 .friendsPics .color1:before,
 .topUser .color1:before,
-.commentWpr .color1:before {
+.commentWpr .color1:before,
+.singleEmailUserWpr .color1:before,
+.socialList .color1:before,
+.notifyItem .color1:before {
   color: #00bfa5;
 }
 .bestUserList .color2:before,
@@ -52,7 +58,10 @@
 .memberItem .color2:before,
 .friendsPics .color2:before,
 .topUser .color2:before,
-.commentWpr .color2:before {
+.commentWpr .color2:before,
+.singleEmailUserWpr .color2:before,
+.socialList .color2:before,
+.notifyItem .color2:before {
   color: #f06292;
 }
 .bestUserList .color3:before,
@@ -62,7 +71,10 @@
 .memberItem .color3:before,
 .friendsPics .color3:before,
 .topUser .color3:before,
-.commentWpr .color3:before {
+.commentWpr .color3:before,
+.singleEmailUserWpr .color3:before,
+.socialList .color3:before,
+.notifyItem .color3:before {
   color: #b388ff;
 }
 .bestUserList .color4:before,
@@ -72,7 +84,10 @@
 .memberItem .color4:before,
 .friendsPics .color4:before,
 .topUser .color4:before,
-.commentWpr .color4:before {
+.commentWpr .color4:before,
+.singleEmailUserWpr .color4:before,
+.socialList .color4:before,
+.notifyItem .color4:before {
   color: #ff6e40;
 }
 .bestUserList .color5:before,
@@ -82,7 +97,10 @@
 .memberItem .color5:before,
 .friendsPics .color5:before,
 .topUser .color5:before,
-.commentWpr .color5:before {
+.commentWpr .color5:before,
+.singleEmailUserWpr .color5:before,
+.socialList .color5:before,
+.notifyItem .color5:before {
   color: #e06055;
 }
 .bestUserList .color6:before,
@@ -92,7 +110,10 @@
 .memberItem .color6:before,
 .friendsPics .color6:before,
 .topUser .color6:before,
-.commentWpr .color6:before {
+.commentWpr .color6:before,
+.singleEmailUserWpr .color6:before,
+.socialList .color6:before,
+.notifyItem .color6:before {
   color: #8e8e8e;
 }
 .bestUserList .color7:before,
@@ -102,7 +123,10 @@
 .memberItem .color7:before,
 .friendsPics .color7:before,
 .topUser .color7:before,
-.commentWpr .color7:before {
+.commentWpr .color7:before,
+.singleEmailUserWpr .color7:before,
+.socialList .color7:before,
+.notifyItem .color7:before {
   color: #f9a825;
 }
 .bestUserList .color8:before,
@@ -112,7 +136,10 @@
 .memberItem .color8:before,
 .friendsPics .color8:before,
 .topUser .color8:before,
-.commentWpr .color8:before {
+.commentWpr .color8:before,
+.singleEmailUserWpr .color8:before,
+.socialList .color8:before,
+.notifyItem .color8:before {
   color: #00c853;
 }
 .color1:before {
@@ -231,5 +258,73 @@
   line-height: 28px;
 }
 .commentWpr .imgBorder + .imgBorder {
+  display: none;
+}
+/*#endregion */
+/*#region Box */
+.boxTop[data-letter]:before {
+  width: 74px;
+  height: 74px;
+  line-height: 74px;
+  left: 0;
+  right: 0;
+  bottom: auto;
+  margin: auto;
+  font-size: 45px;
+}
+.boxTop.heb:before {
+  line-height: 67px;
+  font-size: 52px;
+}
+/*#endregion */
+/*#region Message popup; Share */
+.singleEmailUserWpr [data-letter]:before,
+.invItem [data-letter]:before {
+  position: static;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  font-size: 22px;
+}
+.singleEmailUserWpr .heb:before,
+.invItem .heb:before {
+  font-size: 25px;
+  line-height: 30px;
+}
+.singleEmailUserWpr .eSingleImg + .eSingleImg {
+  display: none;
+}
+.invItem .friendImg + .friendImg {
+  display: none;
+}
+/*#endregion */
+/*#region Social List */
+.socialList [data-letter]:before {
+  position: static;
+  width: 64px;
+  height: 64px;
+  line-height: 64px;
+  font-size: 40px;
+}
+.socialList .heb:before {
+  font-size: 49px;
+  line-height: 60px;
+}
+.socialList img + .letter {
+  display: none;
+}
+/*#endregion */
+/*#region Notify */
+.notifyItem [data-letter]:before {
+  width: 72px;
+  height: 72px;
+  line-height: 72px;
+  font-size: 45px;
+}
+.notifyItem.heb:before {
+  line-height: 67px;
+  font-size: 52px;
+}
+.notifyItem .notifyImg + .notifyImg {
   display: none;
 }

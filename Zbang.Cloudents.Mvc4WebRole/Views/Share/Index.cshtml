@@ -54,7 +54,8 @@
                     <ul class="invList clearfix">
                         <li class="invItem lFloat" ng-class="{invited: contact.invited }" ng-repeat="contact in params.contacts | limitTo : params.contactLimit">
                             <a ng-href="{{::contact.url}}">
-                                <img alt="" class="friendImg" ng-src="{{::contact.image | defaultImage:'user'}}" width="34" height="34">
+                                <img alt="" class="friendImg" ng-if="contact.image" ng-src="{{::contact.image}}" width="34" height="34">
+                                <span class="friendImg" data-letter="{{contact.name[0]}}"></span>
                             </a>
                             <span class="invName elps">{{::contact.name}}</span>
                             <button type="button" class="invBtn rFloat" ng-click="inviteContact(contact)">
