@@ -24,7 +24,7 @@
     }
 }
 //The following are the user image classes 
-.bestUserList, .boxFeed, .userTooltip, .profileInfo, .memberItem, .friendsPics, .topUser, .commentWpr, .singleEmailUserWpr, .socialList {
+.bestUserList, .boxFeed, .userTooltip, .profileInfo, .memberItem, .friendsPics, .topUser, .commentWpr, .singleEmailUserWpr, .socialList, .notifyItem  {
     [data-letter] {
         &:before {
             border: 1px solid #c2c2c2;
@@ -332,8 +332,26 @@
 }
 
 /*#endregion */
-/*#region name */
-
+/*#region Notify */
+.notifyItem {
+    [data-letter] {
+        &:before {
+            width: 72px;
+            height: 72px;
+            line-height: 72px;
+            font-size: 45px;
+        }
+    }
+    &.heb:before {
+        line-height: 67px;
+        font-size: 52px;
+    }
+    .notifyImg {
+        + .notifyImg {
+            display: none;
+        }
+    }
+}
 
 /*#endregion */
 /*#region name */
