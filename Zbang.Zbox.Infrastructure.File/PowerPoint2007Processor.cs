@@ -179,10 +179,6 @@ namespace Zbang.Zbox.Infrastructure.File
                         {
                             //Display text in the current portion
                             sb.Append(port.Text);
-                            if (sb.Length > 10000)
-                            {
-                                break;
-                            }
                         }
 
 
@@ -198,6 +194,17 @@ namespace Zbang.Zbox.Infrastructure.File
         public override string GetDefaultThumbnailPicture()
         {
             return PowerPointFileTypePicture;
+        }
+
+        public override async Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        {
+            var blobName = GetBlobNameFromUri(blobUri);
+                var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
+                SetLicense();
+            using (var pptx = new Presentation(path))
+            {
+               return ExtractStringFromPpt(pptx);
+            }
         }
     }
 }

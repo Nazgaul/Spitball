@@ -38,6 +38,9 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public abstract Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken));
 
+        public abstract Task<string> ExtractContent(Uri blobUri,
+            CancellationToken cancelToken = default(CancellationToken));
+
 
         public const string DefaultFileTypePicture = "filev4.jpg";
         public const string ExcelFileTypePicture = "excelv4.jpg";
@@ -57,7 +60,8 @@ namespace Zbang.Zbox.Infrastructure.File
 
         protected string StripUnwantedChars(string input)
         {
-            input = Regex.Replace(input, @"\s+", " ");
+            var spaceReg = new Regex(@"\s+", RegexOptions.Compiled);
+            input = spaceReg.Replace(input, " ");
             input = input.Replace("‏אזהרה‏ הנך רשאי להשתמש ' שימוש הוגן ' ביצירה מוגנת למטרות שונות, לרבות ' לימוד עצמי ' ואין לעשות שימוש בעל אופי מסחרי או מעין-מסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצה, שעמל על הכנת ההרצאות והחומר לציבור התלמידים.", string.Empty);
             input = input.Replace("\0", string.Empty);
             return input;
@@ -118,10 +122,6 @@ namespace Zbang.Zbox.Infrastructure.File
             return metaTags;
         }
 
-        //protected async Task UploadPreviewToAzure(string blobName, int startPage, int stopPage)
-        //{
-        //    var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
-
-        //}
+        
     }
 }

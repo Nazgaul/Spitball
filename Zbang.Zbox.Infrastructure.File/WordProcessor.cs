@@ -103,41 +103,6 @@ namespace Zbang.Zbox.Infrastructure.File
                     }
                 }, () => ExtractDocumentText(word), () => word.PageCount, CacheVersion);
 
-
-                //var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
-                //{
-                //    JpegQuality = 80,
-                //};
-                //var settings = new ResizeSettings
-                //{
-                //    Width = ThumbnailWidth,
-                //    Height = ThumbnailHeight,
-                //    Quality = 80,
-                //    Format = "jpg"
-                //};
-                //using (var ms = new MemoryStream())
-                //{
-                //    word.Save(ms, imgOptions);
-                //    ms.Seek(0, SeekOrigin.Begin);
-                //    using (var output = new MemoryStream())
-                //    {
-                //        ImageBuilder.Current.Build(ms, output, settings);
-                //        var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                //        var textInDocument = ExtractDocumentText(word);
-                //        var t1 =
-                //            BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg",
-                //                cancelToken);
-
-                //        var t2 = UploadMetaData(textInDocument, blobName);
-
-                //        await Task.WhenAll(t1, t2);
-                //        return new PreProcessFileResult
-                //        {
-                //            ThumbnailName = thumbnailBlobAddressUri,
-                //            FileTextContent = textInDocument
-                //        };
-                //    }
-                //}
             }
             catch (Exception ex)
             {
@@ -168,5 +133,14 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
+
+        public override async Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        {
+            var blobName = GetBlobNameFromUri(blobUri);
+            var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
+            SetLicense();
+            var word = new Document(path);
+            return ExtractDocumentText(word);
+        }
     }
 }

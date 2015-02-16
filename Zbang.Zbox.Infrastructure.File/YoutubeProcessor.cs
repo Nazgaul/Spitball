@@ -77,5 +77,11 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             return FileProcessor.LinkTypePicture;
         }
+
+
+        public Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        {
+            return null;
+        }
     }
 }

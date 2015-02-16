@@ -14,6 +14,8 @@ namespace Zbang.Zbox.Infrastructure.File
         //TODO: split to a different interface
         Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken));
 
+        Task<string> ExtractContent(Uri blobUri,CancellationToken cancelToken = default(CancellationToken));
+
         string GetDefaultThumbnailPicture();
      
     }

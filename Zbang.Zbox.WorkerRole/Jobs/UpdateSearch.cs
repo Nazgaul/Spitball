@@ -4,9 +4,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Azure.Blob;
 using Zbang.Zbox.Infrastructure.Azure.Search;
+using Zbang.Zbox.Infrastructure.File;
+using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
 namespace Zbang.Zbox.WorkerRole.Jobs
 {
@@ -20,10 +24,18 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private readonly IItemWriteSearchProvider m_ItemSearchProvider;
         private readonly IZboxWriteService m_ZboxWriteService;
         private readonly IQuizWriteSearchProvider m_QuizSearchProvider;
+        private readonly IFileProcessorFactory m_FileProcessorFactory;
+        private readonly IItemWriteSearchProvider2 m_ItemSearchProvider2;
+        private readonly ICloudBlockProvider m_BlobProvider;
 
         public UpdateSearch(IZboxReadServiceWorkerRole zboxReadService,
             IUniversityWriteSearchProvider2 zboxWriteSearchProvider,
-            IZboxWriteService zboxWriteService, IBoxWriteSearchProvider boxSearchProvider, IItemWriteSearchProvider itemSearchProvider, IQuizWriteSearchProvider quizSearchProvider)
+            IZboxWriteService zboxWriteService,
+            IBoxWriteSearchProvider boxSearchProvider,
+            IItemWriteSearchProvider itemSearchProvider,
+            IQuizWriteSearchProvider quizSearchProvider,
+            IFileProcessorFactory fileProcessorFactory,
+            IItemWriteSearchProvider2 itemSearchProvider2, ICloudBlockProvider blobProvider)
         {
             m_ZboxReadService = zboxReadService;
             m_UniversitySearchProvider = zboxWriteSearchProvider;
@@ -31,6 +43,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_BoxSearchProvider = boxSearchProvider;
             m_ItemSearchProvider = itemSearchProvider;
             m_QuizSearchProvider = quizSearchProvider;
+            m_FileProcessorFactory = fileProcessorFactory;
+            m_ItemSearchProvider2 = itemSearchProvider2;
+            m_BlobProvider = blobProvider;
         }
 
         public void Run()
@@ -78,8 +93,14 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync();
             if (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
             {
+                foreach (var elem in updates.ItemsToUpdate)
+                {
+                    elem.Content = await ExtractContentToUploadToSearch(elem);
+                }
                 var isSuccess =
                     await m_ItemSearchProvider.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
+                var isSuccess2 =
+                    await m_ItemSearchProvider2.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
                 if (isSuccess)
                 {
                     await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
@@ -89,6 +110,23 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
             return updates.ItemsToUpdate.Count() == NumberToReSyncWithoutWait
               || updates.ItemsToDelete.Count() == NumberToReSyncWithoutWait;
+        }
+
+        private async Task<string> ExtractContentToUploadToSearch(ItemSearchDto elem)
+        {
+            try
+            {
+                var blob = m_BlobProvider.GetFile(elem.BlobName);
+                var processor = m_FileProcessorFactory.GetProcessor(blob.Uri);
+                var tokenSource = new CancellationTokenSource();
+                tokenSource.CancelAfter(TimeSpan.FromMinutes(2));
+                return await processor.ExtractContent(blob.Uri, tokenSource.Token);
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("on elem " + elem, ex);
+                return null;
+            }
         }
 
         private async Task<bool> UpdateBox()

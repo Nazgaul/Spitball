@@ -112,5 +112,14 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && TxtExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
+
+        public override async Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        {
+            var blobName = GetBlobNameFromUri(blobUri);
+            using (var stream = new StreamReader(await BlobProvider.DownloadFileAsync(blobName, cancelToken)))
+            {
+                return stream.ReadToEnd();
+            }
+        }
     }
 }

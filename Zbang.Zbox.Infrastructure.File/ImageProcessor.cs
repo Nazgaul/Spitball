@@ -158,5 +158,10 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             return ImageFileTypePicture;
         }
+
+        public override Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        {
+            return null;
+        }
     }
 }

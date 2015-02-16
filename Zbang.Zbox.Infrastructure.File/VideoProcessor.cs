@@ -66,5 +66,10 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             return VideoFileTypePicture;
         }
+
+        public override Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        {
+            return null;
+        }
     }
 }

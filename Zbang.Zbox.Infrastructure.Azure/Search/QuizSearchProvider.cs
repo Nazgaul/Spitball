@@ -171,19 +171,21 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
                 });
 
-
+            if (!searchResult.IsSuccess)
+            {
+                TraceLog.WriteError(string.Format("on quiz search model: {0} error: {1}", query,
+                    searchResult.Error.Message));
+                return null;
+            }
             if (searchResult.Body.Records.Any())
             {
-                return searchResult.Body.Records.Select(s =>
-                {
-                    return new SearchQuizzes(
-                        HighLightInName(s),
-                        SeachConnection.ConvertToType<long>(s.Properties[IdField]),
-                        ConvertHighlightToProperty(s),
-                        SeachConnection.ConvertToType<string>(s.Properties[BoxNameField]),
-                        SeachConnection.ConvertToType<string>(s.Properties[UniversityNameField]),
-                        SeachConnection.ConvertToType<string>(s.Properties[UrlField]));
-                });
+                return searchResult.Body.Records.Select(s => new SearchQuizzes(
+                    HighLightInName(s),
+                    SeachConnection.ConvertToType<long>(s.Properties[IdField]),
+                    ConvertHighlightToProperty(s),
+                    SeachConnection.ConvertToType<string>(s.Properties[BoxNameField]),
+                    SeachConnection.ConvertToType<string>(s.Properties[UniversityNameField]),
+                    SeachConnection.ConvertToType<string>(s.Properties[UrlField])));
             }
             return null;
 

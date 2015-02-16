@@ -14,6 +14,9 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string UniversityName { get; set; }
         public string BoxName { get; set; }
 
+        public double Rate { get; set; }
+        public int Views { get; set; }
+
         public long? UniversityId { get; set; }
 
         public string BlobName { get; set; }
@@ -21,5 +24,10 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public long BoxId { get; set; }
 
         public IEnumerable<long> UserIds { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("id : {0} blobName: {1}", Id, BlobName);
+        }
     }
 }
