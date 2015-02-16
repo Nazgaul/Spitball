@@ -101,7 +101,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 string content;
                 if (metaData.TryGetValue(StorageConsts.ContentMetaDataKey, out content))
                 {
-                    var retVal = DecodeText(content, itemToUpload.Id).Trim();
+                    var retVal = DecodeText(content).Trim();
 
                     if (string.IsNullOrEmpty(retVal))
                     {
@@ -126,9 +126,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             }
         }
 
-        private string DecodeText(string val, long itemId)
+        private string DecodeText(string val)
         {
-            var initVal = val;
             var i = 0;
             while (HttpUtility.UrlDecode(val) != val)
             {
@@ -136,11 +135,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 val = HttpUtility.UrlDecode(val);
                 i++;
             }
-            if (i > 1)
-            {
-                TraceLog.WriteInfo("val is encoded couple of times i: " + i + " itemid: " + itemId + " val " + initVal);
-            }
-
             return val;
 
         }

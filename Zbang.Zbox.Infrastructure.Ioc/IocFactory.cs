@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Infrastructure.Ioc
             set { m_BuilderContainer = value; }
         }
 
-       
+
 
         public IContainer Build()
         {
@@ -118,7 +118,7 @@ namespace Zbang.Zbox.Infrastructure.Ioc
 
         public T Resolve<T>(string name, IocParameterOverride parameters)
         {
-            return m_Container.Resolve<T>(new NamedParameter(parameters.Name, parameters.Value));
+            return m_Container.ResolveNamed<T>(name, new NamedParameter(parameters.Name, parameters.Value));
         }
 
 
