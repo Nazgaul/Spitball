@@ -1028,7 +1028,7 @@ body.quiz .modal-backdrop.in {
   margin-top: 40px;
 }
 .friendsPics {
-  width: 108px;
+  width: 120px;
   margin-left: 12px;
   position: relative;
   display: inline-block;
@@ -1056,7 +1056,7 @@ body.quiz .modal-backdrop.in {
   margin-bottom: 1px;
   border-radius: 50%;
 }
-.friendsPics img:nth-of-type(odd) {
+.friendsPics > img:nth-of-type(odd) {
   margin-left: 5px;
 }
 .quizPopupTxtWpr {

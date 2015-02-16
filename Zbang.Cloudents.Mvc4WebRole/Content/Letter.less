@@ -70,22 +70,29 @@
         font-size: 35px;
         line-height: 46px;
     }
-    span {
+    .letter {
         display: inline-block;
         margin-bottom: 1px;
         border-radius: 50%;
         background: red; //TEMP!!!!
-        &:nth-of-type(odd) {
-            margin-right: 5px; //rtl
-        }
+        
+    }
+    > span:nth-of-type(odd) {
+        margin-right: 5px; //rtl
     }
 }
 
 
 /*#endregion */
 
-/*#region name */
-
+/*#region Quiz page */
+.topUser {
+    .letter {
+        border-radius: 50%;
+        height: 37px;
+        width: 37px;
+    }
+}
 
 
 /*#endregion */

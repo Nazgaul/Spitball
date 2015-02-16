@@ -48,12 +48,19 @@
   font-size: 35px;
   line-height: 46px;
 }
-.friendsPics span {
+.friendsPics .letter {
   display: inline-block;
   margin-bottom: 1px;
   border-radius: 50%;
   background: red;
 }
-.friendsPics span:nth-of-type(odd) {
+.friendsPics > span:nth-of-type(odd) {
   margin-left: 5px;
+}
+/*#endregion */
+/*#region Quiz page */
+.topUser .letter {
+  border-radius: 50%;
+  height: 37px;
+  width: 37px;
 }
