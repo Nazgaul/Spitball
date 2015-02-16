@@ -1108,7 +1108,7 @@
 
             background: #fff;
             text-align: left;
-            padding-left: 20px;
+            padding-left: 38px;
         }
     }
 }
@@ -1291,6 +1291,10 @@
         left: 11px; //rtl
         font-size: 28px;
     }
+    .heb:before {
+        font-size: 34px; // style Hebrew letters differently
+        line-height: 50px;
+    }
 }
 .box {
     color: @textColor;
@@ -1329,18 +1333,24 @@
         transform: scale3d(1.08,1.08,1);
     }
     .newCounter {
-        border-radius: 12px;
+        border-radius: 14px;
         top: 15px;
         left: 50px;
-        line-height: 14px;
+        line-height: 12px;
         z-index: 1;
         border: 2px solid #fff;
+        padding: 5px; //override
+        font-size: 15px;
     }
     .removeItem {
         left: 5px;
         right: auto;
         width: 12px;
         height: 12px;
+    }
+    .svg-close {
+        width: 10px;
+        height: 10px;
     }
     a, .addBtn {
         width: 100%;
@@ -1351,11 +1361,7 @@
         overflow: hidden; //for the stats
         white-space: nowrap; //for the stats
         .boxSizing;
-        //border: 1px solid @borderColor;
-        border-radius: 5px;
-        /*&:before {
-            opacity: .7;
-        }*/
+        //border-radius: 5px; //Removed Temporarily
         &:hover {
             .ghost {
                 margin-left: -76px;
@@ -1439,10 +1445,7 @@
         -o-transition: margin 0.2s 0.5s;
         position: relative;
     }
-    .heb:before {
-        font-size: 34px; // style Hebrew letters differently
-        line-height: 40px;
-    }
+    
     h3 {
         vertical-align: middle;
         //font-size: 1.2em;

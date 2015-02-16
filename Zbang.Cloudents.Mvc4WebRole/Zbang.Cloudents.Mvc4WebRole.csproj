@@ -797,6 +797,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\back-icon.png" />
     <Content Include="Images\back_back.png" />
+    <Content Include="Images\common27-sprite.png" />
     <Content Include="Images\hp26-sprite.png" />
     <Content Include="Images\Store\ball.png" />
     <Content Include="Images\bg4.jpg" />
@@ -824,7 +825,6 @@
     <Content Include="Images\cloudents1-72x72.png" />
     <Content Include="Images\cloudents.png" />
     <Content Include="Images\code-icon1.png" />
-    <Content Include="Images\common17-sprite.png" />
     <Content Include="Images\Store\computer.png" />
     <Content Include="Images\course.png" />
     <Content Include="Images\Store\covers.png" />

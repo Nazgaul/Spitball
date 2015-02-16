@@ -158,35 +158,12 @@
 
 
 .podium {
-    width: 87px; //ie bug 2887
-    height: 68px;
-    border: 1px solid #aaa;
-    position: absolute;
-    top: 151px;
-    left:0;right:0;
-    margin: auto;
-    border-radius: 3px;
-    background: #fff;
-    &:before, &:after {
-        content: '';
-        width: 86px;
-        height: 45px;
-        position: absolute;
-        left: -87px; //rtl
-        bottom: -1px;
-        border: 1px solid #aaa;
-        border-right: none; //rtl
-        background: #fff;
-        border-radius: 3px 0 0 3px; //rtl
-    }
-    &:after {
-        height: 27px;
-        right: -87px; //rtl
-        left: auto;
-        border: 1px solid #aaa;
-        border-left: none; //rtl
-        border-radius: 0 3px 3px 0; //rtl
-    }
+    width: 261px;
+    height: 88px;
+    background: @common-sprite -5px -197px no-repeat;
+    margin-top: -22px;
+    position: relative;
+    left: 5px;
 }
 .empty {
     .podium {

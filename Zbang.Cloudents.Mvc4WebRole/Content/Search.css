@@ -45,7 +45,7 @@
   top: -41px;
 }
 .searchPopup {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -65,11 +65,17 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  /*&.searchLib {
+        .libInitial;
+    }*/
   /*.userPage & {
         .userInitial;
         width: 365px;
         height: 32px; 
         background: tomato;
+    }*/
+  /*.boxPage & {
+        z-index: 10; //hide searchInput
     }*/
 }
 .searchPopup ~ .bodyContent {
@@ -78,8 +84,8 @@
 .searchPopup ~ .bodyContent .siteHeader {
   margin-top: -50px;
 }
-.searchPopup.searchLib {
-  left: 550px;
+.searchPopup ~ .bodyContent .searchBox {
+  z-index: 0;
 }
 .searchPopup.searchBox {
   /*top: 9px;
@@ -90,9 +96,6 @@
         width: ~'calc(100% - 675px)';
         min-width: 40px;
         position: fixed;*/
-  left: 320px;
-  z-index: 11;
-  top: -41px;
 }
 .searchPopup.ng-enter,
 .searchPopup.ng-leave-active {

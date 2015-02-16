@@ -544,7 +544,7 @@ input[type="radio"][disabled] + label:before {
   background-color: transparent;
   width: 11px;
   height: 11px;
-  background: url(/Images/common17-sprite.png?v=4) -79px -26px no-repeat;
+  background: url(/Images/common27-sprite.png?v=1) -79px -26px no-repeat;
   position: absolute;
   top: 15px;
   right: 12px;
@@ -1319,14 +1319,14 @@ aside.sideBar .last {
 /*#endregion */
 /*#region User tooltip */
 .userTooltip {
-  width: 379px;
+  width: 355px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   border: 1px solid #c2c2c2;
   border-radius: 3px;
   overflow: hidden;
-  padding: 10px 10px 6px 110px;
+  padding: 10px 10px 6px 94px;
   position: fixed;
   z-index: 13;
   background: #fff;
@@ -1353,11 +1353,25 @@ aside.sideBar .last {
   background: #0e68af;
   color: #fff;
 }
-.ttImg {
+.userTooltip [data-letter]:before {
+  font-size: 36px;
+  line-height: 70px;
+}
+.userTooltip .heb:before {
+  font-size: 40px;
+  line-height: 65px;
+}
+.ttImg,
+.userTooltip [data-letter]:before {
   position: absolute;
   top: 0;
-  left: 0;
-  border-right: 1px solid #c2c2c2;
+  bottom: 0;
+  left: 10px;
+  margin: auto;
+  border-left: 1px solid #c2c2c2;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
 }
 .ttUsername {
   color: #0f9d58;
@@ -1370,7 +1384,7 @@ aside.sideBar .last {
 }
 .ttSchool {
   color: #39434a;
-  width: 257px;
+  width: 248px;
   padding-bottom: 8px;
   border-bottom: 1px solid #c2c2c2;
 }
@@ -1716,36 +1730,55 @@ select.inputText {
   left: 8px;
   font-size: 25px;
 }
+.ttImg + [data-letter],
+.bestUserList img + [data-letter],
+.feedImg + [data-letter] {
+  display: none;
+}
+.bestUserList [data-letter]:before,
+.boxFeed [data-letter]:before,
+.userTooltip [data-letter]:before {
+  border: 1px solid #c2c2c2;
+  background: #eee;
+}
 .bestUserList .color1:before,
-.boxFeed .color1:before {
+.boxFeed .color1:before,
+.userTooltip .color1:before {
   color: #00bfa5;
 }
 .bestUserList .color2:before,
-.boxFeed .color2:before {
+.boxFeed .color2:before,
+.userTooltip .color2:before {
   color: #f06292;
 }
 .bestUserList .color3:before,
-.boxFeed .color3:before {
+.boxFeed .color3:before,
+.userTooltip .color3:before {
   color: #b388ff;
 }
 .bestUserList .color4:before,
-.boxFeed .color4:before {
+.boxFeed .color4:before,
+.userTooltip .color4:before {
   color: #ff6e40;
 }
 .bestUserList .color5:before,
-.boxFeed .color5:before {
+.boxFeed .color5:before,
+.userTooltip .color5:before {
   color: #e06055;
 }
 .bestUserList .color6:before,
-.boxFeed .color6:before {
+.boxFeed .color6:before,
+.userTooltip .color6:before {
   color: #8e8e8e;
 }
 .bestUserList .color7:before,
-.boxFeed .color7:before {
+.boxFeed .color7:before,
+.userTooltip .color7:before {
   color: #f9a825;
 }
 .bestUserList .color8:before,
-.boxFeed .color8:before {
+.boxFeed .color8:before,
+.userTooltip .color8:before {
   color: #00c853;
 }
 .color1:before {

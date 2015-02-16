@@ -1451,12 +1451,12 @@ aside.sideBar {
 /*#region User tooltip */
 
 .userTooltip {
-    width: 379px;
+    width: 355px;
     .boxSizing;
     border: 1px solid @borderColor;
     border-radius: 3px;
     overflow: hidden;
-    padding: 10px 10px 6px 110px;
+    padding: 10px 10px 6px 94px;
     position: fixed;
     z-index: 13;
     background: #fff;
@@ -1481,13 +1481,25 @@ aside.sideBar {
             color: #fff;
         }
     }
+    [data-letter]:before {
+        font-size: 36px;
+        line-height: 70px;
+    }
+    .heb:before {
+        font-size: 40px;
+        line-height: 65px;
+    }
 }
 
-.ttImg {
+.ttImg, .userTooltip [data-letter]:before {
     position: absolute;
-    top: 0;
-    left: 0;
-    border-right: 1px solid @borderColor;
+    top: 0;bottom: 0;
+    left: 10px;
+    margin: auto;
+    border-left: 1px solid #c2c2c2;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
 }
 
 .ttUsername {
@@ -1503,7 +1515,7 @@ aside.sideBar {
 
 .ttSchool {
     color: #39434a;
-    width: 257px;
+    width: 248px;
     padding-bottom: 8px;
     border-bottom: 1px solid @borderColor;
 }
@@ -1859,23 +1871,36 @@ select.inputText {
     }*/
 }
 /*#region [data-letter] */
-[data-letter]:before {
-    content:attr(data-letter);
-    width: 46px;
-    height: 46px;
-    line-height: 46px;
-    border-radius: 50%;
-    color: #fff;
-    display: inline-block;
-    text-align:center;
-    text-transform: capitalize;
-    position: absolute;
-    top:0;bottom:0;
-    margin: auto;
-    left: 8px; //rtl
-    font-size: 25px;
+[data-letter] {
+    &:before {
+        content:attr(data-letter);
+        width: 46px;
+        height: 46px;
+        line-height: 46px;
+        border-radius: 50%;
+        color: #fff;
+        display: inline-block;
+        text-align:center;
+        text-transform: capitalize;
+        position: absolute;
+        top:0;bottom:0;
+        margin: auto;
+        left: 8px; //rtl
+        font-size: 25px;
+    }
 }
-.bestUserList, .boxFeed {
+.ttImg, .bestUserList img, .feedImg {
+    + [data-letter] {
+        display: none;
+    }
+}
+.bestUserList, .boxFeed, .userTooltip {
+    [data-letter] {
+        &:before {
+            border: 1px solid #c2c2c2;
+            background: #eee;
+        }
+    }
     .color1 {
         &:before {
             color: #00bfa5;

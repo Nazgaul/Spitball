@@ -9,7 +9,7 @@
   z-index: 5;
   background: #eee;
   width: 243px;
-  padding: 10px 25px 0 25px;
+  padding: 18px 25px 0 25px;
   border-left: 1px solid #c2c2c2;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -177,7 +177,7 @@
   display: inline-block;
   width: 11px;
   height: 22px;
-  background: url(/Images/common17-sprite.png?v=4) -130px -1px no-repeat;
+  background: url(/Images/common27-sprite.png?v=1) -130px -1px no-repeat;
   vertical-align: middle;
   margin-left: 6px;
 }
@@ -216,7 +216,7 @@
 .inviteBtn:after {
   content: '';
   display: inline-block;
-  background: url(/Images/common17-sprite.png?v=4) -90px -1px no-repeat;
+  background: url(/Images/common27-sprite.png?v=1) -90px -1px no-repeat;
   width: 22px;
   height: 19px;
   vertical-align: middle;
@@ -229,7 +229,21 @@
 /*#region Box sidebar */
 .boxTop {
   position: relative;
-  padding-bottom: 20px;
+  padding: 74px 0 20px;
+}
+.boxTop:before {
+  width: 74px;
+  height: 74px;
+  line-height: 74px;
+  right: 0;
+  left: 0;
+  bottom: auto;
+  margin: auto;
+  font-size: 45px;
+}
+.boxTop.heb:before {
+  line-height: 67px;
+  font-size: 52px;
 }
 .boxTop:hover .boxRename {
   display: block;
@@ -498,7 +512,7 @@
 .box-content .inviteFriendsBtn.btn3:before {
   content: '';
   display: inline-block;
-  background: url(/Images/common17-sprite.png?v=4) -143px -3px no-repeat;
+  background: url(/Images/common27-sprite.png?v=1) -143px -3px no-repeat;
   width: 22px;
   height: 19px;
   vertical-align: middle;
@@ -776,10 +790,21 @@
 .thumbItem .views,
 .listItem .views {
   color: #b1b1b1;
-  margin: 0
-  /*.svg-eye {
-            
-        }*/
+  margin: 0;
+}
+.thumbItem [data-letter]:before,
+.listItem [data-letter]:before {
+  content: attr(data-letter);
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  top: 75px;
+  bottom: auto;
+  right: 0;
+  left: 0;
+  font-size: 18px;
+  color: #fff;
+  margin: auto;
 }
 .listItem {
   padding: 15px 138px 15px 0;
@@ -1162,7 +1187,7 @@
   width: 69px;
   height: 14px;
   position: relative;
-  background: url(/Images/common17-sprite.png?v=4) -1px -41px no-repeat;
+  background: url(/Images/common27-sprite.png?v=1) -1px -41px no-repeat;
   margin-right: 5px;
   cursor: pointer;
 }
@@ -1171,7 +1196,7 @@
   top: 0;
   right: 0;
   height: 13px;
-  background: url(/Images/common17-sprite.png?v=4) -1px -55px no-repeat;
+  background: url(/Images/common27-sprite.png?v=1) -1px -55px no-repeat;
 }
 .addBtn.addItem {
   display: inline-block;
@@ -1248,7 +1273,7 @@
   display: inline-block;
   width: 15px;
   height: 15px;
-  background: url(/Images/common17-sprite.png?v=4) -52px -1px no-repeat;
+  background: url(/Images/common27-sprite.png?v=1) -52px -1px no-repeat;
 }
 .editBtn:hover:before {
   background-position: -52px -21px;

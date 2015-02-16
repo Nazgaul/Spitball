@@ -71,7 +71,7 @@
 .back:before {
   content: '';
   display: inline-block;
-  background: url(/Images/common17-sprite.png?v=4) 0 -1px no-repeat;
+  background: url(/Images/common27-sprite.png?v=1) 0 -1px no-repeat;
   margin-right: 5px;
   width: 20px;
   height: 19px;
@@ -940,7 +940,7 @@
   box-sizing: border-box;
   background: #fff;
   text-align: left;
-  padding-left: 20px;
+  padding-left: 38px;
 }
 .libraryList {
   margin-top: 42px;
@@ -1094,6 +1094,11 @@
   left: 11px;
   font-size: 28px;
 }
+.box .heb:before,
+.recommended .heb:before {
+  font-size: 34px;
+  line-height: 50px;
+}
 .box {
   color: #383838;
   vertical-align: top;
@@ -1126,18 +1131,24 @@
   transform: scale3d(1.08, 1.08, 1);
 }
 .box .newCounter {
-  border-radius: 12px;
+  border-radius: 14px;
   top: 15px;
   left: 50px;
-  line-height: 14px;
+  line-height: 12px;
   z-index: 1;
   border: 2px solid #fff;
+  padding: 5px;
+  font-size: 15px;
 }
 .box .removeItem {
   left: 5px;
   right: auto;
   width: 12px;
   height: 12px;
+}
+.box .svg-close {
+  width: 10px;
+  height: 10px;
 }
 .box a,
 .box .addBtn {
@@ -1151,10 +1162,6 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border-radius: 5px;
-  /*&:before {
-            opacity: .7;
-        }*/
 }
 .box a:hover .ghost,
 .box .addBtn:hover .ghost {
@@ -1237,10 +1244,6 @@
   -moz-transition: margin 0.2s 0.5s;
   -o-transition: margin 0.2s 0.5s;
   position: relative;
-}
-.box .heb:before {
-  font-size: 34px;
-  line-height: 40px;
 }
 .box h3 {
   vertical-align: middle;

@@ -13,6 +13,24 @@
   color: #383838;
   display: inline-block;
 }
+.boxFeed [data-letter] {
+  width: 40px;
+  height: 40px;
+}
+.boxFeed [data-letter]:before {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 22px;
+  right: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.boxFeed .heb:before {
+  font-size: 26px;
+  line-height: 38px;
+}
 .boxFeed > .feedForm .feedTA {
   border-color: #282828;
 }
@@ -45,17 +63,9 @@
   padding: 20px 32px 10px 32px;
 }
 .boxSideBar .podium {
-  width: 90px;
-  top: 149px;
-}
-.boxSideBar .podium:before,
-.boxSideBar .podium:after {
-  width: 90px;
-  right: -91px;
-}
-.boxSideBar .podium:after {
-  left: -91px;
-  right: auto;
+  margin: 0;
+  top: -185px;
+  margin-bottom: -80px;
 }
 .boxSideBar .bestUserList .firstUser,
 .boxSideBar .bestUserList .secondUser,
@@ -69,6 +79,12 @@
 }
 .boxSideBar .bestUserList li:nth-child(n+4) {
   margin: 0 -40px;
+}
+.boxSideBar .bestUserList li:nth-child(n+4) .rep {
+  color: #383838;
+}
+.boxSideBar .bestUserList li:nth-child(4) {
+  margin-top: 65px;
 }
 .boxSideBar .bestUserList .elps {
   max-width: 200px;
@@ -141,8 +157,9 @@
   text-align: center;
   padding-top: 90px;
 }
-.feedImg {
-  border-radius: 100%;
+.feedImg,
+.boxFeed [data-letter] {
+  border-radius: 50%;
   margin-left: 15px;
   border: 1px solid #c2c2c2;
   -webkit-box-sizing: border-box;
@@ -150,6 +167,9 @@
   box-sizing: border-box;
   position: relative;
   top: 2px;
+}
+.boxFeed [data-letter] {
+  border: none;
 }
 .feedTA {
   width: 543px;
@@ -241,7 +261,8 @@
   padding-top: 15px
   /*display: none;*/
 }
-.boxFeedList .feedForm .feedImg {
+.boxFeedList .feedForm .feedImg,
+.boxFeedList .feedForm [data-letter] {
   margin: 0 15px 0 0;
 }
 .boxFeedList .feedForm.show {
@@ -343,7 +364,8 @@
   border-color: transparent #fff transparent transparent;
   z-index: 1;
 }
-.feedReplies .feedImg {
+.feedReplies .feedImg,
+.feedReplies [data-letter] {
   margin: 0 15px 0 0;
 }
 .feedReplies .userName {
@@ -473,7 +495,7 @@
 .removeAttach:after {
   content: '';
   display: inline-block;
-  background: url(/Images/common17-sprite.png?v=4) -68px -15px no-repeat;
+  background: url(/Images/common27-sprite.png?v=1) -68px -15px no-repeat;
   width: 10px;
   height: 10px;
   vertical-align: top;
@@ -553,9 +575,13 @@
 .bestUserList {
   text-align: center;
   counter-reset: leaderBoard;
-  min-height: 180px;
   position: relative;
   top: 8px;
+}
+.bestUserList a {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
 }
 .bestUserList .firstUser,
 .bestUserList .secondUser,
@@ -569,7 +595,9 @@
 .bestUserList .thirdUser .rep {
   display: block;
   width: auto;
-  margin-top: 6px;
+  position: relative;
+  top: 16px;
+  z-index: 1;
 }
 .bestUserList .firstUser.empty .top3Img,
 .bestUserList .secondUser.empty .top3Img,
@@ -626,11 +654,14 @@
 }
 .bestUserList li:nth-child(n + 4) [data-letter]:first-child {
   display: inline-block;
+  margin: 0 5px 8px 5px;
+  width: 38px;
+  height: 38px;
 }
 .bestUserList li:nth-child(n + 4) [data-letter]:before {
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
   margin-top: 4px;
 }
 .bestUserList li:before {
@@ -644,13 +675,10 @@
   background: #eee;
 }
 .bestUserList [data-letter] {
-  display: none;
   vertical-align: middle;
 }
 .bestUserList [data-letter]:before {
-  border: 1px solid #c2c2c2;
   position: static;
-  background: #eee;
 }
 .bestUserList [data-letter]:first-child {
   display: block;
@@ -700,21 +728,21 @@
 .thirdUser [data-letter] {
   margin-top: 35px;
 }
-.svg-crown {
-  width: 36px;
-  height: 23px;
+/*.svg-crown {
+    width: 36px;
+    height: 23px;
 }
 .svg-trophy {
-  width: 26px;
-  height: 29px;
+    width: 26px;
+    height: 29px;
 }
 .svg-badge {
-  width: 18px;
-  height: 30px;
-}
+    width: 18px;
+    height: 30px;
+}*/
 .rep {
   font-weight: bold;
-  color: #383838;
+  color: #fff;
   display: inline-block;
   width: 64px;
   text-align: center;

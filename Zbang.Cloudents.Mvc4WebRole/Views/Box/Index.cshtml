@@ -55,8 +55,8 @@
     <div class="searchInputWpr searchBox" ng-click="$root.toggleSearch()">@SharedResources.Search</div>
 
     <div class="leftPanel lFloat">
-        <div class="boxTop">
-            <img class="imgBorder" ng-src="{{info.image | defaultImage:'box'}}" alt="" width="86" height="86" />
+        <div class="boxTop" data-letter="{{info.name[0]}}">
+            @*<img class="imgBorder" ng-src="{{info.image}" alt="" width="86" height="86" />*@
             <h1 class="boxName" id="box_Name" tooltip-placement="top" tooltip-append-to-body="true" tooltip="{{info.name}}">{{info.name}}</h1>
             <div class="boxDetail elps" ng-if="info.boxType === 'academic'">{{ info.courseId}}</div>
             <div class="boxDetail elps" ng-if="info.boxType === 'box'" user-tooltip-popup="{{info.ownerId}}">{{info.ownerName}}</div>

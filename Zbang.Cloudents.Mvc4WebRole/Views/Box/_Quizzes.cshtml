@@ -37,7 +37,7 @@
 
 <script type="text/ng-template" id="quizThumbView">
     @Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })
-    <a class="boxLink" ng-click="selectQuiz($event,item)" ng-href="{{::item.url}}">
+    <a class="boxLink" ng-click="selectQuiz($event,item)" ng-href="{{::item.url}}" data-letter="{{::item.name[0]}}">
         <div class="boxName" ng-bind-html="::item.name"></div>
         <span class="tag" ng-if="::item.publish && item.isNew">@SharedResources.New</span>
         <span class="tag" ng-if="::!item.publish">@SharedResources.Draft</span>

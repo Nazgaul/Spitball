@@ -146,37 +146,12 @@
   content: attr(data-files-count);
 }
 .podium {
-  width: 87px;
-  height: 68px;
-  border: 1px solid #aaa;
-  position: absolute;
-  top: 151px;
-  right: 0;
-  left: 0;
-  margin: auto;
-  border-radius: 3px;
-  background: #fff;
-}
-.podium:before,
-.podium:after {
-  content: '';
-  width: 86px;
-  height: 45px;
-  position: absolute;
-  right: -87px;
-  bottom: -1px;
-  border: 1px solid #aaa;
-  border-left: none;
-  background: #fff;
-  border-radius: 0 3px 3px 0;
-}
-.podium:after {
-  height: 27px;
-  left: -87px;
-  right: auto;
-  border: 1px solid #aaa;
-  border-right: none;
-  border-radius: 3px 0 0 3px;
+  width: 261px;
+  height: 88px;
+  background: url(/Images/common27-sprite.png?v=1) -5px -197px no-repeat;
+  margin-top: -22px;
+  position: relative;
+  right: 5px;
 }
 .empty .podium {
   display: none;
