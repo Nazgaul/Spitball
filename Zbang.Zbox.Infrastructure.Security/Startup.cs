@@ -36,6 +36,7 @@ namespace Zbang.Zbox.Infrastructure.Security
                     LoginPath = new PathString("/account/"),
                     Provider = new CookieAuthenticationProvider
                     {
+                        
                         //OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<UserManager,User>()
                         //TimeSpan.FromDays(5))
                         // Enables the application to validate the security stamp when the user logs in.

@@ -7,6 +7,7 @@ using RedDog.Search.Model;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Search;
+using System;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
@@ -17,10 +18,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         private bool m_CheckIndexExists;
 
 
-        public ItemSearchProvider2( ISearchFilterProvider filterProvider)
+        public ItemSearchProvider2(ISearchFilterProvider filterProvider)
         {
             m_FilterProvider = filterProvider;
-             if (!RoleEnvironment.IsAvailable)
+            if (!RoleEnvironment.IsAvailable)
             {
                 m_IndexName = m_IndexName + "-dev";
                 return;
@@ -73,15 +74,22 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         }
         private async Task BuildIndex()
         {
-            var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
-            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            try
             {
-                await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetIndexStructure());
+                var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetIndexStructure());
+                }
+                //else
+                //{
+                //    var x = await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(GetIndexStructure());
+                //}
             }
-            //else
-            //{
-            //    var x = await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(GetIndexStructure());
-            //}
+            catch(Exception ex)
+            {
+                TraceLog.WriteError("on item build index", ex);
+            }
             m_CheckIndexExists = true;
         }
 
@@ -96,7 +104,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 foreach (var item in itemToUpload)
                 {
-                    
+
                     listOfCommands.Add(
                         new IndexOperation(IndexOperationType.Upload, IdField,
                             item.Id.ToString(CultureInfo.InvariantCulture))
@@ -158,13 +166,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 return searchResult.Body.Records.Select(s =>
                 {
                     string[] highLight;
-                    string content = s.Highlights.TryGetValue(ContentField, out highLight) 
-                        ? SeachConnection.LimitContentHighlight(highLight) 
+                    string content = s.Highlights.TryGetValue(ContentField, out highLight)
+                        ? SeachConnection.LimitContentHighlight(highLight)
                         : SeachConnection.ConvertToType<string>(s.Properties[SmallContentField]);
 
                     return new SearchItems(
                         SeachConnection.ConvertToType<string>(s.Properties[ImageField]),
-                        SeachConnection.ConvertToType<string>(s.Properties[NameField]),
+                        HighLightInName(s),
                         SeachConnection.ConvertToType<long>(s.Properties[IdField]),
                         content,
                         SeachConnection.ConvertToType<string>(s.Properties[BoxNameField]),
@@ -175,7 +183,17 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             return null;
         }
 
+        private string HighLightInName(SearchQueryRecord record)
+        {
+            string[] highLight;
+            if (record.Highlights.TryGetValue(NameField, out highLight))
+            {
+                return String.Join("...", highLight);
+            }
+            return SeachConnection.ConvertToType<string>(record.Properties[NameField]);
+        }
+
 
     }
-    
+
 }

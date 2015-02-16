@@ -89,6 +89,7 @@ order by Students desc  ";
 	 from zbox.quiz q inner join zbox.users u on u.userid = q.userid
 	 where q.boxid = @BoxId
      and publish = 1
+     and isdeleted = 0
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@Notification,q.creationTime)) > 0;";
 
         public const string GetQuestionUpdateByBox = @"select u.userName as UserName, u.userid as UserId, q.Text as Text

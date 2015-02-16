@@ -90,6 +90,7 @@ order by name;";
     i.Url as Url
     from zbox.Quiz i
     where i.Publish = 1
+    and i.isdeleted = 0
     and i.BoxId = @BoxId
     and QuestionId in  (select questionid from zbox.question where boxid = @boxid
 	            order by questionid desc

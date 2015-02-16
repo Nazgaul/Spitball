@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Domain.DataAccess
             var sqlQuery = UnitOfWork.CurrentSession.CreateSQLQuery(@"declare @userid int = :userId;
 with quiz as 
 (
-select count(*)*300 as quizScore from zbox.Quiz q where q.UserId = @userid and q.Publish = 1
+select count(*)*300 as quizScore from zbox.Quiz q where q.UserId = @userid and q.Publish = 1 and q.IsDeleted = 0
 ),
  item as 
 (

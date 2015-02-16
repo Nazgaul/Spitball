@@ -90,15 +90,22 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         private async Task BuildIndex()
         {
-            var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
-            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            try
             {
-                await SeachConnection.Instance.IndexManagement.CreateIndexAsync(CreateIndex());
+                var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    await SeachConnection.Instance.IndexManagement.CreateIndexAsync(CreateIndex());
 
+                }
+                else
+                {
+                    await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(CreateIndex());
+                }
             }
-            else
+            catch(Exception ex)
             {
-                await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(CreateIndex());
+                TraceLog.WriteError("on quiz build index", ex);
             }
             m_CheckIndexExists = true;
         }
@@ -185,7 +192,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     ConvertHighlightToProperty(s),
                     SeachConnection.ConvertToType<string>(s.Properties[BoxNameField]),
                     SeachConnection.ConvertToType<string>(s.Properties[UniversityNameField]),
-                    SeachConnection.ConvertToType<string>(s.Properties[UrlField])));
+                    SeachConnection.ConvertToType<string>(s.Properties[UrlField]),
+                    SeachConnection.ConvertToType<string>(s.Properties[NameField])));
             }
             return null;
 
