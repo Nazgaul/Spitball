@@ -34,6 +34,8 @@ select top 500 b.boxid  from zbox.box b
   i.Url as url,
   u.id as universityid,
   b.BoxName as boxname,
+  i.Rate as rate,
+  i.NumberOfViews as views,
   u.UniversityName as universityName,
   b.BoxId as boxid
    from zbox.item i 

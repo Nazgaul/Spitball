@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         private const string IdField = "id";
         private const string NameField = "name";
-        //private const string ImageField = "image";
+        private const string ImageField = "image";
         private const string ProfessorField = "professor";
         private const string CourseField = "course";
         private const string UrlField = "url";
@@ -52,6 +52,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 .WithStringField(NameField, f => f
                     .IsRetrievable()
                     .IsSearchable())
+                .WithStringField(ImageField, f => f //obsolete
+                    .IsRetrievable())
                 .WithStringField(ProfessorField, f => f
                     .IsRetrievable()
                     .IsSearchable())
@@ -66,7 +68,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     .IsFilterable())
                 .WithStringCollectionField(UseridsField, f => f
                     .IsFilterable())
-                .WithIntegerField(PrivacySettingsField, f => f.IsFilterable());
+                .WithIntegerField(PrivacySettingsField,//obsolete
+                    f => f.IsFilterable());
 
         }
 
@@ -119,7 +122,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             }
             else
             {
-                await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(GetBoxIndex());
+                var x = await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(GetBoxIndex());
             }
             m_CheckIndexExists = true;
         }

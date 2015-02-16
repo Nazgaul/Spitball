@@ -22,8 +22,11 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             if (blobUri.Scheme == "http")
             {
-                return Task.FromResult(new PreviewResult { ViewName = "LinkDenied",
-                    Content = new List<string> { blobUri.AbsoluteUri } });
+                return Task.FromResult(new PreviewResult
+                {
+                    ViewName = "LinkDenied",
+                    Content = new List<string> { blobUri.AbsoluteUri }
+                });
             }
             return Task.FromResult(new PreviewResult { Content = new List<string> { string.Format(ContentFormat, blobUri.AbsoluteUri) } });
         }
@@ -48,6 +51,12 @@ namespace Zbang.Zbox.Infrastructure.File
         public string GetDefaultThumbnailPicture()
         {
             return FileProcessor.LinkTypePicture;
+        }
+
+
+        public Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        {
+            return Task.FromResult<string>(null);
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace Zbang.Zbox.ViewModel.Queries.Search
 {
@@ -29,5 +25,16 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
         public int RowsPerPage { get; private set; }
 
         public string Term { get; private set; }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("user id: " + UserId);
+            sb.AppendLine("university id: " + UniversityId);
+            sb.AppendLine("page: " + PageNumber);
+            sb.AppendLine("rows: " + RowsPerPage);
+            sb.AppendLine("term: " + Term);
+            return sb.ToString();
+        }
     }
 }

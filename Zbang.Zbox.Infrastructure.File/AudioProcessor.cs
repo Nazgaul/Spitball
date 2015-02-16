@@ -39,5 +39,10 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && AudioExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
+
+        public override Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        {
+            return Task.FromResult<string>(null);
+        }
     }
 }

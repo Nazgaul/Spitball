@@ -157,10 +157,6 @@ namespace Zbang.Zbox.Infrastructure.File
                         extractedText = StripUnwantedChars(extractedText);
                     }
                     builder.Append(extractedText);
-                    if (builder.Length > 10000)
-                    {
-                        break;
-                    }
                 }
                 //var textAbsorber = new TextAbsorber();
                 //for (var i = 1; i < Math.Min(doc.Pages.Count, 10); i++)
@@ -183,5 +179,19 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
+
+        public override async Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        {
+             var blobName = GetBlobNameFromUri(blobUri);
+                SetLicense();
+                var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
+
+
+
+            using (var pdfDocument = new Document(path))
+            {
+                return ExtractPdfText(pdfDocument);
+            }
+        }
     }
 }

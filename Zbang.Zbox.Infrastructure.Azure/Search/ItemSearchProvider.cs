@@ -17,18 +17,16 @@ using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
-    public class ItemSearchProvider : IItemReadSearchProvider, IItemWriteSearchProvider
+    public class ItemSearchProvider : IItemWriteSearchProvider
     {
         private readonly string m_IndexName = "item";
         private readonly IBlobProvider m_BlobProvider;
-        private readonly ISearchFilterProvider m_FilterProvider;
         private bool m_CheckIndexExists;
 
 
-        public ItemSearchProvider(IBlobProvider blobProvider, ISearchFilterProvider filterProvider)
+        public ItemSearchProvider(IBlobProvider blobProvider)
         {
             m_BlobProvider = blobProvider;
-            m_FilterProvider = filterProvider;
             if (!RoleEnvironment.IsAvailable)
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -45,11 +43,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         private const string ImageField = "image";
         private const string BoxNameField = "boxname";
         private const string ContentField = "content";
-        private const string SmallContentField = "metaconetent";
+        private const string RateField = "rate";
+        private const string ViewsField = "view";
         private const string UrlField = "url";
         private const string UniversityNameField = "universityname";
         private const string UniversityidField = "unidersityid";
-        private const string UniversityidField2 = "unidersityid2";
+        private const string BoxidField = "boxid";
         private const string UseridsField = "userids";
 
         private Index GetIndexStructure()
@@ -67,16 +66,19 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 .WithStringField(BoxNameField, f => f
                     .IsRetrievable())
                 .WithStringField(ContentField, f => f
+                    .IsRetrievable()
                     .IsSearchable())
-                .WithStringField(SmallContentField, f => f
+                .WithDoubleField(RateField, f => f
+                    .IsRetrievable())
+                .WithIntegerField(ViewsField, f => f
                     .IsRetrievable())
                 .WithStringField(UrlField, f => f
                     .IsRetrievable())
                 .WithStringField(UniversityNameField, f => f
                     .IsRetrievable())
-                .WithField(UniversityidField, "Edm.Int64", f => f //obsolete
+                .WithField(UniversityidField, "Edm.Int64", f => f
                     .IsFilterable())
-                .WithStringField(UniversityidField2, f => f
+                .WithField(BoxidField, "Edm.Int64", f => f
                     .IsFilterable())
                 .WithStringCollectionField(UseridsField, f => f
                     .IsFilterable());
@@ -87,10 +89,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
                 await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetIndexStructure());
-            }
-            else
-            {
-                await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(GetIndexStructure());
             }
             m_CheckIndexExists = true;
         }
@@ -149,10 +147,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         public async Task<bool> UpdateData(IEnumerable<ItemSearchDto> itemToUpload, IEnumerable<long> itemToDelete)
         {
-            if (!m_CheckIndexExists)
-            {
-                await BuildIndex();
-            }
+            //if (!m_CheckIndexExists)
+            //{
+            //    await BuildIndex();
+            //}
             var listOfCommands = new List<IndexOperation>();
             if (itemToUpload != null)
             {
@@ -165,17 +163,30 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                             .WithProperty(NameField, item.Name)
                             .WithProperty(ImageField, item.Image)
                             .WithProperty(BoxNameField, item.BoxName)
-                            .WithProperty(UniversityNameField, item.UniversityName)
                             .WithProperty(ContentField, content)
-                            .WithProperty(SmallContentField, content.RemoveEndOfString(SeachConnection.DescriptionLength))
+                            .WithProperty(ViewsField, item.Views)
+                            .WithProperty(RateField, item.Rate)
+                            .WithProperty(UniversityNameField, item.UniversityName)
                             .WithProperty(UrlField, item.Url)
-                            .WithProperty(UniversityidField, item.UniversityId) //obsolete
-                            .WithProperty(UniversityidField2, item.UniversityId.ToString())
-                        //.WithProperty(BoxidField, item.BoxId)
+                            .WithProperty(UniversityidField, item.UniversityId)
+                            .WithProperty(BoxidField, item.BoxId)
                             .WithProperty(UseridsField,
                                 item.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture))));
                 }
-
+                //listOfCommands.AddRange(itemToUpload.Select(async s => 
+                //   new IndexOperation(IndexOperationType.Upload, IdField,
+                //    s.Id.ToString(CultureInfo.InvariantCulture))
+                //    .WithProperty(NameField, s.Name)
+                //    .WithProperty(ImageField, s.Image)
+                //    .WithProperty(BoxNameField, s.BoxName)
+                //    .WithProperty(ContentField, await FetchContent(s))
+                //    .WithProperty(ViewsField, s.Views)
+                //    .WithProperty(RateField, s.Rate)
+                //    .WithProperty(UniversityNameField, s.UniversityName)
+                //    .WithProperty(UrlField, s.Url)
+                //    .WithProperty(UniversityidField, s.UniversityId)
+                //    .WithProperty(BoxidField, s.BoxId)
+                //    .WithProperty(UseridsField, s.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)))));
             }
             if (itemToDelete != null)
             {
@@ -197,71 +208,22 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             return true;
         }
 
-        public async Task<IEnumerable<SearchItems>> SearchItem(Zbang.Zbox.ViewModel.Queries.Search.SearchQuery query)
-        {
-            if (string.IsNullOrEmpty(query.Term))
-            {
-                return null;
-            }
-
-            var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
-                new RedDog.Search.Model.SearchQuery(query.Term + "*")
-                {
-                    //Filter = await m_FilterProvider.BuildFilterExpression(
-                    //   query.UniversityId, UniversityidField, UseridsField, query.UserId),
-                    Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')",
-                      UniversityidField,
-                      UseridsField,
-                      query.UniversityId,
-                      query.UserId),
-
-                    Top = query.RowsPerPage,
-                    //ScoringProfile = "university",
-                    //ScoringParameters = new[] { "university:" + query.UniversityId },
-                    Skip = query.RowsPerPage * query.PageNumber,
-                    Highlight = ContentField + "," + NameField,
-                    SearchFields = string.Join(",", new[] { ImageField, NameField, IdField, SmallContentField, BoxNameField, UniversityNameField, UrlField })
-                });
-
-
-            if (searchResult.Body.Records.Any())
-            {
-                return searchResult.Body.Records.Select(s =>
-                {
-                    string content = string.Empty;
-                    string[] highLight;
-                    if (s.Highlights.TryGetValue(ContentField, out highLight))
-                    {
-                        content = SeachConnection.LimitContentHighlight(highLight);
-                    }
-                    else
-                    {
-                        content = SeachConnection.ConvertToType<string>(s.Properties[SmallContentField]);
-                    }
-
-                    return new SearchItems(
-                        SeachConnection.ConvertToType<string>(s.Properties[ImageField]),
-                        SeachConnection.ConvertToType<string>(s.Properties[NameField]),
-                        SeachConnection.ConvertToType<long>(s.Properties[IdField]),
-                        content,
-                        SeachConnection.ConvertToType<string>(s.Properties[BoxNameField]),
-                        SeachConnection.ConvertToType<string>(s.Properties[UniversityNameField]),
-                        SeachConnection.ConvertToType<string>(s.Properties[UrlField]));
-                });
-            }
-            return null;
-        }
+        
 
 
     }
 
     public interface IItemReadSearchProvider
     {
-        Task<IEnumerable<SearchItems>> SearchItem(Zbang.Zbox.ViewModel.Queries.Search.SearchQuery query);
+        Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQuery query);
     }
 
     public interface IItemWriteSearchProvider
     {
         Task<bool> UpdateData(IEnumerable<ItemSearchDto> itemToUpload, IEnumerable<long> itemToDelete);
+    }
+
+    public interface IItemWriteSearchProvider2 : IItemWriteSearchProvider
+    {
     }
 }

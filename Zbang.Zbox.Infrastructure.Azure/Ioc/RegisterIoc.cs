@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Ioc
             ioc.RegisterType<IBlobProvider, BlobProvider>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IBlobProductProvider, BlobProvider>();
             ioc.RegisterType<ICloudBlockProvider, BlobProvider>();
-            
+
             ioc.RegisterType<ITableProvider, TableProvider>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IQueueProvider, QueueProvider>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IQueueProviderExtract, QueueProvider>(LifeTimeManager.PerHttpRequest);
@@ -35,8 +35,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Ioc
             ioc.RegisterType<IBoxWriteSearchProvider, BoxSearchProvider>(LifeTimeManager.Singleton);
             ioc.RegisterType<IBoxReadSearchProvider, BoxSearchProvider>();
 
-            ioc.RegisterType<IItemWriteSearchProvider, ItemSearchProvider>(LifeTimeManager.Singleton);
-            ioc.RegisterType<IItemReadSearchProvider, ItemSearchProvider>();
+            ioc.RegisterType<IItemWriteSearchProvider, ItemSearchProvider>( LifeTimeManager.Singleton);
+            ioc.RegisterType<IItemWriteSearchProvider2, ItemSearchProvider2>( LifeTimeManager.Singleton);
+            ioc.RegisterType<IItemReadSearchProvider, ItemSearchProvider2>(LifeTimeManager.Singleton);
 
             ioc.RegisterType<IQuizWriteSearchProvider, QuizSearchProvider>(LifeTimeManager.Singleton);
             ioc.RegisterType<IQuizReadSearchProvider, QuizSearchProvider>();
