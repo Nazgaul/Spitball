@@ -1,0 +1,269 @@
+﻿@import "varsAndMixins";
+
+[data-letter] {
+    &:before {
+        content:attr(data-letter);
+        width: 46px;
+        height: 46px;
+        line-height: 46px;
+        border-radius: 50%;
+        color: #fff;
+        display: inline-block;
+        text-align:center;
+        text-transform: capitalize;
+        position: absolute;
+        top:0;bottom:0;
+        margin: auto;
+        left: 8px; //rtl
+        font-size: 25px;
+    }
+}
+.ttImg, .bestUserList img, .feedImg {
+    + [data-letter] {
+        display: none;
+    }
+}
+.bestUserList, .boxFeed, .userTooltip, .profileInfo, .memberItem, .friendsPics, .topUser, .commentWpr {
+    [data-letter] {
+        &:before {
+            border: 1px solid #c2c2c2;
+            background: #eee;
+        }
+    }
+    .color1 {
+        &:before {
+            color: #00bfa5;
+        } 
+    }
+    .color2 {
+        &:before {
+            color: #f06292;
+        }  
+    }
+    .color3 {
+        &:before {
+            color: #b388ff;
+        } 
+    }
+    .color4 {
+        &:before {
+            color: #ff6e40;
+        } 
+    }
+    .color5 {
+        &:before {
+            color: #e06055;
+        }  
+    }
+    .color6 {
+        &:before {
+            color: #8e8e8e;
+        } 
+    }
+    .color7 {
+        &:before {
+            color: #f9a825;
+        }  
+    }
+    .color8 {
+        &:before {
+            color: #00c853;
+        }     
+    }
+}
+.color1 {
+    &:before {
+        background: #00bfa5;
+    } 
+}
+.color2 {
+    &:before {
+        background: #f06292;
+    }  
+}
+.color3 {
+    &:before {
+        background: #b388ff;
+    } 
+}
+.color4 {
+    &:before {
+        background: #ff6e40;
+    } 
+}
+.color5 {
+    &:before {
+        background: #e06055;
+    }  
+}
+.color6 {
+    &:before {
+        background: #8e8e8e;
+    } 
+}
+.color7 {
+    &:before {
+        background: #f9a825;
+    }  
+}
+.color8 {
+    &:before {
+        background: #00c853;
+    }     
+}
+
+
+/*#region user tooltip */
+
+
+
+/*#endregion */
+
+/*#region Settings */
+.profileInfo {
+    [data-letter] {
+        &:before {
+            position: static;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            font-size: 70px;
+        }
+        
+    }
+    .heb:before {
+        font-size: 80px;
+        line-height: 90px;
+    }
+    .profilePhoto {
+        + .profilePhoto {
+            display: none;
+        }
+    } 
+}
+/*#endregion */
+
+/*#region Box -> Members tab */
+.memberItem {
+    [data-letter] {
+        &:before {
+            position: static;
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+            font-size: 20px;
+        }
+        
+    }
+    .heb:before {
+        font-size: 24px;
+        line-height: 31px;
+    }
+    .friendImg {
+        + .friendImg {
+            display: none;
+        }
+    }
+}
+/*#endregion */
+
+/*#region Quiz Dialog */
+.friendsPics {
+    [data-letter] {
+        &:before {
+            position: static;
+            width: 51px;
+            height: 51px;
+            line-height: 51px;
+            font-size: 30px;
+        }
+        
+    }
+    .heb:before {
+        font-size: 35px;
+        line-height: 46px;
+    }
+    img + .letter {
+        display: none;
+    }
+    .letter {
+        display: inline-block;
+        margin-bottom: 1px;
+        border-radius: 50%;
+        //background: red; //TEMP!!!!
+        
+    }
+    > span:nth-of-type(odd) {
+        margin-right: 5px; //rtl
+    }
+}
+
+
+/*#endregion */
+
+/*#region Quiz page */
+.topUser {
+    [data-letter] {
+        &:before {
+            position: static;
+            width: 37px;
+            height: 37px;
+            line-height: 37px;
+            font-size: 25px;
+        }
+        
+    }
+    .heb:before {
+        font-size: 28px;
+        line-height: 34px;
+    }
+    img + .letter {
+        display: none;
+    }
+    .letter {
+        border-radius: 50%;
+        height: 37px;
+        width: 37px;
+    }
+}
+
+
+/*#endregion */
+
+/*#region QUiz Comments */
+.commentWpr {
+    [data-letter] {
+        &:before {
+            position: static;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 20px;
+        }
+        
+    }
+    .heb:before {
+        font-size: 22px;
+        line-height: 28px;
+    }
+    .imgBorder {
+        + .imgBorder {
+            display: none;
+        }
+    }
+}
+
+
+/*#endregion */
+
+/*#region name */
+
+
+
+/*#endregion */
+
+/*#region name */
+
+
+
+/*#endregion */

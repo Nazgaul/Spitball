@@ -68,7 +68,7 @@ input[type="radio"].radio + label:before {
   height: 20px;
   border: 1px solid #39434a;
   margin: -2px 8px 0 0;
-  border-radius: 100%;
+  border-radius: 50%;
   background: none;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -81,7 +81,7 @@ input[type="radio"].radio:checked + label:after {
   width: 12px;
   height: 12px;
   background: #39434a;
-  border-radius: 100%;
+  border-radius: 50%;
   top: 3px;
   left: 4px;
 }
@@ -1712,100 +1712,6 @@ select.inputText {
         
     }*/
 }
-/*#region [data-letter] */
-[data-letter]:before {
-  content: attr(data-letter);
-  width: 46px;
-  height: 46px;
-  line-height: 46px;
-  border-radius: 50%;
-  color: #fff;
-  display: inline-block;
-  text-align: center;
-  text-transform: capitalize;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  left: 8px;
-  font-size: 25px;
-}
-.ttImg + [data-letter],
-.bestUserList img + [data-letter],
-.feedImg + [data-letter] {
-  display: none;
-}
-.bestUserList [data-letter]:before,
-.boxFeed [data-letter]:before,
-.userTooltip [data-letter]:before {
-  border: 1px solid #c2c2c2;
-  background: #eee;
-}
-.bestUserList .color1:before,
-.boxFeed .color1:before,
-.userTooltip .color1:before {
-  color: #00bfa5;
-}
-.bestUserList .color2:before,
-.boxFeed .color2:before,
-.userTooltip .color2:before {
-  color: #f06292;
-}
-.bestUserList .color3:before,
-.boxFeed .color3:before,
-.userTooltip .color3:before {
-  color: #b388ff;
-}
-.bestUserList .color4:before,
-.boxFeed .color4:before,
-.userTooltip .color4:before {
-  color: #ff6e40;
-}
-.bestUserList .color5:before,
-.boxFeed .color5:before,
-.userTooltip .color5:before {
-  color: #e06055;
-}
-.bestUserList .color6:before,
-.boxFeed .color6:before,
-.userTooltip .color6:before {
-  color: #8e8e8e;
-}
-.bestUserList .color7:before,
-.boxFeed .color7:before,
-.userTooltip .color7:before {
-  color: #f9a825;
-}
-.bestUserList .color8:before,
-.boxFeed .color8:before,
-.userTooltip .color8:before {
-  color: #00c853;
-}
-.color1:before {
-  background: #00bfa5;
-}
-.color2:before {
-  background: #f06292;
-}
-.color3:before {
-  background: #b388ff;
-}
-.color4:before {
-  background: #ff6e40;
-}
-.color5:before {
-  background: #e06055;
-}
-.color6:before {
-  background: #8e8e8e;
-}
-.color7:before {
-  background: #f9a825;
-}
-.color8:before {
-  background: #00c853;
-}
-/*#endregion */
 .topBar {
   position: fixed;
   z-index: 3;

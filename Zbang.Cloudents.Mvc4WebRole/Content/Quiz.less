@@ -479,7 +479,7 @@ body {
     .imgBorder {
         position: absolute;
         left:0;
-        /*display: none;*/
+        border-radius: 50%;
     }
     .askBtn {
         //padding: 5px 15px 6px; //diff rtl
@@ -493,12 +493,6 @@ body {
             display: block;
             top: 15px;
     }
-    /*&.show {
-        .quizComments, .imgBorder, .cTextAreaWpr {
-            display: block;
-        }
-        
-    }*/
 }
 .quizComments {
     font-size: 13px;
@@ -523,12 +517,13 @@ body {
     padding-right: 22px;
 }
 .cTextAreaWpr {
-    //display: none;
     margin-top: 10px;
     padding-top: 10px;
     overflow: hidden; //for comment button to take up space
     .imgBorder {
         left: 10px;
+        width: 32px;
+        height: 32px;
     }
 }
 .cTextArea {
@@ -1081,7 +1076,7 @@ body {
     margin-top: 40px;
 }
 .friendsPics {
-    width: 108px;
+    width: 120px;
     margin-right: 12px; //rtl
     position: relative;
     display: inline-block;
@@ -1105,9 +1100,10 @@ body {
     img {
         display: inline-block;
         margin-bottom: 1px;
-        &:nth-child(odd) {
-            margin-right: 5px; //rtl
-        }
+        border-radius: 50%;
+    }
+    > img:nth-of-type(odd) {
+        margin-right: 5px; //rtl
     }
 }
 .quizPopupTxtWpr {

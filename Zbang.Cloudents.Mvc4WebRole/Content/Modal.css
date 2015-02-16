@@ -404,7 +404,7 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background: #0f9d58;
-  border-radius: 100%;
+  border-radius: 50%;
   vertical-align: top;
   position: absolute;
   top: 3px;

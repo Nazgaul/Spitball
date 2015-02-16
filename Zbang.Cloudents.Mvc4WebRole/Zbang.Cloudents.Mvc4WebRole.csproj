@@ -700,6 +700,12 @@
     <Content Include="Content\lang.ru-RU.rtl.css">
       <DependentUpon>lang.ru-RU.css</DependentUpon>
     </Content>
+    <Content Include="Content\Letter.css">
+      <DependentUpon>Letter.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Letter.rtl.css">
+      <DependentUpon>Letter.css</DependentUpon>
+    </Content>
     <Content Include="Content\Modal.css">
       <DependentUpon>Modal.less</DependentUpon>
     </Content>
@@ -1149,6 +1155,7 @@
     <Content Include="51Degrees.config" />
     <Content Include="Content\textAngular.less" />
     <Content Include="Content\lang.ar-AE.less" />
+    <Content Include="Content\Letter.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
