@@ -484,7 +484,7 @@ button.fileError {
   box-sizing: border-box;
   border: 1px solid #c2c2c2;
   margin: 5px 10px 0 0;
-  border-radius: 100%;
+  border-radius: 50%;
 }
 .eSingleImg {
   display: inline-block;
@@ -492,7 +492,7 @@ button.fileError {
   width: 34px;
   height: 34px;
   margin: 5px 6px 0 0;
-  border-radius: 100%;
+  border-radius: 50%;
 }
 .eSingleName {
   display: inline-block;

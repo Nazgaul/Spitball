@@ -1054,8 +1054,9 @@ body.quiz .modal-backdrop.in {
 .friendsPics img {
   display: inline-block;
   margin-bottom: 1px;
+  border-radius: 50%;
 }
-.friendsPics img:nth-child(odd) {
+.friendsPics img:nth-of-type(odd) {
   margin-left: 5px;
 }
 .quizPopupTxtWpr {

@@ -801,7 +801,7 @@
 }
 .socialList img {
   border: 1px solid #c2c2c2;
-  border-radius: 100%;
+  border-radius: 50%;
 }
 .socialList .contactName {
   font-size: 12px;

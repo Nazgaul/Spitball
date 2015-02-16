@@ -171,7 +171,7 @@ main {
   margin: 0 4px 0 0;
   border: 1px solid #39434a;
   padding: 3px;
-  border-radius: 100%;
+  border-radius: 50%;
   background: #fff;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -182,7 +182,7 @@ main {
   display: inline-block;
   width: 100%;
   height: 100%;
-  border-radius: 100%;
+  border-radius: 50%;
   background: #39434a;
   vertical-align: top;
 }
@@ -935,7 +935,7 @@ main {
 }
 .userHelp {
   border: 1px solid #39434a;
-  border-radius: 100%;
+  border-radius: 50%;
   width: 35px;
   height: 35px;
   display: inline-block;

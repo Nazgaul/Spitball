@@ -1,0 +1,109 @@
+﻿@import "varsAndMixins";
+
+/*#region user tooltip */
+
+
+
+/*#endregion */
+
+/*#region Settings */
+.profileInfo {
+    [data-letter] {
+        &:before {
+            position: static;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            font-size: 70px;
+        }
+        
+    }
+    .heb:before {
+        font-size: 80px;
+        line-height: 90px;
+    }
+    .profilePhoto {
+        + .profilePhoto {
+            display: none;
+        }
+    } 
+}
+/*#endregion */
+
+/*#region Box -> Members tab */
+.memberItem {
+    [data-letter] {
+        &:before {
+            position: static;
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+            font-size: 20px;
+        }
+        
+    }
+    .heb:before {
+        font-size: 24px;
+        line-height: 31px;
+    }
+    .friendImg {
+        + .friendImg {
+            display: none;
+        }
+    }
+}
+/*#endregion */
+
+/*#region Quiz Dialog */
+.friendsPics {
+    [data-letter] {
+        &:before {
+            position: static;
+            width: 51px;
+            height: 51px;
+            line-height: 51px;
+            font-size: 30px;
+        }
+        
+    }
+    .heb:before {
+        font-size: 35px;
+        line-height: 46px;
+    }
+    span {
+        display: inline-block;
+        margin-bottom: 1px;
+        border-radius: 50%;
+        background: red; //TEMP!!!!
+        &:nth-of-type(odd) {
+            margin-right: 5px; //rtl
+        }
+    }
+}
+
+
+/*#endregion */
+
+/*#region name */
+
+
+
+/*#endregion */
+
+/*#region name */
+
+
+
+/*#endregion */
+
+/*#region name */
+
+
+
+/*#endregion */
+
+/*#region name */
+
+
+
+/*#endregion */

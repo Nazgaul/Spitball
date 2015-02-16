@@ -362,7 +362,7 @@
   top: 20px;
   left: 0;
   border: 5px solid #fff;
-  border-radius: 100%;
+  border-radius: 50%;
 }
 .upSchool {
   color: #c2c2c2;
@@ -533,7 +533,7 @@
   margin-top: -20px;
 }
 .upFriends .userItemImg {
-  border-radius: 100%;
+  border-radius: 50%;
 }
 .upInvites .upSectionWpr {
   min-height: 167px;
@@ -600,7 +600,7 @@
   /*diff rtl*/
 }
 .upInviteItem .userItemImg {
-  border-radius: 100%;
+  border-radius: 50%;
   position: absolute;
   top: 0;
   left: 0;
@@ -716,7 +716,7 @@
   margin-top: 10px;
 }
 .upMembers .friendImg {
-  border-radius: 100%;
+  border-radius: 50%;
 }
 .memberTopRow {
   text-align: left;
