@@ -158,7 +158,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            return null;
+            return Task.FromResult<string>(null);
         }
     }
 }

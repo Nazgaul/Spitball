@@ -147,10 +147,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         public async Task<bool> UpdateData(IEnumerable<ItemSearchDto> itemToUpload, IEnumerable<long> itemToDelete)
         {
-            if (!m_CheckIndexExists)
-            {
-                await BuildIndex();
-            }
+            //if (!m_CheckIndexExists)
+            //{
+            //    await BuildIndex();
+            //}
             var listOfCommands = new List<IndexOperation>();
             if (itemToUpload != null)
             {
