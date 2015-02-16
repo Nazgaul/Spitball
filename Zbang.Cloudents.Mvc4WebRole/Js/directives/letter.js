@@ -5,24 +5,34 @@
            link: function (scope, element, attrs) {
                var random = Math.floor(Math.random() * 7) + 1;
 
-               var char = attrs.letter.toUpperCase();                                                
-               code = char.charCodeAt(0).toString(),
-               sum = 0;
-               for (var i = 0; i < code.length; i++) {
-                   sum += parseInt(code[i]);
-               }
-               sum = sum % 8;
+               attrs.$observe('letter', function () {
+                   if (_.isEmpty(attrs.letter)) {
+                       return;
+                   }
 
-               if (sum == 0) {
-                   sum = 1;
-               }
+                   set();
+               });
 
-               var c = 'color' + sum;
-               var hebrewChars = new RegExp("^[\u0590-\u05FF]+$");
-               if (hebrewChars.test(char)) {
-                   c += ' heb';
+               function set() {
+                   var char = attrs.letter.toUpperCase();
+                   code = char.charCodeAt(0).toString(),
+                   sum = 0;
+                   for (var i = 0; i < code.length; i++) {
+                       sum += parseInt(code[i]);
+                   }
+                   sum = sum % 8;
+
+                   if (sum == 0) {
+                       sum = 1;
+                   }
+
+                   var c = 'color' + sum;
+                   var hebrewChars = new RegExp("^[\u0590-\u05FF]+$");
+                   if (hebrewChars.test(char)) {
+                       c += ' heb';
+                   }
+                   element.addClass(c);
                }
-               element.addClass(c);
            }
        };
    }
