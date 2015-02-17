@@ -60,11 +60,11 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private async Task ExecuteAsync()
         {
-            //var quizUpdate = await UpdateQuiz();
-            var itemUpdate = await UpdateItem();
-            //var universityUpdate = await UpdateUniversity();
-            //var boxUpdate = await UpdateBox();
-            if (itemUpdate /*||  boxUpdate || universityUpdate || quizUpdate*/)
+            var quizUpdate = await UpdateQuiz();
+            //var itemUpdate = await UpdateItem();
+            var universityUpdate = await UpdateUniversity();
+            var boxUpdate = await UpdateBox();
+            if (/*itemUpdate || */ boxUpdate || universityUpdate || quizUpdate)
             {
                 return;
             }
@@ -136,7 +136,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     }
                     sb.Append(ch);
                 }
-                return System.Net.WebUtility.HtmlEncode(sb.ToString());
+                return sb.ToString();
             }
             catch (Exception ex)
             {

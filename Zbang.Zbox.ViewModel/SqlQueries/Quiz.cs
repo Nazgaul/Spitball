@@ -14,7 +14,8 @@ select u.country as Country
 		join zbox.box b on q.boxid= b.boxid
 		left join zbox.University u on b.University = u.Id
 		where q.id = @QuizId
-        and q.publish = 1;";
+        and q.publish = 1
+        and q.isdeleted = 0;";
 
         public const string QuizQuery =
             @"select q.Id, q.Name, u.UserId as OwnerId, u.UserName as Owner, 
@@ -24,6 +25,7 @@ from zbox.quiz q
 join zbox.Users u on q.UserId = u.UserId
 join zbox.Box b on q.BoxId = b.BoxId
  where q.id = @QuizId
+ and q.isdeleted = 0
 ";
 
         public const string Question = @"select q.Id, q.Text,q.RightAnswerId as correctAnswer from zbox.QuizQuestion q where QuizId = @QuizId;";
@@ -72,7 +74,8 @@ where quizid = @QuizId";
     q.Url as Url
     from zbox.quiz q
     join zbox.Users u on u.userid = q.UserId
-    where boxid = @BoxId";
+    where boxid = @BoxId
+    and q.isdeleted = 0;";
 
     }
 }

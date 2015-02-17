@@ -13,7 +13,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Search
 
         }
         public SearchQuizzes(string name, long id, string content,
-            string boxName, string uniName, string url)
+            string boxName, string uniName, string url, string nameWithoutHighLight)
         {
             Name = name;
             Id = id;
@@ -21,8 +21,11 @@ namespace Zbang.Zbox.ViewModel.Dto.Search
             UniName = uniName;
             Boxname = boxName;
             Url = url;
+            NameWithoutHighLight = nameWithoutHighLight;
         }
         public string Name { get; set; }
+
+        public string NameWithoutHighLight { get; set; }
         public long Id { get; set; }
         public string Content { get; set; }
 

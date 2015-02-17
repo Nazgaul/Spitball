@@ -16,10 +16,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     {
 
         private readonly string m_IndexName = "box";
+        private readonly ISearchFilterProvider m_FilterProvider;
         private bool m_CheckIndexExists;
 
-        public BoxSearchProvider()
+        public BoxSearchProvider(ISearchFilterProvider filterProvider)
         {
+            m_FilterProvider = filterProvider;
             if (!RoleEnvironment.IsAvailable)
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -115,14 +117,21 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         private async Task BuildIndex()
         {
-            var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
-            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            try
             {
-                await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetBoxIndex());
+                var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetBoxIndex());
+                }
+                else
+                {
+                    var x = await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(GetBoxIndex());
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var x = await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(GetBoxIndex());
+                TraceLog.WriteError("on box build index", ex);
             }
             m_CheckIndexExists = true;
         }
@@ -138,9 +147,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
                 new RedDog.Search.Model.SearchQuery(query.Term + "*")
                 {
-                    Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityidField, UseridsField, query.UniversityId, query.UserId),
+                    Filter = await m_FilterProvider.BuildFilterExpression(
+                       query.UniversityId, UniversityidField, UseridsField, query.UserId),
                     Top = query.RowsPerPage,
-                    Skip = query.RowsPerPage * query.PageNumber
+                    Skip = query.RowsPerPage * query.PageNumber,
+                    ScoringProfile = "university",
+                    ScoringParameters = new[] { "university:" + query.UniversityId },
+                    Highlight = ProfessorField + "," + NameField + "," + CourseField
                 });
 
             if (!searchResult.IsSuccess)
@@ -152,13 +165,25 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 return searchResult.Body.Records.Select(s => new SearchBoxes(
                     SeachConnection.ConvertToType<long>(s.Properties[IdField]),
-                    SeachConnection.ConvertToType<string>(s.Properties[NameField]),
-                    SeachConnection.ConvertToType<string>(s.Properties[ProfessorField]),
-                    SeachConnection.ConvertToType<string>(s.Properties[CourseField]),
-                    SeachConnection.ConvertToType<string>(s.Properties[UrlField])));
+                    HighLightInField(s,NameField),
+                    //SeachConnection.ConvertToType<string>(s.Properties[NameField]),
+                    HighLightInField(s, ProfessorField),
+                    HighLightInField(s, CourseField),
+                    SeachConnection.ConvertToType<string>(s.Properties[UrlField]),
+                    SeachConnection.ConvertToType<string>(s.Properties[NameField])));
             }
 
             return null;
+        }
+
+        private string HighLightInField(SearchQueryRecord record, string field)
+        {
+            string[] highLight;
+            if (record.Highlights.TryGetValue(field, out highLight))
+            {
+                return String.Join("...", highLight);
+            }
+            return SeachConnection.ConvertToType<string>(record.Properties[field]);
         }
     }
 

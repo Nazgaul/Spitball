@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
@@ -90,15 +91,22 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         private async Task BuildIndex()
         {
-            var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
-            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            try
             {
-                await SeachConnection.Instance.IndexManagement.CreateIndexAsync(CreateIndex());
+                var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    await SeachConnection.Instance.IndexManagement.CreateIndexAsync(CreateIndex());
 
+                }
+                else
+                {
+                    await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(CreateIndex());
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(CreateIndex());
+                TraceLog.WriteError("on quiz build index", ex);
             }
             m_CheckIndexExists = true;
         }
@@ -185,7 +193,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     ConvertHighlightToProperty(s),
                     SeachConnection.ConvertToType<string>(s.Properties[BoxNameField]),
                     SeachConnection.ConvertToType<string>(s.Properties[UniversityNameField]),
-                    SeachConnection.ConvertToType<string>(s.Properties[UrlField])));
+                    SeachConnection.ConvertToType<string>(s.Properties[UrlField]),
+                    SeachConnection.ConvertToType<string>(s.Properties[NameField])));
             }
             return null;
 
@@ -218,7 +227,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 answerHighLight = new string[0];
             }
             var str = SeachConnection.LimitContentHighlight(questionHighLight.Union(answerHighLight));
-            return string.IsNullOrEmpty(str) ? SeachConnection.ConvertToType<string>(record.Properties[ContentField]) : str;
+            return string.IsNullOrEmpty(str) ?
+               SeachConnection.ConvertToType<string>(record.Properties[ContentField]) : str;
         }
     }
 
