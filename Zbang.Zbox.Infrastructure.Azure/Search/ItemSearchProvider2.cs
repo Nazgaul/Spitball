@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using RedDog.Search.Model;
@@ -86,7 +87,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 //    var x = await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(GetIndexStructure());
                 //}
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TraceLog.WriteError("on item build index", ex);
             }
@@ -168,7 +169,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     string[] highLight;
                     string content = s.Highlights.TryGetValue(ContentField, out highLight)
                         ? SeachConnection.LimitContentHighlight(highLight)
-                        : SeachConnection.ConvertToType<string>(s.Properties[SmallContentField]);
+                        : WebUtility.HtmlEncode(SeachConnection.ConvertToType<string>(s.Properties[SmallContentField]));
 
                     return new SearchItems(
                         SeachConnection.ConvertToType<string>(s.Properties[ImageField]),

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
@@ -103,7 +104,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(CreateIndex());
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TraceLog.WriteError("on quiz build index", ex);
             }
@@ -226,7 +227,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                 answerHighLight = new string[0];
             }
             var str = SeachConnection.LimitContentHighlight(questionHighLight.Union(answerHighLight));
-            return string.IsNullOrEmpty(str) ? SeachConnection.ConvertToType<string>(record.Properties[ContentField]) : str;
+            return string.IsNullOrEmpty(str) ?
+               SeachConnection.ConvertToType<string>(record.Properties[ContentField]) : str;
         }
     }
 
