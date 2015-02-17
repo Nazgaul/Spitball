@@ -13,23 +13,16 @@
   color: #383838;
   display: inline-block;
 }
-.boxFeed [data-letter] {
-  width: 40px;
-  height: 40px;
-}
-.boxFeed [data-letter]:before {
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  font-size: 22px;
-  right: 0;
+.boxFeed .userImg,
+.boxFeed .userLetter {
+  margin-left: 15px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
-.boxFeed .heb:before {
-  font-size: 26px;
-  line-height: 38px;
+  position: relative;
+  top: 2px;
+  width: 40px;
+  height: 40px;
 }
 .boxFeed > .feedForm .feedTA {
   border-color: #282828;
@@ -144,20 +137,6 @@
   text-align: center;
   padding-top: 90px;
 }
-.feedImg,
-.boxFeed [data-letter] {
-  border-radius: 50%;
-  margin-left: 15px;
-  border: 1px solid #c2c2c2;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  position: relative;
-  top: 2px;
-}
-.boxFeed [data-letter] {
-  border: none;
-}
 .feedTA {
   width: 543px;
   border-radius: 3px;
@@ -245,11 +224,10 @@
   fill: #c2c2c2;
 }
 .boxFeedList .feedForm {
-  padding-top: 15px
-  /*display: none;*/
+  padding-top: 15px;
 }
-.boxFeedList .feedForm .feedImg,
-.boxFeedList .feedForm [data-letter] {
+.boxFeedList .feedForm .userImg,
+.boxFeedList .feedForm .userLetter {
   margin: 0 15px 0 0;
 }
 .boxFeedList .feedForm.show {
@@ -351,8 +329,8 @@
   border-color: transparent #fff transparent transparent;
   z-index: 1;
 }
-.feedReplies .feedImg,
-.feedReplies [data-letter] {
+.feedReplies .userImg,
+.feedReplies .userLetter {
   margin: 0 15px 0 0;
 }
 .feedReplies .userName {
@@ -564,6 +542,12 @@
   position: relative;
   top: 8px;
 }
+.bestUserList .userImg,
+.bestUserList .userLetter {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 5px;
+}
 .bestUserList:before {
   content: '';
   display: inline-block;
@@ -595,18 +579,19 @@
   top: 16px;
   z-index: 1;
 }
-.bestUserList .firstUser.empty .top3Img,
-.bestUserList .secondUser.empty .top3Img,
-.bestUserList .thirdUser.empty .top3Img {
+.bestUserList .firstUser.empty,
+.bestUserList .secondUser.empty,
+.bestUserList .thirdUser.empty {
+  /*svg {
+                fill: #ccc;
+            }*/
+}
+.bestUserList .firstUser.empty .userImg,
+.bestUserList .secondUser.empty .userImg,
+.bestUserList .thirdUser.empty .userImg {
   border-color: #8a8a8a;
   background: #ccc;
   overflow: hidden;
-  border-radius: 50%;
-}
-.bestUserList .firstUser.empty svg,
-.bestUserList .secondUser.empty svg,
-.bestUserList .thirdUser.empty svg {
-  fill: #ccc;
 }
 .bestUserList .firstUser.empty .svg-user,
 .bestUserList .secondUser.empty .svg-user,
@@ -622,7 +607,7 @@
   vertical-align: middle;
   text-align: right;
 }
-.bestUserList li:nth-child(-n + 3) {
+.bestUserList li:nth-of-type(-n + 3) {
   text-align: center;
   margin-bottom: 15px;
   display: inline-block;
@@ -633,33 +618,28 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.bestUserList li:nth-child(-n + 3):before {
+.bestUserList li:nth-of-type(-n + 3):before {
   position: absolute;
   visibility: hidden;
 }
-.bestUserList li:nth-child(n + 4) {
+.bestUserList li:nth-of-type(n + 4) {
   margin: 0 -32px;
   padding: 0 15px;
   clear: both;
   width: 336px;
 }
-.bestUserList li:nth-child(n + 4) .rep {
+.bestUserList li:nth-of-type(n + 4) .rep {
   position: absolute;
   left: 14px;
   top: 2px;
   color: #383838;
 }
-.bestUserList li:nth-child(n + 4) [data-letter]:first-child {
+.bestUserList li:nth-of-type(n + 4) .userImg,
+.bestUserList li:nth-of-type(n + 4) .userLetter {
   display: inline-block;
-  margin: 0 5px 8px 5px;
+  margin: 0 5px 1px 5px;
   width: 38px;
   height: 38px;
-}
-.bestUserList li:nth-child(n + 4) [data-letter]:before {
-  width: 38px;
-  height: 38px;
-  line-height: 38px;
-  margin-top: 4px;
 }
 .bestUserList li:before {
   content: counter(leaderBoard) ".";
@@ -671,26 +651,10 @@
 .bestUserList li:nth-child(2n + 4) {
   background: #eee;
 }
-.bestUserList [data-letter] {
-  vertical-align: middle;
-}
-.bestUserList [data-letter]:before {
-  position: static;
-}
-.bestUserList [data-letter]:first-child {
-  display: block;
-}
 .bestUserList .elps {
   display: inline-block;
   max-width: 160px;
   vertical-align: middle;
-}
-.bestUserList img {
-  border: 1px solid #c2c2c2;
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0 5px;
-  border-radius: 50%;
 }
 .bestUserList svg {
   display: block;
@@ -705,38 +669,24 @@
   right: -2px;
   top: 3px;
 }
-.bestUserList .top3Img,
-.bestUserList [data-letter] {
-  border: 1px solid transparent;
+.bestUserList .userImg,
+.bestUserList .userLetter {
   margin: 0 auto 8px;
   width: 50px;
   height: 50px;
-  border-radius: 50%;
 }
-.bestUserList .top3Img {
+.bestUserList .userImg {
   display: block;
   border: 1px solid #0f9d58;
 }
-.secondUser .top3Img,
-.secondUser [data-letter] {
+.secondUser .userImg,
+.secondUser .userLetter {
   margin-top: 17px;
 }
-.thirdUser .top3Img,
-.thirdUser [data-letter] {
+.thirdUser .userImg,
+.thirdUser .userLetter {
   margin-top: 35px;
 }
-/*.svg-crown {
-    width: 36px;
-    height: 23px;
-}
-.svg-trophy {
-    width: 26px;
-    height: 29px;
-}
-.svg-badge {
-    width: 18px;
-    height: 30px;
-}*/
 .rep {
   font-weight: bold;
   color: #fff;

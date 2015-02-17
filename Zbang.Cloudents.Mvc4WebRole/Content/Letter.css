@@ -30,13 +30,37 @@
   box-sizing: border-box;
 }
 .userImg + .userLetter {
-  display: none;
+  display: none !important;
 }
-.ttImg + [data-letter],
-.bestUserList img + [data-letter],
-.feedImg + [data-letter] {
-  display: none;
+/*#region letters on boxes/courses/quizzes */
+.box [data-letter]:before,
+.recommended [data-letter]:before {
+  width: 56px;
+  height: 56px;
+  line-height: 56px;
+  left: 11px;
+  font-size: 28px;
 }
+.box .heb:before,
+.recommended .heb:before {
+  font-size: 34px;
+  line-height: 50px;
+}
+.thumbItem [data-letter]:before,
+.listItem [data-letter]:before {
+  content: attr(data-letter);
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  top: 75px;
+  bottom: auto;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-size: 18px;
+  color: #fff;
+}
+/*#endregion */
 .bestUserList [data-letter]:before,
 .boxFeed [data-letter]:before,
 .userTooltip [data-letter]:before,
@@ -46,7 +70,7 @@
 .topUser [data-letter]:before,
 .commentWpr [data-letter]:before,
 .singleEmailUserWpr [data-letter]:before,
-.socialList [data-letter]:before,
+.boxFeed .socialList [data-letter]:before,
 .notifyItem [data-letter]:before,
 .upTop [data-letter]:before,
 .upFriends [data-letter]:before,
@@ -67,7 +91,7 @@
 .topUser .color1:before,
 .commentWpr .color1:before,
 .singleEmailUserWpr .color1:before,
-.socialList .color1:before,
+.boxFeed .socialList .color1:before,
 .notifyItem .color1:before,
 .upTop .color1:before,
 .upFriends .color1:before,
@@ -87,7 +111,7 @@
 .topUser .color2:before,
 .commentWpr .color2:before,
 .singleEmailUserWpr .color2:before,
-.socialList .color2:before,
+.boxFeed .socialList .color2:before,
 .notifyItem .color2:before,
 .upTop .color2:before,
 .upFriends .color2:before,
@@ -107,7 +131,7 @@
 .topUser .color3:before,
 .commentWpr .color3:before,
 .singleEmailUserWpr .color3:before,
-.socialList .color3:before,
+.boxFeed .socialList .color3:before,
 .notifyItem .color3:before,
 .upTop .color3:before,
 .upFriends .color3:before,
@@ -127,7 +151,7 @@
 .topUser .color4:before,
 .commentWpr .color4:before,
 .singleEmailUserWpr .color4:before,
-.socialList .color4:before,
+.boxFeed .socialList .color4:before,
 .notifyItem .color4:before,
 .upTop .color4:before,
 .upFriends .color4:before,
@@ -147,7 +171,7 @@
 .topUser .color5:before,
 .commentWpr .color5:before,
 .singleEmailUserWpr .color5:before,
-.socialList .color5:before,
+.boxFeed .socialList .color5:before,
 .notifyItem .color5:before,
 .upTop .color5:before,
 .upFriends .color5:before,
@@ -167,7 +191,7 @@
 .topUser .color6:before,
 .commentWpr .color6:before,
 .singleEmailUserWpr .color6:before,
-.socialList .color6:before,
+.boxFeed .socialList .color6:before,
 .notifyItem .color6:before,
 .upTop .color6:before,
 .upFriends .color6:before,
@@ -187,7 +211,7 @@
 .topUser .color7:before,
 .commentWpr .color7:before,
 .singleEmailUserWpr .color7:before,
-.socialList .color7:before,
+.boxFeed .socialList .color7:before,
 .notifyItem .color7:before,
 .upTop .color7:before,
 .upFriends .color7:before,
@@ -207,7 +231,7 @@
 .topUser .color8:before,
 .commentWpr .color8:before,
 .singleEmailUserWpr .color8:before,
-.socialList .color8:before,
+.boxFeed .socialList .color8:before,
 .notifyItem .color8:before,
 .upTop .color8:before,
 .upFriends .color8:before,
@@ -242,7 +266,44 @@
 .color8:before {
   background: #00c853;
 }
+/*#region bestUser List */
+.bestUserList [data-letter]:before {
+  position: static;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.bestUserList .heb:before {
+  font-size: 35px;
+  line-height: 46px;
+}
+.bestUserList li:nth-of-type(n + 4) [data-letter]:before {
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+  font-size: 25px;
+}
+.bestUserList li:nth-of-type(n + 4) .heb:before {
+  font-size: 28px;
+  line-height: 34px;
+}
+/*#endregion */
 /*#region user tooltip */
+.userTooltip [data-letter]:before {
+  font-size: 36px;
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
+  left: -1px;
+}
+.userTooltip .heb:before {
+  font-size: 40px;
+  line-height: 65px;
+}
 /*#endregion */
 /*#region Settings */
 .profileInfo [data-letter]:before {
@@ -469,6 +530,22 @@
   line-height: 30px;
 }
 /*#endregion */
+/*#region box feed */
+.boxFeed [data-letter]:before {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 22px;
+  left: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.boxFeed .heb:before {
+  font-size: 26px;
+  line-height: 38px;
+}
+/*#endregion */
 /*#region Site header user image */
 .userAnchor [data-letter]:before {
   width: 36px;
@@ -482,5 +559,5 @@
 }
 .userAnchor .heb:before {
   font-size: 28px;
-  line-height: 30px;
+  line-height: 32px;
 }

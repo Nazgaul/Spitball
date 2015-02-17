@@ -42,7 +42,8 @@
         position: fixed;*/
   right: 320px;
   z-index: 11;
-  top: -41px;
+  top: 9px;
+  position: fixed;
 }
 .searchPopup {
   position: fixed;
@@ -131,7 +132,8 @@
 .boxPage .searchPopup.ng-leave-active {
   right: 320px;
   z-index: 11;
-  top: -41px;
+  top: 9px;
+  position: fixed;
 }
 .libraryPage .searchPopup.ng-enter,
 .libraryPage .searchPopup.ng-leave-active,

@@ -778,20 +778,6 @@
   color: #b1b1b1;
   margin: 0;
 }
-.thumbItem [data-letter]:before,
-.listItem [data-letter]:before {
-  content: attr(data-letter);
-  width: 25px;
-  height: 25px;
-  line-height: 25px;
-  top: 75px;
-  bottom: auto;
-  right: 0;
-  left: 0;
-  font-size: 18px;
-  color: #fff;
-  margin: auto;
-}
 .listItem {
   padding: 15px 138px 15px 0;
   position: relative;

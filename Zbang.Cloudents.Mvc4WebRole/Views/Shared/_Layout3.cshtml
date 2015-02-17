@@ -147,8 +147,8 @@
     <script type="text/ng-template" id="userToolTip.html">
         <div class="userTooltip" ng-class="::{hidePoints : user.score <= 0}">
             <a ng-href="{{::user.url}}" ng-click="$root.checkReg($event)">
-                <img class="ttImg" ng-if="user.image" ng-src="{{::user.image}}" width="70" height="70" />
-                <span data-letter="{{::user.name[0]}}"></span>
+                <img class="userImg" ng-if="user.image" ng-src="{{::user.image}}" width="70" height="70" />
+                <span class="userLetter" data-letter="{{::user.name[0]}}"></span>
             </a>
             <a class="ttUsername elps" ng-href="{{::user.url}}" ng-click="$root.checkReg($event)">{{::user.name}}</a>
             <div class="ttSchool elps">{{::user.universityName}}</div>
