@@ -8,14 +8,25 @@
     function ($http, $q, $angularCacheFactory, $analytics, $log) {
         "use strict";
         var ttls = {},
+        cancelObjs = {},
         service = {
-            get: function (url, data, ttl, noCache) {
+            get: function (url, data, ttl, noCache,cancellable) {
                 var dfd = $q.defer(),
                     startTime = new Date().getTime();
 
                 var getObj = {
                     params: data
                 };
+
+                if (cancelObjs[url]) {
+                    cancelObjs[url].resolve();                                        
+                }
+
+                if (cancellable) {
+                    cancelObjs[url] = $q.defer();
+                    getObj.timeout = cancelObjs[url].promise;
+                }
+
                 if (!noCache) {
                     ttl = ttl || 15000; //default to 30 seconds
                     getObj.cache = getCache(ttl);
@@ -25,16 +36,17 @@
                     trackTime(startTime, url, data, 'get');
 
                     if (!response) {
-                        logError(url, data);
                         dfd.reject();
                         return;
                     }
 
                     if (response.success) {
                         dfd.resolve(response.payload);
+                        cancelObjs[url] = null
                         return;
                     }
                     dfd.reject(response.payload);
+                    cancelObjs[url] = null
                     logError(url, data, response);
 
                 }).error(function (response) {

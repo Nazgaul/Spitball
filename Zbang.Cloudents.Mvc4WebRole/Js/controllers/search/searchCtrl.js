@@ -16,7 +16,6 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
     $scope.formData = {};
     $scope.params = {
         currentPage: 0,
-        loading: false,
         lastPage: false
     };
 
@@ -51,20 +50,16 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
 
     function search(parser) {
 
-        if ($scope.params.loading) {
-            return;
-        }
-        if (query && query.length < 0) {
-            return;
-        }
-
-        $scope.params.loading = true;
+        //if ($scope.params.loading) {
+        //    return;
+        //}
 
         var query = $scope.formData.query;
-       
-        searchHistory.setQuery(query);
 
-
+        if (query && query.length) {
+            searchHistory.setQuery(query);        
+        }
+        
         $analytics.eventTrack('Search', {
             category: analyticsCategory,
             label: 'User searched for ' + query
