@@ -5,11 +5,8 @@
             return '/search/' + path + '/';
         }
         return {
-            dropdown: function (data) {
-                return ajaxService.get(buildPath('dropdown'), data);
-            },
             searchByPage: function (data) {
-                return ajaxService.get(buildPath('data'), data);
+                return ajaxService.get(buildPath('data'), data, null, false, true);
             },
             searchOtherUnis: function (data) {
                 return ajaxService.get(buildPath('otheruniversities'), data);

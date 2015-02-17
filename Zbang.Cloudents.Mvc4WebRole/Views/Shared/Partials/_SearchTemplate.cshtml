@@ -1,6 +1,6 @@
 ﻿<script type="text/ng-template" id="boxHeaderSearch">
     <a class="searchLink" ng-href="{{::box.url}}">
-        <div class="vCentered" data-letter="{{::box.name[0]}}">
+        <div class="vCentered" data-letter="{{::box.nameWithoutHighLight[0]}}">
             <h3 class="elps" ng-bind-html="::box.name"></h3>
             <div class="courseId" ng-bind-html="::box.courseCode"></div>
             <div ng-bind-html="::box.proffessor"></div>
@@ -17,7 +17,7 @@
         </div>
         <div class="searchImg" data-letter="{{::quiz.name[0]}}">
             @Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })
-            <div class="elps boxName">{{::quiz.name}}</div>           
+            <div class="elps boxName">{{::quiz.nameWithoutHighLight}}</div>           
         </div>
     </a>
 </script>
