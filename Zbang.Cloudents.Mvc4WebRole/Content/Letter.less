@@ -18,17 +18,32 @@
         font-size: 25px;
     }
 }
+.userImg, .userLetter {
+    border-radius: 50%;
+}
+/*.userLetter {
+    border: none !important;
+}*/
+.userImg {
+    + .userLetter {
+        display: none;
+    }
+}
+
 .ttImg, .bestUserList img, .feedImg {
     + [data-letter] {
         display: none;
     }
 }
 //The following are the user image classes 
-.bestUserList, .boxFeed, .userTooltip, .profileInfo, .memberItem, .friendsPics, .topUser, .commentWpr, .singleEmailUserWpr, .socialList, .notifyItem  {
+.bestUserList, .boxFeed, .userTooltip, .profileInfo, .memberItem,
+.friendsPics, .topUser, .commentWpr, .singleEmailUserWpr,
+.socialList, .notifyItem, .upTop, .upFriends, .upInvites {
     [data-letter] {
         &:before {
             border: 1px solid #c2c2c2;
             background: #eee;
+            .boxSizing;
         }
     }
     .color1 {
@@ -342,7 +357,7 @@
             font-size: 45px;
         }
     }
-    &.heb:before {
+    .heb:before {
         line-height: 67px;
         font-size: 52px;
     }
@@ -354,7 +369,45 @@
 }
 
 /*#endregion */
+/*#region User page */
+.upTop {
+    [data-letter] {
+        &:before {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            font-size: 70px;
+            left: -1px; //override
+        }
+    }
+    .heb:before {
+        line-height: 87px;
+        font-size: 80px;
+    }
+}
+.upFriends, .upInvites {
+    [data-letter] {
+        margin-bottom: 10px;
+        &:before {
+            width: 74px;
+            height: 74px;
+            line-height: 74px;
+            position: static;
+            margin: auto;
+            font-size: 45px;
+            margin: -1px 0 0 -1px;
+        }
+    }
+    .heb:before {
+        line-height: 67px;
+        font-size: 52px;
+    }
+}
+/*#endregion */
+
 /*#region name */
 
+/*#endregion */
+/*#region name */
 
 /*#endregion */

@@ -2048,7 +2048,6 @@
     <Content Include="Views\Share\Index.cshtml" />
     <Content Include="Views\Home\Help.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Library\SelectDepartment.cshtml" />
     <Content Include="Views\Item\Rename.cshtml" />
     <Content Include="Views\Shared\Partials\_Welcome.cshtml" />
@@ -2108,7 +2107,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Search\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>

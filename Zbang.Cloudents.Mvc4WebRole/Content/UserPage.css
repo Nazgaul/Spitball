@@ -357,6 +357,15 @@
 .upTop:hover .settingsLink {
   visibility: visible;
 }
+.upTop .userImg,
+.upTop .userLetter {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 20px;
+  left: 0;
+  border: 5px solid #fff;
+}
 .upImg {
   position: absolute;
   top: 20px;
@@ -380,6 +389,17 @@
 }
 .upContent .boxImg.boxImg {
   height: 100%;
+}
+.upContent .userImg,
+.upContent .userLetter {
+  display: inline-block;
+  border: 1px solid #c2c2c2;
+  margin-bottom: 6px;
+  width: 74px;
+  height: 74px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .upCourses .coursesEmpty {
   height: 150px;
@@ -532,9 +552,11 @@
 .upFriends + .upShowAll {
   margin-top: -20px;
 }
-.upFriends .userItemImg {
-  border-radius: 50%;
-}
+/*.upFriends {
+    .userItemImg {
+        border-radius: 50%;
+    }
+}*/
 .upInvites .upSectionWpr {
   min-height: 167px;
   padding: 0;
@@ -600,7 +622,6 @@
   /*diff rtl*/
 }
 .upInviteItem .userItemImg {
-  border-radius: 50%;
   position: absolute;
   top: 0;
   left: 0;
@@ -661,11 +682,6 @@
   width: 76px;
   vertical-align: top;
   margin-bottom: 20px;
-}
-.userItemImg {
-  border: 1px solid #c2c2c2;
-  border-radius: 3px;
-  margin-bottom: 6px;
 }
 .userItemName {
   line-height: 15px;

@@ -424,9 +424,6 @@
   background: none;
   color: #3399ff;
 }
-.searchLink .userImg {
-  border-radius: 50%;
-}
 /*#region Search media queries */
 @media screen and (max-width: 53.125em) {
   /*.searchInputWpr.open {
