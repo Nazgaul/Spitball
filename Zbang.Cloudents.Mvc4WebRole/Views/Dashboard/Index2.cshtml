@@ -24,8 +24,8 @@
                 <ol class="bestUserList">
                     <li ng-if="::leaderBoard.first" class="firstUser">
                         <a ng-href="{{::leaderBoard.first.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Dashboard Leaderboard" analytics-label="User clicked first place">
-                            <img class="top3Img" ng-if="leaderBoard.first.image" ng-src="{{::leaderBoard.first.image}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.first.id}}" />
-                            <span data-letter="{{::leaderBoard.first.name[0]}}" user-tooltip-popup="{{::leaderBoard.first.id}}"></span>
+                            <img class="userImg" ng-if="leaderBoard.first.image" ng-src="{{::leaderBoard.first.image}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.first.id}}" />
+                            <span class="userLetter" data-letter="{{::leaderBoard.first.name[0]}}" user-tooltip-popup="{{::leaderBoard.first.id}}"></span>
                         </a>
                         
                         <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.first.score | kNumber}}</div>
@@ -33,26 +33,26 @@
                     <li ng-switch="::leaderBoard.secondExist" class="lFloat">
                         <div ng-switch-when="true" class="secondUser">
                             <a ng-href="{{::leaderBoard.second.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Dashboard Leaderboard" analytics-label="User clicked second place">
-                                <img class="top3Img" ng-if="leaderBoard.second.image" ng-src="{{::leaderBoard.second.image}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.second.id}}" />
-                                <span data-letter="{{::leaderBoard.second.name[0]}}" user-tooltip-popup="{{::leaderBoard.second.id}}"></span>
+                                <img class="userImg" ng-if="leaderBoard.second.image" ng-src="{{::leaderBoard.second.image}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.second.id}}" />
+                                <span class="userLetter" data-letter="{{::leaderBoard.second.name[0]}}" user-tooltip-popup="{{::leaderBoard.second.id}}"></span>
                             </a>
                             <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.second.score | kNumber}}</div>
                         </div>
                         <div ng-switch-when="false" class="secondUser empty lFloat">
-                            <span class="top3Img">@Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })</span>
+                            <span class="userImg">@Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })</span>
                         </div>
                     </li>
 
                     <li ng-switch="::leaderBoard.thirdExist" class="rFloat">
                         <div ng-switch-when="true" class="thirdUser">
                             <a ng-href="{{::leaderBoard.third.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Dashboard Leaderboard" analytics-label="User clicked third place">
-                                <img class="top3Img" ng-if="leaderBoard.third.image" ng-src="{{::leaderBoard.third.image}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.third.id}}" />
-                                <span data-letter="{{::leaderBoard.third.name[0]}}" user-tooltip-popup="{{::leaderBoard.third.id}}"></span>
+                                <img class="userImg" ng-if="leaderBoard.third.image" ng-src="{{::leaderBoard.third.image}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.third.id}}" />
+                                <span class="userLetter" data-letter="{{::leaderBoard.third.name[0]}}" user-tooltip-popup="{{::leaderBoard.third.id}}"></span>
                             </a>
                             <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.third.score | kNumber}}</div>
                         </div>
                         <div ng-switch-when="false" class="thirdUser empty rFloat">
-                            <span class="top3Img">@Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })</span>
+                            <span class="userImg">@Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })</span>
                         </div>
                     </li>
                 </ol>
@@ -101,8 +101,8 @@
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
             <div class="dashHeader" ng-class="{setup: !academicBoxes.length && !groupBoxes.length}">
                 <div class="dhContent">
-                    <span class="dhText">@SharedResources.Dashboard</span>
                     @{Html.RenderPartial("_BarActions");}
+                    <span class="dhText">@SharedResources.Dashboard</span>
                     <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
                         @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
                     </button>

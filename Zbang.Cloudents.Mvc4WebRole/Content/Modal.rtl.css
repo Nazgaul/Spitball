@@ -788,13 +788,6 @@
   margin-top: 10px;
   width: 135px;
 }
-.boxSetting .thumbImg {
-  position: relative;
-  width: 74px;
-  height: 94px;
-  overflow: hidden;
-  border: 1px solid #c2c2c2;
-}
 .boxSetting .radioBtns:before,
 .boxSetting .radioBtns:after {
   content: '';

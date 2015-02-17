@@ -15,8 +15,8 @@
         <div class="boxSettingsContent" ng-class="::info.boxType === 'box' ? 'private' : 'academic'">
             <div class="boxSetting">
                 <label>@SharedResources.Thumbnail:</label>
-                <div class="thumbImg">
-                    <img alt="{{info.name}}" ng-src="{{::info.image | defaultImage:'box'}}" width="74" height="94" />                    
+                <div class="thumbImg" data-letter="{{formData.name[0]}}">
+                    @*<img alt="{{info.name}}" ng-src="{{::info.image | defaultImage:'box'}}" width="74" height="94" />*@
                 </div>
             </div>
             <div class="boxSetting">

@@ -1086,19 +1086,6 @@
   margin: 30px 84px 0 7px;
   overflow: hidden;
 }
-.box [data-letter]:before,
-.recommended [data-letter]:before {
-  width: 56px;
-  height: 56px;
-  line-height: 56px;
-  right: 11px;
-  font-size: 28px;
-}
-.box .heb:before,
-.recommended .heb:before {
-  font-size: 34px;
-  line-height: 50px;
-}
 .box {
   color: #383838;
   vertical-align: top;
@@ -1243,7 +1230,9 @@
   -webkit-transition: margin 0.2s 0.5s;
   -moz-transition: margin 0.2s 0.5s;
   -o-transition: margin 0.2s 0.5s;
-  position: relative;
+}
+.box .vCentered:before {
+  right: 15px;
 }
 .box h3 {
   vertical-align: middle;

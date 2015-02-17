@@ -25,18 +25,68 @@
     border: 1px solid @borderColor;
     .boxSizing;
     + .userLetter {
-        display: none;
+        display: none !important;
     }
 }
 
-.ttImg, .bestUserList img, .feedImg {
-    + [data-letter] {
-        display: none;
+/*#region letters on boxes/courses/quizzes */
+.box, .recommended {
+    [data-letter]:before {
+        width: 56px;
+        height: 56px;
+        line-height: 56px;
+        left: 11px; //rtl
+        font-size: 28px;
+    }
+    .heb:before {
+        font-size: 34px; // style Hebrew letters differently
+        line-height: 50px;
     }
 }
+.thumbItem, .listItem {
+    [data-letter]:before {
+        content:attr(data-letter);
+        width: 52px;
+        height: 52px;
+        line-height: 52px;
+        top: 54px;
+        bottom: auto; //override
+        left: 0;right:0;
+        margin: auto;
+        color: #fff;
+        font-size: 30px;
+        .boxSizing;
+    }
+    .heb:before {
+        font-size: 35px;
+        line-height: 46px;
+    }
+}
+
+.thumbImg {
+    position: relative;
+    width: 94px;
+    height: 94px;
+    //overflow: hidden;
+    &[data-letter]:before {
+        content:attr(data-letter);
+        width: 94px;
+        height: 94px;
+        line-height: 94px;
+        font-size: 66px;
+        //left: -1px; //override
+    }
+    &.heb:before {
+        line-height: 84px;
+        font-size: 76px;
+    }
+}
+
+/*#endregion */
+
 //The following are the user image classes 
 .bestUserList, .boxFeed, .userTooltip, .profileInfo, .memberItem,
-.friendsPics, .topUser, .commentWpr, .singleEmailUserWpr,
+.friendsPics, .topUser, .commentWpr, .singleEmailUserWpr, .boxFeed
 .socialList, .notifyItem, .upTop, .upFriends, .upInvites,
 .upMembersList, .upTabContent, .fbFriendsList, .userAnchor {
     [data-letter] {
@@ -127,11 +177,53 @@
         background: #00c853;
     }     
 }
-
+/*#region bestUser List */
+.bestUserList {
+    [data-letter] {
+        &:before {
+            position: static;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 30px;
+            .boxSizing;
+        }
+    }
+    .heb:before {
+        font-size: 35px;
+        line-height: 46px;
+    }
+    li:nth-of-type(n + 4) {
+        [data-letter] {
+            &:before {
+                width: 38px;
+                height: 38px;
+                line-height: 38px;
+                font-size: 25px;
+            }
+        }
+        .heb:before {
+            font-size: 28px;
+            line-height: 34px;
+        }
+    }
+}
+/*#endregion */
 
 /*#region user tooltip */
-
-
+.userTooltip {
+    [data-letter]:before {
+        font-size: 36px;
+        width: 70px;
+        height: 70px;
+        line-height: 70px;
+        left: -1px;
+    }
+    .heb:before {
+        font-size: 40px;
+        line-height: 65px;
+    }
+}
 
 /*#endregion */
 
@@ -308,14 +400,12 @@
         line-height: 30px;
     }
 }
-.singleEmailUserWpr {
-    
+.singleEmailUserWpr {   
     .eSingleImg {
         + .eSingleImg {
             display: none;
         }
     }
-    
 }
 .invItem {
     .friendImg {
@@ -440,6 +530,25 @@
 }
 /*#endregion */
 
+/*#region box feed */
+.boxFeed {
+    [data-letter] {
+        &:before {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 22px;
+            left:0; //override
+            .boxSizing;
+        }
+    }
+    .heb:before {
+        font-size: 26px;
+        line-height: 38px;
+    }
+}
+/*#endregion */
+
 /*#region Site header user image */
 .userAnchor {
     [data-letter] {
@@ -451,11 +560,10 @@
             .boxSizing;
             left: 0; //override
         }
-        
     }
     .heb:before {
         font-size: 28px;
-        line-height: 30px;
+        line-height: 32px;
     }
 }
 /*#endregion */
