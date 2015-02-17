@@ -1928,14 +1928,11 @@ select.inputText {
 /*#region Firefox only CSS */
 @-moz-document url-prefix() {
   body input.radio[type="radio"]:checked + label:after {
-    top: 6px;
+    top: 4px;
   }
   .boxSideBar .secondUser,
   .boxSideBar .thirdUser {
-    margin-top: -124px;
-  }
-  .rtlFix input.radio[type="radio"]:checked + label:after {
-    top: 4px;
+    margin-top: -91px;
   }
 }
 /*#endregion */

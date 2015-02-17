@@ -84,7 +84,6 @@ input[type="radio"] {
                     height: 12px;
                     background: @txtColor;
                     border-radius: 50%;
-                    //top: 5px; //diff rtl
                     top: 3px;
                     left: 4px; //rtl
                 }
@@ -2113,18 +2112,13 @@ select.inputText {
 /*#region Firefox only CSS */
 @-moz-document url-prefix() {
     body input.radio[type="radio"]:checked + label:after {
-        top: 6px; //diff rtl
+        top: 4px; //diff rtl
     }
     .boxSideBar {
         .secondUser, .thirdUser {
-            margin-top: -124px;
+            margin-top: -91px;
         }
     } 
-    .rtlFix {
-        input.radio[type="radio"]:checked + label:after {
-            top: 4px; //diff rtl
-        }
-    }
 }
 /*#endregion */
 
