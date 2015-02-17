@@ -24,7 +24,8 @@
     <div class="upContentWpr" >
         <div class="upTop">
             @{Html.RenderPartial("_BarActions");}
-            <img class="upImg" ng-src="{{profile.image | defaultImage:'user'}}" width="100" height="100" alt="" />
+            <img class="userImg" ng-if="profile.image" ng-src="{{profile.image}}" width="100" height="100" alt="" />
+            <span class="userLetter" data-letter="{{::profile.name[0]}}"></span>
             <div class="upDetails">
                 <h1 class="semiFont elps" id="upUsername">
                     <span>{{::profile.name}}</span>
@@ -230,7 +231,10 @@
                         </span>
                         <ul class="inCommonList">
                             <li class="userItem" ng-repeat="friend in friends.common.list | limitTo:friends.common.limit" user-tooltip-popup="{{::friend.id}}">
-                                <a ng-href="{{::friend.url}}" analytics-on="click" analytics-category="User" analytics-event="Navigate to user" analytics-label="User clicked on a box in common friends section"><img class="userItemImg" ng-src="{{friend.largeImage | defaultImage:'user'}}" src="" width="74" height="74" /></a>
+                                <a ng-href="{{::friend.url}}" analytics-on="click" analytics-category="User" analytics-event="Navigate to user" analytics-label="User clicked on a box in common friends section">
+                                    <img class="userImg" ng-if="friend.largeImage" ng-src="{{friend.largeImage}}" src="" width="74" height="74" />
+                                    <span class="userLetter" data-letter="{{::friend.name[0]}}"></span>
+                                </a>
                                 <div class="userItemName">{{::friend.name}}</div>
                             </li>
                         </ul>
@@ -241,7 +245,10 @@
                         </span>
                         <ul class="inAllFriendList">
                             <li class="userItem" ng-repeat="friend in friends.all.list | limitTo:friends.all.limit" user-tooltip-popup="{{::friend.id}}">
-                                <a ng-href="{{::friend.url}}" analytics-on="click" analytics-category="User" analytics-event="Navigate to user" analytics-label="User clicked on a box in friend's friends section"><img class="userItemImg" ng-src="{{::friend.largeImage | defaultImage:'user'}}" src="" width="74" height="74" /></a>
+                                <a ng-href="{{::friend.url}}" analytics-on="click" analytics-category="User" analytics-event="Navigate to user" analytics-label="User clicked on a box in friend's friends section">
+                                    <img class="userImg" ng-if="friend.largeImage" ng-src="{{::friend.largeImage}}" src="" width="74" height="74" />
+                                    <span class="userLetter" data-letter="{{::friend.name[0]}}"></span>
+                                </a>
                                 <div class="userItemName">{{::friend.name}}</div>
                             </li>
                         </ul>
@@ -260,7 +267,8 @@
 
                     <ul class="upInviteList">
                         <li class="upInviteItem" ng-repeat="invite in invites.list | limitTo: invites.limit" ng-class="{ upPending: !invite.status}">
-                            <img class="userItemImg" width="74" height="74" ng-src="{{::invite.userImage | defaultImage:'user'}}" />
+                            <img class="userImg" ng-if="::invite.userImage" width="74" height="74" ng-src="{{::invite.userImage}}" />
+                            <span class="userLetter" data-letter="{{::invite.userName[0]}}"></span>
                             <div class="usrName semiFont elps">{{::invite.userName}}</div>
                             <div class="inviteStatus">{{::invite.status ? '@SharedResources.ActiveMember' : '@SharedResources.Pending'}}</div>
                             <div class="invitedToWpr">

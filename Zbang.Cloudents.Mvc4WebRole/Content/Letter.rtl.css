@@ -19,6 +19,16 @@
   right: 8px;
   font-size: 25px;
 }
+.userImg,
+.userLetter {
+  border-radius: 50%;
+}
+/*.userLetter {
+    border: none !important;
+}*/
+.userImg + .userLetter {
+  display: none;
+}
 .ttImg + [data-letter],
 .bestUserList img + [data-letter],
 .feedImg + [data-letter] {
@@ -34,9 +44,15 @@
 .commentWpr [data-letter]:before,
 .singleEmailUserWpr [data-letter]:before,
 .socialList [data-letter]:before,
-.notifyItem [data-letter]:before {
+.notifyItem [data-letter]:before,
+.upTop [data-letter]:before,
+.upFriends [data-letter]:before,
+.upInvites [data-letter]:before {
   border: 1px solid #c2c2c2;
   background: #eee;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .bestUserList .color1:before,
 .boxFeed .color1:before,
@@ -48,7 +64,10 @@
 .commentWpr .color1:before,
 .singleEmailUserWpr .color1:before,
 .socialList .color1:before,
-.notifyItem .color1:before {
+.notifyItem .color1:before,
+.upTop .color1:before,
+.upFriends .color1:before,
+.upInvites .color1:before {
   color: #00bfa5;
 }
 .bestUserList .color2:before,
@@ -61,7 +80,10 @@
 .commentWpr .color2:before,
 .singleEmailUserWpr .color2:before,
 .socialList .color2:before,
-.notifyItem .color2:before {
+.notifyItem .color2:before,
+.upTop .color2:before,
+.upFriends .color2:before,
+.upInvites .color2:before {
   color: #f06292;
 }
 .bestUserList .color3:before,
@@ -74,7 +96,10 @@
 .commentWpr .color3:before,
 .singleEmailUserWpr .color3:before,
 .socialList .color3:before,
-.notifyItem .color3:before {
+.notifyItem .color3:before,
+.upTop .color3:before,
+.upFriends .color3:before,
+.upInvites .color3:before {
   color: #b388ff;
 }
 .bestUserList .color4:before,
@@ -87,7 +112,10 @@
 .commentWpr .color4:before,
 .singleEmailUserWpr .color4:before,
 .socialList .color4:before,
-.notifyItem .color4:before {
+.notifyItem .color4:before,
+.upTop .color4:before,
+.upFriends .color4:before,
+.upInvites .color4:before {
   color: #ff6e40;
 }
 .bestUserList .color5:before,
@@ -100,7 +128,10 @@
 .commentWpr .color5:before,
 .singleEmailUserWpr .color5:before,
 .socialList .color5:before,
-.notifyItem .color5:before {
+.notifyItem .color5:before,
+.upTop .color5:before,
+.upFriends .color5:before,
+.upInvites .color5:before {
   color: #e06055;
 }
 .bestUserList .color6:before,
@@ -113,7 +144,10 @@
 .commentWpr .color6:before,
 .singleEmailUserWpr .color6:before,
 .socialList .color6:before,
-.notifyItem .color6:before {
+.notifyItem .color6:before,
+.upTop .color6:before,
+.upFriends .color6:before,
+.upInvites .color6:before {
   color: #8e8e8e;
 }
 .bestUserList .color7:before,
@@ -126,7 +160,10 @@
 .commentWpr .color7:before,
 .singleEmailUserWpr .color7:before,
 .socialList .color7:before,
-.notifyItem .color7:before {
+.notifyItem .color7:before,
+.upTop .color7:before,
+.upFriends .color7:before,
+.upInvites .color7:before {
   color: #f9a825;
 }
 .bestUserList .color8:before,
@@ -139,7 +176,10 @@
 .commentWpr .color8:before,
 .singleEmailUserWpr .color8:before,
 .socialList .color8:before,
-.notifyItem .color8:before {
+.notifyItem .color8:before,
+.upTop .color8:before,
+.upFriends .color8:before,
+.upInvites .color8:before {
   color: #00c853;
 }
 .color1:before {
@@ -321,10 +361,42 @@
   line-height: 72px;
   font-size: 45px;
 }
-.notifyItem.heb:before {
+.notifyItem .heb:before {
   line-height: 67px;
   font-size: 52px;
 }
 .notifyItem .notifyImg + .notifyImg {
   display: none;
+}
+/*#endregion */
+/*#region User page */
+.upTop [data-letter]:before {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  font-size: 70px;
+  right: -1px;
+}
+.upTop .heb:before {
+  line-height: 87px;
+  font-size: 80px;
+}
+.upFriends [data-letter],
+.upInvites [data-letter] {
+  margin-bottom: 10px;
+}
+.upFriends [data-letter]:before,
+.upInvites [data-letter]:before {
+  width: 74px;
+  height: 74px;
+  line-height: 74px;
+  position: static;
+  margin: auto;
+  font-size: 45px;
+  margin: -1px -1px 0 0;
+}
+.upFriends .heb:before,
+.upInvites .heb:before {
+  line-height: 67px;
+  font-size: 52px;
 }
