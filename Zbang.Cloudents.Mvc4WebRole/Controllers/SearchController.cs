@@ -27,55 +27,57 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_QuizSearchService = quizSearchService;
         }
 
-        
+
 
 
 
         [HttpGet]
         public async Task<ActionResult> Data(string q, int page)
         {
+
             try
             {
+
                 if (string.IsNullOrWhiteSpace(q))
                 {
-                    return JsonError("need query");
+                    return JsonOk();
                 }
-                var result = await PerformSearch(q, page);
+                var universityDataId = User.GetUniversityData();
+                if (!universityDataId.HasValue) return null;
 
-                return JsonOk(result);
+                var query = new SearchQuery(q, User.GetUserId(),
+                    universityDataId.Value, page, 25);
+                var t1 = m_BoxSearchService.SearchBox(query, Response.ClientDisconnectedToken);
+                var t2 = m_ItemSearchService.SearchItem(query, Response.ClientDisconnectedToken);
+                var t3 = m_QuizSearchService.SearchQuiz(query, Response.ClientDisconnectedToken);
+
+
+                await Task.WhenAll(t1, t2, t3);
+                var retVal = new SearchDto
+                {
+                    Boxes = t1.Result,
+                    Items = t2.Result,
+                    Quizzes = t3.Result
+                };
+                TraceLog.WriteInfo("token: " + Response.ClientDisconnectedToken.IsCancellationRequested);
+                TraceLog.WriteInfo("connected " + Response.IsClientConnected + "query: " + q);
+                return JsonOk(retVal);
+            }
+            catch (OperationCanceledException)
+            {
+                return new EmptyResult();
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("On Seach/Data q: " + q + " page: " + page + "userid: " + User.GetUserId(), ex);
-                return JsonError("need query");
+                return JsonError();
             }
         }
-        [NonAction]
-        private async Task<SearchDto> PerformSearch(string q, int page)
-        {
-            var universityDataId = User.GetUniversityData();
-            if (!universityDataId.HasValue) return null;
-
-            var query = new SearchQuery(q, User.GetUserId(),
-                universityDataId.Value, page);
-            var t1 = m_BoxSearchService.SearchBox(query);
-            var t2 = m_ItemSearchService.SearchItem(query);
-            var t3 = m_QuizSearchService.SearchQuiz(query);
-
-
-            await Task.WhenAll(t1, t2, t3);
-            var retVal = new SearchDto
-            {
-                Boxes = t1.Result,
-                Items = t2.Result,
-                Quizzes = t3.Result
-            };
-            return retVal;
-        }
 
 
 
-        
+
+
 
     }
 }

@@ -44,6 +44,7 @@ select top 20 b.boxid  from zbox.box b
    where i.isdirty = 1 
    and i.IsDeleted = 0
    and i.discriminator = 'File'
+   and itemid % 10 = @index
     order by i.ItemId desc";
 
         public const string GetItemUsersToUploadToSearch =
@@ -53,6 +54,7 @@ select top 20 i.boxid  from zbox.item i  join zbox.box b on i.BoxId = b.BoxId
   where i.isdirty = 1 
   and i.isdeleted = 0 
   and i.discriminator = 'File'
+  and itemid % 10 = @index
   order by i.ItemId desc)";
 
         public const string GetQuizzesUsersToUploadToSearch =

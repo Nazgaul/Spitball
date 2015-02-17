@@ -71,9 +71,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
-    <Reference Include="RedDog.Search">
-      <HintPath>..\packages\RedDog.Search.0.5.2.0\lib\net45\RedDog.Search.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="RedDog.Search, Version=0.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Bin\RedDog\RedDog.Search.dll</HintPath>
     </Reference>
     <Reference Include="SnowMaker">
       <HintPath>..\packages\SnowMaker.1.0.0.46\lib\net40\SnowMaker.dll</HintPath>

@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using RedDog.Search.Model;
@@ -142,7 +143,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             return true;
         }
 
-        public async Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQuery query)
+        public async Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
             if (string.IsNullOrEmpty(query.Term))
             {
@@ -159,7 +160,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     ScoringParameters = new[] { "university:" + query.UniversityId },
                     Skip = query.RowsPerPage * query.PageNumber,
                     Highlight = ContentField + "," + NameField
-                });
+                }, cancelToken);
 
 
             if (searchResult.Body.Records.Any())

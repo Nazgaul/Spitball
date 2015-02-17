@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.WindowsAzure.ServiceRuntime;
@@ -209,7 +210,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
     public interface IItemReadSearchProvider
     {
-        Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQuery query);
+        Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
     }
 
     public interface IItemWriteSearchProvider

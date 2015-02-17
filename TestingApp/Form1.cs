@@ -8,6 +8,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Zbang.Zbox.Infrastructure.Azure.Search;
@@ -77,7 +78,7 @@ namespace TestingApp
             var sw = new Stopwatch();
             sw.Start();
             var retVal = await read.SearchBox(new SearchQuery(textBox1.Text, Convert.ToInt64(textBoxUserId.Text),
-                Convert.ToInt64(textBoxUniversityName.Text)));
+                Convert.ToInt64(textBoxUniversityName.Text)), default(CancellationToken));
             sw.Stop();
             textBox2.Text = string.Empty;
             textBox2.Text = "took " + sw.ElapsedMilliseconds + "\r\n";
@@ -124,7 +125,7 @@ namespace TestingApp
             var sw = new Stopwatch();
             sw.Start();
             var retVal = await read.SearchItem(new SearchQuery(textBox1.Text, Convert.ToInt64(textBoxUserId.Text),
-                Convert.ToInt64(textBoxUniversityName.Text)));
+                Convert.ToInt64(textBoxUniversityName.Text)), default(CancellationToken));
             sw.Stop();
             textBox2.Text = string.Empty;
             textBox2.Text = "took " + sw.ElapsedMilliseconds + "\r\n";
@@ -145,7 +146,7 @@ namespace TestingApp
             var sw = new Stopwatch();
             sw.Start();
             var retVal = await read.SearchQuiz(new SearchQuery(textBox1.Text, Convert.ToInt64(textBoxUserId.Text),
-                Convert.ToInt64(textBoxUniversityName.Text)));
+                Convert.ToInt64(textBoxUniversityName.Text)), default(CancellationToken));
             sw.Stop();
             textBox2.Text = string.Empty;
             textBox2.Text = "took " + sw.ElapsedMilliseconds + "\r\n";

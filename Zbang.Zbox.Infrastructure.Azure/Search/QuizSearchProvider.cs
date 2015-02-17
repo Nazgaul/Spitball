@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using RedDog.Search.Model;
@@ -158,7 +159,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             return true;
         }
 
-        public async Task<IEnumerable<SearchQuizzes>> SearchQuiz(ViewModel.Queries.Search.SearchQuery query)
+        public async Task<IEnumerable<SearchQuizzes>> SearchQuiz(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
             if (string.IsNullOrEmpty(query.Term))
             {
@@ -176,7 +177,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     Skip = query.RowsPerPage * query.PageNumber,
                     Highlight = QuestionsField + "," + NameField + "," + AnswersField,
 
-                });
+                }, cancelToken);
 
             if (!searchResult.IsSuccess)
             {
@@ -238,6 +239,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
     public interface IQuizReadSearchProvider
     {
-        Task<IEnumerable<SearchQuizzes>> SearchQuiz(ViewModel.Queries.Search.SearchQuery query);
+        Task<IEnumerable<SearchQuizzes>> SearchQuiz(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
     }
 }
