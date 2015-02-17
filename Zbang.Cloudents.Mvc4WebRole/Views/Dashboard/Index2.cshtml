@@ -101,8 +101,8 @@
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
             <div class="dashHeader" ng-class="{setup: !academicBoxes.length && !groupBoxes.length}">
                 <div class="dhContent">
-                    <span class="dhText">@SharedResources.Dashboard</span>
                     @{Html.RenderPartial("_BarActions");}
+                    <span class="dhText">@SharedResources.Dashboard</span>
                     <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
                         @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
                     </button>

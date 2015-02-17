@@ -35,18 +35,13 @@
   right: 550px;
 }
 .searchInputWpr.searchBox {
-  /*max-width: 365px;
-        width: ~'-webkit-calc(100% - 675px)';
-        width: ~'calc(100% - 675px)';
-        min-width: 40px;
-        position: fixed;*/
   right: 320px;
   z-index: 11;
   top: 9px;
   position: fixed;
 }
 .searchPopup {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   left: 0;
@@ -66,17 +61,11 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box
-  /*&.searchLib {
-        .libInitial;
-    }*/
   /*.userPage & {
         .userInitial;
         width: 365px;
         height: 32px; 
         background: tomato;
-    }*/
-  /*.boxPage & {
-        z-index: 10; //hide searchInput
     }*/
 }
 .searchPopup ~ .bodyContent {
@@ -88,37 +77,24 @@
 .searchPopup ~ .bodyContent .searchBox {
   z-index: 0;
 }
-.searchPopup.searchBox {
-  /*top: 9px;
-        z-index: 12;
-        left: 320px; //rtl
-        max-width: 365px;
-        width: ~'-webkit-calc(100% - 675px)';
-        width: ~'calc(100% - 675px)';
-        min-width: 40px;
-        position: fixed;*/
-}
 .searchPopup.ng-enter,
 .searchPopup.ng-leave-active {
   top: 67px;
   background: #fff;
-  width: 365px;
-  height: 32px;
-  right: 500px;
+  right: -100%
+  /*.dashLibSearchInput {
+            font-size: 18px;
+            width: 100%;
+            height: 32px;
+            padding: 4px 10px;
+            border-color: transparent;
+        }*/
 }
 .searchPopup.ng-enter form,
 .searchPopup.ng-leave-active form {
   width: 365px;
   height: 32px;
   position: relative;
-}
-.searchPopup.ng-enter .dashLibSearchInput,
-.searchPopup.ng-leave-active .dashLibSearchInput {
-  font-size: 18px;
-  width: 100%;
-  height: 32px;
-  padding: 4px 10px;
-  border-color: transparent;
 }
 .userPage .searchPopup.ng-enter,
 .userPage .searchPopup.ng-leave-active {

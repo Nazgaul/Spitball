@@ -1,9 +1,10 @@
 ﻿@import "varsAndMixins";
 
 .dashInitial(){
-    width: 365px;
-	height: 32px;
-	left: 500px; //rtl
+    //width: 365px;
+	//height: 32px;
+	//left: 500px; //rtl
+    left: -100%;
 }
 .userInitial(){
     left:0;right:0;
@@ -32,7 +33,12 @@
     padding: 4px 10px;
     font-size: 18px;
     .boxSizing;
-    .dashInitial;
+
+    //.dashInitial;
+
+    width: 365px;
+	height: 32px;
+	left: 500px; //rtl
 
     &.searchUser {
         .userInitial; 
@@ -45,20 +51,13 @@
        .libInitial 
     }
     &.searchBox {
-        //top: 9px;
-        //z-index: 12;
-        
-        /*max-width: 365px;
-        width: ~'-webkit-calc(100% - 675px)';
-        width: ~'calc(100% - 675px)';
-        min-width: 40px;
-        position: fixed;*/
         .boxInitial
     }
     
 }
 .searchPopup {
-    position: fixed;
+    //position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right:0;
@@ -87,31 +86,11 @@
             z-index: 0; //hide box searchInputWpr
         }
     }
-    
-     
-    /*&.searchLib {
-        .libInitial;
-    }*/
-    &.searchBox {
-        /*top: 9px;
-        z-index: 12;
-        left: 320px; //rtl
-        max-width: 365px;
-        width: ~'-webkit-calc(100% - 675px)';
-        width: ~'calc(100% - 675px)';
-        min-width: 40px;
-        position: fixed;*/
-        //.boxInitial;
-
-    }
     /*.userPage & {
         .userInitial;
         width: 365px;
         height: 32px; 
         background: tomato;
-    }*/
-    /*.boxPage & {
-        z-index: 10; //hide searchInput
     }*/
     &.ng-enter, &.ng-leave-active {
         top: 67px;
@@ -123,13 +102,13 @@
             position: relative;
         }
 
-        .dashLibSearchInput {
+        /*.dashLibSearchInput {
             font-size: 18px;
             width: 100%;
             height: 32px;
             padding: 4px 10px;
             border-color: transparent;
-        }
+        }*/
         .userPage & {
             .userInitial; 
         }
