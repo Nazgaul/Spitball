@@ -57,26 +57,26 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
         var query = $scope.formData.query;
 
         if (query && query.length) {
-            searchHistory.setQuery(query);        
-        }
-        
-        $analytics.eventTrack('Search', {
-            category: analyticsCategory,
-            label: 'User searched for ' + query
-        });
-
-
-        if ($scope.params.currentPage === 0) {
-            $analytics.searchTrack($location.$$path.replace(/\//g, ''), query, 'search page');
-        } else {
-
-            $analytics.eventTrack('Show more', {
-                category: 'Search',
-                label: 'User scrolled to page ' + $scope.params.currentPage
-
+            searchHistory.setQuery(query);
+            $analytics.eventTrack('Search', {
+                category: analyticsCategory,
+                label: 'User searched for ' + query
             });
-        }
 
+            if ($scope.params.currentPage === 0) {
+                $analytics.searchTrack($location.$$path.replace(/\//g, ''), query, 'search page');
+            } else {
+
+                $analytics.eventTrack('Show more', {
+                    category: 'Search',
+                    label: 'User scrolled to page ' + $scope.params.currentPage
+
+                });
+            }
+
+        }
+          
+        
         sSearch.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (data) {
             data.boxes = data.boxes || [];
             data.quizzes = data.quizzes || [];
