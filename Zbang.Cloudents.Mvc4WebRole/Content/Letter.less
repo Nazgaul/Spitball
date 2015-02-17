@@ -46,15 +46,20 @@
 .thumbItem, .listItem {
     [data-letter]:before {
         content:attr(data-letter);
-        width: 25px;
-        height: 25px;
-        line-height: 25px;
-        top: 75px;
+        width: 52px;
+        height: 52px;
+        line-height: 52px;
+        top: 54px;
         bottom: auto; //override
         left: 0;right:0;
         margin: auto;
-        font-size: 18px;
         color: #fff;
+        font-size: 30px;
+        .boxSizing;
+    }
+    .heb:before {
+        font-size: 35px;
+        line-height: 46px;
     }
 }
 /*#endregion */
