@@ -145,17 +145,6 @@
 .recommended .files:before {
   content: attr(data-files-count);
 }
-.podium {
-  width: 261px;
-  height: 88px;
-  background: url(/Images/common27-sprite.png?v=1) -5px -197px no-repeat;
-  margin-top: -22px;
-  position: relative;
-  left: 5px;
-}
-.empty .podium {
-  display: none;
-}
 .dashLibTop {
   display: table;
   min-height: 109px;

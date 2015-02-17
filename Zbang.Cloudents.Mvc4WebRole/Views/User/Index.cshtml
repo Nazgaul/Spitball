@@ -79,7 +79,8 @@
                     <li class="memberItem" ng-repeat="member in admin.members.list | limitTo : admin.members.limit">
                         <input id="mbr_{{::member.id}}" type="checkbox" class="checkbox" ng-model="member.isChecked" ng-change="toggleSelectMember(member)" />
                         <label for="mbr_{{::member.id}}" class="cbLabel memberCol">
-                            <img class="friendImg" alt="" ng-src="{{::member.image | defaultImage:'user'}}" width="34" height="34" />
+                            <img class="userImg" ng-if="::member.image" alt="" ng-src="{{::member.image}}" width="34" height="34" />
+                            <span class="userLetter" data-letter="{{::member.name[0]}}"></span>
                             <span class="upMemberName elps">{{::member.name}}</span>
                         </label>
 
@@ -175,7 +176,8 @@
                             <img class="lFloat imgBorder" alt="" width="28" height="36" ng-src="{{::answer.boxPicture | defaultImage:'box'}}" />
                             <span class="qaBoxname elps">{{::answer.boxName}}</span>
                             <div class="qaWpr">
-                                <img class="lFloat imgBorder" alt="" width="33" height="33" ng-src="{{::answer.qUserImage | defaultImage:'user'}}" />
+                                <img class="lFloat userImg" ng-if="::answer.qUserImage" alt="" width="33" height="33" ng-src="{{::answer.qUserImage}}" />
+                                <span class="lFloat userLetter" data-letter="{{::answer.qUserName[0]}}"></span>
                                 <span class="qaUsername semiFont elps">{{::answer.qUserName}}</span>
                                 <div class="qaQuestion" ng-bind-html="::answer.qContent"></div>
                                 <div class="answeredBy elps">{{::profile.name}}</div>
@@ -188,8 +190,6 @@
                     <button class="qaMore" type="button" ng-if="activity.answers.list.length - activity.answers.limit > 0" ng-click="addMoreActivity('answers')">@SharedResources.ShowMore</button>
                     <div class="emptyAnswers emptyTab" ng-show="!activity.loading">@UserResources.NoAnswers</div>
                 </div>
-
-
             </section>
         </aside>
 

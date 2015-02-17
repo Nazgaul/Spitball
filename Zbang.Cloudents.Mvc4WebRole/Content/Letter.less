@@ -21,10 +21,9 @@
 .userImg, .userLetter {
     border-radius: 50%;
 }
-/*.userLetter {
-    border: none !important;
-}*/
 .userImg {
+    border: 1px solid @borderColor;
+    .boxSizing;
     + .userLetter {
         display: none;
     }
@@ -38,12 +37,13 @@
 //The following are the user image classes 
 .bestUserList, .boxFeed, .userTooltip, .profileInfo, .memberItem,
 .friendsPics, .topUser, .commentWpr, .singleEmailUserWpr,
-.socialList, .notifyItem, .upTop, .upFriends, .upInvites {
+.socialList, .notifyItem, .upTop, .upFriends, .upInvites,
+.upMembersList, .upTabContent, .fbFriendsList, .userAnchor {
     [data-letter] {
         &:before {
-            border: 1px solid #c2c2c2;
+            border: 1px solid @borderColor;
             background: #eee;
-            .boxSizing;
+            //.boxSizing; //TODO: this needs testing
         }
     }
     .color1 {
@@ -246,7 +246,7 @@
 
 /*#endregion */
 
-/*#region QUiz Comments */
+/*#region Quiz Comments */
 .commentWpr {
     [data-letter] {
         &:before {
@@ -328,6 +328,8 @@
 /*#region Social List */
 .socialList {
     [data-letter] {
+        margin-bottom: 3px;
+        display: inline-block;
         &:before {
             position: static;
             width: 64px;
@@ -392,9 +394,8 @@
             height: 74px;
             line-height: 74px;
             position: static;
-            margin: auto;
             font-size: 45px;
-            margin: -1px 0 0 -1px;
+            margin: -1px 0 0 -2px;
         }
     }
     .heb:before {
@@ -402,11 +403,59 @@
         font-size: 52px;
     }
 }
+.upMembersList, .upTabContent {
+    [data-letter] {
+        &:before {
+            position: static;
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+            font-size: 20px;
+            .boxSizing;
+        }
+    }
+    .heb:before {
+        font-size: 24px;
+        line-height: 31px;
+    }
+}
 /*#endregion */
 
-/*#region name */
-
+/*#region SelectUni - fbFriendsList */
+.fbFriendsList {
+    [data-letter] {
+        &:before {
+            position: static;
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+            font-size: 22px;
+        }
+        
+    }
+    .heb:before {
+        font-size: 25px;
+        line-height: 30px;
+    }
+}
 /*#endregion */
-/*#region name */
 
+/*#region Site header user image */
+.userAnchor {
+    [data-letter] {
+        &:before {
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            font-size: 22px;
+            .boxSizing;
+            left: 0; //override
+        }
+        
+    }
+    .heb:before {
+        font-size: 28px;
+        line-height: 30px;
+    }
+}
 /*#endregion */

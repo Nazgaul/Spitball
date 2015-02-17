@@ -23,9 +23,12 @@
 .userLetter {
   border-radius: 50%;
 }
-/*.userLetter {
-    border: none !important;
-}*/
+.userImg {
+  border: 1px solid #c2c2c2;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 .userImg + .userLetter {
   display: none;
 }
@@ -47,12 +50,13 @@
 .notifyItem [data-letter]:before,
 .upTop [data-letter]:before,
 .upFriends [data-letter]:before,
-.upInvites [data-letter]:before {
+.upInvites [data-letter]:before,
+.upMembersList [data-letter]:before,
+.upTabContent [data-letter]:before,
+.fbFriendsList [data-letter]:before,
+.userAnchor [data-letter]:before {
   border: 1px solid #c2c2c2;
   background: #eee;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 .bestUserList .color1:before,
 .boxFeed .color1:before,
@@ -67,7 +71,11 @@
 .notifyItem .color1:before,
 .upTop .color1:before,
 .upFriends .color1:before,
-.upInvites .color1:before {
+.upInvites .color1:before,
+.upMembersList .color1:before,
+.upTabContent .color1:before,
+.fbFriendsList .color1:before,
+.userAnchor .color1:before {
   color: #00bfa5;
 }
 .bestUserList .color2:before,
@@ -83,7 +91,11 @@
 .notifyItem .color2:before,
 .upTop .color2:before,
 .upFriends .color2:before,
-.upInvites .color2:before {
+.upInvites .color2:before,
+.upMembersList .color2:before,
+.upTabContent .color2:before,
+.fbFriendsList .color2:before,
+.userAnchor .color2:before {
   color: #f06292;
 }
 .bestUserList .color3:before,
@@ -99,7 +111,11 @@
 .notifyItem .color3:before,
 .upTop .color3:before,
 .upFriends .color3:before,
-.upInvites .color3:before {
+.upInvites .color3:before,
+.upMembersList .color3:before,
+.upTabContent .color3:before,
+.fbFriendsList .color3:before,
+.userAnchor .color3:before {
   color: #b388ff;
 }
 .bestUserList .color4:before,
@@ -115,7 +131,11 @@
 .notifyItem .color4:before,
 .upTop .color4:before,
 .upFriends .color4:before,
-.upInvites .color4:before {
+.upInvites .color4:before,
+.upMembersList .color4:before,
+.upTabContent .color4:before,
+.fbFriendsList .color4:before,
+.userAnchor .color4:before {
   color: #ff6e40;
 }
 .bestUserList .color5:before,
@@ -131,7 +151,11 @@
 .notifyItem .color5:before,
 .upTop .color5:before,
 .upFriends .color5:before,
-.upInvites .color5:before {
+.upInvites .color5:before,
+.upMembersList .color5:before,
+.upTabContent .color5:before,
+.fbFriendsList .color5:before,
+.userAnchor .color5:before {
   color: #e06055;
 }
 .bestUserList .color6:before,
@@ -147,7 +171,11 @@
 .notifyItem .color6:before,
 .upTop .color6:before,
 .upFriends .color6:before,
-.upInvites .color6:before {
+.upInvites .color6:before,
+.upMembersList .color6:before,
+.upTabContent .color6:before,
+.fbFriendsList .color6:before,
+.userAnchor .color6:before {
   color: #8e8e8e;
 }
 .bestUserList .color7:before,
@@ -163,7 +191,11 @@
 .notifyItem .color7:before,
 .upTop .color7:before,
 .upFriends .color7:before,
-.upInvites .color7:before {
+.upInvites .color7:before,
+.upMembersList .color7:before,
+.upTabContent .color7:before,
+.fbFriendsList .color7:before,
+.userAnchor .color7:before {
   color: #f9a825;
 }
 .bestUserList .color8:before,
@@ -179,7 +211,11 @@
 .notifyItem .color8:before,
 .upTop .color8:before,
 .upFriends .color8:before,
-.upInvites .color8:before {
+.upInvites .color8:before,
+.upMembersList .color8:before,
+.upTabContent .color8:before,
+.fbFriendsList .color8:before,
+.userAnchor .color8:before {
   color: #00c853;
 }
 .color1:before {
@@ -285,7 +321,7 @@
   width: 37px;
 }
 /*#endregion */
-/*#region QUiz Comments */
+/*#region Quiz Comments */
 .commentWpr [data-letter]:before {
   position: static;
   width: 30px;
@@ -339,6 +375,10 @@
 }
 /*#endregion */
 /*#region Social List */
+.socialList [data-letter] {
+  margin-bottom: 3px;
+  display: inline-block;
+}
 .socialList [data-letter]:before {
   position: static;
   width: 64px;
@@ -391,12 +431,56 @@
   height: 74px;
   line-height: 74px;
   position: static;
-  margin: auto;
   font-size: 45px;
-  margin: -1px 0 0 -1px;
+  margin: -1px 0 0 -2px;
 }
 .upFriends .heb:before,
 .upInvites .heb:before {
   line-height: 67px;
   font-size: 52px;
+}
+.upMembersList [data-letter]:before,
+.upTabContent [data-letter]:before {
+  position: static;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  font-size: 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.upMembersList .heb:before,
+.upTabContent .heb:before {
+  font-size: 24px;
+  line-height: 31px;
+}
+/*#endregion */
+/*#region SelectUni - fbFriendsList */
+.fbFriendsList [data-letter]:before {
+  position: static;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  font-size: 22px;
+}
+.fbFriendsList .heb:before {
+  font-size: 25px;
+  line-height: 30px;
+}
+/*#endregion */
+/*#region Site header user image */
+.userAnchor [data-letter]:before {
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  font-size: 22px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  left: 0;
+}
+.userAnchor .heb:before {
+  font-size: 28px;
+  line-height: 30px;
 }
