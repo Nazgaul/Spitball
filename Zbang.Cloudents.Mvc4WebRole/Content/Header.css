@@ -91,11 +91,14 @@ body {
   line-height: normal;
   vertical-align: top;
 }
-.userNav .userImg {
+.userNav .userImg,
+.userNav .userLetter {
   vertical-align: top;
   margin-top: 6px;
-  border-radius: 50%;
   position: absolute;
+  border: none;
+  width: 36px;
+  height: 36px;
 }
 .signUp .btn {
   display: inline-block;

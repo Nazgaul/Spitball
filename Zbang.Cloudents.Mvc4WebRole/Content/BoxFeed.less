@@ -66,23 +66,15 @@
     .leaderBoard {
         padding: 20px 32px 10px 32px;
     }
-    .podium {
-        margin: 0; //override;
-        top: -185px;
-        margin-bottom: -80px;
-    }
     .bestUserList {
+        &:before {
+
+        }
         .firstUser, .secondUser, .thirdUser {
             width: 90px;
-            .rep {
-                margin-top: 10px;
-            }
         }
         li:nth-child(n+4) {
             margin: 0 -40px;
-            .rep {
-                color: @textColor;
-            }
         }
         li:nth-child(4) {
             margin-top: 65px;
@@ -539,7 +531,7 @@
     border: 1px solid #282828;
     margin-bottom: 31px;
     &.empty {
-        .bestUserList, .svg-podium {
+        .bestUserList{
             display: none;
         }
         
@@ -583,9 +575,17 @@
 .bestUserList {
     text-align: center;  
     counter-reset: leaderBoard;
-    //min-height: 180px;
     position: relative;
     top: 8px;
+    &:before {
+        .pseudo;
+        position: absolute;
+        top: 63px;
+        left: 5px;
+        width: 261px;
+        height: 88px;
+        background: @common-sprite -5px -197px no-repeat;
+    }
     a {
         display: inline-block;
         position: relative; //position above the podium
@@ -649,6 +649,7 @@
                 position: absolute;
                 right: 14px; //rtl
                 top: 2px;
+                color: @textColor;
             }
             [data-letter] {
                 &:first-child {

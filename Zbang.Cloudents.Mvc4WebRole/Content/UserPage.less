@@ -44,12 +44,6 @@
         font-weight: 300;
     }
 
-    .box {
-        width: 207px;
-        -moz-box-sizing: content-box;
-        -webkit-box-sizing: content-box;
-        box-sizing: content-box;
-    }
     .userItem:nth-child(7n) {
         margin: 0;
     }
@@ -61,7 +55,7 @@
     width: 227px;
     height: 332px;
     border-radius: 5px;
-    margin: -47px 0 0 21px;
+    margin-left: 21px;
     display: inline-block;
     clear: both;
     .myPage & {
@@ -481,6 +475,23 @@
             display:block;
         }
     }
+    li:nth-of-type(even) {
+        float:right;
+        margin-right: 2px;
+    }
+    .box {
+        margin: 0 0 24px 0; //override
+        width: 335px;
+        float:left;
+        &:hover {
+            .btn3 {
+                display: block;
+            }
+        }
+        h3 {
+            max-width: 230px;
+        }
+    }    
 }
 
 .upSectionWpr {
@@ -508,19 +519,6 @@
     ul {
         overflow: hidden;
     }
-
-    .box {
-        margin: 0 0 24px 0; //override
-        &:hover {
-            .btn3 {
-                display: block;
-            }
-        }
-        &:nth-child(3n + 2) {
-            margin-left: 38px;
-            margin-right: 38px;
-        }
-    }     
 }
 
 .upShowAll {
@@ -850,10 +848,6 @@
             margin-top: 10px;
         }
     }
-
-    .friendImg { 
-        border-radius: 50%;
-    }
 }
 
 .memberTopRow {
@@ -1031,9 +1025,13 @@
 
 .upMembersList {
     height: 287px;
-    //padding: 0 10px;
     overflow-y: auto;
     overflow-x: hidden;
+    .userImg, .userLetter {
+        width: 34px;
+        height: 34px;
+        display: inline-block;
+    }
 }
 
 .upMemberName {

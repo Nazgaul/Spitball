@@ -724,6 +724,9 @@
     <Content Include="Content\RegistrationRtl.less" />
     <Content Include="Content\SearchRtl.less" />
     <Content Include="Images\Web.config" />
+    <Content Include="..\Zbang.Cloudents.Mvc4WebRole\startup\disableTimeout.cmd">
+      <Link>startup\disableTimeout.cmd</Link>
+    </Content>
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1523,9 +1526,6 @@
     </Content>
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="startup\disableTimeout.cmd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
     <Content Include="Views\Error\Unsupported.cshtml" />

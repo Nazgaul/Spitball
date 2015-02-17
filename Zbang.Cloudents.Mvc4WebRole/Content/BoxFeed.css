@@ -62,26 +62,13 @@
 .boxSideBar .leaderBoard {
   padding: 20px 32px 10px 32px;
 }
-.boxSideBar .podium {
-  margin: 0;
-  top: -185px;
-  margin-bottom: -80px;
-}
 .boxSideBar .bestUserList .firstUser,
 .boxSideBar .bestUserList .secondUser,
 .boxSideBar .bestUserList .thirdUser {
   width: 90px;
 }
-.boxSideBar .bestUserList .firstUser .rep,
-.boxSideBar .bestUserList .secondUser .rep,
-.boxSideBar .bestUserList .thirdUser .rep {
-  margin-top: 10px;
-}
 .boxSideBar .bestUserList li:nth-child(n+4) {
   margin: 0 -40px;
-}
-.boxSideBar .bestUserList li:nth-child(n+4) .rep {
-  color: #383838;
 }
 .boxSideBar .bestUserList li:nth-child(4) {
   margin-top: 65px;
@@ -533,8 +520,7 @@
   border: 1px solid #282828;
   margin-bottom: 31px;
 }
-.leaderBoard.empty .bestUserList,
-.leaderBoard.empty .svg-podium {
+.leaderBoard.empty .bestUserList {
   display: none;
 }
 .leaderBoard.empty .lbEmpty {
@@ -577,6 +563,16 @@
   counter-reset: leaderBoard;
   position: relative;
   top: 8px;
+}
+.bestUserList:before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 63px;
+  left: 5px;
+  width: 261px;
+  height: 88px;
+  background: url(/Images/common27-sprite.png?v=1) -5px -197px no-repeat;
 }
 .bestUserList a {
   display: inline-block;
@@ -651,6 +647,7 @@
   position: absolute;
   right: 14px;
   top: 2px;
+  color: #383838;
 }
 .bestUserList li:nth-child(n + 4) [data-letter]:first-child {
   display: inline-block;

@@ -381,10 +381,10 @@
   border-top: none;
   overflow: auto;
 }
-.fbFriendsList .imgBorder {
+.fbFriendsList .userImg {
   margin: 0 0 5px 5px;
 }
-.fbFriendsList li:nth-child(17) .imgBorder {
+.fbFriendsList li:nth-child(17) .userImg {
   margin-left: 0;
 }
 .friendsCount {
