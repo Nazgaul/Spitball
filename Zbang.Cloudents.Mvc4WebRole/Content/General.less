@@ -84,7 +84,6 @@ input[type="radio"] {
                     height: 12px;
                     background: @txtColor;
                     border-radius: 50%;
-                    //top: 5px; //diff rtl
                     top: 3px;
                     left: 4px; //rtl
                 }
@@ -1468,7 +1467,16 @@ aside.sideBar {
         visibility: visible;
         opacity: 1;
     }
-
+    .userImg, .userLetter {
+        position: absolute;
+        top: 0;bottom: 0;
+        left: 10px;
+        margin: auto;
+        border: 1px solid @borderColor;
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+    }
     .btn3 {
         color: @attentionBlue;
         background: #fff;
@@ -1481,25 +1489,6 @@ aside.sideBar {
             color: #fff;
         }
     }
-    [data-letter]:before {
-        font-size: 36px;
-        line-height: 70px;
-    }
-    .heb:before {
-        font-size: 40px;
-        line-height: 65px;
-    }
-}
-
-.ttImg, .userTooltip [data-letter]:before {
-    position: absolute;
-    top: 0;bottom: 0;
-    left: 10px;
-    margin: auto;
-    border-left: 1px solid #c2c2c2;
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
 }
 
 .ttUsername {
@@ -1866,9 +1855,6 @@ select.inputText {
     display:table-cell;
     vertical-align:middle;
     padding-left: 62px; //rtl
-    /*&:before {
-        
-    }*/
 }
 
 .topBar {
@@ -1949,8 +1935,7 @@ select.inputText {
         &:hover {
             fill: @blue;
         }
-    }
-    
+    }  
 }
 
 //css for the new search
@@ -1989,7 +1974,6 @@ select.inputText {
 	    height: 98px;
         margin: -10px auto 10px;
     }
-
 }
 
 .emptySearchAdmin {
@@ -2043,56 +2027,6 @@ select.inputText {
     font-size: 11px;
     cursor: pointer;
     line-height: 34px;
-}
-
-.clamp2 {
-    position: relative;
-    //height: 2.4em;
-    overflow: hidden;
-
-    &:after {
-        content: '';
-        display: inline-block;
-        text-align: right;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 23px;
-        //height: 15px;
-        height: 18px;
-        //background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 100%);
-        background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
-    }
-
-    &.boxNameWpr:after, &.boxWpr:after {
-        //height: 20px;
-    }
-
-    &.boxWpr:after {
-        height: 17px;
-    }
-}
-
-
-@supports
-
-(-webkit-line-clamp: 2) {
-    .clamp2 {
-        height: 2.4em;
-        //max-height:2.4em;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-    }
-
-        .clamp2:after {
-            display: none !important;
-        }
-
-        .clamp2.deptNameWpr {
-            line-height: 17px;
-            height: 36px;
-        }
 }
 
 .imgBorder {
@@ -2178,18 +2112,13 @@ select.inputText {
 /*#region Firefox only CSS */
 @-moz-document url-prefix() {
     body input.radio[type="radio"]:checked + label:after {
-        top: 6px; //diff rtl
+        top: 4px; //diff rtl
     }
     .boxSideBar {
         .secondUser, .thirdUser {
-            margin-top: -124px;
+            margin-top: -91px;
         }
     } 
-    .rtlFix {
-        input.radio[type="radio"]:checked + label:after {
-            top: 4px; //diff rtl
-        }
-    }
 }
 /*#endregion */
 

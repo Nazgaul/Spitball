@@ -1283,19 +1283,7 @@
     margin: 30px 7px 0 84px;
     overflow: hidden;
 }
-.box, .recommended {
-    [data-letter]:before {
-        width: 56px;
-        height: 56px;
-        line-height: 56px;
-        left: 11px; //rtl
-        font-size: 28px;
-    }
-    .heb:before {
-        font-size: 34px; // style Hebrew letters differently
-        line-height: 50px;
-    }
-}
+
 .box {
     color: @textColor;
     vertical-align: top;
@@ -1443,7 +1431,9 @@
         -webkit-transition: margin 0.2s 0.5s;
         -moz-transition: margin 0.2s 0.5s;
         -o-transition: margin 0.2s 0.5s;
-        position: relative;
+        &:before {
+            left: 15px;
+        }
     }
     
     h3 {

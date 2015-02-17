@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using RedDog.Search.Model;
@@ -131,7 +132,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             m_CheckIndexExists = true;
         }
 
-        public async Task<IEnumerable<SearchBoxes>> SearchBox(ViewModel.Queries.Search.SearchQuery query)
+        public async Task<IEnumerable<SearchBoxes>> SearchBox(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
 
             if (string.IsNullOrEmpty(query.Term))
@@ -146,7 +147,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     Top = query.RowsPerPage,
                     Skip = query.RowsPerPage * query.PageNumber,
                     Highlight = ProfessorField + "," + NameField + "," + CourseField
-                });
+                }, cancelToken);
 
             if (!searchResult.IsSuccess)
             {
@@ -186,6 +187,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
     public interface IBoxReadSearchProvider
     {
-        Task<IEnumerable<SearchBoxes>> SearchBox(Zbang.Zbox.ViewModel.Queries.Search.SearchQuery query);
+        Task<IEnumerable<SearchBoxes>> SearchBox(Zbang.Zbox.ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
     }
 }

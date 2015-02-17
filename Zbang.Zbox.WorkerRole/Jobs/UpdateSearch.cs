@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
@@ -58,13 +59,27 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
         }
 
+        private int GetIndex()
+        {
+            int currentIndex = 0;
+            string instanceId = RoleEnvironment.CurrentRoleInstance.Id;
+            bool withSuccess = int.TryParse(instanceId.Substring(instanceId.LastIndexOf(".") + 1), out currentIndex);
+            if (!withSuccess)
+            {
+                withSuccess = int.TryParse(instanceId.Substring(instanceId.LastIndexOf("_") + 1), out currentIndex);
+            }
+            return currentIndex;
+        }
+
         private async Task ExecuteAsync()
         {
-            var quizUpdate = await UpdateQuiz();
-            //var itemUpdate = await UpdateItem();
-            var universityUpdate = await UpdateUniversity();
-            var boxUpdate = await UpdateBox();
-            if (/*itemUpdate || */ boxUpdate || universityUpdate || quizUpdate)
+           
+            var index = GetIndex();
+            //var quizUpdate = await UpdateQuiz();
+            var itemUpdate = await UpdateItem(index);
+            //var universityUpdate = await UpdateUniversity();
+            //var boxUpdate = await UpdateBox();
+            if (itemUpdate /* ||  boxUpdate || universityUpdate || quizUpdate*/)
             {
                 return;
             }
@@ -89,9 +104,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
               || updates.QuizzesToDelete.Count() == NumberToReSyncWithoutWait;
         }
 
-        private async Task<bool> UpdateItem()
+        private async Task<bool> UpdateItem(int index)
         {
-            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync();
+            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(index);
             if (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
             {
                 foreach (var elem in updates.ItemsToUpdate)

@@ -11,21 +11,13 @@
     width: 598px;
     color: @textColor;
     display: inline-block;
-    [data-letter] {
+    .userImg, .userLetter {
+        margin-right: 15px; //rtl
+        .boxSizing;
+        position: relative;
+        top: 2px;
         width: 40px;
         height: 40px;
-        &:before {
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            font-size: 22px;
-            left:0; //override
-            .boxSizing;
-        }
-    }
-    .heb:before {
-        font-size: 26px;
-        line-height: 38px;
     }
     > .feedForm {
         .feedTA {
@@ -67,9 +59,6 @@
         padding: 20px 32px 10px 32px;
     }
     .bestUserList {
-        &:before {
-
-        }
         .firstUser, .secondUser, .thirdUser {
             width: 90px;
         }
@@ -146,17 +135,7 @@
     text-align:center;
     padding-top: 90px;
 }
-.feedImg, .boxFeed [data-letter] {
-    border-radius: 50%;
-    margin-right: 15px; //rtl
-    border: 1px solid @borderColor;
-    .boxSizing;
-    position: relative;
-    top: 2px;
-}
-.boxFeed [data-letter] {
-    border: none;
-}
+
 .feedTA {
     //width: 436px;
     width: 543px;
@@ -233,8 +212,7 @@
     }
     .feedForm {
         padding-top: 15px;
-        /*display: none;*/
-        .feedImg, [data-letter] {
+        .userImg, .userLetter {
             margin: 0 0 0 15px; //rtl override
         }
         &.show {
@@ -340,7 +318,7 @@
             z-index: 1;
         }
     }
-    .feedImg, [data-letter] {
+    .userImg,.userLetter {
         margin: 0 0 0 15px; //rtl override
     }
     .userName {
@@ -577,6 +555,11 @@
     counter-reset: leaderBoard;
     position: relative;
     top: 8px;
+    .userImg, .userLetter {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 5px;
+    }
     &:before {
         .pseudo;
         position: absolute;
@@ -603,15 +586,14 @@
             z-index: 1;
         }
         &.empty {
-            .top3Img {
+            .userImg {
                 border-color: #8a8a8a;
                 background: #ccc;
                 overflow: hidden;
-                border-radius: 50%;
             }
-            svg {
+            /*svg {
                 fill: #ccc;
-            }
+            }*/
             .svg-user {
                 fill: #fff;
             }
@@ -626,7 +608,7 @@
         vertical-align: middle;
         text-align:left; //rtl
 
-        &:nth-child(-n + 3) {
+        &:nth-of-type(-n + 3) {
             text-align: center; //override
             margin-bottom: 15px; //override
             display: inline-block; //override
@@ -640,7 +622,7 @@
             }
         }
         
-        &:nth-child(n + 4) {
+        &:nth-of-type(n + 4) {
             margin: 0 -32px;
             padding: 0 15px;
             clear: both;
@@ -651,19 +633,11 @@
                 top: 2px;
                 color: @textColor;
             }
-            [data-letter] {
-                &:first-child {
-                    display: inline-block;
-                    margin: 0 5px 8px 5px;
-                    width: 38px;
-                    height: 38px;
-                }
-                &:before {
-                    width: 38px;
-                    height: 38px;
-                    line-height: 38px;
-                    margin-top: 4px;
-                }
+            .userImg, .userLetter {
+                display: inline-block;
+                margin: 0 5px 1px 5px;
+                width: 38px;
+                height: 38px;
             }
         }
         &:before {
@@ -677,27 +651,13 @@
             background: #eee;
         }
     }
-    [data-letter] {
-        vertical-align: middle;
-        &:before {
-            position: static;
-        }
-        &:first-child {
-            display: block;
-        }
-    }
+    
     .elps {
         display: inline-block;
         max-width: 160px;
         vertical-align: middle;
     }
-    img {
-        border: 1px solid @borderColor;
-        display: inline-block;
-        vertical-align: middle;
-        margin: 0 5px;
-        border-radius: 50%;
-    }
+    
     svg {
         display: block;
         margin: 0 auto;
@@ -711,42 +671,28 @@
         left: -2px; //rtl
         top: 3px;
     }
-    .top3Img, [data-letter] {
-        border: 1px solid transparent;
+    .userImg, .userLetter {
         margin: 0 auto 8px;
         width: 50px;
         height: 50px;
-        border-radius: 50%;
     }
-    .top3Img {
+    .userImg {
         display: block;
         border: 1px solid @color;
     }
 }
 
 .secondUser {
-    .top3Img, [data-letter] {
+    .userImg, .userLetter {
         margin-top: 17px;
     }
 }
 
 .thirdUser {
-    .top3Img, [data-letter] {
+    .userImg, .userLetter {
         margin-top: 35px;
     }
 }
-/*.svg-crown {
-    width: 36px;
-    height: 23px;
-}
-.svg-trophy {
-    width: 26px;
-    height: 29px;
-}
-.svg-badge {
-    width: 18px;
-    height: 30px;
-}*/
 .rep {
     font-weight: bold;
     color: #fff;
