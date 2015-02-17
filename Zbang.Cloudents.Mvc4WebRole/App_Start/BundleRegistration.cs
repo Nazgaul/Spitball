@@ -220,6 +220,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("/js/services/storeHandler.js"),   
                         new JsFileWithCdn("/js/services/stacktrace.js"),
                         new JsFileWithCdn("/js/directives/ngMatch.js"),
+                        new JsFileWithCdn("/js/directives/userimage.js"),
                         new JsFileWithCdn("/js/directives/fileReader.js"),
                         new JsFileWithCdn("/js/directives/ngPlaceholder.js"),
                         new JsFileWithCdn("/js/directives/storageSpace.js"),
