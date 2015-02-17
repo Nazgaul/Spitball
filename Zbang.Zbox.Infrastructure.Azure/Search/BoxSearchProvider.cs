@@ -8,7 +8,6 @@ using RedDog.Search.Model;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Search;
-using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
@@ -16,12 +15,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     {
 
         private readonly string m_IndexName = "box";
-        private readonly ISearchFilterProvider m_FilterProvider;
         private bool m_CheckIndexExists;
 
-        public BoxSearchProvider(ISearchFilterProvider filterProvider)
+        public BoxSearchProvider()
         {
-            m_FilterProvider = filterProvider;
             if (!RoleEnvironment.IsAvailable)
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -40,7 +37,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         private const string CourseField = "course";
         private const string UrlField = "url";
         private const string UniversityidField = "universityid";
-        private const string UniversityidField2 = "universityid2";
         private const string UseridsField = "userids";
         private const string PrivacySettingsField = "PrivacySettings";
 
@@ -66,8 +62,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     .IsRetrievable())
                 .WithField(UniversityidField, "Edm.Int64", f => f //obsolete
                     .IsFilterable())
-                .WithStringField(UniversityidField2, f => f
-                    .IsFilterable())
+                //.WithStringField(UniversityidField2, f => f
+                //    .IsFilterable())
                 .WithStringCollectionField(UseridsField, f => f
                     .IsFilterable())
                 .WithIntegerField(PrivacySettingsField,//obsolete
@@ -90,8 +86,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     .WithProperty(ProfessorField, s.Professor)
                     .WithProperty(CourseField, s.CourseCode)
                     .WithProperty(UrlField, s.Url)
-                    .WithProperty(UniversityidField, s.UniversityId) //obsolete
-                    .WithProperty(UniversityidField2, s.UniversityId.ToString(CultureInfo.InvariantCulture))
+                    .WithProperty(UniversityidField, s.UniversityId) 
                     .WithProperty(PrivacySettingsField, (int)s.PrivacySettings)
                     .WithProperty(UseridsField, s.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)))));
             }
@@ -136,7 +131,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             m_CheckIndexExists = true;
         }
 
-        public async Task<IEnumerable<SearchBoxes>> SearchBox(Zbang.Zbox.ViewModel.Queries.Search.SearchQuery query)
+        public async Task<IEnumerable<SearchBoxes>> SearchBox(ViewModel.Queries.Search.SearchQuery query)
         {
 
             if (string.IsNullOrEmpty(query.Term))
@@ -147,12 +142,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
                 new RedDog.Search.Model.SearchQuery(query.Term + "*")
                 {
-                    Filter = await m_FilterProvider.BuildFilterExpression(
-                       query.UniversityId, UniversityidField, UseridsField, query.UserId),
+                    Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityidField, UseridsField, query.UniversityId, query.UserId),
                     Top = query.RowsPerPage,
                     Skip = query.RowsPerPage * query.PageNumber,
-                    ScoringProfile = "university",
-                    ScoringParameters = new[] { "university:" + query.UniversityId },
                     Highlight = ProfessorField + "," + NameField + "," + CourseField
                 });
 

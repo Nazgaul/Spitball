@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using RedDog.Search.Model;
@@ -94,7 +93,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             try
             {
                 var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
-                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                if (response.StatusCode == HttpStatusCode.NotFound)
                 {
                     await SeachConnection.Instance.IndexManagement.CreateIndexAsync(CreateIndex());
 
@@ -167,7 +166,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             }
 
             var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
-                new RedDog.Search.Model.SearchQuery(query.Term + "*")
+                new SearchQuery(query.Term + "*")
                 {
                     Filter = await m_FilterProvider.BuildFilterExpression(
                         query.UniversityId, UniversityidField, UseridsField, query.UserId),
@@ -239,6 +238,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
     public interface IQuizReadSearchProvider
     {
-        Task<IEnumerable<SearchQuizzes>> SearchQuiz(Zbang.Zbox.ViewModel.Queries.Search.SearchQuery query);
+        Task<IEnumerable<SearchQuizzes>> SearchQuiz(ViewModel.Queries.Search.SearchQuery query);
     }
 }
