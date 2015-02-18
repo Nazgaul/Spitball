@@ -173,3 +173,8 @@ svg.ltr {
   left: 4px;
   top: 0;
 }
+.svg-upload {
+  width: 126px;
+  height: 106px;
+  fill: #0f9d58;
+}
