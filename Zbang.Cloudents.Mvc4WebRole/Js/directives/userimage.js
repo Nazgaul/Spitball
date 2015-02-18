@@ -42,7 +42,7 @@
                 var el = $compile(innerEl)(scope);
 
                 elem.after(el);
-                scope.$destroy();
+                //scope.$destroy();
                 elem.remove();
             }
         };
