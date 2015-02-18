@@ -145,11 +145,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         public async Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
-            if (string.IsNullOrEmpty(query.Term))
-            {
-                return null;
-            }
-
             var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
                 new SearchQuery(query.Term + "*")
                 {
@@ -159,7 +154,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     ScoringProfile = "university",
                     ScoringParameters = new[] { "university:" + query.UniversityId },
                     Skip = query.RowsPerPage * query.PageNumber,
-                    Highlight = ContentField + "," + NameField
+                    Highlight = ContentField
                 }, cancelToken);
 
 

@@ -161,10 +161,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         public async Task<IEnumerable<SearchQuizzes>> SearchQuiz(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
-            if (string.IsNullOrEmpty(query.Term))
-            {
-                return null;
-            }
+            
 
             var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
                 new SearchQuery(query.Term + "*")
@@ -175,7 +172,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     ScoringParameters = new[] { "university:" + query.UniversityId },
                     Top = query.RowsPerPage,
                     Skip = query.RowsPerPage * query.PageNumber,
-                    Highlight = QuestionsField + "," + NameField + "," + AnswersField,
+                    Highlight = QuestionsField + "," + AnswersField,
 
                 }, cancelToken);
 
@@ -188,13 +185,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             if (searchResult.Body.Records.Any())
             {
                 return searchResult.Body.Records.Select(s => new SearchQuizzes(
-                    HighLightInName(s),
+                    SeachConnection.ConvertToType<string>(s.Properties[NameField]),
                     SeachConnection.ConvertToType<long>(s.Properties[IdField]),
                     ConvertHighlightToProperty(s),
                     SeachConnection.ConvertToType<string>(s.Properties[BoxNameField]),
                     SeachConnection.ConvertToType<string>(s.Properties[UniversityNameField]),
-                    SeachConnection.ConvertToType<string>(s.Properties[UrlField]),
-                    SeachConnection.ConvertToType<string>(s.Properties[NameField])));
+                    SeachConnection.ConvertToType<string>(s.Properties[UrlField])
+                    ));
             }
             return null;
 

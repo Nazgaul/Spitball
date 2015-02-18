@@ -26,7 +26,7 @@ body .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
   /*margin: 0; //override default jQuery mCustom Scrollbar code*/
 }
 em {
-  background-color: yellow;
+  font-weight: 700;
 }
 /*#region Webkit scoll bar */
 ::-webkit-scrollbar {

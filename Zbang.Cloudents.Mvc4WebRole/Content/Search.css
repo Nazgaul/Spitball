@@ -320,7 +320,7 @@
   letter-spacing: 1px;
   text-transform: uppercase;
   font-weight: 800;
-  color: #3399ff;
+  color: #c2c2c2;
   padding: 0.5em 0;
 }
 .round {
@@ -394,9 +394,12 @@
   display: inline-block;
   margin: 0;
   padding: 5px 0;
-  color: #3399ff;
+  color: #0e68af;
   max-width: 100%;
   font-weight: normal;
+}
+.searchLink h4 {
+  color: #178b55;
 }
 .searchLink .content {
   margin-top: 8px;
