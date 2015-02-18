@@ -912,7 +912,8 @@
   padding: 0;
   visibility: hidden;
 }
-.memberItem.uninvited .friendImg,
+.memberItem.uninvited .userImg,
+.memberItem.uninvited .userLetter,
 .memberItem.uninvited .memberName,
 .memberItem.uninvited .reinviteUserBtn {
   opacity: .5;

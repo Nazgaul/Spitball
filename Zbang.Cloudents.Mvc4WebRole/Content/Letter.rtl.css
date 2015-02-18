@@ -338,9 +338,6 @@
   font-size: 80px;
   line-height: 90px;
 }
-.profileInfo .profilePhoto + .profilePhoto {
-  display: none;
-}
 /*#endregion */
 /*#region Box -> Members tab */
 .memberItem [data-letter]:before {
@@ -353,9 +350,6 @@
 .memberItem .heb:before {
   font-size: 24px;
   line-height: 31px;
-}
-.memberItem .friendImg + .friendImg {
-  display: none;
 }
 /*#endregion */
 /*#region Quiz Dialog */
