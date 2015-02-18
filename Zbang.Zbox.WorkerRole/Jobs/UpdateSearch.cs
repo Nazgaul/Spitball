@@ -18,7 +18,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 {
     public class UpdateSearch : IJob
     {
-        private const int NumberToReSyncWithoutWait = 20;
+        private const int NumberToReSyncWithoutWait = 10;
         private bool m_KeepRunning;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
@@ -73,7 +73,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private async Task ExecuteAsync()
         {
-           
+
             var index = GetIndex();
             //var quizUpdate = await UpdateQuiz();
             var itemUpdate = await UpdateItem(index);

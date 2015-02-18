@@ -7,7 +7,7 @@
         <form class="feedForm" name="qnaQform" focus-form="feedOpen"
               ng-submit="postQuestion(qnaQform.$valid)" novalidate>
 
-            <user-image name="data.userName" image="data.userImage" class-image="feedImg lFloat" class-letter="lFloat" width="40" height="40"></user-image>
+            <user-image name="data.userName" image="data.userImage" class="lFloat" width="40" height="40"></user-image>
             @*<img ng-if="data.userImage" ng-src="{{::data.userImage}}" class="feedImg lFloat" alt="" width="40" height="40" />
             <span class="lFloat" data-letter="{{::data.userName[0]}}"></span>*@
             <textarea text-direction name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" ng-model="qFormData.content"
@@ -29,10 +29,10 @@
 
         <ul class="boxFeedList">
             <li ng-repeat="question in data.questions track by question.id" ng-class="{hasAttached: question.files.length}">
-                @*<img class="feedImg lFloat" alt="" width="40" height="40" ng-src="{{::question.userImage}}" user-tooltip-popup="{{::question.userId}}" />
+                @*<img class="userImg feedImg lFloat" alt="" width="40" height="40" ng-src="{{::question.userImage}}" user-tooltip-popup="{{::question.userId}}" />
                 <span class="lFloat" data-letter="{{::question.userName[0]}}" user-tooltip-popup="{{::question.userId}}"></span>*@
                 <user-image id="question.userId" name="question.userName" image="question.userImage" 
-                            class-image="feedImg lFloat" class-letter="lFloat" width="40" height="40"></user-image>
+                            class="lFloat" width="40" height="40"></user-image>
 
                 <div class="feedWpr">
                     <time class="createTime rFloat" display-time="{{::question.createTime}}"></time>

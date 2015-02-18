@@ -4,6 +4,7 @@
     //width: 365px;
 	//height: 32px;
 	//left: 500px; //rtl
+    top: 50px;
     left: -100%;
 }
 .userInitial(){
@@ -34,8 +35,6 @@
     font-size: 18px;
     .boxSizing;
 
-    //.dashInitial;
-
     width: 365px;
 	height: 32px;
 	left: 500px; //rtl
@@ -60,31 +59,52 @@
     position: absolute;
     top: 0;
     left: 0;
-    right:0;
+    right: 0;
     width: 100%;
-    height: 100%;
-    border-radius: 0;
+    height:  100%;
+    //border-radius: 0;
     background: #f1f1f1;
-    z-index: 11;
-    -webkit-transform-origin: 0 0;
+    z-index: 12;
+    .transition(transform 1s);
+    /*-webkit-transform-origin: 0 0;
     transform-origin: 0 0;
     -webkit-transition-property: height, width, top, left;
     transition-property: height, width, top, left;
     -webkit-transition-duration: 0.5s;
     transition-duration: 0.5s;
     -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-    transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+    transition-timing-function: cubic-bezier(0.7,0,0.3,1);*/
     .boxSizing;
+
     ~ .bodyContent {
-        overflow: hidden;
+        //overflow: hidden;
         .siteHeader {
             //display: none; //this kills the transition
             //visibility: hidden;
-            margin-top: -50px;
+            //margin-top: -50px;
         }
+
         .searchBox {
-            z-index: 0; //hide box searchInputWpr
+            //z-index: 0; //hide box searchInputWpr
         }
+    }
+
+    &.ng-enter, &.ng-leave-active {
+        -moz-transform: translateX(-100%);
+        -ms-transform: translateX(-100%);
+        -o-transform: translateX(-100%);
+        -webkit-transform: translateX(-100%);
+        transform: translateX(-100%);
+        //left: -100%;
+    }
+
+    &.ng-enter-active {
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        -o-transform: translateX(0);
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        //left: 0;
     }
     /*.userPage & {
         .userInitial;
@@ -92,7 +112,7 @@
         height: 32px; 
         background: tomato;
     }*/
-    &.ng-enter, &.ng-leave-active {
+    /*&.ng-enter, &.ng-leave-active {
         top: 67px;
         background: #fff;
         .dashInitial;
@@ -108,7 +128,7 @@
             height: 32px;
             padding: 4px 10px;
             border-color: transparent;
-        }*/
+        }*/ /*
         .userPage & {
             .userInitial; 
         }
@@ -157,8 +177,7 @@
             opacity: 1;
             visibility: visible;
         }
-    }
-
+    }*/
     form {
         position: relative;
         width: 80%;
@@ -167,40 +186,42 @@
         margin: 0 auto;
         //-webkit-transform: translate3d(0,2em,0);
         //transform: translate3d(0,2em,0);
-        -webkit-transition-property: width, height, -webkit-transform;
+        /*-webkit-transition-property: width, height, -webkit-transform;
         transition-property: width, height, transform;
         -webkit-transition-duration: 0.5s;
         transition-duration: 0.5s;
         -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-        transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+        transition-timing-function: cubic-bezier(0.7,0,0.3,1);*/
     }
+
     .searchBtn {
         background: none; //override
         border-radius: 0; //override
         top: 40%;
         position: absolute;
-	    //pointer-events: auto;
+        //pointer-events: auto;
         //width: 80px;height:80px; //fallback for old android
         //width: 3vw;
         //height: 3vw;
-	    //-webkit-transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
-	    //transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
-	    transition: opacity .3s;
+        //-webkit-transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
+        //transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
+        /*transition: opacity .3s;
 	    -webkit-transition-delay: 0.5s;
-	    transition-delay: 0.5s;
+	    transition-delay: 0.5s;*/
         opacity: 1;
         visibility: visible;
+
         .svg-search {
-            //width: 80px;height: 80px; //fallback for old android
             width: 3vw;
             height: 3vw;
             fill: @borderColor;
-        
+
             &:hover {
                 fill: @blue;
             }
         }
     }
+
     .dashLibSearchInput {
         //font-size: 18px;
         //padding: 4px 10px;
@@ -210,8 +231,8 @@
         font-size: 5vw;
         padding: 4px 10% 4px 10px;
         //border-bottom: 2px solid @blue;
-        -webkit-transition: font-size 0.2s cubic-bezier(0.7,0,0.3,1), border-color .5s;
-        transition: font-size 0.2s cubic-bezier(0.7,0,0.3,1), border-color .5s;
+        /*-webkit-transition: font-size 0.2s cubic-bezier(0.7,0,0.3,1), border-color .5s;
+        transition: font-size 0.2s cubic-bezier(0.7,0,0.3,1), border-color .5s;*/
         background: transparent;
         color: @blue;
         //opacity: 1;
@@ -227,12 +248,12 @@
     .closeSearch {
         opacity: 1;
         pointer-events: auto;
-        -webkit-transform: scale3d(1,1,1);
-        transform: scale3d(1,1,1);
-        -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
-        transition: opacity 0.3s, transform 0.3s;
-        -webkit-transition-delay: 0.5s;
-        transition-delay: 0.5s;
+        //-webkit-transform: scale3d(1,1,1);
+        //transform: scale3d(1,1,1);
+        /*-webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+        transition: opacity 0.3s, transform 0.3s;*/
+        /*-webkit-transition-delay: 0.5s;
+        transition-delay: 0.5s;*/
     }
 
     .search-content {
@@ -240,11 +261,10 @@
         height: auto;
         overflow: visible; // this breaks the transition of the children in FF: https://bugzilla.mozilla.org/show_bug.cgi?id=625289 //
         pointer-events: auto;
-        -webkit-transition: opacity 0.3s 0.5s;
-        transition: opacity 0.3s 0.5s;
+        /*-webkit-transition: opacity 0.3s 0.5s;
+        transition: opacity 0.3s 0.5s;*/
     }
-
-    .column:first-child {
+    /*.column:first-child {
         -webkit-transition-delay: 0.4s;
         transition-delay: 0.4s;
     }
@@ -257,12 +277,11 @@
     .column:nth-child(3) {
         -webkit-transition-delay: 0.5s;
         transition-delay: 0.5s;
-    }
-
+    }*/
     .column {
         opacity: 1;
-        -webkit-transform: translate3d(0,0,0);
-        transform: translate3d(0,0,0);
+        /*-webkit-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);*/
     }
 }
 
@@ -279,8 +298,8 @@
 	cursor: pointer;
 	pointer-events: none;
 	opacity: 0;
-	-webkit-transform: scale3d(0,0,1);
-	transform: scale3d(0,0,1);
+	/*-webkit-transform: scale3d(0,0,1);
+	transform: scale3d(0,0,1);*/
     .svg-close {
         width: 20px;
         height: 20px;
@@ -333,10 +352,10 @@
 	width: 30%;
 	padding: 0 0 6em;
 	opacity: 0;
-	-webkit-transform: translate3d(0,100px,0);
-	transform: translateY(100px);
+	/*-webkit-transform: translate3d(0,100px,0);*/
+	/*transform: translateY(100px);
 	-webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
-	transition: transform 0.5s, opacity 0.5s;
+	transition: transform 0.5s, opacity 0.5s;*/
     overflow: hidden;
     &:nth-child(2) {
 	    margin: 0 5%;

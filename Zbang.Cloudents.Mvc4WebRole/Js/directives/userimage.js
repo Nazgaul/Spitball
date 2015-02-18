@@ -2,8 +2,8 @@
     ['$compile','sUserDetails',
     function ($compile,sUserDetails) {
         "use strict";
-        var imageTemplate = '<img alt=""  />',
-            letterTemplate = '<span></span>';
+        var imageTemplate = '<img class="userImg" alt=""  />',
+            letterTemplate = '<span class="userLetter"></span>';
         return {
             restrict: "E",
             scope: {
@@ -16,7 +16,7 @@
 
                 if (scope.image) {
                     innerEl = angular.element(imageTemplate);
-                    className = elem[0].getAttribute('class-image');
+                    className = elem[0].getAttribute('class');
                     if (className) {
                         innerEl.addClass(className);
                     }                    
@@ -27,7 +27,7 @@
 
                 } else {
                     innerEl = angular.element(letterTemplate);
-                    className = elem[0].getAttribute('class-letter');
+                    className = elem[0].getAttribute('class');
                     if (className) {
                         innerEl.addClass(className);
                     }
@@ -42,7 +42,7 @@
                 var el = $compile(innerEl)(scope);
 
                 elem.after(el);
-
+                scope.$destroy();
                 elem.remove();
             }
         };
