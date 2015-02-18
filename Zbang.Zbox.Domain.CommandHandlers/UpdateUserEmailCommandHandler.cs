@@ -10,12 +10,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class UpdateUserEmailCommandHandler : ICommandHandler<UpdateUserEmailCommand>
     {
         private readonly IUserRepository m_UserRepository;
-        private readonly IMembershipService m_MembershipService;
+        //private readonly IMembershipService m_MembershipService;
 
-        public UpdateUserEmailCommandHandler(IUserRepository userRepository, IMembershipService membershipService)
+        public UpdateUserEmailCommandHandler(IUserRepository userRepository
+            //IMembershipService membershipService
+            )
         {
             m_UserRepository = userRepository;
-            m_MembershipService = membershipService;
+           // m_MembershipService = membershipService;
         }
 
         public void Handle(UpdateUserEmailCommand command)
@@ -67,7 +69,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (tempFromFacebookLogin) return;
             if (user.MembershipId.HasValue)
             {
-                m_MembershipService.ChangeUserEmail(user.MembershipId.Value, email);
+                //m_MembershipService.ChangeUserEmail(user.MembershipId.Value, email);
             }
             else
             {

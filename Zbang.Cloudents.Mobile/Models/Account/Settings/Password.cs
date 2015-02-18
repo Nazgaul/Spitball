@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Zbang.Cloudents.Mobile.Filters;
 using Zbang.Cloudents.Mobile.Models.Account.Resources;
+using Zbang.Cloudents.SiteExtension;
 
 namespace Zbang.Cloudents.Mobile.Models.Account.Settings
 {

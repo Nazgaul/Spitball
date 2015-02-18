@@ -36,7 +36,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class AccountController : BaseController
     {
-        private readonly Lazy<IMembershipService> m_MembershipService;
+        //private readonly Lazy<IMembershipService> m_MembershipService;
         private readonly Lazy<IFacebookService> m_FacebookService;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
@@ -44,21 +44,21 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
         // private const string InvId = "invId";
         public AccountController(
-            Lazy<IMembershipService> membershipService,
+            //Lazy<IMembershipService> membershipService,
             Lazy<IFacebookService> facebookService,
             Lazy<IQueueProvider> queueProvider,
             Lazy<IEncryptObject> encryptObject
             )
         {
 
-            m_MembershipService = membershipService;
+           // m_MembershipService = membershipService;
             m_FacebookService = facebookService;
             m_QueueProvider = queueProvider;
             m_EncryptObject = encryptObject;
         }
 
         public AccountController(
-           Lazy<IMembershipService> membershipService,
+          // Lazy<IMembershipService> membershipService,
            Lazy<IFacebookService> facebookService,
            Lazy<IQueueProvider> queueProvider,
            Lazy<IEncryptObject> encryptObject,
@@ -66,7 +66,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
            )
         {
 
-            m_MembershipService = membershipService;
+          //  m_MembershipService = membershipService;
             m_FacebookService = facebookService;
             m_QueueProvider = queueProvider;
             m_EncryptObject = encryptObject;
@@ -445,25 +445,46 @@ namespace Zbang.Cloudents.Mobile.Controllers
             }
             try
             {
-                Guid membershipUserId;
-                if (!m_MembershipService.Value.EmailExists(model.Email, out membershipUserId))
+                //Guid membershipUserId;
+                //if (!m_MembershipService.Value.EmailExists(model.Email, out membershipUserId))
+                //{
+                //    ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
+                //    return View("ForgotPwd", model);
+
+                //}
+                //var query = new GetUserByMembershipQuery(membershipUserId);
+                //var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
+                //var code = RandomString(10);
+
+
+                //var data = new ForgotPasswordLinkData(membershipUserId, 1);
+
+                //var linkData = CrypticElement(data);
+                ////Session[SessionResetPassword] = data;
+                //await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, linkData, result.Name.Split(' ')[0], model.Email, result.Culture));
+
+                //TempData["key"] = Crypto.HashPassword(code);
+
+                //return RedirectToAction("Confirmation", new { @continue = linkData });
+                var user = await UserManager.FindByEmailAsync(model.Email);
+                if (user == null)
                 {
                     ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
-                    return View("ForgotPwd", model);
-
+                    return View(model);
                 }
-                var query = new GetUserByMembershipQuery(membershipUserId);
+                var query = new GetUserByMembershipQuery(Guid.Parse(user.Id));
                 var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-                var code = RandomString(10);
+                var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var code2 = RandomString(10);
 
 
-                var data = new ForgotPasswordLinkData(membershipUserId, 1);
+                //var data = new ForgotPasswordLinkData(Guid.Parse(user.Id), 1);
 
-                var linkData = CrypticElement(data);
+                var linkData = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 //Session[SessionResetPassword] = data;
                 await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, linkData, result.Name.Split(' ')[0], model.Email, result.Culture));
 
-                TempData["key"] = Crypto.HashPassword(code);
+                TempData["key"] = Crypto.HashPassword(code2);
 
                 return RedirectToAction("Confirmation", new { @continue = linkData });
 
@@ -506,17 +527,17 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 return View("CheckEmail", model);
 
             }
-            var userData = UnEncryptElement<ForgotPasswordLinkData>(@continue);//  Session[SessionResetPassword] as ForgotPasswordLinkData;
+            //var userData = UnEncryptElement<ForgotPasswordLinkData>(@continue);//  Session[SessionResetPassword] as ForgotPasswordLinkData;
 
-            if (userData == null)
-            {
-                return RedirectToAction("ResetPassword");
-            }
+            //if (userData == null)
+            //{
+            //    return RedirectToAction("ResetPassword");
+            //}
             if (Crypto.VerifyHashedPassword(model.Key, model.Code))
             {
-                userData.Step = 2;
-                var key = CrypticElement(userData);
-                return RedirectToAction("PasswordUpdate", new { key });
+                //userData.Step = 2;
+                //var key = CrypticElement(userData);
+                return RedirectToAction("PasswordUpdate", new { key = @continue });
             }
             ModelState.AddModelError(string.Empty, "This is not the correct code");
             return View("CheckEmail", model);
@@ -572,7 +593,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 return RedirectToRoute("accountLink");
             }
-            m_MembershipService.Value.ResetPassword(data.MembershipUserId, model.Password);
+            //m_MembershipService.Value.ResetPassword(data.MembershipUserId, model.Password);
 
             var query = new GetUserByMembershipQuery(data.MembershipUserId);
             var result = await ZboxReadService.GetUserDetailsByMembershipId(query);

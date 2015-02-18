@@ -10,13 +10,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class UpdateUserPasswordCommandHandler : ICommandHandler<UpdateUserPasswordCommand, UpdateUserCommandResult>
     {
         private readonly IUserRepository m_UserRepository;
-        private readonly IMembershipService m_MembershipService;
+       // private readonly IMembershipService m_MembershipService;
         private readonly UpdateUserCommandResult m_Result;
 
-        public UpdateUserPasswordCommandHandler(IUserRepository userRepository, IMembershipService membershipService)
+        public UpdateUserPasswordCommandHandler(IUserRepository userRepository
+           // , IMembershipService membershipService
+            )
         {
             m_UserRepository = userRepository;
-            m_MembershipService = membershipService;
+            //m_MembershipService = membershipService;
             m_Result = new UpdateUserCommandResult();
         }
         public UpdateUserCommandResult Execute(UpdateUserPasswordCommand command)
@@ -45,24 +47,24 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private void ChangeUserPassword(UpdateUserPasswordCommand command, User user)
         {
-            if (!m_MembershipService.ChangePassword(user.MembershipId.Value, command.CurrentPassword, command.NewPassword))
-            {
-                m_Result.Error = Resources.CommandHandlerResources.CannotChangePwd;
-            }
+            //if (!m_MembershipService.ChangePassword(user.MembershipId.Value, command.CurrentPassword, command.NewPassword))
+            //{
+            //    m_Result.Error = Resources.CommandHandlerResources.CannotChangePwd;
+            //}
         }
 
         private void RegisterUserLocally(UpdateUserPasswordCommand command, User user)
         {
             Guid memberShipUserProviderName;
-            var creationStatus = m_MembershipService.CreateUser(Guid.NewGuid().ToString(), command.NewPassword, user.Email, out memberShipUserProviderName);
-            if (creationStatus == MembershipCreateStatus.Success)
-            {
-                user.MembershipId = memberShipUserProviderName;
-            }
-            else
-            {
-                m_Result.Error = AccountValidation.ErrorCodeToString(creationStatus);
-            }
+            //var creationStatus = m_MembershipService.CreateUser(Guid.NewGuid().ToString(), command.NewPassword, user.Email, out memberShipUserProviderName);
+            //if (creationStatus == MembershipCreateStatus.Success)
+            //{
+            //    user.MembershipId = memberShipUserProviderName;
+            //}
+            //else
+            //{
+            //    m_Result.Error = AccountValidation.ErrorCodeToString(creationStatus);
+            //}
         }
 
         private bool IsUserRegisteredLocaly(User user)

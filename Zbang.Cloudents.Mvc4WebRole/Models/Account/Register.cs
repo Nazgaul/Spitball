@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Models.Resources;
+using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Domain.Common;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
