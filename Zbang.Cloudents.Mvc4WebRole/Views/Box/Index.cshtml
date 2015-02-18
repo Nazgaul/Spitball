@@ -11,7 +11,7 @@
             <a class="backWpr lFloat" ng-href="{{$root.back.url}}">
                 @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
             </a>
-            <div class="searchInputWpr searchBox" ng-click="$root.toggleSearch()">@SharedResources.Search</div>
+            <div class="searchTrigger searchBox" ng-click="$root.toggleSearch()">@SharedResources.Search</div>
             <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
                 @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
             </button>

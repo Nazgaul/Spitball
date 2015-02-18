@@ -98,7 +98,7 @@
                 <div class="dhContent">
                     @{Html.RenderPartial("_BarActions");}
                     <span class="dhText">@SharedResources.Dashboard</span>
-                    <div class="searchInputWpr searchDash" ng-click="$root.toggleSearch()">@SharedResources.Search</div>
+                    <div class="searchTrigger searchDash" ng-click="$root.toggleSearch()">@SharedResources.Search</div>
                     <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
                         @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
                     </button>

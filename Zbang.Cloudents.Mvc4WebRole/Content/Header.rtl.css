@@ -179,7 +179,7 @@ body {
 .dashHeader.setup .svg-inviteUser {
   display: none;
 }
-.dashHeader.setup .searchInputWpr {
+.dashHeader.setup .searchTrigger {
   position: absolute;
   top: 145px;
   right: 0;
