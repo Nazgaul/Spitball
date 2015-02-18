@@ -421,9 +421,6 @@
   font-size: 25px;
   line-height: 30px;
 }
-.invItem .friendImg + .friendImg {
-  display: none;
-}
 /*#endregion */
 /*#region Social List */
 .socialList [data-letter] {
@@ -441,9 +438,6 @@
   font-size: 49px;
   line-height: 60px;
 }
-.socialList img + .letter {
-  display: none;
-}
 /*#endregion */
 /*#region Notify */
 .notifyItem [data-letter]:before {
@@ -455,9 +449,6 @@
 .notifyItem .heb:before {
   line-height: 67px;
   font-size: 52px;
-}
-.notifyItem .notifyImg + .notifyImg {
-  display: none;
 }
 /*#endregion */
 /*#region User page */

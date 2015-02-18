@@ -799,10 +799,6 @@
 .socialList li.jsInviteSent button:after {
   top: 1px;
 }
-.socialList img {
-  border: 1px solid #c2c2c2;
-  border-radius: 50%;
-}
 .socialList .contactName {
   font-size: 12px;
   height: 30px;

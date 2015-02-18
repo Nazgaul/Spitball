@@ -24,8 +24,7 @@
     <div class="upContentWpr" >
         <div class="upTop">
             @{Html.RenderPartial("_BarActions");}
-            <img class="userImg" ng-if="profile.image" ng-src="{{profile.image}}" width="100" height="100" alt="" />
-            <span class="userLetter" data-letter="{{::profile.name[0]}}"></span>
+            <user-image name="profile.name" image="profile.image" width="100" height="100"></user-image>
             <div class="upDetails">
                 <h1 class="semiFont elps" id="upUsername">
                     <span>{{::profile.name}}</span>
@@ -79,8 +78,7 @@
                     <li class="memberItem" ng-repeat="member in admin.members.list | limitTo : admin.members.limit">
                         <input id="mbr_{{::member.id}}" type="checkbox" class="checkbox" ng-model="member.isChecked" ng-change="toggleSelectMember(member)" />
                         <label for="mbr_{{::member.id}}" class="cbLabel memberCol">
-                            <img class="userImg" ng-if="::member.image" alt="" ng-src="{{::member.image}}" width="34" height="34" />
-                            <span class="userLetter" data-letter="{{::member.name[0]}}"></span>
+                            <user-image name="member.name" image="member.image" width="34" height="34"></user-image>
                             <span class="upMemberName elps">{{::member.name}}</span>
                         </label>
 
@@ -176,8 +174,7 @@
                             <img class="lFloat imgBorder" alt="" width="28" height="36" ng-src="{{::answer.boxPicture | defaultImage:'box'}}" />
                             <span class="qaBoxname elps">{{::answer.boxName}}</span>
                             <div class="qaWpr">
-                                <img class="lFloat userImg" ng-if="::answer.qUserImage" alt="" width="33" height="33" ng-src="{{::answer.qUserImage}}" />
-                                <span class="lFloat userLetter" data-letter="{{::answer.qUserName[0]}}"></span>
+                                <user-image name="answer.qUserName" image="answer.qUserImage" class="lFloat" width="33" height="33"></user-image>
                                 <span class="qaUsername semiFont elps">{{::answer.qUserName}}</span>
                                 <div class="qaQuestion" ng-bind-html="::answer.qContent"></div>
                                 <div class="answeredBy elps">{{::profile.name}}</div>
@@ -232,8 +229,7 @@
                         <ul class="inCommonList">
                             <li class="userItem" ng-repeat="friend in friends.common.list | limitTo:friends.common.limit" user-tooltip-popup="{{::friend.id}}">
                                 <a ng-href="{{::friend.url}}" analytics-on="click" analytics-category="User" analytics-event="Navigate to user" analytics-label="User clicked on a box in common friends section">
-                                    <img class="userImg" ng-if="friend.largeImage" ng-src="{{friend.largeImage}}" src="" width="74" height="74" />
-                                    <span class="userLetter" data-letter="{{::friend.name[0]}}"></span>
+                                    <user-image name="friend.name" image="friend.largeImage" width="74" height="74"></user-image>
                                 </a>
                                 <div class="userItemName">{{::friend.name}}</div>
                             </li>
@@ -246,8 +242,7 @@
                         <ul class="inAllFriendList">
                             <li class="userItem" ng-repeat="friend in friends.all.list | limitTo:friends.all.limit" user-tooltip-popup="{{::friend.id}}">
                                 <a ng-href="{{::friend.url}}" analytics-on="click" analytics-category="User" analytics-event="Navigate to user" analytics-label="User clicked on a box in friend's friends section">
-                                    <img class="userImg" ng-if="friend.largeImage" ng-src="{{::friend.largeImage}}" src="" width="74" height="74" />
-                                    <span class="userLetter" data-letter="{{::friend.name[0]}}"></span>
+                                    <user-image name="friend.name" image="friend.largeImage" width="74" height="74"></user-image>
                                 </a>
                                 <div class="userItemName">{{::friend.name}}</div>
                             </li>
@@ -267,8 +262,7 @@
 
                     <ul class="upInviteList">
                         <li class="upInviteItem" ng-repeat="invite in invites.list | limitTo: invites.limit" ng-class="{ upPending: !invite.status}">
-                            <img class="userImg" ng-if="::invite.userImage" width="74" height="74" ng-src="{{::invite.userImage}}" />
-                            <span class="userLetter" data-letter="{{::invite.userName[0]}}"></span>
+                            <user-image name="invite.userName" image="invite.userImage" width="74" height="74"></user-image>
                             <div class="usrName semiFont elps">{{::invite.userName}}</div>
                             <div class="inviteStatus">{{::invite.status ? '@SharedResources.ActiveMember' : '@SharedResources.Pending'}}</div>
                             <div class="invitedToWpr">

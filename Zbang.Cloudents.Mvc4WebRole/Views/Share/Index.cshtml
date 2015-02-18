@@ -40,9 +40,7 @@
                 <button type="button" class="invTab gmail" ng-class="{current: params.currentState === 2}" ng-click="selectState(2)"></button>
             </div>
 
-            <a class="invHeaderText">
-                {{params.inviteText}}               
-            </a>
+            <a class="invHeaderText">{{params.inviteText}}</a>
 
             <div class="invContentWpr" ng-class="[params.className, params.notConnected]">
                 <div class="invContentTop">
@@ -54,16 +52,11 @@
                     <ul class="invList clearfix">
                         <li class="invItem lFloat" ng-class="{invited: contact.invited }" ng-repeat="contact in params.contacts | limitTo : params.contactLimit">
                             <a ng-href="{{::contact.url}}">
-                                <img alt="" class="friendImg" ng-if="contact.image" ng-src="{{::contact.image}}" width="34" height="34">
-                                <span class="friendImg" data-letter="{{contact.name[0]}}"></span>
+                                <user-image name="contact.name" image="contact.image" width="34" height="34"></user-image>
                             </a>
                             <span class="invName elps">{{::contact.name}}</span>
-                            <button type="button" class="invBtn rFloat" ng-click="inviteContact(contact)">
-                                @SharedResources.Invite
-                            </button>
-
+                            <button type="button" class="invBtn rFloat" ng-click="inviteContact(contact)">@SharedResources.Invite</button>
                         </li>
-
                     </ul>
                 </div>
 
