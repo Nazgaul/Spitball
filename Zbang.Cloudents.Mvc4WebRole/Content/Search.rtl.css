@@ -2,43 +2,39 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-.searchInputWpr {
+.searchTrigger {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  width: 365px;
+  height: 32px;
+  border: 1px solid #c2c2c2;
   border-radius: 16px;
-  position: absolute;
-  top: 17px;
-  z-index: 4;
-  margin: 0;
+  margin: 17px 20px 0 20px;
   line-height: normal;
   background: #fff;
   color: #c2c2c2;
   padding: 4px 10px;
   font-size: 18px;
+  z-index: 4;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  width: 365px;
-  height: 32px;
-  right: 500px;
 }
-.searchInputWpr.searchUser {
-  right: 0;
-  left: 0;
-  margin: auto;
-  top: 72px;
-  position: absolute;
+.headerBox .searchTrigger {
+  margin-top: 9px;
 }
-.searchInputWpr.searchUser + button .svg-inviteUser {
+.searchTrigger.searchUser {
+  margin-top: 23px;
+}
+.searchTrigger.searchUser + button .svg-inviteUser {
   position: relative;
   top: -9px;
 }
-.searchInputWpr.searchLib {
-  right: 550px;
-}
-.searchInputWpr.searchBox {
-  right: 320px;
-  z-index: 11;
-  top: 9px;
-  position: fixed;
+.searchBtn {
+  position: absolute;
+  left: 10px;
+  top: 6px;
 }
 .searchPopup {
   position: absolute;
@@ -49,10 +45,10 @@
   height: 100%;
   background: #f1f1f1;
   z-index: 12;
-  -webkit-transition: transform 1s;
-  -moz-transition: transform 1s;
-  -o-transition: transform 1s;
-  transition: transform 1s;
+  -webkit-transition: transform 0.5s;
+  -moz-transition: transform 0.5s;
+  -o-transition: transform 0.5s;
+  transition: transform 0.5s;
   /*-webkit-transform-origin: 0 0;
     transform-origin: 0 0;
     -webkit-transition-property: height, width, top, left;
@@ -151,6 +147,9 @@
         -webkit-transition-delay: 0.5s;
         transition-delay: 0.5s;
     }*/
+}
+.searchPopup ~ .bodyContent {
+  overflow: hidden;
 }
 .searchPopup.ng-enter,
 .searchPopup.ng-leave-active {
@@ -429,20 +428,10 @@
 	}*/
   .column {
     float: none;
-    width: auto;
     padding: 0 0 2em;
     width: 100%;
   }
   .column:nth-child(2) {
     margin: 0;
-  }
-}
-@media screen and (max-width: 60.625em) {
-  .searchInputWpr.open {
-    width: 100%;
-    top: 0;
-    right: 0;
-    left: 0;
-    margin: auto;
   }
 }

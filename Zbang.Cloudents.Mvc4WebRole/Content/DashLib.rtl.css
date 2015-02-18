@@ -852,13 +852,9 @@
   margin: 20px 0;
   font-size: 18px;
 }
-.dragDropArea:before {
-  content: '';
+.dragDropArea .svg-upload {
   display: block;
-  width: 126px;
-  height: 106px;
-  background: url(/Images/site.png?v=3) 100% -1142px no-repeat;
-  margin: 55px auto 20px;
+  margin: 45px auto 20px;
 }
 .dragDropArea:hover {
   cursor: pointer;

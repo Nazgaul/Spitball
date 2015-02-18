@@ -1,4 +1,5 @@
 ﻿@import "varsAndMixins";
+<<<<<<< HEAD
 @bluesearch: #0e68af;
 @greensearch: #178b55;
 .dashInitial(){
@@ -24,36 +25,43 @@
     position: fixed;
 }
 .searchInputWpr {
+=======
+
+.searchTrigger {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 365px;
+	height: 32px;
+    //max-width: 460px;
+    //width: ~'-webkit-calc(100% - 320px)';
+    //width: ~'calc(100% - 320px)';
+    border: 1px solid @borderColor;
+>>>>>>> de7e08d6eeb98295688fecbff6d6b87ba52d1c01
     border-radius: 16px;
-	position: absolute;
-    top: 17px;
-	z-index: 4; //under aside which is 5
-    margin:0;
+    margin: 17px 20px 0 20px;
     line-height: normal;
     background: #fff;
     color: @borderColor;
     padding: 4px 10px;
     font-size: 18px;
+    z-index: 4; //under aside which is 5
     .boxSizing;
-
-    width: 365px;
-	height: 32px;
-	left: 500px; //rtl
-
-    &.searchUser {
-        .userInitial; 
+    .headerBox &  {
+        margin-top: 9px; //override
+    }
+    &.searchUser { 
+        margin-top: 23px;
         + button .svg-inviteUser {
             position: relative;
             top: -9px;
         }
     }
-    &.searchLib {
-       .libInitial 
-    }
-    &.searchBox {
-        .boxInitial
-    }
-    
+}
+.searchBtn {
+    position: absolute;
+    right: 10px; //rtl
+    top: 6px;
 }
 .searchPopup {
     //position: fixed;
@@ -66,7 +74,7 @@
     //border-radius: 0;
     background: #f1f1f1;
     z-index: 12;
-    .transition(transform 1s);
+    .transition(transform .5s);
     /*-webkit-transform-origin: 0 0;
     transform-origin: 0 0;
     -webkit-transition-property: height, width, top, left;
@@ -78,7 +86,7 @@
     .boxSizing;
 
     ~ .bodyContent {
-        //overflow: hidden;
+        overflow: hidden;
         .siteHeader {
             //display: none; //this kills the transition
             //visibility: hidden;
@@ -481,7 +489,7 @@
 	}*/
 	.column {
 		float: none;
-		width: auto;
+		//width: auto;
 		padding: 0 0 2em;
         width: 100%;
 	}
@@ -491,12 +499,12 @@
 	
 }
 
-@media screen and (max-width: 60.625em) {
+/*@media screen and (max-width: 60.625em) {
 	.searchInputWpr.open {
 		width: 100%;
 		top: 0;
         left:0;right:0;
         margin: auto;
 	}
-}
+}*/
 /*#endregion */

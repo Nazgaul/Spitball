@@ -1929,29 +1929,9 @@ select.inputText {
     width: 100px;
     position: relative;
     margin-top:8px;
-    height: 48px; //
-    ~ button .svg-inviteUser {
-        margin-top: 20px;
-        &:hover {
-            fill: @blue;
-        }
-    }  
+    height: 48px; // 
 }
 
-//css for the new search
-.inviteUsersBtn {
-    position: absolute;
-    left: 600px; //rtl
-    .boxPage & {
-        left: 700px; //rtl
-        top: 12px;
-    }
-    .userPage & {
-        right: 120px; //rtl
-        left: auto; // override
-        top: 5px;
-    }
-}
 .noResults {
     text-align: center !important; // need important because list itself is aligned left 
     background: #fff;// !important;
@@ -2146,6 +2126,9 @@ select.inputText {
 @media (max-width: 1255px) {
     .siteHeader.headerBox, .boxPage .leftPanel.leftPanel {
         position: absolute;
+    }
+    .siteHeader.headerBox.headerBox {
+        top: -50px;
     }
 }
 

@@ -11,7 +11,7 @@
             <a class="backWpr lFloat" ng-href="{{$root.back.url}}">
                 @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
             </a>
-            
+            <div class="searchTrigger searchBox" ng-click="$root.toggleSearch()">@SharedResources.Search</div>
             <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
                 @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
             </button>
@@ -48,11 +48,6 @@
             @{Html.RenderPartial("_BarActions");}
         </div>
     </header>
-
-    @*<div class="searchInputWpr searchBox" ng-click="$root.toggleSearch()">
-        @{Html.RenderPartial("_BarSearch");}
-    </div>*@
-    <div class="searchInputWpr searchBox" ng-click="$root.toggleSearch()">@SharedResources.Search</div>
 
     <div class="leftPanel lFloat">
         <div class="boxTop" data-letter="{{info.name[0]}}">

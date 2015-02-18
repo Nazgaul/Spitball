@@ -63,8 +63,8 @@
 .boxSideBar .bestUserList li:nth-child(n+4) {
   margin: 0 -40px;
 }
-.boxSideBar .bestUserList li:nth-child(4) {
-  margin-top: 65px;
+.boxSideBar .bestUserList li:nth-child(3) {
+  margin-bottom: 65px;
 }
 .boxSideBar .bestUserList .elps {
   max-width: 200px;

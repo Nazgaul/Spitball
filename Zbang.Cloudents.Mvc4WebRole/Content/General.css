@@ -1766,25 +1766,6 @@ select.inputText {
   margin-top: 8px;
   height: 48px;
 }
-.barActions ~ button .svg-inviteUser {
-  margin-top: 20px;
-}
-.barActions ~ button .svg-inviteUser:hover {
-  fill: #3399ff;
-}
-.inviteUsersBtn {
-  position: absolute;
-  left: 600px;
-}
-.boxPage .inviteUsersBtn {
-  left: 700px;
-  top: 12px;
-}
-.userPage .inviteUsersBtn {
-  right: 120px;
-  left: auto;
-  top: 5px;
-}
 .noResults {
   text-align: center !important;
   background: #fff;
@@ -1955,6 +1936,9 @@ select.inputText {
   .siteHeader.headerBox,
   .boxPage .leftPanel.leftPanel {
     position: absolute;
+  }
+  .siteHeader.headerBox.headerBox {
+    top: -50px;
   }
 }
 /*@media (max-width: 1024px) {
