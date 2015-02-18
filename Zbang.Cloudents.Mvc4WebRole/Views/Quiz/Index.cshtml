@@ -45,8 +45,7 @@
                 <div class="topUsersTxt">@QuizResources.TopThree</div>
                 <ol>
                     <li ng-repeat="user in quiz.topUsers" ng-class="{star: user.image}" class="topUser" tooltip="{{::user.name}}" tooltip-append-to-body="true">
-                        <img ng-if="user.image" alt="" ng-src="{{::user.image}} " />
-                        <span class="letter" data-letter="{{::user.name[0]}}"></span>
+                        <user-image name="user.name" image="user.image" width="37" height="37"></user-image>
                         @Html.Svg("~/Images/Defs.svg", "star")
                     </li>
                 </ol>
@@ -61,16 +60,6 @@
     </div>
 
     <div class="itemRight">
-
-        @*<div class="quizActionsWpr">
-            <a ng-href="{{quiz.boxUrl + '#quizzes'}}" class="backWpr elps" analytics-on="click" analytics-event="Back To Box" analytics-category="Quiz">
-                <div>@SharedResources.Backto</div>
-                <h2 class="semiFont elps">{{quiz.boxName}}</h2>
-                @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back" })
-            </a>
-            
-        </div>*@
-
         <div class="quizBanner" ng-bind-html="quiz.banner"></div>
         <div class="quizPrevWpr">
             <ul class="quizQList">
@@ -87,8 +76,7 @@
                         <ul class="quizComments">
                             <li ng-repeat="comment in question.comments">
                                 <button type="button" class="closeDialog" ng-click="deleteComment(question,comment)" ng-if="::comment.isDelete"></button>
-                                <img class="imgBorder" ng-if="::comment.userPicture" user-tooltip-popup="{{::comment.userId}}" width=" 32" height="32" alt="" ng-src="{{::comment.userPicture}}" />
-                                <span class="imgBorder" data-letter="{{::comment.userName[0]}}" user-tooltip-popup="{{::comment.userId}}"></span>
+                                <user-image id="comment.userId" name="comment.userName" image="comment.userPicture" width="32" height="32"></user-image>
                                 <span class="semiFont">{{::comment.userName}}</span>
                                 <span class="createTime" display-time="{{::comment.date}}"></span>
                                 <div class="commentTxt" ng-bind-html="::comment.text"></div>
@@ -96,8 +84,7 @@
                         </ul>
 
                         <div class="cTextAreaWpr">
-                            <img class="imgBorder lFloat" ng-if="::profile.userImage" src="" alt="" width="32" height="32" ng-src="{{::profile.userImage}}" />
-                            <span class="imgBorder lFloat" data-letter="{{::profile.userName[0]}}"></span>
+                            <user-image class="lFloat" name="profile.userName" image="profile.userImage" width="32" height="32"></user-image>
                             <textarea text-direction msd-elastic class="cTextArea" ng-placeholder="@SharedResources.WriteComment" ng-model="question.newComment"></textarea>
                             <button type="submit" ng-disabled="!question.newComment || question.newComment.length === 0" class="askBtn rFloat btn3" ng-click="createComment(question)" analytics-on="click" analytics-event="Create Comment" analytics-category="Quiz">@SharedResources.Comment</button>
                         </div>

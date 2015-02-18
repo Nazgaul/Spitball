@@ -476,10 +476,9 @@ body {
         top: 3px;
         display: none;
     }
-    .imgBorder {
+    .userImg, .userLetter {
         position: absolute;
         left:0;
-        border-radius: 50%;
     }
     .askBtn {
         //padding: 5px 15px 6px; //diff rtl
@@ -520,7 +519,7 @@ body {
     margin-top: 10px;
     padding-top: 10px;
     overflow: hidden; //for comment button to take up space
-    .imgBorder {
+    .userImg, .userLetter {
         left: 10px;
         width: 32px;
         height: 32px;
@@ -1016,11 +1015,11 @@ body {
             right: -10px; //rtl
         }
     }
-    img {
+    /*img {
         border-radius: 50%;
         height: 37px;
         width: 37px;
-    }
+    }*/
 }
 .distributionWpr {
     position: relative;
@@ -1097,13 +1096,9 @@ body {
         background: #fff;
         color: @color;
     }
-    img {
+    .userImg, .userLetter {
         display: inline-block;
-        margin-bottom: 1px;
-        border-radius: 50%;
-    }
-    > img:nth-of-type(odd) {
-        margin-right: 5px; //rtl
+        margin-bottom: 4px;
     }
 }
 .quizPopupTxtWpr {

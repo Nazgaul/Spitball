@@ -30,8 +30,7 @@
                 </div>
                 <ul class="fbFriendsList">
                     <li ng-repeat="friend in ::university.friends">
-                        <img ng-src="{{::friend.image}}" ng-if="::friend.image" class="lFloat userImg" width="34" height="34" tooltip="{{::friend.name}}" alt="{{::friend.name}}" />
-                        <span class="lFloat userLetter" data-letter="{{::friend.name[0]}}"></span>
+                        <user-image name="friend.name" image="friend.image" class="lFloat" width="34" height="34" tooltip="{{::friend.name}}"></user-image>
                     </li>
                 </ul>
             </li>

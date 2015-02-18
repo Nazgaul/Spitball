@@ -364,17 +364,6 @@
   font-size: 35px;
   line-height: 46px;
 }
-.friendsPics img + .letter {
-  display: none;
-}
-.friendsPics .letter {
-  display: inline-block;
-  margin-bottom: 1px;
-  border-radius: 50%;
-}
-.friendsPics > span:nth-of-type(odd) {
-  margin-left: 5px;
-}
 /*#endregion */
 /*#region Quiz page */
 .topUser [data-letter]:before {
@@ -388,14 +377,6 @@
   font-size: 28px;
   line-height: 34px;
 }
-.topUser img + .letter {
-  display: none;
-}
-.topUser .letter {
-  border-radius: 50%;
-  height: 37px;
-  width: 37px;
-}
 /*#endregion */
 /*#region Quiz Comments */
 .commentWpr [data-letter]:before {
@@ -408,9 +389,6 @@
 .commentWpr .heb:before {
   font-size: 22px;
   line-height: 28px;
-}
-.commentWpr .imgBorder + .imgBorder {
-  display: none;
 }
 /*#endregion */
 /*#region Box */
@@ -442,9 +420,6 @@
 .invItem .heb:before {
   font-size: 25px;
   line-height: 30px;
-}
-.singleEmailUserWpr .eSingleImg + .eSingleImg {
-  display: none;
 }
 .invItem .friendImg + .friendImg {
   display: none;

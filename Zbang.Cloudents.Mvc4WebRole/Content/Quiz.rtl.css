@@ -424,10 +424,10 @@ body.quiz .modal-backdrop.in {
   top: 3px;
   display: none;
 }
-.commentWpr .imgBorder {
+.commentWpr .userImg,
+.commentWpr .userLetter {
   position: absolute;
   right: 0;
-  border-radius: 50%;
 }
 .commentWpr .askBtn {
   padding: 6px 15px 7px;
@@ -464,7 +464,8 @@ body.quiz .modal-backdrop.in {
   padding-top: 10px;
   overflow: hidden;
 }
-.cTextAreaWpr .imgBorder {
+.cTextAreaWpr .userImg,
+.cTextAreaWpr .userLetter {
   right: 10px;
   width: 32px;
   height: 32px;
@@ -946,7 +947,12 @@ body.quiz .modal-backdrop.in {
   background: url(/Images/quizSprite.png?v=4) 100% -613px no-repeat;
   display: inline-block;
   position: relative;
-  vertical-align: top;
+  vertical-align: top
+  /*img {
+        border-radius: 50%;
+        height: 37px;
+        width: 37px;
+    }*/
 }
 .topUser:nth-child(2) {
   margin: 0 40px;
@@ -965,11 +971,6 @@ body.quiz .modal-backdrop.in {
   fill: #ffc104;
   top: -7px;
   left: -10px;
-}
-.topUser img {
-  border-radius: 50%;
-  height: 37px;
-  width: 37px;
 }
 .distributionWpr {
   position: relative;
@@ -1047,13 +1048,10 @@ body.quiz .modal-backdrop.in {
   background: #fff;
   color: #0f9d58;
 }
-.friendsPics img {
+.friendsPics .userImg,
+.friendsPics .userLetter {
   display: inline-block;
-  margin-bottom: 1px;
-  border-radius: 50%;
-}
-.friendsPics > img:nth-of-type(odd) {
-  margin-left: 5px;
+  margin-bottom: 4px;
 }
 .quizPopupTxtWpr {
   display: inline-block;
