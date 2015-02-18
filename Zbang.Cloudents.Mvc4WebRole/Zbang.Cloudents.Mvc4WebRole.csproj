@@ -720,6 +720,12 @@
     <Content Include="Content\Quiz.rtl.css">
       <DependentUpon>Quiz.css</DependentUpon>
     </Content>
+    <Content Include="Content\RtlFix.css">
+      <DependentUpon>RtlFix.less</DependentUpon>
+    </Content>
+    <Content Include="Content\RtlFix.rtl.css">
+      <DependentUpon>RtlFix.css</DependentUpon>
+    </Content>
     <Content Include="Content\Search.css">
       <DependentUpon>Search.less</DependentUpon>
     </Content>
@@ -1153,6 +1159,7 @@
     <Content Include="Content\textAngular.less" />
     <Content Include="Content\lang.ar-AE.less" />
     <Content Include="Content\Letter.less" />
+    <Content Include="Content\RtlFix.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
