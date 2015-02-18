@@ -6,10 +6,7 @@
     <section class="boxFeed lFloat">
         <form class="feedForm" name="qnaQform" focus-form="feedOpen"
               ng-submit="postQuestion(qnaQform.$valid)" novalidate>
-
             <user-image name="data.userName" image="data.userImage" class="lFloat" width="40" height="40"></user-image>
-            @*<img ng-if="data.userImage" ng-src="{{::data.userImage}}" class="feedImg lFloat" alt="" width="40" height="40" />
-            <span class="lFloat" data-letter="{{::data.userName[0]}}"></span>*@
             <textarea text-direction name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" ng-model="qFormData.content"
                       ng-focus="checkAuth()" focus-on="newQuestion"></textarea>
             <ul class="attachedList">
@@ -29,11 +26,7 @@
 
         <ul class="boxFeedList">
             <li ng-repeat="question in data.questions track by question.id" ng-class="{hasAttached: question.files.length}">
-                @*<img class="userImg feedImg lFloat" alt="" width="40" height="40" ng-src="{{::question.userImage}}" user-tooltip-popup="{{::question.userId}}" />
-                <span class="lFloat" data-letter="{{::question.userName[0]}}" user-tooltip-popup="{{::question.userId}}"></span>*@
-                <user-image id="question.userId" name="question.userName" image="question.userImage" 
-                            class="lFloat" width="40" height="40"></user-image>
-
+                <user-image id="question.userId" name="question.userName" image="question.userImage" class="lFloat" width="40" height="40"></user-image>
                 <div class="feedWpr">
                     <time class="createTime rFloat" display-time="{{::question.createTime}}"></time>
                     <div class="userName elps">{{::question.userName}}</div>
@@ -66,10 +59,8 @@
                 </div>
                 <ul class="feedReplies rFloat">
                     <li ng-repeat="answer in question.answers track by answer.id">
-                        @*<img class="feedImg rFloat" user-tooltip-popup="{{::answer.userId}}" ng-if="answer.userImage" ng-src="{{::answer.userImage}}" alt="" width="40" height="40" />
-                        <span class="rFloat" data-letter="{{::answer.userName[0]}}" user-tooltip-popup="{{::answer.userId}}"></span>*@
                         <user-image id="answer.userId" name="answer.userName" image="answer.userImage"
-                                    class-image="feedImg rFloat" class-letter="rFloat" width="40" height="40"></user-image>
+                                    class="rFloat" width="40" height="40"></user-image>
                         <div class="feedWpr">
                             <time class="createTime rFloat" display-time="{{::answer.createTime}}"></time>
                             <div class="userName elps">{{::answer.userName}}</div>
@@ -91,10 +82,8 @@
                     </li>
                 </ul>
                 <form ng-if="question.displayComment" name="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
-                    @*<img class="feedImg rFloat" ng-src="{{::data.userImage}}" alt="" width="40" height="40" />
-                    <span class="rFloat" data-letter="{{::data.userName[0]}}"></span>*@
                     <user-image id="data.userId" name="data.userName" image="data.userImage"
-                                class-image="feedImg rFloat" class-letter="rFloat" width="40" height="40"></user-image>
+                                class="rFloat" width="40" height="40"></user-image>
                     <textarea text-direction name="content" class="feedTA" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()" focus-on="{{'answer' + $index}}"></textarea>
                     <ul class="attachedList">
                         <li class="attachedItem" ng-repeat="file in question.aFormData.files">
@@ -126,10 +115,7 @@
             <ol class="bestUserList">
                 <li ng-if="::leaderBoard.first" class="firstUser">
                     <a ng-href="{{::leaderBoard.first.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked first place">                        
-                        <user-image id="leaderBoard.first.id" name="leaderBoard.first.name" image="leaderBoard.first.image"
-                                    class-image="top3img" width="48" height="48"></user-image>
-                        @*<img class="top3Img" ng-if="leaderBoard.first.image" ng-src="{{::leaderBoard.first.image}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.first.id}}" />
-                        <span data-letter="{{::leaderBoard.first.name[0]}}" user-tooltip-popup="{{::leaderBoard.first.id}}"></span>*@
+                        <user-image id="leaderBoard.first.id" name="leaderBoard.first.name" image="leaderBoard.first.image" width="48" height="48"></user-image>
                     </a>
 
                     <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.first.score | kNumber}}</div>
@@ -137,10 +123,7 @@
                 <li ng-switch="leaderBoard.secondExist" class="lFloat">
                     <div ng-switch-when="true" class="secondUser">
                         <a ng-href="{{::leaderBoard.second.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked second place">
-                            @*<img class="top3Img" ng-if="leaderBoard.second.image" ng-src="{{::leaderBoard.second.image}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.second.id}}" />
-                            <span data-letter="{{::leaderBoard.second.name[0]}}" user-tooltip-popup="{{::leaderBoard.second.id}}"></span>*@
-                            <user-image id="leaderBoard.second.id" name="leaderBoard.second.name" image="leaderBoard.second.image"
-                                        class-image="top3img" width="48" height="48"></user-image>
+                            <user-image id="leaderBoard.second.id" name="leaderBoard.second.name" image="leaderBoard.second.image" width="48" height="48"></user-image>
                         </a>
                         <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.second.score | kNumber}}</div>
                     </div>
@@ -152,11 +135,7 @@
                 <li ng-switch="leaderBoard.thirdExist" class="rFloat">
                     <div ng-switch-when="true" class="thirdUser">
                         <a ng-href="{{::leaderBoard.third.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked third place">
-                            @*<img class="top3Img" ng-if="leaderBoard.third.image" ng-src="{{::leaderBoard.third.image}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.third.id}}" />
-                            <span data-letter="{{::leaderBoard.third.name[0]}}" user-tooltip-popup="{{::leaderBoard.third.id}}"></span>*@
-                            <user-image id="leaderBoard.third.id" name="leaderBoard.third.name" image="leaderBoard.third.image"
-                                        class-image="top3img" width="48" height="48"></user-image>
-
+                            <user-image id="leaderBoard.third.id" name="leaderBoard.third.name" image="leaderBoard.third.image" width="48" height="48"></user-image>
                         </a>
                         <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.third.score | kNumber}}</div>
                     </div>
@@ -167,8 +146,6 @@
 
                 <li ng-if="::leaderBoard.fourth" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked fourth place">
                     <a ng-href="{{::leaderBoard.fourth.url}}">
-                        @*<img ng-if="leaderBoard.fourth.image" ng-src="{{::leaderBoard.fourth.image}}" user-tooltip-popup="{{::leaderBoard.fourth.id}}" alt="" width="38" height="38" />
-                        <span data-letter="{{::leaderBoard.fourth.name[0]}}" user-tooltip-popup="{{::leaderBoard.fourth.id}}"></span>*@
                         <user-image id="leaderBoard.fourth.id" name="leaderBoard.fourth.name" image="leaderBoard.fourth.image" width="38" height="38"></user-image>
 
                     </a>
@@ -177,10 +154,7 @@
                 </li>
                 <li ng-if="::leaderBoard.fifth">
                     <a ng-href="{{::leaderBoard.fifth.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked fifth place">
-                        @*<img ng-if="leaderBoard.fifth.image" ng-src="{{::leaderBoard.fifth.image}}" user-tooltip-popup="{{::leaderBoard.fifth.id}}" alt="" width="38" height="38" />
-                        <span data-letter="{{::leaderBoard.fifth.name[0]}}" user-tooltip-popup="{{::leaderBoard.fifth.id}}"></span>*@
                         <user-image id="leaderBoard.fifth.id" name="leaderBoard.fifth.name" image="leaderBoard.fifth.image" width="38" height="38"></user-image>
-
                     </a>
                     <span class="elps">{{::leaderBoard.fifth.name}}</span>
                     <span class="rep">{{::leaderBoard.fifth.score | kNumber}}</span>
@@ -199,7 +173,6 @@
                                 <span class="prof elps">{{::course.professor}}</span>
                                 <span class="elps">{{::course.courseCode}}</span>
                             </div>
-                            @*<img alt="" width="48" height="48" ng-src="{{::course.picture}}" />*@
                         </div>
                         <div class="rcStats">
                             <div class="friends" data-friends-count="{{::course.membersCount}}">

@@ -29,9 +29,6 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.userImg + .userLetter {
-  display: none !important;
-}
 /*#region letters on boxes/courses/quizzes */
 .box [data-letter]:before,
 .recommended [data-letter]:before {

@@ -24,8 +24,7 @@
                 <ol class="bestUserList">
                     <li ng-if="::leaderBoard.first" class="firstUser">
                         <a ng-href="{{::leaderBoard.first.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Dashboard Leaderboard" analytics-label="User clicked first place">
-                            <img class="userImg" ng-if="leaderBoard.first.image" ng-src="{{::leaderBoard.first.image}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.first.id}}" />
-                            <span class="userLetter" data-letter="{{::leaderBoard.first.name[0]}}" user-tooltip-popup="{{::leaderBoard.first.id}}"></span>
+                            <user-image id="leaderBoard.first.id" name="leaderBoard.first.name" image="leaderBoard.first.image" width="48" height="48"></user-image>
                         </a>
                         
                         <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.first.score | kNumber}}</div>
@@ -33,8 +32,7 @@
                     <li ng-switch="::leaderBoard.secondExist" class="lFloat">
                         <div ng-switch-when="true" class="secondUser">
                             <a ng-href="{{::leaderBoard.second.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Dashboard Leaderboard" analytics-label="User clicked second place">
-                                <img class="userImg" ng-if="leaderBoard.second.image" ng-src="{{::leaderBoard.second.image}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.second.id}}" />
-                                <span class="userLetter" data-letter="{{::leaderBoard.second.name[0]}}" user-tooltip-popup="{{::leaderBoard.second.id}}"></span>
+                                <user-image id="leaderBoard.second.id" name="leaderBoard.second.name" image="leaderBoard.second.image" width="48" height="48"></user-image>
                             </a>
                             <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.second.score | kNumber}}</div>
                         </div>
@@ -46,8 +44,7 @@
                     <li ng-switch="::leaderBoard.thirdExist" class="rFloat">
                         <div ng-switch-when="true" class="thirdUser">
                             <a ng-href="{{::leaderBoard.third.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Dashboard Leaderboard" analytics-label="User clicked third place">
-                                <img class="userImg" ng-if="leaderBoard.third.image" ng-src="{{::leaderBoard.third.image}}" alt="" width="48" height="48" user-tooltip-popup="{{::leaderBoard.third.id}}" />
-                                <span class="userLetter" data-letter="{{::leaderBoard.third.name[0]}}" user-tooltip-popup="{{::leaderBoard.third.id}}"></span>
+                                <user-image id="leaderBoard.third.id" name="leaderBoard.third.name" image="leaderBoard.third.image" width="48" height="48"></user-image>
                             </a>
                             <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.third.score | kNumber}}</div>
                         </div>
@@ -56,8 +53,6 @@
                         </div>
                     </li>
                 </ol>
-
-                @*<div class="podium"></div>*@
 
                 <div class="lbEmpty">
                     <div class="lbEmptyTxtWpr">
