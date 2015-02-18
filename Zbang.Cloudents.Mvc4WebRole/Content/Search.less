@@ -1,58 +1,39 @@
 ﻿@import "varsAndMixins";
 
-.dashInitial(){
-    //width: 365px;
-	//height: 32px;
-	//left: 500px; //rtl
-    top: 50px;
-    left: -100%;
-}
-.userInitial(){
-    left:0;right:0;
-    margin: auto;
-    top: 72px;
-    position: absolute;
-}
-.libInitial() {
-    left: 550px;
-}
-.boxInitial() {
-    left: 320px;
-    z-index: 11;
-    top: 9px;
-    position: fixed;
-}
 .searchInputWpr {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 365px;
+	height: 32px;
+    //max-width: 460px;
+    //width: ~'-webkit-calc(100% - 320px)';
+    //width: ~'calc(100% - 320px)';
+    border: 1px solid @borderColor;
     border-radius: 16px;
-	position: absolute;
-    top: 17px;
-	z-index: 4; //under aside which is 5
-    margin:0;
+    margin: 17px 20px 0 20px;
     line-height: normal;
     background: #fff;
     color: @borderColor;
     padding: 4px 10px;
     font-size: 18px;
+    z-index: 4; //under aside which is 5
     .boxSizing;
-
-    width: 365px;
-	height: 32px;
-	left: 500px; //rtl
-
-    &.searchUser {
-        .userInitial; 
+    .headerBox &  {
+        margin-top: 9px; //override
+    }
+    &.searchUser { 
+        margin-top: 23px;
         + button .svg-inviteUser {
             position: relative;
             top: -9px;
         }
     }
-    &.searchLib {
-       .libInitial 
-    }
-    &.searchBox {
-        .boxInitial
-    }
-    
+}
+.searchBtn {
+    position: absolute;
+    right: 10px; //rtl
+    top: 6px;
 }
 .searchPopup {
     //position: fixed;
@@ -65,7 +46,7 @@
     //border-radius: 0;
     background: #f1f1f1;
     z-index: 12;
-    .transition(transform 1s);
+    .transition(transform .5s);
     /*-webkit-transform-origin: 0 0;
     transform-origin: 0 0;
     -webkit-transition-property: height, width, top, left;
@@ -77,7 +58,7 @@
     .boxSizing;
 
     ~ .bodyContent {
-        //overflow: hidden;
+        overflow: hidden;
         .siteHeader {
             //display: none; //this kills the transition
             //visibility: hidden;
@@ -477,7 +458,7 @@
 	}*/
 	.column {
 		float: none;
-		width: auto;
+		//width: auto;
 		padding: 0 0 2em;
         width: 100%;
 	}

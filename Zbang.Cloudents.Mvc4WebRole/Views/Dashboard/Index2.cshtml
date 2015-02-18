@@ -6,7 +6,7 @@
     @{Html.RenderPartial("_Header");}
 </header>
 <div id="dashboard" class="page dashboard">
-    <div class="searchInputWpr searchDash" ng-click="$root.toggleSearch()">@SharedResources.Search</div>
+    
     <div class="dashContent">
         <aside class="asideDash lFloat">
             <a class="dashLibTop" href="@Url.RouteUrl("LibraryDesktop",null)">
@@ -98,6 +98,7 @@
                 <div class="dhContent">
                     @{Html.RenderPartial("_BarActions");}
                     <span class="dhText">@SharedResources.Dashboard</span>
+                    <div class="searchInputWpr searchDash" ng-click="$root.toggleSearch()">@SharedResources.Search</div>
                     <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
                         @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
                     </button>
