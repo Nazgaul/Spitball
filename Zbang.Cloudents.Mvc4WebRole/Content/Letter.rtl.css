@@ -81,25 +81,40 @@
   line-height: 84px;
   font-size: 76px;
 }
+.boxTop[data-letter]:before {
+  width: 74px;
+  height: 74px;
+  line-height: 74px;
+  right: 0;
+  left: 0;
+  bottom: auto;
+  margin: auto;
+  font-size: 45px;
+}
+.boxTop.heb:before {
+  line-height: 67px;
+  font-size: 52px;
+}
 /*#endregion */
-.bestUserList [data-letter]:before,
-.boxFeed [data-letter]:before,
-.userTooltip [data-letter]:before,
-.profileInfo [data-letter]:before,
-.memberItem [data-letter]:before,
-.friendsPics [data-letter]:before,
-.topUser [data-letter]:before,
-.commentWpr [data-letter]:before,
-.singleEmailUserWpr [data-letter]:before,
-.boxFeed .socialList [data-letter]:before,
-.notifyItem [data-letter]:before,
-.upTop [data-letter]:before,
-.upFriends [data-letter]:before,
-.upInvites [data-letter]:before,
-.upMembersList [data-letter]:before,
-.upTabContent [data-letter]:before,
-.fbFriendsList [data-letter]:before,
-.userAnchor [data-letter]:before {
+/*#region letter color / background color */
+.bestUserList .userLetter:before,
+.boxFeed .userLetter:before,
+.userTooltip .userLetter:before,
+.profileInfo .userLetter:before,
+.memberItem .userLetter:before,
+.friendsPics .userLetter:before,
+.topUser .userLetter:before,
+.commentWpr .userLetter:before,
+.singleEmailUserWpr .userLetter:before,
+.boxFeed .socialList .userLetter:before,
+.notifyItem .userLetter:before,
+.upTop .userLetter:before,
+.upFriends .userLetter:before,
+.upInvites .userLetter:before,
+.upMembersList .userLetter:before,
+.upTabContent .userLetter:before,
+.fbFriendsList .userLetter:before,
+.userAnchor .userLetter:before {
   border: 1px solid #c2c2c2;
   background: #eee;
 }
@@ -287,8 +302,9 @@
 .color8:before {
   background: #00c853;
 }
+/*#endregion */
 /*#region bestUser List */
-.bestUserList [data-letter]:before {
+.bestUserList .userLetter:before {
   position: static;
   width: 50px;
   height: 50px;
@@ -302,7 +318,7 @@
   font-size: 35px;
   line-height: 46px;
 }
-.bestUserList li:nth-of-type(n + 4) [data-letter]:before {
+.bestUserList li:nth-of-type(n + 4) .userLetter:before {
   width: 38px;
   height: 38px;
   line-height: 38px;
@@ -314,7 +330,7 @@
 }
 /*#endregion */
 /*#region user tooltip */
-.userTooltip [data-letter]:before {
+.userTooltip .userLetter:before {
   font-size: 36px;
   width: 70px;
   height: 70px;
@@ -327,7 +343,7 @@
 }
 /*#endregion */
 /*#region Settings */
-.profileInfo [data-letter]:before {
+.profileInfo .userLetter:before {
   position: static;
   width: 100px;
   height: 100px;
@@ -340,7 +356,7 @@
 }
 /*#endregion */
 /*#region Box -> Members tab */
-.memberItem [data-letter]:before {
+.memberItem .userLetter:before {
   position: static;
   width: 34px;
   height: 34px;
@@ -353,7 +369,7 @@
 }
 /*#endregion */
 /*#region Quiz Dialog */
-.friendsPics [data-letter]:before {
+.friendsPics .userLetter:before {
   position: static;
   width: 51px;
   height: 51px;
@@ -366,7 +382,7 @@
 }
 /*#endregion */
 /*#region Quiz page */
-.topUser [data-letter]:before {
+.topUser .userLetter:before {
   position: static;
   width: 37px;
   height: 37px;
@@ -379,7 +395,7 @@
 }
 /*#endregion */
 /*#region Quiz Comments */
-.commentWpr [data-letter]:before {
+.commentWpr .userLetter:before {
   position: static;
   width: 30px;
   height: 30px;
@@ -391,25 +407,9 @@
   line-height: 28px;
 }
 /*#endregion */
-/*#region Box */
-.boxTop[data-letter]:before {
-  width: 74px;
-  height: 74px;
-  line-height: 74px;
-  right: 0;
-  left: 0;
-  bottom: auto;
-  margin: auto;
-  font-size: 45px;
-}
-.boxTop.heb:before {
-  line-height: 67px;
-  font-size: 52px;
-}
-/*#endregion */
 /*#region Message popup; Share */
-.singleEmailUserWpr [data-letter]:before,
-.invItem [data-letter]:before {
+.singleEmailUserWpr .userLetter:before,
+.invItem .userLetter:before {
   position: static;
   width: 34px;
   height: 34px;
@@ -423,11 +423,11 @@
 }
 /*#endregion */
 /*#region Social List */
-.socialList [data-letter] {
+.socialList .userLetter {
   margin-bottom: 3px;
   display: inline-block;
 }
-.socialList [data-letter]:before {
+.socialList .userLetter:before {
   position: static;
   width: 64px;
   height: 64px;
@@ -440,7 +440,7 @@
 }
 /*#endregion */
 /*#region Notify */
-.notifyItem [data-letter]:before {
+.notifyItem .userLetter:before {
   width: 72px;
   height: 72px;
   line-height: 72px;
@@ -452,7 +452,7 @@
 }
 /*#endregion */
 /*#region User page */
-.upTop [data-letter]:before {
+.upTop .userLetter:before {
   width: 100px;
   height: 100px;
   line-height: 100px;
@@ -463,12 +463,12 @@
   line-height: 87px;
   font-size: 80px;
 }
-.upFriends [data-letter],
-.upInvites [data-letter] {
+.upFriends .userLetter,
+.upInvites .userLetter {
   margin-bottom: 10px;
 }
-.upFriends [data-letter]:before,
-.upInvites [data-letter]:before {
+.upFriends .userLetter:before,
+.upInvites .userLetter:before {
   width: 74px;
   height: 74px;
   line-height: 74px;
@@ -481,8 +481,8 @@
   line-height: 67px;
   font-size: 52px;
 }
-.upMembersList [data-letter]:before,
-.upTabContent [data-letter]:before {
+.upMembersList .userLetter:before,
+.upTabContent .userLetter:before {
   position: static;
   width: 34px;
   height: 34px;
@@ -499,7 +499,7 @@
 }
 /*#endregion */
 /*#region SelectUni - fbFriendsList */
-.fbFriendsList [data-letter]:before {
+.fbFriendsList .userLetter:before {
   position: static;
   width: 34px;
   height: 34px;
@@ -512,7 +512,7 @@
 }
 /*#endregion */
 /*#region box feed */
-.boxFeed [data-letter]:before {
+.boxFeed .userLetter:before {
   width: 40px;
   height: 40px;
   line-height: 40px;
@@ -528,7 +528,7 @@
 }
 /*#endregion */
 /*#region Site header user image */
-.userAnchor [data-letter]:before {
+.userAnchor .userLetter:before {
   width: 36px;
   height: 36px;
   line-height: 36px;

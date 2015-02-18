@@ -64,7 +64,6 @@
     position: relative;
     width: 94px;
     height: 94px;
-    //overflow: hidden;
     &[data-letter]:before {
         content:attr(data-letter);
         width: 94px;
@@ -78,15 +77,31 @@
         font-size: 76px;
     }
 }
-
+.boxTop {
+    &[data-letter]:before {
+        width: 74px;
+        height: 74px;
+        line-height: 74px;
+        left:0;right:0;
+        bottom: auto; //override
+        margin: auto;
+        font-size: 45px;
+    }
+    &.heb:before {
+        line-height: 67px;
+        font-size: 52px;
+    }
+}
 /*#endregion */
+
+/*#region letter color / background color */
 
 //The following are the user image classes 
 .bestUserList, .boxFeed, .userTooltip, .profileInfo, .memberItem,
 .friendsPics, .topUser, .commentWpr, .singleEmailUserWpr, .boxFeed
 .socialList, .notifyItem, .upTop, .upFriends, .upInvites,
 .upMembersList, .upTabContent, .fbFriendsList, .userAnchor {
-    [data-letter] {
+    .userLetter {
         &:before {
             border: 1px solid @borderColor;
             background: #eee;
@@ -174,9 +189,11 @@
         background: #00c853;
     }     
 }
+/*#endregion */
+
 /*#region bestUser List */
 .bestUserList {
-    [data-letter] {
+    .userLetter {
         &:before {
             position: static;
             width: 50px;
@@ -191,7 +208,7 @@
         line-height: 46px;
     }
     li:nth-of-type(n + 4) {
-        [data-letter] {
+        .userLetter {
             &:before {
                 width: 38px;
                 height: 38px;
@@ -209,7 +226,7 @@
 
 /*#region user tooltip */
 .userTooltip {
-    [data-letter]:before {
+    .userLetter:before {
         font-size: 36px;
         width: 70px;
         height: 70px;
@@ -226,7 +243,7 @@
 
 /*#region Settings */
 .profileInfo {
-    [data-letter] {
+    .userLetter {
         &:before {
             position: static;
             width: 100px;
@@ -245,7 +262,7 @@
 
 /*#region Box -> Members tab */
 .memberItem {
-    [data-letter] {
+    .userLetter {
         &:before {
             position: static;
             width: 34px;
@@ -264,7 +281,7 @@
 
 /*#region Quiz Dialog */
 .friendsPics {
-    [data-letter] {
+    .userLetter {
         &:before {
             position: static;
             width: 51px;
@@ -272,7 +289,6 @@
             line-height: 51px;
             font-size: 30px;
         }
-        
     }
     .heb:before {
         font-size: 35px;
@@ -283,68 +299,43 @@
 
 /*#region Quiz page */
 .topUser {
-    [data-letter] {
+    .userLetter {
         &:before {
             position: static;
             width: 37px;
             height: 37px;
             line-height: 37px;
             font-size: 25px;
-        }
-        
+        }  
     }
     .heb:before {
         font-size: 28px;
         line-height: 34px;
     }
 }
-
-
 /*#endregion */
 
 /*#region Quiz Comments */
 .commentWpr {
-    [data-letter] {
+    .userLetter {
         &:before {
             position: static;
             width: 30px;
             height: 30px;
             line-height: 30px;
             font-size: 20px;
-        }
-        
+        } 
     }
     .heb:before {
         font-size: 22px;
         line-height: 28px;
     }
 }
-
-/*#endregion */
-
-/*#region Box */
-.boxTop {
-    &[data-letter]:before {
-        width: 74px;
-        height: 74px;
-        line-height: 74px;
-        left:0;right:0;
-        bottom: auto; //override
-        margin: auto;
-        font-size: 45px;
-    }
-    &.heb:before {
-        line-height: 67px;
-        font-size: 52px;
-    }
-}
-
-
 /*#endregion */
 
 /*#region Message popup; Share */
 .singleEmailUserWpr, .invItem {
-    [data-letter] {
+    .userLetter {
         &:before {
             position: static;
             width: 34px;
@@ -360,9 +351,10 @@
     }
 }
 /*#endregion */
+
 /*#region Social List */
 .socialList {
-    [data-letter] {
+    .userLetter {
         margin-bottom: 3px;
         display: inline-block;
         &:before {
@@ -381,9 +373,10 @@
 }
 
 /*#endregion */
+
 /*#region Notify */
 .notifyItem {
-    [data-letter] {
+    .userLetter {
         &:before {
             width: 72px;
             height: 72px;
@@ -397,9 +390,10 @@
     }
 }
 /*#endregion */
+
 /*#region User page */
 .upTop {
-    [data-letter] {
+    .userLetter {
         &:before {
             width: 100px;
             height: 100px;
@@ -414,7 +408,7 @@
     }
 }
 .upFriends, .upInvites {
-    [data-letter] {
+    .userLetter {
         margin-bottom: 10px;
         &:before {
             width: 74px;
@@ -431,7 +425,7 @@
     }
 }
 .upMembersList, .upTabContent {
-    [data-letter] {
+    .userLetter {
         &:before {
             position: static;
             width: 34px;
@@ -450,7 +444,7 @@
 
 /*#region SelectUni - fbFriendsList */
 .fbFriendsList {
-    [data-letter] {
+    .userLetter {
         &:before {
             position: static;
             width: 34px;
@@ -469,7 +463,7 @@
 
 /*#region box feed */
 .boxFeed {
-    [data-letter] {
+    .userLetter {
         &:before {
             width: 40px;
             height: 40px;
@@ -488,7 +482,7 @@
 
 /*#region Site header user image */
 .userAnchor {
-    [data-letter] {
+    .userLetter {
         &:before {
             width: 36px;
             height: 36px;
