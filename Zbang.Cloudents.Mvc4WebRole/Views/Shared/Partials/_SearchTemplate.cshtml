@@ -15,7 +15,7 @@
             <div class="elps">{{::quiz.boxname}} - {{::quiz.uniName}}</div>
             <div class="content" ng-bind-html="::quiz.content"></div>
         </div>
-        <div class="searchImg" data-letter="{{::quiz.name[0]}}">
+        <div class="searchImg" data-letter="{{::quiz.nameWithoutHighLight[0]}}">
             @Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })
             <div class="elps boxName">{{::quiz.nameWithoutHighLight}}</div>           
         </div>
