@@ -68,11 +68,17 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                  }
                  catch (SqlException ex)
                  {
-                     m_MailComponent.GenerateAndSendEmail(new[] { "ram@cloudents.com", "eidan@cloudents.com" },
-                     "failed connect to remove db " + ex);
+                     m_MailComponent.GenerateAndSendEmail(new[] {"ram@cloudents.com", "eidan@cloudents.com"},
+                         "failed connect to remove db " + ex);
                      return Task.FromResult(false);
                  }
-             }, TimeSpan.FromMinutes(1), int.MaxValue);
+                 catch (Exception ex)
+                 {
+                     m_MailComponent.GenerateAndSendEmail(new[] { "ram@cloudents.com", "eidan@cloudents.com" },
+                         "Cant pass order");
+                     return Task.FromResult(false);
+                 }
+             }, TimeSpan.FromMinutes(1), 2000);
         }
 
         private void ProcessContactUs(StoreContactData contactUs)
@@ -84,59 +90,60 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private void ProcessOrder(StoreOrderData order)
         {
-            var productDetail = m_ZboxReadService.GetProductCheckOut(new ViewModel.Queries.GetStoreProductQuery(order.ProdcutId)).Result;
-
-            var features = new KeyValuePair<string, string>[6];
-            int index = 0;
-            float totalFeaturePrice = 0;
-            //order.Features
-            if (productDetail.Features != null)
-                foreach (var feature in productDetail.Features.Where(w => order.Features != null && order.Features.Contains(w.Id)))
-                {
-                    features[index] = new KeyValuePair<string, string>(feature.Category,
-                        feature.Description + "*" + feature.Price + "*");
-                    index++;
-                    totalFeaturePrice += feature.Price.HasValue ? feature.Price.Value : 0;
-                }
-            for (int i = index; i < 6; i++)
-            {
-                features[i] = new KeyValuePair<string, string>(string.Empty, string.Empty);
-            }
-
-
-            var retVal = m_WriteService.InsertOrder(new OrderSubmitDto(
-                  order.ProdcutId,
-                  order.IdentificationNumber,
-                  order.FirstName,
-                  order.LastName,
-                  order.Address,
-                  order.CardHolderIdentificationNumber,
-                  order.Notes,
-                  order.City,
-                  order.CreditCardNameHolder,
-                  order.CreditCardNumber,
-                  order.CreditCardExpiration,
-                  order.Cvv,
-                  order.UniversityId,
-                  features[0].Key, features[0].Value,
-                  features[1].Key, features[1].Value,
-                  features[2].Key, features[2].Value,
-                  features[3].Key, features[3].Value,
-                  features[4].Key, features[4].Value,
-                  features[5].Key, features[5].Value,
-                  order.Email,
-                  order.Phone,
-                  order.Phone2,
-                  totalFeaturePrice,
-                  order.NumberOfPayment));
             try
             {
+                var productDetail = m_ZboxReadService.GetProductCheckOut(new ViewModel.Queries.GetStoreProductQuery(order.ProdcutId)).Result;
+
+                var features = new KeyValuePair<string, string>[6];
+                int index = 0;
+                float totalFeaturePrice = 0;
+                //order.Features
+                if (productDetail.Features != null)
+                    foreach (var feature in productDetail.Features.Where(w => order.Features != null && order.Features.Contains(w.Id)))
+                    {
+                        features[index] = new KeyValuePair<string, string>(feature.Category,
+                            feature.Description + "*" + feature.Price + "*");
+                        index++;
+                        totalFeaturePrice += feature.Price.HasValue ? feature.Price.Value : 0;
+                    }
+                for (int i = index; i < 6; i++)
+                {
+                    features[i] = new KeyValuePair<string, string>(string.Empty, string.Empty);
+                }
+
+
+                var retVal = m_WriteService.InsertOrder(new OrderSubmitDto(
+                      order.ProdcutId,
+                      order.IdentificationNumber,
+                      order.FirstName,
+                      order.LastName,
+                      order.Address,
+                      order.CardHolderIdentificationNumber,
+                      order.Notes,
+                      order.City,
+                      order.CreditCardNameHolder,
+                      order.CreditCardNumber,
+                      order.CreditCardExpiration,
+                      order.Cvv,
+                      order.UniversityId,
+                      features[0].Key, features[0].Value,
+                      features[1].Key, features[1].Value,
+                      features[2].Key, features[2].Value,
+                      features[3].Key, features[3].Value,
+                      features[4].Key, features[4].Value,
+                      features[5].Key, features[5].Value,
+                      order.Email,
+                      order.Phone,
+                      order.Phone2,
+                      totalFeaturePrice,
+                      order.NumberOfPayment));
+
                 m_MailComponent.GenerateAndSendEmail(order.Email,
                     new StoreOrder(order.FirstName + " " + order.LastName, retVal.ProductName, retVal.OrderId));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On sending email store order orderid: " + retVal.OrderId + " email: " + order.Email, ex);
+                TraceLog.WriteError("On sending email store " +  " email: " + order.Email, ex);
             }
         }
 

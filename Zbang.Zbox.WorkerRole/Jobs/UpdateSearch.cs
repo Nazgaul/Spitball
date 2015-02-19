@@ -74,12 +74,12 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private async Task ExecuteAsync()
         {
 
-            var index = GetIndex();
-            //var quizUpdate = await UpdateQuiz();
-            var itemUpdate = await UpdateItem(index);
-            //var universityUpdate = await UpdateUniversity();
-            //var boxUpdate = await UpdateBox();
-            if (itemUpdate /* ||  boxUpdate || universityUpdate || quizUpdate*/)
+            //var index = GetIndex();
+            var quizUpdate = await UpdateQuiz();
+            //var itemUpdate = await UpdateItem(index);
+            var universityUpdate = await UpdateUniversity();
+            var boxUpdate = await UpdateBox();
+            if (/*itemUpdate  ||*/  boxUpdate || universityUpdate || quizUpdate)
             {
                 return;
             }
