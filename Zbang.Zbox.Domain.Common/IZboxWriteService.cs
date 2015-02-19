@@ -10,7 +10,7 @@ namespace Zbang.Zbox.Domain.Common
         Task<CreateUserCommandResult> CreateUserAsync(CreateUserCommand command);
         Task<UpdateUserCommandResult> UpdateUserPasswordAsync(UpdateUserPasswordCommand command);
 
-        void UpdateUserEmail(UpdateUserEmailCommand command);
+        Task UpdateUserEmailAsync(UpdateUserEmailCommand command);
         void UpdateUserProfile(UpdateUserProfileCommand command);
         void UpdateUserLanguage(UpdateUserLanguageCommand command);
         void UpdateUserUniversity(UpdateUserUniversityCommand command);

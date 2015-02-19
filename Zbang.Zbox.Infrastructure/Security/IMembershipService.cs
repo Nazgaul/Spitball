@@ -24,5 +24,6 @@ namespace Zbang.Zbox.Infrastructure.Security
     {
         Task<bool> ChangePassword(Guid accountId, string oldPassword, string newPassword);
         Task<Guid?> CreateUser(string email, string password);
+        Task<bool> ChangeEmail(Guid accountId, string newEmail);
     }
 }

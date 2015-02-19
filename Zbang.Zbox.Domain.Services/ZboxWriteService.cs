@@ -59,11 +59,11 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void UpdateUserEmail(UpdateUserEmailCommand command)
+        public async Task UpdateUserEmailAsync(UpdateUserEmailCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
@@ -107,7 +107,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        
+
         public async Task UnFollowBoxAsync(UnFollowBoxCommand command)
         {
             using (UnitOfWork.Start())

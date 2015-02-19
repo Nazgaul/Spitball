@@ -118,6 +118,12 @@ namespace Zbang.Zbox.Infrastructure.Security
             return result.Succeeded;
         }
 
+        public async Task<bool> ChangeEmail(Guid userId, string newEmail)
+        {
+            var result = await SetEmailAsync(userId.ToString(), newEmail);
+            return result.Succeeded;
+        }
+
         public async Task<Guid?> CreateUser(string email, string password)
         {
             var user = new ApplicationUser

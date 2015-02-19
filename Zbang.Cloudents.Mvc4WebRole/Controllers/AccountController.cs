@@ -42,7 +42,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly ApplicationUserManager m_UserManager;
         private readonly IAuthenticationManager m_AuthenticationManager;
 
-       
+
 
         public AccountController(
            Lazy<IFacebookService> facebookService,
@@ -267,7 +267,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToAction("Index");
         }
 
-        
+
 
 
 
@@ -375,7 +375,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         const string SessionKey = "UserVerificationCode";
         [HttpPost]
         [ZboxAuthorize]
-        public JsonResult EnterCode(long? code)
+        public async Task<JsonResult> EnterCode(long? code)
         {
             if (!code.HasValue)
             {
@@ -400,7 +400,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var command = new UpdateUserEmailCommand(id, model.Email);
-                ZboxWriteService.UpdateUserEmail(command);
+                await ZboxWriteService.UpdateUserEmailAsync(command);
             }
             catch (Exception ex)
             {
