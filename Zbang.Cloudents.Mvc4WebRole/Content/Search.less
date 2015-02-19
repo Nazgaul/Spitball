@@ -37,38 +37,19 @@
     top: 6px;
 }
 .searchPopup {
-    //position: fixed;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     width: 100%;
-    height:  100%;
-    //border-radius: 0;
+    height: 100%;
     background: #f1f1f1;
     z-index: 12;
     .transition(transform .5s);
-    /*-webkit-transform-origin: 0 0;
-    transform-origin: 0 0;
-    -webkit-transition-property: height, width, top, left;
-    transition-property: height, width, top, left;
-    -webkit-transition-duration: 0.5s;
-    transition-duration: 0.5s;
-    -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-    transition-timing-function: cubic-bezier(0.7,0,0.3,1);*/
     .boxSizing;
 
     ~ .bodyContent {
         overflow: hidden;
-        .siteHeader {
-            //display: none; //this kills the transition
-            //visibility: hidden;
-            //margin-top: -50px;
-        }
-
-        .searchBox {
-            //z-index: 0; //hide box searchInputWpr
-        }
     }
 
     &.ng-enter, &.ng-leave-active {
@@ -77,7 +58,14 @@
         -o-transform: translateX(-100%);
         -webkit-transform: translateX(-100%);
         transform: translateX(-100%);
-        //left: -100%;
+        .column {
+            opacity: 0;
+            -moz-transform: translateY(100px);
+            -ms-transform: translateY(100px);
+            -o-transform: translateY(100px);
+            -webkit-transform: translateY(100px);
+            transform: translateY(100px);
+        }
     }
 
     &.ng-enter-active {
@@ -86,93 +74,20 @@
         -o-transform: translateX(0);
         -webkit-transform: translateX(0);
         transform: translateX(0);
-        //left: 0;
-    }
-    /*.userPage & {
-        .userInitial;
-        width: 365px;
-        height: 32px; 
-        background: tomato;
-    }*/
-    /*&.ng-enter, &.ng-leave-active {
-        top: 67px;
-        background: #fff;
-        .dashInitial;
-        form {
-            width: 365px;
-            height: 32px;
-            position: relative;
-        }
-        /*.dashLibSearchInput {
-            font-size: 18px;
-            width: 100%;
-            height: 32px;
-            padding: 4px 10px;
-            border-color: transparent;
-        }*/ /*
-        .userPage & {
-            .userInitial; 
-        }
-        .boxPage & {
-            .boxInitial; 
-        }
-        .libraryPage &,.departmentPage &  {
-            .libInitial; 
-        }
-    }
-    &.ng-leave-active {
-        .searchBtn, .closeSearch  {
-            //display: none;
-            visibility: hidden;
-            opacity: 0;
-        }
-    }
-    &.ng-enter {
-        .searchBtn  {
-            opacity: 0;
-            visibility: hidden;
-        }
-    }
-    &.ng-enter-active {
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 0;
-
-        form {
-            width: 80%;
-            height: 160px;
-            //height: 100%;
-        }
-
-        .dashLibSearchInput {
-            width: 100%;
-            height: 100%;
-            font-size: 5vw;
-            padding: 4px 10% 4px 10px;
-            //border-bottom: 2px solid @blue;
-            //height: 32px;
-        }
-        .searchBtn  {
+        .column {
             opacity: 1;
-            visibility: visible;
+            -moz-transform: translateY(0);
+            -ms-transform: translateY(0);
+            -o-transform: translateY(0);
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
         }
-    }*/
+    }
     form {
         position: relative;
         width: 80%;
         height: 160px;
-        //height: 100%;
         margin: 0 auto;
-        //-webkit-transform: translate3d(0,2em,0);
-        //transform: translate3d(0,2em,0);
-        /*-webkit-transition-property: width, height, -webkit-transform;
-        transition-property: width, height, transform;
-        -webkit-transition-duration: 0.5s;
-        transition-duration: 0.5s;
-        -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-        transition-timing-function: cubic-bezier(0.7,0,0.3,1);*/
     }
 
     .searchBtn {
@@ -180,22 +95,11 @@
         border-radius: 0; //override
         top: 40%;
         position: absolute;
-        //pointer-events: auto;
-        //width: 80px;height:80px; //fallback for old android
-        //width: 3vw;
-        //height: 3vw;
-        //-webkit-transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
-        //transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
-        /*transition: opacity .3s;
-	    -webkit-transition-delay: 0.5s;
-	    transition-delay: 0.5s;*/
-        opacity: 1;
-        visibility: visible;
 
         .svg-search {
             width: 3vw;
             height: 3vw;
-            fill: @borderColor;
+            fill: #aaa;
 
             &:hover {
                 fill: @blue;
@@ -204,21 +108,14 @@
     }
 
     .dashLibSearchInput {
-        //font-size: 18px;
-        //padding: 4px 10px;
-        //height: 32px;
         width: 100%;
         height: 100%;
         font-size: 5vw;
-        padding: 4px 10% 4px 10px;
-        //border-bottom: 2px solid @blue;
-        /*-webkit-transition: font-size 0.2s cubic-bezier(0.7,0,0.3,1), border-color .5s;
-        transition: font-size 0.2s cubic-bezier(0.7,0,0.3,1), border-color .5s;*/
+        padding: 36px 10% 4px 0;
         background: transparent;
         color: @blue;
-        //opacity: 1;
         .boxSizing;
-        .placeholderColor(@borderColor);
+        .placeholderColor(#aaa,bold);
 
         &:focus {
             border: none; //remove red error borders and outlines
@@ -229,40 +126,6 @@
     .closeSearch {
         opacity: 1;
         pointer-events: auto;
-        //-webkit-transform: scale3d(1,1,1);
-        //transform: scale3d(1,1,1);
-        /*-webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
-        transition: opacity 0.3s, transform 0.3s;*/
-        /*-webkit-transition-delay: 0.5s;
-        transition-delay: 0.5s;*/
-    }
-
-    .search-content {
-        opacity: 1;
-        height: auto;
-        overflow: visible; // this breaks the transition of the children in FF: https://bugzilla.mozilla.org/show_bug.cgi?id=625289 //
-        pointer-events: auto;
-        /*-webkit-transition: opacity 0.3s 0.5s;
-        transition: opacity 0.3s 0.5s;*/
-    }
-    .column:first-child {
-        -webkit-transition-delay: 0.4s;
-        transition-delay: 0.4s;
-    }
-
-    .column:nth-child(2) {
-        -webkit-transition-delay: 0.45s;
-        transition-delay: 0.45s;
-    }
-
-    .column:nth-child(3) {
-        -webkit-transition-delay: 0.5s;
-        transition-delay: 0.5s;
-    }
-    .column {
-        opacity: 1;
-        -webkit-transform: translate3d(0,0,0);
-        transform: translate3d(0,0,0);
     }
 }
 
@@ -277,8 +140,8 @@
 	top: 1em;
 	overflow: hidden;
 	cursor: pointer;
-	pointer-events: none;
-	opacity: 0;
+	//pointer-events: none;
+	//opacity: 0;
 	/*-webkit-transform: scale3d(0,0,1);
 	transform: scale3d(0,0,1);*/
     .svg-close {
@@ -291,37 +154,15 @@
 }
 
 .search-content {
-	color: #666;
-	margin-top: 4.5em;
+	color: #676767;
+    margin-top: 25px;
 	width: 80%;
-	height: 0;
-	overflow: hidden;
 	padding: 0 10%;
 	background: #f1f1f1;
-	position: absolute;
-	pointer-events: none;
-	opacity: 0;
-    [data-letter]:before {
-        left: 13px;
-    }
+	position: absolute; //necessary!
+
     .courseId {
         margin-bottom: 5px;
-    }
-
-    &.boxes {
-        .column.boxes {
-           display:block;
-        }
-    }
-    &.quizzes {
-        .column.quizzes {
-           display:block;
-        }
-    }
-    &.items {
-        .column.items {
-           display:block;
-        }
     }
     .vCentered {
         padding-left: 74px;
@@ -329,32 +170,52 @@
 }
 
 .column {
-    display:none;
-	width: 30%;
-	padding: 0 0 6em;
-	opacity: 0;
-	-webkit-transform: translate3d(0,100px,0);
-	transform: translateY(100px);
-	-webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
-	transition: transform 0.5s, opacity 0.5s;
+    width: 30%;
+    padding: 0 0 6em;
     overflow: hidden;
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -moz-transition: transform 0.5s, opacity 0.5s;
+    -o-transition: transform 0.5s, opacity 0.5s;
+    -webkit-transition: transform 0.5s, opacity 0.5s;
+    transition: transform 0.5s, opacity 0.5s;
+    opacity: 1;
+    position: relative;
+
+    &:first-child {
+        -moz-transition-delay: .5s;
+        -o-transition-delay: .5s;
+        -webkit-transition-delay: .5s;
+        transition-delay: .5s;
+    }
+
     &:nth-child(2) {
-	    margin: 0 5%;
+        margin: 0 5%;
+        -moz-transition-delay: .6s;
+        -o-transition-delay: .6s;
+        -webkit-transition-delay: .6s;
+        transition-delay: .6s;
+    }
+
+    &:nth-child(3) {
+        -moz-transition-delay: .7s;
+        -o-transition-delay: .7s;
+        -webkit-transition-delay: .7s;
+        transition-delay: .7s;
     }
 
     h2 {
-	    font-size: 18px;
-	    letter-spacing: 1px;
-	    text-transform: uppercase;
-	    font-weight: 800;
-	    color: @borderColor;
-	    padding: 0.5em 0;
+        font-size: 24px;
+        font-weight: normal;
+        letter-spacing: 1px;
+        color: #aaa;
+        padding: 0.5em 0;
     }
 }
 
-.round {
-	border-radius: 50%;
-}
 .itemList, .quizList {
     .searchImg {
         width: 63px;
@@ -368,16 +229,6 @@
     }
 }
 .quizList {
-    [data-letter]:before {
-        content:attr(data-letter);
-        width: 25px;
-        height: 25px;
-        line-height: 25px;
-        top: 22px;
-        bottom: auto; //override
-        left: 0;right:0;
-        font-size: 18px;
-    }
     .searchImg {
         font-size: 10px;
         text-align: center;
@@ -391,10 +242,9 @@
     height: 106px;
 	padding: 0.75em; //rtl
 	display: table;
-	margin: 0.3em 0;
+	margin: 8px 0;
 	cursor: pointer;
-	border-radius: 5px;
-	background: rgba(118,117,128,0.1);
+	background: #e9e9e9;
     .boxSizing;
     position: relative;
     .boxSizing;
@@ -445,20 +295,6 @@
 	.dashLibSearchInput {
 		//padding: 0 25% 0 10px;
 	}
-	/*.searchInputWpr.open {
-        overflow: auto;
-        .dashLibSearchInput {
-		    //font-size: 2em;
-            //padding: 0 25% 0 10px;
-	    }
-        .searchBtn.searchBtn { //extra specificity to override rtl
-		    //-webkit-transform: translate3d(0,-50%,0) scale3d(0.5,0.5,1);
-		    //transform: translate3d(0,-50%,0) scale3d(0.5,0.5,1);
-	    }
-        .search-content {
-            margin-top: 1em;
-        }   
-	}*/
 	.column {
 		float: none;
 		//width: auto;

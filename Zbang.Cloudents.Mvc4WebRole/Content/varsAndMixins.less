@@ -197,23 +197,27 @@
 }
 
 
-.placeholderColor(@pColor) {
+.placeholderColor(@pColor, @pWeight: regular) {
     &::-webkit-input-placeholder {
         color: @pColor;
+        font-weight: @pWeight;
     }
 
     &:-moz-placeholder {
         color: @pColor;
+        font-weight: @pWeight;
         opacity: 1; // somehow firefox needs that - otherwise the color is not the same
     }
 
     &::-moz-placeholder {
         color: @pColor;
+        font-weight: @pWeight;
         opacity: 1; // somehow firefox needs that - otherwise the color is not the same
     }
 
     &:-ms-input-placeholder {
-        color: @pColor; //dfdsh
+        color: @pColor;
+        font-weight: @pWeight;
     }
 }
 

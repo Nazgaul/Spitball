@@ -31,7 +31,8 @@
 }
 /*#region letters on boxes/courses/quizzes */
 .box [data-letter]:before,
-.recommended [data-letter]:before {
+.recommended [data-letter]:before,
+.itemList [data-letter]:before {
   width: 56px;
   height: 56px;
   line-height: 56px;
@@ -39,7 +40,8 @@
   font-size: 28px;
 }
 .box .heb:before,
-.recommended .heb:before {
+.recommended .heb:before,
+.itemList .heb:before {
   font-size: 34px;
   line-height: 50px;
 }
@@ -94,6 +96,20 @@
 .boxTop.heb:before {
   line-height: 67px;
   font-size: 52px;
+}
+.quizList [data-letter]:before {
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  top: 22px;
+  bottom: auto;
+  right: 0;
+  left: 0;
+  font-size: 16px;
+}
+.quizList .heb:before {
+  line-height: 22px;
+  font-size: 18px;
 }
 /*#endregion */
 /*#region letter color / background color */

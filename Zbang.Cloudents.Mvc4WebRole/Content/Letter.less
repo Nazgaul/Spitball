@@ -27,7 +27,7 @@
 }
 
 /*#region letters on boxes/courses/quizzes */
-.box, .recommended {
+.box, .recommended, .itemList {
     [data-letter]:before {
         width: 56px;
         height: 56px;
@@ -90,6 +90,22 @@
     &.heb:before {
         line-height: 67px;
         font-size: 52px;
+    }
+}
+
+.quizList {
+    [data-letter]:before {
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        top: 22px;
+        bottom: auto; //override
+        left: 0;right:0;
+        font-size: 16px;
+    }
+    .heb:before {
+        line-height: 22px;
+        font-size: 18px;
     }
 }
 /*#endregion */
