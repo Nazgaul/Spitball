@@ -152,8 +152,8 @@
 
                 <div class="upTabContent qTab" ng-class="{empty: !activity.questions.list.length}">
                     <ul>
-                        <li class="qaItem" ng-repeat="question in activity.questions.list | limitTo: activity.questions.limit">
-                            <img class="lFloat imgBorder" src="" alt="" width="28" height="36" ng-src="{{::question.boxPicutre | defaultImage:'box'}}" />
+                        <li class="qaItem" data-letter="{{question.boxName[0]}}" ng-repeat="question in activity.questions.list | limitTo: activity.questions.limit">
+                            @*<img class="lFloat imgBorder" src="" alt="" width="28" height="36" ng-src="{{::question.boxPicutre | defaultImage:'box'}}" />*@
                             <span class="qaBoxname elps">{{::question.boxName}}</span>
                             <div class="qaWpr">
                                 <div class="qaQuestion" ng-bind-html="::question.content"></div>
@@ -169,8 +169,8 @@
 
                 <div class="upTabContent aTab" ng-class="{empty: !activity.answers.list.length}">
                     <ul>
-                        <li class="qaItem" ng-repeat="answer in activity.answers.list | limitTo: activity.answers.limit">
-                            <img class="lFloat imgBorder" alt="" width="28" height="36" ng-src="{{::answer.boxPicture | defaultImage:'box'}}" />
+                        <li class="qaItem" data-letter="{{answer.boxName[0]}}" ng-repeat="answer in activity.answers.list | limitTo: activity.answers.limit">
+                            @*<img class="lFloat imgBorder" alt="" width="28" height="36" ng-src="{{::answer.boxPicture | defaultImage:'box'}}" />*@
                             <span class="qaBoxname elps">{{::answer.boxName}}</span>
                             <div class="qaWpr">
                                 <user-image name="answer.qUserName" image="answer.qUserImage" class="lFloat" width="33" height="33"></user-image>

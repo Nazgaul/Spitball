@@ -235,10 +235,10 @@
   border: none;
 }
 .qaBoxname {
-  margin-right: 10px;
   max-width: 188px;
   display: inline-block;
-  padding-top: 8px;
+  position: relative;
+  top: 3px;
   color: #39434a;
 }
 .qaWpr {
@@ -246,7 +246,7 @@
   border: 1px solid #c2c2c2;
   border-radius: 5px;
   padding: 10px 10px 5px 5px;
-  margin-top: 18px;
+  margin-top: 12px;
   overflow: hidden;
 }
 .qaQuestion {

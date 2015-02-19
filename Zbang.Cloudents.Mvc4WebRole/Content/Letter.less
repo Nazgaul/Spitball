@@ -108,6 +108,19 @@
         font-size: 18px;
     }
 }
+.qaItem {
+    &[data-letter]:before {
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        position:static;
+        font-size: 16px;
+    }
+    &.heb:before {
+        line-height: 25px;
+        font-size: 20px;
+    }
+}
 /*#endregion */
 
 /*#region letter color / background color */
@@ -116,7 +129,7 @@
 .bestUserList, .boxFeed, .userTooltip, .profileInfo, .memberItem,
 .friendsPics, .topUser, .commentWpr, .singleEmailUserWpr, .boxFeed
 .socialList, .notifyItem, .upTop, .upFriends, .upInvites,
-.upMembersList, .upTabContent, .fbFriendsList, .userAnchor {
+.upMembersList, .qaWpr, .fbFriendsList, .userAnchor {
     .userLetter {
         &:before {
             border: 1px solid @borderColor;
@@ -441,7 +454,7 @@
         font-size: 52px;
     }
 }
-.upMembersList, .upTabContent {
+.upMembersList, .qaWpr {
     .userLetter {
         &:before {
             position: static;
