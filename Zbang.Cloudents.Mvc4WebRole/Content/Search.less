@@ -127,6 +127,13 @@
         opacity: 1;
         pointer-events: auto;
     }
+    .emptySearch {
+        font-size: 30px;
+        svg {
+            width: 155px;
+            height: 145px;
+        }
+    }
 }
 
 // hide placeholder when active in Chrome //
@@ -160,7 +167,21 @@
 	padding: 0 10%;
 	background: #f1f1f1;
 	position: absolute; //necessary!
-
+    &:not(.boxes) {
+        .boxes {
+            display: none; //using not here so as not to interfere with the initial transition 
+        }
+    }
+    &:not(.quizzes) {
+        .quizzes {
+            display: none;
+        }
+    }
+    &:not(.items) {
+        .items {
+            display: none;
+        }
+    }
     .courseId {
         margin-bottom: 5px;
     }
@@ -241,7 +262,14 @@
     width: 100%;
     height: 106px;
 	padding: 0.75em; //rtl
-	display: table;
+	//display: table;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
 	margin: 8px 0;
 	cursor: pointer;
 	background: #e9e9e9;
@@ -258,6 +286,8 @@
     .searchImg {
         position: absolute;
         left: 10px;
+        top:0;bottom:0;
+        margin: auto;
     }
     img {
         position: absolute;
@@ -284,9 +314,9 @@
         overflow: hidden;
         line-height: 15px;
     }
-    mark {
-        background: none;
-        color: @blue;
+    em {
+        //background: none;
+        //color: @blue;
     }
 }
 

@@ -145,6 +145,13 @@
   opacity: 1;
   pointer-events: auto;
 }
+.searchPopup .emptySearch {
+  font-size: 30px;
+}
+.searchPopup .emptySearch svg {
+  width: 155px;
+  height: 145px;
+}
 .gn-search:focus::-webkit-input-placeholder {
   color: transparent;
 }
@@ -171,6 +178,15 @@
   padding: 0 10%;
   background: #f1f1f1;
   position: absolute;
+}
+.search-content:not(.boxes) .boxes {
+  display: none;
+}
+.search-content:not(.quizzes) .quizzes {
+  display: none;
+}
+.search-content:not(.items) .items {
+  display: none;
 }
 .search-content .courseId {
   margin-bottom: 5px;
@@ -242,7 +258,13 @@
   width: 100%;
   height: 106px;
   padding: 0.75em;
-  display: table;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
   margin: 8px 0;
   cursor: pointer;
   background: #e9e9e9;
@@ -262,6 +284,9 @@
 .searchLink .searchImg {
   position: absolute;
   right: 10px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 .searchLink img {
   position: absolute;
@@ -288,10 +313,6 @@
   max-height: 30px;
   overflow: hidden;
   line-height: 15px;
-}
-.searchLink mark {
-  background: none;
-  color: #3399ff;
 }
 /*#region Search media queries */
 @media screen and (max-width: 53.125em) {
