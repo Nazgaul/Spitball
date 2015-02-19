@@ -89,7 +89,7 @@
                 <span class="fileName elps">{{::file.name}}</span>
                 <span class="fileSize">{{::file.size | fileSize:true}}</span>
                 <div class="uploadProgress">
-                    <button type="button" class="fileCance l rFloat" ng-style="{ display: file.plupload ? 'block' : 'none'}" ng-hide="file.uploaded || file.error" ng-click="cancelUpload(file)">@DialogResources.Cancel</button>
+                    <button type="button" class="fileCancel rFloat" ng-style="{ display: file.plupload ? 'block' : 'none'}" ng-hide="file.uploaded || file.error" ng-click="cancelUpload(file)">@DialogResources.Cancel</button>
                     <button type="button" class="fileDone rFloat" disabled="disabled" ng-style="{display : file.uploaded ? 'inline-block' : 'none' }"></button>
                     <button type="button" class="fileError rFloat" disabled="disabled" ng-style="{display : file.error ? 'inline-block' : 'none' }"></button>
                     <span class="progress rFloat"><span class="progressFill" ng-style="{ width: file.progressWidth }"></span></span>
