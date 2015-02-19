@@ -54,6 +54,11 @@ namespace Zbang.Zbox.Infrastructure.Ioc
             return this;
         }
 
+        public void RegisterType<T>()
+        {
+            ContainerBuilder.RegisterType<T>().AsSelf().InstancePerLifetimeScope();
+        }
+
         public void RegisterType<TFrom, TTo>(string name) where TTo : TFrom
         {
             ContainerBuilder.RegisterType<TTo>().Named<TFrom>(name);

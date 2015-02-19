@@ -7,16 +7,20 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.DataProtection;
 using Owin;
 
 namespace Zbang.Zbox.Infrastructure.Security
 {
     public class Startup
     {
+        internal static IDataProtectionProvider DataProtectionProvider { get; private set; }
+
         public static void ConfigureAuth(IAppBuilder app, bool shouldUseCookie)
         {
-            app.CreatePerOwinContext(DbContext.Create);
-            app.CreatePerOwinContext<UserManager>(UserManager.Create);
+            DataProtectionProvider = app.GetDataProtectionProvider();
+            
+            //app.CreatePerOwinContext<UserManager>(UserManager.Create);
             //app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
 

@@ -27,11 +27,11 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IZboxReadService ZboxReadService { get; set; }
 
 
-        public UserManager UserManager
+        public ApplicationUserManager UserManager
         {
             get
             {
-                return HttpContext.Current.GetOwinContext().GetUserManager<UserManager>();
+                return HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
         }
         //public ApplicationSignInManager SignInManager

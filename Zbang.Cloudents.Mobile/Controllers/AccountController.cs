@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         private readonly Lazy<IFacebookService> m_FacebookService;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
-        private UserManager m_UserManager;
+        private ApplicationUserManager m_UserManager;
 
         // private const string InvId = "invId";
         public AccountController(
@@ -62,7 +62,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
            Lazy<IFacebookService> facebookService,
            Lazy<IQueueProvider> queueProvider,
            Lazy<IEncryptObject> encryptObject,
-           UserManager userManager
+           ApplicationUserManager userManager
            )
         {
 
@@ -75,11 +75,11 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
 
 
-        public UserManager UserManager
+        public ApplicationUserManager UserManager
         {
             get
             {
-                return m_UserManager ?? HttpContext.GetOwinContext().GetUserManager<UserManager>();
+                return m_UserManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
