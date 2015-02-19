@@ -448,6 +448,9 @@
   font-size: 25px;
   line-height: 30px;
 }
+.invItem .userLetter:before {
+  position: absolute;
+}
 /*#endregion */
 /*#region Social List */
 .socialList .userLetter {
