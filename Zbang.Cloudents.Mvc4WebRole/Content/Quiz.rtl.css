@@ -1035,16 +1035,17 @@ body.quiz .modal-backdrop.in {
   display: inline-block;
   font-weight: bold;
   position: absolute;
-  right: 56px;
-  top: 0;
+  right: 64px;
+  top: 1px;
   width: 51px;
   height: 51px;
-  border: 1px solid #39434a;
+  line-height: 51px;
+  border-radius: 50%;
   font-size: 27px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding-top: 5px;
+  padding-top: 3px;
   background: #fff;
   color: #0f9d58;
 }
