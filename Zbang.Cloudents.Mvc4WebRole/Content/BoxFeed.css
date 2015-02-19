@@ -52,6 +52,9 @@
   width: 95px;
   text-align: right;
 }
+.boxFeed .shareBtnTxt {
+  cursor: pointer;
+}
 .boxSideBar .leaderBoard {
   padding: 20px 32px 10px 32px;
 }

@@ -75,17 +75,19 @@
   position: relative;
   margin-top: 16px;
   color: #0371c8;
-  cursor: pointer;
 }
 .shareBtn svg {
   fill: #fff;
   margin-top: 2px;
 }
-.shareBtn:hover svg {
-  fill: #0f9d58;
-}
-.shareBtn label {
+.shareBtn .shareBtnLabel {
+  display: inline-block;
+  width: 24px;
+  height: 26px;
   cursor: pointer;
+}
+.shareBtn .shareBtnLabel:hover svg {
+  fill: #0f9d58;
 }
 .shareDD {
   padding: 20px 18px;
@@ -124,10 +126,12 @@
   z-index: -1;
 }
 .shareDD .closeItem {
-  display: block;
-  top: 23px;
-  right: 15px;
   cursor: pointer;
+  display: block;
+  width: 12px;
+  height: 12px;
+  top: 18px;
+  right: 15px;
 }
 .shareDD .shareTxt {
   margin: 23px 0 10px;
