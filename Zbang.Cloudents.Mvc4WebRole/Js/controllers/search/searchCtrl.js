@@ -24,12 +24,7 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
     resetData();
     sFocus('search:open');
 
-    if (searchHistory.checkData()) {
-        $scope.formData.query = searchHistory.getQuery();
-        $timeout(function () { $scope.$broadcast('search:select') });
-        $scope.data = searchHistory.getData();
-        $scope.params.currentPage = searchHistory.getPage();
-    }
+    
 
     $scope.search = function (isAppend) {
         if (isAppend) {
@@ -47,6 +42,14 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
 
         search(appendFirstPage);
     };
+    if (searchHistory.checkData()) {
+        $scope.formData.query = searchHistory.getQuery();
+        $timeout(function() { $scope.$broadcast('search:select'); });
+        $scope.data = searchHistory.getData();
+        $scope.params.currentPage = searchHistory.getPage();
+    } else {
+        $scope.search();
+    }
 
     function search(parser) {
 
@@ -209,7 +212,7 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
        };
 
        service.checkData = function () {
-           return _.isEmpty(mData) || mPage != 0;
+           return !(_.isEmpty(mData)) && mPage != 0;
        };
 
    });

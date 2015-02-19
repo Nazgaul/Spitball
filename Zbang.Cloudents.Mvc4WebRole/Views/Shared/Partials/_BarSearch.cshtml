@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <form name="newSearch" novalidate>
-    <input autocomplete="off" class="dashLibSearchInput" ng-placeholder="@SharedResources.Search" ng-change="search()" ng-model-options="{debounce : 200}"
+    <input autocomplete="off" class="dashLibSearchInput" ng-placeholder="@SharedResources.Search" ng-change="search()" ng-model-options="{debounce : 250}"
            type="search" name="query" ng-model="formData.query" ng-minlength="2" focus-on="search:open" auto-select />
     <button class="searchBtn" type="submit">        
         @Html.Svg("~/Images/Defs.svg", "search", new { @class = "svg-search" })
@@ -14,19 +14,18 @@
             <li ng-repeat="box in data.boxes track by box.id" ng-include="'boxHeaderSearch'"></li>
         </ul>
     </section>
-    <section class="column quizzes lFloat">
-        <h2>@SharedResources.Quizzes</h2>
-        <ul class="quizList">
-            <li ng-repeat="quiz in data.quizzes track by quiz.id" ng-include="'quizHeaderSearch'"></li>
-        </ul>
-    </section>
     <section class="column items lFloat">
         <h2>@SharedResources.Items</h2>
         <ul>
             <li ng-repeat="item in data.items track by item.id" ng-include="'itemHeaderSearch'"></li>
         </ul>
     </section>
-
+    <section class="column quizzes lFloat">
+        <h2>@SharedResources.Quizzes</h2>
+        <ul class="quizList">
+            <li ng-repeat="quiz in data.quizzes track by quiz.id" ng-include="'quizHeaderSearch'"></li>
+        </ul>
+    </section>
     <div class="emptySearch">@SharedResources.NoResults</div>
 </div>
 <button type="button" class="closeSearch" ng-click="$root.toggleSearch()">

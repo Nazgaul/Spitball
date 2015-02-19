@@ -34,19 +34,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<ActionResult> Data(string q, int page)
         {
-
             try
             {
-
-                if (string.IsNullOrWhiteSpace(q))
+                var numberOfResult = 15;
+                if (string.IsNullOrEmpty(q))
                 {
-                    return JsonOk();
+                    numberOfResult = 5;
                 }
+                //if (string.IsNullOrWhiteSpace(q))
+                //{
+                //    return JsonOk();
+                //}
                 var universityDataId = User.GetUniversityData();
                 if (!universityDataId.HasValue) return null;
 
                 var query = new SearchQuery(q, User.GetUserId(),
-                    universityDataId.Value, page, 25);
+                    universityDataId.Value, page, numberOfResult);
                 var t1 = m_BoxSearchService.SearchBox(query, Response.ClientDisconnectedToken);
                 var t2 = m_ItemSearchService.SearchItem(query, Response.ClientDisconnectedToken);
                 var t3 = m_QuizSearchService.SearchQuiz(query, Response.ClientDisconnectedToken);
@@ -59,8 +62,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     Items = t2.Result,
                     Quizzes = t3.Result
                 };
-                TraceLog.WriteInfo("token: " + Response.ClientDisconnectedToken.IsCancellationRequested);
-                TraceLog.WriteInfo("connected " + Response.IsClientConnected + "query: " + q);
                 return JsonOk(retVal);
             }
             catch (OperationCanceledException)

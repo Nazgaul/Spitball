@@ -1,5 +1,6 @@
 ﻿@import "varsAndMixins";
-
+@bluesearch: #0e68af;
+@greensearch: #178b55;
 .searchTrigger {
     position: relative;
     display: inline-block;
@@ -347,7 +348,7 @@
 	    letter-spacing: 1px;
 	    text-transform: uppercase;
 	    font-weight: 800;
-	    color: @blue;
+	    color: @borderColor;
 	    padding: 0.5em 0;
     }
 }
@@ -421,9 +422,12 @@
 	    display: inline-block;
 	    margin: 0;
         padding: 5px 0;
-	    color: @blue;
+	    color: @bluesearch;
         max-width: 100%; //needed to override the nowrap property on the elps
         font-weight: normal;
+    }
+    h4{
+        color:@greensearch;
     }
     .content {
         margin-top: 8px;

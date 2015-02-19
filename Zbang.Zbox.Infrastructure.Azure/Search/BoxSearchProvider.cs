@@ -134,19 +134,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         public async Task<IEnumerable<SearchBoxes>> SearchBox(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
-
-            if (string.IsNullOrEmpty(query.Term))
-            {
-                return null;
-            }
-
             var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
                 new RedDog.Search.Model.SearchQuery(query.Term + "*")
                 {
                     Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityidField, UseridsField, query.UniversityId, query.UserId),
                     Top = query.RowsPerPage,
                     Skip = query.RowsPerPage * query.PageNumber,
-                    Highlight = ProfessorField + "," + NameField + "," + CourseField
+                    Highlight = ProfessorField + "," + CourseField
                 }, cancelToken);
 
             if (!searchResult.IsSuccess)
@@ -158,8 +152,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             {
                 return searchResult.Body.Records.Select(s => new SearchBoxes(
                     SeachConnection.ConvertToType<long>(s.Properties[IdField]),
-                    HighLightInField(s,NameField),
-                    //SeachConnection.ConvertToType<string>(s.Properties[NameField]),
+                    SeachConnection.ConvertToType<string>(s.Properties[NameField]),
                     HighLightInField(s, ProfessorField),
                     HighLightInField(s, CourseField),
                     SeachConnection.ConvertToType<string>(s.Properties[UrlField]),

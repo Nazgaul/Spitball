@@ -165,22 +165,15 @@
     <Compile Include="RegisterIoc.cs" />
     <Compile Include="Repositories\IDirty.cs" />
     <Compile Include="Repositories\ISoftDeletable.cs" />
-    <Compile Include="Security\AccountMembershipService.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Security\FacebookAuthenticationService.cs" />
     <Compile Include="Security\FacebookFriendData.cs" />
     <Compile Include="Security\FacebookUserData.cs" />
     <Compile Include="Security\IFacebookService.cs" />
-    <Compile Include="Security\IMembershipService.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Security\Resources\Validation.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Validation.resx</DependentUpon>
     </Compile>
-    <Compile Include="Security\Validation.cs" />
     <Compile Include="Storage\Compress.cs" />
     <Compile Include="Storage\IBlobProductProvider.cs" />
     <Compile Include="Storage\ILocalStorageProvider.cs" />
