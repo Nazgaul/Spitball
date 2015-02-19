@@ -109,6 +109,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(index);
             if (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
             {
+
                 foreach (var elem in updates.ItemsToUpdate)
                 {
                     elem.Content = await ExtractContentToUploadToSearch(elem);
@@ -132,6 +133,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         {
             try
             {
+                TraceLog.WriteInfo("processing " + elem.Id);
                 var blob = m_BlobProvider.GetFile(elem.BlobName);
                 var processor = m_FileProcessorFactory.GetProcessor(blob.Uri);
                 if (processor == null) return null;

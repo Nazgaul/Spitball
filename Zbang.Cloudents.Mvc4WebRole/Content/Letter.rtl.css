@@ -445,6 +445,7 @@
   height: 72px;
   line-height: 72px;
   font-size: 45px;
+  right: -4px;
 }
 .notifyItem .heb:before {
   line-height: 67px;

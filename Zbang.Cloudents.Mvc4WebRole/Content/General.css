@@ -27,6 +27,7 @@ body .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
 }
 em {
   font-weight: 700;
+  color: #282828;
 }
 /*#region Webkit scoll bar */
 ::-webkit-scrollbar {
