@@ -72,7 +72,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                          "failed connect to remove db " + ex);
                      return Task.FromResult(false);
                  }
-                 catch (Exception ex)
+                 catch (Exception)
                  {
                      m_MailComponent.GenerateAndSendEmail(new[] { "ram@cloudents.com", "eidan@cloudents.com" },
                          "Cant pass order");

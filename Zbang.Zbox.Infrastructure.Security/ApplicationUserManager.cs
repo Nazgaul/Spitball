@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -6,13 +7,15 @@ using Microsoft.Owin;
 
 namespace Zbang.Zbox.Infrastructure.Security
 {
-    public class ApplicationUserManager : UserManager<ApplicationUser>
+    public class ApplicationUserManager : UserManager<ApplicationUser>, IAccountService
     {
         //public UserManager(IUserStore<ApplicationUser> store)
         //    : base(store)
         //{
         //    PasswordHasher = new SqlPasswordHasher();
         //}
+
+
 
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
             : base(store)
@@ -63,7 +66,7 @@ namespace Zbang.Zbox.Infrastructure.Security
         }
         //public static UserManager Create(IdentityFactoryOptions<UserManager> options, IOwinContext context)
         //{
-            //var manager = new UserManager(new UserStore<ApplicationUser>(context.Get<DbContext>()));
+        //var manager = new UserManager(new UserStore<ApplicationUser>(context.Get<DbContext>()));
         //    // Configure validation logic for usernames
         //    manager.UserValidator = new UserValidator<ApplicationUser>(manager)
         //    {
@@ -108,5 +111,26 @@ namespace Zbang.Zbox.Infrastructure.Security
         //    }
         //    return manager;
         //}
+
+        public async Task<bool> ChangePassword(Guid accountId, string oldPassword, string newPassword)
+        {
+            var result = await ChangePasswordAsync(accountId.ToString(), oldPassword, newPassword);
+            return result.Succeeded;
+        }
+
+        public async Task<Guid?> CreateUser(string email, string password)
+        {
+            var user = new ApplicationUser
+                {
+                    UserName = email,
+                    Email = email,
+                };
+            var result = await CreateAsync(user, password);
+            if (result.Succeeded)
+            {
+                return Guid.Parse(user.Id);
+            }
+            return null;
+        }
     }
 }

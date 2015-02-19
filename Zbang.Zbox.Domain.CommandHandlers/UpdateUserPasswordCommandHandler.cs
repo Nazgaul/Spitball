@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Domain.DataAccess;
@@ -7,70 +8,65 @@ using System.Web.Security;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class UpdateUserPasswordCommandHandler : ICommandHandler<UpdateUserPasswordCommand, UpdateUserCommandResult>
+    public class UpdateUserPasswordCommandHandler : ICommandHandlerAsync<UpdateUserPasswordCommand, UpdateUserCommandResult>
     {
         private readonly IUserRepository m_UserRepository;
-       // private readonly IMembershipService m_MembershipService;
+        private readonly IAccountService m_AccountService;
         private readonly UpdateUserCommandResult m_Result;
 
         public UpdateUserPasswordCommandHandler(IUserRepository userRepository
-           // , IMembershipService membershipService
+             , IAccountService accountService
             )
         {
             m_UserRepository = userRepository;
-            //m_MembershipService = membershipService;
+            m_AccountService = accountService;
             m_Result = new UpdateUserCommandResult();
         }
-        public UpdateUserCommandResult Execute(UpdateUserPasswordCommand command)
+        public async Task<UpdateUserCommandResult> ExecuteAsync(UpdateUserPasswordCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
-            User user = m_UserRepository.Get(command.Id);
+            User user = m_UserRepository.Load(command.Id);
             if (user == null)
-                throw new NullReferenceException("user doesnt not exists");
+                throw new NullReferenceException("user doesn't not exists");
 
 
-            if (IsUserRegisteredLocaly(user))
+            if (user.MembershipId.HasValue)
             {
-                ChangeUserPassword(command, user);
+                await ChangeUserPassword(user.MembershipId.Value, command.CurrentPassword, command.NewPassword);
             }
             else
             {
-                RegisterUserLocally(command, user);
+                await RegisterUserLocally(command, user);
+            }
+            m_UserRepository.Save(user);
+            return m_Result;
+        }
+
+        private async Task ChangeUserPassword(Guid userid, string currentPassword, string newPassword)
+        {
+            var retVal = await m_AccountService.ChangePassword(userid, currentPassword,
+                newPassword);
+            if (!retVal)
+            {
+                m_Result.Error = Resources.CommandHandlerResources.CannotChangePwd;
             }
 
-           
-              
-           
-            m_UserRepository.Save(user);
-            return m_Result;            
         }
 
-        private void ChangeUserPassword(UpdateUserPasswordCommand command, User user)
+        private async Task RegisterUserLocally(UpdateUserPasswordCommand command, User user)
         {
-            //if (!m_MembershipService.ChangePassword(user.MembershipId.Value, command.CurrentPassword, command.NewPassword))
-            //{
-            //    m_Result.Error = Resources.CommandHandlerResources.CannotChangePwd;
-            //}
+            var retVal = await m_AccountService.CreateUser(user.Email, command.NewPassword);
+            if (retVal.HasValue)
+            {
+                user.MembershipId = retVal.Value;
+            }
+            else
+            {
+                m_Result.Error = Resources.CommandHandlerResources.CannotChangePwd;
+            }
         }
 
-        private void RegisterUserLocally(UpdateUserPasswordCommand command, User user)
-        {
-            Guid memberShipUserProviderName;
-            //var creationStatus = m_MembershipService.CreateUser(Guid.NewGuid().ToString(), command.NewPassword, user.Email, out memberShipUserProviderName);
-            //if (creationStatus == MembershipCreateStatus.Success)
-            //{
-            //    user.MembershipId = memberShipUserProviderName;
-            //}
-            //else
-            //{
-            //    m_Result.Error = AccountValidation.ErrorCodeToString(creationStatus);
-            //}
-        }
 
-        private bool IsUserRegisteredLocaly(User user)
-        {
-            return user.MembershipId.HasValue;
-        }
 
     }
 }

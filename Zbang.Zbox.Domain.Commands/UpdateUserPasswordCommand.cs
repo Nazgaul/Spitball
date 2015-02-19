@@ -2,7 +2,7 @@
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class UpdateUserPasswordCommand : ICommand
+    public class UpdateUserPasswordCommand : ICommandAsync
     {
         public UpdateUserPasswordCommand(long id, string currentPassword, string newPassword)
         {

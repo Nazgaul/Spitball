@@ -5,13 +5,10 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using System.Web.Security;
 using System.Web.UI;
 using DevTrends.MvcDonutCaching;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -554,7 +551,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
-        public ActionResult ChangePassword(Password model)
+        public async Task<JsonResult> ChangePassword(Password model)
         {
             if (!ModelState.IsValid)
             {
@@ -562,7 +559,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var id = User.GetUserId();
             var command = new UpdateUserPasswordCommand(id, model.CurrentPassword, model.NewPassword);
-            var commandResult = ZboxWriteService.UpdateUserPassword(command);
+            var commandResult = await ZboxWriteService.UpdateUserPasswordAsync(command);
             return Json(new JsonResponse(!commandResult.HasErrors, commandResult.Error));
         }
 

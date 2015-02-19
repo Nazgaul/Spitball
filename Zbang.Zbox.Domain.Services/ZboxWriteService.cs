@@ -49,11 +49,11 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public UpdateUserCommandResult UpdateUserPassword(UpdateUserPasswordCommand command)
+        public async Task<UpdateUserCommandResult> UpdateUserPasswordAsync(UpdateUserPasswordCommand command)
         {
             using (UnitOfWork.Start())
             {
-                var result = m_CommandBus.Dispatch<UpdateUserPasswordCommand, UpdateUserCommandResult>(command);
+                var result = await m_CommandBus.DispatchAsync<UpdateUserPasswordCommand, UpdateUserCommandResult>(command);
                 UnitOfWork.Current.TransactionalFlush();
                 return result;
             }
