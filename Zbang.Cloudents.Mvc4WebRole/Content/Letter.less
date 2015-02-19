@@ -27,7 +27,7 @@
 }
 
 /*#region letters on boxes/courses/quizzes */
-.box, .recommended {
+.box, .recommended, .itemList {
     [data-letter]:before {
         width: 56px;
         height: 56px;
@@ -92,6 +92,35 @@
         font-size: 52px;
     }
 }
+
+.quizList {
+    [data-letter]:before {
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        top: 22px;
+        bottom: auto; //override
+        left: 0;right:0;
+        font-size: 16px;
+    }
+    .heb:before {
+        line-height: 22px;
+        font-size: 18px;
+    }
+}
+.qaItem {
+    &[data-letter]:before {
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        position:static;
+        font-size: 16px;
+    }
+    &.heb:before {
+        line-height: 25px;
+        font-size: 20px;
+    }
+}
 /*#endregion */
 
 /*#region letter color / background color */
@@ -100,7 +129,7 @@
 .bestUserList, .boxFeed, .userTooltip, .profileInfo, .memberItem,
 .friendsPics, .topUser, .commentWpr, .singleEmailUserWpr, .boxFeed
 .socialList, .notifyItem, .upTop, .upFriends, .upInvites,
-.upMembersList, .upTabContent, .fbFriendsList, .userAnchor {
+.upMembersList, .qaWpr, .fbFriendsList, .userAnchor {
     .userLetter {
         &:before {
             border: 1px solid @borderColor;
@@ -250,6 +279,7 @@
             height: 100px;
             line-height: 100px;
             font-size: 70px;
+            margin: -1px 0 0 -1px;
         }
         
     }
@@ -350,6 +380,11 @@
         line-height: 30px;
     }
 }
+.invItem .userLetter {
+    &:before {
+        position: absolute;
+    }
+}
 /*#endregion */
 
 /*#region Social List */
@@ -425,7 +460,7 @@
         font-size: 52px;
     }
 }
-.upMembersList, .upTabContent {
+.upMembersList, .qaWpr {
     .userLetter {
         &:before {
             position: static;

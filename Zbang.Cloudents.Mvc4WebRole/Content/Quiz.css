@@ -579,22 +579,6 @@ body.quiz .modal-backdrop.in {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.quizPage .shareBtnTxt {
-  color: #fff;
-  padding: 22px 0 0 0;
-}
-.quizPage .shareBtnTxt:before {
-  width: 22px;
-  height: 18px;
-  background: url(/Images/site.png?v=3) 0 -1090px;
-  margin: 0;
-}
-.quizPage .shareBtnTxt:hover:before {
-  background-position: 0 -1090px;
-}
-.quizPage .itemPrint.iconTop {
-  margin-top: 11px;
-}
 .quizPage .itemRight {
   text-align: left;
   padding-left: 290px;
@@ -1035,16 +1019,17 @@ body.quiz .modal-backdrop.in {
   display: inline-block;
   font-weight: bold;
   position: absolute;
-  left: 56px;
-  top: 0;
+  left: 64px;
+  top: 1px;
   width: 51px;
   height: 51px;
-  border: 1px solid #39434a;
+  line-height: 51px;
+  border-radius: 50%;
   font-size: 27px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding-top: 5px;
+  padding-top: 3px;
   background: #fff;
   color: #0f9d58;
 }

@@ -33,7 +33,9 @@
                         @Html.Svg("~/Images/Defs.svg", "share", new { @class = "svg-share" })
                     </label>
                     <div class="dropDown shareDD">
-                        <label class="closeItem rFloat" for="itemShare"></label>
+                        <label class="closeItem rFloat" for="itemShare">
+                            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+                        </label>
                         <div class="arrow shareArrow"></div>
                         <h4 class="semiFont">@SharedResources.ShareItem</h4>
                         <div class="shareTxt">@SharedResources.ShareUsing</div>

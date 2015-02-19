@@ -83,19 +83,19 @@
     position: relative;
     margin-top: 16px;
     color: @attentionBlue;
-    cursor: pointer;
 
     svg {
         fill: #fff;
         margin-top: 2px;
     }
-
-    &:hover svg {
-        fill: @color;
-    }
-
-    label {
+    .shareBtnLabel {
+        display: inline-block;
+        width: 24px;
+        height: 26px;
         cursor: pointer;
+        &:hover svg {
+            fill: @color;
+        }
     }
 }
 
@@ -140,10 +140,12 @@
     }
 
     .closeItem {
-        display: block;
-        top: 23px;
-        right: 15px;
         cursor: pointer;
+        display: block;
+        width: 12px;
+        height: 12px;
+        top: 18px;
+        right: 15px;
     }
 
     .shareTxt {

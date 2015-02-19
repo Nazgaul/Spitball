@@ -31,7 +31,8 @@
 }
 /*#region letters on boxes/courses/quizzes */
 .box [data-letter]:before,
-.recommended [data-letter]:before {
+.recommended [data-letter]:before,
+.itemList [data-letter]:before {
   width: 56px;
   height: 56px;
   line-height: 56px;
@@ -39,7 +40,8 @@
   font-size: 28px;
 }
 .box .heb:before,
-.recommended .heb:before {
+.recommended .heb:before,
+.itemList .heb:before {
   font-size: 34px;
   line-height: 50px;
 }
@@ -95,6 +97,31 @@
   line-height: 67px;
   font-size: 52px;
 }
+.quizList [data-letter]:before {
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  top: 22px;
+  bottom: auto;
+  right: 0;
+  left: 0;
+  font-size: 16px;
+}
+.quizList .heb:before {
+  line-height: 22px;
+  font-size: 18px;
+}
+.qaItem[data-letter]:before {
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  position: static;
+  font-size: 16px;
+}
+.qaItem.heb:before {
+  line-height: 25px;
+  font-size: 20px;
+}
 /*#endregion */
 /*#region letter color / background color */
 .bestUserList .userLetter:before,
@@ -112,7 +139,7 @@
 .upFriends .userLetter:before,
 .upInvites .userLetter:before,
 .upMembersList .userLetter:before,
-.upTabContent .userLetter:before,
+.qaWpr .userLetter:before,
 .fbFriendsList .userLetter:before,
 .userAnchor .userLetter:before {
   border: 1px solid #c2c2c2;
@@ -133,7 +160,7 @@
 .upFriends .color1:before,
 .upInvites .color1:before,
 .upMembersList .color1:before,
-.upTabContent .color1:before,
+.qaWpr .color1:before,
 .fbFriendsList .color1:before,
 .userAnchor .color1:before {
   color: #00bfa5;
@@ -153,7 +180,7 @@
 .upFriends .color2:before,
 .upInvites .color2:before,
 .upMembersList .color2:before,
-.upTabContent .color2:before,
+.qaWpr .color2:before,
 .fbFriendsList .color2:before,
 .userAnchor .color2:before {
   color: #f06292;
@@ -173,7 +200,7 @@
 .upFriends .color3:before,
 .upInvites .color3:before,
 .upMembersList .color3:before,
-.upTabContent .color3:before,
+.qaWpr .color3:before,
 .fbFriendsList .color3:before,
 .userAnchor .color3:before {
   color: #b388ff;
@@ -193,7 +220,7 @@
 .upFriends .color4:before,
 .upInvites .color4:before,
 .upMembersList .color4:before,
-.upTabContent .color4:before,
+.qaWpr .color4:before,
 .fbFriendsList .color4:before,
 .userAnchor .color4:before {
   color: #ff6e40;
@@ -213,7 +240,7 @@
 .upFriends .color5:before,
 .upInvites .color5:before,
 .upMembersList .color5:before,
-.upTabContent .color5:before,
+.qaWpr .color5:before,
 .fbFriendsList .color5:before,
 .userAnchor .color5:before {
   color: #e06055;
@@ -233,7 +260,7 @@
 .upFriends .color6:before,
 .upInvites .color6:before,
 .upMembersList .color6:before,
-.upTabContent .color6:before,
+.qaWpr .color6:before,
 .fbFriendsList .color6:before,
 .userAnchor .color6:before {
   color: #8e8e8e;
@@ -253,7 +280,7 @@
 .upFriends .color7:before,
 .upInvites .color7:before,
 .upMembersList .color7:before,
-.upTabContent .color7:before,
+.qaWpr .color7:before,
 .fbFriendsList .color7:before,
 .userAnchor .color7:before {
   color: #f9a825;
@@ -273,7 +300,7 @@
 .upFriends .color8:before,
 .upInvites .color8:before,
 .upMembersList .color8:before,
-.upTabContent .color8:before,
+.qaWpr .color8:before,
 .fbFriendsList .color8:before,
 .userAnchor .color8:before {
   color: #00c853;
@@ -349,6 +376,7 @@
   height: 100px;
   line-height: 100px;
   font-size: 70px;
+  margin: -1px -1px 0 0;
 }
 .profileInfo .heb:before {
   font-size: 80px;
@@ -421,6 +449,9 @@
   font-size: 25px;
   line-height: 30px;
 }
+.invItem .userLetter:before {
+  position: absolute;
+}
 /*#endregion */
 /*#region Social List */
 .socialList .userLetter {
@@ -483,7 +514,7 @@
   font-size: 52px;
 }
 .upMembersList .userLetter:before,
-.upTabContent .userLetter:before {
+.qaWpr .userLetter:before {
   position: static;
   width: 34px;
   height: 34px;
@@ -494,7 +525,7 @@
   box-sizing: border-box;
 }
 .upMembersList .heb:before,
-.upTabContent .heb:before {
+.qaWpr .heb:before {
   font-size: 24px;
   line-height: 31px;
 }

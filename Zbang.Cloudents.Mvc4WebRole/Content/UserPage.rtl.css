@@ -235,10 +235,10 @@
   border: none;
 }
 .qaBoxname {
-  margin-right: 10px;
   max-width: 188px;
   display: inline-block;
-  padding-top: 8px;
+  position: relative;
+  top: 3px;
   color: #39434a;
 }
 .qaWpr {
@@ -246,7 +246,7 @@
   border: 1px solid #c2c2c2;
   border-radius: 5px;
   padding: 10px 10px 5px 5px;
-  margin-top: 18px;
+  margin-top: 12px;
   overflow: hidden;
 }
 .qaQuestion {
@@ -386,14 +386,12 @@
 }
 .upContent .userImg,
 .upContent .userLetter {
-  display: inline-block;
-  border: 1px solid #c2c2c2;
-  margin-bottom: 6px;
-  width: 74px;
-  height: 74px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  /*display: inline-block;
+        border: 1px solid @borderColor;
+        margin-bottom: 6px;
+        width: 74px;
+        height: 74px;
+        .boxSizing;*/
 }
 .upCourses .coursesEmpty {
   height: 150px;
@@ -617,13 +615,7 @@
   margin-left: 30px;
 }
 .upInviteItem .semiFont {
-  margin: -4px 0 4px
-  /*diff rtl*/
-}
-.upInviteItem .userItemImg {
-  position: absolute;
-  top: 0;
-  right: 0;
+  margin: 2px 0 4px;
 }
 .upInviteItem.upPending .inviteStatus {
   color: #d1294d;

@@ -638,23 +638,6 @@ body {
         padding-left: @leftSideBarWidth; //rtl
         .boxSizing;
     }
-    .shareBtnTxt {
-        color: #fff;
-        padding: 22px 0 0 0; //override
-        &:before {
-            width: 22px;
-	        height: 18px;
-	        background: @site-sprite 0 -1090px;
-            margin:0; //override
-        }
-        &:hover:before {
-            background-position:  0 -1090px;//0 -1124px;
-        }
-    }
-    .itemPrint.iconTop {
-        margin-top: 11px;
-    }
-
     .itemRight {
         text-align: left;
         padding-left: @leftSideBarWidth; //rtl
@@ -1085,14 +1068,15 @@ body {
         display: inline-block;
         font-weight: bold;
         position: absolute;
-        left: 56px; //rtl
-        top: 0;
+        left: 64px; //rtl
+        top: 1px;
         width: 51px;
         height: 51px;
-        border: 1px solid @txtColor;
+        line-height: 51px;
+        border-radius: 50%;
         font-size: 27px;
         .boxSizing;
-        padding-top: 5px;
+        padding-top: 3px;
         background: #fff;
         color: @color;
     }

@@ -279,17 +279,21 @@ textarea:invalid {
 }
 .QEmptyForm .QTextarea::-webkit-input-placeholder {
   color: #0371c8;
+  font-weight: regular;
 }
 .QEmptyForm .QTextarea:-moz-placeholder {
   color: #0371c8;
+  font-weight: regular;
   opacity: 1;
 }
 .QEmptyForm .QTextarea::-moz-placeholder {
   color: #0371c8;
+  font-weight: regular;
   opacity: 1;
 }
 .QEmptyForm .QTextarea:-ms-input-placeholder {
   color: #0371c8;
+  font-weight: regular;
 }
 .QEmptyForm .askBtn {
   margin-bottom: 0;
