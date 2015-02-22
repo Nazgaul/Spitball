@@ -1010,6 +1010,7 @@ body.quiz .modal-backdrop.in {
   width: 120px;
   margin-left: 12px;
   position: relative;
+  top: 6px;
   display: inline-block;
 }
 .friendsPics.plus:after {
@@ -1035,6 +1036,9 @@ body.quiz .modal-backdrop.in {
 .friendsPics .userLetter {
   display: inline-block;
   margin-bottom: 4px;
+  width: 50px;
+  height: 50px;
+  vertical-align: top;
 }
 .quizPopupTxtWpr {
   display: inline-block;

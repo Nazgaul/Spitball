@@ -157,6 +157,7 @@
   -o-transition: min-height 0.3s ease-in;
   transition: min-height 0.3s ease-in;
   resize: none;
+  white-space: normal;
 }
 .attachBtn {
   position: absolute;
