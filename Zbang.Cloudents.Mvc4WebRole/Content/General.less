@@ -78,15 +78,9 @@ input[type="radio"] {
         }
         &:checked {
             + label {
-                &:after {
-                    .pseudo;
-                    position: absolute;
-                    width: 12px;
-                    height: 12px;
+                &:before {
+                    box-shadow: inset 0 0 0 3px #fff; 
                     background: @txtColor;
-                    border-radius: 50%;
-                    top: 3px;
-                    left: 4px; //rtl
                 }
             }
         }
@@ -2092,9 +2086,6 @@ select.inputText {
 
 /*#region Firefox only CSS */
 @-moz-document url-prefix() {
-    body input.radio[type="radio"]:checked + label:after {
-        top: 4px; //diff rtl
-    }
     .boxSideBar {
         .secondUser, .thirdUser {
             margin-top: -91px;
@@ -2332,9 +2323,6 @@ select.inputText {
 
 /*#region RTL inconsistencies (TODO: need to verify each one) */
 .rtlFix {
-    input[type="radio"]:checked + label:after {
-        top: 3px; //diff rtl
-    }
     .checkbox {
         ~ .cbLabel2 {
             svg {

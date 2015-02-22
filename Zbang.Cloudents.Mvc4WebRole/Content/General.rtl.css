@@ -75,16 +75,9 @@ input[type="radio"].radio + label:before {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-input[type="radio"].radio:checked + label:after {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  width: 12px;
-  height: 12px;
+input[type="radio"].radio:checked + label:before {
+  box-shadow: inset 0 0 0 3px #fff;
   background: #39434a;
-  border-radius: 50%;
-  top: 3px;
-  right: 4px;
 }
 input[type="radio"]:checked + label:before,
 input[type="radio"]:checked + .field-validation-error + label:before {
@@ -1909,9 +1902,6 @@ select.inputText {
 }*/
 /*#region Firefox only CSS */
 @-moz-document url-prefix() {
-  body input.radio[type="radio"]:checked + label:after {
-    top: 4px;
-  }
   .boxSideBar .secondUser,
   .boxSideBar .thirdUser {
     margin-top: -91px;
@@ -2120,9 +2110,6 @@ select.inputText {
 }
 /*#endregion*/
 /*#region RTL inconsistencies (TODO: need to verify each one) */
-.rtlFix input[type="radio"]:checked + label:after {
-  top: 3px;
-}
 .rtlFix .checkbox ~ .cbLabel2 svg {
   top: 0;
 }
