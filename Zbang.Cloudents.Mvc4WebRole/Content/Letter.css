@@ -267,6 +267,7 @@
   height: 37px;
   line-height: 37px;
   font-size: 25px;
+  border: none;
 }
 .topUser .heb:before {
   font-size: 28px;

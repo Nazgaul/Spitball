@@ -13,6 +13,8 @@
 .itemPage .closePreview,
 .quizPage .closePreview {
   margin: 12px 0 0 25px;
+  position: absolute;
+  left: 0;
 }
 .itemRight {
   width: 100%;

@@ -44,7 +44,7 @@
             <div class="topUsersWpr">
                 <div class="topUsersTxt">@QuizResources.TopThree</div>
                 <ol>
-                    <li ng-repeat="user in quiz.topUsers" ng-class="{star: user.image}" class="topUser" tooltip="{{::user.name}}" tooltip-append-to-body="true">
+                    <li ng-repeat="user in quiz.topUsers" ng-class="{star: user.image}" class="topUser" title="{{::user.name}}" tooltip-append-to-body="true">
                         <user-image name="user.name" image="user.image" width="37" height="37"></user-image>
                         @Html.Svg("~/Images/Defs.svg", "star")
                     </li>

@@ -562,12 +562,13 @@ body.quiz .modal-backdrop.in {
 }
 .quizPage .leftPanel.leftPanel {
   left: 0;
-  top: 50px;
+  top: 43px;
   height: 100%;
-  background: none;
   border: none;
-  width: 290px;
+  width: 282px;
+  padding: 0 7px 0 15px;
   margin: 0;
+  z-index: 1;
 }
 .quizPage .quizTop {
   position: fixed;
@@ -687,24 +688,23 @@ body.quiz .modal-backdrop.in {
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 11px 0 11px 9px;
-  border-color: transparent transparent transparent #d1294d;
-  margin-left: -58px;
-  position: relative;
-  top: 1px;
+  border-width: 0 0 4px 8px;
+  border-color: transparent transparent #eda6b5 transparent;
+  position: absolute;
+  top: -6px;
+  left: -53px;
 }
 .checkQuiz .quizQList .noAnswer:after,
 .afraid .quizQList .noAnswer:after {
   content: attr(data-no-answer);
   display: inline-block;
   position: absolute;
-  top: 21px;
-  left: -58px;
+  top: -2px;
+  left: -53px;
   background: #d1294d;
   color: #fff;
   padding: 3px 8px;
   font-size: 13px;
-  transform: translateX(-100%);
 }
 .checkQuiz .resultsWpr,
 .checkQuiz .userScoreWpr,
@@ -932,11 +932,6 @@ body.quiz .modal-backdrop.in {
   display: inline-block;
   position: relative;
   vertical-align: top;
-  /*img {
-        border-radius: 50%;
-        height: 37px;
-        width: 37px;
-    }*/
 }
 .topUser:nth-child(2) {
   margin: 0 40px;
@@ -955,6 +950,9 @@ body.quiz .modal-backdrop.in {
   fill: #ffc104;
   top: -7px;
   right: -10px;
+}
+.topUser .userImg {
+  border: none;
 }
 .distributionWpr {
   position: relative;
