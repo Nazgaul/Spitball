@@ -374,6 +374,7 @@
   padding-bottom: 21px;
   width: 101px;
   height: 9px;
+  left: 290px;
   background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAS8AAAAJCAMAAABUglp1AAAAM1BMVEUAAADHx8e4ycGyyr6HzquHzqvHx8fHx8fHx8fHx8fHx8fHx8eHzqvHx8eHzquHzqvHx8f/0ROZAAAAD3RSTlMA3BADT9RKgFPPn/OfaXk/0XztAAAApUlEQVR4Xu3VwQ6EMAgE0NoWK+oK//+1u7SHSTy4HuDWdyIeGCcxkvxNlYTqGPN+HHse88rKa3Jw35ZPkTM2BE1Q0EsV0/cV1h8uPVvN5tUE2wpZHsWGoAkKOiExZOOmSFzULMkBtuH1pYaGoAkKvpHbk2RksLFp15/rkEx79PkTctt2SXdFhqAJCr4JSTC/Lwfz/+V3HzdW9mmCbbiPcSHR9xGmL9zPGLW9Hc1KAAAAAElFTkSuQmCC') /*/Images/loader1.png*/ no-repeat;
   -webkit-animation: loader 1.5s steps(3) infinite;
   -moz-animation: loader 1.5s steps(3) infinite;
