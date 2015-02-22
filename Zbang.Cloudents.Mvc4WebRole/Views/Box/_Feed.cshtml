@@ -42,7 +42,7 @@
                             </div>
                         </li>
                         <li class="qaAttachItem qaAttchQuiz" ng-repeat="file in question.quizes">
-                            <a ng-href="{{::file.itemUrl}}">@Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })</a>
+                            <a ng-href="{{::file.itemUrl}}" data-letter="{{file.name[0]}}">@Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })</a>
                             
                         </li>
                     </ul>

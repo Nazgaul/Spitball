@@ -121,63 +121,14 @@
         font-size: 20px;
     }
 }
+.qaAttchQuiz {
+    [data-letter]:before {
+        left:0;right:0;
+    }
+}
 /*#endregion */
 
 /*#region letter color / background color */
-
-//The following are the user image classes 
-.bestUserList, .boxFeed, .userTooltip, .profileInfo, .memberItem,
-.friendsPics, .topUser, .commentWpr, .singleEmailUserWpr, .boxFeed
-.socialList, .notifyItem, .upTop, .upFriends, .upInvites,
-.upMembersList, .qaWpr, .fbFriendsList, .userAnchor {
-    .userLetter {
-        &:before {
-            border: 1px solid @borderColor;
-            background: #eee;
-            //.boxSizing; //TODO: this needs testing
-        }
-    }
-    .color1 {
-        &:before {
-            color: #00bfa5;
-        } 
-    }
-    .color2 {
-        &:before {
-            color: #f06292;
-        }  
-    }
-    .color3 {
-        &:before {
-            color: #b388ff;
-        } 
-    }
-    .color4 {
-        &:before {
-            color: #ff6e40;
-        } 
-    }
-    .color5 {
-        &:before {
-            color: #e06055;
-        }  
-    }
-    .color6 {
-        &:before {
-            color: #8e8e8e;
-        } 
-    }
-    .color7 {
-        &:before {
-            color: #f9a825;
-        }  
-    }
-    .color8 {
-        &:before {
-            color: #00c853;
-        }     
-    }
-}
 .color1 {
     &:before {
         background: #00bfa5;
@@ -218,6 +169,54 @@
         background: #00c853;
     }     
 }
+.userLetter {
+    &:before {
+        border: 1px solid @borderColor;
+        background: #eee;
+        //.boxSizing; //TODO: this needs testing
+    }
+    &.color1 {
+        &:before {
+            color: #00bfa5;
+        } 
+    }
+    &.color2 {
+        &:before {
+            color: #f06292;
+        }  
+    }
+    &.color3 {
+        &:before {
+            color: #b388ff;
+        } 
+    }
+    &.color4 {
+        &:before {
+            color: #ff6e40;
+        } 
+    }
+    &.color5 {
+        &:before {
+            color: #e06055;
+        }  
+    }
+    &.color6 {
+        &:before {
+            color: #8e8e8e;
+        } 
+    }
+    &.color7 {
+        &:before {
+            color: #f9a825;
+        }  
+    }
+    &.color8 {
+        &:before {
+            color: #00c853;
+        }     
+    }
+}
+
 /*#endregion */
 
 /*#region bestUser List */

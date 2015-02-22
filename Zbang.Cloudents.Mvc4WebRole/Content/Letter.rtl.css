@@ -122,189 +122,12 @@
   line-height: 25px;
   font-size: 20px;
 }
+.qaAttchQuiz [data-letter]:before {
+  right: 0;
+  left: 0;
+}
 /*#endregion */
 /*#region letter color / background color */
-.bestUserList .userLetter:before,
-.boxFeed .userLetter:before,
-.userTooltip .userLetter:before,
-.profileInfo .userLetter:before,
-.memberItem .userLetter:before,
-.friendsPics .userLetter:before,
-.topUser .userLetter:before,
-.commentWpr .userLetter:before,
-.singleEmailUserWpr .userLetter:before,
-.boxFeed .socialList .userLetter:before,
-.notifyItem .userLetter:before,
-.upTop .userLetter:before,
-.upFriends .userLetter:before,
-.upInvites .userLetter:before,
-.upMembersList .userLetter:before,
-.qaWpr .userLetter:before,
-.fbFriendsList .userLetter:before,
-.userAnchor .userLetter:before {
-  border: 1px solid #c2c2c2;
-  background: #eee;
-}
-.bestUserList .color1:before,
-.boxFeed .color1:before,
-.userTooltip .color1:before,
-.profileInfo .color1:before,
-.memberItem .color1:before,
-.friendsPics .color1:before,
-.topUser .color1:before,
-.commentWpr .color1:before,
-.singleEmailUserWpr .color1:before,
-.boxFeed .socialList .color1:before,
-.notifyItem .color1:before,
-.upTop .color1:before,
-.upFriends .color1:before,
-.upInvites .color1:before,
-.upMembersList .color1:before,
-.qaWpr .color1:before,
-.fbFriendsList .color1:before,
-.userAnchor .color1:before {
-  color: #00bfa5;
-}
-.bestUserList .color2:before,
-.boxFeed .color2:before,
-.userTooltip .color2:before,
-.profileInfo .color2:before,
-.memberItem .color2:before,
-.friendsPics .color2:before,
-.topUser .color2:before,
-.commentWpr .color2:before,
-.singleEmailUserWpr .color2:before,
-.boxFeed .socialList .color2:before,
-.notifyItem .color2:before,
-.upTop .color2:before,
-.upFriends .color2:before,
-.upInvites .color2:before,
-.upMembersList .color2:before,
-.qaWpr .color2:before,
-.fbFriendsList .color2:before,
-.userAnchor .color2:before {
-  color: #f06292;
-}
-.bestUserList .color3:before,
-.boxFeed .color3:before,
-.userTooltip .color3:before,
-.profileInfo .color3:before,
-.memberItem .color3:before,
-.friendsPics .color3:before,
-.topUser .color3:before,
-.commentWpr .color3:before,
-.singleEmailUserWpr .color3:before,
-.boxFeed .socialList .color3:before,
-.notifyItem .color3:before,
-.upTop .color3:before,
-.upFriends .color3:before,
-.upInvites .color3:before,
-.upMembersList .color3:before,
-.qaWpr .color3:before,
-.fbFriendsList .color3:before,
-.userAnchor .color3:before {
-  color: #b388ff;
-}
-.bestUserList .color4:before,
-.boxFeed .color4:before,
-.userTooltip .color4:before,
-.profileInfo .color4:before,
-.memberItem .color4:before,
-.friendsPics .color4:before,
-.topUser .color4:before,
-.commentWpr .color4:before,
-.singleEmailUserWpr .color4:before,
-.boxFeed .socialList .color4:before,
-.notifyItem .color4:before,
-.upTop .color4:before,
-.upFriends .color4:before,
-.upInvites .color4:before,
-.upMembersList .color4:before,
-.qaWpr .color4:before,
-.fbFriendsList .color4:before,
-.userAnchor .color4:before {
-  color: #ff6e40;
-}
-.bestUserList .color5:before,
-.boxFeed .color5:before,
-.userTooltip .color5:before,
-.profileInfo .color5:before,
-.memberItem .color5:before,
-.friendsPics .color5:before,
-.topUser .color5:before,
-.commentWpr .color5:before,
-.singleEmailUserWpr .color5:before,
-.boxFeed .socialList .color5:before,
-.notifyItem .color5:before,
-.upTop .color5:before,
-.upFriends .color5:before,
-.upInvites .color5:before,
-.upMembersList .color5:before,
-.qaWpr .color5:before,
-.fbFriendsList .color5:before,
-.userAnchor .color5:before {
-  color: #e06055;
-}
-.bestUserList .color6:before,
-.boxFeed .color6:before,
-.userTooltip .color6:before,
-.profileInfo .color6:before,
-.memberItem .color6:before,
-.friendsPics .color6:before,
-.topUser .color6:before,
-.commentWpr .color6:before,
-.singleEmailUserWpr .color6:before,
-.boxFeed .socialList .color6:before,
-.notifyItem .color6:before,
-.upTop .color6:before,
-.upFriends .color6:before,
-.upInvites .color6:before,
-.upMembersList .color6:before,
-.qaWpr .color6:before,
-.fbFriendsList .color6:before,
-.userAnchor .color6:before {
-  color: #8e8e8e;
-}
-.bestUserList .color7:before,
-.boxFeed .color7:before,
-.userTooltip .color7:before,
-.profileInfo .color7:before,
-.memberItem .color7:before,
-.friendsPics .color7:before,
-.topUser .color7:before,
-.commentWpr .color7:before,
-.singleEmailUserWpr .color7:before,
-.boxFeed .socialList .color7:before,
-.notifyItem .color7:before,
-.upTop .color7:before,
-.upFriends .color7:before,
-.upInvites .color7:before,
-.upMembersList .color7:before,
-.qaWpr .color7:before,
-.fbFriendsList .color7:before,
-.userAnchor .color7:before {
-  color: #f9a825;
-}
-.bestUserList .color8:before,
-.boxFeed .color8:before,
-.userTooltip .color8:before,
-.profileInfo .color8:before,
-.memberItem .color8:before,
-.friendsPics .color8:before,
-.topUser .color8:before,
-.commentWpr .color8:before,
-.singleEmailUserWpr .color8:before,
-.boxFeed .socialList .color8:before,
-.notifyItem .color8:before,
-.upTop .color8:before,
-.upFriends .color8:before,
-.upInvites .color8:before,
-.upMembersList .color8:before,
-.qaWpr .color8:before,
-.fbFriendsList .color8:before,
-.userAnchor .color8:before {
-  color: #00c853;
-}
 .color1:before {
   background: #00bfa5;
 }
@@ -328,6 +151,34 @@
 }
 .color8:before {
   background: #00c853;
+}
+.userLetter:before {
+  border: 1px solid #c2c2c2;
+  background: #eee;
+}
+.userLetter.color1:before {
+  color: #00bfa5;
+}
+.userLetter.color2:before {
+  color: #f06292;
+}
+.userLetter.color3:before {
+  color: #b388ff;
+}
+.userLetter.color4:before {
+  color: #ff6e40;
+}
+.userLetter.color5:before {
+  color: #e06055;
+}
+.userLetter.color6:before {
+  color: #8e8e8e;
+}
+.userLetter.color7:before {
+  color: #f9a825;
+}
+.userLetter.color8:before {
+  color: #00c853;
 }
 /*#endregion */
 /*#region bestUser List */
