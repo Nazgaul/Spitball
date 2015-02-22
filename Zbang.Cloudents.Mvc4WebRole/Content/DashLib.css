@@ -692,27 +692,6 @@
   top: 229px;
   border-top: 1px solid #bbb;
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.6);
-  /*background:
-
-		linear-gradient(white 30%, rgba(255,255,255,0)),
-		linear-gradient(rgba(255,255,255,0), #eee 70%) 0 100%,
-		
-
-		radial-gradient(50% 0, farthest-side, rgba(0,0,0,.2), rgba(0,0,0,0)),
-		radial-gradient(50% 100%,farthest-side, rgba(0,0,0,.2), rgba(0,0,0,0)) 0 100%;
-	background:
-
-		linear-gradient(#eee 30%, rgba(255,255,255,0)),
-		linear-gradient(rgba(255,255,255,0), #eee 70%) 0 100%,
-		
-
-		radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.2), rgba(0,0,0,0)),
-		radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.2), rgba(0,0,0,0)) 0 100%;
-	background-repeat: no-repeat;
-	background-color: #eee;
-	background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
-	
-	background-attachment: local, local, scroll, scroll;*/
 }
 .socialContentWpr:before {
   content: '';
@@ -1222,6 +1201,7 @@
   -webkit-transition: margin 0.2s 0.5s;
   -moz-transition: margin 0.2s 0.5s;
   -o-transition: margin 0.2s 0.5s;
+  transition: margin 0.2s 0.5s;
 }
 .box .vCentered:before {
   left: 15px;
@@ -1290,7 +1270,7 @@
 }
 .libraryItem.addDep,
 .libraryItem.addCourse,
-.libraryList > .libraryItem + .box {
+.libraryItem + .box {
   border: 1px dashed #bcbcbc;
   display: inline-block;
   float: left;
@@ -1301,15 +1281,22 @@
 }
 .libraryItem.addDep:hover,
 .libraryItem.addCourse:hover,
-.libraryList > .libraryItem + .box:hover {
+.libraryItem + .box:hover {
   color: #0f9d58;
 }
-.libraryItem.addDep,
-.libraryList > .libraryItem + .box {
+.libraryItem.addDep {
   width: 244px;
   border-radius: 5px;
   padding: 13px 0 10px;
 }
-.libraryList > .libraryItem + .box {
+.libraryItem.addDep:first-child {
+  border-radius: 0;
+}
+.libraryItem + .box {
+  width: 244px;
   height: 125px;
+  padding: 0;
+}
+.libraryItem + .box .addBtn {
+  height: 123px;
 }
