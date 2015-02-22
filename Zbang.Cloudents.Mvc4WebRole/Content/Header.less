@@ -344,14 +344,15 @@ body {
     }
 
     a {
-        display: block;
+        display: block; //fallback
+        .flexAlignV;
         width: 100%;
         height: 100%;
-        padding: 15px 15px 0 100px; //rtl
+        padding: 0 15px 0 100px;
         .boxSizing;
     }
     .notifyDetails {
-        margin-top: 12px;
+        //margin-top: 12px;
     }
     .userImg, .userLetter {
         position: absolute;
@@ -384,6 +385,10 @@ body {
     .svg-trash {
         fill: #fff;
     }
+}
+.inviteTxtWpr {
+    max-height: 48px;
+    overflow: hidden;
 }
 /*#endregion */
 

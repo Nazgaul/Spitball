@@ -315,15 +315,19 @@ body {
 }
 .notifyItem a {
   display: block;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
   width: 100%;
   height: 100%;
-  padding: 15px 15px 0 100px;
+  padding: 0 15px 0 100px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
-.notifyItem .notifyDetails {
-  margin-top: 12px;
 }
 .notifyItem .userImg,
 .notifyItem .userLetter {
@@ -358,6 +362,10 @@ body {
 }
 .notifyItem .svg-trash {
   fill: #fff;
+}
+.inviteTxtWpr {
+  max-height: 48px;
+  overflow: hidden;
 }
 /*#endregion */
 /*#endregion */
