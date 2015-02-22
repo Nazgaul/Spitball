@@ -49,21 +49,21 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public UpdateUserCommandResult UpdateUserPassword(UpdateUserPasswordCommand command)
+        public async Task<UpdateUserCommandResult> UpdateUserPasswordAsync(UpdateUserPasswordCommand command)
         {
             using (UnitOfWork.Start())
             {
-                var result = m_CommandBus.Dispatch<UpdateUserPasswordCommand, UpdateUserCommandResult>(command);
+                var result = await m_CommandBus.DispatchAsync<UpdateUserPasswordCommand, UpdateUserCommandResult>(command);
                 UnitOfWork.Current.TransactionalFlush();
                 return result;
             }
         }
 
-        public void UpdateUserEmail(UpdateUserEmailCommand command)
+        public async Task UpdateUserEmailAsync(UpdateUserEmailCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
@@ -107,7 +107,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        
+
         public async Task UnFollowBoxAsync(UnFollowBoxCommand command)
         {
             using (UnitOfWork.Start())

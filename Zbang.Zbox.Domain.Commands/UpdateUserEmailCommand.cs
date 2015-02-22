@@ -2,7 +2,7 @@
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class UpdateUserEmailCommand : ICommand
+    public class UpdateUserEmailCommand : ICommandAsync
     {
 
         public UpdateUserEmailCommand(long id, string email,bool tempFromFacebookLogin=false)

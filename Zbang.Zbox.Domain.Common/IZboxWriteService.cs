@@ -8,8 +8,9 @@ namespace Zbang.Zbox.Domain.Common
     public interface IZboxWriteService
     {
         Task<CreateUserCommandResult> CreateUserAsync(CreateUserCommand command);
-        UpdateUserCommandResult UpdateUserPassword(UpdateUserPasswordCommand command);
-        void UpdateUserEmail(UpdateUserEmailCommand command);
+        Task<UpdateUserCommandResult> UpdateUserPasswordAsync(UpdateUserPasswordCommand command);
+
+        Task UpdateUserEmailAsync(UpdateUserEmailCommand command);
         void UpdateUserProfile(UpdateUserProfileCommand command);
         void UpdateUserLanguage(UpdateUserLanguageCommand command);
         void UpdateUserUniversity(UpdateUserUniversityCommand command);

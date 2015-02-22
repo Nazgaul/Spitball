@@ -5,13 +5,10 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using System.Web.Security;
 using System.Web.UI;
 using DevTrends.MvcDonutCaching;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -42,42 +39,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IFacebookService> m_FacebookService;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
-        private UserManager m_UserManager;
+        private readonly ApplicationUserManager m_UserManager;
+        private readonly IAuthenticationManager m_AuthenticationManager;
 
-        public AccountController(
-            Lazy<IFacebookService> facebookService,
-            Lazy<IQueueProvider> queueProvider,
-            Lazy<IEncryptObject> encryptObject)
-        {
-            m_FacebookService = facebookService;
-            m_QueueProvider = queueProvider;
-            m_EncryptObject = encryptObject;
-        }
+
 
         public AccountController(
            Lazy<IFacebookService> facebookService,
            Lazy<IQueueProvider> queueProvider,
            Lazy<IEncryptObject> encryptObject,
-           UserManager userManager
+           ApplicationUserManager userManager,
+        IAuthenticationManager authenticationManager
            )
         {
             m_FacebookService = facebookService;
             m_QueueProvider = queueProvider;
             m_EncryptObject = encryptObject;
             m_UserManager = userManager;
-        }
-
-
-        public UserManager UserManager
-        {
-            get
-            {
-                return m_UserManager ?? HttpContext.GetOwinContext().GetUserManager<UserManager>();
-            }
-            private set
-            {
-                m_UserManager = value;
-            }
+            m_AuthenticationManager = authenticationManager;
         }
 
 
@@ -186,7 +165,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
 
 
-                AuthenticationManager.SignIn(identity);
+                m_AuthenticationManager.SignIn(identity);
                 cookie.RemoveCookie(Invite.CookieName);
                 return JsonOk(new { isnew = isNew, url = Url.RouteUrl("LibraryDesktop", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }) });
             }
@@ -221,7 +200,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new GetUserByEmailQuery(model.Email);
                 var tSystemData = ZboxReadService.GetUserDetailsByEmail(query);
-                var tUserIdentity = UserManager.FindByEmailAsync(model.Email);
+                var tUserIdentity = m_UserManager.FindByEmailAsync(model.Email);
 
                 await Task.WhenAll(tSystemData, tUserIdentity);
 
@@ -234,13 +213,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
 
 
-                var loginStatus = await UserManager.CheckPasswordAsync(user, model.Password);
+                var loginStatus = await m_UserManager.CheckPasswordAsync(user, model.Password);
 
                 if (loginStatus)
                 {
-                    var identity = await user.GenerateUserIdentityAsync(UserManager, systemUser.Id,
+                    var identity = await user.GenerateUserIdentityAsync(m_UserManager, systemUser.Id,
                         systemUser.UniversityId, systemUser.UniversityData);
-                    AuthenticationManager.SignIn(identity);
+                    m_AuthenticationManager.SignIn(identity);
                     var cookie = new CookieHelper(HttpContext);
                     cookie.RemoveCookie(Invite.CookieName);
                     SiteExtension.UserLanguage.InsertCookie(systemUser.Culture, HttpContext);
@@ -284,17 +263,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             //if (Session != null)
             //Session.Abandon(); // remove the session cookie from user computer. wont continue session if user log in with a diffrent id.            
-            AuthenticationManager.SignOut();
+            m_AuthenticationManager.SignOut();
             return RedirectToAction("Index");
         }
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+
 
 
 
@@ -320,7 +293,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     //    UniversityId = model.UniversityId,
                     //    UniversityData = model.UniversityId
                 };
-                var createStatus = await UserManager.CreateAsync(user, model.Password);
+                var createStatus = await m_UserManager.CreateAsync(user, model.Password);
 
                 //var createStatus = m_MembershipService.Value.CreateUser(userid, model.Password, model.NewEmail,
                 //    out userProviderKey);
@@ -345,10 +318,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     var result = await ZboxWriteService.CreateUserAsync(command);
                     SiteExtension.UserLanguage.InsertCookie(result.User.Culture, HttpContext);
 
-                    var identity = await user.GenerateUserIdentityAsync(UserManager, result.User.Id, result.UniversityId,
+                    var identity = await user.GenerateUserIdentityAsync(m_UserManager, result.User.Id, result.UniversityId,
                          result.UniversityData);
 
-                    AuthenticationManager.SignIn(identity);
+                    m_AuthenticationManager.SignIn(identity);
 
 
                     cookie.RemoveCookie(Invite.CookieName);
@@ -402,7 +375,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         const string SessionKey = "UserVerificationCode";
         [HttpPost]
         [ZboxAuthorize]
-        public JsonResult EnterCode(long? code)
+        public async Task<JsonResult> EnterCode(long? code)
         {
             if (!code.HasValue)
             {
@@ -427,7 +400,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var command = new UpdateUserEmailCommand(id, model.Email);
-                ZboxWriteService.UpdateUserEmail(command);
+                await ZboxWriteService.UpdateUserEmailAsync(command);
             }
             catch (Exception ex)
             {
@@ -549,7 +522,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         : command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
 
-                AuthenticationManager.SignIn(user);
+                m_AuthenticationManager.SignIn(user);
 
 
 
@@ -578,7 +551,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
-        public ActionResult ChangePassword(Password model)
+        public async Task<JsonResult> ChangePassword(Password model)
         {
             if (!ModelState.IsValid)
             {
@@ -586,7 +559,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var id = User.GetUserId();
             var command = new UpdateUserPasswordCommand(id, model.CurrentPassword, model.NewPassword);
-            var commandResult = ZboxWriteService.UpdateUserPassword(command);
+            var commandResult = await ZboxWriteService.UpdateUserPasswordAsync(command);
             return Json(new JsonResponse(!commandResult.HasErrors, commandResult.Error));
         }
 
@@ -648,7 +621,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 //Guid membershipUserId;
-                var user = await UserManager.FindByEmailAsync(model.Email);
+                var user = await m_UserManager.FindByEmailAsync(model.Email);
                 if (user == null)
                 {
                     ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
@@ -656,7 +629,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 var query = new GetUserByMembershipQuery(Guid.Parse(user.Id));
                 var tResult = ZboxReadService.GetUserDetailsByMembershipId(query);
-                var tLinkData = UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var tLinkData = m_UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 await Task.WhenAll(tResult, tLinkData);
 
                 var code = RandomString(10);
@@ -767,19 +740,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("index");
             }
-            var result = await UserManager.ResetPasswordAsync(data.MembershipUserId.ToString(), data.Hash, model.Password);
+            var result = await m_UserManager.ResetPasswordAsync(data.MembershipUserId.ToString(), data.Hash, model.Password);
 
             if (result.Succeeded)
             {
                 var query = new GetUserByMembershipQuery(data.MembershipUserId);
                 var tSystemUser = ZboxReadService.GetUserDetailsByMembershipId(query);
 
-                var tUser = UserManager.FindByIdAsync(data.MembershipUserId.ToString());
+                var tUser = m_UserManager.FindByIdAsync(data.MembershipUserId.ToString());
                 await Task.WhenAll(tSystemUser, tUser);
 
-                var identity = await tUser.Result.GenerateUserIdentityAsync(UserManager, tSystemUser.Result.Id,
+                var identity = await tUser.Result.GenerateUserIdentityAsync(m_UserManager, tSystemUser.Result.Id,
                        tSystemUser.Result.UniversityId, tSystemUser.Result.UniversityData);
-                AuthenticationManager.SignIn(identity);
+                m_AuthenticationManager.SignIn(identity);
                 return RedirectToAction("Index", "Dashboard");
             }
             ModelState.AddModelError(string.Empty, "something went wrong, try again later");

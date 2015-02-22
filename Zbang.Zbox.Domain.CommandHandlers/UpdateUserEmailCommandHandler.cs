@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -7,20 +8,20 @@ using Zbang.Zbox.Domain.Common;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class UpdateUserEmailCommandHandler : ICommandHandler<UpdateUserEmailCommand>
+    public class UpdateUserEmailCommandHandler : ICommandHandlerAsync<UpdateUserEmailCommand>
     {
         private readonly IUserRepository m_UserRepository;
-        //private readonly IMembershipService m_MembershipService;
+        private readonly IAccountService m_AccountService;
 
-        public UpdateUserEmailCommandHandler(IUserRepository userRepository
-            //IMembershipService membershipService
+        public UpdateUserEmailCommandHandler(IUserRepository userRepository, 
+            IAccountService accountService 
             )
         {
             m_UserRepository = userRepository;
-           // m_MembershipService = membershipService;
+            m_AccountService = accountService;
         }
 
-        public void Handle(UpdateUserEmailCommand command)
+        public async Task HandleAsync(UpdateUserEmailCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
             User user = m_UserRepository.Get(command.Id);
@@ -40,7 +41,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             if (IsChangeEmailNeeded(command.Email, user.Email))
             {
-                ChangeUserEmail(command.Email, user, command.TempFromFacebookLogin);
+               await ChangeUserEmail(command.Email, user, command.TempFromFacebookLogin);
             }
 
         }
@@ -59,7 +60,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return !String.Equals(currentEmail, newUserEmail, StringComparison.CurrentCultureIgnoreCase);
         }
 
-        private void ChangeUserEmail(string email, User user, bool tempFromFacebookLogin)
+        private async Task ChangeUserEmail(string email, User user, bool tempFromFacebookLogin)
         {
             if (!Validation.IsEmailValid(email))
             {
@@ -69,6 +70,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (tempFromFacebookLogin) return;
             if (user.MembershipId.HasValue)
             {
+               await m_AccountService.ChangeEmail(user.MembershipId.Value, email);
                 //m_MembershipService.ChangeUserEmail(user.MembershipId.Value, email);
             }
             else
