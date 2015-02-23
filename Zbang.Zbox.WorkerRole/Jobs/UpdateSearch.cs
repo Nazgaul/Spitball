@@ -74,12 +74,12 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private async Task ExecuteAsync()
         {
 
-            //var index = GetIndex();
+            var index = GetIndex();
             var quizUpdate = await UpdateQuiz();
-            //var itemUpdate = await UpdateItem(index);
+            var itemUpdate = await UpdateItem(index);
             var universityUpdate = await UpdateUniversity();
             var boxUpdate = await UpdateBox();
-            if (/*itemUpdate  ||*/  boxUpdate || universityUpdate || quizUpdate)
+            if (itemUpdate  ||  boxUpdate || universityUpdate || quizUpdate)
             {
                 return;
             }
@@ -118,7 +118,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     await m_ItemSearchProvider.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
                 var isSuccess2 =
                     await m_ItemSearchProvider2.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
-                if (isSuccess)
+                if (isSuccess2)
                 {
                     await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                         new UpdateDirtyToRegularCommand(
