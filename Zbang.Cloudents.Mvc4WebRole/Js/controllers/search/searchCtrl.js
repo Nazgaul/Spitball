@@ -36,6 +36,8 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope) {
         search(appendFirstPage);
     };
 
+    $scope.search();
+
     function search(parser) {
 
         //if ($scope.params.loading) {
