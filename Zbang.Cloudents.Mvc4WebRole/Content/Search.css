@@ -64,8 +64,6 @@
   -ms-transform: scale(0);
   -o-transform: scale(0);
   transform: scale(0);
-  min-width: 365px;
-  min-height: 32px;
 }
 .searchPopup.ng-hide-remove .column,
 .searchPopup.ng-hide-add-active .column {
