@@ -571,8 +571,8 @@ body {
         padding-left: 20px;
     }
     p {
-        &:first-child {
-            img {
+        &:first-child  {
+            img, &:empty + p img {
                 margin-top: 0;
             }
         }

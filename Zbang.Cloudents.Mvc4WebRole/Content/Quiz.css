@@ -517,7 +517,9 @@ body.quiz .modal-backdrop.in {
   padding-left: 20px;
 }
 .qPreview p:first-child img,
-.quizQuestion p:first-child img {
+.quizQuestion p:first-child img,
+.qPreview p:first-child:empty + p img,
+.quizQuestion p:first-child:empty + p img {
   margin-top: 0;
 }
 .quizAList {
