@@ -6,9 +6,7 @@
 '$timeout',
 'sSearch',
 '$rootScope',
-'searchHistory',
-'sFocus',
-function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHistory, sFocus) {
+function ($scope, $location, $analytics, $timeout, sSearch, $rootScope) {
     "use strict";
 
     var analyticsCategory = 'Search';
@@ -22,10 +20,6 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
 
     resetDisplaySettings();
     resetData();
-    sFocus('search:open');
-
-    
-
     $scope.search = function (isAppend) {
         if (isAppend) {
             search(appendMore);
@@ -37,19 +31,10 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
         resetDisplaySettings();
 
         resetData();
-
-        searchHistory.clearData();
+       
 
         search(appendFirstPage);
     };
-    if (searchHistory.checkData()) {
-        $scope.formData.query = searchHistory.getQuery();
-        $timeout(function() { $scope.$broadcast('search:select'); });
-        $scope.data = searchHistory.getData();
-        $scope.params.currentPage = searchHistory.getPage();
-    } else {
-        $scope.search();
-    }
 
     function search(parser) {
 
@@ -60,7 +45,6 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
         var query = $scope.formData.query;
 
         if (query && query.length) {
-            searchHistory.setQuery(query);
             $analytics.eventTrack('Search', {
                 category: analyticsCategory,
                 label: 'User searched for ' + query
@@ -78,15 +62,15 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
             }
 
         }
-          
-        
+
+
         sSearch.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (data) {
             data.boxes = data.boxes || [];
             data.quizzes = data.quizzes || [];
             data.items = data.items || [];
             parser(data);
             $scope.params.currentPage++;
-            searchHistory.setPage($scope.params.currentPage);
+            
         }).finally(function () {
             $scope.params.loading = false;
         });
@@ -98,7 +82,6 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
             };
             return;
         }
-        searchHistory.setData($scope.data);
         appendData(data);
     }
 
@@ -119,9 +102,7 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
             boxes: $scope.data.boxes.length > 0,
             quizzes: $scope.data.quizzes.length > 0,
             items: $scope.data.items.length > 0
-        };
-
-        searchHistory.setData($scope.data);
+        };        
     }
 
     function checkEmptyResult(data) {
@@ -177,42 +158,4 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope, searchHi
                }
            }
        }
-   }]).service('searchHistory', function () {
-       var service = this,
-           mData, mPage, mQuery;
-
-
-       service.setData = function (data) {
-           mData = data;
-       };
-
-       service.setPage = function (page) {
-           mPage = page;
-       };
-
-       service.setQuery = function (query) {
-           mQuery = query;
-       };
-
-       service.getData = function () {
-           return mData;
-       };
-
-       service.getPage = function () {
-           return mPage;
-       };
-
-       service.getQuery = function () {
-           return mQuery;
-       };
-
-
-       service.clearData = function () {
-           mData = mPage = mQuery = null;
-       };
-
-       service.checkData = function () {
-           return !(_.isEmpty(mData)) && mPage != 0;
-       };
-
-   });
+   }]);

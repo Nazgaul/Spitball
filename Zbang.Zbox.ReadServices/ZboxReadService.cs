@@ -923,7 +923,7 @@ namespace Zbang.Zbox.ReadServices
             {
                 const string sql = @"select id from zbox.university  where needcode = 1
                                     union 
-	                select distinct universityid from zbox.student where universityid2 is not null";
+	                select distinct universityid2 from zbox.student where universityid2 is not null";
                 return await conn.QueryAsync<long>(sql);
             }
         }

@@ -58,7 +58,7 @@
         <h1 class="pageHeading">@ViewBag.Description</h1>
     }
     
-    <div ng-if="$root.openSearch" class="searchPopup" ng-controller="SearchCtrl">
+    <div ng-show="$root.openSearch" id="searchPopup" class="searchPopup" ng-controller="SearchCtrl">
         @{Html.RenderPartial("_BarSearch");}
     </div>
 
