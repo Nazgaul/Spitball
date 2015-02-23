@@ -61,12 +61,12 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private int GetIndex()
         {
-            int currentIndex = 0;
+            int currentIndex;
             string instanceId = RoleEnvironment.CurrentRoleInstance.Id;
             bool withSuccess = int.TryParse(instanceId.Substring(instanceId.LastIndexOf(".") + 1), out currentIndex);
             if (!withSuccess)
             {
-                withSuccess = int.TryParse(instanceId.Substring(instanceId.LastIndexOf("_") + 1), out currentIndex);
+                int.TryParse(instanceId.Substring(instanceId.LastIndexOf("_") + 1), out currentIndex);
             }
             return currentIndex;
         }
@@ -79,7 +79,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             var itemUpdate = await UpdateItem(index);
             var universityUpdate = await UpdateUniversity();
             var boxUpdate = await UpdateBox();
-            if (itemUpdate  ||  boxUpdate || universityUpdate || quizUpdate)
+            if (itemUpdate || boxUpdate || universityUpdate || quizUpdate)
             {
                 return;
             }
@@ -112,7 +112,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
                 foreach (var elem in updates.ItemsToUpdate)
                 {
-                    elem.Content = await ExtractContentToUploadToSearch(elem);
+                    elem.Content = ExtractContentToUploadToSearch(elem);
                 }
                 var isSuccess =
                     await m_ItemSearchProvider.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
@@ -125,35 +125,70 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                             updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));
                 }
             }
+            else
+            {
+                TraceLog.WriteInfo("nothing to work on");
+            }
             return updates.ItemsToUpdate.Count() == NumberToReSyncWithoutWait
               || updates.ItemsToDelete.Count() == NumberToReSyncWithoutWait;
         }
 
-        private async Task<string> ExtractContentToUploadToSearch(ItemSearchDto elem)
+        private string ExtractContentToUploadToSearch(ItemSearchDto elem)
         {
             try
             {
-                TraceLog.WriteInfo("processing " + elem.Id);
+                var wait = new ManualResetEvent(false);
+                TimeSpan timeToWait = TimeSpan.FromMinutes(1);
                 var blob = m_BlobProvider.GetFile(elem.BlobName);
                 var processor = m_FileProcessorFactory.GetProcessor(blob.Uri);
                 if (processor == null) return null;
                 var tokenSource = new CancellationTokenSource();
-                tokenSource.CancelAfter(TimeSpan.FromMinutes(2));
-                var str = await processor.ExtractContent(blob.Uri, tokenSource.Token);
-                if (string.IsNullOrEmpty(str))
+                tokenSource.CancelAfter(timeToWait);
+
+                string str = null;
+
+                var work = new Thread(async () =>
                 {
-                    return str;
-                }
-                var sb = new StringBuilder();
-                foreach (var ch in str)
-                {
-                    if (char.IsSurrogate(ch))
+                    try
                     {
-                        continue;
+                        
+                        str = await processor.ExtractContent(blob.Uri, tokenSource.Token);
+                        if (string.IsNullOrEmpty(str))
+                        {
+                            wait.Set();
+                            return;
+                        }
+                        var sb = new StringBuilder();
+                        foreach (var ch in str)
+                        {
+                            if (char.IsSurrogate(ch))
+                            {
+                                continue;
+                            }
+                            sb.Append(ch);
+                        }
+                        str = sb.ToString();
+                        wait.Set();
                     }
-                    sb.Append(ch);
+                    catch (Exception ex)
+                    {
+                        TraceLog.WriteError("on elem " + elem, ex);
+                    }
+                });
+                work.Start();
+                Boolean signal = wait.WaitOne(timeToWait);
+                if (!signal)
+                {
+                    work.Abort();
+                    return null;
                 }
-                return sb.ToString();
+                
+
+                TraceLog.WriteInfo("processing " + elem.Id);
+
+                return str;
+
+
             }
             catch (Exception ex)
             {
