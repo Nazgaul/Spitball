@@ -48,13 +48,15 @@
     .transition(transform .5s);
     .boxSizing;
 
-    ~ .bodyContent {
+    &:not(.ng-hide) ~ .bodyContent {
         overflow: hidden;
     }
 
     &.ng-hide-remove, &.ng-hide-add-active {
         position: fixed;
         .scale(0);
+        min-width: 365px;
+        min-height: 32px;
         .column {
             opacity: 0;
             -moz-transform: translateY(100px);
