@@ -157,6 +157,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
                     Highlight = ContentField
                 }, cancelToken);
 
+            if (!searchResult.IsSuccess)
+            {
+                TraceLog.WriteError(string.Format("on item search model: {0} error: {1}", query,
+                    searchResult.Error.Message));
+                return null;
+            }
 
             if (searchResult.Body.Records.Any())
             {

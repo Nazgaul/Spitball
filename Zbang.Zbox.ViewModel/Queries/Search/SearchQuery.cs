@@ -1,8 +1,10 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
+using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.ViewModel.Queries.Search
 {
-    public class SearchQuery : IPagedQuery, IUserQuery
+    public class SearchQuery : IPagedQuery, IUserQuery, IQueryCache
     {
         public SearchQuery(string term, 
             long userId, 
@@ -35,6 +37,22 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
             sb.AppendLine("rows: " + RowsPerPage);
             sb.AppendLine("term: " + Term);
             return sb.ToString();
+        }
+
+        //Note search is only for the empty state
+        public string CacheKey
+        {
+            get { return UniversityId.ToString(CultureInfo.InvariantCulture); }
+        }
+
+        public string CacheRegion
+        {
+            get { return "search"; }
+        }
+
+        public System.TimeSpan Expiration
+        {
+            get { return System.TimeSpan.FromMinutes(20); }
         }
     }
 }
