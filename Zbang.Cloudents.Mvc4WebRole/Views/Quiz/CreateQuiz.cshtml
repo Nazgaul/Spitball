@@ -11,12 +11,12 @@
         <form id="quizForm" name="quizForm" novalidate ng-submit="submit(quizForm.$valid,$event)" ng-class="{validated: quiz.validated, emptyQuiz : quiz.empty}">
             <div data-quizin="@SharedResources.Course:" class="quizLoc">{{quiz.courseName}}</div>
             <input type="text" class="inputText quizName" autofocus ng-placeholder="@QuizResources.ChooseName" quiz-focus data-focus="{{params.focus}}" ng-change="saveQuiz()" ng-model-options="{debounce:150}" ng-model="quiz.name" ng-required="true" />
-            <ul>
+            <ol>
                 @*Guy: if user clicks anywhere within the question - add class 'focused' here*@
                 <li class="questionHolder" ng-repeat="question in quiz.questions" ng-include="'quizQuestionTemplate'" ng-form="questionForm" ng-init="outerIndex = $index"
                     quiz-focus data-focus="{{question.focus}}" highlight-box
                     ng-class="{answerReq : isAnswersValid(question.answers), correctReq : !question.correctAnswer, questionReq:!question.text.length}" required-two></li>
-            </ul>
+            </ol>
             <button type="button" class="quizAddQuestion" ng-click="addQuestion(true)">
                 @Html.Svg("~/Images/Defs.svg", "plus", new { @class = "svg-plus" })&nbsp;@QuizResources.AddQuestion
             </button>
@@ -39,16 +39,16 @@
             <h2 class="elps">{{quiz.name}}</h2>
         </div>
         <div class="quizPrevWpr">
-            <ul class="quizQList">
+            <ol class="quizQList">
                 <li ng-repeat="question in quiz.questions">
                     <div class="qPreview" ng-bind-html="question.text"></div>
-                    <ul class="quizAList">
+                    <ol class="quizAList">
                         <li ng-repeat="answer in question.answers">
                             <span class="qAnswer" ng-class="{correct : answer.id === question.correctAnswer}">{{answer.text}}</span>
                         </li>
-                    </ul>
+                    </ol>
                 </li>
-            </ul>
+            </ol>
         </div>
     </div>
 </div>
@@ -79,7 +79,7 @@
     <div class="answerWpr">
         <span class="lFloat error addAnswer">@QuizResources.AddAnswer</span>
         <div class="rFloat correct"><span class="correctTxt">@QuizResources.CorrectAnswer</span></div>
-        <ul class="quizAnswersList">
+        <ol class="quizAnswersList">
             <li class="quizAnswer" ng-repeat="answer in question.answers" highlighter
                 ng-include="'quizAnswerTemplate'" ng-form="answersForm" ng-init="currentIndex = ''+ outerIndex + $index">
             </li>
@@ -90,7 +90,7 @@
                 <input type="radio" class="correctAnswer" disabled="disabled" name="quizRadio" />
                 <label class="answerLabel"></label>
             </li>
-        </ul>
+        </ol>
     </div>
 </script>
 

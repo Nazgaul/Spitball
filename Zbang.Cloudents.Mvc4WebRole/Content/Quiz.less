@@ -80,9 +80,6 @@ body {
         }
     }
 }
-.quizPreview {
-.animation(slideUp);
-}
 
 .createQuiz {
     .emptyQuiz {
@@ -241,6 +238,14 @@ body {
     border: 1px solid rgba(194, 194, 194, 0.5);
     color: #9d9d9d;
     .boxSizing;
+    &:before {
+        counter-increment: qzQuestions;
+        content: counter(qzQuestions) '.';
+        //display: inline-block;
+        position: absolute;
+        left: 7px;
+        top: 27px;
+    }
     &.focus {
         border-color: @blue;
         color: @textColor;
@@ -360,7 +365,7 @@ body {
 }
 .quizBottom {
     height: 42px;
-    padding: 0 14px;
+    //padding: 0 14px;
     .boxSizing;
     .error{
         margin: 10px;
@@ -387,15 +392,15 @@ body {
 }
 
 .quizPreview {
+    .animation(slideUp);
     .correct {
         background: rgba(3, 113, 200, 0.2);
-        
         + li {
             margin-top: 10px;
         }
     }
     .quizAList li{
-        margin-bottom: 10px;
+        margin-bottom: -10px;
         &:last-child {
             margin-bottom: 0;
         }
@@ -415,7 +420,15 @@ body {
     .boxSizing;
     letter-spacing: 0;
     color: @textColor;
+    counter-reset: qzQuestions;
 }
+/*.qzQuestions {
+    > li:before {
+        counter-increment: qzQuestions;
+        content: counter(qzQuestions);
+        display: inline-block;
+    }
+}*/
 .quizTitle{
     font-size: 18px;
     padding-top: 11px;
@@ -576,7 +589,8 @@ body {
         position: relative; //TODO:not sure if this is necessary anymore
         white-space: pre-line;
         text-indent: -34px;
-        line-height: 18px;
+        //line-height: 18px;
+        line-height: 17px;
         -ms-word-wrap: break-word;
         word-wrap: break-word;
 

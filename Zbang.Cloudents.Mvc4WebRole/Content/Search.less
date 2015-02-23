@@ -45,32 +45,15 @@
     height: 100%;
     background: #f1f1f1;
     z-index: 12;
-    //transform: translateX(0);
-    //transform: translateY(0);
-    //.scale(1);
     .transition(transform .5s);
     .boxSizing;
-    //transform-origin: 590px 85px;
 
     ~ .bodyContent {
         overflow: hidden;
     }
 
     &.ng-enter, &.ng-leave-active {
-        position:fixed;
-        // transition left -> right
-        //transform: translateX(-100%);
-
-        // transition left <- right
-        //transform: translateX(100%);
-
-        // transition top -> bottom
-        //transform: translateY(-100%);
-
-        // transition bottom -> top      
-        //transform: translateY(100%);
-
-        // transition grow from center
+        position: fixed;
         .scale(0);
         .column {
             opacity: 0;
@@ -83,9 +66,6 @@
     }
 
     &.ng-enter-active {
-        //transform: translateX(0);
-        //transform: translateY(0);
-        //top:0;
         .scale(1);
         .column {
             opacity: 1;

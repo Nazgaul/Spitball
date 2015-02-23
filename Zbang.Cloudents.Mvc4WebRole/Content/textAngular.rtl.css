@@ -4,7 +4,7 @@
 /*#endregion */
 .ta-root {
   border: 1px solid rgba(194, 194, 194, 0.5);
-  margin-bottom: 12px;
+  margin: 0 16px 12px 0;
   border-radius: 3px;
 }
 .ta-root ol {
@@ -163,6 +163,7 @@ input[type="file"] {
   overflow: auto;
   font-family: inherit;
   font-size: 100%;
+  min-height: 44px;
 }
 .ta-editor:focus {
   user-select: text;
