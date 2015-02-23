@@ -45,19 +45,33 @@
     height: 100%;
     background: #f1f1f1;
     z-index: 12;
+    //transform: translateX(0);
+    //transform: translateY(0);
+    //.scale(1);
     .transition(transform .5s);
     .boxSizing;
+    //transform-origin: 590px 85px;
 
     ~ .bodyContent {
         overflow: hidden;
     }
 
     &.ng-enter, &.ng-leave-active {
-        -moz-transform: translateX(-100%);
-        -ms-transform: translateX(-100%);
-        -o-transform: translateX(-100%);
-        -webkit-transform: translateX(-100%);
-        transform: translateX(-100%);
+        position:fixed;
+        // transition left -> right
+        //transform: translateX(-100%);
+
+        // transition left <- right
+        //transform: translateX(100%);
+
+        // transition top -> bottom
+        //transform: translateY(-100%);
+
+        // transition bottom -> top      
+        //transform: translateY(100%);
+
+        // transition grow from center
+        .scale(0);
         .column {
             opacity: 0;
             -moz-transform: translateY(100px);
@@ -69,11 +83,10 @@
     }
 
     &.ng-enter-active {
-        -moz-transform: translateX(0);
-        -ms-transform: translateX(0);
-        -o-transform: translateX(0);
-        -webkit-transform: translateX(0);
-        transform: translateX(0);
+        //transform: translateX(0);
+        //transform: translateY(0);
+        //top:0;
+        .scale(1);
         .column {
             opacity: 1;
             -moz-transform: translateY(0);
@@ -83,6 +96,7 @@
             transform: translateY(0);
         }
     }
+
     form {
         position: relative;
         width: 80%;
@@ -127,8 +141,10 @@
         opacity: 1;
         pointer-events: auto;
     }
+
     .emptySearch {
         font-size: 30px;
+
         svg {
             width: 155px;
             height: 145px;
