@@ -410,6 +410,22 @@
 
 /*#endregion */
 
+/*#region User page */
+.upTop {
+    .userLetter {
+        &:before {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            font-size: 70px;
+            left: -1px; //override
+        }
+    }
+    .heb:before {
+        line-height: 87px;
+        font-size: 80px;
+    }
+}
 /*#region Notify */
 .notifyItem {
     .userLetter {
@@ -427,23 +443,6 @@
     }
 }
 /*#endregion */
-
-/*#region User page */
-.upTop {
-    .userLetter {
-        &:before {
-            width: 100px;
-            height: 100px;
-            line-height: 100px;
-            font-size: 70px;
-            left: -1px; //override
-        }
-    }
-    .heb:before {
-        line-height: 87px;
-        font-size: 80px;
-    }
-}
 .upFriends, .upInvites {
     .userLetter {
         margin-bottom: 10px;
