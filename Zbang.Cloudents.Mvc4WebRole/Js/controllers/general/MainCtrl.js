@@ -1,6 +1,6 @@
 ﻿app.controller('MainCtrl',
-    ['$scope', '$rootScope', '$location', '$modal', '$angularCacheFactory', 'sUser', 'sFacebook', 'sUserDetails', 'Store', '$analytics', '$timeout','sNotify','sLogin',
-        function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails, sStore, $analytics, $timeout,sNotify,sLogin) {
+    ['$scope', '$rootScope', '$location', '$modal', '$angularCacheFactory', 'sUser', 'sFacebook', 'sUserDetails', 'Store', '$analytics', '$timeout','sNotify','sLogin','sFocus',
+        function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails, sStore, $analytics, $timeout, sNotify, sLogin, sFocus) {
             "use strict";
 
             $rootScope.options = {
@@ -46,6 +46,7 @@
                 if ($rootScope.openSearch) {
                     queryValue = true;
                     trackValue = 'Open'
+                    sFocus('search:open');
                 } else {
                     queryValue = null;
                     trackValue = 'Close';

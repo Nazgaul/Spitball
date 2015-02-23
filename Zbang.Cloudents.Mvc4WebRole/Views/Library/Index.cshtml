@@ -86,7 +86,7 @@
                     <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" ng-click="renameWindow()">
                         @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
                     </button>
-                    <div class="searchTrigger searchLib" ng-click="$root.toggleSearch()">@SharedResources.Search</div>
+                    <div class="searchTrigger searchLib" ng-click="$root.toggleSearch()" search-coords>@SharedResources.Search</div>
                 </div>
             </div>
             <ul id="libraryList" class="libraryList clearfix">

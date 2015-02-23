@@ -135,7 +135,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         public async Task<IEnumerable<SearchBoxes>> SearchBox(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
             var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
-                new RedDog.Search.Model.SearchQuery(query.Term + "*")
+                new SearchQuery(query.Term + "*")
                 {
                     Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityidField, UseridsField, query.UniversityId, query.UserId),
                     Top = query.RowsPerPage,
@@ -145,7 +145,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
             if (!searchResult.IsSuccess)
             {
-                TraceLog.WriteError(searchResult.Error.Message);
+                TraceLog.WriteError(string.Format("on box search model: {0} error: {1}", query,
+                    searchResult.Error.Message));
                 return null;
             }
             if (searchResult.Body.Records.Any())
@@ -180,6 +181,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
     public interface IBoxReadSearchProvider
     {
-        Task<IEnumerable<SearchBoxes>> SearchBox(Zbang.Zbox.ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
+        Task<IEnumerable<SearchBoxes>> SearchBox(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
     }
 }

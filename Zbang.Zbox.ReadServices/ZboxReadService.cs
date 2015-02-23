@@ -921,7 +921,9 @@ namespace Zbang.Zbox.ReadServices
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                const string sql = "select id from zbox.university where needcode = 1";
+                const string sql = @"select id from zbox.university  where needcode = 1
+                                    union 
+	                select distinct universityid2 from zbox.student where universityid2 is not null";
                 return await conn.QueryAsync<long>(sql);
             }
         }
