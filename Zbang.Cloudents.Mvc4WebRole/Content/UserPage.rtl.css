@@ -717,6 +717,7 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   height: 46px;
+  line-height: 36px;
 }
 .upMembers .memberItem:first-child {
   padding-top: 5px;
