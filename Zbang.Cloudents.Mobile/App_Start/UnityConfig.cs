@@ -21,6 +21,7 @@ namespace Zbang.Cloudents.Mobile
             Zbox.Infrastructure.Data.RegisterIoc.Register();
             Zbox.Infrastructure.File.RegisterIoc.Register();
             Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
+            Zbox.Infrastructure.Search.RegisterIoc.Register();
             Zbox.Domain.Services.RegisterIoc.Register();
 
             Zbox.ReadServices.RegisterIoc.Register();

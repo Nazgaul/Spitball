@@ -245,14 +245,14 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<ItemToUpdateSearchDto> GetItemDirtyUpdatesAsync()
+        public async Task<ItemToUpdateSearchDto> GetItemDirtyUpdatesAsync(int index, int total)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await conn.QueryMultipleAsync
                     (Search.GetItemsToUploadToSearch +
                     Search.GetItemUsersToUploadToSearch +
-                    Search.GetItemToDeleteToSearch
+                    Search.GetItemToDeleteToSearch, new { index, count = total }
                     ))
                 {
                     var retVal = new ItemToUpdateSearchDto

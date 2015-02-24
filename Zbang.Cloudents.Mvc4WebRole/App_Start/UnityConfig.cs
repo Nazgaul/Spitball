@@ -33,6 +33,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             Zbox.Infrastructure.Data.RegisterIoc.Register();
             Zbox.Infrastructure.File.RegisterIoc.Register();
             Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
+            Zbox.Infrastructure.Search.RegisterIoc.Register();
             //Zbox.Infrastructure.Security.RegisterIoc.Register();
 
             var builder = IocFactory.Unity.ContainerBuilder;

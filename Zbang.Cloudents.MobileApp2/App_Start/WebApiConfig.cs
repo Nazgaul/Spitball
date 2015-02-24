@@ -59,6 +59,7 @@ namespace Zbang.Cloudents.MobileApp2
 
             IocFactory.Unity.ContainerBuilder = builder;
             Zbox.Infrastructure.RegisterIoc.Register();
+            Zbang.Zbox.Infrastructure.Search.RegisterIoc.Register();
             //Zbox.Infrastructure.Data.RegisterIoc.Register();
             //Zbox.Infrastructure.File.RegisterIoc.Register();
             //Zbox.Domain.Services.RegisterIoc.Register();

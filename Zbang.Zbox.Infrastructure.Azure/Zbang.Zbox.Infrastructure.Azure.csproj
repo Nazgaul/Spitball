@@ -71,10 +71,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
-    <Reference Include="RedDog.Search, Version=0.5.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\RedDog\RedDog.Search.dll</HintPath>
-    </Reference>
     <Reference Include="SnowMaker">
       <HintPath>..\packages\SnowMaker.1.0.0.46\lib\net40\SnowMaker.dll</HintPath>
     </Reference>
@@ -118,18 +114,6 @@
     </Compile>
     <Compile Include="Queue\IQueueProviderExtract.cs" />
     <Compile Include="Queue\QueueProvider.cs" />
-    <Compile Include="Search\FilterProvider.cs" />
-    <Compile Include="Search\BoxSearchProvider.cs" />
-    <Compile Include="Search\ItemSearchProvider.cs" />
-    <Compile Include="Search\ItemSearchProvider2.cs" />
-    <Compile Include="Search\IUniversityReadSearchProvider.cs" />
-    <Compile Include="Search\IUniversityWriteSearchProvider.cs" />
-    <Compile Include="Search\QuizSearchProvider.cs" />
-    <Compile Include="Search\SeachConnection.cs" />
-    <Compile Include="Search\SearchIndex.cs" />
-    <Compile Include="Search\SearchUniversity.cs" />
-    <Compile Include="Search\UniversitySearchProvider.cs" />
-    <Compile Include="Search\University.cs" />
     <Compile Include="Storage\LocalStorageProvider.cs" />
     <Compile Include="Storage\StorageProvider.cs" />
     <Compile Include="Table\TableProvider.cs">
