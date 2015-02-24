@@ -52,7 +52,10 @@
     </header>
 
     <div class="leftPanel lFloat">
-        <div class="boxTop" data-letter="{{info.name[0]}}">
+        <div class="boxTop"> @*data-letter="{{info.name[0]}}"*@
+            <div class="boxSvg">
+                @Html.Svg("~/Images/boxIcons.svg", "icon6", new { @class = "svg-icon3 color7" })
+            </div>
             <h1 class="boxName" id="box_Name" tooltip-placement="top" tooltip-append-to-body="true" tooltip="{{info.name}}">{{info.name}}</h1>
             <div class="boxDetail elps" ng-if="info.boxType === 'academic'">{{ info.courseId}}</div>
             <div class="boxDetail elps" ng-if="info.boxType === 'box'" user-tooltip-popup="{{info.ownerId}}">{{info.ownerName}}</div>

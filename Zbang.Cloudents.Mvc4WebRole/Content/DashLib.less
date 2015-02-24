@@ -1146,7 +1146,8 @@
         box-shadow: 0 1px 0 rgba(0,0,0,.3);
 
         .removeItem {
-            display: block;
+            opacity: 1;
+            visibility: visible;
         }
     }
 
@@ -1244,7 +1245,9 @@
     // ('add course' btn has classes 'box' and 'libraryItem')
     &:hover {
         .removeItem {
-            display: block;
+            //display: block;
+            opacity: 1;
+            visibility: visible;
         }
     }
     &.libraryItem {
@@ -1259,15 +1262,9 @@
         -o-transform: scale3d(1.08,1.08,1);
         transform: scale3d(1.08,1.08,1);
     }
-    svg {
-        position: absolute;
-        top:0;bottom:0;
-        margin: auto;
-        opacity: .6;
-    }
     .newCounter {
         border-radius: 14px;
-        top: 15px;
+        top: 9px;
         left: 50px;
         line-height: 12px;
         z-index: 1;
@@ -1280,6 +1277,11 @@
         right: auto;
         width: 12px;
         height: 12px;
+        -webkit-transition: opacity 0.2s 0.5s;
+        -moz-transition: opacity 0.2s 0.5s;
+        -o-transition: opacity 0.2s 0.5s;
+        transition: opacity 0.2s 0.5s;
+
     }
     .svg-close {
         width: 10px;
@@ -1374,7 +1376,7 @@
         -moz-transition: margin 0.2s 0.5s;
         -o-transition: margin 0.2s 0.5s;
         transition: margin 0.2s 0.5s;
-        &:before {
+        /*&:before {
             .pseudo;
             position: absolute;
             top:0;bottom:0;
@@ -1384,7 +1386,7 @@
             height: 72px;
             background: #eee;
             border-radius: 50%;
-        }
+        }*/
     }
     
     h3 {
@@ -1403,7 +1405,25 @@
         transition: max-width 0.2s 0.5s;
     }
 }
-
+.boxSvg {
+    width: 72px;
+    height: 72px;
+    position: absolute;
+    top:0;bottom:0;
+    margin: auto;
+    left: 9px;
+    border-radius: 50%;
+    background: #eee;
+    svg {
+        position: absolute;
+        right:0;left:0;
+        top:0;bottom:0;
+        margin: auto;
+        opacity: .6;
+        width: 60%;
+        max-height: 70%;
+    }
+}
 .notify {
     min-width: 9px;
     height: 9px;

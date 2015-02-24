@@ -282,18 +282,25 @@ input[type="radio"] {
     top: 5px;
     width: 10px;
     height: 11px;
-    display: none;
     .svg-close {
         fill: #86878B
     }
 }
-
+.closeItem {
+    display: none;
+}
+.removeItem {
+    opacity: 0;
+    visibility: hidden;
+}
 .emailText {
     display: inline-block;
     cursor: default;
     margin-right: 6px;
     ~ .removeItem {
         display: inline-block; //override
+        opacity: 1;
+        visibility: visible;
         position: static; //override
         height: 10px; //override
         margin-top: 7px;

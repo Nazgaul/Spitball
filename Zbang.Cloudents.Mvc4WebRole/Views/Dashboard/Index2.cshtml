@@ -70,7 +70,10 @@
 
                         <a ng-href="{{course.url}}" class="courseLink" analytics-on="click" analytics-event="Choose Box" analytics-category="Dashboard Recommended" analytics-label="User choosed a box on recommneded">
                             <div class="rcDetails ghost" ng-class="{ rcFull : course.professor && course.courseCode }">
-                                <div class="vCentered elps" data-letter="{{::course.name[0]}}">
+                                <div class="vCentered elps">  @*data-letter="{{::course.name[0]}}"*@
+                                    <div class="boxSvg">
+                                        @Html.Svg("~/Images/boxIcons.svg", "icon8", new { @class = "svg-icon8 color4" })
+                                    </div>
                                     <div class="courseName">{{course.name}}</div>
                                     <span class="prof elps">{{course.professor}}</span>
                                     <span class="courseId elps">{{course.courseCode}}</span>

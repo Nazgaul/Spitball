@@ -168,7 +168,10 @@
                 <li class="recommended" ng-repeat="course in ::recommendedCourses">
                     <a ng-href="{{::course.url}}" class="courseLink" analytics-on="click" analytics-event="Choose Box" analytics-category="Box Recommended" analytics-label="User choosed a box on recommneded">
                         <div class="rcDetails ghost">
-                            <div class="vCentered" data-letter="{{::course.name[0]}}">
+                            <div class="vCentered">  @*data-letter="{{::course.name[0]}}"*@
+                                <div class="boxSvg">
+                                    @Html.Svg("~/Images/boxIcons.svg", "icon8", new { @class = "svg-icon8 color4" })
+                                </div>
                                 <div class="courseName">{{::course.name}}</div>
                                 <span class="prof elps">{{::course.professor}}</span>
                                 <span class="elps">{{::course.courseCode}}</span>

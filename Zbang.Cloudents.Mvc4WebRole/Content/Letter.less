@@ -1,7 +1,7 @@
 ﻿@import "varsAndMixins";
 
 /*#region letters on boxes/courses/quizzes */
-.box, .recommended, .itemList {
+.box, .itemList {
     [data-letter]:before {
         width: 56px;
         height: 56px;
@@ -31,39 +31,6 @@
     .heb:before {
         font-size: 35px;
         line-height: 46px;
-    }
-}
-
-.thumbImg {
-    position: relative;
-    width: 94px;
-    height: 94px;
-    &[data-letter]:before {
-        content:attr(data-letter);
-        width: 94px;
-        height: 94px;
-        line-height: 94px;
-        font-size: 66px;
-        //left: -1px; //override
-    }
-    &.heb:before {
-        line-height: 84px;
-        font-size: 76px;
-    }
-}
-.boxTop {
-    &[data-letter]:before {
-        width: 74px;
-        height: 74px;
-        line-height: 74px;
-        left:0;right:0;
-        bottom: auto; //override
-        margin: auto;
-        font-size: 45px;
-    }
-    &.heb:before {
-        line-height: 67px;
-        font-size: 52px;
     }
 }
 

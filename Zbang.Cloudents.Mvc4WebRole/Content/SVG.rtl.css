@@ -149,55 +149,13 @@ svg.rtl {
 }
 /*#endregion */
 /*#region box icons */
-.svg-icon1 {
-  width: 36px;
-  height: 44px;
-  right: 31px;
+.svg-icon2.svg-icon2 {
+  width: 75%;
+  bottom: 7%;
 }
-.svg-icon2 {
-  width: 50px;
-  height: 28px;
-  right: 25px;
-}
-.svg-icon3 {
-  width: 44px;
-  height: 49px;
-  right: 28px;
-}
-.svg-icon4 {
-  width: 36px;
-  height: 44px;
-  right: 33px;
-}
-.svg-icon5 {
-  width: 42px;
-  height: 39px;
-  right: 29px;
-}
-.svg-icon6 {
-  width: 36px;
-  height: 44px;
-  right: 33px;
-}
-.svg-icon7 {
-  width: 36px;
-  height: 44px;
-  right: 32px;
-}
-.svg-icon8 {
-  width: 31px;
-  height: 49px;
-  right: 33px;
-}
-.svg-icon9 {
-  width: 42px;
-  height: 36px;
-  right: 30px;
-}
-.svg-icon10 {
-  width: 54px;
-  height: 27px;
-  right: 23px;
+.svg-icon10.svg-icon10 {
+  width: 80%;
+  top: 3%;
 }
 /*#endregion */
 /*#region box page */
