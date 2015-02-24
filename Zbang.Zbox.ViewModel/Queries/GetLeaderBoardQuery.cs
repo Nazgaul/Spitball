@@ -1,11 +1,6 @@
-﻿
-
-using System;
-using Zbang.Zbox.Infrastructure.Query;
-
-namespace Zbang.Zbox.ViewModel.Queries
+﻿namespace Zbang.Zbox.ViewModel.Queries
 {
-    public class GetLeaderBoardQuery : IQueryCache
+    public class GetLeaderBoardQuery //: IQueryCache
     {
         public GetLeaderBoardQuery(long boxId)
         {
@@ -14,19 +9,19 @@ namespace Zbang.Zbox.ViewModel.Queries
 
         public long BoxId { get; private set; }
 
-        public string CacheKey
-        {
-            get { return string.Format("{0}", BoxId); }
-        }
+        //public string CacheKey
+        //{
+        //    get { return string.Format("{0}", BoxId); }
+        //}
 
-        public string CacheRegion
-        {
-            get { return "BoxLeaderBoard"; }
-        }
+        //public string CacheRegion
+        //{
+        //    get { return "BoxLeaderBoard"; }
+        //}
 
-        public TimeSpan Expiration
-        {
-            get { return TimeSpan.FromMinutes(60); }
-        }
+        //public TimeSpan Expiration
+        //{
+        //    get { return TimeSpan.FromMinutes(60); }
+        //}
     }
 }

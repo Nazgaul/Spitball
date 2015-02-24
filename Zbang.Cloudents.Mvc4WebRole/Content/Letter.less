@@ -1,31 +1,5 @@
 ﻿@import "varsAndMixins";
 
-[data-letter] {
-    &:before {
-        content:attr(data-letter);
-        width: 46px;
-        height: 46px;
-        line-height: 46px;
-        border-radius: 50%;
-        color: #fff;
-        display: inline-block;
-        text-align:center;
-        text-transform: capitalize;
-        position: absolute;
-        top:0;bottom:0;
-        margin: auto;
-        left: 8px; //rtl
-        font-size: 25px;
-    }
-}
-.userImg, .userLetter {
-    border-radius: 50%;
-}
-.userImg {
-    border: 1px solid @borderColor;
-    .boxSizing;
-}
-
 /*#region letters on boxes/courses/quizzes */
 .box, .recommended, .itemList {
     [data-letter]:before {
@@ -126,97 +100,6 @@
         left:0;right:0;
     }
 }
-/*#endregion */
-
-/*#region letter color / background color */
-.color1 {
-    &:before {
-        background: #00bfa5;
-    } 
-}
-.color2 {
-    &:before {
-        background: #f06292;
-    }  
-}
-.color3 {
-    &:before {
-        background: #b388ff;
-    } 
-}
-.color4 {
-    &:before {
-        background: #ff6e40;
-    } 
-}
-.color5 {
-    &:before {
-        background: #e06055;
-    }  
-}
-.color6 {
-    &:before {
-        background: #8e8e8e;
-    } 
-}
-.color7 {
-    &:before {
-        background: #f9a825;
-    }  
-}
-.color8 {
-    &:before {
-        background: #00c853;
-    }     
-}
-.userLetter {
-    &:before {
-        border: 1px solid @borderColor;
-        background: #eee;
-        //.boxSizing; //TODO: this needs testing
-    }
-    &.color1 {
-        &:before {
-            color: #00bfa5;
-        } 
-    }
-    &.color2 {
-        &:before {
-            color: #f06292;
-        }  
-    }
-    &.color3 {
-        &:before {
-            color: #b388ff;
-        } 
-    }
-    &.color4 {
-        &:before {
-            color: #ff6e40;
-        } 
-    }
-    &.color5 {
-        &:before {
-            color: #e06055;
-        }  
-    }
-    &.color6 {
-        &:before {
-            color: #8e8e8e;
-        } 
-    }
-    &.color7 {
-        &:before {
-            color: #f9a825;
-        }  
-    }
-    &.color8 {
-        &:before {
-            color: #00c853;
-        }     
-    }
-}
-
 /*#endregion */
 
 /*#region bestUser List */
@@ -407,25 +290,6 @@
         line-height: 60px;
     }
 }
-
-/*#endregion */
-
-/*#region Notify */
-.notifyItem {
-    .userLetter {
-        &:before {
-            width: 72px;
-            height: 72px;
-            line-height: 72px;
-            font-size: 45px;
-            left:-4px;
-        }
-    }
-    .heb:before {
-        line-height: 67px;
-        font-size: 52px;
-    }
-}
 /*#endregion */
 
 /*#region User page */
@@ -444,6 +308,23 @@
         font-size: 80px;
     }
 }
+/*#region Notify */
+.notifyItem {
+    .userLetter {
+        &:before {
+            width: 72px;
+            height: 72px;
+            line-height: 72px;
+            font-size: 45px;
+            left:-4px;
+        }
+    }
+    .heb:before {
+        line-height: 67px;
+        font-size: 52px;
+    }
+}
+/*#endregion */
 .upFriends, .upInvites {
     .userLetter {
         margin-bottom: 10px;
@@ -451,7 +332,6 @@
             width: 74px;
             height: 74px;
             line-height: 74px;
-            position: static;
             font-size: 45px;
             margin: -1px 0 0 -2px;
         }

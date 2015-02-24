@@ -8,14 +8,12 @@ using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Dto.Qna;
-using Zbang.Zbox.ViewModel.Dto.Search;
 using Zbang.Zbox.ViewModel.Dto.Store;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
-using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.ViewModel.Queries.User;
 using UserDto = Zbang.Zbox.ViewModel.Dto.UserDtos.UserDto;
 
@@ -348,7 +346,8 @@ namespace Zbang.Zbox.ReadServices
 
         public Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoard(GetLeaderBoardQuery query)
         {
-            return m_Cache.QueryAsync(m_ReadService.GetBoxLeaderBoard, query);
+            return m_ReadService.GetBoxLeaderBoard(query);
+            //return m_Cache.QueryAsync(m_ReadService.GetBoxLeaderBoard, query);
         }
 
         public Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCourses(GetBoxSideBarQuery query)

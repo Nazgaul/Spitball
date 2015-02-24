@@ -59,27 +59,26 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
         }
 
-        private int GetIndex()
-        {
-            int currentIndex = 0;
-            string instanceId = RoleEnvironment.CurrentRoleInstance.Id;
-            bool withSuccess = int.TryParse(instanceId.Substring(instanceId.LastIndexOf(".") + 1), out currentIndex);
-            if (!withSuccess)
-            {
-                withSuccess = int.TryParse(instanceId.Substring(instanceId.LastIndexOf("_") + 1), out currentIndex);
-            }
-            return currentIndex;
-        }
+        //private int GetIndex()
+        //{
+        //    int currentIndex;
+        //    string instanceId = RoleEnvironment.CurrentRoleInstance.Id;
+        //    bool withSuccess = int.TryParse(instanceId.Substring(instanceId.LastIndexOf(".") + 1), out currentIndex);
+        //    if (!withSuccess)
+        //    {
+        //        int.TryParse(instanceId.Substring(instanceId.LastIndexOf("_") + 1), out currentIndex);
+        //    }
+        //    return currentIndex;
+        //}
 
         private async Task ExecuteAsync()
         {
 
-            var index = GetIndex();
             var quizUpdate = await UpdateQuiz();
-            var itemUpdate = await UpdateItem(index);
+            var itemUpdate = await UpdateItem();
             var universityUpdate = await UpdateUniversity();
             var boxUpdate = await UpdateBox();
-            if (itemUpdate  ||  boxUpdate || universityUpdate || quizUpdate)
+            if (itemUpdate || boxUpdate || universityUpdate || quizUpdate)
             {
                 return;
             }
@@ -104,18 +103,17 @@ namespace Zbang.Zbox.WorkerRole.Jobs
               || updates.QuizzesToDelete.Count() == NumberToReSyncWithoutWait;
         }
 
-        private async Task<bool> UpdateItem(int index)
+        private async Task<bool> UpdateItem()
         {
-            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(index);
+            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync();
             if (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
             {
 
                 foreach (var elem in updates.ItemsToUpdate)
                 {
-                    elem.Content = await ExtractContentToUploadToSearch(elem);
+                    elem.Content = ExtractContentToUploadToSearch(elem);
                 }
-                var isSuccess =
-                    await m_ItemSearchProvider.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
+                await m_ItemSearchProvider.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
                 var isSuccess2 =
                     await m_ItemSearchProvider2.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
                 if (isSuccess2)
@@ -125,35 +123,72 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                             updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));
                 }
             }
+            else
+            {
+                TraceLog.WriteInfo("nothing to work on");
+            }
             return updates.ItemsToUpdate.Count() == NumberToReSyncWithoutWait
               || updates.ItemsToDelete.Count() == NumberToReSyncWithoutWait;
         }
 
-        private async Task<string> ExtractContentToUploadToSearch(ItemSearchDto elem)
+        readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(3);
+        private string ExtractContentToUploadToSearch(ItemSearchDto elem)
         {
             try
             {
-                TraceLog.WriteInfo("processing " + elem.Id);
+                var wait = new ManualResetEvent(false);
+                
                 var blob = m_BlobProvider.GetFile(elem.BlobName);
                 var processor = m_FileProcessorFactory.GetProcessor(blob.Uri);
                 if (processor == null) return null;
                 var tokenSource = new CancellationTokenSource();
-                tokenSource.CancelAfter(TimeSpan.FromMinutes(2));
-                var str = await processor.ExtractContent(blob.Uri, tokenSource.Token);
-                if (string.IsNullOrEmpty(str))
+                tokenSource.CancelAfter(m_TimeToWait);
+
+                string str = null;
+
+                var work = new Thread(async () =>
                 {
-                    return str;
-                }
-                var sb = new StringBuilder();
-                foreach (var ch in str)
-                {
-                    if (char.IsSurrogate(ch))
+                    try
                     {
-                        continue;
+
+                        str = await processor.ExtractContent(blob.Uri, tokenSource.Token);
+                        if (string.IsNullOrEmpty(str))
+                        {
+                            wait.Set();
+                            return;
+                        }
+                        var sb = new StringBuilder();
+                        foreach (var ch in str)
+                        {
+                            if (char.IsSurrogate(ch))
+                            {
+                                continue;
+                            }
+                            sb.Append(ch);
+                        }
+                        str = sb.ToString();
+                        wait.Set();
                     }
-                    sb.Append(ch);
+                    catch (Exception ex)
+                    {
+                        TraceLog.WriteError("on elem " + elem, ex);
+                    }
+                });
+                work.Start();
+                Boolean signal = wait.WaitOne(m_TimeToWait);
+                if (!signal)
+                {
+                    work.Abort();
+                    TraceLog.WriteError("aborting on elem" + elem);
+                    return null;
                 }
-                return sb.ToString();
+
+
+                TraceLog.WriteInfo("processing " + elem.Id);
+
+                return str;
+
+
             }
             catch (Exception ex)
             {

@@ -2,33 +2,6 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-[data-letter]:before {
-  content: attr(data-letter);
-  width: 46px;
-  height: 46px;
-  line-height: 46px;
-  border-radius: 50%;
-  color: #fff;
-  display: inline-block;
-  text-align: center;
-  text-transform: capitalize;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  left: 8px;
-  font-size: 25px;
-}
-.userImg,
-.userLetter {
-  border-radius: 50%;
-}
-.userImg {
-  border: 1px solid #c2c2c2;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
 /*#region letters on boxes/courses/quizzes */
 .box [data-letter]:before,
 .recommended [data-letter]:before,
@@ -125,60 +98,6 @@
 .qaAttchQuiz [data-letter]:before {
   left: 0;
   right: 0;
-}
-/*#endregion */
-/*#region letter color / background color */
-.color1:before {
-  background: #00bfa5;
-}
-.color2:before {
-  background: #f06292;
-}
-.color3:before {
-  background: #b388ff;
-}
-.color4:before {
-  background: #ff6e40;
-}
-.color5:before {
-  background: #e06055;
-}
-.color6:before {
-  background: #8e8e8e;
-}
-.color7:before {
-  background: #f9a825;
-}
-.color8:before {
-  background: #00c853;
-}
-.userLetter:before {
-  border: 1px solid #c2c2c2;
-  background: #eee;
-}
-.userLetter.color1:before {
-  color: #00bfa5;
-}
-.userLetter.color2:before {
-  color: #f06292;
-}
-.userLetter.color3:before {
-  color: #b388ff;
-}
-.userLetter.color4:before {
-  color: #ff6e40;
-}
-.userLetter.color5:before {
-  color: #e06055;
-}
-.userLetter.color6:before {
-  color: #8e8e8e;
-}
-.userLetter.color7:before {
-  color: #f9a825;
-}
-.userLetter.color8:before {
-  color: #00c853;
 }
 /*#endregion */
 /*#region bestUser List */
@@ -325,6 +244,18 @@
   line-height: 60px;
 }
 /*#endregion */
+/*#region User page */
+.upTop .userLetter:before {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  font-size: 70px;
+  left: -1px;
+}
+.upTop .heb:before {
+  line-height: 87px;
+  font-size: 80px;
+}
 /*#region Notify */
 .notifyItem .userLetter:before {
   width: 72px;
@@ -338,18 +269,6 @@
   font-size: 52px;
 }
 /*#endregion */
-/*#region User page */
-.upTop .userLetter:before {
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
-  font-size: 70px;
-  left: -1px;
-}
-.upTop .heb:before {
-  line-height: 87px;
-  font-size: 80px;
-}
 .upFriends .userLetter,
 .upInvites .userLetter {
   margin-bottom: 10px;
@@ -359,7 +278,6 @@
   width: 74px;
   height: 74px;
   line-height: 74px;
-  position: static;
   font-size: 45px;
   margin: -1px 0 0 -2px;
 }
