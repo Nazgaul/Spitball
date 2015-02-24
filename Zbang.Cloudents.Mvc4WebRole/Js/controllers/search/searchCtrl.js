@@ -9,17 +9,19 @@
 function ($scope, $location, $analytics, $timeout, sSearch, $rootScope) {
     "use strict";
 
-    var analyticsCategory = 'Search';
+    var analyticsCategory = 'Search',
+        firstTime = false;
 
     $scope.formData = {};
     $scope.params = {
         currentPage: 0,
         lastPage: false
     };
-
-
-    resetDisplaySettings();
+   
     resetData();
+    resetDisplaySettings();
+
+
     $scope.search = function (isAppend) {
         if (isAppend) {
             search(appendMore);
@@ -34,9 +36,20 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope) {
        
 
         search(appendFirstPage);
-    };
+    };    
 
-    $scope.search();
+    $scope.$on('search:toggle', function (e,isOpen) {
+        if (!isOpen) {
+            return;
+        }
+
+        if (firstTime) {
+            return;
+        }
+
+        $scope.search();
+
+    });
 
     function search(parser) {
 

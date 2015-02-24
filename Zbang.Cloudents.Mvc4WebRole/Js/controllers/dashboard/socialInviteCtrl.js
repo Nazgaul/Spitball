@@ -143,7 +143,7 @@
                          sGoogle.contacts().then(function (response) {
                              currentUsers = angular.copy(response);
                              $timeout(function () {
-                                 $scope.params.contacts = currentUsers;// $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
+                                 $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
                                  $scope.$broadcast('update-scroll');
 
                              });

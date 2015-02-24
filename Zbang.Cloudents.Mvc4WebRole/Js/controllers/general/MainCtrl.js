@@ -43,6 +43,8 @@
                 var queryValue,
                     trackValue;
 
+                $rootScope.$broadcast('search:toggle', $rootScope.openSearch);
+
                 if ($rootScope.openSearch) {
                     queryValue = true;
                     trackValue = 'Open'
