@@ -50,6 +50,10 @@
   display: block;
   margin-left: -12px;
 }
+.recommended .boxSvg {
+  width: 56px;
+  height: 56px;
+}
 .recommended + .recommended:after {
   content: '';
   display: inline-block;

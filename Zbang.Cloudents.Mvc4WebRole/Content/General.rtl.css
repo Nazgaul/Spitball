@@ -249,11 +249,17 @@ input[type="radio"][disabled] + label:before {
   top: 5px;
   width: 10px;
   height: 11px;
-  display: none;
 }
 .removeItem .svg-close,
 .closeItem .svg-close {
   fill: #86878b;
+}
+.closeItem {
+  display: none;
+}
+.removeItem {
+  opacity: 0;
+  visibility: hidden;
 }
 .emailText {
   display: inline-block;
@@ -262,6 +268,8 @@ input[type="radio"][disabled] + label:before {
 }
 .emailText ~ .removeItem {
   display: inline-block;
+  opacity: 1;
+  visibility: visible;
   position: static;
   height: 10px;
   margin-top: 7px;

@@ -4,7 +4,6 @@
 /*#endregion */
 /*#region letters on boxes/courses/quizzes */
 .box [data-letter]:before,
-.recommended [data-letter]:before,
 .itemList [data-letter]:before {
   width: 56px;
   height: 56px;
@@ -13,7 +12,6 @@
   font-size: 28px;
 }
 .box .heb:before,
-.recommended .heb:before,
 .itemList .heb:before {
   font-size: 34px;
   line-height: 50px;
@@ -39,36 +37,6 @@
 .listItem .heb:before {
   font-size: 35px;
   line-height: 46px;
-}
-.thumbImg {
-  position: relative;
-  width: 94px;
-  height: 94px;
-}
-.thumbImg[data-letter]:before {
-  content: attr(data-letter);
-  width: 94px;
-  height: 94px;
-  line-height: 94px;
-  font-size: 66px;
-}
-.thumbImg.heb:before {
-  line-height: 84px;
-  font-size: 76px;
-}
-.boxTop[data-letter]:before {
-  width: 74px;
-  height: 74px;
-  line-height: 74px;
-  right: 0;
-  left: 0;
-  bottom: auto;
-  margin: auto;
-  font-size: 45px;
-}
-.boxTop.heb:before {
-  line-height: 67px;
-  font-size: 52px;
 }
 .quizList [data-letter]:before {
   width: 25px;

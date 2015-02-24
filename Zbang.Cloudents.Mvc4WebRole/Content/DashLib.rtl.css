@@ -988,7 +988,8 @@
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
 }
 .deptLink:hover .removeItem {
-  display: block;
+  opacity: 1;
+  visibility: visible;
 }
 .deptLink:before {
   content: '';
@@ -1074,7 +1075,8 @@
   transform: scale3d(1, 1, 1);
 }
 .box:hover .removeItem {
-  display: block;
+  opacity: 1;
+  visibility: visible;
 }
 .box.libraryItem {
   width: 306px;
@@ -1085,13 +1087,6 @@
   -ms-transform: scale3d(1.08, 1.08, 1);
   -o-transform: scale3d(1.08, 1.08, 1);
   transform: scale3d(1.08, 1.08, 1);
-}
-.box svg {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  opacity: .6;
 }
 .box .newCounter {
   border-radius: 14px;
@@ -1108,6 +1103,10 @@
   left: auto;
   width: 12px;
   height: 12px;
+  -webkit-transition: opacity 0.2s 0.5s;
+  -moz-transition: opacity 0.2s 0.5s;
+  -o-transition: opacity 0.2s 0.5s;
+  transition: opacity 0.2s 0.5s;
 }
 .box .svg-close {
   width: 10px;
@@ -1206,20 +1205,18 @@
   -webkit-transition: margin 0.2s 0.5s;
   -moz-transition: margin 0.2s 0.5s;
   -o-transition: margin 0.2s 0.5s;
-  transition: margin 0.2s 0.5s;
-}
-.box .vCentered:before {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  right: 14px;
-  width: 72px;
-  height: 72px;
-  background: #eee;
-  border-radius: 50%;
+  transition: margin 0.2s 0.5s
+  /*&:before {
+            .pseudo;
+            position: absolute;
+            top:0;bottom:0;
+            margin: auto;
+            left: 14px;
+            width: 72px;
+            height: 72px;
+            background: #eee;
+            border-radius: 50%;
+        }*/
 }
 .box h3 {
   vertical-align: middle;
@@ -1234,6 +1231,28 @@
   -o-transition: max-width 0.2s 0.5s;
   -webkit-transition: max-width 0.2s 0.5s;
   transition: max-width 0.2s 0.5s;
+}
+.boxSvg {
+  width: 72px;
+  height: 72px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 9px;
+  border-radius: 50%;
+  background: #eee;
+}
+.boxSvg svg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  opacity: .6;
+  width: 60%;
+  max-height: 70%;
 }
 .notify {
   min-width: 9px;
