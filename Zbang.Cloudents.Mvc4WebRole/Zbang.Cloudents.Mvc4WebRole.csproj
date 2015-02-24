@@ -811,6 +811,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\back-icon.png" />
     <Content Include="Images\back_back.png" />
+    <Content Include="Images\boxIcons.svg" />
     <Content Include="Images\common27-sprite.png" />
     <Content Include="Images\hp26-sprite.png" />
     <Content Include="Images\Store\ball.png" />
