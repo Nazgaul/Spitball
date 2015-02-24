@@ -5,7 +5,9 @@
 {
     <div class="userNav">
         <a href="@Model.Url" class="userAnchor">
-            <user-image name="@Model.Name" image="@Model.Image" class="lFloat" width="36" height="36"></user-image>
+            @*<user-image name="@Model.Name" image="@Model.Image" class="lFloat" width="36" height="36"></user-image>*@
+            <span class="lFloat userLetter" data-letter="@Model.Name[0]"></span>
+            <img name="@Model.Name" src="@Model.Image" class="lFloat userImg" width="36" height="36" />
             @*data-id we need for old code*@
             <div id="userName" class="userName elps" data-id="@Model.Id" title="@Model.Name">@Model.Name.Split(' ')[0]</div>
             <div id="userPts" class="userPts" data-points="&nbsp;@SharedResources.Pts">@Model.Score</div>
@@ -21,7 +23,4 @@ else
         <button type="button" class="btn addConnect">@SharedResources.SignIn</button>
     </div>
     Html.RenderPartial("_SettingsUnauth", new Zbang.Cloudents.Mvc4WebRole.Models.SettingsUnauth { ShowLogIn = true });
-}
-@{
-    
 }
