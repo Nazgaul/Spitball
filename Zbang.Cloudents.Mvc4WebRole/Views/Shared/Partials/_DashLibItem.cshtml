@@ -14,7 +14,8 @@
         </div>
         <div class="ghost">
             <div ng-if="::box.numOfUpdates > 0" class="newCounter">{{::box.numOfUpdates}}</div>
-            <div class="vCentered" data-letter="{{::box.name[0]}}">
+            <div class="vCentered"> @*data-letter="{{::box.name[0]}}"*@
+                @Html.Svg("~/Images/boxIcons.svg", "icon10", new { @class = "svg-icon10 color2" })
                 <h3 class="elps">{{::box.name}}</h3>
                 <div class="courseId elps">{{::box.courseCode}}</div>
                 <div class="elps">{{::box.professor}}</div>

@@ -898,11 +898,9 @@
   box-shadow: none;
   font-size: 15px;
   color: #383838;
-  background: rgba(255, 255, 255, 0.7);
 }
 .myAreaList .box:first-child:hover {
   color: #0f9d58;
-  background: #fff;
 }
 .myAreaList .box:first-child .addBtn {
   border: 1px dashed #c2c2c2;
@@ -1062,7 +1060,7 @@
   vertical-align: top;
   float: left;
   position: relative;
-  background-color: #fff;
+  background: #fff;
   -webkit-transition: all 0.4s;
   -moz-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -1087,6 +1085,13 @@
   -ms-transform: scale3d(1.08, 1.08, 1);
   -o-transform: scale3d(1.08, 1.08, 1);
   transform: scale3d(1.08, 1.08, 1);
+}
+.box svg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  opacity: .6;
 }
 .box .newCounter {
   border-radius: 14px;
@@ -1113,7 +1118,7 @@
   width: 100%;
   height: 106px;
   display: block;
-  background: #EBEBEC;
+  border: 1px solid #c2c2c2;
   position: relative;
   overflow: hidden;
   white-space: nowrap;
@@ -1204,7 +1209,17 @@
   transition: margin 0.2s 0.5s;
 }
 .box .vCentered:before {
-  left: 15px;
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 14px;
+  width: 72px;
+  height: 72px;
+  background: #eee;
+  border-radius: 50%;
 }
 .box h3 {
   vertical-align: middle;
