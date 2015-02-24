@@ -185,7 +185,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 return;
             }
             controller.ViewData.Model = new HandleErrorInfo(ex, currentController, currentAction);
-            ((IController)controller).Execute(new RequestContext(new HttpContextWrapper(httpContext), routeData));
+            try
+            {
+                //Response.Redirect("/error");
+                ((IController)controller).Execute(new RequestContext());//(new HttpContextWrapper(httpContext), routeData));
+            }
+            catch (Exception ex2)
+            {
+                TraceLog.WriteError("on application error", ex2);
+            }
         }
 
         //protected void Application_PreSendRequestHeaders(object sender, EventArgs e)
