@@ -1618,6 +1618,10 @@
       <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>
       <Name>Zbang.Zbox.Infrastructure.Ioc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Search\Zbang.Zbox.Infrastructure.Search.csproj">
+      <Project>{d79b5cec-09de-4337-873f-0c65b58d86d3}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Search</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Security\Zbang.Zbox.Infrastructure.Security.csproj">
       <Project>{bfbd0e92-dabf-4179-9586-c344b9315529}</Project>
       <Name>Zbang.Zbox.Infrastructure.Security</Name>

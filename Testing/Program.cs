@@ -8,6 +8,7 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Mail.EmailParameters;
+using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Store.Dto;
 using Zbang.Zbox.Store.Services;
 using Zbang.Zbox.ViewModel.Queries;
@@ -38,7 +39,6 @@ using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Dapper;
 using System.Text.RegularExpressions;
-using Zbang.Zbox.Infrastructure.Azure.Search;
 
 namespace Testing
 {
@@ -173,6 +173,7 @@ namespace Testing
             Zbang.Zbox.Infrastructure.Mail.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
+            Zbang.Zbox.Infrastructure.Search.RegisterIoc.Register();
 
 
 

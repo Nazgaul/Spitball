@@ -11,8 +11,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Zbang.Zbox.Infrastructure.Azure.Search;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ViewModel.Dto.Library;
@@ -36,6 +36,7 @@ namespace TestingApp
             Zbang.Zbox.Infrastructure.Mail.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
+            Zbang.Zbox.Infrastructure.Search.RegisterIoc.Register();
 
             var ioc = IocFactory.Unity;
             ioc.Build();
