@@ -9,8 +9,8 @@
     <AzureEnableRemoteDesktop>False</AzureEnableRemoteDesktop>
     <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>False</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
-    <AzureHostedServiceLabel>ZboxStudents</AzureHostedServiceLabel>
-    <AzureHostedServiceName>ZboxStudents</AzureHostedServiceName>
+    <AzureHostedServiceLabel>ZboxWorkerRole</AzureHostedServiceLabel>
+    <AzureHostedServiceName>ZboxWorkerRole</AzureHostedServiceName>
     <AzureEnableIntelliTrace>True</AzureEnableIntelliTrace>
     <AzureEnableProfiling>False</AzureEnableProfiling>
     <AzureServiceConfiguration>Azure</AzureServiceConfiguration>

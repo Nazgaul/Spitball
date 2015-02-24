@@ -491,7 +491,7 @@ namespace Testing
         {
             IZboxReadServiceWorkerRole m_ZboxReadService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
             IItemWriteSearchProvider m_ItemSearchProvider = iocFactory.Resolve<IItemWriteSearchProvider>();
-            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(0);
+            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync();
             if (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
             {
                 var isSuccess =

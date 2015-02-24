@@ -1,7 +1,7 @@
 ﻿var app;
 (function (angular) {
-    var lang, version;
     "use strict";
+    var lang, version;
     app = angular.module('app', ['ngRoute', 'ngSanitize', 'infinite-scroll', 'custom_scrollbar',
         'monospaced.elastic', 'ngDragDrop', 'displayTime', 'textDirection', 'jmdobry.angular-cache',
        'ui.bootstrap', 'ngMessages', 'ngAnimate', 'mAccount', 'mDashboard', 'textAngular',
@@ -32,7 +32,7 @@
            $provide.decorator('taOptions', ['taRegisterTool', '$delegate', '$q', '$routeParams', function (taRegisterTool, taOptions, $q, $routeParams) {
                var buttons;
 
-               buttons = [['fontUp', 'fontDown'], ['bold', 'italics', 'underline'], ['justifyLeft', 'justifyCenter', 'justifyRight'], ['ol', 'ul'], ['insertImage'], ['redo', 'undo']]
+               buttons = [['fontUp', 'fontDown'], ['bold', 'italics', 'underline'], ['justifyLeft', 'justifyCenter', 'justifyRight'], ['ol', 'ul'], ['insertImage'], ['redo', 'undo']];
 
                if (Modernizr.inputtypes.color) {
                    buttons[1].push('color');
@@ -270,7 +270,7 @@
            ];
 
            angular.forEach(routes, function (route) {
-               angular.forEach(route.paths, route.iterator)
+               angular.forEach(route.paths, route.iterator);
            });
 
            function createRoute(type, templateUrl, controller, reloadOnSearch) {

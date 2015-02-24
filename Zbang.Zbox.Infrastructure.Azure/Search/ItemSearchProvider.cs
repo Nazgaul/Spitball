@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,7 +13,6 @@ using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Search;
-using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Search
 {
@@ -22,7 +20,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
     {
         private readonly string m_IndexName = "item";
         private readonly IBlobProvider m_BlobProvider;
-        private bool m_CheckIndexExists;
 
 
         public ItemSearchProvider(IBlobProvider blobProvider)
@@ -52,47 +49,46 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
         private const string BoxidField = "boxid";
         private const string UseridsField = "userids";
 
-        private Index GetIndexStructure()
-        {
-            return new Index(m_IndexName)
-                .WithStringField(IdField, f => f
-                    .IsKey()
-                    .IsRetrievable()
-                )
-                .WithStringField(NameField, f => f
-                    .IsRetrievable()
-                    .IsSearchable())
-                .WithStringField(ImageField, f => f
-                    .IsRetrievable())
-                .WithStringField(BoxNameField, f => f
-                    .IsRetrievable())
-                .WithStringField(ContentField, f => f
-                    .IsRetrievable()
-                    .IsSearchable())
-                .WithDoubleField(RateField, f => f
-                    .IsRetrievable())
-                .WithIntegerField(ViewsField, f => f
-                    .IsRetrievable())
-                .WithStringField(UrlField, f => f
-                    .IsRetrievable())
-                .WithStringField(UniversityNameField, f => f
-                    .IsRetrievable())
-                .WithField(UniversityidField, "Edm.Int64", f => f
-                    .IsFilterable())
-                .WithField(BoxidField, "Edm.Int64", f => f
-                    .IsFilterable())
-                .WithStringCollectionField(UseridsField, f => f
-                    .IsFilterable());
-        }
-        private async Task BuildIndex()
-        {
-            var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
-            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-            {
-                await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetIndexStructure());
-            }
-            m_CheckIndexExists = true;
-        }
+        //private Index GetIndexStructure()
+        //{
+        //    return new Index(m_IndexName)
+        //        .WithStringField(IdField, f => f
+        //            .IsKey()
+        //            .IsRetrievable()
+        //        )
+        //        .WithStringField(NameField, f => f
+        //            .IsRetrievable()
+        //            .IsSearchable())
+        //        .WithStringField(ImageField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(BoxNameField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(ContentField, f => f
+        //            .IsRetrievable()
+        //            .IsSearchable())
+        //        .WithDoubleField(RateField, f => f
+        //            .IsRetrievable())
+        //        .WithIntegerField(ViewsField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(UrlField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(UniversityNameField, f => f
+        //            .IsRetrievable())
+        //        .WithField(UniversityidField, "Edm.Int64", f => f
+        //            .IsFilterable())
+        //        .WithField(BoxidField, "Edm.Int64", f => f
+        //            .IsFilterable())
+        //        .WithStringCollectionField(UseridsField, f => f
+        //            .IsFilterable());
+        //}
+        //private async Task BuildIndex()
+        //{
+        //    var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
+        //    if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+        //    {
+        //        await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetIndexStructure());
+        //    }
+        //}
 
         public async Task<string> FetchContent(ItemSearchDto itemToUpload)
         {
@@ -129,12 +125,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
 
         private string DecodeText(string val)
         {
-            var i = 0;
             while (HttpUtility.UrlDecode(val) != val)
             {
-
                 val = HttpUtility.UrlDecode(val);
-                i++;
             }
             return val;
 

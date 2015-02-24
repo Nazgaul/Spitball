@@ -9,7 +9,7 @@ using Zbang.Zbox.Infrastructure.Consts;
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
-    public class ErrorController : BaseController
+    public class ErrorController : Controller
     {
          [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang)]

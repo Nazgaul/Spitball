@@ -33,7 +33,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                     filterContext.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
                     filterContext.HttpContext.Response.Flush();
                     filterContext.Result = new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
-                    filterContext.HttpContext.Response.SuppressFormsAuthenticationRedirect = true;
+                   // filterContext.HttpContext.Response.SuppressFormsAuthenticationRedirect = true;
                     filterContext.HttpContext.Response.End();
                 }
                 catch (Exception ex)

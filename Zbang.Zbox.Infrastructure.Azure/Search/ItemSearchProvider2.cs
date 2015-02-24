@@ -79,7 +79,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Search
             try
             {
                 var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
-                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                if (response.StatusCode == HttpStatusCode.NotFound)
                 {
                     await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetIndexStructure());
                 }
