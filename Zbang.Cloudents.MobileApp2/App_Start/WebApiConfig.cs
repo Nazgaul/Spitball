@@ -7,6 +7,7 @@ using Autofac;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Zbang.Cloudents.MobileApp2.Models;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Search;
 
 namespace Zbang.Cloudents.MobileApp2
 {
@@ -51,7 +52,7 @@ namespace Zbang.Cloudents.MobileApp2
         private static void ConfigureDependencies(HttpConfiguration configuration, ContainerBuilder builder)
         {
             // Configure DI here
-
+            
             // Register our custom builder
             //var instance = new ServiceInitialize(configuration);
             //builder.RegisterType<ServiceInitialize>().As<IOwinAppBuilderExtension>();
@@ -59,6 +60,11 @@ namespace Zbang.Cloudents.MobileApp2
 
             IocFactory.Unity.ContainerBuilder = builder;
             Zbox.Infrastructure.RegisterIoc.Register();
+            builder.RegisterType<SeachConnection>()
+            .As<ISearchConnection>()
+            .WithParameter("serviceName", "cloudents")
+            .WithParameter("serviceKey", "5B0433BFBBE625C9D60F7330CFF103F0")
+            .InstancePerLifetimeScope();
             Zbang.Zbox.Infrastructure.Search.RegisterIoc.Register();
             //Zbox.Infrastructure.Data.RegisterIoc.Register();
             //Zbox.Infrastructure.File.RegisterIoc.Register();

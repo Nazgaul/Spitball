@@ -21,10 +21,13 @@ namespace Zbang.Zbox.Infrastructure.Search
         private readonly string m_IndexName = "item";
         private readonly IBlobProvider m_BlobProvider;
 
+        private readonly ISearchConnection m_Connection;
 
-        public ItemSearchProvider(IBlobProvider blobProvider)
+
+        public ItemSearchProvider(IBlobProvider blobProvider, ISearchConnection connection)
         {
             m_BlobProvider = blobProvider;
+            m_Connection = connection;
             if (!RoleEnvironment.IsAvailable)
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -186,7 +189,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             if (commands.Length > 0)
             {
 
-                var retVal = await SeachConnection.Instance.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
+                var retVal = await m_Connection.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
                 if (!retVal.IsSuccess)
                 {
                     TraceLog.WriteError("On update search" + retVal.Error.Message);

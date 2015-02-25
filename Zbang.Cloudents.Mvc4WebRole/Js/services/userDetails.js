@@ -32,7 +32,7 @@
          userData = {
              id: data.id,
              name: data.name,
-             image: $filter('defaultImage')(data.image, 'user'),
+             image: data.image,
              score: data.score,
              url: data.url,
              isAdmin: data.isAdmin,
@@ -51,9 +51,18 @@
          };
 
          if (userData.name) {
-             userData.firstName = data.name.split(' ')[0];
-             userData.lastName = data.name.split(' ')[1];
-         }
+             var splitted = data.name.split(' ');
+             userData.firstName = splitted[0];
+             switch (splitted) {
+                 case 2:
+                     userData.lastName = splitted[1];
+                     break;
+                 case 3:
+                     userData.middleName = splitted[1];
+                     userData.lastName = splitted[2];
+                     break;
+             }
+          }
 
      }
      return {
@@ -64,12 +73,18 @@
          isAuthenticated: function () {
              return isAuthenticated;
          },
+         setName: function(first,middle,last) {
+             userData.firstName = first;
+             userData.middleName = middle;
+             userData.lastName = last;
+         },
          setImage: function(image) {
              if (!image) {
                  return;
              }
              userData.image = image;
-
+         },
+         updateChange: function () {
              $rootScope.$broadcast('userDetailsChange');
          },
 

@@ -19,8 +19,7 @@
     </div>
     <div class="section">
         @Html.LabelFor(m => m.Image)
-        <user-image name="formData.firstName" ng-if="data.image" image="data.image" width="100" height="100"></user-image>
-        <span class="userLetter" data-letter="{{formData.firstName[0]}}" ng-if="!data.image"></span>
+        <user-image name="formData.firstName" ng-if="data.image" image="data.image" width="100" height="100" noremove="true"></user-image>        
         <div class="profilePhotoLoader" ng-if="params.uploading" load-spinner="params.uploading" load-spinner-type="init"></div>
         <button type="button" class="photoBtn" pl-upload-standalone url="/Upload/ProfilePicture/" container="main" on-error="onError(error)" on-uploaded="onUploaded(response)" on-files-added="onFilesAdded(files)">@AccountSettingsResources.UploadImage</button>
     </div>

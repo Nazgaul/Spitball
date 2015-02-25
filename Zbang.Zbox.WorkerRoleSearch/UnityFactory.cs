@@ -1,6 +1,9 @@
-﻿using Zbang.Zbox.Infrastructure;
+﻿using Autofac;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
+using RegisterIoc = Zbang.Zbox.Infrastructure.RegisterIoc;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -32,6 +35,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Infrastructure.Data.RegisterIoc.Register();
             Infrastructure.File.RegisterIoc.Register();
             Infrastructure.Azure.Ioc.RegisterIoc.Register();
+
+            Unity.ContainerBuilder.RegisterType<SeachConnection>()
+             .As<ISearchConnection>()
+             .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
+             .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
+             .InstancePerLifetimeScope();
             Infrastructure.Search.RegisterIoc.Register();
             //Infrastructure.Mail.RegisterIoc.Register();
             Domain.Services.RegisterIoc.Register();

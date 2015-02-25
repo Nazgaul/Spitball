@@ -89,7 +89,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             if (RoleEnvironment.IsEmulated)
             {
-                return null;
+                return m_Unity.Resolve<IJob>(UnityFactory.UpdateSearch);
             }
             return m_Unity.Resolve<IJob>(UnityFactory.UpdateSearch);
         }

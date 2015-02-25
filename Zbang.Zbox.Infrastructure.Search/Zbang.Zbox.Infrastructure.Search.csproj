@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="BoxSearchProvider.cs" />
     <Compile Include="FilterProvider.cs" />
+    <Compile Include="ISearchConnection.cs" />
     <Compile Include="ItemSearchProvider.cs">
       <SubType>Code</SubType>
     </Compile>

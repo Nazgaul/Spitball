@@ -17,9 +17,11 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private readonly string m_IndexName = "box";
         private bool m_CheckIndexExists;
+        private readonly ISearchConnection m_Connection;
 
-        public BoxSearchProvider()
+        public BoxSearchProvider(ISearchConnection connection)
         {
+            m_Connection = connection;
             if (!RoleEnvironment.IsAvailable)
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -101,7 +103,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             if (commands.Length > 0)
             {
 
-                var retVal = await SeachConnection.Instance.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
+                var retVal = await m_Connection.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
                 if (!retVal.IsSuccess)
                 {
                     TraceLog.WriteError("On update search" + retVal.Error.Message);
@@ -115,14 +117,14 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-                var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
+                var response = await m_Connection.IndexManagement.GetIndexAsync(m_IndexName);
                 if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
-                    await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetBoxIndex());
+                    await m_Connection.IndexManagement.CreateIndexAsync(GetBoxIndex());
                 }
                 else
                 {
-                    var x = await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(GetBoxIndex());
+                    var x = await m_Connection.IndexManagement.UpdateIndexAsync(GetBoxIndex());
                 }
             }
             catch (Exception ex)
@@ -134,7 +136,8 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<IEnumerable<SearchBoxes>> SearchBox(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
-            var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
+            
+            var searchResult = await m_Connection.IndexQuery.SearchAsync(m_IndexName,
                 new SearchQuery(query.Term + "*")
                 {
                     Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityidField, UseridsField, query.UniversityId, query.UserId),
