@@ -232,14 +232,6 @@ input[type="radio"][disabled] + label:before {
 .btn3:hover {
   background: #0e68af;
 }
-/*.btn4 {
-    color: @attentionBlue;
-    border: 1px solid @attentionBlue;
-    padding: 5px 8px;
-    min-width: 64px;
-    font-size: 13px;
-    border-radius: 5px;
-}*/
 /*#endregion */
 /*#region delete email 'x' */
 .removeItem,
