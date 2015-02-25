@@ -72,7 +72,7 @@
                             <div class="rcDetails ghost" ng-class="{ rcFull : course.professor && course.courseCode }">
                                 <div class="vCentered elps">  @*data-letter="{{::course.name[0]}}"*@
                                     <div class="boxSvg">
-                                        @Html.Svg("~/Images/boxIcons.svg", "icon8", new { @class = "svg-icon8 color4" })
+                                        <box-logo name="::course.name" type="::course.boxType"></box-logo>
                                     </div>
                                     <div class="courseName">{{course.name}}</div>
                                     <span class="prof elps">{{course.professor}}</span>
