@@ -422,13 +422,7 @@ body {
     color: @textColor;
     counter-reset: qzQuestions;
 }
-/*.qzQuestions {
-    > li:before {
-        counter-increment: qzQuestions;
-        content: counter(qzQuestions);
-        display: inline-block;
-    }
-}*/
+
 .quizTitle{
     font-size: 18px;
     padding-top: 11px;
@@ -440,8 +434,7 @@ body {
         display: inline-block;
     }
 }
-.quizQList
-{
+.quizQList {
     list-style-type: decimal;
     font-size: 15px;
     padding: 0 25px;
@@ -449,7 +442,7 @@ body {
         position:relative; //for item view
         clear: both;
         border-bottom: 1px dashed @borderColor;
-        padding: 20px 0 10px;
+        padding: 28px 0 10px;
         &:last-child {
             border: none;
             margin-bottom: 20px;
@@ -724,7 +717,6 @@ body {
 .checkQuiz, .afraid {
     .userCorrect, .userWrong {
         .quizQuestion, .quizAList {
-            //padding-right: 80px; ////
             &:before {
                 display: inline-block;
             }
@@ -746,39 +738,8 @@ body {
             margin: -5px 0 0 -3px;
         }
     }
-
-    .wrong.wrong label:before {
-        background-position: -36px -121px;
-    }
-
     .quizPrevWpr .btn1 {
         display: none;
-    }
-
-    .quizQList .noAnswer {
-        &:before {
-            .pseudo;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 0 0 4px 8px;
-            border-color: transparent transparent lighten(@errorColor, 30%) transparent;
-            position: absolute;
-            top: -6px;
-            left: -53px;
-        }
-        &:after {
-            content: attr(data-no-answer);
-            display: inline-block;
-            position: absolute;
-            top: -2px;
-            left: -53px;
-            background: @errorColor;
-            color: #fff;
-            padding: 3px 8px;
-            font-size: 13px;
-        }
-        
     }
 }
 .checkQuiz {
@@ -794,6 +755,33 @@ body {
         border: none;
         &:last-child {
             margin-bottom: 0;
+        }
+    }
+    .wrong.wrong label:before {
+        background-position: -36px -121px;
+    }
+    .noAnswer {
+        &:before {
+            .pseudo;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 4px 8px;
+            border-color: transparent transparent lighten(@errorColor, 30%) transparent;
+            position: absolute;
+            top: 2px;
+            left: -53px;
+        }
+        &:after {
+            content: attr(data-no-answer);
+            display: inline-block;
+            position: absolute;
+            top: 6px;
+            left: -53px;
+            background: @errorColor;
+            color: #fff;
+            padding: 3px 8px;
+            font-size: 13px;
         }
     }
 }

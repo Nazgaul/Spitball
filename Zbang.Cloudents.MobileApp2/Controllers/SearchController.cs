@@ -12,7 +12,7 @@ using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Cloudents.MobileApp2.Controllers
 {
-    [AuthorizeLevel(AuthorizationLevel.User)]
+    //[AuthorizeLevel(AuthorizationLevel.User)]
     public class SearchController : ApiController
     {
         public IBoxReadSearchProvider BoxSearchService { get; set; }
@@ -20,6 +20,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public ApiServices Services { get; set; }
 
         // GET api/Search
+        [HttpGet]
         [Route("api/search/boxes")]
         public async Task<HttpResponseMessage> Boxes(string term, int page)
         {
@@ -41,6 +42,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
              }));
         }
 
+        [HttpGet]
         [Route("api/search/items")]
         public async Task<HttpResponseMessage> Items(string term, int page)
         {
