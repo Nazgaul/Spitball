@@ -54,7 +54,7 @@
     <div class="leftPanel lFloat">
         <div class="boxTop"> @*data-letter="{{info.name[0]}}"*@
             <div class="boxSvg">
-                <box-logo name="::box.name" type="::box.boxType"></box-logo>
+                <box-logo ng-if="::info.name" name="info.name" type="info.boxType"></box-logo>
             </div>
             <h1 class="boxName" id="box_Name" tooltip-placement="top" tooltip-append-to-body="true" tooltip="{{info.name}}">{{info.name}}</h1>
             <div class="boxDetail elps" ng-if="info.boxType === 'academic'">{{ info.courseId}}</div>
