@@ -269,11 +269,6 @@ input[type="radio"][disabled] + label:before {
 }
 /*#endregion */
 /*#region loading */
-/*.loadingGif {
-    .absoluteCenter(128px,128px);
-    background: url(/Images/loader3.gif);
-    z-index: 10;
-}*/
 .loading {
   width: 120px;
   height: 120px;
