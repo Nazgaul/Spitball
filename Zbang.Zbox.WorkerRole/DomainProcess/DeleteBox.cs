@@ -7,28 +7,28 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.WorkerRole.DomainProcess
 {
-    public class UpdateQuota : IDomainProcess
+    public class DeleteBox : IDomainProcess
     {
         private readonly IZboxWriteService m_ZboxWriteService;
 
-        public UpdateQuota(IZboxWriteService zboxWriteService)
+        public DeleteBox(IZboxWriteService zboxWriteService)
         {
             m_ZboxWriteService = zboxWriteService;
         }
 
-        public Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data)
+        public async Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data)
         {
-            var parameters = data as QuotaData;
-            if (parameters == null) return Task.FromResult(true);
+            var parameters = data as DeleteBoxData;
+            if (parameters == null) return true;
             try
             {
-                m_ZboxWriteService.UpdateQuota(new UpdateQuotaCommand(parameters.UserIds));
+                await m_ZboxWriteService.DeleteBoxAsync(new DeleteBoxCommand(parameters.BoxId));
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On new update model:" + parameters, ex);
+                TraceLog.WriteError("On delete box model:" + parameters, ex);
             }
-            return Task.FromResult(true);
+            return true;
         }
     }
 }

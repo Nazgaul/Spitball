@@ -72,14 +72,26 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task RunAsync(CancellationToken cancellationToken)
         {
-            var job = m_Unity.Resolve<IJob>(UnityFactory.UpdateSearch);
+            var job = GetJob();
             // TODO: Replace the following with your own logic.
             while (!cancellationToken.IsCancellationRequested)
             {
                 Trace.TraceInformation("Working");
-                job.Run();
+                if (job != null)
+                {
+                    job.Run();
+                }
                 await Task.Delay(1000);
             }
+        }
+
+        private IJob GetJob()
+        {
+            if (RoleEnvironment.IsEmulated)
+            {
+                return null;
+            }
+            return m_Unity.Resolve<IJob>(UnityFactory.UpdateSearch);
         }
     }
 }

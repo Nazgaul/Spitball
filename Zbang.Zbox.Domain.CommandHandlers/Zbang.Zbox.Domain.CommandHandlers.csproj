@@ -75,6 +75,7 @@
     <Compile Include="CreateItemTabCommandHandler.cs" />
     <Compile Include="CreateMembershipUserCommandHandler.cs" />
     <Compile Include="CreateUniversityCommandHandler.cs" />
+    <Compile Include="DeleteBoxCommandHandler.cs" />
     <Compile Include="DeleteItemCommentCommandHandler.cs" />
     <Compile Include="DeleteItemCommentReplyCommandHandler.cs" />
     <Compile Include="DeleteNodeFromLibraryCommandHandler.cs" />

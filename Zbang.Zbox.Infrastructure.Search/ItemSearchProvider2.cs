@@ -31,15 +31,22 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private bool IsDevelop()
         {
-            if (!RoleEnvironment.IsAvailable)
+            try
             {
-                return true;
+                if (!RoleEnvironment.IsAvailable)
+                {
+                    return true;
+                }
+                if (RoleEnvironment.IsEmulated)
+                {
+                    return true;
+                }
             }
-            if (RoleEnvironment.IsEmulated)
+            catch (Exception ex)
             {
-                return true;
+                TraceLog.WriteError(ex);
             }
-           
+
             return false;
         }
 

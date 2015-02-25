@@ -40,14 +40,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             if (user.IsAdmin() && message.ShouldDelete)
             {
-                await DeleteBox(box);
+                await DeleteBox(box, user);
                 return;
             }
 
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
             if (userType == UserRelationshipType.Owner)
             {
-                await DeleteBox(box);
+                await DeleteBox(box, user);
                 return;
             }
             if (userType == UserRelationshipType.Subscribe)
@@ -58,30 +58,31 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         }
 
-        private Task DeleteBox(Box box)
+        private Task DeleteBox(Box box, User user)
         {
             //box.IsDeleted = true;
-            box.UserTime.UpdateUserTime(box.Owner.Email);
-            var academicBox = box as AcademicBox;
-            var users = box.UserBoxRelationship.Select(s => s.User.Id).ToList();
+            box.UserTime.UpdateUserTime(user.Email);
+            box.IsDeleted = true;
+            m_BoxRepository.Save(box);
+            //var academicBox = box as AcademicBox;
+            //var users = box.UserBoxRelationship.Select(s => s.User.Id).ToList();
 
 
-            if (academicBox != null)
-            {
-                var university = academicBox.University;
-                var department = academicBox.Department;
-                var noOfBoxes = m_UniversityRepository.GetNumberOfBoxes(university);
-                m_BoxRepository.Delete(box);
-                m_DepartmentRepository.Save(department.UpdateNumberOfBoxes());
-                university.UpdateNumberOfBoxes(--noOfBoxes);
-                m_UniversityRepository.Save(university);
-            }
+            //if (academicBox != null)
+            //{
+            //    var university = academicBox.University;
+            //    var department = academicBox.Department;
+            //    var noOfBoxes = m_UniversityRepository.GetNumberOfBoxes(university);
+            //    m_BoxRepository.Delete(box);
+            //    m_DepartmentRepository.Save(department.UpdateNumberOfBoxes());
+            //    university.UpdateNumberOfBoxes(--noOfBoxes);
+            //    m_UniversityRepository.Save(university);
+            //}
 
 
-            m_BoxRepository.Delete(box);
-            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(users));
-            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(users));
-            return Task.WhenAll(t1, t2);
+            //m_BoxRepository.Delete(box);
+            return m_QueueProvider.InsertMessageToTranactionAsync(new DeleteBoxData(box.Id));
+            //var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(users));
             //m_BoxRepository.Save(box);
         }
         private void UnFollowBox(Box box, long userId)
