@@ -10,7 +10,8 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope) {
     "use strict";
 
     var analyticsCategory = 'Search',
-        firstTime = false;
+        firstTime = false,
+        isSearchOpen;
 
     $scope.formData = {};
     $scope.params = {
@@ -23,6 +24,10 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope) {
 
 
     $scope.search = function (isAppend) {
+        if (!isSearchOpen) {
+            return;
+        }
+
         if (isAppend) {
             search(appendMore);
             return;
@@ -38,8 +43,9 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope) {
         search(appendFirstPage);
     };    
 
-    $scope.$on('search:toggle', function (e,isOpen) {
-        if (!isOpen) {
+    $scope.$on('search:toggle', function (e, isOpen) {
+        isSearchOpen = isOpen;
+        if (!isOpen) {            
             return;
         }
 
