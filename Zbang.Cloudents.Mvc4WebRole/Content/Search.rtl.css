@@ -192,7 +192,12 @@
   margin-bottom: 5px;
 }
 .search-content .vCentered {
-  padding-right: 74px;
+  padding-right: 82px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
 }
 .column {
   width: 30%;
@@ -307,6 +312,9 @@
 }
 .searchLink h4 {
   color: #178b55;
+}
+.searchLink .boxSvg {
+  background: #fff;
 }
 .searchLink .content {
   margin-top: 8px;
