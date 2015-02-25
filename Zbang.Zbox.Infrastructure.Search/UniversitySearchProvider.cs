@@ -16,9 +16,11 @@ namespace Zbang.Zbox.Infrastructure.Search
     {
         private readonly string m_IndexName = "universities2";
         private bool m_CheckIndexExists;
+        private readonly ISearchConnection m_Connection;
 
-        public UniversitySearchProvider()
+        public UniversitySearchProvider(ISearchConnection connection)
         {
+            m_Connection = connection;
             if (!RoleEnvironment.IsAvailable)
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -32,10 +34,10 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private async Task BuildIndex()
         {
-            var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
+            var response = await m_Connection.IndexManagement.GetIndexAsync(m_IndexName);
             if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetUniversityIndex());
+                await m_Connection.IndexManagement.CreateIndexAsync(GetUniversityIndex());
             }
             m_CheckIndexExists = true;
         }
@@ -51,7 +53,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 return null;
             }
 
-            var searchTask = SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
+            var searchTask = m_Connection.IndexQuery.SearchAsync(m_IndexName,
                   new RedDog.Search.Model.SearchQuery(query.Term + "*")
                   {
                       Select = "id,name,imageField",
@@ -61,7 +63,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             var suggestTask = Task.FromResult<IApiResponse<SuggestionResult>>(null);
             if (query.Term.Length >= 3 && query.PageNumber == 0)
             {
-                suggestTask = SeachConnection.Instance.IndexQuery.SuggestAsync(m_IndexName,
+                suggestTask = m_Connection.IndexQuery.SuggestAsync(m_IndexName,
                     new SuggestionQuery(query.Term)
                     {
                         Fuzzy = true,
@@ -125,7 +127,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             if (commands.Length > 0)
             {
 
-                var retVal = await SeachConnection.Instance.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
+                var retVal = await m_Connection.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
                 if (!retVal.IsSuccess)
                 {
                     TraceLog.WriteError("On update search" + retVal.Error.Message);

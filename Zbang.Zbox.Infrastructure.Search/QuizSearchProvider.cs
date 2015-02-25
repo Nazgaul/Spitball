@@ -17,11 +17,13 @@ namespace Zbang.Zbox.Infrastructure.Search
     {
         private readonly string m_IndexName = "quiz";
         private readonly ISearchFilterProvider m_FilterProvider;
+        private readonly ISearchConnection m_Connection;
         private bool m_CheckIndexExists;
 
-        public QuizSearchProvider(ISearchFilterProvider filterProvider)
+        public QuizSearchProvider(ISearchFilterProvider filterProvider, ISearchConnection connection)
         {
             m_FilterProvider = filterProvider;
+            m_Connection = connection;
             if (!RoleEnvironment.IsAvailable)
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -93,15 +95,15 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-                var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
+                var response = await m_Connection.IndexManagement.GetIndexAsync(m_IndexName);
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    await SeachConnection.Instance.IndexManagement.CreateIndexAsync(CreateIndex());
+                    await m_Connection.IndexManagement.CreateIndexAsync(CreateIndex());
 
                 }
                 else
                 {
-                    await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(CreateIndex());
+                    await m_Connection.IndexManagement.UpdateIndexAsync(CreateIndex());
                 }
             }
             catch (Exception ex)
@@ -149,7 +151,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             if (commands.Length > 0)
             {
 
-                var retVal = await SeachConnection.Instance.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
+                var retVal = await m_Connection.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
                 if (!retVal.IsSuccess)
                 {
                     TraceLog.WriteError("On update search" + retVal.Error.Message);
@@ -161,9 +163,9 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<IEnumerable<SearchQuizzes>> SearchQuiz(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
-            
 
-            var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
+
+            var searchResult = await m_Connection.IndexQuery.SearchAsync(m_IndexName,
                 new SearchQuery(query.Term + "*")
                 {
                     Filter = await m_FilterProvider.BuildFilterExpression(
@@ -201,15 +203,15 @@ namespace Zbang.Zbox.Infrastructure.Search
 
 
 
-        private string HighLightInName(SearchQueryRecord record)
-        {
-            string[] highLight;
-            if (record.Highlights.TryGetValue(NameField, out highLight))
-            {
-                return String.Join("...", highLight);
-            }
-            return SeachConnection.ConvertToType<string>(record.Properties[NameField]);
-        }
+        //private string HighLightInName(SearchQueryRecord record)
+        //{
+        //    string[] highLight;
+        //    if (record.Highlights.TryGetValue(NameField, out highLight))
+        //    {
+        //        return String.Join("...", highLight);
+        //    }
+        //    return SeachConnection.ConvertToType<string>(record.Properties[NameField]);
+        //}
         private string ConvertHighlightToProperty(SearchQueryRecord record)
         {
             string[] questionHighLight;
