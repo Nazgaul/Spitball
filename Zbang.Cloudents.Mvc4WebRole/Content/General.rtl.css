@@ -22,8 +22,9 @@ body.jsDark .bodyContent ~ .fade .modal-dialog {
   -o-transition: none;
   transition: none;
 }
-body .mCS-dir-ltr > .mCSB_inside > .mCSB_container {
+body .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
   /*margin: 0; //override default jQuery mCustom Scrollbar code*/
+  margin: 0 0 0 15px;
 }
 em {
   font-weight: 700;
@@ -1659,56 +1660,48 @@ aside.sideBar .last {
 }
 svg.color1 {
   fill: #00bfa5;
-  stroke: #00bfa5;
 }
 .color2:before {
   background: #f06292;
 }
 svg.color2 {
   fill: #f06292;
-  stroke: #f06292;
 }
 .color3:before {
   background: #b388ff;
 }
 svg.color3 {
   fill: #b388ff;
-  stroke: #b388ff;
 }
 .color4:before {
   background: #ff6e40;
 }
 svg.color4 {
   fill: #ff6e40;
-  stroke: #ff6e40;
 }
 .color5:before {
   background: #e06055;
 }
 svg.color5 {
   fill: #e06055;
-  stroke: #e06055;
 }
 .color6:before {
   background: #8e8e8e;
 }
 svg.color6 {
   fill: #8e8e8e;
-  stroke: #8e8e8e;
 }
 .color7:before {
   background: #f9a825;
 }
 svg.color7 {
   fill: #f9a825;
-  stroke: #f9a825;
 }
 .color8:before {
   background: #00c853;
 }
 svg.color8 {
   fill: #00c853;
-  stroke: #00c853;
 }
 .userLetter:before {
   border: 1px solid #c2c2c2;
