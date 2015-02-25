@@ -376,13 +376,6 @@ body.quiz .modal-backdrop.in {
   color: #383838;
   counter-reset: qzQuestions;
 }
-/*.qzQuestions {
-    > li:before {
-        counter-increment: qzQuestions;
-        content: counter(qzQuestions);
-        display: inline-block;
-    }
-}*/
 .quizTitle {
   font-size: 18px;
   padding-top: 11px;
@@ -402,7 +395,7 @@ body.quiz .modal-backdrop.in {
   position: relative;
   clear: both;
   border-bottom: 1px dashed #c2c2c2;
-  padding: 20px 0 10px;
+  padding: 28px 0 10px;
 }
 .quizQList > li:last-child {
   border: none;
@@ -689,38 +682,9 @@ body.quiz .modal-backdrop.in {
   opacity: 1 !important;
   margin: -5px 0 0 -3px;
 }
-.checkQuiz .wrong.wrong label:before,
-.afraid .wrong.wrong label:before {
-  background-position: -36px -121px;
-}
 .checkQuiz .quizPrevWpr .btn1,
 .afraid .quizPrevWpr .btn1 {
   display: none;
-}
-.checkQuiz .quizQList .noAnswer:before,
-.afraid .quizQList .noAnswer:before {
-  content: '';
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 0 4px 8px;
-  border-color: transparent transparent #eda6b5 transparent;
-  position: absolute;
-  top: -6px;
-  left: -53px;
-}
-.checkQuiz .quizQList .noAnswer:after,
-.afraid .quizQList .noAnswer:after {
-  content: attr(data-no-answer);
-  display: inline-block;
-  position: absolute;
-  top: -2px;
-  left: -53px;
-  background: #d1294d;
-  color: #fff;
-  padding: 3px 8px;
-  font-size: 13px;
 }
 .checkQuiz .resultsWpr,
 .checkQuiz .userScoreWpr,
@@ -739,6 +703,32 @@ body.quiz .modal-backdrop.in {
 }
 .checkQuiz .quizQList > li:last-child {
   margin-bottom: 0;
+}
+.checkQuiz .wrong.wrong label:before {
+  background-position: -36px -121px;
+}
+.checkQuiz .noAnswer:before {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 4px 8px;
+  border-color: transparent transparent #eda6b5 transparent;
+  position: absolute;
+  top: 2px;
+  left: -53px;
+}
+.checkQuiz .noAnswer:after {
+  content: attr(data-no-answer);
+  display: inline-block;
+  position: absolute;
+  top: 6px;
+  left: -53px;
+  background: #d1294d;
+  color: #fff;
+  padding: 3px 8px;
+  font-size: 13px;
 }
 .userCorrect .quizQuestion,
 .userWrong .quizQuestion,

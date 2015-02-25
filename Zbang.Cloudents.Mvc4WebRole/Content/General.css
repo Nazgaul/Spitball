@@ -2014,6 +2014,9 @@ select.inputText {
   .boxSideBar .thirdUser {
     margin-top: -91px;
   }
+  .quizQList.quizQList > li {
+    padding: 46px 0 10px;
+  }
 }
 /*#endregion */
 /*#region IE only CSS */
