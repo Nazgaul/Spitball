@@ -1056,9 +1056,7 @@
             //background: #fff;
         }
         .addBtn {
-            border: 1px dashed @borderColor;
             .boxSizing;
-
             background: #fff;
             text-align: left;
             padding-left: 38px;
@@ -1321,7 +1319,9 @@
             }
         }
     }
-
+    .addBtn {
+        border: 1px dashed #aaa;
+    }
     .courseId {
         margin-bottom: 5px;
     }
@@ -1454,6 +1454,7 @@
 .libraryList .addBtn {
     color: #bcbcbc;
     width: 100%; //for add department btn
+    border: 1px dashed #aaa;
     &:hover {
         color: @colorHover;
 
@@ -1474,7 +1475,6 @@
 .libraryItem.addDep,
 .libraryItem.addCourse,
 .libraryItem + .box {
-    border: 1px dashed #bcbcbc;
     display: inline-block;
     float: left; //rtl
     box-shadow: none;
@@ -1490,7 +1490,6 @@
 .libraryItem.addDep {
     width: 244px;
     border-radius: 5px;
-    padding: 13px 0 10px;
     &:first-child {
         border-radius: 0;
     }

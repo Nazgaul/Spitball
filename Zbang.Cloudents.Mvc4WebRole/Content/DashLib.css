@@ -903,7 +903,6 @@
   color: #0f9d58;
 }
 .myAreaList .box:first-child .addBtn {
-  border: 1px dashed #c2c2c2;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1149,6 +1148,9 @@
 .box .addBtn:hover .addBtn:before {
   opacity: 1;
 }
+.box .addBtn {
+  border: 1px dashed #aaa;
+}
 .box .courseId {
   margin-bottom: 5px;
 }
@@ -1278,6 +1280,7 @@
 .libraryList .addBtn {
   color: #bcbcbc;
   width: 100%;
+  border: 1px dashed #aaa;
 }
 .libraryList .addBtn:hover {
   color: #19ae66;
@@ -1294,7 +1297,6 @@
 .libraryItem.addDep,
 .libraryItem.addCourse,
 .libraryItem + .box {
-  border: 1px dashed #bcbcbc;
   display: inline-block;
   float: left;
   box-shadow: none;
@@ -1310,7 +1312,6 @@
 .libraryItem.addDep {
   width: 244px;
   border-radius: 5px;
-  padding: 13px 0 10px;
 }
 .libraryItem.addDep:first-child {
   border-radius: 0;

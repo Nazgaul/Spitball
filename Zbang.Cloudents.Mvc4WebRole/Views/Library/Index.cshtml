@@ -92,7 +92,7 @@
             <ul id="libraryList" class="libraryList clearfix">
                 <li ng-repeat="box in info.items" ng-include="info.type === 'box' ? 'dashLibBox' : 'library-department'" ng-class="info.type ==='box' ? 'box' : 'libraryItem deptItem'"></li>
                 <li class="libraryItem deptItem addDep" ng-if="createDepartmentVisible()">
-                    <button class="addBtn" ng-click="createDepartment()" ng-style="{height: createBoxVisible() && createDepartmentVisible() ? '100px' : '58px' }">@MainViewResources.AddItem</button>
+                    <button class="addBtn" ng-click="createDepartment()" ng-style="{height: createBoxVisible() && createDepartmentVisible() ? '123px' : '84px' }">@MainViewResources.AddItem</button>
                 </li>
                 <li class="libraryItem box addCourse" ng-if="createBoxVisible()">
                     <button class="addBtn" ng-click="createBox()">@MainViewResources.AddCourse</button>
