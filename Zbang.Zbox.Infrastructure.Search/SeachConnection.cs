@@ -7,12 +7,12 @@ using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    class SeachConnection : IDisposable
+    public class SeachConnection : ISearchConnection, IDisposable
     {
         // static holder for instance, need to use lambda to construct since constructor private
         // ReSharper disable once InconsistentNaming
-        private static readonly Lazy<SeachConnection> _instance
-            = new Lazy<SeachConnection>(() => new SeachConnection());
+        //private static readonly Lazy<SeachConnection> _instance
+        //    = new Lazy<SeachConnection>(() => new SeachConnection());
 
 
         private readonly ApiConnection m_Connection;
@@ -26,6 +26,11 @@ namespace Zbang.Zbox.Infrastructure.Search
                ConfigFetcher.Fetch("AzureSeachServiceName"),
                ConfigFetcher.Fetch("AzureSearchKey")
                );
+        }
+
+        public SeachConnection(string serviceName, string serviceKey)
+        {
+            m_Connection = ApiConnection.Create(serviceName, serviceKey);
         }
 
         public IndexQueryClient IndexQuery
@@ -53,13 +58,13 @@ namespace Zbang.Zbox.Infrastructure.Search
         }
 
         // accessor for instance
-        public static SeachConnection Instance
-        {
-            get
-            {
-                return _instance.Value;
-            }
-        }
+        //public static SeachConnection Instance
+        //{
+        //    get
+        //    {
+        //        return _instance.Value;
+        //    }
+        //}
 
         public void Dispose()
         {
@@ -90,7 +95,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 return default(T);
             }
-           
+
             b = Convert.ChangeType(b, typeof(T));
             return (T)b;
         }

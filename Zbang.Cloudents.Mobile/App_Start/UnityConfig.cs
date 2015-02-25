@@ -1,10 +1,10 @@
-using System;
-//using Microsoft.Practices.Unity;
 using System.Web.Mvc;
+using Autofac;
 using Autofac.Integration.Mvc;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Thumbnail;
 
 namespace Zbang.Cloudents.Mobile
 {
@@ -16,18 +16,26 @@ namespace Zbang.Cloudents.Mobile
 
         public static void RegisterTypes()
         {
+            var builder = IocFactory.Unity.ContainerBuilder;
 
             Zbox.Infrastructure.RegisterIoc.Register();
             Zbox.Infrastructure.Data.RegisterIoc.Register();
             Zbox.Infrastructure.File.RegisterIoc.Register();
             Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
-            Zbox.Infrastructure.Search.RegisterIoc.Register();
+
+            builder.RegisterType<SeachConnection>()
+              .As<ISearchConnection>()
+              .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
+              .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
+              .InstancePerLifetimeScope();
+
+            RegisterIoc.Register();
             Zbox.Domain.Services.RegisterIoc.Register();
 
             Zbox.ReadServices.RegisterIoc.Register();
             Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
-            IocFactory.Unity.ContainerBuilder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
-            IocFactory.Unity.ContainerBuilder.RegisterFilterProvider();
+            builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
+            builder.RegisterFilterProvider();
 
             var container = IocFactory.Unity.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
@@ -36,8 +44,10 @@ namespace Zbang.Cloudents.Mobile
 
             //we need that for blob getting the blob container url
             DependencyResolver.Current.GetService<IBlobProvider>();
-
+            DependencyResolver.Current.GetService<ISearchConnection>();
             DependencyResolver.Current.GetService<Zbox.Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
+
+
         }
     }
 }

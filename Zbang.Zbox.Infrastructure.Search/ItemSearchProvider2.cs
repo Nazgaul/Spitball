@@ -17,12 +17,14 @@ namespace Zbang.Zbox.Infrastructure.Search
     {
         private readonly string m_IndexName = "item2";
         private readonly ISearchFilterProvider m_FilterProvider;
+        private readonly ISearchConnection m_Connection;
         private bool m_CheckIndexExists;
 
 
-        public ItemSearchProvider2(ISearchFilterProvider filterProvider)
+        public ItemSearchProvider2(ISearchFilterProvider filterProvider, ISearchConnection connection)
         {
             m_FilterProvider = filterProvider;
+            m_Connection = connection;
             if (IsDevelop())
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -129,10 +131,10 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-                var response = await SeachConnection.Instance.IndexManagement.GetIndexAsync(m_IndexName);
+                var response = await m_Connection.IndexManagement.GetIndexAsync(m_IndexName);
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    await SeachConnection.Instance.IndexManagement.CreateIndexAsync(GetIndexStructure());
+                    await m_Connection.IndexManagement.CreateIndexAsync(GetIndexStructure());
                 }
                 //else
                 //{
@@ -152,7 +154,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 if (IsDevelop())
                 {
-                    await SeachConnection.Instance.IndexManagement.DeleteIndexAsync(m_IndexName);
+                    await m_Connection.IndexManagement.DeleteIndexAsync(m_IndexName);
                 }
                 await BuildIndex();
             }
@@ -188,7 +190,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             if (commands.Length > 0)
             {
 
-                var retVal = await SeachConnection.Instance.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
+                var retVal = await m_Connection.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
                 if (!retVal.IsSuccess)
                 {
                     TraceLog.WriteError("On update search" + retVal.Error.Message);
@@ -203,7 +205,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             //var filter = "unidersityid ne '64805' and unidersityid ne '1161'"; ;
             var filter = await m_FilterProvider.BuildFilterExpression(
                 query.UniversityId, UniversityidField, UseridsField, query.UserId);
-            var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
+            var searchResult = await m_Connection.IndexQuery.SearchAsync(m_IndexName,
                 new SearchQuery(query.Term + "*")
                 {
                     Filter = filter,

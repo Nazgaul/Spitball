@@ -10,7 +10,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Owin;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Thumbnail;
@@ -27,16 +29,24 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         public static void RegisterTypes(IAppBuilder app)
         {
-
+            var builder = IocFactory.Unity.ContainerBuilder;
 
             Zbox.Infrastructure.RegisterIoc.Register();
             Zbox.Infrastructure.Data.RegisterIoc.Register();
             Zbox.Infrastructure.File.RegisterIoc.Register();
             Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
+
+
+            builder.RegisterType<SeachConnection>()
+               .As<ISearchConnection>()
+               .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
+               .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
+               .InstancePerLifetimeScope();
+
             Zbox.Infrastructure.Search.RegisterIoc.Register();
             //Zbox.Infrastructure.Security.RegisterIoc.Register();
 
-            var builder = IocFactory.Unity.ContainerBuilder;
+
 
             var x = new ApplicationDbContext();
             builder.Register<ApplicationDbContext>(c => x).AsSelf().InstancePerLifetimeScope();
@@ -81,6 +91,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             //we need that for blob getting the blob container url
             DependencyResolver.Current.GetService<IBlobProvider>();
+            DependencyResolver.Current.GetService<ISearchConnection>();
 
             DependencyResolver.Current.GetService<Zbox.Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
 
