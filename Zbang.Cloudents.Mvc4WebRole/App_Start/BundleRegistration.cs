@@ -262,6 +262,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("/js/filters/fileSize.js"),
                         new JsFileWithCdn("/js/filters/extToClass.js"),                        
                         new JsFileWithCdn("/js/filters/actionText.js"),
+                        new JsFileWithCdn("/js/filters/highlight.js"),
                         new JsFileWithCdn("/js/filters/orderBy.js"),
                         new JsFileWithCdn("/js/filters/stringFormat.js"),
                         new JsFileWithCdn("/js/controllers/store/storeCtrl.js"),
