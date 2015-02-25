@@ -76,7 +76,7 @@
   margin-top: 16px;
   color: #0371c8;
 }
-.shareBtn svg {
+.shareBtn .svg-share {
   fill: #fff;
   margin-top: 2px;
 }
@@ -92,7 +92,7 @@
 .shareDD {
   padding: 20px 18px;
   right: -5px;
-  top: 60px;
+  top: 48px;
   width: 322px;
 }
 .private .shareDD h4:before {
@@ -259,6 +259,7 @@
   display: inline-block;
   font-weight: normal;
   line-height: 27px;
+  padding-top: 10px;
 }
 .boxTop .imgBorder {
   background: #fff;
