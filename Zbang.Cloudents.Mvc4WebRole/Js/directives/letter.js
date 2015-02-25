@@ -3,8 +3,7 @@
        return {
            restrict: 'A',
            link: function (scope, element, attrs) {
-               var random = Math.floor(Math.random() * 7) + 1;
-
+     
                attrs.$observe('letter', function () {
                    if (_.isEmpty(attrs.letter)) {
                        return;

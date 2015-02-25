@@ -14,14 +14,9 @@
         </div>
         <div class="ghost">
             <div ng-if="::box.numOfUpdates > 0" class="newCounter">{{::box.numOfUpdates}}</div>
-            <div class="vCentered"> @*data-letter="{{::box.name[0]}}"*@
-
-            @*Guy: 1) Need to add id for svg: "icon1" -> "icon10" or "privateBox"
-                 2) Need to add color class color1->color8
-                 3) I only need addittional svg classes svg-icon2 and svg-icon10  for icons 2 and 10*@
-
+            <div class="vCentered">
                 <div class="boxSvg">
-                    @Html.Svg("~/Images/boxIcons.svg", "icon10", new { @class = "svg-icon10 color2" })
+                    <box-logo name="::box.name" type="::box.boxType"></box-logo>                
                 </div>
                 <h3 class="elps">{{::box.name}}</h3>
                 <div class="courseId elps">{{::box.courseCode}}</div>
