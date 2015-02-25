@@ -283,5 +283,15 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
+        public async Task DeleteBoxAsync(DeleteBoxCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                await m_CommandBus.SendAsync(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
+
     }
 }

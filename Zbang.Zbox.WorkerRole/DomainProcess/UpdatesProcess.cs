@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -16,10 +17,10 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
         }
 
 
-        public bool Execute(Infrastructure.Transport.DomainProcess data)
+        public Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data)
         {
             var parameters = data as UpdateData;
-            if (parameters == null) return true;
+            if (parameters == null) return Task.FromResult(true);
             try
             {
                 m_ZboxWriteService.AddNewUpdate(new AddNewUpdatesCommand(
@@ -35,7 +36,7 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             {
                 TraceLog.WriteError("On new update model:" + parameters, ex);
             }
-            return true;
+            return Task.FromResult(true);
         }
     }
 }

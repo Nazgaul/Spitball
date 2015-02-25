@@ -9,6 +9,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
     [ProtoInclude(17, typeof(UniversityData))]
     [ProtoInclude(18, typeof(ReputationData))]
     [ProtoInclude(19, typeof(QuotaData))]
+    [ProtoInclude(20, typeof(DeleteBoxData))]
     public abstract class DomainProcess
     {
         // ReSharper disable once EmptyConstructor - for protobuf
@@ -20,6 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
         public const string UpdateResolver = "UpdateResolver";
         public const string UniversityResolver = "University";
         public const string ReputationResolver = "Reputation";
+        public const string DeleteBoxResolver = "DeleteBox";
         public const string QuotaResolver = "Quota";
 
         public abstract string ProcessResolver { get; }
