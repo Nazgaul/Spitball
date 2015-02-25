@@ -19,10 +19,10 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             m_ZboxWriteService = zboxWriteService;
         }
 
-        public bool Execute(Infrastructure.Transport.DomainProcess data)
+        public Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data)
         {
             var parameters = data as ReputationData;
-            if (parameters == null) return true;
+            if (parameters == null) return Task.FromResult(true);
             try
             {
                 m_ZboxWriteService.UpdateReputation(new UpdateReputationCommand(parameters.UserIds));
@@ -31,7 +31,7 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             {
                 TraceLog.WriteError("On new update model:" + parameters, ex);
             }
-            return true;
+            return Task.FromResult(true);
         }
     }
 }

@@ -106,6 +106,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DomainProcess\DeleteBox.cs" />
     <Compile Include="DomainProcess\FlagBadItem.cs" />
     <Compile Include="DomainProcess\IDomainProcess.cs" />
     <Compile Include="DomainProcess\Statistics.cs" />

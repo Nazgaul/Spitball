@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Azure.Entities;
 using Zbang.Zbox.Infrastructure.Mail;
@@ -21,7 +22,7 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             m_TableProvider = tableProvider;
             m_ZboxReadService = zboxReadService;
         }
-        public bool Execute(Infrastructure.Transport.DomainProcess data)
+        public Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data)
         {
             var parameters = data as BadItemData;
             if (parameters == null)
@@ -41,7 +42,7 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
                     string.Empty
                     //string.Format(UrlConsts.ItemUrl, flagItemDetail.BoxId, flagItemDetail.Uid )
                     ));
-            return true;
+            return Task.FromResult(true);
         }
     }
 }

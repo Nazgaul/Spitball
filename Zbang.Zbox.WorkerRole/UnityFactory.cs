@@ -80,6 +80,8 @@ namespace Zbang.Zbox.WorkerRole
                 Infrastructure.Transport.DomainProcess.ReputationResolver);
             Unity.RegisterType<IDomainProcess, UpdateQuota>(
                 Infrastructure.Transport.DomainProcess.QuotaResolver);
+            Unity.RegisterType<IDomainProcess, DeleteBox>(
+                Infrastructure.Transport.DomainProcess.DeleteBoxResolver);
 
         }
        

@@ -18,7 +18,8 @@ namespace Zbang.Zbox.Domain.Common
         void ChangeBoxInfo(ChangeBoxInfoCommand command);
         //void DeleteBox(DeleteBoxCommand command);
         Task UnFollowBoxAsync(UnFollowBoxCommand command);
-
+        
+        Task DeleteBoxAsync(DeleteBoxCommand command);
         Task<AddItemToBoxCommandResult> AddItemToBoxAsync(AddItemToBoxCommand command);
 
         Task DeleteItemAsync(DeleteItemCommand command);

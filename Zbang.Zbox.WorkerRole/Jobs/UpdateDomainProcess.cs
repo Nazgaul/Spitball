@@ -60,7 +60,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                           TraceLog.WriteError("UpdateDomainProcess run - process is null msgData.ProcessResolver:" + msgData.ProcessResolver);
                           return Task.FromResult(true);
                       }
-                      return Task.FromResult(process.Execute(msgData));
+                      return process.ExecuteAsync(msgData);
                   }
                   catch (Exception ex)
                   {

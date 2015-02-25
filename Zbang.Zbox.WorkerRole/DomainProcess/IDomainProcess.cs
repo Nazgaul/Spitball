@@ -1,8 +1,10 @@
 ﻿
+using System.Threading.Tasks;
+
 namespace Zbang.Zbox.WorkerRole.DomainProcess
 {
    internal interface IDomainProcess
     {
-       bool Execute(Infrastructure.Transport.DomainProcess data);
+       Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data);
     }
 }
