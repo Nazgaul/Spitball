@@ -549,11 +549,11 @@
 .upFriends + .upShowAll {
   margin-top: -20px;
 }
-/*.upFriends {
-    .userItemImg {
-        border-radius: 50%;
-    }
-}*/
+.upFriends .userImg,
+.upFriends .userLetter {
+  display: inline-block;
+  margin-bottom: 9px;
+}
 .upInvites .upSectionWpr {
   min-height: 167px;
   padding: 0;

@@ -237,10 +237,6 @@
   font-size: 52px;
 }
 /*#endregion */
-.upFriends .userLetter,
-.upInvites .userLetter {
-  margin-bottom: 10px;
-}
 .upFriends .userLetter:before,
 .upInvites .userLetter:before {
   width: 74px;
@@ -253,6 +249,13 @@
 .upInvites .heb:before {
   line-height: 67px;
   font-size: 52px;
+}
+.upFriends .userLetter:before {
+  position: static;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
 }
 .upMembersList .userLetter:before,
 .qaWpr .userLetter:before {
