@@ -354,8 +354,6 @@
 .upTop .userImg,
 .upTop .userLetter {
   position: absolute;
-  width: 100px;
-  height: 100px;
   top: 20px;
   right: 0;
   border: 5px solid #fff;
