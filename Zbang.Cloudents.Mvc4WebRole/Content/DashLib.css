@@ -1206,17 +1206,6 @@
   -moz-transition: margin 0.2s 0.5s;
   -o-transition: margin 0.2s 0.5s;
   transition: margin 0.2s 0.5s;
-  /*&:before {
-            .pseudo;
-            position: absolute;
-            top:0;bottom:0;
-            margin: auto;
-            left: 14px;
-            width: 72px;
-            height: 72px;
-            background: #eee;
-            border-radius: 50%;
-        }*/
 }
 .box h3 {
   vertical-align: middle;
@@ -1224,7 +1213,7 @@
   display: inline-block;
   margin: 0;
   padding: 5px 0;
-  color: #3399ff;
+  color: #383838;
   font-weight: normal;
   max-width: 206px;
   -moz-transition: max-width 0.2s 0.5s;

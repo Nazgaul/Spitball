@@ -14,8 +14,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class WorkerRole : RoleEntryPoint
     {
-        private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        private readonly ManualResetEvent runCompleteEvent = new ManualResetEvent(false);
+        private readonly CancellationTokenSource m_CancellationTokenSource = new CancellationTokenSource();
+        private readonly ManualResetEvent m_RunCompleteEvent = new ManualResetEvent(false);
 
         readonly UnityFactory m_Unity;
 
@@ -28,11 +28,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Trace.TraceInformation("Zbang.Zbox.WorkerRoleSearch is running");
             try
             {
-                this.RunAsync(this.cancellationTokenSource.Token).Wait();
+                RunAsync(m_CancellationTokenSource.Token).Wait();
             }
             finally
             {
-                this.runCompleteEvent.Set();
+                m_RunCompleteEvent.Set();
             }
         }
 
@@ -62,8 +62,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             Trace.TraceInformation("Zbang.Zbox.WorkerRoleSearch is stopping");
 
-            this.cancellationTokenSource.Cancel();
-            this.runCompleteEvent.WaitOne();
+            m_CancellationTokenSource.Cancel();
+            m_RunCompleteEvent.WaitOne();
 
             base.OnStop();
 
