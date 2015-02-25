@@ -894,6 +894,10 @@
 .groupBoxes .myAreaList {
   padding-bottom: 100px;
 }
+.groupBoxes .svg-privateBox {
+  fill: rgba(3, 113, 200, 0.5);
+  stroke: rgba(3, 113, 200, 0.5);
+}
 .myAreaList .box:first-child {
   box-shadow: none;
   font-size: 15px;
