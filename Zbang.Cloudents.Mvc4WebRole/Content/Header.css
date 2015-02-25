@@ -381,8 +381,13 @@ body {
   fill: #fff;
 }
 .inviteTxtWpr {
+  max-width: 95%;
   max-height: 48px;
   overflow: hidden;
+}
+.inviteTxt {
+  white-space: normal;
+  font-weight: bold;
 }
 /*#endregion */
 /*#endregion */
