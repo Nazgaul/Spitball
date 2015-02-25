@@ -1,12 +1,19 @@
 ﻿mAccount.controller('UserDetailsCtrl',
-        ['$scope',
+        ['$scope', '$timeout',
           'sUserDetails',
-            function ($scope, sUserDetails) {
+            function ($scope, $timeout, sUserDetails) {
                 "use strict";
-                $scope.user = sUserDetails.getDetails();
+                $scope.user = _.clone(sUserDetails.getDetails());
 
                 $scope.$on('userDetailsChange', function (e) {
-                    $scope.user = sUserDetails.getDetails();
+                    $scope.user.firstName = sUserDetails.getDetails().firstName;
+                    $scope.user.image = null;                   
+                    $timeout(function () {
+                        $scope.user.image = sUserDetails.getDetails().image;
+                    });
+
                 });
+
+
             }
         ]);

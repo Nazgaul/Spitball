@@ -9,7 +9,8 @@
             scope: {
                 id: '=',
                 name: '=',
-                image: '='
+                image: '=',
+                noremove : '='
             },
             link: function (scope, elem, attrs) {
                 var innerEl, className, width, height, src;
@@ -43,6 +44,11 @@
 
                 elem.after(el);
                 //scope.$destroy();
+
+                if (scope.noremove) {
+                    return;
+                }
+
                 elem.remove();
             }
         };

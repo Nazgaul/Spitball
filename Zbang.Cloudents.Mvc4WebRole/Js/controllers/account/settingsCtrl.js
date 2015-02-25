@@ -53,12 +53,12 @@
                 if (!isValid) {
                     return;
                 }
-
+                sUserDetails.setName($scope.formData.firstName, $scope.formData.middleName, $scope.formData.lastName);
+                sUserDetails.setImage($scope.data.image.toString());
+                sUserDetails.updateChange();
                 sAccount.changeProfile($scope.formData).then(function () {
                     $scope.submitted = false;
                     sNotify.alert('Your settings are saved');
-                    sUserDetails.setImage($scope.formData.image);
-
                     $analytics.eventTrack('Save User Information', {
                         category: analyticsCategory
                     });
@@ -73,6 +73,7 @@
                 $scope.formData.largeImage = response.urlLarge;
                 $scope.data.image = response.urlLarge;
                 
+
                 $analytics.eventTrack('Upload Image', {
                     category: analyticsCategory
                 });
@@ -99,6 +100,7 @@
 
             $scope.onFilesAdded = function () {
                 $scope.params.uploading = true;
+                $scope.data.image = null;
             };
 
             //#endregion
