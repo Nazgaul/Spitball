@@ -125,7 +125,7 @@
     from zbox.Item i
     join zbox.Users u on u.UserId = i.UserId
     join zbox.box b on b.BoxId=i.BoxId
-    join zbox.users u2 on u2.UserId = b.OwnerId
+    left join zbox.university u2 on u2.id = b.university
     where i.ItemId = :ItemId
     and i.IsDeleted = 0 ;
     ]]>

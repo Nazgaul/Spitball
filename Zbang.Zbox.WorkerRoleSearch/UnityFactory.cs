@@ -32,6 +32,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Infrastructure.Data.RegisterIoc.Register();
             Infrastructure.File.RegisterIoc.Register();
             Infrastructure.Azure.Ioc.RegisterIoc.Register();
+            Infrastructure.Search.RegisterIoc.Register();
             //Infrastructure.Mail.RegisterIoc.Register();
             Domain.Services.RegisterIoc.Register();
             ReadServices.RegisterIoc.Register();
