@@ -23,15 +23,24 @@ namespace Zbang.Zbox.Infrastructure.Search
         public ItemSearchProvider2(ISearchFilterProvider filterProvider)
         {
             m_FilterProvider = filterProvider;
-            if (!RoleEnvironment.IsAvailable)
+            if (IsDevelop())
             {
                 m_IndexName = m_IndexName + "-dev";
-                return;
+            }
+        }
+
+        private bool IsDevelop()
+        {
+            if (!RoleEnvironment.IsAvailable)
+            {
+                return true;
             }
             if (RoleEnvironment.IsEmulated)
             {
-                m_IndexName = m_IndexName + "-dev";
+                return true;
             }
+           
+            return false;
         }
 
 
@@ -48,6 +57,10 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private Index GetIndexStructure()
         {
+            if (IsDevelop())
+            {
+                return GetDevelopIndexStructure();
+            }
             return new Index(m_IndexName)
                 .WithStringField(IdField, f => f
                     .IsKey()
@@ -74,6 +87,37 @@ namespace Zbang.Zbox.Infrastructure.Search
                 .WithStringCollectionField(UseridsField, f => f
                     .IsFilterable());
         }
+        private Index GetDevelopIndexStructure()
+        {
+            return new Index(m_IndexName)
+                .WithStringField(IdField, f => f
+                    .IsKey()
+                    .IsRetrievable()
+                )
+                .WithStringField(NameField, f => f
+                    .IsRetrievable()
+                    .IsSearchable())
+                .WithStringField(ImageField, f => f
+                    .IsRetrievable())
+                .WithStringField(BoxNameField, f => f
+                    .IsRetrievable())
+                .WithStringField(ContentField, f => f
+                    .IsSearchable()
+                )
+                .WithStringField(SmallContentField, f => f
+                    .IsRetrievable())
+                .WithStringField(UrlField, f => f
+                    .IsRetrievable())
+                .WithStringField(UniversityNameField, f => f
+                    .IsRetrievable())
+                .WithStringField(UniversityidField, f => f
+                    .IsFilterable()
+                    .IsRetrievable())
+                .WithStringCollectionField(UseridsField, f => f
+                    .IsFilterable()
+                    .IsRetrievable());
+        }
+
         private async Task BuildIndex()
         {
             try
@@ -99,6 +143,10 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (!m_CheckIndexExists)
             {
+                if (IsDevelop())
+                {
+                    await SeachConnection.Instance.IndexManagement.DeleteIndexAsync(m_IndexName);
+                }
                 await BuildIndex();
             }
             var listOfCommands = new List<IndexOperation>();
@@ -145,11 +193,13 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
+            //var filter = "unidersityid ne '64805' and unidersityid ne '1161'"; ;
+            var filter = await m_FilterProvider.BuildFilterExpression(
+                query.UniversityId, UniversityidField, UseridsField, query.UserId);
             var searchResult = await SeachConnection.Instance.IndexQuery.SearchAsync(m_IndexName,
                 new SearchQuery(query.Term + "*")
                 {
-                    Filter = await m_FilterProvider.BuildFilterExpression(
-                       query.UniversityId, UniversityidField, UseridsField, query.UserId),
+                    Filter = filter,
                     Top = query.RowsPerPage,
                     ScoringProfile = "university",
                     ScoringParameters = new[] { "university:" + query.UniversityId },
