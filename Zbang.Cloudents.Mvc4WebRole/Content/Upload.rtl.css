@@ -477,6 +477,12 @@ button.fileError {
   border-bottom: 1px solid red;
   cursor: auto;
 }
+.emailItem .svg-close {
+  fill: #86878b;
+  width: 10px;
+  position: relative;
+  top: -1px;
+}
 .boldPart {
   font-weight: 600;
   color: #000;
