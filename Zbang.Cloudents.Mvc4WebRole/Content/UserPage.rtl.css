@@ -186,6 +186,8 @@
   color: #0F9D58;
   height: 30px;
   padding: 18px 0 2px;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 .uploadsItem .stars {
   display: inline-block;
@@ -357,6 +359,8 @@
   top: 20px;
   right: 0;
   border: 5px solid #fff;
+  width: 100px;
+  height: 100px;
 }
 .upImg {
   position: absolute;
@@ -381,15 +385,6 @@
 }
 .upContent .boxImg.boxImg {
   height: 100%;
-}
-.upContent .userImg,
-.upContent .userLetter {
-  /*display: inline-block;
-        border: 1px solid @borderColor;
-        margin-bottom: 6px;
-        width: 74px;
-        height: 74px;
-        .boxSizing;*/
 }
 .upCourses .coursesEmpty {
   height: 150px;
@@ -577,6 +572,12 @@
 }
 .upInvites.empty .upSectionWpr {
   text-align: center;
+}
+.upInvites .userImg,
+.upInvites .userLetter {
+  position: absolute;
+  right: 8px;
+  margin: -3px -2px 0 0;
 }
 .upInviteList {
   overflow: hidden;

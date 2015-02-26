@@ -206,6 +206,9 @@
   height: 64px;
   line-height: 64px;
   font-size: 40px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .socialList .heb:before {
   font-size: 49px;
@@ -230,7 +233,11 @@
   height: 72px;
   line-height: 72px;
   font-size: 45px;
-  left: -4px;
+  left: -3px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 4px #c2c2c2;
 }
 .notifyItem .heb:before {
   line-height: 67px;
@@ -243,7 +250,11 @@
   height: 74px;
   line-height: 74px;
   font-size: 45px;
-  margin: -1px 0 0 -2px;
+  left: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .upFriends .heb:before,
 .upInvites .heb:before {

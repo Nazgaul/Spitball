@@ -249,6 +249,7 @@
             height: 64px;
             line-height: 64px;
             font-size: 40px;
+            .boxSizing;
         }
         
     }
@@ -283,7 +284,9 @@
             height: 72px;
             line-height: 72px;
             font-size: 45px;
-            left:-4px;
+            left:-3px;
+            .boxSizing;
+            box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 4px #c2c2c2;
         }
     }
     .heb:before {
@@ -299,7 +302,10 @@
             height: 74px;
             line-height: 74px;
             font-size: 45px;
-            margin: -1px 0 0 -2px;
+            left: 0;
+            margin: 0; //override
+            .boxSizing;
+            //margin: -1px 0 0 -2px;
         }
     }
     .heb:before {

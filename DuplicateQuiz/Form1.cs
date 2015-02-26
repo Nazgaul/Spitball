@@ -101,9 +101,10 @@ namespace DuplicateQuiz
             {
 
                 var idGenerator = Unity.Resolve<Zbang.Zbox.Infrastructure.IdGenerator.IIdGenerator>();
+                var idGenerator2 = Unity.Resolve<Zbang.Zbox.Infrastructure.IdGenerator.IGuidIdGenerator>();
                 var zboxWriteService = Unity.Resolve<Zbang.Zbox.Domain.Common.IZboxWriteService>();
 
-                var quizId = idGenerator.GetId(Zbang.Zbox.Infrastructure.IdGenerator.IdGenerator.QuizScope);
+                var quizId = idGenerator.GetId(Zbang.Zbox.Infrastructure.Consts.IdContainer.QuizScope);
 
                 var createQuizCommand = new CreateQuizCommand(
                     userId,
@@ -112,11 +113,11 @@ namespace DuplicateQuiz
                     item);
 
 
-                zboxWriteService.CreateQuiz(createQuizCommand);
+                await zboxWriteService.CreateQuizAsync(createQuizCommand);
 
                 foreach (var question in retVal.Quiz.Questions)
                 {
-                    var questionId = idGenerator.GetId();
+                    var questionId = idGenerator2.GetId();
                     var createQuestionCommand = new CreateQuestionCommand(
                         question.Text, quizId, userId, questionId);
                     zboxWriteService.CreateQuestion(createQuestionCommand);
@@ -124,18 +125,19 @@ namespace DuplicateQuiz
                     foreach (var answer in question.Answers)
                     {
                         var createAnswerCommand = new CreateAnswerCommand(
-                            userId, idGenerator.GetId(), answer.Text,
+                            userId, idGenerator2.GetId(), answer.Text,
                             questionId
                             );
                         zboxWriteService.CreateAnswer(createAnswerCommand);
-                        if (answer.Id == question.CorrectAnswer) {
+                        if (answer.Id == question.CorrectAnswer)
+                        {
                             var command = new MarkAnswerCorrectCommand(answer.Id, userId);
                             zboxWriteService.MarkAnswerAsCorrect(command);
                         }
                     }
                 }
 
-                zboxWriteService.SaveQuiz(new SaveQuizCommand(userId, quizId));
+                await zboxWriteService.SaveQuizAsync(new SaveQuizCommand(userId, quizId));
             }
             MessageBox.Show("Done");
         }

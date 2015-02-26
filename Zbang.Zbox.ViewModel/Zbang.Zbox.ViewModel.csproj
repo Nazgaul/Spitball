@@ -128,11 +128,9 @@
     <Compile Include="Dto\Qna\QuestionDto.cs" />
     <Compile Include="Dto\Qna\QuestionToFriendDto.cs" />
     <Compile Include="Dto\Search\SearchBoxes.cs" />
-    <Compile Include="Dto\Search\SearchBoxesComparer.cs" />
     <Compile Include="Dto\Search\SearchDto.cs" />
     <Compile Include="Dto\Search\SearchItems.cs" />
     <Compile Include="Dto\Search\SearchQuizzes.cs" />
-    <Compile Include="Dto\Search\SearchUsers.cs" />
     <Compile Include="Dto\Store\BannerDto.cs" />
     <Compile Include="Dto\Store\CategoryDto.cs" />
     <Compile Include="Dto\Store\ProductDto.cs" />
