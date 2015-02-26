@@ -16,10 +16,10 @@ body {
         }
     }
     .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
-        /*margin: 0; //override default jQuery mCustom Scrollbar code*/
-        margin: 0 15px 0 0; //see bug 3550
+        margin: 0; //override default jQuery mCustom Scrollbar code*/
     }
 }
+
 em{
     font-weight:700;
     color:#282828;
@@ -1909,7 +1909,17 @@ aside.sideBar {
         }     
     }
 }
-/*#endregion */ 
+/*#endregion */
+
+/*#region CustomScrollBox */
+.socialContentWpr .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
+    margin: 0 15px 0 0; //see bug 3550
+}
+.notifyWpr .mCS-dir-rtl > .mCustomScrollBox {
+    margin-left: -15px;
+    padding-left: 15px;
+}
+/*#endregion */
 
 /*#region general helper classes */
 .lFloat {

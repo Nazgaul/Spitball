@@ -256,13 +256,15 @@ body {
   border-radius: 10px;
   color: #fff;
   position: absolute;
-  top: 5px;
+  top: 1px;
   height: 12px;
   min-width: 12px;
   line-height: 11px;
   text-align: center;
   padding: 4px;
   display: inline-block;
+  right: 10px;
+  border: 2px solid #282828;
 }
 .notificationBtn {
   margin-top: 13px;
@@ -302,6 +304,7 @@ body {
   color: #fff;
   overflow-x: hidden;
   margin-right: -15px;
+  background: #fff;
 }
 .notifyItem {
   position: relative;

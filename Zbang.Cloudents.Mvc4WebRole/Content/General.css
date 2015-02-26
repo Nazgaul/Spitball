@@ -23,8 +23,7 @@ body.jsDark .bodyContent ~ .fade .modal-dialog {
   transition: none;
 }
 body .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
-  /*margin: 0; //override default jQuery mCustom Scrollbar code*/
-  margin: 0 15px 0 0;
+  margin: 0;
 }
 em {
   font-weight: 700;
@@ -1730,6 +1729,15 @@ svg.color8 {
 }
 .userLetter.color8:before {
   color: #00c853;
+}
+/*#endregion */
+/*#region CustomScrollBox */
+.socialContentWpr .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
+  margin: 0 15px 0 0;
+}
+.notifyWpr .mCS-dir-rtl > .mCustomScrollBox {
+  margin-left: -15px;
+  padding-left: 15px;
 }
 /*#endregion */
 /*#region general helper classes */
