@@ -20,13 +20,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         private IndexManagementClient m_IndexClient;
 
         // private to prevent direct instantiation.
-        private SeachConnection()
-        {
-            m_Connection = ApiConnection.Create(
-               ConfigFetcher.Fetch("AzureSeachServiceName"),
-               ConfigFetcher.Fetch("AzureSearchKey")
-               );
-        }
+       
 
         public SeachConnection(string serviceName, string serviceKey)
         {

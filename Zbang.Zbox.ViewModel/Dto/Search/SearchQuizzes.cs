@@ -1,5 +1,8 @@
-﻿namespace Zbang.Zbox.ViewModel.Dto.Search
+﻿using System;
+
+namespace Zbang.Zbox.ViewModel.Dto.Search
 {
+    [Serializable]
     public class SearchQuizzes
     {
         public SearchQuizzes()

@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Zbang.Zbox.ViewModel.Dto.Search
 {
+    [Serializable]
     public class SearchDto
     {
         public IEnumerable<SearchBoxes> Boxes { get; set; }
