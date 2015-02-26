@@ -206,6 +206,9 @@
   height: 64px;
   line-height: 64px;
   font-size: 40px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .socialList .heb:before {
   font-size: 49px;
