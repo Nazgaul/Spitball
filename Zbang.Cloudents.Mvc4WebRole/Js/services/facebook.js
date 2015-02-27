@@ -7,7 +7,7 @@
            facebookInit,
            alreadySent,
            contacts = []; //zcxz
-           contacts = []; //asdads
+           contacts = [];
 
        window.fbAsyncInit = function () {
            FB.init({
