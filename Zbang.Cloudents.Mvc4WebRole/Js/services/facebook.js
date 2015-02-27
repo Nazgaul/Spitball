@@ -6,7 +6,7 @@
            accessToken,
            facebookInit,
            alreadySent,
-           contacts = []; //5oi4joirtjgtrjgrt
+           contacts = []; //5sdfsdfoi4joirtjgtrjgrtfghgfhgfhdfdfdsf
 
        window.fbAsyncInit = function () {
            FB.init({
