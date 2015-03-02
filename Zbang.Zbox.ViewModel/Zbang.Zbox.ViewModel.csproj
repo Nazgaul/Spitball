@@ -75,10 +75,8 @@
     <Compile Include="Dto\BoxDtos\BoxNotificationDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxSearchDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxSeoDto.cs" />
-    <Compile Include="Dto\BoxDtos\BoxToFriendDto.cs" />
     <Compile Include="Dto\BoxDtos\RecommendBoxDto.cs" />
     <Compile Include="Dto\BoxSettingsDto.cs" />
-    <Compile Include="Dto\BoxDtos\BoxDto.cs" />
     <Compile Include="Dto\Dashboard\DashboardDto.cs" />
     <Compile Include="Dto\Dashboard\UniversityDashboardInfoDto.cs" />
     <Compile Include="Dto\Emails\BoxDigestDto.cs" />

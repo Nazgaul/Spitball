@@ -50,7 +50,13 @@ where uWrap.Id = @UniversityId";
         /// <summary>
         /// Used in user page to get boxes common with current user and his friend
         /// </summary>
-        public const string UserWithFriendBoxes = @"select COALESCE( uMe.UserType,0) as userType, b.boxid as id ,b.BoxName as name,
+        public const string UserWithFriendBoxes = @"select 
+        COALESCE( uMe.UserType,0) as userType, b.boxid as id ,b.BoxName as name,
+        b.quizcount + b.itemcount as ItemCount,
+        b.MembersCount as MembersCount,
+        b.CourseCode,
+        b.ProfessorName,
+        b.Discriminator as boxType,
         b.Url as Url
                             from 
                         zbox.UserBoxRel uFriend
