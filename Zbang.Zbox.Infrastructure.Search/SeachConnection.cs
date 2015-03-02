@@ -4,6 +4,7 @@ using System.Text;
 using RedDog.Search;
 using RedDog.Search.Http;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
@@ -24,6 +25,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public SeachConnection(string serviceName, string serviceKey)
         {
+            TraceLog.WriteInfo("on ctor of search connection");
             m_Connection = ApiConnection.Create(serviceName, serviceKey);
         }
 
@@ -33,6 +35,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 if (m_ReadClient == null)
                 {
+                    TraceLog.WriteInfo("creating index query");
                     m_ReadClient = new IndexQueryClient(m_Connection);
                 }
                 return m_ReadClient;
