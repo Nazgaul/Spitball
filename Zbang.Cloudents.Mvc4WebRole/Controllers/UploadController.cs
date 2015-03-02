@@ -98,8 +98,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     Owner = result2.File.Uploader.Name,
                     Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc),
                     Url = result2.File.Url,
-                    DownloadUrl = Url.RouteUrl("ItemDownload2", new { model.BoxId, itemId = result2.File.Id })
+                    DownloadUrl = Url.RouteUrl("ItemDownload2", new { model.BoxId, itemId = result2.File.Id }),
+                    
                 };
+                if (model.TabId.HasValue)
+                {
+                    fileDto.TabId = model.TabId.Value;
+                }
                 cookie.RemoveCookie("upload");
                 return JsonOk(new { fileDto, boxId = model.BoxId });
 
