@@ -44,6 +44,7 @@
   height: 100%;
   background: #f1f1f1;
   z-index: 12;
+  display: none;
   -webkit-transition: transform 0.5s;
   -moz-transition: transform 0.5s;
   -o-transition: transform 0.5s;
@@ -220,10 +221,9 @@
   -o-transition-delay: .5s;
   -webkit-transition-delay: .5s;
   transition-delay: .5s;
-  margin-right: 5%;
 }
 .column:nth-child(2) {
-  margin-right: 5%;
+  margin: 0 5%;
   -moz-transition-delay: .6s;
   -o-transition-delay: .6s;
   -webkit-transition-delay: .6s;

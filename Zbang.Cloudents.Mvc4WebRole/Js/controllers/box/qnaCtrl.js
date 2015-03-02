@@ -144,6 +144,9 @@
                         category: 'Box'
                     });
 
+
+                    $scope.qFormData.content = $scope.qFormData.content || 'תצייצו במה שהעלתי'; //DELETE this line;
+                    //$scope.qFormData.content = $scope.qFormData.content || resManager.get(KEYNAME); //UNCOMMENT this line and change the key name
                     sQnA.post.question($scope.qFormData).then(function (questionId) {
                         var obj = {
                             id: questionId,
@@ -194,6 +197,8 @@
                     }
 
 
+
+                    question.aFormData.content = question.aFormData.content || '';
                     sQnA.post.answer(question.aFormData).then(function (response) {
                         var answerId = response;
 
