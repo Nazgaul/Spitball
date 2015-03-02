@@ -26,6 +26,9 @@
                 $scope.formData.lastName = data.lastName;
                 $scope.languageForm.selected = data.language;
                 $scope.data = data;
+                if (!$scope.data.image) {
+                    $scope.data.image = true;
+                }
                 $scope.data.usedSpacePercent = data.usedSpace / data.allocatedSize * 100;
                 $scope.data.freeSpacePercent = 100 - $scope.data.usedSpacePercent;
             });

@@ -38,6 +38,7 @@
 
             };
 
+            $rootScope.loadedStyle = { display: 'block' };
             $rootScope.toggleSearch = function () {
                 $rootScope.openSearch = !$rootScope.openSearch;
                 var queryValue,

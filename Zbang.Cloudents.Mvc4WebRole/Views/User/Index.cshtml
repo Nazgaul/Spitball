@@ -152,7 +152,9 @@
 
                 <div class="upTabContent qTab" ng-class="{empty: !activity.questions.list.length}">
                     <ul>
-                        <li class="qaItem" data-letter="{{question.boxName[0]}}" ng-repeat="question in activity.questions.list | limitTo: activity.questions.limit">
+                        <li class="qaItem" ng-repeat="question in activity.questions.list | limitTo: activity.questions.limit">
+                            <box-logo name="::question.boxName" type="::question.boxType"></box-logo>
+
                             @*<img class="lFloat imgBorder" src="" alt="" width="28" height="36" ng-src="{{::question.boxPicutre | defaultImage:'box'}}" />*@
                             <span class="qaBoxname elps">{{::question.boxName}}</span>
                             <div class="qaWpr">
@@ -169,7 +171,8 @@
 
                 <div class="upTabContent aTab" ng-class="{empty: !activity.answers.list.length}">
                     <ul>
-                        <li class="qaItem" data-letter="{{answer.boxName[0]}}" ng-repeat="answer in activity.answers.list | limitTo: activity.answers.limit">
+                        <li class="qaItem" ng-repeat="answer in activity.answers.list | limitTo: activity.answers.limit">
+                            <box-logo name="::answer.boxName" type="::answer.boxType"></box-logo>
                             @*<img class="lFloat imgBorder" alt="" width="28" height="36" ng-src="{{::answer.boxPicture | defaultImage:'box'}}" />*@
                             <span class="qaBoxname elps">{{::answer.boxName}}</span>
                             <div class="qaWpr">
