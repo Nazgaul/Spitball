@@ -8,38 +8,45 @@ namespace Zbang.Zbox.Infrastructure.Security
 
     public static class AccountValidation
     {
-        public static string ErrorCodeToString(MembershipCreateStatus createStatus)
+        public enum AccountErrors
+        {
+            InvalidPassword,
+            InvalidEmail
+        }
+
+
+        public static string ErrorCodeToString(AccountErrors createStatus)
         {
             // See http://go.microsoft.com/fwlink/?LinkID=177550 for
             // a full list of status codes.
             switch (createStatus)
             {
-                case MembershipCreateStatus.DuplicateUserName:
-                    return "This user name is already taken."; //no need
+                //case MembershipCreateStatus.DuplicateUserName:
+                //    return "This user name is already taken."; //no need
 
-                case MembershipCreateStatus.DuplicateEmail:
-                    return Validation.DuplicateEmail;
+                //case MembershipCreateStatus.DuplicateEmail:
+                //    return Validation.DuplicateEmail;
 
-                case MembershipCreateStatus.InvalidPassword:
+                case AccountErrors.InvalidPassword:
                     return Validation.InvalidPassword;
 
-                case MembershipCreateStatus.InvalidEmail:
+                case AccountErrors.InvalidEmail:
                     return Validation.InvalidEmail;
 
-                case MembershipCreateStatus.InvalidAnswer: //no need
-                    return "The password retrieval answer provided is invalid. Please check the value and try again.";
+                //case MembershipCreateStatus.InvalidAnswer: //no need
+                //    return "The password retrieval answer provided is invalid. Please check the value and try again.";
 
-                case MembershipCreateStatus.InvalidQuestion://no need
-                    return "The password retrieval question provided is invalid. Please check the value and try again.";
+                //case MembershipCreateStatus.InvalidQuestion://no need
+                //    return "The password retrieval question provided is invalid. Please check the value and try again.";
 
-                case MembershipCreateStatus.InvalidUserName:
-                    return Validation.InvalidUserName;
+                //case MembershipCreateStatus.InvalidUserName:
+                //    return Validation.InvalidUserName;
 
-                case MembershipCreateStatus.ProviderError:
-                    return Validation.ProviderError;
+                //case MembershipCreateStatus.ProviderError:
+                //    return Validation.ProviderError;
 
-                case MembershipCreateStatus.UserRejected:
-                    return Validation.UserRejected;
+                //case MembershipCreateStatus.UserRejected:
+                //    return Validation.UserRejected;
                 default:
                     return Validation.DefaultError;
             }

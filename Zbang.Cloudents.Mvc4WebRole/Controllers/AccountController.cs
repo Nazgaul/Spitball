@@ -208,7 +208,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var systemUser = tSystemData.Result;
                 if (user == null || systemUser == null)
                 {
-                    ModelState.AddModelError(string.Empty, "user does not exists");
+                    ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountErrors.InvalidEmail));
                     return JsonError(GetModelStateErrors());
                 }
 
@@ -230,8 +230,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return JsonOk(url);
 
                 }
-                ModelState.AddModelError(string.Empty, "password incorrect");
-
+                ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountErrors.InvalidPassword));
             }
             catch (UserNotFoundException)
             {
