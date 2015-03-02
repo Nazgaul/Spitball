@@ -5,7 +5,7 @@
         <a ng-click="closeQuiz()" ng-href="{{quiz.boxUrl + '#quizzes'}}" title="@SharedResources.Back" class="closePreview rFloat" analytics-on="click" analytics-event="Back To Box" analytics-category="Quiz">
             @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
         </a>
-        <div class="quizTitle elps">{{quiz.name}}</div>
+        <div class="quizTitle elps" ng-bind-html="quiz.name"></div>
     </div>
     <div class="leftPanel lFloat">
         <div class="timeWpr">
