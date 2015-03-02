@@ -78,11 +78,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             try
             {
                
-                var quizUpdate = await UpdateQuiz();
+                //var quizUpdate = await UpdateQuiz();
                 var itemUpdate = await UpdateItem(index, count);
-                var universityUpdate = await UpdateUniversity();
-                var boxUpdate = await UpdateBox();
-                if (itemUpdate || boxUpdate || universityUpdate || quizUpdate)
+                //var universityUpdate = await UpdateUniversity();
+                //var boxUpdate = await UpdateBox();
+                if (itemUpdate )
+                    //|| boxUpdate || universityUpdate || quizUpdate)
                 {
                     return;
                 }
@@ -164,11 +165,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             return;
                         }
                         var sb = new StringBuilder();
+                        int byteCount = 0;
+                        char[] buffer = new char[1];
                         foreach (var ch in str)
                         {
                             if (char.IsSurrogate(ch))
                             {
                                 continue;
+                            }
+                            buffer[0] = ch;
+                            byteCount += Encoding.UTF8.GetByteCount(buffer);
+                            if (byteCount > 15000000)
+                            {
+                                TraceLog.WriteInfo("reach limit");
+                                // Couldn't add this character. Return its index
+                                break;
                             }
                             sb.Append(ch);
                         }
@@ -192,7 +203,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                 TraceLog.WriteInfo("processing " + elem.Id);
 
-                return str.RemoveEndOfString(15000000);
+                return str;
 
 
             }
