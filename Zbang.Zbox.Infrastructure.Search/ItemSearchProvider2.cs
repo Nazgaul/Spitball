@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -33,6 +34,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private bool IsDevelop()
         {
+            return false;
             try
             {
                 if (!RoleEnvironment.IsAvailable)
@@ -202,20 +204,24 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
+            var sw = new Stopwatch();
+            sw.Start();
             //var filter = "unidersityid ne '64805' and unidersityid ne '1161'"; ;
             var filter = await m_FilterProvider.BuildFilterExpression(
                 query.UniversityId, UniversityidField, UseridsField, query.UserId);
             var searchResult = await m_Connection.IndexQuery.SearchAsync(m_IndexName,
-                new SearchQuery(query.Term + "*")
+                new SearchQuery(query.Term)
                 {
                     Filter = filter,
                     Top = query.RowsPerPage,
                     ScoringProfile = "university",
                     ScoringParameters = new[] { "university:" + query.UniversityId },
                     Skip = query.RowsPerPage * query.PageNumber,
-                    Highlight = ContentField
+                    //Highlight = ContentField
                 }, cancelToken);
 
+            sw.Stop();
+            TraceLog.WriteInfo("item search took: " + sw.ElapsedMilliseconds+" " + query.Term);
             if (!searchResult.IsSuccess)
             {
                 TraceLog.WriteError(string.Format("on item search model: {0} error: {1}", query,
@@ -227,20 +233,22 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 return searchResult.Body.Records.Select(s =>
                 {
-                    string[] highLight;
-                    string content = s.Highlights.TryGetValue(ContentField, out highLight)
-                        ? SeachConnection.LimitContentHighlight(highLight)
-                        : WebUtility.HtmlEncode(SeachConnection.ConvertToType<string>(s.Properties[SmallContentField]));
+                    //string[] highLight;
+                    string content = //s.Highlights.TryGetValue(ContentField, out highLight)
+                        //? SeachConnection.LimitContentHighlight(highLight)
+                    //    : 
+                        WebUtility.HtmlEncode(SeachConnection.ConvertToType<string>(s.Properties[SmallContentField]));
 
                     return new SearchItems(
                         SeachConnection.ConvertToType<string>(s.Properties[ImageField]),
-                        HighLightInName(s),
+                        //HighLightInName(s),
+                        SeachConnection.ConvertToType<string>(s.Properties[NameField]),
                         SeachConnection.ConvertToType<long>(s.Properties[IdField]),
                         content,
                         SeachConnection.ConvertToType<string>(s.Properties[BoxNameField]),
                         SeachConnection.ConvertToType<string>(s.Properties[UniversityNameField]),
                         SeachConnection.ConvertToType<string>(s.Properties[UrlField]));
-                });
+                }).ToList();
             }
             return null;
         }

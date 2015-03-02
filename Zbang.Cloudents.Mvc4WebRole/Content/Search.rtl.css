@@ -220,9 +220,10 @@
   -o-transition-delay: .5s;
   -webkit-transition-delay: .5s;
   transition-delay: .5s;
+  margin-left: 5%;
 }
 .column:nth-child(2) {
-  margin: 0 5%;
+  margin-left: 5%;
   -moz-transition-delay: .6s;
   -o-transition-delay: .6s;
   -webkit-transition-delay: .6s;

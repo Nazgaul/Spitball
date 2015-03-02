@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -24,6 +25,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             m_FilterProvider = filterProvider;
             m_Connection = connection;
+            return;
             if (!RoleEnvironment.IsAvailable)
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -164,9 +166,10 @@ namespace Zbang.Zbox.Infrastructure.Search
         public async Task<IEnumerable<SearchQuizzes>> SearchQuiz(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
 
-
+            var sw = new Stopwatch();
+            sw.Start();
             var searchResult = await m_Connection.IndexQuery.SearchAsync(m_IndexName,
-                new SearchQuery(query.Term + "*")
+                new SearchQuery(query.Term)
                 {
                     Filter = await m_FilterProvider.BuildFilterExpression(
                         query.UniversityId, UniversityidField, UseridsField, query.UserId),
@@ -177,7 +180,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Highlight = QuestionsField + "," + AnswersField,
 
                 }, cancelToken);
-
+            sw.Stop();
+            TraceLog.WriteInfo("quiz search took: " + sw.ElapsedMilliseconds + " " + query.Term);
             if (!searchResult.IsSuccess)
             {
                 TraceLog.WriteError(string.Format("on quiz search model: {0} error: {1}", query,
@@ -193,7 +197,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     SeachConnection.ConvertToType<string>(s.Properties[BoxNameField]),
                     SeachConnection.ConvertToType<string>(s.Properties[UniversityNameField]),
                     SeachConnection.ConvertToType<string>(s.Properties[UrlField])
-                    ));
+                    )).ToList();
             }
             return null;
 
@@ -214,20 +218,21 @@ namespace Zbang.Zbox.Infrastructure.Search
         //}
         private string ConvertHighlightToProperty(SearchQueryRecord record)
         {
-            string[] questionHighLight;
-            string[] answerHighLight;
+            //string[] questionHighLight;
+            //string[] answerHighLight;
 
-            if (!record.Highlights.TryGetValue(QuestionsField, out questionHighLight))
-            {
-                questionHighLight = new string[0];
-            }
-            if (!record.Highlights.TryGetValue(AnswersField, out answerHighLight))
-            {
-                answerHighLight = new string[0];
-            }
-            var str = SeachConnection.LimitContentHighlight(questionHighLight.Union(answerHighLight));
-            return string.IsNullOrEmpty(str) ?
-               SeachConnection.ConvertToType<string>(record.Properties[ContentField]) : str;
+            //if (!record.Highlights.TryGetValue(QuestionsField, out questionHighLight))
+            //{
+            //    questionHighLight = new string[0];
+            //}
+            //if (!record.Highlights.TryGetValue(AnswersField, out answerHighLight))
+            //{
+            //    answerHighLight = new string[0];
+            //}
+            //var str = SeachConnection.LimitContentHighlight(questionHighLight.Union(answerHighLight));
+            //return string.IsNullOrEmpty(str) ?
+               //SeachConnection.ConvertToType<string>(record.Properties[ContentField]) : str;
+            return SeachConnection.ConvertToType<string>(record.Properties[ContentField]);
         }
     }
 

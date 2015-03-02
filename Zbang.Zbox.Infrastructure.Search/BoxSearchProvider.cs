@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -22,6 +23,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         public BoxSearchProvider(ISearchConnection connection)
         {
             m_Connection = connection;
+            return;
             if (!RoleEnvironment.IsAvailable)
             {
                 m_IndexName = m_IndexName + "-dev";
@@ -136,16 +138,18 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<IEnumerable<SearchBoxes>> SearchBox(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
-            
+            var sw = new Stopwatch();
+            sw.Start();
             var searchResult = await m_Connection.IndexQuery.SearchAsync(m_IndexName,
-                new SearchQuery(query.Term + "*")
+                new SearchQuery(query.Term)
                 {
                     Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityidField, UseridsField, query.UniversityId, query.UserId),
                     Top = query.RowsPerPage,
                     Skip = query.RowsPerPage * query.PageNumber,
-                    Highlight = ProfessorField + "," + CourseField
+                    //Highlight = ProfessorField + "," + CourseField
                 }, cancelToken);
-
+            sw.Stop();
+            TraceLog.WriteInfo("box search took: " + sw.ElapsedMilliseconds + " " + query.Term);
             if (!searchResult.IsSuccess)
             {
                 TraceLog.WriteError(string.Format("on box search model: {0} error: {1}", query,
@@ -160,7 +164,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     HighLightInField(s, ProfessorField),
                     HighLightInField(s, CourseField),
                     SeachConnection.ConvertToType<string>(s.Properties[UrlField]),
-                    SeachConnection.ConvertToType<string>(s.Properties[NameField])));
+                    SeachConnection.ConvertToType<string>(s.Properties[NameField]))).ToList();
             }
 
             return null;
@@ -168,11 +172,11 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private string HighLightInField(SearchQueryRecord record, string field)
         {
-            string[] highLight;
-            if (record.Highlights.TryGetValue(field, out highLight))
-            {
-                return String.Join("...", highLight);
-            }
+            //string[] highLight;
+            //if (record.Highlights.TryGetValue(field, out highLight))
+            //{
+            //    return String.Join("...", highLight);
+            //}
             return SeachConnection.ConvertToType<string>(record.Properties[field]);
         }
     }

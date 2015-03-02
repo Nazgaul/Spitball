@@ -25,7 +25,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             }
             answer.UpdateCorrectAnswer();
             m_QuestionRepository.Save(answer.Question);
-
         }
     }
 }
