@@ -78,11 +78,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 var index = GetIndex();
                 var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
                 TraceLog.WriteInfo("index: " + index + " count " + count);
-                var quizUpdate = await UpdateQuiz();
+                //var quizUpdate = await UpdateQuiz();
                 var itemUpdate = await UpdateItem(index, count);
-                var universityUpdate = await UpdateUniversity();
-                var boxUpdate = await UpdateBox();
-                if (itemUpdate || boxUpdate || universityUpdate || quizUpdate)
+                //var universityUpdate = await UpdateUniversity();
+                //var boxUpdate = await UpdateBox();
+                if (itemUpdate)//|| boxUpdate || universityUpdate || quizUpdate)
                 {
                     return;
                 }

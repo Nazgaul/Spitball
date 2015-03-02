@@ -21,7 +21,7 @@
     </Certificates>
   </Role>
   <Role name="Zbang.Zbox.WorkerRoleSearch">
-    <Instances count="2" />
+    <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="ZBox" value="Data Source=(local);Initial Catalog=ZBox;Integrated Security=SSPI;" />
