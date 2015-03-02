@@ -12,15 +12,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
 
-           var universityId =  filterContext.HttpContext.User.GetUniversityId();
+            var universityId = filterContext.HttpContext.User.GetUniversityId();
 
+            if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return;
+            }
             //var userData = m_FormsAuthenticationService.GetUserData();
             //if (userData == null)
             //{
             //    base.OnActionExecuting(filterContext);
             //    return;
             //}
-           if (universityId.HasValue)
+            if (universityId.HasValue)
             {
                 base.OnActionExecuting(filterContext);
                 return;
