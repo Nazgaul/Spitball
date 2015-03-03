@@ -70,10 +70,10 @@ namespace Zbang.Zbox.ReadServicesTests
             {
                 var x = m_ZboxReadService.GetUserDetailsByEmail(query).Result;
             }
-            catch (UserNotFoundException)
-            {
+            //catch (UserNotFoundException)
+            //{
 
-            }
+            //}
             catch (Exception ex)
             {
                 Assert.Fail("Expected no exception, but got: " + ex.Message);

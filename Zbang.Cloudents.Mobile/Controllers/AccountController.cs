@@ -212,7 +212,12 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
                 var user = tUserIdentity.Result;
                 var systemUser = tSystemData.Result;
-                if (user == null || systemUser == null)
+                if (systemUser == null)
+                {
+                    ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
+                    return JsonError(GetModelStateErrors());
+                }
+                if (user == null )
                 {
                     ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountErrors.InvalidEmail));
                     return JsonError(GetModelStateErrors());
@@ -233,18 +238,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     return JsonOk();
                 }
                 ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountErrors.InvalidPassword));
-
-
-
-                //var loginStatus = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
-
-
-
-
-            }
-            catch (UserNotFoundException)
-            {
-                ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
             }
             catch (Exception ex)
             {
