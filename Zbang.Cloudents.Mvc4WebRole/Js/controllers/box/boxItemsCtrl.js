@@ -82,7 +82,9 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
         }
         if (data.tabId) {
             sTabCount.notifyAdd(data.tabId);
+            data.itemDto.tabId = data.tabId;
         }
+
         $scope.info.itemsLength++;
         $scope.info.feedLength++;
         $scope.items.unshift(data.itemDto);
@@ -229,12 +231,8 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
 
         var filteredItems = $filter('filter')($scope.items, filterItems);
 
-        if (tab) {
-            $scope.filteredItems = $filter('orderBy')(filteredItems, 'name');
-        } else {
-            $scope.filteredItems = filteredItems;
-        }
-
+       $scope.filteredItems = filteredItems;
+       
         isSponsoredView();
     });
 
@@ -276,7 +274,10 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
                 savedItems.push(item.id);
                 continue;
             }
-            item.tabId = null;
+            if (item.tabId === $scope.iOptions.currentTab.id) {
+                item.tabId = null;
+            }
+            
 
         }
 
