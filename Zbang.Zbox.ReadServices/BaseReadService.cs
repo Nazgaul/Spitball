@@ -113,8 +113,31 @@ namespace Zbang.Zbox.ReadServices
             {
                 using (
                     var grid =
-
                             conn.QueryMultiple(
+                                string.Format("{0} {1} ", ViewModel.SqlQueries.Security.GetBoxPrivacySettings,
+                                    ViewModel.SqlQueries.Security.GetUserToBoxRelationship), new { boxId, userId }))
+                {
+                    try
+                    {
+                        var privacySettings = grid.Read<BoxPrivacySettings>().First();
+                        var userType = grid.Read<UserRelationshipType>().FirstOrDefault();
+                        return GetUserStatusToBox(privacySettings, userType);
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        throw new BoxDoesntExistException();
+                    }
+                }
+
+            }
+        }
+        public async Task<UserRelationshipType> GetUserStatusToBoxAsync(long boxId, long userId)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                using (
+                    var grid =
+                          await  conn.QueryMultipleAsync(
                                 string.Format("{0} {1} ", ViewModel.SqlQueries.Security.GetBoxPrivacySettings,
                                     ViewModel.SqlQueries.Security.GetUserToBoxRelationship), new { boxId, userId }))
                 {

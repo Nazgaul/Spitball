@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -17,6 +18,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
     {
         public IBoxReadSearchProvider BoxSearchService { get; set; }
         public IItemReadSearchProvider ItemSearchService { get; set; }
+
+        public IUniversityReadSearchProvider UniversitySearch { get; set; }
         public ApiServices Services { get; set; }
 
         // GET api/Search
@@ -24,9 +27,9 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         [Route("api/search/boxes")]
         public async Task<HttpResponseMessage> Boxes(string term, int page)
         {
-            long? universityId = 920;// User.GetUniversityId();
+            long? universityId = User.GetUniversityId();
             //var userDetail = FormsAuthenticationService.GetUserData();
-           
+
 
             if (!universityId.HasValue)
                 return Request.CreateBadRequestResponse("need university");
@@ -46,7 +49,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         [Route("api/search/items")]
         public async Task<HttpResponseMessage> Items(string term, int page)
         {
-            long? universityId = 920;// User.GetUniversityId();
+            long? universityId = User.GetUniversityId();
             if (!universityId.HasValue)
                 return Request.CreateBadRequestResponse("need university");
 
@@ -60,5 +63,24 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }));
         }
 
+        [HttpGet]
+        [Route("api/search/university")]
+        public async Task<HttpResponseMessage> University(string term, int page)
+        {
+            if (string.IsNullOrEmpty(term))
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            //try
+            //{
+            var retVal = await UniversitySearch.SearchUniversity(new UniversitySearchQuery(term, 20, page));
+            return Request.CreateResponse(retVal);
+            //}
+            //catch (Exception ex)
+            //{
+            //    TraceLog.WriteError("SeachUniversity term:  " + term, ex);
+            //    return JsonError();
+            //}
+        }
     }
 }

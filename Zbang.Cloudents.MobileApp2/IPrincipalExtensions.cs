@@ -15,5 +15,10 @@ namespace Zbang.Cloudents.MobileApp2
             var stringUserId = serviceUser.Id.Replace("cloudents:", string.Empty);
             return long.Parse(stringUserId);
         }
+
+        public static long? GetUniversityId(this IPrincipal principal)
+        {
+            return 920;
+        }
     }
 }

@@ -20,9 +20,9 @@
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="7445B098ADE3A229DBC6208A87094754C06C4A60" thumbprintAlgorithm="sha1" />
-      <Certificate name="CloudDents" thumbprint="96A712B131425F45B52CBDA6999E92012386C9EF" thumbprintAlgorithm="sha1" />
       <Certificate name="MyIntermediateCertCloudDents" thumbprint="C039A3269EE4B8E82D00C53FA797B5A19E836F47" thumbprintAlgorithm="sha1" />
       <Certificate name="MyRootCertCloudDents" thumbprint="DE28F4A4FFE5B92FA3C503D1A349A7F9962A8212" thumbprintAlgorithm="sha1" />
+      <Certificate name="Cloudents" thumbprint="F0496ECEB40DED029613E0C8027DC459D1780AAC" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
 </ServiceConfiguration>
