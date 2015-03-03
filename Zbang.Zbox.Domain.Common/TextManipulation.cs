@@ -27,11 +27,13 @@ namespace Zbang.Zbox.Domain.Common
 
         public static string EncodeText(string text, params string[] allowElements)
         {
-            if (string.IsNullOrEmpty(text)) {
+            if (string.IsNullOrEmpty(text))
+            {
                 return text;
             }
             var sb = new StringBuilder(
-                            HttpUtility.HtmlEncode(text));
+                            HttpUtility.HtmlEncode(HttpUtility.HtmlDecode(text)));
+            //sb.Replace("&#34;", "\"");
             if (allowElements != null)
             {
                 foreach (var allowElement in allowElements)
@@ -66,7 +68,7 @@ namespace Zbang.Zbox.Domain.Common
 
         public static readonly Regex UrlDetector = new Regex(@"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase);
 
-        
+
 
         public static string DecodeUrls(string commentText)
         {
