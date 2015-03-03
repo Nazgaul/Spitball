@@ -155,6 +155,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 await Task.WhenAll(tItem, tTransAction);
                 var retVal = tItem.Result;
                 retVal.UserType = ViewBag.UserType;
+                retVal.Name = Path.GetFileNameWithoutExtension(retVal.Name);
                 retVal.ShortUrl = UrlConsts.BuildShortItemUrl(new Base62(itemId).ToString());
                 return Json(new JsonResponse(true, retVal));
             }

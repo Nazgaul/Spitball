@@ -206,7 +206,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var user = tUserIdentity.Result;
                 var systemUser = tSystemData.Result;
-                if (user == null || systemUser == null)
+                if (systemUser == null)
+                {
+                    ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
+                    return JsonError(GetModelStateErrors());
+                }
+                if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountErrors.InvalidEmail));
                     return JsonError(GetModelStateErrors());
@@ -232,10 +237,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountErrors.InvalidPassword));
             }
-            catch (UserNotFoundException)
-            {
-                ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
-            }
+            //catch (UserNotFoundException)
+            //{
+            //    ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
+            //}
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("LogOn model : {0} ", model), ex);
@@ -619,26 +624,35 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
+                var query = new GetUserByEmailQuery(model.Email);
                 //Guid membershipUserId;
-                var user = await m_UserManager.FindByEmailAsync(model.Email);
-                if (user == null)
+                var tUser = m_UserManager.FindByEmailAsync(model.Email);
+                var tResult = ZboxReadService.GetUserDetailsByEmail(query);
+
+                await Task.WhenAll(tUser, tResult);
+                if (tUser.Result == null && tResult.Result != null)
+                {
+                    ModelState.AddModelError("Email", "You have registered to Cloudents through Facebook -- go to the homepage and click on the Facebook button to register");
+                    return View(model);
+                }
+                if (tUser.Result == null)
                 {
                     ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
                     return View(model);
                 }
-                var query = new GetUserByMembershipQuery(Guid.Parse(user.Id));
-                var tResult = ZboxReadService.GetUserDetailsByMembershipId(query);
-                var tLinkData = m_UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                await Task.WhenAll(tResult, tLinkData);
+                var user = tUser.Result;
+                //var tResult = ZboxReadService.GetUserDetailsByMembershipId(query);
+                var identitylinkData = await m_UserManager.GeneratePasswordResetTokenAsync(user.Id);
+
 
                 var code = RandomString(10);
 
 
-                var data = new ForgotPasswordLinkData(Guid.Parse(user.Id), 1, tLinkData.Result);
+                var data = new ForgotPasswordLinkData(Guid.Parse(user.Id), 1, identitylinkData);
 
                 var linkData = EncryptElement(data);
                 //Session[SessionResetPassword] = data;
-                await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, tLinkData.Result, tResult.Result.Name.Split(' ')[0], model.Email, tResult.Result.Culture));
+                await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, identitylinkData, tResult.Result.Name.Split(' ')[0], model.Email, tResult.Result.Culture));
 
                 TempData["key"] = Crypto.HashPassword(code);
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Web;
+using System.Linq;
+
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -24,7 +26,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             m_HttpContext = httpContext;
             m_Compress = new Compress();
         }
-       
+
 
         protected virtual IDictionary<string, object> LoadTempData(ControllerContext controllerContext)
         {
@@ -60,7 +62,35 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             }
             string cookieValue = DictionaryToBase64String2(values);
 
-            var cookie = new HttpCookie(TempDataCookieKey) {HttpOnly = true, Value = cookieValue};
+            //for (int i = 0; i < m_HttpContext.Request.Cookies.Count; i++)
+            //{
+            //    if (m_HttpContext.Request.Cookies.GetKey(i) == TempDataCookieKey)
+            //    {
+            //        var oldCookie = m_HttpContext.Request.Cookies.Get(i);
+            //        if (oldCookie != null)
+            //        {
+            //            oldCookie.Expires = DateTime.MinValue;
+            //            oldCookie.Value = String.Empty;
+            //            m_HttpContext.Response.Cookies.Add(oldCookie);
+            //        }
+            //    }
+            //}
+            //foreach (string oldCookieName in cookiesName)
+            //{
+            //    var oldCookie = m_HttpContext.Request.Cookies.Get(oldCookieName);
+            //    //if (oldCookieName == TempDataCookieKey)
+            //    //{
+            //    //    var oldCookie = m_HttpContext.Request.Cookies.Re
+            //    if (oldCookie != null)
+            //    {
+            //        oldCookie.Expires = DateTime.MinValue;
+            //        oldCookie.Value = String.Empty;
+            //    }
+            //    m_HttpContext.Request.Cookies.Remove(oldCookieName);
+            //    //}
+            //}
+
+            var cookie = new HttpCookie(TempDataCookieKey) { HttpOnly = true, Value = cookieValue };
 
             m_HttpContext.Response.Cookies.Add(cookie);
         }
@@ -126,30 +156,30 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 return null;
             }
         }
-/*
-        /// <summary>
-        /// Converts the byte array to a string.
-        /// </summary>
-        public string Bytes2String(byte[] bytes)
-        {
-            var ms = new MemoryStream(bytes.Length);
+        /*
+                /// <summary>
+                /// Converts the byte array to a string.
+                /// </summary>
+                public string Bytes2String(byte[] bytes)
+                {
+                    var ms = new MemoryStream(bytes.Length);
 
-            foreach (byte t in bytes)
-            {
-// if it is a zero, or if it would make a surrogate double byte, then escape it with an extra zero
-                if (t == 0 || (0xd8 <= t && t <= 0xdf && ms.Length % 2 == 1))
-                    ms.WriteByte(0);
-                ms.WriteByte(t);
-            }
+                    foreach (byte t in bytes)
+                    {
+        // if it is a zero, or if it would make a surrogate double byte, then escape it with an extra zero
+                        if (t == 0 || (0xd8 <= t && t <= 0xdf && ms.Length % 2 == 1))
+                            ms.WriteByte(0);
+                        ms.WriteByte(t);
+                    }
 
-            // make sure the length is even
-            if (ms.Length % 2 == 1)
-                ms.WriteByte(0);
+                    // make sure the length is even
+                    if (ms.Length % 2 == 1)
+                        ms.WriteByte(0);
 
-            // UTF-16 LE decoding
-            return Encoding.Unicode.GetString(ms.ToArray());
-        }
-*/
+                    // UTF-16 LE decoding
+                    return Encoding.Unicode.GetString(ms.ToArray());
+                }
+        */
 
         byte[] GetBytes(string str)
         {
@@ -165,35 +195,35 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             return new string(chars);
         }
 
-/*
-        /// <summary>
-        /// Converts the string to a byte array.
-        /// </summary>
-        public  byte[] String2Bytes(string s)
-        {
-            // UTF-16 LE encoding
-            var bytes = Encoding.Unicode.GetBytes(s);
-
-            var ms = new MemoryStream(bytes.Length);
-
-            var escaped = false;
-            foreach (byte t in bytes)
-            {
-// if it is a non-escaped zero, then treat it as an escape byte (may be the last byte as well)
-                if (t == 0 && !escaped)
+        /*
+                /// <summary>
+                /// Converts the string to a byte array.
+                /// </summary>
+                public  byte[] String2Bytes(string s)
                 {
-                    escaped = true;
-                }
-                else
-                {
-                    escaped = false;
-                    ms.WriteByte(t);
-                }
-            }
+                    // UTF-16 LE encoding
+                    var bytes = Encoding.Unicode.GetBytes(s);
 
-            return ms.ToArray();
-        }
-*/
+                    var ms = new MemoryStream(bytes.Length);
+
+                    var escaped = false;
+                    foreach (byte t in bytes)
+                    {
+        // if it is a non-escaped zero, then treat it as an escape byte (may be the last byte as well)
+                        if (t == 0 && !escaped)
+                        {
+                            escaped = true;
+                        }
+                        else
+                        {
+                            escaped = false;
+                            ms.WriteByte(t);
+                        }
+                    }
+
+                    return ms.ToArray();
+                }
+        */
 
 
 

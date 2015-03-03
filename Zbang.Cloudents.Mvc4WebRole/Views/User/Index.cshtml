@@ -36,7 +36,6 @@
             <div class="searchTrigger searchUser" ng-click="$root.toggleSearch()" search-coords>@SharedResources.Search</div>
             <button type="button" class="btn3" ng-if="!profile.isSelf" ng-click="sendUserMessage2()">@SharedResources.Message</button>
              <button type="button" title="@SharedResources.Invite" ng-click="inviteCloudents()">
-                <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteCloudents()">
                 @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
             </button>
         </div>
@@ -153,16 +152,18 @@
                 <div class="upTabContent qTab" ng-class="{empty: !activity.questions.list.length}">
                     <ul>
                         <li class="qaItem" ng-repeat="question in activity.questions.list | limitTo: activity.questions.limit">
-                            <box-logo name="::question.boxName" type="::question.boxType"></box-logo>
+                                <div class="boxSvg">
+                                    <box-logo name="::question.boxName" type="::question.boxType"></box-logo>
+                                </div>
 
-                            @*<img class="lFloat imgBorder" src="" alt="" width="28" height="36" ng-src="{{::question.boxPicutre | defaultImage:'box'}}" />*@
-                            <span class="qaBoxname elps">{{::question.boxName}}</span>
-                            <div class="qaWpr">
-                                <div class="qaQuestion" ng-bind-html="::question.content"></div>
-                                <a class="qLink rFloat" href="" ng-href="{{::question.url}}" analytics-on="click" analytics-category="User" analytics-event="Navgiate to box" analytics-label="User clicked on a question in the activity section">@UserResources.GotoQuestion</a>
-                                <span class="qAnswerCount" data-up-qacount="{{::qusetion.answersCount}}">&nbsp;@SharedResources.Answers</span>
-                            </div>
-                        </li>
+                                @*<img class="lFloat imgBorder" src="" alt="" width="28" height="36" ng-src="{{::question.boxPicutre | defaultImage:'box'}}" />*@
+                                <span class="qaBoxname elps">{{::question.boxName}}</span>
+                                <div class="qaWpr">
+                                    <div class="qaQuestion" ng-bind-html="::question.content"></div>
+                                    <a class="qLink rFloat" href="" ng-href="{{::question.url}}" analytics-on="click" analytics-category="User" analytics-event="Navgiate to box" analytics-label="User clicked on a question in the activity section">@UserResources.GotoQuestion</a>
+                                    <span class="qAnswerCount" data-up-qacount="{{::qusetion.answersCount}}">&nbsp;@SharedResources.Answers</span>
+                                </div>
+</li>
                     </ul>
 
                     <button class="qaMore" type="button" ng-if="activity.questions.list.length - activity.questions.limit > 0" ng-click="addMoreActivity('questions')">@SharedResources.ShowMore</button>
@@ -172,7 +173,9 @@
                 <div class="upTabContent aTab" ng-class="{empty: !activity.answers.list.length}">
                     <ul>
                         <li class="qaItem" ng-repeat="answer in activity.answers.list | limitTo: activity.answers.limit">
-                            <box-logo name="::answer.boxName" type="::answer.boxType"></box-logo>
+                            <div class="boxSvg">
+                                <box-logo name="::answer.boxName" type="::answer.boxType"></box-logo>
+                            </div>
                             @*<img class="lFloat imgBorder" alt="" width="28" height="36" ng-src="{{::answer.boxPicture | defaultImage:'box'}}" />*@
                             <span class="qaBoxname elps">{{::answer.boxName}}</span>
                             <div class="qaWpr">

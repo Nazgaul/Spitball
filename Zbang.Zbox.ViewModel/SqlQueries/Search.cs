@@ -51,7 +51,7 @@ select top 500 b.boxid  from zbox.box b
             @"  select UserId,BoxId from zbox.UserBoxRel where boxId in (
 select top 1 i.boxid  from zbox.item i  join zbox.box b on i.BoxId = b.BoxId
    left join zbox.University u on b.University = u.id
-  where i.isdirty = 1 
+  where  i.isdirty = 1 
   and i.isdeleted = 0 
   and i.discriminator = 'File'
    and i.itemid % @count  = @index

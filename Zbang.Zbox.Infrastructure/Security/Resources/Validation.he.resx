@@ -127,7 +127,7 @@
     <value>האימייל שהוקלד לא תקין.</value>
   </data>
   <data name="InvalidPassword" xml:space="preserve">
-    <value>הסיסמה לא חוקית, אנא הכנס סיסמה חוקית</value>
+    <value>הסיסמה שהקלדת אינה נכונה, אנא נסה שנית.</value>
   </data>
   <data name="InvalidUserName" xml:space="preserve">
     <value>שם המשתמש לא חוקי, אנא בדוק ששם המשתמש שהקלדת תקין ונסה שוב.</value>

@@ -230,18 +230,25 @@
   padding-bottom: 14px;
   margin-bottom: 14px;
   border-bottom: 1px solid #c2c2c2;
+  position: relative;
 }
 .qaItem:last-child {
   margin: 0;
   padding: 0;
   border: none;
 }
+.qaItem .boxSvg {
+  width: 28px;
+  height: 28px;
+  bottom: auto;
+  left: 0;
+}
 .qaBoxname {
   max-width: 188px;
   display: inline-block;
-  position: relative;
-  top: 3px;
   color: #39434a;
+  padding-left: 35px;
+  line-height: 28px;
 }
 .qaWpr {
   background: #fff;

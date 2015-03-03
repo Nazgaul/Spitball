@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -169,7 +170,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     listOfCommands.Add(
                         new IndexOperation(IndexOperationType.Upload, IdField,
                             item.Id.ToString(CultureInfo.InvariantCulture))
-                            .WithProperty(NameField, item.Name)
+                            .WithProperty(NameField, Path.GetFileNameWithoutExtension(item.Name))
                             .WithProperty(ImageField, item.Image)
                             .WithProperty(BoxNameField, item.BoxName)
                             .WithProperty(UniversityNameField, item.UniversityName)
@@ -191,13 +192,20 @@ namespace Zbang.Zbox.Infrastructure.Search
             var commands = listOfCommands.ToArray();
             if (commands.Length > 0)
             {
-
-                var retVal = await m_Connection.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
-                if (!retVal.IsSuccess)
+                try
                 {
-                    TraceLog.WriteError("On update search" + retVal.Error.Message);
+                    var retVal = await m_Connection.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
+                    if (!retVal.IsSuccess)
+                    {
+                        TraceLog.WriteError("On update search" + retVal.Error.Message);
+                    }
+                    return retVal.IsSuccess;
                 }
-                return retVal.IsSuccess;
+                catch (Exception ex)
+                {
+                    TraceLog.WriteError("on item populate async", ex);
+                    return false;
+                }
             }
             return true;
         }
@@ -221,7 +229,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 }, cancelToken);
 
             sw.Stop();
-            TraceLog.WriteInfo("item search took: " + sw.ElapsedMilliseconds+" " + query.Term);
+            TraceLog.WriteInfo("item search took: " + sw.ElapsedMilliseconds + " " + query.Term);
             if (!searchResult.IsSuccess)
             {
                 TraceLog.WriteError(string.Format("on item search model: {0} error: {1}", query,
@@ -236,7 +244,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     //string[] highLight;
                     string content = //s.Highlights.TryGetValue(ContentField, out highLight)
                         //? SeachConnection.LimitContentHighlight(highLight)
-                    //    : 
+                        //    : 
                         WebUtility.HtmlEncode(SeachConnection.ConvertToType<string>(s.Properties[SmallContentField]));
 
                     return new SearchItems(

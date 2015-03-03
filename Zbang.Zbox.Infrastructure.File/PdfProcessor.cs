@@ -50,13 +50,13 @@ namespace Zbang.Zbox.Infrastructure.File
             });
 
             var retVal = await UploadPreviewToAzure(blobName,
-                ++indexNum,
+                indexNum,
                 i => CreateCacheFileName(blobName, i),
                 async z =>
                 {
                     var ms = new MemoryStream();
                     var p = await pdf;
-                    jpegDevice.Process(p.Pages[z], ms);
+                    jpegDevice.Process(p.Pages[z + 1], ms);
                     return ms;
                 }, CacheVersion, "image/jpg");
 
@@ -110,7 +110,7 @@ namespace Zbang.Zbox.Infrastructure.File
                      () => pdfDocument.Pages.Count, CacheVersion
 
                      );
-                   
+
                 }
 
             }
@@ -182,9 +182,9 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override async Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-             var blobName = GetBlobNameFromUri(blobUri);
-                SetLicense();
-                var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
+            var blobName = GetBlobNameFromUri(blobUri);
+            SetLicense();
+            var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
 
 
 

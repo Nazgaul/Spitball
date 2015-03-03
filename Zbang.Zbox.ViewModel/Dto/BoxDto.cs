@@ -7,10 +7,10 @@ namespace Zbang.Zbox.ViewModel.Dto
     public class BoxDto
     {
 
-        public BoxDto()
-        {
+        //public BoxDto()
+        //{
             
-        }
+        //}
 
         public BoxDto(long id, string boxName,
             UserRelationshipType userType, int itemCount, int membersCount, int commentCount,

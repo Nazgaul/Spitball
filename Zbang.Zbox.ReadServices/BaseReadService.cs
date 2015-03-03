@@ -50,10 +50,10 @@ namespace Zbang.Zbox.ReadServices
                 var retVal = await con.QueryAsync<LogInUserDto>(ViewModel.SqlQueries.Sql.GetUserByEmail,
                      new { query.Email });
                 var t = retVal.FirstOrDefault();
-                if (t == null)
-                {
-                    throw new UserNotFoundException();
-                }
+                //if (t == null)
+                //{
+                //    throw new UserNotFoundException();
+                //}
                 return t;
             }
         }
