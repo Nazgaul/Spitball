@@ -409,46 +409,37 @@ namespace Zbang.Cloudents.Mobile.Controllers
             }
             try
             {
+                var query = new GetUserByEmailQuery(model.Email);
                 //Guid membershipUserId;
-                //if (!m_MembershipService.Value.EmailExists(model.Email, out membershipUserId))
-                //{
-                //    ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
-                //    return View("ForgotPwd", model);
+                var tUser = m_UserManager.FindByEmailAsync(model.Email);
+                var tResult = ZboxReadService.GetUserDetailsByEmail(query);
 
-                //}
-                //var query = new GetUserByMembershipQuery(membershipUserId);
-                //var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-                //var code = RandomString(10);
-
-
-                //var data = new ForgotPasswordLinkData(membershipUserId, 1);
-
-                //var linkData = CrypticElement(data);
-                ////Session[SessionResetPassword] = data;
-                //await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, linkData, result.Name.Split(' ')[0], model.Email, result.Culture));
-
-                //TempData["key"] = Crypto.HashPassword(code);
-
-                //return RedirectToAction("Confirmation", new { @continue = linkData });
-                var user = await m_UserManager.FindByEmailAsync(model.Email);
-                if (user == null)
+                await Task.WhenAll(tUser, tResult);
+                if (tUser.Result == null && tResult.Result != null)
+                {
+                    ModelState.AddModelError("Email", "You have registered to Cloudents through Facebook -- go to the homepage and click on the Facebook button to register");
+                    return View(model);
+                }
+                if (tUser.Result == null)
                 {
                     ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
                     return View(model);
                 }
-                var query = new GetUserByMembershipQuery(Guid.Parse(user.Id));
-                var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-                var code = await m_UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var code2 = RandomString(10);
+                var user = tUser.Result;
+                //var tResult = ZboxReadService.GetUserDetailsByMembershipId(query);
+                var identitylinkData = await m_UserManager.GeneratePasswordResetTokenAsync(user.Id);
 
 
-                //var data = new ForgotPasswordLinkData(Guid.Parse(user.Id), 1);
+                var code = RandomString(10);
 
-                var linkData = await m_UserManager.GeneratePasswordResetTokenAsync(user.Id);
+
+                var data = new ForgotPasswordLinkData(Guid.Parse(user.Id), 1, identitylinkData);
+
+                var linkData = EncryptElement(data);
                 //Session[SessionResetPassword] = data;
-                await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, linkData, result.Name.Split(' ')[0], model.Email, result.Culture));
+                await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, identitylinkData, tResult.Result.Name.Split(' ')[0], model.Email, tResult.Result.Culture));
 
-                TempData["key"] = Crypto.HashPassword(code2);
+                TempData["key"] = Crypto.HashPassword(code);
 
                 return RedirectToAction("Confirmation", new { @continue = linkData });
 
@@ -487,20 +478,19 @@ namespace Zbang.Cloudents.Mobile.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("CheckEmail", model);
-
+                return View(model);
             }
-            //var userData = UnEncryptElement<ForgotPasswordLinkData>(@continue);//  Session[SessionResetPassword] as ForgotPasswordLinkData;
+            var userData = UnEncryptElement(@continue);//  Session[SessionResetPassword] as ForgotPasswordLinkData;
 
-            //if (userData == null)
-            //{
-            //    return RedirectToAction("ResetPassword");
-            //}
+            if (userData == null)
+            {
+                return RedirectToAction("ResetPassword");
+            }
             if (Crypto.VerifyHashedPassword(model.Key, model.Code))
             {
-                //userData.Step = 2;
-                //var key = CrypticElement(userData);
-                return RedirectToAction("PasswordUpdate", new { key = @continue });
+                userData.Step = 2;
+                var key = EncryptElement(userData);
+                return RedirectToAction("PasswordUpdate", new { key });
             }
             ModelState.AddModelError(string.Empty, "This is not the correct code");
             return View("CheckEmail", model);
@@ -521,12 +511,8 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 return RedirectToRoute("accountLink");
 
             }
-            var data = UnEncryptElement<ForgotPasswordLinkData>(key);
+            var data = UnEncryptElement(key);
             if (data == null)
-            {
-                return RedirectToRoute("accountLink");
-            }
-            if (data.Date.AddHours(1) < DateTime.UtcNow)
             {
                 return RedirectToRoute("accountLink");
             }
@@ -545,27 +531,28 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 return View("ChoosePwd", model);
             }
-            var data = UnEncryptElement<ForgotPasswordLinkData>(key);
+            var data = UnEncryptElement(key);
             if (data == null)
             {
                 return RedirectToRoute("accountLink");
             }
-            if (data.Date.AddHours(1) < DateTime.UtcNow)
+            var result = await m_UserManager.ResetPasswordAsync(data.MembershipUserId.ToString(), data.Hash, model.Password);
+
+            if (result.Succeeded)
             {
-                return RedirectToRoute("accountLink");
+                var query = new GetUserByMembershipQuery(data.MembershipUserId);
+                var tSystemUser = ZboxReadService.GetUserDetailsByMembershipId(query);
+
+                var tUser = m_UserManager.FindByIdAsync(data.MembershipUserId.ToString());
+                await Task.WhenAll(tSystemUser, tUser);
+
+                var identity = await tUser.Result.GenerateUserIdentityAsync(m_UserManager, tSystemUser.Result.Id,
+                       tSystemUser.Result.UniversityId, tSystemUser.Result.UniversityData);
+                m_AuthenticationManager.SignIn(identity);
+                return RedirectToRoute("dashboardLink");
             }
-            //m_MembershipService.Value.ResetPassword(data.MembershipUserId, model.Password);
-
-            var query = new GetUserByMembershipQuery(data.MembershipUserId);
-            var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-            SiteExtension.UserLanguage.InsertCookie(result.Culture, HttpContext);
-            //FormsAuthenticationService.SignIn(result.Id, false,
-            //    new UserDetail(
-            //        result.UniversityId,
-            //        result.UniversityData
-            //        ));
-
-            return RedirectToRoute("dashboardLink");
+            ModelState.AddModelError(string.Empty, "something went wrong, try again later");
+            return View(model);
 
 
         }
@@ -584,15 +571,15 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
         private const string ResetPasswordCrypticPropose = "reset password";
         [NonAction]
-        private string CrypticElement<T>(T obj) where T : class
+        private string EncryptElement(ForgotPasswordLinkData obj)
         {
             return m_EncryptObject.Value.EncryptElement(obj, ResetPasswordCrypticPropose);
 
         }
         [NonAction]
-        private T UnEncryptElement<T>(string str) where T : class
+        private ForgotPasswordLinkData UnEncryptElement(string str)
         {
-            return m_EncryptObject.Value.DecryptElement<T>(str, ResetPasswordCrypticPropose);
+            return m_EncryptObject.Value.DecryptElement<ForgotPasswordLinkData>(str, ResetPasswordCrypticPropose);
 
         }
         #endregion

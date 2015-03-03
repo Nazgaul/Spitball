@@ -10,15 +10,16 @@ namespace Zbang.Cloudents.Mobile.Models.Account
 
         }
 
-        public ForgotPasswordLinkData(Guid membershipUserId, int step)
+        public ForgotPasswordLinkData(Guid membershipUserId, int step, string hash)
         {
             MembershipUserId = membershipUserId;
-            Date = DateTime.UtcNow;
             Step = step;
+            Hash = hash;
         }
 
         public Guid MembershipUserId { get; private set; }
-        public DateTime Date { get; private set; }
         public int Step { get; set; }
+
+        public string Hash { get; private set; }
     }
 }
