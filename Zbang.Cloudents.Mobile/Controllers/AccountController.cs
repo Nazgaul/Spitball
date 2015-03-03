@@ -51,14 +51,14 @@ namespace Zbang.Cloudents.Mobile.Controllers
             )
         {
 
-           // m_MembershipService = membershipService;
+            // m_MembershipService = membershipService;
             m_FacebookService = facebookService;
             m_QueueProvider = queueProvider;
             m_EncryptObject = encryptObject;
         }
 
         public AccountController(
-          // Lazy<IMembershipService> membershipService,
+            // Lazy<IMembershipService> membershipService,
            Lazy<IFacebookService> facebookService,
            Lazy<IQueueProvider> queueProvider,
            Lazy<IEncryptObject> encryptObject,
@@ -66,7 +66,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
            )
         {
 
-          //  m_MembershipService = membershipService;
+            //  m_MembershipService = membershipService;
             m_FacebookService = facebookService;
             m_QueueProvider = queueProvider;
             m_EncryptObject = encryptObject;
@@ -214,7 +214,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 var systemUser = tSystemData.Result;
                 if (user == null || systemUser == null)
                 {
-                    ModelState.AddModelError(string.Empty, "user does not exists");
+                    ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountErrors.InvalidEmail));
                     return JsonError(GetModelStateErrors());
                 }
                 //user.UserId = systemUser.Id;
@@ -232,7 +232,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     SiteExtension.UserLanguage.InsertCookie(systemUser.Culture, HttpContext);
                     return JsonOk();
                 }
-                ModelState.AddModelError(string.Empty, "password incorrect");
+                ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountErrors.InvalidPassword));
 
 
 
@@ -302,8 +302,8 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     var result = await ZboxWriteService.CreateUserAsync(command);
                     SiteExtension.UserLanguage.InsertCookie(result.User.Culture, HttpContext);
 
-                   var identity = await user.GenerateUserIdentityAsync(UserManager, result.User.Id, result.UniversityId,
-                        result.UniversityData);
+                    var identity = await user.GenerateUserIdentityAsync(UserManager, result.User.Id, result.UniversityId,
+                         result.UniversityData);
 
                     AuthenticationManager.SignIn(identity);
 
@@ -314,7 +314,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 }
                 foreach (var error in createStatus.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error);
+                    ModelState.AddModelError(string.Empty, AccountValidation.Localize(error, model.NewEmail));
                 }
             }
             catch (ArgumentException ex)

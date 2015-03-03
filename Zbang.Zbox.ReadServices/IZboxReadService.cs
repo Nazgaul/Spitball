@@ -7,14 +7,12 @@ using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Dto.Qna;
-using Zbang.Zbox.ViewModel.Dto.Search;
 using Zbang.Zbox.ViewModel.Dto.Store;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
-using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.ViewModel.Queries.User;
 using BoxDto = Zbang.Zbox.ViewModel.Dto.BoxDto;
 
@@ -81,7 +79,7 @@ namespace Zbang.Zbox.ReadServices
 
 
         //user page
-        Task<IEnumerable<BoxToFriendDto>> GetUserWithFriendBoxes(GetUserWithFriendQuery query);
+        Task<IEnumerable<BoxDto>> GetUserWithFriendBoxes(GetUserWithFriendQuery query);
         Task<IEnumerable<ItemToFriendDto>> GetUserWithFriendFiles(GetUserWithFriendQuery query);
         Task<IEnumerable<QuestionToFriendDto>> GetUserWithFriendQuestion(GetUserWithFriendQuery query);
         Task<IEnumerable<AnswerToFriendDto>> GetUserWithFriendAnswer(GetUserWithFriendQuery query);

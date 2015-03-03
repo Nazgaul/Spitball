@@ -17,7 +17,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class UpdateSearch : IJob
     {
-        private const int NumberToReSyncWithoutWait = 10;
         private bool m_KeepRunning;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
@@ -52,9 +51,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public void Run()
         {
             m_KeepRunning = true;
+            var index = GetIndex();
+            var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
+            TraceLog.WriteInfo("index: " + index + " count " + count);
             while (m_KeepRunning)
             {
-                ExecuteAsync().Wait();
+                ExecuteAsync(index, count).Wait();
             }
         }
 
@@ -71,18 +73,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return currentIndex;
         }
 
-        private async Task ExecuteAsync()
+        private async Task ExecuteAsync(int index, int count)
         {
             try
             {
-                var index = GetIndex();
-                var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
-                TraceLog.WriteInfo("index: " + index + " count " + count);
-                var quizUpdate = await UpdateQuiz();
+               
+                //var quizUpdate = await UpdateQuiz();
                 var itemUpdate = await UpdateItem(index, count);
-                var universityUpdate = await UpdateUniversity();
-                var boxUpdate = await UpdateBox();
-                if (itemUpdate || boxUpdate || universityUpdate || quizUpdate)
+                //var universityUpdate = await UpdateUniversity();
+                //var boxUpdate = await UpdateBox();
+                if (itemUpdate )
+                    //|| boxUpdate || universityUpdate || quizUpdate)
                 {
                     return;
                 }
@@ -107,9 +108,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         new UpdateDirtyToRegularCommand(
                             updates.QuizzesToDelete.Union(updates.QuizzesToUpdate.Select(s => s.Id))));
                 }
+                return true;
             }
-            return updates.QuizzesToUpdate.Count() == NumberToReSyncWithoutWait
-              || updates.QuizzesToDelete.Count() == NumberToReSyncWithoutWait;
+            return false;
         }
 
         private async Task<bool> UpdateItem(int instanceId, int instanceCount)
@@ -131,13 +132,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         new UpdateDirtyToRegularCommand(
                             updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));
                 }
+                return true;
             }
-            else
-            {
-                TraceLog.WriteInfo("nothing to work on");
-            }
-            return updates.ItemsToUpdate.Count() == NumberToReSyncWithoutWait
-              || updates.ItemsToDelete.Count() == NumberToReSyncWithoutWait;
+            TraceLog.WriteInfo("nothing to work on");
+            return false;
         }
 
         readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(3);
@@ -167,11 +165,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             return;
                         }
                         var sb = new StringBuilder();
+                        int byteCount = 0;
+                        char[] buffer = new char[1];
                         foreach (var ch in str)
                         {
                             if (char.IsSurrogate(ch))
                             {
                                 continue;
+                            }
+                            buffer[0] = ch;
+                            byteCount += Encoding.UTF8.GetByteCount(buffer);
+                            if (byteCount > 15000000)
+                            {
+                                TraceLog.WriteInfo("reach limit");
+                                // Couldn't add this character. Return its index
+                                break;
                             }
                             sb.Append(ch);
                         }
@@ -219,9 +227,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         new UpdateDirtyToRegularCommand(
                             updates.BoxesToDelete.Union(updates.BoxesToUpdate.Select(s => s.Id))));
                 }
+                return true;
             }
-            return updates.BoxesToUpdate.Count() == NumberToReSyncWithoutWait
-               || updates.BoxesToDelete.Count() == NumberToReSyncWithoutWait;
+            return false;
 
         }
 
@@ -240,9 +248,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         new UpdateDirtyToRegularCommand(
                             updates.UniversitiesToDelete.Union(updates.UniversitiesToUpdate.Select(s => s.Id))));
                 }
+                return true;
             }
-            return updates.UniversitiesToDelete.Count() == NumberToReSyncWithoutWait
-                || updates.UniversitiesToUpdate.Count() == NumberToReSyncWithoutWait;
+            return false;
         }
 
         public void Stop()

@@ -612,11 +612,11 @@ namespace Zbang.Zbox.ReadServices
         }
 
         #region UserPage
-        public async Task<IEnumerable<Box.BoxToFriendDto>> GetUserWithFriendBoxes(GetUserWithFriendQuery query)
+        public async Task<IEnumerable<BoxDto>> GetUserWithFriendBoxes(GetUserWithFriendQuery query)
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<Box.BoxToFriendDto>(Sql.Sql.UserWithFriendBoxes, new { Me = query.UserId, Myfriend = query.FriendId });
+                var retVal = await conn.QueryAsync<BoxDto>(Sql.Sql.UserWithFriendBoxes, new { Me = query.UserId, Myfriend = query.FriendId });
                 return retVal;
             }
         }
@@ -923,7 +923,9 @@ namespace Zbang.Zbox.ReadServices
             {
                 const string sql = @"select id from zbox.university  where needcode = 1
                                     union 
-	                select distinct universityid2 from zbox.student where universityid2 is not null";
+	                select distinct universityid2 from zbox.student where universityid2 is not null
+					union 
+					select distinct universityid from zbox.department";
                 return await conn.QueryAsync<long>(sql);
             }
         }

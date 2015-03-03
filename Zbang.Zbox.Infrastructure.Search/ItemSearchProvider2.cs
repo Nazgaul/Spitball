@@ -34,7 +34,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private bool IsDevelop()
         {
-            return false;
+            //return false;
             try
             {
                 if (!RoleEnvironment.IsAvailable)
@@ -253,15 +253,15 @@ namespace Zbang.Zbox.Infrastructure.Search
             return null;
         }
 
-        private string HighLightInName(SearchQueryRecord record)
-        {
-            string[] highLight;
-            if (record.Highlights.TryGetValue(NameField, out highLight))
-            {
-                return String.Join("...", highLight);
-            }
-            return SeachConnection.ConvertToType<string>(record.Properties[NameField]);
-        }
+        //private string HighLightInName(SearchQueryRecord record)
+        //{
+        //    string[] highLight;
+        //    if (record.Highlights.TryGetValue(NameField, out highLight))
+        //    {
+        //        return String.Join("...", highLight);
+        //    }
+        //    return SeachConnection.ConvertToType<string>(record.Properties[NameField]);
+        //}
 
 
     }

@@ -331,7 +331,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 foreach (var error in createStatus.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error);
+                    ModelState.AddModelError(string.Empty, AccountValidation.Localize(error, model.NewEmail));
                 }
             }
             catch (ArgumentException ex)

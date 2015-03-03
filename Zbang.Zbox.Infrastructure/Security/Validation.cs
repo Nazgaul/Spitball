@@ -51,6 +51,16 @@ namespace Zbang.Zbox.Infrastructure.Security
                     return Validation.DefaultError;
             }
         }
+
+
+        public static string Localize(string error, string userName)
+        {
+            if (string.Format("Name {0} is already taken.", userName) == error)
+            {
+                return Validation.DuplicateEmail;
+            }
+            return error;
+        }
     }
 
 
