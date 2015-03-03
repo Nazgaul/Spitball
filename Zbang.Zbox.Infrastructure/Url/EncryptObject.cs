@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Security;
 
 namespace Zbang.Zbox.Infrastructure.Url
@@ -17,6 +18,11 @@ namespace Zbang.Zbox.Infrastructure.Url
 
         public T DecryptElement<T>(string hash, params string[] purposes) where T : class
         {
+            if (string.IsNullOrEmpty(hash))
+            {
+                return null;
+            }
+
             var bData = HttpServerUtility.UrlTokenDecode(hash);
             if (bData == null)
             {
