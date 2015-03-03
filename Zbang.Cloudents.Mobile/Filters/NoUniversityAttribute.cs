@@ -9,6 +9,10 @@ namespace Zbang.Cloudents.Mobile.Filters
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return;
+            }
             var universityId = filterContext.HttpContext.User.GetUniversityId();
             if (universityId.HasValue)
             {
@@ -20,10 +24,9 @@ namespace Zbang.Cloudents.Mobile.Filters
                 filterContext.Result = new JsonResult { Data = new JsonResponse(false), JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 return;
             }
-            filterContext.Result = new RedirectToRouteResult(
+            filterContext.Result = new RedirectToRouteResult("libraryChoose",
                new RouteValueDictionary
                {
-                   { "controller", "Library" }, { "action", "Choose" }, 
                    { "returnUrl",filterContext.HttpContext.Request.QueryString["returnUrl"]},
                    { "new", filterContext.HttpContext.Request.QueryString["new"]}
 

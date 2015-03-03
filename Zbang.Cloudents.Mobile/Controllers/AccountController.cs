@@ -40,54 +40,26 @@ namespace Zbang.Cloudents.Mobile.Controllers
         private readonly Lazy<IFacebookService> m_FacebookService;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
-        private ApplicationUserManager m_UserManager;
+        private readonly ApplicationUserManager m_UserManager;
+        private readonly IAuthenticationManager m_AuthenticationManager;
 
         // private const string InvId = "invId";
         public AccountController(
             //Lazy<IMembershipService> membershipService,
             Lazy<IFacebookService> facebookService,
             Lazy<IQueueProvider> queueProvider,
-            Lazy<IEncryptObject> encryptObject
-            )
+            ApplicationUserManager userManager,
+            Lazy<IEncryptObject> encryptObject, IAuthenticationManager authenticationManager)
         {
 
             // m_MembershipService = membershipService;
             m_FacebookService = facebookService;
             m_QueueProvider = queueProvider;
             m_EncryptObject = encryptObject;
-        }
-
-        public AccountController(
-            // Lazy<IMembershipService> membershipService,
-           Lazy<IFacebookService> facebookService,
-           Lazy<IQueueProvider> queueProvider,
-           Lazy<IEncryptObject> encryptObject,
-           ApplicationUserManager userManager
-           )
-        {
-
-            //  m_MembershipService = membershipService;
-            m_FacebookService = facebookService;
-            m_QueueProvider = queueProvider;
-            m_EncryptObject = encryptObject;
             m_UserManager = userManager;
+            m_AuthenticationManager = authenticationManager;
         }
-
-
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return m_UserManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                m_UserManager = value;
-            }
-        }
-
-
+        
         [HttpGet]
         [DonutOutputCache(CacheProfile = "PartialPage",
            Options = OutputCacheOptions.IgnoreQueryString
@@ -163,7 +135,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 SiteExtension.UserLanguage.InsertCookie(user.Culture, HttpContext);
 
                 var identity = ApplicationUser.GenerateUserIdentity(user.Id, user.UniversityId, user.UniversityData);
-                AuthenticationManager.SignIn(identity);
+                m_AuthenticationManager.SignIn(identity);
 
                 cookie.RemoveCookie(Invite.CookieName);
                 return JsonOk();
@@ -184,13 +156,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             }
         }
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        
 
 
         //[ValidateAntiForgeryToken]
@@ -206,7 +172,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 var query = new GetUserByEmailQuery(model.Email);
                 var tSystemData = ZboxReadService.GetUserDetailsByEmail(query);
-                var tUserIdentity = UserManager.FindByEmailAsync(model.Email);
+                var tUserIdentity = m_UserManager.FindByEmailAsync(model.Email);
 
                 await Task.WhenAll(tSystemData, tUserIdentity);
 
@@ -226,12 +192,12 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 //user.UniversityId = systemUser.UniversityId;
                 //user.UniversityData = systemUser.UniversityData;
 
-                var loginStatus = await UserManager.CheckPasswordAsync(user, model.Password);
+                var loginStatus = await m_UserManager.CheckPasswordAsync(user, model.Password);
                 if (loginStatus)
                 {
-                    var identity = await user.GenerateUserIdentityAsync(UserManager, systemUser.Id, systemUser.UniversityId,
+                    var identity = await user.GenerateUserIdentityAsync(m_UserManager, systemUser.Id, systemUser.UniversityId,
                          systemUser.UniversityData);
-                    AuthenticationManager.SignIn(identity);
+                    m_AuthenticationManager.SignIn(identity);
                     var cookie = new CookieHelper(HttpContext);
                     cookie.RemoveCookie(Invite.CookieName);
                     SiteExtension.UserLanguage.InsertCookie(systemUser.Culture, HttpContext);
@@ -253,7 +219,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         [RemoveBoxCookie]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut();
+            m_AuthenticationManager.SignOut();
             return RedirectToRoute("accountLink");
         }
 
@@ -277,7 +243,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     //UniversityId = model.UniversityId,
                     //UniversityData = model.UniversityId
                 };
-                var createStatus = await UserManager.CreateAsync(user, model.Password);
+                var createStatus = await m_UserManager.CreateAsync(user, model.Password);
 
                 if (createStatus.Succeeded)
                 {
@@ -295,10 +261,10 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     var result = await ZboxWriteService.CreateUserAsync(command);
                     SiteExtension.UserLanguage.InsertCookie(result.User.Culture, HttpContext);
 
-                    var identity = await user.GenerateUserIdentityAsync(UserManager, result.User.Id, result.UniversityId,
+                    var identity = await user.GenerateUserIdentityAsync(m_UserManager, result.User.Id, result.UniversityId,
                          result.UniversityData);
 
-                    AuthenticationManager.SignIn(identity);
+                    m_AuthenticationManager.SignIn(identity);
 
                     cookie.RemoveCookie(Invite.CookieName);
                     return
@@ -376,7 +342,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                         : command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
 
-                AuthenticationManager.SignIn(user);
+                m_AuthenticationManager.SignIn(user);
                 return JsonOk();
             }
             catch (ArgumentException)
@@ -459,7 +425,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 //TempData["key"] = Crypto.HashPassword(code);
 
                 //return RedirectToAction("Confirmation", new { @continue = linkData });
-                var user = await UserManager.FindByEmailAsync(model.Email);
+                var user = await m_UserManager.FindByEmailAsync(model.Email);
                 if (user == null)
                 {
                     ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
@@ -467,13 +433,13 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 }
                 var query = new GetUserByMembershipQuery(Guid.Parse(user.Id));
                 var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-                var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var code = await m_UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var code2 = RandomString(10);
 
 
                 //var data = new ForgotPasswordLinkData(Guid.Parse(user.Id), 1);
 
-                var linkData = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var linkData = await m_UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 //Session[SessionResetPassword] = data;
                 await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, linkData, result.Name.Split(' ')[0], model.Email, result.Culture));
 

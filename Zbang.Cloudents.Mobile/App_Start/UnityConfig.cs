@@ -1,9 +1,13 @@
+using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Search;
+using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Cloudents.Mobile
@@ -36,6 +40,16 @@ namespace Zbang.Cloudents.Mobile
             Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
             builder.RegisterFilterProvider();
+
+            var x = new ApplicationDbContext();
+            builder.Register<ApplicationDbContext>(c => x).AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<ApplicationUserManager>().AsSelf().As<IAccountService>().InstancePerLifetimeScope();
+
+            builder.Register<UserStore<ApplicationUser>>(c => new UserStore<ApplicationUser>(x))
+                .AsImplementedInterfaces().InstancePerLifetimeScope();
+
+            IocFactory.Unity.ContainerBuilder.Register<IAuthenticationManager>(
+               c => HttpContext.Current.GetOwinContext().Authentication);
 
             var container = IocFactory.Unity.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

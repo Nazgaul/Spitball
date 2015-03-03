@@ -52,7 +52,7 @@
             .state('root.account', {
                 url: '/account/',
                 templateUrl: function () {
-                    return buildUrlUrl('/account/indexpartial/');
+                    return buildUrl('/account/indexpartial/');
                 },
                 controller: 'AccountController as account',
                 onEnter: accountRedirect
@@ -60,7 +60,7 @@
             state('root.login', {
                 url: '/account/login/',
                 templateUrl: function () {
-                    return buildUrlUrl('/account/loginpartial/');
+                    return buildUrl('/account/loginpartial/');
                 },
                 controller: 'LoginController as login',
                 onEnter: accountRedirect
@@ -69,7 +69,7 @@
             state('root.register', {
                 url: '/account/register/',
                 templateUrl:function () {
-                    return buildUrlUrl('/account/registerpartial/');
+                    return buildUrl('/account/registerpartial/');
                 },
                 controller: 'RegisterController as register',
                 onEnter: accountRedirect
@@ -77,7 +77,7 @@
             state('root.libChoose', {
                 url: '/library/choose/',
                 templateUrl:function () {
-                    return buildUrlUrl('/library/choosepartial/');
+                    return buildUrl('/library/choosepartial/');
                 },
                 controller: 'LibChooseController as libChoose'
             }).
