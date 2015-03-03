@@ -329,9 +329,14 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 var claimUniversity = user.Claims.SingleOrDefault(w => w.Type == ClaimConsts.UniversityIdClaim);
                 var claimUniversityData = user.Claims.SingleOrDefault(w => w.Type == ClaimConsts.UniversityDataClaim);
 
-                user.RemoveClaim(claimUniversity);
-                user.RemoveClaim(claimUniversityData);
-
+                if (claimUniversity != null)
+                {
+                    user.RemoveClaim(claimUniversity);
+                }
+                if (claimUniversityData != null)
+                {
+                    user.RemoveClaim(claimUniversityData);
+                }
 
                 user.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
                         command.UniversityId.ToString(CultureInfo.InvariantCulture)));
@@ -391,7 +396,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             return View("ForgotPwd");
         }
 
-        [HttpPost, System.Web.Mvc.ValidateAntiForgeryToken]
+        [HttpPost]
         public async Task<ActionResult> ResetPassword([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model)
         {
             if (User.Identity.IsAuthenticated)
@@ -477,8 +482,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             return View("CheckEmail", new Confirmation { Key = TempData["key"].ToString() });
         }
 
-        [HttpPost, System.Web.Mvc.ValidateAntiForgeryToken]
-        [RequireHttps]
+        [HttpPost]
         public ActionResult Confirmation([ModelBinder(typeof(TrimModelBinder))] Confirmation model, string @continue)
         {
             if (!ModelState.IsValid)
@@ -504,7 +508,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
         }
 
-        [RequireHttps, HttpGet]
+        [HttpGet]
         public ActionResult PasswordUpdate(string key)
         {
             if (User.Identity.IsAuthenticated)
@@ -531,8 +535,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
         }
 
         [HttpPost]
-        [System.Web.Mvc.ValidateAntiForgeryToken]
-        [RequireHttps]
         public async Task<ActionResult> PasswordUpdate([ModelBinder(typeof(TrimModelBinder))] NewPassword model, string key)
         {
             if (!ModelState.IsValid)
