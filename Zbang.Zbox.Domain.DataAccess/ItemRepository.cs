@@ -21,6 +21,11 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         public Comment GetPreviousCommentId(long boxId, long userId)
         {
+            //UnitOfWork.CurrentSession.QueryOver<Comment>()
+            //    .Where(w => w.FeedType == Infrastructure.Enums.FeedType.AddedItems)
+            //    .And(w => w.Box.Id == boxId)
+            //    .And(w => w.User.Id == userId)
+
             var questions = UnitOfWork.CurrentSession.QueryOver<Item>()
                 .Where(w => w.DateTimeUser.CreationTime > DateTime.UtcNow.AddHours(-1))
                 .And(w => w.Box.Id == boxId)

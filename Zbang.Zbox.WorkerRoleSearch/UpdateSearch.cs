@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -58,6 +59,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 ExecuteAsync(index, count).Wait();
             }
+            TraceLog.WriteError("On finish run");
         }
 
         private int GetIndex()
@@ -78,12 +80,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             try
             {
                
-                //var quizUpdate = await UpdateQuiz();
+                var quizUpdate = await UpdateQuiz();
                 var itemUpdate = await UpdateItem(index, count);
-                //var universityUpdate = await UpdateUniversity();
-                //var boxUpdate = await UpdateBox();
-                if (itemUpdate )
-                    //|| boxUpdate || universityUpdate || quizUpdate)
+                var universityUpdate = await UpdateUniversity();
+                var boxUpdate = await UpdateBox();
+                if (itemUpdate 
+                    || boxUpdate || universityUpdate || quizUpdate)
                 {
                     return;
                 }
@@ -141,6 +143,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(3);
         private string ExtractContentToUploadToSearch(ItemSearchDto elem)
         {
+            TraceLog.WriteInfo("processing " + elem.Id);
             try
             {
                 var wait = new ManualResetEvent(false);
@@ -177,7 +180,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             byteCount += Encoding.UTF8.GetByteCount(buffer);
                             if (byteCount > 15000000)
                             {
-                                TraceLog.WriteInfo("reach limit");
+                                Trace.TraceWarning("reach limit");
                                 // Couldn't add this character. Return its index
                                 break;
                             }
@@ -201,7 +204,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
 
 
-                TraceLog.WriteInfo("processing " + elem.Id);
+               
 
                 return str;
 

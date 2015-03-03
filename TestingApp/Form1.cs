@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Autofac;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -38,7 +40,13 @@ namespace TestingApp
             Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Search.RegisterIoc.Register();
 
+
             var ioc = IocFactory.Unity;
+            ioc.ContainerBuilder.RegisterType<SeachConnection>()
+               .As<ISearchConnection>()
+               .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
+               .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
+               .InstancePerLifetimeScope();
             ioc.Build();
         }
 

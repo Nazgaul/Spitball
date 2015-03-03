@@ -4,7 +4,7 @@
         "use strict";
         var imageTemplate = '<img class="userImg" alt=""  />',
             letterTemplate = '<span class="userLetter"></span>',
-            emptyTemplate = '<img src="/images/user.svg" />';
+            emptyTemplate = '<img class="userImg" src="/images/user.svg" />';
         return {
             restrict: "E",
             scope: {
