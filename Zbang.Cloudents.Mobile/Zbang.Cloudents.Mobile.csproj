@@ -730,6 +730,7 @@
     <Content Include="Images\Web.config" />
     <Content Include="..\Zbang.Cloudents.Mvc4WebRole\startup\disableTimeout.cmd">
       <Link>startup\disableTimeout.cmd</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
