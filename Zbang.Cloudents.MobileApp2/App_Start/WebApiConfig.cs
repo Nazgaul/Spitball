@@ -4,10 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using Autofac;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Zbang.Cloudents.MobileApp2.Models;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Search;
+using Zbang.Zbox.Infrastructure.Security;
 
 namespace Zbang.Cloudents.MobileApp2
 {
@@ -36,7 +39,7 @@ namespace Zbang.Cloudents.MobileApp2
             //HttpConfiguration config = ServiceConfig.Initialize(new ConfigBuilder(options));
             HttpConfiguration config = ServiceConfig.Initialize(builder);
             //HttpConfiguration config = ServiceConfig.Initialize(new ConfigBuilder(options, ConfigureDependencies));
-            config.SetIsHosted(true);
+            //config.SetIsHosted(true);
 
 
             // To display errors in the browser during development, uncomment the following
@@ -61,11 +64,21 @@ namespace Zbang.Cloudents.MobileApp2
             IocFactory.Unity.ContainerBuilder = builder;
             Zbox.Infrastructure.RegisterIoc.Register();
             builder.RegisterType<SeachConnection>()
-            .As<ISearchConnection>()
-            .WithParameter("serviceName", "cloudents")
-            .WithParameter("serviceKey", "5B0433BFBBE625C9D60F7330CFF103F0")
-            .InstancePerLifetimeScope();
-            Zbang.Zbox.Infrastructure.Search.RegisterIoc.Register();
+                .As<ISearchConnection>()
+                .WithParameter("serviceName", "cloudents")
+                .WithParameter("serviceKey", "5B0433BFBBE625C9D60F7330CFF103F0")
+                .InstancePerLifetimeScope();
+            RegisterIoc.Register();
+
+            var x = new ApplicationDbContext();
+            builder.Register(c => x).AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<ApplicationUserManager>().AsSelf().As<IAccountService>().InstancePerLifetimeScope();
+
+            builder.Register(c => new UserStore<ApplicationUser>(x))
+                .AsImplementedInterfaces().InstancePerLifetimeScope();
+
+            IocFactory.Unity.ContainerBuilder.Register(
+               c => HttpContext.Current.GetOwinContext().Authentication);
             //Zbox.Infrastructure.Data.RegisterIoc.Register();
             //Zbox.Infrastructure.File.RegisterIoc.Register();
             //Zbox.Domain.Services.RegisterIoc.Register();

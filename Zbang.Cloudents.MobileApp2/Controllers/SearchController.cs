@@ -27,7 +27,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         [Route("api/search/boxes")]
         public async Task<HttpResponseMessage> Boxes(string term, int page)
         {
-            long? universityId = User.GetUniversityId();
+            long? universityId = User.GetUniversityDataId();
             //var userDetail = FormsAuthenticationService.GetUserData();
 
 
@@ -49,7 +49,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         [Route("api/search/items")]
         public async Task<HttpResponseMessage> Items(string term, int page)
         {
-            long? universityId = User.GetUniversityId();
+            long? universityId = User.GetUniversityDataId();
             if (!universityId.HasValue)
                 return Request.CreateBadRequestResponse("need university");
 

@@ -27,20 +27,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IZboxReadService ZboxReadService { get; set; }
 
 
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-        }
-        //public ApplicationSignInManager SignInManager
-        //{
-        //    get
-        //    {
-        //        return  HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>();
-        //    }
-        //}
+        public ApplicationUserManager UserManager {get;set;}
 
         // GET api/CustomLogin
         public async Task<HttpResponseMessage> Post(LogInRequest loginRequest)
@@ -74,32 +61,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 {
                     var identity = await user.GenerateUserIdentityAsync(UserManager, systemUser.Id, systemUser.UniversityId,
                          systemUser.UniversityData);
-                    var loginResult = new Models.CustomLoginProvider(Handler).CreateLoginResult(identity, Services.Settings.MasterKey);
+                    var loginResult = new Models.CustomLoginProvider(Handler)
+                        .CreateLoginResult(identity, Services.Settings.MasterKey);
                     return Request.CreateResponse(HttpStatusCode.OK, loginResult);
                 }
-                //Guid membershipUserId;
-
-                //var loginStatus = MembershipService
-                //    .ValidateUser(loginRequest.Email, loginRequest.Password, out membershipUserId);
-                //if (loginStatus == LogInStatus.Success)
-                //{
-                //    try
-                //    {
-                //        var query = new GetUserByMembershipQuery(membershipUserId);
-                //        var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-
-                //    }
-                //    catch (UserNotFoundException)
-                //    {
-                //        return Request.CreateBadRequestResponse();
-                //        //ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
-                //    }
-                //}
-                //else
-                //{
-                //    return Request.CreateBadRequestResponse();
-                //    //ModelState.AddModelError(string.Empty, loginStatus.GetEnumDescription());
-                //}
 
             }
             catch (Exception ex)

@@ -8,5 +8,9 @@ namespace Zbang.Cloudents.MobileApp2.Models
             : base(CustomLoginProvider.ProviderName)
         {
         }
+
+        public long CUserId { get; set; }
+        public long? UniversityId { get; set; }
+        public long? UniversityDataId { get; set; }
     }
 }

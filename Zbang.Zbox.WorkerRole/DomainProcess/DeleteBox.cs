@@ -27,6 +27,7 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             catch (Exception ex)
             {
                 TraceLog.WriteError("On delete box model:" + parameters, ex);
+                return false;
             }
             return true;
         }

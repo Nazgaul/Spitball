@@ -1,24 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Principal;
-using System.Web;
+using Microsoft.WindowsAzure.Mobile.Service.Security;
+using Newtonsoft.Json;
+using Zbang.Cloudents.MobileApp2.Models;
 
 namespace Zbang.Cloudents.MobileApp2
 {
-    public static class IPrincipalExtensions
+    public static class PrincipalExtensions
     {
         public static long GetCloudentsUserId(this IPrincipal principal)
         {
-            return 1;
-            var serviceUser = (Microsoft.WindowsAzure.Mobile.Service.Security.ServiceUser) principal;
-            var stringUserId = serviceUser.Id.Replace("cloudents:", string.Empty);
-            return long.Parse(stringUserId);
+
+            var login = ExtractFromClaim(principal);
+            return login.CUserId;
+        }
+
+        private static CustomLoginProviderCredentials ExtractFromClaim(IPrincipal principal)
+        {
+            var serviceUser = (ServiceUser)principal;
+
+            var claim = serviceUser.Claims.Single(w => w.Type == "urn:microsoft:credentials");
+            var login = JsonConvert.DeserializeObject<CustomLoginProviderCredentials>(claim.Value);
+            return login;
         }
 
         public static long? GetUniversityId(this IPrincipal principal)
         {
-            return 920;
+            var login = ExtractFromClaim(principal);
+            return login.UniversityId;
         }
+
+        public static long? GetUniversityDataId(this IPrincipal principal)
+        {
+            var login = ExtractFromClaim(principal);
+            return login.UniversityDataId;
+        }
+
+
     }
 }

@@ -21,5 +21,10 @@ namespace Zbang.Zbox.Infrastructure.Transport
         {
             get { return DeleteBoxResolver; }
         }
+
+        public override string ToString()
+        {
+            return "BoxId: " + BoxId;
+        }
     }
 }
