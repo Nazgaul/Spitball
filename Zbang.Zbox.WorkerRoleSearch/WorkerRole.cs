@@ -9,6 +9,7 @@ using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -36,6 +37,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
+        void RoleEnvironment_StatusCheck(object sender, RoleInstanceStatusCheckEventArgs e)
+        {
+            if (e.Status == RoleInstanceStatus.Busy)
+            {
+                TraceLog.WriteError("Status is busy");
+            }
+
+        }
+
 
         public override bool OnStart()
         {
@@ -48,6 +58,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             bool result = base.OnStart();
 
             RoleEnvironment.Changing += RoleEnvironmentChanging;
+            RoleEnvironment.StatusCheck += RoleEnvironment_StatusCheck;
             Trace.TraceInformation("Zbang.Zbox.WorkerRoleSearch has been started");
 
             return result;

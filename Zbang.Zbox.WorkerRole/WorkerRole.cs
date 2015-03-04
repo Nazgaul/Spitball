@@ -33,11 +33,21 @@ namespace Zbang.Zbox.WorkerRole
 #endif
                 m_Tasks = new List<Task>();
                 m_Jobs = CreateJobProcessors();
+                
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("ON WORKER ROLE CTOR ", ex);
             }
+        }
+
+        void RoleEnvironment_StatusCheck(object sender, RoleInstanceStatusCheckEventArgs e)
+        {
+            if (e.Status == RoleInstanceStatus.Busy)
+            {
+                TraceLog.WriteError("Status is busy");
+            }
+           
         }
 
         private IEnumerable<IJob> CreateJobProcessors()
@@ -128,6 +138,7 @@ namespace Zbang.Zbox.WorkerRole
         {
 
             RoleEnvironment.Changing += RoleEnvironmentChanging;
+            RoleEnvironment.StatusCheck += RoleEnvironment_StatusCheck;
             //RoleEnvironment.Changed += RoleEnvironmentChanged;
             // Set the maximum number of concurrent connections 
             ServicePointManager.DefaultConnectionLimit = 12;

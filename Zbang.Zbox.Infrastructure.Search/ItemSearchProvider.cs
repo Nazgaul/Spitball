@@ -109,7 +109,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     }
 
                     var x = new Regex("%.");
-                    if (x.IsMatch(retVal, retVal.Length - 2))
+                    if (x.IsMatch(retVal, Math.Max(0, retVal.Length - 2)))
                     {
                         retVal = retVal.Substring(0, (retVal.Length - 2));
                     }
@@ -206,7 +206,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             return true;
         }
 
-        
+
 
 
     }
