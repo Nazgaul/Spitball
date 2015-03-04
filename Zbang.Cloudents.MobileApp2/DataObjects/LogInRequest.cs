@@ -12,4 +12,10 @@ namespace Zbang.Cloudents.MobileApp2.DataObjects
         [Required]//(ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "PwdAtLeast6Chars")]
         public string Password { get; set; }
     }
+
+    public class FacebookLoginRequest
+    {
+        [Required]
+        public string AuthToken { get; set; }
+    }
 }

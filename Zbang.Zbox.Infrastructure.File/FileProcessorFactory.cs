@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.File
 {

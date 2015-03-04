@@ -1,4 +1,5 @@
 ﻿using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
@@ -14,7 +15,6 @@ namespace Zbang.Zbox.Infrastructure.File
             ioc.RegisterType<IContentProcessor, ImageProcessor>();
             ioc.RegisterType<IContentProcessor, PdfProcessor>();
             ioc.RegisterType<IContentProcessor, PowerPoint2007Processor>();
-            //ioc.RegisterType<IContentProcessor, PowerPointProsessor>("powerpoint");
             ioc.RegisterType<IContentProcessor, TiffProcessor>();
             ioc.RegisterType<IContentProcessor, YoutubeProcessor>();
             ioc.RegisterType<IContentProcessor, LinkProcessor>();

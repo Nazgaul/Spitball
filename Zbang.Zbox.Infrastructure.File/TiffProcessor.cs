@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Image = Aspose.Imaging.Image;
@@ -153,7 +154,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override string GetDefaultThumbnailPicture()
         {
-            return ImageFileTypePicture;
+            return DefaultPicture.ImageFileTypePicture;
         }
 
         public override Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))

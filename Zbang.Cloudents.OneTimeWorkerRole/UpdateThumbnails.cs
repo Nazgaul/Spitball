@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 using Microsoft.WindowsAzure.Storage;

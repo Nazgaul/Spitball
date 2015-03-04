@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
+using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
@@ -13,6 +14,7 @@ using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.MobileApp2.Controllers
 {
+    [AuthorizeLevel(AuthorizationLevel.User)]
     public class BoxController : ApiController
     {
         public ApiServices Services { get; set; }

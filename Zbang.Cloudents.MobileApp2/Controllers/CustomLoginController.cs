@@ -10,10 +10,13 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Cloudents.MobileApp2.DataObjects;
+using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
+using Zbang.Zbox.ViewModel.Dto.UserDtos;
 
 namespace Zbang.Cloudents.MobileApp2.Controllers
 {
@@ -25,9 +28,11 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
 
         public IZboxReadService ZboxReadService { get; set; }
+        public IZboxWriteService ZboxWriteService { get; set; }
 
+        public IFacebookService FacebookService { get; set; }
 
-        public ApplicationUserManager UserManager {get;set;}
+        public ApplicationUserManager UserManager { get; set; }
 
         // GET api/CustomLogin
         public async Task<HttpResponseMessage> Post(LogInRequest loginRequest)
@@ -75,6 +80,46 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }
             return Request.CreateBadRequestResponse();
 
+        }
+
+
+        [HttpPost]
+        [Route("api/facebookLogin")]
+        public async Task<HttpResponseMessage> FacebookLogin(FacebookLoginRequest model)
+        {
+            var facebookUserData = await FacebookService.FacebookLogIn(model.AuthToken);
+            if (facebookUserData == null)
+            {
+                return Request.CreateBadRequestResponse("auth token is invalid");
+            }
+            var query = new GetUserByFacebookQuery(facebookUserData.id);
+            var user = await ZboxReadService.GetUserDetailsByFacebookId(query);
+            if (user == null)
+            {
+                var command = new CreateFacebookUserCommand(facebookUserData.id, facebookUserData.email,
+                    facebookUserData.Image, facebookUserData.LargeImage, null,
+                    facebookUserData.first_name,
+                    facebookUserData.middle_name,
+                    facebookUserData.last_name,
+                    facebookUserData.GetGender(),
+                    false, facebookUserData.locale, null, null, true);
+                var commandResult = await ZboxWriteService.CreateUserAsync(command);
+                user = new LogInUserDto
+                {
+                    Id = commandResult.User.Id,
+                    Culture = commandResult.User.Culture,
+                    Image = facebookUserData.Image,
+                    Name = facebookUserData.name,
+                    UniversityId = commandResult.UniversityId,
+                    UniversityData = commandResult.UniversityData,
+                    Score = commandResult.User.Reputation
+                };
+            }
+
+            var identity = ApplicationUser.GenerateUserIdentity(user.Id, user.UniversityId, user.UniversityData);
+            var loginResult = new Models.CustomLoginProvider(Handler)
+                    .CreateLoginResult(identity, Services.Settings.MasterKey);
+            return Request.CreateResponse(HttpStatusCode.OK, loginResult);
         }
 
     }

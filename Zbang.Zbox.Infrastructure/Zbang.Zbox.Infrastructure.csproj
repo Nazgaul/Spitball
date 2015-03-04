@@ -178,8 +178,12 @@
     <Compile Include="Security\Validation.cs" />
     <Compile Include="Storage\Compress.cs" />
     <Compile Include="Storage\IBlobProductProvider.cs" />
+    <Compile Include="Storage\IContentProcessor.cs" />
+    <Compile Include="Storage\IFileProcessorFactory.cs" />
     <Compile Include="Storage\ILocalStorageProvider.cs" />
     <Compile Include="Storage\IQueueProvider.cs" />
+    <Compile Include="Storage\PreProcessFileResult.cs" />
+    <Compile Include="Storage\PreviewResult.cs" />
     <Compile Include="Storage\QueueName.cs" />
     <Compile Include="TextManipulation.cs" />
     <Compile Include="Thumbnail\ImageResizer.cs" />

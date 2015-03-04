@@ -13,7 +13,7 @@ using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Cloudents.MobileApp2.Controllers
 {
-    //[AuthorizeLevel(AuthorizationLevel.User)]
+    [AuthorizeLevel(AuthorizationLevel.User)]
     public class SearchController : ApiController
     {
         public IBoxReadSearchProvider BoxSearchService { get; set; }

@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Transport;
-using Zbang.Zbox.Infrastructure.File;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -64,7 +64,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             var processor = m_FileProcessorFactory.GetProcessor(new Uri(m_BlobProvider.GetBlobUrl(command.BlobAddressName)));
-            string thumbnailImgLink = FileProcessor.DefaultFileTypePicture;
+            string thumbnailImgLink = DefaultPicture.DefaultFileTypePicture;
             if (processor != null)
             {
                 thumbnailImgLink = processor.GetDefaultThumbnailPicture();

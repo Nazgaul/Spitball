@@ -63,6 +63,7 @@ namespace Zbang.Cloudents.MobileApp2
 
             IocFactory.Unity.ContainerBuilder = builder;
             Zbox.Infrastructure.RegisterIoc.Register();
+
             builder.RegisterType<SeachConnection>()
                 .As<ISearchConnection>()
                 .WithParameter("serviceName", "cloudents")
@@ -79,14 +80,15 @@ namespace Zbang.Cloudents.MobileApp2
 
             IocFactory.Unity.ContainerBuilder.Register(
                c => HttpContext.Current.GetOwinContext().Authentication);
-            //Zbox.Infrastructure.Data.RegisterIoc.Register();
+            Zbox.Infrastructure.Data.RegisterIoc.Register();
             //Zbox.Infrastructure.File.RegisterIoc.Register();
-            //Zbox.Domain.Services.RegisterIoc.Register();
+            Zbox.Domain.Services.RegisterIoc.Register();
+            Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
             Zbox.ReadServices.RegisterIoc.Register();
 
             //configuration.EnsureInitialized();
-            //Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
+            
         }
     }
 }

@@ -64,7 +64,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override string GetDefaultThumbnailPicture()
         {
-            return VideoFileTypePicture;
+            return DefaultPicture.VideoFileTypePicture;
         }
 
         public override Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
