@@ -132,6 +132,10 @@ run(['$rootScope', '$window', 'sVerChecker', function ($rootScope, $window, sVer
         setTimeout(function () { window.scrollTo(0, 0); }, 0);
     });
 
+    $rootScope.$on('$stateChangeSuccess', function () {
+        console.log('wow');
+    });
+
     //analytics
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {

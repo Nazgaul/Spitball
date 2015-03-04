@@ -202,7 +202,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var result = await ZboxReadService.GetBoxItemsPagedAsync(query);
                 foreach (var item in result)
                 {
-                    item.Name = Path.GetFileNameWithoutExtension(item.Name);
                     item.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = id, itemId = item.Id });
                 }
                 return JsonOk(result);

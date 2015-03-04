@@ -50,7 +50,8 @@
 
 
             return account.selectUniversity({ universityId: universityId }).then(function () {
-                $state.go('root.dashboard');
+                //$state.go('root.dashboard');
+                $state.go('root.dashboard', {}, { reload: true }); // we have a problem with new facebook user
             }).catch(function (response) {
                 alert(response);
             });
