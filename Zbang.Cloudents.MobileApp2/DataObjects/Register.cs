@@ -25,7 +25,8 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
         [Required]//(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "GenderRequired")]
         public bool? IsMale { get; set; }
 
-
+        [Required]
+        public string Culture { get; set; }
 
 
 

@@ -186,8 +186,10 @@
     <Compile Include="Controllers\BoxController.cs" />
     <Compile Include="Controllers\BoxesController.cs" />
     <Compile Include="Controllers\CustomLoginController.cs" />
+    <Compile Include="Controllers\CustomRegistrationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="DataObjects\LogInRequest.cs" />
+    <Compile Include="DataObjects\Register.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
