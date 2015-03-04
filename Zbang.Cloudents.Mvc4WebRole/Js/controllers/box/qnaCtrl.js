@@ -145,9 +145,10 @@
                     });
 
 
-                    $scope.qFormData.content = $scope.qFormData.content || 'תצייצו במה שהעלתי'; //DELETE this line;
+                    
                     //$scope.qFormData.content = $scope.qFormData.content || resManager.get(KEYNAME); //UNCOMMENT this line and change the key name
                     sQnA.post.question($scope.qFormData).then(function (questionId) {
+                        $scope.qFormData.content = $scope.qFormData.content || '';
                         var obj = {
                             id: questionId,
                             userName: sUserDetails.getDetails().name,
