@@ -32,16 +32,16 @@ namespace Zbang.Zbox.WorkerRole
             }
             else
             {
-                await SleepAndIncreaseInterval();
+                SleepAndIncreaseInterval();
             }
         }
 
 
 
-        private async Task SleepAndIncreaseInterval()
+        private void SleepAndIncreaseInterval()
         {
-            //Thread.Sleep(TimeSpan.FromSeconds(m_Interval));
-            await Task.Delay(TimeSpan.FromSeconds(m_Interval));
+            Thread.Sleep(TimeSpan.FromSeconds(m_Interval));
+            //await Task.Delay(TimeSpan.FromSeconds(m_Interval));
             m_Interval = Math.Min(MaxInterval, m_Interval * Exponent);
         }
     }
