@@ -20,7 +20,7 @@
                        return false;
                    }
 
-                   if (menuOpened) {
+                   if (!menuOpened) {
                        return;
                    }
 
@@ -29,6 +29,7 @@
                    });
 
                    $dashboard.removeClass('menuOpen');
+                   menuOpened = false;
                });
 
                scope.$on('$destroy', function () {
