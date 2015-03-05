@@ -46,7 +46,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            return null;
+            return Task.FromResult<PreProcessFileResult>(null);
         }
 
         public string GetDefaultThumbnailPicture()

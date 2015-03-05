@@ -53,41 +53,14 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 var msgData = msg.FromMessageProto<FileProcessData>();
                 if (msgData == null)
                 {
-                    TraceLog.WriteInfo("GenerateDocumentCache - message is not in the correct format " );
+                    TraceLog.WriteInfo("GenerateDocumentCache - message is not in the correct format ");
                     return Task.FromResult(true);
 
                 }
                 TraceLog.WriteInfo("Processing file: " + msgData.ItemId);
                 try
                 {
-                    var processor = m_FileProcessorFactory.GetProcessor(msgData.BlobName);
-                    if (processor == null) return Task.FromResult(true);
-                    //taken from : http://blogs.msdn.com/b/nikhil_agarwal/archive/2014/04/02/10511934.aspx
-                    var wait = new ManualResetEvent(false);
-
-                    var work = new Thread(async () =>
-                    {
-                        //some long running method requiring synchronization
-                        var retVal = await processor.PreProcessFile(msgData.BlobName);
-
-                        if (retVal == null)
-                        {
-                            return;
-                        }
-                        var oldBlobName = msgData.BlobName.Segments[msgData.BlobName.Segments.Length - 1];
-                        var command = new UpdateThumbnailCommand(msgData.ItemId, retVal.ThumbnailName, retVal.BlobName,
-                            oldBlobName, retVal.FileTextContent);
-                        m_ZboxWriteService.UpdateThumbnailPicture(command);
-                        wait.Set();
-                    });
-                    work.Start();
-                    Boolean signal = wait.WaitOne(TimeSpan.FromMinutes(30));
-                    if (!signal)
-                    {
-                        work.Abort();
-                        TraceLog.WriteError("blob url aborting process" + msgData.BlobName);
-                    }
-                    return Task.FromResult(true);
+                    return PreProcessFile(msgData);
                 }
                 catch (ItemNotFoundException ex)
                 {
@@ -103,6 +76,39 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 }
                 return Task.FromResult(false);
             }, TimeSpan.FromHours(1), 10);
+        }
+
+        private Task<bool> PreProcessFile(FileProcessData msgData)
+        {
+            var processor = m_FileProcessorFactory.GetProcessor(msgData.BlobName);
+            if (processor == null) return Task.FromResult(true);
+            //taken from : http://blogs.msdn.com/b/nikhil_agarwal/archive/2014/04/02/10511934.aspx
+            var wait = new ManualResetEvent(false);
+
+            var work = new Thread(async () =>
+            {
+                //some long running method requiring synchronization
+                var retVal = await processor.PreProcessFile(msgData.BlobName);
+
+                if (retVal == null)
+                {
+                    wait.Set();
+                    return;
+                }
+                var oldBlobName = msgData.BlobName.Segments[msgData.BlobName.Segments.Length - 1];
+                var command = new UpdateThumbnailCommand(msgData.ItemId, retVal.ThumbnailName, retVal.BlobName,
+                    oldBlobName, retVal.FileTextContent);
+                m_ZboxWriteService.UpdateThumbnailPicture(command);
+                wait.Set();
+            });
+            work.Start();
+            Boolean signal = wait.WaitOne(TimeSpan.FromMinutes(30));
+            if (!signal)
+            {
+                work.Abort();
+                TraceLog.WriteError("blob url aborting process" + msgData.BlobName);
+            }
+            return Task.FromResult(true);
         }
         //private async Task Execute()
         //{
