@@ -14,6 +14,18 @@ namespace Zbang.Zbox.Infrastructure.Security
 {
     public class Startup
     {
+        private static bool IsAjaxRequest(IOwinRequest request)
+        {
+            IReadableStringCollection query = request.Query;
+            if ((query != null) && (query["X-Requested-With"] == "XMLHttpRequest"))
+            {
+                return true;
+            }
+            IHeaderDictionary headers = request.Headers;
+            return ((headers != null) && (headers["X-Requested-With"] == "XMLHttpRequest"));
+        }
+
+
         internal static IDataProtectionProvider DataProtectionProvider { get; private set; }
 
         public static void ConfigureAuth(IAppBuilder app, bool shouldUseCookie)
@@ -40,7 +52,18 @@ namespace Zbang.Zbox.Infrastructure.Security
                     LoginPath = new PathString("/account/"),
                     Provider = new CookieAuthenticationProvider
                     {
-                        
+                        OnApplyRedirect = ctx =>
+                        {
+                            if (!IsAjaxRequest(ctx.Request))
+                            {
+                                ctx.Response.Redirect(ctx.RedirectUri);
+                            }
+                        }
+                        //OnResponseSignIn = ctx =>
+                        //{
+                            
+                        //}
+                       
                         //OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<UserManager,User>()
                         //TimeSpan.FromDays(5))
                         // Enables the application to validate the security stamp when the user logs in.

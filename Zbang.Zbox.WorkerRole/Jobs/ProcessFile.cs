@@ -35,6 +35,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 m_KeepRunning = true;
                 while (m_KeepRunning)
                 {
+                    TraceLog.WriteInfo("Running process file");
                     ExecuteAsync().Wait();
                 }
             }
@@ -56,6 +57,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     return Task.FromResult(true);
 
                 }
+                TraceLog.WriteInfo("Processing file: " + msgData.ItemId);
                 try
                 {
                     var processor = m_FileProcessorFactory.GetProcessor(msgData.BlobName);

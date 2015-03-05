@@ -21,6 +21,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_KeepRunning = true;
             while (m_KeepRunning)
             {
+                TraceLog.WriteInfo("Running update database");
                 try
                 {
                     if (!m_ZboxService.Dbi(index))

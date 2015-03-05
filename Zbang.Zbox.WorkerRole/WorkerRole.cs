@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -47,6 +48,7 @@ namespace Zbang.Zbox.WorkerRole
             {
                 TraceLog.WriteError("Status is busy");
             }
+            Trace.TraceWarning("Status changed " + e.Status.ToString("g"));
            
         }
 
@@ -170,7 +172,7 @@ namespace Zbang.Zbox.WorkerRole
             catch (AggregateException ex)
             {
                 // Observe any unhandled exceptions.
-                TraceLog.WriteInfo(string.Format("Finalizing exception thrown: {0} exceptions", ex.InnerExceptions.Count));
+                TraceLog.WriteError(string.Format("Finalizing exception thrown: {0} exceptions", ex.InnerExceptions.Count));
             }
 
             base.OnStop();

@@ -44,9 +44,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                .InstancePerLifetimeScope();
 
             Zbox.Infrastructure.Search.RegisterIoc.Register();
-            //Zbox.Infrastructure.Security.RegisterIoc.Register();
-
-
 
             var x = new ApplicationDbContext();
             builder.Register<ApplicationDbContext>(c => x).AsSelf().InstancePerLifetimeScope();
@@ -54,25 +51,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             builder.Register<UserStore<ApplicationUser>>(c => new UserStore<ApplicationUser>(x))
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
-
-            //builder.RegisterType<UserStore<ApplicationUser>>()
-            //    .As<IUserStore<ApplicationUser>>().WithParameter(
-            //            new ResolvedParameter(
-            //            (pi, ctx) => pi.ParameterType == typeof(string) && pi.Name == "context",
-            //            (pi, ctx) => ctx.Resolve(typeof(ApplicationDbContext)))).InstancePerLifetimeScope();
-
-            //builder.Register<UserStore<ApplicationUser>>(c => new UserStore<ApplicationUser>(x)).AsImplementedInterfaces();
-            //builder.RegisterType<ApplicationDbContext>.AsSelf().InstancePerRequest(); 
-            //builder.Register<UserStore<ApplicationUser>>()
-            //    .AsImplementedInterfaces()
-            //    .Instanc‌​ePerRequest(); 
-            //builder.Register<IdentityFactoryOptions<ApplicationUserManager>>(c => new IdentityFactoryOptions<ApplicationUserManager>() { DataProtectionProvider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("ApplicationN‌​ame") }); builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest(); 
-            //IocFactory.Unity.ContainerBuilder.RegisterType<UserStore<ApplicationUser>>()
-            //   .UsingConstructor(typeof(ApplicationDbContext))
-            //   .As<IUserStore<ApplicationUser>>();
-
-            //<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
-            //new InjectionConstructor(typeof(ApplicationDbContext)));
 
             IocFactory.Unity.ContainerBuilder.Register<IAuthenticationManager>(
                 c => HttpContext.Current.GetOwinContext().Authentication);

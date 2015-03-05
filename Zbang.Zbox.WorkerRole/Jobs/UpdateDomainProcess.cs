@@ -28,6 +28,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_KeepRunning = true;
             while (m_KeepRunning)
             {
+                TraceLog.WriteInfo("Running update domain process");
                 try
                 {
                     ExecuteAsync().Wait();
@@ -46,6 +47,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
             await m_QueueProcess.RunQueue(new UpdateDomainQueueName(), msg =>
               {
+                  TraceLog.WriteInfo("Running update domain process - processing queue");
                   try
                   {
                       var msgData = msg.FromMessageProto<Infrastructure.Transport.DomainProcess>();

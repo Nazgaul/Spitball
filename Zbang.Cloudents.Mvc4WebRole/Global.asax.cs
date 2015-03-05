@@ -184,11 +184,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
             {
                 return;
             }
+            var uriBuilder = new UriBuilder(HttpContext.Current.Request.Url) {Path = "/error"};
+
+
             controller.ViewData.Model = new HandleErrorInfo(ex, currentController, currentAction);
             try
             {
+                HttpContext.Current.Response.Redirect(uriBuilder.ToString());
                 //Response.Redirect("/error");
-                ((IController)controller).Execute(new RequestContext());//(new HttpContextWrapper(httpContext), routeData));
+                //((IController)controller).Execute(new RequestContext(new HttpContextWrapper(httpContext), routeData));//(new HttpContextWrapper(httpContext), routeData));
             }
             catch (Exception ex2)
             {

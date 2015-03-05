@@ -18,7 +18,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         /// </summary>
         public bool IsAuthenticationRequired { get; set; }
 
-     
+
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
@@ -27,14 +27,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             {
                 try
                 {
-                    filterContext.HttpContext.Response.Clear();
+                    //filterContext.HttpContext.Response.Clear();
                     filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
-                    
-                    filterContext.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
-                    filterContext.HttpContext.Response.Flush();
-                    filterContext.Result = new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
-                   // filterContext.HttpContext.Response.SuppressFormsAuthenticationRedirect = true;
-                    filterContext.HttpContext.Response.End();
+                    //filterContext.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
+                    //filterContext.HttpContext.Response.Flush();
+                    //filterContext.Result = new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
+                    filterContext.Result = new HttpUnauthorizedResult();
+                    return;
+                    // filterContext.HttpContext.Response.SuppressFormsAuthenticationRedirect = true;
+                    //filterContext.HttpContext.Response.End();
                 }
                 catch (Exception ex)
                 {

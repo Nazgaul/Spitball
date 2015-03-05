@@ -34,6 +34,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 m_KeepRunning = true;
                 while (m_KeepRunning)
                 {
+                    TraceLog.WriteInfo("Process Add files");
                     try
                     {
                         Execute().Wait();
@@ -62,6 +63,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                      TraceLog.WriteInfo("AddFiles - message is not in the correct format " + msg.Id);
                      return Task.FromResult(false);
                  }
+                 TraceLog.WriteInfo("Processing add file " + msgData.FileName);
                  try
                  {
                      if (string.IsNullOrEmpty(msgData.BlobUrl))
