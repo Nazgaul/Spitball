@@ -58,29 +58,27 @@ namespace Zbang.Zbox.Infrastructure.File
             return input;
         }
 
-        protected async Task UploadMetaData(string fileContent,
+        protected async Task UploadMetaData(
+            //string fileContent,
             string blobName,
             int pageCount,
-            string getCacheVersionPrefix)
+            string getCacheVersionPrefix
+            )
         {
-            if (string.IsNullOrEmpty(fileContent))
-            {
-                return;
-            }
-            const int allowedChars = 8000;
-            const int sizeOfMetaPerPage = 20;
-            const int sizeOfPageCount = 10;
+            //if (string.IsNullOrEmpty(fileContent))
+            //{
+            //    return;
+            //}
+            //const int allowedChars = 8000;
+            //const int sizeOfMetaPerPage = 20;
+            //const int sizeOfPageCount = 10;
 
 
-            var metaData = await BlobProvider.FetechBlobMetaDataAsync(blobName);
-            if (metaData == null)
-            {
-                metaData = new Dictionary<string, string>();
-            }
+            var metaData = await BlobProvider.FetechBlobMetaDataAsync(blobName) ?? new Dictionary<string, string>();
             metaData = RemoveOldMetaTags(metaData, getCacheVersionPrefix);
             metaData[PagesInDocsMetaKey] = pageCount.ToString(CultureInfo.InvariantCulture);
-            var sizeToStrip = allowedChars - (sizeOfMetaPerPage * Math.Min(pageCount, 15) + sizeOfPageCount);
-            metaData[StorageConsts.ContentMetaDataKey] = System.Net.WebUtility.UrlEncode(System.Net.WebUtility.HtmlEncode(fileContent.ToLower())).RemoveEndOfString(sizeToStrip);
+            //var sizeToStrip = allowedChars - (sizeOfMetaPerPage * Math.Min(pageCount, 15) + sizeOfPageCount);
+            //metaData[StorageConsts.ContentMetaDataKey] = System.Net.WebUtility.UrlEncode(System.Net.WebUtility.HtmlEncode(fileContent.ToLower())).RemoveEndOfString(sizeToStrip);
             await BlobProvider.SaveMetaDataToBlobAsync(blobName, metaData);
         }
 

@@ -45,30 +45,31 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private async Task ExecuteAsync()
         {
 
-            await m_QueueProcess.RunQueue(new UpdateDomainQueueName(), msg =>
+            await m_QueueProcess.RunQueue(new UpdateDomainQueueName(), async msg =>
               {
-                  TraceLog.WriteInfo("Running update domain process - processing queue");
+                 
                   try
                   {
                       var msgData = msg.FromMessageProto<Infrastructure.Transport.DomainProcess>();
                       if (msgData == null)
                       {
                           TraceLog.WriteError("UpdateDomainProcess run - msg cannot transfer to DomainProcess");
-                          return Task.FromResult(true);
+                          return true;
                       }
+                      TraceLog.WriteInfo("Running update domain process - processing -" + msgData.ProcessResolver);
                       var process = IocFactory.Unity.Resolve<IDomainProcess>(msgData.ProcessResolver);
                       if (process == null)
                       {
                           TraceLog.WriteError("UpdateDomainProcess run - process is null msgData.ProcessResolver:" + msgData.ProcessResolver);
-                          return Task.FromResult(true);
+                          return true;
                       }
-                      return process.ExecuteAsync(msgData);
+                      return await process.ExecuteAsync(msgData);
                   }
                   catch (Exception ex)
                   {
                       TraceLog.WriteError("UpdateDomainProcess run", ex);
                   }
-                  return Task.FromResult(false);
+                  return false;
               }, TimeSpan.FromMinutes(1), 5);
         }
 
