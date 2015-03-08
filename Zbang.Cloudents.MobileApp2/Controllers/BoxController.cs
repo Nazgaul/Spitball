@@ -58,25 +58,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         }
 
-        [HttpGet]
-        [Route("api/box/{boxId:long}/feed")]
-        public async Task<HttpResponseMessage> Feed(long boxId, int page)
-        {
-            try
-            {
-                var retVal =
-                  await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, 20));
-                return Request.CreateResponse(retVal);
-            }
-            catch (BoxAccessDeniedException)
-            {
-                return Request.CreateUnauthorizedResponse();
-            }
-            catch (BoxDoesntExistException)
-            {
-                return Request.CreateNotFoundResponse();
-            }
-        }
+       
 
         [HttpGet]
         [Route("api/box/{boxId:long}/items")]
