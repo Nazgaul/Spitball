@@ -54,7 +54,7 @@ namespace Zbang.Cloudents.MobileApp2
             //var instance = new ServiceInitialize(configuration);
             //builder.RegisterType<ServiceInitialize>().As<IOwinAppBuilderExtension>();
             //builder.RegisterInstance(instance).As<IOwinAppBuilder>();
-
+            builder.RegisterType<PushNotification>().As<IPushNotification>();
             IocFactory.Unity.ContainerBuilder = builder;
             Zbox.Infrastructure.RegisterIoc.Register();
 

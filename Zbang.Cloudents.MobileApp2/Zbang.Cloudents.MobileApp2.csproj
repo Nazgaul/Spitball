@@ -190,6 +190,7 @@
     <Compile Include="Controllers\CustomLoginController.cs" />
     <Compile Include="Controllers\CustomRegistrationController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="DataObjects\AddCommentRequest.cs" />
     <Compile Include="DataObjects\LogInRequest.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="IPrincipalExtensions.cs" />
     <Compile Include="Models\CustomLoginProvider.cs" />
     <Compile Include="Models\CustomLoginProviderCredentials.cs" />
+    <Compile Include="Models\PushNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

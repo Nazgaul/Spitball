@@ -121,6 +121,11 @@ join zbox.users u on ub.userid = u.userid
  order by userreputation desc;";
 
 
+        public const string BoxUserIds = @"select userid from zbox.userboxrel where boxid = @BoxId
+    order by userid
+    offset @pageNumber*@rowsperpage ROWS
+    FETCH NEXT @rowsperpage ROWS ONLY;";
+
         public const string BoxMembers =
             @"  select u.UserId as Id , u.UserName as Name,u.UserImage as Image , ub.UserType as userStatus, u.url as Url , null as Email
     from zbox.UserBoxRel ub 

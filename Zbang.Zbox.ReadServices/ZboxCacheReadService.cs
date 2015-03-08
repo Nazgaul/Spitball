@@ -121,6 +121,10 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetBoxMembers(query);
         }
+        public Task<IEnumerable<long>> GetBoxUsersId(GetBoxQuery query)
+        {
+            return m_ReadService.GetBoxUsersId(query);
+        }
 
         public Task<UserMinProfile> GetUserMinProfile(GetUserMinProfileQuery query)
         {

@@ -9,6 +9,7 @@ using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Cloudents.MobileApp2.DataObjects;
+using Zbang.Cloudents.MobileApp2.Models;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
@@ -26,6 +27,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IGuidIdGenerator GuidGenerator { get; set; }
 
         public IZboxWriteService ZboxWriteService { get; set; }
+
+        public IPushNotification PushNotification { get; set; }
 
         // GET api/Feed
         [HttpGet]
@@ -65,7 +68,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var command = new AddCommentCommand(User.GetCloudentsUserId(),
                 boxId, model.Content, questionId, null);
             var t1 = ZboxWriteService.AddQuestionAsync(command);
-            var t2 = SendPush();
+            var t2 = PushNotification.SendPush(boxId);
             await Task.WhenAll(t1, t2);
             return Request.CreateResponse(questionId);
         }
@@ -86,31 +89,28 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var command = new AddAnswerToQuestionCommand(User.GetCloudentsUserId(), boxId,
                 model.Content, answerId, feedId, null);
             var t1 = ZboxWriteService.AddAnswerAsync(command);
-            var t2 = SendPush();
+            var t2 = PushNotification.SendPush(boxId); 
             await Task.WhenAll(t1, t2);
-
             return Request.CreateResponse(answerId);
-
-
         }
 
-        private async Task SendPush()
-        {
-            var data = new Dictionary<string, string>()
-            {
-                { "message", "some text"}
-            };
-            var message = new GooglePushMessage(data, null);
 
-            try
-            {
-                var result = await Services.Push.SendAsync(message, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture));
-                Services.Log.Info(result.State.ToString());
-            }
-            catch (Exception ex)
-            {
-                Services.Log.Error(ex.Message, null, "Push.SendAsync Error");
-            }
+        [HttpDelete]
+        [Route("api/box/{boxId:long}/feed/{feedId:guid}")]
+        public HttpResponseMessage DeleteComment([FromUri] long boxId, [FromUri] Guid feedId)
+        {
+            var command = new DeleteCommentCommand(feedId, User.GetCloudentsUserId());
+            ZboxWriteService.DeleteComment(command);
+           return Request.CreateResponse();
+        }
+
+        [HttpDelete]
+        [Route("api/box/{boxId:long}/reply/{replyId:guid}")]
+        public HttpResponseMessage DeleteReply([FromUri] long boxId, [FromUri] Guid replyId)
+        {
+            var command = new DeleteReplyCommand(replyId, User.GetCloudentsUserId());
+            ZboxWriteService.DeleteAnswer(command);
+            return Request.CreateResponse();
         }
 
     }
