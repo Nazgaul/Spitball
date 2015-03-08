@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -63,8 +64,9 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var questionId = GuidGenerator.GetId();
             var command = new AddCommentCommand(User.GetCloudentsUserId(),
                 boxId, model.Content, questionId, null);
-            await ZboxWriteService.AddQuestionAsync(command);
-            //TODO: add push notification
+            var t1 = ZboxWriteService.AddQuestionAsync(command);
+            var t2 = SendPush();
+            await Task.WhenAll(t1, t2);
             return Request.CreateResponse(questionId);
         }
 
@@ -83,12 +85,32 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var answerId = GuidGenerator.GetId();
             var command = new AddAnswerToQuestionCommand(User.GetCloudentsUserId(), boxId,
                 model.Content, answerId, feedId, null);
-            await ZboxWriteService.AddAnswerAsync(command);
-           
-            //TODO: add push notification
+            var t1 = ZboxWriteService.AddAnswerAsync(command);
+            var t2 = SendPush();
+            await Task.WhenAll(t1, t2);
+
             return Request.CreateResponse(answerId);
 
-            
+
+        }
+
+        private async Task SendPush()
+        {
+            var data = new Dictionary<string, string>()
+            {
+                { "message", "some text"}
+            };
+            var message = new GooglePushMessage(data, null);
+
+            try
+            {
+                var result = await Services.Push.SendAsync(message, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture));
+                Services.Log.Info(result.State.ToString());
+            }
+            catch (Exception ex)
+            {
+                Services.Log.Error(ex.Message, null, "Push.SendAsync Error");
+            }
         }
 
     }

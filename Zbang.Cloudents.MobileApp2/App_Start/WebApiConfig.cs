@@ -20,10 +20,8 @@ namespace Zbang.Cloudents.MobileApp2
         public static void Register()
         {
             // Use this class to set configuration options for your mobile service
-            ConfigOptions options = new ConfigOptions();
-            
+            var options = new ConfigOptions();
             options.LoginProviders.Add(typeof(CustomLoginProvider));
-
             options.PushAuthorization =
                 Microsoft.WindowsAzure.Mobile.Service.Security.AuthorizationLevel.User;
 
@@ -32,10 +30,8 @@ namespace Zbang.Cloudents.MobileApp2
 
             //HttpConfiguration config = ServiceConfig.Initialize(new ConfigBuilder(options));
             HttpConfiguration config = ServiceConfig.Initialize(builder);
-            config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new IsoDateTimeConverter
-            {
-                DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fff'Z'"
-            });
+            var isoSettings = config.Formatters.JsonFormatter.SerializerSettings.Converters.OfType<IsoDateTimeConverter>().Single();
+            isoSettings.DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
             //HttpConfiguration config = ServiceConfig.Initialize(new ConfigBuilder(options, ConfigureDependencies));
             //config.SetIsHosted(true);
 
@@ -53,7 +49,7 @@ namespace Zbang.Cloudents.MobileApp2
         private static void ConfigureDependencies(HttpConfiguration configuration, ContainerBuilder builder)
         {
             // Configure DI here
-            
+
             // Register our custom builder
             //var instance = new ServiceInitialize(configuration);
             //builder.RegisterType<ServiceInitialize>().As<IOwinAppBuilderExtension>();
@@ -86,7 +82,7 @@ namespace Zbang.Cloudents.MobileApp2
             Zbox.ReadServices.RegisterIoc.Register();
 
             //configuration.EnsureInitialized();
-            
+
         }
     }
 }
