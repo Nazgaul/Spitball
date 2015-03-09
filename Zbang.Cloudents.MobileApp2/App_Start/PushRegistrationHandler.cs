@@ -14,6 +14,7 @@ namespace Zbang.Cloudents.MobileApp2
         public Task Register(ApiServices services, HttpRequestContext context,
         NotificationRegistration registration)
         {
+            services.Log.Info("in here");
             try
             {
                 // Perform a check here for user ID tags, which are not allowed.

@@ -37,6 +37,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             try
             {
+                await PushNotification.SendPush(boxId);
+                //TODO: check box permission
                 var retVal =
                   await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, 20));
                 return Request.CreateResponse(retVal);

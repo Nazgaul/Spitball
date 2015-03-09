@@ -21,12 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         public UniversitySearchProvider(ISearchConnection connection)
         {
             m_Connection = connection;
-            if (!RoleEnvironment.IsAvailable)
-            {
-                m_IndexName = m_IndexName + "-dev";
-                return;
-            }
-            if (RoleEnvironment.IsEmulated)
+            if (m_Connection.IsDevelop)
             {
                 m_IndexName = m_IndexName + "-dev";
             }

@@ -23,13 +23,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         public BoxSearchProvider(ISearchConnection connection)
         {
             m_Connection = connection;
-            return;
-            if (!RoleEnvironment.IsAvailable)
-            {
-                m_IndexName = m_IndexName + "-dev";
-                return;
-            }
-            if (RoleEnvironment.IsEmulated)
+            if (m_Connection.IsDevelop)
             {
                 m_IndexName = m_IndexName + "-dev";
             }

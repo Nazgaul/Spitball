@@ -51,9 +51,6 @@ namespace Zbang.Cloudents.MobileApp2
             // Configure DI here
 
             // Register our custom builder
-            //var instance = new ServiceInitialize(configuration);
-            //builder.RegisterType<ServiceInitialize>().As<IOwinAppBuilderExtension>();
-            //builder.RegisterInstance(instance).As<IOwinAppBuilder>();
             builder.RegisterType<PushNotification>().As<IPushNotification>();
             IocFactory.Unity.ContainerBuilder = builder;
             Zbox.Infrastructure.RegisterIoc.Register();
@@ -62,6 +59,7 @@ namespace Zbang.Cloudents.MobileApp2
                 .As<ISearchConnection>()
                 .WithParameter("serviceName", "cloudents")
                 .WithParameter("serviceKey", "5B0433BFBBE625C9D60F7330CFF103F0")
+                .WithParameter("isDevelop", true)
                 .InstancePerLifetimeScope();
             RegisterIoc.Register();
 

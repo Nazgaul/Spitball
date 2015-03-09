@@ -10,5 +10,7 @@ namespace Zbang.Zbox.Infrastructure.Search
     {
         IndexQueryClient IndexQuery { get; }
         IndexManagementClient IndexManagement { get; }
+
+        bool IsDevelop { get; }
     }
 }

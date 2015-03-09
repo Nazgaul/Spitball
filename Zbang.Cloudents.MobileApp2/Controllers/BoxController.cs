@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
+using Zbang.Cloudents.MobileApp2.Models;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
@@ -21,6 +22,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IZboxCacheReadService ZboxReadService { get; set; }
         public IZboxReadSecurityReadService ZboxReadSecurityService { get; set; }
 
+        public IPushNotification PushNotification { get; set; }
+
         // GET api/Box
         public async Task<HttpResponseMessage> Get(long id)
         {
@@ -33,6 +36,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 await Task.WhenAll(tResult, tUserType);
                 var result = tResult.Result;
                 result.UserType = tUserType.Result;
+                
+
                 return Request.CreateResponse(new
                 {
                     result.Name,
@@ -58,7 +63,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         }
 
-       
+
 
         [HttpGet]
         [Route("api/box/{boxId:long}/items")]

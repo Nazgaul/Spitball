@@ -27,34 +27,11 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             m_FilterProvider = filterProvider;
             m_Connection = connection;
-            if (IsDevelop())
+            if (m_Connection.IsDevelop)
             {
                 m_IndexName = m_IndexName + "-dev";
             }
         }
-
-        private bool IsDevelop()
-        {
-            //return false;
-            try
-            {
-                if (!RoleEnvironment.IsAvailable)
-                {
-                    return true;
-                }
-                if (RoleEnvironment.IsEmulated)
-                {
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(ex);
-            }
-
-            return false;
-        }
-
 
         private const string IdField = "id";
         private const string NameField = "name";
@@ -69,7 +46,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private Index GetIndexStructure()
         {
-            if (IsDevelop())
+            if (m_Connection.IsDevelop)
             {
                 return GetDevelopIndexStructure();
             }
@@ -155,10 +132,10 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (!m_CheckIndexExists)
             {
-                if (IsDevelop())
-                {
-                    await m_Connection.IndexManagement.DeleteIndexAsync(m_IndexName);
-                }
+                //if (m_Connection.IsDevelop)
+                //{
+                //    await m_Connection.IndexManagement.DeleteIndexAsync(m_IndexName);
+                //}
                 await BuildIndex();
             }
             var listOfCommands = new List<IndexOperation>();

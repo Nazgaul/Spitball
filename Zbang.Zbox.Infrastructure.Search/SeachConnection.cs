@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.WindowsAzure.ServiceRuntime;
 using RedDog.Search;
 using RedDog.Search.Http;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -20,13 +21,44 @@ namespace Zbang.Zbox.Infrastructure.Search
         private IndexQueryClient m_ReadClient;
         private IndexManagementClient m_IndexClient;
 
+        public bool IsDevelop { get; private set; }
         // private to prevent direct instantiation.
-       
+
 
         public SeachConnection(string serviceName, string serviceKey)
         {
             TraceLog.WriteInfo("on ctor of search connection");
             m_Connection = ApiConnection.Create(serviceName, serviceKey);
+            IsDevelop = IsDevelopEnvironment();
+        }
+
+        private bool IsDevelopEnvironment()
+        {
+            //return false;
+            try
+            {
+                if (!RoleEnvironment.IsAvailable)
+                {
+                    return true;
+                }
+                if (RoleEnvironment.IsEmulated)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(ex);
+            }
+
+            return false;
+        }
+
+        public SeachConnection(string serviceName, string serviceKey, bool isDevelop)
+        {
+            TraceLog.WriteInfo("on ctor of search connection");
+            m_Connection = ApiConnection.Create(serviceName, serviceKey);
+            IsDevelop = isDevelop;
         }
 
         public IndexQueryClient IndexQuery
