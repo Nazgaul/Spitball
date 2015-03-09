@@ -7,6 +7,7 @@ using Autofac;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.WindowsAzure.Mobile.Service;
+using Newtonsoft.Json.Converters;
 using Zbang.Cloudents.MobileApp2.Models;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Search;
@@ -19,25 +20,18 @@ namespace Zbang.Cloudents.MobileApp2
         public static void Register()
         {
             // Use this class to set configuration options for your mobile service
-            ConfigOptions options = new ConfigOptions();
-            
+            var options = new ConfigOptions();
             options.LoginProviders.Add(typeof(CustomLoginProvider));
-
-            //Microsoft.WindowsAzure.Mobile.Service.Config.StartupOwinAppBuilder.Initialize(appBuilder2 =>
-            //{
-
-            //    Zbox.Infrastructure.Security.Startup.ConfigureAuth(appBuilder2, false);
-            //    //    //Configure OWIN here
-            //    //    //appBuilder.UseFacebookAuthentication("", "");
-            //});
-
-            //Microsoft.WindowsAzure.Mobile.Service.Config.StartupOwinAppBuilder.Initialize(Zbox.Infrastructure.Security.Startup.ConfigureAuth);
+            options.PushAuthorization =
+                Microsoft.WindowsAzure.Mobile.Service.Security.AuthorizationLevel.User;
 
             var builder = new ConfigBuilder(options, ConfigureDependencies);
             // Use this class to set WebAPI configuration options
 
             //HttpConfiguration config = ServiceConfig.Initialize(new ConfigBuilder(options));
             HttpConfiguration config = ServiceConfig.Initialize(builder);
+            var isoSettings = config.Formatters.JsonFormatter.SerializerSettings.Converters.OfType<IsoDateTimeConverter>().Single();
+            isoSettings.DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
             //HttpConfiguration config = ServiceConfig.Initialize(new ConfigBuilder(options, ConfigureDependencies));
             //config.SetIsHosted(true);
 
@@ -55,12 +49,12 @@ namespace Zbang.Cloudents.MobileApp2
         private static void ConfigureDependencies(HttpConfiguration configuration, ContainerBuilder builder)
         {
             // Configure DI here
-            
+
             // Register our custom builder
             //var instance = new ServiceInitialize(configuration);
             //builder.RegisterType<ServiceInitialize>().As<IOwinAppBuilderExtension>();
             //builder.RegisterInstance(instance).As<IOwinAppBuilder>();
-
+            builder.RegisterType<PushNotification>().As<IPushNotification>();
             IocFactory.Unity.ContainerBuilder = builder;
             Zbox.Infrastructure.RegisterIoc.Register();
 
@@ -88,7 +82,7 @@ namespace Zbang.Cloudents.MobileApp2
             Zbox.ReadServices.RegisterIoc.Register();
 
             //configuration.EnsureInitialized();
-            
+
         }
     }
 }

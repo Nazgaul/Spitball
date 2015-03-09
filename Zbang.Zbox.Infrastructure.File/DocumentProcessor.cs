@@ -30,7 +30,7 @@ namespace Zbang.Zbox.Infrastructure.File
             using (var ms = thumbnailStream())
             {
                 var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailUri, ms, "image/jpeg");
-                var t2 = UploadMetaData(text, blobName, getPageCount(), getCacheVersionPrefix);
+                var t2 = UploadMetaData(blobName, getPageCount(), getCacheVersionPrefix);
                 await Task.WhenAll(t1, t2);
             }
             return new PreProcessFileResult
@@ -53,7 +53,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
             meta = RemoveOldMetaTags(meta, cacheVersion);
             string sPageCount;
-            int pageCount = int.MaxValue;
+            var pageCount = int.MaxValue;
             if (meta.TryGetValue(PagesInDocsMetaKey, out sPageCount))
             {
                 int.TryParse(sPageCount, out pageCount);

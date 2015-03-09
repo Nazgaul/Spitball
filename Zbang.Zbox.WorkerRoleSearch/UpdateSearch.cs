@@ -23,7 +23,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
         private readonly IBoxWriteSearchProvider m_BoxSearchProvider;
-        private readonly IItemWriteSearchProvider m_ItemSearchProvider;
+        //private readonly IItemWriteSearchProvider m_ItemSearchProvider;
         private readonly IZboxWriteService m_ZboxWriteService;
         private readonly IQuizWriteSearchProvider m_QuizSearchProvider;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
@@ -34,7 +34,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             IUniversityWriteSearchProvider2 zboxWriteSearchProvider,
             IZboxWriteService zboxWriteService,
             IBoxWriteSearchProvider boxSearchProvider,
-            IItemWriteSearchProvider itemSearchProvider,
+            //IItemWriteSearchProvider itemSearchProvider,
             IQuizWriteSearchProvider quizSearchProvider,
             IFileProcessorFactory fileProcessorFactory,
             IItemWriteSearchProvider2 itemSearchProvider2, ICloudBlockProvider blobProvider)
@@ -43,7 +43,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_UniversitySearchProvider = zboxWriteSearchProvider;
             m_ZboxWriteService = zboxWriteService;
             m_BoxSearchProvider = boxSearchProvider;
-            m_ItemSearchProvider = itemSearchProvider;
+            //m_ItemSearchProvider = itemSearchProvider;
             m_QuizSearchProvider = quizSearchProvider;
             m_FileProcessorFactory = fileProcessorFactory;
             m_ItemSearchProvider2 = itemSearchProvider2;
@@ -126,7 +126,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     elem.Content = ExtractContentToUploadToSearch(elem);
                 }
-                await m_ItemSearchProvider.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
+                //await m_ItemSearchProvider.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
                 var isSuccess2 =
                     await m_ItemSearchProvider2.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
                 if (isSuccess2)

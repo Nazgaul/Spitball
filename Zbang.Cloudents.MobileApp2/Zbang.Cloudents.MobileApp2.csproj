@@ -104,7 +104,8 @@
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Mobile.Service">
-      <HintPath>..\packages\WindowsAzure.MobileServices.Backend.1.0.447\lib\net45\Microsoft.WindowsAzure.Mobile.Service.dll</HintPath>
+      <HintPath>..\packages\WindowsAzure.MobileServices.Backend.1.0.450\lib\net45\Microsoft.WindowsAzure.Mobile.Service.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -155,7 +156,7 @@
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -181,13 +182,17 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\PushRegistrationHandler.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BoxController.cs" />
     <Compile Include="Controllers\BoxesController.cs" />
     <Compile Include="Controllers\CustomLoginController.cs" />
     <Compile Include="Controllers\CustomRegistrationController.cs" />
+    <Compile Include="Controllers\FeedController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="DataObjects\AddCommentRequest.cs" />
     <Compile Include="DataObjects\LogInRequest.cs" />
     <Compile Include="DataObjects\Register.cs" />
     <Compile Include="Global.asax.cs">
@@ -196,6 +201,7 @@
     <Compile Include="IPrincipalExtensions.cs" />
     <Compile Include="Models\CustomLoginProvider.cs" />
     <Compile Include="Models\CustomLoginProviderCredentials.cs" />
+    <Compile Include="Models\PushNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
