@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.MobileApp2.Models
 {
@@ -21,7 +22,7 @@ namespace Zbang.Cloudents.MobileApp2.Models
             m_Services = services;
             m_ZboxReadService = zboxReadService;
         }
-        public async Task SendPush(long boxId)
+        public async Task SendPush(long boxId, long userId)
         {
             var page = 0;
             var data = new Dictionary<string, string>
@@ -30,11 +31,11 @@ namespace Zbang.Cloudents.MobileApp2.Models
                 {"title", "some title"}
             };
             var message = new GooglePushMessage(data, null);
-            var ids = await GetUserIds(boxId, page);
+            var ids = await GetUserIds(boxId, page, userId);
             var list = new List<Task>();
 
-            //while (ids.Any())
-            //{
+            while (ids.Any())
+            {
                 try
                 {
                     list.Add(
@@ -46,29 +47,29 @@ namespace Zbang.Cloudents.MobileApp2.Models
                     page++;
                     if (ids.Count < UsersPerPage)
                     {
-                       // break;
+                        break;
                     }
-                    //ids = await GetUserIds(boxId, page);
+                    ids = await GetUserIds(boxId, page, userId);
                 }
                 catch (Exception ex)
                 {
                     m_Services.Log.Error(ex.Message, null, "Push.SendAsync Error");
                 }
 
-            //}
+            }
             await Task.WhenAll(list);
 
         }
 
-        private async Task<IList<long>> GetUserIds(long boxId, int page)
+        private async Task<IList<long>> GetUserIds(long boxId, int page, long userId)
         {
-            var userIds = await m_ZboxReadService.GetBoxUsersId(new Zbox.ViewModel.Queries.GetBoxQuery(boxId, page, UsersPerPage));
-            return userIds as IList<long> ?? userIds.ToList();
+            var userIds = await m_ZboxReadService.GetBoxUsersId(new GetBoxWithUserQuery(boxId, userId, page, UsersPerPage));
+            return userIds.Where(w => w != userId).ToList();
         }
     }
 
     public interface IPushNotification
     {
-        Task SendPush(long boxId);
+        Task SendPush(long boxId, long userId);
     }
 }

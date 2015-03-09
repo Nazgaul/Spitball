@@ -590,11 +590,18 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<long>> GetBoxUsersId(GetBoxQuery query)
+        public async Task<IEnumerable<long>> GetBoxUsersId(GetBoxWithUserQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<long>(Sql.Box.BoxUserIds, new { query.BoxId, pageNumber = query.PageNumber, rowsperpage = query.RowsPerPage });
+                return await conn.QueryAsync<long>(Sql.Box.BoxUserIds,
+                    new
+                    {
+                        query.BoxId,
+                        pageNumber = query.PageNumber,
+                        rowsperpage = query.RowsPerPage,
+                        query.UserId
+                    });
             }
         }
 

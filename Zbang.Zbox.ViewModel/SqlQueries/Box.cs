@@ -121,7 +121,9 @@ join zbox.users u on ub.userid = u.userid
  order by userreputation desc;";
 
 
-        public const string BoxUserIds = @"select userid from zbox.userboxrel where boxid = @BoxId
+        public const string BoxUserIds = @"select userid from zbox.userboxrel
+where boxid = @BoxId
+and userid != @UserId
     order by userid
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";

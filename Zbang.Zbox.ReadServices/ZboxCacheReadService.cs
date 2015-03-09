@@ -30,7 +30,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<ViewModel.Dto.BoxDto>> GetUserBoxes(GetBoxesQuery query)
+        public Task<IEnumerable<BoxDto>> GetUserBoxes(GetBoxesQuery query)
         {
             return m_ReadService.GetUserBoxes(query);
         }
@@ -121,7 +121,7 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetBoxMembers(query);
         }
-        public Task<IEnumerable<long>> GetBoxUsersId(GetBoxQuery query)
+        public Task<IEnumerable<long>> GetBoxUsersId(GetBoxWithUserQuery query)
         {
             return m_ReadService.GetBoxUsersId(query);
         }

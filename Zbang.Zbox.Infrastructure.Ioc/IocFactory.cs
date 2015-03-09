@@ -38,6 +38,8 @@ namespace Zbang.Zbox.Infrastructure.Ioc
         }
 
 
+
+
         public void RegisterType<TFrom, TTo>() where TTo : TFrom
         {
             RegisterType(typeof(TFrom), typeof(TTo));

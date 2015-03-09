@@ -247,6 +247,10 @@
       <Project>{bfbd0e92-dabf-4179-9586-c344b9315529}</Project>
       <Name>Zbang.Zbox.Infrastructure.Security</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.StorageApp\Zbang.Zbox.Infrastructure.StorageApp.csproj">
+      <Project>{2e9e02cf-7af8-4ab5-a8b8-829d169ef61f}</Project>
+      <Name>Zbang.Zbox.Infrastructure.StorageApp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj">
       <Project>{3e0f1fbf-60d1-40b2-b649-933142c27cb7}</Project>
       <Name>Zbang.Zbox.Infrastructure</Name>

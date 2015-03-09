@@ -33,11 +33,11 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         // GET api/Feed
         [HttpGet]
         [Route("api/box/{boxId:long}/feed")]
-        public async Task<HttpResponseMessage> Feed([FromUri]long boxId, int page)
+        public async Task<HttpResponseMessage> Feed(long boxId, int page)
         {
             try
             {
-                await PushNotification.SendPush(boxId);
+                await PushNotification.SendPush(boxId, User.GetCloudentsUserId());
                 //TODO: check box permission
                 var retVal =
                   await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, 20));
@@ -55,7 +55,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         [HttpPost]
         [Route("api/box/{boxId:long}/feed")]
-        public async Task<HttpResponseMessage> PostComment([FromUri] long boxId, [FromBody] AddCommentRequest model)
+        public async Task<HttpResponseMessage> PostComment(long boxId, AddCommentRequest model)
         {
             if (string.IsNullOrEmpty(model.Content))
             {
@@ -70,14 +70,14 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var command = new AddCommentCommand(User.GetCloudentsUserId(),
                 boxId, model.Content, questionId, null);
             var t1 = ZboxWriteService.AddQuestionAsync(command);
-            var t2 = PushNotification.SendPush(boxId);
+            var t2 = PushNotification.SendPush(boxId, User.GetCloudentsUserId());
             await Task.WhenAll(t1, t2);
             return Request.CreateResponse(questionId);
         }
 
         [HttpPost]
         [Route("api/box/{boxId:long}/feed/{feedId:guid}/reply")]
-        public async Task<HttpResponseMessage> PostReply([FromUri] long boxId, [FromUri] Guid feedId, [FromBody] AddCommentRequest model)
+        public async Task<HttpResponseMessage> PostReply(long boxId, Guid feedId, AddCommentRequest model)
         {
             if (string.IsNullOrEmpty(model.Content))
             {
@@ -91,7 +91,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var command = new AddAnswerToQuestionCommand(User.GetCloudentsUserId(), boxId,
                 model.Content, answerId, feedId, null);
             var t1 = ZboxWriteService.AddAnswerAsync(command);
-            var t2 = PushNotification.SendPush(boxId); 
+            var t2 = PushNotification.SendPush(boxId, User.GetCloudentsUserId());
             await Task.WhenAll(t1, t2);
             return Request.CreateResponse(answerId);
         }
@@ -99,16 +99,16 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         [HttpDelete]
         [Route("api/box/{boxId:long}/feed/{feedId:guid}")]
-        public HttpResponseMessage DeleteComment([FromUri] long boxId, [FromUri] Guid feedId)
+        public HttpResponseMessage DeleteComment(long boxId, Guid feedId)
         {
             var command = new DeleteCommentCommand(feedId, User.GetCloudentsUserId());
             ZboxWriteService.DeleteComment(command);
-           return Request.CreateResponse();
+            return Request.CreateResponse();
         }
 
         [HttpDelete]
         [Route("api/box/{boxId:long}/reply/{replyId:guid}")]
-        public HttpResponseMessage DeleteReply([FromUri] long boxId, [FromUri] Guid replyId)
+        public HttpResponseMessage DeleteReply(long boxId, Guid replyId)
         {
             var command = new DeleteReplyCommand(replyId, User.GetCloudentsUserId());
             ZboxWriteService.DeleteAnswer(command);

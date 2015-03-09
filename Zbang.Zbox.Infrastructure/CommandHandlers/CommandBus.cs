@@ -1,11 +1,22 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using Autofac;
 using Zbang.Zbox.Infrastructure.Ioc;
 
 namespace Zbang.Zbox.Infrastructure.CommandHandlers
 {
     public class CommandBus : ICommandBus
     {
-        private readonly IocFactory m_Container = IocFactory.Unity;
+        //public CommandBus(Func<TCommand)
+        //{
+            
+        //}
+        public CommandBus(ILifetimeScope container)
+        {
+            m_Container = container;
+        }
+
+        private readonly ILifetimeScope m_Container;// = IocFactory.Unity;
 
         public TCommandResult Dispatch<TCommand, TCommandResult>(TCommand command)
             where TCommand : Commands.ICommand
@@ -24,7 +35,7 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
             where TCommand : Commands.ICommandAsync
             where TCommandResult : Commands.ICommandResult
         {
-            return m_Container.Resolve<ICommandHandlerAsync<TCommand, TCommandResult>>(name).ExecuteAsync(command);
+            return m_Container.ResolveNamed<ICommandHandlerAsync<TCommand, TCommandResult>>(name).ExecuteAsync(command);
         }
 
 
@@ -33,7 +44,7 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
             where TCommandResult : Commands.ICommandResult
         {
 
-            return m_Container.Resolve<ICommandHandler<TCommand, TCommandResult>>(name).Execute(command);
+            return m_Container.ResolveNamed<ICommandHandler<TCommand, TCommandResult>>(name).Execute(command);
         }
 
         public void Send<TCommand>(TCommand command) where TCommand : Commands.ICommand
