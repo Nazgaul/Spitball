@@ -6,6 +6,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
+using Zbang.Cloudents.MobileApp2.DataObjects;
+using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
 
@@ -15,6 +18,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
     {
         public ApiServices Services { get; set; }
         public IZboxCacheReadService ZboxReadService { get; set; }
+        public IZboxWriteService ZboxWriteService { get; set; }
 
         // GET api/Item
         public  HttpResponseMessage Get()
@@ -39,6 +43,15 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             //return Json(new JsonResponse(true, retVal));
             return Request.CreateResponse();
         }
+
+        public async Task<HttpResponseMessage> Delete(DeleteItemRequest model)
+        {
+            var command = new DeleteItemCommand(model.ItemId, User.GetCloudentsUserId(), model.BoxId);
+            await ZboxWriteService.DeleteItemAsync(command);
+            return Request.CreateResponse();
+        }
+
+
 
     }
 }

@@ -191,8 +191,10 @@
     <Compile Include="Controllers\CustomRegistrationController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="DataObjects\AddCommentRequest.cs" />
+    <Compile Include="DataObjects\DeleteItemRequest.cs" />
     <Compile Include="DataObjects\LogInRequest.cs" />
     <Compile Include="DataObjects\Register.cs" />
     <Compile Include="Global.asax.cs">
