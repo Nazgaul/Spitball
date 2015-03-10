@@ -26,7 +26,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IZboxCacheReadService ZboxReadService { get; set; }
 
         public IQueueProvider QueueProvider { get; set; }
+        public IBlobProvider BlobProvider { get; set; }
         public IZboxWriteService ZboxWriteService { get; set; }
+
+        public IFileProcessorFactory FileProcessorFactory { get; set; }
 
         // GET api/Item
         public async Task<HttpResponseMessage> Get(long boxId, long itemId)
@@ -61,35 +64,32 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         }
 
 
-        //public async Task<HttpResponseMessage> Preview(string blobName, int index, 
-        //     CancellationToken cancellationToken)
-        //{
-        //    Uri uri;
-        //    if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
-        //    {
-        //        uri = new Uri(m_BlobProvider.GetBlobUrl(blobName));
-        //    }
-        //    var processor = m_FileProcessorFactory.GetProcessor(uri);
-        //    if (processor == null)
-        //        return Request.CreateResponse(HttpStatusCode.NoContent);
+        public async Task<HttpResponseMessage> Preview(string blobName, int index,
+             CancellationToken cancellationToken)
+        {
+            Uri uri;
+            if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
+            {
+                uri = new Uri(BlobProvider.GetBlobUrl(blobName));
+            }
+            var processor = FileProcessorFactory.GetProcessor(uri);
+            if (processor == null)
+                return Request.CreateResponse(HttpStatusCode.NoContent);
 
-        //        var retVal = await processor.ConvertFileToWebSitePreview(uri, 0, 0, index * 3, cancellationToken);
-        //        if (retVal.Content == null)
-        //        {
-        //            return Request.CreateResponse(HttpStatusCode.NoContent);
+            var retVal = await processor.ConvertFileToWebSitePreview(uri, 0, 0, index * 3, cancellationToken);
+            if (retVal.Content == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NoContent);
 
-        //        }
-        //        if (string.IsNullOrEmpty(retVal.ViewName))
-        //        {
-        //            return JsonOk(new { preview = retVal.Content.First() });
-        //        }
+            }
+            if (string.IsNullOrEmpty(retVal.ViewName))
+            {
+                return Request.CreateResponse(new { preview = retVal.Content.First() });
+            }
 
-        //        return JsonOk(new
-        //        {
-                   
-        //        });
+            return Request.CreateResponse(new { preview = retVal.Content.Take(3) });
 
-        //}
+        }
 
         public async Task<HttpResponseMessage> Delete(DeleteItemRequest model)
         {

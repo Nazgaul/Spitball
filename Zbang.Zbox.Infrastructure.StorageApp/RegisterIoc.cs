@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
             var ioc = IocFactory.IocWrapper;
             //ioc.RegisterType<IMediaSevicesProvider, MediaSevicesProvider>(LifeTimeManager.Singleton);
 
-            //ioc.RegisterType<IBlobProvider, BlobProvider>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<IBlobProvider, BlobProvider>(LifeTimeManager.PerHttpRequest);
             //ioc.RegisterType<IBlobProductProvider, BlobProvider>();
             //ioc.RegisterType<ICloudBlockProvider, BlobProvider>();
 

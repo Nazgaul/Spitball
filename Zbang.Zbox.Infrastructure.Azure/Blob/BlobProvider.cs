@@ -273,7 +273,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             cacheblob.Properties.CacheControl = "private, max-age=" + TimeConsts.Minute * CacheContainerItemAvailableInMinutes;
             cacheblob.Metadata.Add(LastAccessTimeMetaDataKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
             await cacheblob.UploadFromStreamAsync(fileContent);
-            return GenerateSharedAccressReadPermissionInCache(blobName, CacheContainerItemAvailableInMinutes);// GenerateSharedAccessReadPermissionBlobFiles(cacheblob, CacheContainerItemAvailableInMinutes);
+            return GenerateSharedAccressReadPermissionInCache(blobName, CacheContainerItemAvailableInMinutes);
 
         }
         public async Task<string> UploadFileToCacheAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped = false)

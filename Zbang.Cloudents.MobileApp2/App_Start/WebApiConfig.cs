@@ -28,13 +28,10 @@ namespace Zbang.Cloudents.MobileApp2
                 Microsoft.WindowsAzure.Mobile.Service.Security.AuthorizationLevel.User;
 
             var builder = new ConfigBuilder(options, ConfigureDependencies);
-            // Use this class to set WebAPI configuration options
 
-            //HttpConfiguration config = ServiceConfig.Initialize(new ConfigBuilder(options));
             HttpConfiguration config = ServiceConfig.Initialize(builder);
             var isoSettings = config.Formatters.JsonFormatter.SerializerSettings.Converters.OfType<IsoDateTimeConverter>().Single();
             isoSettings.DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
-            //HttpConfiguration config = ServiceConfig.Initialize(new ConfigBuilder(options, ConfigureDependencies));
             //config.SetIsHosted(true);
 
 
@@ -42,9 +39,6 @@ namespace Zbang.Cloudents.MobileApp2
             // line. Comment it out again when you deploy your service for production use.
             config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Default;
 
-
-
-            //Database.SetInitializer(new MobileServiceInitializer());
         }
 
 
@@ -53,9 +47,9 @@ namespace Zbang.Cloudents.MobileApp2
             // Configure DI here
 
             // Register our custom builder
-            //builder.RegisterType<PushNotification>().As<IPushNotification>();
             IocFactory.IocWrapper.ContainerBuilder = builder;
             Zbox.Infrastructure.RegisterIoc.Register();
+            Zbox.Infrastructure.File.RegisterIoc.Register();
 
             builder.RegisterType<SeachConnection>()
                 .As<ISearchConnection>()
@@ -90,7 +84,6 @@ namespace Zbang.Cloudents.MobileApp2
             Zbox.ReadServices.RegisterIoc.Register();
 
             
-            //configuration.EnsureInitialized();
 
         }
     }

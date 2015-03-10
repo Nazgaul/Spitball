@@ -59,6 +59,7 @@ namespace Zbang.Cloudents.MobileApp2
         public Task Unregister(ApiServices services, HttpRequestContext context,
             string deviceId)
         {
+            services.Log.Info("deviceid: " + deviceId + "logged out");
             // This is where you can hook into registration deletion.
             return Task.FromResult(true);
         }
