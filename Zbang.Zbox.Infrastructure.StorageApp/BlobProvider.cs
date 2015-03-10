@@ -162,7 +162,8 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
 
         public Task<Stream> DownloadFileAsync2(string fileName, CancellationToken cancelToken)
         {
-            throw new NotImplementedException();
+            CloudBlockBlob blob = GetFile(fileName);
+            return blob.OpenReadAsync(cancelToken);
         }
 
         public Task<string> DownloadToFileAsync(string fileName, CancellationToken cancelToken)

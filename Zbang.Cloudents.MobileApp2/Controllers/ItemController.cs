@@ -15,6 +15,7 @@ using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.MobileApp2.Controllers
@@ -61,6 +62,49 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 //Need to add download
 
             });
+        }
+
+        [HttpGet]
+        [Route("api/item/{itemId:long}/download")]
+        public async Task<HttpResponseMessage> Download(long boxId, long itemId)
+        {
+            //const string defaultMimeType = "application/octet-stream";
+            var userId = User.GetCloudentsUserId();
+
+            var query = new GetItemQuery(userId, itemId, boxId);
+
+            var item = ZboxReadService.GetItem(query);
+
+            var filedto = item as FileWithDetailDto;
+            if (filedto == null) // link
+            {
+                return Request.CreateResponse(new { url = item.Blob });
+            }
+            var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
+            var t3 = ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);
+
+            var t1 = QueueProvider.InsertMessageToTranactionAsync(
+                   new StatisticsData4(new List<StatisticsData4.StatisticItemData>
+                    {
+                        new StatisticsData4.StatisticItemData
+                        {
+                            Id = itemId,
+                            Action = (int)StatisticsAction.Download
+                        }
+                    }, userId, DateTime.UtcNow));
+
+
+            var t2 = BlobProvider.DownloadFileAsync2(filedto.Blob, CancellationToken.None);
+
+            await Task.WhenAll(t1, t2, t3);
+            var response = Request.CreateResponse();
+            response.Content = new StreamContent(t2.Result);
+            response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
+            {
+                FileName = item.Name
+            };
+
+            return response;
         }
 
         [HttpGet]

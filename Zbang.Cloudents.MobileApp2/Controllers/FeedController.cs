@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Cloudents.MobileApp2.DataObjects;
-using Zbang.Cloudents.MobileApp2.Models;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
@@ -70,9 +65,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var questionId = GuidGenerator.GetId();
             var command = new AddCommentCommand(User.GetCloudentsUserId(),
                 boxId, model.Content, questionId, null);
-            var t1 = ZboxWriteService.AddQuestionAsync(command);
-            var t2 = PushNotification.SendAddPostNotification("Ram Yaari", "this is some long text", "microbiology", new[] { 1L, 18372L });
-            await Task.WhenAll(t1, t2);
+            await ZboxWriteService.AddQuestionAsync(command);
             return Request.CreateResponse(questionId);
         }
 
@@ -91,9 +84,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var answerId = GuidGenerator.GetId();
             var command = new AddAnswerToQuestionCommand(User.GetCloudentsUserId(), boxId,
                 model.Content, answerId, feedId, null);
-            var t1 = ZboxWriteService.AddAnswerAsync(command);
-            var t2 = PushNotification.SendAddPostNotification("Ram Yaari", "this is some long text", "microbiology", new[] { 1L, 18372L });
-            await Task.WhenAll(t1, t2);
+            await ZboxWriteService.AddAnswerAsync(command);
             return Request.CreateResponse(answerId);
         }
 
