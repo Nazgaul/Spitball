@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Infrastructure.File
         private readonly IEnumerable<IContentProcessor> m_Processors;
         public FileProcessorFactory()
         {
-            m_Processors = IocFactory.Unity.ResolveAll<IContentProcessor>();
+            m_Processors = IocFactory.IocWrapper.ResolveAll<IContentProcessor>();
         }
         public IContentProcessor GetProcessor(Uri contentUrl)
         {

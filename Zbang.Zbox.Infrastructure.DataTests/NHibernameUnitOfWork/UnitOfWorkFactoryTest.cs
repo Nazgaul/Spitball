@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
         public void SetupContext()
         {
             var m_LocalStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
-            Ioc.IocFactory.Unity.RegisterInstance<ILocalStorageProvider>(m_LocalStorageProvider);
+            Ioc.IocFactory.IocWrapper.RegisterInstance<ILocalStorageProvider>(m_LocalStorageProvider);
             _factory = (IUnitOfWorkFactory)Activator.CreateInstance(typeof(UnitOfWorkFactory), true);
         }
 

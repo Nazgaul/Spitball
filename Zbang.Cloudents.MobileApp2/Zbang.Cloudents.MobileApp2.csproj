@@ -203,7 +203,6 @@
     <Compile Include="IPrincipalExtensions.cs" />
     <Compile Include="Models\CustomLoginProvider.cs" />
     <Compile Include="Models\CustomLoginProviderCredentials.cs" />
-    <Compile Include="Models\PushNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +237,10 @@
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">
       <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>
       <Name>Zbang.Zbox.Infrastructure.Ioc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Notification\Zbang.Zbox.Infrastructure.Notifications.csproj">
+      <Project>{20d10149-03bf-4c32-abe4-d278a46cad7f}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Notifications</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Search\Zbang.Zbox.Infrastructure.Search.csproj">
       <Project>{d79b5cec-09de-4337-873f-0c65b58d86d3}</Project>

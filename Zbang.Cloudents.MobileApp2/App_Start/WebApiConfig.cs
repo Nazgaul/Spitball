@@ -9,7 +9,9 @@ using Microsoft.Owin.Security;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Newtonsoft.Json.Converters;
 using Zbang.Cloudents.MobileApp2.Models;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Security;
 
@@ -51,8 +53,8 @@ namespace Zbang.Cloudents.MobileApp2
             // Configure DI here
 
             // Register our custom builder
-            builder.RegisterType<PushNotification>().As<IPushNotification>();
-            IocFactory.Unity.ContainerBuilder = builder;
+            //builder.RegisterType<PushNotification>().As<IPushNotification>();
+            IocFactory.IocWrapper.ContainerBuilder = builder;
             Zbox.Infrastructure.RegisterIoc.Register();
 
             builder.RegisterType<SeachConnection>()
@@ -61,6 +63,12 @@ namespace Zbang.Cloudents.MobileApp2
                 .WithParameter("serviceKey", "5B0433BFBBE625C9D60F7330CFF103F0")
                 .WithParameter("isDevelop", true)
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<SendPush>()
+            .As<ISendPush>()
+            .WithParameter("connectionString", ConfigFetcher.Fetch("MS_NotificationHubConnectionString"))
+            .WithParameter("hubName", ConfigFetcher.Fetch("MS_NotificationHubName"))
+            .InstancePerLifetimeScope();
             RegisterIoc.Register();
 
             var x = new ApplicationDbContext();
@@ -70,7 +78,7 @@ namespace Zbang.Cloudents.MobileApp2
             builder.Register(c => new UserStore<ApplicationUser>(x))
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 
-            IocFactory.Unity.ContainerBuilder.Register(
+            IocFactory.IocWrapper.ContainerBuilder.Register(
                c => HttpContext.Current.GetOwinContext().Authentication);
             Zbox.Infrastructure.Data.RegisterIoc.Register();
             Zbox.Infrastructure.StorageApp.RegisterIoc.Register();

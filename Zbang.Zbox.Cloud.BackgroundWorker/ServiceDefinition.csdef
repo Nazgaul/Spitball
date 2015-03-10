@@ -13,6 +13,8 @@
       <Setting name="SyncHatavotTimeInSeconds" />
       <Setting name="AzureSearchKey" />
       <Setting name="AzureSeachServiceName" />
+      <Setting name="ServiceBusConnectionString" />
+      <Setting name="ServiceBusHubName" />
     </ConfigurationSettings>
     <LocalResources>
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="222000" />

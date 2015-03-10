@@ -7,7 +7,7 @@ namespace Zbang.Zbox.Infrastructure.File
     {
         public static void Register()
         {
-            var ioc = IocFactory.Unity;
+            var ioc = IocFactory.IocWrapper;
             ioc.RegisterType<IFileProcessorFactory, FileProcessorFactory>(LifeTimeManager.Singleton);
 
             ioc.RegisterType<IContentProcessor, WordProcessor>();

@@ -7,7 +7,7 @@ namespace Zbang.Zbox.Domain.Services
     {
         public static void Register()
         {
-            var ioc = IocFactory.Unity;
+            var ioc = IocFactory.IocWrapper;
             DataAccess.RegisterIoc.Register();
 
             ioc.RegisterType<Common.IZboxWriteService, ZboxWriteService>();

@@ -6,7 +6,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
     {
         public static void Register()
         {
-            var ioc = IocFactory.Unity;
+            var ioc = IocFactory.IocWrapper;
 
             ioc.RegisterType<IMailComponent, MailManager2>();
             ioc.RegisterType<IMailBuilder, WelcomeMail>(MailParameters.WelcomeResolver, LifeTimeManager.PerHttpRequest);

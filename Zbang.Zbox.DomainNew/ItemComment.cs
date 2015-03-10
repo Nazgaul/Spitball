@@ -89,7 +89,7 @@ namespace Zbang.Zbox.Domain
             }
 
 
-            var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IIdGenerator>();
+            var idGenerator = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IIdGenerator>();
 // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Id = id;//idGenerator.GetId(IdGenerator.ItemAnnotationReplyScope);
 

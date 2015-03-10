@@ -6,7 +6,7 @@ namespace Zbang.Zbox.Infrastructure
     {
         public static void Register()
         {
-            var ioc = IocFactory.Unity;
+            var ioc = IocFactory.IocWrapper;
 
             ioc.RegisterType<Cache.ICache, Cache.Cache>(LifeTimeManager.Singleton);
             ioc.RegisterType<Cache.IWithCache, Cache.WithCache>(LifeTimeManager.Singleton);

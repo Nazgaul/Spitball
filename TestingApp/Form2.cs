@@ -33,8 +33,8 @@ namespace TestingApp
 
         private async void buttonGenerate_Click(object sender, EventArgs e)
         {
-            var idGenerator = IocFactory.Unity.Resolve<IGuidIdGenerator>();
-            var writeService = IocFactory.Unity.Resolve<IZboxWriteService>();
+            var idGenerator = IocFactory.IocWrapper.Resolve<IGuidIdGenerator>();
+            var writeService = IocFactory.IocWrapper.Resolve<IZboxWriteService>();
             var userId = Convert.ToInt64(textBoxUserId.Text);
             var boxes = textBoxBoxes.Text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(s => Convert.ToInt64(s));
             foreach (var box in boxes)

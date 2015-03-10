@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
     {
         public static void Register()
         {
-            var ioc = IocFactory.Unity;
+            var ioc = IocFactory.IocWrapper;
             //ioc.RegisterType<IMediaSevicesProvider, MediaSevicesProvider>(LifeTimeManager.Singleton);
 
             //ioc.RegisterType<IBlobProvider, BlobProvider>(LifeTimeManager.PerHttpRequest);

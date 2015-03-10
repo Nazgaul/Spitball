@@ -448,11 +448,11 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void AddNewUpdate(AddNewUpdatesCommand command)
+        public async Task AddNewUpdateAsync(AddNewUpdatesCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }

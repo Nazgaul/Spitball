@@ -77,7 +77,7 @@
   <ItemGroup>
     <Compile Include="IJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnityFactory.cs" />
+    <Compile Include="IocFactory.cs" />
     <Compile Include="UpdateSearch.cs" />
     <Compile Include="WorkerRole.cs" />
   </ItemGroup>

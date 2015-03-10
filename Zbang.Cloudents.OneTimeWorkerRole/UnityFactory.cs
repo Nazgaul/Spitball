@@ -14,7 +14,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
         public IocFactory Unity { get; private set; }
         public UnityFactory()
         {
-            Unity = IocFactory.Unity;
+            Unity = IocFactory.IocWrapper;
 
 
             RegisterIoc.Register();

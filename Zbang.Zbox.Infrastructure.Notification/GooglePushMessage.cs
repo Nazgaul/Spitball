@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using Zbang.Zbox.Infrastructure.Notifications;
 
+//taken from Microsoft.WindowsAzure.Mobile.Service
 namespace Zbang.Zbox.Infrastructure.Notifications
 {
     [Serializable]
@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         {
             get
             {
-                return this.GetValueOrDefault("collapse_key");
+                return this.GetValueOrDefault<string>("collapse_key");
             }
             set
             {
@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         {
             get
             {
-                return this.GetValueOrDefault("delay_while_idle");
+                return this.GetValueOrDefault<bool>("delay_while_idle");
             }
             set
             {
@@ -55,7 +55,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         {
             get
             {
-                return this.GetValueOrDefault("data");
+                return this.GetValueOrDefault < IDictionary<string, string>>("data");
             }
         }
         /// <summary>
@@ -68,7 +68,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         {
             get
             {
-                return this.GetValueOrDefault("time_to_live");
+                return this.GetValueOrDefault<int?>("time_to_live");
             }
             set
             {
@@ -114,17 +114,11 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             {
                 if (timeToLive.Value < TimeSpan.Zero)
                 {
-                    throw new ArgumentOutOfRangeException("timeToLive", timeToLive.Value, CommonResources.ArgumentOutOfRange_GreaterThan.FormatForUser(new object[]
-					{
-						TimeSpan.Zero
-					}));
+                    throw new ArgumentOutOfRangeException("timeToLive");
                 }
                 if (timeToLive.Value > GooglePushMessage.MaxExpiration)
                 {
-                    throw new ArgumentOutOfRangeException("timeToLive", timeToLive.Value, CommonResources.ArgumentOutOfRange_LessThan.FormatForUser(new object[]
-					{
-						GooglePushMessage.MaxExpiration
-					}));
+                    throw new ArgumentOutOfRangeException("timeToLive");
                 }
                 this.TimeToLiveInSeconds = new int?((int)timeToLive.Value.TotalSeconds);
             }
@@ -159,8 +153,11 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         {
             // Note: this type is marked as 'beforefieldinit'.
             JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
-            jsonSerializerSettings.set_Formatting(1);
+            //jsonSerializerSettings.set_Formatting(1);
             GooglePushMessage.SerializerSettings = jsonSerializerSettings;
         }
     }
+
+
+   
 }

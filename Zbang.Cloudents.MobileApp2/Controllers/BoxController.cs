@@ -22,8 +22,6 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IZboxCacheReadService ZboxReadService { get; set; }
         public IZboxReadSecurityReadService ZboxReadSecurityService { get; set; }
 
-        public IPushNotification PushNotification { get; set; }
-
         // GET api/Box
         public async Task<HttpResponseMessage> Get(long id)
         {

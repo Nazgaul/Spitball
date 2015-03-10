@@ -1,5 +1,8 @@
-﻿using Zbang.Zbox.Infrastructure;
+﻿using Autofac;
+using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.WorkerRole.DomainProcess;
@@ -29,7 +32,7 @@ namespace Zbang.Zbox.WorkerRole
         public IocFactory Unity { get; private set; }
         public UnityFactory()
         {
-            Unity = IocFactory.Unity;
+            Unity = IocFactory.IocWrapper;
 
 
             RegisterIoc.Register();
@@ -42,7 +45,12 @@ namespace Zbang.Zbox.WorkerRole
             Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
             Store.RegisterIoc.Register();
-           
+
+            Unity.ContainerBuilder.RegisterType<SendPush>()
+             .As<ISendPush>()
+             .WithParameter("connectionString", ConfigFetcher.Fetch("ServiceBusConnectionString"))
+             .WithParameter("hubName", ConfigFetcher.Fetch("ServiceBusHubName"))
+             .InstancePerLifetimeScope();
 
             //Unity = new UnityContainer();
             RegisterTypes();

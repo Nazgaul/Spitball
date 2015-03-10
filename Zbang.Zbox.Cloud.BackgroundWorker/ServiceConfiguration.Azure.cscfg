@@ -15,6 +15,8 @@
       <Setting name="SyncHatavotTimeInSeconds" value="5" />
       <Setting name="AzureSearchKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
       <Setting name="AzureSeachServiceName" value="cloudents" />
+      <Setting name="ServiceBusConnectionString" value="Endpoint=sb://cloudentshub-ns.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=uHDvPiccRsCMde/zUJCiskd21qKxoiS1WlruAe4TMJU=" />
+      <Setting name="ServiceBusHubName" value="cloudentshub" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="0267B38009E324635F83B6794EA3263BAC55B894" thumbprintAlgorithm="sha1" />

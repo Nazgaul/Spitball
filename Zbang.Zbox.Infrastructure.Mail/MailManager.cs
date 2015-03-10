@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
     {
         private const string SendGridUserName = "cloudents";
         private const string SendGridPassword = "zbangitnow";
-        private readonly IocFactory m_Container = IocFactory.Unity;
+        private readonly IocFactory m_Container = IocFactory.IocWrapper;
 
         private void Send(ISendGrid message)
         {

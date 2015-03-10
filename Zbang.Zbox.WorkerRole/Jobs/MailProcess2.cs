@@ -54,7 +54,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                  TraceLog.WriteInfo("Process mail: " + msgData.EmailAddress);
                  try
                  {
-                     var mail = IocFactory.Unity.Resolve<IMail2>(msgData.MailResover);
+                     var mail = IocFactory.IocWrapper.Resolve<IMail2>(msgData.MailResover);
                      return Task.FromResult(mail.Execute(msgData));
                  }
                  catch (NullReferenceException ex)

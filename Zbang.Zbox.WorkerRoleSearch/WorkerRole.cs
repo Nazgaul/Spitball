@@ -18,11 +18,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly CancellationTokenSource m_CancellationTokenSource = new CancellationTokenSource();
         private readonly ManualResetEvent m_RunCompleteEvent = new ManualResetEvent(false);
 
-        readonly UnityFactory m_Unity;
+        readonly IocFactory m_Unity;
 
         public WorkerRole()
         {
-            m_Unity = new UnityFactory();
+            m_Unity = new IocFactory();
         }
         public override void Run()
         {
@@ -103,7 +103,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 return null;
                 //return m_Unity.Resolve<IJob>(UnityFactory.UpdateSearch);
             }
-            return m_Unity.Resolve<IJob>(UnityFactory.UpdateSearch);
+            return m_Unity.Resolve<IJob>(IocFactory.UpdateSearch);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Infrastructure.Data
     {
         public static void Register()
         {
-            var ioc = IocFactory.Unity;
+            var ioc = IocFactory.IocWrapper;
 
             ioc.RegisterGeneric(typeof(IRepository<>), typeof(NHibernateRepository<>));
       

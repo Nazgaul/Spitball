@@ -13,6 +13,7 @@ using Zbang.Cloudents.MobileApp2.Models;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
+using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.Domain.Commands;
 
@@ -28,7 +29,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         public IZboxWriteService ZboxWriteService { get; set; }
 
-        public IPushNotification PushNotification { get; set; }
+        public ISendPush PushNotification { get; set; }
 
         // GET api/Feed
         [HttpGet]
@@ -37,7 +38,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             try
             {
-                await PushNotification.SendPush(boxId, User.GetCloudentsUserId());
+                await PushNotification.SendAddPostNotification("Ram Yaari", "this is some long text", "microbiology", new[] { 1L, 18372L });
                 //TODO: check box permission
                 var retVal =
                   await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, 20));
@@ -70,7 +71,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var command = new AddCommentCommand(User.GetCloudentsUserId(),
                 boxId, model.Content, questionId, null);
             var t1 = ZboxWriteService.AddQuestionAsync(command);
-            var t2 = PushNotification.SendPush(boxId, User.GetCloudentsUserId());
+            var t2 = PushNotification.SendAddPostNotification("Ram Yaari", "this is some long text", "microbiology", new[] { 1L, 18372L });
             await Task.WhenAll(t1, t2);
             return Request.CreateResponse(questionId);
         }
@@ -91,7 +92,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var command = new AddAnswerToQuestionCommand(User.GetCloudentsUserId(), boxId,
                 model.Content, answerId, feedId, null);
             var t1 = ZboxWriteService.AddAnswerAsync(command);
-            var t2 = PushNotification.SendPush(boxId, User.GetCloudentsUserId());
+            var t2 = PushNotification.SendAddPostNotification("Ram Yaari", "this is some long text", "microbiology", new[] { 1L, 18372L });
             await Task.WhenAll(t1, t2);
             return Request.CreateResponse(answerId);
         }

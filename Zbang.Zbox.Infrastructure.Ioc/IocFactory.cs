@@ -1,9 +1,7 @@
 ﻿//using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Web;
 using Autofac;
-using Autofac.Builder;
 
 
 namespace Zbang.Zbox.Infrastructure.Ioc
@@ -129,7 +127,7 @@ namespace Zbang.Zbox.Infrastructure.Ioc
         }
 
 
-        public static IocFactory Unity
+        public static IocFactory IocWrapper
         {
             get
             {

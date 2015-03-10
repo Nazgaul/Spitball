@@ -84,7 +84,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
         {
             try
             {
-                var storage = IocFactory.Unity.Resolve<ILocalStorageProvider>();
+                var storage = IocFactory.IocWrapper.Resolve<ILocalStorageProvider>();
 
                 using (var ms = new MemoryStream())
                 {
@@ -114,7 +114,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             //if (!IsConfigurationFileValid()) return null;
             try
             {
-                var storage = IocFactory.Unity.Resolve<ILocalStorageProvider>();
+                var storage = IocFactory.IocWrapper.Resolve<ILocalStorageProvider>();
                 var file = storage.ReadFileFromStorage(GetConfigurationFileName());
                 if (file == null)
                 {

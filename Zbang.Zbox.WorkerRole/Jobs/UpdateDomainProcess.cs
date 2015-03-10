@@ -57,7 +57,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                           return true;
                       }
                       TraceLog.WriteInfo("Running update domain process - processing -" + msgData.ProcessResolver);
-                      var process = IocFactory.Unity.Resolve<IDomainProcess>(msgData.ProcessResolver);
+                      var process = IocFactory.IocWrapper.Resolve<IDomainProcess>(msgData.ProcessResolver);
                       if (process == null)
                       {
                           TraceLog.WriteError("UpdateDomainProcess run - process is null msgData.ProcessResolver:" + msgData.ProcessResolver);

@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Domain
             Professor = professor;
             // Picture = picture;
             UserTime.CreatedUser = creator.Email;
-            var idGenerator = Infrastructure.Ioc.IocFactory.Unity.Resolve<IGuidIdGenerator>();
+            var idGenerator = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IGuidIdGenerator>();
 
 
             Comments.Add(new Comment(creator, null,

@@ -41,7 +41,7 @@ namespace TestingApp
             Zbang.Zbox.Infrastructure.Search.RegisterIoc.Register();
 
 
-            var ioc = IocFactory.Unity;
+            var ioc = IocFactory.IocWrapper;
             ioc.ContainerBuilder.RegisterType<SeachConnection>()
                .As<ISearchConnection>()
                .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
@@ -52,7 +52,7 @@ namespace TestingApp
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
+            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
             var lucenewire = iocFactory.Resolve<IUniversityWriteSearchProvider>();
             await lucenewire.BuildUniversityData();
             textBox2.Text = "Complete";
@@ -61,7 +61,7 @@ namespace TestingApp
         private async void button2_Click(object sender, EventArgs e)
         {
 
-            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
+            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
             var luceneRead = iocFactory.Resolve<IUniversityReadSearchProvider>();
             var sw = new Stopwatch();
             sw.Start();
@@ -82,7 +82,7 @@ namespace TestingApp
 
         private async void button3_Click(object sender, EventArgs e)
         {
-            var iocFactory = IocFactory.Unity;
+            var iocFactory = IocFactory.IocWrapper;
             var read = iocFactory.Resolve<IBoxReadSearchProvider>();//(new IocParameterOverride("shouldUseProduction", true));
             var sw = new Stopwatch();
             sw.Start();
@@ -129,7 +129,7 @@ namespace TestingApp
 
         private async void button6_Click(object sender, EventArgs e)
         {
-            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
+            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
             var read = iocFactory.Resolve<IItemReadSearchProvider>();
             var sw = new Stopwatch();
             sw.Start();
@@ -150,7 +150,7 @@ namespace TestingApp
 
         private async void button7_Click(object sender, EventArgs e)
         {
-            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
+            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
             var read = iocFactory.Resolve<IQuizReadSearchProvider>();
             var sw = new Stopwatch();
             sw.Start();

@@ -4,14 +4,14 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class AddNewUpdatesCommand : ICommand
+    public class AddNewUpdatesCommand : ICommandAsync
     {
-        public AddNewUpdatesCommand(long boxId, long userId, Guid? questionId, Guid? answerId, long? itemId, long? quizId)
+        public AddNewUpdatesCommand(long boxId, long userId, Guid? commentId, Guid? replyId, long? itemId, long? quizId)
         {
             BoxId = boxId;
             UserId = userId;
-            QuestionId = questionId;
-            AnswerId = answerId;
+            CommentId = commentId;
+            ReplyId = replyId;
             ItemId = itemId;
             QuizId = quizId;
         }
@@ -19,8 +19,8 @@ namespace Zbang.Zbox.Domain.Commands
 
         public long UserId { get; set; }
 
-        public Guid? QuestionId { get; set; }
-        public Guid? AnswerId { get; set; }
+        public Guid? CommentId { get; set; }
+        public Guid? ReplyId { get; set; }
         public long? ItemId { get; set; }
         public long? QuizId { get; set; }
     }

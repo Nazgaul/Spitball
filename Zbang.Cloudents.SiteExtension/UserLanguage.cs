@@ -41,7 +41,7 @@ namespace Zbang.Cloudents.SiteExtension
             {
                 if (context.User != null && context.User.Identity.IsAuthenticated)
                 {
-                    var zboxReadService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IZboxReadService>();
+                    var zboxReadService = Zbox.Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IZboxReadService>();
                     var userData = zboxReadService.GetUserData(new Zbox.ViewModel.Queries.GetUserDetailsQuery(context.User.GetUserId()));
                     InsertCookie(userData.Culture, context);
                     ChangeThreadLanguage(userData.Culture);
@@ -100,7 +100,7 @@ namespace Zbang.Cloudents.SiteExtension
                 userIp = "81.218.135.73";
             }
             var ipNumber = Ip2Long(userIp);
-            var zboxReadService = Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IZboxReadService>();
+            var zboxReadService = Zbox.Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IZboxReadService>();
             return zboxReadService.GetLocationByIp(ipNumber);
         }
 

@@ -28,6 +28,9 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
         [Required]
         public string Culture { get; set; }
 
+        [Required]
+        public long UniversityId { get; set; }
+
 
 
         public override string ToString()

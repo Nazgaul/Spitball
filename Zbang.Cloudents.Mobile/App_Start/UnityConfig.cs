@@ -19,7 +19,7 @@ namespace Zbang.Cloudents.Mobile
 
         public static void RegisterTypes()
         {
-            var builder = IocFactory.Unity.ContainerBuilder;
+            var builder = IocFactory.IocWrapper.ContainerBuilder;
 
             Zbox.Infrastructure.RegisterIoc.Register();
             Zbox.Infrastructure.Data.RegisterIoc.Register();
@@ -47,10 +47,10 @@ namespace Zbang.Cloudents.Mobile
             builder.Register(c => new UserStore<ApplicationUser>(x))
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 
-            IocFactory.Unity.ContainerBuilder.Register(
+            IocFactory.IocWrapper.ContainerBuilder.Register(
                c => HttpContext.Current.GetOwinContext().Authentication);
 
-            var container = IocFactory.Unity.Build();
+            var container = IocFactory.IocWrapper.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             //iocContainer.RegisterType<IUserProfile, UserProfile>();
 

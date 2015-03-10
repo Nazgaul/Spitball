@@ -29,7 +29,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         public static void RegisterTypes(IAppBuilder app)
         {
-            var builder = IocFactory.Unity.ContainerBuilder;
+            var builder = IocFactory.IocWrapper.ContainerBuilder;
 
             Zbox.Infrastructure.RegisterIoc.Register();
             Zbox.Infrastructure.Data.RegisterIoc.Register();
@@ -52,7 +52,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             builder.Register<UserStore<ApplicationUser>>(c => new UserStore<ApplicationUser>(x))
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 
-            IocFactory.Unity.ContainerBuilder.Register<IAuthenticationManager>(
+            IocFactory.IocWrapper.ContainerBuilder.Register<IAuthenticationManager>(
                 c => HttpContext.Current.GetOwinContext().Authentication);
 
 
@@ -63,7 +63,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
             builder.RegisterFilterProvider();
-            var container = IocFactory.Unity.Build();
+            var container = IocFactory.IocWrapper.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
 

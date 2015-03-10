@@ -6,7 +6,7 @@ namespace Zbang.Zbox.Domain.DataAccess
     {
         public static void Register()
         {
-            var ioc = IocFactory.Unity;
+            var ioc = IocFactory.IocWrapper;
             ioc.RegisterType<IUserRepository, UserRepository>();
             ioc.RegisterType<IUniversityRepository, UniversityRepository>();
             ioc.RegisterType<IUserBoxRelRepository, UserBoxRelRepository>();

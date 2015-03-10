@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
         public void Setup()
         {
             var m_LocalStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
-            Ioc.IocFactory.Unity.RegisterInstance<ILocalStorageProvider>(m_LocalStorageProvider);
+            Ioc.IocFactory.IocWrapper.RegisterInstance<ILocalStorageProvider>(m_LocalStorageProvider);
         }
 
         [TestMethod]
@@ -61,7 +61,7 @@ namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
         public void SetupContext()
         {
             var m_LocalStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
-            Ioc.IocFactory.Unity.RegisterInstance<ILocalStorageProvider>(m_LocalStorageProvider);
+            Ioc.IocFactory.IocWrapper.RegisterInstance<ILocalStorageProvider>(m_LocalStorageProvider);
             _factory = _mocks.DynamicMock<IUnitOfWorkFactory>();
             _unitOfWork = _mocks.DynamicMock<IUnitOfWork>();
             _session = _mocks.DynamicMock<ISession>();

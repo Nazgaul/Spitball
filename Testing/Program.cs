@@ -204,7 +204,7 @@ namespace Testing
             //log4net.Config.XmlConfigurator.Configure();
 
 
-            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
+            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
             var t = IndexItemSearch(iocFactory);
             t.Wait();
             //var lucenewire = iocFactory.Resolve<IUniversityWriteSearchProvider>();
@@ -502,7 +502,7 @@ namespace Testing
 
         private async static Task<string> TestMediaServices()
         {
-            IFileProcessorFactory service = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity.Resolve<IFileProcessorFactory>();
+            IFileProcessorFactory service = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IFileProcessorFactory>();
             var processor = service.GetProcessor(new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxfiles/7c8aaf28-e398-49f3-85ef-b9e9b04848a3.jpg"));
             var x = await processor.PreProcessFile(new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxfiles/7c8aaf28-e398-49f3-85ef-b9e9b04848a3.jpg"));
             // var id = await service.EncodeVideo(new Uri("https://zboxstorage.blob.core.windows.net/zboxfiles/f6a1b2b6-7c1c-44fc-961c-b90492c8552a.wmv"));

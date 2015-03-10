@@ -32,7 +32,7 @@ namespace DuplicateQuiz
 
         public void RegisterIoc()
         {
-            m_Unity = IocFactory.Unity;
+            m_Unity = IocFactory.IocWrapper;
 
 
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();

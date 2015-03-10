@@ -7,7 +7,7 @@ namespace Zbang.Zbox.ReadServices
     {
         public static void Register()
         {
-            var ioc = IocFactory.Unity;
+            var ioc = IocFactory.IocWrapper;
 
             ioc.RegisterType<IZboxCacheReadService, ZboxCacheReadService>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IZboxReadService, ZboxReadService>(LifeTimeManager.PerHttpRequest);

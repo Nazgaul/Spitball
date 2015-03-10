@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
         public static void Register()
         {
-            var ioc = IocFactory.Unity;
+            var ioc = IocFactory.IocWrapper;
 
             ioc
                 .RegisterType
@@ -110,7 +110,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandlerAsync<AddReputationCommand>), typeof(AddReputationCommandHandler));
 
             //updates
-            ioc.RegisterType(typeof(ICommandHandler<AddNewUpdatesCommand>), typeof(AddNewUpdatesCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<AddNewUpdatesCommand>), typeof(AddNewUpdatesCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteUpdatesCommand>), typeof(DeleteUpdatesCommandHandler));
 
             //quiz

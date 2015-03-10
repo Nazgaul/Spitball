@@ -7,7 +7,7 @@ namespace Zbang.Zbox.Store
     {
        public static void Register()
        {
-           var ioc = IocFactory.Unity;
+           var ioc = IocFactory.IocWrapper;
 
            ioc.RegisterType<IReadService, ReadService>();
            ioc.RegisterType<IWriteService, WriteService>();

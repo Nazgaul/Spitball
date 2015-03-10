@@ -7,7 +7,7 @@ using RegisterIoc = Zbang.Zbox.Infrastructure.RegisterIoc;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    internal class UnityFactory
+    internal class IocFactory
     {
         // UnityContainer unityFactory;
         public const string DeleteCacheBlobContainer = "deleteCacheBlobContainer";
@@ -25,10 +25,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public const string EmailPartners = "EmailPartners";
         public const string UpdateSearch = "UpdateSearch";
 
-        public IocFactory Unity { get; private set; }
-        public UnityFactory()
+        public Zbang.Zbox.Infrastructure.Ioc.IocFactory Unity { get; private set; }
+        public IocFactory()
         {
-            Unity = IocFactory.Unity;
+            Unity = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
 
 
             RegisterIoc.Register();

@@ -6,7 +6,7 @@ namespace Zbang.Zbox.Infrastructure.Search
     {
         public static void Register()
         {
-            var ioc = IocFactory.Unity;
+            var ioc = IocFactory.IocWrapper;
           
 
 

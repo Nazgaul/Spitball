@@ -19,7 +19,7 @@ namespace Zbang.Zbox.ReadServicesTests
         public void Setup()
         {
             var m_LocalStorageProvider = MockRepository.GenerateStub<ILocalStorageProvider>();
-            IocFactory.Unity.RegisterInstance(m_LocalStorageProvider);
+            IocFactory.IocWrapper.RegisterInstance(m_LocalStorageProvider);
             m_ZboxReadService = new ZboxReadServiceWorkerRole();
         }
 

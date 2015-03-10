@@ -17,13 +17,13 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
         }
 
 
-        public Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data)
+        public async Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data)
         {
             var parameters = data as UpdateData;
-            if (parameters == null) return Task.FromResult(true);
+            if (parameters == null) return true;
             try
             {
-                m_ZboxWriteService.AddNewUpdate(new AddNewUpdatesCommand(
+               await m_ZboxWriteService.AddNewUpdateAsync(new AddNewUpdatesCommand(
                     parameters.BoxId,
                     parameters.UserWhoMadeActionId,
                     parameters.QuestionId,
@@ -35,8 +35,9 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             catch (Exception ex)
             {
                 TraceLog.WriteError("On new update model:" + parameters, ex);
+                return false;
             }
-            return Task.FromResult(true);
+            return true;
         }
     }
 }
