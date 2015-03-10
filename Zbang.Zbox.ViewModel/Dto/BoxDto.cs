@@ -6,15 +6,9 @@ namespace Zbang.Zbox.ViewModel.Dto
     [Serializable]
     public class BoxDto
     {
-
-        //public BoxDto()
-        //{
-            
-        //}
-
         public BoxDto(long id, string boxName,
             UserRelationshipType userType, int itemCount, int membersCount, int commentCount,
-           string courseCode, string professorName, BoxType boxType, string url)
+           string courseCode, string professorName, BoxType boxType, string url, int notification)
         {
             Id = id;
             Name = boxName;
@@ -26,6 +20,7 @@ namespace Zbang.Zbox.ViewModel.Dto
             CourseCode = courseCode;
             Professor = professorName;
             Url = url;
+            Notification = notification;
         }
 
 
@@ -33,6 +28,8 @@ namespace Zbang.Zbox.ViewModel.Dto
         public UserRelationshipType UserType { get; set; }
         public BoxType BoxType { get; set; }
         public int ItemCount { get;  set; }
+        public int Notification { get; set; }
+
         public int MembersCount { get;  set; }
         public int CommentCount { get;  set; }
         public long Id { get;  set; }
