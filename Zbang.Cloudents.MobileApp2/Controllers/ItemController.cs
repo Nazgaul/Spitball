@@ -63,9 +63,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             });
         }
 
-
+        [HttpGet]
+        [Route("api/item/{itemId:long}/preview")]
         public async Task<HttpResponseMessage> Preview(string blobName, int index,
-             CancellationToken cancellationToken)
+             CancellationToken cancellationToken, string itemId)
         {
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
