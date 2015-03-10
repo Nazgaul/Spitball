@@ -37,7 +37,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class ItemController : BaseController
     {
         private readonly IBlobProvider m_BlobProvider;
-        private readonly ICloudBlockProvider m_CloudBlobProvider; 
+        private readonly ICloudBlockProvider m_CloudBlobProvider;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IQueueProvider m_QueueProvider;
         private readonly Lazy<IGuidIdGenerator> m_GuidGenerator;
@@ -157,7 +157,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 retVal.UserType = ViewBag.UserType;
                 //retVal.Name = Path.GetFileNameWithoutExtension(retVal.Name);
                 retVal.ShortUrl = UrlConsts.BuildShortItemUrl(new Base62(itemId).ToString());
-                return Json(new JsonResponse(true, retVal));
+                return Json(new JsonResponse(true, new
+                {
+                    retVal.Blob,
+                    retVal.BoxUrl,
+                    retVal.Comments,
+                    retVal.Name,
+                    retVal.Navigation.Next,
+                    retVal.Navigation.Previous,
+                    retVal.NumberOfDownloads,
+                    retVal.NumberOfViews,
+                    retVal.Owner,
+                    retVal.OwnerId,
+                    retVal.PrintUrl,
+                    retVal.Rate,
+                    retVal.ShortUrl,
+                    retVal.UpdateTime,
+                    retVal.UserType
+                }));
             }
             catch (BoxAccessDeniedException)
             {

@@ -14,7 +14,6 @@ namespace Zbang.Cloudents.MobileApp2
         public Task Register(ApiServices services, HttpRequestContext context,
         NotificationRegistration registration)
         {
-            services.Log.Info("in here");
             try
             {
                 // Perform a check here for user ID tags, which are not allowed.
@@ -43,7 +42,7 @@ namespace Zbang.Cloudents.MobileApp2
         private bool ValidateTags(NotificationRegistration registration)
         {
             // Create a regex to search for disallowed tags.
-            System.Text.RegularExpressions.Regex searchTerm =
+            var searchTerm =
             new System.Text.RegularExpressions.Regex(@"facebook:|google:|twitter:|microsoftaccount:",
                 System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 

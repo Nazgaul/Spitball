@@ -27,7 +27,6 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public SeachConnection(string serviceName, string serviceKey)
         {
-            TraceLog.WriteInfo("on ctor of search connection");
             m_Connection = ApiConnection.Create(serviceName, serviceKey);
             IsDevelop = IsDevelopEnvironment();
         }
@@ -56,7 +55,6 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public SeachConnection(string serviceName, string serviceKey, bool isDevelop)
         {
-            TraceLog.WriteInfo("on ctor of search connection");
             m_Connection = ApiConnection.Create(serviceName, serviceKey);
             IsDevelop = isDevelop;
         }
@@ -67,7 +65,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 if (m_ReadClient == null)
                 {
-                    TraceLog.WriteInfo("creating index query");
                     m_ReadClient = new IndexQueryClient(m_Connection);
                 }
                 return m_ReadClient;

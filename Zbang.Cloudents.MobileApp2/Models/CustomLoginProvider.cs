@@ -35,7 +35,7 @@ namespace Zbang.Cloudents.MobileApp2.Models
                 throw new ArgumentNullException("claimsIdentity");
             }
 
-            string username = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string username = claimsIdentity.FindFirst(ClaimConsts.UserIdClaim).Value;
 
 
             var claimUserId = claimsIdentity.FindFirst(ClaimConsts.UserIdClaim);
@@ -67,7 +67,7 @@ namespace Zbang.Cloudents.MobileApp2.Models
 
             var credentials = new CustomLoginProviderCredentials
             {
-                UserId = this.TokenHandler.CreateUserId(this.Name, username),
+                UserId = TokenHandler.CreateUserId(Name, username),
                 UniversityId =   universityId,
                 UniversityDataId = universityDataId,
                 CUserId = long.Parse(claimUserId.Value)
@@ -87,19 +87,19 @@ namespace Zbang.Cloudents.MobileApp2.Models
 
             return serialized.ToObject<CustomLoginProviderCredentials>();
         }
-        public override System.Threading.Tasks.Task<Microsoft.Owin.Security.AuthenticateResult> AuthenticateClient(System.Net.Http.HttpRequestMessage request)
-        {
-            return base.AuthenticateClient(request);
-        }
+        //public override System.Threading.Tasks.Task<Microsoft.Owin.Security.AuthenticateResult> AuthenticateClient(System.Net.Http.HttpRequestMessage request)
+        //{
+        //    return base.AuthenticateClient(request);
+        //}
 
-        public override LoginResult CreateLoginResult(ClaimsIdentity claimsIdentity, string secretKey)
-        {
-            return base.CreateLoginResult(claimsIdentity, secretKey);
-        }
+        //public override LoginResult CreateLoginResult(ClaimsIdentity claimsIdentity, string secretKey)
+        //{
+        //    return base.CreateLoginResult(claimsIdentity, secretKey);
+        //}
 
-        protected override TokenInfo CreateTokenInfo(ClaimsIdentity claimsIdentity, ProviderCredentials credentialsClaim, string secretKey)
-        {
-            return base.CreateTokenInfo(claimsIdentity, credentialsClaim, secretKey);
-        }
+        //protected override TokenInfo CreateTokenInfo(ClaimsIdentity claimsIdentity, ProviderCredentials credentialsClaim, string secretKey)
+        //{
+        //    return base.CreateTokenInfo(claimsIdentity, credentialsClaim, secretKey);
+        //}
     }
 }

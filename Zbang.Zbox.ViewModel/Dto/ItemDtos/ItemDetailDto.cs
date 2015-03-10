@@ -29,8 +29,8 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public string BoxUrl { get; set; }
 
-        public string PreviousUrl { get; set; }
-        public string NextUrl { get; set; }
+        //public string PreviousUrl { get; set; }
+        //public string NextUrl { get; set; }
 
         public string DownloadUrl { get; set; }
         public string PrintUrl { get; set; }

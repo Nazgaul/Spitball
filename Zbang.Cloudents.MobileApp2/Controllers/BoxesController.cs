@@ -33,7 +33,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.Id,
                 s.ItemCount,
                 s.CommentCount,
-                s.Notification
+                s.Updates
             }));
         }
 

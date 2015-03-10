@@ -15,7 +15,7 @@
                                 b.ProfessorName,
                                 b.Discriminator as boxType,
 								b.Url as Url,
-    (select count(*) from zbox.NewUpdates n where boxid = b.BoxId and n.UserId = @UserId) as notification
+    (select count(*) from zbox.NewUpdates n where boxid = b.BoxId and n.UserId = @UserId) as Updates
     from Zbox.box b join zbox.UserBoxRel ub on b.BoxId = ub.BoxId  
     where ub.UserId = @UserId
     and ub.usertype in (2,3)

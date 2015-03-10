@@ -13,7 +13,9 @@ and IsDeleted = 0
 )
 SELECT
 prev.url Previous,
-nex.url Next
+nex.url Next,
+prev.itemid PreviousId,
+nex.itemid NextId
 FROM CTE
 LEFT JOIN CTE prev ON prev.rownum = CTE.rownum - 1
 LEFT JOIN CTE nex ON nex.rownum = CTE.rownum + 1

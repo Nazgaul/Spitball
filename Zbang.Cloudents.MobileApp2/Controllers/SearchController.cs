@@ -65,6 +65,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         [HttpGet]
         [Route("api/search/university")]
+        [AuthorizeLevel(AuthorizationLevel.Application)]
         public async Task<HttpResponseMessage> University(string term, int page)
         {
             if (string.IsNullOrEmpty(term))
