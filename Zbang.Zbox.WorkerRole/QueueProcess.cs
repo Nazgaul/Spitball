@@ -25,24 +25,22 @@ namespace Zbang.Zbox.WorkerRole
         public async Task RunQueue(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
             TimeSpan invisibleTimeinQueue, int deQueueCount = 100)
         {
-            var hasElementsToProcess = await m_QueueProvider.RunQueue(queueName, func, invisibleTimeinQueue, deQueueCount);
+            var hasElementsToProcess = await m_QueueProvider.RunQueueAsync(queueName, func, invisibleTimeinQueue, deQueueCount);
             if (hasElementsToProcess)
             {
                 m_Interval = m_MinInterval;
             }
             else
             {
-                SleepAndIncreaseInterval();
+                await SleepAndIncreaseInterval();
             }
         }
 
-
-
-        private void SleepAndIncreaseInterval()
+        private Task SleepAndIncreaseInterval()
         {
-            Thread.Sleep(TimeSpan.FromSeconds(m_Interval));
-            //await Task.Delay(TimeSpan.FromSeconds(m_Interval));
             m_Interval = Math.Min(MaxInterval, m_Interval * Exponent);
+            return Task.Delay(TimeSpan.FromSeconds(m_Interval));
+            
         }
     }
 }

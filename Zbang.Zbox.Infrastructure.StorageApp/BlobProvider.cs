@@ -15,7 +15,7 @@ using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.StorageApp
 {
-    public class BlobProvider : IBlobProvider
+    public class BlobProvider : IBlobProvider, IBlobUpload
     {
         public const string AzureThumbnailContainer = "zboxThumbnail";
         public const string AzureBlobContainer = "zboxfiles";
@@ -209,6 +209,21 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
             throw new NotImplementedException();
         }
 
+        public string GenerateWriteAccessPermissionToBlob(string blobName, string mimeType)
+        {
+            var blob = GetFile(blobName);
+            var queryString = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+             {
+                 Permissions = SharedAccessBlobPermissions.Write,
+                 SharedAccessExpiryTime = DateTime.Now.AddHours(2)
+             }, new SharedAccessBlobHeaders
+             {
+                 ContentType = mimeType,
+                 CacheControl = "private max-age=604800"
+             });
+            return blob.Uri + queryString;
+        }
+
         public Task<Stream> GetFaqQuestion()
         {
             throw new NotImplementedException();
@@ -216,7 +231,21 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
 
         public string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double expirationTimeInMinutes)
         {
-            throw new NotImplementedException();
+            var blob = CacheFile(blobName);
+            return GenerateSharedAccessPermission(blob, expirationTimeInMinutes, SharedAccessBlobPermissions.Read);
+        }
+        private string GenerateSharedAccessPermission(CloudBlockBlob blob, double expirationTimeInMinutes, SharedAccessBlobPermissions accessPermission)
+        {
+
+            var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+            {
+                SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
+                Permissions = accessPermission,
+                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes)
+            });
+
+            var url = new Uri(blob.Uri, signedUrl);
+            return url.AbsoluteUri;
         }
 
         public string ProfileContainerUrl

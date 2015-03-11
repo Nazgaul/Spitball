@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.MediaServices;
@@ -18,6 +14,7 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
             ioc.RegisterType<IMediaSevicesProvider, MediaSevicesProvider>(LifeTimeManager.Singleton);
 
             ioc.RegisterType<IBlobProvider, BlobProvider>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<IBlobUpload, BlobProvider>(LifeTimeManager.PerHttpRequest);
             //ioc.RegisterType<IBlobProductProvider, BlobProvider>();
             //ioc.RegisterType<ICloudBlockProvider, BlobProvider>();
 

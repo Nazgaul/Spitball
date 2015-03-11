@@ -78,6 +78,7 @@
       <Link>QueueProvider.cs</Link>
     </Compile>
     <Compile Include="BlobProvider.cs" />
+    <Compile Include="IBlobUpload.cs" />
     <Compile Include="MediaSevicesProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterIoc.cs" />

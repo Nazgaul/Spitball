@@ -195,9 +195,11 @@
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="DataObjects\AddCommentRequest.cs" />
     <Compile Include="DataObjects\DeleteItemRequest.cs" />
+    <Compile Include="DataObjects\FileUploadRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataObjects\LogInRequest.cs" />
     <Compile Include="DataObjects\Register.cs" />
-    <Compile Include="Extensions\InMemoryMultipartFormDataStreamProvider.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -19,7 +19,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class UpdateSearch : IJob
     {
-        private bool m_KeepRunning;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
         private readonly IBoxWriteSearchProvider m_BoxSearchProvider;
@@ -50,15 +49,31 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_BlobProvider = blobProvider;
         }
 
-        public void Run()
+        public async Task Run(CancellationToken cancellationToken)
         {
-            m_KeepRunning = true;
             var index = GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
             TraceLog.WriteInfo("index: " + index + " count " + count);
-            while (m_KeepRunning)
+            while (!cancellationToken.IsCancellationRequested)
             {
-                ExecuteAsync(index, count).Wait();
+                try
+                {
+                    var tQuizUpdate =  UpdateQuiz();
+                    var tItemUpdate =  UpdateItem(index, count);
+                    var tUniversityUpdate =  UpdateUniversity();
+                    var tBoxUpdate =  UpdateBox();
+                    await Task.WhenAll(tQuizUpdate, tItemUpdate, tUniversityUpdate, tBoxUpdate);
+                    if (tItemUpdate.Result
+                        || tBoxUpdate.Result || tUniversityUpdate.Result || tQuizUpdate.Result)
+                    {
+                        return;
+                    }
+                    await Task.Delay(TimeSpan.FromMinutes(5), cancellationToken);
+                }
+                catch (Exception ex)
+                {
+                    TraceLog.WriteError(ex);
+                }
             }
             TraceLog.WriteError("On finish run");
         }
@@ -76,27 +91,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return currentIndex;
         }
 
-        private async Task ExecuteAsync(int index, int count)
-        {
-            try
-            {
-               
-                var quizUpdate = await UpdateQuiz();
-                var itemUpdate = await UpdateItem(index, count);
-                var universityUpdate = await UpdateUniversity();
-                var boxUpdate = await UpdateBox();
-                if (itemUpdate 
-                    || boxUpdate || universityUpdate || quizUpdate)
-                {
-                    return;
-                }
-                await Task.Delay(TimeSpan.FromMinutes(1));
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(ex);
-            }
-        }
+       
 
         private async Task<bool> UpdateQuiz()
         {
@@ -257,9 +252,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return false;
         }
 
-        public void Stop()
-        {
-            m_KeepRunning = false;
-        }
+       
     }
 }

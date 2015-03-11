@@ -28,7 +28,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public Zbang.Zbox.Infrastructure.Ioc.IocFactory Unity { get; private set; }
         public IocFactory()
         {
-            Unity = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
+            Unity = Infrastructure.Ioc.IocFactory.IocWrapper;
 
 
             RegisterIoc.Register();
@@ -45,7 +45,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //Infrastructure.Mail.RegisterIoc.Register();
             Domain.Services.RegisterIoc.Register();
             ReadServices.RegisterIoc.Register();
-            //Domain.CommandHandlers.Ioc.RegisterIoc.Register();
+            Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
             //Store.RegisterIoc.Register();
            
@@ -59,7 +59,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private void RegisterTypes()
         {
             //Unity.RegisterType<IJob, DeleteCacheBlobContainer>(DeleteCahceBlobContainer);
-            //Unity.RegisterType<IJob, ProcessFile>(PreProcessFiles);
+            Unity.RegisterType<IJob, ProcessFile>(PreProcessFiles);
             //Unity.RegisterType<IJob, DigestEmail2>(DigestEmail2);
             //Unity.RegisterType<IJob, UpdateDataBase>(Dbi);
             //Unity.RegisterType<IJob, UpdateDomainProcess>(Transaction);

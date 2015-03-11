@@ -10,11 +10,11 @@ using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Cloudents.MobileApp2.DataObjects;
-using Zbang.Cloudents.MobileApp2.Extensions;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.StorageApp;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
@@ -33,6 +33,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IZboxWriteService ZboxWriteService { get; set; }
 
         public IFileProcessorFactory FileProcessorFactory { get; set; }
+
+        public IBlobUpload BlobUpload { get; set; }
 
         // GET api/Item
         public async Task<HttpResponseMessage> Get(long boxId, long itemId)
@@ -140,37 +142,93 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         public async Task<HttpResponseMessage> Delete(DeleteItemRequest model)
         {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
             var command = new DeleteItemCommand(model.ItemId, User.GetCloudentsUserId(), model.BoxId);
             await ZboxWriteService.DeleteItemAsync(command);
             return Request.CreateResponse();
         }
 
-        [HttpPost]
+        //[HttpPost]
+        //[Route("api/item/upload")]
+        //public async Task<HttpResponseMessage> Upload()
+        //{
+        //    var userId = User.GetCloudentsUserId();
+        //    //var cookie = new CookieHelper(HttpContext);
+        //    if (!Request.Content.IsMimeMultipartContent())
+        //    {
+        //        throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+        //    }
+        //    var provider = new InMemoryMultipartFormDataStreamProvider();
+        //    await Request.Content.ReadAsMultipartAsync(provider);
+
+
+
+        //    var uploadedfile = provider.Files[0];
+        //    if (uploadedfile == null) throw new NullReferenceException("uploadedfile");
+
+        //    var blobGuid = provider.FormData["blobName"];
+        //    var extension = Path.GetExtension(provider.FormData["fileName"]);
+        //    var index = int.Parse(provider.FormData["index"]);
+
+        //    string blobAddressUri = blobGuid.ToLower() + extension.ToLower();
+        //    await BlobProvider.UploadFileBlockAsync(blobAddressUri, await uploadedfile.ReadAsStreamAsync(), index);
+
+        //    return Request.CreateResponse();
+        //}
+
+        [HttpGet]
         [Route("api/item/upload")]
-        public async Task<HttpResponseMessage> Upload()
+        public string UploadLink(string blob, string mimeType)
         {
-            var userId = User.GetCloudentsUserId();
-            //var cookie = new CookieHelper(HttpContext);
-            if (!Request.Content.IsMimeMultipartContent())
+            return BlobUpload.GenerateWriteAccessPermissionToBlob(blob, mimeType);
+        }
+
+        [Route("api/item/upload/commit")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> CommitFile(FileUploadRequest model)
+        {
+            if (model == null)
             {
-                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+                return Request.CreateBadRequestResponse();
             }
-            var provider = new InMemoryMultipartFormDataStreamProvider();
-            await Request.Content.ReadAsMultipartAsync(provider);
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            long boxId, size;
+            if (!long.TryParse(model.BoxId, out boxId))
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!long.TryParse(model.Size, out size))
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            var command = new AddFileToBoxCommand(User.GetCloudentsUserId(),
+                boxId, model.BlobName,
+                   model.FileName,
+                    size, null, false);
+            var result = await ZboxWriteService.AddItemToBoxAsync(command);
 
+            var result2 = result as AddFileToBoxCommandResult;
+            if (result2 == null)
+            {
+                throw new NullReferenceException("result2");
+            }
 
+            var fileDto = new ItemDto
+            {
+                Id = result2.File.Id,
+                Name = result2.File.Name,
+                Thumbnail = result2.File.ThumbnailUrl,
 
-            var uploadedfile = provider.Files[0];
-            if (uploadedfile == null) throw new NullReferenceException("uploadedfile");
+            };
 
-            var blobGuid = provider.FormData["blobName"];
-            var extension = Path.GetExtension(provider.FormData["fileName"]);
-            var index = int.Parse(provider.FormData["index"]);
+            return Request.CreateResponse(fileDto);
 
-            string blobAddressUri = blobGuid.ToLower() + extension.ToLower();
-            await BlobProvider.UploadFileBlockAsync(blobAddressUri, await uploadedfile.ReadAsStreamAsync(), index);
-
-            return Request.CreateResponse();
         }
 
     }

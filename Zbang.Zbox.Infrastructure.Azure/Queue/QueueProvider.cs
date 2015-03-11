@@ -80,7 +80,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             return queue;
         }
 
-        public async Task<bool> RunQueue(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
+        public async Task<bool> RunQueueAsync(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
            TimeSpan invisibleTimeinQueue, int deQueueCount = 100)
         {
             if (queueName == null) throw new ArgumentNullException("queueName");

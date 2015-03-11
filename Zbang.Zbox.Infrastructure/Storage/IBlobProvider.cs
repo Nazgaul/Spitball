@@ -58,7 +58,6 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         string GenerateSharedAccressReadPermissionInStorage(Uri blobUri, double expirationTimeInMinutes);
 
-
         Task<Stream> GetFaqQuestion();
 
         string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double expirationTimeInMinutes);
