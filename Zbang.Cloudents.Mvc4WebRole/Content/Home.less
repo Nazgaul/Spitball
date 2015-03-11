@@ -157,15 +157,18 @@
             margin-top: 35px;
         }
     }
+    .headerSettings {
+        height: auto; //override
+        top: 2px;
+    }
     .headerActions {
-        margin-top: 2px;
         position: absolute;
-        top: 20px;
+        top: 22px;
         right: 0; // calc fallback
         right: ~'-webkit-calc(50% - 512px)';
         right: ~'calc(50% - 512px)';
         .transition(all, .5s);
-
+        height: auto; //override
         .btn {
             background: #fff;
             color: @color;

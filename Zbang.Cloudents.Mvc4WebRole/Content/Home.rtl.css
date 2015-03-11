@@ -149,10 +149,13 @@
   float: left;
   margin-top: 35px;
 }
+.homepage .headerSettings {
+  height: auto;
+  top: 2px;
+}
 .homepage .headerActions {
-  margin-top: 2px;
   position: absolute;
-  top: 20px;
+  top: 22px;
   left: 0;
   left: -webkit-calc(50% - 512px);
   left: calc(50% - 512px);
@@ -160,6 +163,7 @@
   -moz-transition: all, 0.5s;
   -o-transition: all, 0.5s;
   transition: all, 0.5s;
+  height: auto;
 }
 .homepage .headerActions .btn {
   background: #fff;
