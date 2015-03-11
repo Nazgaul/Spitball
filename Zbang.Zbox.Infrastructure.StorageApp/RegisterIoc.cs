@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.MediaServices;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.StorageApp
@@ -14,7 +15,7 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
         public static void Register()
         {
             var ioc = IocFactory.IocWrapper;
-            //ioc.RegisterType<IMediaSevicesProvider, MediaSevicesProvider>(LifeTimeManager.Singleton);
+            ioc.RegisterType<IMediaSevicesProvider, MediaSevicesProvider>(LifeTimeManager.Singleton);
 
             ioc.RegisterType<IBlobProvider, BlobProvider>(LifeTimeManager.PerHttpRequest);
             //ioc.RegisterType<IBlobProductProvider, BlobProvider>();

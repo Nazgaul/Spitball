@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -9,6 +10,7 @@ using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Cloudents.MobileApp2.DataObjects;
+using Zbang.Cloudents.MobileApp2.Extensions;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -143,7 +145,33 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             return Request.CreateResponse();
         }
 
+        [HttpPost]
+        [Route("api/item/upload")]
+        public async Task<HttpResponseMessage> Upload()
+        {
+            var userId = User.GetCloudentsUserId();
+            //var cookie = new CookieHelper(HttpContext);
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+            var provider = new InMemoryMultipartFormDataStreamProvider();
+            await Request.Content.ReadAsMultipartAsync(provider);
 
+
+
+            var uploadedfile = provider.Files[0];
+            if (uploadedfile == null) throw new NullReferenceException("uploadedfile");
+
+            var blobGuid = provider.FormData["blobName"];
+            var extension = Path.GetExtension(provider.FormData["fileName"]);
+            var index = int.Parse(provider.FormData["index"]);
+
+            string blobAddressUri = blobGuid.ToLower() + extension.ToLower();
+            await BlobProvider.UploadFileBlockAsync(blobAddressUri, await uploadedfile.ReadAsStreamAsync(), index);
+
+            return Request.CreateResponse();
+        }
 
     }
 }
