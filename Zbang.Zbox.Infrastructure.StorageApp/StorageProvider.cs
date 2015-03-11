@@ -91,3 +91,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
         public int LocalResourceSizeInMegaBytes { get; set; }
     }
 }
+
+
+namespace Zbang.Zbox.Infrastructure.Azure.Blob
+{
+    public class SomeTest
+    {
+        
+    }
+}

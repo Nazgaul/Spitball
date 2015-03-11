@@ -24,7 +24,6 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         public IZboxWriteService ZboxWriteService { get; set; }
 
-        public ISendPush PushNotification { get; set; }
 
         // GET api/Feed
         [HttpGet]
@@ -33,7 +32,6 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             try
             {
-                await PushNotification.SendAddPostNotification("Ram Yaari", "this is some long text", "microbiology", new[] { 1L, 18372L });
                 //TODO: check box permission
                 var retVal =
                   await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, 20));

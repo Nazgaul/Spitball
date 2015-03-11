@@ -144,7 +144,7 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
             return DownloadFileAsync(fileName, CancellationToken.None);
         }
 
-        CloudBlockBlob GetFile(string blobName)
+        public CloudBlockBlob GetFile(string blobName)
         {
             var blob = BlobClient.GetContainerReference(AzureBlobContainer.ToLower()).GetBlockBlobReference(blobName);
 
