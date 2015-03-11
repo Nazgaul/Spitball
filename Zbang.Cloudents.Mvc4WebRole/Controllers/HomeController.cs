@@ -82,6 +82,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return View();
         }
+
+        public ActionResult Jobs()
+        {
+            return View();
+        }
+
         public async Task<ActionResult> Help()
         {
             const string faqQuestionCacheName = "faqQuestionCacheName";

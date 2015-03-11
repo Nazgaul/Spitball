@@ -812,6 +812,7 @@
     <Content Include="Images\back_back.png" />
     <Content Include="Images\boxIcons.svg" />
     <Content Include="Images\common27-sprite.png" />
+    <Content Include="Images\hiring.png" />
     <Content Include="Images\hp26-sprite.png" />
     <Content Include="Images\Store\ball.png" />
     <Content Include="Images\bg4.jpg" />
@@ -2092,6 +2093,7 @@
     <Content Include="Views\Shared\Partials\_BarSearch.cshtml" />
     <Content Include="Views\Shared\Partials\_DashLibItem.cshtml" />
     <Content Include="Views\Shared\Partials\_SearchTemplate.cshtml" />
+    <Content Include="Views\Home\Jobs.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

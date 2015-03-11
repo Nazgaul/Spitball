@@ -13,7 +13,9 @@
                 <label for="sidebarCb" class="headerSettings rFloat">
                     @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
                 </label>
+                <a href="@Url.Action("jobs","home")" target="_self" class="btn">Jobs</a>
                 <button type="button" class="btn addConnect" ng-click="login()">@SharedResources.SignIn</button>
+                
                 @{Html.RenderPartial("_SettingsUnauth", new SettingsUnauth { ShowLanguage = true });}
             </div>
         </div>
