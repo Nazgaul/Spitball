@@ -200,6 +200,7 @@
     </Compile>
     <Compile Include="DataObjects\LogInRequest.cs" />
     <Compile Include="DataObjects\Register.cs" />
+    <Compile Include="DataObjects\UpdateUniversityRequest.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

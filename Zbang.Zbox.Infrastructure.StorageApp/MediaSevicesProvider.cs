@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
 {
     public class MediaSevicesProvider : IMediaSevicesProvider
     {
-        public System.Threading.Tasks.Task<string> EncodeVideo(Uri blobUri)
+        public System.Threading.Tasks.Task<string> EncodeVideo(Uri blobUrl, System.Threading.CancellationToken cancelToken)
         {
             throw new NotImplementedException();
         }

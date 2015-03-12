@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 
 namespace Zbang.Cloudents.MobileApp2.Controllers
@@ -34,6 +35,28 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.ItemCount,
                 s.CommentCount,
                 s.Updates
+            }));
+        }
+
+        [HttpGet]
+        [Route("api/boxes/recommend")]
+        public async Task<HttpResponseMessage> Recommend()
+        {
+            var university = User.GetUniversityDataId();
+
+            // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
+            //var universityWrapper = userDetail.UniversityDataId.Value;
+
+            var query = new RecommendedCoursesQuery(university.Value, User.GetCloudentsUserId());
+            var result = await ZboxReadService.GetRecommendedCourses(query);
+            return Request.CreateResponse(result.Select(s => new
+            {
+                s.BoxId,
+                s.Professor,
+                s.CourseCode,
+                s.Name,
+                s.MembersCount,
+                s.ItemCount
             }));
         }
 

@@ -46,7 +46,7 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 return null;
             }
-            var newBlobName = await m_MediaServiceProvider.Value.EncodeVideo(blobUri);
+            var newBlobName = await m_MediaServiceProvider.Value.EncodeVideo(blobUri, cancelToken);
             var metaData = new Dictionary<string, string> { { MetaDataConsts.VideoStatus, "done" } };
             await BlobProvider.SaveMetaDataToBlobAsync(newBlobName, metaData);
             return new PreProcessFileResult { BlobName = newBlobName, ThumbnailName = GetDefaultThumbnailPicture() };

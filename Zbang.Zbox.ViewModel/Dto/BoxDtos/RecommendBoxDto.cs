@@ -12,6 +12,8 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
         public int MembersCount { get; set; }
         public int ItemCount { get; set; }
         public string Url { get; set; }
+
+        public long BoxId { get; set; }
       
 
     }

@@ -79,7 +79,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private bool PreProcessFile(FileProcessData msgData)
         {
-            TraceLog.WriteInfo("processing: " + msgData.ItemId);
             var processor = m_FileProcessorFactory.GetProcessor(msgData.BlobName);
             if (processor == null) return true;
             //taken from : http://blogs.msdn.com/b/nikhil_agarwal/archive/2014/04/02/10511934.aspx
@@ -87,19 +86,29 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             var work = new Thread(async () =>
             {
-                //some long running method requiring synchronization
-                var retVal = await processor.PreProcessFile(msgData.BlobName);
-
-                if (retVal == null)
+                try
                 {
+                    var tokenSource = new CancellationTokenSource();
+                    tokenSource.CancelAfter(TimeSpan.FromMinutes(29));
+                    //some long running method requiring synchronization
+                    var retVal = await processor.PreProcessFile(msgData.BlobName, tokenSource.Token);
+
+                    if (retVal == null)
+                    {
+                        wait.Set();
+                        return;
+                    }
+                    var oldBlobName = msgData.BlobName.Segments[msgData.BlobName.Segments.Length - 1];
+                    var command = new UpdateThumbnailCommand(msgData.ItemId, retVal.ThumbnailName, retVal.BlobName,
+                        oldBlobName, retVal.FileTextContent);
+                    m_ZboxWriteService.UpdateThumbnailPicture(command);
                     wait.Set();
-                    return;
                 }
-                var oldBlobName = msgData.BlobName.Segments[msgData.BlobName.Segments.Length - 1];
-                var command = new UpdateThumbnailCommand(msgData.ItemId, retVal.ThumbnailName, retVal.BlobName,
-                    oldBlobName, retVal.FileTextContent);
-                m_ZboxWriteService.UpdateThumbnailPicture(command);
-                wait.Set();
+                catch (Exception ex)
+                {
+                    TraceLog.WriteError("on itemid: " + msgData.ItemId, ex);
+                    wait.Set();
+                }
             });
             work.Start();
             Boolean signal = wait.WaitOne(TimeSpan.FromMinutes(30));

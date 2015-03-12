@@ -31,30 +31,34 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
         }
 
-        public async Task<string> EncodeVideo(Uri blobUrl)
+        public async Task<string> EncodeVideo(Uri blobUrl, CancellationToken cancelToken)
         {
-            var id = await CreateAssetAndUploadSingleFile(blobUrl);
-            var streamid = EncodeToHtml5(id);
+            var id = await CreateAssetAndUploadSingleFile(blobUrl, cancelToken);
+            var streamid = await EncodeToHtml5(id, cancelToken);
 
-            var blobName = DownloadEncodedVideoToStorage(blobUrl, streamid);
+            var blobName = await DownloadEncodedVideoToStorage(blobUrl, streamid, cancelToken);
 
             IAsset assetOrig = GetAsset(id), assetOut = GetAsset(streamid);
-            DeleteLocatorsForAsset(assetOrig);
-            DeleteLocatorsForAsset(assetOut);
+            var t1 = DeleteLocatorsForAsset(assetOrig);
+            var t2 = DeleteLocatorsForAsset(assetOut);
 
-            DeleteAssetFilesForAsset(assetOrig);
-            DeleteAssetFilesForAsset(assetOut);
+            await Task.WhenAll(t1, t2);
 
+            var d1 = DeleteAssetFilesForAsset(assetOrig);
+            var d2 = DeleteAssetFilesForAsset(assetOut);
+
+            await Task.WhenAll(d1, d2);
             // Delete assets
-            DeleteAsset(assetOrig);
-            DeleteAsset(assetOut);
+            var f1 =  DeleteAsset(assetOrig);
+            var f2 =  DeleteAsset(assetOut);
 
+            await Task.WhenAll(f1, f2);
             // DeleteAccessPolicy(policy.Id);
-            return await blobName;
+            return blobName;
         }
 
 
-        private async Task<string> CreateAssetAndUploadSingleFile(Uri blobUrl)
+        private async Task<string> CreateAssetAndUploadSingleFile(Uri blobUrl, CancellationToken cancelToken)
         {
             //_context.DefaultStorageAccount.Name
             var blobName = blobUrl.Segments[blobUrl.Segments.Length - 1];
@@ -68,7 +72,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
                 var uploadAssetAzure = CreateAssetFromExistingBlobs(blobUrl);
                 return uploadAssetAzure.Id;
             }
-            var stream = await m_BlobProvider.DownloadFileAsync(blobName);
+            var stream = await m_BlobProvider.DownloadFileAsync(blobName, cancelToken);
             var uploadFilePath = m_LocalProvider.SaveFileToStorage(stream, blobName);
 
             var uploadAsset = m_Context.Assets.Create(Path.GetFileNameWithoutExtension(blobName), AssetCreationOptions.None);
@@ -78,17 +82,17 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
         }
 
-        public async Task<string> DownloadEncodedVideoToStorage(Uri originalBlob, string encodeAssetId)
+        public Task<string> DownloadEncodedVideoToStorage(Uri originalBlob, string encodeAssetId, CancellationToken cancelToken)
         {
             if (originalBlob == null) throw new ArgumentNullException("originalBlob");
             if (originalBlob.Host == "127.0.0.1")
             {
-                return await DownloadToLocalStorage(originalBlob, encodeAssetId);
+                return DownloadToLocalStorage(originalBlob, encodeAssetId, cancelToken);
             }
-            return DownloadToAzureStorage(originalBlob, encodeAssetId);
+            return DownloadToAzureStorage(originalBlob, encodeAssetId, cancelToken);
         }
 
-        private string DownloadToAzureStorage(Uri originalBlob, string streamingAssetId)
+        private async Task<string> DownloadToAzureStorage(Uri originalBlob, string streamingAssetId, CancellationToken cancelToken)
         {
             var blobName = originalBlob.Segments[originalBlob.Segments.Length - 1];
 
@@ -113,12 +117,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             var fileContainer = m_BlobProvider.BlobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
             var newBlob = fileContainer.GetBlockBlobReference(newBlobName);
 
-            newBlob.StartCopyFromBlob(blob);
+            await newBlob.StartCopyFromBlobAsync(blob, cancelToken);
 
             return newBlobName;
         }
 
-        private async Task<string> DownloadToLocalStorage(Uri originalBlob, string streamingAssetId)
+        private async Task<string> DownloadToLocalStorage(Uri originalBlob, string streamingAssetId, CancellationToken cancelToken)
         {
             var blobName = originalBlob.Segments[originalBlob.Segments.Length - 1];
             string locationToSave;
@@ -136,7 +140,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
             var newBlobName = Path.GetFileNameWithoutExtension(blobName) + ".mp4";
             await m_BlobProvider.UploadFileAsync(newBlobName, locationToSave, "video/mp4");
-
             await m_BlobProvider.SaveMetaDataToBlobAsync(newBlobName, new Dictionary<string, string> { { MetaDataConsts.VideoStatus, "x" } });
             return newBlobName;
 
@@ -144,7 +147,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
 
 
-        private string EncodeToHtml5(string encodeAssetId)
+        private async Task<string> EncodeToHtml5(string encodeAssetId, CancellationToken cancelToken)
         {
 
             const string encodingPreset = "H264 Broadband 720p";
@@ -162,7 +165,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             encodeTask.InputAssets.Add(assetToEncode);
             encodeTask.OutputAssets.AddNew(assetToEncode.Name + " as " + encodingPreset, AssetCreationOptions.None);
             job.Submit();
-            job.GetExecutionProgressTask(CancellationToken.None).Wait();
+            await job.GetExecutionProgressTask(cancelToken);
 
             var preparedAsset = job.OutputMediaAssets.FirstOrDefault();
             return preparedAsset.Id;
@@ -232,14 +235,16 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
         // Delete tasks
         //////////////////////////////////////////////////
 
-        public void DeleteAssetFilesForAsset(IAsset asset)
+        public Task DeleteAssetFilesForAsset(IAsset asset)
         {
             if (asset == null) throw new ArgumentNullException("asset");
+            var list = new List<Task>();
             foreach (IAssetFile file in asset.AssetFiles)
             {
                 //Console.WriteLine("Deleting asset file with id: {0} {1}", file.Id, file.Name);
-                file.Delete();
+                list.Add(file.DeleteAsync());
             }
+            return Task.WhenAll(list);
         }
 
         private IMediaProcessor GetLatestMediaProcessorByName(string mediaProcessorName)
@@ -255,16 +260,16 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
                 ToList().OrderBy(p => new Version(p.Version)).LastOrDefault();
 
             if (processor == null)
-                throw new ArgumentException(string.Format("Unknown media processor", mediaProcessorName));
+                throw new ArgumentException(string.Format("Unknown media processor"));
 
             return processor;
         }
 
-        void DeleteAsset(IAsset asset)
+        Task DeleteAsset(IAsset asset)
         {
             //Console.WriteLine("Deleting the Asset {0}", asset.Id);
             // delete the asset
-            asset.Delete();
+            return asset.DeleteAsync();
 
             // Verify asset deletion
             //if (GetAsset(asset.Id) == null)
@@ -272,7 +277,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
         }
 
-        public void DeleteLocatorsForAsset(IAsset asset)
+        public Task DeleteLocatorsForAsset(IAsset asset)
         {
             if (asset == null) throw new ArgumentNullException("asset");
             string assetId = asset.Id;
@@ -280,12 +285,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
                            where a.AssetId == assetId
                            select a;
 
+            var list = new List<Task>();
             foreach (var locator in locators)
             {
                 //Console.WriteLine("Deleting locator {0} for asset {1}", locator.Path, assetId);
 
-                locator.Delete();
+                list.Add(locator.DeleteAsync());
             }
+            return Task.WhenAll(list);
         }
 
         /*
@@ -308,53 +315,53 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
 
 
-        private IAsset UploadToMeidaServiceFromAzureStorage(Uri blobUri)
-        {
+        //private IAsset UploadToMeidaServiceFromAzureStorage(Uri blobUri)
+        //{
 
-            var cloudBlobClient = m_BlobProvider.BlobClient;
-            var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
+        //    var cloudBlobClient = m_BlobProvider.BlobClient;
+        //    var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
 
-            // Create a new asset.
-            IAsset asset = m_Context.Assets.Create("NewAsset_" + Guid.NewGuid(), AssetCreationOptions.None);
-            IAccessPolicy writePolicy = m_Context.AccessPolicies.Create("writePolicy",
-                TimeSpan.FromMinutes(120), AccessPermissions.Write);
-            ILocator destinationLocator = m_Context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
+        //    // Create a new asset.
+        //    IAsset asset = m_Context.Assets.Create("NewAsset_" + Guid.NewGuid(), AssetCreationOptions.None);
+        //    IAccessPolicy writePolicy = m_Context.AccessPolicies.Create("writePolicy",
+        //        TimeSpan.FromMinutes(120), AccessPermissions.Write);
+        //    ILocator destinationLocator = m_Context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
 
-            // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
-            var uploadUri = new Uri(destinationLocator.Path);
-            string assetContainerName = uploadUri.Segments[1];
-            CloudBlobContainer assetContainer =
-                cloudBlobClient.GetContainerReference(assetContainerName);
-
-
-            string fileName = HttpUtility.UrlDecode(Path.GetFileName(blobUri.AbsoluteUri));
-
-            var sourceCloudBlob = cloudBlobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower()).GetBlockBlobReference(blobName);
-            sourceCloudBlob.FetchAttributes();
-
-            if (sourceCloudBlob.Properties.Length > 0)
-            {
-                // IAssetFile assetFile = asset.AssetFiles.Create(fileName);
-                var destinationBlob = assetContainer.GetBlockBlobReference(fileName);
-
-                destinationBlob.DeleteIfExists();
-                destinationBlob.StartCopyFromBlob(sourceCloudBlob);
-
-                destinationBlob.FetchAttributes();
-                //if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
-                //    Console.WriteLine("Failed to copy");
-            }
+        //    // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
+        //    var uploadUri = new Uri(destinationLocator.Path);
+        //    string assetContainerName = uploadUri.Segments[1];
+        //    CloudBlobContainer assetContainer =
+        //        cloudBlobClient.GetContainerReference(assetContainerName);
 
 
-            destinationLocator.Delete();
-            writePolicy.Delete();
+        //    string fileName = HttpUtility.UrlDecode(Path.GetFileName(blobUri.AbsoluteUri));
 
-            // Refresh the asset.
-            asset = m_Context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
-            return asset;
-            //At this point, you can create a job using your asset.
+        //    var sourceCloudBlob = cloudBlobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower()).GetBlockBlobReference(blobName);
+        //    sourceCloudBlob.FetchAttributes();
 
-        }
+        //    if (sourceCloudBlob.Properties.Length > 0)
+        //    {
+        //        // IAssetFile assetFile = asset.AssetFiles.Create(fileName);
+        //        var destinationBlob = assetContainer.GetBlockBlobReference(fileName);
+
+        //        destinationBlob.DeleteIfExists();
+        //        destinationBlob.StartCopyFromBlob(sourceCloudBlob);
+
+        //        destinationBlob.FetchAttributes();
+        //        //if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
+        //        //    Console.WriteLine("Failed to copy");
+        //    }
+
+
+        //    destinationLocator.Delete();
+        //    writePolicy.Delete();
+
+        //    // Refresh the asset.
+        //    asset = m_Context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
+        //    return asset;
+        //    //At this point, you can create a job using your asset.
+
+        //}
 
         public IAsset CreateAssetFromExistingBlobs(Uri blobUri)
         {

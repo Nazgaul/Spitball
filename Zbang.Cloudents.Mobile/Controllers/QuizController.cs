@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Zbang.Cloudents.Mobile.Filters;
+using Zbang.Cloudents.SiteExtension;
 
 namespace Zbang.Cloudents.Mobile.Controllers
 {

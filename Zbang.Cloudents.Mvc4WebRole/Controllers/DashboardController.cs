@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
@@ -112,7 +113,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var query = new RecommendedCoursesQuery(universityWrapper, User.GetUserId());
             var result = await ZboxReadService.GetRecommendedCourses(query);
-            return JsonOk(result);
+            return JsonOk(result.Select(s => new
+            {
+                s.CourseCode,
+                s.ItemCount,
+                s.MembersCount,
+                s.Name,
+                s.Professor,
+                s.Url
+            }));
         }
 
         [HttpGet]
