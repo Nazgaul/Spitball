@@ -84,30 +84,22 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 null, null, null);
             ZboxWriteService.UpdateUserUniversity(command);
 
-            var user = (ClaimsIdentity)User.Identity;
-            var claimUniversity = user.Claims.SingleOrDefault(w => w.Type == ClaimConsts.UniversityIdClaim);
-            var claimUniversityData = user.Claims.SingleOrDefault(w => w.Type == ClaimConsts.UniversityDataClaim);
 
-            if (claimUniversity != null)
-            {
-                user.RemoveClaim(claimUniversity);
-            }
-            if (claimUniversityData != null)
-            {
-                user.RemoveClaim(claimUniversityData);
-            }
+            var identity = new ClaimsIdentity();
+            identity.AddClaim(new Claim(ClaimConsts.UserIdClaim, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
 
-            user.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+
+            identity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
                     command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
-            user.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+            identity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
                     command.UniversityDataId.HasValue ?
                     command.UniversityDataId.Value.ToString(CultureInfo.InvariantCulture)
                     : command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
 
             var loginResult = new Models.CustomLoginProvider(Handler)
-                    .CreateLoginResult(user, Services.Settings.MasterKey);
+                    .CreateLoginResult(identity, Services.Settings.MasterKey);
 
 
             return Request.CreateResponse(HttpStatusCode.OK, loginResult);

@@ -139,7 +139,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(3);
         private string ExtractContentToUploadToSearch(ItemSearchDto elem)
         {
-            TraceLog.WriteInfo("processing " + elem.Id);
+            TraceLog.WriteInfo("search processing " + elem.Id);
             try
             {
                 var wait = new ManualResetEvent(false);
@@ -198,13 +198,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     TraceLog.WriteError("aborting on elem" + elem);
                     return null;
                 }
-
-
-               
-
                 return str;
-
-
             }
             catch (Exception ex)
             {
@@ -229,7 +223,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 return true;
             }
             return false;
-
         }
 
 

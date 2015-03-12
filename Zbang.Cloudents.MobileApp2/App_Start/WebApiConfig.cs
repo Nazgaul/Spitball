@@ -55,7 +55,7 @@ namespace Zbang.Cloudents.MobileApp2
                 .As<ISearchConnection>()
                 .WithParameter("serviceName",ConfigFetcher.Fetch("AzureSeachServiceName"))
                 .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
-                .WithParameter("isDevelop", true)
+                .WithParameter("isDevelop", false)
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<SendPush>()

@@ -45,7 +45,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                           return Task.FromResult(true);
 
                       }
-                      TraceLog.WriteInfo("Processing file: " + msgData.ItemId);
+                      TraceLog.WriteInfo("Processing from queue file: " + msgData.ItemId);
                       try
                       {
                           return Task.FromResult(PreProcessFile(msgData));
