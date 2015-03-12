@@ -313,7 +313,6 @@
     <Compile Include="Filters\StoreCategoriesAttribute.cs" />
     <Compile Include="Filters\NoUniversityAttribute.cs" />
     <Compile Include="Filters\ValidateAntiForgeryTokenAttribute.cs" />
-    <Compile Include="Filters\ZboxAuthorizeAttribute.cs" />
     <Compile Include="Filters\ZboxHandleErrorAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

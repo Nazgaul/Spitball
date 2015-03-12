@@ -224,6 +224,18 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
             return blob.Uri + queryString;
         }
 
+        public string GenerateReadAccessPermissionToBlob(string blobName)
+        {
+            var blob = GetFile(blobName);
+            var queryString = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+            {
+                Permissions = SharedAccessBlobPermissions.Read,
+                SharedAccessStartTime = DateTime.Now.AddMinutes(-2),
+                SharedAccessExpiryTime = DateTime.Now.AddHours(2)
+            });
+            return blob.Uri + queryString;
+        }
+
         public Task<Stream> GetFaqQuestion()
         {
             throw new NotImplementedException();
@@ -247,6 +259,8 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
             var url = new Uri(blob.Uri, signedUrl);
             return url.AbsoluteUri;
         }
+
+
 
         public string ProfileContainerUrl
         {

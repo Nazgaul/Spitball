@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         [HttpGet]
         [Route("api/item/{itemId:long}/download")]
-        public async Task<HttpResponseMessage> Download(long boxId, long itemId)
+        public async Task<string> Download(long boxId, long itemId)
         {
             //const string defaultMimeType = "application/octet-stream";
             var userId = User.GetCloudentsUserId();
@@ -82,7 +82,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var filedto = item as FileWithDetailDto;
             if (filedto == null) // link
             {
-                return Request.CreateResponse(new { url = item.Blob });
+                return  item.Blob;
             }
             var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
             var t3 = ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);
@@ -98,17 +98,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     }, userId, DateTime.UtcNow));
 
 
-            var t2 = BlobProvider.DownloadFileAsync2(filedto.Blob, CancellationToken.None);
 
-            await Task.WhenAll(t1, t2, t3);
-            var response = Request.CreateResponse();
-            response.Content = new StreamContent(t2.Result);
-            response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
-            {
-                FileName = item.Name
-            };
-
-            return response;
+            await Task.WhenAll(t1,  t3);
+            return BlobUpload.GenerateReadAccessPermissionToBlob(filedto.Blob);
+            
         }
 
         [HttpGet]
