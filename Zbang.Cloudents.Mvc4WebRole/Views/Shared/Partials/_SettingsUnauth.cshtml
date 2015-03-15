@@ -16,7 +16,7 @@
         <li><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })"*@ title="Hebrew Site">@Languages.HebrewName</button></li>
         <li><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })"*@ title="Arabic Site">@Languages.ArabicName</button></li>
         <li class="last"><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })"*@ title="Chinese Site">@Languages.ChineseName</button></li>
-         </ul>
+    </ul>
 }
 
 <aside class="sideBar">
@@ -26,6 +26,7 @@
     <ul>
         <li ng-class="::{currentItem : true}"><a href="~/">@HomeResources.Homepage</a></li>
         <li><a href="@Url.Action("AboutUs", "Home")" target="_self">@HomeResources.AboutCloudents</a></li>
+        <li><a href="@Url.Action("jobs","home")" target="_self">@SharedResources.Jobs</a></li>
         <li><a href="@Url.Action("Help", "Home")" target="_self">@SharedResources.Help</a></li>
         <li><a href="@Url.Action("Privacy", "Home")" target="_self">@FooterResources.PrivacyPolicy</a></li>
         <li><a href="@Url.Action("TermsOfService", "Home")" target="_self">@FooterResources.TermsOfService</a></li>

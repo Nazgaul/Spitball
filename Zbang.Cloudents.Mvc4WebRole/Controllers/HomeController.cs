@@ -85,6 +85,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult Jobs()
         {
+            ViewBag.jobs = "jobs";
             return View();
         }
 

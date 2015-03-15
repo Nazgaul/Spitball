@@ -624,6 +624,125 @@ footer {
   margin-top: 5px;
 }
 /*#endregion */
+/*#region jobs */
+.jobs .staticContent {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+.jobs .siteHeader {
+  width: 1024px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 77px;
+  line-height: 77px;
+  background: none;
+  position: static;
+}
+.jobs .siteLogo {
+  padding: 0;
+}
+.jobs .headerActions {
+  height: 77px;
+  line-height: 77px;
+}
+.jobs .headerActions .btn {
+  background: none;
+  color: #282828;
+  padding: 0 8px;
+  min-width: 0;
+  margin: 0 10px 0 0;
+}
+.jobs .headerActions .btn:hover {
+  background: none;
+  color: #0f9d58;
+}
+.jobs .headerActions .btn:first-child {
+  margin: 0;
+}
+.jobs .headerSettings {
+  width: auto;
+  height: auto;
+}
+.jobs .userNav,
+.jobs .userAnchor {
+  height: 77px;
+}
+.jobs .userNav .userImg,
+.jobs .userNav .userLetter {
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+.jobs .svg-logo,
+.jobs .svg-menu {
+  fill: #0f9d58;
+}
+.jobs .userName {
+  color: #0f9d58;
+  vertical-align: middle;
+  margin: 0 0 0 40px;
+}
+.jobs ul {
+  list-style: disc;
+  padding-left: 18px;
+}
+.jobs li {
+  line-height: 23px;
+}
+.jobs h2 {
+  color: #0f9d58;
+  margin: 20px 0 0;
+}
+.jobs h3 {
+  color: #676767;
+  font-size: 16px;
+  font-weight: normal;
+  margin: 0;
+}
+.jobs p {
+  width: 500px;
+}
+.jobs .title {
+  font-weight: bold;
+  margin-top: 5px;
+}
+.jobsContentWpr {
+  width: 1024px;
+  margin: 0 auto;
+  padding: 0 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.jobsImg {
+  width: 100%;
+  min-width: 1024px;
+  height: 320px;
+  position: relative;
+}
+.jobsImg:before {
+  content: '';
+  display: inline-block;
+  margin: 0 auto;
+  background: url(/Images/hiring.png) center center no-repeat #538583;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+.mail {
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 32px;
+}
+.mail a {
+  color: #0371c8;
+}
+/*#endregion */
 /*#region RTL inconsistencies */
 .rtlFix .policy,
 .rtlFix .terms,
