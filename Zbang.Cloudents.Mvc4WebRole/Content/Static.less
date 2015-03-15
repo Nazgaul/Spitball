@@ -454,7 +454,7 @@ body {
     }
 }
 
-.faqItem {
+.faqItem, .jobItem { //TODO: name class toggleItem
     min-height: 52px;
     position: relative;
     border: 1px solid @borderColor;
@@ -465,22 +465,14 @@ body {
     input[type=checkbox] {
         position: absolute;
         top: 0;
-        //left: 0;
         width: 100%;
         height: 52px;
         opacity: 0;
 
         &:checked {
             ~ .question:after {
-                //background-position: -103px -49px;
                 .flipV;
             }
-            /*~ .answer {
-                padding-top: 25px; //override
-                padding-bottom: 30px; //override
-                border-top: 1px solid @borderColor;
-                /*max-height: 300px;
-            }*/
         }
     }
 }
@@ -504,7 +496,8 @@ body {
         height: 7px;
         position: absolute;
         right: 18px;
-        top: 25px;
+        top: 0;bottom:0;
+        margin: auto;
         background: @common-sprite -98px -49px no-repeat;
     }
 }
@@ -739,7 +732,7 @@ footer {
         line-height: 23px;
     }
     h2 {
-        color: #0f9d58;
+        color: @color;
         margin: 20px 0 0;
     }
     h3 {
@@ -756,12 +749,52 @@ footer {
         margin-top: 5px;
     }
 }
-                   
+.jobsList {
+    margin-top: 28px;
+}
+.jobItem {
+    list-style: none;
+    margin-bottom: 0;
+    border: none;
+    border-bottom: 1px solid @borderColor;
+    border-radius: 0;
+    background: none;
+    min-height: 0; //override
+    &:hover {
+        background: #fff;
+    }
+    .question {
+        color: @color;
+        min-height: 70px;
+        line-height: normal;
+    }
+    input[type=checkbox] {
+        &:checked {
+            ~ .answer {
+                display: block;
+            }
+        }
+    }
+    .jobName {
+        color: @color;
+        padding: 18px 0 2px;
+        .boxSizing;
+        display: inline-block;
+        font-size: 16px;
+    }
+}  
+.jobLoc {
+    color: #676767;
+    font-size: 16px;
+}              
 .jobsContentWpr {
     width: 1024px;
     margin: 0 auto;
     padding: 0 20px;
     .boxSizing;
+    > ul {
+        padding: 0;
+    }
 }
 .jobsImg {
     width: 100%;

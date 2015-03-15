@@ -175,7 +175,7 @@ input[type="radio"][disabled] + label:before {
 /*#endregion */
 /*#region footer code */
 .footer li ~ li:before {
-  content: '|';
+  content: '';
   font-size: 10px;
   height: 15px;
   display: inline-block;

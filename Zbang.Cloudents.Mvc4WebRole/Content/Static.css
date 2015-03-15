@@ -416,7 +416,8 @@ body {
   font-size: 20px;
   margin: 40px 0 20px;
 }
-.faqItem {
+.faqItem,
+.jobItem {
   min-height: 52px;
   position: relative;
   border: 1px solid #c2c2c2;
@@ -424,22 +425,16 @@ body {
   margin-bottom: 5px;
   background: #fff;
 }
-.faqItem input[type=checkbox] {
+.faqItem input[type=checkbox],
+.jobItem input[type=checkbox] {
   position: absolute;
   top: 0;
   width: 100%;
   height: 52px;
   opacity: 0;
 }
-.faqItem input[type=checkbox]:checked {
-  /*~ .answer {
-                padding-top: 25px; //override
-                padding-bottom: 30px; //override
-                border-top: 1px solid @borderColor;
-                /*max-height: 300px;
-            }*/
-}
-.faqItem input[type=checkbox]:checked ~ .question:after {
+.faqItem input[type=checkbox]:checked ~ .question:after,
+.jobItem input[type=checkbox]:checked ~ .question:after {
   -moz-transform: scaleY(-1);
   -webkit-transform: scaleY(-1);
   -o-transform: scaleY(-1);
@@ -464,7 +459,9 @@ body {
   height: 7px;
   position: absolute;
   right: 18px;
-  top: 25px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
   background: url(/Images/common27-sprite.png?v=1) -98px -49px no-repeat;
 }
 .answer {
@@ -707,6 +704,42 @@ footer {
   font-weight: bold;
   margin-top: 5px;
 }
+.jobsList {
+  margin-top: 28px;
+}
+.jobItem {
+  list-style: none;
+  margin-bottom: 0;
+  border: none;
+  border-bottom: 1px solid #c2c2c2;
+  border-radius: 0;
+  background: none;
+  min-height: 0;
+}
+.jobItem:hover {
+  background: #fff;
+}
+.jobItem .question {
+  color: #0f9d58;
+  min-height: 70px;
+  line-height: normal;
+}
+.jobItem input[type=checkbox]:checked ~ .answer {
+  display: block;
+}
+.jobItem .jobName {
+  color: #0f9d58;
+  padding: 18px 0 2px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 16px;
+}
+.jobLoc {
+  color: #676767;
+  font-size: 16px;
+}
 .jobsContentWpr {
   width: 1024px;
   margin: 0 auto;
@@ -714,6 +747,9 @@ footer {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.jobsContentWpr > ul {
+  padding: 0;
 }
 .jobsImg {
   width: 100%;
