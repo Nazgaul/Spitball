@@ -136,7 +136,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 //{
                 //    await m_Connection.IndexManagement.DeleteIndexAsync(m_IndexName);
                 //}
-                await BuildIndex();
+                //await BuildIndex();
             }
             var listOfCommands = new List<IndexOperation>();
             if (itemToUpload != null)

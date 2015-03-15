@@ -46,23 +46,21 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             try
             {
                 var query = new GetUserByEmailQuery(loginRequest.Email);
+
+                var user = await UserManager.FindByEmailAsync(loginRequest.Email);
+
+                //await Task.WhenAll(tSystemData, tUserIdentity);
+
+               
                 var tSystemData = ZboxReadService.GetUserDetailsByEmail(query);
-                var tUserIdentity = UserManager.FindByEmailAsync(loginRequest.Email);
-
-                await Task.WhenAll(tSystemData, tUserIdentity);
-
-                var user = tUserIdentity.Result;
-                if (user == null)
-                {
-                    return Request.CreateBadRequestResponse();
-                }
+                var tLogIn = UserManager.CheckPasswordAsync(user, loginRequest.Password);
+                await Task.WhenAll(tSystemData, tLogIn);
                 var systemUser = tSystemData.Result;
                 if (systemUser == null)
                 {
                     return Request.CreateBadRequestResponse();
                 }
-
-                if (await UserManager.CheckPasswordAsync(user, loginRequest.Password))
+                if (tLogIn.Result)
                 {
                     var identity = await user.GenerateUserIdentityAsync(UserManager, systemUser.Id, systemUser.UniversityId,
                          systemUser.UniversityData);

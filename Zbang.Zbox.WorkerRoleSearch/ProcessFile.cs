@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
@@ -19,9 +16,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         readonly private IZboxWriteService m_ZboxWriteService;
         private readonly IQueueProviderExtract m_QueueProvider;
-        //private readonly QueueProcess m_QueueProcess;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private int m_TimeToSleep = 1;
+
+        private const string PrefixLog = "FileProcess";
 
         public ProcessFile(IZboxWriteService zboxWriteService, IFileProcessorFactory fileProcessorFactory, IQueueProviderExtract queueProvider)
         {
@@ -32,20 +30,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task Run(CancellationToken cancellationToken)
         {
-
+            TraceLog.WriteInfo(PrefixLog, "run job process file ");
             var cacheQueueName = new CacheQueueName();
             while (!cancellationToken.IsCancellationRequested)
             {
+                TraceLog.WriteInfo(PrefixLog, "starting update process file cycle");
                 var result = await m_QueueProvider.RunQueueAsync(cacheQueueName, msg =>
                   {
                       var msgData = msg.FromMessageProto<FileProcessData>();
                       if (msgData == null)
                       {
-                          TraceLog.WriteInfo("GenerateDocumentCache - message is not in the correct format ");
+                          TraceLog.WriteInfo(PrefixLog, "GenerateDocumentCache - message is not in the correct format ");
                           return Task.FromResult(true);
 
                       }
-                      TraceLog.WriteInfo("Processing from queue file: " + msgData.ItemId);
+                      TraceLog.WriteInfo(PrefixLog, "Processing from queue file: " + msgData.ItemId);
                       try
                       {
                           return Task.FromResult(PreProcessFile(msgData));
@@ -67,11 +66,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 if (result)
                 {
                     m_TimeToSleep = 1;
+                    TraceLog.WriteInfo(PrefixLog, "finish update process file cycle with result sleeping:" + m_TimeToSleep);
                     await Task.Delay(TimeSpan.FromSeconds(m_TimeToSleep), cancellationToken);
                 }
                 else
                 {
                     m_TimeToSleep = m_TimeToSleep * 2;
+                    TraceLog.WriteInfo(PrefixLog, "finish update process file cycle without result sleeping: " + m_TimeToSleep);
                     await Task.Delay(TimeSpan.FromSeconds(m_TimeToSleep), cancellationToken);
                 }
             }

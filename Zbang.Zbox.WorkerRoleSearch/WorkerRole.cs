@@ -100,8 +100,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 return new List<IJob>
                 {
-                   // m_Unity.Resolve<IJob>(IocFactory.UpdateSearch),
-                    m_Unity.Resolve<IJob>(IocFactory.PreProcessFiles)
+                    m_Unity.Resolve<IJob>(IocFactory.UpdateSearch),
+                    //m_Unity.Resolve<IJob>(IocFactory.PreProcessFiles)
                 };
             }
             return new List<IJob>

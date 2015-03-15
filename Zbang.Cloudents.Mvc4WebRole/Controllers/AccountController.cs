@@ -640,6 +640,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
                     return View(model);
                 }
+                
                 var user = tUser.Result;
                 //var tResult = ZboxReadService.GetUserDetailsByMembershipId(query);
                 var identitylinkData = await m_UserManager.GeneratePasswordResetTokenAsync(user.Id);

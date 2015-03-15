@@ -60,6 +60,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.Image,
                 s.Name,
                 s.Id
+                
             }));
         }
 

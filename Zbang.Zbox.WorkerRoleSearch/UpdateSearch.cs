@@ -8,7 +8,6 @@ using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
-using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -22,18 +21,18 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
         private readonly IBoxWriteSearchProvider m_BoxSearchProvider;
-        //private readonly IItemWriteSearchProvider m_ItemSearchProvider;
         private readonly IZboxWriteService m_ZboxWriteService;
         private readonly IQuizWriteSearchProvider m_QuizSearchProvider;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IItemWriteSearchProvider2 m_ItemSearchProvider2;
         private readonly ICloudBlockProvider m_BlobProvider;
 
+        private const string PrefixLog = "Search";
+
         public UpdateSearch(IZboxReadServiceWorkerRole zboxReadService,
             IUniversityWriteSearchProvider2 zboxWriteSearchProvider,
             IZboxWriteService zboxWriteService,
             IBoxWriteSearchProvider boxSearchProvider,
-            //IItemWriteSearchProvider itemSearchProvider,
             IQuizWriteSearchProvider quizSearchProvider,
             IFileProcessorFactory fileProcessorFactory,
             IItemWriteSearchProvider2 itemSearchProvider2, ICloudBlockProvider blobProvider)
@@ -42,7 +41,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_UniversitySearchProvider = zboxWriteSearchProvider;
             m_ZboxWriteService = zboxWriteService;
             m_BoxSearchProvider = boxSearchProvider;
-            //m_ItemSearchProvider = itemSearchProvider;
             m_QuizSearchProvider = quizSearchProvider;
             m_FileProcessorFactory = fileProcessorFactory;
             m_ItemSearchProvider2 = itemSearchProvider2;
@@ -51,23 +49,33 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task Run(CancellationToken cancellationToken)
         {
+            TraceLog.WriteInfo(PrefixLog, "run job search update ");
             var index = GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
-            TraceLog.WriteInfo("index: " + index + " count " + count);
+            TraceLog.WriteInfo(PrefixLog, "index: " + index + " count " + count);
             while (!cancellationToken.IsCancellationRequested)
             {
                 try
                 {
-                    var tQuizUpdate =  UpdateQuiz();
-                    var tItemUpdate =  UpdateItem(index, count);
-                    var tUniversityUpdate =  UpdateUniversity();
-                    var tBoxUpdate =  UpdateBox();
-                    await Task.WhenAll(tQuizUpdate, tItemUpdate, tUniversityUpdate, tBoxUpdate);
-                    if (tItemUpdate.Result
-                        || tBoxUpdate.Result || tUniversityUpdate.Result || tQuizUpdate.Result)
+                    TraceLog.WriteInfo(PrefixLog, "starting update search cycle");
+                    var tQuizUpdate = UpdateQuiz();
+                    var tItemUpdate = UpdateItem(index, count);
+                    var tUniversityUpdate = UpdateUniversity();
+                    var tBoxUpdate = UpdateBox();
+                    await Task.WhenAll(
+                        tQuizUpdate,
+                        tItemUpdate,
+                        tUniversityUpdate,
+                        tBoxUpdate
+                        );
+
+                    if (tItemUpdate.Result)
+                    // || tBoxUpdate.Result || tUniversityUpdate.Result || tQuizUpdate.Result)
                     {
+                        TraceLog.WriteInfo(PrefixLog, "finish update search cycle invoking new cycle");
                         return;
                     }
+                    TraceLog.WriteInfo(PrefixLog, "finish update search cycle going to sleep");
                     await Task.Delay(TimeSpan.FromMinutes(5), cancellationToken);
                 }
                 catch (Exception ex)
@@ -91,13 +99,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return currentIndex;
         }
 
-       
+
 
         private async Task<bool> UpdateQuiz()
         {
+            TraceLog.WriteInfo(PrefixLog, "working on quiz");
             var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync();
             if (updates.QuizzesToUpdate.Any() || updates.QuizzesToDelete.Any())
             {
+                TraceLog.WriteInfo(PrefixLog, string.Format("quiz updating {0} deleting {1}", updates.QuizzesToUpdate.Count(),
+                    updates.QuizzesToDelete.Count()));
                 var isSuccess =
                     await m_QuizSearchProvider.UpdateData(updates.QuizzesToUpdate, updates.QuizzesToDelete);
                 if (isSuccess)
@@ -108,15 +119,27 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 return true;
             }
+            TraceLog.WriteInfo(PrefixLog, "nothing on quiz");
             return false;
         }
 
         private async Task<bool> UpdateItem(int instanceId, int instanceCount)
         {
+            TraceLog.WriteInfo(PrefixLog, "working on item");
+            //var updates = new ItemToUpdateSearchDto
+            //{
+            //    ItemsToUpdate = new List<ItemSearchDto>
+            //    {
+            //        new ItemSearchDto {Id = 291153, BlobName = "12e5fe33-aca7-4aee-b194-2c99a0739d04.docx"}
+            //    },
+            //    ItemsToDelete = new List<long>()
+
+            //};
             var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(instanceId, instanceCount);
             if (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
             {
-
+                TraceLog.WriteInfo(PrefixLog, string.Format("item updating {0} deleting {1}", updates.ItemsToUpdate.Count(),
+                    updates.ItemsToDelete.Count()));
                 foreach (var elem in updates.ItemsToUpdate)
                 {
                     elem.Content = ExtractContentToUploadToSearch(elem);
@@ -132,14 +155,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 return true;
             }
-            TraceLog.WriteInfo("nothing to work on");
+            TraceLog.WriteInfo(PrefixLog, "nothing on item");
             return false;
         }
 
         readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(3);
         private string ExtractContentToUploadToSearch(ItemSearchDto elem)
         {
-            TraceLog.WriteInfo("search processing " + elem.Id);
+            TraceLog.WriteInfo(PrefixLog, "search processing " + elem);
             try
             {
                 var wait = new ManualResetEvent(false);
@@ -158,6 +181,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     {
 
                         str = await processor.ExtractContent(blob.Uri, tokenSource.Token);
+                        TraceLog.WriteInfo(PrefixLog, "finish extract document content on elem" + elem);
                         if (string.IsNullOrEmpty(str))
                         {
                             wait.Set();
@@ -165,7 +189,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         }
                         var sb = new StringBuilder();
                         int byteCount = 0;
-                        char[] buffer = new char[1];
+                        var buffer = new char[1];
                         foreach (var ch in str)
                         {
                             if (char.IsSurrogate(ch))
@@ -195,9 +219,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 if (!signal)
                 {
                     work.Abort();
-                    TraceLog.WriteError("aborting on elem" + elem);
+                    TraceLog.WriteError("aborting returning null on elem " + elem);
                     return null;
                 }
+                TraceLog.WriteInfo(PrefixLog, "returning result" + elem);
                 return str;
             }
             catch (Exception ex)
@@ -209,9 +234,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<bool> UpdateBox()
         {
+            TraceLog.WriteInfo(PrefixLog, "working on box");
             var updates = await m_ZboxReadService.GetBoxDirtyUpdates();
             if (updates.BoxesToUpdate.Any() || updates.BoxesToDelete.Any())
             {
+                TraceLog.WriteInfo(PrefixLog, string.Format("box updating {0} deleting {1}", updates.BoxesToUpdate.Count(),
+                    updates.BoxesToDelete.Count()));
                 var isSuccess =
                     await m_BoxSearchProvider.UpdateData(updates.BoxesToUpdate, updates.BoxesToDelete);
                 if (isSuccess)
@@ -220,8 +248,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         new UpdateDirtyToRegularCommand(
                             updates.BoxesToDelete.Union(updates.BoxesToUpdate.Select(s => s.Id))));
                 }
+
                 return true;
             }
+            TraceLog.WriteInfo(PrefixLog, "nothing on box");
             return false;
         }
 
@@ -229,9 +259,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<bool> UpdateUniversity()
         {
+            TraceLog.WriteInfo(PrefixLog, "working on university");
             var updates = await m_ZboxReadService.GetUniversityDirtyUpdates();
             if (updates.UniversitiesToDelete.Any() || updates.UniversitiesToUpdate.Any())
             {
+                TraceLog.WriteInfo(PrefixLog, string.Format("university updating {0} deleting {1}", updates.UniversitiesToUpdate.Count(),
+                    updates.UniversitiesToDelete.Count()));
                 var isSuccess =
                     await m_UniversitySearchProvider.UpdateData(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);
                 if (isSuccess)
@@ -242,9 +275,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 return true;
             }
+            TraceLog.WriteInfo(PrefixLog, "nothing on university");
             return false;
         }
 
-       
+
     }
 }

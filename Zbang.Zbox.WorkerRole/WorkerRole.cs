@@ -48,8 +48,6 @@ namespace Zbang.Zbox.WorkerRole
             {
                 TraceLog.WriteError("Status is busy");
             }
-            Trace.TraceWarning("Status changed " + e.Status.ToString("g"));
-           
         }
 
         private IEnumerable<IJob> CreateJobProcessors()

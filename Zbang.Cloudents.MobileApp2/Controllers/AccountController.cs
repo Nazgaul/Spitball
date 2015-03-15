@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -11,6 +12,9 @@ using Zbang.Cloudents.MobileApp2.DataObjects;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Security;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
 
@@ -25,6 +29,9 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IZboxWriteService ZboxWriteService { get; set; }
 
         public IServiceTokenHandler Handler { get; set; }
+
+        public ApplicationUserManager UserManager { get; set; }
+        public IQueueProvider QueueProvider { get; set; }
 
         // GET api/Account
         [HttpGet]
@@ -103,6 +110,80 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
 
             return Request.CreateResponse(HttpStatusCode.OK, loginResult);
+        }
+
+
+        [HttpPost]
+        [Route("api/account/resetPassword")]
+        public async Task<HttpResponseMessage> ResetPassword(ResetPasswordRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            var query = new GetUserByEmailQuery(model.Email);
+            var tUser = UserManager.FindByEmailAsync(model.Email);
+            var tResult = ZboxReadService.GetUserDetailsByEmail(query);
+
+            await Task.WhenAll(tUser, tResult);
+            if (tUser.Result == null && tResult.Result != null)
+            {
+                return Request.CreateBadRequestResponse("You have registered to Cloudents through Facebook -- go to the homepage and click on the Facebook button to register");
+            }
+            if (tUser.Result == null)
+            {
+                return Request.CreateBadRequestResponse("email doesn't exists");
+            }
+            if (tResult.Result == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            var user = tUser.Result;
+            var identitylinkData = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            var code = RandomString(10);
+            await QueueProvider.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, identitylinkData, tResult.Result.Name.Split(' ')[0], model.Email, tResult.Result.Culture));
+
+            return Request.CreateResponse(new { code, resetToken = identitylinkData, user.Id });
+        }
+
+        [HttpPost]
+        [Route("api/account/passwordUpdate")]
+        public async Task<HttpResponseMessage> PasswordUpdate(PasswordUpdateRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+
+            var result = await UserManager.ResetPasswordAsync(model.UserId, model.ResetToken, model.NewPassword);
+
+            if (result.Succeeded)
+            {
+                var query = new GetUserByMembershipQuery(Guid.Parse(model.UserId));
+                var tSystemUser = ZboxReadService.GetUserDetailsByMembershipId(query);
+
+                var tUser = UserManager.FindByIdAsync(model.UserId);
+                await Task.WhenAll(tSystemUser, tUser);
+
+                var identity = await tUser.Result.GenerateUserIdentityAsync(UserManager, tSystemUser.Result.Id,
+                       tSystemUser.Result.UniversityId, tSystemUser.Result.UniversityData);
+                var loginResult = new Models.CustomLoginProvider(Handler)
+                        .CreateLoginResult(identity, Services.Settings.MasterKey);
+                return Request.CreateResponse(HttpStatusCode.OK, loginResult);
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, new HttpError("something went wrong, try again later"));
+        }
+
+
+
+        private string RandomString(int size)
+        {
+            var random = new Random();
+            const string input = "0123456789";
+            var chars = Enumerable.Range(0, size)
+                                   .Select(x => input[random.Next(0, input.Length)]);
+            return new string(chars.ToArray());
+            //return "12345";
         }
 
     }
