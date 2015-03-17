@@ -51,7 +51,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var result = await ZboxReadService.GetRecommendedCourses(query);
             return Request.CreateResponse(result.Select(s => new
             {
-                s.BoxId,
+                Id = s.BoxId,
                 s.Professor,
                 s.CourseCode,
                 s.Name,
