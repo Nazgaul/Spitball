@@ -83,6 +83,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task RunAsync(CancellationToken cancellationToken)
         {
+
             var jobs = GetJob();
             // TODO: Replace the following with your own logic.
             while (!cancellationToken.IsCancellationRequested)

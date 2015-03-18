@@ -123,6 +123,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Zbox.Infrastructure.N
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Zbox.Infrastructure.StorageApp", "Zbang.Zbox.Infrastructure.StorageApp\Zbang.Zbox.Infrastructure.StorageApp.csproj", "{2E9E02CF-7AF8-4AB5-A8B8-829D169EF61F}"
 EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Zbang.Cloudents.Cloud.BackgroundWorker2", "Zbang.Cloudents.Cloud.BackgroundWorker2\Zbang.Cloudents.Cloud.BackgroundWorker2.ccproj", "{DD6289C1-67B6-4E08-A261-40BF46ACBC93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -1243,6 +1245,31 @@ Global
 		{2E9E02CF-7AF8-4AB5-A8B8-829D169EF61F}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2E9E02CF-7AF8-4AB5-A8B8-829D169EF61F}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
 		{2E9E02CF-7AF8-4AB5-A8B8-829D169EF61F}.SingleImage|x86.ActiveCfg = Release|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.CD_ROM|x86.ActiveCfg = Release|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.Release|x86.ActiveCfg = Release|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.SingleImage|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1296,6 +1323,7 @@ Global
 		{C94D41A5-62ED-4310-BDB2-0CC6BFB8986C} = {EDC210D9-AF1F-42CB-B44A-E9AEDA8511C2}
 		{20D10149-03BF-4C32-ABE4-D278A46CAD7F} = {F7B23167-AD4A-4FF4-ABDE-ACB6E2746F4E}
 		{2E9E02CF-7AF8-4AB5-A8B8-829D169EF61F} = {F7B23167-AD4A-4FF4-ABDE-ACB6E2746F4E}
+		{DD6289C1-67B6-4E08-A261-40BF46ACBC93} = {B3E23D7B-5670-4C30-85BF-0094713146B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.2.1.505.2\lib\NET35;packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4

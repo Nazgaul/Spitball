@@ -69,14 +69,20 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         tBoxUpdate
                         );
 
-                    if (tItemUpdate.Result)
-                    // || tBoxUpdate.Result || tUniversityUpdate.Result || tQuizUpdate.Result)
+                    if (tItemUpdate.Result
+                        || tBoxUpdate.Result
+                        || tUniversityUpdate.Result
+                        || tQuizUpdate.Result
+                        )
                     {
                         TraceLog.WriteInfo(PrefixLog, "finish update search cycle invoking new cycle");
-                        return;
+
                     }
-                    TraceLog.WriteInfo(PrefixLog, "finish update search cycle going to sleep");
-                    await Task.Delay(TimeSpan.FromMinutes(5), cancellationToken);
+                    else
+                    {
+                        TraceLog.WriteInfo(PrefixLog, "finish update search cycle going to sleep");
+                        await Task.Delay(TimeSpan.FromMinutes(5), cancellationToken);
+                    }
                 }
                 catch (Exception ex)
                 {

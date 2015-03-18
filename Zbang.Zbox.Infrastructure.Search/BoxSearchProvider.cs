@@ -135,7 +135,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             var sw = new Stopwatch();
             sw.Start();
             var searchResult = await m_Connection.IndexQuery.SearchAsync(m_IndexName,
-                new SearchQuery(query.Term)
+                new SearchQuery(query.Term + "*")
                 {
                     Filter = string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityidField, UseridsField, query.UniversityId, query.UserId),
                     Top = query.RowsPerPage,
@@ -143,6 +143,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     //Highlight = ProfessorField + "," + CourseField
                 }, cancelToken);
             sw.Stop();
+            TraceLog.WriteInfo(m_IndexName);
             TraceLog.WriteInfo("box search took: " + sw.ElapsedMilliseconds + " " + query.Term);
             if (!searchResult.IsSuccess)
             {
