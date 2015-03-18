@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.title = ViewBag.title ?? "Cloudents";
+    ViewBag.jobs = @ViewBag.jobs ?? "";
 }
 
 <!DOCTYPE html>
@@ -33,7 +34,7 @@
     @*@Html.CssRtl("staticRtl")*@
     @Html.CssCulture("lang")
 </head>
-<body class="@Html.ClassOfRtl()">
+<body class="@Html.ClassOfRtl() @ViewBag.jobs">
     <!--[if IE]>
     <script>
         if (!window.document.documentMode || window.document.documentMode < 9) {

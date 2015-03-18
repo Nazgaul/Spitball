@@ -454,7 +454,7 @@ body {
     }
 }
 
-.faqItem {
+.faqItem, .jobItem { //TODO: name class toggleItem
     min-height: 52px;
     position: relative;
     border: 1px solid @borderColor;
@@ -465,22 +465,14 @@ body {
     input[type=checkbox] {
         position: absolute;
         top: 0;
-        //left: 0;
         width: 100%;
         height: 52px;
         opacity: 0;
 
         &:checked {
             ~ .question:after {
-                //background-position: -103px -49px;
                 .flipV;
             }
-            /*~ .answer {
-                padding-top: 25px; //override
-                padding-bottom: 30px; //override
-                border-top: 1px solid @borderColor;
-                /*max-height: 300px;
-            }*/
         }
     }
 }
@@ -504,7 +496,8 @@ body {
         height: 7px;
         position: absolute;
         right: 18px;
-        top: 25px;
+        top: 0;bottom:0;
+        margin: auto;
         background: @common-sprite -98px -49px no-repeat;
     }
 }
@@ -672,6 +665,168 @@ footer {
     }
 }
 /*#endregion */
+
+/*#region jobs */
+.jobs {
+    .staticContent {
+        margin: 0; //override
+        padding: 0; //override
+        text-align: left; //override
+    }
+    .siteHeader {
+        width: 1024px;
+        margin: 0 auto;
+        padding: 0 20px;
+        height: 77px;
+        line-height: 77px;
+        background: none;
+        position: static;
+    }
+    .siteLogo {
+        padding:0;
+    }
+    .headerActions {
+        height: 77px;
+        line-height: 77px;
+        .btn {
+            background: none;
+            color: #282828;
+            padding: 0 8px;
+            min-width: 0;
+            margin: 0 10px 0 0;
+            &:hover {
+                background: none;
+                color: @color;
+            }
+            &:first-child {
+                margin: 0;
+            }
+        }
+    }
+    .headerSettings {
+        width: auto;
+        height: auto;
+    }
+    .userNav, .userAnchor {
+        height: 77px;
+    }
+    .userNav {
+        .userImg, .userLetter {
+            margin: auto;
+            top:0;bottom: 0;
+        }
+    }
+    .svg-logo, .svg-menu {
+        fill: @color;
+    }
+    .userName {
+        color: @color;
+        vertical-align: middle;
+        margin: 0 0 0 40px;
+    }
+    ul {
+        list-style: disc;
+        padding-left: 18px;
+    }
+    li {
+        line-height: 23px;
+    }
+    h2 {
+        color: @color;
+        margin: 20px 0 0;
+    }
+    h3 {
+        color: #676767;
+        font-size: 16px;
+        font-weight: normal;
+        margin:0;
+    }
+    p {
+        width: 500px;
+    }
+    .title {
+        font-weight: bold;
+        margin-top: 5px;
+    }
+}
+.jobsList {
+    margin-top: 28px;
+}
+.jobItem {
+    list-style: none;
+    margin-bottom: 0;
+    border: none;
+    border-bottom: 1px solid @borderColor;
+    border-radius: 0;
+    background: none;
+    min-height: 0; //override
+    &:hover {
+        background: #fff;
+    }
+    .question {
+        color: @color;
+        min-height: 70px;
+        line-height: normal;
+    }
+    input[type=checkbox] {
+        &:checked {
+            ~ .answer {
+                display: block;
+            }
+        }
+    }
+    .jobName {
+        color: @color;
+        padding: 18px 0 2px;
+        .boxSizing;
+        display: inline-block;
+        font-size: 16px;
+    }
+}  
+.jobLoc {
+    color: #676767;
+    font-size: 16px;
+}              
+.jobsContentWpr {
+    width: 1024px;
+    margin: 0 auto;
+    padding: 0 20px;
+    .boxSizing;
+    > ul {
+        padding: 0;
+    }
+}
+.jobsImg {
+    width: 100%;
+    min-width: 1024px;
+    height: 320px;
+    position: relative;
+    &:before {
+        .pseudo;
+        margin: 0 auto;
+        background: url(/Images/hiring.png) center center no-repeat #538583;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: -1;
+    } 
+}
+
+.mail {
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 32px;
+    a {
+        color: @attentionBlue; //override
+    }
+}
+
+
+/*#endregion */
+
 
 /*#region RTL inconsistencies */
 .rtlFix {

@@ -606,4 +606,7 @@ Cloudents Quizzes - Create, share, practice and be prepared for your exams!
   <data name="Unfollow" xml:space="preserve">
     <value>Unfollow</value>
   </data>
+  <data name="Jobs" xml:space="preserve">
+    <value>Jobs</value>
+  </data>
 </root>

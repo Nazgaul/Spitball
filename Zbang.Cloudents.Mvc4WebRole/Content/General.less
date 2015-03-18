@@ -197,9 +197,14 @@ input[type="radio"] {
 .footer {
     li {
         ~ li:before {
-            content: '|';
+            content: '';
             font-size: 10px;
-            padding: 0 3px 0 6px;
+            height: 15px;
+            display: inline-block;
+            vertical-align: text-bottom;
+            width: 1px;
+            background: #676767;
+            margin: 0 8px 0 4px;
         }
     }
 }

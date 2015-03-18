@@ -175,9 +175,14 @@ input[type="radio"][disabled] + label:before {
 /*#endregion */
 /*#region footer code */
 .footer li ~ li:before {
-  content: '|';
+  content: '';
   font-size: 10px;
-  padding: 0 3px 0 6px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: text-bottom;
+  width: 1px;
+  background: #676767;
+  margin: 0 8px 0 4px;
 }
 /*#endregion */
 /*#region Site buttons */
