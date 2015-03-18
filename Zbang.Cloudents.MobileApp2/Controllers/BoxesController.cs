@@ -59,6 +59,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.Name,
                 s.MembersCount,
                 s.ItemCount
+                //this is always a course
             }));
         }
 
