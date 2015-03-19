@@ -797,27 +797,12 @@ input[type="radio"][disabled] + label:before {
 }
 /*#endregion */
 /*#region jobs */
-.lFloat {
-  float: right;
+.jobs .svg-logo {
+  fill: #0f9d58;
 }
-.rFloat {
-  float: left;
-}
-.jobsTopWpr,
 .jobsContentWpr {
   width: 1024px;
   margin: 0 auto;
-}
-.jobsTopWpr {
-  height: 77px;
-  line-height: 77px;
-}
-.svg-logo {
-  fill: #0f9d58;
-  width: 183px;
-  height: 31px;
-  position: relative;
-  top: 10px;
 }
 .jobsImg {
   width: 100%;
@@ -1822,15 +1807,15 @@ svg.color8 {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.editable {
-  white-space: nowrap;
-  width: 100%;
-  overflow: hidden;
-  height: 25px;
-  border: none;
-  outline: none;
-  cursor: text !important;
-}
+/*.editable {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    height: 25px; // prevents linebreaks even if user pastes formatted text inside
+    border: none;
+    outline: none;
+    cursor: text !important;
+}*/
 select.inputText {
   padding: 2px 2px 2px 3px;
   display: inline-block;
@@ -1863,6 +1848,25 @@ select.inputText {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.cloudIcon {
+  position: relative;
+  width: 120px;
+  height: 100px;
+  margin: 0 auto 10px;
+}
+.cloudIcon svg {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.cloudIcon .svg-notification {
+  width: 52px;
+  height: 57px;
+  padding-bottom: 10px;
 }
 .scrolling .barShadow {
   box-shadow: -2px 3px 7px rgba(0, 0, 0, 0.15);

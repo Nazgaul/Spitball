@@ -177,6 +177,9 @@
   <data name="NewPwd" xml:space="preserve">
     <value>New password</value>
   </data>
+  <data name="NoNoifications" xml:space="preserve">
+    <value>Using Cloudents notification system you will be updated of what is going on in the courses you follow.</value>
+  </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
   </data>
