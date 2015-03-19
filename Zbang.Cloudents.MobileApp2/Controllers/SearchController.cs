@@ -59,7 +59,6 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var retVal = await ItemSearchService.SearchItem(query, default(CancellationToken)) ?? new List<SearchItems>();
             return Request.CreateResponse(retVal.Select(s => new
             {
-                s.Image,
                 s.Name,
                 s.Id
                 
