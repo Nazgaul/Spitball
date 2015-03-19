@@ -36,7 +36,6 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         // GET api/Account
         [HttpGet]
         [Route("api/account/details")]
-
         public async Task<HttpResponseMessage> Details()
         {
             var retVal = await ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetCloudentsUserId()));
@@ -54,11 +53,23 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             });
         }
 
+        [HttpGet]
+        [Route("api/account/university/russianDepartments")]
+        public async Task<HttpResponseMessage> RussianDepartments()
+        {
+            var retVal = await ZboxReadService.GetRussianDepartmentList(984);
+            return Request.CreateResponse(retVal);
+        }
+
         [HttpPost]
         [Route("api/account/university")]
         public async Task<HttpResponseMessage> UpdateUniversity(UpdateUniversityRequest model)
         {
             if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
             {
                 return Request.CreateBadRequestResponse();
             }
@@ -115,9 +126,14 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         [HttpPost]
         [Route("api/account/resetPassword")]
+        [AuthorizeLevel(AuthorizationLevel.Application)]
         public async Task<HttpResponseMessage> ResetPassword(ResetPasswordRequest model)
         {
             if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
             {
                 return Request.CreateBadRequestResponse();
             }
@@ -148,35 +164,39 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         [HttpPost]
         [Route("api/account/passwordUpdate")]
+        [AuthorizeLevel(AuthorizationLevel.Application)]
         public async Task<HttpResponseMessage> PasswordUpdate(PasswordUpdateRequest model)
         {
             if (model == null)
             {
                 return Request.CreateBadRequestResponse();
             }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
 
             var result = await UserManager.ResetPasswordAsync(model.UserId, model.ResetToken, model.NewPassword);
 
-            if (result.Succeeded)
-            {
-                var query = new GetUserByMembershipQuery(Guid.Parse(model.UserId));
-                var tSystemUser = ZboxReadService.GetUserDetailsByMembershipId(query);
+            if (!result.Succeeded)
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError,
+                    new HttpError("something went wrong, try again later"));
+            var query = new GetUserByMembershipQuery(Guid.Parse(model.UserId));
+            var tSystemUser = ZboxReadService.GetUserDetailsByMembershipId(query);
 
-                var tUser = UserManager.FindByIdAsync(model.UserId);
-                await Task.WhenAll(tSystemUser, tUser);
+            var tUser = UserManager.FindByIdAsync(model.UserId);
+            await Task.WhenAll(tSystemUser, tUser);
 
-                var identity = await tUser.Result.GenerateUserIdentityAsync(UserManager, tSystemUser.Result.Id,
-                       tSystemUser.Result.UniversityId, tSystemUser.Result.UniversityData);
-                var loginResult = new Models.CustomLoginProvider(Handler)
-                        .CreateLoginResult(identity, Services.Settings.MasterKey);
-                return Request.CreateResponse(HttpStatusCode.OK, loginResult);
-            }
-            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, new HttpError("something went wrong, try again later"));
+            var identity = await tUser.Result.GenerateUserIdentityAsync(UserManager, tSystemUser.Result.Id,
+                tSystemUser.Result.UniversityId, tSystemUser.Result.UniversityData);
+            var loginResult = new Models.CustomLoginProvider(Handler)
+                .CreateLoginResult(identity, Services.Settings.MasterKey);
+            return Request.CreateResponse(HttpStatusCode.OK, loginResult);
         }
 
 
 
-        private string RandomString(int size)
+        private static string RandomString(int size)
         {
             var random = new Random();
             const string input = "0123456789";

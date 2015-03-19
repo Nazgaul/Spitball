@@ -307,6 +307,27 @@
 }
 /*#endregion */
 /*#region notifications */
+.notifications.emptyState .boxesList {
+  display: none;
+}
+.notifications.emptyState .empty {
+  display: block;
+}
+.notifications .empty {
+  display: none;
+  font-size: 15px;
+  margin: 0 auto;
+  margin-top: 27vh;
+  text-align: center;
+  width: 375px;
+}
+.notifications .svg-notificationCloud {
+  fill: #d1294d;
+  padding: 0;
+}
+.notifications .svg-notification {
+  fill: #fff;
+}
 .notifications .settingsBox {
   display: inline-block;
   width: 310px;

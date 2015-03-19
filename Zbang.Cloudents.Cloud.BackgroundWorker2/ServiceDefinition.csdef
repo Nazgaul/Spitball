@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceDefinition name="Zbang.Cloudents.Cloud.BackgroundWorker2" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2014-06.2.4">
+  <WorkerRole name="Zbang.Zbox.WorkerRoleSearch" vmsize="Small">
+    <Imports>
+      <Import moduleName="RemoteAccess" />
+      <Import moduleName="RemoteForwarder" />
+    </Imports>
+    <ConfigurationSettings>
+      <Setting name="StorageConnectionString" />
+      <Setting name="StorageCdnEndpoint" />
+      <Setting name="ZBox" />
+      <Setting name="AzureSearchKey" />
+      <Setting name="AzureSeachServiceName" />
+    </ConfigurationSettings>
+    <LocalResources>
+      <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="222000" />
+    </LocalResources>
+  </WorkerRole>
+</ServiceDefinition>

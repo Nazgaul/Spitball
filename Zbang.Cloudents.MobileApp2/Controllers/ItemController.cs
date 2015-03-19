@@ -133,13 +133,13 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         }
 
-        public async Task<HttpResponseMessage> Delete(DeleteItemRequest model)
+        public async Task<HttpResponseMessage> Delete(long itemId, long boxId)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateBadRequestResponse();
             }
-            var command = new DeleteItemCommand(model.ItemId, User.GetCloudentsUserId(), model.BoxId);
+            var command = new DeleteItemCommand(itemId, User.GetCloudentsUserId(), boxId);
             await ZboxWriteService.DeleteItemAsync(command);
             return Request.CreateResponse();
         }

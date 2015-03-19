@@ -22,22 +22,4 @@
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="0267B38009E324635F83B6794EA3263BAC55B894" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
-  <Role name="Zbang.Zbox.WorkerRoleSearch">
-    <Instances count="1" />
-    <ConfigurationSettings>
-      <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
-      <Setting name="ZBox" value="Data Source=(local);Initial Catalog=ZBox;Integrated Security=SSPI;" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="ram" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBlQYJKoZIhvcNAQcDoIIBhjCCAYICAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEHPdinDvvfKjSRgVKmnIyZswDQYJKoZIhvcNAQEBBQAEggEAPCptn3Y6/6Cp9PoNwBow9LXdO6HIOpsyj2o34GR/JttQMLFsTtW2aR4KCdWp9a1mQ6gzoW1n89OfqjlxIbn3tWT0w5GkHlJHKVralvhfC2e7Z581OXFjCSt3TadM5gb0UDLw13hfPKrqhn3Nky0ZF5fbFr+9R1aTR37MOVK05eOcd5rY/p3QinIXNf8ZvNGaTil0hUEWAIWFLIJxMs8gDp1k8EKkTowzcvTr+YxZ78Yvdt2mp5u2l0iVirZrctB9YsBmWBdEnh0OWC3vpcBF0z7w9SylAmE7T2vkU1EKuG+kzfne4cq7EbeBitGq0kk9Ql7nn0Ippqid9y6zHlhwXjArBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECLBJVAhw6bszgAgV2aZjD8GO0w==" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2015-03-28T23:59:59.0000000+03:00" />
-      <Setting name="StorageCdnEndpoint" value="" />
-      <Setting name="AzureSearchKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
-      <Setting name="AzureSeachServiceName" value="cloudents" />
-    </ConfigurationSettings>
-    <Certificates>
-      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="0267B38009E324635F83B6794EA3263BAC55B894" thumbprintAlgorithm="sha1" />
-    </Certificates>
-  </Role>
 </ServiceConfiguration>

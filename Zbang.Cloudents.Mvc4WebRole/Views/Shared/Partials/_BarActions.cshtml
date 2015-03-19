@@ -27,7 +27,10 @@
                 </ul>
             </div>
             <div class="notifyEmpty dropdown-menu" ng-if="!notifications.length">
-                @Html.Svg("~/Images/Defs.svg", "notificationCloud", new { @class = "svg-notificationCloud" })
+                <div class="cloudIcon">
+                    @Html.Svg("~/Images/Defs.svg", "notificationCloud", new { @class = "svg-notificationCloud" })
+                    @Html.Svg("~/Images/Defs.svg", "notification", new { @class = "svg-notification" })
+                </div>
                 <div>@SharedResources.NoNotifications</div>
             </div>
         </div>

@@ -41,14 +41,6 @@
     <ServiceConfiguration Include="ServiceConfiguration.Azure.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Zbang.Zbox.WorkerRoleSearch\Zbang.Zbox.WorkerRoleSearch.csproj">
-      <Name>Zbang.Zbox.WorkerRoleSearch</Name>
-      <Project>{927a65bd-1f90-42dd-81d9-e9f3e0637c07}</Project>
-      <Private>True</Private>
-      <RoleType>Worker</RoleType>
-      <RoleName>Zbang.Zbox.WorkerRoleSearch</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
-    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.WorkerRole\Zbang.Zbox.WorkerRole.csproj">
       <Name>Zbang.Zbox.WorkerRole</Name>
       <Project>{13d0b0b1-8c65-4bc4-8192-e6e9f4bae6d6}</Project>

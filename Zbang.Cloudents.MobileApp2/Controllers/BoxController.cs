@@ -23,43 +23,43 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IZboxReadSecurityReadService ZboxReadSecurityService { get; set; }
 
         // GET api/Box
-        public async Task<HttpResponseMessage> Get(long id)
-        {
-            try
-            {
-                var query = new GetBoxQuery(id);
-                var tResult = ZboxReadService.GetBox2(query);
-                //TODO: put claim
-                var tUserType = ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetCloudentsUserId());
-                await Task.WhenAll(tResult, tUserType);
-                var result = tResult.Result;
-                result.UserType = tUserType.Result;
+        //public async Task<HttpResponseMessage> Get(long id)
+        //{
+        //    try
+        //    {
+        //        var query = new GetBoxQuery(id);
+        //        var tResult = ZboxReadService.GetBox2(query);
+        //        //TODO: put claim
+        //        var tUserType = ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetCloudentsUserId());
+        //        await Task.WhenAll(tResult, tUserType);
+        //        var result = tResult.Result;
+        //        result.UserType = tUserType.Result;
                 
 
-                return Request.CreateResponse(new
-                {
-                    result.Name,
-                    result.BoxType,
-                    result.UserType,
-                    result.ProfessorName,
-                    result.CourseId
-                });
-            }
-            catch (BoxAccessDeniedException)
-            {
-                return Request.CreateUnauthorizedResponse();
-            }
-            catch (BoxDoesntExistException)
-            {
-                return Request.CreateNotFoundResponse();
-            }
-            catch (Exception ex)
-            {
-                Services.Log.Error(string.Format("Box Index id {0}", id), ex);
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, new HttpError("error"));
-            }
+        //        return Request.CreateResponse(new
+        //        {
+        //            result.Name,
+        //            result.BoxType,
+        //            result.UserType,
+        //            result.ProfessorName,
+        //            result.CourseId
+        //        });
+        //    }
+        //    catch (BoxAccessDeniedException)
+        //    {
+        //        return Request.CreateUnauthorizedResponse();
+        //    }
+        //    catch (BoxDoesntExistException)
+        //    {
+        //        return Request.CreateNotFoundResponse();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Services.Log.Error(string.Format("Box Index id {0}", id), ex);
+        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, new HttpError("error"));
+        //    }
 
-        }
+        //}
 
 
 

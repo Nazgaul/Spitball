@@ -241,6 +241,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Using Cloudents notification system you will be updated of what is going on in the courses you follow..
+        /// </summary>
+        public static string NoNoifications {
+            get {
+                return ResourceManager.GetString("NoNoifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notifications.
         /// </summary>
         public static string Notifications {

@@ -352,6 +352,29 @@
 
 /*#region notifications */
 .notifications {
+    &.emptyState {
+        .boxesList {
+            display: none;
+        }
+        .empty {
+            display: block; 
+        }
+    }
+    .empty {
+        display: none;
+        font-size: 15px;
+        margin: 0 auto;
+        margin-top: 27vh;
+        text-align: center;
+        width: 375px;
+    }
+    .svg-notificationCloud {
+        fill: @errorColor;
+        padding:0; //override
+    }
+    .svg-notification {
+        fill: #fff;
+    }
     .settingsBox {
         display: inline-block;
         width: 310px;
