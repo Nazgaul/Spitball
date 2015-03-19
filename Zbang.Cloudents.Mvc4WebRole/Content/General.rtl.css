@@ -796,33 +796,6 @@ input[type="radio"][disabled] + label:before {
   color: #676767;
 }
 /*#endregion */
-/*#region jobs */
-.jobs .svg-logo {
-  fill: #0f9d58;
-}
-.jobsContentWpr {
-  width: 1024px;
-  margin: 0 auto;
-}
-.jobsImg {
-  width: 100%;
-  height: 320px;
-  position: relative;
-}
-.jobsImg:before {
-  content: '';
-  display: inline-block;
-  margin: 0 auto;
-  background: url(/Images/hiring.png) center center no-repeat #538583;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  right: 0;
-  left: 0;
-  top: 0;
-  z-index: -1;
-}
-/*#endregion */
 /*#region general svgs */
 .svg-logo {
   width: 183px;
@@ -1766,6 +1739,9 @@ svg.color8 {
 /*#region CustomScrollBox */
 .socialContentWpr .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
   margin: 0 0 0 15px;
+}
+.notifyWpr .mCSB_container {
+  border-radius: 10px;
 }
 .notifyWpr .mCS-dir-rtl > .mCustomScrollBox {
   margin-right: -15px;
