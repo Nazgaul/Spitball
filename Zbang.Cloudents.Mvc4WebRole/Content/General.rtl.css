@@ -1740,12 +1740,18 @@ svg.color8 {
 .socialContentWpr .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
   margin: 0 0 0 15px;
 }
+.notifyWpr {
+  /*.mCS-dir-rtl > .mCustomScrollBox {
+        margin-left: -15px;
+        padding-left: 15px;
+        //margin:0;
+    }*/
+}
 .notifyWpr .mCSB_container {
   border-radius: 10px;
 }
-.notifyWpr .mCS-dir-rtl > .mCustomScrollBox {
-  margin-right: -15px;
-  padding-right: 15px;
+.notifyWpr .mCS-dir-ltr > .mCSB_inside > .mCSB_container {
+  margin: 0;
 }
 /*#endregion */
 /*#region general helper classes */
