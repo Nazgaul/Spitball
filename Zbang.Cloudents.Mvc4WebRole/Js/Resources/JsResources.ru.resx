@@ -705,4 +705,49 @@
   <data name="UploadingFiles" xml:space="preserve">
     <value>Идет загрузка файлов</value>
   </data>
+  <data name="AlignLeft" xml:space="preserve">
+    <value>Выравнивание текста слева</value>
+  </data>
+  <data name="AlignRight" xml:space="preserve">
+    <value>Выравнивание текста право</value>
+  </data>
+  <data name="Bold" xml:space="preserve">
+    <value>Жирный</value>
+  </data>
+  <data name="Center" xml:space="preserve">
+    <value>Центр</value>
+  </data>
+  <data name="ChooseCOlor" xml:space="preserve">
+    <value>Выберите цвет</value>
+  </data>
+  <data name="DecreaseSize" xml:space="preserve">
+    <value>Уменьшить размер</value>
+  </data>
+  <data name="IncreaseSize" xml:space="preserve">
+    <value>Увеличить размер</value>
+  </data>
+  <data name="InsertImage" xml:space="preserve">
+    <value>Вставить изображение</value>
+  </data>
+  <data name="Italic" xml:space="preserve">
+    <value>Курсив</value>
+  </data>
+  <data name="OrderedList" xml:space="preserve">
+    <value>Упорядоченный список</value>
+  </data>
+  <data name="Redo" xml:space="preserve">
+    <value>Переделывать</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Сброс</value>
+  </data>
+  <data name="Underline" xml:space="preserve">
+    <value>Подчеркивание</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>Аннулировать</value>
+  </data>
+  <data name="UnorderedList" xml:space="preserve">
+    <value>Ненумерованный список</value>
+  </data>
 </root>

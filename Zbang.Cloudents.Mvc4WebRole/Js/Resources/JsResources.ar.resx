@@ -694,4 +694,49 @@
   <data name="UploadingFiles" xml:space="preserve">
     <value>جاري تحميل الملفات</value>
   </data>
+  <data name="AlignLeft" xml:space="preserve">
+    <value>محاذاة النص اليسار</value>
+  </data>
+  <data name="AlignRight" xml:space="preserve">
+    <value>محاذاة النص الحق</value>
+  </data>
+  <data name="Bold" xml:space="preserve">
+    <value>نص عريض</value>
+  </data>
+  <data name="Center" xml:space="preserve">
+    <value>مركز</value>
+  </data>
+  <data name="ChooseCOlor" xml:space="preserve">
+    <value>اختيار اللون</value>
+  </data>
+  <data name="DecreaseSize" xml:space="preserve">
+    <value>انخفاض الحجم</value>
+  </data>
+  <data name="IncreaseSize" xml:space="preserve">
+    <value>زيادة الحجم</value>
+  </data>
+  <data name="InsertImage" xml:space="preserve">
+    <value>إدراج صورة</value>
+  </data>
+  <data name="Italic" xml:space="preserve">
+    <value>مائل</value>
+  </data>
+  <data name="OrderedList" xml:space="preserve">
+    <value>قائمة أمر</value>
+  </data>
+  <data name="Redo" xml:space="preserve">
+    <value>فعل ثانية</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>إعادة تعيين</value>
+  </data>
+  <data name="Underline" xml:space="preserve">
+    <value>أكد</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>فك</value>
+  </data>
+  <data name="UnorderedList" xml:space="preserve">
+    <value>قائمة غير مرتبة</value>
+  </data>
 </root>
