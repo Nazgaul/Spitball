@@ -36,7 +36,9 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.CommentCount,
                 s.Updates,
                 s.BoxType,
-                s.UserType
+                s.UserType,
+                s.Professor,
+                s.CourseCode
             }));
         }
 
