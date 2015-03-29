@@ -65,6 +65,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         [Route("api/account/university")]
         public async Task<HttpResponseMessage> UpdateUniversity(UpdateUniversityRequest model)
         {
+            
             if (model == null)
             {
                 return Request.CreateBadRequestResponse();
@@ -98,9 +99,16 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }
 
             var id = User.GetCloudentsUserId();
-            var command = new UpdateUserUniversityCommand(model.UniversityId, id, null, null,
-                null, null, null);
-            ZboxWriteService.UpdateUserUniversity(command);
+            var command = new UpdateUserUniversityCommand(model.UniversityId, id,null, model.Code, null,
+                null, model.StudentId);
+            try
+            {
+                ZboxWriteService.UpdateUserUniversity(command);
+            }
+            catch (ArgumentException ex)
+            {
+                return Request.CreateBadRequestResponse(ex.Message);
+            }
 
 
             var identity = new ClaimsIdentity();
@@ -121,6 +129,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
 
             return Request.CreateResponse(HttpStatusCode.OK, loginResult);
+
         }
 
 
@@ -156,7 +165,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }
             var user = tUser.Result;
             var identitylinkData = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-            var code = RandomString(10);
+            var code = RandomString(4);
             await QueueProvider.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, identitylinkData, tResult.Result.Name.Split(' ')[0], model.Email, tResult.Result.Culture));
 
             return Request.CreateResponse(new { code, resetToken = identitylinkData, user.Id });

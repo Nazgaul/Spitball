@@ -46,6 +46,7 @@ namespace TestingApp
                .As<ISearchConnection>()
                .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
                .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
+               .WithParameter("isDevelop", false)
                .InstancePerLifetimeScope();
             ioc.Build();
         }

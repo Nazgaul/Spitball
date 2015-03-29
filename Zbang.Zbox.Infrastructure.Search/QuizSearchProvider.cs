@@ -19,7 +19,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         private readonly string m_IndexName = "quiz";
         private readonly ISearchFilterProvider m_FilterProvider;
         private readonly ISearchConnection m_Connection;
-        private bool m_CheckIndexExists;
+        //private bool m_CheckIndexExists;
 
         public QuizSearchProvider(ISearchFilterProvider filterProvider, ISearchConnection connection)
         {
@@ -48,75 +48,75 @@ namespace Zbang.Zbox.Infrastructure.Search
 
 
 
-        private Index CreateIndex()
-        {
-            var index = new Index(m_IndexName)
-                .WithStringField(IdField, f => f
-                    .IsKey()
-                    .IsRetrievable()
-                )
-                .WithStringField(NameField, f => f
-                    .IsRetrievable()
-                    .IsSearchable())
-                .WithStringField(BoxNameField, f => f
-                    .IsRetrievable())
-                .WithStringCollectionField(QuestionsField, f => f
-                    .IsSearchable())
-                .WithStringCollectionField(AnswersField, f => f
-                    .IsSearchable())
-                .WithStringField(ContentField, f => f
-                    .IsRetrievable())
-                .WithStringField(UrlField, f => f
-                    .IsRetrievable())
-                .WithStringField(UniversityNameField, f => f
-                    .IsRetrievable())
-                .WithStringField(UniversityidField, f => f
-                    .IsFilterable())
-                .WithStringCollectionField(UseridsField, f => f
-                    .IsFilterable());
+        //private Index CreateIndex()
+        //{
+        //    var index = new Index(m_IndexName)
+        //        .WithStringField(IdField, f => f
+        //            .IsKey()
+        //            .IsRetrievable()
+        //        )
+        //        .WithStringField(NameField, f => f
+        //            .IsRetrievable()
+        //            .IsSearchable())
+        //        .WithStringField(BoxNameField, f => f
+        //            .IsRetrievable())
+        //        .WithStringCollectionField(QuestionsField, f => f
+        //            .IsSearchable())
+        //        .WithStringCollectionField(AnswersField, f => f
+        //            .IsSearchable())
+        //        .WithStringField(ContentField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(UrlField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(UniversityNameField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(UniversityidField, f => f
+        //            .IsFilterable())
+        //        .WithStringCollectionField(UseridsField, f => f
+        //            .IsFilterable());
 
-            //var universityScoreProfile = new ScoringProfile
-            //{
-            //    Name = "university"
+        //    //var universityScoreProfile = new ScoringProfile
+        //    //{
+        //    //    Name = "university"
 
-            //};
-            //universityScoreProfile.Functions.Add(new ScoringProfileFunction
-            //{
-            //    Type = ScoringProfileFunctionType.
-            //})
-            //index.ScoringProfiles.Add(universityScoreProfile);
-            return index;
+        //    //};
+        //    //universityScoreProfile.Functions.Add(new ScoringProfileFunction
+        //    //{
+        //    //    Type = ScoringProfileFunctionType.
+        //    //})
+        //    //index.ScoringProfiles.Add(universityScoreProfile);
+        //    return index;
 
-        }
+        //}
 
-        private async Task BuildIndex()
-        {
-            try
-            {
-                var response = await m_Connection.IndexManagement.GetIndexAsync(m_IndexName);
-                if (response.StatusCode == HttpStatusCode.NotFound)
-                {
-                    await m_Connection.IndexManagement.CreateIndexAsync(CreateIndex());
+        //private async Task BuildIndex()
+        //{
+        //    try
+        //    {
+        //        var response = await m_Connection.IndexManagement.GetIndexAsync(m_IndexName);
+        //        if (response.StatusCode == HttpStatusCode.NotFound)
+        //        {
+        //            await m_Connection.IndexManagement.CreateIndexAsync(CreateIndex());
 
-                }
-                else
-                {
-                    await m_Connection.IndexManagement.UpdateIndexAsync(CreateIndex());
-                }
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("on quiz build index", ex);
-            }
-            m_CheckIndexExists = true;
-        }
+        //        }
+        //        else
+        //        {
+        //            await m_Connection.IndexManagement.UpdateIndexAsync(CreateIndex());
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("on quiz build index", ex);
+        //    }
+        //    m_CheckIndexExists = true;
+        //}
 
         public async Task<bool> UpdateData(IEnumerable<QuizSearchDto> quizToUpload, IEnumerable<long> itemToDelete)
         {
-            if (!m_CheckIndexExists)
-            {
-               // await BuildIndex();
-            }
+            //if (!m_CheckIndexExists)
+            //{
+            //   // await BuildIndex();
+            //}
             var listOfCommands = new List<IndexOperation>();
             if (quizToUpload != null)
             {
@@ -165,7 +165,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             var sw = new Stopwatch();
             sw.Start();
             var searchResult = await m_Connection.IndexQuery.SearchAsync(m_IndexName,
-                new SearchQuery(query.Term)
+                new SearchQuery(query.Term + "*")
                 {
                     Filter = await m_FilterProvider.BuildFilterExpression(
                         query.UniversityId, UniversityidField, UseridsField, query.UserId),

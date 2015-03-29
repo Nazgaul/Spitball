@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         private readonly string m_IndexName = "item2";
         private readonly ISearchFilterProvider m_FilterProvider;
         private readonly ISearchConnection m_Connection;
-        private bool m_CheckIndexExists;
+        //private bool m_CheckIndexExists;
 
 
         public ItemSearchProvider2(ISearchFilterProvider filterProvider, ISearchConnection connection)
@@ -44,100 +44,100 @@ namespace Zbang.Zbox.Infrastructure.Search
         private const string UniversityidField = "unidersityid";
         private const string UseridsField = "userids";
 
-        private Index GetIndexStructure()
-        {
-            if (m_Connection.IsDevelop)
-            {
-                return GetDevelopIndexStructure();
-            }
-            return new Index(m_IndexName)
-                .WithStringField(IdField, f => f
-                    .IsKey()
-                    .IsRetrievable()
-                )
-                .WithStringField(NameField, f => f
-                    .IsRetrievable()
-                    .IsSearchable())
-                .WithStringField(ImageField, f => f
-                    .IsRetrievable())
-                .WithStringField(BoxNameField, f => f
-                    .IsRetrievable())
-                .WithStringField(ContentField, f => f
-                    .IsSearchable()
-                )
-                .WithStringField(SmallContentField, f => f
-                    .IsRetrievable())
-                .WithStringField(UrlField, f => f
-                    .IsRetrievable())
-                .WithStringField(UniversityNameField, f => f
-                    .IsRetrievable())
-                .WithStringField(UniversityidField, f => f
-                    .IsFilterable())
-                .WithStringCollectionField(UseridsField, f => f
-                    .IsFilterable());
-        }
-        private Index GetDevelopIndexStructure()
-        {
-            return new Index(m_IndexName)
-                .WithStringField(IdField, f => f
-                    .IsKey()
-                    .IsRetrievable()
-                )
-                .WithStringField(NameField, f => f
-                    .IsRetrievable()
-                    .IsSearchable())
-                .WithStringField(ImageField, f => f
-                    .IsRetrievable())
-                .WithStringField(BoxNameField, f => f
-                    .IsRetrievable())
-                .WithStringField(ContentField, f => f
-                    .IsSearchable()
-                )
-                .WithStringField(SmallContentField, f => f
-                    .IsRetrievable())
-                .WithStringField(UrlField, f => f
-                    .IsRetrievable())
-                .WithStringField(UniversityNameField, f => f
-                    .IsRetrievable())
-                .WithStringField(UniversityidField, f => f
-                    .IsFilterable()
-                    .IsRetrievable())
-                .WithStringCollectionField(UseridsField, f => f
-                    .IsFilterable()
-                    .IsRetrievable());
-        }
+        //private Index GetIndexStructure()
+        //{
+        //    if (m_Connection.IsDevelop)
+        //    {
+        //        return GetDevelopIndexStructure();
+        //    }
+        //    return new Index(m_IndexName)
+        //        .WithStringField(IdField, f => f
+        //            .IsKey()
+        //            .IsRetrievable()
+        //        )
+        //        .WithStringField(NameField, f => f
+        //            .IsRetrievable()
+        //            .IsSearchable())
+        //        .WithStringField(ImageField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(BoxNameField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(ContentField, f => f
+        //            .IsSearchable()
+        //        )
+        //        .WithStringField(SmallContentField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(UrlField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(UniversityNameField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(UniversityidField, f => f
+        //            .IsFilterable())
+        //        .WithStringCollectionField(UseridsField, f => f
+        //            .IsFilterable());
+        //}
+        //private Index GetDevelopIndexStructure()
+        //{
+        //    return new Index(m_IndexName)
+        //        .WithStringField(IdField, f => f
+        //            .IsKey()
+        //            .IsRetrievable()
+        //        )
+        //        .WithStringField(NameField, f => f
+        //            .IsRetrievable()
+        //            .IsSearchable())
+        //        .WithStringField(ImageField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(BoxNameField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(ContentField, f => f
+        //            .IsSearchable()
+        //        )
+        //        .WithStringField(SmallContentField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(UrlField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(UniversityNameField, f => f
+        //            .IsRetrievable())
+        //        .WithStringField(UniversityidField, f => f
+        //            .IsFilterable()
+        //            .IsRetrievable())
+        //        .WithStringCollectionField(UseridsField, f => f
+        //            .IsFilterable()
+        //            .IsRetrievable());
+        //}
 
-        private async Task BuildIndex()
-        {
-            try
-            {
-                var response = await m_Connection.IndexManagement.GetIndexAsync(m_IndexName);
-                if (response.StatusCode == HttpStatusCode.NotFound)
-                {
-                    await m_Connection.IndexManagement.CreateIndexAsync(GetIndexStructure());
-                }
-                //else
-                //{
-                //    var x = await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(GetIndexStructure());
-                //}
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("on item build index", ex);
-            }
-            m_CheckIndexExists = true;
-        }
+        //private async Task BuildIndex()
+        //{
+        //    try
+        //    {
+        //        var response = await m_Connection.IndexManagement.GetIndexAsync(m_IndexName);
+        //        if (response.StatusCode == HttpStatusCode.NotFound)
+        //        {
+        //            await m_Connection.IndexManagement.CreateIndexAsync(GetIndexStructure());
+        //        }
+        //        //else
+        //        //{
+        //        //    var x = await SeachConnection.Instance.IndexManagement.UpdateIndexAsync(GetIndexStructure());
+        //        //}
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("on item build index", ex);
+        //    }
+        //    m_CheckIndexExists = true;
+        //}
 
         public async Task<bool> UpdateData(IEnumerable<ItemSearchDto> itemToUpload, IEnumerable<long> itemToDelete)
         {
-            if (!m_CheckIndexExists)
-            {
-                //if (m_Connection.IsDevelop)
-                //{
-                //    await m_Connection.IndexManagement.DeleteIndexAsync(m_IndexName);
-                //}
-                //await BuildIndex();
-            }
+            //if (!m_CheckIndexExists)
+            //{
+            //    //if (m_Connection.IsDevelop)
+            //    //{
+            //    //    await m_Connection.IndexManagement.DeleteIndexAsync(m_IndexName);
+            //    //}
+            //    //await BuildIndex();
+            //}
             var listOfCommands = new List<IndexOperation>();
             if (itemToUpload != null)
             {
