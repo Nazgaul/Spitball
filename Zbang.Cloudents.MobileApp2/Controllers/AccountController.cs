@@ -74,11 +74,11 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            var retVal = await ZboxReadService.GetRussianDepartmentList(model.UniversityId);
-            if (retVal.Count() != 0 && !model.DepartmentId.HasValue)
-            {
-                return Request.CreateResponse(0);
-            }
+            //var retVal = await ZboxReadService.GetRussianDepartmentList(model.UniversityId);
+            //if (retVal.Count() != 0 && !model.DepartmentId.HasValue)
+            //{
+            //    return Request.CreateResponse(0);
+            //}
             var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
             if (needId && string.IsNullOrEmpty(model.StudentId))
             {

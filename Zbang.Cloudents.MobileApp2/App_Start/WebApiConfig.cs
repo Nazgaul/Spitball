@@ -49,7 +49,7 @@ namespace Zbang.Cloudents.MobileApp2
             // Register our custom builder
             IocFactory.IocWrapper.ContainerBuilder = builder;
             Zbox.Infrastructure.RegisterIoc.Register();
-            Zbox.Infrastructure.File.RegisterIoc.Register();
+            //Zbox.Infrastructure.File.RegisterIoc.Register();
 
             builder.RegisterType<SeachConnection>()
                 .As<ISearchConnection>()
