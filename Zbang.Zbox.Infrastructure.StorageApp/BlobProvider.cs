@@ -300,5 +300,11 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
         {
             throw new NotImplementedException();
         }
+
+
+        public Task<Stream> GetJobsXml()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

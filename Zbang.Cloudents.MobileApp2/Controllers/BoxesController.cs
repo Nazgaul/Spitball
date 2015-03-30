@@ -47,7 +47,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public async Task<HttpResponseMessage> Recommend()
         {
             var university = User.GetUniversityDataId();
-
+            if (!university.HasValue)
+            {
+                return Request.CreateBadRequestResponse("user don't have university");
+            }
             // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
             //var universityWrapper = userDetail.UniversityDataId.Value;
 

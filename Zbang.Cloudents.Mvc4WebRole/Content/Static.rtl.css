@@ -469,10 +469,7 @@ body {
   display: none;
   padding-top: 25px;
   padding-bottom: 30px;
-  border-top: 1px solid #c2c2c2
-  /*max-height:0;*/
-  /*overflow: hidden;*/
-  /*.transition(all 0.4s);*/
+  border-top: 1px solid #c2c2c2;
 }
 /*#endregion */
 /*#region insert user (Hebrew for the time being) */
@@ -714,7 +711,14 @@ footer {
   border-bottom: 1px solid #c2c2c2;
   border-radius: 0;
   background: none;
-  min-height: 0;
+  min-height: 0
+  /*input[type=checkbox] {
+        &:checked {
+            ~ .answer {
+                display: block;
+            }
+        }
+    }*/
 }
 .jobItem:hover {
   background: #fff;
@@ -723,9 +727,6 @@ footer {
   color: #0f9d58;
   min-height: 70px;
   line-height: normal;
-}
-.jobItem input[type=checkbox]:checked ~ .answer {
-  display: block;
 }
 .jobItem .jobName {
   color: #0f9d58;

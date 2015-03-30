@@ -387,6 +387,7 @@
     <Compile Include="Models\InsertUser.cs" />
     <Compile Include="Models\ItemPreview.cs" />
     <Compile Include="Models\JavaScriptError.cs" />
+    <Compile Include="Models\Job.cs" />
     <Compile Include="Models\Quiz\Answer.cs" />
     <Compile Include="Models\Quiz\Discussion.cs" />
     <Compile Include="Models\Quiz\MarkAnswer.cs" />
@@ -2045,7 +2046,6 @@
     <Content Include="Views\Shared\Partials\_Welcome.cshtml" />
     <Content Include="Views\Quiz\Index.cshtml" />
     <Content Include="Views\Library\InsertId.cshtml" />
-    <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Dashboard\Index2.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <Content Include="Views\Store\Index.cshtml" />

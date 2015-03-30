@@ -542,7 +542,19 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             try
             {
                 var blob = m_BlobClient.GetContainerReference(AzureFaqContainer).GetBlockBlobReference("help.xml");
-                return await blob.OpenReadAsync();
+                return await blob.OpenReadAsync(); // we need async in here 
+            }
+            catch (StorageException)
+            {
+                return null;
+            }
+        }
+        public async Task<Stream> GetJobsXml()
+        {
+            try
+            {
+                var blob = m_BlobClient.GetContainerReference(AzureFaqContainer).GetBlockBlobReference("jobs.xml");
+                return await blob.OpenReadAsync(); // we need async in here
             }
             catch (StorageException)
             {

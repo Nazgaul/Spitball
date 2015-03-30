@@ -604,4 +604,7 @@
   <data name="Unfollow" xml:space="preserve">
     <value>בטל מעקב</value>
   </data>
+  <data name="Jobs" xml:space="preserve">
+    <value>משרות</value>
+  </data>
 </root>

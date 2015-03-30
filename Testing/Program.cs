@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Configuration;
+using System.Xml.Linq;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -44,6 +45,30 @@ namespace Testing
 {
     class Program
     {
+
+        static void GetXml()
+        {
+            using (var sr = File.Open(@"C:\Users\Ram\Desktop\jobs.xml", FileMode.Open))
+            {
+                var doc = XDocument.Load(sr);
+                var y = doc.Descendants("job").Select(s=>
+                {
+                    var offer = string.Empty;
+                    var offerElement = s.Element("offer");
+                    if (offerElement != null)
+                    {
+                        offer = offerElement.Value;
+                    }
+                    return new
+                    {
+                        name = s.Attribute("name").Value,
+                        location = s.Attribute("location").Value,
+                        description = s.Element("description").Value,
+                        offer
+                    };
+                });
+            }
+        }
 
 
         static async Task<string> GetTitle(string url)
@@ -110,7 +135,7 @@ namespace Testing
 
         static void Main(string[] args)
         {
-
+            GetXml();
             //HatavotWrite();
             //UniversitySearchProvider x = new UniversitySearchProvider();
             //x.BuildUniversityData();

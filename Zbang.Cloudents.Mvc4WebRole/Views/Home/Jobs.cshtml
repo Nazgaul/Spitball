@@ -1,31 +1,31 @@
-﻿@{
-    ViewBag.Title = "Privacy | Cloudents | Study better by working together";
+﻿@model IEnumerable<Zbang.Cloudents.Mvc4WebRole.Models.Job>
+@{
+    ViewBag.Title = "Jobs | Cloudents | Study better by working together";
     Layout = "~/Views/Shared/_LayoutStatic.cshtml";
 }
 
 <div class="jobsImg"></div>
-@*<div class="jobsContentWpr">
-    <h2>Student Ambassador</h2>
-    <h3>USA</h3>
-
-    <p>We invite to you to take a part in Cloudent’s academic world revolution, earn experience as an intern and make some money.</p>
-    <p>With the Cloudents’ platform and its built-in tools, <span>students meet classmates to study, save and share study materials, ask and answer questions, and solve and create quizzes.</span></p>
-    <p>This is an opportunity to join our team of college ambassadors from all over the world that want to gain real life experience as a part of a young start-up company and make the college learning experience enjoyable and meaningful.</p>
-
-    <div class="title">We offer you:</div>
-    <ul>
-        <li>To be a Cloudents ambassador in your campus</li>
-        <li>Internship credit for your work</li>
-        <li>Gain professional experience with an growing innovative start-up.</li>
-        <li>Receive a recommendation letter from our CEO</li>
-        <li>Make some money while meeting goals</li>
-    </ul>
-
-    <p class="mail">Apply now: <a href="mailto:matan@cloudents.com" target="_self">matan@cloudents.com</a></p>
-</div>*@
 <div class="jobsContentWpr">
     <ul class="jobsList">
-        <li class="jobItem">
+        @{
+            int index = 1;
+            foreach (var job in Model)
+            {
+                <li class="jobItem">
+                    <input type="checkbox" id="@string.Format("faq-{0}",index)">
+                    <label class="question" for="@string.Format("faq-{0}",index)">
+                        <span class="jobName">@job.Name</span><br />
+                        <span class="jobLoc">@job.Location</span>
+                    </label>
+                    <div class="answer">
+                        @Html.Raw(job.Description)
+                        <p class="mail">Apply now: <a href="mailto:matan@cloudents.com" target="_self">matan@cloudents.com</a></p>
+                    </div>
+                </li>
+                index++;
+            }
+        }
+        @*<li class="jobItem">
             <input type="checkbox" id="faq-1">
             <label class="question" for="faq-1">
                 <span class="jobName">Student Ambassador</span><br />
@@ -90,8 +90,26 @@
                 </ul>
                 <p class="mail">Apply now: <a href="mailto:matan@cloudents.com" target="_self">matan@cloudents.com</a></p>
             </div>
-            
-        </li>
+
+        </li>*@
     </ul>
 </div>
+@section scripts {
+    @Html.Script2("faq")
+    <script type="text/javascript">
+        $(document).ready(function() {
+            if ($('.question').length < 3) {
+                $('.answer').show();
+                $('.question').click(function (e) {
+                    e.preventDefault();
+
+                });
+            } else {
+                $('.question').click(function() {
+                    $(this).next().slideToggle({ duration: 400 });
+                });
+            }
+        });
+    </script>
+}
 

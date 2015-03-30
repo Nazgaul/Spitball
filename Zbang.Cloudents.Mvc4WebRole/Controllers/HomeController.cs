@@ -20,6 +20,7 @@ using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -47,7 +48,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //don't put in here route attribute
         [DonutOutputCache(Duration = TimeConsts.Day,
-            VaryByParam = "None", 
+            VaryByParam = "None",
             VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang)]
         //this is for search,library choose,account settings home page
@@ -83,10 +84,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-        public ActionResult Jobs()
+        [DonutOutputCache(Duration = TimeConsts.Minute * 5, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
+           + CustomCacheKeys.Lang)]
+        [Route("jobs")]
+        public async Task<ActionResult> Jobs()
         {
             ViewBag.jobs = "jobs";
-            return View();
+
+            using (var stream = await m_BlobProvider.Value.GetJobsXml())
+            {
+                if (stream == null)
+                {
+                    TraceLog.WriteError("jobs xml stream is null");
+                    return RedirectToAction("Index", "Error");
+                }
+                var data = XDocument.Load(stream);
+                var retVal = data.Descendants("job").Select(s => new Job
+                {
+                    Name = s.Attribute("name").Value,
+                    Location = s.Attribute("location").Value,
+                    Description = s.Element("description").Value,
+                });
+                return View(retVal);
+            }
         }
 
         public async Task<ActionResult> Help()
@@ -285,6 +305,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         Frequency = SitemapFrequency.Daily
                     });
                 nodes.Add(
+                   new SitemapNode(requestContext, new { area = "", controller = "Home", action = "Jobs" })
+                   {
+                       Priority = 0.95,
+                       Frequency = SitemapFrequency.Daily
+                   });
+                nodes.Add(
                     new SitemapNode(requestContext, new { area = "", controller = "Home", action = "ContactUs" })
                     {
                         Priority = 0.95,
@@ -305,7 +331,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
 
             var seoItems = await ZboxReadService.GetSeoItems(index);
-            nodes.AddRange(seoItems.Where(w=>!string.IsNullOrEmpty(w))
+            nodes.AddRange(seoItems.Where(w => !string.IsNullOrEmpty(w))
                 .Select(s => new SitemapNode(s, requestContext)));
 
             return nodes;

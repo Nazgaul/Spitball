@@ -270,7 +270,7 @@
 
                    accessToken = response.authResponse.accessToken;
 
-                   FB.api('/me/permissions', function (response2) {
+                   FB.api('/me/permissions', function () {
                        //var perms = response2.data[0];
 
                        //if (perms.email) {
