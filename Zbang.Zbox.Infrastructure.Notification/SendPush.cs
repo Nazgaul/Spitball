@@ -87,11 +87,10 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         }
 
         public Task SendAddItemNotification(string userNameOfAction,
-            string itemName,
             string boxName,
             IList<long> userIds)
         {
-            return SendNotification(PushAction.AddItem, userNameOfAction, itemName, boxName, userIds);
+            return SendNotification(PushAction.AddItem, userNameOfAction, null, boxName, userIds);
         }
 
 

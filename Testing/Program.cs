@@ -135,7 +135,7 @@ namespace Testing
 
         static void Main(string[] args)
         {
-            GetXml();
+            //GetXml();
             //HatavotWrite();
             //UniversitySearchProvider x = new UniversitySearchProvider();
             //x.BuildUniversityData();
@@ -200,7 +200,7 @@ namespace Testing
             Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Search.RegisterIoc.Register();
 
-
+            Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper.Build();
 
             //var x = new Zbang.Zbox.Infrastructure.IdGenerator.IdGenerator();
             //var y = x.GetId();
@@ -230,8 +230,8 @@ namespace Testing
 
 
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
-            var t = IndexItemSearch(iocFactory);
-            t.Wait();
+            //var t = IndexItemSearch(iocFactory);
+            //t.Wait();
             //var lucenewire = iocFactory.Resolve<IUniversityWriteSearchProvider>();
             //lucenewire.BuildUniversityData();
 
@@ -268,14 +268,14 @@ namespace Testing
             //            //TestImage();
             //            //var ShortCode = iocFactory.Resolve<IShortCodesCache>();
             //            //var boxid = ShortCode.LongToShortCode(10691, ShortCodesType.User);
-            var x = iocFactory.Resolve<IMailComponent>();
+            //var x = iocFactory.Resolve<IMailComponent>();
             //x.GenerateAndSendEmail(new[] { "ram@cloudents.com", "eidan@cloudents.com" },
             //         "failed connect to remove db ");
             //var t = x.DeleteUnsubscribe("yaari.ram@gmail.com");
             //t.Wait();
-            //IZboxWriteService writeService = iocFactory.Resolve<IZboxWriteService>();
+            IZboxWriteService writeService = iocFactory.Resolve<IZboxWriteService>();
             //writeService.UpdateReputation(new UpdateReputationCommand(1));
-            // writeService.OneTimeDbi();
+            writeService.OneTimeDbi();
             //while (writeService.Dbi(0))
             //{
 

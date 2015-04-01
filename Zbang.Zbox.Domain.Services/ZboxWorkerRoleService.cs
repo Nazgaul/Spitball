@@ -37,37 +37,63 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-            int i = 0;
-            IList<long> users;
+            UpdateQuestionHtml();
+            //int i = 0;
+            //IList<long> users;
 
 
+            //using (UnitOfWork.Start())
+            //{
+            //    users = UnitOfWork.CurrentSession.QueryOver<User>()
+            //        .Where(w => w.IsRegisterUser)
+            //        .OrderBy(o => o.Id).Asc
+            //        .Select(s => s.Id)
+            //        .Skip(i * 100).Take(100)
+            //        .List<long>();
+            //}
+            //do
+            //{
+            //    TraceLog.WriteInfo("index: " + i);
+            //    var command = new UpdateReputationCommand(users);
+            //    UpdateReputation(command);
+            //    i++;
+
+            //    using (UnitOfWork.Start())
+            //    {
+            //        users = UnitOfWork.CurrentSession.QueryOver<User>()
+            //            .Where(w => w.IsRegisterUser)
+            //            .OrderBy(o => o.Id).Asc
+            //            .Select(s => s.Id)
+            //            .Skip(i * 100).Take(100)
+            //            .List<long>();
+            //    }
+            //} while (users.Count > 0);
+
+        }
+
+        private void UpdateQuestionHtml()
+        {
+            var questions = new List<dynamic>();
             using (UnitOfWork.Start())
             {
-                users = UnitOfWork.CurrentSession.QueryOver<User>()
-                    .Where(w => w.IsRegisterUser)
-                    .OrderBy(o => o.Id).Asc
-                    .Select(s => s.Id)
-                    .Skip(i * 100).Take(100)
-                    .List<long>();
+                questions =
+                    UnitOfWork.CurrentSession.Connection.Query(
+                        @"select q.userid,qq.id,qq.text from zbox.quizquestion qq 
+                    join zbox.quiz q on qq.quizid = q.id
+                  where qq.text like '%&lt;%'
+                    ").ToList();
             }
-            do
+            foreach (dynamic question in questions)
             {
-                TraceLog.WriteInfo("index: " + i);
-                var command = new UpdateReputationCommand(users);
-                UpdateReputation(command);
-                i++;
+                var text = question.text;
+                text = System.Net.WebUtility.HtmlDecode(text);
+                var command = new Zbang.Zbox.Domain.Commands.Quiz.UpdateQuestionCommand(question.userid, question.id,
+                    text);
 
-                using (UnitOfWork.Start())
-                {
-                    users = UnitOfWork.CurrentSession.QueryOver<User>()
-                        .Where(w => w.IsRegisterUser)
-                        .OrderBy(o => o.Id).Asc
-                        .Select(s => s.Id)
-                        .Skip(i * 100).Take(100)
-                        .List<long>();
-                }
-            } while (users.Count > 0);
+                UpdateQuestion(command);
 
+            }
+           
         }
 
 

@@ -54,7 +54,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             if (item != null)
             {
-                return m_SendPush.SendAddItemNotification(item.Uploader.Name, item.Name, box.Name, usersToUpdate.Select(s => s.UserId).ToList());
+                return m_SendPush.SendAddItemNotification(item.Uploader.Name, box.Name, usersToUpdate.Select(s => s.UserId).ToList());
             }
             if (comment != null)
             {

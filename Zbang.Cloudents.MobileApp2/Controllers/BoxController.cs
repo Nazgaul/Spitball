@@ -76,7 +76,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.Thumbnail,
                 s.Id,
                 views = s.NumOfViews,
+                downloads = s.NumOfDownloads,
                 likes = s.NumOfDownloads,
+                s.Date,
+                s.Owner,
                 s.OwnerId
             }));
             //Services.Log.Info("Hello from custom controller!");

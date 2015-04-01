@@ -6,7 +6,6 @@ namespace Zbang.Zbox.Infrastructure.Notifications
     public interface ISendPush
     {
         Task SendAddItemNotification(string userNameOfAction,
-            string itemName,
             string boxName,
             IList<long> userIds);
 
