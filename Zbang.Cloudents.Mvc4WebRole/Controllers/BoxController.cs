@@ -266,7 +266,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var commandBoxName = new ChangeBoxInfoCommand(model.BoxUid, userId, model.Name,
-                    model.Professor, model.CourseCode, model.Picture, model.BoxPrivacy, model.Notification);
+                    model.Professor, model.CourseCode, model.BoxPrivacy, model.Notification);
                 ZboxWriteService.ChangeBoxInfo(commandBoxName);
                 // ChangeNotification(model.BoxUid, model.Notification);
                 return JsonOk(new { queryString = UrlBuilder.NameToQueryString(model.Name) });

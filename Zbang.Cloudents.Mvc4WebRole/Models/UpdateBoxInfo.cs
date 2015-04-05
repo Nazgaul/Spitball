@@ -26,7 +26,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 
         public Zbox.Infrastructure.Enums.NotificationSettings Notification { get; set; }
 
-        public string Picture { get; set; }
 
         public override string ToString()
         {
@@ -37,7 +36,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
             sb.AppendLine(string.Format("Professor: {0}", Professor));
             sb.AppendLine(string.Format("BoxPrivacy: {0}", BoxPrivacy));
             sb.AppendLine(string.Format("Notification: {0}", Notification));
-            sb.AppendLine(string.Format("Picture: {0}", Picture));
             return base.ToString();
         }
     }

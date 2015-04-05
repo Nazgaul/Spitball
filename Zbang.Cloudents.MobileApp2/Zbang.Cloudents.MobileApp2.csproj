@@ -194,10 +194,13 @@
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="DataObjects\AddCommentRequest.cs" />
+    <Compile Include="DataObjects\BoxRenameRequest.cs" />
     <Compile Include="DataObjects\DeleteItemRequest.cs" />
     <Compile Include="DataObjects\FileUploadRequest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataObjects\ItemLikeRequest.cs" />
+    <Compile Include="DataObjects\ItemRenameRequest.cs" />
     <Compile Include="DataObjects\LogInRequest.cs" />
     <Compile Include="DataObjects\PasswordUpdateRequest.cs" />
     <Compile Include="DataObjects\Register.cs" />

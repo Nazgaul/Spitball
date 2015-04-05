@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
+using Zbang.Cloudents.MobileApp2.DataObjects;
 using Zbang.Cloudents.MobileApp2.Models;
+using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
@@ -21,6 +24,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public ApiServices Services { get; set; }
         public IZboxCacheReadService ZboxReadService { get; set; }
         public IZboxReadSecurityReadService ZboxReadSecurityService { get; set; }
+        public IZboxWriteService ZboxWriteService { get; set; }
 
         // GET api/Box
         //public async Task<HttpResponseMessage> Get(long id)
@@ -80,10 +84,40 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 likes = s.NumOfDownloads,
                 s.Date,
                 s.Owner,
-                s.OwnerId
+                s.OwnerId,
+                s.Url
             }));
             //Services.Log.Info("Hello from custom controller!");
             //return "Hello";
+        }
+
+
+        [Route("api/box/rename")]
+        [HttpPost]
+        public HttpResponseMessage Rename(BoxRenameRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            var userId = User.GetCloudentsUserId();
+            try
+            {
+                var commandBoxName = new ChangeBoxInfoCommand(model.Id, userId, model.Name,
+                    model.Professor, model.Course, null, null);
+                ZboxWriteService.ChangeBoxInfo(commandBoxName);
+                return Request.CreateResponse();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Request.CreateUnauthorizedResponse("You don't have permission");
+            }
+           
+           
         }
 
     }

@@ -13,6 +13,7 @@ using Zbang.Cloudents.MobileApp2.DataObjects;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.StorageApp;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -35,6 +36,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IFileProcessorFactory FileProcessorFactory { get; set; }
 
         public IBlobUpload BlobUpload { get; set; }
+        public IGuidIdGenerator GuidGenerator { get; set; }
 
         // GET api/Item
         public async Task<HttpResponseMessage> Get(long boxId, long itemId)
@@ -82,7 +84,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var filedto = item as FileWithDetailDto;
             if (filedto == null) // link
             {
-                return  item.Blob;
+                return item.Blob;
             }
             var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
             var t3 = ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);
@@ -99,39 +101,39 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
 
 
-            await Task.WhenAll(t1,  t3);
+            await Task.WhenAll(t1, t3);
             return BlobUpload.GenerateReadAccessPermissionToBlob(filedto.Blob);
-            
-        }
-
-        [HttpGet]
-        [Route("api/item/{itemId:long}/preview")]
-        public async Task<HttpResponseMessage> Preview(string blobName, int index,
-             CancellationToken cancellationToken, string itemId)
-        {
-            Uri uri;
-            if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
-            {
-                uri = new Uri(BlobProvider.GetBlobUrl(blobName));
-            }
-            var processor = FileProcessorFactory.GetProcessor(uri);
-            if (processor == null)
-                return Request.CreateResponse(HttpStatusCode.NoContent);
-
-            var retVal = await processor.ConvertFileToWebSitePreview(uri, 0, 0, index * 3, cancellationToken);
-            if (retVal.Content == null)
-            {
-                return Request.CreateResponse(HttpStatusCode.NoContent);
-
-            }
-            if (string.IsNullOrEmpty(retVal.ViewName))
-            {
-                return Request.CreateResponse(new { preview = retVal.Content.First() });
-            }
-
-            return Request.CreateResponse(new { preview = retVal.Content.Take(3) });
 
         }
+
+        //[HttpGet]
+        //[Route("api/item/{itemId:long}/preview")]
+        //public async Task<HttpResponseMessage> Preview(string blobName, int index,
+        //     CancellationToken cancellationToken, string itemId)
+        //{
+        //    Uri uri;
+        //    if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
+        //    {
+        //        uri = new Uri(BlobProvider.GetBlobUrl(blobName));
+        //    }
+        //    var processor = FileProcessorFactory.GetProcessor(uri);
+        //    if (processor == null)
+        //        return Request.CreateResponse(HttpStatusCode.NoContent);
+
+        //    var retVal = await processor.ConvertFileToWebSitePreview(uri, 0, 0, index * 3, cancellationToken);
+        //    if (retVal.Content == null)
+        //    {
+        //        return Request.CreateResponse(HttpStatusCode.NoContent);
+
+        //    }
+        //    if (string.IsNullOrEmpty(retVal.ViewName))
+        //    {
+        //        return Request.CreateResponse(new { preview = retVal.Content.First() });
+        //    }
+
+        //    return Request.CreateResponse(new { preview = retVal.Content.Take(3) });
+
+        //}
 
         public async Task<HttpResponseMessage> Delete(long itemId, long boxId)
         {
@@ -221,6 +223,55 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             };
 
             return Request.CreateResponse(fileDto);
+
+        }
+
+
+        [Route("api/item/rename")]
+        [HttpPost]
+        public HttpResponseMessage Rename(ItemRenameRequest model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+
+            var userId = User.GetCloudentsUserId();
+            try
+            {
+                var command = new ChangeFileNameCommand(model.Id, model.Name, userId);
+                var result = ZboxWriteService.ChangeFileName(command);
+                return Request.CreateResponse(new
+                {
+                    name = result.Name,
+
+                });
+            }
+
+            catch (UnauthorizedAccessException)
+            {
+                return Request.CreateBadRequestResponse("You need to follow this box in order to change file name");
+            }
+            catch (ArgumentException ex)
+            {
+                return Request.CreateBadRequestResponse(ex.Message);
+            }
+
+        }
+
+        [Route("api/item/like")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> Like(ItemLikeRequest model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            var id = GuidGenerator.GetId();
+            var command = new RateItemCommand(model.Id, User.GetCloudentsUserId(), 5, id, model.BoxId);
+            await ZboxWriteService.RateItemAsync(command);
+
+            return Request.CreateResponse();
 
         }
 

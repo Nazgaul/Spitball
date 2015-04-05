@@ -57,14 +57,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
 
 
-        private void ChangeNotificationSettings(long userId, long boxId, NotificationSettings notificationSettings)
+        private void ChangeNotificationSettings(long userId, long boxId, NotificationSettings? notificationSettings)
         {
+            if (!notificationSettings.HasValue)
+            {
+                return;
+            }
             var userBoxRel = m_UserboxRelationshipRepository.GetUserBoxRelationship(userId, boxId);
             if (userBoxRel == null)
             {
                 throw new ArgumentException("User is not connected to the box");
             }
-            userBoxRel.NotificationSettings = notificationSettings;
+            userBoxRel.NotificationSettings = notificationSettings.Value;
             m_UserboxRelationshipRepository.Save(userBoxRel);
         }
     }

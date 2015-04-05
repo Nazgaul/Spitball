@@ -38,7 +38,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.BoxType,
                 s.UserType,
                 s.Professor,
-                s.CourseCode
+                s.CourseCode,
+                s.Url
             }));
         }
 
