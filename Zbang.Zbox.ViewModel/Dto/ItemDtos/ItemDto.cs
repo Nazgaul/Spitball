@@ -31,5 +31,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string Description { get; private set; }
         public int CommentsCount { get; private set; }
 
+        public long Size { get; set; }
+
     }
 }

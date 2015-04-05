@@ -105,7 +105,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
         /// Used for old item view
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="tabId"></param>
         /// <returns></returns>
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]

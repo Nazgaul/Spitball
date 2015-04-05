@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -200,11 +201,31 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new GetBoxItemsPagedQuery(id, null);
                 var result = await ZboxReadService.GetBoxItemsPagedAsync(query);
-                foreach (var item in result)
+                var itemDtos = result as IList<ItemDto> ?? result.ToList();
+                foreach (var item in itemDtos)
                 {
                     item.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = id, itemId = item.Id });
                 }
-                return JsonOk(result);
+                return JsonOk(itemDtos.Select(s => new
+                {
+                    s.CommentsCount,
+                    s.Date,
+                    s.Description,
+                    s.DownloadUrl,
+                    s.Id,
+                    s.Name,
+                    s.NumOfDownloads,
+                    s.NumOfViews,
+                    s.Owner,
+                    s.OwnerId,
+                    s.Rate,
+                    s.Sponsored,
+                    s.TabId,
+                    s.Thumbnail,
+                    s.Url,
+                    s.UserUrl,
+                    
+                }));
             }
             catch (Exception ex)
             {

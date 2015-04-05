@@ -160,7 +160,8 @@ union
     i.NumberOfDownloads as NumOfDownloads,
     i.creationTime as Date,
 		i.numberofcomments as commentsCount,
-    i.Url as Url
+    i.Url as Url,
+    i.Size as Size
     from zbox.item i join zbox.users u on i.UserId = u.UserId
     where i.IsDeleted = 0
     and i.BoxId = @BoxId

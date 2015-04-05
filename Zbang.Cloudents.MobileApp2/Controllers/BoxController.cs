@@ -85,7 +85,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.Date,
                 s.Owner,
                 s.OwnerId,
-                s.Url
+                s.Url,
+                s.Size
             }));
             //Services.Log.Info("Hello from custom controller!");
             //return "Hello";
