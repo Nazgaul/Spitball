@@ -11,7 +11,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public float Rate { get; set; }
         public long OwnerId { get; set; }
         public string Owner { get; set; }
-        public Guid TabId { get; set; }
+        public Guid? TabId { get; set; }
 
         public int NumOfViews { get; set; }
 
