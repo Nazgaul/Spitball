@@ -82,7 +82,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 views = s.NumOfViews,
                 downloads = s.NumOfDownloads,
                 likes = s.NumOfDownloads,
-                s.Date,
+                creationTime = s.Date,
                 s.Owner,
                 s.OwnerId,
                 s.Url
