@@ -71,7 +71,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     tasks.Add(SendInvite(sender.Name, box.Name,
                         id,
                         recipientEmail, sender.Image, sender.Email,
-                        System.Globalization.CultureInfo.CurrentCulture.Name, box.Url));
+                        System.Globalization.CultureInfo.CurrentCulture.Name, box.Url, null));
                     continue;
 
 
@@ -84,7 +84,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
 
                 var newInvite = new UserBoxRel(recipientUser, box, UserRelationshipType.Invite);
-                var inviteToBoxExistingUser = new InviteToBox(id, 
+                var inviteToBoxExistingUser = new InviteToBox(id,
                     sender,
                     box,
                     newInvite, null, null, recipientEmail);
@@ -93,18 +93,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_InviteRepository.Save(inviteToBoxExistingUser);
                 tasks.Add(SendInvite(sender.Name, box.Name,
                     id,
-                    recipientUser.Email, sender.Image, sender.Email, recipientUser.Culture, box.Url));
+                    recipientUser.Email, sender.Image, sender.Email, recipientUser.Culture, box.Url, recipientUser.Id));
             }
             return Task.WhenAll(tasks);
         }
 
-        private Task SendInvite(string senderName, string boxName, Guid id, string recipientEmail, string senderImage, string senderEmail, string culture, string boxUrl)
+        private Task SendInvite(string senderName,
+            string boxName, Guid id,
+            string recipientEmail, string senderImage, string senderEmail,
+            string culture, string boxUrl, long? recipientId)
         {
             var invId = GuidEncoder.Encode(id);
             var url = UrlConsts.BuildInviteUrl(boxUrl, invId);
             return m_QueueProvider.InsertMessageToMailNewAsync(new InviteMailData(senderName, boxName,
                    url,
-                   recipientEmail, culture, senderImage, senderEmail));
+                   recipientEmail, culture, senderImage, senderEmail, recipientId));
         }
 
         private User GetUser(string recipient)

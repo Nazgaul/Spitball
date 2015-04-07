@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ServiceBus.Notifications;
+using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.Notifications
 {
@@ -91,6 +92,13 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             IList<long> userIds)
         {
             return SendNotification(PushAction.AddItem, userNameOfAction, null, boxName, userIds);
+        }
+
+        public Task SendInviteNotification(string userNameOfAction,
+            string boxName,
+            long userId)
+        {
+            return SendNotification(PushAction.Invite, userNameOfAction, null, boxName, new[] {userId});
         }
 
 

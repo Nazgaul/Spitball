@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Transport;
 
@@ -12,7 +13,7 @@ namespace Zbang.Zbox.WorkerRole.Mail
         {
             m_MailComponent = mailComponent;
         }
-        public bool Execute(BaseMailData data)
+        public Task<bool> ExecuteAsync(BaseMailData data)
         {
             var parameters = data as WelcomeMailData;
             if (parameters == null)
@@ -20,12 +21,12 @@ namespace Zbang.Zbox.WorkerRole.Mail
                 throw new NullReferenceException("parameters");
             }
 
-            
+
             m_MailComponent.GenerateAndSendEmail(parameters.EmailAddress,
                 new WelcomeMailParams(parameters.UserName,
-                    new  CultureInfo(parameters.Culture)));
+                    new CultureInfo(parameters.Culture)));
 
-            return true;
+            return Task.FromResult(true);
 
         }
     }

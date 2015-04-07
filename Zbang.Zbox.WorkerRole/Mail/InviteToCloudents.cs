@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Transport;
 
@@ -13,7 +14,7 @@ namespace Zbang.Zbox.WorkerRole.Mail
             m_MailComponent = mailComponent;
         }
 
-        public bool Execute(BaseMailData data)
+        public Task<bool> ExecuteAsync(BaseMailData data)
         {
             var parameters = data as InviteToCloudentsData;
 
@@ -28,7 +29,7 @@ namespace Zbang.Zbox.WorkerRole.Mail
              new InvitationToCloudentsMailParams(parameters.SenderName, userImage,
             new CultureInfo(parameters.Culture), parameters.SenderEmail, url));
 
-            return true;
+            return Task.FromResult(true);
         }
     }
 }

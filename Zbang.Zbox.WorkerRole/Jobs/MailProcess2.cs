@@ -55,7 +55,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                  try
                  {
                      var mail = IocFactory.IocWrapper.Resolve<IMail2>(msgData.MailResover);
-                     return Task.FromResult(mail.Execute(msgData));
+                     return mail.ExecuteAsync(msgData);
                  }
                  catch (NullReferenceException ex)
                  {

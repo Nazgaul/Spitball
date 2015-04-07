@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Transport;
 
@@ -11,7 +12,7 @@ namespace Zbang.Zbox.WorkerRole.Mail
         {
             m_MailComponent = mailComponent;
         }
-        public bool Execute(BaseMailData data)
+        public Task<bool> ExecuteAsync(BaseMailData data)
         {
             var parameters = data as MessageMailData;
             //Throw.OnNull(parameters, "MessageMailData");
@@ -23,13 +24,13 @@ namespace Zbang.Zbox.WorkerRole.Mail
             }
             var parameters2 = data as MessageMailData2;
 
-            if (parameters2 == null) return true;
+            if (parameters2 == null) return Task.FromResult(true);
             var userImage = parameters2.SenderUserImage ?? "https://az32006.vo.msecnd.net/zboxprofilepic/DefaultEmailImage.jpg";
             m_MailComponent.GenerateAndSendEmail(parameters2.EmailAddress,
                 new MessageMailParams(parameters2.Message, parameters2.SenderUserName,
                     new CultureInfo(parameters2.Culture), parameters2.SenderUserEmail, userImage));
 
-            return true;
+            return Task.FromResult(true);
 
         }
     }

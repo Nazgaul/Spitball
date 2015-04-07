@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Zbang.Zbox.Infrastructure.Notifications
+namespace Zbang.Zbox.Infrastructure.Storage
 {
     public interface ISendPush
     {
@@ -18,5 +18,9 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             string text,
             string boxName,
             IList<long> userIds);
+
+        Task SendInviteNotification(string userNameOfAction,
+            string boxName,
+            long userId);
     }
 }

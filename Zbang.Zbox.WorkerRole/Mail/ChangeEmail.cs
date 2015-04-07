@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Transport;
 
@@ -11,7 +12,7 @@ namespace Zbang.Zbox.WorkerRole.Mail
         {
             m_MailComponent = mailComponent;
         }
-        public bool Execute(BaseMailData data)
+        public Task<bool> ExecuteAsync(BaseMailData data)
         {
             var parameters = data as ChangeEmailData;
             if (parameters == null)
@@ -23,7 +24,7 @@ namespace Zbang.Zbox.WorkerRole.Mail
                 new ChangeEmailMailParams(parameters.Code,
                new CultureInfo(parameters.Culture)));
 
-            return true;
+            return Task.FromResult(true);
 
         }
     }

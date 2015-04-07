@@ -5,14 +5,16 @@ namespace Zbang.Zbox.Infrastructure.Transport
     [ProtoContract]
     public class InviteMailData : BaseMailData
     {
-        protected InviteMailData()
+        protected InviteMailData(long? receiverId)
         {
-
+            ReceiverId = receiverId;
         }
+
         public InviteMailData(string inviterName, string boxName, string boxUrl
-            , string emailAddress, string culture, string inviterImage, string inviterEmail)
+            , string emailAddress, string culture, string inviterImage, string inviterEmail, long? receiverId)
             : base(emailAddress, culture)
         {
+            ReceiverId = receiverId;
             InviterName = inviterName;
             BoxName = boxName;
             BoxUrl = boxUrl;
@@ -30,6 +32,9 @@ namespace Zbang.Zbox.Infrastructure.Transport
 
         [ProtoMember(5)]
         public string InviterEmail { get; private set; }
+
+        [ProtoMember(6)]
+        public long? ReceiverId { get; private set; }
 
         public override string MailResover
         {

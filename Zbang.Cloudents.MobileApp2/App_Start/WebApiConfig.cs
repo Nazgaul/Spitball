@@ -14,6 +14,7 @@ using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Security;
+using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Cloudents.MobileApp2
 {
