@@ -374,5 +374,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetUserDataAsync(query);
         }
+
+
+        public Task<ItemMobileDto> GetItemDetailApi(GetItemQuery query)
+        {
+            return m_ReadService.GetItemDetailApi(query);
+        }
     }
 }

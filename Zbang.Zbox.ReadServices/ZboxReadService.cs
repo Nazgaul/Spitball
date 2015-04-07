@@ -235,20 +235,9 @@ namespace Zbang.Zbox.ReadServices
                      query.TabId
                  });
             }
-            //using (UnitOfWork.Start())
-            //{
-
-            //    var queryBoxItem = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxItemDtosByBoxId2");
-            //    queryBoxItem.SetInt64("BoxId", query.BoxId);
-            //    queryBoxItem.SetResultTransformer(
-            //        ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer
-            //        (typeof(Item.FileDto),
-            //        typeof(Item.LinkDto)));
-            //    var fitems = queryBoxItem.Future<Item.ItemDto>();
-            //    return fitems.ToList();
-            //}
-
         }
+
+
 
         public async Task<IEnumerable<Item.QuizDto>> GetBoxQuizes(GetBoxQuizesPagedQuery query)
         {
@@ -282,6 +271,15 @@ namespace Zbang.Zbox.ReadServices
                 }
                 var retVal = item.Value;
                 return retVal;
+            }
+        }
+
+        public async Task<Item.ItemMobileDto> GetItemDetailApi(GetItemQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal = await conn.QueryAsync<Item.ItemMobileDto>(Sql.Item.ItemDetailApi, new { query.ItemId, query.BoxId, query.UserId });
+                return retVal.SingleOrDefault();
             }
         }
 

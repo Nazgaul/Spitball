@@ -43,7 +43,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             var userId = User.GetCloudentsUserId();
             var query = new GetItemQuery(userId, itemId, boxId);
-            var tItem = ZboxReadService.GetItem2(query);
+            var tItem = ZboxReadService.GetItemDetailApi(query);
 
             var tTransAction = QueueProvider.InsertMessageToTranactionAsync(
                   new StatisticsData4(new List<StatisticsData4.StatisticItemData>
@@ -60,14 +60,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             ////retVal.UserType = ViewBag.UserType;
             ////retVal.Name = Path.GetFileNameWithoutExtension(retVal.Name);
 
-            return Request.CreateResponse(new
-            {
-                retVal.Blob,
-                retVal.Navigation.NextId,
-                retVal.Navigation.PreviousId,
-                //Need to add download
-
-            });
+            return Request.CreateResponse(retVal);
         }
 
         [HttpGet]

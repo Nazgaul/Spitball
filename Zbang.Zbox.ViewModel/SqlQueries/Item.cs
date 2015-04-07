@@ -38,6 +38,24 @@ where cte.itemid = @itemid;
     and i.IsDeleted = 0 
 	and i.boxid = @BoxId;";
 
+        public const string ItemDetailApi = @" select 
+ i.Size,
+ i.NumberOfViews as numberOfViews,
+ i.Url,
+ b.boxname,
+ i.creationTime,
+ i.thumbnailUrl as Thumbnail,
+ i.Name as name,
+    u.UserName as owner, 
+    u.userid as ownerId,
+	i.numberofdownloads as numberOfDownloads
+    from zbox.Item i
+    join zbox.Users u on u.UserId = i.UserId
+    join zbox.box b on b.BoxId=i.BoxId and b.isdeleted = 0
+    where i.ItemId = @ItemId
+    and i.IsDeleted = 0 
+	and i.boxid = @BoxId;";
+
         public const string UserItemRate =
             @"select ir.Rate from zbox.ItemRate ir where ir.ItemId = @ItemId and ir.OwnerId = @UserId;";
 

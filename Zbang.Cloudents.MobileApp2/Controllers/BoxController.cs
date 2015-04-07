@@ -85,8 +85,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.Date,
                 s.Owner,
                 s.OwnerId,
-                s.Url,
-                s.Size
+                s.Url
             }));
             //Services.Log.Info("Hello from custom controller!");
             //return "Hello";
@@ -121,5 +120,30 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
            
         }
 
+        [Route("api/box/follow")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> Follow(FollowRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            var command = new SubscribeToSharedBoxCommand(User.GetCloudentsUserId(), model.BoxId);
+            await ZboxWriteService.SubscribeToSharedBoxAsync(command);
+            return Request.CreateResponse();
+        }
+
+        [HttpDelete]
+        public async Task<HttpResponseMessage> Delete(long id)
+        {
+            var userId = User.GetCloudentsUserId();
+            var command = new UnFollowBoxCommand(id, userId, false);
+            await ZboxWriteService.UnFollowBoxAsync(command);
+            return Request.CreateResponse();
+        }
     }
 }

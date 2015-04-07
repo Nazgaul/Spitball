@@ -199,6 +199,7 @@
     <Compile Include="DataObjects\FileUploadRequest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataObjects\FollowRequest.cs" />
     <Compile Include="DataObjects\ItemLikeRequest.cs" />
     <Compile Include="DataObjects\ItemRenameRequest.cs" />
     <Compile Include="DataObjects\LogInRequest.cs" />

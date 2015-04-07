@@ -41,6 +41,7 @@ namespace Zbang.Zbox.ReadServices
         ItemWithDetailDto GetItem(GetItemQuery query);
 
         Task<ItemDetailDto> GetItem2(GetItemQuery query);
+        Task<ItemMobileDto> GetItemDetailApi(GetItemQuery query);
         Task<FileSeo> GetItemSeo(GetFileSeoQuery query);
         Task<BoxSeoDto> GetBoxSeo(GetBoxSeoQuery query);
 
