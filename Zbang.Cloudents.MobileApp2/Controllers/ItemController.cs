@@ -39,10 +39,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IGuidIdGenerator GuidGenerator { get; set; }
 
         // GET api/Item
-        public async Task<HttpResponseMessage> Get(long boxId, long itemId)
+        public async Task<HttpResponseMessage> Get(long boxId, long id)
         {
             var userId = User.GetCloudentsUserId();
-            var query = new GetItemQuery(userId, itemId, boxId);
+            var query = new GetItemQuery(userId, id, boxId);
             var tItem = ZboxReadService.GetItemDetailApi(query);
 
             var tTransAction = QueueProvider.InsertMessageToTranactionAsync(
@@ -50,7 +50,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     {
                         new StatisticsData4.StatisticItemData
                         {
-                            Id = itemId,
+                            Id = id,
                             Action = (int)StatisticsAction.View
                         }
                     }, userId, DateTime.UtcNow));
@@ -64,13 +64,13 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         }
 
         [HttpGet]
-        [Route("api/item/{itemId:long}/download")]
-        public async Task<string> Download(long boxId, long itemId)
+        [Route("api/item/{id:long}/download")]
+        public async Task<string> Download(long boxId, long id)
         {
             //const string defaultMimeType = "application/octet-stream";
             var userId = User.GetCloudentsUserId();
 
-            var query = new GetItemQuery(userId, itemId, boxId);
+            var query = new GetItemQuery(userId, id, boxId);
 
             var item = ZboxReadService.GetItem(query);
 
@@ -87,7 +87,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     {
                         new StatisticsData4.StatisticItemData
                         {
-                            Id = itemId,
+                            Id = id,
                             Action = (int)StatisticsAction.Download
                         }
                     }, userId, DateTime.UtcNow));
@@ -128,13 +128,13 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         //}
 
-        public async Task<HttpResponseMessage> Delete(long itemId, long boxId)
+        public async Task<HttpResponseMessage> Delete(long id, long boxId)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateBadRequestResponse();
             }
-            var command = new DeleteItemCommand(itemId, User.GetCloudentsUserId(), boxId);
+            var command = new DeleteItemCommand(id, User.GetCloudentsUserId(), boxId);
             await ZboxWriteService.DeleteItemAsync(command);
             return Request.CreateResponse();
         }
