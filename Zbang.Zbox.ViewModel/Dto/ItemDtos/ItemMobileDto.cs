@@ -24,5 +24,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public long OwnerId { get; set; }
 
         public int NumberOfDownloads { get; set; }
+
+        public long Id { get; set; }
     }
 }

@@ -39,6 +39,7 @@ where cte.itemid = @itemid;
 	and i.boxid = @BoxId;";
 
         public const string ItemDetailApi = @" select 
+ i.itemid as Id,
  i.Size,
  i.NumberOfViews as numberOfViews,
  i.Url,
