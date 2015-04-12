@@ -94,18 +94,24 @@
             </li>
         </ul>
 
-        <div class="boxFolders" ng-if="options.activeTab === 'items'" ng-controller="BoxTabsCtrl">
-            <div class="sectionHeader">@IndexResources.Folders</div>
+        <section class="boxFolders" ng-if="options.activeTab === 'items'" ng-controller="BoxTabsCtrl">
+            <h3>@IndexResources.Folders</h3>
             <div m-custom-scrollbar bottom="0">
                 <ul class="boxFolderList">
                     <li class="current boxFolder" ng-class="{current : !params.currentTab }">
-                        <span class="boxFolderName elps" ng-click="selectTab()">@SharedResources.All</span>
-                        <span class="tabBorder"></span>
+                        <span class="boxFolderName elps" ng-click="selectTab()">
+                            @Html.Svg("~/Images/Defs.svg", "folderAll", new { @class = "svg-folderAll" })&nbsp;@SharedResources.All
+                        </span>
                     </li>
                     <li ng-repeat="tab in params.tabs track by tab.id" class="boxFolder" ng-class="{ current: tab.id === params.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab)" drop-channel="boxItem">
 
                         <button type="button" tooltip="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === params.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
-                        <span class="boxFolderName elps" ng-click="selectTab(tab)">{{tab.name}} {{'('+tab.itemCount || 0+')'}})</span>
+                        <span class="boxFolderName elps" ng-if="tab.itemCount === 0" ng-click="selectTab(tab)">
+                            @Html.Svg("~/Images/Defs.svg", "folder", new { @class = "svg-folder" })&nbsp;{{tab.name}}
+                        </span>
+                        <span class="boxFolderName elps" ng-if="tab.itemCount > 0" ng-click="selectTab(tab)">
+                            @Html.Svg("~/Images/Defs.svg", "folderNonempty", new { @class = "svg-folderNonempty" })&nbsp;{{tab.name}} {{'('+tab.itemCount || 0+')'}})
+                        </span>
 
                         <ul class="dropdown-menu" role="menu">
                             <li>
@@ -125,7 +131,7 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </section>
     </div>
     <div class="boxRight">
         <div class="box-content" ng-switch="options.activeTab" load-spinner="options.loader" load-spinner-type="init">

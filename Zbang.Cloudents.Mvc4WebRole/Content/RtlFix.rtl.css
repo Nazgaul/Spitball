@@ -159,8 +159,7 @@
 .rtlFix .socialList li.jsInviteSent button:after {
   top: 3px;
 }
-.rtlFix .boxMembers .sectionHeader,
-.rtlFix .boxFolders .sectionHeader {
+.rtlFix .boxFolders h3 {
   font-size: 17px;
 }
 .rtlFix .listItem .itemContent {
