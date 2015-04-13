@@ -144,7 +144,7 @@
   box-sizing: border-box;
 }
 .newUni.newUni .createUni {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .newUni.newUni .createUni:hover {
   text-decoration: underline;
@@ -329,7 +329,7 @@
   display: inline-block;
 }
 .createDeptBtn {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .createDeptBtn:hover {
   text-decoration: underline;

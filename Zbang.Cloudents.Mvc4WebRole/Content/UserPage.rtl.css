@@ -70,7 +70,7 @@
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
-  border: 1px solid #0f9d58;
+  border: 1px solid #3293f6;
   text-align: center;
 }
 .pointsWpr:before {
@@ -80,7 +80,7 @@
   right: 0;
   width: 100%;
   height: 53px;
-  background: #0f9d58;
+  background: #3293f6;
 }
 .emptyPoints {
   padding: 15px 9px;
@@ -183,7 +183,7 @@
 }
 .uploadsItem .boxName {
   line-height: 15px;
-  color: #0F9D58;
+  color: #3293f6;
   height: 30px;
   padding: 18px 0 2px;
   overflow: hidden;

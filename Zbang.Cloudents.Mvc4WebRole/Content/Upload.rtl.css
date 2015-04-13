@@ -116,7 +116,7 @@
 }
 .source .btn:hover,
 .source .btn:active {
-  border: 2px solid #0f9d58;
+  border: 2px solid #3293f6;
   background: #f4f4f4;
 }
 .source .btn:before {
@@ -298,7 +298,7 @@ button.stopUpload {
 }
 button.fileCancel {
   background: none;
-  color: #0f9d58;
+  color: #3293f6;
 }
 button.fileDone {
   display: none;

@@ -127,7 +127,9 @@
                     </li>
 
                     <li class="createFolder">
-                        <span class="createFolderText elps" ng-click="createTab()">@MainViewResources.CreateTab</span>
+                        <span class="createFolderText elps" ng-click="createTab()">
+                            @Html.Svg("~/Images/Defs.svg", "plus", new { @class = "svg-plus" })&nbsp;@MainViewResources.CreateTab
+                        </span>
                     </li>
                 </ul>
             </div>

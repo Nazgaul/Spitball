@@ -28,7 +28,7 @@
   display: inline-block;
   width: 100%;
   height: 100%;
-  background: #0f9d58;
+  background: #3293f6;
   position: absolute;
   top: 0;
   right: 0;
@@ -167,7 +167,7 @@
 }
 .homepage .headerActions .btn {
   background: #fff;
-  color: #0f9d58;
+  color: #3293f6;
   display: inline-block;
   margin: 0 4px;
   font-size: 13px;
@@ -428,7 +428,7 @@ section.unions {
   content: '';
   display: inline-block;
   margin: 0 auto;
-  background: url(/Images/students.jpg?v=3) no-repeat center center #0f9d58;
+  background: url(/Images/students.jpg?v=3) no-repeat center center #3293f6;
   width: 100%;
   position: absolute;
   right: 0;
@@ -448,7 +448,7 @@ section.unions {
 }
 .unions .btn {
   background: #fff;
-  color: #0f9d58;
+  color: #3293f6;
   border-radius: 5px;
   height: 42px;
   line-height: 42px;

@@ -105,7 +105,7 @@ body {
 }
 .headerActions .btn:first-child {
   background: #fff;
-  color: #0f9d58;
+  color: #3293f6;
 }
 .headerActions .btn:hover {
   background: #168350;
@@ -130,7 +130,7 @@ body {
   background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATAAAACxCAMAAAB0vhEIAAAAjVBMVEUAAAADcchSkcvT09Pp6enMzMwEcsjp6enj4+MDccjT09PMzMwDccgDccjMzMzMzMwDccjp6emVlZXp6ekDccj7+/uysrL39/f09PTw8PDt7e3////MzMxdX2AxiM7y8vNFj8lVnNQcfcnY4eg6ZYhyrNombKOFhoaEobgZcriJuN6jxeCZmZmwz+fA1udApBdYAAAAE3RSTlMASAk2l/SeZhDLXdp26JK6IubWCDDY4QAABK9JREFUeNrt3WtT4jAUxvGCipeF3XVOuBUFWihyUb//x1sqaKi9ETlxPYfn90p9wYz/SdK06WgAAAAAAAAAAAAAAAAAACBT8+KaU6DdHTHqjvqXgW7XxByMdBe7IPZguotd8gfTXeyeP5juYsQfTHcxD8F0FyMPwVQXI/IQTHMxshiDKS5GFmcwvcXIYg2mthhZvMG0FiOLOZjSYmRxB9NZjHaG/RrD44PpLkY7k24Nh2C6i3kIprsY7YTDGuHxwXQXI1b5YOqKURZ/MG3FKIc7mLJilMMeTFcxyuEPpqoY5fEH01SMePWLgykqRrwGo25IBfQUI17hqGSIqSlGzPraixG37mjUnYRUREUxYtcfVbkJhCN+k24XwdggGIJlIBiCIVglBGPAe8zmbnCOwSbdr+sjGILVT8nB1w3PMVglLPoIhmBlEMwRgjlCMGc/bx92hBDBEOwQgrm9UMdP3xpWBYs+giFYKZnBZpskisaxicdRq934G0hGO8OBN7NkbLI6bcHNKOVxW/EyNUVuG4FQfoO9jk2ZjtBkPqfkLDJVWiInJvmziU0NiYOMvElMvXYgDvkSmWO0moEw5ICxly0WCEM7IdsN9u6bz/MxjpL15nWzTlrSi/FtK8Jd+W5qna2VvNC7m6DRFr2OeQn2mimyHnx6HtZsC75W0s6wf7J9sO1Xk9hYUfqTTLA0WctYHVELP3mQGGtNWWmwVFvqMkb8DiZk/EIZNljQMJakLT/xi2yJXC8bLGjIHGKUxTvANpRjgwUNkUOM9kI2doAl4bvCYEFL4hBjf7zTj83euF9zzNbsfBSTc6FkD/ZiF7Dac8mGwL0Ye7DoY4AdcZB7K29OErfY7sBybLDPu7FOIAUxm5l3M8rJBWvKu04Ss43Zm1JOPlhwK24RI2Zrs5dQXj5YW9wzC2KWVGxaC4I1xK36xCwye6+Ulw/2F8Gq1vx8sObZB5u6BQvM3m0gBOUgGIIhmAMEc4Rg7n7oqdFOZPYynxiqCzZhf7qT+UQEO/tgwwGTj2Dh4IC+NewQFv1vCTZLxil7BFLs9hPzUSwl4C1O4jI1p5Az0IiL4RH8dGwv1J1ZsNO3FQiGYH5vjc4sGBZ9BNtBMEcI9hU/5IU6x2CLxXy+WGgJNum6GzoEW80f9+YrBKsPts1lzREsVdvr6c1bMQXBTlfT67m395wWQ7CqYIvt6OodeNoWQ7CKYHZ42UG2QrDyCWl72WJzBDNl7Hw8nJXSg/l7vLN67BV4XCFYicVTUbCnBYKVBXvuFZEejMJTlQbr6QzmbdFfFQeTvob5C2aKg0m/SnoMtizqtUQwU2ZaFGyKYMZliC1xL1kRLM4HixGMTLlp1YT0H6zZvEldpO62rn9v/Un9enOV9XD1UMVjMGtc18t6qHd19Wtr+/v+3koLpCXemjSb+VwSR5gx8dLmWsYaHlF7DmaTLcc6To08B7PTcqrkmA3BjnX/XcFWSoJdfnOwhfRgN98cbCU9WHDnN5gVpb2W4t+t2Ba79xrMmi6XU/lv76QurhmYYuped2KDYAiWgWCOEMwRgjlCMEcI5gjBHCHY/9Yxp5D3xyNP1nAopu6fHQEAwP/3D4cuWPUPYEo3AAAAAElFTkSuQmCC') /*/Images/members-only.png*/ no-repeat;
 }
 .membersOnly h2 {
-  color: #0f9d58;
+  color: #3293f6;
   font-size: 22px;
   font-weight: normal;
 }
@@ -155,13 +155,13 @@ body {
   margin: 25px auto;
 }
 .notFound h2 {
-  color: #0f9d58;
+  color: #3293f6;
   font-size: 22px;
   margin-bottom: 15px;
   font-weight: normal;
 }
 .notFound a {
-  color: #0f9d58;
+  color: #3293f6;
 }
 /*#endregion */
 /*#region about us, contact us, privacy policy; terms of service */
@@ -173,7 +173,7 @@ body {
   box-sizing: border-box;
 }
 .staticPage h1 {
-  color: #0f9d58;
+  color: #3293f6;
   font-size: 24px;
   margin-bottom: 15px;
   font-weight: normal;
@@ -188,7 +188,7 @@ body {
   margin: 1em 0;
 }
 .staticPage a {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .subHeader,
 .subHeaderUnderline {
@@ -227,7 +227,7 @@ body {
   border: 1px solid #c2c2c2;
 }
 .staticTitle {
-  color: #0f9d58;
+  color: #3293f6;
   margin-top: 70px;
   font-size: 32px;
   text-align: center;
@@ -241,7 +241,7 @@ body {
   margin-top: 40px;
 }
 .innerContent .linkBtn {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .forgotPwd,
 .emailSent,
@@ -275,7 +275,7 @@ body {
 .unsupported h2 {
   font-size: 22px;
   font-weight: normal;
-  color: #0f9d58;
+  color: #3293f6;
   margin-bottom: 24px;
   line-height: 25px;
   display: block;
@@ -554,7 +554,7 @@ body {
   font-size: 23px;
   color: #fff;
   line-height: 26px;
-  background: #0f9d58;
+  background: #3293f6;
   border-radius: 10px;
   margin: 1px -60px;
   padding: 125px 114px;
@@ -649,7 +649,7 @@ footer {
 }
 .jobs .headerActions .btn:hover {
   background: none;
-  color: #0f9d58;
+  color: #3293f6;
 }
 .jobs .headerActions .btn:first-child {
   margin: 0;
@@ -670,10 +670,10 @@ footer {
 }
 .jobs .svg-logo,
 .jobs .svg-menu {
-  fill: #0f9d58;
+  fill: #3293f6;
 }
 .jobs .userName {
-  color: #0f9d58;
+  color: #3293f6;
   vertical-align: middle;
   margin: 0 0 0 40px;
 }
@@ -685,7 +685,7 @@ footer {
   line-height: 23px;
 }
 .jobs h2 {
-  color: #0f9d58;
+  color: #3293f6;
   margin: 20px 0 0;
 }
 .jobs h3 {
@@ -724,12 +724,12 @@ footer {
   background: #fff;
 }
 .jobItem .question {
-  color: #0f9d58;
+  color: #3293f6;
   min-height: 70px;
   line-height: normal;
 }
 .jobItem .jobName {
-  color: #0f9d58;
+  color: #3293f6;
   padding: 18px 0 2px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

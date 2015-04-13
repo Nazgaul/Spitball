@@ -81,11 +81,11 @@ main {
 }
 .navLinks li:hover,
 .navLinks li.current {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .navLinks li:hover button,
 .navLinks li.current button {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .navLinks button {
   font-weight: bold;
@@ -252,7 +252,7 @@ main {
   overflow: hidden;
   height: 100%;
   color: #fff;
-  background: #0f9d58;
+  background: #3293f6;
   font-size: 21px;
 }
 /*#endregion */
@@ -336,7 +336,7 @@ main {
   font-size: 15px;
 }
 .categoryList ul li:hover {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .categoryList > li {
   width: 150px;
@@ -536,7 +536,7 @@ main {
   box-sizing: border-box;
 }
 .productsList .desc + .lFloat {
-  color: #0f9d58;
+  color: #3293f6;
   border-left: 1px solid #39434a;
 }
 .productsList table {
@@ -566,7 +566,7 @@ main {
   text-decoration: line-through;
 }
 .productsList tr:nth-child(2) td {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .productsList td {
   line-height: 20px;
@@ -652,8 +652,8 @@ main {
   margin: 154px 0 15px;
 }
 .productHover .sale {
-  color: #0f9d58;
-  border-right: 1px solid #0f9d58;
+  color: #3293f6;
+  border-right: 1px solid #3293f6;
 }
 .hoverDesc {
   text-align: left;
@@ -708,7 +708,7 @@ main {
 .productWpr .left .imgWpr {
   width: 425px;
   height: 281px;
-  border: 1px solid #0f9d58;
+  border: 1px solid #3293f6;
   border-radius: 5px;
   margin-bottom: 15px;
   text-align: center;
@@ -780,7 +780,7 @@ main {
   padding-right: 4px;
 }
 .productPrice tr:nth-child(1) td {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .productPrice tr:nth-child(3) td {
   border-top: 1px solid #999;
@@ -823,7 +823,7 @@ main {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border: 1px solid #0f9d58;
+  border: 1px solid #3293f6;
   display: inline-block;
   padding: 0 10px;
 }
@@ -845,8 +845,8 @@ main {
 }
 .about h2,
 .terms h2 {
-  border-top: 2px solid #0f9d58;
-  border-bottom: 1px solid #0f9d58;
+  border-top: 2px solid #3293f6;
+  border-bottom: 1px solid #3293f6;
   margin-top: 40px;
   font-size: 15px;
 }
@@ -1001,7 +1001,7 @@ main {
   box-sizing: border-box;
 }
 .couponBtn .btn3:nth-child(2) {
-  background: #0f9d58;
+  background: #3293f6;
   -webkit-transition: all 0.3s ease-in;
   -moz-transition: all 0.3s ease-in;
   -o-transition: all 0.3s ease-in;
@@ -1094,7 +1094,7 @@ main {
   border: none;
 }
 .orderTable th {
-  color: #0f9d58;
+  color: #3293f6;
   font-weight: bold;
   border-bottom: 1px solid silver;
 }
@@ -1141,7 +1141,7 @@ main {
 }
 .invoice li:last-of-type {
   border: none;
-  color: #0f9d58;
+  color: #3293f6;
 }
 .invoice li span {
   display: table-cell;
@@ -1305,7 +1305,7 @@ main {
   width: 270px;
   height: 220px;
   color: #fff;
-  background: #0f9d58;
+  background: #3293f6;
   border-radius: 10px;
   font-size: 15px;
   position: absolute;
@@ -1333,7 +1333,7 @@ main {
   height: 0;
   border-style: solid;
   border-width: 15px 8.5px 0 8.5px;
-  border-color: #0f9d58 transparent transparent transparent;
+  border-color: #3293f6 transparent transparent transparent;
   position: absolute;
   bottom: -15px;
   left: 20px;
@@ -1357,7 +1357,7 @@ main {
   border-radius: 12px;
 }
 .thanksTxt1 {
-  color: #0f9d58;
+  color: #3293f6;
   font-size: 53px;
   margin: 95px 0 20px;
   white-space: pre-wrap;
@@ -1390,7 +1390,7 @@ main {
 /*#endregion */
 /*#region footer */
 .storeWpr footer {
-  background: #0f9d58;
+  background: #3293f6;
   height: auto;
   line-height: normal;
   text-align: right;

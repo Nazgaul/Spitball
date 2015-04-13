@@ -806,6 +806,9 @@
     <Content Include="Content\varsAndMixins.css">
       <DependentUpon>varsAndMixins.less</DependentUpon>
     </Content>
+    <Content Include="Content\varsAndMixins.rtl.css">
+      <DependentUpon>varsAndMixins.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\back-icon.png" />

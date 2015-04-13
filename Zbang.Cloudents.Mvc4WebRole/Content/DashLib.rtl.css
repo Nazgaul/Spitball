@@ -265,7 +265,7 @@
 }
 .setupCourse .setupCourseTxt2 {
   font-size: 20px;
-  color: #0f9d58;
+  color: #3293f6;
   padding: 0;
   margin-bottom: 145px;
   line-height: 10px;
@@ -294,7 +294,7 @@
 .featureTxt1 svg,
 .featureTxt2 svg,
 .featureTxt3 svg {
-  fill: #0f9d58;
+  fill: #3293f6;
   margin-left: 10px;
   vertical-align: middle;
 }
@@ -307,8 +307,8 @@
   vertical-align: middle;
 }
 .featureTxt2 {
-  border-right: 1px solid #0f9d58;
-  border-left: 1px solid #0f9d58;
+  border-right: 1px solid #3293f6;
+  border-left: 1px solid #3293f6;
   margin: 0 20px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -530,7 +530,7 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border: 1px solid #0f9d58;
+  border: 1px solid #3293f6;
   margin: 30px 0 16px;
   background: #eee;
   border-radius: 5px;
@@ -616,7 +616,7 @@
   margin: 0 6px;
 }
 .socialInvite.js-cloudState .cloudentsBtn svg {
-  fill: #0f9d58;
+  fill: #3293f6;
 }
 .socialInvite.js-cloudState .socialContentWpr:before {
   left: auto;
@@ -804,7 +804,7 @@
   position: absolute;
   top: 23px;
   background: #fff;
-  color: #0f9d58;
+  color: #3293f6;
   -webkit-transition: top 0.5s ease-in;
   -moz-transition: top 0.5s ease-in;
   -o-transition: top 0.5s ease-in;
@@ -903,7 +903,7 @@
   color: #383838;
 }
 .myAreaList .box:first-child:hover {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .myAreaList .box:first-child .addBtn {
   -webkit-box-sizing: border-box;
@@ -1146,7 +1146,7 @@
 }
 .box a:hover .addBtn,
 .box .addBtn:hover .addBtn {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .box a:hover .addBtn:before,
 .box .addBtn:hover .addBtn:before {
@@ -1287,7 +1287,7 @@
   border: 1px dashed #aaa;
 }
 .libraryList .addBtn:hover {
-  color: #19ae66;
+  color: #4aa0f7;
 }
 .libraryList .addBtn:hover:before {
   background-position: -278px -18px;
@@ -1311,7 +1311,7 @@
 .libraryItem.addDep:hover,
 .libraryItem.addCourse:hover,
 .libraryItem + .box:hover {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .libraryItem.addDep {
   width: 244px;

@@ -142,7 +142,7 @@ input[type="radio"][disabled] + label:before {
 .checkbox ~ .cbLabel2 svg {
   display: none;
   width: 18px;
-  fill: #0f9d58;
+  fill: #3293f6;
   height: 20px;
   position: absolute;
   top: 4px;
@@ -205,15 +205,15 @@ input[type="radio"][disabled] + label:before {
   border: 1px solid #a5a5a5;
 }
 .btn1 {
-  background: #0f9d58;
+  background: #3293f6;
   color: #fff;
-  border: 1px solid #0f9d58;
+  border: 1px solid #3293f6;
 }
 .btn1:hover {
-  background: #19ae66;
+  background: #4aa0f7;
 }
 .btn1:active {
-  background: #0d864b;
+  background: #1a86f5;
 }
 .btn2 {
   background: #f8f8f8;
@@ -439,7 +439,7 @@ input[type="radio"][disabled] + label:before {
   right: auto;
 }
 .modal.couponPopup .svg-close {
-  fill: #0f9d58;
+  fill: #3293f6;
   width: 22px;
   height: 22px;
 }
@@ -457,22 +457,22 @@ input[type="radio"][disabled] + label:before {
 }
 .storeTxt1 {
   font-size: 60px;
-  color: #0f9d58;
+  color: #3293f6;
   font-weight: bold;
   position: relative;
   top: -3px;
 }
 .storeTxt2 {
   font-size: 28px;
-  color: #0f9d58;
+  color: #3293f6;
   font-weight: bold;
   margin-top: -18px;
 }
 .storeTxt3 {
   font-size: 26px;
   color: #39434a;
-  border-top: 1px solid #0f9d58;
-  border-bottom: 1px solid #0f9d58;
+  border-top: 1px solid #3293f6;
+  border-bottom: 1px solid #3293f6;
   padding: 3px 0 4px;
   display: inline-block;
   margin: 5px auto 42px;
@@ -561,7 +561,7 @@ input[type="radio"][disabled] + label:before {
   white-space: pre-line;
 }
 .requestSentDiv.first {
-  color: #0f9d58;
+  color: #3293f6;
   font-size: 28px;
   /*diff rtl*/
   margin: 20px 0 15px;
@@ -653,7 +653,7 @@ input[type="radio"][disabled] + label:before {
 }
 .connect button,
 .create button {
-  color: #0f9d58;
+  color: #3293f6;
 }
 /*.hr {
     margin: 0 auto;
@@ -776,7 +776,7 @@ input[type="radio"][disabled] + label:before {
 }*/
 .forgot {
   font-size: 15px;
-  color: #0f9d58;
+  color: #3293f6;
 }
 .formBottom {
   font-size: 13px;
@@ -1360,7 +1360,7 @@ aside.sideBar .last {
   color: #fff;
 }
 .ttUsername {
-  color: #0f9d58;
+  color: #3293f6;
   font-size: 16px;
   max-width: 257px;
   display: block;
@@ -1773,7 +1773,7 @@ svg.color8 {
   /*rtl - because Hebrew doesn't support this*/
 }
 .mark {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .clearfix:after {
   content: ".";

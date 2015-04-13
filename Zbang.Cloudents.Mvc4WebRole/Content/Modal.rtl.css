@@ -68,7 +68,7 @@
   margin: 0 0 0 8px;
 }
 .modal .enterCode .mailTo {
-  color: #0f9d58;
+  color: #3293f6;
   text-decoration: underline;
 }
 .modal .departmentChoose {
@@ -314,7 +314,7 @@
 .itemReg .modal-header svg {
   width: 46px;
   height: 50px;
-  fill: #0f9d58;
+  fill: #3293f6;
   display: inline-block;
   right: 0;
   position: absolute;
@@ -323,7 +323,7 @@
   width: auto;
   font-size: 25px;
   line-height: 46px;
-  color: #0f9d58;
+  color: #3293f6;
   background: none;
   font-weight: bold;
   position: relative;
@@ -352,7 +352,7 @@
 .itemReg .svg-logo {
   width: 147px;
   height: 26px;
-  fill: #0f9d58;
+  fill: #3293f6;
   margin: 0 auto 20px;
   display: block;
 }
@@ -377,7 +377,7 @@
 }
 .deptSettings header,
 .leavePrompt header {
-  color: #0f9d58;
+  color: #3293f6;
   font-size: 18px;
   margin: 5px 0;
 }
@@ -403,7 +403,7 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  background: #0f9d58;
+  background: #3293f6;
   border-radius: 50%;
   vertical-align: top;
   position: absolute;
@@ -412,7 +412,7 @@
 }
 .deptSettings .deleteDept,
 .leavePrompt .deleteDept {
-  border-top: 1px solid #0f9d58;
+  border-top: 1px solid #3293f6;
   margin-top: 20px;
 }
 .deptSettings .deleteDept header,
@@ -627,7 +627,7 @@
   white-space: pre-line;
 }
 .requestSentDiv.first {
-  color: #0f9d58;
+  color: #3293f6;
   font-size: 28px;
   /*diff rtl*/
   margin: 20px 0 15px;
@@ -651,7 +651,7 @@
   margin-top: 0;
 }
 .flagDialog > div {
-  color: #0f9d58;
+  color: #3293f6;
   font-size: 15px;
 }
 .flagDialog input[type="text"] {
@@ -1024,11 +1024,6 @@
 /*#region points popup */
 .ribbon {
   display: inline-block;
-  width: 384px;
-  height: 77px;
-}
-.svg-ribbon {
-  fill: #144429;
   width: 384px;
   height: 77px;
 }

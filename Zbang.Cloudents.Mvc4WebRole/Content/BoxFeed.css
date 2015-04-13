@@ -338,7 +338,7 @@
   margin: 0 0 0 15px;
 }
 .feedReplies .userName {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .feedReplies .feedWpr {
   background: none;
@@ -371,7 +371,7 @@
 .qaAttchQuiz .svg-quizBg {
   width: 100px;
   height: 125px;
-  stroke: #0f9d58;
+  stroke: #3293f6;
 }
 .attachActions {
   width: 100px;
@@ -509,14 +509,14 @@
   display: block;
 }
 .leaderBoard header {
-  color: #0f9d58;
+  color: #3293f6;
   text-align: center;
   font-size: 20px;
 }
 .leaderBoard header svg {
   width: 36px;
   height: 29px;
-  fill: #0f9d58;
+  fill: #3293f6;
 }
 .leaderBoard .lbText {
   display: inline-block;
@@ -556,7 +556,7 @@
 }
 .bestUserList .userImg {
   display: block;
-  border: 1px solid #0f9d58;
+  border: 1px solid #3293f6;
 }
 .bestUserList:before {
   content: '';

@@ -38,11 +38,11 @@
   display: block;
   font-size: 18px;
   text-transform: uppercase;
-  color: #0f9d58;
+  color: #3293f6;
   width: 100%;
   height: 34px;
   line-height: 34px;
-  border: 1px solid #0f9d58;
+  border: 1px solid #3293f6;
   border-radius: 3px;
   margin-top: 15px;
   text-align: center;
@@ -87,7 +87,7 @@
   cursor: pointer;
 }
 .shareBtn .shareBtnLabel:hover svg {
-  fill: #0f9d58;
+  fill: #3293f6;
 }
 .shareDD {
   padding: 20px 18px;
@@ -304,7 +304,7 @@
   position: relative;
 }
 .newActivity li.current {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .newActivity li.current:after {
   content: '';
@@ -315,22 +315,14 @@
   height: 0;
   border-style: solid;
   border-width: 11px 22px 11px 0;
-  border-color: transparent #0f9d58 transparent transparent;
+  border-color: transparent #3293f6 transparent transparent;
 }
 .newActivity .notify {
-  right: 16px;
-}
-.newActivity .feedTab .notify {
-  top: 12px;
-}
-.newActivity .itemTab .notify {
-  top: 52px;
-}
-.newActivity .quizTab .notify {
-  top: 92px;
+  right: 25px;
+  top: 3px;
 }
 .newPosts {
-  background: #0f9d58;
+  background: #3293f6;
   color: #fff;
   display: inline-block;
   padding-top: 2px;
@@ -353,6 +345,7 @@
 .boxFolders {
   height: 100%;
   margin: 0 -25px;
+  background: #fff;
 }
 .boxFolders .mCSB_container,
 .boxFolders [ng-transclude] {
@@ -379,7 +372,6 @@
   font-size: 16px;
   height: 40px;
   line-height: 40px;
-  background: #eee;
 }
 .boxFolder .boxFolderName,
 .createFolder .boxFolderName {
@@ -423,10 +415,10 @@
   display: inline-block;
 }
 .boxFolder.current svg {
-  fill: #0f9d58;
+  fill: #3293f6;
 }
 .boxFolder.current .boxFolderName {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .createFolder {
   font-size: 13px;
@@ -436,17 +428,13 @@
 .createFolderText {
   cursor: pointer;
 }
-.createFolderText:before {
-  content: '';
-  display: inline-block;
-  width: 11px;
-  height: 11px;
-  background: url(/Images/box18-sprite.png?v=1) -58px 0 no-repeat;
-  vertical-align: top;
-  margin: 14px 6px 0 0;
+.createFolderText svg {
+  width: 18px;
+  height: 18px;
+  fill: #3293f6;
 }
 .createFolderText:hover {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .editFolder {
   display: none;
@@ -544,7 +532,7 @@
 .boxEmpty svg {
   width: 60px;
   height: 46px;
-  fill: #0f9d58;
+  fill: #3293f6;
   display: block;
   margin: 20px auto 0;
 }
@@ -719,7 +707,7 @@
 }
 .listViewBtn.currentState svg,
 .thumbViewBtn.currentState svg {
-  fill: #0f9d58;
+  fill: #3293f6;
 }
 .listViewBtn svg,
 .thumbViewBtn svg {
@@ -832,7 +820,7 @@
   top: 15px;
 }
 .listItem .boxName {
-  color: #0f9d58;
+  color: #3293f6;
   font-size: 15px;
   display: inline-block;
   max-width: -webkit-calc(100vw - 880px);
@@ -895,7 +883,7 @@
   margin: 5px 0 0 6px;
   overflow: hidden;
   line-height: 15px;
-  color: #0f9d58;
+  color: #3293f6;
   height: 32px;
 }
 .thumbItem .tag {
@@ -933,7 +921,7 @@
   height: 205px;
   position: absolute;
   z-index: -1;
-  stroke: #0f9d58;
+  stroke: #3293f6;
 }
 .thumbItem.quizItem .boxLink {
   padding: 11px 0;

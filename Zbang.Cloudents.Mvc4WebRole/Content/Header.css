@@ -27,7 +27,7 @@ body {
 }
 .siteHeader {
   height: 50px;
-  background-color: #0f9d58;
+  background-color: #3293f6;
   top: 0;
   width: 100%;
   z-index: 11;
@@ -49,7 +49,7 @@ body {
 .siteHeader.headerBox .siteLogo {
   height: 50px;
   width: 243px;
-  background: #0f9d58;
+  background: #3293f6;
 }
 .siteHeader.headerBox .barActions {
   margin-top: 0;
@@ -126,7 +126,7 @@ body {
 }
 .signUp .btn:first-child {
   background: #fff;
-  color: #0f9d58;
+  color: #3293f6;
 }
 .signUp .btn:hover {
   background: #168350;

@@ -305,6 +305,7 @@
 .newActivity {
     //margin-top: -10px;
     margin: -10px -25px 0 -25px;
+
     .topSeparator;
     .bottomSeparator;
 
@@ -334,25 +335,8 @@
     }
 
     .notify {
-        right: 16px;
-    }
-
-    .feedTab {
-        .notify {
-            top: 12px;
-        }
-    }
-
-    .itemTab {
-        .notify {
-            top: 52px;
-        }
-    }
-
-    .quizTab {
-        .notify {
-            top: 92px;
-        }
+        right: 25px;
+        top: 3px;
     }
 }
 
@@ -383,7 +367,7 @@
 .boxFolders {
     height: 100%; //
     margin: 0 -25px;
-    //display: table-row;
+    background: #fff;
     .mCSB_container, [ng-transclude] {
         width: 242px;
         //  height: 100%;
@@ -411,7 +395,6 @@
     font-size: 16px;
     height: 40px;
     line-height: 40px;
-    background: #eee;
 
     .boxFolderName {
         padding: 0 26px;
@@ -471,16 +454,11 @@
 
 .createFolderText {
     cursor: pointer;
-
-    &:before {
-        .pseudo;
-        width: 11px;
-        height: 11px;
-        background: @boxSprite -58px 0 no-repeat;
-        vertical-align: top;
-        margin: 14px 6px 0 0;
+    svg {
+        width: 18px;
+        height: 18px;
+        fill: @color;
     }
-
     &:hover {
         color: @color;
     }

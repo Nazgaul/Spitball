@@ -17,7 +17,7 @@
 }
 /*#region drag-drop*/
 .draggable {
-  border: 1px solid #0f9d58;
+  border: 1px solid #3293f6;
   color: #111;
   background-color: #fcf0ec;
   background-color: rgba(252, 240, 236, 0.75);
@@ -28,7 +28,7 @@
 .drop {
   color: #fff;
   border-radius: 3px;
-  background: #0f9d58;
+  background: #3293f6;
   padding: 2px 4px;
   display: none;
   position: relative;
@@ -37,7 +37,7 @@
   vertical-align: top;
 }
 .dropHover {
-  color: #0f9d58;
+  color: #3293f6;
 }
 /*#endregion*/
 .plupload.html5 {

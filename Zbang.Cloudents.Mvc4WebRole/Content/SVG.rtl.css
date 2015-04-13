@@ -103,15 +103,20 @@ svg.rtl {
 }
 /*#endregion */
 /*#region dashboard */
+.svg-ribbon {
+  fill: #3293f6;
+  width: 384px;
+  height: 77px;
+}
 .svg-books {
   width: 43px;
   height: 36px;
-  fill: #0f9d58;
+  fill: #3293f6;
 }
 .svg-quizInner {
   width: 30px;
   height: 39px;
-  fill: #0f9d58;
+  fill: #3293f6;
 }
 .svg-search {
   width: 19px;
@@ -130,7 +135,7 @@ svg.rtl {
 .svg-bag {
   width: 30px;
   height: 33px;
-  fill: #0f9d58;
+  fill: #3293f6;
 }
 .svg-trophyEmpty {
   width: 164px;
@@ -175,7 +180,7 @@ svg.rtl {
 .svg-tick {
   width: 15px;
   height: 14px;
-  fill: #0f9d58;
+  fill: #3293f6;
 }
 .svg-user,
 .svg-doc {
@@ -189,7 +194,7 @@ svg.rtl {
 .svg-upload {
   width: 126px;
   height: 106px;
-  fill: #0f9d58;
+  fill: #3293f6;
 }
 .svg-folder,
 .svg-folderAll,
@@ -207,4 +212,24 @@ svg.rtl {
 .svg-folderAll {
   width: 23px;
   height: 20px;
+}
+/*#endregion */
+/*#region quiz page */
+.svg-quiz {
+  fill: #3293f6;
+}
+.svg-correct {
+  fill: #3293f6;
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  right: 0;
+  top: 12px;
+}
+.svg-wrong {
+  position: absolute;
+  width: 40px;
+  height: 34px;
+  left: 0;
+  top: 16px;
 }
