@@ -77,6 +77,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             return Request.CreateResponse(result.Select(s => new
             {
                 s.Name,
+                s.Type,
                 //s.Thumbnail,
                 s.Id,
                 //views = s.NumOfViews,
@@ -87,8 +88,6 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 //s.OwnerId,
                 s.Url
             }));
-            //Services.Log.Info("Hello from custom controller!");
-            //return "Hello";
         }
 
 

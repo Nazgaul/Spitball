@@ -152,16 +152,16 @@ union
     i.thumbnailurl as Thumbnail,
     i.Discriminator as Discriminator,
     i.ItemTabId as TabId,
-	  i.NumberOfViews as NumOfViews,
+	i.NumberOfViews as NumOfViews,
     i.rate as Rate,
     i.sponsored as Sponsored,
     i.content as Description,
     i.BlobName as BlobName,
     i.NumberOfDownloads as NumOfDownloads,
     i.creationTime as Date,
-		i.numberofcomments as commentsCount,
+	i.numberofcomments as commentsCount,
     i.Url as Url,
-    i.Size as Size
+    i.Discriminator as type
     from zbox.item i join zbox.users u on i.UserId = u.UserId
     where i.IsDeleted = 0
     and i.BoxId = @BoxId

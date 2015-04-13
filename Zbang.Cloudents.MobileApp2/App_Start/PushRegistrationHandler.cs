@@ -11,7 +11,7 @@ namespace Zbang.Cloudents.MobileApp2
 {
     public class PushRegistrationHandler : INotificationHandler
     {
-        public async Task Register(ApiServices services, HttpRequestContext context,
+        public Task Register(ApiServices services, HttpRequestContext context,
         NotificationRegistration registration)
         {
             try
@@ -26,7 +26,7 @@ namespace Zbang.Cloudents.MobileApp2
                 // Get the logged-in user.
                 var currentUser = context.Principal as ServiceUser;
 
-               await services.Push.HubClient.DeleteRegistrationAsync(new Microsoft.ServiceBus.Notifications.GcmRegistrationDescription(registration.DeviceId));
+               //await services.Push.HubClient.DeleteRegistrationAsync(new Microsoft.ServiceBus.Notifications.GcmRegistrationDescription(registration.DeviceId));
                 // Add a new tag that is the user ID.
                 registration.Tags.Add(currentUser.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture));
 
@@ -36,7 +36,8 @@ namespace Zbang.Cloudents.MobileApp2
             {
                 services.Log.Error(ex.ToString());
             }
-            
+            return Task.FromResult(true);
+
         }
 
         private bool ValidateTags(NotificationRegistration registration)
