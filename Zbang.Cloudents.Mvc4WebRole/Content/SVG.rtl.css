@@ -191,3 +191,20 @@ svg.rtl {
   height: 106px;
   fill: #0f9d58;
 }
+.svg-folder,
+.svg-folderAll,
+.svg-folderNonempty {
+  fill: #c2c2c2;
+}
+.svg-folder {
+  width: 21px;
+  height: 16px;
+}
+.svg-folderNonempty {
+  width: 23px;
+  height: 22px;
+}
+.svg-folderAll {
+  width: 23px;
+  height: 20px;
+}

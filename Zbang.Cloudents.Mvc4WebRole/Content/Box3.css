@@ -300,10 +300,22 @@
   line-height: 40px;
   font-size: 18px;
   cursor: pointer;
-  padding: 0 25px;
+  padding: 0 35px 0 25px;
+  position: relative;
 }
 .newActivity li.current {
-  background: #ddd;
+  color: #0f9d58;
+}
+.newActivity li.current:after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: -1px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 11px 22px 11px 0;
+  border-color: transparent #0f9d58 transparent transparent;
 }
 .newActivity .notify {
   right: 16px;
@@ -318,7 +330,7 @@
   top: 92px;
 }
 .newPosts {
-  background: #3399ff;
+  background: #0f9d58;
   color: #fff;
   display: inline-block;
   padding-top: 2px;
@@ -338,11 +350,6 @@
 }
 /*#endregion */
 /*#region box folders */
-.boxMembers .sectionHeader,
-.boxFolders .sectionHeader {
-  font-size: 13px;
-  text-transform: uppercase;
-}
 .boxFolders {
   height: 100%;
   margin: 0 -25px;
@@ -350,6 +357,17 @@
 .boxFolders .mCSB_container,
 .boxFolders [ng-transclude] {
   width: 242px;
+}
+.boxFolders h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  padding: 20px 0 5px 25px;
+  color: #aaa;
+}
+.boxFolders svg {
+  position: relative;
+  top: 4px;
+  margin-right: 6px;
 }
 .boxFolderList {
   width: 100%;
@@ -362,25 +380,6 @@
   height: 40px;
   line-height: 40px;
   background: #eee;
-}
-.boxFolder.current,
-.createFolder.current {
-  font-weight: 600;
-  border-right: none;
-  background: #fff;
-}
-.boxFolder.current .editFolder,
-.createFolder.current .editFolder {
-  display: inline-block;
-}
-.boxFolder.current .boxFolderName.boxFolderName:hover,
-.createFolder.current .boxFolderName.boxFolderName:hover {
-  color: #000;
-  cursor: default;
-}
-.boxFolder.current .tabBorder,
-.createFolder.current .tabBorder {
-  bottom: -1px;
 }
 .boxFolder .boxFolderName,
 .createFolder .boxFolderName {
@@ -417,28 +416,21 @@
             }
         }*/
 }
-.tabBorder {
-  width: 229px;
-  height: 1px;
-  background: rgba(194, 194, 194, 0.35);
-  left: 7px;
-  position: absolute;
-  bottom: 0;
-}
 .boxFolder {
   position: relative;
 }
-.boxFolder.current {
-  border-top: 1px solid #c2c2c2;
-  border-bottom: 1px solid #c2c2c2;
-  margin-top: -1px;
+.boxFolder.current .editFolder {
+  display: inline-block;
 }
-.boxFolder.current:after {
-  display: none;
+.boxFolder.current svg {
+  fill: #0f9d58;
+}
+.boxFolder.current .boxFolderName {
+  color: #0f9d58;
 }
 .createFolder {
   font-size: 13px;
-  padding: 0 10px;
+  padding-left: 25px;
   height: 100%;
 }
 .createFolderText {
