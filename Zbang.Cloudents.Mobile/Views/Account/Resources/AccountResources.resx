@@ -144,11 +144,17 @@
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
+  <data name="ContinueBrowsing" xml:space="preserve">
+    <value>Continue browsing</value>
+  </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>Create an account</value>
   </data>
   <data name="DontHaveAnAccount" xml:space="preserve">
     <value>Don't have an account?</value>
+  </data>
+  <data name="DownloadApp" xml:space="preserve">
+    <value>Download the app</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
@@ -197,6 +203,10 @@
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>Log in</value>
+  </data>
+  <data name="MadeAnApp" xml:space="preserve">
+    <value>We've made an app
+especially for you!</value>
   </data>
   <data name="Male" xml:space="preserve">
     <value>Male</value>
