@@ -322,8 +322,8 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We&apos;ve made an app
-        ///especially for you!.
+        ///   Looks up a localized string similar to Cloudents has gone native!
+        ///Give it a try..
         /// </summary>
         public static string MadeAnApp {
             get {

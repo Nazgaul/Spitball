@@ -187,17 +187,22 @@ option {
   padding-bottom: 40px;
 }
 .app-download h2 {
-  font-size: 24px;
-  line-height: 40px;
+  font-size: 18px;
+  line-height: 20px;
   margin: 20px 0;
   font-weight: normal;
+  white-space: pre-wrap;
+}
+.app-download svg {
+  width: 13px;
+  height: 13px;
 }
 .app-download .download,
 .app-download .continue {
   width: 80%;
   height: 45px;
   line-height: 45px;
-  font-size: 26px;
+  font-size: 20px;
   display: block;
   margin: 0 auto;
 }
