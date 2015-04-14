@@ -45,6 +45,7 @@ h1 {
     width: 87%;
     left:0;right:0;
     margin: 0 auto;
+    display:none; //TEMPORARY CODE
 }
 .facebook, .emailBtn {
     width: 100%;
@@ -153,6 +154,51 @@ option {
         .boxSizing;
     }
 }
+
+/*#region download app */
+
+.app-download {
+    background: #282828;
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    z-index: 1;
+    padding-bottom: 40px;
+
+    h2 {
+        font-size: 24px;
+        line-height: 40px;
+        margin: 20px 0;
+        font-weight: normal;
+    }
+    .download, .continue {
+        width: 80%;
+        height: 45px;
+        line-height: 45px;
+        font-size: 26px;
+        display: block;
+        margin: 0 auto;
+    }
+    .download {
+        background: #3293f6;
+        margin-bottom: 10px;
+    }
+    .continue {
+        background: #eee;
+        color: @textColor;
+    }
+    .close {
+        font-size: 25px;
+        position: absolute;
+        top: 5px;
+        right: 15px;
+        color: #acacac;
+    }
+}
+
+/*#endregion */
 
 /*#region home media queries */
 /* 1 dpr */

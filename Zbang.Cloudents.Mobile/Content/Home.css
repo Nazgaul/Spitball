@@ -57,6 +57,7 @@ h1 {
   left: 0;
   right: 0;
   margin: 0 auto;
+  display: none;
 }
 .facebook,
 .emailBtn {
@@ -174,6 +175,48 @@ option {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+/*#region download app */
+.app-download {
+  background: #282828;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  z-index: 1;
+  padding-bottom: 40px;
+}
+.app-download h2 {
+  font-size: 24px;
+  line-height: 40px;
+  margin: 20px 0;
+  font-weight: normal;
+}
+.app-download .download,
+.app-download .continue {
+  width: 80%;
+  height: 45px;
+  line-height: 45px;
+  font-size: 26px;
+  display: block;
+  margin: 0 auto;
+}
+.app-download .download {
+  background: #3293f6;
+  margin-bottom: 10px;
+}
+.app-download .continue {
+  background: #eee;
+  color: #383838;
+}
+.app-download .close {
+  font-size: 25px;
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  color: #acacac;
+}
+/*#endregion */
 /*#region home media queries */
 /* 1 dpr */
 @media (-webkit-min-device-pixel-ratio: 1), (min-resolution: 1dppx), (min-resolution: 96dpi) {
