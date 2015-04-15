@@ -165,11 +165,13 @@
 .rtlFix .listItem .itemContent {
   max-height: 46px;
 }
+.rtlFix .boxItemTt {
+  /*.ttPreview {
+            max-height: 51px; // diff rtl - heb has 4 lines
+        }*/
+}
 .rtlFix .boxItemTt .ttDetail {
   width: 40px;
-}
-.rtlFix .boxItemTt .ttPreview {
-  max-height: 51px;
 }
 .rtlFix .inviteSources {
   margin: 3px 30px 0 0;
