@@ -827,8 +827,7 @@
   max-width: calc(100vw - 880px);
 }
 .listItem .itemContent {
-  max-height: 58px;
-  /*diff rtl*/
+  max-height: 62px;
   margin: 14px 0 17px;
   overflow: hidden;
   max-width: 720px;
