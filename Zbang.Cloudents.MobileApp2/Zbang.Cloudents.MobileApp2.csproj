@@ -189,12 +189,16 @@
     <Compile Include="Controllers\BoxesController.cs" />
     <Compile Include="Controllers\CustomLoginController.cs" />
     <Compile Include="Controllers\CustomRegistrationController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="DataObjects\AddCommentRequest.cs" />
     <Compile Include="DataObjects\BoxRenameRequest.cs" />
+    <Compile Include="DataObjects\CreateAcademicBoxRequest.cs" />
+    <Compile Include="DataObjects\CreateBoxRequest.cs" />
+    <Compile Include="DataObjects\CreateLibraryRequest.cs" />
     <Compile Include="DataObjects\DeleteItemRequest.cs" />
     <Compile Include="DataObjects\FileUploadRequest.cs">
       <SubType>Code</SubType>

@@ -13,6 +13,7 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
 
@@ -64,6 +65,65 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         //    }
 
         //}
+        public HttpResponseMessage Post(CreateBoxRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            try
+            {
+                var userId = User.GetCloudentsUserId();
+                var command = new CreateBoxCommand(userId, model.BoxName);
+                var result = ZboxWriteService.CreateBox(command);
+                return Request.CreateResponse(result);
+
+            }
+            catch (BoxNameAlreadyExistsException)
+            {
+                return Request.CreateBadRequestResponse("box already exists");
+            }
+        }
+
+        [Route("api/box/academic")]
+        [HttpPost]
+        public HttpResponseMessage CreateAcademicBox(CreateAcademicBoxRequest model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            var universityId = User.GetUniversityId();
+
+            if (!universityId.HasValue)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            var guid = GuidEncoder.TryParseNullableGuid(model.DepartmentId);
+            if (!guid.HasValue)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            try
+            {
+
+                var userId = User.GetCloudentsUserId();
+
+                var command = new CreateAcademicBoxCommand(userId, model.CourseName,
+                                                           model.CourseId, model.Professor, guid.Value);
+                var result = ZboxWriteService.CreateBox(command);
+                return Request.CreateResponse(new {result.Url, result.Id});
+            }
+            catch (BoxNameAlreadyExistsException)
+            {
+                return Request.CreateBadRequestResponse("box already exists");
+
+            }
+        }
 
 
 

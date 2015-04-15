@@ -46,6 +46,7 @@ where cte.itemid = @itemid;
  b.boxname,
  i.creationTime,
  i.thumbnailUrl as Thumbnail,
+ i.Discriminator as Type,
  i.Name as name,
     u.UserName as owner, 
     u.userid as ownerId,
