@@ -288,8 +288,8 @@ input[type="radio"][disabled] + label:before {
 }
 .spinner {
   border: 10px solid transparent;
-  border-top: 10px solid rgba(15, 157, 88, 0.75);
-  border-right: 10px solid rgba(15, 157, 88, 0.75);
+  border-top: 10px solid #3293f6;
+  border-right: 10px solid #3293f6;
   border-radius: 100px;
   width: 100px;
   height: 100px;
