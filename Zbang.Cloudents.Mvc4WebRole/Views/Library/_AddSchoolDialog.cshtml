@@ -12,6 +12,25 @@
         @*@{Html.RenderAction("AntiForgeryToken", "Home", true);}*@
         @*@Html.ValidationSummary(true)*@
 
+        <div class="lFloat countryWpr">
+            @Html.LabelFor(m => m.Country)
+            @Html.EditorFor(m => m.Country, new { ng_init = "formData.createUniversity.country=" + Model.Country })
+            @*<select class="inputText schoolType" name="SchoolType" ng-model="formData.createUniversity.country"  required>
+
+            </select>*@
+            @*@Html.ValidationMessageFor(m => m.Country)*@
+            @*@Html.TextBoxFor(m => m.Country, new { @class = "inputText country", ng_model = "formData.createUniversity.country", required = "required" })*@
+        </div>
+        <div class="rFloat schoolTypeWpr">
+            @Html.LabelFor(m => m.Type)
+            <select class="inputText schoolType" name="SchoolType" ng-model="formData.createUniversity.type" required>
+                <option value="" disabled selected style='display: none;'>@DialogResources.SelectFromList</option>
+                <option value="@SchoolType.University.ToString("g")">@SchoolType.University.GetEnumDescription()</option>
+                <option value="@SchoolType.College.ToString("g")">@SchoolType.College.GetEnumDescription()</option>
+                <option value="@SchoolType.HighSchool.ToString("g")">@SchoolType.HighSchool.GetEnumDescription()</option>
+            </select>
+        </div>
+
 
         @Html.LabelFor(m => m.Name)
         @*@Html.ValidationMessageFor(m => m.Name)*@
@@ -28,24 +47,7 @@
             </li>
         </ul>
 
-        <div class="lFloat countryWpr">
-            @Html.LabelFor(m => m.Country)
-            @Html.EditorFor(m=>m.Country, new { ng_init = "formData.createUniversity.country="+ Model.Country})
-            @*<select class="inputText schoolType" name="SchoolType" ng-model="formData.createUniversity.country"  required>
-
-                </select>*@
-            @*@Html.ValidationMessageFor(m => m.Country)*@
-            @*@Html.TextBoxFor(m => m.Country, new { @class = "inputText country", ng_model = "formData.createUniversity.country", required = "required" })*@
-        </div>
-        <div class="rFloat schoolTypeWpr">
-            @Html.LabelFor(m => m.Type)
-            <select class="inputText schoolType" name="SchoolType" ng-model="formData.createUniversity.type" required>
-                <option value="" disabled selected style='display: none;'>@DialogResources.SelectFromList</option>
-                <option value="@SchoolType.University.ToString("g")">@SchoolType.University.GetEnumDescription()</option>
-                <option value="@SchoolType.College.ToString("g")">@SchoolType.College.GetEnumDescription()</option>
-                <option value="@SchoolType.HighSchool.ToString("g")">@SchoolType.HighSchool.GetEnumDescription()</option>
-            </select>
-        </div>
+        
         <input type="submit" class="rFloat btn1 next" value="@DialogResources.Create" ng-disabled="createUniversityForm.$invalid" />
         <button type="reset" class="rFloat btn2 cancel" ng-click="backUniversity()">@SharedResources.Back</button>
     </form>
