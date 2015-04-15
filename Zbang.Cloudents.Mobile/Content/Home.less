@@ -36,7 +36,6 @@ h1 {
     font-weight: normal;
     max-width: 87%;
     margin: 0 auto;
-    //letter-spacing: 1px;
 }
 .bottom {
     position: absolute;
@@ -45,7 +44,6 @@ h1 {
     width: 87%;
     left:0;right:0;
     margin: 0 auto;
-    display:none; //TEMPORARY CODE
 }
 .facebook, .emailBtn {
     width: 100%;
@@ -159,13 +157,19 @@ option {
 
 .app-download {
     background: #282828;
-    position: absolute;
+    position: fixed;
     bottom:0;
     width: 100%;
     color: #fff;
     text-align: center;
     z-index: 1;
     padding-bottom: 40px;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+
+    &.closed {
+        opacity: 0;
+        transform: translateY(100%);
+    }
 
     h2 {
         font-size: 18px;

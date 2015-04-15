@@ -144,11 +144,17 @@
   <data name="Continue" xml:space="preserve">
     <value>مواصلة</value>
   </data>
+  <data name="ContinueBrowsing" xml:space="preserve">
+    <value>مواصلة التصفح</value>
+  </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>إنشاء حساب</value>
   </data>
   <data name="DontHaveAnAccount" xml:space="preserve">
     <value>لا يوجد لديك حساب ؟</value>
+  </data>
+  <data name="DownloadApp" xml:space="preserve">
+    <value>جربها.</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>عنوان البريد الكتروني</value>
@@ -198,6 +204,9 @@
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>الاتصال</value>
+  </data>
+  <data name="MadeAnApp" xml:space="preserve">
+    <value>Cloudents قد ذهب الأصلي!</value>
   </data>
   <data name="Male" xml:space="preserve">
     <value>ذكر </value>

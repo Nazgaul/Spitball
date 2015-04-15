@@ -4,6 +4,12 @@
         "use strict";
         var service = this;
 
+        $rootScope.params = {};
+
+        $rootScope.closePopup = function () {
+            $rootScope.params.isPopupClosed = true;
+        };
+
         service.changeLanguage = function (language) {
             $analytics.eventTrack('Language Change', {
                 category: 'Homepage',
@@ -34,6 +40,5 @@
         service.doneLoad = function () {
             $rootScope.$broadcast('$stateLoaded');
         };
-
     }]
 );
