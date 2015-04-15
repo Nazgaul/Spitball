@@ -160,7 +160,7 @@ input[type="radio"] {
             fill: @color;
             height: 20px;
             position: absolute;
-            top: 4px; //diff rtl
+            top: 0;
             left: 4px; //rtl
         }
     }
@@ -2498,13 +2498,6 @@ select.inputText {
 
 /*#region RTL inconsistencies (TODO: need to verify each one) */
 .rtlFix {
-    .checkbox {
-        ~ .cbLabel2 {
-            svg {
-                top:0; //diff rtl
-            }
-        }
-    }
     .popover {
         &.left {
             margin: 0 10px 0 0;  //diff rtl

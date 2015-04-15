@@ -145,7 +145,7 @@ input[type="radio"][disabled] + label:before {
   fill: #3293f6;
   height: 20px;
   position: absolute;
-  top: 4px;
+  top: 0;
   right: 4px;
 }
 /*#endregion */
@@ -2254,9 +2254,6 @@ select.inputText {
 }
 /*#endregion*/
 /*#region RTL inconsistencies (TODO: need to verify each one) */
-.rtlFix .checkbox ~ .cbLabel2 svg {
-  top: 0;
-}
 .rtlFix .popover.left {
   margin: 0 0 0 10px;
 }
