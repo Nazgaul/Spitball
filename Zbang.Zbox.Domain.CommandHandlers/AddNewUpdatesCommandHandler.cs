@@ -52,17 +52,23 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     comment, reply, item, quiz);
                 m_UpdatesRepository.Save(newUpdate);
             }
-            if (item != null)
+            if (usersToUpdate.Count > 0)
             {
-                return m_SendPush.SendAddItemNotification(item.Uploader.Name, box.Name, usersToUpdate.Select(s => s.UserId).ToList());
-            }
-            if (comment != null)
-            {
-                return m_SendPush.SendAddPostNotification(comment.User.Name, comment.Text, box.Name, usersToUpdate.Select(s => s.UserId).ToList());
-            }
-            if (reply != null)
-            {
-                return m_SendPush.SendAddReplyNotification(reply.User.Name, reply.Text, box.Name, usersToUpdate.Select(s => s.UserId).ToList());
+                if (item != null)
+                {
+                    return m_SendPush.SendAddItemNotification(item.Uploader.Name, box.Name,
+                        usersToUpdate.Select(s => s.UserId).ToList());
+                }
+                if (comment != null)
+                {
+                    return m_SendPush.SendAddPostNotification(comment.User.Name, comment.Text, box.Name,
+                        usersToUpdate.Select(s => s.UserId).ToList());
+                }
+                if (reply != null)
+                {
+                    return m_SendPush.SendAddReplyNotification(reply.User.Name, reply.Text, box.Name,
+                        usersToUpdate.Select(s => s.UserId).ToList());
+                }
             }
             return Task.FromResult(true);
 
