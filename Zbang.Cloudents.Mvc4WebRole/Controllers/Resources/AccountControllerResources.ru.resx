@@ -129,6 +129,9 @@
   <data name="FacebookGetDataError" xml:space="preserve">
     <value>Проблема получения данных Facebook.</value>
   </data>
+  <data name="FbRegisterError" xml:space="preserve">
+    <value>Вы зарегистрировались в Cloudents  через Facebook- вернитесь на домашнею страницу и нажмите на кнопку регистрация через Facebook</value>
+  </data>
   <data name="LogonError" xml:space="preserve">
     <value>Указан неправильный пароль или имя пользователя.</value>
   </data>

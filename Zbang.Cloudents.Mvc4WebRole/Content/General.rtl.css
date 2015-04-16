@@ -172,6 +172,10 @@ input[type="radio"][disabled] + label:before {
   border: 1px solid #dc3500;
   outline-color: #dc3500;
 }
+.forgotPwdError {
+  display: block;
+  margin: 0;
+}
 /*#endregion */
 /*#region footer code */
 .footer li ~ li:before {

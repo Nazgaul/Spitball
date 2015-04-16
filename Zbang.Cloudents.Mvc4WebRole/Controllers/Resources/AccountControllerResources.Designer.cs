@@ -97,6 +97,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have registered to Cloudents through Facebook. Go to the homepage and click on the Facebook button to register.
+        /// </summary>
+        internal static string FbRegisterError {
+            get {
+                return ResourceManager.GetString("FbRegisterError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The user name or password provided is incorrect..
         /// </summary>
         internal static string LogonError {
