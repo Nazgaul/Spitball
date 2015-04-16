@@ -9,7 +9,7 @@ namespace Zbang.Zbox.Domain
     public class AcademicBox : Box
     {
         public AcademicBox(string boxName, Library department,
-            string courseCode, string professor,  User creator)
+            string courseCode, string professor,  User creator, Guid newCommentId)
             :
             base(boxName, creator, BoxPrivacySettings.AnyoneWithUrl)
         {
@@ -21,11 +21,11 @@ namespace Zbang.Zbox.Domain
             Professor = professor;
             // Picture = picture;
             UserTime.CreatedUser = creator.Email;
-            var idGenerator = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IGuidIdGenerator>();
+           
 
 
             Comments.Add(new Comment(creator, null,
-                this, idGenerator.GetId(), null, FeedType.CreatedCourse));
+                this, newCommentId, null, FeedType.CreatedCourse));
             CommentCount = 1;
 
             Department = department;
