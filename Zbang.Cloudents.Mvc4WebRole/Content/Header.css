@@ -116,7 +116,7 @@ body {
   min-width: 78px;
   height: 25px;
   line-height: 25px;
-  background: #178b55;
+  background: #0371c8;
   color: #fff;
   border-radius: 5px;
   padding: 0 20px;
@@ -129,7 +129,7 @@ body {
   color: #3293f6;
 }
 .signUp .btn:hover {
-  background: #168350;
+  background: #0e68af;
 }
 .signUp .btn:hover:first-child {
   background: #e1fff0;

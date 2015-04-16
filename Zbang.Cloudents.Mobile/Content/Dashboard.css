@@ -4,7 +4,7 @@
 /*#endregion */
 .dashboard h3,
 .box h3 {
-  color: #0f9d58;
+  color: #3293f6;
   font-weight: normal;
   font-size: 12px;
 }
@@ -106,7 +106,7 @@
   width: 44px;
   height: 46px;
   display: table-cell;
-  fill: #0f9d58;
+  fill: #3293f6;
 }
 .featureTxt span {
   display: table-cell;
@@ -220,7 +220,7 @@
   font-size: 13px;
 }
 .recommendedItem .courseName {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .recommendedItem .rcDetails {
   -webkit-box-sizing: border-box;
@@ -354,7 +354,7 @@
   top: auto;
 }
 .menuItems svg {
-  fill: #0f9d58;
+  fill: #3293f6;
   position: absolute;
   top: 14px;
   left: 28px;
