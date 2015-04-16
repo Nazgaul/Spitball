@@ -137,17 +137,39 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 UrlConsts.AppendCloudentsUrl(s.Url)
                 , s.UserId));
 
-            const string somePicture = "https://zboxstorage.blob.core.windows.net/mailcontainer/box-hold.jpg";
-            var questionUpdate = boxUpdates.BoxComments.Select(s => new UpdateMailParams.QuestionUpdate(
-                s.UserName, s.Text, somePicture, box.Url, s.UserId));
+            const string somePicture = "https://zboxstorage.blob.core.windows.net/mailcontainer/user-email-default.jpg";
+            var questionUpdate = boxUpdates.BoxComments.Select(s =>
+            {
+                if (string.IsNullOrEmpty(s.UserImage))
+                {
+                    s.UserImage = somePicture;
+                }
+                return new UpdateMailParams.QuestionUpdate(
+                    s.UserName, s.Text, s.UserImage, box.Url, s.UserId);
+            });
 
-            var answersUpdate = boxUpdates.BoxReplies.Select(s => new UpdateMailParams.AnswerUpdate(
-                s.UserName, s.Text, somePicture, box.Url, s.UserId));
+            var answersUpdate = boxUpdates.BoxReplies.Select(s =>
+            {
+                if (string.IsNullOrEmpty(s.UserImage))
+                {
+                    s.UserImage = somePicture;
+                }
+                return new UpdateMailParams.AnswerUpdate(
+                    s.UserName, s.Text, s.UserImage, box.Url,
+                    s.UserId);
+            });
 
-            var discussionUpdate = boxUpdates.QuizDiscussions.Select(s => new UpdateMailParams.DiscussionUpdate(
-                s.UserName, s.Text, somePicture,
-                  UrlConsts.AppendCloudentsUrl(s.Url),
-                s.UserId));
+            var discussionUpdate = boxUpdates.QuizDiscussions.Select(s =>
+            {
+                if (string.IsNullOrEmpty(s.UserImage))
+                {
+                    s.UserImage = somePicture;
+                }
+                return new UpdateMailParams.DiscussionUpdate(
+                    s.UserName, s.Text, s.UserImage,
+                    UrlConsts.AppendCloudentsUrl(s.Url),
+                    s.UserId);
+            });
 
 
 

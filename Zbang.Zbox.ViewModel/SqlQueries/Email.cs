@@ -92,7 +92,11 @@ order by Students desc  ";
      and isdeleted = 0
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@Notification,q.creationTime)) > 0;";
 
-        public const string GetQuestionUpdateByBox = @"select u.userName as UserName, u.userid as UserId, q.Text as Text
+        public const string GetQuestionUpdateByBox = @"select
+    u.userName as UserName,
+    u.userid as UserId,
+    u.UserImageLarge as UserImage,
+    q.Text as Text
     from zbox.question q 
     join Zbox.Users u on q.UserId = u.userid
     where q.boxid = @BoxId
@@ -100,14 +104,20 @@ order by Students desc  ";
     and q.IsSystemGenerated = 0
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@Notification,q.creationTime)) >0;";
 
-        public const string GetAnswerUpdateByBox = @" select u.userName as UserName, u.userid as UserId, a.Text as Text
+        public const string GetAnswerUpdateByBox = @" 
+    select u.userName as UserName,
+    u.userid as UserId,
+    u.UserImageLarge as UserImage,
+    a.Text as Text
     from zbox.answer a 
     join Zbox.Users u on a.UserId = u.userid
     where a.boxid = @BoxId
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@Notification,a.creationTime)) >0;";
 
         public const string GetQuizDiscussionUpdateByBox =
-            @"select u.userName as UserName, u.userid as UserId, d.Text as Text, q.id as QuizId, q.Name as QuizName, q.Url
+            @"select u.userName as UserName, u.userid as UserId,
+    u.UserImageLarge as UserImage,
+    d.Text as Text, q.id as QuizId, q.Name as QuizName, q.Url
     from zbox.quizdiscussion d 
     join Zbox.Users u on d.UserId = u.userid
 	  join zbox.Quiz q on q.Id = d.QuizId
