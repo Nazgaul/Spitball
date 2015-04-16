@@ -19,6 +19,7 @@
                     elem.css({ opacity: 0, display: 'none' });
                     var $view = $(document.querySelector('.page'));
                     $view.css({ opacity: 1, display: 'block' });
+                    $rootScope.$broadcast('searchCoords');
                 });
             }
         };
