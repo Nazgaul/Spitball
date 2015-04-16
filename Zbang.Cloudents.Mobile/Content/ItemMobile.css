@@ -1,4 +1,9 @@
-﻿body {
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+body {
+  background: #f4f4f4;
   margin: 0;
 }
 a {
@@ -39,9 +44,6 @@ img {
 }
 .rFloat {
   float: right;
-}
-body {
-  background: #f4f4f4;
 }
 header {
   width: 100%;
@@ -104,8 +106,8 @@ img {
   color: #3b3b3b;
 }
 .previewFailed q {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .actionText {
-  color: #0f9d58;
+  color: #3293f6;
 }

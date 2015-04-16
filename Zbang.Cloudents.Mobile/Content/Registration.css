@@ -49,7 +49,7 @@
   display: none;
 }
 .forgotLink {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .search .topReg {
   opacity: 0;
@@ -104,12 +104,12 @@
   display: inline-block;
 }
 .acceptTerms a {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .loginTxt {
   margin-top: 10px;
   display: inline-block;
-  color: #0f9d58;
+  color: #3293f6;
 }
 .welcomeTxt1 {
   font-size: 13px;
@@ -117,7 +117,7 @@
   margin: 10px 0;
 }
 .welcomeTxt1 .homeTxt2 {
-  color: #0f9d58;
+  color: #3293f6;
 }
 .validation-summary-errors,
 .regError,
