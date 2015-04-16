@@ -204,5 +204,25 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             await ZboxWriteService.UnFollowBoxAsync(command);
             return Request.CreateResponse();
         }
+
+        [Route("api/box/invite")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> Invite(InviteToBoxRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+
+            var userId = User.GetCloudentsUserId();
+            var shareCommand = new ShareBoxCommand(model.BoxId, userId, model.Recipients);
+            
+            await ZboxWriteService.ShareBoxAsync(shareCommand);
+            return Request.CreateResponse();
+        }
     }
 }
