@@ -83,7 +83,7 @@
                        name: name,
                        caption: caption,
                        description: description,
-                       picture: location.origin + (picture || '/images/cloudents-share-FB.png'),
+                       picture: location.origin + (picture || '/images/cloudents-share-FB.png?v=1'),
                        display: 'iframe'
                    }, function (response) {
                        if (response && response.post_id) {
