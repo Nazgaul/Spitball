@@ -624,7 +624,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 await Task.WhenAll(tUser, tResult);
                 if (tUser.Result == null && tResult.Result != null)
                 {
-                    ModelState.AddModelError("Email", "You have registered to Cloudents through Facebook -- go to the homepage and click on the Facebook button to register");
+                    ModelState.AddModelError("Email", AccountControllerResources.FbRegisterError);
                     return View(model);
                 }
                 if (tUser.Result == null)

@@ -130,6 +130,9 @@
   <data name="FacebookGetDataError" xml:space="preserve">
     <value>Problem with getting Facebook data.</value>
   </data>
+  <data name="FbRegisterError" xml:space="preserve">
+    <value>You have registered to Cloudents through Facebook. Go to the homepage and click on the Facebook button to register</value>
+  </data>
   <data name="LogonError" xml:space="preserve">
     <value>The user name or password provided is incorrect.</value>
   </data>
