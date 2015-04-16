@@ -44,12 +44,17 @@ namespace Zbang.Zbox.WorkerRole.Mail
             }
             else
             {
+                var inviterEmail = parameters.InviterEmail;
+                if (inviterEmail.Contains("yahoo"))
+                {
+                    inviterEmail = MailParameters.DefaultEmail;
+                }
                 m_MailComponent.GenerateAndSendEmail(parameters.EmailAddress,
                     new InviteMailParams(parameters.InviterName,
                     parameters.BoxName,
                     parameters.BoxUrl,
                     userImage,
-                   new CultureInfo(parameters.Culture), parameters.InviterEmail));
+                   new CultureInfo(parameters.Culture), inviterEmail));
             }
 
             return true;

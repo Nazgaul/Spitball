@@ -47,7 +47,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
             sb.AppendLine(string.Format("QuestionId: {0}", QuestionId));
             sb.AppendLine(string.Format("AnswerId: {0}", AnswerId));
             sb.AppendLine(string.Format("QuizId: {0}", QuizId));
-            return base.ToString();
+            return sb.ToString();
         }
     }
 }

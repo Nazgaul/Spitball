@@ -172,6 +172,7 @@
     <Compile Include="Queries\GetStoreProductQuery.cs" />
     <Compile Include="Queries\GetUserByEmailQuery.cs" />
     <Compile Include="Queries\GetUserByFacebookQuery.cs" />
+    <Compile Include="Queries\GetUserByIdQuery.cs" />
     <Compile Include="Queries\GetUserByMembershipQuery.cs" />
     <Compile Include="Queries\GetUserMinProfileQuery.cs" />
     <Compile Include="Queries\IPagedQuery.cs" />

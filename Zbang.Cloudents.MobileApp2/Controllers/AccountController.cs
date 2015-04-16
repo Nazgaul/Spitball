@@ -46,11 +46,40 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 retVal.Name,
                 retVal.Image,
                 retVal.IsAdmin,
-                retVal.FirstTimeDashboard,
-                retVal.Score,
+                //retVal.FirstTimeDashboard,
+                //retVal.Score,
                 retVal.UniversityCountry,
                 retVal.UniversityName,
+                tokenValid = retVal.UniversityId == User.GetUniversityId()
             });
+        }
+
+        [HttpGet]
+        [Route("api/account/tokenrefresh")]
+        public async Task<HttpResponseMessage> Refresh()
+        {
+
+            var systemData = await ZboxReadService.GetUserDetailsById(new GetUserByIdQuery(User.GetCloudentsUserId()));
+
+            if (!systemData.UniversityId.HasValue)
+            {
+                return Request.CreateBadRequestResponse("user don't have university");
+            }
+            
+            var identity = new ClaimsIdentity();
+            identity.AddClaim(new Claim(ClaimConsts.UserIdClaim, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
+
+
+            identity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+                    systemData.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
+
+            identity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+                    systemData.UniversityData.HasValue ?
+                    systemData.UniversityData.Value.ToString(CultureInfo.InvariantCulture)
+                    : systemData.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
+            var loginResult = new Models.CustomLoginProvider(Handler)
+                    .CreateLoginResult(identity, Services.Settings.MasterKey);
+            return Request.CreateResponse(HttpStatusCode.OK, loginResult);
         }
 
         [HttpGet]

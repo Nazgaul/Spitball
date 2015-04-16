@@ -34,7 +34,7 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("On new update model:" + parameters, ex);
+                TraceLog.WriteError("On new update model: " + parameters, ex);
                 return false;
             }
             return true;

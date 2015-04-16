@@ -13,6 +13,8 @@ namespace Zbang.Zbox.ReadServices
         Task<LogInUserDto> GetUserDetailsByFacebookId(GetUserByFacebookQuery query);
         Task<LogInUserDto> GetUserDetailsByEmail(GetUserByEmailQuery query);
 
+        Task<LogInUserDto> GetUserDetailsById(GetUserByIdQuery query);
+
 
         
 

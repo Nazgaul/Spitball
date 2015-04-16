@@ -380,5 +380,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetItemDetailApi(query);
         }
+
+
+        public Task<LogInUserDto> GetUserDetailsById(GetUserByIdQuery query)
+        {
+            return m_ReadService.GetUserDetailsById(query);
+        }
     }
 }

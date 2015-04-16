@@ -66,13 +66,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Duration = TimeConsts.Day,
             Location = OutputCacheLocation.Server, Order = 2)]
         [RedirectToMobile(Order = 1)]
-        //[PreserveQueryString]
         public ActionResult Index(string lang, string invId)
         {
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    return RedirectToAction("Index", "Dashboard");
-            //}
+          
             if (!string.IsNullOrEmpty(invId))
             {
                 var guid = GuidEncoder.TryParseNullableGuid(invId);
@@ -82,11 +78,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     h.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
                 }
             }
-            //if (lang != null && lang != Thread.CurrentThread.CurrentUICulture.Name)
-            //{
-            //    RouteData.Values.Remove("lang");
-            //    return RedirectToAction("Index");
-            //}
+           
             ViewBag.title = Views.Account.Resources.HomeResources.Title;
             ViewBag.metaDescription = Views.Account.Resources.HomeResources.Description;
             return View("Empty");

@@ -28,6 +28,17 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public async Task<LogInUserDto> GetUserDetailsById(GetUserByIdQuery query)
+        {
+            using (var con = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal = await con.QueryAsync<LogInUserDto>(ViewModel.SqlQueries.Sql.GetUserByFacebookId,
+                     new { UserId = query.Id });
+                var t = retVal.FirstOrDefault();
+                return t;
+            }
+        }
+
         public async Task<LogInUserDto> GetUserDetailsByMembershipId(GetUserByMembershipQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
@@ -167,5 +178,8 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+
+
+        
     }
 }
