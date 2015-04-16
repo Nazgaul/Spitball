@@ -16,6 +16,17 @@ svg.rtl {
   -ms-transform: scaleX(1);
   transform: scaleX(1);
 }
+.svg-loaderCloud {
+  position: absolute;
+  width: 58px;
+  height: 59px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  fill: #3293f6;
+}
 /*#region home page */
 .svg-world {
   width: 48px;

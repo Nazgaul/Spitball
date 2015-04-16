@@ -152,7 +152,7 @@
 /*#endregion */
 /*#region Create new school */
 .createSchool {
-  height: 340px;
+  height: 365px;
 }
 .createSchool .top:before {
   content: '';
@@ -183,13 +183,14 @@
   margin-top: 23px;
 }
 .createSchool label {
-  margin-top: 28px;
+  clear: both;
 }
 .createSchool .countryWpr {
   width: 54%;
 }
 .createSchool .schoolTypeWpr {
   width: 38%;
+  margin-bottom: 15px;
 }
 .createSchool .uniList {
   box-shadow: none;
@@ -197,7 +198,7 @@
   width: 616px;
   margin-top: 8px;
   position: absolute;
-  max-height: 200px;
+  max-height: 75px;
 }
 .createSchool .uniList li:hover {
   background: #eee;
@@ -252,7 +253,7 @@
 .completeRegistration .btn1,
 .createSchool .btn2,
 .completeRegistration .btn2 {
-  margin-top: 28px;
+  margin-top: 95px;
 }
 .createSchool .btn1,
 .completeRegistration .btn1 {

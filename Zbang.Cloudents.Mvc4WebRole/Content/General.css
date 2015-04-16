@@ -145,7 +145,7 @@ input[type="radio"][disabled] + label:before {
   fill: #3293f6;
   height: 20px;
   position: absolute;
-  top: 4px;
+  top: 0;
   left: 4px;
 }
 /*#endregion */
@@ -284,7 +284,6 @@ input[type="radio"][disabled] + label:before {
   left: 0;
   right: 0;
   z-index: 10;
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAA7BAMAAADYyYS+AAAAJFBMVEUAAAD///////////////////////////////////////////+0CY3pAAAADHRSTlMA5C4TcKDUxE2HX7MwKvnAAAAA5UlEQVQ4y+3TwQqCQBCA4S0rqttEpeJFwgewQ50N6gGiJ7Bu3Yog6FQQnSvoLj1BvmGiYc7s7lyim//1Qwd2Z0UZU9UbCFXGefoUzQ3AzlfgDQAOMSRtZb1AXt+lWINCK6qnovboVEC5WOtYF1iHWE388QRwS6QxUROdCNCCr3kPSdf55BEocj5cDUFVN9MxqItSnWu0k/4YcPi0W6DLT7Sh1WOiFa0Gf9OIXLy8IW0dmulKhRq10DrSXoI5LMfHz0C9l8ZMNvOOXiZaRZqRj1KWjWLUFpxeObUFpwGnlmDau6Lsl97x2z0NWCM0ZgAAAABJRU5ErkJggg==') /*/Images/loader.png*/ center center no-repeat;
 }
 .spinner {
   border: 10px solid transparent;
@@ -2255,9 +2254,6 @@ select.inputText {
 }
 /*#endregion*/
 /*#region RTL inconsistencies (TODO: need to verify each one) */
-.rtlFix .checkbox ~ .cbLabel2 svg {
-  top: 0;
-}
 .rtlFix .popover.left {
   margin: 0 10px 0 0;
 }

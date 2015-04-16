@@ -11,15 +11,6 @@
             width: 242px; // diff rtl (Hebrew css should override this)
         }
     }*/
-  /*.tag {
-        &:before {
-            width: 33px; //diff rtl
-        }
-
-        &:after {
-            .flipH;
-        }
-    }*/
 }
 .rtlFix .bestUserList:before {
   -moz-transform: scaleX(-1);
@@ -162,14 +153,8 @@
 .rtlFix .boxFolders h3 {
   font-size: 17px;
 }
-.rtlFix .listItem .itemContent {
-  max-height: 46px;
-}
 .rtlFix .boxItemTt .ttDetail {
   width: 40px;
-}
-.rtlFix .boxItemTt .ttPreview {
-  max-height: 51px;
 }
 .rtlFix .inviteSources {
   margin: 3px 30px 0 0;

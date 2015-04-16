@@ -827,8 +827,7 @@
   max-width: calc(100vw - 880px);
 }
 .listItem .itemContent {
-  max-height: 58px;
-  /*diff rtl*/
+  max-height: 62px;
   margin: 14px 0 17px;
   overflow: hidden;
   max-width: 720px;
@@ -1123,8 +1122,7 @@
   border-top: 1px solid #c2c2c2;
   padding: 10px 20px;
   clear: both;
-  max-height: 46px;
-  /*diff rtl*/
+  max-height: 51px;
   overflow: hidden;
 }
 /*#endregion */

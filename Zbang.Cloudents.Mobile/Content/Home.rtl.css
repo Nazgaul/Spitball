@@ -2,6 +2,20 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+/*html[data-useragent*='iPhone'] {
+    .androidLink {
+        display: none;
+    }
+    .app-download {
+        visibility: visible;
+    }
+}*/
+html[data-useragent*='Android'] .iphoneLink {
+  display: none;
+}
+html[data-useragent*='Android'] .app-download {
+  visibility: visible;
+}
 .homepage {
   width: 100%;
   height: 100%;
@@ -185,6 +199,7 @@ option {
   z-index: 1;
   padding-bottom: 40px;
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  visibility: hidden;
 }
 .app-download.closed {
   opacity: 0;
@@ -201,7 +216,7 @@ option {
   width: 13px;
   height: 13px;
 }
-.app-download .download,
+.app-download .downloadLink,
 .app-download .continue {
   width: 80%;
   height: 45px;
@@ -210,7 +225,7 @@ option {
   display: block;
   margin: 0 auto;
 }
-.app-download .download {
+.app-download .downloadLink {
   background: #3293f6;
   margin-bottom: 10px;
 }
