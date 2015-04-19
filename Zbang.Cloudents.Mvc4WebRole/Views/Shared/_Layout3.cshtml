@@ -3,7 +3,7 @@
 @{
     ViewBag.title = ViewBag.title ?? "Cloudents";
     ViewBag.metaDescription = ViewBag.metaDescription ?? "Join the social studying revolution at Cloudents";
-    ViewBag.fbImage = ViewBag.fbImage ?? @Url.CdnContent("/images/cloudents-share-fb-1.png");
+    ViewBag.fbImage = ViewBag.fbImage ?? @Url.CdnContent("/images/cloudents-share-fb-1.png?v=1");
     ViewBag.viewport = ViewBag.viewport ?? true;
     ViewBag.fBox = ViewBag.fBox ?? false;
 }
@@ -29,7 +29,7 @@
 
     <meta name="title" content="@ViewBag.title" />
     <meta name="description" content="@ViewBag.metaDescription" />
-    <link rel="image_src" href="@Url.CdnContent("/images/cloudents.png")" />
+    <link rel="image_src" href="@Url.CdnContent("/Images/cloudents.png?v=1")" />
 
     <meta property="fb:app_id" content="450314258355338" />
     <meta property="og:site_name" content="Cloudents" />

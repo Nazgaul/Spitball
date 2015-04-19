@@ -271,7 +271,7 @@
   line-height: 10px;
 }
 .setupCourse .closeDialog {
-  background: url(/Images/site.png?v=3) 100% -94px no-repeat;
+  background: url(/Images/site.png?v=4) 100% -94px no-repeat;
   width: 19px;
   height: 19px;
 }
@@ -342,7 +342,7 @@
   display: block;
   width: 130px;
   height: 128px;
-  background: url(/Images/site.png?v=3) 100% -113px no-repeat;
+  background: url(/Images/site.png?v=4) 100% -113px no-repeat;
   margin: 0 auto;
 }
 .browseCourses {
@@ -397,7 +397,7 @@
   width: 104px;
   height: 104px;
   margin: 70px auto 10px;
-  background: url(/Images/dashboardEmpty-sprite.png) -106px -1px no-repeat;
+  background: url(/Images/dashboardEmpty-sprite.png?v=1) -106px -1px no-repeat;
 }
 /*#endregion */
 /*#region setup course 'popups' */
@@ -854,7 +854,7 @@
 }
 .uploadSrcWpr button:before {
   content: '';
-  background: url(/Images/site.png?v=3) no-repeat;
+  background: url(/Images/site.png?v=4) no-repeat;
   margin: 50px auto 10px;
   display: block;
 }
@@ -1074,6 +1074,10 @@
   margin: 0 0 13px 14px;
   width: 306px;
   font-size: 13px;
+  -moz-transform: scale3d(1, 1, 1);
+  -ms-transform: scale3d(1, 1, 1);
+  -o-transform: scale3d(1, 1, 1);
+  -webkit-transform: scale3d(1, 1, 1);
   transform: scale3d(1, 1, 1);
 }
 .box:hover .removeItem {

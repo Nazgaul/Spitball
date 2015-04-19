@@ -45,15 +45,16 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         {
             await m_QueueProcess.RunQueue(new MailQueueNameNew(), msg =>
              {
-                 var msgData = msg.FromMessageProto<BaseMailData>();
-                 if (msgData == null)
-                 {
-                     TraceLog.WriteInfo("New MailProcess - message is not in the correct format " + msg.Id);
-                     return Task.FromResult(true);
-                 }
-                 TraceLog.WriteInfo("Process mail: " + msgData.EmailAddress);
                  try
                  {
+                     var msgData = msg.FromMessageProto<BaseMailData>();
+                     if (msgData == null)
+                     {
+                         TraceLog.WriteInfo("New MailProcess - message is not in the correct format " + msg.Id);
+                         return Task.FromResult(true);
+                     }
+                     TraceLog.WriteInfo("Process mail: " + msgData.EmailAddress);
+
                      var mail = IocFactory.IocWrapper.Resolve<IMail2>(msgData.MailResover);
                      return mail.ExecuteAsync(msgData);
                  }

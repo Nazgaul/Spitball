@@ -5,9 +5,9 @@ namespace Zbang.Zbox.Infrastructure.Transport
     [ProtoContract]
     public class InviteMailData : BaseMailData
     {
-        protected InviteMailData(long? receiverId)
+        protected InviteMailData()
         {
-            ReceiverId = receiverId;
+            
         }
 
         public InviteMailData(string inviterName, string boxName, string boxUrl

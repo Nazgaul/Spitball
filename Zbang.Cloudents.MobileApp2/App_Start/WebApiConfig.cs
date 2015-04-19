@@ -75,6 +75,7 @@ namespace Zbang.Cloudents.MobileApp2
 
             IocFactory.IocWrapper.ContainerBuilder.Register(
                c => HttpContext.Current.GetOwinContext().Authentication);
+
             Zbox.Infrastructure.Data.RegisterIoc.Register();
             Zbox.Infrastructure.StorageApp.RegisterIoc.Register();
 

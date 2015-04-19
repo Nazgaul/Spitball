@@ -271,7 +271,7 @@
                             <div class="usrName semiFont elps">{{::invite.userName}}</div>
                             <div class="inviteStatus">{{::invite.status ? '@SharedResources.ActiveMember' : '@SharedResources.Pending'}}</div>
                             <div class="invitedToWpr">
-                                <img class="upImg" alt="" width="30" height="30" ng-src="{{::invite.boxPicture || '/images/cloudents1-57x57.png'}}" />
+                                <img class="upImg" alt="" width="30" height="30" ng-src="{{::invite.boxPicture || '/images/cloudents1-57x57.png?v=1'}}" />
                                 <div class="invitedTo elps">{{::invite.boxName || 'Cloudents'}}</div>
                             </div>
                             <button type="button" class="btn1" ng-if="!invite.status" ng-click="invites.reInvite(invite)" ng-disabled="invite.submitted">{{::invite.submitted ? '@SharedResources.Sent' : '@SharedResources.Reinvite'}}</button>

@@ -3,6 +3,7 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -12,6 +13,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IAcademicBoxRepository m_AcademicRepository;
         private readonly IRepository<Library> m_DepartmentRepository;
         private readonly IUniversityRepository m_UniversityRepository;
+        private readonly IGuidIdGenerator m_GuidGenerator;
 
         public CreateAcademicBoxCommandHandler(
             IBoxRepository boxRepository,
@@ -19,12 +21,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<UserBoxRel> userBoxRelRepository,
             IAcademicBoxRepository academicRepository,
             IRepository<Library> departmentRepository,
-            IUniversityRepository universityRepository)
+            IUniversityRepository universityRepository, IGuidIdGenerator guidGenerator)
             : base(boxRepository, userRepository, userBoxRelRepository)
         {
             m_AcademicRepository = academicRepository;
             m_DepartmentRepository = departmentRepository;
             m_UniversityRepository = universityRepository;
+            m_GuidGenerator = guidGenerator;
         }
         public override CreateBoxCommandResult Execute(CreateBoxCommand command)
         {
@@ -58,7 +61,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             box = new AcademicBox(academicCommand.BoxName, department,
                   academicCommand.CourseCode, academicCommand.Professor,
-                   user);
+                   user, m_GuidGenerator.GetId());
 
             box.UserBoxRelationship.Add(new UserBoxRel(user, box, UserRelationshipType.Owner));
             SaveRepositories(user, box);

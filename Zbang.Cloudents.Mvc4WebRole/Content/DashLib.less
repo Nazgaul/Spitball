@@ -1240,6 +1240,10 @@
     margin: 0 14px 13px 0;
     width: 306px;
     font-size: 13px;
+    -moz-transform: scale3d(1,1,1);
+    -ms-transform: scale3d(1,1,1);
+    -o-transform: scale3d(1,1,1);
+    -webkit-transform: scale3d(1,1,1);
     transform: scale3d(1,1,1);
     // ('add course' btn has classes 'box' and 'libraryItem')
     &:hover {
@@ -1249,6 +1253,7 @@
             visibility: visible;
         }
     }
+
     &.libraryItem {
         width: 306px;
     }
@@ -1261,6 +1266,7 @@
         -o-transform: scale3d(1.08,1.08,1);
         transform: scale3d(1.08,1.08,1);
     }
+
     .newCounter {
         border-radius: 14px;
         top: 9px;
@@ -1272,6 +1278,7 @@
         padding: 5px; //override
         font-size: 15px;
     }
+
     .removeItem {
         left: 5px;
         right: auto;
@@ -1281,12 +1288,13 @@
         -moz-transition: opacity 0.2s 0.5s;
         -o-transition: opacity 0.2s 0.5s;
         transition: opacity 0.2s 0.5s;
-
     }
+
     .svg-close {
         width: 10px;
         height: 10px;
     }
+
     a, .addBtn {
         width: 100%;
         height: 106px;
@@ -1296,10 +1304,12 @@
         overflow: hidden; //for the stats
         white-space: nowrap; //for the stats
         .boxSizing;
+
         &:hover {
             .ghost {
                 margin-left: -76px;
             }
+
             .vCentered {
                 max-width: 254px;
             }
@@ -1311,20 +1321,25 @@
             .boxStats {
                 margin-right: 0;
             }
+
             .addBtn {
                 color: @color;
+
                 &:before {
                     opacity: 1;
                 }
             }
         }
     }
+
     .addBtn {
         border: 1px dashed #aaa;
     }
+
     .courseId {
         margin-bottom: 5px;
     }
+
     .boxStats {
         width: 128px;
         height: 106px;
@@ -1342,25 +1357,31 @@
         padding: 23px 0 0 38px;
         .boxSizing;
     }
+
     .svg-user {
         left: -22px;
     }
+
     .svg-doc {
         left: -22px;
     }
+
     .friends, .files {
         position: relative;
         margin: 8px 0;
+
         &:before {
             content: attr(data-friends-count);
             display: inline-block;
         }
     }
+
     .files {
         &:before {
             content: attr(data-files-count);
         }
     }
+
     .ghost {
         height: 106px;
         transition: margin 0.2s 0.5s;
@@ -1377,7 +1398,7 @@
         -o-transition: margin 0.2s 0.5s;
         transition: margin 0.2s 0.5s;
     }
-    
+
     h3 {
         vertical-align: middle;
         font-size: 16px;
