@@ -177,7 +177,6 @@ namespace Zbang.Zbox.Infrastructure.Search
 
                 }, cancelToken);
             sw.Stop();
-            TraceLog.WriteInfo("quiz search took: " + sw.ElapsedMilliseconds + " " + query.Term);
             if (!searchResult.IsSuccess)
             {
                 TraceLog.WriteError(string.Format("on quiz search model: {0} error: {1}", query,

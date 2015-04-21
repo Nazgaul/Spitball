@@ -5,8 +5,8 @@ namespace Zbang.Zbox.Infrastructure.Security
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
-            : base(ConfigFetcher.Fetch("Zbox"))
+        public ApplicationDbContext(string connectionString)
+            : base(connectionString)
         {
 
         }

@@ -66,7 +66,7 @@ namespace Zbang.Cloudents.MobileApp2
             .InstancePerLifetimeScope();
             RegisterIoc.Register();
 
-            var x = new ApplicationDbContext();
+            var x = new ApplicationDbContext("Zbox");
             builder.Register(c => x).AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<ApplicationUserManager>().AsSelf().As<IAccountService>().InstancePerLifetimeScope();
 

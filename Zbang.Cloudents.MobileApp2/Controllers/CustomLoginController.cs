@@ -38,8 +38,11 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public async Task<HttpResponseMessage> Post(LogInRequest loginRequest)
         {
 
-
-            if (!ModelState.IsValid || loginRequest == null)
+            if (loginRequest == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
             {
                 return Request.CreateBadRequestResponse();
             }
@@ -85,6 +88,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         [Route("api/facebookLogin")]
         public async Task<HttpResponseMessage> FacebookLogin(FacebookLoginRequest model)
         {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
             var facebookUserData = await FacebookService.FacebookLogIn(model.AuthToken);
             if (facebookUserData == null)
             {

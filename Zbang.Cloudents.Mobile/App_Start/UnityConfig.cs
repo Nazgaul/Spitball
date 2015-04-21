@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Mobile
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
             builder.RegisterFilterProvider();
 
-            var x = new ApplicationDbContext();
+            var x = new ApplicationDbContext(ConfigFetcher.Fetch("Zbox"));
             builder.Register(c => x).AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<ApplicationUserManager>().AsSelf().As<IAccountService>().InstancePerLifetimeScope();
 

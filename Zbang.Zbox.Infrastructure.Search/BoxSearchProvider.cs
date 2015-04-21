@@ -143,8 +143,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                     //Highlight = ProfessorField + "," + CourseField
                 }, cancelToken);
             sw.Stop();
-            TraceLog.WriteInfo(m_IndexName);
-            TraceLog.WriteInfo("box search took: " + sw.ElapsedMilliseconds + " " + query.Term);
             if (!searchResult.IsSuccess)
             {
                 TraceLog.WriteError(string.Format("on box search model: {0} error: {1}", query,

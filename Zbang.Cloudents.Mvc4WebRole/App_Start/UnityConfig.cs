@@ -45,7 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             Zbox.Infrastructure.Search.RegisterIoc.Register();
 
-            var x = new ApplicationDbContext();
+            var x = new ApplicationDbContext(ConfigFetcher.Fetch("Zbox"));
             builder.Register<ApplicationDbContext>(c => x).AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<ApplicationUserManager>().AsSelf().As<IAccountService>().InstancePerLifetimeScope();
 

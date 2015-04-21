@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using System.Configuration;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Extensions
 {
@@ -8,7 +10,7 @@ namespace Zbang.Zbox.Infrastructure.Extensions
     public static class ConfigFetcher
     {
         private static readonly bool IsRunningOnCloud;
-        private static Dictionary<string, string> m_ConfigurationValues = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> ConfigurationValues = new Dictionary<string, string>();
 
         static ConfigFetcher()
         {
@@ -16,21 +18,27 @@ namespace Zbang.Zbox.Infrastructure.Extensions
             {
                 IsRunningOnCloud = RoleEnvironment.IsAvailable;
             }
-            catch (System.TypeInitializationException)
+            catch (TypeInitializationException)
             {
                 IsRunningOnCloud = false;
             }
+            catch(Exception ex)
+            {
+                TraceLog.WriteError(ex);
+                IsRunningOnCloud = false;
+            }
+            TraceLog.WriteInfo("is running in cloud " + IsRunningOnCloud);
         }
 
         public static string Fetch(string name)
         {
             string retVal;
-            if (m_ConfigurationValues.TryGetValue(name, out retVal))
+            if (ConfigurationValues.TryGetValue(name, out retVal))
             {
                 return retVal;
             }
             retVal = IsRunningOnCloud ? FromAzure(name) : FromConfig(name);
-            m_ConfigurationValues.Add(name, retVal);
+            ConfigurationValues.Add(name, retVal);
             return retVal;
         }
 

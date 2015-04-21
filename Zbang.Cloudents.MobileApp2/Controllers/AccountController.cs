@@ -54,7 +54,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             });
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("api/account/tokenrefresh")]
         public async Task<HttpResponseMessage> Refresh()
         {

@@ -206,7 +206,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                 }, cancelToken);
 
             sw.Stop();
-            TraceLog.WriteInfo("item search took: " + sw.ElapsedMilliseconds + " " + query.Term);
             if (!searchResult.IsSuccess)
             {
                 TraceLog.WriteError(string.Format("on item search model: {0} error: {1}", query,
