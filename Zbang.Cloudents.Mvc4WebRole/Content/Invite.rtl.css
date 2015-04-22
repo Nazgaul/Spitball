@@ -76,7 +76,8 @@
   top: 90px;
   right: 12px;
   left: 12px;
-  margin: 20px auto 0;
+  margin: 10px auto 0;
+  padding-top: 10px;
   text-align: center;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
