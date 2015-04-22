@@ -145,11 +145,20 @@
   <data name="HomePage" xml:space="preserve">
     <value>الصفحة الرئيسية</value>
   </data>
+  <data name="InvitationOnly" xml:space="preserve">
+    <value>لقد قام المالك بأجراء دعوة المحتوى تلك فقط</value>
+  </data>
   <data name="Items" xml:space="preserve">
     <value>خصصوصية</value>
   </data>
   <data name="Members" xml:space="preserve">
     <value>اعضاء </value>
+  </data>
+  <data name="MembersOnly" xml:space="preserve">
+    <value>هذا المضمون للاعضاء فقط</value>
+  </data>
+  <data name="NeedPermission" xml:space="preserve">
+    <value>تحتاج إلى إذن لكي يمكنك الوصول إلى هذا المحتوى</value>
   </data>
   <data name="NoResults" xml:space="preserve">
     <value>لا توجد نتائج</value>
@@ -169,11 +178,17 @@
   <data name="Share" xml:space="preserve">
     <value>مشاركة</value>
   </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
   <data name="Submit" xml:space="preserve">
     <value>إرسال</value>
   </data>
   <data name="TermsOfServices" xml:space="preserve">
     <value>شروط الخدمة</value>
+  </data>
+  <data name="ToAccessFile" xml:space="preserve">
+    <value>تحتاج إلى تسجيل الدخول إلى Cloudents للوصول إلى هذا الملف</value>
   </data>
   <data name="WelcomeCloudents" xml:space="preserve">
     <value>مرحبا Cloudents</value>

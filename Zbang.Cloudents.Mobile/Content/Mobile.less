@@ -302,6 +302,51 @@ img {
 }
 
 /*#endregion */
+
+/*#region members only */
+.membersOnly {
+    height: 100%;  
+    margin: -36px 20px 0 20px;
+    padding-top: 36px;
+    box-sizing: border-box;
+    .table {
+        display:table;
+        width:100%;
+        height:100%;
+    }
+    .tableCell {
+        display:table-cell;
+        vertical-align:middle;
+    }
+    h2 {
+        font-size: 28px;
+        //position: relative;
+        &:after {
+            .pseudo;
+            display: block;
+            width: 30%;
+            padding-top: 30%;
+            background: url(/Images/members-only.png) center 40% no-repeat @colorLighten;
+            background-size: contain;
+            border-radius: 50%;
+            border: 1px solid @color;
+            margin: 25px auto;
+
+        }
+    }
+    .btn {
+        background: @color;
+        color: #fff;
+        border-radius: 5px;
+        padding: 4px 30px;
+        margin-top: 20px;
+        display: inline-block;
+    }
+}
+
+
+/*#endregion */
+
 /*#region cssCheck*/
 #cssCheck {
     position: absolute;

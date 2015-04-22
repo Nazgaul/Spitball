@@ -144,11 +144,20 @@
   <data name="HomePage" xml:space="preserve">
     <value>דף הבית</value>
   </data>
+  <data name="InvitationOnly" xml:space="preserve">
+    <value>ניתן לצפות בתוכן זה - בהזמנה בלבד</value>
+  </data>
   <data name="Items" xml:space="preserve">
     <value>פריטים</value>
   </data>
   <data name="Members" xml:space="preserve">
     <value>חברים</value>
+  </data>
+  <data name="MembersOnly" xml:space="preserve">
+    <value>תוכן זה מיועד לחברים בלבד</value>
+  </data>
+  <data name="NeedPermission" xml:space="preserve">
+    <value>צריך הרשאה לצפות בתוכן הזה</value>
   </data>
   <data name="NoResults" xml:space="preserve">
     <value>לא נמצאו תוצאות</value>
@@ -168,11 +177,17 @@
   <data name="Share" xml:space="preserve">
     <value>שתף</value>
   </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>התחבר</value>
+  </data>
   <data name="Submit" xml:space="preserve">
     <value>שלח</value>
   </data>
   <data name="TermsOfServices" xml:space="preserve">
     <value>לתנאי שירות</value>
+  </data>
+  <data name="ToAccessFile" xml:space="preserve">
+    <value>צריך להרשם למערכת על מנת לצפות בתוכן זה</value>
   </data>
   <data name="WelcomeCloudents" xml:space="preserve">
     <value>ברוכים הבאים לקלאודנטס</value>

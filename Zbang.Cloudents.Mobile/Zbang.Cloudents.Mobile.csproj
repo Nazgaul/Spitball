@@ -623,6 +623,7 @@
     <Content Include="Images\bg.jpg" />
     <Content Include="Images\Defs.svg" />
     <Content Include="Images\EmptyState\user.svg" />
+    <Content Include="Images\members-only.png" />
     <Content Include="Js\app.module.js" />
     <Content Include="Js\app.route.js" />
     <Content Include="Js\Cache.js" />
@@ -1562,6 +1563,7 @@
     <Content Include="Views\Box\_Feed.cshtml" />
     <Content Include="Views\Box\_Items.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\Error\MembersOnly.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

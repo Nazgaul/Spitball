@@ -31,7 +31,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 return RedirectToRoute("dashboardLink");
             }
-            //return View("error");
             return View("MembersOnly");
         }
 

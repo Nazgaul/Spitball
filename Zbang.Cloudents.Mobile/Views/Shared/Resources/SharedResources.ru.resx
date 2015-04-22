@@ -145,11 +145,20 @@
     <value> Домашняя страница</value>
     <comment>has whitespace before</comment>
   </data>
+  <data name="InvitationOnly" xml:space="preserve">
+    <value>Владелец сделал этот контент доступным только по приглашению</value>
+  </data>
   <data name="Items" xml:space="preserve">
     <value>Элементы</value>
   </data>
   <data name="Members" xml:space="preserve">
     <value>участники</value>
+  </data>
+  <data name="MembersOnly" xml:space="preserve">
+    <value>Этот контент предназначен только для участников</value>
+  </data>
+  <data name="NeedPermission" xml:space="preserve">
+    <value>Для доступа к этому контенту требуется разрешение </value>
   </data>
   <data name="NoResults" xml:space="preserve">
     <value>Ничего не найдено</value>
@@ -169,11 +178,17 @@
   <data name="Share" xml:space="preserve">
     <value>Поделиться</value>
   </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Войти</value>
+  </data>
   <data name="Submit" xml:space="preserve">
     <value>Отправить</value>
   </data>
   <data name="TermsOfServices" xml:space="preserve">
     <value>правила</value>
+  </data>
+  <data name="ToAccessFile" xml:space="preserve">
+    <value>Для доступа к этому файлу необходимо зарегистрироваться на Cloudents</value>
   </data>
   <data name="WelcomeCloudents" xml:space="preserve">
     <value>Добро пожаловать в Cloudents</value>

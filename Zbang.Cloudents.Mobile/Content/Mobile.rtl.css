@@ -302,6 +302,46 @@ img {
   width: 94%;
 }
 /*#endregion */
+/*#region members only */
+.membersOnly {
+  height: 100%;
+  margin: -36px 20px 0 20px;
+  padding-top: 36px;
+  box-sizing: border-box;
+}
+.membersOnly .table {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+.membersOnly .tableCell {
+  display: table-cell;
+  vertical-align: middle;
+}
+.membersOnly h2 {
+  font-size: 28px;
+}
+.membersOnly h2:after {
+  content: '';
+  display: inline-block;
+  display: block;
+  width: 30%;
+  padding-top: 30%;
+  background: url(/Images/members-only.png) center 40% no-repeat #7bbaf9;
+  background-size: contain;
+  border-radius: 50%;
+  border: 1px solid #3293f6;
+  margin: 25px auto;
+}
+.membersOnly .btn {
+  background: #3293f6;
+  color: #fff;
+  border-radius: 5px;
+  padding: 4px 30px;
+  margin-top: 20px;
+  display: inline-block;
+}
+/*#endregion */
 /*#region cssCheck*/
 #cssCheck {
   position: absolute;
