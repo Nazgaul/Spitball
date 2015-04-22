@@ -4,78 +4,78 @@
       "name": "/Images/quiz-correct.png",
       "width": 38,
       "height": 38,
-      "offsetX": 0,
-      "offsetY": 0
+      "offsetX": 1,
+      "offsetY": 1
     },
     {
       "name": "/Images/quiz-eye.png",
       "width": 38,
       "height": 23,
-      "offsetX": 0,
-      "offsetY": 38
+      "offsetX": 1,
+      "offsetY": 40
     },
     {
       "name": "/Images/quiz-icon.png",
       "width": 45,
       "height": 45,
-      "offsetX": 0,
-      "offsetY": 61
+      "offsetX": 1,
+      "offsetY": 64
     },
     {
       "name": "/Images/quiz-star.png",
       "width": 20,
       "height": 18,
-      "offsetX": 0,
-      "offsetY": 106
+      "offsetX": 1,
+      "offsetY": 110
     },
     {
       "name": "/Images/quiz-stopwatch.png",
       "width": 233,
       "height": 264,
-      "offsetX": 0,
-      "offsetY": 124
+      "offsetX": 1,
+      "offsetY": 129
     },
     {
       "name": "/Images/quiz-time.png",
       "width": 39,
       "height": 43,
-      "offsetX": 0,
-      "offsetY": 388
+      "offsetX": 1,
+      "offsetY": 394
     },
     {
       "name": "/Images/quiz-user.png",
       "width": 36,
       "height": 37,
-      "offsetX": 0,
-      "offsetY": 431
+      "offsetX": 1,
+      "offsetY": 438
     },
     {
       "name": "/Images/quiz-wrong.png",
       "width": 40,
       "height": 34,
-      "offsetX": 0,
-      "offsetY": 468
+      "offsetX": 1,
+      "offsetY": 476
     },
     {
       "name": "/Images/big-quiz.png",
       "width": 111,
       "height": 111,
-      "offsetX": 0,
-      "offsetY": 502
+      "offsetX": 1,
+      "offsetY": 511
     },
     {
       "name": "/Images/user-icon.png",
       "width": 37,
       "height": 37,
-      "offsetX": 0,
-      "offsetY": 613
+      "offsetX": 1,
+      "offsetY": 623
     },
     {
       "name": "/Images/quiz-icon-tt.png",
       "width": 32,
       "height": 32,
-      "offsetX": 0,
-      "offsetY": 650
+      "offsetX": 1,
+      "offsetY": 661
     }
   ]
 }

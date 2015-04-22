@@ -1,9 +1,6 @@
 ﻿/*#region variables */
-/* Base #952262 = hsl(327, 63%, 36%) */
-/* Real Target #681844 = hsl(327, 63%, 25%) */
 .test {
-  color-calc: -5.29411765%;
-  color: #11b666;
+  color: #064789;
 }
 /*#endregion */
 /*#region mixins */

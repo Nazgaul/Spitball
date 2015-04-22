@@ -1,4 +1,7 @@
 ﻿/*#region variables */
+.test {
+  color: #064789;
+}
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -747,7 +750,7 @@ body.quiz .modal-backdrop.in {
   top: 0;
   width: 7px;
   height: 100%;
-  background: #3293f6;
+  background: green;
 }
 .userWrong .quizQuestion:before,
 .userWrong .quizAList:before {
@@ -920,7 +923,7 @@ body.quiz .modal-backdrop.in {
   width: 37px;
   height: 37px;
   border-radius: 50%;
-  background: url(/Images/quizSprite.png?v=5) 0 -613px no-repeat;
+  background: url(/Images/quizSprite.png?v=6) 0 -613px no-repeat;
   display: inline-block;
   position: relative;
   vertical-align: top;
@@ -989,7 +992,7 @@ body.quiz .modal-backdrop.in {
   top: -30px;
   width: 111px;
   height: 111px;
-  background: url(/Images/quizSprite.png?v=5) 0px -502px no-repeat;
+  background: url(/Images/quizSprite.png?v=6) 0px -502px no-repeat;
 }
 .quizPopupHeader:after {
   content: '';

@@ -1,3 +1,69 @@
 ﻿/*
-@import this file directly into your existing Less files to use these mixins
+This is an example of how to use the image sprite in your own CSS files
 */
+.Images-quiz-correct {
+/* You may have to set 'display: block' */
+	width: 38px;
+	height: 38px;
+	background: url('quizSprite.png') -1px -1px;
+}
+.Images-quiz-eye {
+/* You may have to set 'display: block' */
+	width: 38px;
+	height: 23px;
+	background: url('quizSprite.png') -1px -40px;
+}
+.Images-quiz-icon {
+/* You may have to set 'display: block' */
+	width: 45px;
+	height: 45px;
+	background: url('quizSprite.png') -1px -64px;
+}
+.Images-quiz-star {
+/* You may have to set 'display: block' */
+	width: 20px;
+	height: 18px;
+	background: url('quizSprite.png') -1px -110px;
+}
+.Images-quiz-stopwatch {
+/* You may have to set 'display: block' */
+	width: 233px;
+	height: 264px;
+	background: url('quizSprite.png') -1px -129px;
+}
+.Images-quiz-time {
+/* You may have to set 'display: block' */
+	width: 39px;
+	height: 43px;
+	background: url('quizSprite.png') -1px -394px;
+}
+.Images-quiz-user {
+/* You may have to set 'display: block' */
+	width: 36px;
+	height: 37px;
+	background: url('quizSprite.png') -1px -438px;
+}
+.Images-quiz-wrong {
+/* You may have to set 'display: block' */
+	width: 40px;
+	height: 34px;
+	background: url('quizSprite.png') -1px -476px;
+}
+.Images-big-quiz {
+/* You may have to set 'display: block' */
+	width: 111px;
+	height: 111px;
+	background: url('quizSprite.png') -1px -511px;
+}
+.Images-user-icon {
+/* You may have to set 'display: block' */
+	width: 37px;
+	height: 37px;
+	background: url('quizSprite.png') -1px -623px;
+}
+.Images-quiz-icon-tt {
+/* You may have to set 'display: block' */
+	width: 32px;
+	height: 32px;
+	background: url('quizSprite.png') -1px -661px;
+}

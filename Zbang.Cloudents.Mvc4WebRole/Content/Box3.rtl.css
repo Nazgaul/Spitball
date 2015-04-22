@@ -1,4 +1,7 @@
 ﻿/*#region variables */
+.test {
+  color: #064789;
+}
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -996,7 +999,7 @@
   background-color: none;
   border: none;
   border-radius: 0;
-  background: url(/Images/quizSprite.png?v=5) 0px -650px no-repeat;
+  background: url(/Images/quizSprite.png?v=6) 0px -650px no-repeat;
   position: relative;
   top: 2px;
 }
