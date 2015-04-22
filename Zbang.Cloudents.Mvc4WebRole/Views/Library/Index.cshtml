@@ -70,11 +70,6 @@
                 </button>
             </div>*@
         <div class="contentWpr @cls">
-
-            @*@if (!string.IsNullOrEmpty(Model.LetterUrl))
-            {
-                <iframe id="uniLetter" seamless="seamless" class="unionFeatured " width="290" src="@Model.LetterUrl"></iframe>
-            }*@
             <div class="dashHeader">
                 @{Html.RenderPartial("_BarActions");}
                 <div class="dhContent" ng-switch="info.isRootLevel">
@@ -91,7 +86,7 @@
             </div>
             @if (!string.IsNullOrEmpty(Model.LetterUrl))
             {
-                <iframe id="uniLetter" seamless="seamless" class="unionFeatured " width="100%" src="@Model.LetterUrl"></iframe>
+                <iframe id="uniLetter" seamless="seamless" class="unionFeatured " src="@Model.LetterUrl"></iframe>
             }
             <ul id="libraryList" class="libraryList clearfix">
                 <li ng-repeat="box in info.items" ng-include="info.type === 'box' ? 'dashLibBox' : 'library-department'" ng-class="info.type ==='box' ? 'box' : 'libraryItem deptItem'"></li>

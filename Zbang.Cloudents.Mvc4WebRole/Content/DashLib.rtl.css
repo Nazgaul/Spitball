@@ -209,9 +209,12 @@
   animation: fadein 0.5s 0 ease;
 }
 .contentWpr.featured .unionFeatured {
-  display: block;
-  border: 0;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   margin-top: 20px;
+  min-width: 502px;
 }
 .contentWpr.featured .libraryList {
   min-width: 0;
@@ -220,6 +223,21 @@
 }
 .contentWpr.featured .emptyLib {
   padding-left: 290px;
+}
+@media only screen and (min-width: 1134px) {
+  .contentWpr.featured .unionFeatured {
+    width: 760px;
+  }
+}
+@media only screen and (min-width: 1392px) {
+  .contentWpr.featured .unionFeatured {
+    width: 1018px;
+  }
+}
+@media only screen and (min-width: 1650px) {
+  .contentWpr.featured .unionFeatured {
+    width: 1276px;
+  }
 }
 .unionFeatured {
   display: none;
