@@ -848,7 +848,6 @@ input[type="radio"][disabled] + label:before {
 .headerSettings svg {
   width: 17px;
   height: 13px;
-  fill: #fff;
 }
 .sidebarCb:checked ~ .headerActions .sideBar {
   left: 0;

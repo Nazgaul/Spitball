@@ -210,17 +210,11 @@
 }
 .contentWpr.featured .unionFeatured {
   display: block;
-  position: absolute;
-  top: 105px;
-  right: 10px;
   border: 0;
-  height: 90%;
-  height: -webkit-calc(100% - 105px);
-  height: calc(100% - 105px);
+  margin-top: 20px;
 }
 .contentWpr.featured .libraryList {
   min-width: 0;
-  padding-right: 315px;
   min-height: -webkit-calc(100vh - 165px);
   min-height: calc(100vh - 165px);
 }
