@@ -678,7 +678,7 @@ body.quiz .modal-backdrop.in {
   width: 17px;
   height: 16px;
   background-color: none;
-  background: url(/Images/common27-sprite.png?v=1) -18px -121px no-repeat;
+  background: url(/Images/common27-sprite.png?v=2) -18px -121px no-repeat;
   opacity: 1 !important;
   margin: -5px -3px 0 0;
 }

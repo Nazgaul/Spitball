@@ -464,7 +464,7 @@
 .removeAttach:after {
   content: '';
   display: inline-block;
-  background: url(/Images/common27-sprite.png?v=1) -68px -15px no-repeat;
+  background: url(/Images/common27-sprite.png?v=2) -68px -15px no-repeat;
   width: 10px;
   height: 10px;
   vertical-align: top;
@@ -566,7 +566,7 @@
   right: 0;
   width: 261px;
   height: 88px;
-  background: url(/Images/common27-sprite.png?v=1) -5px -197px no-repeat;
+  background: url(/Images/common27-sprite.png?v=2) -5px -197px no-repeat;
 }
 .bestUserList a {
   display: inline-block;

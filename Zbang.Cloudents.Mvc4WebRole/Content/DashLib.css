@@ -71,7 +71,7 @@
 .back:before {
   content: '';
   display: inline-block;
-  background: url(/Images/common27-sprite.png?v=1) 0 -1px no-repeat;
+  background: url(/Images/common27-sprite.png?v=2) 0 -1px no-repeat;
   margin-right: 5px;
   width: 20px;
   height: 19px;
@@ -271,7 +271,7 @@
   line-height: 10px;
 }
 .setupCourse .closeDialog {
-  background: url(/Images/site.png?v=4) 0 -94px no-repeat;
+  background: url(/Images/site.png?v=5) 0 -94px no-repeat;
   width: 19px;
   height: 19px;
 }
@@ -342,7 +342,7 @@
   display: block;
   width: 130px;
   height: 132px;
-  background: url(/Images/site.png?v=4) 0 -113px no-repeat;
+  background: url(/Images/site.png?v=5) 0 -115px no-repeat;
   margin: 0 auto;
 }
 .browseCourses {
@@ -854,7 +854,7 @@
 }
 .uploadSrcWpr button:before {
   content: '';
-  background: url(/Images/site.png?v=4) no-repeat;
+  background: url(/Images/site.png?v=5) no-repeat;
   margin: 50px auto 10px;
   display: block;
 }
