@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             }
             m_Hub = NotificationHubClient.CreateClientFromConnectionString(connectionString, hubName);
         }
-        private Task SendGcmNotificationAsync(IPushMessage message, IEnumerable<long> tags)
+        private Task SendNotificationAsync(Notification message, IEnumerable<long> tags)
         {
 
             if (message == null)
@@ -36,61 +36,31 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             {
                 return Task.FromResult(false);
             }
-            var notification = CreateGcmNotification(message);
 
-            return m_Hub.SendNotificationAsync(notification, tags.Select(s => s.ToString(CultureInfo.InvariantCulture)));
+            return m_Hub.SendNotificationAsync(message, tags.Select(s => s.ToString(CultureInfo.InvariantCulture)));
         }
-        private Task SendAppleNotificationAsync(IPushMessage message, IEnumerable<long> tags)
-        {
+       
 
-            if (message == null)
-            {
-                throw new ArgumentNullException("message");
-            }
-            if (tags == null)
-            {
-                throw new ArgumentNullException("tags");
-            }
-            if (m_Hub == null)
-            {
-                return Task.FromResult(false);
-            }
-            var notification = CreateAppleNotification(message);
-
-            return m_Hub.SendNotificationAsync(notification, tags.Select(s => s.ToString(CultureInfo.InvariantCulture)));
-        }
-
-        private Task SendNotification(PushAction action,
-            string userNameOfAction,
-            string text,
-            string boxName,
-            ICollection<long> tags
-            )
+        private Task SendNotification(GooglePushMessage googleMessage, ApplePushMessage appleMessage, ICollection<long> tags)
         {
             if (tags.Count == 0)
             {
                 return Task.FromResult<string>(null);
             }
-            var message = new GooglePushMessage(
-             new Dictionary<string, string>
-            {
-                {"boxName", boxName },
-                {"text",text},
-                {"userName", userNameOfAction},
-                {"action",((int)action).ToString(CultureInfo.InvariantCulture)}
-            }, null);
-
-            var appleMessage = new ApplePushMessage();
-            appleMessage.Aps.ContentAvailable = true;
-            appleMessage.Aps.Alert = "Some message";
 
             var list = new List<Task>();
             for (int i = 0; i <= tags.Count / UsersPerPage; i++)
             {
-                list.Add(SendGcmNotificationAsync(message,
-                    tags.Skip(i * UsersPerPage).Take(UsersPerPage)));
-                list.Add(SendAppleNotificationAsync(message,
-                    tags.Skip(i * UsersPerPage).Take(UsersPerPage)));
+                if (googleMessage != null)
+                {
+                    list.Add(SendNotificationAsync(new GcmNotification(googleMessage.ToString()),
+                        tags.Skip(i*UsersPerPage).Take(UsersPerPage)));
+                }
+                if (appleMessage != null)
+                {
+                    list.Add(SendNotificationAsync( new AppleNotification(appleMessage.ToString()),
+                        tags.Skip(i*UsersPerPage).Take(UsersPerPage)));
+                }
 
             }
             return Task.WhenAll(list);
@@ -101,7 +71,22 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             string boxName,
             IList<long> userIds)
         {
-            return SendNotification(PushAction.PostComment, userNameOfAction, text, boxName, userIds);
+            var googleMessage = new GooglePushMessage(
+             new Dictionary<string, string>
+                {
+                    {"boxName", boxName },
+                    {"text", text},
+                    {"userName", userNameOfAction},
+                    {"action",((int)PushAction.PostComment).ToString(CultureInfo.InvariantCulture)}
+                }, null);
+            var applePushMessage = new ApplePushMessage();
+            applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION_COMMENT";
+            applePushMessage.Aps.AlertProperties["loc-args"] = new[]
+                {
+                    userNameOfAction, boxName,text
+                
+                };
+            return SendNotification(googleMessage, applePushMessage, userIds);
         }
 
         public Task SendAddReplyNotification(string userNameOfAction,
@@ -109,42 +94,81 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             string boxName,
             IList<long> userIds)
         {
-            return SendNotification(PushAction.PostReply, userNameOfAction, text, boxName, userIds);
+            var googleMessage = new GooglePushMessage(
+             new Dictionary<string, string>
+                {
+                    {"boxName", boxName },
+                    {"text", text},
+                    {"userName", userNameOfAction},
+                    {"action",((int)PushAction.PostReply).ToString(CultureInfo.InvariantCulture)}
+                }, null);
+
+            var applePushMessage = new ApplePushMessage();
+            applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION_COMMENT";
+            applePushMessage.Aps.AlertProperties["loc-args"] = new[]
+                {
+                    userNameOfAction, boxName,text
+                
+                };
+
+            return SendNotification(googleMessage, applePushMessage, userIds);
         }
 
         public Task SendAddItemNotification(string userNameOfAction,
             string boxName,
             IList<long> userIds)
         {
-            return SendNotification(PushAction.AddItem, userNameOfAction, null, boxName, userIds);
+            var googleMessage = new GooglePushMessage(
+             new Dictionary<string, string>
+                {
+                    {"boxName", boxName },
+                    {"userName", userNameOfAction},
+                    {"action",((int)PushAction.AddItem).ToString(CultureInfo.InvariantCulture)}
+                }, null);
+            var applePushMessage = new ApplePushMessage();
+            applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION_FILE";
+            applePushMessage.Aps.AlertProperties["loc-args"] = new[]
+                {
+                    userNameOfAction, boxName
+                
+                };
+            return SendNotification(googleMessage, applePushMessage, userIds);
         }
 
         public Task SendInviteNotification(string userNameOfAction,
             string boxName,
             long userId)
         {
-            return SendNotification(PushAction.Invite, userNameOfAction, null, boxName, new[] {userId});
+            var googleMessage = new GooglePushMessage(
+             new Dictionary<string, string>
+                {
+                    {"boxName", boxName },
+                   
+                    {"userName", userNameOfAction},
+                    {"action",((int)PushAction.Invite).ToString(CultureInfo.InvariantCulture)}
+                }, null);
+            return SendNotification(googleMessage, null, new[] { userId });
         }
 
 
-        private static Notification CreateGcmNotification(IPushMessage message)
-        {
-            if (message == null)
-            {
-                throw new ArgumentNullException("message");
-            }
-            return new GcmNotification(message.ToString());
+        //private static Notification CreateGcmNotification(IPushMessage message)
+        //{
+        //    if (message == null)
+        //    {
+        //        throw new ArgumentNullException("message");
+        //    }
+        //    return new GcmNotification(message.ToString());
 
-        }
+        //}
 
-        private static Notification CreateAppleNotification(IPushMessage message)
-        {
-            if (message == null)
-            {
-                throw new ArgumentNullException("message");
-            }
-            return new AppleNotification(message.ToString());
+        //private static Notification CreateAppleNotification(IPushMessage message)
+        //{
+        //    if (message == null)
+        //    {
+        //        throw new ArgumentNullException("message");
+        //    }
+        //    return new AppleNotification(message.ToString());
 
-        }
+        //}
     }
 }
