@@ -33,16 +33,16 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             try
             {
 
-                var applePushMessage = new ApplePushMessage();
-                applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION";
-                applePushMessage.Aps.AlertProperties["loc-args"] = new[]
-                {
-                    "ramy", "box1","txt"
+                //var applePushMessage = new ApplePushMessage();
+                //applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION";
+                //applePushMessage.Aps.AlertProperties["loc-args"] = new[]
+                //{
+                //    "ramy", "box1","txt"
                 
-                };
+                //};
                 
 
-                await Services.Push.SendAsync(applePushMessage,"1");
+                //await Services.Push.SendAsync(applePushMessage,"1");
                 //TODO: check box permission
                 var retVal =
                   await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, 20));

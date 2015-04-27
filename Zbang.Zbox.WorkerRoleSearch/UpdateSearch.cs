@@ -58,21 +58,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 try
                 {
                     TraceLog.WriteInfo(PrefixLog, "starting update search cycle");
-                    //var tQuizUpdate = UpdateQuiz();
+                    var tQuizUpdate = UpdateQuiz();
                     var tItemUpdate = UpdateItem(index, count);
-                    //var tUniversityUpdate = UpdateUniversity();
-                    //var tBoxUpdate = UpdateBox();
+                    var tUniversityUpdate = UpdateUniversity();
+                    var tBoxUpdate = UpdateBox();
                     await Task.WhenAll(
-                       // tQuizUpdate,
-                        tItemUpdate
-                       // tUniversityUpdate,
-                       // tBoxUpdate
+                        tQuizUpdate,
+                        tItemUpdate,
+                        tUniversityUpdate,
+                        tBoxUpdate
                         );
 
                     if (tItemUpdate.Result
-                      //  || tBoxUpdate.Result
-                       // || tUniversityUpdate.Result
-                       // || tQuizUpdate.Result
+                        || tBoxUpdate.Result
+                        || tUniversityUpdate.Result
+                        || tQuizUpdate.Result
                         )
                     {
                         TraceLog.WriteInfo(PrefixLog, "finish update search cycle invoking new cycle");

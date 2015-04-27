@@ -18,6 +18,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IQueueProviderExtract m_QueueProvider;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private int m_TimeToSleep = 1;
+        private const int MaxTimeToSleep = 5000;
 
         private const string PrefixLog = "FileProcess";
 
@@ -67,13 +68,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     m_TimeToSleep = 1;
                     TraceLog.WriteInfo(PrefixLog, "finish update process file cycle with result sleeping:" + m_TimeToSleep);
-                    await Task.Delay(TimeSpan.FromSeconds(m_TimeToSleep), cancellationToken);
+                    await Task.Delay(TimeSpan.FromMilliseconds(m_TimeToSleep), cancellationToken);
                 }
                 else
                 {
-                    m_TimeToSleep = m_TimeToSleep * 2;
+                    m_TimeToSleep = Math.Min(m_TimeToSleep * 2, MaxTimeToSleep);
                     TraceLog.WriteInfo(PrefixLog, "finish update process file cycle without result sleeping: " + m_TimeToSleep);
-                    await Task.Delay(TimeSpan.FromSeconds(m_TimeToSleep), cancellationToken);
+                    await Task.Delay(TimeSpan.FromMilliseconds(m_TimeToSleep), cancellationToken);
                 }
             }
         }

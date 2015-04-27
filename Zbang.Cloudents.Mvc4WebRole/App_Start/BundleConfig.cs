@@ -47,7 +47,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             get
             {
                 return CdnLocation;
-            } 
+            }
         }
 
         public static void RegisterBundle(
@@ -71,7 +71,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                             return true;
                         }
                         return false;
-                        
+
                     }).Select(s => string.Format("{0}.rtl.css", s.Replace(Path.GetExtension(s), string.Empty))
                     ));
                 }
@@ -230,13 +230,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     var relativePath = filePath.Replace(appRoot, string.Empty);
                     cdnFilePath = Path.Combine(cdnRoot, relativePath);
-                    if (File.Exists(Path.Combine(cdnRoot, relativePath)))
-                    {
-                        continue;
-                    }
+                    // we want to replace the file if its exits
+                    //if (File.Exists(Path.Combine(cdnRoot, relativePath)))
+                    //{
+                    //    continue;
+                    //}
                     var directory = Path.GetDirectoryName(cdnFilePath);
                     if (directory != null) Directory.CreateDirectory(directory);
-                    File.Copy(filePath, Path.Combine(cdnRoot, relativePath));
+                    File.Copy(filePath, Path.Combine(cdnRoot, relativePath), true);
                 }
                 catch (Exception ex)
                 {
@@ -245,7 +246,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             }
         }
 
-        
+
 
     }
     public class JsFileWithCdn
