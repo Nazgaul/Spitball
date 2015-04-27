@@ -63,8 +63,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
         private static void CreateStorage()
         {
             CreateBlobStorages(_cloudStorageAccount.CreateCloudBlobClient());
-            //CreateQueues(_cloudStorageAccount.CreateCloudQueueClient());
-            //CreateTables(_cloudStorageAccount.CreateCloudTableClient());
+            CreateQueues(_cloudStorageAccount.CreateCloudQueueClient());
+            CreateTables(_cloudStorageAccount.CreateCloudTableClient());
         }
 
         internal static LocalResource LocalResource

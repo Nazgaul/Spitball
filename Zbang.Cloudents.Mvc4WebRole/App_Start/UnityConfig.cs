@@ -1,21 +1,14 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
-using Autofac.Builder;
 using Autofac;
-using Autofac.Core;
 using Autofac.Integration.Mvc;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin.Security;
 using Owin;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Thumbnail;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
@@ -41,18 +34,19 @@ namespace Zbang.Cloudents.Mvc4WebRole
                .As<ISearchConnection>()
                .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
                .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
+               .WithParameter("isDevelop", false) // this do nothing its only read only
                .InstancePerLifetimeScope();
 
-            Zbox.Infrastructure.Search.RegisterIoc.Register();
+            RegisterIoc.Register();
 
             var x = new ApplicationDbContext(ConfigFetcher.Fetch("Zbox"));
-            builder.Register<ApplicationDbContext>(c => x).AsSelf().InstancePerLifetimeScope();
+            builder.Register(c => x).AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<ApplicationUserManager>().AsSelf().As<IAccountService>().InstancePerLifetimeScope();
 
-            builder.Register<UserStore<ApplicationUser>>(c => new UserStore<ApplicationUser>(x))
+            builder.Register(c => new UserStore<ApplicationUser>(x))
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 
-            IocFactory.IocWrapper.ContainerBuilder.Register<IAuthenticationManager>(
+            IocFactory.IocWrapper.ContainerBuilder.Register(
                 c => HttpContext.Current.GetOwinContext().Authentication);
 
 
