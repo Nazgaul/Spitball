@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ServiceBus.Notifications;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Notifications
 {
@@ -41,29 +42,30 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         }
        
 
-        private Task SendNotification(GooglePushMessage googleMessage, ApplePushMessage appleMessage, ICollection<long> tags)
+        private async Task SendNotification(GooglePushMessage googleMessage, ApplePushMessage appleMessage, ICollection<long> tags)
         {
             if (tags.Count == 0)
             {
-                return Task.FromResult<string>(null);
+                return;
             }
 
             var list = new List<Task>();
             for (int i = 0; i <= tags.Count / UsersPerPage; i++)
             {
+                var users = tags.Skip(i*UsersPerPage).Take(UsersPerPage).ToList();
                 if (googleMessage != null)
                 {
-                    list.Add(SendNotificationAsync(new GcmNotification(googleMessage.ToString()),
-                        tags.Skip(i*UsersPerPage).Take(UsersPerPage)));
+                    TraceLog.WriteInfo(String.Format("sending gcm push notification data: {0} to users {1}",
+                        googleMessage, String.Join(",", users)));
+                    list.Add(SendNotificationAsync(new GcmNotification(googleMessage.ToString()),users));
                 }
                 if (appleMessage != null)
                 {
-                    list.Add(SendNotificationAsync( new AppleNotification(appleMessage.ToString()),
-                        tags.Skip(i*UsersPerPage).Take(UsersPerPage)));
+                    list.Add(SendNotificationAsync( new AppleNotification(appleMessage.ToString()), users));
                 }
 
             }
-            return Task.WhenAll(list);
+            await Task.WhenAll(list);
         }
 
         public Task SendAddPostNotification(string userNameOfAction,

@@ -8,6 +8,8 @@ using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
+using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
@@ -39,7 +41,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.UserType,
                 s.Professor,
                 s.CourseCode,
-                s.Url
+                s.Url,
+                shortUrl = UrlConsts.BuildShortBoxUrl(new Base62(s.Id).ToString())
             }));
         }
 

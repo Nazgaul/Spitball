@@ -12,11 +12,13 @@ using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Cloudents.MobileApp2.DataObjects;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.StorageApp;
 using Zbang.Zbox.Infrastructure.Transport;
+using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
@@ -57,6 +59,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
             await Task.WhenAll(tItem, tTransAction);
             var retVal = tItem.Result;
+            retVal.ShortUrl = UrlConsts.BuildShortItemUrl(new Base62(id).ToString());
             ////retVal.UserType = ViewBag.UserType;
             ////retVal.Name = Path.GetFileNameWithoutExtension(retVal.Name);
 
