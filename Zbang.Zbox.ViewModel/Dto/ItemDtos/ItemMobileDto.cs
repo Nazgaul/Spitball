@@ -24,5 +24,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public long Id { get; set; }
 
         public string Type { get; set; }
+
+        public string ShortUrl { get; set; }
     }
 }
