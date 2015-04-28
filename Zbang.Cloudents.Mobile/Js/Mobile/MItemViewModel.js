@@ -26,7 +26,7 @@
         dataContext.getItems({
             data: { id: boxid, pageNumber: 0 },
             success: function (data) {
-                for (var i = 0, length = data.length; i < length; i++) {
+                for (var i = 0, length = data.length; i < length; i++) {        
                     itemsinBox.push(data[i].id);
                 }
                 calculatePosition();
