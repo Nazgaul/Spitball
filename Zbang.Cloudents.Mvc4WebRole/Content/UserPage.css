@@ -216,7 +216,7 @@
 .emptyTab:before {
   content: '';
   display: block;
-  background: url(/Images/user13-sprite.png?v=1) no-repeat;
+  background: url(/images/user13-sprite.png?v=1) no-repeat;
   margin: 32px auto 14px;
 }
 .upTabContent.empty .emptyTab {
@@ -278,7 +278,7 @@
   color: #383838;
   width: 7px;
   height: 10px;
-  background: url(/Images/user13-sprite.png?v=1) -53px -43px no-repeat;
+  background: url(/images/user13-sprite.png?v=1) -53px -43px no-repeat;
   vertical-align: middle;
 }
 .qAnswerCount {
@@ -353,7 +353,7 @@
   width: 22px;
   height: 19px;
   vertical-align: middle;
-  background: url(/Images/common27-sprite.png?v=2) -155px -42px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -155px -42px no-repeat;
   margin-right: 5px;
 }
 .upTop .upEmail {
@@ -461,7 +461,7 @@
   display: inline-block;
   vertical-align: middle;
   margin-left: 8px;
-  background: url(/Images/common27-sprite.png?v=2) -98px -49px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -98px -49px no-repeat;
   width: 9px;
   height: 7px;
 }
@@ -569,7 +569,7 @@
 .upInvites .inviteFriendBtn.btn3:before {
   content: '';
   display: inline-block;
-  background: url(/Images/common27-sprite.png?v=2) -143px -3px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -143px -3px no-repeat;
   width: 22px;
   height: 19px;
   vertical-align: middle;
@@ -801,10 +801,10 @@
   display: inline-block;
   width: 16px;
   height: 10px;
-  background: url(/Images/common27-sprite.png?v=2) -102px -88px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -102px -88px no-repeat;
 }
 .courseCol .courseList:hover:before {
-  background: url(/Images/common27-sprite.png?v=2) -102px -102px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -102px -102px no-repeat;
 }
 .deptPopup {
   display: none;

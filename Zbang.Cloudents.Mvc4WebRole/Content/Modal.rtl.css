@@ -683,7 +683,7 @@
   margin-left: 5px;
   width: 20px;
   height: 18px;
-  background: url(/Images/box18-sprite.png?v=1) -53px -85px no-repeat;
+  background: url(/images/box18-sprite.png?v=1) -53px -85px no-repeat;
 }
 .boxSettings .btn1,
 .boxSettings .btn2 {
@@ -946,7 +946,7 @@
   display: inline-block;
   width: 18px;
   height: 19px;
-  background: url(/Images/common27-sprite.png?v=2) -171px -64px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -171px -64px no-repeat;
   vertical-align: middle;
   margin-left: 5px;
 }
@@ -988,7 +988,7 @@
   vertical-align: middle;
   width: 22px;
   height: 19px;
-  background: url(/Images/common27-sprite.png?v=2) -155px -42px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -155px -42px no-repeat;
   margin-left: 8px;
 }
 .inviteUserBtn,
@@ -1008,7 +1008,7 @@
   display: inline-block;
   width: 24px;
   height: 17px;
-  background: url(/Images/common27-sprite.png?v=2) -154px -24px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -154px -24px no-repeat;
   vertical-align: middle;
 }
 .memberItem:hover .inviteUserBtn,

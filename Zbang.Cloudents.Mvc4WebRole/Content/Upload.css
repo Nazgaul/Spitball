@@ -125,7 +125,7 @@
 .source .btn:before {
   content: '';
   display: block;
-  background: url(/Images/upload15-sprite.png?v=1) no-repeat;
+  background: url(/images/upload15-sprite.png?v=1) no-repeat;
   margin: 0 auto 10px;
 }
 .source .link:before {
@@ -187,7 +187,7 @@
   display: block;
   width: 130px;
   height: 113px;
-  background: url(/Images/upload15-sprite.png?v=1) 0px -54px;
+  background: url(/images/upload15-sprite.png?v=1) 0px -54px;
   margin: 0 auto 22px;
 }
 .uploads {
@@ -200,7 +200,7 @@
   z-index: 100;
 }
 .uploads button {
-  background: url(/Images/upload15-sprite.png?v=1) no-repeat;
+  background: url(/images/upload15-sprite.png?v=1) no-repeat;
   vertical-align: top;
 }
 .uploads.collapsed .uploadList {
@@ -401,7 +401,7 @@ button.fileError {
   vertical-align: middle;
   width: 17px;
   height: 13px;
-  background: url(/Images/common27-sprite.png?v=2) -73px -70px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -73px -70px no-repeat;
   margin: -1px 5px 0 0;
 }
 .inviteInput {

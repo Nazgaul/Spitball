@@ -205,7 +205,7 @@ textarea:invalid {
 .removeAttach:after {
   content: '';
   display: inline-block;
-  background: url(/Images/common27-sprite.png?v=2) -68px -15px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -68px -15px no-repeat;
   width: 10px;
   height: 10px;
   vertical-align: top;
@@ -229,7 +229,7 @@ textarea:invalid {
   width: 15px;
   height: 13px;
   margin: 8px 8px 0 8px;
-  background: url(/Images/QnA-sprite.png?v=1) -85px -1px no-repeat;
+  background: url(/images/QnA-sprite.png?v=1) -85px -1px no-repeat;
   display: none;
   vertical-align: top;
 }
@@ -565,7 +565,7 @@ textarea:invalid {
   display: inline-block;
   width: 17px;
   height: 17px;
-  background: url(/Images/QnA-sprite.png?v=1) -2px -2px no-repeat;
+  background: url(/images/QnA-sprite.png?v=1) -2px -2px no-repeat;
   vertical-align: middle;
   margin: -2px 3px 0 3px;
 }
@@ -576,7 +576,7 @@ textarea:invalid {
   display: inline-block;
   width: 13px;
   height: 16px;
-  background: url(/Images/QnA-sprite.png?v=1) -22px -2px no-repeat;
+  background: url(/images/QnA-sprite.png?v=1) -22px -2px no-repeat;
   margin: -3px 3px 0 3px;
   vertical-align: middle;
 }
@@ -587,7 +587,7 @@ textarea:invalid {
   display: inline-block;
   width: 14px;
   height: 15px;
-  background: url(/Images/QnA-sprite.png?v=1) -38px -3px no-repeat;
+  background: url(/images/QnA-sprite.png?v=1) -38px -3px no-repeat;
   vertical-align: middle;
   margin: -2px 3px 0 3px;
 }

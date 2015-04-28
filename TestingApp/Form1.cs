@@ -143,7 +143,7 @@ namespace TestingApp
             {
                 foreach (var item in retVal)
                 {
-                    textBox2.Text += string.Format("id: {0} name: {1} ", item.Id, item.Name);
+                    textBox2.Text += string.Format("id: {0} name: {1} uni: {2}", item.Id, item.Name, item.UniName);
                     textBox2.Text += "\r\n";
                 }
             }

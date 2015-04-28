@@ -403,7 +403,7 @@
   display: block;
   width: 127px;
   height: 152px;
-  background: url(/Images/item13-sprite.png?v=1) -1px -40px no-repeat;
+  background: url(/images/item13-sprite.png?v=1) -1px -40px no-repeat;
   margin: 0 auto 50px;
 }
 .previewFailedText {
@@ -643,7 +643,7 @@
   width: 10px;
   height: 10px;
   cursor: pointer;
-  background: url(/Images/common27-sprite.png?v=2) -79px -26px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -79px -26px no-repeat;
   z-index: 13;
 }
 .itemPrev,

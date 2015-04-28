@@ -205,7 +205,7 @@
 .checkMailMsg:before {
   content: '';
   display: inline-block;
-  background: url(/Images/common27-sprite.png?v=2) -179px -40px;
+  background: url(/images/common27-sprite.png?v=2) -179px -40px;
   width: 23px;
   height: 23px;
   margin-left: 5px;

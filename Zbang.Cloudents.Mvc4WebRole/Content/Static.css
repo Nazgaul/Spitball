@@ -384,7 +384,7 @@ body {
   display: inline-block;
   width: 53px;
   height: 53px;
-  background: url(/Images/common27-sprite.png?v=2) -239px -1px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -239px -1px no-repeat;
   position: absolute;
   left: 8px;
   top: 7px;
@@ -465,7 +465,7 @@ body {
   top: 0;
   bottom: 0;
   margin: auto;
-  background: url(/Images/common27-sprite.png?v=2) -98px -49px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -98px -49px no-repeat;
 }
 .answer {
   padding: 0 18px 0 16px;

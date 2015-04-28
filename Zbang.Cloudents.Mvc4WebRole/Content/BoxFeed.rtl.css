@@ -395,7 +395,7 @@
   display: inline-block;
   width: 17px;
   height: 17px;
-  background: url(/Images/QnA-sprite.png?v=1) -2px -2px no-repeat;
+  background: url(/images/QnA-sprite.png?v=1) -2px -2px no-repeat;
   vertical-align: middle;
   margin: -2px 3px 0 3px;
 }
@@ -406,7 +406,7 @@
   display: inline-block;
   width: 13px;
   height: 16px;
-  background: url(/Images/QnA-sprite.png?v=1) -22px -2px no-repeat;
+  background: url(/images/QnA-sprite.png?v=1) -22px -2px no-repeat;
   margin: -3px 3px 0 3px;
   vertical-align: middle;
 }
@@ -417,7 +417,7 @@
   display: inline-block;
   width: 14px;
   height: 15px;
-  background: url(/Images/QnA-sprite.png?v=1) -38px -3px no-repeat;
+  background: url(/images/QnA-sprite.png?v=1) -38px -3px no-repeat;
   vertical-align: middle;
   margin: -2px 3px 0 3px;
 }
@@ -467,7 +467,7 @@
 .removeAttach:after {
   content: '';
   display: inline-block;
-  background: url(/Images/common27-sprite.png?v=2) -68px -15px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -68px -15px no-repeat;
   width: 10px;
   height: 10px;
   vertical-align: top;
@@ -569,7 +569,7 @@
   right: 0;
   width: 261px;
   height: 88px;
-  background: url(/Images/common27-sprite.png?v=2) -5px -197px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -5px -197px no-repeat;
 }
 .bestUserList a {
   display: inline-block;

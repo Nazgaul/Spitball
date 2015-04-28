@@ -681,7 +681,7 @@ body.quiz .modal-backdrop.in {
   width: 17px;
   height: 16px;
   background-color: none;
-  background: url(/Images/common27-sprite.png?v=2) -18px -121px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -18px -121px no-repeat;
   opacity: 1 !important;
   margin: -5px 0 0 -3px;
 }
@@ -923,7 +923,7 @@ body.quiz .modal-backdrop.in {
   width: 37px;
   height: 37px;
   border-radius: 50%;
-  background: url(/Images/quizSprite.png?v=6) 0 -613px no-repeat;
+  background: url(/images/quizSprite.png?v=6) 0 -613px no-repeat;
   display: inline-block;
   position: relative;
   vertical-align: top;
@@ -992,7 +992,7 @@ body.quiz .modal-backdrop.in {
   top: -30px;
   width: 111px;
   height: 111px;
-  background: url(/Images/quizSprite.png?v=6) 0px -502px no-repeat;
+  background: url(/images/quizSprite.png?v=6) 0px -502px no-repeat;
 }
 .quizPopupHeader:after {
   content: '';

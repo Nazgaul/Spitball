@@ -544,7 +544,7 @@ input[type="radio"][disabled] + label:before {
   background-color: transparent;
   width: 11px;
   height: 11px;
-  background: url(/Images/common27-sprite.png?v=2) -79px -26px no-repeat;
+  background: url(/images/common27-sprite.png?v=2) -79px -26px no-repeat;
   position: absolute;
   top: 15px;
   right: 12px;

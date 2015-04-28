@@ -41,9 +41,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IEncryptObject> m_EncryptObject;
         private readonly ApplicationUserManager m_UserManager;
         private readonly IAuthenticationManager m_AuthenticationManager;
-
-
-
+        
         public AccountController(
            Lazy<IFacebookService> facebookService,
            Lazy<IQueueProvider> queueProvider,
