@@ -39,6 +39,11 @@ namespace Zbang.Cloudents.Mobile.Filters
                 }
                 catch (BoxDoesntExistException)
                 {
+                    if (filterContext.HttpContext.Request.IsAjaxRequest())
+                    {
+                        filterContext.Result = new HttpStatusCodeResult(404);
+                        return;
+                    }
                     filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
                     {
                         {"action", "Index"},
@@ -48,6 +53,11 @@ namespace Zbang.Cloudents.Mobile.Filters
                 }
                 catch (BoxAccessDeniedException)
                 {
+                    if (filterContext.HttpContext.Request.IsAjaxRequest())
+                    {
+                        filterContext.Result = new HttpUnauthorizedResult();
+                        return;
+                    }
                     filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
                     {
                         {"action", "MembersOnly"},

@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
         private class LocalData : ILocalData
         {
-            [ThreadStatic]
+           // [ThreadStatic]
             private static Hashtable _localData;
             private static readonly object LocalDataHashtableKey = new object();
 
