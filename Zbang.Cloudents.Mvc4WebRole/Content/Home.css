@@ -148,7 +148,7 @@
   display: inline-block;
   width: 289px;
   height: 240px;
-  background: url(/Images/hp26-sprite.png?v=3) -172px -1px no-repeat;
+  background: url(/Images/hp26-sprite.png?v=4) -172px -1px no-repeat;
   float: right;
   margin-top: 35px;
 }
@@ -187,7 +187,7 @@
 .logo {
   width: 190px;
   height: 52px;
-  background: url(/Images/hp26-sprite.png?v=3) -881px -271px no-repeat;
+  background: url(/Images/hp26-sprite.png?v=4) -881px -271px no-repeat;
   margin-top: 20px;
 }
 .videoWpr {
@@ -215,7 +215,7 @@
   display: inline-block;
   width: 69px;
   height: 69px;
-  background: url(/Images/hp26-sprite.png?v=3) -3px -4px no-repeat;
+  background: url(/Images/hp26-sprite.png?v=4) -3px -4px no-repeat;
   position: absolute;
   left: 0;
 }
@@ -358,7 +358,7 @@
   display: inline-block;
   width: 168px;
   height: 43px;
-  background: url(/Images/hp26-sprite.png?v=3) -972px -22px no-repeat;
+  background: url(/Images/hp26-sprite.png?v=4) -972px -22px no-repeat;
 }
 .gradeback.gradeback a {
   display: inline-block;
@@ -486,7 +486,7 @@ section.unions {
 .unions li:before {
   content: '';
   display: inline-block;
-  background: url(/Images/hp26-sprite.png?v=3) no-repeat;
+  background: url(/Images/hp26-sprite.png?v=4) no-repeat;
   vertical-align: middle;
 }
 .unions li.gsb:before {

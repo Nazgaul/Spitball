@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     .Select(s => string.Format("({0} ne '{1}')", uniIdField, s));
 
             var val = string.Join(" and ", uniToEnterFilter);
-            return val + string.Format(" or ({0}/any(t: t eq '{1}'))", userField, userId);
+            return val + string.Format(" and ({0}/any(t: t eq '{1}') or {2} ne null )", userField, userId, uniIdField);
         }
 
 

@@ -101,14 +101,14 @@ namespace Zbang.Zbox.Infrastructure.Search
                 {
                     var x = new IndexOperation(IndexOperationType.Upload, "id",
                         s.Id.ToString(CultureInfo.InvariantCulture))
-                        .WithProperty("name", s.Name)
+                        .WithProperty("name", s.Name.Trim())
                         .WithProperty("extra1", s.Extra)
                         .WithProperty("extra2", String.Join(
                             " ",
                             s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
                                 .Where(w => w.StartsWith("ה") || w.StartsWith("ל"))
                                 .Select(s1 => s1.Remove(0, 1))))
-                        .WithProperty("imageField", s.Image);
+                        .WithProperty("imageField", s.Image.Trim());
                     return x;
                 }));
             }
