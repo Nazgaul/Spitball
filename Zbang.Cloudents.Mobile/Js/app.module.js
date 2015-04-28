@@ -54,7 +54,7 @@ config([
                            break;
                        case 401:
                        case 403:
-                           window.open('/account', '_self');
+                           window.open('/error/membersonly', '_self');
                            break;
                        case 404:
                            window.open('/error', '_self');
