@@ -412,12 +412,12 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 if (tUser.Result == null && tResult.Result != null)
                 {
                     ModelState.AddModelError("Email", "You have registered to Cloudents through Facebook -- go to the homepage and click on the Facebook button to register");
-                    return View(model);
+                    return View("ForgotPwd",model);
                 }
                 if (tUser.Result == null)
                 {
                     ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
-                    return View(model);
+                    return View("ForgotPwd",model);
                 }
                 var user = tUser.Result;
                 //var tResult = ZboxReadService.GetUserDetailsByMembershipId(query);
@@ -472,7 +472,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("CheckEmail", model);
             }
             var userData = UnEncryptElement(@continue);//  Session[SessionResetPassword] as ForgotPasswordLinkData;
 
@@ -546,7 +546,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 return RedirectToRoute("dashboardLink");
             }
             ModelState.AddModelError(string.Empty, "something went wrong, try again later");
-            return View(model);
+            return View("ChoosePwd", model);
 
 
         }

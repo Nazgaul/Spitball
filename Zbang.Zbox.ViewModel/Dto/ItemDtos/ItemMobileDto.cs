@@ -2,7 +2,8 @@
 
 namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
-    public class ItemMobileDto
+    public class 
+        ItemMobileDto
     {
         public long Size { get; set; }
         public int NumberOfViews { get; set; }
