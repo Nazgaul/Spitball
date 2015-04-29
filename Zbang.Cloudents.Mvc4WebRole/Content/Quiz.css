@@ -992,7 +992,7 @@ body.quiz .modal-backdrop.in {
   top: -30px;
   width: 111px;
   height: 111px;
-  background: url(/images/quizSprite.png?v=6) 0px -502px no-repeat;
+  background: url(/images/quizSprite.png?v=6) 0px -511px no-repeat;
 }
 .quizPopupHeader:after {
   content: '';
