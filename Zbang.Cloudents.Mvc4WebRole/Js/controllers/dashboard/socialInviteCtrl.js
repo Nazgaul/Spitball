@@ -164,7 +164,7 @@
                          if (!params.isConnected) {
                              return params;
                          }
-                         sFacebook.contacts('id,first_name,middle_name,last_name,gender,username,picture.height(64).width(64)').then(function (response) {
+                         sFacebook.contacts('id,first_name,middle_name,last_name,gender,picture.height(64).width(64)').then(function (response) {
                              currentUsers = angular.copy(response);
                              $timeout(function () {
                                  $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
