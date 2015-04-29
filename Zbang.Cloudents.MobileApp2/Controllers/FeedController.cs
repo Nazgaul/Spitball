@@ -28,7 +28,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         // GET api/Feed
         [HttpGet]
         [Route("api/box/{boxId:long}/feed")]
-        public async Task<HttpResponseMessage> Feed(long boxId, int page)
+        public async Task<HttpResponseMessage> Feed(long boxId, int page, int sizePerPage = 20)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 //await Services.Push.SendAsync(applePushMessage,"1");
                 //TODO: check box permission
                 var retVal =
-                  await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, 20));
+                  await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
                 return Request.CreateResponse(retVal);
             }
             catch (BoxAccessDeniedException)

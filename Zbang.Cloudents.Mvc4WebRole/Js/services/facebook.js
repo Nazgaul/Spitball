@@ -15,7 +15,7 @@
                status: true,
                cookie: true,
                xfbml: true,
-               oauth: true
+               version: 'v2.3'
            });
            loginStatus();
        };
@@ -27,7 +27,7 @@
            js = d.createElement('script');
            js.id = id;
            js.async = true;
-           js.src = "//connect.facebook.net/en_US/all.js";
+           js.src = "//connect.facebook.net/en_US/sdk.js";
            d.getElementsByTagName('head')[0].appendChild(js);
        }(document));
 
@@ -146,7 +146,7 @@
                    $timeout(function () {
                        dfd.resolve(contacts);
                    });
-                   return dfd.promise;
+                   return dfd.promise;  
                }
 
                //id,first_name,middle_name,last_name,gender,username,picture.height(64).width(64)'
@@ -171,10 +171,7 @@
                    dfd.resolve(contacts);
                });
 
-               return dfd.promise;
-
-
-
+               return dfd.promise;             
            },
            postFeed: function (text, link) {
                if (!this.isAuthenticated()) {
@@ -223,7 +220,6 @@
 
                return defer.promise;
            },
-           loginStatus: loginStatus,
            loginFacebook: function () {
 
                var dfd = $q.defer();
