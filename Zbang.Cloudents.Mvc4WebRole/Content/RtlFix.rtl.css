@@ -36,6 +36,13 @@
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
 }
+.rtlFix .newActivity li.current:after {
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
 .rtlFix .ta-toolbar .btn-group {
   float: left;
 }

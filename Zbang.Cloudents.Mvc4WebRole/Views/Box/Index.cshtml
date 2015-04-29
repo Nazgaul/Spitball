@@ -82,6 +82,46 @@
                 <span class="rFloat newPosts">{{info.itemsLength}}</span>
                 <div class="elps">@SharedResources.Items</div>
                 <div ng-if="params.newItems > 0" class="notify">{{params.newItems}}</div>
+                <section class="boxFolders" ng-if="options.activeTab === 'items'" ng-controller="BoxTabsCtrl">
+                    @*<h3>@IndexResources.Folders</h3>*@
+                    <div m-custom-scrollbar bottom="0">
+                        <ul class="boxFolderList">
+                            <li class="current boxFolder" ng-class="{current : !params.currentTab }">
+                                <span class="boxFolderName elps" ng-click="selectTab()">
+                                    @Html.Svg("~/Images/Defs.svg", "folderAll", new { @class = "svg-folderAll" })&nbsp;@SharedResources.All
+                                </span>
+                            </li>
+                            <li ng-repeat="tab in params.tabs track by tab.id" class="boxFolder" ng-class="{ current: tab.id === params.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab)" drop-channel="boxItem">
+
+                                <button type="button" title="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === params.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
+                                <span class="boxFolderName elps" ng-if="tab.itemCount === 0" ng-click="selectTab(tab)">
+                                    @Html.Svg("~/Images/Defs.svg", "folder", new { @class = "svg-folder" })&nbsp;{{tab.name}}
+                                </span>
+                                <span class="boxFolderName elps" ng-if="tab.itemCount > 0" ng-click="selectTab(tab)">
+                                    @Html.Svg("~/Images/Defs.svg", "folderNonempty", new { @class = "svg-folderNonempty" })&nbsp;{{tab.name}} {{'('+tab.itemCount || 0+')'}})
+                                </span>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <button type="button" ng-click="renameTab(tab)">@SharedResources.Rename</button>
+                                    </li>
+                                    <li>
+                                        <button type="button" ng-click="manageTab(tab)">@MainViewResources.Manage</button>
+                                    </li>
+                                    <li>
+                                        <button type="button" ng-click="deleteTab(tab)">@MainViewResources.Delete</button>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="createFolder">
+                                <span class="createFolderText elps" ng-click="createTab()">
+                                    @Html.Svg("~/Images/Defs.svg", "plus", new { @class = "svg-plus" })&nbsp;@MainViewResources.CreateTab
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
             </li>
             <li class="quizTab" ng-class="{current: options.activeTab === states.quizzes}" ng-click="setTab('quizzes')" analytics-on="click" analytics-event="Quizzes" analytics-category="Box" analytics-label="Side bar">
                 <span class="rFloat newPosts">{{info.quizLength}}</span>
@@ -94,46 +134,7 @@
             </li>
         </ul>
 
-        <section class="boxFolders" ng-if="options.activeTab === 'items'" ng-controller="BoxTabsCtrl">
-            <h3>@IndexResources.Folders</h3>
-            <div m-custom-scrollbar bottom="0">
-                <ul class="boxFolderList">
-                    <li class="current boxFolder" ng-class="{current : !params.currentTab }">
-                        <span class="boxFolderName elps" ng-click="selectTab()">
-                            @Html.Svg("~/Images/Defs.svg", "folderAll", new { @class = "svg-folderAll" })&nbsp;@SharedResources.All
-                        </span>
-                    </li>
-                    <li ng-repeat="tab in params.tabs track by tab.id" class="boxFolder" ng-class="{ current: tab.id === params.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab)" drop-channel="boxItem">
-
-                        <button type="button" tooltip="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === params.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
-                        <span class="boxFolderName elps" ng-if="tab.itemCount === 0" ng-click="selectTab(tab)">
-                            @Html.Svg("~/Images/Defs.svg", "folder", new { @class = "svg-folder" })&nbsp;{{tab.name}}
-                        </span>
-                        <span class="boxFolderName elps" ng-if="tab.itemCount > 0" ng-click="selectTab(tab)">
-                            @Html.Svg("~/Images/Defs.svg", "folderNonempty", new { @class = "svg-folderNonempty" })&nbsp;{{tab.name}} {{'('+tab.itemCount || 0+')'}})
-                        </span>
-
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <button type="button" ng-click="renameTab(tab)">@SharedResources.Rename</button>
-                            </li>
-                            <li>
-                                <button type="button" ng-click="manageTab(tab)">@MainViewResources.Manage</button>
-                            </li>
-                            <li>
-                                <button type="button" ng-click="deleteTab(tab)">@MainViewResources.Delete</button>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="createFolder">
-                        <span class="createFolderText elps" ng-click="createTab()">
-                            @Html.Svg("~/Images/Defs.svg", "plus", new { @class = "svg-plus" })&nbsp;@MainViewResources.CreateTab
-                        </span>
-                    </li>
-                </ul>
-            </div>
-        </section>
+        
     </div>
     <div class="boxRight">
         <div class="box-content" ng-switch="options.activeTab" load-spinner="options.loader" load-spinner-type="init">
