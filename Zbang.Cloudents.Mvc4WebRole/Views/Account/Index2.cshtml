@@ -58,8 +58,7 @@
             <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })"*@ title="Arabic Site">@Languages.ArabicName</button>
             <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })"*@ title="Chinese Site">@Languages.ChineseName</button>
             @*<input type="checkbox" id="cbGradeback" class="checkbox" />*@
-            <section class="gradeback">
-                @*<label for="cbGradeback" class="labelGradeback"></label>*@
+            @*<section class="gradeback">
                 <h3>@HomeResources.AppToGrade</h3>
                 <h4>@HomeResources.YouAsked</h4>
                 <a href="https://itunes.apple.com/us/app/gradeback/id938067560?ls=1&mt=8" analytics-on="click" analytics-event="Apple" analytics-category="Gradeback" target="_blank">
@@ -113,7 +112,7 @@
 	c1.057,0.541,2.087,1.126,3.083,1.762l0.396,0.257c7.379,4.838,12.956,12.208,15.481,20.868H12.067z" />
                     </svg>
                 </a>
-            </section>
+            </section>*@
         </div>
     </div>
     <div class="popupWrppr welcome" ng-if="params.showLogin">

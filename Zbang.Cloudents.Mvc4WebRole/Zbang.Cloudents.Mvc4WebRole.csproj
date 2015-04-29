@@ -816,6 +816,9 @@
     <Content Include="Images\gradient-arrow.png" />
     <Content Include="Images\hiring.png" />
     <Content Include="Images\hp26-sprite.png" />
+    <Content Include="Images\mobile-cloudents-en.png" />
+    <Content Include="Images\mobile-cloudents-heb.png" />
+    <Content Include="Images\mobile-cloudents-ru.png" />
     <Content Include="Images\Store\ball.png" />
     <Content Include="Images\bg5.jpg" />
     <Content Include="Images\big-quiz.png" />

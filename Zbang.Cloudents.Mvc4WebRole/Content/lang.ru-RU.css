@@ -42,9 +42,16 @@ q {
 .headingTexts .email {
   width: 302px;
 }
-.gradeback.gradeback h3 {
-  font-size: 25px;
+/*.gradeback.gradeback {
+    h3 {
+        font-size: 25px;
+    }
+}*/
+/*#region home page*/
+.language:before {
+  background: url(/Images/mobile-cloudents-ru.png) no-repeat;
 }
+/*#endregion */
 /*#region dashLib page */
 .courseType .labelExplain {
   width: 200px;

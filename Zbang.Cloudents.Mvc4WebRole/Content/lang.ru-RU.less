@@ -20,12 +20,10 @@ q {
     margin-bottom: 4px;
     line-height: 10px;
 }
-.connect, .create
-{
+.connect, .create {
     font-size: 12px;
 }
-.popupWrppr.registerNow
-{
+.popupWrppr.registerNow {
     width: 485px;
 }
 .homeContent h1 {
@@ -40,223 +38,232 @@ q {
         width: 302px;
     }
 }
-.gradeback.gradeback {
-     h3 {
+/*.gradeback.gradeback {
+    h3 {
         font-size: 25px;
     }
-    }
-/*#region dashLib page */
-.courseType .labelExplain {
-    width: 200px;
-}
-.socialList {
-    button {
-        font-size:11px;
-    }
+}*/
+/*#region home page*/
+.language:before {
+    background: url(/Images/mobile-cloudents-ru.png) no-repeat;
 }
 /*#endregion */
+    /*#region dashLib page */
+    .courseType .labelExplain {
+        width: 200px;
+    }
 
-/*#region item page */
-.previewWrapper h2 {
-    line-height: 12px;
-    margin-bottom: 20px;
-}
-.middleActionItem {
-    padding:0;
-}
+    .socialList {
+        button {
+            font-size: 11px;
+        }
+    }
+    /*#endregion */
 
-/*#endregion */
+    /*#region item page */
+    .previewWrapper h2 {
+        line-height: 12px;
+        margin-bottom: 20px;
+    }
 
-/*#region box page */
-.boxFeed {
-    ~ .boxSideBar{
-        .recommendedWpr {
-            .recommended {
-                .rFloat {
-                    width: 105px; //diff rtl
+    .middleActionItem {
+        padding: 0;
+    }
+    /*#endregion */
+
+    /*#region box page */
+    .boxFeed {
+        ~ .boxSideBar {
+            .recommendedWpr {
+                .recommended {
+                    .rFloat {
+                        width: 105px; //diff rtl
+                    }
                 }
             }
-        } 
+        }
     }
-}
-.box-content .membersContent .searchWpr {
-    margin: 10px 175px 0 0;
-}
 
-/*#region box item tool tips */
-
-//reduced .boxItemTt padding and font-size of ttDetail
-
-.boxItemTt.boxItemTt {
-    .itemName {
-        padding: 10px 12px 0 12px;
+    .box-content .membersContent .searchWpr {
+        margin: 10px 175px 0 0;
     }
-    &.ttLink {
+    /*#region box item tool tips */
+    //reduced .boxItemTt padding and font-size of ttDetail
+    .boxItemTt.boxItemTt {
+        .itemName {
+            padding: 10px 12px 0 12px;
+        }
+
+        &.ttLink {
+            .ttTop {
+                padding: 18px 12px 0 12px; //override
+            }
+        }
+
         .ttTop {
-            padding: 18px 12px 0 12px; //override
+            padding: 32px 12px 17px 12px;
+
+            > .ttDetail {
+                font-size: 12px;
+            }
+        }
+
+        .ttPreview {
+            padding: 10px 12px;
         }
     }
-    .ttTop{
-        padding: 32px 12px 17px 12px;
-        > .ttDetail {
-            font-size: 12px;
+    /*#endregion */
+    .inviteFriendBtn.btn3 {
+        width: 150px; // invite friends button
+        padding: 7px 13px; //override - need this to keep text on one line
+    }
+    /*if < 4 items: float friendBtn right.*/
+    .friendItem:last-child:nth-child(-n + 4) {
+        float: right;
+    }
+
+    .friendItem:last-child:nth-child(5) {
+        float: none;
+    }
+    /*if > 11 items hide all further items*/
+    .friendItem:nth-child(n+11) {
+        display: none;
+    }
+
+    .friendItem:last-child {
+        display: inline-block;
+    }
+
+    .academic .boxSetting .editBoxName {
+        width: 540px;
+    }
+
+    .private .boxSetting .editBoxName {
+        width: 504px;
+    }
+
+    #box_settings .memberName {
+        width: 245px;
+    }
+
+    .boxSetting label {
+        padding-right: 10px;
+    }
+
+    @media (max-width: 1145px) {
+
+        .boxItemsHeader.boxItemsHeader {
+
+            button {
+                font-size: 12px;
+            }
         }
     }
-    .ttPreview
-    {
-        padding: 10px 12px;
+    /*#endregion */
+
+    /*#region quiz*/
+    .questionHolder .correct {
+        width: 60px;
     }
-}
-/*#endregion */ 
 
-.inviteFriendBtn.btn3 {
-    width: 150px; // invite friends button
-    padding: 7px 13px; //override - need this to keep text on one line
-}
+    .popupWrppr.quitQuiz {
+        width: 620px;
+    }
 
-/*if < 4 items: float friendBtn right.*/
-.friendItem:last-child:nth-child(-n + 4)
-{
-    float: right;
-}
+    .cTextArea {
+        width: 565px;
+    }
 
-.friendItem:last-child:nth-child(5)
-{
-    float: none;
-}
-/*if > 11 items hide all further items*/
-.friendItem:nth-child(n+11)
-{
-    display: none;
-}
-.friendItem:last-child
-{
-    display: inline-block;
-}
-
-.academic .boxSetting .editBoxName {
-    width:540px;
-}
-
-.private .boxSetting .editBoxName {
-    width:504px;
-}
-
-#box_settings .memberName {
-    width:245px;
-}
-
-.boxSetting label {
-    padding-right:10px;
-}
-@media (max-width: 1145px) {
-
-    .boxItemsHeader.boxItemsHeader {
-
-        button {
-            font-size: 12px;
+    .commentWpr {
+        .askBtn {
+            width: 127px;
         }
     }
-}
 
-/*#endregion */
-
-/*#region quiz*/
-.questionHolder .correct {
-    width:60px;
-}
-.popupWrppr.quitQuiz{
-    width: 620px;
-}
-
-.cTextArea {
-    width:565px;
-}
-.commentWpr {
-    .askBtn {
-        width: 127px;
+    .quizTimerResult {
+        font-size: 18px;
     }
-}
-.quizTimerResult {
-    font-size: 18px;
-}
-.timeRetakeWpr .btn1 {
-    max-width: 120px;
-    font-size: 12px;
-}
-/*#endregion*/
 
-/*#region invite page*/
-.invItem  {
-
-    .invName {
-        max-width:138px;
+    .timeRetakeWpr .btn1 {
+        max-width: 120px;
+        font-size: 12px;
     }
-}
+    /*#endregion*/
 
-.invBtn {
-    .invited {
-        min-width:100px;    
-    }
-}
+    /*#region invite page*/
+    .invItem {
 
-.invForm h3 {
-    font-size:14px;   
-}
-/*#endregion*/
-
-/*#region User page */
-.dateCol {
-    width: 165px;
-}
-.upSectionWpr .box:hover .btn3 {
-    padding: 3px 8px; //reduced padding
-}
-.emptyPoints p {
-  margin-left: 25px;
-  text-indent: -25px;
-  white-space: pre-wrap;
-}
-/*#endregion */
-
-/*#region modal.less */
-
-.tabArrow:before
-{
-    left: 50px;
-    .tabMembers & {
-        left: 163px;
-    }
-}
-.modal.quitQuiz {
-    width: 622px;
-}
-/*#endregion */
-
-//Email Autocomplete
-.emailUser .inputLabel {
-    width: 41px; //instead of 28px
-} 
-.gConnect {
-    width: 118px; //instead of 80px
-}
-.inviteInput {
-    padding-left: 10px;
-    .boxSizing;
-}
-/*#region  static popup */
-
-.desktop {
-    .firstName+.field-validation-error {
-        top: -11px;
-    }
-}
-
-.register {
-    .field-validation-error {
-        &.firstError {
-            top: 5px;
+        .invName {
+            max-width: 138px;
         }
     }
-}
-/*#endregion */
+
+    .invBtn {
+        .invited {
+            min-width: 100px;
+        }
+    }
+
+    .invForm h3 {
+        font-size: 14px;
+    }
+    /*#endregion*/
+
+    /*#region User page */
+    .dateCol {
+        width: 165px;
+    }
+
+    .upSectionWpr .box:hover .btn3 {
+        padding: 3px 8px; //reduced padding
+    }
+
+    .emptyPoints p {
+        margin-left: 25px;
+        text-indent: -25px;
+        white-space: pre-wrap;
+    }
+    /*#endregion */
+
+    /*#region modal.less */
+    .tabArrow:before {
+        left: 50px;
+
+        .tabMembers & {
+            left: 163px;
+        }
+    }
+
+    .modal.quitQuiz {
+        width: 622px;
+    }
+    /*#endregion */
+
+    //Email Autocomplete
+    .emailUser .inputLabel {
+        width: 41px; //instead of 28px
+    }
+
+    .gConnect {
+        width: 118px; //instead of 80px
+    }
+
+    .inviteInput {
+        padding-left: 10px;
+        .boxSizing;
+    }
+    /*#region  static popup */
+    .desktop {
+        .firstName + .field-validation-error {
+            top: -11px;
+        }
+    }
+
+    .register {
+        .field-validation-error {
+            &.firstError {
+                top: 5px;
+            }
+        }
+    }
+    /*#endregion */
