@@ -1854,6 +1854,7 @@ select.inputText {
   width: 52px;
   height: 57px;
   padding-bottom: 10px;
+  top: 5px;
 }
 .scrolling .barShadow {
   box-shadow: -2px 3px 7px rgba(0, 0, 0, 0.15);
