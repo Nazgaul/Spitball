@@ -12,7 +12,7 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2015-03-28T23:59:59.0000000+03:00" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
       <Setting name="StorageCdnEndpoint" value="https://az32006.vo.msecnd.net" />
-      <Setting name="SyncHatavotTimeInSeconds" value="5" />
+      <Setting name="SyncHatavotTimeInSeconds" value="20" />
       <Setting name="AzureSearchKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
       <Setting name="AzureSeachServiceName" value="cloudents" />
       <Setting name="ServiceBusConnectionString" value="Endpoint=sb://cloudentshub-ns.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=uHDvPiccRsCMde/zUJCiskd21qKxoiS1WlruAe4TMJU=" />

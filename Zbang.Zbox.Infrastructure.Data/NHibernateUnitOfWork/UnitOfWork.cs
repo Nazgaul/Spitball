@@ -1,5 +1,6 @@
 ﻿using System;
 using NHibernate;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
 
 namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
@@ -53,6 +54,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
         {
             if (CurrentUnitOfWork != null)
             {
+                TraceLog.WriteWarning("using the same unit of work");
                 return CurrentUnitOfWork;
                 //throw new InvalidOperationException("You cannot start more than one unit of work at the same time.");
             }

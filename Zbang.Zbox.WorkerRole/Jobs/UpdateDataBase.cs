@@ -7,10 +7,10 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 {
     public class UpdateDataBase : IJob
     {
-        private readonly IZboxWriteService m_ZboxService;
+        private readonly IZboxWorkerRoleService m_ZboxService;
         private bool m_KeepRunning;
 
-        public UpdateDataBase(IZboxWriteService zboxService)
+        public UpdateDataBase(IZboxWorkerRoleService zboxService)
         {
             m_ZboxService = zboxService;
         }

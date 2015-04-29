@@ -317,29 +317,35 @@ img {
     .tableCell {
         display:table-cell;
         vertical-align:middle;
+        color: @color;
+        font-size: 12px;
     }
     h2 {
-        font-size: 28px;
+        font-size: 27px;
+        color: @colorLighten;
         //position: relative;
         &:after {
             .pseudo;
             display: block;
-            width: 30%;
-            padding-top: 30%;
-            background: url(/Images/members-only.png) center 40% no-repeat @colorLighten;
-            background-size: contain;
-            border-radius: 50%;
-            border: 1px solid @color;
-            margin: 25px auto;
+            //width: 30%;
+            //padding-top: 30%;
+            background: url(/Images/membersOnly.png) no-repeat;
+            //background-size: contain;
+            //border-radius: 50%;
+            //border: 1px solid @color;
+            margin: 31px auto;
+            width: 122px;
+            height: 122px;
 
         }
     }
     .btn {
         background: @color;
         color: #fff;
+        font-size: 14px;
         border-radius: 5px;
-        padding: 4px 30px;
-        margin-top: 20px;
+        padding: 6px 30px;
+        margin-top: 16px;
         display: inline-block;
     }
 }

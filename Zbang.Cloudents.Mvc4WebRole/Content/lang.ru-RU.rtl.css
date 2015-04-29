@@ -161,6 +161,11 @@ q {
 .upSectionWpr .box:hover .btn3 {
   padding: 3px 8px;
 }
+.emptyPoints p {
+  margin-right: 25px;
+  text-indent: -25px;
+  white-space: pre-wrap;
+}
 /*#endregion */
 /*#region modal.less */
 .tabArrow:before {

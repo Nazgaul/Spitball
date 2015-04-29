@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
         private class LocalData : ILocalData
         {
-           // [ThreadStatic]
+            [ThreadStatic]
             private static Hashtable _localData;
             private static readonly object LocalDataHashtableKey = new object();
 
@@ -28,6 +28,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                 {
                     if (!RunningInWeb)
                     {
+                        //throw new NullReferenceException("You don't suppose to use this method in here since");
                         if (_localData == null)
                         {
                             _localData = new Hashtable();

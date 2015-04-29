@@ -42,11 +42,11 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         }
        
 
-        private async Task SendNotification(GooglePushMessage googleMessage, ApplePushMessage appleMessage, ICollection<long> tags)
+        private Task SendNotification(GooglePushMessage googleMessage, ApplePushMessage appleMessage, ICollection<long> tags)
         {
             if (tags.Count == 0)
             {
-                return;
+                return Task.FromResult<string>(null);
             }
 
             var list = new List<Task>();
@@ -65,7 +65,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                 }
 
             }
-            await Task.WhenAll(list);
+            return Task.WhenAll(list);
         }
 
         public Task SendAddPostNotification(string userNameOfAction,

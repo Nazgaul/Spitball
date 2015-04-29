@@ -9,9 +9,9 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
 {
     class UpdatesProcess : IDomainProcess
     {
-        private readonly IZboxWriteService m_ZboxWriteService;
+        private readonly IZboxWorkerRoleService m_ZboxWriteService;
 
-        public UpdatesProcess(IZboxWriteService zboxService)
+        public UpdatesProcess(IZboxWorkerRoleService zboxService)
         {
             m_ZboxWriteService = zboxService;
         }

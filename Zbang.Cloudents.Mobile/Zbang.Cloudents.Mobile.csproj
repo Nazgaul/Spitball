@@ -288,7 +288,6 @@
     <Compile Include="Extensions\UrlHelperExtension.cs" />
     <Compile Include="Extensions\HtmlHelper.cs" />
     <Compile Include="Extensions\VersionHelper.cs" />
-    <Compile Include="Filters\BoxPermissionAttribute.cs" />
     <Compile Include="Filters\CacheFilterAttribute.cs" />
     <Compile Include="Filters\ETagAttribute.cs" />
     <Compile Include="Filters\JsonHandleErrorAttribute.cs" />
@@ -623,7 +622,7 @@
     <Content Include="Images\bg.jpg" />
     <Content Include="Images\Defs.svg" />
     <Content Include="Images\EmptyState\user.svg" />
-    <Content Include="Images\members-only.png" />
+    <Content Include="Images\membersOnly.png" />
     <Content Include="Js\app.module.js" />
     <Content Include="Js\app.route.js" />
     <Content Include="Js\Cache.js" />

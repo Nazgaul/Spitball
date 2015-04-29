@@ -273,7 +273,7 @@ namespace Testing
             //         "failed connect to remove db ");
             //var t = x.DeleteUnsubscribe("yaari.ram@gmail.com");
             //t.Wait();
-            IZboxWriteService writeService = iocFactory.Resolve<IZboxWriteService>();
+            IZboxWorkerRoleService writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
             //writeService.UpdateReputation(new UpdateReputationCommand(1));
             writeService.OneTimeDbi();
             //while (writeService.Dbi(0))

@@ -19,8 +19,8 @@ namespace Zbang.Zbox.Domain.Common
         //void DeleteBox(DeleteBoxCommand command);
         Task UnFollowBoxAsync(UnFollowBoxCommand command);
         
-        Task DeleteBoxAsync(DeleteBoxCommand command);
-        Task<AddItemToBoxCommandResult> AddItemToBoxAsync(AddItemToBoxCommand command);
+        
+        
 
         Task DeleteItemAsync(DeleteItemCommand command);
         Task RateItemAsync(RateItemCommand command);
@@ -45,14 +45,7 @@ namespace Zbang.Zbox.Domain.Common
         void RenameNodeLibrary(RenameNodeCommand command);
         void DeleteNodeLibrary(DeleteNodeFromLibraryCommand command);
 
-        #region ZboxWorkerRoleService
-        void UpdateThumbnailPicture(UpdateThumbnailCommand command);
-        Task AddNewUpdateAsync(AddNewUpdatesCommand command);
-        Task UpdateSearchUniversityDirtyToRegularAsync(UpdateDirtyToRegularCommand command);
-        Task UpdateSearchBoxDirtyToRegularAsync(UpdateDirtyToRegularCommand command);
-        Task UpdateSearchItemDirtyToRegularAsync(UpdateDirtyToRegularCommand command);
-        Task UpdateSearchQuizDirtyToRegularAsync(UpdateDirtyToRegularCommand command);
-        #endregion
+     
 
 
         void CreateBoxItemTab(CreateItemTabCommand command);
@@ -65,10 +58,9 @@ namespace Zbang.Zbox.Domain.Common
 
         void UpdateUserFirstTimeStatus(UpdateUserFirstTimeStatusCommand command);
 
-        bool Dbi(int index);
-        void OneTimeDbi();
-        void Statistics(UpdateStatisticsCommand command);
-        void UpdateReputation(UpdateReputationCommand command);
+
+
+        Task<AddItemToBoxCommandResult> AddItemToBoxAsync(AddItemToBoxCommand command);
 
         #region annotation
         Task AddAnnotationAsync(AddAnnotationCommand command);
@@ -110,9 +102,7 @@ namespace Zbang.Zbox.Domain.Common
 
         #endregion
 
-        void AddProducts(AddProductsToStoreCommand command);
-        void AddCategories(AddCategoriesCommand command);
-        void AddBanners(AddBannersCommand command);
+       
 
 
 
@@ -123,6 +113,6 @@ namespace Zbang.Zbox.Domain.Common
 
 
 
-        void UpdateQuota(UpdateQuotaCommand updateQuotaCommand);
+       
     }
 }

@@ -232,6 +232,13 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, loginResult);
         }
 
+        [HttpPost]
+        [Route("api/account/logOff")]
+        public HttpResponseMessage LogOff()
+        {
+            return Request.CreateResponse();
+        }
+
 
 
         private static string RandomString(int size)

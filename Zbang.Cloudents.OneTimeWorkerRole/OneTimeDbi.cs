@@ -10,9 +10,9 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
 {
     public class OneTimeDbi : IOneTimeDbi
     {
-        private readonly IZboxWriteService m_ZboxService;
+        private readonly IZboxWorkerRoleService m_ZboxService;
 
-        public OneTimeDbi(IZboxWriteService zboxService)
+        public OneTimeDbi(IZboxWorkerRoleService zboxService)
         {
             m_ZboxService = zboxService;
         }

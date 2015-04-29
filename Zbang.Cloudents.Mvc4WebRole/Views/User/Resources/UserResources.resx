@@ -163,10 +163,10 @@
     <value>100 pts Upload an item to a course</value>
   </data>
   <data name="PointsTxt10" xml:space="preserve">
-    <value>50 pts Each accepted invite to join a course</value>
+    <value>50 pts Each accepted invite to course</value>
   </data>
   <data name="PointsTxt2" xml:space="preserve">
-    <value>150 pts Each accepted invite to join</value>
+    <value>150 pts Each accepted invite</value>
   </data>
   <data name="PointsTxt3" xml:space="preserve">
     <value>150 pts Receiving a 5 star rating</value>
