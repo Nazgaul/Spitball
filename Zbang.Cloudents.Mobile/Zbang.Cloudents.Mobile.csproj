@@ -622,7 +622,6 @@
     <Content Include="Images\bg.jpg" />
     <Content Include="Images\Defs.svg" />
     <Content Include="Images\EmptyState\user.svg" />
-    <Content Include="Images\members-only.png" />
     <Content Include="Images\membersOnly.png" />
     <Content Include="Js\app.module.js" />
     <Content Include="Js\app.route.js" />
