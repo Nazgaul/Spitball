@@ -6,6 +6,11 @@
 /*#region mixins */
 /*#endregion */
 .rtlFix {
+  /*.cloudIcon {
+        .svg-notification {
+            .flipH;
+        }
+    }*/
   /*.profileInfo .changeUni {
         margin: 0 0 25px; //remove negative top margin
     }*/
