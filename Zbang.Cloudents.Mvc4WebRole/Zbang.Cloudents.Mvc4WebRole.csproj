@@ -813,6 +813,7 @@
     <Content Include="Images\back_back.png" />
     <Content Include="Images\boxIcons.svg" />
     <Content Include="Images\common27-sprite.png" />
+    <Content Include="Images\gradient-arrow.png" />
     <Content Include="Images\hiring.png" />
     <Content Include="Images\hp26-sprite.png" />
     <Content Include="Images\Store\ball.png" />

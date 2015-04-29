@@ -32,7 +32,8 @@
 .register .cbLabel {
   display: block;
 }
-.quizAnswersList {
+.quizAnswersList,
+.quizAList {
   list-style-type: decimal;
   list-style-type: hebrew;
 }

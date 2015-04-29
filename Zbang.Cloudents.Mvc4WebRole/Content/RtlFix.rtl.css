@@ -6,6 +6,11 @@
 /*#region mixins */
 /*#endregion */
 .rtlFix {
+  /*.cloudIcon {
+        .svg-notification {
+            .flipH;
+        }
+    }*/
   /*.profileInfo .changeUni {
         margin: 0 0 25px; //remove negative top margin
     }*/
@@ -30,6 +35,13 @@
   transform: scaleX(-1);
 }
 .rtlFix .qLink:after {
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+.rtlFix .newActivity li.current:after {
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
   -o-transform: scaleX(-1);

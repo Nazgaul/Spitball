@@ -309,7 +309,7 @@
     .topSeparator;
     .bottomSeparator;
 
-    li {
+    > li {
         display: block;
         height: 40px;
         line-height: 40px;
@@ -318,18 +318,15 @@
         padding: 0 35px 0 25px;
         position: relative;
         &.current {
-            //background: #ddd;
             color: @color;
             &:after {
                 content: '';
                 position: absolute;
-                top: 10px;
+                top: 7px;
                 right:-1px;
-                width: 0;
-                height: 0;
-                border-style: solid;
-                border-width: 11px 22px 11px 0;
-                border-color: transparent @color transparent transparent;
+                width: 26px;
+                height: 26px;
+                background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAAclBMVEUAAAAxj+8pecwyk/YxkvUhYqQyk/YxkfMiZaouiOQsgNcpeMkmcLshYqMvi+kthN0qfNAndMIlbLQyk/YuiOQjaK0jaK4gX58yk/YiZKghYaMlbLQjaK4ndMImcLsqfNApeMkthN0sgNcvi+kuiOQxkfOlTXFSAAAAF3RSTlMA/hG0pGoyIwf49fLt45iPh353PRvp6AstP+cAAABpSURBVCjPrdJVDoAwEARQpLS4FGlxv/8V4QBD5of9fclmZZx/Kww+ITMQPN31g0FQpeOEyCuTeUHUFPG6IVJ5tB+IlHDPC5EU9oYkfWsh1S8QIg3pGHh4sjI/FD4vewpC3ULCAeCx4fUAFScYhDktCjwAAAAASUVORK5CYII=') /*/Images/gradient-arrow.png*/ no-repeat;
             }
         }
     }
@@ -339,7 +336,14 @@
         top: 3px;
     }
 }
-
+.itemTab.itemTab {
+    height: auto;
+    &.current {
+        .boxFolders {
+            display: block;
+        }
+    }
+}
 .newPosts {
     //background: @blue;
     background: @color;
@@ -365,74 +369,43 @@
 /*#region box folders */
 
 .boxFolders {
-    height: 100%; //
-    margin: 0 -25px;
+    display: none;
+    margin: 0 -35px 0 -25px;
     background: #fff;
+    line-height: normal;
     .mCSB_container, [ng-transclude] {
         width: 242px;
-        //  height: 100%;
-    }
-    h3 {
-        font-size: 13px;
-        text-transform: uppercase;
-        padding: 20px 0 5px 25px;
-        color: #aaa;
     }
     svg {
         position: relative;
         top: 4px;
         margin-right: 6px;
     }
-}
-
-.boxFolderList {
-    width: 100%; //
-    height: 100%; //
-    padding-bottom: 22px; //this enables the box folder popup on the last folder to open completely without being vertically truncated
+    .mCustomScrollbar {
+        height: auto !important;
+        max-height: ~'calc(100vh - 482px)';
+    }
 }
 
 .boxFolder, .createFolder {
     font-size: 16px;
     height: 40px;
     line-height: 40px;
-
+    border-bottom: 1px solid #ededed;
     .boxFolderName {
-        padding: 0 26px;
         max-width: 220px;
         display: inline-block;
         cursor: pointer;
-        width: 100%;
         font-size: 14px;
         .boxSizing;
-        /*&:not(.editable):hover {
-            color: @color;
-        }
-
-        &.editable {
-            width: 290px;
-            height: 28px;
-            padding: 8px 4px 0 8px; //rtl
-            font-weight: normal;
-            line-height: normal;
-            max-width: 270px; //override 245px;
-            -ms-text-overflow: clip;
-            -o-text-overflow: clip;
-            text-overflow: clip;
-
-            &:hover {
-                background: transparent;
-            }
-
-            + .editFolder {
-                display: none;
-            }
-        }*/
     }
 }
 
 .boxFolder {
     position: relative;
-
+    color: @textColor;
+    padding-left: 25px;
+    margin: 0 17px 0 6px;
     &.current {
         .editFolder {
             display: inline-block;
