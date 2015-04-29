@@ -49,5 +49,10 @@ namespace Zbang.Zbox.Infrastructure.Trace
 
         }
 
+        public static void WriteWarning(string warning)
+        {
+            t.Trace.TraceWarning(warning);
+        }
+
     }
 }

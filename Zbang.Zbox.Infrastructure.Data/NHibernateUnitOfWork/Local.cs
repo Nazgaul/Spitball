@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
         private class LocalData : ILocalData
         {
-           // [ThreadStatic]
+           // [ThreadStatic] // this is issue due to async we are using ( i think)
             private static Hashtable _localData;
             private static readonly object LocalDataHashtableKey = new object();
 
