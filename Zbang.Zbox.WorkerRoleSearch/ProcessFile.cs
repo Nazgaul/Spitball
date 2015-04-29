@@ -14,7 +14,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class ProcessFile : IJob
     {
-        readonly private IZboxWriteService m_ZboxWriteService;
+        readonly private IZboxWorkerRoleService m_ZboxWriteService;
         private readonly IQueueProviderExtract m_QueueProvider;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private int m_TimeToSleep = 1;
@@ -22,7 +22,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private const string PrefixLog = "FileProcess";
 
-        public ProcessFile(IZboxWriteService zboxWriteService, IFileProcessorFactory fileProcessorFactory, IQueueProviderExtract queueProvider)
+        public ProcessFile(IZboxWorkerRoleService zboxWriteService, IFileProcessorFactory fileProcessorFactory, IQueueProviderExtract queueProvider)
         {
             m_ZboxWriteService = zboxWriteService;
             m_FileProcessorFactory = fileProcessorFactory;
