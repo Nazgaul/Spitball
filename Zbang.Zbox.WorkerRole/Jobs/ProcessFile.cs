@@ -15,14 +15,14 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 {
     public class ProcessFile : IJob
     {
-        readonly private IZboxWriteService m_ZboxWriteService;
+        readonly private IZboxWorkerRoleService m_ZboxWriteService;
         private bool m_KeepRunning;
         private readonly QueueProcess m_QueueProcess;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
 
         public ProcessFile(IQueueProviderExtract queueProvider,
             IFileProcessorFactory fileProcessorFactory,
-            IZboxWriteService zboxService)
+            IZboxWorkerRoleService zboxService)
         {
             m_ZboxWriteService = zboxService;
             m_FileProcessorFactory = fileProcessorFactory;

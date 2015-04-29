@@ -23,13 +23,13 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private readonly IReadService m_ReadService;
         private readonly IBlobProductProvider m_BlobProvider;
         private readonly IMailComponent m_MailComponent;
-        private readonly IZboxWriteService m_ZboxWriteService;
+        private readonly IZboxWorkerRoleService m_ZboxWriteService;
 
         private DateTime m_DateDiff = DateTime.UtcNow.AddYears(-1);
 
 
         public StoreDataSync(IReadService readService, IBlobProductProvider blobProvider,
-            IZboxWriteService zboxWriteService, IMailComponent mailComponent)
+            IZboxWorkerRoleService zboxWriteService, IMailComponent mailComponent)
         {
             m_ReadService = readService;
             m_BlobProvider = blobProvider;

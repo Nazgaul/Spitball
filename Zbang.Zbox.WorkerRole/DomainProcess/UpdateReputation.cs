@@ -12,9 +12,9 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
 {
     public class UpdateReputation : IDomainProcess
     {
-        private readonly IZboxWriteService m_ZboxWriteService;
+        private readonly IZboxWorkerRoleService m_ZboxWriteService;
 
-        public UpdateReputation(IZboxWriteService zboxWriteService)
+        public UpdateReputation(IZboxWorkerRoleService zboxWriteService)
         {
             m_ZboxWriteService = zboxWriteService;
         }

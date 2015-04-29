@@ -19,12 +19,12 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
     {
         // private IFileConvertFactory m_FileContertFactory;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
-        private readonly IZboxWriteService m_ZboxService;
+        private readonly IZboxWorkerRoleService m_ZboxService;
         private readonly IZboxReadService m_ZboxReadService;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadServiceWorkerRole;
 
         public UpdateThumbnails(IFileProcessorFactory fileProcessorFactory,
-            IZboxWriteService zboxService, IZboxReadService zboxReadService,
+            IZboxWorkerRoleService zboxService, IZboxReadService zboxReadService,
             IZboxReadServiceWorkerRole zboxReadServiceWorkerRole)
         {
             m_FileProcessorFactory = fileProcessorFactory;

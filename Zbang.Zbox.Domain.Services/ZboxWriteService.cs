@@ -8,7 +8,7 @@ using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 
 namespace Zbang.Zbox.Domain.Services
 {
-    public partial class ZboxWriteService : IZboxWriteService, IZboxServiceBootStrapper
+    public class ZboxWriteService : IZboxWriteService, IZboxServiceBootStrapper
     {
         private readonly ICommandBus m_CommandBus;
 
@@ -158,14 +158,7 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
-        public void Statistics(UpdateStatisticsCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        
 
         public void DeleteUserFromBox(DeleteUserFromBoxCommand command)
         {
@@ -448,14 +441,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public async Task AddNewUpdateAsync(AddNewUpdatesCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                await m_CommandBus.SendAsync(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+       
 
         public void DeleteUpdates(DeleteUpdatesCommand command)
         {
@@ -602,6 +588,7 @@ namespace Zbang.Zbox.Domain.Services
         #endregion
         public void AddStudent(AddStudentCommand command)
         {
+            
             using (UnitOfWork.Start())
             {
                 m_CommandBus.Send(command);
@@ -646,13 +633,6 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
-        public void UpdateQuota(UpdateQuotaCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        
     }
 }

@@ -11,6 +11,7 @@ namespace Zbang.Zbox.Domain.Services
             DataAccess.RegisterIoc.Register();
 
             ioc.RegisterType<Common.IZboxWriteService, ZboxWriteService>();
+            ioc.RegisterType<Common.IZboxWorkerRoleService, ZboxWorkerRoleService>();
             ioc.RegisterType<Common.IZboxServiceBootStrapper, ZboxWriteService>();
         }
     }
