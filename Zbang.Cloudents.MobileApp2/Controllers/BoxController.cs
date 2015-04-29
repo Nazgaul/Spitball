@@ -129,10 +129,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         [HttpGet]
         [Route("api/box/{id:long}/items")]
-        public async Task<HttpResponseMessage> Items(long id, Guid? tabId, int page)
+        public async Task<HttpResponseMessage> Items(long id, Guid? tabId, int page,int sizePerPage = 20)
         {
             //TODO: Claim to check box permission
-            var query = new GetBoxItemsPagedQuery(id, tabId, page, 20);
+            var query = new GetBoxItemsPagedQuery(id, tabId, page, sizePerPage);
             var result = await ZboxReadService.GetBoxItemsPagedAsync(query) ?? new List<Zbox.ViewModel.Dto.ItemDtos.ItemDto>();
             return Request.CreateResponse(result.Select(s => new
             {

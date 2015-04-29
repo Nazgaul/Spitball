@@ -24,10 +24,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IZboxCacheReadService ZboxReadService { get; set; }
 
         // GET api/Boxes
-        public async Task<HttpResponseMessage> Get(int page)
+        public async Task<HttpResponseMessage> Get(int page, int sizePerPage = 15)
         {
             var userid = User.GetCloudentsUserId();
-            var query = new GetBoxesQuery(userid, page, 15);
+            var query = new GetBoxesQuery(userid, page, sizePerPage);
             var data = await ZboxReadService.GetUserBoxes(query);
 
             return Request.CreateResponse(data.Select(s => new
