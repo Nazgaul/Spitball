@@ -317,28 +317,29 @@ img {
 .membersOnly .tableCell {
   display: table-cell;
   vertical-align: middle;
+  color: #3293f6;
+  font-size: 12px;
 }
 .membersOnly h2 {
-  font-size: 28px;
+  font-size: 27px;
+  color: #7bbaf9;
 }
 .membersOnly h2:after {
   content: '';
   display: inline-block;
   display: block;
-  width: 30%;
-  padding-top: 30%;
-  background: url(/Images/members-only.png) center 40% no-repeat #7bbaf9;
-  background-size: contain;
-  border-radius: 50%;
-  border: 1px solid #3293f6;
-  margin: 25px auto;
+  background: url(/Images/membersOnly.png) no-repeat;
+  margin: 31px auto;
+  width: 122px;
+  height: 122px;
 }
 .membersOnly .btn {
   background: #3293f6;
   color: #fff;
+  font-size: 14px;
   border-radius: 5px;
-  padding: 4px 30px;
-  margin-top: 20px;
+  padding: 6px 30px;
+  margin-top: 16px;
   display: inline-block;
 }
 /*#endregion */
