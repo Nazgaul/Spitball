@@ -206,27 +206,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     item.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = id, itemId = item.Id });
                 }
-                return JsonOk(result);
-                //return JsonOk(itemDtos.Select(s => new
-                //{
-                //    s.CommentsCount,
-                //    s.Date,
-                //    s.Description,
-                //    s.DownloadUrl,
-                //    s.Id,
-                //    s.Name,
-                //    s.NumOfDownloads,
-                //    s.NumOfViews,
-                //    s.Owner,
-                //    s.OwnerId,
-                //    s.Rate,
-                //    s.Sponsored,
-                //    s.TabId,
-                //    s.Thumbnail,
-                //    s.Url,
-                //    s.UserUrl,
-                    
-                //}));
+                //return JsonOk(result);
+                return JsonOk(itemDtos.Select(s => new
+                {
+                    s.CommentsCount,
+                    s.Date,
+                    s.Description,
+                    s.DownloadUrl,
+                    s.Id,
+                    s.Name,
+                    s.NumOfDownloads,
+                    s.NumOfViews,
+                    s.Owner,
+                    s.OwnerId,
+                    s.Rate,
+                    s.Sponsored,
+                    s.TabId,
+                    s.Thumbnail,
+                    s.Url,
+                    s.UserUrl,
+                    s.Type
+
+                }));
             }
             catch (Exception ex)
             {

@@ -27,11 +27,13 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public DateTime Date { get; set; }
 
 
-        public int NumOfDownloads { get; private set; }
-        public string Description { get; private set; }
-        public int CommentsCount { get; private set; }
+        public int NumOfDownloads { get;  set; }
+        public string Description { get;  set; }
+        public int CommentsCount { get;  set; }
 
         public String Type { get; set; }
+
+        public String Source { get; set; }
 
 
     }

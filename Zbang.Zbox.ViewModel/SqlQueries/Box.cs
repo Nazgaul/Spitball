@@ -71,7 +71,9 @@ order by name;";
     i.thumbnailurl as Thumbnail,
     i.QuestionId as QuestionId,
     i.AnswerId as AnswerId,
-    i.Url as Url
+    i.Url as Url,
+    i.Discriminator as Type,
+    i.BlobName as Source
     from zbox.item i
     where i.IsDeleted = 0
     and i.BoxId = @BoxId
@@ -161,7 +163,8 @@ union
     i.creationTime as Date,
 	i.numberofcomments as commentsCount,
     i.Url as Url,
-    i.Discriminator as type
+    i.Discriminator as type,
+    i.BlobName as source
     from zbox.item i join zbox.users u on i.UserId = u.UserId
     where i.IsDeleted = 0
     and i.BoxId = @BoxId

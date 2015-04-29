@@ -6,7 +6,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
     {
         //this is for item
         public ItemDto(Int64 id, String name, Int64 ownerId, String thumbnail, 
-             Guid? questionId, Guid? answerId, String url)
+             Guid? questionId, Guid? answerId, String url, String type, String source)
         {
             Id = id;
             Name = name;
@@ -15,6 +15,8 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
             QuestionId = questionId;
             AnswerId = answerId;
             Url = url;
+            Type = type;
+            Source = source;
         }
         //this is for question
         public ItemDto(Int64 id, String name, Int64 ownerId, 
@@ -38,5 +40,8 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
         public string Url { get; set; }
 
         public string DownloadUrl { get; set; }
+        public string Type { get; set; }
+
+        public string Source { get; set; }
     }
 }
