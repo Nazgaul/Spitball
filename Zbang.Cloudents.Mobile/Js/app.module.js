@@ -54,8 +54,9 @@ config([
                            break;
                        case 401:
                        case 403:
-                           window.open('/error/membersonly', '_self');
-                           break;
+                           document.location.href = '/error/membersonly/?returnUrl=' + window.location.pathname;
+                           //window.open('/error/membersonly', '_self');
+                           return;
                        case 404:
                            window.open('/error', '_self');
                            break;

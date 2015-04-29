@@ -282,7 +282,7 @@
                 statusCode: {
 
                     401: function () {
-                        document.location.href = '/account?returnurl=' + encodeURIComponent(cd.location());
+                        document.location.href = '/error/membersonly/?returnurl=' + encodeURIComponent(location.pathname);
                     },
                     403: error,
                     404: error,
