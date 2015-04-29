@@ -20,14 +20,16 @@
         }
     }*/
 }
-.rtlFix .language:before {
-  content: '';
+.rtlFix .android {
   position: absolute;
   width: 338px;
   height: 232px;
   right: 20px;
   bottom: 100%;
   background: url(/Images/mobile-cloudents-heb.png) no-repeat;
+}
+.rtlFix .android a {
+  left: 10px;
 }
 .rtlFix .bestUserList:before {
   -moz-transform: scaleX(-1);
