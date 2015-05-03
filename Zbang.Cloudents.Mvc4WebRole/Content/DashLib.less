@@ -691,8 +691,84 @@
         top: -10px;
     }
 
+    .fbInputWrapper {
+        position: relative;
+    }
+
+    .fbCopyInfo {
+        background-color: #282828;
+        left: 0;
+        right:0;
+        outline: 1px solid rgba(255,255,255,0.5);
+        position: absolute;
+        text-align: center;
+        top: -28px;
+        width: 135px;
+        z-index: 99;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        margin:auto;
+
+        .square {
+           color: #fff;          
+          font-size: 11px;
+          font-weight: bold;
+          line-height: 29px;
+          text-align: center;
+        }
+        .arrow {
+            border-bottom: transparent;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #282828;
+            bottom: -5px;
+            left: 65px;
+            outline: none;
+            margin: 0 0 0 -5px;
+            position: absolute
+        }
+    }
+
+
+    .fbSocialState {
+        padding-top: 60px;
+        height: 100%;
+    }
+
     &.js-cloudState, &.js-fbState, &.js-gmState {
         .socialContentWpr {
+            display: block;
+        }
+
+        &.js-fbState {
+            .socialScroll, .cloudInput {
+                display: none;
+            }
+        }
+
+
+        .fbSocialStateText {
+            font-size: 20px;
+            width: 385px;
+            margin: 0 auto;
+            color: @textColor;
+        }
+
+        .fbSocialLink {
+            display: block;
+            margin: 40px auto;
+            height: 34px;
+            top: auto;
+            text-align:center;
+        }
+
+        .gotoFbBtn {
+            background-color: #3F4E8F;
+            width: 145px;
+            margin: 40px auto;
+            border: 1px solid #3F4E8F;
             display: block;
         }
     }
@@ -702,10 +778,12 @@
         background: #eee;
         .boxSizing;
         padding: 11px 0;
+
         .btn1:before {
             content: attr(data-continue);
             display: block;
         }
+
         .step & {
             width: 650px;
             margin: 25px 0 -25px -25px; //rtl
@@ -731,7 +809,6 @@
         .cloudInput {
             display: block;
         }
-
     }
 
     &.js-fbState {

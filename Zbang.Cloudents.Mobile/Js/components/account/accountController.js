@@ -4,6 +4,8 @@
         "use strict";
         var account = this;
 
+        account.firstTime = accountService.firstTime;
+
         account.facebookLogin = function () {            
             accountService.facebookLogin();
         };
@@ -13,5 +15,10 @@
         };
 
         accountService.doneLoad();
+
+        account.closePopup = function () {
+            account.isPopupClosed = true;
+        };
+
     }]
 );

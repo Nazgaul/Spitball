@@ -607,9 +607,84 @@
   position: relative;
   top: -10px;
 }
+.socialInvite .fbInputWrapper {
+  position: relative;
+}
+.socialInvite .fbCopyInfo {
+  background-color: #282828;
+  right: 0;
+  left: 0;
+  outline: 1px solid rgba(255, 255, 255, 0.5);
+  position: absolute;
+  text-align: center;
+  top: -28px;
+  width: 135px;
+  z-index: 99;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  margin: auto;
+}
+.socialInvite .fbCopyInfo .square {
+  color: #fff;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 29px;
+  text-align: center;
+}
+.socialInvite .fbCopyInfo .arrow {
+  border-bottom: transparent;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  border-top: 5px solid #282828;
+  bottom: -5px;
+  right: 65px;
+  outline: none;
+  margin: 0 -5px 0 0;
+  position: absolute;
+}
+.socialInvite .fbSocialState {
+  padding-top: 60px;
+  height: 100%;
+}
 .socialInvite.js-cloudState .socialContentWpr,
 .socialInvite.js-fbState .socialContentWpr,
 .socialInvite.js-gmState .socialContentWpr {
+  display: block;
+}
+.socialInvite.js-cloudState.js-fbState .socialScroll,
+.socialInvite.js-fbState.js-fbState .socialScroll,
+.socialInvite.js-gmState.js-fbState .socialScroll,
+.socialInvite.js-cloudState.js-fbState .cloudInput,
+.socialInvite.js-fbState.js-fbState .cloudInput,
+.socialInvite.js-gmState.js-fbState .cloudInput {
+  display: none;
+}
+.socialInvite.js-cloudState .fbSocialStateText,
+.socialInvite.js-fbState .fbSocialStateText,
+.socialInvite.js-gmState .fbSocialStateText {
+  font-size: 20px;
+  width: 385px;
+  margin: 0 auto;
+  color: #383838;
+}
+.socialInvite.js-cloudState .fbSocialLink,
+.socialInvite.js-fbState .fbSocialLink,
+.socialInvite.js-gmState .fbSocialLink {
+  display: block;
+  margin: 40px auto;
+  height: 34px;
+  top: auto;
+  text-align: center;
+}
+.socialInvite.js-cloudState .gotoFbBtn,
+.socialInvite.js-fbState .gotoFbBtn,
+.socialInvite.js-gmState .gotoFbBtn {
+  background-color: #3F4E8F;
+  width: 145px;
+  margin: 40px auto;
+  border: 1px solid #3F4E8F;
   display: block;
 }
 .socialInvite .btnWpr {

@@ -176,16 +176,24 @@ option {
 .app-download {
     background: #282828;
     position: fixed;
-    bottom:0;
+    bottom: 0;
     width: 100%;
     color: #fff;
     text-align: center;
     z-index: 1;
     padding-bottom: 40px;
+    -moz-transition: opacity 0.5s ease-out, -moz-transform 0.5s ease-out;
+    -o-transition: opacity 0.5s ease-out, -o-transform 0.5s ease-out;
+    -webkit-transition: opacity 0.5s ease-out, -webkit-transform 0.5s ease-out;
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     visibility: hidden;
+
     &.closed {
         opacity: 0;
+        -moz-transform: translateY(100%);
+        -ms-transform: translateY(100%);
+        -o-transform: translateY(100%);
+        -webkit-transform: translateY(100%);
         transform: translateY(100%);
     }
 
@@ -196,10 +204,12 @@ option {
         font-weight: normal;
         white-space: pre-wrap;
     }
+
     svg {
         width: 13px;
         height: 13px;
     }
+
     .downloadLink, .continue {
         width: 80%;
         height: 45px;
@@ -208,14 +218,17 @@ option {
         display: block;
         margin: 0 auto;
     }
+
     .downloadLink {
         background: #3293f6;
         margin-bottom: 10px;
     }
+
     .continue {
         background: #eee;
         color: @textColor;
     }
+
     .close {
         font-size: 25px;
         position: absolute;

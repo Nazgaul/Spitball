@@ -26,6 +26,7 @@
 
                 wizard.next();
                 $scope.$broadcast('update-scroll');
+                $scope.$broadcast('input:facebook');
 
             };
 

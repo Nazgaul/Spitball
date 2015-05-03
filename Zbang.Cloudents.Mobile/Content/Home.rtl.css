@@ -198,11 +198,18 @@ option {
   text-align: center;
   z-index: 1;
   padding-bottom: 40px;
+  -moz-transition: opacity 0.5s ease-out, -moz-transform 0.5s ease-out;
+  -o-transition: opacity 0.5s ease-out, -o-transform 0.5s ease-out;
+  -webkit-transition: opacity 0.5s ease-out, -webkit-transform 0.5s ease-out;
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   visibility: hidden;
 }
 .app-download.closed {
   opacity: 0;
+  -moz-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  -o-transform: translateY(100%);
+  -webkit-transform: translateY(100%);
   transform: translateY(100%);
 }
 .app-download h2 {

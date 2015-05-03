@@ -27,15 +27,22 @@
                  $scope.params.stateClass = params.className;
                  $scope.params.placeholder = params.placeholder;
                  $scope.params.contactLimit = $scope.params.contactPage;
+                 $scope.params.currentUrl = $scope.box != null ? $scope.box.url : $location.absUrl();
                  $scope.params.contacts = null;
                  $analytics.eventTrack('Select State', {
                      category: 'Social Invite',
                      label: 'User selected to invite from ' + state
                  });
                  $scope.$broadcast('update-scroll');
-
              }
 
+             $scope.$watch('box.url', function () {
+                 var boxName = $scope.box.url;
+                 if (boxName.indexOf('http') == -1) {
+                     boxName = $location.protocol() + '://' + $location.host() + boxName;
+                 }
+                 $scope.params.currentUrl = boxName;
+             });
              $scope.filterContacts = function () {
                  if (!$scope.params.contactSearch || $scope.params.contactSearch.length < 2) {
                      $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
@@ -156,23 +163,10 @@
                          params = {
                              className: 'js-fbState',
                              placeholder: 'Search facebook',
-                             isConnected: sFacebook.isAuthenticated()
+                             isConnected : true
                          };
 
                          $scope.params.isConnected = params.isConnected;
-
-                         if (!params.isConnected) {
-                             return params;
-                         }
-                         sFacebook.contacts('id,first_name,middle_name,last_name,gender,picture.height(64).width(64)').then(function (response) {
-                             currentUsers = angular.copy(response);
-                             $timeout(function () {
-                                 $scope.params.contacts = $filter('orderByFilter')(currentUsers, { field: 'name', input: '' });
-                                 $scope.$broadcast('update-scroll');
-
-                             });
-
-                         });
 
                          return params;
 

@@ -18,8 +18,8 @@
     </div>
 
     <div class="socialContentWpr" ng-class="{jsNotConnected : params.stateClass !==  'js-cloudState' && !params.isConnected }">
-        <input class="cloudInput" type="search" ng-placeholder="@IndexResources.FindFriends" ng-model="params.contactSearch" ng-keyup="filterContacts()"/>
-        <div height="285" m-custom-scrollbar m-custom-scrollbar-class="js-scrolling" add-items="addContacts()">
+        <input class="cloudInput" type="search" ng-placeholder="@IndexResources.FindFriends" ng-model="params.contactSearch" ng-keyup="filterContacts()" />
+        <div height="285" class="socialScroll" m-custom-scrollbar m-custom-scrollbar-class="js-scrolling" add-items="addContacts()">
             <ul class="socialList" ng-class="{noResults : users.length === 0}">
                 <li class="lFloat" ng-repeat="contact in params.contacts | limitTo: params.contactLimit" ng-class="{jsInviteSent : contact.invited}">
                     <user-image name="contact.name" image="contact.image || contact.largeImage" width="64" height="64"></user-image>
@@ -32,10 +32,25 @@
                 </li>
             </ul>
         </div>
+        <div class="fbSocialState" ng-if="params.stateClass == 'js-fbState'">
+            <div class="fbSocialStateText">To invite from Facebook copy the link into a Facebook message and send.</div>
+            <div class="fbInputWrapper">
+                <input class="fbSocialLink" type="text" readonly="readonly" auto-select ng-model="params.currentUrl" />
+                <div class="fbCopyInfo" hide-blur>
+                    <span class="square">Press CTRL-C to copy</span>
+                    <span class="arrow"></span>
+                </div>
+            </div>
+            <a class="gotoFbBtn btn1" href="https://www.facebook.com/" target="_blank">Go to facebook</a>
+
+        </div>
+
         <div class="socialConnect">
             <div class="socialConnectTxt" data-find-fb="@IndexResources.FindFb" data-find-gm="@IndexResources.FindGmail"></div>
             <button class="btn3" ng-click="socialConnect()">@SharedResources.Connect</button>
         </div>
+
+
     </div>
     <div class="btnWpr">
         @*<button type="reset" class="btn2 wz-prev" ng-click="cancel()">@SharedResources.Back</button>*@

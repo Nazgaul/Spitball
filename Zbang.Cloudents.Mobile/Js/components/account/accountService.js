@@ -6,9 +6,7 @@
 
         $rootScope.params = {};
 
-        $rootScope.closePopup = function () {
-            $rootScope.params.isPopupClosed = true;
-        };
+        service.firstTime = true;
 
         service.changeLanguage = function (language) {
             $analytics.eventTrack('Language Change', {
@@ -39,6 +37,7 @@
 
         service.doneLoad = function () {
             $rootScope.$broadcast('$stateLoaded');
+            service.firstTime = false;
         };
     }]
 );
