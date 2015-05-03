@@ -140,6 +140,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.Type,
                 //s.Thumbnail,
                 s.Id,
+                s.Source,
                 //views = s.NumOfViews,
                 //downloads = s.NumOfDownloads,
                 //likes = s.NumOfDownloads,
