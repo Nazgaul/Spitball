@@ -310,4 +310,10 @@
   <data name="MarkToDelete" xml:space="preserve">
     <value>סמן כדי למחוק את הקופסא</value>
   </data>
+  <data name="FacebookInvite" xml:space="preserve">
+    <value>להזמנת חברים באמצעות פייסבוק עליכם להעתיק את הלינק הבא לתוך הודעת פייסבוק ולשלוח.</value>
+  </data>
+  <data name="PressCtrlC" xml:space="preserve">
+    <value>לחץ CTRL+C כדי להעתיק</value>
+  </data>
 </root>

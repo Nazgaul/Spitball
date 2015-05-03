@@ -316,4 +316,10 @@
   <data name="IsItBlurry" xml:space="preserve">
     <value>هل ضبابية؟</value>
   </data>
+  <data name="FacebookInvite" xml:space="preserve">
+    <value>دعوة من وصلة الفيسبوك نسخة في رسالة الفيسبوك وإرسال.</value>
+  </data>
+  <data name="PressCtrlC" xml:space="preserve">
+    <value>اضغط CTRL+C لنسخ‎</value>
+  </data>
 </root>
