@@ -5,7 +5,7 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Notifications;
-using Microsoft.WindowsAzure.Mobile.Service.Security; 
+using Microsoft.WindowsAzure.Mobile.Service.Security;
 
 namespace Zbang.Cloudents.MobileApp2
 {
@@ -26,7 +26,7 @@ namespace Zbang.Cloudents.MobileApp2
                 // Get the logged-in user.
                 var currentUser = context.Principal as ServiceUser;
 
-               //await services.Push.HubClient.DeleteRegistrationAsync(new Microsoft.ServiceBus.Notifications.GcmRegistrationDescription(registration.DeviceId));
+                //await services.Push.HubClient.DeleteRegistrationAsync(new Microsoft.ServiceBus.Notifications.GcmRegistrationDescription(registration.DeviceId));
                 // Add a new tag that is the user ID.
                 registration.Tags.Add(currentUser.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture));
 
@@ -60,7 +60,9 @@ namespace Zbang.Cloudents.MobileApp2
         public Task Unregister(ApiServices services, HttpRequestContext context,
             string deviceId)
         {
-            services.Log.Info("deviceid: " + deviceId + "logged out");
+            var currentUser = context.Principal as ServiceUser;
+
+            services.Log.Info(string.Format("deviceid: {0} of user {1} logged out", deviceId, currentUser.GetCloudentsUserId()));
             // This is where you can hook into registration deletion.
             return Task.FromResult(true);
         }

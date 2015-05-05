@@ -19,7 +19,7 @@ namespace TestingApp
         {
             InitializeComponent();
 
-
+            var ioc = IocFactory.IocWrapper;
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();
             Zbang.Zbox.Domain.Services.RegisterIoc.Register();
@@ -29,23 +29,26 @@ namespace TestingApp
             //Zbang.Zbox.Infrastructure.Mail.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
+            ioc.Build();
         }
 
         private async void buttonGenerate_Click(object sender, EventArgs e)
         {
-            var idGenerator = IocFactory.IocWrapper.Resolve<IGuidIdGenerator>();
+           // var idGenerator = IocFactory.IocWrapper.Resolve<IGuidIdGenerator>();
+            
             var writeService = IocFactory.IocWrapper.Resolve<IZboxWriteService>();
             var userId = Convert.ToInt64(textBoxUserId.Text);
             var boxes = textBoxBoxes.Text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(s => Convert.ToInt64(s));
             foreach (var box in boxes)
             {
 
-                var questionId = idGenerator.GetId();
+                var questionId = GuidIdGenerator.GetGuid(DateTime.UtcNow);// idGenerator.GetId();
                 var command = new Zbang.Zbox.Domain.Commands.AddCommentCommand(userId, box, textBox1.Text, questionId,
                     null);
                 command.GetType().GetProperty("ShouldEncode").SetValue(command, false);
                await writeService.AddQuestionAsync(command);
             }
+            MessageBox.Show("Done");
 
         }
     }
