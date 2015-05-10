@@ -109,7 +109,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<bool> UpdateQuiz()
         {
-            TraceLog.WriteInfo(PrefixLog, "working on quiz");
             var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync();
             if (updates.QuizzesToUpdate.Any() || updates.QuizzesToDelete.Any())
             {
@@ -125,13 +124,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 return true;
             }
-            TraceLog.WriteInfo(PrefixLog, "nothing on quiz");
             return false;
         }
 
         private async Task<bool> UpdateItem(int instanceId, int instanceCount)
         {
-            TraceLog.WriteInfo(PrefixLog, "working on item");
             //var updates = new ItemToUpdateSearchDto
             //{
             //    ItemsToUpdate = new List<ItemSearchDto>
@@ -161,7 +158,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 return true;
             }
-            TraceLog.WriteInfo(PrefixLog, "nothing on item");
             return false;
         }
 
@@ -240,7 +236,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<bool> UpdateBox()
         {
-            TraceLog.WriteInfo(PrefixLog, "working on box");
             var updates = await m_ZboxReadService.GetBoxDirtyUpdates();
             if (updates.BoxesToUpdate.Any() || updates.BoxesToDelete.Any())
             {
@@ -257,7 +252,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                 return true;
             }
-            TraceLog.WriteInfo(PrefixLog, "nothing on box");
             return false;
         }
 
@@ -265,7 +259,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<bool> UpdateUniversity()
         {
-            TraceLog.WriteInfo(PrefixLog, "working on university");
             var updates = await m_ZboxReadService.GetUniversityDirtyUpdates();
             if (updates.UniversitiesToDelete.Any() || updates.UniversitiesToUpdate.Any())
             {
@@ -281,7 +274,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 return true;
             }
-            TraceLog.WriteInfo(PrefixLog, "nothing on university");
             return false;
         }
 

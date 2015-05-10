@@ -27,7 +27,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         // GET api/Search
         [HttpGet]
         [Route("api/search/boxes")]
-        public async Task<HttpResponseMessage> Boxes(string term, int page)
+        public async Task<HttpResponseMessage> Boxes(string term, int page, int sizePerPage = 20)
         {
             long? universityId = User.GetUniversityDataId();
             //var userDetail = FormsAuthenticationService.GetUserData();
@@ -37,7 +37,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateBadRequestResponse("need university");
 
 
-            var query = new SearchQuery(term, User.GetCloudentsUserId(), universityId.Value, page, 20);
+            var query = new SearchQuery(term, User.GetCloudentsUserId(), universityId.Value, page, sizePerPage);
             var retVal = await BoxSearchService.SearchBox(query, default(CancellationToken)) ?? new List<SearchBoxes>();
 
             return Request.CreateResponse(retVal.Select(s => new
@@ -53,13 +53,13 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         [HttpGet]
         [Route("api/search/items")]
-        public async Task<HttpResponseMessage> Items(string term, int page)
+        public async Task<HttpResponseMessage> Items(string term, int page,  int sizePerPage = 20)
         {
             long? universityId = User.GetUniversityDataId();
             if (!universityId.HasValue)
                 return Request.CreateBadRequestResponse("need university");
 
-            var query = new SearchQuery(term, User.GetCloudentsUserId(), universityId.Value, page, 20);
+            var query = new SearchQuery(term, User.GetCloudentsUserId(), universityId.Value, page, sizePerPage);
             var retVal = await ItemSearchService.SearchItem(query, default(CancellationToken)) ?? new List<SearchItems>();
             return Request.CreateResponse(retVal.Select(s => new
             {
@@ -73,7 +73,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         [HttpGet]
         [Route("api/search/university")]
         [AuthorizeLevel(AuthorizationLevel.Application)]
-        public async Task<HttpResponseMessage> University(string term, int page)
+        public async Task<HttpResponseMessage> University(string term, int page, int sizePerPage = 20)
         {
             if (string.IsNullOrEmpty(term))
             {
@@ -81,7 +81,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }
             //try
             //{
-            var retVal = await UniversitySearch.SearchUniversity(new UniversitySearchQuery(term, 20, page));
+            var retVal = await UniversitySearch.SearchUniversity(new UniversitySearchQuery(term, sizePerPage, page));
             return Request.CreateResponse(retVal);
             //}
             //catch (Exception ex)

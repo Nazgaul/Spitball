@@ -18,7 +18,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         public UpdateDomainProcess(IQueueProviderExtract queueProvider)
         {
-            m_QueueProcess = new QueueProcess(queueProvider, TimeSpan.FromSeconds(15));
+            m_QueueProcess = new QueueProcess(queueProvider, TimeSpan.FromSeconds(1));
         }
 
 
