@@ -35,7 +35,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IBlobProvider BlobProvider { get; set; }
         public IZboxWriteService ZboxWriteService { get; set; }
 
-        public IFileProcessorFactory FileProcessorFactory { get; set; }
+        //public IFileProcessorFactory FileProcessorFactory { get; set; }
 
         public IBlobUpload BlobUpload { get; set; }
         public IGuidIdGenerator GuidGenerator { get; set; }
