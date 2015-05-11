@@ -79,13 +79,13 @@ namespace Zbang.Zbox.Infrastructure.Search
             var listOfCommands = new List<IndexOperation>();
             if (boxToUpload != null)
             {
-                listOfCommands.AddRange(boxToUpload.Select(s => new IndexOperation(IndexOperationType.Upload, IdField,
+                listOfCommands.AddRange(boxToUpload.Where(w => w.Url != null).Select(s => new IndexOperation(IndexOperationType.Upload, IdField,
                     s.Id.ToString(CultureInfo.InvariantCulture))
                     .WithProperty(NameField, s.Name)
                     .WithProperty(ProfessorField, s.Professor)
                     .WithProperty(CourseField, s.CourseCode)
                     .WithProperty(UrlField, s.Url)
-                    .WithProperty(UniversityidField, s.UniversityId) 
+                    .WithProperty(UniversityidField, s.UniversityId)
                     .WithProperty(PrivacySettingsField, (int)s.PrivacySettings)
                     .WithProperty(UseridsField, s.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)))));
             }

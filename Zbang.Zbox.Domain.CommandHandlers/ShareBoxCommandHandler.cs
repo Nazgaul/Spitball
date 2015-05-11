@@ -84,6 +84,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
 
                 var newInvite = new UserBoxRel(recipientUser, box, UserRelationshipType.Subscribe);
+
+                box.CalculateMembers();
+                box.UserTime.UpdateUserTime(recipientUser.Email);
+                m_BoxRepository.Save(box);
+
                 //var inviteToBoxExistingUser = new InviteToBox(id,
                 //    sender,
                 //    box,

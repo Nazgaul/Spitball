@@ -144,9 +144,9 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 //views = s.NumOfViews,
                 //downloads = s.NumOfDownloads,
                 //likes = s.NumOfDownloads,
-                //creationTime = s.Date,
-                //s.Owner,
-                //s.OwnerId,
+                creationTime = s.Date,
+                s.Owner,
+                s.OwnerId,
                 s.Url
             }));
         }
