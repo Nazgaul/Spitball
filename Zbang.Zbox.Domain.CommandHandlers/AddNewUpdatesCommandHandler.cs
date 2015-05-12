@@ -57,7 +57,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 if (item != null)
                 {
-                    return m_SendPush.SendAddItemNotification(item.Uploader.Name, box.Name,
+                    return m_SendPush.SendAddItemNotification(item.Uploader.Name, box.Name, box.Id,
                         usersToUpdate.Select(s => s.UserId).ToList());
                 }
                 if (comment != null)
@@ -68,12 +68,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     {
                         Task.FromResult<object>(null);
                     }
-                    return m_SendPush.SendAddPostNotification(comment.User.Name, textToPush, box.Name,
+                    return m_SendPush.SendAddPostNotification(comment.User.Name, textToPush, box.Name, box.Id,
                         usersToUpdate.Select(s => s.UserId).ToList());
                 }
                 if (reply != null)
                 {
-                    return m_SendPush.SendAddReplyNotification(reply.User.Name, reply.Text, box.Name,
+                    return m_SendPush.SendAddReplyNotification(reply.User.Name, reply.Text, box.Name, box.Id,
                         usersToUpdate.Select(s => s.UserId).ToList());
                 }
             }

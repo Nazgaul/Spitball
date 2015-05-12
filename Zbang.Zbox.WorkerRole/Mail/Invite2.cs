@@ -28,7 +28,7 @@ namespace Zbang.Zbox.WorkerRole.Mail
 
             if (parameters.ReceiverId.HasValue)
             {
-                await  m_SendPush.SendInviteNotification(parameters.InviterName, parameters.BoxName,
+                await m_SendPush.SendInviteNotification(parameters.InviterName, parameters.BoxName, parameters.BoxId,
                     parameters.ReceiverId.Value);
             }
 

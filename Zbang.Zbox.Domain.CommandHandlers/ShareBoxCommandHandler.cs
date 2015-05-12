@@ -69,7 +69,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     var inviteToBox = new InviteToBox(id, sender, box, null, null, recipientEmail, recipientEmail);
                     m_InviteRepository.Save(inviteToBox);
                     tasks.Add(SendInvite(sender.Name, box.Name,
-                        id,
+                        id, box.Id,
                         recipientEmail, sender.Image, sender.Email,
                         System.Globalization.CultureInfo.CurrentCulture.Name, box.Url, null));
                     continue;
@@ -97,14 +97,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_UserBoxRelRepository.Save(newInvite);
                 //m_InviteRepository.Save(inviteToBoxExistingUser);
                 tasks.Add(SendInvite(sender.Name, box.Name,
-                    id,
+                    id, box.Id,
                     recipientUser.Email, sender.Image, sender.Email, recipientUser.Culture, box.Url, recipientUser.Id));
             }
             return Task.WhenAll(tasks);
         }
 
         private Task SendInvite(string senderName,
-            string boxName, Guid id,
+            string boxName, Guid id, long boxId,
             string recipientEmail, string senderImage, string senderEmail,
             string culture, string boxUrl, long? recipientId)
         {
@@ -112,7 +112,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var url = UrlConsts.BuildInviteUrl(boxUrl, invId);
             return m_QueueProvider.InsertMessageToMailNewAsync(new InviteMailData(senderName, boxName,
                    url,
-                   recipientEmail, culture, senderImage, senderEmail, recipientId));
+                   recipientEmail, culture, senderImage, senderEmail, recipientId, boxId));
         }
 
         private User GetUser(string recipient)

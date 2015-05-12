@@ -70,7 +70,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
 
         public Task SendAddPostNotification(string userNameOfAction,
             string text,
-            string boxName,
+            string boxName, long boxId,
             IList<long> userIds)
         {
             var googleMessage = new GooglePushMessage(
@@ -79,7 +79,8 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                     {"boxName", boxName },
                     {"text", text},
                     {"userName", userNameOfAction},
-                    {"action",((int)PushAction.PostComment).ToString(CultureInfo.InvariantCulture)}
+                    {"action",((int)PushAction.PostComment).ToString(CultureInfo.InvariantCulture)},
+                    {"boxId", boxId.ToString(CultureInfo.InvariantCulture)}
                 }, null);
             var applePushMessage = new ApplePushMessage();
             applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION_COMMENT";
@@ -89,12 +90,13 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                 
                 };
             applePushMessage.Add("action", PushAction.PostComment);
+            applePushMessage.Add("boxId", boxId);
             return SendNotification(googleMessage, applePushMessage, userIds);
         }
 
         public Task SendAddReplyNotification(string userNameOfAction,
             string text,
-            string boxName,
+            string boxName, long boxId,
             IList<long> userIds)
         {
             var googleMessage = new GooglePushMessage(
@@ -103,7 +105,8 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                     {"boxName", boxName },
                     {"text", text},
                     {"userName", userNameOfAction},
-                    {"action",((int)PushAction.PostReply).ToString(CultureInfo.InvariantCulture)}
+                    {"action",((int)PushAction.PostReply).ToString(CultureInfo.InvariantCulture)},
+                    {"boxId", boxId.ToString(CultureInfo.InvariantCulture)}
                 }, null);
 
             var applePushMessage = new ApplePushMessage();
@@ -114,11 +117,12 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                 
                 };
             applePushMessage.Add("action", PushAction.PostReply);
+            applePushMessage.Add("boxId", boxId);
             return SendNotification(googleMessage, applePushMessage, userIds);
         }
 
         public Task SendAddItemNotification(string userNameOfAction,
-            string boxName,
+            string boxName, long boxId,
             IList<long> userIds)
         {
             var googleMessage = new GooglePushMessage(
@@ -126,7 +130,8 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                 {
                     {"boxName", boxName },
                     {"userName", userNameOfAction},
-                    {"action",((int)PushAction.AddItem).ToString(CultureInfo.InvariantCulture)}
+                    {"action",((int)PushAction.AddItem).ToString(CultureInfo.InvariantCulture)},
+                    {"boxId", boxId.ToString(CultureInfo.InvariantCulture)}
                 }, null);
             var applePushMessage = new ApplePushMessage();
             applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION_FILE";
@@ -136,12 +141,12 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                 
                 };
             applePushMessage.Add("action", PushAction.AddItem);
-
+            applePushMessage.Add("boxId", boxId);
             return SendNotification(googleMessage, applePushMessage, userIds);
         }
 
         public Task SendInviteNotification(string userNameOfAction,
-            string boxName,
+            string boxName, long boxId,
             long userId)
         {
             var googleMessage = new GooglePushMessage(
@@ -150,7 +155,8 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                     {"boxName", boxName },
                    
                     {"userName", userNameOfAction},
-                    {"action",((int)PushAction.Invite).ToString(CultureInfo.InvariantCulture)}
+                    {"action",((int)PushAction.Invite).ToString(CultureInfo.InvariantCulture)},
+                    {"boxId", boxId.ToString(CultureInfo.InvariantCulture)}
                 }, null);
             var applePushMessage = new ApplePushMessage();
             applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION_INVITE";
@@ -160,7 +166,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                 
                 };
             applePushMessage.Add("action", PushAction.Invite);
-
+            applePushMessage.Add("boxId", boxId);
             return SendNotification(googleMessage, null, new[] { userId });
         }
 
