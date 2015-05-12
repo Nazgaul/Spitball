@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
@@ -61,7 +62,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
                 if (comment != null)
                 {
-                    return m_SendPush.SendAddPostNotification(comment.User.Name, comment.Text, box.Name,
+                    var removeHtmlRegex = new Regex("<[^>]*>", RegexOptions.Compiled);
+                    var textToPush = removeHtmlRegex.Replace(comment.Text, string.Empty);
+                    if (string.IsNullOrEmpty(textToPush))
+                    {
+                        Task.FromResult<object>(null);
+                    }
+                    return m_SendPush.SendAddPostNotification(comment.User.Name, textToPush, box.Name,
                         usersToUpdate.Select(s => s.UserId).ToList());
                 }
                 if (reply != null)

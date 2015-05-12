@@ -88,6 +88,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                     userNameOfAction, boxName,text
                 
                 };
+            applePushMessage.Add("action", PushAction.PostComment);
             return SendNotification(googleMessage, applePushMessage, userIds);
         }
 
@@ -112,7 +113,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                     userNameOfAction, boxName,text
                 
                 };
-
+            applePushMessage.Add("action", PushAction.PostReply);
             return SendNotification(googleMessage, applePushMessage, userIds);
         }
 
@@ -134,6 +135,8 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                     userNameOfAction, boxName
                 
                 };
+            applePushMessage.Add("action", PushAction.AddItem);
+
             return SendNotification(googleMessage, applePushMessage, userIds);
         }
 
@@ -149,6 +152,15 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                     {"userName", userNameOfAction},
                     {"action",((int)PushAction.Invite).ToString(CultureInfo.InvariantCulture)}
                 }, null);
+            var applePushMessage = new ApplePushMessage();
+            applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION_INVITE";
+            applePushMessage.Aps.AlertProperties["loc-args"] = new[]
+                {
+                    userNameOfAction, boxName
+                
+                };
+            applePushMessage.Add("action", PushAction.Invite);
+
             return SendNotification(googleMessage, null, new[] { userId });
         }
 

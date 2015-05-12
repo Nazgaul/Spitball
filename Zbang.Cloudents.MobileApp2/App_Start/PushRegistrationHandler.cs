@@ -29,8 +29,6 @@ namespace Zbang.Cloudents.MobileApp2
                 //await services.Push.HubClient.DeleteRegistrationAsync(new Microsoft.ServiceBus.Notifications.GcmRegistrationDescription(registration.DeviceId));
                 // Add a new tag that is the user ID.
                 registration.Tags.Add(currentUser.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture));
-
-                services.Log.Info("Registered tag for userId: " + currentUser.GetCloudentsUserId());
             }
             catch (Exception ex)
             {

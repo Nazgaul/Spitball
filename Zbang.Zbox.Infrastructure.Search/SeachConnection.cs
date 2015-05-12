@@ -29,7 +29,6 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             m_Connection = ApiConnection.Create(serviceName, serviceKey);
             IsDevelop = IsDevelopEnvironment();
-            TraceLog.WriteInfo(IsDevelop.ToString());
         }
 
         private bool IsDevelopEnvironment()
@@ -59,7 +58,6 @@ namespace Zbang.Zbox.Infrastructure.Search
            
             m_Connection = ApiConnection.Create(serviceName, serviceKey);
             IsDevelop = isDevelop;
-            TraceLog.WriteInfo(IsDevelop.ToString());
         }
 
         public IndexQueryClient IndexQuery
