@@ -25,8 +25,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Entities
 
         public long ItemId { get; set; }
 
-        public string BadItem {get;set;}
+        public string BadItem {get; set;}
     
         public string Other { get; set; }
+
+        
     }
 }

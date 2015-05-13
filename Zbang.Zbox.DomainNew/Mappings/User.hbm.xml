@@ -20,27 +20,22 @@
     <property name="LastName" not-null="false"/>
     <property name="Sex" not-null="false"/>
     <property name="Url" not-null="false"/>
-
-
     <property name="Culture" column="Culture" not-null="false"/>
-
-
+    
     <component name="UserTime" class="UserTimeDetails">
       <property name="CreationTime" not-null="true" insert="true" update="false" />
       <property name="UpdateTime"  not-null="true" insert="true"  />
       <property name="CreatedUser"  not-null="true" insert="true" update="false"/>
       <property name="UpdatedUser"  not-null="true" insert="true" />
     </component>
+    
     <property name="MembershipId" column="MembershipUserId"  not-null="false"/>
     <property name="FacebookId" column="FacebookUserId" not-null="false"/>
     <property name="Image" column="UserImage" not-null="false"/>
     <property name="ImageLarge" column="UserImageLarge" not-null="false"/>
-
     <property name="Code" column="UserCode"/>
     <property name="Reputation" column="UserReputation"/>
-
     <property name="MarketEmail" />
-
     <component name="FirstTime" class="UserFirstTime">
       <property name="Dashboard" not-null="true">
         <column name="FirstTimeDashboard" default="1"/>
@@ -54,22 +49,18 @@
       <property name="AllocatedSize"/>
       <property name="UsedSpace"/>
     </component>
-
-    <!--<many-to-one column="UniversityId2" class="University2" name="University" foreign-key="UniversityUser"/>-->
     <many-to-one column="UniversityId" class="University" name="University" foreign-key="UniversityUser2"/>
     <many-to-one column="Department" class="RussianDepartment" name="RussianDepartment" foreign-key="DeparetmentUser" not-null="false"/>
     <property name="GroupNumber"/>
     <property name="RegisterNumber"/>
-
+    <property name="MobileDevice" />
+    <property name="PushNotificationSetting" />
     <set name="UserBoxRel" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key column="UserId"/>
       <one-to-many class="UserBoxRel"/>
     </set>
-    <!--<set name="Invites" cascade="all-delete-orphan" inverse="true" lazy="true">
-      <key column="RecepientId" foreign-key="MessageRecepientSender"/>
-      <one-to-many class="Invite"/>
-    </set>-->
     <property name="LastAccessTime" type="DateTime2"  />
+   
   </class>
 
   <class name="University" table="University">
@@ -121,4 +112,14 @@
     </bag>
   </class>
 
+  <query name="UpdateUserReputation">
+    <![CDATA[
+    update User c set c.Reputation = :reputation where c.Id = :userid
+    ]]>
+  </query>
+  <query name="UpdateUserMobileDevice">
+    <![CDATA[
+    update User c set c.MobileDevice = :mobileDevice, c.PushNotificationSetting = 1 where c.Id = :userid
+    ]]>
+  </query>
 </hibernate-mapping>

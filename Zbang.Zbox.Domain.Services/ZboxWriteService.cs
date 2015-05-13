@@ -452,17 +452,6 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-
-
-        //public void MarkMessagesAsOld(MarkMessagesAsOldCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
-
         #region quiz
         public async Task CreateQuizAsync(CreateQuizCommand command)
         {
@@ -604,15 +593,6 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        //public void SelectDepartment(SelectDepartmentCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
-
 
         public void MarkMessageAsRead(MarkMessagesAsReadCommand command)
         {
@@ -624,6 +604,15 @@ namespace Zbang.Zbox.Domain.Services
         }
 
         public void DeleteNotification(DeleteNotificationCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
+        public void RegisterMobileDevice(RegisterMobileDeviceCommand command)
         {
             using (UnitOfWork.Start())
             {

@@ -9,6 +9,8 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Notifications;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.Domain.Commands;
 
@@ -23,6 +25,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IGuidIdGenerator GuidGenerator { get; set; }
 
         public IZboxWriteService ZboxWriteService { get; set; }
+        public IQueueProvider QueueProvider { get; set; }
 
 
         // GET api/Feed
@@ -113,6 +116,23 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             var command = new DeleteReplyCommand(replyId, User.GetCloudentsUserId());
             ZboxWriteService.DeleteAnswer(command);
+            return Request.CreateResponse();
+        }
+
+
+        [Route("api/feed/flag")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> Flag(FlagPostReplyRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            await QueueProvider.InsertMessageToTranactionAsync(new BadPostData(User.GetCloudentsUserId(), model.PostId));
             return Request.CreateResponse();
         }
 

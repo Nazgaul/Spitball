@@ -130,6 +130,7 @@
     <Compile Include="UpdateThumbnailCommand.cs" />
     <Compile Include="UpdateUniversityStatsCommand.cs" />
     <Compile Include="UpdateUserFirstTimeStatusCommand.cs" />
+    <Compile Include="RegisterMobileDeviceCommand.cs" />
     <Compile Include="UpdateUserUniversityCommand.cs" />
     <Compile Include="UpdateUserLanguageCommand.cs" />
     <Compile Include="UpdateUserPasswordCommand.cs" />

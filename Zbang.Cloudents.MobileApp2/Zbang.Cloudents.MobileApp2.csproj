@@ -208,6 +208,8 @@
     <Compile Include="DataObjects\FileUploadRequest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataObjects\FlagItemRequest.cs" />
+    <Compile Include="DataObjects\FlagPostReplyRequest.cs" />
     <Compile Include="DataObjects\FollowRequest.cs" />
     <Compile Include="DataObjects\InviteToBoxRequest.cs" />
     <Compile Include="DataObjects\ItemLikeRequest.cs" />

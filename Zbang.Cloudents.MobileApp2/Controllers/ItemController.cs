@@ -142,33 +142,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             return Request.CreateResponse();
         }
 
-        //[HttpPost]
-        //[Route("api/item/upload")]
-        //public async Task<HttpResponseMessage> Upload()
-        //{
-        //    var userId = User.GetCloudentsUserId();
-        //    //var cookie = new CookieHelper(HttpContext);
-        //    if (!Request.Content.IsMimeMultipartContent())
-        //    {
-        //        throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-        //    }
-        //    var provider = new InMemoryMultipartFormDataStreamProvider();
-        //    await Request.Content.ReadAsMultipartAsync(provider);
-
-
-
-        //    var uploadedfile = provider.Files[0];
-        //    if (uploadedfile == null) throw new NullReferenceException("uploadedfile");
-
-        //    var blobGuid = provider.FormData["blobName"];
-        //    var extension = Path.GetExtension(provider.FormData["fileName"]);
-        //    var index = int.Parse(provider.FormData["index"]);
-
-        //    string blobAddressUri = blobGuid.ToLower() + extension.ToLower();
-        //    await BlobProvider.UploadFileBlockAsync(blobAddressUri, await uploadedfile.ReadAsStreamAsync(), index);
-
-        //    return Request.CreateResponse();
-        //}
+        
 
         [HttpGet]
         [Route("api/item/upload")]
@@ -271,5 +245,21 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         }
 
+
+        [Route("api/item/flag")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> Flag(FlagItemRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            await QueueProvider.InsertMessageToTranactionAsync(new BadItemData("From iOS app", string.Empty, User.GetCloudentsUserId(), model.ItemId));
+            return Request.CreateResponse();
+        }
     }
 }

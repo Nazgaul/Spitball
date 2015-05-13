@@ -129,6 +129,7 @@
     <Compile Include="UpdateThumbnailCommandHandler.cs" />
     <Compile Include="UpdateUniversityStatsCommandHandler.cs" />
     <Compile Include="UpdateUserFirstTimeStatusCommandHandler.cs" />
+    <Compile Include="UpdateUserMobileSettings.cs" />
     <Compile Include="UpdateUserUniversityCommandHandler.cs" />
     <Compile Include="UpdateUserLanguageCommandHandler.cs" />
     <Compile Include="UpdateUserPasswordCommandHandler.cs" />

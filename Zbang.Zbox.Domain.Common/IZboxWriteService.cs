@@ -112,7 +112,8 @@ namespace Zbang.Zbox.Domain.Common
         void CreateUniversity(CreateUniversityCommand command);
 
 
+        //mobile
+        void RegisterMobileDevice(RegisterMobileDeviceCommand command);
 
-       
     }
 }

@@ -27,9 +27,21 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             var parameters = data as BadItemData;
             if (parameters == null)
             {
-                throw new NullReferenceException("parameters");
+                var parameters2 = data as BadPostData;
+                if (parameters2 == null)
+                {
+                    throw new ArgumentNullException("data");
+
+                }
+                return FlagPost(parameters2);
             }
-            m_TableProvider.InsertUserRequestAsync(
+            return FlagItem(parameters);
+
+        }
+
+        private async Task<bool> FlagItem(BadItemData parameters)
+        {
+            await m_TableProvider.InsertUserRequestAsync(
                 new FlagItem(parameters.ItemId, parameters.UserId, parameters.Other, parameters.Reason));
 
             var flagItemDetail = m_ZboxReadService.GetFlagItemUserDetail(new GetBadItemFlagQuery(parameters.UserId, parameters.ItemId));
@@ -40,9 +52,19 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
                     flagItemDetail.Name,
                     flagItemDetail.Email,
                     string.Empty
-                    //string.Format(UrlConsts.ItemUrl, flagItemDetail.BoxId, flagItemDetail.Uid )
                     ));
-            return Task.FromResult(true);
+            return true;
+        }
+
+        private async Task<bool> FlagPost(BadPostData parameters)
+        {
+            await m_TableProvider.InsertUserRequestAsync(
+                 new FlagCommentOrReply(parameters.PostId, parameters.UserId));
+
+
+            m_MailComponent.GenerateAndSendEmail("eidan@cloudents.com",
+                new FlagItemMailParams("post or reply", " from ios app", "dont know", "dont know", string.Empty));
+            return true;
         }
     }
 }

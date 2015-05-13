@@ -129,18 +129,8 @@ namespace Zbang.Zbox.Domain
 
         public virtual bool MarketEmail { get; set; }
 
-
-
-
-        //public void RemoveInviteState(Box box)
-        //{
-        //    var invites = Invites.Where(w => Equals(w.Box, box)).ToList();
-        //    // ReSharper disable once ConditionIsAlwaysTrueOrFalse - this is nhibernate issue
-        //    if (invites != null)
-        //    {
-        //        invites.ForEach(f => f.IsActive = false);
-        //    }
-        //}
+        public virtual MobileOperatingSystem MobileDevice { get; set; }
+        public virtual PushNotificationSettings PushNotificationSetting { get; set; }
 
         public Reputation AddReputation(ReputationAction action)
         {

@@ -33,31 +33,6 @@ namespace Zbang.Zbox.Domain.DataAccess
             return criteria.SingleOrDefault();
         }
 
-        //public UserRelationshipType GetUserToBoxRelationShipTypeWithInvite(long userId, long boxId)
-        //{
-        //    var fUserBoxRel = UnitOfWork.CurrentSession.QueryOver<UserBoxRel>()
-        //                                .Where(w => w.User.Id == userId)
-        //                                .Where(w => w.Box.Id == boxId).Future<UserBoxRel>();
-        //    //.SingleOrDefault();
-        //    //var fUserInvite = UnitOfWork.CurrentSession.QueryOver<Invite>()
-        //    //                            .Where(w => w.Recipient.Id == userId)
-        //    //                            .Where(w => w.Box.Id == boxId)
-        //    //                            .Where(w => w.IsActive).Future<Invite>();
-
-        //    var userBoxRel = fUserBoxRel.SingleOrDefault();
-
-
-        //    //if (userBoxRel == null)
-        //    //{
-        //    //    if (fUserInvite.SingleOrDefault() == null)
-        //    //    {
-        //    //        return UserRelationshipType.None;
-        //    //    }
-        //    //    return UserRelationshipType.Invite;
-
-        //    //}
-        //    return userBoxRel.UserRelationshipType;
-        //}
         public UserRelationshipType GetUserToBoxRelationShipType(long userId, long boxId)
         {
             var userBoxRel = GetUserBoxRelationship(userId, boxId);
@@ -93,10 +68,20 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         public void UpdateUserReputation(int reputation, long userid)
         {
-            const string hqlUpdate = "update User c set c.Reputation = :reputation where c.Id = :userid";
-            int updatedEntities = UnitOfWork.CurrentSession.CreateQuery(hqlUpdate)
+           // const string hqlUpdate = "update User c set c.Reputation = :reputation where c.Id = :userid";
+            UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserReputation")//.Get.CreateQuery(hqlUpdate)
                 .SetInt64("reputation", reputation)
                 .SetInt64("userid", userid)
+                .ExecuteUpdate();
+        }
+
+        public void RegisterUserNotification(long userid, MobileOperatingSystem os)
+        {
+            // update User c set c.MobileDevice = :mobileDevice, c.NotificationEnabled = 1 where c.Id = :userid
+           // const string hqlUpdate = "update User c set c.Reputation = :reputation where c.Id = :userid";
+            int updatedEntities = UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserMobileDevice")
+                .SetInt64("userid", userid)
+                .SetEnum("mobileDevice", os)
                 .ExecuteUpdate();
         }
     }

@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Zbang.Zbox.Infrastructure.Enums
 {
     public enum UserType
@@ -13,5 +15,12 @@ namespace Zbang.Zbox.Infrastructure.Enums
         Android = 1,
 // ReSharper disable once InconsistentNaming
         iOS = 2
+    }
+
+    [Flags]
+    public enum PushNotificationSettings
+    {
+        None = 0,
+        On = 1
     }
 }
