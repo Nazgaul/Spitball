@@ -1,4 +1,5 @@
 ﻿using System;
+using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Domain
 {
@@ -15,26 +16,26 @@ namespace Zbang.Zbox.Domain
             UpdatedUser = string.Empty;
         }
 
-        public UserTimeDetails(string user)
+        public UserTimeDetails(string userName, Platform platform = Platform.Default)
         {
             DateTime now = DateTime.UtcNow;
             CreationTime = now;
             UpdateTime = now;
-            CreatedUser = UpdatedUser = user;
+            CreatedUser = UpdatedUser = UpdatedUser = string.Format("{0} {1}", userName, platform);
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
         public virtual DateTime CreationTime { get; set; }
         public virtual DateTime UpdateTime { get; set; }
 
-        public virtual string CreatedUser { get; set; }
-        public virtual string UpdatedUser { get; set; }
+        public virtual string CreatedUser { get; internal protected set; }
+        public virtual string UpdatedUser { get; protected set; }
 
-        public void UpdateUserTime(string userName)
+        public void UpdateUserTime(string userName, Platform platform = Platform.Default)
         {
             DateTime now = DateTime.UtcNow;
             UpdateTime = now;
-            UpdatedUser = userName;
+            UpdatedUser = string.Format("{0} {1}",userName, platform);
         }
     }
 }

@@ -9,6 +9,14 @@ namespace Zbang.Zbox.Infrastructure.Enums
         TooHighScore = 1
     }
 
+    public enum Platform
+    {
+        Default,
+        Desktop,
+        MobileWeb,
+        MobileApp
+    }
+
     public enum MobileOperatingSystem
     {
         None = 0,

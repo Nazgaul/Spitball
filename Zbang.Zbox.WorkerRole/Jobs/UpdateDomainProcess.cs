@@ -55,7 +55,6 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                           TraceLog.WriteError("UpdateDomainProcess run - msg cannot transfer to DomainProcess");
                           return true;
                       }
-                      TraceLog.WriteInfo("Running update domain process - processing -" + msgData.ProcessResolver);
                       var process = IocFactory.IocWrapper.Resolve<IDomainProcess>(msgData.ProcessResolver);
                       if (process == null)
                       {
