@@ -375,3 +375,14 @@
   padding-bottom: 13px;
   border-bottom: 1px solid #dfd5da;
 }
+.userCoupon {
+  font-size: 24px;
+  color: #fff;
+  border: 3px solid #3293f6;
+  border-radius: 6px;
+  text-align: center;
+  width: 140px;
+  margin-top: 20px;
+  margin: 20px auto 0;
+  line-height: normal;
+}

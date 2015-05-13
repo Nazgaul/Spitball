@@ -635,6 +635,7 @@
     <Content Include="Js\components\box\feed\feedController.js" />
     <Content Include="Js\components\box\items\itemsService.js" />
     <Content Include="Js\components\box\items\itemsController.js" />
+    <Content Include="Js\components\dashboard\menu\userCoupon.js" />
     <Content Include="Js\shared\boxLetter\boxLetter.js" />
     <Content Include="Js\components\dashboard\dashboardController.js" />
     <Content Include="Js\components\dashboard\dashboardService.js" />

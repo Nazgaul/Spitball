@@ -231,7 +231,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("/js/directives/fbBlock.js"),
                         new JsFileWithCdn("/js/directives/letter.js"),
                         new JsFileWithCdn("/js/directives/loadSpinner.js"),
-
+                        new JsFileWithCdn("~/js/directives/userCoupon.js"),
                         new JsFileWithCdn("/js/directives/scrollToTop.js"),
                         new JsFileWithCdn("/js/directives/focusForm.js"),
 

@@ -24,12 +24,18 @@
             </a>
         </li>
         <li>
+            <div class="userCoupon" user-coupon>
+
+            </div>
+        </li>
+        <li>
             <a href="@Url.Action("LogOff","Account")" target="_self"
                analytics-on analytics-event="Click on logout" analytics-category="Dashboard sidebar">
                 @Html.Svg("~/Images/Defs.svg", "arrow", new { @class = "svg-arrow ltr" })
                 @DashboardResources.LogOut
             </a>
         </li>
+   
     </ul>
 </section>
 

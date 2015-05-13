@@ -962,6 +962,7 @@
     <Content Include="Js\directives\boxLogo.js" />
     <Content Include="Js\directives\letter.js" />
     <Content Include="Js\directives\searchCoords.js" />
+    <Content Include="Js\directives\userCoupon.js" />
     <Content Include="Js\directives\userimage.js" />
     <Content Include="Js\filters\highlight.js" />
     <Content Include="Js\staticCDNFallback.js" />
