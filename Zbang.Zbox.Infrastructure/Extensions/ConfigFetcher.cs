@@ -27,7 +27,6 @@ namespace Zbang.Zbox.Infrastructure.Extensions
                 TraceLog.WriteError(ex);
                 IsRunningOnCloud = false;
             }
-            TraceLog.WriteInfo("is running in cloud " + IsRunningOnCloud);
         }
 
         public static string Fetch(string name)

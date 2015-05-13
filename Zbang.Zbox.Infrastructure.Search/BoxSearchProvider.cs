@@ -132,8 +132,6 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<IEnumerable<SearchBoxes>> SearchBox(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
-            var sw = new Stopwatch();
-            sw.Start();
             var searchResult = await m_Connection.IndexQuery.SearchAsync(m_IndexName,
                 new SearchQuery(query.Term + "*")
                 {
@@ -142,7 +140,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Skip = query.RowsPerPage * query.PageNumber,
                     //Highlight = ProfessorField + "," + CourseField
                 }, cancelToken);
-            sw.Stop();
             if (!searchResult.IsSuccess)
             {
                 TraceLog.WriteError(string.Format("on box search model: {0} error: {1}", query,
@@ -159,7 +156,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                     SeachConnection.ConvertToType<string>(s.Properties[UrlField]),
                     SeachConnection.ConvertToType<string>(s.Properties[NameField]))).ToList();
             }
-
             return null;
         }
 
