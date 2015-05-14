@@ -12,22 +12,10 @@
                    while (id.length < 6) {
                        id = "0" + id;
                    }
-                   return id;
-                   //switch(id.length) {
-                   //    case 1:
-                   //        return "00000" + id;
-                   //    case 2:
-                   //        return "0000" + id;
-                   //    case 3:
-                   //        return "000" + id;
-                   //    case 4:
-                   //        return "00" + id;
-                   //    case 5:
-                   //        return  "0" + id;
-                   //    default:
-                   //        return id;
-                   //}
 
+                   id = sUserDetails.getDetails().name.toUpperCase()[0] + id;
+
+                   return id;    
                }
                 
            }

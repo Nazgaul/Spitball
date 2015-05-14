@@ -12,6 +12,9 @@
                    while (id.length < 6) {
                        id = "0" + id;
                    }
+
+                   id = userDetails.getName().toUpperCase()[0] + id;
+
                    return id;
 
                }
