@@ -19,8 +19,6 @@
 
                 scope.$on('input:facebook', select, 50);
 
-                });
-
                 scope.$on('$destroy', function () {
                     elmene.off('click');
                     elmene.off('blur');                    

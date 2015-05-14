@@ -290,7 +290,7 @@
                    });
 
 
-               }, { scope: 'email,publish_stream,user_friends' });
+               }, { scope: 'email,user_friends' });
 
                return dfd.promise;
 
