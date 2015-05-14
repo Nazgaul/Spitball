@@ -5,7 +5,7 @@
         return {
             restrict: "A",
             scope:false,
-            link: function (scope, elem, attrs) {
+            link: function (scope, elem) {
                
 
 
@@ -35,7 +35,7 @@
         "use strict";
         return {
             restrict: "A",
-            link: function (scope, elem, attrs) {
+            link: function (scope, elem) {
                 sGmfcnHandler.registerPopup(startAnimation);
                 var defer;
 

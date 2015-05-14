@@ -3,7 +3,7 @@ function ($timeout, $templateCache, $compile, sUser, sUserDetails, sModal) {
     "use strict";
 
     var tooltipTemplate = $templateCache.get('userToolTip.html'),
-        showTooltip = 'showTooltip'
+        showTooltip = 'showTooltip';
     return {
         restrict: 'A',        
         link: function (scope, element, attributes) {
@@ -21,10 +21,10 @@ function ($timeout, $templateCache, $compile, sUser, sUserDetails, sModal) {
                 return;
             }
 
-            element.on('mouseenter', function (event) {
+            element.on('mouseenter', function () {
                 if (!tooltipElement) {
                     tooltipElement = angular.element(tooltipTemplate);
-                    $body.append(tooltipElement)
+                    $body.append(tooltipElement);
 
                     sUser.minProfile({ userId: attributes.userTooltipPopup }).then(function (response) {
                         scope.user = response;
