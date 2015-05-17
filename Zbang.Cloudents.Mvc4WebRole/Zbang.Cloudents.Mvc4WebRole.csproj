@@ -644,9 +644,6 @@
     <Content Include="Content\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
-    <Content Include="Content\General.min.css">
-      <DependentUpon>General.css</DependentUpon>
-    </Content>
     <Content Include="Content\General.rtl.css">
       <DependentUpon>General.css</DependentUpon>
     </Content>
