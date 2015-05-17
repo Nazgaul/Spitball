@@ -42,7 +42,7 @@
             $scope.params.tabs.splice(index, 1);
             $scope.params.currentTab = null;
             $scope.params.manageTab = false;
-            $rootScope.$broadcast('update_scroll');
+            $rootScope.$broadcast('update-scroll');
         };
 
         $scope.renameTab = function (tab) {
@@ -142,6 +142,8 @@
                 });
             $scope.params.currentTab = tab;
             $rootScope.$broadcast('selectTab', tab);
+            $rootScope.$broadcast('update-scroll');
+
         });
 
         function showTabCount(count) {

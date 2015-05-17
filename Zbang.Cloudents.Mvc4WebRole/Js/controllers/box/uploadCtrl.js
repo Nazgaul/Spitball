@@ -54,7 +54,9 @@
                             fileUrl: url,
                             boxId: $scope.boxId || $scope.box.id, //fix for step 3
                             tabId: $scope.tabId,
-                            isComment: $scope.questionId && $scope.questionId.length > 0
+                            isComment: $scope.questionId && $scope.questionId.length > 0,
+                            question: $scope.newQuestion
+
                         };
                         sUpload.link(data).then(function (response) {
                             
@@ -104,7 +106,8 @@
                             fileUrl: fileData.link,
                             boxId: $scope.boxId || $scope.box.id, //fix for step 3
                             tabId: $scope.tabId,
-                            isComment: $scope.questionId && $scope.questionId.length > 0
+                            isComment: $scope.questionId && $scope.questionId.length > 0,
+                            question: $scope.newQuestion
 
                         };
                         sUpload.dropbox(data).then(function (response) {
@@ -165,7 +168,8 @@
                                 fileUrl: fileData.link,
                                 boxId: $scope.boxId || $scope.box.id, //fix for step 3
                                 tabId: $scope.tabId,
-                                isComment: $scope.questionId && $scope.questionId.length > 0
+                                isComment: $scope.questionId && $scope.questionId.length > 0,
+                                question: $scope.newQuestion
                             };
                             sUpload.link(data).then(function (response) {
                                 $rootScope.$broadcast('LinkUploaded', data);

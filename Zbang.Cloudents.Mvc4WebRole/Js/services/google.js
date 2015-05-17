@@ -124,7 +124,13 @@
 
                        for (var i = 0, l = data[google.picker.Response.DOCUMENTS].length; i < l ; i++) {
                            doc = data[google.picker.Response.DOCUMENTS][i];
-                           url = doc[google.picker.Document.URL];
+                           if (doc.type === google.picker.Type.DOCUMENT) {
+                                url = doc[google.picker.Document.URL];
+                           } else {
+                               url = 'https://drive.google.com/uc?id=' + doc.id;
+                           }
+                           
+
                            name = doc.name;
                            size = doc.sizeBytes;
                            if (!url) {
