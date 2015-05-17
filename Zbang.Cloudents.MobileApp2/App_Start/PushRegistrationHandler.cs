@@ -16,7 +16,7 @@ namespace Zbang.Cloudents.MobileApp2
     {
         public IZboxWriteService ZboxWriteService { get; set; }
 
-        public Task Register(ApiServices services, HttpRequestContext context,
+        public  Task Register(ApiServices services, HttpRequestContext context,
         NotificationRegistration registration)
         {
             try
@@ -28,14 +28,14 @@ namespace Zbang.Cloudents.MobileApp2
                         "You cannot supply a tag that is a user ID.");
                 }
 
+
                 // Get the logged-in user.
                 var currentUser = context.Principal as ServiceUser;
                 var userId = currentUser.GetCloudentsUserId();
                 //wns, mpns, apns, or gcm
-
+                var tagId = userId.ToString(CultureInfo.InvariantCulture);
                 try
                 {
-                    services.Log.Info(string.Format("register userid: {0} platform: {1} expire: {2}", userId, registration.Platform, registration.Expiration));
                     var os = MobileOperatingSystem.None;
                     if (registration.Platform == "apns")
                     {
@@ -55,7 +55,13 @@ namespace Zbang.Cloudents.MobileApp2
                 {
                     services.Log.Error(ex.ToString());
                 }
-                registration.Tags.Add(userId.ToString(CultureInfo.InvariantCulture));
+             
+                
+                registration.Tags.Add(tagId);
+                if (registration.Tags.Count > 1)
+                {
+                    services.Log.Warn("Got more tags " + String.Join(" ", registration.Tags));
+                }
             }
             catch (Exception ex)
             {

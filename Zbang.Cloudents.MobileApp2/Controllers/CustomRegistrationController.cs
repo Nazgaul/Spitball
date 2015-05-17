@@ -54,8 +54,9 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, loginResult);
 
             }
-            Services.Log.Error(string.Join(" ", createStatus.Errors));
-            return Request.CreateBadRequestResponse();
+            var errors = string.Join(" ", createStatus.Errors);
+            Services.Log.Error(errors);
+            return Request.CreateBadRequestResponse(errors);
 
         }
 

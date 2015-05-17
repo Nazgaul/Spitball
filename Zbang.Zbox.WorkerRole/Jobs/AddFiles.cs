@@ -34,7 +34,6 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 m_KeepRunning = true;
                 while (m_KeepRunning)
                 {
-                    TraceLog.WriteInfo("Process Add files");
                     try
                     {
                         Execute().Wait();

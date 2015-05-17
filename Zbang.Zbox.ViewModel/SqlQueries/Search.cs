@@ -7,12 +7,12 @@
 ,b.BoxName as Name, b.ProfessorName as Professor ,b.CourseCode as CourseCode
 , b.Url as Url, b.University as UniversityId , b.PrivacySetting as PrivacySetting
   from zbox.box b
-  where isdirty = 1 and isdeleted = 0
+  where isdirty = 1 and isdeleted = 0 and url is not null
   order by b.BoxId;";
 
         public const string GetBoxUsersToUploadToSearch = @"select UserId,BoxId from zbox.UserBoxRel where boxId in (
 select top 500 b.boxid  from zbox.box b
-  where isdirty = 1 and isdeleted = 0 
+  where isdirty = 1 and isdeleted = 0  and url is not null
   order by b.BoxId);";
 
 
