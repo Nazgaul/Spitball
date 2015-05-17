@@ -289,7 +289,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost, ZboxAuthorize]
         [RemoveBoxCookie]
-        public async Task<ActionResult> DropBox(long boxId, string fileUrl, string name, Guid? tabId)
+        public async Task<ActionResult> DropBox(long boxId, string fileUrl, string name, Guid? tabId, bool question)
         {
 
             var userId = User.GetUserId();
@@ -316,7 +316,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var command = new AddFileToBoxCommand(userId, boxId, blobAddressUri,
                name,
-                size, tabId, false);
+                size, tabId, question);
             var result = await ZboxWriteService.AddItemToBoxAsync(command);
             var result2 = result as AddFileToBoxCommandResult;
             if (result2 == null)
