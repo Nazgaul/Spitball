@@ -79,7 +79,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             var listOfCommands = new List<IndexOperation>();
             if (boxToUpload != null)
             {
-                listOfCommands.AddRange(boxToUpload.Where(w => w.Url != null).Select(s => new IndexOperation(IndexOperationType.Upload, IdField,
+                listOfCommands.AddRange(boxToUpload.Select(s => new IndexOperation(IndexOperationType.Upload, IdField,
                     s.Id.ToString(CultureInfo.InvariantCulture))
                     .WithProperty(NameField, s.Name)
                     .WithProperty(ProfessorField, s.Professor)
