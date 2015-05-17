@@ -484,9 +484,6 @@
     <Content Include="Content\BoxRtl.css">
       <DependentUpon>BoxRtl.less</DependentUpon>
     </Content>
-    <Content Include="Content\BoxRtl.min.css">
-      <DependentUpon>BoxRtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\BoxRtl.rtl.css">
       <DependentUpon>BoxRtl.css</DependentUpon>
     </Content>
@@ -500,9 +497,6 @@
     <Content Include="Content\ChooseSchoolRtl.rtl.css">
       <DependentUpon>ChooseSchoolRtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\Dashboard.min.css">
-      <DependentUpon>Dashboard.css</DependentUpon>
-    </Content>
     <Content Include="Content\DashboardRtl.css">
       <DependentUpon>DashboardRtl.less</DependentUpon>
     </Content>
@@ -513,9 +507,6 @@
     <Content Include="Content\DashboardRtl.rtl.css">
       <DependentUpon>DashboardRtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\Feed.min.css">
-      <DependentUpon>Feed.css</DependentUpon>
-    </Content>
     <Content Include="Content\FeedRtl.css">
       <DependentUpon>FeedRtl.less</DependentUpon>
     </Content>
@@ -523,14 +514,8 @@
       <DependentUpon>Feed.less</DependentUpon>
     </Content>
     <Content Include="Content\Feed.rtl.css" />
-    <Content Include="Content\FeedRtl.min.css">
-      <DependentUpon>FeedRtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\FeedRtl.rtl.css">
       <DependentUpon>FeedRtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Home.min.css">
-      <DependentUpon>Home.css</DependentUpon>
     </Content>
     <Content Include="Content\HomeRtl.css">
       <DependentUpon>HomeRtl.less</DependentUpon>
@@ -542,17 +527,11 @@
     <Content Include="Content\ItemMobile.css">
       <DependentUpon>ItemMobile.less</DependentUpon>
     </Content>
-    <Content Include="Content\ItemMobile.min.css">
-      <DependentUpon>ItemMobile.css</DependentUpon>
-    </Content>
     <Content Include="Content\ItemMobile.rtl.css">
       <DependentUpon>ItemMobile.css</DependentUpon>
     </Content>
     <Content Include="Content\ItemMobileRtl.css">
       <DependentUpon>ItemMobileRtl.less</DependentUpon>
-    </Content>
-    <Content Include="Content\ItemMobileRtl.min.css">
-      <DependentUpon>ItemMobileRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\ItemMobileRtl.rtl.css">
       <DependentUpon>ItemMobileRtl.css</DependentUpon>
@@ -571,9 +550,6 @@
     </Content>
     <Content Include="Content\Mobile.css">
       <DependentUpon>Mobile.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Mobile.min.css">
-      <DependentUpon>Mobile.css</DependentUpon>
     </Content>
     <Content Include="Content\Mobile.rtl.css" />
     <Content Include="Content\MobileRtl.css">
@@ -608,9 +584,6 @@
     </Content>
     <Content Include="Content\SVG.css">
       <DependentUpon>SVG.less</DependentUpon>
-    </Content>
-    <Content Include="Content\SVG.min.css">
-      <DependentUpon>SVG.css</DependentUpon>
     </Content>
     <Content Include="Content\SVG.rtl.css" />
     <Content Include="Content\varsAndMixins.css">
