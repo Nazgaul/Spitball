@@ -91,7 +91,7 @@
                                     @Html.Svg("~/Images/Defs.svg", "folderAll", new { @class = "svg-folderAll" })&nbsp;@SharedResources.All
                                 </span>
                             </li>
-                            <li ng-repeat="tab in params.tabs track by tab.id" class="boxFolder" ng-class="{ current: tab.id === params.currentTab.id}" dropdown ui-on-drop="addDraggedItem($data,tab)" drop-channel="boxItem">
+                            <li ng-repeat="tab in params.tabs track by tab.id" class="boxFolder" ng-class="{ current: tab.id === params.currentTab.id}" dropdown dropdown-append-to-body ui-on-drop="addDraggedItem($data,tab)" drop-channel="boxItem">
 
                                 <button type="button" title="@SharedResources.Menu" class="editFolder rFloat" dropdown-toggle ng-show="tab.id === params.currentTab.id && info.userType === 'owner' || info.userType === 'subscribe'"></button>
                                 <span class="boxFolderName elps" ng-if="tab.itemCount === 0" ng-click="selectTab(tab)">

@@ -1972,8 +1972,6 @@
     <Content Include="Scripts\textAngular\textAngular-sanitize.js" />
     <Content Include="Scripts\textAngular\textAngular.js" />
     <Content Include="Scripts\textAngular\textAngularSetup.js" />
-    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.12.0.js" />
-    <Content Include="Scripts\ui-bootstrap-tpls-0.12.0.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.mCustomScrollbar.js" />
@@ -1990,7 +1988,7 @@
     <Content Include="Scripts\stacktrace.js" />
     <Content Include="Scripts\Modernizr.js" />
     <Content Include="Scripts\svg4everybody.js" />
-    <Content Include="Scripts\uiBootstrapTpls0.11.0.js" />
+    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.13.0.js" />
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
