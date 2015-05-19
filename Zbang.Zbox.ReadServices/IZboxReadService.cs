@@ -13,6 +13,7 @@ using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
+using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.ViewModel.Queries.User;
 using BoxDto = Zbang.Zbox.ViewModel.Dto.BoxDto;
 
@@ -125,6 +126,8 @@ namespace Zbang.Zbox.ReadServices
 
         Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(RecommendedCoursesQuery query);
 
-       
+        Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddress(UniversityByIpQuery query);
+
+
     }
 }

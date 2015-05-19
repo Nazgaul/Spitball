@@ -19,6 +19,7 @@ using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
+using Zbang.Zbox.ViewModel.Queries.Search;
 using Zbang.Zbox.ViewModel.Queries.User;
 using Activity = Zbang.Zbox.ViewModel.Dto.ActivityDtos;
 using Box = Zbang.Zbox.ViewModel.Dto.BoxDtos;
@@ -414,6 +415,19 @@ namespace Zbang.Zbox.ReadServices
 
         }
 
+        public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddress(UniversityByIpQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+               return await conn.QueryAsync<UniversityByPrefixDto>(Sql.LibraryChoose.GetInitialValueOfUniversitiesBaseOnIpAddress,
+                    new
+                    {
+                        IP = query.IpAddress,
+                       query.PageNumber, query.RowsPerPage
+
+                    });
+            }
+        }
 
         public async Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId)
         {
