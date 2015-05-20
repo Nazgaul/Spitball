@@ -16,4 +16,20 @@
 
         public string Term { get; private set; }
     }
+
+    public class UniversityByIpQuery : IPagedQuery
+    {
+        public UniversityByIpQuery(long ipAddress, int rowsPerPage, int pageNumber)
+        {
+            PageNumber = pageNumber;
+            RowsPerPage = rowsPerPage;
+            IpAddress = ipAddress;
+        }
+
+        public int PageNumber { get; private set; }
+
+        public int RowsPerPage { get; private set; }
+
+        public long IpAddress { get; private set; }
+    }
 }

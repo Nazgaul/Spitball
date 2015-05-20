@@ -220,6 +220,7 @@
     <Compile Include="DataObjects\Register.cs" />
     <Compile Include="DataObjects\ResetPasswordRequest.cs" />
     <Compile Include="DataObjects\UpdateUniversityRequest.cs" />
+    <Compile Include="Extensions\HttpRequestMessageExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

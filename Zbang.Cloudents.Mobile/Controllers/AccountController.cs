@@ -431,7 +431,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
 
                 var linkData = EncryptElement(data);
                 //Session[SessionResetPassword] = data;
-                await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, identitylinkData, tResult.Result.Name.Split(' ')[0], model.Email, tResult.Result.Culture));
+                await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, linkData, tResult.Result.Name.Split(' ')[0], model.Email, tResult.Result.Culture));
 
                 TempData["key"] = Crypto.HashPassword(code);
 

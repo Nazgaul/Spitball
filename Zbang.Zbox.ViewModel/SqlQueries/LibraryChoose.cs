@@ -23,16 +23,6 @@
                          u.LargeImage as Image
                          from zbox.University u ";
 
-//        public const string GetUniversityByFriendIds = @"
-//with users_cte(username,userimage,universityid2) as (
-//select username,userimage,universityid from zbox.users where facebookuserid in @FriendsIds
-//),
-//university_cte(userid,universityname, userimage,number) as (
-//select top(3) u.Id, u.universityname,u.LargeImage as userimage  , count(*) as number from zbox.University u join users_cte c on u.Id = c.universityid2
-//group by u.Id, u.universityname,u.LargeImage
-//order by count(*) desc
-//)
-//select userid as id,universityname as name, userimage as image  from university_cte u;";
 
         public const string GetUniversityByFriendIds = @"
 select top(3) u.id as id, u.universityname as name, u.largeimage as image ,count(*)
@@ -40,18 +30,24 @@ from zbox.university u join zbox.users u2 on u.id = u2.universityid
 where u2.facebookuserid in  @FriendsIds
 group by u.Id, u.universityname,u.LargeImage
 order by count(*) desc";
-//        public const string GetFriendsInUniversitiesByFriendsIds =
-//        @"with users_cte(universityid2,facebookuserid) as (
-//select universityid,facebookuserid from zbox.users where facebookuserid in @FriendsIds
-//),
-//university_cte(userid,universityname, userimage,number) as (
-//select top(3) u.id, u.universityname, u.LargeImage as userimage  , count(*) as number from zbox.University u join users_cte c on u.id = c.universityid2
-//group by u.id, u.universityname,u.LargeImage
-//order by count(*) desc
-//)
-//select universityid2 as UniversityId , facebookuserid as Id  from users_cte c where universityid2 in (select userid from university_cte);";
 
         public const string GetFriendsInUniversitiesByFriendsIds =
             @"select universityid as UniversityId , facebookuserid as Id from zbox.users where facebookuserid in @FriendsIds";
+
+        public const string GetInitialValueOfUniversitiesBaseOnIpAddress =
+   @"with country_cte(country) as (
+	select country_code2 from zbox.ip_range
+	where ip_from <= @IP and @IP <= ip_to
+	)
+select UniversityName as name, LargeImage as image, id
+from zbox.university u 
+left join country_cte c  on u.country = c.country
+order by 
+case when u.country = c.country then 0 else 1 end asc, NoOfUsers desc
+offset @pageNumber*@rowsperpage ROWS
+FETCH NEXT @rowsperpage ROWS ONLY";
     }
+
+
+   
 }

@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
+using Zbang.Cloudents.MobileApp2.Extensions;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Url;
+using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Dto.Search;
 using Zbang.Zbox.ViewModel.Queries.Search;
 
@@ -22,6 +24,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IItemReadSearchProvider ItemSearchService { get; set; }
 
         public IUniversityReadSearchProvider UniversitySearch { get; set; }
+        public IZboxCacheReadService ZboxReadService { get; set; }
         public ApiServices Services { get; set; }
 
         // GET api/Search
@@ -77,18 +80,29 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             if (string.IsNullOrEmpty(term))
             {
-                return Request.CreateBadRequestResponse();
+                 var ip = Request.GetClientIp();
+                
+                var retValWithoutSearch =
+                    await
+                        ZboxReadService.GetUniversityByIpAddress(new UniversityByIpQuery(Ip2Long(ip), sizePerPage, page));
+                return Request.CreateResponse(retValWithoutSearch);
             }
-            //try
-            //{
             var retVal = await UniversitySearch.SearchUniversity(new UniversitySearchQuery(term, sizePerPage, page));
             return Request.CreateResponse(retVal);
-            //}
-            //catch (Exception ex)
-            //{
-            //    TraceLog.WriteError("SeachUniversity term:  " + term, ex);
-            //    return JsonError();
-            //}
+        }
+
+        private static long Ip2Long(string ip)
+        {
+            double num = 0;
+            if (!string.IsNullOrEmpty(ip))
+            {
+                string[] ipBytes = ip.Split('.');
+                for (int i = ipBytes.Length - 1; i >= 0; i--)
+                {
+                    num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
+                }
+            }
+            return (long)num;
         }
     }
 }

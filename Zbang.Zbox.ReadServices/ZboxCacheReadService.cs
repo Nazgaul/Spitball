@@ -386,5 +386,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetUserDetailsById(query);
         }
+
+
+        public Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddress(ViewModel.Queries.Search.UniversityByIpQuery query)
+        {
+            return m_ReadService.GetUniversityByIpAddress(query);
+        }
     }
 }
