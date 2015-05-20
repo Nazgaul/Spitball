@@ -111,7 +111,7 @@
         required: jsResource.FieldRequired,
         minLength: jsResource.PwdAtLeast6Chars,
         email: jsResource.InvalidEmail,
-        same: JsResojsResourceurces.ConfirmEmailCompare
+        same: jsResource.ConfirmEmailCompare
         }
     );
 
