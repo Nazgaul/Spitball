@@ -91,26 +91,27 @@
 
     //addChangeEvent(connectForm);
     //addChangeEvent(registerForm);
-
+    var jsResource = window.JsResources;
     validatinator = new Validatinator(
-        {
-            loginForm: {
-                Email: 'required|email',
-                Password: 'required',
-            },
-            registerForm: {
-                FirstName: 'required',
-                LastName: 'required',
-                NewEmail: 'required|email',
-                ConfirmEmail: 'required|email|same:NewEmail',
-                Password: 'required|minLength:6'
-            }
+    {
+        loginForm: {
+            Email: 'required|email',
+            Password: 'required',
         },
-        {
-            required: JsResources.FieldRequired,
-            minLength: JsResources.PwdAtLeast6Chars,
-            email: JsResources.InvalidEmail,
-            same: JsResources.ConfirmEmailCompare
+        registerForm: {
+            FirstName: 'required',
+            LastName: 'required',
+            NewEmail: 'required|email',
+            ConfirmEmail: 'required|email|same:NewEmail',
+            Password: 'required|minLength:6'
+        }
+    },
+    {
+        
+        required: jsResource.FieldRequired,
+        minLength: jsResource.PwdAtLeast6Chars,
+        email: jsResource.InvalidEmail,
+        same: JsResojsResourceurces.ConfirmEmailCompare
         }
     );
 
@@ -377,18 +378,18 @@
         FB.login(function (response) {
             if (response.authResponse) {
                 var accessToken = response.authResponse.accessToken;
-                FB.api('/me/permissions', function (response2) {
+                //FB.api('/me/permissions', function (response2) {
 
-                    var perms = response2.data[0];
-                    if (perms.email) {
+                    //var perms = response2.data[0];
+                    //if (perms.email) {
                         logInFacebook(accessToken);
                         // User has permission
                         window.ga('send', 'event', 'Homepage', 'Facebook signup', 'Successful login useing facebook');
-                    } else {
-                        alert('you need to give email permission');
-                        window.ga('send', 'event', 'Homepage', 'Facebook signup', 'Failed login useing facebook');
-                    }
-                });
+                    //} else {
+                    //    alert('you need to give email permission');
+                    //    window.ga('send', 'event', 'Homepage', 'Facebook signup', 'Failed login useing facebook');
+                    // }
+                //});
             }
 
         }, { scope: 'email,publish_stream,user_friends' });

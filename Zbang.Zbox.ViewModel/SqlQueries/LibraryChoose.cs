@@ -39,7 +39,7 @@ order by count(*) desc";
 	select country_code2 from zbox.ip_range
 	where ip_from <= @IP and @IP <= ip_to
 	)
-select *
+select UniversityName as name, LargeImage as image, id
 from zbox.university u 
 left join country_cte c  on u.country = c.country
 order by 

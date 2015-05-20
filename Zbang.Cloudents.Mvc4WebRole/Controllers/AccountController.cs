@@ -643,7 +643,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var linkData = EncryptElement(data);
                 //Session[SessionResetPassword] = data;
-                await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, identitylinkData, tResult.Result.Name.Split(' ')[0], model.Email, tResult.Result.Culture));
+                await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, linkData, tResult.Result.Name.Split(' ')[0], model.Email, tResult.Result.Culture));
 
                 TempData["key"] = Crypto.HashPassword(code);
 
@@ -682,7 +682,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost, System.Web.Mvc.ValidateAntiForgeryToken]
-        [RequireHttps]
         public ActionResult Confirmation([ModelBinder(typeof(TrimModelBinder))] Confirmation model,
             string @continue)
         {
@@ -707,7 +706,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        [RequireHttps, HttpGet]
+        [HttpGet]
         public ActionResult PasswordUpdate(string key)
         {
             if (User.Identity.IsAuthenticated)
@@ -728,7 +727,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [System.Web.Mvc.ValidateAntiForgeryToken]
-        [RequireHttps]
         public async Task<ActionResult> PasswordUpdate([ModelBinder(typeof(TrimModelBinder))] NewPassword model, string key)
         {
             if (!ModelState.IsValid)
