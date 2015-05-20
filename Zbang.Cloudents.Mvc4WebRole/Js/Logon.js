@@ -252,7 +252,7 @@
             invId: gup('invId')
         };
 
-        submit(connectForm, data);
+        submit(connectForm, data,false);
     });
 
     registerForm.addEventListener('submit', function (e) {
@@ -271,10 +271,10 @@
             invId: gup('invId')
         };
 
-        submit(registerForm, data);
+        submit(registerForm, data,true);
     });
 
-    function submit(form, data) {
+    function submit(form, data,isRegister) {
 
 
         var inputs = form.querySelectorAll('input');
@@ -307,6 +307,9 @@
             window.sessionStorage.clear();
 
             if (data2.payload) {
+                if (isRegister) {
+                    showPointsPopup();
+                }
                 window.location.href = data2.payload;
                 return;
             }
@@ -353,6 +356,9 @@
                     if (!text) {
                         text = facebookText.en;
                     }
+                    showPointsPopup();
+
+
                     FB.api('/me/feed', 'post', { message: text, link: 'https://www.cloudents.com' }, function () {
                         if (obj.url) {
                             window.location.href = obj.url;
@@ -504,5 +510,16 @@
             
 
         }
+    }
+
+    function showPointsPopup() {
+        if (!window.sessionStorage)  {
+            return;
+        }
+        var now = new Date();
+        var laterTime = new Date().setHours(now.getHours() + 2);
+        window.sessionStorage.setItem('angular-cache.caches.points.data.register', '{"key":"register","value":true,"created":' + now.getTime() + ',"accessed":' + now.getTime() + ',"expires":' + laterTime + '}');
+        window.sessionStorage.setItem('angular-cache.caches.points.keys','["register"]');
+
     }
 })(window.document);

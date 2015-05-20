@@ -55,7 +55,7 @@
                             boxId: $scope.boxId || $scope.box.id, //fix for step 3
                             tabId: $scope.tabId,
                             isComment: $scope.questionId && $scope.questionId.length > 0,
-                            question: $scope.newQuestion
+                            question: angular.isDefined($scope.newQuestion) ? $scope.newQuestion : false
 
                         };
                         sUpload.link(data).then(function (response) {
@@ -68,7 +68,7 @@
                                 boxId: data.boxId,
                                 tabId: data.tabId,
                                 questionId: $scope.questionId,
-                                newQuestion: $scope.newQuestion
+                                newQuestion: angular.isDefined($scope.newQuestion) ? $scope.newQuestion : false
                             }
                             
                             sGmfnHandler.addPoints({ type: 'itemUpload', amount: 1 });
@@ -107,7 +107,7 @@
                             boxId: $scope.boxId || $scope.box.id, //fix for step 3
                             tabId: $scope.tabId,
                             isComment: $scope.questionId && $scope.questionId.length > 0,
-                            question: $scope.newQuestion
+                            question: angular.isDefined($scope.newQuestion) ? $scope.newQuestion : false
 
                         };
                         sUpload.dropbox(data).then(function (response) {
@@ -119,7 +119,7 @@
                                 boxId: data.boxId,
                                 tabId: data.tabId,
                                 questionId: $scope.questionId,
-                                newQuestion: $scope.newQuestion
+                                newQuestion: angular.isDefined($scope.newQuestion) ? $scope.newQuestion : false
                             }
 
                             if (_.last(files) === fileData) {
@@ -169,7 +169,7 @@
                                 boxId: $scope.boxId || $scope.box.id, //fix for step 3
                                 tabId: $scope.tabId,
                                 isComment: $scope.questionId && $scope.questionId.length > 0,
-                                question: $scope.newQuestion
+                                question: angular.isDefined($scope.newQuestion) ? $scope.newQuestion : false
                             };
                             sUpload.link(data).then(function (response) {
                                 $rootScope.$broadcast('LinkUploaded', data);
@@ -179,7 +179,7 @@
                                     boxId: data.boxId,
                                     tabId: data.tabId,
                                     questionId: $scope.questionId,
-                                    newQuestion: $scope.newQuestion
+                                    newQuestion: angular.isDefined($scope.newQuestion) ? $scope.newQuestion : false
                                 }
 
 
