@@ -16,7 +16,7 @@ namespace Zbang.Cloudents.MobileApp2
     {
         public IZboxWriteService ZboxWriteService { get; set; }
 
-        public  Task Register(ApiServices services, HttpRequestContext context,
+        public async Task Register(ApiServices services, HttpRequestContext context,
         NotificationRegistration registration)
         {
             try
@@ -27,8 +27,14 @@ namespace Zbang.Cloudents.MobileApp2
                     throw new InvalidOperationException(
                         "You cannot supply a tag that is a user ID.");
                 }
-
-
+                await services.Push.HubClient.DeleteRegistrationsByChannelAsync(registration.DeviceId);
+                    
+                //var retVal = await  services.Push.HubClient.GetRegistrationsByChannelAsync(registration.DeviceId, 100);
+                //foreach (var registrationDescription in retVal)
+                //{
+                //    services.Log.Warn(string.Format("registration tag for this device are: {0}",
+                //        string.Join(";", registrationDescription.Tags)));
+                //}
                 // Get the logged-in user.
                 var currentUser = context.Principal as ServiceUser;
                 var userId = currentUser.GetCloudentsUserId();
@@ -55,19 +61,14 @@ namespace Zbang.Cloudents.MobileApp2
                 {
                     services.Log.Error(ex.ToString());
                 }
-             
-                
                 registration.Tags.Add(tagId);
-                if (registration.Tags.Count > 1)
-                {
-                    services.Log.Warn("Got more tags " + String.Join(" ", registration.Tags));
-                }
+               
             }
             catch (Exception ex)
             {
                 services.Log.Error(ex.ToString());
             }
-            return Task.FromResult(true);
+           // return Task.FromResult(true);
 
         }
 

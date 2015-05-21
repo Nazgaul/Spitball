@@ -1,4 +1,6 @@
-﻿namespace Zbang.Zbox.ViewModel.Queries.Search
+﻿using System.Text;
+
+namespace Zbang.Zbox.ViewModel.Queries.Search
 {
     public class UniversitySearchQuery : IPagedQuery
     {
@@ -15,6 +17,12 @@
         public int RowsPerPage { get; private set; }
 
         public string Term { get; private set; }
+
+        public override string ToString()
+        {
+            return string.Format("term = {0}, rowsperPage = {1} page = {2}", Term, RowsPerPage, PageNumber);
+            
+        }
     }
 
     public class UniversityByIpQuery : IPagedQuery

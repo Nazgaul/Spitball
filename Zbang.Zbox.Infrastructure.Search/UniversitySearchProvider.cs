@@ -66,7 +66,12 @@ namespace Zbang.Zbox.Infrastructure.Search
                     });
             }
             await Task.WhenAll(searchTask, suggestTask);
-            if (searchTask.Result.Body.Records.Any())
+            if (!searchTask.Result.IsSuccess)
+            {
+                TraceLog.WriteError(string.Format("error from university search on query: {0} error message: {1}", query,
+                    searchTask.Result.Error.Message));
+            }
+            else if (searchTask.Result.Body.Records.Any())
             {
                 return searchTask.Result.Body.Records.Select(s => new UniversityByPrefixDto(
                  s.Properties["name"].ToString(),
