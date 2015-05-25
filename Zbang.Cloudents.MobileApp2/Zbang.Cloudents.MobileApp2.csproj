@@ -228,6 +228,8 @@
     <Compile Include="Extensions\IPrincipalExtensions.cs" />
     <Compile Include="Models\CustomLoginProvider.cs" />
     <Compile Include="Models\CustomLoginProviderCredentials.cs" />
+    <Compile Include="Models\VersionConstraint.cs" />
+    <Compile Include="Models\VersionedRoute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

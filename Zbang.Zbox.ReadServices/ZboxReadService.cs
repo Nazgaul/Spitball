@@ -341,7 +341,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public async Task<IEnumerable<Qna.QuestionDto>> GetQuestions(GetBoxQuestionsQuery query)
+        public async Task<IEnumerable<Qna.QuestionDto>> GetQuestionsWithAnswers(GetBoxQuestionsQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {

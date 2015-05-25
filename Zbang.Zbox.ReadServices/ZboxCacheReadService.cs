@@ -138,9 +138,9 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetLocationByIp(ipNumber);
         }
 
-        public Task<IEnumerable<QuestionDto>> GetQuestions(GetBoxQuestionsQuery query)
+        public Task<IEnumerable<QuestionDto>> GetQuestionsWithAnswers(GetBoxQuestionsQuery query)
         {
-            return m_ReadService.GetQuestions(query);
+            return m_ReadService.GetQuestionsWithAnswers(query);
         }
 
         public Task<bool> GetInvite(GetInviteDetailQuery query)

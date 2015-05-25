@@ -112,7 +112,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var retVal =
-                  await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId));
+                  await ZboxReadService.GetQuestionsWithAnswers(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId));
                 return JsonOk(retVal);
             }
             catch (BoxAccessDeniedException)

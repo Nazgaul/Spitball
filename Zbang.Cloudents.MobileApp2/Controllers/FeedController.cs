@@ -5,6 +5,7 @@ using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Cloudents.MobileApp2.DataObjects;
+using Zbang.Cloudents.MobileApp2.Models;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
@@ -30,25 +31,15 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         // GET api/Feed
         [HttpGet]
-        [Route("api/box/{boxId:long}/feed")]
+        [VersionedRoute("api/box/{boxId:long}/feed", 1)]
+        //[Route("{boxId:long}/feed")]
         public async Task<HttpResponseMessage> Feed(long boxId, int page, int sizePerPage = 20)
         {
             try
             {
-
-                //var applePushMessage = new ApplePushMessage();
-                //applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION";
-                //applePushMessage.Aps.AlertProperties["loc-args"] = new[]
-                //{
-                //    "ramy", "box1","txt"
-                
-                //};
-                
-
-                //await Services.Push.SendAsync(applePushMessage,"1");
                 //TODO: check box permission
                 var retVal =
-                  await ZboxReadService.GetQuestions(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
+                  await ZboxReadService.GetQuestionsWithAnswers(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
                 return Request.CreateResponse(retVal);
             }
             catch (BoxAccessDeniedException)
@@ -59,6 +50,13 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 return Request.CreateNotFoundResponse();
             }
+        }
+
+         [AuthorizeLevel(AuthorizationLevel.Anonymous)]
+        [HttpGet, VersionedRoute("api/box/{boxId:long}/feed", 2)]
+        public string Feed2(long boxId, int page, int sizePerPage = 20)
+        {
+            return " hello v2";
         }
 
         [HttpPost]
