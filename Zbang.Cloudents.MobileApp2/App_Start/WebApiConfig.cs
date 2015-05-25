@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -22,6 +23,7 @@ namespace Zbang.Cloudents.MobileApp2
     {
         public static void Register()
         {
+            Trace.TraceInformation("Starting service");
             // Use this class to set configuration options for your mobile service
             var options = new ConfigOptions();
             options.LoginProviders.Add(typeof(CustomLoginProvider));

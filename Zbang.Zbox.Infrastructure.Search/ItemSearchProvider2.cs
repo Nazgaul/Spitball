@@ -189,9 +189,8 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
-            var sw = new Stopwatch();
-            sw.Start();
-            //var filter = "unidersityid ne '64805' and unidersityid ne '1161'"; ;
+            if (query == null) throw new ArgumentNullException("query");
+           
             var filter = await m_FilterProvider.BuildFilterExpression(
                 query.UniversityId, UniversityidField, UseridsField, query.UserId);
             var searchResult = await m_Connection.IndexQuery.SearchAsync(m_IndexName,
@@ -204,8 +203,11 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Skip = query.RowsPerPage * query.PageNumber,
                     //Highlight = ContentField
                 }, cancelToken);
-
-            sw.Stop();
+            if (searchResult == null)
+            {
+                TraceLog.WriteError(string.Format("on item search model: {0} return null", query));
+                return null;
+            }
             if (!searchResult.IsSuccess)
             {
                 TraceLog.WriteError(string.Format("on item search model: {0} error: {1}", query,

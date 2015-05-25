@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -181,9 +182,30 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
             throw new NotImplementedException();
         }
 
-        public Task<long> UploadFromLinkAsync(string url, string fileName)
+        public async Task<long> UploadFromLinkAsync(string url, string fileName)
         {
-            throw new NotImplementedException();
+            using (var client = new HttpClient())
+            {
+
+                using (var sr = await client.GetAsync(url))
+                {
+                    if (!sr.IsSuccessStatusCode)
+                    {
+                        throw new UnauthorizedAccessException("Cannot access dropbox");
+                    }
+                    ////sr.Content.Headers.ContentType.
+                    var blob = GetFile(fileName);
+                    using (var stream = await blob.OpenWriteAsync())
+                    {
+                        await sr.Content.CopyToAsync(stream);
+
+                    }
+                    blob.Properties.ContentType = sr.Content.Headers.ContentType.MediaType;
+                    blob.Properties.CacheControl = "private max-age=" + TimeConsts.Week;
+                    await blob.SetPropertiesAsync();
+                    return blob.Properties.Length;
+                }
+            }
         }
 
         public Task SaveMetaDataToBlobAsync(string blobName, IDictionary<string, string> metaData)

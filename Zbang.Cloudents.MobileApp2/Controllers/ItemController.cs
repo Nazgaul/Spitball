@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -98,34 +99,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         }
 
-        //[HttpGet]
-        //[Route("api/item/{itemId:long}/preview")]
-        //public async Task<HttpResponseMessage> Preview(string blobName, int index,
-        //     CancellationToken cancellationToken, string itemId)
-        //{
-        //    Uri uri;
-        //    if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
-        //    {
-        //        uri = new Uri(BlobProvider.GetBlobUrl(blobName));
-        //    }
-        //    var processor = FileProcessorFactory.GetProcessor(uri);
-        //    if (processor == null)
-        //        return Request.CreateResponse(HttpStatusCode.NoContent);
-
-        //    var retVal = await processor.ConvertFileToWebSitePreview(uri, 0, 0, index * 3, cancellationToken);
-        //    if (retVal.Content == null)
-        //    {
-        //        return Request.CreateResponse(HttpStatusCode.NoContent);
-
-        //    }
-        //    if (string.IsNullOrEmpty(retVal.ViewName))
-        //    {
-        //        return Request.CreateResponse(new { preview = retVal.Content.First() });
-        //    }
-
-        //    return Request.CreateResponse(new { preview = retVal.Content.Take(3) });
-
-        //}
+       
 
         public async Task<HttpResponseMessage> Delete(long id, long boxId)
         {
@@ -145,6 +119,68 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public string UploadLink(string blob, string mimeType)
         {
             return BlobUpload.GenerateWriteAccessPermissionToBlob(blob, mimeType);
+        }
+
+        [HttpPost]
+        [Route("api/item/upload/dropbox")]
+        public async Task<HttpResponseMessage> DropBox(DropboxUploadRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+
+            }
+            if (!ModelState.IsValid)
+            {
+
+                return Request.CreateBadRequestResponse();
+            }
+            var userId = User.GetCloudentsUserId();
+            var extension = Path.GetExtension(model.Name);
+            if (extension == null)
+            {
+                return Request.CreateBadRequestResponse("Can't upload file without extension");
+            }
+            var blobAddressUri = Guid.NewGuid().ToString().ToLower() + extension.ToLower();
+
+            var size = 0L;
+            //bool notUploaded;
+            try
+            {
+                size = await BlobProvider.UploadFromLinkAsync(model.FileUrl, blobAddressUri);
+                //notUploaded = false;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Request.CreateBadRequestResponse("can't access dropbox api");
+                //notUploaded = true;
+            }
+            //if (notUploaded)
+            //{
+            //    await m_QueueProvider.Value.InsertMessageToDownloadAsync(
+            //        new UrlToDownloadData(fileUrl, name, boxId, tabId, userId));
+            //    return JsonOk();
+            //}
+            var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
+               model.Name, size, model.TabId, model.Question);
+            var result = await ZboxWriteService.AddItemToBoxAsync(command);
+            var result2 = result as AddFileToBoxCommandResult;
+            if (result2 == null)
+            {
+                throw new NullReferenceException("result2");
+            }
+            var fileDto = new ItemDto
+            {
+                Id = result2.File.Id,
+                Name = result2.File.Name,
+                Thumbnail = result2.File.ThumbnailUrl,
+
+            };
+
+            return Request.CreateResponse(fileDto);
+           
+
+
         }
 
         [Route("api/item/upload/commit")]
