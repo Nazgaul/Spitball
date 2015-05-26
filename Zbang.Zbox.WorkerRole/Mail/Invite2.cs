@@ -34,7 +34,7 @@ namespace Zbang.Zbox.WorkerRole.Mail
 
             if (string.IsNullOrEmpty(parameters.InviterEmail))
             {
-                //obselete
+                //obsolete
                 m_MailComponent.GenerateAndSendEmail(parameters.EmailAddress,
                     new InviteMailParams(parameters.InviterName,
                     parameters.BoxName,

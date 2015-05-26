@@ -23,7 +23,7 @@ namespace Zbang.Zbox.WorkerRole.Mail
                 new ForgotPasswordMailParams2(parameters2.Code,
                     string.Format(UrlConsts.PasswordUpdate, parameters2.Link), parameters2.Name,
                     new CultureInfo(parameters2.Culture)));
-            return Task.FromResult(false);
+            return Task.FromResult(true);
         }
     }
 }
