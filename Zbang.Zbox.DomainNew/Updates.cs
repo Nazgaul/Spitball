@@ -4,26 +4,43 @@ namespace Zbang.Zbox.Domain
 {
     public class Updates
     {
+        // ReSharper disable DoNotCallOverridableMethodsInConstructor
+
         protected Updates()
         {
 
         }
-        public Updates(User user, Box box,
-            Comment comment = null, CommentReplies reply = null, Item item = null,
-            Quiz quiz = null
-            )
+
+        private Updates(User user, Box box)
         {
-// ReSharper disable DoNotCallOverridableMethodsInConstructor
             User = user;
             Box = box;
-            Comment = comment;
-            Reply = reply;
-            Item = item;
-            Quiz = quiz;
             CreationTime = DateTime.UtcNow;
-            // ReSharper restore DoNotCallOverridableMethodsInConstructor
-
         }
+       
+        public Updates(User user, Box box, Quiz quiz)
+            : this(user, box)
+        {
+            Quiz = quiz;
+        }
+        public Updates(User user, Box box, Item item)
+            : this(user, box)
+        {
+            Item = item;
+        }
+
+        public Updates(User user, Box box, Comment comment) : this(user,box)
+        {
+            Comment = comment;
+        }
+
+        public Updates(User user, Box box, CommentReplies reply) : this(user,box)
+        {
+            Reply = reply;
+            Comment = reply.Question;
+        }
+
+        // ReSharper restore DoNotCallOverridableMethodsInConstructor
        
         public virtual Guid Id { get; set; }
         public virtual User User { get; protected set; }

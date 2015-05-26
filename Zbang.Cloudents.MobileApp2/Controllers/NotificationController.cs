@@ -36,5 +36,19 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             return Request.CreateResponse();
         }
 
+        [HttpDelete]
+        [Route("api/Notification/{boxId:long}/items")]
+        public HttpResponseMessage DeleteItems(long boxId)
+        {
+            return Request.CreateResponse();
+        }
+
+        [HttpDelete]
+        [Route("api/Notification/{boxId:long}/feed/{feedId:guid}")]
+        public HttpResponseMessage DeleteFeed(long boxId, Guid feedId)
+        {
+            return Request.CreateResponse();
+        }
+
     }
 }

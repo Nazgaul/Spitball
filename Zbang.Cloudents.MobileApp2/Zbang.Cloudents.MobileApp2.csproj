@@ -176,6 +176,7 @@
     <Content Include="packages.config" />
     <Content Include="Performance\Microsoft.ServiceBus.MessagingPerformanceCounters.man" />
     <None Include="Properties\PublishProfiles\mobile-cloudents.pubxml" />
+    <None Include="Properties\PublishProfiles\mobile-cloudentsTest.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

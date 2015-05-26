@@ -182,6 +182,7 @@
     <Compile Include="Queries\Library\GetLibraryNodeQuery.cs" />
     <Compile Include="Queries\Library\GetUniversityDetailQuery.cs" />
     <Compile Include="Queries\QnA\GetBoxQuestionsQuery.cs" />
+    <Compile Include="Queries\QnA\GetCommentRepliesQuery.cs" />
     <Compile Include="Queries\QueryBase.cs" />
     <Compile Include="Queries\GetBoxQuery.cs" />
     <Compile Include="Queries\GetBoxItemsPagedQuery.cs" />

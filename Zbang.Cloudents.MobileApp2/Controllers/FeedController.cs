@@ -52,12 +52,34 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }
         }
 
-         [AuthorizeLevel(AuthorizationLevel.Anonymous)]
         [HttpGet, VersionedRoute("api/box/{boxId:long}/feed", 2)]
-        public string Feed2(long boxId, int page, int sizePerPage = 20)
+        public async Task<HttpResponseMessage> Feed2(long boxId, int page, int sizePerPage = 20)
         {
-            return " hello v2";
+            try
+            {
+                //TODO: check box permission
+                var retVal =
+                  await ZboxReadService.GetQuestionsWithLastAnswer(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
+                return Request.CreateResponse(retVal);
+            }
+            catch (BoxAccessDeniedException)
+            {
+                return Request.CreateUnauthorizedResponse();
+            }
+            catch (BoxDoesntExistException)
+            {
+                return Request.CreateNotFoundResponse();
+            }
         }
+
+        [HttpGet, Route("api/box/{boxId:long}/feed/{feedId:guid}/reply")]
+        public async Task<HttpResponseMessage> GetReplies(long boxId, Guid feedId, int page, int sizePerPage = 20)
+        {
+            var retVal =
+                 await ZboxReadService.GetReplies(new Zbox.ViewModel.Queries.QnA.GetCommentRepliesQuery(boxId,feedId,page,sizePerPage));
+            return Request.CreateResponse(retVal);
+        }
+
 
         [HttpPost]
         [Route("api/box/{boxId:long}/feed")]

@@ -34,7 +34,9 @@ namespace Zbang.Zbox.ViewModel.Dto
         public UserRelationshipType UserType { get; set; }
         public BoxType BoxType { get; set; }
         public int ItemCount { get; set; }
-        public int Updates { get; set; }
+
+        //obsolete
+        public int? Updates { get; set; }
 
         public int MembersCount { get; set; }
         public int CommentCount { get; set; }

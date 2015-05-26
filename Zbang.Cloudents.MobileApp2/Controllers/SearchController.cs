@@ -39,8 +39,9 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             if (!universityId.HasValue)
                 return Request.CreateBadRequestResponse("need university");
 
-
+            
             var query = new SearchQuery(term, User.GetCloudentsUserId(), universityId.Value, page, sizePerPage);
+            Services.Log.Info(String.Format("search boxes query: {0}", query));
             var retVal = await BoxSearchService.SearchBox(query, default(CancellationToken)) ?? new List<SearchBoxes>();
 
             return Request.CreateResponse(retVal.Select(s => new
@@ -63,6 +64,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateBadRequestResponse("need university");
 
             var query = new SearchQuery(term, User.GetCloudentsUserId(), universityId.Value, page, sizePerPage);
+            Services.Log.Info(String.Format("search items query: {0}", query));
             var retVal = await ItemSearchService.SearchItem(query, default(CancellationToken)) ?? new List<SearchItems>();
             return Request.CreateResponse(retVal.Select(s => new
             {
@@ -87,20 +89,21 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                         ZboxReadService.GetUniversityByIpAddress(new UniversityByIpQuery(Ip2Long(ip), sizePerPage, page));
                 return Request.CreateResponse(retValWithoutSearch);
             }
-            var retVal = await UniversitySearch.SearchUniversity(new UniversitySearchQuery(term, sizePerPage, page));
+            var query = new UniversitySearchQuery(term, sizePerPage, page);
+            Services.Log.Info(String.Format("search university query: {0}", query));
+            var retVal = await UniversitySearch.SearchUniversity(query);
+
             return Request.CreateResponse(retVal);
         }
 
         private static long Ip2Long(string ip)
         {
             double num = 0;
-            if (!string.IsNullOrEmpty(ip))
+            if (string.IsNullOrEmpty(ip)) return (long) num;
+            var ipBytes = ip.Split('.');
+            for (var i = ipBytes.Length - 1; i >= 0; i--)
             {
-                string[] ipBytes = ip.Split('.');
-                for (int i = ipBytes.Length - 1; i >= 0; i--)
-                {
-                    num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
-                }
+                num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
             }
             return (long)num;
         }

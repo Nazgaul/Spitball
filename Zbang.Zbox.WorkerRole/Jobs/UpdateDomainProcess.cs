@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Azure.Queue;
@@ -13,11 +14,13 @@ namespace Zbang.Zbox.WorkerRole.Jobs
     {
 
         readonly private QueueProcess m_QueueProcess;
+        private readonly IQueueProviderExtract m_QueueProvider;
         private bool m_KeepRunning;
 
 
         public UpdateDomainProcess(IQueueProviderExtract queueProvider)
         {
+            m_QueueProvider = queueProvider;
             m_QueueProcess = new QueueProcess(queueProvider, TimeSpan.FromSeconds(1));
         }
 
@@ -43,6 +46,15 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private async Task ExecuteAsync()
         {
+          //var retVal = await  m_QueueProvider.RunQueueMultiple(new UpdateDomainQueueName(), messages =>
+          //{
+          //     var messagesData = messages.Select(s => s.FromMessageProto < Infrastructure.Transport.DomainProcess>());
+
+
+          //    return Task.FromResult(messages);
+
+          //}, TimeSpan.FromMinutes(1), 5);
+            
 
             await m_QueueProcess.RunQueue(new UpdateDomainQueueName(), async msg =>
               {

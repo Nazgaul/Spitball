@@ -8,6 +8,7 @@ using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
+using Zbang.Cloudents.MobileApp2.Models;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
@@ -24,7 +25,31 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IZboxCacheReadService ZboxReadService { get; set; }
 
         // GET api/Boxes
+        [VersionedRoute("api/boxes",1)]
         public async Task<HttpResponseMessage> Get(int page, int sizePerPage = 15)
+        {
+            var userid = User.GetCloudentsUserId();
+            var query = new GetBoxesQuery(userid, page, sizePerPage);
+            var data = await ZboxReadService.GetUserBoxesOld(query);
+
+            return Request.CreateResponse(data.Select(s => new
+            {
+                s.Name,
+                s.Id,
+                s.ItemCount,
+                s.CommentCount,
+                s.Updates,
+                s.BoxType,
+                s.UserType,
+                s.Professor,
+                s.CourseCode,
+                s.Url,
+                shortUrl = UrlConsts.BuildShortBoxUrl(new Base62(s.Id).ToString())
+            }));
+        }
+
+        [VersionedRoute("api/boxes", 2)]
+        public async Task<HttpResponseMessage> GetBoxes(int page, int sizePerPage = 15)
         {
             var userid = User.GetCloudentsUserId();
             var query = new GetBoxesQuery(userid, page, sizePerPage);
@@ -36,7 +61,6 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.Id,
                 s.ItemCount,
                 s.CommentCount,
-                s.Updates,
                 s.BoxType,
                 s.UserType,
                 s.Professor,

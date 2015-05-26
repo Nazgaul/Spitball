@@ -28,43 +28,33 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IZboxWriteService ZboxWriteService { get; set; }
 
         // GET api/Box
-        //public async Task<HttpResponseMessage> Get(long id)
-        //{
-        //    try
-        //    {
-        //        var query = new GetBoxQuery(id);
-        //        var tResult = ZboxReadService.GetBox2(query);
-        //        //TODO: put claim
-        //        var tUserType = ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetCloudentsUserId());
-        //        await Task.WhenAll(tResult, tUserType);
-        //        var result = tResult.Result;
-        //        result.UserType = tUserType.Result;
+        public async Task<HttpResponseMessage> Get(long id)
+        {
+            try
+            {
+                var query = new GetBoxQuery(id);
+                var tResult = ZboxReadService.GetBox2(query);
+                var tUserType = ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetCloudentsUserId());
+                await Task.WhenAll(tResult, tUserType);
+                var result = tResult.Result;
+                result.UserType = tUserType.Result;
 
+                return Request.CreateResponse(new
+                {
+                    result.Name,
+                    result.BoxType
+                });
+            }
+            catch (BoxAccessDeniedException)
+            {
+                return Request.CreateUnauthorizedResponse();
+            }
+            catch (BoxDoesntExistException)
+            {
+                return Request.CreateNotFoundResponse();
+            }
 
-        //        return Request.CreateResponse(new
-        //        {
-        //            result.Name,
-        //            result.BoxType,
-        //            result.UserType,
-        //            result.ProfessorName,
-        //            result.CourseId
-        //        });
-        //    }
-        //    catch (BoxAccessDeniedException)
-        //    {
-        //        return Request.CreateUnauthorizedResponse();
-        //    }
-        //    catch (BoxDoesntExistException)
-        //    {
-        //        return Request.CreateNotFoundResponse();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Services.Log.Error(string.Format("Box Index id {0}", id), ex);
-        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, new HttpError("error"));
-        //    }
-
-        //}
+        }
         public HttpResponseMessage Post(CreateBoxRequest model)
         {
             if (model == null)

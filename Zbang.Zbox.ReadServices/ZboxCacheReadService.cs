@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -29,6 +30,11 @@ namespace Zbang.Zbox.ReadServices
             m_Cache = cache;
         }
 
+        [Obsolete]
+        public Task<IEnumerable<BoxDto>> GetUserBoxesOld(GetBoxesQuery query)
+        {
+            return m_ReadService.GetUserBoxesOld(query);
+        }
 
         public Task<IEnumerable<BoxDto>> GetUserBoxes(GetBoxesQuery query)
         {
@@ -143,6 +149,14 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetQuestionsWithAnswers(query);
         }
 
+        public Task<IEnumerable<QuestionDto>> GetQuestionsWithLastAnswer(GetBoxQuestionsQuery query)
+        {
+            return m_ReadService.GetQuestionsWithLastAnswer(query);
+        }
+        public Task<IEnumerable<AnswerDto>> GetReplies(GetCommentRepliesQuery query)
+        {
+            return m_ReadService.GetReplies(query);
+        }
         public Task<bool> GetInvite(GetInviteDetailQuery query)
         {
             return m_ReadService.GetInvite(query);

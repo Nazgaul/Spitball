@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -12,10 +13,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class AddNewUpdatesCommandHandler : ICommandHandlerAsync<AddNewUpdatesCommand>
     {
+        private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
         private readonly IRepository<Item> m_ItemRepository;
-        private readonly IRepository<CommentReplies> m_AnswerRepository;
-        private readonly IRepository<Comment> m_QuestionRepository;
+        private readonly IRepository<CommentReplies> m_ReplyRepository;
+        private readonly IRepository<Comment> m_CommentRepository;
         private readonly IRepository<Updates> m_UpdatesRepository;
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
         private readonly ISendPush m_SendPush;
@@ -23,97 +25,101 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public AddNewUpdatesCommandHandler(
             IBoxRepository boxRepository,
             IRepository<Item> itemRepository,
-            IRepository<CommentReplies> answerRepository,
-            IRepository<Comment> questionRepository,
+            IRepository<CommentReplies> replyRepository,
+            IRepository<Comment> commentRepository,
             IRepository<Updates> updatesRepository,
-            IRepository<Domain.Quiz> quizRepository, ISendPush sendPush)
+            IRepository<Domain.Quiz> quizRepository, ISendPush sendPush, IUserRepository userRepository)
         {
             m_BoxRepository = boxRepository;
             m_ItemRepository = itemRepository;
-            m_AnswerRepository = answerRepository;
-            m_QuestionRepository = questionRepository;
+            m_ReplyRepository = replyRepository;
+            m_CommentRepository = commentRepository;
             m_UpdatesRepository = updatesRepository;
             m_QuizRepository = quizRepository;
             m_SendPush = sendPush;
+            m_UserRepository = userRepository;
         }
         public Task HandleAsync(AddNewUpdatesCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
             var box = m_BoxRepository.Load(message.BoxId);
-            var usersToUpdate = box.UserBoxRelationship.Where(w => w.User.Id != message.UserId).ToList();
-
-            var quiz = GetQuiz(message.QuizId);
-            var item = GetItem(message.ItemId);
-            var reply = GetReply(message.ReplyId);
-            var comment = GetComment(message.CommentId);
-
-            foreach (var userBoxRel in usersToUpdate)
+            var usersToUpdate = box.UserBoxRelationship.Where(w => w.User.Id != message.UserId).Select(s => s.UserId).ToList();
+            if (usersToUpdate.Count == 0)
             {
-                var newUpdate = new Updates(userBoxRel.User, box,
-                    comment, reply, item, quiz);
+                return Task.FromResult<object>(null);
+            }
+            var tQuiz = UpdateQuiz(message.QuizId,usersToUpdate,box);
+            var tItem = UpdateItem(message.ItemId, usersToUpdate, box);
+            var tComment = UpdateComment(message.CommentId, usersToUpdate, box);
+            var tReply = UpdateReply(message.ReplyId, usersToUpdate, box);
+
+            return Task.WhenAll(tQuiz, tItem, tComment, tReply);
+        }
+
+        private void DoUpdateLoop(IEnumerable<long> userIds, Func<User,Updates> update)
+        {
+            foreach (var userId in userIds)
+            {
+                var user = m_UserRepository.Load(userId);
+                var newUpdate = update(user);
                 m_UpdatesRepository.Save(newUpdate);
             }
-            if (usersToUpdate.Count > 0)
-            {
-                if (item != null)
-                {
-                    return m_SendPush.SendAddItemNotification(item.Uploader.Name, box.Name, box.Id,
-                        usersToUpdate.Select(s => s.UserId).ToList());
-                }
-                if (comment != null)
-                {
-                    var removeHtmlRegex = new Regex("<[^>]*>", RegexOptions.Compiled);
-                    var textToPush = removeHtmlRegex.Replace(comment.Text, string.Empty);
-                    if (string.IsNullOrEmpty(textToPush))
-                    {
-                        Task.FromResult<object>(null);
-                    }
-                    return m_SendPush.SendAddPostNotification(comment.User.Name, textToPush, box.Name, box.Id,
-                        usersToUpdate.Select(s => s.UserId).ToList());
-                }
-                if (reply != null)
-                {
-                    return m_SendPush.SendAddReplyNotification(reply.User.Name, reply.Text, box.Name, box.Id,
-                        usersToUpdate.Select(s => s.UserId).ToList());
-                }
-            }
-            return Task.FromResult(true);
-
         }
-        private Domain.Quiz GetQuiz(long? quizId)
+
+        private Task UpdateQuiz(long? quizId , IEnumerable<long> userIds, Box box)
         {
             if (!quizId.HasValue)
             {
-                return null;
+                return Task.FromResult<object>(null);
             }
-            return m_QuizRepository.Load(quizId.Value);
+            var quiz =  m_QuizRepository.Load(quizId.Value);
+            DoUpdateLoop(userIds, u => new Updates(u, box, quiz));
+            return Task.FromResult<object>(null);
         }
 
-        private Item GetItem(long? itemId)
+        private Task UpdateItem(long? itemId, IList<long> userIds, Box box)
         {
             if (!itemId.HasValue)
             {
-                return null;
+                return Task.FromResult<object>(null);
             }
-            return m_ItemRepository.Load(itemId.Value);
+            var item = m_ItemRepository.Load(itemId.Value);
+            DoUpdateLoop(userIds, u => new Updates(u, box, item));
+
+           return m_SendPush.SendAddItemNotification(item.Uploader.Name, box.Name, box.Id, userIds);
+                        
+          
         }
 
-        private CommentReplies GetReply(Guid? replyId)
+
+
+        private Task UpdateReply(Guid? replyId, IList<long> userIds, Box box)
         {
             if (!replyId.HasValue)
             {
-                return null;
+                return Task.FromResult<object>(null);
             }
-            return m_AnswerRepository.Load(replyId.Value);
+             var reply =  m_ReplyRepository.Load(replyId.Value);
+             DoUpdateLoop(userIds, u => new Updates(u, box, reply));
+             return m_SendPush.SendAddReplyNotification(reply.User.Name, reply.Text, box.Name, box.Id, userIds);
         }
 
-        private Comment GetComment(Guid? commentId)
+        private Task UpdateComment(Guid? commentId, IList<long> userIds, Box box)
         {
             if (!commentId.HasValue)
             {
-                return null;
+                return Task.FromResult<object>(null);
             }
-            return m_QuestionRepository.Load(commentId.Value);
+            var comment =  m_CommentRepository.Load(commentId.Value);
+            DoUpdateLoop(userIds, u => new Updates(u, box, comment));
+
+            var removeHtmlRegex = new Regex("<[^>]*>", RegexOptions.Compiled);
+            var textToPush = removeHtmlRegex.Replace(comment.Text, string.Empty);
+            if (string.IsNullOrEmpty(textToPush))
+            {
+                Task.FromResult<object>(null);
+            }
+            return m_SendPush.SendAddPostNotification(comment.User.Name, textToPush, box.Name, box.Id, userIds);
         }
 
     }

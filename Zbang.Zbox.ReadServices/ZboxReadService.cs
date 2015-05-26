@@ -40,6 +40,21 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
+        [Obsolete]
+        public async Task<IEnumerable<BoxDto>> GetUserBoxesOld(GetBoxesQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<BoxDto>(Sql.Dashboard.UserBoxesOld,
+                    new { query.UserId, query.RowsPerPage, query.PageNumber });
+            }
+
+        }
+        /// <summary>
+        /// used to get the dashboard and the activity and wall in dashboard
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<BoxDto>> GetUserBoxes(GetBoxesQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
@@ -340,7 +355,11 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-
+        /// <summary>
+        /// used in desktop and mobile web site
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<Qna.QuestionDto>> GetQuestionsWithAnswers(GetBoxQuestionsQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
@@ -368,6 +387,64 @@ namespace Zbang.Zbox.ReadServices
                     }
 
                     return questions;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Used in mobile service to retrieve the comment and the last reply
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Qna.QuestionDto>> GetQuestionsWithLastAnswer(GetBoxQuestionsQuery query)
+        {
+            using (var con = await DapperConnection.OpenConnectionAsync())
+            {
+                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1} {2}",
+                    Sql.Box.GetBoxCommentsForMobile,
+                    Sql.Box.GetLastCommentRepliesForMobile,
+                    Sql.Box.GetBoxItemForCommentInMobile
+                    ),
+                    new { query.BoxId, query.PageNumber, query.RowsPerPage }))
+                {
+                    var comments = grid.Read<Qna.QuestionDto>().ToList();
+                    var replies = grid.Read<Qna.AnswerDto>().ToList();
+                    var items = grid.Read<Qna.ItemDto>().ToList();
+
+                    foreach (var reply in replies)
+                    {
+                        reply.Files.AddRange(items.Where(w => w.AnswerId.HasValue && w.AnswerId.Value == reply.Id));
+                    }
+                    foreach (var comment in comments)
+                    {
+                        comment.Files.AddRange(items.Where(w => w.QuestionId.HasValue && w.QuestionId.Value == comment.Id));
+                        comment.Answers.Add(replies.FirstOrDefault(s => s.QuestionId == comment.Id));
+                    }
+
+                    return comments;
+                }
+            }
+        }
+
+        public async Task<IEnumerable<Qna.AnswerDto>> GetReplies(GetCommentRepliesQuery query)
+        {
+            using (var con = await DapperConnection.OpenConnectionAsync())
+            {
+                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1}",
+                    Sql.Box.GetCommentRepliesInMobile,
+                    Sql.Box.GetCommentRepliesItemsInMobile
+                    ),
+                    new { query.BoxId, query.PageNumber, query.RowsPerPage, query.CommentId }))
+                {
+                    var replies = grid.Read<Qna.AnswerDto>().ToList();
+                    var items = grid.Read<Qna.ItemDto>().ToList();
+
+                    foreach (var reply in replies)
+                    {
+                        reply.Files.AddRange(items.Where(w => w.AnswerId.HasValue && w.AnswerId.Value == reply.Id));
+                    }
+
+                    return replies;
                 }
             }
         }

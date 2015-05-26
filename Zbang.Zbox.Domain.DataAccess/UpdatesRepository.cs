@@ -6,17 +6,6 @@ namespace Zbang.Zbox.Domain.DataAccess
 {
     public class UpdatesRepository : NHibernateRepository<Updates>, IUpdatesRepository
     {
-        //public IEnumerable<Updates> GetUserBoxUpdates(long userId, long boxId)
-        //{
-        //    var x = UnitOfWork.CurrentSession.QueryOver<Updates>().
-        //                 Where(w => w.User.Id == userId).Where(w => w.Box.Id == boxId)
-
-        //                    //.Select(NHibernate.Criterion.Projections.Sum<Item>(s=>s.Size)).SingleOrDefault();
-        //                .List<Updates>();
-        //    return x;
-
-        //}
-
         public void DeleteUserUpdate(long userId, long boxId)
         {
 
@@ -26,7 +15,8 @@ namespace Zbang.Zbox.Domain.DataAccess
             query.SetInt64("boxId", boxId);
             query.ExecuteUpdate();
 
-
         }
+
+        
     }
 }

@@ -58,10 +58,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var answer = new CommentReplies(user, text, box, message.Id, question, files);
             var reputation = user.AddReputation(ReputationAction.AddAnswer);
+            question.DateTimeUser.UpdateUserTime(user.Email);
             box.UserTime.UpdateUserTime(user.Email);
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, answerId: answer.Id));
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
 
+            m_QuestionRepository.Save(question);
             m_BoxRepository.Save(box);
             m_ReputationRepository.Save(reputation);
             m_AnswerRepository.Save(answer);

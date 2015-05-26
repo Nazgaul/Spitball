@@ -21,8 +21,8 @@ namespace Zbang.Zbox.ReadServices
 {
     public interface IZboxReadService : IBaseReadService
     {
-        //PagedDto2<BoxDto> GetBoxes(GetBoxesQuery query);
-        //Task<IEnumerable<BoxDto>> GetBoxes(GetBoxesQuery query);
+        
+        Task<IEnumerable<BoxDto>> GetUserBoxesOld(GetBoxesQuery query);
         Task<IEnumerable<BoxDto>> GetUserBoxes(GetBoxesQuery query);
 
         Task<DashboardDto> GetDashboardSideBar(GetDashboardQuery query);
@@ -77,6 +77,8 @@ namespace Zbang.Zbox.ReadServices
 
 
         Task<IEnumerable<QuestionDto>> GetQuestionsWithAnswers(GetBoxQuestionsQuery query);
+        Task<IEnumerable<QuestionDto>> GetQuestionsWithLastAnswer(GetBoxQuestionsQuery query);
+        Task<IEnumerable<AnswerDto>> GetReplies(GetCommentRepliesQuery query);
         Task<bool> GetInvite(GetInviteDetailQuery query);
 
 

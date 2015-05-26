@@ -135,9 +135,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
                 return false;
             }
             var cloudQueueMessages = messages as IList<CloudQueueMessage> ?? messages.ToList();
-            var listToWait = new List<Task>();
+            var listToWait = new List<Task>
+            {
+                queue.DeleteMessagesAsync(cloudQueueMessages.Where(w => w.DequeueCount < deQueueCount))
+            };
 
-            listToWait.Add(queue.DeleteMessagesAsync(cloudQueueMessages.Where(w => w.DequeueCount < deQueueCount)));
             var messagesToDelete = await func.Invoke(cloudQueueMessages);
             listToWait.Add(queue.DeleteMessagesAsync(messagesToDelete));
             await Task.WhenAll(listToWait);
