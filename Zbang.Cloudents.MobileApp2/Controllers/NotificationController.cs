@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -25,7 +23,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public async Task<HttpResponseMessage> Get()
         {
             var model = await ZboxReadService.GetUpdates(new QueryBase(User.GetCloudentsUserId()));
-            return Request.CreateResponse(model);
+            return Request.CreateResponse(model.Where(w => w.QuizId == null));
         }
 
         public HttpResponseMessage Delete(long boxId)
@@ -40,6 +38,9 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         [Route("api/Notification/{boxId:long}/items")]
         public HttpResponseMessage DeleteItems(long boxId)
         {
+            var userId = User.GetCloudentsUserId();
+            var command = new DeleteUpdatesItemCommand(userId, boxId);
+            ZboxWriteService.DeleteUpdates(command);
             return Request.CreateResponse();
         }
 
@@ -47,6 +48,9 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         [Route("api/Notification/{boxId:long}/feed/{feedId:guid}")]
         public HttpResponseMessage DeleteFeed(long boxId, Guid feedId)
         {
+            var userId = User.GetCloudentsUserId();
+            var command = new DeleteUpdatesFeedCommand(userId, boxId, feedId);
+            ZboxWriteService.DeleteUpdates(command);
             return Request.CreateResponse();
         }
 

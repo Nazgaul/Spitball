@@ -17,4 +17,22 @@
     <many-to-one name="Quiz" class="Quiz" column="QuizId" not-null="false" foreign-key="NewUpdatesQuiz"/>
     <property name="CreationTime" type="DateTime2" not-null="true" insert="true" update="false" />
   </class>
+
+  <query name="DeleteUpdatesByBoxId">
+    <![CDATA[
+    delete from Updates c where c.User = :userid and c.Box = :boxId
+    ]]>
+  </query>
+
+  <query name="DeleteUpdatesByFeedId">
+    <![CDATA[
+    delete from Updates c where c.User = :userid and c.Box = :boxId and c.Comment = :CommentId
+    ]]>
+  </query>
+
+  <query name="DeleteItemUpdatesByBoxId">
+    <![CDATA[
+    delete from Updates c where c.User = :userid and c.Box = :boxId and c.Item = : Item
+    ]]>
+  </query>
 </hibernate-mapping>
