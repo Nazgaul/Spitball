@@ -25,6 +25,8 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
 
         public string Url { get; set; }
 
+        public int? RepliesCount { get; set; }
+
         public DateTime CreationTime
         {
             get { return m_Date; }

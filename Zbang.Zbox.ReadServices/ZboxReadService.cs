@@ -418,7 +418,12 @@ namespace Zbang.Zbox.ReadServices
                     foreach (var comment in comments)
                     {
                         comment.Files.AddRange(items.Where(w => w.QuestionId.HasValue && w.QuestionId.Value == comment.Id));
-                        comment.Answers.Add(replies.FirstOrDefault(s => s.QuestionId == comment.Id));
+                        var reply = replies.FirstOrDefault(s => s.QuestionId == comment.Id);
+                        if (reply != null)
+                        {
+                            comment.Answers.Add(reply);
+                        }
+
                     }
 
                     return comments;
@@ -496,13 +501,14 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-               return await conn.QueryAsync<UniversityByPrefixDto>(Sql.LibraryChoose.GetInitialValueOfUniversitiesBaseOnIpAddress,
-                    new
-                    {
-                        IP = query.IpAddress,
-                       query.PageNumber, query.RowsPerPage
+                return await conn.QueryAsync<UniversityByPrefixDto>(Sql.LibraryChoose.GetInitialValueOfUniversitiesBaseOnIpAddress,
+                     new
+                     {
+                         IP = query.IpAddress,
+                         query.PageNumber,
+                         query.RowsPerPage
 
-                    });
+                     });
             }
         }
 

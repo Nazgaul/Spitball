@@ -108,6 +108,7 @@ order by name;";
 	  ,u.userid as UserId
     ,[Text] as Content
     ,q.CreationTime as creationTime
+	,(select count(*) from zbox.Answer where questionid = q.questionid) as RepliesCount
     FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
     where q.BoxId = @BoxId
     order by q.[QuestionId] desc

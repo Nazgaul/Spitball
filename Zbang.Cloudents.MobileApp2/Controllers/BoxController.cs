@@ -42,7 +42,11 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateResponse(new
                 {
                     result.Name,
-                    result.BoxType
+                    result.BoxType,
+                    result.UserType,
+                    Professor = result.ProfessorName,
+                    result.CourseId
+
                 });
             }
             catch (BoxAccessDeniedException)

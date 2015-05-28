@@ -65,7 +65,6 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.UserType,
                 s.Professor,
                 s.CourseCode,
-                s.Url,
                 shortUrl = UrlConsts.BuildShortBoxUrl(new Base62(s.Id).ToString())
             }));
         }
