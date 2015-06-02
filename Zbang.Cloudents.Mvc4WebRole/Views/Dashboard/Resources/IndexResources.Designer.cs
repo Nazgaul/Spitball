@@ -270,7 +270,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get the app for iOs and Android devices!.
+        ///   Looks up a localized string similar to Get the app for iOS and Android devices!.
         /// </summary>
         public static string GetApp {
             get {
