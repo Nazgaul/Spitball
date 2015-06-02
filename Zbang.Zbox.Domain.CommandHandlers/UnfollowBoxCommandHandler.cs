@@ -46,6 +46,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
             }
           
+
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
             if (userType == UserRelationshipType.Owner)
             {
