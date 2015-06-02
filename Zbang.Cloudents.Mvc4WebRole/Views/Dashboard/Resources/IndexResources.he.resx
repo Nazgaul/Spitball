@@ -309,4 +309,7 @@
   <data name="UploadFiles" xml:space="preserve">
     <value>תעלו קבצים, תזמינו חברים, צרו בחנים, והובילו את טבלת הניקוד של המוסד האקדמי שלכם.</value>
   </data>
+  <data name="GetApp" xml:space="preserve">
+    <value>עכשיו למכשירי אנדרואיד ואייפון</value>
+  </data>
 </root>

@@ -35,13 +35,25 @@
 .asideDash .recommendedWpr header {
   text-align: center;
 }
+.asideDash .mobileWpr {
+  text-align: center;
+  font-weight: bold;
+  font-size: 12.5px;
+  padding-top: 25px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #c2c2c2;
+  direction: ltr;
+}
+.asideDash .mobileLinks {
+  margin-top: 12px;
+}
 .recommendedWpr {
   background: #fff;
   padding: 0 12px;
 }
 .recommendedWpr header {
-  font-size: 20px;
-  padding: 13px 0 8px;
+  font-size: 18px;
+  padding: 22px 0 8px;
 }
 .recommended {
   height: 80px;

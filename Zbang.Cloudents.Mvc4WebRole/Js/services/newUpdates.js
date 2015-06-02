@@ -148,7 +148,6 @@ function ($http, $q, sBox, sUserDetails, $interval, $timeout) {
                     updates[boxId].quizzes = [];
                     updates[boxId].questions = [];
                     updates[boxId].answers = [];
-
                 }
 
                 if (update.itemId) {
@@ -159,13 +158,15 @@ function ($http, $q, sBox, sUserDetails, $interval, $timeout) {
                     addUpdate(updates[boxId].quizzes, update.quizId);
                     continue;
                 }
-                if (update.questionId) {
-                    addUpdate(updates[boxId].questions, update.questionId);
-                    continue;
-                }
                 if (update.answerId) {
                     addUpdate(updates[boxId].answers, update.questionId);
+                    continue;
                 }
+
+                if (update.questionId) {
+                    addUpdate(updates[boxId].questions, update.questionId);
+                }
+                
             }
             updatesLoaded = true;
 

@@ -882,6 +882,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Now available on your mobile!.
+        /// </summary>
+        public static string NowAvailable {
+            get {
+                return ResourceManager.GetString("NowAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only people explicitly granted permission can access. Sign-in required..
         /// </summary>
         public static string OnlyPeople {

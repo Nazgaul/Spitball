@@ -20,7 +20,7 @@
         }
     }*/
 }
-.rtlFix .android {
+/*.rtlFix .android {
   position: absolute;
   width: 338px;
   height: 232px;
@@ -30,7 +30,7 @@
 }
 .rtlFix .android a {
   right: 10px;
-}
+}*/
 .rtlFix .bestUserList:before {
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);

@@ -270,22 +270,38 @@
   -o-transition: transform 0.3s 0.3s, opacity 0.3s 0.3s;
   transition: transform 0.3s 0.3s, opacity 0.3s 0.3s;
 }
-.android {
-  position: absolute;
-  width: 338px;
-  height: 232px;
-  left: 20px;
-  bottom: 100%;
-  background: url(/Images/mobile-cloudents-en.png) no-repeat;
+/*.android {
+    position: absolute;
+        width: 338px;
+        height: 232px;
+        right: 20px;
+        bottom: 100%;
+        background: url(/Images/mobile-cloudents-en.png) no-repeat;
+    a {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: url(/Images/android-download.png);
+        width: 130px;
+        height: 47px;
+        display: inline-block;
+    }
+}*/
+.nowAvailable.nowAvailable {
+  font-weight: bold;
+  font-size: 21px;
+  text-transform: none;
+  margin-top: 35px;
+  margin-bottom: 8px;
+  display: block;
+  text-align: right;
+  text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
 }
-.android a {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  background: url(/Images/android-download.png);
-  width: 130px;
-  height: 47px;
+.mobileLinks a {
   display: inline-block;
+}
+.mobileLinks .android {
+  margin-right: 6px;
 }
 .language {
   background: #39434a;

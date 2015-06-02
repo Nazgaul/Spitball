@@ -306,4 +306,7 @@
     <value>تحميل الملفات، دعوة الأصدقاء، وخلق مسابقات وتأخذ مكانك كقائد للمدرسة
 </value>
   </data>
+  <data name="GetApp" xml:space="preserve">
+    <value>الآن الروبوت وفون الأجهزة</value>
+  </data>
 </root>

@@ -609,4 +609,7 @@ Cloudents Quizzes - Create, share, practice and be prepared for your exams!
   <data name="Jobs" xml:space="preserve">
     <value>Jobs</value>
   </data>
+  <data name="NowAvailable" xml:space="preserve">
+    <value>Now available on your mobile!</value>
+  </data>
 </root>
