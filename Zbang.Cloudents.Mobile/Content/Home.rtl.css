@@ -2,14 +2,6 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-/*html[data-useragent*='iPhone'] {
-    .androidLink {
-        display: none;
-    }
-    .app-download {
-        visibility: visible;
-    }
-}*/
 .homepage {
   width: 100%;
   height: 100%;
