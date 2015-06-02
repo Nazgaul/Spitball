@@ -42,14 +42,19 @@
                     </svg>
                 </span>@SharedResources.EmailSignUp
             </button>
+            <h2 class="nowAvailable">Now available on your mobile!</h2>
+            <div class="mobileLinks">
+                <a href="http://m.onelink.me/52ba1d8e"><img src="~/Images/app_store.png"/></a>
+                <a class="android" href="http://m.onelink.me/5388edd"><img src="~/Images/google_play.png" /></a>
+            </div>
         </div>
-        <div id="playButton" data-playtext="@HomeResources.PlayVideo" class="videoWpr" home-video></div>
+        @*<div id="playButton" data-playtext="@HomeResources.PlayVideo" class="videoWpr" home-video></div>
         <div class="videoWrapper" id="videoWpr">
             <video preload="none" id="homeVideo" class="video" controls>
                 <source src="https://zboxstorage.blob.core.windows.net/videos/homeScreenVideo.mp4" type="video/mp4">
                 Your browser does not support video element
             </video>
-        </div>
+        </div>*@
         <div class="language @(System.Threading.Thread.CurrentThread.CurrentUICulture.Name)">
             <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })"*@ title="English (US)">@Languages.EnglishUsName</button>
             <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })"*@ title="English (UK)">@Languages.EnglishGbName</button>
@@ -58,9 +63,9 @@
             <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })"*@ title="Arabic Site">@Languages.ArabicName</button>
             <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })"*@ title="Chinese Site">@Languages.ChineseName</button>
             @*<input type="checkbox" id="cbGradeback" class="checkbox" />*@
-            <div class="android">
+            @*<div class="android">
                 <a href="http://m.onelink.me/5388edd"></a>
-            </div>
+            </div>*@
             @*<section class="gradeback">
                 <h3>@HomeResources.AppToGrade</h3>
                 <h4>@HomeResources.YouAsked</h4>

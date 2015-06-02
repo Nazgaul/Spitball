@@ -10,10 +10,8 @@
         visibility: visible;
     }
 }*/
-html[data-useragent*='Android'] .iphoneLink {
-  display: none;
-}
-html[data-useragent*='Android'] .app-download {
+
+html .app-download {
   visibility: visible;
 }
 .homepage {
