@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
@@ -15,20 +14,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
-        private readonly IRepository<Library> m_DepartmentRepository;
         private readonly IQueueProvider m_QueueProvider;
-        private readonly IUniversityRepository m_UniversityRepository;
 
         public UnFollowBoxCommandHandler(IRepository<Box> boxRepository,
             IUserRepository userRepository,
-            IRepository<Library> departmentRepository,
-            IUniversityRepository universityRepository, IQueueProvider queueProvider
+            IQueueProvider queueProvider
             )
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
-            m_DepartmentRepository = departmentRepository;
-            m_UniversityRepository = universityRepository;
             m_QueueProvider = queueProvider;
         }
 
@@ -38,12 +32,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var box = m_BoxRepository.Get(message.BoxId);
             var user = m_UserRepository.Load(message.UserId);
 
-            if (user.IsAdmin() && message.ShouldDelete)
-            {
-                await DeleteBox(box, user);
-                return;
-            }
+            
 
+            if (message.ShouldDelete && user.IsAdmin())
+            {
+                var academicBox = box as AcademicBox;
+                if (academicBox != null)
+                {
+                    if (user.University.Id == academicBox.University.Id)
+                    {
+                        await DeleteBox(box, user);
+                    }
+                }
+            }
+          
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
             if (userType == UserRelationshipType.Owner)
             {
