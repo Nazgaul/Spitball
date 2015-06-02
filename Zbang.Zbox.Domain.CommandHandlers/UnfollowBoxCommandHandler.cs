@@ -32,19 +32,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var box = m_BoxRepository.Get(message.BoxId);
             var user = m_UserRepository.Load(message.UserId);
 
-            var academicBox = box as AcademicBox;
             
-            if (academicBox != null) 
+
+            if (message.ShouldDelete && user.IsAdmin())
             {
-                if (user.IsAdmin() && message.ShouldDelete && user.University.Id == academicBox.University.Id)
+                var academicBox = box as AcademicBox;
+                if (academicBox != null)
                 {
-                    await DeleteBox(box, user);
-                    return;
+                    if (user.University.Id == academicBox.University.Id)
+                    {
+                        await DeleteBox(box, user);
+                    }
                 }
             }
-
-           
-
+          
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
             if (userType == UserRelationshipType.Owner)
             {
