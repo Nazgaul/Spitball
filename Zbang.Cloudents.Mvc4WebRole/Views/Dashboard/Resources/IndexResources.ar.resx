@@ -306,4 +306,7 @@
     <value>تحميل الملفات، دعوة الأصدقاء، وخلق مسابقات وتأخذ مكانك كقائد للمدرسة
 </value>
   </data>
+  <data name="GetApp" xml:space="preserve">
+    <value>الحصول على التطبيق لأجهزة iOS والروبوت</value>
+  </data>
 </root>

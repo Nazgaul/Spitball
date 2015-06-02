@@ -62,7 +62,13 @@
                     @Html.Svg("~/Images/Defs.svg", "trophyEmpty", new { @class = "svg-trophyEmpty" })
                 </div>
             </section>
-
+            <section class="mobileWpr">
+                <div>@IndexResources.GetApp</div>
+                <div class="mobileLinks">
+                    <a class="boldFont" href="http://m.onelink.me/52ba1d8e"><img src="~/Images/app_store_small.png" /></a>
+                    <a class="android boldFont" href="http://m.onelink.me/5388edd"><img src="~/Images/google_play_small.png" /></a>
+                </div>
+            </section>
             <section class="recommendedWpr" ng-if="recommendedCourses.length">
                 <header>@IndexResources.RecommendedCourses</header>
                 <ul>
@@ -93,6 +99,7 @@
                     </li>
                 </ul>
             </section>
+            
         </aside>
 
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">

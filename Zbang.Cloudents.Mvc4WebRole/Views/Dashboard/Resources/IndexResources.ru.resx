@@ -301,4 +301,7 @@
   <data name="UploadFiles" xml:space="preserve">
     <value>Загружайте файлы, приглашайте друзей, создавайте экзамены и занимайте свое место в качестве лидера школы</value>
   </data>
+  <data name="GetApp" xml:space="preserve">
+    <value>Получите приложение для устройств iOS и Андроид</value>
+  </data>
 </root>
