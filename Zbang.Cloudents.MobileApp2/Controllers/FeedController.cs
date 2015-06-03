@@ -9,7 +9,6 @@ using Zbang.Cloudents.MobileApp2.Models;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
-using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
@@ -37,7 +36,6 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             try
             {
-                //TODO: check box permission
                 var retVal =
                   await ZboxReadService.GetQuestionsWithAnswers(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
                 return Request.CreateResponse(retVal);
@@ -57,7 +55,6 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             try
             {
-                //TODO: check box permission
                 var retVal =
                   await ZboxReadService.GetQuestionsWithLastAnswer(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
                 return Request.CreateResponse(retVal);
@@ -96,7 +93,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
             var questionId = GuidGenerator.GetId();
             var command = new AddCommentCommand(User.GetCloudentsUserId(),
-                boxId, model.Content, questionId, null);
+                boxId, model.Content, questionId, model.FileIds);
             await ZboxWriteService.AddQuestionAsync(command);
             return Request.CreateResponse(questionId);
         }
