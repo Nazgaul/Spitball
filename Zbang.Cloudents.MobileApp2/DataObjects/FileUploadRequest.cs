@@ -14,5 +14,7 @@ namespace Zbang.Cloudents.MobileApp2.DataObjects
         public string BoxId { get; set; }
         [Required]
         public string Size { get; set; }
+
+        public bool IsQuestion { get; set; }
     }
 }

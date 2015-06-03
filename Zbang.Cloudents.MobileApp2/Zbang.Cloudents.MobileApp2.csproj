@@ -189,6 +189,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Zbang.Cloudents.Mvc4WebRole\Helpers\UrlTitleBringer.cs">
+      <Link>Models\UrlTitleBringer.cs</Link>
+    </Compile>
     <Compile Include="App_Start\PushRegistrationHandler.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -202,6 +205,7 @@
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="DataObjects\AddCommentRequest.cs" />
+    <Compile Include="DataObjects\AddLinkRequest.cs" />
     <Compile Include="DataObjects\BoxRenameRequest.cs" />
     <Compile Include="DataObjects\CreateAcademicBoxRequest.cs" />
     <Compile Include="DataObjects\CreateBoxRequest.cs" />

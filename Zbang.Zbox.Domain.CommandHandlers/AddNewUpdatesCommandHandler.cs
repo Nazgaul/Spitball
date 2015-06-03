@@ -101,7 +101,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
              var reply =  m_ReplyRepository.Load(replyId.Value);
              DoUpdateLoop(userIds, u => new Updates(u, box, reply));
-             return m_SendPush.SendAddReplyNotification(reply.User.Name, reply.Text, box.Name, box.Id, userIds);
+             return m_SendPush.SendAddReplyNotification(reply.User.Name, reply.Text, box.Name, box.Id, reply.Question.Id, userIds);
         }
 
         private Task UpdateComment(Guid? commentId, IList<long> userIds, Box box)

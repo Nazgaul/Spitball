@@ -7,6 +7,7 @@ using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Cloudents.MobileApp2.DataObjects;
+using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -14,6 +15,7 @@ using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.StorageApp;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
@@ -122,6 +124,60 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         }
 
         [HttpPost]
+        [Route("api/item/upload/link")]
+        public async Task<HttpResponseMessage> Link(AddLinkRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+           
+                
+                var helper = new UrlTitleBringer();
+                var title = model.Name;
+                if (string.IsNullOrEmpty(title))
+                {
+                    try
+                    {
+                        title = await helper.BringTitle(model.FileUrl);
+                    }
+                    catch (Exception ex)
+                    {
+                        TraceLog.WriteError("on bringing title of url " + model.FileUrl, ex);
+
+                    }
+                }
+                if (string.IsNullOrWhiteSpace(title))
+                {
+                    title = model.Name;
+                }
+
+                var command = new AddLinkToBoxCommand(User.GetCloudentsUserId(), model.BoxId, model.FileUrl, null, title, model.Question);
+                var result = await ZboxWriteService.AddItemToBoxAsync(command);
+                var result2 = result as AddLinkToBoxCommandResult;
+                if (result2 == null)
+                {
+                    throw new NullReferenceException("result2");
+                }
+
+                var item = new ItemDto
+                {
+                    Id = result2.Link.Id,
+                    Name = result2.Link.Name,
+                    Thumbnail = result2.Link.ThumbnailUrl,
+
+                };
+                return Request.CreateResponse(item);
+           
+           
+           
+        }
+
+        [HttpPost]
         [Route("api/item/upload/dropbox")]
         public async Task<HttpResponseMessage> DropBox(DropboxUploadRequest model)
         {
@@ -144,23 +200,16 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var blobAddressUri = Guid.NewGuid().ToString().ToLower() + extension.ToLower();
 
             var size = 0L;
-            //bool notUploaded;
+           
             try
             {
                 size = await BlobProvider.UploadFromLinkAsync(model.FileUrl, blobAddressUri);
-                //notUploaded = false;
             }
             catch (UnauthorizedAccessException)
             {
                 Request.CreateBadRequestResponse("can't access dropbox api");
-                //notUploaded = true;
             }
-            //if (notUploaded)
-            //{
-            //    await m_QueueProvider.Value.InsertMessageToDownloadAsync(
-            //        new UrlToDownloadData(fileUrl, name, boxId, tabId, userId));
-            //    return JsonOk();
-            //}
+           
             var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                model.Name, size, model.TabId, model.Question);
             var result = await ZboxWriteService.AddItemToBoxAsync(command);
@@ -207,7 +256,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var command = new AddFileToBoxCommand(User.GetCloudentsUserId(),
                 boxId, model.BlobName,
                    model.FileName,
-                    size, null, false);
+                    size, null, model.IsQuestion);
             var result = await ZboxWriteService.AddItemToBoxAsync(command);
 
             var result2 = result as AddFileToBoxCommandResult;

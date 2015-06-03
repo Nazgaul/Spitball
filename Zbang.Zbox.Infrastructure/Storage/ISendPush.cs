@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         Task SendAddReplyNotification(string userNameOfAction,
             string text,
-            string boxName, long boxId,
+            string boxName, long boxId, Guid commentId,
             IList<long> userIds);
 
         Task SendAddPostNotification(string userNameOfAction,

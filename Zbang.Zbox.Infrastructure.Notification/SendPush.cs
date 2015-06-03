@@ -96,7 +96,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
 
         public Task SendAddReplyNotification(string userNameOfAction,
             string text,
-            string boxName, long boxId,
+            string boxName, long boxId, Guid commentId,
             IList<long> userIds)
         {
             var googleMessage = new GooglePushMessage(
@@ -106,7 +106,8 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                     {"text", text},
                     {"userName", userNameOfAction},
                     {"action",((int)PushAction.PostReply).ToString(CultureInfo.InvariantCulture)},
-                    {"boxId", boxId.ToString(CultureInfo.InvariantCulture)}
+                    {"boxId", boxId.ToString(CultureInfo.InvariantCulture)},
+                    {"commentId", commentId.ToString()}
                 }, null);
 
             var applePushMessage = new ApplePushMessage();
@@ -118,6 +119,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                 };
             applePushMessage.Add("action", PushAction.PostReply);
             applePushMessage.Add("boxId", boxId);
+            applePushMessage.Add("commentId", commentId);
             return SendNotification(googleMessage, applePushMessage, userIds);
         }
 
