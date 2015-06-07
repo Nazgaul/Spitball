@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Microsoft.AspNet.Identity;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
+using Zbang.Cloudents.MobileApp2.DataObjects;
 using Zbang.Cloudents.MobileApp2.Models;
+using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
@@ -22,10 +21,11 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
     {
         public ApiServices Services { get; set; }
 
+        public IZboxWriteService ZboxWriteService { get; set; }
         public IZboxCacheReadService ZboxReadService { get; set; }
 
         // GET api/Boxes
-        [VersionedRoute("api/boxes",1)]
+        [VersionedRoute("api/boxes", 1)]
         public async Task<HttpResponseMessage> Get(int page, int sizePerPage = 15)
         {
             var userid = User.GetCloudentsUserId();
@@ -95,5 +95,28 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }));
         }
 
+
+
+        [HttpPost, Route("api/invite")]
+        public async Task<HttpResponseMessage> Invite(InviteToSystemRequest model)
+        {
+
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            var userId = User.GetCloudentsUserId();
+
+            var inviteCommand = new InviteToSystemCommand(userId, model.Recipients);
+            await ZboxWriteService.InviteSystemAsync(inviteCommand);
+
+            return Request.CreateResponse();
+
+
+        }
     }
 }

@@ -112,7 +112,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }
             var answerId = GuidGenerator.GetId();
             var command = new AddAnswerToQuestionCommand(User.GetCloudentsUserId(), boxId,
-                model.Content, answerId, feedId, null);
+                model.Content, answerId, feedId, model.FileIds);
             await ZboxWriteService.AddAnswerAsync(command);
             return Request.CreateResponse(answerId);
         }

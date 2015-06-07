@@ -300,7 +300,7 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
 
         public string GetThumbnailLinkUrl()
         {
-            throw new NotImplementedException();
+            return GetThumbnailUrl("linkv2.jpg");
         }
 
         public string GetBlobUrl(string blobName)

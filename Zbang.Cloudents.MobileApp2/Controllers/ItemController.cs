@@ -256,7 +256,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var command = new AddFileToBoxCommand(User.GetCloudentsUserId(),
                 boxId, model.BlobName,
                    model.FileName,
-                    size, null, model.IsQuestion);
+                    size, null, model.Question);
             var result = await ZboxWriteService.AddItemToBoxAsync(command);
 
             var result2 = result as AddFileToBoxCommandResult;

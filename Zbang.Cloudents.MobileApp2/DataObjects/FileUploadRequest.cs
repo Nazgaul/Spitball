@@ -15,6 +15,6 @@ namespace Zbang.Cloudents.MobileApp2.DataObjects
         [Required]
         public string Size { get; set; }
 
-        public bool IsQuestion { get; set; }
+        public bool Question { get; set; }
     }
 }
