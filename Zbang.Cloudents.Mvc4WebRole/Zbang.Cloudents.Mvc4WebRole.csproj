@@ -811,6 +811,7 @@
     <Content Include="Images\app_store_small.png" />
     <Content Include="Images\back-icon.png" />
     <Content Include="Images\back_back.png" />
+    <Content Include="Images\bg6.jpg" />
     <Content Include="Images\boxIcons.svg" />
     <Content Include="Images\common27-sprite.png" />
     <Content Include="Images\google_play.png" />

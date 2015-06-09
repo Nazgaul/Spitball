@@ -198,4 +198,19 @@ With 10 GB personal storage space your content is always backed up and secure.
   <data name="YouAsked" xml:space="preserve">
     <value>You asked, we listened</value>
   </data>
+  <data name="AccessRelevantMaterial" xml:space="preserve">
+    <value>Access relevant studying material? Practice before the final?</value>
+  </data>
+  <data name="CloudentsBrings" xml:space="preserve">
+    <value>Cloudents brings it al together. join, for &lt;b&gt;FREE&lt;/b&gt;,</value>
+  </data>
+  <data name="DoYouWantGrades" xml:space="preserve">
+    <value>Do you want to get better grades?</value>
+  </data>
+  <data name="FastestGrowing" xml:space="preserve">
+    <value>the fastest growing network on your campus now!</value>
+  </data>
+  <data name="NeedToChat" xml:space="preserve">
+    <value>Need to chat with your fellow students?</value>
+  </data>
 </root>

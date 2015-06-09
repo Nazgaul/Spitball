@@ -202,4 +202,19 @@
     <value>Вы спросили, мы слушали
 </value>
   </data>
+  <data name="AccessRelevantMaterial" xml:space="preserve">
+    <value>Имет доступ к вашему очебному материялу?</value>
+  </data>
+  <data name="CloudentsBrings" xml:space="preserve">
+    <value>Практиковатса перед экзаминам?</value>
+  </data>
+  <data name="DoYouWantGrades" xml:space="preserve">
+    <value>Вы хотите получять оценки по лучше?</value>
+  </data>
+  <data name="FastestGrowing" xml:space="preserve">
+    <value>Cloudents даёт все это. При соединяйтесь бесплатно к самой большой социальной платформе в вашем кампусе сейчяс!</value>
+  </data>
+  <data name="NeedToChat" xml:space="preserve">
+    <value>Хотите опщятса с сокурсниками?</value>
+  </data>
 </root>

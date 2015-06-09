@@ -11,7 +11,7 @@
     &:before {
         .pseudo;
         margin: 0 auto;
-        background: url(/Images/bg5.jpg?v=1) no-repeat center center;
+        background: url(/Images/bg6.jpg?v=1) no-repeat center center;
         width: 100%;
         height: 100%;
 
@@ -38,47 +38,6 @@
 {
     width: 1024px;
     margin: 0 auto;
-}
-
-.headingTexts
-{
-    width: 1024px;
-    margin: 0 auto;
-    color: #fff;
-    text-align: left;
-    clear: both;
-    position: relative;
-    top: 65px;
-
-    .facebook, .email {
-        width: 228px; /* diff rtl*/
-        /*display: inline-block;
-        .boxSizing;*/ //needed if this becomes an anchor tag instead of button
-    }
-    .facebook
-    {
-        font-size: 15px;
-        margin: 35px 0 10px;
-        min-width: 0;
-        display: block; //override       
-    }
-    h1 {
-        font-size: 45px;
-        line-height: 48px;
-        width: 620px;
-        -webkit-text-shadow: 2px 2px 2px rgba(0,0,0,.2);
-        text-shadow: 2px 2px 2px rgba(0,0,0,.2);
-        white-space: pre-wrap;
-        margin-bottom: 15px;
-        font-weight: normal;
-    }
-    h3 {
-        font-size: 15px;
-        font-weight: normal;
-        -webkit-text-shadow: 2px 2px 2px rgba(0,0,0,.2);
-        text-shadow: 2px 2px 2px rgba(0,0,0,.2);
-        letter-spacing: .4px;
-    }
 }
 
 .email
@@ -116,6 +75,16 @@
         margin-bottom: 15px;
     }
 
+      h2 {
+        font-weight: bold;
+        font-size: 26px;
+        text-transform: uppercase;
+        margin: 100px 0 20px;
+        display: block;
+        text-align: left;
+    }
+
+
     h3 {
         font-size: 15px;
         font-weight: normal;
@@ -128,15 +97,7 @@
         height: 310px;
     }
 
-    h2 {
-        font-weight: bold;
-        font-size: 26px;
-        text-transform: uppercase;
-        margin: 100px 0 20px;
-        display: block;
-        text-align: left;
-    }
-
+  
     .sectionText {
         display: block;
         text-align: left;
@@ -187,6 +148,65 @@
         }
     }
 }
+
+
+
+.headingTexts
+{
+    width: 1024px;
+    margin: 0 auto;
+    color: #fff;
+    clear: both;
+    position: relative;
+    top: 65px;
+
+    .facebook, .email {
+        width: 228px; /* diff rtl*/
+        display: inline-block;
+        margin-top:46px
+        //.boxSizing;*/ //needed if this becomes an anchor tag instead of button
+    }
+    .facebook
+    {
+        font-size: 15px;
+        min-width: 0;
+        margin-right:28px;
+    }
+    h1 {
+        font-size: 45px;
+        line-height: 48px;
+        width: auto;
+        -webkit-text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+        text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+        text-align:center;
+        margin-bottom: 12px;
+      
+    }
+    h2 {
+        font-size: 22px;
+        font-weight: 200;       
+        letter-spacing: .4px;
+        margin:auto;
+        text-align:center;
+        text-transform:none;
+        font-family:'Open Sans', sans-serif, Arial;      
+    }
+
+    h2.second {
+        margin-top:46px;
+        font-family:'Open Sans',sans-serif, Arial;
+
+    }
+
+    h3 {
+        font-size: 15px;
+        font-weight: normal;
+        -webkit-text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+        text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+        letter-spacing: .4px;
+    }
+}
+
 
 .logo {
     width: 190px;
@@ -286,13 +306,14 @@
     }
 }*/
 .nowAvailable.nowAvailable {
-  font-weight: bold;
+    font-weight:200;
    font-size: 21px; 
   text-transform: none;
-  margin-top:35px;
+  margin-top:60px;
   margin-bottom:8px;
   display: block;
-  text-align: left;
+  font-family:'Open sans' , sans-serif , Arial;
+
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -302,8 +323,9 @@
     }
 
     .android {
-        margin-left:6px
+        margin-left:22px
     }
+   
 }
 
 

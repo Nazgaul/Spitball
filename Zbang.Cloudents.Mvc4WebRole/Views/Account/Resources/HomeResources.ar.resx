@@ -196,4 +196,19 @@
     <value>هل سألت، استمعنا
 </value>
   </data>
+  <data name="AccessRelevantMaterial" xml:space="preserve">
+    <value>الوصول دراسة المواد ذات الصلة ؟</value>
+  </data>
+  <data name="CloudentsBrings" xml:space="preserve">
+    <value>بحاجة للدردشة مع زملائك الطلاب ؟</value>
+  </data>
+  <data name="DoYouWantGrades" xml:space="preserve">
+    <value>ما للحصول على أفضل الدرجات ؟</value>
+  </data>
+  <data name="FastestGrowing" xml:space="preserve">
+    <value>Cloudents يجلب كل ذلك معا . تاريخ ، مجانا، الأسرع نموا دراسة الشبكة في الحرم الجامعي الخاص بك الآن !</value>
+  </data>
+  <data name="NeedToChat" xml:space="preserve">
+    <value>ممارسة قبل الوجهة النهائية؟</value>
+  </data>
 </root>

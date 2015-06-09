@@ -17,7 +17,7 @@
   content: '';
   display: inline-block;
   margin: 0 auto;
-  background: url(/Images/bg5.jpg?v=1) no-repeat center center;
+  background: url(/Images/bg6.jpg?v=1) no-repeat center center;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -41,45 +41,6 @@
 .headerWpr {
   width: 1024px;
   margin: 0 auto;
-}
-.headingTexts {
-  width: 1024px;
-  margin: 0 auto;
-  color: #fff;
-  text-align: right;
-  clear: both;
-  position: relative;
-  top: 65px;
-}
-.headingTexts .facebook,
-.headingTexts .email {
-  width: 228px
-  /* diff rtl*/
-  /*display: inline-block;
-        .boxSizing;*/
-}
-.headingTexts .facebook {
-  font-size: 15px;
-  margin: 35px 0 10px;
-  min-width: 0;
-  display: block;
-}
-.headingTexts h1 {
-  font-size: 45px;
-  line-height: 48px;
-  width: 620px;
-  -webkit-text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
-  text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
-  white-space: pre-wrap;
-  margin-bottom: 15px;
-  font-weight: normal;
-}
-.headingTexts h3 {
-  font-size: 15px;
-  font-weight: normal;
-  -webkit-text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
-  text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
-  letter-spacing: .4px;
 }
 .email {
   color: #676767;
@@ -113,6 +74,14 @@
   white-space: pre-wrap;
   margin-bottom: 15px;
 }
+.homepage h2 {
+  font-weight: bold;
+  font-size: 26px;
+  text-transform: uppercase;
+  margin: 100px 0 20px;
+  display: block;
+  text-align: right;
+}
 .homepage h3 {
   font-size: 15px;
   font-weight: normal;
@@ -124,14 +93,6 @@
 }
 .homepage section {
   height: 310px;
-}
-.homepage h2 {
-  font-weight: bold;
-  font-size: 26px;
-  text-transform: uppercase;
-  margin: 100px 0 20px;
-  display: block;
-  text-align: right;
 }
 .homepage .sectionText {
   display: block;
@@ -183,6 +144,55 @@
 }
 .homepage .headerActions .btn:hover {
   background: #ececec;
+}
+.headingTexts {
+  width: 1024px;
+  margin: 0 auto;
+  color: #fff;
+  clear: both;
+  position: relative;
+  top: 65px;
+}
+.headingTexts .facebook,
+.headingTexts .email {
+  width: 228px;
+  /* diff rtl*/
+  display: inline-block;
+  margin-top: 46px;
+}
+.headingTexts .facebook {
+  font-size: 15px;
+  min-width: 0;
+  margin-left: 28px;
+}
+.headingTexts h1 {
+  font-size: 45px;
+  line-height: 48px;
+  width: auto;
+  -webkit-text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
+  text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin-bottom: 12px;
+}
+.headingTexts h2 {
+  font-size: 22px;
+  font-weight: 200;
+  letter-spacing: .4px;
+  margin: auto;
+  text-align: center;
+  text-transform: none;
+  font-family: 'Open Sans', sans-serif, Arial;
+}
+.headingTexts h2.second {
+  margin-top: 46px;
+  font-family: 'Open Sans', sans-serif, Arial;
+}
+.headingTexts h3 {
+  font-size: 15px;
+  font-weight: normal;
+  -webkit-text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
+  text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
+  letter-spacing: .4px;
 }
 .logo {
   width: 190px;
@@ -288,20 +298,20 @@
     }
 }*/
 .nowAvailable.nowAvailable {
-  font-weight: bold;
+  font-weight: 200;
   font-size: 21px;
   text-transform: none;
-  margin-top: 35px;
+  margin-top: 60px;
   margin-bottom: 8px;
   display: block;
-  text-align: right;
+  font-family: 'Open sans', sans-serif, Arial;
   text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 .mobileLinks a {
   display: inline-block;
 }
 .mobileLinks .android {
-  margin-right: 6px;
+  margin-right: 22px;
 }
 .language {
   background: #39434a;
