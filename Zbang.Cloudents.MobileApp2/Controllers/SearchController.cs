@@ -41,7 +41,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
             
             var query = new SearchQuery(term, User.GetCloudentsUserId(), universityId.Value, page, sizePerPage);
-            Services.Log.Info(String.Format("search boxes query: {0}", query));
+           // Services.Log.Info(String.Format("search boxes query: {0}", query));
             var retVal = await BoxSearchService.SearchBox(query, default(CancellationToken)) ?? new List<SearchBoxes>();
 
             return Request.CreateResponse(retVal.Select(s => new
@@ -64,7 +64,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateBadRequestResponse("need university");
 
             var query = new SearchQuery(term, User.GetCloudentsUserId(), universityId.Value, page, sizePerPage);
-            Services.Log.Info(String.Format("search items query: {0}", query));
+           // Services.Log.Info(String.Format("search items query: {0}", query));
             var retVal = await ItemSearchService.SearchItem(query, default(CancellationToken)) ?? new List<SearchItems>();
             return Request.CreateResponse(retVal.Select(s => new
             {
@@ -90,7 +90,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateResponse(retValWithoutSearch);
             }
             var query = new UniversitySearchQuery(term, sizePerPage, page);
-            Services.Log.Info(String.Format("search university query: {0}", query));
+           // Services.Log.Info(String.Format("search university query: {0}", query));
             var retVal = await UniversitySearch.SearchUniversity(query);
 
             return Request.CreateResponse(retVal);

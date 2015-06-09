@@ -90,6 +90,28 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             return Request.CreateResponse(retVal);
         }
 
+        [HttpPost,Route("api/account/university/create")]
+        public HttpResponseMessage CreateUniversity(CreateUniversityRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            var command = new CreateUniversityCommand(model.Name, model.Country,
+                "https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/Lib1.jpg", User.GetCloudentsUserId());
+            ZboxWriteService.CreateUniversity(command);
+            return Request.CreateResponse( new
+            {
+                command.Id,
+                image = command.LargeImage,
+                name = model.Name
+            });
+        }
+
         [HttpPost]
         [Route("api/account/university")]
         public async Task<HttpResponseMessage> UpdateUniversity(UpdateUniversityRequest model)
@@ -103,30 +125,19 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            //var retVal = await ZboxReadService.GetRussianDepartmentList(model.UniversityId);
-            //if (retVal.Count() != 0 && !model.DepartmentId.HasValue)
-            //{
-            //    return Request.CreateResponse(0);
-            //}
+          
             var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
             if (needId && string.IsNullOrEmpty(model.StudentId))
             {
                 return Request.CreateResponse(1);
-                //return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
             }
 
             var needCode = await ZboxReadService.GetUniversityNeedCode(model.UniversityId);
             if (needCode && string.IsNullOrEmpty(model.Code))
             {
                 return Request.CreateResponse(2);
-                //return RedirectToAction("InsertCode", "Library", new { universityId = model.UniversityId });
             }
-
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateBadRequestResponse();
-            }
-
+          
             var id = User.GetCloudentsUserId();
             var command = new UpdateUserUniversityCommand(model.UniversityId, id,null, model.Code, null,
                 null, model.StudentId);
@@ -142,8 +153,6 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
             var identity = new ClaimsIdentity();
             identity.AddClaim(new Claim(ClaimConsts.UserIdClaim, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
-
-
             identity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
                     command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
