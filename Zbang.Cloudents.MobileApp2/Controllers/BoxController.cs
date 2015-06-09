@@ -77,7 +77,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }
             catch (BoxNameAlreadyExistsException)
             {
-                return Request.CreateBadRequestResponse("box already exists");
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, "box already exists");
             }
         }
 
@@ -112,7 +112,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }
             catch (BoxNameAlreadyExistsException)
             {
-                return Request.CreateBadRequestResponse("box already exists");
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, "box already exists");
 
             }
         }
