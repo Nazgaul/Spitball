@@ -104,12 +104,22 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var command = new CreateUniversityCommand(model.Name, model.Country,
                 "https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/Lib1.jpg", User.GetCloudentsUserId());
             ZboxWriteService.CreateUniversity(command);
-            return Request.CreateResponse( new
-            {
-                command.Id,
-                image = command.LargeImage,
-                name = model.Name
-            });
+
+            var identity = new ClaimsIdentity();
+            identity.AddClaim(new Claim(ClaimConsts.UserIdClaim, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
+            identity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+                    command.Id.ToString(CultureInfo.InvariantCulture)));
+
+            identity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+                    command.Id.ToString(CultureInfo.InvariantCulture)));
+
+
+            var loginResult = new Models.CustomLoginProvider(Handler)
+                    .CreateLoginResult(identity, Services.Settings.MasterKey);
+
+
+            return Request.CreateResponse(HttpStatusCode.OK, loginResult);
+
         }
 
         [HttpPost]
