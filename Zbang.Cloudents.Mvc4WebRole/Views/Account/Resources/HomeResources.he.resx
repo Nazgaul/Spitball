@@ -194,19 +194,21 @@
   <data name="YouAsked" xml:space="preserve">
     <value>אתם ביקשתם אנחנו עשינו</value>
   </data>
-  <data name="AccessRelevantMaterial" xml:space="preserve">
-    <value>גישה למסמכים רלוונטים ללימודים שלך? לתרגל לקראת מבחני סוף סימסטר?</value>
+  <data name="HomePageTitle3" xml:space="preserve">
+    <value>קלאודנטס הרשת החברתית לימודית מגישה לך את הכל במקום אחד
+הצטרף לקלאודנטס</value>
   </data>
-  <data name="CloudentsBrings" xml:space="preserve">
-    <value>קלאודנטס הרשת החברתית לימודית מגישה לך את הכל במקום אחד</value>
-  </data>
-  <data name="DoYouWantGrades" xml:space="preserve">
+  <data name="HomePageTitle" xml:space="preserve">
     <value>רוצה להשיג ציונים טובים יותר?</value>
   </data>
-  <data name="FastestGrowing" xml:space="preserve">
-    <value>הצטרף לקלאודנטס עכשיו! ובחינם!</value>
+  <data name="HomePageTitle4" xml:space="preserve">
+    <value />
   </data>
-  <data name="NeedToChat" xml:space="preserve">
-    <value>לנהל שיח עם חבריך לכיתה?</value>
+  <data name="HomePageTitle2" xml:space="preserve">
+    <value>לשאול ולנהל שיח עם חבריך לכיתה?
+גישה למאגר סיכומים רלוונטי ללימודים שלך? לתרגל לקראת מבחני סוף סימסטר?</value>
+  </data>
+  <data name="HomePageTitleFree" xml:space="preserve">
+    <value>עכשיו! ובחינם!</value>
   </data>
 </root>

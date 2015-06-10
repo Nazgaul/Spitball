@@ -182,6 +182,7 @@
   text-align: center;
   text-transform: none;
   font-family: 'Open Sans', sans-serif, Arial;
+  white-space: pre-wrap;
 }
 .headingTexts h2.second {
   margin-top: 46px;

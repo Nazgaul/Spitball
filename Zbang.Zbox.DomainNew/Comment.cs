@@ -86,6 +86,8 @@ namespace Zbang.Zbox.Domain
             return NeedToRemoveComment();
         }
 
+        
+
         private bool NeedToRemoveComment()
         {
             return (Items.Count == 0 && Quizes.Count == 0)

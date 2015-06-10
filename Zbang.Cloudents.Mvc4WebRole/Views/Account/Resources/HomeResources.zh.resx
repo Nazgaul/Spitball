@@ -179,19 +179,20 @@
   <data name="SignUpNow" xml:space="preserve">
     <value>马上注册：</value>
   </data>
-  <data name="AccessRelevantMaterial" xml:space="preserve">
-    <value>查阅相关研究材料？之前的最后一练？</value>
+  <data name="HomePageTitle3" xml:space="preserve">
+    <value>Cloudents带来这一切在一起。加入，</value>
   </data>
-  <data name="CloudentsBrings" xml:space="preserve">
-    <value>Cloudents带来这一切在一起。加入，免费，</value>
-  </data>
-  <data name="DoYouWantGrades" xml:space="preserve">
+  <data name="HomePageTitle" xml:space="preserve">
     <value>怎样获得更好的成绩？</value>
   </data>
-  <data name="FastestGrowing" xml:space="preserve">
-    <value>发展最快的现就读网络上你的校园！</value>
+  <data name="HomePageTitle4" xml:space="preserve">
+    <value>，发展最快的现就读网络上你的校园！</value>
   </data>
-  <data name="NeedToChat" xml:space="preserve">
-    <value>需要聊天你的同学？</value>
+  <data name="HomePageTitle2" xml:space="preserve">
+    <value>需要聊天你的同学？
+查阅相关研究材料？之前的最后一练？</value>
+  </data>
+  <data name="HomePageTitleFree" xml:space="preserve">
+    <value>免费</value>
   </data>
 </root>

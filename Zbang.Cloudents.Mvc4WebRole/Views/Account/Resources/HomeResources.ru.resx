@@ -202,19 +202,20 @@
     <value>Вы спросили, мы слушали
 </value>
   </data>
-  <data name="AccessRelevantMaterial" xml:space="preserve">
-    <value>Имет доступ к вашему очебному материялу?</value>
+  <data name="HomePageTitle3" xml:space="preserve">
+    <value>Cloudents дает все это. Присоединяйтесь</value>
   </data>
-  <data name="CloudentsBrings" xml:space="preserve">
-    <value>Практиковатса перед экзаминам?</value>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Вы хотите получать оценки по лучше?</value>
   </data>
-  <data name="DoYouWantGrades" xml:space="preserve">
-    <value>Вы хотите получять оценки по лучше?</value>
+  <data name="HomePageTitle4" xml:space="preserve">
+    <value>к самой большой социальной платформе в вашем кампусе сейчас!</value>
   </data>
-  <data name="FastestGrowing" xml:space="preserve">
-    <value>Cloudents даёт все это. При соединяйтесь бесплатно к самой большой социальной платформе в вашем кампусе сейчяс!</value>
+  <data name="HomePageTitle2" xml:space="preserve">
+    <value>Хотите общаться с сокурсниками?
+Имеет доступ к вашему учебному материалу? Практиковаться перед экзаменам?</value>
   </data>
-  <data name="NeedToChat" xml:space="preserve">
-    <value>Хотите опщятса с сокурсниками?</value>
+  <data name="HomePageTitleFree" xml:space="preserve">
+    <value>бесплатно</value>
   </data>
 </root>
