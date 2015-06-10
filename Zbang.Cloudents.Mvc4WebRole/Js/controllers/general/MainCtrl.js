@@ -8,14 +8,14 @@
             };
 
 
-            //$scope.params = {
+            $scope.params = {
 
             //    store: {}
-            //}
+            }
 
-            //$rootScope.params = {
+            $rootScope.params = {
             //    store: {}
-            //};
+            };
 
             $rootScope.back = {};
 

@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.File
             [?=&+%\w-]*       # Consume any URL (query) remainder.",
            RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
 
-        private const string ContentFormat = "<iframe class=\"youtubeframe\" width=\"{0}\" height=\"{1}\" src=\"//www.youtube.com/embed/{2}\" frameborder=\"0\" allowfullscreen></iframe>";
+        private const string ContentFormat = "<iframe class=\"youtubeframe\" width=\"{0}\" height=\"{1}\" src=\"https://www.youtube.com/embed/{2}\" frameborder=\"0\" allowfullscreen></iframe>";
 
         public Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobName, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {

@@ -16,8 +16,8 @@ namespace Zbang.Zbox.Infrastructure.File
             ioc.RegisterType<IContentProcessor, PdfProcessor>();
             ioc.RegisterType<IContentProcessor, PowerPoint2007Processor>();
             ioc.RegisterType<IContentProcessor, TiffProcessor>();
-            ioc.RegisterType<IContentProcessor, YoutubeProcessor>();
             ioc.RegisterType<IContentProcessor, LinkProcessor>();
+            ioc.RegisterType<IContentProcessor, YoutubeProcessor>();
             ioc.RegisterType<IContentProcessor, VideoProcessor>();
             ioc.RegisterType<IContentProcessor, TextProcessor>();
             ioc.RegisterType<IContentProcessor, AudioProcessor>();
