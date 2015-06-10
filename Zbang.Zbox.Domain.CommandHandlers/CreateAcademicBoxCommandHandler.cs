@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IAcademicBoxRepository m_AcademicRepository;
         private readonly IRepository<Library> m_DepartmentRepository;
         private readonly IUniversityRepository m_UniversityRepository;
-        private readonly IGuidIdGenerator m_GuidGenerator;
+        
 
         public CreateAcademicBoxCommandHandler(
             IBoxRepository boxRepository,
@@ -22,12 +22,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IAcademicBoxRepository academicRepository,
             IRepository<Library> departmentRepository,
             IUniversityRepository universityRepository, IGuidIdGenerator guidGenerator)
-            : base(boxRepository, userRepository, userBoxRelRepository)
+            : base(boxRepository, userRepository, userBoxRelRepository, guidGenerator)
         {
             m_AcademicRepository = academicRepository;
             m_DepartmentRepository = departmentRepository;
             m_UniversityRepository = universityRepository;
-            m_GuidGenerator = guidGenerator;
+           
         }
         public override CreateBoxCommandResult Execute(CreateBoxCommand command)
         {

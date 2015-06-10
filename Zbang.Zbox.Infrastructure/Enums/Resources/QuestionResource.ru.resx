@@ -123,4 +123,7 @@
   <data name="NewCourse" xml:space="preserve">
     <value>Создал этот курс</value>
   </data>
+  <data name="NewGroup" xml:space="preserve">
+    <value>Создал эту группу</value>
+  </data>
 </root>

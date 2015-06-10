@@ -39,9 +39,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Dapper, Version=1.30.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Dapper.1.30\lib\net45\Dapper.dll</HintPath>
+      <HintPath>..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>

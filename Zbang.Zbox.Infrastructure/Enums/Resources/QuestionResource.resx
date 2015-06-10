@@ -123,4 +123,7 @@
   <data name="NewCourse" xml:space="preserve">
     <value>Created this class</value>
   </data>
+  <data name="NewGroup" xml:space="preserve">
+    <value>Created this group</value>
+  </data>
 </root>

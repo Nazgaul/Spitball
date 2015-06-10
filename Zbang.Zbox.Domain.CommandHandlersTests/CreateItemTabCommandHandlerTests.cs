@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             long someUserId = 1, someBoxId = 1;
             var command = new CreateItemTabCommand(guid, "test", someUserId, someBoxId);
             var theUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false, "en-US", false);
-            var theBox = new Box("some name", theUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
+            var theBox = new Box("some name", theUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid());
 
             m_UserRepository.Stub(x => x.GetUserToBoxRelationShipType(someUserId, someBoxId)).Return(Infrastructure.Enums.UserRelationshipType.Owner);
             m_StubBoxRepository.Stub(x => x.Get(someBoxId)).Return(theBox);
@@ -82,7 +82,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             long boxId = 1, userId = 1;
             var duplicateTabName = "Some name";
             var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false, "en-US", false);
-            var someBox = new Box("some name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
+            var someBox = new Box("some name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid());
             someBox.GetType().GetProperty("Id").SetValue(someBox, boxId);
 
             var boxTab = new ItemTab(Guid.NewGuid(), duplicateTabName, someBox);
@@ -106,7 +106,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             long boxId = 1;
             var duplicateTabName = string.Empty;
             var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false, "en-US", false);
-            var someBox = new Box("some name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
+            var someBox = new Box("some name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid());
 
 
             m_StubBoxRepository.Stub(x => x.Get(boxId)).Return(someBox);

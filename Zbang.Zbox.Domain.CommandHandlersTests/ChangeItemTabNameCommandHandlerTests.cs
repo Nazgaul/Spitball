@@ -67,8 +67,8 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var tabId = Guid.NewGuid();
             long someUserId = 2L, someBoxId = 3L;
             var someName = "some name";
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false, "en-US", false); 
-            var someBox = new Box("some box name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false, "en-US", false);
+            var someBox = new Box("some box name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid());
             someUser.GetType().GetProperty("Id").SetValue(someUser, someUserId);
             someBox.GetType().GetProperty("Id").SetValue(someBox, someBoxId);
 
@@ -94,7 +94,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var someBoxId = 1L;
             var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", true, false, "en-US", false); 
             var someCommand = new ChangeItemTabNameCommand(tabId, "some name", 1L,someBoxId);
-            var someBox = new Box("some box name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
+            var someBox = new Box("some box name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid());
 
             var someTab = new ItemTab(tabId, "some name", someBox);
 

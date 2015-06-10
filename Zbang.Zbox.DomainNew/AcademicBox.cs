@@ -1,8 +1,6 @@
 ﻿using System;
 using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.IdGenerator;
 
 namespace Zbang.Zbox.Domain
 {
@@ -17,13 +15,7 @@ namespace Zbang.Zbox.Domain
             if (creator == null) throw new ArgumentNullException("creator");
             CourseCode = courseCode;
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
-
             Professor = professor;
-            // Picture = picture;
-            UserTime.CreatedUser = creator.Email;
-           
-
-
             Comments.Add(new Comment(creator, null,
                 this, newCommentId, null, FeedType.CreatedCourse));
             CommentCount = 1;

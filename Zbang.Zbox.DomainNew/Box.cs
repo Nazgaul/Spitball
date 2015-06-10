@@ -23,7 +23,15 @@ namespace Zbang.Zbox.Domain
             ShouldMakeDirty = () => true;
         }
 
-        public Box(string boxName, User user, BoxPrivacySettings privacySettings)
+        public Box(string boxName, User user, BoxPrivacySettings privacySettings, Guid newCommentId)
+            : this(boxName, user, privacySettings)
+        {
+            Comments.Add(new Comment(user, null,
+               this, newCommentId, null, FeedType.CreatedBox));
+            CommentCount = 1;
+        }
+
+        protected Box(string boxName, User user, BoxPrivacySettings privacySettings)
             : this()
         {
             if (boxName == null)

@@ -29,7 +29,7 @@ namespace Zbang.Zbox.DomainTests
         {
             long someBoxId = 1;
             var someOtherUser = new User("some email2", " some small image2", "some largeImage2", "some first name2", "some middle name2", "some last nam2e", true, false, "en-US", false);
-            var someBox = new Box("some box", someOtherUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
+            var someBox = new Box("some box", someOtherUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid());
             someBox.GetType().GetProperty("Id").SetValue(someBox, someBoxId);
 
             var someUserBoxRel = new UserBoxRel(m_SomeUser, someBox, Infrastructure.Enums.UserRelationshipType.Invite);

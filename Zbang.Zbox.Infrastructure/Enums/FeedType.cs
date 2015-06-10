@@ -10,6 +10,8 @@ namespace Zbang.Zbox.Infrastructure.Enums
         [EnumDescription(typeof(QuestionResource), "NewCourse")]
         CreatedCourse = 1,
         [EnumDescription(typeof(QuestionResource), "AddedFiles")]
-        AddedItems = 2
+        AddedItems = 2,
+        [EnumDescription(typeof(QuestionResource), "NewGroup")]
+        CreatedBox = 3
     }
 }

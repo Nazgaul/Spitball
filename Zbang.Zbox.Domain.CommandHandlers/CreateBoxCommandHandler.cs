@@ -2,6 +2,7 @@
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
 using System;
 
@@ -11,14 +12,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         protected readonly IUserRepository UserRepository;
         protected readonly IRepository<UserBoxRel> UserBoxRelRepository;
+        protected readonly IGuidIdGenerator m_GuidGenerator;
         private readonly IBoxRepository m_BoxRepository;
 
         public CreateBoxCommandHandler(IBoxRepository boxRepository,
-            IUserRepository userRepository, IRepository<UserBoxRel> userBoxRel)
+            IUserRepository userRepository, IRepository<UserBoxRel> userBoxRel, IGuidIdGenerator guidGenerator)
         {
             m_BoxRepository = boxRepository;
             UserRepository = userRepository;
             UserBoxRelRepository = userBoxRel;
+            m_GuidGenerator = guidGenerator;
         }
 
         public virtual CreateBoxCommandResult Execute(CreateBoxCommand command)
@@ -42,7 +45,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private Box CreateNewBox(CreateBoxCommand command, User user)
         {
-            var box = new Box(command.BoxName, user, Infrastructure.Enums.BoxPrivacySettings.MembersOnly);
+            var box = new Box(command.BoxName, user, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, m_GuidGenerator.GetId());
 
             SaveRepositories(user, box);
             box.GenerateUrl();
