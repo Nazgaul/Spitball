@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Domain
         }
 
         public User(string email, string smallImage, string largeImage,
-            string firstName, string middleName, string lastName, bool sex, bool marketEmail, string culture
+            string firstName, string middleName, string lastName, bool sex, string culture
             , bool isMobile)
             : this()
         {
@@ -55,7 +55,7 @@ namespace Zbang.Zbox.Domain
 
             CreateName();
             Sex = sex;
-            MarketEmail = marketEmail;
+           
             UpdateLanguage(culture);
             AddReputation(ReputationAction.Register);
             UserTime.CreatedUser += isMobile ? "_mobile" : string.Empty;
@@ -127,7 +127,7 @@ namespace Zbang.Zbox.Domain
         public virtual string GroupNumber { get; set; }
         public virtual string RegisterNumber { get; set; }
 
-        public virtual bool MarketEmail { get; set; }
+        
 
         public virtual MobileOperatingSystem MobileDevice { get; set; }
         public virtual PushNotificationSettings PushNotificationSetting { get; set; }

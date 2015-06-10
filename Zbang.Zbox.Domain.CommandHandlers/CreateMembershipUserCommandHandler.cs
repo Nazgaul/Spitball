@@ -46,7 +46,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     null, null,
                     command.FirstName,
                     null,
-                    command.LastName, command.Sex, command.MarketEmail, command.Culture, command.IsMobile);
+                    command.LastName, command.Sex, command.Culture, command.IsMobile);
                 UserRepository.Save(user, true);
                 user.GenerateUrl();
             }

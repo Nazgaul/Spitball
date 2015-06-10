@@ -33,11 +33,7 @@ namespace Zbang.Cloudents.Mobile.Models.Account
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "GenderRequired")]
         public bool? IsMale { get; set; }
 
-        [Required]
-        [Display(Name="מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית")]
-        public bool MarketEmail { get; set; }
-
-
+       
         public long UniversityId { get; set; }
 
 
@@ -48,7 +44,7 @@ namespace Zbang.Cloudents.Mobile.Models.Account
             sb.AppendLine("LastName " + LastName);
             sb.AppendLine("NewEmail " + NewEmail);
             sb.AppendLine("IsMale " + IsMale);
-            sb.AppendLine("MarketEmail " + MarketEmail);
+            
             return sb.ToString();
         }
     }

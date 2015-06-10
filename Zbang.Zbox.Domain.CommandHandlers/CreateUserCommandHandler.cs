@@ -75,12 +75,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         protected User CreateUser(string email, string image, string largeImage,
             string firstName, string middleName, string lastName,
-            bool sex, bool marketEmail, string culture,bool isMobile)
+            bool sex,  string culture,bool isMobile)
         {
             return new User(email, image, largeImage,
                    firstName,
                    middleName,
-                   lastName, sex, this.marketEmail(marketEmail), culture, isMobile);
+                   lastName, sex, culture, isMobile);
         }
 
         protected bool IsUserRegistered(User user)
@@ -96,7 +96,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             user.LastName = command.LastName;
             user.CreateName();
             user.Sex = command.Sex;
-            user.MarketEmail = marketEmail(command.MarketEmail);
+           
 
             user.Quota.AllocateStorage();
             return TriggerWelcomeMail(user);

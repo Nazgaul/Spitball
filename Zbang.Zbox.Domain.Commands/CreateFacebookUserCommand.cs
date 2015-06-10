@@ -7,9 +7,9 @@ namespace Zbang.Zbox.Domain.Commands
         const string ResolveName = "Facebook";
 
         public CreateFacebookUserCommand(long facebookId, string email, string userImage,
-            string largeUserImage, long? universityId, string firstName, string middleName, string lastName, bool sex, bool marketEmail, string culture,
+            string largeUserImage, long? universityId, string firstName, string middleName, string lastName, bool sex,  string culture,
             Guid? inviteId, long? boxId,bool isMobile)
-            : base(email, universityId, firstName, lastName, sex, marketEmail, culture, inviteId, boxId, isMobile)
+            : base(email, universityId, firstName, lastName, sex,  culture, inviteId, boxId, isMobile)
         {
             FacebookUserId = facebookId;
             UserImage = userImage;

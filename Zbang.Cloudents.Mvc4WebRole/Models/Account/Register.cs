@@ -39,9 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "GenderRequired")]
         public bool? IsMale { get; set; }
 
-        [Required]
-        [Display(Name="מאשר קבלת תוכן שיווקי מהתאחדות הסטודנטים הארצית")]
-        public bool MarketEmail { get; set; }
+       
 
         //public UserLanguage Language { get; set; }
 
@@ -59,8 +57,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
             sb.AppendLine("LastName " + LastName);
             sb.AppendLine("NewEmail " + NewEmail);
             sb.AppendLine("IsMale " + IsMale);
-            sb.AppendLine("MarketEmail " + MarketEmail);
-            //sb.AppendLine("Language " + Language.Language);
+           
             return sb.ToString();
         }
     }

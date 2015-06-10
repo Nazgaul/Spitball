@@ -113,7 +113,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                         facebookUserData.middle_name,
                         facebookUserData.last_name,
                         facebookUserData.GetGender(),
-                        false, facebookUserData.locale, invId, null, true);
+                        facebookUserData.locale, invId, null, true);
                     var commandResult = await ZboxWriteService.CreateUserAsync(command);
                     user = new LogInUserDto
                     {
@@ -251,7 +251,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     CreateUserCommand command = new CreateMembershipUserCommand(Guid.Parse(user.Id),
                         model.NewEmail, model.UniversityId, model.FirstName, model.LastName,
                         !model.IsMale.HasValue || model.IsMale.Value,
-                        model.MarketEmail, CultureInfo.CurrentCulture.Name, invId, null, true);
+                        CultureInfo.CurrentCulture.Name, invId, null, true);
                     var result = await ZboxWriteService.CreateUserAsync(command);
                     SiteExtension.UserLanguage.InsertCookie(result.User.Culture, HttpContext);
 

@@ -44,8 +44,7 @@
         <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.ChineseName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture">@Languages.ChineseName</option>
     </select>
 
-    @Html.CheckBoxFor(model => model.MarketEmail, new { id = "MarketEmail", @class = "checkbox" })
-    @Html.LabelFor(model => model.MarketEmail, new { @class = "cbLabel" })
+  
 
     <div class="formBottom">
         <span class="acceptTerms">

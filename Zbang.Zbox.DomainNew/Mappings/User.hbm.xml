@@ -35,7 +35,7 @@
     <property name="ImageLarge" column="UserImageLarge" not-null="false"/>
     <property name="Code" column="UserCode"/>
     <property name="Reputation" column="UserReputation"/>
-    <property name="MarketEmail" />
+   
     <component name="FirstTime" class="UserFirstTime">
       <property name="Dashboard" not-null="true">
         <column name="FirstTimeDashboard" default="1"/>

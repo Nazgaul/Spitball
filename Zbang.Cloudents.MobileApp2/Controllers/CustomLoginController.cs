@@ -107,7 +107,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     facebookUserData.middle_name,
                     facebookUserData.last_name,
                     facebookUserData.GetGender(),
-                    false, facebookUserData.locale, null, null, true);
+                    facebookUserData.locale, null, null, true);
                 var commandResult = await ZboxWriteService.CreateUserAsync(command);
                 user = new LogInUserDto
                 {
