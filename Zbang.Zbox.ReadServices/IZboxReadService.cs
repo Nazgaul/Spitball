@@ -116,14 +116,14 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<DiscussionDto>> GetDiscussion(GetDisscussionQuery query);
         Task<int> GetNumberOfSolvers(long quizId);
 
-        Task<IEnumerable<ProductDto>> GetProducts(GetStoreProductsByCategoryQuery query);
-        IEnumerable<CategoryDto> GetCategories();
-        Task<ProductWithDetailDto> GetProduct(GetStoreProductQuery query);
-        Task<ProductCheckOutDto> GetProductCheckOut(GetStoreProductQuery query);
-        Task<IEnumerable<ProductDto>> SearchProducts(SearchProductQuery query);
-        Task<IEnumerable<BannerDto>> GetBanners(int? universityId);
-        Task<bool> ValidateCoupon(int coupon);
-        Task<int?> CloudentsUniversityToStoreUniversity(long universityId);
+        //Task<IEnumerable<ProductDto>> GetProducts(GetStoreProductsByCategoryQuery query);
+        //IEnumerable<CategoryDto> GetCategories();
+        //Task<ProductWithDetailDto> GetProduct(GetStoreProductQuery query);
+        //Task<ProductCheckOutDto> GetProductCheckOut(GetStoreProductQuery query);
+        //Task<IEnumerable<ProductDto>> SearchProducts(SearchProductQuery query);
+        //Task<IEnumerable<BannerDto>> GetBanners(int? universityId);
+        //Task<bool> ValidateCoupon(int coupon);
+        //Task<int?> CloudentsUniversityToStoreUniversity(long universityId);
 
 
         Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(RecommendedCoursesQuery query);

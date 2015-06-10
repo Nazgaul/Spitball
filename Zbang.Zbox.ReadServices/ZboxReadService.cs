@@ -950,85 +950,85 @@ namespace Zbang.Zbox.ReadServices
         #endregion
 
 
-        #region Store
+        //#region Store
 
-        public async Task<IEnumerable<ProductDto>> GetProducts(GetStoreProductsByCategoryQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                var sql = query.CategoryId.HasValue ? Sql.Store.GetProductsWithCategory : Sql.Store.GetProducts;
-                sql = query.ProducerId.HasValue ? Sql.Store.GetProductsBySupplier : sql;
-                return await conn.QueryAsync<ProductDto>(sql, new { CatId = query.CategoryId, query.UniversityId, producerId = query.ProducerId });
-            }
-        }
-        public async Task<IEnumerable<ProductDto>> SearchProducts(SearchProductQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<ProductDto>(Sql.Store.SearchProduct, new { term = query.Term, universityId = query.UniversityId });
-            }
-        }
-        public IEnumerable<CategoryDto> GetCategories()
-        {
-            using (var conn = DapperConnection.OpenConnection())
-            {
-                return conn.Query<CategoryDto>(Sql.Store.GetCategories);
-            }
-        }
-        public async Task<ProductWithDetailDto> GetProduct(GetStoreProductQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                var retVal = await conn.QueryAsync<ProductWithDetailDto>(Sql.Store.GetProduct, new { ProdId = query.ProductId });
-                return retVal.FirstOrDefault();
-            }
-        }
+        //public async Task<IEnumerable<ProductDto>> GetProducts(GetStoreProductsByCategoryQuery query)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        var sql = query.CategoryId.HasValue ? Sql.Store.GetProductsWithCategory : Sql.Store.GetProducts;
+        //        sql = query.ProducerId.HasValue ? Sql.Store.GetProductsBySupplier : sql;
+        //        return await conn.QueryAsync<ProductDto>(sql, new { CatId = query.CategoryId, query.UniversityId, producerId = query.ProducerId });
+        //    }
+        //}
+        //public async Task<IEnumerable<ProductDto>> SearchProducts(SearchProductQuery query)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        return await conn.QueryAsync<ProductDto>(Sql.Store.SearchProduct, new { term = query.Term, universityId = query.UniversityId });
+        //    }
+        //}
+        //public IEnumerable<CategoryDto> GetCategories()
+        //{
+        //    using (var conn = DapperConnection.OpenConnection())
+        //    {
+        //        return conn.Query<CategoryDto>(Sql.Store.GetCategories);
+        //    }
+        //}
+        //public async Task<ProductWithDetailDto> GetProduct(GetStoreProductQuery query)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        var retVal = await conn.QueryAsync<ProductWithDetailDto>(Sql.Store.GetProduct, new { ProdId = query.ProductId });
+        //        return retVal.FirstOrDefault();
+        //    }
+        //}
 
-        public async Task<ProductCheckOutDto> GetProductCheckOut(GetStoreProductQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                using (var grid = await conn.QueryMultipleAsync(Sql.Store.GetProductCheckOut + Sql.Store.GetProductFeatures,
-                    new { ProdId = query.ProductId }))
-                {
-                    var product = grid.Read<ProductCheckOutDto>().FirstOrDefault();
-                    if (product != null) product.Features = grid.Read<ProductFeatures>();
-                    return product;
-                }
-            }
-        }
+        //public async Task<ProductCheckOutDto> GetProductCheckOut(GetStoreProductQuery query)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        using (var grid = await conn.QueryMultipleAsync(Sql.Store.GetProductCheckOut + Sql.Store.GetProductFeatures,
+        //            new { ProdId = query.ProductId }))
+        //        {
+        //            var product = grid.Read<ProductCheckOutDto>().FirstOrDefault();
+        //            if (product != null) product.Features = grid.Read<ProductFeatures>();
+        //            return product;
+        //        }
+        //    }
+        //}
 
-        public async Task<IEnumerable<BannerDto>> GetBanners(int? universityId)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<BannerDto>(Sql.Store.GetBanners, new { universityId });
-            }
-        }
+        //public async Task<IEnumerable<BannerDto>> GetBanners(int? universityId)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        return await conn.QueryAsync<BannerDto>(Sql.Store.GetBanners, new { universityId });
+        //    }
+        //}
 
-        public async Task<bool> ValidateCoupon(int coupon)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                var retVal = await conn.QueryAsync<int>(Sql.Store.ValidateCouponCode, new { Coupun = coupon });
-                return retVal.FirstOrDefault() > 0;
-            }
-        }
+        //public async Task<bool> ValidateCoupon(int coupon)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        var retVal = await conn.QueryAsync<int>(Sql.Store.ValidateCouponCode, new { Coupun = coupon });
+        //        return retVal.FirstOrDefault() > 0;
+        //    }
+        //}
 
-        public async Task<int?> CloudentsUniversityToStoreUniversity(long universityId)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                var retVal = await conn.QueryAsync<int>(Sql.Store.MapCloudentsUniversityToStoreUniversity, new { UniversityId = universityId });
-                var enumerable = retVal as IList<int> ?? retVal.ToList();
-                if (!enumerable.Any())
-                {
-                    return null;
-                }
-                return enumerable.FirstOrDefault();
-            }
-        }
-        #endregion
+        //public async Task<int?> CloudentsUniversityToStoreUniversity(long universityId)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        var retVal = await conn.QueryAsync<int>(Sql.Store.MapCloudentsUniversityToStoreUniversity, new { UniversityId = universityId });
+        //        var enumerable = retVal as IList<int> ?? retVal.ToList();
+        //        if (!enumerable.Any())
+        //        {
+        //            return null;
+        //        }
+        //        return enumerable.FirstOrDefault();
+        //    }
+        //}
+        //#endregion
 
 
 

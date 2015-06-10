@@ -59,9 +59,9 @@ app.factory('sModal',
                 quizChallenge: function (params) {
                     return buildObj('quizPopup', { url: '/quiz/challengepartial/' }, 'ChallengeCtrl', 'static', true, params.data);
                 },
-                coupon: function (params) {
-                    return buildObj('couponPopup', { url: '/store/couponpartial/' }, 'CouponCtrl', 'none', true, params.data);
-                },
+                //coupon: function (params) {
+                //    return buildObj('couponPopup', { url: '/store/couponpartial/' }, 'CouponCtrl', 'none', true, params.data);
+                //},
                 leavePrompt: function (params) {
                     return buildObj('leavePrompt', { url: '/box/leavepromptpartial/' }, 'LeavePromptCtrl', 'static', true, params.data);
                 }

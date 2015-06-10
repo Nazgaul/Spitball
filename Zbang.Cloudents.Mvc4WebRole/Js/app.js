@@ -293,90 +293,90 @@
            //#endregion
            $routeProvider.
 
-           //#region store
-                when('/store/', {
-                    templateUrl: function (params) {
-                        var url = '/store/indexpartial/';
-                        return buildQueryString(url, params);
-                    },
-                    controller: 'CategoryCtrl',
-                    reloadOnSearch: false,
-                    params: {
-                        type: 'home'
-                    }
-                }).
-               when('/store/category/:categoryId/', {
-                   templateUrl: function (params) {
-                       var url = '/store/indexpartial/';
-                       return buildQueryString(url, params);
-                   },
-                   controller: 'CategoryCtrl',
-                   params: {
-                       type: 'products'
-                   }
-               }).
-               when('/store/product/:productId/:productName/', {
-                   templateUrl: function (params) {
-                       var url = '/store/productpartial/';
-                       return buildQueryString(url, params);
-                   },
-                   controller: 'ProductCtrl',
-                   params: {
-                       type: 'product'
-                   }
-               }).
-               when('/store/about/', {
-                   templateUrl: function (params) {
-                       var url = '/store/aboutpartial/';
-                       return buildQueryString(url, params);
+           ////#region store
+           //     when('/store/', {
+           //         templateUrl: function (params) {
+           //             var url = '/store/indexpartial/';
+           //             return buildQueryString(url, params);
+           //         },
+           //         controller: 'CategoryCtrl',
+           //         reloadOnSearch: false,
+           //         params: {
+           //             type: 'home'
+           //         }
+           //     }).
+           //    when('/store/category/:categoryId/', {
+           //        templateUrl: function (params) {
+           //            var url = '/store/indexpartial/';
+           //            return buildQueryString(url, params);
+           //        },
+           //        controller: 'CategoryCtrl',
+           //        params: {
+           //            type: 'products'
+           //        }
+           //    }).
+           //    when('/store/product/:productId/:productName/', {
+           //        templateUrl: function (params) {
+           //            var url = '/store/productpartial/';
+           //            return buildQueryString(url, params);
+           //        },
+           //        controller: 'ProductCtrl',
+           //        params: {
+           //            type: 'product'
+           //        }
+           //    }).
+           //    when('/store/about/', {
+           //        templateUrl: function (params) {
+           //            var url = '/store/aboutpartial/';
+           //            return buildQueryString(url, params);
 
-                   },
-                   controller: 'ViewCtrl',
-                   params: {
-                       type: 'about'
-                   }
-               }).
-               when('/store/contact/', {
-                   templateUrl: function (params) {
-                       var url = '/store/contactpartial/';
-                       return buildQueryString(url, params);
+           //        },
+           //        controller: 'ViewCtrl',
+           //        params: {
+           //            type: 'about'
+           //        }
+           //    }).
+           //    when('/store/contact/', {
+           //        templateUrl: function (params) {
+           //            var url = '/store/contactpartial/';
+           //            return buildQueryString(url, params);
 
-                   },
-                   controller: 'ContactCtrl',
-                   params: {
-                       type: 'contact'
-                   }
-               }).
-               when('/store/checkout/:productId/', {
-                   templateUrl: function (params) {
-                       var url = '/store/checkoutpartial/';
-                       return buildQueryString(url, params);
-                   },
+           //        },
+           //        controller: 'ContactCtrl',
+           //        params: {
+           //            type: 'contact'
+           //        }
+           //    }).
+           //    when('/store/checkout/:productId/', {
+           //        templateUrl: function (params) {
+           //            var url = '/store/checkoutpartial/';
+           //            return buildQueryString(url, params);
+           //        },
 
-                   controller: 'CheckoutCtrl',
-                   params: {
-                       type: 'checkout'
-                   }
-               }).
-               when('/store/terms/', {
-                   templateUrl: function (params) {
-                       var url = '/store/termspartial/';
-                       return buildQueryString(url, params);
+           //        controller: 'CheckoutCtrl',
+           //        params: {
+           //            type: 'checkout'
+           //        }
+           //    }).
+           //    when('/store/terms/', {
+           //        templateUrl: function (params) {
+           //            var url = '/store/termspartial/';
+           //            return buildQueryString(url, params);
 
-                   },
-                   controller: 'ViewCtrl',
-                   params: {
-                       type: 'terms'
-                   }
-               }).
-               when('/store/thankyou/', {
-                   templateUrl: '/store/thankyoupartial/',
-                   controller: 'ViewCtrl',
-                   params: {
-                       type: 'thankyou'
-                   }
-               }).
-             //#endregion
+           //        },
+           //        controller: 'ViewCtrl',
+           //        params: {
+           //            type: 'terms'
+           //        }
+           //    }).
+           //    when('/store/thankyou/', {
+           //        templateUrl: '/store/thankyoupartial/',
+           //        controller: 'ViewCtrl',
+           //        params: {
+           //            type: 'thankyou'
+           //        }
+           //    }).
+           //  //#endregion
            otherwise({ redirectTo: '/dashboard/' });
 
 

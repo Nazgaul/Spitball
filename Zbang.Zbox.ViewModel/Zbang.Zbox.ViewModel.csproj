@@ -190,7 +190,6 @@
     <Compile Include="Queries\GetUserFriendsQuery.cs" />
     <Compile Include="Queries\Boxes\GetBoxesQuery.cs" />
     <Compile Include="Queries\RecommendedCoursesQuery.cs" />
-    <Compile Include="Queries\SearchProductQuery.cs" />
     <Compile Include="Queries\Search\SearchQuery.cs" />
     <Compile Include="Queries\Search\UniversitySearchQuery.cs" />
     <Compile Include="Queries\User\GetDashboardQuery.cs" />
@@ -201,7 +200,6 @@
     <Compile Include="SqlQueries\Item.cs" />
     <Compile Include="SqlQueries\Library.cs" />
     <Compile Include="SqlQueries\LibraryChoose.cs" />
-    <Compile Include="SqlQueries\Store.cs" />
     <Compile Include="SqlQueries\Quiz.cs" />
     <Compile Include="SqlQueries\Search.cs" />
     <Compile Include="SqlQueries\Security.cs" />

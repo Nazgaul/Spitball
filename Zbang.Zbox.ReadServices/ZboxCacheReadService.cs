@@ -290,50 +290,50 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<ProductDto>> GetProducts(GetStoreProductsByCategoryQuery query)
-        {
-            return m_ReadService.GetProducts(query);
-        }
+        //public Task<IEnumerable<ProductDto>> GetProducts(GetStoreProductsByCategoryQuery query)
+        //{
+        //    return m_ReadService.GetProducts(query);
+        //}
 
 
-        public IEnumerable<CategoryDto> GetCategories()
-        {
-            return m_ReadService.GetCategories();
-        }
+        //public IEnumerable<CategoryDto> GetCategories()
+        //{
+        //    return m_ReadService.GetCategories();
+        //}
 
 
-        public Task<ProductWithDetailDto> GetProduct(GetStoreProductQuery query)
-        {
-            return m_ReadService.GetProduct(query);
-        }
-        public Task<ProductCheckOutDto> GetProductCheckOut(GetStoreProductQuery query)
-        {
-            return m_ReadService.GetProductCheckOut(query);
-        }
+        //public Task<ProductWithDetailDto> GetProduct(GetStoreProductQuery query)
+        //{
+        //    return m_ReadService.GetProduct(query);
+        //}
+        //public Task<ProductCheckOutDto> GetProductCheckOut(GetStoreProductQuery query)
+        //{
+        //    return m_ReadService.GetProductCheckOut(query);
+        //}
 
 
-        public Task<IEnumerable<ProductDto>> SearchProducts(SearchProductQuery query)
-        {
-            return m_ReadService.SearchProducts(query);
-        }
+        //public Task<IEnumerable<ProductDto>> SearchProducts(SearchProductQuery query)
+        //{
+        //    return m_ReadService.SearchProducts(query);
+        //}
 
 
-        public Task<IEnumerable<BannerDto>> GetBanners(int? universityId)
-        {
-            return m_ReadService.GetBanners(universityId);
-        }
+        //public Task<IEnumerable<BannerDto>> GetBanners(int? universityId)
+        //{
+        //    return m_ReadService.GetBanners(universityId);
+        //}
 
 
-        public Task<bool> ValidateCoupon(int coupon)
-        {
-            return m_ReadService.ValidateCoupon(coupon);
-        }
+        //public Task<bool> ValidateCoupon(int coupon)
+        //{
+        //    return m_ReadService.ValidateCoupon(coupon);
+        //}
 
 
-        public Task<int?> CloudentsUniversityToStoreUniversity(long universityId)
-        {
-            return m_ReadService.CloudentsUniversityToStoreUniversity(universityId);
-        }
+        //public Task<int?> CloudentsUniversityToStoreUniversity(long universityId)
+        //{
+        //    return m_ReadService.CloudentsUniversityToStoreUniversity(universityId);
+        //}
 
         public Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(RecommendedCoursesQuery query)
         {

@@ -1,6 +1,6 @@
 ﻿app.controller('MainCtrl',
-    ['$scope', '$rootScope', '$location', '$modal', '$angularCacheFactory', 'sUser', 'sFacebook', 'sUserDetails', 'Store', '$analytics', '$timeout','sNotify','sLogin','sFocus',
-        function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails, sStore, $analytics, $timeout, sNotify, sLogin, sFocus) {
+    ['$scope', '$rootScope', '$location', '$modal', '$angularCacheFactory', 'sUser', 'sFacebook', 'sUserDetails', '$analytics', '$timeout','sNotify','sLogin','sFocus',
+        function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails,  $analytics, $timeout, sNotify, sLogin, sFocus) {
             "use strict";
 
             $rootScope.options = {
@@ -8,14 +8,14 @@
             };
 
 
-            $scope.params = {
+            //$scope.params = {
 
-                store: {}
-            }
+            //    store: {}
+            //}
 
-            $rootScope.params = {
-                store: {}
-            };
+            //$rootScope.params = {
+            //    store: {}
+            //};
 
             $rootScope.back = {};
 
@@ -68,7 +68,7 @@
                 
                 try {
                     $rootScope.currentRoute = current.$$route.params.type + 'Page';
-                    $rootScope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;
+                    //$rootScope.params.isStore = current.$$route.originalPath.indexOf('store') > -1;
                     //$rootScope.params.isDashboard = current.$$route.originalPath.indexOf('dashboard') > -1;
                     $rootScope.params.isQuiz = current.$$route.originalPath.indexOf('quiz') > -1 || current.$$route.originalPath.indexOf('item') > -1;                    
                 }
@@ -76,16 +76,16 @@
                 }
             });
 
-            $rootScope.isStore = function () {
-                if (!$rootScope.params) {
-                    return false;
-                }
-                if (!angular.isDefined($rootScope.params.isStore)) {
-                    return false;
-                }
+            //$rootScope.isStore = function () {
+            //    if (!$rootScope.params) {
+            //        return false;
+            //    }
+            //    if (!angular.isDefined($rootScope.params.isStore)) {
+            //        return false;
+            //    }
 
-                return $rootScope.params.isStore;
-            }
+            //    return $rootScope.params.isStore;
+            //}
    
             $rootScope.isQuiz = function () {
                 if (!$rootScope.params) {

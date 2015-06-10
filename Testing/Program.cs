@@ -10,8 +10,7 @@ using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Mail.EmailParameters;
 using Zbang.Zbox.Infrastructure.Search;
-using Zbang.Zbox.Store.Dto;
-using Zbang.Zbox.Store.Services;
+
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Mail;
@@ -112,26 +111,7 @@ namespace Testing
             }
         }
 
-        static void HatavotRead()
-        {
-            var read = new ReadService();
-            //var x = read.ReadData().Result;
-        }
-
-
-
-        static void HatavotWrite()
-        {
-            var write = new WriteService();
-            var order = new OrderSubmitDto(6912, "111111111", "111111", "111111", "ASDAS", "111111111", "some notes",
-                "ASDAS",
-                "111111", "1111111111111111", new DateTime(2015, 5, 1), "028", 15, "משלוח", " שליח עד הבית *20*",
-                "מידות", " 42 *0*",
-                string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-                string.Empty,
-                "דשדג@ASDAS.COM", "072-86965", "052-454564564", 1, 1);
-            write.InsertOrder(order);
-        }
+       
 
         static void Main(string[] args)
         {

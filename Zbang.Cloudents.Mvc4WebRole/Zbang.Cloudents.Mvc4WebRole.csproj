@@ -308,7 +308,6 @@
     <Compile Include="Filters\NoEtagAttribute.cs" />
     <Compile Include="Filters\PreserveQueryStringAttribute.cs" />
     <Compile Include="Filters\RedirectToMobileAttribute.cs" />
-    <Compile Include="Filters\StoreCategoriesAttribute.cs" />
     <Compile Include="Filters\NoUniversityAttribute.cs" />
     <Compile Include="Filters\ValidateAntiForgeryTokenAttribute.cs" />
     <Compile Include="Filters\ZboxHandleErrorAttribute.cs" />
@@ -399,11 +398,6 @@
     <Compile Include="Models\RateModel.cs" />
     <Compile Include="Models\Rename.cs" />
     <Compile Include="Models\ReplyItemComment.cs" />
-    <Compile Include="Models\Resources\StoreResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StoreResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Models\SettingsUnauth.cs" />
     <Compile Include="Models\Share\Invite.cs" />
     <Compile Include="Models\Share\InviteSystemFromFacebook.cs" />
@@ -452,8 +446,6 @@
     </Compile>
     <Compile Include="Models\SitemapNode.cs" />
     <Compile Include="Models\Statistics.cs" />
-    <Compile Include="Models\StoreContact.cs" />
-    <Compile Include="Models\StoreOrder.cs" />
     <Compile Include="Models\Tabs\AssignItemToTab.cs" />
     <Compile Include="Models\Tabs\ChangeBoxItemTabName.cs" />
     <Compile Include="Models\Tabs\CreateBoxItemTab.cs" />
@@ -602,11 +594,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>InviteResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Store\Resources\StoreResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StoreResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Views\User\Resources\UserResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -753,15 +740,6 @@
     <Content Include="Content\Static.rtl.css">
       <DependentUpon>Static.css</DependentUpon>
     </Content>
-    <Content Include="Content\Store.css">
-      <DependentUpon>Store.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Store.rtl.css">
-      <DependentUpon>Store.css</DependentUpon>
-    </Content>
-    <Content Include="Content\StoreRtl.css">
-      <DependentUpon>StoreRtl.less</DependentUpon>
-    </Content>
     <Content Include="Content\Sidebar.css">
       <DependentUpon>Sidebar.less</DependentUpon>
     </Content>
@@ -770,9 +748,6 @@
     </Content>
     <Content Include="Content\Static.css">
       <DependentUpon>Static.less</DependentUpon>
-    </Content>
-    <Content Include="Content\StoreRtl.rtl.css">
-      <DependentUpon>StoreRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\SVG.css">
       <DependentUpon>SVG.less</DependentUpon>
@@ -1016,14 +991,6 @@
     <Content Include="Js\controllers\library\libraryCtrl.js" />
     <Content Include="Js\controllers\quiz\quizCtrl.js" />
     <Content Include="Js\controllers\search\searchCtrl.js" />
-    <Content Include="Js\controllers\store\couponCtrl.js" />
-    <Content Include="Js\controllers\store\storeCtrl.js" />
-    <Content Include="Js\controllers\store\carouselCtrl.js" />
-    <Content Include="Js\controllers\store\categoryCtrl.js" />
-    <Content Include="Js\controllers\store\checkoutCtrl.js" />
-    <Content Include="Js\controllers\store\contactCtrl.js" />
-    <Content Include="Js\controllers\store\productCtrl.js" />
-    <Content Include="Js\controllers\store\viewCtrl.js" />
     <Content Include="Js\controllers\user\userCtrl.js" />
     <Content Include="Js\directives\boxItemTooltip.js" />
     <Content Include="Js\directives\dropZone.js" />
@@ -1053,10 +1020,8 @@
     <Content Include="Js\directives\misc.js" />
     <Content Include="Js\directives\facebookFeed.js" />
     <Content Include="Js\directives\focusOn.js" />
-    <Content Include="Js\directives\store\categoryLink.js" />
     <Content Include="Js\directives\scrollToTop.js" />
     <Content Include="Js\directives\loadSpinner.js" />
-    <Content Include="Js\directives\store\productsMenu.js" />
     <Content Include="Js\directives\departmentsTooltip.js" />
     <Content Include="Js\directives\userTooltip.js" />
     <Content Include="Js\filters\extToClass.js" />
@@ -1094,8 +1059,6 @@
     <Content Include="Js\services\search.js" />
     <Content Include="Js\services\share.js" />
     <Content Include="Js\services\login.js" />
-    <Content Include="Js\services\store.js" />
-    <Content Include="Js\services\storeHandler.js" />
     <Content Include="Js\services\upload.js" />
     <Content Include="Js\services\user.js" />
     <Content Include="Js\services\userDetails.js" />
@@ -1127,8 +1090,6 @@
     <Content Include="Content\Search.less" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />
-    <Content Include="Content\Store.less" />
-    <Content Include="Content\StoreRtl.less" />
     <Content Include="Images\Store\category.sprite" />
     <Content Include="Images\Store\category.png.map">
       <DependentUpon>category.png</DependentUpon>
@@ -1144,7 +1105,6 @@
       <DependentUpon>social.png</DependentUpon>
     </Content>
     <Content Include="Images\quizSprite.sprite" />
-    <Content Include="App_Code\_Categories.cshtml" />
     <Content Include="Images\quizSprite.png.map">
       <DependentUpon>quizSprite.png</DependentUpon>
     </Content>
@@ -1163,12 +1123,6 @@
     </Content>
     <Content Include="Images\site.png.scss">
       <DependentUpon>site.png</DependentUpon>
-    </Content>
-    <Content Include="Content\Store.css">
-      <DependentUpon>Store.less</DependentUpon>
-    </Content>
-    <Content Include="Content\StoreRtl.css">
-      <DependentUpon>StoreRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\SetupSchool.less" />
     <Content Include="Content\BoxFeed.less" />
@@ -2055,20 +2009,8 @@
     <Content Include="Views\Library\InsertId.cshtml" />
     <Content Include="Views\Dashboard\Index2.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
-    <Content Include="Views\Store\Index.cshtml" />
-    <Content Include="Views\Store\Product.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />
-    <Content Include="Views\Store\CheckOut.cshtml" />
-    <Content Include="Views\Store\About.cshtml" />
-    <Content Include="Views\Store\Contact.cshtml" />
-    <Content Include="Views\Store\Sales.cshtml" />
-    <Content Include="Views\Store\Terms.cshtml" />
-    <Content Include="Views\Store\Thankyou.cshtml" />
-    <Content Include="Views\Store\_CheckOutStep1.cshtml" />
-    <Content Include="Views\Store\_CheckOutStep2.cshtml" />
-    <Content Include="Views\Store\_Footer.cshtml" />
-    <Content Include="Views\Store\_Navigation.cshtml" />
     <Content Include="Views\Quiz\_QuizDialog.cshtml" />
     <Content Include="Views\Shared\_SocialInvite.cshtml" />
     <Content Include="Views\Dashboard\_UploadFiles.cshtml" />
@@ -2092,7 +2034,6 @@
     <Content Include="Views\Item\_PreviewText.cshtml" />
     <Content Include="Views\Account\_LogonAngular.cshtml" />
     <Content Include="Views\Account\_RegisterAngular.cshtml" />
-    <Content Include="Views\Store\_CouponPopup.cshtml" />
     <Content Include="Views\Account\_UserDetailStatic.cshtml" />
     <Content Include="Views\Home\IFrame.cshtml" />
     <Content Include="Views\Box\_LeavePrompt.cshtml" />
@@ -2108,6 +2049,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\Search\" />
   </ItemGroup>
@@ -2327,13 +2269,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Resources\InvitationResources.ru.resx" />
     <EmbeddedResource Include="Models\Resources\InvitationResources.zh.resx" />
-    <EmbeddedResource Include="Models\Resources\StoreResources.ar.resx" />
-    <EmbeddedResource Include="Models\Resources\StoreResources.he.resx" />
-    <EmbeddedResource Include="Models\Resources\StoreResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>StoreResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Models\Resources\StoreResources.ru.resx" />
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.ar.resx" />
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.he.resx" />
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.resx">
@@ -2629,13 +2564,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Share\Resources\InviteResources.ru.resx" />
     <EmbeddedResource Include="Views\Share\Resources\InviteResources.zh.resx" />
-    <EmbeddedResource Include="Views\Store\Resources\StoreResources.ar.resx" />
-    <EmbeddedResource Include="Views\Store\Resources\StoreResources.he.resx" />
-    <EmbeddedResource Include="Views\Store\Resources\StoreResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>StoreResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Store\Resources\StoreResources.ru.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.ar.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.en-gb.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.he.resx" />
