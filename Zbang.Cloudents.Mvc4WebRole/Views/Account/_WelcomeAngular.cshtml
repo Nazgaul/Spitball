@@ -57,12 +57,12 @@
     @*sign in - connect*@
     <div class="modal-body login-switch" ng-switch-when="2">
         <div class="enterTitle">@SharedResources.SignIn</div>
-        @*<div id="fb_log" class="facebook" ng-click="facebookLogin()">
+        <div id="fb_log" class="facebook" ng-click="facebookLogin()">
             <span class="fbImg">
                 @Html.Svg("~/Images/Defs.svg", "fbIcon", new { @class = "svg-fb" })
             </span>@LogOnResources.Facebook
         </div>
-        <p class="fbTxt">@AccountSettingsResources.NeverPost</p>*@
+        <p class="fbTxt">@AccountSettingsResources.NeverPost</p>
         <div class="enterForm">
             @{Html.RenderPartial("_LogonAngular");}
         </div>
