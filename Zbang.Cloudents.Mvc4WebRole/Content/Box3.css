@@ -270,6 +270,8 @@
 }
 .boxDetail {
   font-size: 14px;
+  display: block;
+  width: 215px;
 }
 .newActivity {
   margin: -10px -25px 0 -25px;
