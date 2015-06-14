@@ -203,19 +203,20 @@
 </value>
   </data>
   <data name="HomePageTitle3" xml:space="preserve">
-    <value>Cloudents дает все это. Присоединяйтесь</value>
+    <value>Cloudents предоставляет все эти возможности. 
+Прямо сейчас присоединяйтесь</value>
   </data>
   <data name="HomePageTitle" xml:space="preserve">
-    <value>Вы хотите получать оценки по лучше?</value>
+    <value>Хотите получать лучшие оценки ?</value>
   </data>
   <data name="HomePageTitle4" xml:space="preserve">
-    <value>к самой большой социальной платформе в вашем кампусе сейчас!</value>
+    <value>к самой быстрорастущей образовательной сети вашего студенческого городка!</value>
   </data>
   <data name="HomePageTitle2" xml:space="preserve">
-    <value>Хотите общаться с сокурсниками?
-Имеет доступ к вашему учебному материалу? Практиковаться перед экзаменам?</value>
+    <value>Нужно пообщаться в чате с однокурсниками?
+Хотите получить доступ к нужному учебному материалу? Попрактиковаться перед итоговыми экзаменами?</value>
   </data>
   <data name="HomePageTitleFree" xml:space="preserve">
-    <value>бесплатно</value>
+    <value>БЕСПЛАТНО</value>
   </data>
 </root>
