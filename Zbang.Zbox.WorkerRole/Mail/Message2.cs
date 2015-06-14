@@ -12,25 +12,25 @@ namespace Zbang.Zbox.WorkerRole.Mail
         {
             m_MailComponent = mailComponent;
         }
-        public Task<bool> ExecuteAsync(BaseMailData data)
+        public async Task<bool> ExecuteAsync(BaseMailData data)
         {
             var parameters = data as MessageMailData;
             //Throw.OnNull(parameters, "MessageMailData");
             if (parameters != null)
             {
-                m_MailComponent.GenerateAndSendEmail(parameters.EmailAddress,
-                    new MessageMailParams(parameters.Message, parameters.SenderUserName,
-                   new CultureInfo(parameters.Culture)));
+                await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
+                      new MessageMailParams(parameters.Message, parameters.SenderUserName,
+                     new CultureInfo(parameters.Culture)));
             }
             var parameters2 = data as MessageMailData2;
 
-            if (parameters2 == null) return Task.FromResult(true);
+            if (parameters2 == null) return true;
             var userImage = parameters2.SenderUserImage ?? "https://az32006.vo.msecnd.net/zboxprofilepic/DefaultEmailImage.jpg";
-            m_MailComponent.GenerateAndSendEmail(parameters2.EmailAddress,
-                new MessageMailParams(parameters2.Message, parameters2.SenderUserName,
-                    new CultureInfo(parameters2.Culture), parameters2.SenderUserEmail, userImage));
+            await m_MailComponent.GenerateAndSendEmailAsync(parameters2.EmailAddress,
+                  new MessageMailParams(parameters2.Message, parameters2.SenderUserName,
+                      new CultureInfo(parameters2.Culture), parameters2.SenderUserEmail, userImage));
 
-            return Task.FromResult(true);
+            return true;
 
         }
     }

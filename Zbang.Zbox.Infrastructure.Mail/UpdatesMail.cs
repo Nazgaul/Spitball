@@ -29,9 +29,9 @@ namespace Zbang.Zbox.Infrastructure.Mail
             }
 
             message.SetCategory(Category);
-            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Updates");
+            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Updates1");
 
-            var cube = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.UpdatesList");
+            var cube = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.UpdatesList1");
 
             var sb = new StringBuilder();
             foreach (var boxUpdate in updateParams.Updates)
@@ -50,6 +50,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
             message.Html = message.Html.Replace("{X-QUESTIONS}", AggregateQuestion(updateParams.NoOfQuestions));
             message.Html = message.Html.Replace("{X-NEW-ITEMS}", AggregateItems(updateParams.NoOfItems));
 
+            var spaceInGmail = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
+            message.Html = message.Html.Replace(spaceInGmail, string.Empty);
             message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "updateEmail");
         }
 
@@ -86,11 +88,13 @@ namespace Zbang.Zbox.Infrastructure.Mail
             var sb = new StringBuilder();
             foreach (var update in boxUpdate.Updates)
             {
+              
+
                 sb.Append(update.BuildMailLine(culture));
             }
             if (boxUpdate.ExtraUpdatesCount > 0)
             {
-                var moreTemplate = LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.More");
+                var moreTemplate = LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.More1");
                 moreTemplate = moreTemplate.Replace("{NUM-MORE}", boxUpdate.ExtraUpdatesCount.ToString(CultureInfo.InvariantCulture));
                 moreTemplate = moreTemplate.Replace("{BOX-URL}", boxUpdate.Url);
                 sb.Append(moreTemplate);

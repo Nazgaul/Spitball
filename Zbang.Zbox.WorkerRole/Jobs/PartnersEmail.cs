@@ -80,7 +80,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                         StudentsCount = s.Students
                     }));
 
-                m_MailComponent.GenerateAndSendEmail(partner.Emails, parameters);
+                m_MailComponent.GenerateAndSendEmailAsync(partner.Emails, parameters);
 
 
             }

@@ -55,6 +55,9 @@
     <Reference Include="protobuf-net">
       <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
+    <Reference Include="SnowMaker">
+      <HintPath>..\packages\SnowMaker.1.0.0.46\lib\net40\SnowMaker.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
@@ -69,6 +72,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Zbang.Zbox.Infrastructure.Azure\Blob\IdGenerator.cs">
+      <Link>IdGenerator.cs</Link>
+    </Compile>
     <Compile Include="..\Zbang.Zbox.Infrastructure.Azure\QueueExtension.cs">
       <Link>QueueExtension.cs</Link>
     </Compile>

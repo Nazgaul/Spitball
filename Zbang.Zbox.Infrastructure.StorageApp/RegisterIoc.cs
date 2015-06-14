@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
             ioc.RegisterType<IQueueProvider, QueueProvider>(LifeTimeManager.PerHttpRequest);
             //ioc.RegisterType<IQueueProviderExtract, QueueProvider>(LifeTimeManager.PerHttpRequest);
             //ioc.RegisterType<ILocalStorageProvider, LocalStorageProvider>();
-            //ioc.RegisterType<IdGenerator.IIdGenerator, Blob.IdGenerator>(LifeTimeManager.Singleton);
+            ioc.RegisterType<IdGenerator.IIdGenerator, Azure.Blob.IdGenerator>(LifeTimeManager.Singleton);
         }
     }
 }

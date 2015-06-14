@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -101,7 +102,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         }
 
-       
+
 
         public async Task<HttpResponseMessage> Delete(long id, long boxId)
         {
@@ -114,7 +115,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             return Request.CreateResponse();
         }
 
-        
+
 
         [HttpGet]
         [Route("api/item/upload")]
@@ -135,8 +136,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-           
-                
+
+            try
+            {
+
                 var helper = new UrlTitleBringer();
                 var title = model.Name;
                 if (string.IsNullOrEmpty(title))
@@ -156,7 +159,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     title = model.Name;
                 }
 
-                var command = new AddLinkToBoxCommand(User.GetCloudentsUserId(), model.BoxId, model.FileUrl, null, title, model.Question);
+                var command = new AddLinkToBoxCommand(User.GetCloudentsUserId(), model.BoxId, model.FileUrl, null, title,
+                    model.Question);
                 var result = await ZboxWriteService.AddItemToBoxAsync(command);
                 var result2 = result as AddLinkToBoxCommandResult;
                 if (result2 == null)
@@ -172,9 +176,14 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
                 };
                 return Request.CreateResponse(item);
-           
-           
-           
+            }
+            catch (DuplicateNameException)
+            {
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.Conflict, "Link already exists");
+            }
+
+
+
         }
 
         [HttpPost]
@@ -200,7 +209,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var blobAddressUri = Guid.NewGuid().ToString().ToLower() + extension.ToLower();
 
             var size = 0L;
-           
+
             try
             {
                 size = await BlobProvider.UploadFromLinkAsync(model.FileUrl, blobAddressUri);
@@ -209,7 +218,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 Request.CreateBadRequestResponse("can't access dropbox api");
             }
-           
+
             var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                model.Name, size, model.TabId, model.Question);
             var result = await ZboxWriteService.AddItemToBoxAsync(command);
@@ -227,7 +236,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             };
 
             return Request.CreateResponse(fileDto);
-           
+
 
 
         }

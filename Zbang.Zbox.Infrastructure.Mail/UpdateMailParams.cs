@@ -73,7 +73,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             public override string BuildMailLine(CultureInfo culture)
             {
-                var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Item"));
+                var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Item1"));
                 sb.Replace("{FILE_URL}", Url);
                 sb.Replace("{IMG-SOURCE}", Picture);
                 sb.Replace("{FILE-NAME}", Name);
@@ -94,7 +94,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             public override string BuildMailLine(CultureInfo culture)
             {
-                var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Question"));
+                var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Question1"));
                 sb.Replace("{ASKER}", User);
                 sb.Replace("{QUESTION_URL}", Url);
                 sb.Replace("{BOX_PICTURE}", Picture);
@@ -117,7 +117,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             public override string BuildMailLine(CultureInfo culture)
             {
-                var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Answer"));
+                var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Answer1"));
                 sb.Replace("{ANSWERER}", User);
                 sb.Replace("{ANSWER_URL}", Url);
                 sb.Replace("{BOX_PICTURE}", Picture);
@@ -140,7 +140,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             public override string BuildMailLine(CultureInfo culture)
             {
-                var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Discussion"));
+                var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Discussion1"));
                 sb.Replace("{USERNAME}", User);
                 sb.Replace("{ANSWER_URL}", Url);
                 sb.Replace("{BOX_PICTURE}", Picture);
@@ -150,29 +150,29 @@ namespace Zbang.Zbox.Infrastructure.Mail
             }
         }
 
-        public class UserJoin : BoxUpdateDetails
-        {
-            public UserJoin(string name, string picture, string boxName, string url, long userId)
-                : base(url, picture, userId)
-            {
-                Name = name;
-                BoxName = boxName;
-            }
-            public string Name { get; set; }
-            public string BoxName { get; private set; }
+        //public class UserJoin : BoxUpdateDetails
+        //{
+        //    public UserJoin(string name, string picture, string boxName, string url, long userId)
+        //        : base(url, picture, userId)
+        //    {
+        //        Name = name;
+        //        BoxName = boxName;
+        //    }
+        //    public string Name { get; set; }
+        //    public string BoxName { get; private set; }
 
 
-            public override string BuildMailLine(CultureInfo culture)
-            {
-                var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Member"));
-                sb.Replace("{MEMBER-NAME}", Name);
-                sb.Replace("{MEMBER_URL}", Url);
-                sb.Replace("{MEMBER_PICTURE}", Picture);
-                sb.Replace("{BOX-NAME}", BoxName);
+        //    public override string BuildMailLine(CultureInfo culture)
+        //    {
+        //        var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Member1"));
+        //        sb.Replace("{MEMBER-NAME}", Name);
+        //        sb.Replace("{MEMBER_URL}", Url);
+        //        sb.Replace("{MEMBER_PICTURE}", Picture);
+        //        sb.Replace("{BOX-NAME}", BoxName);
 
-                return sb.ToString();
-            }
-        }
+        //        return sb.ToString();
+        //    }
+        //}
 
 
     }

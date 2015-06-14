@@ -26,7 +26,7 @@ namespace Zbang.Zbox.WorkerRole
         //public const string Product = "Product";
        // public const string StoreOrder = "StoreOrder";
 
-        public const string EmailPartners = "EmailPartners";
+        //public const string EmailPartners = "EmailPartners";
         public const string UpdateSearch = "UpdateSearch";
 
         public IocFactory Unity { get; private set; }
@@ -67,7 +67,7 @@ namespace Zbang.Zbox.WorkerRole
             Unity.RegisterType<IJob, UpdateDomainProcess>(Transaction);
             Unity.RegisterType<IJob, MailProcess2>(MailProcess2);
             Unity.RegisterType<IJob, AddFiles>(AddFiles);
-            Unity.RegisterType<IJob, PartnersEmail>(EmailPartners);
+            //Unity.RegisterType<IJob, PartnersEmail>(EmailPartners);
            // Unity.RegisterType<IJob, StoreDataSync>(Product);
            // Unity.RegisterType<IJob, ProcessStoreOrder>(StoreOrder);
             //Unity.RegisterType<IJob, UpdateSearch>(UpdateSearch);

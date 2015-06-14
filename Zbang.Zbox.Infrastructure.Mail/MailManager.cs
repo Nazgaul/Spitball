@@ -19,26 +19,26 @@ namespace Zbang.Zbox.Infrastructure.Mail
         private const string SendGridPassword = "zbangitnow";
         private readonly IocFactory m_Container = IocFactory.IocWrapper;
 
-        private void Send(ISendGrid message)
+        private Task SendAsync(ISendGrid message)
         {
-            try
-            {
-                var transport = new Web(new NetworkCredential(SendGridUserName, SendGridPassword));
-                transport.Deliver(message);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("Problem with sending an email", ex);
-            }
+            //try
+            //{
+            var transport = new Web(new NetworkCredential(SendGridUserName, SendGridPassword));
+            return transport.DeliverAsync(message);
+            //}
+            //catch (Exception ex)
+            //{
+            //    TraceLog.WriteError("Problem with sending an email", ex);
+            //}
         }
 
 
-        public void GenerateAndSendEmail(string recipient, MailParameters parameters)
+        public async Task GenerateAndSendEmailAsync(string recipient, MailParameters parameters)
         {
             try
             {
-                Thread.CurrentThread.CurrentUICulture = parameters.UserCulture;
-                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(parameters.UserCulture.Name);
+                //Thread.CurrentThread.CurrentUICulture = parameters.UserCulture;
+                //Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(parameters.UserCulture.Name);
 
                 var sendGridMail = new SendGridMessage
                 {
@@ -65,7 +65,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
                 sendGridMail.EnableClickTracking();
                 sendGridMail.EnableOpenTracking();
-                Send(sendGridMail);
+                await SendAsync(sendGridMail);
             }
             catch (FormatException ex)
             {
@@ -75,7 +75,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         }
 
-        public async Task DeleteUnsubscribe(string email)
+        public async Task DeleteUnsubscribeAsync(string email)
         {
             try
             {
@@ -101,16 +101,16 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
 
 
-        public void GenerateAndSendEmail(IEnumerable<string> recipients, MailParameters parameters)
+        public async Task GenerateAndSendEmailAsync(IEnumerable<string> recipients, MailParameters parameters)
         {
             foreach (var recipient in recipients)
             {
-                GenerateAndSendEmail(recipient, parameters);
+                await GenerateAndSendEmailAsync(recipient, parameters);
             }
         }
 
 
-        public void GenerateAndSendEmail(IEnumerable<string> recipients, string mailContent)
+        public Task GenerateAndSendEmailAsync(IEnumerable<string> recipients, string mailContent)
         {
             var sendGridMail = new SendGridMessage
             {
@@ -120,7 +120,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 Subject = "Error in db",
 
             };
-            Send(sendGridMail);
+            return SendAsync(sendGridMail);
         }
+
+
+       
     }
 }

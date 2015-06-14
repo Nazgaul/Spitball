@@ -109,8 +109,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 return;
             }
 
-            m_MailComponent.GenerateAndSendEmail(email, new UpdateMailParams(updates,
-                new CultureInfo(culture), userName,
+          await  m_MailComponent.GenerateAndSendEmailAsync(
+              "ram.y@outlook.com", new UpdateMailParams(updates,
+                new CultureInfo("en-US"), userName,
                 numOfQuestion,
                 numOfAnswers,
                 numOfItems));
@@ -188,25 +189,26 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private bool ShouldRunReport()
         {
-            if (m_DigestEmailHourBack == NotificationSettings.OnceADay)
-            {
-                if (DateTime.UtcNow.Hour == 0)
-                {
-                    return true;
-                }
-            }
-            if (m_DigestEmailHourBack == NotificationSettings.OnceAWeek)
-            {
-                if (DateTime.UtcNow.Hour == 5 && DateTime.UtcNow.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    return true;
-                }
-            }
-            if (m_DigestEmailHourBack == NotificationSettings.OnEveryChange)
-            {
-                return true;
-            }
-            return false;
+            return true;
+            //if (m_DigestEmailHourBack == NotificationSettings.OnceADay)
+            //{
+            //    if (DateTime.UtcNow.Hour == 0)
+            //    {
+            //        return true;
+            //    }
+            //}
+            //if (m_DigestEmailHourBack == NotificationSettings.OnceAWeek)
+            //{
+            //    if (DateTime.UtcNow.Hour == 5 && DateTime.UtcNow.DayOfWeek == DayOfWeek.Sunday)
+            //    {
+            //        return true;
+            //    }
+            //}
+            //if (m_DigestEmailHourBack == NotificationSettings.OnEveryChange)
+            //{
+            //    return true;
+            //}
+            //return false;
         }
         public void Stop()
         {

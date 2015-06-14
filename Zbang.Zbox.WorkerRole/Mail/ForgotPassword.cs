@@ -13,17 +13,16 @@ namespace Zbang.Zbox.WorkerRole.Mail
         {
             m_MailComponent = mailComponent;
         }
-        public Task<bool> ExecuteAsync(BaseMailData data)
+        public async Task<bool> ExecuteAsync(BaseMailData data)
         {
             var parameters2 = data as ForgotPasswordData2;
-            if (parameters2 == null) return Task.FromResult(false);
-            var t = m_MailComponent.DeleteUnsubscribe(parameters2.EmailAddress);
-            t.Wait();
-            m_MailComponent.GenerateAndSendEmail(parameters2.EmailAddress,
+            if (parameters2 == null) return false;
+            await m_MailComponent.DeleteUnsubscribeAsync(parameters2.EmailAddress);
+            await m_MailComponent.GenerateAndSendEmailAsync(parameters2.EmailAddress,
                 new ForgotPasswordMailParams2(parameters2.Code,
                     string.Format(UrlConsts.PasswordUpdate, parameters2.Link), parameters2.Name,
                     new CultureInfo(parameters2.Culture)));
-            return Task.FromResult(true);
+           return true;
         }
     }
 }

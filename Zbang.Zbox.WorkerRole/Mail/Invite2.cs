@@ -32,30 +32,19 @@ namespace Zbang.Zbox.WorkerRole.Mail
                     parameters.ReceiverId.Value);
             }
 
-            if (string.IsNullOrEmpty(parameters.InviterEmail))
+
+            var inviterEmail = parameters.InviterEmail;
+            if (inviterEmail.Contains("yahoo"))
             {
-                //obsolete
-                m_MailComponent.GenerateAndSendEmail(parameters.EmailAddress,
-                    new InviteMailParams(parameters.InviterName,
-                    parameters.BoxName,
-                    parameters.BoxUrl,
-                    userImage,
-                   new CultureInfo(parameters.Culture)));
+                inviterEmail = MailParameters.DefaultEmail;
             }
-            else
-            {
-                var inviterEmail = parameters.InviterEmail;
-                if (inviterEmail.Contains("yahoo"))
-                {
-                    inviterEmail = MailParameters.DefaultEmail;
-                }
-                m_MailComponent.GenerateAndSendEmail(parameters.EmailAddress,
-                    new InviteMailParams(parameters.InviterName,
-                    parameters.BoxName,
-                    parameters.BoxUrl,
-                    userImage,
-                   new CultureInfo(parameters.Culture), inviterEmail));
-            }
+            await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
+                 new InviteMailParams(parameters.InviterName,
+                 parameters.BoxName,
+                 parameters.BoxUrl,
+                 userImage,
+                new CultureInfo(parameters.Culture), inviterEmail));
+
 
             return true;
 

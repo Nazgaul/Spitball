@@ -644,6 +644,7 @@ namespace Testing
             //{
             //    new UpdateMailParams.BoxUpdate("some box",
             //        new List<UpdateMailParams.BoxUpdateDetails> {
+                        
             //            new UpdateMailParams.BoxUpdateDetails(20,"some user", "some nice item name",EmailAction.AddedItem,"fakeUrl"),
             //            new UpdateMailParams.BoxUpdateDetails(21,"some user", string.Empty,EmailAction.AskedQuestion,"fakeUrl"),
             //            new UpdateMailParams.BoxUpdateDetails(22,"some user", "some nice item name",EmailAction.AskedQuestion,"fakeUrl"),
@@ -659,7 +660,8 @@ namespace Testing
             //        })
 
             //};
-            //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new UpdateMailParams(updates, new CultureInfo("ru-RU")));
+            //var t = mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new UpdateMailParams(updates, new CultureInfo("ru-RU")));
+            //t.Wait();
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new ChangeEmailMailParams("7656", new CultureInfo("ru-RU")));
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new ChangeEmailMailParams("7656", new CultureInfo("en-Us")));
 

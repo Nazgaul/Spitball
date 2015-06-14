@@ -19,7 +19,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                  cloudStorageAccount,
                  "zboxIdGenerator"
                  );
-            m_Generator = new UniqueIdGenerator(dataStorage) { BatchSize = 20 };
+            m_Generator = new UniqueIdGenerator(dataStorage) { BatchSize = 5 };
         }
 
         public long GetId(string scopeName)

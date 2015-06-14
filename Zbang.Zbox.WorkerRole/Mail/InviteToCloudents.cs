@@ -14,7 +14,7 @@ namespace Zbang.Zbox.WorkerRole.Mail
             m_MailComponent = mailComponent;
         }
 
-        public Task<bool> ExecuteAsync(BaseMailData data)
+        public async Task<bool> ExecuteAsync(BaseMailData data)
         {
             var parameters = data as InviteToCloudentsData;
 
@@ -30,11 +30,11 @@ namespace Zbang.Zbox.WorkerRole.Mail
                 inviterEmail = MailParameters.DefaultEmail;
             }
             var url = string.IsNullOrEmpty(parameters.Url) ? "https://www.cloudents.com" : parameters.Url;
-            m_MailComponent.GenerateAndSendEmail(parameters.EmailAddress,
-             new InvitationToCloudentsMailParams(parameters.SenderName, userImage,
-            new CultureInfo(parameters.Culture), inviterEmail, url));
+            await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
+              new InvitationToCloudentsMailParams(parameters.SenderName, userImage,
+             new CultureInfo(parameters.Culture), inviterEmail, url));
 
-            return Task.FromResult(true);
+            return true;
         }
     }
 }

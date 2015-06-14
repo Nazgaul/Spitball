@@ -197,15 +197,19 @@
 </value>
   </data>
   <data name="HomePageTitle3" xml:space="preserve">
-    <value>بحاجة للدردشة مع زملائك الطلاب ؟</value>
+    <value>كلاودنتس ، الشبكة الاجتماعية تقدم لك  كل شيء في مكان واحد .</value>
   </data>
   <data name="HomePageTitle" xml:space="preserve">
-    <value>ما للحصول على أفضل الدرجات ؟</value>
+    <value>بودك الحصول على علامات افضل ؟</value>
   </data>
   <data name="HomePageTitle4" xml:space="preserve">
-    <value>Cloudents يجلب كل ذلك معا . تاريخ ، مجانا، الأسرع نموا دراسة الشبكة في الحرم الجامعي الخاص بك الآن !</value>
+    <value>انضم الان لكلاودنتس</value>
   </data>
   <data name="HomePageTitle2" xml:space="preserve">
-    <value>ممارسة قبل الوجهة النهائية؟</value>
+    <value>التحدث الى زميلك في الصف ؟
+الوصول للمستندات ذات صلة مع المواضيع التي تتعلمها ؟ المراجعة مع قرب امتحانات نهاية الفصل ؟</value>
+  </data>
+  <data name="HomePageTitleFree" xml:space="preserve">
+    <value>مجانا .</value>
   </data>
 </root>

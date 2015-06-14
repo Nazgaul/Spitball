@@ -5,11 +5,11 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     public interface IMailComponent
     {
-        void GenerateAndSendEmail(string recipient, MailParameters parameters);
-        void GenerateAndSendEmail(IEnumerable<string> recipients, MailParameters parameters);
+        Task GenerateAndSendEmailAsync(string recipient, MailParameters parameters);
+        Task GenerateAndSendEmailAsync(IEnumerable<string> recipients, MailParameters parameters);
 
-        void GenerateAndSendEmail(IEnumerable<string> recipients, string mailContent);
+        Task GenerateAndSendEmailAsync(IEnumerable<string> recipients, string mailContent);
 
-        Task DeleteUnsubscribe(string email);
+        Task DeleteUnsubscribeAsync(string email);
     }
 }

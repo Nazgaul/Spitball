@@ -46,13 +46,13 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
 
             var flagItemDetail = m_ZboxReadService.GetFlagItemUserDetail(new GetBadItemFlagQuery(parameters.UserId, parameters.ItemId));
 
-            m_MailComponent.GenerateAndSendEmail("eidan@cloudents.com",
-                new FlagItemMailParams(flagItemDetail.ItemName,
-                    string.Format("{0} {1}", parameters.Reason, parameters.Other),
-                    flagItemDetail.Name,
-                    flagItemDetail.Email,
-                    string.Empty
-                    ));
+            await m_MailComponent.GenerateAndSendEmailAsync("eidan@cloudents.com",
+                   new FlagItemMailParams(flagItemDetail.ItemName,
+                       string.Format("{0} {1}", parameters.Reason, parameters.Other),
+                       flagItemDetail.Name,
+                       flagItemDetail.Email,
+                       string.Empty
+                       ));
             return true;
         }
 
@@ -62,8 +62,8 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
                  new FlagCommentOrReply(parameters.PostId, parameters.UserId));
 
 
-            m_MailComponent.GenerateAndSendEmail("eidan@cloudents.com",
-                new FlagItemMailParams("post or reply", " from ios app", "dont know", "dont know", string.Empty));
+            await m_MailComponent.GenerateAndSendEmailAsync("eidan@cloudents.com",
+                 new FlagItemMailParams("post or reply", " from ios app", "don't know", "don't know", string.Empty));
             return true;
         }
     }

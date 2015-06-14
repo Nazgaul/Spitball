@@ -13,7 +13,7 @@ namespace Zbang.Zbox.WorkerRole.Mail
         {
             m_MailComponent = mailComponent;
         }
-        public Task<bool> ExecuteAsync(BaseMailData data)
+        public async Task<bool> ExecuteAsync(BaseMailData data)
         {
             var parameters = data as WelcomeMailData;
             if (parameters == null)
@@ -22,11 +22,11 @@ namespace Zbang.Zbox.WorkerRole.Mail
             }
 
 
-            m_MailComponent.GenerateAndSendEmail(parameters.EmailAddress,
+           await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
                 new WelcomeMailParams(parameters.UserName,
                     new CultureInfo(parameters.Culture)));
 
-            return Task.FromResult(true);
+            return true;
 
         }
     }
