@@ -179,7 +179,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cloudents brings it al together. Join, for.
+        ///   Looks up a localized string similar to Cloudents brings it all together. Join, for.
         /// </summary>
         public static string HomePageTitle3 {
             get {

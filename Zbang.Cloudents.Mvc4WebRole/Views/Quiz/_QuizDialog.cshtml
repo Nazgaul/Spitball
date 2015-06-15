@@ -1,15 +1,9 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @model int
 
-@*Guy: please add the class 'quizPopup' on the modal-dialog*@
-
 <div class="modal-body">
     <div class="quizPopupHeader">@QuizResources.QuizTime</div>
     <div class="classmatesWpr">
-
-        @*Guy:  (1) please add the class 'plus' to friendsPics are > 3 classmates who took the quiz
-            (2) set a value to the data-plus-count attribute
-            (3) Set the img src to /Images/user-img.png if there are < 3 classmates who took the quiz*@
         <div class="friendsPics @(Model > 3 ? "plus" : "")" data-plus-count="@(Model-3) ">
             <span ng-repeat="user in popupUsers">
                 <user-image name="user.name" image="user.image" width="50" height="50"></user-image>

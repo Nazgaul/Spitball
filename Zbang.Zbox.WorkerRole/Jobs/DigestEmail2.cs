@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -58,7 +57,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         {
             if (!ShouldRunReport())
             {
-                Thread.Sleep(TimeSpan.FromMinutes(5));
+                await Task.Delay(TimeSpan.FromMinutes(5));
                 return;
             }
             TraceLog.WriteInfo("Process mail process:" + m_DigestEmailHourBack.ToString("g"));
@@ -75,7 +74,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     TraceLog.WriteError(string.Format("Digest email2 report:{0} user {1}", m_DigestEmailHourBack, user), ex);
                 }
             }
-            Thread.Sleep(m_TimeToSleepAfterExecuting);
+            await Task.Delay(m_TimeToSleepAfterExecuting);
         }
 
         private async Task BuildUserReport(long userid, string email, string culture, string userName)
@@ -110,7 +109,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
 
           await  m_MailComponent.GenerateAndSendEmailAsync(
-              "ram.y@outlook.com", new UpdateMailParams(updates,
+              email, new UpdateMailParams(updates,
                 new CultureInfo("en-US"), userName,
                 numOfQuestion,
                 numOfAnswers,
@@ -189,26 +188,25 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private bool ShouldRunReport()
         {
-            return true;
-            //if (m_DigestEmailHourBack == NotificationSettings.OnceADay)
-            //{
-            //    if (DateTime.UtcNow.Hour == 0)
-            //    {
-            //        return true;
-            //    }
-            //}
-            //if (m_DigestEmailHourBack == NotificationSettings.OnceAWeek)
-            //{
-            //    if (DateTime.UtcNow.Hour == 5 && DateTime.UtcNow.DayOfWeek == DayOfWeek.Sunday)
-            //    {
-            //        return true;
-            //    }
-            //}
-            //if (m_DigestEmailHourBack == NotificationSettings.OnEveryChange)
-            //{
-            //    return true;
-            //}
-            //return false;
+            if (m_DigestEmailHourBack == NotificationSettings.OnceADay)
+            {
+                if (DateTime.UtcNow.Hour == 0)
+                {
+                    return true;
+                }
+            }
+            if (m_DigestEmailHourBack == NotificationSettings.OnceAWeek)
+            {
+                if (DateTime.UtcNow.Hour == 5 && DateTime.UtcNow.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    return true;
+                }
+            }
+            if (m_DigestEmailHourBack == NotificationSettings.OnEveryChange)
+            {
+                return true;
+            }
+            return false;
         }
         public void Stop()
         {

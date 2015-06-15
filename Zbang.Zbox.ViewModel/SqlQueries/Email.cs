@@ -66,7 +66,7 @@ order by Students desc  ";
       join zbox.box b on ub.boxid = b.boxid
       where notificationSettings = @Notification
 	  and ub.UserType in (2,3)
-      and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@NotificationTime,b.updateTime)) >0;";
+      and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@NotificationTime,b.updateTime)) > 0;";
 
         public const string GetBoxPossibleUpdateByUser =
             @" select distinct b.boxid as BoxId, b.boxname as BoxName, 

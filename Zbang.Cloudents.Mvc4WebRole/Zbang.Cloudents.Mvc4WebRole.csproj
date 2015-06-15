@@ -798,7 +798,6 @@
     <Content Include="Images\mobile-cloudents-heb.png" />
     <Content Include="Images\mobile-cloudents-ru.png" />
     <Content Include="Images\Store\ball.png" />
-    <Content Include="Images\bg5.jpg" />
     <Content Include="Images\big-quiz.png" />
     <Content Include="Images\books.png" />
     <Content Include="Images\box18-sprite.png" />
@@ -834,11 +833,6 @@
     <Content Include="Images\drive_upload.png" />
     <Content Include="Images\earth.png" />
     <Content Include="Images\Store\eco.png" />
-    <Content Include="Images\EmptyState\my_default.png" />
-    <Content Include="Images\EmptyState\my_default2.png" />
-    <Content Include="Images\EmptyState\my_default3.png" />
-    <Content Include="Images\EmptyState\S50X50userpic2.jpg" />
-    <Content Include="Images\EmptyState\user-pic.png" />
     <Content Include="Images\friends_cloudents_black.png" />
     <Content Include="Images\friends_cloudents_green.png" />
     <Content Include="Images\friends_facebook_black.png" />
@@ -928,12 +922,9 @@
     <Content Include="Images\upload15-sprite.png" />
     <Content Include="Images\user-gmail-pic.jpg" />
     <Content Include="Images\user-icon.png" />
-    <Content Include="Images\user-img.png" />
-    <Content Include="Images\user-pic.png" />
     <Content Include="Images\user.svg" />
     <Content Include="Images\user13-sprite.png" />
     <Content Include="Images\userBg.png" />
-    <Content Include="Images\usrPic.png" />
     <Content Include="Images\web_upload.png" />
     <Content Include="Js\app.js" />
     <Content Include="Js\directives\boxLogo.js" />
