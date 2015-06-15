@@ -11,23 +11,27 @@
 
          $http.defaults.headers.common["RequestVerificationToken"] = data.token;
 
+         var analyticsObj = {          
+             'siteSpeedSampleRate': 70,
+             'cookieDomain': 'cloudents.com',
+             'alwaysSendReferrer': true
+         }
+
          if (!_.isUndefined(data.id)) {
              isAuthenticated = true;
              $rootScope.user = {
                  isAuthenticated: true
              };
 
-             ga('create', 'UA-9850006-3', {
-                 'userId': data.id,
-                 'siteSpeedSampleRate': 70,
-                 'cookieDomain': 'cloudents.com',
-                 'alwaysSendReferrer': true
-             });
-             ga('set', 'dimension1', data.universityName);
-             ga('set', 'dimension2', data.universityCountry);
-             ga('set', 'dimension3', data.id);
+             analyticsObj.userId = data.id;
+                        
          }
 
+         ga('create', 'UA-9850006-3', analyticsObj);
+         
+         ga('set', 'dimension1', data.universityName || null);
+         ga('set', 'dimension2', data.universityCountry || null);
+         ga('set', 'dimension3', data.id || null);
 
          userData = {
              id: data.id,
