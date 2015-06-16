@@ -7,7 +7,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         public static void Register()
         {
             var ioc = IocFactory.IocWrapper;
-          
+
 
 
             ioc.RegisterType<IUniversityReadSearchProvider, UniversitySearchProvider>(LifeTimeManager.Singleton);
@@ -18,6 +18,8 @@ namespace Zbang.Zbox.Infrastructure.Search
             ioc.RegisterType<IBoxWriteSearchProvider, BoxSearchProvider>(LifeTimeManager.Singleton);
             ioc.RegisterType<IBoxReadSearchProvider, BoxSearchProvider>(LifeTimeManager.Singleton);
 
+            ioc.RegisterType<IBoxWriteSearchProviderOld, BoxSearchProviderOld>(LifeTimeManager.Singleton);
+            ioc.RegisterType<IBoxReadSearchProviderOld, BoxSearchProviderOld>(LifeTimeManager.Singleton);
             //ioc.RegisterType<IItemWriteSearchProvider, ItemSearchProvider>(LifeTimeManager.Singleton);
             ioc.RegisterType<IItemWriteSearchProvider2, ItemSearchProvider2>(LifeTimeManager.Singleton);
             ioc.RegisterType<IItemReadSearchProvider, ItemSearchProvider2>(LifeTimeManager.Singleton);

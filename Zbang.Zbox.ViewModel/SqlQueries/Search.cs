@@ -5,7 +5,7 @@
         public const string GetBoxToUploadToSearch =
             @"select top 500 b.boxid  as Id
 ,b.BoxName as Name, b.ProfessorName as Professor ,b.CourseCode as CourseCode
-, b.Url as Url, b.University as UniversityId , b.PrivacySetting as PrivacySetting
+, b.Url as Url, b.University as UniversityId ,  b.discriminator as Type
   from zbox.box b
   where isdirty = 1 and isdeleted = 0 and url is not null
   order by b.BoxId;";
@@ -14,6 +14,17 @@
 select top 500 b.boxid  from zbox.box b
   where isdirty = 1 and isdeleted = 0  and url is not null
   order by b.BoxId);";
+
+        public const string GetBoxDepartmentToUploadToSearch = @"  with c as (
+select l.*, b.boxid from zbox.library l join zbox.box b on l.libraryid = b.libraryid and b.boxid in ( select top 500 b.boxid  from zbox.box b
+  where isdirty = 1 and isdeleted = 0  and url is not null
+  order by b.BoxId)
+ 
+	union all
+	select t.*, c.boxid from zbox.library t inner join c on c.parentid = t.libraryid
+)
+
+select Name,boxid from c";
 
 
         public const string GetBoxToDeleteToSearch = @"

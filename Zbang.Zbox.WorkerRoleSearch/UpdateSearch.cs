@@ -21,6 +21,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
         private readonly IBoxWriteSearchProvider m_BoxSearchProvider;
+        private readonly IBoxWriteSearchProviderOld m_BoxSearchProviderOld;
+
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
         private readonly IQuizWriteSearchProvider m_QuizSearchProvider;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
@@ -35,7 +37,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             IBoxWriteSearchProvider boxSearchProvider,
             IQuizWriteSearchProvider quizSearchProvider,
             IFileProcessorFactory fileProcessorFactory,
-            IItemWriteSearchProvider2 itemSearchProvider2, ICloudBlockProvider blobProvider)
+            IItemWriteSearchProvider2 itemSearchProvider2, ICloudBlockProvider blobProvider, IBoxWriteSearchProviderOld boxSearchProviderOld)
         {
             m_ZboxReadService = zboxReadService;
             m_UniversitySearchProvider = zboxWriteSearchProvider;
@@ -45,6 +47,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_FileProcessorFactory = fileProcessorFactory;
             m_ItemSearchProvider2 = itemSearchProvider2;
             m_BlobProvider = blobProvider;
+            m_BoxSearchProviderOld = boxSearchProviderOld;
         }
 
         public async Task Run(CancellationToken cancellationToken)
@@ -69,8 +72,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         tBoxUpdate
                         );
 
-                    if (tItemUpdate.Result
-                        || tBoxUpdate.Result
+                    if (
+                        tItemUpdate.Result ||
+                         tBoxUpdate.Result
                         || tUniversityUpdate.Result
                         || tQuizUpdate.Result
                         )
@@ -241,6 +245,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 TraceLog.WriteInfo(PrefixLog, string.Format("box updating {0} deleting {1}", updates.BoxesToUpdate.Count(),
                     updates.BoxesToDelete.Count()));
+                var z = await m_BoxSearchProviderOld.UpdateData(updates.BoxesToUpdate, updates.BoxesToDelete);
                 var isSuccess =
                     await m_BoxSearchProvider.UpdateData(updates.BoxesToUpdate, updates.BoxesToDelete);
                 if (isSuccess)
