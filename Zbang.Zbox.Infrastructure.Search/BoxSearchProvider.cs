@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Search;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Search;
@@ -12,7 +13,7 @@ using Microsoft.Azure.Search.Models;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    public class BoxSearchProvider : IBoxReadSearchProvider, IBoxWriteSearchProvider, IDisposable
+    public class BoxSearchProvider : IBoxReadSearchProvider2, IBoxWriteSearchProvider2, IDisposable
     {
 
         private readonly string m_IndexName = "box2";
@@ -122,6 +123,8 @@ namespace Zbang.Zbox.Infrastructure.Search
         public async Task<IEnumerable<SearchBoxes>> SearchBox(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException("query");
+            var sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
             var result = await m_IndexClient.Documents.SearchAsync<BoxSearch>(query.Term + "*", new SearchParameters
             {
                 Filter =
@@ -129,33 +132,44 @@ namespace Zbang.Zbox.Infrastructure.Search
                         query.UniversityId, query.UserId),
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
-                //Select = new[] { IdField, NameField, ProfessorField, CourseField, UrlField, TypeFiled }
+                HighlightFields = new[] { ProfessorField, CourseField, NameField },
+                Select = new[] { IdField, NameField, ProfessorField, CourseField, UrlField, TypeFiled }
             }, cancelToken);
+            sw.Stop();
             return result.Select(s => new SearchBoxes(
                 SeachConnection.ConvertToType<long>(s.Document.Id),
-                SeachConnection.ConvertToType<string>(s.Document.Name),
-                SeachConnection.ConvertToType<string>(s.Document.Professor),
-                SeachConnection.ConvertToType<string>(s.Document.Course),
-                //HighLightInField(s, ProfessorField),
-                //(s, CourseField),
-                SeachConnection.ConvertToType<string>(s.Document.Url),
-                SeachConnection.ConvertToType<string>(s.Document.Name))
-                ).ToList();
+                 HighLightInField(s,NameField,s.Document.Name) , 
+                HighLightInField(s, ProfessorField,s.Document.Professor),
+                HighLightInField(s, CourseField,s.Document.Course),
+                s.Document.Url,
+                s.Document.Name,
+                (BoxType)s.Document.Type.Value)
+            ).ToList();
         }
 
 
-        
 
 
-        //private string HighLightInField(SearchResult<BoxSearch> record, string field)
-        //{
-        //    //string[] highLight;
-        //    //if (record.Highlights.TryGetValue(field, out highLight))
-        //    //{
-        //    //    return String.Join("...", highLight);
-        //    //}
-        //    return SeachConnection.ConvertToType<string>(record.Properties[field]);
-        //}
+
+        private string HighLightInField(SearchResult<BoxSearch> record, string field, string defaultValue)
+        {
+            if (record.Highlights == null)
+            {
+                return defaultValue;
+            }
+            IList<string> highLight;
+            if (record.Highlights.TryGetValue(field, out highLight))
+            {
+                return String.Join("...", highLight); 
+            }
+            return defaultValue;
+            //string[] highLight;
+            //if (record.Highlights.TryGetValue(field, out highLight))
+            //{
+            //    return String.Join("...", highLight);
+            //}
+            //return SeachConnection.ConvertToType<string>(record.Properties[field]);
+        }
 
         public void Dispose()
         {

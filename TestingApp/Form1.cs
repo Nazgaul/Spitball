@@ -84,7 +84,7 @@ namespace TestingApp
         private async void button3_Click(object sender, EventArgs e)
         {
             var iocFactory = IocFactory.IocWrapper;
-            var read = iocFactory.Resolve<IBoxReadSearchProvider>();//(new IocParameterOverride("shouldUseProduction", true));
+            var read = iocFactory.Resolve<IBoxReadSearchProvider2>();//(new IocParameterOverride("shouldUseProduction", true));
             var sw = new Stopwatch();
             sw.Start();
             var retVal = await read.SearchBox(new SearchQuery(textBox1.Text, Convert.ToInt64(textBoxUserId.Text),

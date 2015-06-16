@@ -20,7 +20,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
-        private readonly IBoxWriteSearchProvider m_BoxSearchProvider;
+        private readonly IBoxWriteSearchProvider2 m_BoxSearchProvider;
         private readonly IBoxWriteSearchProviderOld m_BoxSearchProviderOld;
 
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
@@ -34,7 +34,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public UpdateSearch(IZboxReadServiceWorkerRole zboxReadService,
             IUniversityWriteSearchProvider2 zboxWriteSearchProvider,
             IZboxWorkerRoleService zboxWriteService,
-            IBoxWriteSearchProvider boxSearchProvider,
+            IBoxWriteSearchProvider2 boxSearchProvider,
             IQuizWriteSearchProvider quizSearchProvider,
             IFileProcessorFactory fileProcessorFactory,
             IItemWriteSearchProvider2 itemSearchProvider2, ICloudBlockProvider blobProvider, IBoxWriteSearchProviderOld boxSearchProviderOld)

@@ -20,7 +20,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
     [AuthorizeLevel(AuthorizationLevel.User)]
     public class SearchController : ApiController
     {
-        public IBoxReadSearchProvider BoxSearchService { get; set; }
+        public IBoxReadSearchProviderOld BoxSearchService { get; set; }
         public IItemReadSearchProvider ItemSearchService { get; set; }
 
         public IUniversityReadSearchProvider UniversitySearch { get; set; }
