@@ -88,10 +88,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
             // TODO: Replace the following with your own logic.
             while (!cancellationToken.IsCancellationRequested)
             {
-                Trace.TraceInformation("Working");
-                var list = jobs.Select(job => job.Run(cancellationToken)).ToList();
-                await Task.WhenAll(list);
-                await Task.Delay(1000, cancellationToken);
+                try
+                {
+                    Trace.TraceInformation("Working");
+                    var list = jobs.Select(job => job.Run(cancellationToken)).ToList();
+                    await Task.WhenAll(list);
+                    await Task.Delay(1000, cancellationToken);
+                }
+                catch (Exception ex)
+                {
+                    Trace.TraceError(ex.ToString());
+                }
             }
         }
 
@@ -102,7 +109,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 return new List<IJob>
                 {
                     m_Unity.Resolve<IJob>(IocFactory.UpdateSearch),
-                    //m_Unity.Resolve<IJob>(IocFactory.PreProcessFiles)
+                    m_Unity.Resolve<IJob>(IocFactory.PreProcessFiles)
                 };
             }
             return new List<IJob>
