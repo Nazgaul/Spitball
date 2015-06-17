@@ -27,6 +27,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IQuizWriteSearchProvider m_QuizSearchProvider;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IItemWriteSearchProvider2 m_ItemSearchProvider2;
+        private readonly IItemWriteSearchProvider3 m_ItemSearchProvider3;
         private readonly ICloudBlockProvider m_BlobProvider;
 
         private const string PrefixLog = "Search";
@@ -37,7 +38,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             IBoxWriteSearchProvider2 boxSearchProvider,
             IQuizWriteSearchProvider quizSearchProvider,
             IFileProcessorFactory fileProcessorFactory,
-            IItemWriteSearchProvider2 itemSearchProvider2, ICloudBlockProvider blobProvider, IBoxWriteSearchProviderOld boxSearchProviderOld)
+            IItemWriteSearchProvider2 itemSearchProvider2, ICloudBlockProvider blobProvider, IBoxWriteSearchProviderOld boxSearchProviderOld, IItemWriteSearchProvider3 itemSearchProvider3)
         {
             m_ZboxReadService = zboxReadService;
             m_UniversitySearchProvider = zboxWriteSearchProvider;
@@ -48,6 +49,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ItemSearchProvider2 = itemSearchProvider2;
             m_BlobProvider = blobProvider;
             m_BoxSearchProviderOld = boxSearchProviderOld;
+            m_ItemSearchProvider3 = itemSearchProvider3;
         }
 
         public async Task Run(CancellationToken cancellationToken)
@@ -73,8 +75,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         );
 
                     if (
-                        tItemUpdate.Result ||
-                         tBoxUpdate.Result
+                        tItemUpdate.Result 
+                        || tBoxUpdate.Result
                         || tUniversityUpdate.Result
                         || tQuizUpdate.Result
                         )
@@ -151,9 +153,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     elem.Content = ExtractContentToUploadToSearch(elem);
                 }
-                //await m_ItemSearchProvider.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
+                await m_ItemSearchProvider2.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
                 var isSuccess2 =
-                    await m_ItemSearchProvider2.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
+                    await m_ItemSearchProvider3.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
                 if (isSuccess2)
                 {
                     await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(

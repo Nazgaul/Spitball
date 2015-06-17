@@ -45,8 +45,6 @@ select Name,boxid from c";
   i.Url as url,
   u.id as universityid,
   b.BoxName as boxname,
-  i.Rate as rate,
-  i.NumberOfViews as views,
   u.UniversityName as universityName,
   b.BoxId as boxid
    from zbox.item i 

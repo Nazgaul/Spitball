@@ -121,8 +121,6 @@ namespace Zbang.Zbox.Infrastructure.Search
         public async Task<IEnumerable<SearchBoxes>> SearchBox(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException("query");
-            var sw = new System.Diagnostics.Stopwatch();
-            sw.Start();
             var result = await m_IndexClient.Documents.SearchAsync<BoxSearch>(query.Term + "*", new SearchParameters
             {
                 Filter =
@@ -133,7 +131,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                 HighlightFields = new[] { ProfessorField, CourseField, NameField },
                 Select = new[] { IdField, NameField, ProfessorField, CourseField, UrlField, TypeFiled }
             }, cancelToken);
-            sw.Stop();
             return result.Select(s => new SearchBoxes(
                 SeachConnection.ConvertToType<long>(s.Document.Id),
                 HighLightInField(s, NameField, s.Document.Name),
