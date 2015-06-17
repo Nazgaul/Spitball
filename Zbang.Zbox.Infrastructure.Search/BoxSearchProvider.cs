@@ -15,12 +15,10 @@ namespace Zbang.Zbox.Infrastructure.Search
 {
     public class BoxSearchProvider : IBoxReadSearchProvider2, IBoxWriteSearchProvider2, IDisposable
     {
-
         private readonly string m_IndexName = "box2";
         private bool m_CheckIndexExists;
         private readonly ISearchConnection m_Connection;
         private readonly SearchIndexClient m_IndexClient;
-
 
         public BoxSearchProvider(ISearchConnection connection)
         {
@@ -138,20 +136,16 @@ namespace Zbang.Zbox.Infrastructure.Search
             sw.Stop();
             return result.Select(s => new SearchBoxes(
                 SeachConnection.ConvertToType<long>(s.Document.Id),
-                 HighLightInField(s,NameField,s.Document.Name) , 
-                HighLightInField(s, ProfessorField,s.Document.Professor),
-                HighLightInField(s, CourseField,s.Document.Course),
+                HighLightInField(s, NameField, s.Document.Name),
+                HighLightInField(s, ProfessorField, s.Document.Professor),
+                HighLightInField(s, CourseField, s.Document.Course),
                 s.Document.Url,
                 s.Document.Name,
                 (BoxType)s.Document.Type.Value)
             ).ToList();
         }
 
-
-
-
-
-        private string HighLightInField(SearchResult<BoxSearch> record, string field, string defaultValue)
+        private static string HighLightInField(SearchResult<BoxSearch> record, string field, string defaultValue)
         {
             if (record.Highlights == null)
             {
@@ -160,15 +154,9 @@ namespace Zbang.Zbox.Infrastructure.Search
             IList<string> highLight;
             if (record.Highlights.TryGetValue(field, out highLight))
             {
-                return String.Join("...", highLight); 
+                return String.Join("...", highLight);
             }
             return defaultValue;
-            //string[] highLight;
-            //if (record.Highlights.TryGetValue(field, out highLight))
-            //{
-            //    return String.Join("...", highLight);
-            //}
-            //return SeachConnection.ConvertToType<string>(record.Properties[field]);
         }
 
         public void Dispose()
