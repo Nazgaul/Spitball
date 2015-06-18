@@ -17,11 +17,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class SearchController : BaseController
     {
         private readonly IBoxReadSearchProvider2 m_BoxSearchService;
-        private readonly IItemReadSearchProvider m_ItemSearchService;
+        private readonly IItemReadSearchProvider2 m_ItemSearchService;
         private readonly IQuizReadSearchProvider m_QuizSearchService;
         private readonly IWithCache m_WithCache;
 
-        public SearchController(IBoxReadSearchProvider2 boxSearchService, IItemReadSearchProvider itemSearchService, IQuizReadSearchProvider quizSearchService, IWithCache withCache)
+        public SearchController(IBoxReadSearchProvider2 boxSearchService, IItemReadSearchProvider2 itemSearchService, IQuizReadSearchProvider quizSearchService, IWithCache withCache)
         {
             m_BoxSearchService = boxSearchService;
             m_ItemSearchService = itemSearchService;

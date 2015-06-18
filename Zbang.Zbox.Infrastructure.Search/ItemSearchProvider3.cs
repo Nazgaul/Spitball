@@ -143,6 +143,37 @@ namespace Zbang.Zbox.Infrastructure.Search
             return true;
         }
 
+        public async Task<IEnumerable<SearchItems>> SearchItem(
+            ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken)
+        {
+            if (query == null) throw new ArgumentNullException("query");
+
+            var filter = await m_FilterProvider.BuildFilterExpression(
+               query.UniversityId, UniversityidField, UserIdsField, query.UserId);
+
+            var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(query.Term, new SearchParameters
+            {
+                Filter = filter,
+                Top = query.RowsPerPage,
+                Skip = query.RowsPerPage * query.PageNumber,
+                ScoringProfile = "universityTag",
+                ScoringParameters = new[] { "university:" + query.UniversityId },
+                Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField },
+                HighlightFields = new[] { ContentField }
+            }, cancelToken);
+
+            return result.Select(s => new SearchItems
+            {
+                Boxname = s.Document.BoxName,
+                Content = HighLightInField(s, ContentField, s.Document.MetaContent),
+                Id = long.Parse(s.Document.Id),
+                Image = s.Document.Image,
+                Name = s.Document.Name,
+                UniName = s.Document.UniversityName,
+                Url = s.Document.Url
+            });
+        }
+
         public async Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException("query");
@@ -157,20 +188,35 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Skip = query.RowsPerPage * query.PageNumber,
                 ScoringProfile = "universityTag",
                 ScoringParameters = new[] { "university:" + query.UniversityId },
-                Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField }
-
+                Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField },
+                HighlightFields = new[] { ContentField }
             }, cancelToken);
 
             return result.Select(s => new SearchItems
             {
                 Boxname = s.Document.BoxName,
-                Content = s.Document.MetaContent,
+                Content = HighLightInField(s ,ContentField, s.Document.MetaContent),
                 Id = long.Parse(s.Document.Id),
                 Image = s.Document.Image,
                 Name = s.Document.Name,
                 UniName = s.Document.UniversityName,
                 Url = s.Document.Url
             });
+        }
+
+
+        private static string HighLightInField(SearchResult<ItemSearch> record, string field, string defaultValue)
+        {
+            if (record.Highlights == null)
+            {
+                return defaultValue;
+            }
+            IList<string> highLight;
+            if (record.Highlights.TryGetValue(field, out highLight))
+            {
+                return String.Join("...", highLight);
+            }
+            return defaultValue;
         }
 
         //private string HighLightInName(SearchQueryRecord record)
