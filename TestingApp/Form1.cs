@@ -84,7 +84,7 @@ namespace TestingApp
         private async void button3_Click(object sender, EventArgs e)
         {
             var iocFactory = IocFactory.IocWrapper;
-            var read = iocFactory.Resolve<IBoxReadSearchProvider>();//(new IocParameterOverride("shouldUseProduction", true));
+            var read = iocFactory.Resolve<IBoxReadSearchProvider2>();//(new IocParameterOverride("shouldUseProduction", true));
             var sw = new Stopwatch();
             sw.Start();
             var retVal = await read.SearchBox(new SearchQuery(textBox1.Text, Convert.ToInt64(textBoxUserId.Text),
@@ -131,7 +131,7 @@ namespace TestingApp
         private async void button6_Click(object sender, EventArgs e)
         {
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
-            var read = iocFactory.Resolve<IItemReadSearchProvider>();
+            var read = iocFactory.Resolve<IItemReadSearchProvider2>();
             var sw = new Stopwatch();
             sw.Start();
             var retVal = await read.SearchItem(new SearchQuery(textBox1.Text, Convert.ToInt64(textBoxUserId.Text),

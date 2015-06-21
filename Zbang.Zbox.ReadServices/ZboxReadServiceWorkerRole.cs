@@ -224,6 +224,7 @@ namespace Zbang.Zbox.ReadServices
                 using (var grid = await conn.QueryMultipleAsync
                     (Search.GetBoxToUploadToSearch +
                     Search.GetBoxUsersToUploadToSearch +
+                    Search.GetBoxDepartmentToUploadToSearch +
                     Search.GetBoxToDeleteToSearch))
                 {
                     var retVal = new BoxToUpdateSearchDto
@@ -231,12 +232,17 @@ namespace Zbang.Zbox.ReadServices
                         BoxesToUpdate = await grid.ReadAsync<BoxSearchDto>()
                     };
                     var usersInBoxes = grid.Read<UsersInBoxSearchDto>().ToList();
-
+                    var departmentsOfBoxes = grid.Read<DepartmentOfBoxSearchDto>().ToList();
 
                     foreach (var box in retVal.BoxesToUpdate)
                     {
                         var boxid = box.Id;
                         box.UserIds = usersInBoxes.Where(w => w.BoxId == boxid).Select(s => s.UserId);
+                    }
+                    foreach (var box in retVal.BoxesToUpdate)
+                    {
+                        var boxid = box.Id;
+                        box.Department = departmentsOfBoxes.Where(w => w.BoxId == boxid).Select(s => s.Name);
                     }
                     retVal.BoxesToDelete = await grid.ReadAsync<long>();
                     return retVal;

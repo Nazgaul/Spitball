@@ -12,4 +12,8 @@ namespace Zbang.Zbox.Infrastructure.Search
     public interface IItemWriteSearchProvider2 : IItemWriteSearchProvider
     {
     }
+
+    public interface IItemWriteSearchProvider3 : IItemWriteSearchProvider2
+    {
+    }
 }

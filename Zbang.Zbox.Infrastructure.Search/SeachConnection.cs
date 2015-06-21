@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Azure.Search;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using RedDog.Search;
 using RedDog.Search.Http;
@@ -16,8 +17,9 @@ namespace Zbang.Zbox.Infrastructure.Search
         //private static readonly Lazy<SeachConnection> _instance
         //    = new Lazy<SeachConnection>(() => new SeachConnection());
 
-
+       // SearchIndexClient 
         private readonly ApiConnection m_Connection;
+        private readonly SearchServiceClient m_SearchServiceClient;
         private IndexQueryClient m_ReadClient;
         private IndexManagementClient m_IndexClient;
 
@@ -27,7 +29,9 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public SeachConnection(string serviceName, string serviceKey)
         {
+            m_SearchServiceClient = new SearchServiceClient(serviceName, new SearchCredentials(serviceKey));
             m_Connection = ApiConnection.Create(serviceName, serviceKey);
+          //  m_Connection = ApiConnection.Create(serviceName, serviceKey);
             IsDevelop = IsDevelopEnvironment();
         }
 
@@ -55,7 +59,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public SeachConnection(string serviceName, string serviceKey, bool isDevelop)
         {
-           
+            m_SearchServiceClient = new SearchServiceClient(serviceName, new SearchCredentials(serviceKey));
             m_Connection = ApiConnection.Create(serviceName, serviceKey);
             IsDevelop = isDevelop;
         }
@@ -84,14 +88,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
         }
 
-        // accessor for instance
-        //public static SeachConnection Instance
-        //{
-        //    get
-        //    {
-        //        return _instance.Value;
-        //    }
-        //}
+       
 
         public void Dispose()
         {
@@ -112,7 +109,11 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             if (m_Connection != null)
             {
-                m_Connection.Dispose(p);
+                m_Connection.Dispose();
+            }
+            if (m_SearchServiceClient != null)
+            {
+                m_SearchServiceClient.Dispose();
             }
         }
 
@@ -142,6 +143,12 @@ namespace Zbang.Zbox.Infrastructure.Search
                 sb.Append("...");
             }
             return sb.ToString();
+        }
+
+        public SearchServiceClient SearchClient
+        {
+
+            get { return m_SearchServiceClient; }
         }
     }
 }

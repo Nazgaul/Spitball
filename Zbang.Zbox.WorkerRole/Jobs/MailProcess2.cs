@@ -30,7 +30,6 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
                 while (m_KeepRunning)
                 {
-                    TraceLog.WriteInfo("Process mail process");
                     ExecuteAsync().Wait();
                 }
             }
@@ -53,7 +52,6 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                          TraceLog.WriteInfo("New MailProcess - message is not in the correct format " + msg.Id);
                          return Task.FromResult(true);
                      }
-                     TraceLog.WriteInfo("Process mail: " + msgData.EmailAddress);
 
                      var mail = IocFactory.IocWrapper.Resolve<IMail2>(msgData.MailResover);
                      return mail.ExecuteAsync(msgData);

@@ -47,6 +47,7 @@ where cte.itemid = @itemid;
  i.creationTime,
  i.thumbnailUrl as Thumbnail,
  i.Discriminator as Type,
+ i.BlobName as Source,
  i.Name as name,
     u.UserName as owner, 
     u.userid as ownerId,

@@ -15,10 +15,10 @@ namespace Zbang.Cloudents.Mobile.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class SearchController : BaseController
     {
-        private readonly IBoxReadSearchProvider m_BoxSearchService;
+        private readonly IBoxReadSearchProviderOld m_BoxSearchService;
         private readonly IItemReadSearchProvider m_ItemSearchService;
 
-        public SearchController(IBoxReadSearchProvider boxSearchService, IItemReadSearchProvider itemSearchService)
+        public SearchController(IBoxReadSearchProviderOld boxSearchService, IItemReadSearchProvider itemSearchService)
         {
             m_BoxSearchService = boxSearchService;
             m_ItemSearchService = itemSearchService;
