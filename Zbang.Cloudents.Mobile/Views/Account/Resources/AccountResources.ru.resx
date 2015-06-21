@@ -187,6 +187,31 @@
   <data name="GenderRequired" xml:space="preserve">
     <value>Пожалуйста, выберите пол</value>
   </data>
+  <data name="GetFull" xml:space="preserve">
+    <value>Получите полную</value>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Хотите получать</value>
+  </data>
+  <data name="HomePageTitle2" xml:space="preserve">
+    <value>лучшие оценки ?</value>
+  </data>
+  <data name="HomePageTitle3" xml:space="preserve">
+    <value>Нужно пообщаться в чате с однокурсниками?
+</value>
+  </data>
+  <data name="HomePageTitle4" xml:space="preserve">
+    <value>Хотите получить доступ к нужному учебному материалу?</value>
+  </data>
+  <data name="HomePageTitle5" xml:space="preserve">
+    <value>Попрактиковаться перед итоговыми экзаменами?</value>
+  </data>
+  <data name="HomePageTitle6" xml:space="preserve">
+    <value>Cloudents предоставляет все эти возможности.</value>
+  </data>
+  <data name="HomePageTitle7" xml:space="preserve">
+    <value>Присоединяйтесь, БЕСПЛАТНО!</value>
+  </data>
   <data name="IAgree" xml:space="preserve">
     <value>Присоединяясь, я соглашаюсь с условиями и положениями</value>
   </data>
@@ -233,6 +258,9 @@
   </data>
   <data name="SocialStudy" xml:space="preserve">
     <value>Это больше, чем просто обучение, это социальное обучение</value>
+  </data>
+  <data name="VersionNow" xml:space="preserve">
+    <value>версию сейчас</value>
   </data>
   <data name="WeEmailed" xml:space="preserve">
     <value>Мы отправили вам инструкции по смене пароля.</value>

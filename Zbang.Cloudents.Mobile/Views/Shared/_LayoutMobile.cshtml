@@ -13,20 +13,20 @@
 
     <base href="/">
 </head>
-<body data-version="@VersionHelper.CurrentVersion(true)">
+<body class="@Html.ClassOfRtl()" data-version="@VersionHelper.CurrentVersion(true)">
     @RenderBody()
     @*DO NOT REMOVE THIS AT ALL TIME*@
     <div id="cssCheck"></div>
-    
+
     @RenderSection("scripts", false)
 
 
     @*<script type='text/javascript'>
-        var b = document.documentElement;
-        b.setAttribute('data-useragent', navigator.userAgent);
-        b.setAttribute('data-platform', navigator.platform);
-        b.className += ((!!('ontouchstart' in window) || !!('onmsgesturechange' in window)) ? ' touch' : '');
-    </script>*@
+            var b = document.documentElement;
+            b.setAttribute('data-useragent', navigator.userAgent);
+            b.setAttribute('data-platform', navigator.platform);
+            b.className += ((!!('ontouchstart' in window) || !!('onmsgesturechange' in window)) ? ' touch' : '');
+        </script>*@
 
 </body>
 </html>

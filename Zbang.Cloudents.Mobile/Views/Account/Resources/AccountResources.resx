@@ -186,6 +186,30 @@
   <data name="GenderRequired" xml:space="preserve">
     <value>Please select gender</value>
   </data>
+  <data name="GetFull" xml:space="preserve">
+    <value>Get the full</value>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Do you want to get</value>
+  </data>
+  <data name="HomePageTitle2" xml:space="preserve">
+    <value>better grades?</value>
+  </data>
+  <data name="HomePageTitle3" xml:space="preserve">
+    <value>Need to chat with your fellow students?</value>
+  </data>
+  <data name="HomePageTitle4" xml:space="preserve">
+    <value>Access relevant studying material?</value>
+  </data>
+  <data name="HomePageTitle5" xml:space="preserve">
+    <value>Practice before the final?</value>
+  </data>
+  <data name="HomePageTitle6" xml:space="preserve">
+    <value>Cloudents brings it all together</value>
+  </data>
+  <data name="HomePageTitle7" xml:space="preserve">
+    <value>join, for FREE!</value>
+  </data>
   <data name="IAgree" xml:space="preserve">
     <value>By joining, I agree to Cloudents</value>
   </data>
@@ -231,6 +255,9 @@ Give it a try.</value>
   </data>
   <data name="SocialStudy" xml:space="preserve">
     <value>It's more than just studying, it's social studying</value>
+  </data>
+  <data name="VersionNow" xml:space="preserve">
+    <value>version now</value>
   </data>
   <data name="WeEmailed" xml:space="preserve">
     <value>We've emailed you password reset instructions.</value>

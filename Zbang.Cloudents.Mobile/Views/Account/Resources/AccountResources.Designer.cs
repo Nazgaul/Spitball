@@ -268,6 +268,78 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Get the full.
+        /// </summary>
+        public static string GetFull {
+            get {
+                return ResourceManager.GetString("GetFull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to get.
+        /// </summary>
+        public static string HomePageTitle {
+            get {
+                return ResourceManager.GetString("HomePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to better grades?.
+        /// </summary>
+        public static string HomePageTitle2 {
+            get {
+                return ResourceManager.GetString("HomePageTitle2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Need to chat with your fellow students?.
+        /// </summary>
+        public static string HomePageTitle3 {
+            get {
+                return ResourceManager.GetString("HomePageTitle3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access relevant studying material?.
+        /// </summary>
+        public static string HomePageTitle4 {
+            get {
+                return ResourceManager.GetString("HomePageTitle4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Practice before the final?.
+        /// </summary>
+        public static string HomePageTitle5 {
+            get {
+                return ResourceManager.GetString("HomePageTitle5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cloudents brings it all together.
+        /// </summary>
+        public static string HomePageTitle6 {
+            get {
+                return ResourceManager.GetString("HomePageTitle6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to join, for FREE!.
+        /// </summary>
+        public static string HomePageTitle7 {
+            get {
+                return ResourceManager.GetString("HomePageTitle7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to By joining, I agree to Cloudents.
         /// </summary>
         public static string IAgree {
@@ -400,6 +472,15 @@ namespace Zbang.Cloudents.Mobile.Views.Account.Resources {
         public static string SocialStudy {
             get {
                 return ResourceManager.GetString("SocialStudy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to version now.
+        /// </summary>
+        public static string VersionNow {
+            get {
+                return ResourceManager.GetString("VersionNow", resourceCulture);
             }
         }
         

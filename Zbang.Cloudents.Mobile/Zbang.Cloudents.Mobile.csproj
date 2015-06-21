@@ -539,6 +539,9 @@
     <Content Include="Content\lang.he-IL.css">
       <DependentUpon>lang.he-IL.less</DependentUpon>
     </Content>
+    <Content Include="Content\lang.he-IL.rtl.css">
+      <DependentUpon>lang.he-IL.css</DependentUpon>
+    </Content>
     <Content Include="Content\lang.ru-RU.css">
       <DependentUpon>lang.ru-RU.less</DependentUpon>
     </Content>
@@ -572,6 +575,12 @@
     <Content Include="Content\RegistrationRtl.rtl.css">
       <DependentUpon>RegistrationRtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\RtlFix.css">
+      <DependentUpon>RtlFix.less</DependentUpon>
+    </Content>
+    <Content Include="Content\RtlFix.rtl.css">
+      <DependentUpon>RtlFix.css</DependentUpon>
+    </Content>
     <Content Include="Content\SearchRtl.css">
       <DependentUpon>SearchRtl.less</DependentUpon>
     </Content>
@@ -591,11 +600,17 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Images\bg%402x.jpg" />
-    <Content Include="Images\bg%403x.jpg" />
-    <Content Include="Images\bg.jpg" />
+    <Content Include="Images\app_bg%403x.png" />
+    <Content Include="Images\app_bg.png" />
+    <Content Include="Images\app_bg%402x.png" />
+    <Content Include="Images\app_store.png" />
+    <Content Include="Images\bg%403x.png" />
+    <Content Include="Images\bg.png" />
+    <Content Include="Images\bg%402x.png" />
     <Content Include="Images\Defs.svg" />
     <Content Include="Images\EmptyState\user.svg" />
+    <Content Include="Images\google_play.png" />
+    <Content Include="Images\logo.png" />
     <Content Include="Images\membersOnly.png" />
     <Content Include="Js\app.module.js" />
     <Content Include="Js\app.route.js" />
@@ -706,6 +721,7 @@
       <Link>startup\disableTimeout.cmd</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\RtlFix.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

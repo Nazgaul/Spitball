@@ -1,0 +1,25 @@
+﻿@import "varsAndMixins";
+
+//RTL inconsistencies
+
+// NB: 1) Here we are overriding with greater specificity!! (so resetting ltr property is necessary)
+
+//In General there are 3 different reasons for the need for a fix:
+// (1) When no rtl should be applied
+// (2) When different rtl should be applied
+// (3) When an svg/image needs to be flipped in rtl
+ 
+.rtlFix {
+    .app-download {
+
+    .download_text,.download_text2,.download_store,.download_play {
+        right:auto;
+        left:0;
+        }
+    }
+
+    .close{
+        left:15px;
+        right:auto;
+    }
+}
