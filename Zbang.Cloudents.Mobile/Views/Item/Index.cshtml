@@ -33,5 +33,16 @@
     <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
     @Html.Script2("mobileItem")
     <div id="cssCheck"></div>
+    <script>
+    deeplink.setup({
+        fallback: false,
+        android: {
+            appId: "com.cloudents.zbox2"
+        }
+    });
+    window.onload = function () {
+        deeplink.open("cloudents://" + location.pathname);
+    }
+    </script>
 </body>
 </html>

@@ -34,15 +34,6 @@
                 appId: "com.cloudents.zbox2"
             }
         });
-        //deeplink.setup({
-        //    iOS: {
-        //        appName: "Cloudents",
-        //        appId: "990911114",
-        //    },
-        //    android: {
-        //        appId: "com.cloudents.zbox2"
-        //    }
-        //});
         window.onload = function () {
             deeplink.open("cloudents://" + location.pathname) ;
         }

@@ -237,6 +237,7 @@ namespace Zbang.Cloudents.Mobile
 
             jsDictionary.Add("mobileItem", new[] { new JsFileWithCdn("~/Scripts/jquery.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
                 //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
+                                    new JsFileWithCdn("~/scripts/browser-deeplink.min.js"),
                                     new JsFileWithCdn("~/Js/Utils2.js"),
                                     new JsFileWithCdn("~/Js/pubsub2.js"),
                                     new JsFileWithCdn("~/Js/Cache2.js"),
