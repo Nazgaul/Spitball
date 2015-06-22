@@ -28,16 +28,16 @@
     @RenderSection("scripts", false)
 
     <script>
-        deeplink.setup({
-            fallback: false,
-            urlFallback: location.href,
-            android: {
-                appId: "com.cloudents.zbox2"
-            }
-        });
-        window.onload = function () {
-            deeplink.open("cloudents://" + location.pathname) ;
-        }
+        //deeplink.setup({
+        //    fallback: false,
+        //    urlFallback: location.href,
+        //    android: {
+        //        appId: "com.cloudents.zbox2"
+        //    }
+        //});
+        //window.onload = function () {
+        //    deeplink.open("cloudents://" + location.pathname) ;
+        //}
     </script>
 </body>
 </html>
