@@ -16,7 +16,7 @@ namespace Zbang.Cloudents.Mobile
             var cssDictionary = new Dictionary<string, IEnumerable<string>>
             {
                 {"lang.ru-RU", new[] {"~/Content/lang.ru-RU.css"}},
-                //{"lang.he-IL", new[] {"~/Content/lang.he-IL.css"}},
+                {"lang.he-IL", new[] {"~/Content/lang.he-IL.css"}},
 
             };
 

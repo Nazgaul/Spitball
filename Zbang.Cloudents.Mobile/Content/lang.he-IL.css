@@ -2,11 +2,6 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-.download_bg {
-  -moz-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
-  filter: FlipH;
-  -ms-filter: "FlipH";
+.homepage h4.header {
+  margin-top: 0;
 }

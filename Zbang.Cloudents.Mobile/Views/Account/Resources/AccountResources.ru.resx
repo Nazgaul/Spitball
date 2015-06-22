@@ -188,7 +188,7 @@
     <value>Пожалуйста, выберите пол</value>
   </data>
   <data name="GetFull" xml:space="preserve">
-    <value>Получите полную</value>
+    <value>Скачать сейчас</value>
   </data>
   <data name="HomePageTitle" xml:space="preserve">
     <value>Хотите получать</value>
@@ -260,7 +260,7 @@
     <value>Это больше, чем просто обучение, это социальное обучение</value>
   </data>
   <data name="VersionNow" xml:space="preserve">
-    <value>версию сейчас</value>
+    <value />
   </data>
   <data name="WeEmailed" xml:space="preserve">
     <value>Мы отправили вам инструкции по смене пароля.</value>

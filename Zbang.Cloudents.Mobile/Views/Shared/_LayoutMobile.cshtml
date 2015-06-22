@@ -29,7 +29,10 @@
 
     <script>
         deeplink.setup({
-            fallback: false
+            fallback: false,
+            android: {
+                appId: "com.cloudents.zbox2"
+            }
         });
         //deeplink.setup({
         //    iOS: {
@@ -41,7 +44,7 @@
         //    }
         //});
         window.onload = function () {
-            deeplink.open("cloudents://" + location.pathname);
+            deeplink.open("cloudents://" + location.pathname) ;
         }
     </script>
 </body>
