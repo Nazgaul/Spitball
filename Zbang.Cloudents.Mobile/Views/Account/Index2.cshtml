@@ -3,8 +3,14 @@
 @using Zbang.Zbox.Infrastructure.Culture
 
 <div class="homepage">
-    @Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })
-    <h1>@AccountResources.SocialStudy</h1>
+     <img class="svg-logo" src="~/Images/logo.png" />
+    <h1 class="header">@AccountResources.HomePageTitle</h1>
+    <h1 class="header">@AccountResources.HomePageTitle2</h1>
+    <h2 class="header first">@AccountResources.HomePageTitle3</h2>
+    <h2 class="header">@AccountResources.HomePageTitle4</h2>
+    <h2 class="header">@AccountResources.HomePageTitle5</h2>
+    <h3 class="header">@AccountResources.HomePageTitle6</h3>
+    <h4 class="header">@AccountResources.HomePageTitle7</h4>    
     <div class="bottom">
         <button type="button" class="facebook" ng-click="account.facebookLogin()">
             <span class="fbImg">
@@ -34,10 +40,16 @@
     </div>
 
     <section class="app-download" ng-class="{closed : account.isPopupClosed}" ng-if="account.firstTime">
-        <h2>@AccountResources.MadeAnApp</h2>
-        <a href="http://m.onelink.me/cb0eeb35" class="downloadLink androidLink" target="_blank">@AccountResources.DownloadApp</a>
-        <button type="button" class="continue" ng-click="account.closePopup()">@AccountResources.ContinueBrowsing</button>
-        <button type="button" class="close" ng-click="account.closePopup()">@Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })</button>
+       
+        <div class="wrapper">
+            <button type="button" class="close" ng-click="account.closePopup()">@Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })</button>
+            <img class="download_bg" src="~/Images/app_bg@3x.png" />
+            <div class="download_text">@AccountResources.GetFull</div>
+            <div class="download_text2">@AccountResources.VersionNow</div>
+            @*<a href="http://m.onelink.me/cb0eeb35" class="downloadLink androidLink" target="_blank">@AccountResources.DownloadApp</a>*@
+            <a href="http://m.onelink.me/cb0eeb35" class="download_store"><img src="~/Images/app_store.png"></a>
+            <a href="http://m.onelink.me/cb0eeb35" class="download_play"><img src="~/Images/google_play.png"></a>
+        </div>
     </section>
 </div>
 

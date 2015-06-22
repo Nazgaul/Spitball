@@ -187,6 +187,30 @@
   <data name="GenderRequired" xml:space="preserve">
     <value>الرجاء اختيار نوع الجنس</value>
   </data>
+  <data name="GetFull" xml:space="preserve">
+    <value>الحصول على كامل</value>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>هل ترغب في الحصول على</value>
+  </data>
+  <data name="HomePageTitle2" xml:space="preserve">
+    <value>أفضل الدرجات؟</value>
+  </data>
+  <data name="HomePageTitle3" xml:space="preserve">
+    <value>التحدث الى زميلك في الصف ؟</value>
+  </data>
+  <data name="HomePageTitle4" xml:space="preserve">
+    <value>الوصول للمستندات ذات صلة مع المواضيع التي تتعلمها ؟</value>
+  </data>
+  <data name="HomePageTitle5" xml:space="preserve">
+    <value>ممارسة قبل الوجهة النهائية؟</value>
+  </data>
+  <data name="HomePageTitle6" xml:space="preserve">
+    <value>Cloudents يجلب كل ذلك معا</value>
+  </data>
+  <data name="HomePageTitle7" xml:space="preserve">
+    <value>الانضمام، مجانا!</value>
+  </data>
   <data name="IAgree" xml:space="preserve">
     <value>انا موافق , للتسجل للموقع</value>
   </data>
@@ -231,6 +255,9 @@
   </data>
   <data name="SocialStudy" xml:space="preserve">
     <value>إنها أكثر من مجرد دراسة، إنها دراسة اجتماعية</value>
+  </data>
+  <data name="VersionNow" xml:space="preserve">
+    <value>نسخة الآن</value>
   </data>
   <data name="WeEmailed" xml:space="preserve">
     <value>لقد أرسلنا لك عبر البريد الالكتروني تعليمات إعادة تعيين كلمة المرور.</value>

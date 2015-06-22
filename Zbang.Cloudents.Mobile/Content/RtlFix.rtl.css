@@ -1,0 +1,15 @@
+﻿/*#region variables */
+/*#endregion */
+/*#region mixins */
+/*#endregion */
+.rtlFix .app-download .download_text,
+.rtlFix .app-download .download_text2,
+.rtlFix .app-download .download_store,
+.rtlFix .app-download .download_play {
+  left: auto;
+  right: 0;
+}
+.rtlFix .close {
+  right: 15px;
+  left: auto;
+}

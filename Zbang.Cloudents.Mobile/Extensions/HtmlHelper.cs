@@ -75,6 +75,15 @@ namespace Zbang.Cloudents.Mobile.Extensions
             return MvcHtmlString.Empty;
         }
 
+        public static MvcHtmlString ClassOfRtl(this HtmlHelper html)
+        {
+            if (Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
+            {
+                return MvcHtmlString.Create("rtlFix");
+            }
+            return MvcHtmlString.Empty;
+        }
+
         //public static MvcHtmlString AngularAntiForgeryToken(this HtmlHelper html)
         //{
         //    string cookieToken, formToken;

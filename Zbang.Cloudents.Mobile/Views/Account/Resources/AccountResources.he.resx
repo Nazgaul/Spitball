@@ -121,7 +121,7 @@
     <value>כבר יש לך חשבון?</value>
   </data>
   <data name="And" xml:space="preserve">
-    <value />
+    <value>ו</value>
   </data>
   <data name="ByEmail" xml:space="preserve">
     <value>או באמצאות דוא"ל</value>
@@ -186,6 +186,30 @@
   <data name="GenderRequired" xml:space="preserve">
     <value>אנא בחר מגדר</value>
   </data>
+  <data name="GetFull" xml:space="preserve">
+    <value>הורידו את</value>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>הדרך הקלה והיעילה ביותר</value>
+  </data>
+  <data name="HomePageTitle2" xml:space="preserve">
+    <value>לסיים את התואר!</value>
+  </data>
+  <data name="HomePageTitle3" xml:space="preserve">
+    <value>רוצים למצוא ולשתף סיכומים לקורסים שלכם?</value>
+  </data>
+  <data name="HomePageTitle4" xml:space="preserve">
+    <value>לתרגל מבחנים משנים קודמות?</value>
+  </data>
+  <data name="HomePageTitle5" xml:space="preserve">
+    <value>לשאול שאלות את החבר'ה מהכיתה?</value>
+  </data>
+  <data name="HomePageTitle6" xml:space="preserve">
+    <value>הצטרפו למאות אלפי סטודנטים,</value>
+  </data>
+  <data name="HomePageTitle7" xml:space="preserve">
+    <value>הורידו והצטרפו (בחינם!)</value>
+  </data>
   <data name="IAgree" xml:space="preserve">
     <value>בהרשמה, אני מסכים   </value>
   </data>
@@ -231,6 +255,9 @@
   </data>
   <data name="SocialStudy" xml:space="preserve">
     <value>כשלומדים יחד, לומדים טוב יותר</value>
+  </data>
+  <data name="VersionNow" xml:space="preserve">
+    <value>האפליקציה עכשיו</value>
   </data>
   <data name="WeEmailed" xml:space="preserve">
     <value>סיסמה חדשה נשלחה לאימייל שלך עם הוראות לשינוי הסיסמה</value>
