@@ -289,3 +289,8 @@ option {
     font-size: 18px;
   }
 }
+@media only screen and (orientation: landscape) {
+  .app-download {
+    display: none;
+  }
+}
