@@ -27,7 +27,7 @@
 
     @RenderSection("scripts", false)
 
-    <script>
+    @*<script>
         deeplink.setup({
             fallback: false,
             urlFallback: location.href,
@@ -38,6 +38,6 @@
         window.onload = function () {
             deeplink.open("cloudents://" + location.pathname) ;
         }
-    </script>
+    </script>*@
 </body>
 </html>
