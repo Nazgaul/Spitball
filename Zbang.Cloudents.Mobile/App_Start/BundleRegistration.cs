@@ -71,6 +71,8 @@ namespace Zbang.Cloudents.Mobile
                         new JsFileWithCdn("~/scripts/plupload2/moxie.js"),
                         new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
+                        new JsFileWithCdn("~/scripts/browser-deeplink.min.js"),
+
 
                         new JsFileWithCdn("~/js/app.module.js"),
                         new JsFileWithCdn("~/js/app.route.js"),

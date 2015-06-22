@@ -6,8 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,target-densitydpi=device-dpi, user-scalable=no" />
+    @*<meta property="al:ios:url" content="cloudents://" />
+    <meta property="al:ios:app_store_id" content="990911114" />
+    <meta property="al:ios:app_name" content="Cloudents" />
+    <meta property="al:android:url" content="cloudents://" />
+    <meta property="al:android:app_name" content="Cloudents" />
+    <meta property="al:android:package" content="com.cloudents.zbox2" />
+    <meta property="al:web:url"
+          content="http://applinks.org/documentation" />*@
     @Html.Css2("mobile")
-    @*@Html.CssRtl("mobileRtl")*@
     @Html.CssCulture("lang")
     <title>@ViewBag.Title</title>
 
@@ -17,16 +24,24 @@
     @RenderBody()
     @*DO NOT REMOVE THIS AT ALL TIME*@
     <div id="cssCheck"></div>
-    
     @RenderSection("scripts", false)
 
-
-    @*<script type='text/javascript'>
-        var b = document.documentElement;
-        b.setAttribute('data-useragent', navigator.userAgent);
-        b.setAttribute('data-platform', navigator.platform);
-        b.className += ((!!('ontouchstart' in window) || !!('onmsgesturechange' in window)) ? ' touch' : '');
-    </script>*@
-
+    <script>
+        deeplink.setup({
+            fallback: false
+        });
+        //deeplink.setup({
+        //    iOS: {
+        //        appName: "Cloudents",
+        //        appId: "990911114",
+        //    },
+        //    android: {
+        //        appId: "com.cloudents.zbox2"
+        //    }
+        //});
+        window.onload = function () {
+            deeplink.open("cloudents://" + location.pathname);
+        }
+    </script>
 </body>
 </html>
