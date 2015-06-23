@@ -144,7 +144,8 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 IDatabase cache = Connection.GetDatabase( /*region.GetHashCode()*/);
                 var cacheKey = BuildCacheKey(key, region);
 
-                return await cache.GetAsync<T>(cacheKey);
+                var t = await cache.GetAsync<T>(cacheKey);
+                return t;
             }
             catch (Exception ex)
             {

@@ -177,11 +177,16 @@ namespace Zbang.Zbox.Infrastructure.Search
         public async Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException("query");
-
+            var term = query.Term;
+            if (string.IsNullOrEmpty(term))
+            {
+                term = "*";
+            }
             var filter = await m_FilterProvider.BuildFilterExpression(
                query.UniversityId, UniversityidField, UserIdsField, query.UserId);
 
-            var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(query.Term, new SearchParameters
+
+            var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(term, new SearchParameters
             {
                 Filter = filter,
                 Top = query.RowsPerPage,

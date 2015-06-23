@@ -37,11 +37,11 @@ namespace Zbang.Zbox.Infrastructure.Cache
             //var pformatter = new Transport.ProtobufSerializer<T>();
             //return pformatter.SerializeData(o);
 
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            using (MemoryStream memoryStream = new MemoryStream())
+            var binaryFormatter = new BinaryFormatter();
+            using (var memoryStream = new MemoryStream())
             {
                 binaryFormatter.Serialize(memoryStream, o);
-                byte[] objectDataAsStream = memoryStream.ToArray();
+                var objectDataAsStream = memoryStream.ToArray();
                 return objectDataAsStream;
             }
         }
@@ -54,10 +54,10 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
             //var pformatter = new Transport.ProtobufSerializer<T>();
             //return pformatter.DeSerializeData(stream);
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            using (MemoryStream memoryStream = new MemoryStream(stream))
+            var binaryFormatter = new BinaryFormatter();
+            using (var memoryStream = new MemoryStream(stream))
             {
-                T result = (T)binaryFormatter.Deserialize(memoryStream);
+                var result = (T)binaryFormatter.Deserialize(memoryStream);
                 return result;
             }
         }
