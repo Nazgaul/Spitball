@@ -14,6 +14,7 @@
     <meta property="al:android:package" content="com.cloudents.zbox2" />
     <meta property="al:web:url"
           content="http://applinks.org/documentation" />*@
+
     @Html.Css2("mobile")
     @Html.CssCulture("lang")
     <title>@ViewBag.Title</title>
@@ -28,16 +29,16 @@
     @RenderSection("scripts", false)
 
     @*<script>
-        //deeplink.setup({
-        //    fallback: false,
-        //    urlFallback: location.href,
-        //    android: {
-        //        appId: "com.cloudents.zbox2"
-        //    }
-        //});
-        //window.onload = function () {
-        //    deeplink.open("cloudents://" + location.pathname) ;
-        //}
+        deeplink.setup({    
+            fallback: false,
+            //urlFallback: location.href,
+            android: {
+                appId: "com.cloudents.zbox2"
+            }
+        });
+        window.onload = function () {
+            deeplink.open("cloudents://" + decodeURI(location.pathname.substring(1))) ;
+        }
     </script>*@
 </body>
 </html>

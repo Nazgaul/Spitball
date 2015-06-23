@@ -16,7 +16,7 @@
 
         accountService.doneLoad();
 
-        account.closePopup = function () {
+        account.closePopup = function (event) {
             account.isPopupClosed = true;
         };
 
