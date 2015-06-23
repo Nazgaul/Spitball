@@ -90,8 +90,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 BaseControllerResources.Culture = culture;
                 var seoItemName = Path.GetFileNameWithoutExtension(model.Name);
 
-                ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix,
-                    model.BoxName, seoItemName, BaseControllerResources.Cloudents);
+                ViewBag.title = string.Format("{0} | {1} | {2} | {3} | {4}", 
+                    model.BoxName, seoItemName, model.DepartmentName, model.UniversityName, BaseControllerResources.Cloudents);
 
                 ViewBag.Description = model.Description;
                 ViewBag.fbImage = model.ImageUrl;

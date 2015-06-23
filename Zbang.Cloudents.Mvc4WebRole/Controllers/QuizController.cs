@@ -69,12 +69,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var culture = Languages.GetCultureBaseOnCountry(model.Country);
                 BaseControllerResources.Culture = culture;
-                ViewBag.title = string.Format("{0} {1} | {2} {3} | {4} | {5}", BaseControllerResources.QuizTitlePrefix,
-                    model.Name,
-                    BaseControllerResources.QuizTitleText,
-                    model.BoxName,
-                    model.UniversityName,
-                    BaseControllerResources.Cloudents);
+                ViewBag.title = string.Format("{0} | {1} | {2} | {3} | {4}",
+                   model.BoxName, model.Name, model.DepartmentName, model.UniversityName, BaseControllerResources.Cloudents);
+
+                //ViewBag.title = string.Format("{0} {1} | {2} {3} | {4} | {5}", BaseControllerResources.QuizTitlePrefix,
+                //    model.Name,
+                //    BaseControllerResources.QuizTitleText,
+                //    model.BoxName,
+                //    model.UniversityName,
+                //    BaseControllerResources.Cloudents);
                 ViewBag.metaDescription = Zbox.Infrastructure.TextManipulation.RemoveHtmlTags.Replace(model.FirstQuestion, string.Empty);
                 return View("Empty");
             }

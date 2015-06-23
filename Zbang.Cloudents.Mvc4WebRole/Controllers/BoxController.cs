@@ -60,7 +60,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return View("Empty");
                 }
                 BaseControllerResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
-                ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix, model.Name,
+                ViewBag.title = string.Format("{0} | {1} | {2} | {3}", model.Name, model.DepartmentName,
                     model.UniversityName, BaseControllerResources.Cloudents);
                 ViewBag.metaDescription = Regex.Replace(string.Format(
                     BaseControllerResources.MetaDescription, model.Name,
