@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Query;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Cache
 {
@@ -38,7 +39,14 @@ namespace Zbang.Zbox.Infrastructure.Cache
             if (item != null) return item;
 
             item = await getItemCallbackAsync(queryParam);
-            await m_Cache.AddToCacheAsync(cacheKey, item, queryParam.Expiration, queryParam.CacheRegion);
+            try
+            {
+                await m_Cache.AddToCacheAsync(cacheKey, item, queryParam.Expiration, queryParam.CacheRegion);
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(ex);
+            }
             return item;
         }
 
