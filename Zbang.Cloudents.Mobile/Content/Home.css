@@ -40,7 +40,7 @@
 .homepage .svg-logo {
   width: 195px;
   height: 51px;
-  margin: 26px auto 6px;
+  margin: 13px auto 6px;
 }
 h1.header {
   color: #fff;
@@ -55,19 +55,18 @@ h2.header {
   font-weight: normal;
 }
 h2.header.first {
-  margin-top: 30px;
+  margin-top: 15px;
 }
 h3.header {
   color: #fff;
   font-size: 18px;
   font-weight: normal;
-  margin-top: 30px;
+  margin-top: 15px;
 }
 h4.header {
   color: #3293f6;
   font-size: 18px;
   font-weight: bold;
-  margin-top: 5px;
 }
 .bottom {
   position: absolute;
@@ -211,12 +210,12 @@ option {
   position: relative;
 }
 .app-download.closed {
-  opacity: 0;
-  -moz-transform: translateY(100%);
-  -ms-transform: translateY(100%);
-  -o-transform: translateY(100%);
-  -webkit-transform: translateY(100%);
-  transform: translateY(100%);
+  /*opacity: 0;*/
+  /*-moz-transform: translateY(100%);
+        -ms-transform: translateY(100%);
+        -o-transform: translateY(100%);
+        -webkit-transform: translateY(100%);
+        transform: translateY(100%);*/
   display: none;
 }
 .app-download .download_text {
