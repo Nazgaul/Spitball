@@ -118,7 +118,7 @@
   font-size: 5vw;
   padding: 36px 0 4px 10%;
   background: transparent;
-  color: #3399ff;
+  color: #3293f6;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -311,12 +311,12 @@
   display: inline-block;
   margin: 0;
   padding: 5px 0;
-  color: #0e68af;
+  color: #3293f6;
   max-width: 100%;
   font-weight: normal;
 }
 .searchLink h4 {
-  color: #0371c8;
+  color: #383838;
 }
 .searchLink .boxSvg {
   background: #fff;
