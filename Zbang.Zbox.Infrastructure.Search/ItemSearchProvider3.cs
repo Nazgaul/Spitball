@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Hyak.Common;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -82,7 +83,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-                m_Connection.SearchClient.Indexes.Delete(m_IndexName);
+               // m_Connection.SearchClient.Indexes.Delete(m_IndexName);
                 await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure());
             }
             catch (Exception ex)
@@ -136,7 +137,13 @@ namespace Zbang.Zbox.Infrastructure.Search
             catch (IndexBatchException ex)
             {
                 TraceLog.WriteError("Failed to index some of the documents: " +
-                                    String.Join(", ", ex.IndexResponse.Results.Where(r => !r.Succeeded).Select(r => r.Key)));
+                                    String.Join(", ",
+                                        ex.IndexResponse.Results.Where(r => !r.Succeeded).Select(r => r.Key)));
+                return false;
+            }
+            catch (CloudException ex)
+            {
+                TraceLog.WriteError("Failed to do batch", ex);
                 return false;
             }
 

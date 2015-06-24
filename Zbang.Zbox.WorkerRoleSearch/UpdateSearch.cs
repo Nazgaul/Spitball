@@ -24,7 +24,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IBoxWriteSearchProviderOld m_BoxSearchProviderOld;
 
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
-        private readonly IQuizWriteSearchProvider m_QuizSearchProvider;
+        private readonly IQuizWriteSearchProvider m_QuizSearchProviderOld;
+        private readonly IQuizWriteSearchProvider2 m_QuizSearchProvider;
+
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IItemWriteSearchProvider2 m_ItemSearchProvider2;
         private readonly IItemWriteSearchProvider3 m_ItemSearchProvider3;
@@ -36,20 +38,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
             IUniversityWriteSearchProvider2 zboxWriteSearchProvider,
             IZboxWorkerRoleService zboxWriteService,
             IBoxWriteSearchProvider2 boxSearchProvider,
-            IQuizWriteSearchProvider quizSearchProvider,
+            IQuizWriteSearchProvider quizSearchProviderOld,
             IFileProcessorFactory fileProcessorFactory,
-            IItemWriteSearchProvider2 itemSearchProvider2, ICloudBlockProvider blobProvider, IBoxWriteSearchProviderOld boxSearchProviderOld, IItemWriteSearchProvider3 itemSearchProvider3)
+            IItemWriteSearchProvider2 itemSearchProvider2, ICloudBlockProvider blobProvider, IBoxWriteSearchProviderOld boxSearchProviderOld, IItemWriteSearchProvider3 itemSearchProvider3, IQuizWriteSearchProvider2 quizSearchProvider)
         {
             m_ZboxReadService = zboxReadService;
             m_UniversitySearchProvider = zboxWriteSearchProvider;
             m_ZboxWriteService = zboxWriteService;
             m_BoxSearchProvider = boxSearchProvider;
-            m_QuizSearchProvider = quizSearchProvider;
+            m_QuizSearchProviderOld = quizSearchProviderOld;
             m_FileProcessorFactory = fileProcessorFactory;
             m_ItemSearchProvider2 = itemSearchProvider2;
             m_BlobProvider = blobProvider;
             m_BoxSearchProviderOld = boxSearchProviderOld;
             m_ItemSearchProvider3 = itemSearchProvider3;
+            m_QuizSearchProvider = quizSearchProvider;
         }
 
         public async Task Run(CancellationToken cancellationToken)
@@ -120,6 +123,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 TraceLog.WriteInfo(PrefixLog, string.Format("quiz updating {0} deleting {1}", updates.QuizzesToUpdate.Count(),
                     updates.QuizzesToDelete.Count()));
+
+                await m_QuizSearchProviderOld.UpdateData(updates.QuizzesToUpdate, updates.QuizzesToDelete);
                 var isSuccess =
                     await m_QuizSearchProvider.UpdateData(updates.QuizzesToUpdate, updates.QuizzesToDelete);
                 if (isSuccess)

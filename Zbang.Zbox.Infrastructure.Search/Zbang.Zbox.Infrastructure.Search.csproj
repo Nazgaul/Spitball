@@ -104,7 +104,9 @@
     <Compile Include="IUniversityReadSearchProvider.cs" />
     <Compile Include="IUniversityWriteSearchProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuizSearch.cs" />
     <Compile Include="QuizSearchProvider.cs" />
+    <Compile Include="QuizSearchProvider2.cs" />
     <Compile Include="RegisterIoc.cs" />
     <Compile Include="SeachConnection.cs" />
     <Compile Include="SearchIndex.cs" />

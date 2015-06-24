@@ -236,8 +236,18 @@ namespace Zbang.Zbox.Infrastructure.Search
         Task<bool> UpdateData(IEnumerable<QuizSearchDto> quizToUpload, IEnumerable<long> itemToDelete);
     }
 
+    public interface IQuizWriteSearchProvider2 : IQuizWriteSearchProvider
+    {
+        
+    }
+
     public interface IQuizReadSearchProvider
     {
         Task<IEnumerable<SearchQuizzes>> SearchQuiz(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
+    }
+
+    public interface IQuizReadSearchProvider2 : IQuizReadSearchProvider
+    {
+        
     }
 }
