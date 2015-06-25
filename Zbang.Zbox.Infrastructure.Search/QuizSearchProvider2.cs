@@ -86,7 +86,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-               // m_Connection.SearchClient.Indexes.Delete(m_IndexName);
+                // m_Connection.SearchClient.Indexes.Delete(m_IndexName);
                 await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure());
             }
             catch (Exception ex)
@@ -158,14 +158,19 @@ namespace Zbang.Zbox.Infrastructure.Search
             var filter = await m_FilterProvider.BuildFilterExpression(
               query.UniversityId, UniversityidField, UseridsField, query.UserId);
 
-            var result = await m_IndexClient.Documents.SearchAsync<QuizSearch>(query.Term, new SearchParameters
+            var term = query.Term;
+            if (string.IsNullOrEmpty(term))
+            {
+                term = "*";
+            }
+            var result = await m_IndexClient.Documents.SearchAsync<QuizSearch>(term, new SearchParameters
             {
                 Filter = filter,
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
                 ScoringProfile = "universityTag",
                 ScoringParameters = new[] { "university:" + query.UniversityId },
-                HighlightFields = new[] { QuestionsField, AnswersField },
+                HighlightFields = new[] { QuestionsField, AnswersField, NameField },
                 Select = new[] { NameField, IdField, BoxNameField, UniversityNameField, UrlField, ContentField }
             });
 
@@ -174,7 +179,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Boxname = s.Document.BoxName,
                 Content = HighLightInField(s, new[] { QuestionsField, AnswersField }, s.Document.MetaContent),
                 Id = long.Parse(s.Document.Id),
-                Name = s.Document.Name,
+                Name = HighLightInField(s, new[] { NameField }, s.Document.Name),
                 UniName = s.Document.UniversityName,
                 Url = s.Document.Url
             });

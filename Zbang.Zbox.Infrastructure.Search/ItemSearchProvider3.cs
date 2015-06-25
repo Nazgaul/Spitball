@@ -83,7 +83,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-               // m_Connection.SearchClient.Indexes.Delete(m_IndexName);
+                // m_Connection.SearchClient.Indexes.Delete(m_IndexName);
                 await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure());
             }
             catch (Exception ex)
@@ -166,7 +166,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 ScoringProfile = "universityTag",
                 ScoringParameters = new[] { "university:" + query.UniversityId },
                 Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField },
-                HighlightFields = new[] { ContentField }
+                HighlightFields = new[] { ContentField, NameField }
             }, cancelToken);
 
             return result.Select(s => new SearchItems
@@ -175,7 +175,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Content = HighLightInField(s, ContentField, s.Document.MetaContent),
                 Id = long.Parse(s.Document.Id),
                 Image = s.Document.Image,
-                Name = s.Document.Name,
+                Name = HighLightInField(s, NameField, s.Document.Name),
                 UniName = s.Document.UniversityName,
                 Url = s.Document.Url
             });
@@ -201,16 +201,16 @@ namespace Zbang.Zbox.Infrastructure.Search
                 ScoringProfile = "universityTag",
                 ScoringParameters = new[] { "university:" + query.UniversityId },
                 Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField },
-                HighlightFields = new[] { ContentField }
+                HighlightFields = new[] { ContentField, NameField }
             }, cancelToken);
 
             return result.Select(s => new SearchItems
             {
                 Boxname = s.Document.BoxName,
-                Content = HighLightInField(s ,ContentField, s.Document.MetaContent),
+                Content = HighLightInField(s, ContentField, s.Document.MetaContent),
                 Id = long.Parse(s.Document.Id),
                 Image = s.Document.Image,
-                Name = s.Document.Name,
+                Name = HighLightInField(s, NameField, s.Document.Name),
                 UniName = s.Document.UniversityName,
                 Url = s.Document.Url
             });

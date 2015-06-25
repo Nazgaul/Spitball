@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Globalization;
 using System.Net;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Cloudents.MobileApp2.DataObjects;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
@@ -37,13 +32,15 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         // GET api/CustomLogin
         public async Task<HttpResponseMessage> Post(LogInRequest loginRequest)
         {
-
+            Services.Log.Info("log in user " + loginRequest);
             if (loginRequest == null)
             {
                 return Request.CreateBadRequestResponse();
             }
+            Services.Log.Info("log in user " + loginRequest);
             if (!ModelState.IsValid)
             {
+                Services.Log.Error("model is not valid " + loginRequest);
                 return Request.CreateBadRequestResponse();
             }
             try
@@ -61,6 +58,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 var systemUser = tSystemData.Result;
                 if (systemUser == null)
                 {
+                    Services.Log.Error("system user is not valid " + loginRequest);
                     return Request.CreateBadRequestResponse();
                 }
                 if (tLogIn.Result)
@@ -71,6 +69,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                         .CreateLoginResult(identity, Services.Settings.MasterKey);
                     return Request.CreateResponse(HttpStatusCode.OK, loginResult);
                 }
+                Services.Log.Error("tLogIn result is false " + loginRequest);
 
             }
             catch (Exception ex)

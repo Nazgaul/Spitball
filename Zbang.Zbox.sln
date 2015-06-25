@@ -121,6 +121,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Zbox.Infrastructure.S
 EndProject
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Zbang.Cloudents.Cloud.BackgroundWorker2", "Zbang.Cloudents.Cloud.BackgroundWorker2\Zbang.Cloudents.Cloud.BackgroundWorker2.ccproj", "{DD6289C1-67B6-4E08-A261-40BF46ACBC93}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Cloudents.Images", "Zbang.Cloudents.Images\Zbang.Cloudents.Images.csproj", "{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}"
+EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Zbang.Cloudents.Cloud.Images", "Zbang.Cloudents.Cloud.Images\Zbang.Cloudents.Cloud.Images.ccproj", "{55208D32-DD75-4C47-B692-89620A6A41F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -1216,6 +1220,56 @@ Global
 		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
 		{DD6289C1-67B6-4E08-A261-40BF46ACBC93}.SingleImage|x86.ActiveCfg = Release|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.CD_ROM|x86.ActiveCfg = Release|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.Release|x86.ActiveCfg = Release|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7}.SingleImage|x86.ActiveCfg = Release|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.CD_ROM|x86.ActiveCfg = Release|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.Release|x86.ActiveCfg = Release|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
+		{55208D32-DD75-4C47-B692-89620A6A41F1}.SingleImage|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1268,6 +1322,8 @@ Global
 		{20D10149-03BF-4C32-ABE4-D278A46CAD7F} = {F7B23167-AD4A-4FF4-ABDE-ACB6E2746F4E}
 		{2E9E02CF-7AF8-4AB5-A8B8-829D169EF61F} = {F7B23167-AD4A-4FF4-ABDE-ACB6E2746F4E}
 		{DD6289C1-67B6-4E08-A261-40BF46ACBC93} = {B3E23D7B-5670-4C30-85BF-0094713146B2}
+		{430EEA01-F9ED-46E6-A23B-D33AD6634AA7} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
+		{55208D32-DD75-4C47-B692-89620A6A41F1} = {B3E23D7B-5670-4C30-85BF-0094713146B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.2.1.505.2\lib\NET35;packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4
