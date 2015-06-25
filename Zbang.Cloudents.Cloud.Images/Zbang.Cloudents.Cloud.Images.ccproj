@@ -36,6 +36,26 @@
     <ServiceConfiguration Include="ServiceConfiguration.Local.cscfg" />
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zbang.Cloudents.Images\Zbang.Cloudents.Images.csproj">
+      <Name>Zbang.Cloudents.Images</Name>
+      <Project>{430eea01-f9ed-46e6-a23b-d33ad6634aa7}</Project>
+      <Private>True</Private>
+      <RoleType>Web</RoleType>
+      <RoleName>Zbang.Cloudents.Images</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Profiles" />
+    <Folder Include="Zbang.Cloudents.ImagesContent\" />
+  </ItemGroup>
+  <ItemGroup>
+    <DiagnosticsConfiguration Include="Zbang.Cloudents.ImagesContent\diagnostics.wadcfgx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishProfile Include="Profiles\zboxImagesProduction.azurePubxml" />
+  </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
