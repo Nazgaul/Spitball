@@ -26,6 +26,9 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
         var tabsCount = {};
 
         $scope.items = _.map(boxItems, function (item) {
+            
+            item.source += ".jpg";
+            item.thumbnail = 'https://az779114.vo.msecnd.net/preview/' + item.source + '?width=148&height=188';// item.source
             sNewUpdates.isNew($scope.boxId, 'items', item.id, function (isNew) {
                 item.isNew = isNew;
             });
@@ -231,8 +234,8 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
 
         var filteredItems = $filter('filter')($scope.items, filterItems);
 
-       $scope.filteredItems = filteredItems;
-       
+        $scope.filteredItems = filteredItems;
+
         isSponsoredView();
     });
 
@@ -241,7 +244,7 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
             return i.id === data.itemId;
         });
 
-        item.tabId = data.tabId;    
+        item.tabId = data.tabId;
     });
 
     $scope.$on('manageTab', function () {
@@ -277,7 +280,7 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
             if (item.tabId === $scope.iOptions.currentTab.id) {
                 item.tabId = null;
             }
-            
+
 
         }
 

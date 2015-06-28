@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using Zbang.Zbox.Domain.Commands;
@@ -46,7 +47,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 var container = blobClient.GetContainerReference("deployn");
                 var blobId = container.GetBlockBlobReference("id.txt");
                 var txt = blobId.DownloadText();
-                var id = Convert.ToInt64(txt);
+                var id = 0L;//Convert.ToInt64(txt);
                 // var thumbnailContainer = blobClient.GetContainerReference(BlobProvider.azureThumbnailContainer.ToLower());
                 var fileContainer = blobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
 
@@ -58,6 +59,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 bool cont = true;
                 while (cont)
                 {
+                    blobId.UploadText(id.ToString(CultureInfo.InvariantCulture));
                     TraceLog.WriteInfo("processing now index " + index);
                     var items = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs(index, id).Result;
                     if (!items.Any())
@@ -85,7 +87,9 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                         {
                             TraceLog.WriteError("UpdateThumbnailPicture blob:" + blob.Uri, ex);
                         }
+                        id = blobname.itemid;
                     }
+                    
                     //TraceLog.WriteInfo("collecting gc");
                     //GC.Collect();
                     //TraceLog.WriteInfo("end collecting gc");
@@ -108,8 +112,10 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
             if (processor == null) return;
             if (processor is VideoProcessor ||
                 processor is AudioProcessor ||
-                processor is ImageProcessor ||
-                processor is TiffProcessor)
+                processor is TextProcessor
+                //processor is ImageProcessor ||
+                //processor is TiffProcessor
+                )
             {
                 return;
             }
@@ -132,9 +138,9 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                     }
 
 
-                    var command = new UpdateThumbnailCommand(itemId, retVal.ThumbnailName, retVal.BlobName, blobName,
-                        retVal.FileTextContent);
-                    m_ZboxService.UpdateThumbnailPicture(command);
+                    //var command = new UpdateThumbnailCommand(itemId, retVal.ThumbnailName, retVal.BlobName, blobName,
+                    //    retVal.FileTextContent);
+                    //m_ZboxService.UpdateThumbnailPicture(command);
                     wait.Set();
                 }
                 catch (Exception ex)
@@ -151,54 +157,6 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 TraceLog.WriteError("blob url aborting process. itemid: " + itemId);
             }
         }
-
-        //private void UpdateFile(Uri blobUri)
-        //{
-        //    //TEST
-        //    var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-        //    var processor = m_FileProcessorFactory.GetProcessor(blobUri);
-        //    if (processor == null) return;
-        //    var tokenSource = new CancellationTokenSource();
-        //    tokenSource.CancelAfter(TimeSpan.FromMinutes(2));
-        //    CancellationToken token = tokenSource.Token;
-
-
-
-        //    var t = Task.Factory.StartNew(
-        //        () =>
-        //            processor.PreProcessFile(blobUri, token), token);
-
-        //    try
-        //    {
-
-        //        if (!t.Wait(600, token))
-        //        {
-        //            t.Dispose();
-        //        }
-        //    }
-        //    catch (AggregateException e)
-        //    {
-        //        TraceLog.WriteError(e);
-        //        return;
-        //    }
-        //    var retVal = t.Result.Result;
-        //    if (retVal == null)
-        //    {
-        //        return;
-        //    }
-        //    var itemid = m_ZboxReadService.GetItemIdByBlobId(blobName);
-        //    if (itemid == 0)
-        //    {
-        //        throw new ArgumentException("cannot be 0", "itemid");
-        //    }
-        //    var command = new UpdateThumbnailCommand(itemid, retVal.ThumbnailName, retVal.BlobName, blobName,
-        //        retVal.FileTextContent);
-        //    m_ZboxService.UpdateThumbnailPicture(command);
-
-        //}
-
-
-
     }
     public interface IUpdateThumbnails
     {

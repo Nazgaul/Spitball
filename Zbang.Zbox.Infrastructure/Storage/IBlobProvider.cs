@@ -35,6 +35,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         void UploadFileThumbnail(string fileName, Stream ms, string mimeType);
         Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType);
         Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType, CancellationToken token);
+        Task UploadFilePreviewAsync(string blobName, Stream content, string mimeType, CancellationToken token  = default(CancellationToken));
 
         bool CheckIfFileThumbnailExists(string blobName);
 

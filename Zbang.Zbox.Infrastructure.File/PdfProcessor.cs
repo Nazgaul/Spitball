@@ -102,15 +102,20 @@ namespace Zbang.Zbox.Infrastructure.File
                 {
                     return await ProcessFile(blobName, () =>
                      {
-                         var jpegDevice = new JpegDevice(ThumbnailWidth, ThumbnailHeight, new Resolution(150), 80);
+                         var jpegDevice = new JpegDevice(new Resolution(150), 80);
                          var ms = new MemoryStream();
                          jpegDevice.Process(pdfDocument.Pages[1], ms);
                          return ms;
 
                      }, () => ExtractPdfText(pdfDocument),
-                     () => pdfDocument.Pages.Count, CacheVersion
-
-                     );
+                     () => pdfDocument.Pages.Count, CacheVersion,
+                        () =>
+                        {
+                            var jpegDevice = new JpegDevice(ThumbnailWidth, ThumbnailHeight, new Resolution(150), 80);
+                            var ms = new MemoryStream();
+                            jpegDevice.Process(pdfDocument.Pages[1], ms);
+                            return ms;
+                        });
 
                 }
 
@@ -186,9 +191,6 @@ namespace Zbang.Zbox.Infrastructure.File
             var blobName = GetBlobNameFromUri(blobUri);
             SetLicense();
             var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
-
-
-
             using (var pdfDocument = new Document(path))
             {
                 return ExtractPdfText(pdfDocument);

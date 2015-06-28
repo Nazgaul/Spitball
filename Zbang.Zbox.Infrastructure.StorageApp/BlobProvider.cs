@@ -328,5 +328,11 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
         {
             throw new NotImplementedException();
         }
+
+
+        public Task UploadFilePreviewAsync(string blobName, Stream content, string mimeType, CancellationToken token = default(CancellationToken))
+        {
+            throw new NotImplementedException();
+        }
     }
 }

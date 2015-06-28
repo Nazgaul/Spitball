@@ -6,4 +6,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
     {
         CloudBlockBlob GetFile(string blobName);
     }
+
+    
+
+
 }

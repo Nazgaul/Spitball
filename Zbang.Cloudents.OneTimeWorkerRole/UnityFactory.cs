@@ -29,7 +29,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
 
             //Unity = new UnityContainer();
             RegisterTypes();
-            
+            Unity.Build();
         }
 
         private void RegisterTypes()

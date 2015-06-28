@@ -57,7 +57,7 @@ namespace Zbang.Zbox.Infrastructure.File
             });
 
             var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
-            var retVal = await UploadPreviewToAzure(blobName, indexNum, 
+            var retVal = await UploadPreviewToAzure(blobName, indexNum,
                 i => CreateCacheFileName(blobName, i),
                async z =>
                {
@@ -71,10 +71,10 @@ namespace Zbang.Zbox.Infrastructure.File
 
                    sr.ToImage(0, ms);
                    return ms;
-               }, CacheVersion,"image/jpg"
+               }, CacheVersion, "image/jpg"
             );
             return new PreviewResult { Content = retVal, ViewName = "Image" };
-           
+
         }
 
         protected string CreateCacheFileName(string blobName, int index)
@@ -104,35 +104,74 @@ namespace Zbang.Zbox.Infrastructure.File
                 SetLicense();
                 var excel = new Workbook(path);
                 var wb = excel.Worksheets[0];
+
+                return await ProcessFile(blobName, () =>
+                {
+                    var imgOptions = new ImageOrPrintOptions {ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false};
+                    var sr = new SheetRender(wb, imgOptions);
+                    using (var img = sr.ToImage(0))
+                    {
+                        var ms = new MemoryStream();
+                        img.Save(ms, ImageFormat.Jpeg);
+                        return ms;
+                    }
+                }, () => string.Empty, () => excel.Worksheets.Count, CacheVersion  , () =>
+                {
+                    var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
+                    var sr = new SheetRender(wb, imgOptions);
+                    using (var img = sr.ToImage(0))
+                    {
+                        var settings = new ResizeSettings
+                        {
+                            Scale = ScaleMode.UpscaleCanvas,
+                            Anchor = ContentAlignment.MiddleCenter,
+                            BackgroundColor = Color.White,
+                            Mode = FitMode.Crop,
+                            Width = ThumbnailWidth,
+                            Height = ThumbnailHeight,
+                            Quality = 80,
+                            Format = "jpg"
+                        };
+                        var output = new MemoryStream();
+                        ImageBuilder.Current.Build(img, output, settings);
+                        return output;
+                        
+                    }
+                   
+                    //sr.Seek(0, SeekOrigin.Begin);
+                    //var output = new MemoryStream();
+                    //    ImageBuilder.Current.Build(sr, output, settings);
+                    //    return output;
+                });
                 //ScalePageSetupToFitPage(wb);
 
-                var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
+                //var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
 
-                var sr = new SheetRender(wb, imgOptions);
-                var img = sr.ToImage(0);
-                if (img == null)
-                {
-                    return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
-                }
-                var settings = new ResizeSettings
-                {
-                    Scale = ScaleMode.UpscaleCanvas,
-                    Anchor = ContentAlignment.MiddleCenter,
-                    BackgroundColor = Color.White,
-                    Mode = FitMode.Crop,
-                    Width = ThumbnailWidth,
-                    Height = ThumbnailHeight,
-                    Quality = 80,
-                    Format = "jpg"
-                };
+                //var sr = new SheetRender(wb, imgOptions);
+                //var img = sr.ToImage(0);
+                //if (img == null)
+                //{
+                //    return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
+                //}
+                //var settings = new ResizeSettings
+                //{
+                //    Scale = ScaleMode.UpscaleCanvas,
+                //    Anchor = ContentAlignment.MiddleCenter,
+                //    BackgroundColor = Color.White,
+                //    Mode = FitMode.Crop,
+                //    Width = ThumbnailWidth,
+                //    Height = ThumbnailHeight,
+                //    Quality = 80,
+                //    Format = "jpg"
+                //};
 
-                using (var output = new MemoryStream())
-                {
-                    ImageBuilder.Current.Build(img, output, settings);
-                    var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                    await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg", cancelToken);
-                    return new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri };
-                }
+                //using (var output = new MemoryStream())
+                //{
+                //    ImageBuilder.Current.Build(img, output, settings);
+                //    var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
+                //    await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg", cancelToken);
+                //    return new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri };
+                //}
 
 
             }

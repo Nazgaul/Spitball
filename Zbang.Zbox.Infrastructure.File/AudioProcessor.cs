@@ -34,7 +34,7 @@ namespace Zbang.Zbox.Infrastructure.File
             return Task.FromResult(new PreviewResult { Content = new List<string> { string.Format(ContentFormat, url) } });
         }
 
-        public readonly string[] AudioExtensions = { ".mp3" };
+        public static readonly string[] AudioExtensions = { ".mp3" };
 
         public override bool CanProcessFile(Uri blobName)
         {

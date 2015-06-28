@@ -54,7 +54,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        public readonly string[] VideoExtensions = { ".3gp", ".3g2", ".3gp2", ".asf", ".mts", ".m2ts", ".mod", ".dv", ".ts", ".vob", ".xesc", ".mp4", ".mpeg", ".mpg", ".m2v", ".ismv", ".wmv" };
+        public static readonly string[] VideoExtensions = { ".3gp", ".3g2", ".3gp2", ".asf", ".mts", ".m2ts", ".mod", ".dv", ".ts", ".vob", ".xesc", ".mp4", ".mpeg", ".mpg", ".m2v", ".ismv", ".wmv" };
 
 
         public override bool CanProcessFile(Uri blobName)

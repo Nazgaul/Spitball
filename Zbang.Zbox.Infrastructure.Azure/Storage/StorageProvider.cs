@@ -94,6 +94,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                     PublicAccess = BlobContainerPublicAccessType.Off
                 });
             }
+            container = blobClient.GetContainerReference(BlobProvider.AzurePreviewContainer.ToLower());
+            if (container.CreateIfNotExists())
+            {
+                container.SetPermissions(new BlobContainerPermissions
+                {
+                    PublicAccess = BlobContainerPublicAccessType.Blob
+                });
+            }
             container = blobClient.GetContainerReference(BlobProvider.AzureCacheContainer.ToLower());
             if (container.CreateIfNotExists())
             {

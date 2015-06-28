@@ -2,9 +2,9 @@
 
 namespace Zbang.Zbox.Infrastructure.Storage
 {
-    public interface IBlobProductProvider
-    {
-        Task<string> UploadFromLink(byte[] data, string fileName);
+    //public interface IBlobProductProvider
+    //{
+    //    Task<string> UploadFromLink(byte[] data, string fileName);
         
-    }
+    //}
 }

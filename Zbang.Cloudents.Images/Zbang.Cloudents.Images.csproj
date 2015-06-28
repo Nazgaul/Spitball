@@ -102,6 +102,17 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="images\excelv4.jpg" />
+    <Content Include="images\filev4.jpg" />
+    <Content Include="images\imagev4.jpg" />
+    <Content Include="images\linkv2.jpg" />
+    <Content Include="images\pdfv4.jpg" />
+    <Content Include="images\powerv4.jpg" />
+    <Content Include="images\soundv4.jpg" />
+    <Content Include="images\textv1.jpg" />
+    <Content Include="images\videov4.jpg" />
+    <Content Include="images\wordv4.jpg" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -117,7 +128,24 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.File\Zbang.Zbox.Infrastructure.File.csproj">
+      <Project>{9ba4df6c-b4da-40d4-8a33-795f0bed2622}</Project>
+      <Name>Zbang.Zbox.Infrastructure.File</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">
+      <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Ioc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj">
+      <Project>{3e0f1fbf-60d1-40b2-b649-933142c27cb7}</Project>
+      <Name>Zbang.Zbox.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

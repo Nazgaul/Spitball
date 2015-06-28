@@ -138,6 +138,16 @@ namespace Zbang.Zbox.Infrastructure.File
                         Scale = ScaleMode.UpscaleCanvas
                     };
 
+                    using (var ms = new MemoryStream())
+                    {
+                        var settings2 = new ResizeSettings
+                        {
+                            Format = "jpg"
+                        };
+                        ImageBuilder.Current.Build(stream, ms, settings2, false);
+                        await BlobProvider.UploadFilePreviewAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
+                    }
+
                     using (var outPutStream = ProcessFile(stream, ThumbnailWidth, ThumbnailHeight, settings))
                     {
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV4.jpg";

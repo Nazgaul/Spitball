@@ -117,7 +117,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        public override Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             try
             {
@@ -134,21 +134,31 @@ namespace Zbang.Zbox.Infrastructure.File
                     Format = "jpg"
                 };
 
-                using (var ms = BlobProvider.DownloadFile(blobName))
+                using (var stream = BlobProvider.DownloadFile(blobName))
                 {
+                    using (var ms = new MemoryStream())
+                    {
+                        var settings2 = new ResizeSettings
+                        {
+                            Format = "jpg"
+                        };
+                        ImageBuilder.Current.Build(stream, ms, settings2, false);
+                        await BlobProvider.UploadFilePreviewAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
+                    }
                     using (var output = new MemoryStream())
                     {
-                        ImageBuilder.Current.Build(ms, output, settings);
+                        stream.Seek(0, System.IO.SeekOrigin.Begin);
+                        ImageBuilder.Current.Build(stream, output, settings);
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
                         BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
-                        return Task.FromResult(new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri });
+                        return new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri };
                     }
                 }
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile tiff", ex);
-                return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
+                return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
             }
         }
 

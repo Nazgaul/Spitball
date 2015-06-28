@@ -11,7 +11,7 @@ using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    class TextProcessor : FileProcessor
+    public class TextProcessor : FileProcessor
     {
         const string CacheVersion = CacheVersionPrefix + "1";
         public TextProcessor(IBlobProvider blobProvider)

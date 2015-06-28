@@ -19,19 +19,25 @@ namespace Zbang.Zbox.Infrastructure.File
         { }
 
         protected async Task<PreProcessFileResult> ProcessFile(string blobName,
-            Func<Stream> thumbnailStream,
+            Func<Stream> previewStream,
             Func<String> extractTextFromDocument,
             Func<int> getPageCount,
-            String getCacheVersionPrefix
+            string getCacheVersionPrefix,
+            Func<Stream> thumbnailStream
+           
             )
         {
             var thumbnailUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
             var text = extractTextFromDocument();
-            using (var ms = thumbnailStream())
+            using (var msPreview = previewStream())
             {
-                var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailUri, ms, "image/jpeg");
-                var t2 = UploadMetaData(blobName, getPageCount(), getCacheVersionPrefix);
-                await Task.WhenAll(t1, t2);
+                using (var ms = thumbnailStream())
+                {
+                    var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailUri, ms, "image/jpeg");
+                    var t2 = UploadMetaData(blobName, getPageCount(), getCacheVersionPrefix);
+                    var t3 = BlobProvider.UploadFilePreviewAsync(blobName+ ".jpg", msPreview, "image/jpeg");
+                    await Task.WhenAll(t1, t2, t3);
+                }
             }
             return new PreProcessFileResult
             {

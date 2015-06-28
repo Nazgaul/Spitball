@@ -225,7 +225,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     s.Thumbnail,
                     s.Url,
                     s.UserUrl,
-                    s.Type
+                    s.Type,
+                    s.Source
 
                 }));
             }
