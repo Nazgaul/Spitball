@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -222,7 +221,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     s.Rate,
                     s.Sponsored,
                     s.TabId,
-                    s.Thumbnail,
+                    //s.Thumbnail,
                     s.Url,
                     s.UserUrl,
                     s.Type,

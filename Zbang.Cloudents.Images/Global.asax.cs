@@ -32,38 +32,47 @@ namespace Zbang.Cloudents.Images
                     if (WordProcessor.WordExtensions.Contains(path))
                     {
                         args.QueryString["404"] = "~/images/wordv4.jpg";
+                        return;
                     }
                     if (ExcelProcessor.ExcelExtensions.Contains(path))
                     {
                         args.QueryString["404"] = "~/images/excelv4.jpg";
+                        return;
                     }
                     if (ImageProcessor.ImageExtensions.Contains(path))
                     {
                         args.QueryString["404"] = "~/images/imagev4.jpg";
+                        return;
                     }
                     if (PdfProcessor.PdfExtensions.Contains(path))
                     {
                         args.QueryString["404"] = "~/images/pdfv4.jpg";
+                        return;
                     }
                     if (PowerPoint2007Processor.PowerPoint2007Extensions.Contains(path))
                     {
                         args.QueryString["404"] = "~/images/powerv4.jpg";
+                        return;
                     }
                     if (TiffProcessor.TiffExtensions.Contains(path))
                     {
                         args.QueryString["404"] = "~/images/imagev4.jpg";
+                        return;
                     }
                     if (VideoProcessor.VideoExtensions.Contains(path))
                     {
                         args.QueryString["404"] = "~/images/videov4.jpg";
+                        return;
                     }
                     if (TextProcessor.TxtExtensions.Contains(path))
                     {
                         args.QueryString["404"] = "~/images/textv1.jpg";
+                        return;
                     }
                     if (AudioProcessor.AudioExtensions.Contains(path))
                     {
                         args.QueryString["404"] = "~/images/soundv4.jpg";
+                        return;
                     }
                     args.QueryString["404"] = "~/images/filev4.jpg";
                 };

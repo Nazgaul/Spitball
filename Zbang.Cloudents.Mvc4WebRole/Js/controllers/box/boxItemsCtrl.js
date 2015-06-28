@@ -26,9 +26,7 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
         var tabsCount = {};
 
         $scope.items = _.map(boxItems, function (item) {
-            
-            item.source += ".jpg";
-            item.thumbnail = 'https://az779114.vo.msecnd.net/preview/' + item.source + '?width=148&height=188';// item.source
+            item.thumbnail = 'https://az779114.vo.msecnd.net/preview/' + item.source + '.jpg?width=148&height=188&mode=crop';// item.source
             sNewUpdates.isNew($scope.boxId, 'items', item.id, function (isNew) {
                 item.isNew = isNew;
             });

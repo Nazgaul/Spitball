@@ -38,7 +38,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
         {
             try
             {
-                TraceLog.WriteInfo("Starting process of changing Pic");
+                TraceLog.WriteWarning("Starting process of changing Pic");
                 var cloudStorageAccount = CloudStorageAccount.Parse(
                     Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("StorageConnectionString"));
 
@@ -47,7 +47,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 var container = blobClient.GetContainerReference("deployn");
                 var blobId = container.GetBlockBlobReference("id.txt");
                 var txt = blobId.DownloadText();
-                var id = 0L;//Convert.ToInt64(txt);
+                var id = Convert.ToInt64(txt);
                 // var thumbnailContainer = blobClient.GetContainerReference(BlobProvider.azureThumbnailContainer.ToLower());
                 var fileContainer = blobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
 
@@ -60,7 +60,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 while (cont)
                 {
                     blobId.UploadText(id.ToString(CultureInfo.InvariantCulture));
-                    TraceLog.WriteInfo("processing now index " + index);
+                    TraceLog.WriteWarning("processing now index " + index);
                     var items = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs(index, id).Result;
                     if (!items.Any())
                     {
@@ -101,7 +101,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 TraceLog.WriteError("UpdateThumbnailPicture ", ex);
             }
 
-            TraceLog.WriteInfo("End process of changing Pic");
+            TraceLog.WriteWarning("End process of changing Pic");
         }
         private readonly TimeSpan timeToWaite = TimeSpan.FromMinutes(3);
         private void UpdateFile2(Uri blobUri, long itemId)

@@ -72,7 +72,7 @@
                     data = data || {};
                     that.id = data.id;
                     that.name = data.name;
-                    that.thumbnail = data.thumbnail;
+                    that.thumbnail = 'https://az779114.vo.msecnd.net/preview/' + data.source + '.jpg?width=100&height=125&mode=crop';
 
                     var userId = sUserDetails.getDetails().id;
                     that.isOwner = data.ownerId === userId;

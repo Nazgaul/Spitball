@@ -126,7 +126,6 @@ namespace Zbang.Zbox.ReadServices
                 return await conn.QueryAsync(@"select itemid, blobname from zbox.item 
                 where  Discriminator = 'FILE'
                 and isdeleted = 0
-and boxid = 111185
                 and itemid >  @start
                 order by itemid
                 OFFSET @Offset ROWS
