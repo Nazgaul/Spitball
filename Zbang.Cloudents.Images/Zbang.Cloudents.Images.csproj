@@ -122,7 +122,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="images\1.JPG" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

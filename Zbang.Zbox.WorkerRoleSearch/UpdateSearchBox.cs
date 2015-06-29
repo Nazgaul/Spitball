@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Search;
@@ -27,23 +28,47 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ZboxWriteService = zboxWriteService;
         }
 
+        private int GetIndex()
+        {
+            int currentIndex;
+
+            string instanceId = RoleEnvironment.CurrentRoleInstance.Id;
+            bool withSuccess = int.TryParse(instanceId.Substring(instanceId.LastIndexOf(".", StringComparison.Ordinal) + 1), out currentIndex);
+            if (!withSuccess)
+            {
+                int.TryParse(instanceId.Substring(instanceId.LastIndexOf("_", StringComparison.Ordinal) + 1), out currentIndex);
+            }
+            return currentIndex;
+        }
+
+
         public async Task Run(System.Threading.CancellationToken cancellationToken)
         {
+
             while (!cancellationToken.IsCancellationRequested)
             {
-              var retVal =  await UpdateBox();
-                if (!retVal)
+                var index = GetIndex();
+                var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
+                try
                 {
-                    await Task.Delay(TimeSpan.FromMinutes(1), cancellationToken);
+                    var retVal = await UpdateBox(index, count);
+                    if (!retVal)
+                    {
+                        await Task.Delay(TimeSpan.FromMinutes(1), cancellationToken);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TraceLog.WriteError(ex);
                 }
             }
             TraceLog.WriteError("On finish run");
         }
 
 
-        private async Task<bool> UpdateBox()
+        private async Task<bool> UpdateBox(int instanceId, int instanceCount)
         {
-            var updates = await m_ZboxReadService.GetBoxDirtyUpdates();
+            var updates = await m_ZboxReadService.GetBoxDirtyUpdates(instanceId, instanceCount);
             if (updates.BoxesToUpdate.Any() || updates.BoxesToDelete.Any())
             {
                 TraceLog.WriteInfo(PrefixLog, string.Format("box updating {0} deleting {1}", updates.BoxesToUpdate.Count(),

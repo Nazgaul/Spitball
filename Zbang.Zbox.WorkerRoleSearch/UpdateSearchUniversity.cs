@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Search;
@@ -26,24 +27,46 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_UniversitySearchProvider = universitySearchProvider;
             m_ZboxWriteService = zboxWriteService;
         }
+        private int GetIndex()
+        {
+            int currentIndex;
+
+            string instanceId = RoleEnvironment.CurrentRoleInstance.Id;
+            bool withSuccess = int.TryParse(instanceId.Substring(instanceId.LastIndexOf(".", StringComparison.Ordinal) + 1), out currentIndex);
+            if (!withSuccess)
+            {
+                int.TryParse(instanceId.Substring(instanceId.LastIndexOf("_", StringComparison.Ordinal) + 1), out currentIndex);
+            }
+            return currentIndex;
+        }
 
         public async Task Run(System.Threading.CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                var retVal = await UpdateUniversity();
-                if (!retVal)
+                var index = GetIndex();
+                var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
+                try
                 {
-                    await Task.Delay(TimeSpan.FromMinutes(1), cancellationToken);
+                    var retVal = await UpdateUniversity(index, count);
+                    if (!retVal)
+                    {
+                        await Task.Delay(TimeSpan.FromMinutes(1), cancellationToken);
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    TraceLog.WriteError(ex);
                 }
             }
             TraceLog.WriteError("On finish run");
         }
 
 
-        private async Task<bool> UpdateUniversity()
+        private async Task<bool> UpdateUniversity(int instanceId, int instanceCount)
         {
-            var updates = await m_ZboxReadService.GetUniversityDirtyUpdates();
+            var updates = await m_ZboxReadService.GetUniversityDirtyUpdates(instanceId, instanceCount);
             if (updates.UniversitiesToDelete.Any() || updates.UniversitiesToUpdate.Any())
             {
                 TraceLog.WriteInfo(PrefixLog, string.Format("university updating {0} deleting {1}", updates.UniversitiesToUpdate.Count(),

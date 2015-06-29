@@ -66,6 +66,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private void RoleEnvironmentChanging(object sender, RoleEnvironmentChangingEventArgs e)
         {
+            TraceLog.WriteWarning("change role Environment");
             RoleEnvironment.RequestRecycle();
         }
 

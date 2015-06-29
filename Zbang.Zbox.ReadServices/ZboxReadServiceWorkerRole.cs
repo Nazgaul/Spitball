@@ -192,17 +192,17 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public async Task<UniversityToUpdateSearchDto> GetUniversityDirtyUpdates()
+        public async Task<UniversityToUpdateSearchDto> GetUniversityDirtyUpdates(int index, int total)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 const string sql =
                     @"select top 500 id as Id,UniversityName as Name,LargeImage as Image,extra as Extra from zbox.University
-                        where isdirty = 1 and isdeleted = 0;";
+                        where isdirty = 1 and isdeleted = 0 and id % @count  = @index;";
                 const string sqlToDelete =
                     @"select top 500 id from zbox.University
-                    where isdirty = 1 and isdeleted = 1";
-                using (var grid = await conn.QueryMultipleAsync(sql + sqlToDelete))
+                    where isdirty = 1 and isdeleted = 1 and id % @count  = @index";
+                using (var grid = await conn.QueryMultipleAsync(sql + sqlToDelete, new { index, count = total }))
                 {
                     var retVal = new UniversityToUpdateSearchDto
                     {
@@ -216,7 +216,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<BoxToUpdateSearchDto> GetBoxDirtyUpdates()
+        public async Task<BoxToUpdateSearchDto> GetBoxDirtyUpdates(int index, int total)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -225,7 +225,7 @@ namespace Zbang.Zbox.ReadServices
                     (Search.GetBoxToUploadToSearch +
                     Search.GetBoxUsersToUploadToSearch +
                     Search.GetBoxDepartmentToUploadToSearch +
-                    Search.GetBoxToDeleteToSearch))
+                    Search.GetBoxToDeleteToSearch, new { index, count = total }))
                 {
                     var retVal = new BoxToUpdateSearchDto
                     {
@@ -279,7 +279,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync()
+        public async Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync(int index, int total)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -288,7 +288,7 @@ namespace Zbang.Zbox.ReadServices
                      Search.GetQuizzesQuestionToUploadToSearch +
                      Search.GetQuizzesAnswersToUploadToSearch +
                      Search.GetQuizzesUsersToUploadToSearch +
-                     Search.GetQuizzesToDeleteFromSearch
+                     Search.GetQuizzesToDeleteFromSearch, new { index, count = total }
                     ))
                 {
                     var retVal = new QuizToUpdateSearchDto

@@ -111,7 +111,7 @@ order by name;";
 	,(select count(*) from zbox.Answer where questionid = q.questionid and boxid = @BoxId) as RepliesCount
     FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
     where q.BoxId = @BoxId
-    order by q.[QuestionId] desc
+    order by q.[updatetime] desc
     offset @pageNumber*@rowsperpage ROWS
 	FETCH NEXT @rowsperpage ROWS ONLY;";
 
@@ -120,7 +120,7 @@ select max([AnswerId]) as 'id', questionid  from [Zbox].[Answer] a
 where a.boxid = @BoxId
 	  and  a.questionid in 
             (select questionid from zbox.question where boxid = @BoxId
-	            order by questionid desc
+	            order by updatetime desc
 	            offset @pageNumber*@rowsperpage ROWS
 	            FETCH NEXT @rowsperpage ROWS ONLY
 				)
@@ -151,7 +151,7 @@ where a.boxid = @BoxId
     and i.BoxId = @BoxId
     and (
 		QuestionId in  (select questionid from zbox.question where boxid = @boxid
-	            order by questionid desc
+	            order by updatetime desc
 	            offset @pageNumber*@rowsperpage ROWS
 	            FETCH NEXT @rowsperpage ROWS ONLY)
 		or 
@@ -160,7 +160,7 @@ where a.boxid = @BoxId
 				where a.boxid = @BoxId
 				and  a.questionid in 
 					(select questionid from zbox.question where boxid = @BoxId
-					order by questionid desc
+					order by updatetime desc
 					offset @pageNumber*@rowsperpage ROWS
 					FETCH NEXT @rowsperpage ROWS ONLY
 				)
