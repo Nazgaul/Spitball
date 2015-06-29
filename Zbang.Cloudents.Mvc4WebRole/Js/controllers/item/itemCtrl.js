@@ -259,11 +259,18 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
     //#region share
     $scope.shareFacebook = function () {
         $scope.popup.share = false;
+        var metaTags = document.getElementsByTagName('meta'), picture = null;
+        for (var i = 0; i < metaTags.length; i++) {
+            if (metaTags[i].getAttribute("property") == "og:image") {
+                picture = metaTags[i].getAttribute("content");
+                break;
+            }
+        }
         sFacebook.share($location.absUrl(), //url
           $scope.item.name, //title
           $routeParams.uniName ? $routeParams.boxName + ' - ' + $routeParams.uniName : $routeParams.boxName, //caption          
           resManager.get('IShared') + ' ' + $scope.item.name + ' ' + resManager.get('OnCloudents') + '<center>&#160;</center><center></center>' + resManager.get('CloudentsJoin'),
-            null //picture
+          picture
        );
 
         $analytics.eventTrack('Share Facebook', {

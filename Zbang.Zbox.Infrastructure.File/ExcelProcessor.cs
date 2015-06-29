@@ -111,6 +111,10 @@ namespace Zbang.Zbox.Infrastructure.File
                     var sr = new SheetRender(wb, imgOptions);
                     using (var img = sr.ToImage(0))
                     {
+                        if (img == null)
+                        {
+                            return null;
+                        }
                         var ms = new MemoryStream();
                         img.Save(ms, ImageFormat.Jpeg);
                         return ms;

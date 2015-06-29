@@ -64,9 +64,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ViewBag.metaDescription = Regex.Replace(string.Format(
                     BaseControllerResources.MetaDescription, model.Name,
                     string.IsNullOrWhiteSpace(model.CourseId) ? string.Empty : string.Format(", #{0}", model.CourseId),
-                    string.IsNullOrWhiteSpace(model.Professor)
-                        ? string.Empty
-                        : string.Format("{0} {1}", BaseControllerResources.MetaDescriptionBy, model.Professor)),
+                        string.Empty
+                         ),
                     @"\s+", " ");
                 return View("Empty");
             }

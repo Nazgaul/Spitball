@@ -46,6 +46,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         private const string UserIdsField = "userId";
         private const string BoxIdField = "boxId";
         private const string ExtensionField = "extension";
+        private const string BlobNameField = "blobName";
 
         private const string ScoringProfileName = "university";
 
@@ -64,7 +65,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                 new Field(UniversityidField, DataType.String) { IsFilterable = true, IsRetrievable = true},
                 new Field(UserIdsField, DataType.Collection(DataType.String)) { IsFilterable = true, IsRetrievable = true},
                 new Field(BoxIdField, DataType.Int64) { IsRetrievable = true},
-                new Field(ExtensionField, DataType.String) { IsRetrievable = true}
+                new Field(ExtensionField, DataType.String) { IsRetrievable = true},
+                new Field(BlobNameField, DataType.String) { IsRetrievable = true}
 
             });
             var scoringFunction = new TagScoringFunction(new TagScoringParameters(ScoringProfileName),
@@ -116,7 +118,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                     UniversityId = item.UniversityId.ToString(),
                     UniversityName = item.UniversityName,
                     Url = item.Url,
-                    UserId = item.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)).ToArray()
+                    UserId = item.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)).ToArray(),
+                    BlobName = item.BlobName
                 })));
             }
             if (itemToDelete != null)
@@ -174,10 +177,10 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Boxname = s.Document.BoxName,
                 Content = HighLightInField(s, ContentField, s.Document.MetaContent),
                 Id = long.Parse(s.Document.Id),
-                Image = s.Document.Image,
                 Name = HighLightInField(s, NameField, s.Document.Name),
                 UniName = s.Document.UniversityName,
-                Url = s.Document.Url
+                Url = s.Document.Url,
+                BlobName =  s.Document.BlobName
             });
         }
 

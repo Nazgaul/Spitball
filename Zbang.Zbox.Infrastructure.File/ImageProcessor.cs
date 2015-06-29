@@ -159,7 +159,7 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("PreProcessFile image", ex);
+                TraceLog.WriteError("PreProcessFile image blobUri: " + blobUri, ex);
                 return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
             }
 

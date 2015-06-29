@@ -62,7 +62,7 @@ and i.publish = 1 ) t";
 ,u.Country
 ,b.BoxName
 ,i.Discriminator
-,i.ThumbnailUrl as ImageUrl
+,i.blobname as ImageUrl
 ,l.name as departmentName
 
 from zbox.item i 

@@ -28,7 +28,8 @@ namespace Zbang.Cloudents.Images
                         return;
                     }
                     //var fileProcessorFactory = container.Resolve<IFileProcessorFactory>();
-                    var path = Path.GetExtension(blobName).ToLower();
+                    var blobWithOriginalFileName = Path.GetFileNameWithoutExtension(blobName);
+                    var path = Path.GetExtension(blobWithOriginalFileName).ToLower();
                     if (WordProcessor.WordExtensions.Contains(path))
                     {
                         args.QueryString["404"] = "~/images/wordv4.jpg";

@@ -50,23 +50,24 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 var id = Convert.ToInt64(txt);
                 // var thumbnailContainer = blobClient.GetContainerReference(BlobProvider.azureThumbnailContainer.ToLower());
                 var fileContainer = blobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
+                var previewContainer = blobClient.GetContainerReference(BlobProvider.AzurePreviewContainer.ToLower());
 
                 //var blobs = new List<string>
                 //{
                 //     "f8a6d1b4-8625-4b9b-be69-78b0d13d93fc.h",
                 //};
-                int index = 0;
+                //int index = 0;
                 bool cont = true;
                 while (cont)
                 {
                     blobId.UploadText(id.ToString(CultureInfo.InvariantCulture));
-                    TraceLog.WriteWarning("processing now index " + index);
-                    var items = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs(index, id).Result;
+                    TraceLog.WriteWarning("processing now index starting from  " + id);
+                    var items = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs(0, id).Result.ToList();
                     if (!items.Any())
                     {
                         cont = false;
                     }
-                    index++;
+                    //index++;
                     foreach (var blobname in items)
                     {
                         if (blobname.itemid < id)
@@ -74,6 +75,12 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                             continue;
                         }
                         var blob = fileContainer.GetBlockBlobReference(blobname.blobname);
+
+                        Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob blobInPreview = previewContainer.GetBlockBlobReference(blobname.blobname + ".jpg");
+                        if (blobInPreview.Exists())
+                        {
+                            continue;
+                        }
                         try
                         {
 
@@ -107,7 +114,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
         private void UpdateFile2(Uri blobUri, long itemId)
         {
 
-            var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
+            
             var processor = m_FileProcessorFactory.GetProcessor(blobUri);
             if (processor == null) return;
             if (processor is VideoProcessor ||

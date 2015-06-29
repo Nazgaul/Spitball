@@ -21,6 +21,7 @@ namespace Zbang.Zbox.Infrastructure.File
             : base(blobProvider)
         {
             SetLicense();
+          
         }
 
         private void SetLicense()
@@ -155,5 +156,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var word = new Document(path);
             return ExtractDocumentText(word);
         }
+
+      
     }
 }
