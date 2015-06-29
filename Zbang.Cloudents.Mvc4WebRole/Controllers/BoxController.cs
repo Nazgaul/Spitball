@@ -125,6 +125,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var result = await ZboxReadService.GetBox2(query);
                 result.UserType = ViewBag.UserType;
                 result.ShortUrl = UrlConsts.BuildShortBoxUrl(new Base62(id).ToString());
+
+                if (Request.Browser.Crawler)
+                {
+                   return JsonOk( new
+                   {
+                       result.BoxType,
+                       result.CourseId,
+                       result.Date,
+                       result.Feeds,
+                       result.Items,
+                       result.Members,
+                       result.Name,
+                       result.OwnerId,
+                       result.PrivacySetting,
+                       result.Quizes,
+                       result.ShortUrl,
+                       result.UserType
+                   });
+                }
+
                 return JsonOk(result);
             }
             catch (BoxAccessDeniedException)
@@ -142,16 +162,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        //[HttpGet]
-        //[ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[BoxPermission("id")]
-        //public async Task<JsonResult> SideBar(long id)
-        //{
-        //    var query = new GetBoxSideBarQuery(id, User.GetUserId(false));
-        //    var t1 = ZboxReadService.GetBoxRecommendedCourses(query);
-
-        //    return JsonOk(result);
-        //}
+        
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id")]
@@ -168,6 +179,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var query = new GetLeaderBoardQuery(id);
             var result = await ZboxReadService.GetBoxLeaderBoard(query);
+            if (Request.Browser.Crawler)
+            {
+                return JsonOk(result.Select(s => new
+                {
+                    s.Id,
+                    s.Image,
+                    s.Score,
+                    s.Url
+                }));
+            }
             return JsonOk(result);
         }
 

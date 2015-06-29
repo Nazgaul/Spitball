@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -9,6 +10,7 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.ViewModel.Dto.Qna;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -111,8 +113,35 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
+
                 var retVal =
                   await ZboxReadService.GetQuestionsWithAnswers(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId));
+                //removing user name
+                if (Request.Browser.Crawler) 
+                {
+
+                    return JsonOk(retVal.Select(s => new
+                    {
+                        s.Content,
+                        s.CreationTime,
+                        s.Id,
+                        s.Url,
+                        s.UserId,
+                        s.UserImage,
+                        s.Files,
+                        Answers = s.Answers.Select(v => new
+                        {
+                            v.Content,
+                            v.CreationTime,
+                            v.Id,
+                            v.Url,
+                            v.UserId,
+                            v.UserImage,
+                            v.Files
+                        })
+
+                    }));
+                }
                 return JsonOk(retVal);
             }
             catch (BoxAccessDeniedException)

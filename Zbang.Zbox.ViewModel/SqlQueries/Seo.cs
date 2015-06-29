@@ -18,6 +18,7 @@ join zbox.box b on b.BoxId = i.BoxId
 where b.University   in (select v.id from zbox.University v where needcode = 0)
 and b.discriminator = 2
 and i.IsDeleted = 0
+and i.content is not null
 and i.Discriminator = 'FILE'
 union all
 select i.url as Url
@@ -45,6 +46,7 @@ join zbox.box b on b.BoxId = i.BoxId
 where b.University   in (select id from zbox.University where  needcode = 0)
 and b.discriminator = 2
 and i.IsDeleted = 0
+and i.content is not null
 and i.Discriminator = 'FILE'
 union all
 select i.url as Url
