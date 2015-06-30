@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using NHibernate.Event;
 using NHibernate.Persister.Entity;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Data.Events
 {
@@ -49,6 +51,8 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
 
         private void MakeDirty(IPreDatabaseOperationEventArgs @event, object[] state, IDirty dirty)
         {
+            var stackTrace = new StackTrace();
+            TraceLog.WriteInfo("nhibernate is make dirty" + stackTrace);
             dirty.IsDirty = true;
             Set(@event.Persister, state, "IsDirty", true);
         }

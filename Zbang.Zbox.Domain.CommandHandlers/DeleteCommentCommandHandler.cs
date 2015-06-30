@@ -47,6 +47,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var userIds = box.DeleteComment(comment);
             m_QueueProvider.InsertMessageToTranaction(new ReputationData(userIds.Union(new[] { user.Id })));
+            m_BoxCommentRepository.Delete(comment);
             m_BoxRepository.Save(box);
         }
     }

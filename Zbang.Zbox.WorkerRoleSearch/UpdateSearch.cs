@@ -108,8 +108,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(instanceId, instanceCount);
             if (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
             {
-                TraceLog.WriteInfo(PrefixLog, string.Format("item updating {0} deleting {1}", updates.ItemsToUpdate.Count(),
-                    updates.ItemsToDelete.Count()));
                 foreach (var elem in updates.ItemsToUpdate)
                 {
                     PreProcessFile(elem);
@@ -242,7 +240,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     TraceLog.WriteError("aborting returning null on elem " + elem);
                     return null;
                 }
-                TraceLog.WriteInfo(PrefixLog, "returning result" + elem);
                 return str;
             }
             catch (Exception ex)

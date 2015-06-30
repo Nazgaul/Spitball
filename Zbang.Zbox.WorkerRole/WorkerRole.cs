@@ -57,11 +57,11 @@ namespace Zbang.Zbox.WorkerRole
                 return new List<IJob>()
                 //return new[]
                        {
-                           m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnceADay)),
+                          // m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnceADay)),
                 //           //m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnEveryChange)),
                 //          // m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnceAWeek)),
                            // m_Unity.Resolve<IJob>(UnityFactory.AddFiles),
-                         // m_Unity.Resolve<IJob>(UnityFactory.Transaction)
+                          m_Unity.Resolve<IJob>(UnityFactory.Transaction)
                 //          // m_Unity.Resolve<IJob>(UnityFactory.Dbi),
                       //     m_Unity.Unity.Resolve<IJob>(UnityFactory.MailProcess2),
                 //          // m_Unity.Unity.Resolve<IJob>(UnityFactory.EmailPartners)

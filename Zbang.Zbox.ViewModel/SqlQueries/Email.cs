@@ -102,6 +102,7 @@ order by Students desc  ";
     where q.boxid = @BoxId
 	and q.text is not null
     and q.IsSystemGenerated = 0
+    and q.IsDeleted = 0
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@Notification,q.creationTime)) >0;";
 
         public const string GetAnswerUpdateByBox = @" 
@@ -112,6 +113,7 @@ order by Students desc  ";
     from zbox.answer a 
     join Zbox.Users u on a.UserId = u.userid
     where a.boxid = @BoxId
+    and a.IsDeleted = 0
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@Notification,a.creationTime)) >0;";
 
         public const string GetQuizDiscussionUpdateByBox =

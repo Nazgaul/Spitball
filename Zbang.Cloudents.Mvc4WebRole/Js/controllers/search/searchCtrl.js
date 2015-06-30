@@ -88,7 +88,13 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope) {
         sSearch.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (data) {
             data.boxes = data.boxes || [];
             data.quizzes = data.quizzes || [];
-            data.items = data.items || [];
+            data.items = _.map(data.items || [], function (item) {
+                if (item.blobName) {
+                    item.image = 'https://az779114.vo.msecnd.net/preview/' + item.blobName + '.jpg?width=63&height=88&mode=crop'; 
+                }
+                return item;
+            });
+            //image
             parser(data);
             $scope.params.currentPage++;
             
