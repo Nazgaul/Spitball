@@ -41,7 +41,6 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 m_KeepRunning = true;
                 while (m_KeepRunning)
                 {
-                    TraceLog.WriteInfo("Process Digest email 2 ");
                     ExecuteAsync().Wait();
                 }
             }
@@ -60,7 +59,6 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 await Task.Delay(TimeSpan.FromMinutes(5));
                 return;
             }
-            TraceLog.WriteInfo("Process mail process:" + m_DigestEmailHourBack.ToString("g"));
             var users = await m_ZboxReadService.GetUsersByNotificationSettings(new GetUserByNotificationQuery(m_DigestEmailHourBack));
             foreach (var user in users)
             {

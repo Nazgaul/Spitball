@@ -121,7 +121,7 @@
     <value>אודות</value>
   </data>
   <data name="Available" xml:space="preserve">
-    <value>זמין מכל מקום</value>
+    <value>יש ממה ללמוד!</value>
   </data>
   <data name="BecomePartner" xml:space="preserve">
     <value>למד איך להפוך לשותף</value>
@@ -136,8 +136,7 @@
     <value>תכנים חדשים שותפו השבוע</value>
   </data>
   <data name="GetAnwers" xml:space="preserve">
-    <value>אם יש לך שאלה על השיעור של אתמול, על מה שהתבקשת לקרוא לשיעור הבא, או על עיקרי הפרקים שעליך ללמוד, כל שעליך לעשות הוא לשאול שאלה באתר ולקבל תשובה מסטודנטים אחרים.
-</value>
+    <value>באמצעות ״עדכונים״ תוכלו להיעזר בחבריכם לכיתה, לעורר דיונים, לשאול ולענות על שאלות.</value>
   </data>
   <data name="GetStarted" xml:space="preserve">
     <value>מצטרפים עכשיו, חינם ובמהירות</value>
@@ -149,14 +148,13 @@
     <value>הצטרף לאגודות סטודנטים מובילות</value>
   </data>
   <data name="LetsYouShare" xml:space="preserve">
-    <value>שתף והשווה סיכומי שיעורים והרצאות. העלה חומרי לימוד ושוחח עם החברים על העבודה הקבוצתית שקיבלתם,
-והכל במקום אחד.</value>
+    <value>במחשב בנייד או בטאבלט, עם קלאודנטס תוכלו להישאר מעודכנים תמיד כדי שלא תפספסו כלום</value>
   </data>
   <data name="PoweredBy" xml:space="preserve">
     <value />
   </data>
   <data name="QA" xml:space="preserve">
-    <value>שאלות ותשובות</value>
+    <value>עזרה מחברים</value>
   </data>
   <data name="QuestionsAdded" xml:space="preserve">
     <value>שאלות חדשות שנשאלו החודש</value>
@@ -174,10 +172,10 @@
     <value>קלאודנטס עוזרת לסטודנטים ללמוד טוב יותר על ידי לימוד משותף</value>
   </data>
   <data name="WatchShare" xml:space="preserve">
-    <value>צפה ושתף</value>
+    <value>הלימודים שלך איתך בכל מקום</value>
   </data>
   <data name="WhenItSuits" xml:space="preserve">
-    <value>תלמד מתי ואיפה שמתאים לך, מכל מחשב, נייד או טאבלט. עם שטח אחסון אישי של 10GB, אתה יכול להיות בטוח שהתוכן שלך תמיד מגובה.</value>
+    <value>מעל 250,000 סיכומים, מבחנים משנים קודמות ומאמרים המסודרים לפי הקורסים שלך כבר מחכים בפנים! אתם יכלים לקרוא, להוריד ולשתף חומרים אקדמיים מכל סוג!</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>קלאודנטס היא הפלטפורמה החינמית המתקדמת ביותר ללימוד קבוצתי ברשת. הצטרפו עכשיו למהפכת הלימוד הקבוצתי של קלאודנטס.</value>
@@ -195,20 +193,20 @@
     <value>אתם ביקשתם אנחנו עשינו</value>
   </data>
   <data name="HomePageTitle3" xml:space="preserve">
-    <value>קלאודנטס הרשת החברתית לימודית מגישה לך את הכל במקום אחד
-הצטרף לקלאודנטס</value>
+    <value>הצטרפו (בחינם!) למאות אלפי סטודנטים מכל רחבי העולם שכבר לוקחים חלק במהפכת הלימודים ששמה לראשונה את הסטודנטים במרכז!</value>
   </data>
   <data name="HomePageTitle" xml:space="preserve">
-    <value>רוצה להשיג ציונים טובים יותר?</value>
+    <value>הדרך הקלה והיעילה ביותר לסיים את התואר!</value>
   </data>
   <data name="HomePageTitle4" xml:space="preserve">
     <value />
   </data>
   <data name="HomePageTitle2" xml:space="preserve">
-    <value>לשאול ולנהל שיח עם חבריך לכיתה?
-גישה למאגר סיכומים רלוונטי ללימודים שלך? לתרגל לקראת מבחני סוף סימסטר?</value>
+    <value>רוצים למצוא ולשתף סיכומים לקורסים שלכם? 
+לתרגל מבחנים משנים קודמות?
+לשאול שאלות את החבר'ה מהכיתה?</value>
   </data>
   <data name="HomePageTitleFree" xml:space="preserve">
-    <value>עכשיו! ובחינם!</value>
+    <value />
   </data>
 </root>

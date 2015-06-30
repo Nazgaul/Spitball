@@ -178,12 +178,12 @@ function ($scope, $rootScope, $timeout, sAccount, sUserDetails, sModal, sDashboa
                 group.push(boxes[i]);
             }
             //show box updates                
-            //(function (box) {
-            //    sNewUpdates.getBoxUpdates(box.id, function (count) {
-            //        box.numOfUpdates = count;
+            (function (box) {
+                sNewUpdates.getBoxUpdates(box.id, function (count) {
+                    box.numOfUpdates = count;
 
-            //    });
-            //})(boxes[i]);
+                });
+            })(boxes[i]);
         }
 
 
