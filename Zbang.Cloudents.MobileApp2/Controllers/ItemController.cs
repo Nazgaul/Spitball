@@ -156,7 +156,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 }
                 if (string.IsNullOrWhiteSpace(title))
                 {
-                    title = model.Name;
+                    title = model.FileUrl;
                 }
 
                 var command = new AddLinkToBoxCommand(User.GetCloudentsUserId(), model.BoxId, model.FileUrl, null, title,

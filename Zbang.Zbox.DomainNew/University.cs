@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Domain
     {
         protected University()
         {
-
+            ShouldMakeDirty = () => true;
         }
         public University(long id, string name, string country, string largeImage, string userEmail)
         {
@@ -92,12 +92,6 @@ namespace Zbang.Zbox.Domain
         }
 
 
-        public Func<bool> ShouldMakeDirty
-        {
-            get
-            {
-                return () => true;
-            }
-        }
+        public Func<bool> ShouldMakeDirty { get; set; }
     }
 }

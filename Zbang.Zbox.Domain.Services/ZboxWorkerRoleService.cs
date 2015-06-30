@@ -78,30 +78,30 @@ namespace Zbang.Zbox.Domain.Services
 
         }
 
-//        private void UpdateQuestionHtml()
-//        {
-//            var questions = new List<dynamic>();
-//            using (UnitOfWork.Start())
-//            {
-//                questions =
-//                    UnitOfWork.CurrentSession.Connection.Query(
-//                        @"select q.userid,qq.id,qq.text from zbox.quizquestion qq 
-//                    join zbox.quiz q on qq.quizid = q.id
-//                  where qq.text like '%&lt;%'
-//                    ").ToList();
-//            }
-//            foreach (dynamic question in questions)
-//            {
-//                var text = question.text;
-//                text = System.Net.WebUtility.HtmlDecode(text);
-//                var command = new Zbang.Zbox.Domain.Commands.Quiz.UpdateQuestionCommand(question.userid, question.id,
-//                    text);
+        //        private void UpdateQuestionHtml()
+        //        {
+        //            var questions = new List<dynamic>();
+        //            using (UnitOfWork.Start())
+        //            {
+        //                questions =
+        //                    UnitOfWork.CurrentSession.Connection.Query(
+        //                        @"select q.userid,qq.id,qq.text from zbox.quizquestion qq 
+        //                    join zbox.quiz q on qq.quizid = q.id
+        //                  where qq.text like '%&lt;%'
+        //                    ").ToList();
+        //            }
+        //            foreach (dynamic question in questions)
+        //            {
+        //                var text = question.text;
+        //                text = System.Net.WebUtility.HtmlDecode(text);
+        //                var command = new Zbang.Zbox.Domain.Commands.Quiz.UpdateQuestionCommand(question.userid, question.id,
+        //                    text);
 
-//                UpdateQuestion(command);
+        //                UpdateQuestion(command);
 
-//            }
-           
-//        }
+        //            }
+
+        //        }
 
 
         //private void UpdateAllUrlsInSystem()
@@ -234,12 +234,20 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (var unitOfWork = UnitOfWork.Start())
             {
+                var i = 0;
                 var universitiesIds = UnitOfWork.CurrentSession.Query<University>()
-                    .Where(s => s.IsDeleted == false)
-                    .Select(s => s.Id);
-                var command = new UpdateUniversityStatsCommand(universitiesIds);
-                m_CommandBus.Send(command);
-                unitOfWork.TransactionalFlush();
+                    .Where(s => s.IsDeleted == false).OrderBy(o => o.Id).Skip(i * 100).Take(100)
+                    .Select(s => s.Id).ToList();
+                do
+                {
+                    var command = new UpdateUniversityStatsCommand(universitiesIds);
+                    m_CommandBus.Send(command);
+                    unitOfWork.TransactionalFlush();
+                    i++;
+                    universitiesIds = UnitOfWork.CurrentSession.Query<University>()
+                   .Where(s => s.IsDeleted == false).OrderBy(o => o.Id).Skip(i * 100).Take(100)
+                   .Select(s => s.Id).ToList();
+                } while (universitiesIds.Any());
             }
         }
 
@@ -276,7 +284,7 @@ namespace Zbang.Zbox.Domain.Services
             using (var unitOfWork = UnitOfWork.Start())
             {
                 m_CommandBus.Send(command);
-               unitOfWork.TransactionalFlush();
+                unitOfWork.TransactionalFlush();
             }
         }
 
@@ -328,7 +336,7 @@ namespace Zbang.Zbox.Domain.Services
 
         public async Task AddNewUpdateAsync(AddNewUpdatesCommand command)
         {
-            
+
             using (var unitOfWork = UnitOfWork.Start())
             {
                 await m_CommandBus.SendAsync(command);
@@ -357,6 +365,6 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        
+
     }
 }
