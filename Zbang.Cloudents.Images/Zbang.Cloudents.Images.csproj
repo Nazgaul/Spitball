@@ -115,7 +115,7 @@
     <Content Include="images\Icons_720_txt.png" />
     <Content Include="images\Icons_720_video.png" />
     <Content Include="images\imagev4.jpg" />
-    <Content Include="images\link 720.png" />
+    <Content Include="images\link_720.png" />
     <Content Include="images\linkv2.jpg" />
     <Content Include="images\pdfv4.jpg" />
     <Content Include="images\powerv4.jpg" />

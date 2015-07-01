@@ -72,7 +72,7 @@ b.BoxName as boxName,
         /// Used in user page to get files common with current user
         /// </summary>
         public const string UserWithFriendFiles = @" select i.ItemId as id,
-i.ThumbnailUrl as image, 
+i.blobname as image, 
 i.Rate as rate,
 i.NumberOfViews as numOfViews,
 i.Name as name,

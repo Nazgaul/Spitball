@@ -72,11 +72,11 @@
                     data = data || {};
                     that.id = data.id;
                     that.name = data.name;
-                    if (data.type === 'File') {
-                        that.thumbnail = 'https://az779114.vo.msecnd.net/preview/' + data.source + '.jpg?width=100&height=125&mode=crop';
-                    } else {
-                        that.thumbnail = 'https://az779114.vo.msecnd.net/images/linkv2.jpg';
-                    }
+                    //if (data.type === 'File') {
+                    that.thumbnail = 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(data.source) + '.jpg?width=100&height=125&mode=crop';
+                    //} else {
+                    //    that.thumbnail = 'https://az779114.vo.msecnd.net/images/link_720.png';
+                    //}
 
                     var userId = sUserDetails.getDetails().id;
                     that.isOwner = data.ownerId === userId;

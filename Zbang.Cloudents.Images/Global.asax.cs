@@ -22,7 +22,16 @@ namespace Zbang.Cloudents.Images
 
                 delegate(IHttpModule m, HttpContext c, ImageResizer.Configuration.IUrlEventArgs args)
                 {
-                    var blobName = args.VirtualPath.Split(new[] { "/" }, StringSplitOptions.RemoveEmptyEntries).Last();
+                    var splitUrl = args.VirtualPath.Split(new[] {"/"}, StringSplitOptions.RemoveEmptyEntries);
+                    
+                    if (splitUrl.Any(f => f.ToLower().StartsWith("http")))
+                    {
+                        args.VirtualPath = "preview";
+                        args.QueryString["404"] = "~/images/link_720.png";
+                        return;
+                    }
+
+                    var blobName = splitUrl.Last();
                     if (string.IsNullOrEmpty(blobName))
                     {
                         return;
@@ -75,6 +84,7 @@ namespace Zbang.Cloudents.Images
                         args.QueryString["404"] = "~/images/Icons_720_sound.png";
                         return;
                     }
+                   
                     args.QueryString["404"] = "~/images/Icons_720_generic.png";
                 };
         }

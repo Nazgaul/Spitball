@@ -78,14 +78,15 @@ order by Students desc  ";
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@Notification,b.updateTime)) >0;";
 
         public const string GetItemUpdateByBox =
-            @" select u.username as UserName,u.userid as UserId, i.name as Name, i.ThumbnailUrl as Picture, i.Url
+            @" select u.username as UserName,u.userid as UserId, i.name as Name,
+    i.blobname as Picture , i.Url
     from zbox.item i inner join zbox.users u on u.userid = i.userid
     where  i.IsDeleted = 0
     and i.boxid = @BoxId
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@Notification,i.creationTime)) >0;";
 
         public const string GetQuizUpdateByBox = @"select u.username as UserName,u.userid as UserId, q.name as Name, 
-    'http://zboxstorage.blob.core.windows.net/mailcontainer/Quiz.jpg' as Picture, q.url
+    'http://az32006.vo.msecnd.net/mailcontainer/Quiz.jpg' as Picture, q.url
 	 from zbox.quiz q inner join zbox.users u on u.userid = q.userid
 	 where q.boxid = @BoxId
      and publish = 1

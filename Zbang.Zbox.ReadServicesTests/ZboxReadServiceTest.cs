@@ -602,20 +602,6 @@ namespace Zbang.Zbox.ReadServicesTests
         }
 
         [TestMethod]
-        public void GetUserWithFriendFiles_Query_ReturnResult()
-        {
-            var query = new GetUserWithFriendQuery(4, 1);
-            try
-            {
-                var x = m_ZboxReadService.GetUserWithFriendFiles(query).Result;
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
-
-        [TestMethod]
         public void GetUserWithFriendQuestion_Query_ReturnResult()
         {
             var query = new GetUserWithFriendQuery(4, 1);

@@ -26,11 +26,11 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
         var tabsCount = {};
 
         $scope.items = _.map(boxItems, function (item) {
-            if (item.type === 'File') {
-                item.thumbnail = 'https://az779114.vo.msecnd.net/preview/' + item.source + '.jpg?width=148&height=188&mode=crop'; // item.source
-            } else {
-                item.thumbnail = 'https://az779114.vo.msecnd.net/images/linkv2.jpg';
-            }
+           // if (item.type === 'File') {
+                item.thumbnail = 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(item.source) + '.jpg?width=148&height=188&mode=crop'; // item.source
+            //} else {
+            //    item.thumbnail = 'https://az779114.vo.msecnd.net/images/link_720.png';
+            //}
             sNewUpdates.isNew($scope.boxId, 'items', item.id, function (isNew) {
                 item.isNew = isNew;
             });
