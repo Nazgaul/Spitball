@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
 
             return m_Hub.SendNotificationAsync(message, tags.Select(s => s.ToString(CultureInfo.InvariantCulture)));
         }
-       
+
 
         private Task SendNotification(GooglePushMessage googleMessage, ApplePushMessage appleMessage, ICollection<long> tags)
         {
@@ -52,16 +52,20 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             var list = new List<Task>();
             for (int i = 0; i <= tags.Count / UsersPerPage; i++)
             {
-                var users = tags.Skip(i*UsersPerPage).Take(UsersPerPage).ToList();
+                var users = tags.Skip(i * UsersPerPage).Take(UsersPerPage).ToList();
+                if (users.Count == 0)
+                {
+                    continue;
+                }
                 if (googleMessage != null)
                 {
                     TraceLog.WriteInfo(String.Format("sending gcm push notification data: {0} to users {1}",
                         googleMessage, String.Join(",", users)));
-                    list.Add(SendNotificationAsync(new GcmNotification(googleMessage.ToString()),users));
+                    list.Add(SendNotificationAsync(new GcmNotification(googleMessage.ToString()), users));
                 }
                 if (appleMessage != null)
                 {
-                    list.Add(SendNotificationAsync( new AppleNotification(appleMessage.ToString()), users));
+                    list.Add(SendNotificationAsync(new AppleNotification(appleMessage.ToString()), users));
                 }
 
             }
