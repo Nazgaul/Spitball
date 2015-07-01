@@ -43,7 +43,6 @@ order by name;";
     ,q.CreationTime as creationTime
     FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
     where q.BoxId = @BoxId
-    and q.IsDeleted = 0
     order by q.[QuestionId] desc
     offset @pageNumber*@rowsperpage ROWS
 	FETCH NEXT @rowsperpage ROWS ONLY;";
@@ -60,9 +59,8 @@ order by name;";
       ,a.CreationTime as creationTime
       FROM [Zbox].[Answer] a join zbox.users u on u.userid = a.userid
 	  where a.boxid = @BoxId
-      and a.IsDeleted = 0
 	  and  a.questionid in 
-            (select questionid from zbox.question where boxid = @boxid and IsDeleted = 0
+            (select questionid from zbox.question where boxid = @boxid 
 	            order by questionid desc
 	            offset @pageNumber*@rowsperpage ROWS
 	            FETCH NEXT @rowsperpage ROWS ONLY)
@@ -81,7 +79,7 @@ order by name;";
     from zbox.item i
     where i.IsDeleted = 0
     and i.BoxId = @BoxId
-    and (QuestionId in  (select questionid from zbox.question where boxid = @boxid and IsDeleted = 0
+    and (QuestionId in  (select questionid from zbox.question where boxid = @boxid 
 	            order by questionid desc
 	            offset @pageNumber*@rowsperpage ROWS
 	            FETCH NEXT @rowsperpage ROWS ONLY)
@@ -98,7 +96,7 @@ order by name;";
     where i.Publish = 1
     and i.isdeleted = 0
     and i.BoxId = @BoxId
-    and QuestionId in  (select questionid from zbox.question where boxid = @boxid and IsDeleted = 0
+    and QuestionId in  (select questionid from zbox.question where boxid = @boxid 
 	            order by questionid desc
 	            offset @pageNumber*@rowsperpage ROWS
 	            FETCH NEXT @rowsperpage ROWS ONLY);";
@@ -110,19 +108,18 @@ order by name;";
 	  ,u.userid as UserId
     ,[Text] as Content
     ,q.CreationTime as creationTime
-	,(select count(*) from zbox.Answer where questionid = q.questionid and boxid = @BoxId and IsDeleted = 0) as RepliesCount
+	,(select count(*) from zbox.Answer where questionid = q.questionid and boxid = @BoxId) as RepliesCount
     FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
     where q.BoxId = @BoxId
-    and q.IsDeleted = 0
     order by q.[updatetime] desc
     offset @pageNumber*@rowsperpage ROWS
 	FETCH NEXT @rowsperpage ROWS ONLY;";
 
         public const string GetLastCommentRepliesForMobile = @"with last_reply as (
 select max([AnswerId]) as 'id', questionid  from [Zbox].[Answer] a 
-where a.boxid = @BoxId and a.IsDeleted = 0
+where a.boxid = @BoxId 
 	  and  a.questionid in 
-            (select questionid from zbox.question where boxid = @BoxId and IsDeleted = 0
+            (select questionid from zbox.question where boxid = @BoxId
 	            order by updatetime desc
 	            offset @pageNumber*@rowsperpage ROWS
 	            FETCH NEXT @rowsperpage ROWS ONLY
@@ -153,16 +150,16 @@ where a.boxid = @BoxId and a.IsDeleted = 0
     where i.IsDeleted = 0
     and i.BoxId = @BoxId
     and (
-		QuestionId in  (select questionid from zbox.question where boxid = @boxid and IsDeleted = 0
+		QuestionId in  (select questionid from zbox.question where boxid = @boxid 
 	            order by updatetime desc
 	            offset @pageNumber*@rowsperpage ROWS
 	            FETCH NEXT @rowsperpage ROWS ONLY)
 		or 
 		AnswerId in (
 				select max([AnswerId]) as 'id'  from [Zbox].[Answer] a 
-				where a.boxid = @BoxId and a.IsDeleted = 0
+				where a.boxid = @BoxId
 				and  a.questionid in 
-					(select questionid from zbox.question where boxid = @BoxId and IsDeleted = 0
+					(select questionid from zbox.question where boxid = @BoxId 
 					order by updatetime desc
 					offset @pageNumber*@rowsperpage ROWS
 					FETCH NEXT @rowsperpage ROWS ONLY
@@ -180,7 +177,6 @@ where a.boxid = @BoxId and a.IsDeleted = 0
 	  join zbox.users u on u.userid = a.userid
 	  where a.questionid = @CommentId
       and a.boxid =  @BoxId
-      and a.IsDeleted = 0
 	  order by id desc
 	   offset @pageNumber*@rowsperpage ROWS
 	            FETCH NEXT @rowsperpage ROWS ONLY;";
@@ -198,7 +194,7 @@ where a.boxid = @BoxId and a.IsDeleted = 0
     where i.IsDeleted = 0
     and i.BoxId = @BoxId
     and answerid in ( select answerid FROM [Zbox].[Answer] a 
-	  where a.questionid = @CommentId and a.IsDeleted = 0
+	  where a.questionid = @CommentId 
 	  order by answerid desc
 	   offset @pageNumber*@rowsperpage ROWS
 	            FETCH NEXT @rowsperpage ROWS ONLY);";

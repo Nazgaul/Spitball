@@ -5,7 +5,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public class CommentReplies : ISoftDeletable
+    public class CommentReplies //: ISoftDeletable
     {
         protected CommentReplies()
         {

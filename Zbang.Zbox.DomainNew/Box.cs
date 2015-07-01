@@ -203,7 +203,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual void UpdateCommentsCount()
         {
-            CommentCount = Comments.Count(f => !f.IsDeleted);
+            CommentCount = Comments.Count();
         }
 
         #endregion
@@ -270,6 +270,7 @@ namespace Zbang.Zbox.Domain
             }
             Invites.Clear();
             UserBoxRelationship.Clear();
+            Comments.Clear();
             ItemTabs.Clear();
             Updates.Clear();
         }
