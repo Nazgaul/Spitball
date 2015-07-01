@@ -24,6 +24,11 @@ namespace Zbang.Zbox.Domain
             CreationTime = now;
             UpdateTime = now;
             var platform = ConfigFetcher.Fetch("platform");
+            if (string.IsNullOrEmpty(platform))
+            {
+                platform = string.Empty;
+            }
+
             CreatedUser = UpdatedUser = UpdatedUser = string.Format("{0} {1}", userName, platform);
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
@@ -39,6 +44,10 @@ namespace Zbang.Zbox.Domain
             DateTime now = DateTime.UtcNow;
             UpdateTime = now;
             var platform =  ConfigFetcher.Fetch("platform");
+            if (string.IsNullOrEmpty(platform))
+            {
+                platform = string.Empty;
+            }
             UpdatedUser = string.Format("{0} {1}", userName, platform);
         }
     }

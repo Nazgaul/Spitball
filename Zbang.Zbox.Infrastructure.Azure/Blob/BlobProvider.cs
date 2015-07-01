@@ -525,6 +525,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         public async Task<string> DownloadToFileAsync(string fileName, CancellationToken cancelToken)
         {
             var fileSystemLocation = Path.Combine(m_LocalStorageProvider.LocalStorageLocation, fileName);
+            if (File.Exists(fileSystemLocation))
+            {
+                return fileSystemLocation;
+            }
             CloudBlockBlob blob = GetFile(fileName);
             try
             {

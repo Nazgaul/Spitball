@@ -138,10 +138,10 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 var builder = new StringBuilder();
                 //string to hold extracted text
-                string extractedText = "";
-                foreach (Page pdfPage in doc.Pages)
+                for (int i = 1; i <= Math.Min(doc.Pages.Count, 20); i++)
                 {
-
+                    var pdfPage = doc.Pages[i];
+                    string extractedText;
                     using (var textStream = new MemoryStream())
                     {
                         //create text device
