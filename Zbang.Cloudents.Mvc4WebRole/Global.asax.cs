@@ -50,19 +50,19 @@ namespace Zbang.Cloudents.Mvc4WebRole
         }
 
 
-        //for output cache
-        protected void Application_AcquireRequestState()
-        {
-            try
-            {
-                UserLanguage.ChangeLanguage(new HttpContextWrapper(HttpContext.Current),
-                    new HttpServerUtilityWrapper(HttpContext.Current.Server), null);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("initialize", ex);
-            }
-        }
+        ////for output cache
+        //protected void Application_AcquireRequestState()
+        //{
+        //    try
+        //    {
+        //        UserLanguage.ChangeLanguage(new HttpContextWrapper(HttpContext.Current),
+        //            new HttpServerUtilityWrapper(HttpContext.Current.Server), null);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("initialize", ex);
+        //    }
+        //}
 
         public override string GetVaryByCustomString(HttpContext context, string custom)
         {
@@ -85,6 +85,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
                         value += Thread.CurrentThread.CurrentUICulture.Name;
                     }
+                    if (key == CustomCacheKeys.Url)
+                    {
+                        value += context.Request.Url.AbsolutePath;
+                    }
                 }
                 return string.IsNullOrWhiteSpace(value) ? base.GetVaryByCustomString(context, custom) : value;
             }
@@ -94,36 +98,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 throw;
             }
         }
-
-
-        //protected void Application_AcquireRequestState(object sender, EventArgs e)
-        //{
-        //    //It's important to check whether session object is ready
-        //    //if (HttpContext.Current.Session != null)
-        //    //{
-        //        CultureInfo ci = (CultureInfo)this.Session["Culture"];
-
-        //        //Checking first if there is no value in session and set default language this can happen for first user's request
-        //        if (ci == null)
-        //        {
-        //            //Sets default culture to english invariant
-        //            string langName = "az";
-
-        //            //Try to get values from Accept lang HTTP header
-        //            if (HttpContext.Current.Request.UserLanguages != null &&
-        //            HttpContext.Current.Request.UserLanguages.Length != 0)
-        //            {
-        //                //Gets accepted list 
-        //                langName = HttpContext.Current.Request.UserLanguages[0].Substring(0, 2);
-        //            }
-        //            ci = new CultureInfo(langName);
-        //            this.Session["Culture"] = ci;
-        //        }
-        //        //Finally setting culture for each request
-        //        Thread.CurrentThread.CurrentUICulture = ci;
-        //        Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(ci.Name);
-        //    //}
-        //}
 
         protected void Application_Error(object sender, EventArgs e)
         {

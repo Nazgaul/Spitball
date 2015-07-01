@@ -32,7 +32,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var userRate = m_ItemRateRepository.GetRateOfUser(message.UserId, message.ItemId);
 
             var item = m_ItemRepository.Load(message.ItemId);
-            
+            item.ShouldMakeDirty = () => false;
 
             m_QueueProvider.InsertMessageToTranaction(new ReputationData(item.Uploader.Id));
             if (userRate != null)

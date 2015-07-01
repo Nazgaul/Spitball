@@ -23,14 +23,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly IBlobProvider m_BlobProvider;
         private readonly IProfilePictureProvider m_ProfilePicture;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
+        private readonly ICookieHelper m_CookieHelper;
 
         public UploadController(
             IBlobProvider blobProvider,
             Lazy<IQueueProvider> queueProvider,
-            IProfilePictureProvider profilePicture)
+            IProfilePictureProvider profilePicture, ICookieHelper cookieHelper)
         {
             m_BlobProvider = blobProvider;
             m_ProfilePicture = profilePicture;
+            m_CookieHelper = cookieHelper;
             m_QueueProvider = queueProvider;
         }
 
@@ -43,7 +45,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userId = User.GetUserId();
             try
             {
-                var cookie = new CookieHelper(HttpContext);
                 if (HttpContext.Request.Files == null)
                 {
                     return JsonError(BoxControllerResources.NoFilesReceived);
@@ -67,7 +68,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
                 fileUploadedDetails.CurrentIndex = await m_BlobProvider.UploadFileBlockAsync(blobAddressUri, uploadedfile.InputStream, fileUploadedDetails.CurrentIndex);
-                cookie.InjectCookie("upload", fileUploadedDetails);
+                m_CookieHelper.InjectCookie("upload", fileUploadedDetails);
 
                 if (!FileFinishToUpload(fileUploadedDetails))
                 {
@@ -103,7 +104,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     fileDto.TabId = model.TabId.Value;
                 }
-                cookie.RemoveCookie("upload");
+                m_CookieHelper.RemoveCookie("upload");
                 return JsonOk(new { fileDto, boxId = model.BoxId });
 
             }
@@ -136,9 +137,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NonAction]
         private FileUploadDetails GetCookieUpload(long fileSize, string fileName, HttpPostedFileBase uploadedfile)
         {
-            //FileUploadDetails fileReceive;
-            var cookie = new CookieHelper(HttpContext);
-            var fileReceive = cookie.ReadCookie<FileUploadDetails>("upload");
+            var fileReceive = m_CookieHelper.ReadCookie<FileUploadDetails>("upload");
             if (fileReceive != null && fileReceive.FileSize <= fileReceive.TotalUploadBytes)
             {
                 fileReceive = null;

@@ -309,7 +309,6 @@
     <Compile Include="Filters\PreserveQueryStringAttribute.cs" />
     <Compile Include="Filters\RedirectToMobileAttribute.cs" />
     <Compile Include="Filters\NoUniversityAttribute.cs" />
-    <Compile Include="Filters\ValidateAntiForgeryTokenAttribute.cs" />
     <Compile Include="Filters\ZboxHandleErrorAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -321,6 +320,8 @@
     <Compile Include="Helpers\CustomCacheKeys.cs" />
     <Compile Include="Helpers\JsonResponse.cs" />
     <Compile Include="Helpers\JsResourceHelper.cs" />
+    <Compile Include="Helpers\LanguageCookieHelper.cs" />
+    <Compile Include="Helpers\LanguageMiddleware.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlCodeGenerator.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlWebRazorHostFactory.cs" />
     <Compile Include="Helpers\NullGuidConstrait.cs" />

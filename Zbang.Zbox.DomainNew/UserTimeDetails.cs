@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Reflection;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Domain
 {
@@ -8,7 +10,7 @@ namespace Zbang.Zbox.Domain
         protected UserTimeDetails()
         {
             DateTime now = DateTime.UtcNow;
-// ReSharper disable DoNotCallOverridableMethodsInConstructor
+            // ReSharper disable DoNotCallOverridableMethodsInConstructor
             CreationTime = now;
 
             UpdateTime = now;
@@ -16,11 +18,12 @@ namespace Zbang.Zbox.Domain
             UpdatedUser = string.Empty;
         }
 
-        public UserTimeDetails(string userName, Platform platform = Platform.Default)
+        public UserTimeDetails(string userName/*, Platform platform = Platform.Default*/)
         {
             DateTime now = DateTime.UtcNow;
             CreationTime = now;
             UpdateTime = now;
+            var platform = ConfigFetcher.Fetch("platform");
             CreatedUser = UpdatedUser = UpdatedUser = string.Format("{0} {1}", userName, platform);
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
@@ -31,11 +34,12 @@ namespace Zbang.Zbox.Domain
         public virtual string CreatedUser { get; internal protected set; }
         public virtual string UpdatedUser { get; protected set; }
 
-        public void UpdateUserTime(string userName, Platform platform = Platform.Default)
+        public void UpdateUserTime(string userName/*, Platform platform = Platform.Default*/)
         {
             DateTime now = DateTime.UtcNow;
             UpdateTime = now;
-            UpdatedUser = string.Format("{0} {1}",userName, platform);
+            var platform =  ConfigFetcher.Fetch("platform");
+            UpdatedUser = string.Format("{0} {1}", userName, platform);
         }
     }
 }
