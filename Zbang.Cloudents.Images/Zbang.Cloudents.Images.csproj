@@ -105,7 +105,17 @@
     <Content Include="Global.asax" />
     <Content Include="images\excelv4.jpg" />
     <Content Include="images\filev4.jpg" />
+    <Content Include="images\Icons_720_doc.png" />
+    <Content Include="images\Icons_720_excel.png" />
+    <Content Include="images\Icons_720_generic.png" />
+    <Content Include="images\Icons_720_image.png" />
+    <Content Include="images\Icons_720_pdf.png" />
+    <Content Include="images\Icons_720_power.png" />
+    <Content Include="images\Icons_720_sound.png" />
+    <Content Include="images\Icons_720_txt.png" />
+    <Content Include="images\Icons_720_video.png" />
     <Content Include="images\imagev4.jpg" />
+    <Content Include="images\link 720.png" />
     <Content Include="images\linkv2.jpg" />
     <Content Include="images\pdfv4.jpg" />
     <Content Include="images\powerv4.jpg" />

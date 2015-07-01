@@ -32,50 +32,50 @@ namespace Zbang.Cloudents.Images
                     var path = Path.GetExtension(blobWithOriginalFileName).ToLower();
                     if (WordProcessor.WordExtensions.Contains(path))
                     {
-                        args.QueryString["404"] = "~/images/wordv4.jpg";
+                        args.QueryString["404"] = "~/images/Icons_720_doc.png";
                         return;
                     }
                     if (ExcelProcessor.ExcelExtensions.Contains(path))
                     {
-                        args.QueryString["404"] = "~/images/excelv4.jpg";
+                        args.QueryString["404"] = "~/images/Icons_720_excel.png";
                         return;
                     }
                     if (ImageProcessor.ImageExtensions.Contains(path))
                     {
-                        args.QueryString["404"] = "~/images/imagev4.jpg";
+                        args.QueryString["404"] = "~/images/Icons_720_image.png";
                         return;
                     }
                     if (PdfProcessor.PdfExtensions.Contains(path))
                     {
-                        args.QueryString["404"] = "~/images/pdfv4.jpg";
+                        args.QueryString["404"] = "~/images/Icons_720_pdf.png";
                         return;
                     }
                     if (PowerPoint2007Processor.PowerPoint2007Extensions.Contains(path))
                     {
-                        args.QueryString["404"] = "~/images/powerv4.jpg";
+                        args.QueryString["404"] = "~/images/Icons_720_power.png";
                         return;
                     }
                     if (TiffProcessor.TiffExtensions.Contains(path))
                     {
-                        args.QueryString["404"] = "~/images/imagev4.jpg";
+                        args.QueryString["404"] = "~/images/Icons_720_image.png";
                         return;
                     }
                     if (VideoProcessor.VideoExtensions.Contains(path))
                     {
-                        args.QueryString["404"] = "~/images/videov4.jpg";
+                        args.QueryString["404"] = "~/images/Icons_720_video.png";
                         return;
                     }
                     if (TextProcessor.TxtExtensions.Contains(path))
                     {
-                        args.QueryString["404"] = "~/images/textv1.jpg";
+                        args.QueryString["404"] = "~/images/Icons_720_txt.png";
                         return;
                     }
                     if (AudioProcessor.AudioExtensions.Contains(path))
                     {
-                        args.QueryString["404"] = "~/images/soundv4.jpg";
+                        args.QueryString["404"] = "~/images/Icons_720_sound.png";
                         return;
                     }
-                    args.QueryString["404"] = "~/images/filev4.jpg";
+                    args.QueryString["404"] = "~/images/Icons_720_generic.png";
                 };
         }
 
