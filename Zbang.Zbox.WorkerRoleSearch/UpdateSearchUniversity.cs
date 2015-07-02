@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,10 +41,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task Run(System.Threading.CancellationToken cancellationToken)
         {
+            var index = GetIndex();
+            var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
+            TraceLog.WriteWarning("item index " + index + " count " + count);
             while (!cancellationToken.IsCancellationRequested)
             {
-                var index = GetIndex();
-                var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
                 try
                 {
                     var retVal = await UpdateUniversity(index, count);

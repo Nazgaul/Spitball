@@ -34,6 +34,9 @@ namespace Zbang.Zbox.ViewModel.Dto.Search
         public string Url { get; set; }
 
         public string BlobName { get; set; }
+
+        public long BoxId { get; set; }
+        public string Extension { get; set; }
     }
 
 

@@ -44,11 +44,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task Run(System.Threading.CancellationToken cancellationToken)
         {
-
+            var index = GetIndex();
+            var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
+            TraceLog.WriteWarning("box index " + index + " count " + count);
             while (!cancellationToken.IsCancellationRequested)
             {
-                var index = GetIndex();
-                var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
+               
                 try
                 {
                     var retVal = await UpdateBox(index, count);

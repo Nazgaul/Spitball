@@ -51,8 +51,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
 
         private void MakeDirty(IPreDatabaseOperationEventArgs @event, object[] state, IDirty dirty)
         {
-            var stackTrace = new StackTrace();
-            TraceLog.WriteInfo("nhibernate is make dirty" + stackTrace);
             dirty.IsDirty = true;
             Set(@event.Persister, state, "IsDirty", true);
         }

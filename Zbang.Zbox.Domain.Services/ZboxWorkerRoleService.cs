@@ -38,8 +38,27 @@ namespace Zbang.Zbox.Domain.Services
 
         public bool Dbi(int index)
         {
+            //UpdateMissingUrl();
             UpdateUniversityStats();
             return false;
+        }
+
+        private void UpdateMissingUrl()
+        {
+            using (var unitOfWork = UnitOfWork.Start())
+            {
+                var items = UnitOfWork.CurrentSession.Query<Item>().Where(w => !w.IsDeleted && w.Url == null).ToList();
+                foreach (var item in items)
+                {
+                    if (string.IsNullOrEmpty(item.Name))
+                    {
+                        item.Name = item.ItemContentUrl;
+                    }
+                    item.GenerateUrl();
+                    UnitOfWork.CurrentSession.Save(item);
+                }
+                unitOfWork.TransactionalFlush();
+            }
         }
 
         private void UpdateUniversityStats()

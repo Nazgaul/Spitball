@@ -153,36 +153,34 @@ namespace Zbang.Zbox.Infrastructure.Search
             return true;
         }
 
-        //public async Task<IEnumerable<SearchItems>> SearchItem(
-        //    ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken)
-        //{
-        //    if (query == null) throw new ArgumentNullException("query");
+        public async Task<IEnumerable<SearchItems>> SearchItem(
+            ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken)
+        {
+            if (query == null) throw new ArgumentNullException("query");
 
-        //    var filter = await m_FilterProvider.BuildFilterExpression(
-        //       query.UniversityId, UniversityidField, UserIdsField, query.UserId);
+            var filter = await m_FilterProvider.BuildFilterExpression(
+               query.UniversityId, UniversityidField, UserIdsField, query.UserId);
 
-        //    var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(query.Term, new SearchParameters
-        //    {
-        //        Filter = filter,
-        //        Top = query.RowsPerPage,
-        //        Skip = query.RowsPerPage * query.PageNumber,
-        //        ScoringProfile = "universityTag",
-        //        ScoringParameters = new[] { "university:" + query.UniversityId },
-        //        Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField, BlobNameField },
-        //        HighlightFields = new[] { ContentField, NameField }
-        //    }, cancelToken);
+            var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(query.Term, new SearchParameters
+            {
+                Filter = filter,
+                Top = query.RowsPerPage,
+                Skip = query.RowsPerPage * query.PageNumber,
+                ScoringProfile = "universityTag",
+                ScoringParameters = new[] { "university:" + query.UniversityId },
+                Select = new[] {  SmallContentField, IdField,  NameField, BoxIdField, ExtensionField },
+                HighlightFields = new[] { ContentField }
+            }, cancelToken);
 
-        //    return result.Select(s => new SearchItems
-        //    {
-        //        Boxname = s.Document.BoxName,
-        //        Content = HighLightInField(s, ContentField, s.Document.MetaContent),
-        //        Id = long.Parse(s.Document.Id),
-        //        Name = HighLightInField(s, NameField, s.Document.Name),
-        //        UniName = s.Document.UniversityName,
-        //        Url = s.Document.Url,
-        //        BlobName =  s.Document.BlobName
-        //    });
-        //}
+            return result.Select(s => new SearchItems
+            {
+                Content = HighLightInField(s, ContentField, s.Document.MetaContent),
+                Id = long.Parse(s.Document.Id),
+                Name = s.Document.Name,
+                BoxId = s.Document.BoxId.Value,
+                Extension = s.Document.Extension
+            }).ToList();
+        }
 
         public async Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
