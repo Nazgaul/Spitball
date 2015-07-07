@@ -19,7 +19,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string DownloadUrl { get; set; }
         public string UserUrl { get; set; }
 
-        public string Thumbnail { get; set; }
+        //public string Thumbnail { get; set; }
 
 
         public bool Sponsored { get; set; }

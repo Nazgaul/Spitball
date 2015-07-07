@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
@@ -74,7 +76,28 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             var retVal =
                  await ZboxReadService.GetReplies(new Zbox.ViewModel.Queries.QnA.GetCommentRepliesQuery(boxId,feedId,page,sizePerPage));
-            return Request.CreateResponse(retVal);
+            return Request.CreateResponse(retVal.Select(s=> new
+            {
+                s.Id,
+                s.UserImage,
+                s.UserName,
+                s.UserId,
+                s.Content,
+                s.CreationTime,
+
+                Files = s.Files.Select(d => new
+                {
+                    d.Id,
+                    d.Name,
+                    d.OwnerId,
+                    d.Type,
+                    d.Source,
+                    Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(d.Source) +
+                               ".jpg?width=148&height=187&mode=crop"
+                })
+                
+                
+            }));
         }
 
 

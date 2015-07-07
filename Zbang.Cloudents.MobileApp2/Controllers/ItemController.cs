@@ -4,6 +4,7 @@ using System.Data;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
@@ -60,6 +61,9 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             await Task.WhenAll(tItem, tTransAction);
             var retVal = tItem.Result;
             retVal.ShortUrl = UrlConsts.BuildShortItemUrl(new Base62(id).ToString());
+            //for previous versions
+            retVal.Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(retVal.Source) +
+                               ".jpg?width=148&height=187&mode=crop";
             ////retVal.UserType = ViewBag.UserType;
             ////retVal.Name = Path.GetFileNameWithoutExtension(retVal.Name);
 
@@ -172,7 +176,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 {
                     Id = result2.Link.Id,
                     Name = result2.Link.Name,
-                    Thumbnail = result2.Link.ThumbnailUrl,
+                   // Thumbnail = result2.Link.ThumbnailUrl,
 
                 };
                 return Request.CreateResponse(item);
@@ -231,7 +235,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 Id = result2.File.Id,
                 Name = result2.File.Name,
-                Thumbnail = result2.File.ThumbnailUrl,
+               // Thumbnail = result2.File.ThumbnailUrl,
 
             };
 
@@ -278,7 +282,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 Id = result2.File.Id,
                 Name = result2.File.Name,
-                Thumbnail = result2.File.ThumbnailUrl,
+               // Thumbnail = result2.File.ThumbnailUrl,
 
             };
 

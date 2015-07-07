@@ -89,7 +89,7 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
             sTabCount.notifyAdd(data.tabId);
             data.itemDto.tabId = data.tabId;
         }
-
+        data.itemDto.thumbnail = 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(data.itemDto.source) + '.jpg?width=148&height=188&mode=crop'; // item.source
         $scope.info.itemsLength++;
         $scope.info.feedLength++;
         $scope.items.unshift(data.itemDto);
