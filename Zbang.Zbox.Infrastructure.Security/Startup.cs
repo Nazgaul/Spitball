@@ -32,6 +32,7 @@ namespace Zbang.Zbox.Infrastructure.Security
         {
             DataProtectionProvider = app.GetDataProtectionProvider();
             
+            
             //app.CreatePerOwinContext<UserManager>(UserManager.Create);
             //app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 

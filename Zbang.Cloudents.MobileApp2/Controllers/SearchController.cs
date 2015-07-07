@@ -94,7 +94,6 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateBadRequestResponse("need university");
 
             var query = new SearchQuery(term, User.GetCloudentsUserId(), universityId.Value, page, sizePerPage);
-            // Services.Log.Info(String.Format("search items query: {0}", query));
             var retVal = await ItemSearchService.SearchItem(query, default(CancellationToken)) ?? new List<SearchItems>();
             return Request.CreateResponse(retVal.Select(s => new
             {

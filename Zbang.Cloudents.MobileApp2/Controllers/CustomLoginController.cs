@@ -32,12 +32,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         // GET api/CustomLogin
         public async Task<HttpResponseMessage> Post(LogInRequest loginRequest)
         {
-            Services.Log.Info("log in user " + loginRequest);
             if (loginRequest == null)
             {
                 return Request.CreateBadRequestResponse();
             }
-            Services.Log.Info("log in user " + loginRequest);
             if (!ModelState.IsValid)
             {
                 Services.Log.Error("model is not valid " + loginRequest);

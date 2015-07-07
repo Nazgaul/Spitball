@@ -20,15 +20,6 @@ namespace Zbang.Zbox.Infrastructure.Security
             FacebookUserData2 user;
             using (var client = new HttpClient())
             {
-                //var str = await client.GetStringAsync("https://graph.facebook.com/me?access_token=" + token);
-                //dynamic o = JObject.Parse(str);
-
-                //if (o.user == null)
-                //{
-                //    throw new NullReferenceException("user");
-                //}
-
-
                 using (var sr = await client.GetStreamAsync("https://graph.facebook.com/v2.2/me?access_token=" + token))
                 {
                     
@@ -48,11 +39,11 @@ namespace Zbang.Zbox.Infrastructure.Security
                     user.Image = GetFacebookUserImage(user.id, FacebookPictureType.Square);
                     user.LargeImage = GetFacebookUserImage(user.id, FacebookPictureType.Normal);
 
-                    if (user.education != null)
-                    {
-                        TraceLog.WriteInfo("facebook user education: " +
-                                           string.Join(" ", user.education.Select(s => s.school)));
-                    }
+                    //if (user.education != null)
+                    //{
+                    //    TraceLog.WriteInfo("facebook user education: " +
+                    //                       string.Join(" ", user.education.Select(s => s.school)));
+                    //}
                 }
             }
 
