@@ -164,8 +164,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                     SeachConnection.ConvertToType<string>(s.Properties[NameField]),
                     HighLightInField(s, ProfessorField),
                     HighLightInField(s, CourseField),
-                    SeachConnection.ConvertToType<string>(s.Properties[UrlField]),
-                    SeachConnection.ConvertToType<string>(s.Properties[NameField])
+                    SeachConnection.ConvertToType<string>(s.Properties[UrlField])
+                    //SeachConnection.ConvertToType<string>(s.Properties[NameField])
                    )).ToList();
             }
             return null;

@@ -91,7 +91,7 @@ function ($http, $q, sBox, sUserDetails, $interval, $timeout) {
                     return;
                 }
                 updateCount = {
-                    feed: updates[boxId].questions.length + updates[boxId].answers.length,
+                    feed: updates[boxId].questions.length,
                     items: updates[boxId].items.length,
                     quizzes: updates[boxId].quizzes.length
                 };

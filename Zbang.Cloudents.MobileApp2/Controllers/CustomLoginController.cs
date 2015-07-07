@@ -69,6 +69,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                         .CreateLoginResult(identity, Services.Settings.MasterKey);
                     return Request.CreateResponse(HttpStatusCode.OK, loginResult);
                 }
+               
                 Services.Log.Error("tLogIn result is false " + loginRequest);
 
             }

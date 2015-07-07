@@ -180,7 +180,7 @@ function ($scope, $rootScope, $timeout, sAccount, sUserDetails, sModal, sDashboa
             //show box updates                
             (function (box) {
                 sNewUpdates.getBoxUpdates(box.id, function (count) {
-                    box.numOfUpdates = count;
+                    box.updates = count;
 
                 });
             })(boxes[i]);

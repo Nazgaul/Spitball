@@ -168,15 +168,15 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Skip = query.RowsPerPage * query.PageNumber,
                 ScoringProfile = "universityTag",
                 ScoringParameters = new[] { "university:" + query.UniversityId },
-                Select = new[] {  SmallContentField, IdField,  NameField, BoxIdField, ExtensionField },
-                HighlightFields = new[] { ContentField }
+                Select = new[] { SmallContentField, IdField, NameField, BoxIdField, ExtensionField },
+                HighlightFields = new[] { ContentField, NameField },
             }, cancelToken);
 
             return result.Select(s => new SearchItems
             {
                 Content = HighLightInField(s, ContentField, s.Document.MetaContent),
                 Id = long.Parse(s.Document.Id),
-                Name = s.Document.Name,
+                Name = HighLightInField(s, NameField, s.Document.Name),
                 BoxId = s.Document.BoxId.Value,
                 Extension = s.Document.Extension
             }).ToList();
@@ -215,7 +215,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 UniName = s.Document.UniversityName,
                 Url = s.Document.Url,
                 BlobName = s.Document.BlobName
-              
+
 
             });
         }

@@ -245,6 +245,7 @@
   letter-spacing: 1px;
   color: #aaa;
   padding: 0.5em 0;
+  text-transform: capitalize;
 }
 .itemList .searchImg,
 .quizList .searchImg {
@@ -262,7 +263,7 @@
   text-align: center;
 }
 .quizList .boxName {
-  margin-top: -40px;
+  margin: -40px 2px 0 2px;
 }
 .searchLink {
   width: 100%;

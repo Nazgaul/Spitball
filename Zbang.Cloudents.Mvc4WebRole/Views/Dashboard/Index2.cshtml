@@ -57,7 +57,7 @@
                 <div class="lbEmpty">
                     <div class="lbEmptyTxtWpr">
                         <div class="lbEmptyTxt1">@IndexResources.GetPoints</div>
-                        <div class="lbEmptyTxt2">@IndexResources.UploadFiles</div>
+                        <div>@IndexResources.UploadFiles</div>
                     </div>
                     @Html.Svg("~/Images/Defs.svg", "trophyEmpty", new { @class = "svg-trophyEmpty" })
                 </div>
@@ -65,8 +65,8 @@
             <section class="mobileWpr">
                 <div>@IndexResources.GetApp</div>
                 <div class="mobileLinks">
-                    <a target="_blank" boldFont" href="http://m.onelink.me/8358e294"><img src="~/Images/app_store_small.png" /></a>
-                    <a target="_blank" class="android boldFont" href="http://m.onelink.me/2bfd13d6"><img src="~/Images/google_play_small.png" /></a>
+                    <a target="_blank" class="boldFont" href="http://m.onelink.me/8358e294"><img src="~/images/app_store_small.png" /></a>
+                    <a target="_blank" class="android boldFont" href="http://m.onelink.me/2bfd13d6"><img src="~/images/google_play_small.png" /></a>
                 </div>
             </section>
             <section class="recommendedWpr" ng-if="recommendedCourses.length">
@@ -104,10 +104,10 @@
 
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
             <div class="dashHeader" ng-class="{setup: contentLoaded && !academicBoxes.length && !groupBoxes.length}">
-                <div class="dhContent">
+                <div>
                     @{Html.RenderPartial("_BarActions");}
                     <span class="dhText">@SharedResources.Dashboard</span>
-                    <div class="searchTrigger searchDash" ng-click="$root.toggleSearch()" search-coords>@SharedResources.Search</div>
+                    <div class="searchTrigger" ng-click="$root.toggleSearch()" search-coords>@SharedResources.Search</div>
                     <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
                         @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
                     </button>
@@ -149,7 +149,7 @@
                     <header class="boxesHeader" ng-show="contentLoaded">{{myCourses}}</header>
                     @*do not delete for drop zones*@
                     <ol class="myAreaList clearfix">
-                        <li class="box browseBtn">
+                        <li class="box">
                             <a class="addBtn browse" href="@Url.RouteUrl("LibraryDesktop",null)">@SharedResources.BrowseCourses</a>
                         </li>
                         <li ng-repeat="box in academicBoxes" class="box" dropzone-element ng-include="'dashLibBox'" pl-dropzone>

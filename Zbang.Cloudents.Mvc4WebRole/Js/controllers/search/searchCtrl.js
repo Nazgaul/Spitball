@@ -86,8 +86,16 @@ function ($scope, $location, $analytics, $timeout, sSearch, $rootScope) {
 
 
         sSearch.searchByPage({ q: query, page: $scope.params.currentPage }).then(function (data) {
-            data.boxes = data.boxes || [];
-            data.quizzes = data.quizzes || [];
+            var regex = /(<([^>]+)>)/ig;
+            data.boxes = _.map(data.boxes || [],function(box) {
+
+                box.nameWithoutHighLight = box.name.replace(regex, "");
+                return box;
+            });
+            data.quizzes = _.map(data.quizzes || [], function (quiz) {
+                quiz.nameWithoutHighLight = quiz.name.replace(regex, "");
+                return quiz;
+            });
             data.items = _.map(data.items || [], function (item) {
                 if (item.blobName) {
                     item.image = 'https://az779114.vo.msecnd.net/preview/' + item.blobName + '.jpg?width=63&height=88&mode=crop'; 
