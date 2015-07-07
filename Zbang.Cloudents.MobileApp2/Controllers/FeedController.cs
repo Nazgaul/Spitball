@@ -40,7 +40,55 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 var retVal =
                   await ZboxReadService.GetQuestionsWithAnswers(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
-                return Request.CreateResponse(retVal);
+                return Request.CreateResponse(retVal.Select(s=> new
+                {
+                    Answers = s.Answers.Select(a=> new
+                    {
+                        a.Content,
+                        a.CreationTime,
+                        Files = a.Files.Select(v => new
+                        {
+                            v.AnswerId,
+                            v.Id,
+                            v.Name,
+                            v.OwnerId,
+                            v.QuestionId,
+                            v.Source,
+                            Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(v.Source) +
+                                      ".jpg?width=148&height=187&mode=crop",
+                            v.Type,
+                            v.Url,
+                            v.DownloadUrl
+                        }),
+                        a.Id,
+                        a.QuestionId,
+                        a.Url,
+                        a.UserId,
+                        a.UserImage,
+                        a.UserName
+                    }),
+                    s.Content,
+                    s.CreationTime,
+                    Files = s.Files.Select(v=> new
+                    {
+                        v.AnswerId,
+                        v.Id,
+                        v.Name,
+                        v.OwnerId,
+                        v.QuestionId,
+                        v.Source,
+                        Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(v.Source) +
+                                  ".jpg?width=148&height=187&mode=crop",
+                        v.Type,
+                        v.Url,
+                        v.DownloadUrl
+                    }),
+                    s.Id,
+                    s.Url,
+                    s.UserId,
+                    s.UserImage,
+                    s.UserName
+                }));
             }
             catch (BoxAccessDeniedException)
             {
@@ -59,7 +107,45 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 var retVal =
                   await ZboxReadService.GetQuestionsWithLastAnswer(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
-                return Request.CreateResponse(retVal);
+                return Request.CreateResponse(retVal.Select( s=> new
+                {
+                    s.Id,
+                    Answers = s.Answers.Select(x=> new
+                    {
+                        x.Content,
+                        x.CreationTime,
+                        Files = x.Files.Select(z=> new
+                        {
+                            z.Id,
+                            z.Name,
+                            z.OwnerId,
+                            z.Type,
+                            z.Source,
+                            Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(z.Source) +
+                                  ".jpg?width=148&height=187&mode=crop"
+                        }),
+                        x.Id,
+                        x.UserId,
+                        x.UserImage,
+                        x.UserName
+                    }),
+                    s.Content,
+                    s.CreationTime,
+                    Files = s.Files.Select(v=> new
+                    {
+                        v.Id,
+                        v.Name,
+                        v.OwnerId,
+                        v.Type,
+                        v.Source,
+                        Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(v.Source) +
+                              ".jpg?width=148&height=187&mode=crop"
+                    }),
+                    s.RepliesCount,
+                    s.UserId,
+                    s.UserImage,
+                    s.UserName
+                }));
             }
             catch (BoxAccessDeniedException)
             {

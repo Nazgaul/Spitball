@@ -29,7 +29,7 @@
                     that.files = [];
                     that.quizes = [];
                     for (var i = 0; i < data.files.length; i++) {
-                        if (data.files[i].thumbnail) {
+                        if (data.files[i].type) {
                             that.files.push(new File(data.files[i]));
                         } else {
                             that.quizes.push(new File(data.files[i]));
