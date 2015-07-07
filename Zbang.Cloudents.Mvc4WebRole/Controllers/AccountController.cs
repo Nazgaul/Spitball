@@ -727,7 +727,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost]
-        [System.Web.Mvc.ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> PasswordUpdate([ModelBinder(typeof(TrimModelBinder))] NewPassword model, string key)
         {
             if (!ModelState.IsValid)
@@ -751,6 +751,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var tSystemUser = ZboxReadService.GetUserDetailsByMembershipId(query);
 
                 var tUser = m_UserManager.FindByIdAsync(data.MembershipUserId.ToString());
+                
                 await Task.WhenAll(tSystemUser, tUser);
 
                 var identity = await tUser.Result.GenerateUserIdentityAsync(m_UserManager, tSystemUser.Result.Id,
