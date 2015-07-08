@@ -56,6 +56,7 @@ function ($scope, $routeParams, sItem, $timeout, $rootScope, sModal, sUserDetail
             id: itemId,
             boxId: boxId
         }).then(function (data) {
+            data = data || {};
             $scope.load.contentLoading = $scope.load.contentLoadMore = false;
             if (data.preview) {
                 if (data.preview.indexOf('iframe') > 0

@@ -39,18 +39,10 @@
     <meta property="og:title" name="og:title" content="@ViewBag.title" />
     <meta property="og:url" content="@Request.Url" />
 
-    @*<meta property="al:ios:url" content="cloudents://" />
-    <meta property="al:ios:app_store_id" content="990911114" />
-    <meta property="al:ios:app_name" content="Cloudents" />
-    <meta property="al:android:url" content="cloudents://" />
-    <meta property="al:android:app_name" content="Cloudents" />
-    <meta property="al:android:package" content="com.cloudents.zbox2" />*@
-    @*<meta property="al:web:url"
-          content="http://www.couchinapp.com/myapp.html" />*@
+  
 
     <base href="/">
     @Html.Css2("newcore3")
-    @*@Html.CssRtl("newrtl3")*@
     @Html.CssCulture("lang")
     <link href="https://plus.google.com/116999550356569810034" rel="publisher" />
 </head>
@@ -58,7 +50,7 @@
 
     <!--[if IE]>
     <script>
-        if (!window.document.documentMode || window.document.documentMode < 9) {
+        if (!window.document.documentMode || window.document.documentMode < 10) {
             window.location = "/Error/Unsupported";
         }
     </script>
@@ -161,7 +153,7 @@
             </div>
         }
     }
-    <script type="text/javascript" src="~/js/CDNFallback.min.js?v=@VersionHelper.CurrentVersion(true)"></script>
+    <script type="text/javascript" src="~/js/CDNFallback.js?v=@VersionHelper.CurrentVersion(true)"></script>
     <script type="text/ng-template" id="userToolTip.html">
         <div class="userTooltip" ng-class="::{hidePoints : user.score <= 0}">
             <a ng-href="{{::user.url}}" ng-click="$root.checkReg($event)">

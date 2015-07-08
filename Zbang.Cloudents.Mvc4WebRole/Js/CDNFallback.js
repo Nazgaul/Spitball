@@ -1,6 +1,6 @@
 ﻿(function () {
     var cdnPath = '/cdn/gzip/', scriptsPath = '/Scripts/',
-    cdnCdPath = 'az414807.vo.msecnd.net',
+    cdnCdPath = '.vo.msecnd.net',
     cdnGooglePath = 'ajax.googleapis.com';
 
     window.onload = function () {
