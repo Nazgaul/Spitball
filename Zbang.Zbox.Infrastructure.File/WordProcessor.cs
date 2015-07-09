@@ -86,6 +86,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
                     {
                         JpegQuality = 80,
+                        Resolution = 150
                     };
 
                     var ms = new MemoryStream();

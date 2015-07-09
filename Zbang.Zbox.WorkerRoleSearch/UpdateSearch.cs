@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ using Microsoft.WindowsAzure.Storage;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
+using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -64,8 +66,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 try
                 {
                     var itemUpdate = await UpdateItem(index, count);
-                   
-
                     if (!itemUpdate){
                         await Task.Delay(TimeSpan.FromSeconds(10), cancellationToken);
                     }
@@ -97,16 +97,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<bool> UpdateItem(int instanceId, int instanceCount)
         {
-            //var updates = new ItemToUpdateSearchDto
-            //{
-            //    ItemsToUpdate = new List<ItemSearchDto>
-            //    {
-            //        new ItemSearchDto {Id = 291153, BlobName = "12e5fe33-aca7-4aee-b194-2c99a0739d04.docx"}
-            //    },
-            //    ItemsToDelete = new List<long>()
+            var updates = new ItemToUpdateSearchDto
+            {
+                ItemsToUpdate = new List<ItemSearchDto>
+                {
+                    new ItemSearchDto {Id = 291153, BlobName = "12e5fe33-aca7-4aee-b194-2c99a0739d04.docx"}
+                },
+                ItemsToDelete = new List<long>()
 
-            //};
-            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(instanceId, instanceCount);
+            };
+            //var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(instanceId, instanceCount);
             if (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
             {
                 foreach (var elem in updates.ItemsToUpdate)
@@ -138,7 +138,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (processor == null) return;
             var previewContainer = m_BlobClient.GetContainerReference(BlobProvider.AzurePreviewContainer.ToLower());
             var blobInPreview = previewContainer.GetBlockBlobReference(msgData.BlobName + ".jpg");
-            if (blobInPreview.Exists())
+            if (blobInPreview.Exists() && !(processor is WordProcessor))
             {
                 return;
             }

@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         public static bool Set<T>(this IDatabase cache, string key, T value, TimeSpan? expiry = null) where T : class
         {
-            
+
             return cache.StringSet(key, Serialize(value), expiry);
         }
 
@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             {
                 return null;
             }
-           return JsonConvert.SerializeObject(o);
+            return JsonConvert.SerializeObject(o);
             //var pformatter = new Transport.ProtobufSerializer<T>();
             //return pformatter.SerializeData(o);
 
@@ -55,7 +55,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             {
                 return default(T);
             }
-            JsonConvert.DeserializeObject<T>(s);
+            return JsonConvert.DeserializeObject<T>(s);
             //var pformatter = new Transport.ProtobufSerializer<T>();
             //return pformatter.DeSerializeData(stream);
             //var binaryFormatter = new BinaryFormatter();
