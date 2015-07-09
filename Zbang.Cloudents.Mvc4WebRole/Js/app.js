@@ -97,7 +97,8 @@
                        switch (response.status) {
 
                            case 400:
-                               alert('Cloudents has updated, refreshing page');
+                           case 412:
+                               alert('Spitball has updated, refreshing page');
                                window.location.reload(true);
                                break;
                            case 401:
@@ -106,10 +107,6 @@
                                break;
                            case 404:
                                window.open('/error/', '_self');
-                               break;
-                           case 412:
-                               alert('Cloudents has updated, refreshing page');
-                               window.location.reload(true);
                                break;
                            case 500:
                                window.open('/error/', '_self');
@@ -412,7 +409,7 @@
                     }
                     return;
                 }
-                document.title = 'Cloudents';
+                document.title = 'Spitball';
                 try {
                     if (current.$$route.params.type === 'box') {
                         if (sUserDetails.isAuthenticated()) {

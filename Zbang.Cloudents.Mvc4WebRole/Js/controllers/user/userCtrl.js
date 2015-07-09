@@ -90,7 +90,7 @@ mUser.controller('UserCtrl',
         $scope.inviteCloudents = function () {
             sModal.open('cloudentsInvite');
 
-            $analytics.eventTrack('Invite Cloudents', {
+            $analytics.eventTrack('Invite Spitball', {
                 category: analyticsCategory
             });
         };

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
-using System.Threading;
 using System.Threading.Tasks;
 using SendGrid;
 using Zbang.Zbox.Infrastructure.Ioc;
@@ -109,21 +106,5 @@ namespace Zbang.Zbox.Infrastructure.Mail
             }
         }
 
-
-        public Task GenerateAndSendEmailAsync(IEnumerable<string> recipients, string mailContent)
-        {
-            var sendGridMail = new SendGridMessage
-            {
-                From = new MailAddress("hatavotDb@cloudents.com"),
-                To = recipients.Select(s => new MailAddress(s)).ToArray(),
-                Text = mailContent,
-                Subject = "Error in db",
-
-            };
-            return SendAsync(sendGridMail);
-        }
-
-
-       
     }
 }

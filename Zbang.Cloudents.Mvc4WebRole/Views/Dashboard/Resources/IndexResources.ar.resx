@@ -133,7 +133,7 @@
     <value>حسب إدارات الاتحاد</value>
   </data>
   <data name="FindCourses" xml:space="preserve">
-    <value>البحث أو التصفح فيCloudents للعثور على المقررات التي تدرسها</value>
+    <value>البحث أو التصفح فيSpitball للعثور على المقررات التي تدرسها</value>
   </data>
   <data name="FindingCourses" xml:space="preserve">
     <value>إيجاد المسارات الدراسية التي تهمك من خلال:</value>
@@ -271,7 +271,7 @@
     <value>دورات موصى بها</value>
   </data>
   <data name="SearchCloudents" xml:space="preserve">
-    <value>ابحث عن Cloudents</value>
+    <value>ابحث عن Spitball</value>
   </data>
   <data name="SearchFb" xml:space="preserve">
     <value>بحث الفيس بوك</value>
@@ -286,7 +286,7 @@
     <value>تصفح الكتب</value>
   </data>
   <data name="WelcomeCloudents" xml:space="preserve">
-    <value>مرحبا Cloudents</value>
+    <value>مرحبا Spitball</value>
   </data>
   <data name="FreeOnline" xml:space="preserve">
     <value>منصة اجتماعية الإنترنت والهاتف المحمول المجانية دراسة</value>

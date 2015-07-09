@@ -124,7 +124,7 @@
     <value>August</value>
   </data>
   <data name="CloudentsJoin" xml:space="preserve">
-    <value>Cloudents is the most advanced free online and mobile social studying platform. Join the social studying revolution with Cloudents now.</value>
+    <value>Spitball is the most advanced free online and mobile social studying platform. Join the social studying revolution with Spitball now.</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
@@ -169,7 +169,7 @@
     <value>Oct</value>
   </data>
   <data name="OnCloudents" xml:space="preserve">
-    <value>on Cloudents</value>
+    <value>on Spitball</value>
   </data>
   <data name="Replies" xml:space="preserve">
     <value>Replies</value>
@@ -190,10 +190,10 @@
     <value>Add your comment</value>
   </data>
   <data name="IJoined" xml:space="preserve">
-    <value>I joined {0} on Cloudents, our free online social studying platform</value>
+    <value>I joined {0} on Spitball, our free online social studying platform</value>
   </data>
   <data name="IUploaded" xml:space="preserve">
-    <value>I uploaded {0} to Cloudents, our free online social studying platform</value>
+    <value>I uploaded {0} to Spitball, our free online social studying platform</value>
   </data>
   <data name="AFewSecAgo" xml:space="preserve">
     <value>a few sec. ago</value>
@@ -316,8 +316,8 @@
     <value>Enter new email</value>
   </data>
   <data name="FbText" xml:space="preserve">
-    <value>I too have joined Cloudents.
-Cloudents has the largest collection of class notes and exams at your school. Join Cloudents, the more students join, the easier studying becomes.</value>
+    <value>I too have joined Spitball.
+Spitball has the largest collection of class notes and exams at your school. Join Spitball, the more students join, the easier studying becomes.</value>
   </data>
   <data name="FieldNeedsNumber" xml:space="preserve">
     <value>This field should contain a number</value>
@@ -585,7 +585,7 @@ for this file type.</value>
     <value>yesterday</value>
   </data>
   <data name="FbShareQuiz" xml:space="preserve">
-    <value>I am sharing the Quiz "{0}" I have created using the Cloudents Quiz creator. Cloudents is a free social studying platform with summaries, study notes, old exams - over 95000 items of study material!
+    <value>I am sharing the Quiz "{0}" I have created using the Spitball Quiz creator. Spitball is a free social studying platform with summaries, study notes, old exams - over 95000 items of study material!
 &lt;center&gt;&amp;#160;&lt;/center&gt;
 Sign up for FREE</value>
   </data>

@@ -11,11 +11,9 @@ namespace Zbang.Zbox.Infrastructure.Mail
     internal class UpdatesMail : IMailBuilder
     {
         const string Category = "Update";
-        const string Subject = "Cloudents Update";
+        const string Subject = "Spitball Update";
 
-        // private string cube, moreTemplate;
-        //answerTemplate, itemTemplate, memberTemplate, , questionTemplate;
-
+       
         public void GenerateMail(ISendGrid message, MailParameters parameters)
         {
             Thread.CurrentThread.CurrentUICulture = parameters.UserCulture;

@@ -6,7 +6,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
     internal class InvitationToCloudentsMail : IMailBuilder
     {
         const string Category = "InvitationCloudents";
-        const string Subject = "Invite to Cloudents";
+        const string Subject = "Invite to Spitball";
 
         public void GenerateMail(ISendGrid message, MailParameters parameters)
         {

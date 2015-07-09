@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About Cloudents.
+        ///   Looks up a localized string similar to About Spitball.
         /// </summary>
         public static string AboutCloudents {
             get {
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cloudents is the most advanced free online and mobile social studying platform. Join the social studying revolution with Cloudents now..
+        ///   Looks up a localized string similar to Spitball is the most advanced free online and mobile social studying platform. Join the social studying revolution with Spitball now..
         /// </summary>
         public static string Description {
             get {
@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you have a question about yesterday&apos;s class, what you have to read for next week or what the essence of that one chapter is, Cloudents is here to help. Ask a question, get an answer from a fellow student..
+        ///   Looks up a localized string similar to If you have a question about yesterday&apos;s class, what you have to read for next week or what the essence of that one chapter is, Spitball is here to help. Ask a question, get an answer from a fellow student..
         /// </summary>
         public static string GetAnwers {
             get {
@@ -179,7 +179,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cloudents brings it all together. Join, for.
+        ///   Looks up a localized string similar to Spitball brings it all together. Join, for.
         /// </summary>
         public static string HomePageTitle3 {
             get {
@@ -234,7 +234,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Powered by students, Cloudents helps students study better by working together..
+        ///   Looks up a localized string similar to Powered by students, Spitball helps students study better by working together..
         /// </summary>
         public static string PoweredBy {
             get {
@@ -288,7 +288,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cloudents is a free online and mobile social studying platform..
+        ///   Looks up a localized string similar to Spitball is a free online and mobile social studying platform..
         /// </summary>
         public static string StudyPlatform {
             get {
@@ -306,7 +306,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cloudents | Helping students to study better by working together.
+        ///   Looks up a localized string similar to Spitball | Helping students to study better by working together.
         /// </summary>
         public static string Title {
             get {

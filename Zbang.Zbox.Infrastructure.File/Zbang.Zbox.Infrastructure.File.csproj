@@ -51,9 +51,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Aspose.Slides.NET.15.5.0\lib\net4.0-client\Aspose.Slides.dll</HintPath>
     </Reference>
-    <Reference Include="Aspose.Words, Version=15.5.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Aspose.Words.15.5.0\lib\net3.5-client\Aspose.Words.dll</HintPath>
+    <Reference Include="Aspose.Words">
+      <HintPath>..\packages\Aspose.Words.15.6.0\lib\net3.5-client\Aspose.Words.dll</HintPath>
     </Reference>
     <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

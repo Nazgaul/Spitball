@@ -121,7 +121,7 @@
     <value>Закрыть</value>
   </data>
   <data name="step1Header" xml:space="preserve">
-    <value>Добро пожаловать в Cloudents</value>
+    <value>Добро пожаловать в Spitball</value>
   </data>
   <data name="step1Text" xml:space="preserve">
     <value>Место, где вы можете учиться, делиться и общаться со своими однокурсниками </value>
@@ -160,7 +160,7 @@
     <value>Поделитесь со своими друзьями</value>
   </data>
   <data name="step4InviteText" xml:space="preserve">
-    <value>Cloudents подходит и для ваших друзей, пригласите их присоединиться</value>
+    <value>Spitball подходит и для ваших друзей, пригласите их присоединиться</value>
   </data>
   <data name="step4InviteTitle" xml:space="preserve">
     <value>Пригласить</value>

@@ -163,33 +163,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<PartnersDto> GetPartnersEmail(long userid)
-        {
-            var retVal = new PartnersDto();
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                using (var grid = await conn.QueryMultipleAsync(Email.Partners, new { userid }))
-                {
-                    retVal.LastWeekUsers = grid.Read<int>().First();
-                    retVal.AllUsers = grid.Read<int>().First();
-
-                    retVal.LastWeekCourses = grid.Read<int>().First();
-                    retVal.AllCourses = grid.Read<int>().First();
-
-                    retVal.LastWeekItems = grid.Read<int>().First();
-                    retVal.AllItems = grid.Read<int>().First();
-
-                    retVal.LastWeekQnA = grid.Read<int>().First();
-                    retVal.AllQnA = grid.Read<int>().First();
-
-                    retVal.Univeristies = grid.Read<University>();
-
-                }
-
-            }
-            return retVal;
-
-        }
+       
 
 
         public async Task<UniversityToUpdateSearchDto> GetUniversityDirtyUpdates(int index, int total)

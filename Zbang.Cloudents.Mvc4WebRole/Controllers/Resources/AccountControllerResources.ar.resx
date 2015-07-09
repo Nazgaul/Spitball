@@ -130,7 +130,7 @@
     <value>مشكلة في الحصول على معلومات من فيس بوك</value>
   </data>
   <data name="FbRegisterError" xml:space="preserve">
-    <value>لقد سجلت ل Cloudents من خلال الفيسبوك - الذهاب الى الصفحة الرئيسية وانقر على زر الفيسبوك لتسجيل</value>
+    <value>لقد سجلت ل Spitball من خلال الفيسبوك - الذهاب الى الصفحة الرئيسية وانقر على زر الفيسبوك لتسجيل</value>
   </data>
   <data name="LogonError" xml:space="preserve">
     <value>خطأ في اسم المستخدم او كلمة المرور </value>

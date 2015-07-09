@@ -10,7 +10,7 @@
     ga('create', 'UA-9850006-3', {
         'userId': cd.userDetail().id,
         'siteSpeedSampleRate': 70,
-        'cookieDomain': 'cloudents.com',
+        'cookieDomain': 'spitball.co',
         'alwaysSendReferrer' :true
     });
 

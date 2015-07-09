@@ -173,7 +173,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [CacheFilter(Duration = TimeConsts.Day)]
         public ActionResult JsResources()
         {
-            //var rm = new ResourceManager("Zbang.Cloudents.Mvc4WebRole.Js.Resources.JsResources", Assembly.GetExecutingAssembly());
             var x = typeof(Js.Resources.JsResources);
             var sb = new StringBuilder();
             sb.Append("JsResources={");

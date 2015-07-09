@@ -9,7 +9,7 @@ ga('require', 'displayfeatures');
 
 ga('create', 'UA-9850006-3', {
     'siteSpeedSampleRate': 70,
-    'cookieDomain': 'cloudents.com',
+    'cookieDomain': 'spitball.co',
     'alwaysSendReferrer': true
 });
 

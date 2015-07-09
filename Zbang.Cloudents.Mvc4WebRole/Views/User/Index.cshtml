@@ -272,7 +272,7 @@
                             <div class="inviteStatus">{{::invite.status ? '@SharedResources.ActiveMember' : '@SharedResources.Pending'}}</div>
                             <div class="invitedToWpr">
                                 <img class="upImg" alt="" width="30" height="30" ng-src="{{::invite.boxPicture || '/images/cloudents1-57x57.png?v=1'}}" />
-                                <div class="invitedTo elps">{{::invite.boxName || 'Cloudents'}}</div>
+                                <div class="invitedTo elps">{{::invite.boxName || 'Spitball'}}</div>
                             </div>
                             <button type="button" class="btn1" ng-if="!invite.status" ng-click="invites.reInvite(invite)" ng-disabled="invite.submitted">{{::invite.submitted ? '@SharedResources.Sent' : '@SharedResources.Reinvite'}}</button>
                         </li>
@@ -280,7 +280,6 @@
 
                     <div class="emptyInvites" ng-show="!invites.loading">
                         <span>@UserResources.FindFriends</span>
-                        @*<a href="@Url.RouteUrl("InviteCloudents")" target="_self" class="inviteFriendBtn btn3">@SharedResources.InviteFriends</a>*@
                     </div>
                 </div>
             </section>

@@ -124,7 +124,7 @@
     <value>Check for spelling mistakes or try again using different keywords.</value>
   </data>
   <data name="CloudentsFriends" xml:space="preserve">
-    <value>Cloudents friends</value>
+    <value>Spitball friends</value>
   </data>
   <data name="ConnectMore" xml:space="preserve">
     <value>Connect more accounts</value>
@@ -154,7 +154,7 @@
     <value>Invite by email</value>
   </data>
   <data name="InviteFriends" xml:space="preserve">
-    <value>Invite your friends to cloudents</value>
+    <value>Invite your friends to Spitball</value>
   </data>
   <data name="MailSent" xml:space="preserve">
     <value>Your mail was sent successfully</value>

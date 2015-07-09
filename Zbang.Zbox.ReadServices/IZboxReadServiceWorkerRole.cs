@@ -19,7 +19,6 @@ namespace Zbang.Zbox.ReadServices
 
         Task<IEnumerable<dynamic>> GetMissingThumbnailBlobs(int index, long start);
 
-        Task<PartnersDto> GetPartnersEmail(long userid);
 
         Task<IEnumerable<UniversitySearchDto>> GetUniversityDetail();
 

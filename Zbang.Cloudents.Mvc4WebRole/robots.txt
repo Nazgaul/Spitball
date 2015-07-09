@@ -15,4 +15,4 @@ disallow: /b/
 disallow: /i/
 disallow: /d/
 
-Sitemap: https://www.cloudents.com/sitemap.xml
+Sitemap: https://www.spitball.co/sitemap.xml/

@@ -124,7 +124,7 @@
     <value>أغسطس </value>
   </data>
   <data name="CloudentsJoin" xml:space="preserve">
-    <value>تعتبر Cloudents هي منصة الدراسة الاجتماعية المجانية الأكثر تقدما عبر الإنترنت والهاتف الجوال. انضم إلى ثورة الدراسة الاجتماعية من خلال Cloudents الآن.</value>
+    <value>تعتبر Spitball هي منصة الدراسة الاجتماعية المجانية الأكثر تقدما عبر الإنترنت والهاتف الجوال. انضم إلى ثورة الدراسة الاجتماعية من خلال Spitball الآن.</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>لوحة التحكم</value>
@@ -169,7 +169,7 @@
     <value>أكتوبر </value>
   </data>
   <data name="OnCloudents" xml:space="preserve">
-    <value>على Cloudents</value>
+    <value>على Spitball</value>
   </data>
   <data name="Replies" xml:space="preserve">
     <value>ردود</value>
@@ -190,10 +190,10 @@
     <value>اكتب تعليقاً...</value>
   </data>
   <data name="IJoined" xml:space="preserve">
-    <value>التحقت {0} على Cloudents، منصة الدراسة الاجتماعية المجانية عبر الانترنت</value>
+    <value>التحقت {0} على Spitball، منصة الدراسة الاجتماعية المجانية عبر الانترنت</value>
   </data>
   <data name="IUploaded" xml:space="preserve">
-    <value>قمت بتحميل {0} إلى Cloudents، منصة الدراسة الاجتماعية المجانية عبر الانترنت</value>
+    <value>قمت بتحميل {0} إلى Spitball، منصة الدراسة الاجتماعية المجانية عبر الانترنت</value>
   </data>
   <data name="AFewSecAgo" xml:space="preserve">
     <value>قبل بضعة ثواني </value>
@@ -316,7 +316,7 @@
     <value>ادخل البريد الالكتروني الجديد</value>
   </data>
   <data name="FbText" xml:space="preserve">
-    <value>أنا أيضا قمت بالاتصال بشبكة Cloudents. حيث أن Cloudentsلديها أكبر مجموعة من مذكرات المقررات الدراسية، والامتحانات في مدرستك. أنضم إلى Cloudents، كلما زاد عدد الطلاب المنضمين، كلما أصبحت الدراسة أسهل.</value>
+    <value>أنا أيضا قمت بالاتصال بشبكة Spitball. حيث أن Cloudentsلديها أكبر مجموعة من مذكرات المقررات الدراسية، والامتحانات في مدرستك. أنضم إلى Spitball، كلما زاد عدد الطلاب المنضمين، كلما أصبحت الدراسة أسهل.</value>
   </data>
   <data name="FieldNeedsNumber" xml:space="preserve">
     <value>هذا الحقل يجب ان يحتوي على رقم</value>
@@ -586,20 +586,8 @@
     <value>قمت بتحميل امتحان (كويز) "{0}" على مصدر الامتحانات في كلاودنيتس، وهو المستودع الأكاديمي للطلاب: امتحانات من سنوات سابقة وملخصات ومقالات. يوجد في المستودع أكثر من 95 ألف ملف!&lt;center&gt;&amp;#160;&lt;/center&gt;
 الطريق على تحصيل اللقب الجامعي تصبح أسهل مع كلاودنيتس. للتسجيل مجاناً انقر هنا</value>
   </data>
-  <data name="AtLeastOne" xml:space="preserve">
-    <value>يرجى إدخال بريد إلكتروني واحد على الأقل</value>
-  </data>
   <data name="DeleteEmptyCourse" xml:space="preserve">
     <value>لقد قمت بإنشاء مسار دراسي فارغ، إذا لم تتابع هذا المسار الدراسي سوف يتم حذفه. هل تريد حذف المسار الدراسي؟</value>
-  </data>
-  <data name="EmailExists" xml:space="preserve">
-    <value>البريد الإلكتروني موجود بالفعل</value>
-  </data>
-  <data name="ErrorInvite" xml:space="preserve">
-    <value>خطأ في إرسال دعوة إلى مستخدم</value>
-  </data>
-  <data name="TryAgain" xml:space="preserve">
-    <value>خطأ، يرجى المحاولة مرة أخرى لاحقا</value>
   </data>
   <data name="InviteBox" xml:space="preserve">
     <value>دعوة أشخاص إلى صندوق المجموعة هذا باستخدام:</value>

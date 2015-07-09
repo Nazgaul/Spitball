@@ -5,8 +5,6 @@
        var isAuthenticated = false,
            accessToken,
            facebookInit,
-           alreadySent,
-           contacts = []; //zcxz
            contacts = [];
 
        window.fbAsyncInit = function () {
@@ -173,7 +171,7 @@
 
                return dfd.promise;             
            },
-           postFeed: function (text, link) {
+           postFeed: function () {
                if (!this.isAuthenticated()) {
                    return;
                }
@@ -243,16 +241,6 @@
            },
            registerFacebook: function (data) {
                data = data || {};
-               //var facebookText = {
-               //    en: "I have just signed up to Cloudents.\nCloudents is a free online and mobile social studying platform. With a large collection of study material, course notes, summaries and Q&As Cloudents makes my studying easier.",
-               //    he: 'התחברתי ל-Cloudents, המאגר האקדמי של הסטודנטים.\nמחפשים חומרי לימוד?\nסיכומים, מבחנים,מאמרים.\nמעל ל - 50 אלף קבצים במאגר.\nפשוט לחצו כאן, והירשמו. \nהדרך אל התואר, לא הייתה קלה יותר.',
-               //    ar: 'أنا أيضا قمت بالاتصال بشبكة Cloudents. حيث أن Cloudentsلديها أكبر مجموعة من مذكرات المقررات الدراسية، والامتحانات في مدرستك. أنضم إلى Cloudents، كلما زاد عدد الطلاب المنضمين، كلما أصبحت الدراسة أسهل.',
-               //    ru: 'Я тоже подключился к Cloudents. В Cloudents есть крупнейшее собрание конспектов и экзаменов вашего учебного заведения. Присоединяйтесь к Cloudents; чем больше обучающихся присоединятся, тем легче будет учиться.',
-               //    zh: '我也连接到 Cloudents 了。Cloudents 拥有最丰富的课程笔记以及贵校的考卷。加入 Cloudents 吧，越多人参加，学习就变得越容易。',
-               //    nl: 'Check Cloudents! Een plek om samen te werken aan opdrachten, studiemateriaal te vinden, proeftentamens te doen of ideeën en teksten te bespreken.'
-               //};
-
-
                $analytics.pageTrack('facebook/register');
 
                var dfd = $q.defer();
@@ -267,26 +255,15 @@
                    accessToken = response.authResponse.accessToken;
 
                    FB.api('/me/permissions', function () {
-                       //var perms = response2.data[0];
-
-                       //if (perms.email) {
+                      
                            $analytics.pageTrack('facebook/register/auth');
                            login();
-                           // User has permission
+                           
                            $analytics.eventTrack('Facebook Signup', {
                                category: 'Connect Popup',
                                label: 'Successfull login using facebook'
                            });
-                       //} else {
-                       //    $analytics.pageTrack('facebook/register/noemail');
-
-                       //    alert('you need to give email permission');
-                       //    $analytics.eventTrack('Facebook Signup Fail', {
-                       //        category: 'Connect Popup'                               
-                       //    });
-
-                       //    dfd.reject();
-                       //}
+                      
                    });
 
 
@@ -302,16 +279,7 @@
                        var routeName = $route.current.$$route.params.type;
 
                        if (fbResponse.isnew) {
-                           //FB.api('/me', function (response) {
-                           //    var locale = response.locale.substr(0, response.locale.indexOf('_')),
-                           //        text = facebookText[locale];
-                           //    if (!text) {
-                           //        text = facebookText.en;
-                           //    }
-                           //    this.postFeed(text, 'https://www.cloudents.com');
-                           //});
-
-
+                         
                            var cache = $angularCacheFactory('points', {
                                maxAge: 600000
                            });

@@ -20,7 +20,7 @@ mDashboard.controller('InviteCloudentsCtrl',
 
             $scope.inviteFacebook = function (contact) {
                 $analytics.eventTrack('Invite', {
-                    category: 'Invite to Cloudents'
+                    category: 'Invite to Spitball'
                 });
 
                 var dfd = $q.defer(),
@@ -42,7 +42,7 @@ mDashboard.controller('InviteCloudentsCtrl',
                         dfd.resolve();
 
                         $analytics.eventTrack('Facebook Invite', {
-                            category: 'Invite to Cloudents'
+                            category: 'Invite to Spitball'
                         });
 
                     }, function () {
