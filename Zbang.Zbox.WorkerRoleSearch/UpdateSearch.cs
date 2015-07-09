@@ -97,16 +97,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<bool> UpdateItem(int instanceId, int instanceCount)
         {
-            var updates = new ItemToUpdateSearchDto
-            {
-                ItemsToUpdate = new List<ItemSearchDto>
-                {
-                    new ItemSearchDto {Id = 291153, BlobName = "12e5fe33-aca7-4aee-b194-2c99a0739d04.docx"}
-                },
-                ItemsToDelete = new List<long>()
+            //var updates = new ItemToUpdateSearchDto
+            //{
+            //    ItemsToUpdate = new List<ItemSearchDto>
+            //    {
+            //        new ItemSearchDto {Id = 291153, BlobName = "12e5fe33-aca7-4aee-b194-2c99a0739d04.docx"}
+            //    },
+            //    ItemsToDelete = new List<long>()
 
-            };
-            //var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(instanceId, instanceCount);
+            //};
+            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(instanceId, instanceCount);
             if (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
             {
                 foreach (var elem in updates.ItemsToUpdate)
