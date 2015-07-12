@@ -17,19 +17,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {"lang.ru-RU", new[] {"~/Content/lang.ru-RU.css"}},
                 {"lang.he-IL", new[] {"~/Content/lang.he-IL.css"}},
                 {"lang.ar-AE", new[] {"~/Content/lang.ar-AE.css"}},
-                //{
-                //    "newrtl3", new[]
-                //    {
-                //        "~/Content/GeneralRtl.css",
-                //        "~/Content/rtl3.css",
-                //        "~/Content/StoreRtl.css",
-                //        "~/Content/SetupSchoolRtl.css",
-                //        "~/Content/HeaderRtl.css",
-                //        "~/Content/BoxFeedRtl.css",
-                //        "~/Content/ItemRtl.css",                       
-                //        "~/Content/HomeRtl.css"
-                //    }
-                //},
+               
                 {
                     "newcore3", new[]
                     {
@@ -52,7 +40,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/Item.css",
                         "~/Content/Settings.css",
                         "~/Content/DashLib.css",
-                        //"~/Content/Store.css",
                         "~/Content/Home.css",
                         "~/Content/jquery.mCustomScrollbar.css",
                         "~/Content/Letter.css",
@@ -60,14 +47,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/textAngular.css"
                     }
                 },
-                //{
-                //    "staticRtl", new[]
-                //    {
-                //        "~/Content/GeneralRtl.css",
-                //        "~/Content/StaticRtl.css",
-                //        "~/Content/HeaderRtl.css"
-                //    }
-                //},
+               
                 {
                     "static", new[]
                     {

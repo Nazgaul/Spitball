@@ -1,0 +1,27 @@
+﻿/*
+This is an example of how to use the image sprite in your own CSS files
+*/
+.Images-app_store {
+/* You may have to set 'display: block' */
+	width: 154px;
+	height: 52px;
+	background: url('HomePage.png') -1px -1px;
+}
+.Images-google_play {
+/* You may have to set 'display: block' */
+	width: 154px;
+	height: 52px;
+	background: url('HomePage.png') -1px -54px;
+}
+.Images-logo1 {
+/* You may have to set 'display: block' */
+	width: 275px;
+	height: 86px;
+	background: url('HomePage.png') -1px -107px;
+}
+.Images-logo2 {
+/* You may have to set 'display: block' */
+	width: 222px;
+	height: 65px;
+	background: url('HomePage.png') -1px -194px;
+}

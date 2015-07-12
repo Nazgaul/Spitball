@@ -647,6 +647,12 @@
     <Content Include="Content\Home.rtl.css">
       <DependentUpon>Home.css</DependentUpon>
     </Content>
+    <Content Include="Content\HomePage.png">
+      <DependentUpon>HomePage.sprite</DependentUpon>
+    </Content>
+    <Content Include="Content\HomePage.png.css">
+      <DependentUpon>HomePage.png</DependentUpon>
+    </Content>
     <Content Include="Content\Invite.css">
       <DependentUpon>Invite.less</DependentUpon>
     </Content>
@@ -658,6 +664,16 @@
     </Content>
     <Content Include="Content\Item.rtl.css">
       <DependentUpon>Item.css</DependentUpon>
+    </Content>
+    <Content Include="Content\HomePage.sprite" />
+    <Content Include="Content\HomePage.png.map">
+      <DependentUpon>HomePage.png</DependentUpon>
+    </Content>
+    <Content Include="Content\HomePage.png.less">
+      <DependentUpon>HomePage.png</DependentUpon>
+    </Content>
+    <Content Include="Content\HomePage.png.scss">
+      <DependentUpon>HomePage.png</DependentUpon>
     </Content>
     <None Include="Content\jquery.mCustomScrollbar.less" />
     <Content Include="Content\jquery.mCustomScrollbar.css">
@@ -795,6 +811,8 @@
     <Content Include="Images\gradient-arrow.png" />
     <Content Include="Images\hiring.png" />
     <Content Include="Images\hp26-sprite.png" />
+    <Content Include="Images\logo1.png" />
+    <Content Include="Images\logo2.png" />
     <Content Include="Images\mobile-cloudents-en.png" />
     <Content Include="Images\mobile-cloudents-heb.png" />
     <Content Include="Images\mobile-cloudents-ru.png" />
