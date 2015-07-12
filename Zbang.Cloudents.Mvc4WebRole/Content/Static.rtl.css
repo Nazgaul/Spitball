@@ -349,7 +349,7 @@ body {
   border-bottom: 1px solid #c2c2c2;
   display: block;
   position: absolute;
-  top: 50px;
+  top: 65px;
   right: 0;
   left: 0;
   margin: auto;
@@ -396,8 +396,8 @@ body {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding-top: 50px;
-  margin: -115px 0 -50px;
+  padding-top: 65px;
+  margin: -115px 0 -65px;
   min-height: 100vh;
   width: 100%;
 }
@@ -480,8 +480,8 @@ body {
   margin-top: -65px;
   background: url(/Images/userBg.png) left center no-repeat;
   background-size: cover;
-  height: -webkit-calc(100vh - 50px);
-  height: calc(100vh - 50px);
+  height: -webkit-calc(100vh - 65px);
+  height: calc(100vh - 65px);
   text-align: center;
   padding-top: 60px;
   -webkit-box-sizing: border-box;

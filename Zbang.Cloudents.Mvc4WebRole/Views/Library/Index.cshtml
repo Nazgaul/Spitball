@@ -3,8 +3,33 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using System.Threading
 
-<header class="siteHeader">
-    @{Html.RenderPartial("_Header");}
+<header class="siteHeader dashboardHeader">
+    <div class="logoWrapper">
+        <a class="siteLogo" href="@Url.Action("Index", "Dashboard")">
+        </a>
+    </div>
+    <div class="dhContent lFloat" ng-switch="info.isRootLevel">
+        <span ng-switch-when="true" class="topLevel dhText">@MainViewResources.AllDepartments</span>
+        <a ng-switch-when="false" id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" ng-href="{{back.url}}">
+            @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
+            <h2>{{back.title}}</h2>
+        </a>
+        <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" ng-click="renameWindow()">
+            @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
+        </button>
+        <div class="searchTrigger searchLib" ng-click="$root.toggleSearch()" search-coords>@SharedResources.Search</div>
+    </div>
+    <nav class="userSection rFloat">
+        <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
+        <div class="headerActions rFloat">
+            <label for="sidebarCb" class="headerSettings rFloat">
+                @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
+            </label>
+            @{ Html.RenderPartial("_UserDetail3"); }
+        </div>
+    </nav>
+
+    @{Html.RenderPartial("_BarActions");}
 </header>
 <div id="library" class="page union">
     <div class="libraryContent">
@@ -70,7 +95,7 @@
                 </button>
             </div>*@
         <div class="contentWpr @cls">
-            <div class="dashHeader">
+            @*<div class="dashHeader">
                 @{Html.RenderPartial("_BarActions");}
                 <div class="dhContent" ng-switch="info.isRootLevel">
                     <span ng-switch-when="true" class="topLevel dhText">@MainViewResources.AllDepartments</span>
@@ -83,7 +108,7 @@
                     </button>
                     <div class="searchTrigger searchLib" ng-click="$root.toggleSearch()" search-coords>@SharedResources.Search</div>
                 </div>
-            </div>
+            </div>*@
             @if (!string.IsNullOrEmpty(Model.LetterUrl))
             {
                 <iframe id="uniLetter" seamless="seamless" class="unionFeatured" src="@Model.LetterUrl"></iframe>

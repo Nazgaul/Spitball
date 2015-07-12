@@ -5,6 +5,9 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+/*
+@import this file directly into your existing Less files to use these mixins
+*/
 /*#region main header classes */
 html,
 body {
@@ -22,26 +25,25 @@ body {
   visibility: hidden;
 }
 .bodyContent {
-  padding-top: 50px;
+  padding-top: 65px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   height: 100%;
 }
 .siteHeader {
-  height: 50px;
-  background-color: #3293f6;
+  height: 65px;
+  background-color: #282828;
   top: 0;
   width: 100%;
   z-index: 11;
   position: fixed;
 }
 .siteHeader.headerBox {
-  background: #282828;
   min-width: 1240px;
 }
 .siteHeader.headerBox .backWpr {
-  margin: 8px 25px 0 0;
+  margin: 16px 25px 0 0;
   padding: 0;
 }
 .siteHeader.headerBox .shareBtn {
@@ -49,31 +51,42 @@ body {
   margin: 0 15px;
   top: -4px;
 }
-.siteHeader.headerBox .siteLogo {
-  height: 50px;
-  width: 243px;
-  background: #3293f6;
+.siteHeader.headerBox .logoWrapper {
+  width: 242px;
 }
-.siteHeader.headerBox .barActions {
-  margin-top: 0;
+.siteHeader.dashboardHeader .barActions {
+  margin: 15px 0 0 20px;
+}
+.siteHeader.dashboardHeader .svg-settings {
+  width: 25px;
+  height: 23px;
+  fill: #c2c2c2;
+}
+.siteHeader.dashboardHeader:hover .boxRename {
+  visibility: visible;
+}
+.logoWrapper {
+  width: 289px;
+  height: 65px;
+  float: right;
+  background-color: #3293f6;
 }
 .siteLogo {
-  display: inline-block;
-  position: relative;
-  z-index: 1;
-  padding-right: 30px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  /* You may have to set 'display: block' */
+  width: 222px;
+  height: 65px;
+  background: url('HomePage.png') -1px -194px;
+  margin: 0 auto;
+  display: block;
 }
 .headerActions {
-  height: 50px;
+  height: 65px;
 }
 .headerSettings {
-  height: 50px;
+  height: 65px;
 }
 .userNav {
-  height: 50px;
+  height: 65px;
   display: inline-block;
   position: relative;
   font-size: 13px;
@@ -139,7 +152,7 @@ body {
 }
 .userAnchor {
   display: block;
-  height: 50px;
+  height: 65px;
 }
 .userPts {
   font-size: 11px;
@@ -158,9 +171,10 @@ body {
 .userSection {
   line-height: 50px;
   height: 50px;
+  margin-top: 15px;
 }
 .headerRightWpr {
-  height: 50px;
+  height: 65px;
 }
 .headerRightWpr .userSection {
   margin-right: 20px;
@@ -238,15 +252,16 @@ body {
   color: #fff;
   display: inline-block;
   vertical-align: top;
+  margin: 15px 31px 0 0;
 }
 .inviteUsersBtn {
-  margin-top: 21px;
+  margin-top: 19px;
 }
 .inviteUsersBtn .svg-inviteUser:hover {
   fill: #3399ff;
 }
 .boxPage .inviteUsersBtn {
-  margin-top: 13px;
+  margin-top: 28px;
 }
 .userPage .inviteUsersBtn {
   position: relative;

@@ -2,8 +2,28 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 
-<header class="siteHeader">
-    @{Html.RenderPartial("_Header");}
+<header class="siteHeader dashboardHeader">
+    <div class="logoWrapper">
+        <a class="siteLogo" href="@Url.Action("Index", "Dashboard")">
+        </a>
+    </div>
+  
+    <div class="searchTrigger" ng-click="$root.toggleSearch()" search-coords>@SharedResources.Search</div>
+    <button class="inviteUsersBtn" type="button" title="@SharedResources.Invite" ng-click="inviteFriends()">
+        @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
+    </button>
+    <nav class="userSection rFloat">
+        <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
+        <div class="headerActions rFloat">
+            <label for="sidebarCb" class="headerSettings rFloat">
+                @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
+            </label>
+            @{ Html.RenderPartial("_UserDetail3"); }
+        </div>
+    </nav>
+
+    @{Html.RenderPartial("_BarActions");}
+    @*@{Html.RenderPartial("_Header");}*@
 </header>
 <div id="dashboard" class="page dashboard">
     
@@ -103,7 +123,7 @@
         </aside>
 
         <div class="contentWpr" ng-class="{fadeVisible : contentLoaded}">
-            <div class="dashHeader" ng-class="{setup: contentLoaded && !academicBoxes.length && !groupBoxes.length}">
+            @*<div class="dashHeader" ng-class="{setup: contentLoaded && !academicBoxes.length && !groupBoxes.length}">
                 <div>
                     @{Html.RenderPartial("_BarActions");}
                     <span class="dhText">@SharedResources.Dashboard</span>
@@ -112,7 +132,7 @@
                         @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
                     </button>
                 </div>
-            </div>
+            </div>*@
             @*NEW COURSE SECTION*@
             <section class="setupCourse" ng-if="!academicBoxes.length && !groupBoxes.length">
                 <div class="topWpr">

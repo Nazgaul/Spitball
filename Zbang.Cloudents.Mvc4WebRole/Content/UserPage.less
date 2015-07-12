@@ -3,8 +3,9 @@
 .userPage {
     text-align: left;
     color: @textColor;
+    margin-top:30px;
 
-    &:after {
+    /*&:after {
         content: '';
         width: 100%;
         height: 75px;
@@ -14,12 +15,13 @@
         position: absolute;
         top: @header-height;
         z-index: -1;
-    }
-    .barActions {
+    }*/
+
+    /*.barActions {
         top: 6px;
         margin-right: 23px;
-    }
-    
+    }*/
+
     h1 {
         font-size: 22px;
         margin-top: 18px;
@@ -28,17 +30,20 @@
         /*z-index: 1;*/ //fix for member list courselist popup
         overflow: hidden; //create new bfc so as not to cover the floated anchor
     }
+
     .settingsLink {
         position: relative;
         top: 5px;
         display: inline-block;
         visibility: hidden;
     }
+
     .svg-settings {
         width: 25px;
         height: 23px;
         fill: @borderColor;
     }
+
     h2 {
         font-size: 18px;
         font-weight: 300;
@@ -58,6 +63,7 @@
     margin-left: 20px;
     display: inline-block;
     clear: both;
+
     .myPage & {
         margin-top: 22px;
     }
@@ -90,6 +96,7 @@
     padding: 15px 9px;
     color: #676767;
     text-align: left;
+
     .semiFont {
         color: #39434a;
         margin-bottom: 8px;
@@ -143,11 +150,11 @@
     margin-bottom: 12px;
 
     button {
-        color:@attentionBlue;
+        color: @attentionBlue;
         font-size: 12px;
     }
 
-    span{
+    span {
         color: @textColor;
     }
 
@@ -226,9 +233,9 @@
     }
 
     .upImg {
-        top:0;
-        border-radius:0;
-        border:1px solid #c2c2c2;
+        top: 0;
+        border-radius: 0;
+        border: 1px solid #c2c2c2;
     }
 
     .views {
@@ -270,17 +277,19 @@
     padding-bottom: 14px;
     margin-bottom: 14px;
     border-bottom: 1px solid @borderColor;
-    position:relative;
+    position: relative;
+
     &:last-child {
         margin: 0;
         padding: 0;
         border: none;
     }
+
     .boxSvg {
-        width:28px;
-        height:28px;
-        bottom:auto;
-        left:0;
+        width: 28px;
+        height: 28px;
+        bottom: auto;
+        left: 0;
     }
 }
 
@@ -289,7 +298,7 @@
     display: inline-block;
     color: #39434a;
     padding-left: 35px;
-    line-height:28px;
+    line-height: 28px;
 }
 
 .qaWpr {
@@ -389,18 +398,22 @@
 }
 
 .upTop {
+    //margin: 0 -20px 75px 0; //rtl (fill up black background...because of 20px padding on wpr)
+    //height: 75px;
+
     padding-left: 120px;
-    margin: 0 -20px 75px 0; //rtl (fill up black background...because of 20px padding on wpr)
+    //margin: 0 -20px 0px 0;
     position: relative;
-    height: 75px;
-    background: #282828;
+    /* height: 75px; */
+    /* background: #282828; */
+    float: left;
+   // width: 1035px;
 
     .btn3 {
         padding: 4px 12px;
         position: absolute;
         top: 83px;
         left: 117px; //rtl
-
         &:before {
             .pseudo;
             width: 22px;
@@ -415,11 +428,13 @@
         margin-top: 23px;
         color: #676767;
     }
+
     &:hover {
         .settingsLink {
             visibility: visible;
         }
     }
+
     .userImg, .userLetter {
         position: absolute;
         top: 20px;
@@ -442,16 +457,19 @@
     color: @borderColor;
     max-width: 220px;
 }
+
 .upDetails {
     display: inline-block;
     max-width: 235px;
 }
+
 .upContent {
     width: 732px;
 
     h2 {
         margin: 28px 0 15px;
     }
+
     .boxImg.boxImg {
         height: 100%;
     }
@@ -469,26 +487,30 @@
 
     &.noCourses {
         .coursesEmpty {
-            display:block;
+            display: block;
         }
     }
+
     li:nth-of-type(even) {
-        float:right;
+        float: right;
         margin-right: 2px;
     }
+
     .box {
         margin: 0 0 24px 0; //override
         width: 335px;
-        float:left;
+        float: left;
+
         &:hover {
             .btn3 {
                 display: block;
             }
         }
+
         h3 {
             max-width: 230px;
         }
-    }    
+    }
 }
 
 .upSectionWpr {
@@ -551,9 +573,8 @@
 
 .upCb {
     display: none;
-
     //&:not(:checked) {
-        /*~ .inCommonList
+    /*~ .inCommonList
         {
             .upFriend:nth-child(n+9)
             {
@@ -582,7 +603,6 @@
             }
         }*/
     //}
-
     &:checked {
         + label {
             &:before {
@@ -641,6 +661,7 @@
         margin-bottom: 9px;
     }
 }
+
 .upInvites {
     .upSectionWpr {
         min-height: 167px;
@@ -672,6 +693,7 @@
             text-align: center;
         }
     }
+
     .userImg, .userLetter {
         position: absolute;
         left: 8px;
@@ -696,7 +718,6 @@
     float: left;
     height: 78px;
     //z-index: 1; //TODO: Why? This causes bug 3207
-
     &:hover {
         &:after {
             .pseudo;
@@ -709,12 +730,15 @@
             height: 96px;
         }
     }
+
     &:nth-child(odd) {
         margin-right: 30px; //rtl
     }
+
     .semiFont {
         margin: 2px 0 4px;
     }
+
     &.upPending {
         .inviteStatus {
             color: @errorColor;
@@ -738,7 +762,7 @@
         top: 3px;
     }
 }
-    
+
 .inviteStatus {
     color: @borderColor;
     margin: -4px 0 6px;
@@ -757,9 +781,9 @@
     }
 
     .upImg {
-        top:0; //override
-        border:none;
-        border-radius:3px;        
+        top: 0; //override
+        border: none;
+        border-radius: 3px;
     }
 }
 
@@ -793,8 +817,9 @@
 .userItemName {
     line-height: 15px;
     height: 36px;
+
     .sHighlight {
-        padding:0; //TODO ask Itsik about this
+        padding: 0; //TODO ask Itsik about this
     }
 }
 /*#endregion */
@@ -805,7 +830,6 @@
 /*#region union*/
 
 .upMembers {
-    margin-top: 75px;
 
     .membersContent {
         min-height: 275px;
@@ -828,8 +852,8 @@
         .boxSizing;
         border-radius: 8px 8px 0 0;
         text-align: left;
-        .searchWpr
-        {
+
+        .searchWpr {
             width: 80%; //TODO: this is onlly an approx. need to think about a layout possiblity (flexbox?)
         }
     }
@@ -838,6 +862,7 @@
         .boxSizing;
         height: 46px;
         line-height: 36px;
+
         &:first-child {
             padding-top: 5px;
             margin-top: 10px;
@@ -850,13 +875,15 @@
     line-height: 28px;
     border-bottom: 1px solid @borderColor;
     background: #f5f5f5;
+
     .checkbox:checked {
         ~ .deptCol:after {
             .flipV;
             margin-top: 11px; // move flipped arrow
-            vertical-align: top;// up by 2px
+            vertical-align: top; // up by 2px
         }
     }
+
     .deptCol {
         cursor: pointer;
 
@@ -903,7 +930,7 @@
 
 .dateCol {
     width: 115px;
-    padding: 0 15px
+    padding: 0 15px;
 }
 
 .courseCol {
@@ -975,10 +1002,12 @@
         }
     }
 }
-.upMemberBoxesWpr{
+
+.upMemberBoxesWpr {
     padding: 0 5px 5px 5px;
-    position:fixed;
+    position: fixed;
 }
+
 .upMemberBoxes {
     width: 240px;
     max-height: 247px;
@@ -1006,13 +1035,14 @@
     max-height: 215px;
     background: #fff;
     margin-bottom: -11px;
+
     li {
         height: 30px;
         padding-left: 10px;
         border-bottom: 1px solid #e0e0e0;
         line-height: 30px;
-        &:last-child
-        {
+
+        &:last-child {
             border: none;
         }
     }
@@ -1022,6 +1052,7 @@
     height: 287px;
     overflow-y: auto;
     overflow-x: hidden;
+
     .userImg, .userLetter {
         width: 34px;
         height: 34px;

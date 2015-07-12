@@ -8,21 +8,22 @@
 .userPage {
   text-align: left;
   color: #383838;
-}
-.userPage:after {
-  content: '';
-  width: 100%;
-  height: 75px;
-  background: #282828;
-  border-bottom: 1px solid #c2c2c2;
-  display: block;
-  position: absolute;
-  top: 50px;
-  z-index: -1;
-}
-.userPage .barActions {
-  top: 6px;
-  margin-right: 23px;
+  margin-top: 30px;
+  /*&:after {
+        content: '';
+        width: 100%;
+        height: 75px;
+        background: #282828;
+        border-bottom: 1px solid @borderColor;
+        display: block;
+        position: absolute;
+        top: @header-height;
+        z-index: -1;
+    }*/
+  /*.barActions {
+        top: 6px;
+        margin-right: 23px;
+    }*/
 }
 .userPage h1 {
   font-size: 22px;
@@ -336,10 +337,10 @@
 }
 .upTop {
   padding-left: 120px;
-  margin: 0 -20px 75px 0;
   position: relative;
-  height: 75px;
-  background: #282828;
+  /* height: 75px; */
+  /* background: #282828; */
+  float: left;
 }
 .upTop .btn3 {
   padding: 4px 12px;
@@ -693,9 +694,6 @@
 /*#endregion */
 /*#endregion */
 /*#region union*/
-.upMembers {
-  margin-top: 75px;
-}
 .upMembers .membersContent {
   min-height: 275px;
   max-height: 410px;
