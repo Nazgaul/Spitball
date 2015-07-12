@@ -255,13 +255,13 @@ body {
   margin: 15px 31px 0 0;
 }
 .inviteUsersBtn {
-  margin-top: 19px;
+  margin-top: 19px
+  /*.boxPage & {
+        margin-top: 28px;
+    }*/
 }
 .inviteUsersBtn .svg-inviteUser:hover {
   fill: #3399ff;
-}
-.boxPage .inviteUsersBtn {
-  margin-top: 28px;
 }
 .userPage .inviteUsersBtn {
   position: relative;

@@ -77,8 +77,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-        [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
-            + CustomCacheKeys.Lang)]
+        [DonutOutputCache(CacheProfile = "FullPage")]
         public ActionResult Privacy()
         {
             return View();

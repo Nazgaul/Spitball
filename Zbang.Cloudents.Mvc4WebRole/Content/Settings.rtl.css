@@ -6,7 +6,7 @@
 /*#region mixins */
 /*#endregion */
 .settingsMenu {
-  width: 263px;
+  width: 289px;
   background: #eee;
   border-left: 1px solid #c2c2c2;
   position: fixed;
@@ -33,7 +33,7 @@
 .settingsContent {
   width: 100%;
   text-align: right;
-  padding: 30px 288px 0 20px;
+  padding: 30px 314px 0 20px;
   min-height: -webkit-calc(100vh - 50px);
   min-height: calc(100vh - 50px);
   background: #fff;

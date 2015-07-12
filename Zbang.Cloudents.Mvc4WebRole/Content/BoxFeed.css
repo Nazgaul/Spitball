@@ -520,6 +520,7 @@
   width: 36px;
   height: 29px;
   fill: #3293f6;
+  margin-top: -6px;
 }
 .leaderBoard .lbText {
   display: inline-block;

@@ -1,12 +1,9 @@
 ﻿
-@*Do not remove the tartget attribute its for the store*@
-<a class="siteLogo lFloat" href="@Url.Action("Index", "Dashboard")" target="{{$root.isStore() ? '_self': '' }}">
-    @Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })
-</a>
-
-
+<div class="logoWrapper">
+    <a class="siteLogo" href="@Url.Action("Index", "Dashboard")">
+    </a>
+</div>
 <nav class="userSection rFloat">
-    @*@{ Html.RenderPartial("_UserDetail3"); }*@
     <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
     <div class="headerActions rFloat">
         <label for="sidebarCb" class="headerSettings rFloat">
