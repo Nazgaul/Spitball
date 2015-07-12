@@ -17,7 +17,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
     {
         public void Configuration(IAppBuilder app)
         {
-            UnityConfig.RegisterTypes(app);
+           
 
             //app.Use<LanguageMiddleware>();
             //app.Use((context, next) =>
@@ -29,6 +29,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //    return next.Invoke();
             //});
             Zbox.Infrastructure.Security.Startup.ConfigureAuth(app, true);
+            UnityConfig.RegisterTypes(app);
             //app.CreatePerOwinContext(ApplicationDbContext.Create);
 
             app.CreatePerOwinContext(() => DependencyResolver.Current.GetService<ApplicationUserManager>());

@@ -16,8 +16,7 @@ namespace Zbang.Cloudents.MobileApp2
     {
         public IZboxWriteService ZboxWriteService { get; set; }
 
-        public async Task Register(ApiServices services, HttpRequestContext context,
-        NotificationRegistration registration)
+        public async Task Register(ApiServices services, HttpRequestContext context, NotificationRegistration registration)
         {
             try
             {
@@ -28,7 +27,7 @@ namespace Zbang.Cloudents.MobileApp2
                         "You cannot supply a tag that is a user ID.");
                 }
                 await services.Push.HubClient.DeleteRegistrationsByChannelAsync(registration.DeviceId);
-                    
+
                 //var retVal = await  services.Push.HubClient.GetRegistrationsByChannelAsync(registration.DeviceId, 100);
                 //foreach (var registrationDescription in retVal)
                 //{
@@ -62,13 +61,13 @@ namespace Zbang.Cloudents.MobileApp2
                     services.Log.Error(ex.ToString());
                 }
                 registration.Tags.Add(tagId);
-               
+
             }
             catch (Exception ex)
             {
                 services.Log.Error(ex.ToString());
             }
-           // return Task.FromResult(true);
+            // return Task.FromResult(true);
 
         }
 

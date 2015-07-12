@@ -1,7 +1,4 @@
 ﻿/*#region variables */
-.test {
-  color: #064789;
-}
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -27,7 +24,7 @@
 }
 .userPage h1 {
   font-size: 22px;
-  margin-top: 18px;
+  margin-top: 13px;
   color: #fff;
   position: relative;
   /*z-index: 1;*/
@@ -58,7 +55,6 @@
   border-radius: 5px;
   margin-right: 20px;
   display: inline-block;
-  clear: both;
 }
 .myPage .upSidebar {
   margin-top: 22px;
@@ -327,9 +323,8 @@
 /*#endregion */
 /*#region userpage content */
 .upContentWpr {
-  width: 1035px;
-  margin: 0 auto;
-  padding: 0 20px 20px 20px;
+  max-width: 1035px;
+  margin-right: 292px;
   position: relative;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -337,25 +332,11 @@
 }
 .upTop {
   padding-right: 120px;
+  margin-right: 50px;
   position: relative;
   /* height: 75px; */
   /* background: #282828; */
   float: right;
-}
-.upTop .btn3 {
-  padding: 4px 12px;
-  position: absolute;
-  top: 83px;
-  right: 117px;
-}
-.upTop .btn3:before {
-  content: '';
-  display: inline-block;
-  width: 22px;
-  height: 19px;
-  vertical-align: middle;
-  background: url(/images/common27-sprite.png?v=2) -155px -42px no-repeat;
-  margin-left: 5px;
 }
 .upTop .upEmail {
   margin-top: 23px;
@@ -373,6 +354,21 @@
   width: 100px;
   height: 100px;
 }
+.sendMessage {
+  padding: 4px 12px;
+  position: absolute;
+  top: 83px;
+  right: 417px;
+}
+.sendMessage:before {
+  content: '';
+  display: inline-block;
+  width: 22px;
+  height: 19px;
+  vertical-align: middle;
+  background: url(/images/common27-sprite.png?v=2) -155px -42px no-repeat;
+  margin-left: 5px;
+}
 .upImg {
   position: absolute;
   top: 20px;
@@ -389,13 +385,21 @@
   max-width: 235px;
 }
 .upContent {
-  width: 732px;
+  width: calc(100% - 272px);
+  float: right;
 }
 .upContent h2 {
   margin: 28px 0 15px;
 }
 .upContent .boxImg.boxImg {
   height: 100%;
+}
+.upCourses {
+  /*li:nth-of-type(even) {
+
+        float: right;
+        margin-right: 2px;
+    }*/
 }
 .upCourses .coursesEmpty {
   height: 150px;
@@ -408,12 +412,8 @@
 .upCourses.noCourses .coursesEmpty {
   display: block;
 }
-.upCourses li:nth-of-type(even) {
-  float: left;
-  margin-left: 2px;
-}
 .upCourses .box {
-  margin: 0 0 24px 0;
+  margin: 0 15px 24px 0;
   width: 335px;
   float: right;
 }

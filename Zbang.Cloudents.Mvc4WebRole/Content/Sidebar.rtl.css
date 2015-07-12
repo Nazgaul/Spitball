@@ -1,7 +1,4 @@
 ﻿/*#region variables */
-.test {
-  color: #064789;
-}
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -46,6 +43,11 @@
 }
 .asideDash .mobileLinks {
   margin-top: 12px;
+}
+@media (max-width: 1255px) {
+  .asideDash {
+    position: absolute;
+  }
 }
 .recommendedWpr {
   background: #fff;

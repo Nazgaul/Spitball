@@ -1,7 +1,4 @@
 ﻿/*#region variables */
-.test {
-  color: #064789;
-}
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -38,8 +35,6 @@ body {
   width: 100%;
   z-index: 11;
   position: fixed;
-}
-.siteHeader.headerBox {
   min-width: 1240px;
 }
 .siteHeader.headerBox .backWpr {
@@ -55,7 +50,7 @@ body {
   width: 242px;
 }
 .siteHeader.dashboardHeader .barActions {
-  margin: 15px 0 0 20px;
+  margin: 7px 0 0 20px;
 }
 .siteHeader.dashboardHeader .svg-settings {
   width: 25px;
@@ -78,6 +73,11 @@ body {
   background: url('HomePage.png') -1px -194px;
   margin: 0 auto;
   display: block;
+}
+@media (max-width: 1255px) {
+  .siteHeader {
+    position: absolute;
+  }
 }
 .headerActions {
   height: 65px;
@@ -171,7 +171,7 @@ body {
 .userSection {
   line-height: 50px;
   height: 50px;
-  margin-top: 15px;
+  margin-top: 7px;
 }
 .headerRightWpr {
   height: 65px;

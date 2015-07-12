@@ -37,10 +37,11 @@ body {
     width: 100%;
     z-index: 11;
     position: fixed;
+    min-width:1240px;
 
     &.headerBox {
         //background: #282828;
-        min-width: 1240px;
+       // min-width: 1240px;
 
         .backWpr {
             margin: 16px 0 0 25px; //rtl
@@ -60,7 +61,7 @@ body {
 
     &.dashboardHeader {
         .barActions {
-            margin: 15px 20px 0 0;
+            margin: 7px 20px 0 0;
         }
 
         .svg-settings {
@@ -93,6 +94,13 @@ body {
     .sprite-Images-logo2();
     margin: 0 auto;
     display: block;
+}
+@media (max-width: @minimunHeight) {
+    .siteHeader {
+        position:absolute;
+    }
+   
+   
 }
 
 .headerActions {
@@ -197,7 +205,7 @@ body {
 .userSection {
     line-height: 50px;
     height: 50px;
-    margin-top: 15px;
+    margin-top: 7px;
 }
 
 .headerRightWpr {

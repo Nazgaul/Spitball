@@ -1,7 +1,4 @@
 ﻿/*#region variables */
-.test {
-  color: #064789;
-}
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -21,12 +18,6 @@
   vertical-align: top;
   min-width: 1058px;
 }
-/*.dashboard, .union {
-    height: 100%;
-    vertical-align: top;
-    min-width: 1058px;
-    //overflow: auto; //TODO: Why? This causes bug 3209
-}*/
 .dashContent,
 .libraryContent {
   position: relative;

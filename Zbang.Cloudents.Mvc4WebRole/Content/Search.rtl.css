@@ -1,7 +1,4 @@
 ﻿/*#region variables */
-.test {
-  color: #064789;
-}
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -24,7 +21,8 @@
   box-sizing: border-box;
 }
 .searchTrigger.searchUser {
-  margin-top: 23px;
+  width: 260px;
+  margin-top: 15px;
 }
 .searchTrigger.searchUser + button .svg-inviteUser {
   position: relative;

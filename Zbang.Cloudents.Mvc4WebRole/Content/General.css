@@ -1,12 +1,10 @@
 ﻿/*#region variables */
-.test {
-  color: #064789;
-}
 /*#endregion */
 /*#region mixins */
 /*#endregion */
 body {
   font-size: 13px;
+  min-width: 1240px;
   /*-webkit-backface-visibility: hidden;*/
   font-family: Arial;
 }
@@ -2051,15 +2049,6 @@ select.inputText {
 }
 /*#endregion */
 /*#region media queries */
-@media (max-width: 1255px) {
-  .siteHeader.headerBox,
-  .boxPage .leftPanel.leftPanel {
-    position: absolute;
-  }
-  .siteHeader.headerBox.headerBox {
-    top: -50px;
-  }
-}
 /*#region cssCheck*/
 #cssCheck {
   position: absolute;
