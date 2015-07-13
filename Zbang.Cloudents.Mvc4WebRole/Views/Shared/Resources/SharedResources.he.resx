@@ -320,7 +320,7 @@
     <value>הזמן חברים</value>
   </data>
   <data name="InviteCloudents" xml:space="preserve">
-    <value>הזמן את חבריך לקלאודנטס</value>
+    <value>הזמן את חבריך לSpitball</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>הודעה</value>
@@ -530,16 +530,16 @@
     <value>הפלטפורמה החינמית המתקדמת ביותר ללימוד קבוצתי ברשת</value>
   </data>
   <data name="RegisterFirst" xml:space="preserve">
-    <value>על מנת להמשיך וליהנות מקלאודנטס </value>
+    <value>על מנת להמשיך וליהנות מSpitball </value>
   </data>
   <data name="RegisterFree" xml:space="preserve">
     <value>הירשמו בחינם!</value>
   </data>
   <data name="CloudentsQuizzes" xml:space="preserve">
-    <value>הקווזים של קלאודנטס - צרו, שתפו, תרגלו והצליחו במבחן!</value>
+    <value>הקווזים של Spitball - צרו, שתפו, תרגלו והצליחו במבחן!</value>
   </data>
   <data name="CreateShare" xml:space="preserve">
-    <value>חדש בקלאודנטס יצירת מבחנים (שאלון אמריקאי) צורו ושתפו מבחנים שאתם בונים כחלק מהכנה לבחינת הקורס.</value>
+    <value>חדש בSpitball יצירת מבחנים (שאלון אמריקאי) צורו ושתפו מבחנים שאתם בונים כחלק מהכנה לבחינת הקורס.</value>
   </data>
   <data name="DiscussQuiz" xml:space="preserve">
     <value>דיון בין חברי הקורס על שאלות ספציפיות ודברים לא מובנים בבחינה</value>
@@ -572,7 +572,7 @@
     <value>למה אתה מחכים, שיהיה בהצלחה!</value>
   </data>
   <data name="UseMaterial" xml:space="preserve">
-    <value>יצירת המבחן על גבי מסמכים קיימים בקלאודנטס</value>
+    <value>יצירת המבחן על גבי מסמכים קיימים בSpitball</value>
   </data>
   <data name="Choose" xml:space="preserve">
     <value>בחר</value>
