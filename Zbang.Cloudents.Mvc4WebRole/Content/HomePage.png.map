@@ -1,32 +1,25 @@
 {
   "images": [
     {
-      "name": "/Images/app_store.png",
+      "name": "/Images/HomePage/app_store.png",
       "width": 154,
       "height": 52,
       "offsetX": 1,
       "offsetY": 1
     },
     {
-      "name": "/Images/google_play.png",
+      "name": "/Images/HomePage/google_play.png",
       "width": 154,
       "height": 52,
       "offsetX": 1,
       "offsetY": 54
     },
     {
-      "name": "/Images/logo1.png",
+      "name": "/Images/HomePage/logo1.png",
       "width": 275,
       "height": 86,
       "offsetX": 1,
       "offsetY": 107
-    },
-    {
-      "name": "/Images/logo2.png",
-      "width": 222,
-      "height": 65,
-      "offsetX": 1,
-      "offsetY": 194
     }
   ]
 }

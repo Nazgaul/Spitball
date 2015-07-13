@@ -26,9 +26,8 @@
   </settings>
   <!--The order of the <file> elements determines the order of the images in the sprite.-->
   <files>
-    <file>/Images/app_store.png</file>
-    <file>/Images/google_play.png</file>
-    <file>/Images/logo1.png</file>
-    <file>/Images/logo2.png</file>
+    <file>/Images/HomePage/app_store.png</file>
+    <file>/Images/HomePage/google_play.png</file>
+    <file>/Images/HomePage/logo1.png</file>
   </files>
 </sprite>

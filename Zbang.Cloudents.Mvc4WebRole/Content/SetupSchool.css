@@ -2,6 +2,9 @@
 /*#endregion */
 /*#region mixins */
 /*#endregion */
+/*
+@import this file directly into your existing Less files to use these mixins
+*/
 /*#region library empty state */
 .libEmpty {
   color: #383838;
@@ -172,11 +175,12 @@
 .createSchool .top:after {
   content: '';
   display: inline-block;
+  /* You may have to set 'display: block' */
   width: 41px;
-  height: 50px;
-  background: url(/images/site.png?v=5) 0px -1108px #ffffff;
+  height: 34px;
+  background: url('../Images/site.png') -1px -1124px;
   position: absolute;
-  top: 8px;
+  top: 24px;
   left: 28px;
 }
 .createSchool .top button {

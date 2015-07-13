@@ -1,147 +1,153 @@
 ﻿/*
 This is an example of how to use the image sprite in your own CSS files
 */
-.Zbang.Cloudents.Mvc4WebRole-Images-back_back {
+.Images-back_back {
 /* You may have to set 'display: block' */
 	width: 35px;
 	height: 35px;
 	background: url('site.png') -1px -1px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-books {
+.Images-books {
 /* You may have to set 'display: block' */
 	width: 65px;
 	height: 59px;
 	background: url('site.png') -1px -37px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-close {
+.Images-close {
 /* You may have to set 'display: block' */
 	width: 19px;
 	height: 19px;
 	background: url('site.png') -1px -97px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-course {
+.Images-course {
 /* You may have to set 'display: block' */
 	width: 130px;
 	height: 128px;
 	background: url('site.png') -1px -117px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-department {
+.Images-department {
 /* You may have to set 'display: block' */
 	width: 130px;
 	height: 128px;
 	background: url('site.png') -1px -246px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-document {
+.Images-document {
 /* You may have to set 'display: block' */
 	width: 56px;
 	height: 62px;
 	background: url('site.png') -1px -375px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-drive_upload {
+.Images-drive_upload {
 /* You may have to set 'display: block' */
 	width: 86px;
 	height: 76px;
 	background: url('site.png') -1px -438px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-friends_cloudents_black {
+.Images-friends_cloudents_black {
 /* You may have to set 'display: block' */
 	width: 91px;
 	height: 91px;
 	background: url('site.png') -1px -515px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-friends_cloudents_green {
+.Images-friends_cloudents_green {
 /* You may have to set 'display: block' */
 	width: 91px;
 	height: 91px;
 	background: url('site.png') -1px -607px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-friends_facebook_black {
+.Images-friends_facebook_black {
 /* You may have to set 'display: block' */
 	width: 91px;
 	height: 91px;
 	background: url('site.png') -1px -699px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-friends_facebook_blue {
+.Images-friends_facebook_blue {
 /* You may have to set 'display: block' */
 	width: 91px;
 	height: 91px;
 	background: url('site.png') -1px -791px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-friends_gmail_black {
+.Images-friends_gmail_black {
 /* You may have to set 'display: block' */
 	width: 91px;
 	height: 91px;
 	background: url('site.png') -1px -883px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-friends_gmail_red {
+.Images-friends_gmail_red {
 /* You may have to set 'display: block' */
 	width: 91px;
 	height: 91px;
 	background: url('site.png') -1px -975px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-placeholder_user_img {
+.Images-placeholder_user_img {
 /* You may have to set 'display: block' */
 	width: 46px;
 	height: 37px;
 	background: url('site.png') -1px -1067px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-share_white {
+.Images-share_white {
 /* You may have to set 'display: block' */
 	width: 22px;
 	height: 18px;
 	background: url('site.png') -1px -1105px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-uni_logo {
+.Images-uni_logo {
 /* You may have to set 'display: block' */
 	width: 41px;
 	height: 34px;
 	background: url('site.png') -1px -1124px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-upload {
+.Images-upload {
 /* You may have to set 'display: block' */
 	width: 126px;
 	height: 98px;
 	background: url('site.png') -1px -1159px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-web_upload {
+.Images-web_upload {
 /* You may have to set 'display: block' */
 	width: 82px;
 	height: 79px;
 	background: url('site.png') -1px -1258px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-quiz {
+.Images-quiz {
 /* You may have to set 'display: block' */
 	width: 55px;
 	height: 65px;
 	background: url('site.png') -1px -1338px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-icon_doc {
+.Images-icon_doc {
 /* You may have to set 'display: block' */
 	width: 21px;
 	height: 21px;
 	background: url('site.png') -1px -1404px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-icon_man {
+.Images-icon_man {
 /* You may have to set 'display: block' */
 	width: 21px;
 	height: 21px;
 	background: url('site.png') -1px -1426px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-no_results_icon {
+.Images-no_results_icon {
 /* You may have to set 'display: block' */
 	width: 108px;
 	height: 98px;
 	background: url('site.png') -1px -1448px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-earth {
+.Images-earth {
 /* You may have to set 'display: block' */
 	width: 79px;
 	height: 78px;
 	background: url('site.png') -1px -1547px;
 }
-.Zbang.Cloudents.Mvc4WebRole-Images-back-icon {
+.Images-back-icon {
 /* You may have to set 'display: block' */
 	width: 43px;
 	height: 42px;
 	background: url('site.png') -1px -1626px;
+}
+.Images-logo2 {
+/* You may have to set 'display: block' */
+	width: 222px;
+	height: 65px;
+	background: url('site.png') -1px -1669px;
 }
