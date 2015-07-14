@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Infrastructure.Security
             FacebookUserData2 user;
             using (var client = new HttpClient())
             {
-                using (var sr = await client.GetStreamAsync("https://graph.facebook.com/v2.2/me?access_token=" + token))
+                using (var sr = await client.GetStreamAsync("https://graph.facebook.com/v2.4/me?access_token=" + token + "&fields=id,name,first_name,email,middle_name,gender,last_name"))
                 {
                     
                     var dataContractJsonSerializer = new DataContractJsonSerializer(typeof(FacebookUserData2));
