@@ -25,7 +25,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new { controller = "Account", action = "Index", lang = UrlParameter.Optional },
                 new { lang = "^[A-Za-z]{2}-[A-Za-z]{2}$" });
 
-
+            routes.MapRoute("Mobile",
+                "getApp",
+                new { controller = "Home", action = "MobileApp" });
 
 
             //routes.MapRoute("AccountSettingsDesktop",

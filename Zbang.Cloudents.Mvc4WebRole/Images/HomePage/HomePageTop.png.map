@@ -1,0 +1,46 @@
+{
+  "images": [
+    {
+      "name": "/Images/HomePage/app_store.png",
+      "width": 154,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 1
+    },
+    {
+      "name": "/Images/HomePage/google_play.png",
+      "width": 154,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 54
+    },
+    {
+      "name": "/Images/HomePage/logo1.png",
+      "width": 275,
+      "height": 86,
+      "offsetX": 1,
+      "offsetY": 107
+    },
+    {
+      "name": "/Images/HomePage/avaibleEverywhere.png",
+      "width": 243,
+      "height": 241,
+      "offsetX": 1,
+      "offsetY": 194
+    },
+    {
+      "name": "/Images/HomePage/questionAndAnswers.png",
+      "width": 258,
+      "height": 243,
+      "offsetX": 1,
+      "offsetY": 436
+    },
+    {
+      "name": "/Images/HomePage/watchAndShare.png",
+      "width": 296,
+      "height": 243,
+      "offsetX": 1,
+      "offsetY": 680
+    }
+  ]
+}

@@ -26,8 +26,15 @@
   </settings>
   <!--The order of the <file> elements determines the order of the images in the sprite.-->
   <files>
-    <file>/Images/HomePage/app_store.png</file>
-    <file>/Images/HomePage/google_play.png</file>
-    <file>/Images/HomePage/logo1.png</file>
+    <file>/Images/HomePage/academic.png</file>
+    <file>/Images/HomePage/achva.png</file>
+    <file>/Images/HomePage/asva.png</file>
+    <file>/Images/HomePage/berel.png</file>
+    <file>/Images/HomePage/gsb.png</file>
+    <file>/Images/HomePage/haGlobe.png</file>
+    <file>/Images/HomePage/idius.png</file>
+    <file>/Images/HomePage/openU.png</file>
+    <file>/Images/HomePage/peres.png</file>
+    <file>/Images/HomePage/srvu.png</file>
   </files>
 </sprite>

@@ -1,0 +1,34 @@
+﻿body {
+  background: url(/Images/Mobile/bg.png) center top / cover no-repeat;
+  height: 100vh;
+  color: #fff;
+  text-align: center;
+  font-family: Arial;
+  margin: 0;
+}
+h4 {
+  margin: 0;
+}
+.blue {
+  color: #3293f6;
+}
+.topPadding {
+  padding-top: 20px;
+}
+@media (-webkit-min-device-pixel-ratio: 1), (min-resolution: 1dppx), (min-resolution: 96dpi) {
+  body {
+    background: url(/Images/Mobile/bg.png?v=2) center top / cover no-repeat;
+  }
+}
+/*2.0 dpr */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx), (min-resolution: 192dpi) {
+  .homepage {
+    background: url(/Images/Mobile/bg@2x.png?v=2) center top / cover no-repeat;
+  }
+}
+/*3.0 dpr */
+@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 3dppx), (min-resolution: 288dpi) {
+  .homepage {
+    background: url(/Images/Mobile/bg@3x.png?v=2) center top / 119% no-repeat;
+  }
+}

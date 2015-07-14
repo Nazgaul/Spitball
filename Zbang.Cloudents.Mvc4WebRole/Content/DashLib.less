@@ -16,12 +16,12 @@
     .dashboardPage &, .libraryPage &, .departmentPage &, .boxPage & {
         position: relative; //For search TODO: rethink this
     }
+
     .dashboardPage &, .libraryPage &, .departmentPage & {
         height: 100%;
         vertical-align: top;
         min-width: 1058px;
     }
-
 }
 
 
@@ -118,7 +118,6 @@
     position: relative;
     left: -4px; //rtl
     top: 24px;
- 
 }
 
 /*#endregion */
@@ -241,9 +240,8 @@
             .boxSizing;
             margin-top: 20px;
             min-width: 502px;
-            height:350px;
-            border:none;
-
+            height: 350px;
+            border: none;
         }
 
         .libraryList {
@@ -257,6 +255,7 @@
         }
     }
 }
+
 @media only screen and (min-width: 1134px) {
     .contentWpr.featured {
         .unionFeatured {
@@ -264,6 +263,7 @@
         }
     }
 }
+
 @media only screen and (min-width: 1392px) {
     .contentWpr.featured {
         .unionFeatured {
@@ -271,6 +271,7 @@
         }
     }
 }
+
 @media only screen and (min-width: 1650px) {
     .contentWpr.featured {
         .unionFeatured {
@@ -278,6 +279,7 @@
         }
     }
 }
+
 .unionFeatured {
     display: none;
 }
@@ -300,7 +302,6 @@
     .union {
         display: none !important; //override js
     }*/
-
     .modal-dialog {
         background: none;
         border: none;
@@ -334,9 +335,9 @@
 
     .closeDialog {
         .sprite-Images-close()
-//        background: @site-sprite 0 -94px no-repeat;
-//        width: 19px;
-//        height: 19px;
+        //        background: @site-sprite 0 -94px no-repeat;
+        //        width: 19px;
+        //        height: 19px;
     }
 
     .svg-doc {
@@ -360,6 +361,7 @@
         margin-right: 10px; //rtl
         vertical-align: middle;
     }
+
     span {
         white-space: pre-line;
         line-height: 16px;
@@ -445,6 +447,7 @@
 .unionCourses, .groupBoxes {
     position: relative;
 }
+
 .emptyDash {
     color: #383838;
     font-size: 16px;
@@ -690,7 +693,7 @@
     .fbCopyInfo {
         background-color: #282828;
         left: 0;
-        right:0;
+        right: 0;
         outline: 1px solid rgba(255,255,255,0.5);
         position: absolute;
         text-align: center;
@@ -701,15 +704,16 @@
         -ms-user-select: none;
         -webkit-user-select: none;
         user-select: none;
-        margin:auto;
+        margin: auto;
 
         .square {
-           color: #fff;          
-          font-size: 11px;
-          font-weight: bold;
-          line-height: 29px;
-          text-align: center;
+            color: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            line-height: 29px;
+            text-align: center;
         }
+
         .arrow {
             border-bottom: transparent;
             border-left: 5px solid transparent;
@@ -719,7 +723,7 @@
             left: 65px;
             outline: none;
             margin: 0 0 0 -5px;
-            position: absolute
+            position: absolute;
         }
     }
 
@@ -753,7 +757,7 @@
             margin: 40px auto;
             height: 34px;
             top: auto;
-            text-align:center;
+            text-align: center;
         }
 
         .gotoFbBtn {
@@ -786,11 +790,13 @@
         margin: 0 6px;
     }
 
+    .cloudentsBtn {
+        .sprite-Images-spitball_invite_off();
+    }
+
     &.js-cloudState {
         .cloudentsBtn {
-            svg {
-                fill: @color;
-            }
+            .sprite-Images-spitball_invite_on();
         }
 
         .socialContentWpr:before {
@@ -864,17 +870,21 @@
         fill: #282828;
     }
 }
+
 .fbBtn.fbBtn { //added specificity
     margin: 15px 60px 33px 60px;
+
     svg:hover {
         fill: @fbColor;
     }
 }
+
 .gmailBtn {
     svg:hover {
         fill: @gmailColor;
     }
 }
+
 .socialContentWpr {
     min-height: 250px;
     display: none;
@@ -1041,6 +1051,7 @@
 /*#region Upload files */
 .uploadFiles {
     text-align: center;
+
     header {
         font-size: 20px;
         color: @txtColor;
@@ -1134,6 +1145,7 @@
     .myAreaList {
         padding-bottom: 100px; //TODO: Check this!!!! is this for empty state?
     }
+
     .svg-privateBox {
         fill: rgba(3, 113, 200,.5);
     }
@@ -1148,6 +1160,7 @@
         &:hover {
             color: @color;
         }
+
         .addBtn {
             .boxSizing;
             background: #fff;
@@ -1233,6 +1246,7 @@
     .boxSizing;
     display: inline-block;
     padding: 2px 9px 6px 15px;
+
     &:hover {
         box-shadow: 0 1px 0 rgba(0,0,0,.3);
 
@@ -1506,25 +1520,31 @@
         transition: max-width 0.2s 0.5s;
     }
 }
+
 .boxSvg {
     width: 72px;
     height: 72px;
     position: absolute;
-    top:0;bottom:0;
+    top: 0;
+    bottom: 0;
     margin: auto;
     left: 9px;
     border-radius: 50%;
     background: #eee;
+
     svg {
         position: absolute;
-        right:0;left:0;
-        top:0;bottom:0;
+        right: 0;
+        left: 0;
+        top: 0;
+        bottom: 0;
         margin: auto;
         opacity: .6;
         width: 58%;
         max-height: 62%;
     }
 }
+
 .notify {
     min-width: 9px;
     height: 9px;
@@ -1568,6 +1588,7 @@
     color: #bcbcbc;
     width: 100%; //for add department btn
     border: 1px dashed #aaa;
+
     &:hover {
         color: @colorHover;
 
@@ -1603,6 +1624,7 @@
 .libraryItem.addDep {
     width: 244px;
     border-radius: 5px;
+
     &:first-child {
         border-radius: 0;
     }
@@ -1612,6 +1634,7 @@
     width: 244px;
     height: 125px;
     padding: 0;
+
     .addBtn {
         height: 123px;
     }

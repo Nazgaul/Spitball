@@ -158,6 +158,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
+        public ActionResult MobileApp()
+        {
+            return View();
+        }
+
         [ChildActionOnly]
         public ActionResult AntiForgeryToken()
         {

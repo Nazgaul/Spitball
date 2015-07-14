@@ -1,0 +1,53 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MobileApp</title>
+    @Html.Css2("mobile")
+</head>
+    <body>
+        <img class="topPadding" src="~/Images/logo2.png" alt="logo" />
+      
+        <h1>Do you want to get better grades?</h1>
+        <h4>Need to chat with your fellow students?</h4>
+        <h4>Access relevant studying material?</h4>
+        <h4>Practice before the final?</h4>
+
+        <h4>Cloudents brings it all toghter.</h4>
+        <h4 class="blue">Join, for free</h4>
+
+        <h3>Get the full version now</h3>
+        
+        <img src="~/Images/Mobile/app_store.png" alt="IOS store" />
+        <img src="~/Images/Mobile/google_play.png" alt="Google play" />
+        
+        
+
+        <script src="~/Scripts/browser-deeplink.min.js"></script>
+        <script>
+            
+            function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                    results = regex.exec(location.search);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+            deeplink.setup({
+                fallback: false,
+                //urlFallback: location.href,
+                android: {
+                    appId: "com.cloudents.zbox2"
+                }
+            });
+            window.onload = function () {
+                var link = getParameterByName("returnUrl");
+                deeplink.open("cloudents://" + decodeURI(link.substring(1)));
+            }
+        </script>
+    </body>
+</html>

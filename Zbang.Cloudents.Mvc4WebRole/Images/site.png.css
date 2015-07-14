@@ -43,3 +43,15 @@ This is an example of how to use the image sprite in your own CSS files
 	height: 65px;
 	background: url('site.png') -1px -421px;
 }
+.Images-spitball_invite_off {
+/* You may have to set 'display: block' */
+	width: 70px;
+	height: 70px;
+	background: url('site.png') -1px -487px;
+}
+.Images-spitball_invite_on {
+/* You may have to set 'display: block' */
+	width: 70px;
+	height: 70px;
+	background: url('site.png') -1px -558px;
+}

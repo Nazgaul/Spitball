@@ -57,6 +57,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/Animations.css",
                         "~/Content/Static.css"
                     }
+                },
+                {
+                    "mobile", new []
+                    {
+                        "~/Content/Mobile.css"
+                    }
                 }
             };
             return cssDictionary;

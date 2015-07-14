@@ -47,5 +47,9 @@
     <file>/Images/earth.png</file>
     <!--<file>/Images/back-icon.png</file>-->
     <file>/Images/logo2.png</file>
+
+    <file>/Images/spitball_invite_off.png</file>
+    <file>/Images/spitball_invite_on.png</file>
+  
   </files>
 </sprite>

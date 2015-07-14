@@ -700,8 +700,17 @@
 .socialInvite .btn2 {
   margin: 0 6px;
 }
-.socialInvite.js-cloudState .cloudentsBtn svg {
-  fill: #3293f6;
+.socialInvite .cloudentsBtn {
+  /* You may have to set 'display: block' */
+  width: 70px;
+  height: 70px;
+  background: url('../Images/site.png') -1px -487px;
+}
+.socialInvite.js-cloudState .cloudentsBtn {
+  /* You may have to set 'display: block' */
+  width: 70px;
+  height: 70px;
+  background: url('../Images/site.png') -1px -558px;
 }
 .socialInvite.js-cloudState .socialContentWpr:before {
   right: auto;

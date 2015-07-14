@@ -48,6 +48,20 @@
       "height": 65,
       "offsetX": 1,
       "offsetY": 421
+    },
+    {
+      "name": "/Images/spitball_invite_off.png",
+      "width": 70,
+      "height": 70,
+      "offsetX": 1,
+      "offsetY": 487
+    },
+    {
+      "name": "/Images/spitball_invite_on.png",
+      "width": 70,
+      "height": 70,
+      "offsetX": 1,
+      "offsetY": 558
     }
   ]
 }

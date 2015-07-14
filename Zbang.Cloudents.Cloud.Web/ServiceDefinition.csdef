@@ -26,7 +26,6 @@
       <Setting name="StorageCdnEndpoint" />
       <Setting name="AzureSeachServiceName" />
       <Setting name="AzureSearchKey" />
-      <Setting name="MobileWebSite" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Spitball" storeLocation="LocalMachine" storeName="My" />

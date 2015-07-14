@@ -647,12 +647,6 @@
     <Content Include="Content\Home.rtl.css">
       <DependentUpon>Home.css</DependentUpon>
     </Content>
-    <Content Include="Content\HomePage.png">
-      <DependentUpon>HomePage.sprite</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage.png.css">
-      <DependentUpon>HomePage.png</DependentUpon>
-    </Content>
     <Content Include="Content\Invite.css">
       <DependentUpon>Invite.less</DependentUpon>
     </Content>
@@ -664,16 +658,6 @@
     </Content>
     <Content Include="Content\Item.rtl.css">
       <DependentUpon>Item.css</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage.sprite" />
-    <Content Include="Content\HomePage.png.map">
-      <DependentUpon>HomePage.png</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage.png.less">
-      <DependentUpon>HomePage.png</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage.png.scss">
-      <DependentUpon>HomePage.png</DependentUpon>
     </Content>
     <None Include="Content\jquery.mCustomScrollbar.less" />
     <Content Include="Content\jquery.mCustomScrollbar.css">
@@ -705,6 +689,12 @@
     </Content>
     <Content Include="Content\Letter.rtl.css">
       <DependentUpon>Letter.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Mobile.css">
+      <DependentUpon>Mobile.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Mobile.rtl.css">
+      <DependentUpon>Mobile.css</DependentUpon>
     </Content>
     <Content Include="Content\Modal.css">
       <DependentUpon>Modal.less</DependentUpon>
@@ -798,6 +788,7 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\HomePage\academic.png" />
     <Content Include="Images\HomePage\app_store.png" />
     <Content Include="Images\app_store_small.png" />
     <Content Include="Images\bg6.jpg" />
@@ -808,22 +799,38 @@
     <Content Include="Images\gradient-arrow.png" />
     <Content Include="Images\hiring.png" />
     <Content Include="Images\HomePage\achva.png" />
-    <Content Include="Images\HomePage\ashkelon.png" />
     <Content Include="Images\HomePage\asva.png" />
     <Content Include="Images\HomePage\avaibleEverywhere.png" />
     <Content Include="Images\HomePage\berel.png" />
     <Content Include="Images\HomePage\gsb.png" />
     <Content Include="Images\HomePage\haGlobe.png" />
+    <Content Include="Images\HomePage\HomePageBottom.png">
+      <DependentUpon>HomePageBottom.sprite</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageBottom.png.css">
+      <DependentUpon>HomePageBottom.png</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageTop.png">
+      <DependentUpon>HomePageTop.sprite</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageTop.png.css">
+      <DependentUpon>HomePageTop.png</DependentUpon>
+    </Content>
     <Content Include="Images\HomePage\idius.png" />
-    <Content Include="Images\HomePage\open u.png" />
+    <Content Include="Images\HomePage\openU.png" />
     <Content Include="Images\HomePage\peres.png" />
     <Content Include="Images\HomePage\questionAndAnswers.png" />
     <Content Include="Images\HomePage\srvu.png" />
-    <Content Include="Images\HomePage\studentUnions.png" />
     <Content Include="Images\HomePage\watchAndShare.png" />
-    <Content Include="Images\hp26-sprite.png" />
     <Content Include="Images\HomePage\logo1.png" />
     <Content Include="Images\logo2.png" />
+    <Content Include="Images\Mobile\app_store.png" />
+    <Content Include="Images\Mobile\bg%402x.png" />
+    <Content Include="Images\Mobile\bg%403x.png" />
+    <Content Include="Images\Mobile\bg.png" />
+    <Content Include="Images\Mobile\google_play.png" />
+    <Content Include="Images\spitball_invite_off.png" />
+    <Content Include="Images\spitball_invite_on.png" />
     <Content Include="Images\Store\ball.png" />
     <Content Include="Images\big-quiz.png" />
     <Content Include="Images\box18-sprite.png" />
@@ -1118,6 +1125,27 @@
     <Content Include="Content\lang.ar-AE.less" />
     <Content Include="Content\Letter.less" />
     <Content Include="Content\RtlFix.less" />
+    <Content Include="Images\HomePage\HomePageTop.sprite" />
+    <Content Include="Images\HomePage\HomePageTop.png.map">
+      <DependentUpon>HomePageTop.png</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageTop.png.less">
+      <DependentUpon>HomePageTop.png</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageTop.png.scss">
+      <DependentUpon>HomePageTop.png</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageBottom.sprite" />
+    <Content Include="Images\HomePage\HomePageBottom.png.map">
+      <DependentUpon>HomePageBottom.png</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageBottom.png.less">
+      <DependentUpon>HomePageBottom.png</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageBottom.png.scss">
+      <DependentUpon>HomePageBottom.png</DependentUpon>
+    </Content>
+    <Content Include="Content\Mobile.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1149,6 +1177,8 @@
     <Content Include="Scripts\angulartics-ga.min.js" />
     <Content Include="Scripts\angulartics.js" />
     <Content Include="Scripts\angulartics.min.js" />
+    <Content Include="Scripts\browser-deeplink.js" />
+    <Content Include="Scripts\browser-deeplink.min.js" />
     <Content Include="Scripts\CountUp.js" />
     <Content Include="Scripts\angular-debounce.js" />
     <Content Include="Scripts\angular-draganddrop.js" />
@@ -2026,6 +2056,7 @@
     <Content Include="Views\Shared\Partials\_DashLibItem.cshtml" />
     <Content Include="Views\Shared\Partials\_SearchTemplate.cshtml" />
     <Content Include="Views\Home\Jobs.cshtml" />
+    <Content Include="Views\Home\MobileApp.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

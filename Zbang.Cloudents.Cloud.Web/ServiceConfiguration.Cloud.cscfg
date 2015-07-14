@@ -16,7 +16,6 @@
       <Setting name="StorageCdnEndpoint" value="https://az32006.vo.msecnd.net" />
       <Setting name="AzureSearchKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
       <Setting name="AzureSeachServiceName" value="cloudents" />
-      <Setting name="MobileWebSite" value="https://mdev.cloudents.com/" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="82AF1259FAF65569650641B957B64BCD595BF552" thumbprintAlgorithm="sha1" />
