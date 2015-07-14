@@ -831,6 +831,7 @@
     <Content Include="Images\Mobile\google_play.png" />
     <Content Include="Images\spitball_invite_off.png" />
     <Content Include="Images\spitball_invite_on.png" />
+    <Content Include="Images\spitball_logo_mobile.png" />
     <Content Include="Images\Store\ball.png" />
     <Content Include="Images\big-quiz.png" />
     <Content Include="Images\box18-sprite.png" />

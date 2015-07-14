@@ -178,7 +178,7 @@
   /* You may have to set 'display: block' */
   width: 41px;
   height: 34px;
-  background: url('../Images/site.png') -1px -227px;
+  background: url('../Images/site.png?v=1') -1px -227px;
   position: absolute;
   top: 24px;
   right: 28px;
