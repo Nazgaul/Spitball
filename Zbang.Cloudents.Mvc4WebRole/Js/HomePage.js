@@ -15,7 +15,7 @@ ga('create', 'UA-9850006-3', {
 
 window.fbAsyncInit = function () {
     FB.init({
-        appId: '450314258355338',
+        appId: '786786954776091',
         status: true,
         cookie: true,
         xfbml: true,

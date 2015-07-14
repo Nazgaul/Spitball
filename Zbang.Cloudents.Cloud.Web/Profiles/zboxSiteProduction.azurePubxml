@@ -11,8 +11,8 @@
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>True</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
     <AzureHostedServiceLabel>spitball</AzureHostedServiceLabel>
     <AzureHostedServiceName>spitball</AzureHostedServiceName>
-    <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
-    <AzureEnableProfiling>True</AzureEnableProfiling>
+    <AzureEnableIntelliTrace>True</AzureEnableIntelliTrace>
+    <AzureEnableProfiling>False</AzureEnableProfiling>
     <AzureServiceConfiguration>CloudProduction</AzureServiceConfiguration>
     <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>
     <AzureStorageAccountLabel>zboxstorage</AzureStorageAccountLabel>
