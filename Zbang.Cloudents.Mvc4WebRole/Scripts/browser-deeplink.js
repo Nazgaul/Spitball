@@ -220,7 +220,7 @@
     };
 
     function getAction(url) {       
-        var type = url.substring(1).split('/');
+        var type = url.split('/');
         var action;
         switch (type[0].toLowerCase()) {
             case "box":
