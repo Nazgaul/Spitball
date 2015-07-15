@@ -119,7 +119,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 string[] ipBytes = ip.Split('.');
                 for (int i = ipBytes.Length - 1; i >= 0; i--)
                 {
-                    num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
+                    int temp;
+                    int.TryParse(ipBytes[i], out temp);
+                    num += ((temp % 256) * Math.Pow(256, (3 - i)));
                 }
             }
             return (long)num;
