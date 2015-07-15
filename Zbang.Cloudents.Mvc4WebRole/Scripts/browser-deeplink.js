@@ -186,7 +186,7 @@
             uri = "intent://" + matches[2] + "#Intent;scheme=" + matches[1];
             uri += ";package=" + settings.android.appId;// + ";end";
 
-            uri += ";action=" + settings.android.appId + getAction(url);
+            uri += ";action=" + settings.android.appId + getAction(uri);
 
             if (settings.urlFallback) {
                 uri += ";S.browser_fallback_url=" + settings.urlFallback;
