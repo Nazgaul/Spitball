@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Trace;
+using System.IO;
+using Newtonsoft.Json;
 
 
 namespace Zbang.Zbox.Infrastructure.Security
@@ -15,40 +17,77 @@ namespace Zbang.Zbox.Infrastructure.Security
         const string FacebookPicture = "https://graph.facebook.com/{0}/picture?width={1}&height={1}";
 
 
-        public async Task<FacebookUserData2> FacebookLogIn(string token)
+        public async Task<FacebookUserData> FacebookLogIn(string token)
         {
-            FacebookUserData2 user;
+            FacebookUserData user;
             using (var client = new HttpClient())
             {
-                using (var sr = await client.GetStreamAsync("https://graph.facebook.com/v2.4/me?access_token=" + token + "&fields=id,name,first_name,email,middle_name,gender,last_name"))
+                
+                var tData = client.GetStreamAsync("https://graph.facebook.com/v2.4/me?access_token=" + token + "&fields=id,name,first_name,email,middle_name,gender,last_name,locale");
+                var tBusiness = client.GetStringAsync("https://graph.facebook.com/v2.4/me/ids_for_business?access_token=" + token);
+
+                await Task.WhenAll(tData, tBusiness);
+
+                using (var s = tData.Result)
                 {
-                    
-                    var dataContractJsonSerializer = new DataContractJsonSerializer(typeof(FacebookUserData2));
-
-                    user = dataContractJsonSerializer.ReadObject(sr) as FacebookUserData2;
-
-                    if (user == null)
+                    using (var sr = new StreamReader(s))
                     {
-                        throw new NullReferenceException("user");
-                    }
-                    //user can be without email if its not verified in facebook
-                    if (string.IsNullOrEmpty(user.email))
-                    {
-                        user.email = string.Format("{0}@facebook.com", user.id);
-                    }
-                    user.Image = GetFacebookUserImage(user.id, FacebookPictureType.Square);
-                    user.LargeImage = GetFacebookUserImage(user.id, FacebookPictureType.Normal);
+                        using (var reader = new JsonTextReader(sr))
+                        {
+                            JsonSerializer serializer = new JsonSerializer();
+                            user = serializer.Deserialize<FacebookUserData>(reader);
+                            if (user == null)
+                            {
+                                throw new NullReferenceException("user");
+                            }
+                            if (string.IsNullOrEmpty(user.Email))
+                            {
+                                user.Email = string.Format("{0}@facebook.com", user.Id);
+                            }
 
-                    //if (user.education != null)
-                    //{
-                    //    TraceLog.WriteInfo("facebook user education: " +
-                    //                       string.Join(" ", user.education.Select(s => s.school)));
-                    //}
+                        }
+                    }
                 }
+
+                var businessObj = JObject.Parse(tBusiness.Result);
+                var userId = businessObj["data"].Where(w => ((string)w["app"]["name"] == "Cloudents")).Select(s => (long)s["id"]).FirstOrDefault();
+
+                user.Id = userId;
+                user.Image = GetFacebookUserImage(user.Id, FacebookPictureType.Square);
+                user.LargeImage = GetFacebookUserImage(user.Id, FacebookPictureType.Normal);
+                return user;
+
+
+
+                //using (var sr = await client.GetStreamAsync("https://graph.facebook.com/v2.4/me?access_token=" + token + "&fields=id,name,first_name,email,middle_name,gender,last_name"))
+                //{
+
+                //    var dataContractJsonSerializer = new DataContractJsonSerializer(typeof(FacebookUserData2));
+
+                //    user = dataContractJsonSerializer.ReadObject(sr) as FacebookUserData2;
+
+                //    if (user == null)
+                //    {
+                //        throw new NullReferenceException("user");
+                //    }
+                //    //user can be without email if its not verified in facebook
+                //    if (string.IsNullOrEmpty(user.email))
+                //    {
+                //        user.email = string.Format("{0}@facebook.com", user.id);
+                //    }
+                //    user.Image = GetFacebookUserImage(user.id, FacebookPictureType.Square);
+                //    user.LargeImage = GetFacebookUserImage(user.id, FacebookPictureType.Normal);
+
+                //    //if (user.education != null)
+                //    //{
+                //    //    TraceLog.WriteInfo("facebook user education: " +
+                //    //                       string.Join(" ", user.education.Select(s => s.school)));
+                //    //}
+                //}
             }
 
 
-            return user;
+
         }
 
 

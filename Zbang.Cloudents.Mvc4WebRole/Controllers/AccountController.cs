@@ -111,7 +111,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return JsonError(new { error = AccountControllerResources.FacebookGetDataError });
                 }
-                var query = new GetUserByFacebookQuery(facebookUserData.id);
+                var query = new GetUserByFacebookQuery(facebookUserData.Id);
                 LogInUserDto user = await ZboxReadService.GetUserDetailsByFacebookId(query);
                 if (user == null)
                 {
@@ -122,20 +122,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         invId = inv.InviteId;
                     }
-                    var command = new CreateFacebookUserCommand(facebookUserData.id, facebookUserData.email,
+                    var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
                         facebookUserData.Image, facebookUserData.LargeImage, model.UniversityId,
-                        facebookUserData.first_name,
-                        facebookUserData.middle_name,
-                        facebookUserData.last_name,
+                        facebookUserData.First_name,
+                        facebookUserData.Middle_name,
+                        facebookUserData.Last_name,
                         facebookUserData.GetGender(),
-                        facebookUserData.locale, invId, model.BoxId, false);
+                        facebookUserData.Locale, invId, model.BoxId, false);
                     var commandResult = await ZboxWriteService.CreateUserAsync(command);
                     user = new LogInUserDto
                     {
                         Id = commandResult.User.Id,
                         Culture = commandResult.User.Culture,
                         Image = facebookUserData.Image,
-                        Name = facebookUserData.name,
+                        Name = facebookUserData.Name,
                         UniversityId = commandResult.UniversityId,
                         UniversityData = commandResult.UniversityData,
                         Score = commandResult.User.Reputation

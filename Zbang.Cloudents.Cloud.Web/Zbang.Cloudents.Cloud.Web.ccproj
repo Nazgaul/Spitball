@@ -60,7 +60,7 @@
       <Private>True</Private>
       <RoleType>Web</RoleType>
       <RoleName>Zbang.Cloudents.Mvc4WebRole</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+      <UpdateDiagnosticsConnectionStringOnPublish>False</UpdateDiagnosticsConnectionStringOnPublish>
       <Properties>SkipValidatePackageReferences=true</Properties>
     </ProjectReference>
   </ItemGroup>
