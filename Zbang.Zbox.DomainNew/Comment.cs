@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public class Comment
+    public class Comment //: ISoftDeletable
     {
         protected Comment()
         {
-
+            IsDeleted = false;
         }
         public Comment(User user, string text, Box box, Guid id, IList<Item> items, FeedType feedType)
         {
@@ -99,6 +100,14 @@ namespace Zbang.Zbox.Domain
         {
             Quizes.Remove(quiz);
             return NeedToRemoveComment();
+        }
+
+        public virtual bool IsDeleted { get; set; }
+
+        public void DeleteAssociation()
+        {
+            Updates.Clear();
+
         }
     }
 }

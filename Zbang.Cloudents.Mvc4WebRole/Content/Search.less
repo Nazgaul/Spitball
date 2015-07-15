@@ -9,7 +9,7 @@
 	height: 32px;
     border: 1px solid @borderColor;
     border-radius: 16px;
-    margin: 17px 20px 0 20px;
+    margin: 17px 20px 0 31px;
     line-height: normal;
     background: #fff;
     color: @borderColor;
@@ -18,11 +18,10 @@
     //z-index: 4; //under aside which is 5
     // removed z-index because it covered tooltip in (my) user page
     .boxSizing;
-    .headerBox &  {
-        margin-top: 9px; //override
-    }
+   
     &.searchUser { 
-        margin-top: 23px;
+        width:260px;
+        margin-top: 15px;
         + button .svg-inviteUser {
             position: relative;
             top: -9px;
@@ -106,7 +105,7 @@
         font-size: 5vw;
         padding: 36px 10% 4px 0;
         background: transparent;
-        color: @blue;
+        color: #3293f6;
         .boxSizing;
         .placeholderColor(#aaa,bold);
 
@@ -233,6 +232,7 @@
         letter-spacing: 1px;
         color: #aaa;
         padding: 0.5em 0;
+        text-transform:capitalize;
     }
 }
 
@@ -254,7 +254,8 @@
         text-align: center;
     }
     .boxName {
-        margin-top: -40px;
+        //margin-top: -40px;
+        margin:-40px 2px 0 2px;
     }
 }
 .searchLink {
@@ -294,12 +295,12 @@
 	    display: inline-block;
 	    margin: 0;
         padding: 5px 0;
-	    color: @bluesearch;
+	    color: #3293f6;
         max-width: 100%; //needed to override the nowrap property on the elps
         font-weight: normal;
     }
     h4{
-        color:@greensearch;
+        color: #383838;
     }
     .boxSvg {
         background: #fff;

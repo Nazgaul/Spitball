@@ -18,6 +18,7 @@ join zbox.box b on b.BoxId = i.BoxId
 where b.University   in (select v.id from zbox.University v where needcode = 0)
 and b.discriminator = 2
 and i.IsDeleted = 0
+and i.content is not null
 and i.Discriminator = 'FILE'
 union all
 select i.url as Url
@@ -45,6 +46,7 @@ join zbox.box b on b.BoxId = i.BoxId
 where b.University   in (select id from zbox.University where  needcode = 0)
 and b.discriminator = 2
 and i.IsDeleted = 0
+and i.content is not null
 and i.Discriminator = 'FILE'
 union all
 select i.url as Url
@@ -62,13 +64,16 @@ and i.publish = 1 ) t";
 ,u.Country
 ,b.BoxName
 ,i.Discriminator
-,i.ThumbnailUrl as ImageUrl
+,i.blobname as ImageUrl
+,l.name as departmentName
+
 from zbox.item i 
 join zbox.box b on i.BoxId = b.BoxId
 left join zbox.University u on b.University = u.Id
+left join zbox.library l on b.libraryid = l.libraryid
 where itemid = @ItemId
-and i.IsDeleted = 0;
-";
+and i.IsDeleted = 0;";
+
         public const string BoxSeo = @"select b.BoxName as name 
 ,b.CourseCode as courseId
 ,b.ProfessorName as professor
@@ -76,9 +81,11 @@ and i.IsDeleted = 0;
 ,b.Discriminator as boxType
 ,u.Country
 ,u.UniversityName
+,l.name as DepartmentName
 
 from zbox.box b
 left join zbox.University u on b.University = u.id
+left join zbox.library l on b.libraryid = l.libraryid
 where boxid = @BoxId
 and b.IsDeleted = 0";
     }

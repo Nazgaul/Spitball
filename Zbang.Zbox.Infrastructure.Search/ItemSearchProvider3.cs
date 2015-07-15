@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Hyak.Common;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -45,6 +46,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         private const string UserIdsField = "userId";
         private const string BoxIdField = "boxId";
         private const string ExtensionField = "extension";
+        private const string BlobNameField = "blobName";
 
         private const string ScoringProfileName = "university";
 
@@ -63,7 +65,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                 new Field(UniversityidField, DataType.String) { IsFilterable = true, IsRetrievable = true},
                 new Field(UserIdsField, DataType.Collection(DataType.String)) { IsFilterable = true, IsRetrievable = true},
                 new Field(BoxIdField, DataType.Int64) { IsRetrievable = true},
-                new Field(ExtensionField, DataType.String) { IsRetrievable = true}
+                new Field(ExtensionField, DataType.String) { IsRetrievable = true},
+                new Field(BlobNameField, DataType.String) { IsRetrievable = true}
 
             });
             var scoringFunction = new TagScoringFunction(new TagScoringParameters(ScoringProfileName),
@@ -82,7 +85,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             try
             {
-                m_Connection.SearchClient.Indexes.Delete(m_IndexName);
+                // m_Connection.SearchClient.Indexes.Delete(m_IndexName);
                 await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure());
             }
             catch (Exception ex)
@@ -115,7 +118,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                     UniversityId = item.UniversityId.ToString(),
                     UniversityName = item.UniversityName,
                     Url = item.Url,
-                    UserId = item.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)).ToArray()
+                    UserId = item.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)).ToArray(),
+                    BlobName = item.BlobName
                 })));
             }
             if (itemToDelete != null)
@@ -136,7 +140,13 @@ namespace Zbang.Zbox.Infrastructure.Search
             catch (IndexBatchException ex)
             {
                 TraceLog.WriteError("Failed to index some of the documents: " +
-                                    String.Join(", ", ex.IndexResponse.Results.Where(r => !r.Succeeded).Select(r => r.Key)));
+                                    String.Join(", ",
+                                        ex.IndexResponse.Results.Where(r => !r.Succeeded).Select(r => r.Key)));
+                return false;
+            }
+            catch (CloudException ex)
+            {
+                TraceLog.WriteError("Failed to do batch", ex);
                 return false;
             }
 
@@ -158,20 +168,18 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Skip = query.RowsPerPage * query.PageNumber,
                 ScoringProfile = "universityTag",
                 ScoringParameters = new[] { "university:" + query.UniversityId },
-                Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField },
-                HighlightFields = new[] { ContentField }
+                Select = new[] { SmallContentField, IdField, NameField, BoxIdField, ExtensionField },
+                HighlightFields = new[] { ContentField, NameField },
             }, cancelToken);
 
             return result.Select(s => new SearchItems
             {
-                Boxname = s.Document.BoxName,
                 Content = HighLightInField(s, ContentField, s.Document.MetaContent),
                 Id = long.Parse(s.Document.Id),
-                Image = s.Document.Image,
-                Name = s.Document.Name,
-                UniName = s.Document.UniversityName,
-                Url = s.Document.Url
-            });
+                Name = HighLightInField(s, NameField, s.Document.Name),
+                BoxId = s.Document.BoxId.Value,
+                Extension = s.Document.Extension
+            }).ToList();
         }
 
         public async Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
@@ -193,19 +201,22 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Skip = query.RowsPerPage * query.PageNumber,
                 ScoringProfile = "universityTag",
                 ScoringParameters = new[] { "university:" + query.UniversityId },
-                Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField },
-                HighlightFields = new[] { ContentField }
+                Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField, BlobNameField },
+                HighlightFields = new[] { ContentField, NameField }
             }, cancelToken);
 
             return result.Select(s => new SearchItems
             {
                 Boxname = s.Document.BoxName,
-                Content = HighLightInField(s ,ContentField, s.Document.MetaContent),
+                Content = HighLightInField(s, ContentField, s.Document.MetaContent),
                 Id = long.Parse(s.Document.Id),
                 Image = s.Document.Image,
-                Name = s.Document.Name,
+                Name = HighLightInField(s, NameField, s.Document.Name),
                 UniName = s.Document.UniversityName,
-                Url = s.Document.Url
+                Url = s.Document.Url,
+                BlobName = s.Document.BlobName
+
+
             });
         }
 

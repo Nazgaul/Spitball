@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 //using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.SiteExtension
 {
-    public class CookieHelper
+    public class CookieHelper : ICookieHelper
     {
         private readonly HttpContextBase m_HttpContext;
         public CookieHelper(HttpContextBase httpContext)
@@ -57,7 +53,7 @@ namespace Zbang.Cloudents.SiteExtension
             return obj2 as T;
         }
 
-        public void RemoveCookie(string cookieName)
+        public  void RemoveCookie(string cookieName)
         {
             HttpCookie cookie = m_HttpContext.Request.Cookies[cookieName];
             if (cookie != null)
@@ -104,5 +100,12 @@ namespace Zbang.Cloudents.SiteExtension
             }
 
         }
+    }
+
+    public interface ICookieHelper
+    {
+        void InjectCookie<T>(string cookieName, T cookieData, bool httpOnly = true) where T : class;
+        T ReadCookie<T>(string cookieName) where T : class;
+        void RemoveCookie(string cookieName);
     }
 }

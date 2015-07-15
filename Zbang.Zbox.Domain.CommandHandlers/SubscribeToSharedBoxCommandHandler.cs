@@ -60,6 +60,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
                 isSubscribed = true;
                 m_UserRepository.Save(user);
+
+
+                //var newInvite = new UserBoxRel(user, box, UserRelationshipType.Subscribe);
+                //box.UserBoxRelationship.Add(newInvite);
+                //box.CalculateMembers();
+                //box.UserTime.UpdateUserTime(recipientUser.Email);
+                //m_BoxRepository.Save(box);
+                //return;
             }
 
             if (!isSubscribed) return;

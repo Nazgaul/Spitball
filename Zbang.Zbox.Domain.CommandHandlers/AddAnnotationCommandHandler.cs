@@ -5,7 +5,6 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -45,6 +44,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var text = TextManipulation.EncodeText(message.Comment);
             var comment = new ItemComment(user, item, text, m_IdGenerator.GetId(IdContainer.ItemAnnotationScope));
             item.IncreaseNumberOfComments();
+            item.ShouldMakeDirty = () => false;
             m_ItemCommentRepository.Save(comment);
             m_ItemRepository.Save(item);
             message.AnnotationId = comment.Id;

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutCloudents" xml:space="preserve">
-    <value>关于 Cloudents</value>
+    <value>关于 Spitball</value>
   </data>
   <data name="Available" xml:space="preserve">
     <value>随时随地都能使用</value>
@@ -136,7 +136,7 @@
     <value>本周添加的文件</value>
   </data>
   <data name="GetAnwers" xml:space="preserve">
-    <value>如果你有一个问题，无论是昨天的课件，下周必读内容还是某个章节的精华，Cloudents 都能为你提供帮助。提出问题，得到同学的解答帮助。</value>
+    <value>如果你有一个问题，无论是昨天的课件，下周必读内容还是某个章节的精华，Spitball 都能为你提供帮助。提出问题，得到同学的解答帮助。</value>
   </data>
   <data name="GetStarted" xml:space="preserve">
     <value>现在就开始，免费又快速</value>
@@ -152,7 +152,7 @@
 或讨论你的小组项目，所有这些都汇聚在一个地方。</value>
   </data>
   <data name="PoweredBy" xml:space="preserve">
-    <value>Cloudents 采用自助形式，帮助学生们更好地分享和学习。</value>
+    <value>Spitball 采用自助形式，帮助学生们更好地分享和学习。</value>
   </data>
   <data name="QA" xml:space="preserve">
     <value>常见问答</value>
@@ -167,7 +167,7 @@
     <value>学生</value>
   </data>
   <data name="StudyPlatform" xml:space="preserve">
-    <value>Cloudents 是一款免费在线及移动社交型学习平台。</value>
+    <value>Spitball 是一款免费在线及移动社交型学习平台。</value>
   </data>
   <data name="WatchShare" xml:space="preserve">
     <value>观看并分享</value>
@@ -180,7 +180,7 @@
     <value>马上注册：</value>
   </data>
   <data name="HomePageTitle3" xml:space="preserve">
-    <value>Cloudents带来这一切在一起。加入，</value>
+    <value>Spitball带来这一切在一起。加入，</value>
   </data>
   <data name="HomePageTitle" xml:space="preserve">
     <value>怎样获得更好的成绩？</value>

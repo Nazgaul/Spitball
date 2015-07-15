@@ -4,21 +4,27 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
 {
     public class ItemDto
     {
+        public ItemDto()
+        {
+            
+        }
         //version 2 api mobile
-        public ItemDto(Int64 id, String name, Int64 ownerId, String thumbnail,
+        public ItemDto(Int64 id, String name, Int64 ownerId,
             Guid? questionId, Guid? answerId, String type, String source)
-            : this(id, name, ownerId, thumbnail, questionId, answerId, null, type, source)
+            : this(id, name, ownerId, questionId, answerId, null, type, source)
         {
 
         }
+
+       
         //this is for item
-        public ItemDto(Int64 id, String name, Int64 ownerId, String thumbnail,
+        public ItemDto(Int64 id, String name, Int64 ownerId,
              Guid? questionId, Guid? answerId, String url, String type, String source)
         {
             Id = id;
             Name = name;
             OwnerId = ownerId;
-            Thumbnail = thumbnail;
+            //Thumbnail = thumbnail;
             QuestionId = questionId;
             AnswerId = answerId;
             Url = url;
@@ -38,7 +44,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
 
         public long Id { get; private set; }
         public string Name { get; private set; }
-        public string Thumbnail { get; set; }
+        //public string Thumbnail { get; set; }
         public long OwnerId { get; private set; }
 
         public Guid? QuestionId { get; set; }

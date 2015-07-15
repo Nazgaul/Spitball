@@ -320,7 +320,7 @@
     <value>دعوة صديق</value>
   </data>
   <data name="InviteCloudents" xml:space="preserve">
-    <value>دعوة أصدقائك إلى cloudents</value>
+    <value>دعوة أصدقائك إلى Spitball</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>الرسالة</value>
@@ -365,7 +365,7 @@
     <value>للاتصال </value>
   </data>
   <data name="CloudentsHelp" xml:space="preserve">
-    <value>مساعدة Cloudents</value>
+    <value>مساعدة Spitball</value>
   </data>
   <data name="OrCopyLink" xml:space="preserve">
     <value>أو نسخ هذا الرابط ...</value>
@@ -537,10 +537,10 @@
     <value>اغلاق</value>
   </data>
   <data name="CloudentsQuizzes" xml:space="preserve">
-    <value>ألغاز Cloudents - قم بإنشاء ومشاركة ومشاركة الألغاز وكن مستعداً لامتحاناتك!</value>
+    <value>ألغاز Spitball - قم بإنشاء ومشاركة ومشاركة الألغاز وكن مستعداً لامتحاناتك!</value>
   </data>
   <data name="CreateShare" xml:space="preserve">
-    <value>قم بعمل ومشاركة ألغاز Cloudents للتحضير لامتحان واختبار معلومات أصدقائك</value>
+    <value>قم بعمل ومشاركة ألغاز Spitball للتحضير لامتحان واختبار معلومات أصدقائك</value>
   </data>
   <data name="DiscussQuiz" xml:space="preserve">
     <value> ناقش الأسئلة والأجوبة مع أصدقائك</value>
@@ -552,13 +552,13 @@
     <value> إضافة سؤال محتمل في الامتحان</value>
   </data>
   <data name="FreePlatform" xml:space="preserve">
-    <value>Cloudents هي المنصة الاجتماعية المجانية الأكثر تقدما للدراسة عبر الإنترنت والهاتف الجوال </value>
+    <value>Spitball هي المنصة الاجتماعية المجانية الأكثر تقدما للدراسة عبر الإنترنت والهاتف الجوال </value>
   </data>
   <data name="MultipleAnswers" xml:space="preserve">
     <value> إضافة إجابات متعددة ووضع علامة على الإجابة الصحيحة</value>
   </data>
   <data name="PrepareExam" xml:space="preserve">
-    <value>استعد للامتحانات من خلال حل ألغاز Cloudents </value>
+    <value>استعد للامتحانات من خلال حل ألغاز Spitball </value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>السابق</value>
@@ -584,7 +584,7 @@
     <value>لماذا لا تُجرِّب؟ حظاً موفقاً!</value>
   </data>
   <data name="UseMaterial" xml:space="preserve">
-    <value> استخدم المواد أو الوثائق التعليمية الخاصة بك الموجودة بالفعل على Cloudents</value>
+    <value> استخدم المواد أو الوثائق التعليمية الخاصة بك الموجودة بالفعل على Spitball</value>
   </data>
   <data name="Choose" xml:space="preserve">
     <value>اختار

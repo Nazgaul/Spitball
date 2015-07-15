@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using NHibernate.Event;
 using NHibernate.Persister.Entity;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Data.Events
 {

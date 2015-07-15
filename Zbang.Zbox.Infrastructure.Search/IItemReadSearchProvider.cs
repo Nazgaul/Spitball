@@ -12,6 +12,6 @@ namespace Zbang.Zbox.Infrastructure.Search
 
     public interface IItemReadSearchProvider2 : IItemReadSearchProvider
     {
-        
+        Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken);
     }
 }

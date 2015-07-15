@@ -41,42 +41,50 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IEncryptObject> m_EncryptObject;
         private readonly ApplicationUserManager m_UserManager;
         private readonly IAuthenticationManager m_AuthenticationManager;
-        
+        private readonly ICookieHelper m_CookieHelper;
+        private readonly ILanguageCookieHelper m_LanguageCookie;
+
+
         public AccountController(
            Lazy<IFacebookService> facebookService,
            Lazy<IQueueProvider> queueProvider,
            Lazy<IEncryptObject> encryptObject,
            ApplicationUserManager userManager,
-        IAuthenticationManager authenticationManager
-           )
+        IAuthenticationManager authenticationManager, ICookieHelper cookieHelper, ILanguageCookieHelper languageCookie)
         {
             m_FacebookService = facebookService;
             m_QueueProvider = queueProvider;
             m_EncryptObject = encryptObject;
             m_UserManager = userManager;
             m_AuthenticationManager = authenticationManager;
+            m_CookieHelper = cookieHelper;
+            m_LanguageCookie = languageCookie;
         }
 
 
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
-        [DonutOutputCache(VaryByParam = "lang;invId", VaryByCustom = CustomCacheKeys.Lang,
+        [DonutOutputCache(VaryByParam = "lang;invId", VaryByCustom = CustomCacheKeys.Lang +";" + CustomCacheKeys.Url,
             Duration = TimeConsts.Day,
             Location = OutputCacheLocation.Server, Order = 2)]
         [RedirectToMobile(Order = 1)]
         public ActionResult Index(string lang, string invId)
         {
-          
+            if (!string.IsNullOrEmpty(lang))
+            {
+                m_LanguageCookie.InjectCookie(lang);
+                RouteData.Values.Remove("lang");
+                return RedirectToAction("Index", new { invId });
+            }
             if (!string.IsNullOrEmpty(invId))
             {
                 var guid = GuidEncoder.TryParseNullableGuid(invId);
                 if (guid.HasValue)
                 {
-                    var h = new CookieHelper(HttpContext);
-                    h.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
+                    m_CookieHelper.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
                 }
             }
-           
+
             ViewBag.title = Views.Account.Resources.HomeResources.Title;
             ViewBag.metaDescription = Views.Account.Resources.HomeResources.Description;
             return View("Empty");
@@ -97,46 +105,44 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var cookie = new CookieHelper(HttpContext);
                 var isNew = false;
                 var facebookUserData = await m_FacebookService.Value.FacebookLogIn(model.Token);
                 if (facebookUserData == null)
                 {
                     return JsonError(new { error = AccountControllerResources.FacebookGetDataError });
                 }
-                var query = new GetUserByFacebookQuery(facebookUserData.id);
+                var query = new GetUserByFacebookQuery(facebookUserData.Id);
                 LogInUserDto user = await ZboxReadService.GetUserDetailsByFacebookId(query);
                 if (user == null)
                 {
 
-                    var inv = cookie.ReadCookie<Invite>(Invite.CookieName);
+                    var inv = m_CookieHelper.ReadCookie<Invite>(Invite.CookieName);
                     Guid? invId = null;
                     if (inv != null)
                     {
                         invId = inv.InviteId;
                     }
-                    var command = new CreateFacebookUserCommand(facebookUserData.id, facebookUserData.email,
+                    var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
                         facebookUserData.Image, facebookUserData.LargeImage, model.UniversityId,
-                        facebookUserData.first_name,
-                        facebookUserData.middle_name,
-                        facebookUserData.last_name,
+                        facebookUserData.First_name,
+                        facebookUserData.Middle_name,
+                        facebookUserData.Last_name,
                         facebookUserData.GetGender(),
-                        facebookUserData.locale, invId, model.BoxId, false);
+                        facebookUserData.Locale, invId, model.BoxId, false);
                     var commandResult = await ZboxWriteService.CreateUserAsync(command);
                     user = new LogInUserDto
                     {
                         Id = commandResult.User.Id,
                         Culture = commandResult.User.Culture,
                         Image = facebookUserData.Image,
-                        Name = facebookUserData.name,
+                        Name = facebookUserData.Name,
                         UniversityId = commandResult.UniversityId,
                         UniversityData = commandResult.UniversityData,
                         Score = commandResult.User.Reputation
                     };
                     isNew = true;
                 }
-                SiteExtension.UserLanguage.InsertCookie(user.Culture, HttpContext);
-
+                m_LanguageCookie.InjectCookie(user.Culture);
                 var identity = new ClaimsIdentity(new List<Claim>
                 {
                     new Claim(ClaimConsts.UserIdClaim, user.Id.ToString(CultureInfo.InvariantCulture)),
@@ -156,7 +162,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
                 m_AuthenticationManager.SignIn(identity);
-                cookie.RemoveCookie(Invite.CookieName);
+                m_CookieHelper.RemoveCookie(Invite.CookieName);
                 return JsonOk(new { isnew = isNew, url = Url.RouteUrl("LibraryDesktop", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }) });
             }
             catch (ArgumentException)
@@ -215,9 +221,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     var identity = await user.GenerateUserIdentityAsync(m_UserManager, systemUser.Id,
                         systemUser.UniversityId, systemUser.UniversityData);
                     m_AuthenticationManager.SignIn(identity);
-                    var cookie = new CookieHelper(HttpContext);
-                    cookie.RemoveCookie(Invite.CookieName);
-                    SiteExtension.UserLanguage.InsertCookie(systemUser.Culture, HttpContext);
+
+                    m_CookieHelper.RemoveCookie(Invite.CookieName);
+                    m_LanguageCookie.InjectCookie(systemUser.Culture);
 
                     var url = systemUser.UniversityId.HasValue
                         ? Url.Action("Index", "Dashboard")
@@ -276,8 +282,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                var cookie = new CookieHelper(HttpContext);
-                var inv = cookie.ReadCookie<Invite>(Invite.CookieName);
+                var inv = m_CookieHelper.ReadCookie<Invite>(Invite.CookieName);
                 // Guid userProviderKey;
 
                 var user = new ApplicationUser
@@ -297,7 +302,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         invId = inv.InviteId;
                     }
-                    var lang = cookie.ReadCookie<string>(SiteExtension.UserLanguage.CookieName);
+                    var lang = m_LanguageCookie.ReadCookie();
                     if (!Languages.CheckIfLanguageIsSupported(lang))
                     {
                         lang = Thread.CurrentThread.CurrentCulture.Name;
@@ -308,7 +313,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         !model.IsMale.HasValue || model.IsMale.Value,
                         lang, invId, model.BoxId, false);
                     var result = await ZboxWriteService.CreateUserAsync(command);
-                    SiteExtension.UserLanguage.InsertCookie(result.User.Culture, HttpContext);
+                    m_LanguageCookie.InjectCookie(result.User.Culture);
 
                     var identity = await user.GenerateUserIdentityAsync(m_UserManager, result.User.Id, result.UniversityId,
                          result.UniversityData);
@@ -316,7 +321,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     m_AuthenticationManager.SignIn(identity);
 
 
-                    cookie.RemoveCookie(Invite.CookieName);
+                    m_CookieHelper.RemoveCookie(Invite.CookieName);
                     return
                         JsonOk(
                             Url.RouteUrl("LibraryDesktop", new { returnUrl = CheckIfToLocal(model.ReturnUrl), @new = "true" }));
@@ -373,8 +378,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonError(AccountControllerResources.ChangeEmailCodeError);
             }
-            var httpCookie = new CookieHelper(HttpContext);
-            var model = httpCookie.ReadCookie<ChangeMail>(SessionKey);
+            var model = m_CookieHelper.ReadCookie<ChangeMail>(SessionKey);
             //var model = TempData[SessionKey] as ChangeMail;
             if (model == null)
             {
@@ -398,7 +402,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonError(ex.Message);
             }
-            httpCookie.RemoveCookie(SessionKey);
+            m_CookieHelper.RemoveCookie(SessionKey);
             //Session.Remove(SessionKey);
             return JsonOk(model.Email);
         }
@@ -417,8 +421,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var generatedCode = rand.Next(10000, 99999);
                 model.Code = generatedCode;
                 model.TimeOfExpire = DateTime.UtcNow.AddHours(3);
-                var httpCookie = new CookieHelper(HttpContext);
-                httpCookie.InjectCookie(SessionKey, model);
+                m_CookieHelper.InjectCookie(SessionKey, model);
                 //TempData[SessionKey] = model;
                 //Session[SessionKey] = model;
 
@@ -568,14 +571,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var id = User.GetUserId();
             var command = new UpdateUserLanguageCommand(id, model.Language);
             ZboxWriteService.UpdateUserLanguage(command);
-            SiteExtension.UserLanguage.InsertCookie(model.Language, HttpContext);
+            m_LanguageCookie.InjectCookie(model.Language);
             return JsonOk();
         }
 
         [HttpPost]
         public JsonResult ChangeLocale(string language)
         {
-            SiteExtension.UserLanguage.InsertCookie(language, HttpContext);
+            m_LanguageCookie.InjectCookie(language);
             return JsonOk();
         }
 
@@ -628,7 +631,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
                     return View(model);
                 }
-                
+
                 var user = tUser.Result;
                 //var tResult = ZboxReadService.GetUserDetailsByMembershipId(query);
                 var identitylinkData = await m_UserManager.GeneratePasswordResetTokenAsync(user.Id);
@@ -724,7 +727,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost]
-        [System.Web.Mvc.ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> PasswordUpdate([ModelBinder(typeof(TrimModelBinder))] NewPassword model, string key)
         {
             if (!ModelState.IsValid)
@@ -748,6 +751,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var tSystemUser = ZboxReadService.GetUserDetailsByMembershipId(query);
 
                 var tUser = m_UserManager.FindByIdAsync(data.MembershipUserId.ToString());
+                
                 await Task.WhenAll(tSystemUser, tUser);
 
                 var identity = await tUser.Result.GenerateUserIdentityAsync(m_UserManager, tSystemUser.Result.Id,
@@ -757,19 +761,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             ModelState.AddModelError(string.Empty, "something went wrong, try again later");
             return View(model);
-            //m_MembershipService.Value.ResetPassword(data.MembershipUserId, model.Password);
-
-            //var query = new GetUserByMembershipQuery(data.MembershipUserId);
-            //var result = await ZboxReadService.GetUserDetailsByMembershipId(query);
-            //SiteExtension.UserLanguage.InsertCookie(result.Culture, HttpContext);
-            //FormsAuthenticationService.SignIn(result.Id, false,
-            //    new UserDetail(
-            //        result.UniversityId,
-            //        result.UniversityData
-            //        ));
-
-
-
         }
 
 

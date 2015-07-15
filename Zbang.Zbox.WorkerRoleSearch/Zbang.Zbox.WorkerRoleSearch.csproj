@@ -80,6 +80,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IocFactory.cs" />
     <Compile Include="UpdateSearch.cs" />
+    <Compile Include="UpdateSearchBox.cs" />
+    <Compile Include="UpdateSearchQuiz.cs" />
+    <Compile Include="UpdateSearchUniversity.cs" />
     <Compile Include="WorkerRole.cs" />
   </ItemGroup>
   <ItemGroup>

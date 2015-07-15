@@ -121,7 +121,7 @@
     <value>关闭</value>
   </data>
   <data name="step1Header" xml:space="preserve">
-    <value>欢迎来到 Cloudents</value>
+    <value>欢迎来到 Spitball</value>
   </data>
   <data name="step1Text" xml:space="preserve">
     <value>和你的同学一起学习、分享及沟通的平台</value>
@@ -160,7 +160,7 @@
     <value>与朋友分享</value>
   </data>
   <data name="step4InviteText" xml:space="preserve">
-    <value>Cloudents 最适合与你的朋友分享，马上邀请他们加入吧</value>
+    <value>Spitball 最适合与你的朋友分享，马上邀请他们加入吧</value>
   </data>
   <data name="step4InviteTitle" xml:space="preserve">
     <value>邀请</value>

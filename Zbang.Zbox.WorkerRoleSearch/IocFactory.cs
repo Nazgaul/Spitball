@@ -24,6 +24,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public const string EmailPartners = "EmailPartners";
         public const string UpdateSearch = "UpdateSearch";
+        public const string UpdateSearchBox = "UpdateSearchBox";
+        public const string UpdateSearchQuiz = "UpdateSearchQuiz";
+        public const string UpdateSearchUniversity = "UpdateSearchUniversity";
 
         public Zbang.Zbox.Infrastructure.Ioc.IocFactory Unity { get; private set; }
         public IocFactory()
@@ -70,6 +73,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //Unity.RegisterType<IJob, StoreDataSync>(Product);
             //Unity.RegisterType<IJob, ProcessStoreOrder>(StoreOrder);
             Unity.RegisterType<IJob, UpdateSearch>(UpdateSearch);
+            Unity.RegisterType<IJob, UpdateSearchBox>(UpdateSearchBox);
+            Unity.RegisterType<IJob, UpdateSearchQuiz>(UpdateSearchQuiz);
+            Unity.RegisterType<IJob, UpdateSearchUniversity>(UpdateSearchUniversity);
 
             //Unity.RegisterType<IMail2, Welcome>(BaseMailData.WelcomeResolver);
             //Unity.RegisterType<IMail2, Invite2>(BaseMailData.InviteResolver);

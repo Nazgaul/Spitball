@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Quiz;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.SiteExtension;
-using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Domain.Commands.Quiz;
@@ -69,12 +67,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var culture = Languages.GetCultureBaseOnCountry(model.Country);
                 BaseControllerResources.Culture = culture;
-                ViewBag.title = string.Format("{0} {1} | {2} {3} | {4} | {5}", BaseControllerResources.QuizTitlePrefix,
-                    model.Name,
-                    BaseControllerResources.QuizTitleText,
-                    model.BoxName,
-                    model.UniversityName,
-                    BaseControllerResources.Cloudents);
+                ViewBag.title = string.Format("{0} | {1} | {2} | {3} | {4}",
+                   model.BoxName, model.Name, model.DepartmentName, model.UniversityName, BaseControllerResources.Cloudents);
+
                 ViewBag.metaDescription = Zbox.Infrastructure.TextManipulation.RemoveHtmlTags.Replace(model.FirstQuestion, string.Empty);
                 return View("Empty");
             }

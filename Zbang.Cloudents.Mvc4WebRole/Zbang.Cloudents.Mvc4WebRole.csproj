@@ -309,7 +309,6 @@
     <Compile Include="Filters\PreserveQueryStringAttribute.cs" />
     <Compile Include="Filters\RedirectToMobileAttribute.cs" />
     <Compile Include="Filters\NoUniversityAttribute.cs" />
-    <Compile Include="Filters\ValidateAntiForgeryTokenAttribute.cs" />
     <Compile Include="Filters\ZboxHandleErrorAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -321,6 +320,8 @@
     <Compile Include="Helpers\CustomCacheKeys.cs" />
     <Compile Include="Helpers\JsonResponse.cs" />
     <Compile Include="Helpers\JsResourceHelper.cs" />
+    <Compile Include="Helpers\LanguageCookieHelper.cs" />
+    <Compile Include="Helpers\LanguageMiddleware.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlCodeGenerator.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlWebRazorHostFactory.cs" />
     <Compile Include="Helpers\NullGuidConstrait.cs" />
@@ -689,6 +690,12 @@
     <Content Include="Content\Letter.rtl.css">
       <DependentUpon>Letter.css</DependentUpon>
     </Content>
+    <Content Include="Content\Mobile.css">
+      <DependentUpon>Mobile.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Mobile.rtl.css">
+      <DependentUpon>Mobile.css</DependentUpon>
+    </Content>
     <Content Include="Content\Modal.css">
       <DependentUpon>Modal.less</DependentUpon>
     </Content>
@@ -781,25 +788,52 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Images\android-download.png" />
-    <Content Include="Images\app_store.png" />
+    <Content Include="Images\HomePage\academic.png" />
+    <Content Include="Images\HomePage\app_store.png" />
     <Content Include="Images\app_store_small.png" />
-    <Content Include="Images\back-icon.png" />
-    <Content Include="Images\back_back.png" />
     <Content Include="Images\bg6.jpg" />
     <Content Include="Images\boxIcons.svg" />
     <Content Include="Images\common27-sprite.png" />
-    <Content Include="Images\google_play.png" />
+    <Content Include="Images\HomePage\google_play.png" />
     <Content Include="Images\google_play_small.png" />
     <Content Include="Images\gradient-arrow.png" />
     <Content Include="Images\hiring.png" />
-    <Content Include="Images\hp26-sprite.png" />
-    <Content Include="Images\mobile-cloudents-en.png" />
-    <Content Include="Images\mobile-cloudents-heb.png" />
-    <Content Include="Images\mobile-cloudents-ru.png" />
+    <Content Include="Images\HomePage\achva.png" />
+    <Content Include="Images\HomePage\asva.png" />
+    <Content Include="Images\HomePage\avaibleEverywhere.png" />
+    <Content Include="Images\HomePage\berel.png" />
+    <Content Include="Images\HomePage\gsb.png" />
+    <Content Include="Images\HomePage\haGlobe.png" />
+    <Content Include="Images\HomePage\HomePageBottom.png">
+      <DependentUpon>HomePageBottom.sprite</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageBottom.png.css">
+      <DependentUpon>HomePageBottom.png</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageTop.png">
+      <DependentUpon>HomePageTop.sprite</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageTop.png.css">
+      <DependentUpon>HomePageTop.png</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\idius.png" />
+    <Content Include="Images\HomePage\openU.png" />
+    <Content Include="Images\HomePage\peres.png" />
+    <Content Include="Images\HomePage\questionAndAnswers.png" />
+    <Content Include="Images\HomePage\srvu.png" />
+    <Content Include="Images\HomePage\watchAndShare.png" />
+    <Content Include="Images\HomePage\logo1.png" />
+    <Content Include="Images\logo2.png" />
+    <Content Include="Images\Mobile\app_store.png" />
+    <Content Include="Images\Mobile\bg%402x.png" />
+    <Content Include="Images\Mobile\bg%403x.png" />
+    <Content Include="Images\Mobile\bg.png" />
+    <Content Include="Images\Mobile\google_play.png" />
+    <Content Include="Images\spitball_invite_off.png" />
+    <Content Include="Images\spitball_invite_on.png" />
+    <Content Include="Images\spitball_logo_mobile.png" />
     <Content Include="Images\Store\ball.png" />
     <Content Include="Images\big-quiz.png" />
-    <Content Include="Images\books.png" />
     <Content Include="Images\box18-sprite.png" />
     <Content Include="Images\browsers-sprite.png" />
     <Content Include="Images\Store\cal.png" />
@@ -809,17 +843,12 @@
     <Content Include="Images\Store\category.png.css">
       <DependentUpon>category.png</DependentUpon>
     </Content>
-    <Content Include="Images\cb1.png" />
     <Content Include="Images\Store\chair.png" />
     <Content Include="Images\checkbox-sprite1.png" />
     <Content Include="Images\close.png" />
     <Content Include="Images\cloudents-share-FB-1.png" />
     <Content Include="Images\cloudents-share-FB.png" />
-    <Content Include="Images\cloudents-share-Quiz.png" />
-    <Content Include="Images\cloudents1-114x114.png" />
-    <Content Include="Images\cloudents1-144x144.png" />
     <Content Include="Images\cloudents1-57x57.png" />
-    <Content Include="Images\cloudents1-72x72.png" />
     <Content Include="Images\cloudents.png" />
     <Content Include="Images\code-icon1.png" />
     <Content Include="Images\Store\computer.png" />
@@ -827,40 +856,22 @@
     <Content Include="Images\Store\covers.png" />
     <Content Include="Images\dash13-sprite.png" />
     <Content Include="Images\dashboardEmpty-sprite.png" />
-    <Content Include="Images\department.png" />
     <Content Include="Images\Store\dic.png" />
-    <Content Include="Images\document.png" />
     <Content Include="Images\drive_upload.png" />
     <Content Include="Images\earth.png" />
     <Content Include="Images\Store\eco.png" />
-    <Content Include="Images\friends_cloudents_black.png" />
-    <Content Include="Images\friends_cloudents_green.png" />
-    <Content Include="Images\friends_facebook_black.png" />
-    <Content Include="Images\friends_facebook_blue.png" />
-    <Content Include="Images\friends_gmail_black.png" />
-    <Content Include="Images\friends_gmail_red.png" />
     <Content Include="Images\Store\house.png" />
-    <Content Include="Images\hp18-sprite.png" />
-    <Content Include="Images\icon_doc.png" />
-    <Content Include="Images\icon_man.png" />
     <Content Include="Images\iframeBg.png" />
     <Content Include="Images\invite-sprite.png" />
     <Content Include="Images\item13-sprite.png" />
-    <Content Include="Images\loader.png" />
     <Content Include="Images\loader1.gif" />
     <Content Include="Images\loader1.png" />
     <Content Include="Images\loader2.gif" />
-    <Content Include="Images\loader3.gif" />
-    <Content Include="Images\loading-media.gif" />
     <Content Include="Images\loading-media.png" />
     <Content Include="Images\Store\martini.png" />
     <Content Include="Images\members-only.png" />
     <Content Include="Images\no-preview.png" />
-    <Content Include="Images\nopreview_empty.png" />
-    <Content Include="Images\no_results_icon.png" />
-    <Content Include="Images\placeholder_user_img.png" />
     <Content Include="Images\points-Bg.png" />
-    <Content Include="Images\pointsBg.png" />
     <Content Include="Images\Store\printers.png" />
     <Content Include="Images\QnA-sprite.png" />
     <Content Include="Images\quiz-correct.png" />
@@ -879,12 +890,7 @@
     <Content Include="Images\quizSprite.png.css">
       <DependentUpon>quizSprite.png</DependentUpon>
     </Content>
-    <Content Include="Images\radio-btn.png" />
     <Content Include="Images\radioBtn.png" />
-    <Content Include="Images\request-sent.png" />
-    <Content Include="Images\search2.png" />
-    <Content Include="Images\share-quiz.png" />
-    <Content Include="Images\share_white.png" />
     <Content Include="Images\site.png">
       <DependentUpon>site.sprite</DependentUpon>
     </Content>
@@ -892,7 +898,6 @@
       <DependentUpon>site.png</DependentUpon>
     </Content>
     <Content Include="Images\Store\smartphone.png" />
-    <Content Include="Images\sprite_browsericons.png" />
     <Content Include="Images\Store\close.png" />
     <Content Include="Images\Store\envelop.png" />
     <Content Include="Images\Store\fb-off.png" />
@@ -914,13 +919,10 @@
     <Content Include="Images\students.jpg" />
     <Content Include="Images\studentUnion.png" />
     <Content Include="Images\textEditor.svg" />
-    <Content Include="Images\trash.png" />
     <Content Include="Images\tt-sprite.png" />
     <Content Include="Images\Store\tv.png" />
     <Content Include="Images\uni_logo.png" />
-    <Content Include="Images\upload.png" />
     <Content Include="Images\upload15-sprite.png" />
-    <Content Include="Images\user-gmail-pic.jpg" />
     <Content Include="Images\user-icon.png" />
     <Content Include="Images\user.svg" />
     <Content Include="Images\user13-sprite.png" />
@@ -1124,6 +1126,27 @@
     <Content Include="Content\lang.ar-AE.less" />
     <Content Include="Content\Letter.less" />
     <Content Include="Content\RtlFix.less" />
+    <Content Include="Images\HomePage\HomePageTop.sprite" />
+    <Content Include="Images\HomePage\HomePageTop.png.map">
+      <DependentUpon>HomePageTop.png</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageTop.png.less">
+      <DependentUpon>HomePageTop.png</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageTop.png.scss">
+      <DependentUpon>HomePageTop.png</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageBottom.sprite" />
+    <Content Include="Images\HomePage\HomePageBottom.png.map">
+      <DependentUpon>HomePageBottom.png</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageBottom.png.less">
+      <DependentUpon>HomePageBottom.png</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageBottom.png.scss">
+      <DependentUpon>HomePageBottom.png</DependentUpon>
+    </Content>
+    <Content Include="Content\Mobile.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1155,6 +1178,8 @@
     <Content Include="Scripts\angulartics-ga.min.js" />
     <Content Include="Scripts\angulartics.js" />
     <Content Include="Scripts\angulartics.min.js" />
+    <Content Include="Scripts\browser-deeplink.js" />
+    <Content Include="Scripts\browser-deeplink.min.js" />
     <Content Include="Scripts\CountUp.js" />
     <Content Include="Scripts\angular-debounce.js" />
     <Content Include="Scripts\angular-draganddrop.js" />
@@ -2032,6 +2057,7 @@
     <Content Include="Views\Shared\Partials\_DashLibItem.cshtml" />
     <Content Include="Views\Shared\Partials\_SearchTemplate.cshtml" />
     <Content Include="Views\Home\Jobs.cshtml" />
+    <Content Include="Views\Home\MobileApp.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

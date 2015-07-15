@@ -1,7 +1,4 @@
 ﻿/*#region variables */
-.test {
-  color: #064789;
-}
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -164,7 +161,7 @@
   width: 100%;
   height: 100%;
   position: fixed;
-  top: 50px;
+  top: 65px;
   right: 243px;
   z-index: 5;
   background: rgba(17, 17, 17, 0.7);

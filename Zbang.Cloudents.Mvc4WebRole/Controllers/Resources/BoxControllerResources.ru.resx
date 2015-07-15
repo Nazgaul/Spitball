@@ -126,9 +126,6 @@
   <data name="LinkExists" xml:space="preserve">
     <value>Эта ссылка уже существует</value>
   </data>
-  <data name="MetaDescription" xml:space="preserve">
-    <value>Учитесь и делитесь своими классовыми заметками по {0} {1} {2}, онлайн или по вашему телефону через Cloudents.</value>
-  </data>
   <data name="NoFilesReceived" xml:space="preserve">
     <value>Файлы не получены
 </value>

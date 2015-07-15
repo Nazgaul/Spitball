@@ -24,8 +24,6 @@ namespace Zbang.Cloudents.MobileApp2.Models
             Microsoft.WindowsAzure.Mobile.Service.ServiceSettingsDictionary settings)
         {
             Zbox.Infrastructure.Security.Startup.ConfigureAuth(appBuilder, false);
-            // Not Applicable - used for federated identity flows
-            //return;
         }
 
         public override ProviderCredentials CreateCredentials(ClaimsIdentity claimsIdentity)

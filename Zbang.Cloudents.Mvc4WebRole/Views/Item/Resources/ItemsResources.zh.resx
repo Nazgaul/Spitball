@@ -175,7 +175,7 @@
     <value>请使用</value>
   </data>
   <data name="PreviewFailed" xml:space="preserve">
-    <value>Cloudents 不支持这些该文件类型的预览。 请使用</value>
+    <value>Spitball 不支持这些该文件类型的预览。 请使用</value>
   </data>
   <data name="PreviewFailed2" xml:space="preserve">
     <value>选项以查看。</value>
@@ -196,7 +196,7 @@
     <value>评价该项</value>
   </data>
   <data name="SecurityReasons" xml:space="preserve">
-    <value>因存在安全隐患，该链接无法在 Cloudents 里面打开</value>
+    <value>因存在安全隐患，该链接无法在 Spitball 里面打开</value>
   </data>
   <data name="SendMsg" xml:space="preserve">
     <value>发送消息</value>

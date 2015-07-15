@@ -142,7 +142,7 @@
     <value>By union departments</value>
   </data>
   <data name="FindCourses" xml:space="preserve">
-    <value>Search or browse Cloudents to find the classes you study</value>
+    <value>Search or browse Spitball to find the classes you study</value>
   </data>
   <data name="FindingCourses" xml:space="preserve">
     <value>Finding your classes of
@@ -274,7 +274,7 @@ quizzes</value>
     <value>Recommended classes</value>
   </data>
   <data name="SearchCloudents" xml:space="preserve">
-    <value>Search your friends on Cloudents</value>
+    <value>Search your friends on Spitball</value>
   </data>
   <data name="SearchFb" xml:space="preserve">
     <value>Search Facebook friends </value>
@@ -291,7 +291,7 @@ your classmates</value>
 textbooks</value>
   </data>
   <data name="WelcomeCloudents" xml:space="preserve">
-    <value>Welcome to Cloudents</value>
+    <value>Welcome to Spitball</value>
   </data>
   <data name="FreeOnline" xml:space="preserve">
     <value>The free online and mobile social studying platform</value>

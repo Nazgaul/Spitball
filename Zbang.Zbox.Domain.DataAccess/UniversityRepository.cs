@@ -54,8 +54,12 @@ namespace Zbang.Zbox.Domain.DataAccess
                         order by Row desc");
             sqlQuery.SetInt64("id", universityId);
             
-            var retVal = sqlQuery.UniqueResult<int>();
-            return retVal;
+            var retVal = sqlQuery.UniqueResult<int?>();
+            if (!retVal.HasValue)
+            {
+                return int.MaxValue;
+            }
+            return retVal.Value;
         }
 
 

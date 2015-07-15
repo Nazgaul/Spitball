@@ -98,7 +98,18 @@ namespace Zbang.Zbox.Infrastructure.File
                     {
                         using (var img = pptx.Slides[0].GetThumbnail(1, 1))
                         {
+                            var ms = new MemoryStream();
+                            img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            return ms;
+                        }
 
+                    }, () => ExtractStringFromPpt(pptx)
+                    , () => pptx.Slides.Count, CacheVersion, () =>
+                    {
+
+                        using (var img = pptx.Slides[0].GetThumbnail(1, 1))
+                        {
+                            var output = new MemoryStream();
                             var settings = new ResizeSettings
                             {
                                 Scale = ScaleMode.UpscaleCanvas,
@@ -110,52 +121,15 @@ namespace Zbang.Zbox.Infrastructure.File
                                 Quality = 80,
                                 Format = "jpg"
                             };
-
-                            // ImageResizer.ImageBuilder.Current.Build(img, outputFileName + "2.jpg", settings);
-
-                            var output = new MemoryStream();
-
                             ImageBuilder.Current.Build(img, output, settings);
                             return output;
                         }
+                       
+                       
 
-                    }, () => ExtractStringFromPpt(pptx)
-                    , () => pptx.Slides.Count, CacheVersion);
-                    //using (var img = pptx.Slides[0].GetThumbnail(1, 1))
-                    //{
-
-                    //    var settings = new ResizeSettings
-                    //    {
-                    //        Scale = ScaleMode.UpscaleCanvas,
-                    //        Anchor = ContentAlignment.MiddleCenter,
-                    //        BackgroundColor = Color.White,
-                    //        Mode = FitMode.Crop,
-                    //        Width = ThumbnailWidth,
-                    //        Height = ThumbnailHeight,
-                    //        Quality = 80,
-                    //        Format = "jpg"
-                    //    };
-
-                    //    // ImageResizer.ImageBuilder.Current.Build(img, outputFileName + "2.jpg", settings);
-
-                    //    using (var output = new MemoryStream())
-                    //    {
-                    //        ImageBuilder.Current.Build(img, output, settings);
-                    //        var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) +
-                    //                                      ".thumbnailV3.jpg";
-                    //        var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg", cancelToken);
-                    //        var pptContent = ExtractStringFromPpt(pptx);
-
-                    //        var t2 = UploadMetaData(pptContent, blobName);
-
-                    //        await Task.WhenAll(t1, t2);
-                    //        return new PreProcessFileResult
-                    //        {
-                    //            ThumbnailName = thumbnailBlobAddressUri,
-                    //            FileTextContent = pptContent
-                    //        };
-                    //    }
-                    //}
+                       
+                       
+                    });
                 }
             }
             catch (Exception ex)

@@ -127,18 +127,19 @@ namespace Zbang.Zbox.Infrastructure.Search
                         query.UniversityId, query.UserId),
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
-                //HighlightFields = new[] { ProfessorField, CourseField, NameField },
-                Select = new[] { IdField, NameField, ProfessorField, CourseField, TypeFiled }
+                Select = new[] { IdField, NameField, ProfessorField, CourseField, TypeFiled },
+                HighlightFields = new[] { NameField },
+               // HighlightPreTag = "<b>",
+               // HighlightPostTag = "</b>"
             }, cancelToken);
-            return result.Select(s => new SearchBoxes(
-                SeachConnection.ConvertToType<long>(s.Document.Id),
-                HighLightInField(s, NameField, s.Document.Name),
-                HighLightInField(s, ProfessorField, s.Document.Professor),
-                HighLightInField(s, CourseField, s.Document.Course),
-                s.Document.Url,
-                s.Document.Name,
-                (BoxType)s.Document.Type.Value)
-            ).ToList();
+            return result.Select(s => new SearchBoxes
+            {
+                Id = long.Parse(s.Document.Id),
+                Name = HighLightInField(s, NameField, s.Document.Name),
+                Professor = s.Document.Professor,
+                CourseCode = s.Document.Course,
+                Type = (BoxType)s.Document.Type.Value
+            });
         }
 
         public async Task<IEnumerable<SearchBoxes>> SearchBox(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
@@ -160,7 +161,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 HighLightInField(s, ProfessorField, s.Document.Professor),
                 HighLightInField(s, CourseField, s.Document.Course),
                 s.Document.Url,
-                s.Document.Name,
+                //s.Document.Name,
                 (BoxType)s.Document.Type.Value)
             ).ToList();
         }

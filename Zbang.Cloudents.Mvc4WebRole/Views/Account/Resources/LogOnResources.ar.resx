@@ -136,7 +136,7 @@
     <value>الاتصال بحساب جديد </value>
   </data>
   <data name="ConnectCloudents" xml:space="preserve">
-    <value>الاتصال ب Cloudents</value>
+    <value>الاتصال ب Spitball</value>
   </data>
   <data name="ConnectHere" xml:space="preserve">
     <value>الاتصال هنا</value>
@@ -145,7 +145,7 @@
     <value>التسجيل الان</value>
   </data>
   <data name="CreateCloudents" xml:space="preserve">
-    <value>إنشاء حساب Cloudents مجانا</value>
+    <value>إنشاء حساب Spitball مجانا</value>
   </data>
   <data name="CreateNew" xml:space="preserve">
     <value>التسجيل كمستخدم جديد</value>

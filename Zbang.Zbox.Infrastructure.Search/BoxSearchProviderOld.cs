@@ -95,13 +95,20 @@ namespace Zbang.Zbox.Infrastructure.Search
             var commands = listOfCommands.ToArray();
             if (commands.Length > 0)
             {
-
-                var retVal = await m_Connection.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
-                if (!retVal.IsSuccess)
+                try
                 {
-                    TraceLog.WriteError("On update search" + retVal.Error.Message);
+                    var retVal = await m_Connection.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
+                    if (!retVal.IsSuccess)
+                    {
+                        TraceLog.WriteError("On update search" + retVal.Error.Message);
+                    }
+                    return retVal.IsSuccess;
                 }
-                return retVal.IsSuccess;
+                catch (Exception ex)
+                {
+                    TraceLog.WriteError("On update search" + ex);
+                    return false;
+                }
             }
             return true;
         }
@@ -157,8 +164,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                     SeachConnection.ConvertToType<string>(s.Properties[NameField]),
                     HighLightInField(s, ProfessorField),
                     HighLightInField(s, CourseField),
-                    SeachConnection.ConvertToType<string>(s.Properties[UrlField]),
-                    SeachConnection.ConvertToType<string>(s.Properties[NameField])
+                    SeachConnection.ConvertToType<string>(s.Properties[UrlField])
+                    //SeachConnection.ConvertToType<string>(s.Properties[NameField])
                    )).ToList();
             }
             return null;

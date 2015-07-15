@@ -46,6 +46,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     {
                         var quiz = m_QuizRepository.Load(itemId.ItemId);
                         quiz.UpdateNumberOfViews();
+                        quiz.ShouldMakeDirty = () => false;
                         m_QuizRepository.Save(quiz);
                     }
                     catch (ApplicationException ex)
@@ -60,8 +61,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     TraceLog.WriteInfo("itemId is null " + itemId);
                     continue;
                 }
-                
-                
+
+                item.ShouldMakeDirty = () => false;
 
                 if (itemId.Action == Infrastructure.Enums.StatisticsAction.View)
                 {

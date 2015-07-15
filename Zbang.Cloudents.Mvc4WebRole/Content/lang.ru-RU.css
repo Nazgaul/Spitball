@@ -1,7 +1,4 @@
 ﻿/*#region variables */
-.test {
-  color: #064789;
-}
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -42,15 +39,6 @@ q {
 .headingTexts .email {
   width: 302px;
 }
-/*.gradeback.gradeback {
-    h3 {
-        font-size: 25px;
-    }
-}*/
-/*#region home page*/
-/*.android {
-    background: url(/Images/mobile-cloudents-ru.png) no-repeat;
-}*/
 /*#endregion */
 /*#region dashLib page */
 .courseType .labelExplain {

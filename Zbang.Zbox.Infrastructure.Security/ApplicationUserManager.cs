@@ -1,21 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
 
 namespace Zbang.Zbox.Infrastructure.Security
 {
     public class ApplicationUserManager : UserManager<ApplicationUser>, IAccountService
     {
-        //public UserManager(IUserStore<ApplicationUser> store)
-        //    : base(store)
-        //{
-        //    PasswordHasher = new SqlPasswordHasher();
-        //}
-
-
 
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
             : base(store)
@@ -60,8 +51,13 @@ namespace Zbang.Zbox.Infrastructure.Security
 
             if (dataProtectionProvider != null)
             {
-                UserTokenProvider =
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                var protectorProvider = new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"))
+                {
+                    TokenLifespan = new TimeSpan(30, 0, 0, 0)
+                };
+
+                UserTokenProvider = protectorProvider;
+
             }
         }
         //public static UserManager Create(IdentityFactoryOptions<UserManager> options, IOwinContext context)

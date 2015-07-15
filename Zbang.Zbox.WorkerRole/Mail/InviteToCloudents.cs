@@ -29,7 +29,7 @@ namespace Zbang.Zbox.WorkerRole.Mail
             {
                 inviterEmail = MailParameters.DefaultEmail;
             }
-            var url = string.IsNullOrEmpty(parameters.Url) ? "https://www.cloudents.com" : parameters.Url;
+            var url = string.IsNullOrEmpty(parameters.Url) ? "https://www.spitball.co/" : parameters.Url;
             await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
               new InvitationToCloudentsMailParams(parameters.SenderName, userImage,
              new CultureInfo(parameters.Culture), inviterEmail, url));

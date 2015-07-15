@@ -118,7 +118,7 @@
                      case states.cloudents:
                          params = {
                              className: 'js-cloudState',
-                             placeholder: 'Search cloudents',
+                             placeholder: 'Search Spitball',
                              isConnected: true
                          };
 

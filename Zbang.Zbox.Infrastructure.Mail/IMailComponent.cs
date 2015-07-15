@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         Task GenerateAndSendEmailAsync(string recipient, MailParameters parameters);
         Task GenerateAndSendEmailAsync(IEnumerable<string> recipients, MailParameters parameters);
 
-        Task GenerateAndSendEmailAsync(IEnumerable<string> recipients, string mailContent);
+       
 
         Task DeleteUnsubscribeAsync(string email);
     }

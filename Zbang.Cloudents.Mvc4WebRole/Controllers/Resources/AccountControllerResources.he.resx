@@ -130,7 +130,7 @@
     <value>בעייה לקבל מיידע מפייסבוק</value>
   </data>
   <data name="FbRegisterError" xml:space="preserve">
-    <value>נרשמת לקלאודנטס דרך פייסבוק. יש לחזור לדף הבית וללחוץ על כפתור הרשמה דרך פייסבוק</value>
+    <value>נרשמת לSpitball דרך פייסבוק. יש לחזור לדף הבית וללחוץ על כפתור הרשמה דרך פייסבוק</value>
   </data>
   <data name="LogonError" xml:space="preserve">
     <value>שם משתמש או סיסמא שגויים</value>

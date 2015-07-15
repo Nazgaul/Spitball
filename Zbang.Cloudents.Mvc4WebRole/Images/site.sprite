@@ -22,29 +22,34 @@
   </settings>
   <!--The order of the <file> elements determines the order of the images in the sprite.-->
   <files>
-    <file>/Images/back_back.png</file>
-    <file>/Images/books.png</file>
+    <!--<file>/Images/back_back.png</file>-->
+    <!--<file>/Images/books.png</file>-->
     <file>/Images/close.png</file>
     <file>/Images/course.png</file>
-    <file>/Images/department.png</file>
-    <file>/Images/document.png</file>
+    <!--<file>/Images/department.png</file>-->
+    <!--<file>/Images/document.png</file>-->
     <file>/Images/drive_upload.png</file>
-    <file>/Images/friends_cloudents_black.png</file>
-    <file>/Images/friends_cloudents_green.png</file>
-    <file>/Images/friends_facebook_black.png</file>
-    <file>/Images/friends_facebook_blue.png</file>
-    <file>/Images/friends_gmail_black.png</file>
-    <file>/Images/friends_gmail_red.png</file>
-    <file>/Images/placeholder_user_img.png</file>
-    <file>/Images/share_white.png</file>
+    <!--<file>/Images/friends_cloudents_black.png</file>-->
+    <!--<file>/Images/friends_cloudents_green.png</file>-->
+    <!--<file>/Images/friends_facebook_black.png</file>-->
+    <!--<file>/Images/friends_facebook_blue.png</file>-->
+    <!--<file>/Images/friends_gmail_black.png</file>-->
+    <!--<file>/Images/friends_gmail_red.png</file>-->
+    <!--<file>/Images/placeholder_user_img.png</file>-->
+    <!--<file>/Images/share_white.png</file>-->
     <file>/Images/uni_logo.png</file>
-    <file>/Images/upload.png</file>
+    <!--<file>/Images/upload.png</file>-->
     <file>/Images/web_upload.png</file>
-    <file>/Images/quiz.png</file>
-    <file>/Images/icon_doc.png</file>
-    <file>/Images/icon_man.png</file>
-    <file>/Images/no_results_icon.png</file>
+    <!--<file>/Images/quiz.png</file>-->
+    <!--<file>/Images/icon_doc.png</file>-->
+    <!--<file>/Images/icon_man.png</file>-->
+    <!--<file>/Images/no_results_icon.png</file>-->
     <file>/Images/earth.png</file>
-    <file>/Images/back-icon.png</file>
+    <!--<file>/Images/back-icon.png</file>-->
+    <file>/Images/logo2.png</file>
+
+    <file>/Images/spitball_invite_off.png</file>
+    <file>/Images/spitball_invite_on.png</file>
+  
   </files>
 </sprite>

@@ -5,10 +5,14 @@ using System.Text;
 using System.IO;
 using System.Configuration;
 using System.Xml.Linq;
+using Autofac;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Mail.EmailParameters;
+using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Search;
 
 using Zbang.Zbox.ViewModel.Queries;
@@ -50,7 +54,7 @@ namespace Testing
             using (var sr = File.Open(@"C:\Users\Ram\Desktop\jobs.xml", FileMode.Open))
             {
                 var doc = XDocument.Load(sr);
-                var y = doc.Descendants("job").Select(s=>
+                var y = doc.Descendants("job").Select(s =>
                 {
                     var offer = string.Empty;
                     var offerElement = s.Element("offer");
@@ -111,7 +115,7 @@ namespace Testing
             }
         }
 
-       
+
 
         static void Main(string[] args)
         {
@@ -119,7 +123,7 @@ namespace Testing
                 "https://www.cloudents.com/course/%D7%94%D7%9E%D7%A1%D7%9C%D7%95%D7%9C-%D7%94%D7%90%D7%A7%D7%93%D7%9E%D7%99-%D7%94%D7%9E%D7%9B%D7%9C%D7%9C%D7%94-%D7%9C%D7%9E%D7%A0%D7%94%D7%9C/60075/%D7%9E%D7%A0%D7%94%D7%9C-%D7%A2%D7%A1%D7%A7%D7%99%D7%9D/#feed";
 
             var uri = new Uri(str);
-           
+
 
             //GetXml();
             //HatavotWrite();
@@ -175,18 +179,24 @@ namespace Testing
 
             //DownloadFromDropBox();
             //TestVerifyAccountKey();
+            var unity = IocFactory.IocWrapper;
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();
             Zbang.Zbox.Domain.Services.RegisterIoc.Register();
 
-            Zbang.Zbox.ReadServices.RegisterIoc.Register();
             Zbang.Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Mail.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Search.RegisterIoc.Register();
 
-            Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper.Build();
+            unity.ContainerBuilder.RegisterType<SendPush>()
+            .As<ISendPush>()
+            .WithParameter("connectionString", ConfigFetcher.Fetch("ServiceBusConnectionString"))
+            .WithParameter("hubName", ConfigFetcher.Fetch("ServiceBusHubName"))
+            .InstancePerLifetimeScope();
+
+            unity.Build();
 
             //var x = new Zbang.Zbox.Infrastructure.IdGenerator.IdGenerator();
             //var y = x.GetId();
@@ -261,7 +271,14 @@ namespace Testing
             //t.Wait();
             IZboxWorkerRoleService writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
             //writeService.UpdateReputation(new UpdateReputationCommand(1));
-            writeService.OneTimeDbi();
+            writeService.AddNewUpdateAsync(new AddNewUpdatesCommand(
+                21481,
+               423791,
+                Guid.Parse("645f4777-3583-4894-a9e7-a4c800a41ae9"),
+               null,
+                null,
+               null
+                )).Wait();
             //while (writeService.Dbi(0))
             //{
 
@@ -644,7 +661,7 @@ namespace Testing
             //{
             //    new UpdateMailParams.BoxUpdate("some box",
             //        new List<UpdateMailParams.BoxUpdateDetails> {
-                        
+
             //            new UpdateMailParams.BoxUpdateDetails(20,"some user", "some nice item name",EmailAction.AddedItem,"fakeUrl"),
             //            new UpdateMailParams.BoxUpdateDetails(21,"some user", string.Empty,EmailAction.AskedQuestion,"fakeUrl"),
             //            new UpdateMailParams.BoxUpdateDetails(22,"some user", "some nice item name",EmailAction.AskedQuestion,"fakeUrl"),

@@ -136,7 +136,7 @@
     <value>登录</value>
   </data>
   <data name="ConnectCloudents" xml:space="preserve">
-    <value>连接到 Cloudents</value>
+    <value>连接到 Spitball</value>
   </data>
   <data name="ConnectHere" xml:space="preserve">
     <value>连接</value>
@@ -145,10 +145,10 @@
     <value>创建</value>
   </data>
   <data name="CreateCloudents" xml:space="preserve">
-    <value>创建一个 Cloudents 免费账户</value>
+    <value>创建一个 Spitball 免费账户</value>
   </data>
   <data name="CreateNew" xml:space="preserve">
-    <value>加入 Cloudents</value>
+    <value>加入 Spitball</value>
   </data>
   <data name="DontHaveAnAccount" xml:space="preserve">
     <value>没有账户？</value>
@@ -187,7 +187,7 @@
     <value>登录</value>
   </data>
   <data name="NewTo" xml:space="preserve">
-    <value>刚加入 Cloudents？</value>
+    <value>刚加入 Spitball？</value>
   </data>
   <data name="NoAccount" xml:space="preserve">
     <value>没有账户？</value>

@@ -6,32 +6,31 @@
 <div id="homepage" class="page homepage">
 
     <div class="topImg" home-scroll tabindex="-1">
-        <div class="headerWpr">
-            <div class="logo lFloat"></div>
+        @*<div class="headerWpr">*@
             <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
             <div class="headerActions rFloat">
                 <label for="sidebarCb" class="headerSettings rFloat">
-                    @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
+                    @Html.Svg("~/images/defs.svg", "menu", new { @class = "svg-menu" })
                 </label>
                 <a href="@Url.Action("jobs","home")" target="_self" class="btn">@SharedResources.Jobs</a>
                 <button type="button" class="btn addConnect" ng-click="login()">@SharedResources.SignIn</button>
                 
                 @{Html.RenderPartial("_SettingsUnauth", new SettingsUnauth { ShowLanguage = true });}
             </div>
-        </div>
+        @*</div>*@
         <div class="headingTexts">
+            <div class="hp-logo"></div>
             <h1>@HomeResources.HomePageTitle</h1>
             <h2>@HomeResources.HomePageTitle2</h2>
 
             <h2 class="second">@HomeResources.HomePageTitle3 &nbsp;<b>@HomeResources.HomePageTitleFree</b></h2>
                 
-             <h2>@HomeResources.HomePageTitle4</h2>
+            <h2>@HomeResources.HomePageTitle4</h2>
            
 
             <div id="facebookLogin" class="facebook" login-btn="facebook">
                 <span class="fbImg">
                     <svg class="svg-fb" viewBox="0 0 11.861 23.303">
-                        @*width="11.861" height="23.303"*@
                         <path d="M11.861,8.323H7.594V6.243c0,0-0.239-1.978,1.144-1.978c1.563,0,2.811,0,2.811,0V0H6.763c0,0-4.005-0.017-4.005,4.005   c0,0.864-0.004,2.437-0.01,4.318H0v3.434h2.741c-0.016,5.46-0.035,11.545-0.035,11.545h4.888V11.757h3.226L11.861,8.323z" />
                     </svg>
                 </span>@SharedResources.FacebookSignUp
@@ -48,17 +47,17 @@
             </button>
             <h2 class="nowAvailable">@SharedResources.NowAvailable</h2>
             <div class="mobileLinks">
-                <a analytics-on="click" analytics-event="iTunes" analytics-category="Appstore Banner" analytics-label="Click on appstore banner" target="_blank" href="http://m.onelink.me/52ba1d8e"><img src="~/images/app_store.png" /></a>
-                <a analytics-on="click" analytics-event="GooglePlay" analytics-category="Appstore Banner" analytics-label="Click on playstore banner" target="_blank" class="android" href="http://m.onelink.me/5388edd"><img src="~/images/google_play.png" /></a>
+                <a class="appStoreLink" analytics-on="click" analytics-event="iTunes" analytics-category="Appstore Banner" analytics-label="Click on appstore banner" target="_blank" href="http://m.onelink.me/52ba1d8e"></a>
+                <a class="googlePlayLink" analytics-on="click" analytics-event="GooglePlay" analytics-category="Appstore Banner" analytics-label="Click on playstore banner" target="_blank" class="android" href="http://m.onelink.me/5388edd"></a>
             </div>
         </div>
         <div class="language @(System.Threading.Thread.CurrentThread.CurrentUICulture.Name)">
-            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })"*@ title="English (US)">@Languages.EnglishUsName</button>
-            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })"*@ title="English (UK)">@Languages.EnglishGbName</button>
-            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.RussianName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })"*@ title="Russian Site">@Languages.RussianName</button>
-            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })"*@ title="Hebrew Site">@Languages.HebrewName</button>
-            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })"*@ title="Arabic Site">@Languages.ArabicName</button>
-            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })"*@ title="Chinese Site">@Languages.ChineseName</button>
+            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture')" title="English (US)">@Languages.EnglishUsName</button>
+            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture')"  title="English (UK)">@Languages.EnglishGbName</button>
+            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.RussianName).Culture')" title="Russian Site">@Languages.RussianName</button>
+            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture')"  title="Hebrew Site">@Languages.HebrewName</button>
+            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture')"  title="Arabic Site">@Languages.ArabicName</button>
+            <button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture')"  title="Chinese Site">@Languages.ChineseName</button>
         
         </div>
     </div>

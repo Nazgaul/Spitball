@@ -9,13 +9,13 @@ ga('require', 'displayfeatures');
 
 ga('create', 'UA-9850006-3', {
     'siteSpeedSampleRate': 70,
-    'cookieDomain': 'cloudents.com',
+    'cookieDomain': 'spitball.co',
     'alwaysSendReferrer': true
 });
 
 window.fbAsyncInit = function () {
     FB.init({
-        appId: '450314258355338',
+        appId: '786786954776091',
         status: true,
         cookie: true,
         xfbml: true,

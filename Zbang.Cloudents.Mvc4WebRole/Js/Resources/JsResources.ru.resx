@@ -124,7 +124,7 @@
     <value>Август </value>
   </data>
   <data name="CloudentsJoin" xml:space="preserve">
-    <value>Cloudents — это самая продвинутая бесплатная социальная мобильная и веб-платформа для обучения. Присоединяйтесь к Cloudents и социальной революции в сфере обучения сейчас.</value>
+    <value>Spitball — это самая продвинутая бесплатная социальная мобильная и веб-платформа для обучения. Присоединяйтесь к Spitball и социальной революции в сфере обучения сейчас.</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Мое место</value>
@@ -170,7 +170,7 @@
     <value>Октябрь</value>
   </data>
   <data name="OnCloudents" xml:space="preserve">
-    <value>на Cloudents</value>
+    <value>на Spitball</value>
   </data>
   <data name="Replies" xml:space="preserve">
     <value>Ответов</value>
@@ -191,10 +191,10 @@
     <value>Написать комментарий...</value>
   </data>
   <data name="IJoined" xml:space="preserve">
-    <value>I присоединился {0} на Cloudents — нашей бесплатной онлайн-платформе социального обучения</value>
+    <value>I присоединился {0} на Spitball — нашей бесплатной онлайн-платформе социального обучения</value>
   </data>
   <data name="IUploaded" xml:space="preserve">
-    <value>Я загрузил {0} на Cloudents — онлайн-платформу социального обучения</value>
+    <value>Я загрузил {0} на Spitball — онлайн-платформу социального обучения</value>
   </data>
   <data name="AFewSecAgo" xml:space="preserve">
     <value>несколько сек. назад</value>
@@ -317,8 +317,8 @@
     <value>Введите новый адрес электронной почты</value>
   </data>
   <data name="FbText" xml:space="preserve">
-    <value>Я тоже подключился к Cloudents.
-В Cloudents есть крупнейшее собрание конспектов и экзаменов вашего учебного заведения. Присоединяйтесь к Cloudents; чем больше обучающихся присоединятся, тем легче будет учиться.
+    <value>Я тоже подключился к Spitball.
+В Spitball есть крупнейшее собрание конспектов и экзаменов вашего учебного заведения. Присоединяйтесь к Spitball; чем больше обучающихся присоединятся, тем легче будет учиться.
 </value>
   </data>
   <data name="FieldNeedsNumber" xml:space="preserve">

@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Globalization;
 using System.Net;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Cloudents.MobileApp2.DataObjects;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
@@ -37,13 +32,13 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         // GET api/CustomLogin
         public async Task<HttpResponseMessage> Post(LogInRequest loginRequest)
         {
-
             if (loginRequest == null)
             {
                 return Request.CreateBadRequestResponse();
             }
             if (!ModelState.IsValid)
             {
+                Services.Log.Error("model is not valid " + loginRequest);
                 return Request.CreateBadRequestResponse();
             }
             try
@@ -61,6 +56,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 var systemUser = tSystemData.Result;
                 if (systemUser == null)
                 {
+                    Services.Log.Error("system user is not valid " + loginRequest);
                     return Request.CreateBadRequestResponse();
                 }
                 if (tLogIn.Result)
@@ -71,6 +67,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                         .CreateLoginResult(identity, Services.Settings.MasterKey);
                     return Request.CreateResponse(HttpStatusCode.OK, loginResult);
                 }
+               
+                Services.Log.Error("tLogIn result is false " + loginRequest);
 
             }
             catch (Exception ex)
@@ -97,24 +95,24 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 return Request.CreateBadRequestResponse("auth token is invalid");
             }
-            var query = new GetUserByFacebookQuery(facebookUserData.id);
+            var query = new GetUserByFacebookQuery(facebookUserData.Id);
             var user = await ZboxReadService.GetUserDetailsByFacebookId(query);
             if (user == null)
             {
-                var command = new CreateFacebookUserCommand(facebookUserData.id, facebookUserData.email,
+                var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
                     facebookUserData.Image, facebookUserData.LargeImage, null,
-                    facebookUserData.first_name,
-                    facebookUserData.middle_name,
-                    facebookUserData.last_name,
+                    facebookUserData.First_name,
+                    facebookUserData.Middle_name,
+                    facebookUserData.Last_name,
                     facebookUserData.GetGender(),
-                    facebookUserData.locale, null, null, true);
+                    facebookUserData.Locale, null, null, true);
                 var commandResult = await ZboxWriteService.CreateUserAsync(command);
                 user = new LogInUserDto
                 {
                     Id = commandResult.User.Id,
                     Culture = commandResult.User.Culture,
                     Image = facebookUserData.Image,
-                    Name = facebookUserData.name,
+                    Name = facebookUserData.Name,
                     UniversityId = commandResult.UniversityId,
                     UniversityData = commandResult.UniversityData,
                     Score = commandResult.User.Reputation

@@ -12,5 +12,7 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
 
         public string Country { get; set; }
         public string UniversityName { get; set; }
+
+        public string DepartmentName { get; set; }
     }
 }

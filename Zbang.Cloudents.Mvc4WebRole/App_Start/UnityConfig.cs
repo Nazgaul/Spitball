@@ -4,6 +4,8 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Owin;
+using Zbang.Cloudents.Mvc4WebRole.Helpers;
+using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Search;
@@ -57,6 +59,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
             builder.RegisterFilterProvider();
+
+
+            builder.RegisterModule<AutofacWebTypesModule>(); builder.RegisterModule<AutofacWebTypesModule>();
+
+            builder.RegisterType<CookieHelper>().As<ICookieHelper>();
+            builder.RegisterType<LanguageCookieHelper>().As<ILanguageCookieHelper>();
+            builder.RegisterType<LanguageMiddleware>().InstancePerRequest();
+
             var container = IocFactory.IocWrapper.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
@@ -66,6 +76,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             DependencyResolver.Current.GetService<Zbox.Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
 
+            
 
             app.UseAutofacMiddleware(container);
             app.UseAutofacMvc();

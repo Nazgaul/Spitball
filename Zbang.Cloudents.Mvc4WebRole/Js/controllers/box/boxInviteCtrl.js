@@ -13,9 +13,8 @@
             };
 
             $scope.invite = function (contact) {
-                $analytics.eventTrack('Invite Gmail/Cloudents', {
-                    category: 'Box',
-                    label: 'User invited a friend to box from google or cloudents'
+                $analytics.eventTrack('Invite Gmail/Spitball', {
+                    category: 'Box'
                 });
 
                 sShare.invite.box({ recepients: [contact.id], boxId: $scope.box.id }).then(function () {

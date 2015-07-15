@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Web;
+using Zbang.Cloudents.SiteExtension;
+
+namespace Zbang.Cloudents.Mvc4WebRole.Helpers
+{
+    public class LanguageCookieHelper : ILanguageCookieHelper
+    {
+        private readonly ICookieHelper m_CookieHelper;
+        const string CookieName = "l2";
+        public LanguageCookieHelper(ICookieHelper cookieHelper)
+        {
+            m_CookieHelper = cookieHelper;
+        }
+
+        public void InjectCookie(CultureInfo value)
+        {
+            m_CookieHelper.InjectCookie(CookieName, value.Name, false);
+        }
+        public void InjectCookie(string value)
+        {
+            m_CookieHelper.InjectCookie(CookieName, value, false);
+        }
+        public string ReadCookie()
+        {
+            return m_CookieHelper.ReadCookie<string>(CookieName);
+        }
+
+
+    }
+
+    public interface ILanguageCookieHelper
+    {
+        void InjectCookie(CultureInfo value);
+        void InjectCookie(string value);
+        string ReadCookie();
+    }
+}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -41,7 +42,6 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 m_KeepRunning = true;
                 while (m_KeepRunning)
                 {
-                    TraceLog.WriteInfo("Process Digest email 2 ");
                     ExecuteAsync().Wait();
                 }
             }
@@ -60,7 +60,6 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 await Task.Delay(TimeSpan.FromMinutes(5));
                 return;
             }
-            TraceLog.WriteInfo("Process mail process:" + m_DigestEmailHourBack.ToString("g"));
             var users = await m_ZboxReadService.GetUsersByNotificationSettings(new GetUserByNotificationQuery(m_DigestEmailHourBack));
             foreach (var user in users)
             {
@@ -108,12 +107,12 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 return;
             }
 
-          await  m_MailComponent.GenerateAndSendEmailAsync(
-              email, new UpdateMailParams(updates,
-                new CultureInfo("en-US"), userName,
-                numOfQuestion,
-                numOfAnswers,
-                numOfItems));
+            await m_MailComponent.GenerateAndSendEmailAsync(
+                email, new UpdateMailParams(updates,
+                  new CultureInfo("en-US"), userName,
+                  numOfQuestion,
+                  numOfAnswers,
+                  numOfItems));
 
         }
 
@@ -126,7 +125,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
 
             var itemsUpdate = boxUpdates.Items.Select(s => new UpdateMailParams.ItemUpdate(s.Name,
-                s.Picture
+                s.Picture =
+                    "https://az779114.vo.msecnd.net/preview/" + WebUtility.UrlEncode(s.Picture) +
+                    ".jpg?width=64&height=90&mode=crop"
                 , s.UserName,
                 UrlConsts.AppendCloudentsUrl(s.Url)
                 , s.UserId));
@@ -137,7 +138,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 UrlConsts.AppendCloudentsUrl(s.Url)
                 , s.UserId));
 
-            const string somePicture = "https://zboxstorage.blob.core.windows.net/mailcontainer/user-email-default.jpg";
+            const string somePicture = "http://az32006.vo.msecnd.net/mailcontainer/user-email-default.jpg";
             var questionUpdate = boxUpdates.BoxComments.Select(s =>
             {
                 if (string.IsNullOrEmpty(s.UserImage))

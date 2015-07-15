@@ -166,13 +166,13 @@
     <value>Join now</value>
   </data>
   <data name="NewTo" xml:space="preserve">
-    <value>New to Cloudents?</value>
+    <value>New to Spitball?</value>
   </data>
   <data name="ConnectAccount" xml:space="preserve">
     <value>Log in</value>
   </data>
   <data name="CreateNew" xml:space="preserve">
-    <value>Join Cloudents</value>
+    <value>Join Spitball</value>
   </data>
   <data name="FacebookSignUp" xml:space="preserve">
     <value>Sign up with Facebook</value>
@@ -190,7 +190,7 @@
     <value>Connect</value>
   </data>
   <data name="ConnectCloudents" xml:space="preserve">
-    <value>Log in to Cloudents</value>
+    <value>Log in to Spitball</value>
   </data>
   <data name="ConnectHere" xml:space="preserve">
     <value>Connect</value>
@@ -199,7 +199,7 @@
     <value>Create</value>
   </data>
   <data name="CreateCloudents" xml:space="preserve">
-    <value>Create a free Cloudents account</value>
+    <value>Create a free Spitball account</value>
   </data>
   <data name="NoAccount" xml:space="preserve">
     <value>Don't have an account?</value>

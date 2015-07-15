@@ -9,10 +9,12 @@ select u.country as Country
 ,b.boxname as BoxName, u.universityname as UniversityName, q.Name,
 		(select top(1) qq.Text from zbox.QuizQuestion qq where QuizId = q.id) as FirstQuestion,
 		q.Url
+		,l.name as departmentName
         from 
 		zbox.quiz q
 		join zbox.box b on q.boxid= b.boxid
 		left join zbox.University u on b.University = u.Id
+		left join zbox.library l on b.libraryid = l.libraryid
 		where q.id = @QuizId
         and q.publish = 1
         and q.isdeleted = 0;";

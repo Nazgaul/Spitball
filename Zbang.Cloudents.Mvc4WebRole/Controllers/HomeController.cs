@@ -77,8 +77,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-        [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
-            + CustomCacheKeys.Lang)]
+        [DonutOutputCache(CacheProfile = "FullPage")]
         public ActionResult Privacy()
         {
             return View();
@@ -159,6 +158,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
+        public ActionResult MobileApp()
+        {
+            return View();
+        }
+
         [ChildActionOnly]
         public ActionResult AntiForgeryToken()
         {
@@ -173,7 +177,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [CacheFilter(Duration = TimeConsts.Day)]
         public ActionResult JsResources()
         {
-            //var rm = new ResourceManager("Zbang.Cloudents.Mvc4WebRole.Js.Resources.JsResources", Assembly.GetExecutingAssembly());
             var x = typeof(Js.Resources.JsResources);
             var sb = new StringBuilder();
             sb.Append("JsResources={");

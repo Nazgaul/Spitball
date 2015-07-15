@@ -136,7 +136,7 @@
     <value>Войти </value>
   </data>
   <data name="ConnectCloudents" xml:space="preserve">
-    <value>Подключиться к Cloudents</value>
+    <value>Подключиться к Spitball</value>
   </data>
   <data name="ConnectHere" xml:space="preserve">
     <value>Подключиться</value>
@@ -145,10 +145,10 @@
     <value>Создать</value>
   </data>
   <data name="CreateCloudents" xml:space="preserve">
-    <value>Создать бесплатную учетную запись Cloudents</value>
+    <value>Создать бесплатную учетную запись Spitball</value>
   </data>
   <data name="CreateNew" xml:space="preserve">
-    <value>Присоединиться к Cloudents</value>
+    <value>Присоединиться к Spitball</value>
   </data>
   <data name="DontHaveAnAccount" xml:space="preserve">
     <value>Нет учетной записи?</value>
@@ -187,7 +187,7 @@
     <value>Войти </value>
   </data>
   <data name="NewTo" xml:space="preserve">
-    <value>Новичок в Cloudents?</value>
+    <value>Новичок в Spitball?</value>
   </data>
   <data name="NoAccount" xml:space="preserve">
     <value>Нет учетной записи?</value>

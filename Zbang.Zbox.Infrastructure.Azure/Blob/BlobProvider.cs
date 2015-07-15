@@ -17,7 +17,7 @@ using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Blob
 {
-    public class BlobProvider : IBlobProvider, IBlobProductProvider, ICloudBlockProvider
+    public class BlobProvider : IBlobProvider, ICloudBlockProvider
     {
         private const int CacheContainerItemAvailableInMinutes = 30;
         private const string LastAccessTimeMetaDataKey = "LastTimeAccess";
@@ -29,6 +29,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         public const string AzureProductContainer = "zboxProductImages";
         public const string AzureProfilePicContainer = "zboxprofilepic";
         public const string AzureThumbnailContainer = "zboxThumbnail";
+        public const string AzurePreviewContainer = "preview";
         public const string AzureFaqContainer = "zboxhelp";
         public const string AzureQuizContainer = "zboxquestion";
 
@@ -470,6 +471,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return thumbnailBlob.UploadFromStreamAsync(ms, token);//ToDo: due to problem of small images the memory stream can be closed there fore remove back to sync process
         }
 
+        public Task UploadFilePreviewAsync(string blobName, Stream content, string mimeType, CancellationToken token = default(CancellationToken))
+        {
+            content.Seek(0, SeekOrigin.Begin);
+            var blob = BlobClient.GetContainerReference(AzurePreviewContainer).GetBlockBlobReference(blobName);
+            blob.Properties.ContentType = mimeType;
+            blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
+            return blob.UploadFromStreamAsync(content, token);
+        }
+
 
         public bool CheckIfFileThumbnailExists(string blobName)
         {
@@ -515,6 +525,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         public async Task<string> DownloadToFileAsync(string fileName, CancellationToken cancelToken)
         {
             var fileSystemLocation = Path.Combine(m_LocalStorageProvider.LocalStorageLocation, fileName);
+            if (File.Exists(fileSystemLocation))
+            {
+                return fileSystemLocation;
+            }
             CloudBlockBlob blob = GetFile(fileName);
             try
             {

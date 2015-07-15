@@ -1,12 +1,10 @@
 ﻿/*#region variables */
-.test {
-  color: #064789;
-}
 /*#endregion */
 /*#region mixins */
 /*#endregion */
 body {
   font-size: 13px;
+  min-width: 1240px;
   /*-webkit-backface-visibility: hidden;*/
   font-family: Arial;
 }
@@ -19,18 +17,14 @@ body.jsDark .bodyContent ~ .fade {
   -o-transition: none;
   transition: none;
 }
-body.jsDark .bodyContent ~ .fade .modal-dialog {
-  -webkit-transition: none;
-  -moz-transition: none;
-  -o-transition: none;
-  transition: none;
-}
 body .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
   margin: 0;
 }
 em {
   font-weight: 700;
   color: #282828;
+  background-color: #ffdf00;
+  font-style: normal;
 }
 /*#region Webkit scoll bar */
 ::-webkit-scrollbar {
@@ -305,83 +299,63 @@ input[type="radio"][disabled] + label:before {
   -webkit-animation: spin 1.5s infinite linear;
   animation: spin 1.5s infinite linear;
 }
-/*.progressLoader {
-    position: relative;
-    display: inline-block;
-    width: 5em;
-    height: 5em;
-    margin: 0 .5em;
-    //font-size: 12px;
-    text-indent: 999em;
-    overflow: hidden;
-    -webkit-animation: spin 1s infinite steps(8);
-    -moz-animation: spin 1s infinite steps(8);
-    -o-animation: spin 1s infinite steps(8);
-    animation: spin 1s infinite steps(8);
-    font-size: 3px; //small loader
-    top: 1px; // specific to invite page
-}*/
-/*.small.progressLoader {
-    font-size: 3px;
-}
-
-.large.progressLoader {
-    font-size: 24px;
-}
-
-.progressLoader:before,
-.progressLoader:after,
-.progressLoader > .progressInner:before,
-.progressLoader > .progressInner:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 2.25em; /* (container width - part width)/2  
-    width: .5em;
-    height: 1.5em;
-    border-radius: .2em;
-    background: #eee;
-    box-shadow: 0 3.5em #eee;
-    -webkit-transform-origin: 50% 2.5em; 
-    -moz-transform-origin: 50% 2.5em;
-    -ms-transform-origin: 50% 2.5em;
-    -o-transform-origin: 50% 2.5em;
-    transform-origin: 50% 2.5em; 
-}
-
-.progressLoader:before {
-    background: #555;
-}
-
-.progressLoader:after {
-    -ms-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    background: #777;
-}
-
-.progressLoader > .progressInner:before {
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-905deg);
-    -o-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-    background: #999;
-}
-
-.progressLoader > .progressInner:after {
-    -webkit-transform: rotate(-135deg);
-    -moz-transform: rotate(-135deg);
-    -o-transform: rotate(-135deg);
-    -ms-transform: rotate(-135deg);
-    transform: rotate(-135deg);
-    background: #bbb;
-}*/
 /*#endregion */
 /*#region popup */
 /*#region Coupon popup */
+.modal {
+  /*&.couponPopup {
+        width: 860px;
+        height: 613px; // height needed in order to vertically center
+        top:0;
+        margin: auto;
+        background-color: transparent; //override
+        border: none; //override
+        .modal-body {
+            background: none; //override
+        }
+        .modal-dialog {
+            box-shadow: none; //override
+            width: auto;
+        }
+        &:before {
+            .pseudo;
+            background: url(/Images/Store/store-popup.png) no-repeat;
+            width: 860px;
+            height: 613px;
+            position: absolute;
+            top:14px;
+            left:0;right:0;
+            margin: auto 32px auto auto; //rtl (because image is not symmetrical)
+        }
+        .facebook, .emailBtnWpr {
+            width: 210px;
+            margin: 0 30px;
+            min-width: 0;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .emailBtn {
+            margin:0;
+        }
+        .signupBtns {
+            text-align: center;
+            position: relative;
+            left: -6px; //rtl
+            top: 3px;
+        }
+        .closeModal {
+            top: -17px;//198px;
+            left: 120px; //no rtl
+            right: auto;
+
+        }
+        .svg-close {
+            fill: @color;
+            width: 22px;
+            height: 22px;
+        }
+    }*/
+}
 .modal .inputText {
   width: 100%;
   -webkit-box-sizing: border-box;
@@ -395,141 +369,87 @@ input[type="radio"][disabled] + label:before {
 .modal .cancel {
   margin-left: 10px;
 }
-.modal.couponPopup {
-  width: 860px;
-  height: 613px;
-  top: 0;
-  margin: auto;
-  background-color: transparent;
-  border: none;
-}
-.modal.couponPopup .modal-body {
-  background: none;
-}
-.modal.couponPopup .modal-dialog {
-  box-shadow: none;
-  width: auto;
-}
-.modal.couponPopup:before {
-  content: '';
-  display: inline-block;
-  background: url(/Images/Store/store-popup.png) no-repeat;
-  width: 860px;
-  height: 613px;
-  position: absolute;
-  top: 14px;
-  left: 0;
-  right: 0;
-  margin: auto 32px auto auto;
-}
-.modal.couponPopup .facebook,
-.modal.couponPopup .emailBtnWpr {
-  width: 210px;
-  margin: 0 30px;
-  min-width: 0;
-  display: inline-block;
-  vertical-align: top;
-}
-.modal.couponPopup .emailBtn {
-  margin: 0;
-}
-.modal.couponPopup .signupBtns {
-  text-align: center;
-  position: relative;
-  left: -6px;
-  top: 3px;
-}
-.modal.couponPopup .closeModal {
-  top: -17px;
-  left: 120px;
-  right: auto;
-}
-.modal.couponPopup .svg-close {
-  fill: #3293f6;
-  width: 22px;
-  height: 22px;
-}
-.welcomeStore {
-  text-align: center;
-  font-size: 20px;
-  margin: 200px auto 0;
-  position: relative;
-  left: -5px;
-}
-.welcomeStore .or {
-  color: #383838;
-  display: inline-block;
-  margin: 10px;
-}
-.storeTxt1 {
-  font-size: 60px;
-  color: #3293f6;
-  font-weight: bold;
-  position: relative;
-  top: -3px;
-}
-.storeTxt2 {
-  font-size: 28px;
-  color: #3293f6;
-  font-weight: bold;
-  margin-top: -18px;
+/*.welcomeStore {
+    text-align: center;
+    font-size: 20px;
+    margin: 200px auto 0;
+    position: relative;
+    left: -5px; //rtl
+    .or {
+        color: @textColor;
+        display: inline-block;
+        margin: 10px;
+    }
+}*/
+/*.storeTxt1 {
+    font-size: 60px;
+    color: @color;
+    font-weight: bold;
+    position: relative;
+    top: -3px;
+}*/
+/*.storeTxt2 {
+    font-size: 28px;
+    color: @color;
+    font-weight: bold;
+    margin-top: -18px;
 }
 .storeTxt3 {
-  font-size: 26px;
-  color: #39434a;
-  border-top: 1px solid #3293f6;
-  border-bottom: 1px solid #3293f6;
-  padding: 3px 0 4px;
-  display: inline-block;
-  margin: 5px auto 42px;
+    font-size: 26px;
+    color: @txtColor;
+    border-top: 1px solid @color;
+    border-bottom: 1px solid @color;
+    padding: 3px 0 4px;
+    display: inline-block;
+    margin: 5px auto 42px; 
 }
 .storeTxt4 {
-  font-size: 20px;
-  color: #39434a;
-  margin-bottom: 20px;
-}
-.couponWpr {
-  text-align: center;
-  position: relative;
-}
-.couponWpr .btn1 {
-  display: inline-block;
-  margin: 0;
-  width: auto;
-  height: 34px;
-  font-size: 18px;
-}
-.couponWpr .userHelp {
-  color: #39434a;
-  margin: 7px 0 0 0;
-  padding: 1px 0 0 0;
-  height: 20px;
-  width: 20px;
-  font-size: 14px;
-  cursor: pointer;
-}
-.couponWpr .helpPopup {
-  margin: auto;
-  top: -77px;
-  width: 315px;
-  left: 0;
-  right: 0;
-}
-.couponWpr .helpPopup:before {
-  border-color: #0371c8 transparent transparent transparent;
-  top: auto;
-  bottom: -16px;
-  left: 20px;
-  right: auto;
-  border-width: 16px 9px 0 9px;
-}
-.couponWpr .inputText {
-  width: 185px;
-  margin: 0;
-  display: inline-block;
-  vertical-align: top;
-  font-size: 18px;
-}
+    font-size: 20px;
+    color: @txtColor;
+    margin-bottom: 20px;
+}*/
+/*.couponWpr { 
+    text-align: center;
+    position: relative;
+    .btn1 {
+        display: inline-block;
+        margin:0;
+        width: auto;
+        height: 34px;
+        font-size: 18px;
+    }
+    .userHelp {
+        color: @txtColor;
+        margin: 7px 0 0 0;
+        padding: 1px 0 0 0;
+        height: 20px;
+        width: 20px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .helpPopup {
+        margin:auto;
+        top: -77px;
+        width: 315px;
+        left: 0;
+        right: 0;
+        &:before {
+            border-color: @attentionBlue transparent transparent transparent;
+            top: auto;
+            bottom: -16px;
+            left: 20px; //rtl
+            right: auto;
+            border-width: 16px 9px 0 9px;
+        }
+    }
+    .inputText { 
+        width: 185px;
+        margin:0;
+        display: inline-block;
+        vertical-align: top;
+        font-size: 18px;
+    }
+}*/
 /*iframe .couponPopup {
     bottom: auto;
     top: 310px;
@@ -882,37 +802,37 @@ aside.sideBar .last {
   margin-bottom: 30px;
 }
 .en-US > button:first-child {
-  color: #a7a7a7;
+  color: #3293f6;
 }
 .en-US li:first-child {
   opacity: 1;
 }
 .en-GB button:nth-child(2) {
-  color: #a7a7a7;
+  color: #3293f6;
 }
 .en-GB li:nth-child(2) {
   opacity: 1;
 }
 .ru-RU button:nth-child(3) {
-  color: #a7a7a7;
+  color: #3293f6;
 }
 .ru-RU li:nth-child(3) {
   opacity: 1;
 }
 .he-IL button:nth-child(4) {
-  color: #a7a7a7;
+  color: #3293f6;
 }
 .he-IL li:nth-child(4) {
   opacity: 1;
 }
 .ar-AE button:nth-child(5) {
-  color: #a7a7a7;
+  color: #3293f6;
 }
 .ar-AE li:nth-child(5) {
   opacity: 1;
 }
 .zh-CN button:nth-child(6) {
-  color: #a7a7a7;
+  color: #3293f6;
 }
 .zh-CN li:nth-child(6) {
   opacity: 1;
@@ -946,7 +866,7 @@ aside.sideBar .last {
   width: 160px;
   right: 0;
   z-index: 10;
-  top: 50px;
+  top: 65px;
   border: 1px solid #959595;
   border-top: none;
 }
@@ -1729,13 +1649,6 @@ svg.color8 {
 .socialContentWpr .mCS-dir-rtl > .mCSB_inside > .mCSB_container {
   margin: 0 15px 0 0;
 }
-.notifyWpr {
-  /*.mCS-dir-rtl > .mCustomScrollBox {
-        margin-left: -15px;
-        padding-left: 15px;
-        //margin:0;
-    }*/
-}
 .notifyWpr .mCSB_container {
   border-radius: 10px;
 }
@@ -1761,9 +1674,10 @@ svg.color8 {
   font-weight: 600;
   /*rtl - because Hebrew doesn't support this*/
 }
-.mark {
-  color: #3293f6;
-}
+/*.mark {
+    color: @color;
+   
+}*/
 .clearfix:after {
   content: ".";
   display: block;
@@ -1778,15 +1692,6 @@ svg.color8 {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-/*.editable {
-    white-space: nowrap;
-    width: 100%;
-    overflow: hidden;
-    height: 25px; // prevents linebreaks even if user pastes formatted text inside
-    border: none;
-    outline: none;
-    cursor: text !important;
-}*/
 select.inputText {
   padding: 2px 3px 2px 2px;
   display: inline-block;
@@ -1840,26 +1745,29 @@ select.inputText {
   padding-bottom: 10px;
   top: 5px;
 }
-.scrolling .barShadow {
-  box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.15);
-}
-.scrolling #dash_right:before {
-  content: '';
-  display: block;
-  position: fixed;
-  top: 50px;
-  height: 10px;
-  width: 100%;
-  margin: -10px 0 0 -24px;
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  z-index: 1;
-}
+/*.scrolling {
+    .barShadow {
+        box-shadow: 2px 3px 7px rgba(0,0,0,.15);
+    }
+
+    #dash_right:before {
+        content: '';
+        display: block;
+        position: fixed;
+        top: 50px;
+        height: 10px;
+        width: 100%;
+        margin: -10px 0 0 -24px;
+        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+        z-index: 1;
+    }
+}*/
 .backWpr {
   text-align: left;
-  margin-top: 16px;
   display: inline-block;
   line-height: 16px;
   height: 35px;
+  margin: 15px 0 0 31px;
 }
 .backWpr h2 {
   font-size: 15px;
@@ -1963,9 +1871,9 @@ select.inputText {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-#fconnect {
-  display: none;
-}
+/*#fconnect {
+    display: none;
+}*/
 .ptsPopup {
   padding: 8px 10px 6px 10px;
   color: #fff;
@@ -2023,15 +1931,6 @@ select.inputText {
   animation: ptsAnim 3.5s cubic-bezier(0.65, 0.27, 0.51, 0.88);
 }
 /*#endregion */
-/*.mtouch{   
-    // this applies to rename btn in library,box and item pages
-    //NB: display:block broke layout in library page.
-    .boxRename.boxRename, .itemRenameBtn.itemRenameBtn,
-    .ratePopup.ratePopup .closeDialog, .removeItem.removeItem 
-    {
-        display: inline-block; 
-    }
-}*/
 /*#region Firefox only CSS */
 @-moz-document url-prefix() {
   .boxSideBar .secondUser,
@@ -2058,15 +1957,6 @@ select.inputText {
 }
 /*#endregion */
 /*#region media queries */
-@media (max-width: 1255px) {
-  .siteHeader.headerBox,
-  .boxPage .leftPanel.leftPanel {
-    position: absolute;
-  }
-  .siteHeader.headerBox.headerBox {
-    top: -50px;
-  }
-}
 /*#region cssCheck*/
 #cssCheck {
   position: absolute;

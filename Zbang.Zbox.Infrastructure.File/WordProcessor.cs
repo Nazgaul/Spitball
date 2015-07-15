@@ -21,6 +21,7 @@ namespace Zbang.Zbox.Infrastructure.File
             : base(blobProvider)
         {
             SetLicense();
+          
         }
 
         private void SetLicense()
@@ -85,24 +86,37 @@ namespace Zbang.Zbox.Infrastructure.File
                     var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
                     {
                         JpegQuality = 80,
+                        Resolution = 150
                     };
-                    var settings = new ResizeSettings
+
+                    var ms = new MemoryStream();
+                    word.Save(ms, imgOptions);
+                    ms.Seek(0, SeekOrigin.Begin);
+                    return ms;
+
+                }, () => ExtractDocumentText(word), () => word.PageCount, CacheVersion, () =>
+                {
+                    var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
                     {
-                        Width = ThumbnailWidth,
-                        Height = ThumbnailHeight,
-                        Quality = 80,
-                        Format = "jpg"
+                        JpegQuality = 80,
                     };
+
                     using (var ms = new MemoryStream())
                     {
                         word.Save(ms, imgOptions);
                         ms.Seek(0, SeekOrigin.Begin);
+                        var settings = new ResizeSettings
+                        {
+                            Width = ThumbnailWidth,
+                            Height = ThumbnailHeight,
+                            Quality = 80,
+                            Format = "jpg"
+                        };
                         var output = new MemoryStream();
                         ImageBuilder.Current.Build(ms, output, settings);
                         return output;
-
                     }
-                }, () => ExtractDocumentText(word), () => word.PageCount, CacheVersion);
+                });
 
             }
             catch (Exception ex)
@@ -116,7 +130,6 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             try
             {
-
                 var str = doc.ToString(SaveFormat.Text);
                 str = StripUnwantedChars(str);
                 return str;
@@ -143,5 +156,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var word = new Document(path);
             return ExtractDocumentText(word);
         }
+
+      
     }
 }

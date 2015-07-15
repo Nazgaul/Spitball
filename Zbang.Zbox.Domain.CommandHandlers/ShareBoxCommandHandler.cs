@@ -8,7 +8,6 @@ using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -23,7 +22,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IQueueProvider m_QueueProvider;
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<Box> m_BoxRepository;
-        private readonly IRepository<UserBoxRel> m_UserBoxRelRepository;
         private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IRepository<InviteToBox> m_InviteRepository;
 
@@ -31,14 +29,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public ShareBoxCommandHandler(IQueueProvider queueProvider, IUserRepository userRepository,
             IRepository<Box> boxRepository,
             IGuidIdGenerator idGenerator,
-            IRepository<InviteToBox> inviteRepository, IRepository<UserBoxRel> userBoxRelRepository)
+            IRepository<InviteToBox> inviteRepository)
         {
             m_BoxRepository = boxRepository;
             m_QueueProvider = queueProvider;
             m_UserRepository = userRepository;
             m_IdGenerator = idGenerator;
             m_InviteRepository = inviteRepository;
-            m_UserBoxRelRepository = userBoxRelRepository;
         }
 
         public Task HandleAsync(ShareBoxCommand command)
@@ -84,18 +81,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
 
                 var newInvite = new UserBoxRel(recipientUser, box, UserRelationshipType.Subscribe);
-
+                box.UserBoxRelationship.Add(newInvite);
                 box.CalculateMembers();
                 box.UserTime.UpdateUserTime(recipientUser.Email);
                 m_BoxRepository.Save(box);
 
-                //var inviteToBoxExistingUser = new InviteToBox(id,
-                //    sender,
-                //    box,
-                //    newInvite, null, null, recipientEmail);
-
-                m_UserBoxRelRepository.Save(newInvite);
-                //m_InviteRepository.Save(inviteToBoxExistingUser);
                 tasks.Add(SendInvite(sender.Name, box.Name,
                     id, box.Id,
                     recipientUser.Email, sender.Image, sender.Email, recipientUser.Culture, box.Url, recipientUser.Id));

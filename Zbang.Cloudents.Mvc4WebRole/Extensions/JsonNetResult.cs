@@ -10,7 +10,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 {
     public class JsonNetResult : JsonResult
     {
-        public JsonSerializerSettings SerializerSettings { get; set; }
+        public static JsonSerializerSettings SerializerSettings { get; set; }
         public Formatting Formatting { get; set; }
 
         public JsonNetResult()

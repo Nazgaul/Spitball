@@ -203,7 +203,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual void UpdateCommentsCount()
         {
-            CommentCount = Comments.Count;
+            CommentCount = Comments.Count();
         }
 
         #endregion

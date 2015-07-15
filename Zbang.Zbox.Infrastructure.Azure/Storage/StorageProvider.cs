@@ -62,9 +62,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
 
         private static void CreateStorage()
         {
-            CreateBlobStorages(_cloudStorageAccount.CreateCloudBlobClient());
-            CreateQueues(_cloudStorageAccount.CreateCloudQueueClient());
-            CreateTables(_cloudStorageAccount.CreateCloudTableClient());
+            //CreateBlobStorages(_cloudStorageAccount.CreateCloudBlobClient());
+            //CreateQueues(_cloudStorageAccount.CreateCloudQueueClient());
+            //CreateTables(_cloudStorageAccount.CreateCloudTableClient());
         }
 
         internal static LocalResource LocalResource
@@ -92,6 +92,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                 container.SetPermissions(new BlobContainerPermissions
                 {
                     PublicAccess = BlobContainerPublicAccessType.Off
+                });
+            }
+            container = blobClient.GetContainerReference(BlobProvider.AzurePreviewContainer.ToLower());
+            if (container.CreateIfNotExists())
+            {
+                container.SetPermissions(new BlobContainerPermissions
+                {
+                    PublicAccess = BlobContainerPublicAccessType.Blob
                 });
             }
             container = blobClient.GetContainerReference(BlobProvider.AzureCacheContainer.ToLower());

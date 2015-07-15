@@ -63,9 +63,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [BoxPermission("boxId", Order = 2)]
-        [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
-          Duration = TimeConsts.Hour * 1, VaryByParam = "itemid",
-          Location = OutputCacheLocation.Server, Order = 4)]
+        //[DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
+        //  Duration = TimeConsts.Hour * 1, VaryByParam = "itemid",
+        //  Location = OutputCacheLocation.Server, Order = 4)]
         [RedirectToMobile(Order = 1)]
         public async Task<ActionResult> Index(long boxId, long itemid, string itemName, string universityName, string boxName)
         {
@@ -84,17 +84,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     throw new ItemNotFoundException();
                 }
                 if (model.Discriminator.ToUpper() != "FILE") return View("Empty");
+                ViewBag.imageSrc = ViewBag.fbImage = "https://az779114.vo.msecnd.net/preview/" + model.ImageUrl +
+                                  ".jpg?width=1200&height=630&mode=crop";
                 if (string.IsNullOrEmpty(model.Country)) return View("Empty");
 
                 var culture = Languages.GetCultureBaseOnCountry(model.Country);
                 BaseControllerResources.Culture = culture;
                 var seoItemName = Path.GetFileNameWithoutExtension(model.Name);
 
-                ViewBag.title = string.Format("{0} {1} | {2} | {3}", BaseControllerResources.TitlePrefix,
-                    model.BoxName, seoItemName, BaseControllerResources.Cloudents);
+                ViewBag.title = string.Format("{0} | {1} | {2} | {3} | {4}",
+                    model.BoxName, seoItemName, model.DepartmentName, model.UniversityName, BaseControllerResources.Cloudents);
 
                 ViewBag.Description = model.Description;
-                ViewBag.fbImage = model.ImageUrl;
+
+               
                 if (!string.IsNullOrEmpty(model.Description))
                 {
                     var metaDescription = model.Description.RemoveEndOfString(197);

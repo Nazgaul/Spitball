@@ -26,6 +26,11 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
         var tabsCount = {};
 
         $scope.items = _.map(boxItems, function (item) {
+           // if (item.type === 'File') {
+                item.thumbnail = 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(item.source) + '.jpg?width=148&height=188&mode=crop'; // item.source
+            //} else {
+            //    item.thumbnail = 'https://az779114.vo.msecnd.net/images/link_720.png';
+            //}
             sNewUpdates.isNew($scope.boxId, 'items', item.id, function (isNew) {
                 item.isNew = isNew;
             });
@@ -84,7 +89,7 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
             sTabCount.notifyAdd(data.tabId);
             data.itemDto.tabId = data.tabId;
         }
-
+        data.itemDto.thumbnail = 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(data.itemDto.source) + '.jpg?width=148&height=188&mode=crop'; // item.source
         $scope.info.itemsLength++;
         $scope.info.feedLength++;
         $scope.items.unshift(data.itemDto);
@@ -231,8 +236,8 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
 
         var filteredItems = $filter('filter')($scope.items, filterItems);
 
-       $scope.filteredItems = filteredItems;
-       
+        $scope.filteredItems = filteredItems;
+
         isSponsoredView();
     });
 
@@ -241,7 +246,7 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
             return i.id === data.itemId;
         });
 
-        item.tabId = data.tabId;    
+        item.tabId = data.tabId;
     });
 
     $scope.$on('manageTab', function () {
@@ -277,7 +282,7 @@ function ($scope, $rootScope, $analytics, sModal, $filter, $timeout, sItem, sBox
             if (item.tabId === $scope.iOptions.currentTab.id) {
                 item.tabId = null;
             }
-            
+
 
         }
 

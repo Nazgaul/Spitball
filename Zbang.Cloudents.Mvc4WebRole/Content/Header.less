@@ -1,79 +1,117 @@
 ﻿@import "varsAndMixins";
+@import "../Images/site.png.less";
+//@import "HomePage.png.less";
 
 /*#region main header classes */
 html, body {
-    //height: 100%; //TODO CHECK THIS. 
-    // NB: I changed this to min-height because on devices like ipad 
-    // modals only had height of viewport and stopped when scrolled down 
+    //height: 100%; //TODO CHECK THIS.
+    // NB: I changed this to min-height because on devices like ipad
+    // modals only had height of viewport and stopped when scrolled down
     height: 100%;
-    direction:ltr;
+    direction: ltr;
 }
+
 body {
-    //min-width: 1024px;
     overflow-y: scroll;
 }
+
 .pageHeading {
     font-size: 13px;
     position: absolute;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     visibility: hidden;
-    //z-index: -1;
-    //max-height: 50px;
 }
+
 .bodyContent {
     padding-top: @header-height;
     .boxSizing;
     height: 100%;
 }
 
+
+
 .siteHeader {
     height: @header-height;
-    background-color: @color;
+    background-color: #282828;
     top: 0;
     width: 100%;
     z-index: 11;
     position: fixed;
-    //min-width: 1024px;
+    min-width:1240px;
+
     &.headerBox {
-        background: #282828;
-        //min-width: 1260px; //same as boxPage class
-        // the above rule won't help because the siteHeader is fixed!
-        //min-width: 950px;
-        min-width: 1240px;
+        //background: #282828;
+       // min-width: 1240px;
+
         .backWpr {
-            margin: 8px 0 0 25px; //rtl
-            padding:0;
+            margin: 16px 0 0 25px; //rtl
+            padding: 0;
         }
+
         .shareBtn {
             display: inline-block;
             margin: 0 15px;
             top: -4px;
         }
-        .siteLogo {
-            height: @header-height;
-            width: @boxSideBarWidth;
-            background: @color;
+        .logoWrapper {
+            width: 242px;
         }
+        
+    }
+
+    &.dashboardHeader {
         .barActions {
-            margin-top:0;
+            margin: 7px 20px 0 0;
         }
-    }     
+
+        .svg-settings {
+            width: 25px;
+            height: 23px;
+            fill: #c2c2c2;
+        }
+
+        &:hover {
+            .boxRename {
+                visibility: visible;
+            }
+        }
+    }
+}
+
+.logoWrapper {
+    width: 289px;
+    height: 65px;
+    float: left;
+    background-color: @color;
 }
 
 .siteLogo {
-    display: inline-block;
-    position: relative;
-    z-index: 1;
-    padding-left: 30px; //rtl
-    .boxSizing;
+    //display: inline-block;
+    //position: relative;
+    //z-index: 1;
+    //padding-left: 30px; //rtl
+    //.boxSizing;
+    .sprite-Images-logo2();
+    margin: 0 auto;
+    display: block;
 }
+@media (max-width: @minimunHeight) {
+    .siteHeader {
+        position:absolute;
+    }
+   
+   
+}
+
 .headerActions {
     height: @header-height;
 }
+
 .headerSettings {
     height: @header-height; //override
 }
+
 .userNav {
     height: @header-height;
     display: inline-block;
@@ -99,6 +137,7 @@ body {
         width: 36px;
         height: 36px;
     }
+
     [data-letter]:before {
         left: 0; //override;
         width: 36px;
@@ -107,11 +146,13 @@ body {
         font-size: 22px;
         .boxSizing;
     }
+
     .heb:before {
         font-size: 28px;
         line-height: 34px;
     }
 }
+
 .signUp {
     .btn {
         display: inline-block;
@@ -130,18 +171,22 @@ body {
             background: #fff;
             color: @color;
         }
+
         &:hover {
             background: @attentionBlueHover;
+
             &:first-child {
                 background: #e1fff0;
             }
         }
     }
 }
+
 .userAnchor {
     display: block;
     height: @header-height;
 }
+
 .userPts {
     font-size: 11px;
     color: #fff;
@@ -149,6 +194,7 @@ body {
     margin-left: 40px;
     position: relative;
     top: -24px;
+
     &:after {
         display: inline-block;
         content: attr(data-points);
@@ -158,12 +204,13 @@ body {
 
 /*#region box page header */
 .userSection {
-    line-height: @header-height;
-    height: @header-height;
+    line-height: 50px;
+    height: 50px;
+    margin-top: 7px;
 }
+
 .headerRightWpr {
     height: @header-height; //for box page
-    
     .userSection {
         margin-left: 20px; //rtl
     }
@@ -182,6 +229,7 @@ body {
     .open .svg-notification {
         fill: #d1294d;
     }
+
     &:hover {
         .boxRename {
             visibility: visible;
@@ -252,17 +300,22 @@ body {
     color: #fff;
     display: inline-block;
     vertical-align: top;
+    margin: 15px 0 0 31px;
 }
+
 .inviteUsersBtn {
-    margin-top: 21px;
+    margin-top: 19px;
+
     .svg-inviteUser {
         &:hover {
             fill: @blue;
         }
     }
-    .boxPage & {
-        margin-top: 13px;
-    }
+
+    /*.boxPage & {
+        margin-top: 28px;
+    }*/
+
     .userPage & {
         position: relative;
         top: -8px;
@@ -286,20 +339,23 @@ body {
     right: 10px;
     border: 2px solid #282828;
 }
+
 .notificationBtn {
     margin-top: 13px;
+
     &:hover {
         svg {
             fill: #d1294d;
         }
     }
+
     .newCounter {
         display: none;
     }
+
     .newCounterShow {
         display: inline;
     }
-
 }
 
 
@@ -308,10 +364,11 @@ body {
     position: absolute;
     right: 30px; //rtl
     top: 22px;
+
     &.dropdown-menu {
         border: none; //override
         box-shadow: none; //override
-        background:none;
+        background: none;
     }
 }
 
@@ -326,12 +383,14 @@ body {
     line-height: normal;
     border: none; //override
 }
+
 .notifyList {
     color: #fff;
     overflow-x: hidden;
     margin-right: -15px; //rtl (this is in order to move the scrollbar away from the item)
     background: #fff; // so that the elements under notification items don't show through between the items
 }
+
 .notifyItem {
     position: relative;
     font-size: 14px;
@@ -341,19 +400,23 @@ body {
     border-radius: 10px;
     line-height: normal;
     overflow: hidden;
-    
+
     &:hover {
         background: #bbb;
+
         .trash {
             display: block;
         }
     }
+
     &.new {
         background: #d1294d;
+
         &:hover {
             background: #e25c6a;
         }
     }
+
     + .notifyItem {
         margin-top: 5px;
     }
@@ -366,31 +429,36 @@ body {
         padding: 0 23px 0 100px;
         .boxSizing;
     }
+
     .notifyDetails {
         //margin-top: 12px;
     }
+
     .userImg.userImg, .userLetter.userLetter {
         position: absolute;
         left: 15px;
-        top:0;bottom:0;
+        top: 0;
+        bottom: 0;
         margin: auto;
         width: 72px;
         height: 72px;
         .boxSizing;
         border: 3px solid #fff;
     }
+
     .notifier {
         max-width: 185px;
         display: inline-block;
         vertical-align: top;
     }
+
     .trash {
         position: absolute;
         bottom: 0;
         right: 20px; //rtl
         display: none;
         width: auto; //override
-        padding: 0;//override
+        padding: 0; //override
         &:hover {
             background: none; //override
             svg {
@@ -398,14 +466,17 @@ body {
             }
         }
     }
+
     .svg-trash {
         fill: #fff;
     }
 }
+
 .inviteTxtWpr {
     max-height: 48px;
     overflow: hidden;
 }
+
 .inviteTxt {
     white-space: normal;
     font-weight: bold;

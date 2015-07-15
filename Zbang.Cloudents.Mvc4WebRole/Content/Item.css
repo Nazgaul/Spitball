@@ -1,7 +1,4 @@
 ﻿/*#region variables */
-.test {
-  color: #064789;
-}
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -564,7 +561,7 @@
 /*#region fullscreen */
 .modal.fullscreen {
   background: rgba(0, 0, 0, 0.9);
-  padding-top: 50px;
+  padding-top: 65px;
   text-align: center;
   overflow: hidden;
 }

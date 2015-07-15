@@ -14,5 +14,7 @@
 
         public string Url { get; set; }
 
+        public string DepartmentName { get; set; }
+
     }
 }

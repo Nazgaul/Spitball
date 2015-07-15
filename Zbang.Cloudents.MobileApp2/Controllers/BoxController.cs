@@ -130,12 +130,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 s.Name,
                 s.Type,
-                //s.Thumbnail,
                 s.Id,
                 s.Source,
-                //views = s.NumOfViews,
-                //downloads = s.NumOfDownloads,
-                //likes = s.NumOfDownloads,
                 creationTime = s.Date,
                 s.Owner,
                 s.OwnerId,

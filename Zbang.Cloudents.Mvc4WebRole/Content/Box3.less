@@ -29,6 +29,12 @@
         margin: 0; //override
         visibility: visible; //override
     }
+
+    @media (max-width: @minimunHeight) {
+        .leftPanel {
+            position: absolute;
+        }
+    }
 }
 
 .inviteButton {
@@ -88,11 +94,13 @@
         fill: #fff;
         margin-top: 2px;
     }
+
     .shareBtnLabel {
         display: inline-block;
         width: 24px;
         height: 26px;
         cursor: pointer;
+
         &:hover svg {
             fill: @color;
         }
@@ -116,6 +124,7 @@
             display: block;
         }
     }
+
     h4 {
         padding-bottom: 7px;
         margin: -2px 10px 0 0;
@@ -262,18 +271,22 @@
 .boxTop {
     position: relative;
     padding: 74px 0 20px;
+
     &:hover {
         .boxRename {
             display: block;
         }
     }
+
     .boxSvg {
         width: 84px;
         height: 84px;
         background: #fff;
-        left:0;right: 0;
-        bottom:auto; //override
+        left: 0;
+        right: 0;
+        bottom: auto; //override
     }
+
     .boxName {
         font-size: 27px;
         color: @textColor;
@@ -300,15 +313,13 @@
 
 .boxDetail {
     font-size: 14px;
-    display:block;
-    width:215px;
-
+    display: block;
+    width: 215px;
 }
 
 .newActivity {
     //margin-top: -10px;
     margin: -10px -25px 0 -25px;
-
     .topSeparator;
     .bottomSeparator;
 
@@ -320,13 +331,15 @@
         cursor: pointer;
         padding: 0 35px 0 25px;
         position: relative;
+
         &.current {
             color: @color;
+
             &:after {
                 content: '';
                 position: absolute;
                 top: 7px;
-                right:-1px;
+                right: -1px;
                 width: 26px;
                 height: 26px;
                 background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAAclBMVEUAAAAxj+8pecwyk/YxkvUhYqQyk/YxkfMiZaouiOQsgNcpeMkmcLshYqMvi+kthN0qfNAndMIlbLQyk/YuiOQjaK0jaK4gX58yk/YiZKghYaMlbLQjaK4ndMImcLsqfNApeMkthN0sgNcvi+kuiOQxkfOlTXFSAAAAF3RSTlMA/hG0pGoyIwf49fLt45iPh353PRvp6AstP+cAAABpSURBVCjPrdJVDoAwEARQpLS4FGlxv/8V4QBD5of9fclmZZx/Kww+ITMQPN31g0FQpeOEyCuTeUHUFPG6IVJ5tB+IlHDPC5EU9oYkfWsh1S8QIg3pGHh4sjI/FD4vewpC3ULCAeCx4fUAFScYhDktCjwAAAAASUVORK5CYII=') /*/Images/gradient-arrow.png*/ no-repeat;
@@ -339,14 +352,17 @@
         top: 3px;
     }
 }
+
 .itemTab.itemTab {
     height: auto;
+
     &.current {
         .boxFolders {
             display: block;
         }
     }
 }
+
 .newPosts {
     //background: @blue;
     background: @color;
@@ -376,14 +392,17 @@
     margin: 0 -35px 0 -25px;
     background: #fff;
     line-height: normal;
+
     .mCSB_container, [ng-transclude] {
         width: 242px;
     }
+
     svg {
         position: relative;
         top: 4px;
         margin-right: 6px;
     }
+
     .mCustomScrollbar {
         height: auto !important;
         max-height: ~'calc(100vh - 482px)';
@@ -395,6 +414,7 @@
     height: 40px;
     line-height: 40px;
     border-bottom: 1px solid #ededed;
+
     .boxFolderName {
         max-width: 171px;
         display: inline-block;
@@ -409,13 +429,16 @@
     color: @textColor;
     padding-left: 25px;
     margin: 0 17px 0 6px;
+
     &.current {
         .editFolder {
             display: inline-block;
         }
-        svg{
+
+        svg {
             fill: @color;
         }
+
         .boxFolderName {
             color: @color;
         }
@@ -430,11 +453,13 @@
 
 .createFolderText {
     cursor: pointer;
+
     svg {
         width: 18px;
         height: 18px;
         fill: @color;
     }
+
     &:hover {
         color: @color;
     }
@@ -475,6 +500,7 @@
     //overflow: hidden; //TODO: CHECK THIS
     .membersContent {
         max-width: 706px;
+
         .searchWpr {
             width: auto; //override
             display: block; //override
@@ -787,6 +813,7 @@
     margin-left: 11px;
     background: @errorColor;
     overflow: hidden;
+
     &:before {
         .pseudo;
         position: absolute;
@@ -801,6 +828,7 @@
         box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
         border-radius: 0 0 0 3px;
     }
+
     .draft.draft & { //repeated .draft for specificity
         padding: 3px 20px;
         border-radius: 10px;
@@ -814,12 +842,14 @@
         }
     }
 }
+
 .thumbItem, .listItem {
     .views {
         color: #b1b1b1;
         margin: 0; // override .views class
     }
 }
+
 .listItem {
     padding: 15px 0 15px 138px;
     position: relative;
@@ -827,6 +857,7 @@
     height: 143px;
     border-top: 1px solid #dbdbdb;
     text-align: left;
+
     &.quizItem {
         .imgBorder {
             width: 112px;
@@ -906,9 +937,8 @@
         color: #b1b1b1;
         display: inline-block;
         vertical-align: top;
-        margin: 2px 0 0 20px; //override 
+        margin: 2px 0 0 20px; //override
     }
-
     /*.tag {
         position: absolute;
         top: 125px;
@@ -917,9 +947,9 @@
 }
 
 .thumbItem {
-    float: left; 
+    float: left;
     background: #fff;
-    text-align: left; 
+    text-align: left;
     //overflow: hidden;
     //.transition(all, .2s); //WARNING: CAUSES iOS CRASH -  http://stackoverflow.com/questions/14055461/ios-safari-css-calc-css-transition-instant-crash
     position: relative; /* for manage state*/
@@ -957,6 +987,7 @@
         color: @color;
         height: 32px;
     }
+
     .tag {
         position: absolute;
         left: -6px;
@@ -964,11 +995,13 @@
         color: #F0F8FF;
         z-index: 1;
     }
+
     .views {
         position: absolute;
         right: 4px;
         bottom: 5px;
     }
+
     &.quizItem {
         position: relative;
         border: none;
@@ -1145,13 +1178,13 @@
             width: auto; //override
             margin-top: -10px;
             position: relative;
+
             &[data-numdownload] {
                 &:before {
                     content: attr(data-numdownload);
                     display: inline-block;
                     margin-right: 4px;
                 }
-                
                 /*&:after {
                     .pseudo;
                     position: absolute;
@@ -1162,6 +1195,7 @@
                     background: @item-sprite1 -19px -21px no-repeat;
                 }*/
             }
+
             &:before {
                 content: attr(data-numviews);
                 display: inline-block;
@@ -1327,6 +1361,7 @@
 
     .downloadBtn, .editBtn {
         border-radius: 3px 0 0 3px;
+
         &:before {
             margin-top: 6px; // specific to this .downloadBtn class
         }
@@ -1379,6 +1414,7 @@
     position: absolute;
     top: 6px;
     left: 6px;
+
     &:before {
         content: '';
         width: 22px;

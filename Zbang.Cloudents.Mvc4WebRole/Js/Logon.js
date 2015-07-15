@@ -107,12 +107,12 @@
         }
     },
     {
-        
+
         required: jsResource.FieldRequired,
         minLength: jsResource.PwdAtLeast6Chars,
         email: jsResource.InvalidEmail,
         same: jsResource.ConfirmEmailCompare
-        }
+    }
     );
 
     //document.addEventListener('blur', function (e) {
@@ -252,7 +252,7 @@
             invId: gup('invId')
         };
 
-        submit(connectForm, data,false);
+        submit(connectForm, data, false);
     });
 
     registerForm.addEventListener('submit', function (e) {
@@ -271,10 +271,10 @@
             invId: gup('invId')
         };
 
-        submit(registerForm, data,true);
+        submit(registerForm, data, true);
     });
 
-    function submit(form, data,isRegister) {
+    function submit(form, data, isRegister) {
 
 
         var inputs = form.querySelectorAll('input');
@@ -291,12 +291,12 @@
         var obj = {};
         for (var x in data) {
             if (data[x] != null) {
-                obj[x]  = data[x];
+                obj[x] = data[x];
             }
         }
 
         ajax.post(form.action, obj, function (data2) {
-            
+
 
             if (!data2.success) {
                 resetErrors(form);
@@ -328,14 +328,7 @@
     connectPopupFb.addEventListener('click', connectFb);
     registerPopupFb.addEventListener('click', connectFb);
     function logInFacebook(accessToken) {
-        var facebookText = {
-            en: "I have just signed up to Cloudents.\nCloudents is a free online and mobile social studying platform. With a large collection of study material, course notes, summaries and Q&As Cloudents makes my studying easier.",
-            he: 'התחברתי ל-Cloudents, המאגר האקדמי של הסטודנטים.\nמחפשים חומרי לימוד?\nסיכומים, מבחנים,מאמרים.\nמעל ל - 50 אלף קבצים במאגר.\nפשוט לחצו כאן, והירשמו. \nהדרך אל התואר, לא הייתה קלה יותר.',
-            ar: 'أنا أيضا قمت بالاتصال بشبكة Cloudents. حيث أن Cloudentsلديها أكبر مجموعة من مذكرات المقررات الدراسية، والامتحانات في مدرستك. أنضم إلى Cloudents، كلما زاد عدد الطلاب المنضمين، كلما أصبحت الدراسة أسهل.',
-            ru: 'Я тоже подключился к Cloudents. В Cloudents есть крупнейшее собрание конспектов и экзаменов вашего учебного заведения. Присоединяйтесь к Cloudents; чем больше обучающихся присоединятся, тем легче будет учиться.',
-            zh: '我也连接到 Cloudents 了。Cloudents 拥有最丰富的课程笔记以及贵校的考卷。加入 Cloudents 吧，越多人参加，学习就变得越容易。',
-            nl: 'Check Cloudents! Een plek om samen te werken aan opdrachten, studiemateriaal te vinden, proeftentamens te doen of ideeën en teksten te bespreken.'
-        };
+
 
         ajax.post('/Account/FacebookLogin/', {
             token: accessToken,
@@ -350,28 +343,20 @@
             window.sessionStorage.clear();
             var obj = data.payload;
             if (obj.isnew) {
-                FB.api('/me', function (response) {
-                    var locale = response.locale.substr(0, response.locale.indexOf('_')),
-                        text = facebookText[locale];
-                    if (!text) {
-                        text = facebookText.en;
-                    }
+                FB.api('/me', function () {
                     showPointsPopup();
+                    if (obj.url) {
+                        window.location.href = obj.url;
+                        return;
+                    }
 
+                    if (window.location.href.indexOf('error') > -1) {
+                        window.location.href = '/dashboard/';
+                        return;
+                    }
 
-                    FB.api('/me/feed', 'post', { message: text, link: 'https://www.cloudents.com' }, function () {
-                        if (obj.url) {
-                            window.location.href = obj.url;
-                            return;
-                        }
+                    window.location.reload();
 
-                        if (window.location.href.indexOf('error') > -1) {
-                            window.location.href = '/dashboard/';
-                            return;
-                        }
-
-                        window.location.reload();
-                    });
                 });
 
             }
@@ -386,15 +371,15 @@
                 var accessToken = response.authResponse.accessToken;
                 //FB.api('/me/permissions', function (response2) {
 
-                    //var perms = response2.data[0];
-                    //if (perms.email) {
-                        logInFacebook(accessToken);
-                        // User has permission
-                        window.ga('send', 'event', 'Homepage', 'Facebook signup', 'Successful login useing facebook');
-                    //} else {
-                    //    alert('you need to give email permission');
-                    //    window.ga('send', 'event', 'Homepage', 'Facebook signup', 'Failed login useing facebook');
-                    // }
+                //var perms = response2.data[0];
+                //if (perms.email) {
+                logInFacebook(accessToken);
+                // User has permission
+                window.ga('send', 'event', 'Homepage', 'Facebook signup', 'Successful login useing facebook');
+                //} else {
+                //    alert('you need to give email permission');
+                //    window.ga('send', 'event', 'Homepage', 'Facebook signup', 'Failed login useing facebook');
+                // }
                 //});
             }
 
@@ -507,19 +492,19 @@
             appendError(payload[i].key, errorElement, error);
 
 
-            
+
 
         }
     }
 
     function showPointsPopup() {
-        if (!window.sessionStorage)  {
+        if (!window.sessionStorage) {
             return;
         }
         var now = new Date();
         var laterTime = new Date().setHours(now.getHours() + 2);
         window.sessionStorage.setItem('angular-cache.caches.points.data.register', '{"key":"register","value":true,"created":' + now.getTime() + ',"accessed":' + now.getTime() + ',"expires":' + laterTime + '}');
-        window.sessionStorage.setItem('angular-cache.caches.points.keys','["register"]');
+        window.sessionStorage.setItem('angular-cache.caches.points.keys', '["register"]');
 
     }
 })(window.document);

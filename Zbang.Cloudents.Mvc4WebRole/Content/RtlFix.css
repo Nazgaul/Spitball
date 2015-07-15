@@ -1,36 +1,7 @@
 ﻿/*#region variables */
-.test {
-  color: #064789;
-}
 /*#endregion */
 /*#region mixins */
 /*#endregion */
-.rtlFix {
-  /*.android{
-        position: absolute;
-            width: 338px;
-            height: 232px;
-            right: 20px;
-            bottom: 100%;
-            background: url(/Images/mobile-cloudents-heb.png) no-repeat;
-        a {
-            left: 10px;
-        }
-    }*/
-  /*.cloudIcon {
-        .svg-notification {
-            .flipH;
-        }
-    }*/
-  /*.profileInfo .changeUni {
-        margin: 0 0 25px; //remove negative top margin
-    }*/
-  /*.headingTexts {
-        .facebook, .email {
-            width: 242px; // diff rtl (Hebrew css should override this)
-        }
-    }*/
-}
 .rtlFix .bestUserList:before {
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);

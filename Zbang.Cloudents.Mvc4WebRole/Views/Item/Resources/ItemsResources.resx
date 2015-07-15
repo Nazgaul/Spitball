@@ -178,7 +178,7 @@
     <value>Posted by</value>
   </data>
   <data name="PreviewFailed" xml:space="preserve">
-    <value>Cloudents does not support preview of these file types. 
+    <value>Spitball does not support preview of these file types. 
 Please use the</value>
   </data>
   <data name="PreviewFailed2" xml:space="preserve">
@@ -201,7 +201,7 @@ for this file type.</value>
     <value>Rate this item</value>
   </data>
   <data name="SecurityReasons" xml:space="preserve">
-    <value>For security reasons, this link cannot be opened in Cloudents</value>
+    <value>For security reasons, this link cannot be opened in Spitball</value>
   </data>
   <data name="SendMsg" xml:space="preserve">
     <value>Send a message</value>

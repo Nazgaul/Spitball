@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.title = ViewBag.title ?? "Cloudents";
+    ViewBag.title = ViewBag.title ?? "Spitball";
     ViewBag.jobs = @ViewBag.jobs ?? "";
 }
 
@@ -16,17 +16,17 @@
     @*<meta name="viewport" content="width=device-width, maximum-scale=1.0" />*@
 
     <meta name="title" content="@ViewBag.title" />
-    <meta name="description" content="Join the social studying revolution at Cloudents" />
+    <meta name="description" content="Join the social studying revolution at Spitball" />
     @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" || System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
     {
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
     }
-    <link rel="image_src" href="@Url.CdnContent("/Images/cloudents.png?v=1")" />
+    <link rel="image_src" href="@Url.CdnContent("/images/cloudents.png?v=1")" />
 
-    <meta property="fb:app_id" content="450314258355338">
-    <meta property="og:site_name" content="Cloudents" />
-    <meta property="og:image" content="@Url.CdnContent("/Images/cloudents.png?v=1")" />
-    <meta property="og:title" content="Cloudents" />
+    <meta property="fb:app_id" content="786786954776091">
+    <meta property="og:site_name" content="Spitball" />
+    <meta property="og:image" content="@Url.CdnContent("/images/cloudents.png?v=1")" />
+    <meta property="og:title" content="Spitball" />
     <meta property="og:type" content="website" />
     <meta id="fb_ShareLink" property="og:url" content="@Request.Url.AbsoluteUri" />
 
@@ -37,7 +37,7 @@
 <body class="@Html.ClassOfRtl() @ViewBag.jobs">
     <!--[if IE]>
     <script>
-        if (!window.document.documentMode || window.document.documentMode < 9) {
+        if (!window.document.documentMode || window.document.documentMode < 10) {
             window.location = "/error/unsupported/";
         }
     </script>
@@ -45,7 +45,7 @@
 
     <noscript>
         <div>
-            Cloudents works best with javascript enabled
+            Spitball works best with javascript enabled
         </div>
     </noscript>
     <div class="wrap">
@@ -64,9 +64,10 @@
                 </label>
                 @{Html.RenderAction("GetUserDetail3", "Account", true);}
             </div>
-            <a class="siteLogo" data-version="@VersionHelper.CurrentVersion(true)" href="@Url.Action("Index", "Dashboard")">
-                @Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })
-            </a>
+            <div class="logoWrapper">
+                <a class="siteLogo" href="@Url.Action("Index", "Dashboard")">
+                </a>
+            </div>
         </header>
         <div class="staticContent">
             @RenderBody()

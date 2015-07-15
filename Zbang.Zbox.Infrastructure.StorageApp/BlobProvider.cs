@@ -23,6 +23,7 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
         public const string AzureCacheContainer = "zboxCahce";
         private const int CacheContainerItemAvailableInMinutes = 30;
         private const string LastAccessTimeMetaDataKey = "LastTimeAccess";
+        public const string AzurePreviewContainer = "preview";
 
         public BlobProvider()
         {
@@ -327,6 +328,16 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
         public Task<Stream> GetJobsXml()
         {
             throw new NotImplementedException();
+        }
+
+
+        public Task UploadFilePreviewAsync(string blobName, Stream content, string mimeType, CancellationToken token = default(CancellationToken))
+        {
+            content.Seek(0, SeekOrigin.Begin);
+            var blob = BlobClient.GetContainerReference(AzurePreviewContainer).GetBlockBlobReference(blobName);
+            blob.Properties.ContentType = mimeType;
+            blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
+            return blob.UploadFromStreamAsync(content, token);
         }
     }
 }

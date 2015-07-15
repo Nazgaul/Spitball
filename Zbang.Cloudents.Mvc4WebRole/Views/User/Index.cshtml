@@ -15,31 +15,45 @@
     </div>
 </script>
 
-<header class="siteHeader">
-    @{Html.RenderPartial("_Header");}
-</header>
-<div class="userPage page" id="user" ng-class="{ myPage : profile.isSelf }" >
-    <div class="upContentWpr">
-        <div class="upTop">
-            @{Html.RenderPartial("_BarActions");}
-            <user-image ng-if="::profile.id" name="profile.name" image="profile.image" width="100" height="100"></user-image>
-            <div class="upDetails">
-                <h1 class="semiFont elps" id="upUsername">
-                    <span>{{::profile.name}}</span>
-                    <a class="settingsLink" ng-if="::profile.isSelf"
-                       href="@Url.Action("Settings","Account")" analytics-on="click" analytics-category="User" analytics-event="Edit account">
-                        @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
-                    </a>
-                </h1>
-                <div class="upSchool elps">{{::profile.universityName}}</div>
-            </div>
-            <div class="searchTrigger searchUser" ng-click="$root.toggleSearch()" search-coords>@SharedResources.Search</div>
-            <button type="button" class="btn3" ng-if="!profile.isSelf" ng-click="sendUserMessage2()">@SharedResources.Message</button>
-             <button type="button" title="@SharedResources.Invite" ng-click="inviteCloudents()">
-                @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
-            </button>
+<header class="siteHeader dashboardHeader headerBox ">
+    <div class="logoWrapper">
+        <a class="siteLogo" href="@Url.Action("Index", "Dashboard")">
+        </a>
+    </div>
+    <div class="upTop">
+        <user-image ng-if="::profile.id" name="profile.name" image="profile.image" width="100" height="100"></user-image>
+        <div class="upDetails">
+            <h1 class="semiFont elps" id="upUsername">
+                <span>{{::profile.name}}</span>
+                <a class="settingsLink" ng-if="::profile.isSelf"
+                   href="@Url.Action("Settings","Account")" analytics-on="click" analytics-category="User" analytics-event="Edit account">
+                    @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
+                </a>
+            </h1>
+            <div class="upSchool elps">{{::profile.universityName}}</div>
         </div>
+        <div class="searchTrigger searchUser" ng-click="$root.toggleSearch()" search-coords>@SharedResources.Search</div>
+        
+        <button type="button" title="@SharedResources.Invite" ng-click="inviteCloudents()">
+            @Html.Svg("~/Images/Defs.svg", "inviteUser", new { @class = "svg-inviteUser" })
+        </button>
+    </div>
+    <nav class="userSection rFloat">
+        <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
+        <div class="headerActions rFloat">
+            <label for="sidebarCb" class="headerSettings rFloat">
+                @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
+            </label>
+            @{ Html.RenderPartial("_UserDetail3"); }
+        </div>
+    </nav>
 
+    @{Html.RenderPartial("_BarActions");}
+</header>
+
+<div class="userPage page" id="user" ng-class="{ myPage : profile.isSelf }">
+    <button type="button" class="btn3 sendMessage" ng-if="!profile.isSelf" ng-click="sendUserMessage2()">@SharedResources.Message</button>
+    <div class="upContentWpr">
         <section class="upMembers" ng-if="admin.visible()">
             <h2>@UserResources.UniMembers</h2>
             <div class="membersContent" ng-class="{noResults : admin.members.list && !admin.members.list.length}">
@@ -152,18 +166,18 @@
                 <div class="upTabContent qTab" ng-class="{empty: !activity.questions.list.length}">
                     <ul>
                         <li class="qaItem" ng-repeat="question in activity.questions.list | limitTo: activity.questions.limit">
-                                <div class="boxSvg">
-                                    <box-logo name="::question.boxName" type="::question.boxType"></box-logo>
-                                </div>
+                            <div class="boxSvg">
+                                <box-logo name="::question.boxName" type="::question.boxType"></box-logo>
+                            </div>
 
-                                @*<img class="lFloat imgBorder" src="" alt="" width="28" height="36" ng-src="{{::question.boxPicutre | defaultImage:'box'}}" />*@
-                                <span class="qaBoxname elps">{{::question.boxName}}</span>
-                                <div class="qaWpr">
-                                    <div class="qaQuestion" ng-bind-html="::question.content"></div>
-                                    <a class="qLink rFloat" href="" ng-href="{{::question.url}}" analytics-on="click" analytics-category="User" analytics-event="Navgiate to box" analytics-label="User clicked on a question in the activity section">@UserResources.GotoQuestion</a>
-                                    <span class="qAnswerCount" data-up-qacount="{{::qusetion.answersCount}}">&nbsp;@SharedResources.Answers</span>
-                                </div>
-</li>
+                            @*<img class="lFloat imgBorder" src="" alt="" width="28" height="36" ng-src="{{::question.boxPicutre | defaultImage:'box'}}" />*@
+                            <span class="qaBoxname elps">{{::question.boxName}}</span>
+                            <div class="qaWpr">
+                                <div class="qaQuestion" ng-bind-html="::question.content"></div>
+                                <a class="qLink rFloat" href="" ng-href="{{::question.url}}" analytics-on="click" analytics-category="User" analytics-event="Navgiate to box" analytics-label="User clicked on a question in the activity section">@UserResources.GotoQuestion</a>
+                                <span class="qAnswerCount" data-up-qacount="{{::qusetion.answersCount}}">&nbsp;@SharedResources.Answers</span>
+                            </div>
+                        </li>
                     </ul>
 
                     <button class="qaMore" type="button" ng-if="activity.questions.list.length - activity.questions.limit > 0" ng-click="addMoreActivity('questions')">@SharedResources.ShowMore</button>
@@ -272,7 +286,7 @@
                             <div class="inviteStatus">{{::invite.status ? '@SharedResources.ActiveMember' : '@SharedResources.Pending'}}</div>
                             <div class="invitedToWpr">
                                 <img class="upImg" alt="" width="30" height="30" ng-src="{{::invite.boxPicture || '/images/cloudents1-57x57.png?v=1'}}" />
-                                <div class="invitedTo elps">{{::invite.boxName || 'Cloudents'}}</div>
+                                <div class="invitedTo elps">{{::invite.boxName || 'Spitball'}}</div>
                             </div>
                             <button type="button" class="btn1" ng-if="!invite.status" ng-click="invites.reInvite(invite)" ng-disabled="invite.submitted">{{::invite.submitted ? '@SharedResources.Sent' : '@SharedResources.Reinvite'}}</button>
                         </li>
@@ -280,7 +294,6 @@
 
                     <div class="emptyInvites" ng-show="!invites.loading">
                         <span>@UserResources.FindFriends</span>
-                        @*<a href="@Url.RouteUrl("InviteCloudents")" target="_self" class="inviteFriendBtn btn3">@SharedResources.InviteFriends</a>*@
                     </div>
                 </div>
             </section>

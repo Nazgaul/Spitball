@@ -1,7 +1,4 @@
 ﻿/*#region variables */
-.test {
-  color: #064789;
-}
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -13,7 +10,7 @@
   height: 32px;
   border: 1px solid #c2c2c2;
   border-radius: 16px;
-  margin: 17px 20px 0 20px;
+  margin: 17px 31px 0 20px;
   line-height: normal;
   background: #fff;
   color: #c2c2c2;
@@ -23,11 +20,9 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.headerBox .searchTrigger {
-  margin-top: 9px;
-}
 .searchTrigger.searchUser {
-  margin-top: 23px;
+  width: 260px;
+  margin-top: 15px;
 }
 .searchTrigger.searchUser + button .svg-inviteUser {
   position: relative;
@@ -118,7 +113,7 @@
   font-size: 5vw;
   padding: 36px 0 4px 10%;
   background: transparent;
-  color: #3399ff;
+  color: #3293f6;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -245,6 +240,7 @@
   letter-spacing: 1px;
   color: #aaa;
   padding: 0.5em 0;
+  text-transform: capitalize;
 }
 .itemList .searchImg,
 .quizList .searchImg {
@@ -262,7 +258,7 @@
   text-align: center;
 }
 .quizList .boxName {
-  margin-top: -40px;
+  margin: -40px 2px 0 2px;
 }
 .searchLink {
   width: 100%;
@@ -311,12 +307,12 @@
   display: inline-block;
   margin: 0;
   padding: 5px 0;
-  color: #0e68af;
+  color: #3293f6;
   max-width: 100%;
   font-weight: normal;
 }
 .searchLink h4 {
-  color: #0371c8;
+  color: #383838;
 }
 .searchLink .boxSvg {
   background: #fff;

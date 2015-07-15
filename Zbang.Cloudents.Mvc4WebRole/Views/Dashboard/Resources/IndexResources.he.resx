@@ -133,7 +133,7 @@
     <value>לפי מחלקות מוסד הלימודים</value>
   </data>
   <data name="FindCourses" xml:space="preserve">
-    <value>חפש ומצא את הקורסים שאתה לומד בעזרת קלאודנטס</value>
+    <value>חפש ומצא את הקורסים שאתה לומד בעזרת Spitball</value>
   </data>
   <data name="FindingCourses" xml:space="preserve">
     <value>מצא את הקורסים שאתה לומד עם ה:</value>
@@ -270,7 +270,7 @@
     <value>קבוצה פרטית</value>
   </data>
   <data name="SearchCloudents" xml:space="preserve">
-    <value>חפש חברים מקלאודנטס</value>
+    <value>חפש חברים מSpitball</value>
   </data>
   <data name="SearchFb" xml:space="preserve">
     <value>חפש חברים מפייסבוק</value>
@@ -288,7 +288,7 @@
 של ספרי לימוד</value>
   </data>
   <data name="WelcomeCloudents" xml:space="preserve">
-    <value>ברוכים הבאים לקלאודנטס</value>
+    <value>ברוכים הבאים לSpitball</value>
   </data>
   <data name="RecommendedCourses" xml:space="preserve">
     <value>קורסים מומלצים</value>

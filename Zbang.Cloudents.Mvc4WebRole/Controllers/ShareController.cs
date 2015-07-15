@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 if (!inviteCommand.Id.HasValue)
                 {
-                    return JsonError("User is already connected to cloudents");
+                    return JsonError("User is already connected to Spitball");
                 }
                 return JsonOk(new { url = UrlConsts.BuildInviteCloudentsUrl(GuidEncoder.Encode(inviteCommand.Id.Value)) });
             }

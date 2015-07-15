@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Zbang.Cloudents.MobileApp2.DataObjects
@@ -11,6 +12,11 @@ namespace Zbang.Cloudents.MobileApp2.DataObjects
 
         [Required]//(ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "PwdAtLeast6Chars")]
         public string Password { get; set; }
+
+        public override string ToString()
+        {
+            return String.Format("Email: {0} password: {1}", Email, Password);
+        }
     }
 
     public class FacebookLoginRequest

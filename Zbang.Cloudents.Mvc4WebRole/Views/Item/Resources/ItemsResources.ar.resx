@@ -190,7 +190,7 @@
     <value>قيم هذا الموضوع</value>
   </data>
   <data name="SecurityReasons" xml:space="preserve">
-    <value>لأسباب أمنية، يتعذر فتح هذا الرابط في Cloudents</value>
+    <value>لأسباب أمنية، يتعذر فتح هذا الرابط في Spitball</value>
   </data>
   <data name="SendMsg" xml:space="preserve">
     <value>ارسال رسالة</value>

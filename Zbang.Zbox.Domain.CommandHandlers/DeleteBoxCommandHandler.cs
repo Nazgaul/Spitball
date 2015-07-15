@@ -41,6 +41,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var department = academicBox.Department;
                 var noOfBoxes = m_UniversityRepository.GetNumberOfBoxes(university);
                 m_BoxRepository.Delete(box);
+                
                 m_DepartmentRepository.Save(department.UpdateNumberOfBoxes());
                 university.UpdateNumberOfBoxes(--noOfBoxes);
                 m_UniversityRepository.Save(university);

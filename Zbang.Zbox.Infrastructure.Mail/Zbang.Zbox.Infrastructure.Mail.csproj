@@ -75,8 +75,6 @@
     <Compile Include="MailParameters.cs" />
     <Compile Include="MessageMail.cs" />
     <Compile Include="MessageMailParams.cs" />
-    <Compile Include="OrderConfirmMail.cs" />
-    <Compile Include="PartnersMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterIoc.cs" />
     <Compile Include="Resources\EmailResource.Designer.cs">
@@ -84,7 +82,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EmailResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="StoreContactUsMail.cs" />
     <Compile Include="UpdateMailParams.cs" />
     <Compile Include="UpdatesMail.cs" />
     <Compile Include="WelcomeMail.cs" />
@@ -146,21 +143,11 @@
     <EmbeddedResource Include="MailTemplate\ResetPwdAr.html" />
     <EmbeddedResource Include="MailTemplate\ResetPwdHe.html" />
     <EmbeddedResource Include="MailTemplate\ResetPwdRu.html" />
-    <EmbeddedResource Include="MailTemplate\Partners\WeeklyUpdate.html" />
-    <EmbeddedResource Include="MailTemplate\Store\OrderConfirmation.html" />
-    <EmbeddedResource Include="MailTemplate\Store\OrderConfirmationHe.html" />
-    <EmbeddedResource Include="MailTemplate\Store\ContactUsSubmission.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Answer1.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Answer1Ar.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Answer1He.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Answer1Ru.html" />
-    <Content Include="MailTemplate\UpdatesEmail\AnswerAr.html" />
-    <Content Include="MailTemplate\UpdatesEmail\AnswerRu.html" />
     <EmbeddedResource Include="MailTemplate\InviteCourseAr.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Discussion.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\DiscussionAr.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\DiscussionHe.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\DiscussionRu.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Discussion1.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Item1.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Item1Ar.html" />
@@ -169,56 +156,30 @@
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Discussion1Ar.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Discussion1He.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Discussion1Ru.html" />
-    <Content Include="MailTemplate\UpdatesEmail\ItemAr.html" />
-    <Content Include="MailTemplate\UpdatesEmail\ItemRu.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Member1.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Member1Ar.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Member1He.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Member1Ru.html" />
-    <Content Include="MailTemplate\UpdatesEmail\MemberAr.html" />
-    <Content Include="MailTemplate\UpdatesEmail\MemberRu.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\More1.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\More1Ar.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\More1He.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\More1Ru.html" />
-    <Content Include="MailTemplate\UpdatesEmail\MoreAr.html" />
-    <Content Include="MailTemplate\UpdatesEmail\MoreRu.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Question1.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Question1Ar.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Question1He.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Question1Ru.html" />
-    <Content Include="MailTemplate\UpdatesEmail\QuestionAr.html" />
-    <Content Include="MailTemplate\UpdatesEmail\QuestionRu.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Updates1.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Updates1Ar.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Updates1He.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Updates1Ru.html" />
-    <Content Include="MailTemplate\UpdatesEmail\UpdatesAr.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\UpdatesList1.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\UpdatesList1Ar.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\UpdatesList1He.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\UpdatesList1Ru.html" />
-    <Content Include="MailTemplate\UpdatesEmail\UpdatesListAr.html" />
-    <Content Include="MailTemplate\UpdatesEmail\UpdatesListRu.html" />
-    <Content Include="MailTemplate\UpdatesEmail\UpdatesRu.html" />
     <EmbeddedResource Include="MailTemplate\Welcome.html" />
     <EmbeddedResource Include="MailTemplate\WelcomeAr.html" />
     <EmbeddedResource Include="MailTemplate\WelcomeHe.html" />
     <EmbeddedResource Include="MailTemplate\WelcomeRu.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Answer.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Item.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\More.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Updates.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Member.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\AnswerHe.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\Question.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\ItemHe.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\UpdatesList.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\MemberHe.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\MoreHe.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\QuestionHe.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\UpdatesHe.html" />
-    <EmbeddedResource Include="MailTemplate\UpdatesEmail\UpdatesListHe.html" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -13,7 +13,7 @@
 
          var analyticsObj = {          
              'siteSpeedSampleRate': 70,
-             'cookieDomain': 'cloudents.com',
+             'cookieDomain': 'spitball.co',
              'alwaysSendReferrer': true
          }
 

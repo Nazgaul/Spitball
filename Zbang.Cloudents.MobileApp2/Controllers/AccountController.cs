@@ -201,7 +201,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             await Task.WhenAll(tUser, tResult);
             if (tUser.Result == null && tResult.Result != null)
             {
-                return Request.CreateBadRequestResponse("You have registered to Cloudents through Facebook -- go to the homepage and click on the Facebook button to register");
+                return Request.CreateBadRequestResponse("You have registered to Spitball through Facebook -- go to the homepage and click on the Facebook button to register");
             }
             if (tUser.Result == null)
             {

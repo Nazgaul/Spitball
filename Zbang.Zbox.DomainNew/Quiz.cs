@@ -9,7 +9,7 @@ namespace Zbang.Zbox.Domain
     {
         protected Quiz()
         {
-
+            ShouldMakeDirty = () => true;
         }
         public Quiz(string name, long id, Box box, User owner)
             : this()
@@ -103,7 +103,8 @@ namespace Zbang.Zbox.Domain
 
         public Func<bool> ShouldMakeDirty
         {
-            get { return () => true; }
+            get;
+            set;
         }
 
         public bool IsDeleted {get;set;}

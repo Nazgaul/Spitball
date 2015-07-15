@@ -190,10 +190,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserWithFriendBoxes(query);
         }
 
-        public Task<IEnumerable<ItemToFriendDto>> GetUserWithFriendFiles(GetUserWithFriendQuery query)
-        {
-            return m_ReadService.GetUserWithFriendFiles(query);
-        }
+      
 
 
         public Task<IEnumerable<QuestionToFriendDto>> GetUserWithFriendQuestion(GetUserWithFriendQuery query)

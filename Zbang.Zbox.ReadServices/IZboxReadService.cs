@@ -85,7 +85,6 @@ namespace Zbang.Zbox.ReadServices
 
         //user page
         Task<IEnumerable<BoxDto>> GetUserWithFriendBoxes(GetUserWithFriendQuery query);
-        Task<IEnumerable<ItemToFriendDto>> GetUserWithFriendFiles(GetUserWithFriendQuery query);
         Task<IEnumerable<QuestionToFriendDto>> GetUserWithFriendQuestion(GetUserWithFriendQuery query);
         Task<IEnumerable<AnswerToFriendDto>> GetUserWithFriendAnswer(GetUserWithFriendQuery query);
         Task<IEnumerable<UserInviteDto>> GetUserPersonalInvites(GetInvitesQuery query);

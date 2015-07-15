@@ -1,4 +1,5 @@
 ﻿@import "varsAndMixins";
+@import "../Images/site.png.less";
 
 .union-sprite:before {
     background: url('data:image/png;base64,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') no-repeat;
@@ -15,19 +16,14 @@
     .dashboardPage &, .libraryPage &, .departmentPage &, .boxPage & {
         position: relative; //For search TODO: rethink this
     }
+
     .dashboardPage &, .libraryPage &, .departmentPage & {
         height: 100%;
         vertical-align: top;
         min-width: 1058px;
     }
-
 }
-/*.dashboard, .union {
-    height: 100%;
-    vertical-align: top;
-    min-width: 1058px;
-    //overflow: auto; //TODO: Why? This causes bug 3209
-}*/
+
 
 .dashContent, .libraryContent {
     position: relative;
@@ -122,12 +118,8 @@
     position: relative;
     left: -4px; //rtl
     top: 24px;
- 
 }
 
-.libBoxActions {
-    display: none;
-}
 /*#endregion */
 
 /*#region new library */
@@ -248,9 +240,8 @@
             .boxSizing;
             margin-top: 20px;
             min-width: 502px;
-            height:350px;
-            border:none;
-
+            height: 350px;
+            border: none;
         }
 
         .libraryList {
@@ -264,6 +255,7 @@
         }
     }
 }
+
 @media only screen and (min-width: 1134px) {
     .contentWpr.featured {
         .unionFeatured {
@@ -271,6 +263,7 @@
         }
     }
 }
+
 @media only screen and (min-width: 1392px) {
     .contentWpr.featured {
         .unionFeatured {
@@ -278,6 +271,7 @@
         }
     }
 }
+
 @media only screen and (min-width: 1650px) {
     .contentWpr.featured {
         .unionFeatured {
@@ -285,6 +279,7 @@
         }
     }
 }
+
 .unionFeatured {
     display: none;
 }
@@ -307,7 +302,6 @@
     .union {
         display: none !important; //override js
     }*/
-
     .modal-dialog {
         background: none;
         border: none;
@@ -340,9 +334,10 @@
     }
 
     .closeDialog {
-        background: @site-sprite 0 -94px no-repeat;
-        width: 19px;
-        height: 19px;
+        .sprite-Images-close()
+        //        background: @site-sprite 0 -94px no-repeat;
+        //        width: 19px;
+        //        height: 19px;
     }
 
     .svg-doc {
@@ -366,6 +361,7 @@
         margin-right: 10px; //rtl
         vertical-align: middle;
     }
+
     span {
         white-space: pre-line;
         line-height: 16px;
@@ -404,9 +400,7 @@
     &:before {
         content: '';
         display: block;
-        width: 130px;
-        height: 132px;
-        background: @site-sprite 0 -115px no-repeat;
+        .sprite-Images-course();
         margin: 0 auto;
     }
 }
@@ -453,6 +447,7 @@
 .unionCourses, .groupBoxes {
     position: relative;
 }
+
 .emptyDash {
     color: #383838;
     font-size: 16px;
@@ -463,7 +458,7 @@
     text-align: center;
 }
 
-.groupEmpty { //, .followEmpty{
+.groupEmpty {
     h2 {
         font-size: 22px;
     }
@@ -698,7 +693,7 @@
     .fbCopyInfo {
         background-color: #282828;
         left: 0;
-        right:0;
+        right: 0;
         outline: 1px solid rgba(255,255,255,0.5);
         position: absolute;
         text-align: center;
@@ -709,15 +704,16 @@
         -ms-user-select: none;
         -webkit-user-select: none;
         user-select: none;
-        margin:auto;
+        margin: auto;
 
         .square {
-           color: #fff;          
-          font-size: 11px;
-          font-weight: bold;
-          line-height: 29px;
-          text-align: center;
+            color: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            line-height: 29px;
+            text-align: center;
         }
+
         .arrow {
             border-bottom: transparent;
             border-left: 5px solid transparent;
@@ -727,7 +723,7 @@
             left: 65px;
             outline: none;
             margin: 0 0 0 -5px;
-            position: absolute
+            position: absolute;
         }
     }
 
@@ -761,7 +757,7 @@
             margin: 40px auto;
             height: 34px;
             top: auto;
-            text-align:center;
+            text-align: center;
         }
 
         .gotoFbBtn {
@@ -794,11 +790,13 @@
         margin: 0 6px;
     }
 
+    .cloudentsBtn {
+        .sprite-Images-spitball_invite_off();
+    }
+
     &.js-cloudState {
         .cloudentsBtn {
-            svg {
-                fill: @color;
-            }
+            .sprite-Images-spitball_invite_on();
         }
 
         .socialContentWpr:before {
@@ -872,17 +870,21 @@
         fill: #282828;
     }
 }
+
 .fbBtn.fbBtn { //added specificity
     margin: 15px 60px 33px 60px;
+
     svg:hover {
         fill: @fbColor;
     }
 }
+
 .gmailBtn {
     svg:hover {
         fill: @gmailColor;
     }
 }
+
 .socialContentWpr {
     min-height: 250px;
     display: none;
@@ -1049,6 +1051,7 @@
 /*#region Upload files */
 .uploadFiles {
     text-align: center;
+
     header {
         font-size: 20px;
         color: @txtColor;
@@ -1090,32 +1093,35 @@
 
         &:before {
             content: '';
-            background: @site-sprite no-repeat;
+            //background: @site-sprite no-repeat;
             margin: 50px auto 10px;
             display: block;
         }
     }
 
     .linkBtn:before {
-        width: 79px;
-        height: 78px;
-        background-position: 0px -1548px; //do not remove px units!
+        .sprite-Images-earth()
+        //width: 79px;
+        //height: 78px;
+        //background-position: 0px -1548px; //do not remove px units!
     }
 
     .dropBoxBtn {
         margin: 0 90px;
 
         &:before {
-            width: 82px;
-            height: 79px;
-            background-position: 0px -1256px; //do not remove px units!
+            .sprite-Images-web_upload()
+            //width: 82px;
+            //height: 79px;
+            //background-position: 0px -1256px; //do not remove px units!
         }
     }
 
     .driveBtn:before {
-        width: 86px;
-        height: 76px;
-        background-position: 0px -440px; //do not remove px units!
+        .sprite-Images-drive_upload()
+        //width: 86px;
+        //height: 76px;
+        //background-position: 0px -440px; //do not remove px units!
     }
 }
 /*#endregion */
@@ -1139,6 +1145,7 @@
     .myAreaList {
         padding-bottom: 100px; //TODO: Check this!!!! is this for empty state?
     }
+
     .svg-privateBox {
         fill: rgba(3, 113, 200,.5);
     }
@@ -1153,6 +1160,7 @@
         &:hover {
             color: @color;
         }
+
         .addBtn {
             .boxSizing;
             background: #fff;
@@ -1163,7 +1171,7 @@
 }
 
 .libraryList {
-    margin-top: 42px;
+    padding-top: 42px;
 }
 
 .libraryList, .myAreaList {
@@ -1238,6 +1246,7 @@
     .boxSizing;
     display: inline-block;
     padding: 2px 9px 6px 15px;
+
     &:hover {
         box-shadow: 0 1px 0 rgba(0,0,0,.3);
 
@@ -1511,25 +1520,31 @@
         transition: max-width 0.2s 0.5s;
     }
 }
+
 .boxSvg {
     width: 72px;
     height: 72px;
     position: absolute;
-    top:0;bottom:0;
+    top: 0;
+    bottom: 0;
     margin: auto;
     left: 9px;
     border-radius: 50%;
     background: #eee;
+
     svg {
         position: absolute;
-        right:0;left:0;
-        top:0;bottom:0;
+        right: 0;
+        left: 0;
+        top: 0;
+        bottom: 0;
         margin: auto;
         opacity: .6;
         width: 58%;
         max-height: 62%;
     }
 }
+
 .notify {
     min-width: 9px;
     height: 9px;
@@ -1573,6 +1588,7 @@
     color: #bcbcbc;
     width: 100%; //for add department btn
     border: 1px dashed #aaa;
+
     &:hover {
         color: @colorHover;
 
@@ -1608,6 +1624,7 @@
 .libraryItem.addDep {
     width: 244px;
     border-radius: 5px;
+
     &:first-child {
         border-radius: 0;
     }
@@ -1617,6 +1634,7 @@
     width: 244px;
     height: 125px;
     padding: 0;
+
     .addBtn {
         height: 123px;
     }

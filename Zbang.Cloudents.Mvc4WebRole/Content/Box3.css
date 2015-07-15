@@ -1,7 +1,4 @@
 ﻿/*#region variables */
-.test {
-  color: #064789;
-}
 /*#endregion */
 /*#region mixins */
 /*#endregion */
@@ -31,6 +28,11 @@
   left: auto;
   margin: 0;
   visibility: visible;
+}
+@media (max-width: 1255px) {
+  .boxPage .leftPanel {
+    position: absolute;
+  }
 }
 .inviteButton {
   vertical-align: top;

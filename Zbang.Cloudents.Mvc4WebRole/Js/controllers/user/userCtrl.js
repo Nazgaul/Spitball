@@ -90,7 +90,7 @@ mUser.controller('UserCtrl',
         $scope.inviteCloudents = function () {
             sModal.open('cloudentsInvite');
 
-            $analytics.eventTrack('Invite Cloudents', {
+            $analytics.eventTrack('Invite Spitball', {
                 category: analyticsCategory
             });
         };
@@ -438,7 +438,13 @@ mUser.controller('UserCtrl',
             }
 
             function activityResponse(response) {
-                $scope.activity.items.list = response.items;
+                //
+
+                var items = _.map(response.items, function (item) {
+                    item.image = 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(item.image) + '.jpg?width=55&height=67&mode=crop';
+                    return item;
+                });
+                $scope.activity.items.list = items;
                 $scope.activity.questions.list = response.questions;
                 $scope.activity.answers.list = response.answers;
             }

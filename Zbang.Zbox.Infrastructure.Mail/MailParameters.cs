@@ -16,9 +16,9 @@ namespace Zbang.Zbox.Infrastructure.Mail
         internal const string OrderResolver = "Order";
         internal const string StoreContactResolver = "StoreContact";
 
-        public const string DefaultEmail = "no-reply@cloudents.com";
+        public const string DefaultEmail = "no-reply@Spitball.co";
 
-        private const string DefaultSenderName = "Cloudents";
+        private const string DefaultSenderName = "Spitball";
 
         protected MailParameters(CultureInfo culture, string senderEmail = DefaultEmail, string senderName = DefaultSenderName)
         {

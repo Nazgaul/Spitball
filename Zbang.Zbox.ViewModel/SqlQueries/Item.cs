@@ -45,7 +45,6 @@ where cte.itemid = @itemid;
  i.Url,
  b.boxname,
  i.creationTime,
- i.thumbnailUrl as Thumbnail,
  i.Discriminator as Type,
  i.BlobName as Source,
  i.Name as name,

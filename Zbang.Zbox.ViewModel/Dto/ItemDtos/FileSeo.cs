@@ -12,5 +12,10 @@
         public string Discriminator { get; set; }
 
         public string ImageUrl { get; set; }
+
+
+        public string DepartmentName { get; set; }
+
+        public string UniversityName { get; set; }
     }
 }

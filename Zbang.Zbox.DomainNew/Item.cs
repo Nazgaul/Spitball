@@ -12,6 +12,7 @@ namespace Zbang.Zbox.Domain
         public const int NameLength = 120;
         protected Item()
         {
+            
             // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             IsDeleted = false;
         }
@@ -127,20 +128,14 @@ namespace Zbang.Zbox.Domain
         public bool IsDirty { get; set; }
 
 
-        public Func<bool> ShouldMakeDirty
-        {
-            get
-            {
-                return () => true;
-            }
-        }
+        public Func<bool> ShouldMakeDirty { get; set; }
     }
 
     public class Link : Item
     {
-        protected Link()
+        protected Link() 
         {
-
+            ShouldMakeDirty = () => false;
         }
         public Link(string itemName, User uploaderUser, long sized, Box box,
             string linkTitle, string thumbnailBlobName, string thumbnailUrl)
@@ -161,15 +156,17 @@ namespace Zbang.Zbox.Domain
 
     public class File : Item
     {
-
+        protected File() 
+        {
+            ShouldMakeDirty = () => true;
+        }
 
         public virtual int NumberOfDownloads { get; private set; }
 
         public virtual string Content { get; set; }
 
 
-        protected File()
-        { }
+       
 
         public File(string itemName, User uploaderUser, long sized, string blobName,
             string thumbnailBlobName, Box box, string thumbnailUrl)

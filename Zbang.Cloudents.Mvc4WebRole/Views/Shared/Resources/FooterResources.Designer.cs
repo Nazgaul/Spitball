@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Join the social studying revolution at Cloudents.
+        ///   Looks up a localized string similar to Join the social studying revolution at Spitball.
         /// </summary>
         public static string ogDescription {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check out Cloudents! A great academic service for class notes, exams and doing our coursework..
+        ///   Looks up a localized string similar to Check out Spitball! A great academic service for class notes, exams and doing our coursework..
         /// </summary>
         public static string ogTitle {
             get {
@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cloudents.
+        ///   Looks up a localized string similar to Spitball.
         /// </summary>
         public static string ZbangIt {
             get {

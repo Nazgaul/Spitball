@@ -1,12 +1,9 @@
 ﻿/*#region variables */
-.test {
-  color: #064789;
-}
 /*#endregion */
 /*#region mixins */
 /*#endregion */
 .settingsMenu {
-  width: 263px;
+  width: 289px;
   background: #eee;
   border-right: 1px solid #c2c2c2;
   position: fixed;
@@ -33,7 +30,7 @@
 .settingsContent {
   width: 100%;
   text-align: left;
-  padding: 30px 20px 0 288px;
+  padding: 30px 20px 0 314px;
   min-height: -webkit-calc(100vh - 50px);
   min-height: calc(100vh - 50px);
   background: #fff;

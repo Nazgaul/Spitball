@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BrowserUnsupported" xml:space="preserve">
-    <value>Cloudents не поддерживает вашу версию браузера.</value>
+    <value>Spitball не поддерживает вашу версию браузера.</value>
   </data>
   <data name="GoBack" xml:space="preserve">
     <value>Вернуться на </value>
@@ -148,7 +148,7 @@
     <value>войти</value>
   </data>
   <data name="ToAccessFile" xml:space="preserve">
-    <value>Для доступа к этому файлу необходимо зарегистрироваться на Cloudents</value>
+    <value>Для доступа к этому файлу необходимо зарегистрироваться на Spitball</value>
   </data>
   <data name="ToView" xml:space="preserve">
     <value>Для просмотра этого контента необходимо быть участником или приглашенным</value>

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public class CommentReplies
+    public class CommentReplies //: ISoftDeletable
     {
         protected CommentReplies()
         {
@@ -54,6 +55,17 @@ namespace Zbang.Zbox.Domain
 
         protected virtual ICollection<Updates> Updates { get; set; }
 
-        
+
+
+        public bool IsDeleted
+        {
+            get;
+            set;
+        }
+
+        public void DeleteAssociation()
+        {
+            Updates.Clear();
+        }
     }
 }

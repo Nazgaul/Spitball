@@ -31,41 +31,47 @@ namespace Zbang.Zbox.Infrastructure.File
         {
 
         }
-        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
-            var blobsNamesInCache = new List<string>();
-
-            if (indexNum > 0)
+            var blobsNamesInCache = new List<string>
             {
-                return new PreviewResult { Content = blobsNamesInCache };
-            }
-            var imageDimentions = GetPreviewImageSize(new Size(width, height));
-            var cacheFileName = CreateCacheFileName(blobName, imageDimentions);
+                "https://az779114.vo.msecnd.net/preview/" + blobName +
+                string.Format(".jpg?width={0}&height={1}", 1024, 768)
+            };
+            return Task.FromResult(new PreviewResult { ViewName = "Image", Content = blobsNamesInCache });
+            //if (indexNum > 0)
+            //{
+            //    return new PreviewResult { Content = blobsNamesInCache };
+            //}
+            //var imageDimentions = GetPreviewImageSize(new Size(width, height));
+            //var cacheFileName = CreateCacheFileName(blobName, imageDimentions);
 
-            var cacheBlobNameWithSharedAccessSignature = BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheFileName, 20);
+            //var cacheBlobNameWithSharedAccessSignature = BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheFileName, 20);
 
-            if (IsFileExistsInCache(cacheBlobNameWithSharedAccessSignature))
-            {
-                blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
-                return new PreviewResult { ViewName = "Image", Content = blobsNamesInCache };
-            }
+           
+
+            //if (IsFileExistsInCache(cacheBlobNameWithSharedAccessSignature))
+            //{
+            //    blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
+            //    return new PreviewResult { ViewName = "Image", Content = blobsNamesInCache };
+            //}
 
 
-            using (var stream = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
-            {
-                if (stream.Length == 0)
-                {
-                    throw new ArgumentException("Stream is 0");
-                }
-                var settings = new ResizeSettings { Mode = FitMode.Max };
-                using (var outPutStream = ProcessFile(stream, imageDimentions.Width, imageDimentions.Height, settings))
-                {
-                    var cacheName = await BlobProvider.UploadFileToCacheAsync(cacheFileName, outPutStream, "image/jpg");
-                    blobsNamesInCache.Add(cacheName);
-                }
-            }
-            return new PreviewResult { Content = blobsNamesInCache, ViewName = "Image" };
+            //using (var stream = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
+            //{
+            //    if (stream.Length == 0)
+            //    {
+            //        throw new ArgumentException("Stream is 0");
+            //    }
+            //    var settings = new ResizeSettings { Mode = FitMode.Max };
+            //    using (var outPutStream = ProcessFile(stream, imageDimentions.Width, imageDimentions.Height, settings))
+            //    {
+            //        var cacheName = await BlobProvider.UploadFileToCacheAsync(cacheFileName, outPutStream, "image/jpg");
+            //        blobsNamesInCache.Add(cacheName);
+            //    }
+            //}
+            //return new PreviewResult { Content = blobsNamesInCache, ViewName = "Image" };
         }
 
         private Stream ProcessFile(Stream stream, int width, int height, ResizeSettings settings)
@@ -138,6 +144,16 @@ namespace Zbang.Zbox.Infrastructure.File
                         Scale = ScaleMode.UpscaleCanvas
                     };
 
+                    using (var ms = new MemoryStream())
+                    {
+                        var settings2 = new ResizeSettings
+                        {
+                            Format = "jpg"
+                        };
+                        ImageBuilder.Current.Build(stream, ms, settings2, false);
+                        await BlobProvider.UploadFilePreviewAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
+                    }
+
                     using (var outPutStream = ProcessFile(stream, ThumbnailWidth, ThumbnailHeight, settings))
                     {
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV4.jpg";
@@ -149,7 +165,7 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("PreProcessFile image", ex);
+                TraceLog.WriteError("PreProcessFile image blobUri: " + blobUri, ex);
                 return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
             }
 

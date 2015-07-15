@@ -64,7 +64,7 @@
   </resultset>
 
   <!--Used in box page to get item section-->
-  <!--TODO: AGGREGATE BOX ITEMS-->
+  <!--TODO: AGGREGATE BOX ITEMS--><!--
   <sql-query name="GetBoxItemDtosByBoxId2" resultset-ref="ItemDto" read-only="1">
     <![CDATA[
     select
@@ -90,7 +90,7 @@
     and i.BoxId = :BoxId
     order by i.itemid desc
     ]]>
-  </sql-query>
+  </sql-query>-->
 
 
 

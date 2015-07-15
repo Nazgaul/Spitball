@@ -7,17 +7,18 @@
 ,b.BoxName as Name, b.ProfessorName as Professor ,b.CourseCode as CourseCode
 , b.Url as Url, b.University as UniversityId ,  b.discriminator as Type
   from zbox.box b
-  where isdirty = 1 and isdeleted = 0 and url is not null
+  where isdirty = 1 and isdeleted = 0 and url is not null and b.boxid % @count  = @index
   order by b.BoxId;";
 
         public const string GetBoxUsersToUploadToSearch = @"select UserId,BoxId from zbox.UserBoxRel where boxId in (
 select top 500 b.boxid  from zbox.box b
-  where isdirty = 1 and isdeleted = 0  and url is not null
+  where isdirty = 1 and isdeleted = 0  and url is not null and b.boxid % @count  = @index
   order by b.BoxId);";
 
         public const string GetBoxDepartmentToUploadToSearch = @"  with c as (
-select l.*, b.boxid from zbox.library l join zbox.box b on l.libraryid = b.libraryid and b.boxid in ( select top 500 b.boxid  from zbox.box b
-  where isdirty = 1 and isdeleted = 0  and url is not null
+select l.*, b.boxid from zbox.library l join zbox.box b on l.libraryid = b.libraryid and b.boxid in 
+( select top 500 b.boxid  from zbox.box b
+  where isdirty = 1 and isdeleted = 0  and url is not null and b.boxid % @count  = @index
   order by b.BoxId)
  
 	union all
@@ -29,11 +30,11 @@ select Name,boxid from c";
 
         public const string GetBoxToDeleteToSearch = @"
         select top 500 boxid as id from zbox.box
-        where isdirty = 1 and isdeleted = 1;";
+        where isdirty = 1 and isdeleted = 1 and boxid % @count  = @index;";
 
         public const string GetItemToDeleteToSearch = @"
         select top 10 itemid as id from zbox.item
-        where isdirty = 1 and isdeleted = 1;";
+        where isdirty = 1 and isdeleted = 1 and itemid % @count  = @index;";
 
         public const string GetItemsToUploadToSearch =
             @" select top 1
@@ -73,6 +74,7 @@ select top 1 i.boxid  from zbox.item i  join zbox.box b on i.BoxId = b.BoxId
 	where publish = 1
 	and q.isdeleted = 0
 	and q.isdirty = 1
+    and q.id % @count  = @index
 	order by Id);";
 
         public const string GetQuizzesToUploadToSearch = @"select top 100 q.Id,
@@ -88,6 +90,7 @@ left join zbox.University u on b.University = u.id
 where publish = 1
 and q.isdeleted = 0
 and q.isdirty = 1
+and q.id % @count  = @index
 order by Id;";
 
 
@@ -98,6 +101,7 @@ from zbox.quiz q
 where publish = 1
 and q.isdeleted = 0
 and q.isdirty = 1
+and q.id % @count  = @index
 order by Id)
 order by Id;";
 
@@ -109,12 +113,13 @@ from zbox.quiz q
 where publish = 1
 and q.isdeleted = 0
 and q.isdirty = 1
+and q.id % @count  = @index
 order by Id)
 order by QuestionId,Id;";
 
         public const string GetQuizzesToDeleteFromSearch = @"
         select top 100 id as id from zbox.Quiz
-        where isdirty = 1 and isdeleted = 1;";
+        where isdirty = 1 and isdeleted = 1 and id % @count  = @index;";
 
     }
 
