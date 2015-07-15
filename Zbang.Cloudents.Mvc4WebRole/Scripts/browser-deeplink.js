@@ -181,14 +181,12 @@
             return;
         }
 
-        var action = getAction(uri);
-
         if (isAndroid() && !navigator.userAgent.match(/Firefox/)) {
             var matches = uri.match(/([^:]+):\/\/(.+)$/i);
             uri = "intent://" + matches[2] + "#Intent;scheme=" + matches[1];
             uri += ";package=" + settings.android.appId;// + ";end";
 
-            uri += ";action=" + settings.android.appId + action;
+            uri += ";action=" + settings.android.appId + getAction(matches[2]);
 
             if (settings.urlFallback) {
                 uri += ";S.browser_fallback_url=" + settings.urlFallback;
