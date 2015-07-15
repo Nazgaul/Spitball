@@ -184,7 +184,10 @@
         if (isAndroid() && !navigator.userAgent.match(/Firefox/)) {
             var matches = uri.match(/([^:]+):\/\/(.+)$/i);
             uri = "intent://" + matches[2] + "#Intent;scheme=" + matches[1];
-            uri += "category=browseable;package=" + settings.android.appId;// + ";end";
+            uri += ";package=" + settings.android.appId;// + ";end";
+
+            uri += ";action=" + settings.android.appId + getAction();
+
             if (settings.urlFallback) {
                 uri += ";S.browser_fallback_url=" + settings.urlFallback;
             }
@@ -216,4 +219,23 @@
         open: open
     };
 
+    function getAction() {
+        var type = location.pathname.substring(1).split('/');
+        var action;
+        switch (type[0].toLowerCase()) {            
+            case "box":
+            case "course":
+                action = ".BOX"
+                break
+            case "item":
+                action = ".ITEM";
+                break;
+            default:
+                action = ".DASHBOARD"
+                break;
+        }
+
+        return action;
+
+    }
 });
