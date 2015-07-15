@@ -199,7 +199,7 @@
             timeout = setTimeout(openAppStore(Date.now()), settings.delay);
         }
         
-        var iframe = document.createElement("iframe");
+        var iframe = document.createElement("iframe"); 
         iframe.onload = function() {
             clearTimeout(timeout);
             iframe.parentNode.removeChild(iframe);
