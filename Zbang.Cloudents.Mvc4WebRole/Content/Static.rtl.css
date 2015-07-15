@@ -782,8 +782,6 @@ footer {
 }
 /*#endregion */
 /*#region RTL inconsistencies */
-.rtlFix .policy,
-.rtlFix .terms,
 .rtlFix .aboutUs,
 .rtlFix .contactUs {
   direction: ltr;
