@@ -2,8 +2,6 @@
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Extensions
@@ -11,9 +9,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
     public class JsonNetResult : JsonResult
     {
         public static JsonSerializerSettings SerializerSettings { get; set; }
-        public Formatting Formatting { get; set; }
 
-        public JsonNetResult()
+        static JsonNetResult()
         {
             SerializerSettings = new JsonSerializerSettings
             {
@@ -22,7 +19,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             };
             SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
             SerializerSettings.Converters.Add(new IsoDateTimeConverter { DateTimeStyles = System.Globalization.DateTimeStyles.AssumeUniversal });
-            Formatting = Formatting.None;
 
         }
 
@@ -41,7 +37,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
                 response.ContentEncoding = ContentEncoding;
 
             if (Data == null) return;
-            using (var writer = new JsonTextWriter(response.Output) { Formatting = Formatting })
+            using (var writer = new JsonTextWriter(response.Output) { Formatting = Formatting.None })
             {
                 JsonSerializer serializer = JsonSerializer.Create(SerializerSettings);
                 serializer.Serialize(writer, Data);
