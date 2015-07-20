@@ -10,6 +10,7 @@ using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Cloudents.MobileApp2.DataObjects;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
@@ -72,7 +73,12 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 var userId = User.GetCloudentsUserId();
                 var command = new CreateBoxCommand(userId, model.BoxName);
                 var result = ZboxWriteService.CreateBox(command);
-                return Request.CreateResponse(result);
+                return Request.CreateResponse(new
+                {
+                    result.Url,
+                    result.Id,
+                    shortUrl = UrlConsts.BuildShortBoxUrl(new Base62(result.Id).ToString())
+                });
 
             }
             catch (BoxNameAlreadyExistsException)
@@ -108,7 +114,12 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
                                                            model.CourseId, model.Professor, guid.Value);
                 var result = ZboxWriteService.CreateBox(command);
-                return Request.CreateResponse(new {result.Url, result.Id});
+                return Request.CreateResponse(new
+                {
+                    result.Url,
+                    result.Id,
+                    shortUrl = UrlConsts.BuildShortBoxUrl(new Base62(result.Id).ToString())
+                });
             }
             catch (BoxNameAlreadyExistsException)
             {
@@ -121,7 +132,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         [HttpGet]
         [Route("api/box/{id:long}/items")]
-        public async Task<HttpResponseMessage> Items(long id, Guid? tabId, int page,int sizePerPage = 20)
+        public async Task<HttpResponseMessage> Items(long id, Guid? tabId, int page, int sizePerPage = 20)
         {
             //TODO: Claim to check box permission
             var query = new GetBoxItemsPagedQuery(id, tabId, page, sizePerPage);
@@ -164,8 +175,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 return Request.CreateUnauthorizedResponse("You don't have permission");
             }
-           
-           
+
+
         }
 
         [Route("api/box/follow")]
@@ -209,7 +220,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
             var userId = User.GetCloudentsUserId();
             var shareCommand = new ShareBoxCommand(model.BoxId, userId, model.Recipients);
-            
+
             await ZboxWriteService.ShareBoxAsync(shareCommand);
             return Request.CreateResponse();
         }

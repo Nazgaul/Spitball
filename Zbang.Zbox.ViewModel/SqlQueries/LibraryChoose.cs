@@ -42,6 +42,7 @@ order by count(*) desc";
 select UniversityName as name, LargeImage as image, id
 from zbox.university u 
 left join country_cte c  on u.country = c.country
+where u.isdeleted = 0
 order by 
 case when u.country = c.country then 0 else 1 end asc, NoOfUsers desc
 offset @pageNumber*@rowsperpage ROWS

@@ -535,6 +535,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Views\Home\Resources\MobileAppResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MobileAppResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Home\Resources\WelcomeResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -825,10 +830,20 @@
     <Content Include="Images\HomePage\logo1.png" />
     <Content Include="Images\logo2.png" />
     <Content Include="Images\Mobile\app_store.png" />
-    <Content Include="Images\Mobile\bg%402x.png" />
-    <Content Include="Images\Mobile\bg%403x.png" />
-    <Content Include="Images\Mobile\bg.png" />
+    <Content Include="Images\Mobile\background.jpg" />
     <Content Include="Images\Mobile\google_play.png" />
+    <Content Include="Images\Mobile\logo.png" />
+    <Content Include="Images\Mobile\logo_1440.png" />
+    <Content Include="Images\Mobile\logo_720.png" />
+    <Content Include="Images\Mobile\mobile1.png" />
+    <Content Include="Images\Mobile\mobile1_1440.png" />
+    <Content Include="Images\Mobile\mobile1_720.png" />
+    <Content Include="Images\Mobile\mobile2.png" />
+    <Content Include="Images\Mobile\mobile2_1440.png" />
+    <Content Include="Images\Mobile\mobile2_720.png" />
+    <Content Include="Images\Mobile\mobile3.png" />
+    <Content Include="Images\Mobile\mobile3_1440.png" />
+    <Content Include="Images\Mobile\mobile3_720.png" />
     <Content Include="Images\spitball_invite_off.png" />
     <Content Include="Images\spitball_invite_on.png" />
     <Content Include="Images\spitball_logo_mobile.png" />
@@ -2464,6 +2479,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Home\Resources\ContactUsResources.ru.resx" />
     <EmbeddedResource Include="Views\Home\Resources\ContactUsResources.zh.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\MobileAppResources.he.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\MobileAppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MobileAppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.ar.resx" />
     <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.he.resx" />

@@ -1,55 +1,55 @@
 ﻿/*
 This is an example of how to use the image sprite in your own CSS files
 */
-.Images-close {
+.Zbang.Cloudents.Mvc4WebRole-Images-close {
 /* You may have to set 'display: block' */
 	width: 19px;
 	height: 19px;
 	background: url('site.png') -1px -1px;
 }
-.Images-course {
+.Zbang.Cloudents.Mvc4WebRole-Images-course {
 /* You may have to set 'display: block' */
 	width: 130px;
 	height: 128px;
 	background: url('site.png') -1px -21px;
 }
-.Images-drive_upload {
+.Zbang.Cloudents.Mvc4WebRole-Images-drive_upload {
 /* You may have to set 'display: block' */
 	width: 86px;
 	height: 76px;
 	background: url('site.png') -1px -150px;
 }
-.Images-uni_logo {
+.Zbang.Cloudents.Mvc4WebRole-Images-uni_logo {
 /* You may have to set 'display: block' */
 	width: 41px;
 	height: 34px;
 	background: url('site.png') -1px -227px;
 }
-.Images-web_upload {
+.Zbang.Cloudents.Mvc4WebRole-Images-web_upload {
 /* You may have to set 'display: block' */
 	width: 82px;
 	height: 79px;
 	background: url('site.png') -1px -262px;
 }
-.Images-earth {
+.Zbang.Cloudents.Mvc4WebRole-Images-earth {
 /* You may have to set 'display: block' */
 	width: 79px;
 	height: 78px;
 	background: url('site.png') -1px -342px;
 }
-.Images-logo2 {
+.Zbang.Cloudents.Mvc4WebRole-Images-logo2 {
 /* You may have to set 'display: block' */
 	width: 222px;
 	height: 65px;
 	background: url('site.png') -1px -421px;
 }
-.Images-spitball_invite_off {
+.Zbang.Cloudents.Mvc4WebRole-Images-spitball_invite_off {
 /* You may have to set 'display: block' */
 	width: 70px;
 	height: 70px;
 	background: url('site.png') -1px -487px;
 }
-.Images-spitball_invite_on {
+.Zbang.Cloudents.Mvc4WebRole-Images-spitball_invite_on {
 /* You may have to set 'display: block' */
 	width: 70px;
 	height: 70px;
