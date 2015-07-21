@@ -64,10 +64,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
-        [DonutOutputCache(VaryByParam = "lang;invId", VaryByCustom = CustomCacheKeys.Lang +";" + CustomCacheKeys.Url,
+        [DonutOutputCache(VaryByParam = "lang;invId", VaryByCustom = CustomCacheKeys.Lang + ";" + CustomCacheKeys.Url,
             Duration = TimeConsts.Day,
             Location = OutputCacheLocation.Server, Order = 2)]
-        //[RedirectToMobile(Order = 1)]
+        [RedirectFromCloudentsToSpitball(Order = 1)]
         public ActionResult Index(string lang, string invId)
         {
             if (!string.IsNullOrEmpty(lang))
@@ -751,7 +751,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var tSystemUser = ZboxReadService.GetUserDetailsByMembershipId(query);
 
                 var tUser = m_UserManager.FindByIdAsync(data.MembershipUserId.ToString());
-                
+
                 await Task.WhenAll(tSystemUser, tUser);
 
                 var identity = await tUser.Result.GenerateUserIdentityAsync(m_UserManager, tSystemUser.Result.Id,
