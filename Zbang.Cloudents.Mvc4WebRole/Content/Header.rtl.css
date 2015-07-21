@@ -28,6 +28,16 @@ body {
   box-sizing: border-box;
   height: 100%;
 }
+.moveToSpitBall {
+  height: 50px;
+  background: orange;
+  line-height: 50px;
+  color: #fff;
+  padding-right: 50px;
+}
+.moveToSpitBall button {
+  text-decoration: underline;
+}
 .siteHeader {
   height: 65px;
   background-color: #282828;
@@ -70,7 +80,7 @@ body {
   /* You may have to set 'display: block' */
   width: 222px;
   height: 65px;
-  background: url('../Images/site.png?v=1') -1px -421px;
+  background: url('../Images/site.png') -1px -421px;
   margin: 0 auto;
   display: block;
 }

@@ -37,7 +37,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
            Location = OutputCacheLocation.Server, Order = 4)]
         [BoxPermission("boxId", Order = 3)]
         [PreserveQueryString(Order = 2)]
-        [RedirectToMobile(Order = 1)]
+        //[RedirectToMobile(Order = 1)]
         public async Task<ActionResult> Index(long boxId)
         {
             var userId = User.GetUserId(false);

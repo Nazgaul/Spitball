@@ -67,7 +67,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(VaryByParam = "lang;invId", VaryByCustom = CustomCacheKeys.Lang +";" + CustomCacheKeys.Url,
             Duration = TimeConsts.Day,
             Location = OutputCacheLocation.Server, Order = 2)]
-        [RedirectToMobile(Order = 1)]
+        //[RedirectToMobile(Order = 1)]
         public ActionResult Index(string lang, string invId)
         {
             if (!string.IsNullOrEmpty(lang))

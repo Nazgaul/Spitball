@@ -25,7 +25,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class DashboardController : BaseController
     {
         [AllowAnonymous]
-        [RedirectToMobile(Order = 1)]
+        //[RedirectToMobile(Order = 1)]
         [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
            Duration = TimeConsts.Day,
            Location = OutputCacheLocation.Server, Order = 2)]

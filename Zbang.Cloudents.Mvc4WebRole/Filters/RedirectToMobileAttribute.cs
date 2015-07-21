@@ -23,19 +23,32 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         }
     }
 
-    public class RedirectToWWW : ActionFilterAttribute
+    public class RedirectFromCloudentsToSpitballAttribute : ActionFilterAttribute
     {
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-            var serverDomain = filterContext.HttpContext.Request.Url.Host;
-            if (serverDomain.StartsWith("ono"))
+             var serverDomain = filterContext.HttpContext.Request.UrlReferrer.Host;
+            if (serverDomain.ToLower().Contains("cloudents"))
             {
-                filterContext.Result = new RedirectResult("https://www.Spitball.co" + filterContext.HttpContext.Request.Url.PathAndQuery, true);
+                filterContext.Controller.ViewBag.fromCloudents = "moveToSpitBall";
             }
-
-            base.OnActionExecuting(filterContext);
+            base.OnResultExecuting(filterContext);
         }
-
-
     }
+
+    //public class RedirectToWWW : ActionFilterAttribute
+    //{
+    //    public override void OnActionExecuting(ActionExecutingContext filterContext)
+    //    {
+    //        var serverDomain = filterContext.HttpContext.Request.Url.Host;
+    //        if (serverDomain.StartsWith("ono"))
+    //        {
+    //            filterContext.Result = new RedirectResult("https://www.Spitball.co" + filterContext.HttpContext.Request.Url.PathAndQuery, true);
+    //        }
+
+    //        base.OnActionExecuting(filterContext);
+    //    }
+
+
+    //}
 }

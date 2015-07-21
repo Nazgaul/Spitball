@@ -47,7 +47,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         //don't put in here route attribute
-        [DonutOutputCache(Duration = TimeConsts.Day,
+        [DonutOutputCache(Duration =1,
             VaryByParam = "None",
             VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang)]
