@@ -89,7 +89,7 @@ body {
   /* You may have to set 'display: block' */
   width: 222px;
   height: 65px;
-  background: url('../Images/site.png') -1px -421px;
+  background: url('../Images/site.png?v=1') -1px -421px;
   margin: 0 auto;
   display: block;
 }
