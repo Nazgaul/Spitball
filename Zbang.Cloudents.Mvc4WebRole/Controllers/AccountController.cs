@@ -64,10 +64,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
-        [DonutOutputCache(VaryByParam = "lang;invId", VaryByCustom = CustomCacheKeys.Lang + ";" + CustomCacheKeys.Url,
+        [DonutOutputCache(VaryByParam = "lang;invId",
+            VaryByCustom = CustomCacheKeys.Lang + ";" + CustomCacheKeys.Url,
             Duration = TimeConsts.Day,
             Location = OutputCacheLocation.Server, Order = 2)]
-        [RedirectFromCloudentsToSpitball(Order = 1)]
         public ActionResult Index(string lang, string invId)
         {
             if (!string.IsNullOrEmpty(lang))
@@ -87,6 +87,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             ViewBag.title = Views.Account.Resources.HomeResources.Title;
             ViewBag.metaDescription = Views.Account.Resources.HomeResources.Description;
+            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            {
+                ViewBag.moveToSpitBall = true;
+            }
             return View("Empty");
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
@@ -28,9 +29,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
            Duration = TimeConsts.Day,
            Location = OutputCacheLocation.Server, Order = 2)]
-        [RedirectFromCloudentsToSpitball(Order = 1)]
+       // [RedirectFromCloudentsToSpitball(Order = 1)]
         public ActionResult Index()
         {
+            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            {
+                ViewBag.moveToSpitBall = true;
+            }
             return View("Empty");
         }
 

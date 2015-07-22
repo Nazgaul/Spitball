@@ -21,7 +21,7 @@
   vertical-align: top;
   min-width: 1058px;
 }
-.moveToSpitBall ~ .bodyContent .dashboardHeader {
+.moveToSpitBallShow ~ .bodyContent .dashboardHeader {
   margin-top: 50px;
 }
 .dashContent,

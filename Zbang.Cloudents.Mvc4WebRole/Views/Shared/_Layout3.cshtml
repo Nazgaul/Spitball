@@ -61,13 +61,18 @@
     {
         <h1 class="pageHeading">@ViewBag.Description</h1>
     }
-    
+
     <div ng-show="$root.openSearch" ng-style="$root.loadedStyle" id="searchPopup" class="searchPopup" ng-controller="SearchCtrl">
         @{Html.RenderPartial("_BarSearch");}
     </div>
     @if (ViewBag.moveToSpitBall)
     {
-        <div class="moveToSpitBall">Cloudents is now Spitball, to learn more <button type="button">click here</button></div>
+        <div class="moveToSpitBall" show-banner>
+            Cloudents is now Spitball, to learn more <button type="button">click here</button>
+            <button type="button" class="closeButton">
+                @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+            </button>
+        </div>
     }
     <div class="bodyContent" data-version="@VersionHelper.CurrentVersion(true)" id="main" ng-controller="MainCtrl">
 
@@ -76,7 +81,7 @@
     </div>
     <div id="mLoading" class="loading" data-loader>
         <svg class="svg-loaderCloud" viewBox="0 0 157 122.3" enable-background="new 0 0 157 122.3" xml:space="preserve">
-            <path d="M150.3,65.1c0-13.9-9.4-25.2-21.3-26c-2.4-6.3-6.7-11.4-12.1-14.3c-4-11.7-13.8-20-25.4-20
+        <path d="M150.3,65.1c0-13.9-9.4-25.2-21.3-26c-2.4-6.3-6.7-11.4-12.1-14.3c-4-11.7-13.8-20-25.4-20
 	            c-6.2,0-11.9,2.4-16.4,6.3c-4.2-2.5-8.9-3.9-14-3.9C45.3,7.2,32.4,21,30.9,38.6c-0.7-0.1-1.5-0.1-2.2-0.1C15.9,38.5,5.5,50.4,5.5,65
 	            c0,13.7,9,24.7,20.6,26.1v0c0.1,0,0.2,0,0.3,0c0.7,0.1,1.4,0.1,2.2,0.1c0.7,0,1.5,0,2.2-0.1c2.2,0,5.3,0,9.5,0
 	            c3.2,0-0.1,26.4,3.2,26.4c5.9,0,26.9-26.4,32.8-26.4c18,0,41.3,0,49.9,0c0.4,0,0.9,0,1.3,0c0.4,0,0.9,0,1.3,0c0.5,0,0.8,0,0.8,0V91

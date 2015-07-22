@@ -34,9 +34,18 @@ body {
   line-height: 50px;
   color: #fff;
   padding-right: 50px;
+  display: none;
 }
 .moveToSpitBall button {
   text-decoration: underline;
+}
+.moveToSpitBall .closeButton {
+  float: left;
+  margin-left: 50px;
+  line-height: 50px;
+}
+.moveToSpitBallShow {
+  display: block;
 }
 .siteHeader {
   height: 65px;
