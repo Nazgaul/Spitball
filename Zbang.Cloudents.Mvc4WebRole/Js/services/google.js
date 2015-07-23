@@ -3,8 +3,8 @@
    function ($document, $q, $timeout, sShare, $filter) {
        "use strict";
 
-       var clientId = '616796621727-o9vr11gtr5p9v2t18co7f7kjuu0plnum.apps.googleusercontent.com',
-           apiKey = 'AIzaSyBqnR38dm9S2E-eQWRj-cTgup2kGA7lmlg',
+       var clientId = '702268392183-bd7p3isrifipd6t2vr2eb4h38knvp9hb.apps.googleusercontent.com',
+           apiKey = 'AIzaSyDWEv6u21Rzxlz6C2KsVSr5rLzGQzt5QHc',
            scopes = ['https://www.google.com/m8/feeds/contacts/default/full', 'https://www.googleapis.com/auth/drive.readonly'],
            access_token, contacts = [], clientLoaded = false, clientLoading = false, driveLoaded = false, pickerDefer,
            api = {
@@ -105,7 +105,7 @@
                    addView(google.picker.ViewId.DOCS).
                    enableFeature(google.picker.Feature.NAV_HIDDEN).
                    enableFeature(google.picker.Feature.MULTISELECT_ENABLED).
-                   setDeveloperKey('AIzaSyBqnR38dm9S2E-eQWRj-cTgup2kGA7lmlg').
+                   setDeveloperKey('AIzaSyDWEv6u21Rzxlz6C2KsVSr5rLzGQzt5QHc').
                    setOAuthToken(access_token).
                    setCallback(pickerCallback).
                    build();
