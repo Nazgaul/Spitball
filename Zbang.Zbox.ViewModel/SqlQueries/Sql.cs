@@ -36,7 +36,9 @@
                                 and b.isdeleted = 0
                                 and ub2.userid != @UserId
                                 group by u.userid ,u.UserName  ,u.UserImage ,u.UserImageLarge,u.UserReputation ,u.url
-                                order by u.UserReputation desc;";
+                                order by u.UserReputation desc
+    offset @pageNumber*@rowsperpage ROWS
+    FETCH NEXT @rowsperpage ROWS ONLY;";
 
        
 
@@ -61,17 +63,20 @@ b.BoxName as boxName,
         b.ProfessorName,
         b.Discriminator as boxType,
         b.Url as Url
-                            from 
-                        zbox.UserBoxRel uFriend
-                        join zbox.box b on b.BoxId = uFriend.BoxId and b.IsDeleted = 0
-                        left join zbox.UserBoxRel uMe on b.BoxId = uMe.BoxId and uMe.UserId = @Me
-                        where uFriend.UserId = @Myfriend
-                        and (b.PrivacySetting = 3 or uMe.UserId = @Me);";
+        from 
+    zbox.UserBoxRel uFriend
+    join zbox.box b on b.BoxId = uFriend.BoxId and b.IsDeleted = 0
+    left join zbox.UserBoxRel uMe on b.BoxId = uMe.BoxId and uMe.UserId = @Me
+    where uFriend.UserId = @Myfriend
+    and (b.PrivacySetting = 3 or uMe.UserId = @Me)
+	ORDER BY b.UpdateTime desc
+    offset @pageNumber*@rowsperpage ROWS
+    FETCH NEXT @rowsperpage ROWS ONLY;";
 
         /// <summary>
         /// Used in user page to get files common with current user
         /// </summary>
-        public const string UserWithFriendFiles = @" select i.ItemId as id,
+        public const string UserWithFriendFiles = @"select i.ItemId as id,
 i.blobname as image, 
 i.Rate as rate,
 i.NumberOfViews as numOfViews,
@@ -86,7 +91,9 @@ b.boxname as boxname,
                         and i.IsDeleted = 0
                         and (b.PrivacySetting = 3 or 
                          ub.UserId = @Me)
-                        order by i.itemid desc;";
+                        order by i.itemid desc
+    offset @pageNumber*@rowsperpage ROWS
+    FETCH NEXT @rowsperpage ROWS ONLY;";
 
         /// <summary>
         ///  Used in user page to get question common with current user

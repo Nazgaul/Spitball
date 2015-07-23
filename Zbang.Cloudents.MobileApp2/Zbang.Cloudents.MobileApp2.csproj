@@ -204,6 +204,7 @@
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataObjects\AddCommentRequest.cs" />
     <Compile Include="DataObjects\AddLinkRequest.cs" />
     <Compile Include="DataObjects\BoxRenameRequest.cs" />

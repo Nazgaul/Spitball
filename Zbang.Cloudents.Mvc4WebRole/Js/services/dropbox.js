@@ -15,7 +15,7 @@ mBox.factory('sDropbox',
 
                 var js = $document[0].createElement('script');
                 js.id = "dropboxjs";
-                js.setAttribute('data-app-key', 'gppwajedn90rv81');
+                js.setAttribute('data-app-key', 'cfqlue614nyj8k2');
                 js.src = "https://www.dropbox.com/static/api/1/dropins.js";
                 $document[0].getElementsByTagName('head')[0].appendChild(js);
 

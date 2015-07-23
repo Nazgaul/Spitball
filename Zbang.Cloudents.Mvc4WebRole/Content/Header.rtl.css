@@ -79,6 +79,9 @@ body {
 .siteHeader.dashboardHeader:hover .boxRename {
   visibility: visible;
 }
+.siteHeader.staticHeader {
+  background-color: #3293F6;
+}
 .logoWrapper {
   width: 289px;
   height: 65px;

@@ -9,7 +9,6 @@ using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Dto.Qna;
-using Zbang.Zbox.ViewModel.Dto.Store;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
@@ -276,6 +275,11 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
+        public Task<UserToFriendActivity> GetUserWithFriendActivityAsync(GetUserWithFriendQuery query)
+        {
+            return m_ReadService.GetUserWithFriendActivityAsync(query);
+        }
+
         public Task<IEnumerable<string>> GetSeoItems(int page)
         {
             return m_ReadService.GetSeoItems(page);
@@ -402,6 +406,12 @@ namespace Zbang.Zbox.ReadServices
         public Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddress(ViewModel.Queries.Search.UniversityByIpQuery query)
         {
             return m_ReadService.GetUniversityByIpAddress(query);
+        }
+
+
+        public Task<IEnumerable<ItemToFriendDto>> GetUserWithFriendItemsAsync(GetUserWithFriendQuery query)
+        {
+            return m_ReadService.GetUserWithFriendItemsAsync(query);
         }
     }
 }
