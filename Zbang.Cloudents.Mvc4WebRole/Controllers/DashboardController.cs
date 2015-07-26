@@ -32,10 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
        // [RedirectFromCloudentsToSpitball(Order = 1)]
         public ActionResult Index()
         {
-            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
-            {
-                ViewBag.moveToSpitBall = true;
-            }
+           
             return View("Empty");
         }
 
@@ -43,6 +40,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult IndexPartial()
         {
+            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            {
+                ViewBag.moveToSpitBall = true;
+            }
             return PartialView("Index2");
         }
 

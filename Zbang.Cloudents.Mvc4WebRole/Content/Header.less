@@ -35,7 +35,11 @@ body {
     line-height: 50px;
     color: #fff;
     padding-left: 50px;
-    display:none;
+    display: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    .boxSizing();
 
     button {
         text-decoration: underline;
@@ -47,8 +51,9 @@ body {
         line-height: 50px;
     }
 }
+
 .moveToSpitBallShow {
-    display:block;
+    display: block;
 }
 
 
@@ -98,8 +103,9 @@ body {
             }
         }
     }
+
     &.staticHeader {
-        background-color:#3293F6;
+        background-color: #3293F6;
     }
 }
 

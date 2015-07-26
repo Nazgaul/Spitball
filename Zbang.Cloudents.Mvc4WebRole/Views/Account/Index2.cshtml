@@ -3,8 +3,20 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Culture
 
-<div id="homepage" class="page homepage">
+@{ ViewBag.moveToSpitBall = ViewBag.moveToSpitBall ?? false; }
 
+@if (ViewBag.moveToSpitBall)
+{
+    <div class="moveToSpitBall" show-banner>
+        Cloudents is now Spitball, to learn more <button type="button">click here</button>
+        <button type="button" class="closeButton">
+            @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
+        </button>
+    </div>
+}
+<div id="homepage" class="page homepage">
+    
+   
     <div class="topImg" home-scroll tabindex="-1">
         @*<div class="headerWpr">*@
             <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />

@@ -21,8 +21,11 @@
   vertical-align: top;
   min-width: 1058px;
 }
-.moveToSpitBallShow ~ .bodyContent .dashboardHeader {
+.moveToSpitBallShow ~ .dashboardHeader {
   margin-top: 50px;
+}
+.moveToSpitBallShow ~ .homepage {
+  margin-top: -15px;
 }
 .dashContent,
 .libraryContent {

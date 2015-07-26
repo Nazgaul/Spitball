@@ -7,7 +7,7 @@
     ViewBag.imageSrc = ViewBag.imageSrc ?? @Url.CdnContent("/images/cloudents.png?v=1");
     ViewBag.viewport = ViewBag.viewport ?? true;
     ViewBag.fBox = ViewBag.fBox ?? false;
-    ViewBag.moveToSpitBall = ViewBag.moveToSpitBall ?? false;
+    
 }
 <!DOCTYPE html>
 <html data-culture="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name" ng-app="app">
@@ -65,15 +65,7 @@
     <div ng-show="$root.openSearch" ng-style="$root.loadedStyle" id="searchPopup" class="searchPopup" ng-controller="SearchCtrl">
         @{Html.RenderPartial("_BarSearch");}
     </div>
-    @if (ViewBag.moveToSpitBall)
-    {
-        <div class="moveToSpitBall" show-banner>
-            Cloudents is now Spitball, to learn more <button type="button">click here</button>
-            <button type="button" class="closeButton">
-                @Html.Svg("~/Images/Defs.svg", "close", new { @class = "svg-close" })
-            </button>
-        </div>
-    }
+  
     <div class="bodyContent" data-version="@VersionHelper.CurrentVersion(true)" id="main" ng-controller="MainCtrl">
 
         @RenderBody()

@@ -87,10 +87,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             ViewBag.title = Views.Account.Resources.HomeResources.Title;
             ViewBag.metaDescription = Views.Account.Resources.HomeResources.Description;
-            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
-            {
-                ViewBag.moveToSpitBall = true;
-            }
+           
             return View("Empty");
         }
 
@@ -98,6 +95,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult IndexPartial()
         {
+            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            {
+                ViewBag.moveToSpitBall = true;
+            }
             return PartialView("Index2");
         }
 
