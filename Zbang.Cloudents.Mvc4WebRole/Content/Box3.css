@@ -8,7 +8,7 @@
   position: fixed;
   z-index: 5;
   background: #eee;
-  width: 243px;
+  width: 290px;
   padding: 18px 25px 0 25px;
   border-right: 1px solid #c2c2c2;
   -webkit-box-sizing: border-box;
@@ -60,7 +60,7 @@
 .boxRight {
   width: 100%;
   height: 100%;
-  padding-left: 243px;
+  padding-left: 290px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;

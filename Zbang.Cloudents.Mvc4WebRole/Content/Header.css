@@ -62,6 +62,11 @@ body {
   position: fixed;
   min-width: 1240px;
 }
+.siteHeader.headerBox {
+  /*.logoWrapper {
+            width: 242px;
+        }*/
+}
 .siteHeader.headerBox .backWpr {
   margin: 16px 0 0 25px;
   padding: 0;
@@ -70,9 +75,6 @@ body {
   display: inline-block;
   margin: 0 15px;
   top: -4px;
-}
-.siteHeader.headerBox .logoWrapper {
-  width: 242px;
 }
 .siteHeader.dashboardHeader .barActions {
   margin: 7px 20px 0 0;

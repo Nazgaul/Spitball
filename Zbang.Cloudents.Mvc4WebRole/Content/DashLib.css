@@ -758,9 +758,6 @@
   top: -10px;
   height: 100px;
 }
-.socialWpr button {
-  margin: 15px 0 33px;
-}
 .socialWpr button:disabled {
   opacity: .1;
 }
