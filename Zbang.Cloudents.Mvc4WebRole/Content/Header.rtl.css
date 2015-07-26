@@ -30,7 +30,7 @@ body {
 }
 .moveToSpitBall {
   height: 50px;
-  background: orange;
+  background: #f05a28;
   line-height: 50px;
   color: #fff;
   padding-right: 50px;
@@ -41,9 +41,11 @@ body {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  font-size: 18px;
 }
 .moveToSpitBall button {
   text-decoration: underline;
+  color: #ffb648;
 }
 .moveToSpitBall .closeButton {
   float: left;
@@ -52,6 +54,9 @@ body {
 }
 .moveToSpitBallShow {
   display: block;
+}
+.accountPage .moveToSpitBall {
+  position: absolute;
 }
 .siteHeader {
   height: 65px;

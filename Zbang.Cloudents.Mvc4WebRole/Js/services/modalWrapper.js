@@ -64,6 +64,9 @@ app.factory('sModal',
                 //},
                 leavePrompt: function (params) {
                     return buildObj('leavePrompt', { url: '/box/leavepromptpartial/' }, 'LeavePromptCtrl', 'static', true, params.data);
+                },
+                cloudentsIsNowSpitball: function () {
+                    return buildObj('leavePrompt', { url: '/home/cloudentsIsNowSpitball/' }, 'SpitballCtrl', 'static', true);
                 }
             };
 

@@ -1,6 +1,6 @@
 ﻿app.controller('MainCtrl',
-    ['$scope', '$rootScope', '$location', '$modal', '$angularCacheFactory', 'sUser', 'sFacebook', 'sUserDetails', '$analytics', '$timeout','sNotify','sLogin','sFocus',
-        function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails,  $analytics, $timeout, sNotify, sLogin, sFocus) {
+    ['$scope', '$rootScope', '$location', '$modal', '$angularCacheFactory', 'sUser', 'sFacebook', 'sUserDetails', '$analytics', '$timeout','sNotify','sLogin','sFocus', 'sModal',
+        function ($scope, $rootScope, $location, $modal, $angularCacheFactory, sUser, sFacebook, sUserDetails, $analytics, $timeout, sNotify, sLogin, sFocus, sModal) {
             "use strict";
 
             $rootScope.options = {
@@ -38,6 +38,11 @@
 
             };
 
+            $rootScope.spitballPopUp = function () {
+                sModal.open('cloudentsIsNowSpitball', {
+                });
+            }
+
             $rootScope.loadedStyle = { display: 'block' };
             $rootScope.toggleSearch = function () {
                 $rootScope.openSearch = !$rootScope.openSearch;
@@ -48,7 +53,7 @@
 
                 if ($rootScope.openSearch) {
                     queryValue = true;
-                    trackValue = 'Open'
+                    trackValue = 'Open';
                     sFocus('search:open');
                 } else {
                     queryValue = null;

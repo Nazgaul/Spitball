@@ -163,6 +163,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
+        public ActionResult CloudentsIsNowSpitball()
+        {
+            return PartialView();
+        }
+
         [ChildActionOnly]
         public ActionResult AntiForgeryToken()
         {
