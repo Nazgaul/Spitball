@@ -634,12 +634,17 @@ footer {
   background: none;
   position: static;
 }
+.jobs .logoWrapper {
+  background: transparent;
+}
 .jobs .siteLogo {
   padding: 0;
+  background: url('../Images/job-page-logo.png');
 }
 .jobs .headerActions {
   height: 77px;
   line-height: 77px;
+  margin-top: 0;
 }
 .jobs .headerActions .btn {
   background: none;

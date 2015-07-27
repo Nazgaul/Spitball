@@ -828,6 +828,7 @@
     <Content Include="Images\HomePage\srvu.png" />
     <Content Include="Images\HomePage\watchAndShare.png" />
     <Content Include="Images\HomePage\logo1.png" />
+    <Content Include="Images\job-page-logo.png" />
     <Content Include="Images\logo2.png" />
     <Content Include="Images\Mobile\app_store.png" />
     <Content Include="Images\Mobile\background.jpg" />
