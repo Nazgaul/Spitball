@@ -100,7 +100,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             if (!m_CheckIndexExists)
             {
 
-                await BuildIndex();
+                //await BuildIndex();
             }
             var listOfCommands = new List<IndexAction<ItemSearch>>();
             if (itemToUpload != null)
@@ -115,7 +115,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Image = item.Image,
                     MetaContent = item.Content.RemoveEndOfString(SeachConnection.DescriptionLength),
                     Name = Path.GetFileNameWithoutExtension(item.Name),
-                    UniversityId = item.UniversityId.ToString(),
+                    UniversityId = item.UniversityId.HasValue ? item.UniversityId.ToString() : "-1",
                     UniversityName = item.UniversityName,
                     Url = item.Url,
                     UserId = item.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)).ToArray(),
@@ -193,6 +193,15 @@ namespace Zbang.Zbox.Infrastructure.Search
             var filter = await m_FilterProvider.BuildFilterExpression(
                query.UniversityId, UniversityidField, UserIdsField, query.UserId);
 
+            //var filter = 
+            //"((universityId ne '984') "
+            //+ "and (universityId ne '1173')"
+            //+ "and (universityId ne '19878') "
+            //+ "and (universityId ne '22906') "
+            //+ "and (universityId ne '64805') "
+            //+ "and (not(universityId eq '-1')))"
+            //+"or "
+            //+ "(userId/any(t: t eq '" + query.UserId + "')  ) ";
 
             var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(term, new SearchParameters
             {
@@ -201,7 +210,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Skip = query.RowsPerPage * query.PageNumber,
                 ScoringProfile = "universityTag",
                 ScoringParameters = new[] { "university:" + query.UniversityId },
-                Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField, BlobNameField },
+                // Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField, BlobNameField },
                 HighlightFields = new[] { ContentField, NameField }
             }, cancelToken);
 
