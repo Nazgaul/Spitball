@@ -150,7 +150,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             catch (Exception ex)
             {
                 Trace.TraceLog.WriteError(string.Format("GetFromCacheAsync key {0} region {1}", key, region), ex);
-                return default(T);
+                return null;
             }
 
         }

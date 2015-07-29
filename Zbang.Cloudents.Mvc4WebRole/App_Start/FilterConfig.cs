@@ -12,7 +12,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             filters.Add(new RequireHttpsWrapperAttribute());
             filters.Add(new NoCacheAjaxFilterAttribute());
             filters.Add(new ETagAttribute());
-            filters.Add(new RedirectToMobileAttribute());
+           
         }
     }
 

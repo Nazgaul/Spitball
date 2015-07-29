@@ -39,7 +39,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         //[UserNavNWelcome]
         [NoCache]
-        [BoxPermission("boxId", Order = 1)]
+        [BoxPermission("boxId", Order = 2)]
+        [RedirectToMobile(Order = 1)]
         [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
          Duration = TimeConsts.Hour * 1, VaryByParam = "quizId",
          Location = OutputCacheLocation.Server, Order = 4)]

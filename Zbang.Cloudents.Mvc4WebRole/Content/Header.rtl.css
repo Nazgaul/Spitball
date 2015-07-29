@@ -58,6 +58,9 @@ body {
 .accountPage .moveToSpitBall {
   position: absolute;
 }
+.moveToSpitBallShow ~ .dashboardHeader ~ .page {
+  margin-top: 50px;
+}
 .siteHeader {
   height: 65px;
   background-color: #282828;

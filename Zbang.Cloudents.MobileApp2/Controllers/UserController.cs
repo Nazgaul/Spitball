@@ -71,7 +71,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         [Route("api/user/{userId}/activity")]
         public async Task<HttpResponseMessage> Activity(long userId, int page, int sizePerPage = 15)
         {
-            var query = new GetUserWithFriendQuery(userId, page, sizePerPage);
+            var query = new GetUserWithFriendQuery(User.GetCloudentsUserId(), userId, page, sizePerPage);
             var result = await ZboxReadService.GetUserWithFriendActivityAsync(query);
 
             return Request.CreateResponse(new
@@ -96,7 +96,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         [Route("api/user/{userId}/items")]
         public async Task<HttpResponseMessage> Items(long userId, int page, int sizePerPage = 15)
         {
-            var query = new GetUserWithFriendQuery(userId, page, sizePerPage);
+            var query = new GetUserWithFriendQuery(User.GetCloudentsUserId(), userId, page, sizePerPage);
             var result = await ZboxReadService.GetUserWithFriendItemsAsync(query);
 
             return Request.CreateResponse(result.Select(s => new

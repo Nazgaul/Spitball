@@ -108,7 +108,9 @@ b.boxname as boxname,
                         and q.IsSystemGenerated = 0
                         and (b.PrivacySetting = 3 or 
                          ub.UserId = @Me)
-                    order by q.QuestionId desc;";
+                    order by q.QuestionId desc
+  offset @pageNumber*@rowsperpage ROWS
+    FETCH NEXT @rowsperpage ROWS ONLY;";
 
         /// <summary>
         ///  Used in user page to get answers common with current user
@@ -124,7 +126,9 @@ b.boxname as boxname,
                  left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
                  where a.UserId = @Myfriend
                  and (b.PrivacySetting = 3 or  ub.UserId = @Me)
-                 order by a.AnswerId desc";
+                 order by a.AnswerId desc
+  offset @pageNumber*@rowsperpage ROWS
+    FETCH NEXT @rowsperpage ROWS ONLY;";
 
 
         /// <summary>

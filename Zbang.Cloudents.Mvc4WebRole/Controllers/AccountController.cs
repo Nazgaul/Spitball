@@ -64,6 +64,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
+        [RedirectToMobile(Order = 1)]
         [DonutOutputCache(VaryByParam = "lang;invId",
             VaryByCustom = CustomCacheKeys.Lang + ";" + CustomCacheKeys.Url,
             Duration = TimeConsts.Day,
@@ -87,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             ViewBag.title = Views.Account.Resources.HomeResources.Title;
             ViewBag.metaDescription = Views.Account.Resources.HomeResources.Description;
-           
+
             return View("Empty");
         }
 

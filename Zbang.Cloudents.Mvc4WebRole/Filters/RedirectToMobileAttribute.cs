@@ -13,10 +13,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             //var urlToRedirect = ConfigFetcher.Fetch("MobileWebSite");
             var url = filterContext.HttpContext.Request.Url;
             var path = string.Empty;
+            
             if (url != null)
             {
                 path = url.PathAndQuery;
             }
+          
             //urlToRedirect = VirtualPathUtility.RemoveTrailingSlash(urlToRedirect);
             //urlToRedirect = urlToRedirect + path;
             filterContext.Result = new RedirectToRouteResult("Mobile", new RouteValueDictionary(new { returnUrl = path }));
