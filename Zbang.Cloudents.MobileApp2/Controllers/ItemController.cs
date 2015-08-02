@@ -9,6 +9,7 @@ using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Cloudents.MobileApp2.DataObjects;
+using Zbang.Cloudents.MobileApp2.Models;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
@@ -42,6 +43,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IGuidIdGenerator GuidGenerator { get; set; }
 
         // GET api/Item
+        [VersionedRoute("api/item", 1), HttpGet]
         public async Task<HttpResponseMessage> Get(long boxId, long id)
         {
             var userId = User.GetCloudentsUserId();
@@ -68,6 +70,45 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             ////retVal.Name = Path.GetFileNameWithoutExtension(retVal.Name);
 
             return Request.CreateResponse(retVal);
+        }
+
+        [VersionedRoute("api/item", 2), HttpGet]
+        public async Task<HttpResponseMessage> Get2(long boxId, long id)
+        {
+            var userId = User.GetCloudentsUserId();
+            var query = new GetItemQuery(userId, id, boxId);
+            var tItem = ZboxReadService.GetItemDetailApi(query);
+
+            var tTransAction = QueueProvider.InsertMessageToTranactionAsync(
+                  new StatisticsData4(new List<StatisticsData4.StatisticItemData>
+                    {
+                        new StatisticsData4.StatisticItemData
+                        {
+                            Id = id,
+                            Action = (int)StatisticsAction.View
+                        }
+                    }, userId, DateTime.UtcNow));
+
+            await Task.WhenAll(tItem, tTransAction);
+            var retVal = tItem.Result;
+            retVal.ShortUrl = UrlConsts.BuildShortItemUrl(new Base62(id).ToString());
+
+            return Request.CreateResponse(new
+            {
+                retVal.BoxName,
+                retVal.CreationTime,
+                retVal.Id,
+                retVal.Name,
+                retVal.NumberOfDownloads,
+                retVal.NumberOfViews,
+                retVal.Owner,
+                retVal.OwnerId,
+                retVal.ShortUrl,
+                retVal.Size,
+                retVal.Source,
+                retVal.Type
+
+            });
         }
 
         [HttpGet]
@@ -176,7 +217,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 {
                     Id = result2.Link.Id,
                     Name = result2.Link.Name,
-                   // Thumbnail = result2.Link.ThumbnailUrl,
+                    // Thumbnail = result2.Link.ThumbnailUrl,
 
                 };
                 return Request.CreateResponse(item);
@@ -235,7 +276,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 Id = result2.File.Id,
                 Name = result2.File.Name,
-               // Thumbnail = result2.File.ThumbnailUrl,
+                // Thumbnail = result2.File.ThumbnailUrl,
 
             };
 
@@ -282,7 +323,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 Id = result2.File.Id,
                 Name = result2.File.Name,
-               // Thumbnail = result2.File.ThumbnailUrl,
+                // Thumbnail = result2.File.ThumbnailUrl,
 
             };
 

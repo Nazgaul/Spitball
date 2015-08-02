@@ -84,6 +84,32 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }));
         }
 
+        [HttpGet, VersionedRoute("api/search/boxes", 3)]
+        public async Task<HttpResponseMessage> Boxes3(string term, int page, int sizePerPage = 20)
+        {
+            long? universityId = User.GetUniversityDataId();
+            //var userDetail = FormsAuthenticationService.GetUserData();
+
+
+            if (!universityId.HasValue)
+                return Request.CreateBadRequestResponse("need university");
+
+
+            var query = new SearchQueryMobile(term, User.GetCloudentsUserId(), universityId.Value, page, sizePerPage);
+            // Services.Log.Info(String.Format("search boxes query: {0}", query));
+            var retVal = await BoxSearchService2.SearchBox(query, default(CancellationToken)) ?? new List<SearchBoxes>();
+
+            return Request.CreateResponse(retVal.Select(s => new
+            {
+                s.Id,
+                s.Name,
+                s.Professor,
+                s.CourseCode,
+                shortUrl = UrlConsts.BuildShortItemUrl(new Base62(s.Id).ToString()),
+                BoxType = s.Type
+            }));
+        }
+
 
         [HttpGet]
         [VersionedRoute("api/search/items", 1)]
@@ -104,7 +130,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }));
         }
         [HttpGet]
-        [VersionedRoute("api/search/items" , 2)]
+        [VersionedRoute("api/search/items", 2)]
         public async Task<HttpResponseMessage> Items2(string term, int page, int sizePerPage = 20)
         {
             long? universityId = User.GetUniversityDataId();

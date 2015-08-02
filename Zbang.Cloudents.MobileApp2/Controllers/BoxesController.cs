@@ -90,7 +90,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.CourseCode,
                 s.Name,
                 s.MembersCount,
-                s.ItemCount
+                s.ItemCount,
+                shortUrl = UrlConsts.BuildShortBoxUrl(new Base62(s.BoxId).ToString())
                 //this is always a course
             }));
         }

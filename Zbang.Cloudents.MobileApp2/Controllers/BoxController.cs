@@ -8,6 +8,7 @@ using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Cloudents.MobileApp2.DataObjects;
+using Zbang.Cloudents.MobileApp2.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -26,6 +27,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IZboxReadSecurityReadService ZboxReadSecurityService { get; set; }
         public IZboxWriteService ZboxWriteService { get; set; }
 
+        [VersionedRoute("api/box", 1), HttpGet]
         // GET api/Box
         public async Task<HttpResponseMessage> Get(long id)
         {
@@ -58,6 +60,40 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }
 
         }
+        [VersionedRoute("api/box", 2), HttpGet]
+        public async Task<HttpResponseMessage> GetBox2(long id)
+        {
+            try
+            {
+                var query = new GetBoxQuery(id);
+                var tResult = ZboxReadService.GetBox2(query);
+                var tUserType = ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetCloudentsUserId());
+                await Task.WhenAll(tResult, tUserType);
+                var result = tResult.Result;
+                result.UserType = tUserType.Result;
+
+                return Request.CreateResponse(new
+                {
+                    result.Name,
+                    result.BoxType,
+                    result.UserType,
+                    Professor = result.ProfessorName,
+                    CourseCode = result.CourseId,
+                    ShortUrl = UrlConsts.BuildShortBoxUrl(new Base62(id).ToString())
+
+                });
+            }
+            catch (BoxAccessDeniedException)
+            {
+                return Request.CreateUnauthorizedResponse();
+            }
+            catch (BoxDoesntExistException)
+            {
+                return Request.CreateNotFoundResponse();
+            }
+
+        }
+
         public HttpResponseMessage Post(CreateBoxRequest model)
         {
             if (model == null)
