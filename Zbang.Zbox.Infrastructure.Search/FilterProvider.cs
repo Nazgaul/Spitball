@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 m_UniversityWithcode.Where(w => w != universityId)
                     .Select(s => string.Format("({0} ne '{1}')", uniIdField, s));
 
-            var val = "(" + string.Join(" and ", uniToEnterFilter) + " and (not(universityId eq '-1')))";
+            var val = "(" + string.Join(" and ", uniToEnterFilter) + " and (not(" + uniIdField + " eq '-1')))";
             return val + string.Format(" or ({0}/any(t: t eq '{1}')  ) ", userField, userId, uniIdField);
         }
 
