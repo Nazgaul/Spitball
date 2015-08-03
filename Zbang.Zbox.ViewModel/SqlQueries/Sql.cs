@@ -83,7 +83,8 @@ i.NumberOfViews as numOfViews,
 i.Name as name,
 b.boxid as boxid, 
 b.boxname as boxname,
-                        i.url as Url
+i.url as Url,
+i.Discriminator as Type
                         from zbox.item i 
                         join zbox.box b on i.boxid = b.BoxId and b.IsDeleted = 0
                         left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
@@ -98,9 +99,9 @@ b.boxname as boxname,
         /// <summary>
         ///  Used in user page to get question common with current user
         /// </summary>
-        public const string UserWithFriendQuestion = @" select b.BoxName as boxName,q.Text as content, b.BoxId as boxid,
+        public const string UserWithFriendQuestion = @" select b.BoxName as boxName,q.Text as content, b.BoxId as boxId,
                         (select count(*) from zbox.Answer a where a.QuestionId = q.QuestionId) as answersCount,
-						b.url as Url
+						b.url as Url, q.QuestionId as id
                           from zbox.Question q
                          join zbox.box b on b.BoxId = q.BoxId and b.IsDeleted = 0
                          left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
@@ -115,10 +116,10 @@ b.boxname as boxname,
         /// <summary>
         ///  Used in user page to get answers common with current user
         /// </summary>
-        public const string UserWithFriendAnswer = @"select b.BoxId as boxid, b.BoxName as boxName, q.UserId as qUserId, q.Text as qContent, 
+        public const string UserWithFriendAnswer = @"select b.BoxId as boxId, b.BoxName as boxName, q.UserId as qUserId, q.Text as qContent, 
                    uQuestion.UserImage as qUserImage, uQuestion.UserName as qUserName, a.Text as Content, 
                    (select count(*) from zbox.Answer a where a.QuestionId = q.QuestionId) as answersCount,
-				  b.url as Url
+				  b.url as Url , a.AnswerId as Id
                  from zbox.Answer a
                  join zbox.Question q on a.QuestionId = q.QuestionId
                  join zbox.Users uQuestion on uQuestion.UserId = q.UserId

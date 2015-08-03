@@ -811,12 +811,17 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        /// <summary>
+        /// Used in mobile service api
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public async Task<User.UserToFriendActivity> GetUserWithFriendActivityAsync(GetUserWithFriendQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = new User.UserToFriendActivity();
-                using (var grid = await conn.QueryMultipleAsync(String.Format("{0} {1} ",
+                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} ",
                     Sql.Sql.UserWithFriendQuestion,
                     Sql.Sql.UserWithFriendAnswer), new
                     {

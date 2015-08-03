@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -31,6 +28,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.Professor,
                 s.CourseCode,
                 s.ItemCount,
+                s.CommentCount,
                 s.BoxType,
                 shortUrl = UrlConsts.BuildShortBoxUrl(new Base62(s.Id).ToString())
             }));
@@ -78,15 +76,17 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 Answers = result.Answers.Select(s => new
                  {
-                     s.Boxid,
+                     s.BoxId,
                      s.Content,
-                     s.BoxName
+                     s.BoxName,
+                     s.Id
                  }),
                 Questions = result.Questions.Select(s => new
                  {
-                     s.Boxid,
+                     s.BoxId,
                      s.Content,
-                     s.BoxName
+                     s.BoxName,
+                     s.Id
                  })
             });
         }
@@ -104,7 +104,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.Id,
                 s.BoxId,
                 Source = s.Image,
-                s.Name
+                s.Name,
+                s.Type
             }));
 
         }
