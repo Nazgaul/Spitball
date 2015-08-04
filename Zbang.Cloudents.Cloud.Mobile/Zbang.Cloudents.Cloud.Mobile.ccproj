@@ -54,7 +54,7 @@
       <Private>True</Private>
       <RoleType>Web</RoleType>
       <RoleName>Zbang.Cloudents.Mobile</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+      <UpdateDiagnosticsConnectionStringOnPublish>False</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

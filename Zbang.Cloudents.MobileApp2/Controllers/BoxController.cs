@@ -94,6 +94,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         }
 
+        [HttpPost]
+        [Route("api/box")]
         public HttpResponseMessage Post(CreateBoxRequest model)
         {
             if (model == null)

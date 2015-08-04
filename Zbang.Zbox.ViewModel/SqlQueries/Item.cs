@@ -55,8 +55,7 @@ where cte.itemid = @itemid;
     join zbox.Users u on u.UserId = i.UserId
     join zbox.box b on b.BoxId=i.BoxId and b.isdeleted = 0
     where i.ItemId = @ItemId
-    and i.IsDeleted = 0 
-	and i.boxid = @BoxId;";
+    and i.IsDeleted = 0;";
 
         public const string UserItemRate =
             @"select ir.Rate from zbox.ItemRate ir where ir.ItemId = @ItemId and ir.OwnerId = @UserId;";

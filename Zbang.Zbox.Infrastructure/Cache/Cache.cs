@@ -185,8 +185,8 @@ namespace Zbang.Zbox.Infrastructure.Cache
             bool shouldUseCacheFromConfig;
 
             bool.TryParse(ConfigFetcher.Fetch("CacheUse"), out shouldUseCacheFromConfig);
-            var x = RoleEnvironment.IsAvailable && shouldUseCacheFromConfig;
-            return x;
+            //var x = RoleEnvironment.IsAvailable && shouldUseCacheFromConfig;
+            return shouldUseCacheFromConfig;
         }
 
 

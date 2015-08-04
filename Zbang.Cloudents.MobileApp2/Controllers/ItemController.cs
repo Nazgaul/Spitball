@@ -73,10 +73,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         }
 
         [VersionedRoute("api/item", 2), HttpGet]
-        public async Task<HttpResponseMessage> Get2(long boxId, long id)
+        public async Task<HttpResponseMessage> Get2(long id)
         {
             var userId = User.GetCloudentsUserId();
-            var query = new GetItemQuery(userId, id, boxId);
+            var query = new GetItemQuery(userId, id, 0);
             var tItem = ZboxReadService.GetItemDetailApi(query);
 
             var tTransAction = QueueProvider.InsertMessageToTranactionAsync(
