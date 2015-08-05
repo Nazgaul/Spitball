@@ -235,6 +235,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         }
 
         [HttpDelete]
+        [Route("api/box")]
         public async Task<HttpResponseMessage> Delete(long id)
         {
             var userId = User.GetCloudentsUserId();

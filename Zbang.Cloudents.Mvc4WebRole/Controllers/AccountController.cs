@@ -65,10 +65,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
         [RedirectToMobile(Order = 1)]
-        [DonutOutputCache(VaryByParam = "lang;invId",
-            VaryByCustom = CustomCacheKeys.Lang + ";" + CustomCacheKeys.Url,
-            Duration = TimeConsts.Day,
-            Location = OutputCacheLocation.Server, Order = 2)]
+        //[DonutOutputCache(VaryByParam = "lang;invId",
+        //    VaryByCustom = CustomCacheKeys.Lang + ";" + CustomCacheKeys.Url,
+        //    Duration = TimeConsts.Day,
+        //    Location = OutputCacheLocation.Server, Order = 2)]
         public ActionResult Index(string lang, string invId)
         {
             if (!string.IsNullOrEmpty(lang))
@@ -77,19 +77,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 RouteData.Values.Remove("lang");
                 return RedirectToAction("Index", new { invId });
             }
-            if (!string.IsNullOrEmpty(invId))
-            {
-                var guid = GuidEncoder.TryParseNullableGuid(invId);
-                if (guid.HasValue)
-                {
-                    m_CookieHelper.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
-                }
-            }
+            //if (!string.IsNullOrEmpty(invId))
+            //{
+            //    var guid = GuidEncoder.TryParseNullableGuid(invId);
+            //    if (guid.HasValue)
+            //    {
+            //        m_CookieHelper.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
+            //    }
+            //}
 
-            ViewBag.title = Views.Account.Resources.HomeResources.Title;
-            ViewBag.metaDescription = Views.Account.Resources.HomeResources.Description;
+            //ViewBag.title = Views.Account.Resources.HomeResources.Title;
+            //ViewBag.metaDescription = Views.Account.Resources.HomeResources.Description;
 
-            return View("Empty");
+            return View("Index3");
         }
 
         [HttpGet]

@@ -63,6 +63,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
                         "~/Content/Mobile.css"
                     }
+                },
+                {
+                    "homePage", new[]
+                    {
+                         "~/Content/HomePage/extras.css",
+                         "~/Content/HomePage/bootstrap.css",
+                         "~/Content/HomePage/restaurant.css",
+                         "~/Content/HomePage/theme.css",
+                    }
                 }
             };
             return cssDictionary;
@@ -303,6 +312,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
                         new JsFileWithCdn("~/scripts/jquery.min.js",
                             "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
+                    }
+                },
+                {
+                    "homePage", new[]
+                    {
+                        new JsFileWithCdn("~/js/homePage/theme.js")
                     }
                 }
             };

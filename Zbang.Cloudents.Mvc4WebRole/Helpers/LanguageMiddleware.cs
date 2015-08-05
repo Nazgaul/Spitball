@@ -56,7 +56,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 {
                     country = "gb";
                 }
-                var culture = Languages.GetCultureBaseOnCountry(country);
+                var culture = Languages.GetCultureBaseOnCountry(string.Empty);
                 m_LanguageCookie.InjectCookie(culture);
                 ChangeThreadCulture(culture);
                 await Next.Invoke(context); 
