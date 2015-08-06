@@ -2154,6 +2154,7 @@
     <Content Include="Views\Home\MobileApp.cshtml" />
     <Content Include="Views\Home\CloudentsIsNowSpitball.cshtml" />
     <Content Include="Views\Account\Index3.cshtml" />
+    <Content Include="Views\Account\SignIn.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

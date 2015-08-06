@@ -148,7 +148,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         }
 
 
-
+        [HttpDelete, Route("api/item")]
         public async Task<HttpResponseMessage> Delete(long id, long boxId)
         {
             if (!ModelState.IsValid)

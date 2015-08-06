@@ -92,6 +92,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Index3");
         }
 
+
+        public ActionResult SignIn()
+        {
+            return View();
+        }
+
         [HttpGet]
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult IndexPartial()
