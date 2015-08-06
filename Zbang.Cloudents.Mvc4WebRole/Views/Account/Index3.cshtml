@@ -26,7 +26,7 @@
     <link rel="icon" type="image/png" href="assets/images/favicons/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="assets/images/favicons/favicon-96x96.png" sizes="96x96">
     <link rel="icon" type="image/png" href="assets/images/favicons/favicon-16x16.png" sizes="16x16">
-    <link rel="shortcut icon" href="assets/images/favicons/favicon.ico">
+    <link rel="SHORTCUT ICON" href="~/favicon.ico?v=2" />
 </head>
 <body class="transparent-header pace-on pace-dot">
     <div class="pace-overlay"></div>
@@ -50,7 +50,7 @@
                                     <li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ar-AE" })">@Languages.ArabicName</a> </li>
                                 </ul>
                             </li>
-                            <li class="menu-item "> <a href="/restaurant-menu.html">Log in</a> </li>
+                            <li class="menu-item "> <a href="@Url.Action("SignIn")">Log in</a> </li>
                             <li class="menu-item  nav-highlight-ghost "> <a href="/restaurant-reservations.html">Get it</a> </li>
                         </ul>
                     </div>
@@ -99,7 +99,7 @@
                             <div class="col-text-1 text-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                                 <p class="bigger text-light">@HomePageResources.A4</p>
 
-                                <a href="" style="background:#3293F6" class="btn btn-primary btn-lg  text-center bold margin-right element-top-20 element-bottom-20 os-animation" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                                <a href="@Url.Action("SignIn")" style="background:#3293F6" class="btn btn-primary btn-lg  text-center bold margin-right element-top-20 element-bottom-20 os-animation" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                                     @HomePageResources.A5
                                 </a>
 
@@ -520,6 +520,25 @@
             },
             siteLoader: 'on'
         };
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1);
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+
+        window.onload = function () {
+
+            var val = getCookie('l2');
+            var text = document.querySelector('[href$="' + val + '/"]').text;
+            //document.getElementById('lang').value = val;
+            document.querySelector('[data-toggle=dropdown]').text = text;
+        }
     </script>
     @Html.Script2("homePage")
 </body>
