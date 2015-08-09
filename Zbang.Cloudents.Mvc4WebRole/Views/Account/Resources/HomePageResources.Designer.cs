@@ -61,7 +61,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Empowering Students to succeed by collaboratively sharing knowledge, in an open social studying network..
+        ///   Looks up a localized string similar to Empowering Students to succeed
+        ///by collaboratively sharing knowledge,
+        ///in an open social studying network..
         /// </summary>
         public static string A4 {
             get {
@@ -175,6 +177,117 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         public static string B9 {
             get {
                 return ResourceManager.GetString("B9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to As a sophomore, I found myself looking for a way to communicate and study with my classmates because I was not in a dorm any more surrounded by my peers. After searching online, I was shocked that there was no real solution that I felt comfortable incoporating into my life style (nothing I could easily access on my phone or computer). Then I came across Cloudents. It provided me a virtual platform where I can interact with my classmates and other students in an easy and intuitive way..
+        /// </summary>
+        public static string Testimonial1 {
+            get {
+                return ResourceManager.GetString("Testimonial1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Donna Floyed.
+        /// </summary>
+        public static string Testimonial1Person {
+            get {
+                return ResourceManager.GetString("Testimonial1Person", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sophomore at UC Davis.
+        /// </summary>
+        public static string Testimonial1Title {
+            get {
+                return ResourceManager.GetString("Testimonial1Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There have been many times when I would try and share files and documents with friends and classmates over the schools portal or other online studying tools, however, they do not always support the size or type of files I needed to share. I ended up using a number of different applications to share course materials and it was a huge hassel!! When I started using Cloudents, everything changed - I was easily able to upload all forms of my files... even video and audio files!.
+        /// </summary>
+        public static string Testimonial2 {
+            get {
+                return ResourceManager.GetString("Testimonial2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jack Harris.
+        /// </summary>
+        public static string Testimonial2Person {
+            get {
+                return ResourceManager.GetString("Testimonial2Person", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Junior at UC Berkeley.
+        /// </summary>
+        public static string Testimonial2Title {
+            get {
+                return ResourceManager.GetString("Testimonial2Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It’s so nice to have all my notes, questions/answers, lectures, etc. in one place and always available online and in the palm of my hand!
+        ///It minimizes the amount of things I bring with me when I go to study somewhere. In addition, it comes in handy when I share notes with other students especially when I or they miss little details from class.
+        ///Thank you Cloudents for making on my life a whole lot easier! I already know who I’m thanking first on graduation day :).
+        /// </summary>
+        public static string Testimonial3 {
+            get {
+                return ResourceManager.GetString("Testimonial3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daniel Kaplan.
+        /// </summary>
+        public static string Testimonial3Person {
+            get {
+                return ResourceManager.GetString("Testimonial3Person", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senior at UCLA.
+        /// </summary>
+        public static string Testimonial3Title {
+            get {
+                return ResourceManager.GetString("Testimonial3Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is such a great idea! I love the quizzes - such a great way to test my knowledge of the coursework! I also really like that it&apos;s interactive - the chat feed is really helpful if you miss a class or don&apos;t understand the material. 
+        ///During the last semester I feel like all I did was talk about Cloudents! It was funny, people were actually convinced that I’m working for Cloudents. #postgradjob? #hireme.
+        /// </summary>
+        public static string Testimonial4 {
+            get {
+                return ResourceManager.GetString("Testimonial4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sarah Friedman.
+        /// </summary>
+        public static string Testimonial4Person {
+            get {
+                return ResourceManager.GetString("Testimonial4Person", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Freshman at UC Santa Barbara.
+        /// </summary>
+        public static string Testimonial4Title {
+            get {
+                return ResourceManager.GetString("Testimonial4Title", resourceCulture);
             }
         }
     }

@@ -25,9 +25,9 @@ blockquote p {
 .regular {
   font-weight: 400 !important;
 }
-.bold {
+/*.bold {
   font-weight: 500 !important;
-}
+}*/
 .black {
   font-weight: 400 !important;
 }
@@ -2820,6 +2820,10 @@ blockquote.text-light:before {
 .text-light.scroll-to:hover,
 .text-light .scroll-to:hover {
   opacity: 0.9;
+}
+.btnSignUp {
+  background: #3293F6;
+  border-radius: 10px !important;
 }
 /* This is a compiled file, you should be editing the file in the templates directory */
 @media (min-width: 992px) {

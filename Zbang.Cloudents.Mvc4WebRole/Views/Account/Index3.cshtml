@@ -16,7 +16,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     @*<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,700&amp;subset=latin" rel="stylesheet" type="text/css">*@
     @Html.Css2("homePage")
-    <link rel="apple-touch-icon" sizes="57x57" href="assets/images/favicons/apple-touch-icon-57x57.png">
+    @*<link rel="apple-touch-icon" sizes="57x57" href="assets/images/favicons/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="assets/images/favicons/apple-touch-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="assets/images/favicons/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="76x76" href="assets/images/favicons/apple-touch-icon-76x76.png">
@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="assets/images/favicons/apple-touch-icon-144x144.png">
     <link rel="icon" type="image/png" href="assets/images/favicons/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="assets/images/favicons/favicon-96x96.png" sizes="96x96">
-    <link rel="icon" type="image/png" href="assets/images/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="assets/images/favicons/favicon-16x16.png" sizes="16x16">*@
     <link rel="SHORTCUT ICON" href="~/favicon.ico?v=2" />
 </head>
 <body class="transparent-header pace-on pace-dot">
@@ -59,29 +59,7 @@
             </div>
         </div>
     </div>
-    @*<div id="masthead" class="menu navbar navbar-static-top header-logo-left-menu-right oxy-mega-menu navbar-sticky text-caps" role="banner">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".main-navbar"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                    <a href="@Url.Action("Index")" class="navbar-brand"> <img src="@Url.CdnContent("/Images/HomePage2/logo.png")" alt="Logo">Spitball</a>
-                </div>
-                <div class="nav-container">
-                    <nav class="collapse navbar-collapse main-navbar logo-navbar navbar-right" role="navigation">
-                        <div class="menu-container">
-                            <ul id="menu-main" class="nav navbar-nav">
-                                <li class="menu-item"> <a href="#home">About</a> </li>
-                                <li class="menu-item"> <a href="#features">Features</a> </li>
-                                <li class="menu-item"> <a href="#design">Design</a> </li>
-                                <li class="menu-item"> <a href="#screenshots">Screenshots</a> </li>
-                                <li class="menu-item"> <a href="#testimonials">Testimonials</a> </li>
-                                <li class="menu-item nav-highlight-ghost"> <a href="#buy"><i class="menu-icon fa fa-shopping-cart"></i>&nbsp;Get it</a> </li>
-                            </ul>
-                        </div>
-                        <div class="menu-sidebar"></div>
-                    </nav>
-                </div>
-            </div>
-        </div>*@
+    
     <div id="content" role="main">
         <article>
             <section class="section">
@@ -89,46 +67,31 @@
                 </div>
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-11  text-center">
+                        <div class="col-md-12  text-center">
                             <div class="divider-wrapper">
                                 <div class="visible-xs element-height-50"></div>
                                 <div class="visible-sm element-height-100"></div>
                                 <div class="visible-md element-height-240"></div>
                                 <div class="visible-lg element-height-240"></div>
                             </div>
-                            <div class="col-text-1 text-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                                <p class="bigger text-light">@HomePageResources.A4</p>
+                            <div class="col-text-1 bold text-center element-top-120 element-bottom-20 os-animation" 
+                                 data-os-animation="fadeIn" data-os-animation-delay="0.1s">
+                                <p class="bigger text-light" style="white-space:pre-wrap;">@HomePageResources.A4</p>
 
-                                <a href="@Url.Action("SignIn")" style="background:#3293F6" class="btn btn-primary btn-lg  text-center bold margin-right element-top-20 element-bottom-20 os-animation" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                                    @HomePageResources.A5
-                                </a>
+                              
 
-                                <p class="text-light">@HomePageResources.A6</p>
+                               
                             </div>
-                            @*<h1 class="text-center  element-top-0 element-bottom-0 text-light os-animation hyper" data-os-animation="fadeIn" data-os-animation-delay="0.1s">the right ingredients</h1>
-                                <h1 class="text-center element-top-0 element-bottom-20 text-light os-animation hyper" data-os-animation="fadeIn" data-os-animation-delay="0.2s">
-                                    for the right food
-                                </h1>*@
-                            @*<div class="figure element-top-0 element-bottom-0" data-os-animation="none" data-os-animation-delay="0.3s">
-                                    <span class="figure-image">
-                                        <img src="http://d169hzb81ub7u3.cloudfront.net/restaurant/wp-content/uploads/sites/14/2014/12/decor-1-big-white.png" alt="image">
-                                    </span>
-                                </div>
-                                <div class="divider-wrapper">
-                                    <div class="visible-xs element-height-30"></div>
-                                    <div class="visible-sm element-height-30"></div>
-                                    <div class="visible-md element-height-30"></div>
-                                    <div class="visible-lg element-height-30"></div>
-                                </div> <a href="#book" class="btn btn-link btn-lg  text-light  btn-header scroll-to-id element-top-20 element-bottom-20 os-animation" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
-                                    BOOK A TABLE
-                                </a> &nbsp; <a href="restaurant-menu.html" class="btn btn-warning btn-lg   btn-header element-top-20 element-bottom-20 os-animation" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.7s">
-                                    SEE THE MENU
-                                </a>*@
+                            <a href="@Url.Action("SignIn")" class="btn btn-primary btn-lg  text-center bold margin-right element-top-80 element-bottom-50 os-animation btnSignUp" 
+                               target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                                @HomePageResources.A5
+                            </a>
+                            <p class="text-light big" data-os-animation="fadeIn" data-os-animation-delay="0.5s">@HomePageResources.A6</p>
                             <div class="divider-wrapper">
-                                <div class="visible-xs element-height-50"></div>
-                                <div class="visible-sm element-height-100"></div>
-                                <div class="visible-md element-height-100"></div>
-                                <div class="visible-lg element-height-100"></div>
+                                <div class="visible-xs element-height-150"></div>
+                                <div class="visible-sm element-height-200"></div>
+                                <div class="visible-md element-height-300"></div>
+                                <div class="visible-lg element-height-300"></div>
                             </div>
                         </div>
                     </div>
@@ -393,46 +356,57 @@
                     <div class="row vertical-middle">
                         <div class="col-md-1 text-left small-screen-center"></div>
                         <div class="col-md-10 text-default small-screen-default">
-                            <div id="flexslider-120" class="element-top-80 element-bottom-80 text-center text-normal os-animation flexslider feature-slider" data-os-animation="fadeIn" data-os-animation-delay="0s" data-flex-animation="slide" data-flex-controls-position="outside"
-                                 data-flex-controlsalign="center" data-flex-directions="hide" data-flex-speed="7000" data-flex-controls="show" data-flex-slideshow="true">
-                                <ul class="slides">
+                            <div id="flexslider-120" class="element-top-80 element-bottom-80 text-center text-normal os-animation flexslider feature-slider"
+                                  data-os-animation="fadeIn" data-os-animation-delay="0s" data-flex-animation="slide" data-flex-controls-position="outside"
+                                 data-flex-controlsalign="center" data-flex-directions="hide" data-flex-speed="7000" data-flex-controls="show" 
+                                 data-flex-slideshow="true">
+                               <ul class="slides">
                                     <li>
                                         <blockquote>
                                             <p>
-                                                I have spent loads of money and bought almost half page of the top themes in this place , none of like this one! Instant help no question asked. That's what I call top theme quality. It's all about service,
-                                                especially when the theme is amazingly designed, too highly recommend.
+                                                @HomePageResources.Testimonial1
                                             </p>
                                             <div class="box box-small box-round">
                                                 <div class="box-dummy"></div>
-                                                <div class="box-inner"> <img width="150" height="150" src="assets/images/landing/app-t-01.jpg" class="attachment-thumbnail wp-post-image" alt="app-t-01" /> </div>
+                                                <div class="box-inner"> <img width="150" height="150" src="http://lorempixel.com/150/150/" class="attachment-thumbnail wp-post-image" alt="app-t-01" /> </div>
                                             </div>
-                                            <footer>Nicholas Thomas<cite title="E-texon">E-texon</cite></footer>
+                                            <footer>@HomePageResources.Testimonial1Person<cite title="@HomePageResources.Testimonial1Title">@HomePageResources.Testimonial1Title</cite></footer>
                                         </blockquote>
                                     </li>
                                     <li>
                                         <blockquote>
                                             <p>
-                                                Christos Pantazis is the quickest and most helpful guy I've ever met on Themeforest. His theme is awesome and if you need to alter it under the hood, he responds so quickly. I could hardly believe. Big plus
-                                                for his support and a big plus for his amazing theme. Keep it up.
+                                                @HomePageResources.Testimonial2
                                             </p>
                                             <div class="box box-small box-round">
                                                 <div class="box-dummy"></div>
-                                                <div class="box-inner"> <img width="150" height="150" src="assets/images/landing/app-t-02.jpg" class="attachment-thumbnail wp-post-image" alt="app-t-02" /> </div>
+                                                <div class="box-inner"> <img width="150" height="150" src="http://lorempixel.com/150/150/" class="attachment-thumbnail wp-post-image" alt="app-t-02" /> </div>
                                             </div>
-                                            <footer>Jennifer Stewart<cite title="Stimware">Stimware</cite></footer>
+                                            <footer>@HomePageResources.Testimonial2Person<cite title="@HomePageResources.Testimonial2Title">@HomePageResources.Testimonial2Title</cite></footer>
                                         </blockquote>
                                     </li>
                                     <li>
                                         <blockquote>
                                             <p>
-                                                I've been a long time themeforest buyer and i have bought dozens of themes and i can't express to you how powerful beautiful and dynamic this theme is let alone the great customer service and you get a them
-                                                that is a must. Whether you have a theme you like or not, you must get this theme!
+                                               @HomePageResources.Testimonial3
                                             </p>
                                             <div class="box box-small box-round">
                                                 <div class="box-dummy"></div>
-                                                <div class="box-inner"> <img width="150" height="150" src="assets/images/landing/app-t-03.jpg" class="attachment-thumbnail wp-post-image" alt="app-t-03" /> </div>
+                                                <div class="box-inner"> <img width="150" height="150" src="http://lorempixel.com/150/150/" class="attachment-thumbnail wp-post-image" alt="app-t-03" /> </div>
                                             </div>
-                                            <footer>Billy Thompson<cite title="overplex.com">overplex.com</cite></footer>
+                                            <footer>@HomePageResources.Testimonial3Person<cite title="@HomePageResources.Testimonial3Title">@HomePageResources.Testimonial3Title</cite></footer>
+                                        </blockquote>
+                                    </li>
+                                    <li>
+                                        <blockquote>
+                                            <p>
+                                                @HomePageResources.Testimonial4
+                                            </p>
+                                            <div class="box box-small box-round">
+                                                <div class="box-dummy"></div>
+                                                <div class="box-inner"> <img width="150" height="150" src="http://lorempixel.com/150/150/" class="attachment-thumbnail wp-post-image" alt="app-t-03" /> </div>
+                                            </div>
+                                            <footer>@HomePageResources.Testimonial4Person<cite title="@HomePageResources.Testimonial4Title">@HomePageResources.Testimonial4Title</cite></footer>
                                         </blockquote>
                                     </li>
                                 </ul>
@@ -532,13 +506,13 @@
             return "";
         }
 
-        window.onload = function () {
+        //window.onload = function () {
 
-            var val = getCookie('l2');
-            var text = document.querySelector('[href$="' + val + '/"]').text;
-            //document.getElementById('lang').value = val;
-            document.querySelector('[data-toggle=dropdown]').text = text;
-        }
+        //    var val = getCookie('l2');
+        //    var text = document.querySelector('[href$="' + val + '/"]').text;
+        //    //document.getElementById('lang').value = val;
+        //    document.querySelector('[data-toggle=dropdown]').text = text;
+        //}
     </script>
     @Html.Script2("homePage")
 </body>
