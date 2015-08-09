@@ -710,9 +710,6 @@
     <Content Include="Content\HomePage\theme.css">
       <DependentUpon>theme.less</DependentUpon>
     </Content>
-    <Content Include="Content\HomePage\theme.min.css">
-      <DependentUpon>theme.css</DependentUpon>
-    </Content>
     <Content Include="Content\HomePage\theme.rtl.css">
       <DependentUpon>theme.css</DependentUpon>
     </Content>
