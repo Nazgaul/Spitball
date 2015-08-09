@@ -867,6 +867,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\HomePage2\computer.png" />
     <Content Include="Images\HomePage2\grid-20.png" />
+    <Content Include="Images\HomePage2\headr_image2.png" />
     <Content Include="Images\HomePage2\homePageIcons.svg" />
     <Content Include="Images\HomePage2\landingbg.png" />
     <Content Include="Images\HomePage2\logo.png" />
@@ -2408,6 +2409,7 @@
     <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.zh.resx" />
     <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.ru.resx" />
     <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.zh.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\HomePageResources.he.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HomePageResources.Designer.cs</LastGenOutput>

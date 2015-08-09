@@ -34,7 +34,7 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".main-navbar"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                <a href="@Url.Action("Index")" class="navbar-brand"> <img src="@Url.CdnContent("/Images/HomePage2/logo.png")" alt="logo"> </a>
+                <a href="@Url.Action("Index")" class="navbar-brand"> <img src="@Url.CdnContent("/Images/HomePage2/logo.png?v=1")" alt="logo"> </a>
             </div>
             <div class="nav-container">
                 <nav class="collapse navbar-collapse main-navbar logo-navbar navbar-right" role="navigation">
@@ -50,8 +50,9 @@
                                     <li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ar-AE" })">@Languages.ArabicName</a> </li>
                                 </ul>
                             </li>
-                            <li class="menu-item "> <a href="@Url.Action("SignIn")">Log in</a> </li>
-                            <li class="menu-item  nav-highlight-ghost "> <a href="/restaurant-reservations.html">Get it</a> </li>
+                            <li class="menu-item "> <a href="@Url.Action("SignIn")">@HomePageResources.A1</a> </li>
+                            <li class="menu-item "> <a href="@Url.Action("Jobs","Home")">@HomePageResources.A2</a> </li>
+                            @*<li class="menu-item  nav-highlight-ghost "> <a href="/restaurant-reservations.html">Get it</a> </li>*@
                         </ul>
                     </div>
 
@@ -63,18 +64,22 @@
     <div id="content" role="main">
         <article>
             <section class="section">
-                <div class="background-media" style="background-image: url(@Url.CdnContent("/Images/HomePage2/landingbg.png")); background-attachment: fixed; background-size: cover; " data-start="background-position: 50% 0px" data-0-top-bottom="background-position: 50% -85px">
+                <div class="background-media backgroundImage"
+                     @*style="background-image: url(@Url.CdnContent("/Images/HomePage2/landingbg.png?v=1")); background-attachment: fixed; background-size: cover; "*@
+                     
+                     data-start="background-position: 50% 0px"
+                     data-0-top-bottom="background-position: 50% -85px">
                 </div>
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12  text-center">
                             <div class="divider-wrapper">
-                                <div class="visible-xs element-height-50"></div>
+                                <div class="visible-xs element-height-100"></div>
                                 <div class="visible-sm element-height-100"></div>
                                 <div class="visible-md element-height-240"></div>
                                 <div class="visible-lg element-height-240"></div>
                             </div>
-                            <div class="col-text-1 bold text-center element-top-120 element-bottom-20 os-animation" 
+                            <div class="col-text-1 bold text-center element-top-80 os-animation" 
                                  data-os-animation="fadeIn" data-os-animation-delay="0.1s">
                                 <p class="bigger text-light" style="white-space:pre-wrap;">@HomePageResources.A4</p>
 
@@ -82,16 +87,16 @@
 
                                
                             </div>
-                            <a href="@Url.Action("SignIn")" class="btn btn-primary btn-lg  text-center bold margin-right element-top-80 element-bottom-50 os-animation btnSignUp" 
+                            <a href="@Url.Action("SignIn")" class="btn btn-primary btn-lg  text-center bold margin-right element-top-40 element-bottom-40 os-animation btnSignUp" 
                                target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                                 @HomePageResources.A5
                             </a>
-                            <p class="text-light big os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">@HomePageResources.A6</p>
+                            <p class="text-light os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">@HomePageResources.A6</p>
                             <div class="divider-wrapper">
-                                <div class="visible-xs element-height-150"></div>
-                                <div class="visible-sm element-height-200"></div>
-                                <div class="visible-md element-height-300"></div>
-                                <div class="visible-lg element-height-300"></div>
+                                <div class="visible-xs element-height-100"></div>
+                                <div class="visible-sm element-height-100"></div>
+                                <div class="visible-md element-height-100"></div>
+                                <div class="visible-lg element-height-100"></div>
                             </div>
                         </div>
                     </div>
@@ -154,12 +159,12 @@
                         <div class="col-md-4 text-default small-screen-default">
                             <ul class="features-list text-normal element-top-20 element-bottom-20" data-os-animation="none" data-os-animation-delay="0s">
                                 <li class=" element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.1s">
-                                    <div class="features-list-icon box-animate" data-animation="" style="background-color:#72b4b6;">@Html.Svg("/images/homepage2/homePageIcons.svg", "hand214", new { @class="svgIcon"}) @*<i class="icon-volume" style="color:#ffffff;"></i>*@ </div>
+                                    <div class="features-list-icon box-animate" data-animation="" >@Html.Svg("/images/homepage2/homePageIcons.svg", "web", new { @class = "svgIcon" }) @*<i class="icon-volume" style="color:#ffffff;"></i>*@ </div>
                                     <h3>@HomePageResources.B3</h3>
                                     <p>@HomePageResources.B4</p>
                                 </li>
                                 <li class="element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.3s">
-                                    <div class="features-list-icon box-animate" data-animation="" style="background-color:#72b4b6">@Html.Svg("/images/homepage2/homePageIcons.svg", "web", new { @class = "svgIcon" }) </div>
+                                    <div class="features-list-icon box-animate" data-animation="" >@Html.Svg("/images/homepage2/homePageIcons.svg", "speech", new { @class = "svgIcon" }) </div>
                                     <h3>@HomePageResources.B5</h3>
                                     <p>@HomePageResources.B6</p>
                                 </li>
@@ -173,12 +178,12 @@
                         <div class="col-md-4 text-default small-screen-default">
                             <ul class="features-list text-normal element-top-20 element-bottom-20" data-os-animation="none" data-os-animation-delay="0s">
                                 <li class=" element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.2s">
-                                    <div class="features-list-icon box-animate" data-animation="" style="background-color:#72b4b6"> @Html.Svg("/images/homepage2/homePageIcons.svg", "social-network", new { @class = "svgIcon" }) </div>
+                                    <div class="features-list-icon box-animate" data-animation="" > @Html.Svg("/images/homepage2/homePageIcons.svg", "social-network", new { @class = "svgIcon" }) </div>
                                     <h3>@HomePageResources.B7</h3>
                                     <p>@HomePageResources.B8</p>
                                 </li>
                                 <li class="element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.4s">
-                                    <div class="features-list-icon box-animate" data-animation="" style="background-color:#72b4b6"> @Html.Svg("/images/homepage2/homePageIcons.svg", "speech", new { @class = "svgIcon" }) </div>
+                                    <div class="features-list-icon box-animate" data-animation="" > @Html.Svg("/images/homepage2/homePageIcons.svg", "hand214", new { @class = "svgIcon" }) </div>
                                     <h3>@HomePageResources.B9</h3>
                                     <p>@HomePageResources.B10</p>
                                 </li>
@@ -233,7 +238,7 @@
                                 </div>
                                 <div class="col-md-2 text-default small-screen-default"></div>
                             </div>
-                            <div class="portfolio-container element-top-20 element-bottom-20 text-normal">
+                            <div class="portfolio-container element-top-20 element-bottom-20 text-normal element-left-50 element-right-50">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="portfolio-header clearfix">
@@ -241,92 +246,57 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="portfolio masonry no-transition" data-padding="15" data-col-xs="2" data-col-sm="4" data-col-md="4" data-col-lg="6" data-layout="fitRows">
+                                <div class="portfolio masonry no-transition" data-padding="40" data-col-xs="2" data-col-sm="3" data-col-md="3" data-col-lg="3" data-layout="fitRows">
                                     <div class="masonry-item portfolio-item filter-screens" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
                                         <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
                                             <a href="@Url.CdnContent("/Images/HomePage2/ScreenShot1.jpg")" class="figure-image magnific" data-links="" target="_self">
                                                 <img src="@Url.CdnContent("/Images/HomePage2/ScreenShot1.jpg")" alt="screen01" class="normalwidth" />
                                                 <div class="figure-overlay grid-overlay-0">
                                                     <div class="figure-overlay-container">
-                                                        <div class="figure-caption"> <i class="icon-plus"></i> </div>
+                                                        <div class="figure-caption"> @Html.Svg("/images/homepage2/homePageIcons.svg", "magnifyGlass") </div>
                                                     </div>
                                                 </div>
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="masonry-item portfolio-item filter-screens" data-menu-order="2" data-date="2014-11-06T14:25:57+00:00" data-title="screen02" data-comments="0">
-                                        <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
-                                            <a href="assets/images/landing/app-p-02.jpg" class="figure-image magnific" data-links="" target="_self">
-                                                <img src="assets/images/landing/app-p-02.jpg" alt="screen02" class="normalwidth" />
+                                    <div class="masonry-item portfolio-item filter-screens" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
+                                        <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                            <a href="@Url.CdnContent("/Images/HomePage2/ScreenShot1.jpg")" class="figure-image magnific" data-links="" target="_self">
+                                                <img src="@Url.CdnContent("/Images/HomePage2/ScreenShot1.jpg")" alt="screen01" class="normalwidth" />
                                                 <div class="figure-overlay grid-overlay-0">
                                                     <div class="figure-overlay-container">
-                                                        <div class="figure-caption"> <i class="icon-plus"></i> </div>
+                                                        <div class="figure-caption"> @Html.Svg("/images/homepage2/homePageIcons.svg", "magnifyGlass") </div>
                                                     </div>
                                                 </div>
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="masonry-item portfolio-item filter-screens" data-menu-order="3" data-date="2014-11-06T14:25:57+00:00" data-title="screen03" data-comments="0">
-                                        <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0.2s">
-                                            <a href="assets/images/landing/app-p-03.jpg" class="figure-image magnific" data-links="" target="_self">
-                                                <img src="assets/images/landing/app-p-03.jpg" alt="screen03" class="normalwidth" />
+                                    <div class="masonry-item portfolio-item filter-screens" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
+                                        <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                            <a href="@Url.CdnContent("/Images/HomePage2/ScreenShot1.jpg")" class="figure-image magnific" data-links="" target="_self">
+                                                <img src="@Url.CdnContent("/Images/HomePage2/ScreenShot1.jpg")" alt="screen01" class="normalwidth" />
                                                 <div class="figure-overlay grid-overlay-0">
                                                     <div class="figure-overlay-container">
-                                                        <div class="figure-caption"> <i class="icon-plus"></i> </div>
+                                                        <div class="figure-caption"> @Html.Svg("/images/homepage2/homePageIcons.svg", "magnifyGlass") </div>
                                                     </div>
                                                 </div>
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="masonry-item portfolio-item filter-screens" data-menu-order="4" data-date="2014-11-06T14:25:57+00:00" data-title="screen04" data-comments="0">
-                                        <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                                            <a href="assets/images/landing/app-p-04.jpg" class="figure-image magnific" data-links="" target="_self">
-                                                <img src="assets/images/landing/app-p-04.jpg" alt="screen04" class="normalwidth" />
-                                                <div class="figure-overlay grid-overlay-0">
-                                                    <div class="figure-overlay-container">
-                                                        <div class="figure-caption"> <i class="icon-plus"></i> </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="masonry-item portfolio-item filter-screens" data-menu-order="5" data-date="2014-11-06T14:51:39+00:00" data-title="screen05" data-comments="0">
-                                        <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0.4s">
-                                            <a href="assets/images/landing/app-p-05.jpg" class="figure-image magnific" data-links="" target="_self">
-                                                <img src="assets/images/landing/app-p-05.jpg" alt="screen05" class="normalwidth" />
-                                                <div class="figure-overlay grid-overlay-0">
-                                                    <div class="figure-overlay-container">
-                                                        <div class="figure-caption"> <i class="icon-plus"></i> </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="masonry-item portfolio-item filter-screens" data-menu-order="6" data-date="2014-11-06T14:52:04+00:00" data-title="screen06" data-comments="0">
-                                        <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
-                                            <a href="assets/images/landing/app-p-06.jpg" class="figure-image magnific" data-links="" target="_self">
-                                                <img src="assets/images/landing/app-p-06.jpg" alt="screen06" class="normalwidth" />
-                                                <div class="figure-overlay grid-overlay-0">
-                                                    <div class="figure-overlay-container">
-                                                        <div class="figure-caption"> <i class="icon-plus"></i> </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
+                                  
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            <section class="section">
-                <div class="background-overlay grid-overlay-20" style="background-color: #353E4D"></div>
+            <section class="section" id="bestApp">
+                <div class="background-overlay grid-overlay-20" style="background-color: #353E4D;"></div>
                 <div class="container container-vertical-middle">
                     <div class="row vertical-middle">
                         <div class="col-md-6 text-default small-screen-default">
                             <div class="figure element-top-20 element-bottom-0 os-animation" data-os-animation="fadeInUp" data-os-animation-delay="0.3s">
-                                <a href="assets/images/landing/app-06.png" class="figure-image magnific" target="_self"> <img src="@Url.CdnContent("/Images/HomePage2/mobile.png")" alt="app-06" /> </a>
+                                <a href="assets/images/landing/app-06.png" class="figure-image magnific" target="_self"> <img src="@Url.CdnContent("/Images/HomePage2/mobile.png?v=1")" alt="app-06" /> </a>
                             </div>
                         </div>
                         <div class="col-md-6 text-left small-screen-center">
@@ -340,11 +310,11 @@
                                 Lambda is the world’s most advanced theme. Built with incredible new capabilities and features designed to make the most out of your creativity. As with all of our products you&#8217;ll get <strong>100% solid support</strong>.
                             </p>
                             <ul class="skills-list lead element-top-20 element-bottom-40 text-normal os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">
-                                <li>Awesome design</li>
-                                <li>Retina ready</li>
-                                <li>WooCommerce ready</li>
-                                <li>Cool animations</li>
-                                <li>Speed optimised</li>
+                                <li> @Html.Svg("/images/homepage2/homePageIcons.svg","checkmark")&nbsp;Awesome design</li>
+                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Retina ready</li>
+                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;WooCommerce ready</li>
+                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Cool animations</li>
+                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Speed optimised</li>
                             </ul>
                         </div>
                     </div>
@@ -417,14 +387,14 @@
                 </div>
             </section>
             <section class="section text-normal section-text-no-shadow section-inner-no-shadow section-normal section-opaque" id="buy">
-                <div class="background-media" style="background-image: url('/Images/HomePage2/landingbg.png'); background-repeat:no-repeat; background-size:cover; background-attachment:fixed; background-position: 50% 0%;" data-start="background-position: 50% 0px"
+                <div class="background-media" style="background-image: url('/Images/HomePage2/headr_image2.png'); background-repeat:no-repeat; background-size:cover; background-attachment:fixed; background-position: 50% 0%;" data-start="background-position: 50% 0px"
                      data-0-top-bottom="background-position: 50% -84px"></div>
                 <div class="background-overlay"></div>
                 <div class="container container-vertical-top">
                     <div class="row vertical-top">
                         <div class="col-md-1 text-left small-screen-center"></div>
                         <div class="col-md-10 text-center small-screen-default">
-                            <h1 class="text-default element-top-100 element-bottom-20 text-light os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                            <h1 class="text-default element-top-70 element-bottom-20 text-light os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
                                 Get it now
                             </h1>
                             <div class="divider-border divider-border-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
@@ -436,17 +406,17 @@
                                     <br />Start creating your website now!
                                 </p>
                             </div> <a href="" class="btn btn-primary btn-lg text-light btn-icon-right margin-right element-top-20 element-bottom-20 os-animation" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                                IPHONE<i class="fa fa-apple" data-animation="none"></i>
+                                IPHONE<i class="fa fa-apple" data-animation="none">@Html.Svg("/images/homepage2/homePageIcons.svg", "apple")</i>
                             </a> <a href="" class="btn btn-primary btn-lg text-normal btn-icon-right  element-top-20 element-bottom-20 os-animation" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                                ANDROID<i class="fa fa-android" data-animation="none"></i>
+                                ANDROID<i class="fa fa-android" data-animation="none">@Html.Svg("/images/homepage2/homePageIcons.svg", "android")</i>
                             </a>
                             <div class="divider-wrapper">
-                                <div class="visible-xs element-height-40"></div>
-                                <div class="visible-sm element-height-40"></div>
-                                <div class="visible-md element-height-40"></div>
-                                <div class="visible-lg element-height-40"></div>
+                                <div class="visible-xs element-height-60"></div>
+                                <div class="visible-sm element-height-60"></div>
+                                <div class="visible-md element-height-60"></div>
+                                <div class="visible-lg element-height-60"></div>
                             </div>
-                            <div class="element-top-20 element-bottom-60" data-os-animation="none" data-os-animation-delay="0s">
+                            @*<div class="element-top-20 element-bottom-60" data-os-animation="none" data-os-animation-delay="0s">
                                 <ul class="social-icons text-light social-lg social-simple social-circle ">
                                     <li>
                                         <a href="https://twitter.com/share?url=http://lambda.oxygenna.com/landing/" target="_blank" data-iconcolor="#00acee"> <i class="fa fa-twitter"></i> </a>
@@ -461,7 +431,7 @@
                                         <a href="//pinterest.com/pin/create/button/?url=http://lambda.oxygenna.com/landing/&#038;description=Home" target="_blank" data-iconcolor="#C92228"> <i class="fa fa-pinterest"></i> </a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div>*@
                             <div class="divider-wrapper">
                                 <div class="visible-xs element-height-40"></div>
                                 <div class="visible-sm element-height-40"></div>
@@ -478,7 +448,7 @@
             </div>
         </article>
     </div>
-    <a class="go-top go-top-circle" href="javascript:void(0)"> <i class="fa fa-angle-up"></i> </a>
+    <a class="go-top go-top-circle" href="javascript:void(0)">@Html.Svg("/images/homepage2/homePageIcons.svg", "up")</a>
     <script type="text/javascript">
         var oxyThemeData = {
             navbarHeight: 100,
@@ -506,13 +476,13 @@
             return "";
         }
 
-        //window.onload = function () {
+        window.onload = function () {
 
-        //    var val = getCookie('l2');
-        //    var text = document.querySelector('[href$="' + val + '/"]').text;
-        //    //document.getElementById('lang').value = val;
-        //    document.querySelector('[data-toggle=dropdown]').text = text;
-        //}
+            var val = getCookie('l2');
+            var text = document.querySelector('[href$="' + val + '/"]').text;
+            //document.getElementById('lang').value = val;
+            document.querySelector('[data-toggle=dropdown]').text = text;
+        }
     </script>
     @Html.Script2("homePage")
 </body>

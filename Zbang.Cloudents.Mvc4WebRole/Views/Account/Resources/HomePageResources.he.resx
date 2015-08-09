@@ -118,52 +118,50 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="A1" xml:space="preserve">
-    <value>Log In</value>
+    <value>התחבר</value>
   </data>
   <data name="A2" xml:space="preserve">
-    <value>Jobs</value>
+    <value>משרות</value>
   </data>
   <data name="A4" xml:space="preserve">
-    <value>Empowering students to succeed 
-by collaboratively sharing knowledge,
-in an open social studying network.</value>
+    <value>סטודנטים מצליחים יותר בלימודים
+באמצעות שיתוף ידע ברשת לימודים חברתית</value>
   </data>
   <data name="A5" xml:space="preserve">
-    <value>Sign up for FREE</value>
+    <value>הצטרף בחינם</value>
   </data>
   <data name="A6" xml:space="preserve">
-    <value>Spitball is built by students and for students</value>
+    <value>ספיטבול נבנתה ע״י סטדונטים עבור סטודנטים</value>
   </data>
   <data name="B1" xml:space="preserve">
     <value>Spitball Features</value>
   </data>
   <data name="B10" xml:space="preserve">
-    <value>Students learning from students. Quizzes make your own, or test yourself from the thousands already available.</value>
+    <value>לומדים מחברים באמצעות מבחנים אנטראקטיביםץ צור בחנים או בחן את עצמך מאלפי מבחנים קיימים</value>
   </data>
   <data name="B2" xml:space="preserve">
     <value>Take a look at the some of these features that makes Spitball so unique.</value>
   </data>
   <data name="B3" xml:space="preserve">
-    <value>AVAILABLE EVERYWHERE</value>
+    <value>הלימודים שלך איתך בכל מקום</value>
   </data>
   <data name="B4" xml:space="preserve">
-    <value>Study when it suits you, from every computer, mobile or tablet you have.
-</value>
+    <value>במחשב בנייד או בטאבלט, עם ספיטבול תוכלו להישאר מעודכנים תמיד כדי שלא תפספסו כלום</value>
   </data>
   <data name="B5" xml:space="preserve">
-    <value>QUESTIONS AND ANSWERS</value>
+    <value>עזרה מחברים</value>
   </data>
   <data name="B6" xml:space="preserve">
-    <value>Questions about yesterday's class, what paper is due next week? Spitball is here to help. Ask a question, get an answer from a fellow student</value>
+    <value>באמצעות "עדכונים" תוכלו להיעזר בחבריכם לכיתה, לעורר דיונים, לשאול ולענות על שאלות.</value>
   </data>
   <data name="B7" xml:space="preserve">
-    <value>WATCH AND SHARE</value>
+    <value>יש ממה ללמוד!</value>
   </data>
   <data name="B8" xml:space="preserve">
-    <value>Link to online lectures, share and compare class notes, review reading material, discuss in the privacy of your study group, all in one place.</value>
+    <value>מעל 250,000 סיכומים, מבחנים משנים קודמות ומאמרים המסודרים לפי הקורסים שלך כבר מחכים בפנים! אתם יכולים לקרוא, להוריד ולשתף חומרים אקדמיים מכל סוג!</value>
   </data>
   <data name="B9" xml:space="preserve">
-    <value>Quizzes and Review Sheets</value>
+    <value>בחנים</value>
   </data>
   <data name="Testimonial1" xml:space="preserve">
     <value>As a sophomore, I found myself looking for a way to communicate and study with my classmates because I was not in a dorm any more surrounded by my peers. After searching online, I was shocked that there was no real solution that I felt comfortable incoporating into my life style (nothing I could easily access on my phone or computer). Then I came across Cloudents. It provided me a virtual platform where I can interact with my classmates and other students in an easy and intuitive way.</value>

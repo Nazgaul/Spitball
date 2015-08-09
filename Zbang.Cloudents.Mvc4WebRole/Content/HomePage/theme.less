@@ -2757,6 +2757,11 @@ pre {
 .text-none {
     text-transform: none!important;
 }
+@media (max-width: 1400px) {
+    .bigger {
+        font-size:36px;
+    }
+}
 @media (max-width:992px) {
     .small-screen-center {
     text-align: center!important;
@@ -2793,7 +2798,7 @@ h3 small {
     line-height: 1.2em;
 }
 .bigger {
-    font-size: 36px;
+    font-size: 24px;
 }
 .super {
     font-size: 48px;
@@ -2819,7 +2824,7 @@ h3 small {
     line-height: 1;
 }
 .bigger {
-    font-size: 32px;
+    font-size: 24px;
     line-height: 1.2em;
 }
 .super {
@@ -4205,12 +4210,12 @@ ul.social-icons.social-rect li a {
     position: relative;
     padding-bottom: 6px;
 }
-.skills-list li:before {
+/*.skills-list li:before {
     font-family: "feather";
     content: "\e116";
     position: absolute;
     left: -24px;
-}
+}*/
 .pricing-col {
     text-align: center;
     padding-bottom: 24px;
@@ -8572,7 +8577,7 @@ a img.aligncenter {
 }
 .fa {
     display: inline-block;
-    font: 14px/1 FontAwesome;
+    //font: 14px/1 FontAwesome;
     font-size: inherit;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
@@ -9187,8 +9192,8 @@ a img.aligncenter {
     content: ""}
 .fa-angle-right:before {
     content: ""}
-.fa-angle-up:before {
-    content: ""}
+/*.fa-angle-up:before {
+    content: ""}*/
 .fa-angle-down:before {
     content: ""}
 .fa-desktop:before {
@@ -9399,12 +9404,16 @@ a img.aligncenter {
     content: ""}
 .fa-long-arrow-right:before {
     content: ""}
-.fa-apple:before {
-    content: ""}
+.fa-apple, .fa-android {
+    svg {
+        width:20px;
+        height:20px;
+    }
+    }
 .fa-windows:before {
     content: ""}
-.fa-android:before {
-    content: ""}
+/*.fa-android:before {
+    content: ""}*/
 .fa-linux:before {
     content: ""}
 .fa-dribbble:before {

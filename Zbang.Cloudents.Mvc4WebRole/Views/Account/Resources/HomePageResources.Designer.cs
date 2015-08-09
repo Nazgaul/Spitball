@@ -61,7 +61,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Empowering Students to succeed
+        ///   Looks up a localized string similar to Log In.
+        /// </summary>
+        public static string A1 {
+            get {
+                return ResourceManager.GetString("A1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jobs.
+        /// </summary>
+        public static string A2 {
+            get {
+                return ResourceManager.GetString("A2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Empowering students to succeed 
         ///by collaboratively sharing knowledge,
         ///in an open social studying network..
         /// </summary>
@@ -108,7 +126,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Take allok at the some of these features that makes Spitball so unique..
+        ///   Looks up a localized string similar to Take a look at the some of these features that makes Spitball so unique..
         /// </summary>
         public static string B2 {
             get {
@@ -145,7 +163,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Questions about yesterday&apos;s class, what paper is due next week? What is the right answer on question #7? Spitball is here to help. Ask a question, get an answer from a fellow student.
+        ///   Looks up a localized string similar to Questions about yesterday&apos;s class, what paper is due next week? Spitball is here to help. Ask a question, get an answer from a fellow student.
         /// </summary>
         public static string B6 {
             get {
