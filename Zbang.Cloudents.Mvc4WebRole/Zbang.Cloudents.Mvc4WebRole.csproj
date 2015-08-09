@@ -640,6 +640,7 @@
     <Content Include="Content\DashLib.rtl.css">
       <DependentUpon>DashLib.css</DependentUpon>
     </Content>
+    <Content Include="Content\Fonts\feather-webfont.svg" />
     <Content Include="Content\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
@@ -735,6 +736,9 @@
     <Content Include="Content\HomePage\landing.less" />
     <Content Include="Content\HomePage\restaurant.less" />
     <Content Include="Content\HomePage\theme.less" />
+    <Content Include="Content\Fonts\feather-webfont.eot" />
+    <Content Include="Content\Fonts\feather-webfont.ttf" />
+    <Content Include="Content\Fonts\feather-webfont.woff" />
     <None Include="Content\jquery.mCustomScrollbar.less" />
     <Content Include="Content\jquery.mCustomScrollbar.css">
       <DependentUpon>jquery.mCustomScrollbar.less</DependentUpon>
@@ -866,10 +870,11 @@
     <Content Include="Global.asax" />
     <Content Include="Images\HomePage2\computer.png" />
     <Content Include="Images\HomePage2\grid-20.png" />
+    <Content Include="Images\HomePage2\homePageIcons.svg" />
     <Content Include="Images\HomePage2\landingbg.png" />
     <Content Include="Images\HomePage2\logo.png" />
     <Content Include="Images\HomePage2\mobile.png" />
-    <Content Include="Images\HomePage2\screens.png" />
+    <Content Include="Images\HomePage2\ScreenShot1.jpg" />
     <Content Include="Images\HomePage\academic.png" />
     <Content Include="Images\HomePage\app_store.png" />
     <Content Include="Images\app_store_small.png" />

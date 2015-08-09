@@ -86,7 +86,7 @@
                                target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                                 @HomePageResources.A5
                             </a>
-                            <p class="text-light big" data-os-animation="fadeIn" data-os-animation-delay="0.5s">@HomePageResources.A6</p>
+                            <p class="text-light big os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">@HomePageResources.A6</p>
                             <div class="divider-wrapper">
                                 <div class="visible-xs element-height-150"></div>
                                 <div class="visible-sm element-height-200"></div>
@@ -154,12 +154,12 @@
                         <div class="col-md-4 text-default small-screen-default">
                             <ul class="features-list text-normal element-top-20 element-bottom-20" data-os-animation="none" data-os-animation-delay="0s">
                                 <li class=" element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.1s">
-                                    <div class="features-list-icon box-animate" data-animation="" style="background-color:#72b4b6;"> <i class="icon-volume" style="color:#ffffff;"></i> </div>
+                                    <div class="features-list-icon box-animate" data-animation="" style="background-color:#72b4b6;">@Html.Svg("/images/homepage2/homePageIcons.svg", "hand214", new { @class="svgIcon"}) @*<i class="icon-volume" style="color:#ffffff;"></i>*@ </div>
                                     <h3>@HomePageResources.B3</h3>
                                     <p>@HomePageResources.B4</p>
                                 </li>
                                 <li class="element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.3s">
-                                    <div class="features-list-icon box-animate" data-animation="" style="background-color:#72b4b6"> <i class="icon-reload" style="color:#ffffff;"></i> </div>
+                                    <div class="features-list-icon box-animate" data-animation="" style="background-color:#72b4b6">@Html.Svg("/images/homepage2/homePageIcons.svg", "web", new { @class = "svgIcon" }) </div>
                                     <h3>@HomePageResources.B5</h3>
                                     <p>@HomePageResources.B6</p>
                                 </li>
@@ -173,12 +173,12 @@
                         <div class="col-md-4 text-default small-screen-default">
                             <ul class="features-list text-normal element-top-20 element-bottom-20" data-os-animation="none" data-os-animation-delay="0s">
                                 <li class=" element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.2s">
-                                    <div class="features-list-icon box-animate" data-animation="" style="background-color:#72b4b6"> <i class="icon-monitor" style="color:#ffffff;"></i> </div>
+                                    <div class="features-list-icon box-animate" data-animation="" style="background-color:#72b4b6"> @Html.Svg("/images/homepage2/homePageIcons.svg", "social-network", new { @class = "svgIcon" }) </div>
                                     <h3>@HomePageResources.B7</h3>
                                     <p>@HomePageResources.B8</p>
                                 </li>
                                 <li class="element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.4s">
-                                    <div class="features-list-icon box-animate" data-animation="" style="background-color:#72b4b6"> <i class="icon-battery" style="color:#ffffff;"></i> </div>
+                                    <div class="features-list-icon box-animate" data-animation="" style="background-color:#72b4b6"> @Html.Svg("/images/homepage2/homePageIcons.svg", "speech", new { @class = "svgIcon" }) </div>
                                     <h3>@HomePageResources.B9</h3>
                                     <p>@HomePageResources.B10</p>
                                 </li>
@@ -187,7 +187,7 @@
                     </div>
                 </div>
             </section>
-            <section class="section" id="design">
+            @*<section class="section" id="design">
                 <div class="background-overlay grid-overlay-0" style="background-color: rgba(240,240,240,1);"></div>
                 <div class="container container-vertical-default">
                     <div class="row vertical-default">
@@ -211,9 +211,9 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section>*@
             <section class="section" id="screenshots">
-                <div class="background-overlay grid-overlay-0 " style="background-color: rgba(240,240,240,0);"></div>
+                <div class="background-overlay grid-overlay-0 " style="background-color: rgba(240,240,240,1);"></div>
                 <div class="container-fullwidth container-vertical-default">
                     <div class="row vertical-default">
                         <div class="col-md-12 text-default small-screen-default">
@@ -244,8 +244,8 @@
                                 <div class="portfolio masonry no-transition" data-padding="15" data-col-xs="2" data-col-sm="4" data-col-md="4" data-col-lg="6" data-layout="fitRows">
                                     <div class="masonry-item portfolio-item filter-screens" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
                                         <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
-                                            <a href="assets/images/landing/app-p-01.jpg" class="figure-image magnific" data-links="" target="_self">
-                                                <img src="assets/images/landing/app-p-01.jpg" alt="screen01" class="normalwidth" />
+                                            <a href="@Url.CdnContent("/Images/HomePage2/ScreenShot1.jpg")" class="figure-image magnific" data-links="" target="_self">
+                                                <img src="@Url.CdnContent("/Images/HomePage2/ScreenShot1.jpg")" alt="screen01" class="normalwidth" />
                                                 <div class="figure-overlay grid-overlay-0">
                                                     <div class="figure-overlay-container">
                                                         <div class="figure-caption"> <i class="icon-plus"></i> </div>
@@ -368,7 +368,7 @@
                                             </p>
                                             <div class="box box-small box-round">
                                                 <div class="box-dummy"></div>
-                                                <div class="box-inner"> <img width="150" height="150" src="http://lorempixel.com/150/150/" class="attachment-thumbnail wp-post-image" alt="app-t-01" /> </div>
+                                                <div class="box-inner"> <img width="150" height="150" src="https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg" class="attachment-thumbnail wp-post-image" alt="app-t-01" /> </div>
                                             </div>
                                             <footer>@HomePageResources.Testimonial1Person<cite title="@HomePageResources.Testimonial1Title">@HomePageResources.Testimonial1Title</cite></footer>
                                         </blockquote>
@@ -380,7 +380,7 @@
                                             </p>
                                             <div class="box box-small box-round">
                                                 <div class="box-dummy"></div>
-                                                <div class="box-inner"> <img width="150" height="150" src="http://lorempixel.com/150/150/" class="attachment-thumbnail wp-post-image" alt="app-t-02" /> </div>
+                                                <div class="box-inner"> <img width="150" height="150" src="https://s3.amazonaws.com/uifaces/faces/twitter/jadlimcaco/128.jpg" class="attachment-thumbnail wp-post-image" alt="app-t-02" /> </div>
                                             </div>
                                             <footer>@HomePageResources.Testimonial2Person<cite title="@HomePageResources.Testimonial2Title">@HomePageResources.Testimonial2Title</cite></footer>
                                         </blockquote>
@@ -392,7 +392,7 @@
                                             </p>
                                             <div class="box box-small box-round">
                                                 <div class="box-dummy"></div>
-                                                <div class="box-inner"> <img width="150" height="150" src="http://lorempixel.com/150/150/" class="attachment-thumbnail wp-post-image" alt="app-t-03" /> </div>
+                                                <div class="box-inner"> <img width="150" height="150" src="https://s3.amazonaws.com/uifaces/faces/twitter/joshuasortino/128.jpg" class="attachment-thumbnail wp-post-image" alt="app-t-03" /> </div>
                                             </div>
                                             <footer>@HomePageResources.Testimonial3Person<cite title="@HomePageResources.Testimonial3Title">@HomePageResources.Testimonial3Title</cite></footer>
                                         </blockquote>
@@ -404,7 +404,7 @@
                                             </p>
                                             <div class="box box-small box-round">
                                                 <div class="box-dummy"></div>
-                                                <div class="box-inner"> <img width="150" height="150" src="http://lorempixel.com/150/150/" class="attachment-thumbnail wp-post-image" alt="app-t-03" /> </div>
+                                                <div class="box-inner"> <img width="150" height="150" src="https://s3.amazonaws.com/uifaces/faces/twitter/chexee/128.jpg" class="attachment-thumbnail wp-post-image" alt="app-t-03" /> </div>
                                             </div>
                                             <footer>@HomePageResources.Testimonial4Person<cite title="@HomePageResources.Testimonial4Title">@HomePageResources.Testimonial4Title</cite></footer>
                                         </blockquote>
