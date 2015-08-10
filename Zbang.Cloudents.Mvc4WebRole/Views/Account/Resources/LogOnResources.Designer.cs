@@ -358,6 +358,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Or signup with.
+        /// </summary>
+        public static string OrSignupWith {
+            get {
+                return ResourceManager.GetString("OrSignupWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
