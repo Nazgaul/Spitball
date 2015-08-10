@@ -869,10 +869,17 @@
     <Content Include="Images\HomePage2\grid-20.png" />
     <Content Include="Images\HomePage2\headr_image2.png" />
     <Content Include="Images\HomePage2\homePageIcons.svg" />
+    <Content Include="Images\HomePage2\image.png" />
+    <Content Include="Images\HomePage2\Items_0.png" />
     <Content Include="Images\HomePage2\landingbg.png" />
     <Content Include="Images\HomePage2\logo.png" />
     <Content Include="Images\HomePage2\mobile.png" />
+    <Content Include="Images\HomePage2\quiz_0.png" />
     <Content Include="Images\HomePage2\ScreenShot1.jpg" />
+    <Content Include="Images\HomePage2\testimonial1.jpg" />
+    <Content Include="Images\HomePage2\testimonial2.jpg" />
+    <Content Include="Images\HomePage2\testimonial3.jpg" />
+    <Content Include="Images\HomePage2\testimonial4.jpg" />
     <Content Include="Images\HomePage\academic.png" />
     <Content Include="Images\HomePage\app_store.png" />
     <Content Include="Images\app_store_small.png" />

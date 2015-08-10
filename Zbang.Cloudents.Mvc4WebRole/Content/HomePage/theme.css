@@ -10763,6 +10763,9 @@ a img.aligncenter {
   width: 20px;
   height: 20px;
 }
+.fa-android svg {
+  fill: #fff;
+}
 .fa-windows:before {
   content: "";
 }

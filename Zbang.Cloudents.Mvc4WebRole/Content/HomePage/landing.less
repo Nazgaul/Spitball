@@ -666,22 +666,23 @@ input[type="color"],
     /* W3C */
 }
 
+@screnShoteColor: rgba(0, 0, 0, 0.9);
 .mfp-bg {
-    background: rgba(48, 40, 64, 0.9);
+    background: @screnShoteColor;
 }
 
 .mfp-image-holder .mfp-close,
 .mfp-iframe-holder .mfp-close {
-    background-color: rgba(48, 40, 64, 0.9) !important;
+    background-color: @screnShoteColor !important;
     color: #ffffff;
 }
 
 .mfp-counter, .mfp-preloader {
-    color: rgba(48, 40, 64, 0.9);
+    color: @screnShoteColor;
 }
 
 button.mfp-arrow {
-    background: rgba(48, 40, 64, 0.9) !important;
+    background:@screnShoteColor !important;
 }
 
 .mfp-title {
@@ -693,12 +694,13 @@ button.mfp-arrow {
 }
 
 .go-top {
-    background: @color; //(114, 180, 182, 0.7) !important;
+    background: #282828; //(114, 180, 182, 0.7) !important;
     svg {
         width: 15px;
         height: 32px;
         display: inline-block;
         line-height: 32px;
+        fill:#fff;
     }
 }
 /*.go-top i {
@@ -2181,13 +2183,13 @@ input[type="button"] {
 }
 
 .bullet-nav li a {
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0px 0px 0px 3px rgba(114, 180, 182, 0.5);
+    background-color: #fff; //rgba(50, 147, 246, 0.9);
+    box-shadow: 0px 0px 0px 3px rgba(50, 147, 246, 0.9);
 }
 
 .bullet-nav li a.active {
-    background-color: rgba(114, 180, 182, 0.9);
-    box-shadow: 0px 0px 0px 4px rgba(255, 255, 255, 0.4);
+    background-color: rgba(50, 147, 246, 0.9);
+    box-shadow: 0px 0px 0px 4px #fff;//(255, 255, 255, 0.4);
 }
 
 .mejs-audio {
@@ -3079,7 +3081,7 @@ h6.text-light,
 
 /* This is a compiled file, you should be editing the file in the templates directory */
 .svgIcon {
-    width: 24px;
+    width: 33px;
     height: 72px;
     display: inline-block;
     line-height: 72px;
@@ -3096,6 +3098,9 @@ h6.text-light,
     margin-top: 120px;
 }
 
+/*.btn-primary:active:hover {
+    background:@color;
+}*/
 @bestAppColor: #fff;
 
 #bestApp {

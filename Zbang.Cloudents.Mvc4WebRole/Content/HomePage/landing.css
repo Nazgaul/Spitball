@@ -583,19 +583,19 @@ button i,
   /* W3C */
 }
 .mfp-bg {
-  background: rgba(48, 40, 64, 0.9);
+  background: rgba(0, 0, 0, 0.9);
 }
 .mfp-image-holder .mfp-close,
 .mfp-iframe-holder .mfp-close {
-  background-color: rgba(48, 40, 64, 0.9) !important;
+  background-color: rgba(0, 0, 0, 0.9) !important;
   color: #ffffff;
 }
 .mfp-counter,
 .mfp-preloader {
-  color: rgba(48, 40, 64, 0.9);
+  color: rgba(0, 0, 0, 0.9);
 }
 button.mfp-arrow {
-  background: rgba(48, 40, 64, 0.9) !important;
+  background: rgba(0, 0, 0, 0.9) !important;
 }
 .mfp-title {
   color: rgba(207, 215, 191, 0.9);
@@ -604,13 +604,14 @@ button.mfp-arrow {
   color: #ffffff;
 }
 .go-top {
-  background: #3293f6;
+  background: #282828;
 }
 .go-top svg {
   width: 15px;
   height: 32px;
   display: inline-block;
   line-height: 32px;
+  fill: #fff;
 }
 /*.go-top i {
   color: #ffffff;
@@ -1996,12 +1997,12 @@ input[type="button"] {
   color: #ffffff;
 }
 .bullet-nav li a {
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0px 0px 0px 3px rgba(114, 180, 182, 0.5);
+  background-color: #fff;
+  box-shadow: 0px 0px 0px 3px rgba(50, 147, 246, 0.9);
 }
 .bullet-nav li a.active {
-  background-color: rgba(114, 180, 182, 0.9);
-  box-shadow: 0px 0px 0px 4px rgba(255, 255, 255, 0.4);
+  background-color: rgba(50, 147, 246, 0.9);
+  box-shadow: 0px 0px 0px 4px #fff;
 }
 .mejs-audio {
   background-color: rgba(114, 180, 182, 0.78);
@@ -2832,7 +2833,7 @@ blockquote.text-light:before {
 }
 /* This is a compiled file, you should be editing the file in the templates directory */
 .svgIcon {
-  width: 24px;
+  width: 33px;
   height: 72px;
   display: inline-block;
   line-height: 72px;
@@ -2846,6 +2847,9 @@ blockquote.text-light:before {
 .headingtitle {
   margin-top: 120px;
 }
+/*.btn-primary:active:hover {
+    background:@color;
+}*/
 #bestApp {
   color: #ffffff;
 }
