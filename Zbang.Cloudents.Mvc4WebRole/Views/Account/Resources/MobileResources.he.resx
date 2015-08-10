@@ -171,4 +171,10 @@
   <data name="FriendsActivity" xml:space="preserve">
     <value>חדש מהחברים שלי</value>
   </data>
+  <data name="NoWorriesClick" xml:space="preserve">
+    <value>אל דאגה, לחץ</value>
+  </data>
+  <data name="ToResetPassword" xml:space="preserve">
+    <value>לאיפוס סיסמא</value>
+  </data>
 </root>

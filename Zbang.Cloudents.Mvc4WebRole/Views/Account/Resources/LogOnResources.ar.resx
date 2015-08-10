@@ -216,4 +216,26 @@
   <data name="RememberMe" xml:space="preserve">
     <value>تذكر بياناتي</value>
   </data>
+  <data name="EnterAnyUserPassword" xml:space="preserve">
+    <value>أدخل أي اسم المستخدم وكلمة المرور</value>
+  </data>
+  <data name="EnterPersonalDetails" xml:space="preserve">
+    <value>أدخل بياناتك الشخصية أدناه</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>هنا</value>
+  </data>
+  <data name="LoginToAccount" xml:space="preserve">
+    <value>تسجيل الدخول إلى حسابك
+</value>
+  </data>
+  <data name="NoWorries" xml:space="preserve">
+    <value>لا تقلق، انقر فوق</value>
+  </data>
+  <data name="OrLoginWith" xml:space="preserve">
+    <value>أو الدخول مع</value>
+  </data>
+  <data name="ToResetPassword" xml:space="preserve">
+    <value>لإعادة ضبط كلمة المرور الخاصة بك</value>
+  </data>
 </root>

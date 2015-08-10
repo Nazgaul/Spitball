@@ -121,7 +121,7 @@
     <value>هل لديك حساب ؟</value>
   </data>
   <data name="And" xml:space="preserve">
-    <value>و</value>
+    <value />
   </data>
   <data name="IAgree" xml:space="preserve">
     <value>انا موافق , للتسجل للموقع</value>
@@ -133,7 +133,7 @@
     <value>او </value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
-    <value>تعليمات وقواعد الخصوصية</value>
+    <value>وتعليمات وقواعد الخصوصية</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>تسجيل الدخول</value>

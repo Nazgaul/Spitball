@@ -92,7 +92,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             //ViewBag.title = Views.Account.Resources.HomeResources.Title;
             //ViewBag.metaDescription = Views.Account.Resources.HomeResources.Description;
-
+                
             return View("Index3");
         }
 
@@ -100,6 +100,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult SignIn()
         {
             return View();
+        }
+
+        public ActionResult Signup(string lang)
+        {
+            if (!string.IsNullOrEmpty(lang))
+            {
+                m_LanguageCookie.InjectCookie(lang);
+                RouteData.Values.Remove("lang");
+                return RedirectToAction("Signup");
+            }
+
+            return View("Signin");
         }
 
         //[HttpGet]
