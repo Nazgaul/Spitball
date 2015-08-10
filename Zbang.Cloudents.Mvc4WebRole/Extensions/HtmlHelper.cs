@@ -71,6 +71,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             return MvcHtmlString.Create(cssLinks);
         }
 
+
+        public static MvcHtmlString JqueryValidateLocale(this HtmlHelper html)
+        {
+            string isoLang = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+            if (isoLang == "en")
+            {
+                return MvcHtmlString.Empty;
+            }
+            
+            return MvcHtmlString.Create("<script type='text/javascript' src='https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_"+ isoLang + ".js'></script>");
+        }
+
+
         public static MvcHtmlString CssRtl(this HtmlHelper html, string key)
         {
             if (Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)

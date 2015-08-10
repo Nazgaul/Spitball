@@ -160,7 +160,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=2.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=4.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -735,6 +735,9 @@
     <Content Include="Content\HomePage\landing.less" />
     <Content Include="Content\HomePage\restaurant.less" />
     <Content Include="Content\HomePage\theme.less" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
     <None Include="Content\jquery.mCustomScrollbar.less" />
     <Content Include="Content\jquery.mCustomScrollbar.css">
       <DependentUpon>jquery.mCustomScrollbar.less</DependentUpon>
@@ -817,6 +820,61 @@
     <Content Include="Content\Sidebar.rtl.css">
       <DependentUpon>Sidebar.css</DependentUpon>
     </Content>
+    <Content Include="Content\signin\components-md.css">
+      <DependentUpon>components-md.less</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\components-md.rtl.css">
+      <DependentUpon>components-md.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\custom.css">
+      <DependentUpon>custom.less</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\custom.rtl.css">
+      <DependentUpon>custom.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\default.css">
+      <DependentUpon>default.less</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\default.rtl.css">
+      <DependentUpon>default.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\font-awesome.css">
+      <DependentUpon>font-awesome.less</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\font-awesome.rtl.css">
+      <DependentUpon>font-awesome.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\layout.css">
+      <DependentUpon>layout.less</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\layout.rtl.css">
+      <DependentUpon>layout.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\login-soft.css">
+      <DependentUpon>login-soft.less</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\login-soft.rtl.css">
+      <DependentUpon>login-soft.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\plugins-md.css">
+      <DependentUpon>plugins-md.less</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\plugins-md.rtl.css">
+      <DependentUpon>plugins-md.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\select2.css" />
+    <Content Include="Content\signin\simple-line-icons.css">
+      <DependentUpon>simple-line-icons.less</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\simple-line-icons.rtl.css">
+      <DependentUpon>simple-line-icons.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\uniform.default.css">
+      <DependentUpon>uniform.default.less</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\uniform.default.rtl.css">
+      <DependentUpon>uniform.default.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site3.rtl.css">
       <DependentUpon>Site3.css</DependentUpon>
     </Content>
@@ -864,6 +922,12 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\signin\1a.png" />
+    <Content Include="Images\signin\2a.png" />
+    <Content Include="Images\signin\3a.png" />
+    <Content Include="Images\signin\bg3.png" />
+    <Content Include="Images\signin\bg1.png" />
+    <Content Include="Images\signin\bg2.png" />
     <Content Include="Images\HomePage2\computer.png" />
     <Content Include="Images\HomePage2\landingbg.png" />
     <Content Include="Images\HomePage2\logo.png" />
@@ -921,6 +985,12 @@
     <Content Include="Images\Mobile\mobile3.png" />
     <Content Include="Images\Mobile\mobile3_1440.png" />
     <Content Include="Images\Mobile\mobile3_720.png" />
+    <Content Include="Images\signin\bg-white-lock.png" />
+    <Content Include="Images\signin\facebook.png" />
+    <Content Include="Images\signin\googleplus.png" />
+    <Content Include="Images\signin\signup_logo.png" />
+    <Content Include="Images\signin\sprite.png" />
+    <Content Include="Images\signin\syncfusion-icons-white.png" />
     <Content Include="Images\spitball_invite_off.png" />
     <Content Include="Images\spitball_invite_on.png" />
     <Content Include="Images\spitball_logo_mobile.png" />
@@ -1029,6 +1099,19 @@
     <Content Include="Js\directives\userimage.js" />
     <Content Include="Js\filters\highlight.js" />
     <Content Include="Js\homePage\theme.js" />
+    <Content Include="Js\signin\bootstrap.min.js" />
+    <Content Include="Js\signin\demo.js" />
+    <Content Include="Js\signin\jquery-migrate.min.js" />
+    <Content Include="Js\signin\jquery.backstretch.min.js" />
+    <Content Include="Js\signin\jquery.blockui.min.js" />
+    <Content Include="Js\signin\jquery.cokie.min.js" />
+    <Content Include="Js\signin\jquery.min.js" />
+    <Content Include="Js\signin\jquery.uniform.min.js" />
+    <Content Include="Js\signin\jquery.validate.min.js" />
+    <Content Include="Js\signin\layout.js" />
+    <Content Include="Js\signin\login-soft.js" />
+    <Content Include="Js\signin\metronic.js" />
+    <Content Include="Js\signin\select2.min.js" />
     <Content Include="Js\staticCDNFallback.js" />
     <Content Include="Js\staticCDNFallback.min.js">
       <DependentUpon>staticCDNFallback.js</DependentUpon>
@@ -1241,6 +1324,15 @@
       <DependentUpon>HomePageBottom.png</DependentUpon>
     </Content>
     <Content Include="Content\Mobile.less" />
+    <Content Include="Content\signin\components-md.less" />
+    <Content Include="Content\signin\custom.less" />
+    <Content Include="Content\signin\default.less" />
+    <Content Include="Content\signin\font-awesome.less" />
+    <Content Include="Content\signin\login-soft.less" />
+    <Content Include="Content\signin\simple-line-icons.less" />
+    <Content Include="Content\signin\uniform.default.less" />
+    <Content Include="Content\signin\layout.less" />
+    <Content Include="Content\signin\plugins-md.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
