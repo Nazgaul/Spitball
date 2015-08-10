@@ -923,9 +923,6 @@
     <Content Include="Images\signin\1a.png" />
     <Content Include="Images\signin\2a.png" />
     <Content Include="Images\signin\3a.png" />
-    <Content Include="Images\signin\bg3.png" />
-    <Content Include="Images\signin\bg1.png" />
-    <Content Include="Images\signin\bg2.png" />
     <Content Include="Images\HomePage2\computer.png" />
     <Content Include="Images\HomePage2\grid-20.png" />
     <Content Include="Images\HomePage2\headr_image2.png" />
