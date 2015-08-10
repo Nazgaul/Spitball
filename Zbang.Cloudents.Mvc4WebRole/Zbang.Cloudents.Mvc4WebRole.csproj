@@ -881,6 +881,7 @@
     <Content Include="Images\HomePage2\testimonial2.jpg" />
     <Content Include="Images\HomePage2\testimonial3.jpg" />
     <Content Include="Images\HomePage2\testimonial4.jpg" />
+    <Content Include="Images\HomePage2\user.png" />
     <Content Include="Images\HomePage\academic.png" />
     <Content Include="Images\HomePage\app_store.png" />
     <Content Include="Images\app_store_small.png" />
