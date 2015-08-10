@@ -59,7 +59,7 @@
                                     <li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ar-AE" })">@Languages.ArabicName</a> </li>
                                 </ul>
                             </li>
-                            @*<li class="menu-item  nav-highlight-ghost "> <a href="/restaurant-reservations.html">Get it</a> </li>*@
+                            <li class="menu-item  nav-highlight-ghost "> <a href="#buy">Get the app</a> </li>
                         </ul>
                     </div>
 
@@ -82,11 +82,11 @@
                                 <div class="visible-xs element-height-100"></div>
                                 <div class="visible-sm element-height-100"></div>
                                 <div class="visible-md element-height-240"></div>
-                                <div class="visible-lg element-height-240"></div>
+                                <div class="visible-lg element-height-400"></div>
                             </div>
                             <div class="col-text-1 bold text-center element-top-80 os-animation"
                                  data-os-animation="fadeIn" data-os-animation-delay="0.1s">
-                                <p class="bigger text-light" style="white-space:pre-wrap;">@HomePageResources.A4</p>
+                                <p class="bigger text-light" style="white-space:pre-wrap; text-shadow:2px 2px 12px #000;">@HomePageResources.A4</p>
 
 
 
@@ -96,7 +96,7 @@
                                target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                                 @HomePageResources.A5
                             </a>
-                            <p class="text-light os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">@HomePageResources.A6</p>
+                            <p class="text-light os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s" style="text-shadow:2px 2px 6px #000; font-size:26px; font-weight:500;">@HomePageResources.A6</p>
                             <div class="divider-wrapper">
                                 <div class="visible-xs element-height-100"></div>
                                 <div class="visible-sm element-height-100"></div>
@@ -146,7 +146,7 @@
                         </div>
                         <div class="col-md-4 text-center small-screen-default">
                             <div class="figure element-top-20 element-bottom-20 scroll-to-id os-animation" data-os-animation="fadeInUp" data-os-animation-delay="0.1s">
-                                <a href="#buy" class="figure-image" target="_self"> <img src="@Url.CdnContent("/Images/HomePage2/computer.png")" alt="" /> </a>
+                                <a href="@Url.CdnContent("/Images/HomePage2/computer.png")" class="figure-image" target="_self"> <img src="@Url.CdnContent("/Images/HomePage2/computer.png")" alt="" /> </a>
                             </div>
                         </div>
                         <div class="col-md-4 text-default small-screen-default">
@@ -232,8 +232,8 @@
                                     </div>
                                     <div class="masonry-item portfolio-item filter-screens" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
                                         <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
-                                            <a href="@Url.CdnContent("/Images/HomePage2/ScreenShot1.jpg")" class="figure-image magnific" data-links="" target="_self">
-                                                <img src="@Url.CdnContent("/Images/HomePage2/ScreenShot1.jpg")" alt="screen01" class="normalwidth" />
+                                            <a href="@Url.CdnContent("/Images/HomePage2/user.png")" class="figure-image magnific" data-links="" target="_self">
+                                                <img src="@Url.CdnContent("/Images/HomePage2/user.png")" alt="screen01" class="normalwidth" />
                                                 <div class="figure-overlay grid-overlay-0">
                                                     <div class="figure-overlay-container">
                                                         <div class="figure-caption"> @Html.Svg("/images/homepage2/homePageIcons.svg", "magnifyGlass") </div>
@@ -287,7 +287,7 @@
                                 <div class="col-md-2 text-default small-screen-default"></div>
                             </div>
                             <div class="figure element-top-20 element-bottom-0 os-animation" data-os-animation="fadeInUp" data-os-animation-delay="0.3s">
-                                <a href="@Url.CdnContent("/Images/HomePage2/mobile.png?v=1")" class="figure-image magnific" target="_self"> <img src="@Url.CdnContent("/Images/HomePage2/mobile.png?v=1")" alt="app picture" /> </a>
+                                <a href="@Url.CdnContent("/Images/HomePage2/mobile.png?v=2")" class="figure-image magnific" target="_self"> <img src="@Url.CdnContent("/Images/HomePage2/mobile.png?v=1")" alt="app picture" /> </a>
                             </div>
                         </div>
                     </div>
@@ -390,21 +390,23 @@
                 </div>
             </section>
             <section class="section text-normal section-text-no-shadow section-inner-no-shadow section-normal section-opaque" id="buy">
-                <div class="background-media" style="background-image: url('@Url.CdnContent("/Images/HomePage2/headr_image2.png")'); background-repeat:no-repeat; background-size:cover; background-attachment:fixed; background-position: 50% 0%;" data-start="background-position: 50% 0px"
+                <div class="background-media" style="background-image: url('@Url.CdnContent("/Images/HomePage2/headr_image5.png")'); background-repeat:no-repeat; background-size:cover; background-attachment:fixed; background-position: 50% 0%;" data-start="background-position: 50% 0px"
                      data-0-top-bottom="background-position: 50% -84px"></div>
                 <div class="background-overlay"></div>
                 <div class="container container-vertical-top">
                     <div class="row vertical-top">
                         <div class="col-md-1 text-left small-screen-center"></div>
                         <div class="col-md-10 text-center small-screen-default">
-                            <h1 class="text-default element-top-70 element-bottom-20 text-light os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                            <h1 class="text-default element-top-70 element-bottom-20 text-light os-animation big default"
+                                 data-os-animation="fadeIn" data-os-animation-delay="0s" style="text-shadow:2px 2px 12px #000;">
                                 @HomePageResources.F1
                             </h1>
                             <div class="divider-border divider-border-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
-                                <div class="divider-border-inner" style="background:rgba(255, 255, 255, 0.76); "></div>
+                                <div class="divider-border-inner" style="background:#3293f6"></div>
                             </div>
-                            <div class="col-text-1 text-light big element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.2s">
-                                <p>
+                            <div class="col-text-1 text-light big element-top-20 element-bottom-20 os-animation"
+                                  data-os-animation="fadeIn" data-os-animation-delay="0.2s">
+                                <p style="text-shadow:2px 2px 12px #000;">
                                     @HomePageResources.F2
                                 </p>
                             </div> <a href=""

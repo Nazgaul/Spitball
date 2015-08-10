@@ -134,13 +134,13 @@
     <value>ספיטבול נבנתה ע״י סטדונטים עבור סטודנטים</value>
   </data>
   <data name="B1" xml:space="preserve">
-    <value>Spitball Features</value>
+    <value>מה מחכה לכם בפנים:</value>
   </data>
   <data name="B10" xml:space="preserve">
     <value>לומדים מחברים באמצעות מבחנים אנטראקטיביםץ צור בחנים או בחן את עצמך מאלפי מבחנים קיימים</value>
   </data>
   <data name="B2" xml:space="preserve">
-    <value>Take a look at the some of these features that makes Spitball so unique.</value>
+    <value>הינה הצצה קצרה לחלק מהפיצ׳רים שהופכים את ספיטבול למה שהיא</value>
   </data>
   <data name="B3" xml:space="preserve">
     <value>הלימודים שלך איתך בכל מקום</value>
@@ -162,6 +162,9 @@
   </data>
   <data name="B9" xml:space="preserve">
     <value>בחנים</value>
+  </data>
+  <data name="D1" xml:space="preserve">
+    <value>אפליקציית ספיטבול</value>
   </data>
   <data name="Testimonial1" xml:space="preserve">
     <value>As a sophomore, I found myself looking for a way to communicate and study with my classmates because I was not in a dorm any more surrounded by my peers. After searching online, I was shocked that there was no real solution that I felt comfortable incoporating into my life style (nothing I could easily access on my phone or computer). Then I came across Cloudents. It provided me a virtual platform where I can interact with my classmates and other students in an easy and intuitive way.</value>
