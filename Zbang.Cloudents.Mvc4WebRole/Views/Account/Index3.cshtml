@@ -3,7 +3,7 @@
 @{
 
     Layout = null;
-
+    ViewBag.moveToSpitBall = ViewBag.moveToSpitBall ?? false;
 }
 
 <!doctype html>
@@ -17,19 +17,26 @@
     @*<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,700&amp;subset=latin" rel="stylesheet" type="text/css">*@
     @Html.Css2("homePage")
     @*<link rel="apple-touch-icon" sizes="57x57" href="assets/images/favicons/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="assets/images/favicons/apple-touch-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="assets/images/favicons/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/images/favicons/apple-touch-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="assets/images/favicons/apple-touch-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="assets/images/favicons/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="assets/images/favicons/apple-touch-icon-144x144.png">
-    <link rel="icon" type="image/png" href="assets/images/favicons/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="assets/images/favicons/favicon-96x96.png" sizes="96x96">
-    <link rel="icon" type="image/png" href="assets/images/favicons/favicon-16x16.png" sizes="16x16">*@
+        <link rel="apple-touch-icon" sizes="60x60" href="assets/images/favicons/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="assets/images/favicons/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="assets/images/favicons/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="assets/images/favicons/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="assets/images/favicons/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="assets/images/favicons/apple-touch-icon-144x144.png">
+        <link rel="icon" type="image/png" href="assets/images/favicons/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="assets/images/favicons/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="assets/images/favicons/favicon-16x16.png" sizes="16x16">*@
     <link rel="SHORTCUT ICON" href="~/favicon.ico?v=2" />
 </head>
 <body class="transparent-header pace-on pace-dot">
     <div class="pace-overlay"></div>
+    @if (ViewBag.moveToSpitBall)
+    {
+        <div class="alert alert-info element-bottom-0 alert-dismissible fade in" style="width:100%;" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            עשינו מיתוג מחדש ומהיום קלאודנטס הינה ספיטבול.
+        </div>
+    }
     <div id="masthead" class="menu navbar navbar-static-top header-logo-left-menu-right oxy-mega-menu navbar-sticky text-none" role="banner">
         <div class="container">
             <div class="navbar-header">
@@ -60,7 +67,7 @@
             </div>
         </div>
     </div>
-    
+
     <div id="content" role="main">
         <article>
             <section class="section" id="spitballFeatures">
@@ -77,15 +84,15 @@
                                 <div class="visible-md element-height-240"></div>
                                 <div class="visible-lg element-height-240"></div>
                             </div>
-                            <div class="col-text-1 bold text-center element-top-80 os-animation" 
+                            <div class="col-text-1 bold text-center element-top-80 os-animation"
                                  data-os-animation="fadeIn" data-os-animation-delay="0.1s">
                                 <p class="bigger text-light" style="white-space:pre-wrap;">@HomePageResources.A4</p>
 
-                              
 
-                               
+
+
                             </div>
-                            <a href="@Url.Action("SignIn")" class="btn btn-primary btn-lg  text-center bold margin-right element-top-40 element-bottom-40 os-animation btnSignUp" 
+                            <a href="@Url.Action("SignIn")" class="btn btn-primary btn-lg  text-center bold margin-right element-top-40 element-bottom-40 os-animation btnSignUp"
                                target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                                 @HomePageResources.A5
                             </a>
@@ -100,7 +107,7 @@
                     </div>
                 </div>
             </section>
-            
+
             <section class="section" id="features">
                 <div class="container container-vertical-default">
                     <div class="row vertical-default">
@@ -126,12 +133,12 @@
                         <div class="col-md-4 text-default small-screen-default">
                             <ul class="features-list text-normal element-top-20 element-bottom-20" data-os-animation="none" data-os-animation-delay="0s">
                                 <li class=" element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.1s">
-                                    <div class="features-list-icon box-animate" data-animation="" >@Html.Svg("/images/homepage2/homePageIcons.svg", "web", new { @class = "svgIcon" }) @*<i class="icon-volume" style="color:#ffffff;"></i>*@ </div>
+                                    <div class="features-list-icon box-animate" data-animation="">@Html.Svg("/images/homepage2/homePageIcons.svg", "web", new { @class = "svgIcon" }) @*<i class="icon-volume" style="color:#ffffff;"></i>*@ </div>
                                     <h3>@HomePageResources.B3</h3>
                                     <p>@HomePageResources.B4</p>
                                 </li>
                                 <li class="element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.3s">
-                                    <div class="features-list-icon box-animate" data-animation="" >@Html.Svg("/images/homepage2/homePageIcons.svg", "speech", new { @class = "svgIcon" }) </div>
+                                    <div class="features-list-icon box-animate" data-animation="">@Html.Svg("/images/homepage2/homePageIcons.svg", "speech", new { @class = "svgIcon" }) </div>
                                     <h3>@HomePageResources.B5</h3>
                                     <p>@HomePageResources.B6</p>
                                 </li>
@@ -145,21 +152,21 @@
                         <div class="col-md-4 text-default small-screen-default">
                             <ul class="features-list text-normal element-top-20 element-bottom-20" data-os-animation="none" data-os-animation-delay="0s">
                                 <li class=" element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.2s">
-                                    <div class="features-list-icon box-animate" data-animation="" > @Html.Svg("/images/homepage2/homePageIcons.svg", "social-network", new { @class = "svgIcon" }) </div>
+                                    <div class="features-list-icon box-animate" data-animation=""> @Html.Svg("/images/homepage2/homePageIcons.svg", "social-network", new { @class = "svgIcon" }) </div>
                                     <h3>@HomePageResources.B7</h3>
                                     <p>@HomePageResources.B8</p>
                                 </li>
                                 <li class="element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.4s">
-                                    <div class="features-list-icon box-animate" data-animation="" > @Html.Svg("/images/homepage2/homePageIcons.svg", "hand214", new { @class = "svgIcon" }) </div>
+                                    <div class="features-list-icon box-animate" data-animation=""> @Html.Svg("/images/homepage2/homePageIcons.svg", "hand214", new { @class = "svgIcon" }) </div>
                                     <h3>@HomePageResources.B9</h3>
                                     <p>@HomePageResources.B10</p>
                                 </li>
                             </ul>
-                        </div>
+                        </div>>
                     </div>
                 </div>
             </section>
-           
+
             <section class="section" id="screenshots">
                 <div class="background-overlay grid-overlay-0 " style="background-color: #c2c2c2"></div>
                 <div class="container-fullwidth container-vertical-default">
@@ -169,15 +176,12 @@
                                 <div class="col-md-2 text-default small-screen-default"></div>
                                 <div class="col-md-8 text-default small-screen-default">
                                     <h1 class="text-center element-top-60 element-bottom-20 text-normal os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
-                                        Screenshots
+                                        @HomePageResources.C1
                                     </h1>
                                     <div class="divider-border divider-border-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
                                         <div class="divider-border-inner"></div>
                                     </div>
-                                    <p class="lead text-center center text-normal element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.2s">
-                                        We worked hard to make a product that will stand out from the crowd.
-                                        <br /> Take a look at some of these cool features that makes Lambda so unique.
-                                    </p>
+
                                 </div>
                                 <div class="col-md-2 text-default small-screen-default"></div>
                             </div>
@@ -238,7 +242,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                  
+
                                 </div>
                             </div>
                         </div>
@@ -254,32 +258,28 @@
                                 <div class="col-md-2 text-default small-screen-default"></div>
                                 <div class="col-md-8 text-default small-screen-default">
                                     <h1 class="text-center element-top-60 element-bottom-20 text-normal os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
-                                        Best App, ever
+                                        @HomePageResources.D1
                                     </h1>
                                     <div class="divider-border divider-border-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
                                         <div class="divider-border-inner"></div>
                                     </div>
                                     <p class="lead text-left left text-normal element-top-20 element-bottom-20" data-os-animation="none" data-os-animation-delay="0s">
-                                        Lambda is the world’s most advanced theme. Built with incredible new capabilities and features designed to make the most out of your creativity. As with all of our products you&#8217;ll get <strong>100% solid support</strong>.
+                                        @HomePageResources.D2
                                     </p>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <ul class="skills-list lead element-top-20 element-bottom-40 text-normal os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">
-                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Awesome design</li>
-                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Retina ready</li>
-                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;WooCommerce ready</li>
-                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Cool animations</li>
-                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Speed optimised</li>
+                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;@HomePageResources.D3</li>
+                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;@HomePageResources.D4</li>
+                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;@HomePageResources.D5</li>
                                             </ul>
                                         </div>
-                                   
+
                                         <div class="col-md-6">
                                             <ul class="skills-list lead element-top-20 element-bottom-40 text-normal os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">
-                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Awesome design</li>
-                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Retina ready</li>
-                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;WooCommerce ready</li>
-                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Cool animations</li>
-                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Speed optimised</li>
+                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;@HomePageResources.D6</li>
+                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;@HomePageResources.D7</li>
+                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;@HomePageResources.D8</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -294,35 +294,35 @@
                 </div>
             </section>
             @*<section class="section" id="bestApp">
-                <div class="background-overlay grid-overlay-20" style="background-color: #353E4D;"></div>
-                <div class="container container-vertical-middle">
-                    <div class="row vertical-middle">
-                        <div class="col-md-6 text-default small-screen-default">
-                            <div class="figure element-top-20 element-bottom-0 os-animation" data-os-animation="fadeInUp" data-os-animation-delay="0.3s">
-                                <a href="assets/images/landing/app-06.png" class="figure-image magnific" target="_self"> <img src="@Url.CdnContent("/Images/HomePage2/mobile.png?v=1")" alt="app-06" /> </a>
+                    <div class="background-overlay grid-overlay-20" style="background-color: #353E4D;"></div>
+                    <div class="container container-vertical-middle">
+                        <div class="row vertical-middle">
+                            <div class="col-md-6 text-default small-screen-default">
+                                <div class="figure element-top-20 element-bottom-0 os-animation" data-os-animation="fadeInUp" data-os-animation-delay="0.3s">
+                                    <a href="assets/images/landing/app-06.png" class="figure-image magnific" target="_self"> <img src="@Url.CdnContent("/Images/HomePage2/mobile.png?v=1")" alt="app-06" /> </a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 text-left small-screen-center">
-                            <h1 class="text-default element-top-60 element-bottom-20 text-normal os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
-                                Best App, ever
-                            </h1>
-                            <div class="divider-border divider-border-left element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
-                                <div class="divider-border-inner"></div>
+                            <div class="col-md-6 text-left small-screen-center">
+                                <h1 class="text-default element-top-60 element-bottom-20 text-normal os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                    Best App, ever
+                                </h1>
+                                <div class="divider-border divider-border-left element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
+                                    <div class="divider-border-inner"></div>
+                                </div>
+                                <p class="lead text-left left text-normal element-top-20 element-bottom-20" data-os-animation="none" data-os-animation-delay="0s">
+                                    Lambda is the world’s most advanced theme. Built with incredible new capabilities and features designed to make the most out of your creativity. As with all of our products you&#8217;ll get <strong>100% solid support</strong>.
+                                </p>
+                                <ul class="skills-list lead element-top-20 element-bottom-40 text-normal os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                    <li>@Html.Svg("/images/homepage2/homePageIcons.svg","checkmark")&nbsp;Awesome design</li>
+                                    <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Retina ready</li>
+                                    <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;WooCommerce ready</li>
+                                    <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Cool animations</li>
+                                    <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Speed optimised</li>
+                                </ul>
                             </div>
-                            <p class="lead text-left left text-normal element-top-20 element-bottom-20" data-os-animation="none" data-os-animation-delay="0s">
-                                Lambda is the world’s most advanced theme. Built with incredible new capabilities and features designed to make the most out of your creativity. As with all of our products you&#8217;ll get <strong>100% solid support</strong>.
-                            </p>
-                            <ul class="skills-list lead element-top-20 element-bottom-40 text-normal os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">
-                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg","checkmark")&nbsp;Awesome design</li>
-                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Retina ready</li>
-                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;WooCommerce ready</li>
-                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Cool animations</li>
-                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Speed optimised</li>
-                            </ul>
                         </div>
                     </div>
-                </div>
-            </section>*@
+                </section>*@
             <section class="section text-normal section-text-no-shadow section-inner-no-shadow section-normal section-opaque" id="testimonials">
                 <div class="background-overlay grid-overlay-0 " style="background-color: rgba(240,240,240,1);"></div>
                 <div class="container container-vertical-middle">
@@ -330,10 +330,10 @@
                         <div class="col-md-1 text-left small-screen-center"></div>
                         <div class="col-md-10 text-default small-screen-default">
                             <div id="flexslider-120" class="element-top-80 element-bottom-80 text-center text-normal os-animation flexslider feature-slider"
-                                  data-os-animation="fadeIn" data-os-animation-delay="0s" data-flex-animation="slide" data-flex-controls-position="outside"
-                                 data-flex-controlsalign="center" data-flex-directions="hide" data-flex-speed="7000" data-flex-controls="show" 
+                                 data-os-animation="fadeIn" data-os-animation-delay="0s" data-flex-animation="slide" data-flex-controls-position="outside"
+                                 data-flex-controlsalign="center" data-flex-directions="hide" data-flex-speed="7000" data-flex-controls="show"
                                  data-flex-slideshow="true">
-                               <ul class="slides">
+                                <ul class="slides">
                                     <li>
                                         <blockquote>
                                             <p>
@@ -361,7 +361,7 @@
                                     <li>
                                         <blockquote>
                                             <p>
-                                               @HomePageResources.Testimonial3
+                                                @HomePageResources.Testimonial3
                                             </p>
                                             <div class="box box-small box-round">
                                                 <div class="box-dummy"></div>
@@ -398,22 +398,21 @@
                         <div class="col-md-1 text-left small-screen-center"></div>
                         <div class="col-md-10 text-center small-screen-default">
                             <h1 class="text-default element-top-70 element-bottom-20 text-light os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
-                                Get it now
+                                @HomePageResources.F1
                             </h1>
                             <div class="divider-border divider-border-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
                                 <div class="divider-border-inner" style="background:rgba(255, 255, 255, 0.76); "></div>
                             </div>
                             <div class="col-text-1 text-light big element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.2s">
                                 <p>
-                                    Lambda is available now exclusively on themeforest.
-                                    <br />Start creating your website now!
+                                    @HomePageResources.F2
                                 </p>
-                            </div> <a href="" 
+                            </div> <a href=""
                                       class="btn btn-primary btn-lg text-light btn-icon-right margin-right element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                                 IPHONE<i class="fa fa-apple" data-animation="none">@Html.Svg("/images/homepage2/homePageIcons.svg", "apple")</i>
                             </a> <a href="" class="btn btn-primary btn-lg text-normal btn-icon-right  element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-    ANDROID<i class="fa fa-android" data-animation="none">@Html.Svg("/images/homepage2/homePageIcons.svg", "android")</i>
-</a>
+                                ANDROID<i class="fa fa-android" data-animation="none">@Html.Svg("/images/homepage2/homePageIcons.svg", "android")</i>
+                            </a>
                             <div class="divider-wrapper">
                                 <div class="visible-xs element-height-60"></div>
                                 <div class="visible-sm element-height-60"></div>
@@ -421,21 +420,21 @@
                                 <div class="visible-lg element-height-60"></div>
                             </div>
                             @*<div class="element-top-20 element-bottom-60" data-os-animation="none" data-os-animation-delay="0s">
-                                <ul class="social-icons text-light social-lg social-simple social-circle ">
-                                    <li>
-                                        <a href="https://twitter.com/share?url=http://lambda.oxygenna.com/landing/" target="_blank" data-iconcolor="#00acee"> <i class="fa fa-twitter"></i> </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://plus.google.com/share?url=http://lambda.oxygenna.com/landing/" target="_blank" data-iconcolor="#dd1812"> <i class="fa fa-google-plus"></i> </a>
-                                    </li>
-                                    <li>
-                                        <a href="http://www.facebook.com/sharer.php?u=http://lambda.oxygenna.com/landing/" target="_blank" data-iconcolor="#3b5998"> <i class="fa fa-facebook"></i> </a>
-                                    </li>
-                                    <li>
-                                        <a href="//pinterest.com/pin/create/button/?url=http://lambda.oxygenna.com/landing/&#038;description=Home" target="_blank" data-iconcolor="#C92228"> <i class="fa fa-pinterest"></i> </a>
-                                    </li>
-                                </ul>
-                            </div>*@
+                                    <ul class="social-icons text-light social-lg social-simple social-circle ">
+                                        <li>
+                                            <a href="https://twitter.com/share?url=http://lambda.oxygenna.com/landing/" target="_blank" data-iconcolor="#00acee"> <i class="fa fa-twitter"></i> </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://plus.google.com/share?url=http://lambda.oxygenna.com/landing/" target="_blank" data-iconcolor="#dd1812"> <i class="fa fa-google-plus"></i> </a>
+                                        </li>
+                                        <li>
+                                            <a href="http://www.facebook.com/sharer.php?u=http://lambda.oxygenna.com/landing/" target="_blank" data-iconcolor="#3b5998"> <i class="fa fa-facebook"></i> </a>
+                                        </li>
+                                        <li>
+                                            <a href="//pinterest.com/pin/create/button/?url=http://lambda.oxygenna.com/landing/&#038;description=Home" target="_blank" data-iconcolor="#C92228"> <i class="fa fa-pinterest"></i> </a>
+                                        </li>
+                                    </ul>
+                                </div>*@
                             <div class="divider-wrapper">
                                 <div class="visible-xs element-height-40"></div>
                                 <div class="visible-sm element-height-40"></div>
@@ -482,12 +481,21 @@
 
         window.onload = function () {
 
+            var removeCloudentsBanner = 'removeCloudentsBanner';
+            $('.alert').on('closed.bs.alert', function () {
+                localStorage.setItem(removeCloudentsBanner, '1');
+            })
+
+            var willShow = localStorage.getItem(removeCloudentsBanner);
+            if (willShow != null) {
+                $('.alert').alert('close')
+            }
             var val = getCookie('l2');
             var text = document.querySelector('[href$="' + val + '/"]').text;
-            //document.getElementById('lang').value = val;
             document.querySelector('[data-toggle=dropdown]').text = text;
         }
     </script>
     @Html.Script2("homePage")
 </body>
+
 </html>

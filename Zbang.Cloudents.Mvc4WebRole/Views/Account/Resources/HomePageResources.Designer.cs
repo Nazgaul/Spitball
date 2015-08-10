@@ -163,7 +163,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Questions about yesterday&apos;s class, what paper is due next week? Spitball is here to help. Ask a question, get an answer from a fellow student.
+        ///   Looks up a localized string similar to Questions about yesterday&apos;s class, what paper is due next week? Spitball is here to help. Ask a question, get an answer from a fellow students.
         /// </summary>
         public static string B6 {
             get {
@@ -199,7 +199,106 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to As a sophomore, I found myself looking for a way to communicate and study with my classmates because I was not in a dorm any more surrounded by my peers. After searching online, I was shocked that there was no real solution that I felt comfortable incoporating into my life style (nothing I could easily access on my phone or computer). Then I came across Cloudents. It provided me a virtual platform where I can interact with my classmates and other students in an easy and intuitive way..
+        ///   Looks up a localized string similar to See it in action.
+        /// </summary>
+        public static string C1 {
+            get {
+                return ResourceManager.GetString("C1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mobile First.
+        /// </summary>
+        public static string D1 {
+            get {
+                return ResourceManager.GetString("D1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spitball Android and Apple Apps are the first social studying network, revolutionizing the way students study. Built by students and for students, Spitball features are designed to make students better students:.
+        /// </summary>
+        public static string D2 {
+            get {
+                return ResourceManager.GetString("D2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect with your classmates.
+        /// </summary>
+        public static string D3 {
+            get {
+                return ResourceManager.GetString("D3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ask and answer questions freely.
+        /// </summary>
+        public static string D4 {
+            get {
+                return ResourceManager.GetString("D4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access and share class-notes.
+        /// </summary>
+        public static string D5 {
+            get {
+                return ResourceManager.GetString("D5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Communicate with entire class.
+        /// </summary>
+        public static string D6 {
+            get {
+                return ResourceManager.GetString("D6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create and solve quizzes interactively.
+        /// </summary>
+        public static string D7 {
+            get {
+                return ResourceManager.GetString("D7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post and share anonymously.
+        /// </summary>
+        public static string D8 {
+            get {
+                return ResourceManager.GetString("D8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get it now.
+        /// </summary>
+        public static string F1 {
+            get {
+                return ResourceManager.GetString("F1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to on your desktop and mobile phones, social study anytime and anywhere..
+        /// </summary>
+        public static string F2 {
+            get {
+                return ResourceManager.GetString("F2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to As a sophomore, I found myself looking for a way to communicate and study with my classmates. After searching online, I was shocked that there was no real solution that I felt comfortable incorporating into my lifestyle (nothing I could easily access on my phone or computer). Then someone invited me to Spitball... it saved me..
         /// </summary>
         public static string Testimonial1 {
             get {
@@ -226,7 +325,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There have been many times when I would try and share files and documents with friends and classmates over the schools portal or other online studying tools, however, they do not always support the size or type of files I needed to share. I ended up using a number of different applications to share course materials and it was a huge hassel!! When I started using Cloudents, everything changed - I was easily able to upload all forms of my files... even video and audio files!.
+        ///   Looks up a localized string similar to There have been many times when I would try and share files and documents with friends and classmates over the schools portal or other online studying tools, but it was a huge hassle!! When I started using Spitball, everything changed - I was easily able to upload all forms of my files... even video and audio files!.
         /// </summary>
         public static string Testimonial2 {
             get {
@@ -254,8 +353,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to It’s so nice to have all my notes, questions/answers, lectures, etc. in one place and always available online and in the palm of my hand!
-        ///It minimizes the amount of things I bring with me when I go to study somewhere. In addition, it comes in handy when I share notes with other students especially when I or they miss little details from class.
-        ///Thank you Cloudents for making on my life a whole lot easier! I already know who I’m thanking first on graduation day :).
+        ///It comes in handy when I need to compare class-notes. Thank you Spitball for making on my life a whole lot easier! I already know who I&apos;m thanking first on graduation day :).
         /// </summary>
         public static string Testimonial3 {
             get {
@@ -282,8 +380,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is such a great idea! I love the quizzes - such a great way to test my knowledge of the coursework! I also really like that it&apos;s interactive - the chat feed is really helpful if you miss a class or don&apos;t understand the material. 
-        ///During the last semester I feel like all I did was talk about Cloudents! It was funny, people were actually convinced that I’m working for Cloudents. #postgradjob? #hireme.
+        ///   Looks up a localized string similar to This is such a great idea! I love the quizzes - such a great way to test my knowledge of the coursework! I also really like that it&apos;s interactive - the chat feed is really helpful if you miss a class or don&apos;t understand the material. During the last semester I feel like all I did was talk about Spitaball! It was funny, people actually thought that I it was my job..
         /// </summary>
         public static string Testimonial4 {
             get {

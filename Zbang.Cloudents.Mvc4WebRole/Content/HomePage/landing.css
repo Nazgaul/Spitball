@@ -2,6 +2,7 @@
   font-size: 16px;
   font-family: "Open Sans", sans-serif;
   font-weight: 300;
+  direction: ltr;
 }
 body input,
 body textarea,
@@ -2846,6 +2847,9 @@ blockquote.text-light:before {
 }
 .headingtitle {
   margin-top: 120px;
+}
+.flex-viewport {
+  direction: initial;
 }
 /*.btn-primary:active:hover {
     background:@color;

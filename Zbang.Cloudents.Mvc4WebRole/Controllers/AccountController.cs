@@ -77,6 +77,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 RouteData.Values.Remove("lang");
                 return RedirectToAction("Index", new { invId });
             }
+            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            {
+                ViewBag.moveToSpitBall = true;
+            }
             //if (!string.IsNullOrEmpty(invId))
             //{
             //    var guid = GuidEncoder.TryParseNullableGuid(invId);
@@ -98,16 +102,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-        [HttpGet]
-        [DonutOutputCache(CacheProfile = "PartialPage")]
-        public ActionResult IndexPartial()
-        {
-            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
-            {
-                ViewBag.moveToSpitBall = true;
-            }
-            return PartialView("Index2");
-        }
+        //[HttpGet]
+        //[DonutOutputCache(CacheProfile = "PartialPage")]
+        //public ActionResult IndexPartial()
+        //{
+        //    if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+        //    {
+        //        ViewBag.moveToSpitBall = true;
+        //    }
+        //    return PartialView("Index2");
+        //}
 
 
         #region Login
