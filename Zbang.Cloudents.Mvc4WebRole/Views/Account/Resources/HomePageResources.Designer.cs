@@ -61,7 +61,27 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Empowering Students to succeed by collaboratively sharing knowledge, in an open social studying network..
+        ///   Looks up a localized string similar to Log In.
+        /// </summary>
+        public static string A1 {
+            get {
+                return ResourceManager.GetString("A1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jobs.
+        /// </summary>
+        public static string A2 {
+            get {
+                return ResourceManager.GetString("A2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Empowering students to succeed 
+        ///by collaboratively sharing knowledge,
+        ///in an open social studying network..
         /// </summary>
         public static string A4 {
             get {
@@ -106,7 +126,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Take allok at the some of these features that makes Spitball so unique..
+        ///   Looks up a localized string similar to Take a look at the some of these features that makes Spitball so unique..
         /// </summary>
         public static string B2 {
             get {
@@ -143,7 +163,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Questions about yesterday&apos;s class, what paper is due next week? What is the right answer on question #7? Spitball is here to help. Ask a question, get an answer from a fellow student.
+        ///   Looks up a localized string similar to Questions about yesterday&apos;s class, what paper is due next week? Spitball is here to help. Ask a question, get an answer from a fellow students.
         /// </summary>
         public static string B6 {
             get {
@@ -175,6 +195,214 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         public static string B9 {
             get {
                 return ResourceManager.GetString("B9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See it in action.
+        /// </summary>
+        public static string C1 {
+            get {
+                return ResourceManager.GetString("C1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mobile First.
+        /// </summary>
+        public static string D1 {
+            get {
+                return ResourceManager.GetString("D1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spitball Android and Apple Apps are the first social studying network, revolutionizing the way students study. Built by students and for students, Spitball features are designed to make students better students:.
+        /// </summary>
+        public static string D2 {
+            get {
+                return ResourceManager.GetString("D2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect with your classmates.
+        /// </summary>
+        public static string D3 {
+            get {
+                return ResourceManager.GetString("D3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ask and answer questions freely.
+        /// </summary>
+        public static string D4 {
+            get {
+                return ResourceManager.GetString("D4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access and share class-notes.
+        /// </summary>
+        public static string D5 {
+            get {
+                return ResourceManager.GetString("D5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Communicate with entire class.
+        /// </summary>
+        public static string D6 {
+            get {
+                return ResourceManager.GetString("D6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create and solve quizzes interactively.
+        /// </summary>
+        public static string D7 {
+            get {
+                return ResourceManager.GetString("D7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post and share anonymously.
+        /// </summary>
+        public static string D8 {
+            get {
+                return ResourceManager.GetString("D8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get it now.
+        /// </summary>
+        public static string F1 {
+            get {
+                return ResourceManager.GetString("F1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to on your desktop and mobile phones, social study anytime and anywhere..
+        /// </summary>
+        public static string F2 {
+            get {
+                return ResourceManager.GetString("F2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to As a sophomore, I found myself looking for a way to communicate and study with my classmates. After searching online, I was shocked that there was no real solution that I felt comfortable incorporating into my lifestyle (nothing I could easily access on my phone or computer). Then someone invited me to Spitball... it saved me..
+        /// </summary>
+        public static string Testimonial1 {
+            get {
+                return ResourceManager.GetString("Testimonial1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Donna Floyed.
+        /// </summary>
+        public static string Testimonial1Person {
+            get {
+                return ResourceManager.GetString("Testimonial1Person", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sophomore at UC Davis.
+        /// </summary>
+        public static string Testimonial1Title {
+            get {
+                return ResourceManager.GetString("Testimonial1Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There have been many times when I would try and share files and documents with friends and classmates over the schools portal or other online studying tools, but it was a huge hassle!! When I started using Spitball, everything changed - I was easily able to upload all forms of my files... even video and audio files!.
+        /// </summary>
+        public static string Testimonial2 {
+            get {
+                return ResourceManager.GetString("Testimonial2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jack Harris.
+        /// </summary>
+        public static string Testimonial2Person {
+            get {
+                return ResourceManager.GetString("Testimonial2Person", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Junior at UC Berkeley.
+        /// </summary>
+        public static string Testimonial2Title {
+            get {
+                return ResourceManager.GetString("Testimonial2Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It’s so nice to have all my notes, questions/answers, lectures, etc. in one place and always available online and in the palm of my hand!
+        ///It comes in handy when I need to compare class-notes. Thank you Spitball for making on my life a whole lot easier! I already know who I&apos;m thanking first on graduation day :).
+        /// </summary>
+        public static string Testimonial3 {
+            get {
+                return ResourceManager.GetString("Testimonial3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daniel Kaplan.
+        /// </summary>
+        public static string Testimonial3Person {
+            get {
+                return ResourceManager.GetString("Testimonial3Person", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senior at UCLA.
+        /// </summary>
+        public static string Testimonial3Title {
+            get {
+                return ResourceManager.GetString("Testimonial3Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is such a great idea! I love the quizzes - such a great way to test my knowledge of the coursework! I also really like that it&apos;s interactive - the chat feed is really helpful if you miss a class or don&apos;t understand the material. During the last semester I feel like all I did was talk about Spitaball! It was funny, people actually thought that I it was my job..
+        /// </summary>
+        public static string Testimonial4 {
+            get {
+                return ResourceManager.GetString("Testimonial4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sarah Friedman.
+        /// </summary>
+        public static string Testimonial4Person {
+            get {
+                return ResourceManager.GetString("Testimonial4Person", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Freshman at UC Santa Barbara.
+        /// </summary>
+        public static string Testimonial4Title {
+            get {
+                return ResourceManager.GetString("Testimonial4Title", resourceCulture);
             }
         }
     }

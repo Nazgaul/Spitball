@@ -64,7 +64,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //[FlushHeader(PartialViewName = "_HomeHeader")]
         //issue with ie
-        [RedirectToMobile(Order = 1)]
+        //[RedirectToMobile(Order = 1)]
         //[DonutOutputCache(VaryByParam = "lang;invId",
         //    VaryByCustom = CustomCacheKeys.Lang + ";" + CustomCacheKeys.Url,
         //    Duration = TimeConsts.Day,
@@ -76,6 +76,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 m_LanguageCookie.InjectCookie(lang);
                 RouteData.Values.Remove("lang");
                 return RedirectToAction("Index", new { invId });
+            }
+            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            {
+                ViewBag.moveToSpitBall = true;
             }
             //if (!string.IsNullOrEmpty(invId))
             //{
@@ -110,16 +114,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Signin");
         }
 
-        [HttpGet]
-        [DonutOutputCache(CacheProfile = "PartialPage")]
-        public ActionResult IndexPartial()
-        {
-            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
-            {
-                ViewBag.moveToSpitBall = true;
-            }
-            return PartialView("Index2");
-        }
+        //[HttpGet]
+        //[DonutOutputCache(CacheProfile = "PartialPage")]
+        //public ActionResult IndexPartial()
+        //{
+        //    if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+        //    {
+        //        ViewBag.moveToSpitBall = true;
+        //    }
+        //    return PartialView("Index2");
+        //}
 
 
         #region Login

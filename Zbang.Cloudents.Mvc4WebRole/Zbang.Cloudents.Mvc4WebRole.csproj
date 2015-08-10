@@ -640,6 +640,7 @@
     <Content Include="Content\DashLib.rtl.css">
       <DependentUpon>DashLib.css</DependentUpon>
     </Content>
+    <Content Include="Content\Fonts\feather-webfont.svg" />
     <Content Include="Content\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
@@ -708,9 +709,6 @@
     </Content>
     <Content Include="Content\HomePage\theme.css">
       <DependentUpon>theme.less</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\theme.min.css">
-      <DependentUpon>theme.css</DependentUpon>
     </Content>
     <Content Include="Content\HomePage\theme.rtl.css">
       <DependentUpon>theme.css</DependentUpon>
@@ -929,10 +927,21 @@
     <Content Include="Images\signin\bg1.png" />
     <Content Include="Images\signin\bg2.png" />
     <Content Include="Images\HomePage2\computer.png" />
+    <Content Include="Images\HomePage2\grid-20.png" />
+    <Content Include="Images\HomePage2\headr_image2.png" />
+    <Content Include="Images\HomePage2\headr_image5.png" />
+    <Content Include="Images\HomePage2\homePageIcons.svg" />
+    <Content Include="Images\HomePage2\image.png" />
+    <Content Include="Images\HomePage2\Items_0.png" />
     <Content Include="Images\HomePage2\landingbg.png" />
     <Content Include="Images\HomePage2\logo.png" />
     <Content Include="Images\HomePage2\mobile.png" />
-    <Content Include="Images\HomePage2\screens.png" />
+    <Content Include="Images\HomePage2\quiz_0.png" />
+    <Content Include="Images\HomePage2\ScreenShot1.jpg" />
+    <Content Include="Images\HomePage2\testimonial1.jpg" />
+    <Content Include="Images\HomePage2\testimonial2.jpg" />
+    <Content Include="Images\HomePage2\testimonial3.jpg" />
+    <Content Include="Images\HomePage2\testimonial4.jpg" />
     <Content Include="Images\HomePage\academic.png" />
     <Content Include="Images\HomePage\app_store.png" />
     <Content Include="Images\app_store_small.png" />
@@ -2497,6 +2506,7 @@
     <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.zh.resx" />
     <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.ru.resx" />
     <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.zh.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\HomePageResources.he.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HomePageResources.Designer.cs</LastGenOutput>

@@ -118,88 +118,56 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="A1" xml:space="preserve">
-    <value>Log In</value>
+    <value>התחבר</value>
   </data>
   <data name="A2" xml:space="preserve">
-    <value>Jobs</value>
+    <value>משרות</value>
   </data>
   <data name="A4" xml:space="preserve">
-    <value>Empowering students to succeed 
-by collaboratively sharing knowledge,
-in an open social studying network.</value>
+    <value>סטודנטים מצליחים יותר בלימודים
+באמצעות שיתוף ידע ברשת לימודים חברתית</value>
   </data>
   <data name="A5" xml:space="preserve">
-    <value>Sign up for FREE</value>
+    <value>הצטרף בחינם</value>
   </data>
   <data name="A6" xml:space="preserve">
-    <value>Spitball is built by students and for students</value>
+    <value>ספיטבול נבנתה ע״י סטדונטים עבור סטודנטים</value>
   </data>
   <data name="B1" xml:space="preserve">
-    <value>Spitball Features</value>
+    <value>מה מחכה לכם בפנים:</value>
   </data>
   <data name="B10" xml:space="preserve">
-    <value>Students learning from students. Quizzes make your own, or test yourself from the thousands already available.</value>
+    <value>לומדים מחברים באמצעות מבחנים אנטראקטיביםץ צור בחנים או בחן את עצמך מאלפי מבחנים קיימים</value>
   </data>
   <data name="B2" xml:space="preserve">
-    <value>Take a look at the some of these features that makes Spitball so unique.</value>
+    <value>הינה הצצה קצרה לחלק מהפיצ׳רים שהופכים את ספיטבול למה שהיא</value>
   </data>
   <data name="B3" xml:space="preserve">
-    <value>AVAILABLE EVERYWHERE</value>
+    <value>הלימודים שלך איתך בכל מקום</value>
   </data>
   <data name="B4" xml:space="preserve">
-    <value>Study when it suits you, from every computer, mobile or tablet you have.
-</value>
+    <value>במחשב בנייד או בטאבלט, עם ספיטבול תוכלו להישאר מעודכנים תמיד כדי שלא תפספסו כלום</value>
   </data>
   <data name="B5" xml:space="preserve">
-    <value>QUESTIONS AND ANSWERS</value>
+    <value>עזרה מחברים</value>
   </data>
   <data name="B6" xml:space="preserve">
-    <value>Questions about yesterday's class, what paper is due next week? Spitball is here to help. Ask a question, get an answer from a fellow students</value>
+    <value>באמצעות "עדכונים" תוכלו להיעזר בחבריכם לכיתה, לעורר דיונים, לשאול ולענות על שאלות.</value>
   </data>
   <data name="B7" xml:space="preserve">
-    <value>WATCH AND SHARE</value>
+    <value>יש ממה ללמוד!</value>
   </data>
   <data name="B8" xml:space="preserve">
-    <value>Link to online lectures, share and compare class notes, review reading material, discuss in the privacy of your study group, all in one place.</value>
+    <value>מעל 250,000 סיכומים, מבחנים משנים קודמות ומאמרים המסודרים לפי הקורסים שלך כבר מחכים בפנים! אתם יכולים לקרוא, להוריד ולשתף חומרים אקדמיים מכל סוג!</value>
   </data>
   <data name="B9" xml:space="preserve">
-    <value>Quizzes and Review Sheets</value>
-  </data>
-  <data name="C1" xml:space="preserve">
-    <value>See it in action</value>
+    <value>בחנים</value>
   </data>
   <data name="D1" xml:space="preserve">
-    <value>Mobile First</value>
-  </data>
-  <data name="D2" xml:space="preserve">
-    <value>Spitball Android and Apple Apps are the first social studying network, revolutionizing the way students study. Built by students and for students, Spitball features are designed to make students better students:</value>
-  </data>
-  <data name="D3" xml:space="preserve">
-    <value>Connect with your classmates</value>
-  </data>
-  <data name="D4" xml:space="preserve">
-    <value>Ask and answer questions freely</value>
-  </data>
-  <data name="D5" xml:space="preserve">
-    <value>Access and share class-notes</value>
-  </data>
-  <data name="D6" xml:space="preserve">
-    <value>Communicate with entire class</value>
-  </data>
-  <data name="D7" xml:space="preserve">
-    <value>Create and solve quizzes interactively</value>
-  </data>
-  <data name="D8" xml:space="preserve">
-    <value>Post and share anonymously</value>
-  </data>
-  <data name="F1" xml:space="preserve">
-    <value>Get it now</value>
-  </data>
-  <data name="F2" xml:space="preserve">
-    <value>on your desktop and mobile phones, social study anytime and anywhere.</value>
+    <value>אפליקציית ספיטבול</value>
   </data>
   <data name="Testimonial1" xml:space="preserve">
-    <value>As a sophomore, I found myself looking for a way to communicate and study with my classmates. After searching online, I was shocked that there was no real solution that I felt comfortable incorporating into my lifestyle (nothing I could easily access on my phone or computer). Then someone invited me to Spitball... it saved me.</value>
+    <value>As a sophomore, I found myself looking for a way to communicate and study with my classmates because I was not in a dorm any more surrounded by my peers. After searching online, I was shocked that there was no real solution that I felt comfortable incoporating into my life style (nothing I could easily access on my phone or computer). Then I came across Cloudents. It provided me a virtual platform where I can interact with my classmates and other students in an easy and intuitive way.</value>
   </data>
   <data name="Testimonial1Person" xml:space="preserve">
     <value>Donna Floyed</value>
@@ -208,7 +176,7 @@ in an open social studying network.</value>
     <value>Sophomore at UC Davis</value>
   </data>
   <data name="Testimonial2" xml:space="preserve">
-    <value>There have been many times when I would try and share files and documents with friends and classmates over the schools portal or other online studying tools, but it was a huge hassle!! When I started using Spitball, everything changed - I was easily able to upload all forms of my files... even video and audio files!</value>
+    <value>There have been many times when I would try and share files and documents with friends and classmates over the schools portal or other online studying tools, however, they do not always support the size or type of files I needed to share. I ended up using a number of different applications to share course materials and it was a huge hassel!! When I started using Cloudents, everything changed - I was easily able to upload all forms of my files... even video and audio files!</value>
   </data>
   <data name="Testimonial2Person" xml:space="preserve">
     <value>Jack Harris</value>
@@ -218,7 +186,8 @@ in an open social studying network.</value>
   </data>
   <data name="Testimonial3" xml:space="preserve">
     <value>It’s so nice to have all my notes, questions/answers, lectures, etc. in one place and always available online and in the palm of my hand!
-It comes in handy when I need to compare class-notes. Thank you Spitball for making on my life a whole lot easier! I already know who I'm thanking first on graduation day :)</value>
+It minimizes the amount of things I bring with me when I go to study somewhere. In addition, it comes in handy when I share notes with other students especially when I or they miss little details from class.
+Thank you Cloudents for making on my life a whole lot easier! I already know who I’m thanking first on graduation day :)</value>
   </data>
   <data name="Testimonial3Person" xml:space="preserve">
     <value>Daniel Kaplan</value>
@@ -227,7 +196,8 @@ It comes in handy when I need to compare class-notes. Thank you Spitball for mak
     <value>Senior at UCLA</value>
   </data>
   <data name="Testimonial4" xml:space="preserve">
-    <value>This is such a great idea! I love the quizzes - such a great way to test my knowledge of the coursework! I also really like that it's interactive - the chat feed is really helpful if you miss a class or don't understand the material. During the last semester I feel like all I did was talk about Spitaball! It was funny, people actually thought that I it was my job.</value>
+    <value>This is such a great idea! I love the quizzes - such a great way to test my knowledge of the coursework! I also really like that it's interactive - the chat feed is really helpful if you miss a class or don't understand the material. 
+During the last semester I feel like all I did was talk about Cloudents! It was funny, people were actually convinced that I’m working for Cloudents. #postgradjob? #hireme</value>
   </data>
   <data name="Testimonial4Person" xml:space="preserve">
     <value>Sarah Friedman</value>
