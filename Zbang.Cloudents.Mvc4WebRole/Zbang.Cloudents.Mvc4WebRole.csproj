@@ -662,9 +662,6 @@
     <Content Include="Content\HomePage\bootstrap.css">
       <DependentUpon>bootstrap.less</DependentUpon>
     </Content>
-    <Content Include="Content\HomePage\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
     <Content Include="Content\HomePage\bootstrap.rtl.css">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
@@ -673,9 +670,6 @@
     </Content>
     <Content Include="Content\HomePage\extras.css">
       <DependentUpon>extras.less</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\extras.min.css">
-      <DependentUpon>extras.css</DependentUpon>
     </Content>
     <Content Include="Content\HomePage\extras.rtl.css">
       <DependentUpon>extras.css</DependentUpon>
@@ -686,9 +680,6 @@
     <Content Include="Content\HomePage\landing.css">
       <DependentUpon>landing.less</DependentUpon>
     </Content>
-    <Content Include="Content\HomePage\landing.min.css">
-      <DependentUpon>landing.css</DependentUpon>
-    </Content>
     <Content Include="Content\HomePage\landing.rtl.css">
       <DependentUpon>landing.css</DependentUpon>
     </Content>
@@ -697,9 +688,6 @@
     </Content>
     <Content Include="Content\HomePage\restaurant.css">
       <DependentUpon>restaurant.less</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\restaurant.min.css">
-      <DependentUpon>restaurant.css</DependentUpon>
     </Content>
     <Content Include="Content\HomePage\restaurant.rtl.css">
       <DependentUpon>restaurant.css</DependentUpon>
@@ -823,6 +811,12 @@
     </Content>
     <Content Include="Content\signin\components-md.rtl.css">
       <DependentUpon>components-md.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\custom.min.css">
+      <DependentUpon>custom.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\custom.rtl.min.css">
+      <DependentUpon>custom.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\signin\customRtl.css">
       <DependentUpon>customRtl.less</DependentUpon>

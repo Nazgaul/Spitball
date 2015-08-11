@@ -11,6 +11,11 @@ input:-webkit-autofill:focus {
   margin-bottom: 0px;
   margin-top: 70px;
 }
+@media (max-width: 480px) {
+  .login .logo {
+    margin-top: 20px;
+  }
+}
 .facebook {
   background: #3a5795;
   border: none;
