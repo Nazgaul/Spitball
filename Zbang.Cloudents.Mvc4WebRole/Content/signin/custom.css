@@ -38,9 +38,7 @@ a:hover {
 }
 .login .content {
   background: rgba(56, 56, 56, 0.8);
-  width: 430px;
 }
-.rtlFix .m-icon-swapright {
-  margin-top: 3px;
-  background-position: -8px -10px;
+.login .login-form .form-title {
+  margin-bottom: 11.5px;
 }

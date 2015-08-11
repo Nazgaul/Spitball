@@ -698,7 +698,7 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   left: 0 !important;
 }
 .md-checkbox {
-  position: relative;
+  position: relative
   /* handling click events */
   /* when checkbox is checked */
 }
@@ -910,7 +910,7 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   }
 }
 .md-radio {
-  position: relative;
+  position: relative
   /* handling click events */
   /* when radio is checked */
 }
@@ -1441,7 +1441,7 @@ Top News Blocks(new in v1.2.2)
   opacity: 0.3;
   font-size: 35px;
   position: absolute;
-  filter: alpha(opacity=30);
+  filter: alpha(opacity=30)
   /*For IE8*/
 }
 .top-news .btn + .btn {
@@ -2813,7 +2813,7 @@ Customized Bootstrap Close Icon
   background-repeat: no-repeat !important;
   text-indent: -10000px;
   outline: none;
-  background-image: url("../img/remove-icon-small.png") !important;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGNJREFUeNp0UEEOwCAI675tdPov3bu8LGFiugWJO5BKWxoBAO5RWUTgS3nq86FMcoZEPnsisA920E/2UZX4Jfs/NCa0hTeGyISLGBcTDUI8bE8d57vFZn2hPu9Qfu5UVH8EGABhB4gMnGTdwQAAAABJRU5ErkJggg==') /*/Images/signin/remove-icon-small.png*/ !important;
 }
 /***
 Customized Bootstrap Dropdowns
@@ -4356,7 +4356,7 @@ Customized Bootstrap Modal
 .modal {
   z-index: 10050;
   outline: none;
-  overflow-y: auto !important;
+  overflow-y: auto !important
   /* Fix content shifting to the right on modal open due to scrollbar closed */
 }
 .page-portlet-fullscreen .modal {
@@ -6129,7 +6129,7 @@ Custom tabs
 .tabbable-custom {
   margin-bottom: 15px;
   padding: 0px;
-  overflow: hidden;
+  overflow: hidden
   /* justified tabs */
   /* boxless tabs */
   /* below justified tabs */
