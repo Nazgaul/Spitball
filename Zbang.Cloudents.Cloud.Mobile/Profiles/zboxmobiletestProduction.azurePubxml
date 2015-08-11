@@ -9,8 +9,8 @@
     <AzureEnableRemoteDesktop>True</AzureEnableRemoteDesktop>
     <AzureEnableWebDeploy>True</AzureEnableWebDeploy>
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>False</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
-    <AzureHostedServiceLabel>zboxmobiletest</AzureHostedServiceLabel>
-    <AzureHostedServiceName>zboxmobiletest</AzureHostedServiceName>
+    <AzureHostedServiceLabel>m-spitball</AzureHostedServiceLabel>
+    <AzureHostedServiceName>m-spitball</AzureHostedServiceName>
     <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
     <AzureEnableProfiling>False</AzureEnableProfiling>
     <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
