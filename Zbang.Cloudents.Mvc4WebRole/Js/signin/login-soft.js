@@ -18,8 +18,7 @@ var Login = function () {
 	                    required: false
 	                }
 	            },	   
-	            invalidHandler: function (event, validator) { //display error alert on form submit   
-	                $('.alert-danger', $('.login-form')).show();
+	            invalidHandler: function (event, validator) { //display error alert on form submit   	                
 	            },
 
 	            highlight: function (element) { // hightlight error inputs
@@ -290,8 +289,16 @@ var Login = function () {
 	        firstname: firstname, lastname: lastname, newEmail: email, confirmEmail: confirmEmail, password: password, isMale: true
 	    }).done(function (data) {
 	        if (!data.success) {
-	            alert('Unspecified error');
-	            return;
+               
+	            var text;
+	            try {
+	                text = data.payload[0].value[0];
+	            } catch (e) {
+	                text = 'Unspecified error';
+	            }
+	            $('#register_alert_text span').text(text);
+	            $('#register_alert_text').show();
+	            return; 
 	        }
 	        clearStorage();
 	        window.location.href = data.payload;
@@ -308,7 +315,15 @@ var Login = function () {
 	         email : email, password : password, rememberMe : rememberMe, returnUrl : returnUrl
 	    }).done(function (data) {
 	        if (!data.success) {
-	            alert('Unspecified error');
+	            var text;
+	            try {
+	                text = data.payload[0].value[0];
+	            } catch (e) {
+	                text = 'Unspecified error';
+	            }
+	            $('#login_alert_text span').text(text);
+	            $('#login_alert_text').show();
+	            
 	            return;
 	        }
 	        clearStorage();

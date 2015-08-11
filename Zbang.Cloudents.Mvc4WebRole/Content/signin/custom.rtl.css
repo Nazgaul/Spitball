@@ -8,7 +8,8 @@ input:-webkit-autofill:focus {
   margin-bottom: 0;
 }
 .login .logo {
-  margin-bottom: 7px;
+  margin-bottom: 0px;
+  margin-top: 70px;
 }
 .facebook {
   background: #3a5795;
