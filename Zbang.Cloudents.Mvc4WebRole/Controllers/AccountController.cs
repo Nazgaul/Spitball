@@ -71,6 +71,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Location = OutputCacheLocation.Server, Order = 2)]
         public ActionResult Index(string lang, string invId)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
             if (!string.IsNullOrEmpty(lang))
             {
                 m_LanguageCookie.InjectCookie(lang);
@@ -99,6 +103,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult SignIn()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
             return View();
         }
 
@@ -109,6 +117,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 m_LanguageCookie.InjectCookie(lang);
                 RouteData.Values.Remove("lang");
                 return RedirectToAction("Signup");
+            }
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Dashboard");
             }
 
             return View("Signin");

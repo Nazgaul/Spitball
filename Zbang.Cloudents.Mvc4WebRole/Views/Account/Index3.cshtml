@@ -18,9 +18,11 @@
     <div class="pace-overlay"></div>
     @if (ViewBag.moveToSpitBall)
     {
-        <div class="alert alert-info element-bottom-0 alert-dismissible fade in" style="width:100%;" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            עשינו מיתוג מחדש ומהיום קלאודנטס הינה ספיטבול.
+        <div class="alert alert-info element-bottom-0 alert-dismissible fade in" style="width:100%; background:#f05a28; font-size:20px;" role="alert">
+            <div class="container">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                החלפנו את השם ומהיום Spitball = Cloudents (בעברית ספיטבול). כל השאר נשאר אותו הדבר.
+            </div>
         </div>
     }
     <div id="masthead" class="menu navbar navbar-static-top header-logo-left-menu-right oxy-mega-menu navbar-sticky text-none" role="banner">
@@ -480,7 +482,7 @@
             if (willShow != null) {
                 $('.alert').alert('close')
             }
-            var val = getCookie('l2');
+            var val = getCookie('l2').toLowerCase();
             var text = document.querySelector('[href$="' + val + '/"]').text;
             document.querySelector('[data-toggle=dropdown]').text = text;
         }
