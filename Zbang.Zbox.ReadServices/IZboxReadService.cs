@@ -49,6 +49,8 @@ namespace Zbang.Zbox.ReadServices
        // IEnumerable<BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query);
 
         Task<BoxDto2> GetBox2(GetBoxQuery query);
+
+        Task<BoxDtoWithMembers> GetBoxMetaWithMemebersAsync(GetBoxQuery query, int numberOfMembers);
         Task<IEnumerable<TabDto>> GetBoxTabs(GetBoxQuery query);
 
 

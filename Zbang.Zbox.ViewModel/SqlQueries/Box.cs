@@ -242,6 +242,13 @@ union
 	   order by userStatus desc;";
 
 
+        public const string BoxMembersWithoutInvited = @" select top (@top) u.UserId as Id , u.UserImage as Image, u.UserReputation
+    from zbox.UserBoxRel ub 
+	    join zbox.users u on ub.UserId =  u.UserId
+	    where ub.BoxId=@BoxId
+		order by u.UserReputation desc";
+
+
         public const string Items = @"
     select
     i.itemid as Id,

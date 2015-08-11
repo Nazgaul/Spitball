@@ -83,6 +83,10 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetBox2(query);
         }
+        public Task<BoxDtoWithMembers> GetBoxMetaWithMemebersAsync(GetBoxQuery query, int numberOfMembers)
+        {
+            return m_ReadService.GetBoxMetaWithMemebersAsync(query, numberOfMembers);
+        }
 
         public Task<IEnumerable<TabDto>> GetBoxTabs(GetBoxQuery query)
         {

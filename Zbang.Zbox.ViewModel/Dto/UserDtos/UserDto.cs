@@ -23,4 +23,10 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 
         public string Url { get; set; }
     }
+
+    public class UserWithImageDto
+    {
+        public long Id { get; set; }
+        public string Image { get; set; }
+    }
 }

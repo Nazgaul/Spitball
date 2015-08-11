@@ -1,6 +1,8 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.ViewModel.Dto.UserDtos;
 
 namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
 {
@@ -34,5 +36,10 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
         public string ShortUrl { get; set; }
 
        
+    }
+
+    public class BoxDtoWithMembers : BoxDto2
+    {
+        public IEnumerable<UserWithImageDto> People { get; set; }
     }
 }

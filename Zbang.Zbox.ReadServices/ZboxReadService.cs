@@ -204,6 +204,30 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
+        public async Task<Box.BoxDtoWithMembers> GetBoxMetaWithMemebersAsync(GetBoxQuery query, int numberOfMembers)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+
+                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1}", Sql.Box.BoxData, Sql.Box.BoxMembersWithoutInvited), new
+                {
+                    query.BoxId,
+                    top = numberOfMembers
+                }))
+                {
+                    var box = grid.Read<Box.BoxDtoWithMembers>().FirstOrDefault();
+                    if (box == null)
+                    {
+                        throw new BoxDoesntExistException();
+                    }
+                    box.People = await grid.ReadAsync<User.UserWithImageDto>();
+                    return box;
+                }
+              
+            }
+        }
+
+
 
         public async Task<IEnumerable<TabDto>> GetBoxTabs(GetBoxQuery query)
         {

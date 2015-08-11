@@ -61,12 +61,12 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         }
         [VersionedRoute("api/box", 2), HttpGet]
-        public async Task<HttpResponseMessage> GetBox2(long id)
+        public async Task<HttpResponseMessage> GetBox2(long id, int numberOfPeople = 6)
         {
             try
             {
                 var query = new GetBoxQuery(id);
-                var tResult = ZboxReadService.GetBox2(query);
+                var tResult = ZboxReadService.GetBoxMetaWithMemebersAsync(query, numberOfPeople);
                 var tUserType = ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetCloudentsUserId());
                 await Task.WhenAll(tResult, tUserType);
                 var result = tResult.Result;
@@ -79,7 +79,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     result.UserType,
                     Professor = result.ProfessorName,
                     CourseCode = result.CourseId,
-                    ShortUrl = UrlConsts.BuildShortBoxUrl(new Base62(id).ToString())
+                    ShortUrl = UrlConsts.BuildShortBoxUrl(new Base62(id).ToString()),
+                    result.Members,
+                    result.Items,
+                    result.People
 
                 });
             }
