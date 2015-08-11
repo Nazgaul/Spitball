@@ -920,6 +920,22 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\favIcons\favicon_114.png" />
+    <Content Include="Images\favIcons\favicon_120.png" />
+    <Content Include="Images\favIcons\favicon_144.png" />
+    <Content Include="Images\favIcons\favicon_16.png" />
+    <Content Include="Images\favIcons\favicon_32.png" />
+    <Content Include="Images\favIcons\favicon_48.png" />
+    <Content Include="Images\favIcons\favicon_57.png" />
+    <Content Include="Images\favIcons\favicon_60.png" />
+    <Content Include="Images\favIcons\favicon_72.png" />
+    <Content Include="Images\favIcons\favicon_76.png" />
+    <Content Include="Images\favIcons\favicon_96.png" />
+    <Content Include="Images\favIcons\mstile-144x144.png" />
+    <Content Include="Images\favIcons\mstile-150x150.png" />
+    <Content Include="Images\favIcons\mstile-310x150.png" />
+    <Content Include="Images\favIcons\mstile-310x310.png" />
+    <Content Include="Images\favIcons\mstile-70x70.png" />
     <Content Include="Images\HomePage\HomePageBottom.png.rtl.css">
       <DependentUpon>HomePageBottom.png.css</DependentUpon>
     </Content>
@@ -2267,6 +2283,7 @@
     <Content Include="Views\Home\CloudentsIsNowSpitball.cshtml" />
     <Content Include="Views\Account\Index3.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />
+    <Content Include="Views\Shared\_Head.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
