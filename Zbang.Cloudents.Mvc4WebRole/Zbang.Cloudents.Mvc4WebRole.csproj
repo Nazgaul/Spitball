@@ -996,6 +996,7 @@
     <Content Include="Images\signin\facebook.png" />
     <Content Include="Images\signin\googleplus.png" />
     <Content Include="Images\signin\signup_logo.png" />
+    <Content Include="Images\signin\facebook.svg" />
     <Content Include="Images\signin\sprite.png" />
     <Content Include="Images\signin\syncfusion-icons-white.png" />
     <Content Include="Images\spitball_invite_off.png" />

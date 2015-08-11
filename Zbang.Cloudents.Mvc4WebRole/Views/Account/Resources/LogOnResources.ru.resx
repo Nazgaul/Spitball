@@ -237,4 +237,7 @@
   <data name="ToResetPassword" xml:space="preserve">
     <value>для сброса вашего пароля</value>
   </data>
+  <data name="OrSignupWith" xml:space="preserve">
+    <value>или зарегистрироваться с</value>
+  </data>
 </root>

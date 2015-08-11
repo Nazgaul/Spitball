@@ -237,4 +237,7 @@
   <data name="ToResetPassword" xml:space="preserve">
     <value>to reset your password</value>
   </data>
+  <data name="OrSignupWith" xml:space="preserve">
+    <value>Or signup with</value>
+  </data>
 </root>

@@ -238,4 +238,7 @@
   <data name="ToResetPassword" xml:space="preserve">
     <value>لإعادة ضبط كلمة المرور الخاصة بك</value>
   </data>
+  <data name="OrSignupWith" xml:space="preserve">
+    <value>أو الاشتراك مع</value>
+  </data>
 </root>
