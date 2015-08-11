@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources;
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources;
 @using Zbang.Zbox.Infrastructure.Culture;
 @{
 
@@ -9,10 +10,10 @@
 <!doctype html>
 <html class="no-js" lang="">
 <head>
-   @{Html.RenderPartial("_Head");}
+    @{Html.RenderPartial("_Head");}
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
     @Html.Css2("homePage")
-   
+
 </head>
 <body class="transparent-header pace-on pace-dot">
     <div class="pace-overlay"></div>
@@ -38,7 +39,7 @@
                             <li class="menu-item "> <a href="@Url.Action("SignIn")">@HomePageResources.A1</a> </li>
                             <li class="menu-item "> <a href="@Url.Action("Jobs","Home")">@HomePageResources.A2</a> </li>
                             <li class="menu-item dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="">@Languages.EnglishUsName</a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="">@Html.Svg("/images/homepage2/homePageIcons.svg", "globus", new { @class = "globus" })&nbsp;<span>@Languages.EnglishUsName</span></a>
                                 <ul class="dropdown-menu dropdown-menu-left ">
                                     <li class="menu-item"> <a href="@Url.Action("Index", new { lang = "en-US"})">@Languages.EnglishUsName</a> </li>
                                     <li class="menu-item"> <a href="@Url.Action("Index", new { lang = "en-UK"})">@Languages.EnglishGbName</a> </li>
@@ -59,10 +60,15 @@
     <div id="content" role="main">
         <article>
             <section class="section" id="spitballFeatures">
-                <div class="background-media backgroundImage"
+                <div class="background-media" style="background-image: url('@Url.CdnContent("/Images/HomePage2/headr_image5.png")'); background-repeat:no-repeat; background-size:cover; background-attachment:scroll; background-position: 50% 0%;" data-start="background-position: 50% 0px"
+                     data-0-top-bottom="background-position: 50% 300px"></div>
+                @*<div class="background-media"
+                     <div class="background-media" 
+                          style="background-image: url('@Url.CdnContent("/Images/HomePage2/headr_image5.png")'); background-repeat:no-repeat; background-size:cover; background-attachment:fixed; background-position: 50% 0%;" data-start="background-position: 50% 0px"
+                     data-0-top-bottom="background-position: 50% -84px"></div>
                      data-start="background-position: 50% 0px"
                      data-0-top-bottom="background-position: 50% -85px">
-                </div>
+                </div>*@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12  text-center">
@@ -150,7 +156,7 @@
                                     <p>@HomePageResources.B10</p>
                                 </li>
                             </ul>
-                        </div>>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -283,36 +289,7 @@
                     </div>
                 </div>
             </section>
-            @*<section class="section" id="bestApp">
-                    <div class="background-overlay grid-overlay-20" style="background-color: #353E4D;"></div>
-                    <div class="container container-vertical-middle">
-                        <div class="row vertical-middle">
-                            <div class="col-md-6 text-default small-screen-default">
-                                <div class="figure element-top-20 element-bottom-0 os-animation" data-os-animation="fadeInUp" data-os-animation-delay="0.3s">
-                                    <a href="assets/images/landing/app-06.png" class="figure-image magnific" target="_self"> <img src="@Url.CdnContent("/Images/HomePage2/mobile.png?v=1")" alt="app-06" /> </a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 text-left small-screen-center">
-                                <h1 class="text-default element-top-60 element-bottom-20 text-normal os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
-                                    Best App, ever
-                                </h1>
-                                <div class="divider-border divider-border-left element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
-                                    <div class="divider-border-inner"></div>
-                                </div>
-                                <p class="lead text-left left text-normal element-top-20 element-bottom-20" data-os-animation="none" data-os-animation-delay="0s">
-                                    Lambda is the world’s most advanced theme. Built with incredible new capabilities and features designed to make the most out of your creativity. As with all of our products you&#8217;ll get <strong>100% solid support</strong>.
-                                </p>
-                                <ul class="skills-list lead element-top-20 element-bottom-40 text-normal os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">
-                                    <li>@Html.Svg("/images/homepage2/homePageIcons.svg","checkmark")&nbsp;Awesome design</li>
-                                    <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Retina ready</li>
-                                    <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;WooCommerce ready</li>
-                                    <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Cool animations</li>
-                                    <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;Speed optimised</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>*@
+           
             <section class="section text-normal section-text-no-shadow section-inner-no-shadow section-normal section-opaque" id="testimonials">
                 <div class="background-overlay grid-overlay-0 " style="background-color: rgba(240,240,240,1);"></div>
                 <div class="container container-vertical-middle">
@@ -399,34 +376,18 @@
                                 <p style="text-shadow:2px 2px 12px #000;">
                                     @HomePageResources.F2
                                 </p>
-                            </div> <a href=""
-                                      class="btn btn-primary btn-lg text-light btn-icon-right margin-right element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                                IPHONE<i class="fa fa-apple" data-animation="none">@Html.Svg("/images/homepage2/homePageIcons.svg", "apple")</i>
-                            </a> <a href="" class="btn btn-primary btn-lg text-normal btn-icon-right  element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                                ANDROID<i class="fa fa-android" data-animation="none">@Html.Svg("/images/homepage2/homePageIcons.svg", "android")</i>
-                            </a>
+                            </div> <a href="http://m.onelink.me/52ba1d8e"
+   class="btn btn-primary btn-lg text-light btn-icon-right margin-right element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+    IPHONE<i class="fa fa-apple" data-animation="none">@Html.Svg("/images/homepage2/homePageIcons.svg", "apple")</i>
+</a> <a href="http://m.onelink.me/cb0eeb35" class="btn btn-primary btn-lg text-normal btn-icon-right  element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+    ANDROID<i class="fa fa-android" data-animation="none">@Html.Svg("/images/homepage2/homePageIcons.svg", "android")</i>
+</a>
                             <div class="divider-wrapper">
                                 <div class="visible-xs element-height-60"></div>
                                 <div class="visible-sm element-height-60"></div>
                                 <div class="visible-md element-height-60"></div>
                                 <div class="visible-lg element-height-60"></div>
                             </div>
-                            @*<div class="element-top-20 element-bottom-60" data-os-animation="none" data-os-animation-delay="0s">
-                                    <ul class="social-icons text-light social-lg social-simple social-circle ">
-                                        <li>
-                                            <a href="https://twitter.com/share?url=http://lambda.oxygenna.com/landing/" target="_blank" data-iconcolor="#00acee"> <i class="fa fa-twitter"></i> </a>
-                                        </li>
-                                        <li>
-                                            <a href="https://plus.google.com/share?url=http://lambda.oxygenna.com/landing/" target="_blank" data-iconcolor="#dd1812"> <i class="fa fa-google-plus"></i> </a>
-                                        </li>
-                                        <li>
-                                            <a href="http://www.facebook.com/sharer.php?u=http://lambda.oxygenna.com/landing/" target="_blank" data-iconcolor="#3b5998"> <i class="fa fa-facebook"></i> </a>
-                                        </li>
-                                        <li>
-                                            <a href="//pinterest.com/pin/create/button/?url=http://lambda.oxygenna.com/landing/&#038;description=Home" target="_blank" data-iconcolor="#C92228"> <i class="fa fa-pinterest"></i> </a>
-                                        </li>
-                                    </ul>
-                                </div>*@
                             <div class="divider-wrapper">
                                 <div class="visible-xs element-height-40"></div>
                                 <div class="visible-sm element-height-40"></div>
@@ -435,6 +396,33 @@
                             </div>
                         </div>
                         <div class="col-md-1 text-default small-screen-default"></div>
+                    </div>
+                </div>
+            </section>
+            <section class="section text-normal sbfooter">
+                <div class="background-overlay grid-overlay-0 " style="background-color: #282828"></div>
+                <div class="container container-vertical-middle">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <div class="divider-wrapper">
+                                <div class="visible-xs element-height-10"></div>
+                                <div class="visible-sm element-height-10"></div>
+                                <div class="visible-md element-height-10"></div>
+                                <div class="visible-lg element-height-10"></div>
+                            </div>
+                            <a href="@Url.Action("AboutUs", "Home")">@HomeResources.AboutCloudents</a>&nbsp;|
+                            <a href="@Url.Action("jobs","home")">@SharedResources.Jobs</a>&nbsp;|
+                            <a href="@Url.Action("Help", "Home")">@SharedResources.Help</a>&nbsp;|
+                            <a href="@Url.Action("Privacy", "Home")">@FooterResources.PrivacyPolicy</a>&nbsp;|
+                            <a href="@Url.Action("TermsOfService", "Home")">@FooterResources.TermsOfService</a> 
+                            <div class="divider-wrapper">
+                                <div class="visible-xs element-height-10"></div>
+                                <div class="visible-sm element-height-10"></div>
+                                <div class="visible-md element-height-10"></div>
+                                <div class="visible-lg element-height-10"></div>
+                            </div>
+                        </div>
+                      
                     </div>
                 </div>
             </section>
@@ -484,7 +472,7 @@
             }
             var val = getCookie('l2').toLowerCase();
             var text = document.querySelector('[href$="' + val + '/"]').text;
-            document.querySelector('[data-toggle=dropdown]').text = text;
+            document.querySelector('[data-toggle=dropdown] span').innerText = text;
         }
     </script>
     @Html.Script2("homePage")

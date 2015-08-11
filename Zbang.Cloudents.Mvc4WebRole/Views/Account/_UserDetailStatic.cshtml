@@ -19,8 +19,10 @@
 else
 {
     <div class="userNav signUp">
-        <button type="button" class="btn addRegister">@LogOnResources.SignUp</button>
-        <button type="button" class="btn addConnect">@SharedResources.SignIn</button>
+        <a href="@Url.Action("signup","account")" class="btn">@LogOnResources.SignUp</a>
+        <a href="@Url.Action("signin","account")" class="btn">@LogOnResources.SignIn</a>
+        @*<button type="button" class="btn addRegister">@LogOnResources.SignUp</button>*@
+        @*<button type="button" class="btn addConnect">@SharedResources.SignIn</button>*@
     </div>
     Html.RenderPartial("_SettingsUnauth", new Zbang.Cloudents.Mvc4WebRole.Models.SettingsUnauth { ShowLogIn = true });
 }

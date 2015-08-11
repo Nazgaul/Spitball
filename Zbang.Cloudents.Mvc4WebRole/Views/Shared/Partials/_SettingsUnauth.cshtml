@@ -33,8 +33,10 @@
         <li class="last"><a href="@Url.Action("ContactUs", "Home")" target="_self">@FooterResources.ContactUs</a></li>
         @if (Model.ShowLogIn)
         {
-            <li class="addRegister" login-btn="register">@LogOnResources.SignUp</li>
-            <li class="last addConnect" login-btn="connect">@SharedResources.SignIn</li>
+            <li><a href="@Url.Action("signup","account")">@LogOnResources.SignUp</a></li>
+            <li><a href="@Url.Action("signin","account")">@LogOnResources.SignIn</a></li>
+            @*<li class="addRegister" login-btn="register">@LogOnResources.SignUp</li>
+                <li class="last addConnect" login-btn="connect">@SharedResources.SignIn</li>*@
         }
     </ul>
     @ShowLanguageBar(Model.ShowLanguage)
