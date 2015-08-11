@@ -824,11 +824,17 @@
     <Content Include="Content\signin\components-md.rtl.css">
       <DependentUpon>components-md.css</DependentUpon>
     </Content>
+    <Content Include="Content\signin\customRtl.css">
+      <DependentUpon>customRtl.less</DependentUpon>
+    </Content>
     <Content Include="Content\signin\custom.css">
       <DependentUpon>custom.less</DependentUpon>
     </Content>
     <Content Include="Content\signin\custom.rtl.css">
       <DependentUpon>custom.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\customRtl.rtl.css">
+      <DependentUpon>customRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\signin\default.css">
       <DependentUpon>default.less</DependentUpon>
@@ -1014,8 +1020,6 @@
     <Content Include="Images\Mobile\mobile3.png" />
     <Content Include="Images\Mobile\mobile3_1440.png" />
     <Content Include="Images\Mobile\mobile3_720.png" />
-    <Content Include="Images\signin\bg-white-lock.png" />
-    <Content Include="Images\signin\facebook.png" />
     <Content Include="Images\signin\googleplus.png" />
     <Content Include="Images\signin\signup_logo.png" />
     <Content Include="Images\signin\facebook.svg" />
@@ -1369,6 +1373,7 @@
     <Content Include="Content\signin\uniform.default.less" />
     <Content Include="Content\signin\layout.less" />
     <Content Include="Content\signin\plugins-md.less" />
+    <None Include="Content\signin\customRtl.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

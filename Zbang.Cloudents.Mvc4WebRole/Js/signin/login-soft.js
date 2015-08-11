@@ -17,17 +17,7 @@ var Login = function () {
 	                remember: {
 	                    required: false
 	                }
-	            },
-
-	            messages: {
-	                username: {
-	                    required: "Username is required."
-	                },
-	                password: {
-	                    required: "Password is required."
-	                }
-	            },
-
+	            },	   
 	            invalidHandler: function (event, validator) { //display error alert on form submit   
 	                $('.alert-danger', $('.login-form')).show();
 	            },

@@ -2813,7 +2813,7 @@ Customized Bootstrap Close Icon
   background-repeat: no-repeat !important;
   text-indent: -10000px;
   outline: none;
-  background-image: url("../img/remove-icon-small.png") !important;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGNJREFUeNp0UEEOwCAI675tdPov3bu8LGFiugWJO5BKWxoBAO5RWUTgS3nq86FMcoZEPnsisA920E/2UZX4Jfs/NCa0hTeGyISLGBcTDUI8bE8d57vFZn2hPu9Qfu5UVH8EGABhB4gMnGTdwQAAAABJRU5ErkJggg==') /*/Images/signin/remove-icon-small.png*/ !important;
 }
 /***
 Customized Bootstrap Dropdowns
