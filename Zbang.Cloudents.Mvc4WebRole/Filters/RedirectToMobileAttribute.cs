@@ -1,6 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
+using Zbang.Zbox.Infrastructure.Extensions;
 
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
@@ -9,20 +11,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (!filterContext.HttpContext.Request.Browser.IsMobileDevice) return;
+            //if (!filterContext.HttpContext.Request.Browser.IsMobileDevice) return;
             //var urlToRedirect = ConfigFetcher.Fetch("MobileWebSite");
+            //var url = filterContext.HttpContext.Request.Url;
+            //var path = string.Empty;
+            
+            //if (url != null)
+            //{
+            //    path = url.PathAndQuery;
+            //}
+          
+            ////urlToRedirect = VirtualPathUtility.RemoveTrailingSlash(urlToRedirect);
+            ////urlToRedirect = urlToRedirect + path;
+            //filterContext.Result = new RedirectToRouteResult("Mobile", new RouteValueDictionary(new { returnUrl = path }));
+            ////filterContext.Result = filterContext.Controller new Redirect(urlToRedirect, true);
+
+
+            if (!filterContext.HttpContext.Request.Browser.IsMobileDevice) return;
+            var urlToRedirect = ConfigFetcher.Fetch("MobileWebSite");
             var url = filterContext.HttpContext.Request.Url;
             var path = string.Empty;
-            
             if (url != null)
             {
                 path = url.PathAndQuery;
             }
-          
-            //urlToRedirect = VirtualPathUtility.RemoveTrailingSlash(urlToRedirect);
-            //urlToRedirect = urlToRedirect + path;
-            filterContext.Result = new RedirectToRouteResult("Mobile", new RouteValueDictionary(new { returnUrl = path }));
-            //filterContext.Result = filterContext.Controller new Redirect(urlToRedirect, true);
+            urlToRedirect = VirtualPathUtility.RemoveTrailingSlash(urlToRedirect);
+            urlToRedirect = urlToRedirect + path;
+            filterContext.Result = new RedirectResult(urlToRedirect, true);
         }
     }
 

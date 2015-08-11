@@ -71,6 +71,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Location = OutputCacheLocation.Server, Order = 2)]
         public ActionResult Index(string lang, string invId)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
             if (!string.IsNullOrEmpty(lang))
             {
                 m_LanguageCookie.InjectCookie(lang);
@@ -96,20 +100,35 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Index3");
         }
 
-
+        [DonutOutputCache(VaryByParam = "lang;invId",
+            VaryByCustom = CustomCacheKeys.Lang ,
+            Duration = TimeConsts.Day,
+            Location = OutputCacheLocation.Server, Order = 2)]
         public ActionResult SignIn()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
             return View();
         }
-
+         [DonutOutputCache(VaryByParam = "lang;invId",
+            VaryByCustom = CustomCacheKeys.Lang,
+            Duration = TimeConsts.Day,
+            Location = OutputCacheLocation.Server, Order = 2)]
         public ActionResult Signup(string lang)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
             if (!string.IsNullOrEmpty(lang))
             {
                 m_LanguageCookie.InjectCookie(lang);
                 RouteData.Values.Remove("lang");
                 return RedirectToAction("Signup");
             }
+           
 
             return View("Signin");
         }

@@ -11,7 +11,7 @@
     </Sites>
     <Endpoints>
       <InputEndpoint name="Endpoint1" protocol="http" port="80" />
-      <InputEndpoint name="Endpoint2" protocol="https" port="443" certificate="Cloudents" />
+      <InputEndpoint name="Endpoint2" protocol="https" port="443" certificate="Spitball" />
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />
@@ -29,9 +29,7 @@
       <Setting name="AzureSeachServiceName" />
     </ConfigurationSettings>
     <Certificates>
-      <Certificate name="MyIntermediateCertCloudDents" storeLocation="LocalMachine" storeName="CA" />
-      <Certificate name="MyRootCertCloudDents" storeLocation="LocalMachine" storeName="Trust" />
-      <Certificate name="Cloudents" storeLocation="LocalMachine" storeName="My" />
+      <Certificate name="Spitball" storeLocation="LocalMachine" storeName="My" />
     </Certificates>
     <LocalResources>
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="true" sizeInMB="100" />

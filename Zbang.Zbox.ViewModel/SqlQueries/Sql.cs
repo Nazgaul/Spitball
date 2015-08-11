@@ -135,7 +135,7 @@ i.Discriminator as Type
         /// <summary>
         /// Mobile api - bring user comment and reply acitivity in user screen
         /// </summary>
-        public const string UserQuestionAndAnswersActivityMobileApi = @"select t.BoxId as BoxId, t.BoxName as Content, t.QuestionId as Id, t.Type from (
+        public const string UserQuestionAndAnswersActivityMobileApi = @"select t.BoxId as BoxId, t.Text as Content, t.BoxName as boxName, t.QuestionId as Id, t.Type from (
 	select b.boxid, q.Text, b.BoxName,q.QuestionId,'comment' as Type, q.CreationTime
                           from zbox.Question q
                          join zbox.box b on b.BoxId = q.BoxId and b.IsDeleted = 0

@@ -12,5 +12,7 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public string Content { get; set; }
         public Guid Id { get; set; }
         public string Type { get; set; }
+
+        public string BoxName { get; set; }
     }
 }

@@ -43,7 +43,7 @@ h6 {
   text-transform: uppercase;
 }
 .lead {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 300;
   line-height: 1.75em;
 }
@@ -226,6 +226,9 @@ input[type="color"],
   min-width: 220px;
 }
 @media (min-width: 992px) {
+  .btnSignIn {
+    display: none;
+  }
   #masthead.navbar-scrolled {
     min-height: 90px;
   }
@@ -310,6 +313,9 @@ input[type="color"],
 @media (max-width: 991px) {
   #navbar-slide .navbar-nav {
     max-height: 60%;
+  }
+  .btnSignIn {
+    display: inline-block;
   }
 }
 .btn i,
@@ -1168,7 +1174,7 @@ input[type="button"] {
   background: none !important;
 }
 .navbar-toggle .icon-bar {
-  background-color: #4c4c4c;
+  background-color: #6c6c6c;
 }
 .navbar-toggle:hover {
   background: none;
@@ -1659,11 +1665,11 @@ input[type="button"] {
   .nav-highlight > a:hover:after {
     background: transparent;
   }
-  .transparent-header .navbar-collapse {
-    background: rgba(255, 255, 255, 0.95) !important;
-  }
   .menu-sidebar {
     border-top: 1px solid rgba(255, 255, 255, 0.075);
+  }
+  blockquote p {
+    font-size: 18px;
   }
 }
 .pagination > li > a,
@@ -2850,6 +2856,24 @@ blockquote.text-light:before {
 }
 .flex-viewport {
   direction: initial;
+}
+.globus {
+  width: 17px;
+  height: 17px;
+  position: relative;
+  top: 3px;
+  fill: #fff;
+}
+.alert {
+  padding: 0;
+}
+.sbfooter {
+  font-size: 14px;
+  color: #c2c2c2;
+}
+.sbfooter a {
+  color: #c2c2c2;
+  margin: 0 5px;
 }
 /*.btn-primary:active:hover {
     background:@color;

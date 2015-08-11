@@ -214,7 +214,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
         public ActionResult LogOff()
         {
             m_AuthenticationManager.SignOut();
-            return RedirectToRoute("accountLink");
+            return Redirect("https://www.spitball.co"); //RedirectToRoute("accountLink");
         }
 
 
