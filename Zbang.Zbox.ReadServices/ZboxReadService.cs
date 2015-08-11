@@ -293,7 +293,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<Item.ItemMobileDto>(Sql.Item.ItemDetailApi, new { query.ItemId,  query.UserId });
+                var retVal = await conn.QueryAsync<Item.ItemMobileDto>(Sql.Item.ItemDetailApi, new { query.ItemId, query.UserId });
                 return retVal.SingleOrDefault();
             }
         }
@@ -816,25 +816,17 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<User.UserToFriendActivity> GetUserWithFriendActivityAsync(GetUserWithFriendQuery query)
+        public async Task<IEnumerable<User.ActivityDto>> GetUserWithFriendActivityAsync(GetUserWithFriendQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = new User.UserToFriendActivity();
-                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} ",
-                    Sql.Sql.UserWithFriendQuestion,
-                    Sql.Sql.UserWithFriendAnswer), new
-                    {
-                        Me = query.UserId,
-                        Myfriend = query.FriendId,
-                        pageNumber = query.PageNumber,
-                        rowsperpage = query.RowsPerPage
-                    }))
+                return await conn.QueryAsync<User.ActivityDto>(Sql.Sql.UserQuestionAndAnswersActivityMobileApi, new
                 {
-                    retVal.Questions = await grid.ReadAsync<Qna.QuestionToFriendDto>();
-                    retVal.Answers = await grid.ReadAsync<Qna.AnswerToFriendDto>();
-                }
-                return retVal;
+                    Me = query.UserId,
+                    Myfriend = query.FriendId,
+                    pageNumber = query.PageNumber,
+                    rowsperpage = query.RowsPerPage
+                });
             }
         }
 

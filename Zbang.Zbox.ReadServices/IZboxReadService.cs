@@ -92,7 +92,7 @@ namespace Zbang.Zbox.ReadServices
 
         Task<UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query);
         Task<IEnumerable<ItemToFriendDto>> GetUserWithFriendItemsAsync(GetUserWithFriendQuery query);
-        Task<UserToFriendActivity> GetUserWithFriendActivityAsync(GetUserWithFriendQuery query);
+        Task<IEnumerable<ActivityDto>> GetUserWithFriendActivityAsync(GetUserWithFriendQuery query);
 
         Task<IEnumerable<string>> GetSeoItems(int page);
         Task<int> GetSeoItemCount();
