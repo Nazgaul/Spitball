@@ -287,7 +287,7 @@
   /* You may have to set 'display: block' */
   width: 19px;
   height: 19px;
-  background: url('../Images/site.png?v=2') -1px -1px;
+  background: url('../Images/site.png?v=3?v=3') -1px -1px;
 }
 .setupCourse .svg-doc {
   width: 38px;
@@ -357,7 +357,7 @@
   /* You may have to set 'display: block' */
   width: 130px;
   height: 128px;
-  background: url('../Images/site.png?v=2') -1px -21px;
+  background: url('../Images/site.png?v=3') -1px -21px;
   margin: 0 auto;
 }
 .browseCourses {
@@ -372,7 +372,7 @@
   /* You may have to set 'display: block' */
   width: 130px;
   height: 128px;
-  background: url('../Images/site.png?v=2') -1px -150px;
+  background: url('../Images/site.png?v=3') -1px -150px;
 }
 .createCourse {
   padding: 0 16px;
@@ -712,13 +712,13 @@
   /* You may have to set 'display: block' */
   width: 70px;
   height: 70px;
-  background: url('../Images/site.png?v=2') -1px -616px;
+  background: url('../Images/site.png?v=3') -1px -616px;
 }
 .socialInvite.js-cloudState .cloudentsBtn {
   /* You may have to set 'display: block' */
   width: 70px;
   height: 70px;
-  background: url('../Images/site.png?v=2') -1px -687px;
+  background: url('../Images/site.png?v=3') -1px -687px;
 }
 .socialInvite.js-cloudState .socialContentWpr:before {
   right: auto;
@@ -960,7 +960,7 @@
   /* You may have to set 'display: block' */
   width: 79px;
   height: 78px;
-  background: url('../Images/site.png?v=2') -1px -471px;
+  background: url('../Images/site.png?v=3') -1px -471px;
 }
 .uploadSrcWpr .dropBoxBtn {
   margin: 0 90px;
@@ -969,13 +969,13 @@
   /* You may have to set 'display: block' */
   width: 82px;
   height: 79px;
-  background: url('../Images/site.png?v=2') -1px -391px;
+  background: url('../Images/site.png?v=3') -1px -391px;
 }
 .uploadSrcWpr .driveBtn:before {
   /* You may have to set 'display: block' */
   width: 86px;
   height: 76px;
-  background: url('../Images/site.png?v=2') -1px -279px;
+  background: url('../Images/site.png?v=3') -1px -279px;
 }
 /*#endregion */
 /*#endregion */
@@ -1433,3 +1433,4 @@
 .libraryItem + .box .addBtn {
   height: 123px;
 }
+/*#endregion */

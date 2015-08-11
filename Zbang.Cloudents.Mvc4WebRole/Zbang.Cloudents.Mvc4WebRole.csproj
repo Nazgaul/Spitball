@@ -920,6 +920,12 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\HomePage\HomePageBottom.png.rtl.css">
+      <DependentUpon>HomePageBottom.png.css</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageTop.png.rtl.css">
+      <DependentUpon>HomePageTop.png.css</DependentUpon>
+    </Content>
     <Content Include="Images\signin\1a.png" />
     <Content Include="Images\signin\2a.png" />
     <Content Include="Images\signin\3a.png" />
@@ -999,6 +1005,9 @@
     <Content Include="Images\signin\facebook.svg" />
     <Content Include="Images\signin\sprite.png" />
     <Content Include="Images\signin\syncfusion-icons-white.png" />
+    <Content Include="Images\site.png.rtl.css">
+      <DependentUpon>site.png.css</DependentUpon>
+    </Content>
     <Content Include="Images\spitball_invite_off.png" />
     <Content Include="Images\spitball_invite_on.png" />
     <Content Include="Images\spitball_logo_mobile.png" />
@@ -1073,6 +1082,9 @@
     <Content Include="Images\Store\fb-off.png" />
     <Content Include="Images\Store\fb-on.png" />
     <Content Include="Images\Store\logo.png" />
+    <Content Include="Images\Store\social.png.rtl.css">
+      <DependentUpon>social.png.css</DependentUpon>
+    </Content>
     <Content Include="Images\Store\store-popup.png" />
     <Content Include="Images\Store\purchase_confirmation.png" />
     <Content Include="Images\Store\social.png">

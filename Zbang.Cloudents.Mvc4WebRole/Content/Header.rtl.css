@@ -108,7 +108,7 @@ body {
   /* You may have to set 'display: block' */
   width: 222px;
   height: 65px;
-  background: url('../Images/site.png?v=2') -1px -550px;
+  background: url('../Images/site.png?v=3') -1px -550px;
   margin: 0 auto;
   display: block;
 }
@@ -293,7 +293,7 @@ body {
   margin: 15px 31px 0 0;
 }
 .inviteUsersBtn {
-  margin-top: 19px
+  margin-top: 19px;
   /*.boxPage & {
         margin-top: 28px;
     }*/
@@ -458,3 +458,4 @@ body {
 .mCSB_draggerRail {
   display: none;
 }
+/*#endregion */

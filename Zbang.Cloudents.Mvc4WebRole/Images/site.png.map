@@ -1,70 +1,70 @@
 {
   "images": [
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/close.png",
+      "name": "/Images/close.png",
       "width": 19,
       "height": 19,
       "offsetX": 1,
       "offsetY": 1
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/course.png",
+      "name": "/Images/course.png",
       "width": 130,
       "height": 128,
       "offsetX": 1,
       "offsetY": 21
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/department.png",
+      "name": "/Images/department.png",
       "width": 130,
       "height": 128,
       "offsetX": 1,
       "offsetY": 150
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/drive_upload.png",
+      "name": "/Images/drive_upload.png",
       "width": 86,
       "height": 76,
       "offsetX": 1,
       "offsetY": 279
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/uni_logo.png",
+      "name": "/Images/uni_logo.png",
       "width": 41,
       "height": 34,
       "offsetX": 1,
       "offsetY": 356
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/web_upload.png",
+      "name": "/Images/web_upload.png",
       "width": 82,
       "height": 79,
       "offsetX": 1,
       "offsetY": 391
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/earth.png",
+      "name": "/Images/earth.png",
       "width": 79,
       "height": 78,
       "offsetX": 1,
       "offsetY": 471
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/logo2.png",
+      "name": "/Images/logo2.png",
       "width": 222,
       "height": 65,
       "offsetX": 1,
       "offsetY": 550
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/spitball_invite_off.png",
+      "name": "/Images/spitball_invite_off.png",
       "width": 70,
       "height": 70,
       "offsetX": 1,
       "offsetY": 616
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/spitball_invite_on.png",
+      "name": "/Images/spitball_invite_on.png",
       "width": 70,
       "height": 70,
       "offsetX": 1,
