@@ -39,6 +39,8 @@ a:hover {
 .login .content {
   background: rgba(56, 56, 56, 0.8);
 }
-.login .login-form .form-title {
-  margin-bottom: 11.5px;
+@media (max-width: 480px) {
+  .login .content {
+    width: 95%;
+  }
 }
