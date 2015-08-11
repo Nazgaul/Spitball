@@ -316,6 +316,8 @@ input[type="color"],
   }
   .btnSignIn {
     display: inline-block;
+    background: #fff !important;
+    color: #3293f6 !important;
   }
 }
 .btn i,
