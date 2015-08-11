@@ -43,7 +43,7 @@ h6 {
   text-transform: uppercase;
 }
 .lead {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 300;
   line-height: 1.75em;
 }
@@ -1659,11 +1659,11 @@ input[type="button"] {
   .nav-highlight > a:hover:after {
     background: transparent;
   }
-  .transparent-header .navbar-collapse {
-    background: rgba(255, 255, 255, 0.95) !important;
-  }
   .menu-sidebar {
     border-top: 1px solid rgba(255, 255, 255, 0.075);
+  }
+  blockquote p {
+    font-size: 18px;
   }
 }
 .pagination > li > a,
