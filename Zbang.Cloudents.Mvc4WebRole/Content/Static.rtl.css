@@ -205,7 +205,7 @@ body {
   direction: rtl;
   /*no rtl*/
   max-width: 645px;
-  text-align: right;
+  text-align: right
   /*no rtl*/
 }
 .lastModified {
@@ -639,7 +639,7 @@ footer {
 }
 .jobs .siteLogo {
   padding: 0;
-  background: url('../Images/job-page-logo.png');
+  background: url('../Images/job-page-logo2.png');
 }
 .jobs .headerActions {
   height: 77px;
@@ -717,7 +717,7 @@ footer {
   border-bottom: 1px solid #c2c2c2;
   border-radius: 0;
   background: none;
-  min-height: 0;
+  min-height: 0
   /*input[type=checkbox] {
         &:checked {
             ~ .answer {
@@ -792,4 +792,3 @@ footer {
   direction: ltr;
   text-align: left;
 }
-/*#endregion */

@@ -16,7 +16,8 @@ function ($scope, $window, $route, $routeParams, sFacebook, sAccount,
     };
 
 
-    changeState($scope.data.state);
+    $scope.params.currentState = $scope.data.state;
+
 
     $scope.data.formData = $scope.data.formData || {};
 
@@ -141,14 +142,17 @@ function ($scope, $window, $route, $routeParams, sFacebook, sAccount,
     };
 
     function changeState(state) {
-        $scope.params.currentState = state;
-        $scope.params.loginServerError = $scope.params.registerServerError = null;
+        //$scope.params.currentState = state;
+        //$scope.params.loginServerError = $scope.params.registerServerError = null;
         switch (state) {
             case 1:
-                sFocus('register.firstname');
+                window.location.href = '/account/signup/?returnUrl=' + window.location.pathname;
+                //sFocus('register.firstname');
                 break;
             case 2:
-                sFocus('logon.email');
+                window.location.href = '/account/signin/?returnUrl=' + window.location.pathname;
+
+                //sFocus('logon.email');
                 break;
 
         }

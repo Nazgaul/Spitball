@@ -790,13 +790,12 @@
     }
 
     .cloudentsBtn {
-        .sprite-Images-spitball_invite_off();
+        svg:hover {
+            fill:#0089F9
+        }
     }
 
-    &.js-cloudState {
-        .cloudentsBtn {
-            .sprite-Images-spitball_invite_on();
-        }
+    &.js-cloudState {       
 
         .socialContentWpr:before {
             right: auto;
@@ -805,6 +804,12 @@
 
         .cloudInput {
             display: block;
+        }
+
+        .cloudentsBtn {
+            svg {
+                fill:#0089F9
+            }
         }
     }
 

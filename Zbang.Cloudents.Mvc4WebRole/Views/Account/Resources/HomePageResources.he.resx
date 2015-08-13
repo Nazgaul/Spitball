@@ -124,8 +124,7 @@
     <value>משרות</value>
   </data>
   <data name="A4" xml:space="preserve">
-    <value>סטודנטים מצליחים יותר בלימודים
-באמצעות שיתוף ידע ברשת לימודים חברתית</value>
+    <value>שתף, התחבר ולמד כחלק מרשת לימודים חברתית</value>
   </data>
   <data name="A5" xml:space="preserve">
     <value>הצטרף בחינם</value>
@@ -137,7 +136,7 @@
     <value>מה מחכה לכם בפנים:</value>
   </data>
   <data name="B10" xml:space="preserve">
-    <value>לומדים מחברים באמצעות מבחנים אנטראקטיביםץ צור בחנים או בחן את עצמך מאלפי מבחנים קיימים</value>
+    <value>אלפי מבחנים כבר מחכים לכם! צרו ותרגלו מבחנים בצורה אינטרקטיבית כחלק ממערכת חדשנית לתרגול מבחנים.</value>
   </data>
   <data name="B2" xml:space="preserve">
     <value>הינה הצצה קצרה לחלק מהפיצ׳רים שהופכים את ספיטבול למה שהיא</value>
@@ -158,13 +157,43 @@
     <value>יש ממה ללמוד!</value>
   </data>
   <data name="B8" xml:space="preserve">
-    <value>מעל 250,000 סיכומים, מבחנים משנים קודמות ומאמרים המסודרים לפי הקורסים שלך כבר מחכים בפנים! אתם יכולים לקרוא, להוריד ולשתף חומרים אקדמיים מכל סוג!</value>
+    <value>מעל 300,000 סיכומים, מבחנים משנים קודמות ומאמרים המסודרים לפי הקורסים שלכם כבר מחכים בפנים! אתם יכולים לקרוא, להוריד ולשתף חומרים אקדמיים מכל סוג!</value>
   </data>
   <data name="B9" xml:space="preserve">
-    <value>בחנים</value>
+    <value>תרגול מבחנים מקוונים</value>
+  </data>
+  <data name="C1" xml:space="preserve">
+    <value>תראו את ספיטבול בפעולה</value>
   </data>
   <data name="D1" xml:space="preserve">
-    <value>אפליקציית ספיטבול</value>
+    <value>אפליקציית ספיטבול לנייד</value>
+  </data>
+  <data name="D2" xml:space="preserve">
+    <value>אפליקציית הלימודים החברתית של ספיטבול כבר מחכה לכם בחנויות האפליקציות. ספיטבול מאפשרת לסטודנטים להצליח בלימדים באמצעות כלים ייעודים שתוכננו ופותחו ע״י סטודנטים ובעבורם:</value>
+  </data>
+  <data name="D3" xml:space="preserve">
+    <value>למד עם חבריך בצורה מקוונת</value>
+  </data>
+  <data name="D4" xml:space="preserve">
+    <value>שאל וענה על שאלות בצורה חופשית</value>
+  </data>
+  <data name="D5" xml:space="preserve">
+    <value>קרא ושתף סיכומים ומבחנים</value>
+  </data>
+  <data name="D6" xml:space="preserve">
+    <value>השתתף בדיון קבוצתי עם כל הכיתה</value>
+  </data>
+  <data name="D7" xml:space="preserve">
+    <value>צור ותרגל מבחנים אינטרקטיביים</value>
+  </data>
+  <data name="D8" xml:space="preserve">
+    <value>שתף באנונימיות (תחת עילום שם)</value>
+  </data>
+  <data name="F1" xml:space="preserve">
+    <value>הורד בחינם</value>
+  </data>
+  <data name="F2" xml:space="preserve">
+    <value>על גבי המחשב האישי או המכשיר הנייד, למידה חברתית בכל זמן ובכל מקום</value>
   </data>
   <data name="Testimonial1" xml:space="preserve">
     <value>As a sophomore, I found myself looking for a way to communicate and study with my classmates because I was not in a dorm any more surrounded by my peers. After searching online, I was shocked that there was no real solution that I felt comfortable incoporating into my life style (nothing I could easily access on my phone or computer). Then I came across Cloudents. It provided me a virtual platform where I can interact with my classmates and other students in an easy and intuitive way.</value>

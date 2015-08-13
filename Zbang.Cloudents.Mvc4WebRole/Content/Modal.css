@@ -350,8 +350,8 @@
   padding-bottom: 15px;
 }
 .itemReg .svg-logo {
-  width: 147px;
-  height: 26px;
+  width: 250px;
+  height: 50px;
   fill: #3293f6;
   margin: 0 auto 20px;
   display: block;
@@ -1152,4 +1152,3 @@
   color: #d1294d;
   display: block;
 }
-/*#endregion */

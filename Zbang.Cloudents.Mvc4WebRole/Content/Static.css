@@ -639,7 +639,7 @@ footer {
 }
 .jobs .siteLogo {
   padding: 0;
-  background: url('../Images/job-page-logo.png');
+  background: url('../Images/job-page-logo2.png');
 }
 .jobs .headerActions {
   height: 77px;
@@ -792,4 +792,3 @@ footer {
   direction: rtl;
   text-align: right;
 }
-/*#endregion */

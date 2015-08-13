@@ -283,7 +283,9 @@ var Login = function () {
             lastname = $('.register-form input[name="lastname"]').val(),
             email = $('.register-form input[name="email"]').val(),
             confirmEmail = $('.register-form input[name="confirmemail"]').val(),
-            password = $('.register-form input[name="password"]').val();
+            password = $('.register-form input[name="password"]').val(),
+                returnUrl = getUrlVars()['returnUrl'];
+
 
 	    $.post('/account/register', {
 	        firstname: firstname, lastname: lastname, newEmail: email, confirmEmail: confirmEmail, password: password, isMale: true
@@ -301,6 +303,10 @@ var Login = function () {
 	            return; 
 	        }
 	        clearStorage();
+	        if (returnUrl) {
+	            window.location.href = returnUrl;
+	            return;
+	        }
 	        window.location.href = data.payload;
 	    });
 	}
@@ -327,7 +333,13 @@ var Login = function () {
 	            return;
 	        }
 	        clearStorage();
+
+	        if (returnUrl) {
+	            window.location.href = returnUrl;
+	            return;
+	        }
 	        window.location.href = data.payload;
+
 	    });
 	}
 
@@ -364,6 +376,12 @@ var Login = function () {
 	                    return;
 	            }
 
+
+	            var returnUrl = getUrlVars()['returnUrl'];
+	            if (returnUrl) {
+	                window.location.href = returnUrl;
+	                return;
+	            }
 	            window.location.href = '/dashboard/';
 	        });
 	    }
@@ -410,6 +428,8 @@ var Login = function () {
                 jQuery('.register-form').show();
                 loadRegisterData();
             }
+
+            $('.content').show();
         }
 
     };
