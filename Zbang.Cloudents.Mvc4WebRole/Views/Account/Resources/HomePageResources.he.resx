@@ -124,8 +124,7 @@
     <value>משרות</value>
   </data>
   <data name="A4" xml:space="preserve">
-    <value>סטודנטים מצליחים יותר בלימודים
-באמצעות שיתוף ידע ברשת לימודים חברתית</value>
+    <value>שתף,התחבר ולמד כחלק מרשת לימודים חברתית</value>
   </data>
   <data name="A5" xml:space="preserve">
     <value>הצטרף בחינם</value>
@@ -137,7 +136,7 @@
     <value>מה מחכה לכם בפנים:</value>
   </data>
   <data name="B10" xml:space="preserve">
-    <value>לומדים מחברים באמצעות מבחנים אנטראקטיביםץ צור בחנים או בחן את עצמך מאלפי מבחנים קיימים</value>
+    <value>אלפי מבחנים כבר מחכים לכם! צרו ותרגלו מבחנים בצורה אינטרקטיבית כחלק ממערכת חדשנית לתרגול מבחנים.</value>
   </data>
   <data name="B2" xml:space="preserve">
     <value>הינה הצצה קצרה לחלק מהפיצ׳רים שהופכים את ספיטבול למה שהיא</value>
@@ -158,51 +157,76 @@
     <value>יש ממה ללמוד!</value>
   </data>
   <data name="B8" xml:space="preserve">
-    <value>מעל 250,000 סיכומים, מבחנים משנים קודמות ומאמרים המסודרים לפי הקורסים שלך כבר מחכים בפנים! אתם יכולים לקרוא, להוריד ולשתף חומרים אקדמיים מכל סוג!</value>
+    <value>מעל 300,000 סיכומים, מבחנים משנים קודמות ומאמרים המסודרים לפי הקורסים שלכם כבר מחכים בפנים! אתם יכולים לקרוא, להוריד ולשתף חומרים אקדמיים מכל סוג!</value>
   </data>
   <data name="B9" xml:space="preserve">
-    <value>בחנים</value>
+    <value>תרגול מבחנים מקוונים</value>
   </data>
   <data name="D1" xml:space="preserve">
-    <value>אפליקציית ספיטבול</value>
+    <value>אפליקציית ספיטבול לנייד</value>
+  </data>
+  <data name="D2" xml:space="preserve">
+    <value>אפליקציית הלימודים החברתית של ספיטבול כבר מחכה לכם בחנויות האפליקציות. ספיטבול מאפשרת לסטודנטים להצליח בלימדים באמצעות כלים ייעודים שתוכננו ופותחו ע״י סטודנטים ובעבורם:</value>
+  </data>
+  <data name="D3" xml:space="preserve">
+    <value>למד עם חבריך בצורה מקוונת</value>
+  </data>
+  <data name="D4" xml:space="preserve">
+    <value>שאל וענה על שאלות בצורה חופשית</value>
+  </data>
+  <data name="D5" xml:space="preserve">
+    <value>קרא ושתף סיכומים ומבחנים</value>
+  </data>
+  <data name="D6" xml:space="preserve">
+    <value>השתתף בדיון קבוצתי עם כל הכיתה</value>
+  </data>
+  <data name="D7" xml:space="preserve">
+    <value>צור ותרגל מבחנים אינטרקטיביים</value>
+  </data>
+  <data name="D8" xml:space="preserve">
+    <value>שתף באנונימיות (תחת עילום שם)</value>
+  </data>
+  <data name="F1" xml:space="preserve">
+    <value>הורד בחינם</value>
+  </data>
+  <data name="F2" xml:space="preserve">
+    <value>על גבי המחשב האישי או המכשיר הנייד, למידה חברתית בכל זמן ובכל מקום</value>
   </data>
   <data name="Testimonial1" xml:space="preserve">
-    <value>As a sophomore, I found myself looking for a way to communicate and study with my classmates because I was not in a dorm any more surrounded by my peers. After searching online, I was shocked that there was no real solution that I felt comfortable incoporating into my life style (nothing I could easily access on my phone or computer). Then I came across Cloudents. It provided me a virtual platform where I can interact with my classmates and other students in an easy and intuitive way.</value>
+    <value>אחרי שנמאס לי לשאול את אותה חברה בכל פעם שנתקלתי בשאלה או בעיה בשעורי הבית, חיפשתי פתרון אמיתי שלא כולל קבוצת וואטסאפ של 50 סטודנטים! 
+לשמחתי נתקלתי בספיטבול, עכשיו אני וכל שאר הסטודנטים מהכיתה שלי סוף סוף לומדים יחד בצורה שמתאימה לנו.</value>
   </data>
   <data name="Testimonial1Person" xml:space="preserve">
-    <value>Donna Floyed</value>
+    <value>דנה</value>
   </data>
   <data name="Testimonial1Title" xml:space="preserve">
-    <value>Sophomore at UC Davis</value>
+    <value>משפטים ממשל, המרכז הבינתחומי הרצליה</value>
   </data>
   <data name="Testimonial2" xml:space="preserve">
-    <value>There have been many times when I would try and share files and documents with friends and classmates over the schools portal or other online studying tools, however, they do not always support the size or type of files I needed to share. I ended up using a number of different applications to share course materials and it was a huge hassel!! When I started using Cloudents, everything changed - I was easily able to upload all forms of my files... even video and audio files!</value>
+    <value>תודה לכם ספיטבול! לא הספקתי לכתוב מילה כל הסמסטר ופשוט לא היה לי ממה ללמוד לבחינה. נכנסתי לספיטבול, מצאתי את הקורס שלי, ולתדהמתי היו שם חמישה סיכומים שחיכו שאני אלמד מהם!</value>
   </data>
   <data name="Testimonial2Person" xml:space="preserve">
-    <value>Jack Harris</value>
+    <value>מיכל</value>
   </data>
   <data name="Testimonial2Title" xml:space="preserve">
-    <value>Junior at UC Berkeley</value>
+    <value>מנהל עסקים, האוניברסיטה הפתוחה</value>
   </data>
   <data name="Testimonial3" xml:space="preserve">
-    <value>It’s so nice to have all my notes, questions/answers, lectures, etc. in one place and always available online and in the palm of my hand!
-It minimizes the amount of things I bring with me when I go to study somewhere. In addition, it comes in handy when I share notes with other students especially when I or they miss little details from class.
-Thank you Cloudents for making on my life a whole lot easier! I already know who I’m thanking first on graduation day :)</value>
+    <value>מדהים מדהים!!!!! איך עד היום לא היו דברים כאלו....כל מה שהייתי צריך ובמקום אחד.. פשוט הציל לי את התואר!</value>
   </data>
   <data name="Testimonial3Person" xml:space="preserve">
-    <value>Daniel Kaplan</value>
+    <value>ירון</value>
   </data>
   <data name="Testimonial3Title" xml:space="preserve">
-    <value>Senior at UCLA</value>
+    <value>הנדסת תעשייה וניהול, אוניברסיטת בן גוריון</value>
   </data>
   <data name="Testimonial4" xml:space="preserve">
-    <value>This is such a great idea! I love the quizzes - such a great way to test my knowledge of the coursework! I also really like that it's interactive - the chat feed is really helpful if you miss a class or don't understand the material. 
-During the last semester I feel like all I did was talk about Cloudents! It was funny, people were actually convinced that I’m working for Cloudents. #postgradjob? #hireme</value>
+    <value>בגלל המילואים יצא לי להפסיד מלא שיעורים הסמסטר, בזכות ספיטבול הייתי בעניינים גם כשלא הייתי נוכח בשיעור</value>
   </data>
   <data name="Testimonial4Person" xml:space="preserve">
-    <value>Sarah Friedman</value>
+    <value>אדם</value>
   </data>
   <data name="Testimonial4Title" xml:space="preserve">
-    <value>Freshman at UC Santa Barbara</value>
+    <value>סוציולוגיה אנטרופולוגיה, אוניברסיטת תל אביב</value>
   </data>
 </root>
