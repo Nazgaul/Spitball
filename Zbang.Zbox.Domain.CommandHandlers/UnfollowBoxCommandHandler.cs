@@ -35,14 +35,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var academicBox = box as AcademicBox;
             if (academicBox != null)
             {
-                if (message.ShouldDelete && user.IsAdmin() && user.University.Id == academicBox.University.Id)
-                {
-                    await DeleteBox(box, user);
-                }
-                else
-                {
+                //if (message.ShouldDelete && user.IsAdmin() && user.University.Id == academicBox.University.Id)
+                //{
+                //    await DeleteBox(box, user);
+                //}
+                //else
+                //{
                     UnFollowBox(box, message.UserId);
-                }
+                //}
                 return;
             }
 
