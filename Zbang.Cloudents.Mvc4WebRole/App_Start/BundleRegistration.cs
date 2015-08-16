@@ -336,7 +336,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "homePage", new[]
                     {
-                        new JsFileWithCdn("~/js/homePage/theme.js")
+                         new JsFileWithCdn("~/js/homePage/theme.js"),
+                        new JsFileWithCdn("~/js/homePage/homeScreen.js")
+                       
                     }
                 },
                 {

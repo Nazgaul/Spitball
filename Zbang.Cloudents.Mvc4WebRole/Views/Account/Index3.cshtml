@@ -427,47 +427,7 @@
     </div>
     <a class="go-top go-top-circle" href="javascript:void(0)">@Html.Svg("/images/homepage2/homePageIcons.svg", "up")</a>
     <script type="text/javascript">
-        var oxyThemeData = {
-            navbarHeight: 100,
-            navbarScrolled: 90,
-            navbarScrolledPoint: 30,
-            menuClose: 'off',
-            scrollFinishedMessage: 'No more items to load.',
-            hoverMenu:
-            {
-                hoverActive: false,
-                hoverDelay: 200,
-                hoverFadeDelay: 200
-            },
-            siteLoader: 'on'
-        };
-
-        function getCookie(cname) {
-            var name = cname + "=";
-            var ca = document.cookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1);
-                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-            }
-            return "";
-        }
-
-        window.onload = function () {
-
-            var removeCloudentsBanner = 'removeCloudentsBanner';
-            $('.alert').on('closed.bs.alert', function () {
-                localStorage.setItem(removeCloudentsBanner, '1');
-            })
-
-            var willShow = localStorage.getItem(removeCloudentsBanner);
-            if (willShow != null) {
-                $('.alert').alert('close')
-            }
-            var val = getCookie('l2').toLowerCase();
-            var text = document.querySelector('[href$="' + val + '/"]').text;
-            document.querySelector('[data-toggle=dropdown] span').innerText = text;
-        }
+        
     </script>
     @Html.Script2("homePage")
 </body>
