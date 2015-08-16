@@ -6,17 +6,17 @@
  *
  * MIT License
  */
- 
+
 (function (root, factory) {
-    if ( typeof define === 'function' && define.amd ) {
+    if (typeof define === 'function' && define.amd) {
         define("deeplink", factory(root));
-    } else if ( typeof exports === 'object' ) {
+    } else if (typeof exports === 'object') {
         module.exports = factory(root);
     } else {
         root["deeplink"] = factory(root);
     }
-})(window || this, function(root) {
- 
+})(window || this, function (root) {
+
     "use strict"
 
     /**
@@ -47,12 +47,12 @@
      * @param {Object} options User options
      * @returns {Object} Merged values of defaults and options
      */
-    var extend = function(defaults, options) {
+    var extend = function (defaults, options) {
         var extended = {};
-        for(var key in defaults) {
+        for (var key in defaults) {
             extended[key] = defaults[key];
         };
-        for(var key in options) {
+        for (var key in options) {
             extended[key] = options[key];
         };
         return extended;
@@ -64,10 +64,10 @@
      * @private
      * @returns {String} App store itms-apps:// link 
      */
-    var getStoreURLiOS = function() {
+    var getStoreURLiOS = function () {
         var baseurl = "itms-apps://itunes.apple.com/app/";
         var name = settings.iOS.appName;
-        var id = settings.iOS.appId; 
+        var id = settings.iOS.appId;
         return (id && name) ? (baseurl + name + "/id" + id + "?mt=8") : null;
     }
 
@@ -77,10 +77,10 @@
      * @private
      * @returns {String} Play store https:// link
      */
-    var getStoreURLAndroid = function() {
+    var getStoreURLAndroid = function () {
         var baseurl = "market://details?id=";
         var id = settings.android.appId;
-        return id ? (baseurl + id) : null;        
+        return id ? (baseurl + id) : null;
     }
 
     /**
@@ -89,7 +89,7 @@
      * @private
      * @returns {String} url
      */
-    var getStoreLink = function() {
+    var getStoreLink = function () {
         var linkmap = {
             "ios": settings.iOS.storeUrl || getStoreURLiOS(),
             "android": settings.android.storeUrl || getStoreURLAndroid()
@@ -104,7 +104,7 @@
      * @private
      * @returns {Boolean} true/false
      */
-    var isAndroid = function() {
+    var isAndroid = function () {
         return navigator.userAgent.match('Android');
     }
 
@@ -114,9 +114,9 @@
      * @private
      * @returns {Boolean} true/false
      */
-    var isIOS = function() {
-        return navigator.userAgent.match('iPad') || 
-               navigator.userAgent.match('iPhone') || 
+    var isIOS = function () {
+        return navigator.userAgent.match('iPad') ||
+               navigator.userAgent.match('iPhone') ||
                navigator.userAgent.match('iPod');
     }
 
@@ -126,7 +126,7 @@
      * @private
      * @returns {Boolean} true/false
      */
-    var isMobile = function() {
+    var isMobile = function () {
         return isAndroid() || isIOS();
     }
 
@@ -141,8 +141,8 @@
      * @param {Integer} Timestamp when trying to open deeplink
      * @returns {Function} Function to be executed by setTimeout
      */
-    var openAppStore = function(ts) {
-        return function() {
+    var openAppStore = function (ts) {
+        return function () {
             var link = getStoreLink();
             var wait = settings.delay + settings.delta;
             if (typeof link === "string" && (Date.now() - ts) < wait) {
@@ -158,7 +158,7 @@
      * @public
      * @param {object} setup options
      */
-    var setup = function(options) {
+    var setup = function (options) {
         settings = extend(defaults, options);
 
         if (isAndroid()) settings.platform = "android";
@@ -172,7 +172,7 @@
      * @param {String} Deeplink URI
      * @return {Boolean} true, if you're on a mobile device and the link was opened
      */
-    var open = function(uri) {
+    var open = function (uri) {
         if (!isMobile()) {
             return false;
         }
@@ -186,7 +186,7 @@
             uri = "intent://" + matches[2] + "#Intent;scheme=" + matches[1];
             uri += ";package=" + settings.android.appId;// + ";end";
 
-            uri += ";action=" + settings.android.appId + getAction();
+            uri += ";action=" + settings.android.appId + getAction(matches[2]);
 
             if (settings.urlFallback) {
                 uri += ";S.browser_fallback_url=" + settings.urlFallback;
@@ -198,9 +198,9 @@
         if (settings.fallback) {
             timeout = setTimeout(openAppStore(Date.now()), settings.delay);
         }
-        
-        var iframe = document.createElement("iframe"); 
-        iframe.onload = function() {
+
+        var iframe = document.createElement("iframe");
+        iframe.onload = function () {
             clearTimeout(timeout);
             iframe.parentNode.removeChild(iframe);
             window.location.href = uri;
@@ -209,7 +209,7 @@
         iframe.src = uri;
         iframe.setAttribute("style", "display:none;");
         document.body.appendChild(iframe);
-        
+
         return true;
     }
 
@@ -219,10 +219,10 @@
         open: open
     };
 
-    function getAction() {
-        var type = location.pathname.substring(1).split('/');
+    function getAction(url) {
+        var type = url.split('/');
         var action;
-        switch (type[0].toLowerCase()) {            
+        switch (type[0].toLowerCase()) {
             case "box":
             case "course":
                 action = ".BOX"

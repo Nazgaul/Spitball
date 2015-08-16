@@ -643,9 +643,6 @@
     <Content Include="Content\DashLib.rtl.css">
       <DependentUpon>DashLib.css</DependentUpon>
     </Content>
-    <Content Include="Content\DashLib.rtl.min.css">
-      <DependentUpon>DashLib.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\Fonts\feather-webfont.svg" />
     <Content Include="Content\General.css">
       <DependentUpon>General.less</DependentUpon>
@@ -776,9 +773,6 @@
     <Content Include="Content\Modal.rtl.css">
       <DependentUpon>Modal.css</DependentUpon>
     </Content>
-    <Content Include="Content\Modal.rtl.min.css">
-      <DependentUpon>Modal.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\Normalize.css">
       <DependentUpon>Normalize.less</DependentUpon>
     </Content>
@@ -823,12 +817,6 @@
     </Content>
     <Content Include="Content\signin\components-md.rtl.css">
       <DependentUpon>components-md.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\custom.min.css">
-      <DependentUpon>custom.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\custom.rtl.min.css">
-      <DependentUpon>custom.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\signin\customRtl.css">
       <DependentUpon>customRtl.less</DependentUpon>
@@ -902,9 +890,6 @@
     </Content>
     <Content Include="Content\Static.css">
       <DependentUpon>Static.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Static.rtl.min.css">
-      <DependentUpon>Static.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\SVG.css">
       <DependentUpon>SVG.less</DependentUpon>

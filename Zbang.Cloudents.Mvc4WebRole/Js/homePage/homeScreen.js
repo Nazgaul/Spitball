@@ -39,6 +39,15 @@ window.onload = function () {
     var text = document.querySelector('[href$="' + val + '/"]').text;
     document.querySelector('[data-toggle=dropdown] span').innerText = text;
 
+    //deeplink.setup({
+    //    fallback: false,
+    //    urlFallback: location.href,
+    //    android: {
+    //        appId: "com.cloudents.zbox2"
+    //    }
+    //});
+    //deeplink.open("cloudents://");
+
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
             (i[r].q = i[r].q || []).push(arguments)

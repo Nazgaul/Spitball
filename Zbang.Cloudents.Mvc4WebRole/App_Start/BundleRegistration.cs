@@ -280,20 +280,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("/js/filters/highlight.js"),
                         new JsFileWithCdn("/js/filters/orderBy.js"),
                         new JsFileWithCdn("/js/filters/stringFormat.js"),
-                        //new JsFileWithCdn("/js/controllers/store/storeCtrl.js"),
-                        //new JsFileWithCdn("/js/controllers/store/productCtrl.js"),
-                        //new JsFileWithCdn("/js/controllers/store/contactCtrl.js"),
-                        //new JsFileWithCdn("/js/controllers/store/couponCtrl.js"),
-                        //new JsFileWithCdn("/js/controllers/store/viewCtrl.js"),
-                        //new JsFileWithCdn("/js/controllers/store/checkoutCtrl.js"),
-                        //new JsFileWithCdn("/js/controllers/store/categoryCtrl.js"),
-                        //new JsFileWithCdn("/js/controllers/store/carouselCtrl.js"),
-                        //new JsFileWithCdn("/js/services/store.js"),
-
-                        //new JsFileWithCdn("/js/directives/store/productsMenu.js"),
                         new JsFileWithCdn("/js/directives/misc.js"),
-                        //new JsFileWithCdn("/js/directives/store/categoryLink.js"),
-
                         new JsFileWithCdn("/js/filters/store/percentage.js")
                     }
                 },
@@ -336,7 +323,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "homePage", new[]
                     {
-                         new JsFileWithCdn("~/js/homePage/theme.js"),
+                        new JsFileWithCdn("~/js/homePage/theme.js"),
+                        //new JsFileWithCdn("~/Scripts/browser-deeplink.min.js")
                         new JsFileWithCdn("~/js/homePage/homeScreen.js")
                        
                     }
