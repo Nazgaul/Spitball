@@ -79,7 +79,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Collaboratively share knowledge, in an open social studying network..
+        ///   Looks up a localized string similar to Collaboratively share knowledge,
+        ///in an open Social-Studying network..
         /// </summary>
         public static string A4 {
             get {
@@ -97,11 +98,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spitball is built by students and for students.
+        ///   Looks up a localized string similar to Spitball is built by Students for Students.
         /// </summary>
         public static string A6 {
             get {
                 return ResourceManager.GetString("A6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get the app.
+        /// </summary>
+        public static string A7 {
+            get {
+                return ResourceManager.GetString("A7", resourceCulture);
             }
         }
         
@@ -115,7 +125,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Students learning from students. Quizzes make your own, or test yourself from the thousands already available..
+        ///   Looks up a localized string similar to Students learning from students. Make your own Quizzes, or test yourself from the thousands already available..
         /// </summary>
         public static string B10 {
             get {
@@ -215,7 +225,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spitball Android and Apple Apps are the first social studying network, revolutionizing the way students study. Built by students and for students, Spitball features are designed to make students better students:.
+        ///   Looks up a localized string similar to Spitball&apos;s Android and Apple Apps are the front end of our social studying network, revolutionizing the way students study. Built by students for students, Spitball features are designed to make students better students:.
         /// </summary>
         public static string D2 {
             get {
@@ -287,7 +297,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to On your desktop and mobile phones, social study anytime and anywhere..
+        ///   Looks up a localized string similar to On your desktop, mobile phones and tablets, social study anytime and anywhere..
         /// </summary>
         public static string F2 {
             get {

@@ -9,11 +9,11 @@
     <AzureEnableRemoteDesktop>True</AzureEnableRemoteDesktop>
     <AzureEnableWebDeploy>True</AzureEnableWebDeploy>
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>True</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
-    <AzureHostedServiceLabel>zboxtest</AzureHostedServiceLabel>
-    <AzureHostedServiceName>zboxtest</AzureHostedServiceName>
+    <AzureHostedServiceLabel>spitball</AzureHostedServiceLabel>
+    <AzureHostedServiceName>spitball</AzureHostedServiceName>
     <AzureEnableIntelliTrace>True</AzureEnableIntelliTrace>
     <AzureEnableProfiling>False</AzureEnableProfiling>
-    <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
+    <AzureServiceConfiguration>CloudProduction</AzureServiceConfiguration>
     <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>
     <AzureStorageAccountLabel>zboxstorage</AzureStorageAccountLabel>
     <AzureStorageAccountName>zboxstorage</AzureStorageAccountName>

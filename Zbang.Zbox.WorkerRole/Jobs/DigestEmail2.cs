@@ -108,7 +108,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
 
             await m_MailComponent.GenerateAndSendEmailAsync(
-                email, new UpdateMailParams(updates,
+                "yaari.ram@gmail.com", new UpdateMailParams(updates,
                   new CultureInfo("en-US"), userName,
                   numOfQuestion,
                   numOfAnswers,
@@ -189,25 +189,26 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private bool ShouldRunReport()
         {
-            if (m_DigestEmailHourBack == NotificationSettings.OnceADay)
-            {
-                if (DateTime.UtcNow.Hour == 0)
-                {
-                    return true;
-                }
-            }
-            if (m_DigestEmailHourBack == NotificationSettings.OnceAWeek)
-            {
-                if (DateTime.UtcNow.Hour == 5 && DateTime.UtcNow.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    return true;
-                }
-            }
-            if (m_DigestEmailHourBack == NotificationSettings.OnEveryChange)
-            {
-                return true;
-            }
-            return false;
+            return true;
+            //if (m_DigestEmailHourBack == NotificationSettings.OnceADay)
+            //{
+            //    if (DateTime.UtcNow.Hour == 0)
+            //    {
+            //        return true;
+            //    }
+            //}
+            //if (m_DigestEmailHourBack == NotificationSettings.OnceAWeek)
+            //{
+            //    if (DateTime.UtcNow.Hour == 5 && DateTime.UtcNow.DayOfWeek == DayOfWeek.Sunday)
+            //    {
+            //        return true;
+            //    }
+            //}
+            //if (m_DigestEmailHourBack == NotificationSettings.OnEveryChange)
+            //{
+            //    return true;
+            //}
+            //return false;
         }
         public void Stop()
         {

@@ -124,19 +124,23 @@
     <value>Jobs</value>
   </data>
   <data name="A4" xml:space="preserve">
-    <value>Collaboratively share knowledge, in an open social studying network.</value>
+    <value>Collaboratively share knowledge,
+in an open Social-Studying network.</value>
   </data>
   <data name="A5" xml:space="preserve">
     <value>Sign up for FREE</value>
   </data>
   <data name="A6" xml:space="preserve">
-    <value>Spitball is built by students and for students</value>
+    <value>Spitball is built by Students for Students</value>
+  </data>
+  <data name="A7" xml:space="preserve">
+    <value>Get the app</value>
   </data>
   <data name="B1" xml:space="preserve">
     <value>Spitball Features</value>
   </data>
   <data name="B10" xml:space="preserve">
-    <value>Students learning from students. Quizzes make your own, or test yourself from the thousands already available.</value>
+    <value>Students learning from students. Make your own Quizzes, or test yourself from the thousands already available.</value>
   </data>
   <data name="B2" xml:space="preserve">
     <value>Take a look at the some of these features that makes Spitball so unique.</value>
@@ -170,7 +174,7 @@
     <value>Mobile First</value>
   </data>
   <data name="D2" xml:space="preserve">
-    <value>Spitball Android and Apple Apps are the first social studying network, revolutionizing the way students study. Built by students and for students, Spitball features are designed to make students better students:</value>
+    <value>Spitball's Android and Apple Apps are the front end of our social studying network, revolutionizing the way students study. Built by students for students, Spitball features are designed to make students better students:</value>
   </data>
   <data name="D3" xml:space="preserve">
     <value>Connect with your classmates</value>
@@ -194,7 +198,7 @@
     <value>Get it now</value>
   </data>
   <data name="F2" xml:space="preserve">
-    <value>On your desktop and mobile phones, social study anytime and anywhere.</value>
+    <value>On your desktop, mobile phones and tablets, social study anytime and anywhere.</value>
   </data>
   <data name="Testimonial1" xml:space="preserve">
     <value>As a sophomore, I found myself looking for a way to communicate and study with my classmates. After searching online, I was shocked that there was no real solution that I felt comfortable incorporating into my lifestyle (nothing I could easily access on my phone or computer). Then someone invited me to Spitball... it saved me.</value>
