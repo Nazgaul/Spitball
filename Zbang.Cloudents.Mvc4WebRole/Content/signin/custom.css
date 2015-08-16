@@ -8,7 +8,13 @@ input:-webkit-autofill:focus {
   margin-bottom: 0;
 }
 .login .logo {
-  margin-bottom: 7px;
+  margin-bottom: 0px;
+  margin-top: 70px;
+}
+@media (max-width: 480px) {
+  .login .logo {
+    margin-top: 20px;
+  }
 }
 .facebook {
   background: #3a5795;
@@ -39,6 +45,8 @@ a:hover {
 .login .content {
   background: rgba(56, 56, 56, 0.8);
 }
-.login .login-form .form-title {
-  margin-bottom: 11.5px;
+@media (max-width: 480px) {
+  .login .content {
+    width: 95%;
+  }
 }

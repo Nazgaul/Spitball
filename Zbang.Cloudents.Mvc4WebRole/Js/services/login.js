@@ -27,10 +27,10 @@
 
         return {
             connect: function () {
-                openModal(2);
+                window.location.href = '/account/signin/?returnUrl=' + window.location.pathname;
             },
             register: function () {
-                openModal(1);
+                window.location.href = '/account/signup/?returnUrl=' + window.location.pathname;
             },
             registerAction: function () {
                 openModal(0);

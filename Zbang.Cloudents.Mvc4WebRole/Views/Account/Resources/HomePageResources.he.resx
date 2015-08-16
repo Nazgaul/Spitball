@@ -162,6 +162,9 @@
   <data name="B9" xml:space="preserve">
     <value>תרגול מבחנים מקוונים</value>
   </data>
+  <data name="C1" xml:space="preserve">
+    <value>תראו את ספיטבול בפעולה</value>
+  </data>
   <data name="D1" xml:space="preserve">
     <value>אפליקציית ספיטבול לנייד</value>
   </data>
