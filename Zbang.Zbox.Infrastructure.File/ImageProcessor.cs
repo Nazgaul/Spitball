@@ -34,6 +34,10 @@ namespace Zbang.Zbox.Infrastructure.File
         public override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
+            if (indexNum > 0)
+            {
+                return Task.FromResult(new PreviewResult { Content = new List<string>() });
+            }
             var blobsNamesInCache = new List<string>
             {
                 "https://az779114.vo.msecnd.net/preview/" + blobName +
@@ -49,7 +53,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
             //var cacheBlobNameWithSharedAccessSignature = BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheFileName, 20);
 
-           
+
 
             //if (IsFileExistsInCache(cacheBlobNameWithSharedAccessSignature))
             //{

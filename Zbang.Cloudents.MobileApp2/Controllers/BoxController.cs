@@ -66,7 +66,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             try
             {
                 var query = new GetBoxQuery(id);
-                var tResult = ZboxReadService.GetBoxMetaWithMemebersAsync(query, numberOfPeople);
+                var tResult = ZboxReadService.GetBoxMetaWithMembersAsync(query, numberOfPeople);
                 var tUserType = ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetCloudentsUserId());
                 await Task.WhenAll(tResult, tUserType);
                 var result = tResult.Result;

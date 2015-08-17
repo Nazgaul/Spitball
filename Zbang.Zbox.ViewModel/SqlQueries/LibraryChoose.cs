@@ -12,8 +12,8 @@
   and l.name like '%'+ @term +'%'
   order by name";
 
-        public const string GetNeedId = @"select  count(*) from zbox.student
-              where UniversityId = @universityId";
+        public const string GetNeedId = @"select  top 1 UniversityId, u.MailAddress as Email from zbox.student s inner join zbox.University u on s.UniversityId = u.Id
+              where s.UniversityId = @universityId";
 
         public const string GetNeedCode = @"select needcode from zbox.university where id = @universityId";
 

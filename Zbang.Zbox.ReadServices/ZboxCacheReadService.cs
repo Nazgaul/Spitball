@@ -83,9 +83,9 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetBox2(query);
         }
-        public Task<BoxDtoWithMembers> GetBoxMetaWithMemebersAsync(GetBoxQuery query, int numberOfMembers)
+        public Task<BoxDtoWithMembers> GetBoxMetaWithMembersAsync(GetBoxQuery query, int numberOfMembers)
         {
-            return m_ReadService.GetBoxMetaWithMemebersAsync(query, numberOfMembers);
+            return m_ReadService.GetBoxMetaWithMembersAsync(query, numberOfMembers);
         }
 
         public Task<IEnumerable<TabDto>> GetBoxTabs(GetBoxQuery query)
@@ -268,7 +268,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<bool> GetUniversityNeedId(long universityId)
+        public Task<UniversityWithCodeDto> GetUniversityNeedId(long universityId)
         {
             return m_ReadService.GetUniversityNeedId(universityId);
         }
@@ -376,6 +376,12 @@ namespace Zbang.Zbox.ReadServices
         public Task<IEnumerable<ItemToFriendDto>> GetUserWithFriendItemsAsync(GetUserWithFriendQuery query)
         {
             return m_ReadService.GetUserWithFriendItemsAsync(query);
+        }
+
+
+        public Task<IEnumerable<UserWithImageNameDto>> GetUsersByTerm(ViewModel.Queries.Search.UniversitySearchQuery query)
+        {
+            return m_ReadService.GetUsersByTerm(query);
         }
     }
 }

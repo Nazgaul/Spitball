@@ -50,9 +50,11 @@ namespace Zbang.Zbox.Infrastructure.Security
                 }
 
                 var businessObj = JObject.Parse(tBusiness.Result);
-                var userId = businessObj["data"].Where(w => ((string)w["app"]["name"] == "Cloudents")).Select(s => (long)s["id"]).FirstOrDefault();
-
-                user.Id = userId;
+                var userId = businessObj["data"].Where(w => ((string)w["app"]["name"] == "Cloudents")).Select(s => (long?)s["id"]).FirstOrDefault();
+                if (userId.HasValue)
+                {
+                    user.Id = userId.Value;
+                }
                 user.Image = GetFacebookUserImage(user.Id, FacebookPictureType.Square);
                 user.LargeImage = GetFacebookUserImage(user.Id, FacebookPictureType.Normal);
                 return user;

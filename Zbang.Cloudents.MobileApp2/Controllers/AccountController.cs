@@ -135,18 +135,18 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-          
+
             var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
-            if (needId && string.IsNullOrEmpty(model.StudentId))
+            if (needId != null && string.IsNullOrEmpty(model.StudentId))
             {
                 return Request.CreateResponse(1);
             }
 
-            var needCode = await ZboxReadService.GetUniversityNeedCode(model.UniversityId);
-            if (needCode && string.IsNullOrEmpty(model.Code))
-            {
-                return Request.CreateResponse(2);
-            }
+            //var needCode = await ZboxReadService.GetUniversityNeedCode(model.UniversityId);
+            //if (needCode && string.IsNullOrEmpty(model.Code))
+            //{
+            //    return Request.CreateResponse(2);
+            //}
           
             var id = User.GetCloudentsUserId();
             var command = new UpdateUserUniversityCommand(model.UniversityId, id,null, model.Code, null,

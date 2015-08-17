@@ -204,7 +204,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public async Task<Box.BoxDtoWithMembers> GetBoxMetaWithMemebersAsync(GetBoxQuery query, int numberOfMembers)
+        public async Task<Box.BoxDtoWithMembers> GetBoxMetaWithMembersAsync(GetBoxQuery query, int numberOfMembers)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -558,6 +558,21 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public async Task<IEnumerable<User.UserWithImageNameDto>> GetUsersByTerm(UniversitySearchQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<User.UserWithImageNameDto>(Sql.Search.GetUsersByTerm,
+                     new
+                     {
+                         query.Term,
+                         query.PageNumber,
+                         query.RowsPerPage
+
+                     });
+            }
+        }
+
         public async Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
@@ -569,15 +584,15 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<bool> GetUniversityNeedId(long universityId)
+        public async Task<UniversityWithCodeDto> GetUniversityNeedId(long universityId)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<int>(Sql.LibraryChoose.GetNeedId, new
+                var retVal = await conn.QueryAsync<UniversityWithCodeDto>(Sql.LibraryChoose.GetNeedId, new
                 {
                     universityId
                 });
-                return retVal.FirstOrDefault() > 0;
+                return retVal.FirstOrDefault();
             }
         }
 

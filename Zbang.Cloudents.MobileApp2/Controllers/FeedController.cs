@@ -163,7 +163,18 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             var retVal =
                 await ZboxReadService.GetQuestionAsync(new Zbox.ViewModel.Queries.QnA.GetQuestionQuery(feedId, boxId));
-            return Request.CreateResponse(retVal);
+
+            return Request.CreateResponse(new
+            {
+                retVal.Files,
+                retVal.Id,
+                retVal.RepliesCount,
+                retVal.UserId,
+                retVal.UserImage,
+                retVal.UserName,
+                retVal.Content,
+                retVal.CreationTime
+            });
         }
 
         [HttpGet, Route("api/box/{boxId:long}/feed/{feedId:guid}/reply")]

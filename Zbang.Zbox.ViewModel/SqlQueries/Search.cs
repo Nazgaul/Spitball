@@ -121,6 +121,13 @@ order by QuestionId,Id;";
         select top 100 id as id from zbox.Quiz
         where isdirty = 1 and isdeleted = 1 and id % @count  = @index;";
 
+
+        public const string GetUsersByTerm = @"select userid as Id, username as Name,UserImageLarge as Image from zbox.users u
+where username like @term + '%'
+order by
+case when u.UniversityId = 920 then 0 else 1 end asc, UserReputation desc
+offset @pageNumber*@rowsperpage ROWS
+FETCH NEXT @rowsperpage ROWS ONLY ";
     }
 
 

@@ -7,7 +7,6 @@ using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Dto.Qna;
-using Zbang.Zbox.ViewModel.Dto.Store;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
@@ -36,7 +35,6 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetBoxItemsPagedAsync(GetBoxItemsPagedQuery query);
         Task<IEnumerable<QuizDto>> GetBoxQuizes(GetBoxQuizesPagedQuery query);
 
-        //Task<SideDto> GetBoxSideBar(GetBoxSideBarQuery query);
         Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoard(GetLeaderBoardQuery query);
         Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCourses(GetBoxSideBarQuery query);
         ItemWithDetailDto GetItem(GetItemQuery query);
@@ -46,11 +44,10 @@ namespace Zbang.Zbox.ReadServices
         Task<FileSeo> GetItemSeo(GetFileSeoQuery query);
         Task<BoxSeoDto> GetBoxSeo(GetBoxSeoQuery query);
 
-       // IEnumerable<BaseActivityDto> GetBoxComments(GetBoxCommentsQuery query);
 
         Task<BoxDto2> GetBox2(GetBoxQuery query);
 
-        Task<BoxDtoWithMembers> GetBoxMetaWithMemebersAsync(GetBoxQuery query, int numberOfMembers);
+        Task<BoxDtoWithMembers> GetBoxMetaWithMembersAsync(GetBoxQuery query, int numberOfMembers);
         Task<IEnumerable<TabDto>> GetBoxTabs(GetBoxQuery query);
 
 
@@ -63,8 +60,6 @@ namespace Zbang.Zbox.ReadServices
         IEnumerable<BoxNotificationDto> GetUserBoxesNotification(GetUserDetailsQuery query);
         NotificationSettings GetUserBoxNotificationSettings(GetBoxQuery query, long userId);
 
-        //Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByPrefix(GetUniversityByPrefixQuery query);
-        //IEnumerable<string> GetUniversityByPrefix(GetUniversityQuery query);
         
 
         BoxSettingsDto GetBoxSetting(GetBoxQuery query, long userId);
@@ -106,10 +101,9 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        Task<bool> GetUniversityNeedId(long universityId);
+        Task<UniversityWithCodeDto> GetUniversityNeedId(long universityId);
         Task<bool> GetUniversityNeedCode(long universityId);
 
-        //Task<NodeDto> GetDepartmentByUser(QueryBase query);
 
         Task<IEnumerable<UpdatesDto>> GetUpdates(QueryBase query);
 
@@ -120,20 +114,10 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<DiscussionDto>> GetDiscussion(GetDisscussionQuery query);
         Task<int> GetNumberOfSolvers(long quizId);
 
-        //Task<IEnumerable<ProductDto>> GetProducts(GetStoreProductsByCategoryQuery query);
-        //IEnumerable<CategoryDto> GetCategories();
-        //Task<ProductWithDetailDto> GetProduct(GetStoreProductQuery query);
-        //Task<ProductCheckOutDto> GetProductCheckOut(GetStoreProductQuery query);
-        //Task<IEnumerable<ProductDto>> SearchProducts(SearchProductQuery query);
-        //Task<IEnumerable<BannerDto>> GetBanners(int? universityId);
-        //Task<bool> ValidateCoupon(int coupon);
-        //Task<int?> CloudentsUniversityToStoreUniversity(long universityId);
-
-
         Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(RecommendedCoursesQuery query);
 
         Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddress(UniversityByIpQuery query);
-
+        Task<IEnumerable<UserWithImageNameDto>> GetUsersByTerm(UniversitySearchQuery query);
 
     }
 }
