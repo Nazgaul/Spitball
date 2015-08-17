@@ -827,14 +827,8 @@
     <Content Include="Content\signin\custom.rtl.css">
       <DependentUpon>custom.css</DependentUpon>
     </Content>
-    <Content Include="Content\signin\customRtl.min.css">
-      <DependentUpon>customRtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\signin\customRtl.rtl.css">
       <DependentUpon>customRtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\customRtl.rtl.min.css">
-      <DependentUpon>customRtl.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\signin\default.css">
       <DependentUpon>default.less</DependentUpon>
