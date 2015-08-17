@@ -42,8 +42,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (message == null) throw new ArgumentNullException("message");
 
+            var userId = message.UserId;
+            if (message.PostAnonymously)
+            {
+                userId = 22886;
+            }
 
-            var user = m_UserRepository.Load(message.UserId);
+            var user = m_UserRepository.Load(userId);
             var box = m_BoxRepository.Load(message.BoxId);
             //Decode the comment to html friendly
             var text = message.Text;

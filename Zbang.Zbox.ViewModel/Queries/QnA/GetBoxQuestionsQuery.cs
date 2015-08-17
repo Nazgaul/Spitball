@@ -1,4 +1,6 @@
-﻿namespace Zbang.Zbox.ViewModel.Queries.QnA
+﻿using System;
+
+namespace Zbang.Zbox.ViewModel.Queries.QnA
 {
     public class GetBoxQuestionsQuery : IPagedQuery
     {
@@ -14,5 +16,17 @@
         public int PageNumber { get; private set; }
 
         public int RowsPerPage { get; private set; }
+    }
+
+    public class GetQuestionQuery
+    {
+        public GetQuestionQuery(Guid questionId, long boxId)
+        {
+            BoxId = boxId;
+            QuestionId = questionId;
+        }
+
+        public long BoxId { get; private set; }
+        public Guid QuestionId { get;private set; }
     }
 }

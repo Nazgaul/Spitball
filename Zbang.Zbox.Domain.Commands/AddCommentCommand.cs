@@ -6,8 +6,9 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class AddCommentCommand : ICommandAsync
     {
-        public AddCommentCommand(long userId, long boxId, string text, Guid id, IEnumerable<long> filesIds)
+        public AddCommentCommand(long userId, long boxId, string text, Guid id, IEnumerable<long> filesIds, bool postAnonymously)
         {
+            PostAnonymously = postAnonymously;
             UserId = userId;
             BoxId = boxId;
             Text = text;
@@ -24,5 +25,7 @@ namespace Zbang.Zbox.Domain.Commands
         public Guid Id { get; private set; }
 
         public bool ShouldEncode { get; private set; }
+
+        public bool PostAnonymously { get; private set; }
     }
 }

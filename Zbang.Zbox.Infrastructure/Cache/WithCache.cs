@@ -36,7 +36,8 @@ namespace Zbang.Zbox.Infrastructure.Cache
             string cacheKey = queryParam.CacheKey;
 
             var item = await m_Cache.GetFromCacheAsync<TD>(cacheKey, queryParam.CacheRegion);
-            if (item != null) return item;
+            
+            if (item != default(TD)) return item;
 
             item = await getItemCallbackAsync(queryParam);
             try

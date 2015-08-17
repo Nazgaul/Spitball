@@ -291,7 +291,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public async Task<JsonResult> Members(long boxId)
         {
-            var result = await ZboxReadService.GetBoxMembers(new GetBoxQuery(boxId));
+            var result = await ZboxReadService.GetBoxMembersAsync(new GetBoxQuery(boxId));
             return JsonOk(result);
         }
 

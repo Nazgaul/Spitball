@@ -191,6 +191,18 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }));
         }
 
+        [HttpGet, Route("api/box/{id:long}/members")]
+        public async Task<HttpResponseMessage> Members(long id, int page, int sizePerPage = 20)
+        {
+            var result = await ZboxReadService.GetBoxMembersAsync(new GetBoxQuery(id, page, sizePerPage));
+            return Request.CreateResponse(result.Select(s => new
+            {
+                s.Id,
+                s.Image,
+                s.Name
+            }));
+        }
+
 
         [Route("api/box/rename")]
         [HttpPost]

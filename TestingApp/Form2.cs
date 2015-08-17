@@ -34,8 +34,8 @@ namespace TestingApp
 
         private async void buttonGenerate_Click(object sender, EventArgs e)
         {
-           // var idGenerator = IocFactory.IocWrapper.Resolve<IGuidIdGenerator>();
-            
+            // var idGenerator = IocFactory.IocWrapper.Resolve<IGuidIdGenerator>();
+
             var writeService = IocFactory.IocWrapper.Resolve<IZboxWriteService>();
             var userId = Convert.ToInt64(textBoxUserId.Text);
             var boxes = textBoxBoxes.Text.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(s => Convert.ToInt64(s));
@@ -44,9 +44,9 @@ namespace TestingApp
 
                 var questionId = GuidIdGenerator.GetGuid(DateTime.UtcNow);// idGenerator.GetId();
                 var command = new Zbang.Zbox.Domain.Commands.AddCommentCommand(userId, box, textBox1.Text, questionId,
-                    null);
+                    null, false);
                 command.GetType().GetProperty("ShouldEncode").SetValue(command, false);
-               await writeService.AddQuestionAsync(command);
+                await writeService.AddQuestionAsync(command);
             }
             MessageBox.Show("Done");
 

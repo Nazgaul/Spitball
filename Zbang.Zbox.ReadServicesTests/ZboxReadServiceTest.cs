@@ -565,7 +565,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetBoxQuery(1);
             try
             {
-                m_ZboxReadService.GetBoxMembers(query);
+                m_ZboxReadService.GetBoxMembersAsync(query);
             }
             catch (Exception ex)
             {

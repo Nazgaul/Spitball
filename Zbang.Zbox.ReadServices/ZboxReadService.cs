@@ -223,7 +223,7 @@ namespace Zbang.Zbox.ReadServices
                     box.People = await grid.ReadAsync<User.UserWithImageDto>();
                     return box;
                 }
-              
+
             }
         }
 
@@ -450,6 +450,24 @@ namespace Zbang.Zbox.ReadServices
                     }
 
                     return comments;
+                }
+            }
+        }
+
+        public async Task<Qna.QuestionDto> GetQuestionAsync(GetQuestionQuery query)
+        {
+            using (var con = await DapperConnection.OpenConnectionAsync())
+            {
+                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1}",
+                    Sql.Box.GetCommentForMobile,
+                    Sql.Box.GetCommentFileForMobile
+                    ),
+                    new { query.BoxId, query.QuestionId }))
+                {
+                    var comment = grid.Read<Qna.QuestionDto>().First();
+                    comment.Files = grid.Read<Qna.ItemDto>().ToList();
+                    return comment;
+
                 }
             }
         }
@@ -700,11 +718,11 @@ namespace Zbang.Zbox.ReadServices
         /// <param name="query"></param>
         /// <returns></returns>
         /// 
-        public async Task<IEnumerable<User.UserMemberDto>> GetBoxMembers(GetBoxQuery query)
+        public async Task<IEnumerable<User.UserMemberDto>> GetBoxMembersAsync(GetBoxQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<User.UserMemberDto>(Sql.Box.BoxMembers, new { query.BoxId });
+                return await conn.QueryAsync<User.UserMemberDto>(Sql.Box.BoxMembers, new { query.BoxId, query.PageNumber, query.RowsPerPage });
             }
         }
 

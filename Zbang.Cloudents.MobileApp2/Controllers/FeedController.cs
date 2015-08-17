@@ -40,9 +40,9 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 var retVal =
                   await ZboxReadService.GetQuestionsWithAnswers(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
-                return Request.CreateResponse(retVal.Select(s=> new
+                return Request.CreateResponse(retVal.Select(s => new
                 {
-                    Answers = s.Answers.Select(a=> new
+                    Answers = s.Answers.Select(a => new
                     {
                         a.Content,
                         a.CreationTime,
@@ -69,7 +69,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     }),
                     s.Content,
                     s.CreationTime,
-                    Files = s.Files.Select(v=> new
+                    Files = s.Files.Select(v => new
                     {
                         v.AnswerId,
                         v.Id,
@@ -107,14 +107,14 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 var retVal =
                   await ZboxReadService.GetQuestionsWithLastAnswer(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
-                return Request.CreateResponse(retVal.Select( s=> new
+                return Request.CreateResponse(retVal.Select(s => new
                 {
                     s.Id,
-                    Answers = s.Answers.Select(x=> new
+                    Answers = s.Answers.Select(x => new
                     {
                         x.Content,
                         x.CreationTime,
-                        Files = x.Files.Select(z=> new
+                        Files = x.Files.Select(z => new
                         {
                             z.Id,
                             z.Name,
@@ -131,7 +131,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     }),
                     s.Content,
                     s.CreationTime,
-                    Files = s.Files.Select(v=> new
+                    Files = s.Files.Select(v => new
                     {
                         v.Id,
                         v.Name,
@@ -157,12 +157,21 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }
         }
 
+
+        [HttpGet, Route("api/box/{boxId:long}/feed/{feedId:guid}")]
+        public async Task<HttpResponseMessage> Post(long boxId, Guid feedId)
+        {
+            var retVal =
+                await ZboxReadService.GetQuestionAsync(new Zbox.ViewModel.Queries.QnA.GetQuestionQuery(feedId, boxId));
+            return Request.CreateResponse(retVal);
+        }
+
         [HttpGet, Route("api/box/{boxId:long}/feed/{feedId:guid}/reply")]
         public async Task<HttpResponseMessage> GetReplies(long boxId, Guid feedId, int page, int sizePerPage = 20)
         {
             var retVal =
-                 await ZboxReadService.GetReplies(new Zbox.ViewModel.Queries.QnA.GetCommentRepliesQuery(boxId,feedId,page,sizePerPage));
-            return Request.CreateResponse(retVal.Select(s=> new
+                 await ZboxReadService.GetReplies(new Zbox.ViewModel.Queries.QnA.GetCommentRepliesQuery(boxId, feedId, page, sizePerPage));
+            return Request.CreateResponse(retVal.Select(s => new
             {
                 s.Id,
                 s.UserImage,
@@ -181,8 +190,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(d.Source) +
                                ".jpg?width=148&height=187&mode=crop"
                 })
-                
-                
+
+
             }));
         }
 
@@ -202,7 +211,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
             var questionId = GuidGenerator.GetId();
             var command = new AddCommentCommand(User.GetCloudentsUserId(),
-                boxId, model.Content, questionId, model.FileIds);
+                boxId, model.Content, questionId, model.FileIds, model.Anonymously);
             await ZboxWriteService.AddQuestionAsync(command);
             return Request.CreateResponse(questionId);
         }
