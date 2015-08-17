@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.Text;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models.Quiz
 {

@@ -31,14 +31,6 @@
 
 
     <script>
-
-        function getParameterByName(name) {
-            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-                results = regex.exec(location.search);
-            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-        }
-
         deeplink.setup({
             fallback: false,
             urlFallback: location.href,
@@ -47,8 +39,7 @@
             }
         });
         window.onload = function () {
-            var link = getParameterByName("returnUrl");
-            deeplink.open("cloudents://" + decodeURI(link.substring(1)));
+            deeplink.open("cloudents://" + decodeURI(location.pathname.substring(1)));
         }
     </script>
     @*<script>

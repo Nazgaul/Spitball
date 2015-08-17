@@ -78,7 +78,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     systemData.UniversityData.HasValue ?
                     systemData.UniversityData.Value.ToString(CultureInfo.InvariantCulture)
                     : systemData.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
-            var loginResult = new Models.CustomLoginProvider(Handler)
+            var loginResult = new CustomLoginProvider(Handler)
                     .CreateLoginResult(identity, Services.Settings.MasterKey);
             return Request.CreateResponse(HttpStatusCode.OK, loginResult);
         }
@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     command.Id.ToString(CultureInfo.InvariantCulture)));
 
 
-            var loginResult = new Models.CustomLoginProvider(Handler)
+            var loginResult = new CustomLoginProvider(Handler)
                     .CreateLoginResult(identity, Services.Settings.MasterKey);
 
 
@@ -173,7 +173,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     : command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
 
-            var loginResult = new Models.CustomLoginProvider(Handler)
+            var loginResult = new CustomLoginProvider(Handler)
                     .CreateLoginResult(identity, Services.Settings.MasterKey);
 
 
@@ -231,7 +231,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     : command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
 
-            var loginResult = new Models.CustomLoginProvider(Handler)
+            var loginResult = new CustomLoginProvider(Handler)
                     .CreateLoginResult(identity, Services.Settings.MasterKey);
 
 
@@ -305,7 +305,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
             var identity = await tUser.Result.GenerateUserIdentityAsync(UserManager, tSystemUser.Result.Id,
                 tSystemUser.Result.UniversityId, tSystemUser.Result.UniversityData);
-            var loginResult = new Models.CustomLoginProvider(Handler)
+            var loginResult = new CustomLoginProvider(Handler)
                 .CreateLoginResult(identity, Services.Settings.MasterKey);
             return Request.CreateResponse(HttpStatusCode.OK, loginResult);
         }
