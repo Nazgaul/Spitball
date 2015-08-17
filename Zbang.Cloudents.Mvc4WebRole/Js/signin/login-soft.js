@@ -428,6 +428,12 @@ var Login = function () {
                 jQuery('.register-form').show();
                 loadRegisterData();
             }
+           
+            $.each(jQuery.validator.messages, function (key, value) {
+                if ($.type(value) == 'string') { jQuery.validator.messages[key] = value.replace('.', ''); }
+            });
+
+
 
             $('.content').show();
         }

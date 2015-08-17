@@ -2,7 +2,3 @@
   margin-top: 3px;
   background-position: -8px -10px;
 }
-.rtlFix .has-error .help-block {
-  direction: rtl;
-  text-align: left;
-}
