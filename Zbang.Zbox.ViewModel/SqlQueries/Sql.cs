@@ -135,8 +135,8 @@ i.Discriminator as Type
         /// <summary>
         /// Mobile api - bring user comment and reply acitivity in user screen
         /// </summary>
-        public const string UserQuestionAndAnswersActivityMobileApi = @"select t.BoxId as BoxId, t.Text as Content, t.BoxName as boxName, t.QuestionId as Id, t.Type from (
-	select b.boxid, q.Text, b.BoxName,q.QuestionId,'comment' as Type, q.CreationTime
+        public const string UserQuestionAndAnswersActivityMobileApi = @"select t.BoxId as BoxId, t.Text as Content, t.BoxName as boxName, t.QuestionId as Id,  t.Type, t.PostId from (
+	select b.boxid, q.Text, b.BoxName,q.QuestionId,'comment' as Type, q.CreationTime, null as PostId
                           from zbox.Question q
                          join zbox.box b on b.BoxId = q.BoxId and b.IsDeleted = 0
                          left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
@@ -145,7 +145,7 @@ i.Discriminator as Type
                         and (b.PrivacySetting = 3 or 
                          ub.UserId = @Me)
 					union 
-			select b.BoxId, a.Text,b.BoxName,a.AnswerId,'reply', a.CreationTime
+			select b.BoxId, a.Text,b.BoxName,a.AnswerId,'reply', a.CreationTime, a.QuestionId 
                  from zbox.Answer a
                  join zbox.box b on b.BoxId = a.BoxId and b.IsDeleted = 0
                  left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me

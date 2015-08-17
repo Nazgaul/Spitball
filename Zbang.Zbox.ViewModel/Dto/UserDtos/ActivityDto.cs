@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 {
@@ -14,5 +10,7 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public string Type { get; set; }
 
         public string BoxName { get; set; }
+
+        public Guid PostId { get; set; }
     }
 }
