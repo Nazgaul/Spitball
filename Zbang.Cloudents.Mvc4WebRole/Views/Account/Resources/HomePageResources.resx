@@ -149,14 +149,14 @@ in an open Social-Studying network.</value>
     <value>AVAILABLE EVERYWHERE</value>
   </data>
   <data name="B4" xml:space="preserve">
-    <value>Study when it suits you, from every computer, mobile or tablet you have.
+    <value>Study when it suits you, from every computer, mobile or tablet.
 </value>
   </data>
   <data name="B5" xml:space="preserve">
     <value>QUESTIONS AND ANSWERS</value>
   </data>
   <data name="B6" xml:space="preserve">
-    <value>Questions about yesterday's class, what paper is due next week? Spitball is here to help. Ask a question, get an answer from a fellow students</value>
+    <value>Questions about yesterday's class, what paper is due next week? Spitball is here to help. Ask a question, get an answer from fellow students</value>
   </data>
   <data name="B7" xml:space="preserve">
     <value>WATCH AND SHARE</value>
@@ -183,10 +183,10 @@ in an open Social-Studying network.</value>
     <value>Ask and answer questions freely</value>
   </data>
   <data name="D5" xml:space="preserve">
-    <value>Access and share class-notes</value>
+    <value>Access and share classnotes</value>
   </data>
   <data name="D6" xml:space="preserve">
-    <value>Communicate with entire class</value>
+    <value>Communicate with the entire class</value>
   </data>
   <data name="D7" xml:space="preserve">
     <value>Create and solve quizzes interactively</value>
