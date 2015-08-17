@@ -119,6 +119,7 @@
     <Compile Include="Dto\Library\UniversityByPrefixDto.cs" />
     <Compile Include="Dto\Library\UniversityInfoDto.cs" />
     <Compile Include="Dto\Library\UniversitySearchDto.cs" />
+    <Compile Include="Dto\Library\UniversityWithCodeDto.cs" />
     <Compile Include="Dto\PagedDto.cs" />
     <Compile Include="Dto\Qna\AnswerDto.cs" />
     <Compile Include="Dto\Qna\AnswerToFriendDto.cs" />

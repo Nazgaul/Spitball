@@ -4,7 +4,7 @@
     {
 
         public const string GetUniversityDataByUserId = @"  select  uWrap.Id as Id, 
-                          coalesce (uWrap.OrgName, uWrap.UniversityName)  as Name, uWrap.LargeImage as Image,
+                            uWrap.UniversityName  as Name, uWrap.LargeImage as Image,
                             uWrap.UniversityName as UniversityName,
                             uWrap.WebSiteUrl,
                             uWrap.MailAddress,
@@ -42,7 +42,7 @@
 
        
 
-        public const string DashboardInfo = @"select  coalesce( uWrap.OrgName , uWrap.universityName) as Name 
+        public const string DashboardInfo = @"select uWrap.universityName as Name 
 , uWrap.universityName as UniName,
 uWrap.LargeImage as Img
 from zbox.university uWrap  
@@ -237,7 +237,7 @@ and userreputation > 0
     u.FirstTimeItem as FirstTimeItem,
     u.FirstTimeBox as FirstTimeBox, 
     u.UserReputation as Score,
-    uu.OrgName as LibName,
+    uu.UniversityName as LibName,
     uu.LargeImage as LibImage,
     uu.Id as UniversityId,
 	uu.universityData as UniversityData
@@ -251,7 +251,7 @@ and userreputation > 0
     u.FirstTimeItem as FirstTimeItem,
     u.FirstTimeBox as FirstTimeBox, 
     u.UserReputation as Score,
-    uu.OrgName as LibName,
+    uu.UniversityName as LibName,
     uu.LargeImage as LibImage,
     uu.Id as UniversityId,
 	uu.universityData as UniversityData
@@ -266,7 +266,7 @@ and userreputation > 0
     u.FirstTimeItem as FirstTimeItem,
     u.FirstTimeBox as FirstTimeBox, 
     u.UserReputation as Score,
-    uu.OrgName as LibName,
+    uu.UniversityName as LibName,
     uu.LargeImage as LibImage,
     uu.Id as UniversityId,
 	uu.universityData as UniversityData
@@ -286,7 +286,7 @@ u.Culture as Culture,
     u.FirstTimeItem as FirstTimeItem,
     u.FirstTimeBox as FirstTimeBox, 
     u.UserReputation as Score,
-    uu.OrgName as LibName,
+    uu.UniversityName as LibName,
     uu.LargeImage as LibImage,
     uu.Id as UniversityId,
 	uu.universityData as UniversityData

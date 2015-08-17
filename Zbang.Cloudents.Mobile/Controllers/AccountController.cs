@@ -294,7 +294,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 //return RedirectToAction("SelectDepartment", "Library", new { universityId = model.UniversityId });
             }
             var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
-            if (needId /*&& string.IsNullOrEmpty(model.StudentId)*/)
+            if (needId != null /*&& string.IsNullOrEmpty(model.StudentId)*/)
             {
                 return JsonError("insert id");
                 //return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
