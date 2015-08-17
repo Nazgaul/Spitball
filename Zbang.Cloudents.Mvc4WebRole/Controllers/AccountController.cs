@@ -513,11 +513,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("SelectDepartment", "Library", new { universityId = model.UniversityId });
             }
-            var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
-            if (needId != null && string.IsNullOrEmpty(model.studentID))
-            {
-                return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
-            }
+            //var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
+            //if (needId != null && string.IsNullOrEmpty(model.studentID))
+            //{
+            //    return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
+            //}
 
             var needCode = await ZboxReadService.GetUniversityNeedCode(model.UniversityId);
             if (needCode && string.IsNullOrEmpty(model.Code))

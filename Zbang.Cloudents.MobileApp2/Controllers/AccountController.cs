@@ -9,6 +9,7 @@ using System.Web.Http;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Cloudents.MobileApp2.DataObjects;
+using Zbang.Cloudents.MobileApp2.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -65,7 +66,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 return Request.CreateBadRequestResponse("user don't have university");
             }
-            
+
             var identity = new ClaimsIdentity();
             identity.AddClaim(new Claim(ClaimConsts.UserIdClaim, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
 
@@ -90,7 +91,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             return Request.CreateResponse(retVal);
         }
 
-        [HttpPost,Route("api/account/university/create")]
+        [HttpPost, Route("api/account/university/create")]
         public HttpResponseMessage CreateUniversity(CreateUniversityRequest model)
         {
             if (model == null)
@@ -126,7 +127,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         [Route("api/account/university")]
         public async Task<HttpResponseMessage> UpdateUniversity(UpdateUniversityRequest model)
         {
-            
+
             if (model == null)
             {
                 return Request.CreateBadRequestResponse();
@@ -147,9 +148,67 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             //{
             //    return Request.CreateResponse(2);
             //}
-          
+
             var id = User.GetCloudentsUserId();
-            var command = new UpdateUserUniversityCommand(model.UniversityId, id,null, model.Code, null,
+            var command = new UpdateUserUniversityCommand(model.UniversityId, id, null, model.Code, null,
+                null, model.StudentId);
+            try
+            {
+                ZboxWriteService.UpdateUserUniversity(command);
+            }
+            catch (ArgumentException ex)
+            {
+                return Request.CreateBadRequestResponse(ex.Message);
+            }
+
+
+            var identity = new ClaimsIdentity();
+            identity.AddClaim(new Claim(ClaimConsts.UserIdClaim, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
+            identity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+                    command.UniversityId.ToString(CultureInfo.InvariantCulture)));
+
+            identity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+                    command.UniversityDataId.HasValue ?
+                    command.UniversityDataId.Value.ToString(CultureInfo.InvariantCulture)
+                    : command.UniversityId.ToString(CultureInfo.InvariantCulture)));
+
+
+            var loginResult = new Models.CustomLoginProvider(Handler)
+                    .CreateLoginResult(identity, Services.Settings.MasterKey);
+
+
+            return Request.CreateResponse(HttpStatusCode.OK, loginResult);
+
+        }
+
+        [HttpPost]
+        [VersionedRoute("api/account/university", 2)]
+        public async Task<HttpResponseMessage> UpdateUniversity2(UpdateUniversityRequest model)
+        {
+
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+
+            var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
+            if (needId != null && string.IsNullOrEmpty(model.StudentId))
+            {
+                return Request.CreateResponse(new { code = 1, email = needId.Email });
+            }
+
+            //var needCode = await ZboxReadService.GetUniversityNeedCode(model.UniversityId);
+            //if (needCode && string.IsNullOrEmpty(model.Code))
+            //{
+            //    return Request.CreateResponse(2);
+            //}
+
+            var id = User.GetCloudentsUserId();
+            var command = new UpdateUserUniversityCommand(model.UniversityId, id, null, model.Code, null,
                 null, model.StudentId);
             try
             {
