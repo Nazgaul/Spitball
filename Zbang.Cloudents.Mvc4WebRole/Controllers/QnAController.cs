@@ -41,7 +41,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
 
             var questionId = m_IdGenerator.GetId();
-            var command = new AddCommentCommand(User.GetUserId(), model.BoxId, model.Content, questionId, model.Files);
+            var command = new AddCommentCommand(User.GetUserId(), model.BoxId, model.Content, questionId, model.Files, false);
             await ZboxWriteService.AddQuestionAsync(command);
             return JsonOk(questionId);
         }
@@ -117,7 +117,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var retVal =
                   await ZboxReadService.GetQuestionsWithAnswers(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId));
                 //removing user name
-                if (Request.Browser.Crawler) 
+                if (Request.Browser.Crawler)
                 {
 
                     return JsonOk(retVal.Select(s => new

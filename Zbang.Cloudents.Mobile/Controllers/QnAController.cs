@@ -37,7 +37,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             }
 
             var questionId = m_GuidGenerator.GetId();
-            var command = new AddCommentCommand(User.GetUserId(), model.BoxId, model.Content, questionId, model.Files);
+            var command = new AddCommentCommand(User.GetUserId(), model.BoxId, model.Content, questionId, model.Files, false);
             await ZboxWriteService.AddQuestionAsync(command);
             return Json(new JsonResponse(true, questionId));
         }

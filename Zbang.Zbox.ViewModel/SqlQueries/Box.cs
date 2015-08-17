@@ -114,6 +114,31 @@ order by name;";
     offset @pageNumber*@rowsperpage ROWS
 	FETCH NEXT @rowsperpage ROWS ONLY;";
 
+
+        public const string GetCommentForMobile = @" SELECT q.[QuestionId] as id
+    ,u.[UserName] as UserName
+	  ,u.UserImage as UserImage
+	  ,u.userid as UserId
+    ,[Text] as Content
+    ,q.CreationTime as creationTime
+	,(select count(*) from zbox.Answer where questionid = q.questionid and boxid = @BoxId) as RepliesCount
+    FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
+    where q.QuestionId = @QuestionId;
+";
+        public const string GetCommentFileForMobile = @"select
+    i.itemid as Id,
+    i.Name as Name,
+    i.UserId as OwnerId,
+    i.QuestionId as QuestionId,
+    i.AnswerId as AnswerId,
+    i.Discriminator as Type,
+    i.BlobName as Source
+    from zbox.item i
+    where i.IsDeleted = 0
+    and i.BoxId = @BoxId
+	and i.QuestionId = @QuestionId  
+";
+
         public const string GetLastCommentRepliesForMobile = @"with last_reply as (
 select max([AnswerId]) as 'id', questionid  from [Zbox].[Answer] a 
 where a.boxid = @BoxId 
@@ -239,7 +264,9 @@ union
 	  where m.BoxId = @BoxId
 	   and m.userboxrelid is null
        and m.isused = 0
-	   order by userStatus desc;";
+	   order by userStatus desc
+	offset @pageNumber*@rowsperpage ROWS
+    FETCH NEXT @rowsperpage ROWS ONLY;";
 
 
         public const string BoxMembersWithoutInvited = @" select top (@top) u.UserId as Id , u.UserImage as Image, u.UserReputation

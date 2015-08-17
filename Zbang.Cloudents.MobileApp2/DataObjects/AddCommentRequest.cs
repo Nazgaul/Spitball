@@ -10,5 +10,7 @@ namespace Zbang.Cloudents.MobileApp2.DataObjects
         public string Content { get; set; }
 
         public IEnumerable<long> FileIds { get; set; }
+
+        public bool Anonymously { get; set; }
     }
 }

@@ -126,9 +126,9 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetBoxSetting(query, userId);
         }
 
-        public Task<IEnumerable<UserMemberDto>> GetBoxMembers(GetBoxQuery query)
+        public Task<IEnumerable<UserMemberDto>> GetBoxMembersAsync(GetBoxQuery query)
         {
-            return m_ReadService.GetBoxMembers(query);
+            return m_ReadService.GetBoxMembersAsync(query);
         }
         public Task<IEnumerable<long>> GetBoxUsersId(GetBoxWithUserQuery query)
         {
@@ -160,6 +160,12 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetReplies(query);
         }
+
+        public Task<QuestionDto> GetQuestionAsync(GetQuestionQuery query)
+        {
+            return m_ReadService.GetQuestionAsync(query);
+        }
+
         public Task<bool> GetInvite(GetInviteDetailQuery query)
         {
             return m_ReadService.GetInvite(query);
