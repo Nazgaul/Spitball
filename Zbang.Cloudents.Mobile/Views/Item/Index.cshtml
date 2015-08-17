@@ -33,18 +33,26 @@
     <script type="text/javascript" src="@Url.Action("JsResources", "Home")"></script>
     @Html.Script2("mobileItem")
     <div id="cssCheck"></div>
-    @*<script>
-    deeplink.setup({
-        fallback: false,
-        urlFallback: location.href,
-        android: {
-            appId: "com.cloudents.zbox2"
+    <script>
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
-    });
-    window.onload = function () {
-        deeplink.open("cloudents://" + location.pathname);
-    }
-    </script>*@
+
+        deeplink.setup({
+            fallback: false,
+            urlFallback: location.href,
+            android: {
+                appId: "com.cloudents.zbox2"
+            }
+        });
+        window.onload = function () {
+            var link = getParameterByName("returnUrl");
+            deeplink.open("cloudents://" + decodeURI(link.substring(1)));
+        }
+    </script>
 
 </body>
 </html>
