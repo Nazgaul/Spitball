@@ -513,17 +513,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("SelectDepartment", "Library", new { universityId = model.UniversityId });
             }
-            //var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
-            //if (needId != null && string.IsNullOrEmpty(model.studentID))
-            //{
-            //    return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
-            //}
-
-            var needCode = await ZboxReadService.GetUniversityNeedCode(model.UniversityId);
-            if (needCode && string.IsNullOrEmpty(model.Code))
+            var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
+            if (needId != null && string.IsNullOrEmpty(model.studentID))
             {
-                return RedirectToAction("InsertCode", "Library", new { universityId = model.UniversityId });
+                TempData["universityText"] = needId;
+                return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
             }
+
+            //var needCode = await ZboxReadService.GetUniversityNeedCode(model.UniversityId);
+            //if (needCode && string.IsNullOrEmpty(model.Code))
+            //{
+            //    return RedirectToAction("InsertCode", "Library", new { universityId = model.UniversityId });
+            //}
 
             if (!ModelState.IsValid)
             {
@@ -533,13 +534,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var id = User.GetUserId();
-                var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId, model.Code,
+                var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId, 
                     model.GroupNumber, model.RegisterNumber, model.studentID);
                 ZboxWriteService.UpdateUserUniversity(command);
-
-                //FormsAuthenticationService.ChangeUniversity(command.UniversityId,
-                //command.UniversityDataId);
-
 
                 var user = (ClaimsIdentity)User.Identity;
                 var claimUniversity = user.Claims.SingleOrDefault(w => w.Type == ClaimConsts.UniversityIdClaim);

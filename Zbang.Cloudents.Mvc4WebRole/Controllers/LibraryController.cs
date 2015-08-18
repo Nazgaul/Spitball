@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -408,59 +409,65 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpGet]
-        public JsonResult InsertCode(long universityId)
-        {
-            // var userData = m_UserProfile.Value.GetUserData(ControllerContext);
-            switch (universityId)
-            {
-                case 19878:
-                    ViewBag.AgudaName = "מכללת אשקלון - היחידה ללימודי חוץ";
-                    ViewBag.AgudaMail = "shivok@ash-college.ac.il";
+        //[HttpGet]
+        //public JsonResult InsertCode(long universityId)
+        //{
+        //    // var userData = m_UserProfile.Value.GetUserData(ControllerContext);
+        //    switch (universityId)
+        //    {
+        //        case 19878:
+        //            ViewBag.AgudaName = "מכללת אשקלון - היחידה ללימודי חוץ";
+        //            ViewBag.AgudaMail = "shivok@ash-college.ac.il";
 
-                    ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון\n08-6789250.";
-                    break;
-                case 1173:
-                    ViewBag.AgudaName = "אגודת הסטודנטים בסימינר הקיבוצים";
-                    ViewBag.AgudaMail = "maagar.aguda@gmail.com";
-                    ViewBag.AgudaPhone = string.Empty;
-                    break;
-                case 22906:
-                    ViewBag.AgudaName = "תות תקשורת ותוצאות";
-                    ViewBag.AgudaMail = "kipigilad@walla.com‏";
+        //            ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון\n08-6789250.";
+        //            break;
+        //        case 1173:
+        //            ViewBag.AgudaName = "אגודת הסטודנטים בסימינר הקיבוצים";
+        //            ViewBag.AgudaMail = "maagar.aguda@gmail.com";
+        //            ViewBag.AgudaPhone = string.Empty;
+        //            break;
+        //        case 22906:
+        //            ViewBag.AgudaName = "תות תקשורת ותוצאות";
+        //            ViewBag.AgudaMail = "kipigilad@walla.com‏";
 
-                    ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון\n054-3503509.";
-                    break;
-                case 64805:
-                    ViewBag.AgudaName = string.Empty;
-                    ViewBag.AgudaMail = string.Empty;
+        //            ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון\n054-3503509.";
+        //            break;
+        //        case 64805:
+        //            ViewBag.AgudaName = string.Empty;
+        //            ViewBag.AgudaMail = string.Empty;
 
-                    ViewBag.AgudaPhone = string.Empty;
-                    break;
-                default:
-                    ViewBag.AgudaName = "המרכז ללימודים אקדמיים אור יהודה";
-                    ViewBag.AgudaMail = "aguda@mla.ac.il";
-                    ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון\n072-2220692.";
-                    break;
-            }
-            // ViewBag.userName = userData.Name;
-            return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertCode", new Models.Account.Settings.University { UniversityId = universityId }) }));
-        }
+        //            ViewBag.AgudaPhone = string.Empty;
+        //            break;
+        //        default:
+        //            ViewBag.AgudaName = "המרכז ללימודים אקדמיים אור יהודה";
+        //            ViewBag.AgudaMail = "aguda@mla.ac.il";
+        //            ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון\n072-2220692.";
+        //            break;
+        //    }
+        //    // ViewBag.userName = userData.Name;
+        //    return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertCode", new Models.Account.Settings.University { UniversityId = universityId }) }));
+        //}
         [HttpGet]
         public JsonResult InsertId(long universityId)
         {
-            // var userData = m_UserProfile.Value.GetUserData(ControllerContext);
-            switch (universityId)
+            dynamic universityData = TempData["universityText"];
+            if (universityData != null)
             {
-                default:
-                    ViewBag.AgudaSentence = "המאגר האקדמי של המכללה למינהל פתוח לכל חברי אגודת הסטודנטים של המכללה למינהל.  אימות חברי אגודה ע\"י מספר ת\"ז";
-                    //ViewBag.AgudaName = "המרכז ללימודים אקדמיים אור יהודה";
-                    ViewBag.AgudaMail = "aguda4u.co.il@gmail.com";
-                    ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון 03-9628930";
-                    break;
+                ViewBag.TextPopupUpper = universityData["TextPopupUpper"];
+                ViewBag.TextPopupLower = universityData["TextPopupLower"];
             }
+            // var userData = m_UserProfile.Value.GetUserData(ControllerContext);
+            //switch (universityId)
+            //{
+            //    default:
+            //        ViewBag.AgudaSentence = "המאגר האקדמי של המכללה למינהל פתוח לכל חברי אגודת הסטודנטים של המכללה למינהל.  אימות חברי אגודה ע\"י מספר ת\"ז";
+            //        //ViewBag.AgudaName = "המרכז ללימודים אקדמיים אור יהודה";
+            //        ViewBag.AgudaMail = "aguda4u.co.il@gmail.com";
+            //        ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון 03-9628930";
+            //        break;
+            //}
             //  ViewBag.userName = userData.Name;
-            return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertID", null) }));
+            return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertID", new Models.Account.Settings.University()) }));
         }
 
 

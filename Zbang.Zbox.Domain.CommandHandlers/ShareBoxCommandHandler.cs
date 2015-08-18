@@ -70,8 +70,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                         recipientEmail, sender.Image, sender.Email,
                         System.Globalization.CultureInfo.CurrentCulture.Name, box.Url, null));
                     continue;
-
-
                 }
 
                 var userType = m_UserRepository.GetUserToBoxRelationShipType(recipientUser.Id, box.Id);
@@ -83,7 +81,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var newInvite = new UserBoxRel(recipientUser, box, UserRelationshipType.Subscribe);
                 box.UserBoxRelationship.Add(newInvite);
                 box.CalculateMembers();
-                box.UserTime.UpdateUserTime(recipientUser.Email);
                 m_BoxRepository.Save(box);
 
                 tasks.Add(SendInvite(sender.Name, box.Name,

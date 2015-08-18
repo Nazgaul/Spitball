@@ -316,7 +316,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             {
                 var id = User.GetUserId();
                 var command = new UpdateUserUniversityCommand(model.UniversityId, id, null, null,
-                    null, null, null);
+                    null, null);
                 ZboxWriteService.UpdateUserUniversity(command);
 
                 var user = (ClaimsIdentity)User.Identity;

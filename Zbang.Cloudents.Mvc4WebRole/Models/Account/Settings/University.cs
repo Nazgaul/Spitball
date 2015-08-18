@@ -8,8 +8,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
         [Required(ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "SchoolRequired")]
         public long UniversityId { get; set; }
 
-        [Display(ResourceType = typeof(AccountSettingsResources), Name = "IHaveCode")]
-        public string Code { get; set; }
 
         public long? DepartmentId { get; set; }
 
@@ -21,8 +19,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
         public override string ToString()
         {
             return string.Format(
-                "University id {0} code {1} DepartmentId {2} GroupNumber {3} RegisterNumber {4} studentID {5}",
-                UniversityId, Code, DepartmentId, GroupNumber, RegisterNumber, studentID);
+                "University id {0} DepartmentId {1} GroupNumber {2} RegisterNumber {3} studentID {4}",
+                UniversityId,  DepartmentId, GroupNumber, RegisterNumber, studentID);
             
         }
     }

@@ -11,6 +11,7 @@ namespace Zbang.Cloudents.MobileApp2.DataObjects
         [Required]
         public long UniversityId { get; set; }
 
+        [Obsolete]
         public string Code { get; set; }
 
         public long? DepartmentId { get; set; }

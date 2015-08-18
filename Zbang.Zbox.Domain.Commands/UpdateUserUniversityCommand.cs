@@ -5,15 +5,15 @@ namespace Zbang.Zbox.Domain.Commands
     {
         public UpdateUserUniversityCommand(long universityId, 
             long userId, long? departmentId,
-            string code ,
+            //string code ,
             string groupNumber,
             string registerNumber,
             string studentId)
         {
             UniversityId = universityId;
             UserId = userId;
-            Code = code;
-            DepartmentId = departmentId.GetValueOrDefault();
+           // Code = code;
+            DepartmentId = departmentId;
             GroupNumber = groupNumber;
             RegisterNumber = registerNumber;
             StudentId = studentId;
@@ -22,10 +22,10 @@ namespace Zbang.Zbox.Domain.Commands
         
 
         public long UserId { get; private set; }
-        public string Code { get; private set; }
+        //public string Code { get; private set; }
 
 
-        public long DepartmentId { get; private set; }
+        public long? DepartmentId { get; private set; }
 
         public string GroupNumber { get; private set; }
         public string RegisterNumber { get; private set; }

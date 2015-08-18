@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         }
 
         [HttpPost]
-        [Route("api/account/university")]
+        [VersionedRoute("api/account/university", 1)]
         public async Task<HttpResponseMessage> UpdateUniversity(UpdateUniversityRequest model)
         {
 
@@ -150,7 +150,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             //}
 
             var id = User.GetCloudentsUserId();
-            var command = new UpdateUserUniversityCommand(model.UniversityId, id, null, model.Code, null,
+            var command = new UpdateUserUniversityCommand(model.UniversityId, id, null, null,
                 null, model.StudentId);
             try
             {
@@ -200,15 +200,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 return Request.CreateResponse(new { code = 1, email = needId.Email });
             }
-
-            //var needCode = await ZboxReadService.GetUniversityNeedCode(model.UniversityId);
-            //if (needCode && string.IsNullOrEmpty(model.Code))
-            //{
-            //    return Request.CreateResponse(2);
-            //}
-
             var id = User.GetCloudentsUserId();
-            var command = new UpdateUserUniversityCommand(model.UniversityId, id, null, model.Code, null,
+            var command = new UpdateUserUniversityCommand(model.UniversityId, id, null, null,
                 null, model.StudentId);
             try
             {

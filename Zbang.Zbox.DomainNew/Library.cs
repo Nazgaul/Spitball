@@ -107,12 +107,12 @@ namespace Zbang.Zbox.Domain
         {
             var listOfDepartments = new List<Library>();
             
-            var x = this;
-            while (x != null)
+            var currentNode = this;
+            while (currentNode != null)
             {
-                x.NoOfBoxes = x.Boxes.Count(b => !b.IsDeleted) + x.Children.Sum(s => s.NoOfBoxes);
-                listOfDepartments.Add(x);
-                x = x.Parent;
+                currentNode.NoOfBoxes = currentNode.Boxes.Count(b => !b.IsDeleted) + currentNode.Children.Sum(s => s.NoOfBoxes);
+                listOfDepartments.Add(currentNode);
+                currentNode = currentNode.Parent;
             }
             return listOfDepartments;
         }

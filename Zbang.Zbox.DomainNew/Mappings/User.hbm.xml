@@ -21,21 +21,21 @@
     <property name="Sex" not-null="false"/>
     <property name="Url" not-null="false"/>
     <property name="Culture" column="Culture" not-null="false"/>
-    
+
     <component name="UserTime" class="UserTimeDetails">
       <property name="CreationTime" not-null="true" insert="true" update="false" />
       <property name="UpdateTime"  not-null="true" insert="true"  />
       <property name="CreatedUser"  not-null="true" insert="true" update="false"/>
       <property name="UpdatedUser"  not-null="true" insert="true" />
     </component>
-    
+
     <property name="MembershipId" column="MembershipUserId"  not-null="false"/>
     <property name="FacebookId" column="FacebookUserId" not-null="false"/>
     <property name="Image" column="UserImage" not-null="false"/>
     <property name="ImageLarge" column="UserImageLarge" not-null="false"/>
     <property name="Code" column="UserCode"/>
     <property name="Reputation" column="UserReputation"/>
-   
+
     <component name="FirstTime" class="UserFirstTime">
       <property name="Dashboard" not-null="true">
         <column name="FirstTimeDashboard" default="1"/>
@@ -60,7 +60,7 @@
       <one-to-many class="UserBoxRel"/>
     </set>
     <property name="LastAccessTime" type="DateTime2"  />
-   
+
   </class>
 
   <class name="University" table="University">
@@ -79,7 +79,7 @@
       <property name="UpdatedUser"  not-null="true" insert="true" />
     </component>
 
-    <property name="NeedCode" />
+    <!--<property name="NeedCode" />-->
 
     <property name="WebSiteUrl" />
     <property name="MailAddress" />
@@ -94,14 +94,16 @@
     <property name="NoOfItems" not-null="false"/>
     <property name="NoOfQuizzes" not-null="false"/>
     <property name="NoOfUsers" not-null="false"/>
-    
+
     <property name="FacebookUniId" />
-    
+    <property name="TextPopupUpper" not-null="false" length="8000"/>
+    <property name="TextPopupLower" not-null="false" length="8000"/>
+
     <property name="IsDeleted" />
     <property name="IsDirty" />
     <property name="Extra" />
 
-    
+
     <property name="AdminScore" />
     <property name="AdminNoOfPeople" />
     <many-to-one column="UniversityData" class="University" name="UniversityData" foreign-key="UniversityUniversityData"/>

@@ -31,7 +31,7 @@ namespace Zbang.Zbox.Domain
         public string Url { get; set; }
         public string LargeImage { get; set; }
         public virtual string UniversityName { get; set; }
-        public bool NeedCode { get; set; }
+        //public bool NeedCode { get; set; }
         public string WebSiteUrl { get; set; }
         public string MailAddress { get; set; }
         public string FacebookUrl { get; set; }
@@ -57,6 +57,9 @@ namespace Zbang.Zbox.Domain
         public virtual University UniversityData { get; set; }
 
         public virtual long FacebookUniId { get; set; }
+
+        public string TextPopupUpper { get; set; }
+        public string TextPopupLower { get; set; }
 
 
 

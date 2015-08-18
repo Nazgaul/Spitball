@@ -1,39 +1,34 @@
 ﻿@model Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings.University
 
-@*<div id="libEnterId" title="">*@
-    <div class="enterCode">
-        <header class="popupHeader">שלום, <span user-details="name"></span></header>
-        <button id="closeRegIdPopup" class="closeDialog" ng-click="cancel()"></button>
-        <form name="insertId" novalidate ng-submit="create(insertId.$valid)">
+<div class="enterCode">
+    <header class="popupHeader">שלום, <span user-details="name"></span></header>
+    <button id="closeRegIdPopup" class="closeDialog" ng-click="cancel()"></button>
+    <form name="insertId" novalidate ng-submit="create(insertId.$valid)">
+        <img class="lFloat" src="@Url.CdnContent("/Images/code-icon1.png?v=1")" alt="" width="108" height="114" />
+        <div>
+            @Html.Raw(ViewBag.TextPopupUpper)
+        </div>
 
+        <label for="userIdNumber">מספר ת"ז - נא להכניס 9 ספרות</label>
+        <input ng-model="formData.studentID" id="userIdNumber" type="text" name="studentID" class="inputText" ng-placeholder="הכנס ת.ז. כאן" autofocus required />
+        <input id="submitRegIdPopup" type="submit" class="btn1" ng-click="submitted=true" value="המשך" />
+    </form>
 
-            @*//Html.RenderAction("AntiForgeryToken", "Home", true);*@
-            <img class="lFloat" src="@Url.CdnContent("/Images/code-icon1.png?v=1")" alt="" width="108" height="114" />
-            <div>
-                @ViewBag.AgudaSentence
-            </div>
+    <div class="noCode">
+        @Html.Raw(ViewBag.TextPopupLower)
+        @*<div class="boldFont">אינו רשום במערכת?</div>
+        <div style="margin-bottom: 5px;">
+            יש לשלוח מייל ל&nbsp;<a class="mailTo" href="mailto:@ViewBag.AgudaMail" target="_blank">@ViewBag.AgudaMail</a>
+            <br />
+            <span class="boldFont" style="margin-top: 5px; display: inline-block;">עם הפרטים הבאים</span> :
+        </div>
+        <div>
+            - שם פרטי ומשפחה<br />
+            - כתובת מייל (אליו ישלח הקוד)<br />
+            - תעודת זהות<br />
+            - מספר טלפון<br /><br />
 
-            <label for="userIdNumber">מספר ת"ז - נא להכניס 9 ספרות</label>
-            <input ng-model="formData.studentID" id="userIdNumber" type="text" name="studentID" class="inputText" ng-placeholder="הכנס ת.ז. כאן" autofocus required />
-            <input id="submitRegIdPopup" type="submit" class="btn1" ng-click="submitted=true" value="המשך" />
-        </form>
-
-            <div class="noCode">
-                <div class="boldFont">אינו רשום במערכת?</div>
-                <div style="margin-bottom: 5px;">
-                    יש לשלוח מייל ל&nbsp;<a class="mailTo" href="mailto:@ViewBag.AgudaMail" target="_blank">@ViewBag.AgudaMail</a>
-                    <br />
-                    <span class="boldFont" style="margin-top: 5px; display: inline-block;">עם הפרטים הבאים</span> :
-                </div>
-                <div>
-                    - שם פרטי ומשפחה<br />
-                    - כתובת מייל (אליו ישלח הקוד)<br />
-                    - תעודת זהות<br />
-                    - מספר טלפון<br /><br />
-
-                    @ViewBag.AgudaPhone
-                </div>
-            </div>
+            @ViewBag.AgudaPhone
+        </div>*@
+    </div>
 </div>
-    @*<div class="modal2"></div>
-</div>*@
