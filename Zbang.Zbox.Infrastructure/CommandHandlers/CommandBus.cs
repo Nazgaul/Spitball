@@ -1,16 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Autofac;
-using Zbang.Zbox.Infrastructure.Ioc;
 
 namespace Zbang.Zbox.Infrastructure.CommandHandlers
 {
     public class CommandBus : ICommandBus
     {
-        //public CommandBus(Func<TCommand)
-        //{
-            
-        //}
         public CommandBus(ILifetimeScope container)
         {
             m_Container = container;

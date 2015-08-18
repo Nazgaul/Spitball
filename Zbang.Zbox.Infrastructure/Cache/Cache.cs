@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.WindowsAzure.ServiceRuntime;
 using System;
 using System.Configuration;
 using System.Linq;
@@ -69,7 +68,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             catch (Exception ex)
             {
                 Trace.TraceLog.WriteError(string.Format("AddToCacheAsync key {0} region {1}", key, region), ex);
-                return Task.FromResult(false); ;
+                return Task.FromResult(false);
             }
         }
 

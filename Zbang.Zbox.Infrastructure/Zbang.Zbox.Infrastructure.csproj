@@ -184,7 +184,6 @@
     </Compile>
     <Compile Include="Security\Validation.cs" />
     <Compile Include="Storage\Compress.cs" />
-    <Compile Include="Storage\IBlobProductProvider.cs" />
     <Compile Include="Storage\IContentProcessor.cs" />
     <Compile Include="Storage\IFileProcessorFactory.cs" />
     <Compile Include="Storage\ILocalStorageProvider.cs" />

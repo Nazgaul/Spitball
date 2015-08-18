@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Commands;
 using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.Infrastructure.Cache
@@ -24,20 +23,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
             where TD : class
             where TQ : IQueryCache;
 
-        /// <summary>
-        /// perform command with cache
-        /// </summary>
-        /// <typeparam name="TC">The command</typeparam>
-        /// <typeparam name="TCr">Result</typeparam>
-        /// <param name="invokeFunction">The func to excecute the command</param>
-        /// <param name="command">command result</param>
-        /// <returns></returns>
-        //TCr Command<TC, TCr>(Func<TC, TCr> invokeFunction, TC command)
-        //    where TCr : ICommandResult
-        //    where TC : ICommandCache;
-
-        //void Command<TC>(Action<TC> invokeFunction, TC command)
-        //   where TC : ICommandCache;
-        //void ClearCacheByKey(string key);
+        
     }
 }

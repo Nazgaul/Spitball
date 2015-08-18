@@ -1,5 +1,4 @@
-﻿using System.Web.Security;
-using Zbang.Zbox.Infrastructure.Security.Resources;
+﻿using Zbang.Zbox.Infrastructure.Security.Resources;
 
 namespace Zbang.Zbox.Infrastructure.Security
 {

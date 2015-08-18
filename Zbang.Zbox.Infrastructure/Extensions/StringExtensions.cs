@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Text;
-using System.Text.RegularExpressions;
 
 
 // ReSharper disable once CheckNamespace -- this is extension

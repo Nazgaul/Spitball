@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Zbang.Zbox.Infrastructure.Repositories
+﻿namespace Zbang.Zbox.Infrastructure.Repositories
 {
     public interface ISoftDeletable
     {

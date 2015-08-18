@@ -1,5 +1,4 @@
-﻿using System;
-using Zbang.Zbox.Infrastructure.Transport;
+﻿using Zbang.Zbox.Infrastructure.Transport;
 using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Infrastructure.Storage

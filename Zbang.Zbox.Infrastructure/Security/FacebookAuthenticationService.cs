@@ -3,9 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Trace;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -19,7 +17,6 @@ namespace Zbang.Zbox.Infrastructure.Security
 
         public async Task<FacebookUserData> FacebookLogIn(string token)
         {
-            FacebookUserData user;
             using (var client = new HttpClient())
             {
                 
@@ -28,13 +25,14 @@ namespace Zbang.Zbox.Infrastructure.Security
 
                 await Task.WhenAll(tData, tBusiness);
 
+                FacebookUserData user;
                 using (var s = tData.Result)
                 {
                     using (var sr = new StreamReader(s))
                     {
                         using (var reader = new JsonTextReader(sr))
                         {
-                            JsonSerializer serializer = new JsonSerializer();
+                            var serializer = new JsonSerializer();
                             user = serializer.Deserialize<FacebookUserData>(reader);
                             if (user == null)
                             {

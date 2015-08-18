@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+
 namespace Zbang.Zbox.Infrastructure.Query
 {
     public interface IQueryCache
