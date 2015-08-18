@@ -173,11 +173,15 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         [HttpGet, Route("api/search/user")]
         public async Task<HttpResponseMessage> Members(string term, int page, int sizePerPage = 20)
         {
-             var query = new UniversitySearchQuery(term, sizePerPage, page);
-             var retVal = await ZboxReadService.GetUsersByTerm(query);
+            if (string.IsNullOrEmpty(term))
+            {
+                term = "";
+            }
+            var query = new UniversitySearchQuery(term, sizePerPage, page);
+            var retVal = await ZboxReadService.GetUsersByTerm(query);
 
             return Request.CreateResponse(retVal);
-            
+
         }
 
         private static long Ip2Long(string ip)
