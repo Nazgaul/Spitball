@@ -27,6 +27,10 @@ namespace Zbang.Zbox.Infrastructure.Security
             }
             return Gender.ToLower() == "male";
         }
+        public override string ToString()
+        {
+            return string.Format("id {0} name {1} email {2}", Id, Name, Email);
+        }
     }
 
     /*

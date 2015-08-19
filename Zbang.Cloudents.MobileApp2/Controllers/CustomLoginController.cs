@@ -49,7 +49,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
                 //await Task.WhenAll(tSystemData, tUserIdentity);
 
-               
+
                 var tSystemData = ZboxReadService.GetUserDetailsByEmail(query);
                 var tLogIn = UserManager.CheckPasswordAsync(user, loginRequest.Password);
                 await Task.WhenAll(tSystemData, tLogIn);
@@ -67,7 +67,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                         .CreateLoginResult(identity, Services.Settings.MasterKey);
                     return Request.CreateResponse(HttpStatusCode.OK, loginResult);
                 }
-               
+
                 Services.Log.Error("tLogIn result is false " + loginRequest);
 
             }
@@ -95,34 +95,42 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 return Request.CreateBadRequestResponse("auth token is invalid");
             }
-            var query = new GetUserByFacebookQuery(facebookUserData.Id);
-            var user = await ZboxReadService.GetUserDetailsByFacebookId(query);
-            if (user == null)
+            try
             {
-                var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
-                    facebookUserData.Image, facebookUserData.LargeImage, null,
-                    facebookUserData.First_name,
-                    facebookUserData.Middle_name,
-                    facebookUserData.Last_name,
-                    facebookUserData.GetGender(),
-                    facebookUserData.Locale, null, null, true);
-                var commandResult = await ZboxWriteService.CreateUserAsync(command);
-                user = new LogInUserDto
+                var query = new GetUserByFacebookQuery(facebookUserData.Id);
+                var user = await ZboxReadService.GetUserDetailsByFacebookId(query);
+                if (user == null)
                 {
-                    Id = commandResult.User.Id,
-                    Culture = commandResult.User.Culture,
-                    Image = facebookUserData.Image,
-                    Name = facebookUserData.Name,
-                    UniversityId = commandResult.UniversityId,
-                    UniversityData = commandResult.UniversityData,
-                    Score = commandResult.User.Reputation
-                };
-            }
+                    var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
+                        facebookUserData.Image, facebookUserData.LargeImage, null,
+                        facebookUserData.First_name,
+                        facebookUserData.Middle_name,
+                        facebookUserData.Last_name,
+                        facebookUserData.GetGender(),
+                        facebookUserData.Locale, null, null, true);
+                    var commandResult = await ZboxWriteService.CreateUserAsync(command);
+                    user = new LogInUserDto
+                    {
+                        Id = commandResult.User.Id,
+                        Culture = commandResult.User.Culture,
+                        Image = facebookUserData.Image,
+                        Name = facebookUserData.Name,
+                        UniversityId = commandResult.UniversityId,
+                        UniversityData = commandResult.UniversityData,
+                        Score = commandResult.User.Reputation
+                    };
+                }
 
-            var identity = ApplicationUser.GenerateUserIdentity(user.Id, user.UniversityId, user.UniversityData);
-            var loginResult = new Models.CustomLoginProvider(Handler)
+                var identity = ApplicationUser.GenerateUserIdentity(user.Id, user.UniversityId, user.UniversityData);
+                var loginResult = new Models.CustomLoginProvider(Handler)
                     .CreateLoginResult(identity, Services.Settings.MasterKey);
-            return Request.CreateResponse(HttpStatusCode.OK, loginResult);
+                return Request.CreateResponse(HttpStatusCode.OK, loginResult);
+            }
+            catch (Exception ex)
+            {
+                Services.Log.Error(string.Format("Error in facebook login - facebook data - {0} ex {1}", facebookUserData, ex));
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+            }
         }
 
     }
