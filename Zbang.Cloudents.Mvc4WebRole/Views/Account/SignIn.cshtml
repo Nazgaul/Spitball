@@ -42,8 +42,8 @@
         <form class="login-form" action="" method="post">
             <h3 class="form-title">@LogOnResources.LoginToAccount</h3>
             <div class="login-options">
-                <button type="button" class="facebook"><img src="~/Images/signin/facebook.svg" alt="Facebook" title="Facebook" /> @LogOnResources.Facebook</button>
-                <button type="button" class="google"><img src="~/Images/signin/facebook.svg" alt="Facebook" title="Facebook" /> Google</button>
+                <button type="button" class="facebook">@Html.Svg("/images/signin/icons.svg", "facebook") @LogOnResources.FacebookSignUp</button>
+                <button type="button" class="google">@Html.Svg("/images/signin/icons.svg", "google") Google</button>
             </div>
             
             @*<div class="g-signin2" data-onsuccess="onSignIn"></div>*@
@@ -120,8 +120,8 @@
         <form class="register-form" action="" method="post">
             <h3>@LogOnResources.CreateAccount</h3>
             <div class="login-options">
-                <button type="button" class="facebook"><img src="~/Images/signin/facebook.svg" alt="Facebook" title="Facebook" /> @LogOnResources.FacebookSignUp</button>
-                <button type="button" class="google"><img src="~/Images/signin/facebook.svg" alt="Facebook" title="Facebook" /> Google</button>
+                <button type="button" class="facebook">@Html.Svg("/images/signin/icons.svg", "facebook") @LogOnResources.FacebookSignUp</button>
+                <button type="button" class="google">@Html.Svg("/images/signin/icons.svg", "google") Google</button>
             </div>
             <div id="register_alert_text" class="alert alert-danger display-hide">
                 <button class="close" data-close="alert"></button>

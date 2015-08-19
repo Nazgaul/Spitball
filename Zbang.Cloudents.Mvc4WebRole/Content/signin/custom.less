@@ -9,25 +9,35 @@ input:-webkit-autofill:focus {
     margin-bottom:0;
 }
 .login .logo {
-    margin-bottom:0px;
+    margin-bottom:0;
     margin-top:70px;    
     @media (max-width: 480px) {    
         margin-top:20px;
     }
 }
-.facebook {
+.facebook, .google {
     background:#3a5795;
     border: none;
     padding: 10px;
-    width: 100%;
+    margin-right:5px;
+    width: ~"calc(49% - 5px)";
     color: #fff;
     outline:0;
-    font-size: 1.5em;
-
-    img {
+    font-size: 16px;
+   
+}
+.google {
+    margin-right:0;
+    margin-left:5px;
+    background:#DD4B39;
+}
+.login-options {
+     svg {
         width: 30px;
         height: 30px;            
         margin-right: 10px;
+        vertical-align:middle;
+        fill:#fff;
     }
 }
    

@@ -833,6 +833,12 @@
     <Content Include="Content\signin\components-md.rtl.css">
       <DependentUpon>components-md.css</DependentUpon>
     </Content>
+    <Content Include="Content\signin\custom.min.css">
+      <DependentUpon>custom.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\custom.rtl.min.css">
+      <DependentUpon>custom.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\signin\customRtl.css">
       <DependentUpon>customRtl.less</DependentUpon>
     </Content>
@@ -1034,7 +1040,7 @@
     <Content Include="Images\Mobile\mobile3_720.png" />
     <Content Include="Images\signin\googleplus.png" />
     <Content Include="Images\signin\signup_logo.png" />
-    <Content Include="Images\signin\facebook.svg" />
+    <Content Include="Images\signin\icons.svg" />
     <Content Include="Images\signin\sprite.png" />
     <Content Include="Images\signin\syncfusion-icons-white.png" />
     <Content Include="Images\site.png.rtl.css">

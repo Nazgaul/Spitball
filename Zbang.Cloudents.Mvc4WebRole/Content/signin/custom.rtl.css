@@ -8,7 +8,7 @@ input:-webkit-autofill:focus {
   margin-bottom: 0;
 }
 .login .logo {
-  margin-bottom: 0px;
+  margin-bottom: 0;
   margin-top: 70px;
 }
 @media (max-width: 480px) {
@@ -16,19 +16,28 @@ input:-webkit-autofill:focus {
     margin-top: 20px;
   }
 }
-.facebook {
+.facebook,
+.google {
   background: #3a5795;
   border: none;
   padding: 10px;
-  width: 100%;
+  margin-left: 5px;
+  width: calc(49% - 5px);
   color: #fff;
   outline: 0;
-  font-size: 1.5em;
+  font-size: 16px;
 }
-.facebook img {
+.google {
+  margin-left: 0;
+  margin-right: 5px;
+  background: #DD4B39;
+}
+.login-options svg {
   width: 30px;
   height: 30px;
   margin-left: 10px;
+  vertical-align: middle;
+  fill: #fff;
 }
 .form-group h4 {
   text-align: center;
