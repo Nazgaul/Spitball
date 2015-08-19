@@ -37,6 +37,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class AccountController : BaseController
     {
         private readonly Lazy<IFacebookService> m_FacebookService;
+        private readonly Lazy<IGoogleService> m_GoogleService;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
         private readonly ApplicationUserManager m_UserManager;
@@ -50,7 +51,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
            Lazy<IQueueProvider> queueProvider,
            Lazy<IEncryptObject> encryptObject,
            ApplicationUserManager userManager,
-        IAuthenticationManager authenticationManager, ICookieHelper cookieHelper, ILanguageCookieHelper languageCookie)
+        IAuthenticationManager authenticationManager, ICookieHelper cookieHelper, ILanguageCookieHelper languageCookie, Lazy<IGoogleService> googleService)
         {
             m_FacebookService = facebookService;
             m_QueueProvider = queueProvider;
@@ -59,6 +60,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_AuthenticationManager = authenticationManager;
             m_CookieHelper = cookieHelper;
             m_LanguageCookie = languageCookie;
+            m_GoogleService = googleService;
         }
 
 
@@ -100,10 +102,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Index3");
         }
 
-        [DonutOutputCache(VaryByParam = "lang;invId",
-            VaryByCustom = CustomCacheKeys.Lang ,
-            Duration = TimeConsts.Day,
-            Location = OutputCacheLocation.Server, Order = 2)]
+        //[DonutOutputCache(VaryByParam = "lang;invId",
+        //    VaryByCustom = CustomCacheKeys.Lang ,
+        //    Duration = TimeConsts.Day,
+        //    Location = OutputCacheLocation.Server, Order = 2)]
         public ActionResult SignIn()
         {
             if (User.Identity.IsAuthenticated)
@@ -146,9 +148,74 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         #region Login
+
+        [HttpPost]
+        public async Task<JsonResult> GoogleLogin(ExternalLogIn model, string returnUrl)
+        {
+            var googleUserData = await m_GoogleService.Value.GoogleLogInAsync(model.Token);
+            if (googleUserData == null)
+            {
+                return JsonError(new { error = AccountControllerResources.FacebookGetDataError });
+            }
+            var query = new GetUserByEmailQuery(googleUserData.Email);
+            LogInUserDto user = await ZboxReadService.GetUserDetailsByEmail(query);
+            if (user == null)
+            {
+
+                //var inv = m_CookieHelper.ReadCookie<Invite>(Invite.CookieName);
+                //Guid? invId = null;
+                //if (inv != null)
+                //{
+                //    invId = inv.InviteId;
+                //}
+                //var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
+                //    facebookUserData.Image, facebookUserData.LargeImage, model.UniversityId,
+                //    facebookUserData.First_name,
+                //    facebookUserData.Middle_name,
+                //    facebookUserData.Last_name,
+                //    facebookUserData.GetGender(),
+                //    facebookUserData.Locale, invId, model.BoxId, false);
+                //var commandResult = await ZboxWriteService.CreateUserAsync(command);
+                //user = new LogInUserDto
+                //{
+                //    Id = commandResult.User.Id,
+                //    Culture = commandResult.User.Culture,
+                //    Image = facebookUserData.Image,
+                //    Name = facebookUserData.Name,
+                //    UniversityId = commandResult.UniversityId,
+                //    UniversityData = commandResult.UniversityData,
+                //    Score = commandResult.User.Reputation
+                //};
+                //isNew = true;
+            }
+            m_LanguageCookie.InjectCookie(user.Culture);
+            var identity = new ClaimsIdentity(new List<Claim>
+                {
+                    new Claim(ClaimConsts.UserIdClaim, user.Id.ToString(CultureInfo.InvariantCulture)),
+                   
+                },
+                "ApplicationCookie");
+            if (user.UniversityId.HasValue)
+            {
+                identity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+                    user.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
+            }
+            if (user.UniversityData.HasValue)
+            {
+                identity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+                    user.UniversityData.Value.ToString(CultureInfo.InvariantCulture)));
+            }
+
+
+            m_AuthenticationManager.SignIn(identity);
+            m_CookieHelper.RemoveCookie(Invite.CookieName);
+            var isNew = false;
+            return JsonOk(new { isnew = isNew, url = Url.RouteUrl("LibraryDesktop", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }) });
+        }
+
         [HttpPost]
         [RequireHttps]
-        public async Task<JsonResult> FacebookLogin(FacebookLogIn model, string returnUrl)
+        public async Task<JsonResult> FacebookLogin(ExternalLogIn model, string returnUrl)
         {
             try
             {

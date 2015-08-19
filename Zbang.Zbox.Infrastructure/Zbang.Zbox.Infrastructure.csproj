@@ -175,6 +175,8 @@
     <Compile Include="Security\FacebookAuthenticationService.cs" />
     <Compile Include="Security\FacebookFriendData.cs" />
     <Compile Include="Security\FacebookUserData.cs" />
+    <Compile Include="Security\GoogleAuthenticationService.cs" />
+    <Compile Include="Security\GoogleUserData.cs" />
     <Compile Include="Security\IFacebookService.cs" />
     <Compile Include="Security\IMembershipService.cs" />
     <Compile Include="Security\Resources\Validation.Designer.cs">

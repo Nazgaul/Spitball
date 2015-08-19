@@ -10,4 +10,9 @@ namespace Zbang.Zbox.Infrastructure.Security
        // Task<FacebookUserData> FacebookLogIn(string token);
         Task<IEnumerable<FacebookFriendData>> GetFacebookUserFriends(string authToken);
     }
+
+    public interface IGoogleService
+    {
+        Task<GoogleUserData> GoogleLogInAsync(string token);
+    }
 }

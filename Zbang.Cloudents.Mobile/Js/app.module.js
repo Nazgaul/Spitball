@@ -17,7 +17,7 @@ config([
            storageMode: 'sessionStorage'
        });
 
-       FacebookProvider.setAppId(786786954776091);
+       FacebookProvider.setAppId(450314258355338);
        FacebookProvider.setCookie(true);
        FacebookProvider.setXfbml(true);
        FacebookProvider.setStatus(true);

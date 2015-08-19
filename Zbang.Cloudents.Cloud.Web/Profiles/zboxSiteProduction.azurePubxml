@@ -5,7 +5,7 @@
     <AzureDeleteDeploymentOnFailure>False</AzureDeleteDeploymentOnFailure>
     <AzureDeploymentLabel>Zbang.Cloudents.Cloud.Web</AzureDeploymentLabel>
     <AzureDeploymentReplacementMethod>AutomaticUpgrade</AzureDeploymentReplacementMethod>
-    <AzureSlot>Production</AzureSlot>
+    <AzureSlot>Staging</AzureSlot>
     <AzureEnableRemoteDesktop>True</AzureEnableRemoteDesktop>
     <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>True</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
@@ -13,7 +13,7 @@
     <AzureHostedServiceName>spitball</AzureHostedServiceName>
     <AzureEnableIntelliTrace>True</AzureEnableIntelliTrace>
     <AzureEnableProfiling>False</AzureEnableProfiling>
-    <AzureServiceConfiguration>CloudProduction</AzureServiceConfiguration>
+    <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
     <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>
     <AzureStorageAccountLabel>zboxstorage</AzureStorageAccountLabel>
     <AzureStorageAccountName>zboxstorage</AzureStorageAccountName>

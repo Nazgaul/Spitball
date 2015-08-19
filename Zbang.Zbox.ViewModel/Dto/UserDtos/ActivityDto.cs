@@ -11,6 +11,6 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 
         public string BoxName { get; set; }
 
-        public Guid PostId { get; set; }
+        public Guid? PostId { get; set; }
     }
 }

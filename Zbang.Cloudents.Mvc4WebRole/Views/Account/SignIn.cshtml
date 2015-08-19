@@ -20,7 +20,7 @@
     @{Html.RenderPartial("_Head");}
     @Html.Css2("signin")
 
-
+    <meta name="google-signin-client_id" content="997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -43,7 +43,10 @@
             <h3 class="form-title">@LogOnResources.LoginToAccount</h3>
             <div class="login-options">
                 <button type="button" class="facebook"><img src="~/Images/signin/facebook.svg" alt="Facebook" title="Facebook" /> @LogOnResources.Facebook</button>
+                <button type="button" class="google"><img src="~/Images/signin/facebook.svg" alt="Facebook" title="Facebook" /> Google</button>
             </div>
+            
+            @*<div class="g-signin2" data-onsuccess="onSignIn"></div>*@
 
             <div id="login_alert_text" class="alert alert-danger display-hide">
                 <button class="close" data-close="alert"></button>
@@ -118,6 +121,7 @@
             <h3>@LogOnResources.CreateAccount</h3>
             <div class="login-options">
                 <button type="button" class="facebook"><img src="~/Images/signin/facebook.svg" alt="Facebook" title="Facebook" /> @LogOnResources.FacebookSignUp</button>
+                <button type="button" class="google"><img src="~/Images/signin/facebook.svg" alt="Facebook" title="Facebook" /> Google</button>
             </div>
             <div id="register_alert_text" class="alert alert-danger display-hide">
                 <button class="close" data-close="alert"></button>
@@ -212,12 +216,16 @@
     <![endif]-->
     @Html.Script2("signin")
     @Html.JqueryValidateLocale()
-
+    <script src="https://apis.google.com/js/platform.js" onload="googleLoad()" async defer></script>
     <script>
-
+        function googleLoad() {
+            gapi.load('auth2', function () {
+                gapi.auth2.init();
+            });
+        }
         window.fbAsyncInit = function () {
             FB.init({
-                appId: '786786954776091',
+                appId: '450314258355338',
                 status: true,
                 cookie: true,
                 xfbml: true,
@@ -262,6 +270,7 @@
          );
         });
 
+        
     </script>
     <!-- END JAVASCRIPTS -->
 </body>
