@@ -129,9 +129,6 @@
   <data name="EarnBy" xml:space="preserve">
     <value>Earn points by:</value>
   </data>
-  <data name="EditAccount" xml:space="preserve">
-    <value>Edit account</value>
-  </data>
   <data name="FindFriends" xml:space="preserve">
     <value>Find friends from your contacts</value>
   </data>

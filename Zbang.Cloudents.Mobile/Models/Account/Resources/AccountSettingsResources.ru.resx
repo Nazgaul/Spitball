@@ -165,17 +165,11 @@
   <data name="School" xml:space="preserve">
     <value>Учебное заведение:</value>
   </data>
-  <data name="SchoolName" xml:space="preserve">
-    <value>Название школы:</value>
-  </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>Пожалуйста, введите название университета</value>
   </data>
   <data name="TypeCodeReceived" xml:space="preserve">
     <value>Введите код, полученный по электронной почте</value>
-  </data>
-  <data name="Username" xml:space="preserve">
-    <value>Имя пользователя</value>
   </data>
   <data name="UsernameEmpty" xml:space="preserve">
     <value>Имя пользователя не должно быть пустым.</value>

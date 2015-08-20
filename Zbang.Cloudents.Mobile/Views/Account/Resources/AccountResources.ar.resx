@@ -135,26 +135,17 @@
   <data name="ChooseSchool" xml:space="preserve">
     <value>يرجى إكمال التسجيل عن طريق اختيار المدرسة الحالية</value>
   </data>
-  <data name="ConfirmEmailCompare" xml:space="preserve">
-    <value>كلمة المرور غير ملائمة</value>
-  </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>تأكيد كلمة المرور</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>مواصلة</value>
   </data>
-  <data name="ContinueBrowsing" xml:space="preserve">
-    <value>مواصلة التصفح</value>
-  </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>إنشاء حساب</value>
   </data>
   <data name="DontHaveAnAccount" xml:space="preserve">
     <value>لا يوجد لديك حساب ؟</value>
-  </data>
-  <data name="DownloadApp" xml:space="preserve">
-    <value>جربها.</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>عنوان البريد الكتروني</value>
@@ -229,9 +220,6 @@
   <data name="LogIn" xml:space="preserve">
     <value>الاتصال</value>
   </data>
-  <data name="MadeAnApp" xml:space="preserve">
-    <value>Cloudents قد ذهب الأصلي!</value>
-  </data>
   <data name="Male" xml:space="preserve">
     <value>ذكر </value>
   </data>
@@ -252,9 +240,6 @@
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>تسجيل</value>
-  </data>
-  <data name="SocialStudy" xml:space="preserve">
-    <value>إنها أكثر من مجرد دراسة، إنها دراسة اجتماعية</value>
   </data>
   <data name="VersionNow" xml:space="preserve">
     <value>نسخة الآن</value>

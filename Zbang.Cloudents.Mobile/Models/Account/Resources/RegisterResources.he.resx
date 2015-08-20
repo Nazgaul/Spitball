@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AgreeToTerm" xml:space="preserve">
-    <value>עליך להסכים לתנאי שירות של זבנג</value>
-  </data>
   <data name="ConfirmEmail" xml:space="preserve">
     <value>אשר כתובת דוא"ל</value>
   </data>
@@ -144,26 +141,11 @@
   <data name="FieldRequired" xml:space="preserve">
     <value>השדה הזה הוא חובה</value>
   </data>
-  <data name="FirstConfirm" xml:space="preserve">
-    <value>עליך לאשר את הסיסמה שלך</value>
-  </data>
-  <data name="NameCannotContain" xml:space="preserve">
-    <value>שם משתמש לא יכול להכיל תו @</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>סיסמא</value>
   </data>
   <data name="PwdRequired" xml:space="preserve">
     <value>עליך למלא סיסמא</value>
-  </data>
-  <data name="University" xml:space="preserve">
-    <value>מוסד אקדמי</value>
-  </data>
-  <data name="UserName" xml:space="preserve">
-    <value>שם משתמש</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>שם</value>
   </data>
   <data name="GenderRequired" xml:space="preserve">
     <value>אנא בחר מגדר</value>

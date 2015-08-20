@@ -138,9 +138,6 @@ of all knowledge.</value>
   <data name="OnYourMind" xml:space="preserve">
     <value>What's on your mind?</value>
   </data>
-  <data name="Post" xml:space="preserve">
-    <value>Post</value>
-  </data>
   <data name="UploadFiles" xml:space="preserve">
     <value>Upload files</value>
   </data>

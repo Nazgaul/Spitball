@@ -117,17 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BoxDescription" xml:space="preserve">
-    <value>תיאור הקופסא</value>
-  </data>
   <data name="BoxName" xml:space="preserve">
     <value>שם הקופסא</value>
-  </data>
-  <data name="BoxNameExists" xml:space="preserve">
-    <value>שם הקופסא כבר קיים</value>
-  </data>
-  <data name="BoxNameInvalidChar" xml:space="preserve">
-    <value>שם הקופסא לא יכול להכיל תו לא חוקי</value>
   </data>
   <data name="BoxNameUpTo" xml:space="preserve">
     <value>שם הקופסא יכול להכיל עד 120 תווים</value>

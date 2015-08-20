@@ -180,9 +180,6 @@
   <data name="SignIn" xml:space="preserve">
     <value>התחבר</value>
   </data>
-  <data name="Submit" xml:space="preserve">
-    <value>שלח</value>
-  </data>
   <data name="TermsOfServices" xml:space="preserve">
     <value>לתנאי שירות</value>
   </data>

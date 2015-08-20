@@ -120,9 +120,6 @@
   <data name="AboutUs" xml:space="preserve">
     <value>من نحن </value>
   </data>
-  <data name="CreateQuizzes" xml:space="preserve">
-    <value>أنشيء اختبارات</value>
-  </data>
   <data name="FreeOnline" xml:space="preserve">
     <value>منصة اجتماعية الإنترنت والهاتف المحمول المجانية دراسة</value>
   </data>
@@ -131,9 +128,6 @@
   </data>
   <data name="RecommendedCourses" xml:space="preserve">
     <value>دورات موصى بها</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>اعدادات</value>
   </data>
   <data name="ShareFiles" xml:space="preserve">
     <value>شارك الملفات</value>

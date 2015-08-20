@@ -120,9 +120,6 @@
   <data name="BoxExists" xml:space="preserve">
     <value>هذا الصندوق موجود</value>
   </data>
-  <data name="BoxSettingsNotAllowed" xml:space="preserve">
-    <value>لا يمكن للمستخدم مشاهدة الاعدادات </value>
-  </data>
   <data name="Error" xml:space="preserve">
     <value>خطأ</value>
   </data>

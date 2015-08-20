@@ -181,9 +181,6 @@
   <data name="SignIn" xml:space="preserve">
     <value>Войти</value>
   </data>
-  <data name="Submit" xml:space="preserve">
-    <value>Отправить</value>
-  </data>
   <data name="TermsOfServices" xml:space="preserve">
     <value>правила</value>
   </data>

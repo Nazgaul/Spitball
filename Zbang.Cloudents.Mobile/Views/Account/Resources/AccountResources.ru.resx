@@ -135,27 +135,17 @@
   <data name="ChooseSchool" xml:space="preserve">
     <value>Пожалуйста завершите регистрацию с помощью заполнения следующей информации</value>
   </data>
-  <data name="ConfirmEmailCompare" xml:space="preserve">
-    <value>это неправильный адрес эл. почты</value>
-  </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Подтверждение пароля</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Продолжить</value>
   </data>
-  <data name="ContinueBrowsing" xml:space="preserve">
-    <value>Продолжить просмотр</value>
-  </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>Создать учетную запись</value>
   </data>
   <data name="DontHaveAnAccount" xml:space="preserve">
     <value>Нет учетной записи?</value>
-  </data>
-  <data name="DownloadApp" xml:space="preserve">
-    <value>Скачать приложение
-</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Электронная почта</value>
@@ -230,10 +220,6 @@
   <data name="LogIn" xml:space="preserve">
     <value>Войти </value>
   </data>
-  <data name="MadeAnApp" xml:space="preserve">
-    <value>У Cloudents  появилось приложения,
-Попробуйте его!</value>
-  </data>
   <data name="Male" xml:space="preserve">
     <value>Мужской </value>
   </data>
@@ -255,9 +241,6 @@
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>Присоединиться</value>
-  </data>
-  <data name="SocialStudy" xml:space="preserve">
-    <value>Это больше, чем просто обучение, это социальное обучение</value>
   </data>
   <data name="VersionNow" xml:space="preserve">
     <value />

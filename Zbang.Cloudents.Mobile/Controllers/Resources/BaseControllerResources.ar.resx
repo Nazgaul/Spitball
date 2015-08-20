@@ -120,10 +120,4 @@
   <data name="Cloudents" xml:space="preserve">
     <value>Cloudents</value>
   </data>
-  <data name="QuizTitlePrefix" xml:space="preserve">
-    <value>اختبار نفسك في</value>
-  </data>
-  <data name="QuizTitleText" xml:space="preserve">
-    <value>مسار</value>
-  </data>
 </root>

@@ -117,63 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddingComment" xml:space="preserve">
-    <value>הוספת הערה חדשה</value>
-  </data>
-  <data name="Additional" xml:space="preserve">
-    <value>פריטים נוספים</value>
-  </data>
-  <data name="Comments" xml:space="preserve">
-    <value>הערות</value>
-  </data>
-  <data name="CopyLink" xml:space="preserve">
-    <value>העתק קישור</value>
-  </data>
   <data name="CopyRight" xml:space="preserve">
     <value>אזהרה, ההיתר לעשות שימוש בתוכן זה, הוא בכפוף להגנה על זכויות של צדדים שלישיים, ככל שיש כאלה צדדים שלישיים בעלי זכויות. על המשתמש בחומרים המוגנים בזכויות יוצרים, לעשות שימוש נאות והוגן בחומרים מוגנים לצרכים לא מסחריים ולצורך אישי ולימודי בלבד. הצגה והפצה מסחריים של חומר כתוב, תמונות או תוכן מאתר זה אסורים בהחלט, האחריות על השימוש בקובץ היא באחריות המשתמש בלבד, אין אגודת הסטודנטים או כל גורם אחר, אחראי לתוכן הקבצים</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>מחק</value>
-  </data>
-  <data name="Discussion" xml:space="preserve">
-    <value>דיון</value>
   </data>
   <data name="Download" xml:space="preserve">
     <value>הורד</value>
   </data>
-  <data name="Flag" xml:space="preserve">
-    <value>דווח</value>
-  </data>
   <data name="FullScreen" xml:space="preserve">
     <value>מסך מלא</value>
-  </data>
-  <data name="HideComments" xml:space="preserve">
-    <value>הסתר הערות</value>
-  </data>
-  <data name="Like" xml:space="preserve">
-    <value>אהבתי</value>
-  </data>
-  <data name="Links" xml:space="preserve">
-    <value>קישורים</value>
-  </data>
-  <data name="MouseCursor" xml:space="preserve">
-    <value>סמן העכבר</value>
-  </data>
-  <data name="NothingHereYet" xml:space="preserve">
-    <value>אין עדיין דבר לתצוגה</value>
   </data>
   <data name="OpenLink" xml:space="preserve">
     <value>לחץ כאן לפתוח את הקישור</value>
   </data>
-  <data name="OverDoc" xml:space="preserve">
-    <value>על גבי המסמך</value>
-  </data>
   <data name="PleaseUseThe" xml:space="preserve">
     <value>אנא השתמש ב</value>
-  </data>
-  <data name="PreviewFailed" xml:space="preserve">
-    <value>אין תצוגה מוקדמת של קובץ זה.
-ליחצו על מקש </value>
   </data>
   <data name="PreviewFailed2" xml:space="preserve">
     <value>לצפות במסמך.</value>
@@ -187,41 +144,8 @@
   <data name="Rate" xml:space="preserve">
     <value>דרג</value>
   </data>
-  <data name="RateItem" xml:space="preserve">
-    <value>דרג מסמך זה</value>
-  </data>
   <data name="SecurityReasons" xml:space="preserve">
     <value>מטעמי אבטחה, לא ניתן לפתוח את הקישור הזה </value>
-  </data>
-  <data name="SendMsg" xml:space="preserve">
-    <value>שלח הודעה</value>
-  </data>
-  <data name="ShareEmail" xml:space="preserve">
-    <value>שלח</value>
-  </data>
-  <data name="ShareFacebook" xml:space="preserve">
-    <value>שתף</value>
-  </data>
-  <data name="ShowComments" xml:space="preserve">
-    <value>הראה הערות</value>
-  </data>
-  <data name="SimplyClick" xml:space="preserve">
-    <value>פשוט הקלק וגרור את </value>
-  </data>
-  <data name="SomeFilesOr" xml:space="preserve">
-    <value>כמה קבצים או</value>
-  </data>
-  <data name="Thankyou" xml:space="preserve">
-    <value>תודה!</value>
-  </data>
-  <data name="Updated" xml:space="preserve">
-    <value>מעודכן</value>
-  </data>
-  <data name="Upload" xml:space="preserve">
-    <value>העלה</value>
-  </data>
-  <data name="Uploader" xml:space="preserve">
-    <value>מעלה</value>
   </data>
   <data name="MayTake" xml:space="preserve">
     <value>זה עשוי להימשך מספר דקות</value>

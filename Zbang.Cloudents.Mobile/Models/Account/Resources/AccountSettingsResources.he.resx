@@ -165,17 +165,11 @@
   <data name="School" xml:space="preserve">
     <value>מוסד אקדמי:</value>
   </data>
-  <data name="SchoolName" xml:space="preserve">
-    <value>לומד כעת ב:</value>
-  </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>אנא הקלד מוסד אקדמי</value>
   </data>
   <data name="TypeCodeReceived" xml:space="preserve">
     <value>הקלד את הקוד שקבלת בדוא"ל</value>
-  </data>
-  <data name="Username" xml:space="preserve">
-    <value>שם משתמש:</value>
   </data>
   <data name="UsernameEmpty" xml:space="preserve">
     <value>שם משתמש לא יכול להיות ריק</value>

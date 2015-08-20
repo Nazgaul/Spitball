@@ -123,17 +123,11 @@
   <data name="CheckFor" xml:space="preserve">
     <value>Check for spelling mistakes or try again using different keywords.</value>
   </data>
-  <data name="CloudentsFriends" xml:space="preserve">
-    <value>Cloudents friends</value>
-  </data>
   <data name="ConnectMore" xml:space="preserve">
     <value>Connect more accounts</value>
   </data>
   <data name="FbAccount" xml:space="preserve">
     <value>your facebook account</value>
-  </data>
-  <data name="FbFriends" xml:space="preserve">
-    <value>Facebook friends</value>
   </data>
   <data name="FindFriends" xml:space="preserve">
     <value>Find friends from</value>
@@ -141,20 +135,8 @@
   <data name="GmailAccount" xml:space="preserve">
     <value>your gmail account</value>
   </data>
-  <data name="GmailFriends" xml:space="preserve">
-    <value>Gmail friends</value>
-  </data>
-  <data name="GpAccount" xml:space="preserve">
-    <value>your google plus account</value>
-  </data>
-  <data name="GplusFriends" xml:space="preserve">
-    <value>Google plus friends</value>
-  </data>
   <data name="InviteByEmail" xml:space="preserve">
     <value>Invite by email</value>
-  </data>
-  <data name="InviteFriends" xml:space="preserve">
-    <value>Invite your friends to cloudents</value>
   </data>
   <data name="MailSent" xml:space="preserve">
     <value>Your mail was sent successfully</value>

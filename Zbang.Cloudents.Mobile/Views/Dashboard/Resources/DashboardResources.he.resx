@@ -120,9 +120,6 @@
   <data name="AboutUs" xml:space="preserve">
     <value>מי אנחנו</value>
   </data>
-  <data name="CreateQuizzes" xml:space="preserve">
-    <value>יצירת מבחנים לשיפור הלמידה</value>
-  </data>
   <data name="FreeOnline" xml:space="preserve">
     <value>פלטפורמת הלימודים החברתית המובילה ברשת  </value>
   </data>
@@ -131,9 +128,6 @@
   </data>
   <data name="RecommendedCourses" xml:space="preserve">
     <value>קורסים מומלצים</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>הגדרות</value>
   </data>
   <data name="ShareFiles" xml:space="preserve">
     <value>שיתוף קבצים עם החברים באוניברסיטה</value>

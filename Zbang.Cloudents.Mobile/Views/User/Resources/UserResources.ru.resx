@@ -129,9 +129,6 @@
   <data name="EarnBy" xml:space="preserve">
     <value>Зарабатывайте очки:</value>
   </data>
-  <data name="EditAccount" xml:space="preserve">
-    <value>Изменить учетную запись</value>
-  </data>
   <data name="FindFriends" xml:space="preserve">
     <value>Найти друзей из вашего списка контактов</value>
   </data>

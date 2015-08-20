@@ -125,32 +125,17 @@
 נסה מילות מפתח אחרות.
 </value>
   </data>
-  <data name="CloudentsFriends" xml:space="preserve">
-    <value>חבריך מקלאודנטס</value>
-  </data>
   <data name="ConnectMore" xml:space="preserve">
     <value>התחבר לחשבונות נוספים</value>
   </data>
   <data name="FbAccount" xml:space="preserve">
     <value>חשבון הפייסבוק שלך</value>
   </data>
-  <data name="FbFriends" xml:space="preserve">
-    <value>חבריך מפייסבוק</value>
-  </data>
   <data name="FindFriends" xml:space="preserve">
     <value>מצא חברים מחשבון</value>
   </data>
   <data name="GmailAccount" xml:space="preserve">
     <value>חשבון הGmail שלך</value>
-  </data>
-  <data name="GmailFriends" xml:space="preserve">
-    <value>חבריך מGmail</value>
-  </data>
-  <data name="GpAccount" xml:space="preserve">
-    <value>חשבון הGoogle Plus שלך</value>
-  </data>
-  <data name="GplusFriends" xml:space="preserve">
-    <value>חבריך מGoogle Plus</value>
   </data>
   <data name="InviteByEmail" xml:space="preserve">
     <value>הזמן באימיל</value>

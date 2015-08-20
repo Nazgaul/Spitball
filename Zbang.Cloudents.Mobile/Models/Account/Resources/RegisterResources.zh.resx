@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AgreeToTerm" xml:space="preserve">
-    <value>你必须同意 Zbang 的服务条款。</value>
-  </data>
   <data name="ConfirmEmail" xml:space="preserve">
     <value>确认 Email</value>
   </data>
@@ -144,25 +141,10 @@
   <data name="FieldRequired" xml:space="preserve">
     <value>该字段为必填项</value>
   </data>
-  <data name="FirstConfirm" xml:space="preserve">
-    <value>你必须先确认你的密码</value>
-  </data>
-  <data name="NameCannotContain" xml:space="preserve">
-    <value>用户名不可以包含 @ 符号</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>密码</value>
   </data>
   <data name="PwdRequired" xml:space="preserve">
     <value>需要密码</value>
-  </data>
-  <data name="University" xml:space="preserve">
-    <value>学校</value>
-  </data>
-  <data name="UserName" xml:space="preserve">
-    <value>用户名</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>名称</value>
   </data>
 </root>

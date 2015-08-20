@@ -135,9 +135,6 @@
   <data name="OnYourMind" xml:space="preserve">
     <value>ما الذي يدور في ذهنك؟</value>
   </data>
-  <data name="Post" xml:space="preserve">
-    <value>نشر</value>
-  </data>
   <data name="UploadFiles" xml:space="preserve">
     <value>تحميل الملفات</value>
   </data>

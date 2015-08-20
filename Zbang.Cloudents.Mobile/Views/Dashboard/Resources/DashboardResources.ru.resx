@@ -120,9 +120,6 @@
   <data name="AboutUs" xml:space="preserve">
     <value>О нас</value>
   </data>
-  <data name="CreateQuizzes" xml:space="preserve">
-    <value>Создавайте свои собственные тесты</value>
-  </data>
   <data name="FreeOnline" xml:space="preserve">
     <value>Бесплатная онлайновая и мобильная социальная платформа для обучения</value>
   </data>
@@ -131,9 +128,6 @@
   </data>
   <data name="RecommendedCourses" xml:space="preserve">
     <value>Рекомендованные курсы</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Настройки</value>
   </data>
   <data name="ShareFiles" xml:space="preserve">
     <value>Поделитесь файлами со своими товарищами по учебе</value>

@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AgreeToTerm" xml:space="preserve">
-    <value>يجب الموافقة على شروط الموقع</value>
-  </data>
   <data name="ConfirmEmail" xml:space="preserve">
     <value>تأكيد البريد الالكتروني</value>
   </data>
@@ -144,26 +141,11 @@
   <data name="FieldRequired" xml:space="preserve">
     <value>يرجى تعبئة هذا الحقل</value>
   </data>
-  <data name="FirstConfirm" xml:space="preserve">
-    <value>يرجى تصديق كلمة المرور </value>
-  </data>
-  <data name="NameCannotContain" xml:space="preserve">
-    <value>اسم المستخدم لا يحتوي على @</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>كلمة مرور</value>
   </data>
   <data name="PwdRequired" xml:space="preserve">
     <value>عليك تعبئة كلمه المرور</value>
-  </data>
-  <data name="University" xml:space="preserve">
-    <value>معهد اكاديمي</value>
-  </data>
-  <data name="UserName" xml:space="preserve">
-    <value>اسم العرض</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>الاسم</value>
   </data>
   <data name="GenderRequired" xml:space="preserve">
     <value>الرجاء اختيار نوع الجنس</value>

@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AgreeToTerm" xml:space="preserve">
-    <value>Вы должны согласиться с условиями предоставления услуг Zbang</value>
-  </data>
   <data name="ConfirmEmail" xml:space="preserve">
     <value>Подтверждение адреса электронной почты</value>
   </data>
@@ -144,26 +141,11 @@
   <data name="FieldRequired" xml:space="preserve">
     <value>это поле обязательно</value>
   </data>
-  <data name="FirstConfirm" xml:space="preserve">
-    <value>Сначала вы должны подтвердить свой пароль</value>
-  </data>
-  <data name="NameCannotContain" xml:space="preserve">
-    <value>имя пользователя не должно содержать символ @</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль</value>
   </data>
   <data name="PwdRequired" xml:space="preserve">
     <value>Требуется пароль</value>
-  </data>
-  <data name="University" xml:space="preserve">
-    <value>Университет</value>
-  </data>
-  <data name="UserName" xml:space="preserve">
-    <value>Имя пользователя</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Имя</value>
   </data>
   <data name="GenderRequired" xml:space="preserve">
     <value>Пожалуйста, выберите пол</value>

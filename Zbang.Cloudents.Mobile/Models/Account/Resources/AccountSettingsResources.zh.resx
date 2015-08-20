@@ -165,17 +165,11 @@
   <data name="School" xml:space="preserve">
     <value>学校：</value>
   </data>
-  <data name="SchoolName" xml:space="preserve">
-    <value>学校名称：</value>
-  </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>请输入大学名称</value>
   </data>
   <data name="TypeCodeReceived" xml:space="preserve">
     <value>输入 Email 中提供的代码</value>
-  </data>
-  <data name="Username" xml:space="preserve">
-    <value>用户名：</value>
   </data>
   <data name="UsernameEmpty" xml:space="preserve">
     <value>用户名不可为空</value>

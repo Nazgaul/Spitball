@@ -135,26 +135,17 @@
   <data name="ChooseSchool" xml:space="preserve">
     <value>לסיום תהליך ההרשמה אנא בחר את השדה המתאים</value>
   </data>
-  <data name="ConfirmEmailCompare" xml:space="preserve">
-    <value>המיילים אינם תואמים</value>
-  </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>אשר סיסמא</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>המשך</value>
   </data>
-  <data name="ContinueBrowsing" xml:space="preserve">
-    <value>המשך גלישה באתר</value>
-  </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>צור חשבון</value>
   </data>
   <data name="DontHaveAnAccount" xml:space="preserve">
     <value>עדיין אין לך חשבון?</value>
-  </data>
-  <data name="DownloadApp" xml:space="preserve">
-    <value>הורד את אפליקציה</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>דוא"ל</value>
@@ -228,10 +219,6 @@
   <data name="LogIn" xml:space="preserve">
     <value>התחבר</value>
   </data>
-  <data name="MadeAnApp" xml:space="preserve">
-    <value>הכנו לכם אפליקציה,
-מה, לא תנסו?</value>
-  </data>
   <data name="Male" xml:space="preserve">
     <value>זכר</value>
   </data>
@@ -252,9 +239,6 @@
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>הירשם</value>
-  </data>
-  <data name="SocialStudy" xml:space="preserve">
-    <value>כשלומדים יחד, לומדים טוב יותר</value>
   </data>
   <data name="VersionNow" xml:space="preserve">
     <value>האפליקציה עכשיו</value>

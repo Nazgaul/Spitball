@@ -117,17 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BoxDescription" xml:space="preserve">
-    <value>主题框描述</value>
-  </data>
   <data name="BoxName" xml:space="preserve">
     <value>主题框名称</value>
-  </data>
-  <data name="BoxNameExists" xml:space="preserve">
-    <value>主题框名称已经存在</value>
-  </data>
-  <data name="BoxNameInvalidChar" xml:space="preserve">
-    <value>主题框名称不能有无效字符</value>
   </data>
   <data name="BoxNameUpTo" xml:space="preserve">
     <value>主题框名称不能超过 120 个字符</value>
