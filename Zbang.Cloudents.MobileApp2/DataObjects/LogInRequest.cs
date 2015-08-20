@@ -19,7 +19,7 @@ namespace Zbang.Cloudents.MobileApp2.DataObjects
         }
     }
 
-    public class FacebookLoginRequest
+    public class ExternalLoginRequest
     {
         [Required]
         public string AuthToken { get; set; }

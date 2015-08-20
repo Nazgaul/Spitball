@@ -27,6 +27,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         public IFacebookService FacebookService { get; set; }
 
+        public IGoogleService GoogleService { get; set; }
+
         public ApplicationUserManager UserManager { get; set; }
 
         // GET api/CustomLogin
@@ -84,7 +86,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
         [HttpPost]
         [Route("api/facebookLogin")]
-        public async Task<HttpResponseMessage> FacebookLogin(FacebookLoginRequest model)
+        public async Task<HttpResponseMessage> FacebookLogin(ExternalLoginRequest model)
         {
             if (model == null)
             {
@@ -128,6 +130,58 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             catch (Exception ex)
             {
                 Services.Log.Error(string.Format("Error in facebook login - facebook data - {0} authkey {2} ex {1} ", facebookUserData, ex, model.AuthToken));
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+
+        [HttpPost]
+        [Route("api/googleLogin")]
+        public async Task<HttpResponseMessage> GoogleLogin(ExternalLoginRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            var googleUserData = await GoogleService.GoogleLogInAsync(model.AuthToken);
+            if (googleUserData == null)
+            {
+                return Request.CreateBadRequestResponse("auth token is invalid");
+            }
+            try
+            {
+                var query = new GetUserByEmailQuery(googleUserData.Email);
+                var user = await ZboxReadService.GetUserDetailsByEmail(query);
+                if (user == null)
+                {
+                    var command = new CreateGoogleUserCommand(googleUserData.Email,
+                        googleUserData.Id,
+                        googleUserData.Picture,
+                        null,
+                        googleUserData.FirstName,
+                        googleUserData.LastName,
+                        googleUserData.Locale);
+                    var commandResult = await ZboxWriteService.CreateUserAsync(command);
+                    user = new LogInUserDto
+                    {
+                        Id = commandResult.User.Id,
+                        Culture = commandResult.User.Culture,
+                        Image = googleUserData.Picture,
+                        Name = googleUserData.Name,
+                        UniversityId = commandResult.UniversityId,
+                        UniversityData = commandResult.UniversityData,
+                        Score = commandResult.User.Reputation
+                    };
+                }
+
+                var identity = ApplicationUser.GenerateUserIdentity(user.Id, user.UniversityId, user.UniversityData);
+                var loginResult = new Models.CustomLoginProvider(Handler)
+                    .CreateLoginResult(identity, Services.Settings.MasterKey);
+                return Request.CreateResponse(HttpStatusCode.OK, loginResult);
+            }
+            catch (Exception ex)
+            {
+                Services.Log.Error(string.Format("Error in facebook login - facebook data - {0} authkey {2} ex {1} ", googleUserData, ex, model.AuthToken));
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
