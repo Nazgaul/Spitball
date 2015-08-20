@@ -117,35 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AcademicCloud" xml:space="preserve">
-    <value>这不仅仅是学习，这是社交型学习</value>
-  </data>
   <data name="AlreadyHave" xml:space="preserve">
     <value>已经有账户了？</value>
   </data>
   <data name="ByEmail" xml:space="preserve">
     <value>或通过 Email</value>
-  </data>
-  <data name="ClickHere" xml:space="preserve">
-    <value>点击这里</value>
-  </data>
-  <data name="Connect" xml:space="preserve">
-    <value>连接</value>
-  </data>
-  <data name="ConnectAccount" xml:space="preserve">
-    <value>登录</value>
-  </data>
-  <data name="ConnectCloudents" xml:space="preserve">
-    <value>连接到 Spitball</value>
-  </data>
-  <data name="ConnectHere" xml:space="preserve">
-    <value>连接</value>
-  </data>
-  <data name="Create" xml:space="preserve">
-    <value>创建</value>
-  </data>
-  <data name="CreateCloudents" xml:space="preserve">
-    <value>创建一个 Spitball 免费账户</value>
   </data>
   <data name="CreateNew" xml:space="preserve">
     <value>加入 Spitball</value>
@@ -165,44 +141,14 @@
   <data name="ForgotYourPassword" xml:space="preserve">
     <value>忘记密码？</value>
   </data>
-  <data name="Google" xml:space="preserve">
-    <value>通过 Google 注册</value>
-  </data>
-  <data name="IncorrectCredentials" xml:space="preserve">
-    <value>输入的 Email 或密码不正确。请再尝试 -</value>
-  </data>
-  <data name="JoinNow" xml:space="preserve">
-    <value>现在加入</value>
-  </data>
-  <data name="JoinNow2" xml:space="preserve">
-    <value>现在加入</value>
-  </data>
-  <data name="KeepMeSignedIn" xml:space="preserve">
-    <value>记住我的登录状态</value>
-  </data>
-  <data name="Language" xml:space="preserve">
-    <value>语言：</value>
-  </data>
   <data name="LogIn" xml:space="preserve">
     <value>登录</value>
-  </data>
-  <data name="NewTo" xml:space="preserve">
-    <value>刚加入 Spitball？</value>
   </data>
   <data name="NoAccount" xml:space="preserve">
     <value>没有账户？</value>
   </data>
-  <data name="or" xml:space="preserve">
-    <value>或</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>密码</value>
-  </data>
-  <data name="Register" xml:space="preserve">
-    <value>或通过以下方式免费注册</value>
-  </data>
-  <data name="Retrieve" xml:space="preserve">
-    <value>重新获取</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>合作账号登录</value>

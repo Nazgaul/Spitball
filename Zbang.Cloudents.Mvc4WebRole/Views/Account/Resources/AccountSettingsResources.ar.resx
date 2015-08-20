@@ -120,12 +120,6 @@
   <data name="AccountSettings" xml:space="preserve">
     <value>اعدادت الحساب </value>
   </data>
-  <data name="AddEmail" xml:space="preserve">
-    <value>اضافة بريد الكتروني اخر </value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>الغاء</value>
-  </data>
   <data name="ChangeEmail" xml:space="preserve">
     <value>تغيير عنوان البريد الالكتروني </value>
   </data>
@@ -138,23 +132,8 @@
   <data name="CheckMail" xml:space="preserve">
     <value>افحص بريدك الإلكتروني</value>
   </data>
-  <data name="ChooseFile" xml:space="preserve">
-    <value>اختر ملف</value>
-  </data>
-  <data name="ChooseLanguage" xml:space="preserve">
-    <value>اختر اللغة </value>
-  </data>
-  <data name="ChooseUni" xml:space="preserve">
-    <value>اختر معهد اكاديمي</value>
-  </data>
   <data name="CodeSent" xml:space="preserve">
     <value>تم إرسال رمز التحقق إلى بريدك الإلكتروني الجديد</value>
-  </data>
-  <data name="DefaultSettings" xml:space="preserve">
-    <value>اعدادات تلقائية للصندوق</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>تحرير</value>
   </data>
   <data name="EnterCode" xml:space="preserve">
     <value>ادخل اسم مستخدم</value>
@@ -165,23 +144,14 @@
   <data name="Free" xml:space="preserve">
     <value>فارغ</value>
   </data>
-  <data name="Friends" xml:space="preserve">
-    <value>اعضاء</value>
-  </data>
   <data name="InUse" xml:space="preserve">
     <value>بالاستخدام</value>
   </data>
   <data name="NeverPost" xml:space="preserve">
     <value>فإننا لن تستطيع في الفيسبوك الخاص بك دون إذنك</value>
   </data>
-  <data name="NewPwd" xml:space="preserve">
-    <value>كلمة مرور جديدة</value>
-  </data>
   <data name="Notifications" xml:space="preserve">
     <value>تنبيه</value>
-  </data>
-  <data name="OldPwd" xml:space="preserve">
-    <value>كلمة المرور السابقة</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>كلمة المرور </value>
@@ -189,32 +159,14 @@
   <data name="ProfileInfo" xml:space="preserve">
     <value>ملف المستخدم الشخصي</value>
   </data>
-  <data name="ProfilePicture" xml:space="preserve">
-    <value>صورة  الملف شخصي</value>
-  </data>
-  <data name="Remove" xml:space="preserve">
-    <value>حذف</value>
-  </data>
   <data name="Save" xml:space="preserve">
     <value>حفظ </value>
-  </data>
-  <data name="SaveChanges" xml:space="preserve">
-    <value>احفظ التغييرات </value>
-  </data>
-  <data name="SaveProfile" xml:space="preserve">
-    <value>حفظ ملف شخصي </value>
-  </data>
-  <data name="SelectSchool" xml:space="preserve">
-    <value>اسم المدرسة</value>
   </data>
   <data name="Space" xml:space="preserve">
     <value>مساحة التخزين</value>
   </data>
   <data name="Storage" xml:space="preserve">
     <value>تخزين</value>
-  </data>
-  <data name="University" xml:space="preserve">
-    <value>معهد اكاديمي</value>
   </data>
   <data name="UploadImage" xml:space="preserve">
     <value>تغيير صورة</value>

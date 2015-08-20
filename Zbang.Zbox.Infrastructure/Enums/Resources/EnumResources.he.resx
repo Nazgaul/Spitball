@@ -120,35 +120,14 @@
   <data name="Attacks" xml:space="preserve">
     <value>תוקף קבוצה או יחידים</value>
   </data>
-  <data name="BoxesOrderLastModified" xml:space="preserve">
-    <value>עדכון אחרון</value>
-  </data>
-  <data name="BoxesOrderName" xml:space="preserve">
-    <value>שם</value>
-  </data>
   <data name="BoxPrivacySettingsAnyoneWithUrl" xml:space="preserve">
     <value>נגיש לכולם</value>
   </data>
   <data name="BoxPrivacySettingsMembersOnly" xml:space="preserve">
     <value>בהזמנה בלבד</value>
   </data>
-  <data name="BoxPrivacySettingsPrivate" xml:space="preserve">
-    <value>פרטי</value>
-  </data>
   <data name="College" xml:space="preserve">
     <value>מכללה</value>
-  </data>
-  <data name="EmailActionAddedItem" xml:space="preserve">
-    <value>הוסיפ(ה)</value>
-  </data>
-  <data name="EmailActionCommentBox" xml:space="preserve">
-    <value>שאל(ה) שאלה</value>
-  </data>
-  <data name="EmailActionCommentItem" xml:space="preserve">
-    <value>הגיב(ה) על</value>
-  </data>
-  <data name="EmailActionJoin" xml:space="preserve">
-    <value>הצטרפ(ה) ל</value>
   </data>
   <data name="Hateful" xml:space="preserve">
     <value>תוכן רווי שנאה או פוגעני</value>
@@ -191,8 +170,5 @@
   </data>
   <data name="WrongPassword" xml:space="preserve">
     <value>הסיסמה שהקלדת אינה נכונה, אנא נסה שנית.</value>
-  </data>
-  <data name="EmailActionAnswerBox" xml:space="preserve">
-    <value>ענה/ענתה על שאלה</value>
   </data>
 </root>

@@ -120,35 +120,14 @@
   <data name="Attacks" xml:space="preserve">
     <value>Атакует группы или отдельных лиц</value>
   </data>
-  <data name="BoxesOrderLastModified" xml:space="preserve">
-    <value>Последнее изменение</value>
-  </data>
-  <data name="BoxesOrderName" xml:space="preserve">
-    <value>Имя</value>
-  </data>
   <data name="BoxPrivacySettingsAnyoneWithUrl" xml:space="preserve">
     <value>всем, у кого есть ссылка</value>
   </data>
   <data name="BoxPrivacySettingsMembersOnly" xml:space="preserve">
     <value>всем, кому дано разрешение</value>
   </data>
-  <data name="BoxPrivacySettingsPrivate" xml:space="preserve">
-    <value>Частный</value>
-  </data>
   <data name="College" xml:space="preserve">
     <value>Колледж</value>
-  </data>
-  <data name="EmailActionAddedItem" xml:space="preserve">
-    <value>добавил/а</value>
-  </data>
-  <data name="EmailActionCommentBox" xml:space="preserve">
-    <value>задал/а вопрос</value>
-  </data>
-  <data name="EmailActionCommentItem" xml:space="preserve">
-    <value>прокомментировал/а</value>
-  </data>
-  <data name="EmailActionJoin" xml:space="preserve">
-    <value>присоединился/лась</value>
   </data>
   <data name="Hateful" xml:space="preserve">
     <value>Символы или язык ненависти</value>
@@ -191,8 +170,5 @@
   </data>
   <data name="WrongPassword" xml:space="preserve">
     <value>Введен неверный пароль. Пожалуйста, повторите попытку</value>
-  </data>
-  <data name="EmailActionAnswerBox" xml:space="preserve">
-    <value>ответил/а на вопрос</value>
   </data>
 </root>

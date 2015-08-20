@@ -117,58 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="And" xml:space="preserve">
-    <value>and</value>
-  </data>
-  <data name="ByJoining" xml:space="preserve">
-    <value>By joining, I agree to Zbang's</value>
-  </data>
-  <data name="CreateAccount" xml:space="preserve">
-    <value>Create a new account</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>Log in</value>
-  </data>
-  <data name="OfZbang" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="Privacy" xml:space="preserve">
-    <value>privacy policy</value>
-  </data>
-  <data name="School" xml:space="preserve">
-    <value>School</value>
-  </data>
-  <data name="SignInFB" xml:space="preserve">
-    <value>Sign in with Facebook</value>
-  </data>
-  <data name="SignUp" xml:space="preserve">
-    <value>Sign up</value>
-  </data>
-  <data name="Terms" xml:space="preserve">
-    <value>T&amp;S</value>
-  </data>
-  <data name="UserSettings" xml:space="preserve">
-    <value>User settings</value>
-  </data>
-  <data name="VerifyEmail" xml:space="preserve">
-    <value>Verify email</value>
-  </data>
-  <data name="AllItems" xml:space="preserve">
-    <value>All items</value>
-  </data>
-  <data name="Items" xml:space="preserve">
-    <value>Items</value>
-  </data>
   <data name="HasInvited" xml:space="preserve">
     <value>has invited you to join</value>
-  </data>
-  <data name="FriendsActivity" xml:space="preserve">
-    <value>Friends activity</value>
   </data>
 </root>

@@ -1,15 +1,10 @@
 ﻿app.directive('dropZone', ['$modalStack', '$analytics', function ($modalStack, $analytics) {
     "use strict";
     return {
-        link: function (scope, elem, attrs) {
-
+        link: function (scope, elem) {
             var collection = $();
-
-
             document.addEventListener('dragenter', function (e) {
-                console.log('h');                
                 if (collection.size() === 0) {
-                    console.log('h1');
                     if ($modalStack.getTop()) {                        
                         return;
                     }

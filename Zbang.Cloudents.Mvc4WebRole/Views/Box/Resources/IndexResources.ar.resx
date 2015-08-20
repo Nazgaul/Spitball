@@ -117,35 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>اضافة</value>
-  </data>
-  <data name="AddAnswer" xml:space="preserve">
-    <value>أضف إجابتك</value>
-  </data>
-  <data name="AllQuestions" xml:space="preserve">
-    <value>كل الأسئلة</value>
-  </data>
-  <data name="Answer" xml:space="preserve">
-    <value>الإجابة</value>
-  </data>
-  <data name="Ask" xml:space="preserve">
-    <value>اسأل</value>
-  </data>
-  <data name="AskStudent" xml:space="preserve">
-    <value>اسأل طالب زميل ...</value>
-  </data>
-  <data name="BackToAllBoxes" xml:space="preserve">
-    <value>العودة لجميع الصناديق </value>
-  </data>
   <data name="BestAnswer" xml:space="preserve">
     <value>أفضل إجابة</value>
-  </data>
-  <data name="Box" xml:space="preserve">
-    <value>صندوق</value>
-  </data>
-  <data name="Comments" xml:space="preserve">
-    <value>تعليقات</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>حذف  </value>
@@ -156,48 +129,14 @@
   <data name="DownloadAttachment" xml:space="preserve">
     <value>تنزيل المرفقات</value>
   </data>
-  <data name="Edit" xml:space="preserve">
-    <value>اعدادات</value>
-  </data>
-  <data name="File" xml:space="preserve">
-    <value>ملف</value>
-  </data>
   <data name="Folders" xml:space="preserve">
     <value>المجلدات</value>
-  </data>
-  <data name="Friends" xml:space="preserve">
-    <value>اعضاء</value>
-  </data>
-  <data name="GoAhead" xml:space="preserve">
-    <value>اسأل طالب زميل</value>
-  </data>
-  <data name="HaveAnswer" xml:space="preserve">
-    <value>هل لديك الإجابة؟</value>
   </data>
   <data name="Invite" xml:space="preserve">
     <value>دعوة صديق </value>
   </data>
-  <data name="Items" xml:space="preserve">
-    <value>خصصوصية</value>
-  </data>
-  <data name="JoinGroup" xml:space="preserve">
-    <value>انضم إلى المجموعة</value>
-  </data>
-  <data name="Link" xml:space="preserve">
-    <value>رابط</value>
-  </data>
   <data name="MarkCorrect" xml:space="preserve">
     <value>وضع علامة كإجابة صحيحة</value>
-  </data>
-  <data name="Members" xml:space="preserve">
-    <value>اعضاء </value>
-  </data>
-  <data name="More" xml:space="preserve">
-    <value>المزيد</value>
-  </data>
-  <data name="NeedHelp" xml:space="preserve">
-    <value>هل تريد مساعدة؟ هل لديك ما تقوله؟
- امض قدما - أطرح سؤال </value>
   </data>
   <data name="NoQuestions" xml:space="preserve">
     <value>لا توجد أسئلة هنا حتى الآن</value>
@@ -205,38 +144,17 @@
   <data name="NotClear" xml:space="preserve">
     <value>هل لديك سؤال ملح؟</value>
   </data>
-  <data name="NoThanks" xml:space="preserve">
-    <value>لا شكراً</value>
-  </data>
-  <data name="Owner" xml:space="preserve">
-    <value>بقيمة</value>
-  </data>
   <data name="RemoveAttachment" xml:space="preserve">
     <value>إزالة المرفقات</value>
   </data>
-  <data name="SendMessage" xml:space="preserve">
-    <value>ارسل رسالة </value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>اعدادات</value>
-  </data>
-  <data name="Share" xml:space="preserve">
-    <value>مشاركة</value>
-  </data>
   <data name="ShowAttachment" xml:space="preserve">
     <value>إظهار المرفقات</value>
-  </data>
-  <data name="Tags" xml:space="preserve">
-    <value>بطاقة </value>
   </data>
   <data name="Upload" xml:space="preserve">
     <value>رفع</value>
   </data>
   <data name="Useful" xml:space="preserve">
     <value>هذا مفيد</value>
-  </data>
-  <data name="ViewAll" xml:space="preserve">
-    <value>عرض الكل </value>
   </data>
   <data name="BoxSettings" xml:space="preserve">
     <value>إعدادات الصندوق</value>
@@ -247,9 +165,6 @@
   <data name="Syllabus" xml:space="preserve">
     <value />
   </data>
-  <data name="ActiveMember" xml:space="preserve">
-    <value>عضو نشط</value>
-  </data>
   <data name="CourseNumber" xml:space="preserve">
     <value>رقم المنهج</value>
   </data>
@@ -259,17 +174,11 @@
   <data name="LecturerName" xml:space="preserve">
     <value>اسم المحاضر</value>
   </data>
-  <data name="LinksTo1" xml:space="preserve">
-    <value>روابط لمواقع ذات صلة أو فيديوهات على TED، YouTube، محاضرات على الإنترنت، الخ</value>
-  </data>
   <data name="NotifyMe" xml:space="preserve">
     <value>أخبرني عن:</value>
   </data>
   <data name="Number" xml:space="preserve">
     <value>رقم</value>
-  </data>
-  <data name="Pending" xml:space="preserve">
-    <value>قيد الانتظار</value>
   </data>
   <data name="Reinvite" xml:space="preserve">
     <value>تم دعوته مرة أخرى</value>
@@ -280,32 +189,8 @@
   <data name="SearchMember" xml:space="preserve">
     <value>البحث بالاسم</value>
   </data>
-  <data name="Syllabus1" xml:space="preserve">
-    <value>مثل المنهج الدراشي أو القراء أو الامتحانات القديمةأو محاضراتك أو ملاحظاتك أو ملخصاتك</value>
-  </data>
   <data name="Uninvited" xml:space="preserve">
     <value>لم يتم دعوته</value>
-  </data>
-  <data name="InviteBox" xml:space="preserve">
-    <value>دعوة أشخاص إلى صندوق المجموعة هذا باستخدام:</value>
-  </data>
-  <data name="InviteCourse" xml:space="preserve">
-    <value>دعوة أشخاص إلى هذا المسار التعليمي باستخدام:</value>
-  </data>
-  <data name="ShareBox" xml:space="preserve">
-    <value>مشاركة هذا الإطار المجموعة</value>
-  </data>
-  <data name="ShareCourse" xml:space="preserve">
-    <value>مشاركة هذه الدورة</value>
-  </data>
-  <data name="MyFriends" xml:space="preserve">
-    <value>أصدقائي</value>
-  </data>
-  <data name="AddComment" xml:space="preserve">
-    <value>اكتب تعليقاً...</value>
-  </data>
-  <data name="CreatedCourse" xml:space="preserve">
-    <value>خلقت هذه الدورة</value>
   </data>
   <data name="OnYourMind" xml:space="preserve">
     <value>ما الذي يدور في ذهنك؟</value>

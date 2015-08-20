@@ -120,9 +120,6 @@
   <data name="BoxExists" xml:space="preserve">
     <value>This box already exists</value>
   </data>
-  <data name="BoxSettingsNotAllowed" xml:space="preserve">
-    <value>User is not allowed to see box settings</value>
-  </data>
   <data name="DashboardController_Create_Problem_with_Create_new_box" xml:space="preserve">
     <value>Problem with Create new box</value>
   </data>

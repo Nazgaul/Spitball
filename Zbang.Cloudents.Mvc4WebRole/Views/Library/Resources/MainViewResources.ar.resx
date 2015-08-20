@@ -124,58 +124,14 @@
   <data name="AddItem" xml:space="preserve">
     <value>اضافة محتوى</value>
   </data>
-  <data name="AddSchool" xml:space="preserve">
-    <value>اضافة مدرسة جديدة</value>
-  </data>
   <data name="AllDepartments" xml:space="preserve">
     <value>كل الأقسام</value>
-  </data>
-  <data name="Back" xml:space="preserve">
-    <value>العودة  
-</value>
-  </data>
-  <data name="CourseCode" xml:space="preserve">
-    <value>رقم المساق</value>
-  </data>
-  <data name="CourseName" xml:space="preserve">
-    <value>اسم المساق</value>
   </data>
   <data name="CreateCourse" xml:space="preserve">
     <value>إنشاء مسار جديد</value>
   </data>
-  <data name="EmptyLib" xml:space="preserve">
-    <value>لا يوجد اقسام او مساقات هنا - كن اول من يملاء القسم</value>
-  </data>
-  <data name="Erase" xml:space="preserve">
-    <value>مسح</value>
-  </data>
   <data name="FillGap" xml:space="preserve">
     <value>تعبئة الفراغات</value>
-  </data>
-  <data name="Follow" xml:space="preserve">
-    <value>المتابعة</value>
-  </data>
-  <data name="Following" xml:space="preserve">
-    <value>اشتراك</value>
-  </data>
-  <data name="Instructor" xml:space="preserve">
-    <value>محاضر</value>
-  </data>
-  <data name="MobileNoResult" xml:space="preserve">
-    <value>البحث لم يجني نتائج</value>
-  </data>
-  <data name="NoResult" xml:space="preserve">
-    <value>البحث لم يجني نتائج
-</value>
-  </data>
-  <data name="RelevantMaterial" xml:space="preserve">
-    <value>لرأية مواد المعهد الكاديمي الخاص بك , أدخل اسم المعهد في الحقل الاسفل </value>
-  </data>
-  <data name="SchoolsFrom" xml:space="preserve">
-    <value>المدارس من</value>
-  </data>
-  <data name="SearchSchool" xml:space="preserve">
-    <value>بحث عن مدرسة او اختر من القائمة</value>
   </data>
   <data name="SomethingMissing" xml:space="preserve">
     <value>هناك شيء ناقص؟</value>
@@ -185,12 +141,6 @@
   </data>
   <data name="ThisDepartment" xml:space="preserve">
     <value>هذا القسم</value>
-  </data>
-  <data name="TryAgain" xml:space="preserve">
-    <value>الرجاء المحاولة مجدداُ</value>
-  </data>
-  <data name="WelcomeAcademic" xml:space="preserve">
-    <value>اختر مدرسنتك</value>
   </data>
   <data name="CantFind" xml:space="preserve">
     <value>هل يمكنك العثور على مدرستك؟</value>
@@ -204,21 +154,9 @@
   <data name="ChooseSchool" xml:space="preserve">
     <value>يرجى إكمال التسجيل عن طريق اختيار المدرسة الحالية</value>
   </data>
-  <data name="Student" xml:space="preserve">
-    <value>طالب</value>
-  </data>
   <data name="FriendsRegistered" xml:space="preserve">
     <value> من أصدقائك مسجلون
 </value>
-  </data>
-  <data name="CantFindDept" xml:space="preserve">
-    <value>لا يمكن العثور على قسم</value>
-  </data>
-  <data name="CreateDept" xml:space="preserve">
-    <value> إنشاء قسم</value>
-  </data>
-  <data name="CreateNewDept" xml:space="preserve">
-    <value>إنشاء قسم جديد</value>
   </data>
   <data name="OfYourFriends" xml:space="preserve">
     <value>من أصدقائك</value>

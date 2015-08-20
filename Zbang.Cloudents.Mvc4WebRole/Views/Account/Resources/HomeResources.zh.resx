@@ -120,79 +120,10 @@
   <data name="AboutCloudents" xml:space="preserve">
     <value>关于 Spitball</value>
   </data>
-  <data name="Available" xml:space="preserve">
-    <value>随时随地都能使用</value>
-  </data>
-  <data name="BecomePartner" xml:space="preserve">
-    <value>了解如何成为合作伙伴</value>
-  </data>
-  <data name="DailyViews" xml:space="preserve">
-    <value>每日文档一览</value>
-  </data>
-  <data name="EveryWeek" xml:space="preserve">
-    <value>每周文件</value>
-  </data>
-  <data name="FilesAdded" xml:space="preserve">
-    <value>本周添加的文件</value>
-  </data>
-  <data name="GetAnwers" xml:space="preserve">
-    <value>如果你有一个问题，无论是昨天的课件，下周必读内容还是某个章节的精华，Spitball 都能为你提供帮助。提出问题，得到同学的解答帮助。</value>
-  </data>
-  <data name="GetStarted" xml:space="preserve">
-    <value>现在就开始，免费又快速</value>
-  </data>
   <data name="Homepage" xml:space="preserve">
     <value>主页</value>
   </data>
-  <data name="JoinUnions" xml:space="preserve">
-    <value>加入领先的学生组织</value>
-  </data>
-  <data name="LetsYouShare" xml:space="preserve">
-    <value>接入在线讲座，共享并比较当天早上的课堂笔记，上传阅读材料，
-或讨论你的小组项目，所有这些都汇聚在一个地方。</value>
-  </data>
-  <data name="PoweredBy" xml:space="preserve">
-    <value>Spitball 采用自助形式，帮助学生们更好地分享和学习。</value>
-  </data>
-  <data name="QA" xml:space="preserve">
-    <value>常见问答</value>
-  </data>
-  <data name="QuestionsAdded" xml:space="preserve">
-    <value>本月新增的提问</value>
-  </data>
   <data name="SocialStudy" xml:space="preserve">
     <value>这不仅仅是学习，这是社交型学习</value>
-  </data>
-  <data name="Students" xml:space="preserve">
-    <value>学生</value>
-  </data>
-  <data name="StudyPlatform" xml:space="preserve">
-    <value>Spitball 是一款免费在线及移动社交型学习平台。</value>
-  </data>
-  <data name="WatchShare" xml:space="preserve">
-    <value>观看并分享</value>
-  </data>
-  <data name="WhenItSuits" xml:space="preserve">
-    <value>无论是在电脑、移动设备或是平板电脑上都可以随时随地学习。
-每人享有 10GB 存储空间，存放内容安全且备份完好。</value>
-  </data>
-  <data name="SignUpNow" xml:space="preserve">
-    <value>马上注册：</value>
-  </data>
-  <data name="HomePageTitle3" xml:space="preserve">
-    <value>Spitball带来这一切在一起。加入，</value>
-  </data>
-  <data name="HomePageTitle" xml:space="preserve">
-    <value>怎样获得更好的成绩？</value>
-  </data>
-  <data name="HomePageTitle4" xml:space="preserve">
-    <value>，发展最快的现就读网络上你的校园！</value>
-  </data>
-  <data name="HomePageTitle2" xml:space="preserve">
-    <value>需要聊天你的同学？
-查阅相关研究材料？之前的最后一练？</value>
-  </data>
-  <data name="HomePageTitleFree" xml:space="preserve">
-    <value>免费</value>
   </data>
 </root>

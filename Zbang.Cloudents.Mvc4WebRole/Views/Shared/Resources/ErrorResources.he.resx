@@ -141,20 +141,8 @@
   <data name="Oops" xml:space="preserve">
     <value>אופס</value>
   </data>
-  <data name="Please" xml:space="preserve">
-    <value>אנא</value>
-  </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>  התחבר</value>
-  </data>
   <data name="ToAccessFile" xml:space="preserve">
     <value>צריך להרשם למערכת על מנת לצפות בתוכן זה</value>
-  </data>
-  <data name="ToView" xml:space="preserve">
-    <value>כדי לצפות בתוכן זה אתה צריך להיות חבר או מוזמן</value>
-  </data>
-  <data name="TryAgain" xml:space="preserve">
-    <value> ונסה שוב,</value>
   </data>
   <data name="UseOtherBrowser" xml:space="preserve">
     <value>אנא עדכן את הגרסה של Internet Explorer שלך

@@ -117,55 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AllItems" xml:space="preserve">
-    <value>所有项目</value>
-  </data>
-  <data name="And" xml:space="preserve">
-    <value>和</value>
-  </data>
-  <data name="ByJoining" xml:space="preserve">
-    <value>注册加入，代表我同意遵守 Zbang 的相关条款</value>
-  </data>
-  <data name="CreateAccount" xml:space="preserve">
-    <value>通过 Email 创建一个新账户</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="FriendsActivity" xml:space="preserve">
-    <value>朋友的活动</value>
-  </data>
   <data name="HasInvited" xml:space="preserve">
     <value>邀请你加入</value>
-  </data>
-  <data name="Items" xml:space="preserve">
-    <value>项目</value>
-  </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>登录</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>密码</value>
-  </data>
-  <data name="Privacy" xml:space="preserve">
-    <value>隐私政策</value>
-  </data>
-  <data name="School" xml:space="preserve">
-    <value>学校</value>
-  </data>
-  <data name="SignInFB" xml:space="preserve">
-    <value>Facebook 登录</value>
-  </data>
-  <data name="SignUp" xml:space="preserve">
-    <value>注册</value>
-  </data>
-  <data name="Terms" xml:space="preserve">
-    <value>条款和服务</value>
-  </data>
-  <data name="UserSettings" xml:space="preserve">
-    <value>用户设置</value>
-  </data>
-  <data name="VerifyEmail" xml:space="preserve">
-    <value>验证 Email</value>
   </data>
 </root>

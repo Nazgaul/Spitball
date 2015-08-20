@@ -117,17 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddCourse" xml:space="preserve">
-    <value>הוסף קורס חדש</value>
-  </data>
   <data name="AddDept" xml:space="preserve">
     <value>הוסף מחלקה חדשה</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>חזרה</value>
-  </data>
-  <data name="Box" xml:space="preserve">
-    <value>קופסה</value>
   </data>
   <data name="BrowseCourses" xml:space="preserve">
     <value>עיון בקורסים</value>
@@ -138,20 +132,8 @@
   <data name="Comments" xml:space="preserve">
     <value>תגובות</value>
   </data>
-  <data name="ContinueReading" xml:space="preserve">
-    <value>קרא עוד</value>
-  </data>
-  <data name="Copy" xml:space="preserve">
-    <value>העתק</value>
-  </data>
-  <data name="CopyLink" xml:space="preserve">
-    <value>העתק קישור</value>
-  </data>
   <data name="CreateNew" xml:space="preserve">
     <value>צור חדש</value>
-  </data>
-  <data name="Date" xml:space="preserve">
-    <value>תאריך</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>דואר אלקטרוני</value>
@@ -159,14 +141,8 @@
   <data name="Facebook" xml:space="preserve">
     <value>פייסבוק</value>
   </data>
-  <data name="File" xml:space="preserve">
-    <value>קובץ</value>
-  </data>
   <data name="Follow" xml:space="preserve">
     <value>עקוב</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>בית</value>
   </data>
   <data name="Invite" xml:space="preserve">
     <value>הזמן</value>
@@ -183,12 +159,6 @@
   <data name="JoinNow" xml:space="preserve">
     <value>הצטרף עכשיו</value>
   </data>
-  <data name="Link" xml:space="preserve">
-    <value>קישור</value>
-  </data>
-  <data name="MySpace" xml:space="preserve">
-    <value>האזור שלי</value>
-  </data>
   <data name="Name" xml:space="preserve">
     <value>שם</value>
   </data>
@@ -198,75 +168,20 @@
   <data name="Or" xml:space="preserve">
     <value>או</value>
   </data>
-  <data name="OrGrabTheLink" xml:space="preserve">
-    <value>או העתק קישור</value>
-  </data>
   <data name="Owner" xml:space="preserve">
     <value>בעלות</value>
-  </data>
-  <data name="PlusUpload" xml:space="preserve">
-    <value>העלה</value>
-  </data>
-  <data name="Reply" xml:space="preserve">
-    <value>השב</value>
-  </data>
-  <data name="Results" xml:space="preserve">
-    <value>תוצאות</value>
-  </data>
-  <data name="SchoolLibrary" xml:space="preserve">
-    <value>הבנק האקדמי</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>חיפוש</value>
   </data>
-  <data name="SearchBoxes" xml:space="preserve">
-    <value>חפש בקופסאות שלך</value>
-  </data>
-  <data name="SelectSchool" xml:space="preserve">
-    <value>בחר מוסד אקדמי</value>
-  </data>
-  <data name="SendToFacebook" xml:space="preserve">
-    <value>שלח לפייסבוק</value>
-  </data>
   <data name="Share" xml:space="preserve">
     <value>שתף</value>
-  </data>
-  <data name="ShareThisVia" xml:space="preserve">
-    <value>שתף דרך:</value>
   </data>
   <data name="SignUpAsMember" xml:space="preserve">
     <value>הירשם כחבר ליהנות מתכונה זו ועוד רבות בחינם</value>
   </data>
   <data name="SignUpNow" xml:space="preserve">
     <value>הירשם כעת</value>
-  </data>
-  <data name="SortBy" xml:space="preserve">
-    <value>מיין לפי:</value>
-  </data>
-  <data name="Submit" xml:space="preserve">
-    <value>שלח</value>
-  </data>
-  <data name="TellUsSchool" xml:space="preserve">
-    <value>הי {0} ,
-כדי לעזור לך להתחיל, ספר לנו איפה אתה לומד</value>
-  </data>
-  <data name="TweetThis" xml:space="preserve">
-    <value>צייץ את זה</value>
-  </data>
-  <data name="Twitter" xml:space="preserve">
-    <value>טוויטר</value>
-  </data>
-  <data name="Updates" xml:space="preserve">
-    <value>עדכונים</value>
-  </data>
-  <data name="ViaEmail" xml:space="preserve">
-    <value>באמצעות הדואר האלקטרוני</value>
-  </data>
-  <data name="ViaFacebook" xml:space="preserve">
-    <value>באמצעות פייסבוק</value>
-  </data>
-  <data name="ViaInvite" xml:space="preserve">
-    <value>באמצעות הזמנה</value>
   </data>
   <data name="WriteComment" xml:space="preserve">
     <value>כתוב תגובה ...</value>
@@ -286,9 +201,6 @@
   <data name="Menu" xml:space="preserve">
     <value>תפריט</value>
   </data>
-  <data name="Messages" xml:space="preserve">
-    <value>הודעות</value>
-  </data>
   <data name="Views" xml:space="preserve">
     <value>צפיות</value>
   </data>
@@ -307,32 +219,17 @@
   <data name="AnyoneWho" xml:space="preserve">
     <value>כל אחד שברשותו הקישור יכול לקבל גישה. אין צורך בהרשמה למערכת.</value>
   </data>
-  <data name="Change" xml:space="preserve">
-    <value>שנה</value>
-  </data>
   <data name="Remove" xml:space="preserve">
     <value>הסר</value>
   </data>
-  <data name="Member" xml:space="preserve">
-    <value>חבר</value>
-  </data>
   <data name="InviteFriends" xml:space="preserve">
     <value>הזמן חברים</value>
-  </data>
-  <data name="InviteCloudents" xml:space="preserve">
-    <value>הזמן את חבריך לSpitball</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>הודעה</value>
   </data>
   <data name="Sent" xml:space="preserve">
     <value>נשלח</value>
-  </data>
-  <data name="ShareBy" xml:space="preserve">
-    <value>שתף בשם או אימייל</value>
-  </data>
-  <data name="Thumbnail" xml:space="preserve">
-    <value>התמונה ממוזערת</value>
   </data>
   <data name="ShowAll" xml:space="preserve">
     <value>הצג הכל</value>
@@ -345,9 +242,6 @@
   </data>
   <data name="Following" xml:space="preserve">
     <value>הצטרפתי</value>
-  </data>
-  <data name="Join" xml:space="preserve">
-    <value>הצטרף</value>
   </data>
   <data name="ActiveMember" xml:space="preserve">
     <value>חבר</value>
@@ -385,9 +279,6 @@
   <data name="ShowMore" xml:space="preserve">
     <value>הצג עוד</value>
   </data>
-  <data name="StayUpdated" xml:space="preserve">
-    <value>השאר מעודכן</value>
-  </data>
   <data name="StillHave" xml:space="preserve">
     <value>עדיין יש לך שאלה?</value>
   </data>
@@ -396,9 +287,6 @@
   </data>
   <data name="Points" xml:space="preserve">
     <value>נקודות</value>
-  </data>
-  <data name="School" xml:space="preserve">
-    <value>מוסד אקדמי</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>האזור שלי</value>
@@ -409,9 +297,6 @@
   <data name="Courses" xml:space="preserve">
     <value>קורסים</value>
   </data>
-  <data name="ResultsFor" xml:space="preserve">
-    <value>תוצאות חיפוש ל-</value>
-  </data>
   <data name="Members" xml:space="preserve">
     <value>חברים</value>
   </data>
@@ -421,14 +306,8 @@
   <data name="All" xml:space="preserve">
     <value>הכל</value>
   </data>
-  <data name="Departments" xml:space="preserve">
-    <value>מחלקות</value>
-  </data>
   <data name="AllResults" xml:space="preserve">
     <value>הראה את כל תוצאות החיפוש עבור</value>
-  </data>
-  <data name="In" xml:space="preserve">
-    <value>ב:</value>
   </data>
   <data name="Materials" xml:space="preserve">
     <value>מסמכים</value>
@@ -442,9 +321,6 @@
   <data name="ResultsOther" xml:space="preserve">
     <value>תוצאות ממוסדות אחרים</value>
   </data>
-  <data name="SearchingFor" xml:space="preserve">
-    <value>מחפש</value>
-  </data>
   <data name="SweetPoints" xml:space="preserve">
     <value>מגניב, קיבלת </value>
   </data>
@@ -457,14 +333,8 @@
   <data name="New" xml:space="preserve">
     <value>חדש</value>
   </data>
-  <data name="Username" xml:space="preserve">
-    <value>שם משתמש</value>
-  </data>
   <data name="Downloads" xml:space="preserve">
     <value>הורדות</value>
-  </data>
-  <data name="SweetThanks" xml:space="preserve">
-    <value>מעולה, תודה</value>
   </data>
   <data name="InvitesYou" xml:space="preserve">
     <value>מזמין אותך לעקוב</value>
@@ -493,9 +363,6 @@
   <data name="NoNotifications" xml:space="preserve">
     <value>לא נמצאו התראות</value>
   </data>
-  <data name="Replies" xml:space="preserve">
-    <value>תגובות</value>
-  </data>
   <data name="Comment" xml:space="preserve">
     <value>הגב</value>
   </data>
@@ -514,9 +381,6 @@
   <data name="Course" xml:space="preserve">
     <value>קורס</value>
   </data>
-  <data name="Backto" xml:space="preserve">
-    <value>חזרה ל</value>
-  </data>
   <data name="FacebookSignUp" xml:space="preserve">
     <value>הרשם דרך פייסבוק</value>
   </data>
@@ -525,9 +389,6 @@
   </data>
   <data name="Close" xml:space="preserve">
     <value>סגור</value>
-  </data>
-  <data name="FreePlatform" xml:space="preserve">
-    <value>הפלטפורמה החינמית המתקדמת ביותר ללימוד קבוצתי ברשת</value>
   </data>
   <data name="RegisterFirst" xml:space="preserve">
     <value>על מנת להמשיך וליהנות מSpitball </value>

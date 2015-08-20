@@ -129,13 +129,4 @@
   <data name="InvalidPassword" xml:space="preserve">
     <value>اكلمة المرور المُدخلت غير صحيحة , الرجاء ادخال كلمة مرور صحيحة </value>
   </data>
-  <data name="InvalidUserName" xml:space="preserve">
-    <value>اسم المستخدم غير صحيح , الرجاء ادخال المُحتوى مجدداً</value>
-  </data>
-  <data name="ProviderError" xml:space="preserve">
-    <value>مزود المصداقية يبلغ بخطأ, الرجاء تعديل المُدخلات,والمحاولة مجدداً.اذا لم تتجاوز المشكلة,يرجى مراجعة مسؤول النظام</value>
-  </data>
-  <data name="UserRejected" xml:space="preserve">
-    <value>تم اغلاق طلب المستخدم, الرجاء تعديل المُدخلات والمحاولة ثانيةً, اذا لم تتجاوز المشكلة , يرجى مراجهة مسؤول النظام.</value>
-  </data>
 </root>

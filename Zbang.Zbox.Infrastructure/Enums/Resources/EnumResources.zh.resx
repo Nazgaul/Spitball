@@ -120,35 +120,14 @@
   <data name="Attacks" xml:space="preserve">
     <value>攻击群体或个体</value>
   </data>
-  <data name="BoxesOrderLastModified" xml:space="preserve">
-    <value>最后修改</value>
-  </data>
-  <data name="BoxesOrderName" xml:space="preserve">
-    <value>名称</value>
-  </data>
   <data name="BoxPrivacySettingsAnyoneWithUrl" xml:space="preserve">
     <value>公开</value>
   </data>
   <data name="BoxPrivacySettingsMembersOnly" xml:space="preserve">
     <value>须邀请</value>
   </data>
-  <data name="BoxPrivacySettingsPrivate" xml:space="preserve">
-    <value>隐私</value>
-  </data>
   <data name="College" xml:space="preserve">
     <value>学院</value>
-  </data>
-  <data name="EmailActionAddedItem" xml:space="preserve">
-    <value>增加</value>
-  </data>
-  <data name="EmailActionCommentBox" xml:space="preserve">
-    <value>已提过问题</value>
-  </data>
-  <data name="EmailActionCommentItem" xml:space="preserve">
-    <value>评论时间</value>
-  </data>
-  <data name="EmailActionJoin" xml:space="preserve">
-    <value>加入</value>
   </data>
   <data name="Hateful" xml:space="preserve">
     <value>可恨的言辞或符号</value>
@@ -191,8 +170,5 @@
   </data>
   <data name="WrongPassword" xml:space="preserve">
     <value>密码不正确。请再尝试。</value>
-  </data>
-  <data name="EmailActionAnswerBox" xml:space="preserve">
-    <value>已回答问题</value>
   </data>
 </root>

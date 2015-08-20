@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlreadyHaveAnAccount" xml:space="preserve">
-    <value>已经有账户了？</value>
-  </data>
   <data name="And" xml:space="preserve">
     <value>和</value>
   </data>
@@ -129,23 +126,11 @@
   <data name="ofZbang" xml:space="preserve">
     <value />
   </data>
-  <data name="Or" xml:space="preserve">
-    <value>或</value>
-  </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>隐私政策</value>
   </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>登录</value>
-  </data>
-  <data name="SignUp" xml:space="preserve">
-    <value>加入</value>
-  </data>
   <data name="TermsOfServices" xml:space="preserve">
     <value>服务条款</value>
-  </data>
-  <data name="WillBeLogin" xml:space="preserve">
-    <value>（这将是你的登录名）</value>
   </data>
   <data name="VerifyEmail" xml:space="preserve">
     <value>验证 Email</value>

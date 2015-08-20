@@ -129,13 +129,4 @@
   <data name="InvalidPassword" xml:space="preserve">
     <value>密码无效。请输入一个有效的密码值。</value>
   </data>
-  <data name="InvalidUserName" xml:space="preserve">
-    <value>用户名无效。请检查该值，然后再试一次。</value>
-  </data>
-  <data name="ProviderError" xml:space="preserve">
-    <value>验证程序报错。请验证你的输入，然后再试一次。如果问题仍然存在，请与你的系统管理员联系。</value>
-  </data>
-  <data name="UserRejected" xml:space="preserve">
-    <value>创建用户的请求已被取消。请验证你的输入，然后再试一次。如果问题仍然存在，请与你的系统管理员联系。</value>
-  </data>
 </root>

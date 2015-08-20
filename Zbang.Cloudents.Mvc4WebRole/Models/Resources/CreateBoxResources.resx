@@ -117,17 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BoxDescription" xml:space="preserve">
-    <value>Box description</value>
-  </data>
   <data name="BoxName" xml:space="preserve">
     <value>Box name</value>
-  </data>
-  <data name="BoxNameExists" xml:space="preserve">
-    <value>Box name already exists</value>
-  </data>
-  <data name="BoxNameInvalidChar" xml:space="preserve">
-    <value>Box name cannot have invalid char</value>
   </data>
   <data name="BoxNameUpTo" xml:space="preserve">
     <value>Box name can have up to 120 chars</value>

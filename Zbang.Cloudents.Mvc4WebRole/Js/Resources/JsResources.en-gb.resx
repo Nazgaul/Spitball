@@ -123,20 +123,4 @@
   <data name="DeleteCourse" xml:space="preserve">
     <value>Deleting this module will delete all its content including files and Q&amp;A. Are you sure you would like to delete this module?</value>
   </data>
-  <data name="FbText" xml:space="preserve">
-    <value>I too have joined Spitball.
-Spitball has the largest collection of course notes and exams at your university. Join Spitball, the more students join, the easier studying becomes.</value>
-  </data>
-  <data name="MyCourses" xml:space="preserve">
-    <value>My Modules</value>
-  </data>
-  <data name="OnCourse" xml:space="preserve">
-    <value>on the module</value>
-  </data>
-  <data name="SchoolLibrary" xml:space="preserve">
-    <value>University library</value>
-  </data>
-  <data name="ToCourse" xml:space="preserve">
-    <value>to the module</value>
-  </data>
 </root>

@@ -120,18 +120,12 @@
   <data name="AddItem" xml:space="preserve">
     <value>اضافة محتوى</value>
   </data>
-  <data name="AddShare" xml:space="preserve">
-    <value>إضافة الملفات ومشاركتها مع الاعضاء </value>
-  </data>
   <data name="BoxEmpty" xml:space="preserve">
     <value>ألديك,
 مستند للمشاركة ؟</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>الغاء</value>
-  </data>
-  <data name="ChangePrivacy" xml:space="preserve">
-    <value>تغيير اعدادت الخصوصية</value>
   </data>
   <data name="ChooseFiles" xml:space="preserve">
     <value>اختار الملفات التي تريد اضافتها</value>
@@ -142,43 +136,12 @@
   <data name="Delete" xml:space="preserve">
     <value>حذف</value>
   </data>
-  <data name="Discussion" xml:space="preserve">
-    <value>نقاش</value>
-  </data>
-  <data name="DownloadFiles" xml:space="preserve">
-    <value>تنزيل ملفات</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>اعداد</value>
-  </data>
   <data name="FeedEmpty" xml:space="preserve">
     <value>إن فن وعلم طرح الأسئلة هو
  مصدر كل المعرفة.</value>
   </data>
-  <data name="FollowBox" xml:space="preserve">
-    <value>هل تريد معرفة الجديد ؟ تابع هذا الصندوق واعرف ما الجديد</value>
-  </data>
-  <data name="Friends" xml:space="preserve">
-    <value>اعضاء</value>
-  </data>
-  <data name="Invite" xml:space="preserve">
-    <value>دعوة</value>
-  </data>
-  <data name="InviteFriends" xml:space="preserve">
-    <value>دعوة صديق
-</value>
-  </data>
   <data name="Manage" xml:space="preserve">
     <value>ادارة</value>
-  </data>
-  <data name="NooneHere" xml:space="preserve">
-    <value>لا احد هنا , لما لا تغيير و</value>
-  </data>
-  <data name="Nothanks" xml:space="preserve">
-    <value>لا,شكرا</value>
-  </data>
-  <data name="Notifications" xml:space="preserve">
-    <value>تنبيهات</value>
   </data>
   <data name="Privacy" xml:space="preserve">
     <value>خصوصية</value>
@@ -187,25 +150,7 @@
     <value>ما من شيء تقوم بحله هنا، حتى الآن. 
 كن أول من يقوم بإنشاء اختبار.</value>
   </data>
-  <data name="Rename" xml:space="preserve">
-    <value>تغيير الاسم</value>
-  </data>
   <data name="Save" xml:space="preserve">
     <value>حفظ</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>الاعدادات</value>
-  </data>
-  <data name="Share" xml:space="preserve">
-    <value>شارك</value>
-  </data>
-  <data name="ShareFriends" xml:space="preserve">
-    <value>دعوة اصدقاء</value>
-  </data>
-  <data name="Someone" xml:space="preserve">
-    <value>احدهم</value>
-  </data>
-  <data name="Unfollow" xml:space="preserve">
-    <value>ازالة المتابعة </value>
   </data>
 </root>

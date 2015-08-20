@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Commands.Store;
 
 namespace Zbang.Zbox.Domain.Common
 {
@@ -16,10 +11,10 @@ namespace Zbang.Zbox.Domain.Common
         void UpdateReputation(UpdateReputationCommand command);
         Task AddNewUpdateAsync(AddNewUpdatesCommand command);
        
-        void AddCategories(AddCategoriesCommand command);
-        void AddProducts(AddProductsToStoreCommand command);
+        //void AddCategories(AddCategoriesCommand command);
+        //void AddProducts(AddProductsToStoreCommand command);
 
-        void AddBanners(AddBannersCommand command);
+        //void AddBanners(AddBannersCommand command);
 
         bool Dbi(int index);
         void OneTimeDbi();

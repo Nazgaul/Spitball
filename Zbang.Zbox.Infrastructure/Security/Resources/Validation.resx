@@ -129,13 +129,4 @@
   <data name="InvalidPassword" xml:space="preserve">
     <value>The password provided is invalid. Please enter a valid password value.</value>
   </data>
-  <data name="InvalidUserName" xml:space="preserve">
-    <value>The user name provided is invalid. Please check the value and try again.</value>
-  </data>
-  <data name="ProviderError" xml:space="preserve">
-    <value>The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.</value>
-  </data>
-  <data name="UserRejected" xml:space="preserve">
-    <value>The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.</value>
-  </data>
 </root>

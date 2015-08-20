@@ -120,103 +120,11 @@
   <data name="AboutCloudents" xml:space="preserve">
     <value>О Spitball</value>
   </data>
-  <data name="Available" xml:space="preserve">
-    <value>Доступно в любом месте</value>
-  </data>
-  <data name="BecomePartner" xml:space="preserve">
-    <value>Узнайте, как стать партнером</value>
-  </data>
-  <data name="DailyViews" xml:space="preserve">
-    <value>Ежедневный просмотр документов</value>
-  </data>
-  <data name="EveryWeek" xml:space="preserve">
-    <value>Файлы каждую неделю</value>
-  </data>
-  <data name="FilesAdded" xml:space="preserve">
-    <value>Файлы, добавленные за эту неделю</value>
-  </data>
-  <data name="GetAnwers" xml:space="preserve">
-    <value>Spitball всегда готов помочь, если у вас есть вопросы по поводу вчерашнего класса,материала для чтения на следующую неделю или содержимого главы. 
-Задайте вопрос и получите ответ от сокурсника.</value>
-  </data>
-  <data name="GetStarted" xml:space="preserve">
-    <value>Начните ее использовать, это бесплатно и быстро</value>
-  </data>
   <data name="Homepage" xml:space="preserve">
     <value>Домашняя страница</value>
-  </data>
-  <data name="JoinUnions" xml:space="preserve">
-    <value>Присоединяйтесь к ведущим студенческим организациям</value>
-  </data>
-  <data name="LetsYouShare" xml:space="preserve">
-    <value>Ссылки на онлайн лекции, делитесь и сравнивайте конспекты утренней лекции, загружайте материал для чтения или обсуждайте групповой проект,
-и все это в одном месте.</value>
-  </data>
-  <data name="PoweredBy" xml:space="preserve">
-    <value>Spitball
-поддерживается студентами и помогает студентам лучше учиться с помощью
-совместной работы.
-</value>
-  </data>
-  <data name="QA" xml:space="preserve">
-    <value>Вопросы и ответы</value>
-  </data>
-  <data name="QuestionsAdded" xml:space="preserve">
-    <value>Вопросы, добавленные за этот месяц</value>
   </data>
   <data name="SocialStudy" xml:space="preserve">
     <value>Это больше, чем просто обучение,
 это социальное обучение</value>
-  </data>
-  <data name="Students" xml:space="preserve">
-    <value>студенты</value>
-  </data>
-  <data name="StudyPlatform" xml:space="preserve">
-    <value>Бесплатная онлайн и мобильная социальная учебная платформа.</value>
-  </data>
-  <data name="WatchShare" xml:space="preserve">
-    <value>Смотреть и делиться</value>
-  </data>
-  <data name="WhenItSuits" xml:space="preserve">
-    <value>Учитесь в любое время, на любом компьютере, планшете или мобильном устройстве.
-С личным пространством для хранения в размере 10 ГБ ваш контент всегда будет архивирован и защищен.</value>
-  </data>
-  <data name="SignUpNow" xml:space="preserve">
-    <value>Зарегистрироваться сейчас с помощью:</value>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>Spitball — это самая передовая из бесплатных онлайновых и мобильных платформ социального обучения. Присоединяйтесь к революции в сфере социального обучения вместе с Spitball прямо сейчас.</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Spitball | Помогаем студентам лучше учиться за счет совместной работы</value>
-  </data>
-  <data name="PlayVideo" xml:space="preserve">
-    <value>Просмотр видео
-</value>
-  </data>
-  <data name="AppToGrade" xml:space="preserve">
-    <value>Дайте оценку вашему профессору
-</value>
-  </data>
-  <data name="YouAsked" xml:space="preserve">
-    <value>Вы спросили, мы слушали
-</value>
-  </data>
-  <data name="HomePageTitle3" xml:space="preserve">
-    <value>Spitball предоставляет все эти возможности. 
-Прямо сейчас присоединяйтесь</value>
-  </data>
-  <data name="HomePageTitle" xml:space="preserve">
-    <value>Хотите получать лучшие оценки ?</value>
-  </data>
-  <data name="HomePageTitle4" xml:space="preserve">
-    <value>к самой быстрорастущей образовательной сети вашего студенческого городка!</value>
-  </data>
-  <data name="HomePageTitle2" xml:space="preserve">
-    <value>Нужно пообщаться в чате с однокурсниками?
-Хотите получить доступ к нужному учебному материалу? Попрактиковаться перед итоговыми экзаменами?</value>
-  </data>
-  <data name="HomePageTitleFree" xml:space="preserve">
-    <value>БЕСПЛАТНО</value>
   </data>
 </root>

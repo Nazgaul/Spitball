@@ -91,9 +91,6 @@
     <Compile Include="ItemTab.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="PrivacySettings.cs" />
-    <Compile Include="StoreBanner.cs" />
-    <Compile Include="StoreProduct.cs" />
-    <Compile Include="StoreCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Question.cs" />
     <Compile Include="Quiz.cs" />
@@ -101,8 +98,6 @@
     <Compile Include="Reputation.cs" />
     <Compile Include="SolvedQuestion.cs" />
     <Compile Include="SolvedQuiz.cs" />
-    <Compile Include="StoreProductFeatures.cs" />
-    <Compile Include="StoreUniversityMapper.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="University.cs" />
     <Compile Include="Updates.cs" />
@@ -193,9 +188,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\Quiz.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mappings\Store.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

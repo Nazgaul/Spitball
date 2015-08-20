@@ -120,18 +120,12 @@
   <data name="AddItem" xml:space="preserve">
     <value>Add an item</value>
   </data>
-  <data name="AddShare" xml:space="preserve">
-    <value>Add files and share them with your friends</value>
-  </data>
   <data name="BoxEmpty" xml:space="preserve">
     <value>Nothing to see here, yet.
 Be the first to upload study material...</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
-  </data>
-  <data name="ChangePrivacy" xml:space="preserve">
-    <value>Change privacy</value>
   </data>
   <data name="ChooseFiles" xml:space="preserve">
     <value>Choose the files that you want to add</value>
@@ -142,44 +136,13 @@ Be the first to upload study material...</value>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
-  <data name="Discussion" xml:space="preserve">
-    <value>Discussion</value>
-  </data>
-  <data name="DownloadFiles" xml:space="preserve">
-    <value>Download files</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
   <data name="FeedEmpty" xml:space="preserve">
     <value>The art and science of
 asking questions is the source
 of all knowledge.</value>
   </data>
-  <data name="FollowBox" xml:space="preserve">
-    <value>Want to know what's new? Follow this box</value>
-  </data>
-  <data name="Friends" xml:space="preserve">
-    <value>friends:</value>
-  </data>
-  <data name="Invite" xml:space="preserve">
-    <value>invite</value>
-  </data>
-  <data name="InviteFriends" xml:space="preserve">
-    <value>Invite friends</value>
-  </data>
   <data name="Manage" xml:space="preserve">
     <value>Manage</value>
-  </data>
-  <data name="NooneHere" xml:space="preserve">
-    <value>No one here yet,
-why not change that and</value>
-  </data>
-  <data name="Nothanks" xml:space="preserve">
-    <value>No thanks</value>
-  </data>
-  <data name="Notifications" xml:space="preserve">
-    <value>Notifications</value>
   </data>
   <data name="Privacy" xml:space="preserve">
     <value>Privacy</value>
@@ -188,25 +151,7 @@ why not change that and</value>
     <value>Nothing to solve here, yet.
 Be the first to create a quiz.</value>
   </data>
-  <data name="Rename" xml:space="preserve">
-    <value>Rename</value>
-  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="Share" xml:space="preserve">
-    <value>Share</value>
-  </data>
-  <data name="ShareFriends" xml:space="preserve">
-    <value>Share with friends</value>
-  </data>
-  <data name="Someone" xml:space="preserve">
-    <value>someone?</value>
-  </data>
-  <data name="Unfollow" xml:space="preserve">
-    <value>Unfollow</value>
   </data>
 </root>

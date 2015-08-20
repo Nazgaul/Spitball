@@ -117,93 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActivityFeed" xml:space="preserve">
-    <value>活动摘要</value>
-  </data>
-  <data name="All" xml:space="preserve">
-    <value>所有</value>
-  </data>
-  <data name="Boxes" xml:space="preserve">
-    <value>主题框</value>
-  </data>
-  <data name="Browse" xml:space="preserve">
-    <value>浏览</value>
-  </data>
-  <data name="ByUnion" xml:space="preserve">
-    <value>按照会系</value>
-  </data>
-  <data name="FindCourses" xml:space="preserve">
-    <value>在 Spitball 上搜索、浏览并发现你所学习的课程</value>
-  </data>
-  <data name="FindingCourses" xml:space="preserve">
-    <value>用下列方法找到
-你感兴趣的课程：</value>
-  </data>
-  <data name="FollowCourses" xml:space="preserve">
-    <value>关注课程</value>
-  </data>
-  <data name="Friends" xml:space="preserve">
-    <value>朋友</value>
-  </data>
-  <data name="Hi" xml:space="preserve">
-    <value>你好</value>
-  </data>
-  <data name="InlineSearch" xml:space="preserve">
-    <value>搜索课程名称或讲师名字</value>
-  </data>
-  <data name="Items" xml:space="preserve">
-    <value>项目</value>
-  </data>
-  <data name="KeepUpdated" xml:space="preserve">
-    <value>让你了解最新的资料和问答</value>
-  </data>
-  <data name="Labels" xml:space="preserve">
-    <value>标签</value>
-  </data>
-  <data name="Members" xml:space="preserve">
-    <value>会员</value>
-  </data>
   <data name="MyGroup" xml:space="preserve">
     <value>我的群组主题框</value>
-  </data>
-  <data name="MyPrivate" xml:space="preserve">
-    <value>我的隐私</value>
-  </data>
-  <data name="OwnedByMe" xml:space="preserve">
-    <value>我所拥有的</value>
-  </data>
-  <data name="PendingInvitations" xml:space="preserve">
-    <value>未接受的邀请</value>
-  </data>
-  <data name="ResultFor" xml:space="preserve">
-    <value>的结果</value>
-  </data>
-  <data name="SearchBy" xml:space="preserve">
-    <value>按照名称、编号或讲师名称</value>
-  </data>
-  <data name="SearchMyBoxes" xml:space="preserve">
-    <value>我的主题框</value>
-  </data>
-  <data name="SearchThisPage" xml:space="preserve">
-    <value>该页</value>
-  </data>
-  <data name="SeeMore" xml:space="preserve">
-    <value>查看详情</value>
-  </data>
-  <data name="SendMessage" xml:space="preserve">
-    <value>发送消息</value>
-  </data>
-  <data name="SharedByMe" xml:space="preserve">
-    <value>我共享的</value>
-  </data>
-  <data name="SharedByOthers" xml:space="preserve">
-    <value>别人共享的</value>
-  </data>
-  <data name="Starred" xml:space="preserve">
-    <value>星标</value>
-  </data>
-  <data name="StartBy" xml:space="preserve">
-    <value>你可以先</value>
   </data>
   <data name="Upload" xml:space="preserve">
     <value>上传</value>
@@ -211,20 +126,7 @@
   <data name="UploadContent" xml:space="preserve">
     <value>上传内容并邀请你所选择的协作人员</value>
   </data>
-  <data name="WelcomeDash" xml:space="preserve">
-    <value>欢迎来到新的
-信息中心</value>
-  </data>
   <data name="WhereStudy" xml:space="preserve">
     <value>学习群组就此集中</value>
-  </data>
-  <data name="AskedQuestion" xml:space="preserve">
-    <value>已提过问题</value>
-  </data>
-  <data name="AnsweredQuestion" xml:space="preserve">
-    <value>已回答问题</value>
-  </data>
-  <data name="AddedItem" xml:space="preserve">
-    <value>已新增一个项目</value>
   </data>
 </root>

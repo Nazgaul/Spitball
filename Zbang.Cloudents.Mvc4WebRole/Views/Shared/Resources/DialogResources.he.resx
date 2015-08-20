@@ -117,35 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Academic" xml:space="preserve">
-    <value>אקדמי</value>
-  </data>
   <data name="Add" xml:space="preserve">
     <value>הוסף</value>
   </data>
   <data name="AddLink" xml:space="preserve">
     <value>הוסף קישור</value>
   </data>
-  <data name="AddPrivateBox" xml:space="preserve">
-    <value>הוסף קופסא פרטית</value>
-  </data>
-  <data name="AddSchool" xml:space="preserve">
-    <value>הוסף מוסד לימודים חדש</value>
-  </data>
   <data name="AddUrl" xml:space="preserve">
     <value> הוסף קישור. לדוגמא: www.website.com</value>
   </data>
-  <data name="ApplicationSent" xml:space="preserve">
-    <value>מעולה, הבקשה שלך נשלחה בהצלחה!</value>
-  </data>
-  <data name="BoxName" xml:space="preserve">
-    <value>שם הקופסה</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>ביטול</value>
-  </data>
-  <data name="ChangePrivacy" xml:space="preserve">
-    <value>שנה הגדרות פרטיות:</value>
   </data>
   <data name="ChooseFile" xml:space="preserve">
     <value>בחר קבצים</value>
@@ -153,26 +135,11 @@
   <data name="ChooseFiles" xml:space="preserve">
     <value>בחר קבצים</value>
   </data>
-  <data name="ChooseNotification" xml:space="preserve">
-    <value>בחר התראה:</value>
-  </data>
-  <data name="CommentHere" xml:space="preserve">
-    <value>כתוב הודעה אישית כאן...</value>
-  </data>
   <data name="Create" xml:space="preserve">
     <value>צור</value>
   </data>
-  <data name="CreateBox" xml:space="preserve">
-    <value>צור קופסא חדשה</value>
-  </data>
-  <data name="CreateCourse" xml:space="preserve">
-    <value>צור קורס חדש</value>
-  </data>
   <data name="CreateItem" xml:space="preserve">
     <value>צור מחלקה חדשה</value>
-  </data>
-  <data name="CreateTab" xml:space="preserve">
-    <value>צור תיקיה</value>
   </data>
   <data name="DragAndDrop" xml:space="preserve">
     <value>גרור ושחרר את הקבצים שלך כאן</value>
@@ -180,36 +147,8 @@
   <data name="DropToUpload" xml:space="preserve">
     <value>גרור ושחרר את הקבצים שלך כאן</value>
   </data>
-  <data name="EgMusic" xml:space="preserve">
-    <value>לדוגמא: מוסיקה</value>
-  </data>
-  <data name="GetBackToYou" xml:space="preserve">
-    <value>נחזור אליך בדוא"ל שסיפקת תוך 24 שעות עם תשובה
-בינתיים אתה יכול לעבור לאיזור שלך, ליצור קופסאות ולשתף חברים בתכנים</value>
-  </data>
-  <data name="Here" xml:space="preserve">
-    <value>כאן</value>
-  </data>
-  <data name="InviteFriends" xml:space="preserve">
-    <value>הזמן סטודנטים אחרים להצטרף לקופסה הזו...</value>
-  </data>
-  <data name="InviteTo" xml:space="preserve">
-    <value>הזמנה לקופסה </value>
-  </data>
   <data name="Next" xml:space="preserve">
     <value>הבא</value>
-  </data>
-  <data name="Notification" xml:space="preserve">
-    <value>התראה</value>
-  </data>
-  <data name="Ok" xml:space="preserve">
-    <value>אישור</value>
-  </data>
-  <data name="Personal" xml:space="preserve">
-    <value>אישי</value>
-  </data>
-  <data name="PrivacySettings" xml:space="preserve">
-    <value>הגדרות פרטיות</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
     <value>שדה חובה</value>
@@ -217,20 +156,11 @@
   <data name="SelectFromList" xml:space="preserve">
     <value>--בחר מהרשימה</value>
   </data>
-  <data name="SelectPeople" xml:space="preserve">
-    <value>בחר אנשים מפנקס הכתובות שלך:</value>
-  </data>
-  <data name="SelectType" xml:space="preserve">
-    <value>בחר סוג קופסה:</value>
-  </data>
   <data name="Send" xml:space="preserve">
     <value>שלח</value>
   </data>
   <data name="SendMessage" xml:space="preserve">
     <value>שלח הודעה</value>
-  </data>
-  <data name="SendRequest" xml:space="preserve">
-    <value>שלח בקשה</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>הגדרות</value>
@@ -241,41 +171,8 @@
   <data name="To" xml:space="preserve">
     <value>ל:</value>
   </data>
-  <data name="ToAddAcademic" xml:space="preserve">
-    <value>כדי להוסיף קופסא לבנק האקדמי לחץ</value>
-  </data>
-  <data name="TypeDepartment" xml:space="preserve">
-    <value>הקלד מחלקה</value>
-  </data>
-  <data name="TypeInstructor" xml:space="preserve">
-    <value>הקלד מרצה</value>
-  </data>
-  <data name="Upload" xml:space="preserve">
-    <value>העלאה</value>
-  </data>
-  <data name="Uploading" xml:space="preserve">
-    <value>העלאה </value>
-  </data>
-  <data name="UploadTo" xml:space="preserve">
-    <value>העלה קבצים ל</value>
-  </data>
-  <data name="UsernameOr" xml:space="preserve">
-    <value>שם משתמש או דוא"ל</value>
-  </data>
-  <data name="ViaEmail" xml:space="preserve">
-    <value>הזמן דרך דוא"ל</value>
-  </data>
-  <data name="ViaFacebook" xml:space="preserve">
-    <value>הזמן דרך פייסבוק </value>
-  </data>
   <data name="UploadFiles" xml:space="preserve">
     <value>העלה קבצים</value>
-  </data>
-  <data name="UploadedFiles" xml:space="preserve">
-    <value>העלאת קובץ הושלמה</value>
-  </data>
-  <data name="UploadingFiles" xml:space="preserve">
-    <value>מעלה קבצים</value>
   </data>
   <data name="MessageRequired" xml:space="preserve">
     <value>חובה לצרף הודעה</value>

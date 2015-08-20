@@ -57,7 +57,7 @@
                 var date = new Date(date),
                    oneDay = 86400000,
                    today = new Date(),
-                   jsResources = JsResources,
+                   jsResources = window.JsResources,
                    dateDifference = calculateDayDifference(),
                    months = [jsResources.January, jsResources.February, jsResources.March, jsResources.April,
                        jsResources.May, jsResources.June, jsResources.July, jsResources.August,

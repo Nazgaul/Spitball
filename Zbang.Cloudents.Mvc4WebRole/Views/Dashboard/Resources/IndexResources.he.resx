@@ -117,92 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActivityFeed" xml:space="preserve">
-    <value>פעילות בקבוצות שלי</value>
-  </data>
-  <data name="All" xml:space="preserve">
-    <value>הכל</value>
-  </data>
-  <data name="Boxes" xml:space="preserve">
-    <value>קופסאות</value>
-  </data>
-  <data name="Browse" xml:space="preserve">
-    <value>סייר</value>
-  </data>
-  <data name="ByUnion" xml:space="preserve">
-    <value>לפי מחלקות מוסד הלימודים</value>
-  </data>
-  <data name="FindCourses" xml:space="preserve">
-    <value>חפש ומצא את הקורסים שאתה לומד בעזרת Spitball</value>
-  </data>
-  <data name="FindingCourses" xml:space="preserve">
-    <value>מצא את הקורסים שאתה לומד עם ה:</value>
-  </data>
-  <data name="FollowCourses" xml:space="preserve">
-    <value>לעקוב אחר קורסים</value>
-  </data>
-  <data name="Friends" xml:space="preserve">
-    <value>חברים</value>
-  </data>
-  <data name="Hi" xml:space="preserve">
-    <value>היי</value>
-  </data>
-  <data name="InlineSearch" xml:space="preserve">
-    <value>חפש שם קורס או מרצה</value>
-  </data>
-  <data name="Items" xml:space="preserve">
-    <value>פריטים</value>
-  </data>
-  <data name="KeepUpdated" xml:space="preserve">
-    <value>שומר אותך מעודכן עם התכנים והשאלות ותשובות החדשים ביותר</value>
-  </data>
-  <data name="Labels" xml:space="preserve">
-    <value>תויות</value>
-  </data>
-  <data name="Members" xml:space="preserve">
-    <value>חברים</value>
-  </data>
   <data name="MyGroup" xml:space="preserve">
     <value>קבוצות הלימוד שלי</value>
-  </data>
-  <data name="MyPrivate" xml:space="preserve">
-    <value>פרטיות</value>
-  </data>
-  <data name="OwnedByMe" xml:space="preserve">
-    <value>בבעלותי</value>
-  </data>
-  <data name="PendingInvitations" xml:space="preserve">
-    <value>הזמנות ממתינות</value>
-  </data>
-  <data name="ResultFor" xml:space="preserve">
-    <value>תוצאת חיפוש עבור</value>
-  </data>
-  <data name="SearchBy" xml:space="preserve">
-    <value>לפי שם הקורס, מספרו או שם המרצה</value>
-  </data>
-  <data name="SearchMyBoxes" xml:space="preserve">
-    <value>בקופסאות שלי</value>
-  </data>
-  <data name="SearchThisPage" xml:space="preserve">
-    <value>בעמוד הזה</value>
-  </data>
-  <data name="SeeMore" xml:space="preserve">
-    <value>עוד</value>
-  </data>
-  <data name="SendMessage" xml:space="preserve">
-    <value>שלח הודעה</value>
-  </data>
-  <data name="SharedByMe" xml:space="preserve">
-    <value>ששיתפתי</value>
-  </data>
-  <data name="SharedByOthers" xml:space="preserve">
-    <value>ששותפו איתי</value>
-  </data>
-  <data name="Starred" xml:space="preserve">
-    <value>מסומנות בכוכב/מועדפות</value>
-  </data>
-  <data name="StartBy" xml:space="preserve">
-    <value>אתה יכול להתחיל באמצעות</value>
   </data>
   <data name="Upload" xml:space="preserve">
     <value>העלה</value>
@@ -210,23 +126,8 @@
   <data name="UploadContent" xml:space="preserve">
     <value>שתף ותזמין חברים ללמוד ביחד </value>
   </data>
-  <data name="WelcomeDash" xml:space="preserve">
-    <value>ברוך הבא למסך הבית החדש שלך</value>
-  </data>
   <data name="WhereStudy" xml:space="preserve">
     <value>המקום בו קבוצות לימוד נוצרות</value>
-  </data>
-  <data name="AskedQuestion" xml:space="preserve">
-    <value>שאל(ה) שאלה</value>
-  </data>
-  <data name="AddedItem" xml:space="preserve">
-    <value>הוסיף מסמך</value>
-  </data>
-  <data name="AnsweredQuestion" xml:space="preserve">
-    <value>ענה/ענתה על שאלה</value>
-  </data>
-  <data name="PostedComment" xml:space="preserve">
-    <value>הוסיף/ה תגובה</value>
   </data>
   <data name="AnyoneUrl" xml:space="preserve">
     <value>כל אחד שברשותו הקישור יכול לקבל גישה. אין צורך בהרשמה למערכת.</value>
@@ -268,15 +169,6 @@
   </data>
   <data name="PrivateCourse" xml:space="preserve">
     <value>קבוצה פרטית</value>
-  </data>
-  <data name="SearchCloudents" xml:space="preserve">
-    <value>חפש חברים מSpitball</value>
-  </data>
-  <data name="SearchFb" xml:space="preserve">
-    <value>חפש חברים מפייסבוק</value>
-  </data>
-  <data name="SearchGmail" xml:space="preserve">
-    <value>חפש חברים מ-Gmail</value>
   </data>
   <data name="ShareFiles" xml:space="preserve">
     <value>שיתוף קבצים

@@ -150,9 +150,6 @@
   <data name="LeaveQuiz" xml:space="preserve">
     <value>רוצה לעזוב את המבחן?</value>
   </data>
-  <data name="Min" xml:space="preserve">
-    <value>זמן</value>
-  </data>
   <data name="MultipleChoice" xml:space="preserve">
     <value>שאלות  סגורות</value>
   </data>
@@ -161,12 +158,6 @@
   </data>
   <data name="NotFinished" xml:space="preserve">
     <value>לא סיימת את יצירת המבחן</value>
-  </data>
-  <data name="Pause" xml:space="preserve">
-    <value>עצור</value>
-  </data>
-  <data name="Play" xml:space="preserve">
-    <value>התחל</value>
   </data>
   <data name="PreviewQuiz" xml:space="preserve">
     <value>צפה במבחן</value>
@@ -177,32 +168,17 @@
   <data name="PublishQuiz" xml:space="preserve">
     <value>פרסם מבחן</value>
   </data>
-  <data name="QuizSummary" xml:space="preserve">
-    <value>סיכום המבחן</value>
-  </data>
   <data name="RetakeQuiz" xml:space="preserve">
     <value>הבחן שוב</value>
   </data>
   <data name="SaveDraft" xml:space="preserve">
     <value>שמור טיוטא</value>
   </data>
-  <data name="Timer" xml:space="preserve">
-    <value>שעון</value>
-  </data>
-  <data name="TimeWas" xml:space="preserve">
-    <value>זמנך הוא</value>
-  </data>
   <data name="Wrong" xml:space="preserve">
     <value>שגוי</value>
   </data>
-  <data name="YouGot" xml:space="preserve">
-    <value>קיבלת</value>
-  </data>
   <data name="YourScore" xml:space="preserve">
     <value>ציון שלך</value>
-  </data>
-  <data name="EditQuiz" xml:space="preserve">
-    <value>ערוך מבחן</value>
   </data>
   <data name="ScoreDistribution" xml:space="preserve">
     <value>התפלגות הציונים ביחס אליך:</value>

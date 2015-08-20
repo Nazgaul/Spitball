@@ -123,32 +123,17 @@
   <data name="CheckFor" xml:space="preserve">
     <value>Проверьте на наличие орфографических ошибок или повторите попытку, используя другие ключевые слова.</value>
   </data>
-  <data name="CloudentsFriends" xml:space="preserve">
-    <value>Друзья с Spitball</value>
-  </data>
   <data name="ConnectMore" xml:space="preserve">
     <value>Добавить больше учетных записей</value>
   </data>
   <data name="FbAccount" xml:space="preserve">
     <value>вашей учетной записи Facebook</value>
   </data>
-  <data name="FbFriends" xml:space="preserve">
-    <value>Друзья с Facebook</value>
-  </data>
   <data name="FindFriends" xml:space="preserve">
     <value>Искать друзей в</value>
   </data>
   <data name="GmailAccount" xml:space="preserve">
     <value>вашей учетной записи Gmail</value>
-  </data>
-  <data name="GmailFriends" xml:space="preserve">
-    <value>Друзья с Gmail</value>
-  </data>
-  <data name="GpAccount" xml:space="preserve">
-    <value>вашей учетной записи Google+</value>
-  </data>
-  <data name="GplusFriends" xml:space="preserve">
-    <value>Друзья с Google+</value>
   </data>
   <data name="InviteByEmail" xml:space="preserve">
     <value>Пригласить по электронной почте</value>

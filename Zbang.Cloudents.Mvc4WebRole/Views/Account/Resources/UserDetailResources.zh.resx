@@ -123,19 +123,7 @@
   <data name="Feedback" xml:space="preserve">
     <value>反馈和帮助</value>
   </data>
-  <data name="Gb" xml:space="preserve">
-    <value>GB</value>
-  </data>
-  <data name="Help" xml:space="preserve">
-    <value>帮助</value>
-  </data>
   <data name="LogOut" xml:space="preserve">
     <value>退出</value>
-  </data>
-  <data name="PercentOf" xml:space="preserve">
-    <value>% of</value>
-  </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>登录</value>
   </data>
 </root>

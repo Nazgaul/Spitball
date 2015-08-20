@@ -120,18 +120,12 @@
   <data name="AddItem" xml:space="preserve">
     <value>Добавить элемент</value>
   </data>
-  <data name="AddShare" xml:space="preserve">
-    <value>Добавить файлы и поделиться ими с друзьями</value>
-  </data>
   <data name="BoxEmpty" xml:space="preserve">
     <value>Здесь одиноко,
 у вас есть, чем поделиться?</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Отменить</value>
-  </data>
-  <data name="ChangePrivacy" xml:space="preserve">
-    <value>Изменить конфиденциальность</value>
   </data>
   <data name="ChooseFiles" xml:space="preserve">
     <value>Выберите файлы, которые вы хотите добавить</value>
@@ -142,42 +136,12 @@
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
-  <data name="Discussion" xml:space="preserve">
-    <value>Обсуждения</value>
-  </data>
-  <data name="DownloadFiles" xml:space="preserve">
-    <value>Загрузить файлы</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Редактировать</value>
-  </data>
   <data name="FeedEmpty" xml:space="preserve">
     <value>Искусство и наука задавать вопросы —
 это источник всех знаний.</value>
   </data>
-  <data name="FollowBox" xml:space="preserve">
-    <value>Хотите узнать новости? Отслеживать этот ящик</value>
-  </data>
-  <data name="Friends" xml:space="preserve">
-    <value>друзья</value>
-  </data>
-  <data name="Invite" xml:space="preserve">
-    <value>пригласить</value>
-  </data>
-  <data name="InviteFriends" xml:space="preserve">
-    <value>Пригласить друзей</value>
-  </data>
   <data name="Manage" xml:space="preserve">
     <value>Управление</value>
-  </data>
-  <data name="NooneHere" xml:space="preserve">
-    <value>Еще никого нет, почему бы не изменить это и</value>
-  </data>
-  <data name="Nothanks" xml:space="preserve">
-    <value>Нет, спасибо</value>
-  </data>
-  <data name="Notifications" xml:space="preserve">
-    <value>Уведомления</value>
   </data>
   <data name="Privacy" xml:space="preserve">
     <value>Конфиденциальность</value>
@@ -186,25 +150,7 @@
     <value>Здесь пока нечего решать.
 Создайте тест первым.</value>
   </data>
-  <data name="Rename" xml:space="preserve">
-    <value>Переименовать</value>
-  </data>
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Настройки</value>
-  </data>
-  <data name="Share" xml:space="preserve">
-    <value>Поделиться</value>
-  </data>
-  <data name="ShareFriends" xml:space="preserve">
-    <value>Поделиться с друзьями</value>
-  </data>
-  <data name="Someone" xml:space="preserve">
-    <value>некто?</value>
-  </data>
-  <data name="Unfollow" xml:space="preserve">
-    <value>Отменить следование</value>
   </data>
 </root>

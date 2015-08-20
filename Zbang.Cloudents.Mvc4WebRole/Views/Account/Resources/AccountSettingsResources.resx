@@ -120,12 +120,6 @@
   <data name="AccountSettings" xml:space="preserve">
     <value>Account Settings</value>
   </data>
-  <data name="AddEmail" xml:space="preserve">
-    <value>Add another email</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
   <data name="ChangeEmail" xml:space="preserve">
     <value>Change email</value>
   </data>
@@ -138,23 +132,8 @@
   <data name="CheckMail" xml:space="preserve">
     <value>Check  your mail</value>
   </data>
-  <data name="ChooseFile" xml:space="preserve">
-    <value>Choose file</value>
-  </data>
-  <data name="ChooseLanguage" xml:space="preserve">
-    <value>Choose a language</value>
-  </data>
-  <data name="ChooseUni" xml:space="preserve">
-    <value>Choose a university</value>
-  </data>
   <data name="CodeSent" xml:space="preserve">
     <value>A verification code was sent to your new email</value>
-  </data>
-  <data name="DefaultSettings" xml:space="preserve">
-    <value>Default box settings:</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>edit</value>
   </data>
   <data name="EnterCode" xml:space="preserve">
     <value>Enter code</value>
@@ -165,17 +144,11 @@
   <data name="Free" xml:space="preserve">
     <value>Free:</value>
   </data>
-  <data name="Friends" xml:space="preserve">
-    <value>Manage friends</value>
-  </data>
   <data name="InUse" xml:space="preserve">
     <value>In use:</value>
   </data>
   <data name="NeverPost" xml:space="preserve">
     <value>We'll never post to your wall without permission</value>
-  </data>
-  <data name="NewPwd" xml:space="preserve">
-    <value>New password</value>
   </data>
   <data name="NoNoifications" xml:space="preserve">
     <value>Using Spitball notification system you will be updated of what is going on in the courses you follow.</value>
@@ -183,41 +156,20 @@
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
   </data>
-  <data name="OldPwd" xml:space="preserve">
-    <value>Old password</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>Password:</value>
   </data>
   <data name="ProfileInfo" xml:space="preserve">
     <value>User information</value>
   </data>
-  <data name="ProfilePicture" xml:space="preserve">
-    <value>Profile picture</value>
-  </data>
-  <data name="Remove" xml:space="preserve">
-    <value>Remove</value>
-  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
-  </data>
-  <data name="SaveChanges" xml:space="preserve">
-    <value>Save changes</value>
-  </data>
-  <data name="SaveProfile" xml:space="preserve">
-    <value>Save profile</value>
-  </data>
-  <data name="SelectSchool" xml:space="preserve">
-    <value>-- Type school name</value>
   </data>
   <data name="Space" xml:space="preserve">
     <value>Storage space:</value>
   </data>
   <data name="Storage" xml:space="preserve">
     <value>Storage</value>
-  </data>
-  <data name="University" xml:space="preserve">
-    <value>University</value>
   </data>
   <data name="UploadImage" xml:space="preserve">
     <value>Upload photo</value>

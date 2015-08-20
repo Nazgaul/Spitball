@@ -120,18 +120,12 @@
   <data name="AddItem" xml:space="preserve">
     <value>新增一个项目</value>
   </data>
-  <data name="AddShare" xml:space="preserve">
-    <value>添加文件并分享给朋友们</value>
-  </data>
   <data name="BoxEmpty" xml:space="preserve">
     <value>这里有点冷，
 有没有什么可以与大家分享的呢？</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
-  </data>
-  <data name="ChangePrivacy" xml:space="preserve">
-    <value>修改隐私设置</value>
   </data>
   <data name="ChooseFiles" xml:space="preserve">
     <value>选择你想添加的文件</value>
@@ -142,62 +136,13 @@
   <data name="Delete" xml:space="preserve">
     <value>删除</value>
   </data>
-  <data name="Discussion" xml:space="preserve">
-    <value>讨论</value>
-  </data>
-  <data name="DownloadFiles" xml:space="preserve">
-    <value>下载文件</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>编辑</value>
-  </data>
-  <data name="FollowBox" xml:space="preserve">
-    <value>想了解最新消息么？关注该主题框</value>
-  </data>
-  <data name="Friends" xml:space="preserve">
-    <value>朋友</value>
-  </data>
-  <data name="Invite" xml:space="preserve">
-    <value>邀请</value>
-  </data>
-  <data name="InviteFriends" xml:space="preserve">
-    <value>邀请朋友</value>
-  </data>
   <data name="Manage" xml:space="preserve">
     <value>管理</value>
-  </data>
-  <data name="NooneHere" xml:space="preserve">
-    <value>这里暂时还没有人，
-为何不改变这个现状</value>
-  </data>
-  <data name="Nothanks" xml:space="preserve">
-    <value>不，谢谢</value>
-  </data>
-  <data name="Notifications" xml:space="preserve">
-    <value>通知</value>
   </data>
   <data name="Privacy" xml:space="preserve">
     <value>隐私</value>
   </data>
-  <data name="Rename" xml:space="preserve">
-    <value>重命名</value>
-  </data>
   <data name="Save" xml:space="preserve">
     <value>保存</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>设置</value>
-  </data>
-  <data name="Share" xml:space="preserve">
-    <value>分享</value>
-  </data>
-  <data name="ShareFriends" xml:space="preserve">
-    <value>分享给朋友</value>
-  </data>
-  <data name="Someone" xml:space="preserve">
-    <value>邀请一些人来呢？</value>
-  </data>
-  <data name="Unfollow" xml:space="preserve">
-    <value>取消关注</value>
   </data>
 </root>

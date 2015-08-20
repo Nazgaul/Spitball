@@ -117,35 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Academic" xml:space="preserve">
-    <value>Академический</value>
-  </data>
   <data name="Add" xml:space="preserve">
     <value>Добавить</value>
   </data>
   <data name="AddLink" xml:space="preserve">
     <value>Добавить ссылку на сайт</value>
   </data>
-  <data name="AddPrivateBox" xml:space="preserve">
-    <value>Добавить частный ящик</value>
-  </data>
-  <data name="AddSchool" xml:space="preserve">
-    <value>Добавить учебное заведение</value>
-  </data>
   <data name="AddUrl" xml:space="preserve">
     <value>Добавить URL, например, www.website.com</value>
   </data>
-  <data name="ApplicationSent" xml:space="preserve">
-    <value>Спасибо! Ваша заявка была отправлена.</value>
-  </data>
-  <data name="BoxName" xml:space="preserve">
-    <value>Имя ящика</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Отменить</value>
-  </data>
-  <data name="ChangePrivacy" xml:space="preserve">
-    <value>Изменить конфиденциальность:</value>
   </data>
   <data name="ChooseFile" xml:space="preserve">
     <value>Выбрать файл</value>
@@ -153,26 +135,11 @@
   <data name="ChooseFiles" xml:space="preserve">
     <value>Выбрать файлы для загрузки в</value>
   </data>
-  <data name="ChooseNotification" xml:space="preserve">
-    <value>Выбрать уведомление:</value>
-  </data>
-  <data name="CommentHere" xml:space="preserve">
-    <value>Напишите здесь свой комментарий...</value>
-  </data>
   <data name="Create" xml:space="preserve">
     <value>Создать</value>
   </data>
-  <data name="CreateBox" xml:space="preserve">
-    <value>Создать новый ящик</value>
-  </data>
-  <data name="CreateCourse" xml:space="preserve">
-    <value>Создать новый курс</value>
-  </data>
   <data name="CreateItem" xml:space="preserve">
     <value>Создать новый отдел</value>
-  </data>
-  <data name="CreateTab" xml:space="preserve">
-    <value>Создать вкладку</value>
   </data>
   <data name="DragAndDrop" xml:space="preserve">
     <value>Перетащите ваши файлы сюда</value>
@@ -180,35 +147,8 @@
   <data name="DropToUpload" xml:space="preserve">
     <value>Перетащите файлы для загрузки</value>
   </data>
-  <data name="EgMusic" xml:space="preserve">
-    <value>например, музыка</value>
-  </data>
-  <data name="GetBackToYou" xml:space="preserve">
-    <value>Мы рассмотрим ее и свяжемся с вами в течение 24 часов. В данный момент, вы можете пройти в свою область, создать частные ящики и пригласить своих друзей.</value>
-  </data>
-  <data name="Here" xml:space="preserve">
-    <value>Здесь</value>
-  </data>
-  <data name="InviteFriends" xml:space="preserve">
-    <value>Пригласите своих друзей, они будут очень благодарны...</value>
-  </data>
-  <data name="InviteTo" xml:space="preserve">
-    <value>Пригласить в</value>
-  </data>
   <data name="Next" xml:space="preserve">
     <value>Следующий</value>
-  </data>
-  <data name="Notification" xml:space="preserve">
-    <value>Уведомление</value>
-  </data>
-  <data name="Ok" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="Personal" xml:space="preserve">
-    <value>Личный</value>
-  </data>
-  <data name="PrivacySettings" xml:space="preserve">
-    <value>Настройки конфиденциальности</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
     <value>Обязательное поле</value>
@@ -216,20 +156,11 @@
   <data name="SelectFromList" xml:space="preserve">
     <value>-- выбрать из списка</value>
   </data>
-  <data name="SelectPeople" xml:space="preserve">
-    <value>Выберите людей из вашей адресной книги:</value>
-  </data>
-  <data name="SelectType" xml:space="preserve">
-    <value>Выбрать тип ящика:</value>
-  </data>
   <data name="Send" xml:space="preserve">
     <value>Отправить</value>
   </data>
   <data name="SendMessage" xml:space="preserve">
     <value>Отправить сообщение</value>
-  </data>
-  <data name="SendRequest" xml:space="preserve">
-    <value>Отправить запрос</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Настройки</value>
@@ -240,41 +171,8 @@
   <data name="To" xml:space="preserve">
     <value>Кому:</value>
   </data>
-  <data name="ToAddAcademic" xml:space="preserve">
-    <value>Чтобы добавить академический ящик, нажмите</value>
-  </data>
-  <data name="TypeDepartment" xml:space="preserve">
-    <value>-- введите отдел</value>
-  </data>
-  <data name="TypeInstructor" xml:space="preserve">
-    <value>введите преподавателя</value>
-  </data>
-  <data name="Upload" xml:space="preserve">
-    <value>Загрузить</value>
-  </data>
-  <data name="Uploading" xml:space="preserve">
-    <value>Загрузка</value>
-  </data>
-  <data name="UploadTo" xml:space="preserve">
-    <value>Загрузить файлы в </value>
-  </data>
-  <data name="UsernameOr" xml:space="preserve">
-    <value>имя пользователя или электронную почту</value>
-  </data>
-  <data name="ViaEmail" xml:space="preserve">
-    <value>Пригласить по электронной почте</value>
-  </data>
-  <data name="ViaFacebook" xml:space="preserve">
-    <value>Пригласить через Facebook</value>
-  </data>
-  <data name="UploadedFiles" xml:space="preserve">
-    <value>Загруженные файлы</value>
-  </data>
   <data name="UploadFiles" xml:space="preserve">
     <value>Загрузить ресурс</value>
-  </data>
-  <data name="UploadingFiles" xml:space="preserve">
-    <value>Идет загрузка файлов</value>
   </data>
   <data name="MessageRequired" xml:space="preserve">
     <value>Требуется cообщение</value>
@@ -291,14 +189,8 @@
   <data name="EarnPoints" xml:space="preserve">
     <value>Зарабатывайте очки приглашением друзей, загрузкой файлов и решением тестов!</value>
   </data>
-  <data name="InterestedIn" xml:space="preserve">
-    <value>Заинтересованы найти больше конспектов и экзамены прошлых сессии которые могут улучшить вашу учебу? Присоединяйтесь к остальным вашим одноклассникам и регистрируйтесь в </value>
-  </data>
   <data name="ReachTop" xml:space="preserve">
     <value>Хотите добраться до верхней части графика?</value>
-  </data>
-  <data name="ViewEntire" xml:space="preserve">
-    <value>Вы хотели бы просмотреть весь документ? </value>
   </data>
   <data name="YouEarned" xml:space="preserve">
     <value>вы заработали</value>

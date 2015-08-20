@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AgreeToTerm" xml:space="preserve">
-    <value>you must agree to Zbang's Terms of Service.</value>
-  </data>
   <data name="ConfirmEmail" xml:space="preserve">
     <value>Confirm email</value>
   </data>

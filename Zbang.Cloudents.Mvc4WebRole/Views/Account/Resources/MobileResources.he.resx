@@ -117,64 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="And" xml:space="preserve">
-    <value>ו</value>
-  </data>
-  <data name="ByJoining" xml:space="preserve">
-    <value>בהרשמה, אני מסכים</value>
-  </data>
-  <data name="CreateAccount" xml:space="preserve">
-    <value>צור חשבון חדש </value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>דוא"ל</value>
-  </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>התחבר</value>
-  </data>
-  <data name="OfZbang" xml:space="preserve">
-    <value>של זבנג</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>סיסמא</value>
-  </data>
-  <data name="Privacy" xml:space="preserve">
-    <value>מדיניות פרטיות</value>
-  </data>
-  <data name="School" xml:space="preserve">
-    <value>מוסד אקדמי</value>
-  </data>
-  <data name="SignInFB" xml:space="preserve">
-    <value>הצטרף דרך פייסבוק</value>
-  </data>
-  <data name="SignUp" xml:space="preserve">
-    <value>הירשם</value>
-  </data>
-  <data name="Terms" xml:space="preserve">
-    <value>לתנאי שירות</value>
-  </data>
-  <data name="UserSettings" xml:space="preserve">
-    <value>הגדרות משתמש</value>
-  </data>
-  <data name="VerifyEmail" xml:space="preserve">
-    <value>הזן שוב כתובת דוא"ל</value>
-  </data>
-  <data name="AllItems" xml:space="preserve">
-    <value>כל הפריטים</value>
-  </data>
-  <data name="Items" xml:space="preserve">
-    <value>פריטים</value>
-  </data>
   <data name="HasInvited" xml:space="preserve">
     <value>הזמין אותך להצטרף ל</value>
-  </data>
-  <data name="FriendsActivity" xml:space="preserve">
-    <value>חדש מהחברים שלי</value>
-  </data>
-  <data name="NoWorriesClick" xml:space="preserve">
-    <value>אל דאגה, לחץ</value>
-  </data>
-  <data name="ToResetPassword" xml:space="preserve">
-    <value>לאיפוס סיסמא</value>
   </data>
 </root>

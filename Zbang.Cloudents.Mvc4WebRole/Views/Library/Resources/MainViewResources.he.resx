@@ -123,53 +123,14 @@
   <data name="AddItem" xml:space="preserve">
     <value>הוסף פריט</value>
   </data>
-  <data name="AddSchool" xml:space="preserve">
-    <value>הוסף מוסד לימודים חדש</value>
-  </data>
   <data name="AllDepartments" xml:space="preserve">
     <value>כל המחלקות</value>
-  </data>
-  <data name="Back" xml:space="preserve">
-    <value>חזרה</value>
-  </data>
-  <data name="CourseCode" xml:space="preserve">
-    <value>מספר קורס</value>
-  </data>
-  <data name="CourseName" xml:space="preserve">
-    <value>שם קורס</value>
   </data>
   <data name="CreateCourse" xml:space="preserve">
     <value>צור קורס חדש</value>
   </data>
-  <data name="EmptyLib" xml:space="preserve">
-    <value>נראה שאין כרגע מחלקות או קורסים פה - היה ראשון למלא את החסר</value>
-  </data>
-  <data name="Erase" xml:space="preserve">
-    <value>מחק</value>
-  </data>
   <data name="FillGap" xml:space="preserve">
     <value>מלא את החסר</value>
-  </data>
-  <data name="Follow" xml:space="preserve">
-    <value>הצטרף</value>
-  </data>
-  <data name="Following" xml:space="preserve">
-    <value>הצטרפתי</value>
-  </data>
-  <data name="Instructor" xml:space="preserve">
-    <value>מרצה</value>
-  </data>
-  <data name="MobileNoResult" xml:space="preserve">
-    <value>החיפוש שלך לא הניב תוצאות</value>
-  </data>
-  <data name="NoResult" xml:space="preserve">
-    <value>החיפוש שלך {0} לא הניב תוצאות. </value>
-  </data>
-  <data name="RelevantMaterial" xml:space="preserve">
-    <value>כדי לראות את החומרים הרלוונטים למוסד הלימודים שלך אנא מלא את שם המוסד בשדה למטה</value>
-  </data>
-  <data name="SearchSchool" xml:space="preserve">
-    <value>חפש מוסד לימודים או בחר מהרשימה</value>
   </data>
   <data name="SomethingMissing" xml:space="preserve">
     <value>משהו חסר?</value>
@@ -179,15 +140,6 @@
   </data>
   <data name="ThisDepartment" xml:space="preserve">
     <value>מחלקה זו</value>
-  </data>
-  <data name="TryAgain" xml:space="preserve">
-    <value>-- נא נסה שנית</value>
-  </data>
-  <data name="WelcomeAcademic" xml:space="preserve">
-    <value>בחר מוסד לימודים</value>
-  </data>
-  <data name="SchoolsFrom" xml:space="preserve">
-    <value>מוסדות לימוד מ</value>
   </data>
   <data name="CantFind" xml:space="preserve">
     <value>לא נמצא מוסד הלימודים שלך?</value>
@@ -201,9 +153,6 @@
   <data name="WelcomeTo" xml:space="preserve">
     <value>ברוך הבא לספיטבול!</value>
   </data>
-  <data name="Student" xml:space="preserve">
-    <value>סטודנט</value>
-  </data>
   <data name="FriendsRegistered" xml:space="preserve">
     <value>מחבריך כבר רשומים למערכת</value>
   </data>
@@ -213,17 +162,8 @@
   <data name="YouStudyAt" xml:space="preserve">
     <value>הנך לומד ב</value>
   </data>
-  <data name="CantFindDept" xml:space="preserve">
-    <value>לא מצאת את המחלקה שלך?</value>
-  </data>
-  <data name="CreateNewDept" xml:space="preserve">
-    <value>צור מחלקה חדשה</value>
-  </data>
   <data name="UploadLogo" xml:space="preserve">
     <value>העלה סמל מוסד</value>
-  </data>
-  <data name="Courses" xml:space="preserve">
-    <value>קורסים</value>
   </data>
   <data name="CanConfuse" xml:space="preserve">
     <value>הכנס את שם המחלקה שכפי שמופיע במוסד הלימודים שלך.

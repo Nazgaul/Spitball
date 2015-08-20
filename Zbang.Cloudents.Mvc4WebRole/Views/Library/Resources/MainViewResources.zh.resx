@@ -123,51 +123,11 @@
   <data name="AddItem" xml:space="preserve">
     <value>新增一个项目</value>
   </data>
-  <data name="AddSchool" xml:space="preserve">
-    <value>添加新学校</value>
-  </data>
-  <data name="Back" xml:space="preserve">
-    <value>返回</value>
-  </data>
-  <data name="CourseCode" xml:space="preserve">
-    <value>课程代码</value>
-  </data>
-  <data name="CourseName" xml:space="preserve">
-    <value>课程名称</value>
-  </data>
   <data name="CreateCourse" xml:space="preserve">
     <value>创建新课程</value>
   </data>
-  <data name="EmptyLib" xml:space="preserve">
-    <value>似乎没有添加任何院系或课程。
-                争取首先填补空白</value>
-  </data>
-  <data name="Erase" xml:space="preserve">
-    <value>消除</value>
-  </data>
   <data name="FillGap" xml:space="preserve">
     <value>填空</value>
-  </data>
-  <data name="Follow" xml:space="preserve">
-    <value>关注</value>
-  </data>
-  <data name="Following" xml:space="preserve">
-    <value>已关注</value>
-  </data>
-  <data name="Instructor" xml:space="preserve">
-    <value>讲师</value>
-  </data>
-  <data name="MobileNoResult" xml:space="preserve">
-    <value>没有找到满足你搜索条件的结果</value>
-  </data>
-  <data name="NoResult" xml:space="preserve">
-    <value>没有找到与 {0} 相关的结果。</value>
-  </data>
-  <data name="RelevantMaterial" xml:space="preserve">
-    <value>查看和你的学术机构相关的资料，请选择下列字段中的机构名称</value>
-  </data>
-  <data name="SearchSchool" xml:space="preserve">
-    <value>搜索学校或从列表中选择</value>
   </data>
   <data name="SomethingMissing" xml:space="preserve">
     <value>缺少什么？</value>
@@ -177,14 +137,5 @@
   </data>
   <data name="ThisDepartment" xml:space="preserve">
     <value>该系</value>
-  </data>
-  <data name="TryAgain" xml:space="preserve">
-    <value>请使用不同的关键词再次尝试。</value>
-  </data>
-  <data name="WelcomeAcademic" xml:space="preserve">
-    <value>选择你的学校</value>
-  </data>
-  <data name="SchoolsFrom" xml:space="preserve">
-    <value>学校</value>
   </data>
 </root>

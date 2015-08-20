@@ -120,18 +120,12 @@
   <data name="AddItem" xml:space="preserve">
     <value>הוסף פריט</value>
   </data>
-  <data name="AddShare" xml:space="preserve">
-    <value>הוסף קבצים ושתף עם חברים</value>
-  </data>
   <data name="BoxEmpty" xml:space="preserve">
     <value>ריק כאן, לעת עתה.
 תהיה הראשון לשתף חומרי לימוד.</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>ביטול</value>
-  </data>
-  <data name="ChangePrivacy" xml:space="preserve">
-    <value>שנה הגדרות פרטיות</value>
   </data>
   <data name="ChooseFiles" xml:space="preserve">
     <value>בחר את הקבצים שברצונך להוסיף</value>
@@ -142,43 +136,12 @@
   <data name="Delete" xml:space="preserve">
     <value>מחק</value>
   </data>
-  <data name="Discussion" xml:space="preserve">
-    <value>דיון</value>
-  </data>
-  <data name="DownloadFiles" xml:space="preserve">
-    <value>הורד קבצים</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>ערוך</value>
-  </data>
   <data name="FeedEmpty" xml:space="preserve">
     <value>לשאול שאלות הוא המקור
 של כל הידע.</value>
   </data>
-  <data name="FollowBox" xml:space="preserve">
-    <value>רוצה לדעת מה חדש? עקוב אחרי קופסא זו והתעדכן</value>
-  </data>
-  <data name="Friends" xml:space="preserve">
-    <value>חברים:</value>
-  </data>
-  <data name="Invite" xml:space="preserve">
-    <value>ותזמין</value>
-  </data>
-  <data name="InviteFriends" xml:space="preserve">
-    <value>הזמן חברים</value>
-  </data>
   <data name="Manage" xml:space="preserve">
     <value>נהל</value>
-  </data>
-  <data name="NooneHere" xml:space="preserve">
-    <value>אף אחד לא כאן בינתיים,
-למה שלא תשנה את זה</value>
-  </data>
-  <data name="Nothanks" xml:space="preserve">
-    <value>לא, תודה</value>
-  </data>
-  <data name="Notifications" xml:space="preserve">
-    <value>התראות</value>
   </data>
   <data name="Privacy" xml:space="preserve">
     <value>פרטיות</value>
@@ -187,25 +150,7 @@
     <value>אין עדיין מבחנים לפתור,
 רוצה להיות הראשון ליצור מבחן?</value>
   </data>
-  <data name="Rename" xml:space="preserve">
-    <value>שנה שם</value>
-  </data>
   <data name="Save" xml:space="preserve">
     <value>שמור</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>הגדרות</value>
-  </data>
-  <data name="Share" xml:space="preserve">
-    <value>שתף</value>
-  </data>
-  <data name="ShareFriends" xml:space="preserve">
-    <value>שתף חברים</value>
-  </data>
-  <data name="Someone" xml:space="preserve">
-    <value>מישהו?</value>
-  </data>
-  <data name="Unfollow" xml:space="preserve">
-    <value>בטל מעקב</value>
   </data>
 </root>

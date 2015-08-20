@@ -120,9 +120,6 @@
   <data name="BoxExists" xml:space="preserve">
     <value>קופסה זו כבר קיימת</value>
   </data>
-  <data name="BoxSettingsNotAllowed" xml:space="preserve">
-    <value>המשתמש אינו רשאי לראות את הגדרות הקופסא</value>
-  </data>
   <data name="Error" xml:space="preserve">
     <value>שגיאה</value>
   </data>

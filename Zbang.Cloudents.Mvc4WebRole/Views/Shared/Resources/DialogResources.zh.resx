@@ -117,35 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Academic" xml:space="preserve">
-    <value>学术</value>
-  </data>
   <data name="Add" xml:space="preserve">
     <value>增加</value>
   </data>
   <data name="AddLink" xml:space="preserve">
     <value>添加网站链接</value>
   </data>
-  <data name="AddPrivateBox" xml:space="preserve">
-    <value>添加一个私密主题框</value>
-  </data>
-  <data name="AddSchool" xml:space="preserve">
-    <value>添加一个学校</value>
-  </data>
   <data name="AddUrl" xml:space="preserve">
     <value>增加链接，例如 www.website.com</value>
   </data>
-  <data name="ApplicationSent" xml:space="preserve">
-    <value>谢谢！你的申请已发送。</value>
-  </data>
-  <data name="BoxName" xml:space="preserve">
-    <value>主题框名称</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
-  </data>
-  <data name="ChangePrivacy" xml:space="preserve">
-    <value>修改隐私：</value>
   </data>
   <data name="ChooseFile" xml:space="preserve">
     <value>选择文件</value>
@@ -153,26 +135,11 @@
   <data name="ChooseFiles" xml:space="preserve">
     <value>选择文件</value>
   </data>
-  <data name="ChooseNotification" xml:space="preserve">
-    <value>选择通知：</value>
-  </data>
-  <data name="CommentHere" xml:space="preserve">
-    <value>请在这里写下你的评论…</value>
-  </data>
   <data name="Create" xml:space="preserve">
     <value>创建</value>
   </data>
-  <data name="CreateBox" xml:space="preserve">
-    <value>创建新的主题框</value>
-  </data>
-  <data name="CreateCourse" xml:space="preserve">
-    <value>创建新的课程</value>
-  </data>
   <data name="CreateItem" xml:space="preserve">
     <value>创建新的院系</value>
-  </data>
-  <data name="CreateTab" xml:space="preserve">
-    <value>创建标签</value>
   </data>
   <data name="DragAndDrop" xml:space="preserve">
     <value>把你的文件拖放到这里</value>
@@ -180,36 +147,8 @@
   <data name="DropToUpload" xml:space="preserve">
     <value>拖曳文件以上传</value>
   </data>
-  <data name="EgMusic" xml:space="preserve">
-    <value>例如，音乐</value>
-  </data>
-  <data name="GetBackToYou" xml:space="preserve">
-    <value>我们会完成审阅并在 24 小时内答复你。
-同时，你可以到你所在地区，创建私密主题框，并邀请你的朋友。</value>
-  </data>
-  <data name="Here" xml:space="preserve">
-    <value>这里</value>
-  </data>
-  <data name="InviteFriends" xml:space="preserve">
-    <value>邀请你的朋友，他们肯定会欣然接受……</value>
-  </data>
-  <data name="InviteTo" xml:space="preserve">
-    <value>邀请到</value>
-  </data>
   <data name="Next" xml:space="preserve">
     <value>下一个</value>
-  </data>
-  <data name="Notification" xml:space="preserve">
-    <value>通知</value>
-  </data>
-  <data name="Ok" xml:space="preserve">
-    <value>确定</value>
-  </data>
-  <data name="Personal" xml:space="preserve">
-    <value>个人</value>
-  </data>
-  <data name="PrivacySettings" xml:space="preserve">
-    <value>隐私设置</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
     <value>必填字段</value>
@@ -217,20 +156,11 @@
   <data name="SelectFromList" xml:space="preserve">
     <value>- 从列表中选择</value>
   </data>
-  <data name="SelectPeople" xml:space="preserve">
-    <value>从地址簿中挑选联系人：</value>
-  </data>
-  <data name="SelectType" xml:space="preserve">
-    <value>选择主题框类型：</value>
-  </data>
   <data name="Send" xml:space="preserve">
     <value>发送</value>
   </data>
   <data name="SendMessage" xml:space="preserve">
     <value>发送消息</value>
-  </data>
-  <data name="SendRequest" xml:space="preserve">
-    <value>发送请求</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>设置</value>
@@ -241,40 +171,7 @@
   <data name="To" xml:space="preserve">
     <value>致：</value>
   </data>
-  <data name="ToAddAcademic" xml:space="preserve">
-    <value>添加一个学术主题框，点击</value>
-  </data>
-  <data name="TypeDepartment" xml:space="preserve">
-    <value>- 输入系名</value>
-  </data>
-  <data name="TypeInstructor" xml:space="preserve">
-    <value>- 输入讲师名字</value>
-  </data>
-  <data name="Upload" xml:space="preserve">
-    <value>上传</value>
-  </data>
-  <data name="Uploading" xml:space="preserve">
-    <value>上传中</value>
-  </data>
-  <data name="UploadTo" xml:space="preserve">
-    <value>上传文件至</value>
-  </data>
-  <data name="UsernameOr" xml:space="preserve">
-    <value>用户名或 Email</value>
-  </data>
-  <data name="ViaEmail" xml:space="preserve">
-    <value>通过 Email 邀请</value>
-  </data>
-  <data name="ViaFacebook" xml:space="preserve">
-    <value>通过 Facebook 邀请</value>
-  </data>
-  <data name="UploadedFiles" xml:space="preserve">
-    <value>已上传文件</value>
-  </data>
   <data name="UploadFiles" xml:space="preserve">
     <value>上传文件</value>
-  </data>
-  <data name="UploadingFiles" xml:space="preserve">
-    <value>文件上传中</value>
   </data>
 </root>

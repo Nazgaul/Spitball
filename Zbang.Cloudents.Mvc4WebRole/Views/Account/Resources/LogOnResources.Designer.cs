@@ -61,15 +61,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It&apos;s more than just studying, it&apos;s social studying.
-        /// </summary>
-        public static string AcademicCloud {
-            get {
-                return ResourceManager.GetString("AcademicCloud", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Already have an account?.
         /// </summary>
         public static string AlreadyHave {
@@ -88,74 +79,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here.
-        /// </summary>
-        public static string ClickHere {
-            get {
-                return ResourceManager.GetString("ClickHere", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connect.
-        /// </summary>
-        public static string Connect {
-            get {
-                return ResourceManager.GetString("Connect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log in.
-        /// </summary>
-        public static string ConnectAccount {
-            get {
-                return ResourceManager.GetString("ConnectAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log in to Spitball.
-        /// </summary>
-        public static string ConnectCloudents {
-            get {
-                return ResourceManager.GetString("ConnectCloudents", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connect.
-        /// </summary>
-        public static string ConnectHere {
-            get {
-                return ResourceManager.GetString("ConnectHere", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create.
-        /// </summary>
-        public static string Create {
-            get {
-                return ResourceManager.GetString("Create", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create an account.
         /// </summary>
         public static string CreateAccount {
             get {
                 return ResourceManager.GetString("CreateAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create a free Spitball account.
-        /// </summary>
-        public static string CreateCloudents {
-            get {
-                return ResourceManager.GetString("CreateCloudents", resourceCulture);
             }
         }
         
@@ -187,24 +115,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter any user name and password.
-        /// </summary>
-        public static string EnterAnyUserPassword {
-            get {
-                return ResourceManager.GetString("EnterAnyUserPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enter your personal details below.
-        /// </summary>
-        public static string EnterPersonalDetails {
-            get {
-                return ResourceManager.GetString("EnterPersonalDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Log in with Facebook.
         /// </summary>
         public static string Facebook {
@@ -214,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Facebook.
+        ///   Looks up a localized string similar to Sign up.
         /// </summary>
         public static string FacebookSignUp {
             get {
@@ -232,65 +142,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Register via Google.
-        /// </summary>
-        public static string Google {
-            get {
-                return ResourceManager.GetString("Google", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to here.
         /// </summary>
         public static string Here {
             get {
                 return ResourceManager.GetString("Here", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The email or password you entered is incorrect. Try again-.
-        /// </summary>
-        public static string IncorrectCredentials {
-            get {
-                return ResourceManager.GetString("IncorrectCredentials", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Join now.
-        /// </summary>
-        public static string JoinNow {
-            get {
-                return ResourceManager.GetString("JoinNow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Join now.
-        /// </summary>
-        public static string JoinNow2 {
-            get {
-                return ResourceManager.GetString("JoinNow2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Keep me signed in.
-        /// </summary>
-        public static string KeepMeSignedIn {
-            get {
-                return ResourceManager.GetString("KeepMeSignedIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Language:.
-        /// </summary>
-        public static string Language {
-            get {
-                return ResourceManager.GetString("Language", resourceCulture);
             }
         }
         
@@ -313,15 +169,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New to Spitball?.
-        /// </summary>
-        public static string NewTo {
-            get {
-                return ResourceManager.GetString("NewTo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Don&apos;t have an account?.
         /// </summary>
         public static string NoAccount {
@@ -336,15 +183,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         public static string NoWorries {
             get {
                 return ResourceManager.GetString("NoWorries", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to or.
-        /// </summary>
-        public static string or {
-            get {
-                return ResourceManager.GetString("or", resourceCulture);
             }
         }
         
@@ -376,29 +214,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Or register free via .
-        /// </summary>
-        public static string Register {
-            get {
-                return ResourceManager.GetString("Register", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Remember me.
         /// </summary>
         public static string RememberMe {
             get {
                 return ResourceManager.GetString("RememberMe", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Retrieve.
-        /// </summary>
-        public static string Retrieve {
-            get {
-                return ResourceManager.GetString("Retrieve", resourceCulture);
             }
         }
         

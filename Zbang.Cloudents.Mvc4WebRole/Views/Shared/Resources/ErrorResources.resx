@@ -142,20 +142,8 @@ your browser version</value>
   <data name="Oops" xml:space="preserve">
     <value>Oops</value>
   </data>
-  <data name="Please" xml:space="preserve">
-    <value>Please</value>
-  </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>sign in</value>
-  </data>
   <data name="ToAccessFile" xml:space="preserve">
     <value>You need to sign in to Spitball to access this file</value>
-  </data>
-  <data name="ToView" xml:space="preserve">
-    <value>To view this content you need to be a member or invited</value>
-  </data>
-  <data name="TryAgain" xml:space="preserve">
-    <value>and try again, or</value>
   </data>
   <data name="UseOtherBrowser" xml:space="preserve">
     <value>Please update your version of Internet Explorer

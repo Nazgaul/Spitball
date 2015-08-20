@@ -150,20 +150,11 @@
   <data name="LeaveQuiz" xml:space="preserve">
     <value>هل أنت متأكد أنك تريد أن تترك هذا الاختبار؟</value>
   </data>
-  <data name="Min" xml:space="preserve">
-    <value>دقيقة</value>
-  </data>
   <data name="MultipleChoice" xml:space="preserve">
     <value>أسئلة متعددة الإختيارات</value>
   </data>
   <data name="NotFinished" xml:space="preserve">
     <value>لم تنته من اختبارك بعد.</value>
-  </data>
-  <data name="Pause" xml:space="preserve">
-    <value>إيقاف مؤقت</value>
-  </data>
-  <data name="Play" xml:space="preserve">
-    <value>تشغيل</value>
   </data>
   <data name="PreviewQuiz" xml:space="preserve">
     <value>معاينة الاختبار</value>
@@ -174,36 +165,20 @@
   <data name="PublishQuiz" xml:space="preserve">
     <value>نشر الاختبار</value>
   </data>
-  <data name="QuizSummary" xml:space="preserve">
-    <value>ملخص الاختبار</value>
-  </data>
   <data name="RetakeQuiz" xml:space="preserve">
     <value>إعادة الاختبار</value>
   </data>
   <data name="SaveDraft" xml:space="preserve">
     <value>حفظ كمسودة</value>
   </data>
-  <data name="Timer" xml:space="preserve">
-    <value>المؤقت</value>
-  </data>
-  <data name="TimeWas" xml:space="preserve">
-    <value>كان وقتك</value>
-  </data>
   <data name="Wrong" xml:space="preserve">
     <value>خاطئة</value>
-  </data>
-  <data name="YouGot" xml:space="preserve">
-    <value>لقد حصلت</value>
   </data>
   <data name="YourScore" xml:space="preserve">
     <value>نتيجتك</value>
   </data>
   <data name="NoAnswer" xml:space="preserve">
     <value>الجواب لا</value>
-  </data>
-  <data name="EditQuiz" xml:space="preserve">
-    <value>تحرير مسابقة
-</value>
   </data>
   <data name="Afraid" xml:space="preserve">
     <value>خائف</value>

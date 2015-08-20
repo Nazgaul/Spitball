@@ -16,11 +16,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             m_InviteRepository = inviteRepository;
         }
-        public void Handle(DeleteNotificationCommand commandMessage)
+        public void Handle(DeleteNotificationCommand message)
         {
-            if (commandMessage == null) throw new ArgumentNullException("commandMessage");
-            var message = m_InviteRepository.Load(commandMessage.MessageId);
-            m_InviteRepository.Delete(message);
+            if (message == null) throw new ArgumentNullException("message");
+            var inviteMessage = m_InviteRepository.Load(message.MessageId);
+            m_InviteRepository.Delete(inviteMessage);
         }
     }
 }

@@ -120,7 +120,4 @@
   <data name="School" xml:space="preserve">
     <value>University:</value>
   </data>
-  <data name="SchoolName" xml:space="preserve">
-    <value>University name:</value>
-  </data>
 </root>

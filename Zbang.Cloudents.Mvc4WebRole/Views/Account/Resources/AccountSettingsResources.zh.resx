@@ -120,32 +120,11 @@
   <data name="AccountSettings" xml:space="preserve">
     <value>帐户设置</value>
   </data>
-  <data name="AddEmail" xml:space="preserve">
-    <value>添加另一个 Email：</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>取消</value>
-  </data>
   <data name="ChangeEmail" xml:space="preserve">
     <value>变更 Email 地址</value>
   </data>
   <data name="ChangeUni" xml:space="preserve">
     <value>更改学校</value>
-  </data>
-  <data name="ChooseFile" xml:space="preserve">
-    <value>选择文件</value>
-  </data>
-  <data name="ChooseLanguage" xml:space="preserve">
-    <value>选择语言</value>
-  </data>
-  <data name="ChooseUni" xml:space="preserve">
-    <value>选择大学</value>
-  </data>
-  <data name="DefaultSettings" xml:space="preserve">
-    <value>默认主题框设置：</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>编辑</value>
   </data>
   <data name="EnterCode" xml:space="preserve">
     <value>输入代码</value>
@@ -156,20 +135,11 @@
   <data name="Free" xml:space="preserve">
     <value>免费：</value>
   </data>
-  <data name="Friends" xml:space="preserve">
-    <value>管理朋友</value>
-  </data>
   <data name="InUse" xml:space="preserve">
     <value>正在使用：</value>
   </data>
-  <data name="NewPwd" xml:space="preserve">
-    <value>新密码</value>
-  </data>
   <data name="Notifications" xml:space="preserve">
     <value>通知</value>
-  </data>
-  <data name="OldPwd" xml:space="preserve">
-    <value>旧密码</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>密码：</value>
@@ -177,32 +147,14 @@
   <data name="ProfileInfo" xml:space="preserve">
     <value>档案详情</value>
   </data>
-  <data name="ProfilePicture" xml:space="preserve">
-    <value>档案照片</value>
-  </data>
-  <data name="Remove" xml:space="preserve">
-    <value>删除</value>
-  </data>
   <data name="Save" xml:space="preserve">
     <value>保存</value>
-  </data>
-  <data name="SaveChanges" xml:space="preserve">
-    <value>保存变更</value>
-  </data>
-  <data name="SaveProfile" xml:space="preserve">
-    <value>保存档案</value>
-  </data>
-  <data name="SelectSchool" xml:space="preserve">
-    <value>-- 输入学校名</value>
   </data>
   <data name="Space" xml:space="preserve">
     <value>存储空间：</value>
   </data>
   <data name="Storage" xml:space="preserve">
     <value>存储</value>
-  </data>
-  <data name="University" xml:space="preserve">
-    <value>大学</value>
   </data>
   <data name="UploadImage" xml:space="preserve">
     <value>上传图片</value>

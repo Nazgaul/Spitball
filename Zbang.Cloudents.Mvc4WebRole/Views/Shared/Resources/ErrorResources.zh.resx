@@ -142,20 +142,8 @@
   <data name="Oops" xml:space="preserve">
     <value>糟糕！</value>
   </data>
-  <data name="Please" xml:space="preserve">
-    <value>请</value>
-  </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>登录</value>
-  </data>
   <data name="ToAccessFile" xml:space="preserve">
     <value>必须登录 Spitball 才可以访问该文件</value>
-  </data>
-  <data name="ToView" xml:space="preserve">
-    <value>要查看此内容，你需要成为会员或获得邀请</value>
-  </data>
-  <data name="TryAgain" xml:space="preserve">
-    <value>重试</value>
   </data>
   <data name="UseOtherBrowser" xml:space="preserve">
     <value>请升级您的 IE 浏览器版本

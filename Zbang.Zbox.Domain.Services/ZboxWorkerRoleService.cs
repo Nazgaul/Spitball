@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Dapper;
 using NHibernate.Linq;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Commands.Store;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
@@ -43,23 +42,23 @@ namespace Zbang.Zbox.Domain.Services
             return false;
         }
 
-        private void UpdateMissingUrl()
-        {
-            using (var unitOfWork = UnitOfWork.Start())
-            {
-                var items = UnitOfWork.CurrentSession.Query<Item>().Where(w => !w.IsDeleted && w.Url == null).ToList();
-                foreach (var item in items)
-                {
-                    if (string.IsNullOrEmpty(item.Name))
-                    {
-                        item.Name = item.ItemContentUrl;
-                    }
-                    item.GenerateUrl();
-                    UnitOfWork.CurrentSession.Save(item);
-                }
-                unitOfWork.TransactionalFlush();
-            }
-        }
+        //private void UpdateMissingUrl()
+        //{
+        //    using (var unitOfWork = UnitOfWork.Start())
+        //    {
+        //        var items = UnitOfWork.CurrentSession.Query<Item>().Where(w => !w.IsDeleted && w.Url == null).ToList();
+        //        foreach (var item in items)
+        //        {
+        //            if (string.IsNullOrEmpty(item.Name))
+        //            {
+        //                item.Name = item.ItemContentUrl;
+        //            }
+        //            item.GenerateUrl();
+        //            UnitOfWork.CurrentSession.Save(item);
+        //        }
+        //        unitOfWork.TransactionalFlush();
+        //    }
+        //}
 
         private void UpdateUniversityStats()
         {
@@ -83,32 +82,32 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
-        public void AddProducts(AddProductsToStoreCommand command)
-        {
-            using (var unitOfWork = UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                unitOfWork.TransactionalFlush();
-            }
-        }
+        //public void AddProducts(AddProductsToStoreCommand command)
+        //{
+        //    using (var unitOfWork = UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        unitOfWork.TransactionalFlush();
+        //    }
+        //}
 
-        public void AddCategories(AddCategoriesCommand command)
-        {
-            using (var unitOfWork = UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                unitOfWork.TransactionalFlush();
-            }
-        }
+        //public void AddCategories(AddCategoriesCommand command)
+        //{
+        //    using (var unitOfWork = UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        unitOfWork.TransactionalFlush();
+        //    }
+        //}
 
-        public void AddBanners(AddBannersCommand command)
-        {
-            using (var unitOfWork = UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                unitOfWork.TransactionalFlush();
-            }
-        }
+        //public void AddBanners(AddBannersCommand command)
+        //{
+        //    using (var unitOfWork = UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        unitOfWork.TransactionalFlush();
+        //    }
+        //}
 
         public void UpdateReputation(UpdateReputationCommand command)
         {

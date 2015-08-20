@@ -120,7 +120,4 @@
   <data name="ChangeUni" xml:space="preserve">
     <value>Change university</value>
   </data>
-  <data name="SelectSchool" xml:space="preserve">
-    <value>-- Type university name</value>
-  </data>
 </root>

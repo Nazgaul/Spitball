@@ -165,17 +165,11 @@
   <data name="School" xml:space="preserve">
     <value>معهد اكاديمي:</value>
   </data>
-  <data name="SchoolName" xml:space="preserve">
-    <value>اسم المعهد / الكلية</value>
-  </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>يرجى إدخال اسم الجامعة</value>
   </data>
   <data name="TypeCodeReceived" xml:space="preserve">
     <value>اكتب كلمة المرور التي حصلت عليها في البريد الالكتروني</value>
-  </data>
-  <data name="Username" xml:space="preserve">
-    <value>اسم المستخدم</value>
   </data>
   <data name="UsernameEmpty" xml:space="preserve">
     <value>لا يمكن ان يكون حقل البريد الالكتروني فارغاً</value>

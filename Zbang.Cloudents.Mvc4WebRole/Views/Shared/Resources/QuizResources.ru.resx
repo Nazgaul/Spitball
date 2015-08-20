@@ -150,20 +150,11 @@
   <data name="LeaveQuiz" xml:space="preserve">
     <value>Уверены, что хотите прекратить тестирование?</value>
   </data>
-  <data name="Min" xml:space="preserve">
-    <value>мин</value>
-  </data>
   <data name="MultipleChoice" xml:space="preserve">
     <value>вопросы с вариантами ответов</value>
   </data>
   <data name="NotFinished" xml:space="preserve">
     <value>Вы ещё не закончили тестирование.</value>
-  </data>
-  <data name="Pause" xml:space="preserve">
-    <value>Пауза</value>
-  </data>
-  <data name="Play" xml:space="preserve">
-    <value>Пуск</value>
   </data>
   <data name="PreviewQuiz" xml:space="preserve">
     <value>Просмотр</value>
@@ -174,39 +165,20 @@
   <data name="PublishQuiz" xml:space="preserve">
     <value>Опубликовать этот тест</value>
   </data>
-  <data name="QuizSummary" xml:space="preserve">
-    <value>Обзор теста</value>
-  </data>
   <data name="RetakeQuiz" xml:space="preserve">
     <value>Повторный тест</value>
   </data>
   <data name="SaveDraft" xml:space="preserve">
     <value>Сохранить черновик</value>
   </data>
-  <data name="Timer" xml:space="preserve">
-    <value>Таймер</value>
-  </data>
-  <data name="TimeWas" xml:space="preserve">
-    <value>Ваше время составило</value>
-  </data>
   <data name="Wrong" xml:space="preserve">
     <value>Неверно</value>
-  </data>
-  <data name="YouGot" xml:space="preserve">
-    <value>Вы получили</value>
   </data>
   <data name="YourScore" xml:space="preserve">
     <value>Ваш результат</value>
   </data>
   <data name="NoAnswer" xml:space="preserve">
     <value>Не дано ответа</value>
-  </data>
-  <data name="NoAnswer1" xml:space="preserve">
-    <value>Не дано ответа</value>
-  </data>
-  <data name="EditQuiz" xml:space="preserve">
-    <value>Редактировать Тест
-</value>
   </data>
   <data name="Afraid" xml:space="preserve">
     <value>Пока нет, я боюсь</value>

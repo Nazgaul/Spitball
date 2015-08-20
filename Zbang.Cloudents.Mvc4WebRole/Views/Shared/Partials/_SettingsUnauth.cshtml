@@ -10,12 +10,11 @@
         return;
     }
     <ul class="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name">
-        <li><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })"*@ title="English (US)">@Languages.EnglishUsName</button></li>
-        <li><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture })"*@ title="English (UK)">@Languages.EnglishGbName</button></li>
-        <li><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.RussianName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })"*@ title="Russian Site">@Languages.RussianName</button></li>
-        <li><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })"*@ title="Hebrew Site">@Languages.HebrewName</button></li>
-        <li><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })"*@ title="Arabic Site">@Languages.ArabicName</button></li>
-        <li class="last"><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture')" @*href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })"*@ title="Chinese Site">@Languages.ChineseName</button></li>
+        <li><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture')" title="English (US)">@Languages.EnglishUsName</button></li>
+        <li><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.EnglishGbName).Culture')" title="English (UK)">@Languages.EnglishGbName</button></li>
+        <li><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.RussianName).Culture')" title="Russian Site">@Languages.RussianName</button></li>
+        <li><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture')" title="Hebrew Site">@Languages.HebrewName</button></li>
+        <li class="last"><button type="button" ng-click="changeLocale('@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture')" title="Arabic Site">@Languages.ArabicName</button></li>
     </ul>
 }
 

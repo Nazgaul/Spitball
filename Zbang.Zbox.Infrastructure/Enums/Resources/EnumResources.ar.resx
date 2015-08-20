@@ -120,35 +120,14 @@
   <data name="Attacks" xml:space="preserve">
     <value>يهاجم مجموعة او اشخاص</value>
   </data>
-  <data name="BoxesOrderLastModified" xml:space="preserve">
-    <value>اخر المستجدات</value>
-  </data>
-  <data name="BoxesOrderName" xml:space="preserve">
-    <value>الاسم</value>
-  </data>
   <data name="BoxPrivacySettingsAnyoneWithUrl" xml:space="preserve">
     <value>عام</value>
   </data>
   <data name="BoxPrivacySettingsMembersOnly" xml:space="preserve">
     <value>بالدعوة فقط</value>
   </data>
-  <data name="BoxPrivacySettingsPrivate" xml:space="preserve">
-    <value>خاص</value>
-  </data>
   <data name="College" xml:space="preserve">
     <value>المعهد</value>
-  </data>
-  <data name="EmailActionAddedItem" xml:space="preserve">
-    <value>اضافة</value>
-  </data>
-  <data name="EmailActionCommentBox" xml:space="preserve">
-    <value>أطرح سؤالاُ</value>
-  </data>
-  <data name="EmailActionCommentItem" xml:space="preserve">
-    <value>رد على </value>
-  </data>
-  <data name="EmailActionJoin" xml:space="preserve">
-    <value>الانضمام ل</value>
   </data>
   <data name="Hateful" xml:space="preserve">
     <value>مضمون كراهية او عدواني </value>
@@ -191,8 +170,5 @@
   </data>
   <data name="WrongPassword" xml:space="preserve">
     <value>كلمة المرور التي ادخلت غير صحيحة </value>
-  </data>
-  <data name="EmailActionAnswerBox" xml:space="preserve">
-    <value>أجاب عن سؤال</value>
   </data>
 </root>

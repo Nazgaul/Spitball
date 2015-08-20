@@ -123,19 +123,7 @@
   <data name="Feedback" xml:space="preserve">
     <value>تعليق</value>
   </data>
-  <data name="Gb" xml:space="preserve">
-    <value>GB</value>
-  </data>
-  <data name="Help" xml:space="preserve">
-    <value>مساعدة</value>
-  </data>
   <data name="LogOut" xml:space="preserve">
     <value>تسجيل الخروج</value>
-  </data>
-  <data name="PercentOf" xml:space="preserve">
-    <value>من%</value>
-  </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>تسجيل الدخول</value>
   </data>
 </root>

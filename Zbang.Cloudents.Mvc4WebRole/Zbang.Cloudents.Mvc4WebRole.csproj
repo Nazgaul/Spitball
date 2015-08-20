@@ -416,11 +416,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Models\Resources\BoxSettingResource.Designer.cs">
-      <DependentUpon>BoxSettingResource.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Models\Resources\CreateAcademicBoxResources.Designer.cs">
       <DependentUpon>CreateAcademicBoxResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -501,11 +496,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Views\Account\Resources\VerifyAccountResources.Designer.cs">
-      <DependentUpon>VerifyAccountResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Views\Box\Resources\IndexResources.Designer.cs">
       <DependentUpon>IndexResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -516,40 +506,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MainViewResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Box\Resources\MobileBoxResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MobileBoxResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Views\Dashboard\Resources\IndexResources.Designer.cs">
       <DependentUpon>IndexResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Dashboard\Resources\MainViewResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MainViewResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Home\Resources\AboutUsResources.Designer.cs">
-      <DependentUpon>AboutUsResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Home\Resources\ContactUsResources.Designer.cs">
-      <DependentUpon>ContactUsResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Home\Resources\MobileAppResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MobileAppResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Home\Resources\WelcomeResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WelcomeResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Item\Resources\FlagItemResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2240,7 +2200,6 @@
     </Content>
     <Content Include="Views\Library\_SelectUni.cshtml" />
     <Content Include="Views\Box\_CreateTab.cshtml" />
-    <Content Include="Views\Account\Index2.cshtml" />
     <Content Include="Views\Box\_Items2.cshtml" />
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
     <Content Include="Views\Error\Unsupported.cshtml" />
@@ -2302,7 +2261,6 @@
     <Content Include="Views\Shared\Partials\_DashLibItem.cshtml" />
     <Content Include="Views\Shared\Partials\_SearchTemplate.cshtml" />
     <Content Include="Views\Home\Jobs.cshtml" />
-    <Content Include="Views\Home\MobileApp.cshtml" />
     <Content Include="Views\Home\CloudentsIsNowSpitball.cshtml" />
     <Content Include="Views\Account\Index3.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />
@@ -2486,16 +2444,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Resources\AddLinkResources.ru.resx" />
     <EmbeddedResource Include="Models\Resources\AddLinkResources.zh.resx" />
-    <EmbeddedResource Include="Models\Resources\BoxSettingResource.ar.resx" />
-    <EmbeddedResource Include="Models\Resources\BoxSettingResource.he.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Models\Resources\BoxSettingResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>BoxSettingResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Models\Resources\BoxSettingResource.ru.resx" />
-    <EmbeddedResource Include="Models\Resources\BoxSettingResource.zh.resx" />
     <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.ar.resx" />
     <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.en-gb.resx" />
     <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.he.resx" />
@@ -2631,16 +2579,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\UserDetailResources.ru.resx" />
     <EmbeddedResource Include="Views\Account\Resources\UserDetailResources.zh.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\VerifyAccountResources.ar.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\VerifyAccountResources.he.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\VerifyAccountResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>VerifyAccountResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\VerifyAccountResources.ru.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\VerifyAccountResources.zh.resx" />
     <EmbeddedResource Include="Views\Box\Resources\IndexResources.ar.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -2668,15 +2606,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Box\Resources\MainViewResources.ru.resx" />
     <EmbeddedResource Include="Views\Box\Resources\MainViewResources.zh.resx" />
-    <EmbeddedResource Include="Views\Box\Resources\MobileBoxResources.ar.resx" />
-    <EmbeddedResource Include="Views\Box\Resources\MobileBoxResources.en-gb.resx" />
-    <EmbeddedResource Include="Views\Box\Resources\MobileBoxResources.he.resx" />
-    <EmbeddedResource Include="Views\Box\Resources\MobileBoxResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>MobileBoxResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Box\Resources\MobileBoxResources.ru.resx" />
-    <EmbeddedResource Include="Views\Box\Resources\MobileBoxResources.zh.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.ar.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.he.resx">
@@ -2689,50 +2618,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.ru.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.zh.resx" />
-    <EmbeddedResource Include="Views\Dashboard\Resources\MainViewResources.ar.resx" />
-    <EmbeddedResource Include="Views\Dashboard\Resources\MainViewResources.en-gb.resx" />
-    <EmbeddedResource Include="Views\Dashboard\Resources\MainViewResources.he.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Dashboard\Resources\MainViewResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>MainViewResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Dashboard\Resources\MainViewResources.ru.resx" />
-    <EmbeddedResource Include="Views\Dashboard\Resources\MainViewResources.zh.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.ar.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.he.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AboutUsResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.ru.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.zh.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\ContactUsResources.ar.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\ContactUsResources.he.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\ContactUsResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ContactUsResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Home\Resources\ContactUsResources.ru.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\ContactUsResources.zh.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\MobileAppResources.he.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\MobileAppResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>MobileAppResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.ar.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.en-gb.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.he.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>WelcomeResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.ru.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\WelcomeResources.zh.resx" />
     <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.ar.resx" />
     <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.he.resx" />
     <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.resx">

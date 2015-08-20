@@ -120,10 +120,4 @@
   <data name="CourseNumber" xml:space="preserve">
     <value>Module number</value>
   </data>
-  <data name="InviteCourse" xml:space="preserve">
-    <value>Invite people to this module using:</value>
-  </data>
-  <data name="ShareCourse" xml:space="preserve">
-    <value>Share this module</value>
-  </data>
 </root>

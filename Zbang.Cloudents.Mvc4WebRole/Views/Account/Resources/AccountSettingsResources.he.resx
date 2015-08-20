@@ -120,12 +120,6 @@
   <data name="AccountSettings" xml:space="preserve">
     <value>הגדרות חשבון</value>
   </data>
-  <data name="AddEmail" xml:space="preserve">
-    <value>הוסף עוד אימייל</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>בטל</value>
-  </data>
   <data name="ChangeEmail" xml:space="preserve">
     <value>שנה כתובת אימייל</value>
   </data>
@@ -138,23 +132,8 @@
   <data name="CheckMail" xml:space="preserve">
     <value>בדוק את האימייל שלך </value>
   </data>
-  <data name="ChooseFile" xml:space="preserve">
-    <value>בחר קובץ</value>
-  </data>
-  <data name="ChooseLanguage" xml:space="preserve">
-    <value>בחר שפה</value>
-  </data>
-  <data name="ChooseUni" xml:space="preserve">
-    <value>בחר מוסד אקדמי</value>
-  </data>
   <data name="CodeSent" xml:space="preserve">
     <value>קוד האימות נשלח לכתובת האימייל החדשה</value>
-  </data>
-  <data name="DefaultSettings" xml:space="preserve">
-    <value>הגדרות ברירת מחדל של קופסא:</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>ערוך</value>
   </data>
   <data name="EnterCode" xml:space="preserve">
     <value>Enter Code</value>
@@ -165,17 +144,11 @@
   <data name="Free" xml:space="preserve">
     <value>פנוי:</value>
   </data>
-  <data name="Friends" xml:space="preserve">
-    <value>חברים</value>
-  </data>
   <data name="InUse" xml:space="preserve">
     <value>בשימוש:</value>
   </data>
   <data name="NeverPost" xml:space="preserve">
     <value>אנחנו לא נפרסם בפייסבוק שלך ללא רשותך</value>
-  </data>
-  <data name="NewPwd" xml:space="preserve">
-    <value>סיסמה חדשה</value>
   </data>
   <data name="NoNoifications" xml:space="preserve">
     <value>באמצעות מערכת ההתראות של Spitball תוכלו להתעדכן אחרי המתרחש בקורסים אחריהם אתם עוקבים.</value>
@@ -183,41 +156,20 @@
   <data name="Notifications" xml:space="preserve">
     <value>התראות</value>
   </data>
-  <data name="OldPwd" xml:space="preserve">
-    <value>סיסמה ישנה</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>סיסמא:</value>
   </data>
   <data name="ProfileInfo" xml:space="preserve">
     <value>פרופיל משתמש</value>
   </data>
-  <data name="ProfilePicture" xml:space="preserve">
-    <value>תמונת פרופיל</value>
-  </data>
-  <data name="Remove" xml:space="preserve">
-    <value>הסר</value>
-  </data>
   <data name="Save" xml:space="preserve">
     <value>שמור</value>
-  </data>
-  <data name="SaveChanges" xml:space="preserve">
-    <value>שמור שינויים</value>
-  </data>
-  <data name="SaveProfile" xml:space="preserve">
-    <value>שמור פרופיל</value>
-  </data>
-  <data name="SelectSchool" xml:space="preserve">
-    <value>שם בית הספר</value>
   </data>
   <data name="Space" xml:space="preserve">
     <value>שטח אחסון:</value>
   </data>
   <data name="Storage" xml:space="preserve">
     <value>אחסון</value>
-  </data>
-  <data name="University" xml:space="preserve">
-    <value>מוסד אקדמי</value>
   </data>
   <data name="UploadImage" xml:space="preserve">
     <value>שנה תמונה</value>

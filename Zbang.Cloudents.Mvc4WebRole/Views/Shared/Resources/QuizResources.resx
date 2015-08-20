@@ -150,9 +150,6 @@
   <data name="LeaveQuiz" xml:space="preserve">
     <value>Are you sure you want to leave this quiz?</value>
   </data>
-  <data name="Min" xml:space="preserve">
-    <value>Min</value>
-  </data>
   <data name="MultipleChoice" xml:space="preserve">
     <value>multiple choice questions</value>
   </data>
@@ -161,12 +158,6 @@
   </data>
   <data name="NotFinished" xml:space="preserve">
     <value>You haven't finished your quiz yet.</value>
-  </data>
-  <data name="Pause" xml:space="preserve">
-    <value>Pause</value>
-  </data>
-  <data name="Play" xml:space="preserve">
-    <value>Play</value>
   </data>
   <data name="PreviewQuiz" xml:space="preserve">
     <value>Preview quiz</value>
@@ -177,32 +168,17 @@
   <data name="PublishQuiz" xml:space="preserve">
     <value>Publish the quiz</value>
   </data>
-  <data name="QuizSummary" xml:space="preserve">
-    <value>Quiz summary</value>
-  </data>
   <data name="RetakeQuiz" xml:space="preserve">
     <value>Retake quiz</value>
   </data>
   <data name="SaveDraft" xml:space="preserve">
     <value>Save as draft</value>
   </data>
-  <data name="Timer" xml:space="preserve">
-    <value>Timer</value>
-  </data>
-  <data name="TimeWas" xml:space="preserve">
-    <value>Your time was</value>
-  </data>
   <data name="Wrong" xml:space="preserve">
     <value>Wrong</value>
   </data>
-  <data name="YouGot" xml:space="preserve">
-    <value>You got</value>
-  </data>
   <data name="YourScore" xml:space="preserve">
     <value>Your score</value>
-  </data>
-  <data name="EditQuiz" xml:space="preserve">
-    <value>Edit Quiz</value>
   </data>
   <data name="ScoreDistribution" xml:space="preserve">
     <value>Score distribution:</value>

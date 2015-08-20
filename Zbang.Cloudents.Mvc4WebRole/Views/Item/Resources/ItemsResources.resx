@@ -117,69 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddingComment" xml:space="preserve">
-    <value>Adding a new comment</value>
-  </data>
-  <data name="Additional" xml:space="preserve">
-    <value>Additional Items</value>
-  </data>
-  <data name="Comments" xml:space="preserve">
-    <value>Comments</value>
-  </data>
-  <data name="CopyLink" xml:space="preserve">
-    <value>Copy link</value>
-  </data>
   <data name="CopyRight" xml:space="preserve">
     <value>This item might be subject to certain laws and school policies that restrict third-party use of materials prepared by educators. It is your sole responsibility to be aware of and to abide by any such laws or policies that may apply to you. You may access materials solely for your information and your non-commercial, personal use and as intended through the normal functionality of the site and service.</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="Discussion" xml:space="preserve">
-    <value>Discussion</value>
   </data>
   <data name="Download" xml:space="preserve">
     <value>Download</value>
   </data>
-  <data name="Flag" xml:space="preserve">
-    <value>Flag</value>
-  </data>
   <data name="FullScreen" xml:space="preserve">
     <value>Full screen</value>
-  </data>
-  <data name="HideComments" xml:space="preserve">
-    <value>Hide comments</value>
-  </data>
-  <data name="Like" xml:space="preserve">
-    <value>Like</value>
-  </data>
-  <data name="Links" xml:space="preserve">
-    <value>links</value>
   </data>
   <data name="MayTake" xml:space="preserve">
     <value>This may take several minutes</value>
   </data>
-  <data name="MouseCursor" xml:space="preserve">
-    <value>mouse cursor</value>
-  </data>
-  <data name="NothingHereYet" xml:space="preserve">
-    <value>Nothing here yet</value>
-  </data>
   <data name="OpenLink" xml:space="preserve">
     <value>Open link in new tab</value>
-  </data>
-  <data name="OverDoc" xml:space="preserve">
-    <value>over the document.</value>
   </data>
   <data name="PleaseUseThe" xml:space="preserve">
     <value>Please use the</value>
   </data>
   <data name="PostedBy" xml:space="preserve">
     <value>Posted by</value>
-  </data>
-  <data name="PreviewFailed" xml:space="preserve">
-    <value>Spitball does not support preview of these file types. 
-Please use the</value>
   </data>
   <data name="PreviewFailed2" xml:space="preserve">
     <value>option to view.</value>
@@ -197,40 +154,7 @@ for this file type.</value>
   <data name="Rate" xml:space="preserve">
     <value>Rate</value>
   </data>
-  <data name="RateItem" xml:space="preserve">
-    <value>Rate this item</value>
-  </data>
   <data name="SecurityReasons" xml:space="preserve">
     <value>For security reasons, this link cannot be opened in Spitball</value>
-  </data>
-  <data name="SendMsg" xml:space="preserve">
-    <value>Send a message</value>
-  </data>
-  <data name="ShareEmail" xml:space="preserve">
-    <value>Send</value>
-  </data>
-  <data name="ShareFacebook" xml:space="preserve">
-    <value>Share</value>
-  </data>
-  <data name="ShowComments" xml:space="preserve">
-    <value>Show comments</value>
-  </data>
-  <data name="SimplyClick" xml:space="preserve">
-    <value>Simply click and drag your</value>
-  </data>
-  <data name="SomeFilesOr" xml:space="preserve">
-    <value>some files or</value>
-  </data>
-  <data name="Thankyou" xml:space="preserve">
-    <value>Thank you!</value>
-  </data>
-  <data name="Updated" xml:space="preserve">
-    <value>Updated</value>
-  </data>
-  <data name="Upload" xml:space="preserve">
-    <value>Upload</value>
-  </data>
-  <data name="Uploader" xml:space="preserve">
-    <value>Owner</value>
   </data>
 </root>

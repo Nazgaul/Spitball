@@ -117,35 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Academic" xml:space="preserve">
-    <value>اكاديمي </value>
-  </data>
   <data name="Add" xml:space="preserve">
     <value>اضافة </value>
   </data>
   <data name="AddLink" xml:space="preserve">
     <value>إضافة رابط الموقع</value>
   </data>
-  <data name="AddPrivateBox" xml:space="preserve">
-    <value>اضافة صندوق للخصوصية</value>
-  </data>
-  <data name="AddSchool" xml:space="preserve">
-    <value>اضافة مدرسة</value>
-  </data>
   <data name="AddUrl" xml:space="preserve">
     <value>اضافة رابط . مثلاً : www.website.com</value>
   </data>
-  <data name="ApplicationSent" xml:space="preserve">
-    <value>شكرا! تم ارسال طلبك</value>
-  </data>
-  <data name="BoxName" xml:space="preserve">
-    <value>اسم الصندوق </value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>الغاء </value>
-  </data>
-  <data name="ChangePrivacy" xml:space="preserve">
-    <value>اختر تنبيه</value>
   </data>
   <data name="ChooseFile" xml:space="preserve">
     <value>اختر ملفات </value>
@@ -153,26 +135,11 @@
   <data name="ChooseFiles" xml:space="preserve">
     <value>اختيار الملفات</value>
   </data>
-  <data name="ChooseNotification" xml:space="preserve">
-    <value>تغيير اعدادات الخصوصية</value>
-  </data>
-  <data name="CommentHere" xml:space="preserve">
-    <value>كتابه رسالة شخصية هنا...</value>
-  </data>
   <data name="Create" xml:space="preserve">
     <value>انشاء</value>
   </data>
-  <data name="CreateBox" xml:space="preserve">
-    <value>اضافة صندوق جديد   </value>
-  </data>
-  <data name="CreateCourse" xml:space="preserve">
-    <value>اضافة مسار جديد</value>
-  </data>
   <data name="CreateItem" xml:space="preserve">
     <value>اعداد قسم جديد</value>
-  </data>
-  <data name="CreateTab" xml:space="preserve">
-    <value>اعداد لوحة</value>
   </data>
   <data name="DragAndDrop" xml:space="preserve">
     <value>جر وأنقل الملفات الى هنا </value>
@@ -180,35 +147,8 @@
   <data name="DropToUpload" xml:space="preserve">
     <value>إسقاط الملفات التي تحملها</value>
   </data>
-  <data name="EgMusic" xml:space="preserve">
-    <value>مثلاً: موسيقى </value>
-  </data>
-  <data name="GetBackToYou" xml:space="preserve">
-    <value>سوف نعايين الطلب وسنعود اليك خلال 24 ساعة , في هذه الاثناء يمكنك العودة الى منطقتك ط وانشاء صاديق خاصة لدعوة اصدقائك</value>
-  </data>
-  <data name="Here" xml:space="preserve">
-    <value>هنا </value>
-  </data>
-  <data name="InviteFriends" xml:space="preserve">
-    <value>دعوة الاصدقاء, نحن على ثقة انهم سوف يقدرون لك هذا </value>
-  </data>
-  <data name="InviteTo" xml:space="preserve">
-    <value>دعوة الى صندوق </value>
-  </data>
   <data name="Next" xml:space="preserve">
     <value>التالي </value>
-  </data>
-  <data name="Notification" xml:space="preserve">
-    <value>تنبيه</value>
-  </data>
-  <data name="Ok" xml:space="preserve">
-    <value>موافق</value>
-  </data>
-  <data name="Personal" xml:space="preserve">
-    <value>شخصي </value>
-  </data>
-  <data name="PrivacySettings" xml:space="preserve">
-    <value>اعداد الخصوصية</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
     <value>حقل مُلزم</value>
@@ -216,20 +156,11 @@
   <data name="SelectFromList" xml:space="preserve">
     <value>اختر من قائمة</value>
   </data>
-  <data name="SelectPeople" xml:space="preserve">
-    <value>اختر اشخاص من كتاب العناوين الخاص بك </value>
-  </data>
-  <data name="SelectType" xml:space="preserve">
-    <value>اختر نوع الصندوق :</value>
-  </data>
   <data name="Send" xml:space="preserve">
     <value>ارسل </value>
   </data>
   <data name="SendMessage" xml:space="preserve">
     <value>ارسل رسالة </value>
-  </data>
-  <data name="SendRequest" xml:space="preserve">
-    <value>ارسال الطلب</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>اعدادات</value>
@@ -240,41 +171,8 @@
   <data name="To" xml:space="preserve">
     <value>ل:</value>
   </data>
-  <data name="ToAddAcademic" xml:space="preserve">
-    <value>لكي تضيف صندوق للبنك الاكاديمي اضغط </value>
-  </data>
-  <data name="TypeDepartment" xml:space="preserve">
-    <value>اكتب اسم الفئة </value>
-  </data>
-  <data name="TypeInstructor" xml:space="preserve">
-    <value>اكتب اسم المحاضر </value>
-  </data>
-  <data name="Upload" xml:space="preserve">
-    <value>رفع</value>
-  </data>
-  <data name="UploadedFiles" xml:space="preserve">
-    <value>الملفات التي تم تحميلها</value>
-  </data>
   <data name="UploadFiles" xml:space="preserve">
     <value>تحميل الملفات</value>
-  </data>
-  <data name="Uploading" xml:space="preserve">
-    <value>التحميل</value>
-  </data>
-  <data name="UploadingFiles" xml:space="preserve">
-    <value>جاري تحميل الملفات</value>
-  </data>
-  <data name="UploadTo" xml:space="preserve">
-    <value>رفع ملفات الى</value>
-  </data>
-  <data name="UsernameOr" xml:space="preserve">
-    <value>اسم مستخدم او البريد الالكتروني </value>
-  </data>
-  <data name="ViaEmail" xml:space="preserve">
-    <value>دعوة عبر البريد الالكتروني</value>
-  </data>
-  <data name="ViaFacebook" xml:space="preserve">
-    <value>دعوة عبر الفيس بوك</value>
   </data>
   <data name="MessageRequired" xml:space="preserve">
     <value>مطلوب رسالة</value>
@@ -290,12 +188,6 @@
   </data>
   <data name="EarnPoints" xml:space="preserve">
     <value>اربح النقاط من خلال دعوة الأصدقاء، وتحميل الملفات وحل المسابقات!</value>
-  </data>
-  <data name="InterestedIn" xml:space="preserve">
-    <value>؟ هل أنت مهتم بالعثور على المزيد من ملاحظات الفصول والامتحانات السابقة التي يمكن أن تساعدك في تحسين دراستك؟ انضم إلى بقية زملائك في الصف وقم بالتسجيل في</value>
-  </data>
-  <data name="ViewEntire" xml:space="preserve">
-    <value>هل ترغب في عرض المستند بأكمله؟ </value>
   </data>
   <data name="YouEarned" xml:space="preserve">
     <value>لقد ربحت</value>

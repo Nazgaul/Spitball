@@ -117,58 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AllItems" xml:space="preserve">
-    <value>جميع البنود</value>
-  </data>
-  <data name="And" xml:space="preserve">
-    <value>و</value>
-  </data>
-  <data name="ByJoining" xml:space="preserve">
-    <value>بالتسجيل , اوافق</value>
-  </data>
-  <data name="CreateAccount" xml:space="preserve">
-    <value>اعداد حساب جديد عبر البريد الالكتروني</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>بريد الكتروني</value>
-  </data>
   <data name="HasInvited" xml:space="preserve">
     <value>دعتك للأشتراك </value>
-  </data>
-  <data name="Items" xml:space="preserve">
-    <value>البنود</value>
-  </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>الاتصال</value>
-  </data>
-  <data name="OfZbang" xml:space="preserve">
-    <value>زبنج</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>كلمة المرور</value>
-  </data>
-  <data name="Privacy" xml:space="preserve">
-    <value>سياسة الخصوصية </value>
-  </data>
-  <data name="School" xml:space="preserve">
-    <value>معهد اكاديمي</value>
-  </data>
-  <data name="SignInFB" xml:space="preserve">
-    <value>الانضمام عبر الفيس بوك</value>
-  </data>
-  <data name="SignUp" xml:space="preserve">
-    <value>التسجيل</value>
-  </data>
-  <data name="Terms" xml:space="preserve">
-    <value>لروط الخدمة</value>
-  </data>
-  <data name="UserSettings" xml:space="preserve">
-    <value>اعدادات المستخدم</value>
-  </data>
-  <data name="VerifyEmail" xml:space="preserve">
-    <value>البريد الالكتروني ثانيةُ</value>
-  </data>
-  <data name="FriendsActivity" xml:space="preserve">
-    <value>أنشطة الأصدقاء</value>
   </data>
 </root>

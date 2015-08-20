@@ -142,10 +142,6 @@
   <data name="EmailNotCorrect" xml:space="preserve">
     <value>Email is not in correct format</value>
   </data>
-  <data name="IHaveCode" xml:space="preserve">
-    <value>יש לי קוד משתמש</value>
-    <comment>Netanya Code (Hebrew)</comment>
-  </data>
   <data name="Language" xml:space="preserve">
     <value>Language:</value>
   </data>
@@ -173,17 +169,11 @@
   <data name="School" xml:space="preserve">
     <value>School:</value>
   </data>
-  <data name="SchoolName" xml:space="preserve">
-    <value>School name:</value>
-  </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>Please enter university name</value>
   </data>
   <data name="TypeCodeReceived" xml:space="preserve">
     <value>Type code received by email</value>
-  </data>
-  <data name="Username" xml:space="preserve">
-    <value>Username:</value>
   </data>
   <data name="UsernameEmpty" xml:space="preserve">
     <value>Username cannot be empty</value>

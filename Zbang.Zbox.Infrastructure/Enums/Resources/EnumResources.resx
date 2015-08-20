@@ -120,9 +120,6 @@
   <data name="BoxPrivacySettingsAnyoneWithUrl" xml:space="preserve">
     <value>Public</value>
   </data>
-  <data name="BoxPrivacySettingsPrivate" xml:space="preserve">
-    <value>Private</value>
-  </data>
   <data name="NotificationSettingsOff" xml:space="preserve">
     <value>Off</value>
   </data>
@@ -137,24 +134,6 @@
   </data>
   <data name="BoxPrivacySettingsMembersOnly" xml:space="preserve">
     <value>By invitation only</value>
-  </data>
-  <data name="BoxesOrderLastModified" xml:space="preserve">
-    <value>Last modified</value>
-  </data>
-  <data name="BoxesOrderName" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="EmailActionAddedItem" xml:space="preserve">
-    <value>added</value>
-  </data>
-  <data name="EmailActionCommentBox" xml:space="preserve">
-    <value>asked a question</value>
-  </data>
-  <data name="EmailActionCommentItem" xml:space="preserve">
-    <value>commented on</value>
-  </data>
-  <data name="EmailActionJoin" xml:space="preserve">
-    <value>joined</value>
   </data>
   <data name="College" xml:space="preserve">
     <value>College</value>
@@ -191,8 +170,5 @@
   </data>
   <data name="Spam" xml:space="preserve">
     <value>Spam</value>
-  </data>
-  <data name="EmailActionAnswerBox" xml:space="preserve">
-    <value>answered a question</value>
   </data>
 </root>

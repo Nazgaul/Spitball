@@ -129,13 +129,4 @@
   <data name="InvalidPassword" xml:space="preserve">
     <value>הסיסמה שהקלדת אינה נכונה, אנא נסה שנית.</value>
   </data>
-  <data name="InvalidUserName" xml:space="preserve">
-    <value>שם המשתמש לא חוקי, אנא בדוק ששם המשתמש שהקלדת תקין ונסה שוב.</value>
-  </data>
-  <data name="ProviderError" xml:space="preserve">
-    <value>קרתה תקלה בלתי צפויה. בדוק את הערך שהקלדת ונסה שוב. אם התקלה חוזרת על עצמה, עדכן את המנהל האדמנסטרטיבי שלך.</value>
-  </data>
-  <data name="UserRejected" xml:space="preserve">
-    <value>הבקשה ליצירת משתמש בוטלה. בדוק את הערך שהוקלד ונסה שוב. אם התקלה חוזרת על עצמה, עדכן את המנהל האדמנסטרטיבי שלך.</value>
-  </data>
 </root>

@@ -123,19 +123,6 @@
   <data name="CreateCourse" xml:space="preserve">
     <value>Create a module</value>
   </data>
-  <data name="FindCourses" xml:space="preserve">
-    <value>Search or browse Spitball to find the modules you study</value>
-  </data>
-  <data name="FindingCourses" xml:space="preserve">
-    <value>Finding your modules of
-interest with the:</value>
-  </data>
-  <data name="FollowCourses" xml:space="preserve">
-    <value>Following modules</value>
-  </data>
-  <data name="InlineSearch" xml:space="preserve">
-    <value>Search module name or instructor</value>
-  </data>
   <data name="OpenCourse" xml:space="preserve">
     <value>Module</value>
   </data>

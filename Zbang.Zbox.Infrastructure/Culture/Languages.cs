@@ -11,15 +11,15 @@ namespace Zbang.Zbox.Infrastructure.Culture
         public const string HebrewName = "עברית";
         public const string ArabicName = "العربية";
         public const string RussianName = "Pусский";
-        public const string ChineseName = "中文";
+       // public const string ChineseName = "中文";
 
         public static readonly List<LanguagesDetail> SupportedCultures = new List<LanguagesDetail> {
             new LanguagesDetail(EnglishUsName,"en-US"),
             new LanguagesDetail(EnglishGbName,"en-GB"),
             new LanguagesDetail(HebrewName,"he-IL"),
             new LanguagesDetail(ArabicName,"ar-AE"),
-            new LanguagesDetail(RussianName,"ru-RU"),
-            new LanguagesDetail(ChineseName,"zh-CN")
+            new LanguagesDetail(RussianName,"ru-RU")
+           // new LanguagesDetail(ChineseName,"zh-CN")
         };
 
 

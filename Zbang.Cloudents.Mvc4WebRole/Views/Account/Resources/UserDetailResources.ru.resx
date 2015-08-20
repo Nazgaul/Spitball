@@ -123,19 +123,7 @@
   <data name="Feedback" xml:space="preserve">
     <value>Отзыв и справка</value>
   </data>
-  <data name="Gb" xml:space="preserve">
-    <value>ГБ</value>
-  </data>
-  <data name="Help" xml:space="preserve">
-    <value>Справка</value>
-  </data>
   <data name="LogOut" xml:space="preserve">
     <value>Выход</value>
-  </data>
-  <data name="PercentOf" xml:space="preserve">
-    <value>% от</value>
-  </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>Войти</value>
   </data>
 </root>

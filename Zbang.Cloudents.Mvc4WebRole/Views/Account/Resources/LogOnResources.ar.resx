@@ -117,35 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AcademicCloud" xml:space="preserve">
-    <value>إنها أكثر من مجرد دراسة، إنها دراسة اجتماعية</value>
-  </data>
   <data name="AlreadyHave" xml:space="preserve">
     <value>ألديك حساب مسبقاُ؟</value>
   </data>
   <data name="ByEmail" xml:space="preserve">
     <value>او عن طريق البريد الالكتروني</value>
-  </data>
-  <data name="ClickHere" xml:space="preserve">
-    <value>اضغط هنا </value>
-  </data>
-  <data name="Connect" xml:space="preserve">
-    <value>الاتصال</value>
-  </data>
-  <data name="ConnectAccount" xml:space="preserve">
-    <value>الاتصال بحساب جديد </value>
-  </data>
-  <data name="ConnectCloudents" xml:space="preserve">
-    <value>الاتصال ب Spitball</value>
-  </data>
-  <data name="ConnectHere" xml:space="preserve">
-    <value>الاتصال هنا</value>
-  </data>
-  <data name="Create" xml:space="preserve">
-    <value>التسجيل الان</value>
-  </data>
-  <data name="CreateCloudents" xml:space="preserve">
-    <value>إنشاء حساب Spitball مجانا</value>
   </data>
   <data name="CreateNew" xml:space="preserve">
     <value>التسجيل كمستخدم جديد</value>
@@ -165,44 +141,14 @@
   <data name="ForgotYourPassword" xml:space="preserve">
     <value>نسيت كلمة المرور ؟</value>
   </data>
-  <data name="Google" xml:space="preserve">
-    <value>عبر جوجل</value>
-  </data>
-  <data name="IncorrectCredentials" xml:space="preserve">
-    <value>خلل باسم المستخدم او البريد الالكتروني المُدخل</value>
-  </data>
-  <data name="JoinNow" xml:space="preserve">
-    <value>تسجيل </value>
-  </data>
-  <data name="JoinNow2" xml:space="preserve">
-    <value>الانضمام</value>
-  </data>
-  <data name="KeepMeSignedIn" xml:space="preserve">
-    <value>ابقى على اتصال </value>
-  </data>
-  <data name="Language" xml:space="preserve">
-    <value>لغة:</value>
-  </data>
   <data name="LogIn" xml:space="preserve">
     <value>الاتصال</value>
-  </data>
-  <data name="NewTo" xml:space="preserve">
-    <value>مستخدم جديد ؟</value>
   </data>
   <data name="NoAccount" xml:space="preserve">
     <value>أليس لديك حساب؟</value>
   </data>
-  <data name="or" xml:space="preserve">
-    <value>او </value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>كلمة المرور</value>
-  </data>
-  <data name="Register" xml:space="preserve">
-    <value>او التسجيل مجاناً عن طريق</value>
-  </data>
-  <data name="Retrieve" xml:space="preserve">
-    <value>الاستعاده هنا</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>تسجيل الدخول </value>
@@ -215,12 +161,6 @@
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>تذكر بياناتي</value>
-  </data>
-  <data name="EnterAnyUserPassword" xml:space="preserve">
-    <value>أدخل أي اسم المستخدم وكلمة المرور</value>
-  </data>
-  <data name="EnterPersonalDetails" xml:space="preserve">
-    <value>أدخل بياناتك الشخصية أدناه</value>
   </data>
   <data name="Here" xml:space="preserve">
     <value>هنا</value>

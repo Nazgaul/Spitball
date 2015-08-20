@@ -120,98 +120,10 @@
   <data name="AboutCloudents" xml:space="preserve">
     <value>About Spitball</value>
   </data>
-  <data name="Available" xml:space="preserve">
-    <value>Available everywhere</value>
-  </data>
-  <data name="BecomePartner" xml:space="preserve">
-    <value>Learn how to become a partner</value>
-  </data>
-  <data name="DailyViews" xml:space="preserve">
-    <value>Daily document views</value>
-  </data>
-  <data name="EveryWeek" xml:space="preserve">
-    <value>Files every week</value>
-  </data>
-  <data name="FilesAdded" xml:space="preserve">
-    <value>Files added this week</value>
-  </data>
-  <data name="GetAnwers" xml:space="preserve">
-    <value>If you have a question about yesterday's class, what you have to read for next week or what the essence of that one chapter is, Spitball is here to help. Ask a question, get an answer from a fellow student.</value>
-  </data>
-  <data name="GetStarted" xml:space="preserve">
-    <value>Get started, it's free and fast</value>
-  </data>
   <data name="Homepage" xml:space="preserve">
     <value>Home page</value>
   </data>
-  <data name="JoinUnions" xml:space="preserve">
-    <value>Join leading student organizations</value>
-  </data>
-  <data name="LetsYouShare" xml:space="preserve">
-    <value>Link to online lectures, share and compare notes from this morning's class,
-upload reading material or discuss your group project, all in one place.</value>
-  </data>
-  <data name="PoweredBy" xml:space="preserve">
-    <value>Powered by students, Spitball helps students study better by working together.</value>
-  </data>
-  <data name="QA" xml:space="preserve">
-    <value>Questions and answers</value>
-  </data>
-  <data name="QuestionsAdded" xml:space="preserve">
-    <value>Questions added this month</value>
-  </data>
-  <data name="SignUpNow" xml:space="preserve">
-    <value>Sign up now with:</value>
-  </data>
   <data name="SocialStudy" xml:space="preserve">
     <value>It's more than just studying, it's social studying</value>
-  </data>
-  <data name="Students" xml:space="preserve">
-    <value>students</value>
-  </data>
-  <data name="StudyPlatform" xml:space="preserve">
-    <value>Spitball is a free online and mobile social studying platform.</value>
-  </data>
-  <data name="Subject" xml:space="preserve">
-    <value>Subject</value>
-  </data>
-  <data name="WatchShare" xml:space="preserve">
-    <value>Watch and share</value>
-  </data>
-  <data name="WhenItSuits" xml:space="preserve">
-    <value>Study when it suits you, from every computer, mobile or tablet you have.
-With 10 GB personal storage space your content is always backed up and secure.
-</value>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>Spitball is the most advanced free online and mobile social studying platform. Join the social studying revolution with Spitball now.</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Spitball | Helping students to study better by working together</value>
-  </data>
-  <data name="PlayVideo" xml:space="preserve">
-    <value>Play video</value>
-  </data>
-  <data name="AppToGrade" xml:space="preserve">
-    <value>Grade your professor</value>
-  </data>
-  <data name="YouAsked" xml:space="preserve">
-    <value>You asked, we listened</value>
-  </data>
-  <data name="HomePageTitle3" xml:space="preserve">
-    <value>Spitball brings it all together. Join, for</value>
-  </data>
-  <data name="HomePageTitle" xml:space="preserve">
-    <value>Do you want to get better grades?</value>
-  </data>
-  <data name="HomePageTitle4" xml:space="preserve">
-    <value>the fastest growing studying network on your campus, now!</value>
-  </data>
-  <data name="HomePageTitle2" xml:space="preserve">
-    <value>Need to chat with your fellow students?
-Access relevant studying material? Practice before the final?</value>
-  </data>
-  <data name="HomePageTitleFree" xml:space="preserve">
-    <value>Free,</value>
   </data>
 </root>

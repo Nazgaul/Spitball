@@ -123,53 +123,14 @@
   <data name="AddItem" xml:space="preserve">
     <value>Добавить отдел</value>
   </data>
-  <data name="AddSchool" xml:space="preserve">
-    <value>Добавить новое учебное заведение</value>
-  </data>
   <data name="AllDepartments" xml:space="preserve">
     <value>Все отделы </value>
-  </data>
-  <data name="Back" xml:space="preserve">
-    <value>Назад</value>
-  </data>
-  <data name="CourseCode" xml:space="preserve">
-    <value>Код курса</value>
-  </data>
-  <data name="CourseName" xml:space="preserve">
-    <value>Название курса</value>
   </data>
   <data name="CreateCourse" xml:space="preserve">
     <value>Создать новый курс</value>
   </data>
-  <data name="EmptyLib" xml:space="preserve">
-    <value>Похоже, не было добавлено никаких отделов или курсов. Станьте первым, чтобы восполнить недостаток</value>
-  </data>
-  <data name="Erase" xml:space="preserve">
-    <value>Стереть</value>
-  </data>
   <data name="FillGap" xml:space="preserve">
     <value>Восполнить недостаток</value>
-  </data>
-  <data name="Follow" xml:space="preserve">
-    <value>Следовать</value>
-  </data>
-  <data name="Following" xml:space="preserve">
-    <value>Следующий</value>
-  </data>
-  <data name="Instructor" xml:space="preserve">
-    <value>Преподаватель</value>
-  </data>
-  <data name="MobileNoResult" xml:space="preserve">
-    <value>Ваш поиск не дал никаких результатов</value>
-  </data>
-  <data name="NoResult" xml:space="preserve">
-    <value>Ваш поиск {0} не дал никаких результатов.</value>
-  </data>
-  <data name="RelevantMaterial" xml:space="preserve">
-    <value>Чтобы увидеть материал, соответствующий вашему академическому учреждению, выберите учреждение в поле ниже.</value>
-  </data>
-  <data name="SearchSchool" xml:space="preserve">
-    <value>Искать учебное заведение или выбрать из списка</value>
   </data>
   <data name="SomethingMissing" xml:space="preserve">
     <value>Что-то отсутствует?</value>
@@ -179,15 +140,6 @@
   </data>
   <data name="ThisDepartment" xml:space="preserve">
     <value>этот отдел</value>
-  </data>
-  <data name="TryAgain" xml:space="preserve">
-    <value>Пожалуйста, повторите попытку, используя другие ключевые слова.</value>
-  </data>
-  <data name="WelcomeAcademic" xml:space="preserve">
-    <value>Выберите вашу школу</value>
-  </data>
-  <data name="SchoolsFrom" xml:space="preserve">
-    <value>Учереждение из</value>
   </data>
   <data name="CantFind" xml:space="preserve">
     <value>Не можете найти свою школу?</value>
@@ -201,20 +153,8 @@
   <data name="ChooseSchool" xml:space="preserve">
     <value>Пожалуйста завершите регистрацию с помощью заполнения следующей информации</value>
   </data>
-  <data name="Student" xml:space="preserve">
-    <value>студент</value>
-  </data>
   <data name="FriendsRegistered" xml:space="preserve">
     <value>из ваших друзей зарегистрированы</value>
-  </data>
-  <data name="CantFindDept" xml:space="preserve">
-    <value>Не можете найти свой факультет?</value>
-  </data>
-  <data name="CreateDept" xml:space="preserve">
-    <value>Создать факультет</value>
-  </data>
-  <data name="CreateNewDept" xml:space="preserve">
-    <value>Создать новый факультет</value>
   </data>
   <data name="OfYourFriends" xml:space="preserve">
     <value>из ваших друзей зарегистрировалось</value>
@@ -224,9 +164,6 @@
   </data>
   <data name="YouStudyAt" xml:space="preserve">
     <value>Вы учитесь в </value>
-  </data>
-  <data name="Courses" xml:space="preserve">
-    <value>курсы</value>
   </data>
   <data name="CanConfuse" xml:space="preserve">
     <value>Убедитесь, что вы выбираете правильное названия.

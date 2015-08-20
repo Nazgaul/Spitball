@@ -117,26 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Box" xml:space="preserve">
-    <value>Box</value>
-  </data>
-  <data name="Copy" xml:space="preserve">
-    <value>Copy</value>
-  </data>
-  <data name="CopyLink" xml:space="preserve">
-    <value>Copy link</value>
-  </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
   <data name="Facebook" xml:space="preserve">
     <value>Facebook</value>
-  </data>
-  <data name="File" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>Home</value>
   </data>
   <data name="Invites" xml:space="preserve">
     <value>Invites</value>
@@ -144,17 +129,8 @@
   <data name="JoinNow" xml:space="preserve">
     <value>Join now</value>
   </data>
-  <data name="Link" xml:space="preserve">
-    <value>Link</value>
-  </data>
-  <data name="MySpace" xml:space="preserve">
-    <value>My Space</value>
-  </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
-  </data>
-  <data name="OrGrabTheLink" xml:space="preserve">
-    <value>Or grab the link:</value>
   </data>
   <data name="JoinLater" xml:space="preserve">
     <value>Join later</value>
@@ -162,29 +138,8 @@
   <data name="Owner" xml:space="preserve">
     <value>Owner</value>
   </data>
-  <data name="PlusUpload" xml:space="preserve">
-    <value>Upload</value>
-  </data>
-  <data name="Reply" xml:space="preserve">
-    <value>Reply</value>
-  </data>
-  <data name="SchoolLibrary" xml:space="preserve">
-    <value>School library</value>
-  </data>
-  <data name="SearchBoxes" xml:space="preserve">
-    <value>Search your boxes</value>
-  </data>
-  <data name="SelectSchool" xml:space="preserve">
-    <value>Select a school</value>
-  </data>
-  <data name="SendToFacebook" xml:space="preserve">
-    <value>Send to Facebook</value>
-  </data>
   <data name="Share" xml:space="preserve">
     <value>Share</value>
-  </data>
-  <data name="ShareThisVia" xml:space="preserve">
-    <value>Share this via:</value>
   </data>
   <data name="SignUpAsMember" xml:space="preserve">
     <value>Sign up as a member to enjoy this feature and many more for free</value>
@@ -192,39 +147,17 @@
   <data name="SignUpNow" xml:space="preserve">
     <value>Sign up now</value>
   </data>
-  <data name="SortBy" xml:space="preserve">
-    <value>Sort by:</value>
-  </data>
-  <data name="TweetThis" xml:space="preserve">
-    <value>Tweet this</value>
-  </data>
-  <data name="Twitter" xml:space="preserve">
-    <value>Twitter</value>
-  </data>
-  <data name="Updates" xml:space="preserve">
-    <value>Updates</value>
-  </data>
   <data name="WriteComment" xml:space="preserve">
     <value>Write a comment</value>
   </data>
-  <data name="TellUsSchool" xml:space="preserve">
-    <value>Hi {0},
-To help you get started tell us where you study</value>
-  </data>
   <data name="Comments" xml:space="preserve">
     <value>Comments</value>
-  </data>
-  <data name="Date" xml:space="preserve">
-    <value>Date</value>
   </data>
   <data name="Items" xml:space="preserve">
     <value>Items</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
-  </data>
-  <data name="Results" xml:space="preserve">
-    <value>Results</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
@@ -235,35 +168,17 @@ To help you get started tell us where you study</value>
   <data name="CreateNew" xml:space="preserve">
     <value>Create new</value>
   </data>
-  <data name="AddCourse" xml:space="preserve">
-    <value>Add new course</value>
-  </data>
   <data name="AddDept" xml:space="preserve">
     <value>Add new department</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="Submit" xml:space="preserve">
-    <value>Submit</value>
-  </data>
   <data name="Or" xml:space="preserve">
     <value>Or</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Back</value>
-  </data>
-  <data name="ContinueReading" xml:space="preserve">
-    <value>Continue reading</value>
-  </data>
-  <data name="ViaEmail" xml:space="preserve">
-    <value>Via Email</value>
-  </data>
-  <data name="ViaFacebook" xml:space="preserve">
-    <value>Via Facebook</value>
-  </data>
-  <data name="ViaInvite" xml:space="preserve">
-    <value>Via Invite</value>
   </data>
   <data name="Follow" xml:space="preserve">
     <value>Follow</value>
@@ -286,9 +201,6 @@ To help you get started tell us where you study</value>
   <data name="Help" xml:space="preserve">
     <value>Help</value>
   </data>
-  <data name="Messages" xml:space="preserve">
-    <value>Messages</value>
-  </data>
   <data name="Views" xml:space="preserve">
     <value>Views</value>
   </data>
@@ -307,32 +219,17 @@ To help you get started tell us where you study</value>
   <data name="AnyoneWho" xml:space="preserve">
     <value>Anyone who has the link can access. No sign-in required.</value>
   </data>
-  <data name="Change" xml:space="preserve">
-    <value>Change</value>
-  </data>
   <data name="Message" xml:space="preserve">
     <value>Message</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
-  <data name="ShareBy" xml:space="preserve">
-    <value>Share by name or email</value>
-  </data>
-  <data name="Thumbnail" xml:space="preserve">
-    <value>Thumbnail</value>
-  </data>
-  <data name="Member" xml:space="preserve">
-    <value>Member</value>
-  </data>
   <data name="Sent" xml:space="preserve">
     <value>Sent</value>
   </data>
   <data name="InviteFriends" xml:space="preserve">
     <value>Invite friends</value>
-  </data>
-  <data name="InviteCloudents" xml:space="preserve">
-    <value>Invite your friends to Spitball</value>
   </data>
   <data name="ShowAll" xml:space="preserve">
     <value>Show all</value>
@@ -354,9 +251,6 @@ To help you get started tell us where you study</value>
   </data>
   <data name="Following" xml:space="preserve">
     <value>Following</value>
-  </data>
-  <data name="Join" xml:space="preserve">
-    <value>Join</value>
   </data>
   <data name="ActiveMember" xml:space="preserve">
     <value>Joined</value>
@@ -388,17 +282,11 @@ To help you get started tell us where you study</value>
   <data name="ShareUsing" xml:space="preserve">
     <value>Share this file using:</value>
   </data>
-  <data name="StayUpdated" xml:space="preserve">
-    <value>Stay updated</value>
-  </data>
   <data name="Activity" xml:space="preserve">
     <value>Activity</value>
   </data>
   <data name="Points" xml:space="preserve">
     <value>Points</value>
-  </data>
-  <data name="School" xml:space="preserve">
-    <value>School</value>
   </data>
   <data name="WriteMessage" xml:space="preserve">
     <value>Write a message...</value>
@@ -409,9 +297,6 @@ To help you get started tell us where you study</value>
   <data name="Courses" xml:space="preserve">
     <value>Courses</value>
   </data>
-  <data name="ResultsFor" xml:space="preserve">
-    <value>Results for</value>
-  </data>
   <data name="Materials" xml:space="preserve">
     <value>Materials</value>
   </data>
@@ -420,9 +305,6 @@ To help you get started tell us where you study</value>
   </data>
   <data name="ResultsOther" xml:space="preserve">
     <value>Results from other universities</value>
-  </data>
-  <data name="SearchingFor" xml:space="preserve">
-    <value>Searching for</value>
   </data>
   <data name="Members" xml:space="preserve">
     <value>members</value>
@@ -445,23 +327,11 @@ To help you get started tell us where you study</value>
   <data name="SweetPoints" xml:space="preserve">
     <value>Sweet, you just earned</value>
   </data>
-  <data name="Departments" xml:space="preserve">
-    <value>Departments</value>
-  </data>
-  <data name="In" xml:space="preserve">
-    <value>In:</value>
-  </data>
   <data name="Rename" xml:space="preserve">
     <value>Rename</value>
   </data>
   <data name="New" xml:space="preserve">
     <value>New</value>
-  </data>
-  <data name="SweetThanks" xml:space="preserve">
-    <value>Sweet, Thanks</value>
-  </data>
-  <data name="Username" xml:space="preserve">
-    <value>Username</value>
   </data>
   <data name="Downloads" xml:space="preserve">
     <value>downloads</value>
@@ -493,9 +363,6 @@ To help you get started tell us where you study</value>
   <data name="NoNotifications" xml:space="preserve">
     <value>You have no notifications</value>
   </data>
-  <data name="Replies" xml:space="preserve">
-    <value>Replies</value>
-  </data>
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
@@ -514,9 +381,6 @@ To help you get started tell us where you study</value>
   <data name="Course" xml:space="preserve">
     <value>Course</value>
   </data>
-  <data name="Backto" xml:space="preserve">
-    <value>Back to</value>
-  </data>
   <data name="FacebookSignUp" xml:space="preserve">
     <value>Sign up with Facebook</value>
   </data>
@@ -528,9 +392,6 @@ To help you get started tell us where you study</value>
   </data>
   <data name="Dismiss" xml:space="preserve">
     <value>Dismiss</value>
-  </data>
-  <data name="FreePlatform" xml:space="preserve">
-    <value>Spitball is the most advanced free online and mobile social studying platform</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Previous</value>

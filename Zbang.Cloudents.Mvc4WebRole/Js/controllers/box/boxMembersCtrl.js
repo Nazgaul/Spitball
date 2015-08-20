@@ -103,11 +103,11 @@
             $scope.userStatus = function (status) {
                 switch (status) {
                     case 'Subscribe':
-                        return resManager.get('ActiveMember');//add resource
+                        return resManager.get('ActiveMember');
                     case 'Owner':
                         return resManager.get('Owner');
                     case 'Invite':
-                        return resManager.get('Pending'); //add resource
+                        return resManager.get('Pending');
                 }
             };
 
