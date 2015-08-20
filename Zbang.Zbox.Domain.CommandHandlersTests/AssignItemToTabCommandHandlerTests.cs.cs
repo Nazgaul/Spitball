@@ -54,7 +54,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             Guid ItemTab = Guid.NewGuid();
             long someUserId = 1, someBoxId = 1;
             var someItemId = new List<long>() { 1 };
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name",  false, "en-US", false);
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", "en-US");
             var someBox = new Box("some box name", someUser, BoxPrivacySettings.MembersOnly, Guid.NewGuid());
             var someItem = new Link("some name", someUser, 1, someBox, "some name", "some thumbnail", "some thumbnailUrl");
 
@@ -73,7 +73,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         public void Handle_UserNotFollowBox_ThrowException()
         {
             Guid itemTabId = Guid.NewGuid();
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name",  false, "en-US", false);
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", "en-US");
             var someBox = new Box("some name", someUser, BoxPrivacySettings.MembersOnly, Guid.NewGuid());
             var someItemTab = new ItemTab(itemTabId, "some name", someBox);
 
@@ -89,7 +89,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         {
             Guid ItemTab = Guid.NewGuid();
             var command = new AssignItemToTabCommand(new List<long>() { 1 }, ItemTab, 1, 1, false);
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name",  false, "en-US", false);
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", "en-US");
             var someBox = new Box("some name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid());
             var someItem = new Link("some name", someUser, 1, someBox, "some name", "some thumbnail", "some img url");
 

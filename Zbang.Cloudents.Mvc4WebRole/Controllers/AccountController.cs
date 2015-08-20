@@ -158,35 +158,38 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError(new { error = AccountControllerResources.FacebookGetDataError });
             }
             var query = new GetUserByEmailQuery(googleUserData.Email);
+            var isNew = false;
             LogInUserDto user = await ZboxReadService.GetUserDetailsByEmail(query);
             if (user == null)
             {
 
-                //var inv = m_CookieHelper.ReadCookie<Invite>(Invite.CookieName);
-                //Guid? invId = null;
-                //if (inv != null)
-                //{
-                //    invId = inv.InviteId;
-                //}
-                //var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
-                //    facebookUserData.Image, facebookUserData.LargeImage, model.UniversityId,
-                //    facebookUserData.First_name,
-                //    facebookUserData.Middle_name,
-                //    facebookUserData.Last_name,
-                //    facebookUserData.GetGender(),
-                //    facebookUserData.Locale, invId, model.BoxId, false);
-                //var commandResult = await ZboxWriteService.CreateUserAsync(command);
-                //user = new LogInUserDto
-                //{
-                //    Id = commandResult.User.Id,
-                //    Culture = commandResult.User.Culture,
-                //    Image = facebookUserData.Image,
-                //    Name = facebookUserData.Name,
-                //    UniversityId = commandResult.UniversityId,
-                //    UniversityData = commandResult.UniversityData,
-                //    Score = commandResult.User.Reputation
-                //};
-                //isNew = true;
+                var inv = m_CookieHelper.ReadCookie<Invite>(Invite.CookieName);
+                Guid? invId = null;
+                if (inv != null)
+                {
+                    invId = inv.InviteId;
+                }
+                var command = new CreateGoogleUserCommand(googleUserData.Email,
+                    googleUserData.Id,
+                    googleUserData.Picture,
+                    model.UniversityId,
+                    googleUserData.FirstName,
+                    googleUserData.LastName,
+                    googleUserData.Locale,
+                    invId,
+                    model.BoxId);
+                var commandResult = await ZboxWriteService.CreateUserAsync(command);
+                user = new LogInUserDto
+                {
+                    Id = commandResult.User.Id,
+                    Culture = commandResult.User.Culture,
+                    Image = googleUserData.Picture,
+                    Name = googleUserData.Name,
+                    UniversityId = commandResult.UniversityId,
+                    UniversityData = commandResult.UniversityData,
+                    Score = commandResult.User.Reputation
+                };
+                isNew = true;
             }
             m_LanguageCookie.InjectCookie(user.Culture);
             var identity = new ClaimsIdentity(new List<Claim>
@@ -209,7 +212,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             m_AuthenticationManager.SignIn(identity);
             m_CookieHelper.RemoveCookie(Invite.CookieName);
-            var isNew = false;
+            
             return JsonOk(new { isnew = isNew, url = Url.RouteUrl("LibraryDesktop", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }) });
         }
 
@@ -241,8 +244,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         facebookUserData.First_name,
                         facebookUserData.Middle_name,
                         facebookUserData.Last_name,
-                        facebookUserData.GetGender(),
-                        facebookUserData.Locale, invId, model.BoxId, false);
+                        facebookUserData.Locale, invId, model.BoxId);
                     var commandResult = await ZboxWriteService.CreateUserAsync(command);
                     user = new LogInUserDto
                     {
@@ -424,8 +426,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     CreateUserCommand command = new CreateMembershipUserCommand(Guid.Parse(user.Id),
                         model.NewEmail, model.UniversityId,
                         model.FirstName, model.LastName,
-                        !model.IsMale.HasValue || model.IsMale.Value,
-                        lang, invId, model.BoxId, false);
+                        lang, invId, model.BoxId);
                     var result = await ZboxWriteService.CreateUserAsync(command);
                     m_LanguageCookie.InjectCookie(result.User.Culture);
 

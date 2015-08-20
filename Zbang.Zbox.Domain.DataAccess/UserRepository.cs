@@ -4,7 +4,6 @@ using NHibernate.Linq;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
 using Zbang.Zbox.Infrastructure.Enums;
-using System.Collections.Generic;
 
 namespace Zbang.Zbox.Domain.DataAccess
 {
@@ -30,6 +29,13 @@ namespace Zbang.Zbox.Domain.DataAccess
             var criteria = UnitOfWork.CurrentSession.QueryOver<User>();
             criteria.Where(w => w.FacebookId == facebookUserId);
 
+            return criteria.SingleOrDefault();
+        }
+
+        public User GetUserByGoogleId(string googleUserId)
+        {
+            var criteria = UnitOfWork.CurrentSession.QueryOver<User>();
+            criteria.Where(w => w.GoogleId == googleUserId);
             return criteria.SingleOrDefault();
         }
 

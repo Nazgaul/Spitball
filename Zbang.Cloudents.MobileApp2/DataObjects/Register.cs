@@ -22,9 +22,6 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
         //[ValidatePasswordLength(ErrorMessageResourceName = "MustBeAtLeast", ErrorMessageResourceType = typeof(ValidatePasswordResources))]
         public string Password { get; set; }
 
-        [Required]//(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "GenderRequired")]
-        public bool? IsMale { get; set; }
-
         [Required]
         public string Culture { get; set; }
 
@@ -35,7 +32,6 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
             sb.AppendLine("FirstName " + FirstName);
             sb.AppendLine("LastName " + LastName);
             sb.AppendLine("NewEmail " + NewEmail);
-            sb.AppendLine("IsMale " + IsMale);
             return sb.ToString();
         }
     }

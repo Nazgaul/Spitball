@@ -16,11 +16,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc
                 .RegisterType
                 <ICommandHandlerAsync<CreateUserCommand, CreateUserCommandResult>, CreateMembershipUserCommandHandler>(
-                    "Membership");
+                    CreateMembershipUserCommand.ResolveName);
             ioc
                 .RegisterType
                 <ICommandHandlerAsync<CreateUserCommand, CreateUserCommandResult>, CreateFacebookUserCommandHandler>(
-                    "Facebook");
+                    CreateFacebookUserCommand.ResolveName);
+
+            ioc
+               .RegisterType
+               <ICommandHandlerAsync<CreateUserCommand, CreateUserCommandResult>, CreateGoogleUserCommandHandler>(
+                   CreateGoogleUserCommand.ResolveName);
 
             ioc.RegisterType(typeof(ICommandHandlerAsync<UpdateUserPasswordCommand, UpdateUserCommandResult>), typeof(UpdateUserPasswordCommandHandler))
             .RegisterType(typeof(ICommandHandlerAsync<UpdateUserEmailCommand>), typeof(UpdateUserEmailCommandHandler))

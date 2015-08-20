@@ -4,10 +4,10 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class CreateMembershipUserCommand : CreateUserCommand
     {
-        const string ResolveName = "Membership";
+        public const string ResolveName = "Membership";
         public CreateMembershipUserCommand(Guid membershipId, string email, long? universityId, string firstName,
-            string lastName, bool sex,  string culture, Guid? inviteId, long? boxId, bool isMobile)
-            : base(email, universityId, firstName, lastName, sex,  culture, inviteId, boxId, isMobile)
+            string lastName, string culture, Guid? inviteId = null, long? boxId = null)
+            : base(email, universityId, firstName, lastName,   culture, inviteId, boxId)
         {
             //UniversityName = universityName;
             MembershipUserId = membershipId;

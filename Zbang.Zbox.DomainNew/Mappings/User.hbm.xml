@@ -18,7 +18,6 @@
     <property name="FirstName" not-null="false"/>
     <property name="MiddleName" not-null="false"/>
     <property name="LastName" not-null="false"/>
-    <property name="Sex" not-null="false"/>
     <property name="Url" not-null="false"/>
     <property name="Culture" column="Culture" not-null="false"/>
 
@@ -31,6 +30,7 @@
 
     <property name="MembershipId" column="MembershipUserId"  not-null="false"/>
     <property name="FacebookId" column="FacebookUserId" not-null="false"/>
+    <property name="GoogleId" column="GoogleUserId" not-null="false"/>
     <property name="Image" column="UserImage" not-null="false"/>
     <property name="ImageLarge" column="UserImageLarge" not-null="false"/>
     <property name="Code" column="UserCode"/>

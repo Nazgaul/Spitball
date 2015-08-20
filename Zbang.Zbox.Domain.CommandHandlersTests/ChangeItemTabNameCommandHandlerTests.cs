@@ -46,8 +46,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         public void Handle_UserNotFollowBox_ThrowException()
         {
             var tabId = Guid.NewGuid();
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name",  false, "en-US", false); 
-            var someCommand = new ChangeItemTabNameCommand(tabId, "some name", 2,1);
+            var someCommand = new ChangeItemTabNameCommand(tabId, "some name", 2, 1);
 
             //var someTab = new BoxTab(tabId, "some name", someUser);
 
@@ -67,7 +66,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var tabId = Guid.NewGuid();
             long someUserId = 2L, someBoxId = 3L;
             var someName = "some name";
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name",  false, "en-US", false);
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", "en-US");
             var someBox = new Box("some box name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid());
             someUser.GetType().GetProperty("Id").SetValue(someUser, someUserId);
             someBox.GetType().GetProperty("Id").SetValue(someBox, someBoxId);
@@ -78,7 +77,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var someCommand = new ChangeItemTabNameCommand(tabId, someName, someUserId, someBoxId);
 
             m_StubUserRepository.Stub(x => x.GetUserToBoxRelationShipType(someUserId, someBoxId)).Return(Infrastructure.Enums.UserRelationshipType.Owner);
-            
+
             m_StubItemTabRepository.Stub(x => x.GetTabWithTheSameName(someName, someUserId)).Return(someOtherTab);
             m_StubItemTabRepository.Stub(x => x.Get(tabId)).Return(someTab);
 
@@ -92,8 +91,8 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         {
             var tabId = Guid.NewGuid();
             var someBoxId = 1L;
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name",  false, "en-US", false); 
-            var someCommand = new ChangeItemTabNameCommand(tabId, "some name", 1L,someBoxId);
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", "en-US");
+            var someCommand = new ChangeItemTabNameCommand(tabId, "some name", 1L, someBoxId);
             var someBox = new Box("some box name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid());
 
             var someTab = new ItemTab(tabId, "some name", someBox);
@@ -109,6 +108,6 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             m_StubItemTabRepository.AssertWasCalled(x => x.Save(someTab));
         }
 
-       
+
     }
 }

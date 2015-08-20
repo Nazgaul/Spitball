@@ -8,4 +8,12 @@ namespace Zbang.Zbox.Domain.Commands
             : base(user) { }
 
     }
+
+    public class CreateGoogleUserCommandResult : CreateUserCommandResult
+    {
+        public CreateGoogleUserCommandResult(User user
+                )
+            : base(user) { }
+
+    }
 }

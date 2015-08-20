@@ -36,8 +36,8 @@ namespace Zbang.Zbox.Domain
         }
 
         public User(string email, string smallImage, string largeImage,
-            string firstName, string middleName, string lastName, bool sex, string culture
-            , bool isMobile)
+            string firstName, string middleName, string lastName,  string culture
+            )
             : this()
         {
             if (firstName == null) throw new ArgumentNullException("firstName");
@@ -54,11 +54,9 @@ namespace Zbang.Zbox.Domain
             }
 
             CreateName();
-            Sex = sex;
            
             UpdateLanguage(culture);
             AddReputation(ReputationAction.Register);
-            UserTime.CreatedUser += isMobile ? "_mobile" : string.Empty;
         }
         // ReSharper restore DoNotCallOverridableMethodsInConstructor
         public void CreateName()
@@ -99,7 +97,6 @@ namespace Zbang.Zbox.Domain
         public virtual string FirstName { get; set; }
         public virtual string MiddleName { get; set; }
         public virtual string LastName { get; set; }
-        public virtual bool Sex { get; set; }
 
         public virtual string Url { get; set; }
 
@@ -109,6 +106,8 @@ namespace Zbang.Zbox.Domain
         // protected virtual ICollection<Invite> Invites { get; set; }
         public virtual Guid? MembershipId { get; set; }
         public virtual long? FacebookId { get; set; }
+        public virtual string GoogleId { get; set; }
+
         public virtual string Image { get; set; }
         public virtual string ImageLarge { get; set; }
 
@@ -186,11 +185,7 @@ namespace Zbang.Zbox.Domain
 
         public void UpdateLanguage(string culture)
         {
-            if (!Languages.CheckIfLanguageIsSupported(culture))
-            {
-                culture = System.Globalization.CultureInfo.CurrentCulture.Name;
-            }
-            Culture = culture;
+            Culture = Languages.GetCultureBaseOnCulture(culture);
         }
 
         public void UpdateUniversity(University university,

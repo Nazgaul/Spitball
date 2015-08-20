@@ -33,16 +33,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         [Display(ResourceType = typeof(RegisterResources), Name = "Password")]
         public string Password { get; set; }
 
-
-
-
-        [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "GenderRequired")]
-        public bool? IsMale { get; set; }
-
-       
-
-        //public UserLanguage Language { get; set; }
-
         public long? UniversityId { get; set; }
 
         public string ReturnUrl { get; set; }
@@ -56,8 +46,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
             sb.AppendLine("FirstName " + FirstName);
             sb.AppendLine("LastName " + LastName);
             sb.AppendLine("NewEmail " + NewEmail);
-            sb.AppendLine("IsMale " + IsMale);
-           
             return sb.ToString();
         }
     }

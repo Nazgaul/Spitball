@@ -27,13 +27,6 @@ namespace Zbang.Cloudents.Mobile.Models.Account
         [Display(ResourceType = typeof(RegisterResources), Name = "Password")]
         public string Password { get; set; }
 
-
-
-
-        [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "GenderRequired")]
-        public bool? IsMale { get; set; }
-
-       
         public long UniversityId { get; set; }
 
 
@@ -43,7 +36,6 @@ namespace Zbang.Cloudents.Mobile.Models.Account
             sb.AppendLine("FirstName " + FirstName);
             sb.AppendLine("LastName " + LastName);
             sb.AppendLine("NewEmail " + NewEmail);
-            sb.AppendLine("IsMale " + IsMale);
             
             return sb.ToString();
         }

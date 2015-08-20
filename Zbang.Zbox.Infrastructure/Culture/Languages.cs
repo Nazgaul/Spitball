@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
@@ -11,7 +12,7 @@ namespace Zbang.Zbox.Infrastructure.Culture
         public const string HebrewName = "עברית";
         public const string ArabicName = "العربية";
         public const string RussianName = "Pусский";
-       // public const string ChineseName = "中文";
+        // public const string ChineseName = "中文";
 
         public static readonly List<LanguagesDetail> SupportedCultures = new List<LanguagesDetail> {
             new LanguagesDetail(EnglishUsName,"en-US"),
@@ -22,7 +23,11 @@ namespace Zbang.Zbox.Infrastructure.Culture
            // new LanguagesDetail(ChineseName,"zh-CN")
         };
 
-
+        /// <summary>
+        /// used by razor to generate the languages
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public static LanguagesDetail GetLanguageDetailByName(string name)
         {
 
@@ -45,9 +50,9 @@ namespace Zbang.Zbox.Infrastructure.Culture
             {
                 case "il":
                     return new CultureInfo("he-IL");
-                case "ru" :
+                case "ru":
                     return new CultureInfo("ru-RU");
-                case "gb" :
+                case "gb":
                     return new CultureInfo("en-GB");
                 default:
                     return new CultureInfo("en-US");
@@ -62,8 +67,20 @@ namespace Zbang.Zbox.Infrastructure.Culture
             {
                 return false;
             }
-            return SupportedCultures.Any(s => s.Culture.ToLower().StartsWith(culture.ToLower()));
+            return SupportedCultures.Any(s => String.Equals(s.Culture, culture, StringComparison.CurrentCultureIgnoreCase));
         }
+
+        public static string GetCultureBaseOnCulture(string culture)
+        {
+            var supportCulture = SupportedCultures.FirstOrDefault(s => s.Culture.ToLower().StartsWith(culture.ToLower()));
+            if (supportCulture == null)
+            {
+                return CultureInfo.CurrentCulture.Name;
+            }
+            return supportCulture.Culture;
+        }
+
+
 
 
         public static LanguagesDetail GetDefaultSystemCulture()

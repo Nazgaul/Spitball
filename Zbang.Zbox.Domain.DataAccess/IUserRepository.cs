@@ -1,7 +1,6 @@
 ﻿using System;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Enums;
-using System.Collections.Generic;
 
 namespace Zbang.Zbox.Domain.DataAccess
 {
@@ -10,6 +9,7 @@ namespace Zbang.Zbox.Domain.DataAccess
         User GetUserByEmail(string iEmail);
         User GetUserByMembershipId(Guid membershipId);
         User GetUserByFacebookId(long facebookUserId);
+        User GetUserByGoogleId(string googleUserId);
 
         UserRelationshipType GetUserToBoxRelationShipType(long userId, long boxId);
         UserBoxRel GetUserBoxRelationship(long userId, long boxId);

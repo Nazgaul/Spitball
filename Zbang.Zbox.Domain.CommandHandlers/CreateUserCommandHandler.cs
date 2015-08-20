@@ -75,12 +75,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         protected User CreateUser(string email, string image, string largeImage,
             string firstName, string middleName, string lastName,
-            bool sex,  string culture,bool isMobile)
+              string culture)
         {
             return new User(email, image, largeImage,
                    firstName,
                    middleName,
-                   lastName, sex, culture, isMobile);
+                   lastName, culture);
         }
 
         protected bool IsUserRegistered(User user)
@@ -95,17 +95,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             user.FirstName = command.FirstName;
             user.LastName = command.LastName;
             user.CreateName();
-            user.Sex = command.Sex;
            
 
             user.Quota.AllocateStorage();
             return TriggerWelcomeMail(user);
         }
 
-        private bool marketEmail(bool marketEmail)
-        {
-            return marketEmail && System.Globalization.CultureInfo.CurrentCulture.Name.ToLower() == "he-il";
-        }
 
 
 

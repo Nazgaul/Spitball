@@ -35,7 +35,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, 0, null, null, null);
 
 
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name",  false, "en-US", false);
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", "en-US");
             var someUniversity = new University(someUniversityId, "some name", "some country", "some l img", "some email");
 
             someUniversity.GetType().GetProperty("NeedCode").SetValue(someUniversity, true);
@@ -125,8 +125,8 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, 0, null, null, null);
 
 
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name",  false, "en-US", false);
-            var someUniversity = new University(someUniversityId, "some name", "some country",  "some l img", "some email");
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", "en-US");
+            var someUniversity = new University(someUniversityId, "some name", "some country", "some l img", "some email");
 
             someUser.Code = "N10028";
             someUniversity.GetType().GetProperty("NeedCode").SetValue(someUniversity, true);
@@ -149,8 +149,8 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, 0, null, null, null);
 
 
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name",  false, "en-US", false);
-            var someUniversity = new University(someUniversityId,"some name","some country", "some l img", "some email");
+            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", "en-US");
+            var someUniversity = new University(someUniversityId, "some name", "some country", "some l img", "some email");
 
             m_StubUserRepository.Stub(x => x.Get(someUserId)).Return(someUser);
             m_StubUniversityRepository.Stub(x => x.Get(someUniversityId)).Return(someUniversity);
