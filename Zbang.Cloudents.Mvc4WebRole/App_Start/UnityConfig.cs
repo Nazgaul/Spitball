@@ -19,9 +19,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
     /// </summary>
     public static class UnityConfig
     {
-
-
-
         public static void RegisterTypes(IAppBuilder app)
         {
             var builder = IocFactory.IocWrapper.ContainerBuilder;
@@ -76,14 +73,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             DependencyResolver.Current.GetService<Zbox.Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
 
-            
-
             app.UseAutofacMiddleware(container);
             app.UseAutofacMvc();
-
-
-
-
         }
     }
 }
