@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
@@ -23,7 +24,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
            // ConfigureStorageAccount();
             
-            RoleEnvironment.Changed += (s, e) => RoleEnvironment.RequestRecycle();
+            //RoleEnvironment.Changed += (s, e) =>
+            //{
+            //    TraceLog.WriteWarning("recycling machine");
+            //    RoleEnvironment.RequestRecycle();
+            //};
+            RoleEnvironment.Changing += RoleEnvironment_Changing;
 
             //RoleEnvironment.Changing += (s, e) =>
             //{
@@ -77,6 +83,19 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             return base.OnStart();
         }
+
+        void RoleEnvironment_Changing(object sender, RoleEnvironmentChangingEventArgs e)
+        {
+            var configurationChanges = e.Changes
+                                        .OfType<RoleEnvironmentConfigurationSettingChange>()
+                                        .ToList();
+
+            if (!configurationChanges.Any()) return;
+
+            //if (configurationChanges.Any(c => c.ConfigurationSettingName == "StorageAccount"))
+            //    e.Cancel = true;
+        }
+
         private bool ValidateRemoteCertificate(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors policyErrors)
         {
             bool result = cert.Subject.ToUpper().Contains("SPITBALL");

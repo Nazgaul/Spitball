@@ -652,20 +652,14 @@
     <Content Include="Content\HomePage\landing.css">
       <DependentUpon>landing.less</DependentUpon>
     </Content>
+    <Content Include="Content\HomePage\landing.min.css">
+      <DependentUpon>landing.css</DependentUpon>
+    </Content>
     <Content Include="Content\HomePage\landing.rtl.css">
       <DependentUpon>landing.css</DependentUpon>
     </Content>
     <Content Include="Content\HomePage\landing.rtl.min.css">
       <DependentUpon>landing.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\restaurant.css">
-      <DependentUpon>restaurant.less</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\restaurant.rtl.css">
-      <DependentUpon>restaurant.css</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\restaurant.rtl.min.css">
-      <DependentUpon>restaurant.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\HomePage\theme.css">
       <DependentUpon>theme.less</DependentUpon>
@@ -691,7 +685,6 @@
     <Content Include="Content\HomePage\bootstrap.less" />
     <Content Include="Content\HomePage\extras.less" />
     <Content Include="Content\HomePage\landing.less" />
-    <Content Include="Content\HomePage\restaurant.less" />
     <Content Include="Content\HomePage\theme.less" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
@@ -2265,6 +2258,7 @@
     <Content Include="Views\Account\Index3.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\Shared\_Head.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

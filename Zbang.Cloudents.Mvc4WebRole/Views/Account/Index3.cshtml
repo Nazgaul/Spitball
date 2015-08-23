@@ -8,7 +8,7 @@
 }
 
 <!doctype html>
-<html class="no-js" lang="">
+<html>
 <head>
     @{Html.RenderPartial("_Head");}
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
@@ -26,7 +26,7 @@
             </div>
         </div>
     }
-    <div id="masthead" class="menu navbar navbar-static-top header-logo-left-menu-right oxy-mega-menu navbar-sticky text-none" role="banner">
+    <div id="masthead" class="menu navbar navbar-static-top header-logo-left-menu-right navbar-sticky text-none" role="banner">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".main-navbar"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
@@ -36,8 +36,8 @@
                 <nav class="collapse navbar-collapse main-navbar logo-navbar navbar-right" role="navigation">
                     <div class="menu-container">
                         <ul id="menu-main" class="nav navbar-nav">
-                            <li class="menu-item "> <a href="@Url.Action("SignIn")">@HomePageResources.A1</a> </li>
-                            <li class="menu-item "> <a href="@Url.Action("Jobs","Home")">@HomePageResources.A2</a> </li>
+                            <li class="menu-item"> <a href="@Url.Action("SignIn")">@HomePageResources.A1</a> </li>
+                            <li class="menu-item"> <a href="@Url.Action("Jobs","Home")">@HomePageResources.A2</a> </li>
                             <li class="menu-item dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="">@Html.Svg("/images/homepage2/homePageIcons.svg", "globus", new { @class = "globus" })&nbsp;<span>@Languages.EnglishUsName</span></a>
                                 <ul class="dropdown-menu dropdown-menu-left ">
@@ -48,7 +48,7 @@
                                     <li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ar-AE" })">@Languages.ArabicName</a> </li>*@
                                 </ul>
                             </li>
-                            <li class="menu-item  nav-highlight-ghost"> <a href="#buy">@HomePageResources.A7</a> </li>
+                            <li class="menu-item nav-highlight-ghost"> <a href="#buy">@HomePageResources.A7</a> </li>
                         </ul>
                     </div>
 
@@ -426,6 +426,8 @@
         </article>
     </div>
     <a class="go-top go-top-circle" href="javascript:void(0)">@Html.Svg("/images/homepage2/homePageIcons.svg", "up")</a>
+    <div id="cssCheck"></div>
+    <script type="text/javascript" src="~/js/CDNFallback.js?v=@VersionHelper.CurrentVersion(true)"></script>
     @Html.Script2("homePage")
 </body>
 

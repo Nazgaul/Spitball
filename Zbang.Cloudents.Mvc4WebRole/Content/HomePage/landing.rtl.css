@@ -2886,6 +2886,12 @@ blockquote.text-light:before {
 #bestApp h1 {
   color: #ffffff;
 }
+/*#region cssCheck*/
+#cssCheck {
+  position: absolute;
+  top: -2000px;
+}
+/*#endregion*/
 @media (max-width: 1400px) {
   .headingtitle {
     margin-top: 80px;

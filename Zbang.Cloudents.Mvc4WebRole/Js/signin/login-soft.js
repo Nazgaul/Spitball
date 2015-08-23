@@ -36,7 +36,7 @@ var Login = function () {
             },
 
             submitHandler: function (form) {
-                signin();
+                signin(form);
             }
         });
 
@@ -315,15 +315,19 @@ var Login = function () {
         });
     }
 
-    function signin() {
-        var email = $('.login-form input[name="email"]').val(),
-	        password = $('.login-form input[name="password"]').val(),
-	        rememberMe = $('.login-form input[name="remember"]').is(':checked'),
-            returnUrl = getUrlVars()['returnUrl'];
+    function signin(form) {
 
-        $.post('/account/login', {
-            email: email, password: password, rememberMe: rememberMe, returnUrl: returnUrl
-        }).done(function (data) {
+        var values = $(form).serialize();
+        var returnUrl = getUrlVars()['returnUrl'];
+        if (returnUrl) {
+            values += "&returnUrl=" + encodeURIComponent(getUrlVars()['returnUrl']);
+        }
+        //var email = $('.login-form input[name="email"]').val(),
+	    //    password = $('.login-form input[name="password"]').val(),
+	    //    rememberMe = $('.login-form input[name="remember"]').is(':checked'),
+        //    returnUrl = getUrlVars()['returnUrl'];
+
+        $.post('/account/login', values).done(function (data) {
             if (!data.success) {
                 var text;
                 try {

@@ -102,10 +102,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Index3");
         }
 
-        //[DonutOutputCache(VaryByParam = "lang;invId",
-        //    VaryByCustom = CustomCacheKeys.Lang ,
-        //    Duration = TimeConsts.Day,
-        //    Location = OutputCacheLocation.Server, Order = 2)]
+        [DonutOutputCache(VaryByParam = "lang;invId",
+            VaryByCustom = CustomCacheKeys.Lang,
+            Duration = TimeConsts.Day,
+            Location = OutputCacheLocation.Server, Order = 2)]
         public ActionResult SignIn()
         {
             if (User.Identity.IsAuthenticated)
@@ -114,10 +114,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             return View();
         }
-         [DonutOutputCache(VaryByParam = "lang;invId",
-            VaryByCustom = CustomCacheKeys.Lang,
-            Duration = TimeConsts.Day,
-            Location = OutputCacheLocation.Server, Order = 2)]
+         //[DonutOutputCache(VaryByParam = "lang;invId",
+         //   VaryByCustom = CustomCacheKeys.Lang,
+         //   Duration = TimeConsts.Day,
+         //   Location = OutputCacheLocation.Server, Order = 2)]
         public ActionResult Signup(string lang)
         {
             if (User.Identity.IsAuthenticated)
@@ -135,16 +135,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Signin");
         }
 
-        //[HttpGet]
-        //[DonutOutputCache(CacheProfile = "PartialPage")]
-        //public ActionResult IndexPartial()
-        //{
-        //    if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
-        //    {
-        //        ViewBag.moveToSpitBall = true;
-        //    }
-        //    return PartialView("Index2");
-        //}
+        
 
 
         #region Login
@@ -300,7 +291,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<JsonResult> LogIn(
             [ModelBinder(typeof(TrimModelBinder))]LogOn model, string returnUrl)
         {
@@ -388,7 +379,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost]
-        //     [ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken] 
         public async Task<JsonResult> Register([ModelBinder(typeof(TrimModelBinder))] Register model)
         {
 
