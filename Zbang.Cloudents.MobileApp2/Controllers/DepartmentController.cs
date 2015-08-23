@@ -6,6 +6,7 @@ using Microsoft.WindowsAzure.Mobile.Service;
 using Zbang.Cloudents.MobileApp2.DataObjects;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Library;
@@ -59,9 +60,13 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 var result = new NodeDto { Id = command.Id, Name = model.Name, Url = command.Url };
                 return Request.CreateResponse(result);
             }
-            catch (ArgumentException ex)
+            catch (DuplicateDepartmentNameException ex)
             {
-                return Request.CreateBadRequestResponse(ex.Message);
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.Conflict, ex);
+            }
+            catch (BoxesInDepartmentNodeException ex)
+            {
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.MethodNotAllowed, ex);
             }
         }
 

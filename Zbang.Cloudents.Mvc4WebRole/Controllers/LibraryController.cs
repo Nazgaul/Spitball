@@ -277,13 +277,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var parentId = GuidEncoder.TryParseNullableGuid(model.ParentId);
                 var command = new AddNodeToLibraryCommand(model.Name, universityId.Value, parentId, User.GetUserId());
                 ZboxWriteService.CreateDepartment(command);
-                var result = new NodeDto { Id = command.Id, Name = model.Name, Url = command.Url };
+                var result = new NodeDto {Id = command.Id, Name = model.Name, Url = command.Url};
                 return Json(new JsonResponse(true, result));
             }
-            catch (ArgumentException ex)
+            catch (DuplicateDepartmentNameException)
             {
-                TraceLog.WriteError("Library Create", ex);
-                return Json(new JsonResponse(false, ex.Message));
+                return Json(new JsonResponse(false, LibraryControllerResources.DepartmentAlreadyExists));
+            }
+            catch (BoxesInDepartmentNodeException)
+            {
+                return Json(new JsonResponse(false, "Cannot add library to box node"));
             }
         }
 

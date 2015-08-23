@@ -6,4 +6,15 @@ namespace Zbang.Zbox.Infrastructure.Exceptions
     public class BoxAccessDeniedException : Exception
     {
     }
+
+    public class DuplicateDepartmentNameException : Exception
+    {
+
+       
+    }
+
+    public class BoxesInDepartmentNodeException : Exception
+    {
+        
+    }
 }

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Zbang.Zbox.Domain.Resources;
+using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
@@ -77,7 +77,8 @@ namespace Zbang.Zbox.Domain
         {
             if (UniversityData.Libraries.Any(f => f.Name == nodeName))
             {
-                throw new ArgumentException(DomainResources.DeptNameExists);
+                throw new DuplicateDepartmentNameException();
+                //throw new ArgumentException(DomainResources.DeptNameExists);
             }
             var library = new Library(id, nodeName, null, UniversityData);
             Libraries.Add(library);

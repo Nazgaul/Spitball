@@ -126,4 +126,7 @@
   <data name="Problem_with_create_a_course" xml:space="preserve">
     <value>בעיה עם יצירת קורס</value>
   </data>
+  <data name="DepartmentAlreadyExists" xml:space="preserve">
+    <value>שם מחלקה זה כבר קיים</value>
+  </data>
 </root>

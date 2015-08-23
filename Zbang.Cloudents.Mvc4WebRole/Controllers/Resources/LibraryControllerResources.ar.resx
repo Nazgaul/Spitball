@@ -126,4 +126,7 @@
   <data name="Problem_with_create_a_course" xml:space="preserve">
     <value>يجب التسجيل للجامعة</value>
   </data>
+  <data name="DepartmentAlreadyExists" xml:space="preserve">
+    <value>هذا الاسم موجود بالفعل دائرة</value>
+  </data>
 </root>

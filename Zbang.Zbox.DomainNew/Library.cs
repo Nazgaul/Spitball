@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Domain.Resources;
+using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Domain
 {
@@ -56,11 +56,13 @@ namespace Zbang.Zbox.Domain
             nodeName = nodeName.Trim();
             if (CheckIfBoxesExists())
             {
-                throw new ArgumentException("Cannot add library to box node");
+                throw new BoxesInDepartmentNodeException();
+                //throw new ArgumentException("Cannot add library to box node");
             }
             if (Children.Any(a => a.Name == nodeName))
             {
-                throw new ArgumentException(DomainResources.DeptNameExists);
+                throw new DuplicateDepartmentNameException();
+                //throw new ArgumentException(DomainResources.DeptNameExists);
             }
             var libraryNode = new Library(id, nodeName, this, University);
 
@@ -83,11 +85,13 @@ namespace Zbang.Zbox.Domain
 
             if (Parent == null && University.Libraries.Any(a => a.Name == newName))
             {
-                throw new ArgumentException(DomainResources.DeptNameExists);
+                throw new DuplicateDepartmentNameException();
+                //throw new ArgumentException(DomainResources.DeptNameExists);
             }
             if (Parent != null && Parent.Children.Any(a => a.Name == newName))
             {
-                throw new ArgumentException(DomainResources.DeptNameExists);
+                throw new DuplicateDepartmentNameException();
+                //throw new ArgumentException(DomainResources.DeptNameExists);
             }
 
             Name = newName;
