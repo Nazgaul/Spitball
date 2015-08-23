@@ -147,14 +147,19 @@
                     $analytics.eventTrack('Feed - Add a question', {
                         category: 'Box'
                     });
-                    sQnA.post.question($scope.qFormData).then(function (questionId) {
+                    sQnA.post.question($scope.qFormData).then(function (details) {
+
+
                         $scope.qFormData.content = $scope.qFormData.content || '';
+
+
+
                         var obj = {
-                            id: questionId,
-                            userName: sUserDetails.getDetails().name,
-                            userImage: sUserDetails.getDetails().image,
-                            userId: sUserDetails.getDetails().id,
-                            userUrl: sUserDetails.getDetails().url,
+                            id: details.commentId,
+                            userName: details.userName,
+                            userImage: details.userImage,
+                            userId: details.userId,
+                            userUrl: details.userUrl,
                             content: extractUrls($scope.qFormData.content.replace(/[&<>]/g, replaceTag)),
                             creationTime: new Date().toISOString(),
                             answers: [],
@@ -196,9 +201,6 @@
                             return file.id;
                         });
                     }
-
-
-
                     question.aFormData.content = question.aFormData.content || '';
                     sQnA.post.answer(question.aFormData).then(function (response) {
                         var answerId = response;

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
+using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models.QnA;
 using Zbang.Cloudents.SiteExtension;
@@ -10,7 +10,6 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.ViewModel.Dto.Qna;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -33,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
             {
-                ModelState.AddModelError(string.Empty, "You need to write something or post files");
+                ModelState.AddModelError(string.Empty, BaseControllerResources.FillComment);
             }
             if (!ModelState.IsValid)
             {
@@ -41,9 +40,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
 
             var questionId = m_IdGenerator.GetId();
-            var command = new AddCommentCommand(User.GetUserId(), model.BoxId, model.Content, questionId, model.Files, false);
-            await ZboxWriteService.AddQuestionAsync(command);
-            return JsonOk(questionId);
+            var command = new AddCommentCommand(User.GetUserId(), model.BoxId, model.Content, questionId, model.Files, model.Anonymously);
+            var details = await ZboxWriteService.AddQuestionAsync(command);
+            return JsonOk(details);
         }
 
         [ZboxAuthorize]
@@ -53,7 +52,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
             {
-                ModelState.AddModelError(string.Empty, "You need to write something or post files");
+                ModelState.AddModelError(string.Empty, BaseControllerResources.FillComment);
             }
             if (!ModelState.IsValid)
             {

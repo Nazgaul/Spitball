@@ -84,34 +84,10 @@
         @{
             var cls = string.IsNullOrEmpty(Model.LetterUrl) ? "" : "featured";
         }
-
-        @*<div class="boxesHeader topBar barShadow">
-                <h2 bo-if="!info.libraryId" class="topLevel semiFont">@MainViewResources.AllDepartments</h2>
-                <a id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" bo-if="info.libraryId" ng-href="{{back.url}}">
-                    <h2>{{back.title}}</h2>
-                </a>
-                <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" ng-click="renameWindow()">
-                    @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
-                </button>
-            </div>*@
         <div class="contentWpr @cls">
-            @*<div class="dashHeader">
-                @{Html.RenderPartial("_BarActions");}
-                <div class="dhContent" ng-switch="info.isRootLevel">
-                    <span ng-switch-when="true" class="topLevel dhText">@MainViewResources.AllDepartments</span>
-                    <a ng-switch-when="false" id="lib_Back" class="backWpr elps lFloat" ng-class="{noArrow : !info.libraryId}" ng-href="{{back.url}}">
-                        @Html.Svg("~/Images/Defs.svg", "back", new { @class = "svg-back rtl" })
-                        <h2>{{back.title}}</h2>
-                    </a>
-                    <button class="boxRename" tooltip="@SharedResources.Edit" ng-if="info.libraryId" ng-click="renameWindow()">
-                        @Html.Svg("~/Images/Defs.svg", "cloudentsSettings", new { @class = "svg-settings" })
-                    </button>
-                    <div class="searchTrigger searchLib" ng-click="$root.toggleSearch()" search-coords>@SharedResources.Search</div>
-                </div>
-            </div>*@
             @if (!string.IsNullOrEmpty(Model.LetterUrl))
             {
-                <iframe id="uniLetter" seamless="seamless" class="unionFeatured" src="@Model.LetterUrl"></iframe>
+                <img id="uniLetter" seamless="seamless" class="unionFeatured" src="@Model.LetterUrl"/>
             }
             <ul id="libraryList" class="libraryList clearfix">
                 <li ng-repeat="box in info.items" ng-include="info.type === 'box' ? 'dashLibBox' : 'library-department'" ng-class="info.type ==='box' ? 'box' : 'libraryItem deptItem'"></li>

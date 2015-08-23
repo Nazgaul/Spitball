@@ -1,17 +1,21 @@
 ﻿@import "varsAndMixins";
+
 .feedfullWpr {
     white-space: nowrap;
 }
+
 .bodyContent.upload {
     .dropTxt {
         display: block;
     }
 }
+
 .boxFeed {
     width: 598px;
     color: @textColor;
     display: inline-block;
     margin-bottom: 20px;
+
     .userImg, .userLetter {
         margin-right: 15px; //rtl
         .boxSizing;
@@ -20,13 +24,16 @@
         width: 40px;
         height: 40px;
     }
+
     > .feedForm {
         .feedTA {
             border-color: #282828;
         }
     }
+
     ~ .boxSideBar {
         display: inline-block;
+
         .recommendedWpr {
             position: relative;
             left: 30px; //rtl
@@ -36,49 +43,58 @@
             border-radius: 5px;
             padding: 8px 12px 0 12px;
             .boxSizing;
+
             header {
                 font-size: 20px; //override
                 //border-bottom: 1px solid @borderColor;
-                padding:0;
+                padding: 0;
                 text-align: center;
                 //padding: 0 0 10px 0; //override
                 margin-bottom: 10px;
-        
             }
+
             .recommended {
                 .rFloat {
                     width: 95px; //diff rtl
                     text-align: right; //rtl
                 }
             }
-        } 
+        }
     }
+
     .shareBtnTxt {
         cursor: pointer;
     }
 }
+
 .boxSideBar {
     .leaderBoard {
         padding: 20px 32px 10px 32px;
     }
+
     .bestUserList {
         li:nth-child(n+4) {
             margin: 0 -40px;
         }
+
         li:nth-of-type(1) {
             left: -6px;
         }
+
         li:nth-of-type(3) {
             margin-bottom: 61px;
             left: -10px;
         }
+
         .elps {
             max-width: 200px;
         }
-    } 
+    }
+
     .friends {
         padding-top: 2px;
     }
+
     .files {
         margin-top: 8px;
         padding-top: 2px;
@@ -86,14 +102,17 @@
         &:before {
             content: attr(data-files-count);
         }
-    }  
+    }
 }
+
 .feedForm {
     position: relative;
     clear: both;
+
     .btn1 {
         margin: 8px 8px 0 0; //rtl
     }
+
     &.feedOpen, .bodyContent.upload & {
         .feedTA {
             min-height: 169px;
@@ -108,6 +127,7 @@
             ~ .bottomTA {
                 display: block;
             }
+
             ~ .attachBtn {
                 bottom: 2px;
                 left: 70px; //rtl
@@ -115,28 +135,47 @@
                 right: auto;
             }
         }
+
         .svg-attachment {
             fill: #282828;
         }
+
         .attachedList {
             display: block;
         }
     }
+
     .attachedList {
         display: none;
     }
+
+    .anonymously {
+        line-height: 40px;
+        font-size: 16px;
+        color: #C9C9C9;
+        margin-right: 10px;
+
+        input {
+            height: 16px;
+            width: 16px;
+            vertical-align: middle;
+        }
+    }
 }
+
 .dropTxt {
     position: absolute;
-    top:0;bottom:0;
-    left:55px;right:0;
+    top: 0;
+    bottom: 0;
+    left: 55px;
+    right: 0;
     margin: auto;
-    display:none;
+    display: none;
     border: 3px dashed @borderColor;
     font-size: 20px;
     background: #fff;
     .boxSizing;
-    text-align:center;
+    text-align: center;
     padding-top: 90px;
 }
 
@@ -152,24 +191,28 @@
     .boxSizing;
     font-size: 15px;
     .transition(min-height .3s ease-in);
-    resize:none;
+    resize: none;
     white-space: normal; //IE needs this (If seems to inherit the white-space noWrap from the feedFullWpr div).
 }
+
 .attachBtn {
     position: absolute;
     top: 9px;
     right: 8px; //rtl
 }
+
 .svg-attachment {
     width: 34px;
     height: 25px;
     fill: #282828;
 }
+
 .svg-trash {
     width: 14px;
     height: 20px;
     fill: #aaa;
 }
+
 .bottomTA {
     display: none;
     height: 40px;
@@ -183,23 +226,27 @@
     border-top: none;
     .boxSizing;
 }
+
 .feed-enter {
-	-webkit-transition: 1s linear all; /* Chrome */
-	transition: 1s linear all;
-	opacity: 0;
+    -webkit-transition: 1s linear all; /* Chrome */
+    transition: 1s linear all;
+    opacity: 0;
 }
- 
+
 .feed-enter.feed-enter-active {
-	opacity: 1;
+    opacity: 1;
 }
+
 .boxFeedList {
     overflow: hidden;
+
     > li {
         clear: both;
         margin-top: 15px;
         position: relative;
         //.animation (fadeinGrow, .8s, 0, ease);
         overflow: hidden;
+
         &:before {
             .pseudo;
             position: absolute;
@@ -212,26 +259,33 @@
             border-color: transparent #eeeeee transparent transparent; //rtl
         }
     }
+
     .svg-attachment {
         fill: @borderColor;
     }
+
     .feedForm {
         padding-top: 15px;
+
         .userImg, .userLetter {
             margin: 0 0 0 15px; //rtl override
         }
+
         &.show {
             display: block;
         }
     }
+
     .feedTA {
         width: 487px;
         height: 38px;
         margin-left: 55px; //rtl
     }
+
     .bottomTA {
         width: 487px;
     }
+
     .attachBtn {
         top: 24px;
         right: 70px; //rtl
@@ -242,6 +296,7 @@
         }
     }*/
 }
+
 .feedWpr {
     //width: 431px;
     background: #eee;
@@ -252,40 +307,48 @@
     position: relative;
     overflow: hidden; //fill remaining width
     .boxSizing;
+
     .userName {
         color: @blue;
         max-width: 300px;
         font-size: 16px;
     }
+
     .createTime {
         color: #999;
         font-size: 16px;
     }
+
     .feedContent {
         margin-top: 15px;
         font-size: 16px;
-        white-space:normal;
-        a{
-            color:#0e68af;
+        white-space: normal;
+
+        a {
+            color: #0e68af;
         }
     }
+
     .commentBtn {
         &:after {
             content: '\00a0' '|' '\00a0';
         }
     }
+
     .commentBtn, .shareBtn {
         display: inline-block;
         color: @blue;
-        margin:0; //override
+        margin: 0; //override
         font-size: 12px;
     }
+
     .trash {
         position: absolute;
         bottom: 8px;
         right: 15px; //rtl
         display: none;
     }
+
     &:hover {
         .trash {
             display: block;
@@ -295,10 +358,12 @@
 
 .feedReplies {
     width: 543px;
+
     > li {
         margin-top: 15px;
         position: relative;
         .animation (fadeinGrow, 2s, 0, ease);
+
         &:before {
             .pseudo;
             position: absolute;
@@ -310,6 +375,7 @@
             border-width: 7px 0 7px 14px; //rtl
             border-color: transparent transparent transparent @borderColor; //rtl
         }
+
         &:after {
             .pseudo;
             position: absolute;
@@ -323,16 +389,20 @@
             z-index: 1;
         }
     }
-    .userImg,.userLetter {
+
+    .userImg, .userLetter {
         margin: 0 0 0 15px; //rtl override
     }
+
     .userName {
         color: @color;
     }
+
     .feedWpr {
         background: none;
         border: 1px solid @borderColor;
     }
+
     ~ .feedForm {
         .attachedList {
             //width: 487px;
@@ -361,11 +431,13 @@
         bottom: 0;
     }
 }
-.qaAttchQuiz{
-    border:none;
-    .svg-quizBg{
-        width:100px;
-        height:125px;
+
+.qaAttchQuiz {
+    border: none;
+
+    .svg-quizBg {
+        width: 100px;
+        height: 125px;
         stroke: @color;
     }
 }
@@ -513,35 +585,41 @@
     border-radius: 5px;
     border: 1px solid #282828;
     margin-bottom: 31px;
+
     &.empty {
-        .bestUserList{
+        .bestUserList {
             display: none;
         }
-        
+
         .lbEmpty {
             display: block;
         }
     }
+
     header {
         color: @color;
         text-align: center;
         font-size: 20px;
+
         svg {
             width: 36px;
             height: 29px;
             fill: @color;
-            margin-top:-6px;
+            margin-top: -6px;
         }
     }
+
     .lbText {
         display: inline-block;
         vertical-align: top;
     }
 }
+
 .lbEmpty {
     display: none;
     text-align: center;
 }
+
 .lbEmptyTxtWpr {
     border: 1px solid @borderColor;
     padding: 4px 8px;
@@ -549,6 +627,7 @@
     border-radius: 20px;
     background: #f6f6f6;
 }
+
 .lbEmptyTxt1 {
     font-size: 20px;
     font-weight: bold;
@@ -556,11 +635,13 @@
     border-bottom: 1px solid @borderColor;
     margin-bottom: 6px;
 }
+
 .bestUserList {
-    text-align: center;  
+    text-align: center;
     counter-reset: leaderBoard;
     position: relative;
     top: 8px;
+
     .userImg, .userLetter {
         margin: 0 auto 12px;
         width: 50px;
@@ -568,10 +649,12 @@
         vertical-align: middle;
         display: inline-block;
     }
+
     .userImg {
         display: block;
         border: 1px solid @color;
     }
+
     &:before {
         .pseudo;
         position: absolute;
@@ -581,15 +664,18 @@
         height: 88px;
         background: @common-sprite -5px -197px no-repeat;
     }
+
     a {
         display: inline-block;
         position: relative; //position above the podium
         z-index: 1;
     }
+
     .firstUser, .secondUser, .thirdUser {
         width: 86px;
         height: auto;
         line-height: normal;
+
         .rep {
             display: block;
             width: auto;
@@ -597,6 +683,7 @@
             top: 16px;
             z-index: 1;
         }
+
         &.empty {
             .userImg {
                 border-color: #8a8a8a;
@@ -611,6 +698,7 @@
             }
         }
     }
+
     li {
         position: relative;
         display: block;
@@ -618,13 +706,15 @@
         height: 50px;
         line-height: 50px;
         vertical-align: middle;
-        text-align:left; //rtl
+        text-align: left; //rtl
         &:nth-of-type(1) {
             left: -4px;
         }
+
         &:nth-of-type(3) {
             left: -5px;
         }
+
         &:nth-of-type(-n + 3) {
             text-align: center; //override
             margin-bottom: 15px; //override
@@ -633,23 +723,26 @@
             height: auto;
             line-height: normal;
             .boxSizing;
+
             &:before {
                 position: absolute;
-                visibility: hidden;  //don't display counter on top 3 users
+                visibility: hidden; //don't display counter on top 3 users
             }
         }
-        
+
         &:nth-of-type(n + 4) {
             margin: 0 -32px;
             padding: 0 15px;
             clear: both;
             width: 336px;
+
             .rep { //In FF the floated rep was dropping down!
                 position: absolute;
                 right: 14px; //rtl
                 top: 2px;
                 color: @textColor;
             }
+
             .userImg, .userLetter {
                 display: inline-block;
                 margin: 0 5px 1px 5px;
@@ -657,6 +750,7 @@
                 height: 38px;
             }
         }
+
         &:before {
             content: counter(leaderBoard) ".";
             counter-increment: leaderBoard;
@@ -664,26 +758,28 @@
             font-size: 12px;
             font-weight: bold;
         }
+
         &:nth-child(2n + 4) {
             background: #eee;
         }
     }
-    
+
     .elps {
         display: inline-block;
         max-width: 160px;
         vertical-align: middle;
     }
-    
+
     svg {
         display: block;
         margin: 0 auto;
         fill: #ffc000;
     }
+
     .svg-user {
         fill: #fff;
         width: 54px;
-        height:54px;
+        height: 54px;
         position: relative;
         left: -2px; //rtl
         top: 3px;
@@ -701,14 +797,16 @@
         margin-top: 31px;
     }
 }
+
 .rep {
     font-weight: bold;
     color: #fff;
     display: inline-block;
     width: 64px; //width of the third best user
     text-align: center;
+
     &:after {
-        content:  '\00a0' attr(data-pts)
+        content: '\00a0' attr(data-pts);
     }
 }
 /*#endregion */

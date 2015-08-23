@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="AddAnnotationCommand.cs" />
     <Compile Include="AddAnswerToQuestionCommand.cs" />
+    <Compile Include="AddCommentCommandResult.cs" />
     <Compile Include="AddFileToBoxCommand.cs" />
     <Compile Include="AddFileToBoxCommandResult.cs" />
     <Compile Include="AddItemToBoxCommand.cs" />

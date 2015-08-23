@@ -90,7 +90,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
 
 
             //QnA
-            ioc.RegisterType(typeof(ICommandHandlerAsync<AddCommentCommand>), typeof(AddQuestionCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<AddCommentCommand, AddCommentCommandResult>), typeof(AddQuestionCommandHandler));
             ioc.RegisterType(typeof(ICommandHandlerAsync<AddAnswerToQuestionCommand>), typeof(AddAnswerToQuestionCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteCommentCommand>), typeof(DeleteCommentCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteReplyCommand>), typeof(DeleteReplyCommandHandler));

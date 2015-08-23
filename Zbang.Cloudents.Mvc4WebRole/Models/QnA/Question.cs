@@ -11,5 +11,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.QnA
         public long BoxId { get; set; }
 
         public long[] Files { get; set; }
+
+        public bool Anonymously { get; set; }
     }
 }

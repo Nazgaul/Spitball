@@ -370,15 +370,16 @@ namespace Zbang.Zbox.Domain.Services
         #endregion
 
         #region QnA
-        public async Task AddQuestionAsync(AddCommentCommand command)
+        public async Task<AddCommentCommandResult> AddQuestionAsync(AddCommentCommand command)
         {
             using (UnitOfWork.Start())
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
-                var t1 = m_CommandBus.SendAsync(command);
+                var t1 = m_CommandBus.DispatchAsync<AddCommentCommand,AddCommentCommandResult>(command);
                 var t2 = m_CommandBus.SendAsync(autoFollowCommand);
                 await Task.WhenAll(t1, t2);
                 UnitOfWork.Current.TransactionalFlush();
+                return t1.Result;
             }
         }
         public async Task AddAnswerAsync(AddAnswerToQuestionCommand command)

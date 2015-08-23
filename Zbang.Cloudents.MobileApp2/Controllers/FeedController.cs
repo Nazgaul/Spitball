@@ -208,7 +208,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
 
         [HttpPost]
-        [Route("api/box/{boxId:long}/feed")]
+        [VersionedRoute("api/box/{boxId:long}/feed", 1)]
         public async Task<HttpResponseMessage> PostComment(long boxId, AddCommentRequest model)
         {
             if (string.IsNullOrEmpty(model.Content))
@@ -225,6 +225,32 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 boxId, model.Content, questionId, model.FileIds, model.Anonymously);
             await ZboxWriteService.AddQuestionAsync(command);
             return Request.CreateResponse(questionId);
+        }
+
+        [HttpPost]
+        [VersionedRoute("api/box/{boxId:long}/feed", 2)]
+        public async Task<HttpResponseMessage> PostCommentAnonymous(long boxId, AddCommentRequest model)
+        {
+            if (string.IsNullOrEmpty(model.Content))
+            {
+                ModelState.AddModelError(string.Empty, "You need to write something or post files");
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+
+            var questionId = GuidGenerator.GetId();
+            var command = new AddCommentCommand(User.GetCloudentsUserId(),
+                boxId, model.Content, questionId, model.FileIds, model.Anonymously);
+            var result = await ZboxWriteService.AddQuestionAsync(command);
+            return Request.CreateResponse(new
+            {
+                result.CommentId,
+                result.UserId,
+                result.UserImage,
+                result.UserName
+            });
         }
 
         [HttpPost]

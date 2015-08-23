@@ -123,6 +123,17 @@
 .feedForm .attachedList {
   display: none;
 }
+.feedForm .anonymously {
+  line-height: 40px;
+  font-size: 16px;
+  color: #C9C9C9;
+  margin-right: 10px;
+}
+.feedForm .anonymously input {
+  height: 16px;
+  width: 16px;
+  vertical-align: middle;
+}
 .dropTxt {
   position: absolute;
   top: 0;

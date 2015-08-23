@@ -13,7 +13,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class AddQuestionCommandHandler : ICommandHandlerAsync<AddCommentCommand>
+    public class AddQuestionCommandHandler : ICommandHandlerAsync<AddCommentCommand, AddCommentCommandResult>
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
@@ -38,32 +38,32 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ReputationRepository = reputationRepository;
             m_QueueProvider = queueProvider;
         }
-        public Task HandleAsync(AddCommentCommand message)
+        public async Task<AddCommentCommandResult> ExecuteAsync(AddCommentCommand command)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (command == null) throw new ArgumentNullException("message");
 
-            var userId = message.UserId;
-            if (message.PostAnonymously)
+            var userId = command.UserId;
+            if (command.PostAnonymously)
             {
                 userId = 22886;
             }
 
             var user = m_UserRepository.Load(userId);
-            var box = m_BoxRepository.Load(message.BoxId);
+            var box = m_BoxRepository.Load(command.BoxId);
             //Decode the comment to html friendly
-            var text = message.Text;
-            if (message.ShouldEncode)
+            var text = command.Text;
+            if (command.ShouldEncode)
             {
-                text = TextManipulation.EncodeComment(message.Text);
+                text = TextManipulation.EncodeComment(command.Text);
             }
 
 
             var files = new List<Item>();
-            if (message.FilesIds != null)
+            if (command.FilesIds != null)
             {
-                files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
+                files = command.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
             }
-            var comment = box.AddComment(user, text, message.Id, files, FeedType.None);
+            var comment = box.AddComment(user, text, command.Id, files, FeedType.None);
             m_CommentRepository.Save(comment);
 
             var reputation = user.AddReputation(ReputationAction.AddQuestion);
@@ -72,9 +72,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, questionId: comment.Id));
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
 
-            return Task.WhenAll(t1, t2);
+            await Task.WhenAll(t1, t2);
 
-
+            return new AddCommentCommandResult(command.Id, user.Name, user.ImageLarge, user.Url, user.Id);
         }
+
+
+
+       
     }
 }

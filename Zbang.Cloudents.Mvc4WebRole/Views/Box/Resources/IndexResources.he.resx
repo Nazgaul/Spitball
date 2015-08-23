@@ -198,4 +198,7 @@
   <data name="BestInClass" xml:space="preserve">
     <value>הכי טוב בכיתה שלנו</value>
   </data>
+  <data name="PostAnonymosly" xml:space="preserve">
+    <value>אנונימי</value>
+  </data>
 </root>

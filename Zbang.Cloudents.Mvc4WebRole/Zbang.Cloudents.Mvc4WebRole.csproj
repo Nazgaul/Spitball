@@ -591,8 +591,14 @@
     <Content Include="Content\BoxFeed.css">
       <DependentUpon>BoxFeed.less</DependentUpon>
     </Content>
+    <Content Include="Content\BoxFeed.min.css">
+      <DependentUpon>BoxFeed.css</DependentUpon>
+    </Content>
     <Content Include="Content\BoxFeed.rtl.css">
       <DependentUpon>BoxFeed.css</DependentUpon>
+    </Content>
+    <Content Include="Content\BoxFeed.rtl.min.css">
+      <DependentUpon>BoxFeed.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\DashLib.css">
       <DependentUpon>DashLib.less</DependentUpon>
@@ -2207,7 +2213,6 @@
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
     <Content Include="Views\Box\_UploadAddLink.cshtml" />
     <Content Include="Views\Box\_QnA.cshtml" />
-    <Content Include="Views\Library\_CreateAcademicBoxEmptyState.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Item\_PreviewLinkDenied.cshtml" />
     <Content Include="Views\Item\_PreviewMediaLoading.cshtml" />

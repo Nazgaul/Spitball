@@ -69,7 +69,7 @@ namespace Zbang.Zbox.Domain.Common
         #endregion
 
         #region QnA
-        Task AddQuestionAsync(AddCommentCommand command);
+        Task<AddCommentCommandResult> AddQuestionAsync(AddCommentCommand command);
         Task AddAnswerAsync(AddAnswerToQuestionCommand command);
         void DeleteComment(DeleteCommentCommand command);
         void DeleteAnswer(DeleteReplyCommand command);

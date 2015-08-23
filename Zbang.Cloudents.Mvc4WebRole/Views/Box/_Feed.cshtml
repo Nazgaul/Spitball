@@ -17,6 +17,10 @@
             </ul>
             <div class="bottomTA" tabindex="0">
                 <button type="submit" class="rFloat btn1" ng-disabled="!(qFormData.files.length || qFormData.content)">@SharedResources.Post</button>
+                <div class="rFloat anonymously">
+                    <input name="anonymously" type="checkbox" id="postAnonymously" ng-model="qFormData.anonymously" />
+                    <label for="postAnonymously">@IndexResources.PostAnonymosly</label>
+                </div>
             </div>
             <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()">
                 @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })

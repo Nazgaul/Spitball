@@ -190,7 +190,7 @@ var Login = function () {
             },
 
             submitHandler: function (form) {
-                signup();
+                signup(form);
             }
         });
 
@@ -282,18 +282,22 @@ var Login = function () {
         window.sessionStorage.removeItem('signup');
     }
 
-    function signup() {
-        var firstname = $('.register-form input[name="firstname"]').val(),
-            lastname = $('.register-form input[name="lastname"]').val(),
-            email = $('.register-form input[name="email"]').val(),
-            confirmEmail = $('.register-form input[name="confirmemail"]').val(),
-            password = $('.register-form input[name="password"]').val(),
-                returnUrl = getUrlVars()['returnUrl'];
+    function signup(form) {
+        //var firstname = $('.register-form input[name="firstname"]').val(),
+        //    lastname = $('.register-form input[name="lastname"]').val(),
+        //    email = $('.register-form input[name="email"]').val(),
+        //    confirmEmail = $('.register-form input[name="confirmemail"]').val(),
+        //    password = $('.register-form input[name="password"]').val(),
+        //        returnUrl = getUrlVars()['returnUrl'];
+
+        var values = $(form).serialize();
+        var returnUrl = getUrlVars()['returnUrl'];
+        if (returnUrl) {
+            values += "&returnUrl=" + encodeURIComponent(getUrlVars()['returnUrl']);
+        }
 
 
-        $.post('/account/register', {
-            firstname: firstname, lastname: lastname, newEmail: email, confirmEmail: confirmEmail, password: password, isMale: true
-        }).done(function (data) {
+        $.post('/account/register', values).done(function (data) {
             if (!data.success) {
 
                 var text;
@@ -322,10 +326,7 @@ var Login = function () {
         if (returnUrl) {
             values += "&returnUrl=" + encodeURIComponent(getUrlVars()['returnUrl']);
         }
-        //var email = $('.login-form input[name="email"]').val(),
-	    //    password = $('.login-form input[name="password"]').val(),
-	    //    rememberMe = $('.login-form input[name="remember"]').is(':checked'),
-        //    returnUrl = getUrlVars()['returnUrl'];
+       
 
         $.post('/account/login', values).done(function (data) {
             if (!data.success) {

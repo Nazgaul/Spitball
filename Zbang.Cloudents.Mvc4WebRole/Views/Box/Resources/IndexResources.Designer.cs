@@ -223,6 +223,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Anonymous.
+        /// </summary>
+        public static string PostAnonymosly {
+            get {
+                return ResourceManager.GetString("PostAnonymosly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reinvite.
         /// </summary>
         public static string Reinvite {

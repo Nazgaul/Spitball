@@ -126,4 +126,7 @@
   <data name="TitlePrefix" xml:space="preserve">
     <value>Study</value>
   </data>
+  <data name="FillComment" xml:space="preserve">
+    <value>You need to write something or post files</value>
+  </data>
 </root>

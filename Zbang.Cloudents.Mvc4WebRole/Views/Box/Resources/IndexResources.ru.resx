@@ -198,4 +198,7 @@
   <data name="BestInClass" xml:space="preserve">
     <value>Лучший в нашем классе</value>
   </data>
+  <data name="PostAnonymosly" xml:space="preserve">
+    <value>Анонимный</value>
+  </data>
 </root>
