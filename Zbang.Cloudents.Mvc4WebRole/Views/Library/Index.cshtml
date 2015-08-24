@@ -46,7 +46,7 @@
                 <div class="courses boldFont">@Model.BoxesCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@SharedResources.Courses</span> </div>
                 <div class="students boldFont">@Model.MemberCount.ToString("N0", Thread.CurrentThread.CurrentCulture)<span class="stat regFont">@MainViewResources.Students</span></div>
             </div>
-            <div class="unionLinksWpr">
+            @*<div class="unionLinksWpr">*@
                 <div class="unionLinks">
                     @if (!string.IsNullOrEmpty(Model.WebSiteUrl))
                     {
@@ -69,7 +69,7 @@
                         <a target="_blank" href="@Model.YouTubeUrl" class="outbound u-Youtube union-sprite"></a>
                     }
                 </div>
-            </div>
+            @*</div>*@
             <div class="libLists">
                 @if (!string.IsNullOrEmpty(Model.FacebookUrl))
                 {
@@ -87,7 +87,9 @@
         <div class="contentWpr @cls">
             @if (!string.IsNullOrEmpty(Model.LetterUrl))
             {
-                <img id="uniLetter" seamless="seamless" class="unionFeatured" src="@Model.LetterUrl"/>
+                <div style="text-align:center">
+                    <img id="uniLetter" class="unionFeatured" src="@Model.LetterUrl" />
+                </div>
             }
             <ul id="libraryList" class="libraryList clearfix">
                 <li ng-repeat="box in info.items" ng-include="info.type === 'box' ? 'dashLibBox' : 'library-department'" ng-class="info.type ==='box' ? 'box' : 'libraryItem deptItem'"></li>

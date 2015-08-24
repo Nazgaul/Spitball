@@ -783,8 +783,14 @@
     <Content Include="Content\SetupSchool.rtl.min.css">
       <DependentUpon>SetupSchool.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Sidebar.min.css">
+      <DependentUpon>Sidebar.css</DependentUpon>
+    </Content>
     <Content Include="Content\Sidebar.rtl.css">
       <DependentUpon>Sidebar.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Sidebar.rtl.min.css">
+      <DependentUpon>Sidebar.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\signin\components-md.css">
       <DependentUpon>components-md.less</DependentUpon>

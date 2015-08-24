@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IQueueProvider m_QueueProvider;
 
-
+        private const long AnonymousUserId = 22886;
 
         public AddQuestionCommandHandler(IUserRepository userRepository,
             IBoxRepository boxRepository,
@@ -45,7 +45,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var userId = command.UserId;
             if (command.PostAnonymously)
             {
-                userId = 22886;
+                userId = AnonymousUserId;
             }
 
             var user = m_UserRepository.Load(userId);
@@ -62,6 +62,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (command.FilesIds != null)
             {
                 files = command.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
+
+            }
+            foreach (var file in files)
+            {
+                file.Uploader = user;
+                m_ItemRepository.Save(file);
             }
             var comment = box.AddComment(user, text, command.Id, files, FeedType.None);
             m_CommentRepository.Save(comment);
