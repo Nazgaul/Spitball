@@ -205,16 +205,13 @@
     </div>
 
     <!-- END LOGIN -->
- 
+    <div id="cssCheck"></div>
     @Html.Script2("signin")
     @Html.JqueryValidateLocale()
+    <script type="text/javascript" src="~/js/CDNFallbackWithoutAngular.js?v=@VersionHelper.CurrentVersion(true)"></script>
     <script src="https://apis.google.com/js/platform.js" onload="googleLoad()" async defer></script>
     <script>
-        function googleLoad() {
-            gapi.load('auth2', function () {
-                gapi.auth2.init();
-            });
-        }
+        
         window.fbAsyncInit = function () {
             FB.init({
                 appId: '450314258355338',
@@ -247,22 +244,7 @@
         ga('send', 'pageview');
 
 
-        jQuery(document).ready(function () {
-            Metronic.init(); // init metronic core components
-            Layout.init(); // init current layout
-            Login.init();
-            Demo.init();
-            // init background slide images
-            $.backstretch([
-             "/images/signin/1a.png",
-             "/images/signin/2a.png",
-             "/images/signin/3a.png"
-            ], {
-                fade: 1000,
-                duration: 8000
-            }
-         );
-        });
+       
 
 
     </script>

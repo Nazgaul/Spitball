@@ -292,6 +292,6 @@ u.Culture as Culture,
 	uu.universityData as UniversityData
     from zbox.Users u left join zbox.University uu on u.UniversityId = uu.Id
     where u.Email = @Email
-	and (u.MembershipUserId is not null or u.FacebookUserId is not null)";
+	and (u.MembershipUserId is not null or u.FacebookUserId is not null or u.GoogleUserId is not null)";
     }
 }

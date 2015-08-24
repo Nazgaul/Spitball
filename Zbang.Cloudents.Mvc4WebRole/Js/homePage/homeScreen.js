@@ -24,29 +24,20 @@ function getCookie(cname) {
     return "";
 }
 
-window.onload = function () {
-
+window.addEventListener("load", function load(event) {
+    window.removeEventListener("load", load, false); //remove listener, no longer needed
     var removeCloudentsBanner = 'removeCloudentsBanner';
     $('.alert').on('closed.bs.alert', function () {
         localStorage.setItem(removeCloudentsBanner, '1');
-    })
+    });
 
     var willShow = localStorage.getItem(removeCloudentsBanner);
     if (willShow != null) {
-        $('.alert').alert('close')
+        $('.alert').alert('close');
     }
     var val = getCookie('l2').toLowerCase();
     var text = document.querySelector('[href$="' + val + '/"]').text;
     document.querySelector('[data-toggle=dropdown] span').innerText = text;
-
-    //deeplink.setup({
-    //    fallback: false,
-    //    urlFallback: location.href,
-    //    android: {
-    //        appId: "com.cloudents.zbox2"
-    //    }
-    //});
-    //deeplink.open("cloudents://");
 
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
@@ -57,6 +48,8 @@ window.onload = function () {
 
     ga('create', 'UA-9850006-3', 'auto');
     ga('send', 'pageview');
-}
+}, false);
+
+
 
 

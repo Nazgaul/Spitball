@@ -311,10 +311,12 @@ var Login = function () {
                 return;
             }
             clearStorage();
+            setNewUser();
             if (returnUrl) {
                 window.location.href = returnUrl;
                 return;
             }
+            
             window.location.href = data.payload;
         });
     }
@@ -383,6 +385,13 @@ var Login = function () {
             });
         }
     }
+    // this is a hack for using angular cache element in the next page
+    function setNewUser() {
+        var date = new Date().getTime();
+        sessionStorage.setItem('angular-cache.caches.points.keys', '["register"]');
+        sessionStorage.setItem('angular-cache.caches.points.data.register', '{"key":"register","value":true,"created":' + date + ',"accessed":' + date + ',"expires":' + (date + 600000) + '}');
+
+    }
     function externalLogIn(data) {
         if (!data.success) {
             alert('there is a problem signing you in with facebook');
@@ -392,6 +401,7 @@ var Login = function () {
         clearStorage();
         var obj = data.payload;
         if (obj.isnew) {
+            setNewUser();
             //FB.api('/me', function () {	                    
             if (obj.url) {
                 window.location.href = obj.url;
@@ -463,3 +473,25 @@ var Login = function () {
     };
 
 }();
+
+function googleLoad() {
+    gapi.load('auth2', function () {
+        gapi.auth2.init();
+    });
+}
+jQuery(document).ready(function () {
+    Metronic.init(); // init metronic core components
+    Layout.init(); // init current layout
+    Login.init();
+    Demo.init();
+    // init background slide images
+    $.backstretch([
+     "/images/signin/1a.png",
+     "/images/signin/2a.png",
+     "/images/signin/3a.png"
+    ], {
+        fade: 1000,
+        duration: 8000
+    }
+ );
+});

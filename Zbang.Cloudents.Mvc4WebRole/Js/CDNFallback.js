@@ -3,10 +3,11 @@
     cdnCdPath = '.vo.msecnd.net',
     cdnGooglePath = 'ajax.googleapis.com';
 
-    window.onload = function () {
+    window.addEventListener("load", function load() {
+    //window.onload = function () {
         cssFailCallback();
         javascriptFailCallback();
-    };
+    });
 
     function cssFailCallback() {
         var cssLoaded = document.getElementById('cssCheck').offsetTop < 0, files;
@@ -20,12 +21,14 @@
     }
 
     function javascriptFailCallback() {
-        var scripts, isBootstrap, count, interval;
+        var scripts = [], isBootstrap = false, count, interval;
 
         if (!window.jQuery || !window.angular) {
             scripts = getCdnScripts(cdnGooglePath);
-            load(scriptsPath);
-            isBootstrap = true;
+            if (scripts.length) {
+                load(scriptsPath);
+                isBootstrap = true;
+            }
         }
 
         if (!window.app) {
