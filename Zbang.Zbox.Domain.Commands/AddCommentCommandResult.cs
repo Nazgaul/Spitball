@@ -19,5 +19,11 @@ namespace Zbang.Zbox.Domain.Commands
         public Guid CommentId { get; private set; }
         public string UserUrl { get; private set; }
         public long UserId { get; private set; }
+
+        public override string ToString()
+        {
+           return string.Format("userid {0} user url {1} userimage {2} username {3} commentid {4}", UserId, UserUrl, UserImage,
+                UserName, CommentId);
+        }
     }
 }

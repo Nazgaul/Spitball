@@ -48,7 +48,9 @@ window.fbAsyncInit = function () {
     if (menu) {
         highlightPage(menu);
     } else {
-        userDetails.addEventListener('click', toggleUserDropdown);
+        if (userDetails) {
+            userDetails.addEventListener('click', toggleUserDropdown);
+        }
     }
     //#region highlightmenu
     function highlightPage(menu2) {

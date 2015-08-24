@@ -4,15 +4,16 @@ app.filter('orderByFilter',
     function () {
         "use strict";
         return function (items, filterData, reverse) {
-            var filtered = [],
+            var filtered,
                 searchValue = filterData.input ? filterData.input.toLowerCase() : '';
 
             filtered = _.filter(items, function (item) {
-                return item[filterData.field].toLowerCase().indexOf(searchValue) > -1;
+                var filterObj = item[filterData.field] || '';
+                return filterObj.toLowerCase().indexOf(searchValue) > -1;
             });
             filtered.sort(function (a, b) {
-                var aName = a.name.toLowerCase(),
-                          bName = b.name.toLowerCase(),
+                var aName = (a.name || '').toLowerCase(),
+                          bName = (b.name || '').toLowerCase(),
                           aIndex, bIndex;
 
                 if (searchValue && searchValue.length) {
