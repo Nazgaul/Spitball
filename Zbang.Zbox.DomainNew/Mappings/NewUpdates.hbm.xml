@@ -35,4 +35,9 @@
     delete from Updates c where c.User.Id = :userid and c.Box.Id = :boxId and c.Item is not null
     ]]>
   </query>
+  <query name="DeleteOldUpdates">
+    <![CDATA[
+    delete from Updates c where c.CreationTime < getutcdate() - 365
+    ]]>
+  </query>
 </hibernate-mapping>

@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
@@ -37,28 +38,20 @@ namespace Zbang.Zbox.Domain.Services
 
         public bool Dbi(int index)
         {
-            //UpdateMissingUrl();
+            DeleteOldUpdates();
             UpdateUniversityStats();
             return false;
         }
 
-        //private void UpdateMissingUrl()
-        //{
-        //    using (var unitOfWork = UnitOfWork.Start())
-        //    {
-        //        var items = UnitOfWork.CurrentSession.Query<Item>().Where(w => !w.IsDeleted && w.Url == null).ToList();
-        //        foreach (var item in items)
-        //        {
-        //            if (string.IsNullOrEmpty(item.Name))
-        //            {
-        //                item.Name = item.ItemContentUrl;
-        //            }
-        //            item.GenerateUrl();
-        //            UnitOfWork.CurrentSession.Save(item);
-        //        }
-        //        unitOfWork.TransactionalFlush();
-        //    }
-        //}
+        private void DeleteOldUpdates()
+        {
+            using (var unitOfWork = UnitOfWork.Start())
+            {
+                var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteOldUpdates");
+                var i = query.ExecuteUpdate();
+            }
+        }
+
 
         private void UpdateUniversityStats()
         {
@@ -78,6 +71,9 @@ namespace Zbang.Zbox.Domain.Services
                    .Where(s => s.IsDeleted == false).OrderBy(o => o.Id).Skip(i * 100).Take(100)
                    .Select(s => s.Id).ToList();
                 } while (universitiesIds.Any());
+
+
+
             }
         }
 

@@ -27,14 +27,14 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     if (!m_ZboxService.Dbi(index))
                     {
                         index = 0;
-                        Thread.Sleep(TimeSpan.FromHours(1));
+                        Thread.Sleep(TimeSpan.FromHours(24));
                     }
                     index++;
                 }
                 catch (Exception ex)
                 {
                     TraceLog.WriteError("Update Dbi", ex);
-                    Thread.Sleep(TimeSpan.FromMinutes(15));
+                    Thread.Sleep(TimeSpan.FromHours(1));
                 }
             }
         }

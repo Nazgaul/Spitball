@@ -50,6 +50,6 @@ namespace Zbang.Zbox.Domain
         public virtual Item Item { get; protected set; }
         public virtual Quiz Quiz { get; protected set; }
 
-        protected virtual DateTime CreationTime { get; set; }
+        public virtual DateTime CreationTime { get; protected set; }
     }
 }
