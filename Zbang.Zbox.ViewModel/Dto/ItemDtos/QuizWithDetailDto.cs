@@ -41,13 +41,13 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public IEnumerable<QuestionWithDetailDto> Questions { get; set; }
 
 
-        public IEnumerable<QuizBestUsers> TopUsers { get; set; }
+        public IEnumerable<QuizBestUser> TopUsers { get; set; }
 
         public string Banner { get; set; }
 
     }
 
-    public class QuizBestUsers
+    public class QuizBestUser
     {
         public string Name { get; set; }
         public string Image { get; set; }
@@ -77,5 +77,12 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
     {
         public Guid AnswerId { get; set; }
         public Guid QuestionId { get; set; }
+    }
+
+
+    public class QuizSolversWithCountDto
+    {
+        public IEnumerable<QuizBestUser> Users { get; set; }
+        public int SolversCount { get; set; }
     }
 }

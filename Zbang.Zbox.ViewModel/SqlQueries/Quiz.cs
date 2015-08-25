@@ -30,6 +30,9 @@ join zbox.Box b on q.BoxId = b.BoxId
  and q.isdeleted = 0
 ";
 
+
+
+
         public const string Question = @"select q.Id, q.Text,q.RightAnswerId as correctAnswer from zbox.QuizQuestion q where QuizId = @QuizId;";
 
         public const string Answer = @"select a.id, a.text,a.QuestionId from zbox.QuizAnswer a where QuizId = @QuizId;";
@@ -41,9 +44,12 @@ select q.TimeTaken,q.Score from zbox.SolvedQuiz q where QuizId = @QuizId and Use
 
         public const string UserAnswer = @"select q.AnswerId,q.QuestionId from zbox.SolvedQuestion q where QuizId = @QuizId and UserId = @UserId;";
 
-        public const string TopUsers = @"  select username as Name, userimage as Image 
+
+
+
+        public const string TopUsers = @"select username as Name, userimage as Image 
   from zbox.users where userid in (
-  select top(3) userid from zbox.[SolvedQuiz] where quizid = @QuizId order by score desc)";
+  select top(@topusers) userid from zbox.[SolvedQuiz] where quizid = @QuizId order by score desc)";
 
         public const string Discussion = @"select qd.Id,
 u.UserName,

@@ -461,7 +461,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetBoxQuestionsQuery(60193);
             try
             {
-                var x = await m_ZboxReadService.GetQuestionsWithAnswers(query);
+                var x = await m_ZboxReadService.GetQuestionsWithAnswersAsync(query);
             }
             catch (Exception ex)
             {

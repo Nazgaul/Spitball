@@ -13,6 +13,18 @@
 
     }
 
+    public class GetQuizBestSolvers
+    {
+        public GetQuizBestSolvers(long quizId, int numberOfUsers)
+        {
+            NumberOfUsers = numberOfUsers;
+            QuizId = quizId;
+        }
+
+        public long QuizId { get; private set; }
+        public int NumberOfUsers { get; private set; }
+    }
+
     public class GetQuizDraftQuery
     {
         public GetQuizDraftQuery(long quizId)

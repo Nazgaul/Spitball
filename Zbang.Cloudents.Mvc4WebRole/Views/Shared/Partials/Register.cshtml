@@ -28,12 +28,6 @@
     @Html.ValidationMessageFor(model => model.Password, null)
     @Html.PasswordFor(model => model.Password, new { @class = "inputText", tabindex = 14, @placeholder = LogOnResources.Password })
 
-    @Html.ValidationMessageFor(m => m.IsMale)
-    @Html.RadioButtonFor(model => model.IsMale, "true", new { id = "maleRadio" })
-    <label class="genderLabel first" for="maleRadio">@SharedResources.Male</label>
-
-    @Html.RadioButtonFor(model => model.IsMale, "false", new { id = "femaleRadio" })
-    <label class="genderLabel" for="femaleRadio">@SharedResources.Female</label>
 
     <select class="inputText rFloat" id="dLangSelect" name="Language.Language">
         <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.EnglishUsName).Culture">@Languages.EnglishUsName</option>
@@ -41,7 +35,6 @@
         <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.HebrewName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.HebrewName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.HebrewName).Culture">@Languages.HebrewName</option>
         <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.RussianName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.RussianName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.RussianName).Culture">@Languages.RussianName</option>
         <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.ArabicName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ArabicName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ArabicName).Culture">@Languages.ArabicName</option>
-        <option selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == Languages.GetLanguageDetailByName(Languages.ChineseName).Culture)" data-href="@Url.Action("ChangeLocale", "Account", new { Lang = Languages.GetLanguageDetailByName(Languages.ChineseName).Culture })" value="@Languages.GetLanguageDetailByName(Languages.ChineseName).Culture">@Languages.ChineseName</option>
     </select>
 
   

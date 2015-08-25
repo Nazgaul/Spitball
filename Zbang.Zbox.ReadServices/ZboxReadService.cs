@@ -388,7 +388,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Qna.QuestionDto>> GetQuestionsWithAnswers(GetBoxQuestionsQuery query)
+        public async Task<IEnumerable<Qna.QuestionDto>> GetQuestionsWithAnswersAsync(GetBoxQuestionsQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
@@ -424,7 +424,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Qna.QuestionDto>> GetQuestionsWithLastAnswer(GetBoxQuestionsQuery query)
+        public async Task<IEnumerable<Qna.QuestionDto>> GetQuestionsWithLastAnswerAsync(GetBoxQuestionsQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
@@ -979,6 +979,53 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public async Task<Item.QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var sql = string.Format("{0} {1}",
+                    Sql.Quiz.TopUsers,
+                    Sql.Quiz.NumberOfQuizSolved
+                    );
+                using (
+                    var grid =
+                        await conn.QueryMultipleAsync(sql, new {query.QuizId, topusers = query.NumberOfUsers}))
+                {
+                    var retVal = new Item.QuizSolversWithCountDto
+                    {
+                        Users = await grid.ReadAsync<Item.QuizBestUser>(),
+                        SolversCount = grid.Read<int>().FirstOrDefault()
+                    };
+
+                    return retVal;
+                }
+            }
+        }
+
+        public async Task<IEnumerable<Item.QuestionWithDetailDto>> GetQuizQuestionAsync(GetQuizQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var sql = string.Format("{0} {1}",
+                   Sql.Quiz.Question,
+                   Sql.Quiz.Answer
+
+                   );
+                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId }))
+                {
+
+                    var retVal = await grid.ReadAsync<Item.QuestionWithDetailDto>();
+                    var answers = grid.Read<Item.AnswerWithDetailDto>().ToList();
+
+                    foreach (var question in retVal)
+                    {
+                        question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
+                    }
+                    return retVal;
+                }
+            }
+        }
+
         public async Task<Item.QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query)
         {
             var retVal = new Item.QuizWithDetailSolvedDto();
@@ -993,7 +1040,7 @@ namespace Zbang.Zbox.ReadServices
                     Sql.Quiz.UserAnswer,
                     Sql.Quiz.TopUsers
                     );
-                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.BoxId, query.UserId }))
+                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.BoxId, query.UserId, topusers = 3 }))
                 {
                     retVal.Quiz = grid.Read<Item.QuizWithDetailDto>().First();
                     retVal.Quiz.Questions = await grid.ReadAsync<Item.QuestionWithDetailDto>();
@@ -1009,7 +1056,7 @@ namespace Zbang.Zbox.ReadServices
                     {
                         retVal.Sheet.Questions = solvedQuestion;
                     }
-                    retVal.Quiz.TopUsers = await grid.ReadAsync<Item.QuizBestUsers>();
+                    retVal.Quiz.TopUsers = await grid.ReadAsync<Item.QuizBestUser>();
                     return retVal;
                 }
             }

@@ -39,7 +39,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             try
             {
                 var retVal =
-                  await ZboxReadService.GetQuestionsWithAnswers(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
+                  await ZboxReadService.GetQuestionsWithAnswersAsync(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
                 return Request.CreateResponse(retVal.Select(s => new
                 {
                     Answers = s.Answers.Select(a => new
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             try
             {
                 var retVal =
-                  await ZboxReadService.GetQuestionsWithLastAnswer(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
+                  await ZboxReadService.GetQuestionsWithLastAnswerAsync(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
                 return Request.CreateResponse(retVal.Select(s => new
                 {
                     s.Id,

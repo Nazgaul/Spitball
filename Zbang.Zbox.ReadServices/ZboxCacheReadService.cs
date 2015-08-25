@@ -147,14 +147,14 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetLocationByIp(ipNumber);
         }
 
-        public Task<IEnumerable<QuestionDto>> GetQuestionsWithAnswers(GetBoxQuestionsQuery query)
+        public Task<IEnumerable<QuestionDto>> GetQuestionsWithAnswersAsync(GetBoxQuestionsQuery query)
         {
-            return m_ReadService.GetQuestionsWithAnswers(query);
+            return m_ReadService.GetQuestionsWithAnswersAsync(query);
         }
 
-        public Task<IEnumerable<QuestionDto>> GetQuestionsWithLastAnswer(GetBoxQuestionsQuery query)
+        public Task<IEnumerable<QuestionDto>> GetQuestionsWithLastAnswerAsync(GetBoxQuestionsQuery query)
         {
-            return m_ReadService.GetQuestionsWithLastAnswer(query);
+            return m_ReadService.GetQuestionsWithLastAnswerAsync(query);
         }
         public Task<IEnumerable<AnswerDto>> GetReplies(GetCommentRepliesQuery query)
         {
@@ -382,6 +382,18 @@ namespace Zbang.Zbox.ReadServices
         public Task<IEnumerable<UserWithImageNameDto>> GetUsersByTermAsync(ViewModel.Queries.Search.UserSearchQuery query)
         {
             return m_ReadService.GetUsersByTermAsync(query);
+        }
+
+
+        public Task<QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query)
+        {
+            return m_ReadService.GetQuizSolversAsync(query);
+        }
+
+
+        public Task<IEnumerable<QuestionWithDetailDto>> GetQuizQuestionAsync(GetQuizQuery query)
+        {
+            return m_ReadService.GetQuizQuestionAsync(query);
         }
     }
 }

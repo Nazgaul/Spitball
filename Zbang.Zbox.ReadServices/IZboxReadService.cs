@@ -73,8 +73,8 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIds(IEnumerable<long> friendsIds);
 
 
-        Task<IEnumerable<QuestionDto>> GetQuestionsWithAnswers(GetBoxQuestionsQuery query);
-        Task<IEnumerable<QuestionDto>> GetQuestionsWithLastAnswer(GetBoxQuestionsQuery query);
+        Task<IEnumerable<QuestionDto>> GetQuestionsWithAnswersAsync(GetBoxQuestionsQuery query);
+        Task<IEnumerable<QuestionDto>> GetQuestionsWithLastAnswerAsync(GetBoxQuestionsQuery query);
         Task<IEnumerable<AnswerDto>> GetReplies(GetCommentRepliesQuery query);
         Task<QuestionDto> GetQuestionAsync(GetQuestionQuery query);
         Task<bool> GetInvite(GetInviteDetailQuery query);
@@ -113,6 +113,11 @@ namespace Zbang.Zbox.ReadServices
         Task<QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query);
         Task<IEnumerable<DiscussionDto>> GetDiscussion(GetDisscussionQuery query);
         Task<int> GetNumberOfSolvers(long quizId);
+
+        //Quiz api stuff
+        Task<QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query);
+        Task<IEnumerable<QuestionWithDetailDto>> GetQuizQuestionAsync(GetQuizQuery query);
+
 
         Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(RecommendedCoursesQuery query);
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Results;
 using Microsoft.WindowsAzure.Mobile.Service;
 using Microsoft.WindowsAzure.Mobile.Service.Security;
 using System.Threading.Tasks;
@@ -34,12 +35,12 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }
             if (model.Answers == null)
             {
-                return Request.CreateBadRequestResponse("Answers is requeried");
+                return Request.CreateBadRequestResponse("Answers is required");
             }
             var command =
                 new SaveUserQuizCommand(
                   model.Answers.Select(s => new UserAnswers { AnswerId = s.AnswerId, QuestionId = s.QuestionId }),
-                    User.GetCloudentsUserId(), model.QuizId, model.EndTime - model.StartTime, model.BoxId);
+                    User.GetCloudentsUserId(), model.QuizId, TimeSpan.FromSeconds(model.NumberOfSeconds), model.BoxId);
             await ZboxWriteService.SaveUserAnswersAsync(command);
 
             return Request.CreateResponse();
@@ -49,7 +50,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             var userId = User.GetCloudentsUserId();
             var query = new GetQuizQuery(quizId, userId, boxId);
-            var tModel = ZboxReadService.GetQuiz(query);
+            var tModel = ZboxReadService.GetQuizQuestionAsync(query);
 
             var tTransaction = QueueProvider.InsertMessageToTranactionAsync(
                  new StatisticsData4(new List<StatisticsData4.StatisticItemData>
@@ -62,7 +63,46 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     }, userId, DateTime.UtcNow));
 
             await Task.WhenAll(tModel, tTransaction);
-            return Request.CreateResponse();
+            return Request.CreateResponse(tModel.Result.Select(s=> new
+            {
+                s.Id,
+                s.Text,
+                s.CorrectAnswer,
+                Answers = s.Answers.Select(v => new
+                {
+                    v.Id,
+                    v.Text
+                })
+            }));
+        }
+
+        [Route("api/quiz/{id:long}/solvers")]
+        public async Task<HttpResponseMessage> GetQuizSolvers(long quizId)
+        {
+            var query = new GetQuizBestSolvers(quizId, 4);
+            var retVal = await ZboxReadService.GetQuizSolversAsync(query);
+            return Request.CreateResponse(new
+            {
+                retVal.SolversCount,
+                Users = retVal.Users.Select(s => new
+                {
+                    s.Image
+                })
+            });
+        }
+
+        [Route("api/quiz/{id:long}/discussion")]
+        public async Task<HttpResponseMessage> Discussion(long quizId)
+        {
+            var query = new GetDisscussionQuery(quizId);
+            var model = await ZboxReadService.GetDiscussion(query);
+            return Request.CreateResponse(model.Select(s => new
+            {
+                s.QuestionId,
+                s.Text,
+                s.UserId,
+                s.UserPicture,
+            }));
         }
     }
 }
