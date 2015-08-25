@@ -61,7 +61,7 @@ where qd.QuizId = @QuizId";
 where quizid = @QuizId";
 
 
-        public const string GetBoxQuiz = @"  select 
+        public const string GetBoxQuiz = @" select 
     id as Id, 
     q.userid as OwnerId,
     u.UserName as Owner,
@@ -77,7 +77,10 @@ where quizid = @QuizId";
     from zbox.quiz q
     join zbox.Users u on u.userid = q.UserId
     where boxid = @BoxId
-    and q.isdeleted = 0;";
+    and q.isdeleted = 0
+	order by q.Id desc
+	offset @pageNumber*@rowsperpage ROWS
+    FETCH NEXT @rowsperpage ROWS ONLY;";
 
     }
 }

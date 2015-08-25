@@ -191,6 +191,24 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }));
         }
 
+        [HttpGet]
+        [Route("api/box/{id:long}/quizzes")]
+        public async Task<HttpResponseMessage> Quizzes(long id, int page, int sizePerPage = 20)
+        {
+            var query = new GetBoxQuizesPagedQuery(id, page, sizePerPage);
+            var result = await ZboxReadService.GetBoxQuizesAsync(query);
+            return Request.CreateResponse(result.Where(w => w.Publish).Select(s => new
+            {
+                s.Name,
+                s.Id,
+                creationTime = s.Date,
+                s.Owner,
+                s.OwnerId
+                //s.Url
+            }));
+            
+        }
+
         [HttpGet, Route("api/box/{id:long}/members")]
         public async Task<HttpResponseMessage> Members(long id, int page, int sizePerPage = 20)
         {

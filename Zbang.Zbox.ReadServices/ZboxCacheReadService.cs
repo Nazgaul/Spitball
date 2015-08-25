@@ -65,9 +65,9 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetBoxItemsPagedAsync(query);
         }
-        public Task<IEnumerable<QuizDto>> GetBoxQuizes(GetBoxQuizesPagedQuery query)
+        public Task<IEnumerable<QuizDto>> GetBoxQuizesAsync(GetBoxQuizesPagedQuery query)
         {
-            return m_ReadService.GetBoxQuizes(query);
+            return m_ReadService.GetBoxQuizesAsync(query);
         }
 
         public ItemWithDetailDto GetItem(GetItemQuery query)

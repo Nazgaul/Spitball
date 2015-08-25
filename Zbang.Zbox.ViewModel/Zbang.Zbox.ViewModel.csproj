@@ -160,6 +160,7 @@
     <Compile Include="Queries\Emails\GetItemsLastUpdateQuery.cs" />
     <Compile Include="Queries\Emails\GetMembersLastUpdateQuery.cs" />
     <Compile Include="Queries\Emails\GetUserByNotificationQuery.cs" />
+    <Compile Include="Queries\GetBoxQuizesPagedQuery.cs" />
     <Compile Include="Queries\GetBoxSeoQuery.cs" />
     <Compile Include="Queries\GetBoxSideBarQuery.cs" />
     <Compile Include="Queries\GetBoxWithUserQuery.cs" />

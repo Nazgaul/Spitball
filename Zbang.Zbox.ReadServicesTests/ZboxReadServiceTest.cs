@@ -179,7 +179,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetBoxQuizesPagedQuery(3732);
             try
             {
-                var x = await m_ZboxReadService.GetBoxQuizes(query);
+                var x = await m_ZboxReadService.GetBoxQuizesAsync(query);
             }
             catch (Exception ex)
             {

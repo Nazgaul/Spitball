@@ -278,11 +278,16 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public async Task<IEnumerable<Item.QuizDto>> GetBoxQuizes(GetBoxQuizesPagedQuery query)
+        public async Task<IEnumerable<Item.QuizDto>> GetBoxQuizesAsync(GetBoxQuizesPagedQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<Item.QuizDto>(Sql.Quiz.GetBoxQuiz, new { query.BoxId });
+                return await conn.QueryAsync<Item.QuizDto>(Sql.Quiz.GetBoxQuiz, new
+                {
+                    query.BoxId,
+                    query.PageNumber,
+                    query.RowsPerPage
+                });
             }
 
         }

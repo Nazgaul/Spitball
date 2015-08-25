@@ -259,7 +259,7 @@ and userid != @UserId
 	    join zbox.users u on ub.UserId =  u.UserId
 	    where ub.BoxId=@BoxId
 union 
-	  select null as Id ,m .UserName as Name,m.Image as Image , 1 as userStatus , null as Url, m.email
+	  select null as Id , m.UserName as Name,m.Image as Image , 1 as userStatus , null as Url, m.email
 	  from zbox.invite m
 	  where m.BoxId = @BoxId
 	   and m.userboxrelid is null

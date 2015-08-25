@@ -22,18 +22,4 @@ namespace Zbang.Zbox.ViewModel.Queries
         public Guid? TabId { get; private set; }
 
     }
-
-    public class GetBoxQuizesPagedQuery 
-    {
-        public GetBoxQuizesPagedQuery(long boxId)
-        {
-         
-            BoxId = boxId;
-        }
-
-        public long BoxId { get; private set; }
-
-    
-
-    }
 }
