@@ -379,9 +379,9 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<UserWithImageNameDto>> GetUsersByTerm(ViewModel.Queries.Search.UniversitySearchQuery query)
+        public Task<IEnumerable<UserWithImageNameDto>> GetUsersByTermAsync(ViewModel.Queries.Search.UserSearchQuery query)
         {
-            return m_ReadService.GetUsersByTerm(query);
+            return m_ReadService.GetUsersByTermAsync(query);
         }
     }
 }

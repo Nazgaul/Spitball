@@ -1,5 +1,4 @@
-﻿using System.Text;
-
+﻿
 namespace Zbang.Zbox.ViewModel.Queries.Search
 {
     public class UniversitySearchQuery : IPagedQuery

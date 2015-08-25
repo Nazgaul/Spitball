@@ -122,10 +122,13 @@ order by QuestionId,Id;";
         where isdirty = 1 and isdeleted = 1 and id % @count  = @index;";
 
 
-        public const string GetUsersByTerm = @"select userid as Id, username as Name,UserImageLarge as Image from zbox.users u
-where username like @term + '%'
+        public const string GetUsersByTerm = @"select u.userid as Id, username as Name,UserImageLarge as Image 
+from zbox.users u join zbox.UserBoxRel ub on u.UserId = ub.UserId
+where username like @Term + '%'
+and ub.BoxId <> @BoxId
+group by u.userid, username,UserImageLarge,UniversityId,UserReputation
 order by
-case when u.UniversityId = 920 then 0 else 1 end asc, UserReputation desc
+case when u.UniversityId = @UniversityId then 0 else 1 end asc, UserReputation desc
 offset @pageNumber*@rowsperpage ROWS
 FETCH NEXT @rowsperpage ROWS ONLY ";
     }

@@ -558,7 +558,12 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<User.UserWithImageNameDto>> GetUsersByTerm(UniversitySearchQuery query)
+        /// <summary>
+        /// Used in api to ivite to box
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<User.UserWithImageNameDto>> GetUsersByTermAsync(UserSearchQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -567,7 +572,9 @@ namespace Zbang.Zbox.ReadServices
                      {
                          query.Term,
                          query.PageNumber,
-                         query.RowsPerPage
+                         query.RowsPerPage,
+                         query.UniversityId,
+                         query.BoxId
 
                      });
             }

@@ -171,14 +171,17 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         }
 
         [HttpGet, Route("api/search/user")]
-        public async Task<HttpResponseMessage> Members(string term, int page, int sizePerPage = 20)
+        public async Task<HttpResponseMessage> Members(string term, long boxId, int page, int sizePerPage = 20)
         {
             if (string.IsNullOrEmpty(term))
             {
                 term = "";
             }
-            var query = new UniversitySearchQuery(term, sizePerPage, page);
-            var retVal = await ZboxReadService.GetUsersByTerm(query);
+            long? universityId = User.GetUniversityDataId();
+            if (!universityId.HasValue)
+                return Request.CreateBadRequestResponse("need university");
+            var query = new UserSearchQuery(term, universityId.Value, boxId, sizePerPage, page);
+            var retVal = await ZboxReadService.GetUsersByTermAsync(query);
 
             return Request.CreateResponse(retVal);
 
