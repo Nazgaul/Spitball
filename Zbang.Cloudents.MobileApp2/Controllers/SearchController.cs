@@ -180,7 +180,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             long? universityId = User.GetUniversityDataId();
             if (!universityId.HasValue)
                 return Request.CreateBadRequestResponse("need university");
-            var query = new UserSearchQuery(term, universityId.Value, boxId, sizePerPage, page);
+            var query = new UserSearchQuery(term, universityId.Value, boxId, page, sizePerPage);
             var retVal = await ZboxReadService.GetUsersByTermAsync(query);
 
             return Request.CreateResponse(retVal);

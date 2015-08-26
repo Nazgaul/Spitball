@@ -22,10 +22,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class UpdateSearch : IJob
     {
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
-       
+
 
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
-       
+
 
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IItemWriteSearchProvider2 m_ItemSearchProvider2;
@@ -54,20 +54,27 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_BlobClient = cloudStorageAccount.CreateCloudBlobClient();
         }
 
+
         public async Task Run(CancellationToken cancellationToken)
         {
             var index = GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
             TraceLog.WriteWarning("item index " + index + " count " + count);
-            
+
             while (!cancellationToken.IsCancellationRequested)
             {
-               
+
                 try
                 {
                     var itemUpdate = await UpdateItem(index, count);
-                    if (!itemUpdate){
-                        await Task.Delay(TimeSpan.FromSeconds(10), cancellationToken);
+                    if (!itemUpdate)
+                    {
+                        await SleepAndIncreaseInterval(cancellationToken);
+                    }
+                    else
+                    {
+                        m_Interval = MinInterval;
+                        TraceLog.WriteInfo("decrease interval in item to " + m_Interval);
                     }
                 }
                 catch (Exception ex)
@@ -76,6 +83,20 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
             }
             TraceLog.WriteError("On finish run");
+        }
+        int m_Interval = MinInterval;
+        private const int MinInterval = 5;
+        private const int MaxInterval = 240;
+        private async Task SleepAndIncreaseInterval(CancellationToken cancellationToken)
+        {
+            var previous = m_Interval;
+            m_Interval = Math.Min(MaxInterval, m_Interval * 2);
+            if (previous != m_Interval)
+            {
+                TraceLog.WriteInfo("increase interval in item to " + m_Interval);
+            }
+            await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
+
         }
 
         private int GetIndex()
@@ -93,7 +114,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
 
 
-       
+
 
         private async Task<bool> UpdateItem(int instanceId, int instanceCount)
         {
@@ -107,26 +128,23 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             //};
             var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(instanceId, instanceCount);
-            if (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
+            if (!updates.ItemsToUpdate.Any() && !updates.ItemsToDelete.Any()) return false;
+            foreach (var elem in updates.ItemsToUpdate)
             {
-                foreach (var elem in updates.ItemsToUpdate)
-                {
-                    PreProcessFile(elem);
-                    elem.Content = ExtractContentToUploadToSearch(elem);
-                    
-                }
-                await m_ItemSearchProvider2.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
-                var isSuccess2 =
-                    await m_ItemSearchProvider3.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
-                if (isSuccess2)
-                {
-                    await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
-                        new UpdateDirtyToRegularCommand(
-                            updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));
-                }
-                return true;
+                PreProcessFile(elem);
+                elem.Content = ExtractContentToUploadToSearch(elem);
+
             }
-            return false;
+            await m_ItemSearchProvider2.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
+            var isSuccess2 =
+                await m_ItemSearchProvider3.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
+            if (isSuccess2)
+            {
+                await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
+                    new UpdateDirtyToRegularCommand(
+                        updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));
+            }
+            return true;
         }
 
 
@@ -250,11 +268,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-        
 
 
 
-       
+
+
 
 
     }

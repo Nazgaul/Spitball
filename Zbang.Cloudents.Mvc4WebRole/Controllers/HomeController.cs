@@ -208,7 +208,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        [OutputCache(Duration = TimeConsts.Day, VaryByParam = "index", Location = OutputCacheLocation.Any)]
+        [OutputCache(Duration = 2 * TimeConsts.Day, VaryByParam = "index", Location = OutputCacheLocation.Any)]
         public async Task<ActionResult> SiteMap(int? index)
         {
             if (!index.HasValue)

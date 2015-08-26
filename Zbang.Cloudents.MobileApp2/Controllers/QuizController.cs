@@ -50,7 +50,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             var userId = User.GetCloudentsUserId();
             var query = new GetQuizQuery(quizId, userId, boxId);
-            var tModel = ZboxReadService.GetQuizQuestionAsync(query);
+            var tModel = ZboxReadService.GetQuizQuestionWithAnswersAsync(query);
 
             var tTransaction = QueueProvider.InsertMessageToTranactionAsync(
                  new StatisticsData4(new List<StatisticsData4.StatisticItemData>
@@ -63,23 +63,28 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     }, userId, DateTime.UtcNow));
 
             await Task.WhenAll(tModel, tTransaction);
-            return Request.CreateResponse(tModel.Result.Select(s=> new
+            return Request.CreateResponse(new
             {
-                s.Id,
-                s.Text,
-                s.CorrectAnswer,
-                Answers = s.Answers.Select(v => new
+                Question = tModel.Result.Questions.Select(s => new
                 {
-                    v.Id,
-                    v.Text
-                })
-            }));
+                    s.Id,
+                    s.Text,
+                    s.CorrectAnswer,
+                    Answers = s.Answers.Select(v => new
+                    {
+                        v.Id,
+                        v.Text
+                    })
+                }
+                ),
+                Answers = tModel.Result.UserAnswers
+            });
         }
 
-        [Route("api/quiz/{id:long}/solvers")]
-        public async Task<HttpResponseMessage> GetQuizSolvers(long quizId)
+        [Route("api/quiz/{id:long}/solvers"), HttpGet]
+        public async Task<HttpResponseMessage> GetQuizSolvers(long id)
         {
-            var query = new GetQuizBestSolvers(quizId, 4);
+            var query = new GetQuizBestSolvers(id, 4);
             var retVal = await ZboxReadService.GetQuizSolversAsync(query);
             return Request.CreateResponse(new
             {
@@ -91,10 +96,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             });
         }
 
-        [Route("api/quiz/{id:long}/discussion")]
-        public async Task<HttpResponseMessage> Discussion(long quizId)
+        [Route("api/quiz/{id:long}/discussion"), HttpGet]
+        public async Task<HttpResponseMessage> Discussion(long id)
         {
-            var query = new GetDisscussionQuery(quizId);
+            var query = new GetDisscussionQuery(id);
             var model = await ZboxReadService.GetDiscussion(query);
             return Request.CreateResponse(model.Select(s => new
             {
@@ -102,6 +107,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.Text,
                 s.UserId,
                 s.UserPicture,
+                s.Date,
+                s.UserName
             }));
         }
     }

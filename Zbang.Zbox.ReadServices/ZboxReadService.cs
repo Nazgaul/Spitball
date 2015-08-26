@@ -1002,25 +1002,30 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<Item.QuestionWithDetailDto>> GetQuizQuestionAsync(GetQuizQuery query)
+        public async Task<Item.QuizQuestionWithSolvedAnswersDto> GetQuizQuestionWithAnswersAsync(GetQuizQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var sql = string.Format("{0} {1}",
+                var sql = string.Format("{0} {1} {2}",
                    Sql.Quiz.Question,
-                   Sql.Quiz.Answer
+                   Sql.Quiz.Answer,
+                   Sql.Quiz.UserAnswer
 
                    );
                 using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId }))
                 {
-
-                    var retVal = await grid.ReadAsync<Item.QuestionWithDetailDto>();
+                    var retVal = new Item.QuizQuestionWithSolvedAnswersDto
+                    {
+                        Questions = await grid.ReadAsync<Item.QuestionWithDetailDto>()
+                    };
                     var answers = grid.Read<Item.AnswerWithDetailDto>().ToList();
+                    var solvedQuestion = await grid.ReadAsync<Item.SolveQuestion>();
 
-                    foreach (var question in retVal)
+                    foreach (var question in retVal.Questions)
                     {
                         question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
                     }
+                    retVal.UserAnswers = solvedQuestion;
                     return retVal;
                 }
             }

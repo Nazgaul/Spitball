@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Domain.Commands;
@@ -50,7 +51,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     var retVal = await UpdateQuiz(index, count);
                     if (!retVal)
                     {
-                        await Task.Delay(TimeSpan.FromMinutes(1), cancellationToken);
+                        await SleepAndIncreaseInterval(cancellationToken);
+                    }
+                    else
+                    {
+                        m_Interval = MinInterval;
+                        TraceLog.WriteInfo("decrease interval in quiz to " + m_Interval);
                     }
                 }
                 catch (Exception ex)
@@ -59,6 +65,20 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
             }
             TraceLog.WriteError("On finish run");
+        }
+        int m_Interval = MinInterval;
+        private const int MinInterval = 30;
+        private const int MaxInterval = 240;
+        private async Task SleepAndIncreaseInterval(CancellationToken cancellationToken)
+        {
+            var previous = m_Interval;
+            m_Interval = Math.Min(MaxInterval, m_Interval * 2);
+            if (previous != m_Interval)
+            {
+                TraceLog.WriteInfo("increase interval in quiz to " + m_Interval);
+            }
+            await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
+
         }
 
         private async Task<bool> UpdateQuiz(int instanceId, int instanceCount)

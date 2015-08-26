@@ -10,6 +10,12 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
        
     }
 
+    public class QuizQuestionWithSolvedAnswersDto
+    {
+        public IEnumerable<QuestionWithDetailDto> Questions { get; set; }
+        public IEnumerable<SolveQuestion> UserAnswers { get; set; }
+    }
+
     
 
     public class QuizWithDetailDto

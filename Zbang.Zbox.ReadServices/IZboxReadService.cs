@@ -116,7 +116,7 @@ namespace Zbang.Zbox.ReadServices
 
         //Quiz api stuff
         Task<QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query);
-        Task<IEnumerable<QuestionWithDetailDto>> GetQuizQuestionAsync(GetQuizQuery query);
+        Task<QuizQuestionWithSolvedAnswersDto> GetQuizQuestionWithAnswersAsync(GetQuizQuery query);
 
 
         Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(RecommendedCoursesQuery query);

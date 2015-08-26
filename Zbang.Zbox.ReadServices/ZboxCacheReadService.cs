@@ -391,9 +391,9 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<QuestionWithDetailDto>> GetQuizQuestionAsync(GetQuizQuery query)
+        public Task<QuizQuestionWithSolvedAnswersDto> GetQuizQuestionWithAnswersAsync(GetQuizQuery query)
         {
-            return m_ReadService.GetQuizQuestionAsync(query);
+            return m_ReadService.GetQuizQuestionWithAnswersAsync(query);
         }
     }
 }
