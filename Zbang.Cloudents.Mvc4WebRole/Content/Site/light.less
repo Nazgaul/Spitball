@@ -1,6 +1,9 @@
 ﻿/***********
 Theme Colors
 ***********/
+
+@color1: #353a3f;
+
 .theme-font-color {
   color: #5b9bd1;
 }
@@ -20,7 +23,7 @@ Page Header
 ***********/
 /* Header search bar, toggler button & top menu */
 .page-header.navbar {
-  background: #FFFFFF;
+  background: @color1;
   border-bottom: 1px solid #e9ecf3;
   /* Top notification menu/bar */
   /* Header seaech box */
@@ -155,11 +158,12 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-notification.dropdown-dark .dropdown-menu .dropdown-menu-list > li > a:hover .time {
   background: #3d4a53;
 }
-.page-header.navbar .search-form {
-  background: #FFFFFF;
-}
+/*.page-header.navbar .search-form {
+  background: #212427;
+}*/
 .page-header.navbar .search-form .input-group {
-  border: 1px solid #ced6de;
+  //border: 1px solid #ced6de;
+  background:#212427;
 }
 .page-header.navbar .search-form .input-group:hover {
   border-color: #bfcad4;
@@ -435,13 +439,13 @@ Page Footer
 @media (max-width: 767px) {
   /* 767px */
   .page-header.navbar {
-    background: #FFFFFF;
+   // background: #FFFFFF;
     border-bottom: 1px solid white;
     /* Top menu */
   }
-  .page-header.navbar .page-top {
+  /*.page-header.navbar .page-top {
     background: #FFFFFF;
-  }
+  }*/
   .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle:hover {
     background-color: #eff1f6;
   }

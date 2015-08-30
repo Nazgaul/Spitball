@@ -613,6 +613,8 @@
       <DependentUpon>DashLib.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Fonts\feather-webfont.svg" />
+    <Content Include="Content\Fonts\Simple-Line-Icons.dev.svg" />
+    <Content Include="Content\Fonts\Simple-Line-Icons.svg" />
     <Content Include="Content\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
@@ -695,6 +697,9 @@
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\Fonts\Simple-Line-Icons.eot" />
+    <Content Include="Content\Fonts\Simple-Line-Icons.ttf" />
+    <Content Include="Content\Fonts\Simple-Line-Icons.woff" />
     <None Include="Content\jquery.mCustomScrollbar.less" />
     <Content Include="Content\jquery.mCustomScrollbar.css">
       <DependentUpon>jquery.mCustomScrollbar.less</DependentUpon>
@@ -850,8 +855,14 @@
     <Content Include="Content\signin\simple-line-icons.css">
       <DependentUpon>simple-line-icons.less</DependentUpon>
     </Content>
+    <Content Include="Content\signin\simple-line-icons.min.css">
+      <DependentUpon>simple-line-icons.css</DependentUpon>
+    </Content>
     <Content Include="Content\signin\simple-line-icons.rtl.css">
       <DependentUpon>simple-line-icons.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\simple-line-icons.rtl.min.css">
+      <DependentUpon>simple-line-icons.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\signin\uniform.default.css">
       <DependentUpon>uniform.default.less</DependentUpon>
@@ -1096,6 +1107,7 @@
     <Content Include="Images\site.png.rtl.css">
       <DependentUpon>site.png.css</DependentUpon>
     </Content>
+    <Content Include="Images\Site\icons.svg" />
     <Content Include="Images\spitball_invite_off.png" />
     <Content Include="Images\spitball_invite_on.png" />
     <Content Include="Images\spitball_logo_mobile.png" />
