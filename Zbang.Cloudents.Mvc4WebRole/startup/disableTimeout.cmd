@@ -1,8 +1,12 @@
+::http://fabriccontroller.net/blog/posts/iis-8-0-application-initialization-module-in-a-windows-azure-web-role/
+::Echo Installing Application Initialization
+::PKGMGR.EXE /iu:IIS-ApplicationInit
 
 %windir%\system32\inetsrv\appcmd set config -section:applicationPools -applicationPoolDefaults.processModel.idleTimeout:00:00:00
 %windir%\system32\inetsrv\appcmd set config -section:applicationPools -applicationPoolDefaults.startMode:AlwaysRunning
 
 %windir%\system32\inetsrv\AppCmd.exe set config -section:system.webServer/httpErrors -errorMode:Detailed 
+
 %windir%\system32\inetsrv\AppCmd.exe set config -section:httpCompression -[name='gzip'].staticCompressionLevel:9 -[name='gzip'].dynamicCompressionLevel:4
 
 %windir%\system32\inetsrv\appcmd set config  -section:system.webServer/httpCompression /+"dynamicTypes.[mimeType='image/svg+xml',enabled='True']" /commit:apphost

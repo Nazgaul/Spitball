@@ -1012,7 +1012,7 @@ namespace Zbang.Zbox.ReadServices
                    Sql.Quiz.UserAnswer
 
                    );
-                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId }))
+                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId , query.UserId }))
                 {
                     var retVal = new Item.QuizQuestionWithSolvedAnswersDto
                     {

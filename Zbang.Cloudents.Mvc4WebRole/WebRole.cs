@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Microsoft.Web.Administration;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
@@ -16,7 +17,18 @@ namespace Zbang.Cloudents.Mvc4WebRole
         
         public override bool OnStart()
         {
+            //http://fabriccontroller.net/blog/posts/iis-8-0-application-initialization-module-in-a-windows-azure-web-role/
+            //using (var serverManager = new ServerManager())
+            //{
+            //    var mainSite = serverManager.Sites[RoleEnvironment.CurrentRoleInstance.Id + "_Web"];
+            //    var mainApplication = mainSite.Applications["/"];
+            //    mainApplication["preloadEnabled"] = true;
 
+            //    var mainApplicationPool = serverManager.ApplicationPools[mainApplication.ApplicationPoolName];
+            //    mainApplicationPool["startMode"] = "AlwaysRunning";
+
+            //    serverManager.CommitChanges();
+            //}
 
             // For information on handling configuration changes
             // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
