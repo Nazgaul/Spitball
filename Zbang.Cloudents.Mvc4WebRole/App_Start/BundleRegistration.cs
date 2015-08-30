@@ -98,7 +98,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/signin/font-awesome.css",
                         "~/Content/signin/simple-line-icons.css",
                         "~/Content/homepage/bootstrap.css",
-                        "~/Content/signin/uniform.default.css"
+                        "~/Content/signin/uniform.default.css",
+                        "~/Content/site/bootstrap-switch.css",
+                        "~/Content/site/tasks.css",
+                        "~/Content/site/components-rounded.css",
+                        "~/Content/site/plugins.css",
+                        "~/Content/site/layout.css",
+                        "~/Content/site/light.css",
+                        "~/Content/site/custom.css"
                         //"~/Content/signin/select2.css",
                         //"~/Content/signin/login-soft.css",
                         //"~/Content/signin/components-md.css",
@@ -370,16 +377,23 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "site4", new[]
                     {
 
-
                         new JsFileWithCdn("~/js/signin/jquery.min.js"),
                         new JsFileWithCdn("~/js/signin/jquery-migrate.min.js"),
+                        new JsFileWithCdn("~/scripts/site/jquery-ui.min.js"),
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
+                        new JsFileWithCdn("~/scripts/site/bootstrap-hover-dropdown.js"),
+                        new JsFileWithCdn("~/scripts/site/jquery.slimscroll.js"),
                         new JsFileWithCdn("~/js/signin/jquery.blockui.min.js"),
                         new JsFileWithCdn("~/js/signin/jquery.cokie.min.js"),
                         new JsFileWithCdn("~/js/signin/jquery.uniform.min.js"),
+                        new JsFileWithCdn("~/scripts/site/bootstrap-switch.js"),
+
                         new JsFileWithCdn("~/js/signin/metronic.js"),
+                        new JsFileWithCdn("~/js/signin/layout.js"),
+                        new JsFileWithCdn("~/scripts/site/quick-sidebar.js"),
                         new JsFileWithCdn("~/js/signin/demo.js"),
-                        new JsFileWithCdn("~/js/signin/layout.js")
+                        new JsFileWithCdn("~/scripts/site/index3.js"),
+                        new JsFileWithCdn("~/scripts/site/tasks.js")
                     }
                 }
             };

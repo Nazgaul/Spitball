@@ -862,6 +862,90 @@
     <Content Include="Content\Site3.rtl.css">
       <DependentUpon>Site3.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\bootstrap-switch.css">
+      <DependentUpon>bootstrap-switch.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\bootstrap-switch.min.css">
+      <DependentUpon>bootstrap-switch.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\bootstrap-switch.rtl.css">
+      <DependentUpon>bootstrap-switch.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\bootstrap-switch.rtl.min.css">
+      <DependentUpon>bootstrap-switch.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\components-rounded.css">
+      <DependentUpon>components-rounded.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\components-rounded.min.css">
+      <DependentUpon>components-rounded.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\components-rounded.rtl.css">
+      <DependentUpon>components-rounded.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\components-rounded.rtl.min.css">
+      <DependentUpon>components-rounded.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\custom.css">
+      <DependentUpon>custom.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\custom.min.css">
+      <DependentUpon>custom.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\custom.rtl.css">
+      <DependentUpon>custom.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\custom.rtl.min.css">
+      <DependentUpon>custom.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\layout.css">
+      <DependentUpon>layout.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\layout.min.css">
+      <DependentUpon>layout.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\layout.rtl.css">
+      <DependentUpon>layout.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\layout.rtl.min.css">
+      <DependentUpon>layout.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\light.css">
+      <DependentUpon>light.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\light.min.css">
+      <DependentUpon>light.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\light.rtl.css">
+      <DependentUpon>light.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\light.rtl.min.css">
+      <DependentUpon>light.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\plugins.css">
+      <DependentUpon>plugins.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\plugins.min.css">
+      <DependentUpon>plugins.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\plugins.rtl.css">
+      <DependentUpon>plugins.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\plugins.rtl.min.css">
+      <DependentUpon>plugins.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\tasks.css">
+      <DependentUpon>tasks.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\tasks.min.css">
+      <DependentUpon>tasks.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\tasks.rtl.css">
+      <DependentUpon>tasks.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\tasks.rtl.min.css">
+      <DependentUpon>tasks.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Static.min.css">
       <DependentUpon>Static.css</DependentUpon>
     </Content>
@@ -1360,6 +1444,13 @@
     <Content Include="Content\signin\layout.less" />
     <Content Include="Content\signin\plugins-md.less" />
     <None Include="Content\signin\customRtl.less" />
+    <Content Include="Content\Site\bootstrap-switch.less" />
+    <Content Include="Content\Site\tasks.less" />
+    <Content Include="Content\Site\components-rounded.less" />
+    <Content Include="Content\Site\plugins.less" />
+    <Content Include="Content\Site\layout.less" />
+    <Content Include="Content\Site\light.less" />
+    <Content Include="Content\Site\custom.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2156,6 +2247,13 @@
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
+    <Content Include="Scripts\Site\bootstrap-hover-dropdown.js" />
+    <Content Include="Scripts\Site\bootstrap-switch.js" />
+    <Content Include="Scripts\Site\index3.js" />
+    <Content Include="Scripts\Site\jquery-ui.min.js" />
+    <Content Include="Scripts\Site\jquery.slimscroll.js" />
+    <Content Include="Scripts\Site\quick-sidebar.js" />
+    <Content Include="Scripts\Site\tasks.js" />
     <Content Include="Scripts\textAngular\textAngular-rangy.min.js" />
     <Content Include="Scripts\textAngular\textAngular-sanitize.js" />
     <Content Include="Scripts\textAngular\textAngular.js" />
