@@ -69,7 +69,7 @@ namespace Zbang.Zbox.ReadServices
 
         Task<UserMinProfile> GetUserMinProfile(GetUserMinProfileQuery query);
 
-        string GetLocationByIp(long ipNumber);
+        Task<string> GetLocationByIpAsync(GetCountryByIpQuery query);
         Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIds(IEnumerable<long> friendsIds);
 
 

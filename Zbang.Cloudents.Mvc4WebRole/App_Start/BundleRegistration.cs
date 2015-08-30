@@ -92,6 +92,23 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/signin/customRtl.css"
                     }
                 },
+                 {
+                    "site4", new[]
+                    {
+                        "~/Content/signin/font-awesome.css",
+                        "~/Content/signin/simple-line-icons.css",
+                        "~/Content/homepage/bootstrap.css",
+                        "~/Content/signin/uniform.default.css"
+                        //"~/Content/signin/select2.css",
+                        //"~/Content/signin/login-soft.css",
+                        //"~/Content/signin/components-md.css",
+                        //"~/Content/signin/plugins-md.css",
+                        //"~/Content/signin/layout.css",
+                        //"~/Content/signin/default.css",
+                        //"~/Content/signin/custom.css",
+                        //"~/Content/signin/customRtl.css"
+                    }
+                },
             };
             return cssDictionary;
         }
@@ -347,6 +364,22 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/signin/metronic.js"),
                         new JsFileWithCdn("~/js/signin/layout.js"),
                         new JsFileWithCdn("~/js/signin/login-soft.js")
+                    }
+                },
+                {
+                    "site4", new[]
+                    {
+
+
+                        new JsFileWithCdn("~/js/signin/jquery.min.js"),
+                        new JsFileWithCdn("~/js/signin/jquery-migrate.min.js"),
+                        new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
+                        new JsFileWithCdn("~/js/signin/jquery.blockui.min.js"),
+                        new JsFileWithCdn("~/js/signin/jquery.cokie.min.js"),
+                        new JsFileWithCdn("~/js/signin/jquery.uniform.min.js"),
+                        new JsFileWithCdn("~/js/signin/metronic.js"),
+                        new JsFileWithCdn("~/js/signin/demo.js"),
+                        new JsFileWithCdn("~/js/signin/layout.js")
                     }
                 }
             };

@@ -164,6 +164,7 @@
     <Compile Include="Queries\GetBoxSeoQuery.cs" />
     <Compile Include="Queries\GetBoxSideBarQuery.cs" />
     <Compile Include="Queries\GetBoxWithUserQuery.cs" />
+    <Compile Include="Queries\GetCountryByIpQuery.cs" />
     <Compile Include="Queries\GetInviteDetailQuery.cs" />
     <Compile Include="Queries\GetInvitesQuery.cs" />
     <Compile Include="Queries\GetItemQuery.cs" />

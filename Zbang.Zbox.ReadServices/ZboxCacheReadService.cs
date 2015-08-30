@@ -142,9 +142,10 @@ namespace Zbang.Zbox.ReadServices
             //return m_ReadService.GetUserMinProfile(query);
         }
 
-        public string GetLocationByIp(long ipNumber)
+        public Task<string> GetLocationByIpAsync(GetCountryByIpQuery query)
         {
-            return m_ReadService.GetLocationByIp(ipNumber);
+            return m_Cache.QueryAsync
+              (m_ReadService.GetLocationByIpAsync, query);
         }
 
         public Task<IEnumerable<QuestionDto>> GetQuestionsWithAnswersAsync(GetBoxQuestionsQuery query)

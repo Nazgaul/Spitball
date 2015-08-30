@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Routing;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.SiteExtension
 {
@@ -42,12 +44,12 @@ namespace Zbang.Cloudents.SiteExtension
                 if (context.User != null && context.User.Identity.IsAuthenticated)
                 {
                     var zboxReadService = Zbox.Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IZboxReadService>();
-                    var userData = zboxReadService.GetUserData(new Zbox.ViewModel.Queries.GetUserDetailsQuery(context.User.GetUserId()));
+                    var userData = zboxReadService.GetUserData(new GetUserDetailsQuery(context.User.GetUserId()));
                     InsertCookie(userData.Culture, context);
                     ChangeThreadLanguage(userData.Culture);
                     return;
                 }
-                var country = GetCountryByIp(context);
+                var country = GetCountryByIpAsync(context).Result;
                 if (country.ToLower() == "nl")
                 {
                     country = "gb";
@@ -87,7 +89,7 @@ namespace Zbang.Cloudents.SiteExtension
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
         }
 
-        public static string GetCountryByIp(HttpContextBase context)
+        public static Task<string> GetCountryByIpAsync(HttpContextBase context)
         {
             string userIp = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
             if (string.IsNullOrWhiteSpace(userIp))
@@ -96,12 +98,11 @@ namespace Zbang.Cloudents.SiteExtension
             }
             if (context.Request.IsLocal)
             {
-                //userIp = "109.158.31.75";
                 userIp = "81.218.135.73";
             }
             var ipNumber = Ip2Long(userIp);
             var zboxReadService = Zbox.Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IZboxReadService>();
-            return zboxReadService.GetLocationByIp(ipNumber);
+            return zboxReadService.GetLocationByIpAsync(new GetCountryByIpQuery( ipNumber));
         }
 
         private static long Ip2Long(string ip)

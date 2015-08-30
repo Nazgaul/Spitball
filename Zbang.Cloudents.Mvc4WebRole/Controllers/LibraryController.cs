@@ -78,19 +78,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet]
-        public PartialViewResult ChoosePartial()
+        public async Task<PartialViewResult> ChoosePartial()
         {
-            var country = UserLanguage.GetCountryByIp(HttpContext);
-            var haveUniversity = false;
-            var universityId = User.GetUniversityId();
-            if (universityId.HasValue)
-            {
-                haveUniversity = true;
-            }
-
+            var country = await UserLanguage.GetCountryByIpAsync(HttpContext);
             ViewBag.country = country;
-            ViewBag.haveUniversity = haveUniversity.ToString().ToLower();
-
             return PartialView("_SelectUni");
         }
 

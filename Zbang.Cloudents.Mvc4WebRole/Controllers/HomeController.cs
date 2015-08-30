@@ -71,6 +71,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
+
+        public ActionResult TestPage()
+        {
+
+            return View();
+        }
+
         [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang)]
         public ActionResult TermsOfService()

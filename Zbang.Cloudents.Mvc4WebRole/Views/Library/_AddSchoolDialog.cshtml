@@ -9,17 +9,10 @@
         <button type="button" style="display:none">@MainViewResources.UploadLogo</button>
     </div>
     <form class="clearfix" novalidate name="createUniversityForm" ng-submit="createUniversitySubmit(createUniversityForm.$valid)">
-        @*@{Html.RenderAction("AntiForgeryToken", "Home", true);}*@
-        @*@Html.ValidationSummary(true)*@
 
         <div class="lFloat countryWpr">
             @Html.LabelFor(m => m.Country)
             @Html.EditorFor(m => m.Country, new { ng_init = "formData.createUniversity.country=" + Model.Country })
-            @*<select class="inputText schoolType" name="SchoolType" ng-model="formData.createUniversity.country"  required>
-
-            </select>*@
-            @*@Html.ValidationMessageFor(m => m.Country)*@
-            @*@Html.TextBoxFor(m => m.Country, new { @class = "inputText country", ng_model = "formData.createUniversity.country", required = "required" })*@
         </div>
         <div class="rFloat schoolTypeWpr">
             @Html.LabelFor(m => m.Type)

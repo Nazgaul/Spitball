@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using Microsoft.Owin;
 using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
@@ -23,15 +25,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             m_LanguageCookie = languageCookie;
         }
 
-        public override async System.Threading.Tasks.Task Invoke(IOwinContext context)
+        public override async Task Invoke(IOwinContext context)
         {
-            //if (route != null && route.Values["lang"] != null)
-            //{
-            //    var culture = ChangeThreadLanguage(route.Values["lang"].ToString());
-            //    InsertCookie(culture, context);
-            //    //cookie.InjectCookie(CookieName, culture, false);
-            //    return;
-            //}
             if (!string.IsNullOrEmpty(context.Request.Query["lang"]))
             {
                 var culture = ChangeThreadLanguage(context.Request.Query["lang"]);
@@ -45,26 +40,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
                 if (m_ContextBase.User != null && m_ContextBase.User.Identity.IsAuthenticated)
                 {
-                    var userData = await m_ZboxReadService.GetUserDataAsync(new Zbox.ViewModel.Queries.GetUserDetailsQuery(m_ContextBase.User.GetUserId()));
+                    var userData = await m_ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(m_ContextBase.User.GetUserId()));
                     m_LanguageCookie.InjectCookie(userData.Culture);
                     ChangeThreadLanguage(userData.Culture);
                     await Next.Invoke(context);
                     return;
                 }
-                var country = GetCountryByIp(m_ContextBase);
+                var country = await GetCountryByIpAsync(m_ContextBase);
                 if (country.ToLower() == "nl")
                 {
                     country = "gb";
                 }
-                var culture = Languages.GetCultureBaseOnCountry(string.Empty);
+                var culture = Languages.GetCultureBaseOnCountry(country);
                 m_LanguageCookie.InjectCookie(culture);
                 ChangeThreadCulture(culture);
-                await Next.Invoke(context); 
+                await Next.Invoke(context);
                 return;
             }
             ChangeThreadLanguage(lang);
-            await Next.Invoke(context); 
-            
+            await Next.Invoke(context);
+
         }
 
         public static string ChangeThreadLanguage(string language)
@@ -95,7 +90,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
         }
 
-        public string GetCountryByIp(HttpContextBase context)
+        public Task<string> GetCountryByIpAsync(HttpContextBase context)
         {
             string userIp = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
             if (string.IsNullOrWhiteSpace(userIp))
@@ -108,7 +103,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 userIp = "81.218.135.73";
             }
             var ipNumber = Ip2Long(userIp);
-            return m_ZboxReadService.GetLocationByIp(ipNumber);
+            return m_ZboxReadService.GetLocationByIpAsync(new GetCountryByIpQuery(ipNumber));
         }
 
         private static long Ip2Long(string ip)
@@ -128,6 +123,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         }
 
 
-       
+
     }
 }

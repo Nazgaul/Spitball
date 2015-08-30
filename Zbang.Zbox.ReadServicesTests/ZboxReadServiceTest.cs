@@ -483,11 +483,11 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
         [TestMethod]
-        public void GetLocationByIP_Query_ReturnResult()
+        public async Task GetLocationByIP_Query_ReturnResult()
         {
             try
             {
-                m_ZboxReadService.GetLocationByIp(200);
+               await m_ZboxReadService.GetLocationByIpAsync(new GetCountryByIpQuery(200));
             }
             catch (Exception ex)
             {
