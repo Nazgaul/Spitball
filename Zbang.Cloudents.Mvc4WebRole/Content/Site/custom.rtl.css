@@ -25,6 +25,11 @@ Rounded Portlets
   height: 24px;
   fill: #5f6871;
 }
+.searchIcon {
+  width: 13px;
+  height: 13px;
+  fill: #fff;
+}
 .top-menu svg {
   fill: #5f6871;
   height: 75px;
