@@ -78,8 +78,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-        [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
-            + CustomCacheKeys.Lang)]
+        [DonutOutputCache(CacheProfile = "FullPage")]
         public ActionResult TermsOfService()
         {
             return View();
@@ -118,12 +117,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public async Task<ActionResult> Help()
         {
+            const string viewName = "help2";
             const string faqQuestionCacheName = "faqQuestionCacheName";
             var model = await m_CacheProvider.Value.GetFromCacheAsync<IEnumerable<Category>>(faqQuestionCacheName, faqQuestionCacheName);
 
             if (model != null)
             {
-                return View(model.Where(w => String.Equals(w.Language,
+                return View(viewName,model.Where(w => String.Equals(w.Language,
                     System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
 
             }
@@ -150,17 +150,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model = model.ToList();
                 await m_CacheProvider.Value.AddToCacheAsync(faqQuestionCacheName, model, TimeSpan.FromHours(1), faqQuestionCacheName);
             }
-            return View(model.Where(w => String.Equals(w.Language,
+            return View(viewName, model.Where(w => String.Equals(w.Language,
                 System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
 
         }
-        [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
-            + CustomCacheKeys.Lang)]
+        [DonutOutputCache(CacheProfile = "FullPage")]
         public ActionResult AboutUs()
         {
             return View();
         }
 
+        [DonutOutputCache(CacheProfile = "FullPage")]
         public ActionResult IFrame()
         {
             return View();
@@ -171,10 +171,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //    return View();
         //}
 
-        public ActionResult CloudentsIsNowSpitball()
-        {
-            return PartialView();
-        }
+        //public ActionResult CloudentsIsNowSpitball()
+        //{
+        //    return PartialView();
+        //}
 
         [ChildActionOnly]
         public ActionResult AntiForgeryToken()

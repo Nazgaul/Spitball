@@ -16,13 +16,19 @@ Rounded Portlets
 	border-radius: 0px 0px 4px 4px !important;
 }
 */
-.header-menu {
-  background: transparent;
-  border: transparent;
-}
-.header-menu svg {
-  width: 24px;
-  height: 24px;
+/*.header-menu {
+    background: transparent;
+    border: transparent;
+
+    svg {
+        width: 24px;
+        height: 24px;
+        fill: @color1;
+    }
+}*/
+.headerMenu {
+  width: 20px;
+  height: 20px;
   fill: #5f6871;
 }
 .searchIcon {

@@ -1,32 +1,324 @@
 ﻿@{
     ViewBag.Title = "About Us | Spitball";
-    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
-<div class="staticPage aboutUs">
-<h1>About Us</h1>
-<h3>What is Spitball?</h3>
 
-<p>Spitball is a free online and mobile social studying platform. A community focused on academic activity so you can focus on studying. It is a place to work together on assignments, find the study material you need, test your knowledge or discuss ideas and texts.
-</p>
+        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        Widget settings form goes here
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn blue">Save changes</button>
+                        <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <!-- BEGIN PAGE HEADER-->
+        <!-- BEGIN PAGE HEAD -->
+        <div class="page-head">
+            <!-- BEGIN PAGE TITLE -->
+            <div class="page-title">
+                <h1>About Us <small>about us page</small></h1>
+            </div>
+            <!-- END PAGE TITLE -->
+            <!-- BEGIN PAGE TOOLBAR -->
+            <div class="page-toolbar">
+                <!-- BEGIN THEME PANEL -->
+                <div class="btn-group btn-theme-panel">
+                    <a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-settings"></i>
+                    </a>
+                    <div class="dropdown-menu theme-panel pull-right dropdown-custom hold-on-click">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                <h3>THEME</h3>
+                                <ul class="theme-colors">
+                                    <li class="theme-color theme-color-default active" data-theme="default">
+                                        <span class="theme-color-view"></span>
+                                        <span class="theme-color-name">Dark Header</span>
+                                    </li>
+                                    <li class="theme-color theme-color-light" data-theme="light">
+                                        <span class="theme-color-view"></span>
+                                        <span class="theme-color-name">Light Header</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-8 col-sm-8 col-xs-12 seperator">
+                                <h3>LAYOUT</h3>
+                                <ul class="theme-settings">
+                                    <li>
+                                        Theme Style
+                                        <select class="layout-style-option form-control input-small input-sm">
+                                            <option value="square" selected="selected">Square corners</option>
+                                            <option value="rounded">Rounded corners</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        Layout
+                                        <select class="layout-option form-control input-small input-sm">
+                                            <option value="fluid" selected="selected">Fluid</option>
+                                            <option value="boxed">Boxed</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        Header
+                                        <select class="page-header-option form-control input-small input-sm">
+                                            <option value="fixed" selected="selected">Fixed</option>
+                                            <option value="default">Default</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        Top Dropdowns
+                                        <select class="page-header-top-dropdown-style-option form-control input-small input-sm">
+                                            <option value="light">Light</option>
+                                            <option value="dark" selected="selected">Dark</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        Sidebar Mode
+                                        <select class="sidebar-option form-control input-small input-sm">
+                                            <option value="fixed">Fixed</option>
+                                            <option value="default" selected="selected">Default</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        Sidebar Menu
+                                        <select class="sidebar-menu-option form-control input-small input-sm">
+                                            <option value="accordion" selected="selected">Accordion</option>
+                                            <option value="hover">Hover</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        Sidebar Position
+                                        <select class="sidebar-pos-option form-control input-small input-sm">
+                                            <option value="left" selected="selected">Left</option>
+                                            <option value="right">Right</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        Footer
+                                        <select class="page-footer-option form-control input-small input-sm">
+                                            <option value="fixed">Fixed</option>
+                                            <option value="default" selected="selected">Default</option>
+                                        </select>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END THEME PANEL -->
+            </div>
+            <!-- END PAGE TOOLBAR -->
+        </div>
+        <!-- END PAGE HEAD -->
+        <!-- BEGIN PAGE BREADCRUMB -->
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <a href="index.html">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="#">Extra</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="#">About Us</a>
+            </li>
+        </ul>
+        <!-- END PAGE BREADCRUMB -->
+        <!-- END PAGE HEADER-->
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="portlet light">
+            <div class="portlet-body">
+                <div class="row margin-bottom-30">
+                    <div class="col-md-6">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+                        </p>
+                        <ul class="list-unstyled margin-top-10 margin-bottom-10">
+                            <li>
+                                <i class="fa fa-check icon-default"></i> Nam liber tempor cum soluta
+                            </li>
+                            <li>
+                                <i class="fa fa-check icon-success"></i> Mirum est notare quam
+                            </li>
+                            <li>
+                                <i class="fa fa-check icon-info"></i> Lorem ipsum dolor sit amet
+                            </li>
+                            <li>
+                                <i class="fa fa-check icon-danger"></i> Mirum est notare quam
+                            </li>
+                            <li>
+                                <i class="fa fa-check icon-warning"></i> Mirum est notare quam
+                            </li>
+                        </ul>
+                        <!-- Blockquotes -->
+                        <blockquote class="hero">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetuer sed diam nonummy nibh euismod tincidunt.
+                            </p>
+                            <small>Bob Nilson</small>
+                        </blockquote>
+                    </div>
+                    <div class="col-md-6">
+                        <iframe src="http://player.vimeo.com/video/22439234" style="width:100%; height:327px;border:0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <!--/row-->
+                <!-- Meer Our Team -->
+                <div class="headline">
+                    <h3>Meet Our Team</h3>
+                </div>
+                <div class="row thumbnails">
+                    <div class="col-md-3">
+                        <div class="meet-our-team">
+                            <h3>Bob Nilson <small>Chief Executive Officer / CEO</small></h3>
+                            <img src="../../assets/admin/pages/media/pages/2.jpg" alt="" class="img-responsive" />
+                            <div class="team-info">
+                                <p>
+                                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem...
+                                </p>
+                                <ul class="social-icons pull-right">
+                                    <li>
+                                        <a href="javascript:;" data-original-title="twitter" class="twitter">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-original-title="facebook" class="facebook">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-original-title="linkedin" class="linkedin">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-original-title="Goole Plus" class="googleplus">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-original-title="skype" class="skype">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="meet-our-team">
+                            <h3>Marta Doe <small>Project Manager</small></h3>
+                            <img src="../../assets/admin/pages/media/pages/3.jpg" alt="" class="img-responsive" />
+                            <div class="team-info">
+                                <p>
+                                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem...
+                                </p>
+                                <ul class="social-icons pull-right">
+                                    <li>
+                                        <a href="javascript:;" data-original-title="twitter" class="twitter">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-original-title="facebook" class="facebook">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-original-title="linkedin" class="linkedin">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-original-title="Goole Plus" class="googleplus">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-original-title="skype" class="skype">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="meet-our-team">
+                            <h3>Bob Nilson <small>Chief Executive Officer / CEO</small></h3>
+                            <img src="../../assets/admin/pages/media/pages/2.jpg" alt="" class="img-responsive" />
+                            <div class="team-info">
+                                <p>
+                                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem...
+                                </p>
+                                <ul class="social-icons pull-right">
+                                    <li>
+                                        <a href="javascript:;" data-original-title="twitter" class="twitter">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-original-title="facebook" class="facebook">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-original-title="linkedin" class="linkedin">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-original-title="Goole Plus" class="googleplus">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-original-title="skype" class="skype">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="meet-our-team">
+                            <h3>Marta Doe <small>Project Manager</small></h3>
+                            <img src="../../assets/admin/pages/media/pages/3.jpg" alt="" class="img-responsive" />
+                            <div class="team-info">
+                                <p>
+                                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem...
+                                </p>
+                                <ul class="social-icons pull-right">
+                                    <li>
+                                        <a href="javascript:;" data-original-title="twitter" class="twitter">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-original-title="facebook" class="facebook">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-original-title="linkedin" class="linkedin">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-original-title="Goole Plus" class="googleplus">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-original-title="skype" class="skype">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/thumbnails-->
+                <!-- //End Meer Our Team -->
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
 
-<h3>The background</h3>
-
-<p>Many students are caught between various online services for collaboration. On one side official virtual learning environments provided by their university, official but often clunky and inflexible. On the other side Facebook –geared for social life, not academic collaboration– where distractions are never far away.</p>
-
-<p>To fill this gap we set out to create a social studying platform that combines the flexibility and social elements of Facebook with the focus on academic work of official virtual learning environments.</p>
-
-
-<p>All Spitball features are specifically designed with students’ needs in mind, integrated as part of a single, easy to use and free social studying platform.</p>
-
-
-
-
-<h3>Our mission</h3>
-
-<p>We want our users to improve academically. We want to facilitate cross-pollination of ideas, the sharing of materials and academic collaboration. We want our users to become better students.</p>
-
-
-<h3>Our company</h3>
-<p>The Spitball platform is developed by a young bunch of specialists in online platforms. Our combined background includes various online platforms such as AVG MultiMi and Yahoo’s client facing applications such as Mail, Messenger, Groups and My Yahoo!
-</p>
-</div>

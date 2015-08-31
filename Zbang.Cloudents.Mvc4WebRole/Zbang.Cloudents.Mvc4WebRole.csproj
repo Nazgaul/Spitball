@@ -2386,13 +2386,13 @@
     <Content Include="Views\Shared\Partials\_DashLibItem.cshtml" />
     <Content Include="Views\Shared\Partials\_SearchTemplate.cshtml" />
     <Content Include="Views\Home\Jobs.cshtml" />
-    <Content Include="Views\Home\CloudentsIsNowSpitball.cshtml" />
     <Content Include="Views\Account\Index3.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\Shared\_Head.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LayoutPage.cshtml" />
     <Content Include="Views\Home\TestPage.cshtml" />
+    <Content Include="Views\Home\Help2.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

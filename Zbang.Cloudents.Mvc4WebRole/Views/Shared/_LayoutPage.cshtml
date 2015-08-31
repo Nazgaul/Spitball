@@ -39,46 +39,47 @@
             <!-- END LOGO -->
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
             <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
             </a>
             <!-- END RESPONSIVE MENU TOGGLER -->
             <!-- BEGIN PAGE ACTIONS -->
             <!-- DOC: Remove "hide" class to enable the page header actions -->
-            <div class="page-actions">
-                <div class="btn-group">
-                    <button type="button" class="header-menu dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        @Html.Svg(svgUrl, "headerMenu")
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-docs"></i> New Post
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-tag"></i> New Comment
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-share"></i> Share
-                            </a>
-                        </li>
-                        <li class="divider">
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-flag"></i> Comments <span class="badge badge-success">4</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-users"></i> Feedbacks <span class="badge badge-danger">2</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            @*<div class="page-actions">
+                    <div class="btn-group">
+                        <button type="button" class="header-menu dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            @Html.Svg(svgUrl, "headerMenu")
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="icon-docs"></i> New Post
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="icon-tag"></i> New Comment
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="icon-share"></i> Share
+                                </a>
+                            </li>
+                            <li class="divider">
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="icon-flag"></i> Comments <span class="badge badge-success">4</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="icon-users"></i> Feedbacks <span class="badge badge-danger">2</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>*@
             <!-- END PAGE ACTIONS -->
             <!-- BEGIN PAGE TOP -->
             <div class="page-top">
@@ -1217,7 +1218,11 @@
                 <!-- END SIDEBAR MENU -->
             </div>
         </div>
-        @RenderBody()
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                @RenderBody()
+            </div>
+        </div>
     </div>
 
     @Html.Script2("site4")
@@ -1234,4 +1239,5 @@
     </script>
     <!-- END JAVASCRIPTS -->
 </body>
+
 </html>
