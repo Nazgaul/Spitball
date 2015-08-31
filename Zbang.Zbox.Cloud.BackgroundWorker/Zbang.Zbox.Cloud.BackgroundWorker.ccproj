@@ -53,15 +53,9 @@
   <ItemGroup>
     <Folder Include="Profiles" />
     <Folder Include="Zbang.Zbox.WorkerRoleContent\" />
-    <Folder Include="Zbang.Zbox.WorkerRoleSearchContent\" />
   </ItemGroup>
   <ItemGroup>
     <PublishProfile Include="Profiles\ZboxWorkerRoleStaging.azurePubxml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Zbang.Zbox.WorkerRoleSearchContent\diagnostics.wadcfg">
-      <SubType>Content</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <DiagnosticsConfiguration Include="Zbang.Zbox.WorkerRoleContent\diagnostics.wadcfgx" />

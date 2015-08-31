@@ -200,7 +200,7 @@ namespace Testing
             //var x = TestMediaServices();
             //Task.WaitAll(x);
             // return;
-            Emails();
+            //Emails();
 
             //var y =  GetCountries();
 
@@ -266,7 +266,7 @@ namespace Testing
             //         "failed connect to remove db ");
             //var t = x.DeleteUnsubscribe("yaari.ram@gmail.com");
             //t.Wait();
-           // IZboxWorkerRoleService writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
+            IZboxWorkerRoleService writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
             //writeService.UpdateReputation(new UpdateReputationCommand(1));
             //writeService.AddNewUpdateAsync(new AddNewUpdatesCommand(
             //    21481,
@@ -276,10 +276,10 @@ namespace Testing
             //    null,
             //   null
             //    )).Wait();
-            //while (writeService.Dbi(0))
-            //{
+            while (writeService.Dbi(0))
+            {
 
-            //}
+            }
 
             //            //var command = new UpdateUserProfileCommand(1, "ramy", null, null, "המרכז האקדמי פרס");
 
