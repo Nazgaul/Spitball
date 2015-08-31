@@ -1,49 +1,207 @@
 ﻿@model IEnumerable<Zbang.Cloudents.Mvc4WebRole.Models.Job>
 @{
     ViewBag.Title = "Jobs | Spitball | Study better by working together";
-    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
-<div class="jobsImg"></div>
-<div class="jobsContentWpr">
-    <ul class="jobsList">
-        @{
-            int index = 1;
-            foreach (var job in Model)
-            {
-                <li class="jobItem">
-                    <input type="checkbox" id="@string.Format("faq-{0}",index)">
-                    <label class="question" for="@string.Format("faq-{0}",index)">
-                        <span class="jobName">@job.Name</span><br />
-                        <span class="jobLoc">@job.Location</span>
-                    </label>
-                    <div class="answer">
-                        @Html.Raw(job.Description)
-                        <p class="mail">Apply now: <a href="mailto:matan@spitball.co" target="_self">matan@spitball.co</a></p>
-                    </div>
-                </li>
-                index++;
-            }
-        }
-      
-    </ul>
+<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                Widget settings form goes here
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn blue">Save changes</button>
+                <button type="button" class="btn default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
-@section scripts {
-    @Html.Script2("faq")
-    <script type="text/javascript">
-        $(document).ready(function() {
-            if ($('.question').length < 3) {
-                $('.answer').show();
-                $('.question').click(function (e) {
-                    e.preventDefault();
+<!-- /.modal -->
+<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+<!-- BEGIN PAGE HEADER-->
+<!-- BEGIN PAGE HEAD -->
+<div class="page-head">
+    <!-- BEGIN PAGE TITLE -->
+    <div class="page-title">
+        <h1>FAQ <small>general faq sample</small></h1>
+    </div>
+    <!-- END PAGE TITLE -->
+    <!-- BEGIN PAGE TOOLBAR -->
+    <div class="page-toolbar">
+        <!-- BEGIN THEME PANEL -->
+        <div class="btn-group btn-theme-panel">
+            <a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-settings"></i>
+            </a>
+            <div class="dropdown-menu theme-panel pull-right dropdown-custom hold-on-click">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <h3>THEME</h3>
+                        <ul class="theme-colors">
+                            <li class="theme-color theme-color-default active" data-theme="default">
+                                <span class="theme-color-view"></span>
+                                <span class="theme-color-name">Dark Header</span>
+                            </li>
+                            <li class="theme-color theme-color-light" data-theme="light">
+                                <span class="theme-color-view"></span>
+                                <span class="theme-color-name">Light Header</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-8 col-sm-8 col-xs-12 seperator">
+                        <h3>LAYOUT</h3>
+                        <ul class="theme-settings">
+                            <li>
+                                Theme Style
+                                <select class="layout-style-option form-control input-small input-sm">
+                                    <option value="square" selected="selected">Square corners</option>
+                                    <option value="rounded">Rounded corners</option>
+                                </select>
+                            </li>
+                            <li>
+                                Layout
+                                <select class="layout-option form-control input-small input-sm">
+                                    <option value="fluid" selected="selected">Fluid</option>
+                                    <option value="boxed">Boxed</option>
+                                </select>
+                            </li>
+                            <li>
+                                Header
+                                <select class="page-header-option form-control input-small input-sm">
+                                    <option value="fixed" selected="selected">Fixed</option>
+                                    <option value="default">Default</option>
+                                </select>
+                            </li>
+                            <li>
+                                Top Dropdowns
+                                <select class="page-header-top-dropdown-style-option form-control input-small input-sm">
+                                    <option value="light">Light</option>
+                                    <option value="dark" selected="selected">Dark</option>
+                                </select>
+                            </li>
+                            <li>
+                                Sidebar Mode
+                                <select class="sidebar-option form-control input-small input-sm">
+                                    <option value="fixed">Fixed</option>
+                                    <option value="default" selected="selected">Default</option>
+                                </select>
+                            </li>
+                            <li>
+                                Sidebar Menu
+                                <select class="sidebar-menu-option form-control input-small input-sm">
+                                    <option value="accordion" selected="selected">Accordion</option>
+                                    <option value="hover">Hover</option>
+                                </select>
+                            </li>
+                            <li>
+                                Sidebar Position
+                                <select class="sidebar-pos-option form-control input-small input-sm">
+                                    <option value="left" selected="selected">Left</option>
+                                    <option value="right">Right</option>
+                                </select>
+                            </li>
+                            <li>
+                                Footer
+                                <select class="page-footer-option form-control input-small input-sm">
+                                    <option value="fixed">Fixed</option>
+                                    <option value="default" selected="selected">Default</option>
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END THEME PANEL -->
+    </div>
+    <!-- END PAGE TOOLBAR -->
+</div>
+<!-- END PAGE HEAD -->
+<!-- BEGIN PAGE BREADCRUMB -->
+<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="index.html">Home</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <a href="#">Pages</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <a href="#">FAQ</a>
+    </li>
+</ul>
+<!-- END PAGE BREADCRUMB -->
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="portlet light">
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-3">
+                <ul class="ver-inline-menu tabbable margin-bottom-10">
+                    @{
+                        int i = 1;
 
-                });
-            } else {
-                $('.question').click(function() {
-                    $(this).next().slideToggle({ duration: 400 });
-                });
-            }
-        });
-    </script>
-}
+                        foreach (var category in Model)
+                        {
+                            var active = i == 1 ? "active" : null;
+                            <li class="@active">
+                                <a data-toggle="tab" href="#tab_@i">
+                                    <i class="fa fa-leaf"></i> @category.Name
+                                </a>
+                            </li>
+                            i++;
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <div class="tab-content">
+                    @{
+                        i = 1;
+                        foreach (var category in Model)
+                        {
+                            var active = i == 1 ? "active" : null;
+                            var j = 1;
+                            <div id="tab_@i" class="tab-pane @active">
+                                <div id="accordion@(i)" class="panel-group">
+                                    @foreach (var faq in category.Name)
+                                    {
+                                        var inClass = j == 1 ? "in" : null;
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion@(i)" href="#accordion@(i)_@j">
+                                                        @category.Name
+                                                    </a>
+                                                </h4>
+                                            </div>
+
+                                            <div id="accordion@(i)_@j" class="panel-collapse collapse @inClass">
+                                                <div class="panel-body">
+                                                    @Html.Raw(faq)
+                                                </div>
+                                            </div>
+                                        </div>
+                                        j++;
+                                    }
+                                </div>
+                            </div>
+                                    i++;
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PAGE CONTENT-->
 

@@ -518,15 +518,9 @@
                 <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
                 <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                     <li class="start ">
-                        <a href="index.html">
-                            <i class="icon-home"></i>
-                            <span class="title">Dashboard</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="javascript:;">
                             <i class="icon-basket"></i>
-                            <span class="title">eCommerce</span>
+                            <span class="title">Dashboard</span>
                             <span class="arrow "></span>
                         </a>
                         <ul class="sub-menu">
@@ -562,7 +556,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="active open">
+                    @*<li class="active open">
                         <a href="javascript:;">
                             <i class="icon-rocket"></i>
                             <span class="title">Page Layouts</span>
@@ -768,18 +762,18 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li>*@
                     <!-- BEGIN ANGULARJS LINK -->
-                    <li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
+                    @*<li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
                         <a href="angularjs" target="_blank">
                             <i class="icon-paper-plane"></i>
                             <span class="title">
                                 AngularJS Version
                             </span>
                         </a>
-                    </li>
+                    </li>*@
                     <!-- END ANGULARJS LINK -->
-                    <li>
+                    @*<li>
                         <a href="javascript:;">
                             <i class="icon-settings"></i>
                             <span class="title">Form Stuff</span>
@@ -1193,26 +1187,30 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
-
-                    <li class="last ">
-                        <a href="javascript:;">
+                    </li>*@
+                    <li>
+                        <a href="@Url.RouteUrl("LibraryDesktop")">
                             <i class="icon-pointer"></i>
-                            <span class="title">Maps</span>
-                            <span class="arrow "></span>
+                            <span class="title">University Page</span>
                         </a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a href="maps_google.html">
-                                    Google Maps
-                                </a>
-                            </li>
-                            <li>
-                                <a href="maps_vector.html">
-                                    Vector Maps
-                                </a>
-                            </li>
-                        </ul>
+                    </li>
+                    <li>
+                        <a href="@Url.RouteUrl("User")">
+                            <i class="icon-pointer"></i>
+                            <span class="title">User Page</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.RouteUrl("AccountSettings")">
+                            <i class="icon-pointer"></i>
+                            <span class="title">Settings</span>
+                        </a>
+                    </li>
+                    <li class="last ">
+                        <a href="@Url.Action("logoff","account")">
+                            <i class="icon-pointer"></i>
+                            <span class="title">Log out</span>
+                        </a>
                     </li>
                 </ul>
                 <!-- END SIDEBAR MENU -->
