@@ -15,6 +15,7 @@
       <Setting name="AzureSeachServiceName" />
       <Setting name="ServiceBusConnectionString" />
       <Setting name="ServiceBusHubName" />
+      <Setting name="platform" />
     </ConfigurationSettings>
     <LocalResources>
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="222000" />

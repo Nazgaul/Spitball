@@ -19,7 +19,6 @@ Page Header
 /* Header search bar, toggler button & top menu */
 .page-header.navbar {
   background: #353a3f;
-  border-bottom: 1px solid #e9ecf3;
   /* Top notification menu/bar */
   /* Header seaech box */
   /* Menu Toggler */
@@ -101,7 +100,7 @@ Page Header
   background-color: #dfe2e9;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user > .dropdown-toggle > .username {
-  color: #7FB0DA;
+  color: #f5f5f5;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user > .dropdown-toggle > i {
   color: #7FB0DA;
@@ -453,10 +452,10 @@ Page Footer
 }
 @media (max-width: 767px) {
   /* 767px */
-  .page-header.navbar {
+  /*.page-header.navbar {
+   // background: #FFFFFF;
     border-bottom: 1px solid white;
-    /* Top menu */
-  }
+  }*/
   /*.page-header.navbar .page-top {
     background: #FFFFFF;
   }*/

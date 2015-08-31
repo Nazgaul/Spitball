@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -21,13 +22,17 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             m_KeepRunning = true;
             while (m_KeepRunning)
             {
+                var sw = new Stopwatch();
                 TraceLog.WriteInfo("Running update database");
                 try
                 {
+                    sw.Restart();
                     if (!m_ZboxService.Dbi(index))
                     {
+                        sw.Stop();
+                        TraceLog.WriteInfo("Running update database took(milliseconds): " + sw.ElapsedMilliseconds);
                         index = 0;
-                        Thread.Sleep(TimeSpan.FromHours(24));
+                        Thread.Sleep(TimeSpan.FromHours(6));
                     }
                     index++;
                 }

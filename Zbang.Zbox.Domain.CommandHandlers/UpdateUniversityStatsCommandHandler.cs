@@ -19,9 +19,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 var university = m_UniversityRepository.Load(universityId);
                 university.AdminScore = m_UniversityRepository.GetAdminScore(universityId);
-                university.NoOfUsers = m_UniversityRepository.GetNumberOfUsers(universityId);
-                university.NoOfQuizzes = m_UniversityRepository.GetNumberOfQuizzes(universityId);
-                university.NoOfItems = m_UniversityRepository.GetNumberOfItems(universityId);
+                var universityStats = m_UniversityRepository.GetStats(universityId);
+
+                university.NoOfUsers = universityStats.UsersCount;
+                university.NoOfQuizzes = universityStats.QuizzesCount; 
+                university.NoOfItems = universityStats.ItemsCount;
+                university.UpdateNumberOfBoxes( universityStats.BoxesCount);
                 university.ShouldMakeDirty = () => false;
                 m_UniversityRepository.Save(university);
             }

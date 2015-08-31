@@ -1,11 +1,18 @@
-﻿using System.Linq;
-using NHibernate.Criterion;
-using NHibernate.Linq;
+﻿using NHibernate.Criterion;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
 
 namespace Zbang.Zbox.Domain.DataAccess
 {
+    public class UniversityStats
+    {
+        public int UsersCount { get; set; }
+        public int BoxesCount { get; set; }
+        public int ItemsCount { get; set; }
+        public int QuizzesCount { get; set; }
+
+
+    }
     public class UniversityRepository : NHibernateRepository<University>, IUniversityRepository
     {
         public int GetNumberOfBoxes(University universityId)
@@ -16,34 +23,65 @@ namespace Zbang.Zbox.Domain.DataAccess
                             .RowCount();
         }
 
-        public int GetNumberOfUsers(long universityId)
-        {
-            return UnitOfWork.CurrentSession.QueryOver<User>()
-                .Where(w => w.University.Id == universityId)
-                .RowCount();
-        }
+        //public int GetNumberOfUsers(long universityId)
+        //{
+        //    return UnitOfWork.CurrentSession.QueryOver<User>()
+        //        .Where(w => w.University.Id == universityId)
+        //        .RowCount();
+        //}
 
-        public int GetNumberOfQuizzes(long universityId)
+        public UniversityStats GetStats(long universityId)
         {
-            return UnitOfWork.CurrentSession.QueryOver<AcademicBox>()
-                .Where(w => w.University.Id == universityId)
-                .Where(w => w.IsDeleted == false)
-                .Select(Projections.Sum<AcademicBox>(s => s.QuizCount))
-                .SingleOrDefault<int>();
 
-        }
+            var usersFuture = UnitOfWork.CurrentSession.QueryOver<User>()
+                 .Where(w => w.University.Id == universityId)
+                 .Select(Projections.RowCount())
+                 .FutureValue<int>();
 
-        public int GetNumberOfItems(long universityId)
-        {
-            return UnitOfWork.CurrentSession.QueryOver<AcademicBox>()
+            
+
+            var countFuture = UnitOfWork.CurrentSession.QueryOver<AcademicBox>()
                 .Where(w => w.University.Id == universityId)
                 .Where(w => w.IsDeleted == false)
-                .Select(Projections.Sum<AcademicBox>(s => s.ItemCount))
-                .SingleOrDefault<int>();
+                .SelectList(list => list
+                    .SelectSum(s => s.QuizCount)
+                    .SelectSum(s => s.ItemCount)
+                    .Select(Projections.RowCount())
+                ).FutureValue<object[]>();
+
+            var usersCount = usersFuture.Value;
+            var boxStats = countFuture.Value;
+            return new UniversityStats
+            {
+                BoxesCount = boxStats[2] == null ? 0 : (int) boxStats[2],
+                ItemsCount = boxStats[1] == null ? 0 : (int)boxStats[1],
+                QuizzesCount = boxStats[0] == null ? 0 : (int)boxStats[0],
+                UsersCount = usersCount
+            };
+            //return 0;
+
         }
+
+        //public int GetNumberOfItems(long universityId)
+        //{
+        //    return UnitOfWork.CurrentSession.QueryOver<AcademicBox>()
+        //        .Where(w => w.University.Id == universityId)
+        //        .Where(w => w.IsDeleted == false)
+        //        .Select(Projections.Sum<AcademicBox>(s => s.ItemCount))
+        //        .SingleOrDefault<int>();
+        //}
 
         public int GetAdminScore(long universityId)
         {
+            var numberofAdminsQuery = UnitOfWork.CurrentSession.CreateSQLQuery("select AdminNoOfPeople from zbox.University where id = :id");
+            numberofAdminsQuery.SetInt64("id", universityId);
+            var adminValue = numberofAdminsQuery.UniqueResult<int>();
+
+            if (adminValue == 0)
+            {
+                return int.MaxValue;
+            }
+
             var sqlQuery = UnitOfWork.CurrentSession.CreateSQLQuery(@"with topreputation as (
                         select userreputation , ROW_NUMBER() OVER(ORDER BY userreputation DESC) AS Row
                          from zbox.users u
@@ -53,11 +91,11 @@ namespace Zbang.Zbox.Domain.DataAccess
                         where Row <= (select AdminNoOfPeople from zbox.University where id = :id)
                         order by Row desc");
             sqlQuery.SetInt64("id", universityId);
-            
+
             var retVal = sqlQuery.UniqueResult<int?>();
             if (!retVal.HasValue)
             {
-                return int.MaxValue;
+                return 0;
             }
             return retVal.Value;
         }

@@ -836,8 +836,14 @@
     <Content Include="Content\signin\layout.css">
       <DependentUpon>layout.less</DependentUpon>
     </Content>
+    <Content Include="Content\signin\layout.min.css">
+      <DependentUpon>layout.css</DependentUpon>
+    </Content>
     <Content Include="Content\signin\layout.rtl.css">
       <DependentUpon>layout.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\layout.rtl.min.css">
+      <DependentUpon>layout.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\signin\login-soft.css">
       <DependentUpon>login-soft.less</DependentUpon>
