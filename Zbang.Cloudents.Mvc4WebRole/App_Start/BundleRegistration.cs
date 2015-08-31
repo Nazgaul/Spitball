@@ -100,7 +100,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/homepage/bootstrap.css",
                         "~/Content/signin/uniform.default.css",
                         "~/Content/site/bootstrap-switch.css",
-                        "~/Content/site/tasks.css",
+                        //"~/Content/site/tasks.css",
                         "~/Content/site/components-rounded.css",
                         "~/Content/site/plugins.css",
                         "~/Content/site/layout.css",
@@ -379,21 +379,29 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/js/signin/jquery.min.js"),
                         new JsFileWithCdn("~/js/signin/jquery-migrate.min.js"),
-                        new JsFileWithCdn("~/scripts/site/jquery-ui.min.js"),
+                        new JsFileWithCdn("~/scripts/site/jquery-ui.min.js"), //?
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-hover-dropdown.js"),
                         new JsFileWithCdn("~/scripts/site/jquery.slimscroll.js"),
                         new JsFileWithCdn("~/js/signin/jquery.blockui.min.js"),
                         new JsFileWithCdn("~/js/signin/jquery.cokie.min.js"),
                         new JsFileWithCdn("~/js/signin/jquery.uniform.min.js"),
-                        new JsFileWithCdn("~/scripts/site/bootstrap-switch.js"),
+                        new JsFileWithCdn("~/scripts/site/bootstrap-switch.js"),//?
 
                         new JsFileWithCdn("~/js/signin/metronic.js"),
                         new JsFileWithCdn("~/js/signin/layout.js"),
-                        new JsFileWithCdn("~/scripts/site/quick-sidebar.js"),
+                        //new JsFileWithCdn("~/scripts/site/quick-sidebar.js"),
                         new JsFileWithCdn("~/js/signin/demo.js"),
-                        new JsFileWithCdn("~/scripts/site/index3.js"),
-                        new JsFileWithCdn("~/scripts/site/tasks.js")
+                        //new JsFileWithCdn("~/scripts/site/index3.js"),
+                        //new JsFileWithCdn("~/scripts/site/tasks.js")
+                    }
+
+                },
+                {
+                    "contactUs", new[]
+                    {
+                         new JsFileWithCdn("~/scripts/site/gmaps.js"),
+                          new JsFileWithCdn("~/js/contact-us.js"),
                     }
                 }
             };

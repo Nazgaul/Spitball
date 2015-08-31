@@ -30,6 +30,13 @@ Rounded Portlets
   height: 13px;
   fill: #fff;
 }
+.headerHelp {
+  padding: 0 !important;
+}
+.nav > li > a:hover,
+.nav > li > a:focus {
+  background: #292d31;
+}
 .headerPoints {
   display: block;
   margin-top: -7px;
