@@ -49,11 +49,6 @@
     <PublishProfile Include="Profiles\zboxSiteStaging.azurePubxml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Zbang.Cloudents.Mvc4WebRoleContent\diagnostics.wadcfg">
-      <SubType>Content</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Zbang.Cloudents.Mvc4WebRole\Zbang.Cloudents.Mvc4WebRole.csproj">
       <Name>Zbang.Cloudents.Mvc4WebRole</Name>
       <Project>{4fbaac02-f6d3-4980-91a3-75d3b3b26bb8}</Project>
@@ -63,6 +58,9 @@
       <UpdateDiagnosticsConnectionStringOnPublish>False</UpdateDiagnosticsConnectionStringOnPublish>
       <Properties>SkipValidatePackageReferences=true</Properties>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <DiagnosticsConfiguration Include="Zbang.Cloudents.Mvc4WebRoleContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>

@@ -28,6 +28,7 @@ namespace Zbang.Zbox.WorkerRole
         {
             try
             {
+                TraceLog.WriteInfo("starting service");
                 m_Unity = new UnityFactory();
 #if DEBUG
                 XmlConfigurator.Configure();

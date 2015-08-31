@@ -59,12 +59,12 @@
     <PublishProfile Include="Profiles\ZboxWorkerRoleStaging.azurePubxml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Zbang.Zbox.WorkerRoleContent\diagnostics.wadcfg">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="Zbang.Zbox.WorkerRoleSearchContent\diagnostics.wadcfg">
       <SubType>Content</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <DiagnosticsConfiguration Include="Zbang.Zbox.WorkerRoleContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>

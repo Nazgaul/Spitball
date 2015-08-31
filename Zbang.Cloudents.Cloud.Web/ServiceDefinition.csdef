@@ -27,6 +27,7 @@
       <Setting name="AzureSeachServiceName" />
       <Setting name="AzureSearchKey" />
       <Setting name="MobileWebSite" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Spitball" storeLocation="LocalMachine" storeName="My" />

@@ -16,6 +16,7 @@
       <Setting name="ServiceBusConnectionString" />
       <Setting name="ServiceBusHubName" />
       <Setting name="platform" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
     </ConfigurationSettings>
     <LocalResources>
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="222000" />
