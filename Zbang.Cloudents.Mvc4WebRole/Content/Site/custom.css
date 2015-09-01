@@ -62,3 +62,24 @@ Rounded Portlets
 .top-menu .badge-notifcation {
   background-color: #f36a5a;
 }
+.login,
+.signin {
+  display: inline-block !important;
+  border-radius: 25px;
+  background: #ffffff;
+  color: #000;
+  margin-top: 13px;
+  font-size: 20px;
+  text-transform: capitalize;
+}
+.login:hover,
+.signin:hover {
+  background: #ffffff !important;
+}
+.login {
+  background: #3293f6;
+  color: #fff;
+}
+.login:hover {
+  background: #3293f6 !important;
+}

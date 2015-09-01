@@ -74,3 +74,27 @@ Rounded Portlets
         background-color: #f36a5a;
     }
 }
+@loginColor : #3293f6;
+@registerColor: #fff;
+.login ,.signin {
+    display:inline-block !important;
+    border-radius: 25px;
+    background:@registerColor;
+    color:#000;
+    margin-top:13px;
+    //background:#3293f6;
+    font-size:20px;
+    text-transform:capitalize;
+
+    &:hover {
+        background:@registerColor !important;
+    }
+
+}
+.login {
+    background:@loginColor;
+    color:#fff;
+    &:hover {
+        background:@loginColor !important;
+    }
+}
