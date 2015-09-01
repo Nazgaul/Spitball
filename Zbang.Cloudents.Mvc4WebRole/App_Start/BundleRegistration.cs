@@ -379,6 +379,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/js/signin/jquery.min.js"),
                         new JsFileWithCdn("~/js/signin/jquery-migrate.min.js"),
+                        //new JsFileWithCdn("~/scripts/angular.min.js"),
+                            //"https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"),
+                        new JsFileWithCdn("~/scripts/angular-ui-router.js"),
+                        new JsFileWithCdn("~/scripts/angulartics.js"),
+                        new JsFileWithCdn("~/scripts/angulartics-ga.js"),
+                        new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
+                        //new JsFileWithCdn("~/scripts/stacktrace.js"), 
+
                         new JsFileWithCdn("~/scripts/site/jquery-ui.min.js"), //?
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-hover-dropdown.js"),
@@ -394,6 +402,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/signin/demo.js"),
                         //new JsFileWithCdn("~/scripts/site/index3.js"),
                         //new JsFileWithCdn("~/scripts/site/tasks.js")
+
+                        new JsFileWithCdn("~/js/app.js"),
+                        new JsFileWithCdn("~/js/app.config.js"),
+                        new JsFileWithCdn("~/js/app.route.js"),
+                        
+                        new JsFileWithCdn("~/js/components/userdetails/userdetails.module.js"),
+                        new JsFileWithCdn("~/js/components/userdetails/userdetails.controller.js"),
+                        new JsFileWithCdn("~/js/services/ajaxService.js"),
                     }
 
                 },
@@ -407,24 +423,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             };
 
 
-            //jsDictionary.Add("homeMobile",new[] {
-            //    new JsFileWithCdn("~/Js/Mobile/Logon.js"),
-            //    new JsFileWithCdn("~/Js/Mobile/Welcome.js")
-            //    });
-
-            //jsDictionary.Add("MChooseLib",new[] {
-            //    new JsFileWithCdn("~/Js/Mobile/MLibraryChoose.js")
-            //    });
-
-
-            //jsDictionary.Add("mobileItem", new JsFileWithCdn("~/Scripts/jquery-2.1.1.min.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"),
-            //    //"//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"),
-            //                        new JsFileWithCdn("~/Js/Utils2.js"),
-            //                        new JsFileWithCdn("~/Js/pubsub2.js"),
-            //                        new JsFileWithCdn("~/Js/Cache2.js"),
-            //                        new JsFileWithCdn("~/Js/DataContext2.js"),
-            //                        new JsFileWithCdn("~/Js/Mobile/MItemViewModel.js"));
-
+        
             return jsDictionary;
         }
 

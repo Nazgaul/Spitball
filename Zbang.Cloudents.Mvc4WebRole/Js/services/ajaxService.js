@@ -1,92 +1,96 @@
-﻿app.factory('ajaxService',
-    ['$http',
-     '$q',
-     '$angularCacheFactory',
-     '$analytics',
-     '$log',
+﻿(function  (){
+    angular.module('app.ajaxservice').factory('ajaxService', ajaxService);
+    ajaxService.$inject = [
+        '$http',
+        '$q',
+        '$angularCacheFactory',
+        '$analytics'
+    ];
 
-    function ($http, $q, $angularCacheFactory, $analytics, $log) {
+//'$log',
+
+    function ajaxService($http, $q, $angularCacheFactory, $analytics /*, $log*/) {
         "use strict";
         var ttls = {},
-        cancelObjs = {},
-        service = {
-            get: function (url, data, ttl, noCache,cancellable) {
-                var dfd = $q.defer(),
-                    startTime = new Date().getTime();
+            cancelObjs = {},
+            service = {
+                get: function(url, data, ttl, noCache, cancellable) {
+                    var dfd = $q.defer(),
+                        startTime = new Date().getTime();
 
-                var getObj = {
-                    params: data
-                };
+                    var getObj = {
+                        params: data
+                    };
 
-                if (cancelObjs[url]) {
-                    cancelObjs[url].resolve();                                        
+                    if (cancelObjs[url]) {
+                        cancelObjs[url].resolve();
+                    }
+
+                    if (cancellable) {
+                        cancelObjs[url] = $q.defer();
+                        getObj.timeout = cancelObjs[url].promise;
+                    }
+
+                    if (!noCache) {
+                        ttl = ttl || 15000; //default to 30 seconds
+                        getObj.cache = getCache(ttl);
+                    }
+                    url = url.toLowerCase();
+                    $http.get(url, getObj).success(function(response) {
+                        trackTime(startTime, url, data, 'get');
+
+                        if (!response) {
+                            dfd.reject();
+                            return;
+                        }
+
+                        if (response.success) {
+                            dfd.resolve(response.payload);
+                            cancelObjs[url] = null;
+                            return;
+                        }
+                        dfd.reject(response.payload);
+                        cancelObjs[url] = null;
+                        logError(url, data, response);
+
+                    }).error(function(response) {
+                        dfd.reject(response);
+                        logError(url, data, response);
+                    });
+                    return dfd.promise;
+
+                },
+                post: function(url, data, disableClearCache) {
+                    var dfd = $q.defer(),
+                        startTime = new Date().getTime();
+                    url = url.toLowerCase();
+                    $http.post(url, data).success(function(response) {
+                        trackTime(startTime, url, data, 'post');
+                        if (!disableClearCache) {
+                            angular.forEach(ttls, function(ttl) {
+                                ttl.removeAll();
+                            });
+                        }
+                        if (!response) {
+                            logError(url, data);
+                            dfd.reject();
+                            return;
+                        }
+                        if (response.success) {
+                            dfd.resolve(response.payload);
+                            return;
+                        }
+
+                        dfd.reject(response.payload);
+                        logError(url, data, response);
+
+                    }).error(function(response) {
+                        dfd.reject(response);
+                        logError(url, data, response);
+                    });
+                    return dfd.promise;
                 }
-
-                if (cancellable) {
-                    cancelObjs[url] = $q.defer();
-                    getObj.timeout = cancelObjs[url].promise;
-                }
-
-                if (!noCache) {
-                    ttl = ttl || 15000; //default to 30 seconds
-                    getObj.cache = getCache(ttl);
-                }
-                url = url.toLowerCase();
-                $http.get(url, getObj).success(function (response) {
-                    trackTime(startTime, url, data, 'get');
-
-                    if (!response) {
-                        dfd.reject();
-                        return;
-                    }
-
-                    if (response.success) {
-                        dfd.resolve(response.payload);
-                        cancelObjs[url] = null
-                        return;
-                    }
-                    dfd.reject(response.payload);
-                    cancelObjs[url] = null
-                    logError(url, data, response);
-
-                }).error(function (response) {
-                    dfd.reject(response);
-                    logError(url, data, response);
-                });
-                return dfd.promise;
-
-            },
-            post: function (url, data, disableClearCache) {
-                var dfd = $q.defer(),
-                startTime = new Date().getTime();
-                url = url.toLowerCase();
-                $http.post(url, data).success(function (response) {
-                    trackTime(startTime, url, data, 'post');
-                    if (!disableClearCache) {
-                        _.forEach(ttls, function (ttl) {
-                            ttl.removeAll();
-                        });
-                    }
-                    if (!response) {
-                        logError(url, data);
-                        dfd.reject();
-                        return;
-                    }
-                    if (response.success) {
-                        dfd.resolve(response.payload);
-                        return;
-                    }
-
-                    dfd.reject(response.payload);
-                    logError(url, data, response);
-
-                }).error(function (response) {
-                    dfd.reject(response);
-                    logError(url, data, response);
-                });
-                return dfd.promise;
             }
-        }
 
         return service;
 
@@ -108,6 +112,7 @@
                 })
             });
         }
+
         function trackTime(startTime, url, data, type) {
             var timeSpent = new Date().getTime() - startTime;
 
@@ -138,4 +143,5 @@
             return cache;
         }
 
-    }]);
+    }
+})();

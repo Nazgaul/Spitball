@@ -1217,8 +1217,14 @@
     <Content Include="Images\user13-sprite.png" />
     <Content Include="Images\userBg.png" />
     <Content Include="Images\web_upload.png" />
+    <Content Include="Js\app.config.js" />
+    <Content Include="Js\app.core.js" />
     <Content Include="Js\app.js" />
+    <Content Include="Js\app.route.js" />
+    <Content Include="Js\appOld.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
+    <Content Include="Js\components\userdetails\userdetails.controller.js" />
+    <Content Include="Js\components\userdetails\userdetails.module.js" />
     <Content Include="Js\contact-us.js" />
     <Content Include="Js\controllers\account\SpitballCtrl.js" />
     <Content Include="Js\directives\boxLogo.js" />
@@ -1229,6 +1235,7 @@
     <Content Include="Js\filters\highlight.js" />
     <Content Include="Js\homePage\homeScreen.js" />
     <Content Include="Js\homePage\theme.js" />
+    <Content Include="Js\services\ajaxServiceOld.js" />
     <Content Include="Js\signin\bootstrap.min.js" />
     <Content Include="Js\signin\demo.js" />
     <Content Include="Js\signin\jquery-migrate.min.js" />
@@ -1496,6 +1503,8 @@
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular-sanitize.js" />
     <Content Include="Scripts\angular-sanitize.min.js" />
+    <Content Include="Scripts\angular-ui-router.js" />
+    <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angulartics-ga.js" />
@@ -1515,12 +1524,13 @@
     <Content Include="Content\Quiz.less" />
     <None Include="Content\lang.he-IL.less" />
     <Content Include="Content\Invite.less" />
-    <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="Scripts\angular-messages.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
-    <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
+    <Content Include="Scripts\angular-cookies.min.js.map" />
+    <Content Include="Scripts\angular-messages.min.js.map" />
+    <None Include="Scripts\jquery-2.1.4-vsdoc.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-et.js" />
@@ -2162,6 +2172,7 @@
     <Content Include="Scripts\i18n\angular-locale_sv-fi.js" />
     <Content Include="Scripts\i18n\angular-locale_sv-se.js" />
     <Content Include="Scripts\i18n\angular-locale_sv.js" />
+    <Content Include="Scripts\i18n\angular-locale_sw-cd.js" />
     <Content Include="Scripts\i18n\angular-locale_sw-ke.js" />
     <Content Include="Scripts\i18n\angular-locale_sw-tz.js" />
     <Content Include="Scripts\i18n\angular-locale_sw-ug.js" />
@@ -2264,9 +2275,11 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
-    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.3.js" />
-    <Content Include="Scripts\jquery-2.1.3.min.js" />
+    <Content Include="Scripts\jquery-2.1.4.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\Site\bootstrap-hover-dropdown.js" />
     <Content Include="Scripts\Site\bootstrap-switch.js" />
     <Content Include="Scripts\Site\gmaps.js" />
@@ -2283,7 +2296,6 @@
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.mCustomScrollbar.js" />
     <Content Include="Scripts\jquery.mousewheel.min.js" />
-    <Content Include="Scripts\jquery-2.1.3.min.map" />
     <Content Include="Scripts\ng-infinite-scroll.js" />
     <Content Include="Scripts\ng-infinite-scroll.min.js" />
     <Content Include="Scripts\plupload2\angular-plupload.js" />
@@ -2392,6 +2404,7 @@
     <Content Include="Views\Shared\_LayoutPage.cshtml" />
     <Content Include="Views\Home\TestPage.cshtml" />
     <Content Include="Views\Home\Help2.cshtml" />
+    <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
