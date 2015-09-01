@@ -44,7 +44,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 ViewBag.moveToSpitBall = true;
             }
-            return PartialView("Index2");
+            return PartialView("Index");
         }
 
         [HttpGet]

@@ -5,3 +5,7 @@
 (function () {
     angular.module('app.userdetails', ['app.ajaxservice']);
 })();
+(function () {
+    angular.module('app.dashboard', ['app.ajaxservice']);
+})();
+

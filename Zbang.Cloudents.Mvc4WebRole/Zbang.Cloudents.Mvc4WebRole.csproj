@@ -700,6 +700,10 @@
     <Content Include="Content\Fonts\Simple-Line-Icons.eot" />
     <Content Include="Content\Fonts\Simple-Line-Icons.ttf" />
     <Content Include="Content\Fonts\Simple-Line-Icons.woff" />
+    <None Include="compilerconfig.json" />
+    <Content Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </Content>
     <None Include="Content\jquery.mCustomScrollbar.less" />
     <Content Include="Content\jquery.mCustomScrollbar.css">
       <DependentUpon>jquery.mCustomScrollbar.less</DependentUpon>
@@ -903,17 +907,29 @@
     <Content Include="Content\Site\components-rounded.rtl.min.css">
       <DependentUpon>components-rounded.rtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\custom.css">
-      <DependentUpon>custom.less</DependentUpon>
+    <Content Include="Content\Site\dashboard.css">
+      <DependentUpon>dashboard.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\custom.min.css">
-      <DependentUpon>custom.css</DependentUpon>
+    <Content Include="Content\Site\dashboard.min.css">
+      <DependentUpon>dashboard.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\custom.rtl.css">
-      <DependentUpon>custom.css</DependentUpon>
+    <Content Include="Content\Site\dashboard.rtl.css">
+      <DependentUpon>dashboard.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\custom.rtl.min.css">
-      <DependentUpon>custom.rtl.css</DependentUpon>
+    <Content Include="Content\Site\dashboard.rtl.min.css">
+      <DependentUpon>dashboard.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\master.css">
+      <DependentUpon>master.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\master.min.css">
+      <DependentUpon>master.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\master.rtl.css">
+      <DependentUpon>master.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\master.rtl.min.css">
+      <DependentUpon>master.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\layout.css">
       <DependentUpon>layout.less</DependentUpon>
@@ -950,18 +966,6 @@
     </Content>
     <Content Include="Content\Site\plugins.rtl.min.css">
       <DependentUpon>plugins.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\tasks.css">
-      <DependentUpon>tasks.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\tasks.min.css">
-      <DependentUpon>tasks.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\tasks.rtl.css">
-      <DependentUpon>tasks.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\tasks.rtl.min.css">
-      <DependentUpon>tasks.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Static.min.css">
       <DependentUpon>Static.css</DependentUpon>
@@ -1223,6 +1227,7 @@
     <Content Include="Js\app.route.js" />
     <Content Include="Js\appOld.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
+    <Content Include="Js\components\dashboard\dashboard.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
     <Content Include="Js\contact-us.js" />
@@ -1236,6 +1241,7 @@
     <Content Include="Js\homePage\homeScreen.js" />
     <Content Include="Js\homePage\theme.js" />
     <Content Include="Js\services\ajaxServiceOld.js" />
+    <Content Include="Js\shared\colorOnLength.js" />
     <Content Include="Js\signin\bootstrap.min.js" />
     <Content Include="Js\signin\demo.js" />
     <Content Include="Js\signin\jquery-migrate.min.js" />
@@ -1472,12 +1478,13 @@
     <Content Include="Content\signin\plugins-md.less" />
     <None Include="Content\signin\customRtl.less" />
     <Content Include="Content\Site\bootstrap-switch.less" />
-    <Content Include="Content\Site\tasks.less" />
     <Content Include="Content\Site\components-rounded.less" />
     <Content Include="Content\Site\plugins.less" />
     <Content Include="Content\Site\layout.less" />
     <Content Include="Content\Site\light.less" />
-    <Content Include="Content\Site\custom.less" />
+    <Content Include="Content\Site\master.less" />
+    <Content Include="Content\Site\variables.less" />
+    <Content Include="Content\Site\dashboard.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2405,6 +2412,7 @@
     <Content Include="Views\Home\TestPage.cshtml" />
     <Content Include="Views\Home\Help2.cshtml" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

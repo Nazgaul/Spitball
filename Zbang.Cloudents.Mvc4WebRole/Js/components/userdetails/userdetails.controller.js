@@ -31,7 +31,7 @@
         var ud = this;
         ud.isLoggedIn = false;
         ud.getDetails = function () {
-            return ajaxservice.get('/account/details', null, 1800000);
+            return ajaxservice.get('/account/details/', null, 1800000);
         }
 
         //ud.name = 'Guy Golan';

@@ -105,7 +105,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/site/plugins.css",
                         "~/Content/site/layout.css",
                         "~/Content/site/light.css",
-                        "~/Content/site/custom.css"
+                        "~/Content/site/master.css",
+                        "~/Content/site/dashboard.css"
                         //"~/Content/signin/select2.css",
                         //"~/Content/signin/login-soft.css",
                         //"~/Content/signin/components-md.css",
@@ -409,7 +410,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.module.js"),
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.controller.js"),
+                        new JsFileWithCdn("~/js/components/dashboard/dashboard.controller.js"),
                         new JsFileWithCdn("~/js/services/ajaxService.js"),
+                        new JsFileWithCdn("~/js/shared/colorOnLength.js")
                     }
 
                 },

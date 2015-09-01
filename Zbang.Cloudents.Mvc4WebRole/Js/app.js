@@ -5,7 +5,8 @@
         'angulartics',
         
         'angulartics.google.analytics',
-        'app.userdetails'
+        'app.userdetails',
+        'app.dashboard'
     ]).config(config);
 
     config.$inject = ['$controllerProvider', '$locationProvider'];

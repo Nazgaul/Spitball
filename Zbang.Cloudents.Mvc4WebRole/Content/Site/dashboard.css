@@ -1,0 +1,121 @@
+﻿.color0 {
+  color: #64a9f8;
+}
+.color0 .progress {
+  background: #64a9f8;
+}
+.color1 {
+  color: #9d87b7;
+}
+.color1 .progress {
+  background: #9d87b7;
+}
+.color2 {
+  color: #666e70;
+}
+.color2 .progress {
+  background: #666e70;
+}
+.color3 {
+  color: #ff9853;
+}
+.color3 .progress {
+  background: #ff9853;
+}
+.color4 {
+  color: #e775ce;
+}
+.color4 .progress {
+  background: #e775ce;
+}
+.color5 {
+  color: #ffb933;
+}
+.color5 .progress {
+  background: #ffb933;
+}
+.color6 {
+  color: #848fa6;
+}
+.color6 .progress {
+  background: #848fa6;
+}
+.color7 {
+  color: #5474cf;
+}
+.color7 .progress {
+  background: #5474cf;
+}
+.color8 {
+  color: #e3b75f;
+}
+.color8 .progress {
+  background: #e3b75f;
+}
+.color9 {
+  color: #695b47;
+}
+.color9 .progress {
+  background: #695b47;
+}
+.color10 {
+  color: #f36f6e;
+}
+.color10 .progress {
+  background: #f36f6e;
+}
+.color11 {
+  color: #f76446;
+}
+.color11 .progress {
+  background: #f76446;
+}
+.color12 {
+  color: #73b435;
+}
+.color12 .progress {
+  background: #73b435;
+}
+.color13 {
+  color: #6ea77b;
+}
+.color13 .progress {
+  background: #6ea77b;
+}
+.color14 {
+  color: #c33f40;
+}
+.color14 .progress {
+  background: #c33f40;
+}
+.color15 {
+  color: #549af7;
+}
+.color15 .progress {
+  background: #549af7;
+}
+.color16 {
+  color: #4e5384;
+}
+.color16 .progress {
+  background: #4e5384;
+}
+.color17 {
+  color: #4faf61;
+}
+.color17 .progress {
+  background: #4faf61;
+}
+.leaderBoardTitle {
+  float: left;
+  -ms-word-break: break-word;
+  word-break: break-word;
+  font-size: 38px;
+  width: 28%;
+  line-height: 35px;
+  color: #6a737d;
+  text-transform: uppercase;
+}
+.leaderbordPosition {
+  color: #ff7a04 !important;
+}

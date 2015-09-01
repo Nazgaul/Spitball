@@ -1,0 +1,106 @@
+﻿<div class="page-head">
+    <!-- BEGIN PAGE TITLE -->
+    <div class="page-title">
+        <h1>Dashboard</h1>
+    </div>
+    <!-- END PAGE TITLE -->
+</div>
+<div class="row margin-top-10">
+    <div class="col-md-6 col-sm-12">
+        <div class="dBox">
+            this is university
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet light ">
+            <div class="portlet-body">
+                <div class="table-scrollable table-scrollable-borderless">
+                    <div class="leaderBoardTitle">
+                        The
+                        king
+                        of
+                        school
+                    </div>
+                    <table class="table table-hover table-light">
+                        <tr>
+                            <td class="fit">
+                                <img class="user-pic" src="../../assets/admin/layout3/img/avatar4.jpg">
+                            </td>
+                            <td>
+                                Brain
+                            </td>
+                            <td class="leaderbordPosition">
+                                $345
+                            </td>
+                            <td>
+                                45
+                            </td>
+                           
+
+                        </tr>
+                        <tr>
+                            <td class="fit">
+                                <img class="user-pic" src="../../assets/admin/layout3/img/avatar5.jpg">
+                            </td>
+                            <td>
+                                Nick
+                            </td>
+                            <td class="leaderbordPosition">
+                                $560
+                            </td>
+                            <td>
+                                12
+                            </td>
+                           
+
+                        </tr>
+                        <tr>
+                            <td class="fit">
+                                <img class="user-pic" src="../../assets/admin/layout3/img/avatar6.jpg">
+                            </td>
+                            <td>
+                                Tim
+                            </td>
+                            <td class="leaderbordPosition">
+                                $1,345
+                            </td>
+                            <td>
+                                450
+                            </td>
+                           
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<div class="row margin-top-10">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat="box in d.boxes">
+        <a href="{{box.url}}" class="dashboard-stat2" d-color="{{box.name.length}}">
+            <div class="display">
+                <div class="number">
+                    <h3>{{box.name}}</h3>
+                    <small>{{box.professor}}</small><br />
+                    <small>{{box.courseCode}}</small>
+                </div>
+            </div>
+            <div class="progress-info">
+                <div class="progress">
+                </div>
+                <div class="status">
+                    <div class="status-title">
+                        {{box.membersCount}} members
+                    </div>
+                    <div class="status-number">
+                        {{box.itemCount}} items
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

@@ -33,12 +33,12 @@
                 //    },
                 //    controller: 'LibChooseController as libChoose'
                 //})
-                .state('root.dashboard', {
+                .state('dashboard', {
                     url: '/dashboard/',
                     templateUrl: function() {
                         return buildUrl('/dashboard/indexpartial/');
                     },
-                    controller: 'DashboardController as dashboard'
+                    controller: 'Dashboard as d'
                     //onEnter: dashboardRedirect
                 });      
             $urlRouterProvider.rule(function ($injector, $location) {

@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Content/Site/dashboard.css",
+    "inputFile": "Content/Site/dashboard.less"
+  },
+  {
+    "outputFile": "Content/Site/components-rounded.css",
+    "inputFile": "Content/Site/components-rounded.less"
+  }
+]
