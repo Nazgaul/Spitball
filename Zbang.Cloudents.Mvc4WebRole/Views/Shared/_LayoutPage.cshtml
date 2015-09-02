@@ -17,6 +17,7 @@
 <html lang="en" class="no-js" ng-app="app">
 
 <head>
+    @{Html.RenderPartial("_Head");}
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     @Html.Css2("site4")
@@ -212,7 +213,7 @@
                         <!-- END TODO DROPDOWN -->
                         <!-- BEGIN USER LOGIN DROPDOWN -->
                         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                        <li class="dropdown dropdown-user dropdown-dark" ng-controller="UserDetails as ud" >
+                        <li class="dropdown dropdown-user dropdown-dark" ng-controller="UserDetails as ud">
                             <a ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <span class="username username-hide-on-mobile">
                                     {{ud.name}}
@@ -262,7 +263,7 @@
                             <a class="signin" target="_self" href="@Url.Action("SignUp", "Account")" ng-if="!ud.isLoggedIn">sign up</a>
                             <a class="login" target="_self" href="@Url.Action("SignIn","Account")" ng-if="!ud.isLoggedIn">log in</a>
                         </li>
-                        
+
                         <!-- END USER LOGIN DROPDOWN -->
                         <!-- BEGIN USER LOGIN DROPDOWN -->
                         @*<li class="dropdown dropdown-extended quick-sidebar-toggler">
@@ -293,47 +294,124 @@
                 <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
                 <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
                 <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-controller="Dashboard as d">
                     <li class="start ">
-                        <a href="javascript:;">
+                        <a href="@Url.Action("Index","Dashboard")">
                             <i class="icon-basket"></i>
                             <span class="title">Dashboard</span>
-                            <span class="arrow "></span>
+
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a href="ecommerce_index.html">
-                                    <i class="icon-home"></i>
-                                    Dashboard
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ecommerce_orders.html">
+                                <a href="javascript:;">
                                     <i class="icon-basket"></i>
-                                    Orders
+                                    <span class="title">My Classes</span>
+                                    <span class="arrow "></span>
                                 </a>
+                                <ul class="sub-menu">
+                                    <li ng-repeat="box in d.courses">
+                                        <a href="ecommerce_orders.html">
+                                            <i class="icon-basket"></i>
+                                            x
+                                        </a>
+                                    </li>
+                                    <li ng-repeat="box in d.privateBoxes">
+                                        <a href="ecommerce_orders.html">
+                                            <i class="icon-basket"></i>
+                                            y
+                                        </a>
+                                    </li>
+                                  
+                                </ul>
                             </li>
-                            <li>
-                                <a href="ecommerce_orders_view.html">
-                                    <i class="icon-tag"></i>
-                                    Order View
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ecommerce_products.html">
-                                    <i class="icon-handbag"></i>
-                                    Products
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ecommerce_products_edit.html">
-                                    <i class="icon-pencil"></i>
-                                    Product Edit
-                                </a>
-                            </li>
+                          
                         </ul>
                     </li>
-                  
+                    <li>
+                        <a href="javascript:;">
+                            <i class="icon-basket"></i>
+                            <span class="title">My Classes</span>
+                            <span class="arrow "></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li ng-repeat="box in d.courses">
+                                <a href="javascript:;">
+                                    <i class="icon-basket"></i>
+                                    {{box.name}}
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="icon-basket"></i>
+                                            feed
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="icon-basket"></i>
+                                            items
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="icon-basket"></i>
+                                            quizzes
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="icon-basket"></i>
+                                            members
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="icon-basket"></i>
+                            <span class="title">My Group</span>
+                            <span class="arrow "></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li ng-repeat="box in d.privateBoxes">
+                                <a href="javascript:;">
+                                    <i class="icon-basket"></i>
+                                    {{box.name}}
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="icon-basket"></i>
+                                            feed
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="icon-basket"></i>
+                                            items
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="icon-basket"></i>
+                                            quizzes
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="icon-basket"></i>
+                                            members
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+
                     <li>
                         <a href="@Url.RouteUrl("LibraryDesktop")">
                             <i class="icon-pointer"></i>
@@ -369,18 +447,18 @@
         </div>
     </div>
     <script src="~/scripts/angular.js"></script>
-            @Html.Script2("site4")
-            @RenderSection("scripts", false)
+    @Html.Script2("site4")
+    @RenderSection("scripts", false)
     <script>
-    jQuery(document).ready(function () {
-        Metronic.init(); // init metronic core componets
-        Layout.init(); // init layout
-        Demo.init(); // init demo features
-        //QuickSidebar.init(); // init quick sidebar
-        //Index.init(); // init index page
-        //Tasks.initDashboardWidget(); // init tash dashboard widget
-    });
-    window.version = '@VersionHelper.CurrentVersion(true)';
+        jQuery(document).ready(function () {
+            Metronic.init(); // init metronic core componets
+            Layout.init(); // init layout
+            Demo.init(); // init demo features
+            //QuickSidebar.init(); // init quick sidebar
+            //Index.init(); // init index page
+            //Tasks.initDashboardWidget(); // init tash dashboard widget
+        });
+        window.version = '@VersionHelper.CurrentVersion(true)';
     </script>
     <!-- END JAVASCRIPTS -->
 </body>
