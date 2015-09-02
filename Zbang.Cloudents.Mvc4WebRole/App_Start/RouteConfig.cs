@@ -25,15 +25,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new { controller = "Account", action = "Index", lang = UrlParameter.Optional },
                 new { lang = "^[A-Za-z]{2}-[A-Za-z]{2}$" });
 
-            routes.MapRoute("Mobile",
-                "getApp",
-                new { controller = "Home", action = "MobileApp" });
-
-
-            //routes.MapRoute("AccountSettingsDesktop",
-            //    "account/settings",
-            //    new {controller = "Account", action = "SettingsDesktop"},
-            //    new { isDesktop = new DesktopConstraint() });
 
             #region Box
 
@@ -41,12 +32,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
             "box/my/{boxId}/{boxName}",
             new { controller = "Box", action = "Index" },
             new { boxId = new LongRouteConstraint() }
-        );
+            );
+
             routes.MapRoute("CourseBox",
               "course/{universityName}/{boxId}/{boxName}",
               new { controller = "Box", action = "Index" },
               new { boxId = new LongRouteConstraint() }
-          );
+            );
             routes.MapRoute("shortBox",
                 UrlConsts.ShortBox,
                 new { controller = "Box", action = "ShortUrl" });

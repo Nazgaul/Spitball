@@ -1227,6 +1227,7 @@
     <Content Include="Js\app.route.js" />
     <Content Include="Js\appOld.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
+    <Content Include="Js\components\app.controller.js" />
     <Content Include="Js\components\dashboard\dashboard.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
@@ -2289,6 +2290,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\Site\bootstrap-hover-dropdown.js" />
     <Content Include="Scripts\Site\bootstrap-switch.js" />
+    <Content Include="Scripts\Site\bootstrap-tabdrop.js" />
     <Content Include="Scripts\Site\gmaps.js" />
     <Content Include="Scripts\Site\index3.js" />
     <Content Include="Scripts\Site\jquery-ui.min.js" />
@@ -2408,10 +2410,10 @@
     <Content Include="Views\Shared\_Head.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LayoutPage.cshtml" />
-    <Content Include="Views\Home\TestPage.cshtml" />
     <Content Include="Views\Home\Help2.cshtml" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Box\Index2.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2420,7 +2422,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Code\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\Search\" />
   </ItemGroup>

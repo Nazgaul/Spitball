@@ -4,8 +4,6 @@
     [
         '$stateProvider', '$locationProvider', '$urlRouterProvider',
         function ($stateProvider, $locationProvider, $urlRouterProvider) {
-
-
             $stateProvider
                 //.state('root', {
                 //    abstract: true,
@@ -33,8 +31,23 @@
                 //    },
                 //    controller: 'LibChooseController as libChoose'
                 //})
-                 
-                .state('jobs', {
+            .state('box', {
+                url: '/box/my/:boxId/:boxName/',
+                templateUrl: function () {
+                    return buildUrl('/box/indexpartial/');
+                }
+              
+                //controller: 'BoxController as box'
+                }).
+                state('course', {
+                    url: '/course/:uniName/:boxId/:boxName/',
+                    templateUrl: function () {
+                        return buildUrl('/box/indexpartial/');
+                    },
+                  
+                    // controller: 'BoxController as box'
+                }).
+                state('jobs', {
                     url: '/jobs/',
                     templateUrl: function () {
                         return buildUrl('/home/jobs/');

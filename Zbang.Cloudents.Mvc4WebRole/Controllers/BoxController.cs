@@ -36,9 +36,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
            Duration = TimeConsts.Day, VaryByParam = "boxId",
            Location = OutputCacheLocation.Server, Order = 4)]
         [BoxPermission("boxId", Order = 3)]
-        [PreserveQueryString(Order = 2)]
-        [RedirectToMobile(Order = 1)]
-        //[RedirectToMobile(Order = 1)]
         public async Task<ActionResult> Index(long boxId)
         {
             var userId = User.GetUserId(false);
@@ -110,7 +107,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public PartialViewResult IndexPartial()
         {
-            return PartialView("Index");
+            return PartialView("Index2");
         }
 
 

@@ -126,6 +126,7 @@ order by QuestionId,Id;";
 from zbox.users u join zbox.UserBoxRel ub on u.UserId = ub.UserId
 where username like @Term + '%'
 and ub.BoxId <> @BoxId
+and u.userid <> @UserId
 group by u.userid, username,UserImageLarge,UniversityId,UserReputation
 order by
 case when u.UniversityId = @UniversityId then 0 else 1 end asc, UserReputation desc

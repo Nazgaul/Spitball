@@ -397,6 +397,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/signin/jquery.uniform.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-switch.js"),//?
 
+
+                        new JsFileWithCdn("~/scripts/site/bootstrap-tabdrop.js"),
+
                         new JsFileWithCdn("~/js/signin/metronic.js"),
                         new JsFileWithCdn("~/js/signin/layout.js"),
                         //new JsFileWithCdn("~/scripts/site/quick-sidebar.js"),
@@ -411,6 +414,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.module.js"),
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.controller.js"),
+                        new JsFileWithCdn("~/js/components/app.controller.js"),
                         new JsFileWithCdn("~/js/services/ajaxService.js"),
                         new JsFileWithCdn("~/js/shared/colorOnLength.js")
                     }
