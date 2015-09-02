@@ -9,6 +9,21 @@
         d.privateBoxes = [];
         dashboardService.getBoxes().then(function (response) {
             d.boxes = response;
+        });
+    }
+})();
+
+(function () {
+    angular.module('app.dashboard').controller('SideMenu', dashboard);
+    dashboard.$inject = ['dashboardService'];
+
+    function dashboard(dashboardService) {
+        var d = this;
+        d.boxes = [];
+        d.courses = [];
+        d.privateBoxes = [];
+        dashboardService.getBoxes().then(function (response) {
+            d.boxes = response;
             d.courses = $.grep(d.boxes, function (b) {
                 return b.boxType === 'academic';
             });

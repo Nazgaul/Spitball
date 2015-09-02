@@ -33,6 +33,19 @@
                 //    },
                 //    controller: 'LibChooseController as libChoose'
                 //})
+                 
+                .state('jobs', {
+                    url: '/jobs/',
+                    templateUrl: function () {
+                        return buildUrl('/home/jobs/');
+                    }
+                })
+                .state('help', {
+                    url: '/help/',
+                    templateUrl: function () {
+                        return buildUrl('/home/helppartial/');
+                    }
+                })
                 .state('dashboard', {
                     url: '/dashboard/',
                     templateUrl: function() {

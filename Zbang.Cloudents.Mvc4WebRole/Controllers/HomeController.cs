@@ -63,21 +63,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             + CustomCacheKeys.Lang)]
         public ActionResult ContactUs()
         {
-
+            ViewBag.postBag = true;
             return View();
         }
 
 
-        public ActionResult TestPage()
-        {
+       
 
-            return View();
-        }
-
-        [DonutOutputCache(CacheProfile = "FullPage")]
         public ActionResult TermsOfService()
         {
-            return View();
+            return RedirectToRoutePermanent("TOS");
+        }
+
+        public ActionResult Terms()
+        {
+            ViewBag.postBag = true;
+            return View("TermsOfService");
         }
 
         [DonutOutputCache(CacheProfile = "FullPage")]
@@ -86,41 +87,53 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-        [DonutOutputCache(Duration = TimeConsts.Minute * 5, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
-           + CustomCacheKeys.Lang)]
-        [Route("jobs")]
+        [DonutOutputCache(CacheProfile = "FullPage")]
         public async Task<ActionResult> Jobs()
         {
-            ViewBag.jobs = "jobs";
-
+            ViewBag.Title = "Jobs | Spitball | Study better by working together";
+            ViewBag.pageTitle = "Jobs";
             using (var stream = await m_BlobProvider.Value.GetJobsXml())
             {
-                if (stream == null)
-                {
-                    TraceLog.WriteError("jobs xml stream is null");
-                    return RedirectToAction("Index", "Error");
-                }
                 var data = XDocument.Load(stream);
-                var retVal = data.Descendants("job").Select(s => new Job
-                {
-                    Name = s.Attribute("name").Value,
-                    Location = s.Attribute("location").Value,
-                    Description = s.Element("description").Value,
-                });
-                return View(retVal);
+                var model = from category in data.Descendants("category")
+                            let faqs = category.Descendants("content")
+                            orderby int.Parse(category.Attribute("order").Value)
+                            select new Category
+                            {
+                                Language = category.Attribute("lang").Value,
+                                Name = category.Attribute("name").Value,
+                                Order = int.Parse(category.Attribute("order").Value),
+                                QuestionNAnswers = faqs.Select(s =>
+                                    new QnA
+                                    {
+                                        Answer = s.Element("answer").Value,
+                                        Question = s.Element("question").Value,
+                                        Order = int.Parse(s.Attribute("order").Value)
+
+                                    }).OrderBy(s => s.Order).ToList()
+                            };
+                return PartialView("help2", model);
             }
+
+
+        }
+        public  ActionResult Help()
+        {
+            return RedirectToRoutePermanent("Help");
         }
 
-        public async Task<ActionResult> Help()
+        public async Task<ActionResult> HelpPartial()
         {
             const string viewName = "help2";
+            //ViewBag.Title = "Spitball Help Center";
+            ViewBag.pageTitle = "Help";
             const string faqQuestionCacheName = "faqQuestionCacheName";
             var model = await m_CacheProvider.Value.GetFromCacheAsync<IEnumerable<Category>>(faqQuestionCacheName, faqQuestionCacheName);
 
             if (model != null)
             {
-                return View(viewName,model.Where(w => String.Equals(w.Language,
-                    System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
+                return PartialView(viewName, model.Where(w => String.Equals(w.Language,
+                     System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
 
             }
             using (var stream = await m_BlobProvider.Value.GetFaqQuestion())
@@ -146,7 +159,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model = model.ToList();
                 await m_CacheProvider.Value.AddToCacheAsync(faqQuestionCacheName, model, TimeSpan.FromHours(1), faqQuestionCacheName);
             }
-            return View(viewName, model.Where(w => String.Equals(w.Language,
+            return PartialView(viewName, model.Where(w => String.Equals(w.Language,
                 System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
 
         }

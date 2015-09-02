@@ -5,6 +5,8 @@
         url = Url.Action("Index", "Dashboard");
     }
     var svgUrl = "~/images/site/icons.svg";
+
+    var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
 }
 <!DOCTYPE html ng-app>
 <!--[if IE]>
@@ -23,14 +25,14 @@
     @Html.Css2("site4")
     <base href="/" />
 </head>
-<body class="page-header-fixed page-sidebar-closed-hide-logo page-sidebar-closed-hide-logo">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-sidebar-closed-hide-logo page-sidebar-fixed">
     <!-- BEGIN HEADER -->
     <div class="page-header navbar navbar-fixed-top">
         <!-- BEGIN HEADER INNER -->
         <div class="page-header-inner">
             <!-- BEGIN LOGO -->
             <div class="page-logo">
-                <a href="@url">
+                <a href="@url" @shouldPostBack>
                     @Html.Svg(svgUrl, "logo", new { @class = "logo-default" })
                 </a>
                 <div class="menu-toggler sidebar-toggler">
@@ -106,7 +108,7 @@
                         <li class="separator hide">
                         </li>
                         <li>
-                            <a target="_self" href="@Url.Action("Help","Home")" class="headerHelp">
+                            <a href="@Url.Action("Help","Home")" class="headerHelp">
                                 @Html.Svg(svgUrl, "headerHelp")
                             </a>
                         </li>
@@ -217,7 +219,7 @@
                             <a ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <span class="username username-hide-on-mobile">
                                     {{ud.name}}
-                                    <span class="headerPoints">{{ud.points}}</span>
+                                    <span class="headerPoints">{{ud.score}}</span>
                                 </span>
                                 <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
                                 <img alt="" class="img-circle" src="{{ud.image}}" />
@@ -255,7 +257,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="login.html">
+                                    <a href="@Url.Action("logoff","account")" @shouldPostBack>
                                         <i class="icon-key"></i> Log Out
                                     </a>
                                 </li>
@@ -294,38 +296,13 @@
                 <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
                 <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
                 <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-controller="Dashboard as d">
+                <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-controller="SideMenu as d">
                     <li class="start ">
-                        <a href="@Url.Action("Index","Dashboard")">
+                        <a @shouldPostBack href="@Url.Action("Index","Dashboard")">
                             <i class="icon-basket"></i>
                             <span class="title">Dashboard</span>
 
                         </a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a href="javascript:;">
-                                    <i class="icon-basket"></i>
-                                    <span class="title">My Classes</span>
-                                    <span class="arrow "></span>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li ng-repeat="box in d.courses">
-                                        <a href="ecommerce_orders.html">
-                                            <i class="icon-basket"></i>
-                                            x
-                                        </a>
-                                    </li>
-                                    <li ng-repeat="box in d.privateBoxes">
-                                        <a href="ecommerce_orders.html">
-                                            <i class="icon-basket"></i>
-                                            y
-                                        </a>
-                                    </li>
-                                  
-                                </ul>
-                            </li>
-                          
-                        </ul>
                     </li>
                     <li>
                         <a href="javascript:;">
@@ -341,25 +318,25 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li>
-                                        <a href="javascript:;">
+                                        <a @shouldPostBack href="javascript:;">
                                             <i class="icon-basket"></i>
                                             feed
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:;">
+                                        <a @shouldPostBack href="javascript:;">
                                             <i class="icon-basket"></i>
                                             items
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:;">
+                                        <a @shouldPostBack href="javascript:;">
                                             <i class="icon-basket"></i>
                                             quizzes
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:;">
+                                        <a @shouldPostBack href="javascript:;">
                                             <i class="icon-basket"></i>
                                             members
                                         </a>
@@ -383,25 +360,25 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li>
-                                        <a href="javascript:;">
+                                        <a @shouldPostBack href="javascript:;">
                                             <i class="icon-basket"></i>
                                             feed
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:;">
+                                        <a @shouldPostBack href="javascript:;">
                                             <i class="icon-basket"></i>
                                             items
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:;">
+                                        <a @shouldPostBack href="javascript:;">
                                             <i class="icon-basket"></i>
                                             quizzes
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:;">
+                                        <a @shouldPostBack href="javascript:;">
                                             <i class="icon-basket"></i>
                                             members
                                         </a>
@@ -413,19 +390,19 @@
                     </li>
 
                     <li>
-                        <a href="@Url.RouteUrl("LibraryDesktop")">
+                        <a @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")">
                             <i class="icon-pointer"></i>
                             <span class="title">University Page</span>
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.RouteUrl("User")">
+                        <a @shouldPostBack href="@Url.RouteUrl("User")">
                             <i class="icon-pointer"></i>
                             <span class="title">User Page</span>
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.RouteUrl("AccountSettings")">
+                        <a @shouldPostBack href="@Url.RouteUrl("AccountSettings")">
                             <i class="icon-pointer"></i>
                             <span class="title">Settings</span>
                         </a>
