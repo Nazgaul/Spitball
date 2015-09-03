@@ -49,7 +49,9 @@ namespace Zbang.Cloudents.SiteExtension
                     ChangeThreadLanguage(userData.Culture);
                     return;
                 }
-                var country = GetCountryByIpAsync(context).Result;
+                var tCountry = GetCountryByIpAsync(context);
+                tCountry.RunSynchronously();
+                var country = tCountry.Result;
                 if (country.ToLower() == "nl")
                 {
                     country = "gb";
