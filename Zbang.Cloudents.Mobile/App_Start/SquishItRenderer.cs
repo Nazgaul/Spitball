@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Mobile
 {
@@ -20,6 +21,7 @@ namespace Zbang.Cloudents.Mobile
             {
                 Directory.CreateDirectory(dir);
             }
+            TraceLog.WriteInfo("writing to file " + outputPath);
             File.WriteAllBytes(outputPath, bytes);
         }
     }

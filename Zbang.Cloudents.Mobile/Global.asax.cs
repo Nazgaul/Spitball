@@ -56,18 +56,18 @@ namespace Zbang.Cloudents.Mobile
 
 
         //for output cache
-        protected void Application_AcquireRequestState()
-        {
-            try
-            {
-                UserLanguage.ChangeLanguage(new HttpContextWrapper(HttpContext.Current),
-                    new HttpServerUtilityWrapper(HttpContext.Current.Server), null);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("initialize", ex);
-            }
-        }
+        //protected void Application_AcquireRequestState()
+        //{
+        //    try
+        //    {
+        //        UserLanguage.ChangeLanguage(new HttpContextWrapper(HttpContext.Current),
+        //            new HttpServerUtilityWrapper(HttpContext.Current.Server), null);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("initialize", ex);
+        //    }
+        //}
 
         public override string GetVaryByCustomString(HttpContext context, string custom)
         {

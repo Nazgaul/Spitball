@@ -36,7 +36,10 @@
 
             itemsService.getItems(boxId, page, boxItems.currentTabId).then(function (items) {
                 items = items || [];
+                for (var i = 0; i < items.length; i++) {
+                    items[i].thumbnail = 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(items[i].source) + '.jpg?width=148&height=188&mode=crop';
 
+                }
                 page++;
 
                 if (!items.length) {

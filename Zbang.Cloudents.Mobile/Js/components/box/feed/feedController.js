@@ -79,7 +79,12 @@
 
             feedService.getFeedPage(boxId, page).then(function (feedPage) {
                 feedPage = feedPage || [];
+                for (var i = 0; i < feedPage.length; i++) {
+                    for (var j = 0; j < feedPage[i].files.length; j++) {
+                        feedPage[i].files[j].thumbnail = 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(feedPage[i].files[j].source) + '.jpg?width=100&height=125&mode=crop';
+                    }
 
+                }
                 page++;
 
 

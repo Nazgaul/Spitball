@@ -66,7 +66,7 @@ namespace Zbang.Cloudents.Mobile
                         string.Format("{0}.rtl.css",
                         s.Replace(Path.GetExtension(s), string.Empty))));
                 }
-               
+
             }
             if (registeredJsBundles != null)
             {
@@ -232,11 +232,12 @@ namespace Zbang.Cloudents.Mobile
                     }
                     var directory = Path.GetDirectoryName(cdnFilePath);
                     if (directory != null) Directory.CreateDirectory(directory);
+                    TraceLog.WriteInfo(string.Format(" writing file from {0} to  {1}", cdnRoot, relativePath));
                     File.Copy(filePath, Path.Combine(cdnRoot, relativePath));
                 }
                 catch (Exception ex)
                 {
-                    Zbox.Infrastructure.Trace.TraceLog.WriteError(string.Format("On Copy Files to cdn filePath: {0} cdnFilePath: {1}", filePath, cdnFilePath), ex);
+                    TraceLog.WriteError(string.Format("On Copy Files to cdn filePath: {0} cdnFilePath: {1}", filePath, cdnFilePath), ex);
                 }
             }
         }
