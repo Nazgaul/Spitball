@@ -35,17 +35,37 @@
                 url: '/box/my/:boxId/:boxName/',
                 templateUrl: function () {
                     return buildUrl('/box/indexpartial/');
-                }
+                },
               
-                //controller: 'BoxController as box'
-                }).
+                controller: 'BoxController as b'
+            }).
+                  state('box.feed', {
+                      templateUrl: function () {
+                          return buildUrl('/box/feed/');
+                      },
+                      url: 'feed/',
+                      //templateUrl: function () {
+                      //    return buildUrl('/box/indexpartial/');
+                      //},
+              
+                      controller: 'FeedController as f'
+                  }).
+                 state('box.items', {
+                     template: '<div>this is a items</div>',
+                     url: 'items/',
+                     //templateUrl: function () {
+                     //    return buildUrl('/box/indexpartial/');
+                     //},
+
+                     controller: 'BoxController as box'
+                 }).
                 state('course', {
                     url: '/course/:uniName/:boxId/:boxName/',
                     templateUrl: function () {
                         return buildUrl('/box/indexpartial/');
                     },
                   
-                    // controller: 'BoxController as box'
+                     controller: 'BoxController as b'
                 }).
                 state('jobs', {
                     url: '/jobs/',

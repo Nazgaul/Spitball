@@ -2,9 +2,8 @@
 {
     public class UserSearchQuery : IPagedQuery
     {
-        public UserSearchQuery(string term, long universityId, long boxId, int pageNumber, int rowsPerPage, long userId)
+        public UserSearchQuery(string term, long universityId, long boxId, int pageNumber, int rowsPerPage)
         {
-            UserId = userId;
             RowsPerPage = rowsPerPage;
             PageNumber = pageNumber;
             BoxId = boxId;
@@ -23,6 +22,5 @@
 
         public long BoxId { get; private set; }
 
-        public long UserId { get; private set; }
     }
 }

@@ -3,10 +3,13 @@
     angular.module('app', [
         'ui.router',
         'angulartics',
+        'ui.bootstrap',
         
         'angulartics.google.analytics',
         'app.userdetails',
-        'app.dashboard'
+        'app.dashboard',
+        'app.box',
+        'app.box.feed'
     ]).config(config);
 
     config.$inject = ['$controllerProvider', '$locationProvider'];
@@ -17,11 +20,6 @@
     }
 
 
-    MetronicApp.controller('AppController', ['$scope', '$rootScope', function ($scope, $rootScope) {
-        $scope.$on('$viewContentLoaded', function () {
-            Metronic.initComponents(); // init core components
-            //Layout.init(); //  Init entire layout(header, footer, sidebar, etc) on page load if the partials included in server side instead of loading with ng-include directive 
-        });
-    }]);
+  
 
 })();

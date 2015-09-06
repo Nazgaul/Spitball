@@ -107,14 +107,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), BoxPermission("boxId")]
-        public async Task<JsonResult> Index(long boxId)
+        [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), BoxPermission("id")]
+        public async Task<JsonResult> Index(long id)
         {
             try
             {
 
                 var retVal =
-                  await ZboxReadService.GetQuestionsWithAnswersAsync(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId));
+                  await ZboxReadService.GetQuestionsWithAnswersAsync(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(id));
                 //removing user name
                 if (Request.Browser.Crawler)
                 {

@@ -106,7 +106,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/site/layout.css",
                         "~/Content/site/light.css",
                         "~/Content/site/master.css",
-                        "~/Content/site/dashboard.css"
+                        "~/Content/site/dashboard.css",
+                        "~/Content/site/box.css"
                         //"~/Content/signin/select2.css",
                         //"~/Content/signin/login-soft.css",
                         //"~/Content/signin/components-md.css",
@@ -380,24 +381,26 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/js/signin/jquery.min.js"),
                         new JsFileWithCdn("~/js/signin/jquery-migrate.min.js"),
-                        //new JsFileWithCdn("~/scripts/angular.min.js"),
-                            //"https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"),
-                        new JsFileWithCdn("~/scripts/angular-ui-router.js"),
-                        new JsFileWithCdn("~/scripts/angulartics.js"),
-                        new JsFileWithCdn("~/scripts/angulartics-ga.js"),
-                        new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
+                        
                         //new JsFileWithCdn("~/scripts/stacktrace.js"), 
 
-                        new JsFileWithCdn("~/scripts/site/jquery-ui.min.js"), //?
+                        //new JsFileWithCdn("~/scripts/site/jquery-ui.min.js"), //?
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-hover-dropdown.js"),
                         new JsFileWithCdn("~/scripts/site/jquery.slimscroll.js"),
                         new JsFileWithCdn("~/js/signin/jquery.blockui.min.js"),
                         new JsFileWithCdn("~/js/signin/jquery.cokie.min.js"),
                         new JsFileWithCdn("~/js/signin/jquery.uniform.min.js"),
-                        new JsFileWithCdn("~/scripts/site/bootstrap-switch.js"),//?
+                        //new JsFileWithCdn("~/scripts/site/bootstrap-switch.js"),//?
 
 
+                        new JsFileWithCdn("~/scripts/angular.min.js",
+                            "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"),
+                        new JsFileWithCdn("~/scripts/angular-ui-router.js"),
+                        new JsFileWithCdn("~/scripts/angulartics.js"),
+                        new JsFileWithCdn("~/scripts/angulartics-ga.js"),
+                        new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
+                        new JsFileWithCdn("~/scripts/ui-bootstrap-tpls.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-tabdrop.js"),
 
                         new JsFileWithCdn("~/js/signin/metronic.js"),
@@ -414,6 +417,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.module.js"),
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.controller.js"),
+
+                        new JsFileWithCdn("~/js/components/box/box.controller.js"),
+                        new JsFileWithCdn("~/js/components/box/feed.controller.js"),
                         new JsFileWithCdn("~/js/components/app.controller.js"),
                         new JsFileWithCdn("~/js/services/ajaxService.js"),
                         new JsFileWithCdn("~/js/shared/colorOnLength.js")

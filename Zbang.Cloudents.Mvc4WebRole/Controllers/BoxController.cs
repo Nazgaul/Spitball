@@ -47,7 +47,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new BoxDoesntExistException("model is null");
                 }
-                if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
+
+                if (Request.Url != null && model.Name != Server.UrlDecode(Request.Url.Segments[4].Substring(0, Request.Url.Segments[4].LastIndexOf("/", StringComparison.Ordinal))))
                 {
                     throw new BoxDoesntExistException(Request.Url.AbsoluteUri);
                 }
@@ -106,6 +107,32 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public PartialViewResult IndexPartial()
+        {
+            return PartialView("Index2");
+        }
+
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public PartialViewResult Feed()
+        {
+            return PartialView("_Feed");
+        }
+
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public PartialViewResult Items()
+        {
+            return PartialView("Index2");
+        }
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public PartialViewResult Quiz()
+        {
+            return PartialView("Index2");
+        }
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public PartialViewResult Members()
         {
             return PartialView("Index2");
         }

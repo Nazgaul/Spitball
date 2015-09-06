@@ -3,94 +3,66 @@
 <div class="page-head">
     <!-- BEGIN PAGE TITLE -->
     <div class="page-title">
-        <h1>Blank Page <small>blank page</small></h1>
+        <h1>{{b.name}} @*<small>blank page</small>*@</h1>
     </div>
     <!-- END PAGE TITLE -->
 </div>
 <!-- END PAGE HEAD -->
-<!-- BEGIN PAGE BREADCRUMB -->
-<ul class="page-breadcrumb breadcrumb">
-    <li>
-        <a href="index.html">Home</a>
-        <i class="fa fa-circle"></i>
-    </li>
-    <li>
-        <a href="#">Page Layouts</a>
-        <i class="fa fa-circle"></i>
-    </li>
-    <li>
-        <a href="#">Blank Page</a>
-    </li>
-</ul>
-<!-- END PAGE BREADCRUMB -->
 <!-- END PAGE HEADER-->
 <!-- BEGIN PAGE CONTENT-->
 <div class="row">
     <div class="col-md-12">
-        <div class="portlet box blue">
-            @*<div class="portlet-title">
-                <div class="caption">
-                    <i class="fa fa-gift"></i>Tab drop
-                </div>
-                <div class="tools">
-                    <a href="javascript:;" class="collapse">
-                    </a>
-                    <a href="#portlet-config" data-toggle="modal" class="config">
-                    </a>
-                    <a href="javascript:;" class="reload">
-                    </a>
-                    <a href="javascript:;" class="remove">
-                    </a>
-                </div>
-            </div>*@
+        <div class="portlet box">
             <div class="portlet-body">
                 <div class="tabbable tabbable-tabdrop">
-                    <ul class="nav nav-tabs">
+                    @*<ul class="nav nav-tabs">
                         <li class="active">
-                            <a href="#tab1" data-toggle="tab">feed</a>
+                            <a ui-sref="box.feed" data-toggle="tab">feed</a>
                         </li>
                         <li>
-                            <a href="#tab2" data-toggle="tab">items</a>
+                            <a ui-sref="box.items" data-toggle="tab">items</a>
                         </li>
                         <li>
-                            <a href="#tab3" data-toggle="tab">quiz</a>
+                            <a ui-sref="box.quizzes" data-toggle="tab">quiz</a>
                         </li>
                         <li>
-                            <a href="#tab4" data-toggle="tab">members</a>
+                            <a ui-sref="box.members" data-toggle="tab">members</a>
                         </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="tab1">
-                            <p>
-                                I'm in Section 1.
-                            </p>
-                        </div>
-                        <div class="tab-pane" id="tab2">
-                            <p>
-                                Howdy, I'm in Section 2.
-                            </p>
-                        </div>
-                        <div class="tab-pane" id="tab3">
-                            <p>
-                                Howdy, I'm in Section 3.
-                            </p>
-                        </div>
-                        <div class="tab-pane" id="tab4">
-                            <p>
-                                Howdy, I'm in Section 4.
-                            </p>
-                        </div>
-                    </div>
+                    </ul>*@
+                    @*<div class="tab-content">
+                <div class="tab-pane active" id="feed">
+                    <p>
+                        I'm in Section 1.
+                    </p>
                 </div>
-              
+                <div class="tab-pane" id="items">
+                    <p>
+                        Howdy, I'm in Section 2.
+                    </p>
+                </div>
+                <div class="tab-pane" id="quizzes">
+                    <p>
+                        Howdy, I'm in Section 3.
+                    </p>
+                </div>
+                <div class="tab-pane" id="members">
+                    <p>
+                        Howdy, I'm in Section 4.
+                    </p>
+                </div>
+            </div>*@
+
+                    <tabset>
+                        <tab ui-sref="box.feed" heading="feed"></tab>
+                        <tab ui-sref="box.items" heading="items"></tab>
+                        <tab ui-sref="box.quiz" heading="quiz"></tab>
+                        <tab ui-sref="box.members" heading="members"></tab>
+                    </tabset>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<ui-view></ui-view>
+@*@{Html.RenderPartial("_Feed");}*@
 <!-- END PAGE CONTENT-->
-<script>
-    (function () {
-        console.log('here');
-        Metronic.init();
-    })()
-</script>

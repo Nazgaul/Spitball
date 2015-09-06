@@ -6,5 +6,17 @@
   {
     "outputFile": "Content/Site/components-rounded.css",
     "inputFile": "Content/Site/components-rounded.less"
+  },
+  {
+    "outputFile": "Content/Site/box.css",
+    "inputFile": "Content/Site/box.less"
+  },
+  {
+    "outputFile": "Content/Site/master.css",
+    "inputFile": "Content/Site/master.less"
+  },
+  {
+    "outputFile": "Content/Site/layout.css",
+    "inputFile": "Content/Site/layout.less"
   }
 ]

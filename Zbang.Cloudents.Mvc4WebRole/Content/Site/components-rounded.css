@@ -932,7 +932,7 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   margin: 10px 0;
 }
 .form-horizontal .md-radio-list {
-  margin-top: 0px;
+  margin-top: 0;
 }
 .md-radio-list .md-radio {
   display: block;
@@ -1040,9 +1040,9 @@ a {
   text-shadow: none;
   color: #5b9bd1;
 }
-a:hover {
-  color: #3175af;
-}
+/*a:hover {
+    color: #3175af;
+}*/
 a:focus,
 a:hover,
 a:active {
@@ -2549,6 +2549,8 @@ Chats
   margin-right: 65px;
   background: #fafafa;
   text-align: right;
+  margin-left: 0;
+  border-left: 0;
 }
 .chats li.out .message .arrow {
   display: block;
@@ -2558,6 +2560,8 @@ Chats
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
   border-left: 8px solid #F3565D;
+  left: auto;
+  border-right: 0;
 }
 .chats li.out .name,
 .chats li.out .datetime {
@@ -4823,7 +4827,7 @@ Portlets
   padding: 7px 0 5px 0;
 }
 .portlet.box > .portlet-body {
-  background-color: #fff;
+  background-color: #353a3f;
   padding: 10px;
 }
 .portlet.box.portlet-fullscreen > .portlet-body {

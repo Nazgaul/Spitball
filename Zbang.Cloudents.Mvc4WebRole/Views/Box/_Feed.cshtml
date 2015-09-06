@@ -1,199 +1,130 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
-@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-
-<div ng-controller="QnACtrl" class="feedfullWpr" pl-dropzone-uploader="boxFeed" id="boxFeed">
-    <div id="dropzoneBtn" style="display:none;"></div>
-    <section class="boxFeed lFloat">
-        <form class="feedForm" name="qnaQform" focus-form="feedOpen"
-              ng-submit="postQuestion(qnaQform.$valid)" novalidate>
-            <user-image name="data.userName" image="data.userImage" class="lFloat" width="40" height="40"></user-image>
-            <textarea text-direction name="content" class="feedTA" ng-placeholder="@IndexResources.OnYourMind" ng-model="qFormData.content"
-                      ng-focus="checkAuth()" focus-on="newQuestion"></textarea>
-            <ul class="attachedList">
-                <li class="attachedItem" ng-repeat="file in qFormData.files">
-                    <span class="attachName elps">{{::file.name}}</span>
-                    <button class="removeAttach" ng-click="removeQuestionAttachment(file)"></button>
-                </li>
-            </ul>
-            <div class="bottomTA" tabindex="0">
-                <button type="submit" class="rFloat btn1" ng-disabled="!(qFormData.files.length || qFormData.content)">@SharedResources.Post</button>
-                <div class="rFloat anonymously">
-                    <input name="anonymously" type="checkbox" id="postAnonymously" ng-model="qFormData.anonymously" />
-                    <label for="postAnonymously">@IndexResources.PostAnonymosly</label>
+﻿@*feed*@
+<div class="row">
+    <div class="col-md-6">
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-bubble font-red-sunglo"></i>
+                    <span class="caption-subject font-red-sunglo bold uppercase">feed</span>
                 </div>
             </div>
-            <button type="button" class="lFloat attachBtn" ng-click="addQuestionAttachment()">
-                @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
-            </button>
-            <div class="dropTxt" pl-dropzone new-question="true" box-id="{{::boxId}}" dropzone-element>@DialogResources.DropToUpload</div>
-        </form>
-
-        <ul class="boxFeedList">
-            <li ng-repeat="question in data.questions track by question.id" ng-class="{hasAttached: question.files.length}">
-                <user-image id="question.userId" name="question.userName" image="question.userImage" class="lFloat" width="40" height="40"></user-image>
-                <div class="feedWpr">
-                    <time class="createTime rFloat" display-time="{{::question.createTime}}"></time>
-                    <div class="userName elps">{{::question.userName}}</div>
-
-                    <div class="feedContent" ng-bind-html="question.content"></div>
-                    <ul class="qaAttach">
-                        <li class="qaAttachItem" ng-repeat="file in question.files">
-                            <a ng-href="{{::file.itemUrl}}"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
-                            <div class="attachActions">
-                                <a class="attachFull" ng-href="{{::file.itemUrl}}"></a>
-                                <button class="attachDelete" type="button" ng-if="file.isVisible" ng-click="removeAttachmentQ(question,file)"></button>
-                                <a class="attachDownload" ng-click="followBox()" target="_blank" ng-href="{{::file.download}}"></a>
+            <div class="portlet-body" id="chats">
+                <div class="scroller" style="height: 341px;" data-always-visible="1" data-rail-visible1="1">
+                    <ul class="chats">
+                        <li class="in" ng-repeat="post in f.data">
+                            <img class="avatar" alt="" src="{{post.userImage}}" />
+                            <div class="message">
+                                <span class="arrow">
+                                </span>
+                                <a href="javascript:;" class="name">
+                                    {{post.userName}}
+                                </a>
+                                <span class="datetime">
+                                    at 20:09
+                                </span>
+                                <span class="body">
+                                    {{post.content}}
+                                </span>
                             </div>
-                        </li>
-                        <li class="qaAttachItem qaAttchQuiz" ng-repeat="file in question.quizes">
-                            <a ng-href="{{::file.itemUrl}}" data-letter="{{file.name[0]}}">@Html.Svg("~/Images/Defs.svg", "quiz-bg", new { @class = "svg-quizBg" })</a>
-                            
-                        </li>
-                    </ul>
-                    <div>
-                        <button class="commentBtn" type="button" ng-click="displayComment(question)">@SharedResources.Comment</button>
-                        <div class="shareBtn">
-                            <label for="boxShare" class="shareBtnTxt">@SharedResources.Share</label>
-                        </div>
-                    </div>
-
-                    <button type="button" class="trash" ng-click="deleteQuestion(question)" ng-if="canDelete(question)">
-                        @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-                    </button>
-                </div>
-                <ul class="feedReplies rFloat">
-                    <li ng-repeat="answer in question.answers track by answer.id">
-                        <user-image id="answer.userId" name="answer.userName" image="answer.userImage"
-                                    class="rFloat" width="40" height="40"></user-image>
-                        <div class="feedWpr">
-                            <time class="createTime rFloat" display-time="{{::answer.createTime}}"></time>
-                            <div class="userName elps">{{::answer.userName}}</div>
-                            <div class="feedContent" ng-bind-html="answer.content"></div>
-                            <ul class="qaAttach">
-                                <li class="qaAttachItem" ng-repeat="file in answer.files">
-                                    <a ng-href="{{::file.itemUrl}}"><img ng-src="{{::file.thumbnail}}" alt="" width="100" height="125" /></a>
-                                    <div class="attachActions">
-                                        <a class="attachFull" ng-href="{{::file.itemUrl}}"></a>
-                                        <button class="attachDelete" type="button" ng-if="::file.isVisible" ng-click="removeAttachmentA(question,answer,file)"></button>
-                                        <a class="attachDownload" ng-click="followBox()" target="_blank" ng-href="{{::file.download}}"></a>
+                            <ul>
+                                <li class="out" ng-repeat="reply in post.answers">
+                                    <img class="avatar" alt="" src="{{reply.userImage}}" />
+                                    <div class="message">
+                                        <span class="arrow">
+                                        </span>
+                                        <a href="javascript:;" class="name">
+                                            {{reply.userName}}
+                                        </a>
+                                        <span class="datetime">
+                                            at 20:11
+                                        </span>
+                                        <span class="body">
+                                            {{reply.content}}
+                                        </span>
                                     </div>
                                 </li>
                             </ul>
-                            <button type="button" class="trash" ng-click="deleteAnswer(question,answer)" ng-if="canDelete(answer)">
-                                @Html.Svg("~/Images/Defs.svg", "trash", new { @class = "svg-trash" })
-                            </button>
-                        </div>
-                    </li>
-                </ul>
-                <form ng-if="question.displayComment" name="qnaAform" focus-form="feedOpen" class="feedForm" novalidate>
-                    <user-image id="data.userId" name="data.userName" image="data.userImage"
-                                class="rFloat" width="40" height="40"></user-image>
-                    <textarea text-direction name="content" class="feedTA" ng-placeholder="@SharedResources.WriteComment" ng-model="question.aFormData.content" ng-focus="checkAuth()" focus-on="{{'answer' + $index}}"></textarea>
-                    <ul class="attachedList">
-                        <li class="attachedItem" ng-repeat="file in question.aFormData.files">
-                            <span class="attachName elps">{{::file.name}}</span>
-                            <button class="removeAttach" ng-click="removeAnswerAttachment(question,file)"></button>
                         </li>
                     </ul>
-                    <div class="bottomTA">
-                        <button class="btn1 rFloat" type="submit" ng-click="postAnswer(question)" ng-disabled="!(question.aFormData.files.length || question.aFormData.content)" analytics-on="click" analytics-event="New answer" analytics-category="Box Feed" analytics-label="User posted a new answer">@SharedResources.Post</button>
+                </div>
+                <div class="chat-form">
+                    <div class="input-cont">
+                        <input class="form-control" type="text" placeholder="Type a message here..." />
                     </div>
-                    <button type="button" class="lFloat attachBtn" ng-click="addAnswerAttachment(question)">
-                        @Html.Svg("~/Images/Defs.svg", "attachment", new { @class = "svg-attachment" })
-                    </button>
-                    <div class="dropTxt" pl-dropzone question-id="{{::question.id}}" box-id="{{::boxId}}" dropzone-element>@DialogResources.DropToUpload</div>
-                </form>
-            </li>
-
-        </ul>
-
-        <div ng-show="data.questions.length===0" class="emptyFeed ghost"><span class="vCentered">@MainViewResources.FeedEmpty</span></div>
-
-    </section>
-    <div class="boxSideBar" ng-controller="SideBarCtrl">
-        <section class="leaderBoard" ng-if="::leaderBoard.first">
-            <header>
-                @Html.Svg("~/Images/Defs.svg", "leaderBoard")&nbsp;
-                <span class="lbText">@IndexResources.BestInClass</span>
-            </header>
-            <ol class="bestUserList">
-                <li ng-if="::leaderBoard.first" class="firstUser">
-                    <a ng-href="{{::leaderBoard.first.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked first place">                        
-                        <user-image id="leaderBoard.first.id" name="leaderBoard.first.name" image="leaderBoard.first.image" width="48" height="48"></user-image>
-                    </a>
-
-                    <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.first.score | kNumber}}</div>
-                </li>
-                <li ng-switch="leaderBoard.secondExist" class="lFloat">
-                    <div ng-switch-when="true" class="secondUser">
-                        <a ng-href="{{::leaderBoard.second.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked second place">
-                            <user-image id="leaderBoard.second.id" name="leaderBoard.second.name" image="leaderBoard.second.image" width="48" height="48"></user-image>
+                    <div class="btn-cont">
+                        <span class="arrow">
+                        </span>
+                        <a href="" class="btn blue icn-only">
+                            <i class="fa fa-check icon-white"></i>
                         </a>
-                        <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.second.score | kNumber}}</div>
                     </div>
-                    <div ng-switch-when="false" class="secondUser empty lFloat">
-                        <span class="userImg">@Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="portlet light ">
+            <div class="portlet-body">
+                <div class="table-scrollable table-scrollable-borderless">
+                    <div class="leaderBoardTitle">
+                        The
+                        king
+                        of
+                        school
                     </div>
-                </li>
+                    <table class="table table-hover table-light">
+                        <tr>
+                            <td class="fit">
+                                <img class="user-pic" src="../../assets/admin/layout3/img/avatar4.jpg">
+                            </td>
+                            <td>
+                                Brain
+                            </td>
+                            <td class="leaderbordPosition">
+                                $345
+                            </td>
+                            <td>
+                                45
+                            </td>
 
-                <li ng-switch="leaderBoard.thirdExist" class="rFloat">
-                    <div ng-switch-when="true" class="thirdUser">
-                        <a ng-href="{{::leaderBoard.third.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked third place">
-                            <user-image id="leaderBoard.third.id" name="leaderBoard.third.name" image="leaderBoard.third.image" width="48" height="48"></user-image>
-                        </a>
-                        <div class="rep" data-pts="@SharedResources.Pts">{{::leaderBoard.third.score | kNumber}}</div>
-                    </div>
-                    <div ng-switch-when="false" class="thirdUser empty rFloat">
-                        <span class="userImg">@Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })</span>
-                    </div>
-                </li>
 
-                <li ng-if="::leaderBoard.fourth" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked fourth place">
-                    <a ng-href="{{::leaderBoard.fourth.url}}">
-                        <user-image id="leaderBoard.fourth.id" name="leaderBoard.fourth.name" image="leaderBoard.fourth.image" width="38" height="38"></user-image>
+                        </tr>
+                        <tr>
+                            <td class="fit">
+                                <img class="user-pic" src="../../assets/admin/layout3/img/avatar5.jpg">
+                            </td>
+                            <td>
+                                Nick
+                            </td>
+                            <td class="leaderbordPosition">
+                                $560
+                            </td>
+                            <td>
+                                12
+                            </td>
 
-                    </a>
-                    <span class="elps">{{::leaderBoard.fourth.name}}</span>
-                    <span class="rep">{{::leaderBoard.fourth.score | kNumber}}</span>
-                </li>
-                <li ng-if="::leaderBoard.fifth">
-                    <a ng-href="{{::leaderBoard.fifth.url}}" analytics-on="click" analytics-event="Choose User" analytics-category="Box Leaderboard" analytics-label="User clicked fifth place">
-                        <user-image id="leaderBoard.fifth.id" name="leaderBoard.fifth.name" image="leaderBoard.fifth.image" width="38" height="38"></user-image>
-                    </a>
-                    <span class="elps">{{::leaderBoard.fifth.name}}</span>
-                    <span class="rep">{{::leaderBoard.fifth.score | kNumber}}</span>
-                </li>
-            </ol>
-            @*<div class="podium"></div>*@
-        </section>
-        <section class="recommendedWpr" ng-if="::recommendedCourses.length">
-            <header>@Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.IndexResources.RecommendedCourses</header>
-            <ul>
-                <li class="recommended" ng-repeat="course in ::recommendedCourses">
-                    <a ng-href="{{::course.url}}" class="courseLink" analytics-on="click" analytics-event="Choose Box" analytics-category="Box Recommended" analytics-label="User choosed a box on recommneded">
-                        <div class="rcDetails ghost">
-                            <div class="vCentered">  @*data-letter="{{::course.name[0]}}"*@
-                                <div class="boxSvg">
-                                    <box-logo name="::course.name" type="::course.boxType"></box-logo>
-                                </div>
-                                <div class="courseName">{{::course.name}}</div>
-                                <span class="prof elps">{{::course.professor}}</span>
-                                <span class="elps">{{::course.courseCode}}</span>
-                            </div>
-                        </div>
-                        <div class="rcStats">
-                            <div class="friends" data-friends-count="{{::course.membersCount}}">
-                                @Html.Svg("~/Images/Defs.svg", "user", new { @class = "svg-user" })
-                                <span>@SharedResources.Friends</span>
-                            </div>
-                            <div class="files" data-files-count="{{::course.itemCount}}">
-                                @Html.Svg("~/Images/Defs.svg", "document", new { @class = "svg-doc" })
-                                <span>@SharedResources.Files</span>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </section>
+
+                        </tr>
+                        <tr>
+                            <td class="fit">
+                                <img class="user-pic" src="../../assets/admin/layout3/img/avatar6.jpg">
+                            </td>
+                            <td>
+                                Tim
+                            </td>
+                            <td class="leaderbordPosition">
+                                $1,345
+                            </td>
+                            <td>
+                                450
+                            </td>
+
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+@*end feed*@

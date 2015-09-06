@@ -704,6 +704,10 @@
     <Content Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </Content>
+    <Content Include="Content\Site\box.css">
+      <DependentUpon>box.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\box.less" />
     <None Include="Content\jquery.mCustomScrollbar.less" />
     <Content Include="Content\jquery.mCustomScrollbar.css">
       <DependentUpon>jquery.mCustomScrollbar.less</DependentUpon>
@@ -894,6 +898,9 @@
     </Content>
     <Content Include="Content\Site\bootstrap-switch.rtl.min.css">
       <DependentUpon>bootstrap-switch.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\box.min.css">
+      <DependentUpon>box.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\components-rounded.css">
       <DependentUpon>components-rounded.less</DependentUpon>
@@ -1228,6 +1235,8 @@
     <Content Include="Js\appOld.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
     <Content Include="Js\components\app.controller.js" />
+    <Content Include="Js\components\box\box.controller.js" />
+    <Content Include="Js\components\box\feed.controller.js" />
     <Content Include="Js\components\dashboard\dashboard.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
@@ -2317,6 +2326,7 @@
     <Content Include="Scripts\Modernizr.js" />
     <Content Include="Scripts\svg4everybody.js" />
     <Content Include="Scripts\ui-bootstrap-custom-tpls-0.13.0.js" />
+    <Content Include="Scripts\ui-bootstrap-tpls.min.js" />
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
@@ -2372,7 +2382,6 @@
     <Content Include="Views\Shared\Partials\_Welcome.cshtml" />
     <Content Include="Views\Quiz\Index.cshtml" />
     <Content Include="Views\Library\InsertId.cshtml" />
-    <Content Include="Views\Dashboard\Index2.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />

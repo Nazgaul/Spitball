@@ -579,8 +579,7 @@ namespace Zbang.Zbox.ReadServices
                          query.PageNumber,
                          query.RowsPerPage,
                          query.UniversityId,
-                         query.BoxId,
-                         query.UserId
+                         query.BoxId
 
                      });
             }

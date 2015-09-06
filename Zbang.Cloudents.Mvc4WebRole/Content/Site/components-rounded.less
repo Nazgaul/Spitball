@@ -1050,7 +1050,7 @@ body {
 }
 
 .form-horizontal .md-radio-list {
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 .md-radio-list .md-radio {
@@ -1176,9 +1176,9 @@ a {
     color: #5b9bd1;
 }
 
-a:hover {
+/*a:hover {
     color: #3175af;
-}
+}*/
 
 a:focus, a:hover, a:active {
     outline: 0;
@@ -2851,6 +2851,8 @@ Chats
     margin-right: 65px;
     background: #fafafa;
     text-align: right;
+    margin-left: 0;
+    border-left: 0;
 }
 
 .chats li.out .message .arrow {
@@ -2861,6 +2863,8 @@ Chats
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
     border-left: 8px solid #F3565D;
+    left: auto;
+    border-right: 0;
 }
 
 .chats li.out .name,
@@ -5535,7 +5539,7 @@ Portlets
 }
 
 .portlet.box > .portlet-body {
-    background-color: #fff;
+    background-color: @color4;
     padding: 10px;
 }
 
