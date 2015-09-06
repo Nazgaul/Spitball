@@ -59,6 +59,24 @@
 
                      controller: 'BoxController as box'
                  }).
+                state('box.quiz', {
+                    template: '<div>this is a quiz</div>',
+                    url: 'quiz/',
+                    //templateUrl: function () {
+                    //    return buildUrl('/box/indexpartial/');
+                    //},
+
+                    controller: 'BoxController as box'
+                }).
+                state('box.members', {
+                    template: '<div>this is a members</div>',
+                    url: 'members/',
+                    //templateUrl: function () {
+                    //    return buildUrl('/box/indexpartial/');
+                    //},
+
+                    controller: 'BoxController as box'
+                }).
                 state('course', {
                     url: '/course/:uniName/:boxId/:boxName/',
                     templateUrl: function () {

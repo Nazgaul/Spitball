@@ -15,48 +15,16 @@
         <div class="portlet box">
             <div class="portlet-body">
                 <div class="tabbable tabbable-tabdrop">
-                    @*<ul class="nav nav-tabs">
-                        <li class="active">
-                            <a ui-sref="box.feed" data-toggle="tab">feed</a>
-                        </li>
-                        <li>
-                            <a ui-sref="box.items" data-toggle="tab">items</a>
-                        </li>
-                        <li>
-                            <a ui-sref="box.quizzes" data-toggle="tab">quiz</a>
-                        </li>
-                        <li>
-                            <a ui-sref="box.members" data-toggle="tab">members</a>
-                        </li>
-                    </ul>*@
-                    @*<div class="tab-content">
-                <div class="tab-pane active" id="feed">
-                    <p>
-                        I'm in Section 1.
-                    </p>
-                </div>
-                <div class="tab-pane" id="items">
-                    <p>
-                        Howdy, I'm in Section 2.
-                    </p>
-                </div>
-                <div class="tab-pane" id="quizzes">
-                    <p>
-                        Howdy, I'm in Section 3.
-                    </p>
-                </div>
-                <div class="tab-pane" id="members">
-                    <p>
-                        Howdy, I'm in Section 4.
-                    </p>
-                </div>
-            </div>*@
-
                     <tabset>
-                        <tab ui-sref="box.feed" heading="feed"></tab>
-                        <tab ui-sref="box.items" heading="items"></tab>
-                        <tab ui-sref="box.quiz" heading="quiz"></tab>
-                        <tab ui-sref="box.members" heading="members"></tab>
+                        @*<tab>
+                            <tab-heading ui-sref-active="active">
+                                <a ui-sref="box.feed">feed</a>
+                             </tab-heading>
+                        </tab>*@
+                        <tab active="false" ui-sref-active="active" ui-sref="box.feed" heading="feed"></tab>
+                        <tab ui-sref-active="active" ui-sref="box.items" heading="items"></tab>
+                        <tab ui-sref-active="active" ui-sref="box.quiz" heading="quiz"></tab>
+                        <tab ui-sref-active="active" ui-sref="box.members" heading="members"></tab>
                     </tabset>
                 </div>
             </div>

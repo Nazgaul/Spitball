@@ -1,9 +1,13 @@
 ﻿(function () {
     angular.module('app.box').controller('BoxController', box);
-    box.$inject = ['boxService', '$stateParams'];
+    box.$inject = ['boxService', '$stateParams', '$location'];
 
-    function box(boxService, $stateParams) {
-        
+    function box(boxService, $stateParams, $location) {
+
+        if ($location.path().endsWith($stateParams.boxName + '/')) {
+                $location.path($location.path() + 'feed/');
+        }
+
         var b = this;
         var boxData;
         boxService.getBox($stateParams.boxId).then(function (response) {
@@ -13,6 +17,11 @@
             b.professorName = response.professorName;
             b.courseId = response.courseId;
         });
+
+
+        b.active = function() {
+            console.log('here');
+        }
     }
 })();
 
