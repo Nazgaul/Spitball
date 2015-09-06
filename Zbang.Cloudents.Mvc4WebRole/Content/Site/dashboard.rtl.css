@@ -106,3 +106,16 @@
 .color17 .progress {
   background: #4faf61;
 }
+.leaderBoardTitle {
+  float: right;
+  -ms-word-break: break-word;
+  word-break: break-word;
+  font-size: 38px;
+  width: 28%;
+  line-height: 35px;
+  color: #6a737d;
+  text-transform: uppercase;
+}
+.leaderbordPosition {
+  color: #ff7a04 !important;
+}

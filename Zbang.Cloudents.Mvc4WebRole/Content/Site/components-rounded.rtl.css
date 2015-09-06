@@ -15,8 +15,8 @@ General reset
 body {
   color: #333333;
   font-family: "Open Sans", sans-serif;
-  padding: 0px !important;
-  margin: 0px !important;
+  padding: 0 !important;
+  margin: 0 !important;
   font-size: 13px;
   direction: rtl;
 }
@@ -932,7 +932,7 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   margin: 10px 0;
 }
 .form-horizontal .md-radio-list {
-  margin-top: 0px;
+  margin-top: 0;
 }
 .md-radio-list .md-radio {
   display: block;
@@ -1040,9 +1040,9 @@ a {
   text-shadow: none;
   color: #5b9bd1;
 }
-a:hover {
-  color: #3175af;
-}
+/*a:hover {
+    color: #3175af;
+}*/
 a:focus,
 a:hover,
 a:active {
@@ -2513,12 +2513,15 @@ Chats
   margin-right: 10px;
 }
 .chats li .name {
-  color: #3590c1;
+  color: #1BBC9B;
   font-size: 13px;
   font-weight: 400;
 }
+.chats li.out .name {
+  color: #F3565D;
+}
 .chats li .datetime {
-  color: #333;
+  color: #fff;
   font-size: 13px;
   font-weight: 400;
 }
@@ -2531,7 +2534,8 @@ Chats
   text-align: right;
   border-right: 2px solid #1BBC9B;
   margin-right: 65px;
-  background: #fafafa;
+  background: #484f56;
+  color: #fff;
 }
 .chats li.in .message .arrow {
   display: block;
@@ -2547,8 +2551,10 @@ Chats
 .chats li.out .message {
   border-left: 2px solid #F3565D;
   margin-left: 65px;
-  background: #fafafa;
+  background: #6e7883;
   text-align: left;
+  margin-right: 0;
+  border-right: 0;
 }
 .chats li.out .message .arrow {
   display: block;
@@ -2558,6 +2564,8 @@ Chats
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
   border-right: 8px solid #F3565D;
+  right: auto;
+  border-left: 0;
 }
 .chats li.out .name,
 .chats li.out .datetime {
@@ -4823,7 +4831,7 @@ Portlets
   padding: 7px 0 5px 0;
 }
 .portlet.box > .portlet-body {
-  background-color: #fff;
+  background-color: #353a3f;
   padding: 10px;
 }
 .portlet.box.portlet-fullscreen > .portlet-body {
@@ -4832,7 +4840,7 @@ Portlets
 /* Light Portlet */
 .portlet.light {
   padding: 12px 20px 15px 20px;
-  background-color: #fff;
+  background-color: #353a3f;
 }
 .portlet.light.bordered {
   border: 1px solid #e1e1e1 !important;
@@ -5091,20 +5099,17 @@ Dashboard Stats
 }
 .dashboard-stat-light .details .number {
   font-weight: 300;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 /***
 Dashboard Stats 2
 ***/
 .dashboard-stat2 {
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
   border-radius: 4px;
   background: #353a3f;
   padding: 15px 15px 30px 15px;
   margin-bottom: 20px;
+  display: block;
 }
 .dashboard-stat2 .display {
   margin-bottom: 20px;
@@ -5120,6 +5125,7 @@ Dashboard Stats 2
 .dashboard-stat2 .display .number {
   float: right;
   display: inline-block;
+  height: 110px;
 }
 .dashboard-stat2 .display .number h3 {
   margin: 0 0 2px 0;
@@ -5159,10 +5165,8 @@ Dashboard Stats 2
 }
 .dashboard-stat2 .progress-info .status {
   margin-top: 5px;
-  font-size: 11px;
-  color: #AAB5BC;
-  font-weight: 600;
-  text-transform: uppercase;
+  font-size: 15px;
+  color: #f5f5f5;
 }
 .dashboard-stat2 .progress-info .status .status-title {
   float: right;
@@ -5177,7 +5181,7 @@ Text Stats
 ***/
 .text-stat h3 {
   margin-top: 5px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   font-size: 18px;
 }
 .text-stat span {
@@ -5632,10 +5636,11 @@ Responsive & Scrollable Tables
   border: 0;
 }
 .table-scrollable > .table {
-  width: 100% !important;
+  width: 70% !important;
+  float: left;
   margin: 0 !important;
   margin-bottom: 0;
-  background-color: #fff;
+  background-color: #353a3f;
 }
 .table-scrollable > .table > thead > tr > th,
 .table-scrollable > .table > tbody > tr > th,
@@ -5901,7 +5906,7 @@ Light Table
 .table.table-light.table-hover > tbody > tr > th:hover,
 .table.table-light.table-hover > tbody > tr:hover > td,
 .table.table-light.table-hover > tbody > tr:hover > th {
-  background: #f9fafb;
+  background: #353a3f;
 }
 /***
 Customized Bootstrap Tabs 

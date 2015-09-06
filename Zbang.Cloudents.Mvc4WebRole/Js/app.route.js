@@ -32,7 +32,7 @@
                 //    controller: 'LibChooseController as libChoose'
                 //})
             .state('box', {
-                url: '/box/my/:boxId/:boxName/',
+                url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/',
                 templateUrl: function () {
                     return buildUrl('/box/indexpartial/');
                 },
@@ -77,52 +77,52 @@
 
                     controller: 'BoxController as box'
                 }).
-                state('course', {
-                    url: '/course/:uniName/:boxId/:boxName/',
-                    templateUrl: function () {
-                        return buildUrl('/box/indexpartial/');
-                    },
+                //state('course', {
+                //    url: '/course/:uniName/:boxId/:boxName/',
+                //    templateUrl: function () {
+                //        return buildUrl('/box/indexpartial/');
+                //    },
                   
-                     controller: 'BoxController as b'
-                }).
-                 state('course.feed', {
-                     templateUrl: function () {
-                         return buildUrl('/box/feed/');
-                     },
-                     url: 'feed/',
-                     //templateUrl: function () {
-                     //    return buildUrl('/box/indexpartial/');
-                     //},
+                //     controller: 'BoxController as b'
+                //}).
+                // state('course.feed', {
+                //     templateUrl: function () {
+                //         return buildUrl('/box/feed/');
+                //     },
+                //     url: 'feed/',
+                //     //templateUrl: function () {
+                //     //    return buildUrl('/box/indexpartial/');
+                //     //},
 
-                     controller: 'FeedController as f'
-                 }).
-                 state('course.items', {
-                     template: '<div>this is a items</div>',
-                     url: 'items/',
-                     //templateUrl: function () {
-                     //    return buildUrl('/box/indexpartial/');
-                     //},
+                //     controller: 'FeedController as f'
+                // }).
+                // state('course.items', {
+                //     template: '<div>this is a items</div>',
+                //     url: 'items/',
+                //     //templateUrl: function () {
+                //     //    return buildUrl('/box/indexpartial/');
+                //     //},
 
-                     controller: 'BoxController as box'
-                 }).
-                state('course.quiz', {
-                    template: '<div>this is a quiz</div>',
-                    url: 'quiz/',
-                    //templateUrl: function () {
-                    //    return buildUrl('/box/indexpartial/');
-                    //},
+                //     controller: 'BoxController as box'
+                // }).
+                //state('course.quiz', {
+                //    template: '<div>this is a quiz</div>',
+                //    url: 'quiz/',
+                //    //templateUrl: function () {
+                //    //    return buildUrl('/box/indexpartial/');
+                //    //},
 
-                    controller: 'BoxController as box'
-                }).
-                state('course.members', {
-                    template: '<div>this is a members</div>',
-                    url: 'members/',
-                    //templateUrl: function () {
-                    //    return buildUrl('/box/indexpartial/');
-                    //},
+                //    controller: 'BoxController as box'
+                //}).
+                //state('course.members', {
+                //    template: '<div>this is a members</div>',
+                //    url: 'members/',
+                //    //templateUrl: function () {
+                //    //    return buildUrl('/box/indexpartial/');
+                //    //},
 
-                    controller: 'BoxController as box'
-                }).
+                //    controller: 'BoxController as box'
+                //}).
                 state('jobs', {
                     url: '/jobs/',
                     templateUrl: function () {

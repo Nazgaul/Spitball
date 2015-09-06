@@ -41,7 +41,7 @@ Rounded Portlets
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
-  background: #292d31;
+  background: transparent;
 }
 .headerPoints {
   display: block;

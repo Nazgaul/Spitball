@@ -902,6 +902,12 @@
     <Content Include="Content\Site\box.min.css">
       <DependentUpon>box.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\box.rtl.css">
+      <DependentUpon>box.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\box.rtl.min.css">
+      <DependentUpon>box.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\components-rounded.css">
       <DependentUpon>components-rounded.less</DependentUpon>
     </Content>

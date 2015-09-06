@@ -2783,7 +2783,7 @@ Chats
 .chats li {
     list-style: none;
     padding: 5px 0;
-    margin: 10px auto;
+    margin: 20px auto;
     font-size: 12px;
 }
 
@@ -2810,13 +2810,16 @@ Chats
 }
 
 .chats li .name {
-    color: #3590c1;
+    color: #1BBC9B;
     font-size: 13px;
     font-weight: 400;
 }
+.chats li.out .name {
+    color:#F3565D;
+}
 
 .chats li .datetime {
-    color: #333;
+    color: #fff;
     font-size: 13px;
     font-weight: 400;
 }
@@ -2831,7 +2834,8 @@ Chats
     text-align: left;
     border-left: 2px solid #1BBC9B;
     margin-left: 65px;
-    background: #fafafa;
+    background: @color6;
+    color:#fff;
 }
 
 .chats li.in .message .arrow {
@@ -2849,7 +2853,7 @@ Chats
 .chats li.out .message {
     border-right: 2px solid #F3565D;
     margin-right: 65px;
-    background: #fafafa;
+    background: @color7;
     text-align: right;
     margin-left: 0;
     border-left: 0;
@@ -5902,6 +5906,7 @@ Dashboard Stats 2
 .dashboard-stat2 .display .number {
     float: left;
     display: inline-block;
+    height:110px;
 }
 
 .dashboard-stat2 .display .number h3 {
