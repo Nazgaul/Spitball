@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="portlet-body" id="chats">
-                <div class="scroller" style="height: 341px;" data-always-visible="1" data-rail-visible1="1">
+                @*<div class="scroller" style="height: 341px;" data-always-visible="1" data-rail-visible1="1">*@
                     <ul class="chats">
                         <li class="in" ng-repeat="post in f.data">
                             <img class="avatar" alt="" src="{{post.userImage}}" />
@@ -22,8 +22,7 @@
                                 <span class="datetime">
                                     at 20:09
                                 </span>
-                                <span class="body">
-                                    {{post.content}}
+                                <span class="body" ng-bind-html="post.content">
                                 </span>
                             </div>
                             <ul>
@@ -38,15 +37,14 @@
                                         <span class="datetime">
                                             at 20:11
                                         </span>
-                                        <span class="body">
-                                            {{reply.content}}
+                                        <span class="body" ng-bind-html="reply.content">
                                         </span>
                                     </div>
                                 </li>
                             </ul>
                         </li>
                     </ul>
-                </div>
+                @*</div>*@
                 <div class="chat-form">
                     <div class="input-cont">
                         <input class="form-control" type="text" placeholder="Type a message here..." />
@@ -123,6 +121,32 @@
                         </tr>
                     </table>
                 </div>
+            </div>
+        </div>
+
+        <div class="row margin-top-10" ng-controller="Recommended as r">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-repeat="box in r.boxes">
+                <a href="{{box.url}}" class="dashboard-stat2" d-color="{{box.name.length}}">
+                    <div class="display">
+                        <div class="number">
+                            <h3>{{box.name}}</h3>
+                            @*<small>{{box.professor}}</small><br />*@
+                            <small>{{box.courseCode}}</small>
+                        </div>
+                    </div>
+                    <div class="progress-info">
+                        <div class="progress">
+                        </div>
+                        <div class="status">
+                            <div class="status-title">
+                                {{box.membersCount}} members
+                            </div>
+                            <div class="status-number">
+                                {{box.itemCount}} items
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

@@ -47,8 +47,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new BoxDoesntExistException("model is null");
                 }
-
-                if (Request.Url != null && model.Name != Server.UrlDecode(Request.Url.Segments[4].Substring(0, Request.Url.Segments[4].LastIndexOf("/", StringComparison.Ordinal))))
+                var urlBoxName = Server.UrlDecode(Request.Url.Segments[4]);
+                if (UrlConsts.NameToQueryString(model.Name) != urlBoxName.Substring(0, urlBoxName.LastIndexOf("/", StringComparison.Ordinal)))
                 {
                     throw new BoxDoesntExistException(Request.Url.AbsoluteUri);
                 }
@@ -153,21 +153,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 if (Request.Browser.Crawler)
                 {
-                   return JsonOk( new
-                   {
-                       result.BoxType,
-                       result.CourseId,
-                       result.Date,
-                       result.Feeds,
-                       result.Items,
-                       result.Members,
-                       result.Name,
-                       result.OwnerId,
-                       result.PrivacySetting,
-                       result.Quizes,
-                       result.ShortUrl,
-                       result.UserType
-                   });
+                    return JsonOk(new
+                    {
+                        result.BoxType,
+                        result.CourseId,
+                        result.Date,
+                        result.Feeds,
+                        result.Items,
+                        result.Members,
+                        result.Name,
+                        result.OwnerId,
+                        result.PrivacySetting,
+                        result.Quizes,
+                        result.ShortUrl,
+                        result.UserType
+                    });
                 }
 
                 return JsonOk(result);
@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        
+
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id")]

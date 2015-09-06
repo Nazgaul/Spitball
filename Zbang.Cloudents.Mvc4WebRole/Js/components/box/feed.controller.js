@@ -1,12 +1,11 @@
 ﻿(function () {
     angular.module('app.box.feed').controller('FeedController', feed);
-    feed.$inject = ['feedService', '$stateParams'];
+    feed.$inject = ['boxService', '$stateParams'];
 
-    function feed(feedService, $stateParams) {
+    function feed(boxService, $stateParams) {
         var f = this;
         //var boxData;
-        feedService.getFeed($stateParams.boxId).then(function (response) {
-            console.log(response);
+        boxService.getFeed($stateParams.boxId).then(function (response) {
             f.data = response;
             //    boxData = response;
             //    b.name = response.name;
@@ -16,16 +15,17 @@
     }
 })();
 
-
 (function () {
-    angular.module('app.box.feed').service('feedService', feed);
-    feed.$inject = ['ajaxService'];
+    angular.module('app.box.feed').controller('Recommended', recommended);
+    recommended.$inject = ['boxService', '$stateParams'];
 
-    function feed(ajaxservice) {
-        var d = this;
-        d.getFeed = function (boxid) {
-            return ajaxservice.get('/qna/', { id: boxid });
-        }
-
+    function recommended(boxService, $stateParams) {
+        var r = this;
+        r.boxes = [];
+        //var boxData;
+        boxService.getRecommended($stateParams.boxId).then(function (response) {
+            console.log(response);
+            r.boxes = response;
+        });
     }
 })();

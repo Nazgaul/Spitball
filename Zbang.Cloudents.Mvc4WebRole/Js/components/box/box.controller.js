@@ -35,6 +35,12 @@
         d.getBox = function (boxid) {
             return ajaxservice.get('/box/data/', { id: boxid });
         }
+        d.getFeed = function (boxid) {
+            return ajaxservice.get('/qna/', { id: boxid });
+        }
+        d.getRecommended = function(boxid) {
+            return ajaxservice.get('/box/recommended/', { id: boxid });
+        }
 
     }
 })();

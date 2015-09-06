@@ -396,6 +396,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/scripts/angular.min.js",
                             "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"),
+                        new JsFileWithCdn("~/scripts/angular-sanitize.js"
+                            //"https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-sanitize.min.js"
+                            ),
                         new JsFileWithCdn("~/scripts/angular-ui-router.js"),
                         new JsFileWithCdn("~/scripts/angulartics.js"),
                         new JsFileWithCdn("~/scripts/angulartics-ga.js"),
@@ -436,7 +439,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             };
 
 
-        
+
             return jsDictionary;
         }
 
