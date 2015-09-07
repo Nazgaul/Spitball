@@ -20,14 +20,28 @@ a {
 a:hover, a:focus {
     color:@color1;
 }
+.tabbable {
+     background-color: @color4;
+     padding: 0 10px;
+     //padding:0 10px;
+}
 
 .extraDetails {
     color:@color2;
     overflow:hidden;
+        z-index: 1;
+    position: relative;
+    background-color: black;
+    z-index:1;
     > span:first-child {
         float:left;
     }
     >span:last-child {
         float:right;
     }
+   
 }
+ .mix-subDetails {
+        position:absolute;
+        bottom: 75px;
+    }

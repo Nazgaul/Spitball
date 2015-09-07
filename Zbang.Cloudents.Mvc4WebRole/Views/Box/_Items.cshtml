@@ -24,15 +24,22 @@
                             </li>
                         </ul>
                         <div class="row mix-grid" mixitup>
-                            <div class="col-md-2 col-sm-3 col-xs-4 mix category_2 category_1" ng-repeat="item in i.data">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="{{::item.thumbnail}}" alt="">
-                                    <div class="extraDetails">
-                                        <span>{{::item.numOfViews}}</span>
-                                        <span>{{::item.rate}}</span>
-                                    </div>
-                                    <div class="mix-details">
-                                        <h4>{{::item.name}}</h4>
+                            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 mix category_2 category_1" ng-repeat="item in i.data">
+                                <div>
+                                    <div class="mix-inner">
+                                        <img class="img-responsive" src="{{::item.thumbnail}}" alt="">
+                                        <div class="extraDetails">
+                                            <span>{{::item.numOfViews}}</span>
+                                            <span>{{::item.rate}}</span>
+                                        </div>
+                                        <div class="mix-details">
+                                            <h4>{{::item.name}}</h4>
+                                            <div class="mix-subDetails">
+                                                <span>{{::item.owner}}</span>
+                                                <br />
+                                                <span>{{::item.date}}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -30,15 +30,14 @@
 .mix-grid .mix .mix-inner {
   position: relative;
   width: 100%;
-  border: 1px solid #000;
 }
 .mix-grid .mix .mix-details {
   padding: 5px;
   color: #fff;
   width: 100%;
   height: 100%;
-  bottom: -100%;
-  text-align: center;
+  bottom: calc(-100% + 22px);
+  text-align: right;
   position: absolute;
   background: #6a737d;
   transition: all 0.5s ease;
@@ -57,7 +56,6 @@
 }
 .mix-grid .mix .mix-details h4 {
   color: #fff;
-  text-align: right;
   font-size: 15px;
 }
 .mix-grid .mix .mix-details p {

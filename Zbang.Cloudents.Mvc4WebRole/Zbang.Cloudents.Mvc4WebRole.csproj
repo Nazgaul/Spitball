@@ -579,14 +579,26 @@
     <Content Include="Content\Animations.css">
       <DependentUpon>Animations.less</DependentUpon>
     </Content>
+    <Content Include="Content\Animations.min.css">
+      <DependentUpon>Animations.css</DependentUpon>
+    </Content>
     <Content Include="Content\Animations.rtl.css">
       <DependentUpon>Animations.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Animations.rtl.min.css">
+      <DependentUpon>Animations.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Box3.css">
       <DependentUpon>Box3.less</DependentUpon>
     </Content>
+    <Content Include="Content\Box3.min.css">
+      <DependentUpon>Box3.css</DependentUpon>
+    </Content>
     <Content Include="Content\Box3.rtl.css">
       <DependentUpon>Box3.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Box3.rtl.min.css">
+      <DependentUpon>Box3.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\BoxFeed.css">
       <DependentUpon>BoxFeed.less</DependentUpon>
@@ -618,8 +630,14 @@
     <Content Include="Content\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
+    <Content Include="Content\General.min.css">
+      <DependentUpon>General.css</DependentUpon>
+    </Content>
     <Content Include="Content\General.rtl.css">
       <DependentUpon>General.css</DependentUpon>
+    </Content>
+    <Content Include="Content\General.rtl.min.css">
+      <DependentUpon>General.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Header.css">
       <DependentUpon>Header.less</DependentUpon>
@@ -636,11 +654,20 @@
     <Content Include="Content\Home.css">
       <DependentUpon>Home.less</DependentUpon>
     </Content>
+    <Content Include="Content\Home.min.css">
+      <DependentUpon>Home.css</DependentUpon>
+    </Content>
     <Content Include="Content\Home.rtl.css">
       <DependentUpon>Home.css</DependentUpon>
     </Content>
+    <Content Include="Content\Home.rtl.min.css">
+      <DependentUpon>Home.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\HomePage\bootstrap.css">
       <DependentUpon>bootstrap.less</DependentUpon>
+    </Content>
+    <Content Include="Content\HomePage\bootstrap.min.css">
+      <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
     <Content Include="Content\HomePage\bootstrap.rtl.css">
       <DependentUpon>bootstrap.css</DependentUpon>
@@ -650,6 +677,9 @@
     </Content>
     <Content Include="Content\HomePage\extras.css">
       <DependentUpon>extras.less</DependentUpon>
+    </Content>
+    <Content Include="Content\HomePage\extras.min.css">
+      <DependentUpon>extras.css</DependentUpon>
     </Content>
     <Content Include="Content\HomePage\extras.rtl.css">
       <DependentUpon>extras.css</DependentUpon>
@@ -672,6 +702,9 @@
     <Content Include="Content\HomePage\theme.css">
       <DependentUpon>theme.less</DependentUpon>
     </Content>
+    <Content Include="Content\HomePage\theme.min.css">
+      <DependentUpon>theme.css</DependentUpon>
+    </Content>
     <Content Include="Content\HomePage\theme.rtl.css">
       <DependentUpon>theme.css</DependentUpon>
     </Content>
@@ -681,11 +714,20 @@
     <Content Include="Content\Invite.css">
       <DependentUpon>Invite.less</DependentUpon>
     </Content>
+    <Content Include="Content\Invite.min.css">
+      <DependentUpon>Invite.css</DependentUpon>
+    </Content>
     <Content Include="Content\Invite.rtl.css">
       <DependentUpon>Invite.css</DependentUpon>
     </Content>
+    <Content Include="Content\Invite.rtl.min.css">
+      <DependentUpon>Invite.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Item.css">
       <DependentUpon>Item.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Item.min.css">
+      <DependentUpon>Item.css</DependentUpon>
     </Content>
     <Content Include="Content\Item.rtl.css">
       <DependentUpon>Item.css</DependentUpon>
@@ -703,6 +745,126 @@
     <None Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
+    </Content>
+    <Content Include="Content\Item.rtl.min.css">
+      <DependentUpon>Item.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\jquery.mCustomScrollbar.min.css">
+      <DependentUpon>jquery.mCustomScrollbar.css</DependentUpon>
+    </Content>
+    <Content Include="Content\jquery.mCustomScrollbar.rtl.min.css">
+      <DependentUpon>jquery.mCustomScrollbar.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\lang.ar-AE.min.css">
+      <DependentUpon>lang.ar-AE.css</DependentUpon>
+    </Content>
+    <Content Include="Content\lang.ar-AE.rtl.min.css">
+      <DependentUpon>lang.ar-AE.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\lang.he-IL.min.css">
+      <DependentUpon>lang.he-IL.css</DependentUpon>
+    </Content>
+    <Content Include="Content\lang.he-IL.rtl.min.css">
+      <DependentUpon>lang.he-IL.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\lang.ru-RU.min.css">
+      <DependentUpon>lang.ru-RU.css</DependentUpon>
+    </Content>
+    <Content Include="Content\lang.ru-RU.rtl.min.css">
+      <DependentUpon>lang.ru-RU.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Letter.min.css">
+      <DependentUpon>Letter.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Letter.rtl.min.css">
+      <DependentUpon>Letter.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Mobile.min.css">
+      <DependentUpon>Mobile.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Mobile.rtl.min.css">
+      <DependentUpon>Mobile.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Modal.rtl.min.css">
+      <DependentUpon>Modal.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Normalize.min.css">
+      <DependentUpon>Normalize.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Normalize.rtl.min.css">
+      <DependentUpon>Normalize.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Quiz.min.css">
+      <DependentUpon>Quiz.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Quiz.rtl.min.css">
+      <DependentUpon>Quiz.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\RtlFix.min.css">
+      <DependentUpon>RtlFix.css</DependentUpon>
+    </Content>
+    <Content Include="Content\RtlFix.rtl.min.css">
+      <DependentUpon>RtlFix.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Search.min.css">
+      <DependentUpon>Search.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Search.rtl.min.css">
+      <DependentUpon>Search.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Settings.min.css">
+      <DependentUpon>Settings.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Settings.rtl.min.css">
+      <DependentUpon>Settings.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\components-md.min.css">
+      <DependentUpon>components-md.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\components-md.rtl.min.css">
+      <DependentUpon>components-md.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\customRtl.min.css">
+      <DependentUpon>customRtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\customRtl.rtl.min.css">
+      <DependentUpon>customRtl.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\default.min.css">
+      <DependentUpon>default.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\default.rtl.min.css">
+      <DependentUpon>default.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\font-awesome.min.css">
+      <DependentUpon>font-awesome.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\font-awesome.rtl.min.css">
+      <DependentUpon>font-awesome.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\login-soft.min.css">
+      <DependentUpon>login-soft.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\login-soft.rtl.min.css">
+      <DependentUpon>login-soft.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\plugins-md.min.css">
+      <DependentUpon>plugins-md.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\plugins-md.rtl.min.css">
+      <DependentUpon>plugins-md.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\uniform.default.min.css">
+      <DependentUpon>uniform.default.css</DependentUpon>
+    </Content>
+    <Content Include="Content\signin\uniform.default.rtl.min.css">
+      <DependentUpon>uniform.default.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site3.min.css">
+      <DependentUpon>Site3.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site3.rtl.min.css">
+      <DependentUpon>Site3.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\box.css">
       <DependentUpon>box.less</DependentUpon>
@@ -1007,35 +1169,65 @@
     <Content Include="Content\Static.css">
       <DependentUpon>Static.less</DependentUpon>
     </Content>
+    <Content Include="Content\Static.rtl.min.css">
+      <DependentUpon>Static.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\SVG.css">
       <DependentUpon>SVG.less</DependentUpon>
+    </Content>
+    <Content Include="Content\SVG.min.css">
+      <DependentUpon>SVG.css</DependentUpon>
     </Content>
     <Content Include="Content\SVG.rtl.css">
       <DependentUpon>SVG.css</DependentUpon>
     </Content>
+    <Content Include="Content\SVG.rtl.min.css">
+      <DependentUpon>SVG.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\textAngular.css">
       <DependentUpon>textAngular.less</DependentUpon>
+    </Content>
+    <Content Include="Content\textAngular.min.css">
+      <DependentUpon>textAngular.css</DependentUpon>
     </Content>
     <Content Include="Content\textAngular.rtl.css">
       <DependentUpon>textAngular.css</DependentUpon>
     </Content>
+    <Content Include="Content\textAngular.rtl.min.css">
+      <DependentUpon>textAngular.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Upload.css">
       <DependentUpon>Upload.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Upload.min.css">
+      <DependentUpon>Upload.css</DependentUpon>
     </Content>
     <Content Include="Content\Upload.rtl.css">
       <DependentUpon>Upload.css</DependentUpon>
     </Content>
+    <Content Include="Content\Upload.rtl.min.css">
+      <DependentUpon>Upload.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\UserPage.css">
       <DependentUpon>UserPage.less</DependentUpon>
     </Content>
+    <Content Include="Content\UserPage.min.css">
+      <DependentUpon>UserPage.css</DependentUpon>
+    </Content>
     <Content Include="Content\UserPage.rtl.css">
       <DependentUpon>UserPage.css</DependentUpon>
+    </Content>
+    <Content Include="Content\UserPage.rtl.min.css">
+      <DependentUpon>UserPage.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\varsAndMixins.css">
       <DependentUpon>varsAndMixins.less</DependentUpon>
     </Content>
     <Content Include="Content\varsAndMixins.rtl.css">
       <DependentUpon>varsAndMixins.css</DependentUpon>
+    </Content>
+    <Content Include="Content\varsAndMixins.rtl.min.css">
+      <DependentUpon>varsAndMixins.rtl.css</DependentUpon>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -1056,11 +1248,23 @@
     <Content Include="Images\favIcons\mstile-310x150.png" />
     <Content Include="Images\favIcons\mstile-310x310.png" />
     <Content Include="Images\favIcons\mstile-70x70.png" />
+    <Content Include="Images\HomePage\HomePageBottom.png.min.css">
+      <DependentUpon>HomePageBottom.png.css</DependentUpon>
+    </Content>
     <Content Include="Images\HomePage\HomePageBottom.png.rtl.css">
       <DependentUpon>HomePageBottom.png.css</DependentUpon>
     </Content>
+    <Content Include="Images\HomePage\HomePageBottom.png.rtl.min.css">
+      <DependentUpon>HomePageBottom.png.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageTop.png.min.css">
+      <DependentUpon>HomePageTop.png.css</DependentUpon>
+    </Content>
     <Content Include="Images\HomePage\HomePageTop.png.rtl.css">
       <DependentUpon>HomePageTop.png.css</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage\HomePageTop.png.rtl.min.css">
+      <DependentUpon>HomePageTop.png.rtl.css</DependentUpon>
     </Content>
     <Content Include="Images\job-page-logo2.png" />
     <Content Include="Images\signin\1a.png" />
@@ -1142,6 +1346,9 @@
     <Content Include="Images\site.png.rtl.css">
       <DependentUpon>site.png.css</DependentUpon>
     </Content>
+    <Content Include="Images\site.png.rtl.min.css">
+      <DependentUpon>site.png.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Images\Site\BG.png" />
     <Content Include="Images\Site\icons.svg" />
     <Content Include="Images\spitball_invite_off.png" />
@@ -1220,6 +1427,9 @@
     <Content Include="Images\Store\logo.png" />
     <Content Include="Images\Store\social.png.rtl.css">
       <DependentUpon>social.png.css</DependentUpon>
+    </Content>
+    <Content Include="Images\Store\social.png.rtl.min.css">
+      <DependentUpon>social.png.rtl.css</DependentUpon>
     </Content>
     <Content Include="Images\Store\store-popup.png" />
     <Content Include="Images\Store\purchase_confirmation.png" />
