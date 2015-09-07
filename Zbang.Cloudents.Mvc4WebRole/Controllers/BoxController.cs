@@ -113,26 +113,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "PartialPage")]
-        public PartialViewResult Feed()
+        public PartialViewResult FeedPartial()
         {
             return PartialView("_Feed");
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "PartialPage")]
-        public PartialViewResult Items()
+        public PartialViewResult ItemsPartial()
+        {
+            return PartialView("_Items");
+        }
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public PartialViewResult QuizPartial()
         {
             return PartialView("Index2");
         }
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "PartialPage")]
-        public PartialViewResult Quiz()
-        {
-            return PartialView("Index2");
-        }
-        [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [DonutOutputCache(CacheProfile = "PartialPage")]
-        public PartialViewResult Members()
+        public PartialViewResult MembersPartial()
         {
             return PartialView("Index2");
         }

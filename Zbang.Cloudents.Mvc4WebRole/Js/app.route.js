@@ -41,7 +41,7 @@
             }).
                   state('box.feed', {
                       templateUrl: function () {
-                          return buildUrl('/box/feed/');
+                          return buildUrl('/box/feedpartial/');
                       },
                       url: 'feed/',
                       //templateUrl: function () {
@@ -51,7 +51,9 @@
                       controller: 'FeedController as f'
                   }).
                  state('box.items', {
-                     template: '<div>this is a items</div>',
+                     templateUrl: function () {
+                         return buildUrl('/box/itemspartial/');
+                     },
                      url: 'items/',
                      //templateUrl: function () {
                      //    return buildUrl('/box/indexpartial/');

@@ -1243,6 +1243,7 @@
     <Content Include="Js\components\app.controller.js" />
     <Content Include="Js\components\box\box.controller.js" />
     <Content Include="Js\components\box\feed.controller.js" />
+    <Content Include="Js\components\box\item.controller.js" />
     <Content Include="Js\components\dashboard\dashboard.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
@@ -2371,7 +2372,6 @@
     <Content Include="Views\Account\Confirmation.cshtml" />
     <Content Include="Views\Item\_FlagItem.cshtml" />
     <Content Include="Views\Library\Index.cshtml" />
-    <Content Include="Views\Box\Index.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Share\Invites.cshtml" />
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
@@ -2429,6 +2429,7 @@
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Box\Index2.cshtml" />
+    <Content Include="Views\Box\_Items.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
