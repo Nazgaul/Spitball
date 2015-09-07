@@ -59,7 +59,7 @@
                      //    return buildUrl('/box/indexpartial/');
                      //},
 
-                     controller: 'BoxController as box'
+                     controller: 'ItemsController as i'
                  }).
                 state('box.quiz', {
                     template: '<div>this is a quiz</div>',

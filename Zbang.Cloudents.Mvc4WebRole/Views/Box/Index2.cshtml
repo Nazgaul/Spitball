@@ -16,11 +16,6 @@
             <div class="portlet-body">
                 <div class="tabbable tabbable-tabdrop">
                     <tabset>
-                        @*<tab>
-                            <tab-heading ui-sref-active="active">
-                                <a ui-sref="box.feed">feed</a>
-                             </tab-heading>
-                        </tab>*@
                         <tab active="false" ui-sref-active="active" ui-sref="box.feed" heading="feed"></tab>
                         <tab ui-sref-active="active" ui-sref="box.items" heading="items"></tab>
                         <tab ui-sref-active="active" ui-sref="box.quiz" heading="quiz"></tab>
@@ -32,5 +27,4 @@
     </div>
 </div>
 <ui-view></ui-view>
-@*@{Html.RenderPartial("_Feed");}*@
 <!-- END PAGE CONTENT-->

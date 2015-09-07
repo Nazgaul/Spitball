@@ -10,7 +10,8 @@
         'app.userdetails',
         'app.dashboard',
         'app.box',
-        'app.box.feed'
+        'app.box.feed',
+        'app.box.items'
     ]).config(config);
 
     config.$inject = ['$controllerProvider', '$locationProvider'];

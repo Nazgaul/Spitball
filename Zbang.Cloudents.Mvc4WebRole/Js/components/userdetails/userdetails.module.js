@@ -14,4 +14,7 @@
 (function () {
     angular.module('app.box.feed', ['app.ajaxservice']);
 })();
+(function () {
+    angular.module('app.box.items', ['app.ajaxservice']);
+})();
 

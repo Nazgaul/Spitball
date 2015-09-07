@@ -980,6 +980,18 @@
     <Content Include="Content\Site\plugins.rtl.min.css">
       <DependentUpon>plugins.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\Portfolio.css">
+      <DependentUpon>Portfolio.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\Portfolio.min.css">
+      <DependentUpon>Portfolio.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\Portfolio.rtl.css">
+      <DependentUpon>Portfolio.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\Portfolio.rtl.min.css">
+      <DependentUpon>Portfolio.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Static.min.css">
       <DependentUpon>Static.css</DependentUpon>
     </Content>
@@ -1502,6 +1514,7 @@
     <Content Include="Content\Site\master.less" />
     <Content Include="Content\Site\variables.less" />
     <Content Include="Content\Site\dashboard.less" />
+    <Content Include="Content\Site\Portfolio.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2310,6 +2323,7 @@
     <Content Include="Scripts\Site\gmaps.js" />
     <Content Include="Scripts\Site\index3.js" />
     <Content Include="Scripts\Site\jquery-ui.min.js" />
+    <Content Include="Scripts\Site\jquery.mixitup.min.js" />
     <Content Include="Scripts\Site\jquery.slimscroll.js" />
     <Content Include="Scripts\Site\quick-sidebar.js" />
     <Content Include="Scripts\Site\tasks.js" />

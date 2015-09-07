@@ -12,32 +12,32 @@
                 @*<div class="scroller" style="height: 341px;" data-always-visible="1" data-rail-visible1="1">*@
                     <ul class="chats">
                         <li class="in" ng-repeat="post in f.data">
-                            <img class="avatar" alt="" src="{{post.userImage}}" />
+                            <img class="avatar" alt="" src="{{::post.userImage}}" />
                             <div class="message">
                                 <span class="arrow">
                                 </span>
                                 <a href="javascript:;" class="name">
-                                    {{post.userName}}
+                                    {{::post.userName}}
                                 </a>
                                 <span class="datetime">
                                     at 20:09
                                 </span>
-                                <span class="body" ng-bind-html="post.content">
+                                <span class="body" ng-bind-html="::post.content">
                                 </span>
                             </div>
                             <ul>
                                 <li class="out" ng-repeat="reply in post.answers">
-                                    <img class="avatar" alt="" src="{{reply.userImage}}" />
+                                    <img class="avatar" alt="" src="{{::reply.userImage}}" />
                                     <div class="message">
                                         <span class="arrow">
                                         </span>
                                         <a href="javascript:;" class="name">
-                                            {{reply.userName}}
+                                            {{::reply.userName}}
                                         </a>
                                         <span class="datetime">
                                             at 20:11
                                         </span>
-                                        <span class="body" ng-bind-html="reply.content">
+                                        <span class="body" ng-bind-html="::reply.content">
                                         </span>
                                     </div>
                                 </li>

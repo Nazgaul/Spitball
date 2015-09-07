@@ -23,541 +23,151 @@
                                 Wordpress and Logo
                             </li>
                         </ul>
-                        <div class="row mix-grid">
-                            <div class="col-md-3 col-sm-4 mix category_1">
+                        <div class="row mix-grid" mixitup>
+                            <div class="col-md-2 col-sm-3 col-xs-4 mix category_2 category_1" ng-repeat="item in i.data">
                                 <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img1.jpg" alt="">
+                                    <img class="img-responsive" src="{{::item.thumbnail}}" alt="">
+                                    <div class="extraDetails">
+                                        <span>{{::item.numOfViews}}</span>
+                                        <span>{{::item.rate}}</span>
+                                    </div>
                                     <div class="mix-details">
-                                        <h4>Cascusamus et iusto odio</h4>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img2.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
+                                        <h4>{{::item.name}}</h4>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-4 mix category_2">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img2.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto accusamus</h4>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img2.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
+                            @*<div class="col-md-3 col-sm-4 mix category_2">
+                                    <div class="mix-inner">
+                                        <img class="img-responsive" src="http://dummyimage.com/600x400/000/fff" alt="">
+                                        <div class="mix-details">
+                                            <h4>Cascusamus et iusto accusamus</h4>
+                                            <a class="mix-link">
+                                                <i class="fa fa-link"></i>
+                                            </a>
+                                            <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img2.jpg" title="Project Name" data-rel="fancybox-button">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3 col-sm-4 mix category_3">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img3.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto accusamus</h4>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img3.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
+                                <div class="col-md-3 col-sm-4 mix category_3">
+                                    <div class="mix-inner">
+                                        <img class="img-responsive" src="http://dummyimage.com/600x400/000/fff" alt="">
+                                        <div class="mix-details">
+                                            <h4>Cascusamus et iusto accusamus</h4>
+                                            <a class="mix-link">
+                                                <i class="fa fa-link"></i>
+                                            </a>
+                                            <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img3.jpg" title="Project Name" data-rel="fancybox-button">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3 col-sm-4 mix category_1 category_2">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img4.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto accusamus</h4>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img4.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
+                                <div class="col-md-3 col-sm-4 mix category_1 category_2">
+                                    <div class="mix-inner">
+                                        <img class="img-responsive" src="http://dummyimage.com/600x400/000/fff" alt="">
+                                        <div class="mix-details">
+                                            <h4>Cascusamus et iusto accusamus</h4>
+                                            <a class="mix-link">
+                                                <i class="fa fa-link"></i>
+                                            </a>
+                                            <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img4.jpg" title="Project Name" data-rel="fancybox-button">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3 col-sm-4 mix category_2 category_1">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img5.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto accusamus</h4>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img5.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
+                                <div class="col-md-3 col-sm-4 mix category_2 category_1">
+                                    <div class="mix-inner">
+                                        <img class="img-responsive" src="http://dummyimage.com/600x400/000/fff" alt="">
+                                        <div class="mix-details">
+                                            <h4>Cascusamus et iusto accusamus</h4>
+                                            <a class="mix-link">
+                                                <i class="fa fa-link"></i>
+                                            </a>
+                                            <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img5.jpg" title="Project Name" data-rel="fancybox-button">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3 col-sm-4 mix category_1 category_2">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img6.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto accusamus</h4>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img6.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
+                                <div class="col-md-3 col-sm-4 mix category_1 category_2">
+                                    <div class="mix-inner">
+                                        <img class="img-responsive" src="http://dummyimage.com/600x400/000/fff" alt="">
+                                        <div class="mix-details">
+                                            <h4>Cascusamus et iusto accusamus</h4>
+                                            <a class="mix-link">
+                                                <i class="fa fa-link"></i>
+                                            </a>
+                                            <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img6.jpg" title="Project Name" data-rel="fancybox-button">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3 col-sm-4 mix category_2 category_3">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img1.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto accusamus</h4>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img1.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
+                                <div class="col-md-3 col-sm-4 mix category_2 category_3">
+                                    <div class="mix-inner">
+                                        <img class="img-responsive" src="http://dummyimage.com/600x400/000/fff" alt="">
+                                        <div class="mix-details">
+                                            <h4>Cascusamus et iusto accusamus</h4>
+                                            <a class="mix-link">
+                                                <i class="fa fa-link"></i>
+                                            </a>
+                                            <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img1.jpg" title="Project Name" data-rel="fancybox-button">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3 col-sm-4 mix category_1 category_2">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img2.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto accusamus</h4>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img2.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
+                                <div class="col-md-3 col-sm-4 mix category_1 category_2">
+                                    <div class="mix-inner">
+                                        <img class="img-responsive" src="http://dummyimage.com/600x400/000/fff" alt="">
+                                        <div class="mix-details">
+                                            <h4>Cascusamus et iusto accusamus</h4>
+                                            <a class="mix-link">
+                                                <i class="fa fa-link"></i>
+                                            </a>
+                                            <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img2.jpg" title="Project Name" data-rel="fancybox-button">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3 col-sm-4 mix category_3">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img4.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto accusamus</h4>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img4.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
+                                <div class="col-md-3 col-sm-4 mix category_3">
+                                    <div class="mix-inner">
+                                        <img class="img-responsive" src="http://dummyimage.com/600x400/000/fff" alt="">
+                                        <div class="mix-details">
+                                            <h4>Cascusamus et iusto accusamus</h4>
+                                            <a class="mix-link">
+                                                <i class="fa fa-link"></i>
+                                            </a>
+                                            <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img4.jpg" title="Project Name" data-rel="fancybox-button">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3 col-sm-4 mix category_1">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img3.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto accusamus</h4>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img3.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
+                                <div class="col-md-3 col-sm-4 mix category_1">
+                                    <div class="mix-inner">
+                                        <img class="img-responsive" src="http://dummyimage.com/600x400/000/fff" alt="">
+                                        <div class="mix-details">
+                                            <h4>Cascusamus et iusto accusamus</h4>
+                                            <a class="mix-link">
+                                                <i class="fa fa-link"></i>
+                                            </a>
+                                            <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img3.jpg" title="Project Name" data-rel="fancybox-button">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                </div>*@
                         </div>
                     </div>
                     <!-- END FILTER -->
                 </div>
-                <div class="tab-pane" id="tab_2">
-                    <!-- BEGIN FILTER -->
-                    <div class="filter-v1 margin-top-10">
-                        <ul class="mix-filter">
-                            <li class="filter" data-filter="all">
-                                All
-                            </li>
-                            <li class="filter" data-filter="category_1">
-                                UI Design
-                            </li>
-                            <li class="filter" data-filter="category_2">
-                                Web Development
-                            </li>
-                            <li class="filter" data-filter="category_3">
-                                Photography
-                            </li>
-                            <li class="filter" data-filter="category_3 category_1">
-                                Wordpress and Logo
-                            </li>
-                        </ul>
-                        <div class="row mix-grid thumbnails">
-                            <div class="col-md-4 col-sm-6 mix category_1">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img1.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h3>Cascusamus et iusto odio</h3>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae sentium.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img1.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 mix category_2">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img2.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h3>Cascusamus et iusto odio</h3>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae sentium.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img2.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 mix category_3">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img3.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h3>Cascusamus et iusto odio</h3>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img3.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 mix category_1 category_2">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img4.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h3>Cascusamus et iusto odio</h3>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae sentium.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img4.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 mix category_2 category_1">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img5.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h3>Cascusamus et iusto odio</h3>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img5.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 mix category_1 category_2">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img6.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h3>Cascusamus et iusto odio</h3>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae sentium.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img6.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 mix category_2 category_3">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img1.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h3>Cascusamus et iusto odio</h3>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img1.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 mix category_1 category_2">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img2.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h3>Cascusamus et iusto odio</h3>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae sentium.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img2.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 mix category_3">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img4.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h3>Cascusamus et iusto odio</h3>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img4.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 mix category_1">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img3.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h3>Cascusamus et iusto odio</h3>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae sentium voluptatum.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img3.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END FILTER -->
-                </div>
-                <div class="tab-pane" id="tab_3">
-                    <!-- BEGIN FILTER -->
-                    <div class="filter-v1 margin-top-10">
-                        <ul class="mix-filter">
-                            <li class="filter" data-filter="all">
-                                All
-                            </li>
-                            <li class="filter" data-filter="category_1">
-                                UI Design
-                            </li>
-                            <li class="filter" data-filter="category_2">
-                                Web Development
-                            </li>
-                            <li class="filter" data-filter="category_3">
-                                Photography
-                            </li>
-                            <li class="filter" data-filter="category_3 category_1">
-                                Wordpress and Logo
-                            </li>
-                        </ul>
-                        <div class="row mix-grid thumbnails">
-                            <div class="col-md-6 col-sm-6 mix category_1">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img1.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto odio</h4>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae sentium.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img1.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 mix category_2">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img2.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto odio</h4>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae sentium voluptatum.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img2.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 mix category_3">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img3.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto odio</h4>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae sentium.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img3.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 mix category_1 category_2">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img4.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto odio</h4>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae sentium voluptatum.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img4.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 mix category_2 category_1">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img5.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto odio</h4>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae sentium voluptatum.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img5.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 mix category_1 category_2">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img6.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto odio</h4>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae sentium.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img6.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 mix category_2 category_3">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img1.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto odio</h4>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae sentium voluptatum deleniti.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img1.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 mix category_1 category_2">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img2.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto odio</h4>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae sentium voluptatum.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img2.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 mix category_3">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img4.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto odio</h4>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae sentium.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img4.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 mix category_1">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="../../assets/admin/pages/media/works/img3.jpg" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto odio</h4>
-                                        <p>
-                                            At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint blanditiis prae sentium voluptatum.
-                                        </p>
-                                        <a class="mix-link">
-                                            <i class="fa fa-link"></i>
-                                        </a>
-                                        <a class="mix-preview fancybox-button" href="../../assets/admin/pages/media/works/img3.jpg" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END FILTER -->
-                </div>
+
+
             </div>
         </div>
     </div>

@@ -18,5 +18,9 @@
   {
     "outputFile": "Content/Site/layout.css",
     "inputFile": "Content/Site/layout.less"
+  },
+  {
+    "outputFile": "Content/Site/Portfolio.css",
+    "inputFile": "Content/Site/Portfolio.less"
   }
 ]

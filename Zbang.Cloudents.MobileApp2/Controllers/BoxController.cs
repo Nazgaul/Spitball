@@ -65,6 +65,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             try
             {
+                
                 var query = new GetBoxQuery(id);
                 var tResult = ZboxReadService.GetBoxMetaWithMembersAsync(query, numberOfPeople);
                 var tUserType = ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetCloudentsUserId());
@@ -88,6 +89,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }
             catch (BoxAccessDeniedException)
             {
+                Services.Log.Info(string.Format("userid: {0} request box {1}", User.GetCloudentsUserId(), id));
                 return Request.CreateUnauthorizedResponse();
             }
             catch (BoxDoesntExistException)

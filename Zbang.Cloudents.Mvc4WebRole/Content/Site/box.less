@@ -20,3 +20,14 @@ a {
 a:hover, a:focus {
     color:@color1;
 }
+
+.extraDetails {
+    color:@color2;
+    overflow:hidden;
+    > span:first-child {
+        float:left;
+    }
+    >span:last-child {
+        float:right;
+    }
+}

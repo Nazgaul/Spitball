@@ -100,7 +100,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/homepage/bootstrap.css",
                         "~/Content/signin/uniform.default.css",
                         "~/Content/site/bootstrap-switch.css",
-                        //"~/Content/site/tasks.css",
+                        "~/Content/site/portfolio.css",
                         "~/Content/site/components-rounded.css",
                         "~/Content/site/plugins.css",
                         "~/Content/site/layout.css",
@@ -405,6 +405,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
                         new JsFileWithCdn("~/scripts/ui-bootstrap-tpls.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-tabdrop.js"),
+                        new JsFileWithCdn("~/scripts/site/jquery.mixitup.min.js"),
 
                         new JsFileWithCdn("~/js/signin/metronic.js"),
                         new JsFileWithCdn("~/js/signin/layout.js"),

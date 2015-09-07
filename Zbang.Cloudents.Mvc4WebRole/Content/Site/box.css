@@ -18,3 +18,13 @@ a:hover,
 a:focus {
   color: #5f6871;
 }
+.extraDetails {
+  color: #f5f5f5;
+  overflow: hidden;
+}
+.extraDetails > span:first-child {
+  float: left;
+}
+.extraDetails > span:last-child {
+  float: right;
+}
