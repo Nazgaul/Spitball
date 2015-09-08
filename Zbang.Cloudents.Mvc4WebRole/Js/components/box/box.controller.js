@@ -51,6 +51,9 @@
         d.getItems = function (boxid) {
             return ajaxservice.get('/box/items/', { id: boxid });
         }
+        d.getTabs = function(boxid) {
+            return ajaxservice.get('/box/tabs/', { id: boxid });
+        }
 
     }
 })();

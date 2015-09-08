@@ -1,14 +1,18 @@
 ﻿(function () {
     angular.module('app.box.items').controller('ItemsController', items);
-    items.$inject = ['boxService', '$stateParams', '$scope', '$timeout'];
+    items.$inject = ['boxService', '$stateParams', '$scope', '$q'];
 
-    function items(boxService, $stateParams, $scope, $timeout) {
+    function items(boxService, $stateParams, $scope, $q) {
         var i = this;
-        boxService.getItems($stateParams.boxId).then(function (response) {
-            i.data = response;
+        $q.all([
+            boxService.getItems($stateParams.boxId),
+            boxService.getTabs($stateParams.boxId)
+        ]).then(function (data) {
+            i.data = data[0];
             for (var j = 0; j < i.data.length; j++) {
                 i.data[j].thumbnail = 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(i.data[j].source) + '.jpg?width=368&height=520&mode=crop'; // item.source
             }
+            i.tabs = data[1];
             $scope.$broadcast("boxItemsLoaded");
         });
     }

@@ -22,5 +22,13 @@
   {
     "outputFile": "Content/Site/Portfolio.css",
     "inputFile": "Content/Site/Portfolio.less"
+  },
+  {
+    "outputFile": "Content/Site/profile.css",
+    "inputFile": "Content/Site/profile.less"
+  },
+  {
+    "outputFile": "Content/Site/user.css",
+    "inputFile": "Content/Site/user.less"
   }
 ]

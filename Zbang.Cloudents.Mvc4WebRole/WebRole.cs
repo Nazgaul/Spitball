@@ -116,36 +116,36 @@ namespace Zbang.Cloudents.Mvc4WebRole
         }
         public override void Run()
         {
-            try
-            {
-                var localuri = new Uri(string.Format("https://{0}/", RoleEnvironment.CurrentRoleInstance.InstanceEndpoints["Endpoint2"].IPEndpoint));
-                System.Threading.Tasks.Task.Factory.StartNew(() =>
-                {
-                    ServicePointManager.ServerCertificateValidationCallback += ValidateRemoteCertificate;
-                    while (true)
-                    {
-                        try
-                        {
-                            var request = (HttpWebRequest)WebRequest.Create(localuri);
-                            request.Method = "GET";
-                            using (request.GetResponse())
-                            {
-                            }
+//            try
+//            {
+//                var localuri = new Uri(string.Format("https://{0}/", RoleEnvironment.CurrentRoleInstance.InstanceEndpoints["Endpoint2"].IPEndpoint));
+//                System.Threading.Tasks.Task.Factory.StartNew(() =>
+//                {
+//                    ServicePointManager.ServerCertificateValidationCallback += ValidateRemoteCertificate;
+//                    while (true)
+//                    {
+//                        try
+//                        {
+//                            var request = (HttpWebRequest)WebRequest.Create(localuri);
+//                            request.Method = "GET";
+//                            using (request.GetResponse())
+//                            {
+//                            }
                             
-                            break;
-                        }
-// ReSharper disable once EmptyGeneralCatchClause
-                        catch
-                        {
-                        }
-                        System.Threading.Thread.Sleep(TimeSpan.FromSeconds(10));
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("on Run", ex);
-            }
+//                            break;
+//                        }
+//// ReSharper disable once EmptyGeneralCatchClause
+//                        catch
+//                        {
+//                        }
+//                        System.Threading.Thread.Sleep(TimeSpan.FromSeconds(10));
+//                    }
+//                });
+//            }
+//            catch (Exception ex)
+//            {
+//                TraceLog.WriteError("on Run", ex);
+//            }
             base.Run();
         }
 

@@ -17,7 +17,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {"lang.ru-RU", new[] {"~/Content/lang.ru-RU.css"}},
                 {"lang.he-IL", new[] {"~/Content/lang.he-IL.css"}},
                 {"lang.ar-AE", new[] {"~/Content/lang.ar-AE.css"}},
-               
+
                 {
                     "newcore3", new[]
                     {
@@ -47,7 +47,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/textAngular.css"
                     }
                 },
-               
+
                 {
                     "static", new[]
                     {
@@ -72,7 +72,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                          "~/Content/HomePage/theme.css",
                          //"~/Content/HomePage/restaurant.css",
                          "~/Content/HomePage/landing.css"
-                        
+
                     }
                 },
                   {
@@ -101,13 +101,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/signin/uniform.default.css",
                         "~/Content/site/bootstrap-switch.css",
                         "~/Content/site/portfolio.css",
+                        "~/content/site/profile.css",
                         "~/Content/site/components-rounded.css",
                         "~/Content/site/plugins.css",
                         "~/Content/site/layout.css",
                         "~/Content/site/light.css",
                         "~/Content/site/master.css",
                         "~/Content/site/dashboard.css",
-                        "~/Content/site/box.css"
+                        "~/Content/site/box.css",
+                         "~/Content/site/user.css"
                         //"~/Content/signin/select2.css",
                         //"~/Content/signin/login-soft.css",
                         //"~/Content/signin/components-md.css",
@@ -157,7 +159,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/angulartics.js"), new JsFileWithCdn("~/scripts/angulartics-ga.js"),
                         //new JsFileWithCdn("~/scripts/angular-appinsights.js"),
                         new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
-                        new JsFileWithCdn("~/scripts/stacktrace.js"),              
+                        new JsFileWithCdn("~/scripts/stacktrace.js"),
                         new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
                         //new JsFileWithCdn("~/scripts/bindonce.js"),
                         new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-0.13.0.js"),
@@ -185,17 +187,17 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/app.js"),
 
                         new JsFileWithCdn("/js/controllers/general/mainCtrl.js"),
-                        new JsFileWithCdn("/js/controllers/general/shareCtrl.js"),                        
+                        new JsFileWithCdn("/js/controllers/general/shareCtrl.js"),
                         new JsFileWithCdn("/js/controllers/general/uploadListCtrl.js"),
                         new JsFileWithCdn("/js/controllers/account/settingsCtrl.js"),
-                        new JsFileWithCdn("/js/controllers/account/loginWrapperCtrl.js"),                        
+                        new JsFileWithCdn("/js/controllers/account/loginWrapperCtrl.js"),
                         new JsFileWithCdn("/js/controllers/account/accountCtrl.js"),
                         new JsFileWithCdn("/js/controllers/account/notificationsCtrl.js"),
                         new JsFileWithCdn("/js/controllers/account/congratsCtrl.js"),
                         new JsFileWithCdn("/js/controllers/account/notificationSettingsCtrl.js"),
                         new JsFileWithCdn("/js/controllers/account/userDetailsCtrl.js"),
                         new JsFileWithCdn("/js/controllers/account/loginCtrl.js"),
-                        new JsFileWithCdn("/js/controllers/search/searchCtrl.js"),                        
+                        new JsFileWithCdn("/js/controllers/search/searchCtrl.js"),
                         new JsFileWithCdn("/js/controllers/box/boxCtrl.js"),
                         new JsFileWithCdn("/js/controllers/box/sideBarCtrl.js"),
                         new JsFileWithCdn("/js/controllers/box/leavePromptCtrl.js"),
@@ -223,7 +225,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("/js/controllers/library/libraryRenameCtrl.js"),
                         new JsFileWithCdn("/js/controllers/user/userCtrl.js"),
                         new JsFileWithCdn("/js/controllers/item/itemCtrl.js"),
-                        new JsFileWithCdn("/js/controllers/item/itemRegCtrl.js"),                        
+                        new JsFileWithCdn("/js/controllers/item/itemRegCtrl.js"),
                         new JsFileWithCdn("/js/controllers/item/itemFullScreenCtrl.js"),
                         new JsFileWithCdn("/js/controllers/item/itemRenameCtrl.js"),
                         new JsFileWithCdn("/js/controllers/item/itemFlagCtrl.js"),
@@ -296,12 +298,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("/js/directives/facebookFeed.js"),
                         new JsFileWithCdn("/js/directives/contentEditable.js"),
                         new JsFileWithCdn("/js/directives/rateStar.js"),
-                        new JsFileWithCdn("/js/directives/boxItemTooltip.js"),                        
+                        new JsFileWithCdn("/js/directives/boxItemTooltip.js"),
                         new JsFileWithCdn("/js/filters/escapeHtmlChars.js"),
                         new JsFileWithCdn("/js/filters/kNumber.js"),
                         new JsFileWithCdn("/js/filters/defaultImage.js"),
                         new JsFileWithCdn("/js/filters/fileSize.js"),
-                        new JsFileWithCdn("/js/filters/extToClass.js"),                        
+                        new JsFileWithCdn("/js/filters/extToClass.js"),
                         new JsFileWithCdn("/js/filters/actionText.js"),
                         new JsFileWithCdn("/js/filters/highlight.js"),
                         new JsFileWithCdn("/js/filters/orderBy.js"),
@@ -352,7 +354,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/homePage/theme.js"),
                         //new JsFileWithCdn("~/Scripts/browser-deeplink.min.js")
                         new JsFileWithCdn("~/js/homePage/homeScreen.js")
-                       
+
                     }
                 },
                 {
@@ -417,7 +419,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/app.js"),
                         new JsFileWithCdn("~/js/app.config.js"),
                         new JsFileWithCdn("~/js/app.route.js"),
-                        
+
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.module.js"),
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.controller.js"),
@@ -425,6 +427,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/box/box.controller.js"),
                         new JsFileWithCdn("~/js/components/box/feed.controller.js"),
                         new JsFileWithCdn("~/js/components/box/item.controller.js"),
+
+                        new JsFileWithCdn("~/js/components/user/user.controller.js"),
+
                         new JsFileWithCdn("~/js/components/app.controller.js"),
                         new JsFileWithCdn("~/js/services/ajaxService.js"),
                         new JsFileWithCdn("~/js/shared/colorOnLength.js")

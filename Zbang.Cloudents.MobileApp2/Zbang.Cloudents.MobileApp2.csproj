@@ -214,6 +214,7 @@
     <Compile Include="DataObjects\CreateLibraryRequest.cs" />
     <Compile Include="DataObjects\CreateUniversityRequest.cs" />
     <Compile Include="DataObjects\DeleteItemRequest.cs" />
+    <Compile Include="DataObjects\DiscussionRequest.cs" />
     <Compile Include="DataObjects\DropboxUploadRequest.cs" />
     <Compile Include="DataObjects\FileUploadRequest.cs">
       <SubType>Code</SubType>

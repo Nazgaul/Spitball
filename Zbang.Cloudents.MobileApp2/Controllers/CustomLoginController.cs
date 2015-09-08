@@ -181,7 +181,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }
             catch (Exception ex)
             {
-                Services.Log.Error(string.Format("Error in facebook login - facebook data - {0} authkey {2} ex {1} ", googleUserData, ex, model.AuthToken));
+                Services.Log.Error(string.Format("Error in google login - google data - {0} authkey {2} ex {1} ", googleUserData, ex, model.AuthToken));
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
             }
         }

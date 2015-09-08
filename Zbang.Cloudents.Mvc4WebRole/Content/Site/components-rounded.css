@@ -5632,7 +5632,7 @@ Responsive & Scrollable Tables
   border: 0;
 }
 .table-scrollable > .table {
-  width: 70% !important;
+  width: 100% !important;
   float: right;
   margin: 0 !important;
   margin-bottom: 0;

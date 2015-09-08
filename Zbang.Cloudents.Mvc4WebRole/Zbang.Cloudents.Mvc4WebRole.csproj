@@ -1154,6 +1154,18 @@
     <Content Include="Content\Site\Portfolio.rtl.min.css">
       <DependentUpon>Portfolio.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\profile.css">
+      <DependentUpon>profile.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\profile.min.css">
+      <DependentUpon>profile.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\user.css">
+      <DependentUpon>user.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\user.min.css">
+      <DependentUpon>user.css</DependentUpon>
+    </Content>
     <Content Include="Content\Static.min.css">
       <DependentUpon>Static.css</DependentUpon>
     </Content>
@@ -1469,6 +1481,7 @@
     <Content Include="Js\components\dashboard\dashboard.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
+    <Content Include="Js\components\user\user.controller.js" />
     <Content Include="Js\contact-us.js" />
     <Content Include="Js\controllers\account\SpitballCtrl.js" />
     <Content Include="Js\directives\boxLogo.js" />
@@ -1725,6 +1738,8 @@
     <Content Include="Content\Site\variables.less" />
     <Content Include="Content\Site\dashboard.less" />
     <Content Include="Content\Site\Portfolio.less" />
+    <Content Include="Content\Site\profile.less" />
+    <Content Include="Content\Site\user.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2654,6 +2669,7 @@
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Box\Index2.cshtml" />
     <Content Include="Views\Box\_Items.cshtml" />
+    <Content Include="Views\User\Index2.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

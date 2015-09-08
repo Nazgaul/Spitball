@@ -10,6 +10,7 @@
         'app.userdetails',
         'app.dashboard',
         'app.box',
+        'app.user',
         'app.box.feed',
         'app.box.items'
     ]).config(config);

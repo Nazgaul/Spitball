@@ -20,7 +20,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public async Task<HttpResponseMessage> Boxes(long userId, int page, int sizePerPage = 15)
         {
             var query = new GetUserWithFriendQuery(User.GetCloudentsUserId(), userId, page, sizePerPage);
-            var model = await ZboxReadService.GetUserWithFriendBoxes(query);
+            var model = await ZboxReadService.GetUserWithFriendBoxesAsync(query);
             return Request.CreateResponse(model.Select(s => new
             {
                 s.Id,

@@ -79,52 +79,7 @@
 
                     controller: 'BoxController as box'
                 }).
-                //state('course', {
-                //    url: '/course/:uniName/:boxId/:boxName/',
-                //    templateUrl: function () {
-                //        return buildUrl('/box/indexpartial/');
-                //    },
-                  
-                //     controller: 'BoxController as b'
-                //}).
-                // state('course.feed', {
-                //     templateUrl: function () {
-                //         return buildUrl('/box/feed/');
-                //     },
-                //     url: 'feed/',
-                //     //templateUrl: function () {
-                //     //    return buildUrl('/box/indexpartial/');
-                //     //},
-
-                //     controller: 'FeedController as f'
-                // }).
-                // state('course.items', {
-                //     template: '<div>this is a items</div>',
-                //     url: 'items/',
-                //     //templateUrl: function () {
-                //     //    return buildUrl('/box/indexpartial/');
-                //     //},
-
-                //     controller: 'BoxController as box'
-                // }).
-                //state('course.quiz', {
-                //    template: '<div>this is a quiz</div>',
-                //    url: 'quiz/',
-                //    //templateUrl: function () {
-                //    //    return buildUrl('/box/indexpartial/');
-                //    //},
-
-                //    controller: 'BoxController as box'
-                //}).
-                //state('course.members', {
-                //    template: '<div>this is a members</div>',
-                //    url: 'members/',
-                //    //templateUrl: function () {
-                //    //    return buildUrl('/box/indexpartial/');
-                //    //},
-
-                //    controller: 'BoxController as box'
-                //}).
+                
                 state('jobs', {
                     url: '/jobs/',
                     templateUrl: function () {
@@ -136,6 +91,13 @@
                     templateUrl: function () {
                         return buildUrl('/home/helppartial/');
                     }
+                })
+                .state('user', {
+                    url: '/user/:userId/:userName/',
+                    templateUrl: function () {
+                        return buildUrl('/user/indexpartial/');
+                    },
+                    controller: 'UserController as u'
                 })
                 .state('dashboard', {
                     url: '/dashboard/',

@@ -3,7 +3,10 @@
   <PublicConfig xmlns="http://schemas.microsoft.com/ServiceHosting/2010/10/DiagnosticsConfiguration">
     <WadCfg>
       <DiagnosticMonitorConfiguration overallQuotaInMB="4096">
-        <Logs scheduledTransferPeriod="PT1M" scheduledTransferLogLevelFilter="Error" />
+        <PerformanceCounters scheduledTransferPeriod="PT5M">
+          <PerformanceCounterConfiguration counterSpecifier="\.NET CLR Memory(_Global_)\% Time in GC" sampleRate="PT0S" />
+        </PerformanceCounters>
+        <Logs scheduledTransferPeriod="PT1M" />
       </DiagnosticMonitorConfiguration>
     </WadCfg>
     <StorageAccount />

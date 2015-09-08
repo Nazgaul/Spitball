@@ -593,7 +593,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetUserWithFriendQuery(1, 2);
             try
             {
-                var x = m_ZboxReadService.GetUserWithFriendBoxes(query).Result;
+                var x = m_ZboxReadService.GetUserWithFriendBoxesAsync(query).Result;
             }
             catch (Exception ex)
             {

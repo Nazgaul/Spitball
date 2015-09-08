@@ -23,13 +23,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
 #endif
             //don't need this
             //AreaRegistration.RegisterAllAreas();
-
+            TraceLog.WriteInfo("starting app");
             //IocConfig.RegisterIoc();
             DisplayConfig.RegisterDisplays();
+            TraceLog.WriteInfo("register views");
             ViewConfig.RegisterEngineAndViews();
+            TraceLog.WriteInfo("register bundles");
             BundleRegistration.RegisterBundles();
+            TraceLog.WriteInfo("register filters");
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-
+            TraceLog.WriteInfo("register routes");
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
@@ -43,6 +46,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //this disable identity check
             System.Web.Helpers.AntiForgeryConfig.SuppressIdentityHeuristicChecks = true;
             MvcHandler.DisableMvcResponseHeader = true;
+            TraceLog.WriteInfo("end of application start");
         }
         protected void Application_End()
         {

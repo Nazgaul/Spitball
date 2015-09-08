@@ -800,7 +800,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
         #region UserPage
-        public async Task<IEnumerable<BoxDto>> GetUserWithFriendBoxes(GetUserWithFriendQuery query)
+        public async Task<IEnumerable<BoxDto>> GetUserWithFriendBoxesAsync(GetUserWithFriendQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {

@@ -24,7 +24,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult IndexPartial()
         {
-            return PartialView("Index");
+            return PartialView("Index2");
         }
 
         [NonAction]
@@ -38,9 +38,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(VaryByParam = "userId", Duration = TimeConsts.Hour)]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult> MinProfile(long userId)
+        public async Task<ActionResult> MinProfile(long id)
         {
-            return JsonOk(await GetUserProfile(userId));
+            return JsonOk(await GetUserProfile(id));
         }
 
         [HttpGet]
@@ -84,7 +84,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetUserWithFriendQuery(User.GetUserId(), userId);
-                var model = await ZboxReadService.GetUserWithFriendBoxes(query);
+                var model = await ZboxReadService.GetUserWithFriendBoxesAsync(query);
                 return JsonOk(model);
             }
             catch (Exception ex)
@@ -107,7 +107,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return JsonError();
                 }
                 var query = new GetUserWithFriendQuery(university.Value, userId);
-                var model = await ZboxReadService.GetUserWithFriendBoxes(query);
+                var model = await ZboxReadService.GetUserWithFriendBoxesAsync(query);
                 return JsonOk(model);
             }
             catch (Exception ex)

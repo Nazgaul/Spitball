@@ -18,3 +18,7 @@
     angular.module('app.box.items', ['app.ajaxservice']);
 })();
 
+(function () {
+    angular.module('app.user', ['app.ajaxservice']);
+})();
+

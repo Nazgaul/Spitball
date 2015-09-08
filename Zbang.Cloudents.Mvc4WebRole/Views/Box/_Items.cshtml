@@ -1,7 +1,7 @@
 ﻿<!-- BEGIN PAGE CONTENT-->
 <div class="row">
     <div class="col-md-12">
-        <div class="tabbable tabbable-custom tabbable-noborder">
+        <div class="tabbable tabbable-custom tabbable-noborder no-background">
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
                     <!-- BEGIN FILTER -->
@@ -10,21 +10,12 @@
                             <li class="filter" data-filter="all">
                                 All
                             </li>
-                            <li class="filter" data-filter="category_1">
-                                UI Design
-                            </li>
-                            <li class="filter" data-filter="category_2">
-                                Web Development
-                            </li>
-                            <li class="filter" data-filter="category_3">
-                                Photography
-                            </li>
-                            <li class="filter" data-filter="category_3 category_1">
-                                Wordpress and Logo
+                            <li class="filter" data-filter="{{::tab.id}}" ng-repeat="tab in i.tabs">
+                                {{::tab.name}}
                             </li>
                         </ul>
                         <div class="row mix-grid" mixitup>
-                            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 mix category_2 category_1" ng-repeat="item in i.data">
+                            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 mix {{::item.tabId}}" ng-repeat="item in i.data">
                                 <div>
                                     <div class="mix-inner">
                                         <img class="img-responsive" src="{{::item.thumbnail}}" alt="">

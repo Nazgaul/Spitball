@@ -1,0 +1,10 @@
+﻿.userPage .portlet.box {
+  background: #fff;
+  text-transform: uppercase;
+}
+.userPage .portlet.box.friends > .portlet-title {
+  background: red;
+}
+.userPage .table-scrollable > .table {
+  background-color: transparent;
+}

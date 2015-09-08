@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Zbang.Cloudents.MobileApp2.DataObjects;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
@@ -21,6 +22,9 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
     public class QuizController : ApiController
     {
         public IZboxWriteService ZboxWriteService { get; set; }
+
+
+        public  IGuidIdGenerator GuidGenerator {get;set;}
 
         public ApiServices Services { get; set; }
         public IZboxCacheReadService ZboxReadService { get; set; }
@@ -110,6 +114,29 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.Date,
                 s.UserName
             }));
+        }
+
+
+        [Route("api/quiz/{id:long}/discussion"), HttpPost]
+        public HttpResponseMessage PostDiscussion(DiscussionRequest model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            var id = GuidGenerator.GetId();
+            var command = new CreateDiscussionCommand(User.GetCloudentsUserId(), model.Text, model.QuestionId, id);
+            ZboxWriteService.CreateItemInDiscussion(command);
+            return Request.CreateResponse();
+        }
+
+
+        [Route("api/quiz/{id:long}/discussion"), HttpDelete]
+        public HttpResponseMessage PostDiscussion(Guid id)
+        {
+            var command = new DeleteDiscussionCommand(id, User.GetCloudentsUserId());
+            ZboxWriteService.DeleteItemInDiscussion(command);
+            return Request.CreateResponse();
         }
     }
 }

@@ -72,6 +72,10 @@ namespace Zbang.Zbox.Infrastructure.Culture
 
         public static string GetCultureBaseOnCulture(string culture)
         {
+            if (string.IsNullOrEmpty(culture))
+            {
+                return GetDefaultSystemCulture().Culture;
+            }
             var supportCulture = SupportedCultures.FirstOrDefault(s => s.Culture.ToLower().StartsWith(culture.ToLower()));
             if (supportCulture == null)
             {

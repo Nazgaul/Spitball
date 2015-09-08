@@ -195,9 +195,9 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<BoxDto>> GetUserWithFriendBoxes(GetUserWithFriendQuery query)
+        public Task<IEnumerable<BoxDto>> GetUserWithFriendBoxesAsync(GetUserWithFriendQuery query)
         {
-            return m_ReadService.GetUserWithFriendBoxes(query);
+            return m_ReadService.GetUserWithFriendBoxesAsync(query);
         }
 
       
