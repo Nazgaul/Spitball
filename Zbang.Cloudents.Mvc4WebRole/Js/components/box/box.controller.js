@@ -19,14 +19,10 @@
 
         $scope.$on('$viewContentLoaded', function () {
             $timeout(function () {
-                if ($().tabdrop) {
-                    $('.tabbable-tabdrop .nav-pills, .tabbable-tabdrop .nav-tabs').tabdrop({
-                        text: '<i class="fa fa-ellipsis-v"></i>&nbsp;<i class="fa fa-angle-down"></i>'
-                    });
-                }
+                Metronic.initAjax();
             });
             //TODO: maybe this is no good.
-            //Metronic.init(); // init core components
+            //Metronic.initAjax(); // init core components
 
         });
     }

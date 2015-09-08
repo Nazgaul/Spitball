@@ -127,12 +127,12 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var id = GuidGenerator.GetId();
             var command = new CreateDiscussionCommand(User.GetCloudentsUserId(), model.Text, model.QuestionId, id);
             ZboxWriteService.CreateItemInDiscussion(command);
-            return Request.CreateResponse();
+            return Request.CreateResponse(id);
         }
 
 
         [Route("api/quiz/{id:long}/discussion"), HttpDelete]
-        public HttpResponseMessage PostDiscussion(Guid id)
+        public HttpResponseMessage DeleteDiscussion(Guid id)
         {
             var command = new DeleteDiscussionCommand(id, User.GetCloudentsUserId());
             ZboxWriteService.DeleteItemInDiscussion(command);

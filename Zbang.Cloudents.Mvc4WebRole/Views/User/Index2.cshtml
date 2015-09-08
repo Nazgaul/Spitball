@@ -1,6 +1,6 @@
 ﻿<div class="page-head">
     <div class="page-title">
-        <h1>{{b.name}} @*<small>blank page</small>*@</h1>
+        <h1>user page @*<small>blank page</small>*@</h1>
     </div>
 </div>
 <div class="row userPage">
@@ -9,24 +9,24 @@
             <div class="portlet light profile-sidebar-portlet">
                 <!-- SIDEBAR USERPIC -->
                 <div class="profile-userpic">
-                    <img src="http://lorempixel.com/100/100/" class="img-responsive" alt="">
+                    <img src="{{::u.details.image}}" class="img-responsive" alt="">
                 </div>
                 <!-- END SIDEBAR USERPIC -->
                 <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
-                        Marcus Doe
+                        {{::u.details.name}}
                     </div>
                     <div class="profile-usertitle-job">
-                        Developer
+                        {{::u.details.universityName}}
                     </div>
                 </div>
                 <!-- END SIDEBAR USER TITLE -->
                 <!-- SIDEBAR BUTTONS -->
                 @*<div class="profile-userbuttons">
-                    <button type="button" class="btn btn-circle green-haze btn-sm">Follow</button>
-                    <button type="button" class="btn btn-circle btn-danger btn-sm">Message</button>
-                </div>*@
+                        <button type="button" class="btn btn-circle green-haze btn-sm">Follow</button>
+                        <button type="button" class="btn btn-circle btn-danger btn-sm">Message</button>
+                    </div>*@
                 <!-- END SIDEBAR BUTTONS -->
                 <!-- SIDEBAR MENU -->
                 <div class="profile-usermenu">
@@ -64,96 +64,38 @@
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    #
+
                                                 </th>
                                                 <th>
-                                                    First Name
+                                                    member
                                                 </th>
                                                 <th>
-                                                    Last Name
+                                                    university
                                                 </th>
                                                 <th>
-                                                    Username
+                                                    joined
                                                 </th>
                                                 <th>
-                                                    Status
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr ng-repeat="friend in u.friends">
                                                 <td>
-                                                    1
+                                                    {{::friend.largeImage}}
                                                 </td>
                                                 <td>
-                                                    Mark
+                                                    {{::friend.name}}
                                                 </td>
                                                 <td>
-                                                    Otto
+                                                    some univeristy
                                                 </td>
                                                 <td>
-                                                    makr124
+                                                    some date
                                                 </td>
                                                 <td>
                                                     <span class="label label-sm label-success">
                                                         Approved
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Jacob
-                                                </td>
-                                                <td>
-                                                    Nilson
-                                                </td>
-                                                <td>
-                                                    jac123
-                                                </td>
-                                                <td>
-                                                    <span class="label label-sm label-info">
-                                                        Pending
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    3
-                                                </td>
-                                                <td>
-                                                    Larry
-                                                </td>
-                                                <td>
-                                                    Cooper
-                                                </td>
-                                                <td>
-                                                    lar
-                                                </td>
-                                                <td>
-                                                    <span class="label label-sm label-warning">
-                                                        Suspended
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    4
-                                                </td>
-                                                <td>
-                                                    Sandy
-                                                </td>
-                                                <td>
-                                                    Lim
-                                                </td>
-                                                <td>
-                                                    sanlim
-                                                </td>
-                                                <td>
-                                                    <span class="label label-sm label-danger">
-                                                        Blocked
                                                     </span>
                                                 </td>
                                             </tr>
@@ -176,96 +118,40 @@
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    #
+
                                                 </th>
                                                 <th>
-                                                    First Name
+                                                    box name
                                                 </th>
                                                 <th>
-                                                    Last Name
+                                                    university
                                                 </th>
                                                 <th>
-                                                    Username
+                                                    items
                                                 </th>
                                                 <th>
-                                                    Status
+                                                    members
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr ng-repeat="box in u.boxes">
+                                                <td>placeholder</td>
                                                 <td>
-                                                    1
+                                                    {{::box.name}}
                                                 </td>
                                                 <td>
-                                                    Mark
+                                                    some univeristy
                                                 </td>
                                                 <td>
-                                                    Otto
+                                                    {{::box.itemCount}}
                                                 </td>
                                                 <td>
-                                                    makr124
+                                                    {{::box.membersCount}}
                                                 </td>
                                                 <td>
                                                     <span class="label label-sm label-success">
                                                         Approved
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Jacob
-                                                </td>
-                                                <td>
-                                                    Nilson
-                                                </td>
-                                                <td>
-                                                    jac123
-                                                </td>
-                                                <td>
-                                                    <span class="label label-sm label-info">
-                                                        Pending
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    3
-                                                </td>
-                                                <td>
-                                                    Larry
-                                                </td>
-                                                <td>
-                                                    Cooper
-                                                </td>
-                                                <td>
-                                                    lar
-                                                </td>
-                                                <td>
-                                                    <span class="label label-sm label-warning">
-                                                        Suspended
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    4
-                                                </td>
-                                                <td>
-                                                    Sandy
-                                                </td>
-                                                <td>
-                                                    Lim
-                                                </td>
-                                                <td>
-                                                    sanlim
-                                                </td>
-                                                <td>
-                                                    <span class="label label-sm label-danger">
-                                                        Blocked
                                                     </span>
                                                 </td>
                                             </tr>
@@ -288,99 +174,43 @@
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    #
+                                                   
                                                 </th>
                                                 <th>
-                                                    First Name
+                                                    name
                                                 </th>
                                                 <th>
-                                                    Last Name
+                                                    course
                                                 </th>
                                                 <th>
-                                                    Username
+                                                    date
                                                 </th>
                                                 <th>
-                                                    Status
+                                                   
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr ng-repeat="file in u.files">
                                                 <td>
-                                                    1
+                                                    
                                                 </td>
                                                 <td>
-                                                    Mark
+                                                    {{::file.name}}
                                                 </td>
                                                 <td>
-                                                    Otto
+                                                    {{::file.boxName}}
                                                 </td>
                                                 <td>
-                                                    makr124
+                                                    2/13/2105
                                                 </td>
                                                 <td>
                                                     <span class="label label-sm label-success">
-                                                        Approved
+                                                        view
                                                     </span>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Jacob
-                                                </td>
-                                                <td>
-                                                    Nilson
-                                                </td>
-                                                <td>
-                                                    jac123
-                                                </td>
-                                                <td>
-                                                    <span class="label label-sm label-info">
-                                                        Pending
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    3
-                                                </td>
-                                                <td>
-                                                    Larry
-                                                </td>
-                                                <td>
-                                                    Cooper
-                                                </td>
-                                                <td>
-                                                    lar
-                                                </td>
-                                                <td>
-                                                    <span class="label label-sm label-warning">
-                                                        Suspended
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    4
-                                                </td>
-                                                <td>
-                                                    Sandy
-                                                </td>
-                                                <td>
-                                                    Lim
-                                                </td>
-                                                <td>
-                                                    sanlim
-                                                </td>
-                                                <td>
-                                                    <span class="label label-sm label-danger">
-                                                        Blocked
-                                                    </span>
-                                                </td>
-                                            </tr>
+                                           
                                         </tbody>
                                     </table>
                                 </div>
@@ -391,9 +221,9 @@
                         <div class="portlet box red">
                             <div class="portlet-title">
                                 <div class="caption">
-                                   your comments
+                                    your comments
                                 </div>
-                                
+
                             </div>
                             <div class="portlet-body">
                                 <div class="table-scrollable">
@@ -401,96 +231,32 @@
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    #
+                                                   
                                                 </th>
                                                 <th>
-                                                    First Name
+                                                    text
                                                 </th>
                                                 <th>
-                                                    Last Name
+                                                    date
                                                 </th>
                                                 <th>
-                                                    Username
-                                                </th>
-                                                <th>
-                                                    Status
+                                                    
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr ng-repeat="c in u.feed">
                                                 <td>
-                                                    1
+                                                    {{::c.type}}
+                                                </td>
+                                                <td ng-bind-html="::c.content">
                                                 </td>
                                                 <td>
-                                                    Mark
-                                                </td>
-                                                <td>
-                                                    Otto
-                                                </td>
-                                                <td>
-                                                    makr124
+                                                    2/13/2105
                                                 </td>
                                                 <td>
                                                     <span class="label label-sm label-success">
-                                                        Approved
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Jacob
-                                                </td>
-                                                <td>
-                                                    Nilson
-                                                </td>
-                                                <td>
-                                                    jac123
-                                                </td>
-                                                <td>
-                                                    <span class="label label-sm label-info">
-                                                        Pending
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    3
-                                                </td>
-                                                <td>
-                                                    Larry
-                                                </td>
-                                                <td>
-                                                    Cooper
-                                                </td>
-                                                <td>
-                                                    lar
-                                                </td>
-                                                <td>
-                                                    <span class="label label-sm label-warning">
-                                                        Suspended
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    4
-                                                </td>
-                                                <td>
-                                                    Sandy
-                                                </td>
-                                                <td>
-                                                    Lim
-                                                </td>
-                                                <td>
-                                                    sanlim
-                                                </td>
-                                                <td>
-                                                    <span class="label label-sm label-danger">
-                                                        Blocked
+                                                        view
                                                     </span>
                                                 </td>
                                             </tr>
@@ -500,6 +266,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

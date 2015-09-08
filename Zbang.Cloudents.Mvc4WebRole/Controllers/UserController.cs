@@ -44,30 +44,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Friends(long? userId)
+        public async Task<ActionResult> Friends(long id)
         {
             try
             {
-                var query = new GetUserFriendsQuery(User.GetUserId());
-                var taskUserData = ZboxReadService.GetUserFriends(query);
-                Task<IEnumerable<UserDto>> taskFriendData = Task.FromResult<IEnumerable<UserDto>>(null);
-                if (userId.HasValue)
-                {
-                    var friendQuery = new GetUserFriendsQuery(userId.Value);
-                    taskFriendData = ZboxReadService.GetUserFriends(friendQuery);
-                }
-                await Task.WhenAll(taskUserData, taskFriendData);
+                var friendQuery = new GetUserFriendsQuery(id);
+                var friendData = await ZboxReadService.GetUserFriends(friendQuery);
 
-                IEnumerable<UserDto> friendFriends = null;
-                if (taskFriendData.Result != null)
-                {
-                    friendFriends = taskFriendData.Result.Where(w => w.Id != User.GetUserId());
-                }
-                return JsonOk(new
-                {
-                    my = taskUserData.Result,
-                    user = friendFriends
-                });
+                return JsonOk(friendData);
             }
             catch (Exception ex)
             {
@@ -79,17 +63,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult> Boxes(long userId)
+        public async Task<ActionResult> Boxes(long id)
         {
             try
             {
-                var query = new GetUserWithFriendQuery(User.GetUserId(), userId);
+                var query = new GetUserWithFriendQuery(User.GetUserId(), id);
                 var model = await ZboxReadService.GetUserWithFriendBoxesAsync(query);
                 return JsonOk(model);
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("User/Boxes user {0}, userRequest {1}", User.Identity.Name, userId), ex);
+                TraceLog.WriteError(string.Format("User/Boxes user {0}, userRequest {1}", User.Identity.Name, id), ex);
                 return JsonError();
             }
         }
@@ -151,11 +135,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Activity(long userId)
+        public async Task<ActionResult> Activity(long id)
         {
-            var query = new GetUserWithFriendQuery(User.GetUserId(), userId);
-            var model = await ZboxReadService.GetUserWithFriendActivity(query);
+            var query = new GetUserWithFriendQuery(User.GetUserId(), id);
+            var model = await ZboxReadService.GetUserWithFriendActivityAsync(query);
+
+
             return JsonOk(model);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Items(long id)
+        {
+            var query = new GetUserWithFriendQuery(User.GetUserId(), id);
+            var result = await ZboxReadService.GetUserWithFriendItemsAsync(query);
+            return JsonOk(result);
         }
 
         [HttpPost]

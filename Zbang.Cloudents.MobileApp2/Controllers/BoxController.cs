@@ -203,9 +203,9 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 s.Name,
                 s.Id,
-                creationTime = s.Date,
-                s.Owner,
-                s.OwnerId
+                //creationTime = s.Date,
+                //s.Owner,
+                //s.OwnerId
                 //s.Url
             }));
             
