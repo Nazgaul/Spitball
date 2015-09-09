@@ -1,6 +1,6 @@
 ﻿/// <reference path="~/Scripts/angular.js" />
 (function () {
-    angular.module('app.userdetails').controller('UserDetails', userDetails);
+    angular.module('app.user.details').controller('UserDetails', userDetails);
     userDetails.$inject = ['userDetailsService'];
 
     function userDetails(userDetailsService) {
@@ -23,8 +23,21 @@
     }
 })();
 
+(function() {
+    angular.module('app.user.account').controller('AccountSettings', account);
+    account.$inject = ['userDetailsService'];
+
+    function account(userDetailsService) {
+        var a = this;
+        userDetailsService.getAccountDetails().then(function(response) {
+            a.data = response;
+        });
+    }
+
+})();
+
 (function () {
-    angular.module('app.userdetails').service('userDetailsService', userDetails);
+    angular.module('app.user').service('userDetailsService', userDetails);
     userDetails.$inject = ['ajaxService','$q'];
 
     function userDetails(ajaxservice,$q) {
@@ -47,6 +60,10 @@
                 });
             }
             return defer.promise;
+        }
+
+        ud.getAccountDetails = function() {
+            return ajaxservice.get('/account/settingsdata/', null, 1800000);
         }
     }
 })();

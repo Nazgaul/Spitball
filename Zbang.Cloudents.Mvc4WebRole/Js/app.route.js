@@ -100,11 +100,11 @@
                     controller: 'UserController as u'
                 })
                 .state('settings', {
-                    url: '/account/settings',
+                    url: '/account/settings/',
                     templateUrl: function() {
-                        return buildUrl('/account/settings/');
+                        return buildUrl('/account/settingpartial/');
                     },
-                    controller: 'AccountController as a'
+                    controller: 'AccountSettings as a'
                 })
                 .state('dashboard', {
                     url: '/dashboard/',

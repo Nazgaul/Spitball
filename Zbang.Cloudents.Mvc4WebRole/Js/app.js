@@ -7,10 +7,14 @@
         'ui.bootstrap',
         
         'angulartics.google.analytics',
-        'app.userdetails',
+        
         'app.dashboard',
-        'app.box',
+        
         'app.user',
+        'app.user.details',
+        'app.user.account',
+
+        'app.box',
         'app.box.feed',
         'app.box.items'
     ]).config(config);

@@ -2,9 +2,9 @@
 (function () {
     angular.module('app.ajaxservice', ['jmdobry.angular-cache']);
 })();
-(function () {
-    angular.module('app.userdetails', ['app.ajaxservice']);
-})();
+//(function () {
+//    angular.module('app.userdetails', ['app.ajaxservice']);
+//})();
 (function () {
     angular.module('app.dashboard', ['app.ajaxservice']);
 })();
@@ -20,5 +20,11 @@
 
 (function () {
     angular.module('app.user', ['app.ajaxservice']);
+})();
+(function () {
+    angular.module('app.user.details', ['app.ajaxservice']);
+})();
+(function () {
+    angular.module('app.user.account', ['app.ajaxservice']);
 })();
 
