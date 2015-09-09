@@ -409,11 +409,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/ui-bootstrap-tpls.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-tabdrop.js"),
                         new JsFileWithCdn("~/scripts/site/jquery.mixitup.min.js"),
+                        new JsFileWithCdn("~/scripts/site/jquery.dataTables.min.js"),
 
                         new JsFileWithCdn("~/js/signin/metronic.js"),
                         new JsFileWithCdn("~/js/signin/layout.js"),
                         //new JsFileWithCdn("~/scripts/site/quick-sidebar.js"),
                         new JsFileWithCdn("~/js/signin/demo.js"),
+                         //new JsFileWithCdn("~/scripts/site/table-advanced.js"),
                         //new JsFileWithCdn("~/scripts/site/index3.js"),
                         //new JsFileWithCdn("~/scripts/site/tasks.js")
 

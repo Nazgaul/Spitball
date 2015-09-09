@@ -472,7 +472,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize, NoUniversity]
         public PartialViewResult SettingPartial()
         {
-            return PartialView("Settings");
+            return PartialView("Settings2");
         }
 
         const string SessionKey = "UserVerificationCode";

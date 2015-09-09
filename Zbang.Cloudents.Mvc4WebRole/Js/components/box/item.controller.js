@@ -13,7 +13,7 @@
                 i.data[j].thumbnail = 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(i.data[j].source) + '.jpg?width=368&height=520&mode=crop'; // item.source
             }
             i.tabs = data[1];
-            $scope.$broadcast("boxItemsLoaded");
+            $scope.$broadcast("mixItUp");
         });
     }
 })();

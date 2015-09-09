@@ -8,3 +8,9 @@
 .userPage .table-scrollable > .table {
   background-color: transparent;
 }
+.userPage svg {
+  width: 25px;
+  height: 25px;
+  fill: #fff;
+  vertical-align: middle;
+}

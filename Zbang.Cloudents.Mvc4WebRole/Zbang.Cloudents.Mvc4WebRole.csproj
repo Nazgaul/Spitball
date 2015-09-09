@@ -1178,6 +1178,12 @@
     <Content Include="Content\Site\user.min.css">
       <DependentUpon>user.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\user.rtl.css">
+      <DependentUpon>user.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\user.rtl.min.css">
+      <DependentUpon>user.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Static.min.css">
       <DependentUpon>Static.css</DependentUpon>
     </Content>
@@ -2562,9 +2568,11 @@
     <Content Include="Scripts\Site\gmaps.js" />
     <Content Include="Scripts\Site\index3.js" />
     <Content Include="Scripts\Site\jquery-ui.min.js" />
+    <Content Include="Scripts\Site\jquery.dataTables.min.js" />
     <Content Include="Scripts\Site\jquery.mixitup.min.js" />
     <Content Include="Scripts\Site\jquery.slimscroll.js" />
     <Content Include="Scripts\Site\quick-sidebar.js" />
+    <Content Include="Scripts\Site\table-advanced.js" />
     <Content Include="Scripts\Site\tasks.js" />
     <Content Include="Scripts\textAngular\textAngular-rangy.min.js" />
     <Content Include="Scripts\textAngular\textAngular-sanitize.js" />
@@ -2684,6 +2692,7 @@
     <Content Include="Views\Box\Index2.cshtml" />
     <Content Include="Views\Box\_Items.cshtml" />
     <Content Include="Views\User\Index2.cshtml" />
+    <Content Include="Views\Account\Settings2.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -32,14 +32,14 @@
                 <div class="profile-usermenu">
                     <ul class="nav">
                         <li class="active">
-                            <a href="extra_profile.html">
-                                <i class="icon-home"></i>
+                            <a href="{{::u.details.url}}">
+                                @Html.Svg("~/images/site/icons.svg", "houseMenu")
                                 presonal data
                             </a>
                         </li>
                         <li>
-                            <a href="extra_profile_account.html">
-                                <i class="icon-settings"></i>
+                            <a href="@Url.RouteUrl("AccountSettings")">
+                                @Html.Svg("~/images/site/icons.svg", "settingMenu")
                                 Account Settings
                             </a>
                         </li>
@@ -60,13 +60,10 @@
                             </div>
                             <div class="portlet-body">
                                 <div class="table-scrollable">
-                                    <table class="table table-hover">
+                                    <table class="table table-hover" table-scroller>
                                         <thead>
                                             <tr>
-                                                <th>
-
-                                                </th>
-                                                <th>
+                                                <th colspan="2">
                                                     member
                                                 </th>
                                                 <th>
@@ -82,7 +79,7 @@
                                         <tbody>
                                             <tr ng-repeat="friend in u.friends">
                                                 <td>
-                                                    {{::friend.largeImage}}
+                                                    <img width="50" height="50" src="{{::friend.largeImage}}" alt="userImage" class="img-circle"/>
                                                 </td>
                                                 <td>
                                                     {{::friend.name}}
@@ -114,7 +111,7 @@
                             </div>
                             <div class="portlet-body">
                                 <div class="table-scrollable">
-                                    <table class="table table-hover">
+                                    <table class="table table-hover" table-scroller>
                                         <thead>
                                             <tr>
                                                 <th>
@@ -132,6 +129,7 @@
                                                 <th>
                                                     members
                                                 </th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -170,11 +168,11 @@
                             </div>
                             <div class="portlet-body">
                                 <div class="table-scrollable">
-                                    <table class="table table-hover">
+                                    <table class="table table-hover" table-scroller>
                                         <thead>
                                             <tr>
                                                 <th>
-                                                   
+
                                                 </th>
                                                 <th>
                                                     name
@@ -186,15 +184,13 @@
                                                     date
                                                 </th>
                                                 <th>
-                                                   
+
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="file in u.files">
-                                                <td>
-                                                    
-                                                </td>
+                                                <td></td>
                                                 <td>
                                                     {{::file.name}}
                                                 </td>
@@ -210,7 +206,7 @@
                                                     </span>
                                                 </td>
                                             </tr>
-                                           
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -227,11 +223,11 @@
                             </div>
                             <div class="portlet-body">
                                 <div class="table-scrollable">
-                                    <table class="table table-hover">
+                                    <table class="table table-hover" table-scroller>
                                         <thead>
                                             <tr>
                                                 <th>
-                                                   
+
                                                 </th>
                                                 <th>
                                                     text
@@ -240,7 +236,7 @@
                                                     date
                                                 </th>
                                                 <th>
-                                                    
+
                                                 </th>
                                             </tr>
                                         </thead>
@@ -249,8 +245,7 @@
                                                 <td>
                                                     {{::c.type}}
                                                 </td>
-                                                <td ng-bind-html="::c.content">
-                                                </td>
+                                                <td ng-bind-html="::c.content"></td>
                                                 <td>
                                                     2/13/2105
                                                 </td>

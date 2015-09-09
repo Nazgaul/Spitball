@@ -36,7 +36,7 @@
                 templateUrl: function () {
                     return buildUrl('/box/indexpartial/');
                 },
-              
+
                 controller: 'BoxController as b'
             }).
                   state('box.feed', {
@@ -47,7 +47,7 @@
                       //templateUrl: function () {
                       //    return buildUrl('/box/indexpartial/');
                       //},
-              
+
                       controller: 'FeedController as f'
                   }).
                  state('box.items', {
@@ -79,7 +79,7 @@
 
                     controller: 'BoxController as box'
                 }).
-                
+
                 state('jobs', {
                     url: '/jobs/',
                     templateUrl: function () {
@@ -99,14 +99,21 @@
                     },
                     controller: 'UserController as u'
                 })
+                .state('settings', {
+                    url: '/account/settings',
+                    templateUrl: function() {
+                        return buildUrl('/account/settings/');
+                    },
+                    controller: 'AccountController as a'
+                })
                 .state('dashboard', {
                     url: '/dashboard/',
-                    templateUrl: function() {
+                    templateUrl: function () {
                         return buildUrl('/dashboard/indexpartial/');
                     },
                     controller: 'Dashboard as d'
                     //onEnter: dashboardRedirect
-                });      
+                });
             $urlRouterProvider.rule(function ($injector, $location) {
 
                 var path = $location.path();
