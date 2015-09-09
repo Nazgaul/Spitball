@@ -112,7 +112,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 s.UserId,
                 s.UserPicture,
                 s.Date,
-                s.UserName
+                s.UserName,
+                s.Id
             }));
         }
 

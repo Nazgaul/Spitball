@@ -29,12 +29,10 @@
                                 u.UserImageLarge as LargeImage,
                                 u.UserReputation
                                 from zbox.userboxrel ub 
-                                join zbox.box b on ub.boxid  = b.boxid
-                                join zbox.userboxrel ub2 on b.boxid = ub2.boxid
+                                join zbox.userboxrel ub2 on ub.boxid = ub2.boxid
                                 join zbox.users u on u.userid = ub2.userid
                                 where ub.userid = @UserId
-                                and b.isdeleted = 0
-                                and ub2.userid != @UserId
+                                and u.userid != @UserId
                                 group by u.userid ,u.UserName  ,u.UserImage ,u.UserImageLarge,u.UserReputation ,u.url
                                 order by u.UserReputation desc
     offset @pageNumber*@rowsperpage ROWS

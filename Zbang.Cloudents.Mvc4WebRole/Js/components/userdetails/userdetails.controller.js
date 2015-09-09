@@ -25,17 +25,28 @@
 
 (function () {
     angular.module('app.userdetails').service('userDetailsService', userDetails);
-    userDetails.$inject = ['ajaxService'];
+    userDetails.$inject = ['ajaxService','$q'];
 
-    function userDetails(ajaxservice) {
+    function userDetails(ajaxservice,$q) {
         var ud = this;
-        ud.isLoggedIn = false;
-        ud.getDetails = function () {
-            return ajaxservice.get('/account/details/', null, 1800000);
-        }
 
-        //ud.name = 'Guy Golan';
-        //ud.points = 500;
-        //ud.image = 'http://lorempixel.com/400/200/';
+        var serverCall = false;
+        var defer = $q.defer();
+
+        ud.getDetails = function () {
+            if (ud.details) {
+                defer.resolve(ud.details);
+                return defer.promise;
+            }
+            if (!serverCall) {
+                serverCall = true;
+                ajaxservice.get('/account/details/', null, 1800000).then(function (response) {
+                    serverCall = false;
+                    ud.details = response;
+                    defer.resolve(ud.details);
+                });
+            }
+            return defer.promise;
+        }
     }
 })();

@@ -261,45 +261,39 @@
                 <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-controller="SideMenu as d">
                     <li class="start ">
                         <a @shouldPostBack href="@Url.Action("Index","Dashboard")">
-                            <i class="icon-basket"></i>
+                            @Html.Svg(svgUrl, "houseMenu")
                             <span class="title">Dashboard</span>
 
                         </a>
                     </li>
                     <li>
                         <a href="javascript:;">
-                            <i class="icon-basket"></i>
                             <span class="title">My Classes</span>
                             <span class="arrow "></span>
                         </a>
                         <ul class="sub-menu">
                             <li ng-repeat="box in d.courses">
                                 <a href="javascript:;">
-                                    <i class="icon-basket"></i>
-                                    {{box.name}}
+                                    {{::box.name}}
                                 </a>
                                 <ul class="sub-menu">
                                     <li>
-                                        <a @shouldPostBack href="javascript:;">
-                                            <i class="icon-basket"></i>
+                                        <a @shouldPostBack href="{{::box.url + 'feed/'}}">
                                             feed
                                         </a>
                                     </li>
                                     <li>
-                                        <a @shouldPostBack href="javascript:;">
-                                            <i class="icon-basket"></i>
+                                        <a @shouldPostBack href="{{::box.url + 'items/'}}">
                                             items
                                         </a>
                                     </li>
                                     <li>
-                                        <a @shouldPostBack href="javascript:;">
-                                            <i class="icon-basket"></i>
+                                        <a @shouldPostBack href="{{::box.url + 'quiz/'}}">
                                             quizzes
                                         </a>
                                     </li>
                                     <li>
-                                        <a @shouldPostBack href="javascript:;">
-                                            <i class="icon-basket"></i>
+                                        <a @shouldPostBack href="{{::box.url + 'members/'}}">
                                             members
                                         </a>
                                     </li>
@@ -310,38 +304,32 @@
                     </li>
                     <li>
                         <a href="javascript:;">
-                            <i class="icon-basket"></i>
                             <span class="title">My Group</span>
                             <span class="arrow "></span>
                         </a>
                         <ul class="sub-menu">
                             <li ng-repeat="box in d.privateBoxes">
                                 <a href="javascript:;">
-                                    <i class="icon-basket"></i>
-                                    {{box.name}}
+                                    {{::box.name}}
                                 </a>
                                 <ul class="sub-menu">
                                     <li>
-                                        <a @shouldPostBack href="javascript:;">
-                                            <i class="icon-basket"></i>
+                                        <a @shouldPostBack href="{{::box.url + 'feed/'}}">
                                             feed
                                         </a>
                                     </li>
                                     <li>
-                                        <a @shouldPostBack href="javascript:;">
-                                            <i class="icon-basket"></i>
+                                        <a @shouldPostBack href="{{::box.url + 'items/'}}">
                                             items
                                         </a>
                                     </li>
                                     <li>
-                                        <a @shouldPostBack href="javascript:;">
-                                            <i class="icon-basket"></i>
+                                        <a @shouldPostBack href="{{::box.url + 'quiz/'}}">
                                             quizzes
                                         </a>
                                     </li>
                                     <li>
-                                        <a @shouldPostBack href="javascript:;">
-                                            <i class="icon-basket"></i>
+                                        <a @shouldPostBack href="{{::box.url + 'members/'}}">
                                             members
                                         </a>
                                     </li>
@@ -353,25 +341,25 @@
 
                     <li>
                         <a @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")">
-                            <i class="icon-pointer"></i>
+                           @Html.Svg(svgUrl, "universityMenu")
                             <span class="title">University Page</span>
                         </a>
                     </li>
                     <li>
-                        <a @shouldPostBack href="/user/1/ram-y/">
-                            <i class="icon-pointer"></i>
+                        <a @shouldPostBack href="{{::d.userUrl}}">
+                            @Html.Svg(svgUrl, "userMenu")
                             <span class="title">User Page</span>
                         </a>
                     </li>
                     <li>
                         <a @shouldPostBack href="@Url.RouteUrl("AccountSettings")">
-                            <i class="icon-pointer"></i>
+                            @Html.Svg(svgUrl, "settingMenu")
                             <span class="title">Settings</span>
                         </a>
                     </li>
                     <li class="last ">
                         <a target="_self" href="@Url.Action("logoff","account")">
-                            <i class="icon-pointer"></i>
+                            @Html.Svg(svgUrl, "logOffMenu")
                             <span class="title">Log out</span>
                         </a>
                     </li>

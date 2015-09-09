@@ -5,7 +5,7 @@
     </div>
     <!-- END PAGE TITLE -->
 </div>
-<div class="row margin-top-10">
+<div class="row margin-top-10" ng-controller="UniversityMeta as um">
     <div class="col-md-6 col-sm-12">
         <div class="dBox">
             this is university
@@ -25,51 +25,47 @@
                     <table class="table table-hover table-light">
                         <tr>
                             <td class="fit">
-                                <img class="user-pic" src="../../assets/admin/layout3/img/avatar4.jpg">
+                                <img class="user-pic" src="{{::um.leaderBoard[0].image}}">
                             </td>
                             <td>
-                                Brain
+                                {{::um.leaderBoard[0].name}}
                             </td>
                             <td class="leaderbordPosition">
-                                $345
+                                1st
                             </td>
                             <td>
-                                45
+                                {{::um.leaderBoard[0].score}}
                             </td>
-                           
+
 
                         </tr>
                         <tr>
                             <td class="fit">
-                                <img class="user-pic" src="../../assets/admin/layout3/img/avatar5.jpg">
+                                <img class="user-pic" src="{{::um.leaderBoard[1].image}}">
                             </td>
                             <td>
-                                Nick
+                                {{::um.leaderBoard[1].name}}
                             </td>
                             <td class="leaderbordPosition">
-                                $560
+                                2nd
                             </td>
                             <td>
-                                12
+                                {{::um.leaderBoard[0].score}}
                             </td>
-                           
-
                         </tr>
                         <tr>
                             <td class="fit">
-                                <img class="user-pic" src="../../assets/admin/layout3/img/avatar6.jpg">
+                                <img class="user-pic" src="{{::um.leaderBoard[2].image}}">
                             </td>
                             <td>
-                                Tim
+                                {{::um.leaderBoard[2].name}}
                             </td>
                             <td class="leaderbordPosition">
-                                $1,345
+                                3nd
                             </td>
                             <td>
-                                450
+                                {{::um.leaderBoard[2].score}}
                             </td>
-                           
-
                         </tr>
                     </table>
                 </div>

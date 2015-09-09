@@ -1,0 +1,11 @@
+﻿/*.menuSvg {
+    width: 30px;
+    height: 25px;
+    fill: #fff;
+}*/
+.page-sidebar-menu svg {
+  width: 30px;
+  height: 25px;
+  fill: #fff;
+  vertical-align: middle;
+}

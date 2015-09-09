@@ -107,6 +107,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/site/layout.css",
                         "~/Content/site/light.css",
                         "~/Content/site/master.css",
+                        "~/Content/site/menu.css",
                         "~/Content/site/dashboard.css",
                         "~/Content/site/box.css",
                          "~/Content/site/user.css"
@@ -423,6 +424,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.module.js"),
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.controller.js"),
+                        new JsFileWithCdn("~/js/components/dashboard/sidemenu.controller.js"),
 
                         new JsFileWithCdn("~/js/components/box/box.controller.js"),
                         new JsFileWithCdn("~/js/components/box/feed.controller.js"),

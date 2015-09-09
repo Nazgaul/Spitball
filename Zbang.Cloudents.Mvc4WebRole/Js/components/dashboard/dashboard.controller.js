@@ -14,32 +14,29 @@
 })();
 
 (function () {
-    angular.module('app.dashboard').controller('SideMenu', dashboard);
-    dashboard.$inject = ['dashboardService'];
+    angular.module('app.dashboard').controller('UniversityMeta', universityMeta);
+    universityMeta.$inject = ['dashboardService'];
 
-    function dashboard(dashboardService) {
-        var d = this;
-        d.boxes = [];
-        d.courses = [];
-        d.privateBoxes = [];
-        dashboardService.getBoxes().then(function (response) {
-            d.boxes = response;
-            d.courses = $.grep(d.boxes, function (b) {
-                return b.boxType === 'academic';
-            });
-            d.privateBoxes = $.grep(d.boxes, function (b) {
-                return b.boxType === 'box';
-            });
+    function universityMeta(dashboardService) {
+        var um = this;
+        dashboardService.getUniversityMeta().then(function (response) {
+            console.log(response);
+            um.leaderBoard = response.leaderBoard;
+            um.info = response.info;
+
+
         });
     }
 })();
 
 
+
+
 (function () {
     angular.module('app.dashboard').service('dashboardService', dashboard);
-    dashboard.$inject = ['$q', 'ajaxService', '$timeout'];
+    dashboard.$inject = ['$q', 'ajaxService'];
 
-    function dashboard($q, ajaxservice, $timeout) {
+    function dashboard($q, ajaxservice) {
         var d = this;
         var serverCall = false;
         var defer = $q.defer();
@@ -59,6 +56,10 @@
                 });
             }
             return defer.promise;
+        }
+
+        d.getUniversityMeta = function() {
+            return ajaxservice.get('/dashboard/SideBar/', null, 1800000);
         }
     }
 })();
