@@ -9,7 +9,7 @@
             <div class="portlet light profile-sidebar-portlet">
                 <!-- SIDEBAR USERPIC -->
                 <div class="profile-userpic">
-                    <img src="{{::u.details.image}}" class="img-responsive" alt="">
+                    <img src="{{::u.details.image}}" class="img-responsive" alt="" style="max-width:150px;">
                 </div>
                 <!-- END SIDEBAR USERPIC -->
                 <!-- SIDEBAR USER TITLE -->
@@ -45,7 +45,7 @@
                         </li>
                     </ul>
                 </div>
-                <!-- END MENU -->
+                <!-- END SIDEBAR MENU -->
             </div>
         </div>
         <div class="profile-content">
@@ -79,7 +79,7 @@
                                         <tbody>
                                             <tr ng-repeat="friend in u.friends">
                                                 <td>
-                                                    <img width="50" height="50" src="{{::friend.largeImage}}" alt="userImage" class="img-circle"/>
+                                                    <img width="50" height="50" src="{{::friend.largeImage}}" alt="userImage" class="img-circle" />
                                                 </td>
                                                 <td>
                                                     {{::friend.name}}
@@ -102,6 +102,8 @@
                             </div>
                         </div>
                     </div>
+                  
+                   
                     <div class="col-md-6">
                         <div class="portlet box">
                             <div class="portlet-title">
@@ -214,7 +216,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="portlet box red">
+                        <div class="portlet box ">
                             <div class="portlet-title">
                                 <div class="caption">
                                     your comments

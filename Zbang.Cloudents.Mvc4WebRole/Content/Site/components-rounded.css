@@ -2503,22 +2503,16 @@ Chats
   -webkit-border-radius: 50% !important;
   -moz-border-radius: 50% !important;
   border-radius: 50% !important;
-}
-.chats li.in .avatar {
   float: left;
-  margin-right: 10px;
-}
-.chats li.out .avatar {
-  float: right;
-  margin-left: 10px;
+  margin-right: 15px;
 }
 .chats li .name {
-  color: #1BBC9B;
+  color: #fff;
   font-size: 13px;
   font-weight: 400;
 }
 .chats li.out .name {
-  color: #F3565D;
+  color: #fff;
 }
 .chats li .datetime {
   color: #fff;
@@ -2526,16 +2520,21 @@ Chats
   font-weight: 400;
 }
 .chats li .message {
-  display: block;
-  padding: 5px;
+  display: inline-block;
+  padding: 7px 20px 7px 10px;
   position: relative;
+  text-align: left;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 13px;
 }
 .chats li.in .message {
-  text-align: left;
-  border-left: 2px solid #1BBC9B;
-  margin-left: 65px;
-  background: #484f56;
-  color: #fff;
+  border-left: 2px solid #326f2d;
+  background: #326f2d;
+}
+.chats li.out .message {
+  border-left: 2px solid #3598dc;
+  background: #3598dc;
 }
 .chats li.in .message .arrow {
   display: block;
@@ -2546,35 +2545,27 @@ Chats
   height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-right: 8px solid #1BBC9B;
-}
-.chats li.out .message {
-  border-right: 2px solid #F3565D;
-  margin-right: 65px;
-  background: #6e7883;
-  text-align: right;
-  margin-left: 0;
-  border-left: 0;
+  border-right: 8px solid #326f2d;
 }
 .chats li.out .message .arrow {
   display: block;
   position: absolute;
   top: 5px;
-  right: -8px;
+  left: -8px;
+  width: 0;
+  height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-left: 8px solid #F3565D;
-  left: auto;
-  border-right: 0;
+  border-right: 8px solid #3598dc;
 }
 .chats li.out .name,
 .chats li.out .datetime {
   text-align: right;
 }
 .chat-form {
-  margin-top: 15px;
+  margin-bottom: 33px;
   padding: 10px;
-  background-color: #e9eff3;
+  background-color: #333;
   overflow: hidden;
   clear: both;
 }
@@ -2591,7 +2582,7 @@ Chats
   border: 1px solid #4b8df9 !important;
 }
 .chat-form .btn-cont {
-  margin-top: -42px;
+  margin-top: -45px;
   position: relative;
   float: right;
   width: 44px;
@@ -5626,7 +5617,6 @@ Responsive & Scrollable Tables
   overflow-x: auto;
   overflow-y: hidden;
   border: 1px solid #dddddd;
-  margin: 10px 0 !important;
 }
 .table-scrollable.table-scrollable-borderless {
   border: 0;

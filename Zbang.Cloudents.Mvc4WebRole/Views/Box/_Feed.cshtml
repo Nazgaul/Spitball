@@ -2,49 +2,14 @@
 <div class="row">
     <div class="col-md-6">
         <div class="portlet light ">
-            <div class="portlet-title">
+            <!--<div class="portlet-title">
                 <div class="caption">
                     <i class="icon-bubble font-red-sunglo"></i>
                     <span class="caption-subject font-red-sunglo bold uppercase">feed</span>
                 </div>
-            </div>
+            </div>-->
             <div class="portlet-body" id="chats">
                 @*<div class="scroller" style="height: 341px;" data-always-visible="1" data-rail-visible1="1">*@
-                    <ul class="chats">
-                        <li class="in" ng-repeat="post in f.data">
-                            <img class="avatar" alt="" src="{{::post.userImage}}" />
-                            <div class="message">
-                                <span class="arrow">
-                                </span>
-                                <a href="javascript:;" class="name">
-                                    {{::post.userName}}
-                                </a>
-                                <span class="datetime">
-                                    at 20:09
-                                </span>
-                                <span class="body" ng-bind-html="::post.content">
-                                </span>
-                            </div>
-                            <ul>
-                                <li class="out" ng-repeat="reply in post.answers">
-                                    <img class="avatar" alt="" src="{{::reply.userImage}}" />
-                                    <div class="message">
-                                        <span class="arrow">
-                                        </span>
-                                        <a href="javascript:;" class="name">
-                                            {{::reply.userName}}
-                                        </a>
-                                        <span class="datetime">
-                                            at 20:11
-                                        </span>
-                                        <span class="body" ng-bind-html="::reply.content">
-                                        </span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                @*</div>*@
                 <div class="chat-form">
                     <div class="input-cont">
                         <input class="form-control" type="text" placeholder="Type a message here..." />
@@ -57,6 +22,47 @@
                         </a>
                     </div>
                 </div>
+                <ul class="chats">
+                    <li class="in" ng-repeat="post in f.data">
+                        <img class="avatar" alt="" src="{{::post.userImage}}" />
+                        <div class="message">
+                            <span class="arrow">
+                            </span>
+                            <a href="javascript:;" class="name">
+                                {{::post.userName}}
+                            </a>
+                            <span class="datetime">
+                                at 20:09
+                            </span>
+                            <span class="body" ng-bind-html="::post.content">
+                            </span>
+                            <br>
+                            <span >Likes</span>
+                            <span style="margin-left: 31px;">comment</span>
+                            <span style="float:right;">Share</span>
+
+                        </div>
+                        <ul>
+                            <li class="out" ng-repeat="reply in post.answers">
+                                <img class="avatar" alt="" src="{{::reply.userImage}}" />
+                                <div class="message">
+                                    <span class="arrow">
+                                    </span>
+                                    <a href="javascript:;" class="name">
+                                        {{::reply.userName}}
+                                    </a>
+                                    <span class="datetime">
+                                        at 20:11
+                                    </span>
+                                    <span class="body" ng-bind-html="::reply.content">
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                @*</div>*@
+
             </div>
         </div>
     </div>

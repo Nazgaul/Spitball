@@ -22,7 +22,7 @@ Page Header
 ***********/
 /* Header search bar, toggler button & top menu */
 .page-header.navbar {
-  background: #353a3f;
+  background: #353a3f
   /* Top notification menu/bar */
   /* Header seaech box */
   /* Menu Toggler */
@@ -207,7 +207,7 @@ Page Header
 /* Page sidebar */
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover,
 .page-sidebar {
-  background-color: #353a3f;
+  background-color: #353a3f
   /* Default sidebar */
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu,
@@ -250,7 +250,7 @@ Page Header
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a,
 .page-sidebar .page-sidebar-menu > li:hover > a,
 .page-sidebar .page-sidebar-menu > li.open > a {
-  background: #f2f6f9;
+  background: #292d31;
   color: #5b9bd1;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a > i,
@@ -350,6 +350,7 @@ Page Header
 .page-sidebar .page-sidebar-menu .sub-menu > li:hover > a,
 .page-sidebar .page-sidebar-menu .sub-menu > li.open > a,
 .page-sidebar .page-sidebar-menu .sub-menu > li.active > a {
+  color: #5b9bd1;
   background: #292d31 !important;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li:hover > a > i,
@@ -444,7 +445,7 @@ Page Footer
 @media (max-width: 991px) {
   /* 991px */
   .page-header.navbar {
-    padding: 0;
+    padding: 0
     /* Top menu */
   }
   .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle:hover {
