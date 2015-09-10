@@ -1149,14 +1149,8 @@ Scroller Extension
 .dataTables_scroll {
   margin-bottom: 10px;
 }
-.dataTables_scrollHead {
-  border-bottom: 2px solid #ddd !important;
-}
 .dataTables_scrollHead thead th {
   border-bottom: 0 !important;
-}
-.dataTables_scrollBody {
-  border-bottom: 1px solid #ddd !important;
 }
 .DTTT_Print_Info {
   width: 300px;
@@ -1420,7 +1414,7 @@ Google Maps
 ***/
 .gmaps {
   height: 300px;
-  width: 100%;
+  width: 100%
   /* important!  bootstrap sets max-width on img to 100% which conflicts with google map canvas*/
 }
 .gmaps img {

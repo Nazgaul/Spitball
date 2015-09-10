@@ -1196,6 +1196,12 @@
     <Content Include="Content\Site\profile.min.css">
       <DependentUpon>profile.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\profile.rtl.css">
+      <DependentUpon>profile.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\profile.rtl.min.css">
+      <DependentUpon>profile.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\user.css">
       <DependentUpon>user.less</DependentUpon>
     </Content>
