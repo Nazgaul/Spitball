@@ -1094,6 +1094,18 @@
     <Content Include="Content\Site\dashboard.rtl.min.css">
       <DependentUpon>dashboard.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\item.css">
+      <DependentUpon>item.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\item.min.css">
+      <DependentUpon>item.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\item.rtl.css">
+      <DependentUpon>item.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\item.rtl.min.css">
+      <DependentUpon>item.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\library.css">
       <DependentUpon>library.less</DependentUpon>
     </Content>
@@ -1510,6 +1522,7 @@
     <Content Include="Js\components\box\item.controller.js" />
     <Content Include="Js\components\dashboard\dashboard.controller.js" />
     <Content Include="Js\components\dashboard\sidemenu.controller.js" />
+    <Content Include="Js\components\item\item.controller.js" />
     <Content Include="Js\components\library\library.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
@@ -1774,6 +1787,7 @@
     <Content Include="Content\Site\user.less" />
     <Content Include="Content\Site\menu.less" />
     <Content Include="Content\Site\library.less" />
+    <Content Include="Content\Site\item.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2639,7 +2653,6 @@
     </Content>
     <Content Include="Views\Library\_SelectUni.cshtml" />
     <Content Include="Views\Box\_CreateTab.cshtml" />
-    <Content Include="Views\Box\_Items2.cshtml" />
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
     <Content Include="Views\Error\Unsupported.cshtml" />
     <Content Include="Views\Shared\_LayoutStatic.cshtml" />
@@ -2707,6 +2720,7 @@
     <Content Include="Views\User\Index2.cshtml" />
     <Content Include="Views\Account\Settings2.cshtml" />
     <Content Include="Views\Library\Index2.cshtml" />
+    <Content Include="Views\Item\Index2.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

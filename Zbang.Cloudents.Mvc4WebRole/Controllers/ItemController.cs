@@ -59,7 +59,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public PartialViewResult IndexPartial()
         {
-            return PartialView("Index");
+            return PartialView("Index2");
         }
 
         [BoxPermission("boxId", Order = 2)]

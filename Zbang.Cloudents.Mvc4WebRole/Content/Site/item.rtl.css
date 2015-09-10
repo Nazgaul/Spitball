@@ -1,0 +1,30 @@
+﻿.itemPage {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: #F4F4F4;
+  z-index: 10000;
+  overflow-y: auto;
+}
+.itemPage header {
+  height: 80px;
+  color: #f5f5f5;
+  background-color: #353a3f;
+}
+.itemPage .fileName {
+  text-align: center;
+}
+.itemPage .preview {
+  text-align: center;
+}
+.itemPage .like {
+  float: right;
+}
+.itemPage .actions {
+  text-align: center;
+}
+.itemPage .closeItem {
+  float: left;
+}

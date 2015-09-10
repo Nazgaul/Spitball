@@ -31,6 +31,14 @@
                 //    },
                 //    controller: 'LibChooseController as libChoose'
                 //})
+                .state('item', {
+                    url: '/item/{universityName}/{boxId}/{boxName}/{itemId}/{itemName}/',
+                    templateUrl: function () {
+                        return buildUrl('/item/indexpartial/');
+                    },
+
+                    controller: 'ItemController as i'
+                })
             .state('box', {
                 url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/',
                 templateUrl: function () {
@@ -101,7 +109,7 @@
                 })
                 .state('settings', {
                     url: '/account/settings/',
-                    templateUrl: function() {
+                    templateUrl: function () {
                         return buildUrl('/account/settingpartial/');
                     },
                     controller: 'AccountSettings as a'
