@@ -132,11 +132,19 @@ body {
     0% {
         opacity: 1;
         -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
     }
 
     100% {
         opacity: 0 !important;
         -webkit-transform: scale(2.5);
+        -moz-transform: scale(2.5);
+        -ms-transform: scale(2.5);
+        -o-transform: scale(2.5);
+        transform: scale(2.5);
     }
 }
 
@@ -144,11 +152,19 @@ body {
     0% {
         opacity: 1;
         -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
     }
 
     100% {
         opacity: 0 !important;
         -moz-transform: scale(2.5);
+        -ms-transform: scale(2.5);
+        -o-transform: scale(2.5);
+        -webkit-transform: scale(2.5);
+        transform: scale(2.5);
     }
 }
 
@@ -156,10 +172,18 @@ body {
     0% {
         opacity: 1;
         -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
     }
 
     100% {
         opacity: 0 !important;
+        -moz-transform: scale(2.5);
+        -ms-transform: scale(2.5);
+        -o-transform: scale(2.5);
+        -webkit-transform: scale(2.5);
         transform: scale(2.5);
     }
 }
@@ -188,10 +212,6 @@ body {
     background: none;
     border: 0;
     border-bottom: 1px solid #e5e5e5;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    -o-border-radius: 0;
     border-radius: 0;
     color: #333;
     box-shadow: none;
@@ -251,8 +271,10 @@ body {
     left: 50%;
     width: 0;
     height: 2px;
-    width: 0;
     visibility: hidden;
+    -moz-transition: 0.2s ease all;
+    -o-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
     transition: 0.2s ease all;
 }
 
@@ -407,10 +429,6 @@ body {
 }
 
 .form-group.form-md-line-input .input-group .input-group-addon {
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    -o-border-radius: 0;
     border-radius: 0;
     background: none;
     border: 0;
@@ -433,10 +451,6 @@ body {
 }
 
 .form-group.form-md-line-input .input-group .input-group-btn .btn {
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
     border-radius: 4px;
 }
 
@@ -664,12 +678,10 @@ body {
     width: 60px;
     opacity: 0;
     border-radius: 50% !important;
-    -moz-border-radius: 50% !important;
-    -webkit-border-radius: 50% !important;
 }
 
 .md-checkbox label > .box {
-    top: 0px;
+    top: 0;
     border: 2px solid #666;
     height: 20px;
     width: 20px;
@@ -691,9 +703,12 @@ body {
     z-index: 5;
     -webkit-transform: rotate(180deg);
     -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
     transform: rotate(180deg);
     -webkit-transition-delay: 0.3s;
     -moz-transition-delay: 0.3s;
+    -o-transition-delay: 0.3s;
     transition-delay: 0.3s;
 }
 
@@ -814,7 +829,7 @@ body {
 }
 
 .form-horizontal .md-checkbox-list {
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 .md-checkbox-list .md-checkbox {
@@ -909,18 +924,14 @@ body {
     width: 60px;
     opacity: 0;
     border-radius: 50% !important;
-    -moz-border-radius: 50% !important;
-    -webkit-border-radius: 50% !important;
 }
 
 .md-radio label > .box {
-    top: 0px;
+    top: 0;
     border: 2px solid #666;
     height: 20px;
     width: 20px;
     border-radius: 50% !important;
-    -moz-border-radius: 50% !important;
-    -webkit-border-radius: 50% !important;
     z-index: 5;
 }
 
@@ -933,10 +944,10 @@ body {
     opacity: 0;
     z-index: 6;
     border-radius: 50% !important;
-    -moz-border-radius: 50% !important;
-    -webkit-border-radius: 50% !important;
-    -webkit-transform: scale(0);
     -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    -webkit-transform: scale(0);
     transform: scale(0);
 }
 
@@ -1200,8 +1211,6 @@ hr {
 /* Code */
 code {
     border: 1px solid #e1e1e1;
-    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -1298,7 +1307,7 @@ a:hover {
 }
 
 .fix-margin {
-    margin-left: 0px !important;
+    margin-left: 0 !important;
 }
 
 .border {
@@ -1339,8 +1348,8 @@ a:hover {
 
 /* Margin and padding utilities */
 .no-space {
-    margin: 0px !important;
-    padding: 0px !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .no-margin {
@@ -1799,10 +1808,6 @@ General User Record Listing
 .general-item-list > .item > .item-head > .item-details > .item-pic {
     height: 35px;
     margin-right: 10px;
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    -ms-border-radius: 100%;
-    -o-border-radius: 100%;
     border-radius: 100%;
 }
 
@@ -2117,11 +2122,8 @@ Custom Bootstrap Badges
 .badge {
     font-size: 11px !important;
     font-weight: 300;
-    text-align: center;
     height: 18px;
     padding: 3px 6px 3px 6px;
-    -webkit-border-radius: 12px !important;
-    -moz-border-radius: 12px !important;
     border-radius: 12px !important;
     text-shadow: none !important;
     text-align: center;
@@ -2129,8 +2131,6 @@ Custom Bootstrap Badges
 }
 
 .badge.badge-roundless {
-    -webkit-border-radius: 0 !important;
-    -moz-border-radius: 0 !important;
     border-radius: 0 !important;
 }
 
@@ -2184,24 +2184,20 @@ Dropdown Menu Badges
 ***/
 .dropdown-menu > li > a > .badge {
     position: absolute;
-    margin-top: 1px;
+    //margin-top: 1px;
     right: 3px;
     display: inline;
     font-size: 11px;
     font-weight: 300;
     text-shadow: none;
-    height: 18px;
+    //height: 18px;
     padding: 3px 6px 3px 6px;
     text-align: center;
     vertical-align: middle;
-    -webkit-border-radius: 12px !important;
-    -moz-border-radius: 12px !important;
     border-radius: 12px !important;
 }
 
 .dropdown-menu.badge-roundless {
-    -webkit-border-radius: 0 !important;
-    -moz-border-radius: 0 !important;
     border-radius: 0 !important;
 }
 
@@ -2216,8 +2212,6 @@ Customized Bootstrap Buttons
     outline: none !important;
     background-image: none !important;
     filter: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
     box-shadow: none;
     text-shadow: none;
 }
@@ -2227,8 +2221,6 @@ Customized Bootstrap Buttons
     background-image: none !important;
     filter: none;
     text-shadow: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
     box-shadow: none;
 }
 
@@ -2239,6 +2231,9 @@ Customized Bootstrap Buttons
 .btn-default {
     border-width: 1px;
     padding: 6px 13px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
 }
 
 .btn-block {
@@ -2249,11 +2244,6 @@ Customized Bootstrap Buttons
 }
 
 /* Bootstrap buttons */
-.btn-default {
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
-}
 
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active {
     color: #333;
@@ -2785,7 +2775,6 @@ Chats
     padding: 5px 0;
     margin: 20px auto;
     font-size: 12px;
-    
 }
 
 .chats li .body {
@@ -2795,8 +2784,6 @@ Chats
 .chats li .avatar {
     height: 45px;
     width: 45px;
-    -webkit-border-radius: 50% !important;
-    -moz-border-radius: 50% !important;
     border-radius: 50% !important;
     float: left;
     margin-right: 15px;
@@ -2817,8 +2804,9 @@ Chats
     font-size: 13px;
     font-weight: 400;
 }
+
 .chats li.out .name {
-    color:#fff;
+    color: #fff;
 }
 
 .chats li .datetime {
@@ -2833,15 +2821,14 @@ Chats
     position: relative;
     text-align: left;
     //margin-left: 65px;
-    color:#fff;
+    color: #fff;
     border-radius: 10px;
-    font-size:13px;
+    font-size: 13px;
 }
 
 .chats li.in .message {
-    border-left: 2px solid  @color6;
+    border-left: 2px solid @color6;
     background: @color6;
-    
 }
 
 .chats li.out .message {
@@ -2945,8 +2932,8 @@ Customized Bootstrap Close Icon
 ***/
 .close {
     display: inline-block;
-    margin-top: 0px;
-    margin-right: 0px;
+    margin-top: 0;
+    margin-right: 0;
     width: 9px;
     height: 9px;
     background-repeat: no-repeat !important;
@@ -2979,16 +2966,12 @@ Dropdown Menu
     float: left;
     list-style: none;
     text-shadow: none;
-    padding: 0px;
+    padding: 0;
     background-color: #ffffff;
-    margin: 10px 0px 0px 0px;
+    margin: 10px 0 0 0;
     box-shadow: 5px 5px rgba(102, 102, 102, 0.1);
     border: 1px solid #eee;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
     border-radius: 4px;
 }
 
@@ -3043,11 +3026,11 @@ Dropdown Menu
 }
 
 .dropdown-menu > li:first-child:hover > a {
-    border-radius: 4px 4px 0px 0px;
+    border-radius: 4px 4px 0 0;
 }
 
 .dropdown-menu > li:last-child:hover > a {
-    border-radius: 0px 0px 4px 4px;
+    border-radius: 0 0 4px 4px;
 }
 
 .dropdown > .dropdown-menu,
@@ -3115,7 +3098,7 @@ Dropdown Menu
 .dropdown.dropup > .dropdown-menu,
 .dropdown-toggle.dropup > .dropdown-menu,
 .btn-group.dropup > .dropdown-menu {
-    margin-top: 0px;
+    margin-top: 0;
     margin-bottom: 10px;
 }
 
@@ -3275,15 +3258,21 @@ Dropdown Checkboxes
     list-style: none;
     position: absolute;
     background: #242b31;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    -o-border-radius: 2px;
     border-radius: 2px;
     -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
     background-clip: padding-box;
+    -moz-transition-duration: 300ms;
+    -o-transition-duration: 300ms;
+    -webkit-transition-duration: 300ms;
     transition-duration: 300ms;
+    -moz-transition-property: all;
+    -o-transition-property: all;
+    -webkit-transition-property: all;
     transition-property: all;
+    -moz-transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1);
+    -o-transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1);
+    -webkit-transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1);
     transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1);
 }
 
@@ -3386,8 +3375,8 @@ Dropdown Checkboxes
 System feeds
 ***/
 .feeds {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     list-style: none;
 }
 
@@ -3408,7 +3397,7 @@ System feeds
 }
 
 .feeds li:last-child {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .feeds li .col1 {
@@ -3500,7 +3489,7 @@ Form Layouts
 }
 
 .form-inline input {
-    margin-bottom: 0px !important;
+    margin-bottom: 0 !important;
 }
 
 /* Control Label */
@@ -3546,10 +3535,6 @@ Form Layouts
 }
 
 .portlet .form .form-actions {
-    -webkit-border-radius: 0 0 4px 4px;
-    -moz-border-radius: 0 0 4px 4px;
-    -ms-border-radius: 0 0 4px 4px;
-    -o-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px;
 }
 
@@ -3614,7 +3599,7 @@ Form Layouts
 }
 
 .form .form-section {
-    margin: 30px 0px 25px 0px;
+    margin: 30px 0 25px 0;
     padding-bottom: 5px;
     border-bottom: 1px solid #eee;
 }
@@ -3808,18 +3793,16 @@ Forms
     background-color: #fff;
     border: 1px solid #e5e5e5;
     box-shadow: none;
+    -moz-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
     border-radius: 4px;
 }
 
 .form-control:focus {
     border-color: #999;
     outline: 0;
-    -webkit-box-shadow: none;
     box-shadow: none;
 }
 
@@ -3865,8 +3848,9 @@ Forms
     color: #333;
     background-color: #fff;
     border: 1px solid #e5e5e5;
-    -webkit-box-shadow: none;
     box-shadow: none;
+    -moz-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
@@ -3992,13 +3976,11 @@ label {
 
 .has-success .form-control {
     border-color: #d6e9c6;
-    -webkit-box-shadow: none;
     box-shadow: none;
 }
 
 .has-success .form-control:focus {
     border-color: #bbdba1;
-    -webkit-box-shadow: none;
     box-shadow: none;
 }
 
@@ -4028,13 +4010,11 @@ label {
 
 .has-warning .form-control {
     border-color: #faebcc;
-    -webkit-box-shadow: none;
     box-shadow: none;
 }
 
 .has-warning .form-control:focus {
     border-color: #f5d89e;
-    -webkit-box-shadow: none;
     box-shadow: none;
 }
 
@@ -4117,12 +4097,10 @@ Custom icon buttons
     min-width: 80px;
     margin: 5px 5px 0 0;
     border: 1px solid #ddd;
-    padding: 12px 0px 0px 0px;
+    padding: 12px 0 0 0;
     background-color: #fafafa;
     background-image: none;
     filter: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
     box-shadow: none;
     display: inline-block;
     color: #646464;
@@ -4130,10 +4108,9 @@ Custom icon buttons
     text-align: center;
     cursor: pointer;
     position: relative;
-    -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
@@ -4141,25 +4118,19 @@ Custom icon buttons
     text-decoration: none;
     border-color: #999;
     color: #444;
-    text-shadow: 0 1px 0px white;
-    -webkit-transition: all 0.3s ease;
+    text-shadow: 0 1px 0 white;
     -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
     box-shadow: none;
 }
 
 .icon-btn:hover > .badge {
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
     box-shadow: none;
 }
 
@@ -4182,11 +4153,7 @@ Custom icon buttons
     text-shadow: none;
     border-width: 0;
     border-style: solid;
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 12px;
     border-radius: 12px;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
     box-shadow: none;
 }
 
@@ -4211,10 +4178,6 @@ Input icons
 }
 
 .input-group .input-icon > .form-control {
-    -webkit-border-radius: 4px 0 0 4px;
-    -moz-border-radius: 4px 0 0 4px;
-    -ms-border-radius: 4px 0 0 4px;
-    -o-border-radius: 4px 0 0 4px;
     border-radius: 4px 0 0 4px;
 }
 
@@ -4260,10 +4223,6 @@ Input icons
 }
 
 .input-group .input-icon.right > .form-control {
-    -webkit-border-radius: 0 4px 4px 0;
-    -moz-border-radius: 0 4px 4px 0;
-    -ms-border-radius: 0 4px 4px 0;
-    -o-border-radius: 0 4px 4px 0;
     border-radius: 0 4px 4px 0;
 }
 
@@ -4295,7 +4254,7 @@ Customized Bootstrap Labels
 
 .label.label-sm {
     font-size: 12px;
-    padding: 0px 4px 1px 4px;
+    padding: 0 4px 1px 4px;
 }
 
 h1 .label, h2 .label, h3 .label, h4 .label, h5 .label, h6 .label {
@@ -4355,7 +4314,7 @@ h1 .label, h2 .label, h3 .label, h4 .label, h5 .label, h6 .label {
 Iconic labels
 ***/
 .label.label-icon {
-    padding: 4px 0px 4px 4px;
+    padding: 4px 0 4px 4px;
     margin-right: 2px;
     text-align: center !important;
 }
@@ -4366,7 +4325,7 @@ Iconic labels
 }
 
 .ie8 .label.label-icon, .ie9 .label.label-icon {
-    padding: 3px 0px 3px 3px;
+    padding: 3px 0 3px 3px;
 }
 
 /***
@@ -4525,13 +4484,7 @@ UI Loading
 .loading-message.loading-message-boxed {
     border: 1px solid #ddd;
     background-color: #eee;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
     border-radius: 4px;
-    -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -4541,10 +4494,6 @@ UI Loading
 }
 
 .page-loading {
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
     border-radius: 4px;
     position: fixed;
     top: 50%;
@@ -4559,8 +4508,6 @@ UI Loading
     border: 1px solid #ddd;
     background-color: #eee;
     vertical-align: middle;
-    -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -4587,9 +4534,13 @@ UI Loading
     border-radius: 100% !important;
     display: inline-block;
     -webkit-animation: bounceDelay 1.4s infinite ease-in-out;
+    -moz-animation: bounceDelay 1.4s infinite ease-in-out;
+    -o-animation: bounceDelay 1.4s infinite ease-in-out;
     animation: bounceDelay 1.4s infinite ease-in-out;
     /* Prevent first frame from flickering when animation starts */
     -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
     animation-fill-mode: both;
 }
 
@@ -4655,7 +4606,7 @@ Metro icons
     margin: 6px;
     vertical-align: middle;
     background-image: url(../img/syncfusion-icons.png);
-    background-position: 0 0px;
+    background-position: 0 0;
     background-repeat: no-repeat;
 }
 
@@ -4665,7 +4616,7 @@ Metro icons
 }
 
 .btn.m-icon-big.m-icon-only {
-    padding: 9px 8px 8px 0px;
+    padding: 9px 8px 8px 0;
 }
 
 .btn.m-icon-big [class^="m-icon-big-"] {
@@ -4673,7 +4624,7 @@ Metro icons
 }
 
 .btn.m-icon-ony > i {
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 /* default icons */
@@ -4750,7 +4701,7 @@ Customized Bootstrap Modal
 }
 
 .modal .modal-header .close {
-    margin-top: 0px !important;
+    margin-top: 0 !important;
 }
 
 .modal.draggable-modal .modal-header {
@@ -4812,10 +4763,6 @@ Notes
     margin: 0 0 20px 0;
     padding: 15px 30px 15px 15px;
     border-left: 5px solid #eee;
-    -webkit-border-radius: 0 4px 4px 0;
-    -moz-border-radius: 0 4px 4px 0;
-    -ms-border-radius: 0 4px 4px 0;
-    -o-border-radius: 0 4px 4px 0;
     border-radius: 0 4px 4px 0;
 }
 
@@ -4978,8 +4925,6 @@ Customized Bootstrap Pagination
 Customized Bootstrap Panels
 ***/
 .panel {
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
     box-shadow: none !important;
 }
 
@@ -5193,13 +5138,9 @@ Portlets
 
 /* Basic portlet */
 .portlet {
-    margin-top: 0px;
+    margin-top: 0;
     margin-bottom: 25px;
-    padding: 0px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
+    padding: 0;
     border-radius: 4px;
 }
 
@@ -5231,10 +5172,6 @@ Portlets
     padding: 0;
     margin-bottom: 10px;
     min-height: 41px;
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
-    -ms-border-radius: 4px 4px 0 0;
-    -o-border-radius: 4px 4px 0 0;
     border-radius: 4px 4px 0 0;
 }
 
@@ -5455,10 +5392,6 @@ Portlets
 
 .portlet > .portlet-body {
     clear: both;
-    -webkit-border-radius: 0 0 4px 4px;
-    -moz-border-radius: 0 0 4px 4px;
-    -ms-border-radius: 0 0 4px 4px;
-    -o-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px;
 }
 
@@ -5483,7 +5416,7 @@ Portlets
 /* Solid colored portlet */
 .portlet.solid {
     padding: 0 10px 10px 10px;
-    border: 0px;
+    border: 0;
 }
 
 .portlet.solid > .portlet-title {
@@ -5510,7 +5443,7 @@ Portlets
 
 /* Box portlet */
 .portlet.box {
-    padding: 0px !important;
+    padding: 0 !important;
 }
 
 .portlet.box > .portlet-title {
@@ -5693,7 +5626,7 @@ Portlets
 }
 
 .tab-pane > p:last-child {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 /* Reverse aligned tabs */
@@ -5729,9 +5662,6 @@ Customized Progress Bars
     background-image: none;
     filter: none;
     box-shadow: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
 }
 
 .progress.progress-sm {
@@ -5744,7 +5674,7 @@ Customized Progress Bars
 
 .progress-striped .progress > .progress-bar-default {
     background-image: none;
-    background-image: none;
+    //background-image: none;
 }
 
 .progress > .progress-bar-success {
@@ -5753,7 +5683,7 @@ Customized Progress Bars
 
 .progress-striped .progress > .progress-bar-success {
     background-image: none;
-    background-image: none;
+    //background-image: none;
 }
 
 .progress > .progress-bar-info {
@@ -5762,7 +5692,7 @@ Customized Progress Bars
 
 .progress-striped .progress > .progress-bar-info {
     background-image: none;
-    background-image: none;
+    //background-image: none;
 }
 
 .progress > .progress-bar-danger {
@@ -5771,7 +5701,7 @@ Customized Progress Bars
 
 .progress-striped .progress > .progress-bar-danger {
     background-image: none;
-    background-image: none;
+    //background-image: none;
 }
 
 .progress > .progress-bar-warning {
@@ -5780,7 +5710,7 @@ Customized Progress Bars
 
 .progress-striped .progress > .progress-bar-warning {
     background-image: none;
-    background-image: none;
+    //background-image: none;
 }
 
 /***
@@ -5790,10 +5720,6 @@ Dashboard Stats
     display: block;
     margin-bottom: 25px;
     overflow: hidden;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
     border-radius: 4px;
 }
 
@@ -5840,14 +5766,14 @@ Dashboard Stats
     font-size: 34px;
     line-height: 36px;
     letter-spacing: -1px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     font-weight: 300;
 }
 
 .dashboard-stat .details .desc {
     text-align: right;
     font-size: 16px;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     font-weight: 300;
 }
 
@@ -5897,7 +5823,7 @@ Dashboard Stats 2
     background: @color4;
     padding: 15px 15px 30px 15px;
     margin-bottom: 20px;
-    display:block;
+    display: block;
 }
 
 .dashboard-stat2 .display {
@@ -5916,7 +5842,7 @@ Dashboard Stats 2
 .dashboard-stat2 .display .number {
     float: left;
     display: inline-block;
-    height:110px;
+    height: 110px;
 }
 
 .dashboard-stat2 .display .number h3 {
@@ -6019,26 +5945,21 @@ Social Icons
     display: inline;
     list-style: none;
     margin-right: 5px;
-    margin-bottom: 5px;
+    //margin-bottom: 5px;
     text-indent: -9999px;
 }
 
 .social-icons li > a {
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    -o-border-radius: 2px;
     border-radius: 2px;
     width: 28px;
     height: 28px;
     display: block;
     background-position: 0 0;
     background-repeat: no-repeat;
-    transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    -ms-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .social-icons li:hover > a {
@@ -6215,169 +6136,17 @@ Inline Social Icons
     height: 28px;
     background-position: 0 0;
     background-repeat: no-repeat;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    -o-border-radius: 2px;
     border-radius: 2px;
-    transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
-    -ms-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .social-icon.social-icon-circle {
     border-radius: 25px !important;
 }
 
-.social-icon.amazon {
-    background: url(../img/social/amazon.png) no-repeat;
-}
-
-.social-icon.behance {
-    background: url(../img/social/behance.png) no-repeat;
-}
-
-.social-icon.blogger {
-    background: url(../img/social/blogger.png) no-repeat;
-}
-
-.social-icon.deviantart {
-    background: url(../img/social/deviantart.png) no-repeat;
-}
-
-.social-icon.dribbble {
-    background: url(../img/social/dribbble.png) no-repeat;
-}
-
-.social-icon.dropbox {
-    background: url(../img/social/dropbox.png) no-repeat;
-}
-
-.social-icon.evernote {
-    background: url(../img/social/evernote.png) no-repeat;
-}
-
-.social-icon.facebook {
-    background: url(../img/social/facebook.png) no-repeat;
-}
-
-.social-icon.forrst {
-    background: url(../img/social/forrst.png) no-repeat;
-}
-
-.social-icon.github {
-    background: url(../img/social/github.png) no-repeat;
-}
-
-.social-icon.googleplus {
-    background: url(../img/social/googleplus.png) no-repeat;
-}
-
-.social-icon.jolicloud {
-    background: url(../img/social/jolicloud.png) no-repeat;
-}
-
-.social-icon.last-fm {
-    background: url(../img/social/last-fm.png) no-repeat;
-}
-
-.social-icon.linkedin {
-    background: url(../img/social/linkedin.png) no-repeat;
-}
-
-.social-icon.picasa {
-    background: url(../img/social/picasa.png) no-repeat;
-}
-
-.social-icon.pintrest {
-    background: url(../img/social/pintrest.png) no-repeat;
-}
-
-.social-icon.rss {
-    background: url(../img/social/rss.png) no-repeat;
-}
-
-.social-icon.skype {
-    background: url(../img/social/skype.png) no-repeat;
-}
-
-.social-icon.spotify {
-    background: url(../img/social/spotify.png) no-repeat;
-}
-
-.social-icon.stumbleupon {
-    background: url(../img/social/stumbleupon.png) no-repeat;
-}
-
-.social-icon.tumblr {
-    background: url(../img/social/tumblr.png) no-repeat;
-}
-
-.social-icon.twitter {
-    background: url(../img/social/twitter.png) no-repeat;
-}
-
-.social-icon.vimeo {
-    background: url(../img/social/vimeo.png) no-repeat;
-}
-
-.social-icon.wordpress {
-    background: url(../img/social/wordpress.png) no-repeat;
-}
-
-.social-icon.xing {
-    background: url(../img/social/xing.png) no-repeat;
-}
-
-.social-icon.yahoo {
-    background: url(../img/social/yahoo.png) no-repeat;
-}
-
-.social-icon.youtube {
-    background: url(../img/social/youtube.png) no-repeat;
-}
-
-.social-icon.vk {
-    background: url(../img/social/vk.png) no-repeat;
-}
-
-.social-icon.instagram {
-    background: url(../img/social/instagram.png) no-repeat;
-}
-
-.social-icon.reddit {
-    background: url(../img/social/reddit.png) no-repeat;
-}
-
-.social-icon.aboutme {
-    background: url(../img/social/aboutme.png) no-repeat;
-}
-
-.social-icon.flickr {
-    background: url(../img/social/flickr.png) no-repeat;
-}
-
-.social-icon.foursquare {
-    background: url(../img/social/foursquare.png) no-repeat;
-}
-
-.social-icon.gravatar {
-    background: url(../img/social/gravatar.png) no-repeat;
-}
-
-.social-icon.klout {
-    background: url(../img/social/klout.png) no-repeat;
-}
-
-.social-icon.myspace {
-    background: url(../img/social/myspace.png) no-repeat;
-}
-
-.social-icon.quora {
-    background: url(../img/social/quora.png) no-repeat;
-}
 
 .social-icon:hover {
     background-position: 0 -38px;
@@ -6523,7 +6292,7 @@ Responsive & Scrollable Tables
 
 .table-scrollable > .table {
     width: 100% !important;
-    float:right;
+    float: right;
     margin: 0 !important;
     margin-bottom: 0;
     background-color: @color4;
@@ -6598,6 +6367,8 @@ Responsive Flip Scroll Tables
         width: 100%;
         border-collapse: collapse;
         border-spacing: 0;
+        display: block;
+        position: relative;
     }
 
     .flip-scroll th,
@@ -6614,12 +6385,8 @@ Responsive Flip Scroll Tables
         font-size: 13px !important;
         padding: 5px;
         width: auto !important;
-    }
-
-    .flip-scroll table {
-        display: block;
-        position: relative;
-        width: 100%;
+          display: block;
+        text-align: right;
     }
 
     .flip-scroll thead {
@@ -6649,15 +6416,13 @@ Responsive Flip Scroll Tables
         display: block;
     }
 
-    .flip-scroll th {
-        display: block;
-        text-align: right;
-    }
+  
 
     .flip-scroll tbody tr {
         display: inline-block;
         vertical-align: top;
         margin-left: -5px;
+        border-left: 1px solid #ddd;
     }
 
     .flip-scroll td {
@@ -6667,22 +6432,13 @@ Responsive Flip Scroll Tables
         border-top: 0 !important;
         border-left: 0 !important;
         border-right: 0 !important;
+        border-bottom: 0;
     }
 
     /* sort out borders */
     .flip-scroll th {
         border-bottom: 0;
         border-left: 0;
-    }
-
-    .flip-scroll td {
-        border-left: 0;
-        border-right: 0;
-        border-bottom: 0;
-    }
-
-    .flip-scroll tbody tr {
-        border-left: 1px solid #ddd;
     }
 
     .flip-scroll th:last-child,
@@ -6711,8 +6467,8 @@ Custom tables
 }
 
 .table .btn {
-    margin-top: 0px;
-    margin-left: 0px;
+    margin-top: 0;
+    margin-left: 0;
     margin-right: 5px;
 }
 
@@ -6750,7 +6506,7 @@ Custom tables
 }
 
 .table-advance tr td {
-    border-left-width: 0px;
+    border-left-width: 0;
 }
 
 .table-advance tr td:first-child {
@@ -6831,10 +6587,6 @@ Light Table
     display: inline-block;
     vertical-align: middle;
     height: 30px;
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    -ms-border-radius: 100%;
-    -o-border-radius: 100%;
     border-radius: 100%;
 }
 
@@ -6849,16 +6601,12 @@ Customized Bootstrap Tabs
 /* Tabs and pills */
 .nav-tabs,
 .nav-pills {
-   // margin-bottom: 10px;
+    // margin-bottom: 10px;
 }
 
 .nav-tabs > li > a,
 .nav-pills > li > a {
     font-size: 14px;
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
-    -ms-border-radius: 4px 4px 0 0;
-    -o-border-radius: 4px 4px 0 0;
     border-radius: 4px 4px 0 0;
 }
 
@@ -6914,20 +6662,12 @@ Customized Bootstrap Tabs
 }
 
 .tabs-left.nav-tabs > li > a:hover, .tabs-left.nav-tabs > li > a:focus {
-    -webkit-border-radius: 4px 0 0 4px;
-    -moz-border-radius: 4px 0 0 4px;
-    -ms-border-radius: 4px 0 0 4px;
-    -o-border-radius: 4px 0 0 4px;
     border-radius: 4px 0 0 4px;
     border-color: #eeeeee #dddddd #eeeeee #eeeeee;
 }
 
 .tabs-left.nav-tabs > li.active > a,
 .tabs-left.nav-tabs > li.active > a:hover > li.active > a:focus {
-    -webkit-border-radius: 4px 0 0 4px;
-    -moz-border-radius: 4px 0 0 4px;
-    -ms-border-radius: 4px 0 0 4px;
-    -o-border-radius: 4px 0 0 4px;
     border-radius: 4px 0 0 4px;
     border-color: #ddd transparent #ddd #ddd;
     *border-right-color: #ffffff;
@@ -6944,20 +6684,12 @@ Customized Bootstrap Tabs
 }
 
 .tabs-right.nav-tabs > li > a:hover, .tabs-right.nav-tabs > li > a:focus {
-    -webkit-border-radius: 0 4px 4px 0;
-    -moz-border-radius: 0 4px 4px 0;
-    -ms-border-radius: 0 4px 4px 0;
-    -o-border-radius: 0 4px 4px 0;
     border-radius: 0 4px 4px 0;
     border-color: #eeeeee #eeeeee #eeeeee #dddddd;
 }
 
 .tabs-right.nav-tabs > li.active > a,
 .tabs-right.nav-tabs > li.active > a:hover > li.active > a:focus {
-    -webkit-border-radius: 0 4px 4px 0;
-    -moz-border-radius: 0 4px 4px 0;
-    -ms-border-radius: 0 4px 4px 0;
-    -o-border-radius: 0 4px 4px 0;
     border-radius: 0 4px 4px 0;
     border-color: #ddd #ddd #ddd transparent;
     *border-left-color: #ffffff;
@@ -6967,7 +6699,7 @@ Customized Bootstrap Tabs
 .tabs-below > .nav-tabs,
 .tabs-below > .nav-pills {
     border-bottom: 0;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     margin-top: 10px;
 }
 
@@ -6988,19 +6720,11 @@ Customized Bootstrap Tabs
 }
 
 .tabs-below > .nav-tabs > li > a .dropdown-menu {
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
     border-radius: 4px;
 }
 
 .tabs-below > .nav-tabs .active a,
 .tabs-below > .nav-tabs .active a:hover .active a:focus {
-    -webkit-border-radius: 0 0 4px 4px;
-    -moz-border-radius: 0 0 4px 4px;
-    -ms-border-radius: 0 0 4px 4px;
-    -o-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px;
     border-color: transparent #ddd #ddd #ddd !important;
 }
@@ -7020,7 +6744,7 @@ Custom tabs
 
 .tabbable-custom {
     margin-bottom: 15px;
-    padding: 0px;
+    padding: 0;
     overflow: hidden;
     /* justified tabs */
     /* boxless tabs */
@@ -7031,7 +6755,7 @@ Custom tabs
 
 .tabbable-custom > .nav-tabs {
     border: none;
-    margin: 0px;
+    margin: 0;
 }
 
 .tabbable-custom > .nav-tabs > li {
@@ -7041,10 +6765,6 @@ Custom tabs
 
 .tabbable-custom > .nav-tabs > li > a {
     margin-right: 0;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    -o-border-radius: 0;
     border-radius: 0;
 }
 
@@ -7062,18 +6782,10 @@ Custom tabs
 .tabbable-custom > .nav-tabs > li.active > a {
     border-top: none !important;
     font-weight: 400;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    -o-border-radius: 0;
     border-radius: 0;
 }
 
 .tabbable-custom > .nav-tabs > li.active > a:hover {
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    -o-border-radius: 0;
     border-radius: 0;
     border-top: none;
     background: #fff;
@@ -7081,13 +6793,9 @@ Custom tabs
 }
 
 .tabbable-custom > .tab-content {
-   // background-color: @color4;
+    // background-color: @color4;
     border: 1px solid #ddd;
     padding: 10px;
-    -webkit-border-radius: 0 0 4px 4px;
-    -moz-border-radius: 0 0 4px 4px;
-    -ms-border-radius: 0 0 4px 4px;
-    -o-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px;
 }
 
@@ -7103,12 +6811,8 @@ Custom tabs
 }
 
 .tabbable-custom.tabs-below.nav-justified .tab-content {
-    margin-top: 0px;
+    margin-top: 0;
     margin-bottom: -2px;
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
-    -ms-border-radius: 4px 4px 0 0;
-    -o-border-radius: 4px 4px 0 0;
     border-radius: 4px 4px 0 0;
 }
 
@@ -7262,7 +6966,6 @@ Tiles(new in v1.1.1)
 
 .tiles .tile {
     display: block;
-    letter-spacing: 0.02em;
     float: left;
     height: 135px;
     width: 135px !important;
@@ -7316,10 +7019,9 @@ Tiles(new in v1.1.1)
 }
 
 .tiles .tile.selected .check:after {
-    content: "";
+    content: "\f00c";
     font-family: FontAwesome;
     font-size: 13px;
-    content: "\f00c";
     display: inline-block;
     position: absolute;
     top: 2px;
@@ -7387,7 +7089,7 @@ Tiles(new in v1.1.1)
 .tiles .tile .tile-body img.pull-right {
     float: right !important;
     margin-left: 10px;
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 .tiles .tile .tile-body > .content {
@@ -7472,7 +7174,6 @@ Tiles(new in v1.1.1)
     position: absolute;
     bottom: 0;
     right: 0;
-    margin-bottom: 0;
     color: #ffffff;
     text-align: center;
     font-weight: 600;
@@ -7489,8 +7190,6 @@ Custimized Bootstrap Wells
 .well {
     background-color: #eee;
     border: 0;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
     box-shadow: none !important;
 }
 
@@ -8095,10 +7794,7 @@ Custimized Bootstrap Wells
 /*** Widget Gradient ***/
 .widget-map {
     min-height: 350px;
-    border-top-right-radius: 3px !important;
-    border-top-left-radius: 3px !important;
-    border-bottom-right-radius: 3px !important;
-    border-bottom-left-radius: 3px !important;
+    border-radius: 3px !important;
 }
 
 .widget-map .widget-map-mapplic {
@@ -8225,7 +7921,7 @@ Custimized Bootstrap Wells
     [Material Design]
 ----------------------------------------------------*/
 .page-md .breadcrumbs {
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
 }
 
 .page-md .widget-bg-color-white,
@@ -8234,7 +7930,7 @@ Custimized Bootstrap Wells
 .page-md .widget-progress-element,
 .page-md .widget-socials,
 .page-md .widget-blog {
-    box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.1);
 }
 
 /***

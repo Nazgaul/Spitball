@@ -44,7 +44,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/jquery.mCustomScrollbar.css",
                         "~/Content/Letter.css",
                         "~/Content/RtlFix.css",
-                        "~/Content/textAngular.css"
+                        "~/Content/textAngular.css",
+                       
                     }
                 },
 
@@ -95,6 +96,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                  {
                     "site4", new[]
                     {
+                        "~/bower_components/angular-material/angular-material.css",
                         "~/Content/signin/font-awesome.css",
                         "~/Content/signin/simple-line-icons.css",
                         "~/Content/homepage/bootstrap.css",
@@ -108,6 +110,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/site/light.css",
                         "~/Content/site/master.css",
                         "~/Content/site/menu.css",
+
+                        
+
                         "~/Content/site/dashboard.css",
                         "~/Content/site/box.css",
                          "~/Content/site/user.css",
@@ -408,6 +413,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/angulartics.js"),
                         new JsFileWithCdn("~/scripts/angulartics-ga.js"),
                         new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
+                        new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js"),
+                        new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
+                        new JsFileWithCdn("~/bower_components/angular-material/angular-material.js"),
                         new JsFileWithCdn("~/scripts/ui-bootstrap-tpls.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-tabdrop.js"),
                         new JsFileWithCdn("~/scripts/site/jquery.mixitup.min.js"),

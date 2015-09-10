@@ -616,7 +616,7 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   -webkit-border-radius: 50% !important;
 }
 .md-checkbox label > .box {
-  top: 0px;
+  top: 0;
   border: 2px solid #666;
   height: 20px;
   width: 20px;
@@ -735,7 +735,7 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   margin: 10px 0;
 }
 .form-horizontal .md-checkbox-list {
-  margin-top: 0px;
+  margin-top: 0;
 }
 .md-checkbox-list .md-checkbox {
   display: block;
@@ -821,7 +821,7 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   -webkit-border-radius: 50% !important;
 }
 .md-radio label > .box {
-  top: 0px;
+  top: 0;
   border: 2px solid #666;
   height: 20px;
   width: 20px;
@@ -1139,7 +1139,7 @@ a:hover {
   text-transform: uppercase !important;
 }
 .fix-margin {
-  margin-left: 0px !important;
+  margin-left: 0 !important;
 }
 .border {
   border: 1px solid red;
@@ -1170,8 +1170,8 @@ a:hover {
 }
 /* Margin and padding utilities */
 .no-space {
-  margin: 0px !important;
-  padding: 0px !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 .no-margin {
   margin: 0;
@@ -2612,8 +2612,8 @@ Customized Bootstrap Close Icon
 ***/
 .close {
   display: inline-block;
-  margin-top: 0px;
-  margin-right: 0px;
+  margin-top: 0;
+  margin-right: 0;
   width: 9px;
   height: 9px;
   background-repeat: no-repeat !important;
@@ -2644,9 +2644,9 @@ Dropdown Menu
   float: left;
   list-style: none;
   text-shadow: none;
-  padding: 0px;
+  padding: 0;
   background-color: #ffffff;
-  margin: 10px 0px 0px 0px;
+  margin: 10px 0 0 0;
   box-shadow: 5px 5px rgba(102, 102, 102, 0.1);
   border: 1px solid #eee;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -2699,10 +2699,10 @@ Dropdown Menu
   margin-bottom: 2px;
 }
 .dropdown-menu > li:first-child:hover > a {
-  border-radius: 4px 4px 0px 0px;
+  border-radius: 4px 4px 0 0;
 }
 .dropdown-menu > li:last-child:hover > a {
-  border-radius: 0px 0px 4px 4px;
+  border-radius: 0 0 4px 4px;
 }
 .dropdown > .dropdown-menu,
 .dropdown-toggle > .dropdown-menu,
@@ -2762,7 +2762,7 @@ Dropdown Menu
 .dropdown.dropup > .dropdown-menu,
 .dropdown-toggle.dropup > .dropdown-menu,
 .btn-group.dropup > .dropdown-menu {
-  margin-top: 0px;
+  margin-top: 0;
   margin-bottom: 10px;
 }
 .dropdown.dropup > .dropdown-menu:after,
@@ -3001,8 +3001,8 @@ Dropdown Checkboxes
 System feeds
 ***/
 .feeds {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 .feeds li {
@@ -3020,7 +3020,7 @@ System feeds
   clear: both;
 }
 .feeds li:last-child {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 .feeds li .col1 {
   float: left;
@@ -3097,7 +3097,7 @@ Form Layouts
   padding: 5px;
 }
 .form-inline input {
-  margin-bottom: 0px !important;
+  margin-bottom: 0 !important;
 }
 /* Control Label */
 .control-label {
@@ -3190,7 +3190,7 @@ Form Layouts
   }
 }
 .form .form-section {
-  margin: 30px 0px 25px 0px;
+  margin: 30px 0 25px 0;
   padding-bottom: 5px;
   border-bottom: 1px solid #eee;
 }
@@ -3606,7 +3606,7 @@ Custom icon buttons
   min-width: 80px;
   margin: 5px 5px 0 0;
   border: 1px solid #ddd;
-  padding: 12px 0px 0px 0px;
+  padding: 12px 0 0 0;
   background-color: #fafafa;
   background-image: none;
   filter: none;
@@ -3629,7 +3629,7 @@ Custom icon buttons
   text-decoration: none;
   border-color: #999;
   color: #444;
-  text-shadow: 0 1px 0px white;
+  text-shadow: 0 1px 0 white;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
@@ -3761,7 +3761,7 @@ Customized Bootstrap Labels
 }
 .label.label-sm {
   font-size: 12px;
-  padding: 0px 4px 1px 4px;
+  padding: 0 4px 1px 4px;
 }
 h1 .label,
 h2 .label,
@@ -3818,7 +3818,7 @@ h6 .label {
 Iconic labels
 ***/
 .label.label-icon {
-  padding: 4px 0px 4px 4px;
+  padding: 4px 0 4px 4px;
   margin-right: 2px;
   text-align: center !important;
 }
@@ -3828,7 +3828,7 @@ Iconic labels
 }
 .ie8 .label.label-icon,
 .ie9 .label.label-icon {
-  padding: 3px 0px 3px 3px;
+  padding: 3px 0 3px 3px;
 }
 /***
 Text states
@@ -4086,7 +4086,7 @@ Metro icons
   margin: 6px;
   vertical-align: middle;
   background-image: url(../img/syncfusion-icons.png);
-  background-position: 0 0px;
+  background-position: 0 0;
   background-repeat: no-repeat;
 }
 /* large icons */
@@ -4094,13 +4094,13 @@ Metro icons
   padding: 9px 16px 8px 16px;
 }
 .btn.m-icon-big.m-icon-only {
-  padding: 9px 8px 8px 0px;
+  padding: 9px 8px 8px 0;
 }
 .btn.m-icon-big [class^="m-icon-big-"] {
   margin: 0 0 0 10px;
 }
 .btn.m-icon-ony > i {
-  margin-left: 0px;
+  margin-left: 0;
 }
 /* default icons */
 .btn.m-icon {
@@ -4160,7 +4160,7 @@ Customized Bootstrap Modal
   font-weight: 300;
 }
 .modal .modal-header .close {
-  margin-top: 0px !important;
+  margin-top: 0 !important;
 }
 .modal.draggable-modal .modal-header {
   cursor: move;
@@ -4521,9 +4521,9 @@ Portlets
 }
 /* Basic portlet */
 .portlet {
-  margin-top: 0px;
+  margin-top: 0;
   margin-bottom: 25px;
-  padding: 0px;
+  padding: 0;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -4768,7 +4768,7 @@ Portlets
 /* Solid colored portlet */
 .portlet.solid {
   padding: 0 10px 10px 10px;
-  border: 0px;
+  border: 0;
 }
 .portlet.solid > .portlet-title {
   border-bottom: 0;
@@ -4789,7 +4789,7 @@ Portlets
 }
 /* Box portlet */
 .portlet.box {
-  padding: 0px !important;
+  padding: 0 !important;
 }
 .portlet.box > .portlet-title {
   border-bottom: 0;
@@ -4930,7 +4930,7 @@ Portlets
   padding: 8px 0;
 }
 .tab-pane > p:last-child {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 /* Reverse aligned tabs */
 .tabs-reversed > li {
@@ -5047,13 +5047,13 @@ Dashboard Stats
   font-size: 34px;
   line-height: 36px;
   letter-spacing: -1px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   font-weight: 300;
 }
 .dashboard-stat .details .desc {
   text-align: right;
   font-size: 16px;
-  letter-spacing: 0px;
+  letter-spacing: 0;
   font-weight: 300;
 }
 .dashboard-stat .more {
@@ -5783,8 +5783,8 @@ Custom tables
   width: 100% !important;
 }
 .table .btn {
-  margin-top: 0px;
-  margin-left: 0px;
+  margin-top: 0;
+  margin-left: 0;
   margin-right: 5px;
 }
 .table thead tr th {
@@ -5816,7 +5816,7 @@ Custom tables
   margin-right: 20px !important;
 }
 .table-advance tr td {
-  border-left-width: 0px;
+  border-left-width: 0;
 }
 .table-advance tr td:first-child {
   border-left-width: 1px !important;
@@ -6001,7 +6001,7 @@ Customized Bootstrap Tabs
 .tabs-below > .nav-tabs,
 .tabs-below > .nav-pills {
   border-bottom: 0;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   margin-top: 10px;
 }
 .tabs-below > .nav-tabs {
@@ -6048,7 +6048,7 @@ Custom tabs
 }
 .tabbable-custom {
   margin-bottom: 15px;
-  padding: 0px;
+  padding: 0;
   overflow: hidden;
   /* justified tabs */
   /* boxless tabs */
@@ -6058,7 +6058,7 @@ Custom tabs
 }
 .tabbable-custom > .nav-tabs {
   border: none;
-  margin: 0px;
+  margin: 0;
 }
 .tabbable-custom > .nav-tabs > li {
   margin-right: 2px;
@@ -6119,7 +6119,7 @@ Custom tabs
   border-bottom: none;
 }
 .tabbable-custom.tabs-below.nav-justified .tab-content {
-  margin-top: 0px;
+  margin-top: 0;
   margin-bottom: -2px;
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
@@ -6360,7 +6360,7 @@ Tiles(new in v1.1.1)
 .tiles .tile .tile-body img.pull-right {
   float: right !important;
   margin-left: 10px;
-  margin-right: 0px;
+  margin-right: 0;
 }
 .tiles .tile .tile-body > .content {
   display: inline-block;
@@ -7063,7 +7063,7 @@ Custimized Bootstrap Wells
     [Material Design]
 ----------------------------------------------------*/
 .page-md .breadcrumbs {
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
 }
 .page-md .widget-bg-color-white,
 .page-md .widget-map,
@@ -7071,7 +7071,7 @@ Custimized Bootstrap Wells
 .page-md .widget-progress-element,
 .page-md .widget-socials,
 .page-md .widget-blog {
-  box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.1);
 }
 /***
 AngularJS Basic Animations

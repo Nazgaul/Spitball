@@ -11,8 +11,9 @@ body {
   background-image: url('../../Images/Site/BG.png');
   background-attachment: scroll;
   background-size: cover;
-  background-position: 50% 0px;
+  background-position: 50% 0;
   background-repeat: no-repeat;
+  height: auto;
 }
 body.page-md {
   background: #f3f5f9;
