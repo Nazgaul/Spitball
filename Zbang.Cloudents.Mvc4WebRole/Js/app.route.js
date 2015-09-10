@@ -113,6 +113,13 @@
                      },
                      controller: 'Library as l'
                  })
+                 .state('departmentWithNode', {
+                     url: '/library/:nodeId/:nodeName/',
+                     templateUrl: function () {
+                         return buildUrl('/library/indexpartial/');
+                     },
+                     controller: 'Library as l'
+                 })
                 .state('dashboard', {
                     url: '/dashboard/',
                     templateUrl: function () {

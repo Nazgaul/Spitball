@@ -1,12 +1,13 @@
 ﻿<div class="page-head">
     <div class="page-title">
         <h1>{{::l.universityName}}</h1>
+        <h2 ng-if="l.nodeDetail"><a href="{{::l.nodeDetail.parentUrl}}">back {{::l.nodeDetail.name}}</a></h2>
     </div>
+
 </div>
 <div class="row library margin-top-10">
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="dep in l.departments">
-
-        <a href="{{::dep.url}}" class="dashboard-stat2" d-color="{{::dep.name.length}}">
+        <a href="{{::dep.url}}" class="dashboard-stat2 department" d-color="{{::dep.name.length}}">
             <div class="corner">
             </div>
             <div class="display">
@@ -20,6 +21,29 @@
                 <div class="status">
                     <div class="status-title">
                         {{::dep.noBoxes}} boxes
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="box in l.boxes">
+        <a href="{{::box.url}}" class="dashboard-stat2" d-color="{{::box.name.length}}">
+            <div class="display">
+                <div class="number">
+                    <h3>{{::box.name}}</h3>
+                    <small>{{::box.professor}}</small><br />
+                    <small>{{::box.courseCode}}</small>
+                </div>
+            </div>
+            <div class="progress-info">
+                <div class="progress">
+                </div>
+                <div class="status">
+                    <div class="status-title">
+                        {{::box.membersCount}} members
+                    </div>
+                    <div class="status-number">
+                        {{::box.itemCount}} items
                     </div>
                 </div>
             </div>
