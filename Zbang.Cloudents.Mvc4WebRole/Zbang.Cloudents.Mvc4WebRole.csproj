@@ -1094,6 +1094,18 @@
     <Content Include="Content\Site\dashboard.rtl.min.css">
       <DependentUpon>dashboard.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\library.css">
+      <DependentUpon>library.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\library.min.css">
+      <DependentUpon>library.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\library.rtl.css">
+      <DependentUpon>library.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\library.rtl.min.css">
+      <DependentUpon>library.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\master.css">
       <DependentUpon>master.less</DependentUpon>
     </Content>
@@ -1498,6 +1510,7 @@
     <Content Include="Js\components\box\item.controller.js" />
     <Content Include="Js\components\dashboard\dashboard.controller.js" />
     <Content Include="Js\components\dashboard\sidemenu.controller.js" />
+    <Content Include="Js\components\library\library.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
     <Content Include="Js\components\user\user.controller.js" />
@@ -1760,6 +1773,7 @@
     <Content Include="Content\Site\profile.less" />
     <Content Include="Content\Site\user.less" />
     <Content Include="Content\Site\menu.less" />
+    <Content Include="Content\Site\library.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,53 +1,28 @@
 ﻿<div class="page-head">
     <div class="page-title">
-        <h1>university name</h1>
+        <h1>{{::l.universityName}}</h1>
     </div>
 </div>
-<div class="row">
-    <div class="tiles">
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <div class="tile double selected bg-green-turquoise dashboard-stat2">
-                <div class="corner">
-                </div>
+<div class="row library margin-top-10">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="dep in l.departments">
 
-                <div class="display">
-                    <div class="number">
-                        <h3>Some test</h3>
-                    </div>
+        <a href="{{::dep.url}}" class="dashboard-stat2" d-color="{{::dep.name.length}}">
+            <div class="corner">
+            </div>
+            <div class="display">
+                <div class="number">
+                    <h3>{{::dep.name}}</h3>
                 </div>
-                <div class="progress-info">
-                    <div class="progress">
-                    </div>
-                    <div class="status">
-                        <div class="status-title">
-                            10 courses
-                        </div>
+            </div>
+            <div class="progress-info">
+                <div class="progress">
+                </div>
+                <div class="status">
+                    <div class="status-title">
+                        {{::dep.noBoxes}} boxes
                     </div>
                 </div>
             </div>
-            <div class="tile double selected bg-green-turquoise">
-                <div class="corner">
-                </div>
-                <div class="check">
-                </div>
-                <div class="tile-body">
-                    <h4>support@metronic.com</h4>
-                    <p>
-                        Re: Metronic v1.2 - Project Update!
-                    </p>
-                    <p>
-                        24 March 2013 12.30PM confirmed for the project plan update meeting...
-                    </p>
-                </div>
-                <div class="tile-object">
-                    <div class="name">
-                        <i class="fa fa-envelope"></i>
-                    </div>
-                    <div class="number">
-                        14
-                    </div>
-                </div>
-            </div>
-        </div>
+        </a>
     </div>
 </div>

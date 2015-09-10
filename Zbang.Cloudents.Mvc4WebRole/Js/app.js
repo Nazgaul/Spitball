@@ -9,6 +9,8 @@
         'angulartics.google.analytics',
         
         'app.dashboard',
+
+        'app.library',
         
         'app.user',
         'app.user.details',

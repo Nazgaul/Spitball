@@ -75,12 +75,12 @@
 
 <div class="row margin-top-10">
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="box in d.boxes">
-        <a href="{{box.url}}" class="dashboard-stat2" d-color="{{box.name.length}}">
+        <a href="{{::box.url}}" class="dashboard-stat2" d-color="{{::box.name.length}}">
             <div class="display">
                 <div class="number">
-                    <h3>{{box.name}}</h3>
-                    <small>{{box.professor}}</small><br />
-                    <small>{{box.courseCode}}</small>
+                    <h3>{{::box.name}}</h3>
+                    <small>{{::box.professor}}</small><br />
+                    <small>{{::box.courseCode}}</small>
                 </div>
             </div>
             <div class="progress-info">
@@ -88,10 +88,10 @@
                 </div>
                 <div class="status">
                     <div class="status-title">
-                        {{box.membersCount}} members
+                        {{::box.membersCount}} members
                     </div>
                     <div class="status-number">
-                        {{box.itemCount}} items
+                        {{::box.itemCount}} items
                     </div>
                 </div>
             </div>

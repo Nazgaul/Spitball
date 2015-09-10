@@ -41,7 +41,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //    TraceLog.WriteWarning("recycling machine");
             //    RoleEnvironment.RequestRecycle();
             //};
-            RoleEnvironment.Changing += RoleEnvironment_Changing;
+            //RoleEnvironment.Changing += RoleEnvironment_Changing;
 
             //RoleEnvironment.Changing += (s, e) =>
             //{
@@ -98,11 +98,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         void RoleEnvironment_Changing(object sender, RoleEnvironmentChangingEventArgs e)
         {
-            var configurationChanges = e.Changes
-                                        .OfType<RoleEnvironmentConfigurationSettingChange>()
-                                        .ToList();
+            //var configurationChanges = e.Changes
+            //                            .OfType<RoleEnvironmentConfigurationSettingChange>()
+            //                            .ToList();
 
-            if (!configurationChanges.Any()) return;
+            //if (!configurationChanges.Any()) return;
 
             //if (configurationChanges.Any(c => c.ConfigurationSettingName == "StorageAccount"))
             //    e.Cancel = true;

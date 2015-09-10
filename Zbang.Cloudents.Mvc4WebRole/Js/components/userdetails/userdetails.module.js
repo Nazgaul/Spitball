@@ -27,4 +27,7 @@
 (function () {
     angular.module('app.user.account', ['app.ajaxservice']);
 })();
+(function () {
+    angular.module('app.library', ['app.ajaxservice']);
+})();
 

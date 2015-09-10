@@ -111,7 +111,7 @@
                      templateUrl: function () {
                          return buildUrl('/library/indexpartial/');
                      },
-                     //controller: 'AccountSettings as a'
+                     controller: 'Library as l'
                  })
                 .state('dashboard', {
                     url: '/dashboard/',
