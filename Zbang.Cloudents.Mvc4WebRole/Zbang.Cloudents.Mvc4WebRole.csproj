@@ -2632,7 +2632,6 @@
     <Content Include="Views\Dashboard\_PrivateBoxDialog2.cshtml" />
     <Content Include="Views\Account\Confirmation.cshtml" />
     <Content Include="Views\Item\_FlagItem.cshtml" />
-    <Content Include="Views\Library\Index.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Share\Invites.cshtml" />
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
@@ -2693,6 +2692,7 @@
     <Content Include="Views\Box\_Items.cshtml" />
     <Content Include="Views\User\Index2.cshtml" />
     <Content Include="Views\Account\Settings2.cshtml" />
+    <Content Include="Views\Library\Index2.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3188,9 +3188,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Partials\Register.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Box\_Members.cshtml" />

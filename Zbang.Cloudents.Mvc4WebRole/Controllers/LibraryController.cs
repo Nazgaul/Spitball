@@ -48,23 +48,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, NoUniversity]
-        public async Task<ActionResult> IndexPartial()
+        public ActionResult IndexPartial()
         {
             //var userDetail = FormsAuthenticationService.GetUserData();
-            var universityId = User.GetUniversityId();
-            if (!universityId.HasValue)
-            {
-                return RedirectToAction("Choose");
-            }
-            var query = new GetUniversityDetailQuery(universityId.Value
-                 );
+            //var universityId = User.GetUniversityId();
+            //if (!universityId.HasValue)
+            //{
+            //    return RedirectToAction("Choose");
+            //}
+            //var query = new GetUniversityDetailQuery(universityId.Value
+            //     );
 
-            var result = await ZboxReadService.GetUniversityDetail(query);
-            if (result.Id == 0)
-            {
-                return RedirectToAction("Choose");
-            }
-            return PartialView("Index", result);
+            //var result = await ZboxReadService.GetUniversityDetail(query);
+            //if (result.Id == 0)
+            //{
+            //    return RedirectToAction("Choose");
+            //}
+            //return PartialView("Index2", result);
+            return PartialView("Index2");
         }
 
         //TODO: put output cache

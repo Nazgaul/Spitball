@@ -106,6 +106,13 @@
                     },
                     controller: 'AccountSettings as a'
                 })
+                 .state('department', {
+                     url: '/library/',
+                     templateUrl: function () {
+                         return buildUrl('/library/indexpartial/');
+                     },
+                     //controller: 'AccountSettings as a'
+                 })
                 .state('dashboard', {
                     url: '/dashboard/',
                     templateUrl: function () {
