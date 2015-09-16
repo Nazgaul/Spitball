@@ -534,12 +534,12 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
         [TestMethod]
-        public void GetUserAccountDetails_Query_ReturnResult()
+        public async Task GetUserAccountDetails_Query_ReturnResult()
         {
             var query = new GetUserDetailsQuery(1);
             try
             {
-                m_ZboxReadService.GetUserAccountDetails(query);
+               await m_ZboxReadService.GetUserAccountDetailsAsync(query);
             }
             catch (Exception ex)
             {

@@ -22,7 +22,6 @@ using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
-using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -459,12 +458,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //}
 
         [ZboxAuthorize, NoUniversity]
-        public JsonResult SettingsData()
+        public async Task<JsonResult> SettingsData()
         {
             var userId = User.GetUserId();
             var query = new GetUserDetailsQuery(userId);
 
-            var user = ZboxReadService.GetUserAccountDetails(query);
+            var user = await ZboxReadService.GetUserAccountDetailsAsync(query);
             return JsonOk(user);
         }
 

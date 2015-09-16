@@ -4,31 +4,35 @@
 
     function account(userDetailsService, $scope, $timeout) {
         var self = this;
+
+
         userDetailsService.getAccountDetails().then(function (response) {
+            console.log(response);
             self.data = response;
         });
 
-        self.simulateQuery = false;
-        self.isDisabled = false;
-        // list of `state` value/display objects
-        //self.states = loadAll();
-        self.querySearch = querySearch;
-        self.selectedItemChange = selectedItemChange;
-        self.searchTextChange = searchTextChange;
-
-        function querySearch(query) {
-
+        //University auto complete
+        self.querySearch = function querySearch(query) {
             return userDetailsService.searchUniversity(query);
+        };
+        self.selectedItemChange = function selectedItemChange(item) {
+            self.data.university = item.name;
+            self.data.universityId = item.id;
+            //console.log('Item changed to ' + JSON.stringify(item));
+        };
 
+        self.submit = function () {
+            var firstName = self.firstName || self.data.firstName,
+            lastName = self.lastName || self.data.lastName;
+            userDetailsService.setAccountDetails(self.data.universityId, firstName, lastName, self.data.university).then(function (response) {
+                alert('changes saved');
+                self.firstName = '';
+                self.lastName = '';
+            });
         }
 
-        function searchTextChange(text) {
-            console.log('Text changed to ' + text);
-            // $log.info('Text changed to ' + text);
-        }
-        function selectedItemChange(item) {
-            console.log('Item changed to ' + JSON.stringify(item));
-        }
+
+        //ud.setAccountDetails
 
         $scope.$on('$viewContentLoaded', function () {
             //taken from metronic.js
@@ -46,13 +50,10 @@
             url: '/upload/profilepicture/',
             options: {
                 multi_selection: false,
-                max_file_size: '32mb',
+                max_file_size: '10mb',
                 mime_types: [
                     { title: "Image files", extensions: "jpg,gif,png" }
                 ]
-                //headers: {
-                //    'token': 'xxx token'
-                //}
             },
             callbacks: {
                 filesAdded: function (uploader, files) {
@@ -61,9 +62,9 @@
                         uploader.start();
                     }, 1);
                 },
-                uploadProgress: function (uploader, file) {
-                    $scope.loading = file.percent / 100.0;
-                },
+                //uploadProgress: function (uploader, file) {
+                //    $scope.loading = file.percent / 100.0;
+                //},
                 fileUploaded: function (uploader, file, response) {
                     // $scope.loading = false;
                     var obj = JSON.parse(response.response);

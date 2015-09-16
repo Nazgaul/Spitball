@@ -2082,6 +2082,7 @@
     <Content Include="Js\components\item\item.controller.js" />
     <Content Include="Js\components\library\library.controller.js" />
     <Content Include="Js\components\user\account.controller.js" />
+    <Content Include="Js\components\user\user.service.js" />
     <Content Include="Js\components\user\userdetails.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
     <Content Include="Js\components\user\user.controller.js" />

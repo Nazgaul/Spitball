@@ -10,7 +10,9 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public string Image { get; set; }
         public string University { get; set; }
 
-        public string UniversityPic { get; set; }
+        public long UniversityId { get; set; }
+
+        //public string UniversityPic { get; set; }
 
         //account settings
         public string Email { get; set; }

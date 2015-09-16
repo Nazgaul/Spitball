@@ -62,44 +62,25 @@
                             <div class="tab-content">
                                 <!-- PERSONAL INFO TAB -->
                                 <div class="tab-pane active" id="info">
-                                    <form action="#" role="form">
-                                        <div class="form-group">
-                                            <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                <div class="fileinput-new thumbnail" style="width: 150px; height: 150px;">
-                                                    <img src="{{a.data.image}}" alt="" width="150" height="150" />
-                                                </div>
-                                                <a plupload="a.fileUpload.url" plupload-options="a.fileUpload.options" plupload-callbacks="a.fileUpload.callbacks">
-                                                    select image
-                                                </a>
-                                                @*<div>
-                                                    <span class="btn default blue">
-                                                        <span class="fileinput-new">
-                                                            Select image
-                                                        </span>
-                            
-                                                        <input type="file" name="...">
-                                                    </span>
-                            
-                                                </div>*@
+                                    <div class="form-group">
+                                        <div class="fileinput">
+                                            <div class="thumbnail" style="width: 150px; height: 150px;">
+                                                <img src="{{a.data.image}}" alt="" width="150" height="150" />
                                             </div>
+                                            <a plupload="a.fileUpload.url" plupload-options="a.fileUpload.options" plupload-callbacks="a.fileUpload.callbacks">
+                                                select image
+                                            </a>
+
                                         </div>
-                                        @*<div class="margin-top-10">
-                    <a href="javascript:;" class="btn blue">
-                        Submit
-                    </a>
-                    <a href="javascript:;" class="btn default">
-                        Cancel
-                    </a>
-                </div>*@
-                                    </form>
-                                    <form role="form" action="#">
+                                    </div>
+                                    <form role="form" ng-submit="a.submit()">
                                         <div class="form-group">
                                             <label class="control-label" for="firstName">First Name</label>
-                                            <input type="text" id="firstName" placeholder="{{::a.data.firstName}}" class="form-control" />
+                                            <input type="text" id="firstName" placeholder="{{a.data.firstName}}" ng-model="a.firstName" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label" for="lastName">Last Name</label>
-                                            <input type="text" id="lastName" placeholder="{{::a.data.lastName}}" class="form-control" />
+                                            <input type="text" id="lastName" placeholder="{{a.data.lastName}}" ng-model="a.lastName" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label" for="email">Change mail</label>
@@ -107,15 +88,15 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label" for="univeristy">change university</label>
-                                            <md-autocomplete ng-disabled="ctrl.isDisabled"
+                                            <md-autocomplete 
                                                              md-input-id="university"
                                                              md-no-cache="false"
-                                                             md-selected-item="a.selectedItem"
-                                                             md-search-text-change="a.searchTextChange(ctrl.searchText)"
+                                                             md-selected-item="a.selectedItem.name"
+                                                             @*md-search-text-change="a.searchTextChange(ctrl.searchText)"*@
                                                              md-search-text="a.searchText"
                                                              md-selected-item-change="a.selectedItemChange(item)"
                                                              md-items="item in a.querySearch(a.searchText)"
-                                                             md-item-text="item.display"
+                                                             md-item-text="item.name"
                                                              md-min-length="2"
                                                              md-delay="250"
                                                              placeholder="{{::a.data.university}}">
@@ -130,12 +111,8 @@
                                         </div>
 
                                         <div class="margin-top-10">
-                                            <a href="javascript:;" class="btn blue">
-                                                Save Changes
-                                            </a>
-                                            <a href="javascript:;" class="btn default">
-                                                Cancel
-                                            </a>
+                                            <button type="submit" class="btn blue">Save changes</button>
+                                            <button type="reset" class="btn default">Cancel</button>
                                         </div>
                                     </form>
                                 </div>

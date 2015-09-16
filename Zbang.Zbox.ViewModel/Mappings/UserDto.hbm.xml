@@ -22,7 +22,7 @@
 
 
   <!--account settings-->
-  <query name="GetUserAccountSettings">
+  <!--<query name="GetUserAccountSettings">
     <![CDATA[
     select 
     
@@ -38,7 +38,7 @@
     from User u left join u.University v
     where u.Id = :UserId
     ]]>
-  </query>
+  </query>-->
 
   <!--End Account settings-->
   

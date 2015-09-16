@@ -38,7 +38,7 @@
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
 
-       
+
 
         public const string DashboardInfo = @"select uWrap.universityName as Name 
 , uWrap.universityName as UniName,
@@ -46,7 +46,7 @@ uWrap.LargeImage as Img
 from zbox.university uWrap  
 where uWrap.Id = @UniversityId";
 
-       
+
         /// <summary>
         /// Used in user page to get boxes common with current user and his friend
         /// </summary>
@@ -209,7 +209,7 @@ where u.UniversityId = @UniversityId
 and u.usertype <> 1
 and userreputation > 0
  order by userreputation desc";
-     
+
 
         public const string UserAuthenticationDetail =
     @"select u.UserId as Id, u.UserName as Name, u.UserImageLarge as Image,
@@ -291,5 +291,23 @@ u.Culture as Culture,
     from zbox.Users u left join zbox.University uu on u.UniversityId = uu.Id
     where u.Email = @Email
 	and (u.MembershipUserId is not null or u.FacebookUserId is not null or u.GoogleUserId is not null)";
+
+
+        public const string GetUserAccountData = @"  select 
+    u.FirstName as FirstName,
+    u.LastName as LastName,
+    u.UserImageLarge as Image, 
+    v.UniversityName as University,
+    v.LargeImage as UniversityPic,
+    u.Email as Email,
+    u.Culture as Language,
+	u.AllocatedSize as AllocatedSize,
+	u.UniversityId as UniversityId, 
+    u.UsedSpace as UsedSpace
+    from zbox.Users u left join zbox.University v on u.UniversityId = v.Id
+    where u.userId = @UserId";
     }
+
+
+
 }

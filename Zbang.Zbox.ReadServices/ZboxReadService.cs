@@ -703,22 +703,28 @@ namespace Zbang.Zbox.ReadServices
 
 
         #region Account Settings
-        public User.UserAccountDto GetUserAccountDetails(GetUserDetailsQuery query)
+        public async Task<User.UserAccountDto> GetUserAccountDetailsAsync(GetUserDetailsQuery query)
         {
-            using (UnitOfWork.Start())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var queryUser = UnitOfWork.CurrentSession.GetNamedQuery("GetUserAccountSettings");
-
-                queryUser.SetInt64("UserId", query.UserId);
-                queryUser.SetReadOnly(true);
-                queryUser.SetResultTransformer(Transformers.AliasToBean<User.UserAccountDto>());
-                var user = queryUser.UniqueResult<User.UserAccountDto>();
-                if (user == null)
-                {
-                    throw new UserNotFoundException("user is null");
-                }
-                return user;
+                var retVal = await conn.QueryAsync<User.UserAccountDto>(Sql.Sql.GetUserAccountData, new { query.UserId });
+                return retVal.First();
             }
+            //using (UnitOfWork.Start())
+            //{
+            //    //GetUserAccountData
+            //    var queryUser = UnitOfWork.CurrentSession.GetNamedQuery("GetUserAccountSettings");
+
+            //    queryUser.SetInt64("UserId", query.UserId);
+            //    queryUser.SetReadOnly(true);
+            //    queryUser.SetResultTransformer(Transformers.AliasToBean<User.UserAccountDto>());
+            //    var user = queryUser.UniqueResult<User.UserAccountDto>();
+            //    if (user == null)
+            //    {
+            //        throw new UserNotFoundException("user is null");
+            //    }
+            //    return user;
+            //}
 
         }
         /// <summary>
@@ -989,7 +995,7 @@ namespace Zbang.Zbox.ReadServices
                     );
                 using (
                     var grid =
-                        await conn.QueryMultipleAsync(sql, new {query.QuizId, topusers = query.NumberOfUsers}))
+                        await conn.QueryMultipleAsync(sql, new { query.QuizId, topusers = query.NumberOfUsers }))
                 {
                     var retVal = new Item.QuizSolversWithCountDto
                     {
@@ -1012,7 +1018,7 @@ namespace Zbang.Zbox.ReadServices
                    Sql.Quiz.UserAnswer
 
                    );
-                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId , query.UserId }))
+                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.UserId }))
                 {
                     var retVal = new Item.QuizQuestionWithSolvedAnswersDto
                     {

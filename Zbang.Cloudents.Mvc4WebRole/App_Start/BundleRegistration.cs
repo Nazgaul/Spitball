@@ -450,6 +450,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/js/components/user/user.controller.js"),
                         new JsFileWithCdn("~/js/components/user/account.controller.js"),
+                        new JsFileWithCdn("~/js/components/user/user.service.js"),
 
                         new JsFileWithCdn("~/js/components/library/library.controller.js"),
 
