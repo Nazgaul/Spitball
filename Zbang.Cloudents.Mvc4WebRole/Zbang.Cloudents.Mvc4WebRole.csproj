@@ -1405,6 +1405,18 @@
     <Content Include="Content\Site3.rtl.min.css">
       <DependentUpon>Site3.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\accountSettings.css">
+      <DependentUpon>accountSettings.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\accountSettings.min.css">
+      <DependentUpon>accountSettings.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\accountSettings.rtl.css">
+      <DependentUpon>accountSettings.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\accountSettings.rtl.min.css">
+      <DependentUpon>accountSettings.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\box.css">
       <DependentUpon>box.less</DependentUpon>
     </Content>
@@ -2069,7 +2081,8 @@
     <Content Include="Js\components\dashboard\sidemenu.controller.js" />
     <Content Include="Js\components\item\item.controller.js" />
     <Content Include="Js\components\library\library.controller.js" />
-    <Content Include="Js\components\userdetails\userdetails.controller.js" />
+    <Content Include="Js\components\user\account.controller.js" />
+    <Content Include="Js\components\user\userdetails.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
     <Content Include="Js\components\user\user.controller.js" />
     <Content Include="Js\contact-us.js" />
@@ -2333,6 +2346,7 @@
     <Content Include="Content\Site\menu.less" />
     <Content Include="Content\Site\library.less" />
     <Content Include="Content\Site\item.less" />
+    <Content Include="Content\Site\accountSettings.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

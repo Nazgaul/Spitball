@@ -6,8 +6,15 @@
 .userPage .table > tbody > tr > td {
   border-color: #484F56;
 }
+.userPage .profile-usertitle-job {
+  font-size: 13px;
+  margin-bottom: 7px;
+  color: #f5f5f5;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+}
 .userPage .table {
-  margin-bottom: 0px;
+  margin-bottom: 0;
   color: #f5f5f5;
 }
 .userPage .table-scrollable {
@@ -19,11 +26,6 @@
 }
 .userPage .table-hover > tbody > tr:hover {
   background-color: #484F56;
-}
-.userPage .profile-usertitle-job {
-  color: #f5f5f5;
-  font-family: "Open Sans", sans-serif;
-  font-size: 15px;
 }
 .userPage .profile-usertitle-name {
   color: #f5f5f5;

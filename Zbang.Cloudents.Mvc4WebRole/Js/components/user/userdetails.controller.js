@@ -23,18 +23,7 @@
     }
 })();
 
-(function() {
-    angular.module('app.user.account').controller('AccountSettings', account);
-    account.$inject = ['userDetailsService'];
 
-    function account(userDetailsService) {
-        var a = this;
-        userDetailsService.getAccountDetails().then(function(response) {
-            a.data = response;
-        });
-    }
-
-})();
 
 (function () {
     angular.module('app.user').service('userDetailsService', userDetails);
