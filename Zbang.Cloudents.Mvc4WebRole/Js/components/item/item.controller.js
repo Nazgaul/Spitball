@@ -28,7 +28,7 @@
 
         d.getDetails = function (boxId, itemId) {
             return ajaxservice.get('/item/load/', { boxId: boxId, itemId: itemId }, 1800000);
-        }
+        };
         d.getPreview = function (blobName, index, itemId, boxId) {
             return ajaxservice.get('/item/preview/', {
                 blobName: blobName,
@@ -36,7 +36,7 @@
                 id: itemId,
                 boxId: boxId
             });
-        }
+        };
 
     }
 })();

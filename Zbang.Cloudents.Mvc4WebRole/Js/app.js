@@ -5,7 +5,7 @@
         'ngSanitize',
         'angulartics',
         'ui.bootstrap',
-        
+        'ngMaterial',
         'angulartics.google.analytics',
         
         'app.dashboard',
