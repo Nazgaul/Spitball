@@ -83,6 +83,7 @@
     <Compile Include="CreateAcademicBoxCommand.cs" />
     <Compile Include="CreateFacebookUserCommand.cs" />
     <Compile Include="CreateFacebookUserCommandResult.cs" />
+    <Compile Include="CreateGoogleUserCommand.cs" />
     <Compile Include="CreateItemTabCommand.cs" />
     <Compile Include="CreateMembershipUserCommand.cs" />
     <Compile Include="CreateMembershipUserCommandResult.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="UpdateUniversityStatsCommand.cs" />
     <Compile Include="UpdateUserFirstTimeStatusCommand.cs" />
     <Compile Include="RegisterMobileDeviceCommand.cs" />
+    <Compile Include="UpdateUserProfileImageCommand.cs" />
     <Compile Include="UpdateUserUniversityCommand.cs" />
     <Compile Include="UpdateUserLanguageCommand.cs" />
     <Compile Include="UpdateUserPasswordCommand.cs" />

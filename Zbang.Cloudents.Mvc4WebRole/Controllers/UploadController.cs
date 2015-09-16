@@ -181,22 +181,27 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost, ZboxAuthorize]
-        public ActionResult ProfilePicture()
+        public async Task<JsonResult> ProfilePicture()
         {
-            //const int ImageSize = 50;
-            //const int LargeImageSize = 100;
             try
             {
                 if (HttpContext.Request.Files.Count == 0)
                 {
-                    throw new Exception("No files");
+                    return JsonError();
                 }
-                var result = m_ProfilePicture.UploadProfilePictures(HttpContext.Request.Files[0].InputStream);
-                return Json(new { Success = true, urlSmall = result.Image.AbsoluteUri, urlLarge = result.LargeImage.AbsoluteUri });
+                var httpPostedFileBase = HttpContext.Request.Files[0];
+                if (httpPostedFileBase == null)
+                {
+                    return JsonError();
+                }
+                var result = await m_ProfilePicture.UploadProfilePicturesAsync(httpPostedFileBase.InputStream);
+                var command = new UpdateUserProfileImageCommand(User.GetUserId(), result.Image.AbsoluteUri);
+                ZboxWriteService.UpdateUserImage(command);
+                return JsonOk(result.Image.AbsoluteUri);
             }
             catch (Exception)
             {
-                return Json(new { Success = false });
+                return JsonError();
             }
         }
 

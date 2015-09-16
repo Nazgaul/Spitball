@@ -56,7 +56,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
                 var message = new Message(m_IdGenerator.GetId(), sender, recipientUser, command.PersonalNote);
                 m_MessageRepository.Save(message);
-                tasks.Add(TriggerSendMailAsync(command.PersonalNote, recipientUser.Email, sender.Name, recipientUser.Culture, sender.Image, sender.Email));
+                tasks.Add(TriggerSendMailAsync(command.PersonalNote, recipientUser.Email, sender.Name, recipientUser.Culture, sender.ImageLarge, sender.Email));
             }
             return Task.WhenAll(tasks);
         }

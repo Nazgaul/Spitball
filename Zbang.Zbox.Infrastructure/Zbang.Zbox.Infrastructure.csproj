@@ -164,6 +164,7 @@
     <Compile Include="IdGenerator\IIdGenerator.cs" />
     <Compile Include="MediaServices\IMediaSevicesProvider.cs" />
     <Compile Include="Profile\IProfilePictureProvider.cs" />
+    <Compile Include="Profile\IProfileProcessor.cs" />
     <Compile Include="Profile\ProfileImages.cs" />
     <Compile Include="Profile\ProfilePictureProvider.cs" />
     <Compile Include="Query\IComposite.cs" />

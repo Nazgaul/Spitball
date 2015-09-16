@@ -36,7 +36,7 @@ order by name;";
         public const string GetBoxQuestion = @"
  SELECT q.[QuestionId] as id
     ,u.[UserName] as UserName
-	  ,u.UserImage as UserImage
+	  ,u.UserImageLarge as UserImage
 	  ,u.userid as UserId
     ,u.Url as Url
     ,[Text] as Content
@@ -51,7 +51,7 @@ order by name;";
 
         public const string GetBoxAnswers = @"  SELECT a.[AnswerId] as id
 	  ,u.[UserName] as UserName
-      ,u.UserImage as UserImage
+      ,u.UserImageLarge as UserImage
       ,u.userid as UserId
       ,u.Url as Url
       ,[Text] as Content
@@ -103,7 +103,7 @@ order by name;";
         #region mobileFeed
         public const string GetBoxCommentsForMobile = @" SELECT q.[QuestionId] as id
     ,u.[UserName] as UserName
-	  ,u.UserImage as UserImage
+	  ,u.UserImageLarge as UserImage
 	  ,u.userid as UserId
     ,[Text] as Content
     ,q.CreationTime as creationTime
@@ -117,7 +117,7 @@ order by name;";
 
         public const string GetCommentForMobile = @" SELECT q.[QuestionId] as id
     ,u.[UserName] as UserName
-	  ,u.UserImage as UserImage
+	  ,u.UserImageLarge as UserImage
 	  ,u.userid as UserId
     ,[Text] as Content
     ,q.CreationTime as creationTime
@@ -152,7 +152,7 @@ where a.boxid = @BoxId
 )
 	 SELECT  a.[AnswerId] as id
 	  ,u.[UserName] as UserName
-      ,u.UserImage as UserImage
+      ,u.UserImageLarge as UserImage
       ,u.userid as UserId
       ,[Text] as Content
       ,last_reply.QuestionId as questionId
@@ -192,7 +192,7 @@ where a.boxid = @BoxId
 
         public const string GetCommentRepliesInMobile = @" SELECT  a.[AnswerId] as id
 	  ,u.[UserName] as UserName
-      ,u.UserImage as UserImage
+      ,u.UserImageLarge as UserImage
       ,u.userid as UserId
       ,[Text] as Content
       ,a.CreationTime as creationTime
@@ -254,7 +254,7 @@ and userid != @UserId
     FETCH NEXT @rowsperpage ROWS ONLY;";
 
         public const string BoxMembers =
-            @"  select u.UserId as Id , u.UserName as Name,u.UserImage as Image , ub.UserType as userStatus, u.url as Url , null as Email
+            @"  select u.UserId as Id , u.UserName as Name,u.UserImageLarge as Image , ub.UserType as userStatus, u.url as Url , null as Email
     from zbox.UserBoxRel ub 
 	    join zbox.users u on ub.UserId =  u.UserId
 	    where ub.BoxId=@BoxId
@@ -269,7 +269,7 @@ union
     FETCH NEXT @rowsperpage ROWS ONLY;";
 
 
-        public const string BoxMembersWithoutInvited = @" select top (@top) u.UserId as Id , u.UserImage as Image, u.UserReputation
+        public const string BoxMembersWithoutInvited = @" select top (@top) u.UserId as Id , u.UserImageLarge as Image, u.UserReputation
     from zbox.UserBoxRel ub 
 	    join zbox.users u on ub.UserId =  u.UserId
 	    where ub.BoxId=@BoxId

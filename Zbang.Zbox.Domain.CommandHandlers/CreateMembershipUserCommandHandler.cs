@@ -43,9 +43,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (user == null)//email was invited to a box new user
             {
                 user = CreateUser(command.Email,
-                    null, null,
-                    command.FirstName,
                     null,
+                    command.FirstName,
                     command.LastName, command.Culture);
                 UserRepository.Save(user, true);
                 user.GenerateUrl();

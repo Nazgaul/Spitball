@@ -56,7 +56,7 @@
             },
             callbacks: {
                 filesAdded: function (uploader, files) {
-                    $scope.loading = true;
+                    //$scope.loading = true;
                     $timeout(function () {
                         uploader.start();
                     }, 1);
@@ -65,11 +65,15 @@
                     $scope.loading = file.percent / 100.0;
                 },
                 fileUploaded: function (uploader, file, response) {
-                    $scope.loading = false;
-                    alert('Upload Complete!');
+                    // $scope.loading = false;
+                    var obj = JSON.parse(response.response);
+                    if (obj.success) {
+                        self.data.image = obj.payload;
+                        userDetailsService.changeImage(obj.payload);
+                    }
                 },
                 error: function (uploader, error) {
-                    $scope.loading = false;
+                    //$scope.loading = false;
                     alert(error.message);
                 }
             }

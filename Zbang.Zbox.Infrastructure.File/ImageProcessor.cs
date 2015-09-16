@@ -7,24 +7,25 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    public class ImageProcessor : FileProcessor
+    public class ImageProcessor : FileProcessor , IProfileProcessor
     {
-        private const int SubstractWidth = 100;
-        const int SubstractHeight = 100;
+        //private const int SubstractWidth = 100;
+        //const int SubstractHeight = 100;
 
-        private readonly Dictionary<Size, Size> m_PreviewDimension = new Dictionary<Size, Size> {
-            {new Size(1920,1080),new Size(1920-SubstractWidth,1080-SubstractHeight)},
-            {new Size(1440,900),new Size(1440-SubstractWidth,900-SubstractHeight)},
-               {new Size(1366,768),new Size(1366-SubstractWidth,768-SubstractHeight)},
-               {new Size(1280,1024),new Size(1280-SubstractWidth,1024-SubstractHeight)},
-               {new Size(1024,768),new Size(1024-SubstractWidth,768-SubstractHeight)},
-               {new Size(320,480),new Size(320-SubstractWidth,480-SubstractHeight)}
-        };
+        //private readonly Dictionary<Size, Size> m_PreviewDimension = new Dictionary<Size, Size> {
+        //    {new Size(1920,1080),new Size(1920-SubstractWidth,1080-SubstractHeight)},
+        //    {new Size(1440,900),new Size(1440-SubstractWidth,900-SubstractHeight)},
+        //       {new Size(1366,768),new Size(1366-SubstractWidth,768-SubstractHeight)},
+        //       {new Size(1280,1024),new Size(1280-SubstractWidth,1024-SubstractHeight)},
+        //       {new Size(1024,768),new Size(1024-SubstractWidth,768-SubstractHeight)},
+        //       {new Size(320,480),new Size(320-SubstractWidth,480-SubstractHeight)}
+        //};
 
         public ImageProcessor(IBlobProvider blobProvider)
             : base(blobProvider)
@@ -78,47 +79,54 @@ namespace Zbang.Zbox.Infrastructure.File
             //return new PreviewResult { Content = blobsNamesInCache, ViewName = "Image" };
         }
 
-        private Stream ProcessFile(Stream stream, int width, int height, ResizeSettings settings)
+        public Stream ProcessFile(Stream stream, int width, int height)
         {
             stream.Seek(0, SeekOrigin.Begin);
 
-            settings.Width = width;
-            settings.Height = height;
+            var settings = new ResizeSettings
+            {
 
-            settings.Quality = 80;
-            settings.Format = "jpg";
+                //Anchor = ContentAlignment.MiddleCenter,
+                //BackgroundColor = Color.White,
+                Mode = FitMode.Crop,
+                //Scale = ScaleMode.UpscaleCanvas,
+                Width = width,
+                Height = height,
+                Quality = 80,
+                Format = "jpg"
+            };
 
             var ms = new MemoryStream();
             ImageBuilder.Current.Build(stream, ms, settings);
             return ms;
         }
 
-        private bool IsFileExistsInCache(string cacheBlobNameWithSharedAccessSignature)
-        {
-            return !string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature);
-        }
+        //private bool IsFileExistsInCache(string cacheBlobNameWithSharedAccessSignature)
+        //{
+        //    return !string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature);
+        //}
 
 
-        private string CreateCacheFileName(string blobName, Size dimensions)
-        {
-            var fileName = string.Format("{0}_{1}*{2}{3}.jpg", Path.GetFileNameWithoutExtension(blobName), dimensions.Width, dimensions.Height, Path.GetExtension(blobName));
-            return fileName;
-        }
+        //private string CreateCacheFileName(string blobName, Size dimensions)
+        //{
+        //    var fileName = string.Format("{0}_{1}*{2}{3}.jpg", Path.GetFileNameWithoutExtension(blobName), dimensions.Width, dimensions.Height, Path.GetExtension(blobName));
+        //    return fileName;
+        //}
 
-        private Size GetPreviewImageSize(Size userScreenWidth)
-        {
-            if (userScreenWidth.IsEmpty)
-            {
-                return new Size(1024, 768);
-            }
-            var key = m_PreviewDimension.Keys.FirstOrDefault(f => f.Width <= userScreenWidth.Width && f.Height <= userScreenWidth.Height);
-            if (key == Size.Empty)
-            //if (key == null)
-            {
-                return new Size(1024, 768);
-            }
-            return m_PreviewDimension[key];
-        }
+        //private Size GetPreviewImageSize(Size userScreenWidth)
+        //{
+        //    if (userScreenWidth.IsEmpty)
+        //    {
+        //        return new Size(1024, 768);
+        //    }
+        //    var key = m_PreviewDimension.Keys.FirstOrDefault(f => f.Width <= userScreenWidth.Width && f.Height <= userScreenWidth.Height);
+        //    if (key == Size.Empty)
+        //    //if (key == null)
+        //    {
+        //        return new Size(1024, 768);
+        //    }
+        //    return m_PreviewDimension[key];
+        //}
 
         public static readonly string[] ImageExtensions = { ".jpg", ".gif", ".png", ".jpeg", ".bmp" };
 
@@ -139,14 +147,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         TraceLog.WriteError("image is empty" + blobName);
                         return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
                     }
-                    var settings = new ResizeSettings
-                    {
-
-                        Anchor = ContentAlignment.MiddleCenter,
-                        BackgroundColor = Color.White,
-                        // Mode = FitMode.Crop,
-                        Scale = ScaleMode.UpscaleCanvas
-                    };
+                   
 
                     using (var ms = new MemoryStream())
                     {
@@ -158,7 +159,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         await BlobProvider.UploadFilePreviewAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
                     }
 
-                    using (var outPutStream = ProcessFile(stream, ThumbnailWidth, ThumbnailHeight, settings))
+                    using (var outPutStream = ProcessFile(stream, ThumbnailWidth, ThumbnailHeight))
                     {
                         var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV4.jpg";
                         await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, outPutStream, "image/jpeg", cancelToken);

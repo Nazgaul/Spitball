@@ -374,27 +374,25 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         #region Profile
 
-        public Uri UploadProfilePicture(string blobName, byte[] fileContent)
+        public async Task<Uri> UploadProfilePictureAsync(string blobName, Stream fileContent)
         {
             if (blobName == null) throw new ArgumentNullException("blobName");
             if (fileContent == null) throw new ArgumentNullException("fileContent");
             var blob = ProfilePictureFile(blobName);
-            if (blob.Exists())
+            if (await blob.ExistsAsync())
             {
                 if (blob.Properties.Length == fileContent.Length)
                 {
                     return blob.Uri;
                 }
             }
-            using (var ms = new MemoryStream(fileContent, false))
-            {
-                blob.UploadFromStream(ms);
-            }
+            // using (var ms = new MemoryStream(fileContent, false))
+            //{
+            fileContent.Seek(0, SeekOrigin.Begin);
             blob.Properties.ContentType = "image/jpeg";
             blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
-
-            blob.SetProperties();
-
+            await blob.UploadFromStreamAsync(fileContent);
+            //}
             return blob.Uri;
         }
 

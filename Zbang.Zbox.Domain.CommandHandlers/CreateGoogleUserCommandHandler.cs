@@ -49,9 +49,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
                 if (user == null)
                 {
-                    user = CreateUser(command.Email, googleCommand.Image, googleCommand.Image,
+                    user = CreateUser(command.Email, googleCommand.Image,
                     command.FirstName,
-                    null,
                     command.LastName, command.Culture);
                     UserRepository.Save(user, true);
                     user.GenerateUrl();

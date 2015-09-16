@@ -110,7 +110,7 @@
     i.Discriminator +'WithDetail' as Discriminator,
     u.UserName as userName, 
     u.userid as userId,
-    u.UserImage as userImage,
+    u.UserImageLarge as userImage,
     coalesce(	i.NumberOfViews,0) as numberOfViews,
     i.numberofdownloads as numberOfDownloads,
     i.rate as Rate,

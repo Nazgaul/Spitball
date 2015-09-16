@@ -47,9 +47,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 }
                 if (user == null)
                 {
-                    user = CreateUser(command.Email, facebookCommand.UserImage, facebookCommand.LargeUserImage,
+                    user = CreateUser(command.Email, facebookCommand.LargeUserImage,
                     command.FirstName,
-                    facebookCommand.MiddleName,
                     command.LastName, command.Culture);
                     UserRepository.Save(user, true);
                     user.GenerateUrl();

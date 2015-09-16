@@ -33,7 +33,7 @@
                                 join zbox.users u on u.userid = ub2.userid
                                 where ub.userid = @UserId
                                 and u.userid != @UserId
-                                group by u.userid ,u.UserName  ,u.UserImage ,u.UserImageLarge,u.UserReputation ,u.url
+                                group by u.userid ,u.UserName  ,u.UserImageLarge,u.UserReputation ,u.url
                                 order by u.UserReputation desc
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
@@ -115,7 +115,7 @@ i.Discriminator as Type
         ///  Used in user page to get answers common with current user
         /// </summary>
         public const string UserWithFriendAnswer = @"select b.BoxId as boxId, b.BoxName as boxName, q.UserId as qUserId, q.Text as qContent, 
-                   uQuestion.UserImage as qUserImage, uQuestion.UserName as qUserName, a.Text as Content, 
+                   uQuestion.UserImageLarge as qUserImage, uQuestion.UserName as qUserName, a.Text as Content, 
                    (select count(*) from zbox.Answer a where a.QuestionId = q.QuestionId) as answersCount,
 				  b.url as Url , a.AnswerId as Id
                  from zbox.Answer a
@@ -178,7 +178,7 @@ select u.UserImageLarge as userImage, u.UserName as username,
 
 
         public const string UserInvites = @"
-select id as MsgId, u.UserImage as userpic,
+select id as MsgId, u.UserImageLarge as userpic,
  u.UserName as username, 
  i.CreationTime as date,
  b.BoxName,
@@ -212,7 +212,7 @@ and userreputation > 0
      
 
         public const string UserAuthenticationDetail =
-    @"select u.UserId as Id, u.UserName as Name, u.UserImage as Image,
+    @"select u.UserId as Id, u.UserName as Name, u.UserImageLarge as Image,
      u.FirstTimeDashboard as FirstTimeDashboard,
      u.FirstTimeLibrary as FirstTimeLibrary,
      u.FirstTimeItem as FirstTimeItem,
@@ -229,7 +229,7 @@ and userreputation > 0
      where u.userid = @UserId";
 
         public const string GetUserByMembershipId = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
-    u.UserImage as Image, u.Email as Email,
+    u.UserImageLarge as Image, u.Email as Email,
     u.FirstTimeDashboard as FirstTimeDashboard,
     u.FirstTimeLibrary as FirstTimeLibrary,
     u.FirstTimeItem as FirstTimeItem,
@@ -243,7 +243,7 @@ and userreputation > 0
     where u.MembershipUserId = @MembershipUserId";
 
         public const string GetUserByFacebookId = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
-    u.UserImage as Image, u.Email as Email,
+    u.UserImageLarge as Image, u.Email as Email,
     u.FirstTimeDashboard as FirstTimeDashboard,
     u.FirstTimeLibrary as FirstTimeLibrary,
     u.FirstTimeItem as FirstTimeItem,
@@ -258,7 +258,7 @@ and userreputation > 0
 	and u.IsEmailVerified = 1";
 
         public const string GetUserById = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
-    u.UserImage as Image, u.Email as Email,
+    u.UserImageLarge as Image, u.Email as Email,
     u.FirstTimeDashboard as FirstTimeDashboard,
     u.FirstTimeLibrary as FirstTimeLibrary,
     u.FirstTimeItem as FirstTimeItem,
@@ -277,7 +277,7 @@ select
 u.UserId as Id, 
 u.UserName as Name,
 u.Culture as Culture, 
-    u.UserImage as Image,
+    u.UserImageLarge as Image,
     u.Email as Email,
     u.FirstTimeDashboard as FirstTimeDashboard,
     u.FirstTimeLibrary as FirstTimeLibrary,

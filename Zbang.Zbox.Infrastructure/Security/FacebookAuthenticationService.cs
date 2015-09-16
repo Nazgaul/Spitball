@@ -53,7 +53,7 @@ namespace Zbang.Zbox.Infrastructure.Security
                 {
                     user.Id = userId.Value;
                 }
-                user.Image = GetFacebookUserImage(user.Id, FacebookPictureType.Square);
+                //user.Image = GetFacebookUserImage(user.Id, FacebookPictureType.Square);
                 user.LargeImage = GetFacebookUserImage(user.Id, FacebookPictureType.Normal);
                 return user;
 
