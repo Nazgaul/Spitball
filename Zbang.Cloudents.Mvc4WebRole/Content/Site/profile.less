@@ -5,10 +5,14 @@
 /***
 New Profile Page
 ***/
+@import "variables.less";
+
+
 .profile-sidebar {
   float: left;
   width: 300px;
   margin-right: 20px;
+  background-color: @color4;
 }
 
 .profile-content {
@@ -36,7 +40,7 @@ New Profile Page
 }
 
 .profile-usertitle-name {
-  color: #5a7391;
+  color: @color2;
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 7px;
@@ -44,7 +48,7 @@ New Profile Page
 
 .profile-usertitle-job {
  // text-transform: uppercase;
- // color: #5b9bd1;
+  color: @color2;
   font-size: 13px;
 //  font-weight: 800;
   margin-bottom: 7px;
@@ -75,7 +79,8 @@ New Profile Page
 }
 
 .profile-usermenu ul li {
-  border-bottom: 1px solid #f0f4f7;
+  //border-bottom: 1px solid #f0f4f7;
+  padding-bottom: 5px;
 }
 
 .profile-usermenu ul li:last-child {
@@ -83,7 +88,7 @@ New Profile Page
 }
 
 .profile-usermenu ul li a {
-  color: #93a3b5;
+  color: @color2;
   font-size: 16px;
   font-weight: 400;
 }
@@ -94,15 +99,15 @@ New Profile Page
 }
 
 .profile-usermenu ul li a:hover {
-  background-color: #fafcfd;
-  color: #5b9bd1;
+  background-color: @color3;
+  color: @color7;
 }
 
 .profile-usermenu ul li.active a {
   color: #5b9bd1;
-  background-color: #f6f9fb;
-  border-left: 2px solid #5b9bd1;
-  margin-left: -2px;
+  background: @color3 !important;
+  //border-left: 2px solid #5b9bd1;
+  //margin-left: -2px;
 }
 
 .profile-stat {
@@ -165,4 +170,5 @@ New Profile Page
   .profile-content {
     overflow: visible;
   }
+
 }

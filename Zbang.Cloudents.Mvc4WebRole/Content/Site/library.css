@@ -1,14 +1,21 @@
-﻿.library .corner:after {
+﻿/* Set default body */
+.library .corner:after {
   content: "";
   display: inline-block;
   border-left: 40px solid transparent;
   border-bottom: 40px solid transparent;
   border-right: 40px solid;
   position: absolute;
-  top: -3px;
-  right: -3px;
+  top: 0px;
+  right: 0px;
+  color: #c33f40;
 }
 .library .department {
   position: relative;
-  border: 4px solid ;
+  border: 2px solid ;
+  margin-bottom: 50px;
+  color: #cccccc;
+}
+.library .display .number {
+  height: 50px;
 }

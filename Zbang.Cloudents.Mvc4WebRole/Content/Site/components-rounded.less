@@ -15,7 +15,7 @@ General reset
 @import "variables.less";
 
 body {
-    color: #333333;
+    color: @color2;
     font-family: "Open Sans", sans-serif;
     padding: 0 !important;
     margin: 0 !important;
@@ -2775,115 +2775,93 @@ Mini chart containers
 Chats
 ***/
 .chats {
-    margin: 0;
-    padding: 0;
-    margin-top: -15px;
+  margin: 0;
+  padding: 0;
+  margin-top: -15px;
+}
+.chats li {
+  list-style: none;
+  padding: 5px 0;
+  margin: 10px auto;
+  font-size: 15px;
 }
 
-.chats li {
-    list-style: none;
-    padding: 5px 0;
-    margin: 20px auto;
-    font-size: 12px;
-    
+.chats li.out{
+
+padding-left:50px
+  
 }
 
 .chats li .body {
-    display: block;
+  display: block;
 }
 
 .chats li .avatar {
-    height: 45px;
-    width: 45px;
-    -webkit-border-radius: 50% !important;
-    -moz-border-radius: 50% !important;
-    border-radius: 50% !important;
-    float: left;
-    margin-right: 15px;
+  height: 45px;
+  width: 45px;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  border-radius: 50% !important;
 }
-
 .chats li.in .avatar {
-    //float: left;
-    //margin-right: 10px;
+  float: left;
+  margin-right: 10px;
 }
-
 .chats li.out .avatar {
-    //float: left;
-    //margin-right: 10px;
+  float: left;
+  margin-right: 10px;
 }
-
 .chats li .name {
-    color: #fff;
-    font-size: 13px;
-    font-weight: 400;
+  color: @color2;
+  font-size: 13px;
+  font-weight: 400;
 }
-.chats li.out .name {
-    color:#fff;
-}
-
 .chats li .datetime {
-    color: #fff;
-    font-size: 13px;
-    font-weight: 400;
+  color: @color2;
+  font-size: 13px;
+  font-weight: 400;
 }
-
 .chats li .message {
-    display: inline-block;
-    padding: 7px 20px 7px 10px;
-    position: relative;
-    text-align: left;
-    //margin-left: 65px;
-    color:#fff;
-    border-radius: 10px;
-    font-size:13px;
-}
-
+  display: block;
+  padding: 5px;
+  position: relative;
+  border-radius:10px;
+ }
 .chats li.in .message {
-    border-left: 2px solid  @color6;
-    background: @color6;
-    
+  text-align: left;
+  border-left: 2px solid @color6;
+  margin-left: 65px;
+  background: @color6;
 }
-
-.chats li.out .message {
-    //text-align: left;
-    border-left: 2px solid @color7;
-    //margin-left: 65px;
-    background: @color7;
-    //margin-left: 0;
-    //border-left: 0;
-}
-
 .chats li.in .message .arrow {
-    display: block;
-    position: absolute;
-    top: 5px;
-    left: -8px;
-    width: 0;
-    height: 0;
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-right: 8px solid @color6;
+  display: block;
+  position: absolute;
+  top: 5px;
+  left: -8px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid @color6;
 }
-
-
-
+.chats li.out .message {
+  border-left: 2px solid @color7;
+  margin-left: 65px;
+  background: @color7;
+  text-align: left;
+}
 .chats li.out .message .arrow {
-    display: block;
-    position: absolute;
-    top: 5px;
-    left: -8px;
-    width: 0;
-    height: 0;
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-right: 8px solid @color7;
-    //left: auto;
-    //border-right: 0;
+  display: block;
+  position: absolute;
+  top: 5px;
+  left: -8px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid @color7;
 }
-
 .chats li.out .name,
 .chats li.out .datetime {
-    text-align: right;
+  text-align: right;
 }
 
 .chat-form {
@@ -2893,51 +2871,43 @@ Chats
     overflow: hidden;
     clear: both;
 }
-
 .chat-form .input-cont {
-    margin-right: 40px;
+  margin-right: 40px;
 }
-
 .chat-form .input-cont .form-control {
-    border: 1px solid #ddd;
-    width: 100% !important;
-    margin-top: 0;
-    background-color: #fff !important;
+  border: 1px solid #ddd;
+  width: 100%  !important;
+  margin-top: 0;
+  background-color: #fff !important;
 }
-
 .chat-form .input-cont .form-control:focus {
-    border: 1px solid #4b8df9 !important;
+  border: 1px solid #4b8df9 !important;
 }
-
 .chat-form .btn-cont {
-    margin-top: -45px;
-    position: relative;
-    float: right;
-    width: 44px;
+  margin-top: -45px;
+  position: relative;
+  float: right;
+  width: 44px;
 }
-
 .chat-form .btn-cont .arrow {
-    position: absolute;
-    top: 17px;
-    right: 43px;
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-right: 8px solid #4d90fe;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+  position: absolute;
+  top: 17px;
+  right: 43px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #4d90fe;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
-
 .chat-form .btn-cont .btn {
-    margin-top: 8px;
+  margin-top: 8px;
 }
-
 .chat-form .btn-cont:hover .arrow {
-    border-right-color: #0362fd;
+  border-right-color: #0362fd;
 }
-
 .chat-form .btn-cont:hover .btn {
-    background-color: #0362fd;
+  background-color: #0362fd;
 }
 
 /***
@@ -5585,7 +5555,7 @@ Portlets
 }
 
 .portlet.light > .portlet-title > .caption {
-    color: #666;
+    color: @color2;
     padding: 10px 0;
 }
 
@@ -5666,13 +5636,13 @@ Portlets
     margin: 0;
     padding: 12px 13px 13px 13px;
     font-size: 13px;
-    color: #666;
+    color: @color2;
 }
 
 .portlet.light > .portlet-title > .nav-tabs > li.active > a, .portlet.light > .portlet-title > .nav-tabs > li:hover > a {
     margin: 0;
     background: none;
-    color: #333;
+    color: @color7;
 }
 
 .portlet.light.form-fit {
@@ -7167,25 +7137,25 @@ Custom tabs
 .tabbable-line > .nav-tabs > li > a {
     border: 0;
     margin-right: 0;
-    color: #737373;
+    color: @color2;
 }
 
 .tabbable-line > .nav-tabs > li > a > i {
-    color: #a6a6a6;
+    color: @color2;
 }
 
 .tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
-    border-bottom: 4px solid #fbcdcf;
+    border-bottom: 4px solid @color8;
 }
 
 .tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
     border: 0;
     background: none !important;
-    color: #333;
+    color: @color7;
 }
 
 .tabbable-line > .nav-tabs > li.open > a > i, .tabbable-line > .nav-tabs > li:hover > a > i {
-    color: #a6a6a6;
+    color: @color7;
 }
 
 .tabbable-line > .nav-tabs > li.open .dropdown-menu, .tabbable-line > .nav-tabs > li:hover .dropdown-menu {
@@ -7193,17 +7163,17 @@ Custom tabs
 }
 
 .tabbable-line > .nav-tabs > li.active {
-    border-bottom: 4px solid #F3565D;
+    border-bottom: 4px solid @color7;
     position: relative;
 }
 
 .tabbable-line > .nav-tabs > li.active > a {
     border: 0;
-    color: #333;
+    color: @color2;
 }
 
 .tabbable-line > .nav-tabs > li.active > a > i {
-    color: #404040;
+    color: @color2;
 }
 
 .tabbable-line > .tab-content {

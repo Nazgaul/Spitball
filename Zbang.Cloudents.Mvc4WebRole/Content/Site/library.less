@@ -1,4 +1,6 @@
-﻿.library {
+﻿/* Set default body */
+@import "variables.less";
+.library {
     .corner:after {
             content: "";
     display: inline-block;
@@ -6,11 +8,20 @@
     border-bottom: 40px solid transparent;
     border-right: 40px solid;
     position: absolute;
-    top: -3px;
-    right: -3px;
+    top: -0px;
+    right: -0px;
+    color:@boxColor14;
     }
     .department {
         position:relative;
-        border: 4px solid ;
+        border: 2px solid ;
+        margin-bottom:50px;
+        color:@color9;
     }
+    .display .number {
+    height:50px;
+
+
+
+    } 
 }
