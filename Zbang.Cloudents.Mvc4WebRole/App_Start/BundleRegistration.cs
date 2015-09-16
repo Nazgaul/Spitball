@@ -417,6 +417,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js"),
                         new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
                         new JsFileWithCdn("~/bower_components/angular-material/angular-material.js"),
+
+                        new JsFileWithCdn("~/scripts/plupload2/moxie.js"),
+                        new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),
+                        new JsFileWithCdn("~/scripts/plupload2/angular-plupload2.js"),
+
                         new JsFileWithCdn("~/scripts/ui-bootstrap-tpls.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-tabdrop.js"),
                         new JsFileWithCdn("~/scripts/site/jquery.mixitup.min.js"),

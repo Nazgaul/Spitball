@@ -48,69 +48,67 @@
                             </div>
                             <ul class="nav nav-tabs">
                                 <li class="active">
-                                    <a href="#tab_1_1" data-toggle="tab">Personal info</a>
+                                    <a href="#info" data-toggle="tab">Personal info</a>
                                 </li>
                                 <li>
-                                    <a href="#tab_1_2" data-toggle="tab">Change password</a>
+                                    <a href="#password" data-toggle="tab">Change password</a>
                                 </li>
                                 <li>
-                                    <a href="#tab_1_3" data-toggle="tab">Notification</a>
+                                    <a href="#notification" data-toggle="tab">Notification</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="portlet-body">
                             <div class="tab-content">
                                 <!-- PERSONAL INFO TAB -->
-                                <div class="tab-pane active" id="tab_1_1">
+                                <div class="tab-pane active" id="info">
                                     <form action="#" role="form">
                                         <div class="form-group">
                                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                                 <div class="fileinput-new thumbnail" style="width: 150px; height: 150px;">
                                                     <img src="{{a.data.image}}" alt="" width="150" height="150" />
                                                 </div>
-                                                @*<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
-                                                    </div>*@
-                                                <div>
+                                                <a plupload="a.fileUpload.url" plupload-options="a.fileUpload.options" plupload-callbacks="a.fileUpload.callbacks">
+                                                    select image
+                                                </a>
+                                                @*<div>
                                                     <span class="btn default blue">
                                                         <span class="fileinput-new">
                                                             Select image
                                                         </span>
-                                                        <!--<span class="fileinput-exists">
-                                                             Change
-                                                         </span>-->
+                            
                                                         <input type="file" name="...">
                                                     </span>
-                                                    <!-- <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput">
-                                                         Remove
-                                                     </a>-->
-                                                </div>
+                            
+                                                </div>*@
                                             </div>
                                         </div>
                                         @*<div class="margin-top-10">
-                                                <a href="javascript:;" class="btn blue">
-                                                    Submit
-                                                </a>
-                                                <a href="javascript:;" class="btn default">
-                                                    Cancel
-                                                </a>
-                                            </div>*@
+                    <a href="javascript:;" class="btn blue">
+                        Submit
+                    </a>
+                    <a href="javascript:;" class="btn default">
+                        Cancel
+                    </a>
+                </div>*@
                                     </form>
                                     <form role="form" action="#">
                                         <div class="form-group">
-                                            <label class="control-label">First Name</label>
-                                            <input type="text" placeholder="{{::a.data.firstName}}" class="form-control" />
+                                            <label class="control-label" for="firstName">First Name</label>
+                                            <input type="text" id="firstName" placeholder="{{::a.data.firstName}}" class="form-control" />
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Last Name</label>
-                                            <input type="text" placeholder="{{::a.data.lastName}}" class="form-control" />
+                                            <label class="control-label" for="lastName">Last Name</label>
+                                            <input type="text" id="lastName" placeholder="{{::a.data.lastName}}" class="form-control" />
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Change mail</label>
-                                            <input type="email" placeholder="{{::a.data.email}}" class="form-control" />
+                                            <label class="control-label" for="email">Change mail</label>
+                                            <input type="email" id="email" placeholder="{{::a.data.email}}" class="form-control" />
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">change university</label>
+                                            <label class="control-label" for="univeristy">change university</label>
                                             <md-autocomplete ng-disabled="ctrl.isDisabled"
+                                                             md-input-id="university"
                                                              md-no-cache="false"
                                                              md-selected-item="a.selectedItem"
                                                              md-search-text-change="a.searchTextChange(ctrl.searchText)"
@@ -120,7 +118,7 @@
                                                              md-item-text="item.display"
                                                              md-min-length="2"
                                                              md-delay="250"
-                                                             placeholder="choose university">
+                                                             placeholder="{{::a.data.university}}">
                                                 <md-item-template>
                                                     <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.name}}</span>
                                                 </md-item-template>
@@ -141,9 +139,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <!-- END PERSONAL INFO TAB -->
-                                <!-- CHANGE AVATAR TAB -->
-                                <div class="tab-pane" id="tab_1_2">
+                                <div class="tab-pane" id="password">
                                     <form role="form" action="#">
                                         <div class="form-group">
                                             <label class="control-label">current password</label>
@@ -163,9 +159,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <!-- END CHANGE AVATAR TAB -->
-                                <!-- CHANGE PASSWORD TAB -->
-                                <div class="tab-pane" id="tab_1_3">
+                                <div class="tab-pane" id="notification">
                                     <form action="#">
                                         <div class="form-group">
                                             <label class="control-label">Current Password</label>
@@ -189,69 +183,6 @@
                                         </div>
                                     </form>
                                 </div>
-                                <!-- END CHANGE PASSWORD TAB -->
-                                <!-- PRIVACY SETTINGS TAB -->
-                                @*<div class="tab-pane" id="tab_1_4">
-                                        <form action="#">
-                                            <table class="table table-light table-hover">
-                                                <tr>
-                                                    <td>
-                                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus..
-                                                    </td>
-                                                    <td>
-                                                        <label class="uniform-inline">
-                                                            <input type="radio" name="optionsRadios1" value="option1" />
-                                                            Yes
-                                                        </label>
-                                                        <label class="uniform-inline">
-                                                            <input type="radio" name="optionsRadios1" value="option2" checked />
-                                                            No
-                                                        </label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Enim eiusmod high life accusamus terry richardson ad squid wolf moon
-                                                    </td>
-                                                    <td>
-                                                        <label class="uniform-inline">
-                                                            <input type="checkbox" value="" /> Yes
-                                                        </label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Enim eiusmod high life accusamus terry richardson ad squid wolf moon
-                                                    </td>
-                                                    <td>
-                                                        <label class="uniform-inline">
-                                                            <input type="checkbox" value="" /> Yes
-                                                        </label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Enim eiusmod high life accusamus terry richardson ad squid wolf moon
-                                                    </td>
-                                                    <td>
-                                                        <label class="uniform-inline">
-                                                            <input type="checkbox" value="" /> Yes
-                                                        </label>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <!--end profile-settings-->
-                                            <div class="margin-top-10">
-                                                <a href="javascript:;" class="btn blue">
-                                                    Save Changes
-                                                </a>
-                                                <a href="javascript:;" class="btn default">
-                                                    Cancel
-                                                </a>
-                                            </div>
-                                        </form>
-                                    </div>*@
-                                <!-- END PRIVACY SETTINGS TAB -->
                             </div>
                         </div>
                     </div>

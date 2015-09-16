@@ -7,6 +7,7 @@
         'ui.bootstrap',
         'ngMaterial',
         'angulartics.google.analytics',
+        'angular-plupload',
         
         'app.dashboard',
 
