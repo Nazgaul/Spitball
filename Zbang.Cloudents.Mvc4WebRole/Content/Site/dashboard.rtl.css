@@ -140,3 +140,6 @@
 .leaderbordPosition {
   color: #ff7a04 !important;
 }
+md-fab-speed-dial.md-fab-bottom-left {
+  position: fixed;
+}
