@@ -163,24 +163,36 @@
     color: @boxColor17;
 }
 
-.leaderBoardTitle {
-    float: left;
-    -ms-word-break: break-word;
-    word-break: break-word;
-    font-size: 38px;
-    // width: 28%;
-    margin-bottom: 15px;
-    line-height: 35px;
-    color: @color5;
-    text-transform: uppercase;
-}
+.dashboard {
+    .leaderBoardTitle {
+        float: left;
+        -ms-word-break: break-word;
+        word-break: break-word;
+        font-size: 38px;
+        // width: 28%;
+        margin-bottom: 15px;
+        line-height: 35px;
+        color: @color5;
+        text-transform: uppercase;
+    }
 
-.leaderBoardBody {
-    font-size: 20px;
-}
+    .leaderBoardBody {
+        font-size: 20px;
+    }
 
-.leaderbordPosition {
-    color: #ff7a04 !important;
+    .leaderbordPosition {
+        color: #ff7a04 !important;
+    }
+
+    .updates {
+        position: absolute;
+        top: -10px;
+        left: 12px;
+        background-color: red;
+        border-radius: 50%;
+        padding: 5px;
+        color: #fff;
+    }
 }
 
 md-fab-speed-dial.md-fab-bottom-right {

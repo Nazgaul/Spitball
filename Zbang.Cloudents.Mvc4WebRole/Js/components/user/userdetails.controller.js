@@ -72,7 +72,6 @@ url: "/user/1/ram-y/"
                 serverCall = true;
                 ajaxservice.get('/account/details/', null, 1800000).then(function (response) {
                     serverCall = false;
-                    console.log(response);
                     ud.details = response;
                     defer.resolve(ud.details);
                 });
