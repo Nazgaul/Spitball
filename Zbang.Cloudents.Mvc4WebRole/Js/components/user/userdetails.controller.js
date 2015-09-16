@@ -54,5 +54,11 @@
         ud.getAccountDetails = function() {
             return ajaxservice.get('/account/settingsdata/', null, 1800000);
         }
+
+        ud.searchUniversity = function(term) {
+            return ajaxservice.get('/library/searchuniversity/', {
+                term: term
+            });
+        }
     }
 })();
