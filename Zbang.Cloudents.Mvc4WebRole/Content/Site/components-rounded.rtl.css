@@ -2533,7 +2533,7 @@ Chats
   border-right: 2px solid #326f2d;
   margin-right: 65px;
   background: #326f2d;
-  display: inline-block;
+  display: block;
   padding: 7px 10px 7px 20px;
   position: relative;
   color: #fff;

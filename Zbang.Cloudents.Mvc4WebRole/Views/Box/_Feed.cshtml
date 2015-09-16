@@ -34,13 +34,26 @@
                             <span class="datetime">
                                 at 20:09
                             </span>
-                            <span class="body" ng-bind-html="::post.content">
-                            </span>
-                            <br>
-                            <span >Likes</span>
-                            <span style="margin-left: 31px;">comment</span>
-                            <span style="float:right;">Share</span>
-
+                            <span class="body" ng-bind-html="::post.content"></span>
+                            <div class="mix-grid">
+                                <div class="mix">
+                                    <div class="mix-inner">
+                                        <img class="img-responsive" src="http://dummyimage.com/200x100/000/fff" alt="">
+                                        <div class="mix-details">
+                                            <h4>Cascusamus et iusto accusamus</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mix">
+                                    <div class="mix-inner">
+                                        <img class="img-responsive" src="http://dummyimage.com/200x100/000/fff" alt="">
+                                        <div class="mix-details">
+                                            <h4>Cascusamus et iusto accusamus</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          
                         </div>
                         <ul>
                             <li class="out" ng-repeat="reply in post.answers">

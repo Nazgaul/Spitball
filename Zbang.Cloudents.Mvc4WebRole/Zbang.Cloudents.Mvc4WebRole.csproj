@@ -3208,7 +3208,6 @@
     <Content Include="Views\Share\Invites.cshtml" />
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
     <Content Include="Views\Box\_UploadAddLink.cshtml" />
-    <Content Include="Views\Box\_QnA.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Item\_PreviewLinkDenied.cshtml" />
     <Content Include="Views\Item\_PreviewMediaLoading.cshtml" />
