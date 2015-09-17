@@ -464,7 +464,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/js/components/app.controller.js"),
                         new JsFileWithCdn("~/js/services/ajaxService.js"),
-                        new JsFileWithCdn("~/js/shared/colorOnLength.js")
+                        new JsFileWithCdn("~/js/shared/colorOnLength.js"),
+                        new JsFileWithCdn("~/js/shared/loader.js"),
+                        new JsFileWithCdn("~/js/shared/mixitup.js")
                     }
 
                 },

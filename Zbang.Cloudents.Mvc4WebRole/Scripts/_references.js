@@ -316,3 +316,5 @@
 /// <reference path="../js/components/dashboard/dashboard.service.js" />
 /// <reference path="../js/components/user/updates.service.js" />
 /// <reference path="../js/components/item/item.service.js" />
+/// <reference path="../js/shared/loader.js" />
+/// <reference path="../js/shared/mixitup.js" />
