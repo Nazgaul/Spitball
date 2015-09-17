@@ -334,12 +334,13 @@ namespace Zbang.Zbox.ReadServices
                 using (
                     var grid =
                         await
-                            conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4}",
+                            conn.QueryMultipleAsync(string.Format("{0} {1}",
                             Sql.Item.ItemDetail,
-                            Sql.Item.Navigation,
-                            Sql.Item.ItemComments,
-                            Sql.Item.ItemCommentReply,
-                            Sql.Item.UserItemRate),
+                            Sql.Item.Navigation
+                            //Sql.Item.ItemComments,
+                            //Sql.Item.ItemCommentReply,
+                            //Sql.Item.UserItemRate
+                            ),
                                 new { query.ItemId, query.BoxId, query.UserId }))
                 {
                     var retVal = grid.Read<Item.ItemDetailDto>().FirstOrDefault();
@@ -348,18 +349,18 @@ namespace Zbang.Zbox.ReadServices
                         throw new ItemNotFoundException();
                     }
                     retVal.Navigation = grid.Read<Item.ItemNavigationDto>().FirstOrDefault();
-                    retVal.Comments = await grid.ReadAsync<Activity.AnnotationDto>();
+                    //retVal.Comments = await grid.ReadAsync<Activity.AnnotationDto>();
 
 
-                    IEnumerable<Activity.AnnotationReplyDto> replies =
-                        grid.Read<Activity.AnnotationReplyDto>().ToList();
+                    //IEnumerable<Activity.AnnotationReplyDto> replies =
+                    //    grid.Read<Activity.AnnotationReplyDto>().ToList();
 
-                    foreach (var comment in retVal.Comments)
-                    {
-                        comment.Replies.AddRange(replies.Where(w => w.ParentId == comment.Id));
+                    //foreach (var comment in retVal.Comments)
+                    //{
+                    //    comment.Replies.AddRange(replies.Where(w => w.ParentId == comment.Id));
 
-                    }
-                    retVal.Rate = grid.Read<int>().FirstOrDefault();
+                    //}
+                    //retVal.Rate = grid.Read<int>().FirstOrDefault();
                     return retVal;
                 }
 

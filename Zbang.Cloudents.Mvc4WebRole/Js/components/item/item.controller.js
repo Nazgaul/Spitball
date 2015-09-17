@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.item').controller('ItemController', item);
-    item.$inject = ['$stateParams', 'itemService', '$sce'];
+    item.$inject = ['$stateParams', 'itemService', '$sce', '$location'];
 
-    function item($stateParams, itemService, $sce) {
+    function item($stateParams, itemService, $sce, $location) {
         var i = this;
         var index = 0, loadMore = false;
 
@@ -10,6 +10,8 @@
         itemService.getDetails($stateParams.boxId, $stateParams.itemId).then(function (response) {
             console.log(response);
             i.details = response;
+            i.details.downloadUrl = $location.url() + 'download/';
+            i.details.printUrl = $location.url() + 'print/';
             getPreview();
         });
 

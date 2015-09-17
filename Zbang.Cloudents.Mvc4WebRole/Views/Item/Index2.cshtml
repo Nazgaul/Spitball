@@ -2,36 +2,12 @@
     const string svgUrl = "~/images/site/itemIcons.svg";
 }
 <div class="itemPage">
-    @*<div class="portlet light bordered">
-        <div class="portlet-title">
-            <div class="caption font-green-sharp">
-                <i class="icon-speech font-green-sharp"></i>
-                <span class="caption-subject bold uppercase"> Portlet</span>
-                <span class="caption-helper">weekly stats...</span>
-            </div>
-            <div class="actions">
-                <a href="javascript:;" class="btn btn-circle btn-default btn-sm">
-                    <i class="fa fa-pencil"></i> Edit
-                </a>
-                <a href="javascript:;" class="btn btn-circle btn-default btn-sm">
-                    <i class="fa fa-plus"></i> Add
-                </a>
-                <a href="javascript:;" class="btn btn-circle btn-default btn-icon-only fullscreen"></a>
-            </div>
-        </div>
-        <div class="portlet-body">
-            <div class="scroller" style="height:200px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
-                <img src="https://az779114.vo.msecnd.net/preview/88c1424d-cedc-45b2-be99-ec9dd48a7809.pdf.jpg?width=1000&height=1500" />
-            </div>
-        </div>
-    </div>*@
-
     <header>
         <div class="like">Rate</div>
         <a class="closeItem" href="{{::i.details.boxUrl}}">@Html.Svg(svgUrl, "close")</a>
         <div class="text-center">
-            <a href="#">@Html.Svg(svgUrl, "download")</a>
-            <a href="#">@Html.Svg(svgUrl, "print")</a>
+            <a href="{{i.details.downloadUrl}}">@Html.Svg(svgUrl, "download")</a>
+            <a href="{{i.details.printUrl}}">@Html.Svg(svgUrl, "print")</a>
             <a href="#" tooltip-placement="bottom" tooltip="share tooltip">@Html.Svg(svgUrl, "share")</a>
             <a href="#" tooltip-placement="bottom" tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
         </div>
@@ -39,7 +15,7 @@
     </header>
     <div class="itemContent">
         <div class="fileName">{{::i.details.name}} <button type="button">@Html.Svg(svgUrl, "rename")</button></div>
-        <div class="preview" ng-bind-html="i.preview" infinite-scroll="i.loadMore()" infinite-scroll-distance="0">
+        <div class="preview" ng-bind-html="i.preview" infinite-scroll="i.loadMore()" infinite-scroll-distance="2">
         </div>
     </div>
 </div>
