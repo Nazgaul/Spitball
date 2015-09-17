@@ -16,7 +16,6 @@ using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Search;
 
 using Zbang.Zbox.ViewModel.Queries;
-using Zbang.Zbox.Infrastructure.Thumbnail;
 using Zbang.Zbox.Infrastructure.Mail;
 
 using System.Diagnostics;

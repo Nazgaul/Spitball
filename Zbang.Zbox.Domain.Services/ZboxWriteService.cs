@@ -76,6 +76,14 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+        public void UpdateUserImage(UpdateUserProfileImageCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
 
         public CreateBoxCommandResult CreateBox(CreateBoxCommand command)
         {

@@ -30,28 +30,25 @@ namespace Zbang.Zbox.Domain
             if (email == null) throw new ArgumentNullException("email");
             Name = Email = email.Trim();
             IsRegisterUser = false;
-            Image = smallImage;
+           // Image = smallImage;
             ImageLarge = largeImage;
             Culture = System.Globalization.CultureInfo.CurrentCulture.Name;
         }
 
-        public User(string email, string smallImage, string largeImage,
-            string firstName, string middleName, string lastName,  string culture
+        public User(string email, string image,
+            string firstName, string lastName,  string culture
             )
             : this()
         {
             if (firstName == null) throw new ArgumentNullException("firstName");
             if (lastName == null) throw new ArgumentNullException("lastName");
             Email = email;
-            Image = smallImage;
-            ImageLarge = largeImage;
+           // Image = smallImage;
+            ImageLarge = image;
 
             FirstName = firstName.Trim();
             LastName = lastName.Trim();
-            if (!string.IsNullOrEmpty(middleName))
-            {
-                MiddleName = middleName.Trim();
-            }
+           
 
             CreateName();
            
@@ -64,13 +61,7 @@ namespace Zbang.Zbox.Domain
             var sb = new StringBuilder();
             sb.Append(FirstName);
             sb.Append(" ");
-            if (!string.IsNullOrEmpty(MiddleName))
-            {
-                sb.Append(MiddleName);
-                sb.Append(" ");
-            }
             sb.Append(LastName);
-            //return sb.ToString();
             Name = sb.ToString();
             GenerateUrl();
         }
@@ -95,7 +86,7 @@ namespace Zbang.Zbox.Domain
 
 
         public virtual string FirstName { get; set; }
-        public virtual string MiddleName { get; set; }
+        //public virtual string MiddleName { get; set; }
         public virtual string LastName { get; set; }
 
         public virtual string Url { get; set; }
@@ -108,7 +99,7 @@ namespace Zbang.Zbox.Domain
         public virtual long? FacebookId { get; set; }
         public virtual string GoogleId { get; set; }
 
-        public virtual string Image { get; set; }
+       // public virtual string Image { get; set; }
         public virtual string ImageLarge { get; set; }
 
 
@@ -164,21 +155,11 @@ namespace Zbang.Zbox.Domain
 
 
 
-        public void UpdateUserProfile(string firstName, string middleName, string lastName, Uri picture, Uri largePicture)
+        public void UpdateUserProfile(string firstName, string lastName)
         {
             if (firstName == null) throw new ArgumentNullException("firstName");
             if (lastName == null) throw new ArgumentNullException("lastName");
-            // Name = userName.Trim();
-            if (picture != null)
-            {
-                Image = picture.AbsoluteUri;
-            }
-            if (largePicture != null)
-            {
-                ImageLarge = largePicture.AbsoluteUri;
-            }
             FirstName = firstName.Trim();
-            MiddleName = !string.IsNullOrEmpty(middleName) ? middleName.Trim() : null;
             LastName = lastName.Trim();
             CreateName();
         }

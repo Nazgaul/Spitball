@@ -60,7 +60,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var url = UrlConsts.BuildInviteCloudentsUrl(invId);
 
                 tasks.Add(
-                    m_QueueProvider.InsertMessageToMailNewAsync(new InviteToCloudentsData(sender.Name, sender.Image,
+                    m_QueueProvider.InsertMessageToMailNewAsync(new InviteToCloudentsData(sender.Name, sender.ImageLarge,
                         recipientEmail, sender.Culture, sender.Email, url)));
             }
             return Task.WhenAll(tasks);

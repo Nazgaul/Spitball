@@ -111,7 +111,7 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
             return GenerateSharedAccressReadPermissionInCache(blobName, CacheContainerItemAvailableInMinutes);
         }
 
-        public Uri UploadProfilePicture(string blobName, byte[] fileContent)
+        public Task<Uri> UploadProfilePictureAsync(string blobName, Stream fileContent)
         {
             throw new NotImplementedException();
         }

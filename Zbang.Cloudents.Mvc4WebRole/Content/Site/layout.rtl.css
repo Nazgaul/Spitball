@@ -21,13 +21,13 @@
     page-break-after: avoid;
   }
   .page-container {
-    margin: 0px !important;
-    padding: 0px !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
   .page-content {
     padding: 0 !important;
     min-height: 300px !important;
-    padding: 0px 20px 20px !important;
+    padding: 0 20px 20px !important;
     margin: 0 !important;
   }
   .page-content > .portlet {
@@ -51,7 +51,7 @@ Page Header
   height: 75px;
   min-height: 75px;
   filter: none;
-  background-image: none
+  background-image: none;
   /* Fixed header */
   /* Header logo */
   /* header top */
@@ -180,7 +180,7 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav {
   padding: 0;
   margin-left: 20px;
-  display: block
+  display: block;
   /* Extended Dropdowns */
   /* Notification */
   /* Inbox */
@@ -190,16 +190,16 @@ Page Header
   /* Dark version */
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   height: 75px;
   display: inline-block;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown:last-child {
-  padding-left: 0px;
+  padding-left: 0;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle {
-  margin: 0px;
+  margin: 0;
   padding: 29px 12px 24px 12px;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle:last-child {
@@ -225,10 +225,6 @@ Page Header
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu {
   margin-top: 9px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
   border-radius: 4px;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu:before {
@@ -266,7 +262,7 @@ Page Header
   min-width: 160px;
   max-width: 275px;
   width: 275px;
-  z-index: 9995
+  z-index: 9995;
   /* header notifications dropdowns */
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu > li.external {
@@ -274,10 +270,6 @@ Page Header
   overflow: hidden;
   padding: 15px 15px;
   letter-spacing: 0.5px;
-  -webkit-border-radius: 4px 4px 0 0;
-  -moz-border-radius: 4px 4px 0 0;
-  -ms-border-radius: 4px 4px 0 0;
-  -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu > li.external > h3 {
@@ -329,10 +321,6 @@ Page Header
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-notification .dropdown-menu .dropdown-menu-list > li a .details .label-icon {
   margin-left: 10px;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
   border-radius: 50%;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-notification .dropdown-menu .dropdown-menu-list > li a .details .label-icon i {
@@ -359,10 +347,6 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-menu .dropdown-menu-list > li .photo img {
   height: 40px;
   width: 40px;
-  -webkit-border-radius: 50% !important;
-  -moz-border-radius: 50% !important;
-  -ms-border-radius: 50% !important;
-  -o-border-radius: 50% !important;
   border-radius: 50% !important;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-menu .dropdown-menu-list > li .subject {
@@ -418,7 +402,6 @@ Page Header
   font-weight: 600;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > img {
-  margin-top: 4px;
   margin-right: 5px;
   margin-top: -8px;
   height: 39px;
@@ -513,8 +496,6 @@ Page Header
   }
   .page-sidebar-closed.page-sidebar-closed-hide-logo .page-header.navbar .page-logo {
     padding: 0;
-  }
-  .page-sidebar-closed.page-sidebar-closed-hide-logo .page-header.navbar .page-logo {
     width: 54px;
     margin-right: 20px;
     margin-left: 10px;
@@ -567,7 +548,7 @@ Page Header
     padding: 0;
     margin: 0;
     position: relative;
-    clear: both
+    clear: both;
     /* Page logo */
     /* Menu Toggler */
     /* Search form */
@@ -614,7 +595,7 @@ Page Header
     display: inline-block;
     position: relative;
     top: 1px;
-    left: 0px;
+    left: 0;
   }
   .page-header.navbar .top-menu .navbar-nav .open .dropdown-menu {
     position: absolute;
@@ -645,7 +626,7 @@ Page Header
   /* 767px */
   /* Page header */
   .page-header.navbar {
-    padding: 0
+    padding: 0;
     /* Header logo */
     /* Search box */
     /* Top navigation menu*/
@@ -770,9 +751,9 @@ Pace - Page Progress
 Page container
 ***/
 .page-container {
-  margin: 0px;
+  margin: 0;
   padding: 20px 20px 0 20px;
-  position: relative
+  position: relative;
   /* Fixed header */
   /* Fixed footer for mobile */
 }
@@ -859,6 +840,9 @@ Quick Sidebar Layout
 }
 /* Quick sidebar wrapper */
 .page-quick-sidebar-wrapper {
+  -moz-transition: left 0.3s;
+  -o-transition: left 0.3s;
+  -webkit-transition: left 0.3s;
   transition: left 0.3s;
   z-index: 9995;
   position: fixed;
@@ -868,6 +852,9 @@ Quick Sidebar Layout
   width: 320px;
 }
 .page-quick-sidebar-open .page-quick-sidebar-wrapper {
+  -moz-transition: left 0.3s;
+  -o-transition: left 0.3s;
+  -webkit-transition: left 0.3s;
   transition: left 0.3s;
   left: 0;
 }
@@ -930,10 +917,6 @@ Quick Sidebar Content
   font-size: 15px;
   padding: 45px 15px 8px;
   text-transform: uppercase;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
   border-radius: 0;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .nav-justified > li > a > .badge {
@@ -1000,17 +983,23 @@ Quick Sidebar Content
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-list {
   position: absolute !important;
   width: 320px !important;
+  -moz-transition: margin 0.3s;
+  -o-transition: margin 0.3s;
+  -webkit-transition: margin 0.3s;
   transition: margin 0.3s;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-item {
   width: 320px;
   position: absolute !important;
   width: 320px !important;
+  -moz-transition: margin 0.3s;
+  -o-transition: margin 0.3s;
+  -webkit-transition: margin 0.3s;
   transition: margin 0.3s;
   margin-right: 320px;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-item .page-quick-sidebar-nav {
-  padding: 15px 10px 0px 10px;
+  padding: 15px 10px 0 10px;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-item .page-quick-sidebar-nav .page-quick-sidebar-back-to-list {
   vertical-align: middle;
@@ -1024,6 +1013,9 @@ Quick Sidebar Content
   margin-left: 3px;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-content-item-shown .page-quick-sidebar-list {
+  -moz-transition: margin 0.3s;
+  -o-transition: margin 0.3s;
+  -webkit-transition: margin 0.3s;
   transition: margin 0.3s;
   margin-right: -320px;
 }
@@ -1032,6 +1024,9 @@ Quick Sidebar Content
   display: none !important;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-content-item-shown .page-quick-sidebar-item {
+  -moz-transition: margin 0.3s;
+  -o-transition: margin 0.3s;
+  -webkit-transition: margin 0.3s;
   transition: margin 0.3s;
   margin-right: 0;
 }
@@ -1083,10 +1078,13 @@ Quick Sidebar Content
   display: inline-block;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-chat .page-quick-sidebar-chat-user .page-quick-sidebar-chat-user-messages {
-  padding: 0px 10px;
+  padding: 0 10px;
   position: relative;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-chat .page-quick-sidebar-chat-user .page-quick-sidebar-chat-user-messages .post {
+  -moz-transition: display 0.3s;
+  -o-transition: display 0.3s;
+  -webkit-transition: display 0.3s;
   transition: display 0.3s;
   padding: 5px 0;
   margin: 10px auto;
@@ -1189,7 +1187,7 @@ Quick Sidebar Content
   margin-top: -4px;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-settings .page-quick-sidebar-settings-list .list-items li select.form-control {
-  padding: 4px 0px !important;
+  padding: 4px 0 !important;
 }
 /***
 Quick Sidebar Layout
@@ -1216,7 +1214,7 @@ Quick Sidebar Toggler
 Quick Sidebar Content
 ***/
 .page-quick-sidebar-wrapper {
-  color: #99a8b5
+  color: #99a8b5;
   /* Quick sidebar chat */
   /* Quick sidebar alerts */
 }
@@ -1333,21 +1331,10 @@ Quick Sidebar Content
 /***
 Page sidebar
 ***/
-/* IE8 fix */
-.ie8 .page-sidebar {
-  width: 235px;
-  float: right;
-  position: relative;
-  margin-left: -100%;
-}
 /* Page Sidebar */
 .page-sidebar,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover {
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px
+  border-radius: 4px;
   /* Default sidebar menu */
 }
 .page-sidebar.navbar-collapse,
@@ -1357,14 +1344,10 @@ Page sidebar
 }
 .page-sidebar .page-sidebar-menu,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu {
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
   border-radius: 4px;
   list-style: none;
   margin: 10px 0 0 0;
-  padding: 0
+  padding: 0;
   /* 1st level links */
   /* all links */
 }
@@ -1373,7 +1356,7 @@ Page sidebar
   display: block;
   margin: 0;
   padding: 0;
-  border: 0px;
+  border: 0;
 }
 .page-sidebar .page-sidebar-menu > li.heading,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.heading {
@@ -1383,7 +1366,6 @@ Page sidebar
 .page-sidebar .page-sidebar-menu > li.heading > h3,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.heading > h3 {
   font-size: 13px;
-  font-weight: 400;
   padding: 0;
   margin: 0;
   font-weight: 600;
@@ -1393,14 +1375,13 @@ Page sidebar
   display: block;
   position: relative;
   margin: 1px 0 0 0;
-  border: 0px;
+  border: 0;
   padding: 12px 15px;
   text-decoration: none;
 }
 .page-sidebar .page-sidebar-menu > li > a > .title,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > .title {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 20px;
 }
 .page-sidebar .page-sidebar-menu > li > a > i,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i {
@@ -1422,10 +1403,16 @@ Page sidebar
 }
 .page-sidebar-fixed .page-sidebar .page-sidebar-menu > li > a,
 .page-sidebar-fixed .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a {
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
 .page-sidebar-reversed.page-sidebar-fixed .page-sidebar .page-sidebar-menu > li > a,
 .page-sidebar-reversed.page-sidebar-fixed .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a {
+  -moz-transition: none;
+  -o-transition: none;
+  -webkit-transition: none;
   transition: none;
 }
 .page-sidebar .page-sidebar-menu > li.open > a,
@@ -1440,14 +1427,12 @@ Page sidebar
 }
 .page-sidebar .page-sidebar-menu li > a > .arrow:before,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li > a > .arrow:before {
-  width: 10px;
   float: left;
   margin-left: 5px;
   margin-right: 5px;
   display: inline;
   font-size: 16px;
   font-family: FontAwesome;
-  height: auto;
   content: "\f104";
   font-weight: 300;
   text-shadow: none;
@@ -1461,21 +1446,21 @@ Page sidebar
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li > a > .badge {
   float: left;
   margin-top: 1px;
-  margin-left: 0px;
+  margin-left: 0;
 }
 .page-sidebar .page-sidebar-menu .sub-menu,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu {
   list-style: none;
   display: none;
   padding: 0;
-  margin: 8px 0px 8px 0px;
+  margin: 8px 0 8px 0;
 }
 .page-sidebar .page-sidebar-menu .sub-menu li,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li {
   background: none;
-  margin: 0px;
-  padding: 0px;
-  margin-top: 1px !important
+  margin: 0;
+  padding: 0;
+  margin-top: 1px !important;
   /* 2nd level sub menu */
 }
 .page-sidebar .page-sidebar-menu .sub-menu li > a,
@@ -1528,7 +1513,7 @@ Page sidebar
 @media (min-width: 992px) {
   /* 992px */
   .page-sidebar {
-    width: 235px;
+    width: 275px;
     float: right;
     position: relative;
     margin-left: -100%;
@@ -1549,7 +1534,7 @@ Page sidebar
     margin-right: -100%;
   }
   .page-sidebar-reversed.page-sidebar-fixed .page-sidebar {
-    margin-right: -235px;
+    margin-right: -275px;
   }
   .page-sidebar-reversed.page-sidebar-fixed .page-sidebar-wrapper {
     position: relative;
@@ -1591,10 +1576,6 @@ Page sidebar
     display: block !important;
   }
   .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed > li:not(.heading):hover > a {
-    -webkit-border-radius: 4px 0 0 0;
-    -moz-border-radius: 4px 0 0 0;
-    -ms-border-radius: 4px 0 0 0;
-    -o-border-radius: 4px 0 0 0;
     border-radius: 4px 0 0 0;
     text-align: right;
   }
@@ -1620,10 +1601,6 @@ Page sidebar
     margin-top: 0;
     top: 100%;
     display: block !important;
-    -webkit-border-radius: 0 0 4px 4px;
-    -moz-border-radius: 0 0 4px 4px;
-    -ms-border-radius: 0 0 4px 4px;
-    -o-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px;
   }
   .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed > li:not(.heading):hover > .sub-menu > li > a {
@@ -1658,10 +1635,6 @@ Page sidebar
     margin-right: -235px;
   }
   .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed > li:hover > a {
-    -webkit-border-radius: 0 4px 0 0;
-    -moz-border-radius: 0 4px 0 0;
-    -ms-border-radius: 0 4px 0 0;
-    -o-border-radius: 0 4px 0 0;
     border-radius: 0 4px 0 0;
   }
   .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed > li:hover > a > .title {
@@ -1705,10 +1678,6 @@ Page sidebar
     width: 234px;
     z-index: 2000;
     position: absolute;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
     border-radius: 4px;
   }
   .page-sidebar-menu.page-sidebar-menu-hover-submenu li .sub-menu > li > a {
@@ -1790,7 +1759,7 @@ Page sidebar
     display: none !important;
   }
   .page-sidebar.navbar-collapse {
-    max-height: none
+    max-height: none;
     /* set some max height to have a scrollable menu on mobile devices */
   }
   .page-sidebar.navbar-collapse.collapse {
@@ -1861,7 +1830,7 @@ Page content
 }
 .page-head .page-title > h1 {
   color: #f5f5f5;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 400;
   margin: 0;
   padding: 0;
@@ -1895,11 +1864,11 @@ Page content
 }
 /* Page content */
 .page-content {
-  margin-top: 0px;
-  padding: 0px;
+  margin-top: 0;
+  padding: 0;
 }
 .page-full-width .page-content {
-  margin-right: 0px !important;
+  margin-right: 0 !important;
 }
 @media (min-width: 992px) {
   /* 992px */
@@ -1909,8 +1878,8 @@ Page content
     width: 100%;
   }
   .page-content-wrapper .page-content {
-    margin-right: 235px;
-    margin-top: 0px;
+    margin-right: 275px;
+    margin-top: 0;
     min-height: 600px;
     padding: 10px 20px 0 0;
   }
@@ -1944,7 +1913,7 @@ Page content
     margin-left: 0 !important;
   }
   .page-full-width .page-content-wrapper .page-content {
-    margin-right: 0px !important;
+    margin-right: 0 !important;
   }
 }
 @media (max-width: 991px) {
@@ -1958,7 +1927,7 @@ Page content
   }
   /* Page content */
   .page-content-wrapper1 .page-content {
-    margin: 0px !important;
+    margin: 0 !important;
     padding: 20px !important;
     min-height: 280px;
   }
@@ -1975,7 +1944,7 @@ Page content
   /* Page content */
   .page-content-wrapper .page-content {
     padding: 20px 10px 10px 10px !important;
-    overflow: hidden
+    overflow: hidden;
     /* Page title */
   }
   .page-content-wrapper .page-content .page-title {
@@ -2024,10 +1993,10 @@ Page footer
   text-decoration: none;
   cursor: pointer;
   margin-top: -2px;
-  margin-left: 0px;
-  margin-bottom: 0px;
+  margin-left: 0;
+  margin-bottom: 0;
   font-size: 16px;
-  padding: 0px 6px 0px 6px;
+  padding: 0 6px 0 6px;
 }
 .page-footer .page-footer-tools .go-top i {
   font-size: 22px;
@@ -2120,7 +2089,6 @@ Page footer
 }
 /* Scroll Top Top */
 .scroll-to-top {
-  display: inline-block;
   padding: 2px;
   text-align: center;
   position: fixed;
@@ -2212,7 +2180,7 @@ Theme Panel
 }
 .theme-panel .theme-colors > li.theme-color > .theme-color-view {
   float: right;
-  margin-top: 0px;
+  margin-top: 0;
   margin-left: 8px;
   display: inline-block;
   border-radius: 10px !important;
@@ -2273,5 +2241,8 @@ Page Loading
 .page-on-load .page-footer,
 .page-on-load > .clearfix {
   display: none;
+  -moz-transition: all 2s;
+  -o-transition: all 2s;
+  -webkit-transition: all 2s;
   transition: all 2s;
 }

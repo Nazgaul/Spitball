@@ -17,12 +17,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public void Handle(UpdateUserProfileCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
-            User user = m_UserRepository.Get(command.Id);
-            if (user == null)
-            {
-                throw new Infrastructure.Exceptions.UserNotFoundException("user doesn't exists");
-            }
-            user.UpdateUserProfile(command.FirstName, command.MiddleName, command.LastName, command.PicturePath, command.LargePicturePath);
+            var user = m_UserRepository.Load(command.Id);
+            user.UpdateUserProfile(command.FirstName, command.LastName);
             m_UserRepository.Save(user);
         }
     }

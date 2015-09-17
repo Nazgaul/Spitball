@@ -1,13 +1,14 @@
 ﻿
 using System.IO;
+using System.Threading.Tasks;
 
 
 namespace Zbang.Zbox.Infrastructure.Profile
 {
-   public interface IProfilePictureProvider
+    public interface IProfilePictureProvider
     {
-       ProfileImages UploadProfilePictures(Stream profileImage);
-       //ProfileImages GetDefaultProfileImage();
-       //ProfileImages GetDefaultProfileImage();
+        Task<ProfileImages> UploadProfilePicturesAsync(Stream profileImage);
+        //ProfileImages GetDefaultProfileImage();
+        //ProfileImages GetDefaultProfileImage();
     }
 }

@@ -11,6 +11,7 @@ namespace Zbang.Zbox.Domain.Common
 
         Task UpdateUserEmailAsync(UpdateUserEmailCommand command);
         void UpdateUserProfile(UpdateUserProfileCommand command);
+        void UpdateUserImage(UpdateUserProfileImageCommand command);
         void UpdateUserLanguage(UpdateUserLanguageCommand command);
         void UpdateUserUniversity(UpdateUserUniversityCommand command);
         CreateBoxCommandResult CreateBox(CreateBoxCommand command);

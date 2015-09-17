@@ -1,42 +1,65 @@
 ﻿(function () {
     angular.module('app.item').controller('ItemController', item);
-    item.$inject = ['$stateParams', 'itemService'];
+    item.$inject = ['$stateParams', 'itemService', '$sce', '$location'];
 
-    function item($stateParams, itemService) {
+    function item($stateParams, itemService, $sce, $location) {
         var i = this;
+        var index = 0, loadMore = false;
 
         i.preview = '';
         itemService.getDetails($stateParams.boxId, $stateParams.itemId).then(function (response) {
             console.log(response);
             i.details = response;
-
-            itemService.getPreview(i.details.blob, 0, $stateParams.itemId, $stateParams.boxId).then(function (response) {
-                i.preview += response.preview;
-            });
+            i.details.downloadUrl = $location.url() + 'download/';
+            i.details.printUrl = $location.url() + 'print/';
+            getPreview();
         });
 
-    }
-})();
-
-
-(function () {
-    angular.module('app.item').service('itemService', library);
-    library.$inject = ['ajaxService'];
-
-    function library(ajaxservice) {
-        var d = this;
-
-        d.getDetails = function (boxId, itemId) {
-            return ajaxservice.get('/item/load/', { boxId: boxId, itemId: itemId }, 1800000);
-        };
-        d.getPreview = function (blobName, index, itemId, boxId) {
-            return ajaxservice.get('/item/preview/', {
-                blobName: blobName,
-                index: index,
-                id: itemId,
-                boxId: boxId
+        function getPreview() {
+            //if (index > 0) {
+            //    $scope.load.contentLoadMore = true;
+            //} else {
+            //    $scope.load.contentLoading = true;
+            //}
+            //blobName, index, itemId, boxId
+            //string blobName, int imageNumber, long id, string boxId, int width = 0, int height = 0
+            itemService.getPreview(
+                 i.details.blob,
+                 index,
+                 $stateParams.itemId,
+                $stateParams.boxId
+            ).then(function (data) {
+                data = data || {};
+                //$scope.load.contentLoading = $scope.load.contentLoadMore = false;
+                if (data.preview) {
+                    if (data.preview.indexOf('iframe') > 0
+                        || data.preview.indexOf('audio') > 0
+                        || data.preview.indexOf('video') > 0) {
+                        i.preview += $sce.trustAsHtml(data.preview);
+                    } else {
+                        i.preview += data.preview;
+                        //$analytics.eventTrack('Get Prview', {
+                        //    category: 'Item'
+                        //});
+                        loadMore = true;
+                    }
+                    //$scope.$broadcast('update', data.preview); //for fullscreen
+                }
             });
-        };
+        }
 
+       
+
+        i.loadMore = function () {
+            if (loadMore) {
+                loadMore = false;
+                ++index;
+                getPreview();
+            }
+        };
     }
+
+    
 })();
+
+

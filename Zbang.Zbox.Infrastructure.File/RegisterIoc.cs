@@ -1,4 +1,5 @@
 ﻿using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.File
@@ -21,6 +22,8 @@ namespace Zbang.Zbox.Infrastructure.File
             ioc.RegisterType<IContentProcessor, VideoProcessor>();
             ioc.RegisterType<IContentProcessor, TextProcessor>();
             ioc.RegisterType<IContentProcessor, AudioProcessor>();
+
+            ioc.RegisterType<IProfileProcessor, ImageProcessor>();
         }
     }                                                     
 }                                                         

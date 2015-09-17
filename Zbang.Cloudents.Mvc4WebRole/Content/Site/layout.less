@@ -1,4 +1,5 @@
 ﻿@import "variables.less";
+@sideBarWidth:275px;
 @media print {
     body {
         background-color: #fff !important;
@@ -29,14 +30,14 @@
     }
 
     .page-container {
-        margin: 0px !important;
-        padding: 0px !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     .page-content {
         padding: 0 !important;
         min-height: 300px !important;
-        padding: 0px 20px 20px !important;
+        padding: 0 20px 20px !important;
         margin: 0 !important;
     }
 
@@ -229,18 +230,18 @@ Page Header
 }
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     height: 75px;
     display: inline-block;
 }
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown:last-child {
-    padding-right: 0px;
+    padding-right: 0;
 }
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle {
-    margin: 0px;
+    margin: 0;
     padding: 29px 12px 24px 12px;
 }
 
@@ -272,10 +273,6 @@ Page Header
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu {
     margin-top: 9px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
     border-radius: 4px;
 }
 
@@ -327,10 +324,6 @@ Page Header
     overflow: hidden;
     padding: 15px 15px;
     letter-spacing: 0.5px;
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
-    -ms-border-radius: 4px 4px 0 0;
-    -o-border-radius: 4px 4px 0 0;
     border-radius: 4px 4px 0 0;
 }
 
@@ -391,10 +384,6 @@ Page Header
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-notification .dropdown-menu .dropdown-menu-list > li a .details .label-icon {
     margin-right: 10px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
     border-radius: 50%;
 }
 
@@ -426,10 +415,6 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-menu .dropdown-menu-list > li .photo img {
     height: 40px;
     width: 40px;
-    -webkit-border-radius: 50% !important;
-    -moz-border-radius: 50% !important;
-    -ms-border-radius: 50% !important;
-    -o-border-radius: 50% !important;
     border-radius: 50% !important;
 }
 
@@ -498,7 +483,7 @@ Page Header
 }
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > img {
-    margin-top: 4px;
+    //margin-top: 4px;
     margin-left: 5px;
     margin-top: -8px;
     height: 39px;
@@ -615,13 +600,12 @@ Page Header
 
     .page-sidebar-closed.page-sidebar-closed-hide-logo .page-header.navbar .page-logo {
         padding: 0;
-    }
-
-    .page-sidebar-closed.page-sidebar-closed-hide-logo .page-header.navbar .page-logo {
         width: 54px;
         margin-left: 20px;
         margin-right: 10px;
     }
+
+   
 
     .page-sidebar-closed.page-sidebar-closed-hide-logo .page-header.navbar .page-logo .logo-default {
         display: none;
@@ -739,7 +723,7 @@ Page Header
         display: inline-block;
         position: relative;
         top: 1px;
-        right: 0px;
+        right: 0;
     }
 
     .page-header.navbar .top-menu .navbar-nav .open .dropdown-menu {
@@ -926,7 +910,7 @@ Pace - Page Progress
 Page container
 ***/
 .page-container {
-    margin: 0px;
+    margin: 0;
     padding: 20px 20px 0 20px;
     position: relative;
     /* Fixed header */
@@ -1028,6 +1012,9 @@ Quick Sidebar Layout
 
 /* Quick sidebar wrapper */
 .page-quick-sidebar-wrapper {
+    -moz-transition: right 0.3s;
+    -o-transition: right 0.3s;
+    -webkit-transition: right 0.3s;
     transition: right 0.3s;
     z-index: 9995;
     position: fixed;
@@ -1038,6 +1025,9 @@ Quick Sidebar Layout
 }
 
 .page-quick-sidebar-open .page-quick-sidebar-wrapper {
+    -moz-transition: right 0.3s;
+    -o-transition: right 0.3s;
+    -webkit-transition: right 0.3s;
     transition: right 0.3s;
     right: 0;
 }
@@ -1109,10 +1099,6 @@ Quick Sidebar Content
     font-size: 15px;
     padding: 45px 15px 8px;
     text-transform: uppercase;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    -o-border-radius: 0;
     border-radius: 0;
 }
 
@@ -1192,6 +1178,9 @@ Quick Sidebar Content
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-list {
     position: absolute !important;
     width: 320px !important;
+    -moz-transition: margin 0.3s;
+    -o-transition: margin 0.3s;
+    -webkit-transition: margin 0.3s;
     transition: margin 0.3s;
 }
 
@@ -1199,12 +1188,15 @@ Quick Sidebar Content
     width: 320px;
     position: absolute !important;
     width: 320px !important;
+    -moz-transition: margin 0.3s;
+    -o-transition: margin 0.3s;
+    -webkit-transition: margin 0.3s;
     transition: margin 0.3s;
     margin-left: 320px;
 }
 
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-item .page-quick-sidebar-nav {
-    padding: 15px 10px 0px 10px;
+    padding: 15px 10px 0 10px;
 }
 
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-item .page-quick-sidebar-nav .page-quick-sidebar-back-to-list {
@@ -1221,6 +1213,9 @@ Quick Sidebar Content
 }
 
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-content-item-shown .page-quick-sidebar-list {
+    -moz-transition: margin 0.3s;
+    -o-transition: margin 0.3s;
+    -webkit-transition: margin 0.3s;
     transition: margin 0.3s;
     margin-left: -320px;
 }
@@ -1231,6 +1226,9 @@ Quick Sidebar Content
 }
 
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-content-item-shown .page-quick-sidebar-item {
+    -moz-transition: margin 0.3s;
+    -o-transition: margin 0.3s;
+    -webkit-transition: margin 0.3s;
     transition: margin 0.3s;
     margin-left: 0;
 }
@@ -1293,11 +1291,14 @@ Quick Sidebar Content
 }
 
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-chat .page-quick-sidebar-chat-user .page-quick-sidebar-chat-user-messages {
-    padding: 0px 10px;
+    padding: 0 10px;
     position: relative;
 }
 
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-chat .page-quick-sidebar-chat-user .page-quick-sidebar-chat-user-messages .post {
+    -moz-transition: display 0.3s;
+    -o-transition: display 0.3s;
+    -webkit-transition: display 0.3s;
     transition: display 0.3s;
     padding: 5px 0;
     margin: 10px auto;
@@ -1421,7 +1422,7 @@ Quick Sidebar Content
 }
 
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-settings .page-quick-sidebar-settings-list .list-items li select.form-control {
-    padding: 4px 0px !important;
+    padding: 4px 0 !important;
 }
 
 /***
@@ -1604,21 +1605,11 @@ Quick Sidebar Content
 /***
 Page sidebar
 ***/
-/* IE8 fix */
-.ie8 .page-sidebar {
-    width: 235px;
-    float: left;
-    position: relative;
-    margin-right: -100%;
-}
+
 
 /* Page Sidebar */
 .page-sidebar,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover {
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
     border-radius: 4px;
     /* Default sidebar menu */
 }
@@ -1631,10 +1622,6 @@ Page sidebar
 
 .page-sidebar .page-sidebar-menu,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu {
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
     border-radius: 4px;
     list-style: none;
     margin: 10px 0 0 0;
@@ -1648,7 +1635,7 @@ Page sidebar
     display: block;
     margin: 0;
     padding: 0;
-    border: 0px;
+    border: 0;
 }
 
 .page-sidebar .page-sidebar-menu > li.heading,
@@ -1660,7 +1647,6 @@ Page sidebar
 .page-sidebar .page-sidebar-menu > li.heading > h3,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.heading > h3 {
     font-size: 13px;
-    font-weight: 400;
     padding: 0;
     margin: 0;
     font-weight: 600;
@@ -1671,15 +1657,15 @@ Page sidebar
     display: block;
     position: relative;
     margin: 1px 0 0 0;
-    border: 0px;
+    border: 0;
     padding: 12px 15px;
     text-decoration: none;
 }
 
 .page-sidebar .page-sidebar-menu > li > a > .title,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > .title {
-    font-size: 14px;
-    font-weight: 400;
+    font-size: 20px;
+    //font-weight: 400;
 }
 
 .page-sidebar .page-sidebar-menu > li > a > i,
@@ -1704,10 +1690,16 @@ Page sidebar
 }
 
 .page-sidebar-fixed .page-sidebar .page-sidebar-menu > li > a, .page-sidebar-fixed .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a {
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
 
 .page-sidebar-reversed.page-sidebar-fixed .page-sidebar .page-sidebar-menu > li > a, .page-sidebar-reversed.page-sidebar-fixed .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a {
+    -moz-transition: none;
+    -o-transition: none;
+    -webkit-transition: none;
     transition: none;
 }
 
@@ -1725,14 +1717,14 @@ Page sidebar
 
 .page-sidebar .page-sidebar-menu li > a > .arrow:before,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li > a > .arrow:before {
-    width: 10px;
+    //width: 10px;
     float: right;
     margin-right: 5px;
     margin-left: 5px;
     display: inline;
     font-size: 16px;
     font-family: FontAwesome;
-    height: auto;
+    //height: auto;
     content: "\f104";
     font-weight: 300;
     text-shadow: none;
@@ -1748,7 +1740,7 @@ Page sidebar
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li > a > .badge {
     float: right;
     margin-top: 1px;
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 .page-sidebar .page-sidebar-menu .sub-menu,
@@ -1756,14 +1748,14 @@ Page sidebar
     list-style: none;
     display: none;
     padding: 0;
-    margin: 8px 0px 8px 0px;
+    margin: 8px 0 8px 0;
 }
 
 .page-sidebar .page-sidebar-menu .sub-menu li,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li {
     background: none;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     margin-top: 1px !important;
     /* 2nd level sub menu */
 }
@@ -1826,9 +1818,11 @@ Page sidebar
 }
 
 @media (min-width: 992px) {
+
+   
     /* 992px */
     .page-sidebar {
-        width: 235px;
+        width: @sideBarWidth;
         float: left;
         position: relative;
         margin-right: -100%;
@@ -1854,7 +1848,7 @@ Page sidebar
     }
 
     .page-sidebar-reversed.page-sidebar-fixed .page-sidebar {
-        margin-left: -235px;
+        margin-left: -@sideBarWidth;
     }
 
     .page-sidebar-reversed.page-sidebar-fixed .page-sidebar-wrapper {
@@ -1907,10 +1901,6 @@ Page sidebar
     }
 
     .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed > li:not(.heading):hover > a {
-        -webkit-border-radius: 0 4px 0 0;
-        -moz-border-radius: 0 4px 0 0;
-        -ms-border-radius: 0 4px 0 0;
-        -o-border-radius: 0 4px 0 0;
         border-radius: 0 4px 0 0;
         text-align: left;
     }
@@ -1941,10 +1931,6 @@ Page sidebar
         margin-top: 0;
         top: 100%;
         display: block !important;
-        -webkit-border-radius: 0 0 4px 4px;
-        -moz-border-radius: 0 0 4px 4px;
-        -ms-border-radius: 0 0 4px 4px;
-        -o-border-radius: 0 0 4px 4px;
         border-radius: 0 0 4px 4px;
     }
 
@@ -1989,10 +1975,6 @@ Page sidebar
     }
 
     .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed > li:hover > a {
-        -webkit-border-radius: 4px 0 0 0;
-        -moz-border-radius: 4px 0 0 0;
-        -ms-border-radius: 4px 0 0 0;
-        -o-border-radius: 4px 0 0 0;
         border-radius: 4px 0 0 0;
     }
 
@@ -2046,10 +2028,6 @@ Page sidebar
         width: 234px;
         z-index: 2000;
         position: absolute;
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
-        -ms-border-radius: 4px;
-        -o-border-radius: 4px;
         border-radius: 4px;
     }
 
@@ -2229,7 +2207,7 @@ Page content
 
 .page-head .page-title > h1 {
     color: @color2;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 400;
     margin: 0;
     padding: 0;
@@ -2270,12 +2248,12 @@ Page content
 
 /* Page content */
 .page-content {
-    margin-top: 0px;
-    padding: 0px;
+    margin-top: 0;
+    padding: 0;
 }
 
 .page-full-width .page-content {
-    margin-left: 0px !important;
+    margin-left: 0 !important;
 }
 
 @media (min-width: 992px) {
@@ -2287,8 +2265,8 @@ Page content
     }
 
     .page-content-wrapper .page-content {
-        margin-left: 235px;
-        margin-top: 0px;
+        margin-left: @sideBarWidth;
+        margin-top: 0;
         min-height: 600px;
         padding: 10px 0 0 20px;
     }
@@ -2331,7 +2309,7 @@ Page content
     }
 
     .page-full-width .page-content-wrapper .page-content {
-        margin-left: 0px !important;
+        margin-left: 0 !important;
     }
 }
 
@@ -2347,7 +2325,7 @@ Page content
 
     /* Page content */
     .page-content-wrapper1 .page-content {
-        margin: 0px !important;
+        margin: 0 !important;
         padding: 20px !important;
         min-height: 280px;
     }
@@ -2422,10 +2400,10 @@ Page footer
     text-decoration: none;
     cursor: pointer;
     margin-top: -2px;
-    margin-right: 0px;
-    margin-bottom: 0px;
+    margin-right: 0;
+    margin-bottom: 0;
     font-size: 16px;
-    padding: 0px 6px 0px 6px;
+    padding: 0 6px 0 6px;
 }
 
 .page-footer .page-footer-tools .go-top i {
@@ -2535,7 +2513,7 @@ Page footer
 }
 /* Scroll Top Top */
 .scroll-to-top {
-    display: inline-block;
+    //display: inline-block;
     padding: 2px;
     text-align: center;
     position: fixed;
@@ -2644,7 +2622,7 @@ Theme Panel
 
 .theme-panel .theme-colors > li.theme-color > .theme-color-view {
     float: left;
-    margin-top: 0px;
+    margin-top: 0;
     margin-right: 8px;
     display: inline-block;
     border-radius: 10px !important;
@@ -2715,5 +2693,8 @@ Page Loading
 .page-on-load .page-footer,
 .page-on-load > .clearfix {
     display: none;
+    -moz-transition: all 2s;
+    -o-transition: all 2s;
+    -webkit-transition: all 2s;
     transition: all 2s;
 }

@@ -73,13 +73,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return UserRepository.GetUserByEmail(email);
         }
 
-        protected User CreateUser(string email, string image, string largeImage,
-            string firstName, string middleName, string lastName,
+        protected User CreateUser(string email,  string largeImage,
+            string firstName, string lastName,
               string culture)
         {
-            return new User(email, image, largeImage,
+            return new User(email, largeImage,
                    firstName,
-                   middleName,
+                  
                    lastName, culture);
         }
 

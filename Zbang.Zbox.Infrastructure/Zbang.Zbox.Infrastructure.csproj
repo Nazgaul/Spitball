@@ -164,6 +164,7 @@
     <Compile Include="IdGenerator\IIdGenerator.cs" />
     <Compile Include="MediaServices\IMediaSevicesProvider.cs" />
     <Compile Include="Profile\IProfilePictureProvider.cs" />
+    <Compile Include="Profile\IProfileProcessor.cs" />
     <Compile Include="Profile\ProfileImages.cs" />
     <Compile Include="Profile\ProfilePictureProvider.cs" />
     <Compile Include="Query\IComposite.cs" />
@@ -195,7 +196,6 @@
     <Compile Include="Storage\PreviewResult.cs" />
     <Compile Include="Storage\QueueName.cs" />
     <Compile Include="TextManipulation.cs" />
-    <Compile Include="Thumbnail\ImageResizer.cs" />
     <Compile Include="Url\Base62.cs" />
     <Compile Include="Url\EncryptObject.cs" />
     <Compile Include="Url\GuidEncoder.cs" />
@@ -304,35 +304,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Profile\Resources\S100X100userpic9.jpg" />
     <EmbeddedResource Include="Profile\Resources\S50X50userpic9.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Thumbnail\Resources\AcademicBox\1.png" />
-    <EmbeddedResource Include="Thumbnail\Resources\AcademicBox\10.png" />
-    <EmbeddedResource Include="Thumbnail\Resources\AcademicBox\2.png" />
-    <EmbeddedResource Include="Thumbnail\Resources\AcademicBox\3.png" />
-    <EmbeddedResource Include="Thumbnail\Resources\AcademicBox\4.png" />
-    <EmbeddedResource Include="Thumbnail\Resources\AcademicBox\5.png" />
-    <EmbeddedResource Include="Thumbnail\Resources\AcademicBox\6.png" />
-    <EmbeddedResource Include="Thumbnail\Resources\AcademicBox\7.png" />
-    <EmbeddedResource Include="Thumbnail\Resources\AcademicBox\8.png" />
-    <EmbeddedResource Include="Thumbnail\Resources\AcademicBox\9.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Thumbnail\Resources\linkv2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Thumbnail\Resources\excelv4.jpg" />
-    <EmbeddedResource Include="Thumbnail\Resources\filev4.jpg" />
-    <EmbeddedResource Include="Thumbnail\Resources\imagev4.jpg" />
-    <EmbeddedResource Include="Thumbnail\Resources\pdfv4.jpg" />
-    <EmbeddedResource Include="Thumbnail\Resources\powerv4.jpg" />
-    <EmbeddedResource Include="Thumbnail\Resources\soundv4.jpg" />
-    <EmbeddedResource Include="Thumbnail\Resources\videov4.jpg" />
-    <EmbeddedResource Include="Thumbnail\Resources\wordv4.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Thumbnail\Resources\textv1.jpg" />
-    <Content Include="Thumbnail\Resources\txtv1.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

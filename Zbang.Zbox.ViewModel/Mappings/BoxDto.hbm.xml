@@ -92,15 +92,7 @@
     ]]>
   </query>
 
-  <!--box page - used to get box members -->
-  <query name="GetBoxSubscribers" read-only="1">
-    <![CDATA[
-    select u.id as Id , u.Name as Name,u.Image as LargeImage, u.Url as Url
-    from UserBoxRel ub join ub.User u 
-    where ub.BoxId=:BoxId 
-    order by u.Image 
-    ]]>
-  </query>
+
 
   <!--box page - notification pop up-->
   <query name="GetBoxNotificationByUser" read-only="1">
@@ -115,7 +107,7 @@
   <!--box page - used to get all the members of the box in pop up-->
   <sql-query name="GetBoxMembers" read-only="1" resultset-ref="BoxMembers">
     <![CDATA[
-    select u.UserId as Id , u.UserName as Name,u.UserImage as Image , ub.UserType as userStatus, u.url as Url
+    select u.UserId as Id , u.UserName as Name,u.UserImageLarge as Image , ub.UserType as userStatus, u.url as Url
     from zbox.UserBoxRel ub 
 	    join zbox.users u on ub.UserId =  u.UserId
     where ub.BoxId=:BoxId

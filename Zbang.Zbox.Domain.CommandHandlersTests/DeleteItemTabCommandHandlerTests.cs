@@ -64,7 +64,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
         {
             long someUserId = 0, someBoxId = 1;
             var someItemTabId = Guid.NewGuid();
-            var someUser = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", "en-US");
+            var someUser = new User("some email",  "some largeImage", "some first name", "some last name", "en-US");
             var someBox = new Box("soem box name", someUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid());
             someBox.GetType().GetProperty("Id").SetValue(someBox, someBoxId);
             var someCommand = new DeleteItemTabCommand(someUserId, someItemTabId, someBoxId);

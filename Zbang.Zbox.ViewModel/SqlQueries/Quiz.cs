@@ -47,14 +47,14 @@ select q.TimeTaken,q.Score from zbox.SolvedQuiz q where QuizId = @QuizId and Use
 
 
 
-        public const string TopUsers = @"select username as Name, userimage as Image 
+        public const string TopUsers = @"select username as Name, UserImageLarge as Image 
   from zbox.users where userid in (
   select top(@topusers) userid from zbox.[SolvedQuiz] where quizid = @QuizId order by score desc)";
 
         public const string Discussion = @"select qd.Id,
 u.UserName,
 qd.CreationTime as Date,
-u.UserImage as UserPicture,
+u.UserImageLarge as UserPicture,
 u.UserId,
 qd.Text,
 qd.QuestionId

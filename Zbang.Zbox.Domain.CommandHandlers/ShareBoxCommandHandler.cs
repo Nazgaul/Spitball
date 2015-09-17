@@ -67,7 +67,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     m_InviteRepository.Save(inviteToBox);
                     tasks.Add(SendInvite(sender.Name, box.Name,
                         id, box.Id,
-                        recipientEmail, sender.Image, sender.Email,
+                        recipientEmail, sender.ImageLarge, sender.Email,
                         System.Globalization.CultureInfo.CurrentCulture.Name, box.Url, null));
                     continue;
                 }
@@ -85,7 +85,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
                 tasks.Add(SendInvite(sender.Name, box.Name,
                     id, box.Id,
-                    recipientUser.Email, sender.Image, sender.Email, recipientUser.Culture, box.Url, recipientUser.Id));
+                    recipientUser.Email, sender.ImageLarge, sender.Email, recipientUser.Culture, box.Url, recipientUser.Id));
             }
             return Task.WhenAll(tasks);
         }

@@ -22,7 +22,6 @@ using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
-using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -98,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             //ViewBag.title = Views.Account.Resources.HomeResources.Title;
             //ViewBag.metaDescription = Views.Account.Resources.HomeResources.Description;
-                
+
             return View("Index3");
         }
 
@@ -114,10 +113,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             return View();
         }
-         //[DonutOutputCache(VaryByParam = "lang;invId",
-         //   VaryByCustom = CustomCacheKeys.Lang,
-         //   Duration = TimeConsts.Day,
-         //   Location = OutputCacheLocation.Server, Order = 2)]
+        //[DonutOutputCache(VaryByParam = "lang;invId",
+        //   VaryByCustom = CustomCacheKeys.Lang,
+        //   Duration = TimeConsts.Day,
+        //   Location = OutputCacheLocation.Server, Order = 2)]
         public ActionResult Signup(string lang)
         {
             if (User.Identity.IsAuthenticated)
@@ -130,12 +129,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 RouteData.Values.Remove("lang");
                 return RedirectToAction("Signup");
             }
-           
+
 
             return View("Signin");
         }
 
-        
+
 
 
         #region Login
@@ -203,7 +202,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             m_AuthenticationManager.SignIn(identity);
             m_CookieHelper.RemoveCookie(Invite.CookieName);
-            
+
             return JsonOk(new { isnew = isNew, url = Url.RouteUrl("LibraryDesktop", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }) });
         }
 
@@ -231,9 +230,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         invId = inv.InviteId;
                     }
                     var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
-                        facebookUserData.Image, facebookUserData.LargeImage, model.UniversityId,
+                         facebookUserData.LargeImage, model.UniversityId,
                         facebookUserData.First_name,
-                        facebookUserData.Middle_name,
+
                         facebookUserData.Last_name,
                         facebookUserData.Locale, invId, model.BoxId);
                     var commandResult = await ZboxWriteService.CreateUserAsync(command);
@@ -241,7 +240,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         Id = commandResult.User.Id,
                         Culture = commandResult.User.Culture,
-                        Image = facebookUserData.Image,
+                        Image = facebookUserData.LargeImage,
                         Name = facebookUserData.Name,
                         UniversityId = commandResult.UniversityId,
                         UniversityData = commandResult.UniversityData,
@@ -379,7 +378,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
         public async Task<JsonResult> Register([ModelBinder(typeof(TrimModelBinder))] Register model)
         {
 
@@ -459,12 +458,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //}
 
         [ZboxAuthorize, NoUniversity]
-        public JsonResult SettingsData()
+        public async Task<JsonResult> SettingsData()
         {
             var userId = User.GetUserId();
             var query = new GetUserDetailsQuery(userId);
 
-            var user = ZboxReadService.GetUserAccountDetails(query);
+            var user = await ZboxReadService.GetUserAccountDetailsAsync(query);
             return JsonOk(user);
         }
 
@@ -545,24 +544,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         public ActionResult ChangeProfile([ModelBinder(typeof(TrimModelBinder))]Profile model)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return JsonError(new { error = GetModelStateErrors() });
-                }
-                var id = User.GetUserId();
-                var profilePics = new ProfileImages(model.Image, model.LargeImage);
+                return JsonError(new { error = GetModelStateErrors() });
+            }
 
-                var command = new UpdateUserProfileCommand(id, profilePics.Image,
-                    profilePics.LargeImage, model.FirstName, model.MiddleName, model.LastName);
-                ZboxWriteService.UpdateUserProfile(command);
-                return JsonOk();
-            }
-            catch (UserNotFoundException)
-            {
-                return JsonError(new { error = "User doesn't exists" });
-            }
+            var command = new UpdateUserProfileCommand(User.GetUserId(),
+                model.FirstName,
+                model.LastName, model.UniversityId);
+            ZboxWriteService.UpdateUserProfile(command);
+            return JsonOk();
+
         }
         [HttpPost, ZboxAuthorize]
         public async Task<ActionResult> UpdateUniversity(University model)
@@ -593,7 +585,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var id = User.GetUserId();
-                var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId, 
+                var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId,
                     model.GroupNumber, model.RegisterNumber, model.studentID);
                 ZboxWriteService.UpdateUserUniversity(command);
 

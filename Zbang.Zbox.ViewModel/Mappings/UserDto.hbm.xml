@@ -22,12 +22,11 @@
 
 
   <!--account settings-->
-  <query name="GetUserAccountSettings">
+  <!--<query name="GetUserAccountSettings">
     <![CDATA[
     select 
     
     COALESCE(u.FirstName,u.Name) as FirstName,
-    u.MiddleName as MiddleName,
     u.LastName as LastName,
     
     u.ImageLarge as Image, 
@@ -39,7 +38,7 @@
     from User u left join u.University v
     where u.Id = :UserId
     ]]>
-  </query>
+  </query>-->
 
   <!--End Account settings-->
   

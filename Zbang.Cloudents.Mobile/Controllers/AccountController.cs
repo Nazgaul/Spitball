@@ -53,7 +53,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             m_UserManager = userManager;
             m_AuthenticationManager = authenticationManager;
         }
-        
+
         [HttpGet]
         [DonutOutputCache(CacheProfile = "PartialPage",
            Options = OutputCacheOptions.IgnoreQueryString
@@ -108,9 +108,9 @@ namespace Zbang.Cloudents.Mobile.Controllers
                         invId = inv.InviteId;
                     }
                     var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
-                        facebookUserData.Image, facebookUserData.LargeImage, universityId,
+                         facebookUserData.LargeImage, universityId,
                         facebookUserData.First_name,
-                        facebookUserData.Middle_name,
+
                         facebookUserData.Last_name,
                         facebookUserData.Locale, invId);
                     var commandResult = await ZboxWriteService.CreateUserAsync(command);
@@ -118,7 +118,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     {
                         Id = commandResult.User.Id,
                         Culture = commandResult.User.Culture,
-                        Image = facebookUserData.Image,
+                        Image = facebookUserData.LargeImage,
                         Name = facebookUserData.Name,
                         UniversityId = commandResult.UniversityId,
                         UniversityData = commandResult.UniversityData,
@@ -149,7 +149,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             }
         }
 
-        
+
 
 
         //[ValidateAntiForgeryToken]
@@ -176,7 +176,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
                     ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
                     return JsonError(GetModelStateErrors());
                 }
-                if (user == null )
+                if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountErrors.InvalidEmail));
                     return JsonError(GetModelStateErrors());
@@ -410,12 +410,12 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 if (tUser.Result == null && tResult.Result != null)
                 {
                     ModelState.AddModelError("Email", "You have registered to Cloudents through Facebook -- go to the homepage and click on the Facebook button to register");
-                    return View("ForgotPwd",model);
+                    return View("ForgotPwd", model);
                 }
                 if (tUser.Result == null)
                 {
                     ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
-                    return View("ForgotPwd",model);
+                    return View("ForgotPwd", model);
                 }
                 var user = tUser.Result;
                 //var tResult = ZboxReadService.GetUserDetailsByMembershipId(query);

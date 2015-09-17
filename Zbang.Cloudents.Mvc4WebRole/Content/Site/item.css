@@ -12,12 +12,36 @@
   height: 80px;
   color: #f5f5f5;
   background-color: #353a3f;
+  padding-top: 20px;
+  position: fixed;
+  left: 0;
+  right: 0;
+}
+.itemPage header a {
+  margin: 0 15px;
+}
+.itemPage header svg {
+  width: 40px;
+  height: 40px;
+  fill: #C2C2C2;
+}
+.itemPage .itemContent {
+  margin-top: 80px;
 }
 .itemPage .fileName {
   text-align: center;
+  color: #000;
+  font-size: 20px;
 }
 .itemPage .preview {
   text-align: center;
+  width: 800px;
+  margin: 0 auto;
+}
+.itemPage .preview img {
+  max-width: 100%;
+  background: #fff;
+  margin: 10px 0;
 }
 .itemPage .like {
   float: left;
@@ -27,4 +51,12 @@
 }
 .itemPage .closeItem {
   float: right;
+}
+.itemPage svg {
+  width: 25px;
+  height: 25px;
+}
+.itemPage button {
+  border: 0;
+  background: transparent;
 }

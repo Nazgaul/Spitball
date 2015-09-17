@@ -3,113 +3,118 @@
         <h1>Dashboard</h1>
     </div>
 </div>
-<div class="row margin-top-10" ng-controller="UniversityMeta as um">
-    <div class="col-md-6 col-sm-12">
-        <div>
-            this is university
-        </div>
-    </div>
-    <div class="col-md-6 col-sm-12">
-        <!-- BEGIN PORTLET-->
-        <div class="portlet light ">
-            <div class="portlet-body">
-                <div class="table-scrollable table-scrollable-borderless">
-                    <div class="leaderBoardTitle">
-                        The
-                        king
-                        of
-                        school
-                    </div>
-                    <table class="table table-hover table-light leaderBoardBody">
-                        <tr>
-                            <td class="fit">
-                                <img class="user-pic" src="{{::um.leaderBoard[0].image}}">
-                            </td>
-                            <td>
-                                {{::um.leaderBoard[0].name}}
-                            </td>
-                            <td class="leaderbordPosition">
-                                1<sup>st</sup>
-                            </td>
-                            <td>
-                                {{::um.leaderBoard[0].score}}
-                            </td>
-
-
-                        </tr>
-                        <tr>
-                            <td class="fit">
-                                <img class="user-pic" src="{{::um.leaderBoard[1].image}}">
-                            </td>
-                            <td>
-                                {{::um.leaderBoard[1].name}}
-                            </td>
-                            <td class="leaderbordPosition">
-                                2<sup>nd</sup>
-                            </td>
-                            <td>
-                                {{::um.leaderBoard[0].score}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="fit">
-                                <img class="user-pic" src="{{::um.leaderBoard[2].image}}">
-                            </td>
-                            <td>
-                                {{::um.leaderBoard[2].name}}
-                            </td>
-                            <td class="leaderbordPosition">
-                                3<sup>rd</sup>
-                            </td>
-                            <td>
-                                {{::um.leaderBoard[2].score}}
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+<div class="dashboard">
+    <div class="row margin-top-10 " ng-controller="UniversityMeta as um">
+        <div class="col-md-6 col-sm-12">
+            <div>
+                this is university
             </div>
         </div>
-        <!-- END PORTLET-->
-    </div>
-</div>
+        <div class="col-md-3 col-sm-6">
+            <div class="portlet light ">
+                <div class="portlet-body">
+                    <div class="table-scrollable table-scrollable-borderless">
+                        <div class="leaderBoardTitle">
+                            The
+                            king
+                            of
+                            school
+                        </div>
+                        <table class="table table-hover table-light leaderBoardBody">
+                            <tr>
+                                <td class="fit">
+                                    <img class="user-pic" src="{{::um.leaderBoard[0].image}}">
+                                </td>
+                                <td>
+                                    {{::um.leaderBoard[0].name}}
+                                </td>
+                                <td class="leaderbordPosition">
+                                    1<sup>st</sup>
+                                </td>
+                                <td>
+                                    {{::um.leaderBoard[0].score}}
+                                </td>
 
-<div class="row margin-top-10">
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="box in d.boxes">
-        <a href="{{::box.url}}" class="dashboard-stat2" d-color="{{::box.name.length}}">
-            <div class="display">
-                <div class="number">
-                    <h3>{{::box.name}}</h3>
-                    <small>{{::box.professor}}</small><br />
-                    <small>{{::box.courseCode}}</small>
+
+                            </tr>
+                            <tr>
+                                <td class="fit">
+                                    <img class="user-pic" src="{{::um.leaderBoard[1].image}}">
+                                </td>
+                                <td>
+                                    {{::um.leaderBoard[1].name}}
+                                </td>
+                                <td class="leaderbordPosition">
+                                    2<sup>nd</sup>
+                                </td>
+                                <td>
+                                    {{::um.leaderBoard[0].score}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fit">
+                                    <img class="user-pic" src="{{::um.leaderBoard[2].image}}">
+                                </td>
+                                <td>
+                                    {{::um.leaderBoard[2].name}}
+                                </td>
+                                <td class="leaderbordPosition">
+                                    3<sup>rd</sup>
+                                </td>
+                                <td>
+                                    {{::um.leaderBoard[2].score}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div class="progress-info">
-                <div class="progress">
-                </div>
-                <div class="status">
-                    <div class="status-title">
-                        {{::box.membersCount}} members
-                    </div>
-                    <div class="status-number">
-                        {{::box.itemCount}} items
-                    </div>
-                </div>
-            </div>
-        </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            this is invite to spitball
+        </div>
     </div>
+
+    <div class="row margin-top-10">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="box in d.boxes">
+            <a href="{{::box.url}}" class="dashboard-stat2" d-color="{{::box.name.length}}">
+                <div class="updates" ng-if="box.updates !== 0">{{box.updates}}</div>
+                <div class="display">
+                    <div class="number">
+                        <h3>{{::box.name}}</h3>
+                        <small>{{::box.professor}}</small><br />
+                        <small>{{::box.courseCode}}</small>
+                    </div>
+                </div>
+                <div class="progress-info">
+                    <div class="progress">
+                    </div>
+                    <div class="status">
+                        <div class="status-title">
+                            {{::box.membersCount}} members
+                        </div>
+                        <div class="status-number">
+                            {{::box.itemCount}} items
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <md-fab-speed-dial md-direction="up" class="md-fab-bottom-right">
+        <md-fab-trigger>
+            <md-button aria-label="menu" class="md-fab md-warn">
+                <md-icon md-svg-src="img/icons/menu.svg"></md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+            <md-button aria-label="academic box" class="md-fab md-raised md-mini">
+                <md-icon md-svg-src="img/icons/twitter.svg" aria-label="academic box"></md-icon>
+            </md-button>
+            <md-button aria-label="group box" class="md-fab md-raised md-mini">
+                <md-icon md-svg-src="img/icons/facebook.svg" aria-label="group box"></md-icon>
+            </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
 </div>
-<md-fab-speed-dial md-direction="up" class="md-fab-bottom-right">
-    <md-fab-trigger>
-        <md-button aria-label="menu" class="md-fab md-warn">
-            <md-icon md-svg-src="img/icons/menu.svg"></md-icon>
-        </md-button>
-    </md-fab-trigger>
-    <md-fab-actions>
-        <md-button aria-label="academic box" class="md-fab md-raised md-mini">
-            <md-icon md-svg-src="img/icons/twitter.svg" aria-label="academic box"></md-icon>
-        </md-button>
-        <md-button aria-label="group box" class="md-fab md-raised md-mini">
-            <md-icon md-svg-src="img/icons/facebook.svg" aria-label="group box"></md-icon>
-        </md-button>
-    </md-fab-actions>
-</md-fab-speed-dial>

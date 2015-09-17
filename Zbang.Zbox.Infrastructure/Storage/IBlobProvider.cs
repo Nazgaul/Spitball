@@ -29,13 +29,13 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
 
         //TODO:maybe we want this to be internal
-        Uri UploadProfilePicture(string blobName, byte[] fileContent);
+        Task<Uri> UploadProfilePictureAsync(string blobName, Stream fileContent);
 
 
         void UploadFileThumbnail(string fileName, Stream ms, string mimeType);
         Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType);
         Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType, CancellationToken token);
-        Task UploadFilePreviewAsync(string blobName, Stream content, string mimeType, CancellationToken token  = default(CancellationToken));
+        Task UploadFilePreviewAsync(string blobName, Stream content, string mimeType, CancellationToken token = default(CancellationToken));
 
         bool CheckIfFileThumbnailExists(string blobName);
 

@@ -1961,6 +1961,7 @@
       <DependentUpon>site.png.rtl.css</DependentUpon>
     </Content>
     <Content Include="Images\Site\BG.png" />
+    <Content Include="Images\Site\itemIcons.svg" />
     <Content Include="Images\Site\icons.svg" />
     <Content Include="Images\spitball_invite_off.png" />
     <Content Include="Images\spitball_invite_on.png" />
@@ -2078,10 +2079,14 @@
     <Content Include="Js\components\box\feed.controller.js" />
     <Content Include="Js\components\box\item.controller.js" />
     <Content Include="Js\components\dashboard\dashboard.controller.js" />
+    <Content Include="Js\components\dashboard\dashboard.service.js" />
     <Content Include="Js\components\dashboard\sidemenu.controller.js" />
     <Content Include="Js\components\item\item.controller.js" />
+    <Content Include="Js\components\item\item.service.js" />
     <Content Include="Js\components\library\library.controller.js" />
     <Content Include="Js\components\user\account.controller.js" />
+    <Content Include="Js\components\user\updates.service.js" />
+    <Content Include="Js\components\user\user.service.js" />
     <Content Include="Js\components\user\userdetails.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
     <Content Include="Js\components\user\user.controller.js" />
@@ -2097,6 +2102,8 @@
     <Content Include="Js\homePage\theme.js" />
     <Content Include="Js\services\ajaxServiceOld.js" />
     <Content Include="Js\shared\colorOnLength.js" />
+    <Content Include="Js\shared\loader.js" />
+    <Content Include="Js\shared\mixitup.js" />
     <Content Include="Js\signin\bootstrap.min.js" />
     <Content Include="Js\signin\demo.js" />
     <Content Include="Js\signin\jquery-migrate.min.js" />
@@ -3187,9 +3194,9 @@
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\validatinator.min.js" />
-    <Content Include="Scripts\_references.js" />
     <Content Include="Js\controllers\dashboard\createBoxWizardCtrl.js" />
     <Content Include="Images\Defs.svg" />
+    <None Include="Scripts\_references.js" />
     <Content Include="Views\Dashboard\_Invite.cshtml" />
     <Content Include="Views\Library\_AddSchoolDialog.cshtml">
       <SubType>Code</SubType>

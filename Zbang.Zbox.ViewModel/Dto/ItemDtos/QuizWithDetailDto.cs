@@ -12,6 +12,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
     public class QuizQuestionWithSolvedAnswersDto
     {
+        public SolveSheet Sheet { get; set; }
         public IEnumerable<QuestionWithDetailDto> Questions { get; set; }
         public IEnumerable<SolveQuestion> UserAnswers { get; set; }
     }

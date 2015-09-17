@@ -334,12 +334,13 @@ namespace Zbang.Zbox.ReadServices
                 using (
                     var grid =
                         await
-                            conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4}",
+                            conn.QueryMultipleAsync(string.Format("{0} {1}",
                             Sql.Item.ItemDetail,
-                            Sql.Item.Navigation,
-                            Sql.Item.ItemComments,
-                            Sql.Item.ItemCommentReply,
-                            Sql.Item.UserItemRate),
+                            Sql.Item.Navigation
+                            //Sql.Item.ItemComments,
+                            //Sql.Item.ItemCommentReply,
+                            //Sql.Item.UserItemRate
+                            ),
                                 new { query.ItemId, query.BoxId, query.UserId }))
                 {
                     var retVal = grid.Read<Item.ItemDetailDto>().FirstOrDefault();
@@ -348,18 +349,18 @@ namespace Zbang.Zbox.ReadServices
                         throw new ItemNotFoundException();
                     }
                     retVal.Navigation = grid.Read<Item.ItemNavigationDto>().FirstOrDefault();
-                    retVal.Comments = await grid.ReadAsync<Activity.AnnotationDto>();
+                    //retVal.Comments = await grid.ReadAsync<Activity.AnnotationDto>();
 
 
-                    IEnumerable<Activity.AnnotationReplyDto> replies =
-                        grid.Read<Activity.AnnotationReplyDto>().ToList();
+                    //IEnumerable<Activity.AnnotationReplyDto> replies =
+                    //    grid.Read<Activity.AnnotationReplyDto>().ToList();
 
-                    foreach (var comment in retVal.Comments)
-                    {
-                        comment.Replies.AddRange(replies.Where(w => w.ParentId == comment.Id));
+                    //foreach (var comment in retVal.Comments)
+                    //{
+                    //    comment.Replies.AddRange(replies.Where(w => w.ParentId == comment.Id));
 
-                    }
-                    retVal.Rate = grid.Read<int>().FirstOrDefault();
+                    //}
+                    //retVal.Rate = grid.Read<int>().FirstOrDefault();
                     return retVal;
                 }
 
@@ -428,16 +429,17 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1} {2}",
+                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1} {2} {3}",
                     Sql.Box.GetBoxCommentsForMobile,
                     Sql.Box.GetLastCommentRepliesForMobile,
-                    Sql.Box.GetBoxItemForCommentInMobile
+                    Sql.Box.GetBoxItemForCommentInMobile,
+                    Sql.Box.GetBoxQuizFromCommentInMobile
                     ),
                     new { query.BoxId, query.PageNumber, query.RowsPerPage }))
                 {
                     var comments = grid.Read<Qna.QuestionDto>().ToList();
                     var replies = grid.Read<Qna.AnswerDto>().ToList();
-                    var items = grid.Read<Qna.ItemDto>().ToList();
+                    var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToList();
 
                     foreach (var reply in replies)
                     {
@@ -703,22 +705,28 @@ namespace Zbang.Zbox.ReadServices
 
 
         #region Account Settings
-        public User.UserAccountDto GetUserAccountDetails(GetUserDetailsQuery query)
+        public async Task<User.UserAccountDto> GetUserAccountDetailsAsync(GetUserDetailsQuery query)
         {
-            using (UnitOfWork.Start())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var queryUser = UnitOfWork.CurrentSession.GetNamedQuery("GetUserAccountSettings");
-
-                queryUser.SetInt64("UserId", query.UserId);
-                queryUser.SetReadOnly(true);
-                queryUser.SetResultTransformer(Transformers.AliasToBean<User.UserAccountDto>());
-                var user = queryUser.UniqueResult<User.UserAccountDto>();
-                if (user == null)
-                {
-                    throw new UserNotFoundException("user is null");
-                }
-                return user;
+                var retVal = await conn.QueryAsync<User.UserAccountDto>(Sql.Sql.GetUserAccountData, new { query.UserId });
+                return retVal.First();
             }
+            //using (UnitOfWork.Start())
+            //{
+            //    //GetUserAccountData
+            //    var queryUser = UnitOfWork.CurrentSession.GetNamedQuery("GetUserAccountSettings");
+
+            //    queryUser.SetInt64("UserId", query.UserId);
+            //    queryUser.SetReadOnly(true);
+            //    queryUser.SetResultTransformer(Transformers.AliasToBean<User.UserAccountDto>());
+            //    var user = queryUser.UniqueResult<User.UserAccountDto>();
+            //    if (user == null)
+            //    {
+            //        throw new UserNotFoundException("user is null");
+            //    }
+            //    return user;
+            //}
 
         }
         /// <summary>
@@ -989,7 +997,7 @@ namespace Zbang.Zbox.ReadServices
                     );
                 using (
                     var grid =
-                        await conn.QueryMultipleAsync(sql, new {query.QuizId, topusers = query.NumberOfUsers}))
+                        await conn.QueryMultipleAsync(sql, new { query.QuizId, topusers = query.NumberOfUsers }))
                 {
                     var retVal = new Item.QuizSolversWithCountDto
                     {
@@ -1006,13 +1014,14 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var sql = string.Format("{0} {1} {2}",
+                var sql = string.Format("{0} {1} {2} {3}",
                    Sql.Quiz.Question,
                    Sql.Quiz.Answer,
-                   Sql.Quiz.UserAnswer
+                   Sql.Quiz.UserAnswer,
+                   Sql.Quiz.UserQuiz
 
                    );
-                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId , query.UserId }))
+                using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.UserId }))
                 {
                     var retVal = new Item.QuizQuestionWithSolvedAnswersDto
                     {
@@ -1026,6 +1035,7 @@ namespace Zbang.Zbox.ReadServices
                         question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
                     }
                     retVal.UserAnswers = solvedQuestion;
+                    retVal.Sheet = grid.Read<Item.SolveSheet>().FirstOrDefault();
                     return retVal;
                 }
             }

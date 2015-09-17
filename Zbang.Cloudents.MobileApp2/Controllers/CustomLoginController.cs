@@ -104,9 +104,8 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 if (user == null)
                 {
                     var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
-                        facebookUserData.Image, facebookUserData.LargeImage, null,
+                         facebookUserData.LargeImage, null,
                         facebookUserData.First_name,
-                        facebookUserData.Middle_name,
                         facebookUserData.Last_name,
                         facebookUserData.Locale);
                     var commandResult = await ZboxWriteService.CreateUserAsync(command);
@@ -114,7 +113,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     {
                         Id = commandResult.User.Id,
                         Culture = commandResult.User.Culture,
-                        Image = facebookUserData.Image,
+                        Image = facebookUserData.LargeImage,
                         Name = facebookUserData.Name,
                         UniversityId = commandResult.UniversityId,
                         UniversityData = commandResult.UniversityData,

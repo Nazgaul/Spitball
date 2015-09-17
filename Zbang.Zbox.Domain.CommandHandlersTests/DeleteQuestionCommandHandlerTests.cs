@@ -37,9 +37,9 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             const long userId = 9470L;
             var command = new DeleteCommentCommand(questionId, userId);
 
-            var user = new User("some email", " some small image", "some largeImage", "some first name", "some middle name", "some last name", "en-US");
+            var user = new User("some email",  "some largeImage", "some first name",  "some last name", "en-US");
             user.GetType().GetProperty("Id").SetValue(user, userId);
-            var ownerBox = new User("some email1", " some small image1", "some largeImage1", "some first name1", "some middle name1", "some last name1", "en-US");
+            var ownerBox = new User("some email1",  "some largeImage1", "some first name1",  "some last name1", "en-US");
             var box = new Box("some box", ownerBox, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid());
             var question = new Comment(user, "some text", box, questionId, null, FeedType.None);
 

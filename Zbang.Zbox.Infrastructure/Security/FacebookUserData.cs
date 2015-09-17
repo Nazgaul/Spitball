@@ -9,12 +9,12 @@ namespace Zbang.Zbox.Infrastructure.Security
         public string First_name { get; set; }
         public string Email { get; set; }
 
-        public string Middle_name { get; set; }
+        //public string Middle_name { get; set; }
 
         public string Last_name { get; set; }
         public string Gender { get; set; }
 
-        public string Image { get; set; }
+        //public string Image { get; set; }
         public string LargeImage { get; set; }
 
         public string Locale { get; set; }

@@ -160,24 +160,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 retVal.UserType = ViewBag.UserType;
                 //retVal.Name = Path.GetFileNameWithoutExtension(retVal.Name);
                 retVal.ShortUrl = UrlConsts.BuildShortItemUrl(new Base62(itemId).ToString());
-                return Json(new JsonResponse(true, new
+                return JsonOk(new
                 {
                     retVal.Blob,
                     retVal.BoxUrl,
-                    retVal.Comments,
+                    //retVal.Comments,
                     retVal.Name,
-                    retVal.Navigation.Next,
-                    retVal.Navigation.Previous,
-                    retVal.NumberOfDownloads,
-                    retVal.NumberOfViews,
-                    retVal.Owner,
-                    retVal.OwnerId,
-                    retVal.PrintUrl,
-                    retVal.Rate,
+                    //retVal.Navigation.Next,
+                    //retVal.Navigation.Previous,
+                    //retVal.NumberOfDownloads,
+                    //retVal.NumberOfViews,
+                    //retVal.Owner,
+                    //retVal.OwnerId,
+                    //retVal.PrintUrl,
+                    //retVal.Rate,
                     retVal.ShortUrl,
-                    retVal.UpdateTime,
-                    retVal.UserType
-                }));
+                    //retVal.UpdateTime,
+                    //retVal.UserType
+                });
             }
             catch (BoxAccessDeniedException)
             {
@@ -481,75 +481,75 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #endregion
 
-        [HttpGet]
-        public ActionResult FullScreen()
-        {
-            try
-            {
-                return PartialView();
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("FullScreen ", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //[HttpGet]
+        //public ActionResult FullScreen()
+        //{
+        //    try
+        //    {
+        //        return PartialView();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("FullScreen ", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
 
-        [HttpPost, ZboxAuthorize,]
-        public async Task<JsonResult> AddComment(NewAnnotation model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-            }
-            try
-            {
-                var command = new AddAnnotationCommand(model.Comment, model.ItemId, User.GetUserId(), model.BoxId);
-                await ZboxWriteService.AddAnnotationAsync(command);
-                return JsonOk(command.AnnotationId);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                return JsonError();
-            }
-        }
-        [HttpPost]
-        [ZboxAuthorize]
-        public JsonResult DeleteComment(DeleteItemComment model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-            }
-            var command = new DeleteItemCommentCommand(model.CommentId, User.GetUserId());
-            ZboxWriteService.DeleteAnnotation(command);
-            return Json(new JsonResponse(true));
-        }
-        [HttpPost]
-        [ZboxAuthorize]
-        public async Task<JsonResult> ReplyComment(ReplyItemComment model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return JsonError(new { error = GetModelStateErrors() });
+        //[HttpPost, ZboxAuthorize,]
+        //public async Task<JsonResult> AddComment(NewAnnotation model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
+        //    }
+        //    try
+        //    {
+        //        var command = new AddAnnotationCommand(model.Comment, model.ItemId, User.GetUserId(), model.BoxId);
+        //        await ZboxWriteService.AddAnnotationAsync(command);
+        //        return JsonOk(command.AnnotationId);
+        //    }
+        //    catch (UnauthorizedAccessException)
+        //    {
+        //        return JsonError();
+        //    }
+        //}
+        //[HttpPost]
+        //[ZboxAuthorize]
+        //public JsonResult DeleteComment(DeleteItemComment model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
+        //    }
+        //    var command = new DeleteItemCommentCommand(model.CommentId, User.GetUserId());
+        //    ZboxWriteService.DeleteAnnotation(command);
+        //    return Json(new JsonResponse(true));
+        //}
+        //[HttpPost]
+        //[ZboxAuthorize]
+        //public async Task<JsonResult> ReplyComment(ReplyItemComment model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return JsonError(new { error = GetModelStateErrors() });
 
-            }
-            var command = new AddReplyToAnnotationCommand(User.GetUserId(), model.ItemId, model.Comment, model.CommentId, model.BoxId);
-            await ZboxWriteService.AddReplyAnnotationAsync(command);
-            return JsonOk(command.ReplyId);
-        }
+        //    }
+        //    var command = new AddReplyToAnnotationCommand(User.GetUserId(), model.ItemId, model.Comment, model.CommentId, model.BoxId);
+        //    await ZboxWriteService.AddReplyAnnotationAsync(command);
+        //    return JsonOk(command.ReplyId);
+        //}
 
-        [HttpPost, ZboxAuthorize]
-        public JsonResult DeleteCommentReply(DeleteItemCommentReply model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
-            }
-            var command = new DeleteItemCommentReplyCommand(User.GetUserId(), model.ReplyId);
-            ZboxWriteService.DeleteItemCommentReply(command);
-            return Json(new JsonResponse(true));
-        }
+        //[HttpPost, ZboxAuthorize]
+        //public JsonResult DeleteCommentReply(DeleteItemCommentReply model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
+        //    }
+        //    var command = new DeleteItemCommentReplyCommand(User.GetUserId(), model.ReplyId);
+        //    ZboxWriteService.DeleteItemCommentReply(command);
+        //    return Json(new JsonResponse(true));
+        //}
 
         [HttpGet]
         [OutputCache(CacheProfile = "PartialCache")]

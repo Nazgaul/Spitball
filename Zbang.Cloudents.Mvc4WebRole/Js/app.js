@@ -8,6 +8,7 @@
         'ngMaterial',
         'angulartics.google.analytics',
         'angular-plupload',
+        'infinite-scroll',
         
         'app.dashboard',
 

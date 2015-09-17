@@ -8,27 +8,23 @@ namespace Zbang.Zbox.Infrastructure.Profile
         public ProfileImages()
         {
         }
-        public ProfileImages(string image, string largeImage)
+        public ProfileImages(string image)
         {
             Uri temp;
             if (Uri.TryCreate(image, UriKind.Absolute, out temp))
             {
                 Image = temp;
             }
-            if (Uri.TryCreate(largeImage, UriKind.Absolute, out temp))
-            {
-                LargeImage = temp;
-            }
             
             //Image = image;
             //LargeImage = largeImage;
         }
-        public ProfileImages(Uri image, Uri largeImage)
+        public ProfileImages(Uri image)
         {
             Image = image;
-            LargeImage = largeImage;
+            //LargeImage = largeImage;
         }
         public Uri Image { get; set; }
-        public Uri LargeImage { get; set; }
+       // public Uri LargeImage { get; set; }
     }
 }
