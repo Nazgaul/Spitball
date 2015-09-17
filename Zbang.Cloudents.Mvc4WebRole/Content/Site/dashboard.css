@@ -124,6 +124,11 @@
 .color17 .progress {
   background: #4faf61;
 }
+.dashboard {
+  /*.universityCube {
+        background: @color4;
+    }*/
+}
 .dashboard .leaderBoardTitle {
   float: left;
   -ms-word-break: break-word;
@@ -148,6 +153,43 @@
   border-radius: 10px;
   padding: 0 5px;
   color: #fff;
+}
+.dashboard .universityTitle {
+  float: left;
+  width: 50%;
+  display: table;
+}
+.dashboard .universityTitle img {
+  border-radius: 50px;
+  float: left;
+}
+.dashboard .universityTitle span {
+  font-size: 20px;
+  vertical-align: middle;
+  display: table-cell;
+  padding-left: 10px;
+}
+.dashboard .universityStats {
+  float: right;
+  width: 50%;
+  border-left: 2px solid grey;
+  padding-left: 10px;
+  font-size: 17px;
+  font-weight: bold;
+  color: gray;
+}
+.dashboard .universityStats div:nth-child(odd) {
+  background: purple;
+}
+.dashboard .universityLink {
+  color: #fff;
+  width: 100%;
+  border: 2px solid white;
+  display: inline-block;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 md-fab-speed-dial.md-fab-bottom-right {
   position: fixed;

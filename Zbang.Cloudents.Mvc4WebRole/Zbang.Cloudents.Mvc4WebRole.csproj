@@ -3287,6 +3287,7 @@
     <Content Include="Views\Account\Settings2.cshtml" />
     <Content Include="Views\Library\Index2.cshtml" />
     <Content Include="Views\Item\Index2.cshtml" />
+    <Content Include="Views\Dashboard\_University.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
