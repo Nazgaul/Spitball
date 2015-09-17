@@ -159,10 +159,6 @@
   width: 50%;
   display: table;
 }
-.dashboard .universityTitle img {
-  border-radius: 50px;
-  float: left;
-}
 .dashboard .universityTitle span {
   font-size: 20px;
   vertical-align: middle;
@@ -193,4 +189,30 @@
 }
 md-fab-speed-dial.md-fab-bottom-right {
   position: fixed;
+}
+.leaderboad h4 {
+  font-size: 21px;
+  font-weight: 700;
+}
+.leaderboad .r-table {
+  display: table;
+  text-align: center;
+  font-size: 12px;
+}
+.leaderboad .r-table-row {
+  display: table-row;
+  height: 40px;
+}
+.leaderboad .r-table-cell {
+  display: table-cell;
+  width: 45%;
+  text-align: left;
+}
+.leaderboad .r-table-cell:nth-child(even) {
+  width: 10%;
+  color: orange;
+  text-align: center;
+}
+.leaderboad .r-table-cell.last {
+  text-align: right;
 }

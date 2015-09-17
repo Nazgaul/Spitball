@@ -6,69 +6,11 @@
 <div class="dashboard">
     <div class="row margin-top-10 " ng-controller="UniversityMeta as um">
         <div class="col-md-6 col-sm-12">
-            <div class="portlet light ">
+           
                 @{ Html.RenderPartial("_University");}
-            </div>
         </div>
         <div class="col-md-3 col-sm-6">
-            <div class="portlet light ">
-                <div class="portlet-body">
-                    <div class="table-scrollable table-scrollable-borderless">
-                        <div class="leaderBoardTitle">
-                            The
-                            king
-                            of
-                            school
-                        </div>
-                        <table class="table table-hover table-light leaderBoardBody">
-                            <tr>
-                                <td class="fit">
-                                    <img class="user-pic" src="{{::um.leaderBoard[0].image}}">
-                                </td>
-                                <td>
-                                    {{::um.leaderBoard[0].name}}
-                                </td>
-                                <td class="leaderbordPosition">
-                                    1<sup>st</sup>
-                                </td>
-                                <td>
-                                    {{::um.leaderBoard[0].score}}
-                                </td>
-
-
-                            </tr>
-                            <tr>
-                                <td class="fit">
-                                    <img class="user-pic" src="{{::um.leaderBoard[1].image}}">
-                                </td>
-                                <td>
-                                    {{::um.leaderBoard[1].name}}
-                                </td>
-                                <td class="leaderbordPosition">
-                                    2<sup>nd</sup>
-                                </td>
-                                <td>
-                                    {{::um.leaderBoard[0].score}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="fit">
-                                    <img class="user-pic" src="{{::um.leaderBoard[2].image}}">
-                                </td>
-                                <td>
-                                    {{::um.leaderBoard[2].name}}
-                                </td>
-                                <td class="leaderbordPosition">
-                                    3<sup>rd</sup>
-                                </td>
-                                <td>
-                                    {{::um.leaderBoard[2].score}}
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            @{ Html.RenderPartial("_Leaderboard");}
         </div>
 
         <div class="col-md-3 col-sm-6">

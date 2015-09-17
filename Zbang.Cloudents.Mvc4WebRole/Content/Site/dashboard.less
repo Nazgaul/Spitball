@@ -201,11 +201,6 @@
         width: 50%;
         display: table;
 
-        img {
-            border-radius: 50px;
-            float: left;
-        }
-
         span {
             font-size: 20px;
             vertical-align: middle;
@@ -237,8 +232,45 @@
         border-radius: 5px;
         margin-top: 10px;
     }
+
+    
+
+
 }
 
 md-fab-speed-dial.md-fab-bottom-right {
     position: fixed;
+}
+
+
+//leaderboard
+
+.leaderboad {
+    h4 {
+        font-size:21px;
+        font-weight:700;
+    }
+    .r-table {
+        display:table;
+        text-align:center;
+        font-size:12px;
+    }
+    .r-table-row {
+        display:table-row;
+        height:40px;
+
+    }
+    .r-table-cell {
+        display:table-cell;
+        width:45%;
+        text-align:left;
+        &:nth-child(even) {
+            width:10%;
+            color:orange;
+            text-align:center;
+        }
+        &.last {
+            text-align:right;
+        }
+    }
 }

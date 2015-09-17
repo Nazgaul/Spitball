@@ -1750,9 +1750,6 @@
     <Content Include="Content\Site\profile.rtl.css">
       <DependentUpon>profile.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\profile.rtl.min.css">
-      <DependentUpon>profile.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\user.css">
       <DependentUpon>user.less</DependentUpon>
     </Content>
@@ -3288,6 +3285,7 @@
     <Content Include="Views\Library\Index2.cshtml" />
     <Content Include="Views\Item\Index2.cshtml" />
     <Content Include="Views\Dashboard\_University.cshtml" />
+    <Content Include="Views\Dashboard\_LeaderBoard.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
