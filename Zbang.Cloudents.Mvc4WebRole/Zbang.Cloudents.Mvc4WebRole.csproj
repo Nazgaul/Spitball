@@ -2081,6 +2081,7 @@
     <Content Include="Js\components\dashboard\dashboard.service.js" />
     <Content Include="Js\components\dashboard\sidemenu.controller.js" />
     <Content Include="Js\components\item\item.controller.js" />
+    <Content Include="Js\components\item\item.service.js" />
     <Content Include="Js\components\library\library.controller.js" />
     <Content Include="Js\components\user\account.controller.js" />
     <Content Include="Js\components\user\updates.service.js" />

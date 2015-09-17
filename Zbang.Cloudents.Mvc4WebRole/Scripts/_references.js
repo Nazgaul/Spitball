@@ -315,3 +315,4 @@
 /// <reference path="../js/components/user/user.service.js" />
 /// <reference path="../js/components/dashboard/dashboard.service.js" />
 /// <reference path="../js/components/user/updates.service.js" />
+/// <reference path="../js/components/item/item.service.js" />

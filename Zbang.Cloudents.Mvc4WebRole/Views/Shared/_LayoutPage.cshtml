@@ -336,8 +336,10 @@
     <script>
         jQuery(document).ready(function () {
             Metronic.init(); // init metronic core componets
-            Layout.init(); // init layout
-            Demo.init(); // init demo features
+            Layout.initHeader();
+            Layout.initSidebar();
+            //Layout.init(); // init layout
+            //Demo.init(); // init demo features
             //QuickSidebar.init(); // init quick sidebar
             //Index.init(); // init index page
             //Tasks.initDashboardWidget(); // init tash dashboard widget

@@ -1,11 +1,35 @@
 ﻿<div class="itemPage">
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption font-green-sharp">
+                <i class="icon-speech font-green-sharp"></i>
+                <span class="caption-subject bold uppercase"> Portlet</span>
+                <span class="caption-helper">weekly stats...</span>
+            </div>
+            <div class="actions">
+                <a href="javascript:;" class="btn btn-circle btn-default btn-sm">
+                    <i class="fa fa-pencil"></i> Edit
+                </a>
+                <a href="javascript:;" class="btn btn-circle btn-default btn-sm">
+                    <i class="fa fa-plus"></i> Add
+                </a>
+                <a href="javascript:;" class="btn btn-circle btn-default btn-icon-only fullscreen"></a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="scroller" style="height:200px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
+                <img src="https://az779114.vo.msecnd.net/preview/88c1424d-cedc-45b2-be99-ec9dd48a7809.pdf.jpg?width=1000&height=1500" />
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="like">Rate</div>
         <div class="actions">Some actions</div>
         <a class="closeItem" href="{{::i.details.boxUrl}}">Close</a>
     </header>
     <div class="fileName">{{::i.details.name}}</div>
-    <div class="preview" ng-bind-html="i.preview">
+    <div class="preview" ng-bind-html="i.preview" infinite-scroll="i.loadMore()" infinite-scroll-distance="0">
         <img src="https://az779114.vo.msecnd.net/preview/88c1424d-cedc-45b2-be99-ec9dd48a7809.pdf.jpg?width=1000&height=1500" />
     </div>
 </div>
