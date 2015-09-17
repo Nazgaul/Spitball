@@ -63,102 +63,101 @@
                                 <!-- PERSONAL INFO TAB -->
                                 <div class="tab-pane active" id="info">
                                     <div class="form-group">
-                                        <div class="fileinput">
-                                            <div class="thumbnail" style="width: 150px; height: 150px;">
+                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail" style="width: 150px; height: 150px;">
                                                 <img src="{{a.data.image}}" alt="" width="150" height="150" />
                                             </div>
-                                            <a plupload="a.fileUpload.url" plupload-options="a.fileUpload.options" plupload-callbacks="a.fileUpload.callbacks">
-                                                select image
+                                            <a plupload="a.fileUpload.url" plupload-options="a.fileUpload.options" class="bg-grey-cascade ontop" plupload-callbacks="a.fileUpload.callbacks">
+                                                Update Picture
                                             </a>
+                                            <form role="form" ng-submit="a.submit()">
+                                                <div class="form-group">
+                                                    <label class="control-label" for="firstName">First Name</label>
+                                                    <input type="text" id="firstName" placeholder="{{a.data.firstName}}" ng-model="a.firstName" class="form-control" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label" for="lastName">Last Name</label>
+                                                    <input type="text" id="lastName" placeholder="{{a.data.lastName}}" ng-model="a.lastName" class="form-control" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label" for="email">Change mail</label>
+                                                    <input type="email" id="email" placeholder="{{::a.data.email}}" class="form-control" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label" for="univeristy">change university</label>
+                                                    <md-autocomplete md-input-id="university"
+                                                                     md-no-cache="false"
+                                                                     md-selected-item="a.selectedItem.name"
+                                                                     @*md-search-text-change="a.searchTextChange(ctrl.searchText)"*@
+                                                                     md-search-text="a.searchText"
+                                                                     md-selected-item-change="a.selectedItemChange(item)"
+                                                                     md-items="item in a.querySearch(a.searchText)"
+                                                                     md-item-text="item.name"
+                                                                     md-min-length="2"
+                                                                     md-delay="250"
+                                                                     placeholder="{{::a.data.university}}">
+                                                        <md-item-template>
+                                                            <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.name}}</span>
+                                                        </md-item-template>
+                                                        <md-not-found>
+                                                            No matches found for "{{a.searchText}}".
+                                                        </md-not-found>
+                                                    </md-autocomplete>
+                                                    @*<input type="text" placeholder="{{::a.data.university}}" class="form-control" />*@
+                                                </div>
 
+                                                <div class="margin-top-10 floatright">
+
+                                                    <button type="submit" class="btn blue">Save changes</button>
+                                                    <button type="reset" class="btn default">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane" id="password">
+                                            <form role="form" action="#">
+                                                <div class="form-group">
+                                                    <label class="control-label">current password</label>
+                                                    <input type="password" class="form-control" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">new password</label>
+                                                    <input type="password" class="form-control" />
+                                                </div>
+                                                <div class="margin-top-10 floatright">
+                                                    <a href="javascript:;" class="btn blue">
+                                                        Save Changes
+                                                    </a>
+                                                    <a href="javascript:;" class="btn default">
+                                                        Cancel
+                                                    </a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane" id="notification">
+                                            <form action="#">
+                                                <div class="form-group">
+                                                    <label class="control-label">Current Password</label>
+                                                    <input type="password" class="form-control" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">New Password</label>
+                                                    <input type="password" class="form-control" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Re-type New Password</label>
+                                                    <input type="password" class="form-control" />
+                                                </div>
+                                                <div class="margin-top-10 floatright">
+                                                    <a href="javascript:;" class="btn blue">
+                                                        Save Changes
+                                                    </a>
+                                                    <a href="javascript:;" class="btn default">
+                                                        Cancel
+                                                    </a>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
-                                    <form role="form" ng-submit="a.submit()">
-                                        <div class="form-group">
-                                            <label class="control-label" for="firstName">First Name</label>
-                                            <input type="text" id="firstName" placeholder="{{a.data.firstName}}" ng-model="a.firstName" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label" for="lastName">Last Name</label>
-                                            <input type="text" id="lastName" placeholder="{{a.data.lastName}}" ng-model="a.lastName" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label" for="email">Change mail</label>
-                                            <input type="email" id="email" placeholder="{{::a.data.email}}" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label" for="univeristy">change university</label>
-                                            <md-autocomplete 
-                                                             md-input-id="university"
-                                                             md-no-cache="false"
-                                                             md-selected-item="a.selectedItem.name"
-                                                             @*md-search-text-change="a.searchTextChange(ctrl.searchText)"*@
-                                                             md-search-text="a.searchText"
-                                                             md-selected-item-change="a.selectedItemChange(item)"
-                                                             md-items="item in a.querySearch(a.searchText)"
-                                                             md-item-text="item.name"
-                                                             md-min-length="2"
-                                                             md-delay="250"
-                                                             placeholder="{{::a.data.university}}">
-                                                <md-item-template>
-                                                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.name}}</span>
-                                                </md-item-template>
-                                                <md-not-found>
-                                                    No matches found for "{{a.searchText}}".
-                                                </md-not-found>
-                                            </md-autocomplete>
-                                            @*<input type="text" placeholder="{{::a.data.university}}" class="form-control" />*@
-                                        </div>
-
-                                        <div class="margin-top-10">
-                                            <button type="submit" class="btn blue">Save changes</button>
-                                            <button type="reset" class="btn default">Cancel</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="tab-pane" id="password">
-                                    <form role="form" action="#">
-                                        <div class="form-group">
-                                            <label class="control-label">current password</label>
-                                            <input type="password" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label">new password</label>
-                                            <input type="password" class="form-control" />
-                                        </div>
-                                        <div class="margin-top-10">
-                                            <a href="javascript:;" class="btn blue">
-                                                Save Changes
-                                            </a>
-                                            <a href="javascript:;" class="btn default">
-                                                Cancel
-                                            </a>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="tab-pane" id="notification">
-                                    <form action="#">
-                                        <div class="form-group">
-                                            <label class="control-label">Current Password</label>
-                                            <input type="password" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label">New Password</label>
-                                            <input type="password" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label">Re-type New Password</label>
-                                            <input type="password" class="form-control" />
-                                        </div>
-                                        <div class="margin-top-10">
-                                            <a href="javascript:;" class="btn blue">
-                                                Save Changes
-                                            </a>
-                                            <a href="javascript:;" class="btn default">
-                                                Cancel
-                                            </a>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -166,6 +165,4 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 

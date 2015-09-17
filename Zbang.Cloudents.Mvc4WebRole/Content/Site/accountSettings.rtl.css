@@ -7,3 +7,13 @@
   fill: #fff;
   vertical-align: middle;
 }
+.floatright {
+  text-align: left;
+}
+.ontop {
+  position: absolute;
+  top: 123px;
+  width: 140px;
+  right: 5px;
+  text-align: center;
+}
