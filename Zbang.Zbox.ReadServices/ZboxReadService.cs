@@ -1012,10 +1012,11 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var sql = string.Format("{0} {1} {2}",
+                var sql = string.Format("{0} {1} {2} {3}",
                    Sql.Quiz.Question,
                    Sql.Quiz.Answer,
-                   Sql.Quiz.UserAnswer
+                   Sql.Quiz.UserAnswer,
+                   Sql.Quiz.UserQuiz
 
                    );
                 using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.UserId }))
@@ -1032,6 +1033,7 @@ namespace Zbang.Zbox.ReadServices
                         question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
                     }
                     retVal.UserAnswers = solvedQuestion;
+                    retVal.Sheet = grid.Read<Item.SolveSheet>().FirstOrDefault();
                     return retVal;
                 }
             }

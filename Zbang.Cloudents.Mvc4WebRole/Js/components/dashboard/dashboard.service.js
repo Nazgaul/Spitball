@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.dashboard').service('dashboardService', dashboard);
-    dashboard.$inject = ['$q', 'ajaxService'];
+    dashboard.$inject = ['$q', 'ajaxService', 'userUpdatesService'];
 
-    function dashboard($q, ajaxservice) {
+    function dashboard($q, ajaxservice, userUpdatesService) {
         var d = this;
         var serverCall = false;
         var defer = $q.defer();
@@ -18,6 +18,13 @@
                 ajaxservice.get('/dashboard/boxlist/', null, 1800000).then(function (response) {
                     serverCall = false;
                     d.boxes = response;
+                    for (var i = 0; i < d.boxes.length; i++) {
+                        (function (box) {
+                            userUpdatesService.getUpdates(box.id, function (val) {
+                                box.updates = val;
+                            });
+                        })(d.boxes[i]);
+                    }
                     defer.resolve(d.boxes);
                 });
             }

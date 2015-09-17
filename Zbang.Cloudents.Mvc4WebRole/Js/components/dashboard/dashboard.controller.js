@@ -1,23 +1,23 @@
 ﻿(function () {
     angular.module('app.dashboard').controller('Dashboard', dashboard);
-    dashboard.$inject = ['dashboardService', 'userUpdatesService'];
+    dashboard.$inject = ['dashboardService'];
 
-    function dashboard(dashboardService, userUpdatesService) {
+    function dashboard(dashboardService) {
         var d = this;
         d.boxes = [];
         dashboardService.getBoxes().then(function (response) {
             d.boxes = response;
-            for (var i = 0; i < d.boxes.length; i++) {
-                //var box = d.boxes[i];
+            //for (var i = 0; i < d.boxes.length; i++) {
+            //    //var box = d.boxes[i];
                
 
-                (function (box) {
-                    userUpdatesService.getUpdates(box.id, function (val) {
-                        box.updates = val;
-                    });
-                })(d.boxes[i]);
-            }
-            console.log(d.boxes);
+            //    (function (box) {
+            //        userUpdatesService.getUpdates(box.id, function (val) {
+            //            box.updates = val;
+            //        });
+            //    })(d.boxes[i]);
+            //}
+            //console.log(d.boxes);
         });
 
       

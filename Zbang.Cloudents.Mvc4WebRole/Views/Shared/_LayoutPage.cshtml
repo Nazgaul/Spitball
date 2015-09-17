@@ -273,31 +273,10 @@
                         </a>
                         <ul class="sub-menu">
                             <li ng-repeat="box in d.courses">
-                                <a href="javascript:;">
+                                <a href="{{::box.url}}">
+                                    <span class="badge badge-danger" ng-if="box.updates !== 0">{{box.updates}}</span>
                                     {{::box.name}}
                                 </a>
-                                <ul class="sub-menu">
-                                    <li>
-                                        <a @shouldPostBack href="{{::box.url + 'feed/'}}">
-                                            feed
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a @shouldPostBack href="{{::box.url + 'items/'}}">
-                                            items
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a @shouldPostBack href="{{::box.url + 'quiz/'}}">
-                                            quizzes
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a @shouldPostBack href="{{::box.url + 'members/'}}">
-                                            members
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
 
                         </ul>
@@ -309,31 +288,10 @@
                         </a>
                         <ul class="sub-menu">
                             <li ng-repeat="box in d.privateBoxes">
-                                <a href="javascript:;">
+                                <a href="{{::box.url}}">
+                                    <span class="badge badge-danger" ng-if="box.updates !== 0">{{box.updates}}</span>
                                     {{::box.name}}
                                 </a>
-                                <ul class="sub-menu">
-                                    <li>
-                                        <a @shouldPostBack href="{{::box.url + 'feed/'}}">
-                                            feed
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a @shouldPostBack href="{{::box.url + 'items/'}}">
-                                            items
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a @shouldPostBack href="{{::box.url + 'quiz/'}}">
-                                            quizzes
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a @shouldPostBack href="{{::box.url + 'members/'}}">
-                                            members
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
 
                         </ul>
