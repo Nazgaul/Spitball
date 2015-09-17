@@ -1,32 +1,77 @@
 ﻿@import "variables.less";
+@headerHeight: 80px;
+
 .itemPage {
-    //position:fixed;
-    //top:0;
-    //bottom:0;
-    //left:0;
-   // right:0;
-    //background:#F4F4F4;
-    //z-index:10000;
-    //overflow-y: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #F4F4F4;
+    z-index: 10000;
+    overflow-y: auto;
 
     header {
-        height:80px;
-        color:@color2;
-        background-color:@color4;
+        height: @headerHeight;
+        color: @color2;
+        background-color: @color4;
+        padding-top: 20px;
+        position: fixed;
+        left: 0;
+        right: 0;
+
+        a {
+            margin: 0 15px;
+        }
+
+        svg {
+            width: 40px;
+            height: 40px;
+            fill: #C2C2C2;
+        }
     }
+
+    .itemContent {
+        margin-top: @headerHeight;
+    }
+
     .fileName {
-        text-align:center;
+        text-align: center;
+        color: #000;
+        font-size: 20px;
     }
+
     .preview {
-        text-align:center;
+        text-align: center;
+        width: 800px;
+        margin: 0 auto;
+
+        img {
+            max-width: 100%;
+            background: #fff;
+            margin: 10px 0;
+        }
     }
-    .like{
-        float:left;
+
+    .like {
+        float: left;
     }
+
     .actions {
-        text-align:center;
+        text-align: center;
     }
+
     .closeItem {
-        float:right;
+        float: right;
+    }
+
+    svg {
+        width: 25px;
+        height: 25px;
+    }
+
+    button {
+        border: 0;
+        background: transparent;
     }
 }

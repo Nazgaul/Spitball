@@ -1961,6 +1961,7 @@
       <DependentUpon>site.png.rtl.css</DependentUpon>
     </Content>
     <Content Include="Images\Site\BG.png" />
+    <Content Include="Images\Site\itemIcons.svg" />
     <Content Include="Images\Site\icons.svg" />
     <Content Include="Images\spitball_invite_off.png" />
     <Content Include="Images\spitball_invite_on.png" />

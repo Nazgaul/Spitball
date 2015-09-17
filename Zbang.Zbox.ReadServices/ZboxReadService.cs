@@ -428,16 +428,17 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1} {2}",
+                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1} {2} {3}",
                     Sql.Box.GetBoxCommentsForMobile,
                     Sql.Box.GetLastCommentRepliesForMobile,
-                    Sql.Box.GetBoxItemForCommentInMobile
+                    Sql.Box.GetBoxItemForCommentInMobile,
+                    Sql.Box.GetBoxQuizFromCommentInMobile
                     ),
                     new { query.BoxId, query.PageNumber, query.RowsPerPage }))
                 {
                     var comments = grid.Read<Qna.QuestionDto>().ToList();
                     var replies = grid.Read<Qna.AnswerDto>().ToList();
-                    var items = grid.Read<Qna.ItemDto>().ToList();
+                    var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToList();
 
                     foreach (var reply in replies)
                     {

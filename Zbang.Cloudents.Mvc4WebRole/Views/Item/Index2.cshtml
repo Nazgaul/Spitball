@@ -1,5 +1,8 @@
-﻿<div class="itemPage">
-    <div class="portlet light bordered">
+﻿@{
+    const string svgUrl = "~/images/site/itemIcons.svg";
+}
+<div class="itemPage">
+    @*<div class="portlet light bordered">
         <div class="portlet-title">
             <div class="caption font-green-sharp">
                 <i class="icon-speech font-green-sharp"></i>
@@ -21,15 +24,22 @@
                 <img src="https://az779114.vo.msecnd.net/preview/88c1424d-cedc-45b2-be99-ec9dd48a7809.pdf.jpg?width=1000&height=1500" />
             </div>
         </div>
-    </div>
+    </div>*@
 
     <header>
         <div class="like">Rate</div>
-        <div class="actions">Some actions</div>
-        <a class="closeItem" href="{{::i.details.boxUrl}}">Close</a>
+        <a class="closeItem" href="{{::i.details.boxUrl}}">@Html.Svg(svgUrl, "close")</a>
+        <div class="text-center">
+            <a href="#">@Html.Svg(svgUrl, "download")</a>
+            <a href="#">@Html.Svg(svgUrl, "print")</a>
+            <a href="#" tooltip-placement="bottom" tooltip="share tooltip">@Html.Svg(svgUrl, "share")</a>
+            <a href="#" tooltip-placement="bottom" tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
+        </div>
+        
     </header>
-    <div class="fileName">{{::i.details.name}}</div>
-    <div class="preview" ng-bind-html="i.preview" infinite-scroll="i.loadMore()" infinite-scroll-distance="0">
-        <img src="https://az779114.vo.msecnd.net/preview/88c1424d-cedc-45b2-be99-ec9dd48a7809.pdf.jpg?width=1000&height=1500" />
+    <div class="itemContent">
+        <div class="fileName">{{::i.details.name}} <button type="button">@Html.Svg(svgUrl, "rename")</button></div>
+        <div class="preview" ng-bind-html="i.preview" infinite-scroll="i.loadMore()" infinite-scroll-distance="0">
+        </div>
     </div>
 </div>

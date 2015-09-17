@@ -190,6 +190,23 @@ where a.boxid = @BoxId
 				group by questionid)
 				)";
 
+        public const string GetBoxQuizFromCommentInMobile = @"    select
+    i.Id as Id,
+    i.Name as Name,
+    i.UserId as OwnerId,
+    i.QuestionId as QuestionId,
+    --i.AnswerId as AnswerId,
+    'Quiz' as Type
+    --i.BlobName as Source
+    from zbox.Quiz i
+    where i.IsDeleted = 0
+	and i.Publish = 1
+    and i.BoxId = @BoxId
+    and QuestionId in  (select questionid from zbox.question where boxid = @boxid 
+	            order by updatetime desc
+	            offset @pageNumber*@rowsperpage ROWS
+	            FETCH NEXT @rowsperpage ROWS ONLY)";
+
         public const string GetCommentRepliesInMobile = @" SELECT  a.[AnswerId] as id
 	  ,u.[UserName] as UserName
       ,u.UserImageLarge as UserImage
