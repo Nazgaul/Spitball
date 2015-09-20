@@ -35,9 +35,9 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserBoxesOld(query);
         }
 
-        public Task<IEnumerable<BoxDto>> GetUserBoxes(GetBoxesQuery query)
+        public Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query)
         {
-            return m_ReadService.GetUserBoxes(query);
+            return m_ReadService.GetUserBoxesAsync(query);
         }
 
         public Task<UniversityDashboardInfoDto> GetMyData(GetDashboardQuery query)
@@ -189,10 +189,10 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserDetailsByEmail(query);
         }
 
-        public long GetItemIdByBlobId(string blobId)
-        {
-            return m_ReadService.GetItemIdByBlobId(blobId);
-        }
+        //public long GetItemIdByBlobId(string blobId)
+        //{
+        //    return m_ReadService.GetItemIdByBlobId(blobId);
+        //}
 
 
         public Task<IEnumerable<BoxDto>> GetUserWithFriendBoxesAsync(GetUserWithFriendQuery query)
@@ -274,10 +274,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUniversityNeedId(universityId);
         }
 
-        public Task<bool> GetUniversityNeedCode(long universityId)
-        {
-            return m_ReadService.GetUniversityNeedCode(universityId);
-        }
+
 
 
         public Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIds(IEnumerable<long> friendsIds)
@@ -344,9 +341,9 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public Task<DashboardDto> GetDashboardSideBar(GetDashboardQuery query)
+        public Task<DashboardDto> GetDashboardSideBarAsync(GetDashboardQuery query)
         {
-            return m_Cache.QueryAsync(m_ReadService.GetDashboardSideBar, query);
+            return m_Cache.QueryAsync(m_ReadService.GetDashboardSideBarAsync, query);
         }
 
 

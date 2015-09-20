@@ -15,7 +15,7 @@
         public const string GetNeedId = @"select  top 1 UniversityId, u.MailAddress as Email, TextPopupUpper, TextPopupLower from zbox.student s inner join zbox.University u on s.UniversityId = u.Id
               where s.UniversityId = @universityId";
 
-        public const string GetNeedCode = @"select needcode from zbox.university where id = @universityId";
+        //public const string GetNeedCode = @"select needcode from zbox.university where id = @universityId";
 
         public const string GetUniversityDetail = @"select
                          u.Id as Id,  

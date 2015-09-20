@@ -39,7 +39,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetBoxesQuery(1);
             try
             {
-                var x = await m_ZboxReadService.GetUserBoxes(query);
+                var x = await m_ZboxReadService.GetUserBoxesAsync(query);
             }
             catch (Exception ex)
             {
@@ -53,7 +53,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetDashboardQuery(920);
             try
             {
-                var x = await m_ZboxReadService.GetDashboardSideBar(query);
+                var x = await m_ZboxReadService.GetDashboardSideBarAsync(query);
             }
             catch (Exception ex)
             {
@@ -227,18 +227,7 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
 
-        [TestMethod]
-        public void GetUniversityNeedCode_Query_ReturnResult()
-        {
-            try
-            {
-                var x = m_ZboxReadService.GetUniversityNeedCode(984).Result;
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+
 
         [TestMethod]
         public void GetUniversityListByFriendsIds_Query_ReturnResult()

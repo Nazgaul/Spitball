@@ -298,12 +298,6 @@ namespace Zbang.Cloudents.Mobile.Controllers
                 //return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
             }
 
-            var needCode = await ZboxReadService.GetUniversityNeedCode(model.UniversityId);
-            if (needCode /*&& string.IsNullOrEmpty(model.Code)*/)
-            {
-                return JsonError("insert code");
-                //return RedirectToAction("InsertCode", "Library", new { universityId = model.UniversityId });
-            }
 
             if (!ModelState.IsValid)
             {

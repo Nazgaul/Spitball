@@ -95,11 +95,11 @@
 
 
   <!--Temp for dbi-->
-  <query name="GetItemIdByBlobId">
+  <!--<query name="GetItemIdByBlobId">
     <![CDATA[
       select f.Id from File f where f.ItemContentUrl = :BlobName
     ]]>
-  </query>
+  </query>-->
 
   <!--Used for item page-->
   <sql-query name="GetItem" resultset-ref="ItemWithDetailDto" read-only="1">

@@ -5,7 +5,7 @@
     function dashboard(dashboardService, $scope) {
         var d = this;
         d.boxes = [];
-        dashboardService.getBoxes().then(function (response) {
+        dashboardService.getBoxes(0).then(function (response) {
             d.boxes = response;
         });
 

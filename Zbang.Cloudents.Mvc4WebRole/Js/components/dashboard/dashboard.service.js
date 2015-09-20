@@ -7,7 +7,7 @@
         var serverCall = false;
         var defer = $q.defer();
 
-        d.getBoxes = function () {
+        d.getBoxes = function (page) {
             if (d.boxes) {
                 defer.resolve(d.boxes);
                 return defer.promise;
@@ -15,7 +15,7 @@
 
             if (!serverCall) {
                 serverCall = true;
-                ajaxservice.get('/dashboard/boxlist/', null, 1800000).then(function (response) {
+                ajaxservice.get('/dashboard/boxlist/', {page : page}, 1800000).then(function (response) {
                     serverCall = false;
                     d.boxes = response;
                     for (var i = 0; i < d.boxes.length; i++) {

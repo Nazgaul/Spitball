@@ -8,11 +8,12 @@ Theme Colors
 Body bg color
 ***********/
 body {
-  background-image: url('../../Images/Site/BG.png');
-  background-attachment: scroll;
-  background-size: cover;
-  background-position: 50% 0;
-  background-repeat: no-repeat;
+  background: #212427;
+  /*background-image: url('../../Images/Site/BG.png');
+    background-attachment: scroll;
+    background-size: cover;
+    background-position: 50% 0;
+    background-repeat: no-repeat;*/
   height: auto;
 }
 body.page-md {

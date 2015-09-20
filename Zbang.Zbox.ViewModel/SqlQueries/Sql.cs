@@ -40,9 +40,12 @@
 
 
 
-        public const string DashboardInfo = @"select uWrap.universityName as Name 
-, uWrap.universityName as UniName,
-uWrap.LargeImage as Img
+        public const string DashboardInfo = @"select 
+uWrap.universityName as Name,
+uWrap.LargeImage as Img,
+uWrap.NoOfBoxes as NumOfBoxes,
+uWrap.NoOfUsers as NumOfUsers,
+uWrap.NoOfItems + uWrap.NoOfQuizzes as NumOfItems
 from zbox.university uWrap  
 where uWrap.Id = @UniversityId";
 

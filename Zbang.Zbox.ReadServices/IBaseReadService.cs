@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
@@ -21,6 +20,6 @@ namespace Zbang.Zbox.ReadServices
 
         #endregion
 
-        long GetItemIdByBlobId(string blobId);
+        //long GetItemIdByBlobId(string blobId);
     }
 }

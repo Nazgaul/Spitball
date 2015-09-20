@@ -70,31 +70,7 @@ namespace Zbang.Zbox.ReadServices
         }
         #endregion
 
-        /// <summary>
-        /// Check if user have rights in dto model only
-        /// </summary>
-        /// <param name="boxId">The Box the user requested to view</param>
-        /// <param name="userId">The user</param>
-        /// <returns>If the user authorize to view return the type of the user otherwise throw exception that the box is denied</returns>
-        protected UserRelationshipType CheckIfUserAllowedToSee(long boxId, long userId)
-        {
-
-
-            IQuery boxQuery = UnitOfWork.CurrentSession.CreateQuery("select b.PrivacySettings.PrivacySetting from Box b where b.Id = :boxId ");
-            boxQuery.SetInt64("boxId", boxId);
-
-            IQuery userQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetUserRelationToBox");
-            userQuery.SetInt64("BoxId", boxId);
-            userQuery.SetParameter("UserId", userId);
-
-            var box = boxQuery.FutureValue<BoxPrivacySettings?>();
-            var userType = userQuery.FutureValue<UserRelationshipType>();
-            if (!box.Value.HasValue)
-            {
-                throw new BoxDoesntExistException();
-            }
-            return GetUserStatusToBox(box.Value.Value, userType.Value);
-        }
+       
         private UserRelationshipType GetUserStatusToBox(BoxPrivacySettings privacySettings, UserRelationshipType userRelationShipType)
         {
             if (userRelationShipType == UserRelationshipType.Owner)
@@ -167,16 +143,16 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public long GetItemIdByBlobId(string blobId)
-        {
-            using (UnitOfWork.Start())
-            {
-                IQuery query = UnitOfWork.CurrentSession.GetNamedQuery("GetItemIdByBlobId");
-                query.SetString("BlobName", blobId);
-                var x = query.UniqueResult();
-                return Convert.ToInt64(x);
-            }
-        }
+        //public long GetItemIdByBlobId(string blobId)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        IQuery query = UnitOfWork.CurrentSession.GetNamedQuery("GetItemIdByBlobId");
+        //        query.SetString("BlobName", blobId);
+        //        var x = query.UniqueResult();
+        //        return Convert.ToInt64(x);
+        //    }
+        //}
 
 
 

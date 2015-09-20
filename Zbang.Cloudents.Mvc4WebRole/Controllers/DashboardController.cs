@@ -44,14 +44,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> BoxList()
+        public async Task<JsonResult> BoxList(int page)
         {
             var userid = User.GetUserId();
             try
             {
-                var query = new GetBoxesQuery(userid);
-                var data = await ZboxReadService.GetUserBoxes(query);
-
+                var query = new GetBoxesQuery(userid, page, 20);
+                var data = await ZboxReadService.GetUserBoxesAsync(query);
                 return JsonOk(data);
             }
             catch (Exception ex)
@@ -68,7 +67,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var universityWrapper = User.GetUniversityId().Value;
 
             var query = new GetDashboardQuery(universityWrapper);
-            var model = await ZboxReadService.GetDashboardSideBar(query);
+            var model = await ZboxReadService.GetDashboardSideBarAsync(query);
             return JsonOk(model);
 
         }

@@ -22,9 +22,9 @@ namespace Zbang.Zbox.ReadServices
     {
         
         Task<IEnumerable<BoxDto>> GetUserBoxesOld(GetBoxesQuery query);
-        Task<IEnumerable<BoxDto>> GetUserBoxes(GetBoxesQuery query);
+        Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query);
 
-        Task<DashboardDto> GetDashboardSideBar(GetDashboardQuery query);
+        Task<DashboardDto> GetDashboardSideBarAsync(GetDashboardQuery query);
 
         Task<UniversityDashboardInfoDto> GetMyData(GetDashboardQuery query);
 
@@ -102,7 +102,7 @@ namespace Zbang.Zbox.ReadServices
 
 
         Task<UniversityWithCodeDto> GetUniversityNeedId(long universityId);
-        Task<bool> GetUniversityNeedCode(long universityId);
+       
 
 
         Task<IEnumerable<UpdatesDto>> GetUpdates(QueryBase query);

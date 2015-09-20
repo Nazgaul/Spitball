@@ -1,15 +1,15 @@
 ﻿<div class="portlet light ">
     <div class="clearfix">
         <div class="universityTitle">
-            <img class="img-circle pull-left" src="http://lorempixel.com/100/100/" alt="univerisy picture" />
-            <span>University of the witwatersrand</span>
+            <img class="img-circle pull-left" src="{{::um.info.img}}" alt="univerisy picture" width="60" height="60" />
+            <span>{{::um.info.name}}</span>
         </div>
         <div class="universityStats">
-            <div>35 courses</div>
-            <div>5000 membres</div>
-            <div>2520 files</div>
+            <div>{{::um.info.numOfBoxes}} courses</div>
+            <div>{{::um.info.numOfUsers}} membres</div>
+            <div>{{::um.info.numOfItems}} files</div>
         </div>
     </div>
-    <a href="#" class="universityLink">Browse courses</a>
+    <a href="#" ui-sref="department" class="universityLink">Browse courses</a>
 </div>
 

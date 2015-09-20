@@ -6,7 +6,7 @@
         var d = this;
         d.courses = [];
         d.privateBoxes = [];
-        dashboardService.getBoxes().then(function(response) {
+        dashboardService.getBoxes(0).then(function(response) {
             d.courses = $.grep(response, function(b) {
                 return b.boxType === 'academic';
             });

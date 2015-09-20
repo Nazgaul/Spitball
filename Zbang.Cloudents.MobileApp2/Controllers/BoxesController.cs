@@ -53,7 +53,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             var userid = User.GetCloudentsUserId();
             var query = new GetBoxesQuery(userid, page, sizePerPage);
-            var data = await ZboxReadService.GetUserBoxes(query);
+            var data = await ZboxReadService.GetUserBoxesAsync(query);
 
             return Request.CreateResponse(data.Select(s => new
             {

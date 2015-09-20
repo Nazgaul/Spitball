@@ -46,6 +46,7 @@ namespace Zbang.Zbox.ReadServices
             {
                 return await conn.QueryAsync<BoxDto>(Sql.Dashboard.UserBoxesOld,
                     new { query.UserId, query.RowsPerPage, query.PageNumber });
+
             }
 
         }
@@ -54,7 +55,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<BoxDto>> GetUserBoxes(GetBoxesQuery query)
+        public async Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -65,7 +66,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public async Task<DashboardDto> GetDashboardSideBar(GetDashboardQuery query)
+        public async Task<DashboardDto> GetDashboardSideBarAsync(GetDashboardQuery query)
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -76,6 +77,7 @@ namespace Zbang.Zbox.ReadServices
                 {
                     var retVal = new DashboardDto
                     {
+
                         Info = grid.Read<UniversityDashboardInfoDto>().FirstOrDefault(),
                         LeaderBoard = await grid.ReadAsync<LeaderBoardDto>()
 
@@ -113,7 +115,7 @@ namespace Zbang.Zbox.ReadServices
             {
                 var retVal = await conn.QueryAsync<UniversityDashboardInfoDto>(Sql.Sql.DashboardInfo,
                     new { query.UniversityId });
-                return retVal.FirstOrDefault();
+                return retVal.First();
             }
         }
 
@@ -165,7 +167,7 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await conn.QueryAsync<UniversityInfoDto>(Sql.Sql.GetUniversityDataByUserId, new { UniversityWrapper = query.UserId });
-                return retVal.FirstOrDefault();
+                return retVal.First();
             }
 
         }
@@ -193,13 +195,13 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var data = await conn.QueryAsync<Box.BoxDto2>(Sql.Box.BoxData, new { query.BoxId });
-                var retVal = data.FirstOrDefault();
-                if (retVal == null)
+                var retVal = await conn.QueryAsync<Box.BoxDto2>(Sql.Box.BoxData, new { query.BoxId });
+                var box = retVal.FirstOrDefault();
+                if (box == null)
                 {
                     throw new BoxDoesntExistException();
                 }
-                return retVal;
+                return box;
             }
         }
 
@@ -337,9 +339,9 @@ namespace Zbang.Zbox.ReadServices
                             conn.QueryMultipleAsync(string.Format("{0} {1}",
                             Sql.Item.ItemDetail,
                             Sql.Item.Navigation
-                            //Sql.Item.ItemComments,
-                            //Sql.Item.ItemCommentReply,
-                            //Sql.Item.UserItemRate
+                    //Sql.Item.ItemComments,
+                    //Sql.Item.ItemCommentReply,
+                    //Sql.Item.UserItemRate
                             ),
                                 new { query.ItemId, query.BoxId, query.UserId }))
                 {
@@ -528,8 +530,8 @@ namespace Zbang.Zbox.ReadServices
                             u.userReputation as score, uu.universityname as universityName, u.url as Url
                             from zbox.users u left join zbox.university uu on u.UniversityId = uu.id
                             where u.userid =@UserId";
-                var retVal = await conn.QueryAsync<User.UserMinProfile>(sql, new { query.UserId });
-                return retVal.FirstOrDefault();
+                var retVal =  await conn.QueryAsync<User.UserMinProfile>(sql, new { query.UserId });
+                return retVal.First();
 
             }
         }
@@ -545,7 +547,7 @@ namespace Zbang.Zbox.ReadServices
                 const string sql = @" select country_code2  from zbox.ip_range 
     where ip_from <= @IP and @IP <= ip_to";
                 var retVal = await conn.QueryAsync<string>(sql, new { IP = query.IpAddress });
-                return retVal.FirstOrDefault();
+                return retVal.First(); 
             }
 
         }
@@ -602,7 +604,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<UniversityWithCodeDto>(Sql.LibraryChoose.GetNeedId, new
+                var retVal =  await conn.QueryAsync<UniversityWithCodeDto>(Sql.LibraryChoose.GetNeedId, new
                 {
                     universityId
                 });
@@ -610,17 +612,17 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<bool> GetUniversityNeedCode(long universityId)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                var retVal = await conn.QueryAsync<bool>(Sql.LibraryChoose.GetNeedCode, new
-                {
-                    universityId
-                });
-                return retVal.FirstOrDefault();
-            }
-        }
+        //public async Task<bool> GetUniversityNeedCode(long universityId)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        var retVal = await conn.QueryAsync<bool>(Sql.LibraryChoose.GetNeedCode, new
+        //        {
+        //            universityId
+        //        });
+        //        return retVal.FirstOrDefault();
+        //    }
+        //}
 
         public async Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIds(IEnumerable<long> friendsIds)
         {
@@ -656,10 +658,9 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = DapperConnection.OpenConnection())
             {
-                var retVal =
-
-                        conn.Query<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail,
+                var retVal = conn.Query<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail,
                             new { query.UserId });
+
                 var user = retVal.FirstOrDefault();
                 if (user == null)
                 {
@@ -674,7 +675,7 @@ namespace Zbang.Zbox.ReadServices
             {
                 var retVal =
                        await conn.QueryAsync<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail,
-                            new { query.UserId });
+                       new { query.UserId });
                 var user = retVal.FirstOrDefault();
                 if (user == null)
                 {
@@ -709,25 +710,9 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<User.UserAccountDto>(Sql.Sql.GetUserAccountData, new { query.UserId });
-                return retVal.First();
+                var result = await conn.QueryAsync<User.UserAccountDto>(Sql.Sql.GetUserAccountData, new { query.UserId });
+                return result.First();
             }
-            //using (UnitOfWork.Start())
-            //{
-            //    //GetUserAccountData
-            //    var queryUser = UnitOfWork.CurrentSession.GetNamedQuery("GetUserAccountSettings");
-
-            //    queryUser.SetInt64("UserId", query.UserId);
-            //    queryUser.SetReadOnly(true);
-            //    queryUser.SetResultTransformer(Transformers.AliasToBean<User.UserAccountDto>());
-            //    var user = queryUser.UniqueResult<User.UserAccountDto>();
-            //    if (user == null)
-            //    {
-            //        throw new UserNotFoundException("user is null");
-            //    }
-            //    return user;
-            //}
-
         }
         /// <summary>
         /// Used in account settings notification section
@@ -959,7 +944,7 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await conn.QueryAsync<Item.QuizSeo>(Sql.Quiz.QuizSeoQuery, new { query.QuizId });
-                return retVal.FirstOrDefault();
+                return retVal.First();
             }
         }
 
@@ -968,7 +953,7 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await conn.QueryAsync<Item.FileSeo>(Sql.Seo.FileSeo, new { query.ItemId });
-                return retVal.FirstOrDefault();
+                return retVal.First();
             }
         }
 
@@ -976,14 +961,13 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var d = await conn.QueryAsync<Box.BoxSeoDto>(Sql.Seo.BoxSeo, new { query.BoxId });
-
-                var retVal = d.FirstOrDefault();
+                var retVal = await conn.QueryAsync<Box.BoxSeoDto>(Sql.Seo.BoxSeo, new { query.BoxId });
+                var box = retVal.FirstOrDefault();
                 if (retVal == null)
                 {
                     throw new BoxDoesntExistException();
                 }
-                return retVal;
+                return box;
             }
         }
 
@@ -1122,89 +1106,6 @@ namespace Zbang.Zbox.ReadServices
             }
         }
         #endregion
-
-
-        //#region Store
-
-        //public async Task<IEnumerable<ProductDto>> GetProducts(GetStoreProductsByCategoryQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        var sql = query.CategoryId.HasValue ? Sql.Store.GetProductsWithCategory : Sql.Store.GetProducts;
-        //        sql = query.ProducerId.HasValue ? Sql.Store.GetProductsBySupplier : sql;
-        //        return await conn.QueryAsync<ProductDto>(sql, new { CatId = query.CategoryId, query.UniversityId, producerId = query.ProducerId });
-        //    }
-        //}
-        //public async Task<IEnumerable<ProductDto>> SearchProducts(SearchProductQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<ProductDto>(Sql.Store.SearchProduct, new { term = query.Term, universityId = query.UniversityId });
-        //    }
-        //}
-        //public IEnumerable<CategoryDto> GetCategories()
-        //{
-        //    using (var conn = DapperConnection.OpenConnection())
-        //    {
-        //        return conn.Query<CategoryDto>(Sql.Store.GetCategories);
-        //    }
-        //}
-        //public async Task<ProductWithDetailDto> GetProduct(GetStoreProductQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        var retVal = await conn.QueryAsync<ProductWithDetailDto>(Sql.Store.GetProduct, new { ProdId = query.ProductId });
-        //        return retVal.FirstOrDefault();
-        //    }
-        //}
-
-        //public async Task<ProductCheckOutDto> GetProductCheckOut(GetStoreProductQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        using (var grid = await conn.QueryMultipleAsync(Sql.Store.GetProductCheckOut + Sql.Store.GetProductFeatures,
-        //            new { ProdId = query.ProductId }))
-        //        {
-        //            var product = grid.Read<ProductCheckOutDto>().FirstOrDefault();
-        //            if (product != null) product.Features = grid.Read<ProductFeatures>();
-        //            return product;
-        //        }
-        //    }
-        //}
-
-        //public async Task<IEnumerable<BannerDto>> GetBanners(int? universityId)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<BannerDto>(Sql.Store.GetBanners, new { universityId });
-        //    }
-        //}
-
-        //public async Task<bool> ValidateCoupon(int coupon)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        var retVal = await conn.QueryAsync<int>(Sql.Store.ValidateCouponCode, new { Coupun = coupon });
-        //        return retVal.FirstOrDefault() > 0;
-        //    }
-        //}
-
-        //public async Task<int?> CloudentsUniversityToStoreUniversity(long universityId)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        var retVal = await conn.QueryAsync<int>(Sql.Store.MapCloudentsUniversityToStoreUniversity, new { UniversityId = universityId });
-        //        var enumerable = retVal as IList<int> ?? retVal.ToList();
-        //        if (!enumerable.Any())
-        //        {
-        //            return null;
-        //        }
-        //        return enumerable.FirstOrDefault();
-        //    }
-        //}
-        //#endregion
-
-
 
         public async Task<IEnumerable<long>> GetUniversityWithCode()
         {

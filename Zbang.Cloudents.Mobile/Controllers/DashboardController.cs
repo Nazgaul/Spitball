@@ -32,7 +32,7 @@ namespace Zbang.Cloudents.Mobile.Controllers
             try
             {
                 var query = new GetBoxesQuery(User.GetUserId(), page, 15);
-                var data = await ZboxReadService.GetUserBoxes(query);
+                var data = await ZboxReadService.GetUserBoxesAsync(query);
 
                 return JsonOk(data.Select(s => new
                 {
