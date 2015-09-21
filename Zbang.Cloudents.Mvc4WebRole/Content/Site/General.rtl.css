@@ -1,4 +1,9 @@
-﻿.userLetter {
+﻿button {
+  border: 0;
+  background: transparent;
+  outline: none;
+}
+.userLetter {
   border-radius: 50%;
   color: #fff;
   display: inline-block;
@@ -47,5 +52,40 @@
 }
 .create {
   background: #353a3f;
-  height: 250px;
+  height: 475px;
+}
+.create h5 {
+  display: inline-block;
+  font-size: 18px;
+  margin: 15px 20px 0 0;
+}
+.create .close {
+  float: left;
+  margin: 10px 0 0 10px;
+  color: #fff;
+  text-shadow: none;
+  opacity: 1;
+  font-weight: 400;
+}
+.create .content {
+  width: calc( 100% - 20px);
+  height: calc( 100% - 60px);
+  margin: 10px;
+  background: #000;
+}
+.create .steps {
+  background: #fff;
+  color: #000;
+}
+.create .steps li {
+  width: 19%;
+  text-align: center;
+  margin-top: 15px;
+}
+.create .steps li span {
+  border-radius: 50%;
+  background-color: grey;
+  padding: 5px 10px;
+  display: inline-block;
+  margin-left: 5px;
 }

@@ -1883,7 +1883,7 @@ Page content
     margin-right: 275px;
     margin-top: 0;
     min-height: 600px;
-    padding: 10px 20px 0 0;
+    padding: 0 20px 0 0;
   }
   .page-content-wrapper .page-content.no-min-height {
     min-height: auto;

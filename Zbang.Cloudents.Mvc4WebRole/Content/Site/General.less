@@ -1,19 +1,26 @@
 ﻿@import "variables.less";
+
+button {
+    border: 0;
+    background: transparent;
+    outline: none;
+}
+
 //user image letter
 .userLetter {
-  //  &:before {
-       // content:attr(data-letter);
-        //width: 46px;
-        //height: 46px;
-        //line-height: 46px;
-        border-radius: 50%;
-        color: #fff;
-        display: inline-block;
-        text-align:center;
-        text-transform: capitalize;
-        font-size: 25px;
-        background:red;
-  //  }
+    //  &:before {
+    // content:attr(data-letter);
+    //width: 46px;
+    //height: 46px;
+    //line-height: 46px;
+    border-radius: 50%;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 25px;
+    background: red;
+    //  }
 }
 
 //leaderboard
@@ -55,21 +62,62 @@
 //invite
 
 .portlet.light.invite {
-    background:#3293F6;
-    text-align:center;
-    font-size:18px;
+    background: #3293F6;
+    text-align: center;
+    font-size: 18px;
 
     svg {
-        fill:#fff;
-        width:75px;
-        height:75px;
-        display:block;
-        margin:0 auto;
+        fill: #fff;
+        width: 75px;
+        height: 75px;
+        display: block;
+        margin: 0 auto;
     }
 }
 
 //create
 .create {
-    background:@color4;
-    height:250px;
+    background: @color4;
+    height: 475px;
+
+    h5 {
+        display: inline-block;
+        font-size: 18px;
+        margin: 15px 0 0 20px;
+    }
+
+    .close {
+        float: right;
+        margin: 10px 10px 0 0;
+        //override
+        color: #fff;
+        text-shadow: none;
+        opacity: 1;
+        font-weight: 400;
+    }
+
+    .content {
+        width: ~"calc( 100% - 20px)";
+        height: ~"calc( 100% - 60px)";
+        margin: 10px;
+        background: #000;
+    }
+
+    .steps {
+        background: #fff;
+        color: #000;
+
+        li {
+            width: 19%;
+            text-align: center;
+            margin-top: 15px;
+            span {
+                border-radius: 50%;
+                background-color: grey;
+                padding: 5px 10px;
+                display: inline-block;
+                margin-right: 5px;
+            }
+        }
+    }
 }

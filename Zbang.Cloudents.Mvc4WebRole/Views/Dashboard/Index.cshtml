@@ -1,17 +1,30 @@
-﻿<div class="page-head">
+﻿<div class="row margin-bottom-20" collapse="!createBoxOn">
+    <div class="col-md-12">
+        <div class="create">
+            <h5>Create a class</h5>
+            <button type="button" class="close" ng-click="createBoxOn = false">X</button>
+            <div class="content">
+                <div class="steps">
+                    <ul class="list-inline">
+                        <li><span>1</span>class type</li>
+                        <li><span>2</span>class name</li>
+                        <li><span>3</span>select department</li>
+                        <li><span>4</span>upload</li>
+                        <li><span>5</span>invite</li>
+                    </ul>
+                    <progressbar class="progress-striped active" max="100" value="20" type="info"></progressbar>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-head">
     <div class="page-title">
         <h1>Dashboard</h1>
     </div>
 </div>
 <div class="dashboard">
-    <div class="row margin-bottom-20" collapse="!createBoxOn">
-        <div class="col-md-12">
-            <div class="create">
-                <h5>Create a class</h5>
 
-            </div>
-        </div>
-    </div>
     <div class="row" ng-controller="UniversityMeta as um">
         <div class="col-md-6 col-sm-12">
             @{ Html.RenderPartial("_University");}
@@ -19,7 +32,7 @@
         <div class="col-md-3 col-sm-6">
             @{ Html.RenderPartial("_Leaderboard");}
         </div>
-        <div class="col-md-3 col-sm-6" >
+        <div class="col-md-3 col-sm-6">
             <div class="portlet light invite">
                 <div class="portlet-body">
                     @Html.Svg("~/images/site/icons.svg", "invite")
