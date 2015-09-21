@@ -72,7 +72,7 @@
   -moz-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
   -o-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
   transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
-  width: 365px;
+  width: 365px
   /*&.ng-leave,
     &.ng-enter.ng-enter-active    {
         
@@ -96,7 +96,7 @@
   -webkit-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
   -moz-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
   -o-transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
-  transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9);
+  transition: all, 0.8s cubic-bezier(0.46, 0.075, 0.725, 0.9)
   /*&.ng-leave, 
     &.ng-enter.ng-enter-active  {
         opacity: 1;
@@ -164,7 +164,7 @@ textarea:invalid {
   color: #676767;
 }
 .attachedList {
-  padding: 0 50px 3px 8px;
+  padding: 0 50px 3px 8px
   /*rtl*/
 }
 .attachedItem {
@@ -174,7 +174,7 @@ textarea:invalid {
   padding-right: 6px;
   /*rtl*/
   display: inline-block;
-  margin: 3px 0 3px 5px;
+  margin: 3px 0 3px 5px
   /*rtl*/
 }
 .attachName {
@@ -295,7 +295,7 @@ textarea:invalid {
   margin-bottom: 0;
 }
 .QEmptyForm .textareaWpr {
-  margin-right: 3px;
+  margin-right: 3px
   /*rtl*/
 }
 .QList {
@@ -323,7 +323,7 @@ textarea:invalid {
   padding: 0 8px 3px 8px;
 }
 .QItem .askBtn {
-  margin: 2px 0 7px 6px;
+  margin: 2px 0 7px 6px
   /*rtl*/
 }
 .QItem .attachBtn {
@@ -356,7 +356,7 @@ textarea:invalid {
 }
 .QItem .userName {
   display: inline-block;
-  margin: 7px 10px 0 0;
+  margin: 7px 10px 0 0
   /*rtl*/
 }
 .QItem .AUsername {
@@ -406,7 +406,7 @@ textarea:invalid {
 }
 .answerBottom > button {
   color: #66a1cf;
-  padding-left: 5px;
+  padding-left: 5px
   /*rtl*/
 }
 .numAnswers {
@@ -418,7 +418,7 @@ textarea:invalid {
   width: 1px;
   height: 12px;
   color: #676767;
-  margin: 0 3px 0 2px;
+  margin: 0 3px 0 2px
   /*rtl*/
 }
 .QTop {
@@ -432,7 +432,7 @@ textarea:invalid {
 }
 .QTop + div .QAImg,
 .QTop + form .QAImg {
-  margin: 6px 15px 6px 6px;
+  margin: 6px 15px 6px 6px
   /*rtl*/
 }
 .QTop.hasAttached {
@@ -489,7 +489,7 @@ textarea:invalid {
   overflow: hidden;
   padding: 7px 0 7px 10px;
   /*rtl*/
-  line-height: 19px;
+  line-height: 19px
   /* diff rtl*/
 }
 .AMore {
@@ -523,7 +523,7 @@ textarea:invalid {
   white-space: nowrap;
   overflow-y: hidden;
   overflow-x: auto;
-  margin: 0 44px 5px 0;
+  margin: 0 44px 5px 0
   /*rtl*/
 }
 .qaAttachItem {
@@ -607,7 +607,7 @@ textarea:invalid {
   color: #383838;
   padding: 0 8px 10px 0;
   line-height: 17px;
-  margin-top: -5px;
+  margin-top: -5px
   /*&:hover {
             text-decoration: none;
         }*/
@@ -618,7 +618,7 @@ textarea:invalid {
 }
 .question .deleteBtn {
   top: 9px;
-  left: 5px;
+  left: 5px
   /*rtl*/
 }
 .question .userName,
@@ -768,7 +768,7 @@ textarea:invalid {
   color: #676767;
   display: inline-block;
   vertical-align: top;
-  margin-right: 5px;
+  margin-right: 5px
   /*rtl*/
 }
 .createTime.innerSection {

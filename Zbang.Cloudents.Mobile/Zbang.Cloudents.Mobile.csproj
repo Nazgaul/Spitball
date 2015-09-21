@@ -553,6 +553,9 @@
       <DependentUpon>HomeRtl.less</DependentUpon>
     </Content>
     <Content Include="Content\Home.rtl.css" />
+    <Content Include="Content\HomeRtl.min.css">
+      <DependentUpon>HomeRtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\HomeRtl.rtl.css">
       <DependentUpon>HomeRtl.css</DependentUpon>
     </Content>
@@ -573,6 +576,9 @@
     </Content>
     <Content Include="Content\ItemMobileRtl.css">
       <DependentUpon>ItemMobileRtl.less</DependentUpon>
+    </Content>
+    <Content Include="Content\ItemMobileRtl.min.css">
+      <DependentUpon>ItemMobileRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\ItemMobileRtl.rtl.css">
       <DependentUpon>ItemMobileRtl.css</DependentUpon>

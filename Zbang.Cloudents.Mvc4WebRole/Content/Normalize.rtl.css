@@ -8,7 +8,7 @@ html {
   font-family: Arial;
   -ms-text-size-adjust: 100%;
   /* 2 */
-  -webkit-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%
   /* 2 */
 }
 /**
@@ -71,7 +71,7 @@ progress,
 video {
   display: inline-block;
   /* 1 */
-  vertical-align: baseline;
+  vertical-align: baseline
   /* 2 */
 }
 /**
@@ -220,7 +220,7 @@ textarea {
   /* 1 */
   font: inherit;
   /* 2 */
-  margin: 0;
+  margin: 0
   /* 3 */
 }
 /**
@@ -264,7 +264,7 @@ html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
   -webkit-appearance: none;
-  cursor: pointer;
+  cursor: pointer
   /* 3 */
 }
 /**
@@ -310,7 +310,7 @@ input[type="checkbox"],
 input[type="radio"] {
   box-sizing: border-box;
   /* 1 */
-  padding: 0;
+  padding: 0
   /* 2 */
 }
 input[type="checkbox"] input[type="radio"][disabled] + label:before,
@@ -362,7 +362,7 @@ fieldset {
 legend {
   border: 0;
   /* 1 */
-  padding: 0;
+  padding: 0
   /* 2 */
 }
 /**
@@ -371,7 +371,7 @@ legend {
 textarea {
   overflow: auto;
   resize: vertical;
-  vertical-align: top;
+  vertical-align: top
   /* 2 old normalize - Improve readability and alignment in all browsers.*/
 }
 textarea:invalid {
@@ -400,6 +400,3 @@ td,
 th {
   padding: 0;
 }
-/**
- * Set consistent quote types. (old normalize)
- */

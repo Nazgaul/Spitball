@@ -1435,7 +1435,7 @@ aside.sideBar .last {
   box-sizing: border-box;
   border: 1px solid #c2c2c2;
   border-radius: 3px;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4)
   /*.userTooltip {
         width: 379px;
         height: 100px;
@@ -1671,7 +1671,7 @@ svg.color8 {
 }
 .semiFont,
 .boldFont {
-  font-weight: 600;
+  font-weight: 600
   /*rtl - because Hebrew doesn't support this*/
 }
 /*.mark {
@@ -1886,7 +1886,7 @@ select.inputText {
   width: 224px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
   right: -webkit-calc(50% - 112px);
-  right: calc(50% - 112px);
+  right: calc(50% - 112px)
   /*rtl */
 }
 .ptsPopup:before {
@@ -1920,7 +1920,7 @@ select.inputText {
   vertical-align: middle;
 }
 .ptDigit:first-child {
-  margin-right: 4px;
+  margin-right: 4px
   /* no rtl !!*/
 }
 .ptsAnim {
@@ -1948,7 +1948,7 @@ select.inputText {
     background: #fff;
   }
   .boxItemTt.boxItemTt .ttPreview {
-    max-height: 52px;
+    max-height: 52px
     /* diff rtl - heb has 4 lines*/
   }
   .welcomeStore .or {
@@ -1976,4 +1976,3 @@ select.inputText {
 .rtlFix .ptsPopup:after {
   margin: 0;
 }
-/*#endregion */

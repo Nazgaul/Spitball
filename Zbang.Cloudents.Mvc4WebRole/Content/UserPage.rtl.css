@@ -5,7 +5,7 @@
 .userPage {
   text-align: right;
   color: #383838;
-  margin-top: 30px;
+  margin-top: 30px
   /*&:after {
         content: '';
         width: 100%;
@@ -475,7 +475,7 @@
   color: #0371c8;
 }
 .upCb {
-  display: none;
+  display: none
   /*~ .inCommonList
         {
             .upFriend:nth-child(n+9)
@@ -912,4 +912,3 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-/*#endregion*/

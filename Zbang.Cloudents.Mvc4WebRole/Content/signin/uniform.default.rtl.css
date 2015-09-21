@@ -19,7 +19,7 @@ div.uploader {
   display: inline-block;
   *display: inline;
   zoom: 1;
-  vertical-align: middle;
+  vertical-align: middle
   /* Keeping this as :focus to remove browser styles */
 }
 div.selector:focus,
@@ -337,7 +337,7 @@ div.button {
   background-position: 100% -641px;
   height: 30px;
   cursor: pointer;
-  position: relative;
+  position: relative
   /* Keep buttons barely visible so they can get focus */
 }
 div.button a,

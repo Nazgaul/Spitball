@@ -1382,6 +1382,8 @@ Page sidebar
 .page-sidebar .page-sidebar-menu > li > a > .title,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > .title {
   font-size: 17px;
+  vertical-align: middle;
+  margin-right: 15px;
 }
 .page-sidebar .page-sidebar-menu > li > a > i,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i {
@@ -1453,7 +1455,7 @@ Page sidebar
   list-style: none;
   display: none;
   padding: 0;
-  margin: 8px 0 8px 0;
+  margin: 8px 30px 8px 0;
 }
 .page-sidebar .page-sidebar-menu .sub-menu li,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li {

@@ -15,15 +15,24 @@
 .leaderboad h4 {
   font-size: 21px;
   font-weight: 700;
+  margin-top: 0px;
+}
+.leaderboad .userLetter {
+  font-size: 17px;
+}
+.leaderboad .img-circle {
+  margin-left: 10px;
 }
 .leaderboad .r-table {
   display: table;
   text-align: center;
   font-size: 12px;
+  width: 100%;
 }
 .leaderboad .r-table-row {
   display: table-row;
   height: 40px;
+  line-height: 40px;
 }
 .leaderboad .r-table-cell {
   display: table-cell;

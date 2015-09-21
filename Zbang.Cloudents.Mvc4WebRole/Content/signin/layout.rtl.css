@@ -54,7 +54,7 @@ Page Header
   height: 46px;
   min-height: 46px;
   filter: none;
-  background-image: none;
+  background-image: none
   /* Fixed header */
   /* Header logo */
   /* Search box */
@@ -174,7 +174,7 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav {
   padding: 0;
   margin-left: 20px;
-  display: block;
+  display: block
   /* Extended Dropdowns */
   /* Notification */
   /* Inbox */
@@ -252,7 +252,7 @@ Page Header
   min-width: 160px;
   max-width: 275px;
   width: 275px;
-  z-index: 9995;
+  z-index: 9995
   /* header notifications dropdowns */
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu > li.external {
@@ -492,7 +492,7 @@ Horizontal Menu
   float: right;
 }
 .page-header.navbar .hor-menu .navbar-nav {
-  position: static;
+  position: static
   /* Mega menu */
   /* Mega Menu Dropdown */
   /* Classic menu */
@@ -674,7 +674,7 @@ Horizontal Menu
   .page-header.navbar {
     padding: 0 20px 0 20px;
     position: relative;
-    clear: both;
+    clear: both
     /* Page logo */
     /* Menu Toggler */
     /* Top Menu */
@@ -737,7 +737,7 @@ Horizontal Menu
   /* 767px */
   /* Page header */
   .page-header.navbar {
-    padding: 0 10px 0 10px;
+    padding: 0 10px 0 10px
     /* Header logo */
     /* Search box */
     /* Top navigation menu*/
@@ -846,7 +846,7 @@ Page container
 .page-container {
   margin: 0px;
   padding: 0px;
-  position: relative;
+  position: relative
   /* Fixed header */
   /* Fixed footer for mobile */
 }
@@ -903,7 +903,7 @@ Page sidebar
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0
   /* 1st level links */
   /* all links */
 }
@@ -1076,7 +1076,7 @@ Page sidebar
   background: none;
   margin: 0px;
   padding: 0px;
-  margin-top: 1px !important;
+  margin-top: 1px !important
   /* 2nd level sub menu */
 }
 .page-sidebar .page-sidebar-menu .sub-menu li > a,
@@ -1268,7 +1268,7 @@ Page sidebar
   }
   .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed {
     /* sidebar */
-    width: 45px !important;
+    width: 45px !important
     /* sidebar toggler */
     /* sidebar search */
     /* sidebar bordered search */
@@ -1588,7 +1588,7 @@ Page sidebar
     display: none !important;
   }
   .page-sidebar.navbar-collapse {
-    max-height: none;
+    max-height: none
     /* set some max height to have a scrollable menu on mobile devices */
   }
   .page-sidebar.navbar-collapse.collapse {
@@ -2057,7 +2057,7 @@ Page content
   display: block;
   color: #666;
   margin: 0px 0px 15px 0px;
-  font-weight: 300;
+  font-weight: 300
   /* subtitle */
 }
 .page-title small {
@@ -2259,7 +2259,7 @@ Page content
   /* Page content */
   .page-content-wrapper .page-content {
     padding: 20px 10px 10px 10px !important;
-    overflow: hidden;
+    overflow: hidden
     /* Page title */
   }
   .page-content-wrapper .page-content .page-title {
@@ -2429,7 +2429,7 @@ Theme Panel
   margin-left: 0px;
   z-index: 100;
   float: left;
-  position: relative;
+  position: relative
   /* content solid bg color */
 }
 .theme-panel > .toggler {
@@ -2521,7 +2521,7 @@ Theme Panel
   cursor: pointer;
   list-style: none;
   float: right;
-  border: solid 1px #707070;
+  border: solid 1px #707070
   /* theme colors */
 }
 .theme-panel > .theme-options > .theme-option.theme-colors > ul > li:first-child {
