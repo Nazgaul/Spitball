@@ -153,7 +153,7 @@
   font-weight: 300;
   height: 18px;
   padding: 1px 6px 3px 6px;
-  border-radius: 12px ;
+  border-radius: 12px;
   text-align: center;
   vertical-align: middle;
   color: #ffffff;
@@ -181,9 +181,6 @@
   font-weight: bold;
   color: gray;
 }
-.dashboard .universityStats div:nth-child(odd) {
-  background: purple;
-}
 .dashboard .universityLink {
   color: #fff;
   width: 100%;
@@ -194,8 +191,30 @@
   border-radius: 5px;
   margin-top: 10px;
 }
-md-fab-speed-dial.md-fab-bottom-left {
+.dashboard .add {
   position: fixed;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background: red;
+  z-index: 1;
+  left: 50px;
+  bottom: 50px;
+  font-size: 50px;
+  line-height: 75px;
+}
+[data-letter]:before {
+  content: attr(data-letter);
+  width: 46px;
+  height: 46px;
+  line-height: 46px;
+  border-radius: 50%;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 25px;
+  background: red;
 }
 .leaderboad h4 {
   font-size: 21px;
@@ -222,4 +241,16 @@ md-fab-speed-dial.md-fab-bottom-left {
 }
 .leaderboad .r-table-cell.last {
   text-align: left;
+}
+.portlet.light.invite {
+  background: #3293F6;
+  text-align: center;
+  font-size: 18px;
+}
+.portlet.light.invite svg {
+  fill: #fff;
+  width: 75px;
+  height: 75px;
+  display: block;
+  margin: 0 auto;
 }

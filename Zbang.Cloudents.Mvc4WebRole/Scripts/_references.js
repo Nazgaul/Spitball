@@ -318,3 +318,4 @@
 /// <reference path="../js/components/item/item.service.js" />
 /// <reference path="../js/shared/loader.js" />
 /// <reference path="../js/shared/mixitup.js" />
+/// <reference path="../js/shared/userimage.js" />

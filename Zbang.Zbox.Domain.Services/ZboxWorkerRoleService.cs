@@ -34,6 +34,42 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
+            UpdateMissingUrl();
+        }
+
+        private void UpdateMissingUrl()
+        {
+            using (var unitOfWork = UnitOfWork.Start())
+            {
+                var sql1 = @"select top 10 itemid from zbox.item 
+where CHARINDEX(CAST(boxid as varchar),url) <= 0
+order by 1";
+                var sql2 = @"select id from zbox.quiz where CHARINDEX(CAST(boxid as varchar),url) <= 0
+order by 1";
+
+                var x = true;
+                while (x)
+                {
+                    var items = UnitOfWork.CurrentSession.Connection.Query<long>(sql2);
+
+                    x = false;
+                    //var items = UnitOfWork.CurrentSession.Query<Item>().Where(w => !w.IsDeleted && w.Url == null).ToList();
+                    foreach (var dItem in items)
+                    {
+                        x = true;
+                        var item = UnitOfWork.CurrentSession.Load<Quiz>(dItem);
+                        //if (string.IsNullOrEmpty(item.Name))
+                        //{
+                        //    item.Name = item.ItemContentUrl;
+                        //}
+                        item.GenerateUrl();
+                        item.IsDirty = true;
+                        UnitOfWork.CurrentSession.Save(item);
+                    }
+                    
+                    unitOfWork.TransactionalFlush();
+                }
+            }
         }
 
         public bool Dbi(int index)
@@ -78,32 +114,7 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
-        //public void AddProducts(AddProductsToStoreCommand command)
-        //{
-        //    using (var unitOfWork = UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        unitOfWork.TransactionalFlush();
-        //    }
-        //}
-
-        //public void AddCategories(AddCategoriesCommand command)
-        //{
-        //    using (var unitOfWork = UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        unitOfWork.TransactionalFlush();
-        //    }
-        //}
-
-        //public void AddBanners(AddBannersCommand command)
-        //{
-        //    using (var unitOfWork = UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        unitOfWork.TransactionalFlush();
-        //    }
-        //}
+        
 
         public void UpdateReputation(UpdateReputationCommand command)
         {

@@ -2101,6 +2101,7 @@
     <Content Include="Js\shared\colorOnLength.js" />
     <Content Include="Js\shared\loader.js" />
     <Content Include="Js\shared\mixitup.js" />
+    <Content Include="Js\shared\userimage.js" />
     <Content Include="Js\signin\bootstrap.min.js" />
     <Content Include="Js\signin\demo.js" />
     <Content Include="Js\signin\jquery-migrate.min.js" />
