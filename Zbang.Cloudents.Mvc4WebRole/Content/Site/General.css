@@ -52,7 +52,6 @@
 }
 .create {
   background: #353a3f;
-  height: 475px;
 }
 .create h5 {
   display: inline-block;
@@ -72,20 +71,4 @@
   height: calc( 100% - 60px);
   margin: 10px;
   background: #000;
-}
-.create .steps {
-  background: #fff;
-  color: #000;
-}
-.create .steps li {
-  width: 19%;
-  text-align: center;
-  margin-top: 15px;
-}
-.create .steps li span {
-  border-radius: 50%;
-  background-color: grey;
-  padding: 5px 10px;
-  display: inline-block;
-  margin-right: 5px;
 }
