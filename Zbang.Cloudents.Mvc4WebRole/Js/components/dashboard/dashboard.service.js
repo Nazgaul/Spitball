@@ -32,7 +32,7 @@
         }
 
         d.getUniversityMeta = function () {
-            return ajaxservice.get('/dashboard/SideBar/', null, 1800000);
+            return ajaxservice.get('/dashboard/sidebar/', null, 1800000);
         }
     }
 })();

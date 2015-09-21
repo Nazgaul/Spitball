@@ -1645,6 +1645,18 @@
     <Content Include="Content\Site\dashboard.rtl.min.css">
       <DependentUpon>dashboard.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\General.css">
+      <DependentUpon>General.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\General.min.css">
+      <DependentUpon>General.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\General.rtl.css">
+      <DependentUpon>General.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\General.rtl.min.css">
+      <DependentUpon>General.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\item.css">
       <DependentUpon>item.less</DependentUpon>
     </Content>
@@ -2101,6 +2113,7 @@
     <Content Include="Js\shared\colorOnLength.js" />
     <Content Include="Js\shared\loader.js" />
     <Content Include="Js\shared\mixitup.js" />
+    <Content Include="Js\shared\userimage.js" />
     <Content Include="Js\signin\bootstrap.min.js" />
     <Content Include="Js\signin\demo.js" />
     <Content Include="Js\signin\jquery-migrate.min.js" />
@@ -2351,6 +2364,7 @@
     <Content Include="Content\Site\library.less" />
     <Content Include="Content\Site\item.less" />
     <Content Include="Content\Site\accountSettings.less" />
+    <Content Include="Content\Site\General.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

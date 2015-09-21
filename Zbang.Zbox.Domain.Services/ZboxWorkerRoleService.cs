@@ -34,21 +34,76 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
+            UpdateMismatchUrl();
+        }
+
+        /// <summary>
+        /// this function is greated due to merge tool
+        /// </summary>
+        private void UpdateMismatchUrl()
+        {
+            using (var unitOfWork = UnitOfWork.Start())
+            {
+                const string sql1 = @"select top 10 itemid from zbox.item 
+where CHARINDEX(CAST(boxid as varchar),url) <= 0
+order by 1";
+                const string sql2 = @"select id from zbox.quiz where CHARINDEX(CAST(boxid as varchar),url) <= 0
+order by 1";
+
+                var breakLoop = true;
+                while (breakLoop)
+                {
+                    var quizzes = UnitOfWork.CurrentSession.Connection.Query<long>(sql2);
+
+                    breakLoop = false;
+                    //var items = UnitOfWork.CurrentSession.Query<Item>().Where(w => !w.IsDeleted && w.Url == null).ToList();
+                    foreach (var dQuiz in quizzes)
+                    {
+                        breakLoop = true;
+                        var quiz = UnitOfWork.CurrentSession.Load<Quiz>(dQuiz);
+                        quiz.GenerateUrl();
+                        quiz.IsDirty = true;
+                        UnitOfWork.CurrentSession.Save(quiz);
+                    }
+                    
+                    unitOfWork.TransactionalFlush();
+                }
+                breakLoop = true;
+                while (breakLoop)
+                {
+                    var items = UnitOfWork.CurrentSession.Connection.Query<long>(sql1);
+
+                    breakLoop = false;
+                    //var items = UnitOfWork.CurrentSession.Query<Item>().Where(w => !w.IsDeleted && w.Url == null).ToList();
+                    foreach (var dItem in items)
+                    {
+                        breakLoop = true;
+                        var item = UnitOfWork.CurrentSession.Load<Item>(dItem);
+                        item.GenerateUrl();
+                        item.IsDirty = true;
+                        UnitOfWork.CurrentSession.Save(item);
+                    }
+
+                    unitOfWork.TransactionalFlush();
+                }
+
+            }
         }
 
         public bool Dbi(int index)
         {
             DeleteOldUpdates();
             UpdateUniversityStats();
+            UpdateMismatchUrl();
             return false;
         }
 
         private void DeleteOldUpdates()
         {
-            using (var unitOfWork = UnitOfWork.Start())
+            using (UnitOfWork.Start())
             {
                 var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteOldUpdates");
-                var i = query.ExecuteUpdate();
+                query.ExecuteUpdate();
             }
         }
 
@@ -78,32 +133,7 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
-        //public void AddProducts(AddProductsToStoreCommand command)
-        //{
-        //    using (var unitOfWork = UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        unitOfWork.TransactionalFlush();
-        //    }
-        //}
-
-        //public void AddCategories(AddCategoriesCommand command)
-        //{
-        //    using (var unitOfWork = UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        unitOfWork.TransactionalFlush();
-        //    }
-        //}
-
-        //public void AddBanners(AddBannersCommand command)
-        //{
-        //    using (var unitOfWork = UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        unitOfWork.TransactionalFlush();
-        //    }
-        //}
+        
 
         public void UpdateReputation(UpdateReputationCommand command)
         {

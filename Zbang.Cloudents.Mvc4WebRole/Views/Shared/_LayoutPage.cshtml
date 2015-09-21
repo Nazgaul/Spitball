@@ -71,9 +71,9 @@
                         <ul class="nav navbar-nav pull-right">
                             <li class="separator hide">
                             </li>
-                            <li>
+                            @*<li>
                                 @Html.Svg(svgUrl, "headerInvite")
-                            </li>
+                            </li>*@
                             <li class="separator hide">
                             </li>
                             <li>
@@ -191,7 +191,7 @@
                                         @*<span class="headerPoints">{{ud.score}}</span>*@
                                     </span>
                                     <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                                    <img alt="" class="img-circle" src="{{ud.image}}" />
+                                    <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39"></user-image>
                                 </a>
                                 <ul ng-if="ud.isLoggedIn" class="dropdown-menu dropdown-menu-default">
                                     <li>
@@ -270,7 +270,6 @@
                             <a @shouldPostBack href="@Url.Action("Index","Dashboard")">
                                 @Html.Svg(svgUrl, "houseMenu")
                                 <span class="title">Dashboard</span>
-
                             </a>
                         </li>
                         <li>

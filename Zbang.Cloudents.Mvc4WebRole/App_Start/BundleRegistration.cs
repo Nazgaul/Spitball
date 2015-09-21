@@ -112,7 +112,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/site/menu.css",
 
                         
-
+                        "~/content/site/general.css",
                         "~/Content/site/dashboard.css",
                         "~/Content/site/box.css",
                         "~/Content/site/user.css",
@@ -464,9 +464,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/js/components/app.controller.js"),
                         new JsFileWithCdn("~/js/services/ajaxService.js"),
+
                         new JsFileWithCdn("~/js/shared/colorOnLength.js"),
                         new JsFileWithCdn("~/js/shared/loader.js"),
-                        new JsFileWithCdn("~/js/shared/mixitup.js")
+                        new JsFileWithCdn("~/js/shared/mixitup.js"),
+                        new JsFileWithCdn("~/js/shared/userimage.js")
                     }
 
                 },
