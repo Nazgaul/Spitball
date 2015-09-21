@@ -2,7 +2,7 @@
   "BrowserLink": {
     "CssIgnorePatterns": "bootstrap*; reset.css; normalize.css; jquery*; toastr*; foundation*; animate*; inuit*; elements*; ratchet*; hint*; flat-ui*; 960*; skeleton*",
     "EnableMenu": false,
-    "EnablePixelPushing": true,
+    "EnablePixelPushing": false,
     "ShowMenu": true
   },
   "CodeGen": {
@@ -90,7 +90,8 @@
     "MinifyKnockoutBindingExpressions": false,
     "OutputDirectory": null,
     "ProcessableScriptTypeList": null,
-    "RunOnBuild": false
+    "RunOnBuild": false,
+    "EnableMicrodataValidation": true
   },
   "JavaScript": {
     "AutoMinify": true,
@@ -116,7 +117,8 @@
     "OutputDirectory": null,
     "ProcessSourceMapsForEditorEnhancements": false,
     "ShowPreviewPane": true,
-    "StrictMath": false
+    "StrictMath": false,
+    "AdjustRelativePaths": true
   },
   "LiveScript": {
     "CompileOnBuild": false,
@@ -139,7 +141,8 @@
     "MinifyInPlace": false,
     "OutputDirectory": null,
     "ShowPreviewPane": true,
-    "StrictBoldItalic": false
+    "StrictBoldItalic": false,
+    "GlobalPreviewCSSFile": null
   },
   "Scss": {
     "CompileOnBuild": false,

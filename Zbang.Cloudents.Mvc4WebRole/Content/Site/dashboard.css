@@ -194,13 +194,35 @@
 }
 .dashboard .add {
   position: fixed;
-  width: 55px;
-  height: 55px;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
-  background: #db4437;
+  background: red;
   z-index: 1;
   right: 50px;
   bottom: 50px;
-  font-size: 30px;
-  line-height: 55px;
+  font-size: 50px;
+  line-height: 75px;
+}
+.dashboard .create.class {
+  height: 475px;
+}
+.dashboard .create.class .steps {
+  background: #fff;
+  color: #000;
+}
+.dashboard .create.class .steps li {
+  width: 19%;
+  text-align: center;
+  margin-top: 15px;
+}
+.dashboard .create.class .steps li span {
+  border-radius: 50%;
+  background-color: grey;
+  padding: 5px 10px;
+  display: inline-block;
+  margin-right: 5px;
+}
+.dashboard .create.class .steps li.active span {
+  background: blue;
 }
