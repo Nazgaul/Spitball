@@ -24,7 +24,7 @@
                 </div>
                 <ul class="chats">
                     <li class="in" ng-repeat="post in f.data">
-                        <user-image class="avatar" name="post.userName" image="post.userImage" width="45" height="45"></user-image>
+                        <user-image class="avatar" name="::post.userName" image="::post.userImage" width="45" height="45"></user-image>
                         @*<img class="avatar" alt="" src="{{::post.userImage}}" />*@
                         <div class="message">
                             <span class="arrow">
@@ -53,7 +53,7 @@
                         </div>
                         <ul>
                             <li class="out" ng-repeat="reply in post.answers">
-                                <img class="avatar" alt="" src="{{::reply.userImage}}" />
+                                <user-image class="avatar" name="::reply.userName" image="::reply.userImage" width="45" height="45"></user-image>
                                 <div class="message">
                                     <span class="arrow">
                                     </span>

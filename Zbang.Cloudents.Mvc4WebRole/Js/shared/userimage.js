@@ -64,8 +64,9 @@
                     if (className) {
                         innerEl.addClass(className);
                     }
-
-                    innerEl[0].setAttribute('data-letter', scope.name[0]);
+                    innerEl.css({ width: elem[0].getAttribute('width'), height: elem[0].getAttribute('height'), lineHeight: elem[0].getAttribute('height') + 'px' });
+                    innerEl.text(scope.name[0]);
+                    //innerEl[0].setAttribute('data-letter', scope.name[0]);
                 }
 
                 function emptyState() {
