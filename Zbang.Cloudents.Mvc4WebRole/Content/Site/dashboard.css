@@ -153,7 +153,7 @@
   font-weight: 300;
   height: 18px;
   padding: 1px 6px 3px 6px;
-  border-radius: 12px;
+  border-radius: 12px ;
   text-align: center;
   vertical-align: middle;
   color: #ffffff;
@@ -178,28 +178,48 @@
   border-left: 2px solid grey;
   padding-left: 10px;
   font-size: 17px;
-  font-weight: bold;
-  color: gray;
+  color: #A8B3BB;
+}
+.dashboard .universityStats div:nth-child(odd) {
+  background: #484E55;
 }
 .dashboard .universityLink {
-  color: #fff;
+  color: #f5f5f5;
   width: 100%;
-  border: 2px solid white;
+  border: 1px solid #f5f5f5;
   display: inline-block;
   font-size: 20px;
   text-align: center;
   border-radius: 5px;
   margin-top: 10px;
+  text-decoration: none;
 }
-.dashboard .add {
+md-fab-speed-dial.md-fab-bottom-right {
   position: fixed;
-  width: 75px;
-  height: 75px;
-  border-radius: 50%;
-  background: red;
-  z-index: 1;
-  right: 50px;
-  bottom: 50px;
-  font-size: 50px;
-  line-height: 75px;
+}
+.leaderboad h4 {
+  font-size: 21px;
+  font-weight: 700;
+}
+.leaderboad .r-table {
+  display: table;
+  text-align: center;
+  font-size: 12px;
+}
+.leaderboad .r-table-row {
+  display: table-row;
+  height: 40px;
+}
+.leaderboad .r-table-cell {
+  display: table-cell;
+  width: 45%;
+  text-align: left;
+}
+.leaderboad .r-table-cell:nth-child(even) {
+  width: 10%;
+  color: orange;
+  text-align: center;
+}
+.leaderboad .r-table-cell.last {
+  text-align: right;
 }
