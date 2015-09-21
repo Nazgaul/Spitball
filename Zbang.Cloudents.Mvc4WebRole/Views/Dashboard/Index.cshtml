@@ -4,7 +4,15 @@
     </div>
 </div>
 <div class="dashboard">
-    <div class="row margin-top-10 " ng-controller="UniversityMeta as um">
+    <div class="row margin-bottom-20" collapse="!createBoxOn">
+        <div class="col-md-12">
+            <div class="create">
+                <h5>Create a class</h5>
+
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-controller="UniversityMeta as um">
         <div class="col-md-6 col-sm-12">
             @{ Html.RenderPartial("_University");}
         </div>
@@ -47,7 +55,7 @@
             </a>
         </div>
     </div>
-    <button type="button" class="add">+</button>
+    <button type="button" class="add" ng-click="createBoxOn = true">+</button>
     @*<md-fab-speed-dial md-direction="up" class="md-fab-bottom-right">
             <md-fab-trigger>
                 <md-button aria-label="menu" class="md-fab md-warn">

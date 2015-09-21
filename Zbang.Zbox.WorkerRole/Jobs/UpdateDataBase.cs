@@ -32,7 +32,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                         sw.Stop();
                         TraceLog.WriteInfo("Running update database took(milliseconds): " + sw.ElapsedMilliseconds);
                         index = 0;
-                        Thread.Sleep(TimeSpan.FromHours(6));
+                        Thread.Sleep(TimeSpan.FromHours(3));
                     }
                     index++;
                 }

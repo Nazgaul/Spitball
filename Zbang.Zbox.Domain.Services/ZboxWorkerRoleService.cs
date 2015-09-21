@@ -34,41 +34,59 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-            UpdateMissingUrl();
+            UpdateMismatchUrl();
         }
 
-        private void UpdateMissingUrl()
+        /// <summary>
+        /// this function is greated due to merge tool
+        /// </summary>
+        private void UpdateMismatchUrl()
         {
             using (var unitOfWork = UnitOfWork.Start())
             {
-                var sql1 = @"select top 10 itemid from zbox.item 
+                const string sql1 = @"select top 10 itemid from zbox.item 
 where CHARINDEX(CAST(boxid as varchar),url) <= 0
 order by 1";
-                var sql2 = @"select id from zbox.quiz where CHARINDEX(CAST(boxid as varchar),url) <= 0
+                const string sql2 = @"select id from zbox.quiz where CHARINDEX(CAST(boxid as varchar),url) <= 0
 order by 1";
 
-                var x = true;
-                while (x)
+                var breakLoop = true;
+                while (breakLoop)
                 {
-                    var items = UnitOfWork.CurrentSession.Connection.Query<long>(sql2);
+                    var quizzes = UnitOfWork.CurrentSession.Connection.Query<long>(sql2);
 
-                    x = false;
+                    breakLoop = false;
                     //var items = UnitOfWork.CurrentSession.Query<Item>().Where(w => !w.IsDeleted && w.Url == null).ToList();
-                    foreach (var dItem in items)
+                    foreach (var dQuiz in quizzes)
                     {
-                        x = true;
-                        var item = UnitOfWork.CurrentSession.Load<Quiz>(dItem);
-                        //if (string.IsNullOrEmpty(item.Name))
-                        //{
-                        //    item.Name = item.ItemContentUrl;
-                        //}
-                        item.GenerateUrl();
-                        item.IsDirty = true;
-                        UnitOfWork.CurrentSession.Save(item);
+                        breakLoop = true;
+                        var quiz = UnitOfWork.CurrentSession.Load<Quiz>(dQuiz);
+                        quiz.GenerateUrl();
+                        quiz.IsDirty = true;
+                        UnitOfWork.CurrentSession.Save(quiz);
                     }
                     
                     unitOfWork.TransactionalFlush();
                 }
+                breakLoop = true;
+                while (breakLoop)
+                {
+                    var items = UnitOfWork.CurrentSession.Connection.Query<long>(sql1);
+
+                    breakLoop = false;
+                    //var items = UnitOfWork.CurrentSession.Query<Item>().Where(w => !w.IsDeleted && w.Url == null).ToList();
+                    foreach (var dItem in items)
+                    {
+                        breakLoop = true;
+                        var item = UnitOfWork.CurrentSession.Load<Item>(dItem);
+                        item.GenerateUrl();
+                        item.IsDirty = true;
+                        UnitOfWork.CurrentSession.Save(item);
+                    }
+
+                    unitOfWork.TransactionalFlush();
+                }
+
             }
         }
 
@@ -76,15 +94,16 @@ order by 1";
         {
             DeleteOldUpdates();
             UpdateUniversityStats();
+            UpdateMismatchUrl();
             return false;
         }
 
         private void DeleteOldUpdates()
         {
-            using (var unitOfWork = UnitOfWork.Start())
+            using (UnitOfWork.Start())
             {
                 var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteOldUpdates");
-                var i = query.ExecuteUpdate();
+                query.ExecuteUpdate();
             }
         }
 

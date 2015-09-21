@@ -1,0 +1,75 @@
+﻿@import "variables.less";
+//user image letter
+.userLetter {
+  //  &:before {
+       // content:attr(data-letter);
+        //width: 46px;
+        //height: 46px;
+        //line-height: 46px;
+        border-radius: 50%;
+        color: #fff;
+        display: inline-block;
+        text-align:center;
+        text-transform: capitalize;
+        font-size: 25px;
+        background:red;
+  //  }
+}
+
+//leaderboard
+
+.leaderboad {
+    h4 {
+        font-size: 21px;
+        font-weight: 700;
+    }
+
+    .r-table {
+        display: table;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .r-table-row {
+        display: table-row;
+        height: 40px;
+    }
+
+    .r-table-cell {
+        display: table-cell;
+        width: 45%;
+        text-align: left;
+
+        &:nth-child(even) {
+            width: 10%;
+            color: orange;
+            text-align: center;
+        }
+
+        &.last {
+            text-align: right;
+        }
+    }
+}
+
+//invite
+
+.portlet.light.invite {
+    background:#3293F6;
+    text-align:center;
+    font-size:18px;
+
+    svg {
+        fill:#fff;
+        width:75px;
+        height:75px;
+        display:block;
+        margin:0 auto;
+    }
+}
+
+//create
+.create {
+    background:@color4;
+    height:250px;
+}

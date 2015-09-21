@@ -1,0 +1,51 @@
+﻿.userLetter {
+  border-radius: 50%;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 25px;
+  background: red;
+}
+.leaderboad h4 {
+  font-size: 21px;
+  font-weight: 700;
+}
+.leaderboad .r-table {
+  display: table;
+  text-align: center;
+  font-size: 12px;
+}
+.leaderboad .r-table-row {
+  display: table-row;
+  height: 40px;
+}
+.leaderboad .r-table-cell {
+  display: table-cell;
+  width: 45%;
+  text-align: left;
+}
+.leaderboad .r-table-cell:nth-child(even) {
+  width: 10%;
+  color: orange;
+  text-align: center;
+}
+.leaderboad .r-table-cell.last {
+  text-align: right;
+}
+.portlet.light.invite {
+  background: #3293F6;
+  text-align: center;
+  font-size: 18px;
+}
+.portlet.light.invite svg {
+  fill: #fff;
+  width: 75px;
+  height: 75px;
+  display: block;
+  margin: 0 auto;
+}
+.create {
+  background: #353a3f;
+  height: 250px;
+}
