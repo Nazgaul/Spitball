@@ -10,7 +10,7 @@
   text-align: center;
   text-transform: capitalize;
   font-size: 25px;
-  background: red;
+  background: #4faf61;
 }
 .leaderboad h4 {
   font-size: 21px;
@@ -53,7 +53,7 @@
   font-size: 18px;
 }
 .portlet.light.invite svg {
-  fill: #fff;
+  fill: #f5f5f5;
   width: 75px;
   height: 75px;
   display: block;
@@ -61,7 +61,6 @@
 }
 .create {
   background: #353a3f;
-  height: 475px;
 }
 .create h5 {
   display: inline-block;
@@ -81,20 +80,4 @@
   height: calc( 100% - 60px);
   margin: 10px;
   background: #000;
-}
-.create .steps {
-  background: #fff;
-  color: #000;
-}
-.create .steps li {
-  width: 19%;
-  text-align: center;
-  margin-top: 15px;
-}
-.create .steps li span {
-  border-radius: 50%;
-  background-color: grey;
-  padding: 5px 10px;
-  display: inline-block;
-  margin-left: 5px;
 }

@@ -194,15 +194,15 @@
 }
 .dashboard .add {
   position: fixed;
-  width: 75px;
-  height: 75px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
-  background: red;
+  background: #db4437;
   z-index: 1;
   right: 50px;
   bottom: 50px;
   font-size: 50px;
-  line-height: 75px;
+  line-height: 55px;
 }
 .dashboard .create.class {
   height: 475px;
