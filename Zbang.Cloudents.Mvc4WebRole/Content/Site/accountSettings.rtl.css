@@ -2,10 +2,11 @@
   color: #333;
 }
 .accountPage svg {
-  width: 25px;
-  height: 25px;
+  width: 17px;
+  height: 17px;
   fill: #fff;
   vertical-align: middle;
+  margin-left: 12px;
 }
 .floatright {
   text-align: left;

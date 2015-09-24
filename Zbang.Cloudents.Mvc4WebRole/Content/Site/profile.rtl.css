@@ -38,9 +38,10 @@ New Profile Page
   margin-bottom: 7px;
 }
 .profile-usertitle-job {
-  color: #f5f5f5;
-  font-size: 13px;
   margin-bottom: 7px;
+  color: #f5f5f5;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
 }
 .profile-userbuttons {
   text-align: center;

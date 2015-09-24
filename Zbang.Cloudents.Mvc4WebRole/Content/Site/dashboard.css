@@ -208,8 +208,9 @@
   height: 475px;
 }
 .dashboard .create.class .steps {
-  background: #fff;
-  color: #000;
+  background: #f5f5f5;
+  color: #212427;
+  height: 133px;
 }
 .dashboard .create.class .steps li {
   width: 19%;
@@ -218,11 +219,14 @@
 }
 .dashboard .create.class .steps li span {
   border-radius: 50%;
-  background-color: grey;
-  padding: 5px 10px;
-  display: inline-block;
-  margin-right: 5px;
+  background-color: #DCDCDC;
+  position: fixed;
+  width: 35px;
+  height: 35px;
+  font-size: 19px;
+  line-height: 35px;
 }
 .dashboard .create.class .steps li.active span {
-  background: blue;
+  background: #3293F6;
+  color: #f5f5f5;
 }
