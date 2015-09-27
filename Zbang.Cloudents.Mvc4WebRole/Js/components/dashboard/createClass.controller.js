@@ -15,13 +15,18 @@
             department: 3,
             upload: 4,
             invite: 5
-        }
+        };
         cc.step = steps.type;
 
         cc.boxType = boxType.groupType;
 
+        cc.chooseBox = function (type) {
+            cc.boxType = type;
+            cc.step++;
+        }
+
         cc.goToStep = function(step) {
-            cc.step = step;
+            cc.step++;// = step;
         }
     }
 })();

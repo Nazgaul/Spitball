@@ -147,10 +147,6 @@ Bootstrap Daterangepicker
   width: 170px;
 }
 .daterangepicker .ranges ul > li.active {
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
   border-radius: 4px;
 }
 
@@ -262,26 +258,14 @@ Bootstrap Markdown
 .md-input {
   padding: 5px !important;
   border-bottom: 0 !important;
-  -webkit-border-radius: 0 0 4px 4px;
-  -moz-border-radius: 0 0 4px 4px;
-  -ms-border-radius: 0 0 4px 4px;
-  -o-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
 }
 
 .md-editor {
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
   border-radius: 4px;
 }
 .md-editor .btn-toolbar {
-  margin-left: 0px;
-  -webkit-border-radius: 4px 4px 0 0;
-  -moz-border-radius: 4px 4px 0 0;
-  -ms-border-radius: 4px 4px 0 0;
-  -o-border-radius: 4px 4px 0 0;
+  margin-left: 0;
   border-radius: 4px 4px 0 0;
 }
 .md-editor .btn-toolbar .btn-group .btn-sm.btn {
@@ -294,8 +278,6 @@ Bootstrap Markdown
 
 .md-editor.active {
   border: 1px solid #999999;
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
   box-shadow: none !important;
 }
 
@@ -464,7 +446,7 @@ Color variants
 /* Bootstrap switch on portlet headers */
 .portlet > .portlet-title > .actions > .bootstrap-switch {
   border-color: transparent;
-  margin-top: 0px;
+  margin-top: 0;
 }
 
 /***
@@ -493,8 +475,6 @@ Bootstrap Time Picker
 Toastr Notifications
 ***/
 .toast {
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
   box-shadow: none !important;
 }
 
@@ -520,8 +500,8 @@ Toastr Notifications
 
 .toast .toast-close-button {
   display: inline-block;
-  margin-top: 0px;
-  margin-right: 0px;
+  margin-top: 0;
+  margin-right: 0;
   text-indent: -100000px;
   width: 11px;
   height: 16px;
@@ -552,23 +532,23 @@ Toastr Notifications
 /***
 Bootstrap Wizard
 ***/
-.form-wizard .progress {
+/*.form-wizard .progress {
   margin-bottom: 30px;
-}
+}*/
 .form-wizard .steps {
   padding: 10px 0;
-  margin-bottom: 15px;
+  //margin-bottom: 15px;
   background-color: #fff;
   background-image: none;
   filter: none;
-  border: 0px;
+  border: 0;
   box-shadow: none;
 }
 .form-wizard .steps > li > a.step {
   background-color: #fff;
   background-image: none;
   filter: none;
-  border: 0px;
+  border: 0;
   box-shadow: none;
 }
 .form-wizard .steps > li > a.step:hover {
@@ -584,8 +564,6 @@ Bootstrap Wizard
   margin-right: 10px;
   height: 45px;
   width: 45px;
-  -webkit-border-radius: 50% !important;
-  -moz-border-radius: 50% !important;
   border-radius: 50% !important;
 }
 .form-wizard .steps > li > a.step > .desc {
@@ -662,7 +640,7 @@ wysihtml5
 }
 
 .wysihtml5-toolbar li {
-  margin: 0px;
+  margin: 0;
   height: 29px;
 }
 
@@ -690,25 +668,13 @@ Error state for WYSIWYG Editors
 ***/
 .note-editor {
   border: 1px solid #e5e5e5;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
   border-radius: 4px;
 }
 .note-editor .note-toolbar {
   border-bottom: 1px solid #e5e5e5;
-  -webkit-border-radius: 4px 4px 0 0;
-  -moz-border-radius: 4px 4px 0 0;
-  -ms-border-radius: 4px 4px 0 0;
-  -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
 }
 .note-editor .note-statusbar {
-  -webkit-border-radius: 0 0 4px 4px;
-  -moz-border-radius: 0 0 4px 4px;
-  -ms-border-radius: 0 0 4px 4px;
-  -o-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
 }
 .note-editor .note-statusbar .note-resizebar {
@@ -747,7 +713,7 @@ Error state for WYSIWYG Editors
 Bootstrap GtreeTable
 ***/
 .gtreetable .dropdown-menu {
-  margin-top: 0px;
+  margin-top: 0;
 }
 .gtreetable .dropdown-menu:after, .gtreetable .dropdown-menu:before {
   display: none !important;
@@ -769,7 +735,7 @@ Bootstrap GtreeTable
 Bootbox
 ***/
 .bootbox .bootbox-close-button {
-  margin-top: 0px !important;
+  margin-top: 0 !important;
 }
 
 /*--------------------------------------------------
@@ -785,11 +751,13 @@ Bootbox
 }
 
 .amcharts-graph-g2 .amcharts-graph-stroke {
-  stroke-dasharray: 3px 3px;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  -webkit-animation: am-moving-dashes 1s linear infinite;
-  animation: am-moving-dashes 1s linear infinite;
+    stroke-dasharray: 3px 3px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    -webkit-animation: am-moving-dashes 1s linear infinite;
+    -moz-animation: am-moving-dashes 1s linear infinite;
+    -o-animation: am-moving-dashes 1s linear infinite;
+    animation: am-moving-dashes 1s linear infinite;
 }
 
 @-webkit-keyframes am-moving-dashes {
@@ -810,7 +778,7 @@ Bootbox
 @-webkit-keyframes am-pulsating {
   0% {
     stroke-opacity: 1;
-    stroke-width: 0px;
+    stroke-width: 0;
   }
   100% {
     stroke-opacity: 0;
@@ -828,15 +796,19 @@ Bootbox
   }
 }
 .amcharts-graph-column-front {
-  -webkit-transition: all .3s .3s ease-out;
-  transition: all .3s .3s ease-out;
+    -webkit-transition: all .3s .3s ease-out;
+    -moz-transition: all .3s .3s ease-out;
+    -o-transition: all .3s .3s ease-out;
+    transition: all .3s .3s ease-out;
 }
 
 .amcharts-graph-column-front:hover {
-  fill: #496375;
-  stroke: #496375;
-  -webkit-transition: all .3s ease-out;
-  transition: all .3s ease-out;
+    fill: #496375;
+    stroke: #496375;
+    -webkit-transition: all .3s ease-out;
+    -moz-transition: all .3s ease-out;
+    -o-transition: all .3s ease-out;
+    transition: all .3s ease-out;
 }
 
 .amcharts-graph-g3 {
@@ -856,7 +828,7 @@ Bootbox
     stroke-dashoffset: 500%;
   }
   100% {
-    stroke-dashoffset: 0px;
+    stroke-dashoffset: 0;
   }
 }
 @keyframes am-draw {
@@ -889,11 +861,13 @@ Bootbox
 }
 
 .amcharts-graph-graph2 .amcharts-graph-stroke {
-  stroke-dasharray: 4px 5px;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  -webkit-animation: am-moving-dashes 1s linear infinite;
-  animation: am-moving-dashes 1s linear infinite;
+    stroke-dasharray: 4px 5px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    -webkit-animation: am-moving-dashes 1s linear infinite;
+    -moz-animation: am-moving-dashes 1s linear infinite;
+    -o-animation: am-moving-dashes 1s linear infinite;
+    animation: am-moving-dashes 1s linear infinite;
 }
 
 @-webkit-keyframes am-moving-dashes {
@@ -919,24 +893,12 @@ Bootbox
 CKEditor css changes
 ***/
 .cke {
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
   border-radius: 4px;
 }
 .cke .cke-top {
-  -webkit-border-radius: 4px 4px 0 0;
-  -moz-border-radius: 4px 4px 0 0;
-  -ms-border-radius: 4px 4px 0 0;
-  -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
 }
 .cke .cke-bottom {
-  -webkit-border-radius: 0 0 4px 4px;
-  -moz-border-radius: 0 0 4px 4px;
-  -ms-border-radius: 0 0 4px 4px;
-  -o-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
 }
 
@@ -951,8 +913,6 @@ CKEditor css changes
   filter: none;
   border-top: 0;
   border-bottom: 0;
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
   box-shadow: none !important;
   text-shadow: none;
 }
@@ -961,8 +921,6 @@ CKEditor css changes
 .cke_dialog_tab {
   background-image: none !important;
   filter: none;
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
   box-shadow: none !important;
   text-shadow: none !important;
 }
@@ -976,8 +934,6 @@ CKEditor css changes
 .cke_dialog_ui_input_text {
   background-image: none !important;
   filter: none;
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
   box-shadow: none !important;
 }
 
@@ -988,8 +944,6 @@ CKEditor css changes
   background-image: none !important;
   filter: none !important;
   border: 0;
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
   box-shadow: none !important;
 }
 
@@ -1012,10 +966,6 @@ CKEditor css changes
   filter: none !important;
   border: 0;
   box-shadow: none !important;
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
-  -ms-box-shadow: none !important;
-  -o-box-shadow: none !important;
 }
 
 /***
@@ -1152,8 +1102,6 @@ Datatables Plugin(in v1.3)
   border: 1px solid #ddd;
   background-color: #eee;
   vertical-align: middle;
-  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -1334,9 +1282,7 @@ Scroller Extension
 Dropzone css changes(new in v1.1.1)
 ***/
 .dropzone {
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 /***
@@ -1360,7 +1306,7 @@ FuelUX Spinners
   width: 22px;
   padding-left: 6px;
   padding-right: 6px;
-  padding-top: 0px;
+  padding-top: 0;
 }
 .page-style-rounded .spinner-buttons.btn-group-vertical .btn.spinner-up {
   border-radius: 0;
@@ -1398,8 +1344,6 @@ Fullcalendar
   margin-bottom: 10px;
 }
 .portlet.calendar .fc-button {
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
   box-shadow: none;
   text-shadow: none;
   border: 0;
@@ -1415,14 +1359,10 @@ Fullcalendar
   color: #fff;
   top: -45px;
   outline: none !important;
-  -webkit-border-radius: 4px 4px 0 0;
-  -moz-border-radius: 4px 4px 0 0;
-  -ms-border-radius: 4px 4px 0 0;
-  -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
 }
 .portlet.calendar .fc-toolbar {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 .portlet.calendar .fc-toolbar h2 {
   margin-top: 3px;
@@ -1472,12 +1412,12 @@ Fullcalendar
   vertical-align: baseline;
 }
 .portlet.calendar .fc-event {
-  border: 0px;
+  border: 0;
   background-color: #69a4e0;
   color: #fff;
 }
 .portlet.calendar .fc-event .fc-content {
-  border: 0px;
+  border: 0;
 }
 .portlet.calendar .fc-event .fc-time {
   float: left;
@@ -1525,16 +1465,12 @@ Fullcalendar
   color: #aaa;
 }
 .portlet.calendar .mobile .fc-button {
-  padding: 0px 6px 20px 6px;
+  padding: 0 6px 20px 6px;
   margin-left: 2px;
   border: 0;
   background-color: #ddd;
   background-image: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
   box-shadow: none;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
   border-radius: 0;
   color: #000;
   text-shadow: none;
@@ -1555,9 +1491,9 @@ Fullcalendar
   margin-top: -2px;
 }
 .portlet.calendar .mobile .fc-header-space {
-  margin: 0px;
-  padding: 0px;
-  width: 0px;
+  margin: 0;
+  padding: 0;
+  width: 0;
 }
 .portlet.calendar .mobile .fc-header-left {
   position: absolute;
@@ -1592,14 +1528,13 @@ Google Maps
 #gmap_static div {
   background-repeat: no-repeat;
   background-position: 50% 50%;
-  height: 100%;
   display: block;
   height: 300px;
 }
 
 #gmap_routes_instructions {
   margin-top: 10px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 /***
@@ -1695,8 +1630,6 @@ jQuery Multi Select
 ***/
 .ms-container .ms-list {
   border: 1px solid #e5e5e5;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
   box-shadow: none;
 }
 
@@ -1711,8 +1644,6 @@ jQuery Multi Select
 
 .ms-container .ms-list.ms-focus {
   border-color: #999999;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
   box-shadow: none;
 }
 
@@ -1773,8 +1704,8 @@ Password Strength(in v1.4)
 jQuery Slimscroll
 ***/
 .scroller {
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   padding-right: 12px;
   overflow: hidden;
 }
@@ -1791,7 +1722,7 @@ jQuery Slimscroll
 }
 
 .portlet-body .slimScrollBar {
-  margin-right: 0px;
+  margin-right: 0;
 }
 
 /***
@@ -1854,7 +1785,7 @@ div.tagsinput {
   min-height: 35px;
   height: auto !important;
   margin: 0;
-  padding: 5px 5px 0px 5px;
+  padding: 5px 5px 0 5px;
   overflow: auto;
 }
 
@@ -2098,7 +2029,7 @@ Select2 Plugin
   background-image: none;
   filter: none;
   height: 34px;
-  padding: 3px 0 0px 12px;
+  padding: 3px 0 0 12px;
 }
 
 .select2-container.select2-drop-above .select2-choice {
@@ -2112,7 +2043,6 @@ Select2 Plugin
   border: 1px solid #e5e5e5;
   background-color: #fff;
   background-image: none;
-  -webkit-box-shadow: none;
   box-shadow: none;
   filter: none;
   border-top: 0;
@@ -2124,7 +2054,6 @@ Select2 Plugin
 
 .select2-drop.select2-drop-above {
   border-top: 1px solid #e5e5e5;
-  -webkit-box-shadow: none;
   box-shadow: none;
 }
 
@@ -2150,7 +2079,6 @@ Select2 Plugin
 }
 
 .select2-search input {
-  border: 1px solid #e5e5e5;
   background-color: #fff !important;
   filter: none;
   margin: 0;
@@ -2159,7 +2087,6 @@ Select2 Plugin
   webkit-appearance: none !important;
   color: #333333;
   outline: 0;
-  box-shadow: none;
   height: auto !important;
   min-height: 26px;
   padding: 6px 6px !important;
@@ -2167,8 +2094,6 @@ Select2 Plugin
   font-size: 14px;
   font-weight: normal;
   vertical-align: top;
-  background-color: #ffffff;
-  -webkit-box-shadow: none;
   box-shadow: none;
   margin-top: 5px;
 }
@@ -2176,13 +2101,12 @@ Select2 Plugin
 .form-control.select2-container {
   border: 0;
   height: auto !important;
-  padding: 0px;
+  padding: 0;
 }
 
 .select2-container-active .select2-choice,
 .select2-container-active .select2-choices {
   border: 1px solid #999 !important;
-  -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
 
@@ -2191,7 +2115,6 @@ Select2 Plugin
   background-image: none;
   background-color: #fff;
   filter: none;
-  -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
 
@@ -2202,7 +2125,6 @@ Select2 Plugin
   background-image: none;
   background-color: #fff;
   filter: none;
-  -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
 
@@ -2247,45 +2169,21 @@ Select2 Plugin
 }
 
 .select2-container-multi {
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
   border-radius: 4px;
 }
 .select2-container-multi .select2-choices {
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
   border-radius: 4px;
 }
 .select2-container-multi.select2-dropdown-open {
-  -webkit-border-radius: 4px 4px 0 0;
-  -moz-border-radius: 4px 4px 0 0;
-  -ms-border-radius: 4px 4px 0 0;
-  -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
 }
 .select2-container-multi.select2-dropdown-open .select2-choices {
-  -webkit-border-radius: 4px 4px 0 0;
-  -moz-border-radius: 4px 4px 0 0;
-  -ms-border-radius: 4px 4px 0 0;
-  -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
 }
 .select2-container-multi.select2-dropdown-open.select2-drop-above {
-  -webkit-border-radius: 0 0 4px 4px;
-  -moz-border-radius: 0 0 4px 4px;
-  -ms-border-radius: 0 0 4px 4px;
-  -o-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
 }
 .select2-container-multi.select2-dropdown-open.select2-drop-above .select2-choices {
-  -webkit-border-radius: 0 0 4px 4px;
-  -moz-border-radius: 0 0 4px 4px;
-  -ms-border-radius: 0 0 4px 4px;
-  -o-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
 }
 
@@ -2296,7 +2194,6 @@ Select2 Plugin
   background-image: none;
   background-color: #fff;
   filter: none;
-  -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
 
@@ -2305,7 +2202,6 @@ Select2 Plugin
   background-image: none;
   background-color: #fff;
   filter: none;
-  -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
 
@@ -2316,7 +2212,6 @@ Select2 Plugin
   background-image: none;
   background-color: #fff;
   filter: none;
-  -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
 
@@ -2398,7 +2293,7 @@ Bootstrap input sizes
 }
 
 .select2-container.input-sm .select2-choice .select2-arrow b {
-  background-position: 0 0px;
+  background-position: 0 0;
 }
 
 /* Portlet full screen mode */
@@ -2450,10 +2345,6 @@ Morris Charts
   margin-bottom: -15px;
 }
 .portlet-body-morris-fit > svg {
-  -webkit-border-radius: 0 0 4px 4px;
-  -moz-border-radius: 0 0 4px 4px;
-  -ms-border-radius: 0 0 4px 4px;
-  -o-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
 }
 

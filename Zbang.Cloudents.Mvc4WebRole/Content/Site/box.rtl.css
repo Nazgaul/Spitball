@@ -1,51 +1,51 @@
-﻿.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover {
+﻿.class .nav-tabs > li.active > a,
+.class .nav-tabs > li.active > a:hover {
   background: transparent;
   border: 0;
   border-bottom: 1px solid #3293f6;
   color: #f5f5f5;
 }
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover,
-.nav-tabs > li.active > a:focus {
+.class .nav-tabs > li.active > a,
+.class .nav-tabs > li.active > a:hover,
+.class .nav-tabs > li.active > a:focus {
   background: transparent;
   border: transparent;
   color: #f5f5f5;
 }
-.nav-tabs {
+.class .nav-tabs {
   border: 0;
 }
-.nav-tabs > li > a:hover {
+.class .nav-tabs > li > a:hover {
   border: 1px solid transparent;
 }
-a {
+.class a {
   color: #5f6871;
 }
-a:hover,
-a:focus {
+.class a:hover,
+.class a:focus {
   color: #5f6871;
 }
-.tabbable {
+.class .tabbable {
   background-color: #353a3f;
   padding: 0 10px;
 }
-.extraDetails {
+.class .extraDetails {
   color: #f5f5f5;
   overflow: hidden;
   position: relative;
   background-color: black;
   z-index: 1;
 }
-.extraDetails > span:first-child {
+.class .extraDetails > span:first-child {
   float: right;
 }
-.extraDetails > span:last-child {
+.class .extraDetails > span:last-child {
   float: left;
 }
-.mix-subDetails {
+.class .mix-subDetails {
   position: absolute;
   bottom: 75px;
 }
-.no-background {
+.class .no-background {
   background-color: transparent;
 }

@@ -1498,6 +1498,8 @@ Number & Chart Stats
 .number-stats .stat-number {
   display: inline-block;
   margin: 0 5px;
+  float: right;
+  text-align: right;
 }
 .number-stats .stat-number .title {
   font-size: 13px;
@@ -1512,6 +1514,7 @@ Number & Chart Stats
 .number-stats .stat-chart {
   display: inline-block;
   margin: 0 5px;
+  float: right;
 }
 .number-stats > div {
   border-left: 1px solid #f5f5f5;
@@ -1537,13 +1540,6 @@ Number & Chart Stats
   text-align: right;
 }
 .number-stats .stat-right .stat-chart {
-  float: right;
-}
-.number-stats .stat-number {
-  float: right;
-  text-align: right;
-}
-.number-stats .stat-chart {
   float: right;
 }
 /***
@@ -3143,8 +3139,6 @@ Form Layouts
 .form .form-actions {
   padding: 20px 10px;
   margin: 0;
-  background-color: #f5f5f5;
-  border-top: 1px solid #e5e5e5;
   *zoom: 1;
 }
 .portlet.light .form .form-actions {
@@ -3357,9 +3351,9 @@ Forms
 .form-control {
   font-size: 14px;
   font-weight: normal;
-  color: #333;
-  background-color: #fff;
-  border: 1px solid #e5e5e5;
+  color: #fff;
+  background-color: #000;
+  border: 1px solid #fff;
   box-shadow: none;
   -moz-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
@@ -4683,7 +4677,6 @@ Portlets
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;
-  -ms-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
   opacity: 0.8;
   filter: alpha(opacity=80);
@@ -4933,7 +4926,6 @@ Customized Progress Bars
   background-color: #DCDCDC;
   filter: none;
   box-shadow: none;
-  margin: 54px 11px;
 }
 .progress.progress-sm {
   height: 12px;

@@ -1,50 +1,7 @@
 ﻿<div class="dashboard">
     <div class="row margin-bottom-20" collapse="!d.createBoxOn">
         <div class="col-md-12">
-            <div class="create class" ng-controller="CreateClass as cc">
-                <h5>Create a class</h5>
-                <button type="button" class="close" ng-click="d.createBoxOn = false">X</button>
-                <div class="content">
-                    <div class="steps">
-                        <ul class="list-inline">
-                            <li ng-class="{active:cc.step === 1}"><span>1</span>Type</li>
-                            <li ng-class="{active:cc.step === 2}"><span>2</span>Name</li>
-                            <li ng-class="{active:cc.step === 3}"><span>3</span>Department</li>
-                            <li ng-class="{active:cc.step === 4}"><span>4</span>Upload</li>
-                            <li ng-class="{active:cc.step === 5}"><span>5</span>Invite</li>
-                        </ul>
-                        <progressbar class="progress-striped active" value="cc.step*20" type="info"></progressbar>
-                    </div>
-                    <div ng-switch="cc.step">
-                        <div ng-switch-when="1" class="class-type">
-                            <button type="button" ng-click="cc.goToStep(4)">
-                                <h6>Study group</h6>
-                                To work on things in a group
-                            </button>
-                            <button type="button" ng-click="cc.goToStep(2)">
-                                <h6>Class</h6>
-                                To share things with your whole class
-                            </button>
-                        </div>
-                        <div ng-switch-when="2">
-                            dasd
-                            <button type="button" ng-click="cc.goToStep()">step</button>
-                        </div>
-                        <div ng-switch-when="3">
-                            <button type="button" ng-click="cc.goToStep()">step</button>
-                            zxc
-                        </div>
-                        <div ng-switch-when="4">
-                            <button type="button" ng-click="cc.goToStep()">step</button>
-                            cvb
-                        </div>
-                        <div ng-switch-when="5">
-                            <button type="button" ng-click="cc.goToStep()">step</button>
-                            hgj
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @{Html.RenderPartial("_Create");}
         </div>
     </div>
     <div class="page-head">
