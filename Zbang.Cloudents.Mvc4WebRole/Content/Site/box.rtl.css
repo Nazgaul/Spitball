@@ -42,3 +42,9 @@ a:focus {
 .no-background {
   background-color: transparent;
 }
+.attach {
+  background: rgba(0, 0, 0, 0.48);
+  margin: 8px -11px -7px -20px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}

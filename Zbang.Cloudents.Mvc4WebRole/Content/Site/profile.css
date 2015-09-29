@@ -23,8 +23,6 @@ New Profile Page
   margin: 0 auto;
   width: 50%;
   height: 50%;
-  -webkit-border-radius: 50% !important;
-  -moz-border-radius: 50% !important;
   border-radius: 50% !important;
 }
 .profile-usertitle {
@@ -38,9 +36,10 @@ New Profile Page
   margin-bottom: 7px;
 }
 .profile-usertitle-job {
-  color: #f5f5f5;
-  font-size: 13px;
   margin-bottom: 7px;
+  color: #f5f5f5;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
 }
 .profile-userbuttons {
   text-align: center;

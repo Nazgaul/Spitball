@@ -5,7 +5,7 @@
 }
 .userLetter {
   border-radius: 50%;
-  color: #fff;
+  color: #f5f5f5;
   display: inline-block;
   text-align: center;
   text-transform: capitalize;
@@ -70,7 +70,7 @@
 .create .close {
   float: right;
   margin: 10px 10px 0 0;
-  color: #fff;
+  color: #f5f5f5;
   text-shadow: none;
   opacity: 1;
   font-weight: 400;
@@ -79,5 +79,5 @@
   width: calc( 100% - 20px);
   height: calc( 100% - 60px);
   margin: 10px;
-  background: #000;
+  background: #212427;
 }

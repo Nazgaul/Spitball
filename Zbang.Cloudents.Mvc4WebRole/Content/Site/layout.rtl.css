@@ -1429,13 +1429,13 @@ Page sidebar
 }
 .page-sidebar .page-sidebar-menu li > a > .arrow:before,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li > a > .arrow:before {
-  float: left;
+  float: right;
   margin-left: 5px;
   margin-right: 5px;
   display: inline;
   font-size: 16px;
   font-family: FontAwesome;
-  content: "\f104";
+  content: "\f105";
   font-weight: 300;
   text-shadow: none;
 }

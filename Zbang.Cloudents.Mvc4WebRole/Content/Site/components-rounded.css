@@ -2510,14 +2510,19 @@ Chats
   margin-right: 10px;
 }
 .chats li .name {
-  color: #f5f5f5;
+  color: #3598dc;
   font-weight: 400;
   font-size: 13px;
 }
 .chats li.out .name {
-  color: #fff;
+  color: #3598dc;
 }
-.chats li .datetime {
+.chats li.in .datetime {
+  color: #353a3f;
+  font-size: 13px;
+  font-weight: 400;
+}
+.chats li.out .datetime {
   color: #f5f5f5;
   font-size: 13px;
   font-weight: 400;
@@ -2530,21 +2535,22 @@ Chats
 }
 .chats li.in .message {
   text-align: left;
-  border-left: 2px solid #326f2d;
+  border-left: 2px solid #292d31;
   margin-left: 65px;
-  background: #326f2d;
+  background: #292d31;
   display: block;
   padding: 7px 20px 7px 10px;
   position: relative;
-  color: #fff;
+  color: #f5f5f5;
   border-radius: 10px;
   font-size: 13px;
 }
 .chats li.out .message {
-  border-left: 2px solid #3598dc;
+  border-left: 2px solid #f5f5f5;
   margin-left: 65px;
-  background: #3598dc;
+  background: #f5f5f5;
   text-align: left;
+  color: #353a3f;
 }
 .chats li.in .message .arrow {
   display: block;
@@ -2555,7 +2561,7 @@ Chats
   height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-right: 8px solid #326f2d;
+  border-right: 8px solid #292d31;
 }
 .chats li.out .message .arrow {
   display: block;
@@ -2564,7 +2570,7 @@ Chats
   left: -8px;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-right: 8px solid #3598dc;
+  border-right: 8px solid #f5f5f5;
 }
 .chats li.out .name,
 .chats li.out .datetime {
@@ -4911,9 +4917,10 @@ Customized Progress Bars
 ***/
 .progress {
   border: 0;
-  background-image: none;
+  background-color: #DCDCDC;
   filter: none;
   box-shadow: none;
+  margin: 54px 11px;
 }
 .progress.progress-sm {
   height: 12px;
@@ -4925,13 +4932,13 @@ Customized Progress Bars
   background-image: none;
 }
 .progress > .progress-bar-success {
-  background-color: #45B6AF;
+  background-color: #3293F6;
 }
 .progress-striped .progress > .progress-bar-success {
   background-image: none;
 }
 .progress > .progress-bar-info {
-  background-color: #89C4F4;
+  background-color: #3293F6;
 }
 .progress-striped .progress > .progress-bar-info {
   background-image: none;

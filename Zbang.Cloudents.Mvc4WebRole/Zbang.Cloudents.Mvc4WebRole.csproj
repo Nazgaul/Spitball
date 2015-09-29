@@ -1762,6 +1762,9 @@
     <Content Include="Content\Site\profile.rtl.css">
       <DependentUpon>profile.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\profile.rtl.min.css">
+      <DependentUpon>profile.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\user.css">
       <DependentUpon>user.less</DependentUpon>
     </Content>
@@ -1972,6 +1975,7 @@
     <Content Include="Images\Site\BG.png" />
     <Content Include="Images\Site\itemIcons.svg" />
     <Content Include="Images\Site\icons.svg" />
+    <Content Include="Images\Site\dashboardIcons.svg" />
     <Content Include="Images\spitball_invite_off.png" />
     <Content Include="Images\spitball_invite_on.png" />
     <Content Include="Images\spitball_logo_mobile.png" />
@@ -3301,6 +3305,7 @@
     <Content Include="Views\Item\Index2.cshtml" />
     <Content Include="Views\Dashboard\_University.cshtml" />
     <Content Include="Views\Dashboard\_LeaderBoard.cshtml" />
+    <Content Include="Views\Dashboard\_Create.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -118,13 +118,20 @@ body {
     border-radius: 50%;
     opacity: 0;
     -webkit-animation: scale(0);
+    -moz-animation: scale(0);
+    -o-animation: scale(0);
+    animation: scale(0);
     -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    -webkit-transform: scale(0);
     transform: scale(0);
 }
 
 .md-click-circle.md-click-animate {
     -webkit-animation: mdClickEffect 0.65s linear;
     -moz-animation: mdClickEffect 0.65s linear;
+    -o-animation: mdClickEffect 0.65s linear;
     animation: mdClickEffect 0.65s linear;
 }
 
@@ -667,6 +674,7 @@ body {
     left: 0;
     -webkit-transition-duration: 0.3s;
     -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
     transition-duration: 0.3s;
 }
 
@@ -688,6 +696,7 @@ body {
     z-index: 5;
     -webkit-transition-delay: 0.2s;
     -moz-transition-delay: 0.2s;
+    -o-transition-delay: 0.2s;
     transition-delay: 0.2s;
 }
 
@@ -715,6 +724,7 @@ body {
 .md-checkbox label > span.inc {
     -webkit-animation: growCircle 0.3s ease;
     -moz-animation: growCircle 0.3s ease;
+    -o-animation: growCircle 0.3s ease;
     animation: growCircle 0.3s ease;
 }
 
@@ -913,6 +923,7 @@ body {
     left: 0;
     -webkit-transition-duration: 0.3s;
     -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
     transition-duration: 0.3s;
 }
 
@@ -924,6 +935,10 @@ body {
     width: 60px;
     opacity: 0;
     border-radius: 50% !important;
+     -webkit-animation: growCircleRadio 0.3s ease;
+    -moz-animation: growCircleRadio 0.3s ease;
+    -o-animation: growCircleRadio 0.3s ease;
+    animation: growCircleRadio 0.3s ease;
 }
 
 .md-radio label > .box {
@@ -951,16 +966,14 @@ body {
     transform: scale(0);
 }
 
-.md-radio label > span.inc {
-    -webkit-animation: growCircleRadio 0.3s ease;
-    -moz-animation: growCircleRadio 0.3s ease;
-    animation: growCircleRadio 0.3s ease;
-}
+
 
 .md-radio input[type=radio]:checked ~ label > .check {
     opacity: 1;
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1);
 }
 
@@ -1713,6 +1726,8 @@ Number & Chart Stats
 .number-stats .stat-number {
     display: inline-block;
     margin: 0 5px;
+      float: left;
+    text-align: left;
 }
 
 .number-stats .stat-number .title {
@@ -1730,6 +1745,7 @@ Number & Chart Stats
 .number-stats .stat-chart {
     display: inline-block;
     margin: 0 5px;
+       float: left;
 }
 
 .number-stats > div {
@@ -1766,14 +1782,8 @@ Number & Chart Stats
     float: left;
 }
 
-.number-stats .stat-number {
-    float: left;
-    text-align: left;
-}
 
-.number-stats .stat-chart {
-    float: left;
-}
+
 
 /***
 General User Record Listing
@@ -2808,14 +2818,13 @@ Chats
 }
 
 .chats li .name {
-    color: @color2;
+    color: @color7;
     font-size: 13px;
     font-weight: 400;
-    font-size: 13px;
 }
 
 .chats li.out .name {
-    color: #fff;
+    color: @color7;
 }
 
 .chats li .datetime {
@@ -2833,23 +2842,23 @@ Chats
 
 .chats li.in .message {
     text-align: left;
-    border-left: 2px solid @color6;
+    border-left: 2px solid @color3;
     margin-left: 65px;
-    background: @color6;
+    background: @color3;
     display: block;
     padding: 7px 20px 7px 10px;
     position: relative;
     //margin-left: 65px;
-    color: #fff;
+    color: @color4;
     border-radius: 10px;
     font-size: 13px;
 }
 
 
 .chats li.out .message {
-    border-left: 2px solid @color7;
+    border-left: 2px solid @color2;
     margin-left: 65px;
-    background: @color7;
+    background: @color2;
     text-align: left;
 }
 
@@ -2862,7 +2871,7 @@ Chats
     height: 0;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-right: 8px solid @color6;
+    border-right: 8px solid @color3;
 }
 
 
@@ -2873,7 +2882,7 @@ Chats
     left: -8px;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-right: 8px solid @color7;
+    border-right: 8px solid @color2;
 }
 
 .chats li.out .name,
@@ -3529,8 +3538,8 @@ Form Layouts
 .form .form-actions {
     padding: 20px 10px;
     margin: 0;
-    background-color: #f5f5f5;
-    border-top: 1px solid #e5e5e5;
+    //background-color: #f5f5f5;
+    //border-top: 1px solid #e5e5e5;
     *zoom: 1;
 }
 
@@ -3774,9 +3783,9 @@ Form Layouts
     background-color: #ffffff;
 }
 
-.form .form-horizontal.form-bordered.form-label-stripped .form-group:nth-child(even) {
-    background-color: #fcfcfc;
-}
+//.form .form-horizontal.form-bordered.form-label-stripped .form-group:nth-child(even) {
+    //background-color: #fcfcfc;
+//}
 
 /***
 Forms
@@ -3799,9 +3808,10 @@ Forms
 .form-control {
     font-size: 14px;
     font-weight: normal;
-    color: #333;
-    background-color: #fff;
-    border: 1px solid #e5e5e5;
+    //change that for create box
+    color: #fff;
+    background-color: #000;
+    border: 1px solid #fff;
     box-shadow: none;
     -moz-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
@@ -4054,13 +4064,11 @@ label {
 
 .has-error .form-control {
     border-color: #ebccd1;
-    -webkit-box-shadow: none;
     box-shadow: none;
 }
 
 .has-error .form-control:focus {
     border-color: #dca7b0;
-    -webkit-box-shadow: none;
     box-shadow: none;
 }
 
@@ -4556,11 +4564,15 @@ UI Loading
 
 .page-spinner-bar .bounce1 {
     -webkit-animation-delay: -0.32s;
+    -moz-animation-delay: -0.32s;
+    -o-animation-delay: -0.32s;
     animation-delay: -0.32s;
 }
 
 .page-spinner-bar .bounce2 {
     -webkit-animation-delay: -0.16s;
+    -moz-animation-delay: -0.16s;
+    -o-animation-delay: -0.16s;
     animation-delay: -0.16s;
 }
 
@@ -4578,19 +4590,27 @@ UI Loading
     border-radius: 100% !important;
     display: inline-block;
     -webkit-animation: bounceDelay 1.4s infinite ease-in-out;
+    -moz-animation: bounceDelay 1.4s infinite ease-in-out;
+    -o-animation: bounceDelay 1.4s infinite ease-in-out;
     animation: bounceDelay 1.4s infinite ease-in-out;
     /* Prevent first frame from flickering when animation starts */
     -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
     animation-fill-mode: both;
 }
 
 .block-spinner-bar .bounce1 {
     -webkit-animation-delay: -0.32s;
+    -moz-animation-delay: -0.32s;
+    -o-animation-delay: -0.32s;
     animation-delay: -0.32s;
 }
 
 .block-spinner-bar .bounce2 {
     -webkit-animation-delay: -0.16s;
+    -moz-animation-delay: -0.16s;
+    -o-animation-delay: -0.16s;
     animation-delay: -0.16s;
 }
 
@@ -5358,7 +5378,6 @@ Portlets
     -webkit-transition: all 0.1s ease-in-out;
     -moz-transition: all 0.1s ease-in-out;
     -o-transition: all 0.1s ease-in-out;
-    -ms-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;
     opacity: 0.8;
     filter: alpha(opacity=80);
@@ -5669,9 +5688,10 @@ Customized Progress Bars
 ***/
 .progress {
     border: 0;
-    background-image: none;
+    background-color:#DCDCDC;
     filter: none;
     box-shadow: none;
+    //margin: 54px 11px;
 }
 
 .progress.progress-sm {
@@ -5688,7 +5708,7 @@ Customized Progress Bars
 }
 
 .progress > .progress-bar-success {
-    background-color: #45B6AF;
+    background-color: #3293F6;
 }
 
 .progress-striped .progress > .progress-bar-success {
@@ -5697,7 +5717,7 @@ Customized Progress Bars
 }
 
 .progress > .progress-bar-info {
-    background-color: #89C4F4;
+    background-color: #3293F6;
 }
 
 .progress-striped .progress > .progress-bar-info {
@@ -6388,7 +6408,6 @@ Responsive Flip Scroll Tables
     }
 
     .flip-scroll th {
-        text-align: left;
         border: 0 !important;
         border-bottom: 1px solid #ddd !important;
         border-right: 1px solid #ddd !important;
@@ -6397,6 +6416,8 @@ Responsive Flip Scroll Tables
         width: auto !important;
         display: block;
         text-align: right;
+        border-bottom: 0;
+        border-left: 0;
     }
 
     .flip-scroll thead {
@@ -6446,10 +6467,7 @@ Responsive Flip Scroll Tables
     }
 
     /* sort out borders */
-    .flip-scroll th {
-        border-bottom: 0;
-        border-left: 0;
-    }
+  
 
     .flip-scroll th:last-child,
     .flip-scroll td:last-child {
@@ -7996,6 +8014,8 @@ AngularJS Basic Animations
 
 .fade-in-up {
     -webkit-animation: fadeInUp .5s;
+    -moz-animation: fadeInUp .5s;
+    -o-animation: fadeInUp .5s;
     animation: fadeInUp .5s;
 }
 
@@ -8011,13 +8031,15 @@ AngularJS Basic Animations
 
 @keyframes bounceDelay {
     0%, 80%, 100% {
-        transform: scale(0);
         -webkit-transform: scale(0);
+        transform: scale(0);
+        
     }
 
     40% {
-        transform: scale(1);
         -webkit-transform: scale(1);
+        transform: scale(1);
+        
     }
 }
 

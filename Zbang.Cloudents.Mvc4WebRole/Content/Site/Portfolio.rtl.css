@@ -20,13 +20,11 @@
 .mix-grid .mix {
   opacity: 0;
   display: none;
-}
-/*Portfolio Hover*/
-.mix-grid .mix {
   position: relative;
   overflow: hidden;
   margin-bottom: 15px;
 }
+/*Portfolio Hover*/
 .mix-grid .mix .mix-inner {
   position: relative;
   width: 100%;
@@ -40,23 +38,22 @@
   text-align: right;
   position: absolute;
   background: #6a737d;
-  transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  -ms-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
   -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 .mix-grid .mix:hover .mix-details {
   bottom: 0;
-  transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  -ms-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
   -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 .mix-grid .mix .mix-details h4 {
   color: #fff;
   font-size: 15px;
+  -ms-word-break: break-word;
   word-break: break-word;
 }
 .mix-grid .mix .mix-details p {
