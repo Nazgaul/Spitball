@@ -9,11 +9,12 @@
     angular.module('app.dashboard', ['app.ajaxservice']);
 })();
 (function () {
-    angular.module('app.box', ['app.ajaxservice']);
-})();
-(function () {
     angular.module('app.box.feed', ['app.ajaxservice']);
 })();
+(function () {
+    angular.module('app.box', ['app.ajaxservice','app.box.feed']);
+})();
+
 (function () {
     angular.module('app.box.items', ['app.ajaxservice']);
 })();

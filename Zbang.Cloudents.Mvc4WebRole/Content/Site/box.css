@@ -42,9 +42,18 @@
 .class .no-background {
   background-color: transparent;
 }
-.attach {
+.class .attach {
   background: rgba(0, 0, 0, 0.48);
   margin: 8px -20px -7px -11px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+}
+.class .member .img-circle {
+  vertical-align: middle;
+  width: 45px;
+  height: 45px;
+}
+.class .member-name {
+  color: #bababa;
+  font-size: 15px;
 }

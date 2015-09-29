@@ -3822,9 +3822,6 @@
     <Content Include="Views\Shared\Partials\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Box\_Members.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Home\AboutUs.cshtml" />
   </ItemGroup>
   <ItemGroup>
