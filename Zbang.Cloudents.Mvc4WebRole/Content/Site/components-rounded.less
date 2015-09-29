@@ -2818,11 +2818,18 @@ Chats
     color: @color7;
 }
 
-.chats li .datetime {
+.chats li.in .datetime {
+    color: @color4;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.chats li.out .datetime {
     color: @color2;
     font-size: 13px;
     font-weight: 400;
 }
+
 
 .chats li .message {
     display: block;
@@ -2840,7 +2847,7 @@ Chats
     padding: 7px 20px 7px 10px;
     position: relative;
     //margin-left: 65px;
-    color: @color4;
+    color: @color2;
     border-radius: 10px;
     font-size: 13px;
 }
@@ -2851,6 +2858,7 @@ Chats
     margin-left: 65px;
     background: @color2;
     text-align: left;
+     color: @color4;
 }
 
 .chats li.in .message .arrow {
