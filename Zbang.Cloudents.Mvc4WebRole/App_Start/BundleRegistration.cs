@@ -473,7 +473,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
                         new JsFileWithCdn("~/js/components/item/upload.controller.js"),
-                        new JsFileWithCdn("~/js/shared/dropbox.js")
+                        new JsFileWithCdn("~/js/shared/dropbox.js"),
+                        new JsFileWithCdn("~/js/shared/google.js")
                     }
 
                 },

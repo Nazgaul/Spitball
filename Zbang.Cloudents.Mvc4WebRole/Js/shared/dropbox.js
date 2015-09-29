@@ -33,7 +33,7 @@
             },
             choose: function () {
                 var defer = $q.defer();
-                Dropbox.choose({
+                window.Dropbox.choose({
                     success: function (files) {
                         defer.resolve(files);
                     },

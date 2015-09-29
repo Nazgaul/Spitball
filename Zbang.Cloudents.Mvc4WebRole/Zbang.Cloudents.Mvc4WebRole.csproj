@@ -2119,6 +2119,7 @@
     <Content Include="Js\services\ajaxServiceOld.js" />
     <Content Include="Js\shared\colorOnLength.js" />
     <Content Include="Js\shared\dropbox.js" />
+    <Content Include="Js\shared\google.js" />
     <Content Include="Js\shared\loader.js" />
     <Content Include="Js\shared\mixitup.js" />
     <Content Include="Js\shared\userimage.js" />
