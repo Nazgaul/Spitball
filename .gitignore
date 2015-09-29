@@ -112,3 +112,5 @@ UpgradeLog*.XML
 
 Zbang.Cloudents.MobileApp2/Properties/PublishProfiles/mobile-cloudents.pubxml
 Zbang.Cloudents.MobileApp2/Zbang.Cloudents.MobileApp2.csproj
+*.css
+*.css
