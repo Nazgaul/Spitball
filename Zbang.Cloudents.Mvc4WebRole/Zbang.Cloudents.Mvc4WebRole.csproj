@@ -1988,7 +1988,7 @@
     <Content Include="Images\Site\BG.png" />
     <Content Include="Images\Site\itemIcons.svg" />
     <Content Include="Images\Site\icons.svg" />
-    <Content Include="Images\Site\dashboardIcons.svg" />
+    <Content Include="Images\Site\uploadIcons.svg" />
     <Content Include="Images\spitball_invite_off.png" />
     <Content Include="Images\spitball_invite_on.png" />
     <Content Include="Images\spitball_logo_mobile.png" />

@@ -1,4 +1,7 @@
-﻿<div class="portlet box create" ng-controller="CreateClass as cc">
+﻿@{
+    var url = "~/images/site/uploadIcons.svg";
+}
+<div class="portlet box create" ng-controller="CreateClass as cc">
     <div class="portlet-title">
         <div class="caption">
             create class
@@ -66,12 +69,12 @@
                         <alert ng-if="cc.alert" close="closeAlert()" type="danger">{{cc.alert}}</alert>
                         <div class="tab-pane text-center" ng-class="{active:cc.step === 1}">
                             <button type="button" ng-click="cc.chooseBox(1)">
-                                @Html.Svg("~/images/site/dashboardIcons.svg", "createBox")
+                                @Html.Svg(url, "createBox")
                                 <h6>Study group</h6>
                                 To work on things in a group
                             </button>
                             <button type="button" ng-click="cc.chooseBox(2)">
-                                @Html.Svg("~/images/site/dashboardIcons.svg", "createClass")
+                                @Html.Svg(url, "createClass")
                                 <h6>Class</h6>
                                 To share things with your whole class
                             </button>
@@ -80,7 +83,7 @@
                             <div ng-hide="cc.boxType === 2" ng-form="createGroupBox">
 
                                 @*<alert ng-if="createGroupBox.groupBoxName.$error.required" close="closeAlert()" type="danger">{{cc.alert}}</alert>*@
-                               
+
                                 <label for="createGroupBoxName">class name</label>
                                 <input id="createGroupBoxName" required autofocus class="form-control" name="groupBoxName" type="text" ng-model="cc.box.name" />
                             </div>
@@ -105,27 +108,37 @@
                             department
                         </div>
                         <div class="tab-pane" ng-class="{active:cc.step === 4}" ng-controller="Upload as u">
-                            <div class="row" ng-if="u.uploadStep === 0">
+                            <div class="row uploadSection" ng-if="u.uploadStep === 0">
                                 <div class="col-md-3" ng-click="u.uploadStep = 1">
-                                    <button type="button">upload files from computer</button>
+                                    <button type="button">
+                                        @Html.Svg(url, "file")
+                                        upload files from computer
+                                    </button>
                                 </div>
                                 <div class="col-md-3">
                                     <button type="button" ng-click="u.google()" ng-disabled="!u.googleDriveLoaded">
+                                        @Html.Svg(url, "googleDrive")
                                         upload files from google drive
                                     </button>
                                 </div>
                                 <div class="col-md-3">
                                     <button type="button" ng-click="u.dropBox()" ng-disabled="!u.dropBoxLoaded">
+                                        @Html.Svg(url, "dropbox")
                                         upload files from dropbox
                                     </button>
                                 </div>
                                 <div class="col-md-3" ng-click="u.uploadStep = 4">
                                     <button type="button">
+                                        @Html.Svg(url, "link")
                                         add website link
                                     </button>
                                 </div>
                             </div>
-                            
+                            <div ng-if="u.uploadStep === 1" id="dropElement">
+                                <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn" plupload-callbacks="u.fileUpload.callbacks">
+                                   upload
+                                </a>
+                            </div>
                             <div ng-if="u.uploadStep === 4" ng-form="uploadLink">
                                 <label for="uploadLink">share with your firends youtube video, artivle or other educational material from any site</label>
                                 <input type="url" class="form-control" ng-model="u.link" id="uploadLink" name="uploadLink" autofocus required>
