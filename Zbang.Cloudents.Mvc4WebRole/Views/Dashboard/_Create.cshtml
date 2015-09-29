@@ -3,11 +3,11 @@
         <div class="caption">
             create class
         </div>
-        <button type="button" class="close" ng-click="d.createBoxOn = false">X</button>
+        <button type="button" class="close closeFrom" ng-click="d.createBoxOn = false">X</button>
     </div>
     <div class="portlet-body form">
         <div class="form-horizontal">
-            <div class="form-wizard">
+            <form name="createBox" class="form-wizard" novalidate>
                 <div class="form-body">
                     <ul class="nav nav-pills nav-justified steps">
                         <li ng-class="{active:cc.step === 1}">
@@ -63,14 +63,7 @@
                     </ul>
                     <progressbar class="progress-striped active" value="cc.step*20" type="info"></progressbar>
                     <div class="tab-content">
-                        @*<div class="alert alert-danger display-none">
-                                <button class="close" data-dismiss="alert"></button>
-                                You have some form errors. Please check below.
-                            </div>
-                            <div class="alert alert-success display-none">
-                                <button class="close" data-dismiss="alert"></button>
-                                Your form validation is successful!
-                            </div>*@
+                        <alert ng-if="cc.alert" close="closeAlert()" type="danger">{{cc.alert}}</alert>
                         <div class="tab-pane text-center" ng-class="{active:cc.step === 1}">
                             <button type="button" ng-click="cc.chooseBox(1)">
                                 @Html.Svg("~/images/site/dashboardIcons.svg", "createBox")
@@ -84,9 +77,12 @@
                             </button>
                         </div>
                         <div class="tab-pane" ng-class="{active:cc.step === 2}">
-                            <div ng-hide="cc.boxType === 2">
-                                class name
-                                <input autofocus class="form-control" type="text" ng-model="cc.boxName" />
+                            <div ng-hide="cc.boxType === 2" ng-form="createGroupBox">
+
+                                @*<alert ng-if="createGroupBox.groupBoxName.$error.required" close="closeAlert()" type="danger">{{cc.alert}}</alert>*@
+                               
+                                <label for="createGroupBoxName">class name</label>
+                                <input id="createGroupBoxName" required autofocus class="form-control" name="groupBoxName" type="text" ng-model="cc.box.name" />
                             </div>
                             <div ng-hide="cc.boxType === 1">
                                 class name
@@ -100,278 +96,61 @@
                                         instructor
                                         <input class="form-control" type="text" ng-model="cc.professor" />
                                     </div>
-                                    
+
                                 </div>
 
                             </div>
-                            @*<h3 class="block">Provide your profile details</h3>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">
-                                        Fullname <span class="required">
-                                            *
-                                        </span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        <input type="text" class="form-control" name="fullname" />
-                                        <span class="help-block">
-                                            Provide your fullname
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">
-                                        Phone Number <span class="required">
-                                            *
-                                        </span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        <input type="text" class="form-control" name="phone" />
-                                        <span class="help-block">
-                                            Provide your phone number
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">
-                                        Gender <span class="required">
-                                            *
-                                        </span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        <div class="radio-list">
-                                            <label>
-                                                <input type="radio" name="gender" value="M" data-title="Male" />
-                                                Male
-                                            </label>
-                                            <label>
-                                                <input type="radio" name="gender" value="F" data-title="Female" />
-                                                Female
-                                            </label>
-                                        </div>
-                                        <div id="form_gender_error">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">
-                                        Address <span class="required">
-                                            *
-                                        </span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        <input type="text" class="form-control" name="address" />
-                                        <span class="help-block">
-                                            Provide your street address
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">
-                                        City/Town <span class="required">
-                                            *
-                                        </span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        <input type="text" class="form-control" name="city" />
-                                        <span class="help-block">
-                                            Provide your city or town
-                                        </span>
-                                    </div>
-                                </div>*@
                         </div>
                         <div class="tab-pane" ng-class="{active:cc.step === 3}">
-                            <h3 class="block">Provide your billing and credit card details</h3>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">
-                                    Card Holder Name <span class="required">
-                                        *
-                                    </span>
-                                </label>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" name="card_name" />
-                                    <span class="help-block">
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">
-                                    Card Number <span class="required">
-                                        *
-                                    </span>
-                                </label>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" name="card_number" />
-                                    <span class="help-block">
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">
-                                    CVC <span class="required">
-                                        *
-                                    </span>
-                                </label>
-                                <div class="col-md-4">
-                                    <input type="text" placeholder="" class="form-control" name="card_cvc" />
-                                    <span class="help-block">
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">
-                                    Expiration(MM/YYYY) <span class="required">
-                                        *
-                                    </span>
-                                </label>
-                                <div class="col-md-4">
-                                    <input type="text" placeholder="MM/YYYY" maxlength="7" class="form-control" name="card_expiry_date" />
-                                    <span class="help-block">
-                                        e.g 11/2020
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">
-                                    Payment Options <span class="required">
-                                        *
-                                    </span>
-                                </label>
-                                <div class="col-md-4">
-                                    <div class="checkbox-list">
-                                        <label>
-                                            <input type="checkbox" name="payment[]" value="1" data-title="Auto-Pay with this Credit Card." /> Auto-Pay with this Credit Card
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" name="payment[]" value="2" data-title="Email me monthly billing." /> Email me monthly billing
-                                        </label>
-                                    </div>
-                                    <div id="form_payment_error">
-                                    </div>
-                                </div>
-                            </div>
+                            department
                         </div>
-                        <div class="tab-pane" ng-class="{active:cc.step === 4}">
-                            <h3 class="block">Confirm your account</h3>
-                            <h4 class="form-section">Account</h4>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Username:</label>
-                                <div class="col-md-4">
-                                    <p class="form-control-static" data-display="username">
-                                    </p>
+                        <div class="tab-pane" ng-class="{active:cc.step === 4}" ng-controller="Upload as u">
+                            <div class="row" ng-if="u.uploadStep === 0">
+                                <div class="col-md-3" ng-click="u.uploadStep = 1">
+                                    <button type="button">upload files from computer</button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" ng-click="u.uploadStep = 2">
+                                        upload files from google drive
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" ng-click="u.dropBox()" ng-disabled="!u.dropBoxLoaded">
+                                        upload files from dropbox
+                                    </button>
+                                </div>
+                                <div class="col-md-3" ng-click="u.uploadStep = 4">
+                                    <button type="button">
+                                        add website link
+                                    </button>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Email:</label>
-                                <div class="col-md-4">
-                                    <p class="form-control-static" data-display="email">
-                                    </p>
-                                </div>
+                            
+                            <div ng-if="u.uploadStep === 4" ng-form="uploadLink">
+                                <label for="uploadLink">share with your firends youtube video, artivle or other educational material from any site</label>
+                                <input type="url" class="form-control" ng-model="u.link" id="uploadLink" name="uploadLink" autofocus required>
+                                <input type="submit" class="btn blue" ng-click="u.uploadLink()" ng-disabled="cc.submitFormProcess" value="share" />
                             </div>
-                            <h4 class="form-section">Profile</h4>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Fullname:</label>
-                                <div class="col-md-4">
-                                    <p class="form-control-static" data-display="fullname">
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Gender:</label>
-                                <div class="col-md-4">
-                                    <p class="form-control-static" data-display="gender">
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Phone:</label>
-                                <div class="col-md-4">
-                                    <p class="form-control-static" data-display="phone">
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Address:</label>
-                                <div class="col-md-4">
-                                    <p class="form-control-static" data-display="address">
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">City/Town:</label>
-                                <div class="col-md-4">
-                                    <p class="form-control-static" data-display="city">
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Country:</label>
-                                <div class="col-md-4">
-                                    <p class="form-control-static" data-display="country">
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Remarks:</label>
-                                <div class="col-md-4">
-                                    <p class="form-control-static" data-display="remarks">
-                                    </p>
-                                </div>
-                            </div>
-                            <h4 class="form-section">Billing</h4>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Card Holder Name:</label>
-                                <div class="col-md-4">
-                                    <p class="form-control-static" data-display="card_name">
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Card Number:</label>
-                                <div class="col-md-4">
-                                    <p class="form-control-static" data-display="card_number">
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">CVC:</label>
-                                <div class="col-md-4">
-                                    <p class="form-control-static" data-display="card_cvc">
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Expiration:</label>
-                                <div class="col-md-4">
-                                    <p class="form-control-static" data-display="card_expiry_date">
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Payment Options:</label>
-                                <div class="col-md-4">
-                                    <p class="form-control-static" data-display="payment">
-                                    </p>
-                                </div>
-                            </div>
+
                         </div>
 
                         <div class="tab-pane" ng-class="{active:cc.step === 5}">
-                            final
+                            invite
                         </div>
                     </div>
                 </div>
                 <div class="form-actions" ng-hide="cc.step === 1">
 
-                    <div class="text-center">
+                    <div class="text-right">
                         <a href="javascript:;" class="btn default button-previous">
                             Back
                         </a>
-                        <button type="button" class="btn blue button-next" ng-click="cc.goToStep()">
+                        <button type="submit" class="btn blue button-next" ng-click="cc.stepFinish()" ng-disabled="cc.submitFormProcess">
                             Next
                         </button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

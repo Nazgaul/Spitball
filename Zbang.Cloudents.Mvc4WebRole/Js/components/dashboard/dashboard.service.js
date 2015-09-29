@@ -34,5 +34,10 @@
         d.getUniversityMeta = function () {
             return ajaxservice.get('/dashboard/sidebar/', null, 1800000);
         }
+
+
+        d.createPrivateBox = function (boxName) {
+            return ajaxservice.post('/dashboard/Create', { boxName: boxName });
+        }
     }
 })();

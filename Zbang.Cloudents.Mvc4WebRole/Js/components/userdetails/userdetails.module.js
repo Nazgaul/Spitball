@@ -35,3 +35,9 @@
 (function () {
     angular.module('app.item', ['app.ajaxservice']);
 })();
+
+(function () {
+    angular.module('app.upload', ['app.ajaxservice']);
+})();
+
+

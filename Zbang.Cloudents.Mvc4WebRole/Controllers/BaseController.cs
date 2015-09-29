@@ -68,6 +68,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return ModelState.SelectMany(x => x.Value.Errors.Select(error => error.ErrorMessage));
         }
 
+        protected string GetErrorFromModelState()
+        {
+            return ModelState.SelectMany(x => x.Value.Errors.Select(error => error.ErrorMessage)).FirstOrDefault();
+        }
+
         protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding)
         {
             return new JsonNetResult

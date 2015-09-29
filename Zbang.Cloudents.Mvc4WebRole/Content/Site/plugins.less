@@ -544,17 +544,19 @@ Bootstrap Wizard
   border: 0;
   box-shadow: none;
 }
-.form-wizard .steps > li > a.step {
+.form-wizard .steps > li > .step {
   background-color: #fff;
   background-image: none;
   filter: none;
   border: 0;
   box-shadow: none;
+  cursor:initial;
 }
+//override bootstap
 .form-wizard .steps > li > a.step:hover {
   background: none;
 }
-.form-wizard .steps > li > a.step > .number {
+.form-wizard .steps > li > .step > .number {
   background-color: #eee;
   display: inline-block;
   text-align: center !important;
@@ -566,34 +568,34 @@ Bootstrap Wizard
   width: 45px;
   border-radius: 50% !important;
 }
-.form-wizard .steps > li > a.step > .desc {
+.form-wizard .steps > li > .step > .desc {
   display: inline-block;
   font-size: 16px;
   font-weight: 300;
 }
-.form-wizard .steps > li > a.step > .desc > i {
+.form-wizard .steps > li > .step > .desc > i {
   display: none;
 }
-.form-wizard .steps > li.active > a.step .number {
+.form-wizard .steps > li.active > .step .number {
   background-color: #45B6AF;
   color: #fff;
 }
-.form-wizard .steps > li.active > a.step .desc {
+.form-wizard .steps > li.active > .step .desc {
   color: #333;
 }
-.form-wizard .steps > li.done > a.step .number {
+/*.form-wizard .steps > li.done > .step .number {
   background-color: #dfba49;
   color: #fff;
 }
-.form-wizard .steps > li.done > a.step .desc {
+.form-wizard .steps > li.done > .step .desc {
   color: #333;
 }
-.form-wizard .steps > li.done > a.step .desc i {
+.form-wizard .steps > li.done > .step .desc i {
   font-size: 12px;
   font-weight: normal;
   color: #999;
   display: inline-block;
-}
+}*/
 
 @media (min-width: 768px) and (max-width: 1200px) {
   /* 768px & 1200px */

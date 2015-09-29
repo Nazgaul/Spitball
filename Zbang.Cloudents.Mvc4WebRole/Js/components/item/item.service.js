@@ -17,5 +17,25 @@
             });
         };
 
+
+        d.addLink = function (url, boxid, tabId, question, name) {
+            return ajaxservice.post('upload/link', {
+                url: url,
+                boxid: boxid,
+                tabId: tabId,
+                quesion: question,
+                name: name
+            });
+        }
+        d.addFromDropBox = function (boxId, url, name,  tabId, question) {
+            return ajaxservice.post('upload/dropbox/', {
+                boxId: boxId,
+                url: url,
+                name: name,
+                tabId: tabId,
+                question: question
+            });
+        }
+
     }
 })();

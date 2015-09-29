@@ -320,3 +320,5 @@
 /// <reference path="../js/shared/mixitup.js" />
 /// <reference path="../js/shared/userimage.js" />
 /// <reference path="../js/components/dashboard/createclass.controller.js" />
+/// <reference path="../js/shared/dropbox.js" />
+/// <reference path="../js/components/item/upload.controller.js" />

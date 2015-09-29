@@ -22,7 +22,9 @@
         'app.box.feed',
         'app.box.items',
 
-        'app.item'
+        'app.item',
+
+        'app.upload'
     ]).config(config);
 
     config.$inject = ['$controllerProvider', '$locationProvider'];

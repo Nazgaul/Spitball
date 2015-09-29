@@ -15,7 +15,7 @@
 .leaderboad h4 {
   font-size: 21px;
   font-weight: 700;
-  margin-top: 0px;
+  margin-top: 0;
 }
 .leaderboad .userLetter {
   font-size: 17px;
@@ -67,7 +67,7 @@
   font-size: 18px;
   margin: 15px 20px 0 0;
 }
-.create .close {
+.create .closeFrom {
   float: left;
   margin: 10px 0 0 10px;
   color: #f5f5f5;

@@ -24,7 +24,7 @@ Page Header
 ***********/
 /* Header search bar, toggler button & top menu */
 .page-header.navbar {
-  background: #353a3f
+  background: #353a3f;
   /* Top notification menu/bar */
   /* Header seaech box */
   /* Menu Toggler */
@@ -183,9 +183,9 @@ Page Header
 .page-header.navbar .search-form .input-group .input-group-btn .btn.submit > i {
   color: #ced6de;
 }
-.page-header.navbar .menu-toggler {
-  background-image: url(../../img/sidebar-toggle-light.png);
-}
+/*.page-header.navbar .menu-toggler {
+    background-image: url(../../img/sidebar-toggle-light.png);
+}*/
 .page-header.navbar .page-actions .btn-group .btn-sm.btn-transparent {
   background: none;
   border: 1px solid white;
@@ -209,7 +209,7 @@ Page Header
 /* Page sidebar */
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover,
 .page-sidebar {
-  background-color: #353a3f
+  background-color: #353a3f;
   /* Default sidebar */
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu,
@@ -447,7 +447,7 @@ Page Footer
 @media (max-width: 991px) {
   /* 991px */
   .page-header.navbar {
-    padding: 0
+    padding: 0;
     /* Top menu */
   }
   .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle:hover {

@@ -226,13 +226,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(url);
         }
 
-        [HttpPost, ZboxAuthorize]
-        [RemoveBoxCookie]
+        [HttpPost, ZboxAuthorize, RemoveBoxCookie]
         public async Task<ActionResult> Link(AddLink model)
         {
             if (!ModelState.IsValid)
             {
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
             }
             try
             {
@@ -244,11 +243,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     try
                     {
-                        title = await helper.BringTitle(model.FileUrl);
+                        title = await helper.BringTitle(model.Url);
                     }
                     catch (Exception ex)
                     {
-                        TraceLog.WriteError("on bringing title of url " + model.FileUrl, ex);
+                        TraceLog.WriteError("on bringing title of url " + model.Url, ex);
 
                     }
                 }
@@ -257,7 +256,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     title = model.Name;
                 }
 
-                var command = new AddLinkToBoxCommand(userid, model.BoxId, model.FileUrl, model.TabId, title, model.Question);
+                var command = new AddLinkToBoxCommand(userid, model.BoxId, model.Url, model.TabId, title, model.Question);
                 var result = await ZboxWriteService.AddItemToBoxAsync(command);
                 var result2 = result as AddLinkToBoxCommandResult;
                 if (result2 == null)
@@ -286,26 +285,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Link user: {0} BoxId: {1} url: {2}", User.GetUserId(), model.BoxId, model.FileUrl), ex);
+                TraceLog.WriteError(string.Format("Link user: {0} BoxId: {1} url: {2}", User.GetUserId(), model.BoxId, model.Url), ex);
                 return JsonError(BoxControllerResources.ProblemUrl);
             }
         }
 
         [HttpPost, ZboxAuthorize]
         [RemoveBoxCookie]
-        public async Task<ActionResult> DropBox(long boxId, string fileUrl, string name, Guid? tabId, bool question)
+        public async Task<ActionResult> Dropbox(AddFromDropBox model)
         {
 
             var userId = User.GetUserId();
 
 
-            var blobAddressUri = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(name).ToLower();
+            var blobAddressUri = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(model.Name).ToLower();
 
             var size = 0L;
             bool notUploaded;
             try
             {
-                size = await m_BlobProvider.UploadFromLinkAsync(fileUrl, blobAddressUri);
+                size = await m_BlobProvider.UploadFromLinkAsync(model.Url, blobAddressUri);
                 notUploaded = false;
             }
             catch (UnauthorizedAccessException)
@@ -315,12 +314,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (notUploaded)
             {
                 await m_QueueProvider.Value.InsertMessageToDownloadAsync(
-                    new UrlToDownloadData(fileUrl, name, boxId, tabId, userId));
+                    new UrlToDownloadData(model.Url,model.Name, model.BoxId, model.TabId, userId));
                 return JsonOk();
             }
-            var command = new AddFileToBoxCommand(userId, boxId, blobAddressUri,
-               name,
-                size, tabId, question);
+            var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
+               model.Name,
+                size, model.TabId, model.Question);
             var result = await ZboxWriteService.AddItemToBoxAsync(command);
             var result2 = result as AddFileToBoxCommandResult;
             if (result2 == null)
@@ -338,7 +337,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 Owner = result2.File.Uploader.Name,
                 Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc),
                 Url = result2.File.Url,
-                DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId, itemId = result2.File.Id })
+                DownloadUrl = Url.RouteUrl("ItemDownload2", new { model.BoxId, itemId = result2.File.Id })
             };
             return JsonOk(fileDto);
 
