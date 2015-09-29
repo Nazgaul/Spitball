@@ -115,6 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/general.css",
                         "~/Content/site/dashboard.css",
                         "~/Content/site/box.css",
+                        //"~/Content/site/boxMembers.css",
                         "~/Content/site/user.css",
                         "~/Content/site/accountSettings.css",
                         "~/Content/site/library.css",
@@ -455,6 +456,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/box/box.controller.js"),
                         new JsFileWithCdn("~/js/components/box/feed.controller.js"),
                         new JsFileWithCdn("~/js/components/box/item.controller.js"),
+                        new JsFileWithCdn("~/js/components/box/members.controller.js"),
 
                   
 
@@ -473,7 +475,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
                         new JsFileWithCdn("~/js/components/item/upload.controller.js"),
-                        new JsFileWithCdn("~/js/shared/dropbox.js")
+                        new JsFileWithCdn("~/js/shared/dropbox.js"),
+                        new JsFileWithCdn("~/js/shared/google.js")
                     }
 
                 },

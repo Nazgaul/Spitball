@@ -19,8 +19,9 @@
         'app.user.account',
 
         'app.box',
-        'app.box.feed',
+       // 'app.box.feed',
         'app.box.items',
+        'app.box.members',
 
         'app.item',
 

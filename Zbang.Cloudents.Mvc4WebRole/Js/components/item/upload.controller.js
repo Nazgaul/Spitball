@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.upload').controller('Upload', upload);
-    upload.$inject = ['$scope', 'itemService', 'dropboxService', '$q'];
+    upload.$inject = ['$scope', 'itemService', 'dropboxService', '$q', 'googleService', '$timeout'];
 
-    function upload($scope, itemService, dropboxService, $q) {
+    function upload($scope, itemService, dropboxService, $q, googleService, $timeout) {
         var u = this;
         var cc = $scope.$parent.cc;
 
@@ -14,28 +14,43 @@
             link: 4
         };
 
-        $scope.$on('uploadPhase', function() {
+        $scope.$on('uploadPhase', function () {
             dropboxService.init().then(function () {
                 u.dropBoxLoaded = true;
             });
+            $q.all([googleService.initDrive(), googleService.initGApi()]).then(function () {
+                u.googleDriveLoaded = true;
+            });
+
         });
         u.dropBoxLoaded = false;
+        u.googleDriveLoaded = false;
 
-        
+        u.google = function () {
+            googleService.picker().then(function (response) {
+                var filesUpload = [];
+                for (var i = 0; i < response.length; i++) {
+                    filesUpload.push(itemService.addLink(response[i].link, cc.box.id, null, null, response[i].name));
+                }
+                $q.all(filesUpload).then(function () {
+                    alert('done');
+                });
+            });
+        }
 
         u.dropBox = function () {
-           
+
             dropboxService.choose().then(function (response) {
                 var filesUpload = [];
                 for (var i = 0; i < response.length; i++) {
                     filesUpload.push(itemService.addFromDropBox(cc.box.id, response[i].link, response[i].name));
                 }
-                $q.all(filesUpload).then(function() {
+                $q.all(filesUpload).then(function () {
                     alert('done');
                 });
             });
 
-           
+
         };
 
         u.uploadStep = uploadChoose.none;
@@ -48,7 +63,7 @@
                 return;
             }
             cc.submitFormProcess = true;
-            itemService.addLink(u.link, cc.box.id).then(function (response) {
+            itemService.addLink(u.link, cc.box.id).then(function () {
                 u.uploadStep = uploadChoose.none;
             }, function (response) {
                 cc.alert = response;
@@ -56,6 +71,67 @@
                 cc.submitFormProcess = false;
             });
 
+        }
+
+        u.files = [];
+
+        u.fileUpload = {
+            url: '/upload/file/',
+            options: {
+                chunk_size: '3mb',
+                drop_element: 'dropElement'
+            },
+            callbacks: {
+                filesAdded: function (uploader, files) {
+
+                    for (var i = 0; i < files.length; i++) {
+                        files[i].sizeFormated = plupload.formatSize(files[i].size);
+                        u.files.push(files[i]);
+                    }
+                    console.log(u.files);
+                    $timeout(function () {
+                        uploader.start();
+                    }, 1);
+                },
+
+                beforeUpload: function (up, file) {
+                    up.settings.multipart_params = {
+                        fileName: file.name,
+                        fileSize: file.size,
+                        boxId: cc.box.id,
+                        question: false,
+                        isComment: false
+
+                    };
+
+
+                    //var data = {};
+                    //if (file.newQuestion) {
+                    //    data.newQuestion = true;
+                    //}
+                    //if (file.questionId) {
+                    //    data.questionId = file.questionId;
+                    //}
+
+                    //$rootScope.$broadcast('BeforeUpload', data);
+
+                },
+                uploadProgress: function (uploader, file) {
+                    console.log(file);
+                },
+                fileUploaded: function (uploader, file, response) {
+                    // $scope.loading = false;
+                    var obj = JSON.parse(response.response);
+                    if (obj.success) {
+                        //self.data.image = obj.payload;
+                        //userDetailsService.changeImage(obj.payload);
+                    }
+                },
+                error: function (uploader, error) {
+                    //$scope.loading = false;
+                    alert(error.message);
+                }
+            }
         }
     }
 })();

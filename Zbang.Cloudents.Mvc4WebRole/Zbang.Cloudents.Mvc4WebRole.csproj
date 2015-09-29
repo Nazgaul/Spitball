@@ -1976,7 +1976,7 @@
     <Content Include="Images\Site\BG.png" />
     <Content Include="Images\Site\itemIcons.svg" />
     <Content Include="Images\Site\icons.svg" />
-    <Content Include="Images\Site\dashboardIcons.svg" />
+    <Content Include="Images\Site\uploadIcons.svg" />
     <Content Include="Images\spitball_invite_off.png" />
     <Content Include="Images\spitball_invite_on.png" />
     <Content Include="Images\spitball_logo_mobile.png" />
@@ -2089,6 +2089,8 @@
     <Content Include="Js\appOld.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
     <Content Include="Js\components\app.controller.js" />
+    <Content Include="Js\components\box\quizzes.controller.js" />
+    <Content Include="Js\components\box\members.controller.js" />
     <Content Include="Js\components\box\box.controller.js" />
     <Content Include="Js\components\box\feed.controller.js" />
     <Content Include="Js\components\box\item.controller.js" />
@@ -2119,6 +2121,7 @@
     <Content Include="Js\services\ajaxServiceOld.js" />
     <Content Include="Js\shared\colorOnLength.js" />
     <Content Include="Js\shared\dropbox.js" />
+    <Content Include="Js\shared\google.js" />
     <Content Include="Js\shared\loader.js" />
     <Content Include="Js\shared\mixitup.js" />
     <Content Include="Js\shared\userimage.js" />
@@ -3309,6 +3312,8 @@
     <Content Include="Views\Dashboard\_University.cshtml" />
     <Content Include="Views\Dashboard\_LeaderBoard.cshtml" />
     <Content Include="Views\Dashboard\_Create.cshtml" />
+    <Content Include="Views\Box\_Members2.cshtml" />
+    <Content Include="Views\Box\_Quizzes2.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3804,9 +3809,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Partials\Register.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Box\_Members.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\AboutUs.cshtml" />

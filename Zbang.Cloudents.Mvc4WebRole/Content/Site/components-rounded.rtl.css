@@ -599,7 +599,7 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   left: 0 !important;
 }
 .md-checkbox {
-  position: relative
+  position: relative;
   /* handling click events */
   /* when checkbox is checked */
 }
@@ -815,7 +815,7 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   }
 }
 .md-radio {
-  position: relative
+  position: relative;
   /* handling click events */
   /* when radio is checked */
 }
@@ -1342,7 +1342,7 @@ Top News Blocks(new in v1.2.2)
   opacity: 0.3;
   font-size: 35px;
   position: absolute;
-  filter: alpha(opacity=30)
+  filter: alpha(opacity=30);
   /*For IE8*/
 }
 .top-news .btn + .btn {
@@ -2544,7 +2544,7 @@ Chats
   display: block;
   padding: 7px 10px 7px 20px;
   position: relative;
-  color: #f5f5f5;
+  color: #353a3f;
   border-radius: 10px;
   font-size: 13px;
 }
@@ -2553,7 +2553,6 @@ Chats
   margin-right: 65px;
   background: #f5f5f5;
   text-align: right;
-  color: #353a3f;
 }
 .chats li.in .message .arrow {
   display: block;
@@ -3131,15 +3130,11 @@ Form Layouts
 .form {
   padding: 0 !important;
 }
-.form .form-body {
-  padding: 10px;
-}
 .portlet.light .form .form-body {
   padding-right: 0;
   padding-left: 0;
 }
 .form .form-actions {
-  padding: 20px 10px;
   margin: 0;
   *zoom: 1;
 }
@@ -4134,7 +4129,7 @@ Customized Bootstrap Modal
 .modal {
   z-index: 10050;
   outline: none;
-  overflow-y: auto !important
+  overflow-y: auto !important;
   /* Fix content shifting to the right on modal open due to scrollbar closed */
 }
 .page-portlet-fullscreen .modal {
@@ -5843,7 +5838,7 @@ Custom tabs
 .tabbable-custom {
   margin-bottom: 15px;
   padding: 0;
-  overflow: hidden
+  overflow: hidden;
   /* justified tabs */
   /* boxless tabs */
   /* below justified tabs */

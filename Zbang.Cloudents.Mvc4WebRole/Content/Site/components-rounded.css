@@ -2544,7 +2544,7 @@ Chats
   display: block;
   padding: 7px 20px 7px 10px;
   position: relative;
-  color: #f5f5f5;
+  color: #353a3f;
   border-radius: 10px;
   font-size: 13px;
 }
@@ -2553,7 +2553,6 @@ Chats
   margin-left: 65px;
   background: #f5f5f5;
   text-align: left;
-  color: #353a3f;
 }
 .chats li.in .message .arrow {
   display: block;
@@ -3131,15 +3130,11 @@ Form Layouts
 .form {
   padding: 0 !important;
 }
-.form .form-body {
-  padding: 10px;
-}
 .portlet.light .form .form-body {
   padding-left: 0;
   padding-right: 0;
 }
 .form .form-actions {
-  padding: 20px 10px;
   margin: 0;
   *zoom: 1;
 }

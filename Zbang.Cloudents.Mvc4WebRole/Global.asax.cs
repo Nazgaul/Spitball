@@ -168,7 +168,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             controller.ViewData.Model = new HandleErrorInfo(ex, currentController, currentAction);
             try
             {
-                HttpContext.Current.Response.Redirect(uriBuilder.ToString());
+             //   HttpContext.Current.Response.Redirect(uriBuilder.ToString());
                 //Response.Redirect("/error");
                 //((IController)controller).Execute(new RequestContext(new HttpContextWrapper(httpContext), routeData));//(new HttpContextWrapper(httpContext), routeData));
             }

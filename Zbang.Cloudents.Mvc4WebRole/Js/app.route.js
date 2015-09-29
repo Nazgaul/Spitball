@@ -79,13 +79,15 @@
                     controller: 'BoxController as box'
                 }).
                 state('box.members', {
-                    template: '<div>this is a members</div>',
+                    templateUrl: function () {
+                        return buildUrl('/box/memberspartial/');
+                    },
                     url: 'members/',
                     //templateUrl: function () {
                     //    return buildUrl('/box/indexpartial/');
                     //},
 
-                    controller: 'BoxController as box'
+                    controller: 'MembersController as m'
                 }).
 
                 state('jobs', {
