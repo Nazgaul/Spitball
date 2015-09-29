@@ -8,7 +8,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
     {
         [Required(ErrorMessageResourceType = typeof(AddLinkResources), ErrorMessageResourceName = "LinkRequired")]
         [RegularExpression(Zbox.Domain.Common.Validation.UrlRegex2, ErrorMessageResourceType = typeof(AddLinkResources), ErrorMessageResourceName = "NotValidUrl")]//.U"[-a-zA-Z0-9@:%_\\+~#?&//=]{2,256}\\.[a-z]{2,256}\\b(\\//?[\\-a-zA-Z0-9@:%_\\+\\.~#?&//,=!;()]*)?")]
-        public string FileUrl { get; set; }
+        public string Url { get; set; }
         [Required]
         public long BoxId { get; set; }
 

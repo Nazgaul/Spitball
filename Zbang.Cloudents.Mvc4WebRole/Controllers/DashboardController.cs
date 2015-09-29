@@ -80,7 +80,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
             }
             try
             {
@@ -92,14 +92,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (BoxNameAlreadyExistsException)
             {
-                ModelState.AddModelError(string.Empty, BoxControllerResources.BoxExists);
-                return JsonError(GetModelStateErrors());
+                return JsonError(BoxControllerResources.BoxExists);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("CreateNewBox user: {0} model: {1}", User.GetUserId(), model), ex);
-                ModelState.AddModelError(string.Empty, BoxControllerResources.DashboardController_Create_Problem_with_Create_new_box);
-                return JsonError(GetModelStateErrors());
+                return JsonError(BoxControllerResources.DashboardController_Create_Problem_with_Create_new_box);
             }
         }
 

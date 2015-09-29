@@ -238,4 +238,11 @@
 }
 .dashboard .tab-content {
   background: #000;
+  min-height: 350px;
+  display: flex;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 20px;
 }
