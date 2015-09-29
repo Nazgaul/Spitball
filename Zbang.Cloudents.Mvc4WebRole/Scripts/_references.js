@@ -322,3 +322,4 @@
 /// <reference path="../js/components/dashboard/createclass.controller.js" />
 /// <reference path="../js/shared/dropbox.js" />
 /// <reference path="../js/components/item/upload.controller.js" />
+/// <reference path="../js/shared/google.js" />
