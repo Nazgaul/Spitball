@@ -2842,36 +2842,37 @@ Chats
 
 .chats li.in .message {
     text-align: left;
-    border-left: 2px solid @color3;
+    border: 2px solid @color2;
     margin-left: 65px;
     background: @color3;
     display: block;
     padding: 7px 20px 7px 10px;
     position: relative;
     //margin-left: 65px;
-    color: @color4;
+    color: @color2;
     border-radius: 10px;
     font-size: 13px;
 }
 
 
 .chats li.out .message {
-    border-left: 2px solid @color2;
+    border: 2px solid @color2;
     margin-left: 65px;
     background: @color2;
     text-align: left;
+    color:@color4;
 }
 
 .chats li.in .message .arrow {
     display: block;
     position: absolute;
-    top: 5px;
-    left: -8px;
+    top: 8px;
+    left: -10px;
     width: 0;
     height: 0;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-right: 8px solid @color3;
+    border-right: 8px solid @color2;
 }
 
 
@@ -2888,6 +2889,7 @@ Chats
 .chats li.out .name,
 .chats li.out .datetime {
     text-align: right;
+    color:@boxColor15;
 }
 
 .chat-form {
