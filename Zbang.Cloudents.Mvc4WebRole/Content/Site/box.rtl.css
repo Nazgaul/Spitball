@@ -1,51 +1,50 @@
-﻿.class .nav-tabs > li.active > a,
-.class .nav-tabs > li.active > a:hover {
+﻿.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover {
   background: transparent;
   border: 0;
   border-bottom: 1px solid #3293f6;
   color: #f5f5f5;
 }
-.class .nav-tabs > li.active > a,
-.class .nav-tabs > li.active > a:hover,
-.class .nav-tabs > li.active > a:focus {
-  background: transparent;
-  border: transparent;
-  color: #f5f5f5;
-}
-.class .nav-tabs {
+.nav-tabs {
   border: 0;
 }
-.class .nav-tabs > li > a:hover {
+.nav-tabs > li > a:hover {
   border: 1px solid transparent;
 }
-.class a {
+a {
   color: #5f6871;
 }
-.class a:hover,
-.class a:focus {
+a:hover,
+a:focus {
   color: #5f6871;
 }
-.class .tabbable {
+.tabbable {
   background-color: #353a3f;
   padding: 0 10px;
 }
-.class .extraDetails {
+.extraDetails {
   color: #f5f5f5;
   overflow: hidden;
   position: relative;
   background-color: black;
   z-index: 1;
 }
-.class .extraDetails > span:first-child {
+.extraDetails > span:first-child {
   float: right;
 }
-.class .extraDetails > span:last-child {
+.extraDetails > span:last-child {
   float: left;
 }
-.class .mix-subDetails {
+.mix-subDetails {
   position: absolute;
   bottom: 75px;
 }
-.class .no-background {
+.no-background {
   background-color: transparent;
+}
+.attach {
+  background: rgba(0, 0, 0, 0.48);
+  margin: 8px -11px -7px -20px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
 }

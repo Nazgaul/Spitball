@@ -5,13 +5,6 @@
   border-bottom: 1px solid #3293f6;
   color: #f5f5f5;
 }
-.class .nav-tabs > li.active > a,
-.class .nav-tabs > li.active > a:hover,
-.class .nav-tabs > li.active > a:focus {
-  background: transparent;
-  border: transparent;
-  color: #f5f5f5;
-}
 .class .nav-tabs {
   border: 0;
 }
@@ -48,4 +41,10 @@
 }
 .class .no-background {
   background-color: transparent;
+}
+.attach {
+  background: rgba(0, 0, 0, 0.48);
+  margin: 8px -20px -7px -11px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
