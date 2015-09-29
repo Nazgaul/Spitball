@@ -2101,6 +2101,7 @@
     <Content Include="Js\appOld.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
     <Content Include="Js\components\app.controller.js" />
+    <Content Include="Js\components\box\quizzes.controller.js" />
     <Content Include="Js\components\box\members.controller.js" />
     <Content Include="Js\components\box\box.controller.js" />
     <Content Include="Js\components\box\feed.controller.js" />
@@ -3325,6 +3326,7 @@
     <Content Include="Views\Dashboard\_LeaderBoard.cshtml" />
     <Content Include="Views\Dashboard\_Create.cshtml" />
     <Content Include="Views\Box\_Members2.cshtml" />
+    <Content Include="Views\Box\_Quizzes2.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

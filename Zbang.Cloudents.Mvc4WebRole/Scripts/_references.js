@@ -323,3 +323,5 @@
 /// <reference path="../js/shared/dropbox.js" />
 /// <reference path="../js/components/item/upload.controller.js" />
 /// <reference path="../js/shared/google.js" />
+/// <reference path="../Js/components/box/members.controller.js" />
+/// <reference path="../js/components/box/quizzes.controller.js" />
