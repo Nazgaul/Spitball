@@ -19,6 +19,10 @@
 })();
 
 (function () {
+    angular.module('app.box.members', ['app.ajaxservice']);
+})();
+
+(function () {
     angular.module('app.user', ['app.ajaxservice']);
 })();
 (function () {

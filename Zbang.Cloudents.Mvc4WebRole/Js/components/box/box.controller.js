@@ -47,9 +47,13 @@
         d.getItems = function (boxid) {
             return ajaxservice.get('/box/items/', { id: boxid });
         }
+        d.getMembers = function (boxid) {
+            return ajaxservice.get('/box/members/', { boxId: boxid });
+        }
         d.getTabs = function(boxid) {
             return ajaxservice.get('/box/tabs/', { id: boxid });
         }
+        
 
     }
 })();
