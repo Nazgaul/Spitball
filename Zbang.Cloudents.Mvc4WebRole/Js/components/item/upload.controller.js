@@ -73,6 +73,8 @@
 
         }
 
+        u.files = [];
+
         u.fileUpload = {
             url: '/upload/file/',
             options: {
@@ -81,6 +83,12 @@
             },
             callbacks: {
                 filesAdded: function (uploader, files) {
+
+                    for (var i = 0; i < files.length; i++) {
+                        files[i].sizeFormated = plupload.formatSize(files[i].size);
+                        u.files.push(files[i]);
+                    }
+                    console.log(u.files);
                     $timeout(function () {
                         uploader.start();
                     }, 1);
@@ -108,9 +116,9 @@
                     //$rootScope.$broadcast('BeforeUpload', data);
 
                 },
-                //uploadProgress: function (uploader, file) {
-                //    $scope.loading = file.percent / 100.0;
-                //},
+                uploadProgress: function (uploader, file) {
+                    console.log(file);
+                },
                 fileUploaded: function (uploader, file, response) {
                     // $scope.loading = false;
                     var obj = JSON.parse(response.response);

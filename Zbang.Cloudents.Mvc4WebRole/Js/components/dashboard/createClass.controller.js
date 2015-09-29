@@ -67,6 +67,9 @@
 
                 }
             }
+            if (cc.step == steps.upload) {
+                cc.step = steps.invite;
+            }
         }
 
        

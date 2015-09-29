@@ -128,38 +128,6 @@
   /*.universityCube {
         background: @color4;
     }*/
-  /*.create {
-        background:@color4;
-    }*/
-  /*.create.class {
-        height:475px;
-        .steps {
-        background: #f5f5f5;
-        color: #212427;
-        height:133px;
-
-        li {
-            width: 19%;
-            text-align: center;
-            margin-top: 15px;
-            span {
-                    border-radius: 50%;
-                    background-color: #DCDCDC;
-                    position: fixed;
-                    width: 35px;
-                    height: 35px;
-                    font-size: 19px;
-                    line-height: 35px;
-            }
-            &.active span {
-                            background: #3293F6;
-                            color: #f5f5f5;
-            }
-
-        }
-        
-    }
-        }*/
 }
 .dashboard .leaderBoardTitle {
   float: right;
@@ -236,9 +204,18 @@
   font-size: 50px;
   line-height: 55px;
 }
-.dashboard .tab-content {
+.dashboard .create .progress-wrap {
+  background: #fff;
+  padding-bottom: 10px;
+}
+.dashboard .create .progress {
+  margin: 0 10px;
+  border-radius: 0;
+  height: 10px;
+}
+.dashboard .create .tab-content {
   background: #000;
-  min-height: 350px;
+  min-height: 300px;
   display: flex;
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
@@ -246,17 +223,64 @@
   justify-content: center;
   padding: 0 20px;
 }
-.dashboard .uploadSection {
+.dashboard .create .uploadSection {
   text-align: center;
+  font-size: 18px;
 }
-.dashboard .uploadSection svg {
+.dashboard .create .uploadSection svg {
   fill: #fff;
-  width: 100px;
-  height: 100px;
-  /* text-align: center; */
+  width: 80px;
+  height: 80px;
+}
+.dashboard .create .uploadSection .link {
+  fill: #64D0FF;
+}
+.dashboard .create .uploadSection span {
   display: block;
-  margin: 0 auto;
-  background: gray;
+  background: #353A3F;
   border-radius: 50%;
-  border: 10px solid;
+  width: 110px;
+  height: 110px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.dashboard .create .upload-file {
+  text-align: center;
+  font-size: 20px;
+  color: #677079;
+  font-weight: 700;
+}
+.dashboard .create .upload-file .btn {
+  border: 1px solid #3293F6;
+  padding: 5px 40px;
+  font-size: 18px;
+  color: #3293F6;
+}
+.dashboard .create .file-upload {
+  width: 115px;
+  border: 7px solid #fff;
+  height: 165px;
+  font-size: 14px;
+  padding: 0;
+  background: #BCBCBC;
+  margin: 5px;
+}
+.dashboard .create .file-size {
+  background: #fff;
+}
+.dashboard .create .file-upload-progress {
+  margin: 0;
+}
+.dashboard .create .file-name {
+  width: 101px;
+  height: 100px;
+}
+.dashboard .create .form-horizontal {
+  padding: 10px;
+  font-size: 18px;
+}
+.dashboard .create .actions {
+  text-align: left;
+  background-color: #000;
+  padding: 20px 0 10px 10px;
 }
