@@ -8,80 +8,94 @@
 // (1) When no rtl should be applied
 // (2) When different rtl should be applied
 // (3) When an svg/image needs to be flipped in rtl
- 
+
 .rtlFix {
 
     .bestUserList:before {
         .flipH;
     }
+
     .topImg {
         &:before {
             .flipH;
         }
     }
-    .qLink:after{
+
+    .qLink:after {
         .flipH;
     }
-  
+
     .newActivity li.current:after {
         .flipH;
     }
+
     .ta-toolbar .btn-group {
         float: right;
     }
+
     .btn-group > .btn {
         float: right;
     }
+
     .svgWpr {
         border-radius: 4px 0 0 4px;
     }
+
     .gradeback {
         direction: rtl;
     }
-  
-    .btn-group>.btn:first-child:not(.dropdown-toggle) {
+
+    .btn-group > .btn:first-child:not(.dropdown-toggle) {
         border-radius: 0 4px 4px 0;
     }
-    .btn-group>.btn:last-child:not(.dropdown-toggle) {
-        
+
+    .btn-group > .btn:last-child:not(.dropdown-toggle) {
         border-radius: 4px 0 0 4px;
     }
-    .btn-group>.btn:only-child:not(.dropdown-toggle) {
+
+    .btn-group > .btn:only-child:not(.dropdown-toggle) {
         border-radius: 4px; //this is necessary (so that above classes don't override class in textAngular less)
     }
+
     .btn-group {
         .btn {
-            border: 1px solid #ccc; 
+            border: 1px solid #ccc;
             border-right: none;
+
             &:first-child {
-                border-right:  1px solid #ccc;
+                border-right: 1px solid #ccc;
             }
         }
     }
-   
+
     .pointsList {
         direction: rtl; //no rtl
     }
+
     .digitWpr {
         direction: rtl; //no rtl
     }
+
     .ptDigit {
         &:first-child {
             margin: -4px 4px 0 0; // no rtl
         }
     }
-    .thumbItem.quizItem  {
+
+    .thumbItem.quizItem {
         .actionBtns {
             left: 8px; //no rtl
             right: auto; //no rtl
         }
     }
+
     .modal.couponPopup {
         .closeModal {
             right: 120px; //no rtl
             left: auto;
         }
     }
+
     .popover {
         &.left {
             margin: 0 -10px 0 0; // no rtl
@@ -99,14 +113,17 @@
                 }
             }
         }
+
         &.right {
             margin: 0 10px 0 0;
+
             > .arrow {
                 left: -12px;
                 right: auto;
                 border-width: 12px 0 12px 12px;
-                border-right-color: none; 
+                border-right-color: none;
                 border-left-color: @borderColor;
+
                 &:after {
                     right: 2px;
                     left: auto;
@@ -117,13 +134,14 @@
             }
         }
     }
-    
+
     .firstRow {
         .tooltip-arrow {
             border-left: none;
             border-right: 1px solid @blue; //no rtl
         }
     }
+
     .draggable {
         padding: 6px 15px 6px 4px; //no rtl
     }
@@ -135,6 +153,7 @@
             }
         }
     }
+
     .deptSettings, .leavePrompt {
         .alert {
             &:before {
@@ -142,37 +161,45 @@
             }
         }
     }
+
     .join.next {
         right: 165px; //diff rtl
     }
-    .ptsAwarded {   
+
+    .ptsAwarded {
         top: 42px; //diff rtl
     }
+
     .congratsTxt0 {
         letter-spacing: 0; //diff rtl
         top: 0; //diff rtl
     }
+
     .congratsTxt1 {
         top: 32px; //diff rtl
     }
+
     .congratsTxt2 {
         top: 71px; //diff rtl
     }
+
     .socialList {
         width: 635px; //diff rtl
         .contactName {
             direction: rtl; //no rtl (this is to ensure you don't see end of email in rtl - see bug 2823)
         }
+
         li {
             &.jsInviteSent {
                 button {
                     &:after {
-                        top:3px; //diff rtl
+                        top: 3px; //diff rtl
                     }
                 }
             }
         }
     }
+
     .boxFolders {
         h3 {
             font-size: 17px; //diff rtl
@@ -184,6 +211,7 @@
             width: 40px; //diff rtl
         }
     }
+
     .inviteSources {
         margin: 3px 30px 0 0; //diff rtl
     }
@@ -191,11 +219,13 @@
     .invTab {
         height: 50px; //diff rtl
     }
+
     .upInviteItem {
         .semiFont {
             margin: 0 0 4px; //diff rtl
         }
     }
+
     .searchPage {
         .upArrow {
             top: -14px; //rtl (font issue)
@@ -204,6 +234,7 @@
             }
         }
     }
+
     .sTabs {
         &.sTab2 {
             ~ .upArrow:before {
@@ -217,9 +248,29 @@
             }
         }
     }
+
     .quizPage {
         .quizViews {
             margin: 10px -5px 0 5px; // diff rtl
+        }
+    }
+
+    .quiz {
+        .bottom {
+            height: 112px;
+            background: #fff;
+            position: relative;
+
+            &:before {
+                content: "";
+                bottom: -78px;
+                height: 78px;
+                right: 0;
+                left:auto;
+                width: ~"calc(100% - 78px)";
+                position: absolute;
+                background: #fff;
+            }
         }
     }
 }

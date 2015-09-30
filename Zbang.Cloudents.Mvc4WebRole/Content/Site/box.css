@@ -61,7 +61,212 @@
   border-radius: 45px;
   padding: 3px 10px;
 }
-.class .comment {
-  padding-top: 10px;
-  font-size: 12px;
+.members-margin {
+  margin: 10px 10px 10px 10px;
+}
+.member-name {
+  color: #bababa;
+  font-size: 15px;
+  margin-left: 10px;
+}
+.quiz {
+  border: 1px solid #42494F;
+  padding: 10px;
+  height: 384px;
+  position: relative;
+}
+.quiz.color0 .top,
+.quiz.color0 .details .first-letter {
+  background: #64a9f8;
+}
+.quiz.color1 .top,
+.quiz.color1 .details .first-letter {
+  background: #9d87b7;
+}
+.quiz.color2 .top,
+.quiz.color2 .details .first-letter {
+  background: #666e70;
+}
+.quiz.color3 .top,
+.quiz.color3 .details .first-letter {
+  background: #ff9853;
+}
+.quiz.color4 .top,
+.quiz.color4 .details .first-letter {
+  background: #e775ce;
+}
+.quiz.color5 .top,
+.quiz.color5 .details .first-letter {
+  background: #ffb933;
+}
+.quiz.color6 .top,
+.quiz.color6 .details .first-letter {
+  background: #848fa6;
+}
+.quiz.color7 .top,
+.quiz.color7 .details .first-letter {
+  background: #5474cf;
+}
+.quiz.color8 .top,
+.quiz.color8 .details .first-letter {
+  background: #e3b75f;
+}
+.quiz.color9 .top,
+.quiz.color9 .details .first-letter {
+  background: #695b47;
+}
+.quiz.color10 .top,
+.quiz.color10 .details .first-letter {
+  background: #f36f6e;
+}
+.quiz.color11 .top,
+.quiz.color11 .details .first-letter {
+  background: #f76446;
+}
+.quiz.color12 .top,
+.quiz.color12 .details .first-letter {
+  background: #73b435;
+}
+.quiz.color13 .top,
+.quiz.color13 .details .first-letter {
+  background: #6ea77b;
+}
+.quiz.color14 .top,
+.quiz.color14 .details .first-letter {
+  background: #c33f40;
+}
+.quiz.color15 .top,
+.quiz.color15 .details .first-letter {
+  background: #549af7;
+}
+.quiz.color16 .top,
+.quiz.color16 .details .first-letter {
+  background: #4e5384;
+}
+.quiz.color17 .top,
+.quiz.color17 .details .first-letter {
+  background: #4faf61;
+}
+.quiz .top {
+  height: 145px;
+  position: relative;
+  color: #fff;
+}
+.quiz .top .first-letter {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+  font-size: 50px;
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  line-height: 50px;
+  padding: 10px;
+  border: 1px solid #EDF7FB;
+}
+.quiz .bottom {
+  height: 112px;
+  background: #fff;
+  position: relative;
+  padding: 10px;
+}
+.quiz .bottom .name {
+  color: #42494F;
+  display: block;
+  display: -webkit-box;
+  max-height: 60px;
+  /* Fallback for non-webkit */
+  font-size: 16px;
+  line-height: 20px;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.quiz .bottom:before {
+  content: "";
+  bottom: -68px;
+  height: 68px;
+  right: 0;
+  width: calc(100% - 68px);
+  position: absolute;
+  background: #fff;
+}
+.quiz .bottom:after {
+  content: '';
+  display: block;
+  right: 0;
+  bottom: -68px;
+  position: absolute;
+  border-top: 68px solid #fff;
+  border-right: 68px solid transparent;
+}
+.quiz .bottom .dogear {
+  width: 68px;
+  height: 68px;
+  border-top: 4px solid #212427;
+  border-left: 4px solid #212427;
+  position: absolute;
+  bottom: -68px;
+  left: 0;
+  z-index: 1;
+}
+.quiz .stats {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin-left: -10px;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px;
+}
+.quiz .stats svg {
+  width: 15px;
+  height: 15px;
+  fill: #fff;
+}
+.quiz .details {
+  display: none;
+  height: 325px;
+  background: #484F56;
+  padding: 10px;
+  color: #fff;
+  direction: ltr;
+  position: relative;
+}
+.quiz .details .first-letter {
+  width: 50px;
+  height: 50px;
+  line-height: 30px;
+  font-size: 30px;
+  text-align: center;
+  padding: 10px;
+  margin-top: 15px;
+}
+.quiz .details .name {
+  text-align: left;
+  display: block;
+  display: -webkit-box;
+  max-height: 80px;
+  /* Fallback for non-webkit */
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.quiz .details .more {
+  position: absolute;
+  bottom: 10px;
+}
+.quiz:hover .top,
+.quiz:hover .bottom {
+  display: none;
+}
+.quiz:hover .details {
+  display: block;
 }

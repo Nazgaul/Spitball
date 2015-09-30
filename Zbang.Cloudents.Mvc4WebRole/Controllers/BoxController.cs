@@ -128,7 +128,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public PartialViewResult QuizPartial()
         {
-            return PartialView("Index2");
+            return PartialView("_Quizzes2");
         }
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "PartialPage")]
