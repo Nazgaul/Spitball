@@ -2402,6 +2402,7 @@
     <Content Include="Content\Site\accountSettings.less" />
     <Content Include="Content\Site\General.less" />
     <Content Include="Content\Site\boxMembers.less" />
+    <Content Include="Content\Site\rtlFix.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
