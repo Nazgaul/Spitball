@@ -9,6 +9,9 @@
         });
 
         q.getQuizLetter = function (name) {
+            if (angular.isUndefined(name)) {
+                return;
+            }
             return name[0].toUpperCase();
         }
 
