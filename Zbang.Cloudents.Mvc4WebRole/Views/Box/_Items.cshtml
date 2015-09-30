@@ -16,11 +16,15 @@
                         <div class="row mix-grid" mixitup>
                             <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 mix {{::item.tabId}}" ng-repeat="item in i.data">
                                 <a href="{{::item.url}}">
-                                    <div class="mix-inner">
+                                    <div class="mix-inner item">
                                         <img class="img-responsive" src="{{::item.thumbnail}}" alt="">
-                                        <div class="extraDetails">
-                                            <span>{{::item.numOfViews}}</span>
-                                            <span>{{::item.rate}}</span>
+                                        <div class="stats">
+                                            <div class="pull-left likes2">
+                                                {{::item.numOfViews}} @Html.Svg("~/images/site/box-icons.svg", "eye")
+                                            </div>
+                                            <div class="pull-right views">
+                                                {{::item.rate}} @Html.Svg("~/images/site/box-icons.svg", "like")
+                                            </div>
                                         </div>
                                         <div class="mix-details">
                                             <h4>{{::item.name}}</h4>
@@ -33,7 +37,6 @@
                                     </div>
                                 </a>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -41,4 +44,3 @@
         </div>
     </div>
 </div>
-

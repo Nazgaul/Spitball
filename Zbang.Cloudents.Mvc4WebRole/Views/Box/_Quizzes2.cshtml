@@ -6,30 +6,30 @@
     <div class="row">
         <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6 margin-bottom-20" ng-repeat="quiz in q.quizzes">
             <a href="{{quiz.url}}">
-                <div class="quiz" ng-class="q.quizBgColor(quiz.name)">
-                    <div class="top">
-                        <span class="first-letter">{{::q.getQuizLetter(quiz.name)}}</span>
+            <div class="quiz" ng-class="q.quizBgColor(quiz.name)">
+                <div class="top">
+                    <span class="first-letter">{{::q.getQuizLetter(quiz.name)}}</span>
+                </div>
+                <div class="bottom">
+                    <div class="name">{{::quiz.name}}</div>
+                </div>
+                <div class="stats">
+                    <div class="pull-left likes2">
+                        {{::quiz.rate}} @Html.Svg(svgUrl, "like")
                     </div>
-                    <div class="bottom">
-                        <div class="name">{{::quiz.name}}</div>
-                    </div>
-                    <div class="stats">
-                        <div class="pull-left quiz-likes">
-                            {{::quiz.rate}} @Html.Svg(svgUrl, "like")
-                        </div>
-                        <div class="pull-right quiz-views">
-                            {{::quiz.numOfViews}} @Html.Svg(svgUrl, "eye")
-                        </div>
-                    </div>
-                    <div class="details">
-                        <div class="name">{{::quiz.name}}</div>
-                        <div class="first-letter">{{::q.getQuizLetter(quiz.name)}}</div>
-                        <div class="more">
-                            <div class="owner">{{::quiz.owner}}</div>
-                            <div class="date" display-time="{{quiz.date}}"></div>
-                        </div>
+                    <div class="pull-right views">
+                        {{::quiz.numOfViews}} @Html.Svg(svgUrl, "eye")
                     </div>
                 </div>
+                <div class="details">
+                    <div class="name">{{::quiz.name}}</div>
+                    <div class="first-letter">{{::q.getQuizLetter(quiz.name)}}</div>
+                    <div class="more">
+                        <div class="owner">{{::quiz.owner}}</div>
+                        <div class="date" display-time="{{quiz.date}}"></div>
+                    </div>
+                </div>
+            </div>
             </a>
         </div>
     </div>
