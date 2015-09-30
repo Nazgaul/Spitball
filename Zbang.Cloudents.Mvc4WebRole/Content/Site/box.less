@@ -6,10 +6,13 @@
         border: 0;
         border-bottom: 1px solid @loginColor;
         color: @color2;
+        font-weight: bold;
+        font-size:16px;
     }
 
     .nav-tabs {
         border: 0;
+     
     }
 
     .nav-tabs > li > a:hover {
@@ -17,11 +20,12 @@
     }
 
     a {
-        color: @color1;
+        color: @color10;
     }
 
     a:hover, a:focus {
-        color: @color1;
+        color: @color7;
+         
     }
 
     .tabbable {
@@ -87,6 +91,35 @@
     font-size: 15px;
     margin-left: 10px;
 }
+
+ .stats {
+        width: 100%;
+        height: 38px;
+        color: @color2;
+        font-size: 14px;
+        padding: 12px;
+        
+        svg {
+            vertical-align:top;
+            margin-top:5px;
+        }
+        
+        .likes2 {
+            svg {               
+                width: 12px;
+                height: 12px;
+                fill: @color2;
+            }
+        }
+
+        .views {
+            svg {                
+                width: 14px;
+                height: 14px;
+                fill: @color2;
+            }
+        }
+    }
 
 .quiz {
     border: 1px solid #42494F;
@@ -262,34 +295,7 @@
         }
     }
 
-    .stats {
-        width: 100%;
-        height: 38px;
-        color: @color2;
-        font-size: 14px;
-        padding: 12px;
-        
-        svg {
-            vertical-align:top;
-            margin-top:5px;
-        }
-        
-        .quiz-likes {
-            svg {               
-                width: 12px;
-                height: 12px;
-                fill: @color2;
-            }
-        }
-
-        .quiz-views {
-            svg {                
-                width: 14px;
-                height: 14px;
-                fill: @color2;
-            }
-        }
-    }
+   
 
     .details {
         display: none;
@@ -331,6 +337,12 @@
         }
     }
 }
+
+.item {
+    border: 1px solid #42494F;
+    padding: 5px;
+
+    }
 
 /*.quiz:hover {
     .top, .bottom {

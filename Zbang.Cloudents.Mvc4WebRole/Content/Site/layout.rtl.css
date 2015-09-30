@@ -51,7 +51,7 @@ Page Header
   height: 75px;
   min-height: 75px;
   filter: none;
-  background-image: none;
+  background-image: none
   /* Fixed header */
   /* Header logo */
   /* header top */
@@ -181,7 +181,7 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav {
   padding: 0;
   margin-left: 20px;
-  display: block;
+  display: block
   /* Extended Dropdowns */
   /* Notification */
   /* Inbox */
@@ -263,7 +263,7 @@ Page Header
   min-width: 160px;
   max-width: 275px;
   width: 275px;
-  z-index: 9995;
+  z-index: 9995
   /* header notifications dropdowns */
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu > li.external {
@@ -549,7 +549,7 @@ Page Header
     padding: 0;
     margin: 0;
     position: relative;
-    clear: both;
+    clear: both
     /* Page logo */
     /* Menu Toggler */
     /* Search form */
@@ -627,7 +627,7 @@ Page Header
   /* 767px */
   /* Page header */
   .page-header.navbar {
-    padding: 0;
+    padding: 0
     /* Header logo */
     /* Search box */
     /* Top navigation menu*/
@@ -754,7 +754,7 @@ Page container
 .page-container {
   margin: 0;
   padding: 20px 20px 0 20px;
-  position: relative;
+  position: relative
   /* Fixed header */
   /* Fixed footer for mobile */
 }
@@ -1215,7 +1215,7 @@ Quick Sidebar Toggler
 Quick Sidebar Content
 ***/
 .page-quick-sidebar-wrapper {
-  color: #99a8b5;
+  color: #99a8b5
   /* Quick sidebar chat */
   /* Quick sidebar alerts */
 }
@@ -1335,7 +1335,7 @@ Page sidebar
 /* Page Sidebar */
 .page-sidebar,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover {
-  border-radius: 4px;
+  border-radius: 4px
   /* Default sidebar menu */
 }
 .page-sidebar.navbar-collapse,
@@ -1348,7 +1348,7 @@ Page sidebar
   border-radius: 4px;
   list-style: none;
   margin: 10px 0 0 0;
-  padding: 0;
+  padding: 0
   /* 1st level links */
   /* all links */
 }
@@ -1463,7 +1463,7 @@ Page sidebar
   background: none;
   margin: 0;
   padding: 0;
-  margin-top: 1px !important;
+  margin-top: 1px !important
   /* 2nd level sub menu */
 }
 .page-sidebar .page-sidebar-menu .sub-menu li > a,
@@ -1762,7 +1762,7 @@ Page sidebar
     display: none !important;
   }
   .page-sidebar.navbar-collapse {
-    max-height: none;
+    max-height: none
     /* set some max height to have a scrollable menu on mobile devices */
   }
   .page-sidebar.navbar-collapse.collapse {
@@ -1947,7 +1947,7 @@ Page content
   /* Page content */
   .page-content-wrapper .page-content {
     padding: 20px 10px 10px 10px !important;
-    overflow: hidden;
+    overflow: hidden
     /* Page title */
   }
   .page-content-wrapper .page-content .page-title {

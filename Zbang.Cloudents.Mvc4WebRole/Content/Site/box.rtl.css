@@ -4,6 +4,8 @@
   border: 0;
   border-bottom: 1px solid #3293f6;
   color: #f5f5f5;
+  font-weight: bold;
+  font-size: 16px;
 }
 .class .nav-tabs {
   border: 0;
@@ -12,11 +14,11 @@
   border: 1px solid transparent;
 }
 .class a {
-  color: #5f6871;
+  color: #8c99a6;
 }
 .class a:hover,
 .class a:focus {
-  color: #5f6871;
+  color: #3598dc;
 }
 .class .tabbable {
   background-color: #353a3f;
@@ -65,6 +67,27 @@
   color: #bababa;
   font-size: 15px;
   margin-right: 10px;
+}
+.stats {
+  width: 100%;
+  height: 38px;
+  color: #f5f5f5;
+  font-size: 14px;
+  padding: 12px;
+}
+.stats svg {
+  vertical-align: top;
+  margin-top: 5px;
+}
+.stats .likes2 svg {
+  width: 12px;
+  height: 12px;
+  fill: #f5f5f5;
+}
+.stats .views svg {
+  width: 14px;
+  height: 14px;
+  fill: #f5f5f5;
 }
 .quiz {
   border: 1px solid #42494F;
@@ -199,27 +222,6 @@
   border-width: 39px 0 0 39px;
   border-color: #f5f5f5 transparent;
 }
-.quiz .stats {
-  width: 100%;
-  height: 38px;
-  color: #f5f5f5;
-  font-size: 14px;
-  padding: 12px;
-}
-.quiz .stats svg {
-  vertical-align: top;
-  margin-top: 5px;
-}
-.quiz .stats .quiz-likes svg {
-  width: 12px;
-  height: 12px;
-  fill: #f5f5f5;
-}
-.quiz .stats .quiz-views svg {
-  width: 14px;
-  height: 14px;
-  fill: #f5f5f5;
-}
 .quiz .details {
   display: none;
   height: 325px;
@@ -255,12 +257,7 @@
   position: absolute;
   bottom: 10px;
 }
-/*.quiz:hover {
-    .top, .bottom {
-        display: none;
-    }
-
-    .details {
-        display: block;
-    }
-}*/
+.item {
+  border: 1px solid #42494F;
+  padding: 5px;
+}
