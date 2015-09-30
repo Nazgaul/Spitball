@@ -1,10 +1,11 @@
 ﻿(function () {
     angular.module('app.upload').controller('Upload', upload);
-    upload.$inject = ['$scope', 'itemService', 'dropboxService', '$q', 'googleService', '$timeout'];
+    upload.$inject = ['$scope', 'itemService', 'dropboxService', '$q', 'googleService', '$timeout', '$stateParams'];
 
-    function upload($scope, itemService, dropboxService, $q, googleService, $timeout) {
+    function upload($scope, itemService, dropboxService, $q, googleService, $timeout, $stateParams) {
         var u = this;
-        var cc = $scope.$parent.cc;
+        var boxid = $stateParams.boxId || $scope.$parent.cc.box.id;
+        var cc = $scope.$parent.cc || {};
 
         var uploadChoose = {
             none: 0,
@@ -30,7 +31,7 @@
             googleService.picker().then(function (response) {
                 var filesUpload = [];
                 for (var i = 0; i < response.length; i++) {
-                    filesUpload.push(itemService.addLink(response[i].link, cc.box.id, null, null, response[i].name));
+                    filesUpload.push(itemService.addLink(response[i].link, boxid, null, null, response[i].name));
                 }
                 $q.all(filesUpload).then(function () {
                     alert('done');
@@ -43,7 +44,7 @@
             dropboxService.choose().then(function (response) {
                 var filesUpload = [];
                 for (var i = 0; i < response.length; i++) {
-                    filesUpload.push(itemService.addFromDropBox(cc.box.id, response[i].link, response[i].name));
+                    filesUpload.push(itemService.addFromDropBox(boxid, response[i].link, response[i].name));
                 }
                 $q.all(filesUpload).then(function () {
                     alert('done');
@@ -56,19 +57,25 @@
         u.uploadStep = uploadChoose.none;
 
         u.link = 'http://';
+        u.alert = null;
+        u.submitFormProcess = false;
+
+        $scope.closeAlert = function () {
+            u.alert = null;
+        }
         //upload 
         u.uploadLink = function () {
             if (!u.link) {
-                cc.alert = 'not a valid url';
+                u.alert = 'not a valid url';
                 return;
             }
-            cc.submitFormProcess = true;
-            itemService.addLink(u.link, cc.box.id).then(function () {
+            u.submitFormProcess = cc.submitFormProcess = true;
+            itemService.addLink(u.link, boxid).then(function () {
                 u.uploadStep = uploadChoose.none;
             }, function (response) {
-                cc.alert = response;
+                u.alert = response;
             }).finally(function () {
-                cc.submitFormProcess = false;
+                u.submitFormProcess = cc.submitFormProcess = false;
             });
 
         }
@@ -99,7 +106,7 @@
                     up.settings.multipart_params = {
                         fileName: file.name,
                         fileSize: file.size,
-                        boxId: cc.box.id,
+                        boxId: boxid,
                         question: false,
                         isComment: false
 
@@ -131,7 +138,7 @@
                 },
                 error: function (uploader, error) {
                     //$scope.loading = false;
-                    alert(error.message);
+                    u.alert = error.message;
                 }
             }
         }
