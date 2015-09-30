@@ -61,94 +61,98 @@
   border-radius: 45px;
   padding: 3px 10px;
 }
-.class .comment {
-  padding-top: 10px;
-  font-size: 12px;
+.members-margin {
+  margin: 10px 10px 10px 10px;
 }
-.class .quiz {
+.member-name {
+  color: #bababa;
+  font-size: 15px;
+  margin-right: 10px;
+}
+.quiz {
   border: 1px solid #42494F;
   padding: 10px;
   height: 384px;
   position: relative;
 }
-.class .quiz.color0 .top,
-.class .quiz.color0 .details .first-letter {
+.quiz.color0 .top,
+.quiz.color0 .details .first-letter {
   background: #64a9f8;
 }
-.class .quiz.color1 .top,
-.class .quiz.color1 .details .first-letter {
+.quiz.color1 .top,
+.quiz.color1 .details .first-letter {
   background: #9d87b7;
 }
-.class .quiz.color2 .top,
-.class .quiz.color2 .details .first-letter {
+.quiz.color2 .top,
+.quiz.color2 .details .first-letter {
   background: #666e70;
 }
-.class .quiz.color3 .top,
-.class .quiz.color3 .details .first-letter {
+.quiz.color3 .top,
+.quiz.color3 .details .first-letter {
   background: #ff9853;
 }
-.class .quiz.color4 .top,
-.class .quiz.color4 .details .first-letter {
+.quiz.color4 .top,
+.quiz.color4 .details .first-letter {
   background: #e775ce;
 }
-.class .quiz.color5 .top,
-.class .quiz.color5 .details .first-letter {
+.quiz.color5 .top,
+.quiz.color5 .details .first-letter {
   background: #ffb933;
 }
-.class .quiz.color6 .top,
-.class .quiz.color6 .details .first-letter {
+.quiz.color6 .top,
+.quiz.color6 .details .first-letter {
   background: #848fa6;
 }
-.class .quiz.color7 .top,
-.class .quiz.color7 .details .first-letter {
+.quiz.color7 .top,
+.quiz.color7 .details .first-letter {
   background: #5474cf;
 }
-.class .quiz.color8 .top,
-.class .quiz.color8 .details .first-letter {
+.quiz.color8 .top,
+.quiz.color8 .details .first-letter {
   background: #e3b75f;
 }
-.class .quiz.color9 .top,
-.class .quiz.color9 .details .first-letter {
+.quiz.color9 .top,
+.quiz.color9 .details .first-letter {
   background: #695b47;
 }
-.class .quiz.color10 .top,
-.class .quiz.color10 .details .first-letter {
+.quiz.color10 .top,
+.quiz.color10 .details .first-letter {
   background: #f36f6e;
 }
-.class .quiz.color11 .top,
-.class .quiz.color11 .details .first-letter {
+.quiz.color11 .top,
+.quiz.color11 .details .first-letter {
   background: #f76446;
 }
-.class .quiz.color12 .top,
-.class .quiz.color12 .details .first-letter {
+.quiz.color12 .top,
+.quiz.color12 .details .first-letter {
   background: #73b435;
 }
-.class .quiz.color13 .top,
-.class .quiz.color13 .details .first-letter {
+.quiz.color13 .top,
+.quiz.color13 .details .first-letter {
   background: #6ea77b;
 }
-.class .quiz.color14 .top,
-.class .quiz.color14 .details .first-letter {
+.quiz.color14 .top,
+.quiz.color14 .details .first-letter {
   background: #c33f40;
 }
-.class .quiz.color15 .top,
-.class .quiz.color15 .details .first-letter {
+.quiz.color15 .top,
+.quiz.color15 .details .first-letter {
   background: #549af7;
 }
-.class .quiz.color16 .top,
-.class .quiz.color16 .details .first-letter {
+.quiz.color16 .top,
+.quiz.color16 .details .first-letter {
   background: #4e5384;
 }
-.class .quiz.color17 .top,
-.class .quiz.color17 .details .first-letter {
+.quiz.color17 .top,
+.quiz.color17 .details .first-letter {
   background: #4faf61;
 }
-.class .quiz .top {
+.quiz .top {
   height: 145px;
   position: relative;
   color: #fff;
 }
-.class .quiz .top .first-letter {
+.quiz .top .first-letter {
   position: absolute;
   top: 0;
   left: 0;
@@ -163,13 +167,13 @@
   padding: 10px;
   border: 1px solid #EDF7FB;
 }
-.class .quiz .bottom {
+.quiz .bottom {
   height: 112px;
   background: #fff;
   position: relative;
   padding: 10px;
 }
-.class .quiz .bottom .name {
+.quiz .bottom .name {
   color: #42494F;
   display: block;
   display: -webkit-box;
@@ -182,7 +186,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.class .quiz .bottom:before {
+.quiz .bottom:before {
   content: "";
   bottom: -68px;
   height: 68px;
@@ -191,7 +195,7 @@
   position: absolute;
   background: #fff;
 }
-.class .quiz .bottom:after {
+.quiz .bottom:after {
   content: '';
   display: block;
   left: 0;
@@ -200,7 +204,7 @@
   border-top: 68px solid #fff;
   border-left: 68px solid transparent;
 }
-.class .quiz .bottom .dogear {
+.quiz .bottom .dogear {
   width: 68px;
   height: 68px;
   border-top: 4px solid #212427;
@@ -210,7 +214,7 @@
   right: 0;
   z-index: 1;
 }
-.class .quiz .stats {
+.quiz .stats {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -219,12 +223,12 @@
   font-size: 16px;
   padding: 10px;
 }
-.class .quiz .stats svg {
+.quiz .stats svg {
   width: 15px;
   height: 15px;
   fill: #fff;
 }
-.class .quiz .details {
+.quiz .details {
   display: none;
   height: 325px;
   background: #484F56;
@@ -233,7 +237,7 @@
   direction: rtl;
   position: relative;
 }
-.class .quiz .details .first-letter {
+.quiz .details .first-letter {
   width: 50px;
   height: 50px;
   line-height: 30px;
@@ -242,7 +246,7 @@
   padding: 10px;
   margin-top: 15px;
 }
-.class .quiz .details .name {
+.quiz .details .name {
   text-align: right;
   display: block;
   display: -webkit-box;
@@ -255,14 +259,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.class .quiz .details .more {
+.quiz .details .more {
   position: absolute;
   bottom: 10px;
 }
-.class .quiz:hover .top,
-.class .quiz:hover .bottom {
+.quiz:hover .top,
+.quiz:hover .bottom {
   display: none;
 }
-.class .quiz:hover .details {
+.quiz:hover .details {
   display: block;
 }
