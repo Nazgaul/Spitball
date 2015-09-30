@@ -34,7 +34,7 @@
 
                     var date = new Date(attrs.displayTime);
 
-                    if (!_.isDate(date)) {
+                    if (!isDate(date)) {
                         $log.error('invalid date' + elem[0].className);
                         return;
                     }
@@ -45,6 +45,10 @@
 
                     displayTimeService.onTimeAgo(scope, updateTime);
                     updateTime();
+
+                    function isDate(date) {
+                        return date instanceof Date && !isNaN(date.valueOf());
+                    }
                 }
 
             };

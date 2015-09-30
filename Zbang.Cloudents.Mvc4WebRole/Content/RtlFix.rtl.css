@@ -177,3 +177,18 @@
 .rtlFix .quizPage .quizViews {
   margin: 10px 5px 0 -5px;
 }
+.rtlFix .quiz .bottom {
+  height: 112px;
+  background: #fff;
+  position: relative;
+}
+.rtlFix .quiz .bottom:before {
+  content: "";
+  bottom: -78px;
+  height: 78px;
+  left: 0;
+  right: auto;
+  width: calc(100% - 78px);
+  position: absolute;
+  background: #fff;
+}

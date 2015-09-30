@@ -25,334 +25,335 @@
     @Html.Css2("site4")
     <base href="/" />
 </head>
-    <body ng-controller="AppController as app" class="page-header-fixed page-sidebar-closed-hide-logo page-sidebar-closed-hide-logo page-sidebar-fixed">
-        
-        <!-- BEGIN PAGE SPINNER -->
-        <div ng-spinner-bar class="page-spinner-bar">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
-        </div>
-        <!-- BEGIN HEADER -->
-        <div class="page-header navbar navbar-fixed-top">
-            <!-- BEGIN HEADER INNER -->
-            <div class="page-header-inner">
-                <!-- BEGIN LOGO -->
-                <div class="page-logo">
-                    <a href="@url" @shouldPostBack>
-                        @Html.Svg(svgUrl, "logo", new { @class = "logo-default" })
-                    </a>
-                    <div class="menu-toggler sidebar-toggler">
-                        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-                    </div>
-                </div>
-                <!-- END LOGO -->
-                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-                    @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
+<body ng-controller="AppController as app" class="page-header-fixed page-sidebar-closed-hide-logo page-sidebar-closed-hide-logo page-sidebar-fixed @Html.ClassOfRtl()">
+
+    <!-- BEGIN PAGE SPINNER -->
+    <div ng-spinner-bar class="page-spinner-bar">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+    <!-- BEGIN HEADER -->
+    <div class="page-header navbar navbar-fixed-top">
+        <!-- BEGIN HEADER INNER -->
+        <div class="page-header-inner">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo">
+                <a href="@url" @shouldPostBack>
+                    @Html.Svg(svgUrl, "logo", new { @class = "logo-default" })
                 </a>
-                <!-- END RESPONSIVE MENU TOGGLER -->
-          
-                <!-- BEGIN PAGE TOP -->
-                <div class="page-top">
-                    <!-- BEGIN HEADER SEARCH BOX -->
-                    <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
-                    <form class="search-form search-form-expanded">
-                        <div class="input-group">
-                            <input type="text" class="form-control input-sm" placeholder="Search..." name="query">
-                            <span class="input-group-btn">
-                                <a href="javascript:;" class="btn submit">@Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })</a>
-                            </span>
-                        </div>
-                    </form>
-                    <!-- END HEADER SEARCH BOX -->
-                    <!-- BEGIN TOP NAVIGATION MENU -->
-                    <div class="top-menu">
-                        <ul class="nav navbar-nav pull-right">
-                            <li class="separator hide">
-                            </li>
-                            @*<li>
+                <div class="menu-toggler sidebar-toggler">
+                    <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                </div>
+            </div>
+            <!-- END LOGO -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
+            </a>
+            <!-- END RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN PAGE TOP -->
+            <div class="page-top">
+                <!-- BEGIN HEADER SEARCH BOX -->
+                <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
+                <form class="search-form search-form-expanded">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm" placeholder="Search..." name="query">
+                        <span class="input-group-btn">
+                            <a href="javascript:;" class="btn submit">@Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })</a>
+                        </span>
+                    </div>
+                </form>
+                <!-- END HEADER SEARCH BOX -->
+                <!-- BEGIN TOP NAVIGATION MENU -->
+                <div class="top-menu">
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="separator hide">
+                        </li>
+                        @*<li>
                                 @Html.Svg(svgUrl, "headerInvite")
                             </li>*@
-                            <li class="separator hide">
-                            </li>
-                            <li>
-                                <a href="@Url.RouteUrl("Help")" class="headerHelp">
-                                    @Html.Svg(svgUrl, "headerHelp")
-                                </a>
-                            </li>
-                            <li class="separator hide">
-                            </li>
-                            <!-- BEGIN TODO DROPDOWN -->
-                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                            <li class="dropdown dropdown-extended dropdown-tasks dropdown-dark" id="header_task_bar">
-                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    @*<i class="icon-calendar"></i>*@
-                                    @Html.Svg(svgUrl, "headerNotification", new { @class = "headerNotification" })
-                                    <span class="badge badge-notifcation">
-                                        3
-                                    </span>
-                                </a>
-                                <ul class="dropdown-menu extended tasks">
-                                    <li class="external">
-                                        <h3>You have <span class="bold">12 pending</span> tasks</h3>
-                                        <a href="page_todo.html">view all</a>
-                                    </li>
-                                    <li>
-                                        <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="task">
-                                                        <span class="desc">New release v1.2 </span>
-                                                        <span class="percent">30%</span>
-                                                    </span>
-                                                    <span class="progress">
-                                                        <span style="width: 40%;" class="progress-bar progress-bar-success" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">40% Complete</span></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="task">
-                                                        <span class="desc">Application deployment</span>
-                                                        <span class="percent">65%</span>
-                                                    </span>
-                                                    <span class="progress">
-                                                        <span style="width: 65%;" class="progress-bar progress-bar-danger" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">65% Complete</span></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="task">
-                                                        <span class="desc">Mobile app release</span>
-                                                        <span class="percent">98%</span>
-                                                    </span>
-                                                    <span class="progress">
-                                                        <span style="width: 98%;" class="progress-bar progress-bar-success" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">98% Complete</span></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="task">
-                                                        <span class="desc">Database migration</span>
-                                                        <span class="percent">10%</span>
-                                                    </span>
-                                                    <span class="progress">
-                                                        <span style="width: 10%;" class="progress-bar progress-bar-warning" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">10% Complete</span></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="task">
-                                                        <span class="desc">Web server upgrade</span>
-                                                        <span class="percent">58%</span>
-                                                    </span>
-                                                    <span class="progress">
-                                                        <span style="width: 58%;" class="progress-bar progress-bar-info" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">58% Complete</span></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="task">
-                                                        <span class="desc">Mobile development</span>
-                                                        <span class="percent">85%</span>
-                                                    </span>
-                                                    <span class="progress">
-                                                        <span style="width: 85%;" class="progress-bar progress-bar-success" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">85% Complete</span></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="task">
-                                                        <span class="desc">New UI release</span>
-                                                        <span class="percent">38%</span>
-                                                    </span>
-                                                    <span class="progress progress-striped">
-                                                        <span style="width: 38%;" class="progress-bar progress-bar-important" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">38% Complete</span></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- END TODO DROPDOWN -->
-                            <!-- BEGIN USER LOGIN DROPDOWN -->
-                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                            <li class="dropdown dropdown-user dropdown-dark" ng-controller="UserDetails as ud">
-                                <a ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <span class="username username-hide-on-mobile">
-                                        {{ud.name}}
-                                        @*<span class="headerPoints">{{ud.score}}</span>*@
-                                    </span>
-                                    <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                                    <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39"></user-image>
-                                </a>
-                                <ul ng-if="ud.isLoggedIn" class="dropdown-menu dropdown-menu-default">
-                                    <li>
-                                        <a href="extra_profile.html">
-                                            <i class="icon-user"></i> My Profile
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page_calendar.html">
-                                            <i class="icon-calendar"></i> My Calendar
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="inbox.html">
-                                            <i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger">
-                                                                                            3
-                                                                                        </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page_todo.html">
-                                            <i class="icon-rocket"></i> My Tasks <span class="badge badge-success">
-                                                                                     7
-                                                                                 </span>
-                                        </a>
-                                    </li>
-                                    <li class="divider">
-                                    </li>
-                                    <li>
-                                        <a href="extra_lock.html">
-                                            <i class="icon-lock"></i> Lock Screen
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="@Url.Action("logoff","account")" @shouldPostBack>
-                                            <i class="icon-key"></i> Log Out
-                                        </a>
-                                    </li>
-                                </ul>
-                                <a class="btn btn-defalut" target="_self" href="@Url.Action("SignUp", "Account")" ng-if="!ud.isLoggedIn">sign up</a>
-                                <a class="btn btn-primary" target="_self" href="@Url.Action("SignIn","Account")" ng-if="!ud.isLoggedIn">log in</a>
-                            </li>
+                        <li class="separator hide">
+                        </li>
+                        <li>
+                            <a href="@Url.RouteUrl("Help")" class="headerHelp">
+                                @Html.Svg(svgUrl, "headerHelp")
+                            </a>
+                        </li>
+                        <li class="separator hide">
+                        </li>
+                        <!-- BEGIN TODO DROPDOWN -->
+                        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                        <li class="dropdown dropdown-extended dropdown-tasks dropdown-dark" id="header_task_bar">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                @*<i class="icon-calendar"></i>*@
+                                @Html.Svg(svgUrl, "headerNotification", new { @class = "headerNotification" })
+                                <span class="badge badge-notifcation">
+                                    3
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu extended tasks">
+                                <li class="external">
+                                    <h3>You have <span class="bold">12 pending</span> tasks</h3>
+                                    <a href="page_todo.html">view all</a>
+                                </li>
+                                <li>
+                                    <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">New release v1.2 </span>
+                                                    <span class="percent">30%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 40%;" class="progress-bar progress-bar-success" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">40% Complete</span></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">Application deployment</span>
+                                                    <span class="percent">65%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 65%;" class="progress-bar progress-bar-danger" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">65% Complete</span></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">Mobile app release</span>
+                                                    <span class="percent">98%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 98%;" class="progress-bar progress-bar-success" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">98% Complete</span></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">Database migration</span>
+                                                    <span class="percent">10%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 10%;" class="progress-bar progress-bar-warning" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">10% Complete</span></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">Web server upgrade</span>
+                                                    <span class="percent">58%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 58%;" class="progress-bar progress-bar-info" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">58% Complete</span></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">Mobile development</span>
+                                                    <span class="percent">85%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 85%;" class="progress-bar progress-bar-success" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">85% Complete</span></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">New UI release</span>
+                                                    <span class="percent">38%</span>
+                                                </span>
+                                                <span class="progress progress-striped">
+                                                    <span style="width: 38%;" class="progress-bar progress-bar-important" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">38% Complete</span></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- END TODO DROPDOWN -->
+                        <!-- BEGIN USER LOGIN DROPDOWN -->
+                        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                        <li class="dropdown dropdown-user dropdown-dark" ng-controller="UserDetails as ud">
+                            <a ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <span class="username username-hide-on-mobile">
+                                    {{ud.name}}
+                                    @*<span class="headerPoints">{{ud.score}}</span>*@
+                                </span>
+                                <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
+                                <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39"></user-image>
+                            </a>
+                            <ul ng-if="ud.isLoggedIn" class="dropdown-menu dropdown-menu-default">
+                                <li>
+                                    <a href="extra_profile.html">
+                                        <i class="icon-user"></i> My Profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="page_calendar.html">
+                                        <i class="icon-calendar"></i> My Calendar
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="inbox.html">
+                                        <i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger">
+                                            3
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="page_todo.html">
+                                        <i class="icon-rocket"></i> My Tasks <span class="badge badge-success">
+                                            7
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a href="extra_lock.html">
+                                        <i class="icon-lock"></i> Lock Screen
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("logoff","account")" @shouldPostBack>
+                                        <i class="icon-key"></i> Log Out
+                                    </a>
+                                </li>
+                            </ul>
+                            <a class="btn btn-defalut" target="_self" href="@Url.Action("SignUp", "Account")" ng-if="!ud.isLoggedIn">sign up</a>
+                            <a class="btn btn-primary" target="_self" href="@Url.Action("SignIn","Account")" ng-if="!ud.isLoggedIn">log in</a>
+                        </li>
 
-                            <!-- END USER LOGIN DROPDOWN -->
-                            <!-- BEGIN USER LOGIN DROPDOWN -->
-                            @*<li class="dropdown dropdown-extended quick-sidebar-toggler">
+                        <!-- END USER LOGIN DROPDOWN -->
+                        <!-- BEGIN USER LOGIN DROPDOWN -->
+                        @*<li class="dropdown dropdown-extended quick-sidebar-toggler">
                                 <span class="sr-only">Toggle Quick Sidebar</span>
                                 <i class="icon-logout"></i>
                             </li>*@
-                            <!-- END USER LOGIN DROPDOWN -->
-                        </ul>
-                    </div>
-                    <!-- END TOP NAVIGATION MENU -->
-                </div>
-                <!-- END PAGE TOP -->
-            </div>
-            <!-- END HEADER INNER -->
-        </div>
-        <div class="clearfix">
-        </div>
-        <!-- END HEADER -->
-        <div class="page-container">
-            <div class="page-sidebar-wrapper">
-                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-                <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                <div class="page-sidebar navbar-collapse collapse">
-                    <!-- BEGIN SIDEBAR MENU -->
-                    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-                    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-                    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-                    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-                    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-                    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                    <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-controller="SideMenu as d">
-                        <li class="start ">
-                            <a @shouldPostBack href="@Url.Action("Index","Dashboard")">
-                                @Html.Svg(svgUrl, "houseMenu")
-                                <span class="title">Dashboard</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <span class="title">My Classes</span>
-                                <span class="arrow "></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li ng-repeat="box in d.courses">
-                                    <a href="{{::box.url}}">
-                                        <span class="badge badge-danger" ng-if="box.updates !== 0">{{box.updates}}</span>
-                                        {{::box.name}}
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <span class="title">My Group</span>
-                                <span class="arrow "></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li ng-repeat="box in d.privateBoxes">
-                                    <a href="{{::box.url}}">
-                                        <span class="badge badge-danger" ng-if="box.updates !== 0">{{box.updates}}</span>
-                                        {{::box.name}}
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")">
-                                @Html.Svg(svgUrl, "universityMenu")
-                                <span class="title">University Page</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a @shouldPostBack href="{{::d.userUrl}}">
-                                @Html.Svg(svgUrl, "userMenu")
-                                <span class="title">User Page</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a @shouldPostBack href="@Url.RouteUrl("AccountSettings")">
-                                @Html.Svg(svgUrl, "settingMenu")
-                                <span class="title">Settings</span>
-                            </a>
-                        </li>
-                        <li class="last ">
-                            <a target="_self" href="@Url.Action("logoff","account")">
-                                @Html.Svg(svgUrl, "logOffMenu")
-                                <span class="title">Log out</span>
-                            </a>
-                        </li>
+                        <!-- END USER LOGIN DROPDOWN -->
                     </ul>
-                    <!-- END SIDEBAR MENU -->
                 </div>
+                <!-- END TOP NAVIGATION MENU -->
             </div>
-            <div class="page-content-wrapper">
-                <div class="page-content">
-                    @RenderBody()
-                </div>
+            <!-- END PAGE TOP -->
+        </div>
+        <!-- END HEADER INNER -->
+    </div>
+    <div class="clearfix">
+    </div>
+    <!-- END HEADER -->
+    <div class="page-container">
+        <div class="page-sidebar-wrapper">
+            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+            <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+            <div class="page-sidebar navbar-collapse collapse">
+                <!-- BEGIN SIDEBAR MENU -->
+                <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+                <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+                <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+                <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-controller="SideMenu as d">
+                    <li class="start ">
+                        <a @shouldPostBack href="@Url.Action("Index","Dashboard")">
+                            @Html.Svg(svgUrl, "houseMenu")
+                            <span class="title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <span class="title">My Classes</span>
+                            <span class="arrow "></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li ng-repeat="box in d.courses">
+                                <a href="{{::box.url}}">
+                                    <span class="badge badge-danger" ng-if="box.updates !== 0">{{box.updates}}</span>
+                                    {{::box.name}}
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <span class="title">My Group</span>
+                            <span class="arrow "></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li ng-repeat="box in d.privateBoxes">
+                                <a href="{{::box.url}}">
+                                    <span class="badge badge-danger" ng-if="box.updates !== 0">{{box.updates}}</span>
+                                    {{::box.name}}
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")">
+                            @Html.Svg(svgUrl, "universityMenu")
+                            <span class="title">University Page</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a @shouldPostBack href="{{::d.userUrl}}">
+                            @Html.Svg(svgUrl, "userMenu")
+                            <span class="title">User Page</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a @shouldPostBack href="@Url.RouteUrl("AccountSettings")">
+                            @Html.Svg(svgUrl, "settingMenu")
+                            <span class="title">Settings</span>
+                        </a>
+                    </li>
+                    <li class="last ">
+                        <a target="_self" href="@Url.Action("logoff","account")">
+                            @Html.Svg(svgUrl, "logOffMenu")
+                            <span class="title">Log out</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- END SIDEBAR MENU -->
             </div>
         </div>
-        @Html.Script2("site4")
-        @RenderSection("scripts", false)
-        <script>
-            jQuery(document).ready(function () {
-                Metronic.init(); // init metronic core componets
-                Layout.initHeader();
-                Layout.initSidebar();
-                //Layout.init(); // init layout
-                //Demo.init(); // init demo features
-                //QuickSidebar.init(); // init quick sidebar
-                //Index.init(); // init index page
-                //Tasks.initDashboardWidget(); // init tash dashboard widget
-            });
-            window.version = '@VersionHelper.CurrentVersion(true)';
-        </script>
-        <!-- END JAVASCRIPTS -->
-    </body>
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    @Html.Script2("site4")
+    @RenderSection("scripts", false)
+    <script>
+        jQuery(document).ready(function () {
+            Metronic.init(); // init metronic core componets
+            Layout.initHeader();
+            Layout.initSidebar();
+            //Layout.init(); // init layout
+            //Demo.init(); // init demo features
+            //QuickSidebar.init(); // init quick sidebar
+            //Index.init(); // init index page
+            //Tasks.initDashboardWidget(); // init tash dashboard widget
+        });
+        window.version = '@VersionHelper.CurrentVersion(true)';
+    </script>
+    <!-- END JAVASCRIPTS -->
+</body>
+
+
 
 </html>

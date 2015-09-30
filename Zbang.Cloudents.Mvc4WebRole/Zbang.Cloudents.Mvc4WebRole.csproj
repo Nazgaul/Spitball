@@ -1778,6 +1778,18 @@
     <Content Include="Content\Site\boxMembers.rtl.min.css">
       <DependentUpon>boxMembers.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\rtlFix.css">
+      <DependentUpon>rtlFix.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\rtlFix.min.css">
+      <DependentUpon>rtlFix.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\rtlFix.rtl.css">
+      <DependentUpon>rtlFix.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\rtlFix.rtl.min.css">
+      <DependentUpon>rtlFix.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\user.css">
       <DependentUpon>user.less</DependentUpon>
     </Content>
@@ -1868,6 +1880,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\3rdParty\logo_120_4_google.png" />
+    <Content Include="Images\Site\box-icons.svg" />
     <Content Include="Images\favIcons\favicon_114.png" />
     <Content Include="Images\favIcons\favicon_120.png" />
     <Content Include="Images\favIcons\favicon_144.png" />
@@ -2389,6 +2402,7 @@
     <Content Include="Content\Site\accountSettings.less" />
     <Content Include="Content\Site\General.less" />
     <Content Include="Content\Site\boxMembers.less" />
+    <Content Include="Content\Site\rtlFix.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3285,7 +3299,6 @@
     <Content Include="Views\Shared\EditorTemplates\Countries.cshtml" />
     <Content Include="Views\Dashboard\_CreateBoxWizard.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
-    <Content Include="Views\Box\_Quizzes.cshtml" />
     <Content Include="Views\Item\_PreviewSvg.cshtml" />
     <Content Include="Views\Item\FullScreen.cshtml" />
     <Content Include="Views\Box\_Feed.cshtml" />

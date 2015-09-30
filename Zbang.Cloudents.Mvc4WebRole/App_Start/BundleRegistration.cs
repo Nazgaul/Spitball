@@ -119,7 +119,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/site/user.css",
                         "~/Content/site/accountSettings.css",
                         "~/Content/site/library.css",
-                        "~/Content/site/item.css"
+                        "~/Content/site/item.css",
                         //"~/Content/signin/select2.css",
                         //"~/Content/signin/login-soft.css",
                         //"~/Content/signin/components-md.css",
@@ -128,6 +128,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //"~/Content/signin/default.css",
                         //"~/Content/signin/custom.css",
                         //"~/Content/signin/customRtl.css"
+
+                        "~/Content/site/rtlFix.css"
                     }
                 },
             };
@@ -440,6 +442,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/app.js"),
                         new JsFileWithCdn("~/js/app.config.js"),
                         new JsFileWithCdn("~/js/app.route.js"),
+                        new JsFileWithCdn("~/js/modules/displayTime.js"),
 
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.module.js"),
                         new JsFileWithCdn("~/js/components/user/userdetails.controller.js"),
@@ -447,7 +450,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/user/account.controller.js"),
                         new JsFileWithCdn("~/js/components/user/user.service.js"),
                         new JsFileWithCdn("~/js/components/user/updates.service.js"),
-
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.service.js"),
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/sidemenu.controller.js"),
@@ -456,6 +458,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/box/box.controller.js"),
                         new JsFileWithCdn("~/js/components/box/feed.controller.js"),
                         new JsFileWithCdn("~/js/components/box/item.controller.js"),
+                        new JsFileWithCdn("~/js/components/box/quizzes.controller.js"),
                         new JsFileWithCdn("~/js/components/box/members.controller.js"),
 
                   

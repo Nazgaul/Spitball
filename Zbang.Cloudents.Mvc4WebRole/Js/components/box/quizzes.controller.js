@@ -3,12 +3,20 @@
     quizzes.$inject = ['boxService', '$stateParams'];
 
     function quizzes(boxService, $stateParams) {
-
-
-        var m = this;
-        var boxData;
+        var q = this;        
         boxService.getQuizzes($stateParams.boxId).then(function (response) {
-            m.quizzes = response;
+            q.quizzes = response;
         });
+
+        q.getQuizLetter = function (name) {
+            return name[0].toUpperCase();
+        }
+
+        q.quizBgColor = function (name) {
+            var length = name.length % 17;
+            return 'color' + length;
+
+
+        }
     }
 })();

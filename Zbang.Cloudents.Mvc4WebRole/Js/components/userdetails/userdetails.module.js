@@ -12,7 +12,10 @@
     angular.module('app.box.feed', ['app.ajaxservice']);
 })();
 (function () {
-    angular.module('app.box', ['app.ajaxservice','app.box.feed']);
+    angular.module('app.box.quizzes', ['app.ajaxservice']);
+})();
+(function () {
+    angular.module('app.box', ['app.ajaxservice','app.box.feed','app.box.quizzes','displayTime']);
 })();
 
 (function () {
