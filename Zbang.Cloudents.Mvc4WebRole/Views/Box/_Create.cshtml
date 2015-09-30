@@ -1,0 +1,33 @@
+﻿<div class="row margin-bottom-20" collapse="!b.uploadOn">
+    <div class="col-md-12">
+        <div class="portlet box create">
+            <div class="portlet-title">
+                <div class="caption">
+                    create class
+                </div>
+                <button type="button" class="close closeFrom" ng-click="b.uploadOn = false">X</button>
+            </div>
+            <div class="portlet-body form">
+                <div class="form-horizontal">
+                    <form name="createBox" class="form-wizard" novalidate>
+                        <div class="form-body">
+                            <div class="tab-content">
+                                @{ Html.RenderPartial("_Upload"); }
+                            </div>
+                        </div>
+                        <div class="form-actions" ng-hide="cc.step === 1">
+                            <div class="actions">
+                                @*<a href="javascript:;" class="btn default button-previous">
+                                        Back
+                                    </a>*@
+                                <button type="submit" class="btn blue" ng-click="cc.stepFinish()" ng-disabled="cc.submitFormProcess">
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

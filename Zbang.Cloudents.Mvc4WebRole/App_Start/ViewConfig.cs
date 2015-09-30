@@ -24,7 +24,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
             var customPartialLocation = new[] {
-                   "~/Views/Shared/Partials/{0}.cshtml"
+                   "~/Views/Shared/Partials2/{0}.cshtml"
             };
             
             

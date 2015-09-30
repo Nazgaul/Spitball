@@ -3240,7 +3240,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Library\_SelectUni.cshtml" />
-    <Content Include="Views\Box\_CreateTab.cshtml" />
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
     <Content Include="Views\Error\Unsupported.cshtml" />
     <Content Include="Views\Shared\_LayoutStatic.cshtml" />
@@ -3249,11 +3248,9 @@
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Share\Invites.cshtml" />
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
-    <Content Include="Views\Box\_UploadAddLink.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Item\_PreviewLinkDenied.cshtml" />
     <Content Include="Views\Item\_PreviewMediaLoading.cshtml" />
-    <Content Include="Views\Box\_BoxSettings.cshtml" />
     <Content Include="Views\Share\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Library\SelectDepartment.cshtml" />
@@ -3268,11 +3265,9 @@
     <Content Include="Views\Shared\_SocialInvite.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Countries.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
-    <Content Include="Views\Box\_Quizzes.cshtml" />
     <Content Include="Views\Item\_PreviewSvg.cshtml" />
     <Content Include="Views\Item\FullScreen.cshtml" />
     <Content Include="Views\Box\_Feed.cshtml" />
-    <Content Include="Views\Box\_Invite.cshtml" />
     <Content Include="Views\Library\Rename.cshtml" />
     <Content Include="Views\Shared\Partials\_BarSearch0.cshtml" />
     <Content Include="Views\Shared\Partials\_BarActions.cshtml" />
@@ -3287,7 +3282,6 @@
     <Content Include="Views\Account\_RegisterAngular.cshtml" />
     <Content Include="Views\Account\_UserDetailStatic.cshtml" />
     <Content Include="Views\Home\IFrame.cshtml" />
-    <Content Include="Views\Box\_LeavePrompt.cshtml" />
     <Content Include="Views\Shared\Partials\_BarSearch.cshtml" />
     <Content Include="Views\Shared\Partials\_DashLibItem.cshtml" />
     <Content Include="Views\Shared\Partials\_SearchTemplate.cshtml" />
@@ -3310,7 +3304,8 @@
     <Content Include="Views\Dashboard\_Create.cshtml" />
     <Content Include="Views\Box\_Members2.cshtml" />
     <Content Include="Views\Box\_Quizzes2.cshtml" />
-    <Content Include="Views\Dashboard\_Upload.cshtml" />
+    <Content Include="Views\Shared\Partials2\_Upload.cshtml" />
+    <Content Include="Views\Box\_Create.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3853,9 +3848,6 @@
     <Content Include="Views\Shared\Partials\_RegisterPopUp.cshtml">
       <BrowseToURL>cd</BrowseToURL>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Box\_UploadDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="cdn\Web.config" />

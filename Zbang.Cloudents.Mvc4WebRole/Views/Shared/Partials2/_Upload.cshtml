@@ -68,7 +68,7 @@
     </div>
     <div ng-if="u.uploadStep === 4" ng-form="uploadLink">
         <label for="uploadLink">share with your firends youtube video, artivle or other educational material from any site</label>
-        <input type="url" class="form-control" ng-model="u.link" id="uploadLink" name="uploadLink" autofocus required>
+        <input type="url" spellcheck="false" class="form-control" ng-model="u.link" id="uploadLink" name="uploadLink" autofocus required>
         <input type="submit" class="btn blue" ng-click="u.uploadLink()" ng-disabled="cc.submitFormProcess" value="share" />
     </div>
 </div>
