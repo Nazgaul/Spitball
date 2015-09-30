@@ -1,5 +1,5 @@
 ﻿@{
-    var url = "~/images/site/uploadIcons.svg";
+    const string url = "~/images/site/uploadIcons.svg";
 }
 <div class="portlet box create" ng-controller="CreateClass as cc">
     <div class="portlet-title">
@@ -106,62 +106,8 @@
                         <div class="tab-pane" ng-class="{active:cc.step === 3}">
                             department
                         </div>
-                        <div class="tab-pane" ng-class="{active:cc.step === 4}" ng-controller="Upload as u">
-                            <div class="row uploadSection" ng-if="u.uploadStep === 0">
-                                <div class="col-md-3" ng-click="u.uploadStep = 1">
-                                    <button type="button">
-                                        <span>
-                                            @Html.Svg(url, "file")
-                                        </span>
-                                        upload files from computer
-                                    </button>
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="button" ng-click="u.google()" ng-disabled="!u.googleDriveLoaded">
-                                        <span>
-                                            @Html.Svg(url, "googleDrive")
-                                        </span>
-
-                                        upload files from google drive
-                                    </button>
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="button" ng-click="u.dropBox()" ng-disabled="!u.dropBoxLoaded">
-                                        <span>
-                                            @Html.Svg(url, "dropbox")
-                                        </span>
-                                        upload files from dropbox
-                                    </button>
-                                </div>
-                                <div class="col-md-3" ng-click="u.uploadStep = 4">
-                                    <button type="button">
-                                        <span>
-                                            @Html.Svg(url, "link", new { @class = "link" })
-                                        </span>
-                                        add website link
-                                    </button>
-                                </div>
-                            </div>
-                            <div ng-if="u.uploadStep === 1" id="dropElement" class="text-center upload-file">
-                                <div ng-hide="u.files.length">
-                                    <div>Drag and drop your files here</div>
-                                    <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn" plupload-callbacks="u.fileUpload.callbacks">
-                                        upload files
-                                    </a>
-                                </div>
-                                <ul class="list-inline">
-                                    <li class="file-upload" ng-repeat="file in u.files">
-                                        <div class="file-name">{{::file.name}}</div>
-                                        <div class="file-size">{{::file.sizeFormated}}</div>
-                                        <progressbar class="file-upload-progress progress-striped active" value="file.percent" type="info"></progressbar>
-                                </ul>
-                            </div>
-                            <div ng-if="u.uploadStep === 4" ng-form="uploadLink">
-                                <label for="uploadLink">share with your firends youtube video, artivle or other educational material from any site</label>
-                                <input type="url" class="form-control" ng-model="u.link" id="uploadLink" name="uploadLink" autofocus required>
-                                <input type="submit" class="btn blue" ng-click="u.uploadLink()" ng-disabled="cc.submitFormProcess" value="share" />
-                            </div>
-
+                        <div class="tab-pane" ng-class="{active:cc.step === 4}" >
+                           @{ Html.RenderPartial("_Upload"); }
                         </div>
 
                         <div class="tab-pane" ng-class="{active:cc.step === 5}">
@@ -170,12 +116,11 @@
                     </div>
                 </div>
                 <div class="form-actions" ng-hide="cc.step === 1">
-
                     <div class="actions">
-                        <a href="javascript:;" class="btn default button-previous">
-                            Back
-                        </a>
-                        <button type="submit" class="btn blue button-next" ng-click="cc.stepFinish()" ng-disabled="cc.submitFormProcess">
+                        @*<a href="javascript:;" class="btn default button-previous">
+                                Back
+                            </a>*@
+                        <button type="submit" class="btn blue" ng-click="cc.stepFinish()" ng-disabled="cc.submitFormProcess">
                             Next
                         </button>
                     </div>

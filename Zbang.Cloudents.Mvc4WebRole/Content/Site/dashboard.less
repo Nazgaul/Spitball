@@ -307,11 +307,26 @@
             font-weight: 700;
 
 
+
             .btn {
                 border: 1px solid #3293F6;
                 padding: 5px 40px;
                 font-size: 18px;
                 color: #3293F6;
+            }
+
+            .check-mark {
+                position: absolute;
+                top: -22px;
+                right: -18px;
+                color: #8DC63F;
+                border-radius: 50%;
+                background-color: rgba(143,145,146,.8);
+                padding: 5px 10px;
+            }
+
+            h5 {
+                color: #8DC63F;
             }
         }
 
@@ -320,10 +335,11 @@
             border: 7px solid #fff;
             height: 165px;
             font-size: 14px;
+            position: relative;
             //override bootstrap
             padding: 0;
             background: #BCBCBC;
-            margin:5px;
+            margin: 5px;
         }
 
         .file-size {
@@ -331,12 +347,18 @@
         }
 
         .file-upload-progress {
+            height: 5px;
             margin: 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
         }
 
         .file-name {
             width: 101px;
             height: 100px;
+            position: relative;
         }
 
         .form-horizontal {

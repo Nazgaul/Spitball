@@ -48,29 +48,20 @@
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
-.likes {
+.class .likes {
   background: rgba(0, 0, 0, 0.48);
   margin: 8px -20px -7px -10px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   height: 40px;
 }
-.blue.btn {
+.class .blue.btn {
   float: left;
   margin: 5px;
   border-radius: 45px;
   padding: 3px 10px;
 }
-.comment {
+.class .comment {
   padding-top: 10px;
   font-size: 12px;
 }
-
-.class .member .img-circle {
-  vertical-align: middle;
-  width: 45px;
-  height: 45px;
-}
-.class .member-name {
-  color: #bababa;
-  font-size: 15px;

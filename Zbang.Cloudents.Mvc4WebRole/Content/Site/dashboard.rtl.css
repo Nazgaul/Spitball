@@ -256,11 +256,24 @@
   font-size: 18px;
   color: #3293F6;
 }
+.dashboard .create .upload-file .check-mark {
+  position: absolute;
+  top: -22px;
+  left: -18px;
+  color: #8DC63F;
+  border-radius: 50%;
+  background-color: rgba(143, 145, 146, 0.8);
+  padding: 5px 10px;
+}
+.dashboard .create .upload-file h5 {
+  color: #8DC63F;
+}
 .dashboard .create .file-upload {
   width: 115px;
   border: 7px solid #fff;
   height: 165px;
   font-size: 14px;
+  position: relative;
   padding: 0;
   background: #BCBCBC;
   margin: 5px;
@@ -269,11 +282,17 @@
   background: #fff;
 }
 .dashboard .create .file-upload-progress {
+  height: 5px;
   margin: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 .dashboard .create .file-name {
   width: 101px;
   height: 100px;
+  position: relative;
 }
 .dashboard .create .form-horizontal {
   padding: 10px;

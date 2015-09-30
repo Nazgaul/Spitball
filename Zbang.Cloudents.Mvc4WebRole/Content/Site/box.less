@@ -1,78 +1,85 @@
 ﻿@import "variables.less";
 
 .class {
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover {
-    background: transparent;
-    border: 0;
-    border-bottom: 1px solid @loginColor;
-    color: @color2;
-}
-
-.nav-tabs {
-    border: 0;
-}
-
-.nav-tabs > li > a:hover {
-    border: 1px solid transparent;
-}
-a {
-    color:@color1;
-}
-a:hover, a:focus {
-    color:@color1;
-}
-.tabbable {
-     background-color: @color4;
-     padding: 0 10px;
-     //padding:0 10px;
-}
-
-.extraDetails {
-    color:@color2;
-    overflow:hidden;
-    position: relative;
-    background-color: black;
-    z-index:1;
-    > span:first-child {
-        float:left;
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover {
+        background: transparent;
+        border: 0;
+        border-bottom: 1px solid @loginColor;
+        color: @color2;
     }
-    >span:last-child {
-        float:right;
+
+    .nav-tabs {
+        border: 0;
     }
-   
-}
- .mix-subDetails {
-        position:absolute;
+
+    .nav-tabs > li > a:hover {
+        border: 1px solid transparent;
+    }
+
+    a {
+        color: @color1;
+    }
+
+    a:hover, a:focus {
+        color: @color1;
+    }
+
+    .tabbable {
+        background-color: @color4;
+        padding: 0 10px;
+        //padding:0 10px;
+    }
+
+    .extraDetails {
+        color: @color2;
+        overflow: hidden;
+        position: relative;
+        background-color: black;
+        z-index: 1;
+
+        > span:first-child {
+            float: left;
+        }
+
+        > span:last-child {
+            float: right;
+        }
+    }
+
+    .mix-subDetails {
+        position: absolute;
         bottom: 75px;
     }
- .no-background {
-     background-color:transparent;
- }
- .attach{
-    background: rgba(0, 0, 0, 0.48);
-    margin: 8px -20px -7px -10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
- }
 
-.likes{
-    background: rgba(0, 0, 0, 0.48);
-    margin: 8px -20px -7px -10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    height:40px;
+    .no-background {
+        background-color: transparent;
+    }
 
-}
+    .attach {
+        background: rgba(0, 0, 0, 0.48);
+        margin: 8px -20px -7px -10px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
 
-.blue.btn{
-    float:left;
-    margin:5px;
-    border-radius:45px;
-    padding: 3px 10px;
 
-}
-.comment{
-    padding-top:10px;
-    font-size:12px;
+    .likes {
+        background: rgba(0, 0, 0, 0.48);
+        margin: 8px -20px -7px -10px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        height: 40px;
+    }
+
+    .blue.btn {
+        float: left;
+        margin: 5px;
+        border-radius: 45px;
+        padding: 3px 10px;
+    }
+
+    .comment {
+        padding-top: 10px;
+        font-size: 12px;
+    }
 }

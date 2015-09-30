@@ -86,6 +86,7 @@
 
                     for (var i = 0; i < files.length; i++) {
                         files[i].sizeFormated = plupload.formatSize(files[i].size);
+                        files[i].complete = false;
                         u.files.push(files[i]);
                     }
                     console.log(u.files);
@@ -120,6 +121,7 @@
                     console.log(file);
                 },
                 fileUploaded: function (uploader, file, response) {
+                    file.complete = true;
                     // $scope.loading = false;
                     var obj = JSON.parse(response.response);
                     if (obj.success) {

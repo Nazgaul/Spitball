@@ -1,0 +1,74 @@
+﻿@{
+    const string url = "~/images/site/uploadIcons.svg";
+}
+<div ng-controller="Upload as u">
+    <div class="row uploadSection" ng-if="u.uploadStep === 0">
+        <div class="col-md-3" ng-click="u.uploadStep = 1">
+            <button type="button">
+                <span>
+                    @Html.Svg(url, "file")
+                </span>
+                upload files from computer
+            </button>
+        </div>
+        <div class="col-md-3">
+            <button type="button" ng-click="u.google()" ng-disabled="!u.googleDriveLoaded">
+                <span>
+                    @Html.Svg(url, "googleDrive")
+                </span>
+
+                upload files from google drive
+            </button>
+        </div>
+        <div class="col-md-3">
+            <button type="button" ng-click="u.dropBox()" ng-disabled="!u.dropBoxLoaded">
+                <span>
+                    @Html.Svg(url, "dropbox")
+                </span>
+                upload files from dropbox
+            </button>
+        </div>
+        <div class="col-md-3" ng-click="u.uploadStep = 4">
+            <button type="button">
+                <span>
+                    @Html.Svg(url, "link", new { @class = "link" })
+                </span>
+                add website link
+            </button>
+        </div>
+    </div>
+    <div ng-if="u.uploadStep === 1" id="dropElement" class="text-center upload-file">
+        <div ng-hide="u.files.length">
+            <div>Drag and drop your files here</div>
+            <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn" plupload-callbacks="u.fileUpload.callbacks">
+                upload files
+            </a>
+        </div>
+        <h5 ng-if="u.files.length">{{u.files.length}} files | upload complete</h5>
+        <ul class="list-inline">
+            @*<li class="file-upload">
+                    <span class="check-mark">&#x2713;</span>
+                    <div class="file-name">
+                        Some doc.docx
+                        <progressbar class="file-upload-progress progress-striped active" value="50" type="info"></progressbar>
+                    </div>
+
+                    <div class="file-size">25mb</div>
+                    <button type="button">remove file</button>
+                </li>*@
+            <li class="file-upload" ng-repeat="file in u.files">
+                <span class="check-mark" ng-if="file.complete">&#x2713;</span>
+                <div class="file-name">
+                    {{::file.name}}
+                    <progressbar ng-if="!file.complete" class="file-upload-progress progress-striped active" value="file.percent" type="info"></progressbar>
+                </div>
+                <div class="file-size">{{::file.sizeFormated}}</div>
+                <button type="button">remove file</button>
+        </ul>
+    </div>
+    <div ng-if="u.uploadStep === 4" ng-form="uploadLink">
+        <label for="uploadLink">share with your firends youtube video, artivle or other educational material from any site</label>
+        <input type="url" class="form-control" ng-model="u.link" id="uploadLink" name="uploadLink" autofocus required>
+        <input type="submit" class="btn blue" ng-click="u.uploadLink()" ng-disabled="cc.submitFormProcess" value="share" />
+    </div>
+</div>

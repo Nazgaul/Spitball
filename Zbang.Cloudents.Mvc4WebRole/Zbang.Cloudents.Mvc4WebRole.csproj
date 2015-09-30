@@ -3219,7 +3219,6 @@
     <Content Include="Js\controllers\dashboard\createBoxWizardCtrl.js" />
     <Content Include="Images\Defs.svg" />
     <None Include="Scripts\_references.js" />
-    <Content Include="Views\Dashboard\_Invite.cshtml" />
     <Content Include="Views\Library\_AddSchoolDialog.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -3245,7 +3244,6 @@
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
     <Content Include="Views\Error\Unsupported.cshtml" />
     <Content Include="Views\Shared\_LayoutStatic.cshtml" />
-    <Content Include="Views\Dashboard\_PrivateBoxDialog2.cshtml" />
     <Content Include="Views\Account\Confirmation.cshtml" />
     <Content Include="Views\Item\_FlagItem.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
@@ -3268,9 +3266,7 @@
     <Content Include="Views\Home\InsertUser.cshtml" />
     <Content Include="Views\Quiz\_QuizDialog.cshtml" />
     <Content Include="Views\Shared\_SocialInvite.cshtml" />
-    <Content Include="Views\Dashboard\_UploadFiles.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Countries.cshtml" />
-    <Content Include="Views\Dashboard\_CreateBoxWizard.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Box\_Quizzes.cshtml" />
     <Content Include="Views\Item\_PreviewSvg.cshtml" />
@@ -3314,6 +3310,7 @@
     <Content Include="Views\Dashboard\_Create.cshtml" />
     <Content Include="Views\Box\_Members2.cshtml" />
     <Content Include="Views\Box\_Quizzes2.cshtml" />
+    <Content Include="Views\Dashboard\_Upload.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3856,9 +3853,6 @@
     <Content Include="Views\Shared\Partials\_RegisterPopUp.cshtml">
       <BrowseToURL>cd</BrowseToURL>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Dashboard\_UploadCreateAcademicBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Box\_UploadDialog.cshtml" />
