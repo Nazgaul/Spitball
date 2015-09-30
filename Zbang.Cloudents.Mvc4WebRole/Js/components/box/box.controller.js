@@ -41,6 +41,9 @@
         d.getFeed = function (boxid) {
             return ajaxservice.get('/qna/', { id: boxid });
         };
+        d.getLeaderBoard = function(boxid) {
+            return ajaxservice.get('/box/leaderboard/', { id: boxid });
+        }
         d.getRecommended = function (boxid) {
             return ajaxservice.get('/box/recommended/', { id: boxid });
         };

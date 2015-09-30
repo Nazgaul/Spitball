@@ -15,5 +15,15 @@
             i.tabs = data[1];
             $scope.$broadcast("mixItUp");
         });
+
+        $scope.$on('item_upload', function (event,response) {
+            if (response.boxId != $stateParams.boxId) { // string an int comarison
+                return;
+            }
+            var item = response.fileDto;
+            item.thumbnail = 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(item.source) + '.jpg?width=368&height=520&mode=crop'; // item.source
+            i.data.unshift(item);
+            $scope.$broadcast("mixItUp");
+        });
     }
 })();
