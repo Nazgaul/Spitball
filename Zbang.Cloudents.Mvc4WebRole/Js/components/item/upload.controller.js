@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.upload').controller('Upload', upload);
-    upload.$inject = ['$scope', 'itemService', 'dropboxService', '$q', 'googleService', '$timeout', '$stateParams'];
+    upload.$inject = ['$scope', 'itemService', 'dropboxService', '$q', 'googleService', '$timeout', '$stateParams', '$rootScope'];
 
-    function upload($scope, itemService, dropboxService, $q, googleService, $timeout, $stateParams) {
+    function upload($scope, itemService, dropboxService, $q, googleService, $timeout, $stateParams, $rootScope) {
         var u = this;
         var boxid = $stateParams.boxId || $scope.$parent.cc.box.id;
         var cc = $scope.$parent.cc || {};
@@ -124,14 +124,15 @@
                     //$rootScope.$broadcast('BeforeUpload', data);
 
                 },
-                uploadProgress: function (uploader, file) {
-                    console.log(file);
-                },
+                //uploadProgress: function (uploader, file) {
+                //    console.log(file);
+                //},
                 fileUploaded: function (uploader, file, response) {
                     file.complete = true;
                     // $scope.loading = false;
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
+                        $rootScope.$broadcast('item_upload', obj.payload);
                         //self.data.image = obj.payload;
                         //userDetailsService.changeImage(obj.payload);
                     }

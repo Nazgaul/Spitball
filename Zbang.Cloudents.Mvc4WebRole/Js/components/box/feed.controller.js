@@ -29,8 +29,10 @@
         var r = this;
         r.boxes = [];
         boxService.getRecommended($stateParams.boxId).then(function (response) {
-            console.log(response);
             r.boxes = response;
+        });
+        boxService.getLeaderBoard($stateParams.boxId).then(function (response) {
+            r.leaderBoard = response;
         });
     }
 })();

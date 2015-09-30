@@ -1,13 +1,6 @@
-﻿@*feed*@
-<div class="row">
+﻿<div class="row">
     <div class="col-md-6">
         <div class="portlet light ">
-            <!--<div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-bubble font-red-sunglo"></i>
-                    <span class="caption-subject font-red-sunglo bold uppercase">feed</span>
-                </div>
-            </div>-->
             <div class="portlet-body" id="chats">
                 @*<div class="scroller" style="height: 341px;" data-always-visible="1" data-rail-visible1="1">*@
                 <div class="chat-form">
@@ -98,66 +91,19 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="portlet light ">
+    <div class="col-md-6" ng-controller="Recommended as r">
+        <div class="portlet light leaderboad">
             <div class="portlet-body">
-                <div class="table-scrollable table-scrollable-borderless">
-                    <div class="leaderBoardTitle">
-                        The
-                        king
-                        of
-                        school
+                <h4 class="uppercase">the BEST IN school</h4>
+                <div class="r-table">
+                    <div class="r-table-row" ng-repeat="l in r.leaderBoard">
+                        <div class="r-table-cell">
+                            <user-image class="img-circle" name="l.name" image="l.image" width="30" height="30"></user-image>
+                            <span>{{::l.name}}</span>
+                        </div>
+                        <div class="r-table-cell">1st</div>
+                        <div class="r-table-cell last">{{::l.score}} pts</div>
                     </div>
-                    <table class="table table-hover table-light">
-                        <tr>
-                            <td class="fit">
-                                <img class="user-pic" src="../../assets/admin/layout3/img/avatar4.jpg">
-                            </td>
-                            <td>
-                                Brain
-                            </td>
-                            <td class="leaderbordPosition">
-                                $345
-                            </td>
-                            <td>
-                                45
-                            </td>
-
-
-                        </tr>
-                        <tr>
-                            <td class="fit">
-                                <img class="user-pic" src="../../assets/admin/layout3/img/avatar5.jpg">
-                            </td>
-                            <td>
-                                Nick
-                            </td>
-                            <td class="leaderbordPosition">
-                                $560
-                            </td>
-                            <td>
-                                12
-                            </td>
-
-
-                        </tr>
-                        <tr>
-                            <td class="fit">
-                                <img class="user-pic" src="../../assets/admin/layout3/img/avatar6.jpg">
-                            </td>
-                            <td>
-                                Tim
-                            </td>
-                            <td class="leaderbordPosition">
-                                $1,345
-                            </td>
-                            <td>
-                                450
-                            </td>
-
-
-                        </tr>
-                    </table>
                 </div>
             </div>
         </div>
@@ -189,4 +135,3 @@
         </div>
     </div>
 </div>
-@*end feed*@
