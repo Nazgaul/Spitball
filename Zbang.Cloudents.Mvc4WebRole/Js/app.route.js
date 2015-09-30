@@ -39,6 +39,14 @@
 
                     controller: 'ItemController as i'
                 })
+                .state('quiz', {
+                    url: '/quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}/',
+                    templateUrl: function () {
+                        return buildUrl('/quiz/indexpartial/');
+                    },
+
+                    controller: 'QuizController as q'
+                })
             .state('box', {
                 url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/',
                 templateUrl: function () {

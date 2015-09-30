@@ -44,6 +44,12 @@
     angular.module('app.item', ['app.ajaxservice']);
 })();
 
+
+(function () {
+    angular.module('app.quiz', ['app.ajaxservice']);
+})();
+
+
 (function () {
     angular.module('app.upload', ['app.ajaxservice']);
 })();

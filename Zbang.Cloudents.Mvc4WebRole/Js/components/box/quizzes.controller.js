@@ -18,8 +18,6 @@
         q.quizBgColor = function (name) {
             var length = name.length % 17;
             return 'color' + length;
-
-
         }
     }
 })();

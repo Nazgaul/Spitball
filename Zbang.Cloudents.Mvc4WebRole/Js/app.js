@@ -24,7 +24,7 @@
         'app.box.members',
 
         'app.item',
-
+        'app.quiz',
         'app.upload'
     ]).config(config);
 
