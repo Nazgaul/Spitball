@@ -1,10 +1,11 @@
 ﻿(function () {
     angular.module('app.upload').controller('Upload', upload);
-    upload.$inject = ['$scope', 'itemService', 'dropboxService', '$q', 'googleService'];
+    upload.$inject = ['$scope', 'itemService', 'dropboxService', '$q', 'googleService', '$timeout', '$stateParams'];
 
-    function upload($scope, itemService, dropboxService, $q, googleService) {
+    function upload($scope, itemService, dropboxService, $q, googleService, $timeout, $stateParams) {
         var u = this;
-        var cc = $scope.$parent.cc;
+        var boxid = $stateParams.boxId || $scope.$parent.cc.box.id;
+        var cc = $scope.$parent.cc || {};
 
         var uploadChoose = {
             none: 0,
@@ -21,7 +22,7 @@
             $q.all([googleService.initDrive(), googleService.initGApi()]).then(function () {
                 u.googleDriveLoaded = true;
             });
-          
+
         });
         u.dropBoxLoaded = false;
         u.googleDriveLoaded = false;
@@ -30,7 +31,7 @@
             googleService.picker().then(function (response) {
                 var filesUpload = [];
                 for (var i = 0; i < response.length; i++) {
-                    filesUpload.push(itemService.addLink(response[i].link, cc.box.id, null, null, response[i].name));
+                    filesUpload.push(itemService.addLink(response[i].link, boxid, null, null, response[i].name));
                 }
                 $q.all(filesUpload).then(function () {
                     alert('done');
@@ -43,7 +44,7 @@
             dropboxService.choose().then(function (response) {
                 var filesUpload = [];
                 for (var i = 0; i < response.length; i++) {
-                    filesUpload.push(itemService.addFromDropBox(cc.box.id, response[i].link, response[i].name));
+                    filesUpload.push(itemService.addFromDropBox(boxid, response[i].link, response[i].name));
                 }
                 $q.all(filesUpload).then(function () {
                     alert('done');
@@ -56,21 +57,90 @@
         u.uploadStep = uploadChoose.none;
 
         u.link = 'http://';
+        u.alert = null;
+        u.submitFormProcess = false;
+
+        $scope.closeAlert = function () {
+            u.alert = null;
+        }
         //upload 
         u.uploadLink = function () {
             if (!u.link) {
-                cc.alert = 'not a valid url';
+                u.alert = 'not a valid url';
                 return;
             }
-            cc.submitFormProcess = true;
-            itemService.addLink(u.link, cc.box.id).then(function (response) {
+            u.submitFormProcess = cc.submitFormProcess = true;
+            itemService.addLink(u.link, boxid).then(function () {
                 u.uploadStep = uploadChoose.none;
             }, function (response) {
-                cc.alert = response;
+                u.alert = response;
             }).finally(function () {
-                cc.submitFormProcess = false;
+                u.submitFormProcess = cc.submitFormProcess = false;
             });
 
+        }
+
+        u.files = [];
+
+        u.fileUpload = {
+            url: '/upload/file/',
+            options: {
+                chunk_size: '3mb',
+                drop_element: 'dropElement'
+            },
+            callbacks: {
+                filesAdded: function (uploader, files) {
+
+                    for (var i = 0; i < files.length; i++) {
+                        files[i].sizeFormated = plupload.formatSize(files[i].size);
+                        files[i].complete = false;
+                        u.files.push(files[i]);
+                    }
+                    console.log(u.files);
+                    $timeout(function () {
+                        uploader.start();
+                    }, 1);
+                },
+
+                beforeUpload: function (up, file) {
+                    up.settings.multipart_params = {
+                        fileName: file.name,
+                        fileSize: file.size,
+                        boxId: boxid,
+                        question: false,
+                        isComment: false
+
+                    };
+
+
+                    //var data = {};
+                    //if (file.newQuestion) {
+                    //    data.newQuestion = true;
+                    //}
+                    //if (file.questionId) {
+                    //    data.questionId = file.questionId;
+                    //}
+
+                    //$rootScope.$broadcast('BeforeUpload', data);
+
+                },
+                uploadProgress: function (uploader, file) {
+                    console.log(file);
+                },
+                fileUploaded: function (uploader, file, response) {
+                    file.complete = true;
+                    // $scope.loading = false;
+                    var obj = JSON.parse(response.response);
+                    if (obj.success) {
+                        //self.data.image = obj.payload;
+                        //userDetailsService.changeImage(obj.payload);
+                    }
+                },
+                error: function (uploader, error) {
+                    //$scope.loading = false;
+                    u.alert = error.message;
+                }
+            }
         }
     }
 })();

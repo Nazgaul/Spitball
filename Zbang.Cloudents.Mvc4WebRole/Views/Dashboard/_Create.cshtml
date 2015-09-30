@@ -1,4 +1,7 @@
-﻿<div class="portlet box create" ng-controller="CreateClass as cc">
+﻿@{
+    const string url = "~/images/site/uploadIcons.svg";
+}
+<div class="portlet box create" ng-controller="CreateClass as cc">
     <div class="portlet-title">
         <div class="caption">
             create class
@@ -61,26 +64,25 @@
                             </a>
                         </li>
                     </ul>
-                    <progressbar class="progress-striped active" value="cc.step*20" type="info"></progressbar>
+                    <div class="progress-wrap">
+                        <progressbar class="progress-striped active" value="cc.step*20" type="info"></progressbar>
+                    </div>
                     <div class="tab-content">
                         <alert ng-if="cc.alert" close="closeAlert()" type="danger">{{cc.alert}}</alert>
                         <div class="tab-pane text-center" ng-class="{active:cc.step === 1}">
                             <button type="button" ng-click="cc.chooseBox(1)">
-                                @Html.Svg("~/images/site/dashboardIcons.svg", "createBox")
+                                @Html.Svg(url, "createBox")
                                 <h6>Study group</h6>
                                 To work on things in a group
                             </button>
                             <button type="button" ng-click="cc.chooseBox(2)">
-                                @Html.Svg("~/images/site/dashboardIcons.svg", "createClass")
+                                @Html.Svg(url, "createClass")
                                 <h6>Class</h6>
                                 To share things with your whole class
                             </button>
                         </div>
                         <div class="tab-pane" ng-class="{active:cc.step === 2}">
                             <div ng-hide="cc.boxType === 2" ng-form="createGroupBox">
-
-                                @*<alert ng-if="createGroupBox.groupBoxName.$error.required" close="closeAlert()" type="danger">{{cc.alert}}</alert>*@
-                               
                                 <label for="createGroupBoxName">class name</label>
                                 <input id="createGroupBoxName" required autofocus class="form-control" name="groupBoxName" type="text" ng-model="cc.box.name" />
                             </div>
@@ -104,34 +106,8 @@
                         <div class="tab-pane" ng-class="{active:cc.step === 3}">
                             department
                         </div>
-                        <div class="tab-pane" ng-class="{active:cc.step === 4}" ng-controller="Upload as u">
-                            <div class="row" ng-if="u.uploadStep === 0">
-                                <div class="col-md-3" ng-click="u.uploadStep = 1">
-                                    <button type="button">upload files from computer</button>
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="button" ng-click="u.google()" ng-disabled="!u.googleDriveLoaded">
-                                        upload files from google drive
-                                    </button>
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="button" ng-click="u.dropBox()" ng-disabled="!u.dropBoxLoaded">
-                                        upload files from dropbox
-                                    </button>
-                                </div>
-                                <div class="col-md-3" ng-click="u.uploadStep = 4">
-                                    <button type="button">
-                                        add website link
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div ng-if="u.uploadStep === 4" ng-form="uploadLink">
-                                <label for="uploadLink">share with your firends youtube video, artivle or other educational material from any site</label>
-                                <input type="url" class="form-control" ng-model="u.link" id="uploadLink" name="uploadLink" autofocus required>
-                                <input type="submit" class="btn blue" ng-click="u.uploadLink()" ng-disabled="cc.submitFormProcess" value="share" />
-                            </div>
-
+                        <div class="tab-pane" ng-class="{active:cc.step === 4}" >
+                           @{ Html.RenderPartial("_Upload"); }
                         </div>
 
                         <div class="tab-pane" ng-class="{active:cc.step === 5}">
@@ -140,12 +116,11 @@
                     </div>
                 </div>
                 <div class="form-actions" ng-hide="cc.step === 1">
-
-                    <div class="text-right">
-                        <a href="javascript:;" class="btn default button-previous">
-                            Back
-                        </a>
-                        <button type="submit" class="btn blue button-next" ng-click="cc.stepFinish()" ng-disabled="cc.submitFormProcess">
+                    <div class="actions">
+                        @*<a href="javascript:;" class="btn default button-previous">
+                                Back
+                            </a>*@
+                        <button type="submit" class="btn blue" ng-click="cc.stepFinish()" ng-disabled="cc.submitFormProcess">
                             Next
                         </button>
                     </div>

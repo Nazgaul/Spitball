@@ -96,12 +96,19 @@ body {
   border-radius: 50%;
   opacity: 0;
   -webkit-animation: scale(0);
+  -moz-animation: scale(0);
+  -o-animation: scale(0);
+  animation: scale(0);
   -moz-transform: scale(0);
+  -ms-transform: scale(0);
+  -o-transform: scale(0);
+  -webkit-transform: scale(0);
   transform: scale(0);
 }
 .md-click-circle.md-click-animate {
   -webkit-animation: mdClickEffect 0.65s linear;
   -moz-animation: mdClickEffect 0.65s linear;
+  -o-animation: mdClickEffect 0.65s linear;
   animation: mdClickEffect 0.65s linear;
 }
 @-webkit-keyframes mdClickEffect {
@@ -617,6 +624,7 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   left: 0;
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
 .md-checkbox label > span.inc {
@@ -636,6 +644,7 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   z-index: 5;
   -webkit-transition-delay: 0.2s;
   -moz-transition-delay: 0.2s;
+  -o-transition-delay: 0.2s;
   transition-delay: 0.2s;
 }
 .md-checkbox label > .check {
@@ -661,6 +670,7 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
 .md-checkbox label > span.inc {
   -webkit-animation: growCircle 0.3s ease;
   -moz-animation: growCircle 0.3s ease;
+  -o-animation: growCircle 0.3s ease;
   animation: growCircle 0.3s ease;
 }
 .md-checkbox input[type=checkbox]:checked ~ label > .box {
@@ -823,6 +833,7 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   left: 0;
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
 .md-radio label > span.inc {
@@ -833,6 +844,10 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   width: 60px;
   opacity: 0;
   border-radius: 50% !important;
+  -webkit-animation: growCircleRadio 0.3s ease;
+  -moz-animation: growCircleRadio 0.3s ease;
+  -o-animation: growCircleRadio 0.3s ease;
+  animation: growCircleRadio 0.3s ease;
 }
 .md-radio label > .box {
   top: 0;
@@ -857,15 +872,12 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   -webkit-transform: scale(0);
   transform: scale(0);
 }
-.md-radio label > span.inc {
-  -webkit-animation: growCircleRadio 0.3s ease;
-  -moz-animation: growCircleRadio 0.3s ease;
-  animation: growCircleRadio 0.3s ease;
-}
 .md-radio input[type=radio]:checked ~ label > .check {
   opacity: 1;
   -webkit-transform: scale(1);
   -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
   transform: scale(1);
 }
 .md-radio input[type=radio]:disabled ~ label,
@@ -1486,6 +1498,8 @@ Number & Chart Stats
 .number-stats .stat-number {
   display: inline-block;
   margin: 0 5px;
+  float: left;
+  text-align: left;
 }
 .number-stats .stat-number .title {
   font-size: 13px;
@@ -1500,6 +1514,7 @@ Number & Chart Stats
 .number-stats .stat-chart {
   display: inline-block;
   margin: 0 5px;
+  float: left;
 }
 .number-stats > div {
   border-right: 1px solid #f5f5f5;
@@ -1525,13 +1540,6 @@ Number & Chart Stats
   text-align: left;
 }
 .number-stats .stat-right .stat-chart {
-  float: left;
-}
-.number-stats .stat-number {
-  float: left;
-  text-align: left;
-}
-.number-stats .stat-chart {
   float: left;
 }
 /***
@@ -2511,18 +2519,13 @@ Chats
 }
 .chats li .name {
   color: #3598dc;
-  font-weight: 400;
   font-size: 13px;
+  font-weight: 400;
 }
 .chats li.out .name {
   color: #3598dc;
 }
-.chats li.in .datetime {
-  color: #353a3f;
-  font-size: 13px;
-  font-weight: 400;
-}
-.chats li.out .datetime {
+.chats li .datetime {
   color: #f5f5f5;
   font-size: 13px;
   font-weight: 400;
@@ -2535,33 +2538,32 @@ Chats
 }
 .chats li.in .message {
   text-align: left;
-  border-left: 2px solid #292d31;
+  border: 2px solid #f5f5f5;
   margin-left: 65px;
   background: #292d31;
   display: block;
   padding: 7px 20px 7px 10px;
   position: relative;
-  color: #f5f5f5;
+  color: #353a3f;
   border-radius: 10px;
   font-size: 13px;
 }
 .chats li.out .message {
-  border-left: 2px solid #f5f5f5;
+  border: 2px solid #f5f5f5;
   margin-left: 65px;
   background: #f5f5f5;
   text-align: left;
-  color: #353a3f;
 }
 .chats li.in .message .arrow {
   display: block;
   position: absolute;
-  top: 5px;
-  left: -8px;
+  top: 8px;
+  left: -10px;
   width: 0;
   height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-right: 8px solid #292d31;
+  border-right: 8px solid #f5f5f5;
 }
 .chats li.out .message .arrow {
   display: block;
@@ -2575,6 +2577,7 @@ Chats
 .chats li.out .name,
 .chats li.out .datetime {
   text-align: right;
+  color: #549af7;
 }
 .chat-form {
   margin-bottom: 33px;
@@ -3127,18 +3130,12 @@ Form Layouts
 .form {
   padding: 0 !important;
 }
-.form .form-body {
-  padding: 10px;
-}
 .portlet.light .form .form-body {
   padding-left: 0;
   padding-right: 0;
 }
 .form .form-actions {
-  padding: 20px 10px;
   margin: 0;
-  background-color: #f5f5f5;
-  border-top: 1px solid #e5e5e5;
   *zoom: 1;
 }
 .portlet.light .form .form-actions {
@@ -3333,9 +3330,6 @@ Form Layouts
 .form .form-horizontal.form-bordered.form-label-stripped .form-group:nth-child(even) > div {
   background-color: #ffffff;
 }
-.form .form-horizontal.form-bordered.form-label-stripped .form-group:nth-child(even) {
-  background-color: #fcfcfc;
-}
 /***
 Forms
 ***/
@@ -3354,9 +3348,9 @@ Forms
 .form-control {
   font-size: 14px;
   font-weight: normal;
-  color: #333;
-  background-color: #fff;
-  border: 1px solid #e5e5e5;
+  color: #fff;
+  background-color: #000;
+  border: 1px solid #fff;
   box-shadow: none;
   -moz-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
@@ -3570,12 +3564,10 @@ label {
 }
 .has-error .form-control {
   border-color: #ebccd1;
-  -webkit-box-shadow: none;
   box-shadow: none;
 }
 .has-error .form-control:focus {
   border-color: #dca7b0;
-  -webkit-box-shadow: none;
   box-shadow: none;
 }
 .has-error .input-group-addon {
@@ -4011,10 +4003,14 @@ UI Loading
 }
 .page-spinner-bar .bounce1 {
   -webkit-animation-delay: -0.32s;
+  -moz-animation-delay: -0.32s;
+  -o-animation-delay: -0.32s;
   animation-delay: -0.32s;
 }
 .page-spinner-bar .bounce2 {
   -webkit-animation-delay: -0.16s;
+  -moz-animation-delay: -0.16s;
+  -o-animation-delay: -0.16s;
   animation-delay: -0.16s;
 }
 .block-spinner-bar {
@@ -4030,17 +4026,25 @@ UI Loading
   border-radius: 100% !important;
   display: inline-block;
   -webkit-animation: bounceDelay 1.4s infinite ease-in-out;
+  -moz-animation: bounceDelay 1.4s infinite ease-in-out;
+  -o-animation: bounceDelay 1.4s infinite ease-in-out;
   animation: bounceDelay 1.4s infinite ease-in-out;
   /* Prevent first frame from flickering when animation starts */
   -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
   animation-fill-mode: both;
 }
 .block-spinner-bar .bounce1 {
   -webkit-animation-delay: -0.32s;
+  -moz-animation-delay: -0.32s;
+  -o-animation-delay: -0.32s;
   animation-delay: -0.32s;
 }
 .block-spinner-bar .bounce2 {
   -webkit-animation-delay: -0.16s;
+  -moz-animation-delay: -0.16s;
+  -o-animation-delay: -0.16s;
   animation-delay: -0.16s;
 }
 /***
@@ -4670,7 +4674,6 @@ Portlets
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;
-  -ms-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
   opacity: 0.8;
   filter: alpha(opacity=80);
@@ -4920,7 +4923,6 @@ Customized Progress Bars
   background-color: #DCDCDC;
   filter: none;
   box-shadow: none;
-  margin: 54px 11px;
 }
 .progress.progress-sm {
   height: 12px;
@@ -5530,7 +5532,6 @@ Responsive Flip Scroll Tables
     vertical-align: top;
   }
   .flip-scroll th {
-    text-align: left;
     border: 0 !important;
     border-bottom: 1px solid #ddd !important;
     border-right: 1px solid #ddd !important;
@@ -5539,6 +5540,8 @@ Responsive Flip Scroll Tables
     width: auto !important;
     display: block;
     text-align: right;
+    border-bottom: 0;
+    border-left: 0;
   }
   .flip-scroll thead {
     display: block;
@@ -5578,10 +5581,6 @@ Responsive Flip Scroll Tables
     border-bottom: 0;
   }
   /* sort out borders */
-  .flip-scroll th {
-    border-bottom: 0;
-    border-left: 0;
-  }
   .flip-scroll th:last-child,
   .flip-scroll td:last-child {
     border-bottom: 1px solid #ddd;
@@ -6881,6 +6880,8 @@ AngularJS Basic Animations
 }
 .fade-in-up {
   -webkit-animation: fadeInUp .5s;
+  -moz-animation: fadeInUp .5s;
+  -o-animation: fadeInUp .5s;
   animation: fadeInUp .5s;
 }
 @-webkit-keyframes bounceDelay {
@@ -6897,12 +6898,12 @@ AngularJS Basic Animations
   0%,
   80%,
   100% {
-    transform: scale(0);
     -webkit-transform: scale(0);
+    transform: scale(0);
   }
   40% {
-    transform: scale(1);
     -webkit-transform: scale(1);
+    transform: scale(1);
   }
 }
 @keyframes input-focus {

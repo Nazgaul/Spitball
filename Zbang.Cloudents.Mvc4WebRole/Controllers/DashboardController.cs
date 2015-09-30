@@ -49,7 +49,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userid = User.GetUserId();
             try
             {
-                var query = new GetBoxesQuery(userid, page, 20);
+                var query = new GetBoxesQuery(userid);
                 var data = await ZboxReadService.GetUserBoxesAsync(query);
                 return JsonOk(data);
             }

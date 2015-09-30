@@ -20,9 +20,9 @@
        
 
         cc.box = {
-            name: '123123',
-            id: 113760,
-            url: '/box/my/113760/123123/'
+            name: '',
+            id: null,
+            url: ''
 
         };
         cc.step = steps.type;
@@ -66,6 +66,9 @@
                     });
 
                 }
+            }
+            if (cc.step == steps.upload) {
+                cc.step = steps.invite;
             }
         }
 

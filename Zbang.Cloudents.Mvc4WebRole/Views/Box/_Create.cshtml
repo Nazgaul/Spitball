@@ -1,0 +1,21 @@
+﻿<div class="row margin-bottom-20" collapse="!b.uploadOn">
+    <div class="col-md-12">
+        <div class="portlet box create">
+            <div class="portlet-title">
+                <div class="caption">
+                    upload files
+                </div>
+                <button type="button" class="close closeFrom" ng-click="b.uploadOn = false">X</button>
+            </div>
+            <div class="portlet-body form">
+                <div class="form-horizontal">
+                    <div class="form-body">
+                        <div class="tab-content">
+                            @{ Html.RenderPartial("_Upload"); }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

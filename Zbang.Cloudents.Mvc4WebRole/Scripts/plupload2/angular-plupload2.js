@@ -15,7 +15,7 @@
           var opts = {
               flash_swf_url: '/scripts/plupload2/Moxie.swf',
               runtimes: 'html5, flash',
-              max_file_size: '3mb',
+              //max_file_size: '3mb'
               //filters: [
               //  { title: 'Image files', extensions: 'jpg,jpeg,gif,png' }
               //]

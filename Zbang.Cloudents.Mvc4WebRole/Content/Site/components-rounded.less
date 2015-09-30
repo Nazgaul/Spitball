@@ -935,7 +935,7 @@ body {
     width: 60px;
     opacity: 0;
     border-radius: 50% !important;
-     -webkit-animation: growCircleRadio 0.3s ease;
+    -webkit-animation: growCircleRadio 0.3s ease;
     -moz-animation: growCircleRadio 0.3s ease;
     -o-animation: growCircleRadio 0.3s ease;
     animation: growCircleRadio 0.3s ease;
@@ -1726,7 +1726,7 @@ Number & Chart Stats
 .number-stats .stat-number {
     display: inline-block;
     margin: 0 5px;
-      float: left;
+    float: left;
     text-align: left;
 }
 
@@ -1745,7 +1745,7 @@ Number & Chart Stats
 .number-stats .stat-chart {
     display: inline-block;
     margin: 0 5px;
-       float: left;
+    float: left;
 }
 
 .number-stats > div {
@@ -2842,36 +2842,37 @@ Chats
 
 .chats li.in .message {
     text-align: left;
-    border-left: 2px solid @color3;
+    border: 2px solid @color2;
     margin-left: 65px;
     background: @color3;
     display: block;
     padding: 7px 20px 7px 10px;
     position: relative;
     //margin-left: 65px;
-    color: @color4;
+    color: @color2;
     border-radius: 10px;
     font-size: 13px;
 }
 
 
 .chats li.out .message {
-    border-left: 2px solid @color2;
+    border: 2px solid @color2;
     margin-left: 65px;
     background: @color2;
     text-align: left;
+    color:@color4;
 }
 
 .chats li.in .message .arrow {
     display: block;
     position: absolute;
-    top: 5px;
-    left: -8px;
+    top: 8px;
+    left: -10px;
     width: 0;
     height: 0;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-right: 8px solid @color3;
+    border-right: 8px solid @color2;
 }
 
 
@@ -2888,6 +2889,7 @@ Chats
 .chats li.out .name,
 .chats li.out .datetime {
     text-align: right;
+    color:@boxColor15;
 }
 
 .chat-form {
@@ -3527,7 +3529,7 @@ Form Layouts
 }
 
 .form .form-body {
-    padding: 10px;
+   // padding: 0 10px;
 }
 
 .portlet.light .form .form-body {
@@ -3536,7 +3538,7 @@ Form Layouts
 }
 
 .form .form-actions {
-    padding: 20px 10px;
+    //padding: 0 10px 20px;
     margin: 0;
     //background-color: #f5f5f5;
     //border-top: 1px solid #e5e5e5;
@@ -3784,7 +3786,7 @@ Form Layouts
 }
 
 //.form .form-horizontal.form-bordered.form-label-stripped .form-group:nth-child(even) {
-    //background-color: #fcfcfc;
+//background-color: #fcfcfc;
 //}
 
 /***
@@ -5688,7 +5690,7 @@ Customized Progress Bars
 ***/
 .progress {
     border: 0;
-    background-color:#DCDCDC;
+    background-color: #DCDCDC;
     filter: none;
     box-shadow: none;
     //margin: 54px 11px;
@@ -6467,7 +6469,7 @@ Responsive Flip Scroll Tables
     }
 
     /* sort out borders */
-  
+
 
     .flip-scroll th:last-child,
     .flip-scroll td:last-child {
@@ -8033,13 +8035,11 @@ AngularJS Basic Animations
     0%, 80%, 100% {
         -webkit-transform: scale(0);
         transform: scale(0);
-        
     }
 
     40% {
         -webkit-transform: scale(1);
         transform: scale(1);
-        
     }
 }
 
