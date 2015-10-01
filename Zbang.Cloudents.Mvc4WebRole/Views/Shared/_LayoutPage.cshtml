@@ -56,7 +56,7 @@
             <div class="page-top">
                 <!-- BEGIN HEADER SEARCH BOX -->
                 <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
-                <span ng-controller="SearchController as s">
+                <div class="search-wrapper" ng-controller="SearchController as s">
                     <form class="search-form search-form-expanded" ng-click="s.openForm()">
                         <div class="input-group">
                             <input type="text" class="form-control input-sm" placeholder="Search..." name="query">
@@ -155,7 +155,7 @@
                         </div><!-- /morphsearch-content -->
                         <span class="morphsearch-close" ng-click="s.open = false"></span>
                     </div>
-                </span>
+                </div>
                 <!-- END HEADER SEARCH BOX -->
                 <!-- BEGIN TOP NAVIGATION MENU -->
                 <div class="top-menu">
