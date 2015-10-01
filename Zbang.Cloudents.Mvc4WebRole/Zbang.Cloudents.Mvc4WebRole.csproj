@@ -1730,6 +1730,18 @@
     <Content Include="Content\Site\menu.rtl.min.css">
       <DependentUpon>menu.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\morphsearch.css">
+      <DependentUpon>morphsearch.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\morphsearch.min.css">
+      <DependentUpon>morphsearch.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\morphsearch.rtl.css">
+      <DependentUpon>morphsearch.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\morphsearch.rtl.min.css">
+      <DependentUpon>morphsearch.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\plugins.css">
       <DependentUpon>plugins.less</DependentUpon>
     </Content>
@@ -2142,6 +2154,7 @@
     <Content Include="Js\components\item\item.service.js" />
     <Content Include="Js\components\item\upload.controller.js" />
     <Content Include="Js\components\library\library.controller.js" />
+    <Content Include="Js\components\search.controller.js" />
     <Content Include="Js\components\user\account.controller.js" />
     <Content Include="Js\components\user\updates.service.js" />
     <Content Include="Js\components\user\user.service.js" />
@@ -2163,6 +2176,7 @@
     <Content Include="Js\shared\dropbox.js" />
     <Content Include="Js\shared\google.js" />
     <Content Include="Js\shared\loader.js" />
+    <Content Include="Js\shared\megaNumbers.js" />
     <Content Include="Js\shared\mixitup.js" />
     <Content Include="Js\shared\userimage.js" />
     <Content Include="Js\signin\bootstrap.min.js" />
@@ -2419,6 +2433,7 @@
     <Content Include="Content\Site\boxMembers.less" />
     <Content Include="Content\Site\rtlFix.less" />
     <Content Include="Content\Site\quiz.less" />
+    <Content Include="Content\Site\morphsearch.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

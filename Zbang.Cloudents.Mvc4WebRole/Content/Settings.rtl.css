@@ -68,7 +68,7 @@
   line-height: 15px;
 }
 .profileInfo .btn1 {
-  margin-left: 8px
+  margin-left: 8px;
   /*take into account +4px because of inline block: 8+4=12*/
 }
 .profileInfo .inputText {
@@ -84,7 +84,7 @@
   padding: 3px;
   display: inline-block;
   vertical-align: top;
-  margin-bottom: 3px
+  margin-bottom: 3px;
   /*needed in order to view the bottom box-shadow (caused by vertical-align)*/
 }
 .profileInfo .photoBtn {
@@ -237,7 +237,7 @@
 }
 .changePwd input:first-child {
   display: block;
-  margin: -12px 0 21px
+  margin: -12px 0 21px;
   /*override margin for first input*/
 }
 .changePwd label {
@@ -341,7 +341,7 @@
   display: inline-block;
   float: none;
   vertical-align: top;
-  margin: 0
+  margin: 0;
   /* override boximage class from box.css*/
 }
 .notifications .semiFont {
@@ -383,3 +383,4 @@
   margin: 20px auto 0;
   line-height: normal;
 }
+/*#endregion */

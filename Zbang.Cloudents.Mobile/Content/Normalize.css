@@ -390,3 +390,6 @@ td,
 th {
   padding: 0;
 }
+/**
+ * Set consistent quote types. (old normalize)
+ */

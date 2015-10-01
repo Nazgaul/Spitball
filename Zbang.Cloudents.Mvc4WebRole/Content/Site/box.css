@@ -261,3 +261,12 @@
   border: 1px solid #42494F;
   padding: 5px;
 }
+/*.quiz:hover {
+    .top, .bottom {
+        display: none;
+    }
+
+    .details {
+        display: block;
+    }
+}*/

@@ -14,7 +14,7 @@
   position: relative;
   right: 0;
   left: 0;
-  top: 0
+  top: 0;
   /*&:after {
         .pseudo;
         width: 100%;
@@ -367,7 +367,7 @@ section.unions {
   /* You may have to set 'display: block' */
   width: 102px;
   height: 95px;
-  background: url('../Images/HomePage/HomePageBottom.png') -1px -331px
+  background: url('../Images/HomePage/HomePageBottom.png') -1px -331px;
   /*width: 100px;
         height: 92px;
         background-position: -717px -330px;*/
@@ -376,7 +376,7 @@ section.unions {
   /* You may have to set 'display: block' */
   width: 139px;
   height: 74px;
-  background: url('../Images/HomePage/HomePageBottom.png') -1px -515px
+  background: url('../Images/HomePage/HomePageBottom.png') -1px -515px;
   /*width: 134px;
         height: 67px;
         background-position: -4px -168px;*/
@@ -385,7 +385,7 @@ section.unions {
   /* You may have to set 'display: block' */
   width: 95px;
   height: 117px;
-  background: url('../Images/HomePage/HomePageBottom.png') -1px -734px
+  background: url('../Images/HomePage/HomePageBottom.png') -1px -734px;
   /*width: 94px;
         height: 113px;
         background-position: -5px -314px;*/
@@ -394,7 +394,7 @@ section.unions {
   /* You may have to set 'display: block' */
   width: 140px;
   height: 46px;
-  background: url('../Images/HomePage/HomePageBottom.png') -1px -687px
+  background: url('../Images/HomePage/HomePageBottom.png') -1px -687px;
   /*width: 139px;
         height: 45px;
         background-position: -442px -244px;*/
@@ -403,7 +403,7 @@ section.unions {
   /* You may have to set 'display: block' */
   width: 143px;
   height: 90px;
-  background: url('../Images/HomePage/HomePageBottom.png') -1px -240px
+  background: url('../Images/HomePage/HomePageBottom.png') -1px -240px;
   /*width: 140px;
         height: 87px;
         background-position: -584px -244px;*/
@@ -412,7 +412,7 @@ section.unions {
   /* You may have to set 'display: block' */
   width: 147px;
   height: 61px;
-  background: url('../Images/HomePage/HomePageBottom.png') -1px -178px
+  background: url('../Images/HomePage/HomePageBottom.png') -1px -178px;
   /*width: 146px;
         height: 57px;
         background-position: -2px -244px;*/
@@ -421,7 +421,7 @@ section.unions {
   /* You may have to set 'display: block' */
   width: 125px;
   height: 86px;
-  background: url('../Images/HomePage/HomePageBottom.png') -1px -1px
+  background: url('../Images/HomePage/HomePageBottom.png') -1px -1px;
   /*width: 123px;
         height: 83px;
         background-position: -818px -334px;*/
@@ -430,7 +430,7 @@ section.unions {
   /* You may have to set 'display: block' */
   width: 141px;
   height: 87px;
-  background: url('../Images/HomePage/HomePageBottom.png') -1px -427px
+  background: url('../Images/HomePage/HomePageBottom.png') -1px -427px;
   /*width: 137px;
         height: 83px;
         background-position: -116px -326px;*/
@@ -439,7 +439,7 @@ section.unions {
   /* You may have to set 'display: block' */
   width: 142px;
   height: 89px;
-  background: url('../Images/HomePage/HomePageBottom.png') -1px -88px
+  background: url('../Images/HomePage/HomePageBottom.png') -1px -88px;
   /*width: 141px;
         height: 87px;
         background-position: -259px -325px;*/
@@ -448,7 +448,7 @@ section.unions {
   /* You may have to set 'display: block' */
   width: 124px;
   height: 96px;
-  background: url('../Images/HomePage/HomePageBottom.png') -1px -590px
+  background: url('../Images/HomePage/HomePageBottom.png') -1px -590px;
   /*width: 120px;
         height: 94px;
         background-position: -404px -325px;*/
@@ -508,3 +508,4 @@ footer {
 .footer a:hover {
   text-decoration: underline;
 }
+/*#endregion */

@@ -111,6 +111,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/site/master.css",
                         "~/Content/site/menu.css",
 
+                        "~/content/site/morphsearch.css",
                         
                         "~/content/site/general.css",
                         "~/Content/site/dashboard.css",
@@ -463,6 +464,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/box/members.controller.js"),
 
                   
+                        new JsFileWithCdn("~/js/components/search.controller.js"),
 
                         new JsFileWithCdn("~/js/components/library/library.controller.js"),
 
@@ -479,6 +481,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/loader.js"),
                         new JsFileWithCdn("~/js/shared/mixitup.js"),
                         new JsFileWithCdn("~/js/shared/userimage.js"),
+                        new JsFileWithCdn("~/js/shared/megaNumbers.js"),
 
 
                         new JsFileWithCdn("~/js/components/item/upload.controller.js"),
