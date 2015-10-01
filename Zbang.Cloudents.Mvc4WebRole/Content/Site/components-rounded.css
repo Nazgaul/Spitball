@@ -293,6 +293,9 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
 .form-group.form-md-line-input.form-md-floating-label .form-control ~ label {
   font-size: 16px;
   top: 25px;
+  -moz-transition: 0.2s ease all;
+  -o-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
   transition: 0.2s ease all;
   color: #999;
 }
@@ -635,6 +638,10 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   width: 60px;
   opacity: 0;
   border-radius: 50% !important;
+  -webkit-animation: growCircle 0.3s ease;
+  -moz-animation: growCircle 0.3s ease;
+  -o-animation: growCircle 0.3s ease;
+  animation: growCircle 0.3s ease;
 }
 .md-checkbox label > .box {
   top: 0;
@@ -667,22 +674,20 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   -o-transition-delay: 0.3s;
   transition-delay: 0.3s;
 }
-.md-checkbox label > span.inc {
-  -webkit-animation: growCircle 0.3s ease;
-  -moz-animation: growCircle 0.3s ease;
-  -o-animation: growCircle 0.3s ease;
-  animation: growCircle 0.3s ease;
-}
 .md-checkbox input[type=checkbox]:checked ~ label > .box {
   opacity: 0;
   -webkit-transform: scale(0) rotate(-180deg);
   -moz-transform: scale(0) rotate(-180deg);
+  -ms-transform: scale(0) rotate(-180deg);
+  -o-transform: scale(0) rotate(-180deg);
   transform: scale(0) rotate(-180deg);
 }
 .md-checkbox input[type=checkbox]:checked ~ label > .check {
   opacity: 1;
   -webkit-transform: scale(1) rotate(45deg);
   -moz-transform: scale(1) rotate(45deg);
+  -ms-transform: scale(1) rotate(45deg);
+  -o-transform: scale(1) rotate(45deg);
   transform: scale(1) rotate(45deg);
 }
 .md-checkbox input[type=checkbox]:disabled ~ label,
@@ -1371,9 +1376,10 @@ Block Images(new in v1.2.2)
 .blog-images li img:hover {
   opacity: 1;
   box-shadow: 0 0 0 4px #72c02c;
-  transition: all 0.4s ease-in-out 0s;
   -moz-transition: all 0.4s ease-in-out 0s;
+  -o-transition: all 0.4s ease-in-out 0s;
   -webkit-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
 }
 /***
 Sidebar Tags
@@ -5534,7 +5540,6 @@ Responsive Flip Scroll Tables
   }
   .flip-scroll th {
     border: 0 !important;
-    border-bottom: 1px solid #ddd !important;
     border-right: 1px solid #ddd !important;
     font-size: 13px !important;
     padding: 5px;
@@ -6936,6 +6941,7 @@ AngularJS Basic Animations
 .open .btn.default.dropdown-toggle {
   color: #333333;
   background-color: lightgray;
+  background-image: none;
 }
 .btn.default:active,
 .btn.default.active {
@@ -6945,9 +6951,6 @@ AngularJS Basic Animations
 .btn.default:active:hover,
 .btn.default.active:hover {
   background-color: #cccccc;
-}
-.open .btn.default.dropdown-toggle {
-  background-image: none;
 }
 .btn.default.disabled,
 .btn.default.disabled:hover,
@@ -6991,6 +6994,7 @@ Blue Default
 .open .blue.btn.dropdown-toggle {
   color: #FFFFFF;
   background-color: #2386ca;
+  background-image: none;
 }
 .blue.btn:active,
 .blue.btn.active {
@@ -7000,9 +7004,6 @@ Blue Default
 .blue.btn:active:hover,
 .blue.btn.active:hover {
   background-color: #217ebd;
-}
-.open .blue.btn.dropdown-toggle {
-  background-image: none;
 }
 .blue.btn.disabled,
 .blue.btn.disabled:hover,
@@ -7149,6 +7150,7 @@ Blue Madison
 .open .blue-madison.btn.dropdown-toggle {
   color: #FFFFFF;
   background-color: #437cae;
+  background-image: none;
 }
 .blue-madison.btn:active,
 .blue-madison.btn.active {
@@ -7158,9 +7160,6 @@ Blue Madison
 .blue-madison.btn:active:hover,
 .blue-madison.btn.active:hover {
   background-color: #3f74a3;
-}
-.open .blue-madison.btn.dropdown-toggle {
-  background-image: none;
 }
 .blue-madison.btn.disabled,
 .blue-madison.btn.disabled:hover,

@@ -87,7 +87,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/signin/login-soft.css",
                         "~/Content/signin/components-md.css",
                         "~/Content/signin/plugins-md.css",
-                        "~/Content/signin/layout.css",
+                        "~/Content/site/layout.css",
                         "~/Content/signin/default.css",
                         "~/Content/signin/custom.css",
                         "~/Content/signin/customRtl.css"

@@ -96,6 +96,8 @@ body {
   background: transparent;
   font-size: 0.8em;
   color: #ec5a62;
+  -moz-transition: font-size 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+  -o-transition: font-size 0.5s cubic-bezier(0.7, 0, 0.3, 1);
   -webkit-transition: font-size 0.5s cubic-bezier(0.7, 0, 0.3, 1);
   transition: font-size 0.5s cubic-bezier(0.7, 0, 0.3, 1);
 }
@@ -106,6 +108,8 @@ body {
 .morphsearch.hideInput .morphsearch-input {
   color: transparent;
   -webkit-transition: color 0.3s;
+  -moz-transition: color 0.3s;
+  -o-transition: color 0.3s;
   transition: color 0.3s;
 }
 .morphsearch.open .morphsearch-input {
@@ -131,6 +135,7 @@ body {
 input[type="search"] {
   /* reset normalize */
   -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 .morphsearch-input:focus,
@@ -149,19 +154,33 @@ input[type="search"] {
   background-size: 100%;
   border: none;
   pointer-events: none;
+  -moz-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
   transform-origin: 50% 50%;
   opacity: 0;
   -webkit-transform: translate3d(-30px, -50%, 0) scale3d(0, 0, 1);
+  -moz-transform: translate3d(-30px, -50%, 0) scale3d(0, 0, 1);
+  -ms-transform: translate3d(-30px, -50%, 0) scale3d(0, 0, 1);
+  -o-transform: translate3d(-30px, -50%, 0) scale3d(0, 0, 1);
   transform: translate3d(-30px, -50%, 0) scale3d(0, 0, 1);
 }
 .morphsearch.open .morphsearch-submit {
   pointer-events: auto;
   opacity: 1;
   -webkit-transform: translate3d(-30px, -50%, 0) scale3d(1, 1, 1);
+  -moz-transform: translate3d(-30px, -50%, 0) scale3d(1, 1, 1);
+  -ms-transform: translate3d(-30px, -50%, 0) scale3d(1, 1, 1);
+  -o-transform: translate3d(-30px, -50%, 0) scale3d(1, 1, 1);
   transform: translate3d(-30px, -50%, 0) scale3d(1, 1, 1);
-  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  -moz-transition: opacity 0.3s, transform 0.3s;
+  -o-transition: opacity 0.3s, transform 0.3s;
+  -webkit-transition: opacity 0.3s, transform 0.3s;
   transition: opacity 0.3s, transform 0.3s;
   -webkit-transition-delay: 0.5s;
+  -moz-transition-delay: 0.5s;
+  -o-transition-delay: 0.5s;
   transition-delay: 0.5s;
 }
 .morphsearch-close {
@@ -176,16 +195,26 @@ input[type="search"] {
   pointer-events: none;
   opacity: 0;
   -webkit-transform: scale3d(0, 0, 1);
+  -moz-transform: scale3d(0, 0, 1);
+  -ms-transform: scale3d(0, 0, 1);
+  -o-transform: scale3d(0, 0, 1);
   transform: scale3d(0, 0, 1);
 }
 .morphsearch.open .morphsearch-close {
   opacity: 1;
   pointer-events: auto;
   -webkit-transform: scale3d(1, 1, 1);
+  -moz-transform: scale3d(1, 1, 1);
+  -ms-transform: scale3d(1, 1, 1);
+  -o-transform: scale3d(1, 1, 1);
   transform: scale3d(1, 1, 1);
-  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  -moz-transition: opacity 0.3s, transform 0.3s;
+  -o-transition: opacity 0.3s, transform 0.3s;
+  -webkit-transition: opacity 0.3s, transform 0.3s;
   transition: opacity 0.3s, transform 0.3s;
   -webkit-transition-delay: 0.5s;
+  -moz-transition-delay: 0.5s;
+  -o-transition-delay: 0.5s;
   transition-delay: 0.5s;
 }
 .morphsearch-close::before,
@@ -206,10 +235,16 @@ input[type="search"] {
 }
 .morphsearch-close::before {
   -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 .morphsearch-close::after {
   -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
 .morphsearch-content {
@@ -231,6 +266,8 @@ input[type="search"] {
   /* this breaks the transition of the children in FF: https://bugzilla.mozilla.org/show_bug.cgi?id=625289 */
   pointer-events: auto;
   -webkit-transition: opacity 0.3s 0.5s;
+  -moz-transition: opacity 0.3s 0.5s;
+  -o-transition: opacity 0.3s 0.5s;
   transition: opacity 0.3s 0.5s;
 }
 .dummy-column {
@@ -238,26 +275,39 @@ input[type="search"] {
   padding: 0 0 6em;
   float: left;
   opacity: 0;
-  -webkit-transform: translate3d(0, 100px, 0);
+  -moz-transform: translateY(100px);
+  -ms-transform: translateY(100px);
+  -o-transform: translateY(100px);
+  -webkit-transform: translateY(100px);
   transform: translateY(100px);
-  -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
+  -moz-transition: transform 0.5s, opacity 0.5s;
+  -o-transition: transform 0.5s, opacity 0.5s;
   transition: transform 0.5s, opacity 0.5s;
 }
 .morphsearch.open .dummy-column:first-child {
   -webkit-transition-delay: 0.4s;
+  -moz-transition-delay: 0.4s;
+  -o-transition-delay: 0.4s;
   transition-delay: 0.4s;
 }
 .morphsearch.open .dummy-column:nth-child(2) {
   -webkit-transition-delay: 0.45s;
+  -moz-transition-delay: 0.45s;
+  -o-transition-delay: 0.45s;
   transition-delay: 0.45s;
 }
 .morphsearch.open .dummy-column:nth-child(3) {
   -webkit-transition-delay: 0.5s;
+  -moz-transition-delay: 0.5s;
+  -o-transition-delay: 0.5s;
   transition-delay: 0.5s;
 }
 .morphsearch.open .dummy-column {
   opacity: 1;
   -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
 .dummy-column:nth-child(2) {
@@ -315,8 +365,12 @@ input[type="search"] {
   opacity: 0;
   pointer-events: none;
   -webkit-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
   transition: opacity 0.5s;
   -webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  -moz-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  -o-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
   transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
 }
 .morphsearch.open ~ .overlay {
@@ -339,6 +393,9 @@ input[type="search"] {
   }
   .morphsearch.open .morphsearch-submit {
     -webkit-transform: translate3d(0, -50%, 0) scale3d(0.5, 0.5, 1);
+    -moz-transform: translate3d(0, -50%, 0) scale3d(0.5, 0.5, 1);
+    -ms-transform: translate3d(0, -50%, 0) scale3d(0.5, 0.5, 1);
+    -o-transform: translate3d(0, -50%, 0) scale3d(0.5, 0.5, 1);
     transform: translate3d(0, -50%, 0) scale3d(0.5, 0.5, 1);
   }
 }
