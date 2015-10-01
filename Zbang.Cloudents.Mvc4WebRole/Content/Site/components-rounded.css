@@ -2548,6 +2548,10 @@ Chats
   border-radius: 10px;
   font-size: 13px;
 }
+.chats li.in .message span {
+  line-height: 38px;
+  margin-left: 18px;
+}
 .chats li.out .message {
   border: 2px solid #f5f5f5;
   margin-left: 65px;

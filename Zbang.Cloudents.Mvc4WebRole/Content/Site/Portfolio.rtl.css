@@ -34,7 +34,7 @@
   color: #f5f5f5;
   width: 100%;
   height: 100%;
-  bottom: calc(-100% +20);
+  bottom: calc(-101% - 22px);
   text-align: right;
   position: absolute;
   background: #6a737d;
