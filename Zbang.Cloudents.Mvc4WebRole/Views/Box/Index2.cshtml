@@ -9,14 +9,20 @@
         <div class="col-md-12">
             <div class="portlet box">
                 <div class="portlet-body">
-                    <div class="tabbable tabbable-tabdrop">
-                        <tabset>
+                    <ul class="nav nav-tabs tabbable tabbable-tabdrop">
+                        <li role="presentation" ui-sref-active="active"><a ui-sref="box.feed">Feed</a></li>
+                        <li role="presentation" ui-sref-active="active"><a ui-sref="box.items">Items</a></li>
+                        <li role="presentation" ui-sref-active="active"><a ui-sref="box.quiz">Quizzes</a></li>
+                        <li role="presentation" ui-sref-active="active"><a ui-sref="box.members">Members</a></li>
+                    </ul>
+                    @*<div class="tabbable tabbable-tabdrop">
+                        @*<tabset>
                             <tab active="false" ui-sref-active="active" ui-sref="box.feed" heading="Feed"></tab>
                             <tab ui-sref-active="active" ui-sref="box.items" heading="Items"></tab>
                             <tab ui-sref-active="active" ui-sref="box.quiz" heading="Quizzes"></tab>
                             <tab ui-sref-active="active" ui-sref="box.members" heading="Members"></tab>
                         </tabset>
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>

@@ -4,9 +4,12 @@
 
     function box(boxService, $stateParams, $location, $scope, $timeout) {
 
-        if ($location.path().endsWith($stateParams.boxName + '/')) {
-                $location.path($location.path() + 'feed/');
+        if (!$location.hash()) {
+            $location.hash('feed');
         }
+        //if ($location.path().endsWith($stateParams.boxName + '/')) {
+        //        $location.path($location.path() + 'feed/');
+        //}
 
         var b = this;
         var boxData;
