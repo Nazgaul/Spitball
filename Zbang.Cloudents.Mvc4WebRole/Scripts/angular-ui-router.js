@@ -1888,7 +1888,12 @@ function $UrlRouterProvider(   $locationProvider,   $urlMatcherFactory) {
           handler = ['$match', function ($match) { return redirect.format($match); }];
         }
         return extend(function ($injector, $location) {
-          return handleIfMatch($injector, handler, what.exec($location.path(), $location.search()));
+            //RAM: i did some changes in here
+            var path = $location.path();
+            if ($location.hash()) {
+                path += '#' + $location.hash();
+            }
+            return handleIfMatch($injector, handler, what.exec(path, $location.search()));
         }, {
           prefix: isString(what.prefix) ? what.prefix : ''
         });

@@ -325,3 +325,5 @@
 /// <reference path="../js/shared/google.js" />
 /// <reference path="../Js/components/box/members.controller.js" />
 /// <reference path="../js/components/box/quizzes.controller.js" />
+/// <reference path="../js/components/quiz/quiz.controller.js" />
+/// <reference path="../js/components/quiz/quiz.service.js" />

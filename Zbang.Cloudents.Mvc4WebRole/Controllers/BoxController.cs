@@ -32,9 +32,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class BoxController : BaseController
     {
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
-           Duration = TimeConsts.Day, VaryByParam = "boxId",
-           Location = OutputCacheLocation.Server, Order = 4)]
+        //[DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
+        //   Duration = TimeConsts.Day, VaryByParam = "boxId",
+        //   Location = OutputCacheLocation.Server, Order = 4)]
         [BoxPermission("boxId", Order = 3)]
         public async Task<ActionResult> Index(long boxId)
         {

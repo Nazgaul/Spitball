@@ -1,0 +1,29 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+@{
+    const string svgUrl = "~/images/site/itemIcons.svg";
+}
+
+<div class="itemPage quizPage">
+    <header>
+        <a class="closeItem" href="{{::q.boxUrl}}">@Html.Svg(svgUrl, "close")</a>
+    </header>
+
+    <div class="itemContent">
+        <div class="fileName">{{::q.name}}</div>        
+
+        <div class="questions">
+            <ul class="question-list">
+                <li class="question" ng-repeat="question in ::q.questions">
+                     {{question.text}}
+
+                    <ul class="answer-list">
+                        <li class="answer" ng-repeat="answer in question.answers">
+                            {{answer.text}}
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

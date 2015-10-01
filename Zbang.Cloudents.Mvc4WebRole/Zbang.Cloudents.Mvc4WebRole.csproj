@@ -1778,6 +1778,18 @@
     <Content Include="Content\Site\boxMembers.rtl.min.css">
       <DependentUpon>boxMembers.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\quiz.css">
+      <DependentUpon>quiz.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\quiz.min.css">
+      <DependentUpon>quiz.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\quiz.rtl.css">
+      <DependentUpon>quiz.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\quiz.rtl.min.css">
+      <DependentUpon>quiz.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\rtlFix.css">
       <DependentUpon>rtlFix.less</DependentUpon>
     </Content>
@@ -1999,6 +2011,7 @@
       <DependentUpon>site.png.rtl.css</DependentUpon>
     </Content>
     <Content Include="Images\Site\BG.png" />
+    <Content Include="Images\Site\quizIcons.svg" />
     <Content Include="Images\Site\itemIcons.svg" />
     <Content Include="Images\Site\icons.svg" />
     <Content Include="Images\Site\uploadIcons.svg" />
@@ -2123,6 +2136,8 @@
     <Content Include="Js\components\dashboard\dashboard.controller.js" />
     <Content Include="Js\components\dashboard\dashboard.service.js" />
     <Content Include="Js\components\dashboard\sidemenu.controller.js" />
+    <Content Include="Js\components\quiz\quiz.controller.js" />
+    <Content Include="Js\components\quiz\quiz.service.js" />
     <Content Include="Js\components\item\item.controller.js" />
     <Content Include="Js\components\item\item.service.js" />
     <Content Include="Js\components\item\upload.controller.js" />
@@ -2403,6 +2418,7 @@
     <Content Include="Content\Site\General.less" />
     <Content Include="Content\Site\boxMembers.less" />
     <Content Include="Content\Site\rtlFix.less" />
+    <Content Include="Content\Site\quiz.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3283,7 +3299,6 @@
     <Content Include="Views\Library\SelectDepartment.cshtml" />
     <Content Include="Views\Item\Rename.cshtml" />
     <Content Include="Views\Shared\Partials\_Welcome.cshtml" />
-    <Content Include="Views\Quiz\Index.cshtml" />
     <Content Include="Views\Library\InsertId.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
@@ -3333,6 +3348,7 @@
     <Content Include="Views\Box\_Quizzes2.cshtml" />
     <Content Include="Views\Shared\Partials2\_Upload.cshtml" />
     <Content Include="Views\Box\_Create.cshtml" />
+    <Content Include="Views\Quiz\Index2.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

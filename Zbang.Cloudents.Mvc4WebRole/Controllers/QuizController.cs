@@ -92,7 +92,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult IndexPartial()
         {
-            return PartialView("Index");
+            return PartialView("Index2");
 
         }
 
