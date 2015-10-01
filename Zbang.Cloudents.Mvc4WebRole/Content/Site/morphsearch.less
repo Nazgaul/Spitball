@@ -52,11 +52,19 @@ body {
 
 @media (max-width: 991px) {
     .morphsearch {
+        -moz-transform-origin: ~"calc(100% - 326px) 35px";
+        -ms-transform-origin: ~"calc(100% - 326px) 35px";
+        -o-transform-origin: ~"calc(100% - 326px) 35px";
+        -webkit-transform-origin: ~"calc(100% - 326px) 35px";
         transform-origin: ~"calc(100% - 326px) 35px";
     }
 }
 @media (max-width: 767px) {
-     .morphsearch {
+    .morphsearch {
+        -moz-transform-origin: ~"calc(100% - 71px) 35px";
+        -ms-transform-origin: ~"calc(100% - 71px) 35px";
+        -o-transform-origin: ~"calc(100% - 71px) 35px";
+        -webkit-transform-origin: ~"calc(100% - 71px) 35px";
         transform-origin: ~"calc(100% - 71px) 35px";
     }
 }
@@ -68,10 +76,16 @@ body {
     margin: 0 auto;
     position: relative;
     -webkit-transition-property: width, height, -webkit-transform;
+    -moz-transition-property: width, height, transform;
+    -o-transition-property: width, height, transform;
     transition-property: width, height, transform;
     -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
     transition-duration: 0.5s;
     -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+    -moz-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+    -o-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
     transition-timing-function: cubic-bezier(0.7,0,0.3,1);
 }
 
@@ -79,6 +93,9 @@ body {
     width: 80%;
     height: 160px;
     -webkit-transform: translate3d(0,3em,0);
+    -moz-transform: translate3d(0,3em,0);
+    -ms-transform: translate3d(0,3em,0);
+    -o-transform: translate3d(0,3em,0);
     transform: translate3d(0,3em,0);
 }
 
