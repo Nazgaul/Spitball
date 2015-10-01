@@ -4,7 +4,7 @@
 **/cdn/Images/
 **/cdn/Content/
 *.min.css
-*.css
+
 
 # mstest test results
 TestResults

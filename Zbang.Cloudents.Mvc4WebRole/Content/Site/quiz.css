@@ -1,0 +1,22 @@
+﻿.quizPage {
+  color: #383838;
+}
+.quizPage .questions {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 15px 20px 15px 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px #d5d5d5;
+  margin-top: 20px;
+}
+.quizPage .questions .question-list {
+  list-style-type: decimal;
+}
+.quizPage .questions .question-list .question {
+  margin: 20px 0;
+  border-bottom: 1px dashed #6a737d;
+}
+.quizPage .questions .answer-list {
+  list-style-type: lower-latin;
+}
