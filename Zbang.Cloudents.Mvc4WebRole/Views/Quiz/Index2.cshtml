@@ -16,6 +16,12 @@
             <ul class="question-list">
                 <li class="question" ng-repeat="question in ::q.questions">
                      {{question.text}}
+
+                    <ul class="answer-list">
+                        <li class="answer" ng-repeat="answer in question.answers">
+                            {{answer.text}}
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>
