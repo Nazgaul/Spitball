@@ -21,11 +21,11 @@ body {
     z-index: 10000;
     //top: 50px;
     //right: 50px;
-    -webkit-transform-origin: 85% 20px;
-    -moz-transform-origin: 85% 20px;
-    -ms-transform-origin: 85% 20px;
-    -o-transform-origin: 85% 20px;
-    transform-origin: 85% 20px;
+    -moz-transform-origin: ~"calc(100% - 375px) 40px";
+    -ms-transform-origin: ~"calc(100% - 375px) 40px";
+    -o-transform-origin: ~"calc(100% - 375px) 40px";
+    -webkit-transform-origin: ~"calc(100% - 375px) 40px";
+    transform-origin: ~"calc(100% - 375px) 40px";
     /*-webkit-transition-property: all;
     -moz-transition-property: all;
     -o-transition-property: all;
@@ -34,14 +34,14 @@ body {
     -moz-transition-duration: 0.5s;
     -o-transition-duration: 0.5s;
     transition-duration: 0.5s;
-    -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
     -moz-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
     -o-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+    -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
     transition-timing-function: cubic-bezier(0.7,0,0.3,1);
 
 
 
-    &.ng-hide-remove, &.ng-hide-add-active {
+    &.ng-hide, &.ng-hide-add-active {
         -moz-transform: scale(0);
         -ms-transform: scale(0);
         -o-transform: scale(0);
