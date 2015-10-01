@@ -1889,7 +1889,11 @@ function $UrlRouterProvider(   $locationProvider,   $urlMatcherFactory) {
         }
         return extend(function ($injector, $location) {
             //RAM: i did some changes in here
-            return handleIfMatch($injector, handler, what.exec($location.path() + '#' + $location.hash(), $location.search()));
+            var path = $location.path();
+            if ($location.hash()) {
+                path += '#' + $location.hash();
+            }
+            return handleIfMatch($injector, handler, what.exec(path, $location.search()));
         }, {
           prefix: isString(what.prefix) ? what.prefix : ''
         });

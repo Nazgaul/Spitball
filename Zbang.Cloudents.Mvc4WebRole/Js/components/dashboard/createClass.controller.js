@@ -33,8 +33,8 @@
         cc.chooseBox = function (type) {
             cc.boxType = type;
             //cc.step = steps.name;
-            $scope.$broadcast('uploadPhase');
-            cc.step = steps.upload;
+            //$scope.$broadcast('uploadPhase');
+            cc.step = steps.name;
         };
         
         cc.alert = null;
