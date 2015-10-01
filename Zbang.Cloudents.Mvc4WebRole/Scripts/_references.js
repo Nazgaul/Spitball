@@ -327,3 +327,5 @@
 /// <reference path="../js/components/box/quizzes.controller.js" />
 /// <reference path="../js/components/quiz/quiz.controller.js" />
 /// <reference path="../js/components/quiz/quiz.service.js" />
+/// <reference path="../js/shared/meganumbers.js" />
+/// <reference path="../js/components/search.controller.js" />

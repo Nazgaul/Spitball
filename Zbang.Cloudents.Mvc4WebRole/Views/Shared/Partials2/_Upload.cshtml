@@ -61,7 +61,9 @@
             <span class="check-mark" ng-if="file.complete">&#x2713;</span>
             <div class="file-name">
                 {{::file.name}}
-                <progressbar ng-if="!file.complete" class="file-upload-progress progress-striped active" value="file.percent" type="info"></progressbar>
+                <div ng-if="!file.complete" class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{file.percent}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width: file.percent + '%'}">
+                    <span class="sr-only">{{file.percent}}% Complete</span>
+                </div>
             </div>
             <div class="file-size">{{::file.sizeFormated}}</div>
             <button type="button">remove file</button>

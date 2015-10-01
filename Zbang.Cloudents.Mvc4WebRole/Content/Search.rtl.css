@@ -159,7 +159,7 @@
   left: 1em;
   top: 1em;
   overflow: hidden;
-  cursor: pointer
+  cursor: pointer;
   /*-webkit-transform: scale3d(0,0,1);
 	transform: scale3d(0,0,1);*/
 }
@@ -334,3 +334,12 @@
     margin: 0;
   }
 }
+/*@media screen and (max-width: 60.625em) {
+	.searchInputWpr.open {
+		width: 100%;
+		top: 0;
+        left:0;right:0;
+        margin: auto;
+	}
+}*/
+/*#endregion */

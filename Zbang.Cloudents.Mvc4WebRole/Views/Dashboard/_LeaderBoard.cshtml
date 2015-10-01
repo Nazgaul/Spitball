@@ -6,10 +6,10 @@
                 <div class="r-table-cell">
                     <user-image class="img-circle" name="l.name" image="l.image" width="30" height="30"></user-image>
                     @*<img class="img-circle" width="30" height="30" src="{{::l.image}}" alt="userPic" />*@
-                    <span>{{::l.name}}</span>
+                    <span class="user-name">{{::l.name}}</span>
                 </div>
                 <div class="r-table-cell">1st</div>
-                <div class="r-table-cell last">{{::l.score}} pts</div>
+                <div class="r-table-cell last">{{::l.score | megaNumber}} pts</div>
             </div>
         </div>
     </div>

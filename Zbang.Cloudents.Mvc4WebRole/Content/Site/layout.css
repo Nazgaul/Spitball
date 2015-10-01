@@ -129,16 +129,16 @@ Page Header
 .page-header.navbar .search-form .input-group .input-group-btn .btn.submit > i {
   font-size: 13px;
 }
-.page-header.navbar .search-form.open {
-  width: 300px !important;
-}
-.page-header.navbar .search-form.open .input-group .form-control {
-  text-indent: 0;
-  padding: 6px 12px;
-}
-.page-header.navbar .search-form.open .input-group .form-control:hover {
-  cursor: text;
-}
+/*.page-header.navbar .search-form.open {
+    width: 300px !important;
+}*/
+/*.page-header.navbar .search-form.open .input-group .form-control {
+    text-indent: 0;
+    padding: 6px 12px;
+}*/
+/*.page-header.navbar .search-form.open .input-group .form-control:hover {
+    cursor: text;
+}*/
 .page-header.navbar .menu-toggler {
   display: block;
   cursor: pointer;
@@ -504,16 +504,17 @@ Page Header
   .page-sidebar-closed.page-sidebar-closed-hide-logo .page-header.navbar .page-logo .logo-default {
     display: none;
   }
-  .page-header.navbar .search-form.search-form-expanded {
-    width: 175px;
-  }
-  .page-header.navbar .search-form.search-form-expanded .input-group .form-control {
-    text-indent: 0;
-    padding: 6px 12px;
-  }
-  .page-header.navbar .search-form.search-form-expanded .input-group .form-control:hover {
-    cursor: text;
-  }
+  /*.page-header.navbar .search-form.search-form-expanded {
+        width: 175px;
+    }*/
+  /*.page-header.navbar .search-form.search-form-expanded .input-group .form-control {
+        text-indent: 0;
+        padding: 6px 12px;
+    }
+
+    .page-header.navbar .search-form.search-form-expanded .input-group .form-control:hover {
+        cursor: text;
+    }*/
   /* Boxed Layout */
   .page-boxed .page-header.navbar {
     /* Page logo */
@@ -571,14 +572,14 @@ Page Header
   .page-header.navbar .search-form {
     margin-left: 0;
   }
-  .page-header.navbar .search-form.open {
-    z-index: 3;
-    left: 10px;
-    right: 10px;
-    position: absolute;
-    width: auto !important;
-    margin: 24px 0 0 0;
-  }
+  /*.page-header.navbar .search-form.open {
+        z-index: 3;
+        left: 10px;
+        right: 10px;
+        position: absolute;
+        width: auto !important;
+        margin: 24px 0 0 0;
+    }*/
   .page-header.navbar .page-header-inner.container {
     width: 100%;
     max-width: none !important;
@@ -640,9 +641,9 @@ Page Header
     float: right;
     margin-top: -53px;
   }
-  .page-header.navbar .search-form.open {
-    margin: -52px 0 0 0;
-  }
+  /*.page-header.navbar .search-form.open {
+        margin: -52px 0 0 0;
+    }*/
   .page-header.navbar .page-top {
     padding: 0;
     display: block;
