@@ -9,7 +9,8 @@
             <a href="{{i.details.downloadUrl}}">@Html.Svg(svgUrl, "download")</a>
             <a href="{{i.details.printUrl}}">@Html.Svg(svgUrl, "print")</a>
             <a href="#" tooltip-placement="bottom" tooltip="share tooltip">@Html.Svg(svgUrl, "share")</a>
-            <a href="#" tooltip-placement="bottom" tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
+            <a href="#" tooltip-placement="bottom" tooltip-class="copy-right"
+               tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
         </div>
         
     </header>

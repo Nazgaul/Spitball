@@ -96,7 +96,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                  {
                     "site4", new[]
                     {
-                        "~/bower_components/angular-material/angular-material.css",
+                        //"~/bower_components/angular-material/angular-material.css",
                         "~/Content/signin/font-awesome.css",
                         "~/Content/signin/simple-line-icons.css",
                         "~/Content/homepage/bootstrap.css",
@@ -419,9 +419,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/angulartics.js"),
                         new JsFileWithCdn("~/scripts/angulartics-ga.js"),
                         new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
-                        new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js"),
-                        new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
-                        new JsFileWithCdn("~/bower_components/angular-material/angular-material.js"),
+                        //new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js"),
+                        //new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
+                        //new JsFileWithCdn("~/bower_components/angular-material/angular-material.js"),
                         new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
 
                         new JsFileWithCdn("~/scripts/plupload2/moxie.js"),

@@ -7,7 +7,7 @@
         'ngSanitize',
         'angulartics',
         'ui.bootstrap',
-        'ngMaterial',
+        //'ngMaterial',
         'angulartics.google.analytics',
         'angular-plupload',
         'infinite-scroll',
