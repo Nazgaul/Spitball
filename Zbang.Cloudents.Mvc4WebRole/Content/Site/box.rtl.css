@@ -57,17 +57,20 @@
   line-height: 50px;
 }
 .class .likes .share {
+  height: 20px;
+  width: 20px;
+  fill: currentColor;
   float: left;
-  position: relative;
-  top: -38px;
+  position: absolute;
+  bottom: 14px;
   left: 15px;
 }
-.class .blue.btn {
+.class .likes .blue.btn {
   float: right;
   margin: 5px;
   border-radius: 45px;
   padding: 3px 10px;
-  margin: 10px 10px 10px 10px;
+  margin: 10px 15px 10px 10px;
 }
 .member-name {
   color: #bababa;

@@ -2507,6 +2507,10 @@ Chats
 }
 .chats li .body {
   display: block;
+  margin-left: 5px;
+}
+.chats li .body a {
+  overflow-wrap: break-word;
 }
 .chats li .avatar {
   height: 45px;
@@ -2527,9 +2531,11 @@ Chats
   color: #3598dc;
   font-size: 13px;
   font-weight: 400;
+  margin-left: 5px;
 }
 .chats li.out .name {
   color: #3598dc;
+  margin-left: 5px;
 }
 .chats li .datetime {
   color: #f5f5f5;
