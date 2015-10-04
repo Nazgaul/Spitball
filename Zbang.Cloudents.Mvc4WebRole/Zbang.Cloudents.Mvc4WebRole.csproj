@@ -3269,6 +3269,7 @@
     <Content Include="Scripts\Modernizr.js" />
     <Content Include="Scripts\svg4everybody.js" />
     <Content Include="Scripts\ui-bootstrap-custom-tpls-0.13.0.js" />
+    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.13.4.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls.min.js" />
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />

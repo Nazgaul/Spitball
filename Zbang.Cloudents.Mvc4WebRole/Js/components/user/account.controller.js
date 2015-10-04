@@ -7,7 +7,6 @@
 
 
         userDetailsService.getAccountDetails().then(function (response) {
-            console.log(response);
             self.data = response;
         });
 
@@ -18,7 +17,7 @@
         self.selectedItemChange = function selectedItemChange(item) {
             self.data.university = item.name;
             self.data.universityId = item.id;
-            //console.log('Item changed to ' + JSON.stringify(item));
+           
         };
 
         self.submit = function () {
@@ -34,17 +33,17 @@
 
         //ud.setAccountDetails
 
-        $scope.$on('$viewContentLoaded', function () {
-            //taken from metronic.js
-            if (location.hash) {
-                var tabid = encodeURI(location.hash.substr(1));
-                $('a[href="#' + tabid + '"]').parents('.tab-pane:hidden').each(function () {
-                    tabid = $(this).attr("id");
-                    $('a[href="#' + tabid + '"]').click();
-                });
-                $('a[href="#' + tabid + '"]').click();
-            }
-        });
+        //$scope.$on('$viewContentLoaded', function () {
+        //    //taken from metronic.js
+        //    if (location.hash) {
+        //        var tabid = encodeURI(location.hash.substr(1));
+        //        $('a[href="#' + tabid + '"]').parents('.tab-pane:hidden').each(function () {
+        //            tabid = $(this).attr("id");
+        //            $('a[href="#' + tabid + '"]').click();
+        //        });
+        //        $('a[href="#' + tabid + '"]').click();
+        //    }
+        //});
 
         self.fileUpload = {
             url: '/upload/profilepicture/',

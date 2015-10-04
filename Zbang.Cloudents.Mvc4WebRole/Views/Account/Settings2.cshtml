@@ -86,10 +86,9 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label" for="univeristy">change university</label>
-                                                <md-autocomplete md-input-id="university"
+                                                @*<md-autocomplete md-input-id="university"
                                                                  md-no-cache="false"
                                                                  md-selected-item="a.selectedItem.name"
-                                                                 @*md-search-text-change="a.searchTextChange(ctrl.searchText)"*@
                                                                  md-search-text="a.searchText"
                                                                  md-selected-item-change="a.selectedItemChange(item)"
                                                                  md-items="item in a.querySearch(a.searchText)"
@@ -103,8 +102,12 @@
                                                     <md-not-found>
                                                         No matches found for "{{a.searchText}}".
                                                     </md-not-found>
-                                                </md-autocomplete>
-                                                @*<input type="text" placeholder="{{::a.data.university}}" class="form-control" />*@
+                                                </md-autocomplete>*@
+                                                <input type="text" ng-model="asyncSelected" placeholder="{{::a.data.university}}" class="form-control"
+                                                       typeahead="item.name for item in a.querySearch($viewValue)"
+                                                       typeahead-wait-ms="250"
+                                                       typeahead-min-length="2"
+                                                       typeahead-on-select="a.selectedItemChange($item)" />
                                             </div>
 
                                             <div class="margin-top-10 floatright">
