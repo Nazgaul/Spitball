@@ -98,7 +98,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 ViewBag.Description = model.Description;
 
-               
+
                 if (!string.IsNullOrEmpty(model.Description))
                 {
                     var metaDescription = model.Description.RemoveEndOfString(197);
@@ -241,33 +241,32 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return new BlobFileStream(blob, contentType, item.Name, true);
         }
 
-        [HttpGet, ZboxAuthorize]
-        public ActionResult Rename()
-        {
+        //[HttpGet, ZboxAuthorize]
+        //public ActionResult Rename()
+        //{
 
-            try
-            {
-                return PartialView("Rename");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("Rename ", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //    try
+        //    {
+        //        return PartialView("Rename");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("Rename ", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
 
         /// <summary>
         /// Used to rename file name - item name cannot be changed
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [ZboxAuthorize]
-        [HttpPost]
+        [ZboxAuthorize,HttpPost]
         public JsonResult Rename(Rename model)
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, new { error = GetModelStateErrors() }));
+                return JsonError(GetErrorFromModelState());
             }
 
             var userId = User.GetUserId();
@@ -275,26 +274,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var command = new ChangeFileNameCommand(model.Id, model.NewName, userId);
                 var result = ZboxWriteService.ChangeFileName(command);
-                return Json(new JsonResponse(true, new
+                return JsonOk(new
                 {
                     name = result.Name,
                     url = result.Url
                     //queryString = UrlBuilder.NameToQueryString(result.Name)
-                }));
+                });
             }
 
             catch (UnauthorizedAccessException)
             {
-                return Json(new JsonResponse(false, "You need to follow this box in order to change file name"));
+                return JsonError("You need to follow this box in order to change file name");
             }
             catch (ArgumentException ex)
             {
-                return Json(new JsonResponse(false, ex.Message));
+                return JsonError(ex.Message);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("ChangeFileName newFileName {0} ItemUid {1} userId {2}", model.NewName, model.Id, userId), ex);
-                return Json(new JsonResponse(false, "Error"));
+                return JsonError("Error");
             }
 
 

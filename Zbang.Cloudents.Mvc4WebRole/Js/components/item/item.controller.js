@@ -57,6 +57,20 @@
                 getPreview();
             }
         };
+
+
+        i.renameOn = false;
+
+        i.renameItem = function () {
+            if (!i.renameOn) {
+                i.renameOn = true;
+                return;
+            }
+            itemService.renameItem(i.details.name, $stateParams.itemId).then(function (response) {
+                i.details.name = response.name;
+                $location.path(response.url).replace();
+            });
+        }
     }
 
     

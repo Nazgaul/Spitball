@@ -2174,6 +2174,7 @@
     <Content Include="Js\services\ajaxServiceOld.js" />
     <Content Include="Js\shared\colorOnLength.js" />
     <Content Include="Js\shared\dropbox.js" />
+    <Content Include="Js\shared\focusMe.js" />
     <Content Include="Js\shared\google.js" />
     <Content Include="Js\shared\loader.js" />
     <Content Include="Js\shared\megaNumbers.js" />
@@ -3278,6 +3279,7 @@
     <Content Include="Js\controllers\dashboard\createBoxWizardCtrl.js" />
     <Content Include="Images\Defs.svg" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Item\Print.cshtml" />
     <Content Include="Views\Library\_AddSchoolDialog.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -3312,7 +3314,6 @@
     <Content Include="Views\Share\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Library\SelectDepartment.cshtml" />
-    <Content Include="Views\Item\Rename.cshtml" />
     <Content Include="Views\Shared\Partials\_Welcome.cshtml" />
     <Content Include="Views\Library\InsertId.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
@@ -3880,9 +3881,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Item\_PreviewLink.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Item\Print.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Library\_Template.cshtml" />

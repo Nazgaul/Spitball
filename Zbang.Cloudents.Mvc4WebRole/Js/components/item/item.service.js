@@ -37,5 +37,14 @@
             });
         }
 
+        d.renameItem  = function(name,id) {
+            return ajaxservice.post('item/rename', {
+                id:id,
+                newName: name
+            }).then(function(response) {
+                return { name: response.name, url: response.url }
+            });
+        }
+
     }
 })();
