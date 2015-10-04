@@ -4,7 +4,7 @@
 <div class="portlet box create" ng-controller="CreateClass as cc">
     <div class="portlet-title">
         <div class="caption">
-            create class
+            Create a new group
         </div>
         <button type="button" class="close closeFrom" ng-click="d.createBoxOn = false">X</button>
     </div>
@@ -19,7 +19,7 @@
                                     1
                                 </span>
                                 <span class="desc">
-                                    class type
+                                    Type
                                 </span>
                             </a>
                         </li>
@@ -29,7 +29,7 @@
                                     2
                                 </span>
                                 <span class="desc">
-                                    class name
+                                    Name
                                 </span>
                             </a>
                         </li>
@@ -39,7 +39,7 @@
                                     3
                                 </span>
                                 <span class="desc">
-                                    department
+                                    Department
                                 </span>
                             </a>
                         </li>
@@ -49,7 +49,7 @@
                                     4
                                 </span>
                                 <span class="desc">
-                                    upload
+                                    Upload
                                 </span>
                             </a>
                         </li>
@@ -59,7 +59,7 @@
                                     5
                                 </span>
                                 <span class="desc">
-                                    invite
+                                    Invite
                                 </span>
                             </a>
                         </li>
@@ -74,15 +74,15 @@
                     <div class="tab-content">
                         <div ng-if="cc.alert" class="alert alert-danger alert-dismissible" role="alert">{{cc.alert}}</div>
                         <div class="tab-pane text-center" ng-class="{active:cc.step === 1}">
-                            <button type="button" ng-click="cc.chooseBox(1)">
-                                @Html.Svg(url, "createBox")
-                                <h6>Study group</h6>
-                                To work on things in a group
-                            </button>
                             <button type="button" ng-click="cc.chooseBox(2)">
                                 @Html.Svg(url, "createClass")
-                                <h6>Class</h6>
-                                To share things with your whole class
+                                <h6>Open Group</h6>
+                                Share with the entire class
+                            </button>
+                            <button type="button" ng-click="cc.chooseBox(1)">
+                                @Html.Svg(url, "createBox")
+                                <h6>Study Group</h6>
+                                To work on things in a group
                             </button>
                         </div>
                         <div class="tab-pane" ng-class="{active:cc.step === 2}">
@@ -102,18 +102,15 @@
                                         instructor
                                         <input class="form-control" type="text" ng-model="cc.professor" />
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                         <div class="tab-pane" ng-class="{active:cc.step === 3}">
                             department
                         </div>
-                        <div class="tab-pane" ng-class="{active:cc.step === 4}" >
+                        <div class="tab-pane" ng-class="{active:cc.step === 4}">
                             @{ Html.RenderPartial("_Upload"); }
                         </div>
-
                         <div class="tab-pane" ng-class="{active:cc.step === 5}">
                             invite
                         </div>
@@ -122,8 +119,8 @@
                 <div class="form-actions" ng-hide="cc.step === 1">
                     <div class="actions">
                         @*<a href="javascript:;" class="btn default button-previous">
-                                Back
-                            </a>*@
+                        Back
+                    </a>*@
                         <button type="submit" class="btn blue" ng-click="cc.stepFinish()" ng-disabled="cc.submitFormProcess">
                             Next
                         </button>
