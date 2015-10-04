@@ -329,3 +329,5 @@
 /// <reference path="../js/components/quiz/quiz.service.js" />
 /// <reference path="../js/shared/meganumbers.js" />
 /// <reference path="../js/components/search.controller.js" />
+/// <reference path="ui-bootstrap-custom-tpls-0.13.4.min.js" />
+/// <reference path="../js/shared/focusme.js" />

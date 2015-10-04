@@ -60,3 +60,9 @@
   border: 0;
   background: transparent;
 }
+.itemPage .copy-right {
+  width: 500px;
+}
+.itemPage .tooltip-inner {
+  max-width: 500px;
+}

@@ -8,8 +8,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
     {
         [Required]
         public long ItemId { get; set; }
-        [Required]
-        public int Rate { get; set; }
 
         [Required]
         public long BoxId { get; set; }
