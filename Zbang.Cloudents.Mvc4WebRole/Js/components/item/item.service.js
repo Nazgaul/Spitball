@@ -27,7 +27,7 @@
                 name: name
             });
         }
-        d.addFromDropBox = function (boxId, url, name,  tabId, question) {
+        d.addFromDropBox = function (boxId, url, name, tabId, question) {
             return ajaxservice.post('upload/dropbox/', {
                 boxId: boxId,
                 url: url,
@@ -37,14 +37,22 @@
             });
         }
 
-        d.renameItem  = function(name,id) {
+        d.renameItem = function (name, id) {
             return ajaxservice.post('item/rename', {
-                id:id,
+                id: id,
                 newName: name
-            }).then(function(response) {
+            }).then(function (response) {
                 return { name: response.name, url: response.url }
             });
         }
+
+        //no need to wipe cache
+        d.like = function (id, boxId) {
+            return ajaxservice.post('item/like', {
+                itemId: id,
+                boxId: boxId
+            }, true);
+        };
 
     }
 })();

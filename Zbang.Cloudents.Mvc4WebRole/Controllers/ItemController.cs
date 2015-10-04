@@ -261,7 +261,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [ZboxAuthorize,HttpPost]
+        [ZboxAuthorize, HttpPost]
         public JsonResult Rename(Rename model)
         {
             if (!ModelState.IsValid)
@@ -360,19 +360,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [ZboxAuthorize]
-        [HttpPost]
-        [RemoveBoxCookie]
-        public async Task<JsonResult> Rate(RateModel model)
+        [ZboxAuthorize, HttpPost, RemoveBoxCookie]
+        public async Task<JsonResult> Like(RateModel model)
         {
             if (!ModelState.IsValid)
             {
-                return JsonError(new { error = GetModelStateErrors() });
+                return JsonError(GetErrorFromModelState());
             }
             try
             {
                 var id = m_GuidGenerator.Value.GetId();
-                var command = new RateItemCommand(model.ItemId, User.GetUserId(), model.Rate, id, model.BoxId);
+                var command = new RateItemCommand(model.ItemId, User.GetUserId(), 5, id, model.BoxId);
                 await ZboxWriteService.RateItemAsync(command);
 
                 return JsonOk();

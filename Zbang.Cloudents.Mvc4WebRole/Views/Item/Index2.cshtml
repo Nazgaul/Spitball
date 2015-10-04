@@ -3,7 +3,9 @@
 }
 <div class="itemPage">
     <header>
-        <div class="like">Rate</div>
+        <div class="like">
+            <button type="button" ng-click="i.like()">Like</button>
+        </div>
         <a class="closeItem" href="{{::i.details.boxUrl}}">@Html.Svg(svgUrl, "close")</a>
         <div class="text-center">
             <a href="{{i.details.downloadUrl}}">@Html.Svg(svgUrl, "download")</a>

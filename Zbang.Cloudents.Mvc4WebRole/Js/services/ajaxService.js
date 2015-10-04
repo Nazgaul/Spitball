@@ -7,7 +7,6 @@
         '$analytics'
     ];
 
-//'$log',
 
     function ajaxService($http, $q, $angularCacheFactory, $analytics /*, $log*/) {
         "use strict";

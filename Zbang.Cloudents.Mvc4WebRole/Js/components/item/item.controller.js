@@ -8,7 +8,6 @@
 
         i.preview = '';
         itemService.getDetails($stateParams.boxId, $stateParams.itemId).then(function (response) {
-            console.log(response);
             i.details = response;
             i.details.downloadUrl = $location.url() + 'download/';
             i.details.printUrl = $location.url() + 'print/';
@@ -70,6 +69,10 @@
                 i.details.name = response.name;
                 $location.path(response.url).replace();
             });
+        }
+
+        i.like = function() {
+            itemService.like($stateParams.itemId, $stateParams.boxId);
         }
     }
 
