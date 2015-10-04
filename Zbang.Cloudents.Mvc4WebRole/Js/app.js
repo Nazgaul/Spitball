@@ -1,5 +1,7 @@
 ﻿/// <reference path="../Scripts/angular.js" />
-(function() {
+(function () {
+    "use strict";
+    //TODO: download ui bootstap only what needed
     angular.module('app', [
         'ui.router',
         'ngSanitize',
