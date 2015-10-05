@@ -1,30 +1,78 @@
 ﻿@import "variables.less";
 
+@correctWrong: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAASCAYAAADR/2dRAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAAI1SURBVEhLrZa/axRBFMe3kRQpzKVNlSKgXSCdlUWqBUl5114T7i6NRVKJVhIUOzFBizQ2gpaxuuL+gSBoFy42QoprFlROsBA37zO+iTOzb7Nb3IMvs/Nu5vu+9+bNj8yywd5guT/aXe0c97Y6R90dWvr4dUgr8zyjwXDzy90HOS2+Vjz39l8sEfj2SW8sKARlAPrjlTe9+4zTKaY9O3x0SwVMBH8N4M8Zp1Ni4x+svO4916ChiBQF4xivUyPD/3lr5zAJboJxlSzhkCBkwwpuAkEpEX0JUpcNExVBneNu3wqY4s67YdRffdk9UApnbTOSgnmOQISsC/E0DGLh6af3JbZ9+jj0F8yHZ7g32hDiKCuXT16VoMkHdoeDtYx/F5CbICPz338sMSW7DTFWVtwEsR8fTl1wWm/pWEGeCWFjrXz8duYIaNPfqB3ECFmlVsLgs9lMv/6LC+GWSghvXCIygZGZtGYU4zoxIBSEWUIUk4oYauPrxcX1cpydXzoS/OG4AIsTI2v+NiT3hfprPo++a7Ky2GXSbR0ddL5GvN2QlZITGTELKWBOTCGtFLEXVHz/GfkTTP1JbB14dVu7OHiYiplcH3xsTyGuXAPUTd3yAL+tvQlpngRpi1wp/lnLe8mDw66vUyOzlqsBsRBvmqGmc2eaZiQ1AgjM3RWA320h3ngeaJYQxbb3GOOvu61T43mgWSKoF+a+8bflcYIoKO4dssAbB1/TOyY1BMGj91ZOS99+x2TZFQAzVOYkeMCCAAAAAElFTkSuQmCC');
+@checked: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAPCAMAAAAvUzStAAAAV1BMVEUAAAD////o6Oienp79/v76+vqhoaGnp6fAwMADccjOzs7k5OTIyMiWxOi9vb3R0dHW1tYyi9Orq6vExMSkzOtpq9/t7e3s7OyKveXw9ftBlNVxr+BfpdyL9e8MAAAAAXRSTlMAQObYZgAAAKNJREFUeF6FkEcOAyEMRd0pU0tquf85AxZhFWne7vENNoZzbnPgMN+aLcbMtkDXQVGHdrCzG+/gjKtiRdexWOgWakhRUKfrJCiRYCzmFKvFkfC5pZS2J1IEI/xBVp9SfKTKhBqAtafKJTXBj6dvFAOWngqf3o2EWvu+5F9fiohyuV4E0Wfuqc8MR//hUcy6GTi5bSe7hWYBGnff871Z9j1nOOULVRwG/fUEbDQAAAAASUVORK5CYII=');
+
 .quizPage {
     color: @textColor;
-  
+
+    header {
+        z-index: 1;
+    }
 
     .questions {
-        max-width:800px;
-        margin:0 auto;
+        max-width: 800px;
         padding: 15px 20px 15px 20px;
-        background:#fff;
+        background: #fff;
         border-radius: 5px;
-        box-shadow: 5px 5px 5px #d5d5d5;
-        margin-top:20px;
+        box-shadow: 0 0 10px 2px #d5d5d5;
+        margin: 20px auto 50px auto;
 
         .question-list {
             list-style-type: decimal;
-            .question {
-                margin:20px 0;
-                border-bottom:1px dashed @color5;
-            }        
-        } 
-        .answer-list  {
-            list-style-type: lower-latin;
 
+            .question {
+                padding: 20px 0;
+
+                img {
+                    max-width: 100%;
+                }
+
+                &:not(:last-child) {
+                    border-bottom: 1px dashed #c2c2c2;
+                }
+            }
         }
 
-        
+        .answer-list {
+            margin-top: 10.5px;
+            list-style-type: lower-latin;
+            margin-left: -15px;
+        }
+
+        input {
+            display: none;
+
+            + label:before {
+                content: '';
+                position: absolute;
+                width: 15px;
+                height: 15px;
+                left: -20px;
+                background: @checked -15px no-repeat;
+                top: 4px;
+            }
+
+            &:checked {
+                + label:before {
+                    content: '';
+                    position: absolute;
+                    width: 15px;
+                    height: 15px;
+                    left: -20px;
+                    background-position:0;
+                    top: 4px;
+                }
+            }
+        }
+
+        .answer {
+            label {
+                position: relative;
+                display: inline-block;
+                vertical-align: top;
+                margin-left: 20px;
+            }
+        }
     }
 }

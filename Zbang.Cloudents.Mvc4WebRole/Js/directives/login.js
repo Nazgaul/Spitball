@@ -1,4 +1,4 @@
-﻿app.directive('loginBtn',
+﻿    app.directive('loginBtn',
     ['sLogin', 'sFacebook', '$routeParams',
         function (sLogin, sFacebook, $routeParams) {
             "use strict";

@@ -6,6 +6,7 @@
 
 <div class="itemPage quizPage">
     <header>
+        <stopwatch control="q.timerControl"></stopwatch>
         <a class="closeItem" href="{{::q.boxUrl}}">@Html.Svg(svgUrl, "close")</a>
     </header>
 
@@ -15,15 +16,18 @@
         <div class="questions">
             <ul class="question-list">
                 <li class="question" ng-repeat="question in ::q.questions">
-                     {{question.text}}
+                    <div ng-bind-html="question.text"></div>
 
                     <ul class="answer-list">
                         <li class="answer" ng-repeat="answer in question.answers">
-                            {{answer.text}}
+                            <input id="{{::q.createId(answer)}}" type="radio" name="{{::q.createId(question)}}" /> 
+                            <label for="{{::q.createId(answer)}}" ng-bind-html="answer.text"></label>
                         </li>
                     </ul>
                 </li>
             </ul>
         </div>
+
+        <button type="button" ng-click="q.checkAnswers()">check answers</button>
     </div>
 </div>

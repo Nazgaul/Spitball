@@ -327,3 +327,6 @@
 /// <reference path="../js/components/box/quizzes.controller.js" />
 /// <reference path="../js/components/quiz/quiz.controller.js" />
 /// <reference path="../js/components/quiz/quiz.service.js" />
+/// <reference path="../js/components/quiz/stopwatch.module.js" />
+/// <reference path="../js/components/quiz/stopwatch.directive.js" />
+/// <reference path="../js/components/quiz/stopwatch.filter.js" />

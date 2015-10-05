@@ -2011,6 +2011,7 @@
       <DependentUpon>site.png.rtl.css</DependentUpon>
     </Content>
     <Content Include="Images\Site\BG.png" />
+    <Content Include="Images\Site\correct_wrong.png" />
     <Content Include="Images\Site\quizIcons.svg" />
     <Content Include="Images\Site\itemIcons.svg" />
     <Content Include="Images\Site\icons.svg" />
@@ -2142,6 +2143,9 @@
     <Content Include="Js\components\item\item.service.js" />
     <Content Include="Js\components\item\upload.controller.js" />
     <Content Include="Js\components\library\library.controller.js" />
+    <Content Include="Js\components\quiz\stopwatch.filter.js" />
+    <Content Include="Js\components\quiz\stopwatch.directive.js" />
+    <Content Include="Js\components\quiz\stopwatch.module.js" />
     <Content Include="Js\components\user\account.controller.js" />
     <Content Include="Js\components\user\updates.service.js" />
     <Content Include="Js\components\user\user.service.js" />
