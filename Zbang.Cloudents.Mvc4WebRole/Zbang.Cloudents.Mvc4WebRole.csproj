@@ -1730,6 +1730,18 @@
     <Content Include="Content\Site\menu.rtl.min.css">
       <DependentUpon>menu.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\morphsearch.css">
+      <DependentUpon>morphsearch.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\morphsearch.min.css">
+      <DependentUpon>morphsearch.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\morphsearch.rtl.css">
+      <DependentUpon>morphsearch.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\morphsearch.rtl.min.css">
+      <DependentUpon>morphsearch.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\plugins.css">
       <DependentUpon>plugins.less</DependentUpon>
     </Content>
@@ -2143,6 +2155,7 @@
     <Content Include="Js\components\item\item.service.js" />
     <Content Include="Js\components\item\upload.controller.js" />
     <Content Include="Js\components\library\library.controller.js" />
+    <Content Include="Js\components\search.controller.js" />
     <Content Include="Js\components\quiz\stopwatch.filter.js" />
     <Content Include="Js\components\quiz\stopwatch.directive.js" />
     <Content Include="Js\components\quiz\stopwatch.module.js" />
@@ -2165,8 +2178,10 @@
     <Content Include="Js\services\ajaxServiceOld.js" />
     <Content Include="Js\shared\colorOnLength.js" />
     <Content Include="Js\shared\dropbox.js" />
+    <Content Include="Js\shared\focusMe.js" />
     <Content Include="Js\shared\google.js" />
     <Content Include="Js\shared\loader.js" />
+    <Content Include="Js\shared\megaNumbers.js" />
     <Content Include="Js\shared\mixitup.js" />
     <Content Include="Js\shared\userimage.js" />
     <Content Include="Js\signin\bootstrap.min.js" />
@@ -2423,6 +2438,7 @@
     <Content Include="Content\Site\boxMembers.less" />
     <Content Include="Content\Site\rtlFix.less" />
     <Content Include="Content\Site\quiz.less" />
+    <Content Include="Content\Site\morphsearch.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3258,6 +3274,7 @@
     <Content Include="Scripts\Modernizr.js" />
     <Content Include="Scripts\svg4everybody.js" />
     <Content Include="Scripts\ui-bootstrap-custom-tpls-0.13.0.js" />
+    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.13.4.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls.min.js" />
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
@@ -3266,6 +3283,7 @@
     <Content Include="Js\controllers\dashboard\createBoxWizardCtrl.js" />
     <Content Include="Images\Defs.svg" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Item\Print.cshtml" />
     <Content Include="Views\Library\_AddSchoolDialog.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -3292,7 +3310,6 @@
     <Content Include="Views\Shared\_LayoutStatic.cshtml" />
     <Content Include="Views\Account\Confirmation.cshtml" />
     <Content Include="Views\Item\_FlagItem.cshtml" />
-    <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Share\Invites.cshtml" />
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -3301,7 +3318,6 @@
     <Content Include="Views\Share\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Library\SelectDepartment.cshtml" />
-    <Content Include="Views\Item\Rename.cshtml" />
     <Content Include="Views\Shared\Partials\_Welcome.cshtml" />
     <Content Include="Views\Library\InsertId.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
@@ -3869,9 +3885,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Item\_PreviewLink.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Item\Print.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Library\_Template.cshtml" />

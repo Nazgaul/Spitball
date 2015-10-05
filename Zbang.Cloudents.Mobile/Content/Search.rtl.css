@@ -136,3 +136,20 @@
   height: 78px;
   right: 16px;
 }
+/*.membersList {
+    li {
+        height: 56px;
+    }
+    .userName {
+        width: 50%;
+        max-height: 31px; // 2lines
+        padding-left: 60px; //rtl
+        overflow: hidden;
+    }
+    img {
+        height: 40px;
+        left: 10px; //rtl
+        border-radius: 50%;
+    }
+}*/
+/*#endregion */

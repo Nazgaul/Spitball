@@ -70,7 +70,7 @@ header h1 {
   margin: 0 0 0 -18px;
 }
 .categoryList > li:nth-child(6n) {
-  border-right: none
+  border-right: none;
   /*ul {
                 margin: 0 0 0 -18px; //rtl
             }*/
@@ -82,7 +82,7 @@ header h1 {
   right: auto;
 }
 .productsList a:before {
-  margin: 0 -0.25em 0 0
+  margin: 0 -0.25em 0 0;
   /* Adjusts for spacing */
 }
 .productsList .desc {
@@ -93,7 +93,7 @@ header h1 {
   border-left: none;
 }
 .productsList table {
-  text-align: left
+  text-align: left;
   /*&:before {
             right: 16px; 
             left: auto;
@@ -181,3 +181,4 @@ header h1 {
 .bottom ul {
   padding: 0 0 0 212px;
 }
+/*#endregion */

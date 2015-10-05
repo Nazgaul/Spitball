@@ -331,6 +331,9 @@ body {
 .form-group.form-md-line-input.form-md-floating-label .form-control ~ label {
     font-size: 16px;
     top: 25px;
+    -moz-transition: 0.2s ease all;
+    -o-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
     transition: 0.2s ease all;
     color: #999;
 }
@@ -686,6 +689,10 @@ body {
     width: 60px;
     opacity: 0;
     border-radius: 50% !important;
+        -webkit-animation: growCircle 0.3s ease;
+    -moz-animation: growCircle 0.3s ease;
+    -o-animation: growCircle 0.3s ease;
+    animation: growCircle 0.3s ease;
 }
 
 .md-checkbox label > .box {
@@ -721,17 +728,14 @@ body {
     transition-delay: 0.3s;
 }
 
-.md-checkbox label > span.inc {
-    -webkit-animation: growCircle 0.3s ease;
-    -moz-animation: growCircle 0.3s ease;
-    -o-animation: growCircle 0.3s ease;
-    animation: growCircle 0.3s ease;
-}
+
 
 .md-checkbox input[type=checkbox]:checked ~ label > .box {
     opacity: 0;
     -webkit-transform: scale(0) rotate(-180deg);
     -moz-transform: scale(0) rotate(-180deg);
+    -ms-transform: scale(0) rotate(-180deg);
+    -o-transform: scale(0) rotate(-180deg);
     transform: scale(0) rotate(-180deg);
 }
 
@@ -739,6 +743,8 @@ body {
     opacity: 1;
     -webkit-transform: scale(1) rotate(45deg);
     -moz-transform: scale(1) rotate(45deg);
+    -ms-transform: scale(1) rotate(45deg);
+    -o-transform: scale(1) rotate(45deg);
     transform: scale(1) rotate(45deg);
 }
 
@@ -1581,9 +1587,10 @@ Block Images(new in v1.2.2)
 .blog-images li img:hover {
     opacity: 1;
     box-shadow: 0 0 0 4px #72c02c;
-    transition: all 0.4s ease-in-out 0s;
     -moz-transition: all 0.4s ease-in-out 0s;
+    -o-transition: all 0.4s ease-in-out 0s;
     -webkit-transition: all 0.4s ease-in-out 0s;
+    transition: all 0.4s ease-in-out 0s;
 }
 
 /***
@@ -2797,6 +2804,11 @@ Chats
 
 .chats li .body {
     display: block;
+    margin-left:5px;
+
+    a {
+       overflow-wrap: break-word;
+    }
 }
 
 .chats li .avatar {
@@ -2821,10 +2833,12 @@ Chats
     color: @color7;
     font-size: 13px;
     font-weight: 400;
+    margin-left:5px;
 }
 
 .chats li.out .name {
     color: @color7;
+    margin-left:5px;
 }
 
 .chats li .datetime {
@@ -2838,6 +2852,7 @@ Chats
     padding: 5px;
     position: relative;
     border-radius: 10px;
+   
 }
 
 .chats li.in .message {
@@ -2852,6 +2867,8 @@ Chats
     color: @color2;
     border-radius: 10px;
     font-size: 13px;
+
+
 }
 
 
@@ -2867,12 +2884,12 @@ Chats
     display: block;
     position: absolute;
     top: 8px;
-    left: -10px;
+    left: -11px;
     width: 0;
     height: 0;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-right: 8px solid @color2;
+    border-right: 10px solid @color2;
 }
 
 
@@ -2880,10 +2897,10 @@ Chats
     display: block;
     position: absolute;
     top: 5px;
-    left: -8px;
+    left: -11px;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-right: 8px solid @color2;
+    border-right: 10px solid @color2;
 }
 
 .chats li.out .name,
@@ -6411,7 +6428,6 @@ Responsive Flip Scroll Tables
 
     .flip-scroll th {
         border: 0 !important;
-        border-bottom: 1px solid #ddd !important;
         border-right: 1px solid #ddd !important;
         font-size: 13px !important;
         padding: 5px;
@@ -8073,6 +8089,7 @@ AngularJS Basic Animations
 .open .btn.default.dropdown-toggle {
     color: #333333;
     background-color: lightgray;
+    background-image: none;
 }
 
 .btn.default:active, .btn.default.active {
@@ -8084,9 +8101,7 @@ AngularJS Basic Animations
     background-color: #cccccc;
 }
 
-.open .btn.default.dropdown-toggle {
-    background-image: none;
-}
+
 
 .btn.default.disabled, .btn.default.disabled:hover, .btn.default.disabled:focus, .btn.default.disabled:active, .btn.default.disabled.active, .btn.default[disabled], .btn.default[disabled]:hover, .btn.default[disabled]:focus, .btn.default[disabled]:active, .btn.default[disabled].active, fieldset[disabled] .btn.default, fieldset[disabled] .btn.default:hover, fieldset[disabled] .btn.default:focus, fieldset[disabled] .btn.default:active, fieldset[disabled] .btn.default.active {
     background-color: #E5E5E5;
@@ -8117,6 +8132,7 @@ Blue Default
 .open .blue.btn.dropdown-toggle {
     color: #FFFFFF;
     background-color: #2386ca;
+    background-image: none;
 }
 
 .blue.btn:active, .blue.btn.active {
@@ -8128,9 +8144,7 @@ Blue Default
     background-color: #217ebd;
 }
 
-.open .blue.btn.dropdown-toggle {
-    background-image: none;
-}
+
 
 .blue.btn.disabled, .blue.btn.disabled:hover, .blue.btn.disabled:focus, .blue.btn.disabled:active, .blue.btn.disabled.active, .blue.btn[disabled], .blue.btn[disabled]:hover, .blue.btn[disabled]:focus, .blue.btn[disabled]:active, .blue.btn[disabled].active, fieldset[disabled] .blue.btn, fieldset[disabled] .blue.btn:hover, fieldset[disabled] .blue.btn:focus, fieldset[disabled] .blue.btn:active, fieldset[disabled] .blue.btn.active {
     background-color: #3598dc;
@@ -8288,6 +8302,7 @@ Blue Madison
 .open .blue-madison.btn.dropdown-toggle {
     color: #FFFFFF;
     background-color: #437cae;
+    background-image: none;
 }
 
 .blue-madison.btn:active, .blue-madison.btn.active {
@@ -8299,9 +8314,6 @@ Blue Madison
     background-color: #3f74a3;
 }
 
-.open .blue-madison.btn.dropdown-toggle {
-    background-image: none;
-}
 
 .blue-madison.btn.disabled, .blue-madison.btn.disabled:hover, .blue-madison.btn.disabled:focus, .blue-madison.btn.disabled:active, .blue-madison.btn.disabled.active, .blue-madison.btn[disabled], .blue-madison.btn[disabled]:hover, .blue-madison.btn[disabled]:focus, .blue-madison.btn[disabled]:active, .blue-madison.btn[disabled].active, fieldset[disabled] .blue-madison.btn, fieldset[disabled] .blue-madison.btn:hover, fieldset[disabled] .blue-madison.btn:focus, fieldset[disabled] .blue-madison.btn:active, fieldset[disabled] .blue-madison.btn.active {
     background-color: #578ebe;

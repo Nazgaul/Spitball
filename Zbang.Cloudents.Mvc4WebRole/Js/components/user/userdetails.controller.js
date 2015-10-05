@@ -14,7 +14,7 @@
             assignValues(response);
         });
 
-        $scope.$on('userDetailsChange', function (e) {
+        $scope.$on('userDetailsChange', function () {
             userDetailsService.getDetails().then(function (response) {
                 assignValues(response);
             });

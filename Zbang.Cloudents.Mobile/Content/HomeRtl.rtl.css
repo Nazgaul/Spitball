@@ -5,7 +5,7 @@
 }
 .facebook,
 .emailBtn {
-  padding: 0 15px 0 48px
+  padding: 0 15px 0 48px;
   /*rtl*/
 }
 .fbImg,
@@ -39,3 +39,4 @@
   right: 0;
   left: auto;
 }
+/*#endregion */

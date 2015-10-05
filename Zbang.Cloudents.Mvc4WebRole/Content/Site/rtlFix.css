@@ -1,0 +1,15 @@
+﻿.rtlFix .quiz .bottom:before {
+  left: 0;
+  right: auto;
+}
+.rtlFix .quiz .bottom:after {
+  left: 0;
+  right: auto;
+  border-width: 39px 0 0 39px;
+}
+.rtlFix .quiz .details {
+  direction: rtl;
+}
+.rtlFix .quiz .details .name {
+  text-align: right;
+}

@@ -420,15 +420,15 @@ var Layout = function () {
         });
 
         // handle search box expand/collapse        
-        $('.page-header').on('click', '.search-form', function (e) {
-            $(this).addClass("open");
-            $(this).find('.form-control').focus();
+        //$('.page-header').on('click', '.search-form', function (e) {
+        //    $(this).addClass("open");
+        //    $(this).find('.form-control').focus();
 
-            $('.page-header .search-form .form-control').on('blur', function (e) {
-                $(this).closest('.search-form').removeClass("open");
-                $(this).unbind("blur");
-            });
-        });
+        //    $('.page-header .search-form .form-control').on('blur', function (e) {
+        //        $(this).closest('.search-form').removeClass("open");
+        //        $(this).unbind("blur");
+        //    });
+        //});
 
         // handle hor menu search form on enter press
         $('.page-header').on('keypress', '.hor-menu .search-form .form-control', function (e) {
@@ -439,11 +439,11 @@ var Layout = function () {
         });
 
         // handle header search button click
-        $('.page-header').on('mousedown', '.search-form.open .submit', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            $(this).closest('.search-form').submit();
-        });
+        //$('.page-header').on('mousedown', '.search-form.open .submit', function (e) {
+        //    e.preventDefault();
+        //    e.stopPropagation();
+        //    $(this).closest('.search-form').submit();
+        //});
 
         // handle hover dropdown menu for desktop devices only
         $('[data-hover="megamenu-dropdown"]').not('.hover-initialized').each(function() {   
@@ -470,7 +470,7 @@ var Layout = function () {
         var duration = 500;
 
         if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {  // ios supported
-            $(window).bind("touchend touchcancel touchleave", function(e){
+            $(window).bind("touchend touchcancel touchleave", function(){
                if ($(this).scrollTop() > offset) {
                     $('.scroll-to-top').fadeIn(duration);
                 } else {

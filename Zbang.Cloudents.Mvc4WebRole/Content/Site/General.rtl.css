@@ -146,6 +146,16 @@ button {
 .leaderboad .userLetter {
   font-size: 17px;
 }
+.leaderboad .user-name {
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  width: 7vw;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: middle;
+}
 .leaderboad .img-circle {
   margin-left: 10px;
 }
@@ -162,7 +172,6 @@ button {
 }
 .leaderboad .r-table-cell {
   display: table-cell;
-  width: 45%;
   text-align: right;
 }
 .leaderboad .r-table-cell:nth-child(even) {
@@ -172,6 +181,7 @@ button {
 }
 .leaderboad .r-table-cell.last {
   text-align: left;
+  width: 25%;
 }
 .portlet.light.invite {
   background: #3293F6;

@@ -3,18 +3,24 @@
 }
 <div class="itemPage">
     <header>
-        <div class="like">Rate</div>
+        <div class="like">
+            <button type="button" ng-click="i.like()">Like</button>
+        </div>
         <a class="closeItem" href="{{::i.details.boxUrl}}">@Html.Svg(svgUrl, "close")</a>
         <div class="text-center">
             <a href="{{i.details.downloadUrl}}">@Html.Svg(svgUrl, "download")</a>
             <a href="{{i.details.printUrl}}">@Html.Svg(svgUrl, "print")</a>
-            <a href="#" tooltip-placement="bottom" tooltip="share tooltip">@Html.Svg(svgUrl, "share")</a>
-            <a href="#" tooltip-placement="bottom" tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
+            <a href="#" tooltip-placement="bottom" tooltip-html="">@Html.Svg(svgUrl, "share")</a>
+            <a href="#" tooltip-placement="bottom" tooltip-class="copy-right"
+               tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
         </div>
         
     </header>
     <div class="itemContent">
-        <div class="fileName">{{::i.details.name}} <button type="button">@Html.Svg(svgUrl, "rename")</button></div>
+        <div class="fileName">
+            <span contenteditable="{{i.renameOn}}" ng-model="i.details.name" focus-me="i.renameOn"></span>
+            <button type="button" ng-click="i.renameItem()">@Html.Svg(svgUrl, "rename")</button>
+        </div>
         <div class="preview" ng-bind-html="i.preview" infinite-scroll="i.loadMore()" infinite-scroll-distance="2">
         </div>
     </div>

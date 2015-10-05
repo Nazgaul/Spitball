@@ -8,7 +8,6 @@
 
         i.preview = '';
         itemService.getDetails($stateParams.boxId, $stateParams.itemId).then(function (response) {
-            console.log(response);
             i.details = response;
             i.details.downloadUrl = $location.url() + 'download/';
             i.details.printUrl = $location.url() + 'print/';
@@ -57,6 +56,24 @@
                 getPreview();
             }
         };
+
+
+        i.renameOn = false;
+
+        i.renameItem = function () {
+            if (!i.renameOn) {
+                i.renameOn = true;
+                return;
+            }
+            itemService.renameItem(i.details.name, $stateParams.itemId).then(function (response) {
+                i.details.name = response.name;
+                $location.path(response.url).replace();
+            });
+        }
+
+        i.like = function() {
+            itemService.like($stateParams.itemId, $stateParams.boxId);
+        }
     }
 
     
