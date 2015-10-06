@@ -1814,6 +1814,18 @@
     <Content Include="Content\Site\rtlFix.rtl.min.css">
       <DependentUpon>rtlFix.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\Share.css">
+      <DependentUpon>Share.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\Share.min.css">
+      <DependentUpon>Share.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\Share.rtl.css">
+      <DependentUpon>Share.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\Share.rtl.min.css">
+      <DependentUpon>Share.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\user.css">
       <DependentUpon>user.less</DependentUpon>
     </Content>
@@ -2159,6 +2171,7 @@
     <Content Include="Js\components\quiz\stopwatch.filter.js" />
     <Content Include="Js\components\quiz\stopwatch.directive.js" />
     <Content Include="Js\components\quiz\stopwatch.module.js" />
+    <Content Include="Js\components\share\invite.controller.js" />
     <Content Include="Js\components\user\account.controller.js" />
     <Content Include="Js\components\user\updates.service.js" />
     <Content Include="Js\components\user\user.service.js" />
@@ -2439,6 +2452,7 @@
     <Content Include="Content\Site\rtlFix.less" />
     <Content Include="Content\Site\quiz.less" />
     <Content Include="Content\Site\morphsearch.less" />
+    <Content Include="Content\Site\Share.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3369,6 +3383,7 @@
     <Content Include="Views\Shared\Partials2\_Upload.cshtml" />
     <Content Include="Views\Box\_Create.cshtml" />
     <Content Include="Views\Quiz\Index2.cshtml" />
+    <Content Include="Views\Shared\Partials2\_Invite.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
