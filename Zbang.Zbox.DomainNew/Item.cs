@@ -55,13 +55,13 @@ namespace Zbang.Zbox.Domain
         public virtual CommentReplies Answer { get; set; }
 
         protected virtual ICollection<Updates> Updates { get; set; }
-        protected virtual ICollection<ItemComment> ItemComments { get; set; }
-        protected virtual ICollection<ItemCommentReply> ItemReplies { get; set; }
+        //protected virtual ICollection<ItemComment> ItemComments { get; set; }
+        //protected virtual ICollection<ItemCommentReply> ItemReplies { get; set; }
 
-        public virtual IEnumerable<long> GetItemCommentsUserIds()
-        {
-            return ItemComments.Select(s => s.Author.Id).Union(ItemReplies.Select(s => s.Author.Id));
-        }
+        //public virtual IEnumerable<long> GetItemCommentsUserIds()
+        //{
+        //    return ItemComments.Select(s => s.Author.Id).Union(ItemReplies.Select(s => s.Author.Id));
+        //}
 
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
@@ -121,8 +121,8 @@ namespace Zbang.Zbox.Domain
         {
             ItemRates.Clear();
             Updates.Clear();
-            ItemComments.Clear();
-            ItemReplies.Clear();
+           // ItemComments.Clear();
+            //ItemReplies.Clear();
         }
 
         public bool IsDirty { get; set; }

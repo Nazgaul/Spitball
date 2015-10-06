@@ -1,4 +1,9 @@
 ﻿<div class="dashboard">
+    <div class="row margin-bottom-20" collapse="!d.inviteToSpitball">
+        <div class="col-md-12">
+            @{Html.RenderPartial("_Invite");}
+        </div>
+    </div>
     <div class="row margin-bottom-20" collapse="!d.createBoxOn">
         <div class="col-md-12">
             @{Html.RenderPartial("_Create");}
@@ -20,10 +25,10 @@
         </div>
         <div class="col-md-3 col-sm-6">
             <div class="portlet light invite">
-                <div class="portlet-body">
+                <button type="button" ng-click="d.inviteToSpitball = true" class="portlet-body">
                     @Html.Svg("~/images/site/icons.svg", "invite")
                     Invite friends to spitball
-                </div>
+                </button>
             </div>
         </div>
     </div>

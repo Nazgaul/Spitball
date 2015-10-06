@@ -96,7 +96,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                  {
                     "site4", new[]
                     {
-                        //"~/bower_components/angular-material/angular-material.css",
+                        "~/bower_components/angular-material/angular-material.css",
                         "~/Content/signin/font-awesome.css",
                         "~/Content/signin/simple-line-icons.css",
                         "~/Content/homepage/bootstrap.css",
@@ -122,6 +122,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/site/library.css",
                         "~/Content/site/item.css",
                         "~/Content/site/quiz.css",
+                        "~/Content/site/share.css",
                         //"~/Content/signin/select2.css",
                         //"~/Content/signin/login-soft.css",
                         //"~/Content/signin/components-md.css",
@@ -419,9 +420,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/angulartics.js"),
                         new JsFileWithCdn("~/scripts/angulartics-ga.js"),
                         new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
-                        //new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js"),
-                        //new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
-                        //new JsFileWithCdn("~/bower_components/angular-material/angular-material.js"),
+                        new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js"),
+                        new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
+                        new JsFileWithCdn("~/bower_components/angular-material/angular-material.js"),
                         new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
 
                         new JsFileWithCdn("~/scripts/plupload2/moxie.js"),
@@ -446,6 +447,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/app.route.js"),
                         new JsFileWithCdn("~/js/modules/displayTime.js"),
 
+                        new JsFileWithCdn("~/js/components/quiz/stopwatch.module.js"),
+                        new JsFileWithCdn("~/js/components/quiz/stopwatch.filter.js"),
+                        new JsFileWithCdn("~/js/components/quiz/stopwatch.directive.js"),
+
+
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.module.js"),
                         new JsFileWithCdn("~/js/components/user/userdetails.controller.js"),
                         new JsFileWithCdn("~/js/components/user/user.controller.js"),
@@ -467,13 +473,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/search.controller.js"),
 
                         new JsFileWithCdn("~/js/components/library/library.controller.js"),
+                        new JsFileWithCdn("~/js/components/share/invite.controller.js"),
 
                         new JsFileWithCdn("~/js/components/item/item.controller.js"),
                         new JsFileWithCdn("~/js/components/item/item.service.js"),
                         new JsFileWithCdn("~/js/components/quiz/quiz.controller.js"),
                         new JsFileWithCdn("~/js/components/quiz/quiz.service.js"),
-
-
                         new JsFileWithCdn("~/js/components/app.controller.js"),
                         new JsFileWithCdn("~/js/services/ajaxService.js"),
 

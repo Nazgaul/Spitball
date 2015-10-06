@@ -194,7 +194,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            model.StudentId = model.Code; //due to ios bug
+            model.StudentId = model.StudentId ?? model.Code; //due to ios bug
             var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
             if (needId != null && string.IsNullOrEmpty(model.StudentId))
             {

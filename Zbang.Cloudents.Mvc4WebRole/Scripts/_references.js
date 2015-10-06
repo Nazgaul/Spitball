@@ -331,3 +331,7 @@
 /// <reference path="../js/components/search.controller.js" />
 /// <reference path="ui-bootstrap-custom-tpls-0.13.4.min.js" />
 /// <reference path="../js/shared/focusme.js" />
+/// <reference path="../Js/components/quiz/stopwatch.directive.js" />
+/// <reference path="../Js/components/quiz/stopwatch.filter.js" />
+/// <reference path="../Js/components/quiz/stopwatch.module.js" />
+/// <reference path="../js/components/share/invite.controller.js" />
