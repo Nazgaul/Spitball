@@ -35,6 +35,15 @@
               'Megan Smith',
               'Tsvetko Metzger',
               'Hector Simek',
+              'Some-guy withalongalastaname',
+              'Marina Augustine',
+              'Oddr Sarno',
+              'Nick Giannopoulos',
+              'Narayana Garner',
+              'Anita Gros',
+              'Megan Smith',
+              'Tsvetko Metzger',
+              'Hector Simek',
               'Some-guy withalongalastaname'
             ];
             return contacts.map(function (c, index) {
