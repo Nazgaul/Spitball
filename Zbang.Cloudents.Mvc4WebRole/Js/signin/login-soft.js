@@ -310,6 +310,9 @@ var Login = function () {
                 $('#register_alert_text').show();
                 return;
             }
+
+            ga('send', 'event', 'Signup', 'Email');
+
             clearStorage();
             setNewUser();
             if (returnUrl) {
@@ -345,6 +348,9 @@ var Login = function () {
             }
             clearStorage();
 
+            ga('send', 'event', 'Signin', 'Email');
+
+
             if (returnUrl) {
                 window.location.href = returnUrl;
                 return;
@@ -361,7 +367,7 @@ var Login = function () {
             $.post('/account/GoogleLogin', {
                 token: id_token
             }).done(function(data) {
-                externalLogIn(data);
+                externalLogIn(data,'Google');
             });
         });
     }
@@ -381,7 +387,7 @@ var Login = function () {
                 token: accessToken
                 //returnUrl: getUrlVars()['returnUrl']
             }).done(function (data) {
-                externalLogIn(data);
+                externalLogIn(data,'Facebook');
             });
         }
     }
@@ -392,7 +398,7 @@ var Login = function () {
         sessionStorage.setItem('angular-cache.caches.points.data.register', '{"key":"register","value":true,"created":' + date + ',"accessed":' + date + ',"expires":' + (date + 600000) + '}');
 
     }
-    function externalLogIn(data) {
+    function externalLogIn(data,type) { //Type google or facebook
         if (!data.success) {
             alert('there is a problem signing you in with facebook');
             return;
@@ -409,9 +415,12 @@ var Login = function () {
             }
             //});
 
+            ga('send', 'event', 'Signup', type);
             return;
         }
 
+
+        ga('send', 'event', 'Signin', type);
 
         var returnUrl = getUrlVars()['returnUrl'];
         if (returnUrl) {

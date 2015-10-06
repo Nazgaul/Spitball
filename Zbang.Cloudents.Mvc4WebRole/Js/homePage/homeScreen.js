@@ -31,6 +31,10 @@ window.addEventListener("load", function load(event) {
         localStorage.setItem(removeCloudentsBanner, '1');
     });
 
+    $('.mobileLink').on('click', function (e) {
+        ga('send', 'event', 'Mobile Link', e.target.id);
+    });
+
     var willShow = localStorage.getItem(removeCloudentsBanner);
     if (willShow != null) {
         $('.alert').alert('close');
