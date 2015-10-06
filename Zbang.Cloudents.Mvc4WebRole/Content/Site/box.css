@@ -65,6 +65,14 @@
   bottom: 14px;
   right: 15px;
 }
+.class .likes .like {
+  height: 20px;
+  width: 20px;
+  fill: currentColor;
+  float: right;
+  bottom: 14px;
+  margin: 3px 5px 0 8px;
+}
 .class .likes .blue.btn {
   float: left;
   margin: 5px;
