@@ -6,13 +6,15 @@
 
 <div class="itemPage quizPage">
     <header>
-        <stopwatch control="q.timerControl"></stopwatch>
+        <div class="stop-watch-wrapper">
+            @Html.Svg(svgUrl, "clock")
+            <stopwatch control="q.timerControl"></stopwatch>
+        </div>
         <a class="closeItem" href="{{::q.boxUrl}}">@Html.Svg(svgUrl, "close")</a>
     </header>
 
     <div class="itemContent">
-        <div class="fileName">{{::q.name}}</div>        
-
+        <div class="fileName">{{::q.name}}</div>
         <div class="questions">
             <ul class="question-list">
                 <li class="question" ng-repeat="question in ::q.questions">
@@ -27,7 +29,6 @@
                 </li>
             </ul>
         </div>
-
         <button type="button" ng-click="q.checkAnswers()">check answers</button>
     </div>
 </div>
