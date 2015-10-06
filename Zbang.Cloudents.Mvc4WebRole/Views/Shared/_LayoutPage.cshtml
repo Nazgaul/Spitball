@@ -356,7 +356,8 @@
                 <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
                 <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
                 <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-controller="SideMenu as d">
+                <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" 
+                    data-slide-speed="200" ng-controller="SideMenu as d">
                     <li class="start ">
                         <a @shouldPostBack href="@Url.Action("Index","Dashboard")">
                             @Html.Svg(svgUrl, "houseMenu")
@@ -419,13 +420,21 @@
                         </a>
                     </li>
                 </ul>
-                <!-- END SIDEBAR MENU -->
+              
             </div>
         </div>
         <div class="page-content-wrapper">
             <div class="page-content">
                 @RenderBody()
             </div>
+        </div>
+    </div>
+    <div class="page-footer">
+        <div class="page-footer-inner">
+            2014 &copy; Metronic by keenthemes. <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+        </div>
+        <div class="scroll-to-top">
+            <i class="icon-arrow-up"></i>
         </div>
     </div>
     @Html.Script2("site4")
@@ -435,6 +444,7 @@
             Metronic.init(); // init metronic core componets
             Layout.initHeader();
             Layout.initSidebar();
+            Layout.initFooter();
             //Layout.init(); // init layout
             //Demo.init(); // init demo features
             //QuickSidebar.init(); // init quick sidebar

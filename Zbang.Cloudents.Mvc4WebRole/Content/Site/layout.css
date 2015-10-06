@@ -753,7 +753,7 @@ Page container
 ***/
 .page-container {
   margin: 0;
-  padding: 20px 20px 0 20px;
+  padding: 0 20px;
   position: relative;
   /* Fixed header */
   /* Fixed footer for mobile */
