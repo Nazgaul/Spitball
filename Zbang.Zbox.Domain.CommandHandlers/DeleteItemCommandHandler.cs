@@ -63,10 +63,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             
            
 
-            var uploaderFileId = item.Uploader.Id;
+            var uploaderFileId = item.UploaderId;
 
             var usersAffectReputation = new List<long> { uploaderFileId };
-            usersAffectReputation.AddRange(item.GetItemCommentsUserIds());
+            //usersAffectReputation.AddRange(item.GetItemCommentsUserIds());
 
 
             if (item.Answer != null && string.IsNullOrEmpty(item.Answer.Text))

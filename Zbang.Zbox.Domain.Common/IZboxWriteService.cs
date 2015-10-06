@@ -63,10 +63,10 @@ namespace Zbang.Zbox.Domain.Common
         Task<AddItemToBoxCommandResult> AddItemToBoxAsync(AddItemToBoxCommand command);
 
         #region annotation
-        Task AddAnnotationAsync(AddAnnotationCommand command);
-        Task AddReplyAnnotationAsync(AddReplyToAnnotationCommand command);
-        void DeleteAnnotation(DeleteItemCommentCommand command);
-        void DeleteItemCommentReply(DeleteItemCommentReplyCommand command);
+        //Task AddAnnotationAsync(AddAnnotationCommand command);
+        //Task AddReplyAnnotationAsync(AddReplyToAnnotationCommand command);
+        //void DeleteAnnotation(DeleteItemCommentCommand command);
+        //void DeleteItemCommentReply(DeleteItemCommentReplyCommand command);
         #endregion
 
         #region QnA

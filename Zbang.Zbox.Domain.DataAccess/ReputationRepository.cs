@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Domain.DataAccess
     {
         public int GetUserReputation(long userId)
         {
-            var sqlQuery = UnitOfWork.CurrentSession.CreateSQLQuery(@"declare @userid int = :userId;
+            var sqlQuery = UnitOfWork.CurrentSession.CreateSQLQuery(@"declare @userid int = 1;
 with quiz as 
 (
 select count(*)*300 as quizScore from zbox.Quiz q where q.UserId = @userid and q.Publish = 1 and q.IsDeleted = 0
@@ -51,17 +51,8 @@ where isused = 1 and senderid = 1) t
 ),
 share as (
 select count(*)*50 as shareScore from zbox.Reputation r where r.Action = 7 and r.UserId = @userid )
-,
-itemComment as
-(
-select count(*)*30 as itemCommentScore from zbox.ItemComment a where a.UserId = @userid
-),
-itemReply as
-(
-select count(*)*15 as itemReplyScore from zbox.ItemCommentReply a where a.UserId = @userid
-)
-select 500 + quizScore + itemScore + answerScore + questionScore + rateScore + inviteScore + shareScore + itemCommentScore + itemReplyScore
-from quiz,item,answers,question,rate,invite,share,itemComment,itemReply
+select 500 + quizScore + itemScore + answerScore + questionScore + rateScore + inviteScore + shareScore 
+from quiz,item,answers,question,rate,invite,share
 ");
             sqlQuery.SetInt64("userId", userId);
             var retVal = sqlQuery.UniqueResult<int>();
