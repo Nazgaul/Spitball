@@ -25,10 +25,10 @@ namespace Zbang.Zbox.Infrastructure.Consts
         public const int UnRate4StareScore = -Rate4StareScore;
         public const int UnRate5StareScore = -Rate5StareScore;
 
-        public const int AddItemCommentScore = 30;
-        public const int AddItemReplyScore = 15;
+        //public const int AddItemCommentScore = 30;
+        //public const int AddItemReplyScore = 15;
 
-        public const int DeleteItemCommentScore = -AddItemCommentScore;
-        public const int DeleteItemReplyScore = -AddItemReplyScore;
+        //public const int DeleteItemCommentScore = -AddItemCommentScore;
+        //public const int DeleteItemReplyScore = -AddItemReplyScore;
     }
 }

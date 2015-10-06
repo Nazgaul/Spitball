@@ -81,7 +81,6 @@
     <Compile Include="Discussion.cs" />
     <Compile Include="FirstTime.cs" />
     <Compile Include="Item.cs" />
-    <Compile Include="ItemComment.cs" />
     <Compile Include="ItemRate.cs" />
     <Compile Include="ItemTab.cs" />
     <Compile Include="Message.cs" />
@@ -150,9 +149,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\ItemTab.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mappings\ItemComment.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\QnA.hbm.xml">
