@@ -16,6 +16,7 @@ using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
+using Zbang.Zbox.ViewModel.Queries.Dashboard;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
 using Zbang.Zbox.ViewModel.Queries.Search;
@@ -63,6 +64,14 @@ namespace Zbang.Zbox.ReadServices
                     new { query.UserId, query.RowsPerPage, query.PageNumber });
             }
 
+        }
+
+        public async Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query)
+        {
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<LeaderBoardDto>(Sql.Sql.UniversityLeaderBoard, new { query.UniversityId });
+            }
         }
 
 
@@ -530,7 +539,7 @@ namespace Zbang.Zbox.ReadServices
                             u.userReputation as score, uu.universityname as universityName, u.url as Url
                             from zbox.users u left join zbox.university uu on u.UniversityId = uu.id
                             where u.userid =@UserId";
-                var retVal =  await conn.QueryAsync<User.UserMinProfile>(sql, new { query.UserId });
+                var retVal = await conn.QueryAsync<User.UserMinProfile>(sql, new { query.UserId });
                 return retVal.First();
 
             }
@@ -547,7 +556,7 @@ namespace Zbang.Zbox.ReadServices
                 const string sql = @" select country_code2  from zbox.ip_range 
     where ip_from <= @IP and @IP <= ip_to";
                 var retVal = await conn.QueryAsync<string>(sql, new { IP = query.IpAddress });
-                return retVal.First(); 
+                return retVal.First();
             }
 
         }
@@ -604,7 +613,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal =  await conn.QueryAsync<UniversityWithCodeDto>(Sql.LibraryChoose.GetNeedId, new
+                var retVal = await conn.QueryAsync<UniversityWithCodeDto>(Sql.LibraryChoose.GetNeedId, new
                 {
                     universityId
                 });

@@ -393,5 +393,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetQuizQuestionWithAnswersAsync(query);
         }
+
+
+        public Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(ViewModel.Queries.Dashboard.LeaderBoardQuery query)
+        {
+            return m_Cache.QueryAsync(m_ReadService.GetDashboardLeaderBoardAsync, query);
+        }
     }
 }

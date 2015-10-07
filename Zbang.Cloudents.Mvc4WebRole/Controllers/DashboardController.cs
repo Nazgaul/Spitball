@@ -16,6 +16,7 @@ using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
+using Zbang.Zbox.ViewModel.Queries.Dashboard;
 using Zbang.Zbox.ViewModel.Queries.User;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -68,6 +69,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var query = new GetDashboardQuery(universityWrapper);
             var model = await ZboxReadService.GetDashboardSideBarAsync(query);
+            return JsonOk(model);
+
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> Leaderboard()
+        {
+            // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
+            var universityWrapper = User.GetUniversityId().Value;
+
+            var query = new LeaderBoardQuery(universityWrapper);
+            var model = await ZboxReadService.GetDashboardLeaderBoardAsync(query);
             return JsonOk(model);
 
         }

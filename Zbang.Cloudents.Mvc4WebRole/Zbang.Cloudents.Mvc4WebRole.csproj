@@ -2161,6 +2161,7 @@
     <Content Include="Js\components\dashboard\dashboard.controller.js" />
     <Content Include="Js\components\dashboard\dashboard.service.js" />
     <Content Include="Js\components\dashboard\sidemenu.controller.js" />
+    <Content Include="Js\components\leaderboard.controller.js" />
     <Content Include="Js\components\quiz\quiz.controller.js" />
     <Content Include="Js\components\quiz\quiz.service.js" />
     <Content Include="Js\components\item\item.controller.js" />
@@ -3376,7 +3377,7 @@
     <Content Include="Views\Library\Index2.cshtml" />
     <Content Include="Views\Item\Index2.cshtml" />
     <Content Include="Views\Dashboard\_University.cshtml" />
-    <Content Include="Views\Dashboard\_LeaderBoard.cshtml" />
+    <Content Include="Views\Shared\Partials2\_LeaderBoard.cshtml" />
     <Content Include="Views\Dashboard\_Create.cshtml" />
     <Content Include="Views\Box\_Members2.cshtml" />
     <Content Include="Views\Box\_Quizzes2.cshtml" />

@@ -335,3 +335,4 @@
 /// <reference path="../Js/components/quiz/stopwatch.filter.js" />
 /// <reference path="../Js/components/quiz/stopwatch.module.js" />
 /// <reference path="../js/components/share/invite.controller.js" />
+/// <reference path="../js/components/leaderboard.controller.js" />

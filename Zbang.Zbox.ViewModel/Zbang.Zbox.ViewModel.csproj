@@ -152,6 +152,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Boxes\GetUserWithFriendQuery.cs" />
+    <Compile Include="Queries\Dashboard\LeaderBoardQuery.cs" />
     <Compile Include="Queries\Emails\BaseDigestLastUpdateQuery.cs" />
     <Compile Include="Queries\Emails\GetBoxesLastUpdateQuery.cs" />
     <Compile Include="Queries\Emails\GetBoxLastUpdateQuery.cs" />

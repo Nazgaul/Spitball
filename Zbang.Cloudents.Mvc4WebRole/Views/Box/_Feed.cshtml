@@ -92,22 +92,8 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6" ng-controller="Recommended as r">
-        <div class="portlet light leaderboad">
-            <div class="portlet-body">
-                <h4 class="uppercase">the BEST IN school</h4>
-                <div class="r-table">
-                    <div class="r-table-row" ng-repeat="l in r.leaderBoard">
-                        <div class="r-table-cell">
-                            <user-image class="img-circle" name="l.name" image="l.image" width="30" height="30"></user-image>
-                            <span>{{::l.name}}</span>
-                        </div>
-                        <div class="r-table-cell">1st</div>
-                        <div class="r-table-cell last">{{::l.score}} pts</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="col-md-6" ng-controller="Recommended as um">
+        @{ Html.RenderPartial("_LeaderBoard");}
 
         <div class="row margin-top-10" ng-controller="Recommended as r">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-repeat="box in r.boxes">
@@ -115,7 +101,6 @@
                     <div class="display">
                         <div class="number">
                             <h3>{{box.name}}</h3>
-                            @*<small>{{box.professor}}</small><br />*@
                             <small>{{box.courseCode}}</small>
                         </div>
                     </div>

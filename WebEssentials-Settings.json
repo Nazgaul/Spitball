@@ -2,7 +2,7 @@
   "BrowserLink": {
     "CssIgnorePatterns": "bootstrap*; reset.css; normalize.css; jquery*; toastr*; foundation*; animate*; inuit*; elements*; ratchet*; hint*; flat-ui*; 960*; skeleton*",
     "EnableMenu": false,
-    "EnablePixelPushing": false,
+    "EnablePixelPushing": true,
     "ShowMenu": true
   },
   "CodeGen": {
@@ -155,7 +155,7 @@
     "OutputStyle": "Expanded",
     "ProcessSourceMapsForEditorEnhancements": true,
     "ShowPreviewPane": true,
-    "UseRubyRuntime": false
+    "UseRubyRuntime": true
   },
   "Sprite": {
     "CssOutputDirectory": null,

@@ -37,7 +37,11 @@
 
 
         d.createPrivateBox = function (boxName) {
-            return ajaxservice.post('/dashboard/Create', { boxName: boxName });
+            return ajaxservice.post('/dashboard/Create/', { boxName: boxName });
+        }
+
+        d.leaderboard = function() {
+            return ajaxservice.get('/dashboard/leaderboard/');
         }
     }
 })();
