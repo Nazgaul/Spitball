@@ -48,8 +48,7 @@ Page Header
   border: 0;
   padding: 0;
   box-shadow: none;
-  height: 86px;
-  min-height: 75px;
+  height: 85px;
   filter: none;
   background-image: none;
   /* Fixed header */
@@ -61,7 +60,7 @@ Page Header
 }
 .page-header.navbar.navbar-fixed-top {
   z-index: 1;
-  border-bottom: 6px solid #212427;
+  border-bottom: 5px solid #212427;
 }
 .page-header.navbar.navbar-static-top {
   z-index: 9995;
@@ -771,7 +770,7 @@ Page container
   clear: both;
 }
 .page-header-fixed .page-container {
-  margin-top: 75px;
+  margin-top: 85px;
 }
 .page-footer-fixed.page-footer-fixed-mobile .page-container {
   margin-bottom: 20px !important;
@@ -1822,6 +1821,9 @@ Page sidebar
 Page content
 ***/
 /* Page header */
+.page-head {
+  margin: 25px 0;
+}
 .page-head:before,
 .page-head:after {
   content: " ";
@@ -1833,7 +1835,6 @@ Page content
 .page-head .page-title {
   display: inline-block;
   float: left;
-  padding: 48px 0 20px 0;
 }
 .page-head .page-title > h1 {
   color: #f5f5f5;
@@ -1883,6 +1884,7 @@ Page content
   .page-content-wrapper {
     float: left;
     width: 100%;
+    margin-top: 10px;
   }
   .page-content-wrapper .page-content {
     margin-left: 275px;

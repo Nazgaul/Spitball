@@ -84,3 +84,6 @@ Rounded Portlets
 .login:hover {
   background: #3293f6 !important;
 }
+.search-wrapper {
+  display: inline;
+}

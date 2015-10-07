@@ -1682,17 +1682,17 @@
     <Content Include="Content\Site\library.rtl.min.css">
       <DependentUpon>library.rtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\master.css">
-      <DependentUpon>master.less</DependentUpon>
+    <Content Include="Content\Site\header.css">
+      <DependentUpon>header.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\master.min.css">
-      <DependentUpon>master.css</DependentUpon>
+    <Content Include="Content\Site\header.min.css">
+      <DependentUpon>header.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\master.rtl.css">
-      <DependentUpon>master.css</DependentUpon>
+    <Content Include="Content\Site\header.rtl.css">
+      <DependentUpon>header.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\master.rtl.min.css">
-      <DependentUpon>master.rtl.css</DependentUpon>
+    <Content Include="Content\Site\header.rtl.min.css">
+      <DependentUpon>header.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\layout.css">
       <DependentUpon>layout.less</DependentUpon>
@@ -2437,7 +2437,7 @@
     <Content Include="Content\Site\plugins.less" />
     <Content Include="Content\Site\layout.less" />
     <Content Include="Content\Site\light.less" />
-    <Content Include="Content\Site\master.less" />
+    <Content Include="Content\Site\header.less" />
     <Content Include="Content\Site\variables.less" />
     <Content Include="Content\Site\dashboard.less" />
     <Content Include="Content\Site\Portfolio.less" />

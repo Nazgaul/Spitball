@@ -108,11 +108,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/site/plugins.css",
                         "~/Content/site/layout.css",
                         "~/Content/site/light.css",
-                        "~/Content/site/master.css",
+                        
                         "~/Content/site/menu.css",
 
                         "~/content/site/morphsearch.css",
                         
+                        "~/Content/site/header.css",
                         "~/content/site/general.css",
                         "~/Content/site/dashboard.css",
                         "~/Content/site/box.css",
