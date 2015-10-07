@@ -1,7 +1,14 @@
-﻿.dashboard {
+﻿.unibox {
+  height: 180px;
+}
+.dashboard {
   /*.universityCube {
         background: @color4;
     }*/
+}
+.dashboard .leaderboardbox {
+  height: 180px;
+  padding: 10px;
 }
 .dashboard .leaderBoardTitle {
   float: right;
