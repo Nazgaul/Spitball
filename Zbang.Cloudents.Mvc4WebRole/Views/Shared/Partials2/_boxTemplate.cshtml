@@ -1,0 +1,22 @@
+﻿<a href="{{::box.url}}" class="dashboard-stat2">
+    <div class="updates" ng-if="box.updates !== 0">{{box.updates}}</div>
+    <div class="display">
+        <div class="number">
+            <h3 d-color="{{::box.name.length}}">{{::box.name}}</h3>
+            <small>{{::box.professor}}</small><br />
+            <small>{{::box.courseCode}}</small>
+        </div>
+    </div>
+    <div class="progress-info">
+        <div class="progress background" d-color="{{::box.name.length}}">
+        </div>
+        <div class="status">
+            <div class="status-title">
+                {{::box.membersCount}} members
+            </div>
+            <div class="status-number">
+                {{::box.itemCount}} items
+            </div>
+        </div>
+    </div>
+</a>

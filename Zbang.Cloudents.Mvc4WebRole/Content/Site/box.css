@@ -110,78 +110,6 @@
   border: 1px solid #42494F;
   padding: 5px;
 }
-.quiz.color0 .top,
-.quiz.color0 .details .first-letter {
-  background: #64a9f8;
-}
-.quiz.color1 .top,
-.quiz.color1 .details .first-letter {
-  background: #9d87b7;
-}
-.quiz.color2 .top,
-.quiz.color2 .details .first-letter {
-  background: #666e70;
-}
-.quiz.color3 .top,
-.quiz.color3 .details .first-letter {
-  background: #ff9853;
-}
-.quiz.color4 .top,
-.quiz.color4 .details .first-letter {
-  background: #e775ce;
-}
-.quiz.color5 .top,
-.quiz.color5 .details .first-letter {
-  background: #ffb933;
-}
-.quiz.color6 .top,
-.quiz.color6 .details .first-letter {
-  background: #848fa6;
-}
-.quiz.color7 .top,
-.quiz.color7 .details .first-letter {
-  background: #5474cf;
-}
-.quiz.color8 .top,
-.quiz.color8 .details .first-letter {
-  background: #e3b75f;
-}
-.quiz.color9 .top,
-.quiz.color9 .details .first-letter {
-  background: #695b47;
-}
-.quiz.color10 .top,
-.quiz.color10 .details .first-letter {
-  background: #f36f6e;
-}
-.quiz.color11 .top,
-.quiz.color11 .details .first-letter {
-  background: #f76446;
-}
-.quiz.color12 .top,
-.quiz.color12 .details .first-letter {
-  background: #73b435;
-}
-.quiz.color13 .top,
-.quiz.color13 .details .first-letter {
-  background: #6ea77b;
-}
-.quiz.color14 .top,
-.quiz.color14 .details .first-letter {
-  background: #c33f40;
-}
-.quiz.color15 .top,
-.quiz.color15 .details .first-letter {
-  background: #549af7;
-}
-.quiz.color16 .top,
-.quiz.color16 .details .first-letter {
-  background: #4e5384;
-}
-.quiz.color17 .top,
-.quiz.color17 .details .first-letter {
-  background: #4faf61;
-}
 .quiz .top {
   height: 72px;
   position: relative;
@@ -278,3 +206,12 @@
   border: 1px solid #42494F;
   padding: 5px;
 }
+/*.quiz:hover {
+    .top, .bottom {
+        display: none;
+    }
+
+    .details {
+        display: block;
+    }
+}*/

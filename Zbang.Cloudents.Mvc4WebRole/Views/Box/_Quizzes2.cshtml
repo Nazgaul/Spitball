@@ -7,7 +7,7 @@
         <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6 margin-bottom-20" ng-repeat="quiz in q.quizzes">
             <a href="{{quiz.url}}">
             <div class="quiz" ng-class="q.quizBgColor(quiz.name)">
-                <div class="top">
+                <div class="top background" d-color="{{::quiz.name.length}}">
                     <span class="first-letter">{{::q.getQuizLetter(quiz.name)}}</span>
                 </div>
                 <div class="bottom">

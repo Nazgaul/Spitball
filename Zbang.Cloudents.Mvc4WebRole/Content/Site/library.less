@@ -1,23 +1,25 @@
 ﻿/* Set default body */
 @import "variables.less";
+
 .library {
-    .corner:after {
+    .corner {
+        &:after {
             content: "";
-    display: inline-block;
-    border-left: 40px solid transparent;
-    border-bottom: 40px solid transparent;
-    border-right: 40px solid;
-    position: absolute;
-    top: -0px;
-    right: -0px;
-    color:@boxColor14;
+            display: inline-block;
+            border-left: 40px solid transparent;
+            border-bottom: 40px solid transparent;
+            border-right: 40px solid;
+            position: absolute;
+            top: 0;
+            right: 0;
+           
+        }
     }
+
     .department {
-        position:relative;
-        border: 2px solid ;
-        margin-bottom:50px;
-        color:@color9;
-     }
-
+        position: relative;
+        border: 2px solid;
+        margin-bottom: 50px;
+        color: @color9;
     }
-
+}
