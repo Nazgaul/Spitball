@@ -17,13 +17,13 @@
 
 
     <div class="row" ng-controller="UniversityMeta as um">
-        <div class="col-md-6 col-sm-12">
+        <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
             @{ Html.RenderPartial("_University");}
         </div>
-        <div class="col-md-3 col-sm-6">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
             @{ Html.RenderPartial("_Leaderboard");}
         </div>
-        <div class="col-md-3 col-sm-6">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
             <div class="portlet light invite">
                 <button type="button" ng-click="d.inviteToSpitball = true" class="portlet-body">
                     @Html.Svg("~/images/site/icons.svg", "invite")
@@ -31,9 +31,7 @@
                 </button>
             </div>
         </div>
-    </div>
-
-    <div class="row">
+     
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="box in d.boxes">
             @{ Html.RenderPartial("_boxTemplate");}
         </div>
