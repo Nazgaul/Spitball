@@ -48,28 +48,42 @@
     /*.universityCube {
         background: @color4;
     }*/
+    
+    .universityimg{
+        border-radius: 50%;
+        background: white;
+
+    }
+    
+    
     .universityTitle {
         float: left;
-        width: 50%;
+        width: 60%;
         display: table;
+        position: relative;
+        top: 16px;
 
         span {
             font-size: 20px;
             vertical-align: middle;
             display: table-cell;
             padding-left: 10px;
+            line-height: 26px;
+
         }
     }
 
     .universityStats {
         float: right;
-        width: 50%;
+        width: 40%;
         border-left: 2px solid grey;
         padding-left: 10px;
         font-size: 17px;
         //font-weight: bold;
         color: #A8B3BB;
-        background: #484E55;
+        line-height: 32px;
+        position: relative;
+        top: 8px;
     }
 
     .universityLink {
@@ -80,8 +94,14 @@
         font-size: 20px;
         text-align: center;
         border-radius: 5px;
-        margin-top: 10px;
+        margin-top: 23px;
         text-decoration: none;
+       
+       &:hover {
+            background-color:#3293F6;
+            border-color:#3293F6;
+            color:#f5f5f5;
+        }
     }
 }
 //create class

@@ -43,7 +43,7 @@
 /*#region School List */
 .uniWpr {
   position: relative;
-  margin: 32px 0 8px;
+  margin: 32px 0 8px
   /*&:after {
         .pseudo();
         width: 18px;
@@ -399,4 +399,3 @@
   content: attr(data-friendscount) '\00a0';
   display: inline-block;
 }
-/*#endregion */

@@ -399,10 +399,3 @@ input[type="search"] {
     transform: translate3d(0, -50%, 0) scale3d(0.5, 0.5, 1);
   }
 }
-/*@media screen and (max-width: 60.625em) {
-    .morphsearch {
-        width: 80%;
-        top: 10%;
-        right: 10%;
-    }
-}*/

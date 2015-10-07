@@ -2590,7 +2590,7 @@ Chats
 .chats li.out .name,
 .chats li.out .datetime {
   text-align: right;
-  color: #549af7;
+  color: red;
 }
 .chat-form {
   margin-bottom: 33px;
