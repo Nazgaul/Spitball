@@ -1,169 +1,50 @@
 ﻿@import "variables.less";
 
+@boxColor0: #64A9F8;
+@boxColor1: #9d87b7;
+@boxColor2: #666e70;
+@boxColor3: #ff9853;
+@boxColor4: #e775ce;
+@boxColor5: #ffb933;
+@boxColor6: #848fa6;
+@boxColor7: #5474cf;
+@boxColor8: #e3b75f;
+@boxColor9: #695b47;
+@boxColor10: #f36f6e;
+@boxColor11: #f76446;
+@boxColor12: #73b435;
+@boxColor13: #6ea77b;
+@boxColor14: #c33f40;
+@boxColor15: #549af7;
+@boxColor16: #4e5384;
+@boxColor17: #4faf61;
 
+@iterations: 17;
 
-
-.color0 {
-    .progress {
-        background: @boxColor0;
-    }
-
-    border-color: @boxColor0;
-    color: @boxColor0;
+.define(@var) {
+  @colorSet: 'boxColor@{var}';
 }
 
-.color1 {
-    .progress {
-        background: @boxColor1;
+
+.mixin-loop (@index) when (@index >= 0) {
+.color@{index}{
+    .define(@index);
+    color:  @@colorSet;
+    
+    &.background {
+        background: @@colorSet;
     }
+  }
 
-    border-color: @boxColor1;
-    color: @boxColor1;
+
+
+.mixin-loop(@index - 1);
 }
+.mixin-loop (0) {}
+.mixin-loop(@iterations);
 
-.color2 {
-    .progress {
-        background: @boxColor2;
-    }
 
-    border-color: @boxColor2;
-    color: @boxColor2;
-}
 
-.color3 {
-    .progress {
-        background: @boxColor3;
-    }
-
-    border-color: @boxColor3;
-    color: @boxColor3;
-}
-
-.color4 {
-    .progress {
-        background: @boxColor4;
-    }
-
-    border-color: @boxColor4;
-    color: @boxColor4;
-}
-
-.color5 {
-    .progress {
-        background: @boxColor5;
-    }
-
-    border-color: @boxColor5;
-    color: @boxColor5;
-}
-
-.color6 {
-    .progress {
-        background: @boxColor6;
-    }
-
-    border-color: @boxColor6;
-    color: @boxColor6;
-}
-
-.color7 {
-    .progress {
-        background: @boxColor7;
-    }
-
-    border-color: @boxColor7;
-    color: @boxColor7;
-}
-
-.color8 {
-    .progress {
-        background: @boxColor8;
-    }
-
-    border-color: @boxColor8;
-    color: @boxColor8;
-}
-
-.color9 {
-    .progress {
-        background: @boxColor9;
-    }
-
-    border-color: @boxColor9;
-    color: @boxColor9;
-}
-
-.color10 {
-    .progress {
-        background: @boxColor10;
-    }
-
-    border-color: @boxColor10;
-    color: @boxColor10;
-}
-
-.color11 {
-    .progress {
-        background: @boxColor11;
-    }
-
-    border-color: @boxColor11;
-    color: @boxColor11;
-}
-
-.color12 {
-    .progress {
-        background: @boxColor12;
-    }
-
-    border-color: @boxColor12;
-    color: @boxColor12;
-}
-
-.color13 {
-    .progress {
-        background: @boxColor13;
-    }
-
-    border-color: @boxColor13;
-    color: @boxColor13;
-}
-
-.color14 {
-    .progress {
-        background: @boxColor14;
-    }
-
-    border-color: @boxColor14;
-    color: @boxColor14;
-}
-
-.color15 {
-    .progress {
-        background: @boxColor15;
-    }
-
-    border-color: @boxColor15;
-    color: @boxColor15;
-}
-
-.color16 {
-    .progress {
-        background: @boxColor16;
-    }
-
-    border-color: @boxColor16;
-    color: @boxColor16;
-}
-
-.color17 {
-    .progress {
-        background: @boxColor17;
-    }
-
-    border-color: @boxColor17;
-    color: @boxColor17;
-}
 
 button {
     border: 0;
@@ -180,7 +61,6 @@ button {
     text-align: center;
     text-transform: capitalize;
     font-size: 25px;
-    background: @boxColor17;
 }
 
 //leaderboard

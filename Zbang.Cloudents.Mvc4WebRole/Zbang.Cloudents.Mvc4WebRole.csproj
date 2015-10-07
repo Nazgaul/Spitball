@@ -3384,6 +3384,7 @@
     <Content Include="Views\Box\_Create.cshtml" />
     <Content Include="Views\Quiz\Index2.cshtml" />
     <Content Include="Views\Shared\Partials2\_Invite.cshtml" />
+    <Content Include="Views\Shared\Partials2\_boxTemplate.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

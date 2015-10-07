@@ -1,10 +1,12 @@
 ﻿(function() {
-    angular.module('app').directive('userImage',
-    ['$compile',
-    function ($compile) {
+    angular.module('app').directive('userImage', generateImage);
+
+    generateImage.$inject = ['$compile'];
+    //['$compile',
+    function generateImage($compile) {
         "use strict";
         var imageTemplate = '<img alt=""  />',
-            letterTemplate = '<span class="userLetter"></span>',
+            letterTemplate = '<span class="userLetter background"></span>',
             emptyTemplate = '<img class="userImg" src="/images/user.svg" />';
         return {
             restrict: "E",
@@ -14,7 +16,7 @@
                 image: '=',
                 noremove : '='
             },
-            link: function (scope, elem, attrs) {
+            link: function (scope, elem) {
                 var innerEl, className;
 
                 if (scope.image) {
@@ -64,7 +66,10 @@
                     if (className) {
                         innerEl.addClass(className);
                     }
-                    innerEl.css({ width: elem[0].getAttribute('width'), height: elem[0].getAttribute('height'), lineHeight: elem[0].getAttribute('height') + 'px' });
+                    innerEl.attr('d-color', scope.name.length);
+                    innerEl.css({ width: elem[0].getAttribute('width'),
+                        height: elem[0].getAttribute('height'),
+                        lineHeight: elem[0].getAttribute('height') + 'px' });
                     innerEl.text(scope.name[0]);
                     //innerEl[0].setAttribute('data-letter', scope.name[0]);
                 }
@@ -82,5 +87,4 @@
             }
         };
     }
-    ]);
 })();
