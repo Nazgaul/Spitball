@@ -49,18 +49,19 @@ Rounded Portlets
 }
 .top-menu svg {
   fill: #5f6871;
-  height: 75px;
+  height: 20px;
   width: 20px;
-  margin: 0 15px;
+  margin-top: 30px;
+  margin-left: 20px;
 }
 .top-menu .headerNotification {
   width: 20px;
   height: 20px;
-  margin: -8px 0 0;
-  vertical-align: middle;
+  margin-top: 0;
+  margin-left: 0;
 }
 .top-menu .badge-notifcation {
-  background-color: #f36a5a;
+  background-color: #db4437;
 }
 .login,
 .signin {
