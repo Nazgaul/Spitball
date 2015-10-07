@@ -60,7 +60,7 @@ Page Header
     border: 0;
     padding: 0;
     box-shadow: none;
-    height: 75px;
+    height: 80px;
     min-height: 75px;
     filter: none;
     background-image: none;
@@ -97,10 +97,10 @@ Page Header
 }
 
 .page-header.navbar .page-logo .logo-default {
-    margin: 5px 10px 0 10px;
-    width: 156px;
-    height: 65px;
-    fill: #fff;
+    margin: 3px 10px 0 10px;
+    width: 180px;
+    height: 75px;
+    fill: @color2;
 }
 
 .page-header.navbar .page-logo .logo-mini {
@@ -126,7 +126,7 @@ Page Header
 }
 
 .page-header.navbar .search-form .input-group {
-    border-radius: 25px !important;
+    //border-radius: 25px !important;
 }
 
 .page-header.navbar .search-form .input-group .form-control {
@@ -147,7 +147,7 @@ Page Header
 }
 
 .page-header.navbar .search-form .input-group .input-group-btn .btn.submit {
-    margin: 3px 7px 0 0;
+    margin: 3px 12px 0 0;
     padding: 0;
     background: none;
     display: block;
@@ -238,7 +238,7 @@ Page Header
 }
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown:last-child {
-    padding-right: 0;
+   position: relative;
 }
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle {
@@ -487,7 +487,8 @@ Page Header
     //margin-top: 4px;
     margin-left: 5px;
     margin-top: -8px;
-    height: 39px;
+    height: 40px;
+    width: 40px;
     display: inline-block;
 }
 
@@ -613,12 +614,20 @@ Page Header
     }
 
     .page-header.navbar .search-form.search-form-expanded {
-        width: 175px;
+        width: 335px;
+        position: absolute;
+        left: 315px;
+        margin-top: 15px;
     }
+
+
 
     .page-header.navbar .search-form.search-form-expanded .input-group .form-control {
         text-indent: 0;
-        padding: 6px 12px;
+        height:41px;
+        margin-left: 16px;
+        font-size:15px;
+        
     }
 
     .page-header.navbar .search-form.search-form-expanded .input-group .form-control:hover {
