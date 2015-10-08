@@ -20,7 +20,7 @@ CONTENTS:
 */
 .mCustomScrollbar {
   -ms-touch-action: none;
-  touch-action: none;
+  touch-action: none
   /* MSPointer events - direct all pointer events to js */
 }
 .mCustomScrollbar.mCS_no_scrollbar {
@@ -131,12 +131,12 @@ y-axis
 }
 .mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_dragger.mCSB_dragger_onDrag_expanded .mCSB_dragger_bar,
 .mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_draggerContainer:hover .mCSB_dragger .mCSB_dragger_bar {
-  width: 12px;
+  width: 12px
   /* auto-expanded scrollbar */
 }
 .mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_dragger.mCSB_dragger_onDrag_expanded + .mCSB_draggerRail,
 .mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_draggerContainer:hover .mCSB_draggerRail {
-  width: 8px;
+  width: 8px
   /* auto-expanded scrollbar */
 }
 .mCSB_scrollTools .mCSB_buttonUp,
@@ -394,7 +394,7 @@ yx-axis
   -ms-filter: "alpha(opacity=40)";
 }
 .mCSB_scrollTools .mCSB_buttonUp {
-  background-position: 100% 0;
+  background-position: 100% 0
   /* 
 		sprites locations 
 		light: 0 0, -16px 0, -32px 0, -48px 0, 0 -72px, -16px -72px, -32px -72px
@@ -402,7 +402,7 @@ yx-axis
 		*/
 }
 .mCSB_scrollTools .mCSB_buttonDown {
-  background-position: 100% -20px;
+  background-position: 100% -20px
   /* 
 		sprites locations
 		light: 0 -20px, -16px -20px, -32px -20px, -48px -20px, 0 -92px, -16px -92px, -32px -92px
@@ -410,7 +410,7 @@ yx-axis
 		*/
 }
 .mCSB_scrollTools .mCSB_buttonLeft {
-  background-position: 100% -40px;
+  background-position: 100% -40px
   /* 
 		sprites locations 
 		light: 0 -40px, -20px -40px, -40px -40px, -60px -40px, 0 -112px, -20px -112px, -40px -112px
@@ -418,7 +418,7 @@ yx-axis
 		*/
 }
 .mCSB_scrollTools .mCSB_buttonRight {
-  background-position: 100% -56px;
+  background-position: 100% -56px
   /* 
 		sprites locations 
 		light: 0 -56px, -20px -56px, -40px -56px, -60px -56px, 0 -128px, -20px -128px, -40px -128px
@@ -738,7 +738,7 @@ yx-axis
 .mCS-rounded.mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_draggerContainer:hover .mCSB_draggerRail,
 .mCS-rounded-dark.mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_dragger.mCSB_dragger_onDrag_expanded + .mCSB_draggerRail,
 .mCS-rounded-dark.mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_draggerContainer:hover .mCSB_draggerRail {
-  width: 4px;
+  width: 4px
   /* auto-expanded scrollbar */
 }
 .mCS-rounded.mCSB_scrollTools_horizontal.mCSB_scrollTools_onDrag_expand .mCSB_dragger.mCSB_dragger_onDrag_expanded .mCSB_dragger_bar,
@@ -1400,4 +1400,3 @@ yx-axis
   background-color: #fff;
   background-color: rgba(255, 255, 255, 0.9);
 }
-/* ---------------------------------------- */

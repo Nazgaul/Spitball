@@ -9,7 +9,7 @@
   display: inline-block;
   border: 2px solid #bdbdbd;
   box-shadow: -2px 2px 2px #ddd8dc;
-  margin-bottom: 30px;
+  margin-bottom: 30px
   /*fix for (chrome) bug 1856 */
 }
 .selectBox {
@@ -512,4 +512,3 @@ button.fileError {
 .moxie-shim-flash {
   z-index: 5000;
 }
-/*#endregion */

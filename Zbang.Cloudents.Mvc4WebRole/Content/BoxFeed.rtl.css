@@ -210,7 +210,7 @@
   opacity: 1;
 }
 .boxFeedList {
-  overflow: hidden;
+  overflow: hidden
   /*&:empty {
         ~ .emptyFeed {
             display: block;
@@ -715,4 +715,3 @@
 .rep:after {
   content: '\00a0' attr(data-pts);
 }
-/*#endregion */

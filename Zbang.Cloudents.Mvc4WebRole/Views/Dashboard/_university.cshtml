@@ -1,13 +1,13 @@
-﻿<div class="portlet light ">
+﻿<div class="portlet light unibox">
     <div class="clearfix">
         <div class="universityTitle">
-            <img class="img-circle pull-left" src="{{::um.info.img}}" alt="univerisy picture" width="60" height="60" />
+            <img class="universityimg pull-left" src="{{::um.info.img}}" alt="univerisy picture" width="70" height="70" />
             <span>{{::um.info.name}}</span>
         </div>
         <div class="universityStats">
-            <div>{{::um.info.numOfBoxes}} courses</div>
-            <div>{{::um.info.numOfUsers}} membres</div>
-            <div>{{::um.info.numOfItems}} files</div>
+            <div>{{::um.info.numOfBoxes | megaNumber}} courses</div>
+            <div>{{::um.info.numOfUsers | megaNumber}} membres</div>
+            <div>{{::um.info.numOfItems | megaNumber}} files</div>
         </div>
     </div>
     <a href="#" ui-sref="department" class="universityLink">Browse courses</a>

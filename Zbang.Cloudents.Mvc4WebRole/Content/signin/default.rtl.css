@@ -10,7 +10,7 @@ Page Header
 ***********/
 /* Header search bar, toggler button & top menu */
 .page-header.navbar {
-  background-color: #1f1f1f;
+  background-color: #1f1f1f
   /* Top notification menu/bar */
   /* Header seaech box */
   /* Toggler button for sidebar expand/collapse and responsive sidebar menu */
@@ -337,7 +337,7 @@ Page Header
 /* Page sidebar */
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover,
 .page-sidebar {
-  background-color: #3d3d3d;
+  background-color: #3d3d3d
   /* Default sidebar */
   /* light sidebar */
   /* Sidebar search */
@@ -668,7 +668,7 @@ Quick Sidebar Toggler
 Quick Sidebar Content
 ***/
 .page-quick-sidebar-wrapper {
-  color: #a2a2a2;
+  color: #a2a2a2
   /* Quick sidebar chat */
   /* Quick sidebar alerts */
 }
@@ -829,7 +829,7 @@ Page Footer
   }
   /* Boxed Layout */
   .page-boxed {
-    background-color: #353535 !important;
+    background-color: #353535 !important
     /* Page container */
     /* Page sidebar */
     /* Page footer */
@@ -880,7 +880,7 @@ Page Footer
   /* 991px */
   /* Page sidebar */
   .page-sidebar {
-    background-color: #2b2b2b;
+    background-color: #2b2b2b
     /* light sidebar */
   }
   .page-sidebar .page-sidebar-menu > li > a {

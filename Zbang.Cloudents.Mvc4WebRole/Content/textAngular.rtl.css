@@ -108,7 +108,7 @@ input[type="file"] {
 .ta-toolbar svg {
   height: 15px;
   width: 15px;
-  margin-top: 3px;
+  margin-top: 3px
   /*-moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
@@ -248,7 +248,7 @@ input[type="file"] {
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2)
   /*left: 0!important;
         right: 0 !important;
         margin: auto;*/

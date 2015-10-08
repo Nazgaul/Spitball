@@ -146,7 +146,7 @@
 }
 .invMain.invBox .invHeaderText {
   width: 520px;
-  padding-right: 34px;
+  padding-right: 34px
   /*rtl*/
 }
 .invMain.invBox .invHeaderText:before {
@@ -171,7 +171,7 @@
   display: inline-block;
 }
 .inviteSources {
-  margin: 4px 0 0 30px;
+  margin: 4px 0 0 30px
   /*diff rtl*/
 }
 .invTab {
@@ -195,7 +195,7 @@
   cursor: default;
 }
 .invTab.current:before {
-  margin-top: 2px;
+  margin-top: 2px
   /*diff rtl*/
 }
 .invTab:before {
@@ -277,7 +277,7 @@
 }
 .invList {
   margin-bottom: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 20px
   /*&.play .invItem
     {
         -webkit-animation-play-state: running;
@@ -291,7 +291,7 @@
   height: 34px;
   margin-top: 20px;
   position: relative;
-  opacity: 1;
+  opacity: 1
   /*-webkit-animation: fadein 600ms ease both;
     //-webkit-animation-play-state: paused;
     -moz-animation: fadein 600ms ease both;
@@ -457,4 +457,3 @@
 .connectTxt {
   margin: 50px 0 10px;
 }
-/*#endregion */

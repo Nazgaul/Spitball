@@ -1,7 +1,14 @@
-﻿.dashboard {
+﻿.unibox {
+  height: 180px;
+}
+.dashboard {
   /*.universityCube {
         background: @color4;
     }*/
+}
+.dashboard .leaderboardbox {
+  height: 180px;
+  padding: 10px;
 }
 .dashboard .leaderBoardTitle {
   float: right;
@@ -32,25 +39,34 @@
   padding: 4px 9px;
   height: 24px;
 }
+.dashboard .universityimg {
+  border-radius: 50%;
+  background: white;
+}
 .dashboard .universityTitle {
   float: right;
-  width: 50%;
+  width: 60%;
   display: table;
+  position: relative;
+  top: 16px;
 }
 .dashboard .universityTitle span {
   font-size: 20px;
   vertical-align: middle;
   display: table-cell;
   padding-right: 10px;
+  line-height: 26px;
 }
 .dashboard .universityStats {
   float: left;
-  width: 50%;
+  width: 40%;
   border-right: 2px solid grey;
   padding-right: 10px;
   font-size: 17px;
   color: #A8B3BB;
-  background: #484E55;
+  line-height: 32px;
+  position: relative;
+  top: 8px;
 }
 .dashboard .universityLink {
   color: #f5f5f5;
@@ -60,8 +76,13 @@
   font-size: 20px;
   text-align: center;
   border-radius: 5px;
-  margin-top: 10px;
+  margin-top: 23px;
   text-decoration: none;
+}
+.dashboard .universityLink:hover {
+  background-color: #3293F6;
+  border-color: #3293F6;
+  color: #f5f5f5;
 }
 .create .progress-wrap {
   background: #fff;
