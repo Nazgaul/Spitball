@@ -168,7 +168,7 @@ button {
   width: 25%;
 }
 .portlet.light.invite {
-  background: #3293F6;
+  background: #4190b9;
   text-align: center;
   font-size: 18px;
   height: 180px;
@@ -179,6 +179,9 @@ button {
   height: 75px;
   display: block;
   margin: 0 auto;
+}
+.portlet.light.invite:hover {
+  background-color: #26566e;
 }
 .create {
   background: #353a3f;
@@ -214,4 +217,22 @@ button {
   font-size: 28px;
   line-height: 55px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3), 0px 0px 1px rgba(0, 0, 0, 0.1), inset 0px 1px 0px rgba(255, 255, 255, 0.25), inset 0px -1px 0px rgba(0, 0, 0, 0.15);
+}
+.close {
+  float: left;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #f5f5f5;
+  text-shadow: none;
+  opacity: 1;
+  filter: none;
+  margin-top: 6px;
+}
+.close:hover {
+  color: #f5f5f5;
+}
+.portlet.box > .portlet-title {
+  margin-right: -10px;
+  color: #f5f5f5;
 }
