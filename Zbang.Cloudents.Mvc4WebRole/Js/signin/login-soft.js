@@ -208,6 +208,7 @@ var Login = function () {
             jQuery('.register-form').show();
             pushState(false);
             ga('send', 'pageview', '/account/signup');
+            trackConversion();
         });
 
         jQuery('#login-btn').click(function () {
@@ -215,14 +216,15 @@ var Login = function () {
             jQuery('.register-form').hide();
             pushState(true);
             ga('send', 'pageview', '/account/signin');
+            trackConversion();
         });
 
 
         jQuery('.facebook').click(function () {
             facebookLogin();
         });
-       
-        jQuery('.google').click(function() {
+
+        jQuery('.google').click(function () {
             googleLogIn();
         });
 
@@ -319,7 +321,7 @@ var Login = function () {
                 window.location.href = returnUrl;
                 return;
             }
-            
+
             window.location.href = data.payload;
         });
     }
@@ -331,7 +333,7 @@ var Login = function () {
         if (returnUrl) {
             values += "&returnUrl=" + encodeURIComponent(getUrlVars()['returnUrl']);
         }
-       
+
 
         $.post('/account/login', values).done(function (data) {
             if (!data.success) {
@@ -364,10 +366,11 @@ var Login = function () {
         var authInstance = gapi.auth2.getAuthInstance();
         authInstance.signIn().then(function (googleUser) {
             var id_token = googleUser.getAuthResponse().id_token;
+            trackConversion();
             $.post('/account/GoogleLogin', {
                 token: id_token
-            }).done(function(data) {
-                externalLogIn(data,'Google');
+            }).done(function (data) {
+                externalLogIn(data, 'Google');
             });
         });
     }
@@ -382,12 +385,12 @@ var Login = function () {
         }, { scope: 'email,user_friends' });
 
         function processLogin(accessToken) {
-
+            trackConversion();
             $.post('/account/facebookLogin', {
                 token: accessToken
                 //returnUrl: getUrlVars()['returnUrl']
             }).done(function (data) {
-                externalLogIn(data,'Facebook');
+                externalLogIn(data, 'Facebook');
             });
         }
     }
@@ -398,7 +401,7 @@ var Login = function () {
         sessionStorage.setItem('angular-cache.caches.points.data.register', '{"key":"register","value":true,"created":' + date + ',"accessed":' + date + ',"expires":' + (date + 600000) + '}');
 
     }
-    function externalLogIn(data,type) { //Type google or facebook
+    function externalLogIn(data, type) { //Type google or facebook
         if (!data.success) {
             alert('there is a problem signing you in with facebook');
             return;
@@ -483,6 +486,17 @@ var Login = function () {
 
 }();
 
++function trackConversion() {
+    window.google_trackConversion({
+        conversion_id: 939226062,
+        conversion_language: "en",
+        conversion_format: "3",
+        conversion_color: "ffffff",
+        conversion_label: "KiNvCODoqWAQzuftvwM",
+        remarketing_only: false
+    });
+}
+
 function googleLoad() {
     gapi.load('auth2', function () {
         gapi.auth2.init();
@@ -501,6 +515,11 @@ jQuery(document).ready(function () {
     ], {
         fade: 1000,
         duration: 8000
-    }
- );
+    });
+
+    window.google_trackConversion({
+        conversion_id: 939226062,
+        custom_params: window.google_tag_params,
+        remarketing_only: true
+    });
 });
