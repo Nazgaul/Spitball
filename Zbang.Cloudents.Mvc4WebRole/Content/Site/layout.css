@@ -2102,9 +2102,9 @@ Page footer
   text-align: center;
   position: fixed;
   z-index: 10001;
-  bottom: 10px;
+  bottom: 100px;
   display: none;
-  right: 10px;
+  right: 33px;
 }
 .scroll-to-top > i {
   display: inline-block;
@@ -2123,13 +2123,13 @@ Page footer
 @media (min-width: 992px) {
   /* 992px */
   .scroll-to-top {
-    right: 10px;
+    right: 33px;
   }
 }
 @media (max-width: 991px) {
   /* 991px */
   .scroll-to-top {
-    right: 10px;
+    right: 33px;
   }
   .scroll-to-top > i {
     font-size: 28px;
