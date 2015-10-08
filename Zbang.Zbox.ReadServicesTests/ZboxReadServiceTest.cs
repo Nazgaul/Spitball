@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
 using System;
-using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
@@ -12,8 +10,6 @@ using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
-using Zbang.Zbox.ViewModel.Queries.Search;
-using Zbang.Zbox.ViewModel.Queries.User;
 
 namespace Zbang.Zbox.ReadServicesTests
 {
@@ -47,19 +43,19 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
 
-        [TestMethod]
-        public async Task GetDashboardSideBar_Query_ReturnResult()
-        {
-            var query = new GetDashboardQuery(920);
-            try
-            {
-                var x = await m_ZboxReadService.GetDashboardSideBarAsync(query);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+        //[TestMethod]
+        //public async Task GetDashboardSideBar_Query_ReturnResult()
+        //{
+        //    var query = new GetDashboardQuery(920);
+        //    try
+        //    {
+        //        var x = await m_ZboxReadService.GetDashboardSideBarAsync(query);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
 
 
 
@@ -80,19 +76,19 @@ namespace Zbang.Zbox.ReadServicesTests
 
        
 
-        [TestMethod]
-        public void GetMyData_Query_ReturnResult()
-        {
-            var query = new GetDashboardQuery(1);
-            try
-            {
-                m_ZboxReadService.GetMyData(query);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+       // [TestMethod]
+        //public void GetMyData_Query_ReturnResult()
+        //{
+        //    var query = new GetDashboardQuery(1);
+        //    try
+        //    {
+        //        m_ZboxReadService.GetMyData(query);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
 
         [TestMethod]
         public void GetLibraryNode_Query_ReturnResult()
@@ -464,7 +460,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetUserFriendsQuery(1);
             try
             {
-                m_ZboxReadService.GetUserFriends(query);
+                m_ZboxReadService.GetUserFriendsAsync(query);
             }
             catch (Exception ex)
             {
@@ -582,7 +578,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetUserWithFriendQuery(1, 2);
             try
             {
-                var x = m_ZboxReadService.GetUserWithFriendBoxesAsync(query).Result;
+                var x = m_ZboxReadService.GetUserBoxesActivityAsync(query).Result;
             }
             catch (Exception ex)
             {
@@ -590,73 +586,73 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
 
-        [TestMethod]
-        public void GetUserWithFriendQuestion_Query_ReturnResult()
-        {
-            var query = new GetUserWithFriendQuery(4, 1);
-            try
-            {
-                var x = m_ZboxReadService.GetUserWithFriendQuestion(query).Result;
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+        //[TestMethod]
+        //public void GetUserWithFriendQuestion_Query_ReturnResult()
+        //{
+        //    var query = new GetUserWithFriendQuery(4, 1);
+        //    try
+        //    {
+        //        var x = m_ZboxReadService.GetUserWithFriendQuestion(query).Result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
 
-        [TestMethod]
-        public void GetUserWithFriendAnswer_Query_ReturnResult()
-        {
-            var query = new GetUserWithFriendQuery(4, 1);
-            try
-            {
-                var x = m_ZboxReadService.GetUserWithFriendAnswer(query).Result;
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
-        [TestMethod]
-        public void GetUserWithFriendActivity_Query_ReturnResult()
-        {
-            var query = new GetUserWithFriendQuery(4, 1);
-            try
-            {
-                var x = m_ZboxReadService.GetUserWithFriendActivity(query).Result;
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
-        [TestMethod]
-        public async Task GetUserPersonalInvites_Query_ReturnResult()
-        {
-            var query = new GetInvitesQuery(1);
-            try
-            {
-                var x = await m_ZboxReadService.GetUserPersonalInvites(query);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+        //[TestMethod]
+        //public void GetUserWithFriendAnswer_Query_ReturnResult()
+        //{
+        //    var query = new GetUserWithFriendQuery(4, 1);
+        //    try
+        //    {
+        //        var x = m_ZboxReadService.GetUserWithFriendAnswer(query).Result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
+        //[TestMethod]
+        //public void GetUserWithFriendActivity_Query_ReturnResult()
+        //{
+        //    var query = new GetUserWithFriendQuery(4, 1);
+        //    try
+        //    {
+        //        var x = m_ZboxReadService.GetUserWithFriendActivity(query).Result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
+        //[TestMethod]
+        //public async Task GetUserPersonalInvites_Query_ReturnResult()
+        //{
+        //    var query = new GetInvitesQuery(1);
+        //    try
+        //    {
+        //        var x = await m_ZboxReadService.GetUserPersonalInvites(query);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
 
-        [TestMethod]
-        public void GetUniversityUsers_Query_ReturnResult()
-        {
-            var query = new GetAdminUsersQuery(14);
-            try
-            {
-                var x = m_ZboxReadService.GetUniversityUsers(query).Result;
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+        //[TestMethod]
+        //public void GetUniversityUsers_Query_ReturnResult()
+        //{
+        //    var query = new GetAdminUsersQuery(14);
+        //    try
+        //    {
+        //        var x = m_ZboxReadService.GetUniversityUsers(query).Result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
         [TestMethod]
         public void GetUpdates_Query_ReturnResult()
         {
@@ -677,7 +673,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetLeaderBoardQuery(60130);
             try
             {
-                var x = await m_ZboxReadService.GetBoxLeaderBoard(query);
+                var x = await m_ZboxReadService.GetBoxLeaderBoardAsync(query);
             }
             catch (Exception ex)
             {

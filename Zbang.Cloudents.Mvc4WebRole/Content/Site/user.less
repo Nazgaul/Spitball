@@ -8,37 +8,12 @@
         }
     }
 
-
-    .table > tbody > tr > td {
-        border-color: #484F56;
-    }
-
-
     .profile-usertitle-job {
         //color: #5b9bd1;
         margin-bottom: 7px;
         color: #f5f5f5;
         font-family: "Open Sans", sans-serif;
         font-size: 15px;
-    }
-
-    .table {
-        margin-bottom: 0;
-        color: #f5f5f5;
-    }
-
-
-    .table-scrollable {
-        border-color: #484F56;
-        color: #f5f5f5;
-    }
-
-    .table-scrollable > .table {
-        background-color: transparent;
-    }
-
-    .table-hover > tbody > tr:hover {
-        background-color: #484F56;
     }
 
     .profile-usertitle-name {
@@ -53,10 +28,26 @@
         height: 17px;
         fill: #fff;
         vertical-align: middle;
-         margin-right: 12px;
+        margin-right: 12px;
     }
 
-    .friends {
+    .r-table {
+        display: table;
+        border-spacing: 15px;
+        border-collapse: separate;
     }
 
+    .r-table-row {
+        display: table-row;
+    }
+
+    .r-table-cell {
+        display: table-cell;
+    }
+
+    .header {
+        .r-table-cell {
+            text-align: center;
+        }
+    }
 }

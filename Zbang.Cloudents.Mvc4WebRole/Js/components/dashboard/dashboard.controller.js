@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.dashboard').controller('Dashboard', dashboard);
-    dashboard.$inject = ['dashboardService', '$scope'];
+    dashboard.$inject = ['dashboardService'];
 
-    function dashboard(dashboardService, $scope) {
+    function dashboard(dashboardService) {
         var d = this;
         d.boxes = [];
         dashboardService.getBoxes(0).then(function (response) {
@@ -13,18 +13,7 @@
     }
 })();
 
-(function () {
-    angular.module('app.dashboard').controller('UniversityMeta', universityMeta);
-    universityMeta.$inject = ['dashboardService'];
 
-    function universityMeta(dashboardService) {
-        var um = this;
-        dashboardService.getUniversityMeta().then(function (response) {
-            um.leaderBoard = response.leaderBoard;
-            um.info = response.info;
-        });
-    }
-})();
 
 
 

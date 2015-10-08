@@ -253,7 +253,7 @@ order by x desc;
 ";
 
         public const string LeaderBoard = @"
-select top(5) u.userid as id, u.UserImageLarge as image, u.username as name, u.UserReputation as score, u.Url as Url
+select top(5) u.userid as id, u.UserImageLarge as image, u.firstName as name, u.UserReputation as score, u.Url as Url
 from zbox.userboxrel ub 
 join zbox.users u on ub.userid = u.userid
  where boxid = @BoxId

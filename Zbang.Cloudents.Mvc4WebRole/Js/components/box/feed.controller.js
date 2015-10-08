@@ -21,18 +21,3 @@
     }
 })();
 
-(function () {
-    angular.module('app.box.feed').controller('Recommended', recommended);
-    recommended.$inject = ['boxService', '$stateParams'];
-
-    function recommended(boxService, $stateParams) {
-        var r = this;
-        r.boxes = [];
-        boxService.getRecommended($stateParams.boxId).then(function (response) {
-            r.boxes = response;
-        });
-        boxService.getLeaderBoard($stateParams.boxId).then(function (response) {
-            r.leaderBoard = response;
-        });
-    }
-})();

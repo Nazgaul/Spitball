@@ -203,7 +203,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<JsonResult> LeaderBoard(long id)
         {
             var query = new GetLeaderBoardQuery(id);
-            var result = await ZboxReadService.GetBoxLeaderBoard(query);
+            var result = await ZboxReadService.GetBoxLeaderBoardAsync(query);
             if (Request.Browser.Crawler)
             {
                 return JsonOk(result.Select(s => new

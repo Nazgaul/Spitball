@@ -459,9 +459,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/user/account.controller.js"),
                         new JsFileWithCdn("~/js/components/user/user.service.js"),
                         new JsFileWithCdn("~/js/components/user/updates.service.js"),
+
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.service.js"),
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/sidemenu.controller.js"),
+                        new JsFileWithCdn("~/js/components/dashboard/university.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/createClass.controller.js"),
 
                         new JsFileWithCdn("~/js/components/box/box.controller.js"),
@@ -469,9 +471,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/box/item.controller.js"),
                         new JsFileWithCdn("~/js/components/box/quizzes.controller.js"),
                         new JsFileWithCdn("~/js/components/box/members.controller.js"),
+                        new JsFileWithCdn("~/js/components/box/box.service.js"),
+                        new JsFileWithCdn("~/js/components/box/recommended.controller.js"),
 
-                  
+
                         new JsFileWithCdn("~/js/components/search.controller.js"),
+                        new JsFileWithCdn("~/js/components/leaderboard.controller.js"),
 
                         new JsFileWithCdn("~/js/components/library/library.controller.js"),
                         new JsFileWithCdn("~/js/components/share/invite.controller.js"),

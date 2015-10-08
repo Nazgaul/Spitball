@@ -1,13 +1,15 @@
-﻿<div class="portlet light unibox">
-    <div class="clearfix">
+﻿<div class="portlet light unibox" ng-controller="UniversityController as u">
+    <md-progress-circular ng-if="u.loading" md-mode="indeterminate" class="circle-loading"></md-progress-circular>
+    <div class="clearfix" ng-if="!u.loading">
+        
         <div class="universityTitle">
-            <img class="universityimg pull-left" src="{{::um.info.img}}" alt="univerisy picture" width="70" height="70" />
-            <span>{{::um.info.name}}</span>
+            <img class="universityimg pull-left" src="{{::u.info.img}}" alt="univerisy picture" width="70" height="70" />
+            <span>{{::u.info.name}}</span>
         </div>
         <div class="universityStats">
-            <div>{{::um.info.numOfBoxes | megaNumber}} courses</div>
-            <div>{{::um.info.numOfUsers | megaNumber}} membres</div>
-            <div>{{::um.info.numOfItems | megaNumber}} files</div>
+            <div>{{::u.info.numOfBoxes | megaNumber}} courses</div>
+            <div>{{::u.info.numOfUsers | megaNumber}} membres</div>
+            <div>{{::u.info.numOfItems | megaNumber}} files</div>
         </div>
     </div>
     <a href="#" ui-sref="department" class="universityLink">Browse courses</a>

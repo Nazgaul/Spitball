@@ -12,9 +12,9 @@ using Zbang.Zbox.ViewModel.Dto.Qna;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
+using Zbang.Zbox.ViewModel.Queries.Dashboard;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
-using Zbang.Zbox.ViewModel.Queries.User;
 using UserDto = Zbang.Zbox.ViewModel.Dto.UserDtos.UserDto;
 
 namespace Zbang.Zbox.ReadServices
@@ -40,9 +40,9 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserBoxesAsync(query);
         }
 
-        public Task<UniversityDashboardInfoDto> GetMyData(GetDashboardQuery query)
+        public Task<UniversityDashboardInfoDto> GetUniversityInfoAsync(UniversityQuery query)
         {
-            return m_ReadService.GetMyData(query);
+            return m_ReadService.GetUniversityInfoAsync(query);
         }
 
         public Task<NodeBoxesDto> GetLibraryNode(GetLibraryNodeQuery query)
@@ -95,9 +95,9 @@ namespace Zbang.Zbox.ReadServices
 
        
 
-        public Task<IEnumerable<UserDto>> GetUserFriends(GetUserFriendsQuery query)
+        public Task<IEnumerable<UserDto>> GetUserFriendsAsync(GetUserFriendsQuery query)
         {
-            return m_ReadService.GetUserFriends(query);
+            return m_ReadService.GetUserFriendsAsync(query);
         }
 
         public UserDetailDto GetUserData(GetUserDetailsQuery query)
@@ -195,38 +195,38 @@ namespace Zbang.Zbox.ReadServices
         //}
 
 
-        public Task<IEnumerable<BoxDto>> GetUserWithFriendBoxesAsync(GetUserWithFriendQuery query)
+        public Task<IEnumerable<BoxDto>> GetUserBoxesActivityAsync(GetUserWithFriendQuery query)
         {
-            return m_ReadService.GetUserWithFriendBoxesAsync(query);
+            return m_ReadService.GetUserBoxesActivityAsync(query);
         }
 
       
 
 
-        public Task<IEnumerable<QuestionToFriendDto>> GetUserWithFriendQuestion(GetUserWithFriendQuery query)
-        {
-            return m_ReadService.GetUserWithFriendQuestion(query);
-        }
-        public Task<IEnumerable<AnswerToFriendDto>> GetUserWithFriendAnswer(GetUserWithFriendQuery query)
-        {
-            return m_ReadService.GetUserWithFriendAnswer(query);
-        }
-        public Task<IEnumerable<UserInviteDto>> GetUserPersonalInvites(GetInvitesQuery query)
-        {
-            return m_ReadService.GetUserPersonalInvites(query);
-        }
-        public Task<UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query)
-        {
-            return m_ReadService.GetUserWithFriendActivity(query);
-        }
+        //public Task<IEnumerable<QuestionToFriendDto>> GetUserWithFriendQuestion(GetUserWithFriendQuery query)
+        //{
+        //    return m_ReadService.GetUserWithFriendQuestion(query);
+        //}
+        //public Task<IEnumerable<AnswerToFriendDto>> GetUserWithFriendAnswer(GetUserWithFriendQuery query)
+        //{
+        //    return m_ReadService.GetUserWithFriendAnswer(query);
+        //}
+        //public Task<IEnumerable<UserInviteDto>> GetUserPersonalInvites(GetInvitesQuery query)
+        //{
+        //    return m_ReadService.GetUserPersonalInvites(query);
+        //}
+        //public Task<UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query)
+        //{
+        //    return m_ReadService.GetUserWithFriendActivity(query);
+        //}
 
 
 
 
-        public Task<IEnumerable<AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query)
-        {
-            return m_ReadService.GetUniversityUsers(query);
-        }
+        //public Task<IEnumerable<AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query)
+        //{
+        //    return m_ReadService.GetUniversityUsers(query);
+        //}
 
 
         public Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId)
@@ -283,9 +283,9 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<ActivityDto>> GetUserWithFriendActivityAsync(GetUserWithFriendQuery query)
+        public Task<IEnumerable<ActivityDto>> GetUserCommentActivityAsync(GetUserWithFriendQuery query)
         {
-            return m_ReadService.GetUserWithFriendActivityAsync(query);
+            return m_ReadService.GetUserCommentActivityAsync(query);
         }
 
         public Task<IEnumerable<string>> GetSeoItems(int page)
@@ -325,10 +325,10 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoard(GetLeaderBoardQuery query)
+        public Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetLeaderBoardQuery query)
         {
-            return m_ReadService.GetBoxLeaderBoard(query);
-            //return m_Cache.QueryAsync(m_ReadService.GetBoxLeaderBoard, query);
+            return m_ReadService.GetBoxLeaderBoardAsync(query);
+            //return m_Cache.QueryAsync(m_ReadService.GetBoxLeaderBoardAsync, query);
         }
 
         public Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCourses(GetBoxSideBarQuery query)
@@ -341,10 +341,7 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public Task<DashboardDto> GetDashboardSideBarAsync(GetDashboardQuery query)
-        {
-            return m_Cache.QueryAsync(m_ReadService.GetDashboardSideBarAsync, query);
-        }
+      
 
 
         public Task<UserDetailDto> GetUserDataAsync(GetUserDetailsQuery query)
@@ -371,9 +368,9 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<ItemToFriendDto>> GetUserWithFriendItemsAsync(GetUserWithFriendQuery query)
+        public Task<IEnumerable<ItemToFriendDto>> GetUserItemsActivityAsync(GetUserWithFriendQuery query)
         {
-            return m_ReadService.GetUserWithFriendItemsAsync(query);
+            return m_ReadService.GetUserItemsActivityAsync(query);
         }
 
 
@@ -392,6 +389,12 @@ namespace Zbang.Zbox.ReadServices
         public Task<QuizQuestionWithSolvedAnswersDto> GetQuizQuestionWithAnswersAsync(GetQuizQuery query)
         {
             return m_ReadService.GetQuizQuestionWithAnswersAsync(query);
+        }
+
+
+        public Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(ViewModel.Queries.Dashboard.LeaderBoardQuery query)
+        {
+            return m_Cache.QueryAsync(m_ReadService.GetDashboardLeaderBoardAsync, query);
         }
     }
 }

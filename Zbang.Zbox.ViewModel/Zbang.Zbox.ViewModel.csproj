@@ -77,7 +77,6 @@
     <Compile Include="Dto\BoxDtos\BoxSeoDto.cs" />
     <Compile Include="Dto\BoxDtos\RecommendBoxDto.cs" />
     <Compile Include="Dto\BoxSettingsDto.cs" />
-    <Compile Include="Dto\Dashboard\DashboardDto.cs" />
     <Compile Include="Dto\Dashboard\UniversityDashboardInfoDto.cs" />
     <Compile Include="Dto\Emails\BoxDigestDto.cs" />
     <Compile Include="Dto\Emails\BoxUpdatesDigestDto.cs" />
@@ -152,6 +151,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Boxes\GetUserWithFriendQuery.cs" />
+    <Compile Include="Queries\Dashboard\LeaderBoardQuery.cs" />
     <Compile Include="Queries\Emails\BaseDigestLastUpdateQuery.cs" />
     <Compile Include="Queries\Emails\GetBoxesLastUpdateQuery.cs" />
     <Compile Include="Queries\Emails\GetBoxLastUpdateQuery.cs" />
@@ -197,8 +197,7 @@
     <Compile Include="Queries\Search\SearchQuery.cs" />
     <Compile Include="Queries\Search\UniversitySearchQuery.cs" />
     <Compile Include="Queries\Search\UserSearchQuery.cs" />
-    <Compile Include="Queries\User\GetDashboardQuery.cs" />
-    <Compile Include="SqlQueries\Admin.cs" />
+    <Compile Include="Queries\Dashboard\UniversityQuery.cs" />
     <Compile Include="SqlQueries\Box.cs" />
     <Compile Include="SqlQueries\Dashboard.cs" />
     <Compile Include="SqlQueries\Email.cs" />

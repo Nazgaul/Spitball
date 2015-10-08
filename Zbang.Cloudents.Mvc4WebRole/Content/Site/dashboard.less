@@ -1,12 +1,14 @@
 ﻿@import "variables.less";
 
-.unibox {
-    height: 180px;
-}
+@cubeHeight: 179px;
 
 .dashboard {
+    .unibox {
+        height: @cubeHeight;
+}
+
     .leaderboardbox {
-        height: 180px;
+        height: @cubeHeight;
         padding: 10px;
     }
 
@@ -48,9 +50,6 @@
         padding: 4px 9px;
         height: 24px;
     }
-    /*.universityCube {
-        background: @color4;
-    }*/
     .universityimg {
         border-radius: 50%;
         background: white;

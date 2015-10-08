@@ -1,13 +1,8 @@
-﻿.unibox {
-  height: 180px;
-}
-.dashboard {
-  /*.universityCube {
-        background: @color4;
-    }*/
+﻿.dashboard .unibox {
+  height: 179px;
 }
 .dashboard .leaderboardbox {
-  height: 180px;
+  height: 179px;
   padding: 10px;
 }
 .dashboard .leaderBoardTitle {
