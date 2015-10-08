@@ -10,15 +10,15 @@
 .class .nav-tabs {
   border: 0;
 }
-.class .nav-tabs > li > a:hover {
-  border: 1px solid transparent;
-}
-.class a {
+.class .nav-tabs a {
   color: #8c99a6;
 }
-.class a:hover,
-.class a:focus {
+.class .nav-tabs a:hover,
+.class .nav-tabs a:focus {
   color: #3598dc;
+}
+.class .nav-tabs > li > a:hover {
+  border: 1px solid transparent;
 }
 .class .tabbable {
   background-color: #353a3f;
@@ -75,12 +75,15 @@
 }
 .class .likes .blue.btn {
   float: left;
-  margin: 5px;
   border-radius: 45px;
   padding: 3px 10px;
   margin: 10px 10px 10px 15px;
 }
-.member-name {
+.members a:hover {
+  color: transparent;
+  text-decoration: none;
+}
+.members .member-name {
   color: #bababa;
   font-size: 15px;
   margin-left: 10px;
