@@ -1,13 +1,16 @@
 ﻿(function () {
     angular.module('app').controller('LeaderboardController', leaderboard);
 
-    leaderboard.$inject = ['dashboardService', '$stateParams'];
+    leaderboard.$inject = ['dashboardService', '$stateParams', 'boxService'];
 
-    function leaderboard(dashboardService, $stateParams) {
+    function leaderboard(dashboardService, $stateParams, boxService) {
         var self = this;
 
 
-        if ($stateParams.boxid) {
+        if ($stateParams.boxId) {
+            boxService.leaderBoard($stateParams.boxId).then(function (response) {
+                self.leaderboard = response;
+            });
         }
         else {
             dashboardService.leaderboard().then(function (response) {

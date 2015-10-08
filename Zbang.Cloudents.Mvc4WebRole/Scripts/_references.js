@@ -337,3 +337,5 @@
 /// <reference path="../js/components/share/invite.controller.js" />
 /// <reference path="../js/components/leaderboard.controller.js" />
 /// <reference path="../js/components/dashboard/university.controller.js" />
+/// <reference path="../js/components/box/box.service.js" />
+/// <reference path="../js/components/box/recommended.controller.js" />

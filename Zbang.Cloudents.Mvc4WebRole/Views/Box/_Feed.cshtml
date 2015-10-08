@@ -92,10 +92,10 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6" ng-controller="Recommended as um">
+    <div class="col-md-6">
         @{ Html.RenderPartial("_LeaderBoard");}
 
-        <div class="row margin-top-10" ng-controller="Recommended as r">
+        <div class="row margin-top-10" ng-controller="RecommendedController as r">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-repeat="box in r.boxes">
                 <a href="{{box.url}}" class="dashboard-stat2" d-color="{{box.name.length}}">
                     <div class="display">
