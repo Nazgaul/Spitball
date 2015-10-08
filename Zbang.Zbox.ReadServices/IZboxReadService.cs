@@ -52,7 +52,7 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<TabDto>> GetBoxTabs(GetBoxQuery query);
 
 
-        Task<IEnumerable<UserDto>> GetUserFriends(GetUserFriendsQuery query);
+        Task<IEnumerable<UserDto>> GetUserFriendsAsync(GetUserFriendsQuery query);
 
         UserDetailDto GetUserData(GetUserDetailsQuery query);
         Task<UserDetailDto> GetUserDataAsync(GetUserDetailsQuery query);
@@ -83,20 +83,20 @@ namespace Zbang.Zbox.ReadServices
 
 
         //user page
-        Task<IEnumerable<BoxDto>> GetUserWithFriendBoxesAsync(GetUserWithFriendQuery query);
-        Task<IEnumerable<QuestionToFriendDto>> GetUserWithFriendQuestion(GetUserWithFriendQuery query);
-        Task<IEnumerable<AnswerToFriendDto>> GetUserWithFriendAnswer(GetUserWithFriendQuery query);
-        Task<IEnumerable<UserInviteDto>> GetUserPersonalInvites(GetInvitesQuery query);
+        Task<IEnumerable<BoxDto>> GetUserBoxesActivityAsync(GetUserWithFriendQuery query);
+        //Task<IEnumerable<QuestionToFriendDto>> GetUserWithFriendQuestion(GetUserWithFriendQuery query);
+        //Task<IEnumerable<AnswerToFriendDto>> GetUserWithFriendAnswer(GetUserWithFriendQuery query);
+        //Task<IEnumerable<UserInviteDto>> GetUserPersonalInvites(GetInvitesQuery query);
 
 
-        Task<UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query);
-        Task<IEnumerable<ItemToFriendDto>> GetUserWithFriendItemsAsync(GetUserWithFriendQuery query);
-        Task<IEnumerable<ActivityDto>> GetUserWithFriendActivityAsync(GetUserWithFriendQuery query);
+       // Task<UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query);
+        Task<IEnumerable<ItemToFriendDto>> GetUserItemsActivityAsync(GetUserWithFriendQuery query);
+        Task<IEnumerable<ActivityDto>> GetUserCommentActivityAsync(GetUserWithFriendQuery query);
 
         Task<IEnumerable<string>> GetSeoItems(int page);
         Task<int> GetSeoItemCount();
 
-        Task<IEnumerable<AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query);
+        //Task<IEnumerable<AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query);
 
         Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId);
 

@@ -27,17 +27,13 @@
 </head>
 <body ng-controller="AppController as app" class="page-header-fixed page-sidebar-closed-hide-logo page-sidebar-closed-hide-logo page-sidebar-fixed @Html.ClassOfRtl()">
 
-    <!-- BEGIN PAGE SPINNER -->
     <div ng-spinner-bar class="page-spinner-bar">
         <div class="bounce1"></div>
         <div class="bounce2"></div>
         <div class="bounce3"></div>
     </div>
-    <!-- BEGIN HEADER -->
     <div class="page-header navbar navbar-fixed-top">
-        <!-- BEGIN HEADER INNER -->
         <div class="page-header-inner">
-            <!-- BEGIN LOGO -->
             <div class="page-logo">
                 <a href="@url" @shouldPostBack>
                     @Html.Svg(svgUrl, "logo", new { @class = "logo-default" })
@@ -46,7 +42,6 @@
                     <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
                 </div>
             </div>
-            <!-- END LOGO -->
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
             <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
                 @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })

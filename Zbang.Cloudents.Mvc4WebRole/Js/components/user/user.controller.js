@@ -1,54 +1,65 @@
 ﻿(function () {
     angular.module('app.user').controller('UserController', user);
-    user.$inject = ['userService', '$stateParams', '$scope', '$q'];
+    user.$inject = ['userService', '$stateParams'];
 
-    function user(userService, $stateParams, $scope, $q) {
-        var u = this;
+    function user(userService, $stateParams) {
+        var self = this;
+        var boxesPage = 0, friendPage = 0;
+        self.friends = [];
+        self.boxes = [];
 
 
         userService.getDetails($stateParams.userId).then(function (response) {
-            u.details = response;
+            self.details = response;
         });
 
-        var deferBoxes = $q.defer();
-        userService.getboxes($stateParams.userId).then(function (response) {
-            u.boxes = response;
-            deferBoxes.resolve();
-        });
 
-        var deferFriends = $q.defer();
-        userService.getfriends($stateParams.userId).then(function (response) {
-            u.friends = response;
-            deferFriends.resolve();
-        });
+        //boxes
+        loadboxes();
+        self.boxesLoadMore = function () {
+            boxesPage++;
+            loadboxes();
+        }
 
-        var deferFiles = $q.defer();
+        //friends
+        loadFriends();
+        self.friendLoadMore = function () {
+            friendPage++;
+            loadFriends();
+        }
+
         userService.getfiles($stateParams.userId).then(function (response) {
-            u.files = response;
-            deferFiles.resolve();
+            self.files = response;
 
         });
 
-        var deferFeed = $q.defer();
         userService.getfeed($stateParams.userId).then(function (response) {
-            u.feed = response;
-            deferFeed.resolve();
-        });
-        $q.all([
-            deferBoxes, deferFeed, deferFiles, deferFriends
-        ]).then(function () {
-            $scope.$broadcast("tableScroll");
+            self.feed = response;
         });
 
-        //$scope.$on('$viewContentLoaded', function () {
-        //    $timeout(function () {
 
-        //    });
-        //    //TODO: maybe this is no good.
-        //    //Metronic.init(); // init core components
 
-        //});
-        //initAjax
+        function loadFriends() {
+            self.friendLoading = true;
+            userService.friends($stateParams.userId, friendPage).then(function (response) {
+                self.friends = self.friends.concat(response);
+                if (response.length) {
+                    self.friendLoading = false;
+                }
+            });
+        }
+
+
+        function loadboxes() {
+            self.boxesLoading = true;
+            userService.boxes($stateParams.userId, boxesPage).then(function (response) {
+                self.boxes = self.boxes.concat(response);
+                if (response.length) {
+                    self.boxesLoading = false;
+                }
+            });
+        }
+
 
     }
 })();

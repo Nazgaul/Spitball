@@ -1,18 +1,15 @@
 ﻿<div class="page-head">
     <div class="page-title">
-        <h1>user page @*<small>blank page</small>*@</h1>
+        <h1>user page </h1>
     </div>
 </div>
 <div class="row userPage">
     <div class="col-md-12">
         <div class="profile-sidebar" style="width: 250px;">
             <div class="portlet light profile-sidebar-portlet">
-                <!-- SIDEBAR USERPIC -->
                 <div class="profile-userpic">
-                    <img src="{{::u.details.image}}" class="img-responsive" alt="" style="max-width:150px;">
+                    <user-image ng-if="u.details" class="img-responsive" name="u.details.name" image="u.details.image" width="150" height="150"></user-image>
                 </div>
-                <!-- END SIDEBAR USERPIC -->
-                <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
                         {{::u.details.name}}
@@ -21,14 +18,6 @@
                         {{::u.details.universityName}}
                     </div>
                 </div>
-                <!-- END SIDEBAR USER TITLE -->
-                <!-- SIDEBAR BUTTONS -->
-                @*<div class="profile-userbuttons">
-                        <button type="button" class="btn btn-circle green-haze btn-sm">Follow</button>
-                        <button type="button" class="btn btn-circle btn-danger btn-sm">Message</button>
-                    </div>*@
-                <!-- END SIDEBAR BUTTONS -->
-                <!-- SIDEBAR MENU -->
                 <div class="profile-usermenu">
                     <ul class="nav">
                         <li class="active">
@@ -45,227 +34,164 @@
                         </li>
                     </ul>
                 </div>
-                <!-- END SIDEBAR MENU -->
             </div>
         </div>
         <div class="profile-content">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="col-md-6">
-                        <div class="portlet box friends">
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    your friends
-                                </div>
+                    <div class="portlet light">
+                        <h4>your friends</h4>
+                        <md-progress-circular ng-if="u.friendLoading" md-mode="indeterminate" class="circle-loading"></md-progress-circular>
+                        <div ng-if="u.friends.length > 0" class="r-table">
+                            <div class="r-table-row header">
+                                <div class="r-table-cell">member</div>
+                                <div class="r-table-cell">university</div>
+                                <div class="r-table-cell">joined</div>
                             </div>
-                            <div class="portlet-body">
-                                <div class="table-scrollable">
-                                    <table class="table table-hover" table-scroller>
-                                        <thead>
-                                            <tr>
-                                                <th colspan="2">
-                                                    member
-                                                </th>
-                                                <th>
-                                                    university
-                                                </th>
-                                                <th>
-                                                    joined
-                                                </th>
-                                                <th>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="friend in u.friends">
-                                                <td>
-                                                    <img width="50" height="50" src="{{::friend.largeImage}}" alt="userImage" class="img-circle" />
-                                                </td>
-                                                <td>
-                                                    {{::friend.name}}
-                                                </td>
-                                                <td>
-                                                    some univeristy
-                                                </td>
-                                                <td>
-                                                    some date
-                                                </td>
-                                                <td>
-                                                    <span class="label label-sm label-success">
-                                                        Approved
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            <div class="r-table-row" ng-repeat="friend in u.friends track by friend.id">
+                                <div class="r-table-cell">
+                                    <user-image class="img-circle" name="::friend.name" image="::friend.largeImage" width="50" height="50"></user-image>
+                                    {{::friend.name}}
                                 </div>
+                                <div class="r-table-cell">some univeristy</div>
+                                <div class="r-table-cell">some date</div>
+                                <button type="button" class="r-table-cell">message</button>
                             </div>
+                            <button class="btn  btn-default" type="button" ng-click="u.friendLoadMore()" ng-disabled="u.friendLoading">load more</button>
                         </div>
                     </div>
-                  
-                   
-                    <div class="col-md-6">
-                        <div class="portlet box">
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    your boxes
-                                </div>
-                            </div>
-                            <div class="portlet-body">
-                                <div class="table-scrollable">
-                                    <table class="table table-hover" table-scroller>
-                                        <thead>
-                                            <tr>
-                                                <th>
-
-                                                </th>
-                                                <th>
-                                                    box name
-                                                </th>
-                                                <th>
-                                                    university
-                                                </th>
-                                                <th>
-                                                    items
-                                                </th>
-                                                <th>
-                                                    members
-                                                </th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="box in u.boxes">
-                                                <td>placeholder</td>
-                                                <td>
-                                                    {{::box.name}}
-                                                </td>
-                                                <td>
-                                                    some univeristy
-                                                </td>
-                                                <td>
-                                                    {{::box.itemCount}}
-                                                </td>
-                                                <td>
-                                                    {{::box.membersCount}}
-                                                </td>
-                                                <td>
-                                                    <span class="label label-sm label-success">
-                                                        Approved
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="portlet box">
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    your uploads
-                                </div>
-                            </div>
-                            <div class="portlet-body">
-                                <div class="table-scrollable">
-                                    <table class="table table-hover" table-scroller>
-                                        <thead>
-                                            <tr>
-                                                <th>
-
-                                                </th>
-                                                <th>
-                                                    name
-                                                </th>
-                                                <th>
-                                                    course
-                                                </th>
-                                                <th>
-                                                    date
-                                                </th>
-                                                <th>
-
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="file in u.files">
-                                                <td></td>
-                                                <td>
-                                                    {{::file.name}}
-                                                </td>
-                                                <td>
-                                                    {{::file.boxName}}
-                                                </td>
-                                                <td>
-                                                    2/13/2105
-                                                </td>
-                                                <td>
-                                                    <span class="label label-sm label-success">
-                                                        view
-                                                    </span>
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="portlet box ">
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    your comments
-                                </div>
-
-                            </div>
-                            <div class="portlet-body">
-                                <div class="table-scrollable">
-                                    <table class="table table-hover" table-scroller>
-                                        <thead>
-                                            <tr>
-                                                <th>
-
-                                                </th>
-                                                <th>
-                                                    text
-                                                </th>
-                                                <th>
-                                                    date
-                                                </th>
-                                                <th>
-
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="c in u.feed">
-                                                <td>
-                                                    {{::c.type}}
-                                                </td>
-                                                <td ng-bind-html="::c.content"></td>
-                                                <td>
-                                                    2/13/2105
-                                                </td>
-                                                <td>
-                                                    <span class="label label-sm label-success">
-                                                        view
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
+
+
+                <div class="col-md-12">
+                    <div class="portlet light">
+                        <h4> your boxes</h4>
+                        <md-progress-circular ng-if="u.boxesLoading" md-mode="indeterminate" class="circle-loading"></md-progress-circular>
+                        <div ng-if="u.boxes.length > 0" class="r-table">
+                            <div class="r-table-row header">
+                                <div class="r-table-cell"> box name</div>
+                                <div class="r-table-cell">university</div>
+                                <div class="r-table-cell">items</div>
+                                <div class="r-table-cell">members</div>
+                            </div>
+                            <div class="r-table-row" ng-repeat="box in u.boxes track by box.id">
+                                <div class="r-table-cell">
+                                    {{::box.name}}
+                                </div>
+                                <div class="r-table-cell">some univeristy</div>
+                                <div class="r-table-cell">{{::box.itemCount}}</div>
+                                <div class="r-table-cell">{{::box.membersCount}}</div>
+                                <button type="button" class="r-table-cell">message</button>
+                            </div>
+                            <button class="btn  btn-default" type="button" ng-click="u.boxesLoadMore()" ng-disabled="u.boxesLoading">load more</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="portlet box">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                your uploads
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="table-scrollable">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>
+
+                                            </th>
+                                            <th>
+                                                name
+                                            </th>
+                                            <th>
+                                                course
+                                            </th>
+                                            <th>
+                                                date
+                                            </th>
+                                            <th>
+
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="file in u.files">
+                                            <td></td>
+                                            <td>
+                                                {{::file.name}}
+                                            </td>
+                                            <td>
+                                                {{::file.boxName}}
+                                            </td>
+                                            <td>
+                                                2/13/2105
+                                            </td>
+                                            <td>
+                                                <span class="label label-sm label-success">
+                                                    view
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="portlet box ">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                your comments
+                            </div>
+
+                        </div>
+                        <div class="portlet-body">
+                            <div class="table-scrollable">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>
+
+                                            </th>
+                                            <th>
+                                                text
+                                            </th>
+                                            <th>
+                                                date
+                                            </th>
+                                            <th>
+
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="c in u.feed">
+                                            <td>
+                                                {{::c.type}}
+                                            </td>
+                                            <td ng-bind-html="::c.content"></td>
+                                            <td>
+                                                2/13/2105
+                                            </td>
+                                            <td>
+                                                <span class="label label-sm label-success">
+                                                    view
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
+@*<script type="ng/template" id="usericon.html"></script>*@

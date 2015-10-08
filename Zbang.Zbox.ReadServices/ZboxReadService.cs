@@ -517,7 +517,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<User.UserDto>> GetUserFriends(GetUserFriendsQuery query)
+        public async Task<IEnumerable<User.UserDto>> GetUserFriendsAsync(GetUserFriendsQuery query)
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -801,7 +801,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
         #region UserPage
-        public async Task<IEnumerable<BoxDto>> GetUserWithFriendBoxesAsync(GetUserWithFriendQuery query)
+        public async Task<IEnumerable<BoxDto>> GetUserBoxesActivityAsync(GetUserWithFriendQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -818,56 +818,56 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public async Task<IEnumerable<Qna.QuestionToFriendDto>> GetUserWithFriendQuestion(GetUserWithFriendQuery query)
-        {
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
-            {
-                var retVal = await conn.QueryAsync<Qna.QuestionToFriendDto>(Sql.Sql.UserWithFriendQuestion, new { Me = query.UserId, Myfriend = query.FriendId });
-                return retVal;
-            }
-        }
+        //public async Task<IEnumerable<Qna.QuestionToFriendDto>> GetUserWithFriendQuestion(GetUserWithFriendQuery query)
+        //{
+        //    using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        var retVal = await conn.QueryAsync<Qna.QuestionToFriendDto>(Sql.Sql.UserWithFriendQuestion, new { Me = query.UserId, Myfriend = query.FriendId });
+        //        return retVal;
+        //    }
+        //}
 
-        public async Task<IEnumerable<Qna.AnswerToFriendDto>> GetUserWithFriendAnswer(GetUserWithFriendQuery query)
-        {
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
-            {
-                var retVal = await conn.QueryAsync<Qna.AnswerToFriendDto>(Sql.Sql.UserWithFriendAnswer, new { Me = query.UserId, Myfriend = query.FriendId });
-                return retVal;
-            }
-        }
+        //public async Task<IEnumerable<Qna.AnswerToFriendDto>> GetUserWithFriendAnswer(GetUserWithFriendQuery query)
+        //{
+        //    using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        var retVal = await conn.QueryAsync<Qna.AnswerToFriendDto>(Sql.Sql.UserWithFriendAnswer, new { Me = query.UserId, Myfriend = query.FriendId });
+        //        return retVal;
+        //    }
+        //}
 
-        public async Task<IEnumerable<User.UserInviteDto>> GetUserPersonalInvites(GetInvitesQuery query)
-        {
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
-            {
-                var retVal = await conn.QueryAsync<User.UserInviteDto>(Sql.Sql.UserPersonalInvites, new { Me = query.UserId });
-                return retVal;
-            }
-        }
-        public async Task<User.UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query)
-        {
-            var retVal = new User.UserToFriendActivity();
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                using (var grid = await conn.QueryMultipleAsync(String.Format("{0} {1} {2}", Sql.Sql.UserWithFriendFiles,
-                    Sql.Sql.UserWithFriendQuestion,
-                    Sql.Sql.UserWithFriendAnswer), new
-                    {
-                        Me = query.UserId,
-                        Myfriend = query.FriendId,
-                        pageNumber = query.PageNumber,
-                        rowsperpage = query.RowsPerPage
-                    }))
-                {
-                    retVal.Items = grid.Read<Item.ItemToFriendDto>();
-                    retVal.Questions = grid.Read<Qna.QuestionToFriendDto>();
-                    retVal.Answers = grid.Read<Qna.AnswerToFriendDto>();
-                }
-            }
-            return retVal;
-        }
+        //public async Task<IEnumerable<User.UserInviteDto>> GetUserPersonalInvites(GetInvitesQuery query)
+        //{
+        //    using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        var retVal = await conn.QueryAsync<User.UserInviteDto>(Sql.Sql.UserPersonalInvites, new { Me = query.UserId });
+        //        return retVal;
+        //    }
+        //}
+        //public async Task<User.UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query)
+        //{
+        //    var retVal = new User.UserToFriendActivity();
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        using (var grid = await conn.QueryMultipleAsync(String.Format("{0} {1} {2}", Sql.Sql.UserWithFriendFiles,
+        //            Sql.Sql.UserWithFriendQuestion,
+        //            Sql.Sql.UserWithFriendAnswer), new
+        //            {
+        //                Me = query.UserId,
+        //                Myfriend = query.FriendId,
+        //                pageNumber = query.PageNumber,
+        //                rowsperpage = query.RowsPerPage
+        //            }))
+        //        {
+        //            retVal.Items = grid.Read<Item.ItemToFriendDto>();
+        //            retVal.Questions = grid.Read<Qna.QuestionToFriendDto>();
+        //            retVal.Answers = grid.Read<Qna.AnswerToFriendDto>();
+        //        }
+        //    }
+        //    return retVal;
+        //}
 
-        public async Task<IEnumerable<Item.ItemToFriendDto>> GetUserWithFriendItemsAsync(GetUserWithFriendQuery query)
+        public async Task<IEnumerable<Item.ItemToFriendDto>> GetUserItemsActivityAsync(GetUserWithFriendQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -886,7 +886,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<User.ActivityDto>> GetUserWithFriendActivityAsync(GetUserWithFriendQuery query)
+        public async Task<IEnumerable<User.ActivityDto>> GetUserCommentActivityAsync(GetUserWithFriendQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -929,19 +929,19 @@ namespace Zbang.Zbox.ReadServices
 
         #endregion
 
-        #region Admin
-        public async Task<IEnumerable<User.AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<User.AdminUserDto>(Sql.Admin.UsersInUniversity,
-                    new
-                    {
-                        universityId = query.UniversityId
-                    });
-            }
-        }
-        #endregion
+        //#region Admin
+        //public async Task<IEnumerable<User.AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        return await conn.QueryAsync<User.AdminUserDto>(Sql.Admin.UsersInUniversity,
+        //            new
+        //            {
+        //                universityId = query.UniversityId
+        //            });
+        //    }
+        //}
+        //#endregion
 
 
 

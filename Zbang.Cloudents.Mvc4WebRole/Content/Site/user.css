@@ -3,28 +3,11 @@
   color: #f5f5f5;
   text-transform: uppercase;
 }
-.userPage .table > tbody > tr > td {
-  border-color: #484F56;
-}
 .userPage .profile-usertitle-job {
   margin-bottom: 7px;
   color: #f5f5f5;
   font-family: "Open Sans", sans-serif;
   font-size: 15px;
-}
-.userPage .table {
-  margin-bottom: 0;
-  color: #f5f5f5;
-}
-.userPage .table-scrollable {
-  border-color: #484F56;
-  color: #f5f5f5;
-}
-.userPage .table-scrollable > .table {
-  background-color: transparent;
-}
-.userPage .table-hover > tbody > tr:hover {
-  background-color: #484F56;
 }
 .userPage .profile-usertitle-name {
   color: #f5f5f5;
@@ -37,4 +20,18 @@
   fill: #fff;
   vertical-align: middle;
   margin-right: 12px;
+}
+.userPage .r-table {
+  display: table;
+  border-spacing: 15px;
+  border-collapse: separate;
+}
+.userPage .r-table-row {
+  display: table-row;
+}
+.userPage .r-table-cell {
+  display: table-cell;
+}
+.userPage .header .r-table-cell {
+  text-align: center;
 }
