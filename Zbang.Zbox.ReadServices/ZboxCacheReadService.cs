@@ -325,10 +325,10 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoard(GetLeaderBoardQuery query)
+        public Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetLeaderBoardQuery query)
         {
-            return m_ReadService.GetBoxLeaderBoard(query);
-            //return m_Cache.QueryAsync(m_ReadService.GetBoxLeaderBoard, query);
+            return m_ReadService.GetBoxLeaderBoardAsync(query);
+            //return m_Cache.QueryAsync(m_ReadService.GetBoxLeaderBoardAsync, query);
         }
 
         public Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCourses(GetBoxSideBarQuery query)

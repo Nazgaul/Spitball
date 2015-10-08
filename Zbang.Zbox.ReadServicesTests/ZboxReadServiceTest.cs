@@ -673,7 +673,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetLeaderBoardQuery(60130);
             try
             {
-                var x = await m_ZboxReadService.GetBoxLeaderBoard(query);
+                var x = await m_ZboxReadService.GetBoxLeaderBoardAsync(query);
             }
             catch (Exception ex)
             {

@@ -388,6 +388,9 @@ button {
   margin: 10px;
   background: #212427;
 }
+.circle-loading {
+  margin: 0 auto;
+}
 .add {
   position: fixed;
   width: 55px;
@@ -399,7 +402,7 @@ button {
   bottom: 25px;
   font-size: 28px;
   line-height: 55px;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3), 0px 0px 1px rgba(0, 0, 0, 0.1), inset 0px 1px 0px rgba(255, 255, 255, 0.25), inset 0px -1px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 0 1px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
 }
 .close {
   float: left;

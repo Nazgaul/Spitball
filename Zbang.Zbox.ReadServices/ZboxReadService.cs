@@ -385,7 +385,7 @@ namespace Zbang.Zbox.ReadServices
                     new { query.BoxId, query.UserId });
             }
         }
-        public async Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoard(GetLeaderBoardQuery query)
+        public async Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetLeaderBoardQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
