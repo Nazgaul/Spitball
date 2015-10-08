@@ -10,6 +10,16 @@
   height: 180px;
   padding: 10px;
 }
+@media (max-width: 1200px) {
+  .dashboard .leaderboard {
+    background: red;
+  }
+}
+@media (min-width: 900px) {
+  .dashboard .leaderboard {
+    background: green;
+  }
+}
 .dashboard .leaderBoardTitle {
   float: right;
   -ms-word-break: break-word;
