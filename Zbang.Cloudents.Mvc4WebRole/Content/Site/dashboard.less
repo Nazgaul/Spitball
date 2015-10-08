@@ -1,17 +1,18 @@
 ﻿@import "variables.less";
 
-.unibox{
-        height:180px;
-    }
+@cubeHeight: 179px;
 
 .dashboard {
-    .leaderboardbox{
-        height:180px;
-        padding:10px;
-
+    .unibox {
+        height: @cubeHeight;
     }
-    
-    
+
+    .leaderboardbox {
+        height: @cubeHeight;
+        padding: 10px;
+    }
+
+
     .leaderBoardTitle {
         float: left;
         -ms-word-break: break-word;
@@ -45,17 +46,13 @@
         padding: 4px 9px;
         height: 24px;
     }
-    /*.universityCube {
-        background: @color4;
-    }*/
     
-    .universityimg{
+    .universityimg {
         border-radius: 50%;
         background: white;
-
     }
-    
-    
+
+
     .universityTitle {
         float: left;
         width: 60%;
@@ -69,7 +66,6 @@
             display: table-cell;
             padding-left: 10px;
             line-height: 26px;
-
         }
     }
 
@@ -95,11 +91,11 @@
         border-radius: 5px;
         margin-top: 23px;
         text-decoration: none;
-        background-color:#4190b9;
-       
-       &:hover {
-            background-color:#26566e;
-            color:#f5f5f5;
+        background-color: #4190b9;
+
+        &:hover {
+            background-color: #26566e;
+            color: #f5f5f5;
         }
     }
 }
@@ -228,6 +224,4 @@
 .layout-column {
     background: #353A3F;
     border: 1px solid #353A3F;
-
-
 }

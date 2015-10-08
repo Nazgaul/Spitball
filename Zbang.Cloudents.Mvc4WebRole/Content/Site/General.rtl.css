@@ -167,11 +167,194 @@ button {
   text-align: left;
   width: 25%;
 }
+.dashboard .unibox {
+  height: 179px;
+}
+.dashboard .leaderboardbox {
+  height: 179px;
+  padding: 10px;
+}
+.dashboard .leaderBoardTitle {
+  float: right;
+  -ms-word-break: break-word;
+  word-break: break-word;
+  font-size: 38px;
+  margin-bottom: 15px;
+  line-height: 35px;
+  color: #6a737d;
+  text-transform: uppercase;
+}
+.dashboard .leaderBoardBody {
+  font-size: 20px;
+}
+.dashboard .leaderbordPosition {
+  color: #ff7a04 !important;
+}
+.dashboard .updates {
+  position: absolute;
+  right: 8px;
+  top: -3px;
+  margin: -6px 0 0 0;
+  background-color: #db4437;
+  font-size: 11px;
+  font-weight: 300;
+  border-radius: 12px;
+  color: #f5f5f5;
+  padding: 4px 9px;
+  height: 24px;
+}
+.dashboard .universityimg {
+  border-radius: 50%;
+  background: white;
+}
+.dashboard .universityTitle {
+  float: right;
+  width: 60%;
+  display: table;
+  position: relative;
+  top: 16px;
+}
+.dashboard .universityTitle span {
+  font-size: 20px;
+  vertical-align: middle;
+  display: table-cell;
+  padding-right: 10px;
+  line-height: 26px;
+}
+.dashboard .universityStats {
+  float: left;
+  width: 40%;
+  border-right: 2px solid grey;
+  padding-right: 10px;
+  font-size: 17px;
+  color: #A8B3BB;
+  line-height: 32px;
+  position: relative;
+  top: 8px;
+}
+.dashboard .universityLink {
+  color: #f5f5f5;
+  width: 100%;
+  display: inline-block;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 5px;
+  margin-top: 23px;
+  text-decoration: none;
+  background-color: #4190b9;
+}
+.dashboard .universityLink:hover {
+  background-color: #26566e;
+  color: #f5f5f5;
+}
+.create .progress-wrap {
+  background: #fff;
+  padding-bottom: 10px;
+}
+.create .progress {
+  margin: 0 10px;
+  border-radius: 0;
+  height: 10px;
+}
+.create .tab-content {
+  background: #000;
+  min-height: 300px;
+  display: flex;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 20px;
+}
+.create .uploadSection {
+  text-align: center;
+  font-size: 18px;
+}
+.create .uploadSection svg {
+  fill: #fff;
+  width: 80px;
+  height: 80px;
+}
+.create .uploadSection .link {
+  fill: #64D0FF;
+}
+.create .uploadSection span {
+  display: block;
+  background: #353A3F;
+  border-radius: 50%;
+  width: 110px;
+  height: 110px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.create .upload-file {
+  text-align: center;
+  font-size: 20px;
+  color: #677079;
+  font-weight: 700;
+}
+.create .upload-file .btn {
+  border: 1px solid #3293F6;
+  padding: 5px 40px;
+  font-size: 18px;
+  color: #3293F6;
+}
+.create .upload-file .check-mark {
+  position: absolute;
+  top: -22px;
+  left: -18px;
+  color: #8DC63F;
+  border-radius: 50%;
+  background-color: rgba(143, 145, 146, 0.8);
+  padding: 5px 10px;
+}
+.create .upload-file h5 {
+  color: #8DC63F;
+}
+.create .file-upload {
+  width: 115px;
+  border: 7px solid #fff;
+  height: 165px;
+  font-size: 14px;
+  position: relative;
+  padding: 0;
+  background: #BCBCBC;
+  margin: 5px;
+}
+.create .file-size {
+  background: #fff;
+}
+.create .file-upload-progress {
+  height: 5px;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+.create .file-name {
+  width: 101px;
+  height: 100px;
+  position: relative;
+}
+.create .form-horizontal {
+  padding: 10px;
+  font-size: 18px;
+}
+.create .actions {
+  text-align: left;
+  background-color: #000;
+  padding: 20px 0 10px 10px;
+}
+.layout-column {
+  background: #353A3F;
+  border: 1px solid #353A3F;
+}
 .portlet.light.invite {
   background: #4190b9;
   text-align: center;
   font-size: 18px;
-  height: 180px;
+  height: 179px;
 }
 .portlet.light.invite svg {
   fill: #f5f5f5;

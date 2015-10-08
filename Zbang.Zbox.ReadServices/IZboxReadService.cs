@@ -14,7 +14,6 @@ using Zbang.Zbox.ViewModel.Queries.Dashboard;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
 using Zbang.Zbox.ViewModel.Queries.Search;
-using Zbang.Zbox.ViewModel.Queries.User;
 using BoxDto = Zbang.Zbox.ViewModel.Dto.BoxDto;
 
 namespace Zbang.Zbox.ReadServices
@@ -25,10 +24,10 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<BoxDto>> GetUserBoxesOld(GetBoxesQuery query);
         Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query);
 
-        Task<DashboardDto> GetDashboardSideBarAsync(GetDashboardQuery query);
+        //Task<DashboardDto> GetDashboardSideBarAsync(GetDashboardQuery query);
         Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query);
 
-        Task<UniversityDashboardInfoDto> GetMyData(GetDashboardQuery query);
+        Task<UniversityDashboardInfoDto> GetUniversityInfoAsync(UniversityQuery query);
 
         Task<NodeBoxesDto> GetLibraryNode(GetLibraryNodeQuery query);
         Task<UniversityInfoDto> GetUniversityDetail(GetUniversityDetailQuery query);

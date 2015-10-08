@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
 using System;
-using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
@@ -12,8 +10,6 @@ using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
-using Zbang.Zbox.ViewModel.Queries.Search;
-using Zbang.Zbox.ViewModel.Queries.User;
 
 namespace Zbang.Zbox.ReadServicesTests
 {
@@ -47,19 +43,19 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
 
-        [TestMethod]
-        public async Task GetDashboardSideBar_Query_ReturnResult()
-        {
-            var query = new GetDashboardQuery(920);
-            try
-            {
-                var x = await m_ZboxReadService.GetDashboardSideBarAsync(query);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+        //[TestMethod]
+        //public async Task GetDashboardSideBar_Query_ReturnResult()
+        //{
+        //    var query = new GetDashboardQuery(920);
+        //    try
+        //    {
+        //        var x = await m_ZboxReadService.GetDashboardSideBarAsync(query);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
 
 
 
@@ -80,19 +76,19 @@ namespace Zbang.Zbox.ReadServicesTests
 
        
 
-        [TestMethod]
-        public void GetMyData_Query_ReturnResult()
-        {
-            var query = new GetDashboardQuery(1);
-            try
-            {
-                m_ZboxReadService.GetMyData(query);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+       // [TestMethod]
+        //public void GetMyData_Query_ReturnResult()
+        //{
+        //    var query = new GetDashboardQuery(1);
+        //    try
+        //    {
+        //        m_ZboxReadService.GetMyData(query);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
 
         [TestMethod]
         public void GetLibraryNode_Query_ReturnResult()

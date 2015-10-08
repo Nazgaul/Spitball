@@ -126,12 +126,13 @@ button {
 }
 
 //invite
+@import "dashboard.less";
 
 .portlet.light.invite {
     background: #4190b9;
     text-align: center;
     font-size: 18px;
-    height:180px;
+    height:@cubeHeight;
 
     svg {
         fill: @color2;
@@ -143,8 +144,6 @@ button {
 
     &:hover {
         background-color:#26566e;
-
-
     }
 
 }

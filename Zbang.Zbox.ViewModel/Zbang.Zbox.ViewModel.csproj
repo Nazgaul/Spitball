@@ -77,7 +77,6 @@
     <Compile Include="Dto\BoxDtos\BoxSeoDto.cs" />
     <Compile Include="Dto\BoxDtos\RecommendBoxDto.cs" />
     <Compile Include="Dto\BoxSettingsDto.cs" />
-    <Compile Include="Dto\Dashboard\DashboardDto.cs" />
     <Compile Include="Dto\Dashboard\UniversityDashboardInfoDto.cs" />
     <Compile Include="Dto\Emails\BoxDigestDto.cs" />
     <Compile Include="Dto\Emails\BoxUpdatesDigestDto.cs" />
@@ -198,7 +197,7 @@
     <Compile Include="Queries\Search\SearchQuery.cs" />
     <Compile Include="Queries\Search\UniversitySearchQuery.cs" />
     <Compile Include="Queries\Search\UserSearchQuery.cs" />
-    <Compile Include="Queries\User\GetDashboardQuery.cs" />
+    <Compile Include="Queries\Dashboard\UniversityQuery.cs" />
     <Compile Include="SqlQueries\Admin.cs" />
     <Compile Include="SqlQueries\Box.cs" />
     <Compile Include="SqlQueries\Dashboard.cs" />

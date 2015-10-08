@@ -20,7 +20,6 @@ using Zbang.Zbox.ViewModel.Queries.Dashboard;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
 using Zbang.Zbox.ViewModel.Queries.Search;
-using Zbang.Zbox.ViewModel.Queries.User;
 using Activity = Zbang.Zbox.ViewModel.Dto.ActivityDtos;
 using Box = Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using ExtensionTransformers = Zbang.Zbox.Infrastructure.Data.Transformers;
@@ -75,27 +74,27 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public async Task<DashboardDto> GetDashboardSideBarAsync(GetDashboardQuery query)
-        {
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
-            {
-                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1}",
-                    Sql.Sql.DashboardInfo,
-                    Sql.Sql.UniversityLeaderBoard),
-                    new { query.UniversityId }))
-                {
-                    var retVal = new DashboardDto
-                    {
+        //public async Task<DashboardDto> GetDashboardSideBarAsync(GetDashboardQuery query)
+        //{
+        //    using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1}",
+        //            Sql.Sql.DashboardInfo,
+        //            Sql.Sql.UniversityLeaderBoard),
+        //            new { query.UniversityId }))
+        //        {
+        //            var retVal = new DashboardDto
+        //            {
 
-                        Info = grid.Read<UniversityDashboardInfoDto>().FirstOrDefault(),
-                        LeaderBoard = await grid.ReadAsync<LeaderBoardDto>()
+        //                Info = grid.Read<UniversityDashboardInfoDto>().FirstOrDefault(),
+        //                LeaderBoard = await grid.ReadAsync<LeaderBoardDto>()
 
-                    };
+        //            };
 
-                    return retVal;
-                }
-            }
-        }
+        //            return retVal;
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// Used in dashboard
@@ -118,7 +117,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<UniversityDashboardInfoDto> GetMyData(GetDashboardQuery query)
+        public async Task<UniversityDashboardInfoDto> GetUniversityInfoAsync(UniversityQuery query)
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {

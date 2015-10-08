@@ -12,9 +12,9 @@ using Zbang.Zbox.ViewModel.Dto.Qna;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
+using Zbang.Zbox.ViewModel.Queries.Dashboard;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
-using Zbang.Zbox.ViewModel.Queries.User;
 using UserDto = Zbang.Zbox.ViewModel.Dto.UserDtos.UserDto;
 
 namespace Zbang.Zbox.ReadServices
@@ -40,9 +40,9 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserBoxesAsync(query);
         }
 
-        public Task<UniversityDashboardInfoDto> GetMyData(GetDashboardQuery query)
+        public Task<UniversityDashboardInfoDto> GetUniversityInfoAsync(UniversityQuery query)
         {
-            return m_ReadService.GetMyData(query);
+            return m_ReadService.GetUniversityInfoAsync(query);
         }
 
         public Task<NodeBoxesDto> GetLibraryNode(GetLibraryNodeQuery query)
@@ -341,10 +341,7 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public Task<DashboardDto> GetDashboardSideBarAsync(GetDashboardQuery query)
-        {
-            return m_Cache.QueryAsync(m_ReadService.GetDashboardSideBarAsync, query);
-        }
+      
 
 
         public Task<UserDetailDto> GetUserDataAsync(GetUserDetailsQuery query)

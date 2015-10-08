@@ -1,46 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using System.Configuration;
 using System.Xml.Linq;
 using Autofac;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
-using Zbang.Zbox.Infrastructure.Mail.EmailParameters;
 using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Search;
-
-using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.Infrastructure.Mail;
 
 using System.Diagnostics;
-using System.Web.Script.Serialization;
-using System.Runtime.Serialization;
-using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.Storage;
 using System.Web.Security;
-using System.Security.Cryptography;
-using Zbang.Zbox.ViewModel.Queries.Boxes;
 using System.Globalization;
-using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.ViewModel.Queries.User;
-using Zbang.Zbox.Infrastructure.Culture;
-using Zbang.Zbox.Infrastructure.File;
 using System.Net.Http;
-using Zbang.Zbox.Infrastructure.MediaServices;
 using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using Zbang.Zbox.Infrastructure.Transport;
-using Zbang.Zbox.Infrastructure.Data.Dapper;
-using Dapper;
 using System.Text.RegularExpressions;
 
 namespace Testing

@@ -2161,6 +2161,7 @@
     <Content Include="Js\components\dashboard\dashboard.controller.js" />
     <Content Include="Js\components\dashboard\dashboard.service.js" />
     <Content Include="Js\components\dashboard\sidemenu.controller.js" />
+    <Content Include="Js\components\dashboard\university.controller.js" />
     <Content Include="Js\components\leaderboard.controller.js" />
     <Content Include="Js\components\quiz\quiz.controller.js" />
     <Content Include="Js\components\quiz\quiz.service.js" />
