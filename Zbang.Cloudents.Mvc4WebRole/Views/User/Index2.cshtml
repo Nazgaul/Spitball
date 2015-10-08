@@ -88,105 +88,48 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="portlet box">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                your uploads
+                    <div class="portlet light">
+                        <h4> your uploads</h4>
+                        <md-progress-circular ng-if="u.itemsLoading" md-mode="indeterminate" class="circle-loading"></md-progress-circular>
+                        <div ng-if="u.files.length > 0" class="r-table">
+                            <div class="r-table-row header">
+                                <div class="r-table-cell">name</div>
+                                <div class="r-table-cell">course</div>
+                                <div class="r-table-cell">date</div>
                             </div>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="table-scrollable">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>
-
-                                            </th>
-                                            <th>
-                                                name
-                                            </th>
-                                            <th>
-                                                course
-                                            </th>
-                                            <th>
-                                                date
-                                            </th>
-                                            <th>
-
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="file in u.files">
-                                            <td></td>
-                                            <td>
-                                                {{::file.name}}
-                                            </td>
-                                            <td>
-                                                {{::file.boxName}}
-                                            </td>
-                                            <td>
-                                                2/13/2105
-                                            </td>
-                                            <td>
-                                                <span class="label label-sm label-success">
-                                                    view
-                                                </span>
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
+                            <div class="r-table-row" ng-repeat="file in u.files track by file.id">
+                                <div class="r-table-cell">
+                                    {{::file.name}}
+                                </div>
+                                <div class="r-table-cell">{{::file.boxName}}</div>
+                                <div class="r-table-cell">2/13/2105</div>
+                                <div class="r-table-cell">view</div>
                             </div>
+                            <button class="btn  btn-default" type="button" ng-click="u.itemsLoadMore()" ng-disabled="u.itemsLoading">load more</button>
                         </div>
+
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="portlet box ">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                your comments
+                    <div class="portlet light ">
+                        <h4>  your comments</h4>
+                        <md-progress-circular ng-if="u.commentsLoading" md-mode="indeterminate" class="circle-loading"></md-progress-circular>
+                        <div ng-if="u.files.length > 0" class="r-table">
+                            <div class="r-table-row header">
+                                <div class="r-table-cell">text</div>
+                                <div class="r-table-cell">date</div>
                             </div>
-
-                        </div>
-                        <div class="portlet-body">
-                            <div class="table-scrollable">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>
-
-                                            </th>
-                                            <th>
-                                                text
-                                            </th>
-                                            <th>
-                                                date
-                                            </th>
-                                            <th>
-
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="c in u.feed">
-                                            <td>
-                                                {{::c.type}}
-                                            </td>
-                                            <td ng-bind-html="::c.content"></td>
-                                            <td>
-                                                2/13/2105
-                                            </td>
-                                            <td>
-                                                <span class="label label-sm label-success">
-                                                    view
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="r-table-row" ng-repeat="c in u.feed track by c.id">
+                                <div class="r-table-cell">
+                                    {{::c.type}}
+                                </div>
+                                <div class="r-table-cell" ng-bind-html="::c.content"></div>
+                                <div class="r-table-cell">2/13/2105</div>
+                                <div class="r-table-cell">view</div>
                             </div>
+                            <button class="btn  btn-default" type="button" ng-click="u.commentLoadMore()" ng-disabled="u.commentsLoading">load more</button>
                         </div>
+
                     </div>
                 </div>
 

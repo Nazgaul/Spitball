@@ -1,7 +1,5 @@
 ﻿using DevTrends.MvcDonutCaching;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -12,7 +10,6 @@ using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
-using Zbang.Zbox.ViewModel.Queries.Library;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -78,66 +75,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        //#region Admin
-        //[HttpGet]
-        //public async Task<ActionResult> AdminBoxes(long userId)
-        //{
-        //    try
-        //    {
-        //        var university = User.GetUniversityId();
-        //        if (!university.HasValue)
-        //        {
-        //            TraceLog.WriteError("trying to access admin - userId: " + User.GetUserId());
-        //            return JsonError();
-        //        }
-        //        var query = new GetUserWithFriendQuery(university.Value, userId);
-        //        var model = await ZboxReadService.GetUserBoxesActivityAsync(query);
-        //        return JsonOk(model);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError(string.Format("User/Boxes user {0}, userRequest {1}", User.Identity.Name, userId), ex);
-        //        return JsonError();
-        //    }
-        //}
-        //[HttpGet]
-        //public async Task<ActionResult> AdminFriends()
-        //{
-        //    var university = User.GetUniversityId();
-        //    if (!university.HasValue)
-        //    {
-        //        TraceLog.WriteError("trying to access AdminFriends - userId: " + User.GetUserId());
-        //        return JsonError();
-        //    }
-        //    var query = new GetAdminUsersQuery(university.Value);
-        //    var result = await ZboxReadService.GetUniversityUsers(query);
-        //    return JsonOk(result);
-        //}
-        //#endregion
-
-
-        //[HttpGet]
-        //public async Task<ActionResult> OwnedInvites()
-        //{
-        //    try
-        //    {
-        //        var query = new GetInvitesQuery(User.GetUserId());
-        //        var model = await ZboxReadService.GetUserPersonalInvites(query);
-
-
-        //        return JsonOk(model);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError(string.Format("User/OwnedInvites user {0}", User.Identity.Name), ex);
-        //        return JsonError();
-        //    }
-        //}
 
         [HttpGet]
-        public async Task<ActionResult> Comment(long id)
+        public async Task<ActionResult> Comment(long id, int page)
         {
-            var query = new GetUserWithFriendQuery(User.GetUserId(), id);
+            var query = new GetUserWithFriendQuery(User.GetUserId(), id, page, 10);
             var model = await ZboxReadService.GetUserCommentActivityAsync(query);
 
 
@@ -145,9 +87,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Items(long id)
+        public async Task<ActionResult> Items(long id, int page)
         {
-            var query = new GetUserWithFriendQuery(User.GetUserId(), id);
+            var query = new GetUserWithFriendQuery(User.GetUserId(), id, page, 10);
             var result = await ZboxReadService.GetUserItemsActivityAsync(query);
             return JsonOk(result);
         }

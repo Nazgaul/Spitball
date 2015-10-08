@@ -4,9 +4,11 @@
 
     function user(userService, $stateParams) {
         var self = this;
-        var boxesPage = 0, friendPage = 0;
+        var boxesPage = 0, friendPage = 0, itemsPage = 0, commentPage = 0;
         self.friends = [];
         self.boxes = [];
+        self.files = [];
+        self.feed = [];
 
 
         userService.getDetails($stateParams.userId).then(function (response) {
@@ -28,15 +30,39 @@
             loadFriends();
         }
 
-        userService.getfiles($stateParams.userId).then(function (response) {
-            self.files = response;
 
-        });
+        //items
+        loadItems();
+        self.itemsLoadMore = function() {
+            itemsPage++;
+            loadItems();
+        }
 
-        userService.getfeed($stateParams.userId).then(function (response) {
-            self.feed = response;
-        });
+        function loadItems() {
+            self.itemsLoading = true;
+            userService.files($stateParams.userId, itemsPage).then(function (response) {
+                self.files = self.files.concat(response);
+                if (response.length) {
+                    self.itemsLoading = false;
+                }
 
+            });
+        }
+
+        loadComment();
+        self.commentLoadMore = function () {
+            commentPage++;
+            loadComment();
+        }
+        function loadComment() {
+            self.commentsLoading = true;
+            userService.feed($stateParams.userId, commentPage).then(function (response) {
+                self.feed = self.feed.concat(response);
+                if (response.length) {
+                    self.commentsLoading = false;
+                }
+            });
+        }
 
 
         function loadFriends() {

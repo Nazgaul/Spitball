@@ -15,11 +15,11 @@
         u.friends = function (userid, page) {
             return ajaxservice.get('/user/friends/', { id: userid, page: page });
         }
-        u.getfiles = function (userid) {
-            return ajaxservice.get('/user/items/', { id: userid });
+        u.files = function (userid ,page) {
+            return ajaxservice.get('/user/items/', { id: userid, page: page });
         }
-        u.getfeed = function (userid) {
-            return ajaxservice.get('/user/comment/', { id: userid });
+        u.feed = function (userid, page) {
+            return ajaxservice.get('/user/comment/', { id: userid, page: page });
         }
 
     }
