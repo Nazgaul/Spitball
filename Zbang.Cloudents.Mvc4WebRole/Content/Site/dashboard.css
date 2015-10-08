@@ -10,16 +10,6 @@
   height: 180px;
   padding: 10px;
 }
-@media (max-width: 1200px) {
-  .dashboard .leaderboard {
-    background: red;
-  }
-}
-@media (min-width: 900px) {
-  .dashboard .leaderboard {
-    background: green;
-  }
-}
 .dashboard .leaderBoardTitle {
   float: left;
   -ms-word-break: break-word;
@@ -52,6 +42,10 @@
 .dashboard .universityimg {
   border-radius: 50%;
   background: white;
+  width: 9vmax;
+  height: 9vmax;
+  max-width: 70px;
+  max-height: 70px;
 }
 .dashboard .universityTitle {
   float: left;
