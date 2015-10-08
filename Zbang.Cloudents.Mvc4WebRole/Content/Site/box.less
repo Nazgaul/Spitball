@@ -33,8 +33,7 @@
         padding: 0 10px;
         //padding:0 10px;
     }
-
-    .extraDetails {
+    /*.extraDetails {
         color: @color2;
         overflow: hidden;
         position: relative;
@@ -53,8 +52,7 @@
     .mix-subDetails {
         position: absolute;
         bottom: 75px;
-    }
-
+    }*/
     .no-background {
         background-color: transparent;
     }
@@ -107,9 +105,10 @@
 .members {
     //override bootstrap
     a:hover {
-        color:transparent;
-        text-decoration:none;
+        color: transparent;
+        text-decoration: none;
     }
+
     .member-name {
         color: #bababa;
         font-size: 15px;
@@ -117,34 +116,7 @@
     }
 }
 
-.stats {
-    width: 100%;
-    height: 38px;
-    color: @color2;
-    font-size: 14px;
-    padding: 12px;
 
-    svg {
-        vertical-align: top;
-        margin-top: 5px;
-    }
-
-    .likes2 {
-        svg {
-            width: 12px;
-            height: 12px;
-            fill: @color2;
-        }
-    }
-
-    .views {
-        svg {
-            width: 14px;
-            height: 14px;
-            fill: @color2;
-        }
-    }
-}
 
 .quiz {
     border: 1px solid #42494F;
@@ -258,4 +230,74 @@
 .item {
     border: 1px solid #42494F;
     padding: 5px;
+    display:block;
+    margin-bottom:15px;
+
+    .content {
+        position: relative;
+        display: inline-block;
+    }
+
+    &:hover .extra {
+        top: 0;
+    }
+
+    h5 {
+        font-size: 15px;
+        -ms-word-break: break-word;
+        word-break: break-word;
+    }
+
+    .uploader-date {
+        position: absolute;
+        bottom: 75px;
+    }
+
+    .extra {
+        color: #fff;
+        background: #6a737d;
+        position: absolute;
+        top: 520px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        -webkit-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        overflow: hidden;
+    }
+
+    svg {
+        vertical-align: top;
+        margin-top: 5px;
+    }
+
+    .stats {
+        //   width: 100%;
+        //height: 38px;
+        color: @color2;
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .likes2 {
+        float: right;
+
+        svg {
+            width: 12px;
+            height: 12px;
+            fill: @color2;
+        }
+    }
+
+    .views {
+        float: left;
+
+        svg {
+            width: 14px;
+            height: 14px;
+            fill: @color2;
+        }
+    }
 }

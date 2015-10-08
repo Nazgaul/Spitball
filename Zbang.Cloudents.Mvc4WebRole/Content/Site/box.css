@@ -1,4 +1,26 @@
-﻿.class .nav-tabs > li.active > a,
+﻿.class {
+  /*.extraDetails {
+        color: @color2;
+        overflow: hidden;
+        position: relative;
+        background-color: black;
+        z-index: 1;
+
+        > span:first-child {
+            float: left;
+        }
+
+        > span:last-child {
+            float: right;
+        }
+    }
+
+    .mix-subDetails {
+        position: absolute;
+        bottom: 75px;
+    }*/
+}
+.class .nav-tabs > li.active > a,
 .class .nav-tabs > li.active > a:hover {
   background: transparent;
   border: 0;
@@ -23,23 +45,6 @@
 .class .tabbable {
   background-color: #353a3f;
   padding: 0 10px;
-}
-.class .extraDetails {
-  color: #f5f5f5;
-  overflow: hidden;
-  position: relative;
-  background-color: black;
-  z-index: 1;
-}
-.class .extraDetails > span:first-child {
-  float: left;
-}
-.class .extraDetails > span:last-child {
-  float: right;
-}
-.class .mix-subDetails {
-  position: absolute;
-  bottom: 75px;
 }
 .class .no-background {
   background-color: transparent;
@@ -87,27 +92,6 @@
   color: #bababa;
   font-size: 15px;
   margin-left: 10px;
-}
-.stats {
-  width: 100%;
-  height: 38px;
-  color: #f5f5f5;
-  font-size: 14px;
-  padding: 12px;
-}
-.stats svg {
-  vertical-align: top;
-  margin-top: 5px;
-}
-.stats .likes2 svg {
-  width: 12px;
-  height: 12px;
-  fill: #f5f5f5;
-}
-.stats .views svg {
-  width: 14px;
-  height: 14px;
-  fill: #f5f5f5;
 }
 .quiz {
   border: 1px solid #42494F;
@@ -208,4 +192,61 @@
 .item {
   border: 1px solid #42494F;
   padding: 5px;
+  display: block;
+  margin-bottom: 15px;
+}
+.item .content {
+  position: relative;
+  display: inline-block;
+}
+.item:hover .extra {
+  top: 0;
+}
+.item h5 {
+  font-size: 15px;
+  -ms-word-break: break-word;
+  word-break: break-word;
+}
+.item .uploader-date {
+  position: absolute;
+  bottom: 75px;
+}
+.item .extra {
+  color: #fff;
+  background: #6a737d;
+  position: absolute;
+  top: 520px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+.item svg {
+  vertical-align: top;
+  margin-top: 5px;
+}
+.item .stats {
+  color: #f5f5f5;
+  font-size: 14px;
+  padding: 12px;
+}
+.item .likes2 {
+  float: right;
+}
+.item .likes2 svg {
+  width: 12px;
+  height: 12px;
+  fill: #f5f5f5;
+}
+.item .views {
+  float: left;
+}
+.item .views svg {
+  width: 14px;
+  height: 14px;
+  fill: #f5f5f5;
 }
