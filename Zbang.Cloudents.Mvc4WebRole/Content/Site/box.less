@@ -33,29 +33,7 @@
         padding: 0 10px;
         //padding:0 10px;
     }
-    /*.extraDetails {
-        color: @color2;
-        overflow: hidden;
-        position: relative;
-        background-color: black;
-        z-index: 1;
 
-        > span:first-child {
-            float: left;
-        }
-
-        > span:last-child {
-            float: right;
-        }
-    }
-
-    .mix-subDetails {
-        position: absolute;
-        bottom: 75px;
-    }*/
-    .no-background {
-        background-color: transparent;
-    }
 
     .attach {
         background: rgba(0, 0, 0, 0.48);
@@ -115,6 +93,10 @@
         margin-left: 10px;
     }
 }
+
+
+
+
 
 
 
@@ -230,8 +212,8 @@
 .item {
     border: 1px solid #42494F;
     padding: 5px;
-    display:block;
-    margin-bottom:15px;
+    display: block;
+    margin-bottom: 15px;
 
     .content {
         position: relative;
@@ -249,15 +231,14 @@
     }
 
     .uploader-date {
-        position: absolute;
-        bottom: 75px;
+        margin-top: 75px;
     }
 
     .extra {
         color: #fff;
         background: #6a737d;
         position: absolute;
-        top: 520px;
+        top: 100%;
         left: 0;
         right: 0;
         bottom: 0;
@@ -281,6 +262,8 @@
         padding: 12px;
     }
 
+
+
     .likes2 {
         float: right;
 
@@ -300,4 +283,27 @@
             fill: @color2;
         }
     }
+}
+
+.item-animate.ng-move,
+.item-animate.ng-enter,
+.item-animate.ng-leave {
+    -moz-transition: all linear 0.5s;
+    -o-transition: all linear 0.5s;
+    -webkit-transition: all linear 0.5s;
+    transition: all linear 0.5s;
+}
+
+.item-animate.ng-leave.ng-leave-active,
+.item-animate.ng-move,
+.item-animate.ng-enter {
+    opacity: 0;
+    //max-height: 0;
+}
+
+.item-animate.ng-leave,
+.item-animate.ng-move.ng-move-active,
+.item-animate.ng-enter.ng-enter-active {
+    opacity: 1;
+    // max-height: 40px;
 }
