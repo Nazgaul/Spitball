@@ -1,5 +1,5 @@
 ﻿<div class="row">
-    <div class="col-md-6">
+    <div class="col-lg-6 col-md-8 col-sm-12">
         <div class="portlet light ">
             <div class="portlet-body" id="chats">
                 @*<div class="scroller" style="height: 341px;" data-always-visible="1" data-rail-visible1="1">*@
@@ -18,28 +18,32 @@
                 <ul class="chats">
                     <li class="in" ng-repeat="post in f.data">
                         <user-image class="avatar" name="::post.userName" image="::post.userImage" width="45" height="45"></user-image>
+                        @*<img class="avatar" alt="" src="{{::post.userImage}}" />*@
                         <div class="message">
                             <div class="message-top">
                                 <span class="name">{{::post.userName}}</span>
                                 <span class="datetime" display-time="{{::post.creationTime}}"></span>
+                                {{::post.userName}}
+                            </a>
+                            <span class="datetime">
+                                at 20:09
+                            </span>
                                 <span class="body" ng-bind-html="::post.content"></span>
                             </div>
-                            <ul class="list-inline items-container">
-                                <li ng-repeat="item in post.files">
-                                    <a class="item" href="{{::item.url}}">
-                                        <div class="content">
+                                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 mix mix_all" style="display: block; margin-top: 8px; opacity: 1;" ng-repeat="item in post.files">
+                                    <a href="{{::item.url}}">
+                                        <div class="mix-inner">
                                             <img class="img-responsive" src="{{::item.thumbnail}}" alt="">
-                                            <div class="extra">
-                                                <h5>{{::item.name}}</h5>
-                                                <img src="http://lorempixel.com/30/30/" alt="" />
-                                             
+                                            <div class="mix-details">
+                                                <h4 class="">{{::item.name}}</h4>
                                             </div>
                                         </div>
                                     </a>
-                                </li>
-                            </ul>
+                                </div>
+
+                            </div>
                             <div class="likes">
-                                <div class="pull-left btn blue">
+                                <div class="pull-left btn btn blue">
                                     <span> 15 Likes </span>
                                     @Html.Svg("~/images/site/box-icons.svg", "share", new { @class = "like" })
                                 </div>
@@ -47,39 +51,48 @@
                                     <span>Comments</span>
                                 </div>
                                 @Html.Svg("~/images/site/box-icons.svg", "share", new { @class = "share" })
+
                             </div>
+
                         </div>
                         <ul>
                             <li class="out" ng-repeat="reply in post.answers">
                                 <user-image class="avatar" name="::reply.userName" image="::reply.userImage" width="45" height="45"></user-image>
                                 <div class="message">
-                                    <span class="name">{{::reply.userName}}</span>
-                                    <span class="datetime" display-time="{{::post.creationTime}}"></span>
+                                    <span class="arrow">
+                                    </span>
+                                    <a href="javascript:;" class="name">
+                                        {{::reply.userName}}
+                                    </a>
+                                    <span class="datetime">
+                                        at 20:11
+                                    </span>
                                     <span class="body" ng-bind-html="::reply.content">
                                     </span>
-                                    <ul class="list-inline items-container">
-                                        <li ng-repeat="item in reply.files">
-                                            <a class="item" href="{{::item.url}}">
-                                                <div class="content">
+                                    <div class="row mix-grid">
+                                        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 mix mix_all" style="display: block;  opacity: 1;" ng-repeat="file in reply.files">
+                                            <a href="{{::file.url}}">
+                                                <div class="mix-inner" style="margin-top:8px">
                                                     <img class="img-responsive" src="{{::item.thumbnail}}" alt="">
-                                                    <div class="extra">
-                                                        <h5>{{::item.name}}</h5>
-                                                        <img src="http://lorempixel.com/30/30/" alt="" />
-
+                                                    <div class="mix-details">
+                                                        <h4 class="">{{::file.name}}</h4>
                                                     </div>
                                                 </div>
                                             </a>
-                                        </li>
-                                    </ul>
+                                        </div>
+                                    </div>
                                 </div>
+
                             </li>
                         </ul>
                     </li>
                 </ul>
+                @*</div>*@
+
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         @{ Html.RenderPartial("_LeaderBoard");}
 
         <div class="row margin-top-10" ng-controller="RecommendedController as r">
