@@ -1,5 +1,5 @@
 ﻿<div class="row">
-    <div class="col-md-6">
+    <div class="col-lg-6 col-md-8 col-sm-12">
         <div class="portlet light ">
             <div class="portlet-body" id="chats">
                 @*<div class="scroller" style="height: 341px;" data-always-visible="1" data-rail-visible1="1">*@
@@ -50,8 +50,8 @@
                                 <div class="comment">
                                     <span>Comments</span>
                                 </div>
-                                    @Html.Svg("~/images/site/box-icons.svg", "share", new { @class="share"})
-                               
+                                @Html.Svg("~/images/site/box-icons.svg", "share", new { @class = "share" })
+
                             </div>
 
                         </div>
@@ -92,7 +92,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         @{ Html.RenderPartial("_LeaderBoard");}
 
         <div class="row margin-top-10" ng-controller="RecommendedController as r">
