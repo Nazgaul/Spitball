@@ -239,11 +239,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id")]
-        public async Task<JsonResult> Items(long id)
+        public async Task<JsonResult> Items(long id, Guid? tabId, int page)
         {
             try
             {
-                var query = new GetBoxItemsPagedQuery(id, null);
+                var query = new GetBoxItemsPagedQuery(id, tabId, page, 25);
                 var result = await ZboxReadService.GetBoxItemsPagedAsync(query);
                 var itemDtos = result as IList<ItemDto> ?? result.ToList();
                 foreach (var item in itemDtos)
