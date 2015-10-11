@@ -18,7 +18,6 @@
                 <ul class="chats">
                     <li class="in" ng-repeat="post in f.data">
                         <user-image class="avatar" name="::post.userName" image="::post.userImage" width="45" height="45"></user-image>
-                        @*<img class="avatar" alt="" src="{{::post.userImage}}" />*@
                         <div class="message">
                             <span class="name">{{::post.userName}}</span>
                             <span class="datetime" display-time="{{::post.creationTime}}"></span>
