@@ -35,10 +35,10 @@
     }
 
 
-    .attach {
+    /*.attach {
         background: rgba(0, 0, 0, 0.48);
         margin: 8px -20px -8px -10px;
-    }
+    }*/
 
 
     .likes {
@@ -83,6 +83,18 @@
         overflow-y: hidden;
         overflow-x: auto;
         white-space: nowrap;
+    }
+
+    .message {
+        &:before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: -11px;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 10px solid #f5f5f5;
+        }
     }
 }
 

@@ -1,4 +1,10 @@
-﻿.class .nav-tabs > li.active > a,
+﻿.class {
+  /*.attach {
+        background: rgba(0, 0, 0, 0.48);
+        margin: 8px -20px -8px -10px;
+    }*/
+}
+.class .nav-tabs > li.active > a,
 .class .nav-tabs > li.active > a:hover {
   background: transparent;
   border: 0;
@@ -23,10 +29,6 @@
 .class .tabbable {
   background-color: #353a3f;
   padding: 0 10px;
-}
-.class .attach {
-  background: rgba(0, 0, 0, 0.48);
-  margin: 8px -10px -8px -20px;
 }
 .class .likes {
   background: rgba(0, 0, 0, 0.48);
@@ -63,6 +65,15 @@
   overflow-y: hidden;
   overflow-x: auto;
   white-space: nowrap;
+}
+.class .message:before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: -11px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 10px solid #f5f5f5;
 }
 .members a:hover {
   color: transparent;

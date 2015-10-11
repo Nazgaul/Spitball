@@ -20,9 +20,8 @@
                         <user-image class="avatar" name="::post.userName" image="::post.userImage" width="45" height="45"></user-image>
                         @*<img class="avatar" alt="" src="{{::post.userImage}}" />*@
                         <div class="message">
-                            <span class="arrow"></span>
                             <span class="name">{{::post.userName}}</span>
-                            <span class="datetime">at 20:09</span>
+                            <span class="datetime" display-time="{{::post.creationTime}}"></span>
                             <span class="body" ng-bind-html="::post.content"></span>
 
                             <ul class="list-inline items-container">
@@ -39,22 +38,8 @@
                                     </a>
                                 </li>
                             </ul>
-
-                            @*<div class="row mix-grid attach">
-                                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 mix mix_all" style="display: block; margin-top: 8px; opacity: 1;" ng-repeat="item in post.files">
-                                    <a href="{{::item.url}}">
-                                        <div class="mix-inner">
-                                            <img class="img-responsive" src="{{::item.thumbnail}}" alt="">
-                                            <div class="mix-details">
-                                                <h4 class="">{{::item.name}}</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                            </div>*@
                             <div class="likes">
-                                <div class="pull-left btn btn blue">
+                                <div class="pull-left btn blue">
                                     <span> 15 Likes </span>
                                     @Html.Svg("~/images/site/box-icons.svg", "share", new { @class = "like" })
                                 </div>
@@ -62,22 +47,14 @@
                                     <span>Comments</span>
                                 </div>
                                 @Html.Svg("~/images/site/box-icons.svg", "share", new { @class = "share" })
-
                             </div>
-
                         </div>
                         <ul>
                             <li class="out" ng-repeat="reply in post.answers">
                                 <user-image class="avatar" name="::reply.userName" image="::reply.userImage" width="45" height="45"></user-image>
                                 <div class="message">
-                                    <span class="arrow">
-                                    </span>
-                                    <a href="javascript:;" class="name">
-                                        {{::reply.userName}}
-                                    </a>
-                                    <span class="datetime">
-                                        at 20:11
-                                    </span>
+                                    <span class="name">{{::reply.userName}}</span>
+                                    <span class="datetime" display-time="{{::post.creationTime}}"></span>
                                     <span class="body" ng-bind-html="::reply.content">
                                     </span>
                                     <ul class="list-inline items-container">
@@ -94,26 +71,11 @@
                                             </a>
                                         </li>
                                     </ul>
-                                    @*<div class="row mix-grid">
-                                        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 mix mix_all" style="display: block;  opacity: 1;" ng-repeat="file in reply.files">
-                                            <a href="{{::file.url}}">
-                                                <div class="mix-inner" style="margin-top:8px">
-                                                    <img class="img-responsive" src="{{::item.thumbnail}}" alt="">
-                                                    <div class="mix-details">
-                                                        <h4 class="">{{::file.name}}</h4>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>*@
                                 </div>
-
                             </li>
                         </ul>
                     </li>
                 </ul>
-                @*</div>*@
-
             </div>
         </div>
     </div>

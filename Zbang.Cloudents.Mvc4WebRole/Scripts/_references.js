@@ -339,3 +339,4 @@
 /// <reference path="../js/components/dashboard/university.controller.js" />
 /// <reference path="../js/components/box/box.service.js" />
 /// <reference path="../js/components/box/recommended.controller.js" />
+/// <reference path="../js/shared/displaytime.js" />
