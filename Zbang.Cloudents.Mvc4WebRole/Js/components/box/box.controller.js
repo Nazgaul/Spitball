@@ -1,15 +1,13 @@
 ﻿(function () {
     angular.module('app.box').controller('BoxController', box);
-    box.$inject = ['boxService', '$stateParams', '$location','$scope' ,'$timeout'];
+    box.$inject = ['boxService', '$stateParams', '$location', '$scope', '$timeout', '$state'];
 
-    function box(boxService, $stateParams, $location, $scope, $timeout) {
+    function box(boxService, $stateParams, $location, $scope, $timeout, $state) {
 
+        console.log($state);
         if (!$location.hash()) {
-            $location.hash('feed');
+            $state.go('box.feed');
         }
-        //if ($location.path().endsWith($stateParams.boxName + '/')) {
-        //        $location.path($location.path() + 'feed/');
-        //}
 
         var b = this;
         var boxData;

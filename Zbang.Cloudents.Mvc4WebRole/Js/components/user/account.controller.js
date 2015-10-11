@@ -1,49 +1,41 @@
 ﻿(function () {
-    angular.module('app.user.account').controller('AccountSettings', account);
-    account.$inject = ['userDetailsService', '$scope', '$timeout'];
+    angular.module('app.user.account').controller('AccountSettingsController', account);
+    account.$inject = ['userDetailsService'];
 
-    function account(userDetailsService, $scope, $timeout) {
+    function account(userDetailsService) {
         var self = this;
 
 
         userDetailsService.getAccountDetails().then(function (response) {
             self.data = response;
         });
+    }
+})();
 
-        //University auto complete
+(function() {
+    angular.module('app.user.account').controller('AccountSettingsInfoController', info);
+    info.$inject = ['userDetailsService', '$scope', '$timeout'];
+    function info(userDetailsService, $scope, $timeout) {
+        var self = this;
         self.querySearch = function querySearch(query) {
             return userDetailsService.searchUniversity(query);
         };
         self.selectedItemChange = function selectedItemChange(item) {
             self.data.university = item.name;
             self.data.universityId = item.id;
-           
+
         };
 
         self.submit = function () {
             var firstName = self.firstName || self.data.firstName,
             lastName = self.lastName || self.data.lastName;
-            userDetailsService.setAccountDetails(self.data.universityId, firstName, lastName, self.data.university).then(function (response) {
+            userDetailsService.setAccountDetails(self.data.universityId, firstName, lastName, self.data.university).then(function () {
                 alert('changes saved');
                 self.firstName = '';
                 self.lastName = '';
             });
         }
 
-
-        //ud.setAccountDetails
-
-        //$scope.$on('$viewContentLoaded', function () {
-        //    //taken from metronic.js
-        //    if (location.hash) {
-        //        var tabid = encodeURI(location.hash.substr(1));
-        //        $('a[href="#' + tabid + '"]').parents('.tab-pane:hidden').each(function () {
-        //            tabid = $(this).attr("id");
-        //            $('a[href="#' + tabid + '"]').click();
-        //        });
-        //        $('a[href="#' + tabid + '"]').click();
-        //    }
-        //});
 
         self.fileUpload = {
             url: '/upload/profilepicture/',
@@ -55,7 +47,7 @@
                 ]
             },
             callbacks: {
-                filesAdded: function (uploader, files) {
+                filesAdded: function (uploader) {
                     //$scope.loading = true;
                     $timeout(function () {
                         uploader.start();
@@ -78,5 +70,26 @@
                 }
             }
         }
+    }
+})();
+
+
+
+(function () {
+    angular.module('app.user.account').controller('AccountSettingsPasswordController', password);
+
+    function password() {
+        var self = this;
+
+
+
+    }
+})();
+(function () {
+    angular.module('app.user.account').controller('AccountSettingsNotificationController', notification);
+
+    function notification() {
+        var self = this;
+
     }
 })();

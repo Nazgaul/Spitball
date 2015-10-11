@@ -18,7 +18,7 @@
                 items: 'items',
                 quizzes: 'quizzes',
                 members: 'members'
-            }
+            };
 
             $scope.popup = {
                 share: false

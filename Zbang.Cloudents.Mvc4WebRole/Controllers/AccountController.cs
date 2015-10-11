@@ -933,6 +933,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
+        [HttpGet, ZboxAuthorize]
+        public PartialViewResult Info()
+        {
+            return PartialView();
+        }
+        [HttpGet, ZboxAuthorize]
+        public PartialViewResult Password()
+        {
+            return PartialView();
+        }
+        [HttpGet, ZboxAuthorize]
+        public PartialViewResult Notification()
+        {
+            return PartialView();
+        }
+
 
         [HttpPost, ZboxAuthorize]
         public JsonResult FirstTime(FirstTime firstTime)

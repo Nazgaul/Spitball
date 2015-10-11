@@ -3002,6 +3002,9 @@
     <Content Include="Views\Quiz\Index2.cshtml" />
     <Content Include="Views\Shared\Partials2\_Invite.cshtml" />
     <Content Include="Views\Shared\Partials2\_boxTemplate.cshtml" />
+    <Content Include="Views\Account\Info.cshtml" />
+    <Content Include="Views\Account\Password.cshtml" />
+    <Content Include="Views\Account\Notification.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

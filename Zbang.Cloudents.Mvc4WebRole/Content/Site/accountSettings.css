@@ -8,13 +8,9 @@
   vertical-align: middle;
   margin-right: 12px;
 }
-.floatright {
-  text-align: right;
-}
-.ontop {
-  position: absolute;
-  top: 123px;
-  width: 140px;
-  left: 5px;
+.accountPage .ontop {
   text-align: center;
+  position: relative;
+  top: -22px;
+  display: block;
 }

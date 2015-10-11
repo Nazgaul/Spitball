@@ -26,7 +26,6 @@
             templateUrl: function () {
                 return buildUrl('/box/indexpartial/');
             },
-            //abstract: true,
             controller: 'BoxController as b',
 
         }).
@@ -49,9 +48,6 @@
                     return buildUrl('/box/quizpartial/');
                 },
                 url: '#quizzes',
-                //templateUrl: function () {
-                //    return buildUrl('/box/indexpartial/');
-                //},
                 controller: 'QuizzesController as q'
             }).
             state('box.members', {
@@ -59,10 +55,6 @@
                     return buildUrl('/box/memberspartial/');
                 },
                 url: '#members',
-                //templateUrl: function () {
-                //    return buildUrl('/box/indexpartial/');
-                //},
-
                 controller: 'MembersController as m'
             }).
 
@@ -90,7 +82,28 @@
                 templateUrl: function () {
                     return buildUrl('/account/settingpartial/');
                 },
-                controller: 'AccountSettings as a'
+                controller: 'AccountSettingsController as a'
+            })
+            .state('settings.profile', {
+                url:'#info',
+                templateUrl: function () {
+                    return buildUrl('/account/info/');
+                },
+                controller: 'AccountSettingsInfoController as i'
+            })
+            .state('settings.password', {
+                url: '#password',
+                templateUrl: function () {
+                    return buildUrl('/account/password/');
+                },
+                controller: 'AccountSettingsPasswordController as p'
+            })
+            .state('settings.notification', {
+                url: '#notification',
+                templateUrl: function () {
+                    return buildUrl('/account/notification/');
+                },
+                controller: 'AccountSettingsNotificationController as n'
             })
              .state('department', {
                  url: '/library/',

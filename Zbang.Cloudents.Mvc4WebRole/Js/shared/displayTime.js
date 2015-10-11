@@ -59,7 +59,6 @@
     displayTimeFilter.$inject = ['$filter', '$locale'];
     function displayTimeFilter($filter, $locale) {
         return function (dateReceive) {
-            console.log($locale);
             var date = new Date(dateReceive),
                 oneDay = 86400000,
                 today = new Date(),
