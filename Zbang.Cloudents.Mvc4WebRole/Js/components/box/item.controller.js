@@ -12,9 +12,7 @@
             boxService.getTabs($stateParams.boxId)
         ]).then(function (data) {
             i.items = data[0];
-            for (var j = 0; j < i.items.length; j++) {
-                i.items[j].thumbnail = buildThumbnailUrl(i.items[j].source);
-            }
+            iterateItem();
             i.tabs = data[1];
             page++;
         });
@@ -41,9 +39,7 @@
                     } else {
                         i.items = response;
                     }
-                    for (var j = 0; j < i.items.length; j++) {
-                        i.items[j].thumbnail = buildThumbnailUrl(i.items[j].source);
-                    }
+                    iterateItem();
                     if (!response.length) {
                         needToBringMore = false;
                     }
@@ -73,8 +69,16 @@
             i.data.unshift(item);
         });
 
+        function iterateItem() {
+            for (var j = 0; j < i.items.length; j++) {
+                if (i.items[j].thumbnail) {
+                    continue;
+                }
+                i.items[j].thumbnail = buildThumbnailUrl(i.items[j].source);
+            }
+        }
         function buildThumbnailUrl(name) {
-            return 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(name) + '.jpg?width=368&height=520&mode=crop&scale=canvas';
+            return 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(name) + '.jpg?width=368&height=520&mode=crop&scale=both';
         }
     }
 })();

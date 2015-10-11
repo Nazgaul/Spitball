@@ -20,7 +20,7 @@
         });
 
         function buildThumbnailUrl(name) {
-            return 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(name) + '.jpg?width=100&height=125&mode=crop&scale=canvas';
+            return 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(name) + '.jpg?width=100&height=125&mode=crops&scale=both';
         }
     }
 })();

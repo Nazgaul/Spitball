@@ -59,6 +59,11 @@
   padding: 3px 10px;
   margin: 10px 15px 10px 10px;
 }
+.class .items-container {
+  overflow-y: hidden;
+  overflow-x: auto;
+  white-space: nowrap;
+}
 .members a:hover {
   color: transparent;
   text-decoration: none;

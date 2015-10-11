@@ -206,6 +206,10 @@ button {
 .dashboard .universityimg {
   border-radius: 50%;
   background: white;
+  width: 9vmax;
+  height: 9vmax;
+  max-width: 70px;
+  max-height: 70px;
 }
 .dashboard .universityTitle {
   float: right;
@@ -387,6 +391,18 @@ button {
   height: calc( 100% - 60px);
   margin: 10px;
   background: #212427;
+}
+::-webkit-scrollbar-track {
+  border: none;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(157, 153, 156, 0.5);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 .circle-loading {
   margin: 0 auto;
