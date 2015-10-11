@@ -12,7 +12,7 @@
                     f.data[i].files[j].thumbnail = buildThumbnailUrl(f.data[i].files[j].source);
                 }
                 for (var k = 0; k < f.data[i].answers.length; k++) {
-                    for (var l = 0; l < f.data[i].answers[k].files; l++) {
+                    for (var l = 0; l < f.data[i].answers[k].files.length; l++) {
                         f.data[i].answers[k].files[l].thumbnail = buildThumbnailUrl(f.data[i].answers[k].files[l].source);
                     }
                 }

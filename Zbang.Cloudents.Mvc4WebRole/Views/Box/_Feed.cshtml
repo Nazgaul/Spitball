@@ -20,14 +20,9 @@
                         <user-image class="avatar" name="::post.userName" image="::post.userImage" width="45" height="45"></user-image>
                         @*<img class="avatar" alt="" src="{{::post.userImage}}" />*@
                         <div class="message">
-                            <span class="arrow">
-                            </span>
-                            <a href="javascript:;" class="name">
-                                {{::post.userName}}
-                            </a>
-                            <span class="datetime">
-                                at 20:09
-                            </span>
+                            <span class="arrow"></span>
+                            <span class="name">{{::post.userName}}</span>
+                            <span class="datetime">at 20:09</span>
                             <span class="body" ng-bind-html="::post.content"></span>
 
                             <ul class="list-inline items-container">
@@ -38,20 +33,9 @@
                                             <div class="extra">
                                                 <h5>{{::item.name}}</h5>
                                                 <img src="http://lorempixel.com/30/30/" alt="" />
-                                                @*<div class="uploader-date">
-                                <div>{{::item.owner}}</div>
-                                {{::item.date}}
-                            </div>*@
+                                             
                                             </div>
                                         </div>
-                                        @*<div class="stats clearfix">
-                        <div class="likes2">
-                            {{::item.numOfViews}} @Html.Svg("~/images/site/box-icons.svg", "eye")
-                        </div>
-                        <div class="views">
-                            {{::item.rate}} @Html.Svg("~/images/site/box-icons.svg", "like")
-                        </div>
-                    </div>*@
                                     </a>
                                 </li>
                             </ul>
@@ -96,7 +80,21 @@
                                     </span>
                                     <span class="body" ng-bind-html="::reply.content">
                                     </span>
-                                    <div class="row mix-grid">
+                                    <ul class="list-inline items-container">
+                                        <li ng-repeat="item in reply.files">
+                                            <a class="item" href="{{::item.url}}">
+                                                <div class="content">
+                                                    <img class="img-responsive" src="{{::item.thumbnail}}" alt="">
+                                                    <div class="extra">
+                                                        <h5>{{::item.name}}</h5>
+                                                        <img src="http://lorempixel.com/30/30/" alt="" />
+
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    @*<div class="row mix-grid">
                                         <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 mix mix_all" style="display: block;  opacity: 1;" ng-repeat="file in reply.files">
                                             <a href="{{::file.url}}">
                                                 <div class="mix-inner" style="margin-top:8px">
@@ -107,7 +105,7 @@
                                                 </div>
                                             </a>
                                         </div>
-                                    </div>
+                                    </div>*@
                                 </div>
 
                             </li>

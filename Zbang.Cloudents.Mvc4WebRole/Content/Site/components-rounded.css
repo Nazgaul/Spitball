@@ -2568,12 +2568,9 @@ Chats
   color: #353a3f;
 }
 .chats li.in .message .arrow {
-  display: block;
   position: absolute;
   top: 8px;
   left: -11px;
-  width: 0;
-  height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
   border-right: 10px solid #f5f5f5;
