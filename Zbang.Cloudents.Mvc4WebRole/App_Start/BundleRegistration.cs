@@ -432,7 +432,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-0.13.4.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-tabdrop.js"),
-                        new JsFileWithCdn("~/scripts/site/jquery.mixitup.min.js"),
+                        //new JsFileWithCdn("~/scripts/site/jquery.mixitup.min.js"),
                         //new JsFileWithCdn("~/scripts/site/jquery.dataTables.min.js"),
 
                         new JsFileWithCdn("~/js/signin/metronic.js"),
@@ -490,10 +490,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/js/shared/colorOnLength.js"),
                         new JsFileWithCdn("~/js/shared/loader.js"),
-                        new JsFileWithCdn("~/js/shared/mixitup.js"),
+                        //new JsFileWithCdn("~/js/shared/mixitup.js"),
                         new JsFileWithCdn("~/js/shared/userimage.js"),
                         new JsFileWithCdn("~/js/shared/megaNumbers.js"),
                         new JsFileWithCdn("~/js/shared/focusMe.js"),
+                        new JsFileWithCdn("~/js/shared/displayTime.js"),
 
 
                         new JsFileWithCdn("~/js/components/item/upload.controller.js"),

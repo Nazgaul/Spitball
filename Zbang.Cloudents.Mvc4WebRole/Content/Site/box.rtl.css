@@ -1,23 +1,7 @@
 ﻿.class {
-  /*.extraDetails {
-        color: @color2;
-        overflow: hidden;
-        position: relative;
-        background-color: black;
-        z-index: 1;
-
-        > span:first-child {
-            float: left;
-        }
-
-        > span:last-child {
-            float: right;
-        }
-    }
-
-    .mix-subDetails {
-        position: absolute;
-        bottom: 75px;
+  /*.attach {
+        background: rgba(0, 0, 0, 0.48);
+        margin: 8px -20px -8px -10px;
     }*/
 }
 .class .nav-tabs > li.active > a,
@@ -45,13 +29,6 @@
 .class .tabbable {
   background-color: #353a3f;
   padding: 0 10px;
-}
-.class .no-background {
-  background-color: transparent;
-}
-.class .attach {
-  background: rgba(0, 0, 0, 0.48);
-  margin: 8px -10px -8px -20px;
 }
 .class .likes {
   background: rgba(0, 0, 0, 0.48);
@@ -83,6 +60,20 @@
   border-radius: 45px;
   padding: 3px 10px;
   margin: 10px 15px 10px 10px;
+}
+.class .items-container {
+  overflow-y: hidden;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.class .message:before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: -11px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 10px solid #f5f5f5;
 }
 .members a:hover {
   color: transparent;
@@ -208,14 +199,13 @@
   word-break: break-word;
 }
 .item .uploader-date {
-  position: absolute;
-  bottom: 75px;
+  margin-top: 75px;
 }
 .item .extra {
   color: #fff;
   background: #6a737d;
   position: absolute;
-  top: 520px;
+  top: 100%;
   right: 0;
   left: 0;
   bottom: 0;
@@ -249,4 +239,22 @@
   width: 14px;
   height: 14px;
   fill: #f5f5f5;
+}
+.item-animate.ng-move,
+.item-animate.ng-enter,
+.item-animate.ng-leave {
+  -moz-transition: all linear 0.5s;
+  -o-transition: all linear 0.5s;
+  -webkit-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+}
+.item-animate.ng-leave.ng-leave-active,
+.item-animate.ng-move,
+.item-animate.ng-enter {
+  opacity: 0;
+}
+.item-animate.ng-leave,
+.item-animate.ng-move.ng-move-active,
+.item-animate.ng-enter.ng-enter-active {
+  opacity: 1;
 }

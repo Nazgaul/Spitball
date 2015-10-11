@@ -36,7 +36,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //   Duration = TimeConsts.Day, VaryByParam = "boxId",
         //   Location = OutputCacheLocation.Server, Order = 4)]
         [BoxPermission("boxId", Order = 3)]
-        public async Task<ActionResult> Index(long boxId)
+        public async Task<ActionResult> Index(long boxId, string boxName)
         {
             var userId = User.GetUserId(false);
             try
@@ -47,8 +47,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new BoxDoesntExistException("model is null");
                 }
-                var urlBoxName = Server.UrlDecode(Request.Url.Segments[4]);
-                if (UrlConsts.NameToQueryString(model.Name) != urlBoxName.Substring(0, urlBoxName.LastIndexOf("/", StringComparison.Ordinal)))
+                //var urlBoxName = Server.UrlDecode(Request.Url.Segments[4]);
+                if (UrlConsts.NameToQueryString(model.Name) != boxName)
                 {
                     throw new BoxDoesntExistException(Request.Url.AbsoluteUri);
                 }
@@ -239,11 +239,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id")]
-        public async Task<JsonResult> Items(long id)
+        public async Task<JsonResult> Items(long id, Guid? tabId, int page)
         {
             try
             {
-                var query = new GetBoxItemsPagedQuery(id, null);
+                var query = new GetBoxItemsPagedQuery(id, tabId, page, 25);
                 var result = await ZboxReadService.GetBoxItemsPagedAsync(query);
                 var itemDtos = result as IList<ItemDto> ?? result.ToList();
                 foreach (var item in itemDtos)
@@ -377,35 +377,35 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-        public ActionResult SettingsPartial()
-        {
-            try
-            {
-                return PartialView("_BoxSettings");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_BoxSettings", ex);
-                return JsonError();
-            }
-        }
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
+        //public ActionResult SettingsPartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_BoxSettings");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_BoxSettings", ex);
+        //        return JsonError();
+        //    }
+        //}
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-        public ActionResult LeavePromptPartial()
-        {
-            try
-            {
-                return PartialView("_LeavePrompt");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_LeavePrompt", ex);
-                return JsonError();
-            }
-        }
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
+        //public ActionResult LeavePromptPartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_LeavePrompt");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_LeavePrompt", ex);
+        //        return JsonError();
+        //    }
+        //}
 
         #region DeleteBox
 
@@ -523,20 +523,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-        public ActionResult CreateTabPartial()
-        {
-            try
-            {
-                return PartialView("_CreateTab");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_CreateTab ", ex);
-                return JsonError();
-            }
-        }
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
+        //public ActionResult CreateTabPartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_CreateTab");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_CreateTab ", ex);
+        //        return JsonError();
+        //    }
+        //}
         #endregion
 
         [ZboxAuthorize]
@@ -549,54 +549,54 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
 
-        public ActionResult UploadPartial()
-        {
-            try
-            {
-                return PartialView("_UploadDialog");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_UploadDialog ", ex);
-                return JsonError();
-            }
-        }
+        //public ActionResult UploadPartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_UploadDialog");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_UploadDialog ", ex);
+        //        return JsonError();
+        //    }
+        //}
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-
-
-        public ActionResult UploadLinkPartial()
-        {
-            try
-            {
-                return PartialView("_UploadAddLink");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_UploadAddLink", ex);
-                return JsonError();
-            }
-        }
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
 
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-        public ActionResult SocialInvitePartial()
-        {
-            try
-            {
-                return PartialView("_Invite");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_Invite", ex);
-                return JsonError();
-            }
-        }
+        //public ActionResult UploadLinkPartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_UploadAddLink");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_UploadAddLink", ex);
+        //        return JsonError();
+        //    }
+        //}
+
+
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
+        //public ActionResult SocialInvitePartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_Invite");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_Invite", ex);
+        //        return JsonError();
+        //    }
+        //}
 
 
 

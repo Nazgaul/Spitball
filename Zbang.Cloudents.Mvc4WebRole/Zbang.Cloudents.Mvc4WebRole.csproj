@@ -1836,6 +1836,7 @@
     <Content Include="Js\homePage\theme.js" />
     <Content Include="Js\services\ajaxServiceOld.js" />
     <Content Include="Js\shared\colorOnLength.js" />
+    <Content Include="Js\shared\displayTime.js" />
     <Content Include="Js\shared\dropbox.js" />
     <Content Include="Js\shared\focusMe.js" />
     <Content Include="Js\shared\google.js" />

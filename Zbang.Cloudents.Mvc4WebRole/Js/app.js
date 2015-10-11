@@ -12,6 +12,7 @@
         'angulartics.google.analytics',
         'angular-plupload',
         'infinite-scroll',
+        'displayTime',
         'app.dashboard',
         'app.library',
         'app.user',
