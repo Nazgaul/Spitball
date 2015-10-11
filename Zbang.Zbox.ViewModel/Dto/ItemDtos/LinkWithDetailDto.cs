@@ -8,12 +8,12 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
              string userName,
             string userImage,
-            long userId, int numberOfViews, string blob, float rate,
+            long userId, int numberOfViews, string blob, 
             long boxId,
             string boxName, string country, string uniName, string description, string boxUrl)
             : base(id, updateTime, name, userName,
                  userImage,
-            userId, numberOfViews, blob, rate, boxId, boxName, country, uniName, description, boxUrl)
+            userId, numberOfViews, blob,  boxId, boxName, country, uniName, description, boxUrl)
         {
 
         }

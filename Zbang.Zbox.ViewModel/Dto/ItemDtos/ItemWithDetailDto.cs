@@ -1,5 +1,4 @@
 ﻿using System;
-using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 {
@@ -7,7 +6,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
     {
         protected ItemWithDetailDto(long id, DateTime updateTime, string name,
             string userName, string userImage, long userId,
-            int numberOfViews, string blob, float rate, long boxId,
+            int numberOfViews, string blob,  long boxId,
             string boxName, string country, string uniName, string description, string boxUrl)
         {
             Id = id;
@@ -18,7 +17,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
             OwnerUid = userId;
             NumberOfViews = numberOfViews;
             Blob = blob;
-            Rate = rate;
             BoxId = boxId;
             BoxName = boxName;
             Country = country ?? string.Empty;
@@ -40,7 +38,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
 
         public string Blob { get; set; }
-        public float Rate { get; private set; }
 
         //for check if item is connected to box
         public long BoxId { get; private set; }

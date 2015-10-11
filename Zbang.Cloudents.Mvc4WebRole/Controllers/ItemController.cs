@@ -370,7 +370,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var id = m_GuidGenerator.Value.GetId();
-                var command = new RateItemCommand(model.ItemId, User.GetUserId(), 5, id, model.BoxId);
+                var command = new RateItemCommand(model.ItemId, User.GetUserId(), id, model.BoxId);
                 await ZboxWriteService.RateItemAsync(command);
 
                 return JsonOk();

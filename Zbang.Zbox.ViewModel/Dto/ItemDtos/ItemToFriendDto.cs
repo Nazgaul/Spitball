@@ -16,7 +16,7 @@
         //}
         public long Id { get; set; }
         public string Image { get; set; }
-        public double Rate { get; set; }
+        //public double Rate { get; set; }
         public int NumOfViews { get; set; }
         public string Name { get; set; }
         public long BoxId { get; set; }

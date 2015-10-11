@@ -5,44 +5,6 @@
                    namespace="Zbang.Zbox.ViewModel.DTOs">
 
 
-  <resultset name="ItemDto">
-    <return-scalar column="id" type="long"/>
-    <return-scalar column="Name" type="string"/>
-    <return-scalar column="OwnerId" type="long"/>
-    <return-scalar column="Owner" type="string"/>
-    <return-scalar column="UserUrl" type="string" />
-    <return-scalar column="Thumbnail" type="string"/>
-    <return-scalar column="Discriminator" type="string"/>
-    <return-scalar column="TabId" type="string"/>
-    <return-scalar column="NumOfViews" type="int"/>
-    <return-scalar column="Rate" type="double"/>
-    <return-scalar column="Sponsored" type="bool" />
-    <return-scalar column="Description" type="string"/>
-    <return-scalar column="BlobName" type="string"/>
-    <return-scalar column="NumOfDownloads" type="int"/>
-    <return-scalar column="Date" type="DateTime"/>
-    <return-scalar column="CommentsCount" type="int"/>
-    <return-scalar column="Url" type="string"/>
-  </resultset>
-
-  <!--<resultset name="QuizDto">
-    <return-scalar column="Id" type="long"/>
-    <return-scalar column="OwnerId" type="long"/>
-    <return-scalar column="Owner" type="string"/>
-    <return-scalar column="UserUrl" type="string"/>
-    <return-scalar column="Name" type="string"/>
-    <return-scalar column="Publish" type="bool"/>
-    <return-scalar column="Rate" type="double"/>
-    <return-scalar column="NumOfViews" type="int"/>
-    <return-scalar column="Description" type="string"/>
-    <return-scalar column="CommentsCount" type="int"/>
-    <return-scalar column="Date" type="DateTime"/>
-    <return-scalar column="Url" type="string"/>
-  </resultset>-->
-
-
-
-
   <resultset name="ItemWithDetailDto">
     <return-scalar column="Id" type="long"/>
     <return-scalar column="UpdateTime" type="DateTime"/>
@@ -54,7 +16,7 @@
     <return-scalar column="Discriminator" type="string"/>
     <return-scalar column="NumberOfViews" type="int"/>
     <return-scalar column="NumberOfDownloads" type="int"/>
-    <return-scalar column="Rate" type="double"/>
+    <!--<return-scalar column="Rate" type="double"/>-->
     <return-scalar column="BoxId" type="long"/>
     <return-scalar column="BoxName" type="string"/>
     <return-scalar column="Country" type="string"/>
@@ -63,43 +25,7 @@
     <return-scalar column="BoxUrl" type="string"/>
   </resultset>
 
-  <!--Used in box page to get item section-->
-  <!--TODO: AGGREGATE BOX ITEMS--><!--
-  <sql-query name="GetBoxItemDtosByBoxId2" resultset-ref="ItemDto" read-only="1">
-    <![CDATA[
-    select
-    i.itemid as Id,
-    i.Name as Name,
-    i.userid as OwnerId,
-    u.UserName as Owner,
-    u.Url as UserUrl,
-    i.thumbnailurl as Thumbnail,
-    i.Discriminator as Discriminator,
-    i.ItemTabId as TabId,
-	  i.NumberOfViews as NumOfViews,
-    i.rate as Rate,
-    i.sponsored as Sponsored,
-    i.content as Description,
-    i.BlobName as BlobName,
-    i.NumberOfDownloads as NumOfDownloads,
-    i.creationTime as Date,
-		i.numberofcomments as commentsCount,
-    i.Url as Url
-    from zbox.item i join zbox.users u on i.UserId = u.UserId
-    where i.IsDeleted = 0
-    and i.BoxId = :BoxId
-    order by i.itemid desc
-    ]]>
-  </sql-query>-->
-
-
-
-  <!--Temp for dbi-->
-  <!--<query name="GetItemIdByBlobId">
-    <![CDATA[
-      select f.Id from File f where f.ItemContentUrl = :BlobName
-    ]]>
-  </query>-->
+  
 
   <!--Used for item page-->
   <sql-query name="GetItem" resultset-ref="ItemWithDetailDto" read-only="1">
@@ -113,7 +39,6 @@
     u.UserImageLarge as userImage,
     coalesce(	i.NumberOfViews,0) as numberOfViews,
     i.numberofdownloads as numberOfDownloads,
-    i.rate as Rate,
     i.boxid as BoxId,
     b.BoxName as BoxName,
     

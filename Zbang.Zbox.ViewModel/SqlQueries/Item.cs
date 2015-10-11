@@ -57,8 +57,8 @@ where cte.itemid = @itemid;
     where i.ItemId = @ItemId
     and i.IsDeleted = 0;";
 
-        public const string UserItemRate =
-            @"select ir.Rate from zbox.ItemRate ir where ir.ItemId = @ItemId and ir.OwnerId = @UserId;";
+        //public const string UserItemRate =
+        //    @"select ir.Rate from zbox.ItemRate ir where ir.ItemId = @ItemId and ir.OwnerId = @UserId;";
 
 
 //        public const string ItemComments = @"SELECT [ItemCommentId] as Id

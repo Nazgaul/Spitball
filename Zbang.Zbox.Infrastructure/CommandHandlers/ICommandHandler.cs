@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
 
 
     public interface ICommandHandlerAsync<in TCommand, TCommandResult>
-        where TCommand : ICommand
+        where TCommand : ICommandAsync
         where TCommandResult : ICommandResult
     {
         Task<TCommandResult> ExecuteAsync(TCommand command);
@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Infrastructure.CommandHandlers
         void Handle(TCommand message);
     }
 
-    public interface ICommandHandlerAsync<in TCommand> where TCommand : ICommand
+    public interface ICommandHandlerAsync<in TCommand> where TCommand : ICommandAsync
     {
         Task HandleAsync(TCommand message);
     }

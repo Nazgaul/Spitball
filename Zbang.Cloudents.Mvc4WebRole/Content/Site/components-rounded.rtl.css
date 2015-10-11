@@ -2531,6 +2531,7 @@ Chats
   font-size: 13px;
   font-weight: 400;
   margin-right: 5px;
+  unicode-bidi: embed;
 }
 .chats li.out .name {
   color: #3598dc;
@@ -2543,7 +2544,6 @@ Chats
 }
 .chats li .message {
   display: block;
-  padding: 5px;
   position: relative;
   border-radius: 10px;
 }
@@ -2551,12 +2551,10 @@ Chats
   text-align: right;
   border: 2px solid #f5f5f5;
   margin-right: 65px;
-  background: #292d31;
+  background: rgba(0, 0, 0, 0.48);
   display: block;
-  padding: 7px 10px 7px 20px;
-  position: relative;
+  overflow: hidden;
   color: #f5f5f5;
-  border-radius: 10px;
   font-size: 13px;
 }
 .chats li.out .message {

@@ -7,12 +7,12 @@ namespace Zbang.Zbox.Domain.DataAccess
 {
     public class ItemRateRepository : NHibernateRepository<ItemRate>, IItemRateRepository
     {
-        public double CalculateItemAverage(long itemId)
-        {
-            return UnitOfWork.CurrentSession.Query<ItemRate>()
-                 .Where(w => w.Item.Id == itemId)
-                 .Average(s => s.Rate);
-        }
+        //public double CalculateItemAverage(long itemId)
+        //{
+        //    return UnitOfWork.CurrentSession.Query<ItemRate>()
+        //         .Where(w => w.Item.Id == itemId)
+        //         .Average(s => s.Rate);
+        //}
 
         public ItemRate GetRateOfUser(long userId, long itemId)
         {

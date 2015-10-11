@@ -263,7 +263,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     s.NumOfViews,
                     s.Owner,
                     s.OwnerId,
-                    s.Rate,
+                    s.Likes,
                     s.Sponsored,
                     s.TabId,
                     //s.Thumbnail,

@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Domain
         public const int NameLength = 120;
         protected Item()
         {
-            
+
             // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             IsDeleted = false;
         }
@@ -87,7 +87,9 @@ namespace Zbang.Zbox.Domain
             Url = UrlConsts.BuildItemUrl(Box.Id, Box.Name, Id, Name, universityName);
         }
 
-        public virtual float Rate { get; internal set; }
+        //public virtual float Rate { get; internal set; }
+
+        public virtual int LikeCount { get; set; }
         public virtual bool Sponsored { get; set; }
         public virtual int NumberOfComments { get; private set; }
 
@@ -106,10 +108,10 @@ namespace Zbang.Zbox.Domain
         }
 
 
-        public virtual void CalculateRate(int rate)
-        {
-            Rate = rate;
-        }
+        //public virtual void CalculateRate(int rate)
+        //{
+        //    Rate = rate;
+        //}
 
 
         public abstract string ChangeName(string newName);
@@ -121,7 +123,7 @@ namespace Zbang.Zbox.Domain
         {
             ItemRates.Clear();
             Updates.Clear();
-           // ItemComments.Clear();
+            // ItemComments.Clear();
             //ItemReplies.Clear();
         }
 
@@ -133,7 +135,7 @@ namespace Zbang.Zbox.Domain
 
     public class Link : Item
     {
-        protected Link() 
+        protected Link()
         {
             ShouldMakeDirty = () => false;
         }
@@ -156,7 +158,7 @@ namespace Zbang.Zbox.Domain
 
     public class File : Item
     {
-        protected File() 
+        protected File()
         {
             ShouldMakeDirty = () => true;
         }
@@ -166,7 +168,7 @@ namespace Zbang.Zbox.Domain
         public virtual string Content { get; set; }
 
 
-       
+
 
         public File(string itemName, User uploaderUser, long sized, string blobName,
             string thumbnailBlobName, Box box, string thumbnailUrl)

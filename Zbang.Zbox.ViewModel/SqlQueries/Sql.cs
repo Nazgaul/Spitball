@@ -81,7 +81,6 @@ b.BoxName as boxName,
         /// </summary>
         public const string UserWithFriendFiles = @"select i.ItemId as id,
 i.blobname as image, 
-i.Rate as rate,
 i.NumberOfViews as numOfViews,
 i.Name as name,
 b.boxid as boxid, 
@@ -136,7 +135,7 @@ i.Discriminator as Type
 
 
         /// <summary>
-        /// Mobile api - bring user comment and reply acitivity in user screen
+        /// Mobile api - bring user comment and reply activity in user screen
         /// </summary>
         public const string UserQuestionAndAnswersActivityMobileApi = @"select t.BoxId as BoxId, t.Text as Content, t.BoxName as boxName, t.QuestionId as Id,  t.Type, t.PostId from (
 	select b.boxid, q.Text, b.BoxName,q.QuestionId,'comment' as Type, q.CreationTime, null as PostId
