@@ -1,10 +1,12 @@
 ﻿(function () {
     angular.module('app.account').controller('AccountSettingsController', account);
-    account.$inject = ['accountService'];
+    account.$inject = ['accountService', '$location', '$state'];
 
-    function account(accountService) {
+    function account(accountService, $location, $state) {
         var self = this;
-
+        if (!$location.hash()) {
+            $state.go('settings.profile');
+        }
 
         accountService.getAccountDetails().then(function (response) {
             self.data = response;

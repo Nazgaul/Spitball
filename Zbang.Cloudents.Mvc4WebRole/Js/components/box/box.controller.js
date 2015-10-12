@@ -4,7 +4,6 @@
 
     function box(boxService, $stateParams, $location, $scope, $timeout, $state) {
 
-        console.log($state);
         if (!$location.hash()) {
             $state.go('box.feed');
         }
