@@ -73,5 +73,9 @@ url: "/user/1/ram-y/"
                 NewPassword: newPassword
             });
         }
+
+        self.getNotification = function() {
+            return ajaxservice.get('/user/notification');
+        }
     }
 })();

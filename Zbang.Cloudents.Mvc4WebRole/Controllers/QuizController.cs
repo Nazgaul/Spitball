@@ -147,11 +147,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var numberOfSolvers = await ZboxReadService.GetNumberOfSolvers(quizId);
-                return PartialView("_QuizDialog", numberOfSolvers);
+                return JsonOk(numberOfSolvers);
+                //return PartialView("_QuizDialog", numberOfSolvers);
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("_QuizDialog", ex);
+                //TraceLog.WriteError("_QuizDialog", ex);
                 return Json(new JsonResponse(false));
             }
         }

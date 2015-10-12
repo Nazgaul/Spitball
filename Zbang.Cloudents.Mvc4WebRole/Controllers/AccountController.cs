@@ -950,15 +950,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpPost, ZboxAuthorize]
-        public JsonResult FirstTime(FirstTime firstTime)
-        {
-            var userid = User.GetUserId();
-            var command = new UpdateUserFirstTimeStatusCommand(firstTime, userid);
-            ZboxWriteService.UpdateUserFirstTimeStatus(command);
+        //[HttpPost, ZboxAuthorize]
+        //public JsonResult FirstTime(FirstTime firstTime)
+        //{
+        //    var userid = User.GetUserId();
+        //    var command = new UpdateUserFirstTimeStatusCommand(firstTime, userid);
+        //    ZboxWriteService.UpdateUserFirstTimeStatus(command);
 
-            return JsonOk();
-        }
+        //    return JsonOk();
+        //}
 
         //[HttpGet]
         //[OutputCache(CacheProfile = "PartialCache")]

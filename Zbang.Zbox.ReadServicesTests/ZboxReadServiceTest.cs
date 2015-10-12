@@ -74,9 +74,9 @@ namespace Zbang.Zbox.ReadServicesTests
         }
 
 
-       
 
-       // [TestMethod]
+
+        // [TestMethod]
         //public void GetMyData_Query_ReturnResult()
         //{
         //    var query = new GetDashboardQuery(1);
@@ -385,7 +385,7 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
 
-       
+
         [TestMethod]
         public async Task GetBoxItemsPaged2_Query_ReturnResult()
         {
@@ -472,7 +472,7 @@ namespace Zbang.Zbox.ReadServicesTests
         {
             try
             {
-               await m_ZboxReadService.GetLocationByIpAsync(new GetCountryByIpQuery(200));
+                await m_ZboxReadService.GetLocationByIpAsync(new GetCountryByIpQuery(200));
             }
             catch (Exception ex)
             {
@@ -524,7 +524,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetUserDetailsQuery(1);
             try
             {
-               await m_ZboxReadService.GetUserAccountDetailsAsync(query);
+                await m_ZboxReadService.GetUserAccountDetailsAsync(query);
             }
             catch (Exception ex)
             {
@@ -532,12 +532,12 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
         [TestMethod]
-        public void GetUserBoxesNotification_Query_ReturnResult()
+        public async Task GetUserBoxesNotification_Query_ReturnResult()
         {
             var query = new GetUserDetailsQuery(1);
             try
             {
-                m_ZboxReadService.GetUserBoxesNotification(query);
+                await m_ZboxReadService.GetUserBoxesNotificationAsync(query);
             }
             catch (Exception ex)
             {
@@ -684,7 +684,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public async Task GetBoxRecommendedCourses_Query_ReturnResult()
         {
-            var query = new GetBoxSideBarQuery(60130,1);
+            var query = new GetBoxSideBarQuery(60130, 1);
             try
             {
                 var x = await m_ZboxReadService.GetBoxRecommendedCourses(query);

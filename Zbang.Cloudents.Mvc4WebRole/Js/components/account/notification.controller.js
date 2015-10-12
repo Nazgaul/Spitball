@@ -4,5 +4,9 @@
     function notification() {
         var self = this;
 
+
+        self.getNotification = function() {
+            
+        }
     }
 })();

@@ -727,17 +727,16 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public IEnumerable<Box.BoxNotificationDto> GetUserBoxesNotification(GetUserDetailsQuery query)
+        public async Task<IEnumerable<Box.BoxNotificationDto>> GetUserBoxesNotificationAsync(GetUserDetailsQuery query)
         {
-            using (UnitOfWork.Start())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetUserBoxesNotification");
-                dbQuery.SetInt64("UserId", query.UserId);
-                dbQuery.SetReadOnly(true);
-                dbQuery.SetResultTransformer(Transformers.AliasToBeanConstructor(typeof(Box.BoxNotificationDto).GetConstructors()[0]));
-                return dbQuery.List<Box.BoxNotificationDto>();
-
+                return await conn.QueryAsync<Box.BoxNotificationDto>(@"select b.BoxId as Id, b.BoxName as Name,  ub.NotificationSettings as Notifications, b.Url as url
+                    from zbox.Box b 
+	                inner join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
+                    and ub.UserId = @UserId", new { query.UserId });
             }
+           
         }
 
         /// <summary>

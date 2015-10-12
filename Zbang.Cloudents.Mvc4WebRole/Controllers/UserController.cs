@@ -131,11 +131,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult Notification()
+        public async Task<JsonResult> Notification()
         {
             var userid = User.GetUserId();
             var query = new GetUserDetailsQuery(userid);
-            var result = ZboxReadService.GetUserBoxesNotification(query);
+            var result = await ZboxReadService.GetUserBoxesNotificationAsync(query);
             return JsonOk(result);
         }
 
