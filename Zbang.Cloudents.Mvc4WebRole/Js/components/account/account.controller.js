@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('app.user.account').controller('AccountSettingsController', account);
+    angular.module('app.account').controller('AccountSettingsController', account);
     account.$inject = ['accountService'];
 
     function account(accountService) {
@@ -11,6 +11,8 @@
         });
     }
 })();
+
+
 
 
 

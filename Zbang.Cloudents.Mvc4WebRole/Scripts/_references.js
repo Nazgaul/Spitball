@@ -344,3 +344,5 @@
 /// <reference path="../js/components/account/password.controller.js" />
 /// <reference path="../js/components/account/notification.controller.js" />
 /// <reference path="../js/components/account/account.service.js" />
+/// <reference path="../js/routerhelperprovider.js" />
+/// <reference path="../js/components/account/account.routes.js" />

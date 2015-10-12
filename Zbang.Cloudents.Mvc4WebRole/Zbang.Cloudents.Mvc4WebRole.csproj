@@ -1793,6 +1793,7 @@
     <Content Include="Js\app.route.js" />
     <Content Include="Js\appOld.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
+    <Content Include="Js\components\account\account.routes.js" />
     <Content Include="Js\components\account\account.service.js" />
     <Content Include="Js\components\account\info.controller.js" />
     <Content Include="Js\components\account\notification.controller.js" />
@@ -1838,6 +1839,7 @@
     <Content Include="Js\filters\highlight.js" />
     <Content Include="Js\homePage\homeScreen.js" />
     <Content Include="Js\homePage\theme.js" />
+    <Content Include="Js\routerHelperProvider.js" />
     <Content Include="Js\services\ajaxServiceOld.js" />
     <Content Include="Js\shared\colorOnLength.js" />
     <Content Include="Js\shared\displayTime.js" />

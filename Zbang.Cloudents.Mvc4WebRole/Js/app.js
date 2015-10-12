@@ -16,6 +16,7 @@
         'app.dashboard',
         'app.library',
         'app.user',
+        'app.account',
         //'app.user.details',
         //'app.user.account',
         'app.box',

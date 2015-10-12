@@ -446,6 +446,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/app.js"),
                         new JsFileWithCdn("~/js/app.config.js"),
                         new JsFileWithCdn("~/js/app.route.js"),
+                        new JsFileWithCdn("~/js/routerHelperProvider.js"),
                         new JsFileWithCdn("~/js/modules/displayTime.js"),
 
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.module.js"),
@@ -479,6 +480,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/account/password.controller.js"),
                         new JsFileWithCdn("~/js/components/account/info.controller.js"),
                         new JsFileWithCdn("~/js/components/account/account.service.js"),
+                        new JsFileWithCdn("~/js/components/account/account.routes.js"),
 
                        
 

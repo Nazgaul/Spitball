@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('app.user.account').controller('AccountSettingsPasswordController', password);
+    angular.module('app.account').controller('AccountSettingsPasswordController', password);
 
     password.$inject = ['accountService'];
     function password(accountService) {

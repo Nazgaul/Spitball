@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('app.user.account').controller('AccountSettingsInfoController', info);
+    angular.module('app.account').controller('AccountSettingsInfoController', info);
     info.$inject = ['accountService', '$scope', '$timeout'];
     function info(accountService, $scope, $timeout) {
         var self = this;

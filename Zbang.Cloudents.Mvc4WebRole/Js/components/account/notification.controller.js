@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('app.user.account').controller('AccountSettingsNotificationController', notification);
+    angular.module('app.account').controller('AccountSettingsNotificationController', notification);
 
     function notification() {
         var self = this;

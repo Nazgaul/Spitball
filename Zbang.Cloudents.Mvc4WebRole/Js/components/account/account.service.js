@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('app.user').service('accountService', accountService);
+    angular.module('app.account').service('accountService', accountService);
     accountService.$inject = ['ajaxService', '$q', '$rootScope'];
 
     function accountService(ajaxservice, $q, $rootScope) {

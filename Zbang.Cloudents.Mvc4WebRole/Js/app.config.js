@@ -6,7 +6,7 @@
     config.$inject = ['$controllerProvider', '$locationProvider', '$angularCacheFactoryProvider'];
 
     function config($controllerProvider, $locationProvider, $angularCacheFactoryProvider) {
-        $locationProvider.html5Mode(true).hashPrefix('!');
+        //$locationProvider.html5Mode(true).hashPrefix('!');
         $controllerProvider.allowGlobals();
 
         $angularCacheFactoryProvider.setCacheDefaults({

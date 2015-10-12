@@ -55,4 +55,8 @@
     angular.module('app.upload', ['app.ajaxservice']);
 })();
 
+(function () {
+    angular.module('app.account', ['app.ajaxservice']);
+})();
+
 
