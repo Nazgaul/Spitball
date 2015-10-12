@@ -1,13 +1,14 @@
-﻿
+﻿@using Zbang.Zbox.Infrastructure.Enums
+
 <div class="tab-pane" id="notification">
     <ul class="list-unstyled notification-list">
-        <li>
-            <div>Research in applied economics</div>
-            <small>owner: Shlomi Kastoryano</small>
-            <select class="pull-right">
-                <option>once a day</option>
-                <option>once a day</option>
-                <option>once a day</option>
+        <li ng-repeat="box in ::n.notifications track by box.id" class="clearfix">
+            <div class="pull-left">{{::box.name}}</div>
+            <select class="pull-right" ng-model="box.notifications" ng-change="n.updateNotification(box)">
+                <option value="@NotificationSettings.Off.GetStringValueLowerCase()">@NotificationSettings.Off.GetEnumDescription()</option>
+                <option value="@NotificationSettings.OnEveryChange.GetStringValueLowerCase()">@NotificationSettings.OnEveryChange.GetEnumDescription()</option>
+                <option value="@NotificationSettings.OnceADay.GetStringValueLowerCase()">@NotificationSettings.OnceADay.GetEnumDescription()</option>
+                <option value="@NotificationSettings.OnceAWeek.GetStringValueLowerCase()">@NotificationSettings.OnceAWeek.GetEnumDescription()</option>
             </select>
 
         </li>

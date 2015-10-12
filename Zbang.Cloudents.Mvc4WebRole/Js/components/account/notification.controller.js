@@ -1,12 +1,20 @@
 ﻿(function () {
     angular.module('app.account').controller('AccountSettingsNotificationController', notification);
 
-    function notification() {
+    notification.$inject = ['accountService'];
+    function notification(accountService) {
         var self = this;
 
 
-        self.getNotification = function() {
-            
+        accountService.getNotification().then(function(response) {
+            self.notifications = response;
+        });
+
+        self.updateNotification = function (box) {
+            accountService.setNotification(box.id, box.notifications).then(function () {
+                alert('complete');
+            });
         }
+
     }
 })();

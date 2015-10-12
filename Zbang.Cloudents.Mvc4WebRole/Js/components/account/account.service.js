@@ -77,5 +77,12 @@ url: "/user/1/ram-y/"
         self.getNotification = function() {
             return ajaxservice.get('/user/notification');
         }
+
+        self.setNotification = function(boxId, notification) {
+            return ajaxservice.post('/box/changenotification/', {
+                boxId: boxId,
+                notification: notification
+            });
+        }
     }
 })();
