@@ -63,6 +63,12 @@
                 templateUrl: function () {
                     return buildUrl('/home/jobs/');
                 }
+            }).
+            state('blog', {
+                url: '/blog/',
+                templateUrl: function () {
+                    return buildUrl('/home/blog/');
+                }
             })
             .state('help', {
                 url: '/help/',

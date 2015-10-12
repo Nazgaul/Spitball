@@ -3006,6 +3006,7 @@
     <Content Include="Views\Account\Info.cshtml" />
     <Content Include="Views\Account\Password.cshtml" />
     <Content Include="Views\Account\Notification.cshtml" />
+    <Content Include="Views\Home\Blog.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
