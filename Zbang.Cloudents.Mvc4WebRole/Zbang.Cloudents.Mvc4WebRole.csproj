@@ -1793,6 +1793,10 @@
     <Content Include="Js\app.route.js" />
     <Content Include="Js\appOld.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
+    <Content Include="Js\components\account\account.service.js" />
+    <Content Include="Js\components\account\info.controller.js" />
+    <Content Include="Js\components\account\notification.controller.js" />
+    <Content Include="Js\components\account\password.controller.js" />
     <Content Include="Js\components\app.controller.js" />
     <Content Include="Js\components\box\box.service.js" />
     <Content Include="Js\components\box\quizzes.controller.js" />
@@ -1818,7 +1822,7 @@
     <Content Include="Js\components\quiz\stopwatch.directive.js" />
     <Content Include="Js\components\quiz\stopwatch.module.js" />
     <Content Include="Js\components\share\invite.controller.js" />
-    <Content Include="Js\components\user\account.controller.js" />
+    <Content Include="Js\components\account\account.controller.js" />
     <Content Include="Js\components\user\updates.service.js" />
     <Content Include="Js\components\user\user.service.js" />
     <Content Include="Js\components\user\userdetails.controller.js" />
@@ -2915,6 +2919,7 @@
     <Content Include="Js\controllers\dashboard\createBoxWizardCtrl.js" />
     <Content Include="Images\Defs.svg" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Account\PasswordUpdate.cshtml" />
     <Content Include="Views\Item\Print.cshtml" />
     <Content Include="Views\Library\_AddSchoolDialog.cshtml">
       <SubType>Code</SubType>
@@ -2943,7 +2948,6 @@
     <Content Include="Views\Account\Confirmation.cshtml" />
     <Content Include="Views\Item\_FlagItem.cshtml" />
     <Content Include="Views\Share\Invites.cshtml" />
-    <Content Include="Views\Account\PasswordUpdate.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Item\_PreviewLinkDenied.cshtml" />
     <Content Include="Views\Item\_PreviewMediaLoading.cshtml" />
@@ -2968,12 +2972,7 @@
     <Content Include="Views\Shared\Partials\_Header.cshtml" />
     <Content Include="Views\Shared\Partials\_SettingsUnauth.cshtml" />
     <Content Include="Views\Item\_ItemRegister.cshtml" />
-    <Content Include="Views\Account\_Congrats.cshtml" />
-    <Content Include="Views\Account\_WelcomeAngular.cshtml" />
     <Content Include="Views\Item\_PreviewText.cshtml" />
-    <Content Include="Views\Account\_LogonAngular.cshtml" />
-    <Content Include="Views\Account\_RegisterAngular.cshtml" />
-    <Content Include="Views\Account\_UserDetailStatic.cshtml" />
     <Content Include="Views\Home\IFrame.cshtml" />
     <Content Include="Views\Shared\Partials\_BarSearch.cshtml" />
     <Content Include="Views\Shared\Partials\_DashLibItem.cshtml" />
@@ -3476,18 +3475,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\_ViewStart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\_AccountNotification.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\_AccountProfile.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\_AccountSettings.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\_AccountStorage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Partials\_UserDetail3.cshtml" />
