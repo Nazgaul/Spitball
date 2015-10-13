@@ -602,7 +602,7 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   left: 0 !important;
 }
 .md-checkbox {
-  position: relative
+  position: relative;
   /* handling click events */
   /* when checkbox is checked */
 }
@@ -820,7 +820,7 @@ fieldset[disabled] .form-group.form-md-line-input .form-control {
   }
 }
 .md-radio {
-  position: relative
+  position: relative;
   /* handling click events */
   /* when radio is checked */
 }
@@ -1347,7 +1347,7 @@ Top News Blocks(new in v1.2.2)
   opacity: 0.3;
   font-size: 35px;
   position: absolute;
-  filter: alpha(opacity=30)
+  filter: alpha(opacity=30);
   /*For IE8*/
 }
 .top-news .btn + .btn {
@@ -2497,12 +2497,12 @@ Chats
   padding: 5px 0;
   margin: 10px auto;
   font-size: 15px;
+  position: relative;
 }
 .chats li.out {
-  padding-right: 50px;
   list-style: none;
   padding: 5px 0;
-  margin: 20px auto;
+  margin: 20px 50px 20px auto;
   font-size: 12px;
 }
 .chats li .body {
@@ -2532,6 +2532,7 @@ Chats
   font-size: 13px;
   font-weight: 400;
   margin-right: 5px;
+  unicode-bidi: embed;
 }
 .chats li.out .name {
   color: #3598dc;
@@ -2544,7 +2545,6 @@ Chats
 }
 .chats li .message {
   display: block;
-  padding: 5px;
   position: relative;
   border-radius: 10px;
 }
@@ -2552,12 +2552,10 @@ Chats
   text-align: right;
   border: 2px solid #f5f5f5;
   margin-right: 65px;
-  background: #292d31;
+  background: rgba(0, 0, 0, 0.48);
   display: block;
-  padding: 7px 10px 7px 20px;
-  position: relative;
+  overflow: hidden;
   color: #f5f5f5;
-  border-radius: 10px;
   font-size: 13px;
 }
 .chats li.out .message {
@@ -2568,12 +2566,9 @@ Chats
   color: #353a3f;
 }
 .chats li.in .message .arrow {
-  display: block;
   position: absolute;
   top: 8px;
   right: -11px;
-  width: 0;
-  height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
   border-left: 10px solid #f5f5f5;
@@ -3134,6 +3129,7 @@ Form Layouts
 /* Control Label */
 .control-label {
   margin-top: 1px;
+  color: #f5f5f5;
 }
 .control-label .required {
   color: #e02222;
@@ -4142,7 +4138,7 @@ Customized Bootstrap Modal
 .modal {
   z-index: 10050;
   outline: none;
-  overflow-y: auto !important
+  overflow-y: auto !important;
   /* Fix content shifting to the right on modal open due to scrollbar closed */
 }
 .page-portlet-fullscreen .modal {
@@ -5850,7 +5846,7 @@ Custom tabs
 .tabbable-custom {
   margin-bottom: 15px;
   padding: 0;
-  overflow: hidden
+  overflow: hidden;
   /* justified tabs */
   /* boxless tabs */
   /* below justified tabs */

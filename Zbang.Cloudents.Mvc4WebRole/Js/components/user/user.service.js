@@ -8,18 +8,18 @@
         u.getDetails = function (userid) {
             return ajaxservice.get('/user/minprofile/', { id: userid });
         }
-        u.getboxes = function (userid) {
-            return ajaxservice.get('/user/boxes/', { id: userid });
+        u.boxes = function (userid, page) {
+            return ajaxservice.get('/user/boxes/', { id: userid, page: page });
         }
 
-        u.getfriends = function (userid) {
-            return ajaxservice.get('/user/friends/', { id: userid });
+        u.friends = function (userid, page) {
+            return ajaxservice.get('/user/friends/', { id: userid, page: page });
         }
-        u.getfiles = function (userid) {
-            return ajaxservice.get('/user/items/', { id: userid });
+        u.files = function (userid ,page) {
+            return ajaxservice.get('/user/items/', { id: userid, page: page });
         }
-        u.getfeed = function (userid) {
-            return ajaxservice.get('/user/activity/', { id: userid });
+        u.feed = function (userid, page) {
+            return ajaxservice.get('/user/comment/', { id: userid, page: page });
         }
 
     }

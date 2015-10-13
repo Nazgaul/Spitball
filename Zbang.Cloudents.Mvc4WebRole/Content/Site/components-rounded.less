@@ -689,7 +689,7 @@ body {
     width: 60px;
     opacity: 0;
     border-radius: 50% !important;
-        -webkit-animation: growCircle 0.3s ease;
+    -webkit-animation: growCircle 0.3s ease;
     -moz-animation: growCircle 0.3s ease;
     -o-animation: growCircle 0.3s ease;
     animation: growCircle 0.3s ease;
@@ -2792,22 +2792,22 @@ Chats
     padding: 5px 0;
     margin: 10px auto;
     font-size: 15px;
+    position:relative;
 }
 
 .chats li.out {
-    padding-left: 50px;
     list-style: none;
     padding: 5px 0;
-    margin: 20px auto;
+    margin: 20px auto 20px 50px;
     font-size: 12px;
 }
 
 .chats li .body {
     display: block;
-    margin-left:5px;
+    margin-left: 5px;
 
     a {
-       overflow-wrap: break-word;
+        overflow-wrap: break-word;
     }
 }
 
@@ -2833,12 +2833,13 @@ Chats
     color: @color7;
     font-size: 13px;
     font-weight: 400;
-    margin-left:5px;
+    margin-left: 5px;
+    unicode-bidi: embed; //rtl issue
 }
 
 .chats li.out .name {
     color: @color7;
-    margin-left:5px;
+    margin-left: 5px;
 }
 
 .chats li .datetime {
@@ -2849,26 +2850,24 @@ Chats
 
 .chats li .message {
     display: block;
-    padding: 5px;
+    // padding: 5px;
     position: relative;
     border-radius: 10px;
-   
 }
 
 .chats li.in .message {
     text-align: left;
     border: 2px solid @color2;
     margin-left: 65px;
-    background: @color3;
+    background: rgba(0, 0, 0, 0.48);
     display: block;
-    padding: 7px 20px 7px 10px;
-    position: relative;
+    overflow: hidden;
+    // padding: 7px 20px 7px 10px;
+    //position: relative;
     //margin-left: 65px;
     color: @color2;
-    border-radius: 10px;
+    //border-radius: 10px;
     font-size: 13px;
-
-
 }
 
 
@@ -2877,16 +2876,13 @@ Chats
     margin-left: 65px;
     background: @color2;
     text-align: left;
-    color:@color4;
+    color: @color4;
 }
 
 .chats li.in .message .arrow {
-    display: block;
     position: absolute;
     top: 8px;
     left: -11px;
-    width: 0;
-    height: 0;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
     border-right: 10px solid @color2;
@@ -2906,7 +2902,7 @@ Chats
 .chats li.out .name,
 .chats li.out .datetime {
     text-align: right;
-    color:red;
+    color: red;
 }
 
 .chat-form {
@@ -3533,6 +3529,7 @@ Form Layouts
 /* Control Label */
 .control-label {
     margin-top: 1px;
+    color: #f5f5f5;// account settings
 }
 
 .control-label .required {
@@ -3543,10 +3540,6 @@ Form Layouts
 
 .form {
     padding: 0 !important;
-}
-
-.form .form-body {
-   // padding: 0 10px;
 }
 
 .portlet.light .form .form-body {

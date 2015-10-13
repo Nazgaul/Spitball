@@ -67,6 +67,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
+        public ActionResult Blog()
+        {
+            return PartialView();
+        }
+
 
        
 

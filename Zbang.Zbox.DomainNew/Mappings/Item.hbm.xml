@@ -36,9 +36,10 @@
 
     <property name="ItemContentUrl" column="BlobName"/>
 
-    <property name="Rate" >
+    <!--<property name="Rate" >
       <column name="Rate" sql-type="float"/>
-    </property>
+    </property>-->
+    <property name="LikeCount"/>
     <property name="ThumbnailBlobName"/>
     <property name="ThumbnailUrl"/>
     <property name="Url" length="4000"/>

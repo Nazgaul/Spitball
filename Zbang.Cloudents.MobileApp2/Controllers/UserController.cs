@@ -20,7 +20,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public async Task<HttpResponseMessage> Boxes(long userId, int page, int sizePerPage = 15)
         {
             var query = new GetUserWithFriendQuery(User.GetCloudentsUserId(), userId, page, sizePerPage);
-            var model = await ZboxReadService.GetUserWithFriendBoxesAsync(query);
+            var model = await ZboxReadService.GetUserBoxesActivityAsync(query);
             return Request.CreateResponse(model.Select(s => new
             {
                 s.Id,
@@ -55,7 +55,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public async Task<HttpResponseMessage> Friends(long userId, int page, int sizePerPage = 15)
         {
             var query = new GetUserFriendsQuery(userId, page, sizePerPage);
-            var result = await ZboxReadService.GetUserFriends(query);
+            var result = await ZboxReadService.GetUserFriendsAsync(query);
 
             return Request.CreateResponse(result.Select(s => new
             {
@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public async Task<HttpResponseMessage> Activity(long userId, int page, int sizePerPage = 15)
         {
             var query = new GetUserWithFriendQuery(User.GetCloudentsUserId(), userId, page, sizePerPage);
-            var result = await ZboxReadService.GetUserWithFriendActivityAsync(query);
+            var result = await ZboxReadService.GetUserCommentActivityAsync(query);
 
             return Request.CreateResponse(result);
         }
@@ -81,7 +81,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public async Task<HttpResponseMessage> Items(long userId, int page, int sizePerPage = 15)
         {
             var query = new GetUserWithFriendQuery(User.GetCloudentsUserId(), userId, page, sizePerPage);
-            var result = await ZboxReadService.GetUserWithFriendItemsAsync(query);
+            var result = await ZboxReadService.GetUserItemsActivityAsync(query);
 
             return Request.CreateResponse(result.Select(s => new
             {

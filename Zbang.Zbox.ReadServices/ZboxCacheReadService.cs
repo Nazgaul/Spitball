@@ -95,9 +95,9 @@ namespace Zbang.Zbox.ReadServices
 
        
 
-        public Task<IEnumerable<UserDto>> GetUserFriends(GetUserFriendsQuery query)
+        public Task<IEnumerable<UserDto>> GetUserFriendsAsync(GetUserFriendsQuery query)
         {
-            return m_ReadService.GetUserFriends(query);
+            return m_ReadService.GetUserFriendsAsync(query);
         }
 
         public UserDetailDto GetUserData(GetUserDetailsQuery query)
@@ -110,9 +110,9 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserAccountDetailsAsync(query);
         }
 
-        public IEnumerable<BoxNotificationDto> GetUserBoxesNotification(GetUserDetailsQuery query)
+        public Task<IEnumerable<BoxNotificationDto>> GetUserBoxesNotificationAsync(GetUserDetailsQuery query)
         {
-            return m_ReadService.GetUserBoxesNotification(query);
+            return m_ReadService.GetUserBoxesNotificationAsync(query);
         }
 
         public NotificationSettings GetUserBoxNotificationSettings(GetBoxQuery query, long userId)
@@ -195,38 +195,38 @@ namespace Zbang.Zbox.ReadServices
         //}
 
 
-        public Task<IEnumerable<BoxDto>> GetUserWithFriendBoxesAsync(GetUserWithFriendQuery query)
+        public Task<IEnumerable<BoxDto>> GetUserBoxesActivityAsync(GetUserWithFriendQuery query)
         {
-            return m_ReadService.GetUserWithFriendBoxesAsync(query);
+            return m_ReadService.GetUserBoxesActivityAsync(query);
         }
 
       
 
 
-        public Task<IEnumerable<QuestionToFriendDto>> GetUserWithFriendQuestion(GetUserWithFriendQuery query)
-        {
-            return m_ReadService.GetUserWithFriendQuestion(query);
-        }
-        public Task<IEnumerable<AnswerToFriendDto>> GetUserWithFriendAnswer(GetUserWithFriendQuery query)
-        {
-            return m_ReadService.GetUserWithFriendAnswer(query);
-        }
-        public Task<IEnumerable<UserInviteDto>> GetUserPersonalInvites(GetInvitesQuery query)
-        {
-            return m_ReadService.GetUserPersonalInvites(query);
-        }
-        public Task<UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query)
-        {
-            return m_ReadService.GetUserWithFriendActivity(query);
-        }
+        //public Task<IEnumerable<QuestionToFriendDto>> GetUserWithFriendQuestion(GetUserWithFriendQuery query)
+        //{
+        //    return m_ReadService.GetUserWithFriendQuestion(query);
+        //}
+        //public Task<IEnumerable<AnswerToFriendDto>> GetUserWithFriendAnswer(GetUserWithFriendQuery query)
+        //{
+        //    return m_ReadService.GetUserWithFriendAnswer(query);
+        //}
+        //public Task<IEnumerable<UserInviteDto>> GetUserPersonalInvites(GetInvitesQuery query)
+        //{
+        //    return m_ReadService.GetUserPersonalInvites(query);
+        //}
+        //public Task<UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query)
+        //{
+        //    return m_ReadService.GetUserWithFriendActivity(query);
+        //}
 
 
 
 
-        public Task<IEnumerable<AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query)
-        {
-            return m_ReadService.GetUniversityUsers(query);
-        }
+        //public Task<IEnumerable<AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query)
+        //{
+        //    return m_ReadService.GetUniversityUsers(query);
+        //}
 
 
         public Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId)
@@ -283,9 +283,9 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<ActivityDto>> GetUserWithFriendActivityAsync(GetUserWithFriendQuery query)
+        public Task<IEnumerable<ActivityDto>> GetUserCommentActivityAsync(GetUserWithFriendQuery query)
         {
-            return m_ReadService.GetUserWithFriendActivityAsync(query);
+            return m_ReadService.GetUserCommentActivityAsync(query);
         }
 
         public Task<IEnumerable<string>> GetSeoItems(int page)
@@ -368,9 +368,9 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<ItemToFriendDto>> GetUserWithFriendItemsAsync(GetUserWithFriendQuery query)
+        public Task<IEnumerable<ItemToFriendDto>> GetUserItemsActivityAsync(GetUserWithFriendQuery query)
         {
-            return m_ReadService.GetUserWithFriendItemsAsync(query);
+            return m_ReadService.GetUserItemsActivityAsync(query);
         }
 
 

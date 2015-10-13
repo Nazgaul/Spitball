@@ -1,25 +1,33 @@
 ﻿.accountPage {
-    color:#333;
-    
+    color: #333;
+
     svg {
         width: 17px;
         height: 17px;
         fill: #fff;
         vertical-align: middle;
-         margin-right: 12px;
+        margin-right: 12px;
     }
 
-   
-}
-.floatright{
-    text-align: right;
-   }
-.ontop{
-    position: absolute;
-    top: 123px;
-    width: 140px;
-    left: 5px;
-    text-align: center;
+    .ontop {
+        text-align: center;
+        position: relative;
+        top: -22px;
+        display: block;
+    }
 
-}
+    .notification-list {
+        // background:#353A3F;
+        color:#fff;
+        padding: 0 10px;
 
+        select {
+            background: #353A3F;
+        }
+
+        li {
+            padding: 10px 0;
+            border-bottom: 1px solid red;
+        }
+    }
+}

@@ -25,7 +25,9 @@
         /// Used in user page to bring friends
         /// </summary>
         public const string FriendList = @"
-								select u.userid as Id,u.UserName as Name ,u.url as Url,
+								select u.userid as Id,
+                                u.UserName as Name ,
+                                u.url as Url,
                                 u.UserImageLarge as LargeImage,
                                 u.UserReputation
                                 from zbox.userboxrel ub 
@@ -79,7 +81,6 @@ b.BoxName as boxName,
         /// </summary>
         public const string UserWithFriendFiles = @"select i.ItemId as id,
 i.blobname as image, 
-i.Rate as rate,
 i.NumberOfViews as numOfViews,
 i.Name as name,
 b.boxid as boxid, 
@@ -134,7 +135,7 @@ i.Discriminator as Type
 
 
         /// <summary>
-        /// Mobile api - bring user comment and reply acitivity in user screen
+        /// Mobile api - bring user comment and reply activity in user screen
         /// </summary>
         public const string UserQuestionAndAnswersActivityMobileApi = @"select t.BoxId as BoxId, t.Text as Content, t.BoxName as boxName, t.QuestionId as Id,  t.Type, t.PostId from (
 	select b.boxid, q.Text, b.BoxName,q.QuestionId,'comment' as Type, q.CreationTime, null as PostId
@@ -160,24 +161,24 @@ i.Discriminator as Type
         /// <summary>
         ///  Used in user page to get user invites
         /// </summary>
-        public const string UserPersonalInvites = @"
-   select i.Image as userImage, i.UserName as username, 
- null as boxName,null as boxid, i.email,
- i.IsUsed as status, i.TypeOfMsg as InviteType
-   from zbox.Invite i
-   where senderid =@Me
-   and TypeOfMsg = 3
-union all
-select u.UserImageLarge as userImage, u.UserName as username, 
- b.BoxName as boxName,b.boxid as boxid, i.email,
- i.IsUsed as status, i.TypeOfMsg as InviteType
-   from zbox.Invite i
-   inner join zbox.UserBoxRel ub on i.UserBoxRelId = ub.UserBoxRelId
-   inner join zbox.Box b on ub.BoxId = b.BoxId
-   inner join zbox.Users u on ub.UserId = u.UserId
-   where senderid =@Me
-   and TypeOfMsg = 2
-";
+//        public const string UserPersonalInvites = @"
+//   select i.Image as userImage, i.UserName as username, 
+// null as boxName,null as boxid, i.email,
+// i.IsUsed as status, i.TypeOfMsg as InviteType
+//   from zbox.Invite i
+//   where senderid =@Me
+//   and TypeOfMsg = 3
+//union all
+//select u.UserImageLarge as userImage, u.UserName as username, 
+// b.BoxName as boxName,b.boxid as boxid, i.email,
+// i.IsUsed as status, i.TypeOfMsg as InviteType
+//   from zbox.Invite i
+//   inner join zbox.UserBoxRel ub on i.UserBoxRelId = ub.UserBoxRelId
+//   inner join zbox.Box b on ub.BoxId = b.BoxId
+//   inner join zbox.Users u on ub.UserId = u.UserId
+//   where senderid =@Me
+//   and TypeOfMsg = 2
+//";
 
 
         public const string UserInvites = @"

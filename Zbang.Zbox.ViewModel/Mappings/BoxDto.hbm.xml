@@ -83,14 +83,14 @@
 
 
   <!--Notification screen account settings-->
-  <query name="GetUserBoxesNotification" read-only="1">
+  <!--<query name="GetUserBoxesNotification" read-only="1">
     <![CDATA[
     select b.Id as Id, b.Name as Name, b.Owner.Name as Owner, ub.NotificationSettings as Notifications, b.class as boxType, b.Url as url
     from Box b join b.UserBoxRelationship ub
     where b.IsDeleted = 0
     and ub.UserId = :UserId
     ]]>
-  </query>
+  </query>-->
 
 
 

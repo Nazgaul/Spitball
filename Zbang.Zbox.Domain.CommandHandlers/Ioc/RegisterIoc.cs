@@ -78,7 +78,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<UpdateUserFirstTimeStatusCommand>), typeof(UpdateUserFirstTimeStatusCommandHandler));
 
             //item command
-            ioc.RegisterType(typeof(ICommandHandler<RateItemCommand>), typeof(RateItemCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<RateItemCommand>), typeof(RateItemCommandHandler));
 
 
             //statistics

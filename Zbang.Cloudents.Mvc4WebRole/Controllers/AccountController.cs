@@ -546,7 +546,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return JsonError(new { error = GetModelStateErrors() });
+                return JsonError(new { error = GetErrorFromModelState() });
             }
 
             var command = new UpdateUserProfileCommand(User.GetUserId(),
@@ -645,7 +645,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
             }
             var id = User.GetUserId();
             var command = new UpdateUserPasswordCommand(id, model.CurrentPassword, model.NewPassword);
@@ -885,33 +885,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         #endregion
 
-        [ChildActionOnly]
-        public ActionResult GetUserDetail3()
-        {
-            const string userDetailView = "_UserDetailStatic";
-            if (User == null || !(User.Identity.IsAuthenticated))
-            {
-                return PartialView(userDetailView);
-            }
-            try
-            {
-                var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(User.GetUserId()));
-                //  var userData = m_UserProfile.Value.GetUserData(ControllerContext);
-                var serializer = new JsonNetSerializer();
-                var jsonRetVal = serializer.Serialize(retVal);
-                ViewBag.userDetail = jsonRetVal;
-                return PartialView(userDetailView, retVal);
-            }
-            catch (UserNotFoundException)
-            {
-                return new EmptyResult();
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("GetUserDetail user" + User.Identity.Name, ex);
-                return new EmptyResult();
-            }
-        }
+        //[ChildActionOnly]
+        //public ActionResult GetUserDetail3()
+        //{
+        //    const string userDetailView = "_UserDetailStatic";
+        //    if (User == null || !(User.Identity.IsAuthenticated))
+        //    {
+        //        return PartialView(userDetailView);
+        //    }
+        //    try
+        //    {
+        //        var retVal = ZboxReadService.GetUserData(new GetUserDetailsQuery(User.GetUserId()));
+        //        //  var userData = m_UserProfile.Value.GetUserData(ControllerContext);
+        //        var serializer = new JsonNetSerializer();
+        //        var jsonRetVal = serializer.Serialize(retVal);
+        //        ViewBag.userDetail = jsonRetVal;
+        //        return PartialView(userDetailView, retVal);
+        //    }
+        //    catch (UserNotFoundException)
+        //    {
+        //        return new EmptyResult();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("GetUserDetail user" + User.Identity.Name, ex);
+        //        return new EmptyResult();
+        //    }
+        //}
 
         [HttpGet]
         public async Task<JsonResult> Details()
@@ -933,46 +933,62 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-
-        [HttpPost, ZboxAuthorize]
-        public JsonResult FirstTime(FirstTime firstTime)
+        [HttpGet, ZboxAuthorize]
+        public PartialViewResult Info()
         {
-            var userid = User.GetUserId();
-            var command = new UpdateUserFirstTimeStatusCommand(firstTime, userid);
-            ZboxWriteService.UpdateUserFirstTimeStatus(command);
-
-            return JsonOk();
+            return PartialView();
+        }
+        [HttpGet, ZboxAuthorize]
+        public PartialViewResult Password()
+        {
+            return PartialView();
+        }
+        [HttpGet, ZboxAuthorize]
+        public PartialViewResult Notification()
+        {
+            return PartialView();
         }
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-        public ActionResult CongratsPartial()
-        {
-            try
-            {
-                return PartialView("_Congrats");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_Congrats", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-        public ActionResult WelcomeAngularPartial()
-        {
-            try
-            {
-                return PartialView("_WelcomeAngular");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_WelcomeAngular", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //[HttpPost, ZboxAuthorize]
+        //public JsonResult FirstTime(FirstTime firstTime)
+        //{
+        //    var userid = User.GetUserId();
+        //    var command = new UpdateUserFirstTimeStatusCommand(firstTime, userid);
+        //    ZboxWriteService.UpdateUserFirstTimeStatus(command);
+
+        //    return JsonOk();
+        //}
+
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
+        //public ActionResult CongratsPartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_Congrats");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_Congrats", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
+
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
+        //public ActionResult WelcomeAngularPartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_WelcomeAngular");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_WelcomeAngular", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
 
     }
 

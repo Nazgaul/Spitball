@@ -373,7 +373,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateBadRequestResponse();
             }
             var id = GuidGenerator.GetId();
-            var command = new RateItemCommand(model.Id, User.GetCloudentsUserId(), 5, id, model.BoxId);
+            var command = new RateItemCommand(model.Id, User.GetCloudentsUserId(), id, model.BoxId);
             await ZboxWriteService.RateItemAsync(command);
 
             return Request.CreateResponse();

@@ -486,7 +486,7 @@ var Login = function () {
 
 }();
 
-+function trackConversion() {
+function trackConversion() {
     window.google_trackConversion({
         conversion_id: 939226062,
         conversion_language: "en",

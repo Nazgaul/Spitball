@@ -1,4 +1,10 @@
-﻿.class .nav-tabs > li.active > a,
+﻿.class {
+  /*.attach {
+        background: rgba(0, 0, 0, 0.48);
+        margin: 8px -20px -8px -10px;
+    }*/
+}
+.class .nav-tabs > li.active > a,
 .class .nav-tabs > li.active > a:hover {
   background: transparent;
   border: 0;
@@ -24,39 +30,15 @@
   background-color: #353a3f;
   padding: 0 10px;
 }
-.class .extraDetails {
-  color: #f5f5f5;
-  overflow: hidden;
-  position: relative;
-  background-color: black;
-  z-index: 1;
+.class .message-top {
+  padding: 10px 7px 0 7px;
+  background: #5f6871;
 }
-.class .extraDetails > span:first-child {
-  float: right;
-}
-.class .extraDetails > span:last-child {
-  float: left;
-}
-.class .mix-subDetails {
-  position: absolute;
-  bottom: 75px;
-}
-.class .no-background {
-  background-color: transparent;
-}
-.class .attach {
-  background: rgba(0, 0, 0, 0.48);
-  margin: 8px -10px -8px -20px;
-}
-.class .likes {
-  background: rgba(0, 0, 0, 0.48);
-  margin: 8px -10px -7px -20px;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+.class .feed-likes {
   height: 50px;
   line-height: 50px;
 }
-.class .likes .share {
+.class .feed-likes .share {
   height: 20px;
   width: 20px;
   fill: currentColor;
@@ -65,7 +47,7 @@
   bottom: 14px;
   left: 15px;
 }
-.class .likes .like {
+.class .feed-likes .like {
   height: 20px;
   width: 20px;
   fill: currentColor;
@@ -73,11 +55,27 @@
   bottom: 14px;
   margin: 3px 8px 0 5px;
 }
-.class .likes .blue.btn {
+.class .feed-likes .blue.btn {
   float: right;
   border-radius: 45px;
   padding: 3px 10px;
   margin: 10px 15px 10px 10px;
+}
+.class .items-container {
+  overflow-y: hidden;
+  overflow-x: auto;
+  white-space: nowrap;
+  margin: 0 5px;
+}
+.class .in:after,
+.class .out:after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  right: 56px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 10px solid #f5f5f5;
 }
 .members a:hover {
   color: transparent;
@@ -87,27 +85,6 @@
   color: #bababa;
   font-size: 15px;
   margin-right: 10px;
-}
-.stats {
-  width: 100%;
-  height: 38px;
-  color: #f5f5f5;
-  font-size: 14px;
-  padding: 12px;
-}
-.stats svg {
-  vertical-align: top;
-  margin-top: 5px;
-}
-.stats .likes2 svg {
-  width: 12px;
-  height: 12px;
-  fill: #f5f5f5;
-}
-.stats .views svg {
-  width: 14px;
-  height: 14px;
-  fill: #f5f5f5;
 }
 .quiz {
   border: 1px solid #42494F;
@@ -149,6 +126,8 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
 .quiz .bottom:before {
@@ -199,13 +178,96 @@
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
 .quiz .details .more {
   position: absolute;
   bottom: 10px;
 }
+.quiz .stats {
+  width: 100%;
+  height: 38px;
+  color: #f5f5f5;
+  font-size: 14px;
+  padding: 12px;
+}
 .item {
   border: 1px solid #42494F;
   padding: 5px;
+  display: block;
+  margin-bottom: 15px;
+}
+.item .content {
+  position: relative;
+  display: inline-block;
+}
+.item:hover .extra {
+  top: 0;
+}
+.item h5 {
+  font-size: 15px;
+  -ms-word-break: break-word;
+  word-break: break-word;
+}
+.item .uploader-date {
+  margin-top: 75px;
+}
+.item .extra {
+  color: #fff;
+  background: #6a737d;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+.item svg {
+  vertical-align: top;
+  margin-top: 5px;
+}
+.item .stats {
+  color: #f5f5f5;
+  font-size: 14px;
+  padding: 12px;
+}
+.item-quiz-likes {
+  float: left;
+}
+.item-quiz-likes svg {
+  width: 12px;
+  height: 12px;
+  fill: #f5f5f5;
+}
+.item-quiz-views {
+  float: right;
+}
+.item-quiz-views svg {
+  width: 14px;
+  height: 14px;
+  fill: #f5f5f5;
+}
+.item-animate.ng-move,
+.item-animate.ng-enter,
+.item-animate.ng-leave {
+  -moz-transition: all linear 0.5s;
+  -o-transition: all linear 0.5s;
+  -webkit-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+}
+.item-animate.ng-leave.ng-leave-active,
+.item-animate.ng-move,
+.item-animate.ng-enter {
+  opacity: 0;
+}
+.item-animate.ng-leave,
+.item-animate.ng-move.ng-move-active,
+.item-animate.ng-enter.ng-enter-active {
+  opacity: 1;
 }

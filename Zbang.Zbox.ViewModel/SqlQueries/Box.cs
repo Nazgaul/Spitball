@@ -303,7 +303,7 @@ union
     i.Discriminator as Discriminator,
     i.ItemTabId as TabId,
 	i.NumberOfViews as NumOfViews,
-    i.rate as Rate,
+    i.LikeCount as Likes,
     i.sponsored as Sponsored,
     i.content as Description,
     i.BlobName as BlobName,

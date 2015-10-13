@@ -33,52 +33,52 @@ namespace Zbang.Cloudents.Mvc4WebRole
             new { controller = "Box", action = "Index" },
             new { boxId = new LongRouteConstraint() }
             );
-     //       routes.MapRoute("PrivateBoxFeed",
-     //      "box/my/{boxId}/{boxName}/feed",
-     //      new { controller = "Box", action = "Index" },
-     //      new { boxId = new LongRouteConstraint() }
-     //      );
-     //       routes.MapRoute("PrivateBoxItems",
-     //    "box/my/{boxId}/{boxName}/items",
-     //    new { controller = "Box", action = "Index" },
-     //    new { boxId = new LongRouteConstraint() }
-     //    );
-     //       routes.MapRoute("PrivateBoxQuiz",
-     //    "box/my/{boxId}/{boxName}/quiz",
-     //    new { controller = "Box", action = "Index" },
-     //    new { boxId = new LongRouteConstraint() }
-     //    );
-     //       routes.MapRoute("PrivateBoxMembers",
-     //"box/my/{boxId}/{boxName}/members",
-     //new { controller = "Box", action = "Index" },
-     //new { boxId = new LongRouteConstraint() }
-     //);
+            //       routes.MapRoute("PrivateBoxFeed",
+            //      "box/my/{boxId}/{boxName}/feed",
+            //      new { controller = "Box", action = "Index" },
+            //      new { boxId = new LongRouteConstraint() }
+            //      );
+            //       routes.MapRoute("PrivateBoxItems",
+            //    "box/my/{boxId}/{boxName}/items",
+            //    new { controller = "Box", action = "Index" },
+            //    new { boxId = new LongRouteConstraint() }
+            //    );
+            //       routes.MapRoute("PrivateBoxQuiz",
+            //    "box/my/{boxId}/{boxName}/quiz",
+            //    new { controller = "Box", action = "Index" },
+            //    new { boxId = new LongRouteConstraint() }
+            //    );
+            //       routes.MapRoute("PrivateBoxMembers",
+            //"box/my/{boxId}/{boxName}/members",
+            //new { controller = "Box", action = "Index" },
+            //new { boxId = new LongRouteConstraint() }
+            //);
 
             routes.MapRoute("CourseBox",
               "course/{universityName}/{boxId}/{boxName}",
               new { controller = "Box", action = "Index" },
               new { boxId = new LongRouteConstraint() }
             );
-           // routes.MapRoute("CourseBoxFeed",
-           //  "course/{universityName}/{boxId}/{boxName}/feed",
-           //  new { controller = "Box", action = "Index" },
-           //  new { boxId = new LongRouteConstraint() }
-           //);
-           // routes.MapRoute("CourseBoxItems",
-           //  "course/{universityName}/{boxId}/{boxName}/items",
-           //  new { controller = "Box", action = "Index" },
-           //  new { boxId = new LongRouteConstraint() }
-           //);
-           // routes.MapRoute("CourseBoxQuiz",
-           //  "course/{universityName}/{boxId}/{boxName}/quiz",
-           //  new { controller = "Box", action = "Index" },
-           //  new { boxId = new LongRouteConstraint() }
-           //);
-           // routes.MapRoute("CourseBoxMembers",
-           //  "course/{universityName}/{boxId}/{boxName}/members",
-           //  new { controller = "Box", action = "Index" },
-           //  new { boxId = new LongRouteConstraint() }
-           //);
+            // routes.MapRoute("CourseBoxFeed",
+            //  "course/{universityName}/{boxId}/{boxName}/feed",
+            //  new { controller = "Box", action = "Index" },
+            //  new { boxId = new LongRouteConstraint() }
+            //);
+            // routes.MapRoute("CourseBoxItems",
+            //  "course/{universityName}/{boxId}/{boxName}/items",
+            //  new { controller = "Box", action = "Index" },
+            //  new { boxId = new LongRouteConstraint() }
+            //);
+            // routes.MapRoute("CourseBoxQuiz",
+            //  "course/{universityName}/{boxId}/{boxName}/quiz",
+            //  new { controller = "Box", action = "Index" },
+            //  new { boxId = new LongRouteConstraint() }
+            //);
+            // routes.MapRoute("CourseBoxMembers",
+            //  "course/{universityName}/{boxId}/{boxName}/members",
+            //  new { controller = "Box", action = "Index" },
+            //  new { boxId = new LongRouteConstraint() }
+            //);
 
             routes.MapRoute("shortBox",
                 UrlConsts.ShortBox,
@@ -166,6 +166,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
             routes.MapRoute("AccountSettings",
              "account/settings",
              new { controller = "Home", action = "IndexEmpty" }
+            );
+
+            routes.MapRoute("Blog",
+              "blog",
+              new { controller = "Home", action = "IndexEmpty" }
             );
 
             routes.MapRoute("Jobs",

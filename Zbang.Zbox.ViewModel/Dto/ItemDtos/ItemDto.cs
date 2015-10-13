@@ -8,7 +8,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public long Id { get; set; }
         public string Name { get; set; }
-        public float Rate { get; set; }
+        public int Likes { get; set; }
         public long OwnerId { get; set; }
         public string Owner { get; set; }
         public Guid? TabId { get; set; }

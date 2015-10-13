@@ -16,8 +16,8 @@
         d.getRecommended = function (boxid) {
             return ajaxservice.get('/box/recommended/', { id: boxid });
         };
-        d.getItems = function (boxid) {
-            return ajaxservice.get('/box/items/', { id: boxid });
+        d.items = function (boxId, tabId, page) {
+            return ajaxservice.get('/box/items/', { id: boxId, tabId: tabId, page: page });
         };
         d.getMembers = function (boxid) {
             return ajaxservice.get('/box/members/', { boxId: boxid });

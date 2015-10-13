@@ -198,7 +198,6 @@
     <Compile Include="Queries\Search\UniversitySearchQuery.cs" />
     <Compile Include="Queries\Search\UserSearchQuery.cs" />
     <Compile Include="Queries\Dashboard\UniversityQuery.cs" />
-    <Compile Include="SqlQueries\Admin.cs" />
     <Compile Include="SqlQueries\Box.cs" />
     <Compile Include="SqlQueries\Dashboard.cs" />
     <Compile Include="SqlQueries\Email.cs" />

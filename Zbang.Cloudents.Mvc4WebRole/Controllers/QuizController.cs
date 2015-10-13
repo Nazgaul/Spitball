@@ -147,7 +147,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var numberOfSolvers = await ZboxReadService.GetNumberOfSolvers(quizId);
-                return PartialView("_QuizDialog", numberOfSolvers);
+                return JsonOk(numberOfSolvers);
+                //return PartialView("_QuizDialog", numberOfSolvers);
             }
             catch (Exception ex)
             {
@@ -186,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command =
                     new SaveUserQuizCommand(
                       model.Answers.Select(s => new UserAnswers { AnswerId = s.AnswerId, QuestionId = s.QuestionId }),
-                        User.GetUserId(), model.QuizId, model.EndTime - model.StartTime, model.BoxId);
+                        User.GetUserId(), model.QuizId, TimeSpan.FromMilliseconds(model.NumberOfMilliseconds), model.BoxId);
                 await ZboxWriteService.SaveUserAnswersAsync(command);
 
                 return JsonOk();

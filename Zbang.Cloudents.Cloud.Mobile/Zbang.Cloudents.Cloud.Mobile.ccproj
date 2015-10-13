@@ -48,16 +48,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Zbang.Cloudents.Mobile\Zbang.Cloudents.Mobile.csproj">
-      <Name>Zbang.Cloudents.Mobile</Name>
-      <Project>{eeee87be-07c2-479a-a9e6-a5d971a79031}</Project>
-      <Private>True</Private>
-      <RoleType>Web</RoleType>
-      <RoleName>Zbang.Cloudents.Mobile</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>False</UpdateDiagnosticsConnectionStringOnPublish>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PublishProfile Include="Profiles\zboxmobiletestProduction.azurePubxml" />
   </ItemGroup>
   <ItemGroup>

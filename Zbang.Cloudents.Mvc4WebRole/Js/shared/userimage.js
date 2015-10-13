@@ -2,10 +2,10 @@
     angular.module('app').directive('userImage', generateImage);
 
     generateImage.$inject = ['$compile'];
-    //['$compile',
+
     function generateImage($compile) {
         "use strict";
-        var imageTemplate = '<img alt=""  />',
+        var imageTemplate = '<img alt="" />',
             letterTemplate = '<span class="userLetter background"></span>',
             emptyTemplate = '<img class="userImg" src="/images/user.svg" />';
         return {
@@ -16,7 +16,21 @@
                 image: '=',
                 noremove : '='
             },
+            //templateUrl: 'usericon.html'
             link: function (scope, elem) {
+
+                //scope.$watch('image', function () {
+                //    if (scope.image) {
+                //        image();
+                //        complie();
+                //    }
+
+                //    //elem.remove();
+                //});
+                //scope.$watch('name', function () {
+                //    console.log('z');
+                //});
+
                 var innerEl, className;
 
                 if (scope.image) {
@@ -28,25 +42,16 @@
                     emptyState();
                  
                 }
+                complie();
+                function complie() {
+                    var el = $compile(innerEl)(scope);
 
-                //if (scope.id && sUserDetails.getDetails().id != scope.id) {
-                //    innerEl.attr('user-tooltip-popup', scope.id);
-                //}
-
-                //if (attrs.tooltip) {
-                //    innerEl.attr('tooltip', attrs.tooltip);
-                //}
-
-                var el = $compile(innerEl)(scope);
-
-                elem.after(el);
-                //scope.$destroy();
-
-                if (scope.noremove) {
-                    return;
+                    elem.after(el);
+                    if (scope.noremove) {
+                        return;
+                    }
+                    elem.remove();
                 }
-
-                elem.remove();
 
                 function image() {
                     innerEl = angular.element(imageTemplate);
@@ -71,7 +76,6 @@
                         height: elem[0].getAttribute('height'),
                         lineHeight: elem[0].getAttribute('height') + 'px' });
                     innerEl.text(scope.name[0]);
-                    //innerEl[0].setAttribute('data-letter', scope.name[0]);
                 }
 
                 function emptyState() {

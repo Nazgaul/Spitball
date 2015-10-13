@@ -8,13 +8,20 @@
   vertical-align: middle;
   margin-left: 12px;
 }
-.floatright {
-  text-align: left;
-}
-.ontop {
-  position: absolute;
-  top: 123px;
-  width: 140px;
-  right: 5px;
+.accountPage .ontop {
   text-align: center;
+  position: relative;
+  top: -22px;
+  display: block;
+}
+.accountPage .notification-list {
+  color: #fff;
+  padding: 0 10px;
+}
+.accountPage .notification-list select {
+  background: #353A3F;
+}
+.accountPage .notification-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid red;
 }
