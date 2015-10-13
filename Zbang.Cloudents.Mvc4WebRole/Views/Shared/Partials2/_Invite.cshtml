@@ -3,7 +3,7 @@
         <div class="caption">
             Invite your friends to spitball
         </div>
-        <button type="button" class="close" ng-click="d.inviteToSpitball = false">X</button>
+        <button type="button" class="close" ng-click="i.closeInvite()">X</button>
     </div>
     <div class="body clearfix">
         <div layout="column" ng-cloak class="chipsdemoContactChips">
@@ -13,7 +13,7 @@
                                   md-contact-name="name"
                                   md-contact-image="image"
                                   md-contact-email="email"
-                                  md-on-append="i.chooseEmail($chip)"
+                                  md-require-match="true"
                                   md-highlight-flags="i"
                                   filter-selected="i.filterSelected"
                                   placeholder="add email to invite friends">
