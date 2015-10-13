@@ -152,7 +152,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                //TraceLog.WriteError("_QuizDialog", ex);
+                TraceLog.WriteError("_QuizDialog", ex);
                 return Json(new JsonResponse(false));
             }
         }
@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command =
                     new SaveUserQuizCommand(
                       model.Answers.Select(s => new UserAnswers { AnswerId = s.AnswerId, QuestionId = s.QuestionId }),
-                        User.GetUserId(), model.QuizId, model.EndTime - model.StartTime, model.BoxId);
+                        User.GetUserId(), model.QuizId, TimeSpan.FromMilliseconds(model.NumberOfMilliseconds), model.BoxId);
                 await ZboxWriteService.SaveUserAnswersAsync(command);
 
                 return JsonOk();
