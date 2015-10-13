@@ -430,7 +430,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),
                         new JsFileWithCdn("~/scripts/plupload2/angular-plupload2.js"),
 
-                        new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-0.13.4.min.js"),
+                        new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-0.14.1.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-tabdrop.js"),
                         new JsFileWithCdn("~/scripts/site/jquery.mixitup.min.js"),
                         new JsFileWithCdn("~/scripts/site/jquery.dataTables.min.js"),
@@ -453,6 +453,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.directive.js"),
 
 
+                        new JsFileWithCdn("~/js/components/quiz/popup/quiz.challenge.module.js"),
+                        new JsFileWithCdn("~/js/components/quiz/popup/quiz.score.module.js"),
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.module.js"),
                         new JsFileWithCdn("~/js/components/user/userdetails.controller.js"),
                         new JsFileWithCdn("~/js/components/user/user.controller.js"),
@@ -484,6 +486,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/item/item.controller.js"),
                         new JsFileWithCdn("~/js/components/item/item.service.js"),
                         new JsFileWithCdn("~/js/components/quiz/quiz.controller.js"),
+                        new JsFileWithCdn("~/js/components/quiz/popup/quiz.challenge.controller.js"),
+                        new JsFileWithCdn("~/js/components/quiz/popup/quiz.score.controller.js"),
                         new JsFileWithCdn("~/js/components/quiz/quiz.service.js"),
                         new JsFileWithCdn("~/js/components/app.controller.js"),
                         new JsFileWithCdn("~/js/services/ajaxService.js"),

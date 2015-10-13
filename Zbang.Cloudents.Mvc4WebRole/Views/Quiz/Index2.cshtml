@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{
-    const string svgUrl = "~/images/site/itemIcons.svg";
+    const string svgUrl = "~/images/site/quizIcons.svg";
 }
 
 <div class="itemPage quizPage">
@@ -9,26 +9,59 @@
         <div class="stop-watch-wrapper">
             @Html.Svg(svgUrl, "clock")
             <stopwatch control="q.timerControl"></stopwatch>
+            <button type="button" class="stopwatch-btn" ng-click="q.start()">{{q.buttonText()}}</button>
         </div>
         <a class="closeItem" href="{{::q.boxUrl}}">@Html.Svg(svgUrl, "close")</a>
     </header>
 
     <div class="itemContent">
-        <div class="fileName">{{::q.name}}</div>
-        <div class="questions">
+        <div class="fileName" id="quiz-top">{{::q.name}}</div>
+        <div class="questions" ng-class="{ solved : q.isSolved}">
             <ul class="question-list">
-                <li class="question" ng-repeat="question in ::q.questions">
-                    <div ng-bind-html="question.text"></div>
-
-                    <ul class="answer-list">
-                        <li class="answer" ng-repeat="answer in question.answers">
-                            <input id="{{::q.createId(answer)}}" type="radio" name="{{::q.createId(question)}}" /> 
-                            <label for="{{::q.createId(answer)}}" ng-bind-html="answer.text"></label>
-                        </li>
-                    </ul>
+                <li class="question" ng-repeat="question in ::q.questions" ng-class="q.isCorrect(question)" data-no-answer="No answer given">
+                    <div class="question-wrapper">
+                        <div ng-bind-html="question.text"></div>
+                        <ul class="answer-list">
+                            <li class="answer" ng-repeat="answer in question.answers" ng-class="q.isCorrectAnswer(question,answer)">
+                                <input id="{{::q.createId(answer)}}" type="radio" name="{{::q.createId(question)}}" ng-disabled="q.isSolved" ng-checked="q.isSelectedAnswer(question,answer)" />
+                                <label for="{{::q.createId(answer)}}" ng-bind-html="answer.text" ng-click="q.selectAnswer(question,answer)" ng-disabled=""></label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="discussion chats" ng-if="q.isSolved">
+                        <ul class="comments">
+                            <li class="in comment" ng-repeat="comment in question.comments" ng-if="question.comments">
+                                <img class="avatar" ng-src="{{::comment.userPicture}}" alt="{{::comment.userName}}" title="{{::comment.userName}}" />
+                                <div class="message">
+                                    <span class="arrow"></span>
+                                    <a class="name">{{::comment.userName}}</a>
+                                    <span class="datetime">{{::comment.date}}</span>
+                                    <span class="body">{{::comment.text}}</span>
+                                    <button type="button" class="remove" ng-if="comment.isDelete">@Html.Svg(svgUrl, "close")</button>
+                                </div>
+                            </li>
+                            <li class="in reply">
+                                <img class="avatar" ng-src="{{::q.user.image}}" alt="{{::q.user.name}}" title="{{::q.user.name}}" />
+                                <div class="message">
+                                    <input type="text" ng-model="question.newComment" placeholder="Write a comment " />
+                                    <div class="btn-cont">
+                                        <span class="arrow"></span>
+                                        <a href="" class="btn blue icn-only" ng-disabled="!question.newComment">
+                                            <i class="fa fa-check icon-white"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>                        
+                    </div>
                 </li>
+
             </ul>
+            <div class="check-answers" ng-if="!q.isSolved">
+                <button type="button" ng-click="q.checkAnswers()" ng-disabled="q.isSolved">Check answers</button>
+            </div>
         </div>
-        <button type="button" ng-click="q.checkAnswers()">check answers</button>
     </div>
-</div>
+</div>{
+@{Html.RenderPartial("_QuizChallenge");}
+@{Html.RenderPartial("_QuizScore");}

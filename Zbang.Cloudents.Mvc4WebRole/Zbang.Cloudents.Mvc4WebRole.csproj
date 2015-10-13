@@ -2165,6 +2165,10 @@
     <Content Include="Js\components\dashboard\sidemenu.controller.js" />
     <Content Include="Js\components\dashboard\university.controller.js" />
     <Content Include="Js\components\leaderboard.controller.js" />
+    <Content Include="Js\components\quiz\popup\quiz.challenge.controller.js" />
+    <Content Include="Js\components\quiz\popup\quiz.score.module.js" />
+    <Content Include="Js\components\quiz\popup\quiz.challenge.module.js" />
+    <Content Include="Js\components\quiz\popup\quiz.score.controller.js" />
     <Content Include="Js\components\quiz\quiz.controller.js" />
     <Content Include="Js\components\quiz\quiz.service.js" />
     <Content Include="Js\components\item\item.controller.js" />
@@ -3291,8 +3295,8 @@
     <Content Include="Scripts\stacktrace.js" />
     <Content Include="Scripts\Modernizr.js" />
     <Content Include="Scripts\svg4everybody.js" />
-    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.13.0.js" />
-    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.13.4.min.js" />
+    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.14.1.js" />
+    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.14.1.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls.min.js" />
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
@@ -3389,6 +3393,8 @@
     <Content Include="Views\Quiz\Index2.cshtml" />
     <Content Include="Views\Shared\Partials2\_Invite.cshtml" />
     <Content Include="Views\Shared\Partials2\_boxTemplate.cshtml" />
+    <Content Include="Views\Quiz\_QuizChallenge.cshtml" />
+    <Content Include="Views\Quiz\_QuizScore.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
