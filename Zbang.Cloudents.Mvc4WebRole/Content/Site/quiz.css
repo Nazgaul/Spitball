@@ -160,7 +160,8 @@
   padding-right: 50px;
 }
 .quizPage .questions .comments .message.message {
-  border-color: #292d31;
+  border: none;
+  background: #292d31;
 }
 .quizPage .questions .comments .arrow.arrow {
   border-right-color: #292d31;
@@ -176,6 +177,7 @@
   position: relative;
   float: right;
   width: 44px;
+  z-index: 10;
 }
 .quizPage .questions .comments .reply .btn-cont .arrow {
   position: absolute;

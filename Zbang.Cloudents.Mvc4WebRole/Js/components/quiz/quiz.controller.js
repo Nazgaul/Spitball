@@ -1,9 +1,9 @@
 ﻿(function () {
     angular.module('app.quiz').controller('QuizController', quiz);
 
-    quiz.$inject = ['$scope', '$stateParams', 'quizService', '$sce', '$location', '$timeout', '$uibModal', '$modalStack', '$filter','userDetailsService'];
+    quiz.$inject = ['$scope', '$stateParams', 'quizService', '$sce', '$location', '$timeout', '$uibModal', '$modalStack', '$filter', 'accountService'];
 
-    function quiz($scope, $stateParams, quizService, $sce, $location, $timeout, $uibModal,$modalStack, $filter, userDetailsService) {
+    function quiz($scope, $stateParams, quizService, $sce, $location, $timeout, $uibModal, $modalStack, $filter, accountService) {
         var q = this;
         
         q.timerControl = {};
@@ -18,7 +18,10 @@
         q.isSelectedAnswer = isSelectedAnswer;
         q.buttonText = getButtonText;
 
-        userDetailsService.getDetails().then(function (data) {
+        q.postComment = postComment;
+        q.removeComment = removeComment;
+
+        accountService.getAccountDetails().then(function (data) {
             q.user = {
                 id: data.id,
                 name: data.name,
@@ -311,6 +314,23 @@
 
                 });
             });
+        }
+
+        function postComment(question) {
+
+            var comment = {
+                questionId: question.id,
+
+            }
+            
+        }
+
+        function removeComment(question,comment) {
+            var index = question.comments.indexOf(comment);
+            question.comments.splice(index, 1);
+
+            quizService.removeDiscussion({ id: comment.id });
+
         }
 
     }

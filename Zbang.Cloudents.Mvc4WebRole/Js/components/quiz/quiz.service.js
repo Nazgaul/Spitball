@@ -18,7 +18,12 @@
         }
 
         s.createDiscussion = function (data) {
-            return ajaxservice.post('/quiz/discussion', data);
+            return ajaxservice.post('/quiz/creatediscussion', data);
+        }
+
+        s.removeDiscussion = function (data) {
+            return ajaxservice.post('/quiz/deletediscussion', data);
+            
         }
     }
 })();

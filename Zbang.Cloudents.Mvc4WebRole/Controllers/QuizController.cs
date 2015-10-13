@@ -142,7 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[OutputCache(Duration = TimeConsts.Hour, 
         //    Location = OutputCacheLocation.Any, VaryByParam = "none",
         //    VaryByCustom = CustomCacheKeys.Lang)]
-        public async Task<ActionResult> ChallengePartial(long quizId)
+        public async Task<ActionResult> NumberOfSolvers(long quizId)
         {
             try
             {
