@@ -154,10 +154,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonOk(new
                 {
                     retVal.SolversCount,
-                    Users = retVal.Users.Select(s => new
-                    {
-                        s.Image
-                    })
+                    retVal.Users
                 });
             }
             catch (Exception ex)
