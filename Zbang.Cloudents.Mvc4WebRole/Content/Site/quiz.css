@@ -404,6 +404,9 @@
   width: 36px;
   height: 36px;
 }
+.score-modal .modal-content .top-user .userLetter + svg.star {
+  top: -12px;
+}
 .score-modal .modal-content .button-wrapper {
   text-align: center;
   margin-bottom: 30px;
