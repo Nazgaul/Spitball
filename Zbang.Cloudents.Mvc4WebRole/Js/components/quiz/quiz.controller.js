@@ -1,11 +1,11 @@
 ﻿(function () {
     angular.module('app.quiz').controller('QuizController', quiz);
 
-    quiz.$inject = ['$scope', '$stateParams', 'quizService', '$sce', '$location', '$timeout', '$uibModal', '$modalStack', '$filter', 'accountService'];
+    quiz.$inject = ['$scope', '$stateParams', 'quizService', '$sce', '$location', '$timeout', '$uibModal', '$uibModalStack', '$filter', 'accountService'];
 
-    function quiz($scope, $stateParams, quizService, $sce, $location, $timeout, $uibModal, $modalStack, $filter, accountService) {
+    function quiz($scope, $stateParams, quizService, $sce, $location, $timeout, $uibModal, $uibModalStack, $filter, accountService) {
         var q = this;
-        
+
         q.timerControl = {};
         q.isSolved = false;
 
@@ -30,7 +30,7 @@
         });
 
         $scope.$on('$destroy', function () {
-            $modalStack.dismissAll();
+            $uibModalStack.dismissAll();
         });
 
         quizService.getQuiz($stateParams.boxId, $stateParams.quizId).then(function (data) {
@@ -44,7 +44,7 @@
             if (q.sheet != null) {
                 setResults();
                 getDiscussion();
-                q.isSolved = true;                
+                q.isSolved = true;
                 q.timerControl.setTime(q.sheet.timeTaken);
                 var score = q.sheet.score,
                       correct = Math.round(q.sheet.score / 100 * q.questions.length),
@@ -73,8 +73,8 @@
                     backdrop: 'static',
                     windowClass: 'challenge-modal',
                     resolve: {
-                        topUsers: function () {
-                            return q.topUsers;
+                        solvers: function () {
+                            return quizService.getNumberOfSolvers({ quizId: $stateParams.quizId });
                         }
                     }
                 });
@@ -193,7 +193,7 @@
             return item.id.slice(0, 6);
         }
 
-        function isSelectedAnswer(question, answer) {            
+        function isSelectedAnswer(question, answer) {
             if (question.selectedAnswer == null) {
                 return false;
             }
@@ -240,7 +240,7 @@
                 quizId: $stateParams.quizId,
                 numberOfMilliseconds: q.timerControl.getTime()
             };
-            
+
             data.answers = [];
             var question;
             for (var i = 0; i < q.questions.length; i++) {
@@ -283,7 +283,7 @@
                         sheet.score = Math.round(sheet.score);
                         return sheet;
 
-                   }
+                    }
                 }
             });
 
@@ -330,7 +330,7 @@
             };
 
             question.newComment = '';
-            
+
             quizService.createDiscussion({ questionId: comment.questionId, text: comment.text }).then(function (response) {
                 if (!question.comments) {
                     question.comments = [];
@@ -339,7 +339,7 @@
             });;
         }
 
-        function removeComment(question,comment) {
+        function removeComment(question, comment) {
             var index = question.comments.indexOf(comment);
             question.comments.splice(index, 1);
 

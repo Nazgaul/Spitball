@@ -22,8 +22,11 @@
         }
 
         s.removeDiscussion = function (data) {
-            return ajaxservice.post('/quiz/deletediscussion', data);
-            
+            return ajaxservice.post('/quiz/deletediscussion', data);            
+        }
+
+        s.getNumberOfSolvers = function (data) {
+            return ajaxservice.get('/quiz/numberofsolvers', data);
         }
     }
 })();
