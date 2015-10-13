@@ -22,7 +22,12 @@
        
 
         $scope.$on("open_invite", function () {
-            importGoogleContacts();
+            googleService.initGApi().then(function () {
+                if (googleService.isAuthenticated()) {
+                    getGoogleContacts();
+                    return;
+                }
+            });
         });
         /**
          * Search for contacts.
@@ -57,7 +62,7 @@
                     getGoogleContacts();
                     return;
                 }
-                googleService.checkAuth(true).then(function () {
+                googleService.checkAuth(false).then(function () {
                     getGoogleContacts();
                 });
             });
