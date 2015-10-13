@@ -42,11 +42,7 @@
         background: @color1;
     }
 
-    .likes {
-        //background: rgba(0, 0, 0, 0.48);
-        //margin: 8px -20px -7px -10px;
-        //border-bottom-left-radius: 10px;
-        //border-bottom-right-radius: 10px;
+    .feed-likes {
         height: 50px;
         line-height: 50px;
 
@@ -87,7 +83,7 @@
         margin: 0 5px;
     }
 
-    .in ,.out{
+    .in, .out {
         &:after {
             content: '';
             position: absolute;
@@ -231,6 +227,13 @@
             bottom: 10px;
         }
     }
+    .stats {
+        width: 100%;
+        height: 38px;
+        color: @color2;
+        font-size: 14px;
+        padding: 12px;
+    }
 }
 
 .item {
@@ -279,33 +282,31 @@
     }
 
     .stats {
-        //   width: 100%;
+        //width: 100%;
         //height: 38px;
         color: @color2;
         font-size: 14px;
         padding: 12px;
     }
+}
 
+.item-quiz-likes {
+    float: right;
 
-
-    .likes2 {
-        float: right;
-
-        svg {
-            width: 12px;
-            height: 12px;
-            fill: @color2;
-        }
+    svg {
+        width: 12px;
+        height: 12px;
+        fill: @color2;
     }
+}
 
-    .views {
-        float: left;
+.item-quiz-views {
+    float: left;
 
-        svg {
-            width: 14px;
-            height: 14px;
-            fill: @color2;
-        }
+    svg {
+        width: 14px;
+        height: 14px;
+        fill: @color2;
     }
 }
 

@@ -14,9 +14,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             var cssDictionary = new Dictionary<string, IEnumerable<string>>
             {
-                {"lang.ru-RU", new[] {"~/Content/lang.ru-RU.css"}},
-                {"lang.he-IL", new[] {"~/Content/lang.he-IL.css"}},
-                {"lang.ar-AE", new[] {"~/Content/lang.ar-AE.css"}},
+                //{"lang.ru-RU", new[] {"~/Content/lang.ru-RU.css"}},
+                //{"lang.he-IL", new[] {"~/Content/lang.he-IL.css"}},
+                //{"lang.ar-AE", new[] {"~/Content/lang.ar-AE.css"}},
 
                 //{
                 //    "newcore3", new[]
@@ -49,16 +49,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 //    }
                 //},
 
-                {
-                    "static", new[]
-                    {
-                        "~/Content/Normalize.css",
-                        "~/Content/General.css",
-                        "~/Content/Header.css",
-                        "~/Content/Animations.css",
-                        "~/Content/Static.css"
-                    }
-                },
+                //{
+                //    "static", new[]
+                //    {
+                //        "~/Content/Normalize.css",
+                //        "~/Content/General.css",
+                //        "~/Content/Header.css",
+                //        "~/Content/Animations.css",
+                //        "~/Content/Static.css"
+                //    }
+                //},
                 //{
                 //    "mobile", new []
                 //    {

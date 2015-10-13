@@ -350,10 +350,10 @@ button {
   background-color: #000;
   padding: 20px 0 10px 10px;
 }
-.layout-column {
-  background: #353A3F;
-  border: 1px solid #353A3F;
-}
+/*.layout-column {
+    background: #353A3F;
+    border: 1px solid #353A3F;
+}*/
 .portlet.light.invite {
   background: #4190b9;
   text-align: center;
@@ -434,7 +434,7 @@ button {
 .close:hover {
   color: #f5f5f5;
 }
-.portlet.box > .portlet-title {
-  margin-right: -10px;
-  color: #f5f5f5;
-}
+/*.portlet.box > .portlet-title {
+    margin-left: -10px;
+    color: #f5f5f5;
+}*/
