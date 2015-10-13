@@ -17,9 +17,22 @@
 }
 .invite md-content {
   background: #212427;
+  position: relative;
 }
 .invite .gmail {
   background: #C2C2C2;
+  margin: 0 auto;
+  width: 230px;
+  white-space: normal;
+  line-height: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 .invite .gmail svg {
   width: 60px;
@@ -79,5 +92,5 @@
 }
 .chipsdemoContactChips .fixedRows {
   height: 250px;
-  overflow: hidden;
+  overflow: auto;
 }

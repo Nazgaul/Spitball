@@ -1840,6 +1840,7 @@
     <Content Include="Js\components\quiz\stopwatch.module.js" />
     <Content Include="Js\components\share\invite.controller.js" />
     <Content Include="Js\components\account\account.controller.js" />
+    <Content Include="Js\components\share\share.service.js" />
     <Content Include="Js\components\user\updates.service.js" />
     <Content Include="Js\components\user\user.service.js" />
     <Content Include="Js\components\user\userdetails.controller.js" />

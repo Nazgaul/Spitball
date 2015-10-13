@@ -18,7 +18,7 @@
                                   filter-selected="i.filterSelected"
                                   placeholder="add email to invite friends">
                 </md-contact-chips>
-                <button class="btn gmail" ng-if="!(i.allContacts.length)" type="button">
+                <button class="btn gmail" ng-click="i.importGoogleContract()" ng-if="!(i.allContacts.length)" type="button">
                     <svg viewBox="-468 273.5 21.5 15.6">
                         <g>
                             <path d="M-468,273.5V289h21.5v-15.6H-468z M-452.3,274l-5,5l-5.5-5H-452.3z M-465.1,276.5l6,5.2l-6,4.6

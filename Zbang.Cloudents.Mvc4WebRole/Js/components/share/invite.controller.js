@@ -1,13 +1,17 @@
 ﻿(function() {
     angular.module('app').controller('inviteController', invite);
 
+    invite.$inject = ['googleService'];
 
-    function invite() {
+    function invite(googleService) {
         var self = this;
         self.querySearch = querySearch;
         self.allContacts = [];// loadContacts();
         self.contacts = [];
         self.filterSelected = true;
+
+
+        self.importGoogleContract = importGoogleContacts;
         /**
          * Search for contacts.
          */
@@ -24,6 +28,36 @@
             return function filterFn(contact) {
                 return (contact._lowername.indexOf(lowercaseQuery) != -1);;
             };
+        }
+
+        importGoogleContacts();
+        function importGoogleContacts() {
+            googleService.initGApi().then(function () {
+                if (googleService.isAuthenticated()) {
+                    getGoogleContacts();
+                    return;
+                }
+                googleService.checkAuth(true).then(function () {
+                    getGoogleContacts();
+                });
+            });
+        }
+        
+        function getGoogleContacts() {
+            googleService.contacts().then(function (contacts) {
+                self.allContacts = contacts.map(function(c) {
+                    return {
+                        name: c.name,
+                        email: c.id,
+                        image: c.image,
+                        _lowername : c.name.toLowerCase()
+                    }
+                });
+                //$scope.friends = $scope.friends.concat(contacts);
+                //$scope.sources.google = true;
+                //$scope.$broadcast('itemChange');
+
+            });
         }
         function loadContacts() {
             var contacts = [

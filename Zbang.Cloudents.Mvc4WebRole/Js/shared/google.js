@@ -1,13 +1,15 @@
 ﻿(function () {
-    angular.module('app').factory('googleService',
-   ['$document', '$q', '$timeout', '$filter',
-   function ($document, $q, $timeout, $filter) {
+    angular.module('app').factory('googleService', service);
+
+    service.$inject = ['$document', '$q', '$timeout', '$filter', 'shareService'];
+
+    function service($document, $q, $timeout, $filter, shareService) {
        "use strict";
 
        var clientId = '997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com',
            apiKey = 'AIzaSyAZ9mDzvTjIUvFPMdv3BXmXFeoAZihFKQk',
            scopes = ['https://www.google.com/m8/feeds/contacts/default/full', 'https://www.googleapis.com/auth/drive.readonly'],
-           access_token, contacts = [], clientLoaded = false, clientLoading = false, driveLoaded = false, pickerDefer,
+           access_token, contacts = [], clientLoaded = false, clientLoading = false, driveLoaded = false,
            api = {
                initDrive: function () {
                    var defer = $q.defer();
@@ -174,56 +176,56 @@
                    return false;
 
                },
-               //contacts: function (isImmediate) {
-               //    var defer = $q.defer();
+               contacts: function (isImmediate) {
+                   var defer = $q.defer();
 
 
 
-               //    if (contacts.length) {
-               //        $timeout(function () {
-               //            defer.resolve(contacts);
-               //        });
-               //        return defer.promise;
-               //    }
+                   if (contacts.length) {
+                       $timeout(function () {
+                           defer.resolve(contacts);
+                       });
+                       return defer.promise;
+                   }
 
-               //    sShare.googleFriends({ token: access_token }).then(function (data) {
-               //        var feed = JSON.parse(data).feed;
-               //        for (var i = 0 ; i < feed.entry.length; i++) {
-               //            var contact = {}, entry = feed.entry[i];
-               //            if (entry.gd$email) {
-               //                contact.id = entry.gd$email[0].address;
+                   shareService.googleFriends(access_token).then(function (data) {
+                       var feed = JSON.parse(data).feed;
+                       for (var i = 0 ; i < feed.entry.length; i++) {
+                           var contact = {}, entry = feed.entry[i];
+                           if (entry.gd$email) {
+                               contact.id = entry.gd$email[0].address;
 
-               //                if (entry.title.$t !== '') {
-               //                    contact.name = $filter('escapeHtmlChars')(entry.title.$t);
-               //                } else {
-               //                    contact.name = entry.gd$email[0].address;
-               //                }
+                               if (entry.title.$t !== '') {
+                                   //contact.name = $filter('escapeHtmlChars')(entry.title.$t);
+                                   contact.name = entry.title.$t;
+                               } else {
+                                   contact.name = entry.gd$email[0].address;
+                               }
 
-               //                if (entry.link[0].gd$etag) {
-               //                    contact.image = decodeURIComponent(entry.link[0].href) + '&access_token=' + access_token;
-               //                } else {
-               //                    contact.image = '/images/user.svg';
-               //                }
+                               if (entry.link[0].gd$etag) {
+                                   contact.image = decodeURIComponent(entry.link[0].href) + '&access_token=' + access_token;
+                               } else {
+                                   contact.image = '/images/user.svg';
+                               }
 
-               //                contact.google = true;
+                               contact.google = true;
 
-               //                contacts.push(contact);
-               //            }
-               //        }
+                               contacts.push(contact);
+                           }
+                       }
 
-               //        defer.resolve(contacts);
+                       defer.resolve(contacts);
 
-               //    }, function () {
-               //        defer.resolve([]);
-               //    });
+                   }, function () {
+                       defer.resolve([]);
+                   });
 
-               //    return defer.promise;
+                   return defer.promise;
 
-               //}
+               }
 
            }
 
        return api;
    }
-   ]);
 })();
