@@ -1387,6 +1387,18 @@
     <Content Include="Content\Site\item.rtl.min.css">
       <DependentUpon>item.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\leaderboard.css">
+      <DependentUpon>leaderboard.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\leaderboard.min.css">
+      <DependentUpon>leaderboard.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\leaderboard.rtl.css">
+      <DependentUpon>leaderboard.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\leaderboard.rtl.min.css">
+      <DependentUpon>leaderboard.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\library.css">
       <DependentUpon>library.less</DependentUpon>
     </Content>
@@ -2081,6 +2093,7 @@
     <Content Include="Content\Site\quiz.less" />
     <Content Include="Content\Site\morphsearch.less" />
     <Content Include="Content\Site\Share.less" />
+    <Content Include="Content\Site\leaderboard.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

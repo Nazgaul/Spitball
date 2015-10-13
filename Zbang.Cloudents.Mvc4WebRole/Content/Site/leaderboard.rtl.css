@@ -1,0 +1,48 @@
+﻿.leaderboad h4 {
+  font-size: 21px;
+  font-weight: 700;
+  margin-top: 0;
+  color: #5f6871;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.leaderboad .userLetter {
+  font-size: 17px;
+}
+.leaderboad .user-name {
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  width: 7vw;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.leaderboad .img-circle {
+  margin-left: 10px;
+}
+.leaderboad .r-table {
+  display: table;
+  text-align: center;
+  font-size: 12px;
+  width: 100%;
+}
+.leaderboad .r-table-row {
+  display: table-row;
+  height: 40px;
+  line-height: 40px;
+}
+.leaderboad .r-table-cell {
+  display: table-cell;
+  text-align: right;
+}
+.leaderboad .r-table-cell:nth-child(even) {
+  width: 10%;
+  color: orange;
+  text-align: center;
+}
+.leaderboad .r-table-cell.last {
+  text-align: left;
+  width: 25%;
+}

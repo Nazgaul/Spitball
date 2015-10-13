@@ -1,0 +1,60 @@
+﻿@import "variables.less";
+.leaderboad {
+    h4 {
+        font-size: 21px;
+        font-weight: 700;
+        margin-top: 0;
+        color: @color1;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .userLetter {
+        font-size: 17px;
+    }
+
+    .user-name {
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        width: 7vw;
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+
+    .img-circle {
+        margin-right: 10px;
+    }
+
+    .r-table {
+        display: table;
+        text-align: center;
+        font-size: 12px;
+        width: 100%;
+    }
+
+    .r-table-row {
+        display: table-row;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .r-table-cell {
+        display: table-cell;
+        //width: 45%;
+        text-align: left;
+
+        &:nth-child(even) {
+            width: 10%;
+            color: orange;
+            text-align: center;
+        }
+
+        &.last {
+            text-align: right;
+            width: 25%;
+        }
+    }
+}
