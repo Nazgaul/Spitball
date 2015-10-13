@@ -1,9 +1,9 @@
 ﻿(function() {
     angular.module('app').controller('inviteController', invite);
 
-    invite.$inject = ['googleService', 'shareService'];
+    invite.$inject = ['googleService', 'shareService','$scope'];
 
-    function invite(googleService, shareService) {
+    function invite(googleService, shareService, $scope) {
         var self = this;
         self.querySearch = querySearch;
         self.allContacts = [];// loadContacts();
@@ -14,15 +14,31 @@
         self.importGoogleContract = importGoogleContacts;
         self.contactSelected = contactSelected;
         self.sendInvite = sendInvite;
-        self.chooseEmail = function() {
-            console.log('here');
+
+        self.closeInvite = function () {
+            self.contacts = [];
+            $scope.$emit('close_invite');
         }
+       
+
+        $scope.$on("open_invite", function () {
+            googleService.initGApi().then(function () {
+                if (googleService.isAuthenticated()) {
+                    getGoogleContacts();
+                    return;
+                }
+            });
+        });
         /**
          * Search for contacts.
          */
         function querySearch(query) {
+            console.log(query);
             var results = query ?
                 self.allContacts.filter(createFilterFor(query)) : [];
+            if (!results.length) {
+                results.push({ name: query, email: query, image: '/images/user.svg' });
+            }
             return results;
         }
         /**
@@ -46,7 +62,7 @@
                     getGoogleContacts();
                     return;
                 }
-                googleService.checkAuth(true).then(function () {
+                googleService.checkAuth(false).then(function () {
                     getGoogleContacts();
                 });
             });
@@ -68,9 +84,11 @@
         }
 
         function sendInvite() {
-            shareService.inviteToSystem(self.contacts.map(function(c) {
+            shareService.inviteToSystem(self.contacts.map(function (c) {
                 return c.email;
-            }));
+            })).then(function () {
+                self.closeInvite();
+            });
         }
         
     }

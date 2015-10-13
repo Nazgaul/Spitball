@@ -128,3 +128,9 @@
   height: 250px;
   overflow: auto;
 }
+.md-contact-suggestion img {
+  vertical-align: baseline;
+}
+.md-contact-chips .md-chips .md-chip .md-contact-avatar img {
+  vertical-align: baseline;
+}
