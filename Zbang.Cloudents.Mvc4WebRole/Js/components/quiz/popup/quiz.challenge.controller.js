@@ -1,13 +1,13 @@
 ﻿(function () {
     angular.module('app.quiz.challenge',[]).controller('QuizChallengeController', popup);
 
-    popup.$inject = ['$modalInstance', 'topUsers'];
+    popup.$inject = ['$modalInstance', 'solvers'];
 
-    function popup($modalInstance, topUsers) {
+    function popup($modalInstance, solvers) {
         var c = this;
 
-        c.topUsers = topUsers;
-        c.classmatesCount = 10;
+        c.topUsers = solvers.users;
+        c.classmatesCount = solvers.solversCount;
         //qp.score = sheet.score;
         //qp.correct = sheet.correct;
         //qp.wrong = sheet.wrong;

@@ -199,6 +199,9 @@
 
 
         .comments {
+            padding:0;
+            -webkit-padding-start: 0;
+
             .comment {
                 position: relative;
 
@@ -251,14 +254,14 @@
 
                 .message {
                     padding: 5px 0 5px 10px;
+                    margin-top:5px;
                 }
 
                 .btn-cont {
                     margin-top: -31px;
                     position: relative;
                     float: right;
-                    width: 44px;
-                    z-index: 10;
+                    width: 44px;                    
 
                     .arrow {
                         position: absolute;
@@ -282,7 +285,12 @@
                 border-radius: 10px;
                 padding: 5px 10px;
                 font-size: 14px;
+
+                &:disabled {
+                    background: #a5a5a5;
+                }
             }
+
         }
     }
 }
@@ -504,6 +512,10 @@
                 right: -12px;
                 width: 36px;
                 height: 36px;
+            }
+
+            .userLetter + svg.star {                
+                top:-12px;                
             }
         }
 

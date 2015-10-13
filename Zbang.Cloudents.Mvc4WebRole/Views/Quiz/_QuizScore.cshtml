@@ -40,7 +40,7 @@
 
         <ul class="top-users">
             <li class="top-user" ng-repeat="user in s.topUsers">
-                <img ng-src="{{user.image}}" />
+                <user-image name="user.name" image="user.image" width="64" height="64"></user-image>
                 @Html.Svg(svgUrl, "star", new { @class = "star" })
                 
             </li>
