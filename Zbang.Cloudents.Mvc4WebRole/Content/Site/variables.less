@@ -1,7 +1,7 @@
 ﻿@color1: #5f6871;
 @loginColor : #3293f6;
 @registerColor: #fff;
-@siteBg: #212427;
+//@siteBg: #212427;
 
 @textColor:#383838;
 
@@ -15,6 +15,26 @@
 @color9:#cccccc;
 @color10:#8c99a6;
 @color11:#db4437;
+
+
+//new variables
+@backgroundColor:#212427;
+@buttonColorBlue :#4190b9;
+
+.buttonBlue() {
+    background:@buttonColorBlue;
+
+    &:hover {
+        background:#26566e;
+        color:inherit;
+    }
+    &:focus {
+        color:inherit;
+    }
+}
+
+//dashboard
+@dashboardCubeHeight: 179px;
 
 
 

@@ -1,11 +1,11 @@
-﻿<div class="portlet box invite" ng-controller="inviteController as i">
+﻿<div class="portlet invite" ng-controller="inviteController as i">
     <div class="portlet-title">
         <div class="caption">
             Invite your friends to spitball
         </div>
         <button type="button" class="close" ng-click="d.inviteToSpitball = false">X</button>
     </div>
-    <div class="body">
+    <div class="body clearfix">
         <div layout="column" ng-cloak class="chipsdemoContactChips">
             <md-content class="md-padding autocomplete" layout="column">
                 <md-contact-chips ng-model="i.contacts"
@@ -13,23 +13,14 @@
                                   md-contact-name="name"
                                   md-contact-image="image"
                                   md-contact-email="email"
-                                  md-require-match="true"
+                                  md-on-append="i.chooseEmail($chip)"
                                   md-highlight-flags="i"
                                   filter-selected="i.filterSelected"
                                   placeholder="add email to invite friends">
                 </md-contact-chips>
-                <button class="btn gmail" ng-click="i.importGoogleContract()" ng-if="!(i.allContacts.length)" type="button">
-                    <svg viewBox="-468 273.5 21.5 15.6">
-                        <g>
-                            <path d="M-468,273.5V289h21.5v-15.6H-468z M-452.3,274l-5,5l-5.5-5H-452.3z M-465.1,276.5l6,5.2l-6,4.6
-		C-465.1,286.3-465.1,276.5-465.1,276.5z M-449.4,288.5h-15.7v-1.4l6.4-4.9l1.4,1.4l1.5-1.4l6.3,4.9V288.5z M-449.4,286.3l-5.8-4.7
-		l5.8-5.8V286.3z" />
-                        </g>
-                    </svg>
-                    import contact from gmail
-                </button>
+
                 <md-list class="fixedRows" ng-if="i.allContacts.length">
-                    <md-list-item class="md-2-line contact-item" ng-repeat="(index, contact) in i.allContacts"
+                    <md-list-item ng-click="i.contactSelected(contact)" class="md-2-line contact-item" ng-repeat="(index, contact) in i.allContacts"
                                   ng-if="i.contacts.indexOf(contact) < 0">
                         <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}" />
                         <div class="md-list-item-text compact">
@@ -45,8 +36,20 @@
                         </div>
                     </md-list-item>
                 </md-list>
+                <button class="btn gmail" ng-click="i.importGoogleContract()" ng-if="!(i.allContacts.length)" type="button">
+                    <svg viewBox="-468 273.5 21.5 15.6">
+                        <g>
+                            <path d="M-468,273.5V289h21.5v-15.6H-468z M-452.3,274l-5,5l-5.5-5H-452.3z M-465.1,276.5l6,5.2l-6,4.6
+		C-465.1,286.3-465.1,276.5-465.1,276.5z M-449.4,288.5h-15.7v-1.4l6.4-4.9l1.4,1.4l1.5-1.4l6.3,4.9V288.5z M-449.4,286.3l-5.8-4.7
+		l5.8-5.8V286.3z" />
+                        </g>
+                    </svg>
+                    import contact from gmail
+                </button>
+
             </md-content>
         </div>
+        <button type="button" class="btn pull-right send" ng-click="i.sendInvite()" ng-disabled="!i.contacts.length">Send</button>
     </div>
 </div>
 

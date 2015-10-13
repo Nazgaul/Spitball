@@ -146,9 +146,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var numberOfSolvers = await ZboxReadService.GetNumberOfSolvers(quizId);
-                return JsonOk(numberOfSolvers);
+                //var numberOfSolvers = await ZboxReadService.GetNumberOfSolvers(quizId);
+                //return JsonOk(numberOfSolvers);
                 //return PartialView("_QuizDialog", numberOfSolvers);
+                var query = new GetQuizBestSolvers(quizId, 4);
+                var retVal = await ZboxReadService.GetQuizSolversAsync(query);
+                return JsonOk(new
+                {
+                    retVal.SolversCount,
+                    Users = retVal.Users.Select(s => new
+                    {
+                        s.Image
+                    })
+                });
             }
             catch (Exception ex)
             {

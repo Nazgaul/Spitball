@@ -6,14 +6,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Share
     {
         //[Required(ErrorMessageResourceType = typeof(InvitationResources), ErrorMessageResourceName = "FieldRequired")]
         //[Display(ResourceType = typeof(InvitationResources), Name = "To")]
-        public string[] Recepients { get; set; }
+        public string[] Recipients { get; set; }
 
 
         public override string ToString()
         {
             var sb = new StringBuilder();
-            if (Recepients == null) return sb.ToString();
-            foreach (var item in Recepients)
+            if (Recipients == null) return sb.ToString();
+            foreach (var item in Recipients)
             {
                 sb.AppendLine(" recipient : " + item);
             }

@@ -1,13 +1,13 @@
 ﻿@import "variables.less";
 
-@cubeHeight: 179px;
+
 
 .dashboard {
     .unibox {
-        height: @cubeHeight;
+        height: @dashboardCubeHeight;
     }
     .leaderboardbox {
-        height: @cubeHeight;
+        height: @dashboardCubeHeight;
         padding: 10px;
     }
     .leaderBoardTitle {
@@ -26,9 +26,9 @@
         font-size: 20px;
     }
 
-    .leaderbordPosition {
+    /*.leaderbordPosition {
         color: #ff7a04 !important;
-    }
+    }*/
 
     .updates {
         position: absolute;
@@ -92,12 +92,7 @@
         border-radius: 5px;
         margin-top: 23px;
         text-decoration: none;
-        background-color: #4190b9;
-
-        &:hover {
-            background-color: #26566e;
-            color: #f5f5f5;
-        }
+        .buttonBlue();
     }
 }
 //create class

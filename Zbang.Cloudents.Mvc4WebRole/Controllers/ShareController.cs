@@ -42,7 +42,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 var userId = User.GetUserId();
 
-                var inviteCommand = new InviteToSystemCommand(userId, model.Recepients);
+                var inviteCommand = new InviteToSystemCommand(userId, model.Recipients);
                 await ZboxWriteService.InviteSystemAsync(inviteCommand);
 
                 return JsonOk();

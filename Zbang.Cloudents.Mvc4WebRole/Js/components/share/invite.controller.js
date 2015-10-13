@@ -1,9 +1,9 @@
 ﻿(function() {
     angular.module('app').controller('inviteController', invite);
 
-    invite.$inject = ['googleService'];
+    invite.$inject = ['googleService', 'shareService'];
 
-    function invite(googleService) {
+    function invite(googleService, shareService) {
         var self = this;
         self.querySearch = querySearch;
         self.allContacts = [];// loadContacts();
@@ -12,6 +12,11 @@
 
 
         self.importGoogleContract = importGoogleContacts;
+        self.contactSelected = contactSelected;
+        self.sendInvite = sendInvite;
+        self.chooseEmail = function() {
+            console.log('here');
+        }
         /**
          * Search for contacts.
          */
@@ -23,6 +28,10 @@
         /**
          * Create filter function for a query string
          */
+
+        function contactSelected(contact) {
+            self.contacts.push(contact);
+        }
         function createFilterFor(query) {
             var lowercaseQuery = angular.lowercase(query);
             return function filterFn(contact) {
@@ -30,7 +39,7 @@
             };
         }
 
-        importGoogleContacts();
+        //importGoogleContacts();
         function importGoogleContacts() {
             googleService.initGApi().then(function () {
                 if (googleService.isAuthenticated()) {
@@ -53,43 +62,16 @@
                         _lowername : c.name.toLowerCase()
                     }
                 });
-                //$scope.friends = $scope.friends.concat(contacts);
-                //$scope.sources.google = true;
-                //$scope.$broadcast('itemChange');
+              
 
             });
         }
-        function loadContacts() {
-            var contacts = [
-              'Marina Augustine',
-              'Oddr Sarno',
-              'Nick Giannopoulos',
-              'Narayana Garner',
-              'Anita Gros',
-              'Megan Smith',
-              'Tsvetko Metzger',
-              'Hector Simek',
-              'Some-guy withalongalastaname',
-              'Marina Augustine',
-              'Oddr Sarno',
-              'Nick Giannopoulos',
-              'Narayana Garner',
-              'Anita Gros',
-              'Megan Smith',
-              'Tsvetko Metzger',
-              'Hector Simek',
-              'Some-guy withalongalastaname'
-            ];
-            return contacts.map(function (c, index) {
-                var cParts = c.split(' ');
-                var contact = {
-                    name: c,
-                    email: cParts[0][0].toLowerCase() + '.' + cParts[1].toLowerCase() + '@example.com',
-                    image: 'http://lorempixel.com/50/50/people?' + index
-                };
-                contact._lowername = contact.name.toLowerCase();
-                return contact;
-            });
+
+        function sendInvite() {
+            shareService.inviteToSystem(self.contacts.map(function(c) {
+                return c.email;
+            }));
         }
+        
     }
 })()

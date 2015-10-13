@@ -1,4 +1,9 @@
-﻿.dashboard .unibox {
+﻿.dashboard {
+  /*.leaderbordPosition {
+        color: #ff7a04 !important;
+    }*/
+}
+.dashboard .unibox {
   height: 179px;
 }
 .dashboard .leaderboardbox {
@@ -17,9 +22,6 @@
 }
 .dashboard .leaderBoardBody {
   font-size: 20px;
-}
-.dashboard .leaderbordPosition {
-  color: #ff7a04 !important;
 }
 .dashboard .updates {
   position: absolute;
@@ -76,11 +78,14 @@
   border-radius: 5px;
   margin-top: 23px;
   text-decoration: none;
-  background-color: #4190b9;
+  background: #4190b9;
 }
 .dashboard .universityLink:hover {
-  background-color: #26566e;
-  color: #f5f5f5;
+  background: #26566e;
+  color: inherit;
+}
+.dashboard .universityLink:focus {
+  color: inherit;
 }
 .create .progress-wrap {
   background: #fff;

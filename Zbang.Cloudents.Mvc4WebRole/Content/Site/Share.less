@@ -1,16 +1,43 @@
 ﻿@import "variables.less";
 
+//invite btn in dashboard
+.portlet.light.invite {
+    text-align: center;
+    font-size: 18px;
+    height: @dashboardCubeHeight;
+
+    svg {
+        fill: @color2;
+        width: 75px;
+        height: 75px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .buttonBlue();
+}
+
 .invite {
     background: @color4;
+    padding: 0 10px 10px;
 
     .body {
-        margin: 0 15px;
-        padding-bottom: 10px;
+        //margin: 0 15px;
+        background: @backgroundColor;
     }
 
     md-content {
-        background: #212427;
-        position:relative;
+        background: @backgroundColor;
+        position: relative;
+    }
+
+    md-list md-list-item button.md-button:not([disabled]):hover {
+        background-color: transparent;
+    }
+
+    .send {
+        .buttonBlue();
+        margin: 0 10px 10px 0;
     }
     /*.closeForm{
     float: right;

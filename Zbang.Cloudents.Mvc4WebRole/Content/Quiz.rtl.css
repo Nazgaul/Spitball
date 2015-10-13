@@ -448,7 +448,7 @@ body.quiz .modal-backdrop.in {
   top: 15px;
 }
 .quizComments {
-  font-size: 13px
+  font-size: 13px;
   /*display: none;*/
 }
 .quizComments li {
@@ -547,7 +547,7 @@ body.quiz .modal-backdrop.in {
 .quizAList li label:before {
   position: absolute;
   right: -19px;
-  top: 5px
+  top: 5px;
   /* diff rtl - need this! */
 }
 /*#endregion */

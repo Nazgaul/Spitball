@@ -1350,7 +1350,7 @@ Google Maps
 ***/
 .gmaps {
   height: 300px;
-  width: 100%
+  width: 100%;
   /* important!  bootstrap sets max-width on img to 100% which conflicts with google map canvas*/
 }
 .gmaps img {

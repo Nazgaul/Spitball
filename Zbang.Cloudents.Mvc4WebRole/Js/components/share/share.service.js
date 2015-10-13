@@ -11,5 +11,9 @@
 
             });
         }
+
+        self.inviteToSystem = function(recipients) {
+            return ajaxService.post('/share/invite', { recipients: recipients });
+        }
     }
 })()
