@@ -5,8 +5,8 @@
     function invite() {
         var self = this;
         self.querySearch = querySearch;
-        self.allContacts = loadContacts();
-        self.contacts = [self.allContacts[0]];
+        self.allContacts = [];// loadContacts();
+        self.contacts = [];
         self.filterSelected = true;
         /**
          * Search for contacts.

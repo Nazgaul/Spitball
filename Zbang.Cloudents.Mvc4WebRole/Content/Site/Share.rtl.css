@@ -1,16 +1,37 @@
-﻿.Share .closeForm {
-  float: left;
-  margin: 10px 0 0 10px;
-  color: #f5f5f5;
-  text-shadow: none;
-  opacity: 1;
-  font-weight: 400;
+﻿.invite {
+  background: #353a3f;
+  /*.closeForm{
+    float: right;
+    margin: 10px 10px 0 0;
+    //override
+    color: #f5f5f5;
+    text-shadow: none;
+    opacity: 1;
+    font-weight: 400;  
+
+    }*/
+}
+.invite .body {
+  margin: 0 15px;
+  padding-bottom: 10px;
+}
+.invite md-content {
+  background: #212427;
+}
+.invite .gmail {
+  background: #C2C2C2;
+}
+.invite .gmail svg {
+  width: 60px;
+  fill: #ED1921;
+  background-color: #fff;
+  vertical-align: middle;
 }
 .md-chips .md-chip-input-container {
   color: #f5f5f5;
 }
 .chipsdemoContactChips md-content.autocomplete {
-  min-height: 250px;
+  min-height: 300px;
 }
 .chipsdemoContactChips .md-item-text.compact {
   padding-top: 8px;

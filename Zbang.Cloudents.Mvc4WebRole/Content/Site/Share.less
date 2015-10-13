@@ -1,6 +1,17 @@
-﻿.Share{
-    
-    .closeForm{
+﻿@import "variables.less";
+
+.invite {
+    background: @color4;
+
+    .body {
+        margin: 0 15px;
+        padding-bottom: 10px;
+    }
+
+    md-content {
+        background: #212427;
+    }
+    /*.closeForm{
     float: right;
     margin: 10px 10px 0 0;
     //override
@@ -9,18 +20,25 @@
     opacity: 1;
     font-weight: 400;  
 
-    }
+    }*/
+    .gmail {
+        background: #C2C2C2;
 
+        svg {
+            width: 60px;
+            fill: #ED1921;
+            background-color: #fff;
+            vertical-align: middle;
+        }
+    }
 }
 
 .md-chips .md-chip-input-container {
-    color:#f5f5f5;
-
-
+    color: #f5f5f5;
 }
 
 .chipsdemoContactChips md-content.autocomplete {
-    min-height: 250px;
+    min-height: 300px;
 }
 
 .chipsdemoContactChips .md-item-text.compact {
