@@ -56,7 +56,7 @@
 
             </ul>
             <div class="check-answers" ng-if="!q.isSolved">
-                <button type="button" ng-click="q.checkAnswers()" ng-disabled="q.isSolved">Check answers</button>
+                <button type="button" ng-click="q.checkAnswers()" ng-disabled="q.answersCount == 0">Check answers</button>
             </div>
         </div>
     </div>

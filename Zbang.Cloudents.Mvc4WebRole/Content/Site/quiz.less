@@ -199,6 +199,9 @@
 
 
         .comments {
+            padding:0;
+            -webkit-padding-start: 0;
+
             .comment {
                 position: relative;
 
@@ -251,6 +254,7 @@
 
                 .message {
                     padding: 5px 0 5px 10px;
+                    margin-top:5px;
                 }
 
                 .btn-cont {
@@ -281,7 +285,12 @@
                 border-radius: 10px;
                 padding: 5px 10px;
                 font-size: 14px;
+
+                &:disabled {
+                    background: #a5a5a5;
+                }
             }
+
         }
     }
 }

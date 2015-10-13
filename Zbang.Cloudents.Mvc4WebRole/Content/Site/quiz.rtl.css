@@ -150,6 +150,10 @@
   width: 17px;
   height: 18px;
 }
+.quizPage .questions .comments {
+  padding: 0;
+  -webkit-padding-start: 0;
+}
 .quizPage .questions .comments .comment {
   position: relative;
 }
@@ -193,6 +197,7 @@
 }
 .quizPage .questions .comments .reply .message {
   padding: 5px 10px 5px 0;
+  margin-top: 5px;
 }
 .quizPage .questions .comments .reply .btn-cont {
   margin-top: -31px;
@@ -218,6 +223,9 @@
   border-radius: 10px;
   padding: 5px 10px;
   font-size: 14px;
+}
+.quizPage .questions .check-answers button:disabled {
+  background: #a5a5a5;
 }
 .challenge-modal .modal-content {
   background-color: #282828;

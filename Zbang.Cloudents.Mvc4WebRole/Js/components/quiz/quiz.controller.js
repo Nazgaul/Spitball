@@ -8,6 +8,7 @@
 
         q.timerControl = {};
         q.isSolved = false;
+        q.answersCount = 0;
 
         q.createId = getId;
         q.checkAnswers = checkAnswers;
@@ -129,6 +130,7 @@
 
         function reset() {
             q.isSolved = false;
+            q.answersCount = 0;
             q.sheet = null;
             angular.forEach(q.questions, function (q) {
 
@@ -232,6 +234,7 @@
             }
             question.selectedAnswer = answer;
             question.isCorrect = question.correctAnswer == answer.id;
+            q.answersCount++;
         }
 
         function sendData() {
