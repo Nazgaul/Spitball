@@ -32,11 +32,10 @@
                             <li class="in comment" ng-repeat="comment in question.comments" ng-if="question.comments">
                                 <img class="avatar" ng-src="{{::comment.userPicture}}" alt="{{::comment.userName}}" title="{{::comment.userName}}" />
                                 <div class="message">
-                                    <span class="arrow"></span>
                                     <a class="name">{{::comment.userName}}</a>
-                                    <span class="datetime">{{::comment.date}}</span>
+                                    <span class="datetime" display-time="{{::comment.date}}"></span>
                                     <span class="body">{{::comment.text}}</span>
-                                    <button type="button" class="remove" ng-if="comment.isDelete" ng-click="q.removeComment(comment)">@Html.Svg(svgUrl, "close")</button>
+                                    <button type="button" class="remove" ng-if="comment.isDelete" ng-click="q.removeComment(question,comment)">@Html.Svg(svgUrl, "close")</button>
                                 </div>
                             </li>
                             <li class="in reply">
@@ -45,7 +44,7 @@
                                     <input type="text" ng-model="question.newComment" placeholder="Write a comment " />
                                     <div class="btn-cont">
                                         <span class="arrow"></span>
-                                        <a href="" class="btn blue icn-only" ng-disabled="!question.newComment" ng-click="q.postComment(comment)">
+                                        <a href="" class="btn blue icn-only" ng-disabled="!question.newComment" ng-click="q.postComment(question)">
                                             <i class="fa fa-check icon-white"></i>
                                         </a>
                                     </div>

@@ -144,7 +144,7 @@
             }
 
             .answer-list {
-                margin-bottom:30px;
+                margin-bottom: 30px;
             }
         }
 
@@ -199,6 +199,35 @@
 
 
         .comments {
+            .comment {
+                position: relative;
+
+                &:before {
+                    content:'';
+                    position: absolute;
+                    top: 20px;
+                    left: 55px;
+                    border-top: 8px solid transparent;
+                    border-bottom: 8px solid transparent;
+                    border-right: 10px solid #292d31;
+                }
+            }
+
+
+            .remove {
+                position: absolute;
+                right: 15px;
+                top:8px;
+                fill: #f5f5f5;
+                width: 10px;
+                height: 10px;
+
+                svg {
+                    width:12px;
+                    height:12px;
+                }
+            }
+
             input {
                 display: block;
                 border: none;
@@ -206,16 +235,13 @@
                 width: 100%;
                 background-color: transparent;
                 outline: none;
-                padding-right:50px;
+                padding-right: 50px;
             }
 
             .message.message {
-                border:none;
+                border: none;
                 background: #292d31;
-            }
-
-            .arrow.arrow {
-                border-right-color: #292d31;
+                padding: 10px;
             }
 
             .reply {
@@ -224,7 +250,7 @@
                 }
 
                 .message {
-                    padding:5px 0 5px 10px;
+                    padding: 5px 0 5px 10px;
                 }
 
                 .btn-cont {
@@ -232,12 +258,13 @@
                     position: relative;
                     float: right;
                     width: 44px;
-                    z-index:10;
+                    z-index: 10;
+
                     .arrow {
                         position: absolute;
                         top: 12px;
                         right: 43px;
-                        left:auto;
+                        left: auto;
                         border-top: 8px solid transparent;
                         border-bottom: 8px solid transparent;
                         border-right: 8px solid #4d90fe;
@@ -292,8 +319,7 @@
         }
 
         .top-user {
-                margin: 0 8px;
-
+            margin: 0 8px;
             display: inline-block;
 
             img {

@@ -1,5 +1,18 @@
 ﻿(function (angular) {
+    if (!String.prototype.format) {
+        String.prototype.format = function () {
+            var args = arguments;
+            return this.replace(/{(\d+)}/g, function (match, number) {
+                return typeof args[number] != 'undefined'
+                  ? args[number]
+                  : match
+                ;
+            });
+        };
+    }
+
     angular.module('displayTime', []).
+
         factory('displayTimeService', ['$interval', '$rootScope',
             function ($interval, $rootScope) {
 
@@ -53,9 +66,8 @@
 
             };
         }
-        ]).filter('displayTimeFilter',
-        ['$filter',
-        function ($filter) {
+        ]).filter('displayTimeFilter',[
+        function () {
             return function (date) {
 
                 var date = new Date(date),
@@ -72,10 +84,11 @@
                     case 0:
                         var timeObj = calculateSecondsDifferece();
                         if (timeObj.hours >= 1) {
-                            return $filter('stringFormat')(jsResources.HoursAgo, [Math.round(timeObj.hours)]);
+                            return jsResources.HoursAgo.format(Math.round(timeObj.hours));
                         }
                         if (timeObj.minutes >= 1) {
-                            return $filter('stringFormat')(jsResources.MinAgo, [Math.round(timeObj.minutes)]);
+                            return jsResources.MinAgo.format(Math.round(timeObj.minutes));
+
                         }
 
                         return jsResources.JustNow;

@@ -150,6 +150,30 @@
   width: 17px;
   height: 18px;
 }
+.quizPage .questions .comments .comment {
+  position: relative;
+}
+.quizPage .questions .comments .comment:before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 55px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 10px solid #292d31;
+}
+.quizPage .questions .comments .remove {
+  position: absolute;
+  right: 15px;
+  top: 8px;
+  fill: #f5f5f5;
+  width: 10px;
+  height: 10px;
+}
+.quizPage .questions .comments .remove svg {
+  width: 12px;
+  height: 12px;
+}
 .quizPage .questions .comments input {
   display: block;
   border: none;
@@ -162,9 +186,7 @@
 .quizPage .questions .comments .message.message {
   border: none;
   background: #292d31;
-}
-.quizPage .questions .comments .arrow.arrow {
-  border-right-color: #292d31;
+  padding: 10px;
 }
 .quizPage .questions .comments .reply .btn {
   position: absolute;

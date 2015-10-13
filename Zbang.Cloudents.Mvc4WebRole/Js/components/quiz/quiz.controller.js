@@ -21,7 +21,7 @@
         q.postComment = postComment;
         q.removeComment = removeComment;
 
-        accountService.getAccountDetails().then(function (data) {
+        accountService.getDetails().then(function (data) {
             q.user = {
                 id: data.id,
                 name: data.name,
@@ -233,13 +233,10 @@
         function sendData() {
             var data = {
                 boxId: $stateParams.boxId,
-                quizId: $stateParams.quizId
+                quizId: $stateParams.quizId,
+                mumberOfMilliseconds: q.timerControl.getTime()
             };
-
-            data.startTime = new Date();
-            var endTime = new Date(data.startTime);
-            endTime.setSeconds(data.startTime.getSeconds() + 100);
-            data.endTime = endTime;
+            
             data.answers = [];
             var question;
             for (var i = 0; i < q.questions.length; i++) {
@@ -282,7 +279,7 @@
                         sheet.score = Math.round(sheet.score);
                         return sheet;
 
-                    }
+                   }
                 }
             });
 
@@ -320,9 +317,22 @@
 
             var comment = {
                 questionId: question.id,
+                text: question.newComment,
+                date: new Date().toISOString(),
+                userId: q.user.id,
+                userName: q.user.name,
+                userPicture: q.user.image,
+                isDelete: true
+            };
 
-            }
+            question.newComment = '';
             
+            quizService.createDiscussion({ questionId: comment.questionId, text: comment.text }).then(function (response) {
+                if (!question.comments) {
+                    question.comments = [];
+                }
+                question.comments.push(comment);
+            });;
         }
 
         function removeComment(question,comment) {
