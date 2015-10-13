@@ -5,7 +5,7 @@
 
 .quizPage {
     color: @textColor;
-
+    
     header {
         z-index: 1;
         padding-top: 0;
@@ -32,15 +32,19 @@
                 }
             }
         }
-    }
 
+    }
+    .row {
+        margin-left:20px;
+        margin-right:20px;
+    }
     .questions {
         max-width: 800px;
         padding: 15px 20px 15px 20px;
         background: #fff;
         border-radius: 5px;
         box-shadow: 0 0 10px 2px #d5d5d5;
-        margin: 20px auto 50px auto;
+        margin:20px auto 50px auto;
 
         .question-list {
             list-style-type: decimal;
@@ -379,9 +383,15 @@
     }
 }
 
-.score-modal {
-    .modal-content {
+.score-modal {   
         background-color: #282828;
+        color:@color2;
+        margin-top:20px;
+        padding:15px 0 5px 0;
+        margin-left:auto;
+        margin-right:auto;
+        border-radius:10px;
+        max-width:737px;
 
         .time {
             span {
@@ -425,7 +435,7 @@
             text-align: center;
             padding-bottom: 30px;
             border-bottom: 2px solid #757575;
-            margin: 20px 50px;
+            margin: 20px 0;
 
             > .correct, > .wrong, .seperator {
                 display: inline-block;
@@ -434,7 +444,7 @@
 
             .seperator {
                 width: 2px;
-                height: 140px;
+                height: 136px;
                 background-color: #757575;
                 margin: 0 20px;
                 vertical-align: top;
@@ -444,7 +454,7 @@
                 display: inline-block;
 
                 .number {
-                    font-size: 100px;
+                    font-size: 10vh;
                     line-height: 60px;
                     font-weight: bold;
                     margin-bottom: 10px;
@@ -460,8 +470,8 @@
                 vertical-align: top;
                 margin-top: 10px;
                 display: inline-block;
-                width: 70px;
-                height: 70px;
+                width: 9vh;
+                height: 9vh;
 
                 &.correct {
                     fill: #0F9D58;
@@ -542,5 +552,63 @@
                 }
             }
         }
-    }
+
+    
 }
+@media (min-width: 767px) and (max-width: 1199px) { 
+
+        .score-modal {
+            position:relative;
+
+            .time {
+                span {
+                    font-size:24px;
+                }
+                .clock {
+                    width:36px;
+                    margin-left:25px;
+                }
+                svg {
+                    
+                }
+            }
+            .button-wrapper {
+                margin:0;
+                .retake {
+                    position:absolute;
+                    right:15px;
+                    top:25px;
+
+                }
+            }
+
+            .score,.results {                
+                display:inline-block;
+            }
+
+            .score {
+                margin: 0 30px 20px 30px;                
+                width:33%;
+
+                .number {
+                    font-size:100px;
+                }
+            }
+
+            .results {
+                right: 25px;
+                bottom:10px;                
+                position: absolute;
+                padding-bottom:0;
+                border:none;                                
+                .seperator {
+                    margin:0 13px;
+                }
+                .section .number {
+                    font-size:80px;
+                    width:90px;
+                }
+
+            }
+        }
+    }

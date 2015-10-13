@@ -18,7 +18,7 @@
         q.isCorrectAnswer = isCorrectAnswer;
         q.isSelectedAnswer = isSelectedAnswer;
         q.buttonText = getButtonText;
-
+        q.retakeQuiz = retakeQuiz;        
         q.postComment = postComment;
         q.removeComment = removeComment;
 
@@ -47,21 +47,14 @@
                 getDiscussion();
                 q.isSolved = true;
                 q.timerControl.setTime(q.sheet.timeTaken);
-                var score = q.sheet.score,
-                      correct = Math.round(q.sheet.score / 100 * q.questions.length),
-                      wrong = q.questions.length - correct,
-                      timeTaken = q.sheet.timeTaken;
+                
+                q.sheet.correct = Math.round(q.sheet.score / 100 * q.questions.length);
+                q.sheet.wrong = q.questions.length - q.sheet.correct;
 
-                if (timeTaken.indexOf('.') > -1) { //00:00:00.12345
-                    timeTaken = timeTaken.split('.')[0];
+                if (q.sheet.timeTaken.indexOf('.') > -1) { //00:00:00.12345
+                    q.sheet.timeTaken = q.sheet.timeTaken.split('.')[0];
                 }
 
-                openScorePopup({
-                    score: score,
-                    correct: correct,
-                    wrong: wrong,
-                    timeTaken: timeTaken
-                });
                 return;
             }
 
@@ -131,7 +124,7 @@
         function reset() {
             q.isSolved = false;
             q.answersCount = 0;
-            q.sheet = null;
+            q.sheet = {};
             angular.forEach(q.questions, function (q) {
 
                 q.isCorrect = undefined;
@@ -183,6 +176,7 @@
             q.timerControl.pause();
             sendData();
             getDiscussion();
+            $('.quizPage').animate({ scrollTop: 0 }, 1000);
         }
 
         function retakeQuiz() {
@@ -261,41 +255,11 @@
                     }
                 });
                 wrong = q.questions.length - correct;
-                openScorePopup({
-                    score: correct / q.questions.length * 100,
-                    correct: correct,
-                    wrong: wrong,
-                    timeTaken: timeTaken
-                });
+                q.sheet.score = Math.round(correct / q.questions.length * 100);
+                q.sheet.correct = correct;
+                q.sheet.wrong = wrong;
+                q.sheet.timeTaken = timeTaken;                
             });
-        }
-
-        function openScorePopup(sheet) {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                templateUrl: 'quizScore.html',
-                controller: 'QuizScoreController',
-                controllerAs: 's',
-                backdrop: 'static',
-                windowClass: 'score-modal',
-                resolve: {
-                    topUsers: function () {
-                        return q.topUsers;
-                    },
-                    sheet: function () {
-                        sheet.score = Math.round(sheet.score);
-                        return sheet;
-
-                    }
-                }
-            });
-
-            modalInstance.result.then(function () {
-                retakeQuiz();
-            }, function () {
-                seeAnswers();
-            });
-
         }
 
         function getDiscussion() {
