@@ -5,7 +5,7 @@
   right: 0;
   left: 0;
   background: #F4F4F4;
-  z-index: 10000;
+  z-index: 1000;
   overflow-y: auto;
 }
 .itemPage header {
@@ -18,7 +18,9 @@
   left: 0;
 }
 .itemPage header a {
-  margin: 0 15px;
+  margin: 22.5px 15px 0 15px;
+  height: 17px;
+  width: 17px;
 }
 .itemPage header svg {
   width: 17px;

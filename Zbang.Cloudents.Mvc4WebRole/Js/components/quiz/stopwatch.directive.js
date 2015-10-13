@@ -6,19 +6,23 @@
     stopwatch.$inject = ['$interval'];
 
     function stopwatch($interval) {
+        var ctrl = controller;
+
+        ctrl.$inject = ['$scope'];
+
         return {
             restrict: 'AE',
             scope: {
                 control: '='
             },
             link: link,
-            controller: controller,
+            controller: ctrl,
             controllerAs: 'sw',
             replace: true,
-            template: '<div><span>{{sw.getTime() | stopwatch}}</span><button type="button" ng-click="sw.toggle()">Start</button></div>'
+            template: '<div><span>{{sw.getTime() | stopwatch}}</span>'
         };
 
-        controller.$inject = ['$scope'];
+        
 
         function controller($scope) {
             var sw = this;
@@ -27,17 +31,21 @@
 
             var totalElapsedMs = 0;
             var elapsedMs = 0;
-            //var time;
             var startTime;
             var timerPromise;
+   
 
-
-            sw.isRunning = false;
-            sw.toggle = toggle;
+            sw.isRunning = false;            
             sw.control.getTime = sw.getTime = getTime;
-
+            sw.control.start = start;
+            sw.control.pause = pause;
+            sw.control.reset = reset;
+            sw.control.toggle = toggle;
+            sw.control.setTime = setTime;
+            
             function pause() {
                 if (timerPromise) {
+                    sw.control.isRunning = false;
                     $interval.cancel(timerPromise);
                     timerPromise = undefined;
                     totalElapsedMs += elapsedMs;
@@ -48,14 +56,28 @@
             function start() {
                 if (!timerPromise) {
                     startTime = new Date();
+                    sw.control.isRunning = true;
                     timerPromise = $interval(function () {
                         var now = new Date();                        
                         elapsedMs = now.getTime() - startTime.getTime();
-                        sw.control.currentTime = elapsedMs;
-                    }, 900);
+                        sw.control.currentTime = getTime();
+                    }, 1000);
                 }
             }
             
+            function setTime(time) {
+                var arr = time.split(':'),
+                    millis = 0;
+
+                millis = parseInt(arr[2], 10) * 1000;
+                millis += parseInt(arr[1], 10) * 60000;
+                millis += parseInt(arr[0], 10) * 360000;
+
+
+                totalElapsedMs = millis;
+
+            }
+
             function getTime() {                
                 return totalElapsedMs + elapsedMs;
             }
@@ -63,6 +85,11 @@
             function toggle() {             
                 sw.control.isRunning = !sw.control.isRunning;
                 sw.control.isRunning ? start() : pause();
+            }
+
+            function reset() {
+                totalElapsedMs = 0;
+                elapsedMs = 0;
             }
 
         }

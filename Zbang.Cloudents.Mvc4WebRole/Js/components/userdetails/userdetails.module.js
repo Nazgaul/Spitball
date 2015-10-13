@@ -47,7 +47,7 @@
 
 
 (function () {
-    angular.module('app.quiz', ['app.ajaxservice','app.quiz.stopwatch']);
+    angular.module('app.quiz', ['app.user','app.quiz.score', 'app.quiz.challenge', 'app.ajaxservice', 'app.quiz.stopwatch', 'ui.bootstrap.modal']);
 })();
 
 
