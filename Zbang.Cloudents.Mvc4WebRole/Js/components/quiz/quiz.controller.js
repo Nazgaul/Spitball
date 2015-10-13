@@ -51,6 +51,10 @@
                       wrong = q.questions.length - correct,
                       timeTaken = q.sheet.timeTaken;
 
+                if (timeTaken.indexOf('.') > -1) { //00:00:00.12345
+                    timeTaken = timeTaken.split('.')[0];
+                }
+
                 openScorePopup({
                     score: score,
                     correct: correct,
@@ -234,7 +238,7 @@
             var data = {
                 boxId: $stateParams.boxId,
                 quizId: $stateParams.quizId,
-                mumberOfMilliseconds: q.timerControl.getTime()
+                numberOfMilliseconds: q.timerControl.getTime()
             };
             
             data.answers = [];
