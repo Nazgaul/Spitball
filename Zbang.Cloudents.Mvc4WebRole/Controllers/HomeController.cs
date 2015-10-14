@@ -73,7 +73,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-       
+
 
         public ActionResult TermsOfService()
         {
@@ -122,7 +122,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         }
-        public  ActionResult Help()
+        public ActionResult Help()
         {
             return RedirectToRoutePermanent("Help");
         }
@@ -252,7 +252,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 root.Add(
                     new XElement(xmlns + "sitemap",
-                        new XElement(xmlns + "loc", string.Format("https://www.cloudents.com/sitemap-{0}.xml", i))
+                        new XElement(xmlns + "loc", string.Format("https://www.spitball.co/sitemap-{0}.xml", i))
                            )
                         );
 
@@ -326,6 +326,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     new SitemapNode("/account/ru-ru/", requestContext)
                     {
                         Priority = 1.0,
+                        Frequency = SitemapFrequency.Daily
+                    });
+                nodes.Add(
+                    new SitemapNode(requestContext, "Blog", null)
+                    {
+                        Priority = 0.95,
                         Frequency = SitemapFrequency.Daily
                     });
                 nodes.Add(

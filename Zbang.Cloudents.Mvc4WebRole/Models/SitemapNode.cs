@@ -21,6 +21,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
             LastModified = null;
         }
 
+        public SitemapNode(RequestContext request, string routeName, object routeValues)
+        {
+            var x = RouteTable.Routes.GetVirtualPathForArea(request, routeName, new RouteValueDictionary(routeValues));
+            if (x != null)
+            {
+                Url = GetAbsoluteUrl(request, x.VirtualPath);    
+            }
+            Priority = null;
+            Frequency = null;
+            LastModified = null;
+        }
+
         public SitemapNode(RequestContext request, object routeValues)
         {
             Url = GetUrl(request, new RouteValueDictionary(routeValues));
@@ -32,6 +44,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         private string GetUrl(RequestContext request, RouteValueDictionary values)
         {
             var routes = RouteTable.Routes;
+
             var data = routes.GetVirtualPathForArea(request, values);
 
             if (data == null)

@@ -51,6 +51,7 @@
                                         <li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ar-AE" })">@Languages.ArabicName</a> </li>*@
                                 </ul>
                             </li>
+                            <li class="menu-item"> <a href="@Url.RouteUrl("Blog")">Blog</a> </li>
                             <li class="menu-item nav-highlight-ghost"> <a href="#buy">@HomePageResources.A7</a> </li>
                         </ul>
                     </div>
@@ -78,8 +79,8 @@
                                  data-os-animation="fadeIn" data-os-animation-delay="0.1s">
                                 <p class="bigger text-light" style="white-space:pre-wrap; text-shadow:2px 2px 12px #000;">@HomePageResources.A4</p>
                             </div>
-                            <button type="button" class="facebook">@Html.Svg("/images/signin/icons.svg", "facebook") @LogOnResources.ExternalProvider</button>
-                            <button type="button" class="google">@Html.Svg("/images/signin/icons.svg", "google") @LogOnResources.ExternalProvider</button>
+                            <button type="button" class="facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg("/images/signin/icons.svg", "facebook") @LogOnResources.ExternalProvider</button>
+                            <button type="button" class="google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg("/images/signin/icons.svg", "google") @LogOnResources.ExternalProvider</button>
                             <br />
                             <a href="@Url.Action("SignUp", "Account")" class="btn btn-primary btn-lg element-bottom-20 element-top-20 text-center bold os-animation"
                                target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
@@ -414,7 +415,8 @@
                             <a href="@Url.Action("jobs","home")">@SharedResources.Jobs</a>&nbsp;|
                             <a href="@Url.Action("Help", "Home")">@SharedResources.Help</a>&nbsp;|
                             <a href="@Url.Action("Privacy", "Home")">@FooterResources.PrivacyPolicy</a>&nbsp;|
-                            <a href="@Url.Action("TermsOfService", "Home")">@FooterResources.TermsOfService</a>
+                            <a href="@Url.Action("TermsOfService", "Home")">@FooterResources.TermsOfService</a>&nbsp;|
+                            <a href="@Url.RouteUrl("Blog")">Blog</a> 
                             <div class="divider-wrapper">
                                 <div class="visible-xs element-height-10"></div>
                                 <div class="visible-sm element-height-10"></div>
