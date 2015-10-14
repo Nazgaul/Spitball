@@ -135,14 +135,8 @@
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
-  <data name="Facebook" xml:space="preserve">
-    <value>Log in with Facebook</value>
-  </data>
   <data name="CreateNew" xml:space="preserve">
     <value>Join Spitball</value>
-  </data>
-  <data name="FacebookSignUp" xml:space="preserve">
-    <value>Sign up</value>
   </data>
   <data name="AlreadyHave" xml:space="preserve">
     <value>Already have an account?</value>
@@ -179,5 +173,8 @@
   </data>
   <data name="OrSignupWith" xml:space="preserve">
     <value>Or signup with</value>
+  </data>
+  <data name="ExternalProvider" xml:space="preserve">
+    <value>Connect</value>
   </data>
 </root>

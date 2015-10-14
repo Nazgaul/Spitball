@@ -115,20 +115,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log in with Facebook.
+        ///   Looks up a localized string similar to Connect.
         /// </summary>
-        public static string Facebook {
+        public static string ExternalProvider {
             get {
-                return ResourceManager.GetString("Facebook", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sign up.
-        /// </summary>
-        public static string FacebookSignUp {
-            get {
-                return ResourceManager.GetString("FacebookSignUp", resourceCulture);
+                return ResourceManager.GetString("ExternalProvider", resourceCulture);
             }
         }
         

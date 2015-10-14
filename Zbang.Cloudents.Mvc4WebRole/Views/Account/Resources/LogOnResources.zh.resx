@@ -132,12 +132,6 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
-  <data name="Facebook" xml:space="preserve">
-    <value>与 Facebook 连接</value>
-  </data>
-  <data name="FacebookSignUp" xml:space="preserve">
-    <value>使用 Facebook 注册</value>
-  </data>
   <data name="ForgotYourPassword" xml:space="preserve">
     <value>忘记密码？</value>
   </data>

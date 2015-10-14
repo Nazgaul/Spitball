@@ -132,12 +132,6 @@
   <data name="Email" xml:space="preserve">
     <value>عنوان البريد الكتروني</value>
   </data>
-  <data name="Facebook" xml:space="preserve">
-    <value>عبر فيسبوك</value>
-  </data>
-  <data name="FacebookSignUp" xml:space="preserve">
-    <value>الفيس بوك</value>
-  </data>
   <data name="ForgotYourPassword" xml:space="preserve">
     <value>نسيت كلمة المرور ؟</value>
   </data>

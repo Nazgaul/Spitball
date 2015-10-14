@@ -135,14 +135,8 @@
   <data name="Password" xml:space="preserve">
     <value>סיסמא</value>
   </data>
-  <data name="Facebook" xml:space="preserve">
-    <value>התחבר עם פייסבוק</value>
-  </data>
   <data name="CreateNew" xml:space="preserve">
     <value>הרשם כמשתמש חדש</value>
-  </data>
-  <data name="FacebookSignUp" xml:space="preserve">
-    <value>פייסבוק</value>
   </data>
   <data name="AlreadyHave" xml:space="preserve">
     <value>כבר יש לך חשבון?</value>
@@ -179,5 +173,8 @@
   </data>
   <data name="OrSignupWith" xml:space="preserve">
     <value>או הירשם באמצעות</value>
+  </data>
+  <data name="ExternalProvider" xml:space="preserve">
+    <value>התחבר</value>
   </data>
 </root>
