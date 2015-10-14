@@ -370,7 +370,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
                         new JsFileWithCdn("~/js/homePage/theme.js"),
                         //new JsFileWithCdn("~/Scripts/browser-deeplink.min.js")
-                        new JsFileWithCdn("~/js/homePage/homeScreen.js")
+                        new JsFileWithCdn("~/js/homePage/homeScreen.js"),
+                        new JsFileWithCdn("~/js/signin/login-soft.js")
 
                     }
                 },

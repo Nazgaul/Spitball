@@ -2900,3 +2900,27 @@ blockquote.text-light:before {
     background-image: url("http://lorempixel.com/400/200/sports/");
     }*/
 }
+.facebook,
+.google {
+  background: #3a5795;
+  border: none;
+  padding: 10px;
+  margin-left: 5px;
+  width: 150px;
+  color: #fff;
+  outline: 0;
+  font-size: 16px;
+}
+.facebook svg,
+.google svg {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  vertical-align: middle;
+  fill: #fff;
+}
+.google {
+  margin-left: 0;
+  margin-right: 5px;
+  background: #DD4B39;
+}

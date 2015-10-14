@@ -14,7 +14,9 @@
     @{Html.RenderPartial("_Head");}
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
     @Html.Css2("homePage")
-
+    <meta name="google-signin-client_id" content="997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com" />
+    <!-- Google Code for Conversions - Conversion Page / Should be fired upon (post) conversion action (sign-up/all types) -->
+    <script type="text/javascript" src="https://www.googleadservices.com/pagead/conversion_async.js" charset="utf-8"></script>
 </head>
 <body class="transparent-header pace-on pace-dot">
     <div class="pace-overlay"></div>
@@ -46,7 +48,7 @@
                                     <li class="menu-item"> <a href="@Url.Action("Index", "Account", new { lang = "en-UK" })">@Languages.EnglishGbName</a> </li>
                                     <li class="menu-item"> <a href="@Url.Action("Index", "Account", new { lang = "he-IL" })">@Languages.HebrewName</a> </li>
                                     @*<li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ru-RU" })">@Languages.RussianName</a> </li>
-                                    <li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ar-AE" })">@Languages.ArabicName</a> </li>*@
+                                        <li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ar-AE" })">@Languages.ArabicName</a> </li>*@
                                 </ul>
                             </li>
                             <li class="menu-item nav-highlight-ghost"> <a href="#buy">@HomePageResources.A7</a> </li>
@@ -76,14 +78,17 @@
                                  data-os-animation="fadeIn" data-os-animation-delay="0.1s">
                                 <p class="bigger text-light" style="white-space:pre-wrap; text-shadow:2px 2px 12px #000;">@HomePageResources.A4</p>
                             </div>
-                                <a href="@Url.Action("SignUp", "Account")" class="btn btn-primary btn-lg element-bottom-20 element-top-20 text-center bold margin-right  os-animation"
-                                   target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                                    @HomePageResources.A5
-                                </a>
-                                <a href="@Url.Action("SignIn", "Account")" class="btn btn-primary btn-lg  text-center bold margin-right element-top-20 element-bottom-20 os-animation btnSignIn"
-                                   target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                                    @HomePageResources.A1
-                                </a>
+                            <button type="button" class="facebook">@Html.Svg("/images/signin/icons.svg", "facebook") @LogOnResources.ExternalProvider</button>
+                            <button type="button" class="google">@Html.Svg("/images/signin/icons.svg", "google") @LogOnResources.ExternalProvider</button>
+                            <br />
+                            <a href="@Url.Action("SignUp", "Account")" class="btn btn-primary btn-lg element-bottom-20 element-top-20 text-center bold os-animation"
+                               target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                                @HomePageResources.A5
+                            </a>
+                            <a href="@Url.Action("SignIn", "Account")" class="btn btn-primary btn-lg  text-center bold element-top-20 element-bottom-20 os-animation btnSignIn"
+                               target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                                @HomePageResources.A1
+                            </a>
                             <p class="text-light os-animation element-top-20" data-os-animation="fadeIn" data-os-animation-delay="0.5s" style="text-shadow:2px 2px 6px #000; font-size:26px; font-weight:500;">@HomePageResources.A6</p>
                             <div class="divider-wrapper">
                                 <div class="visible-xs element-height-100"></div>
@@ -283,7 +288,7 @@
                     </div>
                 </div>
             </section>
-           
+
             <section class="section text-normal section-text-no-shadow section-inner-no-shadow section-normal section-opaque" id="testimonials">
                 <div class="background-overlay grid-overlay-0 " style="background-color: rgba(240,240,240,1);"></div>
                 <div class="container container-vertical-middle">
@@ -370,12 +375,12 @@
                                 <p style="text-shadow:2px 2px 12px #000;">
                                     @HomePageResources.F2
                                 </p>
-                            </div> <a id="iOs" target="_blank" href="http://m.onelink.me/52ba1d8e" 
-   class="btn btn-primary btn-lg text-light btn-icon-right margin-right element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation mobileLink" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-    IPHONE<i class="fa fa-apple" data-animation="none">@Html.Svg("/images/homepage2/homePageIcons.svg", "apple")</i>
-</a> <a id="Android" target="_blank" href="http://m.onelink.me/5388edd" class="btn btn-primary btn-lg text-normal btn-icon-right  element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation mobileLink" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-    ANDROID<i class="fa fa-android" data-animation="none">@Html.Svg("/images/homepage2/homePageIcons.svg", "android")</i>
-</a>
+                            </div> <a id="iOs" target="_blank" href="http://m.onelink.me/52ba1d8e"
+                                      class="btn btn-primary btn-lg text-light btn-icon-right margin-right element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation mobileLink" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                                IPHONE<i class="fa fa-apple" data-animation="none">@Html.Svg("/images/homepage2/homePageIcons.svg", "apple")</i>
+                            </a> <a id="Android" target="_blank" href="http://m.onelink.me/5388edd" class="btn btn-primary btn-lg text-normal btn-icon-right  element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation mobileLink" target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                                ANDROID<i class="fa fa-android" data-animation="none">@Html.Svg("/images/homepage2/homePageIcons.svg", "android")</i>
+                            </a>
                             <div class="divider-wrapper">
                                 <div class="visible-xs element-height-60"></div>
 
@@ -409,7 +414,7 @@
                             <a href="@Url.Action("jobs","home")">@SharedResources.Jobs</a>&nbsp;|
                             <a href="@Url.Action("Help", "Home")">@SharedResources.Help</a>&nbsp;|
                             <a href="@Url.Action("Privacy", "Home")">@FooterResources.PrivacyPolicy</a>&nbsp;|
-                            <a href="@Url.Action("TermsOfService", "Home")">@FooterResources.TermsOfService</a> 
+                            <a href="@Url.Action("TermsOfService", "Home")">@FooterResources.TermsOfService</a>
                             <div class="divider-wrapper">
                                 <div class="visible-xs element-height-10"></div>
                                 <div class="visible-sm element-height-10"></div>
@@ -417,7 +422,7 @@
                                 <div class="visible-lg element-height-10"></div>
                             </div>
                         </div>
-                      
+
                     </div>
                 </div>
             </section>
@@ -430,24 +435,33 @@
     <div id="cssCheck"></div>
     <script type="text/javascript" src="~/js/CDNFallbackWithoutAngular.js?v=@VersionHelper.CurrentVersion(true)"></script>
     @Html.Script2("homePage")
-
+    <script src="https://apis.google.com/js/platform.js" onload="googleLoad()" async defer></script>
     <!-- Google Remarketing Pixel (Right before closing </body> of page) -->
-    
+
     <script type="text/javascript">
-                /* <![CDATA[ */
-                var google_conversion_id = 939226062;
-                var google_custom_params = window.google_tag_params;
-                var google_remarketing_only = true;
-                /* ]]> */
-            </script>
-    
+        
+        window.google_trackConversion({
+            conversion_id: 939226062,
+            custom_params: window.google_tag_params,
+            remarketing_only: true
+        });
+
+        /* <![CDATA[ */
+        var google_conversion_id = 939226062;
+        var google_custom_params = window.google_tag_params;
+        var google_remarketing_only = true;
+        /* ]]> */
+
+        Login.initExternalLogin();
+    </script>
+
     <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
-            </script>
-        <noscript>
-              <div style="display:inline;">
-                        <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/939226062/?value=0&amp;guid=ON&amp;script=0" />
-            
-        </div>        
+    </script>
+    <noscript>
+        <div style="display:inline;">
+            <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/939226062/?value=0&amp;guid=ON&amp;script=0" />
+
+        </div>
     </noscript>
 </body>
 

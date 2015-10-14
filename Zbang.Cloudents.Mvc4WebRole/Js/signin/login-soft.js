@@ -220,17 +220,21 @@ var Login = function () {
         });
 
 
+       
+
+        jQuery('#lang_select').change(function (e) {
+            saveRegisterData();
+            window.location.href = jQuery(this).find(':selected').attr('data-href');
+        });
+    }
+
+    var handleExtenalLogin = function() {
         jQuery('.facebook').click(function () {
             facebookLogin();
         });
 
         jQuery('.google').click(function () {
             googleLogIn();
-        });
-
-        jQuery('#lang_select').change(function (e) {
-            saveRegisterData();
-            window.location.href = jQuery(this).find(':selected').attr('data-href');
         });
     }
 
@@ -468,6 +472,7 @@ var Login = function () {
             //handleForgetPassword();
             handleRegister();
             handleLanguage();
+            handleExtenalLogin();
             if (window.location.pathname.indexOf('/signup') > -1) {
                 jQuery('.login-form').hide();
                 jQuery('.register-form').show();
@@ -481,6 +486,10 @@ var Login = function () {
 
 
             $('.content').show();
+        },
+        initExternalLogin: function() {
+            handleExtenalLogin();
+
         }
     };
 
@@ -502,24 +511,24 @@ function googleLoad() {
         gapi.auth2.init();
     });
 }
-jQuery(document).ready(function () {
-    Metronic.init(); // init metronic core components
-    Layout.init(); // init current layout
-    Login.init();
-    Demo.init();
-    // init background slide images
-    $.backstretch([
-     "/images/signin/1a.png",
-     "/images/signin/2a.png",
-     "/images/signin/3a.png"
-    ], {
-        fade: 1000,
-        duration: 8000
-    });
 
-    window.google_trackConversion({
-        conversion_id: 939226062,
-        custom_params: window.google_tag_params,
-        remarketing_only: true
+window.fbAsyncInit = function () {
+    FB.init({
+        appId: '450314258355338',
+        status: true,
+        cookie: true,
+        xfbml: true,
+        version: 'v2.4'
     });
-});
+};
+(function (d) {
+    var js, id = 'facebook-jssdk';
+    if (d.getElementById(id)) {
+        return;
+    }
+    js = d.createElement('script');
+    js.id = id;
+    js.async = true;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    d.getElementsByTagName('head')[0].appendChild(js);
+}(document));
