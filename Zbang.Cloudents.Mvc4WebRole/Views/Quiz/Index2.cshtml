@@ -4,118 +4,121 @@
 
 <div class="itemPage quizPage">
     <header>
-        <div class="stop-watch-wrapper" ng-hide="q.isSolved">
-            @Html.Svg(svgUrl, "clock")
-            <stopwatch control="q.timerControl"></stopwatch>
-            <button type="button" class="stopwatch-btn" ng-click="q.start()">{{q.buttonText()}}</button>
-        </div>
+        <div class="fileName" id="quiz-top">{{::q.name}}</div>
         <a class="closeItem" href="{{::q.boxUrl}}">@Html.Svg(svgUrl, "close")</a>
     </header>
 
     <div class="itemContent">
-        <div class="fileName" id="quiz-top">{{::q.name}}</div>
-        <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-4">
-                <div class="score-modal" ng-if="q.isSolved">
 
-                    <div class="time">
-                        @Html.Svg(svgUrl, "clock", new { @class = "clock" })
-                        <span>{{q.sheet.timeTaken}}</span>
+        <div class="score-modal" ng-class="{ solved : q.isSolved}">
+
+            <div class="stop-watch-wrapper">
+                @Html.Svg(svgUrl, "clock")
+                <stopwatch control="q.timerControl"></stopwatch>
+            </div>
+
+            <div class="cube">
+                <div class="score">
+                    <div class="title">
+                        Your score:
                     </div>
-
-                    <div class="score">
-                        <div class="title">
-                            Your score:
-                        </div>
-                        <div class="number">
-                            {{q.sheet.score}}
-                        </div>
-                    </div>
-
-                    <div class="results">
-                        <div class="correct">
-                            @Html.Svg(svgUrl, "correct", new { @class = "correct" })
-                            <div class="section">
-                                <div class="number">{{q.sheet.correct}}</div>
-                                <div class="title">Correct</div>
-                            </div>
-                        </div>
-                        <div class="seperator"></div>
-                        <div class="wrong">
-                            <div class="section">
-                                <div class="number">{{q.sheet.wrong}}</div>
-                                <div class="title">Wrong</div>
-                            </div>
-                            @Html.Svg(svgUrl, "wrong", new { @class = "wrong" })
-                        </div>
-                    </div>
-
-                    <div class="top-quiz hidden-md hidden-sm hidden-xs">Top three for this quiz:</div>
-
-                    <ul class="top-users hidden-md hidden-sm hidden-xs">
-                        <li class="top-user" ng-repeat="user in q.topUsers">
-                            <user-image name="user.name" image="user.image" width="64" height="64"></user-image>
-                            @Html.Svg(svgUrl, "star", new { @class = "star" })
-
-                        </li>
-                    </ul>
-
-
-                    <div class="button-wrapper">
-                        <button class="retake" type="button" ng-click="q.retakeQuiz()">Retake quiz</button>
+                    <div class="number">
+                        {{q.sheet.score}}
                     </div>
 
                 </div>
+                <div class="stopwatch-btn" ng-click="q.start()">
+                    <div ng-if="q.timerControl.isRunning">
+                        @Html.Svg(svgUrl, "pause", new { @class = "pause" })
+                    </div>
+                    <div ng-if="!q.timerControl.isRunning">
+                        @Html.Svg(svgUrl, "play", new { @class = "play" })
+                    </div>
+                </div>
             </div>
 
-            <div class="col-sm-12 col-md-12 col-lg-8">
-                <div class="questions" ng-class="{ solved : q.isSolved}">
-                    <ul class="question-list">
-                        <li class="question" ng-repeat="question in ::q.questions" ng-class="q.isCorrect(question)" data-no-answer="No answer given">
-                            <div class="question-wrapper">
-                                <div ng-bind-html="question.text"></div>
-                                <ul class="answer-list">
-                                    <li class="answer" ng-repeat="answer in question.answers" ng-class="q.isCorrectAnswer(question,answer)">
-                                        <input id="{{::q.createId(answer)}}" type="radio" name="{{::q.createId(question)}}" ng-disabled="q.isSolved" ng-checked="q.isSelectedAnswer(question,answer)" />
-                                        <label for="{{::q.createId(answer)}}" ng-bind-html="answer.text" ng-click="q.selectAnswer(question,answer)" ng-disabled=""></label>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="discussion chats" ng-if="q.isSolved">
-                                <ul class="comments">
-                                    <li class="in comment" ng-repeat="comment in question.comments" ng-if="question.comments">
-                                        <img class="avatar" ng-src="{{::comment.userPicture}}" alt="{{::comment.userName}}" title="{{::comment.userName}}" />
-                                        <div class="message">
-                                            <a class="name">{{::comment.userName}}</a>
-                                            <span class="datetime" display-time="{{::comment.date}}"></span>
-                                            <span class="body">{{::comment.text}}</span>
-                                            <button type="button" class="remove" ng-if="comment.isDelete" ng-click="q.removeComment(question,comment)">@Html.Svg(svgUrl, "close")</button>
-                                        </div>
-                                    </li>
-                                    <li class="in reply">
-                                        <img class="avatar" ng-src="{{::q.user.image}}" alt="{{::q.user.name}}" title="{{::q.user.name}}" />
-                                        <div class="message">
-                                            <input type="text" ng-model="question.newComment" placeholder="Write a comment " />
-                                            <div class="btn-cont">
-                                                <span class="arrow"></span>
-                                                <a href="" class="btn blue icn-only" ng-disabled="!question.newComment" ng-click="q.postComment(question)">
-                                                    <i class="fa fa-check icon-white"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-
-                    </ul>
-                    <div class="check-answers" ng-if="!q.isSolved">
-                        <button type="button" ng-click="q.checkAnswers()" ng-disabled="q.answersCount == 0">Check answers</button>
+            <div class="results">
+                <div class="correct">
+                    @Html.Svg(svgUrl, "correct", new { @class = "correct" })
+                    <div class="section">
+                        <div class="number">{{q.sheet.correct}}</div>
+                        <div class="title">Correct</div>
                     </div>
+                </div>
+                <div class="seperator"></div>
+                <div class="wrong">
+                    <div class="section">
+                        <div class="number">{{q.sheet.wrong}}</div>
+                        <div class="title">Wrong</div>
+                    </div>
+                    @Html.Svg(svgUrl, "wrong", new { @class = "wrong" })
+                </div>
+            </div>
+
+            <div class="top-quiz">Top three for this quiz:</div>
+
+            <ul class="top-users">
+                <li class="top-user" ng-repeat="user in q.topUsers">
+                    <user-image name="user.name" image="user.image" width="40" height="40"></user-image>
+                    @Html.Svg(svgUrl, "star", new { @class = "star" })
+
+                </li>
+            </ul>
+
+            <div class="clearfix"></div>
+
+            <div class="button-wrapper">
+                <button class="retake" type="button" ng-click="q.retakeQuiz()">Retake quiz</button>
+            </div>
+
+        </div>
+
+        <div class="center">
+            <div class="questions" ng-class="{ solved : q.isSolved}">
+                <ul class="question-list">
+                    <li class="question" ng-repeat="question in ::q.questions" ng-class="q.isCorrect(question)" data-no-answer="No answer given">
+                        <div class="question-wrapper">
+                            <div ng-bind-html="question.text"></div>
+                            <ul class="answer-list">
+                                <li class="answer" ng-repeat="answer in question.answers" ng-class="q.isCorrectAnswer(question,answer)">
+                                    <input id="{{::q.createId(answer)}}" type="radio" name="{{::q.createId(question)}}" ng-disabled="q.isSolved" ng-checked="q.isSelectedAnswer(question,answer)" />
+                                    <label for="{{::q.createId(answer)}}" ng-bind-html="answer.text" ng-click="q.selectAnswer(question,answer)" ng-disabled=""></label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="discussion chats" ng-if="q.isSolved">
+                            <ul class="comments">
+                                <li class="in comment" ng-repeat="comment in question.comments" ng-if="question.comments">
+                                    <img class="avatar" ng-src="{{::comment.userPicture}}" alt="{{::comment.userName}}" title="{{::comment.userName}}" />
+                                    <div class="message">
+                                        <a class="name">{{::comment.userName}}</a>
+                                        <span class="datetime" display-time="{{::comment.date}}"></span>
+                                        <span class="body">{{::comment.text}}</span>
+                                        <button type="button" class="remove" ng-if="comment.isDelete" ng-click="q.removeComment(question,comment)">@Html.Svg(svgUrl, "close")</button>
+                                    </div>
+                                </li>
+                                <li class="in reply">
+                                    <img class="avatar" ng-src="{{::q.user.image}}" alt="{{::q.user.name}}" title="{{::q.user.name}}" />
+                                    <div class="message">
+                                        <input type="text" ng-model="question.newComment" placeholder="Write a comment " />
+                                        <div class="btn-cont">
+                                            <a href="" class="btn blue icn-only" ng-disabled="!question.newComment" ng-click="q.postComment(question)">
+                                                <i class="fa fa-check icon-white"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                </ul>
+                <div class="check-answers" ng-if="!q.isSolved">
+                    <button type="button" ng-click="q.checkAnswers()" ng-disabled="q.answersCount == 0">Check answers</button>
                 </div>
             </div>
         </div>
     </div>
-</div>{
+</div>
 @{Html.RenderPartial("_QuizChallenge");}
 

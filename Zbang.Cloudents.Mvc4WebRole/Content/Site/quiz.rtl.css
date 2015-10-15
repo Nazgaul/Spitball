@@ -1,39 +1,30 @@
 ﻿.quizPage {
   color: #383838;
+  background: #212427;
+}
+.quizPage .itemContent {
+  position: relative;
 }
 .quizPage header {
   z-index: 1;
   padding-top: 0;
+  position: relative;
 }
-.quizPage header .stop-watch-wrapper {
-  margin-top: 5px;
-  float: right;
-  color: #3598dc;
-  font-size: 32px;
+.quizPage header .closeItem {
+  position: absolute;
+  left: 15px;
+  top: 24px;
+  margin: 0;
 }
-.quizPage header .stop-watch-wrapper svg {
-  width: 50px;
-  height: 50px;
-  fill: #3598dc;
-  float: right;
-}
-.quizPage header .stop-watch-wrapper div {
-  float: right;
-  height: 50px;
-}
-.quizPage header .stop-watch-wrapper div span {
-  line-height: 50px;
-}
-.quizPage .row {
-  margin-right: 20px;
-  margin-left: 20px;
+.quizPage .center {
+  margin-right: 333px;
+  width: calc(100% - 333px);
 }
 .quizPage .questions {
   max-width: 800px;
   padding: 15px 20px 15px 20px;
   background: #fff;
   border-radius: 5px;
-  box-shadow: 0 0 10px 2px #d5d5d5;
   margin: 20px auto 50px auto;
 }
 .quizPage .questions .question-list {
@@ -302,51 +293,79 @@
   margin-right: 8px;
 }
 .score-modal {
-  background-color: #282828;
   color: #f5f5f5;
-  margin-top: 20px;
   padding: 15px 0 5px 0;
-  margin-right: auto;
-  margin-left: auto;
-  border-radius: 10px;
-  max-width: 737px;
+  position: fixed;
+  right: 33px;
+  top: 60px;
+  width: 300px;
+  margin-top: 60px;
+  text-align: center;
 }
-.score-modal .time span {
-  color: #9AC6E9;
-  font-size: 45px;
+.score-modal .stop-watch-wrapper {
+  color: #4190b9;
+  margin-bottom: 12px;
+}
+.score-modal .stop-watch-wrapper svg {
+  width: 46px;
+  height: 52px;
+  fill: #4190b9;
   display: inline-block;
-  line-height: 61px;
-  margin-right: 10px;
+}
+.score-modal .stop-watch-wrapper div {
+  display: inline-block;
+  height: 50px;
   vertical-align: top;
 }
-.score-modal .time .clock {
-  width: 55px;
-  height: 55px;
-  fill: #9AC6E9;
-  display: inline-block;
-  margin-right: 50px;
+.score-modal .stop-watch-wrapper div span {
+  line-height: 50px;
+  font-size: 32px;
+  margin-right: 10px;
 }
-.score-modal .score {
-  clear: both;
-  margin: 20px 50px;
+.score-modal .cube {
+  width: 300px;
+  height: 108px;
   text-align: center;
-  background-color: #797979;
-  height: 165px;
+  border: 3px solid #4190b9;
+  background-color: transparent;
   font-weight: bold;
-  border-radius: 15px;
+  border-radius: 10px;
 }
-.score-modal .score .title {
+.score-modal .cube .score {
+  display: none;
+}
+.score-modal .cube .score .title {
+  font-size: 18px;
+}
+.score-modal .cube .score .number {
+  font-size: 84px;
+  line-height: 72px;
+}
+.score-modal .cube .title {
   font-size: 32px;
 }
-.score-modal .score .number {
-  font-size: 120px;
-  line-height: 100px;
+.score-modal .cube .stopwatch-btn {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.score-modal .cube .stopwatch-btn div svg {
+  fill: #4190b9;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 .score-modal .results {
   text-align: center;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
   border-bottom: 2px solid #757575;
-  margin: 20px 0;
+  margin-bottom: 20px;
+  display: none;
 }
 .score-modal .results > .correct,
 .score-modal .results > .wrong,
@@ -356,42 +375,43 @@
 }
 .score-modal .results .seperator {
   width: 2px;
-  height: 136px;
+  height: 77px;
   background-color: #757575;
-  margin: 0 20px;
-  vertical-align: top;
+  margin: 0 18px;
 }
 .score-modal .results .section {
   display: inline-block;
 }
 .score-modal .results .section .number {
-  font-size: 10vh;
+  font-size: 60px;
   line-height: 60px;
   font-weight: bold;
-  margin-bottom: 10px;
   text-align: center;
 }
 .score-modal .results .section .title {
-  font-size: 24px;
+  font-size: 14px;
 }
 .score-modal .results svg {
   vertical-align: top;
   margin-top: 10px;
   display: inline-block;
-  width: 9vh;
-  height: 9vh;
 }
 .score-modal .results svg.correct {
   fill: #0F9D58;
   display: inline-block;
-  margin-left: 15px;
+  margin-left: 10px;
+  width: 42px;
+  height: 39px;
 }
 .score-modal .results svg.wrong {
   fill: #E25B69;
   display: inline-block;
-  margin-right: 15px;
+  margin-right: 10px;
+  width: 45px;
+  height: 39px;
 }
 .score-modal .top-users {
+  display: none;
   list-style: none;
   text-align: center;
   margin: 0 auto 28px auto;
@@ -399,9 +419,10 @@
   font-size: 0;
 }
 .score-modal .top-quiz {
-  font-size: 32px;
+  display: none;
+  font-size: 22px;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 16px;
 }
 .score-modal .top-user {
   position: relative;
@@ -412,82 +433,94 @@
 }
 .score-modal .top-user img {
   border-radius: 50%;
-  width: 64px;
-  height: 64px;
+  width: 40px;
+  height: 40px;
 }
 .score-modal .top-user svg.star {
   fill: #FBD323;
   position: absolute;
-  top: -18px;
-  left: -12px;
-  width: 36px;
-  height: 36px;
+  top: -8px;
+  left: -10px;
+  width: 24px;
+  height: 22px;
 }
 .score-modal .top-user .userLetter + svg.star {
-  top: -12px;
+  top: -8px;
+  left: -9px;
 }
 .score-modal .button-wrapper {
   text-align: center;
-  margin-bottom: 30px;
+  display: none;
 }
 .score-modal .button-wrapper button {
-  font-size: 18px;
+  font-size: 22px;
   padding: 5px 0;
-  border-radius: 15px;
-  width: 190px;
+  border-radius: 10px;
+  width: 100%;
+  height: 50px;
 }
 .score-modal .button-wrapper button.retake {
   margin-left: 8px;
   color: #f5f5f5;
-  border: 1px solid #757575;
+  background: #4190b9;
 }
 .score-modal .button-wrapper button.answers {
   background-color: #3293f6;
   color: #f5f5f5;
   margin-right: 8px;
 }
-@media (min-width: 767px) and (max-width: 1199px) {
-  .score-modal {
+.score-modal.solved .cube {
+  background-color: #797979;
+  border: none;
+}
+.score-modal.solved .cube .score {
+  display: block;
+}
+.score-modal.solved .cube .stopwatch-btn {
+  display: none;
+}
+.score-modal.solved .results,
+.score-modal.solved .top-quiz,
+.score-modal.solved .top-users,
+.score-modal.solved .button-wrapper {
+  display: block;
+}
+@media (max-width: 1199px) {
+  .score-modal.score-modal {
     position: relative;
+    margin: 60px auto 10px auto;
+    right: auto;
+    top: auto;
+    max-width: 800px;
+    width: 100%;
+    /*.retake {
+            float: right;
+        }*/
   }
-  .score-modal .time span {
-    font-size: 24px;
+  .score-modal.score-modal .top-quiz,
+  .score-modal.score-modal .top-users {
+    display: none;
   }
-  .score-modal .time .clock {
-    width: 36px;
-    margin-right: 25px;
+  .score-modal.score-modal .stop-watch-wrapper {
+    text-align: right;
   }
-  .score-modal .button-wrapper {
-    margin: 0;
+  .score-modal.score-modal .cube {
+    float: right;
+    clear: right;
   }
-  .score-modal .button-wrapper .retake {
+  .score-modal.score-modal .results {
+    clear: left;
+    float: left;
+    border-bottom: none;
+  }
+  .score-modal.score-modal .button-wrapper {
     position: absolute;
-    left: 15px;
+    left: 0;
+    width: 300px;
     top: 25px;
   }
-  .score-modal .score,
-  .score-modal .results {
-    display: inline-block;
-  }
-  .score-modal .score {
-    margin: 0 30px 20px 30px;
-    width: 33%;
-  }
-  .score-modal .score .number {
-    font-size: 100px;
-  }
-  .score-modal .results {
-    left: 25px;
-    bottom: 10px;
-    position: absolute;
-    padding-bottom: 0;
-    border: none;
-  }
-  .score-modal .results .seperator {
-    margin: 0 13px;
-  }
-  .score-modal .results .section .number {
-    font-size: 80px;
-    width: 90px;
+  .quizPage .center {
+    width: 100%;
+    margin: 0 auto 60px auto;
   }
 }
