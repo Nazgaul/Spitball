@@ -16,6 +16,10 @@
   top: 24px;
   margin: 0;
 }
+.quizPage header .fileName {
+  line-height: 60px;
+  color: #f5f5f5;
+}
 .quizPage .center {
   margin-right: 333px;
   width: calc(100% - 333px);
