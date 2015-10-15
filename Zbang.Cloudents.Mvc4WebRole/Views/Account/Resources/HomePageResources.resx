@@ -124,45 +124,46 @@
     <value>Jobs</value>
   </data>
   <data name="A4" xml:space="preserve">
-    <value>Collaboratively share knowledge,
-in an open Social-Studying network.</value>
+    <value>Share knowlege in a social and open study network</value>
   </data>
   <data name="A5" xml:space="preserve">
-    <value>Sign up for FREE</value>
+    <value>Or sign up with your email</value>
   </data>
   <data name="A6" xml:space="preserve">
-    <value>Spitball is built by Students for Students</value>
+    <value>Built by students for students</value>
   </data>
   <data name="A7" xml:space="preserve">
     <value>Get the app</value>
+  </data>
+  <data name="A8" xml:space="preserve">
+    <value>Blog</value>
   </data>
   <data name="B1" xml:space="preserve">
     <value>Spitball Features</value>
   </data>
   <data name="B10" xml:space="preserve">
-    <value>Students learning from students. Make your own Quizzes, or test yourself from the thousands already available.</value>
+    <value>Create your own quizzes and assess your progress using thousands of existing quizzes</value>
   </data>
   <data name="B2" xml:space="preserve">
-    <value>Take a look at the some of these features that makes Spitball so unique.</value>
+    <value>Here are some of the features that make Spitball so unique:</value>
   </data>
   <data name="B3" xml:space="preserve">
     <value>AVAILABLE EVERYWHERE</value>
   </data>
   <data name="B4" xml:space="preserve">
-    <value>Study when it suits you, from every computer, mobile or tablet.
-</value>
+    <value>Study when you want, from where you want - download to your phone, laptop and tablet</value>
   </data>
   <data name="B5" xml:space="preserve">
-    <value>QUESTIONS AND ANSWERS</value>
+    <value>Get your questions answered</value>
   </data>
   <data name="B6" xml:space="preserve">
-    <value>Questions about yesterday's class, what paper is due next week? Spitball is here to help. Ask a question, get an answer from fellow students</value>
+    <value>Questions about yesterday's class? Can't remember when your paper is due? Post a question on Spitball and get input from your peers</value>
   </data>
   <data name="B7" xml:space="preserve">
     <value>WATCH AND SHARE</value>
   </data>
   <data name="B8" xml:space="preserve">
-    <value>Link to online lectures, share and compare class notes, review reading material, discuss in the privacy of your study group, all in one place.</value>
+    <value>Post, share and compare! From lecture links to reading material, notes to quizzes, your study group will help you succeed</value>
   </data>
   <data name="B9" xml:space="preserve">
     <value>Quizzes and Review Sheets</value>
@@ -174,7 +175,7 @@ in an open Social-Studying network.</value>
     <value>Mobile First</value>
   </data>
   <data name="D2" xml:space="preserve">
-    <value>Spitball's Android and Apple Apps are the front end of our social studying network, revolutionizing the way students study. Built by students for students, Spitball features are designed to make students better students:</value>
+    <value>Available on Android and iOS, Spitball is revolutionizing the way students study. Built by students for students, Spitball's features help make you a better learner</value>
   </data>
   <data name="D3" xml:space="preserve">
     <value>Connect with your classmates</value>
@@ -183,10 +184,10 @@ in an open Social-Studying network.</value>
     <value>Ask and answer questions freely</value>
   </data>
   <data name="D5" xml:space="preserve">
-    <value>Access and share classnotes</value>
+    <value>Access and share class notes</value>
   </data>
   <data name="D6" xml:space="preserve">
-    <value>Communicate with the entire class</value>
+    <value>Communicate with your classmates</value>
   </data>
   <data name="D7" xml:space="preserve">
     <value>Create and solve quizzes interactively</value>
@@ -198,7 +199,7 @@ in an open Social-Studying network.</value>
     <value>Get it now</value>
   </data>
   <data name="F2" xml:space="preserve">
-    <value>On your desktop, mobile phones and tablets, social study anytime and anywhere.</value>
+    <value>Study socially on your smartphone, laptop and tablet anytime, anywhere</value>
   </data>
   <data name="Testimonial1" xml:space="preserve">
     <value>As a sophomore, I found myself looking for a way to communicate and study with my classmates. After searching online, I was shocked that there was no real solution that I felt comfortable incorporating into my lifestyle (nothing I could easily access on my phone or computer). Then someone invited me to Spitball... it saved me.</value>
