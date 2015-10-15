@@ -127,10 +127,13 @@
     <value>שתף,התחבר ולמד כחלק מרשת לימודים חברתית</value>
   </data>
   <data name="A5" xml:space="preserve">
-    <value>הצטרף בחינם</value>
+    <value>או הירשם באמצעות כתובת המייל שלך</value>
   </data>
   <data name="A6" xml:space="preserve">
     <value>ספיטבול נבנתה ע״י סטודנטים עבור סטודנטים</value>
+  </data>
+  <data name="A8" xml:space="preserve">
+    <value>בלוג</value>
   </data>
   <data name="B1" xml:space="preserve">
     <value>מה מחכה לכם בפנים:</value>

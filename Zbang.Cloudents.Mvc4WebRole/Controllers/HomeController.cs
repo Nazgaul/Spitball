@@ -1,4 +1,5 @@
-﻿using System.Web.UI;
+﻿using System.Threading;
+using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using System;
 using System.Collections.Generic;
@@ -67,10 +68,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-        public ActionResult Blog()
+        public ActionResult Blog(string lang)
         {
-            return PartialView();
+
+            var iFrameSrc = "https://spitballblog.wordpress.com/";
+            if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" || Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            {
+                iFrameSrc = "https://spitballcoh.wordpress.com/";
+            }
+            return PartialView("Blog", iFrameSrc);
         }
+
 
 
 

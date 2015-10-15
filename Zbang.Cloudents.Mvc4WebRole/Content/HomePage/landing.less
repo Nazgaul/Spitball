@@ -125,12 +125,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .post-tags a, .post-share ul.social-icons li a {
     border-radius: 15px;
-    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
     color: #303c40;
 }
 
 .post-tags a:hover, .post-share ul.social-icons li a:hover {
-    box-shadow: 0px 0px 0px 1px #72b4b6;
+    box-shadow: 0 0 0 1px #72b4b6;
     color: #72b4b6;
 }
 
@@ -139,12 +139,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn, button, input[type="submit"], .button {
-    border-radius: 18px;
+    border-radius: 10px;
     font-size: 16px;
 }
 
 .btn.btn-lg, button.btn-lg, input[type="submit"].btn-lg, .button.btn-lg {
-    border-radius: 24px;
+    border-radius: 10px;
     font-size: 20px;
 }
 
@@ -246,11 +246,24 @@ input[type="color"],
     min-width: 220px;
 }
 
+.btnSignIn {
+    background: rgba(40,40,40,.3) !important;
+    width: 400px;
+
+    @media(max-width:442px) {
+        width: 190px;
+        font-size: 16px !important;
+        white-space: normal;
+        line-height: 16px;
+        margin-top: 12px !important;
+    }
+}
+
 
 @media (min-width: 992px) {
-    .btnSignIn {
+    /*.btnSignIn {
         display: none;
-    }
+    }*/
 
     #masthead.navbar-scrolled {
         min-height: 90px;
@@ -353,11 +366,11 @@ input[type="color"],
         max-height: 60%;
     }
 
-    .btnSignIn {
+    /*.btnSignIn {
         display: inline-block;
        background : #fff !important;
         color: @color !important;
-    }
+    }*/
 }
 
 .btn i, button i, .button i {
@@ -3171,25 +3184,31 @@ h6.text-light,
 }
 
 .facebook, .google {
-    background:#3a5795;
+    background: #3a5795;
     border: none;
     padding: 10px;
-    margin-right:5px;
-    width: 150px;
+    margin-right: 5px;
+    width: 190px;
     color: #fff;
-    outline:0;
+    outline: 0;
     font-size: 16px;
-     svg {
+
+    svg {
+        float: left;
+        margin-left: 5px;
         width: 30px;
-        height: 30px;            
-        margin-right: 10px;
-        vertical-align:middle;
-        fill:#fff;
+        height: 30px;
+        vertical-align: middle;
+        fill: #fff;
     }
-   
+
+    @media(max-width:442px) {
+        margin-top: 10px;
+    }
 }
+
 .google {
-    margin-right:0;
-    margin-left:5px;
-    background:#DD4B39;
+    margin-right: 0;
+    margin-left: 5px;
+    background: #DD4B39;
 }

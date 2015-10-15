@@ -110,12 +110,12 @@ h6 {
 .post-tags a,
 .post-share ul.social-icons li a {
   border-radius: 15px;
-  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
   color: #303c40;
 }
 .post-tags a:hover,
 .post-share ul.social-icons li a:hover {
-  box-shadow: 0px 0px 0px 1px #72b4b6;
+  box-shadow: 0 0 0 1px #72b4b6;
   color: #72b4b6;
 }
 .post-tags a:hover i,
@@ -126,14 +126,14 @@ h6 {
 button,
 input[type="submit"],
 .button {
-  border-radius: 18px;
+  border-radius: 10px;
   font-size: 16px;
 }
 .btn.btn-lg,
 button.btn-lg,
 input[type="submit"].btn-lg,
 .button.btn-lg {
-  border-radius: 24px;
+  border-radius: 10px;
   font-size: 20px;
 }
 .btn.btn-sm,
@@ -225,10 +225,23 @@ input[type="color"],
 #masthead .dropdown-menu {
   min-width: 220px;
 }
-@media (min-width: 992px) {
+.btnSignIn {
+  background: rgba(40, 40, 40, 0.3) !important;
+  width: 400px;
+}
+@media (max-width: 442px) {
   .btnSignIn {
-    display: none;
+    width: 190px;
+    font-size: 16px !important;
+    white-space: normal;
+    line-height: 16px;
+    margin-top: 12px !important;
   }
+}
+@media (min-width: 992px) {
+  /*.btnSignIn {
+        display: none;
+    }*/
   #masthead.navbar-scrolled {
     min-height: 90px;
   }
@@ -314,11 +327,11 @@ input[type="color"],
   #navbar-slide .navbar-nav {
     max-height: 60%;
   }
-  .btnSignIn {
-    display: inline-block;
-    background: #fff !important;
-    color: #3293f6 !important;
-  }
+  /*.btnSignIn {
+        display: inline-block;
+       background : #fff !important;
+        color: @color !important;
+    }*/
 }
 .btn i,
 button i,
@@ -2906,18 +2919,25 @@ blockquote.text-light:before {
   border: none;
   padding: 10px;
   margin-right: 5px;
-  width: 150px;
+  width: 190px;
   color: #fff;
   outline: 0;
   font-size: 16px;
 }
 .facebook svg,
 .google svg {
+  float: left;
+  margin-left: 5px;
   width: 30px;
   height: 30px;
-  margin-right: 10px;
   vertical-align: middle;
   fill: #fff;
+}
+@media (max-width: 442px) {
+  .facebook,
+  .google {
+    margin-top: 10px;
+  }
 }
 .google {
   margin-right: 0;

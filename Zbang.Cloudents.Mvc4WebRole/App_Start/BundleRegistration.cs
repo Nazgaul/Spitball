@@ -371,7 +371,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/homePage/theme.js"),
                         //new JsFileWithCdn("~/Scripts/browser-deeplink.min.js")
                         new JsFileWithCdn("~/js/homePage/homeScreen.js"),
-                        new JsFileWithCdn("~/js/signin/login-soft.js")
+                        new JsFileWithCdn("~/js/signin/login-soft.js"),
+                        new JsFileWithCdn("~/scripts/svg4everybody.js")
 
                     }
                 },
@@ -392,7 +393,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/signin/demo.js"),
                         new JsFileWithCdn("~/js/signin/metronic.js"),
                         new JsFileWithCdn("~/js/signin/layout.js"),
-                        new JsFileWithCdn("~/js/signin/login-soft.js")
+                        new JsFileWithCdn("~/js/signin/login-soft.js"),
+                        new JsFileWithCdn("~/scripts/svg4everybody.js"),
                     }
                 },
                 {
@@ -434,6 +436,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-0.14.1.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-tabdrop.js"),
+                        new JsFileWithCdn("~/scripts/svg4everybody.js"),
                         //new JsFileWithCdn("~/scripts/site/jquery.mixitup.min.js"),
                         //new JsFileWithCdn("~/scripts/site/jquery.dataTables.min.js"),
 
