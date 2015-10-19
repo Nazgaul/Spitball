@@ -5,46 +5,41 @@
 
 .quizPage {
     color: @textColor;
-    
+    background: @backgroundColor;
+
+    .itemContent {
+        position: relative;
+    }
+
     header {
         z-index: 1;
         padding-top: 0;
+        position: relative;
 
-        .stop-watch-wrapper {
-            margin-top: 5px;
-            float: left;
-            color: @color7;
-            font-size: 32px;
-
-            svg {
-                width: 50px;
-                height: 50px;
-                fill: @color7;
-                float: left;
-            }
-
-            div {
-                float: left;
-                height: 50px;
-
-                span {
-                    line-height: 50px;
-                }
-            }
+        .closeItem {
+            position: absolute;
+            right: 15px;
+            top: 24px;
+            margin: 0;
         }
 
+        .fileName {
+            line-height: 60px;
+            color:@color2;
+        }
     }
-    .row {
-        margin-left:20px;
-        margin-right:20px;
+
+    .center {
+        margin-left: 333px;
+        width: ~"calc(100% - 333px)";
     }
+
     .questions {
         max-width: 800px;
         padding: 15px 20px 15px 20px;
         background: #fff;
         border-radius: 5px;
-        box-shadow: 0 0 10px 2px #d5d5d5;
-        margin:20px auto 50px auto;
+        margin: 20px auto 50px auto;
 
         .question-list {
             list-style-type: decimal;
@@ -203,14 +198,14 @@
 
 
         .comments {
-            padding:0;
+            padding: 0;
             -webkit-padding-start: 0;
 
             .comment {
                 position: relative;
 
                 &:before {
-                    content:'';
+                    content: '';
                     position: absolute;
                     top: 20px;
                     left: 55px;
@@ -224,14 +219,14 @@
             .remove {
                 position: absolute;
                 right: 15px;
-                top:8px;
+                top: 8px;
                 fill: #f5f5f5;
                 width: 10px;
                 height: 10px;
 
                 svg {
-                    width:12px;
-                    height:12px;
+                    width: 12px;
+                    height: 12px;
                 }
             }
 
@@ -258,14 +253,14 @@
 
                 .message {
                     padding: 5px 0 5px 10px;
-                    margin-top:5px;
+                    margin-top: 5px;
                 }
 
                 .btn-cont {
                     margin-top: -31px;
                     position: relative;
                     float: right;
-                    width: 44px;                    
+                    width: 44px;
 
                     .arrow {
                         position: absolute;
@@ -294,7 +289,6 @@
                     background: #a5a5a5;
                 }
             }
-
         }
     }
 }
@@ -383,232 +377,282 @@
     }
 }
 
-.score-modal {   
-        background-color: #282828;
-        color:@color2;
-        margin-top:20px;
-        padding:15px 0 5px 0;
-        margin-left:auto;
-        margin-right:auto;
-        border-radius:10px;
-        max-width:737px;
+.score-modal {
+    color: @color2;
+    padding: 15px 0 5px 0;
+    position: fixed;
+    left: 33px;
+    top: 60px;
+    width: 300px;
+    margin-top: 60px;
+    text-align: center;
 
-        .time {
-            span {
-                color: #9AC6E9;
-                font-size: 45px;
-                display: inline-block;
-                line-height: 61px;
-                margin-left: 10px;
-                vertical-align: top;
-            }
+    .stop-watch-wrapper {
+        color: #4190b9;
+        margin-bottom: 12px;
 
-            .clock {
-                width: 55px;
-                height: 55px;
-                fill: #9AC6E9;
-                display: inline-block;
-                margin-left: 50px;
-            }
-        }
-
-        .score {
-            clear: both;
-            margin: 20px 50px;
-            text-align: center;
-            background-color: #797979;
-            height: 165px;
-            font-weight: bold;
-            border-radius: 15px;
-
-            .title {
-                font-size: 32px;
-            }
-
-            .number {
-                font-size: 120px;
-                line-height: 100px;
-            }
-        }
-
-        .results {
-            text-align: center;
-            padding-bottom: 30px;
-            border-bottom: 2px solid #757575;
-            margin: 20px 0;
-
-            > .correct, > .wrong, .seperator {
-                display: inline-block;
-                margin-top: 22px;
-            }
-
-            .seperator {
-                width: 2px;
-                height: 136px;
-                background-color: #757575;
-                margin: 0 20px;
-                vertical-align: top;
-            }
-
-            .section {
-                display: inline-block;
-
-                .number {
-                    font-size: 10vh;
-                    line-height: 60px;
-                    font-weight: bold;
-                    margin-bottom: 10px;
-                    text-align: center;
-                }
-
-                .title {
-                    font-size: 24px;
-                }
-            }
-
-            svg {
-                vertical-align: top;
-                margin-top: 10px;
-                display: inline-block;
-                width: 9vh;
-                height: 9vh;
-
-                &.correct {
-                    fill: #0F9D58;
-                    display: inline-block;
-                    margin-right: 15px;
-                }
-
-                &.wrong {
-                    fill: #E25B69;
-                    display: inline-block;
-                    margin-left: 15px;
-                }
-            }
-        }
-
-        .top-users {
-            list-style: none;
-            text-align: center;
-            margin: 0 auto 28px auto;
-            padding: 0;
-            font-size: 0;
-        }
-
-        .top-quiz {
-            font-size: 32px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .top-user {
-            position: relative;
+        svg {
+            width: 46px;
+            height: 52px;
+            fill: #4190b9;
             display: inline-block;
-
-            &:not(:last-child):not(:first-child) {
-                margin: 0 30px;
-            }
-
-            img {
-                border-radius: 50%;
-                width: 64px;
-                height: 64px;
-            }
-
-            svg.star {
-                fill: #FBD323;
-                position: absolute;
-                top: -18px;
-                right: -12px;
-                width: 36px;
-                height: 36px;
-            }
-
-            .userLetter + svg.star {                
-                top:-12px;                
-            }
         }
 
-        .button-wrapper {
-            text-align: center;
-            margin-bottom: 30px;
+        div {
+            display: inline-block;
+            height: 50px;
+            vertical-align: top;
 
-            button {
-                font-size: 18px;
-                padding: 5px 0;
-                border-radius: 15px;
-                width: 190px;
-
-                &.retake {
-                    margin-right: 8px;
-                    color: @color2;
-                    border: 1px solid #757575;
-                }
-
-                &.answers {
-                    background-color: @loginColor;
-                    color: @color2;
-                    margin-left: 8px;
-                }
-            }
-        }
-
-    
-}
-@media (min-width: 767px) and (max-width: 1199px) { 
-
-        .score-modal {
-            position:relative;
-
-            .time {
-                span {
-                    font-size:24px;
-                }
-                .clock {
-                    width:36px;
-                    margin-left:25px;
-                }
-                svg {
-                    
-                }
-            }
-            .button-wrapper {
-                margin:0;
-                .retake {
-                    position:absolute;
-                    right:15px;
-                    top:25px;
-
-                }
-            }
-
-            .score,.results {                
-                display:inline-block;
-            }
-
-            .score {
-                margin: 0 30px 20px 30px;                
-                width:33%;
-
-                .number {
-                    font-size:100px;
-                }
-            }
-
-            .results {
-                right: 25px;
-                bottom:10px;                
-                position: absolute;
-                padding-bottom:0;
-                border:none;                                
-                .seperator {
-                    margin:0 13px;
-                }
-                .section .number {
-                    font-size:80px;
-                    width:90px;
-                }
-
+            span {
+                line-height: 50px;
+                font-size: 32px;
+                margin-left: 10px;
             }
         }
     }
+
+
+    .cube {
+        width: 300px;
+        height: 108px;
+        text-align: center;
+        border: 3px solid #4190b9;
+        background-color: transparent;
+        font-weight: bold;
+        border-radius: 10px;
+
+        .score {
+            display: none;
+
+            .title {
+                font-size: 18px;
+            }
+
+            .number {
+                font-size: 84px;
+                line-height: 72px;
+            }
+        }
+
+        .title {
+            font-size: 32px;
+        }
+
+        .stopwatch-btn {
+            position: relative;
+            width: 100%;
+            height: 100%;
+
+            div {
+                svg {
+                    fill: #4190b9;
+                    width: 50px;
+                    height: 50px;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    margin: auto;
+                }
+            }
+        }
+    }
+
+    .results {
+        text-align: center;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #757575;
+        margin-bottom: 20px;
+        display: none;
+
+        > .correct, > .wrong, .seperator {
+            display: inline-block;
+            margin-top: 22px;
+        }
+
+        .seperator {
+            width: 2px;
+            height: 77px;
+            background-color: #757575;
+            margin: 0 18px;
+        }
+
+        .section {
+            display: inline-block;
+
+            .number {
+                font-size: 60px;
+                line-height: 60px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .title {
+                font-size: 14px;
+            }
+        }
+
+        svg {
+            vertical-align: top;
+            margin-top: 10px;
+            display: inline-block;
+
+            &.correct {
+                fill: #0F9D58;
+                display: inline-block;
+                margin-right: 10px;
+                width: 42px;
+                height: 39px;
+            }
+
+            &.wrong {
+                fill: #E25B69;
+                display: inline-block;
+                margin-left: 10px;
+                width: 45px;
+                height: 39px;
+            }
+        }
+    }
+
+    .top-users {
+        display: none;
+        list-style: none;
+        text-align: center;
+        margin: 0 auto 28px auto;
+        padding: 0;
+        font-size: 0;
+    }
+
+    .top-quiz {
+        display: none;
+        font-size: 22px;
+        text-align: center;
+        margin-bottom: 16px;
+    }
+
+    .top-user {
+        position: relative;
+        display: inline-block;
+
+        &:not(:last-child):not(:first-child) {
+            margin: 0 30px;
+        }
+
+        img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        svg.star {
+            fill: #FBD323;
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            width: 24px;
+            height: 22px;
+        }
+
+        .userLetter + svg.star {
+            top: -8px;
+            right: -9px;
+        }
+    }
+
+    .button-wrapper {
+        text-align: center;
+        display: none;
+
+        button {
+            font-size: 22px;
+            padding: 5px 0;
+            border-radius: 10px;
+            width: 100%;
+            height: 50px;
+
+            &.retake {
+                margin-right: 8px;
+                color: @color2;
+                background: #4190b9;
+            }
+
+            &.answers {
+                background-color: @loginColor;
+                color: @color2;
+                margin-left: 8px;
+            }
+        }
+    }
+
+
+    &.solved {
+        .cube {
+            background-color: #797979;
+            border: none;
+
+            .score {
+                display: block;
+            }
+
+            .stopwatch-btn {
+                display: none;
+            }
+        }
+
+        .results, .top-quiz, .top-users, .button-wrapper {
+            display: block;
+        }
+    }
+}
+
+@media (max-width: 1199px) {
+
+    .score-modal.score-modal {
+        position: relative;
+        margin: 60px auto 10px auto;
+        left: auto;
+        top: auto;
+        max-width: 800px;
+        width: 100%;
+
+
+        .top-quiz, .top-users {
+            display: none;
+        }
+
+        .stop-watch-wrapper {
+            text-align: left;
+        }
+
+        .cube {
+            float: left;
+            clear:left;
+        }
+
+        .results {
+            clear:right;
+            float: right;
+            border-bottom: none;
+        }
+
+
+        .button-wrapper {
+           position:absolute;
+           right:0;
+           width:300px; 
+           top:25px;
+        }
+        /*.retake {
+            float: right;
+        }*/
+    }
+
+    .quizPage {
+        .center {
+            width:100%;
+            margin: 0 auto 60px auto;
+        }
+    }
+}
