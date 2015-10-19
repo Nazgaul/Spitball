@@ -2925,30 +2925,20 @@
     <Content Include="Views\Item\_PreviewMediaLoading.cshtml" />
     <Content Include="Views\Share\Index.cshtml" />
     <Content Include="Views\Library\SelectDepartment.cshtml" />
-    <Content Include="Views\Shared\Partials\_Welcome.cshtml" />
     <Content Include="Views\Library\InsertId.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />
     <Content Include="Views\Quiz\_QuizDialog.cshtml" />
-    <Content Include="Views\Shared\_SocialInvite.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Countries.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Item\_PreviewSvg.cshtml" />
     <Content Include="Views\Item\FullScreen.cshtml" />
     <Content Include="Views\Box\_Feed.cshtml" />
     <Content Include="Views\Library\Rename.cshtml" />
-    <Content Include="Views\Shared\Partials\_BarSearch0.cshtml" />
-    <Content Include="Views\Shared\Partials\_BarActions.cshtml" />
-    <Content Include="Views\Shared\Partials\_SettingsAuth.cshtml" />
-    <Content Include="Views\Shared\Partials\_Header.cshtml" />
-    <Content Include="Views\Shared\Partials\_SettingsUnauth.cshtml" />
     <Content Include="Views\Item\_ItemRegister.cshtml" />
     <Content Include="Views\Item\_PreviewText.cshtml" />
     <Content Include="Views\Home\IFrame.cshtml" />
-    <Content Include="Views\Shared\Partials\_BarSearch.cshtml" />
-    <Content Include="Views\Shared\Partials\_DashLibItem.cshtml" />
-    <Content Include="Views\Shared\Partials\_SearchTemplate.cshtml" />
     <Content Include="Views\Account\Index3.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\Shared\_Head.cshtml" />
@@ -3452,16 +3442,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\_UserDetail3.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Account\ResetPassword.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Partials\LogOn.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Partials\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\AboutUs.cshtml" />
@@ -3501,11 +3482,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Share\_Message.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Partials\_RegisterPopUp.cshtml">
-      <BrowseToURL>cd</BrowseToURL>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="cdn\Web.config" />
