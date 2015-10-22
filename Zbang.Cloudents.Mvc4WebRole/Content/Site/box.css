@@ -1,10 +1,4 @@
-﻿.class {
-  /*.attach {
-        background: rgba(0, 0, 0, 0.48);
-        margin: 8px -20px -8px -10px;
-    }*/
-}
-.class .nav-tabs > li.active > a,
+﻿.class .nav-tabs > li.active > a,
 .class .nav-tabs > li.active > a:hover {
   background: transparent;
   border: 0;
@@ -133,7 +127,7 @@
 .quiz .bottom:before {
   content: "";
   bottom: 0;
-  right: 0;
+  right: 0 /*rtl:ignore*/;
   height: 42px;
   width: 42px;
   position: absolute;
@@ -142,11 +136,11 @@
 .quiz .bottom:after {
   content: '';
   display: block;
-  right: 0;
+  right: 0 /*rtl:ignore*/;
   bottom: 0;
   position: absolute;
   border-style: solid;
-  border-width: 39px 39px 0 0;
+  border-width: 39px 39px 0 0 /*rtl:ignore*/;
   border-color: #f5f5f5 transparent;
 }
 .quiz .details {
@@ -155,7 +149,7 @@
   background: #484F56;
   padding: 10px;
   color: #fff;
-  direction: ltr;
+  direction: ltr /*rtl:ignore*/;
   position: relative;
 }
 .quiz .details .first-letter {
@@ -168,7 +162,7 @@
   margin-top: 15px;
 }
 .quiz .details .name {
-  text-align: left;
+  text-align: left /*rtl:ignore*/;
   display: block;
   display: -webkit-box;
   max-height: 80px;

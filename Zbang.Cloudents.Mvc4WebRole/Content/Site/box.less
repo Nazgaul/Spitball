@@ -33,10 +33,7 @@
         padding: 0 10px;
         //padding:0 10px;
     }
-    /*.attach {
-        background: rgba(0, 0, 0, 0.48);
-        margin: 8px -20px -8px -10px;
-    }*/
+  
     .message-top {
         padding: 10px 7px 0 7px;
         background: @color1;
@@ -165,7 +162,7 @@
         &:before {
             content: "";
             bottom: 0;
-            right: 0;
+            right: 0 /*rtl:ignore*/;
             height: 42px;
             width: 42px;
             position: absolute;
@@ -175,11 +172,11 @@
         &:after {
             content: '';
             display: block;
-            right: 0;
+            right: 0 /*rtl:ignore*/;
             bottom: 0;
             position: absolute;
             border-style: solid;
-            border-width: 39px 39px 0 0;
+            border-width: 39px 39px 0 0 /*rtl:ignore*/;
             border-color: @color2 transparent;
         }
     }
@@ -192,7 +189,7 @@
         background: #484F56;
         padding: 10px;
         color: #fff;
-        direction: ltr;
+        direction: ltr /*rtl:ignore*/;
         position: relative;
 
 
@@ -208,7 +205,7 @@
         }
 
         .name {
-            text-align: left;
+            text-align: left /*rtl:ignore*/;
             display: block;
             display: -webkit-box;
             max-height: 80px; /* Fallback for non-webkit */
