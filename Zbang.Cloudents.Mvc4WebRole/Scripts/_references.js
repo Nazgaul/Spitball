@@ -302,3 +302,4 @@
 /// <reference path="../Js/components/account/password.controller.js" />
 /// <reference path="../Js/shared/displayTime.js" />
 /// <reference path="../js/components/share/share.service.js" />
+/// <reference path="../js/components/account/userdetails.js" />
