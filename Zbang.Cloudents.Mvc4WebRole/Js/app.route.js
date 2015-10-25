@@ -21,44 +21,44 @@
 
                 controller: 'QuizController as q'
             })
-        .state('box', {
-            url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/',
-            templateUrl: function () {
-                return buildUrl('/box/indexpartial/');
-            },
-            controller: 'BoxController as b',
+        //.state('box', {
+        //    url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/',
+        //    templateUrl: function () {
+        //        return buildUrl('/box/indexpartial/');
+        //    },
+        //    controller: 'BoxController as b',
 
-        }).
-              state('box.feed', {
-                  templateUrl: function () {
-                      return buildUrl('/box/feedpartial/');
-                  },
-                  url: '#feed',
-                  controller: 'FeedController as f'
-              }).
-             state('box.items', {
-                 templateUrl: function () {
-                     return buildUrl('/box/itemspartial/');
-                 },
-                 url: '#items',
-                 controller: 'ItemsController as i'
-             }).
-            state('box.quiz', {
-                templateUrl: function () {
-                    return buildUrl('/box/quizpartial/');
-                },
-                url: '#quizzes',
-                controller: 'QuizzesController as q'
-            }).
-            state('box.members', {
-                templateUrl: function () {
-                    return buildUrl('/box/memberspartial/');
-                },
-                url: '#members',
-                controller: 'MembersController as m'
-            }).
+        //}).
+        //      state('box.feed', {
+        //          templateUrl: function () {
+        //              return buildUrl('/box/feedpartial/');
+        //          },
+        //          url: '#feed',
+        //          controller: 'FeedController as f'
+        //      }).
+        //     state('box.items', {
+        //         templateUrl: function () {
+        //             return buildUrl('/box/itemspartial/');
+        //         },
+        //         url: '#items',
+        //         controller: 'ItemsController as i'
+        //     }).
+        //    state('box.quiz', {
+        //        templateUrl: function () {
+        //            return buildUrl('/box/quizpartial/');
+        //        },
+        //        url: '#quizzes',
+        //        controller: 'QuizzesController as q'
+        //    }).
+        //    state('box.members', {
+        //        templateUrl: function () {
+        //            return buildUrl('/box/memberspartial/');
+        //        },
+        //        url: '#members',
+        //        controller: 'MembersController as m'
+        //    }).
 
-            state('jobs', {
+            .state('jobs', {
                 url: '/jobs/',
                 templateUrl: function () {
                     return buildUrl('/home/jobs/');

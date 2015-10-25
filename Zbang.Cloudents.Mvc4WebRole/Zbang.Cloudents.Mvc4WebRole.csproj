@@ -1810,6 +1810,7 @@
     <Content Include="Js\components\account\info.controller.js" />
     <Content Include="Js\components\account\notification.controller.js" />
     <Content Include="Js\components\account\password.controller.js" />
+    <Content Include="Js\components\box\box.routes.js" />
     <Content Include="Js\shared\userDetails.js" />
     <Content Include="Js\components\app.controller.js" />
     <Content Include="Js\components\box\box.service.js" />

@@ -437,22 +437,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-0.14.1.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-tabdrop.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
-                        //new JsFileWithCdn("~/scripts/site/jquery.mixitup.min.js"),
-                        //new JsFileWithCdn("~/scripts/site/jquery.dataTables.min.js"),
 
                         new JsFileWithCdn("~/js/signin/metronic.js"),
                         new JsFileWithCdn("~/js/signin/layout.js"),
-                        //new JsFileWithCdn("~/scripts/site/quick-sidebar.js"),
                         new JsFileWithCdn("~/js/signin/demo.js"),
-                         //new JsFileWithCdn("~/scripts/site/table-advanced.js"),
-                        //new JsFileWithCdn("~/scripts/site/index3.js"),
-                        //new JsFileWithCdn("~/scripts/site/tasks.js")
 
                         new JsFileWithCdn("~/js/app.js"),
                         new JsFileWithCdn("~/js/app.config.js"),
                         new JsFileWithCdn("~/js/app.route.js"),
                         new JsFileWithCdn("~/js/routerHelperProvider.js"),
-                       // new JsFileWithCdn("~/js/shared/displayTime.js"),
 
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.module.js"),
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.filter.js"),
@@ -475,6 +468,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/dashboard/createClass.controller.js"),
 
                         new JsFileWithCdn("~/js/components/box/box.controller.js"),
+                        new JsFileWithCdn("~/js/components/box/box.routes.js"),
                         new JsFileWithCdn("~/js/components/box/feed.controller.js"),
                         new JsFileWithCdn("~/js/components/box/item.controller.js"),
                         new JsFileWithCdn("~/js/components/box/quizzes.controller.js"),

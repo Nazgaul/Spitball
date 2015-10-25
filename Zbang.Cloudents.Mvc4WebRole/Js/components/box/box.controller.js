@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.box').controller('BoxController', box);
-    box.$inject = ['boxService', '$stateParams', '$location', '$scope', '$timeout', '$state'];
+    box.$inject = ['boxService', '$stateParams', '$location', '$scope', '$timeout', '$state', '$rootScope'];
 
-    function box(boxService, $stateParams, $location, $scope, $timeout, $state) {
+    function box(boxService, $stateParams, $location, $scope, $timeout, $state, $rootScope) {
 
         if (!$location.hash()) {
             $state.go('box.feed');
@@ -16,7 +16,8 @@
             b.professorName = response.professorName;
             b.courseId = response.courseId;
         });
-       // b.inviteOpen = true;
+
+
         b.inviteToBox = function () {
             b.inviteOpen = true;
             $scope.$broadcast('open_invite');
@@ -26,6 +27,16 @@
             b.inviteOpen = false;
         });
 
+        console.log($state)
+        b.uploadOn = false;
+        b.uploadShow = isItemState($state.current.name);
+        b.toggleUpload = function () {
+
+            b.uploadShow = !b.uploadShow;
+            b.uploadOn = !b.uploadOn;
+        }
+
+
         $scope.$on('$viewContentLoaded', function () {
             $timeout(function () {
                 Metronic.initAjax();
@@ -34,6 +45,21 @@
             //Metronic.initAjax(); // init core components
 
         });
+
+        function isItemState(stateName) {
+            return stateName === 'box.items';
+        }
+
+        $rootScope.$on('$stateChangeSuccess',
+            function (event, toState, toParams, fromState, fromParams) {
+                
+                if (isItemState(toState.name)) {
+                    b.uploadShow = true;
+                } else {
+                    b.uploadShow = false;
+                }
+
+            });
     }
 })();
 

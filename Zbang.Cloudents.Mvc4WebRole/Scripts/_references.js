@@ -302,3 +302,4 @@
 /// <reference path="../Js/shared/displayTime.js" />
 /// <reference path="../js/components/share/share.service.js" />
 /// <reference path="../js/shared/userdetails.js" />
+/// <reference path="../js/components/box/box.routes.js" />
