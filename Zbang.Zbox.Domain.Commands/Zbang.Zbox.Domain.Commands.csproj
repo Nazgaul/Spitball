@@ -96,7 +96,6 @@
     <Compile Include="DeleteUserFromBoxCommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InviteToSystemCommand.cs" />
-    <Compile Include="InviteToSystemFacebookCommand.cs" />
     <Compile Include="MarkMessagesAsReadCommand.cs" />
     <Compile Include="Quiz\CreateAnswerCommand.cs" />
     <Compile Include="Quiz\CreateDiscussionCommand.cs" />
@@ -116,7 +115,6 @@
     <Compile Include="RateItemCommand.cs" />
     <Compile Include="RenameNodeCommand.cs" />
     <Compile Include="SendMessageCommand.cs" />
-    <Compile Include="ShareBoxFacebookCommand.cs" />
     <Compile Include="AddReputationCommand.cs" />
     <Compile Include="UnFollowBoxCommand.cs" />
     <Compile Include="UpdateDirtyToRegularCommand.cs" />

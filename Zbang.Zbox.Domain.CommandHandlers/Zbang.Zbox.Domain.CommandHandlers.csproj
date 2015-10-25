@@ -83,7 +83,6 @@
     <Compile Include="DeleteUpdatesCommandHandler.cs" />
     <Compile Include="DeleteUserFromBoxCommandHandler.cs" />
     <Compile Include="InviteToSystemCommandHandler.cs" />
-    <Compile Include="InviteToSystemFacebookCommandHandler.cs" />
     <Compile Include="Ioc\RegisterIoc.cs" />
     <Compile Include="MarkMessagesAsReadCommandHandler.cs" />
     <Compile Include="Quiz\CreateAnswerCommandHandler.cs" />
@@ -108,7 +107,6 @@
       <DependentUpon>CommandHandlerResources.resx</DependentUpon>
     </Compile>
     <Compile Include="SendMessageCommandHandler.cs" />
-    <Compile Include="ShareBoxFacebookCommandHandler.cs" />
     <Compile Include="AddReputationCommandHandler.cs" />
     <Compile Include="SubscribeToSharedBoxCommandHandler.cs" />
     <Compile Include="ShareBoxCommandHandler.cs" />

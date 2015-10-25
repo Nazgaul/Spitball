@@ -1,14 +1,16 @@
 ﻿(function () {
     angular.module('app').controller('inviteController', invite);
 
-    invite.$inject = ['googleService', 'shareService', '$scope', '$stateParams'];
+    invite.$inject = ['googleService', 'shareService', '$scope', '$stateParams', '$q'];
 
-    function invite(googleService, shareService, $scope, $stateParams) {
+    function invite(googleService, shareService, $scope, $stateParams, $q) {
         var self = this;
         self.querySearch = querySearch;
         self.allContacts = [];// loadContacts();
         self.contacts = [];
         self.filterSelected = true;
+
+        var googleContact = [];
 
 
         self.importGoogleContract = importGoogleContacts;
@@ -17,6 +19,7 @@
 
         self.closeInvite = function () {
             self.contacts = [];
+            changeTab(true);
             $scope.$emit('close_invite');
         }
         self.inBox = $stateParams.boxId ? true : false;
@@ -24,6 +27,8 @@
 
         self.mail = function () { changeTab(true); }
         self.system = function () { changeTab(false); }
+
+
 
         $scope.$on("open_invite", function () {
             googleService.initGApi().then(function () {
@@ -37,9 +42,11 @@
 
         function changeTab(isMail) {
             if (isMail) {
+                self.allContacts = googleContact;
                 self.inMail = true;
             } else {
                 self.inMail = false;
+                getSystemUsers('');
             }
         }
 
@@ -47,12 +54,16 @@
          * Search for contacts.
          */
         function querySearch(query) {
-            var results = query ?
-                self.allContacts.filter(createFilterFor(query)) : [];
-            if (!results.length) {
-                results.push({ name: query, email: query, image: '/images/user.svg' });
+            if (!self.inMail) {
+                return getSystemUsers(query);
+            } else {
+                var results = query ?
+                    self.allContacts.filter(createFilterFor(query)) : [];
+                if (!results.length) {
+                    results.push({ name: query, email: query, image: '/images/user.svg' });
+                }
+                return results;
             }
-            return results;
         }
         /**
          * Create filter function for a query string
@@ -60,6 +71,7 @@
 
         function contactSelected(contact) {
             self.contacts.push(contact);
+            $scope.$$childHead.$mdContactChipsCtrl.searchText = '';
         }
         function createFilterFor(query) {
             var lowercaseQuery = angular.lowercase(query);
@@ -83,7 +95,7 @@
 
         function getGoogleContacts() {
             googleService.contacts().then(function (contacts) {
-                self.allContacts = contacts.map(function (c) {
+                self.allContacts = googleContact = contacts.map(function (c) {
                     return {
                         name: c.name,
                         email: c.id,
@@ -96,12 +108,35 @@
             });
         }
 
-        function sendInvite() {
-            shareService.inviteToSystem(self.contacts.map(function (c) {
-                return c.email;
-            })).then(function () {
-                self.closeInvite();
+        function getSystemUsers(term) {
+
+            shareService.users(term, $stateParams.boxId, 0).then(function (response) {
+
+                self.allContacts = response.map(function (c) {
+                    return {
+                        name: c.name,
+                        email: c.id,
+                        image: c.image ||  '/images/user.svg' ,
+                        _lowername: c.name.toLowerCase()
+                    }
+                });
+
             });
+        }
+
+        function sendInvite() {
+            var contacts = self.contacts.map(function (c) {
+                return c.email;
+            });
+            if (self.inBox) {
+                shareService.inviteToBox(contacts, $stateParams.boxId).then(function () {
+                    self.closeInvite();
+                });
+            } else {
+                shareService.inviteToSystem(contacts).then(function () {
+                    self.closeInvite();
+                });
+            }
         }
 
     }

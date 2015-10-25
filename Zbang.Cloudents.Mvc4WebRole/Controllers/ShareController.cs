@@ -53,33 +53,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError("Unspecified error. try again later");
             }
         }
-        [HttpPost, ZboxAuthorize]
-        public ActionResult InviteFacebook(InviteSystemFromFacebook model)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return Json(new JsonResponse(false, GetModelStateErrors()));
-                }
-                var userId = User.GetUserId();
+        //[HttpPost, ZboxAuthorize]
+        //public ActionResult InviteFacebook(InviteSystemFromFacebook model)
+        //{
+        //    try
+        //    {
+        //        if (!ModelState.IsValid)
+        //        {
+        //            return Json(new JsonResponse(false, GetModelStateErrors()));
+        //        }
+        //        var userId = User.GetUserId();
 
-                var inviteCommand = new InviteToSystemFacebookCommand(userId, model.Id, string.Format("{0} {1}", model.FirstName, model.LastName));
+        //        var inviteCommand = new InviteToSystemFacebookCommand(userId, model.Id, string.Format("{0} {1}", model.FirstName, model.LastName));
 
-                ZboxWriteService.InviteSystemFromFacebook(inviteCommand);
+        //        ZboxWriteService.InviteSystemFromFacebook(inviteCommand);
 
-                if (!inviteCommand.Id.HasValue)
-                {
-                    return JsonError("User is already connected to Spitball");
-                }
-                return JsonOk(new { url = UrlConsts.BuildInviteCloudentsUrl(GuidEncoder.Encode(inviteCommand.Id.Value)) });
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("Share/InviteFacebook user: {0} model: {1}", User.GetUserId(), model), ex);
-                return Json(new JsonResponse(false, "Unspecified error. try again later"));
-            }
-        }
+        //        if (!inviteCommand.Id.HasValue)
+        //        {
+        //            return JsonError("User is already connected to Spitball");
+        //        }
+        //        return JsonOk(new { url = UrlConsts.BuildInviteCloudentsUrl(GuidEncoder.Encode(inviteCommand.Id.Value)) });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError(string.Format("Share/InviteFacebook user: {0} model: {1}", User.GetUserId(), model), ex);
+        //        return Json(new JsonResponse(false, "Unspecified error. try again later"));
+        //    }
+        //}
 
 
         [HttpPost]
@@ -95,7 +95,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
 
                 var userId = User.GetUserId();
-                var shareCommand = new ShareBoxCommand(model.BoxId, userId, model.Recepients);
+                var shareCommand = new ShareBoxCommand(model.BoxId, userId, model.Recipients);
                 await ZboxWriteService.ShareBoxAsync(shareCommand);
                 return JsonOk();
             }
@@ -119,18 +119,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpPost, ZboxAuthorize]
-        public ActionResult InviteBoxFacebook(InviteToBoxFromFacebook model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
-            }
-            var userId = User.GetUserId();
-            var command = new ShareBoxFacebookCommand(userId, model.Id, model.BoxId, string.Format("{0} {1}", model.FirstName, model.LastName));
-            ZboxWriteService.ShareBoxFacebook(command);
-            return JsonOk(new { url = command.Url });
-        }
+        //[HttpPost, ZboxAuthorize]
+        //public ActionResult InviteBoxFacebook(InviteToBoxFromFacebook model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Json(new JsonResponse(false, GetModelStateErrors()));
+        //    }
+        //    var userId = User.GetUserId();
+        //    var command = new ShareBoxFacebookCommand(userId, model.Id, model.BoxId, string.Format("{0} {1}", model.FirstName, model.LastName));
+        //    ZboxWriteService.ShareBoxFacebook(command);
+        //    return JsonOk(new { url = command.Url });
+        //}
 
         [HttpPost]
         [ZboxAuthorize]

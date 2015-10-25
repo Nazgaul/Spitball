@@ -92,6 +92,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<JsonResult> Members(string term, long boxId, int page, int sizePerPage = 20)
+        {
+            if (string.IsNullOrEmpty(term))
+            {
+                term = "";
+            }
+            long? universityId = User.GetUniversityData();
+            if (!universityId.HasValue)
+                return JsonError("need university");
+            var query = new UserSearchQuery(term, universityId.Value, boxId, page, sizePerPage);
+            var retVal = await ZboxReadService.GetUsersByTermAsync(query);
+
+            return JsonOk(retVal);
+
+        }
+
+
 
 
 

@@ -16,9 +16,10 @@
             b.professorName = response.professorName;
             b.courseId = response.courseId;
         });
-        b.inviteOpen = true;
-        b.inviteToBox = function() {
+       // b.inviteOpen = true;
+        b.inviteToBox = function () {
             b.inviteOpen = true;
+            $scope.$broadcast('open_invite');
         }
 
         $scope.$on("close_invite", function () {

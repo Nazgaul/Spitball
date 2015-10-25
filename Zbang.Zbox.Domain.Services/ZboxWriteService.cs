@@ -202,14 +202,14 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void ShareBoxFacebook(ShareBoxFacebookCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        //public void ShareBoxFacebook(ShareBoxFacebookCommand command)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
 
         public async Task SubscribeToSharedBoxAsync(SubscribeToSharedBoxCommand command)
         {
@@ -219,14 +219,14 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void InviteSystemFromFacebook(InviteToSystemFacebookCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        //public void InviteSystemFromFacebook(InviteToSystemFacebookCommand command)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
 
 
 

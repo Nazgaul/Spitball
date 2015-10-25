@@ -31,8 +31,8 @@ namespace Zbang.Zbox.Domain.Common
 
         Task ShareBoxAsync(ShareBoxCommand command);
         Task InviteSystemAsync(InviteToSystemCommand command);
-        void ShareBoxFacebook(ShareBoxFacebookCommand command);
-        void InviteSystemFromFacebook(InviteToSystemFacebookCommand inviteCommand);
+       // void ShareBoxFacebook(ShareBoxFacebookCommand command);
+       // void InviteSystemFromFacebook(InviteToSystemFacebookCommand inviteCommand);
 
         Task SendMessageAsync(SendMessageCommand command);
         Task SubscribeToSharedBoxAsync(SubscribeToSharedBoxCommand command);

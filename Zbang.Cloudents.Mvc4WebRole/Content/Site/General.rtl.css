@@ -225,6 +225,12 @@ button {
   border: 0;
   margin: 0;
 }
+.tab-from-left > li.active > a:focus {
+  color: #3598dc;
+  background: none;
+  border: 0;
+  margin: 0;
+}
 .tab-from-left > li:hover > a {
   color: #3598dc;
   background: none;
