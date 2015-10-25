@@ -1,8 +1,8 @@
 ﻿(function() {
     angular.module('app.dashboard').controller('SideMenu', dashboard);
-    dashboard.$inject = ['dashboardService', 'accountService'];
+    dashboard.$inject = ['dashboardService', 'userDetails'];
 
-    function dashboard(dashboardService, accountService) {
+    function dashboard(dashboardService, userDetails) {
         var d = this;
         d.courses = [];
         d.privateBoxes = [];
@@ -14,7 +14,7 @@
                 return b.boxType === 'box';
             });
         });
-        accountService.getDetails().then(function (response) {
+        userDetails.get().then(function (response) {
             d.userUrl = response.url;
         });
     }

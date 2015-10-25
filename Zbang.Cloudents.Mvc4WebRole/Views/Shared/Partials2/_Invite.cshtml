@@ -5,7 +5,18 @@
         </div>
         <button type="button" class="close" ng-click="i.closeInvite()">X</button>
     </div>
-    <div class="body clearfix">
+    <div class="body clearfix tabbable-line">
+        <div class="clearfix" ng-show="i.inBox">
+            <ul class="nav nav-tabs tab-from-right">
+                <li ng-class="{active: i.inMail}">
+                    <a ng-click="i.mail()">mail</a>
+                </li>
+                <li ng-class="{active: !i.inMail}">
+                    <a ng-click="i.system()">spitball</a>
+                </li>
+
+            </ul>
+        </div>
         <div layout="column" ng-cloak class="chipsdemoContactChips">
             <md-content class="md-padding autocomplete" layout="column">
                 <md-contact-chips ng-model="i.contacts"
@@ -36,7 +47,7 @@
                         </div>
                     </md-list-item>
                 </md-list>
-                <button class="btn gmail" ng-click="i.importGoogleContract()" ng-if="!(i.allContacts.length)" type="button">
+                <button class="btn gmail" ng-click="i.importGoogleContract()" ng-if="!(i.allContacts.length) && i.inMail" type="button">
                     <svg viewBox="-468 273.5 21.5 15.6">
                         <g>
                             <path d="M-468,273.5V289h21.5v-15.6H-468z M-452.3,274l-5,5l-5.5-5H-452.3z M-465.1,276.5l6,5.2l-6,4.6

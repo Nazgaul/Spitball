@@ -1810,7 +1810,7 @@
     <Content Include="Js\components\account\info.controller.js" />
     <Content Include="Js\components\account\notification.controller.js" />
     <Content Include="Js\components\account\password.controller.js" />
-    <Content Include="Js\components\account\userDetails.js" />
+    <Content Include="Js\shared\userDetails.js" />
     <Content Include="Js\components\app.controller.js" />
     <Content Include="Js\components\box\box.service.js" />
     <Content Include="Js\components\box\quizzes.controller.js" />
@@ -1865,7 +1865,6 @@
     <Content Include="Js\shared\google.js" />
     <Content Include="Js\shared\loader.js" />
     <Content Include="Js\shared\megaNumbers.js" />
-    <Content Include="Js\shared\mixitup.js" />
     <Content Include="Js\shared\userimage.js" />
     <Content Include="Js\signin\bootstrap.min.js" />
     <Content Include="Js\signin\demo.js" />

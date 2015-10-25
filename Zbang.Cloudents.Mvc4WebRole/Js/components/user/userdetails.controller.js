@@ -1,21 +1,21 @@
 ﻿/// <reference path="~/Scripts/angular.js" />
 (function () {
-    angular.module('app.user.details').controller('UserDetails', userDetails);
-    userDetails.$inject = ['accountService', '$scope'];
+    angular.module('app.user.details').controller('UserDetails', userDetailsController);
+    userDetailsController.$inject = ['accountService', '$scope', 'userDetails'];
 
-    function userDetails(accountService, $scope) {
+    function userDetailsController(accountService, $scope, userDetails) {
         var ud = this;
         ud.isLoggedIn = false;
 
-        accountService.getDetails().then(function (response) {
-            if (response.id) {
-                ud.isLoggedIn = true;
-            }
+        userDetails.get().then(function (response) {
             assignValues(response);
+        });
+        userDetails.isAuthenticated().then(function(response) {
+            ud.isLoggedIn = response;
         });
 
         $scope.$on('userDetailsChange', function () {
-            accountService.getDetails().then(function (response) {
+            userDetails.get().then(function (response) {
                 assignValues(response);
             });
         });

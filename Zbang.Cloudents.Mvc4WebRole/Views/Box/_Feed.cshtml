@@ -27,7 +27,7 @@
                                 <li ng-repeat="item in post.files">
                                     <a class="item" href="{{::item.url}}">
                                         <div class="content">
-                                            <img class="img-responsive" src="{{::item.thumbnail}}" alt="">
+                                            <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
                                             <div class="extra">
                                                 <h5>{{::item.name}}</h5>
                                                 <img src="http://lorempixel.com/30/30/" alt="" />
@@ -60,7 +60,7 @@
                                         <li ng-repeat="item in reply.files">
                                             <a class="item" href="{{::item.url}}">
                                                 <div class="content">
-                                                    <img class="img-responsive" src="{{::item.thumbnail}}" alt="">
+                                                    <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
                                                     <div class="extra">
                                                         <h5>{{::item.name}}</h5>
                                                         <img src="http://lorempixel.com/30/30/" alt="" />
@@ -80,6 +80,13 @@
     </div>
     <div class="col-lg-6 col-md-4 col-sm-12">
         @{ Html.RenderPartial("_LeaderBoard");}
+        
+        <div class="portlet light invite">
+            <button type="button" ng-click="b.inviteToBox()" class="portlet-body">
+                @Html.Svg("~/images/site/icons.svg", "invite")
+                Invite your friends to spitball
+            </button>
+        </div>
 
         <div class="row margin-top-10" ng-controller="RecommendedController as r">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-repeat="box in r.boxes">

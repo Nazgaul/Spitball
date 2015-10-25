@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.library').controller('Library', library);
-    library.$inject = ['libraryService', 'accountService', '$stateParams'];
+    library.$inject = ['libraryService', 'userDetails', '$stateParams'];
 
-    function library(libraryService, accountService, $stateParams) {
+    function library(libraryService, userDetails, $stateParams) {
         var l = this;
 
         libraryService.getDepartments($stateParams.nodeId).then(function (response) {
@@ -13,8 +13,8 @@ parentUrl: "/library/"*/
             l.nodeDetail = response.details;
         });
 
-        accountService.getDetails().then(function (response) {
-            l.universityName = response.universityName;
+        userDetails.get().then(function (response) {
+            l.universityName = response.university.universityName;
             
         });
     }

@@ -1,9 +1,9 @@
 ﻿(function () {
     angular.module('app.quiz').controller('QuizController', quiz);
 
-    quiz.$inject = ['$scope', '$stateParams', 'quizService', '$sce', '$location', '$timeout', '$uibModal', '$uibModalStack', '$filter', 'accountService'];
+    quiz.$inject = ['$scope', '$stateParams', 'quizService', '$sce', '$location', '$timeout', '$uibModal', '$uibModalStack', '$filter', 'userDetails'];
 
-    function quiz($scope, $stateParams, quizService, $sce, $location, $timeout, $uibModal, $uibModalStack, $filter, accountService) {
+    function quiz($scope, $stateParams, quizService, $sce, $location, $timeout, $uibModal, $uibModalStack, $filter, userDetails) {
         var q = this;
 
         q.timerControl = {};
@@ -18,11 +18,11 @@
         q.isCorrectAnswer = isCorrectAnswer;
         q.isSelectedAnswer = isSelectedAnswer;
         q.buttonText = getButtonText;
-        q.retakeQuiz = retakeQuiz;        
+        q.retakeQuiz = retakeQuiz;
         q.postComment = postComment;
         q.removeComment = removeComment;
 
-        accountService.getDetails().then(function (data) {
+        userDetails.get().then(function (data) {
             q.user = {
                 id: data.id,
                 name: data.name,
@@ -35,7 +35,7 @@
         });
 
         quizService.getQuiz($stateParams.boxId, $stateParams.quizId).then(function (data) {
-            q.name = data.quiz.name
+            q.name = data.quiz.name;
             q.questions = data.quiz.questions;
             q.sheet = data.sheet;
             q.topUsers = data.quiz.topUsers;
@@ -47,7 +47,7 @@
                 getDiscussion();
                 q.isSolved = true;
                 q.timerControl.setTime(q.sheet.timeTaken);
-                
+
                 q.sheet.correct = Math.round(q.sheet.score / 100 * q.questions.length);
                 q.sheet.wrong = q.questions.length - q.sheet.correct;
 
@@ -105,16 +105,16 @@
             solveQuiz();
         }
 
-        function seeAnswers() {
-            q.isSolved = true;
-            //setResults();
-        }
+        //function seeAnswers() {
+        //    q.isSolved = true;
+        //    //setResults();
+        //}
 
-        function resume() {
-            if (!q.timerControl.isRunning) {
-                q.timerControl.toggle();
-            }
-        }
+        //function resume() {
+        //    if (!q.timerControl.isRunning) {
+        //        q.timerControl.toggle();
+        //    }
+        //}
 
 
         //function pause() {
@@ -125,18 +125,18 @@
             q.isSolved = false;
             q.answersCount = 0;
             q.sheet = {};
-            angular.forEach(q.questions, function (q) {
+            angular.forEach(q.questions, function (v) {
 
-                q.isCorrect = undefined;
-                q.selectedAnswer = null;
+                v.isCorrect = undefined;
+                v.selectedAnswer = null;
             });
         }
 
         function solveQuiz() {
             angular.forEach(q.questions, function (question) {
-                var found = false;
+                //var found = false;
                 var answer;
-                for (var i = 0; i < question.answers.length && !found; i++) {
+                for (var i = 0; i < question.answers.length /*&& !found*/; i++) {
                     answer = question.answers[i];
                     if (question.correctAnswer == answer.id) {
                         question.selectedAnswer = answer;
@@ -249,24 +249,24 @@
             quizService.saveAnswers(data).then(function () {
                 var timeTaken = $filter('stopwatch')(q.timerControl.getTime()),
                     correct = 0;
-                angular.forEach(q.questions, function (question) {
-                    if (question.isCorrect == true) {
+                angular.forEach(q.questions, function (c) {
+                    if (c.isCorrect == true) {
                         correct++;
                     }
                 });
-                wrong = q.questions.length - correct;
+                var wrong = q.questions.length - correct;
                 q.sheet.score = Math.round(correct / q.questions.length * 100);
                 q.sheet.correct = correct;
                 q.sheet.wrong = wrong;
-                q.sheet.timeTaken = timeTaken;                
+                q.sheet.timeTaken = timeTaken;
             });
         }
 
         function getDiscussion() {
             quizService.getDiscussion({ quizId: $stateParams.quizId }).then(function (data) {
                 angular.forEach(data, function (comment) {
-                    var question = $filter('filter')(q.questions, function (question) {
-                        return comment.questionId === question.id;
+                    var question = $filter('filter')(q.questions, function (c) {
+                        return comment.questionId === c.id;
                     });
 
                     question = question[0];
@@ -298,7 +298,7 @@
 
             question.newComment = '';
 
-            quizService.createDiscussion({ questionId: comment.questionId, text: comment.text }).then(function (response) {
+            quizService.createDiscussion({ questionId: comment.questionId, text: comment.text }).then(function () {
                 if (!question.comments) {
                     question.comments = [];
                 }

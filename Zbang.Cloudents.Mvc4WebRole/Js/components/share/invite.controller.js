@@ -1,9 +1,9 @@
-﻿(function() {
+﻿(function () {
     angular.module('app').controller('inviteController', invite);
 
-    invite.$inject = ['googleService', 'shareService','$scope'];
+    invite.$inject = ['googleService', 'shareService', '$scope', '$stateParams'];
 
-    function invite(googleService, shareService, $scope) {
+    function invite(googleService, shareService, $scope, $stateParams) {
         var self = this;
         self.querySearch = querySearch;
         self.allContacts = [];// loadContacts();
@@ -19,7 +19,11 @@
             self.contacts = [];
             $scope.$emit('close_invite');
         }
-       
+        self.inBox = $stateParams.boxId ? true : false;
+        self.inMail = true;
+
+        self.mail = function () { changeTab(true); }
+        self.system = function () { changeTab(false); }
 
         $scope.$on("open_invite", function () {
             googleService.initGApi().then(function () {
@@ -29,11 +33,20 @@
                 }
             });
         });
+
+
+        function changeTab(isMail) {
+            if (isMail) {
+                self.inMail = true;
+            } else {
+                self.inMail = false;
+            }
+        }
+
         /**
          * Search for contacts.
          */
         function querySearch(query) {
-            console.log(query);
             var results = query ?
                 self.allContacts.filter(createFilterFor(query)) : [];
             if (!results.length) {
@@ -67,18 +80,18 @@
                 });
             });
         }
-        
+
         function getGoogleContacts() {
             googleService.contacts().then(function (contacts) {
-                self.allContacts = contacts.map(function(c) {
+                self.allContacts = contacts.map(function (c) {
                     return {
                         name: c.name,
                         email: c.id,
                         image: c.image,
-                        _lowername : c.name.toLowerCase()
+                        _lowername: c.name.toLowerCase()
                     }
                 });
-              
+
 
             });
         }
@@ -90,6 +103,6 @@
                 self.closeInvite();
             });
         }
-        
+
     }
 })()

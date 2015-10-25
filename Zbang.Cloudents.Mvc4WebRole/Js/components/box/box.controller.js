@@ -16,6 +16,14 @@
             b.professorName = response.professorName;
             b.courseId = response.courseId;
         });
+        b.inviteOpen = true;
+        b.inviteToBox = function() {
+            b.inviteOpen = true;
+        }
+
+        $scope.$on("close_invite", function () {
+            b.inviteOpen = false;
+        });
 
         $scope.$on('$viewContentLoaded', function () {
             $timeout(function () {
