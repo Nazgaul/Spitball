@@ -21,16 +21,9 @@
 .invite {
   background: #353a3f;
   padding: 0 10px 10px;
-  /*.closeForm{
-    float: right;
-    margin: 10px 10px 0 0;
-    //override
-    color: #f5f5f5;
-    text-shadow: none;
-    opacity: 1;
-    font-weight: 400;  
-
-    }*/
+}
+.invite .tab-from-right {
+  margin-right: 25px;
 }
 .invite .body {
   background: #212427;
