@@ -27,7 +27,6 @@
             b.inviteOpen = false;
         });
 
-        console.log($state)
         b.uploadOn = false;
         b.uploadShow = isItemState($state.current.name);
         b.toggleUpload = function () {
@@ -37,14 +36,14 @@
         }
 
 
-        $scope.$on('$viewContentLoaded', function () {
-            $timeout(function () {
-                Metronic.initAjax();
-            });
-            //TODO: maybe this is no good.
-            //Metronic.initAjax(); // init core components
+        //$scope.$on('$viewContentLoaded', function () {
+        //    $timeout(function () {
+        //        Metronic.initAjax();
+        //    });
+        //    //TODO: maybe this is no good.
+        //    //Metronic.initAjax(); // init core components
 
-        });
+        //});
 
         function isItemState(stateName) {
             return stateName === 'box.items';

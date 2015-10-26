@@ -21,7 +21,7 @@
                             <img src="http://lorempixel.com/30/30/" alt="" />
                             <div class="uploader-date">
                                 <div>{{::item.owner}}</div>
-                                {{::item.date}}
+                                {{::item.date | date : 'shortDate'}}
                             </div>
                         </div>
                     </div>
