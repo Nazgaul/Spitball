@@ -4,11 +4,11 @@
             @{Html.RenderPartial("_Invite");}
         </div>
     </div>
-    <div class="row" collapse="!d.createBoxOn">
-        <div class="col-md-12">
-            @{Html.RenderPartial("_Create");}
-        </div>
-    </div>
+    @*<div class="row" collapse="!d.createBoxOn">
+            <div class="col-md-12">
+                @{Html.RenderPartial("_Create");}
+            </div>
+        </div>*@
     <div class="page-head">
         <div class="page-title">
             <h1>Dashboard</h1>
@@ -23,6 +23,7 @@
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 leaderboard">
             @{ Html.RenderPartial("_Leaderboard");}
         </div>
+
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
             <div class="portlet light invite">
                 <button type="button" ng-click="d.inviteToSpitabll()" class="portlet-body">
@@ -31,11 +32,33 @@
                 </button>
             </div>
         </div>
-
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="dashboard-stat2 create-box" ng-controller="CreateBoxController as cb">
+                <button ng-hide="cb.createOn" type="button" ng-click="cb.createBoxClick()">
+                    <div class="plus">+</div>
+                    <span class="title">add study group</span>
+                </button>
+                <div layout="column" ng-show="cb.createOn">
+                    <md-content>
+                        <div layout layout-sm="column">
+                            <md-input-container flex>
+                                <form name="createBox" novalidate ng-submit="cb.create()">
+                                    <label>Enter study group name</label>
+                                    <input autocomplete="off" required ng-model="cb.boxName">
+                                    <span class="error" ng-show="cb.error">{{cb.error}}</span>
+                                    <button type="submit" ng-disabled="!createBox.$valid">done</button>
+                                </form>
+                            </md-input-container>
+                        </div>
+                    </md-content>
+                </div>
+            </div>
+        </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="box in d.boxes">
             @{ Html.RenderPartial("_boxTemplate");}
         </div>
+
     </div>
 
 </div>
-<button type="button" class="add" ng-click="d.createBoxOn = true" ng-hide="d.createBoxOn">+</button>
+@*<button type="button" class="add" ng-click="d.createBoxOn = true" ng-hide="d.createBoxOn">+</button>*@

@@ -6,10 +6,12 @@
     .unibox {
         height: @dashboardCubeHeight;
     }
+
     .leaderboardbox {
         height: @dashboardCubeHeight;
         padding: 10px;
     }
+
     .leaderBoardTitle {
         float: left;
         -ms-word-break: break-word;
@@ -25,11 +27,9 @@
     .leaderBoardBody {
         font-size: 20px;
     }
-
     /*.leaderbordPosition {
         color: #ff7a04 !important;
     }*/
-
     .updates {
         position: absolute;
         left: 8px;
@@ -94,9 +94,24 @@
         text-decoration: none;
         .buttonBlue();
     }
+
+    .create-box {
+        border: 2px solid #7D8894;
+        .plus {
+            font-size: 100px;
+            line-height: 50px;
+        }
+        md-content {
+            background:transparent;
+        }
+        md-input-container label {
+            color:#7D8894;
+        }
+    }
+
 }
 //create class
-.create {
+/*.create {
     .progress-wrap {
         background: #fff;
         padding-bottom: 10px;
@@ -215,9 +230,5 @@
         background-color: #000;
         padding: 20px 10px 10px 0;
     }
-}
-
-/*.layout-column {
-    background: #353A3F;
-    border: 1px solid #353A3F;
 }*/
+

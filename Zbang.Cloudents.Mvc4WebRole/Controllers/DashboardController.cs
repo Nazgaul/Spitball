@@ -97,7 +97,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userId = User.GetUserId();
                 var command = new CreateBoxCommand(userId, model.BoxName);
                 var result = ZboxWriteService.CreateBox(command);
-                return JsonOk(new { result.Url, result.Id });
+                //return JsonOk(new { result.Url, result.Id });
+                return JsonOk(new { result.Url });
 
             }
             catch (BoxNameAlreadyExistsException)

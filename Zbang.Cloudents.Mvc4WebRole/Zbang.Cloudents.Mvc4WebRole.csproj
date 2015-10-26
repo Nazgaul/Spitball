@@ -1555,6 +1555,18 @@
     <Content Include="Content\Site\Share.rtl.min.css">
       <DependentUpon>Share.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\unused-components.css">
+      <DependentUpon>unused-components.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\unused-components.min.css">
+      <DependentUpon>unused-components.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\unused-components.rtl.css">
+      <DependentUpon>unused-components.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\unused-components.rtl.min.css">
+      <DependentUpon>unused-components.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\user.css">
       <DependentUpon>user.less</DependentUpon>
     </Content>
@@ -1811,6 +1823,7 @@
     <Content Include="Js\components\account\notification.controller.js" />
     <Content Include="Js\components\account\password.controller.js" />
     <Content Include="Js\components\box\box.routes.js" />
+    <Content Include="Js\components\dashboard\createBox.controller.js" />
     <Content Include="Js\shared\userDetails.js" />
     <Content Include="Js\components\app.controller.js" />
     <Content Include="Js\components\box\box.service.js" />
@@ -1820,7 +1833,6 @@
     <Content Include="Js\components\box\feed.controller.js" />
     <Content Include="Js\components\box\item.controller.js" />
     <Content Include="Js\components\box\recommended.controller.js" />
-    <Content Include="Js\components\dashboard\createClass.controller.js" />
     <Content Include="Js\components\dashboard\dashboard.controller.js" />
     <Content Include="Js\components\dashboard\dashboard.service.js" />
     <Content Include="Js\components\dashboard\sidemenu.controller.js" />
@@ -2053,6 +2065,7 @@
     <Content Include="Content\Site\morphsearch.less" />
     <Content Include="Content\Site\Share.less" />
     <Content Include="Content\Site\leaderboard.less" />
+    <Content Include="Content\Site\unused-components.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
