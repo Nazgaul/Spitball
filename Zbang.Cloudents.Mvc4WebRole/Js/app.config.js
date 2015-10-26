@@ -16,7 +16,7 @@
             cacheFlushInterval: 45000,
             storageMode: 'sessionStorage'
         });
-
+        //$mdBiDirectionalProvider.rtlMode(true);
 
         $provide.factory('requestinterceptor', [function () {
 

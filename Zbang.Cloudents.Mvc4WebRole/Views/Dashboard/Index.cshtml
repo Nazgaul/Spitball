@@ -34,24 +34,25 @@
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
             <div class="dashboard-stat2 create-box" ng-controller="CreateBoxController as cb">
-                <button ng-hide="cb.createOn" type="button" ng-click="cb.createBoxClick()">
+                <button ng-hide="cb.createOn" type="button" ng-click="cb.createBoxClick()" class="create-btn">
                     <div class="plus">+</div>
-                    <span class="title">add study group</span>
+                    <div class="title">add study group</div>
                 </button>
-                <div layout="column" ng-show="cb.createOn">
-                    <md-content>
-                        <div layout layout-sm="column">
-                            <md-input-container flex>
-                                <form name="createBox" novalidate ng-submit="cb.create()">
+                <form name="createBox" novalidate ng-submit="cb.create()" ng-show="cb.createOn">
+                    <div layout="column">
+                        <md-content>
+                            <div layout layout-sm="column">
+                                <md-input-container flex>
                                     <label>Enter study group name</label>
                                     <input autocomplete="off" required ng-model="cb.boxName">
                                     <span class="error" ng-show="cb.error">{{cb.error}}</span>
-                                    <button type="submit" ng-disabled="!createBox.$valid">done</button>
-                                </form>
-                            </md-input-container>
-                        </div>
-                    </md-content>
-                </div>
+                                </md-input-container>
+                            </div>
+                        </md-content>
+                        
+                    </div>
+                    <button type="submit" class="btn btn-default" ng-disabled="!createBox.$valid">done</button>
+                </form>
             </div>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="box in d.boxes">

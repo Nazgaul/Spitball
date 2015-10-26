@@ -319,6 +319,7 @@
     <Compile Include="Helpers\CloudentsViewLocationCache.cs" />
     <Compile Include="Helpers\CookieTempDataProvider.cs" />
     <Compile Include="Helpers\CustomCacheKeys.cs" />
+    <Compile Include="Helpers\ILanguageCookieHelper.cs" />
     <Compile Include="Helpers\JsonResponse.cs" />
     <Compile Include="Helpers\JsResourceHelper.cs" />
     <Compile Include="Helpers\LanguageCookieHelper.cs" />
@@ -622,6 +623,18 @@
     <Content Include="bower_components\angular-material\demos\toolbar\demoBasicUsage\img\icons\menu.svg" />
     <Content Include="bower_components\angular-material\demos\toolbar\demoBasicUsage\img\icons\more_vert.svg" />
     <Content Include="bower_components\angular-material\index.js" />
+    <Content Include="bower_components\angular-material\material.css">
+      <DependentUpon>material.less</DependentUpon>
+    </Content>
+    <Content Include="bower_components\angular-material\material.min.css">
+      <DependentUpon>material.css</DependentUpon>
+    </Content>
+    <Content Include="bower_components\angular-material\material.rtl.css">
+      <DependentUpon>material.css</DependentUpon>
+    </Content>
+    <Content Include="bower_components\angular-material\material.rtl.min.css">
+      <DependentUpon>material.rtl.css</DependentUpon>
+    </Content>
     <Content Include="bower_components\angular-material\modules\closure\autocomplete\autocomplete-default-theme.css" />
     <Content Include="bower_components\angular-material\modules\closure\autocomplete\autocomplete-default-theme.min.css" />
     <Content Include="bower_components\angular-material\modules\closure\autocomplete\autocomplete.css" />
@@ -1177,6 +1190,7 @@
     <Content Include="bower_components\angular\package.json" />
     <Content Include="bower_components\angular\README.md" />
     <Content Include="bower.json" />
+    <Content Include="bower_components\angular-material\material.less" />
     <None Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -1582,6 +1596,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\3rdParty\logo_120_4_google.png" />
+    <Content Include="Images\quizSprite.png.min.css">
+      <DependentUpon>quizSprite.png.css</DependentUpon>
+    </Content>
     <Content Include="Images\Site\box-icons.svg" />
     <Content Include="Images\favIcons\favicon_114.png" />
     <Content Include="Images\favIcons\favicon_120.png" />
@@ -1719,6 +1736,9 @@
     </Content>
     <Content Include="Images\Store\category.png.css">
       <DependentUpon>category.png</DependentUpon>
+    </Content>
+    <Content Include="Images\Store\category.png.min.css">
+      <DependentUpon>category.png.css</DependentUpon>
     </Content>
     <Content Include="Images\Store\chair.png" />
     <Content Include="Images\checkbox-sprite1.png" />

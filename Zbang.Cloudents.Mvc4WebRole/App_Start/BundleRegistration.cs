@@ -96,7 +96,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                  {
                     "site4", new[]
                     {
-                        "~/bower_components/angular-material/angular-material.css",
+                        "~/bower_components/angular-material/material.css",
                         "~/Content/signin/font-awesome.css",
                         "~/Content/signin/simple-line-icons.css",
                         "~/Content/homepage/bootstrap.css",
@@ -134,7 +134,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //"~/Content/signin/custom.css",
                         //"~/Content/signin/customRtl.css"
 
-                        "~/Content/site/rtlFix.css"
+                        //"~/Content/site/rtlFix.css"
                     }
                 },
             };

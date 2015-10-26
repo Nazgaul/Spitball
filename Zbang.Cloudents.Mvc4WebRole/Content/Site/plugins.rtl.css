@@ -212,16 +212,17 @@ Jansy File Input plugin css changes
 /***
 Bootstrap Markdown
 ***/
-.md-input {
+/*.md-input {
   padding: 5px !important;
   border-bottom: 0 !important;
   border-radius: 0 0 4px 4px;
 }
+
 .md-editor {
   border-radius: 4px;
 }
 .md-editor .btn-toolbar {
-  margin-right: 0;
+  margin-left: 0;
   border-radius: 4px 4px 0 0;
 }
 .md-editor .btn-toolbar .btn-group .btn-sm.btn {
@@ -231,10 +232,11 @@ Bootstrap Markdown
   padding-top: 5px;
   padding-bottom: 7px;
 }
+
 .md-editor.active {
   border: 1px solid #999999;
   box-shadow: none !important;
-}
+}*/
 /***
 Error state for WYSIWYG Editors
 ***/

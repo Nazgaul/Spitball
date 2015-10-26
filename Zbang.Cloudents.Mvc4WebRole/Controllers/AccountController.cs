@@ -990,6 +990,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //    }
         //}
 
+        protected override void Dispose(bool disposing)
+        {
+            m_UserManager.Dispose();
+            base.Dispose(disposing);
+        }
     }
 
 
