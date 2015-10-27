@@ -49,6 +49,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ItemSearchProvider3 = itemSearchProvider3;
 
             var cloudStorageAccount = CloudStorageAccount.Parse(
+                
                     Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("StorageConnectionString"));
 
             m_BlobClient = cloudStorageAccount.CreateCloudBlobClient();

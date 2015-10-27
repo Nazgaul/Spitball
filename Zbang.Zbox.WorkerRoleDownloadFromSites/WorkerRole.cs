@@ -32,7 +32,7 @@ namespace Zbang.Zbox.WorkerRoleDownloadFromSites
             Trace.TraceInformation("Zbang.Zbox.WorkerRoleDownloadFromSites entry point called", "Information");
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
-                    CloudConfigurationManager.GetSetting("zboxStorage"));
+                    Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("zboxStorage"));
 
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
 

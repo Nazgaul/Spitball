@@ -72,8 +72,9 @@
                         innerEl.addClass(className);
                     }
                     innerEl.attr('d-color', scope.name.length);
-                    innerEl.css({ width: elem[0].getAttribute('width'),
-                        height: elem[0].getAttribute('height'),
+                    innerEl.css({
+                        width: elem[0].getAttribute('width') + 'px',
+                        height: elem[0].getAttribute('height') + 'px',
                         lineHeight: elem[0].getAttribute('height') + 'px' });
                     innerEl.text(scope.name[0]);
                 }
