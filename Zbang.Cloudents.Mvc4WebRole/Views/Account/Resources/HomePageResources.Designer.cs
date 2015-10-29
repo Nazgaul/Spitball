@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Share knowlege in a social and open study network.
+        ///   Looks up a localized string similar to Share knowledge in a social and open study network.
         /// </summary>
         public static string A4 {
             get {
