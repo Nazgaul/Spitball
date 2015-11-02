@@ -207,7 +207,7 @@ order by rank desc";
 
 
         public const string UniversityLeaderBoard = @"
-select top(3) u.userid as id, u.UserImageLarge as image, u.FirstName as name, u.UserReputation as score, u.url as url
+select top(3) u.userid as id, u.UserImageLarge as image, coalesce(u.FirstName,u.username)  as name, u.UserReputation as score, u.url as url
 from zbox.Users u 
 where u.UniversityId = @UniversityId
 and u.usertype <> 1

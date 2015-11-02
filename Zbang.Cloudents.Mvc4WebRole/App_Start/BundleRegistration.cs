@@ -513,6 +513,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/focusMe.js"),
                         new JsFileWithCdn("~/js/shared/displayTime.js"),
                         new JsFileWithCdn("~/js/shared/userDetails.js"),
+                        new JsFileWithCdn("~/js/shared/tabDrop.js"),
 
                         new JsFileWithCdn("~/js/components/item/upload.controller.js"),
                         new JsFileWithCdn("~/js/shared/dropbox.js"),

@@ -11,8 +11,8 @@
                 </li>
             </ul>
         </div>
-        <div class="row" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
-            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 item-animate" ng-repeat="item in i.items track by item.id ">
+        <ul class="row list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+            <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 item-animate" ng-repeat="item in i.items track by item.id ">
                 <a class="item" href="{{::item.url}}">
                     <div class="content">
                         <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                 </a>
-            </div>
-        </div>
+            </li>
+        </ul>
     </div>
 </div>

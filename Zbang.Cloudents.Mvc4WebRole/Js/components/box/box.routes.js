@@ -50,7 +50,7 @@
                 {
                     state: 'box.members', config: {
                         templateUrl: function () {
-                            return buildUrl('/box/memberspartial/');
+                            return routerHelper.buildUrl('/box/memberspartial/');
                         },
                         url: '#members',
                         controller: 'MembersController as m'
