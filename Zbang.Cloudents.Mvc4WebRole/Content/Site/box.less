@@ -73,13 +73,6 @@
     }
     //display:table;
     //feed section
-    .items-container {
-        overflow-y: hidden;
-        overflow-x: auto;
-        white-space: nowrap;
-        margin: 0 5px;
-    }
-
     .in, .out {
         &:after {
             content: '';
@@ -94,6 +87,10 @@
 }
 
 .feed {
+    .add-comment {
+        margin-bottom: 20px;
+    }
+
     .form-control {
         background-color: black;
         color: red;
@@ -103,6 +100,57 @@
             outline: black solid 5px;
             border: grey;
         }
+    }
+
+    .comment {
+        background: #212427;
+        position: relative;
+        //overflow: hidden;
+        border-radius: 10px;
+        margin-bottom: 25px;
+
+        & > .top {
+            border-radius: 10px 10px 0 0;
+            background: #CEE2F6;
+            color: #000;
+        }
+    }
+
+    .reply {
+        position: relative;
+        margin-left: 35px;
+        margin-top: 20px;
+    }
+
+    .c-img {
+        position: absolute;
+        top: -11px;
+        left: -11px;
+        border: 2px solid #212427;
+    }
+
+    .user-name {
+        color: #5B9CC2;
+    }
+
+
+    .top {
+        padding-left: 40px;
+    }
+
+    .items-container {
+        overflow-y: hidden;
+        overflow-x: auto;
+        white-space: nowrap;
+        margin: 0 5px;
+    }
+
+    .actions {
+        color: #6E7983;
+    }
+
+    .replies {
+        border-top: 1px solid #6e7983;
     }
 }
 

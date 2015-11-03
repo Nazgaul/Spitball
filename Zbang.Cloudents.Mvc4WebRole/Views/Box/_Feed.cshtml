@@ -2,88 +2,145 @@
     <div class="col-lg-6 col-md-8 col-sm-12">
         <div class="portlet light">
             <div class="portlet-body feed">
-                <div>
+                <form class="add-comment">
                     <input type="text" class="form-control" placeholder="what's on your mind?">
-                </div>
-                @*<div class="chat-form">
-                    <div class="input-cont">
-                        <input class="form-control" type="text" placeholder="Type a message here..." />
-                    </div>
-                    <div class="btn btn-cont">
-                        <span class="arrow">
-                        </span>
-                        <a href="" class="btn blue icn-only">
-                            <i class="fa fa-check icon-white"></i>
-                        </a>
-                    </div>
-                </div>
-                <ul class="chats">
-                    <li class="in" ng-repeat="post in f.data">
-                        <user-image class="avatar" name="::post.userName" image="::post.userImage" width="45" height="45"></user-image>
-                        <div class="message">
-                            <div class="message-top">
-                                <span class="name">{{::post.userName}}</span>
-                                <span class="datetime" display-time="{{::post.creationTime}}"></span>
-                                <span class="body" ng-bind-html="::post.content"></span>
-                            </div>
-                            <ul class="list-inline items-container">
-                                <li ng-repeat="item in post.files">
-                                    <a class="item" href="{{::item.url}}">
-                                        <div class="content">
-                                            <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
-                                            <div class="extra">
-                                                <h5>{{::item.name}}</h5>
-                                                <img src="http://lorempixel.com/30/30/" alt="" />
-
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="feed-likes">
-                                <div class="pull-left btn blue">
-                                    <span> 15 Likes </span>
-                                    @Html.Svg("~/images/site/box-icons.svg", "share", new { @class = "like" })
-                                </div>
-                                <div class="comment">
-                                    <span>Comments</span>
-                                </div>
-                                @Html.Svg("~/images/site/box-icons.svg", "share", new { @class = "share" })
-                            </div>
+                </form>
+                <ol class="list-unstyled">
+                    <li ng-repeat="post in f.data" class="comment">
+                        <div class="top">
+                            <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="40" height="40"></user-image>
+                            <span class="user-name">{{::post.userName}}</span> at
+                            <span>{{::post.creationTime | date : 'MMM d,yyyy H:m'}}</span>
+                            <div ng-bind-html="::post.content"></div>
                         </div>
-                        <ul>
-                            <li class="out" ng-repeat="reply in post.answers">
-                                <user-image class="avatar" name="::reply.userName" image="::reply.userImage" width="45" height="45"></user-image>
-                                <div class="message">
-                                    <span class="name">{{::reply.userName}}</span>
-                                    <span class="datetime" display-time="{{::post.creationTime}}"></span>
-                                    <span class="body" ng-bind-html="::reply.content">
-                                    </span>
-                                    <ul class="list-inline items-container">
-                                        <li ng-repeat="item in reply.files">
-                                            <a class="item" href="{{::item.url}}">
-                                                <div class="content">
-                                                    <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
-                                                    <div class="extra">
-                                                        <h5>{{::item.name}}</h5>
-                                                        <img src="http://lorempixel.com/30/30/" alt="" />
+                        <ul class="list-inline items-container">
+                            <li ng-repeat="item in post.files">
+                                <a class="item" href="{{::item.url}}">
+                                    <div class="content">
+                                        <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
+                                        <div class="extra">
+                                            <h5>{{::item.name}}</h5>
+                                            <img src="http://lorempixel.com/30/30/" alt="" />
 
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                        </div>
+                                    </div>
+                                </a>
                             </li>
                         </ul>
+                        <div class="actions">
+                            <button type="button">15 like</button>
+                            <button type="button">comment</button>
+                            <button type="button">share</button>
+                        </div>
+                        <ol class="list-unstyled replies">
+                            <li ng-repeat="reply in post.answers" class="reply">
+                                <div class="top">
+                                    <user-image class="img-circle c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
+                                    <span class="user-name">{{::reply.userName}}</span> at
+                                    <span>{{::reply.creationTime | date : 'MMM d,yyyy H:m'}}</span>
+                                    <div ng-bind-html="::reply.content"></div>
+                                </div>
+                                <ul class="list-inline items-container">
+                                    <li ng-repeat="item in reply.files">
+                                        <a class="item" href="{{::item.url}}">
+                                            <div class="content">
+                                                <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
+                                                <div class="extra">
+                                                    <h5>{{::item.name}}</h5>
+                                                    <img src="http://lorempixel.com/30/30/" alt="" />
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="actions">
+                                    <button type="button">15 like</button>
+                                    <button type="button">share</button>
+                                </div>
+                            </li>
+                        </ol>
                     </li>
-                </ul>*@
+                </ol>
+                @*<div class="chat-form">
+                        <div class="input-cont">
+                            <input class="form-control" type="text" placeholder="Type a message here..." />
+                        </div>
+                        <div class="btn btn-cont">
+                            <span class="arrow">
+                            </span>
+                            <a href="" class="btn blue icn-only">
+                                <i class="fa fa-check icon-white"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <ul class="chats">
+                        <li class="in" ng-repeat="post in f.data">
+                            <user-image class="avatar" name="::post.userName" image="::post.userImage" width="45" height="45"></user-image>
+                            <div class="message">
+                                <div class="message-top">
+                                    <span class="name">{{::post.userName}}</span>
+                                    <span class="datetime" display-time="{{::post.creationTime}}"></span>
+                                    <span class="body" ng-bind-html="::post.content"></span>
+                                </div>
+                                <ul class="list-inline items-container">
+                                    <li ng-repeat="item in post.files">
+                                        <a class="item" href="{{::item.url}}">
+                                            <div class="content">
+                                                <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
+                                                <div class="extra">
+                                                    <h5>{{::item.name}}</h5>
+                                                    <img src="http://lorempixel.com/30/30/" alt="" />
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="feed-likes">
+                                    <div class="pull-left btn blue">
+                                        <span> 15 Likes </span>
+                                        @Html.Svg("~/images/site/box-icons.svg", "share", new { @class = "like" })
+                                    </div>
+                                    <div class="comment">
+                                        <span>Comments</span>
+                                    </div>
+                                    @Html.Svg("~/images/site/box-icons.svg", "share", new { @class = "share" })
+                                </div>
+                            </div>
+                            <ul>
+                                <li class="out" ng-repeat="reply in post.answers">
+                                    <user-image class="avatar" name="::reply.userName" image="::reply.userImage" width="45" height="45"></user-image>
+                                    <div class="message">
+                                        <span class="name">{{::reply.userName}}</span>
+                                        <span class="datetime" display-time="{{::post.creationTime}}"></span>
+                                        <span class="body" ng-bind-html="::reply.content">
+                                        </span>
+                                        <ul class="list-inline items-container">
+                                            <li ng-repeat="item in reply.files">
+                                                <a class="item" href="{{::item.url}}">
+                                                    <div class="content">
+                                                        <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
+                                                        <div class="extra">
+                                                            <h5>{{::item.name}}</h5>
+                                                            <img src="http://lorempixel.com/30/30/" alt="" />
+
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>*@
             </div>
         </div>
     </div>
     <div class="col-lg-6 col-md-4 col-sm-12">
         @{ Html.RenderPartial("_LeaderBoard");}
-        
+
         <div class="portlet light invite">
             <button type="button" ng-click="b.inviteToBox()" class="portlet-body">
                 @Html.Svg("~/images/site/icons.svg", "invite")
