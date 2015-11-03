@@ -32,7 +32,7 @@
                             <button type="button">comment</button>
                             <button type="button">share</button>
                         </div>
-                        <ol class="list-unstyled replies">
+                        <ol class="list-unstyled replies" ng-if="post.answers.length">
                             <li ng-repeat="reply in post.answers" class="reply">
                                 <div class="top">
                                     <user-image class="img-circle c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
