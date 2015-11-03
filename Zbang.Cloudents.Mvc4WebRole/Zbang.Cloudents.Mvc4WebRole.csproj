@@ -1597,6 +1597,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\3rdParty\logo_120_4_google.png" />
+    <Content Include="Images\HomePage2\apple.png" />
+    <Content Include="Images\HomePage2\google.png" />
     <Content Include="Images\quizSprite.png.min.css">
       <DependentUpon>quizSprite.png.css</DependentUpon>
     </Content>

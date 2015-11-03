@@ -33,7 +33,7 @@
         padding: 0 10px;
         //padding:0 10px;
     }
-  
+
     .message-top {
         padding: 10px 7px 0 7px;
         background: @color1;
@@ -89,6 +89,19 @@
             border-top: 8px solid transparent;
             border-bottom: 8px solid transparent;
             border-right: 10px solid #f5f5f5;
+        }
+    }
+}
+
+.feed {
+    .form-control {
+        background-color: black;
+        color: red;
+        outline: black solid 5px;
+
+        &:focus {
+            outline: black solid 5px;
+            border: grey;
         }
     }
 }
@@ -224,6 +237,7 @@
             bottom: 10px;
         }
     }
+
     .stats {
         width: 100%;
         height: 38px;

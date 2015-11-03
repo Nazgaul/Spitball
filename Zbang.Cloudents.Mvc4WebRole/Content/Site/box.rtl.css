@@ -71,6 +71,15 @@
   border-bottom: 8px solid transparent;
   border-left: 10px solid #f5f5f5;
 }
+.feed .form-control {
+  background-color: black;
+  color: red;
+  outline: black solid 5px;
+}
+.feed .form-control:focus {
+  outline: black solid 5px;
+  border: grey;
+}
 .members a:hover {
   color: transparent;
   text-decoration: none;
