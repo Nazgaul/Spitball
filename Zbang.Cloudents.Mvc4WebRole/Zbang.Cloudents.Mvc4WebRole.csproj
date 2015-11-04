@@ -2996,8 +2996,7 @@
     <Content Include="Views\Dashboard\_Create.cshtml" />
     <Content Include="Views\Box\_Members2.cshtml" />
     <Content Include="Views\Box\_Quizzes2.cshtml" />
-    <Content Include="Views\Shared\Partials2\_Upload.cshtml" />
-    <Content Include="Views\Box\_Create.cshtml" />
+    <Content Include="Views\Box\_Upload.cshtml" />
     <Content Include="Views\Quiz\Index2.cshtml" />
     <Content Include="Views\Shared\Partials2\_Invite.cshtml" />
     <Content Include="Views\Shared\Partials2\_boxTemplate.cshtml" />
