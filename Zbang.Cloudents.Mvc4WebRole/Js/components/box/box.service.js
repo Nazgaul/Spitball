@@ -28,5 +28,9 @@
         d.getTabs = function (boxid) {
             return ajaxservice.get('/box/tabs/', { id: boxid });
         };
+
+        d.postComment = function(content,boxId, files, anonymously) {
+            return ajaxservice.post('/qna/addcomment/', { content: content, boxId: boxId, files: files, anonymously: anonymously });
+        }
     }
 })();

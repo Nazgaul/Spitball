@@ -28,7 +28,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         [HttpPost]
         [RemoveBoxCookie]
-        public async Task<JsonResult> AddQuestion(Question model)
+        public async Task<JsonResult> AddComment(Comment model)
         {
             if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
             {
@@ -48,7 +48,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         [HttpPost]
         [RemoveBoxCookie]
-        public async Task<JsonResult> AddAnswer(Answer model)
+        public async Task<JsonResult> AddAnswer(Reply model)
         {
             if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
             {

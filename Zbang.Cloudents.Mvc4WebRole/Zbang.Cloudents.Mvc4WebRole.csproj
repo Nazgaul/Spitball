@@ -411,8 +411,8 @@
     <Compile Include="Models\Share\Message.cs" />
     <Compile Include="Models\NewAnnotation.cs" />
     <Compile Include="Models\NewComment.cs" />
-    <Compile Include="Models\QnA\Answer.cs" />
-    <Compile Include="Models\QnA\Question.cs" />
+    <Compile Include="Models\QnA\Reply.cs" />
+    <Compile Include="Models\QnA\Comment.cs" />
     <Compile Include="Models\RenameLibraryNode.cs" />
     <Compile Include="Models\Resources\AddLinkResources.Designer.cs">
       <DependentUpon>AddLinkResources.resx</DependentUpon>
