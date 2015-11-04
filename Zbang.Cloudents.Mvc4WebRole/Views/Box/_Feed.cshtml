@@ -19,10 +19,10 @@
                         <button type="button">
                             @Html.Svg(url, "link", new { @class = "link" })
                         </button>
-                        <button type="button">
+                        <button type="submit" class="btn pull-right">POST</button>
+                        <button type="button" class="pull-right">
                             @Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })
                         </button>
-                        <button type="submit" class="btn pull-right">post</button>
                     </div>
                 </form>
                 <ol class="list-unstyled">
@@ -48,9 +48,9 @@
                             </li>
                         </ul>
                         <div class="actions">
-                            <button type="button">15 like</button>
-                            <button type="button">comment</button>
-                            <button type="button">share</button>
+                            <button type="button" class="like margins">15 Like</button>
+                            <button type="button" class="margins">Comment</button>
+                            <button type="button" class="margins">share</button>
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.answers.length">
                             <li ng-repeat="reply in post.answers" class="reply">
@@ -74,9 +74,9 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <div class="actions">
-                                    <button type="button">15 like</button>
-                                    <button type="button">share</button>
+                                <div class="actions padding">
+                                    <button type="button" class="like margins">15 Like</button>
+                                    <button type="button" class="margins">share</button>
                                 </div>
                             </li>
                         </ol>

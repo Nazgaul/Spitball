@@ -91,34 +91,61 @@
         margin-bottom: 20px;
         background: #212427;
         padding:10px;
+        border-radius: 10px;
 
         textarea {
             width: 100%;
+            border: 1px solid #42494f;
             background: #212427;
             margin-bottom:10px;
             outline: none; //override
+            resize: none;
         }
         button[type=submit] {
             .buttonBlue();
+            padding: 1px 10px 0 10px;
+            font-size: 13px;
+            margin-top: 3px;
+            border-radius: 6px;
         }
         svg {
-            width: 20px;
-            height: 20px;
+            width: 25px;
+            height: 25px;
+            margin: 0 12px;
+            fill: #535B63;
         }
 
         .file {
-            fill: #F9F9F9;
+            &:hover {
+                fill: #F9F9F9;
+            }
         }
 
         .link {
-            fill: #64D0FF;
+            &:hover {
+                fill: #64D0FF;;
+            }
         }
 
         .anonymous {
-            fill: #535B63;
+            width: 35px;
+            height: 35px;
+            &:hover {
+                fill: #F9F9F9;
+            }
         }
     }
 
+    .like {
+            border-radius: 10px;
+            width: 80px;
+        }
+
+    .c-img {
+        position: absolute;
+        top: -11px;
+        left: -11px;
+    }
 
     .comment {
         background: #212427;
@@ -127,10 +154,25 @@
         border-radius: 10px;
         margin-bottom: 25px;
 
+        .c-img {
+            border: 3px solid #353a3f;
+        }
+
         & > .top {
+            padding-top: 5px;
             border-radius: 10px 10px 0 0;
             background: #CEE2F6;
             color: #000;
+        }
+
+        .margins {
+            margin: 0 10px 10px 0;
+        }
+
+        .like {
+            border: 1px solid #5B9CC2;
+            color: #5b9cc2;
+            margin-left: 15px;
         }
     }
 
@@ -138,13 +180,23 @@
         position: relative;
         margin-left: 35px;
         margin-top: 20px;
-    }
 
-    .c-img {
-        position: absolute;
-        top: -11px;
-        left: -11px;
-        border: 2px solid #353a3f; 
+        .c-img {
+            border: 3px solid #212427;
+        }
+
+        .like {
+            border: 1px solid #6E7983;
+            color: #6E7983;
+        }
+
+        .margins {
+            margin: 0 10px 10px 0;
+        }
+
+        .padding {
+            padding-left: 40px;
+        }
     }
 
     .user-name {
@@ -160,7 +212,7 @@
         overflow-y: hidden;
         overflow-x: auto;
         white-space: nowrap;
-        margin: 0 5px;
+        margin: 10px 5px 0 5px;
     }
 
     .actions {
