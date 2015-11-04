@@ -96,7 +96,6 @@
                         files[i].complete = false;
                         u.files.push(files[i]);
                     }
-                    console.log(u.files);
                     $timeout(function () {
                         uploader.start();
                     }, 1);
@@ -133,12 +132,9 @@
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
                         $rootScope.$broadcast('item_upload', obj.payload);
-                        //self.data.image = obj.payload;
-                        //userDetailsService.changeImage(obj.payload);
                     }
                 },
                 error: function (uploader, error) {
-                    //$scope.loading = false;
                     u.alert = error.message;
                 }
             }

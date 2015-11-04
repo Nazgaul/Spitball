@@ -1,9 +1,29 @@
-﻿<div class="row">
+﻿@{
+    const string url = "~/images/site/uploadIcons.svg";
+}
+<div class="row">
     <div class="col-lg-6 col-md-8 col-sm-12">
         <div class="portlet light">
             <div class="portlet-body feed">
                 <form class="add-comment">
-                    <input type="text" class="form-control" placeholder="what's on your mind?">
+                    <textarea type="text" placeholder="what's on your mind?"></textarea>
+                    <div>
+                        <a plupload="f.fileUpload.url" 
+                           plupload-options="f.fileUpload.options" plupload-callbacks="f.fileUpload.callbacks">
+                            @Html.Svg(url, "file", new { @class = "file" })
+                        </a>
+                        <button type="button">@Html.Svg(url, "googleDrive")</button>
+                        <button type="button">
+                            @Html.Svg(url, "dropbox")
+                        </button>
+                        <button type="button">
+                            @Html.Svg(url, "link", new { @class = "link" })
+                        </button>
+                        <button type="button">
+                            @Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })
+                        </button>
+                        <button type="submit" class="btn pull-right">post</button>
+                    </div>
                 </form>
                 <ol class="list-unstyled">
                     <li ng-repeat="post in f.data" class="comment">
