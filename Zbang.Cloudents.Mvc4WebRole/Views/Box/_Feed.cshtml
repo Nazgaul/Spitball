@@ -6,7 +6,7 @@
         <div class="portlet light">
             <div class="portlet-body feed">
                 <form class="add-comment" ng-submit="f.add.createComment()">
-                    <div>
+                    <div class="add-comment-button">
                         <textarea ng-model="f.newText" type="text" placeholder="what's on your mind?"></textarea>
                         <ul class="list-inline">
                             <li class="file-upload" ng-repeat="file in f.add.files" ng-include="'file-upload.html'">
@@ -52,8 +52,8 @@
                             </li>
                         </ul>
                         <div class="actions">
-                            <button type="button" class="like margins">15 Like</button>
-                            <button type="button" class="margins">Comment</button>
+                            <button type="button" class="text-capitalize like margins">15 like</button>
+                            <button type="button" class=" text-capitalize margins">comment</button>
                             <button type="button" class="margins">share</button>
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.answers.length">
@@ -79,8 +79,8 @@
                                     </li>
                                 </ul>
                                 <div class="actions padding">
-                                    <button type="button" class="like margins">15 Like</button>
-                                    <button type="button" class="margins">share</button>
+                                    <button type="button" class="text-capitalize like margins">15 like</button>
+                                    <button type="button" class="text-capitalize margins">share</button>
                                 </div>
                             </li>
                         </ol>

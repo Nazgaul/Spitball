@@ -88,19 +88,42 @@
 }
 
 .feed {
+    ::-webkit-input-placeholder {
+        color: #646E77;
+     }
+
+     :-moz-placeholder { /* Firefox 18- */
+        color: #646E77;  
+     }
+
+     ::-moz-placeholder {  /* Firefox 19+ */
+        color: #646E77;  
+     }
+
+     :-ms-input-placeholder {  
+        color: #646E77;  
+     }
+
+     .add-comment-button {
+        margin: 5px 0 0;
+        position: relative;
+        padding: 5px 0 0;
+     }
+
     .add-comment {
         margin-bottom: 20px;
         background: #212427;
         padding: 10px;
-        border-radius: 10px;
 
         textarea {
             width: 100%;
-            border: 1px solid #42494f;
+            border: 1px solid #646E77;
             background: #212427;
             margin-bottom: 10px;
             outline: none; //override
             resize: none;
+            padding-left: 10px;
+            
         }
         input[type=checkbox] {
             display:none;
@@ -108,9 +131,8 @@
 
         button[type=submit] {
             .buttonBlue();
-            padding: 1px 10px 0 10px;
+            padding: 2px 10px 0 10px;
             font-size: 13px;
-            margin-top: 3px;
             border-radius: 6px;
         }
 
@@ -145,14 +167,16 @@
     }
 
     .like {
-        border-radius: 10px;
+            border-radius: 12px;
         width: 80px;
     }
 
     .c-img {
         position: absolute;
-        top: -11px;
-        left: -11px;
+        top: -18px;
+        left: -17px;
+        width: 54px;
+        height: 54px;
     }
 
     .comment {
@@ -167,9 +191,11 @@
         }
 
         & > .top {
+            padding-left: 44px;
             padding-top: 5px;
+            padding-bottom: 5px;
             border-radius: 10px 10px 0 0;
-            background: #CEE2F6;
+            background: #C7DAEF;
             color: #000;
         }
 
@@ -179,7 +205,7 @@
 
         .like {
             border: 1px solid #5B9CC2;
-            color: #5b9cc2;
+            color: #5B9CC2;
             margin-left: 15px;
         }
     }
@@ -187,7 +213,7 @@
     .reply {
         position: relative;
         margin-left: 35px;
-        margin-top: 20px;
+        margin-top: 30px;
 
         .c-img {
             border: 3px solid #212427;
@@ -221,6 +247,7 @@
         overflow-x: auto;
         white-space: nowrap;
         margin: 10px 5px 0 5px;
+        padding-left: 30px;
     }
 
     .actions {
@@ -375,7 +402,7 @@
 
 .item {
     border: 1px solid #42494F;
-    padding: 5px;
+    padding: 5px 5px 0;
     display: block;
     margin-bottom: 15px;
 
