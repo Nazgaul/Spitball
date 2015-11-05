@@ -76,76 +76,6 @@
 .feed {
   font-size: 16px;
 }
-.feed ::-webkit-input-placeholder {
-  color: #646e77;
-}
-.feed :-moz-placeholder {
-  /* Firefox 18- */
-  color: #646e77;
-}
-.feed ::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #646e77;
-}
-.feed :-ms-input-placeholder {
-  color: #646e77;
-}
-.feed .add-comment {
-  margin-bottom: 20px;
-  background: #212427;
-  padding: 10px;
-}
-.feed .add-comment .list-inline > li {
-  padding: 0;
-}
-.feed .add-comment textarea {
-  width: 100%;
-  border: 1px solid #646e77;
-  background: #212427;
-  outline: none;
-  resize: none;
-  padding-right: 10px;
-}
-.feed .add-comment input[type=checkbox] {
-  display: none;
-}
-.feed .add-comment input[type=checkbox]:checked + label svg {
-  fill: red;
-}
-.feed .add-comment button[type=submit] {
-  background: #4190b9;
-  padding: 2px 10px 0 10px;
-  font-size: 13px;
-  border-radius: 6px;
-  margin: 5px 20px 0 0;
-}
-.feed .add-comment button[type=submit]:hover {
-  background: #26566e;
-  color: inherit;
-}
-.feed .add-comment button[type=submit]:focus {
-  color: inherit;
-}
-.feed .add-comment svg {
-  width: 25px;
-  height: 35px;
-  vertical-align: middle;
-  margin: 0 12px;
-  fill: #535B63;
-}
-.feed .add-comment .file:hover {
-  fill: #F9F9F9;
-}
-.feed .add-comment .link:hover {
-  fill: #64D0FF;
-}
-.feed .add-comment .anonymous {
-  width: 35px;
-  height: 35px;
-}
-.feed .add-comment .anonymous:hover {
-  fill: #F9F9F9;
-}
 .feed .like {
   border-radius: 22px;
   width: 80px;
@@ -234,6 +164,89 @@
 .feed .content-text {
   line-height: 22px;
   margin-bottom: 5px;
+}
+.feed .add-reply {
+  display: none;
+}
+.add-comment {
+  margin-bottom: 20px;
+  background: #212427;
+  padding: 10px;
+}
+.add-comment ::-webkit-input-placeholder {
+  color: #646e77;
+}
+.add-comment :-moz-placeholder {
+  /* Firefox 18- */
+  color: #646e77;
+}
+.add-comment ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #646e77;
+}
+.add-comment :-ms-input-placeholder {
+  color: #646e77;
+}
+.add-comment .list-inline > li {
+  padding: 0;
+}
+.add-comment textarea {
+  width: 100%;
+  border: 1px solid #646e77;
+  background: #212427;
+  outline: none;
+  resize: none;
+  padding-right: 10px;
+  height: 40px;
+}
+.add-comment .actions {
+  display: none;
+}
+.add-comment.open .actions {
+  display: block;
+}
+.add-comment.open textarea {
+  height: auto;
+}
+.add-comment input[type=checkbox] {
+  display: none;
+}
+.add-comment input[type=checkbox]:checked + label svg {
+  fill: red;
+}
+.add-comment button[type=submit] {
+  background: #4190b9;
+  padding: 2px 10px 0 10px;
+  font-size: 13px;
+  border-radius: 6px;
+  margin: 5px 20px 0 0;
+}
+.add-comment button[type=submit]:hover {
+  background: #26566e;
+  color: inherit;
+}
+.add-comment button[type=submit]:focus {
+  color: inherit;
+}
+.add-comment svg {
+  width: 25px;
+  height: 35px;
+  vertical-align: middle;
+  margin: 0 12px;
+  fill: #535B63;
+}
+.add-comment .file:hover {
+  fill: #F9F9F9;
+}
+.add-comment .link:hover {
+  fill: #64D0FF;
+}
+.add-comment .anonymous {
+  width: 35px;
+  height: 35px;
+}
+.add-comment .anonymous:hover {
+  fill: #F9F9F9;
 }
 .members a:hover {
   color: transparent;

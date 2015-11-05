@@ -5,7 +5,7 @@
     <div class="col-lg-6 col-md-8 col-sm-12">
         <div class="portlet light">
             <div class="portlet-body feed">
-                <form class="add-comment" ng-submit="f.add.createComment()">
+                <form class="add-comment" ng-submit="f.add.createComment()" ng-click="f.openForm = true" ng-class="{open: f.openForm}">
                     <div>
                         <textarea ng-model="f.add.newText" type="text" placeholder="what's on your mind?"></textarea>
                         <ul class="list-inline">
@@ -26,7 +26,7 @@
                             <li class="file-upload" ng-repeat="file in f.add.files" ng-include="'file-upload.html'">
                         </ul>
                     </div>
-                    <div>
+                    <div class="actions">
                         <a plupload="f.add.fileUpload.url"
                            plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks">
                             @Html.Svg(url, "file", new { @class = "file" })
@@ -63,7 +63,7 @@
                         </ul>
                         <div class="actions">
                             <button type="button" class="text-capitalize like margins">15 like</button>
-                            <button type="button" class=" text-capitalize margins">comment</button>
+                            <button type="button" class=" text-capitalize margins" show-form>comment</button>
                             <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.answers.length">
@@ -94,7 +94,7 @@
                                 </div>
                             </li>
                         </ol>
-                        <form class="add-comment" ng-submit="f.add.createReply(post.id)">
+                        <form class="add-comment add-reply" ng-submit="f.add.createReply(post.id)">
                             <div>
                                 <textarea ng-model="f.add.newText" type="text" placeholder="what's on your mind?"></textarea>
                                 <ul class="list-inline">
