@@ -127,6 +127,10 @@
         }
         input[type=checkbox] {
             display:none;
+
+            &:checked + label svg {
+                fill:red;
+            }
         }
 
         button[type=submit] {
@@ -138,7 +142,8 @@
 
         svg {
             width: 25px;
-            height: 25px;
+            height: 35px;
+            vertical-align:middle;
             margin: 0 12px;
             fill: #535B63;
         }
@@ -152,7 +157,6 @@
         .link {
             &:hover {
                 fill: #64D0FF;
-                ;
             }
         }
 

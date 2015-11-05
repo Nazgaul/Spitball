@@ -14,57 +14,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             var cssDictionary = new Dictionary<string, IEnumerable<string>>
             {
-                //{"lang.ru-RU", new[] {"~/Content/lang.ru-RU.css"}},
-                //{"lang.he-IL", new[] {"~/Content/lang.he-IL.css"}},
-                //{"lang.ar-AE", new[] {"~/Content/lang.ar-AE.css"}},
-
-                //{
-                //    "newcore3", new[]
-                //    {
-                //        "~/Content/Normalize.css",
-                //        "~/Content/General.css",
-                //        "~/Content/Header.css",
-                //        "~/Content/Site3.css",
-                //        "~/Content/SVG.css",
-                //        "~/Content/Animations.css",
-                //        "~/Content/UserPage.css",
-                //        "~/Content/Search.css",
-                //        "~/Content/Sidebar.css",
-                //        "~/Content/SetupSchool.css",
-                //        "~/Content/Modal.css",
-                //        "~/Content/BoxFeed.css",
-                //        "~/Content/Quiz.css",
-                //        "~/Content/Invite.css",
-                //        "~/Content/Upload.css",
-                //        "~/Content/Box3.css",
-                //        "~/Content/Item.css",
-                //        "~/Content/Settings.css",
-                //        "~/Content/DashLib.css",
-                //        "~/Content/Home.css",
-                //        "~/Content/jquery.mCustomScrollbar.css",
-                //        "~/Content/Letter.css",
-                //        "~/Content/RtlFix.css",
-                //        "~/Content/textAngular.css"
-                       
-                //    }
-                //},
-
-                //{
-                //    "static", new[]
-                //    {
-                //        "~/Content/Normalize.css",
-                //        "~/Content/General.css",
-                //        "~/Content/Header.css",
-                //        "~/Content/Animations.css",
-                //        "~/Content/Static.css"
-                //    }
-                //},
-                //{
-                //    "mobile", new []
-                //    {
-                //        "~/Content/Mobile.css"
-                //    }
-                //},
+               
                 {
                     "homePage", new[]
                     {
@@ -97,8 +47,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "site4", new[]
                     {
                         "~/bower_components/angular-material/material.css",
-                        "~/Content/signin/font-awesome.css",
-                        "~/Content/signin/simple-line-icons.css",
+                        //"~/Content/signin/font-awesome.css",
+                        //"~/Content/signin/simple-line-icons.css",
                         "~/Content/homepage/bootstrap.css",
                         "~/Content/signin/uniform.default.css",
                         "~/Content/site/bootstrap-switch.css",
