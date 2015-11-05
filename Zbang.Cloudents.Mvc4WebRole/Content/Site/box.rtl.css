@@ -198,6 +198,10 @@
 .feed .reply .margins {
   margin: 0 0 10px 10px;
 }
+.feed .reply .margins:hover {
+  border-color: #5B9CC2;
+  color: #5B9CC2;
+}
 .feed .reply .padding {
   padding-right: 30px;
 }
@@ -224,8 +228,13 @@
   font-size: 13px;
 }
 .feed .actions svg {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
+  fill: #535B63;
+  vertical-align: middle;
+}
+.feed .actions svg:hover {
+  fill: #5B9CC2;
 }
 .feed .replies {
   border-top: 2px solid #353A3F;
@@ -234,6 +243,7 @@
 .feed .content-text {
   line-height: 22px;
   margin-bottom: 5px;
+  padding-left: 10px;
 }
 .members a:hover {
   color: transparent;

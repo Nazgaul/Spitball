@@ -66,7 +66,7 @@
                         <div class="actions">
                             <button type="button" class="text-capitalize like margins">15 like</button>
                             <button type="button" class=" text-capitalize margins">comment</button>
-                            <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
+                            <button type="button" class="margins share">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.answers.length">
                             <li ng-repeat="reply in post.answers" class="reply">
@@ -74,7 +74,7 @@
                                     <user-image class="img-circle c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
                                     <span class="user-name">{{::reply.userName}}</span> at
                                     <span>{{::reply.creationTime | date : 'MMM d,yyyy H:m'}}</span>
-                                    <div ng-bind-html="::reply.content"></div>
+                                    <div ng-bind-html="::reply.content" class="content-text"></div>
                                 </div>
                                 <ul class="list-inline items-container">
                                     <li ng-repeat="item in reply.files">
