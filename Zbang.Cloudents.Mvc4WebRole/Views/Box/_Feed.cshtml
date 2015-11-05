@@ -42,10 +42,10 @@
                 <ol class="list-unstyled">
                     <li ng-repeat="post in f.data" class="comment">
                         <div class="top">
-                            <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="40" height="40"></user-image>
+                            <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="54" height="54"></user-image>
                             <span class="user-name">{{::post.userName}}</span> at
                             <span>{{::post.creationTime | date : 'MMM d,yyyy H:m'}}</span>
-                            <div ng-bind-html="::post.content"></div>
+                            <div ng-bind-html="::post.content" class="content-text"></div>
                         </div>
                         <ul class="list-inline items-container">
                             <li ng-repeat="item in post.files">

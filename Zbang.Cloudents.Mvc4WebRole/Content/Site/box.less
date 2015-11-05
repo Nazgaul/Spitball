@@ -169,7 +169,7 @@
     }
 
     .like {
-        border-radius: 12px;
+        border-radius: 22px;
         width: 80px;
     }
 
@@ -177,8 +177,6 @@
         position: absolute;
         top: -18px;
         left: -17px;
-        width: 54px;
-        height: 54px;
     }
 
     .comment {
@@ -215,12 +213,13 @@
     .reply {
         position: relative;
         margin-left: 35px;
-        margin-top: 30px;
+
+        .actions {
+            margin-top: 0;
+        }
 
         .c-img {
             border: 3px solid #212427;
-            width: 40px;
-            height: 40px;
             top: 0;
         }
 
@@ -236,15 +235,19 @@
         .padding {
             padding-left: 30px;
         }
+
+        .items-container {
+            padding-left: 24px;
+        }
     }
 
     .user-name {
-        color: #5B9CC2;
+        color: #4283A9;
     }
 
 
     .top {
-        padding-left: 30px;
+        padding-left: 34px;
     }
 
     .items-container {
@@ -268,7 +271,13 @@
     }
 
     .replies {
-        border-top: 1px solid #6e7983;
+        border-top: 2px solid #353A3F;
+        padding-top: 15px;
+    }
+
+    .content-text {
+        line-height: 22px;
+        margin-bottom: 5px;
     }
 }
 
