@@ -73,7 +73,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/site/item.css",
                         "~/Content/site/quiz.css",
                         "~/Content/site/share.css",
-                        "~/content/site/leaderboard.css",
+                        "~/content/site/leaderboard.css"
                         //"~/Content/signin/select2.css",
                         //"~/Content/signin/login-soft.css",
                         //"~/Content/signin/components-md.css",
@@ -288,32 +288,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/Js/HomePage.js")
                     }
                 },
-                //{
-                //    "General", new[]
-                //    {
-                //        new JsFileWithCdn("~/scripts/jquery.min.js",
-                //            "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js")
-                //        //new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
-                //        //new JsFileWithCdn("~/scripts/jquery.validate.unobtrusive.js"),// the script is too small
-                //        //new JsFileWithCdn("~/scripts/jquery.unobtrusive-ajax.js"), // the script is too small
-                //        //new JsFileWithCdn("~/scripts/Modernizr.js"),
-
-                //        ////new JsFileWithCdn("~/Scripts/MutationObserver.js"),
-
-                //        //new JsFileWithCdn("~/Js/Utils2.js"),
-                //        //new JsFileWithCdn("~/scripts/externalScriptLoader.js"),
-
-                //        //new JsFileWithCdn("~/Js/pubsub2.js"),
-                //        //new JsFileWithCdn("~/scripts/svg4everybody.js")
-                //    }
-                //},
-                //{
-                //    "faq", new[]
-                //    {
-                //        new JsFileWithCdn("~/scripts/jquery.min.js",
-                //            "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js")
-                //    }
-                //},
+               
                 {
                     "homePage", new[]
                     {
@@ -448,6 +423,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/js/components/item/item.controller.js"),
                         new JsFileWithCdn("~/js/components/item/item.service.js"),
+
                         new JsFileWithCdn("~/js/components/quiz/quiz.controller.js"),
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.challenge.controller.js"),
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.score.controller.js"),
@@ -465,6 +441,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/tabDrop.js"),
 
                         new JsFileWithCdn("~/js/components/item/upload.controller.js"),
+                        new JsFileWithCdn("~/js/components/item/externalProviderUpload.service.js"),
                         new JsFileWithCdn("~/js/shared/dropbox.js"),
                         new JsFileWithCdn("~/js/shared/google.js")
                     }

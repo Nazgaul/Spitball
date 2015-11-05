@@ -31,10 +31,8 @@
                            plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks">
                             @Html.Svg(url, "file", new { @class = "file" })
                         </a>
-                        <button type="button">@Html.Svg(url, "googleDrive")</button>
-                        <button type="button">
-                            @Html.Svg(url, "dropbox")
-                        </button>
+                        <button type="button" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()">@Html.Svg(url, "googleDrive")</button>
+                        <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox")</button>
                         <button type="button">
                             @Html.Svg(url, "link", new { @class = "link" })
                         </button>

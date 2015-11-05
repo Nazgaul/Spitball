@@ -33,6 +33,7 @@
 
             b.uploadShow = !b.uploadShow;
             b.uploadOn = !b.uploadOn;
+            $scope.$broadcast('open_upload');
         }
 
 
