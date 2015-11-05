@@ -304,3 +304,4 @@
 /// <reference path="../js/components/box/box.routes.js" />
 /// <reference path="../js/components/dashboard/createbox.controller.js" />
 /// <reference path="../js/shared/tabdrop.js" />
+/// <reference path="../js/components/item/externalproviderupload.service.js" />

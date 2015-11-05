@@ -7,7 +7,7 @@
             <div class="portlet-body feed">
                 <form class="add-comment" ng-submit="f.add.createComment()">
                     <div class="add-comment-button">
-                        <textarea ng-model="f.newText" type="text" placeholder="what's on your mind?"></textarea>
+                        <textarea ng-model="f.add.newText" type="text" placeholder="what's on your mind?"></textarea>
                         <ul class="list-inline">
                             <li class="file-upload" ng-repeat="file in f.add.files" ng-include="'file-upload.html'">
                         </ul>
@@ -25,7 +25,7 @@
                             @Html.Svg(url, "link", new { @class = "link" })
                         </button>
                         <button type="submit" class="btn pull-right" ng-disabled="f.add.disabled">post</button>
-                        <input type="checkbox" id="anonymous" />
+                        <input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
                         <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
                     </div>
                 </form>

@@ -33,9 +33,6 @@
         padding: 0 10px;
         //padding:0 10px;
     }
-     .list-inline > li {
-        padding: 0; //override
-    }
     /*.message-top {
         padding: 10px 7px 0 7px;
         background: @color1;
@@ -90,27 +87,31 @@
 .feed {
     ::-webkit-input-placeholder {
         color: #646E77;
-     }
+    }
 
-     :-moz-placeholder { /* Firefox 18- */
-        color: #646E77;  
-     }
+    :-moz-placeholder { /* Firefox 18- */
+        color: #646E77;
+    }
 
-     ::-moz-placeholder {  /* Firefox 19+ */
-        color: #646E77;  
-     }
+    ::-moz-placeholder { /* Firefox 19+ */
+        color: #646E77;
+    }
 
-     :-ms-input-placeholder {  
-        color: #646E77;  
-     }
+    :-ms-input-placeholder {
+        color: #646E77;
+    }
 
-     .add-comment-button {
+    .add-comment-button {
         margin: 5px 0 0;
         position: relative;
         padding: 5px 0 0;
-     }
+    }
 
     .add-comment {
+        .list-inline > li {
+            padding: 0; //override
+        }
+
         margin-bottom: 20px;
         background: #212427;
         padding: 10px;
@@ -123,13 +124,13 @@
             outline: none; //override
             resize: none;
             padding-left: 10px;
-            
         }
+
         input[type=checkbox] {
-            display:none;
+            display: none;
 
             &:checked + label svg {
-                fill:red;
+                fill: red;
             }
         }
 
@@ -143,7 +144,7 @@
         svg {
             width: 25px;
             height: 35px;
-            vertical-align:middle;
+            vertical-align: middle;
             margin: 0 12px;
             fill: #535B63;
         }
@@ -171,7 +172,7 @@
     }
 
     .like {
-            border-radius: 12px;
+        border-radius: 12px;
         width: 80px;
     }
 
@@ -505,7 +506,7 @@
 
 .upload {
 
-   
+
 
     .tab-content {
         background: #000;

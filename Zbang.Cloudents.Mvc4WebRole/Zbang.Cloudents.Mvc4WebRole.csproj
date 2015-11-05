@@ -1835,6 +1835,7 @@
     <Content Include="Js\components\account\password.controller.js" />
     <Content Include="Js\components\box\box.routes.js" />
     <Content Include="Js\components\dashboard\createBox.controller.js" />
+    <Content Include="Js\components\item\externalProviderUpload.service.js" />
     <Content Include="Js\shared\tabDrop.js" />
     <Content Include="Js\shared\userDetails.js" />
     <Content Include="Js\components\app.controller.js" />

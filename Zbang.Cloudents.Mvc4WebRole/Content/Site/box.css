@@ -73,9 +73,6 @@
   background-color: #353a3f;
   padding: 0 10px;
 }
-.class .list-inline > li {
-  padding: 0;
-}
 .feed ::-webkit-input-placeholder {
   color: #646E77;
 }
@@ -99,6 +96,9 @@
   margin-bottom: 20px;
   background: #212427;
   padding: 10px;
+}
+.feed .add-comment .list-inline > li {
+  padding: 0;
 }
 .feed .add-comment textarea {
   width: 100%;
