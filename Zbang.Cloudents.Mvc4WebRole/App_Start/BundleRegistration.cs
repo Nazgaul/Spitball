@@ -117,7 +117,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/general.css",
                         "~/Content/site/dashboard.css",
                         "~/Content/site/box.css",
-                        //"~/Content/site/boxMembers.css",
                         "~/Content/site/user.css",
                         "~/Content/site/accountSettings.css",
                         "~/Content/site/library.css",

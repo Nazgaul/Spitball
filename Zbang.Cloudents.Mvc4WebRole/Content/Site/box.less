@@ -33,13 +33,14 @@
         padding: 0 10px;
         //padding:0 10px;
     }
-
-    .message-top {
+     .list-inline > li {
+        padding: 0; //override
+    }
+    /*.message-top {
         padding: 10px 7px 0 7px;
         background: @color1;
-    }
-
-    .feed-likes {
+    }*/
+    /*.feed-likes {
         height: 50px;
         line-height: 50px;
 
@@ -70,10 +71,10 @@
             padding: 3px 10px;
             margin: 10px 10px 10px 15px;
         }
-    }
+    }*/
     //display:table;
     //feed section
-    .in, .out {
+    /*.in, .out {
         &:after {
             content: '';
             position: absolute;
@@ -83,7 +84,7 @@
             border-bottom: 8px solid transparent;
             border-right: 10px solid #f5f5f5;
         }
-    }
+    }*/
 }
 
 .feed {
@@ -112,24 +113,26 @@
     .add-comment {
         margin-bottom: 20px;
         background: #212427;
-        padding:10px;
+        padding: 10px;
 
         textarea {
             width: 100%;
             border: 1px solid #646E77;
             background: #212427;
-            margin-bottom:10px;
+            margin-bottom: 10px;
             outline: none; //override
             resize: none;
             padding-left: 10px;
             
         }
+
         button[type=submit] {
             .buttonBlue();
             padding: 2px 10px 0 10px;
             font-size: 13px;
             border-radius: 6px;
         }
+
         svg {
             width: 25px;
             height: 25px;
@@ -145,13 +148,15 @@
 
         .link {
             &:hover {
-                fill: #64D0FF;;
+                fill: #64D0FF;
+                ;
             }
         }
 
         .anonymous {
             width: 35px;
             height: 35px;
+
             &:hover {
                 fill: #F9F9F9;
             }
@@ -160,8 +165,8 @@
 
     .like {
             border-radius: 12px;
-            width: 80px;
-        }
+        width: 80px;
+    }
 
     .c-img {
         position: absolute;
@@ -492,16 +497,8 @@
 
 
 .upload {
-    .progress-wrap {
-        background: #fff;
-        padding-bottom: 10px;
-    }
 
-    .progress {
-        margin: 0 10px;
-        border-radius: 0;
-        height: 10px;
-    }
+   
 
     .tab-content {
         background: #000;
@@ -539,46 +536,67 @@
         }
     }
 
-    .upload-file {
-        text-align: center;
-        font-size: 20px;
-        color: #677079;
-        font-weight: 700;
 
 
 
-        .btn {
-            border: 1px solid #3293F6;
-            padding: 5px 40px;
-            font-size: 18px;
-            color: #3293F6;
-        }
 
-        .check-mark {
-            position: absolute;
-            top: -22px;
-            right: -18px;
-            color: #8DC63F;
-            border-radius: 50%;
-            background-color: rgba(143,145,146,.8);
-            padding: 5px 10px;
-        }
-
-        h5 {
-            color: #8DC63F;
-        }
+    .form-horizontal {
+        padding: 10px;
+        font-size: 18px;
     }
 
-    .file-upload {
-        width: 115px;
-        border: 7px solid #fff;
-        height: 165px;
-        font-size: 14px;
-        position: relative;
-        //override bootstrap
-        padding: 0;
-        background: #BCBCBC;
-        margin: 5px;
+    .actions {
+        text-align: right;
+        background-color: #000;
+        padding: 20px 10px 10px 0;
+    }
+}
+
+.file-upload {
+    text-align: center;
+    color: #677079;
+    font-weight: 700;
+    width: 115px;
+    border: 7px solid #fff;
+    height: 165px;
+    font-size: 14px;
+    position: relative;
+    //override bootstrap
+    padding: 0;
+    background: #BCBCBC;
+    margin: 5px;
+
+
+    .progress-wrap {
+        background: #fff;
+        padding-bottom: 10px;
+    }
+
+    .progress {
+        margin: 0 10px;
+        border-radius: 0;
+        height: 10px;
+    }
+
+    .btn {
+        border: 1px solid #3293F6;
+        padding: 5px 40px;
+        font-size: 18px;
+        color: #3293F6;
+    }
+
+    .check-mark {
+        position: absolute;
+        top: -22px;
+        right: -18px;
+        color: #8DC63F;
+        border-radius: 50%;
+        background-color: rgba(143,145,146,.8);
+        padding: 5px 10px;
+    }
+
+    h5 {
+        color: #8DC63F;
     }
 
     .file-size {
@@ -598,16 +616,5 @@
         width: 101px;
         height: 100px;
         position: relative;
-    }
-
-    .form-horizontal {
-        padding: 10px;
-        font-size: 18px;
-    }
-
-    .actions {
-        text-align: right;
-        background-color: #000;
-        padding: 20px 10px 10px 0;
     }
 }

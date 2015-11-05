@@ -3,8 +3,8 @@
     feed.$inject = ['boxService', '$stateParams', '$timeout'];
 
     function feed(boxService, $stateParams, $timeout) {
-        var self = this;
-        boxService.getFeed($stateParams.boxId).then(function (response) {
+        var self = this, boxId = $stateParams.boxId;
+        boxService.getFeed(boxId).then(function (response) {
             self.data = response;
 
             for (var i = 0; i < self.data.length; i++) {
@@ -23,8 +23,54 @@
             return 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(name) + '.jpg?width=100&height=125&mode=crops&scale=both';
         }
 
+        self.add = {
+            files: [],
+            disabled: false
+        };
 
-        self.fileUpload = {
+        self.add.createComment = function () {
+            //console.log(self.newText)
+
+            var filesId = self.add.files.map(function(c) {
+                return c.system.id;
+            });
+
+            self.add.disabled = true;
+
+            //content,boxId, files, anonymously
+            boxService.postComment(self.newText, boxId, filesId).then(function (response) {
+                self.data.unshift({
+                    content: self.newText,
+                    creationTime: new Date(),
+                    id: response.commentId,
+                    url: response.userUrl,
+                    userId: response.userId,
+                    userImage: response.userImage,
+                    userName: response.userName,
+                    files: self.add.files.map(function (c) {
+                        var temp = c.system;
+                        temp.thumbnail = buildThumbnailUrl(c.source);
+                        return temp;
+                    })
+            });
+                self.newText = '';
+                self.add.files = [];
+                /*answers: []
+content: "asdasdasd"
+creationTime: "2015-11-04T13:11:32.6519547Z"
+files: []
+id: "b05758b9-7e1d-4b3b-af7f-a54600fa5c9c"
+url: "/user/1/ram-y/"
+userId: 1
+userImage: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg"
+userName: "ram y"*/
+
+            }).finally(function () {
+                self.add.disabled = false;
+            });
+        }
+
+        self.add.fileUpload = {
             url: '/upload/file/',
             options: {
                 chunk_size: '3mb'
@@ -35,7 +81,7 @@
                     for (var i = 0; i < files.length; i++) {
                         files[i].sizeFormated = plupload.formatSize(files[i].size);
                         files[i].complete = false;
-                        u.files.push(files[i]);
+                        self.add.files.push(files[i]);
                     }
                     $timeout(function () {
                         uploader.start();
@@ -46,38 +92,41 @@
                     up.settings.multipart_params = {
                         fileName: file.name,
                         fileSize: file.size,
-                        boxId: boxid,
-                        question: false,
-                        isComment: false
+                        boxId: boxId,
+                        comment: true
+                        //isComment: false
 
                     };
-
-
-                    //var data = {};
-                    //if (file.newQuestion) {
-                    //    data.newQuestion = true;
-                    //}
-                    //if (file.questionId) {
-                    //    data.questionId = file.questionId;
-                    //}
-
-                    //$rootScope.$broadcast('BeforeUpload', data);
-
                 },
-                //uploadProgress: function (uploader, file) {
-                //    console.log(file);
-                //},
                 fileUploaded: function (uploader, file, response) {
+
+                    /*boxId: 100346
+fileDto: {id: 392401, name: "google.png", likes: 0, ownerId: 1, owner: "ram y", numOfViews: 0,…}
+commentsCount: 0
+date: "2015-11-05T08:19:37.883568Z"
+downloadUrl: "/d/100346/392401/"
+id: 392401
+likes: 0
+name: "google.png"
+numOfDownloads: 0
+numOfViews: 0
+owner: "ram y"
+ownerId: 1
+source: "fb4bd221-360e-4d69-b70c-1334619d1ad3.png"
+sponsored: false
+url: "/item/noa-university/100346/nice-picture/392401/google.png/"
+userUrl: "/user/1/ram-y/"*/
                     file.complete = true;
                     // $scope.loading = false;
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
-                        $rootScope.$broadcast('item_upload', obj.payload);
+                        file.system = obj.payload.fileDto;
+                        // $rootScope.$broadcast('item_upload', obj.payload);
                     }
-                },
-                error: function (uploader, error) {
-                    u.alert = error.message;
                 }
+                //error: function (uploader, error) {
+                //    u.alert = error.message;
+                //}
             }
         }
     }
