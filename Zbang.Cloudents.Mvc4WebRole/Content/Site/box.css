@@ -1,4 +1,53 @@
-﻿.class .nav-tabs > li.active > a,
+﻿.class {
+  /*.message-top {
+        padding: 10px 7px 0 7px;
+        background: @color1;
+    }*/
+  /*.feed-likes {
+        height: 50px;
+        line-height: 50px;
+
+        .share {
+            height: 20px;
+            width: 20px;
+            fill: currentColor;
+            float: right;
+            position: absolute;
+            bottom: 14px;
+            right: 15px;
+        }
+
+
+        .like {
+            height: 20px;
+            width: 20px;
+            fill: currentColor;
+            float: right;
+            bottom: 14px;
+            margin: 3px 5px 0 8px;
+        }
+
+
+        .blue.btn {
+            float: left;
+            border-radius: 45px;
+            padding: 3px 10px;
+            margin: 10px 10px 10px 15px;
+        }
+    }*/
+  /*.in, .out {
+        &:after {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 56px;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 10px solid #f5f5f5;
+        }
+    }*/
+}
+.class .nav-tabs > li.active > a,
 .class .nav-tabs > li.active > a:hover {
   background: transparent;
   border: 0;
@@ -24,46 +73,8 @@
   background-color: #353a3f;
   padding: 0 10px;
 }
-.class .message-top {
-  padding: 10px 7px 0 7px;
-  background: #5f6871;
-}
-.class .feed-likes {
-  height: 50px;
-  line-height: 50px;
-}
-.class .feed-likes .share {
-  height: 20px;
-  width: 20px;
-  fill: currentColor;
-  float: right;
-  position: absolute;
-  bottom: 14px;
-  right: 15px;
-}
-.class .feed-likes .like {
-  height: 20px;
-  width: 20px;
-  fill: currentColor;
-  float: right;
-  bottom: 14px;
-  margin: 3px 5px 0 8px;
-}
-.class .feed-likes .blue.btn {
-  float: left;
-  border-radius: 45px;
-  padding: 3px 10px;
-  margin: 10px 10px 10px 15px;
-}
-.class .in:after,
-.class .out:after {
-  content: '';
-  position: absolute;
-  top: 16px;
-  left: 56px;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  border-right: 10px solid #f5f5f5;
+.class .list-inline > li {
+  padding: 0;
 }
 .feed .add-comment {
   margin-bottom: 20px;
@@ -374,15 +385,6 @@
 .item-animate.ng-enter.ng-enter-active {
   opacity: 1;
 }
-.upload .progress-wrap {
-  background: #fff;
-  padding-bottom: 10px;
-}
-.upload .progress {
-  margin: 0 10px;
-  border-radius: 0;
-  height: 10px;
-}
 .upload .tab-content {
   background: #000;
   min-height: 300px;
@@ -414,31 +416,19 @@
   padding: 15px;
   margin: 0 auto;
 }
-.upload .upload-file {
+.upload .form-horizontal {
+  padding: 10px;
+  font-size: 18px;
+}
+.upload .actions {
+  text-align: right;
+  background-color: #000;
+  padding: 20px 10px 10px 0;
+}
+.file-upload {
   text-align: center;
-  font-size: 20px;
   color: #677079;
   font-weight: 700;
-}
-.upload .upload-file .btn {
-  border: 1px solid #3293F6;
-  padding: 5px 40px;
-  font-size: 18px;
-  color: #3293F6;
-}
-.upload .upload-file .check-mark {
-  position: absolute;
-  top: -22px;
-  right: -18px;
-  color: #8DC63F;
-  border-radius: 50%;
-  background-color: rgba(143, 145, 146, 0.8);
-  padding: 5px 10px;
-}
-.upload .upload-file h5 {
-  color: #8DC63F;
-}
-.upload .file-upload {
   width: 115px;
   border: 7px solid #fff;
   height: 165px;
@@ -448,10 +438,37 @@
   background: #BCBCBC;
   margin: 5px;
 }
-.upload .file-size {
+.file-upload .progress-wrap {
+  background: #fff;
+  padding-bottom: 10px;
+}
+.file-upload .progress {
+  margin: 0 10px;
+  border-radius: 0;
+  height: 10px;
+}
+.file-upload .btn {
+  border: 1px solid #3293F6;
+  padding: 5px 40px;
+  font-size: 18px;
+  color: #3293F6;
+}
+.file-upload .check-mark {
+  position: absolute;
+  top: -22px;
+  right: -18px;
+  color: #8DC63F;
+  border-radius: 50%;
+  background-color: rgba(143, 145, 146, 0.8);
+  padding: 5px 10px;
+}
+.file-upload h5 {
+  color: #8DC63F;
+}
+.file-upload .file-size {
   background: #fff;
 }
-.upload .file-upload-progress {
+.file-upload .file-upload-progress {
   height: 5px;
   margin: 0;
   position: absolute;
@@ -459,17 +476,8 @@
   left: 0;
   right: 0;
 }
-.upload .file-name {
+.file-upload .file-name {
   width: 101px;
   height: 100px;
   position: relative;
-}
-.upload .form-horizontal {
-  padding: 10px;
-  font-size: 18px;
-}
-.upload .actions {
-  text-align: right;
-  background-color: #000;
-  padding: 20px 10px 10px 0;
 }

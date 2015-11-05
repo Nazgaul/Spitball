@@ -78,7 +78,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                     fileUploadedDetails.FileName,
-                     fileUploadedDetails.TotalUploadBytes, model.TabId, model.Question);
+                     fileUploadedDetails.TotalUploadBytes, model.TabId, model.Comment);
                 var result = await ZboxWriteService.AddItemToBoxAsync(command);
 
                 var result2 = result as AddFileToBoxCommandResult;

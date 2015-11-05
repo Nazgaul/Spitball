@@ -5,12 +5,16 @@
     <div class="col-lg-6 col-md-8 col-sm-12">
         <div class="portlet light">
             <div class="portlet-body feed">
-                <form class="add-comment" ng-submit="f.createComment()">
-                    
-                    <textarea ng-model="f.newText" type="text" placeholder="what's on your mind?"></textarea>
+                <form class="add-comment" ng-submit="f.add.createComment()">
                     <div>
-                        <a plupload="f.fileUpload.url" 
-                           plupload-options="f.fileUpload.options" plupload-callbacks="f.fileUpload.callbacks">
+                        <textarea ng-model="f.newText" type="text" placeholder="what's on your mind?"></textarea>
+                        <ul class="list-inline">
+                            <li class="file-upload" ng-repeat="file in f.add.files" ng-include="'file-upload.html'">
+                        </ul>
+                    </div>
+                    <div>
+                        <a plupload="f.add.fileUpload.url"
+                           plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks">
                             @Html.Svg(url, "file", new { @class = "file" })
                         </a>
                         <button type="button">@Html.Svg(url, "googleDrive")</button>
@@ -20,7 +24,7 @@
                         <button type="button">
                             @Html.Svg(url, "link", new { @class = "link" })
                         </button>
-                        <button type="submit" class="btn pull-right" ng-disabled="f.disabled">post</button>
+                        <button type="submit" class="btn pull-right" ng-disabled="f.add.disabled">post</button>
                         <button type="button" class="pull-right">
                             @Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })
                         </button>

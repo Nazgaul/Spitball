@@ -1522,18 +1522,6 @@
     <Content Include="Content\Site\profile.rtl.min.css">
       <DependentUpon>profile.rtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\boxMembers.css">
-      <DependentUpon>boxMembers.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\boxMembers.min.css">
-      <DependentUpon>boxMembers.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\boxMembers.rtl.css">
-      <DependentUpon>boxMembers.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\boxMembers.rtl.min.css">
-      <DependentUpon>boxMembers.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\quiz.css">
       <DependentUpon>quiz.less</DependentUpon>
     </Content>
@@ -2083,7 +2071,6 @@
     <Content Include="Content\Site\item.less" />
     <Content Include="Content\Site\accountSettings.less" />
     <Content Include="Content\Site\General.less" />
-    <Content Include="Content\Site\boxMembers.less" />
     <Content Include="Content\Site\rtlFix.less" />
     <Content Include="Content\Site\quiz.less" />
     <Content Include="Content\Site\morphsearch.less" />

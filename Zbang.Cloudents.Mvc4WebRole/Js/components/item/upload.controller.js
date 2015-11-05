@@ -106,8 +106,8 @@
                         fileName: file.name,
                         fileSize: file.size,
                         boxId: boxid,
-                        question: false,
-                        isComment: false
+                        comment: false
+                        //isComment: false
 
                     };
 

@@ -66,7 +66,7 @@
             }
             var item = response.fileDto;
             item.thumbnail = buildThumbnailUrl(item.source);
-            i.data.unshift(item);
+            i.items.unshift(item);
         });
 
         function iterateItem() {
