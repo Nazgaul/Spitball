@@ -76,24 +76,22 @@
 .class .list-inline > li {
   padding: 0;
 }
+.feed {
+  font-size: 16px;
+}
 .feed ::-webkit-input-placeholder {
-  color: #646E77;
+  color: #646e77;
 }
 .feed :-moz-placeholder {
   /* Firefox 18- */
-  color: #646E77;
+  color: #646e77;
 }
 .feed ::-moz-placeholder {
   /* Firefox 19+ */
-  color: #646E77;
+  color: #646e77;
 }
 .feed :-ms-input-placeholder {
-  color: #646E77;
-}
-.feed .add-comment-button {
-  margin: 5px 0 0;
-  position: relative;
-  padding: 5px 0 0;
+  color: #646e77;
 }
 .feed .add-comment {
   margin-bottom: 20px;
@@ -102,7 +100,7 @@
 }
 .feed .add-comment textarea {
   width: 100%;
-  border: 1px solid #646E77;
+  border: 1px solid #646e77;
   background: #212427;
   margin-bottom: 10px;
   outline: none;
@@ -184,6 +182,9 @@
 }
 .feed .reply .c-img {
   border: 3px solid #212427;
+  width: 40px;
+  height: 40px;
+  top: 0;
 }
 .feed .reply .like {
   border: 1px solid #6E7983;
@@ -193,23 +194,25 @@
   margin: 0 0 10px 10px;
 }
 .feed .reply .padding {
-  padding-right: 40px;
+  padding-right: 30px;
 }
 .feed .user-name {
   color: #5B9CC2;
 }
 .feed .top {
-  padding-right: 40px;
+  padding-right: 30px;
 }
 .feed .items-container {
   overflow-y: hidden;
   overflow-x: auto;
   white-space: nowrap;
-  margin: 10px 5px 0 5px;
-  padding-right: 30px;
+  margin: 20px 5px 0 5px;
+  padding-right: 34px;
 }
 .feed .actions {
   color: #6E7983;
+  padding-bottom: 10px;
+  margin: 10px 6px 0 0;
 }
 .feed .replies {
   border-top: 1px solid #6e7983;
