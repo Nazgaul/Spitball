@@ -29,7 +29,6 @@
         };
 
         self.add.createComment = function () {
-            //console.log(self.newText)
 
             var filesId = self.add.files.map(function(c) {
                 return c.system.id;
@@ -38,7 +37,7 @@
             self.add.disabled = true;
 
             //content,boxId, files, anonymously
-            boxService.postComment(self.newText, boxId, filesId).then(function (response) {
+            boxService.postComment(self.add.newText, boxId, filesId, self.add.anonymous).then(function (response) {
                 self.data.unshift({
                     content: self.newText,
                     creationTime: new Date(),
@@ -53,7 +52,7 @@
                         return temp;
                     })
             });
-                self.newText = '';
+                self.add.newText = '';
                 self.add.files = [];
                 /*answers: []
 content: "asdasdasd"

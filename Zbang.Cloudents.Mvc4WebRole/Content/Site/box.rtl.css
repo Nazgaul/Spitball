@@ -73,9 +73,6 @@
   background-color: #353a3f;
   padding: 0 10px;
 }
-.class .list-inline > li {
-  padding: 0;
-}
 .feed {
   font-size: 16px;
 }
@@ -97,6 +94,9 @@
   margin-bottom: 20px;
   background: #212427;
   padding: 10px;
+}
+.feed .add-comment .list-inline > li {
+  padding: 0;
 }
 .feed .add-comment textarea {
   width: 100%;
