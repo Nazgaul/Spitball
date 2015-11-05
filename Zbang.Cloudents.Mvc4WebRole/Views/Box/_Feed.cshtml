@@ -6,9 +6,23 @@
         <div class="portlet light">
             <div class="portlet-body feed">
                 <form class="add-comment" ng-submit="f.add.createComment()">
-                    <div class="add-comment-button">
+                    <div>
                         <textarea ng-model="f.add.newText" type="text" placeholder="what's on your mind?"></textarea>
                         <ul class="list-inline">
+                            @*<li class="file-upload">
+                                    <span class="check-mark">&#x2713;</span>
+                                    <div class="file-name">
+                                        Some doc.docx
+                                        <div class="progress file-upload-progress">
+                                            <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" ng-style="{width: 50 + '%'}">
+                                                <span class="sr-only">{{50*20}}% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="file-size">25mb</div>
+                                    <button type="button">remove file</button>
+                                </li>*@
                             <li class="file-upload" ng-repeat="file in f.add.files" ng-include="'file-upload.html'">
                         </ul>
                     </div>
@@ -24,7 +38,7 @@
                         <button type="button">
                             @Html.Svg(url, "link", new { @class = "link" })
                         </button>
-                        <button type="submit" class="btn pull-right" ng-disabled="f.add.disabled">post</button>
+                        <button type="submit" class="btn pull-right text-uppercase" ng-disabled="f.add.disabled">post</button>
                         <input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
                         <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
                     </div>
