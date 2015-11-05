@@ -7,7 +7,7 @@
             <div class="portlet-body feed">
                 <form class="add-comment">
                     <textarea type="text" placeholder="what's on your mind?"></textarea>
-                    <div>
+                    <div class="add-comment-button">
                         <a plupload="f.fileUpload.url" 
                            plupload-options="f.fileUpload.options" plupload-callbacks="f.fileUpload.callbacks">
                             @Html.Svg(url, "file", new { @class = "file" })
@@ -48,8 +48,8 @@
                             </li>
                         </ul>
                         <div class="actions">
-                            <button type="button" class="like margins">15 Like</button>
-                            <button type="button" class="margins">Comment</button>
+                            <button type="button" class="text-capitalize like margins">15 like</button>
+                            <button type="button" class=" text-capitalize margins">comment</button>
                             <button type="button" class="margins">share</button>
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.answers.length">
@@ -75,8 +75,8 @@
                                     </li>
                                 </ul>
                                 <div class="actions padding">
-                                    <button type="button" class="like margins">15 Like</button>
-                                    <button type="button" class="margins">share</button>
+                                    <button type="button" class="text-capitalize like margins">15 like</button>
+                                    <button type="button" class="text-capitalize margins">share</button>
                                 </div>
                             </li>
                         </ol>

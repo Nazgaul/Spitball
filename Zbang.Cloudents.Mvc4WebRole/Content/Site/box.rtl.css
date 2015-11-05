@@ -65,25 +65,43 @@
   border-bottom: 8px solid transparent;
   border-left: 10px solid #f5f5f5;
 }
+.feed ::-webkit-input-placeholder {
+  color: #646E77;
+}
+.feed :-moz-placeholder {
+  /* Firefox 18- */
+  color: #646E77;
+}
+.feed ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #646E77;
+}
+.feed :-ms-input-placeholder {
+  color: #646E77;
+}
+.feed .add-comment-button {
+  margin: 5px 0 0;
+  position: relative;
+  padding: 5px 0 0;
+}
 .feed .add-comment {
   margin-bottom: 20px;
   background: #212427;
   padding: 10px;
-  border-radius: 10px;
 }
 .feed .add-comment textarea {
   width: 100%;
-  border: 1px solid #42494f;
+  border: 1px solid #646E77;
   background: #212427;
   margin-bottom: 10px;
   outline: none;
   resize: none;
+  padding-right: 10px;
 }
 .feed .add-comment button[type=submit] {
   background: #4190b9;
-  padding: 1px 10px 0 10px;
+  padding: 2px 10px 0 10px;
   font-size: 13px;
-  margin-top: 3px;
   border-radius: 6px;
 }
 .feed .add-comment button[type=submit]:hover {
@@ -113,13 +131,15 @@
   fill: #F9F9F9;
 }
 .feed .like {
-  border-radius: 10px;
+  border-radius: 12px;
   width: 80px;
 }
 .feed .c-img {
   position: absolute;
-  top: -11px;
-  right: -11px;
+  top: -18px;
+  right: -17px;
+  width: 54px;
+  height: 54px;
 }
 .feed .comment {
   background: #212427;
@@ -131,9 +151,11 @@
   border: 3px solid #353a3f;
 }
 .feed .comment > .top {
+  padding-right: 44px;
   padding-top: 5px;
+  padding-bottom: 5px;
   border-radius: 10px 10px 0 0;
-  background: #CEE2F6;
+  background: #C7DAEF;
   color: #000;
 }
 .feed .comment .margins {
@@ -141,13 +163,13 @@
 }
 .feed .comment .like {
   border: 1px solid #5B9CC2;
-  color: #5b9cc2;
+  color: #5B9CC2;
   margin-right: 15px;
 }
 .feed .reply {
   position: relative;
   margin-right: 35px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 .feed .reply .c-img {
   border: 3px solid #212427;
@@ -173,6 +195,7 @@
   overflow-x: auto;
   white-space: nowrap;
   margin: 10px 5px 0 5px;
+  padding-right: 30px;
 }
 .feed .actions {
   color: #6E7983;
@@ -298,7 +321,7 @@
 }
 .item {
   border: 1px solid #42494F;
-  padding: 5px;
+  padding: 5px 5px 0;
   display: block;
   margin-bottom: 15px;
 }
