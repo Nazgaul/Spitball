@@ -222,6 +222,10 @@
   margin: 10px 6px 0 0;
   font-size: 13px;
 }
+.feed .actions svg {
+  width: 25px;
+  height: 25px;
+}
 .feed .replies {
   border-top: 1px solid #6e7983;
 }
