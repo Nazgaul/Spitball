@@ -25,9 +25,8 @@
                             @Html.Svg(url, "link", new { @class = "link" })
                         </button>
                         <button type="submit" class="btn pull-right" ng-disabled="f.add.disabled">post</button>
-                        <button type="button" class="pull-right">
-                            @Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })
-                        </button>
+                        <input type="checkbox" id="anonymous" />
+                        <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
                     </div>
                 </form>
                 <ol class="list-unstyled">

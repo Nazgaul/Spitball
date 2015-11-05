@@ -90,6 +90,9 @@
   outline: none;
   resize: none;
 }
+.feed .add-comment input[type=checkbox] {
+  display: none;
+}
 .feed .add-comment button[type=submit] {
   background: #4190b9;
   padding: 1px 10px 0 10px;
