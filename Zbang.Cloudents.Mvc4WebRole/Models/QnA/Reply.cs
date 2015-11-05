@@ -12,14 +12,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.QnA
         public long BoxId { get; set; }
 
         [Required]
-        public Guid QuestionId { get; set; }
+        public Guid CommentId { get; set; }
 
 
         public long[] Files { get; set; }
 
         public override string ToString()
         {
-            return string.Format("Content: {0} BoxUid {1} QuestionId {2}", Content, BoxId, QuestionId);
+            return string.Format("Content: {0} BoxUid {1} QuestionId {2}", Content, BoxId, CommentId);
         }
 
     }

@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.box.feed').controller('FeedController', feed);
-    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider'];
+    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'userDetails','$q'];
 
-    function feed(boxService, $stateParams, $timeout, externalUploadProvider) {
+    function feed(boxService, $stateParams, $timeout, externalUploadProvider, userDetails,$q) {
         var self = this, boxId = $stateParams.boxId;
         boxService.getFeed(boxId).then(function (response) {
             self.data = response;
@@ -30,7 +30,43 @@
             dropboxDisabled: true
         };
 
+        self.add.createReply = function (commentId) {
+            var comment = self.data.find(function (e) {
+                return e.id === commentId;
+            });
+            if (!comment) {
+                return;
+            }
+            
 
+            var filesId = self.add.files.map(function (c) {
+                return c.system.id;
+            });
+
+            self.add.disabled = true;
+            $q.all([userDetails.get(), boxService.postReply(self.add.newText, boxId, commentId, filesId)]).then(function (response) {
+                comment.answers.unshift({
+                    content: self.newText,
+                    creationTime: new Date(),
+                    id: response[1].commentId,
+                    url: response[1].userUrl,
+
+                    userId: response[0].id,
+                    userImage: response[0].image,
+                    userName: response[0].name,
+                    files: self.add.files.map(function (c) {
+                        var temp = c.system;
+                        temp.thumbnail = buildThumbnailUrl(c.source);
+                        return temp;
+                    })
+                });
+                self.add.newText = '';
+                self.add.files = [];
+            }).finally(function () {
+                self.add.disabled = false;
+            });
+           
+        }
 
         self.add.createComment = function () {
 

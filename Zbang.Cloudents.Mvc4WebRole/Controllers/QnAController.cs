@@ -48,7 +48,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         [HttpPost]
         [RemoveBoxCookie]
-        public async Task<JsonResult> AddAnswer(Reply model)
+        public async Task<JsonResult> AddReply(Reply model)
         {
             if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
             {
@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var answerId = m_IdGenerator.GetId();
-                var command = new AddAnswerToQuestionCommand(User.GetUserId(), model.BoxId, model.Content, answerId, model.QuestionId, model.Files);
+                var command = new AddAnswerToQuestionCommand(User.GetUserId(), model.BoxId, model.Content, answerId, model.CommentId, model.Files);
                 await ZboxWriteService.AddAnswerAsync(command);
                 return JsonOk(answerId);
             }

@@ -87,87 +87,6 @@
 .feed {
     font-size: 16px;
 
-    @colorplaceholder:#646E77;
-    ::-webkit-input-placeholder {
-        color: @colorplaceholder;
-    }
-
-    :-moz-placeholder { /* Firefox 18- */
-        color: @colorplaceholder;  
-    }
-
-    ::-moz-placeholder { /* Firefox 19+ */
-        color: @colorplaceholder;  
-    }
-
-    :-ms-input-placeholder {
-        color: @colorplaceholder;  
-    }
-
-    .add-comment {
-        .list-inline > li {
-            padding: 0; //override
-        }
-
-        margin-bottom: 20px;
-        background: #212427;
-        padding: 10px;
-
-        textarea {
-            width: 100%;
-            border: 1px solid @colorplaceholder;
-            background: #212427;
-            outline: none; //override
-            resize: none;
-            padding-left: 10px;
-        }
-
-        input[type=checkbox] {
-            display: none;
-
-            &:checked + label svg {
-                fill: red;
-            }
-        }
-
-        button[type=submit] {
-            .buttonBlue();
-            padding: 2px 10px 0 10px;
-            font-size: 13px;
-            border-radius: 6px;
-            margin: 5px 0 0 20px;
-        }
-
-        svg {
-            width: 25px;
-            height: 35px;
-            vertical-align: middle;
-            margin: 0 12px;
-            fill: #535B63;
-        }
-
-        .file {
-            &:hover {
-                fill: #F9F9F9;
-            }
-        }
-
-        .link {
-            &:hover {
-                fill: #64D0FF;
-            }
-        }
-
-        .anonymous {
-            width: 35px;
-            height: 35px;
-
-            &:hover {
-                fill: #F9F9F9;
-            }
-        }
-    }
-
     .like {
         border-radius: 22px;
         width: 80px;
@@ -269,7 +188,7 @@
         margin: 10px 0 0 6px;
         font-size: 13px;
 
-        svg{
+        svg {
             width:20px;
             height:20px;
             fill: #535B63;
@@ -290,6 +209,105 @@
         line-height: 22px;
         margin-bottom: 5px;
         padding-right: 10px;
+
+    .add-reply {
+        display: none;
+    }
+}
+
+.add-comment {
+    @colorplaceholder: #646E77;
+
+    ::-webkit-input-placeholder {
+        color: @colorplaceholder;
+    }
+
+    :-moz-placeholder { /* Firefox 18- */
+        color: @colorplaceholder;
+    }
+
+    ::-moz-placeholder { /* Firefox 19+ */
+        color: @colorplaceholder;
+    }
+
+    :-ms-input-placeholder {
+        color: @colorplaceholder;
+    }
+
+    .list-inline > li {
+        padding: 0; //override
+    }
+
+    margin-bottom: 20px;
+    background: #212427;
+    padding: 10px;
+
+    textarea {
+        width: 100%;
+        border: 1px solid @colorplaceholder;
+        background: #212427;
+        outline: none; //override
+        resize: none;
+        padding-left: 10px;
+        height: 40px;
+    }
+    .actions {
+        display:none;
+        
+    }
+    &.open {
+        .actions {
+            display:block;
+            //height: auto;
+        }
+        textarea {
+            height:auto;
+        }
+    }
+
+    input[type=checkbox] {
+        display: none;
+
+        &:checked + label svg {
+            fill: red;
+        }
+    }
+
+    button[type=submit] {
+        .buttonBlue();
+        padding: 2px 10px 0 10px;
+        font-size: 13px;
+        border-radius: 6px;
+        margin: 5px 0 0 20px;
+    }
+
+    svg {
+        width: 25px;
+        height: 35px;
+        vertical-align: middle;
+        margin: 0 12px;
+        fill: #535B63;
+    }
+
+    .file {
+        &:hover {
+            fill: #F9F9F9;
+        }
+    }
+
+    .link {
+        &:hover {
+            fill: #64D0FF;
+        }
+    }
+
+    .anonymous {
+        width: 35px;
+        height: 35px;
+
+        &:hover {
+            fill: #F9F9F9;
+        }
     }
 }
 

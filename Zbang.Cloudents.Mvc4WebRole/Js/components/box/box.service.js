@@ -32,5 +32,13 @@
         d.postComment = function(content,boxId, files, anonymously) {
             return ajaxservice.post('/qna/addcomment/', { content: content, boxId: boxId, files: files, anonymously: anonymously });
         }
+        d.postReply = function(content,boxId,commentId, files) {
+            return ajaxservice.post('/qna/addreply/', {
+                content: content,
+                boxId: boxId,
+                commentId: commentId,
+                files: files
+            });
+        }
     }
 })();
