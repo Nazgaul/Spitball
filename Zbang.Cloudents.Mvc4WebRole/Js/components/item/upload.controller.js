@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.upload').controller('Upload', upload);
-    upload.$inject = ['$scope', 'itemService', 'dropboxService', '$q', 'googleService', '$timeout', '$stateParams', '$rootScope'];
+    upload.$inject = ['$scope', 'itemService', '$q', '$timeout', '$stateParams', '$rootScope', 'externalUploadProvider'];
 
-    function upload($scope, itemService, dropboxService, $q, googleService, $timeout, $stateParams, $rootScope) {
+    function upload($scope, itemService, $q, $timeout, $stateParams, $rootScope, externalUploadProvider) {
         var u = this;
         var boxid = $stateParams.boxId || $scope.$parent.cc.box.id;
         var cc = $scope.$parent.cc || {};
@@ -15,41 +15,47 @@
             link: 4
         };
 
-        $scope.$on('uploadPhase', function () {
-            dropboxService.init().then(function () {
+        $scope.$on('open_upload', function () {
+            externalUploadProvider.dropboxInit().then(function() {
                 u.dropBoxLoaded = true;
             });
-            $q.all([googleService.initDrive(), googleService.initGApi()]).then(function () {
+            externalUploadProvider.googleDriveInit().then(function() {
                 u.googleDriveLoaded = true;
             });
+           
 
         });
-        u.dropBoxLoaded = false;
-        u.googleDriveLoaded = false;
+        //u.dropBoxLoaded = false;
+        //u.googleDriveLoaded = false;
 
         u.google = function () {
-            googleService.picker().then(function (response) {
-                var filesUpload = [];
-                for (var i = 0; i < response.length; i++) {
-                    filesUpload.push(itemService.addLink(response[i].link, boxid, null, null, response[i].name));
-                }
-                $q.all(filesUpload).then(function () {
-                    alert('done');
-                });
+            externalUploadProvider.google(boxid).then(function (response) {
+                alert('done');
             });
+            //    googleService.picker().then(function (response) {
+            //        var filesUpload = [];
+            //        for (var i = 0; i < response.length; i++) {
+            //            filesUpload.push(itemService.addLink(response[i].link, boxid, null, null, response[i].name));
+            //        }
+            //        $q.all(filesUpload).then(function () {
+            //            alert('done');
+            //        });
+            //    });
         }
 
         u.dropBox = function () {
-
-            dropboxService.choose().then(function (response) {
-                var filesUpload = [];
-                for (var i = 0; i < response.length; i++) {
-                    filesUpload.push(itemService.addFromDropBox(boxid, response[i].link, response[i].name));
-                }
-                $q.all(filesUpload).then(function () {
-                    alert('done');
-                });
+            externalUploadProvider.dropBox(boxid).then(function (response) {
+                alert('done');
             });
+            //    dropboxService.choose().then(function (response) {
+            //        var filesUpload = [];
+            //        for (var i = 0; i < response.length; i++) {
+            //            filesUpload.push(itemService.addFromDropBox(boxid, response[i].link, response[i].name));
+            //        }
+            //        $q.all(filesUpload).then(function () {
+            //            alert('done');
+            //        });
+            //    });
 
 
         };

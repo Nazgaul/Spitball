@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.box.feed').controller('FeedController', feed);
-    feed.$inject = ['boxService', '$stateParams', '$timeout'];
+    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider'];
 
-    function feed(boxService, $stateParams, $timeout) {
+    function feed(boxService, $stateParams, $timeout, externalUploadProvider) {
         var self = this, boxId = $stateParams.boxId;
         boxService.getFeed(boxId).then(function (response) {
             self.data = response;
@@ -25,12 +25,16 @@
 
         self.add = {
             files: [],
-            disabled: false
+            disabled: false,
+            googleDisabled: true,
+            dropboxDisabled: true
         };
+
+
 
         self.add.createComment = function () {
 
-            var filesId = self.add.files.map(function(c) {
+            var filesId = self.add.files.map(function (c) {
                 return c.system.id;
             });
 
@@ -51,9 +55,10 @@
                         temp.thumbnail = buildThumbnailUrl(c.source);
                         return temp;
                     })
-            });
+                });
                 self.add.newText = '';
                 self.add.files = [];
+                self.add.anonymous = false;
                 /*answers: []
 content: "asdasdasd"
 creationTime: "2015-11-04T13:11:32.6519547Z"
@@ -67,6 +72,32 @@ userName: "ram y"*/
             }).finally(function () {
                 self.add.disabled = false;
             });
+        }
+
+
+        //TODO: upon collapse
+        externalUploadProvider.googleDriveInit().then(function () {
+            self.add.googleDisabled = false;
+        });
+        externalUploadProvider.dropboxInit().then(function() {
+            self.add.dropboxDisabled = false;
+        });
+
+        self.add.google = function () {
+            externalUploadProvider.google(boxId).then(externalUploadComplete);
+        }
+        self.add.dropbox = function () {
+            externalUploadProvider.dropBox(boxId).then(externalUploadComplete);
+        }
+
+        function externalUploadComplete(response) {
+            for (var i = 0; i < response.length; i++) {
+                self.add.files.push({
+                    complete: true,
+                    name: response[i].name,
+                    system: response[i]
+                });
+            }
         }
 
         self.add.fileUpload = {
