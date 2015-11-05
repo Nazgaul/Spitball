@@ -33,9 +33,7 @@
                         </a>
                         <button type="button" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()">@Html.Svg(url, "googleDrive")</button>
                         <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox")</button>
-                        <button type="button">
-                            @Html.Svg(url, "link", new { @class = "link" })
-                        </button>
+                        <button type="button">@Html.Svg(url, "link", new { @class = "link" })</button>
                         <button type="submit" class="btn pull-right text-uppercase" ng-disabled="f.add.disabled">post</button>
                         <input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
                         <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
@@ -96,81 +94,29 @@
                                 </div>
                             </li>
                         </ol>
+                        <form class="add-comment" ng-submit="f.add.createReply(post.id)">
+                            <div>
+                                <textarea ng-model="f.add.newText" type="text" placeholder="what's on your mind?"></textarea>
+                                <ul class="list-inline">
+                                    <li class="file-upload" ng-repeat="file in f.add.files" ng-include="'file-upload.html'">
+                                </ul>
+                            </div>
+                            <div>
+                                <a plupload="f.add.fileUpload.url"
+                                   plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks">
+                                    @Html.Svg(url, "file", new { @class = "file" })
+                                </a>
+                                <button type="button" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()">@Html.Svg(url, "googleDrive")</button>
+                                <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox")</button>
+                                <button type="button">@Html.Svg(url, "link", new { @class = "link" })</button>
+                                <button type="submit" class="btn pull-right text-uppercase" ng-disabled="f.add.disabled">post</button>
+                                @*<input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
+                                <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
+                            </div>
+                        </form>
                     </li>
                 </ol>
-                @*<div class="chat-form">
-                        <div class="input-cont">
-                            <input class="form-control" type="text" placeholder="Type a message here..." />
-                        </div>
-                        <div class="btn btn-cont">
-                            <span class="arrow">
-                            </span>
-                            <a href="" class="btn blue icn-only">
-                                <i class="fa fa-check icon-white"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <ul class="chats">
-                        <li class="in" ng-repeat="post in f.data">
-                            <user-image class="avatar" name="::post.userName" image="::post.userImage" width="45" height="45"></user-image>
-                            <div class="message">
-                                <div class="message-top">
-                                    <span class="name">{{::post.userName}}</span>
-                                    <span class="datetime" display-time="{{::post.creationTime}}"></span>
-                                    <span class="body" ng-bind-html="::post.content"></span>
-                                </div>
-                                <ul class="list-inline items-container">
-                                    <li ng-repeat="item in post.files">
-                                        <a class="item" href="{{::item.url}}">
-                                            <div class="content">
-                                                <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
-                                                <div class="extra">
-                                                    <h5>{{::item.name}}</h5>
-                                                    <img src="http://lorempixel.com/30/30/" alt="" />
-
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="feed-likes">
-                                    <div class="pull-left btn blue">
-                                        <span> 15 Likes </span>
-                                        @Html.Svg("~/images/site/box-icons.svg", "share", new { @class = "like" })
-                                    </div>
-                                    <div class="comment">
-                                        <span>Comments</span>
-                                    </div>
-                                    @Html.Svg("~/images/site/box-icons.svg", "share", new { @class = "share" })
-                                </div>
-                            </div>
-                            <ul>
-                                <li class="out" ng-repeat="reply in post.answers">
-                                    <user-image class="avatar" name="::reply.userName" image="::reply.userImage" width="45" height="45"></user-image>
-                                    <div class="message">
-                                        <span class="name">{{::reply.userName}}</span>
-                                        <span class="datetime" display-time="{{::post.creationTime}}"></span>
-                                        <span class="body" ng-bind-html="::reply.content">
-                                        </span>
-                                        <ul class="list-inline items-container">
-                                            <li ng-repeat="item in reply.files">
-                                                <a class="item" href="{{::item.url}}">
-                                                    <div class="content">
-                                                        <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
-                                                        <div class="extra">
-                                                            <h5>{{::item.name}}</h5>
-                                                            <img src="http://lorempixel.com/30/30/" alt="" />
-
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>*@
+               
             </div>
         </div>
     </div>
