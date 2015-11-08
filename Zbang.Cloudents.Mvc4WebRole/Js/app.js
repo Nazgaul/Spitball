@@ -9,8 +9,10 @@
         'ui.bootstrap',
         'ngAnimate',
         'ngMaterial',
+        'textAngular',
         'angulartics.google.analytics',
         'angular-plupload',
+
         'infinite-scroll',
         'displayTime',
         'app.dashboard',

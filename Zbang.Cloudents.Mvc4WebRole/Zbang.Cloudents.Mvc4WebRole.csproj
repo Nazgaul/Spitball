@@ -1058,6 +1058,44 @@
     <Content Include="bower_components\angular\angular.js" />
     <Content Include="bower_components\angular\angular.min.js" />
     <Content Include="bower_components\angular\index.js" />
+    <Content Include="bower_components\font-awesome\.gitignore" />
+    <Content Include="bower_components\font-awesome\css\font-awesome.css" />
+    <Content Include="bower_components\font-awesome\css\font-awesome.min.css" />
+    <Content Include="bower_components\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="bower_components\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="bower_components\rangy\rangy-classapplier.js" />
+    <Content Include="bower_components\rangy\rangy-classapplier.min.js" />
+    <Content Include="bower_components\rangy\rangy-core.js" />
+    <Content Include="bower_components\rangy\rangy-core.min.js" />
+    <Content Include="bower_components\rangy\rangy-highlighter.js" />
+    <Content Include="bower_components\rangy\rangy-highlighter.min.js" />
+    <Content Include="bower_components\rangy\rangy-selectionsaverestore.js" />
+    <Content Include="bower_components\rangy\rangy-selectionsaverestore.min.js" />
+    <Content Include="bower_components\rangy\rangy-serializer.js" />
+    <Content Include="bower_components\rangy\rangy-serializer.min.js" />
+    <Content Include="bower_components\rangy\rangy-textrange.js" />
+    <Content Include="bower_components\rangy\rangy-textrange.min.js" />
+    <Content Include="bower_components\textAngular\dist\textAngular-rangy.min.js" />
+    <Content Include="bower_components\textAngular\dist\textAngular-sanitize.js" />
+    <Content Include="bower_components\textAngular\dist\textAngular-sanitize.min.js" />
+    <Content Include="bower_components\textAngular\dist\textAngular.css" />
+    <Content Include="bower_components\textAngular\dist\textAngular.js" />
+    <Content Include="bower_components\textAngular\dist\textAngular.min.js" />
+    <Content Include="bower_components\textAngular\dist\textAngular.rtl.css">
+      <DependentUpon>textAngular.css</DependentUpon>
+    </Content>
+    <Content Include="bower_components\textAngular\dist\textAngularSetup.js" />
+    <Content Include="bower_components\textAngular\karma-jqlite.conf.js" />
+    <Content Include="bower_components\textAngular\karma-jquery.conf.js" />
+    <Content Include="bower_components\textAngular\src\DOM.js" />
+    <Content Include="bower_components\textAngular\src\factories.js" />
+    <Content Include="bower_components\textAngular\src\globals.js" />
+    <Content Include="bower_components\textAngular\src\main.js" />
+    <Content Include="bower_components\textAngular\src\taBind.js" />
+    <Content Include="bower_components\textAngular\src\textAngular-sanitize.js" />
+    <Content Include="bower_components\textAngular\src\textAngular.css" />
+    <Content Include="bower_components\textAngular\src\textAngularSetup.js" />
+    <Content Include="bower_components\textAngular\src\validators.js" />
     <Content Include="Content\Fonts\feather-webfont.svg" />
     <Content Include="Content\Fonts\Simple-Line-Icons.dev.svg" />
     <Content Include="Content\Fonts\Simple-Line-Icons.svg" />
@@ -1192,6 +1230,50 @@
     <Content Include="bower_components\angular\README.md" />
     <Content Include="bower.json" />
     <Content Include="bower_components\angular-material\material.less" />
+    <Content Include="bower_components\font-awesome\.bower.json" />
+    <Content Include="bower_components\font-awesome\.npmignore" />
+    <Content Include="bower_components\font-awesome\bower.json" />
+    <Content Include="bower_components\font-awesome\css\font-awesome.css.map" />
+    <Content Include="bower_components\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="bower_components\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="bower_components\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="bower_components\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="bower_components\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="bower_components\font-awesome\less\animated.less" />
+    <Content Include="bower_components\font-awesome\less\bordered-pulled.less" />
+    <Content Include="bower_components\font-awesome\less\core.less" />
+    <Content Include="bower_components\font-awesome\less\fixed-width.less" />
+    <Content Include="bower_components\font-awesome\less\font-awesome.less" />
+    <Content Include="bower_components\font-awesome\less\icons.less" />
+    <Content Include="bower_components\font-awesome\less\larger.less" />
+    <Content Include="bower_components\font-awesome\less\list.less" />
+    <Content Include="bower_components\font-awesome\less\mixins.less" />
+    <Content Include="bower_components\font-awesome\less\path.less" />
+    <Content Include="bower_components\font-awesome\less\rotated-flipped.less" />
+    <Content Include="bower_components\font-awesome\less\stacked.less" />
+    <Content Include="bower_components\font-awesome\less\variables.less" />
+    <Content Include="bower_components\font-awesome\scss\font-awesome.scss" />
+    <Content Include="bower_components\font-awesome\scss\_animated.scss" />
+    <Content Include="bower_components\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="bower_components\font-awesome\scss\_core.scss" />
+    <Content Include="bower_components\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="bower_components\font-awesome\scss\_icons.scss" />
+    <Content Include="bower_components\font-awesome\scss\_larger.scss" />
+    <Content Include="bower_components\font-awesome\scss\_list.scss" />
+    <Content Include="bower_components\font-awesome\scss\_mixins.scss" />
+    <Content Include="bower_components\font-awesome\scss\_path.scss" />
+    <Content Include="bower_components\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="bower_components\font-awesome\scss\_stacked.scss" />
+    <Content Include="bower_components\font-awesome\scss\_variables.scss" />
+    <Content Include="bower_components\rangy\.bower.json" />
+    <Content Include="bower_components\rangy\bower.json" />
+    <Content Include="bower_components\rangy\LICENSE" />
+    <Content Include="bower_components\rangy\README.md" />
+    <Content Include="bower_components\textAngular\.bower.json" />
+    <Content Include="bower_components\textAngular\bower.json" />
+    <Content Include="bower_components\textAngular\changelog.md" />
+    <Content Include="bower_components\textAngular\CONTRIBUTING.md" />
+    <Content Include="bower_components\textAngular\README.md" />
     <None Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -1534,6 +1616,18 @@
     <Content Include="Content\Site\quiz.rtl.min.css">
       <DependentUpon>quiz.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\quizCreate.css">
+      <DependentUpon>quizCreate.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\quizCreate.min.css">
+      <DependentUpon>quizCreate.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\quizCreate.rtl.css">
+      <DependentUpon>quizCreate.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\quizCreate.rtl.min.css">
+      <DependentUpon>quizCreate.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\rtlFix.css">
       <DependentUpon>rtlFix.less</DependentUpon>
     </Content>
@@ -1836,7 +1930,9 @@
     <Content Include="Js\components\box\box.routes.js" />
     <Content Include="Js\components\dashboard\createBox.controller.js" />
     <Content Include="Js\components\item\externalProviderUpload.service.js" />
+    <Content Include="Js\components\quiz\quiz.routes.js" />
     <Content Include="Js\polyfills.js" />
+    <Content Include="Js\shared\fileReader.js" />
     <Content Include="Js\shared\showForm.js" />
     <Content Include="Js\shared\tabDrop.js" />
     <Content Include="Js\shared\userDetails.js" />
@@ -2080,6 +2176,7 @@
     <Content Include="Content\Site\Share.less" />
     <Content Include="Content\Site\leaderboard.less" />
     <Content Include="Content\Site\unused-components.less" />
+    <Content Include="Content\Site\quizCreate.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2996,6 +3093,7 @@
     <Content Include="Views\Account\Password.cshtml" />
     <Content Include="Views\Account\Notification.cshtml" />
     <Content Include="Views\Home\Blog.cshtml" />
+    <Content Include="Views\Quiz\CreateQuizOld.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
