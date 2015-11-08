@@ -7,7 +7,7 @@
             <div class="portlet-body feed">
                 <form class="add-comment" ng-submit="f.add.createComment()" ng-click="f.openForm = true" ng-class="{open: f.openForm}">
                     <div>
-                        <textarea ng-model="f.add.newText" type="text" placeholder="what's on your mind?"></textarea>
+                        <textarea ng-model="f.add.newText" placeholder="what's on your mind?"></textarea>
                         <ul class="list-inline">
                             @*<li class="file-upload">
                                     <span class="check-mark">&#x2713;</span>
@@ -94,7 +94,7 @@
                                 </div>
                             </li>
                         </ol>
-                        <form class="add-comment add-reply" ng-submit="f.add.createReply(post.id)">
+                        <form class="add-comment add-reply" ng-submit="f.add.createReply(post)">
                             <div>
                                 <textarea ng-model="f.add.newText" type="text" placeholder="what's on your mind?"></textarea>
                                 <ul class="list-inline">
