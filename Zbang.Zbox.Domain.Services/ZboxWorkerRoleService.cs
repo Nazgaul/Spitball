@@ -34,7 +34,22 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-            UpdateMismatchUrl();
+            UpdateNumberOfBoxesInDepartmentNode();
+            //UpdateMismatchUrl();
+        }
+
+        private void UpdateNumberOfBoxesInDepartmentNode()
+        {
+            using (var unitOfWork = UnitOfWork.Start())
+            {
+                var libs = UnitOfWork.CurrentSession.Query<Library>().Where(w => w.University.Id == 1177);
+                foreach (var library in libs)
+                {
+                    library.UpdateNumberOfBoxes();
+                    UnitOfWork.CurrentSession.Save(library);
+                }
+                unitOfWork.TransactionalFlush();
+            }
         }
 
         /// <summary>

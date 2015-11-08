@@ -130,7 +130,7 @@
             </button>
         </div>
 
-        <div class="row margin-top-10" ng-controller="RecommendedController as r">
+        <div class="row margin-top-10" ng-controller="RecommendedController as r" ng-hide="!r.isPrivate">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-repeat="box in r.boxes">
                 <a href="{{box.url}}" class="dashboard-stat2" d-color="{{box.name.length}}">
                     <div class="display">

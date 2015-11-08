@@ -7,12 +7,16 @@
         var self = this;
 
         self.loading = true;
-
+        self.isPrivate = false;
         if ($stateParams.boxId) {
-            boxService.leaderBoard($stateParams.boxId).then(function (response) {
-                self.leaderboard = response;
-                self.loading = false;
-            });
+            if ($stateParams.boxtype.toLowerCase() === 'box') {
+                self.isPrivate = true;
+            } else {
+                boxService.leaderBoard($stateParams.boxId).then(function(response) {
+                    self.leaderboard = response;
+                    self.loading = false;
+                });
+            }
         }
         else {
             dashboardService.leaderboard().then(function (response) {
