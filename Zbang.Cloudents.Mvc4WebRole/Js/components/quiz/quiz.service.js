@@ -79,5 +79,10 @@
                 id: answerId
             });
         }
+        s.publish = function(quizId) {
+            return ajaxservice.post('/quiz/save/', {
+                quizId: quizId
+            });
+        }
     }
 })();
