@@ -1,5 +1,70 @@
 ﻿<div class="full-screen quiz-create">
-    this is some text
-    
-    <div text-angular ng-model="htmlVariable"></div>
+    <header>
+        <div class="text-center">create a quiz</div>
+        <a class="close" href="{{::q.boxUrl}}">X</a>
+    </header>
+    <div class="not-supported">this is not supported section</div>
+    <div class="supported">
+       
+        <span>Course: Name</span>
+        <input type="text" placeholder="choose quiz name" />
+        <ol class="list-unstyled">
+            <li>
+                <div text-angular ta-text-editor-class="question-content" ng-model="htmlVariable"></div>
+                <span>Answers</span>
+                <ol>
+                    <li>
+                        <input type="text" placeholder="Answer 1" />
+                        <input type="radio" name="question1" />
+                    </li>
+                    <li>
+                        <input type="text" placeholder="Answer 2" />
+                        <input type="radio" name="question1" />
+                    </li>
+                    <li>
+                        <input type="text" placeholder="Answer 3" />
+                        <input type="radio" name="question1" />
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <div text-angular ng-model="htmlVariable"></div>
+                <span>Answers</span>
+                <ol>
+                    <li>
+                        <input type="text" placeholder="Answer 1" />
+                        <input type="radio" name="question1" />
+                    </li>
+                    <li>
+                        <input type="text" placeholder="Answer 2" />
+                        <input type="radio" name="question1" />
+                    </li>
+                    <li>
+                        <input type="text" placeholder="Answer 3" />
+                        <input type="radio" name="question1" />
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <div text-angular ng-model="htmlVariable"></div>
+                <span>Answers</span>
+                <ol>
+                    <li>
+                        <input type="text" placeholder="Answer 1" />
+                        <input type="radio" name="question1" />
+                    </li>
+                    <li>
+                        <input type="text" placeholder="Answer 2" />
+                        <input type="radio" name="question1" />
+                    </li>
+                    <li>
+                        <input type="text" placeholder="Answer 3" />
+                        <input type="radio" name="question1" />
+                    </li>
+                </ol>
+            </li>
+        </ol>
+
+        
+    </div>
 </div>

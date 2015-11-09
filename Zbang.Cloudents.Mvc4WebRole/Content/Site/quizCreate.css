@@ -1,4 +1,54 @@
-﻿.quiz-create .ta-toolbar svg {
+﻿.quiz-create .not-supported {
+  display: none;
+}
+.quiz-create .supported {
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10px;
+  width: 800px;
+  padding: 0 15px;
+}
+@media only screen and (min-width: 768px) and (max-width: 920px) {
+  .quiz-create .supported {
+    margin: 0 20px;
+    width: calc(100% - 40px);
+  }
+}
+@media only screen and (max-width: 768px) {
+  .quiz-create .not-supported {
+    display: block;
+  }
+  .quiz-create .supported {
+    display: none;
+  }
+}
+.quiz-create header {
+  position: relative;
+}
+.quiz-create header svg {
+  width: 30px;
+  height: 30px;
+  fill: #fff;
+}
+.quiz-create header .close {
+  position: absolute;
+  right: 10px;
+  top: 0;
+}
+.quiz-create .question-content {
+  border: 1px solid grey;
+  color: #000;
+}
+.quiz-create .ta-toolbar {
+  display: none;
+  background: grey;
+  padding-top: 5px;
+  margin: 0;
+}
+.quiz-create .ta-toolbar.focussed {
+  display: block;
+}
+.quiz-create .ta-toolbar svg {
   height: 15px;
   width: 15px;
   vertical-align: middle;
@@ -8,7 +58,8 @@
   height: 38px;
   padding: 0;
 }
-.quiz-create .ta-file input[type=file] {
+.quiz-create .ta-file input[type=file],
+.quiz-create .ta-file input[type=color] {
   width: 100%;
   height: 100%;
 }
@@ -20,4 +71,5 @@
   left: 0;
   pointer-events: none;
   background: #fff;
+  line-height: 38px;
 }
