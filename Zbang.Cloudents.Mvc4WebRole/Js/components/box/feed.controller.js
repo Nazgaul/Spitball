@@ -30,13 +30,7 @@
             dropboxDisabled: true
         };
 
-        self.add.createReply = function (commentId) {
-            var comment = self.data.find(function (e) {
-                return e.id === commentId;
-            });
-            if (!comment) {
-                return;
-            }
+        self.add.createReply = function (comment) {
             
 
             var filesId = self.add.files.map(function (c) {
@@ -44,7 +38,7 @@
             });
 
             self.add.disabled = true;
-            $q.all([userDetails.get(), boxService.postReply(self.add.newText, boxId, commentId, filesId)]).then(function (response) {
+            $q.all([userDetails.get(), boxService.postReply(self.add.newText, boxId, comment.id, filesId)]).then(function (response) {
                 comment.answers.unshift({
                     content: self.newText,
                     creationTime: new Date(),

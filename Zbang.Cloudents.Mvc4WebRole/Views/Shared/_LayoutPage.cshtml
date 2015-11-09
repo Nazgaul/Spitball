@@ -463,10 +463,14 @@
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
                 (i[r].q = i[r].q || []).push(arguments)
             }, i[r].l = 1 * new Date(); a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
     </script>
-    <!-- END JAVASCRIPTS -->
+    @*<script type="text/ng-template" id="userimageTemplate.html">
+        <img ng-if="image" alt="" ng-src="{{image}}" />
+        <span ng-if="!image && name" class="userLetter background" d-color="name.length">{{name[0]}}</span>
+        <img ng-if="!image && !name" class="userImg" src="/images/user.svg" />
+    </script>*@
 </body>
 
 

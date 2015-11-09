@@ -8,9 +8,11 @@
             $state.go('box.feed');
         }
 
-        var b = this;
-        var boxData;
+        var b = this, boxData;
+
+        
         boxService.getBox($stateParams.boxId).then(function (response) {
+            
             boxData = response;
             b.name = response.name;
             b.professorName = response.professorName;
@@ -37,14 +39,7 @@
         }
 
 
-        //$scope.$on('$viewContentLoaded', function () {
-        //    $timeout(function () {
-        //        Metronic.initAjax();
-        //    });
-        //    //TODO: maybe this is no good.
-        //    //Metronic.initAjax(); // init core components
-
-        //});
+       
 
         function isItemState(stateName) {
             return stateName === 'box.items';

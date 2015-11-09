@@ -1,4 +1,4 @@
-﻿(function() {
+﻿(function () {
     angular.module('app').directive('userImage', generateImage);
 
     generateImage.$inject = ['$compile'];
@@ -14,7 +14,7 @@
                 id: '=',
                 name: '=',
                 image: '=',
-                noremove : '='
+                noremove: '='
             },
             //templateUrl: 'usericon.html'
             link: function (scope, elem) {
@@ -34,13 +34,13 @@
                 var innerEl, className;
 
                 if (scope.image) {
-                    scope.image === true ? letter() : image();                    
+                    scope.image === true ? letter() : image();
 
                 } else if (scope.name) {
                     letter();
                 } else {
                     emptyState();
-                 
+
                 }
                 complie();
                 function complie() {
@@ -72,10 +72,15 @@
                         innerEl.addClass(className);
                     }
                     innerEl.attr('d-color', scope.name.length);
+                    var borderWidth = parseInt(elem.css('border-width')) * 2;
+                    var elementHeight = elem[0].getAttribute('height');
+
+
                     innerEl.css({
                         width: elem[0].getAttribute('width') + 'px',
-                        height: elem[0].getAttribute('height') + 'px',
-                        lineHeight: elem[0].getAttribute('height') + 'px' });
+                        height: elementHeight + 'px',
+                        lineHeight: (elementHeight - borderWidth) + 'px'
+                    });
                     innerEl.text(scope.name[0]);
                 }
 

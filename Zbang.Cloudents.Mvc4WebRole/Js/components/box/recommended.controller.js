@@ -5,10 +5,16 @@
 
     function recommended(boxService, $stateParams) {
         var r = this;
-        r.boxes = [];
-        boxService.getRecommended($stateParams.boxId).then(function (response) {
-            r.boxes = response;
-        });
+
+
+        if ($stateParams.boxtype.toLowerCase() === 'box') {
+            r.isPrivate = true;
+        } else {
+            r.boxes = [];
+            boxService.getRecommended($stateParams.boxId).then(function(response) {
+                r.boxes = response;
+            });
+        }
 
     }
 })();

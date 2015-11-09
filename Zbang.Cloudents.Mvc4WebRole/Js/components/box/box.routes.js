@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('app.account').run(appRun);
+    angular.module('app.box').run(appRun);
 
     appRun.$inject = ['routerHelper'];
     function appRun(routerHelper) {
@@ -15,7 +15,8 @@
                     templateUrl: function () {
                         return routerHelper.buildUrl('/box/indexpartial/');
                     },
-                    controller: 'BoxController as b',
+                    controller: 'BoxController as b'
+                  
 
                 }
             }, {

@@ -1,7 +1,7 @@
 ﻿@{
     const string svgUrl = "~/images/site/itemIcons.svg";
 }
-<div class="itemPage">
+<div class="full-screen itemPage">
     <header>
         <div class="like">
             <button type="button" ng-click="i.like()">Like</button>
@@ -14,7 +14,7 @@
             <a href="#" tooltip-placement="bottom" tooltip-class="copy-right"
                tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
         </div>
-        
+
     </header>
     <div class="itemContent">
         <div class="fileName">

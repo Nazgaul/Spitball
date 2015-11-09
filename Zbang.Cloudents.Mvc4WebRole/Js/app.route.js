@@ -13,51 +13,6 @@
 
                 controller: 'ItemController as i'
             })
-            .state('quiz', {
-                url: '/quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}/',
-                templateUrl: function () {
-                    return buildUrl('/quiz/indexpartial/');
-                },
-
-                controller: 'QuizController as q'
-            })
-        //.state('box', {
-        //    url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/',
-        //    templateUrl: function () {
-        //        return buildUrl('/box/indexpartial/');
-        //    },
-        //    controller: 'BoxController as b',
-
-        //}).
-        //      state('box.feed', {
-        //          templateUrl: function () {
-        //              return buildUrl('/box/feedpartial/');
-        //          },
-        //          url: '#feed',
-        //          controller: 'FeedController as f'
-        //      }).
-        //     state('box.items', {
-        //         templateUrl: function () {
-        //             return buildUrl('/box/itemspartial/');
-        //         },
-        //         url: '#items',
-        //         controller: 'ItemsController as i'
-        //     }).
-        //    state('box.quiz', {
-        //        templateUrl: function () {
-        //            return buildUrl('/box/quizpartial/');
-        //        },
-        //        url: '#quizzes',
-        //        controller: 'QuizzesController as q'
-        //    }).
-        //    state('box.members', {
-        //        templateUrl: function () {
-        //            return buildUrl('/box/memberspartial/');
-        //        },
-        //        url: '#members',
-        //        controller: 'MembersController as m'
-        //    }).
-
             .state('jobs', {
                 url: '/jobs/',
                 templateUrl: function () {
@@ -83,34 +38,7 @@
                 },
                 controller: 'UserController as u'
             })
-            //.state('settings', {
-            //    url: '/account/settings/',
-            //    templateUrl: function () {
-            //        return buildUrl('/account/settingpartial/');
-            //    },
-            //    controller: 'AccountSettingsController as a'
-            //})
-            //.state('settings.profile', {
-            //    url:'#info',
-            //    templateUrl: function () {
-            //        return buildUrl('/account/info/');
-            //    },
-            //    controller: 'AccountSettingsInfoController as i'
-            //})
-            //.state('settings.password', {
-            //    url: '#password',
-            //    templateUrl: function () {
-            //        return buildUrl('/account/password/');
-            //    },
-            //    controller: 'AccountSettingsPasswordController as p'
-            //})
-            //.state('settings.notification', {
-            //    url: '#notification',
-            //    templateUrl: function () {
-            //        return buildUrl('/account/notification/');
-            //    },
-            //    controller: 'AccountSettingsNotificationController as n'
-            //})
+            
              .state('department', {
                  url: '/library/',
                  templateUrl: function () {
@@ -145,13 +73,7 @@
         //    }
         //    return null;
         //});
-        //$rootScope.$on('$stateChangeStart', function (event, toState) {
-        //    var greeting = toState.data.customData1 + " " + toState.data.customData2;
-        //    console.log(greeting);
-
-        //    // Would print "Hello World!" when 'parent' is activated
-        //    // Would print "Hello UI-Router!" when 'parent.child' is activated
-        //});
+       
         function buildUrl(path) {
             return path + '?lang=' + getCookie('l2') + '&version=' + window.version;
 

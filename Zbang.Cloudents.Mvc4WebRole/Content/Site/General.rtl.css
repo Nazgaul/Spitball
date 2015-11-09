@@ -176,6 +176,16 @@ button {
 .close:hover {
   color: #f5f5f5;
 }
+.full-screen {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  overflow-y: auto;
+  background: #212427;
+}
 /*.portlet.box > .portlet-title {
     margin-left: -10px;
     color: #f5f5f5;

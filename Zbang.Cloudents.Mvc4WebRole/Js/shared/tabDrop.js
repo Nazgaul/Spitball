@@ -4,7 +4,7 @@
     function tabDrop() {
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 element.tabdrop();
             }
         };
