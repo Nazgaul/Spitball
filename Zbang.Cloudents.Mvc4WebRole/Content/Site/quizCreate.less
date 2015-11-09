@@ -11,11 +11,15 @@
         border-radius: 10px;
         color:#000;
         width: 800px;
-        padding: 0 15px;
+        padding: 10px 15px 0;
 
         @media only screen and (min-width : 768px ) and (max-width:920px) {
             margin: 0 20px;
             width: ~"calc(100% - 40px)";
+        }
+
+        .form-control {
+            background-color: #fff;
         }
     }
 
@@ -43,6 +47,21 @@
             right: 10px;
             top: 0;
         }
+    }
+
+    .choose-quiz-name {
+        width: 100%;
+        margin: 10px 0 17px;
+        height: 32px;
+        font-size: 17px;
+    }
+
+    .question {
+        position: relative;
+        border: 1px solid grey;
+        border-radius: 3px;
+        margin-bottom: 10px;
+        padding: 12px;
     }
 
     .question-content {
