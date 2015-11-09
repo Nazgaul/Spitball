@@ -26,8 +26,22 @@
                         return routerHelper.buildUrl('/quiz/createpartial/');
                     },
                     url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/quizcreate/',
-                    controller: 'QuizCreateController as q'
-                   
+                    controller: 'QuizCreateController as q',
+                    resolve: {
+                        draft: ['quizService', '$location', function (quizService, $location) {
+                            if ($location.search().quizid) {
+                                return quizService.draft($location.search().quizid);
+                            }
+
+                        }],
+                        boxUrl: ['$location', function ($location) {
+                            var path = $location.path().slice(0, -1),
+                                 index = path.lastIndexOf('/');
+
+                            return path.substring(0, index) + '/' + '#quizzes';
+                            //$location.path(path).hash('quizzes');
+                        }]
+                    }
                 }
             }
 

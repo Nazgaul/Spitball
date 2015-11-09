@@ -29,7 +29,9 @@
             return ajaxservice.get('/quiz/numberofsolvers', data);
         }
 
-
+        s.draft = function(quizId) {
+            return ajaxservice.get('/quiz/Draft/', { quizId: quizId });
+        }
         s.createQuiz = function(boxId,name) {
             return ajaxservice.post('/quiz/create/', {
                 boxId: boxId,
