@@ -7,7 +7,7 @@
     <form class="supported" ng-submit="q.publish()" novalidate name="createQuiz">
        
         <span>Course: Name</span>
-        <input class="form-control" type="text" placeholder="choose quiz name" autofocus required ng-model="q.name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
+        <input class="form-control choose-quiz-name" type="text" placeholder="choose quiz name" autofocus required ng-model="q.name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
         <ol class="list-unstyled">
             <li class="question" ng-repeat="question in q.questions">
                 <div placeholder="question #{{$index + 1}}" ng-blur="q.saveQuestion(question)" text-angular ta-text-editor-class="question-content" ng-model="question.text"></div>
