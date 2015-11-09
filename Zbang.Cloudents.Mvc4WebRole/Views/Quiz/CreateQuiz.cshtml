@@ -4,67 +4,24 @@
         <a class="close" href="{{::q.boxUrl}}">X</a>
     </header>
     <div class="not-supported">this is not supported section</div>
-    <div class="supported">
+    <form class="supported" ng-submit="q.publish()" novalidate name="createQuiz">
        
         <span>Course: Name</span>
-        <input type="text" placeholder="choose quiz name" />
+        <input type="text" placeholder="choose quiz name" autofocus required ng-model="q.name" />
         <ol class="list-unstyled">
-            <li>
-                <div text-angular ta-text-editor-class="question-content" ng-model="htmlVariable"></div>
+            <li ng-repeat="question in q.questions">
+                <div placeholder="question #{{$index + 1}}" ng-blur="q.saveQuestion(question)" text-angular ta-text-editor-class="question-content" ng-model="question.htmlText"></div>
                 <span>Answers</span>
                 <ol>
-                    <li>
-                        <input type="text" placeholder="Answer 1" />
-                        <input type="radio" name="question1" />
-                    </li>
-                    <li>
-                        <input type="text" placeholder="Answer 2" />
-                        <input type="radio" name="question1" />
-                    </li>
-                    <li>
-                        <input type="text" placeholder="Answer 3" />
-                        <input type="radio" name="question1" />
-                    </li>
-                </ol>
-            </li>
-            <li>
-                <div text-angular ng-model="htmlVariable"></div>
-                <span>Answers</span>
-                <ol>
-                    <li>
-                        <input type="text" placeholder="Answer 1" />
-                        <input type="radio" name="question1" />
-                    </li>
-                    <li>
-                        <input type="text" placeholder="Answer 2" />
-                        <input type="radio" name="question1" />
-                    </li>
-                    <li>
-                        <input type="text" placeholder="Answer 3" />
-                        <input type="radio" name="question1" />
-                    </li>
-                </ol>
-            </li>
-            <li>
-                <div text-angular ng-model="htmlVariable"></div>
-                <span>Answers</span>
-                <ol>
-                    <li>
-                        <input type="text" placeholder="Answer 1" />
-                        <input type="radio" name="question1" />
-                    </li>
-                    <li>
-                        <input type="text" placeholder="Answer 2" />
-                        <input type="radio" name="question1" />
-                    </li>
-                    <li>
-                        <input type="text" placeholder="Answer 3" />
-                        <input type="radio" name="question1" />
+                    <li ng-repeat="answer in question.answers">
+                        <input type="text" placeholder="Answer {{$index + 1}}" />
+                        <input type="radio" name="question {{$parent.$index}}" />
                     </li>
                 </ol>
             </li>
         </ol>
-
-        
-    </div>
+        <button type="button" ng-click="q.addQuestion()">+ add question</button>
+        <button type="submit">publish</button>
+        <button type="button" class="pull-right">preview quiz</button>
+    </form>
 </div>

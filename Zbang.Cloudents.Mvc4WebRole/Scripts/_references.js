@@ -329,3 +329,4 @@
 /// <reference path="../bower_components/textangular/src/validators.js" />
 /// <reference path="../js/components/quiz/quiz.routes.js" />
 /// <reference path="../js/shared/filereader.js" />
+/// <reference path="../js/components/quiz/quizcreate.controller.js" />

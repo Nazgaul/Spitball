@@ -26,7 +26,8 @@
                         return routerHelper.buildUrl('/quiz/createpartial/');
                     },
                     url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/quizcreate/',
-                    //controller: 'FeedController as f'
+                    controller: 'QuizCreateController as q'
+                   
                 }
             }
 

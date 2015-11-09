@@ -5,6 +5,7 @@
   margin: 0 auto;
   background: #fff;
   border-radius: 10px;
+  color: #000;
   width: 800px;
   padding: 0 15px;
 }
@@ -24,11 +25,11 @@
 }
 .quiz-create header {
   position: relative;
-}
-.quiz-create header svg {
-  width: 30px;
-  height: 30px;
-  fill: #fff;
+  /*svg {
+            width: 30px;
+            height: 30px;
+            fill: #fff;
+        }*/
 }
 .quiz-create header .close {
   position: absolute;
@@ -37,7 +38,6 @@
 }
 .quiz-create .question-content {
   border: 1px solid grey;
-  color: #000;
 }
 .quiz-create .ta-toolbar {
   display: none;

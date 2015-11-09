@@ -28,5 +28,14 @@
         s.getNumberOfSolvers = function (data) {
             return ajaxservice.get('/quiz/numberofsolvers', data);
         }
+
+
+        s.createQuiz = function(boxId,name) {
+            return ajaxservice.post('/quiz/create/', {
+                boxId: boxId,
+                name: name
+
+            });
+        }
     }
 })();
