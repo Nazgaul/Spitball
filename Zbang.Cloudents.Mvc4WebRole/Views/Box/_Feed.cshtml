@@ -6,7 +6,7 @@
         <div class="portlet light">
             <div class="portlet-body feed">
                 <form class="add-comment" ng-submit="f.add.createComment()" ng-click="f.openForm = true" ng-class="{open: f.openForm}">
-                    <div>
+                    <div class="new-comment-border">
                         <textarea ng-model="f.add.newText" placeholder="what's on your mind?"></textarea>
                         <ul class="list-inline">
                             @*<li class="file-upload">
@@ -43,8 +43,8 @@
                     <li ng-repeat="post in f.data" class="comment">
                         <div class="top">
                             <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="54" height="54"></user-image>
-                            <span class="user-name">{{::post.userName}}</span> at
-                            <span>{{::post.creationTime | date : 'MMM d,yyyy H:m'}}</span>
+                            <span class="user-name">{{::post.userName}}</span> @*at*@
+                            
                             <div ng-bind-html="::post.content" class="content-text"></div>
                         </div>
                         <ul class="list-inline items-container">
@@ -65,13 +65,14 @@
                             <button type="button" class="text-capitalize like margins">15 like</button>
                             <button type="button" class=" text-capitalize margins" show-form>comment</button>
                             <button type="button" class="margins share">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
+                            <span>{{::post.creationTime | date : 'MMM d,yyyy H:m'}}</span>
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.answers.length">
                             <li ng-repeat="reply in post.answers" class="reply">
                                 <div class="top">
                                     <user-image class="img-circle c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
-                                    <span class="user-name">{{::reply.userName}}</span> at
-                                    <span>{{::reply.creationTime | date : 'MMM d,yyyy H:m'}}</span>
+                                    <span class="user-name">{{::reply.userName}}</span> @*at*@
+                                    
                                     <div ng-bind-html="::reply.content" class="content-text"></div>
                                 </div>
                                 <ul class="list-inline items-container">
@@ -91,6 +92,7 @@
                                 <div class="actions padding">
                                     <button type="button" class="text-capitalize like margins">15 like</button>
                                     <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
+                                    <span>{{::reply.creationTime | date : 'MMM d,yyyy H:m'}}</span>
                                 </div>
                             </li>
                         </ol>

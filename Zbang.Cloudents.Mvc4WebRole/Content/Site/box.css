@@ -106,9 +106,13 @@
   margin: 0 10px 10px 0;
 }
 .feed .comment .like {
-  border: 1px solid #5B9CC2;
-  color: #5B9CC2;
+  background: #4190b9;
+  color: #f5f5f5;
   margin-left: 15px;
+}
+.feed .comment .user-name {
+  color: #2698D4;
+  font-weight: 700;
 }
 .feed .reply {
   position: relative;
@@ -122,6 +126,7 @@
   top: 0;
 }
 .feed .reply .like {
+  background-color: transparent;
   border: 1px solid #6E7983;
   color: #6E7983;
 }
@@ -138,8 +143,9 @@
 .feed .reply .items-container {
   padding-left: 24px;
 }
-.feed .user-name {
-  color: #4283A9;
+.feed .reply .user-name {
+  color: #2698D4;
+  font-weight: normal;
 }
 .feed .top {
   padding-left: 34px;
@@ -166,20 +172,20 @@
 .feed .actions svg:hover {
   fill: #5B9CC2;
 }
-.feed .replies {
+.replies {
   border-top: 2px solid #353A3F;
   padding-top: 15px;
 }
-.feed .content-text {
+.content-text {
   line-height: 22px;
   margin-bottom: 5px;
   padding-right: 10px;
 }
-.feed .add-reply {
+.content-text .add-reply {
   display: none;
 }
 .add-comment {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   background: #212427;
   padding: 10px;
 }
@@ -197,12 +203,22 @@
 .add-comment :-ms-input-placeholder {
   color: #646e77;
 }
+.add-comment .list-inline {
+  padding: 15px 0 10px 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  margin: 0;
+}
 .add-comment .list-inline > li {
+  margin: 0 10px;
   padding: 0;
+}
+.add-comment .new-comment-border {
+  border: 1px solid #646e77;
 }
 .add-comment textarea {
   width: 100%;
-  border: 1px solid #646e77;
+  border: none;
   background: #212427;
   outline: none;
   resize: none;
@@ -495,7 +511,7 @@
 }
 .file-upload {
   text-align: center;
-  color: #677079;
+  color: #5d5d5d;
   font-weight: 700;
   width: 115px;
   border: 7px solid #fff;
@@ -503,7 +519,7 @@
   font-size: 14px;
   position: relative;
   padding: 0;
-  background: #BCBCBC;
+  background: #ddd;
   margin: 5px;
 }
 .file-upload .progress-wrap {
@@ -527,7 +543,7 @@
   right: -18px;
   color: #8DC63F;
   border-radius: 50%;
-  background-color: rgba(143, 145, 146, 0.8);
+  background-color: rgba(225, 225, 225, 0.6);
   padding: 5px 10px;
 }
 .file-upload h5 {
@@ -548,4 +564,9 @@
   width: 101px;
   height: 100px;
   position: relative;
+}
+.file-upload button {
+  width: 100%;
+  background-color: #db4437;
+  color: #f5f5f5;
 }

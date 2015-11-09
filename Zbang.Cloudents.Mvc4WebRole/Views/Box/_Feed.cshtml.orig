@@ -1,0 +1,163 @@
+﻿@{
+    const string url = "~/images/site/uploadIcons.svg";
+}
+<div class="row">
+    <div class="col-lg-6 col-md-8 col-sm-12">
+        <div class="portlet light">
+            <div class="portlet-body feed">
+                <form class="add-comment" ng-submit="f.add.createComment()" ng-click="f.openForm = true" ng-class="{open: f.openForm}">
+                    <div>
+                        <textarea ng-model="f.add.newText" type="text" placeholder="what's on your mind?"></textarea>
+                        <ul class="list-inline">
+                            @*<li class="file-upload">
+                                    <span class="check-mark">&#x2713;</span>
+                                    <div class="file-name">
+                                        Some doc.docx
+                                        <div class="progress file-upload-progress">
+                                            <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" ng-style="{width: 50 + '%'}">
+                                                <span class="sr-only">{{50*20}}% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="file-size">25mb</div>
+                                    <button type="button">remove file</button>
+                                </li>*@
+                            <li class="file-upload" ng-repeat="file in f.add.files" ng-include="'file-upload.html'">
+                        </ul>
+                    </div>
+                    <div class="actions">
+                        <a plupload="f.add.fileUpload.url"
+                           plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks">
+                            @Html.Svg(url, "file", new { @class = "file" })
+                        </a>
+                        <button type="button" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()">@Html.Svg(url, "googleDrive")</button>
+                        <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox")</button>
+                        <button type="button">@Html.Svg(url, "link", new { @class = "link" })</button>
+                        <button type="submit" class="btn pull-right text-uppercase" ng-disabled="f.add.disabled">post</button>
+                        <input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
+                        <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
+                    </div>
+                </form>
+                <ol class="list-unstyled">
+                    <li ng-repeat="post in f.data" class="comment">
+                        <div class="top">
+                            <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="54" height="54"></user-image>
+                            <span class="user-name">{{::post.userName}}</span> at
+                            <span>{{::post.creationTime | date : 'MMM d,yyyy H:m'}}</span>
+                            <div ng-bind-html="::post.content" class="content-text"></div>
+                        </div>
+                        <ul class="list-inline items-container">
+                            <li ng-repeat="item in post.files">
+                                <a class="item" href="{{::item.url}}">
+                                    <div class="content">
+                                        <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
+                                        <div class="extra">
+                                            <h5>{{::item.name}}</h5>
+                                            <img src="http://lorempixel.com/30/30/" alt="" />
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="actions">
+                            <button type="button" class="text-capitalize like margins">15 like</button>
+<<<<<<< HEAD
+                            <button type="button" class=" text-capitalize margins">comment</button>
+                            <button type="button" class="margins share">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
+=======
+                            <button type="button" class=" text-capitalize margins" show-form>comment</button>
+                            <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
+>>>>>>> 57b5456c61e76d615adee7770bd21d56de9bcf14
+                        </div>
+                        <ol class="list-unstyled replies" ng-if="post.answers.length">
+                            <li ng-repeat="reply in post.answers" class="reply">
+                                <div class="top">
+                                    <user-image class="img-circle c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
+                                    <span class="user-name">{{::reply.userName}}</span> at
+                                    <span>{{::reply.creationTime | date : 'MMM d,yyyy H:m'}}</span>
+                                    <div ng-bind-html="::reply.content" class="content-text"></div>
+                                </div>
+                                <ul class="list-inline items-container">
+                                    <li ng-repeat="item in reply.files">
+                                        <a class="item" href="{{::item.url}}">
+                                            <div class="content">
+                                                <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
+                                                <div class="extra">
+                                                    <h5>{{::item.name}}</h5>
+                                                    <img src="http://lorempixel.com/30/30/" alt="" />
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="actions padding">
+                                    <button type="button" class="text-capitalize like margins">15 like</button>
+                                    <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
+                                </div>
+                            </li>
+                        </ol>
+                        <form class="add-comment add-reply" ng-submit="f.add.createReply(post.id)">
+                            <div>
+                                <textarea ng-model="f.add.newText" type="text" placeholder="what's on your mind?"></textarea>
+                                <ul class="list-inline">
+                                    <li class="file-upload" ng-repeat="file in f.add.files" ng-include="'file-upload.html'">
+                                </ul>
+                            </div>
+                            <div>
+                                <a plupload="f.add.fileUpload.url"
+                                   plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks">
+                                    @Html.Svg(url, "file", new { @class = "file" })
+                                </a>
+                                <button type="button" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()">@Html.Svg(url, "googleDrive")</button>
+                                <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox")</button>
+                                <button type="button">@Html.Svg(url, "link", new { @class = "link" })</button>
+                                <button type="submit" class="btn pull-right text-uppercase" ng-disabled="f.add.disabled">post</button>
+                                @*<input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
+                                <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
+                            </div>
+                        </form>
+                    </li>
+                </ol>
+               
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-4 col-sm-12">
+        @{ Html.RenderPartial("_LeaderBoard");}
+
+        <div class="portlet light invite">
+            <button type="button" ng-click="b.inviteToBox()" class="portlet-body">
+                @Html.Svg("~/images/site/icons.svg", "invite")
+                Invite your friends to spitball
+            </button>
+        </div>
+
+        <div class="row margin-top-10" ng-controller="RecommendedController as r">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-repeat="box in r.boxes">
+                <a href="{{box.url}}" class="dashboard-stat2" d-color="{{box.name.length}}">
+                    <div class="display">
+                        <div class="number">
+                            <h3>{{box.name}}</h3>
+                            <small>{{box.courseCode}}</small>
+                        </div>
+                    </div>
+                    <div class="progress-info">
+                        <div class="progress">
+                        </div>
+                        <div class="status">
+                            <div class="status-title">
+                                {{box.membersCount}} members
+                            </div>
+                            <div class="status-number">
+                                {{box.itemCount}} items
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
