@@ -39,5 +39,23 @@
 
             });
         }
+        s.updateQuiz = function (id, name) {
+            return ajaxservice.post('/quiz/update/', {
+                id: id,
+                name: name
+            });
+        }
+        s.createQuestion = function(quizId,text) {
+            return ajaxservice.post('/quiz/createquestion/', {
+                quizId: quizId,
+                text: text
+            });
+        }
+        s.updateQuestion = function (questionId, text) {
+            return ajaxservice.post('/quiz/updatequestion/', {
+                id: questionId,
+                text: text
+            });
+        }
     }
 })();
