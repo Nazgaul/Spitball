@@ -1,44 +1,53 @@
-﻿(function() {
+﻿(function () {
     angular.module('app.quiz').controller('QuizCreateController', quizCreate);
-    quizCreate.$inject = ['quizService','$scope'];
+    quizCreate.$inject = ['quizService', 'draft', 'boxUrl'];
 
-    function quizCreate(quizService, $scope) {
+    function question() {
+        var q = this;
+        q.text = '';
+        q.id = null;
+        q.correctAnswer = null;
+        q.answers = [new answer(), new answer()];
+    }
+
+    function answer() {
+        var a = this;
+        a.id = null;
+        a.text = '';
+        //a.rightAnswer = false;
+    }
+
+    function quizCreate(quizService, draft, boxUrl) {
         var self = this;
+        console.log(draft, boxUrl);
 
 
 
-
-        
-        function question() {
-            var q = this;
-            q.htmlText = '';
-            q.answers = [new answer(), new answer()];
-        }
-
-        function answer() {
-            var a = this;
-            a.text = '';
-            a.rightAnswer = false;
-        }
-
-        self.name = '';
-        self.questions = [new question(), new question()];
+        self.boxUrl = boxUrl;
 
 
-       
+        draft = draft || {
+            questions : [new question(), new question()]
+        };
+        self.name = draft.name;
+        self.id = draft.id;
+
+        self.questions = draft.questions;
+
+
+
 
         self.saveName = function () {
-
-           // console.log(self.name);
+            console.log(self.name);
         };
-        self.saveQuestion = function(q) {
-           // console.log(q);
+        self.saveQuestion = function (q) {
+            console.log(q);
         }
-        self.addQuestion = function() {
+        self.addQuestion = function () {
             self.questions.push(new question());
         };
-        self.publish = function() {
-            
+        self.publish = function () {
+            console.log('here');
         }
 
 

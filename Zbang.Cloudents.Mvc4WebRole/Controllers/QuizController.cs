@@ -208,7 +208,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet]
         [ZboxAuthorize]
-        public async Task<ActionResult> GetDraft(long quizId)
+        public async Task<ActionResult> Draft(long quizId)
         {
             var query = new GetQuizDraftQuery(quizId);
             var values = await ZboxReadService.GetDraftQuiz(query);
@@ -220,7 +220,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 throw new ArgumentException("This is not the owner");
             }
-            return Json(new JsonResponse(true, values));
+            return JsonOk( new
+            {
+                values.Id,
+                values.Questions,
+                values.Name
+            });
         }
 
         #region Quiz
@@ -231,7 +236,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return JsonError(GetErrorsFromModelState());
+                return JsonError(GetErrorFromModelState());
             }
             var id = m_IdGenerator.GetId(IdContainer.QuizScope);
             var command = new CreateQuizCommand(User.GetUserId(), id, model.Name, model.BoxId);
@@ -246,11 +251,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetErrorsFromModelState()));
+                return JsonError(GetErrorFromModelState());
             }
             var command = new UpdateQuizCommand(User.GetUserId(), model.Id, model.Name);
             ZboxWriteService.UpdateQuiz(command);
-            return Json(new JsonResponse(true));
+            return JsonOk();
         }
         [HttpPost]
         [ZboxAuthorize]
@@ -260,12 +265,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var command = new DeleteQuizCommand(id, User.GetUserId());
                 ZboxWriteService.DeleteQuiz(command);
-                return Json(new JsonResponse(true));
+                return JsonOk();
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("Delete quiz id:" + id + " userid: " + User.GetUserId(), ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
@@ -292,20 +297,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         public ActionResult CreateQuestion(Question model)
         {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, GetErrorsFromModelState()));
-            }
+
             if (model.QuizId == 0)
             {
                 ModelState.AddModelError(string.Empty, "Quiz id cannot be 0");
-                return Json(new JsonResponse(false, GetErrorsFromModelState()));
 
+            }
+            if (!ModelState.IsValid)
+            {
+                return JsonError(GetErrorFromModelState());
             }
             var id = m_GuidGenerator.GetId();
             var command = new CreateQuestionCommand(model.Text, model.QuizId, User.GetUserId(), id);
             ZboxWriteService.CreateQuestion(command);
-            return Json(new JsonResponse(true, id));
+            return JsonOk(id);
         }
         [HttpPost]
         [ZboxAuthorize]
@@ -313,11 +318,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetErrorsFromModelState()));
+                return JsonError(GetErrorFromModelState());
             }
             var command = new UpdateQuestionCommand(User.GetUserId(), model.Id, model.Text);
             ZboxWriteService.UpdateQuestion(command);
-            return Json(new JsonResponse(true));
+            return JsonOk();
         }
         [HttpPost]
         [ZboxAuthorize]
@@ -327,12 +332,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var command = new DeleteQuestionCommand(User.GetUserId(), id);
                 ZboxWriteService.DeleteQuestion(command);
-                return Json(new JsonResponse(true));
+                return JsonOk();
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("Delete Question id: " + id, ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
         #endregion
@@ -342,19 +347,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         public ActionResult CreateAnswer(Answer model)
         {
-            if (!ModelState.IsValid)
-            {
-                return Json(new JsonResponse(false, GetErrorsFromModelState()));
-            }
+
             if (model.QuestionId == Guid.Empty)
             {
                 ModelState.AddModelError(string.Empty, @"No Question Given");
-                return Json(new JsonResponse(false, GetErrorsFromModelState()));
+            }
+            if (!ModelState.IsValid)
+            {
+                return JsonError(GetErrorFromModelState());
             }
             var id = m_GuidGenerator.GetId();
             var command = new CreateAnswerCommand(User.GetUserId(), id, model.Text, model.QuestionId);
             ZboxWriteService.CreateAnswer(command);
-            return Json(new JsonResponse(true, id));
+            return JsonOk(id);
         }
         [HttpPost]
         [ZboxAuthorize]
@@ -362,12 +367,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetErrorsFromModelState()));
+                return JsonError(GetErrorFromModelState());
             }
 
             var command = new UpdateAnswerCommand(User.GetUserId(), model.Text, model.Id);
             ZboxWriteService.UpdateAnswer(command);
-            return Json(new JsonResponse(true));
+            return JsonOk();
         }
         [HttpPost, ZboxAuthorize]
         public ActionResult MarkCorrect(MarkAnswer model)
@@ -375,22 +380,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetErrorsFromModelState()));
+                return JsonError(GetErrorFromModelState());
             }
             if (!model.AnswerId.HasValue)
             {
-                return Json(new JsonResponse(false, "Guid is empty"));
+                return JsonError("Guid is empty");
             }
             try
             {
                 var command = new MarkAnswerCorrectCommand(model.AnswerId.Value, User.GetUserId());
                 ZboxWriteService.MarkAnswerAsCorrect(command);
-                return Json(new JsonResponse(true));
+                return JsonOk();
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("On mark answer", ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
         }
 
@@ -400,7 +405,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var command = new DeleteAnswerCommand(User.GetUserId(), id);
             ZboxWriteService.DeleteAnswer(command);
-            return Json(new JsonResponse(true));
+            return JsonOk();
         }
 
 
