@@ -57,5 +57,27 @@
                 text: text
             });
         }
+        s.createAnswer = function(questionId, text) {
+            return ajaxservice.post('/quiz/createanswer/', {
+                questionId: questionId,
+                text: text
+            });
+        }
+        s.updateAnswer = function (answerId, text) {
+            return ajaxservice.post('/quiz/updateanswer/', {
+                Id: answerId,
+                text: text
+            });
+        }
+        s.markCorrect = function(answerId) {
+            return ajaxservice.post('/quiz/markcorrect/', {
+                answerId: answerId
+            });
+        }
+        s.deleteAnswer = function(answerId) {
+            return ajaxservice.post('/quiz/deleteanswer/', {
+                id: answerId
+            });
+        }
     }
 })();

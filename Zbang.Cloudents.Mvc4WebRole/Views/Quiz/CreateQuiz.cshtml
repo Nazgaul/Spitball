@@ -5,7 +5,7 @@
     </header>
     <div class="not-supported">this is not supported section</div>
     <form class="supported" ng-submit="q.publish()" novalidate name="createQuiz">
-       
+
         <span>Course: Name</span>
         <input class="form-control choose-quiz-name" type="text" placeholder="choose quiz name" autofocus required ng-model="q.name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
         <ol class="list-unstyled">
@@ -14,12 +14,13 @@
                 <span>Answers</span>
                 <ol>
                     <li ng-repeat="answer in question.answers">
-                        <input type="text" ng-model="answer.text" placeholder="Answer {{$index + 1}}" />
-                        <input type="radio" name="question {{$parent.$index}}" ng-checked="answer.id === question.correctAnswer" />
+                        <input type="text" ng-model="answer.text" ng-blur="q.saveAnswer(question,answer)" placeholder="Answer {{$index + 1}}" />
+                        <input type="button" ng-click="q.deleteAnswer(question,answer)" value="X" />
+                        <input type="radio" name="question {{$parent.$index}}" ng-disabled="!answer.text.length" ng-click="q.markcorrect(question,answer)" ng-checked="answer.id === question.correctAnswer" />
                     </li>
                     <li ng-click="q.addAnswer(question)">
                         <input disabled type="text" placeholder="add an answer" />
-                        <input disabled type="radio" name="question {{$parent.$index}}" ng-checked="answer.id === question.correctAnswer" />
+                        <input disabled type="radio" />
                     </li>
                 </ol>
             </li>
