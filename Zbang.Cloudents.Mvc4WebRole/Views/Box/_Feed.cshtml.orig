@@ -6,8 +6,13 @@
         <div class="portlet light">
             <div class="portlet-body feed">
                 <form class="add-comment" ng-submit="f.add.createComment()" ng-click="f.openForm = true" ng-class="{open: f.openForm}">
-                    <div>
+<<<<<<< HEAD
+                    <div class="new-comment-border">
                         <textarea ng-model="f.add.newText" type="text" placeholder="what's on your mind?"></textarea>
+=======
+                    <div>
+                        <textarea ng-model="f.add.newText" placeholder="what's on your mind?"></textarea>
+>>>>>>> d79331123432b50eeed9a99b433851a864487728
                         <ul class="list-inline">
                             @*<li class="file-upload">
                                     <span class="check-mark">&#x2713;</span>
@@ -43,8 +48,8 @@
                     <li ng-repeat="post in f.data" class="comment">
                         <div class="top">
                             <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="54" height="54"></user-image>
-                            <span class="user-name">{{::post.userName}}</span> at
-                            <span>{{::post.creationTime | date : 'MMM d,yyyy H:m'}}</span>
+                            <span class="user-name">{{::post.userName}}</span> @*at*@
+                            
                             <div ng-bind-html="::post.content" class="content-text"></div>
                         </div>
                         <ul class="list-inline items-container">
@@ -63,20 +68,16 @@
                         </ul>
                         <div class="actions">
                             <button type="button" class="text-capitalize like margins">15 like</button>
-<<<<<<< HEAD
-                            <button type="button" class=" text-capitalize margins">comment</button>
-                            <button type="button" class="margins share">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
-=======
                             <button type="button" class=" text-capitalize margins" show-form>comment</button>
-                            <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
->>>>>>> 57b5456c61e76d615adee7770bd21d56de9bcf14
+                            <button type="button" class="margins share">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
+                            <span>{{::post.creationTime | date : 'MMM d,yyyy H:m'}}</span>
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.answers.length">
                             <li ng-repeat="reply in post.answers" class="reply">
                                 <div class="top">
                                     <user-image class="img-circle c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
-                                    <span class="user-name">{{::reply.userName}}</span> at
-                                    <span>{{::reply.creationTime | date : 'MMM d,yyyy H:m'}}</span>
+                                    <span class="user-name">{{::reply.userName}}</span> @*at*@
+                                    
                                     <div ng-bind-html="::reply.content" class="content-text"></div>
                                 </div>
                                 <ul class="list-inline items-container">
@@ -96,10 +97,11 @@
                                 <div class="actions padding">
                                     <button type="button" class="text-capitalize like margins">15 like</button>
                                     <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
+                                    <span>{{::reply.creationTime | date : 'MMM d,yyyy H:m'}}</span>
                                 </div>
                             </li>
                         </ol>
-                        <form class="add-comment add-reply" ng-submit="f.add.createReply(post.id)">
+                        <form class="add-comment add-reply" ng-submit="f.add.createReply(post)">
                             <div>
                                 <textarea ng-model="f.add.newText" type="text" placeholder="what's on your mind?"></textarea>
                                 <ul class="list-inline">
@@ -135,7 +137,7 @@
             </button>
         </div>
 
-        <div class="row margin-top-10" ng-controller="RecommendedController as r">
+        <div class="row margin-top-10" ng-controller="RecommendedController as r" ng-hide="!r.isPrivate">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-repeat="box in r.boxes">
                 <a href="{{box.url}}" class="dashboard-stat2" d-color="{{box.name.length}}">
                     <div class="display">

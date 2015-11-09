@@ -77,13 +77,21 @@
   font-size: 16px;
 }
 .feed .like {
-  border-radius: 22px;
   width: 80px;
 }
 .feed .c-img {
   position: absolute;
-  top: -18px;
-  left: -17px;
+  top: -9px;
+  left: -19px;
+}
+.feed .comment-date {
+  color: #6E7983;
+  font-size: 12px;
+}
+.feed .items-container {
+  overflow-x: hidden;
+  white-space: nowrap;
+  padding-left: 34px;
 }
 .feed .comment {
   background: #212427;
@@ -99,20 +107,25 @@
   padding-top: 5px;
   padding-bottom: 5px;
   border-radius: 10px 10px 0 0;
-  background: #C7DAEF;
-  color: #000;
+  color: #f5f5f5;
 }
 .feed .comment .margins {
   margin: 0 10px 10px 0;
 }
 .feed .comment .like {
-  background: #4190b9;
-  color: #f5f5f5;
-  margin-left: 15px;
+  color: #4190b9;
+  margin-left: 18px;
+  margin-right: 0;
 }
 .feed .comment .user-name {
   color: #2698D4;
   font-weight: 700;
+}
+.feed .comment .comment-date {
+  margin-left: 44px;
+}
+.feed .comment .items-container {
+  margin: 0 5px -8px;
 }
 .feed .reply {
   position: relative;
@@ -122,13 +135,12 @@
   margin-top: 0;
 }
 .feed .reply .c-img {
-  border: 3px solid #212427;
-  top: 0;
+  border: none;
+  top: -7px;
 }
 .feed .reply .like {
-  background-color: transparent;
-  border: 1px solid #6E7983;
   color: #6E7983;
+  margin-right: 0;
 }
 .feed .reply .margins {
   margin: 0 10px 10px 0;
@@ -138,7 +150,8 @@
   color: #5B9CC2;
 }
 .feed .reply .padding {
-  padding-left: 30px;
+  padding-left: 9px;
+  margin-top: 10px;
 }
 .feed .reply .items-container {
   padding-left: 24px;
@@ -147,14 +160,13 @@
   color: #2698D4;
   font-weight: normal;
 }
-.feed .top {
-  padding-left: 34px;
+.feed .reply .comment-date {
+  margin-left: 34px;
 }
-.feed .items-container {
-  overflow-y: hidden;
-  overflow-x: auto;
-  white-space: nowrap;
-  margin: 20px 5px 0 5px;
+.feed .reply .items-container {
+  margin: 0 5px;
+}
+.feed .top {
   padding-left: 34px;
 }
 .feed .actions {
@@ -172,16 +184,17 @@
 .feed .actions svg:hover {
   fill: #5B9CC2;
 }
-.replies {
+.feed .replies {
   border-top: 2px solid #353A3F;
   padding-top: 15px;
 }
-.content-text {
+.feed .content-text {
   line-height: 22px;
   margin-bottom: 5px;
   padding-right: 10px;
+  margin-top: 8px;
 }
-.content-text .add-reply {
+.feed .add-reply {
   display: none;
 }
 .add-comment {
@@ -204,14 +217,16 @@
   color: #646e77;
 }
 .add-comment .list-inline {
-  padding: 15px 0 10px 0;
-  overflow-x: auto;
+  padding: 22px 0 10px 0;
+  overflow-x: hidden;
   white-space: nowrap;
   margin: 0;
 }
 .add-comment .list-inline > li {
   margin: 0 10px;
   padding: 0;
+  border: 1px solid #42494F;
+  padding: 5px 5px 0;
 }
 .add-comment .new-comment-border {
   border: 1px solid #646e77;
@@ -512,14 +527,11 @@
 .file-upload {
   text-align: center;
   color: #5d5d5d;
-  font-weight: 700;
   width: 115px;
-  border: 7px solid #fff;
   height: 165px;
   font-size: 14px;
   position: relative;
   padding: 0;
-  background: #ddd;
   margin: 5px;
 }
 .file-upload .progress-wrap {
@@ -531,6 +543,9 @@
   border-radius: 0;
   height: 10px;
 }
+.file-upload .progress .progress-bar {
+  background: #8dc63f;
+}
 .file-upload .btn {
   border: 1px solid #3293F6;
   padding: 5px 40px;
@@ -539,12 +554,12 @@
 }
 .file-upload .check-mark {
   position: absolute;
-  top: -22px;
-  right: -18px;
+  top: -16px;
+  right: -15px;
   color: #8DC63F;
   border-radius: 50%;
-  background-color: rgba(225, 225, 225, 0.6);
-  padding: 5px 10px;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 3px 10px;
 }
 .file-upload h5 {
   color: #8DC63F;
@@ -561,9 +576,10 @@
   right: 0;
 }
 .file-upload .file-name {
-  width: 101px;
   height: 100px;
   position: relative;
+  background: #ddd;
+  padding-top: 4px;
 }
 .file-upload button {
   width: 100%;
