@@ -1,0 +1,34 @@
+﻿<div class="full-screen quiz-create">
+    <header>
+        <div class="text-center">create a quiz</div>
+        <a class="close" href="{{::q.boxUrl}}">X</a>
+    </header>
+    <div class="not-supported">this is not supported section</div>
+    <form class="supported" ng-submit="q.publish()" novalidate name="createQuiz">
+       
+        <span>Course: Name</span>
+<<<<<<< HEAD
+        <input type="text" class="form-control choose-quiz-name" placeholder="choose quiz name" autofocus required ng-model="q.name" />
+        <ol class="list-unstyled">
+            <li class="question" ng-repeat="question in q.questions">
+                <div placeholder="question #{{$index + 1}}" ng-blur="q.saveQuestion(question)" text-angular ta-text-editor-class="question-content" ng-model="question.htmlText"></div>
+=======
+        <input type="text" placeholder="choose quiz name" autofocus required ng-model="q.name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-change="q.saveName()" />
+        <ol class="list-unstyled">
+            <li ng-repeat="question in q.questions">
+                <div placeholder="question #{{$index + 1}}" ng-blur="q.saveQuestion(question)" text-angular ta-text-editor-class="question-content" ng-model="question.text"></div>
+>>>>>>> d1dd2bf47e653418ce4a7580d725e8fd3e58dd07
+                <span>Answers</span>
+                <ol>
+                    <li ng-repeat="answer in question.answers">
+                        <input type="text" ng-model="answer.text" placeholder="Answer {{$index + 1}}" />
+                        <input type="radio" name="question {{$parent.$index}}" ng-checked="answer.id === question.correctAnswer" />
+                    </li>
+                </ol>
+            </li>
+        </ol>
+        <button type="button" ng-click="q.addQuestion()">+ add question</button>
+        <button type="submit" class="btn btn-primary">publish</button>
+        <button type="button" class="pull-right">preview quiz</button>
+    </form>
+</div>
