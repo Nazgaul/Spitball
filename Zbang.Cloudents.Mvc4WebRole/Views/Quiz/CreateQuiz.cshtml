@@ -7,9 +7,9 @@
     <form class="supported" ng-submit="q.publish()" novalidate name="createQuiz">
        
         <span>Course: Name</span>
-        <input type="text" placeholder="choose quiz name" autofocus required ng-model="q.name" />
+        <input type="text" class="form-control choose-quiz-name" placeholder="choose quiz name" autofocus required ng-model="q.name" />
         <ol class="list-unstyled">
-            <li ng-repeat="question in q.questions">
+            <li class="question" ng-repeat="question in q.questions">
                 <div placeholder="question #{{$index + 1}}" ng-blur="q.saveQuestion(question)" text-angular ta-text-editor-class="question-content" ng-model="question.htmlText"></div>
                 <span>Answers</span>
                 <ol>
@@ -21,7 +21,7 @@
             </li>
         </ol>
         <button type="button" ng-click="q.addQuestion()">+ add question</button>
-        <button type="submit">publish</button>
+        <button type="submit" class="btn btn-primary">publish</button>
         <button type="button" class="pull-right">preview quiz</button>
     </form>
 </div>

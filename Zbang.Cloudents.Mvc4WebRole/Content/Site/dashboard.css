@@ -91,6 +91,7 @@
   border: 2px solid #7d8894;
   background: transparent;
   color: #A8B3BB;
+  padding-bottom: 10px;
 }
 .dashboard .create-box .create-btn {
   display: flex;
@@ -105,6 +106,7 @@
 .dashboard .create-box .plus {
   font-size: 100px;
   line-height: 50px;
+  margin-bottom: 12px;
 }
 .dashboard .create-box md-content {
   background: transparent;
