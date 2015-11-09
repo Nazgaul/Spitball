@@ -138,6 +138,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/js/signin/jquery.min.js"),
                         new JsFileWithCdn("~/js/signin/jquery-migrate.min.js"),
+                        new JsFileWithCdn("~/scripts/Modernizr.js"),
                         
                         //new JsFileWithCdn("~/scripts/stacktrace.js"), 
 

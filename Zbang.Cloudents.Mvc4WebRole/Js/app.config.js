@@ -88,9 +88,9 @@
                        ['insertImage'],
                        ['redo', 'undo']];
 
-                   //if (Modernizr.inputtypes.color) {
-                   //    buttons[1].push('color');
-                   //}
+                   if (Modernizr.inputtypes.color) {
+                       buttons[1].push('color');
+                   }
                    taOptions.toolbar = buttons;
 
 

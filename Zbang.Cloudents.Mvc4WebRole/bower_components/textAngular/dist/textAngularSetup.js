@@ -528,21 +528,7 @@ angular.module('textAngularSetup', [])
     //	},
     //	activeState: function(){ return this.$editor().queryFormatBlockState('blockquote'); }
     //});
-    taRegisterTool('color', {
-        display: '<span class="btn ta-color"> \
-                <input tabindex="-1" type="color" ng-model="color" ng-change="action(color)" /> \
-                <label class="svgWpr">' + createSvg('textColor') + '</label> \
-                </span>',
-        action: function (color) {
-            //if (!_.isEmpty(color)) {
-            return this.$editor().wrapSelection('forecolor', color, true);
-            //}
-        },
-        setColor: function (color) {
-            textAngular.$editor().wrapSelection('forecolor', color, true);
-        },
-        tooltiptext: taTranslations.color.tooltip
-    });
+    
     taRegisterTool('undo', {
         //iconclass: 'fa fa-undo',
         display: createSvgButtonDisplay('undo'),
@@ -774,7 +760,21 @@ angular.module('textAngularSetup', [])
     //	}
     //});
 
-
+    taRegisterTool('color', {
+        display: '<span class="btn ta-file"> \
+                <input tabindex="-1" type="color" ng-model="color" ng-change="action(color)" /> \
+                <label>' + createSvg('textColor') + '</label> \
+                </span>',
+        action: function (color) {
+            //if (!_.isEmpty(color)) {
+            return this.$editor().wrapSelection('forecolor', color, true);
+            //}
+        },
+        setColor: function (color) {
+            textAngular.$editor().wrapSelection('forecolor', color, true);
+        },
+        tooltiptext: taTranslations.color.tooltip
+    });
     taRegisterTool('insertImage', {
         display: '<span class="btn ta-file">' +
             '<input tabindex="-1" type="file" ng-model="fileData" app-filereader accept="image/*" on-choose="action(data)" /> \

@@ -6,7 +6,7 @@
         <div class="like">
             <button type="button" ng-click="i.like()">Like</button>
         </div>
-        <a class="closeItem" href="{{::i.details.boxUrl}}">@Html.Svg(svgUrl, "close")</a>
+        <a class="closeItem" href="{{::i.details.boxUrl}}">@Html.Svg("~/images/site/icons.svg", "close")</a>
         <div class="text-center">
             <a href="{{i.details.downloadUrl}}">@Html.Svg(svgUrl, "download")</a>
             <a href="{{i.details.printUrl}}">@Html.Svg(svgUrl, "print")</a>

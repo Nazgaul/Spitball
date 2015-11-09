@@ -1,16 +1,82 @@
-﻿.quiz-create {
-    .ta-toolbar svg {
-        height: 15px;
-        width: 15px;
-        vertical-align: middle;
+﻿@import "variables.less";
+
+.quiz-create {
+    .not-supported {
+        display: none;
     }
+
+    .supported {
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 10px;
+        width: 800px;
+        padding: 0 15px;
+
+        @media only screen and (min-width : 768px ) and (max-width:920px) {
+            margin: 0 20px;
+            width: ~"calc(100% - 40px)";
+        }
+    }
+
+    @media only screen and (max-width : 768px) {
+        .not-supported {
+            display: block;
+        }
+
+        .supported {
+            display: none;
+        }
+    }
+    //duplicate of quiz.less
+    header {
+        position: relative;
+
+        svg {
+            width: 30px;
+            height: 30px;
+            fill: #fff;
+        }
+
+        .close {
+            position: absolute;
+            right: 10px;
+            top: 0;
+        }
+    }
+
+    .question-content {
+        border: 1px solid grey;
+        color: #000;
+    }
+
+
+    .ta-toolbar {
+        display: none;
+        background: grey;
+        padding-top: 5px;
+        margin: 0;
+        .btn-group {
+            
+        }
+
+        &.focussed {
+            display: block;
+        }
+
+        svg {
+            height: 15px;
+            width: 15px;
+            vertical-align: middle;
+        }
+    }
+
 
     .ta-file {
         width: 43px;
         height: 38px;
         padding: 0;
 
-        input[type=file] {
+        input[type=file], input[type=color] {
             width: 100%;
             height: 100%;
         }
@@ -23,6 +89,7 @@
             left: 0;
             pointer-events: none;
             background: #fff;
+            line-height: 38px;
         }
     }
 }
