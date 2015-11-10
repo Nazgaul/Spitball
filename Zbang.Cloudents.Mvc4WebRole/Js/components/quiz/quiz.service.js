@@ -39,5 +39,50 @@
 
             });
         }
+        s.updateQuiz = function (id, name) {
+            return ajaxservice.post('/quiz/update/', {
+                id: id,
+                name: name
+            });
+        }
+        s.createQuestion = function(quizId,text) {
+            return ajaxservice.post('/quiz/createquestion/', {
+                quizId: quizId,
+                text: text
+            });
+        }
+        s.updateQuestion = function (questionId, text) {
+            return ajaxservice.post('/quiz/updatequestion/', {
+                id: questionId,
+                text: text
+            });
+        }
+        s.createAnswer = function(questionId, text) {
+            return ajaxservice.post('/quiz/createanswer/', {
+                questionId: questionId,
+                text: text
+            });
+        }
+        s.updateAnswer = function (answerId, text) {
+            return ajaxservice.post('/quiz/updateanswer/', {
+                Id: answerId,
+                text: text
+            });
+        }
+        s.markCorrect = function(answerId) {
+            return ajaxservice.post('/quiz/markcorrect/', {
+                answerId: answerId
+            });
+        }
+        s.deleteAnswer = function(answerId) {
+            return ajaxservice.post('/quiz/deleteanswer/', {
+                id: answerId
+            });
+        }
+        s.publish = function(quizId) {
+            return ajaxservice.post('/quiz/save/', {
+                quizId: quizId
+            });
+        }
     }
 })();
