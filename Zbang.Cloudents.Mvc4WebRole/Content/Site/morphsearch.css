@@ -9,38 +9,39 @@ body {
 .morphsearch {
   width: 100%;
   min-height: 100%;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
+  /*top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;*/
   background: #f1f1f1;
-  position: fixed;
-  z-index: 10000;
-  -moz-transform-origin: calc(100% - 375px) 40px;
-  -ms-transform-origin: calc(100% - 375px) 40px;
-  -o-transform-origin: calc(100% - 375px) 40px;
-  -webkit-transform-origin: calc(100% - 375px) 40px;
-  transform-origin: calc(100% - 375px) 40px;
   /*-webkit-transition-property: all;
     -moz-transition-property: all;
     -o-transition-property: all;
     transition-property: all;*/
-  -webkit-transition-duration: 0.5s;
-  -moz-transition-duration: 0.5s;
-  -o-transition-duration: 0.5s;
-  transition-duration: 0.5s;
-  -moz-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-  -o-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-  -webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-  transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-}
-.morphsearch.ng-hide,
-.morphsearch.ng-hide-add-active {
-  -moz-transform: scale(0);
-  -ms-transform: scale(0);
-  -o-transform: scale(0);
-  -webkit-transform: scale(0);
-  transform: scale(0);
+  /*-moz-transform-origin: ~"calc(100% - 375px) 40px";
+    -ms-transform-origin: ~"calc(100% - 375px) 40px";
+    -o-transform-origin: ~"calc(100% - 375px) 40px";
+    -webkit-transform-origin: ~"calc(100% - 375px) 40px";
+    transform-origin: ~"calc(100% - 375px) 40px";
+    
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -moz-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+    -o-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+    -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+    transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+
+
+
+    &.ng-hide, &.ng-hide-add-active {
+        -moz-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }*/
 }
 @media (max-width: 991px) {
   .morphsearch {

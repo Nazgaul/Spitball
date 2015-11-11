@@ -34,6 +34,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
+        public ActionResult IndexPartial()
+        {
+            return PartialView("Index");
+        }
+
 
 
         [HttpGet]

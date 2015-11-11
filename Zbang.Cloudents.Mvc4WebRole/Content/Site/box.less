@@ -33,55 +33,7 @@
         padding: 0 10px;
         //padding:0 10px;
     }
-    /*.message-top {
-        padding: 10px 7px 0 7px;
-        background: @color1;
-    }*/
-    /*.feed-likes {
-        height: 50px;
-        line-height: 50px;
-
-        .share {
-            height: 20px;
-            width: 20px;
-            fill: currentColor;
-            float: right;
-            position: absolute;
-            bottom: 14px;
-            right: 15px;
-        }
-
-
-        .like {
-            height: 20px;
-            width: 20px;
-            fill: currentColor;
-            float: right;
-            bottom: 14px;
-            margin: 3px 5px 0 8px;
-        }
-
-
-        .blue.btn {
-            float: left;
-            border-radius: 45px;
-            padding: 3px 10px;
-            margin: 10px 10px 10px 15px;
-        }
-    }*/
-    //display:table;
-    //feed section
-    /*.in, .out {
-        &:after {
-            content: '';
-            position: absolute;
-            top: 16px;
-            left: 56px;
-            border-top: 8px solid transparent;
-            border-bottom: 8px solid transparent;
-            border-right: 10px solid #f5f5f5;
-        }
-    }*/
+    
 }
 
 .feed {
@@ -190,6 +142,7 @@
 
         .items-container {
             padding-left: 24px;
+             margin: 0 5px;
         }
 
         .user-name {
@@ -201,9 +154,6 @@
             margin-left: 34px;
         }
 
-        .items-container {
-            margin: 0 5px;
-        }
     }
 
     .top {
@@ -274,7 +224,6 @@
 
     .list-inline > li {
         margin: 0 10px;
-        padding: 0; //override
         border: 1px solid #42494F;
         padding: 5px 5px 0;
     }
@@ -692,10 +641,16 @@
         position: absolute;
         top: -16px;
         right: -15px;
-        color: #8DC63F;
+       
         border-radius: 50%;
         background-color: rgba(255,255,255, .6);
         padding: 3px 10px;
+        z-index:1;
+        svg {
+             fill: #8DC63F;
+             margin:0;
+
+        }
     }
 
     h5 {

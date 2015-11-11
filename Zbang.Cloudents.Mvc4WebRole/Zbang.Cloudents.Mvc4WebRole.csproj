@@ -3081,7 +3081,6 @@
     <Content Include="Views\Item\Index2.cshtml" />
     <Content Include="Views\Dashboard\_University.cshtml" />
     <Content Include="Views\Shared\Partials2\_LeaderBoard.cshtml" />
-    <Content Include="Views\Dashboard\_Create.cshtml" />
     <Content Include="Views\Box\_Members2.cshtml" />
     <Content Include="Views\Box\_Quizzes2.cshtml" />
     <Content Include="Views\Box\_Upload.cshtml" />
@@ -3095,6 +3094,7 @@
     <Content Include="Views\Account\Notification.cshtml" />
     <Content Include="Views\Home\Blog.cshtml" />
     <Content Include="Views\Quiz\CreateQuizOld.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3104,7 +3104,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\Search\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

@@ -50,6 +50,16 @@ button {
     outline: none;
 }
 
+a {
+    &:hover, &:focus {
+        text-decoration: none;
+    }
+}
+
+ol {
+    -webkit-padding-start: 0;
+}
+
 //user image letter
 .userLetter {
     border-radius: 50%;
@@ -142,6 +152,63 @@ button {
     overflow-y: auto;
     background: @backgroundColor;
 }
+
+[ui-view] {
+     -moz-transform-origin: ~"100% 100%";
+        -ms-transform-origin: ~"100% 100%";
+        -o-transform-origin: ~"100% 100%";
+        -webkit-transform-origin: ~"100% 100%";
+        transform-origin: ~"100% 100%";
+    &.searchState {
+            -moz-transform-origin: ~"0 0";
+        -ms-transform-origin: ~"0 0";
+        -o-transform-origin: ~"0 0";
+        -webkit-transform-origin: ~"0 0";
+        transform-origin: ~"0 0";
+    }
+
+    &.ng-enter, &.ng-leave {
+        -webkit-transition: all 1s ease-in-out;
+        -moz-transition: all 1s ease-in-out;
+        -o-transition: all 1s ease-in-out;
+        transition: all 1s ease-in-out;
+    }
+
+    &.ng-enter {
+        opacity: 0;
+        -webkit-transform: scale3d(0.1, 0.1, 0.1);
+        -moz-transform: scale3d(0.1, 0.1, 0.1);
+        transform: scale3d(0.1, 0.1, 0.1);
+    }
+
+    &.ng-enter-active {
+        opacity: 1;
+        -webkit-transform: scale3d(1, 1, 1);
+        -moz-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    &.ng-leave {
+        opacity: 1;
+        -webkit-transform: translate3d(1,1, 1);
+        -moz-transform: translate3d(1,1, 1);
+        transform: translate3d(1,1, 1);
+    }
+
+    &.ng-leave-active {
+        opacity: 0;
+        -webkit-transform: translate3d(0.1, 0.1, 0.1);
+        -moz-transform: translate3d(0.1, 0.1, 0.1);
+        transform: translate3d(0.1, 0.1, 0.1);
+    }
+}
+
+
+
+
+
+
+
 
 /*.portlet.box > .portlet-title {
     margin-left: -10px;

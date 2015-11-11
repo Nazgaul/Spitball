@@ -15,7 +15,8 @@
                     templateUrl: function () {
                         return routerHelper.buildUrl('/box/indexpartial/');
                     },
-                    controller: 'BoxController as b'
+                    controller: 'BoxController as b',
+                    containerClass :'boxState'
                   
 
                 }

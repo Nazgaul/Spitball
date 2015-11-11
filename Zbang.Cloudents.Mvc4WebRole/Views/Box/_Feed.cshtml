@@ -9,19 +9,20 @@
                     <div class="new-comment-border">
                         <textarea ng-model="f.add.newText" placeholder="what's on your mind?"></textarea>
                         <ul class="list-inline">
-                            <li class="file-upload">
-                                    <div class="file-name">
-                                        Some doc.docx
-                                        <div class="progress file-upload-progress">
-                                            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" ng-style="{width: 50 + '%'}">
-                                                <span class="sr-only">{{50*20}}% Complete</span>
-                                            </div>
+                            @*<li class="file-upload">
+                                <span class="check-mark">@Html.Svg(url, "checkMark")</span>
+                                <div class="file-name">
+                                    Some doc.docx
+                                    <div class="progress file-upload-progress">
+                                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" ng-style="{width: 50 + '%'}">
+                                            <span class="sr-only">{{50*20}}% Complete</span>
                                         </div>
                                     </div>
-                                    <span class="check-mark">&#x2713;</span>
-                                    <div class="file-size">25mb</div>
-                                    <button type="button">remove file</button>
-                                </li>
+                                </div>
+                                    
+                                <div class="file-size">25mb</div>
+                                <button type="button">remove file</button>
+                            </li>*@
                             <li class="file-upload" ng-repeat="file in f.add.files" ng-include="'file-upload.html'">
                         </ul>
                     </div>

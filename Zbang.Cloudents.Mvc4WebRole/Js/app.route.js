@@ -53,12 +53,21 @@
                  },
                  controller: 'Library as l'
              })
+            .state('search', {
+                url: '/search/',
+                templateUrl: function () {
+                    return buildUrl('/search/indexpartial/');
+                },
+                controller: 'SearchController as s',
+                containerClass: 'searchState'
+            })
             .state('dashboard', {
                 url: '/dashboard/',
                 templateUrl: function () {
                     return buildUrl('/dashboard/indexpartial/');
                 },
-                controller: 'Dashboard as d'
+                controller: 'Dashboard as d',
+                containerClass: 'dashboardState'
                 //onEnter: dashboardRedirect
             });
         //$urlRouterProvider.rule(function ($injector, $location) {
