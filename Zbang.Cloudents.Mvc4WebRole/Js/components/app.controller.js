@@ -11,10 +11,10 @@
             $window.dataLayer.push({ event: 'virtualPageView', virtualUrl: virtualUrl });
         });
 
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            console.log(toState.containerClass)
-            self.containerClass = toState.containerClass;
-        });
+        //$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        //    console.log(toState.containerClass)
+        //    self.containerClass = toState.containerClass;
+        //});
 
     }
 })();

@@ -13,7 +13,6 @@ body {
     right: 0;
     left: 0;
     bottom: 0;*/
-  background: #f1f1f1;
   /*-webkit-transition-property: all;
     -moz-transition-property: all;
     -o-transition-property: all;
@@ -255,7 +254,6 @@ input[type="search"] {
   height: 0;
   overflow: hidden;
   padding: 0 10.5%;
-  background: #f1f1f1;
   position: absolute;
   pointer-events: none;
   opacity: 0;

@@ -313,7 +313,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to As a sophomore, I found myself looking for a way to communicate and study with my classmates. After searching online, I was shocked that there was no real solution that I felt comfortable incorporating into my lifestyle (nothing I could easily access on my phone or computer). Then someone invited me to Spitball... it saved me..
+        ///   Looks up a localized string similar to As a sophomore, I found myself looking for a new way to communicate and study with my classmates. After searching online, I was shocked that there was no real solution that fit my lifestyle (nothing I could easily access on my phone or computer). Then someone invited me to Spitball... it saved me..
         /// </summary>
         public static string Testimonial1 {
             get {
@@ -340,7 +340,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There have been many times when I would try and share files and documents with friends and classmates over the schools portal or other online studying tools, but it was a huge hassle!! When I started using Spitball, everything changed - I was easily able to upload all forms of my files... even video and audio files!.
+        ///   Looks up a localized string similar to There have been many times when I would try to share files and documents with friends and classmates over the school’s portal or other online studying tools, but it was a huge hassle! When I started using Spitball, everything changed - I was easily able to upload all of my files, even video and audio files!.
         /// </summary>
         public static string Testimonial2 {
             get {
@@ -367,8 +367,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It’s so nice to have all my notes, questions/answers, lectures, etc. in one place and always available online and in the palm of my hand!
-        ///It comes in handy when I need to compare class-notes. Thank you Spitball for making on my life a whole lot easier! I already know who I&apos;m thanking first on graduation day :).
+        ///   Looks up a localized string similar to It’s so nice to have all my notes, questions, answers, lectures, etc. in one place and always available online and in the palm of my hand! Spitball comes in handy when I need to compare class notes. Thank you Spitball for making my life a whole lot easier! I already know who I have to thank first on graduation day :).
         /// </summary>
         public static string Testimonial3 {
             get {
@@ -395,7 +394,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is such a great idea! I love the quizzes - such a great way to test my knowledge of the coursework! I also really like that it&apos;s interactive - the chat feed is really helpful if you miss a class or don&apos;t understand the material. During the last semester I feel like all I did was talk about Spitaball! It was funny, people actually thought that I it was my job..
+        ///   Looks up a localized string similar to Spitball is such a great idea! I love the quizzes - such a great way to test my knowledge of the coursework! I also really like that it&apos;s interactive. The chat feed is really helpful if you miss a class or don&apos;t understand the material. During the last semester I feel like all I did was talk about Spitball! It was funny, people actually thought that it was my job..
         /// </summary>
         public static string Testimonial4 {
             get {

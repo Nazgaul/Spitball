@@ -59,7 +59,7 @@
                     return buildUrl('/search/indexpartial/');
                 },
                 controller: 'SearchController as s',
-                containerClass: 'searchState'
+                data : { animateClass: 'searchState' }
             })
             .state('dashboard', {
                 url: '/dashboard/',
@@ -67,7 +67,7 @@
                     return buildUrl('/dashboard/indexpartial/');
                 },
                 controller: 'Dashboard as d',
-                containerClass: 'dashboardState'
+                data: { animateClass: 'dashboardState' }
                 //onEnter: dashboardRedirect
             });
         //$urlRouterProvider.rule(function ($injector, $location) {

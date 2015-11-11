@@ -76,7 +76,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/site/quiz.css",
                          "~/Content/site/quizCreate.css",
                         "~/Content/site/share.css",
-                        "~/content/site/leaderboard.css"
+                        "~/content/site/leaderboard.css",
+                        "~/content/site/search.css"
                        
                     }
                 },
@@ -129,7 +130,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/signin/metronic.js"),
                         new JsFileWithCdn("~/js/signin/layout.js"),
                         new JsFileWithCdn("~/js/signin/login-soft.js"),
-                        new JsFileWithCdn("~/scripts/svg4everybody.js"),
+                        new JsFileWithCdn("~/scripts/svg4everybody.js")
                     }
                 },
                 {
@@ -268,6 +269,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/tabDrop.js"),
                         new JsFileWithCdn("~/js/shared/showForm.js"),
                         new JsFileWithCdn("~/js/shared/fileReader.js"),
+                        new JsFileWithCdn("~/js/shared/animClass.js"),
 
                         new JsFileWithCdn("~/js/components/item/upload.controller.js"),
                         new JsFileWithCdn("~/js/components/item/externalProviderUpload.service.js"),

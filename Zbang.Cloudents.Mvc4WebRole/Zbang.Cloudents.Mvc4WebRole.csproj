@@ -1933,6 +1933,7 @@
     <Content Include="Js\components\quiz\quiz.routes.js" />
     <Content Include="Js\components\quiz\quizCreate.controller.js" />
     <Content Include="Js\polyfills.js" />
+    <Content Include="Js\shared\animClass.js" />
     <Content Include="Js\shared\fileReader.js" />
     <Content Include="Js\shared\showForm.js" />
     <Content Include="Js\shared\tabDrop.js" />
@@ -2178,6 +2179,7 @@
     <Content Include="Content\Site\leaderboard.less" />
     <Content Include="Content\Site\unused-components.less" />
     <Content Include="Content\Site\quizCreate.less" />
+    <Content Include="Content\Site\search.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
