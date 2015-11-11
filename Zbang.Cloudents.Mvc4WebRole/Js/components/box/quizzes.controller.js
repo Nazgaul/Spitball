@@ -7,17 +7,5 @@
         boxService.getQuizzes($stateParams.boxId).then(function (response) {
             q.quizzes = response;
         });
-
-        q.getQuizLetter = function (name) {
-            if (angular.isUndefined(name)) {
-                return;
-            }
-            return name[0].toUpperCase();
-        }
-
-        q.quizBgColor = function (name) {
-            var length = name.length % 17;
-            return 'color' + length;
-        }
     }
 })();

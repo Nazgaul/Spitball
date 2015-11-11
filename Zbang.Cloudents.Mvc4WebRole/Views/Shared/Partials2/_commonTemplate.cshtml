@@ -1,0 +1,79 @@
+﻿@{
+    const string svgUrl = "~/images/site/box-icons.svg";
+}
+<script type="text/ng-template" id="box-template.html">
+    <a href="{{::box.url}}" class="dashboard-stat2">
+        <div class="updates" ng-if="box.updates !== 0">{{box.updates}}</div>
+        <div class="display">
+            <div class="number">
+                <h3 d-color="{{::box.name.length}}">{{::box.name}}</h3>
+                <small>{{::box.professor}}</small><br />
+                <small>{{::box.courseCode}}</small>
+            </div>
+        </div>
+        <div class="progress-info">
+            <div class="progress background" d-color="{{::box.name.length}}">
+            </div>
+            <div class="status">
+                <div class="status-title" ng-hide="::box.membersCount === undefined">
+                    {{::box.membersCount}} members
+                </div>
+                <div class="status-number" ng-hide="::box.itemCount === undefined">
+                    {{::box.itemCount}} items
+                </div>
+            </div>
+        </div>
+    </a>
+</script>
+
+<script type="text/ng-template" id="item-template.html">
+    <a class="item" href="{{::item.url}}">
+        <div class="content">
+            <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
+            <div class="extra">
+                <h5>{{::item.name}}</h5>
+                <img src="http://lorempixel.com/30/30/" alt="" />
+                <div class="uploader-date">
+                    <div>{{::item.owner}}</div>
+                    {{::item.date | date : 'shortDate'}}
+                </div>
+            </div>
+        </div>
+        <div class="stats clearfix" ng-hide="::item.numOfViews == undefined">
+            <div class="item-quiz-likes">
+                {{::item.numOfViews}} @Html.Svg(svgUrl, "eye")
+            </div>
+            <div class="item-quiz-views">
+                {{::item.likes}} @Html.Svg(svgUrl, "like")
+            </div>
+        </div>
+    </a>
+</script>
+<script type="text/ng-template" id="quiz-template.html">
+    <a href="{{quiz.url}}">
+        <div class="quiz">
+            <div class="top background" d-color="{{::quiz.name.length}}">
+                <span class="first-letter" first-letter="{{::quiz.name}}"></span>
+            </div>
+            <div class="bottom">
+                <div class="name">{{::quiz.name}}</div>
+            </div>
+            <div class="stats" ng-hide="::quiz.numOfViews === underfined">
+                <div class="pull-left item-quiz-likes">
+                    {{::quiz.rate}} @Html.Svg(svgUrl, "like")
+                </div>
+                <div class="pull-right item-quiz-views">
+                    {{::quiz.numOfViews}} @Html.Svg(svgUrl, "eye")
+                </div>
+            </div>
+            @*<div class="details">
+                <div class="name">{{::quiz.name}}</div>
+                <div class="first-letter">{{::q.getQuizLetter(quiz.name)}}</div>
+                <div class="more">
+                    <div class="owner">{{::quiz.owner}}</div>
+                    <div class="date" display-time="{{quiz.date}}"></div>
+                </div>
+            </div>*@
+        </div>
+    </a>
+</script>

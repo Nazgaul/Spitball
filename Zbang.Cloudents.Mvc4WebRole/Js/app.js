@@ -19,15 +19,11 @@
         'app.library',
         'app.user',
         'app.account',
-        //'app.user.details',
-        //'app.user.account',
         'app.box',
-        // 'app.box.feed',
-        //'app.box.items',
-        //'app.box.members',
         'app.item',
         'app.quiz',
-        'app.upload'
+        'app.upload',
+        'app.search'
     ]);
     //]).config(config);
 

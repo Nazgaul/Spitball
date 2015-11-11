@@ -12,28 +12,8 @@
             </ul>
         </div>
         <ul class="row list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
-            <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 item-animate" ng-repeat="item in i.items track by item.id ">
-                <a class="item" href="{{::item.url}}">
-                    <div class="content">
-                        <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
-                        <div class="extra">
-                            <h5>{{::item.name}}</h5>
-                            <img src="http://lorempixel.com/30/30/" alt="" />
-                            <div class="uploader-date">
-                                <div>{{::item.owner}}</div>
-                                {{::item.date | date : 'shortDate'}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stats clearfix">
-                        <div class="item-quiz-likes">
-                            {{::item.numOfViews}} @Html.Svg("~/images/site/box-icons.svg", "eye")
-                        </div>
-                        <div class="item-quiz-views">
-                            {{::item.likes}} @Html.Svg("~/images/site/box-icons.svg", "like")
-                        </div>
-                    </div>
-                </a>
+            <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 item-animate" ng-repeat="item in i.items track by item.id " ng-include="'item-template.html'">
+
             </li>
         </ul>
     </div>
