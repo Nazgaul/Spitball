@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
@@ -34,11 +35,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
+        public ActionResult IndexPartial()
+        {
+            return PartialView("Index");
+        }
+
 
 
         [HttpGet]
-        public async Task<ActionResult> Data(string q, int page)
+        public async Task<ActionResult> Data(string q, int page, CancellationToken cancellationToken)
         {
+            CancellationToken disconnectedToken = Response.ClientDisconnectedToken;
+            var source = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, disconnectedToken);
             var emptyState = false;
             try
             {
@@ -56,11 +64,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                    universityDataId.Value, page, numberOfResult);
                 if (emptyState)
                 {
-                    var result = await m_WithCache.QueryAsync(PerformQuery, query);
+                    var result = await m_WithCache.QueryAsync(PerformQuery, query, source.Token);
                     return JsonOk(result);
                 }
 
-                var retVal = await PerformQuery(query);
+                var retVal = await PerformQuery(query, source.Token);
                 return JsonOk(retVal);
             }
             catch (OperationCanceledException)
@@ -74,11 +82,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        private async Task<SearchDto> PerformQuery(SearchQuery query)
+        private async Task<SearchDto> PerformQuery(SearchQuery query, CancellationToken token)
         {
-            var t1 = m_BoxSearchService.SearchBox(query, Response.ClientDisconnectedToken);
-            var t2 = m_ItemSearchService.SearchItem(query, Response.ClientDisconnectedToken);
-            var t3 = m_QuizSearchService.SearchQuiz(query, Response.ClientDisconnectedToken);
+            var t1 = m_BoxSearchService.SearchBox(query, token);
+            var t2 = m_ItemSearchService.SearchItem(query, token);
+            var t3 = m_QuizSearchService.SearchQuiz(query, token);
 
 
             await Task.WhenAll(t1, t2, t3);

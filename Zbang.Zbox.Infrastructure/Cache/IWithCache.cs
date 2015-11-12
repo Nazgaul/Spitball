@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Query;
 
@@ -23,6 +24,10 @@ namespace Zbang.Zbox.Infrastructure.Cache
             where TD : class
             where TQ : IQueryCache;
 
-        
+        Task<TD> QueryAsync<TQ, TD>(Func<TQ, CancellationToken, Task<TD>> getItemCallbackAsync, TQ queryParam,
+            CancellationToken token)
+            where TD : class
+            where TQ : IQueryCache;
+
     }
 }

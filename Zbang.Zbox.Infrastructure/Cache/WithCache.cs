@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Query;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -22,7 +23,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             string cacheKey = queryParam.CacheKey;
 
             var item = m_Cache.GetFromCache<TD>(cacheKey, queryParam.CacheRegion);
-           
+
             if (item != null) return item;
             item = getItemCallback(queryParam);
             m_Cache.AddToCache(cacheKey, item, queryParam.Expiration, queryParam.CacheRegion);
@@ -36,10 +37,32 @@ namespace Zbang.Zbox.Infrastructure.Cache
             string cacheKey = queryParam.CacheKey;
 
             var item = await m_Cache.GetFromCacheAsync<TD>(cacheKey, queryParam.CacheRegion);
-            
+
             if (item != default(TD)) return item;
 
             item = await getItemCallbackAsync(queryParam);
+            try
+            {
+                await m_Cache.AddToCacheAsync(cacheKey, item, queryParam.Expiration, queryParam.CacheRegion);
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(ex);
+            }
+            return item;
+        }
+
+        public async Task<TD> QueryAsync<TQ, TD>(Func<TQ, CancellationToken, Task<TD>> getItemCallbackAsync, TQ queryParam, CancellationToken token)
+            where TD : class
+            where TQ : IQueryCache
+        {
+            string cacheKey = queryParam.CacheKey;
+
+            var item = await m_Cache.GetFromCacheAsync<TD>(cacheKey, queryParam.CacheRegion);
+
+            if (item != default(TD)) return item;
+
+            item = await getItemCallbackAsync(queryParam, token);
             try
             {
                 await m_Cache.AddToCacheAsync(cacheKey, item, queryParam.Expiration, queryParam.CacheRegion);

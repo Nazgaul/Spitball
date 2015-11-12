@@ -1640,6 +1640,18 @@
     <Content Include="Content\Site\rtlFix.rtl.min.css">
       <DependentUpon>rtlFix.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\search.css">
+      <DependentUpon>search.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\search.min.css">
+      <DependentUpon>search.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\search.rtl.css">
+      <DependentUpon>search.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\search.rtl.min.css">
+      <DependentUpon>search.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\Share.css">
       <DependentUpon>Share.less</DependentUpon>
     </Content>
@@ -1932,8 +1944,11 @@
     <Content Include="Js\components\item\externalProviderUpload.service.js" />
     <Content Include="Js\components\quiz\quiz.routes.js" />
     <Content Include="Js\components\quiz\quizCreate.controller.js" />
+    <Content Include="Js\components\search\search.service.js" />
     <Content Include="Js\polyfills.js" />
+    <Content Include="Js\shared\animClass.js" />
     <Content Include="Js\shared\fileReader.js" />
+    <Content Include="Js\shared\firstLetter.js" />
     <Content Include="Js\shared\showForm.js" />
     <Content Include="Js\shared\tabDrop.js" />
     <Content Include="Js\shared\userDetails.js" />
@@ -1960,7 +1975,7 @@
     <Content Include="Js\components\item\item.service.js" />
     <Content Include="Js\components\item\upload.controller.js" />
     <Content Include="Js\components\library\library.controller.js" />
-    <Content Include="Js\components\search.controller.js" />
+    <Content Include="Js\components\search\search.controller.js" />
     <Content Include="Js\components\quiz\stopwatch.filter.js" />
     <Content Include="Js\components\quiz\stopwatch.directive.js" />
     <Content Include="Js\components\quiz\stopwatch.module.js" />
@@ -2178,6 +2193,7 @@
     <Content Include="Content\Site\leaderboard.less" />
     <Content Include="Content\Site\unused-components.less" />
     <Content Include="Content\Site\quizCreate.less" />
+    <Content Include="Content\Site\search.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3081,13 +3097,12 @@
     <Content Include="Views\Item\Index2.cshtml" />
     <Content Include="Views\Dashboard\_University.cshtml" />
     <Content Include="Views\Shared\Partials2\_LeaderBoard.cshtml" />
-    <Content Include="Views\Dashboard\_Create.cshtml" />
     <Content Include="Views\Box\_Members2.cshtml" />
     <Content Include="Views\Box\_Quizzes2.cshtml" />
     <Content Include="Views\Box\_Upload.cshtml" />
     <Content Include="Views\Quiz\Index2.cshtml" />
     <Content Include="Views\Shared\Partials2\_Invite.cshtml" />
-    <Content Include="Views\Shared\Partials2\_boxTemplate.cshtml" />
+    <Content Include="Views\Shared\Partials2\_commonTemplate.cshtml" />
     <Content Include="Views\Quiz\_QuizChallenge.cshtml" />
     <Content Include="Views\Quiz\_QuizScore.cshtml" />
     <Content Include="Views\Account\Info.cshtml" />
@@ -3095,6 +3110,7 @@
     <Content Include="Views\Account\Notification.cshtml" />
     <Content Include="Views\Home\Blog.cshtml" />
     <Content Include="Views\Quiz\CreateQuizOld.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3104,7 +3120,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\Search\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

@@ -42,6 +42,10 @@
 })();
 
 (function () {
+    angular.module('app.search', ['app.ajaxservice']);
+})();
+
+(function () {
     angular.module('app.item', ['app.ajaxservice']);
 })();
 

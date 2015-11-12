@@ -1,7 +1,8 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
-<div ui-view></div>
+@*class: {{app.containerClass}}*@
+<div ui-view @*class="{{app.containerClass}}"*@ anim-class></div>
 
 @section scripts
 {

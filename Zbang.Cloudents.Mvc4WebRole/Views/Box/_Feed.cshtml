@@ -9,19 +9,20 @@
                     <div class="new-comment-border">
                         <textarea ng-model="f.add.newText" placeholder="what's on your mind?"></textarea>
                         <ul class="list-inline">
-                            <li class="file-upload">
-                                    <div class="file-name">
-                                        Some doc.docx
-                                        <div class="progress file-upload-progress">
-                                            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" ng-style="{width: 50 + '%'}">
-                                                <span class="sr-only">{{50*20}}% Complete</span>
-                                            </div>
+                            @*<li class="file-upload">
+                                <span class="check-mark">@Html.Svg(url, "checkMark")</span>
+                                <div class="file-name">
+                                    Some doc.docx
+                                    <div class="progress file-upload-progress">
+                                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" ng-style="{width: 50 + '%'}">
+                                            <span class="sr-only">{{50*20}}% Complete</span>
                                         </div>
                                     </div>
-                                    <span class="check-mark">&#x2713;</span>
-                                    <div class="file-size">25mb</div>
-                                    <button type="button">remove file</button>
-                                </li>
+                                </div>
+                                    
+                                <div class="file-size">25mb</div>
+                                <button type="button">remove file</button>
+                            </li>*@
                             <li class="file-upload" ng-repeat="file in f.add.files" ng-include="'file-upload.html'">
                         </ul>
                     </div>
@@ -47,8 +48,8 @@
                             <div ng-bind-html="::post.content" class="content-text"></div>
                         </div>
                         <ul class="list-inline items-container">
-                            <li ng-repeat="item in post.files">
-                                <a class="item" href="{{::item.url}}">
+                            <li ng-repeat="item in post.files" ng-include="'item-template.html'">
+                                @*<a class="item" href="{{::item.url}}">
                                     <div class="content">
                                         <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
                                         <div class="extra">
@@ -57,7 +58,7 @@
 
                                         </div>
                                     </div>
-                                </a>
+                                </a>*@
                             </li>
                         </ul>
                         <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:m'}}</span>
@@ -75,8 +76,8 @@
                                     <div ng-bind-html="::reply.content" class="content-text"></div>
                                 </div>
                                 <ul class="list-inline items-container">
-                                    <li ng-repeat="item in reply.files">
-                                        <a class="item" href="{{::item.url}}">
+                                    <li ng-repeat="item in reply.files" ng-include="'item-template.html'">
+                                        @*<a class="item" href="{{::item.url}}">
                                             <div class="content">
                                                 <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
                                                 <div class="extra">
@@ -85,7 +86,7 @@
 
                                                 </div>
                                             </div>
-                                        </a>
+                                        </a>*@
                                     </li>
                                 </ul>
                                 <span class="comment-date">{{::reply.creationTime | date : 'MMM d,yyyy H:m'}}</span>
