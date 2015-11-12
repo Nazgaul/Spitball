@@ -2,16 +2,22 @@
     const string svgUrl = "~/images/site/icons.svg";
 }
 <div class="search">
-    <input type="search" placeholder="Search..." ng-model="s.term" ng-model-options="{debounce : 250}" ng-change="s.search()" ng-minlength="2" />
     <button type="button" class="close">X</button>
+    <input type="search" class="search-text" placeholder="Search..." ng-model="s.term" ng-model-options="{debounce : 250}" ng-change="s.search()" ng-minlength="2" />
     <ul class="nav nav-tabs tabbable">
-        <li>Courses</li>
-        <li>items</li>
-        <li>quizzes</li>
+        <li>
+            <a href="#">Classes</a>
+        </li>
+        <li>
+            <a href="#">Items</a>
+        </li>
+        <li>
+            <a href="#">Quizzes</a>
+        </li>
     </ul>
     <div class="row">
         <div class="col-md-4">
-            <h3>courses</h3>
+            <h3>Classes</h3>
             <div ng-repeat="box in s.result.boxes" ng-include="'box-template.html'">
             </div>
         </div>
