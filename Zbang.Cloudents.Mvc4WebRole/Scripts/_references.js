@@ -333,3 +333,4 @@
 /// <reference path="../js/components/search/search.controller.js" />
 /// <reference path="../js/components/search/search.service.js" />
 /// <reference path="../js/shared/firstletter.js" />
+/// <reference path="../js/shared/history.js" />

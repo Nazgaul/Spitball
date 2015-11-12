@@ -63,7 +63,7 @@
             <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
                 @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
             </a>
-            <a href="/search/" class="search-form search-form-expanded">
+            <a ui-sref="search" class="search-form search-form-expanded" ng-hide="app.hideSearch">
                 <div class="input-group">
                     <input type="text" class="form-control input-sm" placeholder="Search..." name="query" disabled>
                     <span class="input-group-btn">

@@ -19,10 +19,15 @@
             var element = history.arr[history.arr.length - 1];
             $state.go(element.name, element.params);
         }
-        //$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-        //    console.log(toState.containerClass)
-        //    self.containerClass = toState.containerClass;
-        //});
+        self.hideSearch = false;
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            if (toState.name === 'search') {
+                self.hideSearch = true;
+            } else {
+                self.hideSearch = false;
+            }
+           
+        });
 
     }
 })();
