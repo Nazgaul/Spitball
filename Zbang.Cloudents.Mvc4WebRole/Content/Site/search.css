@@ -39,23 +39,33 @@
   font-size: 16px;
 }
 .search em {
-  color: yellow;
+  color: #EBB707;
 }
-.search .item {
+.search .item,
+.search .quiz {
   position: relative;
   overflow: hidden;
   padding-bottom: 0;
   display: block;
 }
-.search .item .base {
+.search .item .base,
+.search .quiz .base {
   width: 40%;
 }
-.search .item .extra-details {
-  width: 55%;
+.search .item .extra-details,
+.search .quiz .extra-details {
+  width: 60%;
   display: block;
   position: absolute;
   height: 100%;
   left: 40%;
   top: 0;
   text-align: justify;
+  color: #f5f5f5;
+  padding-left: 15px;
+}
+.search .item .extra-details h5,
+.search .quiz .extra-details h5 {
+  margin: 21px 0;
+  color: #919EAC;
 }
