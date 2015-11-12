@@ -27,30 +27,29 @@
   display: none;
   margin-bottom: 20px;
 }
-.search .nav-tabs a,
-.search .tabbable a {
-  color: #f5f5f5;
 @media (max-width: 992px) {
-  .search .nav-tabs {
+  .search .nav-tabs,
+  .search .tabbable {
+    color: #f5f5f5;
     display: block;
   }
-.search .nav-tabs a:hover,
-.search .tabbable a:hover {
 }
-.search .nav-tabs li:hover {
+.search .nav-tabs li:hover,
+.search .tabbable li:hover {
   color: #f5f5f5;
 }
-.search .nav-tabs a:active,
-.search .tabbable a:active {
 .search .nav-tabs li.active,
-.search .nav-tabs li:active {
+.search .tabbable li.active,
+.search .nav-tabs li:active,
+.search .tabbable li:active {
   background: transparent;
   border: 0;
   border-bottom: 3px solid #3293f6;
   font-weight: bold;
   font-size: 16px;
 }
-.search .nav-tabs li button {
+.search .nav-tabs li button,
+.search .tabbable li button {
   color: #8c99a6;
   border: none;
   background: transparent;
