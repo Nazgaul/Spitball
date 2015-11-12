@@ -2,7 +2,7 @@
     const string svgUrl = "~/images/site/icons.svg";
 }
 <div class="search">
-    <button type="button" class="close">X</button>
+    <button type="button" class="close" ng-click="app.back('dashboard')">X</button>
     <input type="search" class="search-text" placeholder="Search..." ng-model="s.term" ng-model-options="{debounce : 250}" ng-change="s.search()" ng-minlength="2" />
     <ul class="nav nav-tabs tabbable">
         <li ng-class="{active: s.tab === 'b'}">

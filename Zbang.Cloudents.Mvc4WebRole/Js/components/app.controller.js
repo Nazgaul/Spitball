@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app').controller('AppController', appController);
-    appController.$inject = ['$rootScope', '$window', '$location', '$scope'];
+    appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state'];
 
-    function appController($rootScope, $window, $location, $scope) {
+    function appController($rootScope, $window, $location, history, $state) {
         var self = this;
         $rootScope.$on('$viewContentLoaded', function () {
             var path = $location.path(),
@@ -11,6 +11,14 @@
             $window.dataLayer.push({ event: 'virtualPageView', virtualUrl: virtualUrl });
         });
 
+        self.back = function (defaultUrl) {
+            if (history.arr.length === 1) {
+                $state.go(defaultUrl);
+                return;
+            }
+            var element = history.arr[history.arr.length - 1];
+            $state.go(element.name, element.params);
+        }
         //$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         //    console.log(toState.containerClass)
         //    self.containerClass = toState.containerClass;
