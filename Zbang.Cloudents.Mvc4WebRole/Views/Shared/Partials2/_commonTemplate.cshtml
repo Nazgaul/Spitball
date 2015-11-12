@@ -8,7 +8,7 @@
             <div class="number">
                 <h3 d-color="{{::box.name.length}}" ng-bind-html="::box.name"></h3>
                 <small>{{::box.professor}}</small><br />
-                <small>{{::box.courseCode}}</small>
+                <small ng-bind-html="::box.courseCode"></small>
             </div>
         </div>
         <div class="progress-info">
@@ -62,7 +62,7 @@
                 <span class="first-letter" first-letter="{{::quiz.name}}"></span>
             </div>
             <div class="bottom">
-                <span class="name">{{::quiz.name}}</span>
+                <span class="name" ng-bind-html="::quiz.name"></span>
                 @*<div class="triangle-up-left"></div>*@
             </div>
             <div class="stats clearfix" ng-hide="::quiz.numOfViews === underfined">

@@ -1,21 +1,23 @@
 ﻿.search {
-        @colorplaceholder: #646E77;
+    @colorplaceholder: #646E77;
 
-        ::-webkit-input-placeholder {
-            color: @colorplaceholder;
-        }
+    ::-webkit-input-placeholder {
+        color: @colorplaceholder;
+    }
 
-        :-moz-placeholder { /* Firefox 18- */
-            color: @colorplaceholder;
-        }
+    :-moz-placeholder { /* Firefox 18- */
+        color: @colorplaceholder;
+    }
 
-        ::-moz-placeholder { /* Firefox 19+ */
-            color: @colorplaceholder;
-        }
+    ::-moz-placeholder { /* Firefox 19+ */
+        color: @colorplaceholder;
+    }
 
-        :-ms-input-placeholder {
-            color: @colorplaceholder;
-        }
+    :-ms-input-placeholder {
+        color: @colorplaceholder;
+    }
+
+
 
     .search-text {
         font-size: 7em;
@@ -29,32 +31,52 @@
         border-bottom: none;
         background: #353a3f;
         padding: 0 10px;
+        display: none;
+        margin-bottom: 20px;
 
-        a {
+        @media (max-width: 992px) {
             color: #f5f5f5;
-            border: none;
+            display: block;
+        }
 
+        li {
             &:hover {
                 color: #f5f5f5;
             }
 
-            &:active {
+           &.active, &:active {
                 background: transparent;
                 border: 0;
                 border-bottom: 3px solid #3293f6;
                 font-weight: bold;
                 font-size: 16px;
             }
+
+            button {
+                color: #8c99a6;
+                border: none;
+                background:transparent;
+            }
         }
-        
+    }
+
+    @media (max-width: 992px) {
+        .s-hide {
+            display: none;
+        }
+    }
+
+    h3 {
+        @media (max-width: 992px) {
+            display: none;
+        }
     }
 
     em {
         color: #EBB707;
-       
     }
 
-    .item ,.quiz {
+    .item, .quiz {
         position: relative;
         overflow: hidden;
         padding-bottom: 0;
@@ -71,12 +93,13 @@
             height: 100%;
             left: 40%;
             top: 0;
-            text-align:justify;
-            color:#f5f5f5;
-                padding-left: 15px;
+            text-align: justify;
+            color: #f5f5f5;
+            padding-left: 15px;
+
             h5 {
                 margin: 21px 0;
-                color:#919EAC;
+                color: #919EAC;
             }
         }
     }

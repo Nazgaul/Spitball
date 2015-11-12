@@ -8,8 +8,8 @@
         if (typeof $location.search().q === 'string') {
             self.term = $location.search().q;
         }
-       
-       
+
+        self.tab = 'b';
 
         self.search = function () {
             $location.search('q', self.term);
