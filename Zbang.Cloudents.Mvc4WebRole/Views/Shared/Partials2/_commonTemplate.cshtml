@@ -56,30 +56,27 @@
     </a>
 </script>
 <script type="text/ng-template" id="quiz-template.html">
-    <a href="{{quiz.url}}">
-        <div class="quiz">
+    <a class="quiz" href="{{quiz.url}}">
+        <div class="base">
             <div class="top background" d-color="{{::quiz.name.length}}">
                 <span class="first-letter" first-letter="{{::quiz.name}}"></span>
             </div>
             <div class="bottom">
-                <div class="name">{{::quiz.name}}</div>
+                <span class="name">{{::quiz.name}}</span>
+                @*<div class="triangle-up-left"></div>*@
             </div>
-            <div class="stats" ng-hide="::quiz.numOfViews === underfined">
-                <div class="pull-left item-quiz-likes">
+            <div class="stats clearfix" ng-hide="::quiz.numOfViews === underfined">
+                <div class="item-quiz-likes">
                     {{::quiz.rate}} @Html.Svg(svgUrl, "like")
                 </div>
-                <div class="pull-right item-quiz-views">
+                <div class="item-quiz-views">
                     {{::quiz.numOfViews}} @Html.Svg(svgUrl, "eye")
                 </div>
             </div>
-            @*<div class="details">
-                    <div class="name">{{::quiz.name}}</div>
-                    <div class="first-letter">{{::q.getQuizLetter(quiz.name)}}</div>
-                    <div class="more">
-                        <div class="owner">{{::quiz.owner}}</div>
-                        <div class="date" display-time="{{quiz.date}}"></div>
-                    </div>
-                </div>*@
+        </div>
+        <div class="extra-details">
+            <h5 ng-bind-html="quiz.name"></h5>
+            <span ng-bind-html="quiz.content"></span>
         </div>
     </a>
 </script>
