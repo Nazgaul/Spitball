@@ -22,21 +22,40 @@
 .search .nav-tabs {
   border-bottom: none;
   background: #353a3f;
+  display: none;
+  margin-bottom: 20px;
 }
-.search .nav-tabs a {
-  color: #8c99a6;
-  border: none;
+@media (max-width: 992px) {
+  .search .nav-tabs {
+    display: block;
+  }
 }
-.search .nav-tabs a:hover {
+.search .nav-tabs li:hover {
   color: #f5f5f5;
 }
-.search .nav-tabs a:active {
+.search .nav-tabs li.active,
+.search .nav-tabs li:active {
   background: transparent;
   border: 0;
   border-bottom: 3px solid #3293f6;
   color: #f5f5f5;
   font-weight: bold;
   font-size: 16px;
+}
+.search .nav-tabs li button {
+  color: #8c99a6;
+  border: none;
+  background: transparent;
+}
+@media (max-width: 992px) {
+  .search .s-hide {
+    display: none;
+  }
+}
+@media (max-width: 992px) {
+  .search h3 {
+    display: none;
+  }
 }
 .search em {
   color: #EBB707;
