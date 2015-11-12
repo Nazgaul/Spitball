@@ -195,11 +195,11 @@ em {
   background: #212427;
 }
 [ui-view] {
-  -moz-transform-origin: 100% 100%;
-  -ms-transform-origin: 100% 100%;
-  -o-transform-origin: 100% 100%;
-  -webkit-transform-origin: 100% 100%;
-  transform-origin: 100% 100%;
+  /*-moz-transform-origin: ~"100% 100%";
+    -ms-transform-origin: ~"100% 100%";
+    -o-transform-origin: ~"100% 100%";
+    -webkit-transform-origin: ~"100% 100%";
+    transform-origin: ~"100% 100%";*/
 }
 [ui-view].searchState {
   -moz-transform-origin: 0 0;
@@ -208,30 +208,30 @@ em {
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
 }
-[ui-view].ng-enter,
-[ui-view].ng-leave {
+[ui-view].searchState.ng-enter,
+[ui-view].searchState.ng-leave {
   -webkit-transition: all 1s ease-in-out;
   -moz-transition: all 1s ease-in-out;
   -o-transition: all 1s ease-in-out;
   transition: all 1s ease-in-out;
 }
-[ui-view].ng-enter {
+[ui-view].searchState.ng-enter {
   -webkit-transform: scale3d(0.1, 0.1, 0.1);
   -moz-transform: scale3d(0.1, 0.1, 0.1);
   transform: scale3d(0.1, 0.1, 0.1);
 }
-[ui-view].ng-enter-active {
+[ui-view].searchState.ng-enter-active {
   -webkit-transform: scale3d(1, 1, 1);
   -moz-transform: scale3d(1, 1, 1);
   transform: scale3d(1, 1, 1);
 }
-[ui-view].ng-leave {
+[ui-view].searchState.ng-leave {
   display: none;
   /*-webkit-transform: translate3d(1,1, 1);
         -moz-transform: translate3d(1,1, 1);
         transform: translate3d(1,1, 1);*/
 }
-[ui-view].ng-leave-active {
+[ui-view].searchState.ng-leave-active {
   display: none;
   /*-webkit-transform: translate3d(0.1, 0.1, 0.1);
         -moz-transform: translate3d(0.1, 0.1, 0.1);
@@ -245,7 +245,6 @@ em {
   opacity: 1;
 }
 .search-form.ng-hide {
-  line-height: 0;
   opacity: 0;
 }
 /*.portlet.box > .portlet-title {
