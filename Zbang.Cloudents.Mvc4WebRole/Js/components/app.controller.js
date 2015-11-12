@@ -13,7 +13,7 @@
 
         self.back = function (defaultUrl) {
             if (history.arr.length === 1) {
-                $state.go(defaultUrl);
+                $location.url(defaultUrl);
                 return;
             }
             var element = history.arr[history.arr.length - 1];

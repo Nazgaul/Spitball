@@ -15,9 +15,15 @@
   top: 24px;
   margin: 0;
 }
+.quizPage header svg {
+  width: 17px;
+  height: 17px;
+  fill: #C2C2C2;
+}
 .quizPage header .fileName {
   line-height: 60px;
   color: #f5f5f5;
+  text-align: center;
 }
 .quizPage .center {
   margin-right: 333px;

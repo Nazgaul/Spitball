@@ -5,7 +5,7 @@
 <div class="full-screen quizPage">
     <header>
         <div class="fileName" id="quiz-top">{{::q.name}}</div>
-        <a class="closeItem" href="{{::q.boxUrl}}">@Html.Svg("~/images/site/icons.svg", "close")</a>
+        <button type="button" ng-click="app.back(q.boxUrl)" class="closeItem">@Html.Svg("~/images/site/icons.svg", "close")</button>
     </header>
 
     <div class="itemContent">
