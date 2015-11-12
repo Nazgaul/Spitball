@@ -197,44 +197,45 @@ button {
   display: inline-block;
   border: 0;
 }
-.tab-from-left > li {
+.tab-from-right > li {
   background: none;
-  margin: 0;
+  margin: 0 10px 0 5px;
   border: 0;
   padding: 0;
+  text-align: center;
 }
 .tab-from-left > li > a {
   background: none;
   margin: 0;
   border: 0;
-  padding: 12px 13px 13px 13px;
+  padding: 12px 13px 5px 13px;
   font-size: 13px;
-  color: #f5f5f5;
+  color: #6c6c6c;
 }
 .tab-from-left > li.active {
-  border-bottom: 4px solid #3598dc;
+  border-bottom: 3px solid #3598dc;
   position: relative;
 }
 .tab-from-left > li.active > a {
-  color: #3598dc;
+  color: #f5f5f5;
   background: none;
   border: 0;
   margin: 0;
 }
 .tab-from-left > li.active > a:hover {
-  color: #3598dc;
+  color: #f5f5f5;
   background: none;
   border: 0;
   margin: 0;
 }
 .tab-from-left > li.active > a:focus {
-  color: #3598dc;
+  color: #f5f5f5;
   background: none;
   border: 0;
   margin: 0;
 }
 .tab-from-left > li:hover > a {
-  color: #3598dc;
+  color: #f5f5f5;
   background: none;
   border: 0;
   margin: 0;

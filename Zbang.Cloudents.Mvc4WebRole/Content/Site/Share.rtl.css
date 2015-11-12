@@ -32,12 +32,27 @@
   background: #212427;
   position: relative;
 }
+.invite md-content ::-webkit-input-placeholder {
+  color: #646e77;
+}
+.invite md-content :-moz-placeholder {
+  /* Firefox 18- */
+  color: #646e77;
+}
+.invite md-content ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #646e77;
+}
+.invite md-content :-ms-input-placeholder {
+  color: #646e77;
+}
 .invite md-list md-list-item button.md-button:not([disabled]):hover {
   background-color: transparent;
 }
 .invite .send {
   background: #4190b9;
-  margin: 0 0 10px 10px;
+  margin: 0 0 15px 15px;
+  padding: 5px 35px;
 }
 .invite .send:hover {
   background: #26566e;
@@ -47,6 +62,8 @@
   color: inherit;
 }
 .invite .gmail {
+  display: flex;
+  padding-top: 10px;
   background: #C2C2C2;
   margin: 0 auto;
   width: 230px;
@@ -65,6 +82,10 @@
   width: 60px;
   fill: #ED1921;
   background-color: #fff;
+  vertical-align: middle;
+}
+.invite .gmail span {
+  line-height: 22px;
   vertical-align: middle;
 }
 .md-chips .md-chip-input-container {

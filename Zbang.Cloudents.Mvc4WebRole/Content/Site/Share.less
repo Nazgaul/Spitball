@@ -31,8 +31,27 @@
     }
 
     md-content {
+        @colorplaceholder: #646E77;
+
+        ::-webkit-input-placeholder {
+            color: @colorplaceholder;
+        }
+
+        :-moz-placeholder { /* Firefox 18- */
+            color: @colorplaceholder;
+        }
+
+        ::-moz-placeholder { /* Firefox 19+ */
+            color: @colorplaceholder;
+        }
+
+        :-ms-input-placeholder {
+            color: @colorplaceholder;
+        }
+
         background: @backgroundColor;
         position: relative;
+
     }
 
     md-list md-list-item button.md-button:not([disabled]):hover {
@@ -41,10 +60,13 @@
 
     .send {
         .buttonBlue();
-        margin: 0 10px 10px 0;
+        margin: 0 15px 15px 0;
+        padding: 5px 35px;
     }
    
     .gmail {
+        display: flex;
+        padding-top: 10px;
         background: #C2C2C2;
         margin: 0 auto;
         width: 230px;
@@ -63,6 +85,11 @@
             width: 60px;
             fill: #ED1921;
             background-color: #fff;
+            vertical-align: middle;
+        }
+
+        span {
+            line-height: 22px;
             vertical-align: middle;
         }
     }

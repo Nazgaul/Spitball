@@ -52,7 +52,10 @@
                         </md-content>
                         
                     </div>
-                    <button type="submit" class="btn btn-default" ng-disabled="!createBox.$valid">done</button>
+                    <span>
+                        <button type="submit" class="btn btn-default text-capitalize pull-left" ng-disabled="!createBox.$valid">cancel</button>
+                        <button type="submit" class="btn text-capitalize pull-right" ng-disabled="!createBox.$valid">done</button>
+                    </span>
                 </form>
             </div>
         </div>

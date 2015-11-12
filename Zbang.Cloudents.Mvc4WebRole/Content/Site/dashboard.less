@@ -123,8 +123,15 @@
             background: transparent;
         }
 
+        md-input-container {
+            padding-bottom: 2px;
+            margin-bottom: 20px
+        }
+
         md-input-container .md-input {
-            color: @color-create-box;
+            color: @color2;
+            border-color: @color-create-box;
+            font-size: 18px;
         }
 
         md-input-container label {
@@ -133,9 +140,21 @@
 
         .btn {
             .buttonBlue();
-            margin: 0 auto;
+            margin: 0 5px;
             display: block;
             color: #fff;
+            border-radius: 5px;
+        }
+
+        .btn-default {
+            background: @color2;
+            color: @color1;
+        }
+
+        .error {
+            color: @color11;
+            order: 3;
+            margin-top: 10px;
         }
     }
 }

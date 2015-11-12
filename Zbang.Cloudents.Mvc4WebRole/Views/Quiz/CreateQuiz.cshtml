@@ -10,14 +10,18 @@
         <input class="form-control choose-quiz-name" type="text" placeholder="choose quiz name" autofocus required ng-model="q.name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
         <ol>
             <li class="question" ng-repeat="question in q.questions">
-                        <input type="text" ng-model="answer.text" ng-blur="q.saveAnswer(question,answer)" placeholder="Answer {{$index + 1}}" />
-                        <input type="button" ng-click="q.deleteAnswer(question,answer)" value="X" />
-                        <input type="radio" name="question {{$parent.$index}}" ng-disabled="!answer.text.length" ng-click="q.markcorrect(question,answer)" ng-checked="answer.id === question.correctAnswer" />
+                <div class="" placeholder="question #{{$index + 1}}" ng-blur="q.saveQuestion(question)" text-angular ta-text-editor-class="question-content" ng-model="question.text"></div>
+                <ol class="answers">
+                    <li class="answer" ng-repeat="answer in question.answers">
+                        <div class="form-inline">
+                            <input type="text" class="form-control answer" ng-model="answer.text" ng-blur="q.saveAnswer(question,answer)" placeholder="Answer {{$index + 1}}" />
+                            <input type="button" ng-click="q.deleteAnswer(question,answer)" value="X" />
+                            <input type="radio" name="question {{$parent.$index}}" ng-disabled="!answer.text.length" ng-click="q.markcorrect(question,answer)" ng-checked="answer.id === question.correctAnswer" />
+                        </div>
                     </li>
                     <li ng-click="q.addAnswer(question)">
                         <input disabled type="text" placeholder="add an answer" />
                         <input disabled type="radio" />
-                        </div>
                     </li>
                 </ol>
             </li>
