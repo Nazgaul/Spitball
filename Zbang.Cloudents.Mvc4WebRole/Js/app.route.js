@@ -36,7 +36,15 @@
                 templateUrl: function () {
                     return buildUrl('/user/indexpartial/');
                 },
-                controller: 'UserController as u'
+                controller: 'UserController as u',
+                resolve: {
+                    userData: [
+                        'userService', '$stateParams', function (userService, $stateParams) {
+                            return userService.getDetails($stateParams.userId);
+
+                        }
+                    ]
+                }
             })
             
              .state('department', {

@@ -12,7 +12,7 @@
         'textAngular',
         'angulartics.google.analytics',
         'angular-plupload',
-
+        'countUpModule',
         'infinite-scroll',
         'displayTime',
         'app.dashboard',

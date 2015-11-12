@@ -18,22 +18,9 @@
                         {{::u.details.universityName}}
                     </div>
                 </div>
-                <div class="profile-usermenu">
-                    <ul class="nav">
-                        <li class="active">
-                            <a href="{{::u.details.url}}">
-                                @Html.Svg("~/images/site/icons.svg", "houseMenu")
-                                Personal data
-                            </a>
-                        </li>
-                        <li>
-                            <a href="@Url.RouteUrl("AccountSettings")">
-                                @Html.Svg("~/images/site/icons.svg", "settingMenu")
-                                Account Settings
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+            </div>
+            <div>
+                <span count-up id="points" end-val="{{u.details.score}}" duration="3"></span>
             </div>
         </div>
         <div class="profile-content">
