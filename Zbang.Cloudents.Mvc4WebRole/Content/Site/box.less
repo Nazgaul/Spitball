@@ -33,7 +33,6 @@
         padding: 0 10px;
         //padding:0 10px;
     }
-    
 }
 
 .feed {
@@ -142,7 +141,7 @@
 
         .items-container {
             padding-left: 24px;
-             margin: 0 5px;
+            margin: 0 5px;
         }
 
         .user-name {
@@ -153,7 +152,6 @@
         .comment-date {
             margin-left: 34px;
         }
-
     }
 
     .top {
@@ -450,10 +448,18 @@
 }
 
 .item {
-    border: 1px solid #42494F;
-    padding: 5px 5px 0;
-    display: block;
-    margin-bottom: 15px;
+     margin-bottom: 15px;
+    .base {
+        border: 1px solid #42494F;
+        padding: 5px 5px 0;
+        display: inline-block;
+       
+        //float: left;
+    }
+
+    .extra-details {
+        display: none;
+    }
 
     .content {
         position: relative;
@@ -468,6 +474,7 @@
         font-size: 15px;
         -ms-word-break: break-word;
         word-break: break-word;
+        text-align: center;
     }
 
     .uploader-date {
@@ -625,6 +632,7 @@
         margin: 0 10px;
         border-radius: 0;
         height: 10px;
+
         .progress-bar {
             background-color: #8dc63f;
         }
@@ -641,15 +649,14 @@
         position: absolute;
         top: -16px;
         right: -15px;
-       
         border-radius: 50%;
         background-color: rgba(255,255,255, .6);
         padding: 3px 10px;
-        z-index:1;
-        svg {
-             fill: #8DC63F;
-             margin:0;
+        z-index: 1;
 
+        svg {
+            fill: #8DC63F;
+            margin: 0;
         }
     }
 

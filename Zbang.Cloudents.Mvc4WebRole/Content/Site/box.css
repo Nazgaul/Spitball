@@ -355,10 +355,15 @@
   padding: 12px;
 }
 .item {
+  margin-bottom: 15px;
+}
+.item .base {
   border: 1px solid #42494F;
   padding: 5px 5px 0;
-  display: block;
-  margin-bottom: 15px;
+  display: inline-block;
+}
+.item .extra-details {
+  display: none;
 }
 .item .content {
   position: relative;
@@ -371,6 +376,7 @@
   font-size: 15px;
   -ms-word-break: break-word;
   word-break: break-word;
+  text-align: center;
 }
 .item .uploader-date {
   margin-top: 75px;

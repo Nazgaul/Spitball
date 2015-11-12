@@ -1,0 +1,21 @@
+﻿.search em {
+  color: yellow;
+}
+.search .item {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 0;
+  display: block;
+}
+.search .item .base {
+  width: 40%;
+}
+.search .item .extra-details {
+  width: 55%;
+  display: block;
+  position: absolute;
+  height: 100%;
+  right: 40%;
+  top: 0;
+  text-align: justify;
+}

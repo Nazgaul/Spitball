@@ -17,9 +17,7 @@
         </div>
         <div class="col-md-4">
             <h3>items</h3>
-            <div ng-repeat="item in s.result.items">
-                <div ng-include="'item-template.html'"></div>
-                this is some text
+            <div ng-repeat="item in s.result.items" ng-include="'item-template.html'">
             </div>
         </div>
         <div class="col-md-4">

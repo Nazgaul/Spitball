@@ -1640,6 +1640,18 @@
     <Content Include="Content\Site\rtlFix.rtl.min.css">
       <DependentUpon>rtlFix.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\search.css">
+      <DependentUpon>search.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\search.min.css">
+      <DependentUpon>search.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\search.rtl.css">
+      <DependentUpon>search.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\search.rtl.min.css">
+      <DependentUpon>search.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\Share.css">
       <DependentUpon>Share.less</DependentUpon>
     </Content>

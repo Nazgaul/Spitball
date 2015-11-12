@@ -15,7 +15,7 @@
             $location.search('q', self.term);
             searchService.search(self.term, 0).then(function (response) {
                 self.result = response;
-
+                console.log(response)
                 for (var i = 0; i < self.result.items.length; i++) {
                     self.result.items[i].thumbnail = buildThumbnailUrl(self.result.items[i].source);
                 }
