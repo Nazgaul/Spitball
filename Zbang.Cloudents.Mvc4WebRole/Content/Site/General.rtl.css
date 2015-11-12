@@ -237,6 +237,17 @@ em {
         -moz-transform: translate3d(0.1, 0.1, 0.1);
         transform: translate3d(0.1, 0.1, 0.1);*/
 }
+.search-form {
+  -moz-transition: all linear .5s;
+  -o-transition: all linear .5s;
+  -webkit-transition: all linear .5s;
+  transition: all linear .5s;
+  opacity: 1;
+}
+.search-form.ng-hide {
+  line-height: 0;
+  opacity: 0;
+}
 /*.portlet.box > .portlet-title {
     margin-left: -10px;
     color: #f5f5f5;
