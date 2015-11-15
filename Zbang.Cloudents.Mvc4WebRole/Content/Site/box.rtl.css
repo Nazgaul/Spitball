@@ -1,28 +1,6 @@
-﻿.class .nav-tabs > li.active > a,
-.class .nav-tabs > li.active > a:hover {
-  background: transparent;
-  border: 0;
-  border-bottom: 3px solid #3293f6;
-  color: #f5f5f5;
-  font-weight: bold;
-  font-size: 16px;
-}
-.class .nav-tabs {
-  border: 0;
-}
-.class .nav-tabs a {
-  color: #8c99a6;
-}
-.class .nav-tabs a:hover,
-.class .nav-tabs a:focus {
-  color: #3598dc;
-}
-.class .nav-tabs > li > a:hover {
-  border: 1px solid transparent;
-}
+﻿.class .nav-tabs,
 .class .tabbable {
-  background-color: #353a3f;
-  padding: 0 10px;
+  border: 0;
 }
 .feed {
   font-size: 16px;

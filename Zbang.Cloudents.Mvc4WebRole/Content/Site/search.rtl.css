@@ -28,9 +28,8 @@
   .search .tabbable {
     display: block;
   }
-}
-@media (max-width: 992px) {
-  .search .s-hide {
+  .search .nav-tabs .s-hide,
+  .search .tabbable .s-hide {
     display: none;
   }
 }
