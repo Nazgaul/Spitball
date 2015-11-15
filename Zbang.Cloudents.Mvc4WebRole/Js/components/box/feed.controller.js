@@ -17,6 +17,7 @@
                     }
                 }
             }
+            console.log(self.data)
         });
 
         function buildThumbnailUrl(name) {

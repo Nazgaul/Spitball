@@ -355,6 +355,7 @@
   padding: 12px;
 }
 .item {
+  display: block;
   /*.base {
         border: 1px solid #42494F;
         padding: 5px 5px 0;

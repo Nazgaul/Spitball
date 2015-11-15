@@ -48,7 +48,7 @@
                             <div ng-bind-html="::post.content" class="content-text"></div>
                         </div>
                         <ul class="list-inline items-container">
-                            <li ng-repeat="item in post.files" ng-include="'item-template.html'">
+                            <li ng-repeat="e in post.files" ng-include="'item-template.html'">
                                 @*<a class="item" href="{{::item.url}}">
                                     <div class="content">
                                         <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
@@ -76,7 +76,7 @@
                                     <div ng-bind-html="::reply.content" class="content-text"></div>
                                 </div>
                                 <ul class="list-inline items-container">
-                                    <li ng-repeat="item in reply.files" ng-include="'item-template.html'">
+                                    <li ng-repeat="e in reply.files" ng-include="'item-template.html'">
                                         @*<a class="item" href="{{::item.url}}">
                                             <div class="content">
                                                 <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
