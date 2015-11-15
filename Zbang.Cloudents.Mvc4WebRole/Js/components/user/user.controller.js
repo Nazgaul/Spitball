@@ -93,7 +93,7 @@
             }
             return false;
         }
-
+        //TODO: write this as one function.
         function loadItems(fromTab) {
             if (haveData(fromTab, files)) {
                 return;
@@ -134,7 +134,7 @@
                     self.quizLoading = false;
                     quizzesPage++;
                 }
-                
+
             });
         }
         function loadboxes(fromTab) {
@@ -154,11 +154,11 @@
                     self.boxesLoading = false;
                     boxesPage++;
                 }
-                
+
             });
         }
 
-        
+
 
         function loadComment(fromTab) {
             if (haveData(fromTab, feed)) {
@@ -173,7 +173,7 @@
                 if (self.tab === self.state.box) {
                     self.elements = feed;
                 }
-                
+
                 if (response.length) {
                     self.commentsLoading = false;
                     commentPage++;
@@ -201,12 +201,5 @@
                 }
             });
         }
-
-
-
-
-
     }
 })();
-
-
