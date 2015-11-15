@@ -1894,11 +1894,7 @@ function $UrlRouterProvider(   $locationProvider,   $urlMatcherFactory) {
                 path += '#' + $location.hash();
             }
             return handleIfMatch($injector, handler, what.exec(path, $location.search()));
-            //if (!x) {
-            //    return handleIfMatch($injector, handler, what.exec($location.path(), $location.search()));
-            //}
-            //return x;
-            //return handleIfMatch($injector, handler, what.exec(path, $location.search()));
+            //return handleIfMatch($injector, handler, what.exec($location.path(), $location.search()));
         }, {
           prefix: isString(what.prefix) ? what.prefix : ''
         });

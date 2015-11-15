@@ -2,24 +2,24 @@
     const string svgUrl = "~/images/site/box-icons.svg";
 }
 <script type="text/ng-template" id="box-template.html">
-    <a href="{{::box.url}}" class="dashboard-stat2">
-        <div class="updates" ng-if="box.updates !== 0">{{box.updates}}</div>
+    <a href="{{::e.url}}" class="dashboard-stat2">
+        <div class="updates" ng-if="e.updates !== 0">{{e.updates}}</div>
         <div class="display">
             <div class="number">
-                <h5 d-color="{{::box.name.length}}" ng-bind-html="::box.name"></h5>
-                <small>{{::box.professor}}</small><br />
-                <small ng-bind-html="::box.courseCode"></small>
+                <h5 d-color="{{::e.name.length}}" ng-bind-html="::e.name"></h5>
+                <small>{{::e.professor}}</small><br />
+                <small ng-bind-html="::e.courseCode"></small>
             </div>
         </div>
         <div class="progress-info">
-            <div class="progress background" d-color="{{::box.name.length}}">
+            <div class="progress background" d-color="{{::e.name.length}}">
             </div>
             <div class="status">
-                <div class="status-title" ng-hide="::box.membersCount === undefined">
-                    {{::box.membersCount}} members
+                <div class="status-title" ng-hide="::e.membersCount === undefined">
+                    {{::e.membersCount}} members
                 </div>
-                <div class="status-number" ng-hide="::box.itemCount === undefined">
-                    {{::box.itemCount}} items
+                <div class="status-number" ng-hide="::e.itemCount === undefined">
+                    {{::e.itemCount}} items
                 </div>
             </div>
         </div>
@@ -27,56 +27,62 @@
 </script>
 
 <script type="text/ng-template" id="item-template.html">
-    <a class="clearfix item" href="{{::item.url}}">
+    <a class="clearfix item" href="{{::e.url}}">
         <div class="base">
             <div class="content">
-                <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
+                <img class="img-responsive" ng-src="{{::e.thumbnail}}" alt="">
                 <div class="extra">
-                    <h5 ng-bind-html="::item.name"></h5>
+                    <h5 ng-bind-html="::e.name"></h5>
                     <img src="http://lorempixel.com/30/30/" alt="" />
                     <div class="uploader-date">
-                        <div>{{::item.owner}}</div>
-                        {{::item.date | date : 'shortDate'}}
+                        <div>{{::e.owner}}</div>
+                        {{::e.date | date : 'shortDate'}}
                     </div>
                 </div>
             </div>
-            <div class="stats clearfix" ng-hide="::item.numOfViews == undefined">
+            <div class="stats clearfix" ng-hide="::e.numOfViews == undefined">
                 <div class="item-quiz-likes">
-                    {{::item.numOfViews}} @Html.Svg(svgUrl, "eye")
+                    {{::e.numOfViews}} @Html.Svg(svgUrl, "eye")
                 </div>
                 <div class="item-quiz-views">
-                    {{::item.likes}} @Html.Svg(svgUrl, "like")
+                    {{::e.likes}} @Html.Svg(svgUrl, "like")
                 </div>
             </div>
         </div>
         <div class="extra-details">
-            <h5 ng-bind-html="item.name"></h5>
-            <span ng-bind-html="item.content"></span>
+            <h5 ng-bind-html="::e.name"></h5>
+            <span ng-bind-html="::e.content"></span>
         </div>
     </a>
 </script>
 <script type="text/ng-template" id="quiz-template.html">
-    <a class="quiz" href="{{quiz.url}}">
+    <a class="quiz" href="{{e.url}}">
         <div class="base">
-            <div class="top background" d-color="{{::quiz.name.length}}">
-                <span class="first-letter" first-letter="{{::quiz.name}}"></span>
+            <div class="top background" d-color="{{::e.name.length}}">
+                <span class="first-letter" first-letter="{{::e.name}}"></span>
             </div>
             <div class="bottom">
-                <span class="name" ng-bind-html="::quiz.name"></span>
+                <span class="name" ng-bind-html="::e.name"></span>
                 @*<div class="triangle-up-left"></div>*@
             </div>
             <div class="stats clearfix" ng-hide="::quiz.numOfViews === underfined">
                 <div class="item-quiz-likes">
-                    {{::quiz.rate}} @Html.Svg(svgUrl, "like")
+                    {{::e.rate}} @Html.Svg(svgUrl, "like")
                 </div>
                 <div class="item-quiz-views">
-                    {{::quiz.numOfViews}} @Html.Svg(svgUrl, "eye")
+                    {{::e.numOfViews}} @Html.Svg(svgUrl, "eye")
                 </div>
             </div>
         </div>
         <div class="extra-details">
-            <h5 ng-bind-html="quiz.name"></h5>
-            <span ng-bind-html="quiz.content"></span>
+            <h5 ng-bind-html="::e.name"></h5>
+            <span ng-bind-html="::e.content"></span>
         </div>
+    </a>
+</script>
+<script type="text/ng-template" id="user-template.html">
+    <a href="{{::e.url}}">
+        <user-image class="img-circle" name="::e.name" image="::e.image" width="35" height="35"></user-image>
+        <span class="member-name">{{::e.name}}</span>
     </a>
 </script>

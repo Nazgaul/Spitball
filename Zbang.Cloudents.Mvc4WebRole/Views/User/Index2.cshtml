@@ -31,28 +31,32 @@
                 <div class="col-md-12">
                     <div class="portlet light">
                         <ul class="nav nav-tabs tabbable">
-                            <li ng-class="{active: s.tab === 'b'}">
-                                <button type="button" ng-click="s.tab = 'b'">
-                                    <h6>Classes</h6> 4
+                            <li ng-class="{active: u.tab === u.state.box}">
+                                <button type="button" ng-click="u.changeTab(u.state.box)">
+                                    <h3>Classes</h3> 4
                                 </button>
                             </li>
-                            <li ng-class="{active: s.tab === 'i'}">
-                                <button type="button" ng-click="s.tab = 'i'"><h6>Classes</h6> 4</button>
+                            <li ng-class="{active:u.tab === u.state.item}">
+                                <button type="button" ng-click="u.changeTab(u.state.item)"><h3>uploads</h3> 4</button>
                             </li>
-                            <li ng-class="{active: s.tab === 'q'}">
-                                <button type="button" ng-click="s.tab = 'q'"><h6>Classes</h6> 4</button>
+                            <li ng-class="{active: u.tab === u.state.post}">
+                                <button type="button" ng-click="u.changeTab(u.state.post)"><h3>posts</h3> 4</button>
                             </li>
-                            <li ng-class="{active: s.tab === 'q'}">
-                                <button type="button" ng-click="s.tab = 'q'"><h6>Classes</h6> 4</button>
+                            <li ng-class="{active: u.tab === u.state.quiz}">
+                                <button type="button" ng-click="u.changeTab(u.state.quiz)"><h3>quizzes</h3> 4</button>
                             </li>
-                            <li ng-class="{active: s.tab === 'q'}">
-                                <button type="button" ng-click="s.tab = 'q'"><h6>Classes</h6> 4</button>
+                            <li ng-class="{active: u.tab === u.state.friend}">
+                                <button type="button" ng-click="u.changeTab(u.state.friend)"><h3>friends</h3> 4</button>
                             </li>
                         </ul>
                     </div>
-
+                    <div ng-repeat="e in u.elements" ng-include="u.template()"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script type="text/ng-template" id="user-feed-template.html">
+    this is a feed template
+</script>

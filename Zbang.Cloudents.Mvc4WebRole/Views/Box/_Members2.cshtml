@@ -1,6 +1,3 @@
 ﻿<div class="row members" >
-    <a class="col-lg-3 col-md-4 col-sm-6 col-xs-12 margin-bottom-20" ng-repeat="member in m.members" href="{{::member.url}}">
-        <user-image class="img-circle" id="member.id" name="::member.name" image="::member.image" width="35" height="35"></user-image>
-        <span class="member-name">{{::member.name}}</span>
-    </a>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 margin-bottom-20" ng-repeat="e in m.members" ng-include="'user-template.html'"></div>
 </div>
