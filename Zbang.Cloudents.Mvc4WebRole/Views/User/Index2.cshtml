@@ -1,4 +1,7 @@
-﻿<div class="page-head">
+﻿<script type="text/ng-template" id="userboxes.html">
+    this is a text
+</script>
+<div class="page-head">
     <div class="page-title">
         <h1>user page </h1>
     </div>
@@ -11,117 +14,45 @@
                     <user-image ng-if="u.details" class="img-responsive" name="u.details.name" image="u.details.image" width="150" height="150"></user-image>
                 </div>
                 <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">
+                    <h3 class="profile-usertitle-name">
                         {{::u.details.name}}
-                    </div>
-                    <div class="profile-usertitle-job">
+                    </h3>
+                    <h4 class="profile-usertitle-job">
                         {{::u.details.universityName}}
-                    </div>
+                    </h4>
                 </div>
             </div>
             <div>
-                <span count-up id="points" end-val="{{u.details.score}}" duration="3"></span>
+                <h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>
             </div>
         </div>
         <div class="profile-content">
             <div class="row">
                 <div class="col-md-12">
                     <div class="portlet light">
-                        <h4>your friends</h4>
-                        <md-progress-circular ng-if="u.friendLoading" md-mode="indeterminate" class="circle-loading"></md-progress-circular>
-                        <div ng-if="u.friends.length > 0" class="r-table">
-                            <div class="r-table-row header">
-                                <div class="r-table-cell">member</div>
-                                <div class="r-table-cell">university</div>
-                                <div class="r-table-cell">joined</div>
-                            </div>
-                            <div class="r-table-row" ng-repeat="friend in u.friends track by friend.id">
-                                <div class="r-table-cell">
-                                    <user-image class="img-circle" name="::friend.name" image="::friend.largeImage" width="50" height="50"></user-image>
-                                    {{::friend.name}}
-                                </div>
-                                <div class="r-table-cell">some univeristy</div>
-                                <div class="r-table-cell">some date</div>
-                                <button type="button" class="r-table-cell">message</button>
-                            </div>
-                            <button class="btn  btn-default" type="button" ng-click="u.friendLoadMore()" ng-disabled="u.friendLoading">load more</button>
-                        </div>
+                        <ul class="nav nav-tabs tabbable">
+                            <li ng-class="{active: s.tab === 'b'}">
+                                <button type="button" ng-click="s.tab = 'b'">
+                                    <h6>Classes</h6> 4
+                                </button>
+                            </li>
+                            <li ng-class="{active: s.tab === 'i'}">
+                                <button type="button" ng-click="s.tab = 'i'"><h6>Classes</h6> 4</button>
+                            </li>
+                            <li ng-class="{active: s.tab === 'q'}">
+                                <button type="button" ng-click="s.tab = 'q'"><h6>Classes</h6> 4</button>
+                            </li>
+                            <li ng-class="{active: s.tab === 'q'}">
+                                <button type="button" ng-click="s.tab = 'q'"><h6>Classes</h6> 4</button>
+                            </li>
+                            <li ng-class="{active: s.tab === 'q'}">
+                                <button type="button" ng-click="s.tab = 'q'"><h6>Classes</h6> 4</button>
+                            </li>
+                        </ul>
                     </div>
+
                 </div>
-
-
-                <div class="col-md-12">
-                    <div class="portlet light">
-                        <h4> your boxes</h4>
-                        <md-progress-circular ng-if="u.boxesLoading" md-mode="indeterminate" class="circle-loading"></md-progress-circular>
-                        <div ng-if="u.boxes.length > 0" class="r-table">
-                            <div class="r-table-row header">
-                                <div class="r-table-cell"> box name</div>
-                                <div class="r-table-cell">university</div>
-                                <div class="r-table-cell">items</div>
-                                <div class="r-table-cell">members</div>
-                            </div>
-                            <div class="r-table-row" ng-repeat="box in u.boxes track by box.id">
-                                <div class="r-table-cell">
-                                    {{::box.name}}
-                                </div>
-                                <div class="r-table-cell">some univeristy</div>
-                                <div class="r-table-cell">{{::box.itemCount}}</div>
-                                <div class="r-table-cell">{{::box.membersCount}}</div>
-                                <button type="button" class="r-table-cell">message</button>
-                            </div>
-                            <button class="btn  btn-default" type="button" ng-click="u.boxesLoadMore()" ng-disabled="u.boxesLoading">load more</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="portlet light">
-                        <h4> your uploads</h4>
-                        <md-progress-circular ng-if="u.itemsLoading" md-mode="indeterminate" class="circle-loading"></md-progress-circular>
-                        <div ng-if="u.files.length > 0" class="r-table">
-                            <div class="r-table-row header">
-                                <div class="r-table-cell">name</div>
-                                <div class="r-table-cell">course</div>
-                                <div class="r-table-cell">date</div>
-                            </div>
-                            <div class="r-table-row" ng-repeat="file in u.files track by file.id">
-                                <div class="r-table-cell">
-                                    {{::file.name}}
-                                </div>
-                                <div class="r-table-cell">{{::file.boxName}}</div>
-                                <div class="r-table-cell">2/13/2105</div>
-                                <div class="r-table-cell">view</div>
-                            </div>
-                            <button class="btn  btn-default" type="button" ng-click="u.itemsLoadMore()" ng-disabled="u.itemsLoading">load more</button>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="portlet light ">
-                        <h4>  your comments</h4>
-                        <md-progress-circular ng-if="u.commentsLoading" md-mode="indeterminate" class="circle-loading"></md-progress-circular>
-                        <div ng-if="u.files.length > 0" class="r-table">
-                            <div class="r-table-row header">
-                                <div class="r-table-cell">text</div>
-                                <div class="r-table-cell">date</div>
-                            </div>
-                            <div class="r-table-row" ng-repeat="c in u.feed track by c.id">
-                                <div class="r-table-cell">
-                                    {{::c.type}}
-                                </div>
-                                <div class="r-table-cell" ng-bind-html="::c.content"></div>
-                                <div class="r-table-cell">2/13/2105</div>
-                                <div class="r-table-cell">view</div>
-                            </div>
-                            <button class="btn  btn-default" type="button" ng-click="u.commentLoadMore()" ng-disabled="u.commentsLoading">load more</button>
-                        </div>
-
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
 </div>
-@*<script type="ng/template" id="usericon.html"></script>*@

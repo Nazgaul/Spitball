@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.user').controller('UserController', user);
-    user.$inject = ['userService', '$stateParams', 'userData'];
+    user.$inject = ['userService', '$stateParams', 'userData', '$templateCache'];
 
-    function user(userService, $stateParams, userData) {
+    function user(userService, $stateParams, userData, $templateCache) {
         var self = this;
         var boxesPage = 0, friendPage = 0, itemsPage = 0, commentPage = 0;
         self.friends = [];
@@ -14,8 +14,8 @@
         //userService.getDetails($stateParams.userId).then(function (response) {
             //console.log(response);
         self.details = userData;
-        
 
+        console.log($templateCache.get('userboxes.html'));
 
         //boxes
         loadboxes();

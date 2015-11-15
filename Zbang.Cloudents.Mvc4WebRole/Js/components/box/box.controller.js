@@ -9,8 +9,6 @@
         }
         var b = this;
 
-
-
         b.name = boxData.name;
         b.professorName = boxData.professorName;
         b.courseId = boxData.courseId;
