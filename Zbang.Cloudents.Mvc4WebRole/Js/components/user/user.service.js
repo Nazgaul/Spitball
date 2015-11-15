@@ -6,7 +6,7 @@
         var u = this;
 
         u.getDetails = function (userid) {
-            return ajaxservice.get('/user/minprofile/', { id: userid });
+            return ajaxservice.get('/user/profilestats/', { id: userid });
         }
         u.boxes = function (userid, page) {
             return ajaxservice.get('/user/boxes/', { id: userid, page: page });

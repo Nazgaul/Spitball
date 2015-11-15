@@ -19,7 +19,6 @@
                     resolve: {
                         userData: [
                             'userService', '$stateParams', function (userService, $stateParams) {
-                                console.log($stateParams);
                                 return userService.getDetails($stateParams.userId);
 
                             }

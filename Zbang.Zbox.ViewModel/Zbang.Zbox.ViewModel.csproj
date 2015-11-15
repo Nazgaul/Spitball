@@ -148,6 +148,7 @@
     <Compile Include="Dto\UserDtos\UserInviteDto.cs" />
     <Compile Include="Dto\UserDtos\UserMemberDto.cs" />
     <Compile Include="Dto\UserDtos\UserToFriendActivity.cs" />
+    <Compile Include="Dto\UserDtos\UserWithStats.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Boxes\GetUserWithFriendQuery.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="SqlQueries\Seo.cs" />
     <Compile Include="SqlQueries\Sql.cs" />
     <Compile Include="SqlQueries\Updates.cs" />
+    <Compile Include="SqlQueries\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\BoxDto.hbm.xml">

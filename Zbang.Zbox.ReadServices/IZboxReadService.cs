@@ -88,6 +88,7 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetUserItemsActivityAsync(GetUserWithFriendQuery query);
         Task<IEnumerable<ActivityDto>> GetUserCommentActivityAsync(GetUserWithFriendQuery query);
         Task<IEnumerable<QuizDto>> GetUserQuizActivityAsync(GetUserWithFriendQuery query);
+        Task<UserWithStats> GetUserProfileWithStatsAsync(GetUserWithFriendQuery query);
 
         Task<IEnumerable<string>> GetSeoItems(int page);
         Task<int> GetSeoItemCount();

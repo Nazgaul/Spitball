@@ -7,8 +7,8 @@
         var boxesPage = 0, friendPage = 0, itemsPage = 0, commentPage = 0;
         var friends = [], boxes = [], files = [], feed = [], quiz = [];
 
-        self.details = userData;
 
+        self.details = userData;
         self.state = {
             box: 'b',
             item: 'u',
