@@ -32,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return result;
         }
 
-        [DonutOutputCache(VaryByParam = "userId", Duration = TimeConsts.Hour)]
+        [DonutOutputCache(VaryByParam = "id", Duration = TimeConsts.Hour)]
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult> MinProfile(long id)

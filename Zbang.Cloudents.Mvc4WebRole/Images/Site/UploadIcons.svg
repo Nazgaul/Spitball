@@ -95,7 +95,7 @@
 	L288.7,355.2z" />
     </symbol>
     <symbol id="dropbox" viewBox="-141.9 223.3 125.9 117.1">
-        <g style="fill:#007EE5" transform="matrix(1.25,0,0,-1.25,0,212.5)">
+        <g transform="matrix(1.25,0,0,-1.25,0,212.5)">
             <g transform="translate(76.1162,130.9785)">
                 <path d="M-160-139.6l-29.6-19.3l20.5-16.4l29.9,18.4L-160-139.6z" />
             </g>

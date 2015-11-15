@@ -184,6 +184,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-0.14.1.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-tabdrop.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
+                        new JsFileWithCdn("~/scripts/angular-countUp.js"),
                         new JsFileWithCdn("~/js/polyfills.js"),
 
                         new JsFileWithCdn("~/js/signin/metronic.js"),
@@ -203,8 +204,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.challenge.module.js"),
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.score.module.js"),
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.module.js"),
+
                         new JsFileWithCdn("~/js/components/user/userdetails.controller.js"),
                         new JsFileWithCdn("~/js/components/user/user.controller.js"),
+                        new JsFileWithCdn("~/js/components/user/user.routes.js"),
                         
                         new JsFileWithCdn("~/js/components/user/user.service.js"),
                         new JsFileWithCdn("~/js/components/user/updates.service.js"),
@@ -273,6 +276,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/fileReader.js"),
                         new JsFileWithCdn("~/js/shared/animClass.js"),
                         new JsFileWithCdn("~/js/shared/firstLetter.js"),
+                        new JsFileWithCdn("~/js/shared/history.js"),
 
                         new JsFileWithCdn("~/js/components/item/upload.controller.js"),
                         new JsFileWithCdn("~/js/components/item/externalProviderUpload.service.js"),

@@ -16,8 +16,16 @@
                         return routerHelper.buildUrl('/box/indexpartial/');
                     },
                     controller: 'BoxController as b',
-                    containerClass :'boxState'
-                  
+                    containerClass: 'boxState',
+                    resolve: {
+                        boxData: [
+                            'boxService', '$stateParams', function (boxService, $stateParams) {
+                                return boxService.getBox($stateParams.boxId);
+
+                            }
+                        ]
+                    }
+
 
                 }
             }, {

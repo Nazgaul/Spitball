@@ -31,14 +31,6 @@
                     return buildUrl('/home/helppartial/');
                 }
             })
-            .state('user', {
-                url: '/user/:userId/:userName/',
-                templateUrl: function () {
-                    return buildUrl('/user/indexpartial/');
-                },
-                controller: 'UserController as u'
-            })
-            
              .state('department', {
                  url: '/library/',
                  templateUrl: function () {
@@ -70,18 +62,7 @@
                 data: { animateClass: 'dashboardState' }
                 //onEnter: dashboardRedirect
             });
-        //$urlRouterProvider.rule(function ($injector, $location) {
-
-        //    var path = $location.path();
-        //    var hasTrailingSlash = path[path.length - 1] === '/';
-
-        //    if (!hasTrailingSlash) {
-        //        //if last charcter is a slash, return the same url without the slash  
-        //        var newPath = path + '/';
-        //        return newPath;
-        //    }
-        //    return null;
-        //});
+        
        
         function buildUrl(path) {
             return path + '?lang=' + getCookie('l2') + '&version=' + window.version;

@@ -133,6 +133,9 @@
 .feed .actions svg:hover {
   fill: #5B9CC2;
 }
+.feed .actions .dropbox:hover {
+  fill: #007EE5;
+}
 .feed .replies {
   border-top: 2px solid #353A3F;
   padding-top: 15px;
@@ -489,6 +492,9 @@
 }
 .upload .uploadSection .link {
   fill: #64D0FF;
+}
+.upload .uploadSection .dropbox {
+  fill: #007EE5;
 }
 .upload .uploadSection span {
   display: block;

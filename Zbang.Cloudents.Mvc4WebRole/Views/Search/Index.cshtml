@@ -2,7 +2,7 @@
     const string svgUrl = "~/images/site/icons.svg";
 }
 <div class="search">
-    <button type="button" class="close" ng-click="app.back('dashboard')">X</button>
+    <button type="button" class="close" ng-click="app.back('/dashboard/')">@Html.Svg("~/images/site/icons.svg", "close")</button>
     <input type="search" class="search-text" placeholder="Search..." ng-model="s.term" ng-model-options="{debounce : 250}" ng-change="s.search()" ng-minlength="2" />
     <ul class="nav nav-tabs tabbable">
         <li ng-class="{active: s.tab === 'b'}">
@@ -15,7 +15,7 @@
             <button type="button" ng-click="s.tab = 'q'">Quizzes</button>
         </li>
     </ul>
-    <div class="row">
+    <div class="row" infinite-scroll="s.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
         <div class="col-md-4 col-sm-12 s-hide" ng-class="{show: s.tab === 'b'}">
             <h3>Classes</h3>
             <div class="row">

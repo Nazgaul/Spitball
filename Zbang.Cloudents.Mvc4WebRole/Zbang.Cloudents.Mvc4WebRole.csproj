@@ -1945,10 +1945,12 @@
     <Content Include="Js\components\quiz\quiz.routes.js" />
     <Content Include="Js\components\quiz\quizCreate.controller.js" />
     <Content Include="Js\components\search\search.service.js" />
+    <Content Include="Js\components\user\user.routes.js" />
     <Content Include="Js\polyfills.js" />
     <Content Include="Js\shared\animClass.js" />
     <Content Include="Js\shared\fileReader.js" />
     <Content Include="Js\shared\firstLetter.js" />
+    <Content Include="Js\shared\history.js" />
     <Content Include="Js\shared\showForm.js" />
     <Content Include="Js\shared\tabDrop.js" />
     <Content Include="Js\shared\userDetails.js" />
@@ -2210,6 +2212,7 @@
     <Content Include="Scripts\angular-cache-2.4.1.js" />
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-cookies.min.js" />
+    <Content Include="Scripts\angular-countUp.js" />
     <Content Include="Scripts\angular-file-upload.js" />
     <Content Include="Scripts\angular-mcustomscrollbar.js" />
     <Content Include="Scripts\angular-messages.js" />
@@ -2229,7 +2232,6 @@
     <Content Include="Scripts\angulartics.min.js" />
     <Content Include="Scripts\browser-deeplink.js" />
     <Content Include="Scripts\browser-deeplink.min.js" />
-    <Content Include="Scripts\CountUp.js" />
     <Content Include="Scripts\angular-debounce.js" />
     <Content Include="Scripts\angular-draganddrop.js" />
     <Content Include="Scripts\elastic.js" />
