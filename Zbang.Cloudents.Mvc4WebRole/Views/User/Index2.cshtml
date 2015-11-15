@@ -51,7 +51,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="row">
+                    <div class="row" infinite-scroll="u.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
                         <div class="{{u.bootstrapClass}}" ng-repeat="e in u.elements" ng-include="u.template()"></div>
                     </div>
                 </div>

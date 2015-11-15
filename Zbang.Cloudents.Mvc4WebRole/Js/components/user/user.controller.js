@@ -4,7 +4,7 @@
 
     function user(userService, $stateParams, userData, itemThumbnail) {
         var self = this;
-        var boxesPage = 0, friendPage = 0, itemsPage = 0, commentPage = 0;
+        var boxesPage = 0, friendPage = 0, itemsPage = 0, commentPage = 0, quizzesPage = 0;
         var friends = [], boxes = [], files = [], feed = [], quiz = [];
 
 
@@ -47,7 +47,6 @@
                     loadboxes(true);
                     self.bootstrapClass = 'col-md-4';
             }
-            console.log(self.tab);
         }
 
         self.template = function () {
@@ -64,35 +63,44 @@
                     return 'box-template.html';
             }
         }
+        self.myPagingFunction = function () {
+            switch (self.tab) {
+                case self.state.item:
+                    loadItems();
+                    break;
+                case self.state.post:
+                    loadComment();
+                    break;
+                case self.state.quiz:
+                    loadQuiz();
+                    break;
+                case self.state.friend:
+                    loadFriends();
+                    break;
+                default:
+                    loadboxes();
+            }
+        }
+
+
 
         self.changeTab(self.tab);
-        //boxes
-        //loadboxes();
-        //self.boxesLoadMore = function () {
-        //    boxesPage++;
-        //    loadboxes();
-        //}
 
-        //friends
-        //loadFriends();
-        //self.friendLoadMore = function () {
-        //    friendPage++;
-        //    loadFriends();
-        //}
-
-
-        //items
-        // loadItems();
-        //self.itemsLoadMore = function() {
-        //    itemsPage++;
-        //    loadItems();
-        //}
+        function haveData(fromTab, arr) {
+            if (fromTab && arr.length) {
+                self.elements = arr;
+                return true;
+            }
+            return false;
+        }
 
         function loadItems(fromTab) {
-            if (haveData(fromTab,files)) {
+            if (haveData(fromTab, files)) {
                 return;
             }
-
+            if (self.itemsLoading) {
+                return;
+            }
             self.itemsLoading = true;
             userService.files($stateParams.userId, itemsPage).then(function (response) {
                 for (var i = 0; i < response.length; i++) {
@@ -104,33 +112,38 @@
                 }
                 if (response.length) {
                     self.itemsLoading = false;
+                    itemsPage++;
                 }
-
             });
         }
         function loadQuiz(fromTab) {
             if (haveData(fromTab, quiz)) {
                 return;
             }
-
+            if (self.quizLoading) {
+                return;
+            }
             self.quizLoading = true;
-            userService.quiz($stateParams.userId, itemsPage).then(function (response) {
-               
+            userService.quiz($stateParams.userId, quizzesPage).then(function (response) {
+
                 quiz = quiz.concat(response);
                 if (self.tab === self.state.quiz) {
                     self.elements = quiz;
                 }
                 if (response.length) {
                     self.quizLoading = false;
+                    quizzesPage++;
                 }
-
+                
             });
         }
         function loadboxes(fromTab) {
             if (haveData(fromTab, boxes)) {
                 return;
             }
-
+            if (self.boxesLoading) {
+                return;
+            }
             self.boxesLoading = true;
             userService.boxes($stateParams.userId, boxesPage).then(function (response) {
                 boxes = boxes.concat(response);
@@ -139,25 +152,19 @@
                 }
                 if (response.length) {
                     self.boxesLoading = false;
+                    boxesPage++;
                 }
+                
             });
         }
 
-        function haveData(fromTab, arr) {
-            if (fromTab && arr.length) {
-                self.elements = arr;
-                return true;
-            }
-            return false;
-        }
+        
 
-        //loadComment();
-        //self.commentLoadMore = function () {
-        //    commentPage++;
-        //    loadComment();
-        //}
         function loadComment(fromTab) {
             if (haveData(fromTab, feed)) {
+                return;
+            }
+            if (self.commentsLoading) {
                 return;
             }
             self.commentsLoading = true;
@@ -166,8 +173,10 @@
                 if (self.tab === self.state.box) {
                     self.elements = feed;
                 }
+                
                 if (response.length) {
                     self.commentsLoading = false;
+                    commentPage++;
                 }
             });
         }
@@ -177,6 +186,9 @@
             if (haveData(fromTab, friends)) {
                 return;
             }
+            if (self.friendLoading) {
+                return;
+            }
             self.friendLoading = true;
             userService.friends($stateParams.userId, friendPage).then(function (response) {
                 friends = friends.concat(response);
@@ -184,13 +196,14 @@
                     self.elements = friends;
                 }
                 if (response.length) {
+                    friendPage++;
                     self.friendLoading = false;
                 }
             });
         }
 
 
-       
+
 
 
     }
