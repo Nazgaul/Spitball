@@ -4980,7 +4980,7 @@ Dashboard Stats 2
   display: inline-block;
   height: 110px;
 }
-.dashboard-stat2 .display .number h3 {
+.dashboard-stat2 .display .number h5 {
   margin: 0 0 2px 0;
   padding: 0;
   font-size: 25px;
