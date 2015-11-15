@@ -87,7 +87,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 s.Id,
                 s.BoxId,
-                Source = s.Image,
+                Source = s.Source,
                 s.Name,
                 s.Type
             }));

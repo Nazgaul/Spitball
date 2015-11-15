@@ -84,14 +84,10 @@ namespace Zbang.Zbox.ReadServices
 
         //user page
         Task<IEnumerable<BoxDto>> GetUserBoxesActivityAsync(GetUserWithFriendQuery query);
-        //Task<IEnumerable<QuestionToFriendDto>> GetUserWithFriendQuestion(GetUserWithFriendQuery query);
-        //Task<IEnumerable<AnswerToFriendDto>> GetUserWithFriendAnswer(GetUserWithFriendQuery query);
-        //Task<IEnumerable<UserInviteDto>> GetUserPersonalInvites(GetInvitesQuery query);
 
-
-       // Task<UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query);
-        Task<IEnumerable<ItemToFriendDto>> GetUserItemsActivityAsync(GetUserWithFriendQuery query);
+        Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetUserItemsActivityAsync(GetUserWithFriendQuery query);
         Task<IEnumerable<ActivityDto>> GetUserCommentActivityAsync(GetUserWithFriendQuery query);
+        Task<IEnumerable<QuizDto>> GetUserQuizActivityAsync(GetUserWithFriendQuery query);
 
         Task<IEnumerable<string>> GetSeoItems(int page);
         Task<int> GetSeoItemCount();

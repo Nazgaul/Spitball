@@ -21,6 +21,9 @@
         u.feed = function (userid, page) {
             return ajaxservice.get('/user/comment/', { id: userid, page: page });
         }
+        u.quiz = function (userid, page) {
+            return ajaxservice.get('/user/quiz/', { id: userid, page: page });
+        }
 
     }
 })();

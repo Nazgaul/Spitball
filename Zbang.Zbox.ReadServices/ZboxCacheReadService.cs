@@ -368,9 +368,13 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<ItemToFriendDto>> GetUserItemsActivityAsync(GetUserWithFriendQuery query)
+        public Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetUserItemsActivityAsync(GetUserWithFriendQuery query)
         {
             return m_ReadService.GetUserItemsActivityAsync(query);
+        }
+        public Task<IEnumerable<QuizDto>> GetUserQuizActivityAsync(GetUserWithFriendQuery query)
+        {
+            return m_ReadService.GetUserQuizActivityAsync(query);
         }
 
 
@@ -392,9 +396,12 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(ViewModel.Queries.Dashboard.LeaderBoardQuery query)
+        public Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query)
         {
             return m_Cache.QueryAsync(m_ReadService.GetDashboardLeaderBoardAsync, query);
         }
+
+
+        
     }
 }

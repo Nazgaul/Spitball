@@ -80,13 +80,15 @@ b.BoxName as boxName,
         /// Used in user page to get files common with current user
         /// </summary>
         public const string UserWithFriendFiles = @"select i.ItemId as id,
-i.blobname as image, 
+i.blobname as source, 
+i.CreationTime as date,
+i.LikeCount as likes,
+i.Content,
 i.NumberOfViews as numOfViews,
 i.Name as name,
-b.boxid as boxid, 
-b.boxname as boxname,
 i.url as Url,
-i.Discriminator as Type
+b.BoxId as boxId
+
                         from zbox.item i 
                         join zbox.box b on i.boxid = b.BoxId and b.IsDeleted = 0
                         left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
@@ -95,6 +97,26 @@ i.Discriminator as Type
                         and (b.PrivacySetting = 3 or 
                          ub.UserId = @Me)
                         order by i.itemid desc
+    offset @pageNumber*@rowsperpage ROWS
+    FETCH NEXT @rowsperpage ROWS ONLY;";
+
+        /// <summary>
+        /// Used in user page to get quizzes common with current user
+        /// </summary>
+        public const string UserWithFriendQuizzes = @"select q.Id as id,
+q.url as Url,
+q.Name as name,
+q.Rate as rate,
+q.NumberOfViews as numOfViews
+                        from zbox.Quiz q 
+                        join zbox.box b on q.boxid = b.BoxId and b.IsDeleted = 0
+                        left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
+                        where q.UserId = @Myfriend
+                        and q.IsDeleted = 0
+						and q.Publish = 1
+                        and (b.PrivacySetting = 3 or 
+                         ub.UserId = @Me)
+                        order by q.Id desc
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
 

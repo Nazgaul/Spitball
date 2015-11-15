@@ -40,6 +40,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(await GetUserProfile(id));
         }
 
+        
+
         [HttpGet]
         public async Task<ActionResult> Friends(long id, int page)
         {
@@ -91,6 +93,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var query = new GetUserWithFriendQuery(User.GetUserId(), id, page, 10);
             var result = await ZboxReadService.GetUserItemsActivityAsync(query);
+            return JsonOk(result);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Quiz(long id, int page)
+        {
+            var query = new GetUserWithFriendQuery(User.GetUserId(), id, page, 10);
+            var result = await ZboxReadService.GetUserQuizActivityAsync(query);
             return JsonOk(result);
         }
 

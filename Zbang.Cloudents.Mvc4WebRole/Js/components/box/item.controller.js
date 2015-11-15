@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.box.items').controller('ItemsController', items);
-    items.$inject = ['boxService', '$stateParams', '$scope', '$q'];
+    items.$inject = ['boxService', '$stateParams', '$scope', '$q', 'itemThumbnail'];
 
-    function items(boxService, $stateParams, $scope, $q) {
+    function items(boxService, $stateParams, $scope, $q, itemThumbnail) {
         var i = this;
         i.items = [];
         var page = 0, loading = false, needToBringMore = true;
@@ -78,7 +78,7 @@
             }
         }
         function buildThumbnailUrl(name) {
-            return 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(name) + '.jpg?width=368&height=520&mode=crop&scale=both';
+            return itemThumbnail.get(name, 368, 520);
         }
     }
 })();
