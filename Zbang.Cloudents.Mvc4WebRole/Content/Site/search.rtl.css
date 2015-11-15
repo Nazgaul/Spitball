@@ -22,8 +22,9 @@
 .search .nav-tabs,
 .search .tabbable {
   border-bottom: none;
+  border-radius: 5px;
   background: #353a3f;
-  padding: 0 10px;
+  padding: 10px;
   display: none;
   margin-bottom: 20px;
 }
@@ -33,6 +34,10 @@
     color: #f5f5f5;
     display: block;
   }
+}
+.search .nav-tabs li,
+.search .tabbable li {
+  margin: 0 10px 0 20px;
 }
 .search .nav-tabs li:hover,
 .search .tabbable li:hover {
@@ -50,7 +55,7 @@
 }
 .search .nav-tabs li button,
 .search .tabbable li button {
-  color: #8c99a6;
+  font-size: 16px;
   border: none;
   background: transparent;
 }
