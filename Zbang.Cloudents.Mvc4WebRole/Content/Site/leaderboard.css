@@ -13,7 +13,7 @@
   -ms-text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
-  width: 7vw;
+  width: calc(100% - 50px);
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
@@ -35,14 +35,15 @@
 }
 .leaderboad .r-table-cell {
   display: table-cell;
+  width: calc(100% - 75px);
   text-align: left;
 }
 .leaderboad .r-table-cell:nth-child(even) {
-  width: 10%;
+  width: 15px;
   color: orange;
   text-align: center;
 }
 .leaderboad .r-table-cell.last {
   text-align: right;
-  width: 25%;
+  width: 60px;
 }
