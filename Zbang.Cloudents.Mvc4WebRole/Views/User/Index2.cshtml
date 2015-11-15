@@ -50,7 +50,9 @@
                             </li>
                         </ul>
                     </div>
-                    <div ng-repeat="e in u.elements" ng-include="u.template()"></div>
+                    <div class="row">
+                        <div ng-class="{'col-md-4':u.tab === u.state.box,'col-md-3':u.tab === u.state.item, 'col-md-12' : u.tab === u.state.post, 'col-md-3' : u.tab === u.state.quiz, 'col-md-2' : u.tab === u.state.friend }" ng-repeat="e in u.elements" ng-include="u.template()"></div>
+                    </div>
                 </div>
             </div>
         </div>
