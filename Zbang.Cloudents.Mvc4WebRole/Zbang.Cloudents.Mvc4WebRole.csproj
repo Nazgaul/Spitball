@@ -1951,6 +1951,7 @@
     <Content Include="Js\shared\fileReader.js" />
     <Content Include="Js\shared\firstLetter.js" />
     <Content Include="Js\shared\history.js" />
+    <Content Include="Js\shared\itemThumbnail.js" />
     <Content Include="Js\shared\showForm.js" />
     <Content Include="Js\shared\tabDrop.js" />
     <Content Include="Js\shared\userDetails.js" />

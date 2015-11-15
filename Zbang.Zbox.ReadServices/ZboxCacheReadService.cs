@@ -368,7 +368,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<ItemToFriendDto>> GetUserItemsActivityAsync(GetUserWithFriendQuery query)
+        public Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetUserItemsActivityAsync(GetUserWithFriendQuery query)
         {
             return m_ReadService.GetUserItemsActivityAsync(query);
         }

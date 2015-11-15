@@ -335,3 +335,4 @@
 /// <reference path="../js/shared/history.js" />
 /// <reference path="angular-countup.js" />
 /// <reference path="../js/components/user/user.routes.js" />
+/// <reference path="../js/shared/itemthumbnail.js" />

@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.box.feed').controller('FeedController', feed);
-    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'userDetails','$q'];
+    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'userDetails', '$q', 'itemThumbnail'];
 
-    function feed(boxService, $stateParams, $timeout, externalUploadProvider, userDetails,$q) {
+    function feed(boxService, $stateParams, $timeout, externalUploadProvider, userDetails, $q, itemThumbnail) {
         var self = this, boxId = $stateParams.boxId;
         boxService.getFeed(boxId).then(function (response) {
             self.data = response;
@@ -20,7 +20,7 @@
         });
 
         function buildThumbnailUrl(name) {
-            return 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(name) + '.jpg?width=100&height=125&mode=crops&scale=both';
+            return itemThumbnail.get(name, 100, 125);
         }
 
         self.add = {

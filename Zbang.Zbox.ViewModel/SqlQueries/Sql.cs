@@ -80,13 +80,15 @@ b.BoxName as boxName,
         /// Used in user page to get files common with current user
         /// </summary>
         public const string UserWithFriendFiles = @"select i.ItemId as id,
-i.blobname as image, 
+i.blobname as source, 
+i.CreationTime as date,
+i.LikeCount as likes,
+i.Content,
 i.NumberOfViews as numOfViews,
 i.Name as name,
-b.boxid as boxid, 
-b.boxname as boxname,
 i.url as Url,
-i.Discriminator as Type
+b.BoxId as boxId
+
                         from zbox.item i 
                         join zbox.box b on i.boxid = b.BoxId and b.IsDeleted = 0
                         left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me

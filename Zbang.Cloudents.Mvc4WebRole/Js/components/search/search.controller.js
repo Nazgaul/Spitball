@@ -1,8 +1,8 @@
 ﻿(function() {
     angular.module('app.search').controller('SearchController', search);
 
-    search.$inject = ['searchService','$location'];
-    function search(searchService, $location) {
+    search.$inject = ['searchService', '$location', 'itemThumbnail'];
+    function search(searchService, $location, itemThumbnail) {
         var self = this, page = 0, loading = false, needToBringMore = true;
         
 
@@ -51,7 +51,7 @@
             }
         }
         function buildThumbnailUrl(name) {
-            return 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(name) + '.jpg?width=368&height=520&mode=crop&scale=both';
+            return itemThumbnail.get(name, 368, 520);
         }
     }
 })();

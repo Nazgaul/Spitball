@@ -40,6 +40,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(await GetUserProfile(id));
         }
 
+        
+
         [HttpGet]
         public async Task<ActionResult> Friends(long id, int page)
         {
