@@ -372,6 +372,10 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetUserItemsActivityAsync(query);
         }
+        public Task<IEnumerable<QuizDto>> GetUserQuizActivityAsync(GetUserWithFriendQuery query)
+        {
+            return m_ReadService.GetUserQuizActivityAsync(query);
+        }
 
 
         public Task<IEnumerable<UserWithImageNameDto>> GetUsersByTermAsync(ViewModel.Queries.Search.UserSearchQuery query)
@@ -392,9 +396,12 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(ViewModel.Queries.Dashboard.LeaderBoardQuery query)
+        public Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query)
         {
             return m_Cache.QueryAsync(m_ReadService.GetDashboardLeaderBoardAsync, query);
         }
+
+
+        
     }
 }

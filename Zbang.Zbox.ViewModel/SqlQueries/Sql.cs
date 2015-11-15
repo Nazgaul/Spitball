@@ -101,6 +101,26 @@ b.BoxId as boxId
     FETCH NEXT @rowsperpage ROWS ONLY;";
 
         /// <summary>
+        /// Used in user page to get quizzes common with current user
+        /// </summary>
+        public const string UserWithFriendQuizzes = @"select q.Id as id,
+q.url as Url,
+q.Name as name,
+q.Rate as rate,
+q.NumberOfViews as numOfViews
+                        from zbox.Quiz q 
+                        join zbox.box b on q.boxid = b.BoxId and b.IsDeleted = 0
+                        left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
+                        where q.UserId = @Myfriend
+                        and q.IsDeleted = 0
+						and q.Publish = 1
+                        and (b.PrivacySetting = 3 or 
+                         ub.UserId = @Me)
+                        order by q.Id desc
+    offset @pageNumber*@rowsperpage ROWS
+    FETCH NEXT @rowsperpage ROWS ONLY;";
+
+        /// <summary>
         ///  Used in user page to get question common with current user
         /// </summary>
         public const string UserWithFriendQuestion = @" select b.BoxName as boxName,q.Text as content, b.BoxId as boxId,

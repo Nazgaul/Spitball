@@ -816,6 +816,20 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public async Task<IEnumerable<Item.QuizDto>> GetUserQuizActivityAsync(GetUserWithFriendQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<Item.QuizDto>(Sql.Sql.UserWithFriendQuizzes, new
+                {
+                    Me = query.UserId,
+                    Myfriend = query.FriendId,
+                    pageNumber = query.PageNumber,
+                    rowsperpage = query.RowsPerPage
+                });
+            }
+        }
+
 
         public async Task<IEnumerable<Item.ItemDto>> GetUserItemsActivityAsync(GetUserWithFriendQuery query)
         {

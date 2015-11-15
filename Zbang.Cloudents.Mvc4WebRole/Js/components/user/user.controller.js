@@ -31,7 +31,7 @@
                 case self.state.post:
                     loadComment(true);
                 case self.state.quiz:
-                    //
+                    loadQuiz(true);
                 case self.state.friend:
                     loadFriends(true);
                 default:
@@ -46,7 +46,7 @@
                 case self.state.post:
                     return 'user-feed-template.html';
                 case self.state.quiz:
-                    //
+                    return 'quiz-template.html';
                 case self.state.friend:
                     return 'user-template.html';
                 default:
@@ -93,6 +93,24 @@
                 }
                 if (response.length) {
                     self.itemsLoading = false;
+                }
+
+            });
+        }
+        function loadQuiz(fromTab) {
+            if (haveData(fromTab, quiz)) {
+                return;
+            }
+
+            self.quizLoading = true;
+            userService.quiz($stateParams.userId, itemsPage).then(function (response) {
+               
+                quiz = quiz.concat(response);
+                if (self.tab === self.state.quiz) {
+                    self.elements = quiz;
+                }
+                if (response.length) {
+                    self.quizLoading = false;
                 }
 
             });

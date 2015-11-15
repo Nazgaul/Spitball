@@ -96,6 +96,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(result);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> Quiz(long id, int page)
+        {
+            var query = new GetUserWithFriendQuery(User.GetUserId(), id, page, 10);
+            var result = await ZboxReadService.GetUserQuizActivityAsync(query);
+            return JsonOk(result);
+        }
+
         [HttpPost]
         public async Task<ActionResult> GoogleContacts(string token)
         {
