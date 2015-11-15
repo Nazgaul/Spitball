@@ -307,13 +307,16 @@ em {
         background: #353a3f;
         padding: 10px;
         margin-bottom: 20px;
-        color: #8c99a6;
         font-size: 16px;
 
         li {
             margin: 0 20px 0 10px;
+            background: transparent;
+            color: #8c99a6;
+            outline: none;
 
-            &:hover {
+            &:hover, &:focus {
+                background: transparent;
                 color: #3598dc;
             }
 
@@ -324,5 +327,24 @@ em {
                 font-weight: bold;
                 color: #f5f5f5;
             }
+
+           &.active > a, &.active > a:hover, &.active > a:focus {
+               background: transparent;
+               border: 0;
+               font-weight: bold;
+               color: #f5f5f5;
+               cursor: auto;
+           }
+
+           & > a {
+               color: #8c99a6;
+               font-size: 16px;
+               border: none;
+
+               &:hover {
+                    color: #3598dc;
+                    border: none;
+               }
+           }
         }
     }

@@ -308,15 +308,20 @@ em {
   background: #353a3f;
   padding: 10px;
   margin-bottom: 20px;
-  color: #8c99a6;
   font-size: 16px;
 }
 .nav-tabs li,
 .tabbable li {
   margin: 0 10px 0 20px;
+  background: transparent;
+  color: #8c99a6;
+  outline: none;
 }
 .nav-tabs li:hover,
-.tabbable li:hover {
+.tabbable li:hover,
+.nav-tabs li:focus,
+.tabbable li:focus {
+  background: transparent;
   color: #3598dc;
 }
 .nav-tabs li.active,
@@ -328,4 +333,27 @@ em {
   border-bottom: 3px solid #3293f6;
   font-weight: bold;
   color: #f5f5f5;
+}
+.nav-tabs li.active > a,
+.tabbable li.active > a,
+.nav-tabs li.active > a:hover,
+.tabbable li.active > a:hover,
+.nav-tabs li.active > a:focus,
+.tabbable li.active > a:focus {
+  background: transparent;
+  border: 0;
+  font-weight: bold;
+  color: #f5f5f5;
+  cursor: auto;
+}
+.nav-tabs li > a,
+.tabbable li > a {
+  color: #8c99a6;
+  font-size: 16px;
+  border: none;
+}
+.nav-tabs li > a:hover,
+.tabbable li > a:hover {
+  color: #3598dc;
+  border: none;
 }
