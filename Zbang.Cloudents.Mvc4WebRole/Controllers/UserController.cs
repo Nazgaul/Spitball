@@ -24,20 +24,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("Index2");
         }
 
-        [NonAction]
-        private async Task<UserMinProfile> GetUserProfile(long userId)
-        {
-            var query = new GetUserMinProfileQuery(userId);
-            var result = await ZboxReadService.GetUserMinProfile(query);
-            return result;
-        }
+        //[NonAction]
+        //private async Task<UserMinProfile> GetUserProfile(long userId)
+        //{
+        //    var query = new GetUserMinProfileQuery(userId);
+        //    var result = await ZboxReadService.GetUserMinProfile(query);
+        //    return result;
+        //}
 
         [DonutOutputCache(VaryByParam = "id", Duration = TimeConsts.Hour)]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult> MinProfile(long id)
+        public async Task<ActionResult> ProfileStats(long id)
         {
-            return JsonOk(await GetUserProfile(id));
+            var query = new GetUserWithFriendQuery(User.GetUserId(), id);
+            var model = await ZboxReadService.GetUserProfileWithStatsAsync(query);
+            return JsonOk(model);
         }
 
         

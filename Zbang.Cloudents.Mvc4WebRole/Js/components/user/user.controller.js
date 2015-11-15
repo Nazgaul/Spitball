@@ -7,8 +7,8 @@
         var boxesPage = 0, friendPage = 0, itemsPage = 0, commentPage = 0;
         var friends = [], boxes = [], files = [], feed = [], quiz = [];
 
-        self.details = userData;
 
+        self.details = userData;
         self.state = {
             box: 'b',
             item: 'u',
@@ -20,6 +20,7 @@
         self.tab = self.state.box;
         self.elements = [];
 
+        ;
 
 
 
@@ -28,15 +29,25 @@
             switch (self.tab) {
                 case self.state.item:
                     loadItems(true);
+                    self.bootstrapClass = 'col-md-3';
+                    break;
                 case self.state.post:
                     loadComment(true);
+                    self.bootstrapClass = 'col-md-12';
+                    break;
                 case self.state.quiz:
                     loadQuiz(true);
+                    self.bootstrapClass = 'col-md-3';
+                    break;
                 case self.state.friend:
                     loadFriends(true);
+                    self.bootstrapClass = 'col-md-6';
+                    break;
                 default:
                     loadboxes(true);
+                    self.bootstrapClass = 'col-md-4';
             }
+            console.log(self.tab);
         }
 
         self.template = function () {

@@ -402,6 +402,12 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        
+
+
+
+        public Task<UserWithStats> GetUserProfileWithStatsAsync(GetUserWithFriendQuery query)
+        {
+            return m_ReadService.GetUserProfileWithStatsAsync(query);
+        }
     }
 }

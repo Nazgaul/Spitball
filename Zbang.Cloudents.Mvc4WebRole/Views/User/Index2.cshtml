@@ -50,25 +50,25 @@
                         <ul class="nav nav-tabs tabbable">
                             <li ng-class="{active: u.tab === u.state.box}">
                                 <button type="button" ng-click="u.changeTab(u.state.box)">
-                                    <h3>Classes</h3> 4
+                                    <h3>Classes</h3> {{::u.details.numClass | megaNumber}}
                                 </button>
                             </li>
                             <li ng-class="{active:u.tab === u.state.item}">
-                                <button type="button" ng-click="u.changeTab(u.state.item)"><h3>uploads</h3> 4</button>
+                                <button type="button" ng-click="u.changeTab(u.state.item)"><h3>uploads</h3> {{::u.details.numItem | megaNumber}}</button>
                             </li>
                             <li ng-class="{active: u.tab === u.state.post}">
-                                <button type="button" ng-click="u.changeTab(u.state.post)"><h3>posts</h3> 4</button>
+                                <button type="button" ng-click="u.changeTab(u.state.post)"><h3>posts</h3> {{::u.details.numFeed | megaNumber}}</button>
                             </li>
                             <li ng-class="{active: u.tab === u.state.quiz}">
-                                <button type="button" ng-click="u.changeTab(u.state.quiz)"><h3>quizzes</h3> 4</button>
+                                <button type="button" ng-click="u.changeTab(u.state.quiz)"><h3>quizzes</h3> {{::u.details.numQuiz | megaNumber}}</button>
                             </li>
                             <li ng-class="{active: u.tab === u.state.friend}">
-                                <button type="button" ng-click="u.changeTab(u.state.friend)"><h3>friends</h3> 4</button>
+                                <button type="button" ng-click="u.changeTab(u.state.friend)"><h3>friends</h3> {{::u.details.numFriend | megaNumber}}</button>
                             </li>
                         </ul>
                     </div>
                     <div class="row">
-                        <div ng-class="{'col-md-4':u.tab === u.state.box,'col-md-3':u.tab === u.state.item, 'col-md-12' : u.tab === u.state.post, 'col-md-3' : u.tab === u.state.quiz, 'col-md-2' : u.tab === u.state.friend }" ng-repeat="e in u.elements" ng-include="u.template()"></div>
+                        <div class="{{u.bootstrapClass}}" ng-repeat="e in u.elements" ng-include="u.template()"></div>
                     </div>
                 </div>
             </div>

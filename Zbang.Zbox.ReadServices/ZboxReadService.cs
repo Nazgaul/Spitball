@@ -544,6 +544,43 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+
+        /// <summary>
+        /// used in user page to get initial data
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public async Task<User.UserWithStats> GetUserProfileWithStatsAsync(GetUserWithFriendQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+              
+
+                using (var grid = await conn.QueryMultipleAsync(Sql.User.UserProfileWithStats, new
+                {
+                    Me = query.UserId,
+                    Myfriend = query.FriendId,
+                }))
+                {
+                    var retVal = grid.Read<User.UserWithStats>().FirstOrDefault();
+                    if (retVal != null)
+                    {
+                        retVal.NumClass = grid.Read<int>().FirstOrDefault();
+                        retVal.NumItem = grid.Read<int>().FirstOrDefault();
+                        retVal.NumFeed = grid.Read<int>().FirstOrDefault();
+                        retVal.NumQuiz = grid.Read<int>().FirstOrDefault();
+                        retVal.NumFriend = grid.Read<int>().FirstOrDefault();
+
+                    }
+                    return retVal;
+                }
+
+
+
+
+            }
+        }
+
         /// <summary>
         /// Get The country the user is in based on the ip address
         /// </summary>

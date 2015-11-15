@@ -81,7 +81,7 @@
                         height: elementHeight + 'px',
                         lineHeight: (elementHeight - borderWidth) + 'px'
                     });
-                    innerEl.text(scope.name[0]);
+                    innerEl.text(scope.name.trim()[0]);
                 }
 
                 function emptyState() {

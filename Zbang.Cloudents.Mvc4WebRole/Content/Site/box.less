@@ -286,7 +286,7 @@
 
 .member {
     display: block;
-    margin-bottom:20px;
+    margin-bottom: 20px;
     //override bootstrap
     a:hover {
         color: transparent;
@@ -322,12 +322,31 @@
             left: 0;
             bottom: 0;
             margin: auto;
-            font-size: 22px;
-            width: 33px;
-            height: 33px;
+            font-size: 20vw;
+            width: 20vw;
+            height: 20vw;
             text-align: center;
-            line-height: 33px;
+            line-height: 20vw;
             border: 1px solid @color2;
+
+            @media (min-width: 768px) {
+                font-size: 13vw;
+                width: 13vw;
+                height: 13vw;
+                line-height: 13vw;
+            }
+             @media (min-width: 992px) {
+                font-size: 8vw;
+                width: 8vw;
+                height: 8vw;
+                line-height: 8vw;
+            }
+             @media (min-width: 1200px) {
+                font-size: 5vw;
+                width: 5vw;
+                height: 5vw;
+                line-height: 5vw;
+            }
         }
     }
 
@@ -451,6 +470,7 @@
 }
 
 .item {
+    display: block;
     /*.base {
         border: 1px solid #42494F;
         padding: 5px 5px 0;
