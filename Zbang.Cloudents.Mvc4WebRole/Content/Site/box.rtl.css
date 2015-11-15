@@ -219,11 +219,15 @@
 .add-comment .anonymous:hover {
   fill: #F9F9F9;
 }
-.members a:hover {
+.member {
+  display: block;
+  margin-bottom: 20px;
+}
+.member a:hover {
   color: transparent;
   text-decoration: none;
 }
-.members .member-name {
+.member .member-name {
   color: #bababa;
   font-size: 15px;
   margin-right: 10px;
