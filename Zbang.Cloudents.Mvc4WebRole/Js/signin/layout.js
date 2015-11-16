@@ -50,7 +50,7 @@ var Layout = function () {
 
     // Handle sidebar menu links
     var handleSidebarMenuActiveLink = function(mode, el) {
-        var url = location.hash.toLowerCase();    
+        var url = location.pathname.toLowerCase();
 
         var menu = $('.page-sidebar-menu');
 
@@ -83,12 +83,16 @@ var Layout = function () {
         menu.find('li > a > .selected').remove();
 
         if (menu.hasClass('page-sidebar-menu-hover-submenu') === false) {
-            menu.find('li.open').each(function(){
-                if ($(this).children('.sub-menu').size() === 0) {
-                    $(this).removeClass('open');
-                    $(this).find('> a > .arrow.open').removeClass('open');
-                }                             
-            }); 
+            //menu.find('li.open').each(function(){
+            //    if ($(this).children('.sub-menu').size() === 0) {
+            //        $(this).removeClass('open');
+            //        $(this).find('> a > .arrow.open').removeClass('open');
+            //    }                             
+            //}); 
+            menu.find('li.open').each(function() {
+                $(this).removeClass('open');
+                $(this).find('> a > .arrow.open').removeClass('open');
+            });
         } else {
              menu.find('li.open').removeClass('open');
         }
@@ -562,7 +566,7 @@ var Layout = function () {
             handleSidebarToggler(); // handles sidebar hide/show
 
             if (Metronic.isAngularJsApp()) {      
-             //   handleSidebarMenuActiveLink('match'); // init sidebar active links 
+                handleSidebarMenuActiveLink('match'); // init sidebar active links 
             }
 
             Metronic.addResizeHandler(handleFixedSidebar); // reinitialize fixed sidebar on window resize

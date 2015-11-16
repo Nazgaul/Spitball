@@ -1,10 +1,10 @@
 ﻿(function () {
     angular.module('app.quiz').controller('QuizCreateController', quizCreate);
-    quizCreate.$inject = ['quizService', 'draft', 'boxUrl', '$stateParams', '$q', '$location'];
+    quizCreate.$inject = ['quizService', 'draft', 'boxUrl', '$stateParams', '$q', '$location', '$scope'];
 
 
 
-    function quizCreate(quizService, draft, boxUrl, $stateParams, $q, $location) {
+    function quizCreate(quizService, draft, boxUrl, $stateParams, $q, $location, $scope) {
         var self = this;
         self.boxUrl = boxUrl;
         draft = draft || {
@@ -12,6 +12,10 @@
         };
         self.name = draft.name;
         self.id = draft.id;
+
+        for (var k = draft.questions.length; k < 2; k++) {
+            draft.questions.push(new question);
+        }
 
         for (var i = 0; i < draft.questions.length; i++) {
             for (var j = draft.questions[i].answers.length; j < 2; j++) {
@@ -92,6 +96,9 @@
 
             });
         }
+        self.deleteAnswerShow = function (q) {
+            return q.answers.length > 2;
+        }
         self.deleteAnswer = function (q, a) {
             currentPromise.then(function () {
                 if (a.id) {
@@ -101,11 +108,22 @@
                     }
                     addToCurrent(quizService.deleteAnswer(a.id));
                     //a.id = null;
-                    var index = q.answers.indexOf(a);
 
-                    q.answers.splice(index, 1);
 
                 }
+                var index = q.answers.indexOf(a);
+                q.answers.splice(index, 1);
+            });
+        }
+        self.deleteQuestion = function (q) {
+            currentPromise.then(function () {
+
+                addToCurrent(quizService.deleteQuestion(q.id));
+                var index = self.questions.indexOf(q);
+
+                self.questions.splice(index, 1);
+
+
             });
         }
 
@@ -138,7 +156,9 @@
         self.addAnswer = function (q) {
             q.answers.push(new answer());
         }
-
+        //self.nextQuesiton = function(q) {
+        //    console.log(q);
+        //}
         self.publish = function () {
             if (!self.name) {
                 alert('need name');
@@ -173,6 +193,14 @@
         }
 
 
+        $scope.$on('question-ok', function (e, args) {
+            var q = self.questions.filter(function (obj) {
+                return obj.$$hashKey == args;
+            });
+            q[0].done = true;
+        });
+
+
     }
 
     function question() {
@@ -181,6 +209,7 @@
         q.id = null;
         q.correctAnswer = null;
         q.answers = [new answer(), new answer()];
+        q.done = false;
     }
 
     function answer() {

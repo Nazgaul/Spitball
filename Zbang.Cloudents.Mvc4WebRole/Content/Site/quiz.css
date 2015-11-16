@@ -1,29 +1,31 @@
 ﻿.quizPage {
   color: #383838;
+  /*header {
+        z-index: 1;
+        padding-top: 0;
+        position: relative;
+        .closeItem {
+            position: absolute;
+            right: 15px;
+            top: 24px;
+            margin: 0;
+        }
+        svg {
+            width: 17px;
+            height: 17px;
+            fill: #C2C2C2;
+        }
+
+
+        .fileName {
+            line-height: 60px;
+            color: @color2;
+            text-align:center;
+        }
+    }*/
 }
 .quizPage .itemContent {
   position: relative;
-}
-.quizPage header {
-  z-index: 1;
-  padding-top: 0;
-  position: relative;
-}
-.quizPage header .closeItem {
-  position: absolute;
-  right: 15px;
-  top: 24px;
-  margin: 0;
-}
-.quizPage header svg {
-  width: 17px;
-  height: 17px;
-  fill: #C2C2C2;
-}
-.quizPage header .fileName {
-  line-height: 60px;
-  color: #f5f5f5;
-  text-align: center;
 }
 .quizPage .center {
   margin-left: 333px;

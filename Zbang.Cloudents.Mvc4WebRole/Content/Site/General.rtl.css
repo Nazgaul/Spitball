@@ -116,10 +116,15 @@ a:focus {
   text-decoration: none;
 }
 ol {
-  -webkit-padding-start: 0;
+  padding: 0;
 }
 em {
   font-style: normal;
+}
+input,
+li,
+[contenteditable] {
+  outline: 0;
 }
 .userLetter {
   border-radius: 50%;
@@ -193,6 +198,30 @@ em {
   z-index: 1000;
   overflow-y: auto;
   background: #212427;
+  background: #F4F4F4;
+}
+.full-screen header {
+  height: 80px;
+  color: #f5f5f5;
+  background-color: #353a3f;
+  line-height: 80px;
+  position: fixed;
+  right: 0;
+  left: 0;
+  font-size: 20px;
+}
+.full-screen header .close {
+  position: absolute;
+  top: 20px;
+  left: 50px;
+}
+.full-screen header .close svg {
+  width: 20px;
+  height: 20px;
+  fill: #C2C2C2;
+}
+.full-screen .full-screen-body {
+  margin-top: 80px;
 }
 [ui-view] {
   /*-moz-transform-origin: ~"100% 100%";

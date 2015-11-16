@@ -57,11 +57,15 @@ a {
 }
 
 ol {
-    -webkit-padding-start: 0;
+   padding: 0;
 }
 
 em {
     font-style: normal;
+}
+
+input, li, [contenteditable] {
+    outline: 0;
 }
 
 //user image letter
@@ -161,6 +165,34 @@ em {
     z-index: 1000;
     overflow-y: auto;
     background: @backgroundColor;
+    background: #F4F4F4;
+
+    header {
+        height: @fullScreenHeaderHeight;
+        color: @color2;
+        background-color: @color4;
+        line-height: @fullScreenHeaderHeight;
+        position: fixed;
+        left: 0;
+        right: 0;
+        font-size: 20px;
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 50px;
+
+            svg {
+                width: 20px;
+                height: 20px;
+                fill: #C2C2C2;
+            }
+        }
+    }
+
+    .full-screen-body {
+        margin-top: @fullScreenHeaderHeight;
+    }
 }
 
 
@@ -302,49 +334,49 @@ em {
 }
 
 .nav-tabs, .tabbable {
-        border-bottom: none;
-        border-radius: 5px;
-        background: #353a3f;
-        padding: 10px;
-        margin-bottom: 20px;
-        font-size: 16px;
+    border-bottom: none;
+    border-radius: 5px;
+    background: #353a3f;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
 
-        li {
-            margin: 0 20px 0 10px;
+    li {
+        margin: 0 20px 0 10px;
+        background: transparent;
+        color: #8c99a6;
+        outline: none;
+
+        &:hover, &:focus {
             background: transparent;
+            color: #3598dc;
+        }
+
+        &.active, &:active {
+            background: transparent;
+            border: 0;
+            border-bottom: 3px solid #3293f6;
+            font-weight: bold;
+            color: #f5f5f5;
+        }
+
+        &.active > a, &.active > a:hover, &.active > a:focus {
+            background: transparent;
+            border: 0;
+            font-weight: bold;
+            color: #f5f5f5;
+            cursor: auto;
+        }
+
+        & > a {
             color: #8c99a6;
-            outline: none;
+            font-size: 16px;
+            border: none;
 
-            &:hover, &:focus {
-                background: transparent;
+            &:hover {
                 color: #3598dc;
+                border: none;
             }
-
-           &.active, &:active {
-                background: transparent;
-                border: 0;
-                border-bottom: 3px solid #3293f6;
-                font-weight: bold;
-                color: #f5f5f5;
-            }
-
-           &.active > a, &.active > a:hover, &.active > a:focus {
-               background: transparent;
-               border: 0;
-               font-weight: bold;
-               color: #f5f5f5;
-               cursor: auto;
-           }
-
-           & > a {
-               color: #8c99a6;
-               font-size: 16px;
-               border: none;
-
-               &:hover {
-                    color: #3598dc;
-                    border: none;
-               }
-           }
         }
     }
+}

@@ -79,6 +79,11 @@
                 id: answerId
             });
         }
+        s.deleteQuestion = function (questionId) {
+            return ajaxservice.post('/quiz/deletequestion/', {
+                id: questionId
+            });
+        }
         s.publish = function(quizId) {
             return ajaxservice.post('/quiz/save/', {
                 quizId: quizId

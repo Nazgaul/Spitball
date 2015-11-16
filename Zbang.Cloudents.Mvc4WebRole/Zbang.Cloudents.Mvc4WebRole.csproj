@@ -1688,6 +1688,18 @@
     <Content Include="Content\Site\user.rtl.min.css">
       <DependentUpon>user.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\variables.css">
+      <DependentUpon>variables.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\variables.min.css">
+      <DependentUpon>variables.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\variables.rtl.css">
+      <DependentUpon>variables.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\variables.rtl.min.css">
+      <DependentUpon>variables.rtl.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\3rdParty\logo_120_4_google.png" />
@@ -1816,6 +1828,7 @@
     </Content>
     <Content Include="Images\Site\BG.png" />
     <Content Include="Images\Site\correct_wrong.png" />
+    <Content Include="Images\Site\quizCreateIcons.svg" />
     <Content Include="Images\Site\quizIcons.svg" />
     <Content Include="Images\Site\itemIcons.svg" />
     <Content Include="Images\Site\icons.svg" />

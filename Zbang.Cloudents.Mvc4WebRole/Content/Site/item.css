@@ -1,17 +1,5 @@
-﻿.itemPage {
-  background: #F4F4F4;
-}
-.itemPage header {
-  height: 60px;
-  color: #f5f5f5;
-  background-color: #353a3f;
-  padding-top: 20px;
-  position: fixed;
-  left: 0;
-  right: 0;
-}
-.itemPage header a {
-  margin: 22.5px 15px 0 15px;
+﻿.itemPage header a {
+  margin: 0 15px;
   height: 17px;
   width: 17px;
 }
@@ -19,9 +7,6 @@
   width: 17px;
   height: 17px;
   fill: #C2C2C2;
-}
-.itemPage .itemContent {
-  margin-top: 60px;
 }
 .itemPage .fileName {
   text-align: center;

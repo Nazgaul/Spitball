@@ -6,9 +6,7 @@
     }
 
     .supported {
-        margin: 20px auto 60px;
-        background: #fff;
-        border-radius: 10px;
+        margin: @fullScreenHeaderHeight + 80px auto;
         color: #9d9d9d;
         width: 800px;
         padding: 10px 15px 0;
@@ -22,15 +20,8 @@
             color: #464646;
             background-color: #fff;
             border: 1px solid #c2c2c2;
-        }
-
-        ol {
-            list-style-position: inside;
-            -webkit-padding-start: 0; //override
-
-            .answers {
-                padding-left: 0;
-            }
+            border-radius: 0;
+            margin-bottom: 20px;
         }
     }
 
@@ -44,14 +35,10 @@
         }
     }
     //duplicate of quiz.less
-    header {
+    /*header {
         position: relative;
 
-        /*svg {
-            width: 30px;
-            height: 30px;
-            fill: #fff;
-        }*/
+       
 
         .close {
             position: absolute;
@@ -63,6 +50,19 @@
             color: #39f;
             font-size: 20px;
             padding: 7px 30px 0 30px;
+        }
+    }*/
+    .portlet.box > .portlet-body {
+        background-color: #fff;
+        padding: 10px;
+    }
+
+
+    .tools {
+        svg {
+            width: 18px;
+            height: 18px;
+            fill: #fff;
         }
     }
 
@@ -88,12 +88,21 @@
 
 
     .ta-toolbar {
-        display: none;
-        background: grey;
-        padding-top: 5px;
+        // display: none;
+        background: #cfd1cf;
+        padding: 8px 0;
         margin: 0; //override on bootstrap
         .btn-group {
-            
+            border: 1px solid #a6a6a6;
+        }
+
+        button {
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            border-radius: 0;
+            border: 0;
+            background: #e4e4e4;
         }
 
         &.focussed {
@@ -107,20 +116,15 @@
         }
     }
 
-    .answers-header {
-        color: #9d9d9d;
-        margin: 3px 5px 0 0;
-    }
 
-    .answer {
-        margin-bottom: 5px;
-    }
 
     .ta-file {
-        @heightContent: 38px;
-        width: 43px;
+        @heightContent: 28px;
+        width: 28px;
         height: @heightContent;
         padding: 0;
+        border: 0;
+
 
         input[type=file], input[type=color] {
             width: 100%;
@@ -134,8 +138,135 @@
             top: 0;
             left: 0;
             pointer-events: none;
-            background: #fff;
+            background: #e4e4e4;
             line-height: @heightContent;
+        }
+    }
+
+
+    .answers-header {
+        color: #9d9d9d;
+        margin: 3px 5px 0 0;
+    }
+
+    @heightOfAnswer: 25px;
+
+    ol {
+        margin: 0;
+        list-style-type: none;
+        counter-reset: section;
+
+        li {
+            counter-increment: step-counter;
+        }
+
+        .counter {
+            &:before {
+                width: @heightOfAnswer;
+                height: @heightOfAnswer;
+                content: counter(step-counter, upper-alpha);
+                background: #4190B9;
+                color: white;
+                vertical-align: middle;
+                display: inline-block;
+                line-height: 25px;
+                padding-left: 8px;
+            }
+
+            &:after {
+                content: '';
+                display: inline-block;
+                border-top: @heightOfAnswer solid #4190B9;
+                border-right: 10px solid transparent;
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .answer {
+        margin-bottom: 5px;
+
+        div {
+            display: inline-block;
+            border: 1px solid #4190B9;
+            width: 70%;
+
+            input {
+                border: 0;
+                height: @heightOfAnswer;
+                line-height: @heightOfAnswer - 1px;
+                width: ~"calc(100% - 35px)";
+                margin-left: -4px;
+                padding-left: 15px;
+            }
+        }
+
+        svg {
+            width: 20px;
+            height: 20px;
+            fill: grey;
+            vertical-align: middle;
+        }
+
+        button {
+            display: none;
+        }
+
+        &:hover {
+            button {
+                display: inline-block;
+            }
+        }
+    }
+
+    .error {
+        [contenteditable="true"] {
+            border: 1px solid #FF0000;
+            background: #FFD0C5;
+        }
+
+        .counter {
+            &:before {
+                background: #FF0000;
+            }
+
+            &:after {
+                border-top-color: #FF0000;
+                border-right-color: #FFD0C5;
+            }
+        }
+
+        .answer div {
+            border-color: #FF0000;
+        }
+
+        .ng-invalid {
+            background: #FFD0C5;
+        }
+
+        .error-text {
+            display: inline;
+        }
+    }
+
+    .error-text {
+        display: none;
+        color: #ff0000;
+    }
+
+    .add-answer {
+        .counter {
+            &:before {
+                background: #B7B7B7;
+            }
+
+            &:after {
+                border-top-color: #B7B7B7;
+            }
+        }
+
+        div {
+            border-color: #B7B7B7;
         }
     }
 }
