@@ -65,3 +65,24 @@
 .userPage .header .r-table-cell {
   text-align: center;
 }
+.userPage .nav-tabs,
+.userPage .tabbable {
+  padding: 0;
+}
+.userPage .nav-tabs button,
+.userPage .tabbable button {
+  font-size: 25px;
+  padding-bottom: 5px;
+}
+.userPage .nav-tabs h3,
+.userPage .tabbable h3 {
+  font-size: 13px;
+  margin: 12px 0 8px 0;
+}
+.userPage .nav-tabs li:active h3,
+.userPage .tabbable li:active h3 {
+  color: #8c99a6;
+}
+.userPage .portlet.light {
+  padding: 0;
+}
