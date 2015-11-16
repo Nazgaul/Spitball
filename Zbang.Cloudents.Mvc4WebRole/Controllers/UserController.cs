@@ -49,7 +49,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var friendQuery = new GetUserFriendsQuery(id, page, 10);
+                var friendQuery = new GetUserFriendsQuery(id, page, 20);
                 var friendData = await ZboxReadService.GetUserFriendsAsync(friendQuery);
 
                 return JsonOk(friendData);
@@ -68,7 +68,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var query = new GetUserWithFriendQuery(User.GetUserId(), id, page, 10);
+                var query = new GetUserWithFriendQuery(User.GetUserId(), id, page, 20);
                 var model = await ZboxReadService.GetUserBoxesActivityAsync(query);
                 return JsonOk(model);
             }
@@ -83,7 +83,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<ActionResult> Comment(long id, int page)
         {
-            var query = new GetUserWithFriendQuery(User.GetUserId(), id, page, 10);
+            var query = new GetUserWithFriendQuery(User.GetUserId(), id, page, 20);
             var model = await ZboxReadService.GetUserCommentActivityAsync(query);
 
 
@@ -93,7 +93,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<ActionResult> Items(long id, int page)
         {
-            var query = new GetUserWithFriendQuery(User.GetUserId(), id, page, 10);
+            var query = new GetUserWithFriendQuery(User.GetUserId(), id, page, 20);
             var result = await ZboxReadService.GetUserItemsActivityAsync(query);
             return JsonOk(result);
         }
@@ -101,7 +101,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<ActionResult> Quiz(long id, int page)
         {
-            var query = new GetUserWithFriendQuery(User.GetUserId(), id, page, 10);
+            var query = new GetUserWithFriendQuery(User.GetUserId(), id, page, 20);
             var result = await ZboxReadService.GetUserQuizActivityAsync(query);
             return JsonOk(result);
         }
