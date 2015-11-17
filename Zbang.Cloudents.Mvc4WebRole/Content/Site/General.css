@@ -233,6 +233,17 @@ li,
 .r-table-cell {
   display: table-cell;
 }
+.counter {
+  counter-reset: section;
+  list-style-type: none;
+  margin: 0;
+}
+.counter .counter-inc {
+  counter-increment: step-counter;
+}
+.counter .counter-view:before {
+  content: counter(step-counter, upper-alpha);
+}
 [ui-view] {
   /*-moz-transform-origin: ~"100% 100%";
     -ms-transform-origin: ~"100% 100%";

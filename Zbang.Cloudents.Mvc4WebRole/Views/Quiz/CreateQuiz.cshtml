@@ -16,41 +16,56 @@
 </div>
 
 <script type="text/ng-template" id="create-quiz-question-template.html">
-    <div id="{{question.$$hashKey}}" ng-form="questionForm" class="portlet box blue">
+    <div id="{{question.$$hashKey}}" ng-form="questionForm" class="portlet box blue create-question">
         <div class="portlet-title">
             <div class="caption">Question #{{$index + 1}}</div>
             <div class="tools">
-                <button type="button" ng-click="q.deleteQuestion(question)">@Html.Svg("~/images/site/quizcreateicons.svg", "delete")</button>
+                <button type="button" ng-show="q.deleteQuestionShow()" ng-click="q.deleteQuestion(question)">@Html.Svg("~/images/site/quizcreateicons.svg", "delete")</button>
             </div>
         </div>
         <div class="portlet-body">
             <div placeholder="write your question" ng-blur="q.saveQuestion(question)" text-angular ta-text-editor-class="question-content" ng-model="question.text" data-ng-required></div>
             <div class="answers-header">Answers:</div>
             <span class="correct-answer-error">correct answer</span>
-            <ol>
-                <li class="answer" ng-repeat="answer in question.answers">
+            <ol class ="counter">
+                <li class="answer counter-inc" ng-repeat="answer in question.answers">
                     <div>
-                        <span class="counter"></span>
+                        <span class="counter-view"></span>
                         <input type="text" required ng-model="answer.text" ng-blur="q.saveAnswer(question,answer)" placeholder="Answer {{$index + 1}}" />
                     </div>
                     <input required type="radio" name="question {{$parent.$index}}" ng-disabled="!answer.text.length" ng-click="q.markcorrect(question,answer)" ng-checked="answer.id === question.correctAnswer" />
                     <button type="button" ng-show="q.deleteAnswerShow(question)" ng-click="q.deleteAnswer(question,answer)">@Html.Svg("~/images/site/quizcreateicons.svg", "delete")</button>
                     <span class="error-answer-msg">Add answer</span>
                 </li>
-                <li class="answer add-answer" ng-click="q.addAnswer(question)">
+                <li class="answer add-answer counter-inc" ng-click="q.addAnswer(question)">
                     <div>
-                        <span class="counter"></span>
+                        <span class="counter-view"></span>
                         <input type="text" placeholder="add an answer" />
                     </div>
                     <input disabled type="radio" />
                 </li>
-            </ol>
+            </olclass>
         </div>
     </div>
 </script>
 
 <script type="text/ng-template" id="quiz-question-template.html">
-    <li>
-        <div ng-bind-html="::question.text"></div>
-    </li>
+    <div class="quiz-question">
+        <div class="q">
+            <span class="index">{{$index + 1}}.</span>
+            <div class="q-body" ng-bind-html="::question.text"></div>
+            <div class="q-actions">
+                <button type="button" ng-click="q.editQuestion(question)">@Html.Svg("~/images/site/quizcreateicons.svg", "pencil")</button>
+                <button type="button" ng-show="q.deleteQuestionShow()" ng-click="q.deleteQuestion(question)">@Html.Svg("~/images/site/quizcreateicons.svg", "delete")</button>
+            </div>
+        </div>
+        <ol class ="counter">
+            <li class="counter-inc" ng-repeat="answer in question.answers">
+                <span class="counter-view"></span>
+                <div class="a-body">
+                    {{::answer.text}}
+                </div>
+            </li>
+        </olclass>
+    </div>
 </script>

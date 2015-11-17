@@ -18,12 +18,12 @@
         }
 
         for (var i = 0; i < draft.questions.length; i++) {
-            var q = draft.questions[i];
-            if (isQuestionOk(q)) {
-                q.done = true;
+            var q1 = draft.questions[i];
+            if (isQuestionOk(q1)) {
+                q1.done = true;
             }
-            for (var j = q.answers.length; j < 2; j++) {
-                q.answers.push(new answer());
+            for (var j = q1.answers.length; j < 2; j++) {
+                q1.answers.push(new answer());
             }
         }
         function isQuestionOk(q) {
@@ -130,6 +130,12 @@
                 q.answers.splice(index, 1);
             });
         }
+        self.editQuestion = function(q) {
+            q.done = false;
+        }
+        self.deleteQuestionShow = function() {
+            return self.questions.length > 1;
+        }
         self.deleteQuestion = function (q) {
             currentPromise.then(function () {
 
@@ -171,9 +177,7 @@
         self.addAnswer = function (q) {
             q.answers.push(new answer());
         }
-        //self.nextQuesiton = function(q) {
-        //    console.log(q);
-        //}
+       
        
 
         self.publish = function () {

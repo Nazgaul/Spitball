@@ -58,7 +58,25 @@
     }
 
 
-    .tools {
+   
+
+
+   
+
+
+   
+
+
+
+    
+
+
+    
+
+    
+}
+.create-question {
+     .tools {
         svg {
             width: 18px;
             height: 18px;
@@ -66,12 +84,7 @@
         }
     }
 
-    .quiz-name {
-        width: 100%;
-        margin: 10px 0 17px;
-        height: 32px;
-        font-size: 17px;
-    }
+  
 
     .question {
         border: 1px solid #c2c2c2;
@@ -142,48 +155,31 @@
             line-height: @heightContent;
         }
     }
+     @heightOfAnswer: 25px;
+    .counter-view {
+        &:before {
+            width: @heightOfAnswer;
+            height: @heightOfAnswer;
+            background: #4190B9;
+            color: white;
+            vertical-align: middle;
+            display: inline-block;
+            line-height: 25px;
+            padding-left: 8px;
+        }
 
-
-    .answers-header {
+        &:after {
+            content: '';
+            display: inline-block;
+            border-top: @heightOfAnswer solid #4190B9;
+            border-right: 10px solid transparent;
+            vertical-align: middle;
+        }
+    }
+     .answers-header {
         display: inline-block;
         width: 70%;
     }
-
-
-    @heightOfAnswer: 25px;
-
-    ol {
-        margin: 0;
-        list-style-type: none;
-        counter-reset: section;
-
-        li {
-            counter-increment: step-counter;
-        }
-
-        .counter {
-            &:before {
-                width: @heightOfAnswer;
-                height: @heightOfAnswer;
-                content: counter(step-counter, upper-alpha);
-                background: #4190B9;
-                color: white;
-                vertical-align: middle;
-                display: inline-block;
-                line-height: 25px;
-                padding-left: 8px;
-            }
-
-            &:after {
-                content: '';
-                display: inline-block;
-                border-top: @heightOfAnswer solid #4190B9;
-                border-right: 10px solid transparent;
-                vertical-align: middle;
-            }
-        }
-    }
-
     .answer {
         margin-bottom: 5px;
 
