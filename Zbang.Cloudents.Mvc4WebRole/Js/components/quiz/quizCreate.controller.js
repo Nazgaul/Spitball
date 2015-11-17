@@ -18,9 +18,24 @@
         }
 
         for (var i = 0; i < draft.questions.length; i++) {
-            for (var j = draft.questions[i].answers.length; j < 2; j++) {
-                draft.questions[i].answers.push(new answer());
+            var q = draft.questions[i];
+            if (isQuestionOk(q)) {
+                q.done = true;
             }
+            for (var j = q.answers.length; j < 2; j++) {
+                q.answers.push(new answer());
+            }
+        }
+        function isQuestionOk(q) {
+            if (q.text && q.correctAnswer && q.answers.length > 1) {
+                for (var j = 0; j < q.answers.length; j++) {
+                    if (!q.answers[j].text) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
         }
 
         self.questions = draft.questions;
@@ -159,6 +174,8 @@
         //self.nextQuesiton = function(q) {
         //    console.log(q);
         //}
+       
+
         self.publish = function () {
             if (!self.name) {
                 alert('need name');

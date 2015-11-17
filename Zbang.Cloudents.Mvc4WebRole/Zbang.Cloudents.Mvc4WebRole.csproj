@@ -1955,6 +1955,7 @@
     <Content Include="Js\components\box\box.routes.js" />
     <Content Include="Js\components\dashboard\createBox.controller.js" />
     <Content Include="Js\components\item\externalProviderUpload.service.js" />
+    <Content Include="Js\components\quiz\nextQuestion.js" />
     <Content Include="Js\components\quiz\quiz.routes.js" />
     <Content Include="Js\components\quiz\quizCreate.controller.js" />
     <Content Include="Js\components\search\search.service.js" />
