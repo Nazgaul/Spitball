@@ -18,9 +18,13 @@
         }
 
         function del() {
-            quizService.deleteQuiz(quizId).then(function() {
-                draft();
-            });
+            if (quizId) {
+                quizService.deleteQuiz(quizId).then(function() {
+                    draft();
+                });
+                return;
+            }
+            draft();
         }
     }
 })()

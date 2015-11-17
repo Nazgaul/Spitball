@@ -4,6 +4,7 @@
 
     function quizzes(boxService, $stateParams, $location) {
         var q = this;
+        q.params = $stateParams;
         boxService.getQuizzes($stateParams.boxId).then(function (response) {
             for (var i = 0; i < response.length; i++) {
                 var quiz = response[i];

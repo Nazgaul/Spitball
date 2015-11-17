@@ -12,6 +12,9 @@
             </ul>
         </div>
         <ul class="row list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+            <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 item-animate item-create" ng-click="b.toggleUpload(true)">
+                upload files
+            </li>
             <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 item-animate" ng-repeat="e in i.items track by e.id " ng-include="'item-template.html'"></li>
         </ul>
     </div>

@@ -8,7 +8,7 @@
 <div class="class">
     <div class="page-head">
         <div class="page-title">
-            <h1>{{b.name}}</h1>
+            <h1>{{b.data.name}}</h1>
         </div>
     </div>
     <div class="row">
@@ -26,6 +26,6 @@
         </div>
     </div>
     <div ui-view></div>
-    <button type="button" class="add" ng-click="b.toggleUpload()" ng-show="b.uploadShow">+</button>
+    <button type="button" class="add" ng-click="b.toggleUpload(true)" ng-show="b.uploadShow">+</button>
 </div>
 

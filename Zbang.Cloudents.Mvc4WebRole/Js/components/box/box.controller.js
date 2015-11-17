@@ -8,10 +8,11 @@
             $state.go('box.feed');
         }
         var b = this;
-
-        b.name = boxData.name;
-        b.professorName = boxData.professorName;
-        b.courseId = boxData.courseId;
+        b.data = boxData;
+        
+        //b.name = boxData.name;
+        //b.professorName = boxData.professorName;
+        //b.courseId = boxData.courseId;
 
 
         b.inviteToBox = function () {
@@ -25,10 +26,11 @@
 
         b.uploadOn = false;
         b.uploadShow = isItemState($state.current.name);
-        b.toggleUpload = function () {
+        b.toggleUpload = function (open) {
 
-            b.uploadShow = !b.uploadShow;
-            b.uploadOn = !b.uploadOn;
+            b.uploadShow = !open;
+            b.uploadOn = open;
+
             $scope.$broadcast('open_upload');
         }
 
