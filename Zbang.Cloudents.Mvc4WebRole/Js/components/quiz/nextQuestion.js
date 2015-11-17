@@ -25,11 +25,7 @@
                                 questionElem.find('.ta-root').addClass('error').find('[contenteditable="true"]').focus();
                                 return;
                             }
-                            if (!q[0].correctAnswer) {
-                                questionElem.find('.correct-answer-error').addClass('error');
-                                questionElem.find('input[type=radio]:first').focus();
-                                return;
-                            }
+                           
 
 
 
@@ -37,6 +33,11 @@
                             if (elements.length) {
                                 elements.parents('.answer').addClass('error');
                                 elements[0].focus();
+                                return;
+                            }
+                            if (!q[0].correctAnswer) {
+                                questionElem.find('.correct-answer-error').addClass('error');
+                                questionElem.find('input[type=radio]:first').focus();
                                 return;
                             }
                             scope.$broadcast('question-ok', id);

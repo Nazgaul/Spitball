@@ -51,6 +51,25 @@
   background-color: #fff;
   padding: 10px;
 }
+.quiz-create .form-control[disabled] {
+  border: 0;
+  background: transparent;
+  color: #4190B9;
+  cursor: default;
+  width: calc(100% - 32px);
+  display: inline-block;
+}
+.quiz-create .form-control[disabled] + button {
+  display: inline-block;
+}
+.quiz-create .form-control + button {
+  display: none;
+}
+.quiz-create .form-control + button svg {
+  width: 16px;
+  height: 16px;
+  fill: #B7B7B7;
+}
 .create-question .tools svg {
   width: 18px;
   height: 18px;
@@ -151,7 +170,7 @@
 .create-question .answer svg {
   width: 20px;
   height: 20px;
-  fill: grey;
+  fill: #B7B7B7;
   vertical-align: middle;
 }
 .create-question .answer button {
@@ -167,10 +186,10 @@
   border: 1px solid #FF0000;
   background: #FFD0C5;
 }
-.create-question .error .counter:before {
+.create-question .error .counter-view:before {
   background: #FF0000;
 }
-.create-question .error .counter:after {
+.create-question .error .counter-view:after {
   border-top-color: #FF0000;
   border-right-color: #FFD0C5;
 }
@@ -195,10 +214,10 @@
   display: none;
   color: #ff0000;
 }
-.create-question .add-answer .counter:before {
+.create-question .add-answer .counter-view:before {
   background: #B7B7B7;
 }
-.create-question .add-answer .counter:after {
+.create-question .add-answer .counter-view:after {
   border-top-color: #B7B7B7;
 }
 .create-question .add-answer div {

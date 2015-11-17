@@ -539,8 +539,11 @@
   border: 1px solid #B7B7B7;
   background: #fff;
   color: #000;
-  padding: 15px;
+  padding: 26px;
   margin: 10px 0;
+}
+.quiz-question p {
+  margin: 0;
 }
 .quiz-question .index {
   color: #4190B9;
@@ -550,17 +553,19 @@
 }
 .quiz-question .q-body {
   width: 100%;
+  margin-bottom: 20px;
 }
 .quiz-question .q-actions {
-  display: none;
+  display: flex;
+  visibility: hidden;
 }
 .quiz-question .q-actions svg {
-  width: 25px;
-  height: 25px;
+  width: 16px;
+  height: 16px;
   fill: #676767;
 }
 .quiz-question:hover .q-actions {
-  display: flex;
+  visibility: visible;
 }
 .quiz-question li {
   padding: 10px 0;
@@ -571,10 +576,11 @@
   border: 2px solid #4190B9;
   color: #4190B9;
   font-size: 20px;
-  padding: 10px 14px;
+  padding: 10px 20px;
 }
 .quiz-question .a-body {
   border-bottom: 1px solid #4190B9;
   width: 100%;
-  padding: 15px;
+  padding: 15px 10px 20px;
+  margin-left: 50px;
 }

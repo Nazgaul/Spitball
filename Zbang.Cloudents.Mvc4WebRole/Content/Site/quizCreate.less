@@ -57,26 +57,33 @@
         padding: 10px;
     }
 
+    .form-control {
+        &[disabled] {
+            border: 0;
+            background: transparent;
+            color: #4190B9;
+            cursor: default;
+            width: ~"calc(100% - 32px)";
+            display:inline-block;
+            + button {
+                display: inline-block;
+            }
+        }
 
-   
+        + button {
+            svg {
+                width: 16px;
+                height: 16px;
+                fill: #B7B7B7;
+            }
 
-
-   
-
-
-   
-
-
-
-    
-
-
-    
-
-    
+            display: none;
+        }
+    }
 }
+
 .create-question {
-     .tools {
+    .tools {
         svg {
             width: 18px;
             height: 18px;
@@ -84,7 +91,7 @@
         }
     }
 
-  
+
 
     .question {
         border: 1px solid #c2c2c2;
@@ -155,7 +162,9 @@
             line-height: @heightContent;
         }
     }
-     @heightOfAnswer: 25px;
+
+    @heightOfAnswer: 25px;
+
     .counter-view {
         &:before {
             width: @heightOfAnswer;
@@ -176,10 +185,12 @@
             vertical-align: middle;
         }
     }
-     .answers-header {
+
+    .answers-header {
         display: inline-block;
         width: 70%;
     }
+
     .answer {
         margin-bottom: 5px;
 
@@ -201,7 +212,7 @@
         svg {
             width: 20px;
             height: 20px;
-            fill: grey;
+            fill: #B7B7B7;
             vertical-align: middle;
         }
 
@@ -226,7 +237,7 @@
             background: #FFD0C5;
         }
 
-        .counter {
+        .counter-view {
             &:before {
                 background: #FF0000;
             }
@@ -266,7 +277,7 @@
     }
 
     .add-answer {
-        .counter {
+        .counter-view {
             &:before {
                 background: #B7B7B7;
             }
