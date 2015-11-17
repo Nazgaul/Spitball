@@ -30,17 +30,7 @@
                 q1.answers.push(new answer());
             }
         }
-        function isQuestionOk(q) {
-            if (q.text && q.correctAnswer && q.answers.length > 1) {
-                for (var j = 0; j < q.answers.length; j++) {
-                    if (!q.answers[j].text) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-            return false;
-        }
+       
 
         self.questions = draft.questions;
 
@@ -48,11 +38,38 @@
         defer.resolve();
         var currentPromise = defer.promise;
 
+        
+
+        self.saveName = saveName;
+        self.saveNameOnBlur = saveNameOnBlur;
+        self.saveQuestion = saveQuestion;
+        self.saveAnswer = saveAnswer;
+        self.deleteAnswerShow = deleteAnswerShow;
+        self.deleteAnswer = deleteAnswer;
+        self.editQuestion = editQuestion;
+        self.deleteQuestionShow = deleteQuestionShow;
+        self.deleteQuestion = deleteQuestion;
+
+        self.markcorrect = markcorrect;
+        self.addQuestion = addQuestion;
+        self.addAnswer = addAnswer;
+        self.template = template;
+        self.publish = publish;
+        function isQuestionOk(q) {
+            if (q.text && q.correctAnswer && q.answers.length > 1) {
+                for (var s = 0; s < q.answers.length; s++) {
+                    if (!q.answers[s].text) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
         function addToCurrent(promise) {
             currentPromise.then(promise);
         }
-
-        self.saveName = function () {
+        function saveName() {
             if (self.id) {
                 addToCurrent(quizService.updateQuiz(self.id, self.name));
             } else {
@@ -61,7 +78,7 @@
                 }));
             }
         };
-        self.saveNameOnBlur = function () {
+        function saveNameOnBlur() {
             if (self.id) {
                 return;
             }
@@ -70,7 +87,7 @@
             }));
 
         }
-        self.saveQuestion = function (q) {
+        function saveQuestion(q) {
             currentPromise.then(function () {
                 if (!q.id) {
                     addToCurrent(quizService.createQuestion(self.id, q.text).then(function (response) {
@@ -83,7 +100,7 @@
             });
 
         }
-        self.saveAnswer = function (q, a) {
+        function saveAnswer(q, a) {
 
             currentPromise.then(function () {
                 if (!a.text) {
@@ -115,10 +132,10 @@
 
             });
         }
-        self.deleteAnswerShow = function (q) {
+        function deleteAnswerShow(q) {
             return q.answers.length > 2;
         }
-        self.deleteAnswer = function (q, a) {
+        function deleteAnswer(q, a) {
             currentPromise.then(function () {
                 if (a.id) {
 
@@ -134,13 +151,13 @@
                 q.answers.splice(index, 1);
             });
         }
-        self.editQuestion = function (q) {
+        function editQuestion(q) {
             q.done = false;
         }
-        self.deleteQuestionShow = function () {
+        function deleteQuestionShow() {
             return self.questions.length > 1;
         }
-        self.deleteQuestion = function (q) {
+        function deleteQuestion(q) {
             currentPromise.then(function () {
 
                 addToCurrent(quizService.deleteQuestion(q.id));
@@ -151,46 +168,26 @@
 
             });
         }
+        function markcorrect(q, a) {
 
-        self.markcorrect = function (q, a) {
-            //if (!q.id) {
-            //    quizService.createQuestion(self.id, q.text).then(function (response) {
-            //        q.id = response;
-            //        quizService.createAnswer(q.id, a.text).then(function (response2) {
-            //            a.id = response2;
-            //            quizService.markCorrect(a.id);
-            //        });
-            //    });
-            //    return;
-            //}
-            //if (!a.id) {
-            //    quizService.createAnswer(q.id, a.text).then(function (response2) {
-            //        a.id = response2;
-            //        quizService.markCorrect(a.id);
-            //    });
-            //    return;
-            //}
             currentPromise.then(function () {
                 q.correctAnswer = a.id;
                 addToCurrent(quizService.markCorrect(a.id));
             });
         }
-        self.addQuestion = function () {
+        function addQuestion() {
             self.questions.push(new question());
         };
-        self.addAnswer = function (q) {
+        function addAnswer(q) {
             q.answers.push(new answer());
         }
-
-
-
-        self.publish = function () {
+        function publish() {
             if (!self.name) {
                 alert('need name');
                 return;
             }
-            for (var k = 0; k < self.questions.length; k++) {
-                var q = self.questions[k];
+            for (var v = 0; v < self.questions.length; v++) {
+                var q = self.questions[v];
                 if (!q.text) {
                     alert('need question text');
                     return;
@@ -217,7 +214,8 @@
             });
         }
 
-        self.template = function (q) {
+
+        function template(q) {
             if (q.done) {
                 return 'quiz-question-template.html';
             }
@@ -252,7 +250,7 @@
                 if (response === 'publish') {
                     self.publish();
                 }
-                
+
                 //    start();
                 //}, function () {
                 //    afraid();
@@ -273,7 +271,6 @@
         var a = this;
         a.id = null;
         a.text = '';
-        //a.rightAnswer = false;
     }
 
 })();
