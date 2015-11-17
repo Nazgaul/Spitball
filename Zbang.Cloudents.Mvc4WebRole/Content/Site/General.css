@@ -209,6 +209,7 @@ li,
   left: 0;
   right: 0;
   font-size: 20px;
+  z-index: 5;
 }
 .full-screen header .close {
   position: absolute;
@@ -222,6 +223,15 @@ li,
 }
 .full-screen .full-screen-body {
   margin-top: 80px;
+}
+.r-table {
+  display: table;
+}
+.r-table-row {
+  display: table-row;
+}
+.r-table-cell {
+  display: table-cell;
 }
 [ui-view] {
   /*-moz-transform-origin: ~"100% 100%";
@@ -265,16 +275,6 @@ li,
   /*-webkit-transform: translate3d(0.1, 0.1, 0.1);
         -moz-transform: translate3d(0.1, 0.1, 0.1);
         transform: translate3d(0.1, 0.1, 0.1);*/
-}
-.search-form {
-  -moz-transition: all linear .5s;
-  -o-transition: all linear .5s;
-  -webkit-transition: all linear .5s;
-  transition: all linear .5s;
-  opacity: 1;
-}
-.search-form.ng-hide {
-  opacity: 0;
 }
 /*.portlet.box > .portlet-title {
     margin-left: -10px;

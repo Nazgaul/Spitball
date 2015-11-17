@@ -20,32 +20,34 @@
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {
-                    //console.log(scope);
-                    //console.log(attrs);
-
-                    //element.focus(function() {
-                    //    console.log('here');
-                    //})
                     var id;
-                    //console.log(id);
+
                     element[0].addEventListener('focus', function (e) {
                         var elem = $(e.target).parents('.portlet'),
                         tempId = elem.attr('id');
-                        //console.log(e.target, attrs.nextQuestion, id);
                         if (!id) {
                             id = tempId;
                             return;
                         }
                         if (id !== tempId) {
 
-                            var questionElem = $(document.getElementById(id));
+                            var q = scope.q.questions.filter(function (obj) {
+                                return obj.$$hashKey == id;
+                            });
+                           
                             element.find('.error').removeClass('error');
-                            var questionElement = questionElem.find('[contenteditable="true"]');
-                            if (!questionElement.text()) {
-                                questionElement.parents('.ta-root').addClass('error');
-                                questionElement.focus();
+                            var questionElem = $(document.getElementById(id));
+                            if (!q[0].text) {
+                                questionElem.find('.ta-root').addClass('error').find('[contenteditable="true"]').focus();
                                 return;
                             }
+                            if (!q[0].correctAnswer) {
+                                questionElem.find('.correct-answer-error').addClass('error');
+                                questionElem.find('input[type=radio]:first').focus();
+                                return;
+                            }
+                           
+                          
 
                             var elements = questionElem.find('.ng-invalid');
                             if (elements.length) {
@@ -54,7 +56,6 @@
                                 return;
                             }
                             scope.$broadcast('question-ok',id);
-                            console.log('here');
                             id = tempId;
                         }
                     }, true);

@@ -67,7 +67,7 @@
         self.saveAnswer = function (q, a) {
 
             currentPromise.then(function () {
-                if (a.text === '') {
+                if (!a.text) {
                     if (a.id) {
                         if (q.correctAnswer === a.id) {
                             q.correctAnswer = null;
@@ -192,6 +192,12 @@
             });
         }
 
+        self.template = function (q) {
+            if (q.done) {
+                return 'quiz-question-template.html';
+            }
+            return 'create-quiz-question-template.html';
+        }
 
         $scope.$on('question-ok', function (e, args) {
             var q = self.questions.filter(function (obj) {

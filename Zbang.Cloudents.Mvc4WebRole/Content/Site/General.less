@@ -57,7 +57,7 @@ a {
 }
 
 ol {
-   padding: 0;
+    padding: 0;
 }
 
 em {
@@ -176,7 +176,7 @@ input, li, [contenteditable] {
         left: 0;
         right: 0;
         font-size: 20px;
-
+        z-index: 5;
         .close {
             position: absolute;
             top: 20px;
@@ -195,6 +195,17 @@ input, li, [contenteditable] {
     }
 }
 
+.r-table {
+    display: table;
+}
+
+.r-table-row {
+    display: table-row;
+}
+
+.r-table-cell {
+    display: table-cell;
+}
 
 [ui-view] {
     /*-moz-transform-origin: ~"100% 100%";
@@ -249,21 +260,7 @@ input, li, [contenteditable] {
 }
 
 
-.search-form {
-    -moz-transition: all linear .5s;
-    -o-transition: all linear .5s;
-    -webkit-transition: all linear .5s;
-    transition: all linear .5s;
-    opacity: 1;
-}
 
-.search-form.ng-hide {
-    //line-height: 0;
-    opacity: 0;
-    //width:0;
-    //height:0;
-    //padding: 0 10px;
-}
 
 
 

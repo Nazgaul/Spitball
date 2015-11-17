@@ -23,18 +23,15 @@
   margin-right: 10px;
 }
 .leaderboad .r-table {
-  display: table;
   text-align: center;
   font-size: 12px;
   width: 100%;
 }
 .leaderboad .r-table-row {
-  display: table-row;
   height: 40px;
   line-height: 40px;
 }
 .leaderboad .r-table-cell {
-  display: table-cell;
   width: calc(100% - 75px);
   text-align: left;
 }

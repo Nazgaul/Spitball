@@ -9,37 +9,42 @@
 
         <span>Course: Name</span>
         <input class="form-control" type="text" placeholder="Enter quiz name" autofocus required ng-model="q.name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
-        <div id="{{question.$$hashKey}}" ng-form="questionForm" class="portlet box blue" ng-repeat="question in q.questions" ng-blur="q.nextQuesiton(question)">
-            <div class="portlet-title">
-                <div class="caption">Question #{{$index + 1}}</div>
-                <div class="tools">
-                    <button type="button" ng-click="q.deleteQuestion(question)">@Html.Svg("~/images/site/quizcreateicons.svg", "delete")</button>
-                </div>
-            </div>
-            <div class="portlet-body">
-                <div placeholder="write your question" ng-blur="q.saveQuestion(question)" text-angular ta-text-editor-class="question-content" ng-model="question.text" data-ng-required></div>
-                <div class="answers-header">Answers:</div>
-                <ol>
-                    <li class="answer" ng-repeat="answer in question.answers">
-                        <div>
-                            <span class="counter"></span>
-                            <input type="text" required ng-model="answer.text" ng-blur="q.saveAnswer(question,answer)" placeholder="Answer {{$index + 1}}" />
-                        </div>
-                        <input required type="radio" name="question {{$parent.$index}}" ng-disabled="!answer.text.length" ng-click="q.markcorrect(question,answer)" ng-checked="answer.id === question.correctAnswer" />
-                        <button type="button" ng-show="q.deleteAnswerShow(question)" ng-click="q.deleteAnswer(question,answer)">@Html.Svg("~/images/site/quizcreateicons.svg", "delete")</button>
-                        <span class="error-text">Add answer</span>
-                    </li>
-                    <li class="answer add-answer" ng-click="q.addAnswer(question)">
-                        <div>
-                            <span class="counter"></span>
-                            <input type="text" placeholder="add an answer" />
-                        </div>
-                        <input disabled type="radio" />
-                    </li>
-                </ol>
-            </div>
-        </div>
+        <div ng-repeat="question in q.questions" ng-include="q.template(question)"></div>
         <button type="button" ng-click="q.addQuestion()">+ add question</button>
         <button type="button" ng-click="q.publish()" class="btn btn-primary">publish</button>
     </div>
 </div>
+
+<script type="text/ng-template" id="create-quiz-question-template.html">
+    <div id="{{question.$$hashKey}}" ng-form="questionForm" class="portlet box blue">
+        <div class="portlet-title">
+            <div class="caption">Question #{{$index + 1}}</div>
+            <div class="tools">
+                <button type="button" ng-click="q.deleteQuestion(question)">@Html.Svg("~/images/site/quizcreateicons.svg", "delete")</button>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div placeholder="write your question" ng-blur="q.saveQuestion(question)" text-angular ta-text-editor-class="question-content" ng-model="question.text" data-ng-required></div>
+            <div class="answers-header">Answers:</div>
+            <span class="correct-answer-error">correct answer</span>
+            <ol>
+                <li class="answer" ng-repeat="answer in question.answers">
+                    <div>
+                        <span class="counter"></span>
+                        <input type="text" required ng-model="answer.text" ng-blur="q.saveAnswer(question,answer)" placeholder="Answer {{$index + 1}}" />
+                    </div>
+                    <input required type="radio" name="question {{$parent.$index}}" ng-disabled="!answer.text.length" ng-click="q.markcorrect(question,answer)" ng-checked="answer.id === question.correctAnswer" />
+                    <button type="button" ng-show="q.deleteAnswerShow(question)" ng-click="q.deleteAnswer(question,answer)">@Html.Svg("~/images/site/quizcreateicons.svg", "delete")</button>
+                    <span class="error-answer-msg">Add answer</span>
+                </li>
+                <li class="answer add-answer" ng-click="q.addAnswer(question)">
+                    <div>
+                        <span class="counter"></span>
+                        <input type="text" placeholder="add an answer" />
+                    </div>
+                    <input disabled type="radio" />
+                </li>
+            </ol>
+        </div>
+    </div>
+</script>

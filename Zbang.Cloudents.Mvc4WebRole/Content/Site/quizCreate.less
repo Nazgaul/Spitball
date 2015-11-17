@@ -145,9 +145,10 @@
 
 
     .answers-header {
-        color: #9d9d9d;
-        margin: 3px 5px 0 0;
+        display: inline-block;
+        width: 70%;
     }
+
 
     @heightOfAnswer: 25px;
 
@@ -212,6 +213,10 @@
             display: none;
         }
 
+        input[type=radio] {
+            margin: 0 15px;
+        }
+
         &:hover {
             button {
                 display: inline-block;
@@ -244,12 +249,22 @@
             background: #FFD0C5;
         }
 
-        .error-text {
+        .error-answer-msg {
             display: inline;
         }
     }
 
-    .error-text {
+    .correct-answer-error {
+        display: none;
+        color: #ff0000;
+        width: 50px;
+
+        &.error {
+            display: inline-block;
+        }
+    }
+
+    .error-answer-msg {
         display: none;
         color: #ff0000;
     }
