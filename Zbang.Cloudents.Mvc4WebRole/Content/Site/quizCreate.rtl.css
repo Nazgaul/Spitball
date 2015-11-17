@@ -223,3 +223,29 @@
 .create-question .add-answer div {
   border-color: #B7B7B7;
 }
+.modal-backdrop.quiz-create-backdrop {
+  opacity: 0.9;
+}
+.quiz-create-window {
+  position: fixed;
+}
+.quiz-create-window.modal.in .modal-dialog {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  -moz-transform: translate(50%, -50%);
+  -ms-transform: translate(50%, -50%);
+  -o-transform: translate(50%, -50%);
+  -webkit-transform: translate(50%, -50%);
+  transform: translate(50%, -50%);
+}
+.quiz-create-window .modal-content {
+  background: transparent;
+  color: #fff;
+  box-shadow: none;
+  border: 0;
+  text-align: center;
+}
+.quiz-create-window h4 {
+  color: #F76446;
+}

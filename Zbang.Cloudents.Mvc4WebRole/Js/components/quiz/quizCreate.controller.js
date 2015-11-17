@@ -1,10 +1,10 @@
 ﻿(function () {
     angular.module('app.quiz').controller('QuizCreateController', quizCreate);
-    quizCreate.$inject = ['quizService', 'draft', 'boxUrl', '$stateParams', '$q', '$location', '$scope'];
+    quizCreate.$inject = ['quizService', 'draft', 'boxUrl', '$stateParams', '$q', '$location', '$scope', '$uibModal'];
 
 
 
-    function quizCreate(quizService, draft, boxUrl, $stateParams, $q, $location, $scope) {
+    function quizCreate(quizService, draft, boxUrl, $stateParams, $q, $location, $scope, $uibModal) {
         var self = this;
         self.boxUrl = boxUrl;
         draft = draft || {
@@ -14,9 +14,12 @@
         self.quizNameDisabled = self.name.length;
         self.id = draft.id;
 
+        self.openClose = openClose;
+
         for (var k = draft.questions.length; k < 2; k++) {
             draft.questions.push(new question);
         }
+
 
         for (var i = 0; i < draft.questions.length; i++) {
             var q1 = draft.questions[i];
@@ -131,10 +134,10 @@
                 q.answers.splice(index, 1);
             });
         }
-        self.editQuestion = function(q) {
+        self.editQuestion = function (q) {
             q.done = false;
         }
-        self.deleteQuestionShow = function() {
+        self.deleteQuestionShow = function () {
             return self.questions.length > 1;
         }
         self.deleteQuestion = function (q) {
@@ -178,8 +181,8 @@
         self.addAnswer = function (q) {
             q.answers.push(new answer());
         }
-       
-       
+
+
 
         self.publish = function () {
             if (!self.name) {
@@ -228,7 +231,33 @@
             q[0].done = true;
         });
 
+        function openClose() {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'quiz-create-leave-template.html',
+                controller: 'quizCreateCloseController as c',
+                backdrop: 'static',
+                keyboard: false,
+                backdropClass: 'quiz-create-backdrop',
+                windowClass: 'quiz-create-window',
+                resolve: {
+                    boxUrl: function () { return self.boxUrl; },
+                    quizId: function () {
+                        return self.id;
+                    }
+                }
+            });
 
+            modalInstance.result.then(function (response) {
+                if (response === 'publish') {
+                    self.publish();
+                }
+                
+                //    start();
+                //}, function () {
+                //    afraid();
+            });
+        };
     }
 
     function question() {

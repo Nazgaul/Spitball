@@ -89,5 +89,11 @@
                 quizId: quizId
             });
         }
+
+        s.deleteQuiz = function(quizId) {
+            return ajaxservice.post('/quiz/delete/', {
+                id: quizId
+            });
+        }
     }
 })();
