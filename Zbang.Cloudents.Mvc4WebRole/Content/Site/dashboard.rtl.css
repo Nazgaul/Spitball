@@ -87,7 +87,7 @@
 .dashboard .universityLink:focus {
   color: inherit;
 }
-.dashboard .create-box {
+.dashboard .create-box .dashboard-stat2 {
   border: 2px solid #7d8894;
   background: transparent;
   color: #A8B3BB;
@@ -145,4 +145,12 @@
   color: #db4437;
   order: 3;
   margin-top: 10px;
+}
+@media only screen and (max-width: 768px) {
+  .dashboard .create-box {
+    display: none;
+  }
+}
+.dashboard .create-box-show {
+  display: block;
 }

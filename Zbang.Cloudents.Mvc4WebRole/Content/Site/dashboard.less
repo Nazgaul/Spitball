@@ -97,10 +97,13 @@
 
     .create-box {
         @color-create-box: #7D8894;
-        border: 2px solid @color-create-box;
-        background: transparent;
-        color: #A8B3BB;
-        padding-bottom: 10px;
+
+        .dashboard-stat2 {
+            border: 2px solid @color-create-box;
+            background: transparent;
+            color: #A8B3BB;
+            padding-bottom: 10px;
+        }
 
         .create-btn {
             display: flex;
@@ -125,7 +128,7 @@
 
         md-input-container {
             padding-bottom: 2px;
-            margin-bottom: 20px
+            margin-bottom: 20px;
         }
 
         md-input-container .md-input {
@@ -156,6 +159,14 @@
             order: 3;
             margin-top: 10px;
         }
+
+        @media only screen and (max-width : 768px) {
+            display: none;
+        }
+    }
+
+    .create-box-show {
+        display: block;
     }
 }
 //create class
