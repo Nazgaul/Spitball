@@ -10,7 +10,7 @@
         draft = draft || {
             questions: [new question(), new question()]
         };
-        self.name = draft.name;
+        self.name = draft.name || '';
         self.quizNameDisabled = self.name.length;
         self.id = draft.id;
 
