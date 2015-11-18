@@ -8,13 +8,26 @@
         <button type="button" ng-click="app.back(q.boxUrl)" class="close">@Html.Svg("~/images/site/icons.svg", "close")</button>
     </header>
     <div>
-        <div class="hidden-sm hidden-xs arrows prev" >
+
+        <div class="hidden-sm hidden-xs arrows prev" ng-if="q.state === 2 || q.state === 4">
             <button type="button" ng-click="q.back()" ng-show="q.index > 0 && q.index < q.questions.length">
                 @Html.Svg(svgUrl, "arrow")
-            </button> 
+            </button>
         </div>
         <div class="wrapper">
-            <div class="stop-watch-wrapper">
+            <div ng-if="q.state === 4">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <button type="button" ng-click="q.retakequiz()">retake quiz</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">{{q.sheet.score}}</div>
+                    <div class="col-md-4">{{q.sheet.correct}} {{q.sheet.wrong}}</div>
+                    <div class="col-md-4">{{q.sheet.timeTaken}}</div>
+                </div>
+            </div>
+            <div class="stop-watch-wrapper" ng-if="q.state !== 4">
                 <stopwatch control="q.timerControl"></stopwatch>
                 <button type="button" class="stopwatch-btn" ng-click="q.start()">
                     <div ng-if="q.timerControl.isRunning">
@@ -33,8 +46,32 @@
                     </div>
                 </div>
             </div>
-            <div ng-if="q.index < q.questions.length" ng-include="'quiz-question-template.html'" ng-repeat="question in ::q.questions"></div>
-            <div ng-if="q.index === q.questions.length">
+            <div ng-if="q.state === 1">
+                Time to take a quiz
+
+            </div>
+            <div class="quiz-wrapper" ng-class="q.isCorrect(q.questions[q.index])" ng-if="q.state === 2 || q.state === 4">
+                <div class="no-answer-element">no answer given</div>
+                <div ng-if="q.index < q.questions.length" ng-include="'quiz-question-template.html'" ng-repeat="question in ::q.questions"></div>
+                <div ng-if="q.isSolved">
+                    <form ng-submit="q.postComment(q.questions[q.index])">
+                        <textarea ng-model="q.questions[q.index].newComment"></textarea>
+                        <button type="submit">post</button>
+                    </form>
+                    <ol class="list-unstyled feed">
+                        <li class="comment reply" ng-repeat="post in q.questions[q.index].comments">
+                            <div class="top">
+                                <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="48" height="48"></user-image>
+                                <span class="user-name">{{::post.userName}}</span>
+
+                                <div ng-bind-html="::post.content" class="content-text"></div>
+                            </div>
+                            <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:m'}}</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div ng-if="q.state === 3">
                 <h2>Good job</h2>
                 <div>you have completed the quiz</div>
                 <div>you have answered {{q.answersCount}}/{{::q.questions.length}}</div>
@@ -42,8 +79,10 @@
                 <button type="button" ng-click="q.checkAnswers()">Submit</button>
             </div>
         </div>
-        <div class="hidden-sm hidden-xs arrows next">
-            <button type="button" ng-show="q.index < q.questions.length" ng-click="q.next()">@Html.Svg(svgUrl, "arrow")</button> 
+        <div class="hidden-sm hidden-xs arrows next" ng-if="q.state === 2 || q.state === 4">
+            <button type="button" ng-show="(q.state === 2 && q.index < q.questions.length) || (q.state === 4 && q.index < q.questions.length - 1)" ng-click="q.next()">
+                @Html.Svg(svgUrl, "arrow")
+            </button>
         </div>
     </div>
     @*<div class="itemContent">
@@ -160,7 +199,7 @@
 </div>
 
 
-@{Html.RenderPartial("_QuizChallenge");}
+@*@{Html.RenderPartial("_QuizChallenge");}*@
 
 <script type="text/ng-template" id="quiz-question-template.html">
     <div class="quiz-question" ng-show="$index === q.index">
@@ -170,7 +209,7 @@
         </div>
         <ol class="counter">
             <li class="counter-inc" ng-repeat="answer in ::question.answers">
-                <button type="button" class="counter-view" ng-class="{'answer-selected' : question.selectedAnswer === answer}" ng-click="q.selectAnswer(question,answer)"></button>
+                <button type="button" ng-disabled="q.isSolved" class="counter-view" ng-class="{'answer-selected' : question.selectedAnswer === answer, 'correct-answer': q.isCorrectAnswer(question,answer)}" ng-click="q.selectAnswer(question,answer)"></button>
                 <div class="a-body">
                     {{::answer.text}}
                 </div>

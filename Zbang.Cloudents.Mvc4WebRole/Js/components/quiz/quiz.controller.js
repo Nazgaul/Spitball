@@ -2,37 +2,44 @@
     angular.module('app.quiz').controller('QuizController', quiz);
 
     //quiz.$inject = ['$scope', '$stateParams', 'quizService', '$sce', '$location', '$timeout', '$filter', 'userDetails', 'data'];
-    quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter'];
+    quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter', 'userDetails'];
 
     // function quiz($scope, $stateParams, quizService, $sce, $location, $timeout, $filter, userDetails, quizData) {
-    function quiz(quizData, $timeout, $stateParams, quizService, $filter) {
-        var q = this;
+    function quiz(quizData, $timeout, $stateParams, quizService, $filter, userDetails) {
 
+        var q = this;
+        q.states = {
+            before: 1,
+            solving: 2,
+            complete: 3,
+            solved: 4
+        };
+        q.state = q.states.before;
         q.timerControl = {};
-        //q.isSolved = false;
+        q.isSolved = false;
         q.answersCount = 0;
 
         //q.createId = getId;
         q.checkAnswers = checkAnswers;
-        //q.start = start;
+        q.start = start;
         q.selectAnswer = selectAnswer;
-        //q.isCorrect = isQuestionCorrect;
-        //q.isCorrectAnswer = isCorrectAnswer;
+        q.isCorrect = isQuestionCorrect;
+        q.isCorrectAnswer = isCorrectAnswer;
         //q.isSelectedAnswer = isSelectedAnswer;
         //q.buttonText = getButtonText;
-        //q.retakeQuiz = retakeQuiz;
-        //q.postComment = postComment;
-        //q.removeComment = removeComment;
+        q.retakeQuiz = retakeQuiz;
+        q.postComment = postComment;
+        q.removeComment = removeComment;
         q.next = next;
         q.back = back;
 
-        //userDetails.get().then(function (data) {
-        //    q.user = {
-        //        id: data.id,
-        //        name: data.name,
-        //        image: data.image
-        //    };
-        //});
+        userDetails.get().then(function (data) {
+            q.user = {
+                id: data.id,
+                name: data.name,
+                image: data.image
+            };
+        });
 
         //$scope.$on('$destroy', function () {
         //    $uibModalStack.dismissAll();
@@ -42,26 +49,31 @@
         q.name = quizData.quiz.name;
         q.questions = quizData.quiz.questions;
         q.index = 0;
-        //q.sheet = quizData.sheet;
-        //q.topUsers = quizData.quiz.topUsers;
+        q.sheet = quizData.sheet;
+        q.topUsers = quizData.quiz.topUsers;
         q.boxUrl = quizData.quiz.boxUrl;
 
 
-        //if (q.sheet != null) {
-        //    setResults();
-        //    getDiscussion();
-        //    q.isSolved = true;
-        //    q.timerControl.setTime(q.sheet.timeTaken);
+        if (q.sheet != null) {
+            setResults();
+            getDiscussion();
+            q.isSolved = true;
+            q.state = q.states.solved;
+            //$timeout(function() {
+            //q.timerControl.setTime(q.sheet.timeTaken);
+            if (q.sheet.timeTaken.indexOf('.') > -1) { //00:00:00.12345
+                q.sheet.timeTaken = q.sheet.timeTaken.split('.')[0];
+            }
+            //}, 5000);
+            //
 
-        //    q.sheet.correct = Math.round(q.sheet.score / 100 * q.questions.length);
-        //    q.sheet.wrong = q.questions.length - q.sheet.correct;
+            q.sheet.correct = Math.round(q.sheet.score / 100 * q.questions.length);
+            q.sheet.wrong = q.questions.length - q.sheet.correct;
 
-        //    if (q.sheet.timeTaken.indexOf('.') > -1) { //00:00:00.12345
-        //        q.sheet.timeTaken = q.sheet.timeTaken.split('.')[0];
-        //    }
 
-        //    return;
-        //}
+
+            return;
+        }
 
         //$timeout(function () {
         //    var modalInstance = $uibModal.open({
@@ -93,13 +105,12 @@
                 q.timerControl.pause();
                 return;
             }
-            //if (q.isSolved) {
-            //    q.isSolved = false;
-            //    reset();
-            //    q.timerControl.reset();
-            //    q.timerControl.start();
-            //    return;
-            //}
+            if (q.isSolved) {
+                reset();
+                q.timerControl.reset();
+                q.timerControl.start();
+                return;
+            }
 
             q.timerControl.start();
 
@@ -107,6 +118,7 @@
 
         function afraid() {
             q.isSolved = true;
+            q.state = q.states.solved;
             solveQuiz();
         }
 
@@ -128,10 +140,10 @@
 
         function reset() {
             q.isSolved = false;
+            q.state = q.states.solving;
             q.answersCount = 0;
             q.sheet = {};
             angular.forEach(q.questions, function (v) {
-
                 v.isCorrect = undefined;
                 v.selectedAnswer = null;
             });
@@ -170,7 +182,7 @@
                         }
 
                         answer = question.answers[j];
-                        selectAnswer(question, answer);
+                        assignAnswerToQuestion(question, answer);
                     }
                 }
             });
@@ -178,6 +190,7 @@
 
         function checkAnswers() {
             q.isSolved = true;
+            q.state = q.states.solved;
             q.timerControl.pause();
             sendData();
             getDiscussion();
@@ -206,7 +219,7 @@
                 return null;
             }
             if (angular.isUndefined(question.isCorrect)) {
-                return 'noAnswer';
+                return 'no-answer';
             }
             return question.isCorrect ? 'correct' : 'wrong';
 
@@ -220,32 +233,40 @@
 
         function isCorrectAnswer(question, answer) {
             if (!q.isSolved) {
-                return null;
+                return false;
             }
 
-            return question.correctAnswer == answer.id ? 'correct' : null;
+            return question.correctAnswer == answer.id ? true : false;
         }
 
         function selectAnswer(question, answer) {
             if (q.isSolved) {
                 return;
             }
-            question.selectedAnswer = answer;
-            question.isCorrect = question.correctAnswer == answer.id;
-            q.answersCount++;
+            assignAnswerToQuestion(question, answer);
 
             $timeout(function () {
                 next();
             }, 1500);
         }
 
+        function assignAnswerToQuestion(question, answer) {
+            question.selectedAnswer = answer;
+            question.isCorrect = question.correctAnswer == answer.id;
+            q.answersCount++;
+        }
+
 
 
 
         function next() {
-            //if (q.questions.length - 1 > q.index) {
+            if (q.questions.length - 1 > q.index) {
                 q.index++;
-            //}
+            } else {
+                if (q.state === q.states.solving) {
+                    q.state = q.states.complete;
+                }
+            }
         }
         function back() {
             if (q.index > 0) {
@@ -257,7 +278,7 @@
             var data = {
                 boxId: $stateParams.boxId,
                 quizId: $stateParams.quizId,
-                numberOfMilliseconds: q.timerControl.getTime()
+                // numberOfMilliseconds: q.timerControl.getTime()
             };
 
             data.answers = [];

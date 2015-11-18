@@ -693,12 +693,56 @@
         }
     }
 }*/
-.quiz-question {
+.quiz-wrapper {
   border: 1px solid #B7B7B7;
   background: #fff;
   color: #000;
   padding: 26px;
   margin: 10px 0;
+}
+.quiz-wrapper .no-answer-element {
+  display: none;
+  text-align: center;
+  background: red;
+  color: white;
+  font-size: 20px;
+}
+.quiz-wrapper.no-answer .no-answer-element {
+  display: block;
+}
+.quiz-wrapper.no-answer .correct-answer {
+  background: #4190B9;
+  color: #fff;
+}
+.quiz-wrapper.no-answer .correct-answer:before {
+  content: '\2714';
+}
+.quiz-wrapper.wrong .answer-selected {
+  background: red;
+}
+.quiz-wrapper.wrong .answer-selected:before {
+  content: '\2716';
+}
+.quiz-wrapper.wrong .correct-answer {
+  background: green;
+  color: #fff;
+}
+.quiz-wrapper.wrong .correct-answer:before {
+  content: '\2714';
+}
+.quiz-wrapper.correct .correct-answer {
+  background: green;
+  color: #fff;
+}
+.quiz-wrapper.correct .correct-answer:before {
+  content: '\2714';
+}
+.quiz-question {
+  /*border: 1px solid #B7B7B7;
+    background: #fff;
+    color: #000;
+    padding: 26px;
+    margin: 10px 0;*/
 }
 .quiz-question p {
   margin: 0;
