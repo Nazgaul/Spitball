@@ -53,7 +53,7 @@
         q.topUsers = quizData.quiz.topUsers;
         q.boxUrl = quizData.quiz.boxUrl;
 
-
+        q.afraid = afraid;
         if (q.sheet != null) {
             setResults();
             getDiscussion();
@@ -69,11 +69,12 @@
 
             q.sheet.correct = Math.round(q.sheet.score / 100 * q.questions.length);
             q.sheet.wrong = q.questions.length - q.sheet.correct;
-
-
-
             return;
         }
+        quizService.getNumberOfSolvers({ quizId: $stateParams.quizId }).then(function(response) {
+            q.topUsers = response.users;
+            q.classmatesCount = response.solversCount;
+        });
 
         //$timeout(function () {
         //    var modalInstance = $uibModal.open({
