@@ -133,7 +133,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var query = new GetDisscussionQuery(quizId);
             var model = await ZboxReadService.GetDiscussion(query);
-            return Json(new JsonResponse(true, model));
+            return Json(new JsonResponse(true, model.Select(s=> new
+            {
+                CreationTime = s.Date,
+                s.Id,
+                s.QuestionId,
+                Content = s.Text,
+                s.UserId,
+                s.UserName,
+                UserImage = s.UserPicture
+            })));
         }
 
 
