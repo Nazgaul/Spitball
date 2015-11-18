@@ -234,8 +234,8 @@
                 animation: true,
                 templateUrl: 'quiz-create-leave-template.html',
                 controller: 'quizCreateCloseController as c',
-                backdrop: 'static',
-                keyboard: false,
+                //backdrop: 'static',
+                //keyboard: false,
                 backdropClass: 'quiz-create-backdrop',
                 windowClass: 'quiz-create-window',
                 resolve: {

@@ -15,14 +15,6 @@
             margin: 0 20px;
             width: ~"calc(100% - 40px)";
         }
-
-        .form-control {
-            color: #464646;
-            background-color: #fff;
-            border: 1px solid #c2c2c2;
-            border-radius: 0;
-            margin-bottom: 20px;
-        }
     }
 
     @media only screen and (max-width : 768px) {
@@ -34,30 +26,20 @@
             display: none;
         }
     }
-    //duplicate of quiz.less
-    /*header {
-        position: relative;
 
-       
-
-        .close {
-            position: absolute;
-            right: 10px;
-            top: 0;
-        }
-
-        .create-quiz-header {
-            color: #39f;
-            font-size: 20px;
-            padding: 7px 30px 0 30px;
-        }
-    }*/
     .portlet.box > .portlet-body {
         background-color: #fff;
         padding: 10px;
     }
 
+
     .form-control {
+        color: #464646;
+        background-color: #fff;
+        border: 1px solid #c2c2c2;
+        border-radius: 0;
+        margin-bottom: 20px;
+
         &[disabled] {
             border: 0;
             background: transparent;
@@ -94,12 +76,12 @@
 
 
 
-    .question {
+    /*.question {
         border: 1px solid #c2c2c2;
         border-radius: 3px;
         margin-bottom: 10px;
         padding: 12px;
-    }
+    }*/
 
     .question-content {
         border: 1px solid #c2c2c2;
@@ -109,7 +91,7 @@
 
 
     .ta-toolbar {
-        // display: none;
+        display: none;
         background: #cfd1cf;
         padding: 8px 0;
         margin: 0; //override on bootstrap
@@ -249,7 +231,7 @@
             }
         }
 
-        .answer div {
+        &.answer div {
             border-color: #FF0000;
         }
 
