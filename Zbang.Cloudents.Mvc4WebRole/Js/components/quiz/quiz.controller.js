@@ -1,86 +1,91 @@
 ﻿(function () {
     angular.module('app.quiz').controller('QuizController', quiz);
 
-    quiz.$inject = ['$scope', '$stateParams', 'quizService', '$sce', '$location', '$timeout', '$uibModal', '$uibModalStack', '$filter', 'userDetails'];
+    //quiz.$inject = ['$scope', '$stateParams', 'quizService', '$sce', '$location', '$timeout', '$filter', 'userDetails', 'data'];
+    quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter'];
 
-    function quiz($scope, $stateParams, quizService, $sce, $location, $timeout, $uibModal, $uibModalStack, $filter, userDetails) {
+    // function quiz($scope, $stateParams, quizService, $sce, $location, $timeout, $filter, userDetails, quizData) {
+    function quiz(quizData, $timeout, $stateParams, quizService, $filter) {
         var q = this;
 
         q.timerControl = {};
-        q.isSolved = false;
+        //q.isSolved = false;
         q.answersCount = 0;
 
-        q.createId = getId;
+        //q.createId = getId;
         q.checkAnswers = checkAnswers;
-        q.start = start;
+        //q.start = start;
         q.selectAnswer = selectAnswer;
-        q.isCorrect = isQuestionCorrect;
-        q.isCorrectAnswer = isCorrectAnswer;
-        q.isSelectedAnswer = isSelectedAnswer;
-        q.buttonText = getButtonText;
-        q.retakeQuiz = retakeQuiz;
-        q.postComment = postComment;
-        q.removeComment = removeComment;
+        //q.isCorrect = isQuestionCorrect;
+        //q.isCorrectAnswer = isCorrectAnswer;
+        //q.isSelectedAnswer = isSelectedAnswer;
+        //q.buttonText = getButtonText;
+        //q.retakeQuiz = retakeQuiz;
+        //q.postComment = postComment;
+        //q.removeComment = removeComment;
+        q.next = next;
+        q.back = back;
 
-        userDetails.get().then(function (data) {
-            q.user = {
-                id: data.id,
-                name: data.name,
-                image: data.image
-            };
-        });
+        //userDetails.get().then(function (data) {
+        //    q.user = {
+        //        id: data.id,
+        //        name: data.name,
+        //        image: data.image
+        //    };
+        //});
 
-        $scope.$on('$destroy', function () {
-            $uibModalStack.dismissAll();
-        });
+        //$scope.$on('$destroy', function () {
+        //    $uibModalStack.dismissAll();
+        //});
 
-        quizService.getQuiz($stateParams.boxId, $stateParams.quizId).then(function (data) {
-            q.name = data.quiz.name;
-            q.questions = data.quiz.questions;
-            q.sheet = data.sheet;
-            q.topUsers = data.quiz.topUsers;
-            q.boxUrl = data.quiz.boxUrl;
+        //quizService.getQuiz($stateParams.boxId, $stateParams.quizId).then(function (data) {
+        q.name = quizData.quiz.name;
+        q.questions = quizData.quiz.questions;
+        q.index = 0;
+        //q.sheet = quizData.sheet;
+        //q.topUsers = quizData.quiz.topUsers;
+        q.boxUrl = quizData.quiz.boxUrl;
 
 
-            if (q.sheet != null) {
-                setResults();
-                getDiscussion();
-                q.isSolved = true;
-                q.timerControl.setTime(q.sheet.timeTaken);
+        //if (q.sheet != null) {
+        //    setResults();
+        //    getDiscussion();
+        //    q.isSolved = true;
+        //    q.timerControl.setTime(q.sheet.timeTaken);
 
-                q.sheet.correct = Math.round(q.sheet.score / 100 * q.questions.length);
-                q.sheet.wrong = q.questions.length - q.sheet.correct;
+        //    q.sheet.correct = Math.round(q.sheet.score / 100 * q.questions.length);
+        //    q.sheet.wrong = q.questions.length - q.sheet.correct;
 
-                if (q.sheet.timeTaken.indexOf('.') > -1) { //00:00:00.12345
-                    q.sheet.timeTaken = q.sheet.timeTaken.split('.')[0];
-                }
+        //    if (q.sheet.timeTaken.indexOf('.') > -1) { //00:00:00.12345
+        //        q.sheet.timeTaken = q.sheet.timeTaken.split('.')[0];
+        //    }
 
-                return;
-            }
+        //    return;
+        //}
 
-            $timeout(function () {
-                var modalInstance = $uibModal.open({
-                    animation: true,
-                    templateUrl: 'quizChallenge.html',
-                    controller: 'QuizChallengeController',
-                    controllerAs: 'c',
-                    backdrop: 'static',
-                    windowClass: 'challenge-modal',
-                    resolve: {
-                        solvers: function () {
-                            return quizService.getNumberOfSolvers({ quizId: $stateParams.quizId });
-                        }
-                    }
-                });
+        //$timeout(function () {
+        //    var modalInstance = $uibModal.open({
+        //        animation: true,
+        //        templateUrl: 'quizChallenge.html',
+        //        controller: 'QuizChallengeController',
+        //        controllerAs: 'c',
+        //        backdrop: 'static',
+        //        windowClass: 'challenge-modal',
+        //        resolve: {
+        //            solvers: function () {
+        //                return quizService.getNumberOfSolvers({ quizId: $stateParams.quizId });
+        //            }
+        //        }
+        //    });
 
-                modalInstance.result.then(function () {
-                    start();
-                }, function () {
-                    afraid();
-                });
-            }, 1000);
+        //    modalInstance.result.then(function () {
+        //        start();
+        //    }, function () {
+        //        afraid();
+        //    });
+        //}, 1000);
 
-        });
+        //});
 
 
         function start() {
@@ -88,13 +93,13 @@
                 q.timerControl.pause();
                 return;
             }
-            if (q.isSolved) {
-                q.isSolved = false;
-                reset();
-                q.timerControl.reset();
-                q.timerControl.start();
-                return;
-            }
+            //if (q.isSolved) {
+            //    q.isSolved = false;
+            //    reset();
+            //    q.timerControl.reset();
+            //    q.timerControl.start();
+            //    return;
+            //}
 
             q.timerControl.start();
 
@@ -176,7 +181,6 @@
             q.timerControl.pause();
             sendData();
             getDiscussion();
-            $('.quizPage').animate({ scrollTop: 0 }, 1000);
         }
 
         function retakeQuiz() {
@@ -229,6 +233,24 @@
             question.selectedAnswer = answer;
             question.isCorrect = question.correctAnswer == answer.id;
             q.answersCount++;
+
+            $timeout(function () {
+                next();
+            }, 1500);
+        }
+
+
+
+
+        function next() {
+            //if (q.questions.length - 1 > q.index) {
+                q.index++;
+            //}
+        }
+        function back() {
+            if (q.index > 0) {
+                q.index--;
+            }
         }
 
         function sendData() {

@@ -15,7 +15,12 @@
                     templateUrl: function () {
                         return routerHelper.buildUrl('/quiz/indexpartial/');
                     },
-                    controller: 'QuizController as q'
+                    controller: 'QuizController as q',
+                    resolve: {
+                        data: ['quizService', '$stateParams', function (quizService, $stateParams) {
+                            return quizService.getQuiz($stateParams.boxId, $stateParams.quizId);
+                        }]
+                    }
 
 
                 }

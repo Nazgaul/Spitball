@@ -1,13 +1,88 @@
 ﻿@import "variables.less";
 
-@correctWrong: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAASCAYAAADR/2dRAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAAI1SURBVEhLrZa/axRBFMe3kRQpzKVNlSKgXSCdlUWqBUl5114T7i6NRVKJVhIUOzFBizQ2gpaxuuL+gSBoFy42QoprFlROsBA37zO+iTOzb7Nb3IMvs/Nu5vu+9+bNj8yywd5guT/aXe0c97Y6R90dWvr4dUgr8zyjwXDzy90HOS2+Vjz39l8sEfj2SW8sKARlAPrjlTe9+4zTKaY9O3x0SwVMBH8N4M8Zp1Ni4x+svO4916ChiBQF4xivUyPD/3lr5zAJboJxlSzhkCBkwwpuAkEpEX0JUpcNExVBneNu3wqY4s67YdRffdk9UApnbTOSgnmOQISsC/E0DGLh6af3JbZ9+jj0F8yHZ7g32hDiKCuXT16VoMkHdoeDtYx/F5CbICPz338sMSW7DTFWVtwEsR8fTl1wWm/pWEGeCWFjrXz8duYIaNPfqB3ECFmlVsLgs9lMv/6LC+GWSghvXCIygZGZtGYU4zoxIBSEWUIUk4oYauPrxcX1cpydXzoS/OG4AIsTI2v+NiT3hfprPo++a7Ky2GXSbR0ddL5GvN2QlZITGTELKWBOTCGtFLEXVHz/GfkTTP1JbB14dVu7OHiYiplcH3xsTyGuXAPUTd3yAL+tvQlpngRpi1wp/lnLe8mDw66vUyOzlqsBsRBvmqGmc2eaZiQ1AgjM3RWA320h3ngeaJYQxbb3GOOvu61T43mgWSKoF+a+8bflcYIoKO4dssAbB1/TOyY1BMGj91ZOS99+x2TZFQAzVOYkeMCCAAAAAElFTkSuQmCC');
-@checked: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAPCAMAAAAvUzStAAAAV1BMVEUAAAD////o6Oienp79/v76+vqhoaGnp6fAwMADccjOzs7k5OTIyMiWxOi9vb3R0dHW1tYyi9Orq6vExMSkzOtpq9/t7e3s7OyKveXw9ftBlNVxr+BfpdyL9e8MAAAAAXRSTlMAQObYZgAAAKNJREFUeF6FkEcOAyEMRd0pU0tquf85AxZhFWne7vENNoZzbnPgMN+aLcbMtkDXQVGHdrCzG+/gjKtiRdexWOgWakhRUKfrJCiRYCzmFKvFkfC5pZS2J1IEI/xBVp9SfKTKhBqAtafKJTXBj6dvFAOWngqf3o2EWvu+5F9fiohyuV4E0Wfuqc8MR//hUcy6GTi5bSe7hWYBGnff871Z9j1nOOULVRwG/fUEbDQAAAAASUVORK5CYII=');
+//@correctWrong: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAASCAYAAADR/2dRAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAAI1SURBVEhLrZa/axRBFMe3kRQpzKVNlSKgXSCdlUWqBUl5114T7i6NRVKJVhIUOzFBizQ2gpaxuuL+gSBoFy42QoprFlROsBA37zO+iTOzb7Nb3IMvs/Nu5vu+9+bNj8yywd5guT/aXe0c97Y6R90dWvr4dUgr8zyjwXDzy90HOS2+Vjz39l8sEfj2SW8sKARlAPrjlTe9+4zTKaY9O3x0SwVMBH8N4M8Zp1Ni4x+svO4916ChiBQF4xivUyPD/3lr5zAJboJxlSzhkCBkwwpuAkEpEX0JUpcNExVBneNu3wqY4s67YdRffdk9UApnbTOSgnmOQISsC/E0DGLh6af3JbZ9+jj0F8yHZ7g32hDiKCuXT16VoMkHdoeDtYx/F5CbICPz338sMSW7DTFWVtwEsR8fTl1wWm/pWEGeCWFjrXz8duYIaNPfqB3ECFmlVsLgs9lMv/6LC+GWSghvXCIygZGZtGYU4zoxIBSEWUIUk4oYauPrxcX1cpydXzoS/OG4AIsTI2v+NiT3hfprPo++a7Ky2GXSbR0ddL5GvN2QlZITGTELKWBOTCGtFLEXVHz/GfkTTP1JbB14dVu7OHiYiplcH3xsTyGuXAPUTd3yAL+tvQlpngRpi1wp/lnLe8mDw66vUyOzlqsBsRBvmqGmc2eaZiQ1AgjM3RWA320h3ngeaJYQxbb3GOOvu61T43mgWSKoF+a+8bflcYIoKO4dssAbB1/TOyY1BMGj91ZOS99+x2TZFQAzVOYkeMCCAAAAAElFTkSuQmCC');
+//@checked: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAPCAMAAAAvUzStAAAAV1BMVEUAAAD////o6Oienp79/v76+vqhoaGnp6fAwMADccjOzs7k5OTIyMiWxOi9vb3R0dHW1tYyi9Orq6vExMSkzOtpq9/t7e3s7OyKveXw9ftBlNVxr+BfpdyL9e8MAAAAAXRSTlMAQObYZgAAAKNJREFUeF6FkEcOAyEMRd0pU0tquf85AxZhFWne7vENNoZzbnPgMN+aLcbMtkDXQVGHdrCzG+/gjKtiRdexWOgWakhRUKfrJCiRYCzmFKvFkfC5pZS2J1IEI/xBVp9SfKTKhBqAtafKJTXBj6dvFAOWngqf3o2EWvu+5F9fiohyuV4E0Wfuqc8MR//hUcy6GTi5bSe7hWYBGnff871Z9j1nOOULVRwG/fUEbDQAAAAASUVORK5CYII=');
 
 .quizPage {
     color: @textColor;
-
-    .itemContent {
+    /*.itemContent {
         position: relative;
+    }*/
+    header + div {
+        margin-top: @fullScreenHeaderHeight + 80px;
+        //width: 800px;
+    }
+
+    .arrows {
+        position: fixed;
+        top: 50%;
+        /* bottom: 0; */
+        height: 30px;
+        margin-top: -15px;
+        left: 10px;
+
+        svg {
+            width: 30px;
+            height: 30px;
+            fill: #C5C5C5;
+        }
+
+        &.prev {
+            svg {
+                -moz-transform: rotate(180deg);
+                -ms-transform: rotate(180deg);
+                -o-transform: rotate(180deg);
+                -webkit-transform: rotate(180deg);
+                transform: rotate(180deg);
+            }
+        }
+
+        &.next {
+            right: 10px;
+            left: auto;
+        }
+    }
+
+    .wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .stop-watch-wrapper {
+        color: #4190b9;
+        margin-bottom: 12px;
+        border: 3px solid #4190b9;
+        display: inline-block;
+        padding: 10px;
+        border-radius: 10px;
+        width: 100%;
+
+        svg {
+            width: 46px;
+            height: 52px;
+            fill: #4190b9;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .stopwatch {
+            display: inline-block;
+            height: 50px;
+            vertical-align: top;
+            line-height: 50px;
+            font-size: 32px;
+            margin-left: 10px;
+        }
+        .progress-wrapper {
+            /*display:inline-block;
+            background:grey;*/
+        }
+        .progress {
+            display: inline-block;
+            width: 200px;
+            margin: 0;
+            vertical-align: middle;
+        }
     }
     /*header {
         z-index: 1;
@@ -32,7 +107,7 @@
             text-align:center;
         }
     }*/
-    .center {
+    /*.center {
         margin-left: 333px;
         width: ~"calc(100% - 333px)";
     }
@@ -293,10 +368,10 @@
                 }
             }
         }
-    }
+    }*/
 }
 
-.challenge-modal {
+/*.challenge-modal {
     .modal-content {
         background-color: #282828;
 
@@ -390,29 +465,7 @@
     margin-top: 60px;
     text-align: center;
 
-    .stop-watch-wrapper {
-        color: #4190b9;
-        margin-bottom: 12px;
 
-        svg {
-            width: 46px;
-            height: 52px;
-            fill: #4190b9;
-            display: inline-block;
-        }
-
-        div {
-            display: inline-block;
-            height: 50px;
-            vertical-align: top;
-
-            span {
-                line-height: 50px;
-                font-size: 32px;
-                margin-left: 10px;
-            }
-        }
-    }
 
 
     .cube {
@@ -647,9 +700,7 @@
             width: 300px;
             top: 25px;
         }
-        /*.retake {
-            float: right;
-        }*/
+       
     }
 
     .quizPage {
@@ -658,14 +709,15 @@
             margin: 0 auto 60px auto;
         }
     }
-}
+}*/
 
 
 .quiz-question {
 
-    p{
-        margin:0
+    p {
+        margin: 0;
     }
+
     border: 1px solid #B7B7B7;
     background: #fff;
     color: #000;
@@ -682,7 +734,7 @@
 
     .q-body {
         width: 100%;
-        margin-bottom:20px;
+        margin-bottom: 20px;
     }
 
     .q-actions {
@@ -718,5 +770,10 @@
         width: 100%;
         padding: 15px 10px 20px;
         margin-right: 50px;
+    }
+
+    .answer-selected {
+        background: #4190B9;
+        color: #fff;
     }
 }

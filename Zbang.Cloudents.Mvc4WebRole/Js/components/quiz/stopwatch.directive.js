@@ -19,7 +19,7 @@
             controller: ctrl,
             controllerAs: 'sw',
             replace: true,
-            template: '<div><span>{{sw.getTime() | stopwatch}}</span>'
+            template: '<span class="stopwatch">{{sw.getTime() | stopwatch}}</span>'
         };
 
         

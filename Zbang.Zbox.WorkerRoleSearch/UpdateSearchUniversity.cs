@@ -40,7 +40,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return currentIndex;
         }
 
-        public async Task Run(System.Threading.CancellationToken cancellationToken)
+        public async Task Run(CancellationToken cancellationToken)
         {
             var index = GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
@@ -70,8 +70,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
         int m_Interval = MinInterval;
-        private const int MinInterval = 30;
-        private const int MaxInterval = 240;
+        private const int MinInterval = 15;
+        private const int MaxInterval = 90;
         private async Task SleepAndIncreaseInterval(CancellationToken cancellationToken)
         {
             var previous = m_Interval;
