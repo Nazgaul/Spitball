@@ -22,7 +22,7 @@
             var seconds = Math.floor(value / sK);
                 
 
-            return addZero(hours) + ':' + addZero(minutes) + ':' + addZero(seconds);
+            return hours + ':' + addZero(minutes) + ':' + addZero(seconds);
 
         };
 

@@ -112,7 +112,7 @@
                 q.timerControl.start();
                 return;
             }
-
+            q.state = q.states.solving;
             q.timerControl.start();
 
         }
