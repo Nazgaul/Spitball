@@ -352,7 +352,7 @@ li,
   border-bottom: none;
   border-radius: 5px;
   background: #353a3f;
-  padding: 10px;
+  padding: 10px 10px 0;
   margin-bottom: 20px;
   font-size: 16px;
 }

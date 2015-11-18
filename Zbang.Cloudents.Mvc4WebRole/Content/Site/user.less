@@ -80,7 +80,7 @@
         display: table-cell;
     }
 
-    .header {
+    .header { 
         .r-table-cell {
             text-align: center;
         }
@@ -97,17 +97,32 @@
         h3 {
             font-size: 13px;
             margin: 12px 0 8px 0;
-        }
-
-        li:active {
-            h3 {
-                
-                color: #8c99a6;
-            }
+            color: #8c99a6;
         }
     }
 
     .portlet.light {
         padding: 0; //override
+    }
+
+    .posts {
+        margin-bottom: 10px;
+        display: flex;
+
+        .post-headline {
+            color: green;
+            display: block;
+        }
+
+        .post-content {
+            width: 70%;
+            display: inline-block;
+        }
+
+        .time-ago {
+            color: #8c99a6;
+            font-size: 18px;
+            margin-top: 20px;
+        }
     }
 }

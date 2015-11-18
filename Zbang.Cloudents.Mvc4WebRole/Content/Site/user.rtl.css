@@ -78,11 +78,25 @@
 .userPage .tabbable h3 {
   font-size: 13px;
   margin: 12px 0 8px 0;
-}
-.userPage .nav-tabs li:active h3,
-.userPage .tabbable li:active h3 {
   color: #8c99a6;
 }
 .userPage .portlet.light {
   padding: 0;
+}
+.userPage .posts {
+  margin-bottom: 10px;
+  display: flex;
+}
+.userPage .posts .post-headline {
+  color: green;
+  display: block;
+}
+.userPage .posts .post-content {
+  width: 70%;
+  display: inline-block;
+}
+.userPage .posts .time-ago {
+  color: #8c99a6;
+  font-size: 18px;
+  margin-top: 20px;
 }
