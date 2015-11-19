@@ -26,6 +26,11 @@
     display: none;
   }
 }
+.quiz-create .quiz-wrapper {
+  background: transparent;
+  padding: 0;
+  border: 0;
+}
 .quiz-create .portlet.box > .portlet-body {
   background-color: #fff;
   padding: 10px;
