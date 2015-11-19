@@ -61,6 +61,78 @@
   width: 100%;
   margin: 0;
 }
+.quizPage .solveActions .row {
+  margin: 0;
+}
+.quizPage .solveActions .col-sm-4 {
+  padding: 0 5px;
+}
+.quizPage .retake {
+  width: 100%;
+  background: #4190B9;
+  color: white;
+  border-radius: 10px;
+  padding: 2px 0;
+  font-size: 24px;
+}
+.quizPage .black-bullet {
+  background: #353A3F;
+  color: #fff;
+  text-align: center;
+  border-radius: 10px;
+}
+.quizPage .score {
+  font-size: 60px;
+  font-weight: bold;
+  line-height: 74px;
+}
+.quizPage .score h5 {
+  margin: 0;
+  font-size: 20px;
+  padding: 10px 0 0;
+  line-height: 20px;
+}
+.quizPage .score-details {
+  display: flex;
+  font-size: 60px;
+  font-weight: bold;
+  line-height: 57px;
+}
+.quizPage .score-details h6 {
+  margin: 0;
+  font-size: 16px;
+}
+.quizPage .score-details > div {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  margin: 15px 0;
+}
+.quizPage .score-details > div:first-child {
+  border-left: 1px solid gray;
+}
+.quizPage .score-details svg {
+  width: 42px;
+  height: 39px;
+  fill: #007E01;
+  margin-top: 20px;
+  align-self: center;
+}
+.quizPage .score-details svg:last-child {
+  width: 45px;
+  fill: #BE2A4A;
+}
+.quizPage .time-taken {
+  font-size: 36px;
+  color: #9AC6E9;
+}
+.quizPage .time-taken svg {
+  fill: #9AC6E9;
+  width: 46px;
+  height: 52px;
+  vertical-align: middle;
+  margin: 25px 0;
+}
 .quiz-wrapper {
   border: 1px solid #B7B7B7;
   background: #fff;

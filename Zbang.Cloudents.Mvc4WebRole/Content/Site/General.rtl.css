@@ -121,6 +121,9 @@ ol {
 em {
   font-style: normal;
 }
+/*h5 {
+    margin: 0;
+}*/
 input,
 li,
 [contenteditable],
@@ -217,6 +220,7 @@ span {
   left: 0;
   font-size: 20px;
   z-index: 5;
+  border-bottom: 5px solid #212427;
 }
 .full-screen header .close {
   position: absolute;
