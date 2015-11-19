@@ -1,6 +1,6 @@
 ﻿<div class="full-screen quiz-create">
     <header>
-        <div class="text-center">create a quiz</div>
+        <div class="text-center text-capitalize">create a quiz</div>
         <button type="button" ng-click="q.openClose()" class="close" @*href="{{::q.boxUrl}}*@">@Html.Svg("~/images/site/icons.svg", "close")</button>
     </header>
     <div class=" full-screen-body not-supported">this is not supported section</div>
@@ -11,8 +11,8 @@
         <input class="form-control" ng-disabled="q.quizNameDisabled" type="text" placeholder="Enter quiz name" autofocus required ng-model="q.name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
         <button type="button" ng-click="q.quizNameDisabled = false">@Html.Svg("~/images/site/quizcreateicons.svg", "pencil")</button>
         <div class="quiz-wrapper" ng-repeat="question in q.questions" ng-include="q.template(question)"></div>
-        <button type="button" ng-click="q.addQuestion()">+ add question</button>
-        <button type="button" ng-click="q.publish()" class="btn btn-primary">publish</button>
+        <button type="button" class="btn btn-primary text-capitalize add-question" ng-click="q.addQuestion()">+ add question</button>
+        <button type="button" ng-click="q.publish()" class="btn btn-primary text-capitalize pull-right">publish</button>
     </div>
 </div>
 
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="portlet-body">
-            <div placeholder="write your question" ng-blur="q.saveQuestion(question)" text-angular ta-text-editor-class="question-content" ng-model="question.text" data-ng-required></div>
+            <div placeholder="Write your question:" ng-blur="q.saveQuestion(question)" text-angular ta-text-editor-class="question-content" ng-model="question.text" data-ng-required></div>
             <div class="answers-header">Answers:</div>
             <span class="correct-answer-error">correct answer</span>
             <ol class ="counter">
@@ -41,11 +41,12 @@
                 <li class="answer add-answer counter-inc" ng-click="q.addAnswer(question)">
                     <div>
                         <span class="counter-view"></span>
-                        <input type="text" placeholder="add an answer" />
+                        <input type="text" placeholder="Add an answer" />
                     </div>
                     <input disabled type="radio" />
                 </li>
             </olclass>
+                <button class="btn btn-primary">Done</button>
         </div>
     </div>
 </script>
@@ -62,7 +63,9 @@
         </div>
         <ol class="counter">
             <li class="counter-inc" ng-repeat="answer in question.answers">
-                <span class="counter-view"></span>
+                <div class="circle">
+                    <span class="counter-view"></span>
+                </div>
                 <div class="a-body">
                     {{::answer.text}}
                 </div>
@@ -76,9 +79,8 @@
     <h4>Are you sure you want to leave this quiz?</h4>
     <div>You can choose to save the quiz as a 'draft' for future editing</div>
     <div>(only you can see and edit the draft)</div>
-    <div>
-        <button type="button" ng-click="c.publish()">Publish</button>
-        <button type="button" ng-click="c.draft()">Save as draft</button>
-        <button type="button" ng-click="c.delete()">Delete</button>
+    <div class="buttons">
+        <button type="button" class="btn btn-default save" ng-click="c.draft()">Save as draft</button>
+        <button type="button" class="btn btn-default delete" ng-click="c.delete()">Delete</button>
     </div>
 </script>

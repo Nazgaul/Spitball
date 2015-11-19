@@ -185,7 +185,7 @@
     margin: 10px 0;*/
 }
 .quiz-question p {
-  margin: 0;
+  margin: 0 10px 0 0;
 }
 .quiz-question .index {
   color: #4190B9;
@@ -210,15 +210,18 @@
   visibility: visible;
 }
 .quiz-question li {
-  padding: 10px 0;
+  padding: 0 0 10px;
   display: flex;
+}
+.quiz-question .circle {
+  padding: 10px;
 }
 .quiz-question .counter-view {
   border-radius: 50%;
   border: 2px solid #4190B9;
   color: #4190B9;
   font-size: 20px;
-  padding: 10px 20px;
+  padding: 5px 10px;
 }
 .quiz-question .a-body {
   border-bottom: 1px solid #4190B9;
