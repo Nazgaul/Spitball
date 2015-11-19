@@ -15,41 +15,74 @@
             </button>
         </div>
         <div class="wrapper">
-            <div ng-if="q.state === 4">
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4">
-                        <button type="button" ng-click="q.retakequiz()">retake quiz</button>
+            <div ng-if="q.state === 4" class="solveActions">
+                <div class="row margin-bottom-15">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <button class="retake" type="button" ng-click="q.retakeQuiz()">retake quiz</button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">{{q.sheet.score}}</div>
-                    <div class="col-md-4">{{q.sheet.correct}} {{q.sheet.wrong}}</div>
-                    <div class="col-md-4">{{q.sheet.timeTaken}}</div>
+                    <div class="col-sm-4 col-xs-12 margin-bottom-15">
+                        <div class="black-bullet score">
+                            <h5>Your score:</h5>
+                            {{q.sheet.score}}
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-xs-12 margin-bottom-15">
+
+                        <div class="black-bullet score-details">
+                            <div>
+                                @Html.Svg(svgUrl, "correct")
+                                <div>
+                                    <h6>correct</h6>
+                                    {{q.sheet.correct}}
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <h6>wrong</h6>
+                                    {{q.sheet.wrong}}
+
+                                </div>
+                                @Html.Svg(svgUrl, "wrong")
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 col-xs-12 margin-bottom-15">
+                        <div class="black-bullet time-taken">
+                            @Html.Svg(svgUrl, "clock") <span>{{q.sheet.timeTaken}}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="stop-watch-wrapper" ng-if="q.state !== 4">
-                <stopwatch control="q.timerControl"></stopwatch>
-                <button type="button" class="stopwatch-btn" ng-click="q.start()" ng-disabled="q.state === 1">
-                    @Html.Svg(svgUrl, "pause", new { @class = "pause", ng_if = "q.timerControl.isRunning" })
-                    @Html.Svg(svgUrl, "play", new { @class = "play", ng_if = "!q.timerControl.isRunning" })
-                </button>
-                <span>{{q.index}}/{{q.questions.length}}</span>
+            <div class="quiz-take-stats" ng-class="{'no-progress': q.state === 1}" ng-show="q.state !== 4">
+                <div class="stop-watch-wrapper">
+                    <stopwatch control="q.timerControl"></stopwatch>
+                    <button type="button" class="stopwatch-btn" ng-click="q.start()" ng-disabled="q.state === 1">
+                        @Html.Svg(svgUrl, "pause", new { @class = "pause", ng_if = "q.timerControl.isRunning" })
+                        @Html.Svg(svgUrl, "play", new { @class = "play", ng_if = "!q.timerControl.isRunning" })
+                    </button>
+                </div>
                 <div class="progress-wrapper">
+                    <span class="question-progress">{{q.index}}/{{q.questions.length}}</span>
+                    @*<div class="progress-wrapper">*@
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="{{q.index/q.questions.length*100}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width: q.index/q.questions.length*100 + '%'}">
                             <span class="sr-only">{{q.index/q.questions.length*100}}% Complete</span>
                         </div>
                     </div>
+                    @*</div>*@
                 </div>
             </div>
             <div ng-if="q.state === 1" ng-include="'quizChallenge.html'"></div>
             <div class="quiz-wrapper" ng-class="q.isCorrect(q.questions[q.index])" ng-if="q.state === 2 || q.state === 4">
                 <div class="no-answer-element">no answer given</div>
                 <div ng-if="q.index < q.questions.length" ng-include="'quiz-question-template.html'" ng-repeat="question in ::q.questions"></div>
-                <div ng-if="q.state === 4">
-                    <form ng-submit="q.postComment(q.questions[q.index])">
-                        <textarea ng-model="q.questions[q.index].newComment"></textarea>
-                        <button type="submit">post</button>
+                <div ng-if="q.state === 4"  class="add-discussion">
+                    <form class="clearfix" novalidate name="addDiscussion"  ng-submit="q.postComment(q.questions[q.index])">
+                        <textarea required placeholder="Write a comment" ng-model="q.questions[q.index].newComment"></textarea>
+                        <button class="btn pull-right send" ng-disabled="!addDiscussion.$valid" type="submit">post</button>
                     </form>
                     <ol class="list-unstyled feed">
                         <li class="comment reply" ng-repeat="post in q.questions[q.index].comments">
@@ -78,7 +111,7 @@
             </button>
         </div>
     </div>
-    
+
 </div>
 
 

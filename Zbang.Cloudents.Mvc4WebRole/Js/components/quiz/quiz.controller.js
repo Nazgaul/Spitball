@@ -49,12 +49,12 @@
         q.name = quizData.quiz.name;
         q.questions = quizData.quiz.questions;
         q.index = 0;
-        q.sheet = quizData.sheet;
+        q.sheet = quizData.sheet || {};
         q.topUsers = quizData.quiz.topUsers;
         q.boxUrl = quizData.quiz.boxUrl;
 
         q.afraid = afraid;
-        if (q.sheet != null) {
+        if (quizData.sheet) {
             setResults();
             getDiscussion();
             q.isSolved = true;
@@ -71,7 +71,7 @@
             q.sheet.wrong = q.questions.length - q.sheet.correct;
             return;
         }
-        quizService.getNumberOfSolvers({ quizId: $stateParams.quizId }).then(function(response) {
+        quizService.getNumberOfSolvers({ quizId: $stateParams.quizId }).then(function (response) {
             q.topUsers = response.users;
             q.classmatesCount = response.solversCount;
         });
@@ -119,7 +119,12 @@
 
         function afraid() {
             q.isSolved = true;
+            q.sheet.score = 0;
+            q.sheet.correct = 0;
+            q.sheet.wrong = q.questions.length;
+            q.sheet.timeTaken = '00:00:00';
             q.state = q.states.solved;
+            getDiscussion();
             solveQuiz();
         }
 
@@ -332,17 +337,17 @@
 
             var comment = {
                 questionId: question.id,
-                text: question.newComment,
-                date: new Date().toISOString(),
+                content: question.newComment,
+                creationTime: new Date().toISOString(),
                 userId: q.user.id,
                 userName: q.user.name,
-                userPicture: q.user.image,
+                userImage: q.user.image,
                 isDelete: true
             };
 
             question.newComment = '';
 
-            quizService.createDiscussion({ questionId: comment.questionId, text: comment.text }).then(function () {
+            quizService.createDiscussion({ questionId: comment.questionId, text: comment.content }).then(function () {
                 if (!question.comments) {
                     question.comments = [];
                 }
