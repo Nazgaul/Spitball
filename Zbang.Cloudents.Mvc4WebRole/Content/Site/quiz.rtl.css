@@ -38,6 +38,14 @@
   align-items: center;
   border-radius: 10px;
   overflow: hidden;
+  width: 100%;
+  -moz-transition: all linear 1s;
+  -o-transition: all linear 1s;
+  -webkit-transition: all linear 1s;
+  transition: all linear 1s;
+}
+.quizPage .quiz-take-stats.no-progress {
+  width: 200px;
 }
 @media (max-width: 768px) {
   .quizPage .quiz-take-stats {

@@ -49,6 +49,17 @@
         align-items: center;
         border-radius: 10px;
         overflow: hidden;
+        width: 100%;
+        -moz-transition: all linear 1s;
+        -o-transition: all linear 1s;
+        -webkit-transition: all linear 1s;
+        transition: all linear 1s;
+
+        &.no-progress {
+            width: 200px;
+            //transition:all linear 3s;
+            //progress-wrapper:none;
+        }
 
         @media (max-width: 768px) {
             -ms-flex-wrap: wrap;
@@ -204,32 +215,33 @@
         margin: 0 50px;
 
         form {
-           margin-bottom: 15px;
+            margin-bottom: 15px;
         }
+
         textarea {
             width: 100%;
-            margin-bottom:10px;
+            margin-bottom: 10px;
         }
 
         .send {
             .buttonBlue();
-            color:#fff;
+            color: #fff;
             //margin: 0 15px 15px 0;
             padding: 5px 35px;
         }
     }
-
-
     //comment section
     .feed .comment {
-        background:transparent;
-        &> .top {
-            color:#000;
+        background: transparent;
+
+        & > .top {
+            color: #000;
         }
     }
+
     .feed .reply .user-name {
-        color:#000;
-        font-weight:700;
+        color: #000;
+        font-weight: 700;
     }
 }
 
