@@ -158,6 +158,9 @@
 .quizPage .add-discussion {
   margin: 0 50px;
 }
+.quizPage .add-discussion form {
+  margin-bottom: 15px;
+}
 .quizPage .add-discussion textarea {
   width: 100%;
   margin-bottom: 10px;
@@ -173,6 +176,16 @@
 }
 .quizPage .add-discussion .send:focus {
   color: inherit;
+}
+.quizPage .feed .comment {
+  background: transparent;
+}
+.quizPage .feed .comment > .top {
+  color: #000;
+}
+.quizPage .feed .reply .user-name {
+  color: #000;
+  font-weight: 700;
 }
 .quiz-wrapper {
   border: 1px solid #B7B7B7;

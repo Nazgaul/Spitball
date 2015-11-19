@@ -203,6 +203,9 @@
     .add-discussion {
         margin: 0 50px;
 
+        form {
+           margin-bottom: 15px;
+        }
         textarea {
             width: 100%;
             margin-bottom:10px;
@@ -214,6 +217,19 @@
             //margin: 0 15px 15px 0;
             padding: 5px 35px;
         }
+    }
+
+
+    //comment section
+    .feed .comment {
+        background:transparent;
+        &> .top {
+            color:#000;
+        }
+    }
+    .feed .reply .user-name {
+        color:#000;
+        font-weight:700;
     }
 }
 
