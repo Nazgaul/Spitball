@@ -161,3 +161,57 @@
   background: #4190B9;
   color: #fff;
 }
+.quiz-challenge {
+  margin-top: 30px;
+  padding-top: 100px;
+  background-image: url("/Images/Site/quizbackground.png");
+  text-align: center;
+}
+.quiz-challenge h4 {
+  color: #4190B9;
+  font-size: 40px;
+  margin-bottom: 0;
+}
+.quiz-challenge h5 {
+  color: #4190B9;
+  font-weight: bold;
+  font-size: 40px;
+  margin-top: 0;
+}
+.quiz-challenge .backgrounds {
+  margin: 10px 0;
+  background: #353a3f;
+  border-radius: 10px;
+  color: #f5f5f5;
+  width: 250px;
+  margin: 10px auto;
+}
+.quiz-challenge .classmates {
+  padding: 19px 0;
+}
+.quiz-challenge .ready {
+  display: flex;
+  align-items: center;
+}
+.quiz-challenge .ready svg {
+  width: 50px;
+  height: 50px;
+  fill: #4190b9;
+  margin: 5px 5px 5px 10px;
+}
+.quiz-challenge .ready span {
+  display: block;
+}
+.quiz-challenge .buttons {
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+.quiz-challenge .buttons .scared {
+  background: #DCDCDC;
+  color: #f5f5f5;
+  border: 0;
+  margin: 10px 0 0;
+}
+.quiz-challenge .buttons .chance {
+  margin: 10px 5px 0;
+}
