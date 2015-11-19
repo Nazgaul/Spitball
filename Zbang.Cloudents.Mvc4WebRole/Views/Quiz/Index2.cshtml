@@ -79,10 +79,10 @@
             <div class="quiz-wrapper" ng-class="q.isCorrect(q.questions[q.index])" ng-if="q.state === 2 || q.state === 4">
                 <div class="no-answer-element">no answer given</div>
                 <div ng-if="q.index < q.questions.length" ng-include="'quiz-question-template.html'" ng-repeat="question in ::q.questions"></div>
-                <div ng-if="q.state === 4">
-                    <form ng-submit="q.postComment(q.questions[q.index])">
-                        <textarea ng-model="q.questions[q.index].newComment"></textarea>
-                        <button type="submit">post</button>
+                <div ng-if="q.state === 4"  class="add-discussion">
+                    <form class="clearfix" novalidate name="addDiscussion"  ng-submit="q.postComment(q.questions[q.index])">
+                        <textarea required placeholder="Write a comment" ng-model="q.questions[q.index].newComment"></textarea>
+                        <button class="btn pull-right send" ng-disabled="!addDiscussion.$valid" type="submit">post</button>
                     </form>
                     <ol class="list-unstyled feed">
                         <li class="comment reply" ng-repeat="post in q.questions[q.index].comments">

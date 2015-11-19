@@ -68,7 +68,7 @@ em {
     margin: 0;
 }*/
 
-input, li, [contenteditable], span {
+input, li, [contenteditable], span, textarea {
     outline: 0;
 }
 
@@ -175,7 +175,7 @@ input, li, [contenteditable], span {
     overflow-y: auto;
     background: @backgroundColor;
     background: #F4F4F4;
-   
+
     header {
         height: @fullScreenHeaderHeight;
         color: @color2;
@@ -186,7 +186,8 @@ input, li, [contenteditable], span {
         right: 0;
         font-size: 20px;
         z-index: 5;
-         border-bottom: 5px solid #212427;
+        border-bottom: 5px solid #212427;
+
         .close {
             position: absolute;
             top: 20px;

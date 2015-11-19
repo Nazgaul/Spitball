@@ -155,6 +155,25 @@
   vertical-align: middle;
   margin: 25px 0;
 }
+.quizPage .add-discussion {
+  margin: 0 50px;
+}
+.quizPage .add-discussion textarea {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.quizPage .add-discussion .send {
+  background: #4190b9;
+  color: #fff;
+  padding: 5px 35px;
+}
+.quizPage .add-discussion .send:hover {
+  background: #26566e;
+  color: inherit;
+}
+.quizPage .add-discussion .send:focus {
+  color: inherit;
+}
 .quiz-wrapper {
   border: 1px solid #B7B7B7;
   background: #fff;

@@ -127,7 +127,8 @@ em {
 input,
 li,
 [contenteditable],
-span {
+span,
+textarea {
   outline: 0;
 }
 .userLetter {
