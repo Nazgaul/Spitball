@@ -205,7 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetInvitesQuery(userid);
-                var invites = await ZboxReadService.GetInvites(query);
+                var invites = await ZboxReadService.GetInvitesAsync(query);
                 return Json(new JsonResponse(true, invites));
             }
             catch (Exception ex)
@@ -240,7 +240,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return membersOnlyErrorPageRedirect;
                 }
-                var inviteExists = await ZboxReadService.GetInvite(new GetInviteDetailQuery(values.Id));
+                var inviteExists = await ZboxReadService.GetInviteAsync(new GetInviteDetailQuery(values.Id));
                 if (!inviteExists)
                 {
                     return membersOnlyErrorPageRedirect;

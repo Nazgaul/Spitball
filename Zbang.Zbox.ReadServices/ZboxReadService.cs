@@ -101,7 +101,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Box.RecommendBoxDto>> GetRecommendedCourses(RecommendedCoursesQuery query)
+        public async Task<IEnumerable<Box.RecommendBoxDto>> GetRecommendedCoursesAsync(RecommendedCoursesQuery query)
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -132,7 +132,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<NodeBoxesDto> GetLibraryNode(GetLibraryNodeQuery query)
+        public async Task<NodeBoxesDto> GetLibraryNodeAsync(GetLibraryNodeQuery query)
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -170,7 +170,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<UniversityInfoDto> GetUniversityDetail(GetUniversityDetailQuery query)
+        public async Task<UniversityInfoDto> GetUniversityDetailAsync(GetUniversityDetailQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -185,7 +185,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<InviteDto>> GetInvites(GetInvitesQuery query)
+        public async Task<IEnumerable<InviteDto>> GetInvitesAsync(GetInvitesQuery query)
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -199,7 +199,7 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public async Task<Box.BoxDto2> GetBox2(GetBoxQuery query)
+        public async Task<Box.BoxDto2> GetBox2Async(GetBoxQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -239,7 +239,7 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public async Task<IEnumerable<TabDto>> GetBoxTabs(GetBoxQuery query)
+        public async Task<IEnumerable<TabDto>> GetBoxTabsAsync(GetBoxQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -328,7 +328,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<Item.ItemMobileDto> GetItemDetailApi(GetItemQuery query)
+        public async Task<Item.ItemMobileDto> GetItemDetailApiAsync(GetItemQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -337,7 +337,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<Item.ItemDetailDto> GetItem2(GetItemQuery query)
+        public async Task<Item.ItemDetailDto> GetItem2Async(GetItemQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -377,7 +377,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<Box.RecommendBoxDto>> GetBoxRecommendedCourses(GetBoxSideBarQuery query)
+        public async Task<IEnumerable<Box.RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
@@ -489,7 +489,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<Qna.AnswerDto>> GetReplies(GetCommentRepliesQuery query)
+        public async Task<IEnumerable<Qna.AnswerDto>> GetRepliesAsync(GetCommentRepliesQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
@@ -530,7 +530,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<User.UserMinProfile> GetUserMinProfile(GetUserMinProfileQuery query)
+        public async Task<User.UserMinProfile> GetUserMinProfileAsync(GetUserMinProfileQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -597,7 +597,7 @@ namespace Zbang.Zbox.ReadServices
 
         }
 
-        public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddress(UniversityByIpQuery query)
+        public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(UniversityByIpQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -645,7 +645,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<UniversityWithCodeDto> GetUniversityNeedId(long universityId)
+        public async Task<UniversityWithCodeDto> GetUniversityNeedIdAsync(long universityId)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -669,7 +669,7 @@ namespace Zbang.Zbox.ReadServices
         //    }
         //}
 
-        public async Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIds(IEnumerable<long> friendsIds)
+        public async Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIdsAsync(IEnumerable<long> friendsIds)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -795,7 +795,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<long>> GetBoxUsersId(GetBoxWithUserQuery query)
+        public async Task<IEnumerable<long>> GetBoxUsersIdAsync(GetBoxWithUserQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -813,7 +813,7 @@ namespace Zbang.Zbox.ReadServices
         #endregion
 
 
-        public async Task<bool> GetInvite(GetInviteDetailQuery query)
+        public async Task<bool> GetInviteAsync(GetInviteDetailQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -828,7 +828,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public async Task<IEnumerable<UpdatesDto>> GetUpdates(QueryBase query)
+        public async Task<IEnumerable<UpdatesDto>> GetUpdatesAsync(QueryBase query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -904,7 +904,7 @@ namespace Zbang.Zbox.ReadServices
         #endregion
 
         #region Seo
-        public async Task<IEnumerable<string>> GetSeoItems(int page)
+        public async Task<IEnumerable<string>> GetSeoItemsAsync(int page)
         {
             const int pageSize = 49950;
             if (page < 1)
@@ -918,7 +918,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<int> GetSeoItemCount()
+        public async Task<int> GetSeoItemCountAsync()
         {
             const int pageSize = 49950;
             using (var conn = await DapperConnection.OpenConnectionAsync())
@@ -948,7 +948,7 @@ namespace Zbang.Zbox.ReadServices
 
         #region Quiz
 
-        public async Task<Item.QuizSeo> GetQuizSeo(GetQuizSeoQuery query)
+        public async Task<Item.QuizSeo> GetQuizSeoAsync(GetQuizSeoQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -957,7 +957,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<Item.FileSeo> GetItemSeo(GetFileSeoQuery query)
+        public async Task<Item.FileSeo> GetItemSeoAsync(GetFileSeoQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -966,7 +966,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<Box.BoxSeoDto> GetBoxSeo(GetBoxSeoQuery query)
+        public async Task<Box.BoxSeoDto> GetBoxSeoAsync(GetBoxSeoQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -1034,7 +1034,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<Item.QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query)
+        public async Task<Item.QuizWithDetailSolvedDto> GetQuizAsync(GetQuizQuery query)
         {
             var retVal = new Item.QuizWithDetailSolvedDto();
             using (var conn = await DapperConnection.OpenConnectionAsync())
@@ -1072,7 +1072,7 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public async Task<IEnumerable<Item.DiscussionDto>> GetDiscussion(GetDisscussionQuery query)
+        public async Task<IEnumerable<Item.DiscussionDto>> GetDiscussionAsync(GetDisscussionQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -1080,7 +1080,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<Item.QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query)
+        public async Task<Item.QuizWithDetailDto> GetDraftQuizAsync(GetQuizDraftQuery query)
         {
 
             using (var conn = await DapperConnection.OpenConnectionAsync())
@@ -1106,7 +1106,7 @@ namespace Zbang.Zbox.ReadServices
 
         }
 
-        public async Task<int> GetNumberOfSolvers(long quizId)
+        public async Task<int> GetNumberOfSolversAsync(long quizId)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {

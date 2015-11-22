@@ -137,7 +137,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateBadRequestResponse();
             }
 
-            var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
+            var needId = await ZboxReadService.GetUniversityNeedIdAsync(model.UniversityId);
             if (needId != null && string.IsNullOrEmpty(model.StudentId))
             {
                 return Request.CreateResponse(1);
@@ -195,7 +195,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateBadRequestResponse();
             }
             model.StudentId = model.StudentId ?? model.Code; //due to ios bug
-            var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
+            var needId = await ZboxReadService.GetUniversityNeedIdAsync(model.UniversityId);
             if (needId != null && string.IsNullOrEmpty(model.StudentId))
             {
                 return Request.CreateResponse(new { code = 1, email = needId.Email });

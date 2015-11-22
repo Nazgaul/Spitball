@@ -163,7 +163,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<ActionResult> Updates()
         {
-            var model = await ZboxReadService.GetUpdates(new QueryBase(User.GetUserId()));
+            var model = await ZboxReadService.GetUpdatesAsync(new QueryBase(User.GetUserId()));
             return JsonOk(model);
         }
     }

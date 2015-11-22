@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure.ServiceRuntime;
-using RedDog.Search.Http;
-using RedDog.Search.Model;
+using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Search;
@@ -17,6 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         private readonly string m_IndexName = "universities2";
         private bool m_CheckIndexExists;
         private readonly ISearchConnection m_Connection;
+        private readonly SearchIndexClient m_IndexClient;
 
         public UniversitySearchProvider(ISearchConnection connection)
         {
@@ -25,69 +26,93 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 m_IndexName = m_IndexName + "-dev";
             }
+            m_IndexClient = connection.SearchClient.Indexes.GetClient(m_IndexName);
+        }
+
+        private const string IdField = "id";
+        private const string NameField = "name";
+        private const string ExtraOneField = "extra1";
+        private const string ExtraTwoField = "extra2";
+        private const string ImageField = "imageField";
+        private const string NameSuggest = "nameSuggest";
+        private const string CountryField = "coutry";
+        private const string MembersCountField = "membersCount";
+        private const string MembersImagesField = "membersImages";
+
+        private Index GetUniversityIndex()
+        {
+            var index = new Index(m_IndexName, new[]
+            {
+                new Field(IdField,DataType.String) { IsKey = true, IsRetrievable = true},
+                new Field(NameField,DataType.String) {IsRetrievable = true, IsSearchable = true},
+                new Field(ExtraOneField, DataType.String) { IsSearchable = true},
+                new Field(ExtraTwoField, DataType.String) {  IsSearchable = true},
+                new Field(ImageField, DataType.String) { IsRetrievable = true},
+                new Field(CountryField, DataType.String) { IsRetrievable = true, IsFilterable = true},
+                new Field(MembersCountField, DataType.Int32) { IsRetrievable = true},
+                new Field(MembersImagesField, DataType.Collection(DataType.String)) { IsRetrievable = true}
+               
+            })
+            {
+                Suggesters = new[]
+                {
+                    new Suggester(NameSuggest, SuggesterSearchMode.AnalyzingInfixMatching, NameField)
+                }
+            };
+            return index;
+
         }
 
         private async Task BuildIndex()
         {
-            var response = await m_Connection.IndexManagement.GetIndexAsync(m_IndexName);
-            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            try
             {
-                await m_Connection.IndexManagement.CreateIndexAsync(GetUniversityIndex());
+                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetUniversityIndex());
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("on box build index", ex);
             }
             m_CheckIndexExists = true;
         }
 
 
-       
 
-        public async Task<IEnumerable<UniversityByPrefixDto>> SearchUniversity(UniversitySearchQuery query)
+
+        public async Task<IEnumerable<UniversityByPrefixDto>> SearchUniversity(UniversitySearchQuery query, CancellationToken cancelToken)
         {
+            if (query == null) throw new ArgumentNullException("query");
 
-            if (string.IsNullOrEmpty(query.Term))
-            {
-                return null;
-            }
+            //if (string.IsNullOrEmpty(query.Term))
+            //{
+            //    return null;
+            //}
 
-            var searchTask = m_Connection.IndexQuery.SearchAsync(m_IndexName,
-                  new RedDog.Search.Model.SearchQuery(query.Term + "*")
-                  {
-                      Select = "id,name,imageField",
-                      Top = query.RowsPerPage,
-                      Skip = query.RowsPerPage * query.PageNumber
-                  });
-            var suggestTask = Task.FromResult<IApiResponse<SuggestionResult>>(null);
-            if (query.Term.Length >= 3 && query.PageNumber == 0)
+            //var list = new List<Task>();
+            var tResult = m_IndexClient.Documents.SearchAsync<UniversitySearch>(query.Term + "*", new SearchParameters
             {
-                suggestTask = m_Connection.IndexQuery.SuggestAsync(m_IndexName,
-                    new SuggestionQuery(query.Term)
-                    {
-                        Fuzzy = true,
-                        Select = "id,name,imageField"
-                    });
-            }
-            await Task.WhenAll(searchTask, suggestTask);
-            if (!searchTask.Result.IsSuccess)
-            {
-                TraceLog.WriteError(string.Format("error from university search on query: {0} error message: {1}", query,
-                    searchTask.Result.Error.Message));
-            }
-            else if (searchTask.Result.Body.Records.Any())
-            {
-                return searchTask.Result.Body.Records.Select(s => new UniversityByPrefixDto(
-                 s.Properties["name"].ToString(),
-                 s.Properties["imageField"].ToString(),
-                 Convert.ToInt64(s.Properties["id"])
-                 ));
-            }
-            if (suggestTask.Result != null)
-            {
-                return suggestTask.Result.Body.Records.Select(s => new UniversityByPrefixDto(
-                    s.Properties["name"].ToString(),
-                    s.Properties["imageField"].ToString(),
-                    Convert.ToInt64(s.Properties["id"])
-                    ));
-            }
-            return null;
+                Top = query.RowsPerPage,
+                Skip = query.RowsPerPage * query.PageNumber,
+                Select = new[] { IdField, NameField, ImageField },
+            }, cancelToken);
+
+            //var tSuggest = Task.FromResult<Task<DocumentSuggestResponse<UniversitySearch>>>(null);
+            //if (query.Term.Length >= 3 && query.PageNumber == 0)
+            //{
+            //    tSuggest = m_IndexClient.Documents.SuggestAsync<UniversitySearch>(query.Term, NameSuggest, new SuggestParameters
+            //     {
+            //         UseFuzzyMatching = true,
+            //         Select = new[] { IdField, NameField, ImageField }
+            //     });
+            //}
+            await Task.WhenAll(tResult);
+
+
+
+
+            return
+                tResult.Result.Select(
+                    s => new UniversityByPrefixDto(s.Document.Name, s.Document.ImageField, long.Parse(s.Document.Id)));
 
         }
 
@@ -99,67 +124,50 @@ namespace Zbang.Zbox.Infrastructure.Search
                 await BuildIndex();
             }
 
-            var listOfCommands = new List<IndexOperation>();
+            var listOfCommands = new List<IndexAction<UniversitySearch>>();
             if (universityToUpload != null)
             {
-                listOfCommands.AddRange(universityToUpload.Select(s =>
-                {
-                    var x = new IndexOperation(IndexOperationType.Upload, "id",
-                        s.Id.ToString(CultureInfo.InvariantCulture))
-                        .WithProperty("name", s.Name.Trim())
-                        .WithProperty("extra1", s.Extra)
-                        .WithProperty("extra2", String.Join(
-                            " ",
-                            s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
-                                .Where(w => w.StartsWith("ה") || w.StartsWith("ל"))
-                                .Select(s1 => s1.Remove(0, 1))))
-                        .WithProperty("imageField", s.Image.Trim());
-                    return x;
-                }));
+                listOfCommands.AddRange(
+                    universityToUpload.Select(s => new IndexAction<UniversitySearch>(IndexActionType.MergeOrUpload, new UniversitySearch
+                    {
+                        Id = s.Id.ToString(CultureInfo.InvariantCulture),
+                        Name = s.Name.Trim(),
+                        Extra1 = s.Extra,
+                        Extra2 = String.Join(
+                               " ",
+                               s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
+                                   .Where(w => w.StartsWith("ה") || w.StartsWith("ל"))
+                                   .Select(s1 => s1.Remove(0, 1))),
+                        ImageField = s.Image.Trim()
+                    })));
+
+
+
             }
             if (universityToDelete != null)
             {
                 listOfCommands.AddRange(universityToDelete.Select(s =>
-                    new IndexOperation(IndexOperationType.Delete, "id", s.ToString(CultureInfo.InvariantCulture))
-                    ));
+                   new IndexAction<UniversitySearch>(IndexActionType.Delete, new UniversitySearch
+                   {
+                       Id = s.ToString(CultureInfo.InvariantCulture)
+                   })));
+
             }
             var commands = listOfCommands.ToArray();
-            if (commands.Length > 0)
+            if (commands.Length <= 0) return true;
+            try
             {
-
-                var retVal = await m_Connection.IndexManagement.PopulateAsync(m_IndexName, listOfCommands.ToArray());
-                if (!retVal.IsSuccess)
-                {
-                    TraceLog.WriteError("On update search" + retVal.Error.Message);
-                }
-                return retVal.IsSuccess;
+                await m_IndexClient.Documents.IndexAsync(IndexBatch.Create(listOfCommands.ToArray()));
+            }
+            catch (IndexBatchException ex)
+            {
+                TraceLog.WriteError("Failed to index some of the documents: " +
+                                    String.Join(", ", ex.IndexResponse.Results.Where(r => !r.Succeeded).Select(r => r.Key)));
+                return false;
             }
             return true;
         }
 
-        private Index GetUniversityIndex()
-        {
-            return new Index(m_IndexName)
-                   .WithStringField("id", f => f
-                       .IsKey()
-                       .IsRetrievable()
-                       )
-                   .WithStringField("name", f => f
-                       .IsRetrievable()
-                       .IsSearchable()
-                       .IsFilterable(false)
-                       .SupportSuggestions())
-                   .WithStringField("extra1", f => f
-                       .IsSearchable()
-                       .IsFilterable(false)
-                       )
-                   .WithStringField("extra2", f => f
-                       .IsFilterable(false)
-                       .IsSearchable()
-                       )
-                   .WithStringField("imageField", f => f
-                       .IsRetrievable()
-                       );
-        }
+
     }
 }

@@ -31,7 +31,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateBadRequestResponse();
             }
             var query = new GetLibraryNodeQuery(universityId.Value, guid, User.GetCloudentsUserId());
-            var result = await ZboxReadService.GetLibraryNode(query);
+            var result = await ZboxReadService.GetLibraryNodeAsync(query);
             return Request.CreateResponse(result);
         }
 

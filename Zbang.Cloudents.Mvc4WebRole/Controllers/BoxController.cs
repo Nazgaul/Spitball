@@ -42,7 +42,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetBoxSeoQuery(boxId, userId);
-                var model = await ZboxReadService.GetBoxSeo(query);
+                var model = await ZboxReadService.GetBoxSeoAsync(query);
                 if (model == null)
                 {
                     throw new BoxDoesntExistException("model is null");
@@ -93,7 +93,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetBoxSeoQuery(base62.Value, userId);
             try
             {
-                var model = await ZboxReadService.GetBoxSeo(query);
+                var model = await ZboxReadService.GetBoxSeoAsync(query);
                 return RedirectPermanent(model.Url);
             }
             catch (BoxDoesntExistException ex)
@@ -147,7 +147,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetBoxQuery(id);
-                var result = await ZboxReadService.GetBox2(query);
+                var result = await ZboxReadService.GetBox2Async(query);
                 result.UserType = ViewBag.UserType;
                 result.ShortUrl = UrlConsts.BuildShortBoxUrl(new Base62(id).ToString());
 
@@ -194,7 +194,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<JsonResult> Recommended(long id)
         {
             var query = new GetBoxSideBarQuery(id, User.GetUserId(false));
-            var result = await ZboxReadService.GetBoxRecommendedCourses(query);
+            var result = await ZboxReadService.GetBoxRecommendedCoursesAsync(query);
             return JsonOk(result);
         }
         [HttpGet]
@@ -225,7 +225,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new GetBoxQuery(id);
-                var result = await ZboxReadService.GetBoxTabs(query);
+                var result = await ZboxReadService.GetBoxTabsAsync(query);
                 return JsonOk(result);
             }
             catch (Exception ex)

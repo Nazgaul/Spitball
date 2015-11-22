@@ -92,6 +92,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
         public Task<string> GetCountryByIpAsync(HttpContextBase context)
         {
+
+            var ipNumber = Ip2Long(GetIpFromClient(context));
+            return m_ZboxReadService.GetLocationByIpAsync(new GetCountryByIpQuery(ipNumber));
+        }
+
+        public static string GetIpFromClient(HttpContextBase context)
+        {
             string userIp = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
             if (string.IsNullOrWhiteSpace(userIp))
             {
@@ -102,11 +109,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 //userIp = "109.158.31.75";
                 userIp = "81.218.135.73";
             }
-            var ipNumber = Ip2Long(userIp);
-            return m_ZboxReadService.GetLocationByIpAsync(new GetCountryByIpQuery(ipNumber));
+            return userIp;
         }
 
-        private static long Ip2Long(string ip)
+        public static long Ip2Long(string ip)
         {
             double num = 0;
             if (!string.IsNullOrEmpty(ip))

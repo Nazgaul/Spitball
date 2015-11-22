@@ -48,7 +48,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             var userId = User.GetCloudentsUserId();
             var query = new GetItemQuery(userId, id, boxId);
-            var tItem = ZboxReadService.GetItemDetailApi(query);
+            var tItem = ZboxReadService.GetItemDetailApiAsync(query);
 
             var tTransAction = QueueProvider.InsertMessageToTranactionAsync(
                   new StatisticsData4(new List<StatisticsData4.StatisticItemData>
@@ -77,7 +77,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             var userId = User.GetCloudentsUserId();
             var query = new GetItemQuery(userId, id, 0);
-            var tItem = ZboxReadService.GetItemDetailApi(query);
+            var tItem = ZboxReadService.GetItemDetailApiAsync(query);
 
             var tTransAction = QueueProvider.InsertMessageToTranactionAsync(
                   new StatisticsData4(new List<StatisticsData4.StatisticItemData>

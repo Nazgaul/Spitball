@@ -75,7 +75,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
 
                 var query = new GetFileSeoQuery(itemid);
-                var model = await ZboxReadService.GetItemSeo(query);
+                var model = await ZboxReadService.GetItemSeoAsync(query);
                 if (model == null)
                 {
                     throw new ItemNotFoundException();
@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var base62 = new Base62(item62Id);
             var query = new GetFileSeoQuery(base62.Value);
-            var model = await ZboxReadService.GetItemSeo(query);
+            var model = await ZboxReadService.GetItemSeoAsync(query);
             return RedirectPermanent(model.Url);
         }
         /// <summary>
@@ -143,7 +143,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userId = User.GetUserId(false);
 
                 var query = new GetItemQuery(userId, itemId, boxId);
-                var tItem = ZboxReadService.GetItem2(query);
+                var tItem = ZboxReadService.GetItem2Async(query);
 
                 var tTransAction = m_QueueProvider.InsertMessageToTranactionAsync(
                       new StatisticsData4(new List<StatisticsData4.StatisticItemData>

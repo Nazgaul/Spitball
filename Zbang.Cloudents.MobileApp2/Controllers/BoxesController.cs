@@ -82,7 +82,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             //var universityWrapper = userDetail.UniversityDataId.Value;
 
             var query = new RecommendedCoursesQuery(university.Value, User.GetCloudentsUserId());
-            var result = await ZboxReadService.GetRecommendedCourses(query);
+            var result = await ZboxReadService.GetRecommendedCoursesAsync(query);
             return Request.CreateResponse(result.Select(s => new
             {
                 Id = s.BoxId,

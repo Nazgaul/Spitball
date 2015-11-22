@@ -160,12 +160,12 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
                 var retValWithoutSearch =
                     await
-                        ZboxReadService.GetUniversityByIpAddress(new UniversityByIpQuery(Ip2Long(ip), sizePerPage, page));
+                        ZboxReadService.GetUniversityByIpAddressAsync(new UniversityByIpQuery(Ip2Long(ip), sizePerPage, page));
                 return Request.CreateResponse(retValWithoutSearch);
             }
             var query = new UniversitySearchQuery(term, sizePerPage, page);
             // Services.Log.Info(String.Format("search university query: {0}", query));
-            var retVal = await UniversitySearch.SearchUniversity(query);
+            var retVal = await UniversitySearch.SearchUniversity(query, default(CancellationToken));
 
             return Request.CreateResponse(retVal);
         }

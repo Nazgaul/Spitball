@@ -1532,6 +1532,18 @@
     <Content Include="Content\Site\layout.rtl.min.css">
       <DependentUpon>layout.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\libraryChoose.css">
+      <DependentUpon>libraryChoose.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\libraryChoose.min.css">
+      <DependentUpon>libraryChoose.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\libraryChoose.rtl.css">
+      <DependentUpon>libraryChoose.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\libraryChoose.rtl.min.css">
+      <DependentUpon>libraryChoose.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\light.css">
       <DependentUpon>light.less</DependentUpon>
     </Content>
@@ -1956,6 +1968,9 @@
     <Content Include="Js\components\box\box.routes.js" />
     <Content Include="Js\components\dashboard\createBox.controller.js" />
     <Content Include="Js\components\item\externalProviderUpload.service.js" />
+    <Content Include="Js\components\library\library.routes.js" />
+    <Content Include="Js\components\library\library.service.js" />
+    <Content Include="Js\components\library\libraryChoose.controller.js" />
     <Content Include="Js\components\quiz\nextQuestion.js" />
     <Content Include="Js\components\quiz\quiz.controller.js" />
     <Content Include="Js\components\quiz\quiz.routes.js" />
@@ -2213,6 +2228,7 @@
     <Content Include="Content\Site\unused-components.less" />
     <Content Include="Content\Site\quizCreate.less" />
     <Content Include="Content\Site\search.less" />
+    <Content Include="Content\Site\libraryChoose.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3129,6 +3145,7 @@
     <Content Include="Views\Account\Notification.cshtml" />
     <Content Include="Views\Home\Blog.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Library\Choose.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

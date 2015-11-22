@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -81,22 +82,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<PartialViewResult> ChoosePartial()
         {
-            var country = await UserLanguage.GetCountryByIpAsync(HttpContext);
-            ViewBag.country = country;
-            return PartialView("_SelectUni");
+            //var country = await UserLanguage.GetCountryByIpAsync(HttpContext);
+            //ViewBag.country = country;
+            return PartialView("Choose");
         }
 
 
         [HttpGet]
-        public async Task<JsonResult> SearchUniversity(string term)
+        public async Task<JsonResult> SearchUniversity(string term, CancellationToken cancellationToken)
         {
+            CancellationToken disconnectedToken = Response.ClientDisconnectedToken;
+            var source = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, disconnectedToken);
             if (string.IsNullOrEmpty(term))
             {
-                return JsonError();
+                var ip = LanguageMiddleware.GetIpFromClient(HttpContext);
+
+                var retValWithoutSearch =
+                    await
+                        ZboxReadService.GetUniversityByIpAddressAsync(new UniversityByIpQuery(LanguageMiddleware.Ip2Long(ip), 20, 0));
+                return JsonOk(retValWithoutSearch);
             }
             try
             {
-                var retVal = await m_UniversitySearch.Value.SearchUniversity(new UniversitySearchQuery(term));
+                var retVal = await m_UniversitySearch.Value.SearchUniversity(new UniversitySearchQuery(term), source.Token);
                 return JsonOk(retVal);
             }
             catch (Exception ex)
@@ -118,7 +126,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var friendsId = await m_FacebookService.Value.GetFacebookUserFriends(authToken);
                 var facebookFriendDatas = friendsId as FacebookFriendData[] ?? friendsId.ToArray();
                 var suggestedUniversity =
-                    await ZboxReadService.GetUniversityListByFriendsIds(facebookFriendDatas.Select(s => s.Id));
+                    await ZboxReadService.GetUniversityListByFriendsIdsAsync(facebookFriendDatas.Select(s => s.Id));
 
                 foreach (var university in suggestedUniversity)
                 {
@@ -156,7 +164,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university), JsonRequestBehavior.AllowGet);
             }
             var query = new GetLibraryNodeQuery(universityId.Value, guid, User.GetUserId());
-            var result = await ZboxReadService.GetLibraryNode(query);
+            var result = await ZboxReadService.GetLibraryNodeAsync(query);
             return Json(new JsonResponse(true, result));
 
         }
@@ -269,7 +277,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var parentId = GuidEncoder.TryParseNullableGuid(model.ParentId);
                 var command = new AddNodeToLibraryCommand(model.Name, universityId.Value, parentId, User.GetUserId());
                 ZboxWriteService.CreateDepartment(command);
-                var result = new NodeDto {Id = command.Id, Name = model.Name, Url = command.Url};
+                var result = new NodeDto { Id = command.Id, Name = model.Name, Url = command.Url };
                 return Json(new JsonResponse(true, result));
             }
             catch (DuplicateDepartmentNameException)
@@ -404,44 +412,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        //[HttpGet]
-        //public JsonResult InsertCode(long universityId)
-        //{
-        //    // var userData = m_UserProfile.Value.GetUserData(ControllerContext);
-        //    switch (universityId)
-        //    {
-        //        case 19878:
-        //            ViewBag.AgudaName = "מכללת אשקלון - היחידה ללימודי חוץ";
-        //            ViewBag.AgudaMail = "shivok@ash-college.ac.il";
 
-        //            ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון\n08-6789250.";
-        //            break;
-        //        case 1173:
-        //            ViewBag.AgudaName = "אגודת הסטודנטים בסימינר הקיבוצים";
-        //            ViewBag.AgudaMail = "maagar.aguda@gmail.com";
-        //            ViewBag.AgudaPhone = string.Empty;
-        //            break;
-        //        case 22906:
-        //            ViewBag.AgudaName = "תות תקשורת ותוצאות";
-        //            ViewBag.AgudaMail = "kipigilad@walla.com‏";
-
-        //            ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון\n054-3503509.";
-        //            break;
-        //        case 64805:
-        //            ViewBag.AgudaName = string.Empty;
-        //            ViewBag.AgudaMail = string.Empty;
-
-        //            ViewBag.AgudaPhone = string.Empty;
-        //            break;
-        //        default:
-        //            ViewBag.AgudaName = "המרכז ללימודים אקדמיים אור יהודה";
-        //            ViewBag.AgudaMail = "aguda@mla.ac.il";
-        //            ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון\n072-2220692.";
-        //            break;
-        //    }
-        //    // ViewBag.userName = userData.Name;
-        //    return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertCode", new Models.Account.Settings.University { UniversityId = universityId }) }));
-        //}
         [HttpGet]
         public JsonResult InsertId(long universityId)
         {
@@ -451,38 +422,27 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ViewBag.TextPopupUpper = universityData["TextPopupUpper"];
                 ViewBag.TextPopupLower = universityData["TextPopupLower"];
             }
-            // var userData = m_UserProfile.Value.GetUserData(ControllerContext);
-            //switch (universityId)
-            //{
-            //    default:
-            //        ViewBag.AgudaSentence = "המאגר האקדמי של המכללה למינהל פתוח לכל חברי אגודת הסטודנטים של המכללה למינהל.  אימות חברי אגודה ע\"י מספר ת\"ז";
-            //        //ViewBag.AgudaName = "המרכז ללימודים אקדמיים אור יהודה";
-            //        ViewBag.AgudaMail = "aguda4u.co.il@gmail.com";
-            //        ViewBag.AgudaPhone = "או צרו קשר ישירות עם מזכירות האגודה בטלפון 03-9628930";
-            //        break;
-            //}
-            //  ViewBag.userName = userData.Name;
             return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertID", new Models.Account.Settings.University()) }));
         }
 
 
 
-        [HttpGet]
-        public async Task<JsonResult> RussianDepartments()
-        {
-            var universityId = User.GetUniversityId().Value;
+        //[HttpGet]
+        //public async Task<JsonResult> RussianDepartments()
+        //{
+        //    var universityId = User.GetUniversityId().Value;
 
-            var retVal = await ZboxReadService.GetRussianDepartmentList(universityId);
-            return Json(new JsonResponse(true, retVal));
-        }
+        //    var retVal = await ZboxReadService.GetRussianDepartmentList(universityId);
+        //    return Json(new JsonResponse(true, retVal));
+        //}
 
 
 
-        [HttpPost]
-        public JsonResult Verify(string code)
-        {
-            var isValid = code == "cloudvivt";
-            return Json(new JsonResponse(true, isValid));
-        }
+        //[HttpPost]
+        //public JsonResult Verify(string code)
+        //{
+        //    var isValid = code == "cloudvivt";
+        //    return Json(new JsonResponse(true, isValid));
+        //}
     }
 }

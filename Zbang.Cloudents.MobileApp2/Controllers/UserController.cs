@@ -38,7 +38,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public async Task<HttpResponseMessage> Get(long userId)
         {
             var query = new GetUserMinProfileQuery(userId);
-            var result = await ZboxReadService.GetUserMinProfile(query);
+            var result = await ZboxReadService.GetUserMinProfileAsync(query);
             return Request.CreateResponse(new
             {
                 result.Id,

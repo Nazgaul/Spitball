@@ -65,7 +65,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new RecommendedCoursesQuery(920, 1);
             try
             {
-                var x = await m_ZboxReadService.GetRecommendedCourses(query);
+                var x = await m_ZboxReadService.GetRecommendedCoursesAsync(query);
             }
             catch (Exception ex)
             {
@@ -96,7 +96,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetLibraryNodeQuery(1, null, 1);
             try
             {
-                var x = m_ZboxReadService.GetLibraryNode(query).Result;
+                var x = m_ZboxReadService.GetLibraryNodeAsync(query).Result;
             }
             catch (Exception ex)
             {
@@ -109,7 +109,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetLibraryNodeQuery(14, Guid.Parse("E6DBF958-8246-4669-915C-0041093B7FC1"), 1);
             try
             {
-                var x = m_ZboxReadService.GetLibraryNode(query).Result;
+                var x = m_ZboxReadService.GetLibraryNodeAsync(query).Result;
             }
             catch (Exception ex)
             {
@@ -122,7 +122,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetUniversityDetailQuery(1);
             try
             {
-                var x = m_ZboxReadService.GetUniversityDetail(query).Result;
+                var x = m_ZboxReadService.GetUniversityDetailAsync(query).Result;
             }
             catch (Exception ex)
             {
@@ -135,7 +135,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetInvitesQuery(1);
             try
             {
-                m_ZboxReadService.GetInvites(query);
+                m_ZboxReadService.GetInvitesAsync(query);
             }
             catch (Exception ex)
             {
@@ -149,7 +149,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetBoxQuery(4);
             try
             {
-                var x = await m_ZboxReadService.GetBox2(query);
+                var x = await m_ZboxReadService.GetBox2Async(query);
             }
             catch (Exception ex)
             {
@@ -162,7 +162,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetBoxQuery(1);
             try
             {
-                var x = m_ZboxReadService.GetBoxTabs(query).Result;
+                var x = m_ZboxReadService.GetBoxTabsAsync(query).Result;
             }
             catch (Exception ex)
             {
@@ -189,7 +189,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetItemQuery(3, 17, 4);
             try
             {
-                var x = m_ZboxReadService.GetItem2(query).Result;
+                var x = m_ZboxReadService.GetItem2Async(query).Result;
             }
             catch (Exception ex)
             {
@@ -197,25 +197,25 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
 
-        [TestMethod]
-        public void GetRussianDepartmentList_Query_ReturnResult()
-        {
-            try
-            {
-                var x = m_ZboxReadService.GetRussianDepartmentList(984).Result;
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+        //[TestMethod]
+        //public void GetRussianDepartmentList_Query_ReturnResult()
+        //{
+        //    try
+        //    {
+        //        var x = m_ZboxReadService.GetRussianDepartmentList(984).Result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
 
         [TestMethod]
         public void GetUniversityNeedId_Query_ReturnResult()
         {
             try
             {
-                var x = m_ZboxReadService.GetUniversityNeedId(984).Result;
+                var x = m_ZboxReadService.GetUniversityNeedIdAsync(984).Result;
             }
             catch (Exception ex)
             {
@@ -230,7 +230,7 @@ namespace Zbang.Zbox.ReadServicesTests
         {
             try
             {
-                var x = m_ZboxReadService.GetUniversityListByFriendsIds(Enumerable.Range(0, 500).Select(s => (long)s)).Result;
+                var x = m_ZboxReadService.GetUniversityListByFriendsIdsAsync(Enumerable.Range(0, 500).Select(s => (long)s)).Result;
             }
             catch (Exception ex)
             {
@@ -244,7 +244,7 @@ namespace Zbang.Zbox.ReadServicesTests
             try
             {
                 var query = new GetInviteDetailQuery(Guid.NewGuid());
-                var x = m_ZboxReadService.GetInvite(query).Result;
+                var x = m_ZboxReadService.GetInviteAsync(query).Result;
             }
             catch (Exception ex)
             {
@@ -256,7 +256,7 @@ namespace Zbang.Zbox.ReadServicesTests
         {
             try
             {
-                var x = m_ZboxReadService.GetSeoItems(1).Result;
+                var x = m_ZboxReadService.GetSeoItemsAsync(1).Result;
             }
             catch (Exception ex)
             {
@@ -268,7 +268,7 @@ namespace Zbang.Zbox.ReadServicesTests
         {
             try
             {
-                var x = m_ZboxReadService.GetSeoItemCount().Result;
+                var x = m_ZboxReadService.GetSeoItemCountAsync().Result;
             }
             catch (Exception ex)
             {
@@ -282,7 +282,7 @@ namespace Zbang.Zbox.ReadServicesTests
             try
             {
                 var query = new GetQuizSeoQuery(1);
-                var x = m_ZboxReadService.GetQuizSeo(query).Result;
+                var x = m_ZboxReadService.GetQuizSeoAsync(query).Result;
             }
             catch (Exception ex)
             {
@@ -296,7 +296,7 @@ namespace Zbang.Zbox.ReadServicesTests
             try
             {
                 var query = new GetFileSeoQuery(1);
-                var x = m_ZboxReadService.GetItemSeo(query).Result;
+                var x = m_ZboxReadService.GetItemSeoAsync(query).Result;
             }
             catch (Exception ex)
             {
@@ -310,7 +310,7 @@ namespace Zbang.Zbox.ReadServicesTests
             try
             {
                 var query = new GetBoxSeoQuery(4, 3);
-                var x = await m_ZboxReadService.GetBoxSeo(query);
+                var x = await m_ZboxReadService.GetBoxSeoAsync(query);
             }
             catch (Exception ex)
             {
@@ -338,7 +338,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetQuizQuery(1, 1, 1);
             try
             {
-                var x = m_ZboxReadService.GetQuiz(query);
+                var x = m_ZboxReadService.GetQuizAsync(query);
             }
             catch (Exception ex)
             {
@@ -351,7 +351,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetDisscussionQuery(1);
             try
             {
-                var x = m_ZboxReadService.GetDiscussion(query);
+                var x = m_ZboxReadService.GetDiscussionAsync(query);
             }
             catch (Exception ex)
             {
@@ -364,7 +364,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetQuizDraftQuery(1);
             try
             {
-                var x = m_ZboxReadService.GetDraftQuiz(query).Result;
+                var x = m_ZboxReadService.GetDraftQuizAsync(query).Result;
             }
             catch (Exception ex)
             {
@@ -377,7 +377,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetQuizDraftQuery(1);
             try
             {
-                var x = m_ZboxReadService.GetNumberOfSolvers(1).Result;
+                var x = m_ZboxReadService.GetNumberOfSolversAsync(1).Result;
             }
             catch (Exception ex)
             {
@@ -564,7 +564,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetUserMinProfileQuery(1);
             try
             {
-                var x = m_ZboxReadService.GetUserMinProfile(query).Result;
+                var x = m_ZboxReadService.GetUserMinProfileAsync(query).Result;
             }
             catch (Exception ex)
             {
@@ -659,7 +659,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new QueryBase(18);
             try
             {
-                var x = m_ZboxReadService.GetUpdates(query).Result;
+                var x = m_ZboxReadService.GetUpdatesAsync(query).Result;
             }
             catch (Exception ex)
             {
@@ -687,7 +687,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetBoxSideBarQuery(60130, 1);
             try
             {
-                var x = await m_ZboxReadService.GetBoxRecommendedCourses(query);
+                var x = await m_ZboxReadService.GetBoxRecommendedCoursesAsync(query);
             }
             catch (Exception ex)
             {

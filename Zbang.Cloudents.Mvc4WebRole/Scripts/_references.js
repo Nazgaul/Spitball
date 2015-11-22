@@ -338,3 +338,6 @@
 /// <reference path="../js/components/quiz/nextquestion.js" />
 /// <reference path="../js/components/quiz/quizcreate.close.controller.js" />
 /// <reference path="../js/components/quiz/quiz.controller.js" />
+/// <reference path="../js/components/library/library.routes.js" />
+/// <reference path="../js/components/library/librarychoose.controller.js" />
+/// <reference path="../js/components/library/library.service.js" />

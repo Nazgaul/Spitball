@@ -105,7 +105,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public async Task<HttpResponseMessage> Discussion(long id)
         {
             var query = new GetDisscussionQuery(id);
-            var model = await ZboxReadService.GetDiscussion(query);
+            var model = await ZboxReadService.GetDiscussionAsync(query);
             return Request.CreateResponse(model.Select(s => new
             {
                 s.QuestionId,

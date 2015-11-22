@@ -110,6 +110,7 @@
     <Compile Include="RegisterIoc.cs" />
     <Compile Include="SeachConnection.cs" />
     <Compile Include="SearchIndex.cs" />
+    <Compile Include="UniversitySearch.cs" />
     <Compile Include="UniversitySearchProvider.cs" />
   </ItemGroup>
   <ItemGroup>
