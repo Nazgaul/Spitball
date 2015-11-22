@@ -230,12 +230,10 @@
         });
 
         function openClose() {
-            var modalInstance = $uibModal.open({
+            $uibModal.open({
                 animation: true,
                 templateUrl: 'quiz-create-leave-template.html',
                 controller: 'quizCreateCloseController as c',
-                //backdrop: 'static',
-                //keyboard: false,
                 backdropClass: 'quiz-create-backdrop',
                 windowClass: 'quiz-create-window',
                 resolve: {
@@ -244,16 +242,6 @@
                         return self.id;
                     }
                 }
-            });
-
-            modalInstance.result.then(function (response) {
-                if (response === 'publish') {
-                    self.publish();
-                }
-
-                //    start();
-                //}, function () {
-                //    afraid();
             });
         };
     }

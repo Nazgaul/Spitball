@@ -72,7 +72,15 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var query = new GetUserWithFriendQuery(User.GetCloudentsUserId(), userId, page, sizePerPage);
             var result = await ZboxReadService.GetUserCommentActivityAsync(query);
 
-            return Request.CreateResponse(result);
+            return Request.CreateResponse(result.Select( s=> new
+            {
+                s.BoxId,
+                s.BoxName,
+                s.Content,
+                s.Id,
+                s.PostId,
+                s.Type
+            }));
         }
 
 

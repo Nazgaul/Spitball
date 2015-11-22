@@ -80,6 +80,9 @@
   border: 1px solid #c2c2c2;
   margin-bottom: 12px;
 }
+.create-question .ta-scroll-window > .ta-bind {
+  min-height: 90px;
+}
 .create-question .ta-toolbar {
   display: none;
   background: #cfd1cf;

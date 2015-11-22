@@ -1,4 +1,5 @@
-﻿using DevTrends.MvcDonutCaching;
+﻿using System.Linq;
+using DevTrends.MvcDonutCaching;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -42,7 +43,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(model);
         }
 
-        
+
 
         [HttpGet]
         public async Task<ActionResult> Friends(long id, int page)
@@ -87,7 +88,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var model = await ZboxReadService.GetUserCommentActivityAsync(query);
 
 
-            return JsonOk(model);
+            return JsonOk(model.Select(s =>
+            new
+            {
+                s.Content,
+                s.CreationTime,
+                s.BoxName,
+                s.Url
+            }));
         }
 
         [HttpGet]

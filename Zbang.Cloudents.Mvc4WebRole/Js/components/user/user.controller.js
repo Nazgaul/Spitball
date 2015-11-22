@@ -170,7 +170,7 @@
             self.commentsLoading = true;
             userService.feed($stateParams.userId, commentPage).then(function (response) {
                 feed = feed.concat(response);
-                if (self.tab === self.state.box) {
+                if (self.tab === self.state.post) {
                     self.elements = feed;
                 }
 
