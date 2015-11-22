@@ -97,12 +97,8 @@
                     </ol>
                 </div>
             </div>
-            <div ng-if="q.state === 3">
-                <h2>Good job</h2>
-                <div>you have completed the quiz</div>
-                <div>you have answered {{q.answersCount}}/{{::q.questions.length}}</div>
-                <button type="button" ng-click="q.back()">Go back and check</button>
-                <button type="button" ng-click="q.checkAnswers()">Submit</button>
+            <div class ="quiz-challenge" ng-if="q.state === 3" ng-include="'quizGoodJob.html'">
+
             </div>
         </div>
         <div class="hidden-sm hidden-xs arrows next" ng-if="q.state === 2 || q.state === 4">

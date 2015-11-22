@@ -26,3 +26,12 @@
 </script>
 
 
+<script type="text/ng-template" id="quizGoodJob.html">
+    <h4>Good job</h4>
+    <h5>you have completed the quiz</h5>
+    <div class="backgrounds">you have answered {{q.answersCount}}/{{::q.questions.length}}</div>
+    <button type="button" ng-click="q.back()">Go back and check</button>
+    <button type="button" ng-click="q.checkAnswers()">Submit</button>
+</script>
+
+
