@@ -46,7 +46,7 @@
     .quiz-take-stats {
         margin-bottom: 12px;
         border: 3px solid #4190b9;
-        display: flex;
+        .displayFlex();
         align-items: center;
         border-radius: 10px;
         overflow: hidden;
@@ -69,7 +69,7 @@
         }
         //width: 100%;
         .stop-watch-wrapper {
-            display: flex;
+            .displayFlex();
             padding: 10px;
         }
 
@@ -98,7 +98,7 @@
         }
 
         .progress-wrapper {
-            display: flex;
+            .displayFlex();
             padding: 10px;
             background: #DDD;
             // align-self:center;
@@ -162,7 +162,7 @@
     }
 
     .score-details {
-        display: flex;
+        .displayFlex();
         font-size: 60px;
         font-weight: bold;
         line-height: 57px;
@@ -173,7 +173,7 @@
         }
 
         & > div {
-            display: flex;
+            .displayFlex();
             width: 50%;
             justify-content: center;
             margin: 15px 0;
@@ -263,7 +263,8 @@
     }
 
     .q {
-        display: flex;
+        .displayFlex()
+        
     }
 
     .q-body {
@@ -272,7 +273,7 @@
     }
 
     .q-actions {
-        display: flex;
+        .displayFlex();
         visibility: hidden;
 
         svg {
@@ -288,7 +289,7 @@
 
     li {
         padding: 0 0 10px;
-        display: flex;
+        .displayFlex();
     }
 
     .circle {
@@ -331,21 +332,25 @@
     text-align: center;
     height: ~"calc(100vh - 277px)";
 
+    .goodjob {
+        .displayInlineFlex();
+    }
+
     h4 {
         color: #4190B9;
         font-size: 40px;
-        margin-bottom: 0; //override
+        margin: 0; //override
     }
 
     h5 {
         color: #4190B9;
         font-weight: bold;
         font-size: 40px;
-        margin-top: 0; //override
+        margin: 0 10px 0 0; //override
     }
 
     .backgrounds {
-        margin: 10px 0;
+        margin: 10px auto;
         background: #353a3f;
         border-radius: 10px;
         color: #f5f5f5;
@@ -354,10 +359,10 @@
 
     .classmates {
         padding: 19px 0;
-        display: flex;
+        .displayFlex();
 
         & > div {
-            display: flex;
+            .displayFlex();
             width: 51px;
             -ms-flex-wrap: wrap;
             -webkit-flex-wrap: wrap;
@@ -366,7 +371,7 @@
     }
 
     .ready {
-        display: flex;
+        .displayFlex();
         align-items: center;
 
         svg {
@@ -381,19 +386,45 @@
         }
     }
 
+    .complete {
+        .displayFlex();
+        align-items: center;
+
+        svg {
+            width: 50px;
+            height: 50px;
+            fill: #9782B1;
+            margin: 5px 10px 5px 5px;
+        }
+    }
+
+    .ranking {
+        .displayFlex();
+        align-items: center;
+
+        svg {
+            width: 50px;
+            height: 50px;
+            fill: #F76446;
+            margin: 5px 10px 5px 5px;
+        }
+    }
+
     .buttons {
         margin-top: 10px;
         padding-bottom: 10px;
 
         .scared {
-            background: #DCDCDC;
+            background: #858585;
             color: #f5f5f5;
             border: 0;
             margin: 10px 0 0;
+            width: 25%;
         }
 
         .chance {
             margin: 10px 5px 0;
+            width: 25%;
         }
     }
 }

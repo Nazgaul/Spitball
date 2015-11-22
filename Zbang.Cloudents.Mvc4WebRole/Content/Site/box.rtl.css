@@ -487,6 +487,7 @@
 .upload .tab-content {
   background: #000;
   min-height: 300px;
+  display: -webkit-flex;
   display: flex;
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
