@@ -303,8 +303,9 @@
 .quiz-challenge {
   margin-top: 30px;
   padding-top: 100px;
-  background-image: url("/Images/Site/quizbackground.png");
+  background-image: url("/images/site/quizbackground.png");
   text-align: center;
+  height: calc(100vh - 277px);
 }
 .quiz-challenge h4 {
   color: #4190B9;
@@ -327,6 +328,14 @@
 }
 .quiz-challenge .classmates {
   padding: 19px 0;
+  display: flex;
+}
+.quiz-challenge .classmates > div {
+  display: flex;
+  width: 51px;
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 .quiz-challenge .ready {
   display: flex;

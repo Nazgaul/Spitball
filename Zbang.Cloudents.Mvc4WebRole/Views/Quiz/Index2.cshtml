@@ -75,7 +75,7 @@
                     @*</div>*@
                 </div>
             </div>
-            <div ng-if="q.state === 1" ng-include="'quizChallenge.html'"></div>
+            <div class="quiz-challenge" ng-if="q.state === 1" ng-include="'quizChallenge.html'"></div>
             <div class="quiz-wrapper" ng-class="q.isCorrect(q.questions[q.index])" ng-if="q.state === 2 || q.state === 4">
                 <div class="no-answer-element">no answer given</div>
                 <div ng-if="q.index < q.questions.length" ng-include="'quiz-question-template.html'" ng-repeat="question in ::q.questions"></div>

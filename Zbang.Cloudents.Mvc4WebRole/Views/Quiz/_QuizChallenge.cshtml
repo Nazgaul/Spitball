@@ -3,22 +3,25 @@
 }
 
 <script type="text/ng-template" id="quizChallenge.html">
-    <div class="quiz-challenge">
-        <h4>Time to</h4>
-        <h5>take a quiz</h5>
-        <div class="classmates backgrounds">
-            {{::q.classmatesCount}} of your classmates took this quiz
-        </div>
-        <div class="ready backgrounds">
-            @Html.Svg("/images/site/quizicons.svg", "bald")
-            <div>
-                <span>Are you read to test yourself?</span>
+    <h4>Time to</h4>
+    <h5>take a quiz</h5>
+    <div class="classmates backgrounds">
+        <div>
+            <div ng-repeat="user in ::q.topUsers">
+                <user-image class="img-circle c-img" name="::user.name" image="::user.image" width="25" height="25"></user-image>
             </div>
         </div>
-        <div class="buttons">
-            <button type="button" class="btn btn-default scared" ng-click="q.afraid()">Not yet, I'm scared</button>
-            <button type="button" class="btn btn-primary chance" ng-click="q.start()">Take a chance</button>
+        {{::q.classmatesCount}} of your classmates took this quiz
+    </div>
+    <div class="ready backgrounds">
+        @Html.Svg("/images/site/quizicons.svg", "bald")
+        <div>
+            <span>Are you read to test yourself?</span>
         </div>
+    </div>
+    <div class="buttons">
+        <button type="button" class="btn btn-default scared" ng-click="q.afraid()">Not yet, I'm scared</button>
+        <button type="button" class="btn btn-primary chance" ng-click="q.start()">Take a chance</button>
     </div>
 </script>
 
