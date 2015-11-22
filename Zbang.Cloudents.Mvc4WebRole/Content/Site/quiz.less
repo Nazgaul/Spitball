@@ -93,6 +93,7 @@
 
         .question-progress {
             //align-self:center;
+            margin-right: 10px;
             font-size: 36px;
         }
 
@@ -190,6 +191,7 @@
             height: 39px;
             fill: #007E01;
             margin-top: 20px;
+            margin-left: 5px;
             align-self: center;
 
             &:last-child {
@@ -243,73 +245,6 @@
     .feed .reply .user-name {
         color: #000;
         font-weight: 700;
-    }
-}
-
-
-
-.quiz-wrapper {
-    border: 1px solid #B7B7B7;
-    background: #fff;
-    color: #000;
-    padding: 26px;
-    margin: 10px 0;
-
-
-    .no-answer-element {
-        display: none;
-        text-align: center;
-        background: red;
-        color: white;
-        font-size: 20px;
-    }
-
-    &.no-answer {
-        .no-answer-element {
-            display: block;
-        }
-    }
-
-    &.no-answer {
-        .correct-answer {
-            background: #4190B9;
-            color: #fff;
-
-            &:before {
-                content: '\2714';
-            }
-        }
-    }
-
-
-    &.wrong {
-        .answer-selected {
-            background: red;
-
-            &:before {
-                content: '\2716';
-            }
-        }
-
-        .correct-answer {
-            background: green;
-            color: #fff;
-
-            &:before {
-                content: '\2714';
-            }
-        }
-    }
-
-    &.correct {
-        .correct-answer {
-            background: green;
-            color: #fff;
-
-            &:before {
-                content: '\2714';
-            }
-        }
     }
 }
 
@@ -415,7 +350,6 @@
         border-radius: 10px;
         color: #f5f5f5;
         width: 250px;
-        margin: 10px auto;
     }
 
     .classmates {
@@ -460,6 +394,72 @@
 
         .chance {
             margin: 10px 5px 0;
+        }
+    }
+}
+
+.quiz-wrapper {
+    border: 1px solid #B7B7B7;
+    background: #fff;
+    color: #000;
+    padding: 26px;
+    margin: 10px 0;
+
+
+    .no-answer-element {
+        display: none;
+        text-align: center;
+        background: red;
+        color: white;
+        font-size: 20px;
+    }
+
+    &.no-answer {
+        .no-answer-element {
+            display: block;
+        }
+
+        .correct-answer {
+            background: #4190B9;
+            color: #fff;
+
+            &:before {
+                content: '\2714';
+            }
+        }
+    }
+
+    &.wrong {
+        .answer-selected {
+            background: #D1294D;
+            color: #fff;
+            border-color: #D1294D;
+
+            &:before {
+                content: '\2716';
+            }
+        }
+
+        .correct-answer {
+            background: #008000;
+            color: #fff;
+            border-color: #008000;
+
+            &:before {
+                content: '\2714';
+            }
+        }
+    }
+
+    &.correct {
+        .correct-answer {
+            background: #008000;
+            color: #fff;
+            border-color: #008000;
+
+            &:before {
+                content: '\2714';
+            }
         }
     }
 }
