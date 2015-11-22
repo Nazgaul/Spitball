@@ -22,7 +22,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         // GET api/Notification
         public async Task<HttpResponseMessage> Get()
         {
-            var model = await ZboxReadService.GetUpdates(new QueryBase(User.GetCloudentsUserId()));
+            var model = await ZboxReadService.GetUpdatesAsync(new QueryBase(User.GetCloudentsUserId()));
             return Request.CreateResponse(model.Where(w => w.QuizId == null));
         }
 

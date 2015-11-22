@@ -77,7 +77,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                          "~/Content/site/quizCreate.css",
                         "~/Content/site/share.css",
                         "~/content/site/leaderboard.css",
-                        "~/content/site/search.css"
+                        "~/content/site/search.css",
+                        "~/content/site/libraryChoose.css"
                        
                     }
                 },
@@ -246,6 +247,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/leaderboard.controller.js"),
 
                         new JsFileWithCdn("~/js/components/library/library.controller.js"),
+                        new JsFileWithCdn("~/js/components/library/libraryChoose.controller.js"),
+                        new JsFileWithCdn("~/js/components/library/library.routes.js"),
+                        new JsFileWithCdn("~/js/components/library/library.service.js"),
 
                         new JsFileWithCdn("~/js/components/share/invite.controller.js"),
                         new JsFileWithCdn("~/js/components/share/share.service.js"),

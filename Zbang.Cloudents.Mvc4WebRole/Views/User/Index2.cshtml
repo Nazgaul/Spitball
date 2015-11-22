@@ -77,11 +77,11 @@
 </div>
 
 <script type="text/ng-template" id="user-feed-template.html">
-    <div class="posts">
+    <a class="posts" href="{{::e.url}}">
         <div>
-            <span class="post-headline">health care law 2040</span>
-            <span class="post-content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to ma</span>
+            <span class="post-headline" d-color="{{::e.boxName.length}}">{{::e.boxName}}</span>
+            <span class="post-content">{{::e.content}}</span>
         </div>
         <span class="time-ago">10h</span>
-    </div>
+    </a>
 </script>

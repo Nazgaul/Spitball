@@ -122,7 +122,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var universityWrapper = User.GetUniversityId().Value;
 
             var query = new RecommendedCoursesQuery(universityWrapper, User.GetUserId());
-            var result = await ZboxReadService.GetRecommendedCourses(query);
+            var result = await ZboxReadService.GetRecommendedCoursesAsync(query);
             return JsonOk(result.Select(s => new
             {
                 s.CourseCode,

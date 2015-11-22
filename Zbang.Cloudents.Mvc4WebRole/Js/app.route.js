@@ -31,20 +31,7 @@
                     return buildUrl('/home/helppartial/');
                 }
             })
-             .state('department', {
-                 url: '/library/',
-                 templateUrl: function () {
-                     return buildUrl('/library/indexpartial/');
-                 },
-                 controller: 'Library as l'
-             })
-             .state('departmentWithNode', {
-                 url: '/library/:nodeId/:nodeName/',
-                 templateUrl: function () {
-                     return buildUrl('/library/indexpartial/');
-                 },
-                 controller: 'Library as l'
-             })
+            
             .state('search', {
                 url: '/search/',
                 templateUrl: function () {

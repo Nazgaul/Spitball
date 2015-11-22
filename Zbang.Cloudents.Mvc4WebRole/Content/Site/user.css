@@ -87,9 +87,12 @@
   margin-bottom: 10px;
   display: -webkit-flex;
   display: flex;
+  color: #fff;
+}
+.userPage .posts > div {
+  width: 100%;
 }
 .userPage .posts .post-headline {
-  color: green;
   display: block;
 }
 .userPage .posts .post-content {

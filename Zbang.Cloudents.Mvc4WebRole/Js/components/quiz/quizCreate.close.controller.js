@@ -4,13 +4,9 @@
 
     function popUp($modalInstance, quizService, boxUrl, quizId, $location) {
         var self = this;
-        self.publish = publish;
         self.delete = del;
         self.draft = draft;
-        function publish() {
-            $modalInstance.close('publish');
-        }
-
+        
         function draft() {
             $modalInstance.close();
             $location.url(boxUrl);

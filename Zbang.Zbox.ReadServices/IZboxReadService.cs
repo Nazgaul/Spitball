@@ -29,27 +29,27 @@ namespace Zbang.Zbox.ReadServices
 
         Task<UniversityDashboardInfoDto> GetUniversityInfoAsync(UniversityQuery query);
 
-        Task<NodeBoxesDto> GetLibraryNode(GetLibraryNodeQuery query);
-        Task<UniversityInfoDto> GetUniversityDetail(GetUniversityDetailQuery query);
-        Task<IEnumerable<InviteDto>> GetInvites(GetInvitesQuery query);
+        Task<NodeBoxesDto> GetLibraryNodeAsync(GetLibraryNodeQuery query);
+        Task<UniversityInfoDto> GetUniversityDetailAsync(GetUniversityDetailQuery query);
+        Task<IEnumerable<InviteDto>> GetInvitesAsync(GetInvitesQuery query);
 
         Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetBoxItemsPagedAsync(GetBoxItemsPagedQuery query);
         Task<IEnumerable<QuizDto>> GetBoxQuizesAsync(GetBoxQuizesPagedQuery query);
 
         Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetLeaderBoardQuery query);
-        Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCourses(GetBoxSideBarQuery query);
+        Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query);
         ItemWithDetailDto GetItem(GetItemQuery query);
 
-        Task<ItemDetailDto> GetItem2(GetItemQuery query);
-        Task<ItemMobileDto> GetItemDetailApi(GetItemQuery query);
-        Task<FileSeo> GetItemSeo(GetFileSeoQuery query);
-        Task<BoxSeoDto> GetBoxSeo(GetBoxSeoQuery query);
+        Task<ItemDetailDto> GetItem2Async(GetItemQuery query);
+        Task<ItemMobileDto> GetItemDetailApiAsync(GetItemQuery query);
+        Task<FileSeo> GetItemSeoAsync(GetFileSeoQuery query);
+        Task<BoxSeoDto> GetBoxSeoAsync(GetBoxSeoQuery query);
 
 
-        Task<BoxDto2> GetBox2(GetBoxQuery query);
+        Task<BoxDto2> GetBox2Async(GetBoxQuery query);
 
         Task<BoxDtoWithMembers> GetBoxMetaWithMembersAsync(GetBoxQuery query, int numberOfMembers);
-        Task<IEnumerable<TabDto>> GetBoxTabs(GetBoxQuery query);
+        Task<IEnumerable<TabDto>> GetBoxTabsAsync(GetBoxQuery query);
 
 
         Task<IEnumerable<UserDto>> GetUserFriendsAsync(GetUserFriendsQuery query);
@@ -66,19 +66,19 @@ namespace Zbang.Zbox.ReadServices
         BoxSettingsDto GetBoxSetting(GetBoxQuery query, long userId);
 
         Task<IEnumerable<UserMemberDto>> GetBoxMembersAsync(GetBoxQuery query);
-        Task<IEnumerable<long>> GetBoxUsersId(GetBoxWithUserQuery query);
+        Task<IEnumerable<long>> GetBoxUsersIdAsync(GetBoxWithUserQuery query);
 
-        Task<UserMinProfile> GetUserMinProfile(GetUserMinProfileQuery query);
+        Task<UserMinProfile> GetUserMinProfileAsync(GetUserMinProfileQuery query);
 
         Task<string> GetLocationByIpAsync(GetCountryByIpQuery query);
-        Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIds(IEnumerable<long> friendsIds);
+        Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIdsAsync(IEnumerable<long> friendsIds);
 
 
         Task<IEnumerable<QuestionDto>> GetQuestionsWithAnswersAsync(GetBoxQuestionsQuery query);
         Task<IEnumerable<QuestionDto>> GetQuestionsWithLastAnswerAsync(GetBoxQuestionsQuery query);
-        Task<IEnumerable<AnswerDto>> GetReplies(GetCommentRepliesQuery query);
+        Task<IEnumerable<AnswerDto>> GetRepliesAsync(GetCommentRepliesQuery query);
         Task<QuestionDto> GetQuestionAsync(GetQuestionQuery query);
-        Task<bool> GetInvite(GetInviteDetailQuery query);
+        Task<bool> GetInviteAsync(GetInviteDetailQuery query);
 
 
 
@@ -90,8 +90,8 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<QuizDto>> GetUserQuizActivityAsync(GetUserWithFriendQuery query);
         Task<UserWithStats> GetUserProfileWithStatsAsync(GetUserWithFriendQuery query);
 
-        Task<IEnumerable<string>> GetSeoItems(int page);
-        Task<int> GetSeoItemCount();
+        Task<IEnumerable<string>> GetSeoItemsAsync(int page);
+        Task<int> GetSeoItemCountAsync();
 
         //Task<IEnumerable<AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query);
 
@@ -99,27 +99,27 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        Task<UniversityWithCodeDto> GetUniversityNeedId(long universityId);
+        Task<UniversityWithCodeDto> GetUniversityNeedIdAsync(long universityId);
        
 
 
-        Task<IEnumerable<UpdatesDto>> GetUpdates(QueryBase query);
+        Task<IEnumerable<UpdatesDto>> GetUpdatesAsync(QueryBase query);
 
         //Quiz
-        Task<QuizWithDetailSolvedDto> GetQuiz(GetQuizQuery query);
-        Task<QuizSeo> GetQuizSeo(GetQuizSeoQuery query);
-        Task<QuizWithDetailDto> GetDraftQuiz(GetQuizDraftQuery query);
-        Task<IEnumerable<DiscussionDto>> GetDiscussion(GetDisscussionQuery query);
-        Task<int> GetNumberOfSolvers(long quizId);
+        Task<QuizWithDetailSolvedDto> GetQuizAsync(GetQuizQuery query);
+        Task<QuizSeo> GetQuizSeoAsync(GetQuizSeoQuery query);
+        Task<QuizWithDetailDto> GetDraftQuizAsync(GetQuizDraftQuery query);
+        Task<IEnumerable<DiscussionDto>> GetDiscussionAsync(GetDisscussionQuery query);
+        Task<int> GetNumberOfSolversAsync(long quizId);
 
         //Quiz api stuff
         Task<QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query);
         Task<QuizQuestionWithSolvedAnswersDto> GetQuizQuestionWithAnswersAsync(GetQuizQuery query);
 
 
-        Task<IEnumerable<RecommendBoxDto>> GetRecommendedCourses(RecommendedCoursesQuery query);
+        Task<IEnumerable<RecommendBoxDto>> GetRecommendedCoursesAsync(RecommendedCoursesQuery query);
 
-        Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddress(UniversityByIpQuery query);
+        Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(UniversityByIpQuery query);
         Task<IEnumerable<UserWithImageNameDto>> GetUsersByTermAsync(UserSearchQuery query);
 
     }

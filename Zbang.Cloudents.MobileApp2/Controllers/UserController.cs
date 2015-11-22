@@ -38,7 +38,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public async Task<HttpResponseMessage> Get(long userId)
         {
             var query = new GetUserMinProfileQuery(userId);
-            var result = await ZboxReadService.GetUserMinProfile(query);
+            var result = await ZboxReadService.GetUserMinProfileAsync(query);
             return Request.CreateResponse(new
             {
                 result.Id,
@@ -72,7 +72,15 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var query = new GetUserWithFriendQuery(User.GetCloudentsUserId(), userId, page, sizePerPage);
             var result = await ZboxReadService.GetUserCommentActivityAsync(query);
 
-            return Request.CreateResponse(result);
+            return Request.CreateResponse(result.Select( s=> new
+            {
+                s.BoxId,
+                s.BoxName,
+                s.Content,
+                s.Id,
+                s.PostId,
+                s.Type
+            }));
         }
 
 

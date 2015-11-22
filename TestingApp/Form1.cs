@@ -66,7 +66,7 @@ namespace TestingApp
             var luceneRead = iocFactory.Resolve<IUniversityReadSearchProvider>();
             var sw = new Stopwatch();
             sw.Start();
-            var retVal = await luceneRead.SearchUniversity(new UniversitySearchQuery(textBox1.Text));
+            var retVal = await luceneRead.SearchUniversity(new UniversitySearchQuery(textBox1.Text),default(CancellationToken));
             sw.Stop();
             textBox2.Text = string.Empty;
             textBox2.Text = "took " + sw.ElapsedMilliseconds + "\r\n";

@@ -12,13 +12,6 @@
 .search :-ms-input-placeholder {
   color: #646e77;
 }
-.search .search-text {
-  font-size: 7em;
-  background: transparent;
-  border: none;
-  color: #3293f6;
-  outline: none;
-}
 .search .nav-tabs,
 .search .tabbable {
   display: none;
@@ -68,6 +61,13 @@
 .search .quiz .extra-details h5 {
   margin: 21px 0;
   color: #919EAC;
+}
+.search-text {
+  font-size: 7em;
+  background: transparent;
+  border: none;
+  color: #3293f6;
+  outline: none;
 }
 .search-form {
   -moz-transition: all linear .5s;

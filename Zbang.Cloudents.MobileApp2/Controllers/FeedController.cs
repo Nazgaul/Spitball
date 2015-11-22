@@ -244,7 +244,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public async Task<HttpResponseMessage> GetReplies(long boxId, Guid feedId, int page, int sizePerPage = 20)
         {
             var retVal =
-                 await ZboxReadService.GetReplies(new Zbox.ViewModel.Queries.QnA.GetCommentRepliesQuery(boxId, feedId, page, sizePerPage));
+                 await ZboxReadService.GetRepliesAsync(new Zbox.ViewModel.Queries.QnA.GetCommentRepliesQuery(boxId, feedId, page, sizePerPage));
             return Request.CreateResponse(retVal.Select(s => new
             {
                 s.Id,

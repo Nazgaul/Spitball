@@ -564,7 +564,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("SelectDepartment", "Library", new { universityId = model.UniversityId });
             }
-            var needId = await ZboxReadService.GetUniversityNeedId(model.UniversityId);
+            var needId = await ZboxReadService.GetUniversityNeedIdAsync(model.UniversityId);
             if (needId != null && string.IsNullOrEmpty(model.studentID))
             {
                 TempData["universityText"] = needId;

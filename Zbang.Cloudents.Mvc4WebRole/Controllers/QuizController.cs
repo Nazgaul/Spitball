@@ -51,7 +51,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new GetQuizSeoQuery(quizId);
 
-                var model = await ZboxReadService.GetQuizSeo(query);
+                var model = await ZboxReadService.GetQuizSeoAsync(query);
 
                 if (model == null)
                 {
@@ -110,7 +110,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var userId = User.GetUserId(false);
             var query = new GetQuizQuery(quizId, userId, boxId);
-            var tModel = ZboxReadService.GetQuiz(query);
+            var tModel = ZboxReadService.GetQuizAsync(query);
 
             var tTransaction = m_QueueProvider.InsertMessageToTranactionAsync(
                  new StatisticsData4(new List<StatisticsData4.StatisticItemData>
@@ -132,7 +132,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<JsonResult> Discussion(long quizId)
         {
             var query = new GetDisscussionQuery(quizId);
-            var model = await ZboxReadService.GetDiscussion(query);
+            var model = await ZboxReadService.GetDiscussionAsync(query);
             return Json(new JsonResponse(true, model.Select(s=> new
             {
                 CreationTime = s.Date,
@@ -220,7 +220,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Draft(long quizId)
         {
             var query = new GetQuizDraftQuery(quizId);
-            var values = await ZboxReadService.GetDraftQuiz(query);
+            var values = await ZboxReadService.GetDraftQuizAsync(query);
             if (values.Publish)
             {
                 throw new ArgumentException("Quiz is published");

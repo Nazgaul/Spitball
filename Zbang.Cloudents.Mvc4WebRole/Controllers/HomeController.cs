@@ -253,7 +253,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             const string sitemapsNamespace = "http://www.sitemaps.org/schemas/sitemap/0.9";
             XNamespace xmlns = sitemapsNamespace;
-            var noOfSiteMaps = await ZboxReadService.GetSeoItemCount();
+            var noOfSiteMaps = await ZboxReadService.GetSeoItemCountAsync();
 
             var root = new XElement(xmlns + "sitemapindex");
             for (int i = 1; i <= noOfSiteMaps; i++)
@@ -374,7 +374,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     });
             }
 
-            var seoItems = await ZboxReadService.GetSeoItems(index);
+            var seoItems = await ZboxReadService.GetSeoItemsAsync(index);
             nodes.AddRange(seoItems.Where(w => !string.IsNullOrEmpty(w))
                 .Select(s => new SitemapNode(s, requestContext)));
 
