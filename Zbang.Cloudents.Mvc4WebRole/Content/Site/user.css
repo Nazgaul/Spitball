@@ -85,6 +85,7 @@
 }
 .userPage .posts {
   margin-bottom: 10px;
+  display: -webkit-flex;
   display: flex;
   color: #fff;
 }

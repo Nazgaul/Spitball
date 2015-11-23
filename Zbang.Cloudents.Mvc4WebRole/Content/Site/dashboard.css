@@ -94,6 +94,7 @@
   padding-bottom: 10px;
 }
 .dashboard .create-box .create-btn {
+  display: -webkit-flex;
   display: flex;
   justify-content: center;
   align-items: center;

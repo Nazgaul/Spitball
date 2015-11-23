@@ -1,4 +1,6 @@
-﻿.userPage {
+﻿@import "variables.less";
+
+.userPage {
     .portlet {
         margin-bottom: 0; //override
         border-radius: 0; //override
@@ -107,7 +109,7 @@
 
     .posts {
         margin-bottom: 10px;
-        display: flex;
+        .displayFlex();
         color: #fff;
 
         > div {

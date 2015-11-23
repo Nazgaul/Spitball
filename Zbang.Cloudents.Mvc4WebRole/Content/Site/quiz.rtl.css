@@ -34,6 +34,7 @@
 .quizPage .quiz-take-stats {
   margin-bottom: 12px;
   border: 3px solid #4190b9;
+  display: -webkit-flex;
   display: flex;
   align-items: center;
   border-radius: 10px;
@@ -55,6 +56,7 @@
   }
 }
 .quizPage .quiz-take-stats .stop-watch-wrapper {
+  display: -webkit-flex;
   display: flex;
   padding: 10px;
 }
@@ -75,6 +77,7 @@
   font-size: 36px;
 }
 .quizPage .quiz-take-stats .progress-wrapper {
+  display: -webkit-flex;
   display: flex;
   padding: 10px;
   background: #DDD;
@@ -124,6 +127,7 @@
   line-height: 20px;
 }
 .quizPage .score-details {
+  display: -webkit-flex;
   display: flex;
   font-size: 60px;
   font-weight: bold;
@@ -134,6 +138,7 @@
   font-size: 16px;
 }
 .quizPage .score-details > div {
+  display: -webkit-flex;
   display: flex;
   width: 50%;
   justify-content: center;
@@ -211,6 +216,7 @@
   color: #4190B9;
 }
 .quiz-question .q {
+  display: -webkit-flex;
   display: flex;
 }
 .quiz-question .q-body {
@@ -218,6 +224,7 @@
   margin-bottom: 20px;
 }
 .quiz-question .q-actions {
+  display: -webkit-flex;
   display: flex;
   visibility: hidden;
 }
@@ -231,6 +238,7 @@
 }
 .quiz-question li {
   padding: 0 0 10px;
+  display: -webkit-flex;
   display: flex;
 }
 .quiz-question .circle {
@@ -265,19 +273,23 @@
   text-align: center;
   height: calc(100vh - 277px);
 }
+.quiz-challenge .goodjob {
+  display: -webkit-flex;
+  display: inline-flex;
+}
 .quiz-challenge h4 {
   color: #4190B9;
   font-size: 40px;
-  margin-bottom: 0;
+  margin: 0;
 }
 .quiz-challenge h5 {
   color: #4190B9;
   font-weight: bold;
   font-size: 40px;
-  margin-top: 0;
+  margin: 0 0 0 10px;
 }
 .quiz-challenge .backgrounds {
-  margin: 10px 0;
+  margin: 10px auto;
   background: #353a3f;
   border-radius: 10px;
   color: #f5f5f5;
@@ -285,9 +297,11 @@
 }
 .quiz-challenge .classmates {
   padding: 19px 0;
+  display: -webkit-flex;
   display: flex;
 }
 .quiz-challenge .classmates > div {
+  display: -webkit-flex;
   display: flex;
   width: 51px;
   -ms-flex-wrap: wrap;
@@ -295,6 +309,7 @@
   flex-wrap: wrap;
 }
 .quiz-challenge .ready {
+  display: -webkit-flex;
   display: flex;
   align-items: center;
 }
@@ -307,18 +322,42 @@
 .quiz-challenge .ready span {
   display: block;
 }
+.quiz-challenge .complete {
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+}
+.quiz-challenge .complete svg {
+  width: 50px;
+  height: 50px;
+  fill: #9782B1;
+  margin: 5px 5px 5px 10px;
+}
+.quiz-challenge .ranking {
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+}
+.quiz-challenge .ranking svg {
+  width: 50px;
+  height: 50px;
+  fill: #F76446;
+  margin: 5px 5px 5px 10px;
+}
 .quiz-challenge .buttons {
   margin-top: 10px;
   padding-bottom: 10px;
 }
 .quiz-challenge .buttons .scared {
-  background: #DCDCDC;
+  background: #858585;
   color: #f5f5f5;
   border: 0;
   margin: 10px 0 0;
+  width: 25%;
 }
 .quiz-challenge .buttons .chance {
   margin: 10px 5px 0;
+  width: 25%;
 }
 .quiz-wrapper {
   border: 1px solid #B7B7B7;
