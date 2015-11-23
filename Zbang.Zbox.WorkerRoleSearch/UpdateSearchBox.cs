@@ -43,7 +43,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
 
-        public async Task Run(System.Threading.CancellationToken cancellationToken)
+        public async Task Run(CancellationToken cancellationToken)
         {
             var index = GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
