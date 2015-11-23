@@ -11,6 +11,20 @@ namespace Zbang.Zbox.ViewModel.Dto.Library
         public long Id { get; set; }
 
         public string Extra { get; set; }
+
+        public string Country { get; set; }
+
+        public int NoOfUsers { get; set; }
+
+        public IEnumerable<string> UsersImages { get; set; }
+
+
+    }
+
+    public class UserImagesForUniversitySearchDto
+    {
+        public long UniversityId { get; set; }
+        public string Image { get; set; }
     }
 
     public class UniversityToUpdateSearchDto
