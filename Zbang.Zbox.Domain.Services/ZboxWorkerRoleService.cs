@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
+using Zbang.Zbox.Infrastructure.Trace;
 
 
 namespace Zbang.Zbox.Domain.Services
@@ -34,21 +36,72 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-            UpdateNumberOfBoxesInDepartmentNode();
+            UpdateUsersReputation();
             //UpdateMismatchUrl();
+        }
+
+        private void UpdateUsersReputation()
+        {
+            int i = 0;
+            IList<long> users;
+
+
+            using (UnitOfWork.Start())
+            {
+                users = UnitOfWork.CurrentSession.QueryOver<User>()
+                    .Where(w => w.IsRegisterUser)
+                    .OrderBy(o => o.Id).Asc
+                    .Select(s => s.Id)
+                    .Skip(i * 100).Take(100)
+                    .List<long>();
+            }
+            do
+            {
+                TraceLog.WriteInfo("index: " + i);
+                var command = new UpdateReputationCommand(users);
+                UpdateReputation(command);
+                i++;
+
+                using (UnitOfWork.Start())
+                {
+                    users = UnitOfWork.CurrentSession.QueryOver<User>()
+                        .Where(w => w.IsRegisterUser)
+                        .OrderBy(o => o.Id).Asc
+                        .Select(s => s.Id)
+                        .Skip(i * 100).Take(100)
+                        .List<long>();
+                }
+            } while (users.Count > 0);
+
+
         }
 
         private void UpdateNumberOfBoxesInDepartmentNode()
         {
+            var i = 0;
             using (var unitOfWork = UnitOfWork.Start())
             {
-                var libs = UnitOfWork.CurrentSession.Query<Library>().Where(w => w.University.Id == 1177);
-                foreach (var library in libs)
+                while (true)
                 {
-                    library.UpdateNumberOfBoxes();
-                    UnitOfWork.CurrentSession.Save(library);
+                    var libs = UnitOfWork.CurrentSession.Connection.Query<Guid>(
+                        @"select LibraryId from zbox.Library l where l.LibraryId not in ( select l.ParentId from zbox.Library)
+order by LibraryId
+offset @pageNumber*50 ROWS
+    FETCH NEXT 50 ROWS ONLY", new { pageNumber = i });
+                    var libraryIds = libs as IList<Guid> ?? libs.ToList();
+                    if (libraryIds.Count == 0)
+                    {
+                        break;
+                    }
+                    foreach (var libraryId in libraryIds)
+                    {
+                        var library = UnitOfWork.CurrentSession.Load<Library>(libraryId);
+                        library.UpdateNumberOfBoxes();
+                        UnitOfWork.CurrentSession.Save(library);
+                    }
+                    unitOfWork.TransactionalFlush();
+                    i++;
                 }
-                unitOfWork.TransactionalFlush();
             }
         }
 
@@ -80,7 +133,7 @@ order by 1";
                         quiz.IsDirty = true;
                         UnitOfWork.CurrentSession.Save(quiz);
                     }
-                    
+
                     unitOfWork.TransactionalFlush();
                 }
                 breakLoop = true;
@@ -148,7 +201,7 @@ order by 1";
         }
 
 
-        
+
 
         public void UpdateReputation(UpdateReputationCommand command)
         {
