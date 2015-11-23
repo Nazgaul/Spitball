@@ -8,6 +8,6 @@ namespace Zbang.Zbox.Infrastructure.Search
 {
     public interface IUniversityReadSearchProvider
     {
-        Task<IEnumerable<UniversityByPrefixDto>> SearchUniversity(UniversitySearchQuery query, CancellationToken cancelToken);
+        Task<IEnumerable<UniversityByPrefixDto>> SearchUniversityAsync(UniversitySearchQuery query, CancellationToken cancelToken);
     }
 }

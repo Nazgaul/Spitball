@@ -82,22 +82,31 @@ namespace Zbang.Zbox.Infrastructure.Search
 
 
 
-        public async Task<IEnumerable<UniversityByPrefixDto>> SearchUniversity(UniversitySearchQuery query, CancellationToken cancelToken)
+        public async Task<IEnumerable<UniversityByPrefixDto>> SearchUniversityAsync(UniversitySearchQuery query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException("query");
 
-            //if (string.IsNullOrEmpty(query.Term))
+            if (string.IsNullOrEmpty(query.Term) && string.IsNullOrEmpty(query.Country))
+            {
+                throw new ArgumentNullException("query");
+            }
             //{
             //    return null;
             //}
-
-            //var list = new List<Task>();
-            var tResult = m_IndexClient.Documents.SearchAsync<UniversitySearch>(query.Term + "*", new SearchParameters
+            var searchParametes = new SearchParameters
             {
                 Top = query.RowsPerPage,
-                Skip = query.RowsPerPage * query.PageNumber,
-                Select = new[] { IdField, NameField, ImageField, MembersCountField, MembersImagesField },
-            }, cancelToken);
+                Skip = query.RowsPerPage*query.PageNumber,
+                Select = new[] {IdField, NameField, ImageField, MembersCountField, MembersImagesField},
+            };
+
+            if (string.IsNullOrEmpty(query.Term))
+            {
+                searchParametes.ScoringProfile = "country";
+                searchParametes.ScoringParameters = new[] {"country:" + query.Country};
+            }
+
+            var tResult = m_IndexClient.Documents.SearchAsync<UniversitySearch>(query.Term + "*", searchParametes, cancelToken);
 
             //var tSuggest = Task.FromResult<Task<DocumentSuggestResponse<UniversitySearch>>>(null);
             //if (query.Term.Length >= 3 && query.PageNumber == 0)
@@ -151,7 +160,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                         Image = s.Image.Trim(),
                         Country = s.Country,
                         MembersCount = s.NoOfUsers,
-                        MembersImages = s.UsersImages.ToArray()
+                        MembersImages = s.UsersImages.Where(w => w != null).ToArray()
                     })));
 
 
@@ -175,9 +184,11 @@ namespace Zbang.Zbox.Infrastructure.Search
             catch (IndexBatchException ex)
             {
                 TraceLog.WriteError("Failed to index some of the documents: " +
-                                    String.Join(", ", ex.IndexResponse.Results.Where(r => !r.Succeeded).Select(r => r.Key)));
+                                    String.Join(", ",
+                                        ex.IndexResponse.Results.Where(r => !r.Succeeded).Select(r => r.Key)));
                 return false;
             }
+
             return true;
         }
 

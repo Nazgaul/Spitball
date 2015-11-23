@@ -132,7 +132,7 @@ offset @pageNumber*@rowsperpage ROWS
 FETCH NEXT @rowsperpage ROWS ONLY; ";
 
 
-        public const string GetUniversityToUploadToSearch = @"select top 500 id as Id,UniversityName as Name,LargeImage as Image,
+        public const string GetUniversityToUploadToSearch = @"select top 10 id as Id,UniversityName as Name,LargeImage as Image,
 extra as Extra, Country, NoOfUsers
 from zbox.University
 where isdirty = 1 and isdeleted = 0 
@@ -141,7 +141,7 @@ and id % @count  = @index;";
 
         public const string GetUniversityPeopleToUploadToSearch = @"select universityId, UserImageLarge as Image from (
 select userid, universityid, UserImageLarge, rowid = ROW_NUMBER() over (partition by UniversityId order by UserImageLarge desc) from zbox.Users u where UniversityId in (
-select top 500 id
+select top 10 id
 from zbox.University u
 where isdirty = 1 and isdeleted = 0 )) t
 where t.rowid < 6";
