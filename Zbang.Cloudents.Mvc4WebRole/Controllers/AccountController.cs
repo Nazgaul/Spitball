@@ -564,8 +564,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var needId = await ZboxReadService.GetUniversityNeedIdAsync(model.UniversityId);
             if (needId != null && string.IsNullOrEmpty(model.StudentId))
             {
-                TempData["universityText"] = needId;
-                return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
+                return JsonOk(needId);
+                //TempData["universityText"] = needId;
+                //return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
             }
 
             //var needCode = await ZboxReadService.GetUniversityNeedCode(model.UniversityId);

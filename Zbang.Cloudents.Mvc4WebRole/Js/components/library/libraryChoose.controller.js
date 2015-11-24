@@ -12,8 +12,13 @@
         self.createNewUniversity = createNewUniversity;
         self.selectUniversity = selectUniversity;
         self.createUniversity = false;
-
+        self.needCode = false;
         self.countries = [];
+
+        self.code = {}
+        userDetails.get().then(function(response) {
+            self.code.userName = response.name;
+        });
 
         countryService.getCountries(function (iso,country) {
             self.countries.push({ iso: iso, name: country });
@@ -37,9 +42,17 @@
         }
 
         function selectUniversity(university) {
-            libraryService.chooseUniversity(university.id).then(function () {
-                userDetails.setUniversity(university.name);
-                $state.go('department');
+            libraryService.chooseUniversity(university.id, self.code.studentId).then(function (response) {
+                if (response) {
+                    
+                    self.needCode = true;
+                    self.code.university = university;
+                    self.code.closedUniText1 = response.textPopupUpper;
+                    self.code.closedUniText2 = response.textPopupLower;
+                    return;
+                }
+
+                goToLibrary(university.name);
             });
         }
 
@@ -70,9 +83,13 @@
         function createNewUniversity() {
 
             libraryService.createUniversity(self.universityName, self.countryCode).then(function () {
-                userDetails.setUniversity(self.universityName);
-                $state.go('department');
+                goToLibrary(self.universityName);
             });
+        }
+
+        function goToLibrary(universityName) {
+            userDetails.setUniversity(universityName);
+            $state.go('department');
         }
 
         function checkInArray(arr, id) {

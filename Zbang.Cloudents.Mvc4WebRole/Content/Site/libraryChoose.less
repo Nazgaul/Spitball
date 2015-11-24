@@ -49,19 +49,75 @@
     .add-univeristy {
         max-width: 450px;
         margin: 0 auto;
+    }
 
-        md-input-container label {
-            color: #798590;
+    .code {
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+
+        > div, >form {
+            .displayFlex();
+            align-items: center;
         }
 
-        .md-select-value .md-select-icon,
-        md-select .md-select-value,
-        md-input-container .md-input {
-            border-color: #376E8C;
+        .closed-uni-i {
+            width: 80px;
+            height: 80px;
+            fill: #fff;
         }
 
-        md-input-container .md-input {
-            color: #fff;
+        .uni-details {
+            margin-left: 15px;
         }
+
+        .info-i {
+            width: 45px;
+            height: 45px;
+            fill: #6D7882;
+        }
+
+        .arrow-up {
+            position: absolute;
+            bottom: -240px;
+            left: -20px;
+            background: #2B2F33;
+            border-radius: 5px;
+            padding: 15px;
+
+            &:before {
+                content: '';
+                width: 0;
+                height: 0;
+                border-left: 25px solid transparent;
+                border-right: 25px solid transparent;
+                border-bottom: 25px solid #2B2F33;
+                position: absolute;
+                top: -25px;
+                left: 18px;
+            }
+        }
+
+        md-input-container {
+            width: 100%;
+            margin-left: 15px;
+        }
+    }
+
+
+
+
+    md-input-container label {
+        color: #798590;
+    }
+
+    .md-select-value .md-select-icon,
+    md-select .md-select-value,
+    md-input-container .md-input {
+        border-color: #376E8C;
+    }
+
+    md-input-container .md-input {
+        color: #fff;
     }
 }
