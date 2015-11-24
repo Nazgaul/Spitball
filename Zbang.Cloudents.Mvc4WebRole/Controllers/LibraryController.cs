@@ -98,18 +98,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 country = await UserLanguage.GetCountryByIpAsync(HttpContext);
             }
-            //if (string.IsNullOrEmpty(term))
-            //{
-            //    var ip = LanguageMiddleware.GetIpFromClient(HttpContext);
-
-            //    var retValWithoutSearch =
-            //        await
-            //            ZboxReadService.GetUniversityByIpAddressAsync(new UniversityByIpQuery(LanguageMiddleware.Ip2Long(ip), 20, 0));
-            //    return JsonOk(retValWithoutSearch);
-            //}
             try
             {
-                var retVal = await m_UniversitySearch.Value.SearchUniversityAsync(new UniversitySearchQuery(term, country: country), source.Token);
+                var retVal = await m_UniversitySearch.Value.SearchUniversityAsync(new UniversitySearchQuery(term, country: country, rowsPerPage: 25), source.Token);
                 return JsonOk(retVal);
             }
             catch (Exception ex)

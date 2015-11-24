@@ -1,2 +1,16 @@
-﻿
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibGlicmFyeUNob29zZS5ydGwuY3NzIiwic291cmNlcyI6W10sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiIifQ== */
+﻿.library-choose .univeristy {
+  display: -webkit-flex;
+  display: flex;
+  margin-bottom: 30px;
+  color: #98A2AA;
+  font-weight: 700;
+}
+.library-choose .univeristy > div {
+  margin-right: 15px;
+}
+.library-choose .univeristy span {
+  font-size: 22px;
+}
+.library-choose .univeristy .list-inline img {
+  border-radius: 4px;
+}

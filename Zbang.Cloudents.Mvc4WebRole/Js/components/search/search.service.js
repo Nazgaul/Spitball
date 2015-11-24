@@ -5,7 +5,7 @@
     function search(ajaxService) {
         var self = this;
         self.search = function (term, page) {
-            return ajaxService.get('/search/data/', { q: term, page: page }, null, false, true);
+            return ajaxService.get('/search/data/', { q: term, page: page }, 30000, true, true);
         }
     }
 })()
