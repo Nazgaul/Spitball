@@ -60,7 +60,7 @@ Page Header
 }
 .page-header.navbar.navbar-fixed-top {
   z-index: 1;
-  border-bottom: 5px solid #555555;
+  border-bottom: 5px solid #9e9e9e;
 }
 .page-header.navbar.navbar-static-top {
   z-index: 9995;

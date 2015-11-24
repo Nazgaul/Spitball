@@ -11,13 +11,11 @@
                 <user-image class="img-circle c-img" name="::user.name" image="::user.image" width="25" height="25"></user-image>
             </div>
         </div>
-        {{::q.classmatesCount}} of your classmates took this quiz
+        <span>{{::q.classmatesCount}} of your classmates took this quiz</span>
     </div>
     <div class="ready backgrounds">
         @Html.Svg("/images/site/quizicons.svg", "bald")
-        <div>
-            <span>Are you read to test yourself?</span>
-        </div>
+        <span>Are you read to test yourself?</span>
     </div>
     <div class="buttons">
         <button type="button" class="btn btn-default scared" ng-click="q.afraid()">Not yet, I'm scared</button>
@@ -28,7 +26,7 @@
 
 <script type="text/ng-template" id="quizGoodJob.html">
     <div class="goodjob">
-        <h5 class="text-uppercase">Good </h5>
+        <h5 class="text-uppercase good">Good </h5>
         <h4 class="text-uppercase"> job</h4>
     </div>
     <div class="complete backgrounds">
@@ -37,7 +35,7 @@
     </div>
     <div class="ranking backgrounds">
         @Html.Svg("/images/site/quizicons.svg", "rank")
-        you have answered {{q.answersCount}}/{{::q.questions.length}}
+        <span>you have answered {{q.answersCount}}/{{::q.questions.length}}</span>
     </div>
     <div class="buttons">
         <button type="button" class="btn btn-default scared" ng-click="q.back()">Go back and check</button>
