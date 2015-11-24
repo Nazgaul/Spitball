@@ -62,7 +62,7 @@
                 university: {
                     //country: data.universityCountry, // for google analytics
                     name: data.universityName, // in library page
-                    //id: data.universityId // just for the fun
+                    id: data.universityId 
                 }
             };
 
@@ -85,9 +85,15 @@
         return {
             get: function () {
                 if (loadData) {
-                    deferDetails.resolve(self.userData);
+                    deferDetails.resolve(userData);
                 }
                 return deferDetails.promise;
+            },
+            getSync: function() {
+                if (loadData) {
+                    return userData;
+                }
+                return null;
             },
 
             isAuthenticated: function () {
@@ -108,8 +114,10 @@
                 userData.image = image;
                 $rootScope.$broadcast('userDetailsChange');
             },
-            setUniversity: function(name) {
+            setUniversity: function(name,id ) {
                 userData.university.name = name;
+                userData.university.id = id;
+                $rootScope.$broadcast('universityChange',userData);
             }
             //updateChange: function () {
             //    $rootScope.$broadcast('userDetailsChange');

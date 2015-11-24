@@ -16,15 +16,15 @@
         self.countries = [];
 
         self.code = {}
-        userDetails.get().then(function(response) {
+        userDetails.get().then(function (response) {
             self.code.userName = response.name;
         });
 
-        countryService.getCountries(function (iso,country) {
+        countryService.getCountries(function (iso, country) {
             self.countries.push({ iso: iso, name: country });
         });
         assignData(universityInit);
-       
+
         function search() {
             libraryService.getUniversity(self.term).then(function (response) {
                 assignData(response);
@@ -37,7 +37,7 @@
         function selectUniversity(university) {
             libraryService.chooseUniversity(university.id, self.code.studentId).then(function (response) {
                 if (response) {
-                    
+
                     self.needCode = true;
                     self.code.university = university;
                     self.code.closedUniText1 = response.textPopupUpper;
@@ -45,7 +45,7 @@
                     return;
                 }
 
-                goToLibrary(university.name);
+                goToLibrary(university.name, university.id);
             });
         }
 
@@ -72,13 +72,13 @@
         }
         function createNewUniversity() {
 
-            libraryService.createUniversity(self.universityName, self.countryCode).then(function () {
-                goToLibrary(self.universityName);
+            libraryService.createUniversity(self.universityName, self.countryCode).then(function (response) {
+                goToLibrary(self.universityName, response.id);
             });
         }
 
-        function goToLibrary(universityName) {
-            userDetails.setUniversity(universityName);
+        function goToLibrary(universityName, id) {
+            userDetails.setUniversity(universityName, id);
             $state.go('department');
         }
 
@@ -89,7 +89,7 @@
         }
 
         //function createUniversity() {
-            
+
         //}
 
     }

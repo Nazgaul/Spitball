@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app').controller('AppController', appController);
-    appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state'];
+    appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state', 'userDetails'];
 
-    function appController($rootScope, $window, $location, history, $state) {
+    function appController($rootScope, $window, $location, history, $state, userDetails) {
         var self = this;
         $rootScope.$on('$viewContentLoaded', function () {
             var path = $location.path(),
@@ -19,15 +19,57 @@
             var element = history.arr[history.arr.length - 1];
             $state.go(element.name, element.params);
         }
+
         self.hideSearch = false;
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        $rootScope.$on('$stateChangeSuccess', function (event, toState) {
             if (toState.name === 'search') {
                 self.hideSearch = true;
             } else {
                 self.hideSearch = false;
             }
-           
+
         });
+
+        $rootScope.$on('universityChange', function (e, userData) {
+            self.userDetails = userData;
+        });
+
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
+            var userWithNoUniversityState = 'universityChoose';
+
+            if (self.userDetails) {
+                if (self.userDetails.university.id) {
+                    return;
+                } else {
+                    if (fromState.name === userWithNoUniversityState && toState.name !== userWithNoUniversityState) {
+                        $rootScope.$broadcast('state-change-start-prevent');
+                        event.preventDefault();
+                        return;
+                    }
+                    if (toState.name !== userWithNoUniversityState) {
+                        $state.go(userWithNoUniversityState);
+                    }
+
+                    return;
+                }
+                return;
+            }
+            event.preventDefault();
+
+            userDetails.get().then(function (response) {
+                self.userDetails = response;
+                if (self.userDetails.university.id) {
+                    $state.go(toState, toParams);
+                } else {
+                    $state.go(userWithNoUniversityState);
+                }
+            });
+
+
+
+        });
+
+
 
     }
 })();
