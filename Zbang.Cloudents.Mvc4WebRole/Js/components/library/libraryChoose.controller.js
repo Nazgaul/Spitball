@@ -1,10 +1,10 @@
 ﻿(function () {
     angular.module('app.library').controller('LibraryChoose', libraryChoose);
 
-    libraryChoose.$inject = ['libraryService', 'userDetails', '$state', 'facebookService', '$q', 'countryService'];
+    libraryChoose.$inject = ['libraryService', 'userDetails', '$state', 'countryService', 'universitySuggest', 'universityInit'];
 
-    function libraryChoose(libraryService, userDetails, $state, facebookService, $q, countryService) {
-        var self = this, friendsUniversitys = [];
+    function libraryChoose(libraryService, userDetails, $state, countryService, universitySuggest, universityInit) {
+        var self = this;
         self.term = '';
         self.universities = [];
         self.search = search;
@@ -23,15 +23,8 @@
         countryService.getCountries(function (iso,country) {
             self.countries.push({ iso: iso, name: country });
         });
-
-        var friendPromise = facebookService.getToken().then(function (token) {
-            return libraryService.getUniversityByFriends(token);
-        });
-
-        $q.all([friendPromise, libraryService.getUniversity(self.term)]).then(function (response) {
-            friendsUniversitys = response[0];
-            assignData(response[1]);
-        });
+        assignData(universityInit);
+       
         function search() {
             libraryService.getUniversity(self.term).then(function (response) {
                 assignData(response);
@@ -58,7 +51,7 @@
 
         function assignData(response) {
             if (!self.term) {
-                response = friendsUniversitys.concat(response);
+                response = universitySuggest.concat(response);
             }
             var data = [];
             for (var i = 0; i < response.length; i++) {
@@ -75,9 +68,6 @@
                 }
                 data.push(uni);
             }
-
-
-
             self.universities = data;
         }
         function createNewUniversity() {
