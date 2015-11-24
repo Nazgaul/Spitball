@@ -182,7 +182,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),
                         new JsFileWithCdn("~/scripts/plupload2/angular-plupload2.js"),
 
-                        new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-0.14.1.min.js"),
+                        new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-0.14.3.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-tabdrop.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
@@ -250,6 +250,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/library/libraryChoose.controller.js"),
                         new JsFileWithCdn("~/js/components/library/library.routes.js"),
                         new JsFileWithCdn("~/js/components/library/library.service.js"),
+                        new JsFileWithCdn("~/js/components/library/countryService.service.js"),
 
                         new JsFileWithCdn("~/js/components/share/invite.controller.js"),
                         new JsFileWithCdn("~/js/components/share/share.service.js"),

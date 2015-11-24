@@ -1,6 +1,6 @@
-﻿<div class="library-choose">
-    <input type="search" class="search-text" placeholder="Search..." ng-model="lc.term" ng-model-options="{debounce : 250}" ng-change="lc.search()" ng-minlength="2" />
-    <div class="row">
+﻿<div class="library-choose" ng-init="lc.countryCode = '@ViewBag.country'">
+    <input ng-disabled="lc.createUniversity" type="search" class="search-text" placeholder="Search..." ng-model="lc.term" ng-model-options="{debounce : 250}" ng-change="lc.search()" ng-minlength="2" />
+    <div class="row" ng-if="!lc.createUniversity">
         <div class="col-xs-12 col-md-6 col-lg-4" ng-repeat="u in lc.universities track by u.id">
             <div ng-click="lc.selectUniversity(u)" class="univeristy">
                 <img class="img-circle" ng-src="{{::u.image}}" width="70" height="70" />
@@ -16,5 +16,35 @@
                 </div>
             </div>
         </div>
+        <div class="col-xs-12 col-md-6 col-lg-4">
+            <div class="add-uni-btn" ng-click="lc.createUniversity = true">
+                <span>+</span>
+                <div>Add your school</div>
+            </div>
+        </div>
+    </div>
+    
+    <div ng-if="lc.createUniversity" class="add-univeristy">
+        <form ng-submit="lc.createNewUniversity()" novalidate>
+            <md-input-container>
+                <md-select ng-model="lc.countryCode" placeholder="Country">
+                    <md-option ng-value="country.iso" ng-repeat="country in ::lc.countries">{{ country.name }}</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container>
+                <label>School name</label>
+                <input type="text" ng-model="lc.universityName" required
+                       uib-typeahead="item.name for item in lc.searchAutoComplete($viewValue)"
+                       typeahead-wait-ms="250"
+                       typeahead-min-length="2"
+                       typeahead-on-select="lc.selectUniversity($item)" />
+            </md-input-container>
+            <button type="submit">create</button>
+            <button type="button" ng-click="lc.createUniversity = false">cancel</button>
+        </form>
+       
+       
+       
+        
     </div>
 </div>

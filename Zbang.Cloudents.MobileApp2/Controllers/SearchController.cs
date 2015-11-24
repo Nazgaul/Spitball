@@ -161,12 +161,29 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 var retValWithoutSearch =
                     await
                         ZboxReadService.GetUniversityByIpAddressAsync(new UniversityByIpQuery(Ip2Long(ip), sizePerPage, page));
+
+                retValWithoutSearch = retValWithoutSearch.Select(s =>
+                {
+                    if (string.IsNullOrEmpty(s.Image))
+                    {
+                        s.Image = "https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/universityEmptyState.png";
+                    }
+                    return s;
+                });
+
                 return Request.CreateResponse(retValWithoutSearch);
             }
             var query = new UniversitySearchQuery(term, sizePerPage, page);
-            // Services.Log.Info(String.Format("search university query: {0}", query));
             var retVal = await UniversitySearch.SearchUniversityAsync(query, default(CancellationToken));
 
+            retVal = retVal.Select(s =>
+            {
+                if (string.IsNullOrEmpty(s.Image))
+                {
+                    s.Image = "https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/universityEmptyState.png";
+                }
+                return s;
+            });
             return Request.CreateResponse(retVal);
         }
 

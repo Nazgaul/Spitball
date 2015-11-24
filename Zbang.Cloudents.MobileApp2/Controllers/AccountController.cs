@@ -102,8 +102,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            var command = new CreateUniversityCommand(model.Name, model.Country,
-                "https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/Lib1.jpg", User.GetCloudentsUserId());
+            var command = new CreateUniversityCommand(model.Name, model.Country, User.GetCloudentsUserId());
             ZboxWriteService.CreateUniversity(command);
 
             var identity = new ClaimsIdentity();

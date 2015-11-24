@@ -17,3 +17,38 @@
 .library-choose .univeristy .list-inline img {
   border-radius: 4px;
 }
+.library-choose .add-uni-btn {
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  color: #98A2AA;
+}
+.library-choose .add-uni-btn span {
+  display: inline-block;
+  height: 70px;
+  width: 70px;
+  line-height: 66px;
+  font-size: 50px;
+  text-align: center;
+  border: 3px solid #E2E2E2;
+  border-radius: 50%;
+}
+.library-choose .add-uni-btn div {
+  margin-right: 15px;
+  font-size: 22px;
+}
+.library-choose .add-univeristy {
+  max-width: 450px;
+  margin: 0 auto;
+}
+.library-choose .add-univeristy md-input-container label {
+  color: #798590;
+}
+.library-choose .add-univeristy .md-select-value .md-select-icon,
+.library-choose .add-univeristy md-select .md-select-value,
+.library-choose .add-univeristy md-input-container .md-input {
+  border-color: #376E8C;
+}
+.library-choose .add-univeristy md-input-container .md-input {
+  color: #fff;
+}

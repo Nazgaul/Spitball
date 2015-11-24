@@ -25,5 +25,11 @@
             });
 
         }
+        d.createUniversity = function(name,country) {
+            return ajaxservice.post('/library/createuniversity/', {
+                name: name,
+                country:country
+            });
+        }
     }
 })();

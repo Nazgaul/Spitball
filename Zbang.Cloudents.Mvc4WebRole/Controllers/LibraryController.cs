@@ -79,10 +79,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet]
-        public PartialViewResult ChoosePartial()
+        public async Task<PartialViewResult> ChoosePartial()
         {
 
-            //ViewBag.country = country;
+            ViewBag.country = await UserLanguage.GetCountryByIpAsync(HttpContext);;
             return PartialView("Choose");
         }
 
@@ -353,11 +353,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #endregion
 
-        [HttpGet]
-        public PartialViewResult NewUniversity()
-        {
-            return PartialView("_AddSchoolDialog", new CreateUniversity());
-        }
+        //[HttpGet]
+        //public PartialViewResult NewUniversity()
+        //{
+        //    return PartialView("_AddSchoolDialog", new CreateUniversity());
+        //}
 
         [HttpPost]
 
@@ -365,11 +365,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetErrorFromModelState());
             }
-            //
-            var command = new CreateUniversityCommand(model.Name, model.Country,
-                "https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/Lib1.jpg", User.GetUserId());
+            var command = new CreateUniversityCommand(model.Name, model.Country, User.GetUserId());
             ZboxWriteService.CreateUniversity(command);
 
 
@@ -390,14 +388,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             AuthenticationManager.SignIn(user);
 
-
-            //FormsAuthenticationService.ChangeUniversity(command.Id, command.Id);
-            return Json(new JsonResponse(true, new
+            return JsonOk( new
             {
                 command.Id,
-                image = command.LargeImage,
-                name = model.Name
-            }));
+                //name = model.Name
+            });
         }
         private IAuthenticationManager AuthenticationManager
         {

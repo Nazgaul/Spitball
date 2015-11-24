@@ -4,12 +4,9 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class CreateUniversityCommand : ICommand
     {
-        public CreateUniversityCommand(string name, string country, string largeImage, long userId)
+        public CreateUniversityCommand(string name, string country, long userId)
         {
-            //"https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/Lib1.jpg",
-            //"https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/Lib1.jpg"
             UserId = userId;
-            LargeImage = largeImage;
             Name = name;
             Country = country;
         }
@@ -18,7 +15,6 @@ namespace Zbang.Zbox.Domain.Commands
 
         public long Id { get; set; }
 
-        public string LargeImage { get; private set; }
         public long UserId { get; private set; }
 
     }

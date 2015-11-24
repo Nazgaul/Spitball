@@ -1,26 +1,27 @@
 ﻿(function () {
     angular.module('app.library').controller('LibraryChoose', libraryChoose);
 
-    libraryChoose.$inject = ['libraryService', 'userDetails', '$state', 'facebookService', '$q'];
+    libraryChoose.$inject = ['libraryService', 'userDetails', '$state', 'facebookService', '$q', 'countryService'];
 
-    function libraryChoose(libraryService, userDetails, $state, facebookService, $q) {
+    function libraryChoose(libraryService, userDetails, $state, facebookService, $q, countryService) {
         var self = this, friendsUniversitys = [];
         self.term = '';
         self.universities = [];
         self.search = search;
+        self.searchAutoComplete = searchAutoComplete;
+        self.createNewUniversity = createNewUniversity;
         self.selectUniversity = selectUniversity;
+        self.createUniversity = false;
 
+        self.countries = [];
+
+        countryService.getCountries(function (iso,country) {
+            self.countries.push({ iso: iso, name: country });
+        });
 
         var friendPromise = facebookService.getToken().then(function (token) {
             return libraryService.getUniversityByFriends(token);
-            //    .then(function (data) {
-
-            //    console.log(data);
-            //});
         });
-
-
-        //var searchPromise = search();
 
         $q.all([friendPromise, libraryService.getUniversity(self.term)]).then(function (response) {
             friendsUniversitys = response[0];
@@ -30,6 +31,9 @@
             libraryService.getUniversity(self.term).then(function (response) {
                 assignData(response);
             });
+        }
+        function searchAutoComplete(term) {
+            return libraryService.getUniversity(term);
         }
 
         function selectUniversity(university) {
@@ -45,19 +49,30 @@
             }
             var data = [];
             for (var i = 0; i < response.length; i++) {
-                if (checkInArray(data, response[i].id)) {
+                var uni = response[i];
+                if (checkInArray(data, uni.id)) {
                     continue;
                 }
-                response[i].extraPeople = Math.max(response[i].numOfUsers - 5, 0);
-                for (var j = response[i].userImages.length; j < 5; j++) {
-                    response[i].userImages.push('/images/site/user_' + j + '.png');
+                if (!uni.image) {
+                    uni.image = 'https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/universityEmptyState.png';
                 }
-                data.push(response[i]);
+                uni.extraPeople = Math.max(uni.numOfUsers - 5, 0);
+                for (var j = uni.userImages.length; j < 5; j++) {
+                    uni.userImages.push('/images/site/user_' + j + '.png');
+                }
+                data.push(uni);
             }
 
 
 
             self.universities = data;
+        }
+        function createNewUniversity() {
+
+            libraryService.createUniversity(self.universityName, self.countryCode).then(function () {
+                userDetails.setUniversity(self.universityName);
+                $state.go('department');
+            });
         }
 
         function checkInArray(arr, id) {
@@ -66,6 +81,13 @@
             });
         }
 
+        //function createUniversity() {
+            
+        //}
 
     }
 })();
+
+
+
+
