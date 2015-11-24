@@ -114,7 +114,6 @@
     <Compile Include="Dto\Library\FriendPerUniversityDto.cs" />
     <Compile Include="Dto\Library\NodeBoxesDto.cs" />
     <Compile Include="Dto\Library\NodeDto.cs" />
-    <Compile Include="Dto\Library\UniversityByFriendDto.cs" />
     <Compile Include="Dto\Library\UniversityByPrefixDto.cs" />
     <Compile Include="Dto\Library\UniversityInfoDto.cs" />
     <Compile Include="Dto\Library\UniversitySearchDto.cs" />

@@ -7,9 +7,12 @@
 }
 .library-choose .univeristy > div {
   margin-right: 15px;
+  width: calc( 100% - 85px);
 }
 .library-choose .univeristy span {
   font-size: 22px;
+  display: inline-block;
+  width: 100%;
 }
 .library-choose .univeristy .list-inline img {
   border-radius: 4px;

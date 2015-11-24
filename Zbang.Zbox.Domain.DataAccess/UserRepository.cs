@@ -68,7 +68,7 @@ namespace Zbang.Zbox.Domain.DataAccess
         {
             var user = UnitOfWork.CurrentSession.QueryOver<User>().
                 Where(w => w.Id != userId)
-               .Where(w => w.Code == code).SingleOrDefault();
+               .Where(w => w.StudentId == code).SingleOrDefault();
             return user == null;
         }
 

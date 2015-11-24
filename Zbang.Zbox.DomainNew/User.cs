@@ -104,7 +104,7 @@ namespace Zbang.Zbox.Domain
 
 
         public virtual University University { get; protected set; }
-        public virtual string Code { get; set; }
+        public virtual string StudentId { get; set; }
         public virtual DateTime? LastAccessTime { get; set; }
 
         public virtual UserFirstTime FirstTime { get; set; }
@@ -170,14 +170,14 @@ namespace Zbang.Zbox.Domain
         }
 
         public void UpdateUniversity(University university,
-            string userCode, RussianDepartment department, string groupNumber,
-            string registerNumber)
+            string studentId/*, RussianDepartment department, string groupNumber,
+            string registerNumber*/)
         {
             University = university;
-            Code = userCode;
-            RussianDepartment = department;
-            GroupNumber = groupNumber;
-            RegisterNumber = registerNumber;
+            StudentId = studentId;
+            //RussianDepartment = department;
+            //GroupNumber = groupNumber;
+           // RegisterNumber = registerNumber;
             // Department = null;
         }
 

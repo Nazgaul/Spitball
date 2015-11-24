@@ -268,7 +268,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
                         new JsFileWithCdn("~/js/components/app.controller.js"),
-                        new JsFileWithCdn("~/js/services/ajaxService.js"),
+                        new JsFileWithCdn("~/js/shared/ajaxService.js"),
 
                         new JsFileWithCdn("~/js/shared/colorOnLength.js"),
                         new JsFileWithCdn("~/js/shared/loader.js"),
@@ -287,7 +287,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/item/upload.controller.js"),
                         new JsFileWithCdn("~/js/components/item/externalProviderUpload.service.js"),
                         new JsFileWithCdn("~/js/shared/dropbox.js"),
-                        new JsFileWithCdn("~/js/shared/google.js")
+                        new JsFileWithCdn("~/js/shared/google.js"),
+                        new JsFileWithCdn("~/js/shared/facebook.js")
                     }
 
                 },

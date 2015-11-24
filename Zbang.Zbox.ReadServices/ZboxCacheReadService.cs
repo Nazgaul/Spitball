@@ -277,7 +277,7 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIdsAsync(IEnumerable<long> friendsIds)
+        public Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByFriendsIdsAsync(IEnumerable<long> friendsIds)
         {
             return m_ReadService.GetUniversityListByFriendsIdsAsync(friendsIds);
         }

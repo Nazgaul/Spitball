@@ -6,8 +6,7 @@
         return {
             restrict: "A",
             link: function (scope, element) {
-                
-                element.click(function () {
+                $(element).click(function () {
                     $('body').find('.add-reply').hide();
                     scope.$parent.f.openForm = false;
                     scope.$parent.f.add.newText = '';
