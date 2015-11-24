@@ -258,7 +258,7 @@ textarea,
 .counter .counter-view:before {
   content: counter(step-counter, upper-alpha);
 }
-.elipsis {
+.ellipsis {
   white-space: nowrap;
   overflow: hidden;
   -ms-text-overflow: ellipsis;
