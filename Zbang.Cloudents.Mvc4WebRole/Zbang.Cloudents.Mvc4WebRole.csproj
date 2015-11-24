@@ -1427,6 +1427,9 @@
     <Content Include="Content\Site\bootstrap-switch.rtl.min.css">
       <DependentUpon>bootstrap-switch.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\box.min.css">
+      <DependentUpon>box.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\box.rtl.css">
       <DependentUpon>box.css</DependentUpon>
     </Content>

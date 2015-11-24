@@ -1,11 +1,11 @@
 ﻿<ul class="row list-unstyled">
-    <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 quiz-create margin-bottom-20">
+    <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 quiz-create margin-bottom-20 add-button">
         <div>
-
+            <a ui-sref="quizCreate({boxtype: q.params.boxtype, universityType:q.params.universityType, boxId: q.params.boxId, boxName:q.params.boxName})">
+                @Html.Svg("~/images/site/icons.svg", "add")
+                Create a quiz
+            </a>
         </div>
-        <a ui-sref="quizCreate({boxtype: q.params.boxtype, universityType:q.params.universityType, boxId: q.params.boxId, boxName:q.params.boxName})">
-            Create a quiz
-        </a>
     </li>
     <li class="col-lg-2 col-md-4 col-sm-4 col-xs-6 margin-bottom-20" ng-repeat="e in q.quizzes" ng-include="'quiz-template.html'"></li>
 </ul>

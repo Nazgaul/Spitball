@@ -1,7 +1,7 @@
 ﻿
 <div class="row">
     <div class="col-md-12">
-        <div class="tabbable margin-bottom-20">
+        <div class="tabbable margin-bottom-20 no-background">
             <ul class="mix-filter">
                 <li ng-class="{active: i.tabSelectedId === undefined}" ng-click="i.changeTab()">
                     All
@@ -12,8 +12,13 @@
             </ul>
         </div>
         <ul class="row list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
-            <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 item-animate item-create" ng-click="b.toggleUpload(true)">
-                upload files
+            <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 item-animate item-create add-button" ng-click="b.toggleUpload(true)">
+                <div>
+                    <button type="button">
+                        @Html.Svg("~/images/site/icons.svg", "add")
+                        upload files
+                    </button>
+                </div>
             </li>
             <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 item-animate" ng-repeat="e in i.items track by e.id " ng-include="'item-template.html'"></li>
         </ul>
