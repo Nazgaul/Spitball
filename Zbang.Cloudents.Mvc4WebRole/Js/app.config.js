@@ -17,7 +17,6 @@
             storageMode: 'sessionStorage'
         });
         //$mdBiDirectionalProvider.rtlMode(true);
-
         $provide.factory('requestinterceptor', [function () {
 
             return {
