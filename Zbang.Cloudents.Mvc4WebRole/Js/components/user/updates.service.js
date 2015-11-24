@@ -1,16 +1,29 @@
 ﻿(function () {
     angular.module('app.user').service('userUpdatesService', userUpdates);
-    userUpdates.$inject = ['ajaxService', '$q'];
+    userUpdates.$inject = ['ajaxService', '$q', 'userDetails', '$rootScope'];
 
-    function userUpdates(ajaxservice, $q) {
+    function userUpdates(ajaxservice, $q, userDetails, $rootScope) {
         var self = this;
         self.data = [];
 
         var deferred = $q.defer();
-        ajaxservice.get('/user/updates/').then(function (response) {
-            self.data = response;
-            deferred.resolve();//(self.data);
+
+        userDetails.get().then(function (response) {
+            if (!response.university.id) {
+                return;
+            }
+            getUpdates();
+
         });
+        $rootScope.$on('universityChange', function () {
+            getUpdates();
+        });
+        function getUpdates() {
+            ajaxservice.get('/user/updates/').then(function (response2) {
+                self.data = response2;
+                deferred.resolve();//(self.data);
+            });
+        }
 
         self.getUpdates = function (boxid, callBack) {
             var promise = deferred.promise;

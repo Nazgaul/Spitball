@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                new RouteValueDictionary
                {
                    { "controller", "Library" }, { "action", "Choose" }, 
-                   { "returnUrl",filterContext.HttpContext.Request.QueryString["returnUrl"]},
+                   //{ "returnUrl",filterContext.HttpContext.Request.QueryString["returnUrl"]},
                    { "new", filterContext.HttpContext.Request.QueryString["new"]}
 
                });

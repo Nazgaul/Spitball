@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 var id = m_IdGenerator.GetId(IdContainer.UniversityScope);
                 university = new University(id, message.Name, message.Country,
-                    message.LargeImage, user.Email);
+                    user.Email);
                 m_UniversityRepository.Save(university);
 
             }

@@ -529,11 +529,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MainViewResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Resources\CountryResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CountryResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Views\Shared\Resources\ErrorResources.Designer.cs">
       <DependentUpon>ErrorResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1846,6 +1841,7 @@
     </Content>
     <Content Include="Images\Site\BG.png" />
     <Content Include="Images\Site\correct_wrong.png" />
+    <Content Include="Images\Site\libChooseIcons.svg" />
     <Content Include="Images\Site\quizbackground.png" />
     <Content Include="Images\Site\quizCreateIcons.svg" />
     <Content Include="Images\Site\quizIcons.svg" />
@@ -1978,6 +1974,7 @@
     <Content Include="Js\components\box\box.routes.js" />
     <Content Include="Js\components\dashboard\createBox.controller.js" />
     <Content Include="Js\components\item\externalProviderUpload.service.js" />
+    <Content Include="Js\components\library\countryService.service.js" />
     <Content Include="Js\components\library\library.routes.js" />
     <Content Include="Js\components\library\library.service.js" />
     <Content Include="Js\components\library\libraryChoose.controller.js" />
@@ -3009,8 +3006,8 @@
     <Content Include="Scripts\stacktrace.js" />
     <Content Include="Scripts\Modernizr.js" />
     <Content Include="Scripts\svg4everybody.js" />
-    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.14.1.js" />
-    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.14.1.min.js" />
+    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.14.3.js" />
+    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.14.3.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls.min.js" />
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
@@ -3057,7 +3054,6 @@
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />
     <Content Include="Views\Quiz\_QuizDialog.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Countries.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Item\_PreviewSvg.cshtml" />
     <Content Include="Views\Item\FullScreen.cshtml" />
@@ -3479,10 +3475,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Library\Resources\MainViewResources.ru.resx" />
     <EmbeddedResource Include="Views\Library\Resources\MainViewResources.zh.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\CountryResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>CountryResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\DialogResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\DialogResources.ru.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\DialogResources.zh.resx" />

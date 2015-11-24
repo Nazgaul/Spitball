@@ -33,7 +33,22 @@
                     templateUrl: function () {
                         return routerHelper.buildUrl('/library/choosepartial/');
                     },
-                    controller: 'LibraryChoose as lc'
+                    controller: 'LibraryChoose as lc',
+                    resolve: {
+                        universitySuggest: [
+                            'facebookService', 'libraryService', function (facebookService, libraryService) {
+                                return facebookService.getToken().then(function (token) {
+                                    return libraryService.getUniversityByFriends(token);
+                                });
+
+                            }
+                        ],
+                        universityInit: [
+                            'libraryService',function(libraryService) {
+                                return libraryService.getUniversity();
+                            }
+                        ]
+                    }
                 }
             }
 

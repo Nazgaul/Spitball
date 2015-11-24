@@ -1,8 +1,8 @@
 ﻿
 (function () {
     angular.module('app').directive('ngSpinnerBar', [
-        '$rootScope',
-        function($rootScope) {
+        '$rootScope','$timeout',
+        function ($rootScope, $timeout) {
             return {
                 link: function(scope, element) {
                     // by defult hide the spinner bar
@@ -33,6 +33,12 @@
                     // handle errors
                     $rootScope.$on('$stateChangeError', function() {
                         element.addClass('hide'); // hide spinner bar
+                    });
+
+                    $rootScope.$on('state-change-start-prevent', function () {
+                        $timeout(function() {
+                            element.addClass('hide'); // hide spinner bar
+                        }, 1);
                     });
                 }
             };

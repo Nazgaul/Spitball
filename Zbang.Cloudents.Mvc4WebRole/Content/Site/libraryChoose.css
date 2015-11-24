@@ -17,3 +17,85 @@
 .library-choose .univeristy .list-inline img {
   border-radius: 4px;
 }
+.library-choose .add-uni-btn {
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  color: #98A2AA;
+}
+.library-choose .add-uni-btn span {
+  display: inline-block;
+  height: 70px;
+  width: 70px;
+  line-height: 66px;
+  font-size: 50px;
+  text-align: center;
+  border: 3px solid #E2E2E2;
+  border-radius: 50%;
+}
+.library-choose .add-uni-btn div {
+  margin-left: 15px;
+  font-size: 22px;
+}
+.library-choose .add-univeristy {
+  max-width: 450px;
+  margin: 0 auto;
+}
+.library-choose .code {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+.library-choose .code > div,
+.library-choose .code > form {
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+}
+.library-choose .code .closed-uni-i {
+  width: 80px;
+  height: 80px;
+  fill: #fff;
+}
+.library-choose .code .uni-details {
+  margin-left: 15px;
+}
+.library-choose .code .info-i {
+  width: 45px;
+  height: 45px;
+  fill: #6D7882;
+}
+.library-choose .code .arrow-up {
+  position: absolute;
+  bottom: -240px;
+  left: -20px;
+  background: #2B2F33;
+  border-radius: 5px;
+  padding: 15px;
+}
+.library-choose .code .arrow-up:before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 25px solid #2B2F33;
+  position: absolute;
+  top: -25px;
+  left: 18px;
+}
+.library-choose .code md-input-container {
+  width: 100%;
+  margin-left: 15px;
+}
+.library-choose md-input-container label {
+  color: #798590;
+}
+.library-choose .md-select-value .md-select-icon,
+.library-choose md-select .md-select-value,
+.library-choose md-input-container .md-input {
+  border-color: #376E8C;
+}
+.library-choose md-input-container .md-input {
+  color: #fff;
+}

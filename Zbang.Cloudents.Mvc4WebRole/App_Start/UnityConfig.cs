@@ -39,11 +39,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
             RegisterIoc.Register();
 
             var x = new ApplicationDbContext(ConfigFetcher.Fetch("Zbox"));
-            builder.Register(c => x).AsSelf().InstancePerLifetimeScope();
-            builder.RegisterType<ApplicationUserManager>().AsSelf().As<IAccountService>().InstancePerLifetimeScope();
+            builder.Register(c => x).AsSelf().InstancePerRequest();
+            builder.RegisterType<ApplicationUserManager>().AsSelf().As<IAccountService>().InstancePerRequest();
 
             builder.Register(c => new UserStore<ApplicationUser>(x))
-                .AsImplementedInterfaces().InstancePerLifetimeScope();
+                .AsImplementedInterfaces().InstancePerRequest();
 
             IocFactory.IocWrapper.ContainerBuilder.Register(
                 c => HttpContext.Current.GetOwinContext().Authentication);
