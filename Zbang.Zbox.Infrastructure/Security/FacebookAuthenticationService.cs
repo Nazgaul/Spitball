@@ -96,12 +96,12 @@ namespace Zbang.Zbox.Infrastructure.Security
             return string.Format(FacebookPicture, facebookId, (int)type);
         }
 
-        public async Task<IEnumerable<FacebookFriendData>> GetFacebookUserFriends(string authToken)
+        public async Task<IEnumerable<FacebookFriendData>> GetFacebookUserFriends(string authenticationToken)
         {
             using (var client = new HttpClient())
             {
                 // we can only use 2100 in an in statement in sql
-                var str = await client.GetStringAsync("https://graph.facebook.com/v2.2/me/friends?fields=picture.height(32).width(32),name&limit=2100&access_token=" + authToken);
+                var str = await client.GetStringAsync("https://graph.facebook.com/v2.2/me/friends?fields=picture.height(32).width(32),name&limit=2100&access_token=" + authenticationToken);
 
                 dynamic o = JObject.Parse(str);
                 var list = new List<FacebookFriendData>();

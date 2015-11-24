@@ -9,6 +9,6 @@ namespace Zbang.Zbox.ViewModel.Dto.Library
 
         public long Id { get; set; }
 
-        public IEnumerable<FriendPerUniversityDto> Friends { get; set; }
+        public IEnumerable<string> UserImages { get; set; }
     }
 }

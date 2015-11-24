@@ -9,19 +9,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
         public long UniversityId { get; set; }
 
 
-        public long? DepartmentId { get; set; }
+        // public long? DepartmentId { get; set; }
 
-        public string GroupNumber { get; set; }
-        public string RegisterNumber { get; set; }
+        // public string GroupNumber { get; set; }
+        // public string RegisterNumber { get; set; }
 
-        public string studentID { get; set; }
+        public string StudentId { get; set; }
 
         public override string ToString()
         {
             return string.Format(
-                "University id {0} DepartmentId {1} GroupNumber {2} RegisterNumber {3} studentID {4}",
-                UniversityId,  DepartmentId, GroupNumber, RegisterNumber, studentID);
-            
+                "University id {0}  studentID {1}",
+                UniversityId, StudentId);
+
         }
     }
 }

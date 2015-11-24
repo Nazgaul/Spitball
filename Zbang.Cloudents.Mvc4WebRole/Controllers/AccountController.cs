@@ -11,7 +11,6 @@ using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using Microsoft.Owin.Security;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account;
@@ -20,8 +19,6 @@ using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
-using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -559,13 +556,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost, ZboxAuthorize]
         public async Task<ActionResult> UpdateUniversity(University model)
         {
-            var retVal = await ZboxReadService.GetRussianDepartmentList(model.UniversityId);
-            if (retVal.Count() != 0 && !model.DepartmentId.HasValue)
-            {
-                return RedirectToAction("SelectDepartment", "Library", new { universityId = model.UniversityId });
-            }
+            //var retVal = await ZboxReadService.GetRussianDepartmentList(model.UniversityId);
+            //if (retVal.Count() != 0 && !model.DepartmentId.HasValue)
+            //{
+            //    return RedirectToAction("SelectDepartment", "Library", new { universityId = model.UniversityId });
+            //}
             var needId = await ZboxReadService.GetUniversityNeedIdAsync(model.UniversityId);
-            if (needId != null && string.IsNullOrEmpty(model.studentID))
+            if (needId != null && string.IsNullOrEmpty(model.StudentId))
             {
                 TempData["universityText"] = needId;
                 return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
@@ -585,8 +582,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var id = User.GetUserId();
-                var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.DepartmentId,
-                    model.GroupNumber, model.RegisterNumber, model.studentID);
+                var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.StudentId);
                 ZboxWriteService.UpdateUserUniversity(command);
 
                 var user = (ClaimsIdentity)User.Identity;

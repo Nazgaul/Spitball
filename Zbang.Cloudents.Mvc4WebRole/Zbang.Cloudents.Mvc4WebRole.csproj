@@ -591,6 +591,12 @@
     <Content Include="bower_components\angular-material\angular-material.js" />
     <Content Include="bower_components\angular-material\angular-material.min.css" />
     <Content Include="bower_components\angular-material\angular-material.min.js" />
+    <Content Include="bower_components\angular-material\angular-material.rtl.css">
+      <DependentUpon>angular-material.css</DependentUpon>
+    </Content>
+    <Content Include="bower_components\angular-material\angular-material.rtl.min.css">
+      <DependentUpon>angular-material.rtl.css</DependentUpon>
+    </Content>
     <Content Include="bower_components\angular-material\demos\bottomSheet\demoBasicUsage\img\icons\copy.svg" />
     <Content Include="bower_components\angular-material\demos\bottomSheet\demoBasicUsage\img\icons\copy2.svg" />
     <Content Include="bower_components\angular-material\demos\bottomSheet\demoBasicUsage\img\icons\facebook.svg" />
@@ -1963,7 +1969,6 @@
     <Content Include="Js\app.core.js" />
     <Content Include="Js\app.js" />
     <Content Include="Js\app.route.js" />
-    <Content Include="Js\appOld.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
     <Content Include="Js\components\account\account.routes.js" />
     <Content Include="Js\components\account\account.service.js" />
@@ -1985,6 +1990,7 @@
     <Content Include="Js\components\user\user.routes.js" />
     <Content Include="Js\polyfills.js" />
     <Content Include="Js\shared\animClass.js" />
+    <Content Include="Js\shared\facebook.js" />
     <Content Include="Js\shared\fileReader.js" />
     <Content Include="Js\shared\firstLetter.js" />
     <Content Include="Js\shared\history.js" />
@@ -2027,16 +2033,10 @@
     <Content Include="Js\components\userdetails\userdetails.module.js" />
     <Content Include="Js\components\user\user.controller.js" />
     <Content Include="Js\contact-us.js" />
-    <Content Include="Js\directives\boxLogo.js" />
-    <Content Include="Js\directives\letter.js" />
-    <Content Include="Js\directives\searchCoords.js" />
-    <Content Include="Js\directives\userCoupon.js" />
-    <Content Include="Js\directives\userimage.js" />
     <Content Include="Js\filters\highlight.js" />
     <Content Include="Js\homePage\homeScreen.js" />
     <Content Include="Js\homePage\theme.js" />
     <Content Include="Js\routerHelperProvider.js" />
-    <Content Include="Js\services\ajaxServiceOld.js" />
     <Content Include="Js\shared\colorOnLength.js" />
     <Content Include="Js\shared\displayTime.js" />
     <Content Include="Js\shared\dropbox.js" />
@@ -2062,43 +2062,14 @@
     <Content Include="Js\staticCDNFallback.min.js">
       <DependentUpon>staticCDNFallback.js</DependentUpon>
     </Content>
-    <Content Include="Js\directives\boxItemTooltip.js" />
-    <Content Include="Js\directives\dropZone.js" />
-    <Content Include="Js\directives\fbBlock.js" />
-    <Content Include="Js\directives\fileReader.js" />
-    <Content Include="Js\directives\focusForm.js" />
-    <Content Include="Js\directives\itemScroll.js" />
-    <Content Include="Js\directives\homePageScroll.js" />
-    <Content Include="Js\directives\homeVideo.js" />
-    <Content Include="Js\directives\itemFullscreen.js" />
-    <Content Include="Js\directives\login.js" />
-    <Content Include="Js\directives\moxieDropzone.js" />
-    <Content Include="Js\directives\ngMatch.js" />
-    <Content Include="Js\directives\quizGraph.js" />
-    <Content Include="Js\directives\rateStar.js" />
-    <Content Include="Js\directives\storageSpace.js" />
-    <Content Include="Js\directives\userDetails.js" />
-    <Content Include="Js\directives\userPoints.js" />
     <Content Include="Js\filters\defaultImage.js" />
     <Content Include="Js\filters\escapeHtmlChars.js" />
     <Content Include="Js\filters\fileSize.js" />
     <Content Include="Js\filters\kNumber.js" />
     <Content Include="Js\HomePage.js" />
     <Content Include="Js\modules\angular-timer.js" />
-    <Content Include="Js\directives\contentEditable.js" />
-    <Content Include="Js\directives\countTo.js" />
-    <Content Include="Js\directives\misc.js" />
-    <Content Include="Js\directives\facebookFeed.js" />
-    <Content Include="Js\directives\focusOn.js" />
-    <Content Include="Js\directives\scrollToTop.js" />
-    <Content Include="Js\directives\loadSpinner.js" />
-    <Content Include="Js\directives\departmentsTooltip.js" />
-    <Content Include="Js\directives\userTooltip.js" />
     <Content Include="Js\filters\extToClass.js" />
-    <Content Include="Js\directives\mLoader.js" />
-    <Content Include="Js\directives\selectOnClick.js" />
     <Content Include="Js\filters\actionText.js" />
-    <Content Include="Js\directives\ngPlaceholder.js" />
     <Content Include="Js\filters\orderBy.js" />
     <Content Include="Js\filters\store\percentage.js" />
     <Content Include="Js\filters\stringFormat.js" />
@@ -2107,38 +2078,12 @@
     <Content Include="Js\modules\lazySrc.js" />
     <Content Include="Js\modules\textDirection.js" />
     <Content Include="Js\modules\wizard.js" />
-    <Content Include="Js\services\ajaxService.js" />
-    <Content Include="Js\services\box.js" />
-    <Content Include="Js\services\dashboard.js" />
-    <Content Include="Js\services\dropbox.js" />
-    <Content Include="Js\services\account.js" />
-    <Content Include="Js\services\htmlCache.js" />
-    <Content Include="Js\services\modalWrapper.js" />
-    <Content Include="Js\services\notificationHandler.js" />
-    <Content Include="Js\services\notificationManager.js" />
-    <Content Include="Js\services\resourceManager.js" />
-    <Content Include="Js\services\stacktrace.js" />
-    <Content Include="Js\services\facebook.js" />
-    <Content Include="Js\services\focus.js" />
-    <Content Include="Js\services\google.js" />
-    <Content Include="Js\services\item.js" />
-    <Content Include="Js\services\library.js" />
-    <Content Include="Js\services\newUpdates.js" />
-    <Content Include="Js\services\qna.js" />
-    <Content Include="Js\services\quiz.js" />
-    <Content Include="Js\services\search.js" />
-    <Content Include="Js\services\share.js" />
-    <Content Include="Js\services\login.js" />
-    <Content Include="Js\services\upload.js" />
-    <Content Include="Js\services\user.js" />
-    <Content Include="Js\services\userDetails.js" />
+    <Content Include="Js\shared\ajaxService.js" />
     <Content Include="Js\CDNFallback.js" />
     <Content Include="Js\CDNFallback.min.js">
       <DependentUpon>CDNFallback.js</DependentUpon>
     </Content>
     <Content Include="Js\RT.js" />
-    <Content Include="Js\services\userPoints.js" />
-    <Content Include="Js\services\versionChecker.js" />
     <Content Include="Js\staticShim.js" />
     <Content Include="Js\TooltipGuide.js" />
     <Content Include="Js\Logon.js" />

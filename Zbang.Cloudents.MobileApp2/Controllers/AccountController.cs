@@ -150,8 +150,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             //}
 
             var id = User.GetCloudentsUserId();
-            var command = new UpdateUserUniversityCommand(model.UniversityId, id, null, null,
-                null, model.StudentId);
+            var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.StudentId);
             try
             {
                 ZboxWriteService.UpdateUserUniversity(command);
@@ -201,8 +200,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateResponse(new { code = 1, email = needId.Email });
             }
             var id = User.GetCloudentsUserId();
-            var command = new UpdateUserUniversityCommand(model.UniversityId, id, null, null,
-                null, model.StudentId);
+            var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.StudentId);
             try
             {
                 ZboxWriteService.UpdateUserUniversity(command);

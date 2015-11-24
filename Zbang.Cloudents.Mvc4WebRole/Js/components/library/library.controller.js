@@ -14,7 +14,7 @@ parentUrl: "/library/"*/
         });
 
         userDetails.get().then(function (response) {
-            l.universityName = response.university.universityName;
+            l.universityName = response.university.name;
             
         });
     }

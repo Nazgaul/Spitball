@@ -258,6 +258,13 @@ textarea,
 .counter .counter-view:before {
   content: counter(step-counter, upper-alpha);
 }
+.elipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
 [ui-view] {
   /*-moz-transform-origin: ~"100% 100%";
     -ms-transform-origin: ~"100% 100%";

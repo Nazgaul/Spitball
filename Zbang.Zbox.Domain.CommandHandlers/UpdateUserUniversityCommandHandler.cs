@@ -30,31 +30,26 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (message == null) throw new ArgumentNullException("message");
             var university = m_UniversityRepository.Load(message.UniversityId);
 
-            RussianDepartment department = null;
-            if (message.DepartmentId.HasValue)
-            {
-                department = m_DepartmentRepository.Get(message.DepartmentId); // load cause error if its empty
-            }
-            User user = m_UserRepository.Load(message.UserId);
-
-            //var userCode = user.Code ?? message.Code;
-
-            //if (university.NeedCode && !ValidateUserCode(userCode))
+            //RussianDepartment department = null;
+            //if (message.DepartmentId.HasValue)
             //{
-            //    throw new ArgumentException("code is invalid");
+            //    department = m_DepartmentRepository.Get(message.DepartmentId); // load cause error if its empty
             //}
+            var user = m_UserRepository.Load(message.UserId);
+
+            var studentId = message.StudentId ?? user.StudentId;
 
 
             // ReSharper disable once PossibleUnintendedReferenceComparison NHibernate doesn't support equals
             var studentsIdsInUniversity = m_StudentRepository.GetQuerable().Where(w => w.University == university);
             bool needId = studentsIdsInUniversity.Any();
-            if (needId && string.IsNullOrEmpty(message.StudentId))
+            if (needId && string.IsNullOrEmpty(studentId))
             {
                 throw new ArgumentException("need id for this university");
             }
             if (needId)
             {
-                var student = studentsIdsInUniversity.FirstOrDefault(w => w.ID == message.StudentId);
+                var student = studentsIdsInUniversity.FirstOrDefault(w => w.ID == studentId);
 
                 if (student == null)
                 {
@@ -64,7 +59,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             message.UniversityId = university.Id;
             message.UniversityDataId = university.UniversityData.Id;
-            user.UpdateUniversity(university, message.StudentId, department, message.GroupNumber, message.RegisterNumber);
+            user.UpdateUniversity(university, message.StudentId /*department, message.GroupNumber, message.RegisterNumber*/);
 
             m_UserRepository.Save(user);
         }

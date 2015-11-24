@@ -33,7 +33,7 @@
     <property name="GoogleId" column="GoogleUserId" not-null="false"/>
     <!--<property name="Image" column="UserImage" not-null="false"/>-->
     <property name="ImageLarge" column="UserImageLarge" not-null="false"/>
-    <property name="Code" column="UserCode"/>
+    <property name="StudentId" column="UserCode"/>
     <property name="Reputation" column="UserReputation"/>
 
     <component name="FirstTime" class="UserFirstTime">

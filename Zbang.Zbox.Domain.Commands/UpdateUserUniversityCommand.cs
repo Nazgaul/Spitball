@@ -4,18 +4,19 @@ namespace Zbang.Zbox.Domain.Commands
     public class UpdateUserUniversityCommand : ICommand
     {
         public UpdateUserUniversityCommand(long universityId, 
-            long userId, long? departmentId,
+            long userId, 
+            //long? departmentId,
             //string code ,
-            string groupNumber,
-            string registerNumber,
+            //string groupNumber,
+            //string registerNumber,
             string studentId)
         {
             UniversityId = universityId;
             UserId = userId;
            // Code = code;
-            DepartmentId = departmentId;
-            GroupNumber = groupNumber;
-            RegisterNumber = registerNumber;
+            //DepartmentId = departmentId;
+            //GroupNumber = groupNumber;
+            //RegisterNumber = registerNumber;
             StudentId = studentId;
         }
 
@@ -25,14 +26,14 @@ namespace Zbang.Zbox.Domain.Commands
         //public string Code { get; private set; }
 
 
-        public long? DepartmentId { get; private set; }
+        //public long? DepartmentId { get; private set; }
 
-        public string GroupNumber { get; private set; }
-        public string RegisterNumber { get; private set; }
+        //public string GroupNumber { get; private set; }
+        //public string RegisterNumber { get; private set; }
 
         public string StudentId { get; private set; }
 
-        public long?UniversityDataId { get; set; }
+        public long? UniversityDataId { get; set; }
         public long UniversityId { get; set; }
     }
 }

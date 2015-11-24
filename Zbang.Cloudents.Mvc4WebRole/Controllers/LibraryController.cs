@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -111,38 +110,38 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetFriends(string authToken)
+        public async Task<JsonResult> GetUniversityByFriends(string token)
         {
-            if (string.IsNullOrEmpty(authToken))
+            if (string.IsNullOrEmpty(token))
             {
-                return Json(null);
+                return JsonError();
             }
             try
             {
-                var friendsId = await m_FacebookService.Value.GetFacebookUserFriends(authToken);
-                var facebookFriendDatas = friendsId as FacebookFriendData[] ?? friendsId.ToArray();
+                var friendsId = await m_FacebookService.Value.GetFacebookUserFriends(token);
+                var facebookFriendData = friendsId as FacebookFriendData[] ?? friendsId.ToArray();
                 var suggestedUniversity =
-                    await ZboxReadService.GetUniversityListByFriendsIdsAsync(facebookFriendDatas.Select(s => s.Id));
+                    await ZboxReadService.GetUniversityListByFriendsIdsAsync(facebookFriendData.Select(s => s.Id));
 
-                foreach (var university in suggestedUniversity)
-                {
-                    university.Friends = university.Friends.Select(s =>
-                    {
-                        var facebookData = facebookFriendDatas.FirstOrDefault(f => f.Id == s.Id);
-                        if (facebookData != null)
-                        {
-                            s.Image = facebookData.Image;
-                            s.Name = facebookData.Name;
-                        }
-                        return s;
-                    });
-                }
+                //foreach (var university in suggestedUniversity)
+                //{
+                //    university.UserImages = university.Friends.Select(s =>
+                //    {
+                //        var facebookData = facebookFriendData.FirstOrDefault(f => f.Id == s.Id);
+                //        if (facebookData != null)
+                //        {
+                //            s.Image = facebookData.Image;
+                //            s.Name = facebookData.Name;
+                //        }
+                //        return s;
+                //    });
+                //}
 
                 return JsonOk(suggestedUniversity);
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("Library Get friends authkey=" + authToken, ex);
+                TraceLog.WriteError("Library Get friends authentication key=" + token, ex);
                 return JsonError();
             }
         }
@@ -241,13 +240,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         #endregion
 
-        [ActionName("SelectDepartment")]
-        [HttpGet]
-        public async Task<JsonResult> SelectDepartmentRussian(long universityId)
-        {
-            var retVal = await ZboxReadService.GetRussianDepartmentList(universityId);
-            return Json(new JsonResponse(true, new { html = RenderRazorViewToString("SelectDepartment", retVal) }));
-        }
+        //[ActionName("SelectDepartment")]
+        //[HttpGet]
+        //public async Task<JsonResult> SelectDepartmentRussian(long universityId)
+        //{
+        //    var retVal = await ZboxReadService.GetRussianDepartmentList(universityId);
+        //    return Json(new JsonResponse(true, new { html = RenderRazorViewToString("SelectDepartment", retVal) }));
+        //}
 
 
 

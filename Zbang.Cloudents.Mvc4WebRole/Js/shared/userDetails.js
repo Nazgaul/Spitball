@@ -12,8 +12,8 @@
 
         ajaxService.get('/account/details/').then(function (response) {
             setDetails(response);
-            self.details = response;
-            deferDetails.resolve(self.details);
+            //self.details = response;
+            deferDetails.resolve(userData);
             deferAuth.resolve(isAuthenticated);
             loadData = true;
         });
@@ -52,16 +52,17 @@
                 image: data.image,
                 score: data.score,
                 url: data.url,
-                isAdmin: data.isAdmin,
-                culture: data.culture,
+                //isAdmin: data.isAdmin,
+                //culture: data.culture,
+
                 //firstTimeDashboard: data.firstTimeDashboard,
                 //firstTimeBox: data.firstTimeBox,
                 //firstTimeLibrary: data.firstTimeLibrary,
                 //firstTimeItem: data.firstTimeItem,
                 university: {
-                    country: data.universityCountry, // for google analytics
-                    name: data.universityName, // for google analytics
-                    id: data.universityId // just for the fun
+                    //country: data.universityCountry, // for google analytics
+                    name: data.universityName, // in library page
+                    //id: data.universityId // just for the fun
                 }
             };
 
@@ -107,6 +108,9 @@
                 userData.image = image;
                 $rootScope.$broadcast('userDetailsChange');
             },
+            setUniversity: function(name) {
+                userData.university.name = name;
+            }
             //updateChange: function () {
             //    $rootScope.$broadcast('userDetailsChange');
             //},

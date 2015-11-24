@@ -120,7 +120,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             result.UniversityId = university.Id;
             result.UniversityData = university.UniversityData.Id;
-            user.UpdateUniversity(university, null, null, null, null);
+            user.UpdateUniversity(university, null);
         }
 
         protected void UpdateUniversityByBox(long? boxId, CreateUserCommandResult result, User user)

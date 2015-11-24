@@ -68,7 +68,7 @@ em {
     margin: 0;
 }*/
 
-input, li, [contenteditable], span, textarea,[role="button"] {
+input, li, [contenteditable], span, textarea, [role="button"] {
     outline: 0;
 }
 
@@ -233,6 +233,15 @@ input, li, [contenteditable], span, textarea,[role="button"] {
             content: counter(step-counter, upper-alpha);
         }
     }
+}
+
+//elipsis
+.elipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
 }
 
 [ui-view] {

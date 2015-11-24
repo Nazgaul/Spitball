@@ -669,7 +669,7 @@ namespace Zbang.Zbox.ReadServices
         //    }
         //}
 
-        public async Task<IEnumerable<UniversityByFriendDto>> GetUniversityListByFriendsIdsAsync(IEnumerable<long> friendsIds)
+        public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByFriendsIdsAsync(IEnumerable<long> friendsIds)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -680,14 +680,18 @@ namespace Zbang.Zbox.ReadServices
                     new { FriendsIds = friendsIds.Take(2099) }
                      ))
                 {
-                    var retVal = grid.Read<UniversityByFriendDto>();
-                    var friends = grid.Read<FriendPerUniversityDto>();
-
+                    var retVal = await grid.ReadAsync<UniversityByPrefixDto>();
+                    var friends = await grid.ReadAsync<FriendPerUniversityDto>();
                     retVal = retVal.Select(s =>
-                       {
-                           s.Friends = friends.Where(w => w.UniversityId == s.Id);
-                           return s;
-                       }).ToList();
+                    {
+                        s.UserImages = friends.Where(w => w.UniversityId == s.Id).Select(s1 => s1.Image);
+                        return s;
+                    });
+                    //retVal = retVal.Select(s =>
+                    //   {
+                    //       s.Friends = friends.Where(w => w.UniversityId == s.Id);
+                    //       return s;
+                    //   }).ToList();
                     return retVal;
                 }
             }
