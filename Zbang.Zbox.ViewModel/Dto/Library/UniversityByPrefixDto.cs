@@ -1,19 +1,19 @@
 ﻿
 using System;
+using System.Collections.Generic;
 
 namespace Zbang.Zbox.ViewModel.Dto.Library
 {
     public class UniversityByPrefixDto : IEquatable<UniversityByPrefixDto>
     {
-        public UniversityByPrefixDto(string name, string image, long id)
-        {
-            Name = name;
-            Image = image;
-            Id = id;
-        }
-        public string Name { get; private set; }
-        public string Image { get; private set; }
-        public long Id { get; private set; }
+        
+        public string Name { get;  set; }
+        public string Image { get;  set; }
+        public long Id { get;  set; }
+
+        public int NumOfUsers { get; set; }
+
+        public IEnumerable<string> UserImages { get; set; }
 
 
         public bool Equals(UniversityByPrefixDto other)

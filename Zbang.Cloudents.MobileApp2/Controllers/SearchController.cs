@@ -165,7 +165,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }
             var query = new UniversitySearchQuery(term, sizePerPage, page);
             // Services.Log.Info(String.Format("search university query: {0}", query));
-            var retVal = await UniversitySearch.SearchUniversity(query, default(CancellationToken));
+            var retVal = await UniversitySearch.SearchUniversityAsync(query, default(CancellationToken));
 
             return Request.CreateResponse(retVal);
         }

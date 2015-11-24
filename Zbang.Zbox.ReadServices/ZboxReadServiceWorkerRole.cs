@@ -163,26 +163,32 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-       
+
 
 
         public async Task<UniversityToUpdateSearchDto> GetUniversityDirtyUpdates(int index, int total)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                const string sql =
-                    @"select top 500 id as Id,UniversityName as Name,LargeImage as Image,extra as Extra from zbox.University
-                        where isdirty = 1 and isdeleted = 0 and id % @count  = @index;";
-                const string sqlToDelete =
-                    @"select top 500 id from zbox.University
-                    where isdirty = 1 and isdeleted = 1 and id % @count  = @index";
-                using (var grid = await conn.QueryMultipleAsync(sql + sqlToDelete, new { index, count = total }))
+
+
+                using (var grid = await conn.QueryMultipleAsync(Search.GetUniversityToUploadToSearch +
+                    Search.GetUniversityPeopleToUploadToSearch + Search.GetUniversitiesToDeleteFromSearch
+                    , new { index, count = total }))
                 {
                     var retVal = new UniversityToUpdateSearchDto
                     {
-                        UniversitiesToUpdate = await grid.ReadAsync<UniversitySearchDto>(),
-                        UniversitiesToDelete = await grid.ReadAsync<long>()
+                        UniversitiesToUpdate = await grid.ReadAsync<UniversitySearchDto>()
                     };
+                    var images = await grid.ReadAsync<UserImagesForUniversitySearchDto>();
+                    var userImagesForUniversitySearchDtos = images as UserImagesForUniversitySearchDto[] ?? images.ToArray();
+                    foreach (var university in retVal.UniversitiesToUpdate)
+                    {
+                        UniversitySearchDto university1 = university;
+                        university.UsersImages = userImagesForUniversitySearchDtos.Where(w => w.UniversityId == university1.Id).Select(s => s.Image);
+                    }
+                    retVal.UniversitiesToDelete = await grid.ReadAsync<long>();
+
                     return retVal;
 
                 }

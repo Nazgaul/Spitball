@@ -21,11 +21,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 university.AdminScore = m_UniversityRepository.GetAdminScore(universityId);
                 var universityStats = m_UniversityRepository.GetStats(universityId);
 
+                if (university.NoOfUsers != universityStats.UsersCount)
+                {
+                    university.ShouldMakeDirty = () => true;
+                }
+                else
+                {
+                    university.ShouldMakeDirty = () => false;
+                }
+
                 university.NoOfUsers = universityStats.UsersCount;
                 university.NoOfQuizzes = universityStats.QuizzesCount; 
                 university.NoOfItems = universityStats.ItemsCount;
                 university.UpdateNumberOfBoxes( universityStats.BoxesCount);
-                university.ShouldMakeDirty = () => false;
+                
                 m_UniversityRepository.Save(university);
             }
         }

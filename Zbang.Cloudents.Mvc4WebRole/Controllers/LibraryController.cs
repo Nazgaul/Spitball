@@ -80,9 +80,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet]
-        public async Task<PartialViewResult> ChoosePartial()
+        public PartialViewResult ChoosePartial()
         {
-            //var country = await UserLanguage.GetCountryByIpAsync(HttpContext);
+
             //ViewBag.country = country;
             return PartialView("Choose");
         }
@@ -93,18 +93,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             CancellationToken disconnectedToken = Response.ClientDisconnectedToken;
             var source = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, disconnectedToken);
+            var country = string.Empty;
             if (string.IsNullOrEmpty(term))
             {
-                var ip = LanguageMiddleware.GetIpFromClient(HttpContext);
-
-                var retValWithoutSearch =
-                    await
-                        ZboxReadService.GetUniversityByIpAddressAsync(new UniversityByIpQuery(LanguageMiddleware.Ip2Long(ip), 20, 0));
-                return JsonOk(retValWithoutSearch);
+                country = await UserLanguage.GetCountryByIpAsync(HttpContext);
             }
             try
             {
-                var retVal = await m_UniversitySearch.Value.SearchUniversity(new UniversitySearchQuery(term), source.Token);
+                var retVal = await m_UniversitySearch.Value.SearchUniversityAsync(new UniversitySearchQuery(term, country: country, rowsPerPage: 25), source.Token);
                 return JsonOk(retVal);
             }
             catch (Exception ex)

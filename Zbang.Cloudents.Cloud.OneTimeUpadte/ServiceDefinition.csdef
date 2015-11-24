@@ -10,6 +10,7 @@
       <Setting name="StorageConnectionString" />
       <Setting name="ZBox" />
       <Setting name="StorageCdnEndpoint" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
     </ConfigurationSettings>
     <LocalResources>
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="222000" />

@@ -1,4 +1,5 @@
 using Microsoft.Azure.Search.Models;
+using Newtonsoft.Json;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
@@ -14,7 +15,14 @@ namespace Zbang.Zbox.Infrastructure.Search
         public string Name { get; set; }
         public string Extra1 { get; set; }
         public string Extra2 { get; set; }
-        public string ImageField { get; set; }
+        [JsonProperty("ImageField")]
+        public string Image { get; set; }
+
+        [JsonProperty("coutry")]
+        public string Country { get; set; }
+        public int? MembersCount { get; set; }
+
+        public string[] MembersImages { get; set; }
 
 
     }

@@ -10,7 +10,7 @@
         }
 
         d.getUniversity = function(term) {
-            return ajaxservice.get('/library/searchuniversity', { term: term });
+            return ajaxservice.get('/library/searchuniversity', { term: term }, 1800000, true, true);
         }
     }
 })();

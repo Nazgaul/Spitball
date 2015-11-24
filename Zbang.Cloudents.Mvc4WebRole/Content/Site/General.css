@@ -128,7 +128,8 @@ input,
 li,
 [contenteditable],
 span,
-textarea {
+textarea,
+[role="button"] {
   outline: 0;
 }
 .userLetter {

@@ -1427,9 +1427,6 @@
     <Content Include="Content\Site\bootstrap-switch.rtl.min.css">
       <DependentUpon>bootstrap-switch.rtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\box.min.css">
-      <DependentUpon>box.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\box.rtl.css">
       <DependentUpon>box.css</DependentUpon>
     </Content>
@@ -1846,6 +1843,11 @@
     <Content Include="Images\Site\itemIcons.svg" />
     <Content Include="Images\Site\icons.svg" />
     <Content Include="Images\Site\uploadIcons.svg" />
+    <Content Include="Images\Site\user_0.png" />
+    <Content Include="Images\Site\user_1.png" />
+    <Content Include="Images\Site\user_2.png" />
+    <Content Include="Images\Site\user_3.png" />
+    <Content Include="Images\Site\user_4.png" />
     <Content Include="Images\spitball_invite_off.png" />
     <Content Include="Images\spitball_invite_on.png" />
     <Content Include="Images\spitball_logo_mobile.png" />

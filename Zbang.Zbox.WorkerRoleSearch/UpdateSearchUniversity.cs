@@ -71,7 +71,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         int m_Interval = MinInterval;
         private const int MinInterval = 15;
-        private const int MaxInterval = 90;
+        private const int MaxInterval = 120;
         private async Task SleepAndIncreaseInterval(CancellationToken cancellationToken)
         {
             var previous = m_Interval;
