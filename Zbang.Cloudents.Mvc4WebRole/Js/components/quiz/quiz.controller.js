@@ -73,6 +73,9 @@
         }
         quizService.getNumberOfSolvers({ quizId: $stateParams.quizId }).then(function (response) {
             q.topUsers = response.users;
+            for (var j = q.topUsers.length; j < 4; j++) {
+                q.topUsers.push({ name: '', image: '/images/site/user_' + j + '.png' });
+            }
             q.classmatesCount = response.solversCount;
         });
 

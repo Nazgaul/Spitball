@@ -191,21 +191,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region RenameNode
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
 
-        public ActionResult Rename()
-        {
-            try
-            {
-                return PartialView("Rename");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("Rename ", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //public ActionResult Rename()
+        //{
+        //    try
+        //    {
+        //        return PartialView("Rename");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("Rename ", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
 
         [HttpPost]
         public JsonResult RenameNode(RenameLibraryNode model)
@@ -334,21 +334,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
 
-        public ActionResult CreateDepartmentPartial()
-        {
-            try
-            {
-                return PartialView("_CreateLibraryItem");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_CreateLibraryItem", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //public ActionResult CreateDepartmentPartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_CreateLibraryItem");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_CreateLibraryItem", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
 
 
         #endregion
@@ -403,17 +403,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet]
-        public JsonResult InsertId(long universityId)
-        {
-            dynamic universityData = TempData["universityText"];
-            if (universityData != null)
-            {
-                ViewBag.TextPopupUpper = universityData["TextPopupUpper"];
-                ViewBag.TextPopupLower = universityData["TextPopupLower"];
-            }
-            return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertID", new Models.Account.Settings.University()) }));
-        }
+        //[HttpGet]
+        //public JsonResult InsertId(long universityId)
+        //{
+        //    dynamic universityData = TempData["universityText"];
+        //    if (universityData != null)
+        //    {
+        //        ViewBag.TextPopupUpper = universityData["TextPopupUpper"];
+        //        ViewBag.TextPopupLower = universityData["TextPopupLower"];
+        //    }
+        //    return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertID", new Models.Account.Settings.University()) }));
+        //}
 
 
 

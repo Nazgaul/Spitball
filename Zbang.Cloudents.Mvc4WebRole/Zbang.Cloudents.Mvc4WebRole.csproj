@@ -3017,9 +3017,6 @@
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
     <Content Include="Views\Item\Print.cshtml" />
-    <Content Include="Views\Library\_AddSchoolDialog.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -3037,7 +3034,6 @@
     <Content Include="startup\disableTimeout.cmd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Library\_SelectUni.cshtml" />
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
     <Content Include="Views\Error\Unsupported.cshtml" />
     <Content Include="Views\Shared\_LayoutStatic.cshtml" />
@@ -3048,8 +3044,6 @@
     <Content Include="Views\Item\_PreviewLinkDenied.cshtml" />
     <Content Include="Views\Item\_PreviewMediaLoading.cshtml" />
     <Content Include="Views\Share\Index.cshtml" />
-    <Content Include="Views\Library\SelectDepartment.cshtml" />
-    <Content Include="Views\Library\InsertId.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />
@@ -3058,7 +3052,6 @@
     <Content Include="Views\Item\_PreviewSvg.cshtml" />
     <Content Include="Views\Item\FullScreen.cshtml" />
     <Content Include="Views\Box\_Feed.cshtml" />
-    <Content Include="Views\Library\Rename.cshtml" />
     <Content Include="Views\Item\_ItemRegister.cshtml" />
     <Content Include="Views\Item\_PreviewText.cshtml" />
     <Content Include="Views\Home\IFrame.cshtml" />
@@ -3582,9 +3575,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Item\_PreviewLink.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Library\_Template.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Footer.cshtml" />

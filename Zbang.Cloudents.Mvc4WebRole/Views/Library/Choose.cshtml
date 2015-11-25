@@ -28,7 +28,8 @@
         <div ng-if="lc.createUniversity" class="add-univeristy">
             <form ng-submit="lc.createNewUniversity()" novalidate>
                 <md-input-container>
-                    <md-select ng-model="lc.countryCode" placeholder="Country">
+                    <label>Country</label>
+                    <md-select ng-model="lc.countryCode">
                         <md-option ng-value="country.iso" ng-repeat="country in ::lc.countries">{{ country.name }}</md-option>
                     </md-select>
                 </md-input-container>

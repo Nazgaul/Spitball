@@ -99,3 +99,6 @@
 .library-choose md-input-container .md-input {
   color: #fff;
 }
+.library-choose .md-select-value *:first-child {
+  max-width: 100%;
+}
