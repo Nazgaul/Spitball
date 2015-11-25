@@ -33,6 +33,8 @@
                             'facebookService', 'libraryService', function (facebookService, libraryService) {
                                 return facebookService.getToken().then(function (token) {
                                     return libraryService.getUniversityByFriends(token);
+                                },function() {
+                                    return [];
                                 });
 
                             }

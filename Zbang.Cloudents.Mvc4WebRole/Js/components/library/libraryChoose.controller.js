@@ -18,6 +18,7 @@
         self.code = {}
         self.code.userName = userDetails.get().name;
 
+
         countryService.getCountries(function (iso, country) {
             self.countries.push({ iso: iso, name: country });
         });
