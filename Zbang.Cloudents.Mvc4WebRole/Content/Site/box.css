@@ -337,10 +337,7 @@
   /* Fallback for non-webkit */
   font-size: 14px;
   line-height: 16px;
-  overflow: hidden;
-  -ms-text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
+  width: 100%;
 }
 .quiz .bottom:before {
   content: "";
