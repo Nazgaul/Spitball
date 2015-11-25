@@ -12,40 +12,32 @@
                     state: 'settings',
                     config: {
                         url: '/account/settings/',
-                        templateUrl: function () {
-                            return routerHelper.buildUrl('/account/settingpartial/');
-                        },
                         controller: 'AccountSettingsController as a'
-                    }
+                    },
+                    templateUrl: '/account/settingpartial/'
                 },
                 {
                     state: 'settings.profile',
                     config: {
                         url: '#info',
-                        templateUrl: function () {
-                            return routerHelper.buildUrl('/account/info/');
-                        },
                         controller: 'AccountSettingsInfoController as i'
-                    }
+                    },
+                    templateUrl: '/account/info/'
                 },
                 {
                     state: 'settings.password',
                     config: {
                         url: '#password',
-                        templateUrl: function () {
-                            return routerHelper.buildUrl('/account/password/');
-                        },
                         controller: 'AccountSettingsPasswordController as p'
-                    }
+                    },
+                    templateUrl: '/account/password/'
                 }, {
                     state: 'settings.notification',
                     config: {
                         url: '#notification',
-                        templateUrl: function () {
-                            return routerHelper.buildUrl('/account/notification/');
-                        },
                         controller: 'AccountSettingsNotificationController as n'
-                    }
+                    },
+                    templateUrl: '/account/notification/'
                 }
 
             ];

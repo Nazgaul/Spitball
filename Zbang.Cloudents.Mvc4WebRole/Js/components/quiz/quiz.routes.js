@@ -12,9 +12,6 @@
                 state: 'quiz',
                 config: {
                     url: '/quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}/',
-                    templateUrl: function () {
-                        return routerHelper.buildUrl('/quiz/indexpartial/');
-                    },
                     controller: 'QuizController as q',
                     resolve: {
                         data: ['quizService', '$stateParams', function (quizService, $stateParams) {
@@ -23,13 +20,11 @@
                     }
 
 
-                }
+                },
+                templateUrl: '/quiz/indexpartial/'
             }, {
                 state: 'quizCreate',
                 config: {
-                    templateUrl: function () {
-                        return routerHelper.buildUrl('/quiz/createpartial/');
-                    },
                     url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/quizcreate/',
                     controller: 'QuizCreateController as q',
                     resolve: {
@@ -47,7 +42,8 @@
                             //$location.path(path).hash('quizzes');
                         }]
                     }
-                }
+                },
+                templateUrl: '/quiz/createpartial/'
             }
 
 

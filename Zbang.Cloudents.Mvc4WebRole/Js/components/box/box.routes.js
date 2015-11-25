@@ -12,9 +12,6 @@
                 state: 'box',
                 config: {
                     url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/',
-                    templateUrl: function () {
-                        return routerHelper.buildUrl('/box/indexpartial/');
-                    },
                     controller: 'BoxController as b',
                     containerClass: 'boxState',
                     resolve: {
@@ -25,46 +22,37 @@
                             }
                         ]
                     }
-
-
-                }
+                },
+                templateUrl: '/box/indexpartial/'
             }, {
                 state: 'box.feed',
                 config: {
-                    templateUrl: function () {
-                        return routerHelper.buildUrl('/box/feedpartial/');
-                    },
                     url: '#feed',
                     controller: 'FeedController as f'
-                }
+                },
+                templateUrl: '/box/feedpartial/'
             }, {
                 state: 'box.items',
                 config: {
-                    templateUrl: function () {
-                        return routerHelper.buildUrl('/box/itemspartial/');
-                    },
                     url: '#items',
                     controller: 'ItemsController as i',
 
-                }
+                },
+                templateUrl: '/box/itemspartial/'
             }, {
                 state: 'box.quiz',
                 config: {
-                    templateUrl: function () {
-                        return routerHelper.buildUrl('/box/quizpartial/');
-                    },
                     url: '#quizzes',
                     controller: 'QuizzesController as q'
-                }
+                },
+                templateUrl: '/box/quizpartial/'
             },
                 {
                     state: 'box.members', config: {
-                        templateUrl: function () {
-                            return routerHelper.buildUrl('/box/memberspartial/');
-                        },
                         url: '#members',
                         controller: 'MembersController as m'
-                    }
+                    },
+                    templateUrl: '/box/memberspartial/'
                 }
 
 

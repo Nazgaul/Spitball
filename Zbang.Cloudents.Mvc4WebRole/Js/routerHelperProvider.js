@@ -21,7 +21,7 @@
             var service = {
                 configureStates: configureStates,
                 getStates: getStates,
-                buildUrl: buildUrl
+                //buildUrl: buildUrl
             };
 
             return service;
@@ -31,6 +31,12 @@
             function configureStates(states, otherwisePath) {
                 states.forEach(function (state) {
                     state.config.parent = 'root';
+                    
+                    if (state.templateUrl) {
+                        state.config.templateUrl = function() {
+                            return buildUrl(state.templateUrl);
+                        };
+                    }
                     $stateProvider.state(state.state, state.config);
                 });
                 if (otherwisePath && !hasOtherwise) {

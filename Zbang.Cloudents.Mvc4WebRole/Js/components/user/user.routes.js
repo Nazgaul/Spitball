@@ -12,9 +12,6 @@
                 state: 'user',
                 config: {
                     url: '/user/:userId/:userName/',
-                    templateUrl: function () {
-                        return routerHelper.buildUrl('/user/indexpartial/');
-                    },
                     controller: 'UserController as u',
                     resolve: {
                         userData: [
@@ -25,6 +22,7 @@
                         ]
                     }
                 },
+                templateUrl: '/user/indexpartial/'
 
             }
               //{

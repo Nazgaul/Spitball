@@ -7,32 +7,26 @@
 
 
         function getStates() {
+            var partial = '/library/indexpartial/';
             return [
             {
                 state: 'department',
                 config: {
                     url: '/library/',
-                    templateUrl: function () {
-                        return routerHelper.buildUrl('/library/indexpartial/');
-                    },
                     controller: 'Library as l'
-                }
+                },
+                templateUrl: partial
             },
             {
                 state: 'departmentWithNode', config: {
                     url: '/library/:nodeId/:nodeName/',
-                    templateUrl: function () {
-                        return routerHelper.buildUrl('/library/indexpartial/');
-                    },
                     controller: 'Library as l'
-                }
+                },
+                templateUrl: partial
             },
             {
                 state: 'universityChoose', config: {
                     url: '/library/choose/',
-                    templateUrl: function () {
-                        return routerHelper.buildUrl('/library/choosepartial/');
-                    },
                     controller: 'LibraryChoose as lc',
                     resolve: {
                         universitySuggest: [
@@ -49,7 +43,8 @@
                             }
                         ]
                     }
-                }
+                },
+                templateUrl: '/library/choosepartial/'
             }
 
 
