@@ -19,6 +19,10 @@
             width: 100%;
         }
 
+        .img-circle {
+            background: #fff;
+        }
+
         .list-inline img {
             border-radius: 4px;
         }
@@ -37,6 +41,7 @@
             font-size: 50px;
             text-align: center;
             border: 3px solid #E2E2E2;
+            color: #e2e2e2;
             border-radius: 50%;
         }
 
@@ -49,38 +54,76 @@
     .add-univeristy {
         max-width: 450px;
         margin: 0 auto;
+
+        .btn {
+            padding: 0 16px;
+        }
+
+        .btn-primary {
+            .buttonBlue();
+        }
+
+        .btn-default {
+            margin-left: 20px;
+            border: none;
+        }
     }
 
     .code {
-        max-width: 600px;
+        max-width: 430px;
         margin: 0 auto;
         position: relative;
 
-        > div, >form {
+        .top-contant {
+            padding-top: 50px;
+            max-width: 420px;
+        }
+
+        h4 {
+            color: #f5f5f5;
+        }
+
+        > div, >form >div {
             .displayFlex();
             align-items: center;
         }
 
+        .btn {
+            padding: 0 16px;
+        }
+
+        .btn-primary {
+            .buttonBlue();
+        }
+
         .closed-uni-i {
-            width: 80px;
-            height: 80px;
+            width: 150px;
+            height: 150px;
             fill: #fff;
+            margin-right: 15px;
+            padding-top: 30px;
         }
 
         .uni-details {
-            margin-left: 15px;
+            color: #f5f5f5;
+            line-height: 20px;
+            font-size: 17px;
+        }
+
+        form {
+            padding-left: 30px;
         }
 
         .info-i {
-            width: 45px;
-            height: 45px;
+            width: 30px;
+            height: 30px;
             fill: #6D7882;
         }
 
         .arrow-up {
             position: absolute;
-            bottom: -240px;
-            left: -20px;
+            bottom: -230px;
+            left: 18px;
             background: #2B2F33;
             border-radius: 5px;
             padding: 15px;
@@ -89,12 +132,12 @@
                 content: '';
                 width: 0;
                 height: 0;
-                border-left: 25px solid transparent;
-                border-right: 25px solid transparent;
-                border-bottom: 25px solid #2B2F33;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-bottom: 15px solid #2B2F33;
                 position: absolute;
-                top: -25px;
-                left: 18px;
+                top: -15px;
+                left: 15px;
             }
         }
 

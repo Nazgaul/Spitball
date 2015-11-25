@@ -14,6 +14,9 @@
   display: inline-block;
   width: 100%;
 }
+.library-choose .univeristy .img-circle {
+  background: #fff;
+}
 .library-choose .univeristy .list-inline img {
   border-radius: 4px;
 }
@@ -31,6 +34,7 @@
   font-size: 50px;
   text-align: center;
   border: 3px solid #E2E2E2;
+  color: #e2e2e2;
   border-radius: 50%;
 }
 .library-choose .add-uni-btn div {
@@ -41,34 +45,78 @@
   max-width: 450px;
   margin: 0 auto;
 }
+.library-choose .add-univeristy .btn {
+  padding: 0 16px;
+}
+.library-choose .add-univeristy .btn-primary {
+  background: #4190b9;
+}
+.library-choose .add-univeristy .btn-primary:hover {
+  background: #26566e;
+  color: inherit;
+}
+.library-choose .add-univeristy .btn-primary:focus {
+  color: inherit;
+}
+.library-choose .add-univeristy .btn-default {
+  margin-right: 20px;
+  border: none;
+}
 .library-choose .code {
-  max-width: 600px;
+  max-width: 430px;
   margin: 0 auto;
   position: relative;
 }
+.library-choose .code .top-contant {
+  padding-top: 50px;
+  max-width: 420px;
+}
+.library-choose .code h4 {
+  color: #f5f5f5;
+}
 .library-choose .code > div,
-.library-choose .code > form {
+.library-choose .code > form > div {
   display: -webkit-flex;
   display: flex;
   align-items: center;
 }
+.library-choose .code .btn {
+  padding: 0 16px;
+}
+.library-choose .code .btn-primary {
+  background: #4190b9;
+}
+.library-choose .code .btn-primary:hover {
+  background: #26566e;
+  color: inherit;
+}
+.library-choose .code .btn-primary:focus {
+  color: inherit;
+}
 .library-choose .code .closed-uni-i {
-  width: 80px;
-  height: 80px;
+  width: 150px;
+  height: 150px;
   fill: #fff;
+  margin-left: 15px;
+  padding-top: 30px;
 }
 .library-choose .code .uni-details {
-  margin-right: 15px;
+  color: #f5f5f5;
+  line-height: 20px;
+  font-size: 17px;
+}
+.library-choose .code form {
+  padding-right: 30px;
 }
 .library-choose .code .info-i {
-  width: 45px;
-  height: 45px;
+  width: 30px;
+  height: 30px;
   fill: #6D7882;
 }
 .library-choose .code .arrow-up {
   position: absolute;
-  bottom: -240px;
-  right: -20px;
+  bottom: -230px;
+  right: 18px;
   background: #2B2F33;
   border-radius: 5px;
   padding: 15px;
@@ -77,12 +125,12 @@
   content: '';
   width: 0;
   height: 0;
-  border-right: 25px solid transparent;
-  border-left: 25px solid transparent;
-  border-bottom: 25px solid #2B2F33;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  border-bottom: 15px solid #2B2F33;
   position: absolute;
-  top: -25px;
-  right: 18px;
+  top: -15px;
+  right: 15px;
 }
 .library-choose .code md-input-container {
   width: 100%;

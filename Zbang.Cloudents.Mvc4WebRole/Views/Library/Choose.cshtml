@@ -6,7 +6,7 @@
                 <div ng-click="lc.selectUniversity(u)" class="univeristy">
                     <img class="img-circle" ng-src="{{::u.image}}" width="70" height="70" />
                     <div>
-                        <span class="elipsis">{{::u.name}}</span>
+                        <span class="ellipsis">{{::u.name}}</span>
                         <ul class="list-inline">
                             <li ng-repeat="img in ::u.userImages track by $index">
                                 <img ng-src="{{::img}}" width="30" height="30" />
@@ -41,25 +41,29 @@
                            typeahead-min-length="2"
                            typeahead-on-select="lc.selectUniversity($item)" />
                 </md-input-container>
-                <button type="submit">create</button>
-                <button type="button" ng-click="lc.createUniversity = false">cancel</button>
+                <button type="button" class="btn btn-default pull-right text-capitalize" ng-click="lc.createUniversity = false">cancel</button>
+                <button type="submit" class="btn btn-primary pull-right text-capitalize">create</button>
             </form>
         </div>
     </div>
     <div ng-if="lc.needCode" class="code">
-        <h4>hi {{::lc.code.userName}}</h4>
-        <div>
+        <div class="top-contant">
             @Html.Svg("~/images/site/libChooseIcons.svg", "closed_uni", new { @class = "closed-uni-i" })
-            <span class="uni-details" ng-bind-html="::lc.code.closedUniText1"></span>
+            <div class="contant">
+                <h4 class="text-capitalize">hi {{::lc.code.userName}}</h4>
+                <span class="uni-details" ng-bind-html="::lc.code.closedUniText1"></span>
+            </div>
         </div>
         <form novalidate ng-submit="lc.selectUniversity(lc.code.university)">
-            @Html.Svg("~/images/site/libChooseIcons.svg", "info", new { @class = "info-i" })
-            <div class="arrow-up" ng-bind-html="::lc.code.closedUniText2"></div>
-            <md-input-container>
-                <label>Enter 9 digit id</label>
-                <input type="text" ng-model="lc.code.studentId" required />
-            </md-input-container>
-            <button type="submit">continue</button>
+            <div>
+                @Html.Svg("~/images/site/libChooseIcons.svg", "info", new { @class = "info-i" })
+                <div class="arrow-up" ng-bind-html="::lc.code.closedUniText2"></div>
+                <md-input-container>
+                    <label>Enter 9 digit id</label>
+                    <input type="text" ng-model="lc.code.studentId" required />
+                </md-input-container>
+            </div>
+            <button type="submit" class="btn btn-primary pull-right">continue</button>
         </form>
     </div>
 </div>
