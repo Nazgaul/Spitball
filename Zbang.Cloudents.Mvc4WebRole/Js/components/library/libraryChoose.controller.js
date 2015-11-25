@@ -1,7 +1,7 @@
 ﻿(function () {
     angular.module('app.library').controller('LibraryChoose', libraryChoose);
 
-    libraryChoose.$inject = ['libraryService', 'userDetails', '$state', 'countryService', 'universitySuggest', 'universityInit'];
+    libraryChoose.$inject = ['libraryService', 'userDetailsFactory', '$state', 'countryService', 'universitySuggest', 'universityInit'];
 
     function libraryChoose(libraryService, userDetails, $state, countryService, universitySuggest, universityInit) {
         var self = this;

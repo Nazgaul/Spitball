@@ -1,6 +1,6 @@
 ﻿(function () {
     angular.module('app.user').service('userUpdatesService', userUpdates);
-    userUpdates.$inject = ['ajaxService', '$q', 'userDetails', '$rootScope'];
+    userUpdates.$inject = ['ajaxService', '$q', 'userDetailsFactory', '$rootScope'];
 
     function userUpdates(ajaxservice, $q, userDetails, $rootScope) {
         var self = this;

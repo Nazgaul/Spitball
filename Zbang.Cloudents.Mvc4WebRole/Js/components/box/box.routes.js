@@ -28,7 +28,8 @@
                 state: 'box.feed',
                 config: {
                     url: '#feed',
-                    controller: 'FeedController as f'
+                    controller: 'FeedController as f',
+                    parent: 'box'
                 },
                 templateUrl: '/box/feedpartial/'
             }, {
@@ -36,21 +37,23 @@
                 config: {
                     url: '#items',
                     controller: 'ItemsController as i',
-
+                    parent: 'box'
                 },
                 templateUrl: '/box/itemspartial/'
             }, {
                 state: 'box.quiz',
                 config: {
                     url: '#quizzes',
-                    controller: 'QuizzesController as q'
+                    controller: 'QuizzesController as q',
+                    parent: 'box'
                 },
                 templateUrl: '/box/quizpartial/'
             },
                 {
-                    state: 'box.members', config: {
+                    state: 'members', config: {
                         url: '#members',
-                        controller: 'MembersController as m'
+                        controller: 'MembersController as m',
+                        parent:'box'
                     },
                     templateUrl: '/box/memberspartial/'
                 }

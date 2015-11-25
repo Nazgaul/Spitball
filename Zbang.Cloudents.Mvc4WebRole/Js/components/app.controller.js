@@ -1,6 +1,6 @@
 ﻿(function () {
     angular.module('app').controller('AppController', appController);
-    appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state', 'userDetails'];
+    appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state', 'userDetailsFactory'];
 
     function appController($rootScope, $window, $location, history, $state, userDetails) {
         var self = this;

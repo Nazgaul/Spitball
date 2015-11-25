@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.box.feed').controller('FeedController', feed);
-    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'userDetails', 'itemThumbnail'];
+    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnail', 'user'];
 
-    function feed(boxService, $stateParams, $timeout, externalUploadProvider, userDetails, itemThumbnail) {
+    function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnail, user) {
         var self = this, boxId = $stateParams.boxId;
         boxService.getFeed(boxId).then(function (response) {
             self.data = response;
@@ -45,9 +45,9 @@
                     id: response.commentId,
                     url: response.userUrl,
 
-                    userId: userDetails.get().id,
-                    userImage: userDetails.get().image,
-                    userName: userDetails.get().name,
+                    userId: user.id,
+                    userImage: user.image,
+                    userName: user.name,
                     files: self.add.files.map(function (c) {
                         var temp = c.system;
                         temp.thumbnail = buildThumbnailUrl(c.source);

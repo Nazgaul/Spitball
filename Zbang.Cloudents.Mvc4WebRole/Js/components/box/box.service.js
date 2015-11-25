@@ -40,5 +40,11 @@
                 files: files
             });
         }
+        d.follow = function(boxId) {
+            return ajaxservice.post('/share/subscribetobox/', {
+                boxId: boxId
+            });
+
+        }
     }
 })();

@@ -17,19 +17,19 @@
         /* @ngInject */
         function routerHelper($state) {
             var hasOtherwise = false;
-            var universityRedirect = [
-               'userDetails', '$state', function (userDetails, $state2) {
-                   if (!userDetails.get().university.id) {
-                       $state2.go('universityChoose');
-                       return;
-                   }
-               }
-            ];
+            //var universityRedirect = [
+            //   'userDetails', '$state', function (userDetails, $state2) {
+            //       if (!userDetails.get().university.id) {
+            //           $state2.go('universityChoose');
+            //           return;
+            //       }
+            //   }
+            //];
 
             var service = {
                 configureStates: configureStates,
                 getStates: getStates,
-                universityRedirect: universityRedirect
+                //universityRedirect: universityRedirect
                 //buildUrl: buildUrl
             };
 
@@ -39,8 +39,10 @@
 
             function configureStates(states, otherwisePath) {
                 states.forEach(function (state) {
-                    state.config.parent = 'root';
-                    
+                    if (!state.config.parent) {
+                        state.config.parent = 'root';
+                    }
+
                     if (state.templateUrl) {
                         state.config.templateUrl = function() {
                             return buildUrl(state.templateUrl);

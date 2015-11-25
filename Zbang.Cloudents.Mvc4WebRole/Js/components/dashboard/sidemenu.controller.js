@@ -1,6 +1,6 @@
 ﻿(function() {
     angular.module('app.dashboard').controller('SideMenu', dashboard);
-    dashboard.$inject = ['dashboardService', 'userDetails', '$rootScope'];
+    dashboard.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope'];
 
     function dashboard(dashboardService, userDetails, $rootScope) {
         var d = this;

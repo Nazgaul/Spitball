@@ -9,7 +9,7 @@
                 abstract: true,
                 resolve: {
                     user: [
-                        'userDetails', function (userDetails) {
+                        'userDetailsFactory', function (userDetails) {
                             return userDetails.init();
                         }
                     ]

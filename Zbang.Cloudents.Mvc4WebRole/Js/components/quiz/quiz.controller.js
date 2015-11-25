@@ -1,9 +1,9 @@
 ﻿(function () {
     angular.module('app.quiz').controller('QuizController', quiz);
 
-    quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter', 'userDetails'];
+    quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter', 'user'];
 
-    function quiz(quizData, $timeout, $stateParams, quizService, $filter, userDetails) {
+    function quiz(quizData, $timeout, $stateParams, quizService, $filter, user) {
 
         var q = this;
         q.states = {
@@ -32,9 +32,9 @@
         q.back = back;
 
         q.user = {
-            id: userDetails.get().id,
-            name: userDetails.get().name,
-            image: userDetails.get().image
+            id: user.id,
+            name: user.name,
+            image: user.image
         };
 
         //$scope.$on('$destroy', function () {
