@@ -187,6 +187,13 @@ textarea,
         display: block;
     }*/
 }
+.dd-list md-content {
+  background: #353A3F;
+  color: #ECECEC;
+}
+.dd-list md-option {
+  border-bottom: 1px solid #000;
+}
 .close {
   float: right;
   margin-top: 6px;

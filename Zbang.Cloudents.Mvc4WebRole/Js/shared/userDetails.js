@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('app').factory('userDetails', userDetails);
+    angular.module('app').factory('userDetailsFactory', userDetails);
     userDetails.$inject = ['$rootScope', '$filter', '$timeout', '$q', '$http', 'ajaxService'];
     function userDetails($rootScope, $filter, $timeout, $q, $http, ajaxService) {
         "use strict";

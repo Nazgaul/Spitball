@@ -9,7 +9,7 @@
                 abstract: true,
                 resolve: {
                     user: [
-                        'userDetails', function (userDetails) {
+                        'userDetailsFactory', function (userDetails) {
                             return userDetails.init();
                         }
                     ]
@@ -152,6 +152,7 @@
                             url: '/search/',
                             controller: 'SearchController as s',
                             data: { animateClass: 'searchState' }
+                            //onEnter: routerHelper.universityRedirect
                         },
                         templateUrl: '/search/indexpartial/'
                     },
@@ -160,7 +161,9 @@
                          config: {
                              url: '/dashboard/',
                              controller: 'Dashboard as d',
-                             data: { animateClass: 'dashboardState' }
+                             data: { animateClass: 'dashboardState' },
+                             //onEnter: routerHelper.universityRedirect
+
                          },
                          templateUrl: '/dashboard/indexpartial/'
                      }

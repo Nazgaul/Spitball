@@ -1,6 +1,6 @@
 ﻿(function () {
     angular.module('app').controller('AppController', appController);
-    appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state', 'userDetails'];
+    appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state', 'userDetailsFactory'];
 
     function appController($rootScope, $window, $location, history, $state, userDetails) {
         var self = this;
@@ -30,42 +30,44 @@
 
         });
 
-        
-
-        //$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
-        //    var userWithNoUniversityState = 'universityChoose';
-
-        //    if (self.userDetails) {
-        //        if (self.userDetails.university.id) {
-        //            return;
-        //        } else {
-        //            if (fromState.name === userWithNoUniversityState && toState.name !== userWithNoUniversityState) {
-        //                $rootScope.$broadcast('state-change-start-prevent');
-        //                event.preventDefault();
-        //                return;
-        //            }
-        //            if (toState.name !== userWithNoUniversityState) {
-        //                $state.go(userWithNoUniversityState);
-        //            }
-
-        //            return;
-        //        }
-        //        return;
-        //    }
-        //    event.preventDefault();
-
-        //    userDetails.get().then(function (response) {
-        //        self.userDetails = response;
-        //        if (self.userDetails.university.id) {
-        //            $state.go(toState, toParams);
-        //        } else {
-        //            $state.go(userWithNoUniversityState);
-        //        }
-        //    });
 
 
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
+            var details = userDetails.get();
+            if (!details) {
+                return;
+            }
+            if (details.university.id) {
+                return;
+            }
+            var userWithNoUniversityState = 'universityChoose';
+            if (toState.name !== userWithNoUniversityState) {
+                $rootScope.$broadcast('state-change-start-prevent');
+                event.preventDefault();
+            }
 
-        //});
+            //if (self.userDetails) {
+            //    if (self.userDetails.university.id) {
+            //        return;
+            //    } else {
+            //        if (fromState.name === userWithNoUniversityState && toState.name !== userWithNoUniversityState) {
+            //            $rootScope.$broadcast('state-change-start-prevent');
+            //            event.preventDefault();
+            //            return;
+            //        }
+            //        if (toState.name !== userWithNoUniversityState) {
+            //            $state.go(userWithNoUniversityState);
+            //        }
+
+            //        return;
+            //    }
+            //    return;
+            //}
+            //event.preventDefault();
+
+
+
+        });
 
 
 

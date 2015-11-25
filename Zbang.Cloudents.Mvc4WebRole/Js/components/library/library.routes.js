@@ -33,6 +33,8 @@
                             'facebookService', 'libraryService', function (facebookService, libraryService) {
                                 return facebookService.getToken().then(function (token) {
                                     return libraryService.getUniversityByFriends(token);
+                                },function() {
+                                    return [];
                                 });
 
                             }
@@ -42,7 +44,8 @@
                                 return libraryService.getUniversity();
                             }
                         ]
-                    }
+                    },
+                    //onExit: routerHelper.universityRedirect
                 },
                 templateUrl: '/library/choosepartial/'
             }

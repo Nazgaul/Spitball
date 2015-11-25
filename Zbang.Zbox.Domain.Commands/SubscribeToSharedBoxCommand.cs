@@ -1,4 +1,3 @@
-using System;
 using Zbang.Zbox.Infrastructure.Commands;
 namespace Zbang.Zbox.Domain.Commands
 {

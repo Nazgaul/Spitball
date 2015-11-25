@@ -27,9 +27,10 @@
 
         <div ng-if="lc.createUniversity" class="add-univeristy">
             <form ng-submit="lc.createNewUniversity()" novalidate>
+              
                 <md-input-container>
                     <label>Country</label>
-                    <md-select ng-model="lc.countryCode">
+                    <md-select ng-model="lc.countryCode" md-container-class="dd-list">
                         <md-option ng-value="country.iso" ng-repeat="country in ::lc.countries">{{ country.name }}</md-option>
                     </md-select>
                 </md-input-container>
@@ -41,6 +42,7 @@
                            typeahead-min-length="2"
                            typeahead-on-select="lc.selectUniversity($item)" />
                 </md-input-container>
+
                 <button type="button" class="btn btn-default pull-right text-capitalize" ng-click="lc.createUniversity = false">cancel</button>
                 <button type="submit" class="btn btn-primary pull-right text-capitalize">create</button>
             </form>

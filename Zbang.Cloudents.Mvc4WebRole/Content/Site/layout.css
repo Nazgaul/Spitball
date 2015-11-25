@@ -1820,7 +1820,7 @@ Page content
 ***/
 /* Page header */
 .page-head {
-  margin: 25px 0;
+  margin: 10px 0;
 }
 .page-head:before,
 .page-head:after {
@@ -1831,8 +1831,7 @@ Page content
   clear: both;
 }
 .page-head .page-title {
-  display: inline-block;
-  float: left;
+  padding: 10px;
 }
 .page-head .page-title > h1 {
   color: #f5f5f5;
