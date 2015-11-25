@@ -3,20 +3,22 @@
     userDetails.$inject = ['$rootScope', '$filter', '$timeout', '$q', '$http', 'ajaxService'];
     function userDetails($rootScope, $filter, $timeout, $q, $http, ajaxService) {
         "use strict";
-        var self = this,
+        var
             isAuthenticated = false,
             userData,
-            loadData = false,
-            deferAuth = $q.defer(),
+            serverCall = false,
             deferDetails = $q.defer();
 
-        ajaxService.get('/account/details/').then(function (response) {
-            setDetails(response);
-            //self.details = response;
-            deferDetails.resolve(userData);
-            deferAuth.resolve(isAuthenticated);
-            loadData = true;
-        });
+        //self.init();
+        //ajaxService.get('/account/details/').then(function (response) {
+        //    setDetails(response);
+        //    //self.details = response;
+        //    deferDetails.resolve(userData);
+        //    deferAuth.resolve(isAuthenticated);
+        //    loadData = true;
+        //});
+
+
 
 
         function setDetails(data) {
@@ -83,24 +85,31 @@
         }
 
         return {
-            get: function () {
-                if (loadData) {
+            init: function () {
+                if (userData) {
                     deferDetails.resolve(userData);
+                    return deferDetails.promise;
+                }
+                if (!serverCall) {
+                    serverCall = true;
+
+                    ajaxService.get('/account/details/').then(function(response) {
+                        setDetails(response);
+                        //self.details = response;
+                        deferDetails.resolve(userData);
+                        //deferAuth.resolve(isAuthenticated);
+                    });
                 }
                 return deferDetails.promise;
             },
-            getSync: function() {
-                if (loadData) {
-                    return userData;
-                }
-                return null;
+            get: function () {
+                return userData;
+                
             },
+           
 
             isAuthenticated: function () {
-                if (loadData) {
-                    deferAuth.resolve(isAuthenticated);
-                }
-                return deferAuth.promise;
+                return isAuthenticated;
             },
             //setName: function (first, middle, last) {
             //    userData.firstName = first;

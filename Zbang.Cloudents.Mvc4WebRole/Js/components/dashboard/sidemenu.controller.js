@@ -11,10 +11,10 @@
         $rootScope.$on('universityChange', function () {
             getBoxes();
         });
+        userDetails.init().then(function() {
+            d.userUrl = userDetails.get().url;
 
-        userDetails.get().then(function (response) {
-            d.userUrl = response.url;
-            if (response.university.id) {
+            if (userDetails.get().university.id) {
                 getBoxes();
             }
         });

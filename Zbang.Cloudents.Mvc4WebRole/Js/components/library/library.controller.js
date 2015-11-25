@@ -13,10 +13,8 @@ parentUrl: "/library/"*/
             l.nodeDetail = response.details;
         });
 
-        userDetails.get().then(function (response) {
-            l.universityName = response.university.name;
-
-        });
+        l.universityName = userDetails.get().university.name;
+        
     }
 })();
 

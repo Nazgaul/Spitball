@@ -8,13 +8,12 @@
 
         var deferred = $q.defer();
 
-        userDetails.get().then(function (response) {
-            if (!response.university.id) {
-                return;
+        userDetails.init().then(function() {
+            if (userDetails.get().university.id) {
+                getUpdates();
             }
-            getUpdates();
-
         });
+        
         $rootScope.$on('universityChange', function () {
             getUpdates();
         });

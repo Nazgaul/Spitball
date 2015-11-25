@@ -6,18 +6,13 @@
     function userDetailsController(accountService, $scope, userDetails) {
         var ud = this;
         ud.isLoggedIn = false;
+        userDetails.init().then(function() {
+            assignValues(userDetails.get());
 
-        userDetails.get().then(function (response) {
-            assignValues(response);
+            ud.isLoggedIn = userDetails.isAuthenticated();
         });
-        userDetails.isAuthenticated().then(function(response) {
-            ud.isLoggedIn = response;
-        });
-
         $scope.$on('userDetailsChange', function () {
-            userDetails.get().then(function (response) {
-                assignValues(response);
-            });
+            assignValues(userDetails.get());
         });
 
         function assignValues(response) {

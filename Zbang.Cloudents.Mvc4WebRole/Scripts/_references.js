@@ -89,7 +89,6 @@
 /// <reference path="../bower_components/angular-material/modules/js/virtualRepeat/virtualRepeat.js" />
 /// <reference path="../bower_components/angular-material/modules/js/whiteframe/whiteframe.js" />
 /// <reference path="../Js/app.config.js" />
-/// <reference path="../Js/app.core.js" />
 /// <reference path="../Js/app.js" />
 /// <reference path="../Js/app.route.js" />
 /// <reference path="../Js/CDNFallback.js" />

@@ -30,44 +30,42 @@
 
         });
 
-        $rootScope.$on('universityChange', function (e, userData) {
-            self.userDetails = userData;
-        });
+        
 
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
-            var userWithNoUniversityState = 'universityChoose';
+        //$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
+        //    var userWithNoUniversityState = 'universityChoose';
 
-            if (self.userDetails) {
-                if (self.userDetails.university.id) {
-                    return;
-                } else {
-                    if (fromState.name === userWithNoUniversityState && toState.name !== userWithNoUniversityState) {
-                        $rootScope.$broadcast('state-change-start-prevent');
-                        event.preventDefault();
-                        return;
-                    }
-                    if (toState.name !== userWithNoUniversityState) {
-                        $state.go(userWithNoUniversityState);
-                    }
+        //    if (self.userDetails) {
+        //        if (self.userDetails.university.id) {
+        //            return;
+        //        } else {
+        //            if (fromState.name === userWithNoUniversityState && toState.name !== userWithNoUniversityState) {
+        //                $rootScope.$broadcast('state-change-start-prevent');
+        //                event.preventDefault();
+        //                return;
+        //            }
+        //            if (toState.name !== userWithNoUniversityState) {
+        //                $state.go(userWithNoUniversityState);
+        //            }
 
-                    return;
-                }
-                return;
-            }
-            event.preventDefault();
+        //            return;
+        //        }
+        //        return;
+        //    }
+        //    event.preventDefault();
 
-            userDetails.get().then(function (response) {
-                self.userDetails = response;
-                if (self.userDetails.university.id) {
-                    $state.go(toState, toParams);
-                } else {
-                    $state.go(userWithNoUniversityState);
-                }
-            });
+        //    userDetails.get().then(function (response) {
+        //        self.userDetails = response;
+        //        if (self.userDetails.university.id) {
+        //            $state.go(toState, toParams);
+        //        } else {
+        //            $state.go(userWithNoUniversityState);
+        //        }
+        //    });
 
 
 
-        });
+        //});
 
 
 

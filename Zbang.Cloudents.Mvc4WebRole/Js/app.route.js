@@ -1,56 +1,77 @@
 ﻿
 (function () {
-    angular.module('app').config(
-    [
-        '$stateProvider',
-    function ($stateProvider) {
-        $stateProvider
-            .state('item', {
-                url: '/item/{universityName}/{boxId}/{boxName}/{itemId}/{itemName}/',
-                templateUrl: function () {
-                    return buildUrl('/item/indexpartial/');
-                },
+    angular.module('app').config(config);
+    config.$inject = ['$stateProvider'];
+    function config($stateProvider) {
 
-                controller: 'ItemController as i'
-            })
-            .state('jobs', {
-                url: '/jobs/',
-                templateUrl: function () {
-                    return buildUrl('/home/jobs/');
-                }
-            }).
-            state('blog', {
-                url: '/blog/',
-                templateUrl: function () {
-                    return buildUrl('/home/blog/');
-                }
-            })
-            .state('help', {
-                url: '/help/',
-                templateUrl: function () {
-                    return buildUrl('/home/helppartial/');
-                }
-            })
-            
-            .state('search', {
-                url: '/search/',
-                templateUrl: function () {
-                    return buildUrl('/search/indexpartial/');
+
+        $stateProvider
+            .state('root', {
+                abstract: true,
+                resolve: {
+                    user: [
+                        'userDetails', function (userDetails) {
+                            return userDetails.init();
+                        }
+                    ]
                 },
-                controller: 'SearchController as s',
-                data : { animateClass: 'searchState' }
+                template: '<div ui-view></div>'
             })
-            .state('dashboard', {
-                url: '/dashboard/',
-                templateUrl: function () {
-                    return buildUrl('/dashboard/indexpartial/');
-                },
-                controller: 'Dashboard as d',
-                data: { animateClass: 'dashboardState' }
-                //onEnter: dashboardRedirect
-            });
+
         
-       
+        .state('jobs', {
+            parent: 'root',
+            url: '/jobs/',
+            templateUrl: function () {
+                return buildUrl('/home/jobs/');
+            }
+        }).
+        state('blog', {
+            parent: 'root',
+            url: '/blog/',
+            templateUrl: function () {
+                return buildUrl('/home/blog/');
+            }
+        })
+        .state('help', {
+            parent: 'root',
+            url: '/help/',
+            templateUrl: function () {
+                return buildUrl('/home/helppartial/');
+            }
+        })
+        .state('item', {
+            parent: 'root',
+            url: '/item/{universityName}/{boxId}/{boxName}/{itemId}/{itemName}/',
+            templateUrl: function () {
+                return buildUrl('/item/indexpartial/');
+            },
+
+            controller: 'ItemController as i'
+        })
+
+
+        .state('search', {
+            parent: 'root',
+            url: '/search/',
+            templateUrl: function () {
+                return buildUrl('/search/indexpartial/');
+            },
+            controller: 'SearchController as s',
+            data: { animateClass: 'searchState' }
+        })
+        .state('dashboard', {
+            parent: 'root',
+            url: '/dashboard/',
+            templateUrl: function () {
+                return buildUrl('/dashboard/indexpartial/');
+            },
+            controller: 'Dashboard as d',
+            data: { animateClass: 'dashboardState' }
+            //onEnter: dashboardRedirect
+        });
+
+
         function buildUrl(path) {
             return path + '?lang=' + getCookie('l2') + '&version=' + window.version;
 
@@ -83,5 +104,5 @@
     }
 
 
-    ]);
+
 })();

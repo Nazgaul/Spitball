@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.box.feed').controller('FeedController', feed);
-    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'userDetails', '$q', 'itemThumbnail'];
+    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'userDetails', 'itemThumbnail'];
 
-    function feed(boxService, $stateParams, $timeout, externalUploadProvider, userDetails, $q, itemThumbnail) {
+    function feed(boxService, $stateParams, $timeout, externalUploadProvider, userDetails, itemThumbnail) {
         var self = this, boxId = $stateParams.boxId;
         boxService.getFeed(boxId).then(function (response) {
             self.data = response;
@@ -31,23 +31,23 @@
         };
 
         self.add.createReply = function (comment) {
-            
+
 
             var filesId = self.add.files.map(function (c) {
                 return c.system.id;
             });
 
             self.add.disabled = true;
-            $q.all([userDetails.get(), boxService.postReply(self.add.newText, boxId, comment.id, filesId)]).then(function (response) {
+            boxService.postReply(self.add.newText, boxId, comment.id, filesId).then(function (response) {
                 comment.answers.unshift({
                     content: self.newText,
                     creationTime: new Date(),
-                    id: response[1].commentId,
-                    url: response[1].userUrl,
+                    id: response.commentId,
+                    url: response.userUrl,
 
-                    userId: response[0].id,
-                    userImage: response[0].image,
-                    userName: response[0].name,
+                    userId: userDetails.get().id,
+                    userImage: userDetails.get().image,
+                    userName: userDetails.get().name,
                     files: self.add.files.map(function (c) {
                         var temp = c.system;
                         temp.thumbnail = buildThumbnailUrl(c.source);
@@ -59,7 +59,7 @@
             }).finally(function () {
                 self.add.disabled = false;
             });
-           
+
         }
 
         self.add.createComment = function () {
@@ -109,7 +109,7 @@ userName: "ram y"*/
         externalUploadProvider.googleDriveInit().then(function () {
             self.add.googleDisabled = false;
         });
-        externalUploadProvider.dropboxInit().then(function() {
+        externalUploadProvider.dropboxInit().then(function () {
             self.add.dropboxDisabled = false;
         });
 

@@ -30,6 +30,7 @@
 
             function configureStates(states, otherwisePath) {
                 states.forEach(function (state) {
+                    state.config.parent = 'root';
                     $stateProvider.state(state.state, state.config);
                 });
                 if (otherwisePath && !hasOtherwise) {
