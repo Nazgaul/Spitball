@@ -17,10 +17,19 @@
         /* @ngInject */
         function routerHelper($state) {
             var hasOtherwise = false;
+            var universityRedirect = [
+               'userDetails', '$state', function (userDetails, $state2) {
+                   if (!userDetails.get().university.id) {
+                       $state2.go('universityChoose');
+                       return;
+                   }
+               }
+            ];
 
             var service = {
                 configureStates: configureStates,
                 getStates: getStates,
+                universityRedirect: universityRedirect
                 //buildUrl: buildUrl
             };
 
@@ -61,7 +70,9 @@
                     return "";
                 }
             }
+
            
+
         }
     }
 })();

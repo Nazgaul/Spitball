@@ -42,7 +42,8 @@
                                 return libraryService.getUniversity();
                             }
                         ]
-                    }
+                    },
+                    //onExit: routerHelper.universityRedirect
                 },
                 templateUrl: '/library/choosepartial/'
             }
