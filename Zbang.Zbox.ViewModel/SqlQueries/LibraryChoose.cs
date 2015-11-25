@@ -31,7 +31,7 @@ group by u.Id, u.universityname,u.LargeImage,u.NoOfUsers
 order by count(*) desc;";
 
         public const string GetFriendsInUniversitiesByFriendsIds =
-            @"select universityid as UniversityId , UserImageLarge as Image from zbox.users where facebookuserid in @FriendsIds";
+            @"select top 5 universityid as UniversityId , UserImageLarge as Image from zbox.users where facebookuserid in @FriendsIds";
 
         public const string GetInitialValueOfUniversitiesBaseOnIpAddress =
    @"with country_cte(country) as (

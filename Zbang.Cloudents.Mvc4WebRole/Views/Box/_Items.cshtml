@@ -11,7 +11,7 @@
                 </li>
             </ul>
         </div>
-        <ul class="row list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+        @*<ul class="row list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
             <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 item-animate item-create add-button" ng-click="b.toggleUpload(true)">
                 <div>
                     <button type="button">
@@ -21,11 +21,11 @@
                 </div>
             </li>
             <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 item-animate" ng-repeat="e in i.items track by e.id " ng-include="'item-template.html'"></li>
-        </ul>
+        </ul>*@
         
         
-        @*<ul layout="row" layout-align="space-around" layout-margin layout-wrap class=" list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
-            <li flex-gt-lg="15" flex="20" class="item-animate item-create add-button" ng-click="b.toggleUpload(true)">
+        <ul layout="row" layout-align="space-between" layout-margin layout-wrap class=" list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+            <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" class="item-animate hidden-xs add-button i-q-wrapper" ng-click="b.toggleUpload(true)">
                 <div>
                     <button type="button">
                         @Html.Svg("~/images/site/icons.svg", "add")
@@ -33,7 +33,7 @@
                     </button>
                 </div>
             </li>
-            <li flex-gt-lg="10" flex="20" class="item-animate" ng-repeat="e in i.items track by e.id " ng-include="'item-template.html'"></li>
-        </ul>*@
+            <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" class="item-animate i-q-wrapper" ng-repeat="e in i.items track by e.id " ng-include="'item-template.html'"></li>
+        </ul>
     </div>
 </div>

@@ -33,7 +33,7 @@
                 </button>
             </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12  create-box" ng-class="{'create-box-show' : d.createBoxOn}">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12  create-box hidden-xs" ng-class="{'create-box-show' : d.createBoxOn}">
             <div class="dashboard-stat2">
                 <button ng-hide="d.createBoxOn" type="button" ng-click="d.createBoxOn = true" class="create-btn">
                     <div class="plus">+</div>
@@ -63,4 +63,4 @@
     </div>
 </div>
 
-<button type="button" class="add" ng-click="d.createBoxOn = true" ng-hide="d.createBoxOn">+</button>
+<button type="button" class="add visible-xs-block" ng-click="d.createBoxOn = true" ng-hide="d.createBoxOn">+</button>

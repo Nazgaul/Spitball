@@ -2,18 +2,22 @@
 .class .tabbable {
   border: 0;
 }
-@media only screen and (max-width: 768px) {
-  .class .item-create,
-  .class .quiz-create {
-    display: none;
-  }
-}
 .class .add-button {
   text-align: center;
+  display: -webkit-flex;
+  display: flex;
+  margin-bottom: 15px;
 }
 .class .add-button div {
   border: 1px solid #3D4348;
   padding: 15px;
+  -ms-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .class .add-button a,
 .class .add-button button {
@@ -428,7 +432,7 @@
   text-align: center;
 }
 .item .uploader-date {
-  margin-top: 75px;
+  margin-top: 33%;
 }
 .item .extra {
   color: #fff;
@@ -483,6 +487,24 @@
   width: 14px;
   height: 14px;
   fill: #f5f5f5;
+}
+.i-q-wrapper {
+  padding: 0 0.2%;
+}
+@media (min-width: 960px) and (max-width: 1200px) {
+  .i-q-wrapper {
+    padding: 0 1%;
+  }
+}
+@media (min-width: 600px) and (max-width: 960px) {
+  .i-q-wrapper {
+    padding: 0 1.2%;
+  }
+}
+@media (max-width: 600px) {
+  .i-q-wrapper {
+    padding: 0 2%;
+  }
 }
 .item-animate.ng-move,
 .item-animate.ng-enter,

@@ -4,19 +4,23 @@
     .nav-tabs, .tabbable {
         border: 0;
     }
-    .item-create,.quiz-create {
-         @media only screen and (max-width : 768px) {
-            display: none;
-        }
-    }
 
+   
     //add button
     .add-button {
         text-align: center;
+        .displayFlex();
+        margin-bottom: 15px;
 
         div {
             border: 1px solid #3D4348;
             padding: 15px;
+            -ms-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            .displayFlex();
+            justify-content: center;
+            align-items: center;
         }
 
         a, button {
@@ -363,13 +367,15 @@
                 height: 13vw;
                 line-height: 13vw;
             }
-             @media (min-width: 992px) {
+
+            @media (min-width: 992px) {
                 font-size: 8vw;
                 width: 8vw;
                 height: 8vw;
                 line-height: 8vw;
             }
-             @media (min-width: 1200px) {
+
+            @media (min-width: 1200px) {
                 font-size: 3vw;
                 width: 3vw;
                 height: 3vw;
@@ -525,7 +531,9 @@
     }
 
     .uploader-date {
-        margin-top: 75px;
+        margin-top: 33%;
+        //position: absolute;
+        //bottom: 15px;
     }
 
     .extra {
@@ -589,6 +597,22 @@
         width: 14px;
         height: 14px;
         fill: @color2;
+    }
+}
+
+.i-q-wrapper {
+    padding: 0 0.2%;
+
+    @media (min-width : 960px ) and (max-width:1200px) {
+        padding: 0 1%;
+    }
+
+    @media (min-width : 600px ) and (max-width:960px) {
+        padding: 0 1.2%;
+    }
+
+    @media (max-width:600px) {
+        padding: 0 2%;
     }
 }
 

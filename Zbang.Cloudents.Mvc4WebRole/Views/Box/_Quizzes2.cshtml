@@ -1,5 +1,14 @@
-﻿<ul class="row list-unstyled">
-    <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 quiz-create margin-bottom-20 add-button">
+﻿<ul layout="row" layout-align="space-between" layout-margin layout-wrap class="list-unstyled">
+    @*<li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 quiz-create margin-bottom-20 add-button">
+            <div>
+                <a ui-sref="quizCreate({boxtype: q.params.boxtype, universityType:q.params.universityType, boxId: q.params.boxId, boxName:q.params.boxName})">
+                    @Html.Svg("~/images/site/icons.svg", "add")
+                    Create a quiz
+                </a>
+            </div>
+        </li>
+        <li class="col-lg-2 col-md-4 col-sm-4 col-xs-6 margin-bottom-20" ng-repeat="e in q.quizzes" ng-include="'quiz-template.html'"></li>*@
+    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" class="hidden-xs margin-bottom-20 add-button i-q-wrapper">
         <div>
             <a ui-sref="quizCreate({boxtype: q.params.boxtype, universityType:q.params.universityType, boxId: q.params.boxId, boxName:q.params.boxName})">
                 @Html.Svg("~/images/site/icons.svg", "add")
@@ -7,5 +16,5 @@
             </a>
         </div>
     </li>
-    <li class="col-lg-2 col-md-4 col-sm-4 col-xs-6 margin-bottom-20" ng-repeat="e in q.quizzes" ng-include="'quiz-template.html'"></li>
+    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" class="margin-bottom-20 i-q-wrapper" ng-repeat="e in q.quizzes" ng-include="'quiz-template.html'"></li>
 </ul>
