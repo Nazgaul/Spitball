@@ -620,15 +620,18 @@
 .file-upload .check-mark {
   position: absolute;
   top: -16px;
-  left: -15px;
+  left: -8px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.6);
-  padding: 3px 10px;
+  padding: 3px 4px;
   z-index: 1;
 }
 .file-upload .check-mark svg {
   fill: #8DC63F;
   margin: 0;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
 }
 .file-upload h5 {
   color: #8DC63F;
