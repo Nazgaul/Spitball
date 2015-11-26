@@ -3,6 +3,7 @@
   border: 0;
 }
 .class .need-follow {
+  margin-top: 20px;
   background: #006072;
 }
 .class .invite-btn {
@@ -11,7 +12,7 @@
   border-radius: 4px;
   color: #fff;
   text-transform: uppercase;
-  padding: 0 5px;
+  padding: 5px 50px 3px;
 }
 .class .add-button {
   text-align: center;
