@@ -1,4 +1,7 @@
-﻿.library-choose .univeristy {
+﻿.library-choose .row {
+  margin-top: 20px;
+}
+.library-choose .univeristy {
   display: -webkit-flex;
   display: flex;
   margin-bottom: 30px;
@@ -10,7 +13,7 @@
   width: calc( 100% - 85px);
 }
 .library-choose .univeristy span {
-  font-size: 22px;
+  font-size: 18px;
   display: inline-block;
   width: 100%;
 }
@@ -136,3 +139,4 @@
   width: 100%;
   margin-right: 15px;
 }
+  color: #798590;
