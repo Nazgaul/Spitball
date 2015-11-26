@@ -85,8 +85,11 @@
 
             b.uploadShow = !open;
             b.uploadOn = open;
-
-            $scope.$broadcast('open_upload');
+            if (b.uploadShow) {
+                $scope.$broadcast('open_upload');
+            } else {
+                $scope.$broadcast('close_upload');
+            }
         }
         function follow() {
             boxService.follow(boxId);
