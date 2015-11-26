@@ -269,7 +269,8 @@
   fill: #F9F9F9;
 }
 .member {
-  display: block;
+  display: -webkit-flex;
+  display: flex;
   margin-bottom: 20px;
 }
 .member a:hover {
