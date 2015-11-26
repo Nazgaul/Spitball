@@ -1,11 +1,12 @@
-﻿.class .page-title svg {
+﻿.class {
+  /*.nav-tabs, .tabbable {
+        border: 0;
+    }*/
+}
+.class .page-title svg {
   fill: #484F56;
   width: 30px;
   height: 30px;
-}
-.class .nav-tabs,
-.class .tabbable {
-  border: 0;
 }
 .class .need-follow {
   margin-top: 20px;
@@ -658,6 +659,6 @@
   background-color: #db4437;
   color: #f5f5f5;
 }
-.no-background {
-  background: none;
-}
+/*.no-background {
+    background: none;
+}*/
