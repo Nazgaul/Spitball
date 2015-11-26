@@ -5,11 +5,18 @@
         @{Html.RenderPartial("_Invite");}
     </div>
 </div>
+
 <div class="class">
     <div class="page-head">
         <div class="page-title clearfix" ng-class="{'need-follow' : b.needFollow}">
             <h1 class="pull-left">{{b.data.name}}</h1>
             <button ng-if="b.needFollow" type="button" ng-click="b.follow()" class="invite-btn">Follow</button>
+            <button ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" class="pull-right">Settings</button>
+        </div>
+    </div>
+    <div class="row" uib-collapse="!b.settingsOpen">
+        <div class="col-md-12" ng-if="b.settingsOpen">
+            @{Html.RenderPartial("_Settings");}
         </div>
     </div>
     <div class="row">

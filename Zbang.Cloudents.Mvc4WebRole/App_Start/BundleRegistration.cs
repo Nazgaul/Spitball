@@ -63,7 +63,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         
                         "~/Content/site/menu.css",
 
-                        "~/content/site/morphsearch.css",
                         
                         "~/Content/site/header.css",
                         "~/content/site/general.css",

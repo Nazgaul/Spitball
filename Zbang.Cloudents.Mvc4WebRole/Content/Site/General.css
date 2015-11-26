@@ -194,6 +194,26 @@ textarea,
 .dd-list md-option {
   border-bottom: 1px solid #000;
 }
+md-select .md-select-value.md-select-placeholder {
+  color: #ECECEC;
+}
+md-input-container:not(.md-input-invalid).md-input-has-value label {
+  color: red;
+}
+md-input-container label {
+  color: #798590;
+}
+.md-select-value .md-select-icon,
+md-select .md-select-value,
+md-input-container .md-input {
+  border-color: #376E8C;
+}
+md-input-container .md-input {
+  color: #fff;
+}
+.md-select-value *:first-child {
+  max-width: 100%;
+}
 .close {
   float: right;
   margin-top: 6px;

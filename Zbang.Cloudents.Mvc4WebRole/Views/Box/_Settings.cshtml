@@ -1,0 +1,39 @@
+﻿@using Zbang.Zbox.Infrastructure.Enums
+<form novalidate ng-submit="b.updateBox(updateBoxForm)" name="updateBoxForm">
+    <md-input-container>
+        <label>Name:</label>
+        <input type="text" name="name" ng-model="b.settings.name" required />
+    </md-input-container>
+
+    <md-input-container>
+        <label>Number:</label>
+        <input type="text" name="number" ng-model="b.settings.courseId" />
+    </md-input-container>
+
+    <md-input-container>
+        <label>Lecturer</label>
+        <input type="text" name="lecturer" ng-model="b.settings.professorName" />
+    </md-input-container>
+    <md-input-container>
+        <label>Notify Me:</label>
+        <md-select name="notification" ng-model="b.settings.notificationSettings" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
+            <md-option value="@NotificationSettings.Off.GetStringValueLowerCase()">@NotificationSettings.Off.GetEnumDescription()</md-option>
+            <md-option value="@NotificationSettings.OnEveryChange.GetStringValueLowerCase()">@NotificationSettings.OnEveryChange.GetEnumDescription()</md-option>
+            <md-option value="@NotificationSettings.OnceADay.GetStringValueLowerCase()">@NotificationSettings.OnceADay.GetEnumDescription()</md-option>
+            <md-option value="@NotificationSettings.OnceAWeek.GetStringValueLowerCase()">@NotificationSettings.OnceAWeek.GetEnumDescription()</md-option>
+        </md-select>
+    </md-input-container>
+
+    <md-input-container>
+        <label>Status:</label>
+        <md-select name="follow" ng-model="b.settings.needFollow" md-container-class="dd-list">
+            <md-option ng-value="false">Follow</md-option>
+            <md-option ng-value="true">UnFollow</md-option>
+        </md-select>
+    </md-input-container>
+
+    <button type="submit">Save changes</button>
+    <button type="button" ng-click="b.settingsOpen = false">Cancel</button>
+</form>
+
+

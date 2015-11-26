@@ -50,7 +50,8 @@
                 templateUrl: '/box/quizpartial/'
             },
                 {
-                    state: 'members', config: {
+                    state: 'box.members',
+                    config: {
                         url: '#members',
                         controller: 'MembersController as m',
                         parent:'box'

@@ -9,17 +9,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
     public class UpdateBoxInfo
     {
         [Required]
-        public long BoxUid { get; set; }
+        public long Id { get; set; }
 
         [Required]
         [StringLength(Box.NameLength)]
-        [Display(ResourceType = typeof(SharedResources), Name = "Name")]
         public string Name { get; set; }
 
-        [Display(ResourceType = typeof(IndexResources), Name = "Number")]
         public string CourseCode { get; set; }
 
-        [Display(ResourceType = typeof(IndexResources), Name = "Lecturer")]
         public string Professor { get; set; }
 
         public Zbox.Infrastructure.Enums.BoxPrivacySettings? BoxPrivacy { get; set; }
@@ -30,7 +27,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format("boxid: {0}", BoxUid));
+            sb.AppendLine(string.Format("boxid: {0}", Id));
             sb.AppendLine(string.Format("Name: {0}", Name));
             sb.AppendLine(string.Format("CourseCode: {0}", CourseCode));
             sb.AppendLine(string.Format("Professor: {0}", Professor));
