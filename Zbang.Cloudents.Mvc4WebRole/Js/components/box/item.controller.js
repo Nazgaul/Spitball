@@ -7,13 +7,9 @@
         i.items = [];
         var page = 0, loading = false, needToBringMore = true;
 
-        $q.all([
-            boxService.items($stateParams.boxId, i.tabSelectedId, page),
-            boxService.getTabs($stateParams.boxId)
-        ]).then(function (data) {
-            i.items = data[0];
+        boxService.items($stateParams.boxId, page).then(function (data) {
+            i.items = data;
             iterateItem();
-            i.tabs = data[1];
             page++;
         });
 
@@ -22,18 +18,13 @@
         }
 
 
-        i.changeTab = function (tabid) {
-            i.tabSelectedId = tabid;
-            page = 0;
-            needToBringMore = true;
-            getItems();
-        }
+       
 
         function getItems(needToAppend) {
             if (!loading && needToBringMore) {
                 loading = true;
 
-                boxService.items($stateParams.boxId, i.tabSelectedId, page).then(function (response) {
+                boxService.items($stateParams.boxId,  page).then(function (response) {
                     if (needToAppend) {
                         i.items = i.items.concat(response);
                     } else {

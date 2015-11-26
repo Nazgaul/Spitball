@@ -55,10 +55,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CreateItemTabCommandHandlerTests.cs" />
-    <Compile Include="AssignItemToTabCommandHandlerTests.cs.cs" />
-    <Compile Include="ChangeItemTabNameCommandHandlerTests.cs" />
-    <Compile Include="DeleteItemTabCommandHandlerTests.cs" />
     <Compile Include="DeleteItemCommandHandlerTests.cs" />
     <Compile Include="SubscribeToSharedBoxCommandHandlerTests.cs" />
     <Compile Include="RateItemCommandHandlerTests.cs" />

@@ -290,41 +290,41 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void CreateBoxItemTab(CreateItemTabCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        //public void CreateBoxItemTab(CreateItemTabCommand command)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
 
-        public void AssignBoxItemToTab(AssignItemToTabCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        //public void AssignBoxItemToTab(AssignItemToTabCommand command)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
 
-        public void RenameBoxItemTab(ChangeItemTabNameCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        //public void RenameBoxItemTab(ChangeItemTabNameCommand command)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
 
-        public void DeleteBoxItemTab(DeleteItemTabCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        //public void DeleteBoxItemTab(DeleteItemTabCommand command)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
 
 
         public void UpdateUserFirstTimeStatus(UpdateUserFirstTimeStatusCommand command)

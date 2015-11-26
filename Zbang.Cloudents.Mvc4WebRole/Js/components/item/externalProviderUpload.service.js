@@ -31,7 +31,7 @@
             googleService.picker().then(function (response) {
                 var filesUpload = [];
                 for (var i = 0; i < response.length; i++) {
-                    filesUpload.push(itemService.addLink(response[i].link, boxId, null, null, response[i].name));
+                    filesUpload.push(itemService.addLink(response[i].link, boxId, null, response[i].name));
                 }
                 $q.all(filesUpload).then(function (retVal) {
                     defer.resolve(retVal);

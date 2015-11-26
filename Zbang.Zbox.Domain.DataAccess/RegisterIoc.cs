@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Domain.DataAccess
             ioc.RegisterType<IBoxRepository, BoxRepository>();
             ioc.RegisterType<IAcademicBoxRepository, AcademicBoxRepository>();
 
-            ioc.RegisterType<IItemTabRepository, ItemTabRepository>();
+            //ioc.RegisterType<IItemTabRepository, ItemTabRepository>();
             ioc.RegisterType<IQuestionRepository, QuestionRepository>();
             ioc.RegisterType<IItemRateRepository, ItemRateRepository>();
             ioc.RegisterType<IInviteRepository, InviteRepository>();
