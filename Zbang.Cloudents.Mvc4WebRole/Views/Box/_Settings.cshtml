@@ -4,7 +4,7 @@
         <label>Name:</label>
         <input type="text" name="name" ng-model="b.settings.name" required />
     </md-input-container>
-    <div layout="row" layout-wrap>
+    <div  layout="row" layout-wrap>
         <md-input-container flex="100" flex-gt-md="33">
             <label>Number:</label>
             <input type="text" name="number" ng-model="b.settings.courseId" />
@@ -32,8 +32,8 @@
             </md-select>
         </md-input-container>
         <div layout="row" layout-align="end center" layout-align-gt-md="center center" flex="100" flex-gt-md="33">
-            <button type="submit">Save changes</button>
             <button type="button" ng-click="b.settingsOpen = false">Cancel</button>
+            <button type="submit">Save changes</button>
         </div>
     </div>
 </form>
