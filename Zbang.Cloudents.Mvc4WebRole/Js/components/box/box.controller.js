@@ -9,10 +9,10 @@
         }
         var b = this, boxId = $stateParams.boxId;
         b.data = boxData;
-
-
+        b.isAcademic = b.data.boxType === 'academic';
 
         b.needFollow = boxData.userType === 'invite' || boxData.userType === 'none';
+        b.owner = boxData.userType === 'owner';
         b.follow = follow;
         b.updateBox = updateBox;
         b.inviteToBox = inviteToBox;
@@ -29,14 +29,20 @@
         function toggleSettings() {
             b.settingsOpen = true;
 
-            b.settings = {
-                name: b.data.name,
-                courseId: b.data.courseId,
-                professorName: b.data.professorName,
-                needFollow: b.needFollow
-            };
+            b.settings = b.settings || {};
+            //boxType
+            //privacySetting
 
-            if (!b.notificationSettings) {
+            b.settings.name = b.data.name;
+            b.settings.needFollow = b.needFollow;
+            if (b.isAcademic) {
+                b.settings.courseId = b.data.courseId;
+                b.settings.professorName = b.data.professorName;
+            } else if (b.owner) {
+                b.settings.privacy = b.data.privacySetting;
+            }
+
+            if (!b.settings.notificationSettings) {
                 boxService.notification(boxId).then(function (response) {
                     b.settings.notificationSettings = response;
                 });
@@ -60,9 +66,13 @@
             if (needToSave) {
 
                 b.data.name = b.settings.name;
-                b.data.courseId = b.settings.courseId;
-                b.data.professorName = b.settings.professorName;
-                console.log('need to save');
+                if (b.isAcademic) {
+                    b.data.courseId = b.settings.courseId;
+                    b.data.professorName = b.settings.professorName;
+                }
+
+                boxService.updateBox(boxId, b.data.name, b.settings.courseId, b.settings.professorName, b.settings.privacy, b.settings.notificationSettings);
+
             }
             b.settingsOpen = false;
         }

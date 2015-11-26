@@ -1,19 +1,31 @@
 ﻿@using Zbang.Zbox.Infrastructure.Enums
-<form  novalidate ng-submit="b.updateBox(updateBoxForm)" name="updateBoxForm">
+<form novalidate ng-submit="b.updateBox(updateBoxForm)" name="updateBoxForm">
     <md-input-container>
         <label>Name:</label>
-        <input type="text" name="name" ng-model="b.settings.name" required />
+        <input type="text" autocomplete="off" name="name" ng-model="b.settings.name" required md-maxlength="250" />
     </md-input-container>
-    <div  layout="row" layout-wrap>
+
+    <div layout="row" ng-if="b.isAcademic">
         <md-input-container flex="100" flex-gt-md="33">
             <label>Number:</label>
-            <input type="text" name="number" ng-model="b.settings.courseId" />
+            <input type="text" autocomplete="off" name="number" ng-model="b.settings.courseId" />
         </md-input-container>
 
         <md-input-container flex="100" flex-gt-md="66">
             <label>Lecturer</label>
-            <input type="text" name="lecturer" ng-model="b.settings.professorName" />
+            <input type="text" autocomplete="off" name="lecturer" ng-model="b.settings.professorName" />
         </md-input-container>
+    </div>
+    <div layout="row" ng-if="!b.isAcademic && b.owner">
+        <md-input-container flex="100">
+            <label>Privacy settings:</label>
+            <md-select name="notification" ng-model="b.settings.privacy" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
+                <md-option value="@BoxPrivacySettings.AnyoneWithUrl.GetStringValueLowerCase()">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</md-option>
+                <md-option value="@BoxPrivacySettings.MembersOnly.GetStringValueLowerCase()">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+    <div layout="row">
         <md-input-container flex="100" flex-gt-md="33">
             <label>Notify Me:</label>
             <md-select name="notification" ng-model="b.settings.notificationSettings" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
