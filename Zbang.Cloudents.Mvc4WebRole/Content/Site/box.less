@@ -1,20 +1,29 @@
 ﻿@import "variables.less";
 
 .class {
+    .page-title {
+        svg {
+            fill: #484F56;
+            width: 30px;
+            height: 30px;
+        }
+    }
+
     .nav-tabs, .tabbable {
         border: 0;
     }
+
     .need-follow {
         margin-top: 20px;
-        background:#006072;
+        background: #006072;
     }
 
     .invite-btn {
-        float:right;
-        border:1px solid #fff;
-        border-radius:4px;
-        color:#fff;
-        text-transform:uppercase;
+        float: right;
+        border: 1px solid #fff;
+        border-radius: 4px;
+        color: #fff;
+        text-transform: uppercase;
         padding: 5px 50px 3px;
     }
     //add button
@@ -46,6 +55,10 @@
             display: block;
             margin: auto;
         }
+    }
+
+    .settings {
+        width: ~"calc(100% - 60px)";
     }
 }
 

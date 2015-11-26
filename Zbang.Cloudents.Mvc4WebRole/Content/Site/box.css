@@ -1,4 +1,9 @@
-﻿.class .nav-tabs,
+﻿.class .page-title svg {
+  fill: #484F56;
+  width: 30px;
+  height: 30px;
+}
+.class .nav-tabs,
 .class .tabbable {
   border: 0;
 }
@@ -42,6 +47,9 @@
   height: 40px;
   display: block;
   margin: auto;
+}
+.class .settings {
+  width: calc(100% - 60px);
 }
 .feed {
   font-size: 16px;
