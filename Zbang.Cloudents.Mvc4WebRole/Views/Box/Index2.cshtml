@@ -7,17 +7,15 @@
 </div>
 
 <div class="class">
-    <div class="page-head">
-        <div class="page-title clearfix" ng-class="{'need-follow' : b.needFollow}">
+    <div  class="page-head">
+        <div ng-hide="b.settingsOpen" class="page-title clearfix" ng-class="{'need-follow' : b.needFollow}">
             <h1 class="pull-left">{{b.data.name}}</h1>
             <button ng-if="b.needFollow" type="button" ng-click="b.follow()" class="invite-btn">Follow</button>
-            <button ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" class="pull-right">Settings</button>
+            <button ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" class="pull-right">@Html.Svg("/images/site/box-icons.svg", "settings")</button>
         </div>
     </div>
-    <div class="row" uib-collapse="!b.settingsOpen">
-        <div class="col-md-12" ng-if="b.settingsOpen">
-            @{Html.RenderPartial("_Settings");}
-        </div>
+    <div uib-collapse="!b.settingsOpen" class="settings">
+        @{Html.RenderPartial("_Settings");}
     </div>
     <div class="row">
         <div class="col-md-12">
