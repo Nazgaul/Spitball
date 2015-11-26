@@ -45,6 +45,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         private const string UniversityidField = "universityId";
         private const string UserIdsField = "userId";
         private const string BoxIdField = "boxId";
+        private const string BoxId2Field = "boxId2";
         private const string ExtensionField = "extension";
         private const string BlobNameField = "blobName";
 
@@ -65,6 +66,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 new Field(UniversityidField, DataType.String) { IsFilterable = true, IsRetrievable = true},
                 new Field(UserIdsField, DataType.Collection(DataType.String)) { IsFilterable = true, IsRetrievable = true},
                 new Field(BoxIdField, DataType.Int64) { IsRetrievable = true},
+                new Field(BoxId2Field, DataType.Int64) { IsRetrievable = true , IsFilterable = true},
                 new Field(ExtensionField, DataType.String) { IsRetrievable = true},
                 new Field(BlobNameField, DataType.String) { IsRetrievable = true}
 
@@ -90,7 +92,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError("on box build index", ex);
+                TraceLog.WriteError("on item build index", ex);
             }
             m_CheckIndexExists = true;
         }
@@ -99,8 +101,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (!m_CheckIndexExists)
             {
-
-                //await BuildIndex();
+                await BuildIndex();
             }
             var listOfCommands = new List<IndexAction<ItemSearch>>();
             if (itemToUpload != null)
@@ -108,6 +109,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 listOfCommands.AddRange(itemToUpload.Select(item => new IndexAction<ItemSearch>(IndexActionType.MergeOrUpload, new ItemSearch
                 {
                     BoxId = item.BoxId,
+                    BoxId2 = item.BoxId,
                     BoxName = item.BoxName,
                     Content = item.Content,
                     Extension = Path.GetExtension(item.Name),

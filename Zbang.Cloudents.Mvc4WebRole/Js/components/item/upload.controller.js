@@ -37,13 +37,13 @@
         //u.googleDriveLoaded = false;
 
         u.google = function () {
-            externalUploadProvider.google(boxid).then(function (response) {
+            externalUploadProvider.google(boxid).then(function () {
                 alert('done');
             });
         }
 
         u.dropBox = function () {
-            externalUploadProvider.dropBox(boxid).then(function (response) {
+            externalUploadProvider.dropBox(boxid).then(function () {
                 alert('done');
             });
         };
