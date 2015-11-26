@@ -46,5 +46,16 @@
             });
 
         }
+        d.notification = function(boxId) {
+            return ajaxservice.get('/box/getnotification/', {
+                boxId: boxId
+            });
+        }
+        d.unfollow = function (boxId) {
+            return ajaxservice.post('/box/delete/', {
+                id: boxId
+            });
+            
+        }
     }
 })();

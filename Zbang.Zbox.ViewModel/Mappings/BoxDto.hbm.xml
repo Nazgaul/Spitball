@@ -95,13 +95,13 @@
 
 
   <!--box page - notification pop up-->
-  <query name="GetBoxNotificationByUser" read-only="1">
+  <!--<query name="GetBoxNotificationByUser" read-only="1">
     <![CDATA[
     select ub.NotificationSettings as Notifications from UserBoxRel ub
     where ub.UserId = :UserId
     and ub.BoxId = :BoxId
     ]]>
-  </query>
+  </query>-->
 
 
   <!--box page - used to get all the members of the box in pop up-->

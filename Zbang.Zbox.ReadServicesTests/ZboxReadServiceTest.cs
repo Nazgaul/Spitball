@@ -320,12 +320,12 @@ namespace Zbang.Zbox.ReadServicesTests
 
 
         [TestMethod]
-        public void GetUserBoxNotificationSettings_Query_ReturnResult()
+        public async Task GetUserBoxNotificationSettings_Query_ReturnResult()
         {
             var query = new GetBoxQuery(1);
             try
             {
-                m_ZboxReadService.GetUserBoxNotificationSettings(query, 1);
+               await m_ZboxReadService.GetUserBoxNotificationSettingsAsync(query, 1);
             }
             catch (Exception ex)
             {

@@ -136,20 +136,3 @@
   width: 100%;
   margin-left: 15px;
 }
-.library-choose md-input-container:not(.md-input-invalid).md-input-has-value label {
-  color: red;
-}
-.library-choose md-input-container label {
-  color: #798590;
-}
-.library-choose .md-select-value .md-select-icon,
-.library-choose md-select .md-select-value,
-.library-choose md-input-container .md-input {
-  border-color: #376E8C;
-}
-.library-choose md-input-container .md-input {
-  color: #fff;
-}
-.library-choose .md-select-value *:first-child {
-  max-width: 100%;
-}

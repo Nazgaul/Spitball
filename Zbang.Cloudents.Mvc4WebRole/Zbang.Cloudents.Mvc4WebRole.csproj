@@ -1569,18 +1569,6 @@
     <Content Include="Content\Site\menu.rtl.min.css">
       <DependentUpon>menu.rtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\morphsearch.css">
-      <DependentUpon>morphsearch.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\morphsearch.min.css">
-      <DependentUpon>morphsearch.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\morphsearch.rtl.css">
-      <DependentUpon>morphsearch.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\morphsearch.rtl.min.css">
-      <DependentUpon>morphsearch.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\plugins.css">
       <DependentUpon>plugins.less</DependentUpon>
     </Content>
@@ -2168,7 +2156,6 @@
     <Content Include="Content\Site\General.less" />
     <Content Include="Content\Site\rtlFix.less" />
     <Content Include="Content\Site\quiz.less" />
-    <Content Include="Content\Site\morphsearch.less" />
     <Content Include="Content\Site\Share.less" />
     <Content Include="Content\Site\leaderboard.less" />
     <Content Include="Content\Site\unused-components.less" />
@@ -3084,6 +3071,7 @@
     <Content Include="Views\Home\Blog.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Library\Choose.cshtml" />
+    <Content Include="Views\Box\_Settings.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

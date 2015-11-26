@@ -254,17 +254,28 @@ namespace Zbang.Zbox.ReadServices
         /// <param name="query"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public NotificationSettings GetUserBoxNotificationSettings(GetBoxQuery query, long userId)
+        public async Task<NotificationSettings> GetUserBoxNotificationSettingsAsync(GetBoxQuery query, long userId)
         {
-            using (UnitOfWork.Start())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxNotificationByUser");
-                dbQuery.SetInt64("BoxId", query.BoxId);
-                dbQuery.SetInt64("UserId", userId);
-
-                return dbQuery.UniqueResult<NotificationSettings>();
-                //dbQuery.SetResultTransformer(Transformers.AliasToBean<NotificationSettings>());
+                const string getBoxNotification =
+                    "select NotificationSettings from zbox.UserBoxRel where userid = @UserId and boxid = @BoxId";
+                var val = await conn.QueryAsync<NotificationSettings>(getBoxNotification, new
+                {
+                    UserId = userId,
+                    BoxId = query.BoxId
+                });
+                return val.FirstOrDefault();
             }
+            //using (UnitOfWork.Start())
+            //{
+            //    IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxNotificationByUser");
+            //    dbQuery.SetInt64("BoxId", query.BoxId);
+            //    dbQuery.SetInt64("UserId", userId);
+
+            //    return dbQuery.UniqueResult<NotificationSettings>();
+            //    //dbQuery.SetResultTransformer(Transformers.AliasToBean<NotificationSettings>());
+            //}
         }
 
         /// <summary>
@@ -554,7 +565,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-              
+
 
                 using (var grid = await conn.QueryMultipleAsync(Sql.User.UserProfileWithStats, new
                 {
@@ -777,7 +788,7 @@ namespace Zbang.Zbox.ReadServices
 	                inner join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
                     and ub.UserId = @UserId", new { query.UserId });
             }
-           
+
         }
 
         /// <summary>

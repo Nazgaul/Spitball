@@ -328,15 +328,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetErrorFromModelState());
             }
             var userId = User.GetUserId();
             try
             {
-                var commandBoxName = new ChangeBoxInfoCommand(model.BoxUid, userId, model.Name,
+                var commandBoxName = new ChangeBoxInfoCommand(model.Id, userId, model.Name,
                     model.Professor, model.CourseCode, model.BoxPrivacy, model.Notification);
                 ZboxWriteService.ChangeBoxInfo(commandBoxName);
-                // ChangeNotification(model.BoxUid, model.Notification);
                 return JsonOk(new { queryString = UrlBuilder.NameToQueryString(model.Name) });
             }
             catch (UnauthorizedAccessException)
@@ -357,12 +356,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize]
         [HttpGet]
-        public JsonResult GetNotification(long boxId)
+        public async Task<JsonResult> GetNotification(long boxId)
         {
             var userId = User.GetUserId();
 
-            var result = ZboxReadService.GetUserBoxNotificationSettings(new GetBoxQuery(boxId), userId);
-            return JsonOk(result.ToString("g"));
+            var result = await ZboxReadService.GetUserBoxNotificationSettingsAsync(new GetBoxQuery(boxId), userId);
+            return JsonOk(result);
         }
 
         [ZboxAuthorize]
@@ -413,46 +412,41 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [ZboxAuthorize]
         [RemoveBoxCookie]
-        public async Task<JsonResult> Delete2(long id, bool delete = false)
+        public async Task<JsonResult> Delete(long id)
         {
             var userId = User.GetUserId();
-            var command = new UnFollowBoxCommand(id, userId, delete);
+            var command = new UnFollowBoxCommand(id, userId, false);
             await ZboxWriteService.UnFollowBoxAsync(command);
             return JsonOk();
         }
 
 
-        [NonAction]
-        private JsonResult DeleteUserFomBox(long boxId, long userToDeleteId)
-        {
-            try
-            {
-                var userId = User.GetUserId();
-                var command = new DeleteUserFromBoxCommand(userId, userToDeleteId, boxId);
-                ZboxWriteService.DeleteUserFromBox(command);
+        //[NonAction]
+        //private JsonResult DeleteUserFomBox(long boxId, long userToDeleteId)
+        //{
+        //    try
+        //    {
+        //        var userId = User.GetUserId();
+        //        var command = new DeleteUserFromBoxCommand(userId, userToDeleteId, boxId);
+        //        ZboxWriteService.DeleteUserFromBox(command);
 
-                //Check
-                return JsonOk();
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("DeleteSubscription user: {0} boxid: {1}", User.GetUserId(), boxId), ex);
-                return JsonError();
-            }
-        }
+        //        //Check
+        //        return JsonOk();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError(string.Format("DeleteSubscription user: {0} boxid: {1}", User.GetUserId(), boxId), ex);
+        //        return JsonError();
+        //    }
+        //}
 
-        /// <summary>
-        /// Box Setting page
-        /// </summary>
-        /// <param name="boxId"></param>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [ZboxAuthorize]
-        public JsonResult RemoveUser(long boxId, long userId)
-        {
-            return DeleteUserFomBox(boxId, userId);
-        }
+
+        //[HttpPost]
+        //[ZboxAuthorize]
+        //public JsonResult RemoveUser(long boxId, long userId)
+        //{
+        //    return DeleteUserFomBox(boxId, userId);
+        //}
         #endregion
 
 
