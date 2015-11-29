@@ -1569,6 +1569,18 @@
     <Content Include="Content\Site\menu.rtl.min.css">
       <DependentUpon>menu.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\error.css">
+      <DependentUpon>error.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\error.min.css">
+      <DependentUpon>error.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\error.rtl.css">
+      <DependentUpon>error.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\error.rtl.min.css">
+      <DependentUpon>error.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\plugins.css">
       <DependentUpon>plugins.less</DependentUpon>
     </Content>
@@ -1704,6 +1716,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\3rdParty\logo_120_4_google.png" />
+    <Content Include="Images\404_image.png" />
     <Content Include="Images\HomePage2\apple.png" />
     <Content Include="Images\HomePage2\google.png" />
     <Content Include="Images\quizSprite.png.min.css">
@@ -2162,6 +2175,7 @@
     <Content Include="Content\Site\quizCreate.less" />
     <Content Include="Content\Site\search.less" />
     <Content Include="Content\Site\libraryChoose.less" />
+    <Content Include="Content\Site\error.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

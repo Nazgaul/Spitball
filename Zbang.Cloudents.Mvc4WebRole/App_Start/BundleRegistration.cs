@@ -77,8 +77,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/site/share.css",
                         "~/content/site/leaderboard.css",
                         "~/content/site/search.css",
-                        "~/content/site/libraryChoose.css"
-                       
+                        "~/content/site/libraryChoose.css",
+                        "~/content/site/error.css"
                     }
                 },
             };

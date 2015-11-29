@@ -1,0 +1,27 @@
+﻿.error-page h2 {
+  font-size: 150px;
+  font-weight: bold;
+  text-align: center;
+}
+.error-page h2 span {
+  font-size: 25px;
+  display: block;
+  color: #5f6871;
+}
+.error-page img {
+  position: absolute;
+  top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0 /*rtl:ignore*/;
+  right: 12px /*rtl:ignore*/;
+  max-width: 100%;
+}
+@media only screen and (max-width: 758px) {
+  .error-page h2 {
+    font-size: 20vw;
+  }
+  .error-page h2 span {
+    font-size: 3.3vw;
+  }
+}
