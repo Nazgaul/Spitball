@@ -100,11 +100,11 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Select = new[] {IdField, NameField, ImageField, MembersCountField, MembersImagesField},
             };
 
-            if (string.IsNullOrEmpty(query.Term))
-            {
-                searchParametes.ScoringProfile = "country";
-                searchParametes.ScoringParameters = new[] {"country:" + query.Country};
-            }
+            //if (string.IsNullOrEmpty(query.Term))
+            //{
+            //    searchParametes.ScoringProfile = "country";
+            //    searchParametes.ScoringParameters = new[] {"country:" + query.Country};
+            //}
 
             var tResult = m_IndexClient.Documents.SearchAsync<UniversitySearch>(query.Term + "*", searchParametes, cancelToken);
 

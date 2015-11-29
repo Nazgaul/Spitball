@@ -1,8 +1,94 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
+    const string svgUrl = "~/images/site/icons.svg";
+
+    var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
 }
 
-<div ui-view anim-class></div>
+<div class="page-sidebar-wrapper">
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <div class="page-sidebar navbar-collapse collapse">
+        <!-- BEGIN SIDEBAR MENU -->
+        <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+        <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+        <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+        <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+        <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+        <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true"
+            data-slide-speed="200" ng-controller="SideMenu as d">
+            <li class="start">
+                <a @shouldPostBack href="@Url.Action("Index","Dashboard")">
+                    @Html.Svg(svgUrl, "houseMenu")
+                    <span class="title">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <span class="title">My Classes</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li ng-repeat="box in d.courses" id="menubox{{::box.id}}">
+                        <a class="ellipsis" href="{{::box.url}}">
+                            <span class="badge badge-danger" ng-if="box.updates !== 0">{{box.updates}}</span>
+                            {{::box.name}}
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <span class="title">My Group</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li ng-repeat="box in d.privateBoxes" id="menubox{{::box.id}}">
+                        <a class="ellipsis" href="{{::box.url}}">
+                            <span class="badge badge-danger" ng-if="box.updates !== 0">{{box.updates}}</span>
+                            {{::box.name}}
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li>
+                <a @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")">
+                    @Html.Svg(svgUrl, "universityMenu")
+                    <span class="title">University Page</span>
+                </a>
+            </li>
+            <li>
+                <a @shouldPostBack href="{{::d.userUrl}}">
+                    @Html.Svg(svgUrl, "userMenu")
+                    <span class="title">User Page</span>
+                </a>
+            </li>
+            <li>
+                <a @shouldPostBack href="@Url.RouteUrl("AccountSettings")">
+                    @Html.Svg(svgUrl, "settingMenu")
+                    <span class="title">Settings</span>
+                </a>
+            </li>
+            <li class="last ">
+                <a target="_self" href="@Url.Action("logoff","account")">
+                    @Html.Svg(svgUrl, "logOffMenu")
+                    <span class="title">Log out</span>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</div>
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div ui-view anim-class></div>
+    </div>
+</div>
+
 
 @section scripts
 {

@@ -34,6 +34,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("MembersOnly");
         }
 
+        public ActionResult P404()
+        {
+            return View();
+        }
+
         [HttpPost]
         public JsonResult JsLog(JavaScriptError log)
         {
