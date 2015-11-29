@@ -89,7 +89,7 @@
   font-size: 12px;
 }
 .feed .items-container {
-  overflow-x: hidden;
+  overflow-x: auto;
   white-space: nowrap;
   padding-right: 34px;
 }
