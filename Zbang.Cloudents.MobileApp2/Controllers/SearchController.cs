@@ -24,7 +24,6 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         public IBoxReadSearchProviderOld BoxSearchService { get; set; }
 
         public IBoxReadSearchProvider2 BoxSearchService2 { get; set; }
-        public IItemReadSearchProvider ItemSearchService { get; set; }
         public IItemReadSearchProvider2 ItemSearchService2 { get; set; }
 
         public IUniversityReadSearchProvider UniversitySearch { get; set; }
@@ -120,7 +119,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateBadRequestResponse("need university");
 
             var query = new SearchQuery(term, User.GetCloudentsUserId(), universityId.Value, page, sizePerPage);
-            var retVal = await ItemSearchService.SearchItem(query, default(CancellationToken)) ?? new List<SearchItems>();
+            var retVal = await ItemSearchService2.SearchItemOldMobileServiceAsync(query, default(CancellationToken)) ?? new List<SearchItems>();
             return Request.CreateResponse(retVal.Select(s => new
             {
                 s.Name,
@@ -139,7 +138,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
             var query = new SearchQueryMobile(term, User.GetCloudentsUserId(), universityId.Value, page, sizePerPage);
             // Services.Log.Info(String.Format("search items query: {0}", query));
-            var retVal = await ItemSearchService2.SearchItem(query, default(CancellationToken)) ?? new List<SearchItems>();
+            var retVal = await ItemSearchService2.SearchItemAsync(query, default(CancellationToken)) ?? new List<SearchItems>();
             return Request.CreateResponse(retVal.Select(s => new
             {
                 s.Name,

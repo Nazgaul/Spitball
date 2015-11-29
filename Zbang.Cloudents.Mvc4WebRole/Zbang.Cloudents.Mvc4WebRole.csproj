@@ -3086,7 +3086,7 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Library\Choose.cshtml" />
     <Content Include="Views\Box\_Settings.cshtml" />
-    <Content Include="Views\Error\P404.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

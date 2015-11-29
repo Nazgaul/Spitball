@@ -10,7 +10,7 @@
         <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 item-animate" ng-repeat="e in i.items track by e.id " ng-include="'item-template.html'"></li>
     </ul>*@
 
-
+<input type="search" placeholder="Search..." ng-model="i.term" ng-model-options="{debounce : 250}" ng-change="i.filter()" ng-minlength="2" />
 <ul layout="row"  layout-fill layout-wrap class="list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
     <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" class="item-animate hidden-xs add-button i-q-wrapper" ng-click="b.toggleUpload(true)">
         <div>

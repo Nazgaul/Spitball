@@ -19,6 +19,13 @@
         d.items = function (boxId,  page) {
             return ajaxservice.get('/box/items/', { id: boxId, page: page });
         };
+        d.filterItem = function(term, boxId, page) {
+            return ajaxservice.get('/search/iteminbox/', {
+                term: term,
+                boxId: boxId,
+                page:page
+            });
+        };
         d.getMembers = function (boxid) {
             return ajaxservice.get('/box/members/', { boxId: boxid });
         };
@@ -55,20 +62,6 @@
             });
             
         }
-        /*[Required]
-        public long Id { get; set; }
-
-        [Required]
-        [StringLength(Box.NameLength)]
-        public string Name { get; set; }
-
-        public string CourseCode { get; set; }
-
-        public string Professor { get; set; }
-
-        public Zbox.Infrastructure.Enums.BoxPrivacySettings? BoxPrivacy { get; set; }
-
-        public Zbox.Infrastructure.Enums.NotificationSettings Notification { get; set; }*/
         d.updateBox = function (boxId, name, course, professor, privacy, notification) {
             return ajaxservice.post('/box/updateinfo/', {
                 id: boxId,
@@ -79,5 +72,6 @@
                 notification: notification
             });
         }
+       
     }
 })();

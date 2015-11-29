@@ -4,19 +4,6 @@ using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.ViewModel.Queries.Search
 {
-    public class SearchQueryMobile : SearchQuery
-    {
-        public SearchQueryMobile(string term,
-            long userId,
-            long universityId, int pageNumber = 0, int rowsPerPage = 50) :
-            base(term, userId, universityId, pageNumber, rowsPerPage)
-        {
-        }
-        public override string CacheRegion
-        {
-            get { return "searchMobile"; }
-        }
-    }
     public class SearchQuery : IPagedQuery, IUserQuery, IQueryCache
     {
         public SearchQuery(string term,

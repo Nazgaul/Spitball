@@ -5,13 +5,17 @@ using Zbang.Zbox.ViewModel.Dto.Search;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    public interface IItemReadSearchProvider
-    {
-        Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
-    }
+  
 
-    public interface IItemReadSearchProvider2 : IItemReadSearchProvider
+    public interface IItemReadSearchProvider2 
     {
-        Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken);
+        Task<IEnumerable<SearchItems>> SearchItemAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
+        Task<IEnumerable<SearchItems>> SearchItemAsync(ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken);
+
+        Task<IEnumerable<SearchItems>> SearchItemOldMobileServiceAsync(ViewModel.Queries.Search.SearchQuery query,
+            CancellationToken cancelToken);
+
+        Task<IEnumerable<SearchItems>> SearchItemAsync(ViewModel.Queries.Search.SearchItemInBox query,
+            CancellationToken cancelToken);
     }
 }
