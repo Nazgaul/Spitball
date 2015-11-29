@@ -21,8 +21,8 @@
             b.inviteOpen = false;
         });
 
-        b.uploadOn = false;
-        b.uploadShow = isItemState($state.current.name);
+        //b.uploadOn = false;
+        //b.uploadShow = isItemState($state.current.name);
         b.toggleUpload = toggleUpload;
         b.toggleSettings = toggleSettings;
 
@@ -95,20 +95,20 @@
             boxService.follow(boxId);
             b.needFollow = false;
         }
-        function isItemState(stateName) {
-            return stateName === 'box.items';
-        }
+        //function isItemState(stateName) {
+        //    return stateName === 'box.items';
+        //}
 
-        $rootScope.$on('$stateChangeSuccess',
-            function (event, toState) {
+        //$rootScope.$on('$stateChangeSuccess',
+        //    function (event, toState) {
 
-                if (isItemState(toState.name)) {
-                    b.uploadShow = true;
-                } else {
-                    b.uploadShow = false;
-                }
+        //        if (isItemState(toState.name)) {
+        //            b.uploadShow = true;
+        //        } else {
+        //            b.uploadShow = false;
+        //        }
 
-            });
+        //    });
     }
 })();
 

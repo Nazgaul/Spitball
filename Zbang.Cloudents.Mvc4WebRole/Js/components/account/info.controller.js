@@ -13,7 +13,7 @@
                 return;
             }
             accountService.setAccountDetails(firstName, lastName).then(function () {
-                alert('changes saved');
+                self.done = true;
             });
         }
         self.changeLanguage = changeLanguage;

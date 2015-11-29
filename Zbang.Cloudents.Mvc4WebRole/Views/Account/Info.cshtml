@@ -11,6 +11,7 @@
 
         </div>
         <form role="form" ng-submit="i.submit()">
+            <div ng-if="i.done" class="alert alert-success" role="alert">Saved</div>
             <md-input-container>
                 <label>First Name</label>
                 <input type="text" autocomplete="off" ng-model="i.data.firstName" />

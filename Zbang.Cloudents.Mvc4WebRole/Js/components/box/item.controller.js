@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.box.items').controller('ItemsController', items);
-    items.$inject = ['boxService', '$stateParams', '$scope', '$q', 'itemThumbnail'];
+    items.$inject = ['boxService', '$stateParams', '$rootScope', 'itemThumbnail'];
 
-    function items(boxService, $stateParams, $scope, $q, itemThumbnail) {
+    function items(boxService, $stateParams, $rootScope, itemThumbnail) {
         var i = this,
         itemsInBox = [], boxId = $stateParams.boxId;
         i.items = [];
@@ -19,7 +19,11 @@
             getItems(true);
         }
         i.filter = filter;
+        i.openUpload = openUpload;
 
+        function openUpload() {
+            $rootScope.$broadcast('open_upload');
+        }
 
 
         function getItems() {
@@ -42,7 +46,7 @@
             if (!i.term) {
                 i.items = itemsInBox;
             }
-            boxService.filterItem(i.term, boxId, 0).then(function(response) {
+            boxService.filterItem(i.term, boxId, 0).then(function (response) {
                 i.items = response;
                 iterateItem();
             });
@@ -50,7 +54,7 @@
 
 
         //upload
-        $scope.$on('item_upload', function (event, response) {
+        $rootScope.$on('item_upload', function (event, response) {
             if (response.boxId != $stateParams.boxId) { // string an int comarison
                 return;
             }
@@ -70,5 +74,7 @@
         function buildThumbnailUrl(name) {
             return itemThumbnail.get(name, 368, 520);
         }
+
+
     }
 })();
