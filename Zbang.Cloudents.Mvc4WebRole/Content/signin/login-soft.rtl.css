@@ -7,6 +7,7 @@ Login page
 ***/
 /* logo page */
 .login {
+  background-color: #364150;
   display: -webkit-flex;
   display: flex;
   justify-content: center;
@@ -19,23 +20,31 @@ Login page
 }
 .login .content {
   background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACtJREFUeNrszTEBACAMA7CCJfxr61SwKzGQ0/bls5sFEolEIpFIJJKMAAMAa/wDYqqLVjAAAAAASUVORK5CYII=') /*/Images/signin/bg-white-lock.png*/ repeat;
-  width: 360px;
+  width: 400px;
   margin: 0 auto;
   margin-bottom: 0;
   padding: 30px;
   padding-top: 20px;
   padding-bottom: 15px;
-  border-radius: 7px;
 }
 .login .content h3 {
-  color: #eee;
+  color: #3598dc;
+  margin-top: 0;
+  margin-bottom: 28px;
 }
 .login .content h4 {
-  color: #eee;
+  color: #8290a3;
+  float: right;
+  font-size: 18px;
 }
-.login .content p,
+.login .content p {
+  color: #E2E4E6;
+  line-height: 40px;
+  padding-bottom: 5px;
+}
 .login .content label {
-  color: #fff;
+  color: #8290a3;
+  font-size: 11px;
 }
 .login .content .login-form,
 .login .content .forget-form {
@@ -43,13 +52,53 @@ Login page
   margin: 0;
 }
 .login .content .form-control {
-  background-color: #fff;
+  padding-left: 1em;
+  background-color: #dde3ec;
+  color: #8290a3;
+  border: 1px solid #dde3ec;
+  border-radius: 0;
+  padding-right: 15px;
+}
+.login .content .form-control:focus {
+  border-color: #c3ccda;
 }
 .login .content .forget-form {
   display: none;
 }
 .login .content .register-form {
   display: none;
+}
+.login .content .form-group {
+  margin-bottom: 20px;
+}
+.login .content .form-group.first {
+  width: 44%;
+  float: right;
+}
+.login .content .form-group.second {
+  width: calc(56% - 10px);
+  float: left;
+}
+.login .content .form-group input {
+  height: 48px;
+}
+.login .form-group input::-webkit-input-placeholder {
+  color: #8290a3;
+}
+.login .form-group input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #8290a3;
+}
+.login .form-group input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #8290a3;
+}
+.login .form-group input:-ms-input-placeholder {
+  color: #8290a3;
+}
+.form-actions-container {
+  display: flex;
+  margin-top: 30px;
 }
 .login .content .form-title {
   font-weight: 300;
@@ -95,13 +144,16 @@ Login page
   margin-top: 5px;
 }
 .login .content .login-account {
-  border-top: 1px dotted #eee;
   padding-top: 10px;
   clear: both;
+  background: #6c7a8d;
+  margin: -30px;
+  padding: 0 80px 0 30px;
 }
 .login .content .login-account a {
   display: inline-block;
   margin-top: 5px;
+  color: #E2E4E6;
 }
 /* select2 dropdowns */
 .login .content .select2-container i {
@@ -135,6 +187,21 @@ Login page
   padding: 10px;
   color: #eee;
   font-size: 13px;
+}
+.login .login-options {
+  clear: both;
+}
+.login .login-options .facebook,
+.login .login-options .google {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 0;
+  width: inherit;
+  float: left;
+}
+.login label a {
+  color: #30333A;
 }
 @media (max-width: 480px) {
   /***

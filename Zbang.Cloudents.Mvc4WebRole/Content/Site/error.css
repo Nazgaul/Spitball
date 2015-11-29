@@ -7,21 +7,55 @@
   font-size: 25px;
   display: block;
   color: #5f6871;
+  text-transform: uppercase;
 }
-.error-page img {
+.error-page .image {
   position: absolute;
   top: 40px;
   margin-left: auto;
   margin-right: auto;
-  left: 0 /*rtl:ignore*/;
-  right: 12px /*rtl:ignore*/;
-  max-width: 100%;
+  left: 0;
+  right: 0;
 }
-@media only screen and (max-width: 758px) {
+.error-page .image img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+.error-page a {
+  text-align: center;
+  position: absolute;
+  z-index: 9999;
+  left: 0;
+  right: 0;
+  padding-top: 6vh;
+}
+@media only screen and (max-width: 768px) {
   .error-page h2 {
-    font-size: 20vw;
+    font-size: 24vw;
   }
   .error-page h2 span {
     font-size: 3.3vw;
+  }
+  .error-page a {
+    font-size: 3vw;
+    padding: 3vh;
+  }
+  .error-page .image {
+    top: 10vw;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .error-page h2 {
+    font-size: 25vw;
+  }
+  .error-page h2 span {
+    font-size: 4.6vw;
+  }
+  .error-page a {
+    font-size: 4vw;
+  }
+  .error-page .image {
+    top: 18vw;
   }
 }
