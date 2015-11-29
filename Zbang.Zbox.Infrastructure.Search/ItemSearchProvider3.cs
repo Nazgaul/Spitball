@@ -49,7 +49,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         private const string ExtensionField = "extension";
         private const string BlobNameField = "blobName";
 
-        private const string ScoringProfileName = "university";
+        private const string ScoringProfileName = "universityTag";
 
         private Index GetIndexStructure()
         {
@@ -71,9 +71,9 @@ namespace Zbang.Zbox.Infrastructure.Search
                 new Field(BlobNameField, DataType.String) { IsRetrievable = true}
 
             });
-            var scoringFunction = new TagScoringFunction(new TagScoringParameters(ScoringProfileName),
+            var scoringFunction = new TagScoringFunction(new TagScoringParameters("university"),
                 UniversityidField, 2);
-            var scoringProfile = new ScoringProfile("universityTag")
+            var scoringProfile = new ScoringProfile(ScoringProfileName)
             {
                 FunctionAggregation = ScoringFunctionAggregation.Sum,
 
@@ -168,7 +168,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Filter = filter,
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
-                ScoringProfile = "universityTag",
+                ScoringProfile = ScoringProfileName,
                 ScoringParameters = new[] { "university:" + query.UniversityId },
                 Select = new[] { SmallContentField, IdField, NameField, BoxIdField, ExtensionField },
                 HighlightFields = new[] { ContentField, NameField },
@@ -210,7 +210,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Filter = filter,
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
-                ScoringProfile = "universityTag",
+                ScoringProfile = ScoringProfileName,
                 ScoringParameters = new[] { "university:" + query.UniversityId },
                 Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField, BlobNameField },
                 HighlightFields = new[] { ContentField, NameField }
