@@ -82,7 +82,6 @@
     <Compile Include="FirstTime.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemRate.cs" />
-    <Compile Include="ItemTab.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="PrivacySettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -146,9 +145,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mappings\ItemTab.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\QnA.hbm.xml">

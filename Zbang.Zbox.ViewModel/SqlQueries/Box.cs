@@ -24,13 +24,13 @@ from zbox.box b
 where b.BoxId = @BoxId
 and b.IsDeleted = 0;
 ";
-        public const string BoxTabs = @"
-select 
-ItemTabId as id
-,itemtabname as name
- from zbox.ItemTab
-where boxid = @BoxId
-order by name;";
+//        public const string BoxTabs = @"
+//select 
+//ItemTabId as id
+//,itemtabname as name
+// from zbox.ItemTab
+//where boxid = @BoxId
+//order by name;";
 
 
         public const string GetBoxQuestion = @"
@@ -301,8 +301,7 @@ union
     u.UserName as Owner,
     u.Url as UserUrl,
     i.Discriminator as Discriminator,
-    i.ItemTabId as TabId,
-	i.NumberOfViews as NumOfViews,
+    i.NumberOfViews as NumOfViews,
     i.LikeCount as Likes,
     i.sponsored as Sponsored,
     i.content as Description,
@@ -316,7 +315,6 @@ union
     from zbox.item i join zbox.users u on i.UserId = u.UserId
     where i.IsDeleted = 0
     and i.BoxId = @BoxId
-    AND (@TabId IS null OR i.ItemTabId = @tabid)
     order by i.itemid desc
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";

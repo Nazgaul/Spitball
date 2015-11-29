@@ -75,7 +75,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     else
                     {
                         m_Interval = MinInterval;
-                        TraceLog.WriteInfo("decrease interval in item to " + m_Interval);
                     }
                 }
                 catch (Exception ex)

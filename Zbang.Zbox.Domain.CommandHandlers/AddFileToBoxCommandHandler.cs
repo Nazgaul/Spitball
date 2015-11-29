@@ -21,7 +21,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IQueueProvider m_QueueProvider;
         private readonly IItemRepository m_ItemRepository;
-        private readonly IItemTabRepository m_ItemTabRepository;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IBlobProvider m_BlobProvider;
         private readonly IGuidIdGenerator m_IdGenerator;
@@ -32,7 +31,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public AddFileToBoxCommandHandler(IQueueProvider queueProvider,
             IBoxRepository boxRepository, IUserRepository userRepository,
             IItemRepository itemRepository,
-            IItemTabRepository itemTabRepository,
             IFileProcessorFactory fileProcessorFactory,
             IBlobProvider blobProvider, IGuidIdGenerator idGenerator, IRepository<Comment> commentRepository)
         {
@@ -40,7 +38,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_UserRepository = userRepository;
             m_QueueProvider = queueProvider;
             m_ItemRepository = itemRepository;
-            m_ItemTabRepository = itemTabRepository;
             m_FileProcessorFactory = fileProcessorFactory;
             m_BlobProvider = blobProvider;
             m_IdGenerator = idGenerator;
@@ -95,7 +92,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_BoxRepository.Save(box);
 
             //user.Quota.UsedSpace = m_UserRepository.GetItemsByUser(user.Id);
-            AddItemToTab(command.TabId, item);
 
             var t1 = TriggerCacheDocument(command.BlobAddressName, item.Id);
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, item.Id));
@@ -129,16 +125,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
 
-        private void AddItemToTab(Guid? tabid, Item item)
-        {
-            if (!tabid.HasValue)
-            {
-                return;
-            }
-            var itemTab = m_ItemTabRepository.Get(tabid);
-            itemTab.AddItemToTab(item);
-            m_ItemTabRepository.Save(itemTab);
-        }
+        
 
         private Task TriggerCacheDocument(string blobAddress, long itemId)
         {

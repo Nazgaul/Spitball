@@ -239,14 +239,14 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public async Task<IEnumerable<TabDto>> GetBoxTabsAsync(GetBoxQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<TabDto>(Sql.Box.BoxTabs, new { query.BoxId });
+        //public async Task<IEnumerable<TabDto>> GetBoxTabsAsync(GetBoxQuery query)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        return await conn.QueryAsync<TabDto>(Sql.Box.BoxTabs, new { query.BoxId });
 
-            }
-        }
+        //    }
+        //}
 
         /// <summary>
         /// Get user notification to the box in question - notification pop up
@@ -291,8 +291,7 @@ namespace Zbang.Zbox.ReadServices
                  {
                      query.BoxId,
                      pageNumber = query.PageNumber,
-                     rowsperpage = query.RowsPerPage,
-                     query.TabId
+                     rowsperpage = query.RowsPerPage
                  });
             }
         }

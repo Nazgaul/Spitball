@@ -16,8 +16,8 @@
         d.getRecommended = function (boxid) {
             return ajaxservice.get('/box/recommended/', { id: boxid });
         };
-        d.items = function (boxId, tabId, page) {
-            return ajaxservice.get('/box/items/', { id: boxId, tabId: tabId, page: page });
+        d.items = function (boxId,  page) {
+            return ajaxservice.get('/box/items/', { id: boxId, page: page });
         };
         d.getMembers = function (boxid) {
             return ajaxservice.get('/box/members/', { boxId: boxid });
@@ -25,9 +25,7 @@
         d.getQuizzes = function (boxid) {
             return ajaxservice.get('/box/quizes/', { id: boxid });
         };
-        d.getTabs = function (boxid) {
-            return ajaxservice.get('/box/tabs/', { id: boxid });
-        };
+        
 
         d.postComment = function(content,boxId, files, anonymously) {
             return ajaxservice.post('/qna/addcomment/', { content: content, boxId: boxId, files: files, anonymously: anonymously });

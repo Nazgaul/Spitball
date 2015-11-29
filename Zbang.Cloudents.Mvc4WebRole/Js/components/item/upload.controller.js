@@ -25,39 +25,27 @@
            
 
         });
+        $scope.$on('close_upload', function () {
+            u.files = u.files.filter(function(file) {
+                return !file.complete;
+            });
+            if (!u.files.length) {
+                u.uploadStep = uploadChoose.none;
+            }
+        });
         //u.dropBoxLoaded = false;
         //u.googleDriveLoaded = false;
 
         u.google = function () {
-            externalUploadProvider.google(boxid).then(function (response) {
+            externalUploadProvider.google(boxid).then(function () {
                 alert('done');
             });
-            //    googleService.picker().then(function (response) {
-            //        var filesUpload = [];
-            //        for (var i = 0; i < response.length; i++) {
-            //            filesUpload.push(itemService.addLink(response[i].link, boxid, null, null, response[i].name));
-            //        }
-            //        $q.all(filesUpload).then(function () {
-            //            alert('done');
-            //        });
-            //    });
         }
 
         u.dropBox = function () {
-            externalUploadProvider.dropBox(boxid).then(function (response) {
+            externalUploadProvider.dropBox(boxid).then(function () {
                 alert('done');
             });
-            //    dropboxService.choose().then(function (response) {
-            //        var filesUpload = [];
-            //        for (var i = 0; i < response.length; i++) {
-            //            filesUpload.push(itemService.addFromDropBox(boxid, response[i].link, response[i].name));
-            //        }
-            //        $q.all(filesUpload).then(function () {
-            //            alert('done');
-            //        });
-            //    });
-
-
         };
 
         u.uploadStep = uploadChoose.none;
@@ -113,28 +101,10 @@
                         fileSize: file.size,
                         boxId: boxid,
                         comment: false
-                        //isComment: false
-
                     };
-
-
-                    //var data = {};
-                    //if (file.newQuestion) {
-                    //    data.newQuestion = true;
-                    //}
-                    //if (file.questionId) {
-                    //    data.questionId = file.questionId;
-                    //}
-
-                    //$rootScope.$broadcast('BeforeUpload', data);
-
                 },
-                //uploadProgress: function (uploader, file) {
-                //    console.log(file);
-                //},
                 fileUploaded: function (uploader, file, response) {
                     file.complete = true;
-                    // $scope.loading = false;
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
                         $rootScope.$broadcast('item_upload', obj.payload);

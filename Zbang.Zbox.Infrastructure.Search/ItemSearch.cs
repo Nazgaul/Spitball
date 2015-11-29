@@ -16,6 +16,8 @@ namespace Zbang.Zbox.Infrastructure.Search
         public string UniversityId { get; set; }
         public string[] UserId { get; set; }
         public long? BoxId { get; set; }
+
+        public long? BoxId2 { get; set; }
         public string Extension { get; set; }
 
         public string BlobName { get; set; }

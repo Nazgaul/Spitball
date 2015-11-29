@@ -21,7 +21,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IQueueProvider m_QueueProvider;
         private readonly IItemRepository m_ItemRepository;
-        private readonly IItemTabRepository m_ItemTabRepository;
         private readonly IBlobProvider m_BlobProvider;
         private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IRepository<Comment> m_CommentRepository;
@@ -29,14 +28,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public AddLinkToBoxCommandHandler(IRepository<Box> boxRepository, IUserRepository userRepository, IQueueProvider queueProvider,
             IItemRepository itemRepository,
-            IItemTabRepository itemTabRepository,
             IBlobProvider blobProvider, IGuidIdGenerator idGenerator, IRepository<Comment> commentRepository)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
             m_QueueProvider = queueProvider;
             m_ItemRepository = itemRepository;
-            m_ItemTabRepository = itemTabRepository;
             m_BlobProvider = blobProvider;
             m_IdGenerator = idGenerator;
             m_CommentRepository = commentRepository;
@@ -73,23 +70,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             box.UserTime.UpdateUserTime(user.Name);
             m_BoxRepository.Save(box, true);
 
-            AddItemToTab(command.TabId, link);// DUPLICATE in FILE as well
 
             await m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, link.Id));
             return new AddLinkToBoxCommandResult(link);
 
 
         }
-        private void AddItemToTab(Guid? tabid, Item item)
-        {
-            if (!tabid.HasValue)
-            {
-                return;
-            }
-            var itemTab = m_ItemTabRepository.Get(tabid);
-            itemTab.AddItemToTab(item);
-            m_ItemTabRepository.Save(itemTab);
-        }
+       
 
         private Uri CheckUrl(AddLinkToBoxCommand command)
         {

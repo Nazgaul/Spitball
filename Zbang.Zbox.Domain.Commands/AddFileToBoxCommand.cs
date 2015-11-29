@@ -11,14 +11,13 @@ namespace Zbang.Zbox.Domain.Commands
             string blobAddressName,
             string fileName, 
             long length,
-            Guid? tabId, bool isQuestion)
+             bool isQuestion)
             : base(userId, boxId)
         {
             IsQuestion = isQuestion;
             BlobAddressName = blobAddressName;
             FileName = fileName;
             Length = length;
-            TabId = tabId;
 
         }
 
@@ -36,7 +35,6 @@ namespace Zbang.Zbox.Domain.Commands
 
 
 
-        public Guid? TabId { get; private set; }
 
 
         public override string ResolverName
