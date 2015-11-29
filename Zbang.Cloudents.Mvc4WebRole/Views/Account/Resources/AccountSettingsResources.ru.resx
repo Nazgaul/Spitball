@@ -117,60 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccountSettings" xml:space="preserve">
-    <value>Настройки учетной записи</value>
-  </data>
-  <data name="ChangeEmail" xml:space="preserve">
-    <value>Изменить адрес электронной почты</value>
-  </data>
-  <data name="ChangePwd" xml:space="preserve">
-    <value>Изменение пароля</value>
-  </data>
-  <data name="ChangeUni" xml:space="preserve">
-    <value>Изменить учебное заведение</value>
-  </data>
-  <data name="CheckMail" xml:space="preserve">
-    <value>Проверьте вашу 
-электронную почту
-</value>
-  </data>
-  <data name="CodeSent" xml:space="preserve">
-    <value>Код подтверждения был отправлен на ваш новый адрес электронной почты</value>
-  </data>
-  <data name="EnterCode" xml:space="preserve">
-    <value>Введите код</value>
-  </data>
-  <data name="EnterEmail" xml:space="preserve">
-    <value>Введите новый адрес электронной почты</value>
-  </data>
-  <data name="Free" xml:space="preserve">
-    <value>Бесплатно:</value>
-  </data>
-  <data name="InUse" xml:space="preserve">
-    <value>Используется:</value>
-  </data>
-  <data name="NeverPost" xml:space="preserve">
-    <value>Мы не будем публиковать на Facebook без вашего разрешения</value>
-  </data>
   <data name="Notifications" xml:space="preserve">
     <value>Уведомления</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль:</value>
-  </data>
-  <data name="ProfileInfo" xml:space="preserve">
-    <value>Информация о профиле</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>Сохранить</value>
-  </data>
-  <data name="Space" xml:space="preserve">
-    <value>Дисковое пространство:</value>
-  </data>
-  <data name="Storage" xml:space="preserve">
-    <value>Хранилище</value>
-  </data>
-  <data name="UploadImage" xml:space="preserve">
-    <value>Загрузить изображение</value>
   </data>
 </root>

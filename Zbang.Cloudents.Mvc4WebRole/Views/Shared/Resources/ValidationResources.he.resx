@@ -117,19 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ConfirmEmailCompare" xml:space="preserve">
-    <value>המיילים אינם תואמים</value>
-  </data>
-  <data name="FieldRequired" xml:space="preserve">
-    <value>חובה למלא שדה זה</value>
-  </data>
-  <data name="GenderRequired" xml:space="preserve">
-    <value>אנא בחר מגדר</value>
-  </data>
-  <data name="InvalidEmail" xml:space="preserve">
-    <value>כתובת דוא"ל זו אינה חוקית</value>
-  </data>
-  <data name="PwdAtLeast6Chars" xml:space="preserve">
-    <value>סיסמא צריכה להכיל לפחות 6 תווים</value>
-  </data>
 </root>

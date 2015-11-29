@@ -159,12 +159,6 @@
   <data name="Password" xml:space="preserve">
     <value>密码：</value>
   </data>
-  <data name="Photo" xml:space="preserve">
-    <value>照片：</value>
-  </data>
-  <data name="School" xml:space="preserve">
-    <value>学校：</value>
-  </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>请输入大学名称</value>
   </data>

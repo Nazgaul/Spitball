@@ -117,13 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccountSettings" xml:space="preserve">
-    <value>设置</value>
-  </data>
-  <data name="Feedback" xml:space="preserve">
-    <value>反馈和帮助</value>
-  </data>
-  <data name="LogOut" xml:space="preserve">
-    <value>退出</value>
-  </data>
 </root>

@@ -120,19 +120,10 @@
   <data name="ChooseDept" xml:space="preserve">
     <value>Выбрать факультет</value>
   </data>
-  <data name="Country" xml:space="preserve">
-    <value>Страна</value>
-  </data>
   <data name="CreateDept" xml:space="preserve">
     <value>Создать факультет</value>
   </data>
   <data name="FieldRequired" xml:space="preserve">
     <value>Это поле обязательно для заполнения</value>
-  </data>
-  <data name="SchoolName" xml:space="preserve">
-    <value>Название учебного заведения</value>
-  </data>
-  <data name="Type" xml:space="preserve">
-    <value>Тип</value>
   </data>
 </root>

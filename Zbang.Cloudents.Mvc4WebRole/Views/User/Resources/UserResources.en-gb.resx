@@ -117,19 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CoursesGroups" xml:space="preserve">
-    <value>Modules / Groups</value>
-  </data>
-  <data name="CoursesList" xml:space="preserve">
-    <value>Modules List</value>
-  </data>
-  <data name="NotFollowing" xml:space="preserve">
-    <value>Currently not following any modules</value>
-  </data>
-  <data name="PointsTxt1" xml:space="preserve">
-    <value>100 pts Upload an item to a module</value>
-  </data>
-  <data name="PointsTxt10" xml:space="preserve">
-    <value>50 pts Each accepted invite to module</value>
-  </data>
 </root>

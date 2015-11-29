@@ -120,19 +120,10 @@
   <data name="ChooseDept" xml:space="preserve">
     <value>Choose a department</value>
   </data>
-  <data name="Country" xml:space="preserve">
-    <value>Country</value>
-  </data>
   <data name="CreateDept" xml:space="preserve">
     <value>Create department</value>
   </data>
   <data name="FieldRequired" xml:space="preserve">
     <value>This field is required</value>
-  </data>
-  <data name="SchoolName" xml:space="preserve">
-    <value>School name</value>
-  </data>
-  <data name="Type" xml:space="preserve">
-    <value>Type</value>
   </data>
 </root>

@@ -117,32 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddItem" xml:space="preserve">
-    <value>新增一个项目</value>
-  </data>
-  <data name="BoxEmpty" xml:space="preserve">
-    <value>这里有点冷，
-有没有什么可以与大家分享的呢？</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>取消</value>
-  </data>
-  <data name="ChooseFiles" xml:space="preserve">
-    <value>选择你想添加的文件</value>
-  </data>
-  <data name="CreateTab" xml:space="preserve">
-    <value>创建新标签页</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>删除</value>
-  </data>
-  <data name="Manage" xml:space="preserve">
-    <value>管理</value>
-  </data>
-  <data name="Privacy" xml:space="preserve">
-    <value>隐私</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>保存</value>
-  </data>
 </root>

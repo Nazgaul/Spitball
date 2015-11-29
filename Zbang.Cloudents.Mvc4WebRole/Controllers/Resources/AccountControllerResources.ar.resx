@@ -123,9 +123,6 @@
   <data name="EmailDoesNotExists" xml:space="preserve">
     <value>هذا البريد الإلكتروني غير موجود </value>
   </data>
-  <data name="EmailExists" xml:space="preserve">
-    <value>بريد إلكتروني موجود مسبقاٌ</value>
-  </data>
   <data name="FacebookGetDataError" xml:space="preserve">
     <value>مشكلة في الحصول على معلومات من فيس بوك</value>
   </data>

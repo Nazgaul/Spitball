@@ -117,61 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccountSettings" xml:space="preserve">
-    <value>Account Settings</value>
-  </data>
-  <data name="ChangeEmail" xml:space="preserve">
-    <value>Change email</value>
-  </data>
-  <data name="ChangePwd" xml:space="preserve">
-    <value>Change Password</value>
-  </data>
-  <data name="ChangeUni" xml:space="preserve">
-    <value>Change school</value>
-  </data>
-  <data name="CheckMail" xml:space="preserve">
-    <value>Check  your mail</value>
-  </data>
-  <data name="CodeSent" xml:space="preserve">
-    <value>A verification code was sent to your new email</value>
-  </data>
-  <data name="EnterCode" xml:space="preserve">
-    <value>Enter code</value>
-  </data>
-  <data name="EnterEmail" xml:space="preserve">
-    <value>Enter new email</value>
-  </data>
-  <data name="Free" xml:space="preserve">
-    <value>Free:</value>
-  </data>
-  <data name="InUse" xml:space="preserve">
-    <value>In use:</value>
-  </data>
-  <data name="NeverPost" xml:space="preserve">
-    <value>We'll never post to your wall without permission</value>
-  </data>
-  <data name="NoNoifications" xml:space="preserve">
-    <value>Using Spitball notification system you will be updated of what is going on in the courses you follow.</value>
-  </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password:</value>
-  </data>
-  <data name="ProfileInfo" xml:space="preserve">
-    <value>User information</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="Space" xml:space="preserve">
-    <value>Storage space:</value>
-  </data>
-  <data name="Storage" xml:space="preserve">
-    <value>Storage</value>
-  </data>
-  <data name="UploadImage" xml:space="preserve">
-    <value>Upload photo</value>
   </data>
 </root>

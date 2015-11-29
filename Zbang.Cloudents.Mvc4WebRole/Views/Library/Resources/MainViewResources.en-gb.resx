@@ -117,19 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddCourse" xml:space="preserve">
-    <value>Add a module</value>
-  </data>
-  <data name="CantFind" xml:space="preserve">
-    <value>Can't find your university?</value>
-  </data>
-  <data name="CreateCourse" xml:space="preserve">
-    <value>Create a new module</value>
-  </data>
-  <data name="SearchFor" xml:space="preserve">
-    <value>Search for your university</value>
-  </data>
-  <data name="UploadLogo" xml:space="preserve">
-    <value>Upload university logo</value>
-  </data>
 </root>

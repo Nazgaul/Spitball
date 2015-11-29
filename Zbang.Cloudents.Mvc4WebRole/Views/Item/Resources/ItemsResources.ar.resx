@@ -123,9 +123,6 @@
   <data name="Download" xml:space="preserve">
     <value>تنزيل </value>
   </data>
-  <data name="FullScreen" xml:space="preserve">
-    <value>عرض شاشه كامله</value>
-  </data>
   <data name="OpenLink" xml:space="preserve">
     <value>فتح الرابط في علامة تبويب جديدة</value>
   </data>
@@ -138,12 +135,6 @@
   <data name="PreviewNotAvailable" xml:space="preserve">
     <value>المعاينة غير متوفرة لهذا النوع من الملفات.</value>
   </data>
-  <data name="Print" xml:space="preserve">
-    <value>طباعة</value>
-  </data>
-  <data name="Rate" xml:space="preserve">
-    <value>تقييم</value>
-  </data>
   <data name="SecurityReasons" xml:space="preserve">
     <value>لأسباب أمنية، يتعذر فتح هذا الرابط في Spitball</value>
   </data>
@@ -152,8 +143,5 @@
   </data>
   <data name="Processing" xml:space="preserve">
     <value>جاري معالجة ملف الوسائط الجديد</value>
-  </data>
-  <data name="PostedBy" xml:space="preserve">
-    <value>تم النشر بواسطة</value>
   </data>
 </root>

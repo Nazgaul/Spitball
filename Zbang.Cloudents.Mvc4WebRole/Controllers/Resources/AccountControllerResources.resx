@@ -123,10 +123,6 @@
   <data name="EmailDoesNotExists" xml:space="preserve">
     <value>This email does not exist</value>
   </data>
-  <data name="EmailExists" xml:space="preserve">
-    <value>Email already exists</value>
-    <comment>Not Using</comment>
-  </data>
   <data name="FacebookGetDataError" xml:space="preserve">
     <value>Problem with getting Facebook data.</value>
   </data>

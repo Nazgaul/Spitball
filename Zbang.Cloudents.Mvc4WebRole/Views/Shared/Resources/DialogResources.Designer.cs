@@ -61,74 +61,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add.
-        /// </summary>
-        public static string Add {
-            get {
-                return ResourceManager.GetString("Add", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add website link.
-        /// </summary>
-        public static string AddLink {
-            get {
-                return ResourceManager.GetString("AddLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add URL e.g. www.example.com.
-        /// </summary>
-        public static string AddUrl {
-            get {
-                return ResourceManager.GetString("AddUrl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Choose file.
-        /// </summary>
-        public static string ChooseFile {
-            get {
-                return ResourceManager.GetString("ChooseFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Choose files.
-        /// </summary>
-        public static string ChooseFiles {
-            get {
-                return ResourceManager.GetString("ChooseFiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Congratulations.
-        /// </summary>
-        public static string Congrats {
-            get {
-                return ResourceManager.GetString("Congrats", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Continue.
-        /// </summary>
-        public static string Continue {
-            get {
-                return ResourceManager.GetString("Continue", resourceCulture);
             }
         }
         
@@ -160,65 +97,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Done.
-        /// </summary>
-        public static string Done {
-            get {
-                return ResourceManager.GetString("Done", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Drag and drop your files here.
-        /// </summary>
-        public static string DragAndDrop {
-            get {
-                return ResourceManager.GetString("DragAndDrop", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Drop files to upload.
-        /// </summary>
-        public static string DropToUpload {
-            get {
-                return ResourceManager.GetString("DropToUpload", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Earn points by inviting friends, uploading files and solving quizzes!.
-        /// </summary>
-        public static string EarnPoints {
-            get {
-                return ResourceManager.GetString("EarnPoints", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to To invite from Facebook copy the link into a Facebook message and send..
-        /// </summary>
-        public static string FacebookInvite {
-            get {
-                return ResourceManager.GetString("FacebookInvite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Is it blurry?.
         /// </summary>
         public static string IsItBlurry {
             get {
                 return ResourceManager.GetString("IsItBlurry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mark to delete this box.
-        /// </summary>
-        public static string MarkToDelete {
-            get {
-                return ResourceManager.GetString("MarkToDelete", resourceCulture);
             }
         }
         
@@ -241,42 +124,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Press CTRL+C to copy.
-        /// </summary>
-        public static string PressCtrlC {
-            get {
-                return ResourceManager.GetString("PressCtrlC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Want to reach to the top of the chart?.
-        /// </summary>
-        public static string ReachTop {
-            get {
-                return ResourceManager.GetString("ReachTop", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Required field.
-        /// </summary>
-        public static string RequiredField {
-            get {
-                return ResourceManager.GetString("RequiredField", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to -- Select from list.
-        /// </summary>
-        public static string SelectFromList {
-            get {
-                return ResourceManager.GetString("SelectFromList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Send.
         /// </summary>
         public static string Send {
@@ -286,65 +133,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Send a message.
-        /// </summary>
-        public static string SendMessage {
-            get {
-                return ResourceManager.GetString("SendMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings.
-        /// </summary>
-        public static string Settings {
-            get {
-                return ResourceManager.GetString("Settings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Website link.
-        /// </summary>
-        public static string SiteLink {
-            get {
-                return ResourceManager.GetString("SiteLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to To:.
         /// </summary>
         public static string To {
             get {
                 return ResourceManager.GetString("To", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Upload files.
-        /// </summary>
-        public static string UploadFiles {
-            get {
-                return ResourceManager.GetString("UploadFiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Deleting will remove all content and members.
-        /// </summary>
-        public static string WillRemove {
-            get {
-                return ResourceManager.GetString("WillRemove", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to you earned.
-        /// </summary>
-        public static string YouEarned {
-            get {
-                return ResourceManager.GetString("YouEarned", resourceCulture);
             }
         }
     }

@@ -159,12 +159,6 @@
   <data name="Password" xml:space="preserve">
     <value>كلمة مرور:</value>
   </data>
-  <data name="Photo" xml:space="preserve">
-    <value>ارفع صوره </value>
-  </data>
-  <data name="School" xml:space="preserve">
-    <value>معهد اكاديمي:</value>
-  </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>يرجى إدخال اسم الجامعة</value>
   </data>

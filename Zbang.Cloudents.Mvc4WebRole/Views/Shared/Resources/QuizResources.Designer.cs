@@ -61,137 +61,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add an answer.
-        /// </summary>
-        public static string AddAnswer {
-            get {
-                return ResourceManager.GetString("AddAnswer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add question.
-        /// </summary>
-        public static string AddQuestion {
-            get {
-                return ResourceManager.GetString("AddQuestion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Not yet, I&apos;m scared.
         /// </summary>
         public static string Afraid {
             get {
                 return ResourceManager.GetString("Afraid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Check answers.
-        /// </summary>
-        public static string CheckAnswers {
-            get {
-                return ResourceManager.GetString("CheckAnswers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Correct errors.
-        /// </summary>
-        public static string CheckQuiz {
-            get {
-                return ResourceManager.GetString("CheckQuiz", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You can choose to save the quiz as a &apos;draft&apos; for future editing (only you can see and edit the draft).
-        /// </summary>
-        public static string ChooseDraft {
-            get {
-                return ResourceManager.GetString("ChooseDraft", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Choose quiz name.
-        /// </summary>
-        public static string ChooseName {
-            get {
-                return ResourceManager.GetString("ChooseName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Correct.
-        /// </summary>
-        public static string Correct {
-            get {
-                return ResourceManager.GetString("Correct", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Correct Answer.
-        /// </summary>
-        public static string CorrectAnswer {
-            get {
-                return ResourceManager.GetString("CorrectAnswer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create a quiz.
-        /// </summary>
-        public static string CreateQuiz {
-            get {
-                return ResourceManager.GetString("CreateQuiz", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete the quiz.
-        /// </summary>
-        public static string DeleteQuiz {
-            get {
-                return ResourceManager.GetString("DeleteQuiz", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to leave this quiz?.
-        /// </summary>
-        public static string LeaveQuiz {
-            get {
-                return ResourceManager.GetString("LeaveQuiz", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to multiple choice questions.
-        /// </summary>
-        public static string MultipleChoice {
-            get {
-                return ResourceManager.GetString("MultipleChoice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No answer given.
-        /// </summary>
-        public static string NoAnswer {
-            get {
-                return ResourceManager.GetString("NoAnswer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You haven&apos;t finished your quiz yet..
-        /// </summary>
-        public static string NotFinished {
-            get {
-                return ResourceManager.GetString("NotFinished", resourceCulture);
             }
         }
         
@@ -206,65 +80,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Preview quiz.
-        /// </summary>
-        public static string PreviewQuiz {
-            get {
-                return ResourceManager.GetString("PreviewQuiz", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Publish.
-        /// </summary>
-        public static string Publish {
-            get {
-                return ResourceManager.GetString("Publish", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Publish the quiz.
-        /// </summary>
-        public static string PublishQuiz {
-            get {
-                return ResourceManager.GetString("PublishQuiz", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Time to take a quiz.
         /// </summary>
         public static string QuizTime {
             get {
                 return ResourceManager.GetString("QuizTime", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Retake quiz.
-        /// </summary>
-        public static string RetakeQuiz {
-            get {
-                return ResourceManager.GetString("RetakeQuiz", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save as draft.
-        /// </summary>
-        public static string SaveDraft {
-            get {
-                return ResourceManager.GetString("SaveDraft", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Score distribution:.
-        /// </summary>
-        public static string ScoreDistribution {
-            get {
-                return ResourceManager.GetString("ScoreDistribution", resourceCulture);
             }
         }
         
@@ -278,39 +98,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Top three for this quiz:.
-        /// </summary>
-        public static string TopThree {
-            get {
-                return ResourceManager.GetString("TopThree", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wrong.
-        /// </summary>
-        public static string Wrong {
-            get {
-                return ResourceManager.GetString("Wrong", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Are you ready to
         ///test yourself?.
         /// </summary>
         public static string YouReady {
             get {
                 return ResourceManager.GetString("YouReady", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Your score.
-        /// </summary>
-        public static string YourScore {
-            get {
-                return ResourceManager.GetString("YourScore", resourceCulture);
             }
         }
     }
