@@ -1,26 +1,22 @@
 ﻿(function () {
     angular.module('app.account').controller('AccountSettingsInfoController', info);
-    info.$inject = ['accountService', '$scope', '$timeout'];
-    function info(accountService, $scope, $timeout) {
+    info.$inject = ['accountService', '$timeout', 'userData'];
+    function info(accountService, $timeout, userData) {
         var self = this;
-        self.querySearch = function querySearch(query) {
-            return accountService.searchUniversity(query);
-        };
-        self.selectedItemChange = function selectedItemChange(item) {
-            self.data.university = item.name;
-            self.data.universityId = item.id;
-
-        };
+        self.data = angular.copy(userData);
 
         self.submit = function () {
-            var firstName = self.firstName || self.data.firstName,
-            lastName = self.lastName || self.data.lastName;
-            accountService.setAccountDetails(self.data.universityId, firstName, lastName, self.data.university).then(function () {
+
+            var firstName = self.data.firstName,
+            lastName = self.data.lastName;
+            if (firstName == userData.firstName && lastName && userData.lastName) {
+                return;
+            }
+            accountService.setAccountDetails(firstName, lastName).then(function () {
                 alert('changes saved');
-                self.firstName = '';
-                self.lastName = '';
             });
         }
+        self.changeLanguage = changeLanguage;
 
 
         self.fileUpload = {
@@ -55,6 +51,16 @@
                     alert(error.message);
                 }
             }
+        }
+
+        function changeLanguage() {
+            if (self.data.language == userData.language) {
+                return;
+            }
+
+            accountService.changeLocale(self.data.language).then(function() {
+                location.reload(true);
+            });
         }
     }
 })();

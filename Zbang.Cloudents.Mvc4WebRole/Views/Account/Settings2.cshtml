@@ -5,37 +5,6 @@
 </div>
 <div class="row accountPage">
     <div class="col-md-12">
-        <div class="profile-sidebar" style="width: 250px;">
-            <div class="portlet light profile-sidebar-portlet">
-                <div class="profile-userpic">
-                    <img src="{{a.data.image}}" class="img-responsive" alt="" style="max-width:150px;">
-                </div>
-                <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">
-                        {{::a.data.firstName + a.data.lastName}}
-                    </div>
-                    <div class="profile-usertitle-job">
-                        {{::a.data.university}}
-                    </div>
-                </div>
-                <div class="profile-usermenu">
-                    <ul class="nav">
-                        <li>
-                            <a href="@*{{::u.details.url}}*@">
-                                @Html.Svg("~/images/site/icons.svg", "houseMenu")
-                                Presonal data
-                            </a>
-                        </li>
-                        <li class="active">
-                            <a href="@Url.RouteUrl("AccountSettings")">
-                                @Html.Svg("~/images/site/icons.svg", "settingMenu")
-                                Account Settings
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
         <div class="profile-content">
             <div class="row">
                 <div class="col-md-12">

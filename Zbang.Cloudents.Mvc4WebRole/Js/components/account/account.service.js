@@ -52,12 +52,12 @@ url: "/user/1/ram-y/"
 
         
 
-        self.setAccountDetails = function (universityId, firstName, lastName, universityName) {
+        self.setAccountDetails = function (firstName, lastName) {
             self.details.name = firstName + " " + lastName;
-            self.details.universityName = universityName;
-            self.details.universityId = universityId;
+            //self.details.universityName = universityName;
+            //self.details.universityId = universityId;
             $rootScope.$broadcast('userDetailsChange');
-            return ajaxservice.post('/account/changeprofile/', { UniversityId: universityId, FirstName: firstName, LastName: lastName });
+            return ajaxservice.post('/account/changeprofile/', { firstName: firstName, lastName: lastName });
 
         }
 
@@ -82,6 +82,12 @@ url: "/user/1/ram-y/"
             return ajaxservice.post('/box/changenotification/', {
                 boxId: boxId,
                 notification: notification
+            });
+        }
+
+        self.changeLocale = function(lang) {
+            return ajaxservice.post('/account/changelocale/', {
+                language: lang
             });
         }
     }
