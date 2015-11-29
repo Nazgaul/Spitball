@@ -28,7 +28,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
 
         private readonly IFileProcessorFactory m_FileProcessorFactory;
-        private readonly IItemWriteSearchProvider2 m_ItemSearchProvider2;
         private readonly IItemWriteSearchProvider3 m_ItemSearchProvider3;
         private readonly ICloudBlockProvider m_BlobProvider;
 
@@ -39,12 +38,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public UpdateSearch(IZboxReadServiceWorkerRole zboxReadService,
             IZboxWorkerRoleService zboxWriteService,
             IFileProcessorFactory fileProcessorFactory,
-            IItemWriteSearchProvider2 itemSearchProvider2, ICloudBlockProvider blobProvider, IItemWriteSearchProvider3 itemSearchProvider3)
+             ICloudBlockProvider blobProvider, IItemWriteSearchProvider3 itemSearchProvider3)
         {
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
             m_FileProcessorFactory = fileProcessorFactory;
-            m_ItemSearchProvider2 = itemSearchProvider2;
             m_BlobProvider = blobProvider;
             m_ItemSearchProvider3 = itemSearchProvider3;
 
@@ -135,7 +133,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 elem.Content = ExtractContentToUploadToSearch(elem);
 
             }
-            await m_ItemSearchProvider2.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
             var isSuccess2 =
                 await m_ItemSearchProvider3.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
             if (isSuccess2)

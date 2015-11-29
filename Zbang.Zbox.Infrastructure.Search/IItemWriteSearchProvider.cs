@@ -9,11 +9,9 @@ namespace Zbang.Zbox.Infrastructure.Search
         Task<bool> UpdateData(IEnumerable<ItemSearchDto> itemToUpload, IEnumerable<long> itemToDelete);
     }
 
-    public interface IItemWriteSearchProvider2 : IItemWriteSearchProvider
-    {
-    }
 
-    public interface IItemWriteSearchProvider3 : IItemWriteSearchProvider2
+
+    public interface IItemWriteSearchProvider3 : IItemWriteSearchProvider
     {
     }
 }

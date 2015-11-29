@@ -117,23 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>增加</value>
-  </data>
-  <data name="AddLink" xml:space="preserve">
-    <value>添加网站链接</value>
-  </data>
-  <data name="AddUrl" xml:space="preserve">
-    <value>增加链接，例如 www.website.com</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
-  </data>
-  <data name="ChooseFile" xml:space="preserve">
-    <value>选择文件</value>
-  </data>
-  <data name="ChooseFiles" xml:space="preserve">
-    <value>选择文件</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>创建</value>
@@ -141,37 +126,13 @@
   <data name="CreateItem" xml:space="preserve">
     <value>创建新的院系</value>
   </data>
-  <data name="DragAndDrop" xml:space="preserve">
-    <value>把你的文件拖放到这里</value>
-  </data>
-  <data name="DropToUpload" xml:space="preserve">
-    <value>拖曳文件以上传</value>
-  </data>
   <data name="Next" xml:space="preserve">
     <value>下一个</value>
-  </data>
-  <data name="RequiredField" xml:space="preserve">
-    <value>必填字段</value>
-  </data>
-  <data name="SelectFromList" xml:space="preserve">
-    <value>- 从列表中选择</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>发送</value>
   </data>
-  <data name="SendMessage" xml:space="preserve">
-    <value>发送消息</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>设置</value>
-  </data>
-  <data name="SiteLink" xml:space="preserve">
-    <value>网站链接</value>
-  </data>
   <data name="To" xml:space="preserve">
     <value>致：</value>
-  </data>
-  <data name="UploadFiles" xml:space="preserve">
-    <value>上传文件</value>
   </data>
 </root>

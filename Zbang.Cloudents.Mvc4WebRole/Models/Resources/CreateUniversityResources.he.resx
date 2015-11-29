@@ -120,19 +120,10 @@
   <data name="ChooseDept" xml:space="preserve">
     <value>בחר מחלקה</value>
   </data>
-  <data name="Country" xml:space="preserve">
-    <value>מדינה</value>
-  </data>
   <data name="CreateDept" xml:space="preserve">
     <value>צור מחלקה</value>
   </data>
   <data name="FieldRequired" xml:space="preserve">
     <value>חובה למלא שדה זה</value>
-  </data>
-  <data name="SchoolName" xml:space="preserve">
-    <value>שם מוסד לימודים</value>
-  </data>
-  <data name="Type" xml:space="preserve">
-    <value>סוג</value>
   </data>
 </root>

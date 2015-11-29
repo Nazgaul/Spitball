@@ -85,7 +85,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private async Task<SearchDto> PerformQuery(SearchQuery query, CancellationToken token)
         {
             var t1 = m_BoxSearchService.SearchBox(query, token);
-            var t2 = m_ItemSearchService.SearchItem(query, token);
+            var t2 = m_ItemSearchService.SearchItemAsync(query, token);
             var t3 = m_QuizSearchService.SearchQuiz(query, token);
 
 
@@ -115,6 +115,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return JsonOk(retVal);
 
+        }
+
+
+        [HttpGet]
+        public async Task<JsonResult> ItemInBox(string term, long boxId, int page, CancellationToken cancellationToken, int sizePerPage = 20)
+        {
+            CancellationToken disconnectedToken = Response.ClientDisconnectedToken;
+            var source = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, disconnectedToken);
+            if (string.IsNullOrEmpty(term))
+            {
+                return JsonError();
+            }
+            var query = new SearchItemInBox(term, boxId, page, sizePerPage);
+            var retVal = await m_ItemSearchService.SearchItemAsync(query, source.Token);
+            return JsonOk(retVal);
         }
 
 

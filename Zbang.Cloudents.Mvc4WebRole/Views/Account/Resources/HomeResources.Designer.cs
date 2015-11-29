@@ -70,15 +70,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Home page.
-        /// </summary>
-        public static string Homepage {
-            get {
-                return ResourceManager.GetString("Homepage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to It&apos;s more than just studying, it&apos;s social studying.
         /// </summary>
         public static string SocialStudy {

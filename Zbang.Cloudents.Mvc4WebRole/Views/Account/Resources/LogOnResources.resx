@@ -126,26 +126,14 @@
   <data name="LogIn" xml:space="preserve">
     <value>Log in</value>
   </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>Sign in</value>
-  </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
-  <data name="CreateNew" xml:space="preserve">
-    <value>Join Spitball</value>
-  </data>
   <data name="AlreadyHave" xml:space="preserve">
     <value>Already have an account?</value>
-  </data>
-  <data name="ByEmail" xml:space="preserve">
-    <value>Or by email</value>
-  </data>
-  <data name="NoAccount" xml:space="preserve">
-    <value>Don't have an account?</value>
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>Sign up</value>

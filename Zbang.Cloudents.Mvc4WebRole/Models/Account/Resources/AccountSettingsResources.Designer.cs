@@ -214,24 +214,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Photo:.
-        /// </summary>
-        public static string Photo {
-            get {
-                return ResourceManager.GetString("Photo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to School:.
-        /// </summary>
-        public static string School {
-            get {
-                return ResourceManager.GetString("School", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Please enter university name.
         /// </summary>
         public static string SchoolRequired {

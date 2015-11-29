@@ -65,7 +65,7 @@
                 <span class="name ellipsis" ng-bind-html="::e.name"></span>
                 @*<div class="triangle-up-left"></div>*@
             </div>
-            <div class="stats clearfix" ng-hide="::quiz.numOfViews === underfined">
+            <div class="stats clearfix" ng-hide="::e.numOfViews === underfined">
                 <div class="item-quiz-likes">
                     {{::e.rate}} @Html.Svg(svgUrl, "like")
                 </div>

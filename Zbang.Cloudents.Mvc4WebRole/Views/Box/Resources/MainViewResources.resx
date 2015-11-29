@@ -117,41 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddItem" xml:space="preserve">
-    <value>Add an item</value>
-  </data>
-  <data name="BoxEmpty" xml:space="preserve">
-    <value>Nothing to see here, yet.
-Be the first to upload study material...</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="ChooseFiles" xml:space="preserve">
-    <value>Choose the files that you want to add</value>
-  </data>
-  <data name="CreateTab" xml:space="preserve">
-    <value>Create new folder</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="FeedEmpty" xml:space="preserve">
-    <value>The art and science of
-asking questions is the source
-of all knowledge.</value>
-  </data>
-  <data name="Manage" xml:space="preserve">
-    <value>Manage</value>
-  </data>
-  <data name="Privacy" xml:space="preserve">
-    <value>Privacy</value>
-  </data>
-  <data name="QuizEmpty" xml:space="preserve">
-    <value>Nothing to solve here, yet.
-Be the first to create a quiz.</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>Save</value>
-  </data>
 </root>

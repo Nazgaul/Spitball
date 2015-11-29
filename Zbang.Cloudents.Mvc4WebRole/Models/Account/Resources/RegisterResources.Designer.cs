@@ -133,42 +133,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must first confirm your password.
-        /// </summary>
-        public static string FirstConfirm {
-            get {
-                return ResourceManager.GetString("FirstConfirm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please select gender.
-        /// </summary>
-        public static string GenderRequired {
-            get {
-                return ResourceManager.GetString("GenderRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name.
-        /// </summary>
-        public static string Name {
-            get {
-                return ResourceManager.GetString("Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to user name cannot contain @ character.
-        /// </summary>
-        public static string NameCannotContain {
-            get {
-                return ResourceManager.GetString("NameCannotContain", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
@@ -183,24 +147,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         public static string PwdRequired {
             get {
                 return ResourceManager.GetString("PwdRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to University.
-        /// </summary>
-        public static string University {
-            get {
-                return ResourceManager.GetString("University", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to User name.
-        /// </summary>
-        public static string UserName {
-            get {
-                return ResourceManager.GetString("UserName", resourceCulture);
             }
         }
     }

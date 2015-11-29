@@ -117,16 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BrowseCourses" xml:space="preserve">
-    <value>Browse modules</value>
-  </data>
-  <data name="CreateCourse" xml:space="preserve">
-    <value>Create a module</value>
-  </data>
-  <data name="OpenCourse" xml:space="preserve">
-    <value>Module</value>
-  </data>
-  <data name="RecommendedCourses" xml:space="preserve">
-    <value>Recommended modules</value>
-  </data>
 </root>

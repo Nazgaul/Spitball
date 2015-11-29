@@ -117,61 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccountSettings" xml:space="preserve">
-    <value>הגדרות חשבון</value>
-  </data>
-  <data name="ChangeEmail" xml:space="preserve">
-    <value>שנה כתובת אימייל</value>
-  </data>
-  <data name="ChangePwd" xml:space="preserve">
-    <value>שנה סיסמה</value>
-  </data>
-  <data name="ChangeUni" xml:space="preserve">
-    <value>שנה מוסד אקדמי</value>
-  </data>
-  <data name="CheckMail" xml:space="preserve">
-    <value>בדוק את האימייל שלך </value>
-  </data>
-  <data name="CodeSent" xml:space="preserve">
-    <value>קוד האימות נשלח לכתובת האימייל החדשה</value>
-  </data>
-  <data name="EnterCode" xml:space="preserve">
-    <value>Enter Code</value>
-  </data>
-  <data name="EnterEmail" xml:space="preserve">
-    <value>הכנס אימייל חדש</value>
-  </data>
-  <data name="Free" xml:space="preserve">
-    <value>פנוי:</value>
-  </data>
-  <data name="InUse" xml:space="preserve">
-    <value>בשימוש:</value>
-  </data>
-  <data name="NeverPost" xml:space="preserve">
-    <value>אנחנו לא נפרסם בפייסבוק שלך ללא רשותך</value>
-  </data>
-  <data name="NoNoifications" xml:space="preserve">
-    <value>באמצעות מערכת ההתראות של Spitball תוכלו להתעדכן אחרי המתרחש בקורסים אחריהם אתם עוקבים.</value>
-  </data>
   <data name="Notifications" xml:space="preserve">
     <value>התראות</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>סיסמא:</value>
-  </data>
-  <data name="ProfileInfo" xml:space="preserve">
-    <value>פרופיל משתמש</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>שמור</value>
-  </data>
-  <data name="Space" xml:space="preserve">
-    <value>שטח אחסון:</value>
-  </data>
-  <data name="Storage" xml:space="preserve">
-    <value>אחסון</value>
-  </data>
-  <data name="UploadImage" xml:space="preserve">
-    <value>שנה תמונה</value>
   </data>
 </root>

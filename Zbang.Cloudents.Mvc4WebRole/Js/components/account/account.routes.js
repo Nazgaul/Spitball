@@ -12,7 +12,15 @@
                     state: 'settings',
                     config: {
                         url: '/account/settings/',
-                        controller: 'AccountSettingsController as a'
+                        controller: 'AccountSettingsController as a',
+                        resolve: {
+                            userData: [
+                                'accountService', function (accountService) {
+                                    return accountService.getAccountDetails();
+
+                                }
+                            ]
+                        }
                     },
                     templateUrl: '/account/settingpartial/'
                 },
@@ -20,7 +28,8 @@
                     state: 'settings.profile',
                     config: {
                         url: '#info',
-                        controller: 'AccountSettingsInfoController as i'
+                        controller: 'AccountSettingsInfoController as i',
+                        parent: 'settings'
                     },
                     templateUrl: '/account/info/'
                 },
@@ -28,14 +37,16 @@
                     state: 'settings.password',
                     config: {
                         url: '#password',
-                        controller: 'AccountSettingsPasswordController as p'
+                        controller: 'AccountSettingsPasswordController as p',
+                        parent: 'settings'
                     },
                     templateUrl: '/account/password/'
                 }, {
                     state: 'settings.notification',
                     config: {
                         url: '#notification',
-                        controller: 'AccountSettingsNotificationController as n'
+                        controller: 'AccountSettingsNotificationController as n',
+                        parent: 'settings'
                     },
                     templateUrl: '/account/notification/'
                 }

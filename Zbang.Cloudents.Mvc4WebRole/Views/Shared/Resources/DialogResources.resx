@@ -117,23 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="AddLink" xml:space="preserve">
-    <value>Add website link</value>
-  </data>
-  <data name="AddUrl" xml:space="preserve">
-    <value>Add URL e.g. www.example.com</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
-  </data>
-  <data name="ChooseFile" xml:space="preserve">
-    <value>Choose file</value>
-  </data>
-  <data name="ChooseFiles" xml:space="preserve">
-    <value>Choose files</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Create</value>
@@ -141,77 +126,22 @@
   <data name="CreateItem" xml:space="preserve">
     <value>Create new department</value>
   </data>
-  <data name="DragAndDrop" xml:space="preserve">
-    <value>Drag and drop your files here</value>
-  </data>
-  <data name="DropToUpload" xml:space="preserve">
-    <value>Drop files to upload</value>
-  </data>
   <data name="Next" xml:space="preserve">
     <value>Next</value>
-  </data>
-  <data name="RequiredField" xml:space="preserve">
-    <value>Required field</value>
-  </data>
-  <data name="SelectFromList" xml:space="preserve">
-    <value>-- Select from list</value>
-    <comment>Add a school dialog</comment>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>
   </data>
-  <data name="SendMessage" xml:space="preserve">
-    <value>Send a message</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="SiteLink" xml:space="preserve">
-    <value>Website link</value>
-  </data>
   <data name="To" xml:space="preserve">
     <value>To:</value>
   </data>
-  <data name="UploadFiles" xml:space="preserve">
-    <value>Upload files</value>
-  </data>
   <data name="MessageRequired" xml:space="preserve">
     <value>Message required</value>
-  </data>
-  <data name="Continue" xml:space="preserve">
-    <value>Continue</value>
-  </data>
-  <data name="Done" xml:space="preserve">
-    <value>Done</value>
-  </data>
-  <data name="Congrats" xml:space="preserve">
-    <value>Congratulations</value>
-  </data>
-  <data name="EarnPoints" xml:space="preserve">
-    <value>Earn points by inviting friends, uploading files and solving quizzes!</value>
-  </data>
-  <data name="ReachTop" xml:space="preserve">
-    <value>Want to reach to the top of the chart?</value>
-  </data>
-  <data name="YouEarned" xml:space="preserve">
-    <value>you earned</value>
-  </data>
-  <data name="WillRemove" xml:space="preserve">
-    <value>Deleting will remove all content and members</value>
-  </data>
-  <data name="MarkToDelete" xml:space="preserve">
-    <value>Mark to delete this box</value>
   </data>
   <data name="CrystalClear" xml:space="preserve">
     <value>Sign up to Spitball and then everything will be crystal clear</value>
   </data>
   <data name="IsItBlurry" xml:space="preserve">
     <value>Is it blurry?</value>
-  </data>
-  <data name="FacebookInvite" xml:space="preserve">
-    <value>To invite from Facebook copy the link into a Facebook message and send.</value>
-  </data>
-  <data name="PressCtrlC" xml:space="preserve">
-    <value>Press CTRL+C to copy</value>
   </data>
 </root>

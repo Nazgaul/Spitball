@@ -49,7 +49,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         private const string ExtensionField = "extension";
         private const string BlobNameField = "blobName";
 
-        private const string ScoringProfileName = "university";
+        private const string ScoringProfileName = "universityTag";
 
         private Index GetIndexStructure()
         {
@@ -71,9 +71,9 @@ namespace Zbang.Zbox.Infrastructure.Search
                 new Field(BlobNameField, DataType.String) { IsRetrievable = true}
 
             });
-            var scoringFunction = new TagScoringFunction(new TagScoringParameters(ScoringProfileName),
+            var scoringFunction = new TagScoringFunction(new TagScoringParameters("university"),
                 UniversityidField, 2);
-            var scoringProfile = new ScoringProfile("universityTag")
+            var scoringProfile = new ScoringProfile(ScoringProfileName)
             {
                 FunctionAggregation = ScoringFunctionAggregation.Sum,
 
@@ -155,7 +155,34 @@ namespace Zbang.Zbox.Infrastructure.Search
             return true;
         }
 
-        public async Task<IEnumerable<SearchItems>> SearchItem(
+
+
+        public async Task<IEnumerable<SearchItems>> SearchItemOldMobileServiceAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
+        {
+            if (query == null) throw new ArgumentNullException("query");
+
+            var filter = await m_FilterProvider.BuildFilterExpression(
+               query.UniversityId, UniversityidField, UserIdsField, query.UserId);
+
+            var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(query.Term, new SearchParameters
+            {
+                Filter = filter,
+                Top = query.RowsPerPage,
+                Skip = query.RowsPerPage * query.PageNumber,
+                ScoringProfile = ScoringProfileName,
+                ScoringParameters = new[] { "university:" + query.UniversityId },
+                Select = new[] { IdField, NameField, UrlField },
+            }, cancelToken);
+
+            return result.Select(s => new SearchItems
+            {
+                Id = long.Parse(s.Document.Id),
+                Url = s.Document.Url,
+                Name = s.Document.Name
+            }).ToList();
+        }
+
+        public async Task<IEnumerable<SearchItems>> SearchItemAsync(
             ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException("query");
@@ -168,7 +195,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Filter = filter,
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
-                ScoringProfile = "universityTag",
+                ScoringProfile = ScoringProfileName,
                 ScoringParameters = new[] { "university:" + query.UniversityId },
                 Select = new[] { SmallContentField, IdField, NameField, BoxIdField, ExtensionField },
                 HighlightFields = new[] { ContentField, NameField },
@@ -184,7 +211,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             }).ToList();
         }
 
-        public async Task<IEnumerable<SearchItems>> SearchItem(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
+        public async Task<IEnumerable<SearchItems>> SearchItemAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException("query");
             var term = query.Term;
@@ -195,22 +222,12 @@ namespace Zbang.Zbox.Infrastructure.Search
             var filter = await m_FilterProvider.BuildFilterExpression(
                query.UniversityId, UniversityidField, UserIdsField, query.UserId);
 
-            //var filter = 
-            //"((universityId ne '984') "
-            //+ "and (universityId ne '1173')"
-            //+ "and (universityId ne '19878') "
-            //+ "and (universityId ne '22906') "
-            //+ "and (universityId ne '64805') "
-            //+ "and (not(universityId eq '-1')))"
-            //+"or "
-            //+ "(userId/any(t: t eq '" + query.UserId + "')  ) ";
-
             var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(term, new SearchParameters
             {
                 Filter = filter,
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
-                ScoringProfile = "universityTag",
+                ScoringProfile = ScoringProfileName,
                 ScoringParameters = new[] { "university:" + query.UniversityId },
                 Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField, BlobNameField },
                 HighlightFields = new[] { ContentField, NameField }
@@ -224,6 +241,35 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Image = s.Document.Image,
                 Name = HighLightInField(s, NameField, s.Document.Name),
                 UniName = s.Document.UniversityName,
+                Url = s.Document.Url,
+                BlobName = s.Document.BlobName
+
+
+            });
+        }
+
+        public async Task<IEnumerable<SearchItems>> SearchItemAsync(ViewModel.Queries.Search.SearchItemInBox query, CancellationToken cancelToken)
+        {
+            if (query == null) throw new ArgumentNullException("query");
+            var term = query.Term;
+            if (string.IsNullOrEmpty(term))
+            {
+                return null;
+            }
+
+            var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(term, new SearchParameters
+            {
+                Filter = string.Format("{0} eq {1}", BoxId2Field, query.BoxId),
+                Top = query.RowsPerPage,
+                Skip = query.RowsPerPage * query.PageNumber,
+                Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField, BlobNameField },
+            }, cancelToken);
+
+            return result.Select(s => new SearchItems
+            {
+                Boxname = s.Document.BoxName,
+                Id = long.Parse(s.Document.Id),
+                Name = s.Document.Name,
                 Url = s.Document.Url,
                 BlobName = s.Document.BlobName
 

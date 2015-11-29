@@ -39,6 +39,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         private const string MembersCountField = "membersCount";
         private const string MembersImagesField = "membersImages";
 
+        private const string CountryScoringProfile = "countryTag";
 
         // private const string NameSuggest = "nameSuggest";
 
@@ -56,6 +57,15 @@ namespace Zbang.Zbox.Infrastructure.Search
                 new Field(MembersImagesField, DataType.Collection(DataType.String)) {IsRetrievable = true}
 
             });
+            var scoringFunction = new TagScoringFunction(new TagScoringParameters("country"),
+               CountryField, 3);
+            var scoringProfile = new ScoringProfile(CountryScoringProfile)
+            {
+                FunctionAggregation = ScoringFunctionAggregation.Sum,
+
+            };
+            scoringProfile.Functions.Add(scoringFunction);
+            index.ScoringProfiles.Add(scoringProfile);
             //{
             //    Suggesters = new[]
             //    {
@@ -102,8 +112,8 @@ namespace Zbang.Zbox.Infrastructure.Search
 
             if (string.IsNullOrEmpty(query.Term))
             {
-                searchParametes.ScoringProfile = "country";
-                searchParametes.ScoringParameters = new[] {"country:" + query.Country};
+                searchParametes.ScoringProfile = CountryScoringProfile;
+                searchParametes.ScoringParameters = new[] { "country:" + query.Country };
             }
 
             var tResult = m_IndexClient.Documents.SearchAsync<UniversitySearch>(query.Term + "*", searchParametes, cancelToken);

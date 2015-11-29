@@ -120,12 +120,6 @@
   <data name="AlreadyHave" xml:space="preserve">
     <value>ألديك حساب مسبقاُ؟</value>
   </data>
-  <data name="ByEmail" xml:space="preserve">
-    <value>او عن طريق البريد الالكتروني</value>
-  </data>
-  <data name="CreateNew" xml:space="preserve">
-    <value>التسجيل كمستخدم جديد</value>
-  </data>
   <data name="DontHaveAnAccount" xml:space="preserve">
     <value>لا يوجد لديك حساب ؟</value>
   </data>
@@ -138,14 +132,8 @@
   <data name="LogIn" xml:space="preserve">
     <value>الاتصال</value>
   </data>
-  <data name="NoAccount" xml:space="preserve">
-    <value>أليس لديك حساب؟</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>كلمة المرور</value>
-  </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>تسجيل الدخول </value>
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>التسجيل</value>

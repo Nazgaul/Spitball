@@ -123,9 +123,6 @@
   <data name="Download" xml:space="preserve">
     <value>下载</value>
   </data>
-  <data name="FullScreen" xml:space="preserve">
-    <value>全屏观看</value>
-  </data>
   <data name="MayTake" xml:space="preserve">
     <value>大约需要花几分钟时间</value>
   </data>
@@ -141,14 +138,8 @@
   <data name="PreviewNotAvailable" xml:space="preserve">
     <value>该文件类型不支持预览。</value>
   </data>
-  <data name="Print" xml:space="preserve">
-    <value>打印</value>
-  </data>
   <data name="Processing" xml:space="preserve">
     <value>正在处理该媒体文件</value>
-  </data>
-  <data name="Rate" xml:space="preserve">
-    <value>评价</value>
   </data>
   <data name="SecurityReasons" xml:space="preserve">
     <value>因存在安全隐患，该链接无法在 Spitball 里面打开</value>

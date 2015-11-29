@@ -447,13 +447,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         #endregion
 
-
-        //[ZboxAuthorize, NoUniversity]
-        //public ActionResult Settings()
-        //{
-        //    return View("Empty");
-        //}
-
+        
         [ZboxAuthorize, NoUniversity]
         public async Task<JsonResult> SettingsData()
         {
@@ -548,7 +542,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var command = new UpdateUserProfileCommand(User.GetUserId(),
                 model.FirstName,
-                model.LastName, model.UniversityId);
+                model.LastName);
             ZboxWriteService.UpdateUserProfile(command);
             return JsonOk();
 
@@ -649,27 +643,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var commandResult = await ZboxWriteService.UpdateUserPasswordAsync(command);
             return Json(new JsonResponse(!commandResult.HasErrors, commandResult.Error));
         }
-
-
-        [HttpPost]
-        [ZboxAuthorize]
-        [RequireHttps]
-        public ActionResult ChangeLanguage(Models.Account.Settings.UserLanguage model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return JsonError(GetModelStateErrors());
-            }
-            var id = User.GetUserId();
-            var command = new UpdateUserLanguageCommand(id, model.Language);
-            ZboxWriteService.UpdateUserLanguage(command);
-            m_LanguageCookie.InjectCookie(model.Language);
-            return JsonOk();
-        }
+        
 
         [HttpPost]
         public JsonResult ChangeLocale(string language)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                var id = User.GetUserId();
+                var command = new UpdateUserLanguageCommand(id, language);
+                ZboxWriteService.UpdateUserLanguage(command);
+            }
             m_LanguageCookie.InjectCookie(language);
             return JsonOk();
         }
