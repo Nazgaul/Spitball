@@ -117,40 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddItem" xml:space="preserve">
-    <value>הוסף פריט</value>
-  </data>
-  <data name="BoxEmpty" xml:space="preserve">
-    <value>ריק כאן, לעת עתה.
-תהיה הראשון לשתף חומרי לימוד.</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>ביטול</value>
-  </data>
-  <data name="ChooseFiles" xml:space="preserve">
-    <value>בחר את הקבצים שברצונך להוסיף</value>
-  </data>
-  <data name="CreateTab" xml:space="preserve">
-    <value>הוסף תיקיה חדשה</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>מחק</value>
-  </data>
-  <data name="FeedEmpty" xml:space="preserve">
-    <value>לשאול שאלות הוא המקור
-של כל הידע.</value>
-  </data>
-  <data name="Manage" xml:space="preserve">
-    <value>נהל</value>
-  </data>
-  <data name="Privacy" xml:space="preserve">
-    <value>פרטיות</value>
-  </data>
-  <data name="QuizEmpty" xml:space="preserve">
-    <value>אין עדיין מבחנים לפתור,
-רוצה להיות הראשון ליצור מבחן?</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>שמור</value>
-  </data>
 </root>

@@ -123,9 +123,6 @@
   <data name="EmailDoesNotExists" xml:space="preserve">
     <value>该 Email 地址不存在</value>
   </data>
-  <data name="EmailExists" xml:space="preserve">
-    <value>该 Email 地址已存在</value>
-  </data>
   <data name="FacebookGetDataError" xml:space="preserve">
     <value>无法获取 Facebook 数据。</value>
   </data>

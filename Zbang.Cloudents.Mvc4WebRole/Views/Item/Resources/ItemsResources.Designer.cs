@@ -79,15 +79,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Full screen.
-        /// </summary>
-        public static string FullScreen {
-            get {
-                return ResourceManager.GetString("FullScreen", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to This may take several minutes.
         /// </summary>
         public static string MayTake {
@@ -115,15 +106,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Posted by.
-        /// </summary>
-        public static string PostedBy {
-            get {
-                return ResourceManager.GetString("PostedBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to option to view..
         /// </summary>
         public static string PreviewFailed2 {
@@ -143,29 +125,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Print.
-        /// </summary>
-        public static string Print {
-            get {
-                return ResourceManager.GetString("Print", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Processing new media file.
         /// </summary>
         public static string Processing {
             get {
                 return ResourceManager.GetString("Processing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rate.
-        /// </summary>
-        public static string Rate {
-            get {
-                return ResourceManager.GetString("Rate", resourceCulture);
             }
         }
         

@@ -126,26 +126,14 @@
   <data name="LogIn" xml:space="preserve">
     <value>התחבר</value>
   </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>התחבר</value>
-  </data>
   <data name="Email" xml:space="preserve">
     <value>דוא"ל</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>סיסמא</value>
   </data>
-  <data name="CreateNew" xml:space="preserve">
-    <value>הרשם כמשתמש חדש</value>
-  </data>
   <data name="AlreadyHave" xml:space="preserve">
     <value>כבר יש לך חשבון?</value>
-  </data>
-  <data name="ByEmail" xml:space="preserve">
-    <value>או באמצעות דוא"ל</value>
-  </data>
-  <data name="NoAccount" xml:space="preserve">
-    <value>אין לך חשבון?</value>
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>הרשם</value>

@@ -159,12 +159,6 @@
   <data name="Password" xml:space="preserve">
     <value>Пароль:</value>
   </data>
-  <data name="Photo" xml:space="preserve">
-    <value>Фотография:</value>
-  </data>
-  <data name="School" xml:space="preserve">
-    <value>Учебное заведение:</value>
-  </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>Пожалуйста, введите название университета</value>
   </data>

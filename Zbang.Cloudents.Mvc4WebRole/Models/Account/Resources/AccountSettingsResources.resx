@@ -163,12 +163,6 @@
   <data name="Password" xml:space="preserve">
     <value>Password:</value>
   </data>
-  <data name="Photo" xml:space="preserve">
-    <value>Photo:</value>
-  </data>
-  <data name="School" xml:space="preserve">
-    <value>School:</value>
-  </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>Please enter university name</value>
   </data>

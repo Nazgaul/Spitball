@@ -123,9 +123,6 @@
   <data name="Download" xml:space="preserve">
     <value>הורד</value>
   </data>
-  <data name="FullScreen" xml:space="preserve">
-    <value>מסך מלא</value>
-  </data>
   <data name="OpenLink" xml:space="preserve">
     <value>לחץ כאן לפתוח את הקישור</value>
   </data>
@@ -138,12 +135,6 @@
   <data name="PreviewNotAvailable" xml:space="preserve">
     <value>לא ניתן לצפות בתוכן זה</value>
   </data>
-  <data name="Print" xml:space="preserve">
-    <value>הדפס</value>
-  </data>
-  <data name="Rate" xml:space="preserve">
-    <value>דרג</value>
-  </data>
   <data name="SecurityReasons" xml:space="preserve">
     <value>מטעמי אבטחה, לא ניתן לפתוח את הקישור הזה </value>
   </data>
@@ -152,8 +143,5 @@
   </data>
   <data name="Processing" xml:space="preserve">
     <value>קובץ המדיה עובר תהליך המרה</value>
-  </data>
-  <data name="PostedBy" xml:space="preserve">
-    <value>נכתב ע"י</value>
   </data>
 </root>

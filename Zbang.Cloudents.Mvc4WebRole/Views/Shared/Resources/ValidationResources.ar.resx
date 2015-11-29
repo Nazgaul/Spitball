@@ -117,19 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ConfirmEmailCompare" xml:space="preserve">
-    <value>كلمة المرور غير ملائمة</value>
-  </data>
-  <data name="FieldRequired" xml:space="preserve">
-    <value>هذا الحقل مطلوب</value>
-  </data>
-  <data name="GenderRequired" xml:space="preserve">
-    <value>الرجاء اختيار نوع الجنس</value>
-  </data>
-  <data name="InvalidEmail" xml:space="preserve">
-    <value>بريد الكتروني غير صالح</value>
-  </data>
-  <data name="PwdAtLeast6Chars" xml:space="preserve">
-    <value>يجب ان يكون 6 احرف على الاقل </value>
-  </data>
 </root>

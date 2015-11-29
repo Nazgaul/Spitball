@@ -117,69 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddAnswer" xml:space="preserve">
-    <value>Добавить ответ</value>
-  </data>
-  <data name="AddQuestion" xml:space="preserve">
-    <value>Добавить вопрос</value>
-  </data>
-  <data name="CheckAnswers" xml:space="preserve">
-    <value>Проверить ответы</value>
-  </data>
-  <data name="CheckQuiz" xml:space="preserve">
-    <value>Исправить ошибки</value>
-  </data>
-  <data name="ChooseDraft" xml:space="preserve">
-    <value>Вы можете сохранить черновик теста, чтобы продолжить работу над ним позже (просмотр и редактирование черновика будет доступно только вам).</value>
-  </data>
-  <data name="ChooseName" xml:space="preserve">
-    <value>Выбрать название теста</value>
-  </data>
-  <data name="Correct" xml:space="preserve">
-    <value>Верно</value>
-  </data>
-  <data name="CorrectAnswer" xml:space="preserve">
-    <value>Правильный ответ</value>
-  </data>
-  <data name="CreateQuiz" xml:space="preserve">
-    <value>Создать тест</value>
-  </data>
-  <data name="DeleteQuiz" xml:space="preserve">
-    <value>Удалить этот тест</value>
-  </data>
-  <data name="LeaveQuiz" xml:space="preserve">
-    <value>Уверены, что хотите прекратить тестирование?</value>
-  </data>
-  <data name="MultipleChoice" xml:space="preserve">
-    <value>вопросы с вариантами ответов</value>
-  </data>
-  <data name="NotFinished" xml:space="preserve">
-    <value>Вы ещё не закончили тестирование.</value>
-  </data>
-  <data name="PreviewQuiz" xml:space="preserve">
-    <value>Просмотр</value>
-  </data>
-  <data name="Publish" xml:space="preserve">
-    <value>Опубликовать</value>
-  </data>
-  <data name="PublishQuiz" xml:space="preserve">
-    <value>Опубликовать этот тест</value>
-  </data>
-  <data name="RetakeQuiz" xml:space="preserve">
-    <value>Повторный тест</value>
-  </data>
-  <data name="SaveDraft" xml:space="preserve">
-    <value>Сохранить черновик</value>
-  </data>
-  <data name="Wrong" xml:space="preserve">
-    <value>Неверно</value>
-  </data>
-  <data name="YourScore" xml:space="preserve">
-    <value>Ваш результат</value>
-  </data>
-  <data name="NoAnswer" xml:space="preserve">
-    <value>Не дано ответа</value>
-  </data>
   <data name="Afraid" xml:space="preserve">
     <value>Пока нет, я боюсь</value>
   </data>
@@ -190,14 +127,8 @@
   <data name="QuizTime" xml:space="preserve">
     <value>Время пройти тест</value>
   </data>
-  <data name="ScoreDistribution" xml:space="preserve">
-    <value>Распределение очков:</value>
-  </data>
   <data name="TakeChance" xml:space="preserve">
     <value>Попробовать</value>
-  </data>
-  <data name="TopThree" xml:space="preserve">
-    <value>Три лидера в этом тесте:</value>
   </data>
   <data name="YouReady" xml:space="preserve">
     <value>Готовы протестировать себя?</value>

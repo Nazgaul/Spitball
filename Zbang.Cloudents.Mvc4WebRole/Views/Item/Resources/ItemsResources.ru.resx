@@ -123,9 +123,6 @@
   <data name="Download" xml:space="preserve">
     <value>Загрузить</value>
   </data>
-  <data name="FullScreen" xml:space="preserve">
-    <value>Полный экран</value>
-  </data>
   <data name="OpenLink" xml:space="preserve">
     <value>Открыть ссылку в новой вкладке</value>
   </data>
@@ -142,12 +139,6 @@
 
 недоступен для файлов этого типа.</value>
   </data>
-  <data name="Print" xml:space="preserve">
-    <value>Напечатать</value>
-  </data>
-  <data name="Rate" xml:space="preserve">
-    <value>Оценит</value>
-  </data>
   <data name="SecurityReasons" xml:space="preserve">
     <value>По соображениям безопасности эту ссылку невозможно открыть в Spitball</value>
   </data>
@@ -156,8 +147,5 @@
   </data>
   <data name="Processing" xml:space="preserve">
     <value>Обрабатывает новый мультимедийный файл</value>
-  </data>
-  <data name="PostedBy" xml:space="preserve">
-    <value>Опубликовано</value>
   </data>
 </root>

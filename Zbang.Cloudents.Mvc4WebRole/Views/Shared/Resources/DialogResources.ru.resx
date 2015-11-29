@@ -117,23 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Добавить</value>
-  </data>
-  <data name="AddLink" xml:space="preserve">
-    <value>Добавить ссылку на сайт</value>
-  </data>
-  <data name="AddUrl" xml:space="preserve">
-    <value>Добавить URL, например, www.website.com</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Отменить</value>
-  </data>
-  <data name="ChooseFile" xml:space="preserve">
-    <value>Выбрать файл</value>
-  </data>
-  <data name="ChooseFiles" xml:space="preserve">
-    <value>Выбрать файлы для загрузки в</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Создать</value>
@@ -141,77 +126,22 @@
   <data name="CreateItem" xml:space="preserve">
     <value>Создать новый отдел</value>
   </data>
-  <data name="DragAndDrop" xml:space="preserve">
-    <value>Перетащите ваши файлы сюда</value>
-  </data>
-  <data name="DropToUpload" xml:space="preserve">
-    <value>Перетащите файлы для загрузки</value>
-  </data>
   <data name="Next" xml:space="preserve">
     <value>Следующий</value>
-  </data>
-  <data name="RequiredField" xml:space="preserve">
-    <value>Обязательное поле</value>
-  </data>
-  <data name="SelectFromList" xml:space="preserve">
-    <value>-- выбрать из списка</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Отправить</value>
   </data>
-  <data name="SendMessage" xml:space="preserve">
-    <value>Отправить сообщение</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Настройки</value>
-  </data>
-  <data name="SiteLink" xml:space="preserve">
-    <value>Ссылка на сайт</value>
-  </data>
   <data name="To" xml:space="preserve">
     <value>Кому:</value>
   </data>
-  <data name="UploadFiles" xml:space="preserve">
-    <value>Загрузить ресурс</value>
-  </data>
   <data name="MessageRequired" xml:space="preserve">
     <value>Требуется cообщение</value>
-  </data>
-  <data name="Continue" xml:space="preserve">
-    <value>Продолжить</value>
-  </data>
-  <data name="Done" xml:space="preserve">
-    <value>Выполнено</value>
-  </data>
-  <data name="Congrats" xml:space="preserve">
-    <value>Поздравляю</value>
-  </data>
-  <data name="EarnPoints" xml:space="preserve">
-    <value>Зарабатывайте очки приглашением друзей, загрузкой файлов и решением тестов!</value>
-  </data>
-  <data name="ReachTop" xml:space="preserve">
-    <value>Хотите добраться до верхней части графика?</value>
-  </data>
-  <data name="YouEarned" xml:space="preserve">
-    <value>вы заработали</value>
-  </data>
-  <data name="WillRemove" xml:space="preserve">
-    <value>Удаление приведет к удалению всего содержимого и участников
-</value>
-  </data>
-  <data name="MarkToDelete" xml:space="preserve">
-    <value>Отметить удалить этот ящик</value>
   </data>
   <data name="CrystalClear" xml:space="preserve">
     <value>Зарегистрироваться в Spitball и тогда все будет кристально ясно</value>
   </data>
   <data name="IsItBlurry" xml:space="preserve">
     <value>Видите размыто?</value>
-  </data>
-  <data name="FacebookInvite" xml:space="preserve">
-    <value>Для приглашения через Facebook  скопируйте ссылку в сообщения Facebook  и отправьте.</value>
-  </data>
-  <data name="PressCtrlC" xml:space="preserve">
-    <value>Нажмите CTRL+C чтобы скопировать</value>
   </data>
 </root>

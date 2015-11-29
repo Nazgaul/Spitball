@@ -141,28 +141,10 @@
   <data name="FieldRequired" xml:space="preserve">
     <value>this field is required</value>
   </data>
-  <data name="FirstConfirm" xml:space="preserve">
-    <value>You must first confirm your password</value>
-  </data>
-  <data name="NameCannotContain" xml:space="preserve">
-    <value>user name cannot contain @ character</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
   <data name="PwdRequired" xml:space="preserve">
     <value>Password required</value>
-  </data>
-  <data name="University" xml:space="preserve">
-    <value>University</value>
-  </data>
-  <data name="UserName" xml:space="preserve">
-    <value>User name</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="GenderRequired" xml:space="preserve">
-    <value>Please select gender</value>
   </data>
 </root>

@@ -123,9 +123,6 @@
   <data name="EmailDoesNotExists" xml:space="preserve">
     <value>Указанный адрес электронной почты не существует</value>
   </data>
-  <data name="EmailExists" xml:space="preserve">
-    <value>Адрес электронной почты уже существует</value>
-  </data>
   <data name="FacebookGetDataError" xml:space="preserve">
     <value>Проблема получения данных Facebook.</value>
   </data>

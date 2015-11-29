@@ -117,96 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddDept" xml:space="preserve">
-    <value>إضافة قسم جديد</value>
-  </data>
-  <data name="Back" xml:space="preserve">
-    <value>العودة  
-</value>
-  </data>
-  <data name="BrowseCourses" xml:space="preserve">
-    <value>استعراض المقررات</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>الغاء </value>
-  </data>
-  <data name="Comments" xml:space="preserve">
-    <value>تعليقات</value>
-  </data>
-  <data name="CreateNew" xml:space="preserve">
-    <value>اعداد جديد</value>
-  </data>
   <data name="Email" xml:space="preserve">
     <value>بريد الكتروني </value>
-  </data>
-  <data name="Facebook" xml:space="preserve">
-    <value>فيس بوك</value>
-  </data>
-  <data name="Follow" xml:space="preserve">
-    <value>تابع</value>
   </data>
   <data name="Invite" xml:space="preserve">
     <value>دعوة </value>
   </data>
-  <data name="Invites" xml:space="preserve">
-    <value>دعوى </value>
-  </data>
-  <data name="Items" xml:space="preserve">
-    <value>خصصوصية</value>
-  </data>
-  <data name="JoinLater" xml:space="preserve">
-    <value>او اشترك في وقت اخر</value>
-  </data>
-  <data name="JoinNow" xml:space="preserve">
-    <value>اشترك الان</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>الاسم</value>
-  </data>
-  <data name="Notifications" xml:space="preserve">
-    <value>تنبيه</value>
-  </data>
-  <data name="Or" xml:space="preserve">
-    <value>او </value>
-  </data>
-  <data name="Owner" xml:space="preserve">
-    <value>مالك /مؤلف</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>حفظ</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>بحث </value>
-  </data>
-  <data name="Share" xml:space="preserve">
-    <value>شارك</value>
-  </data>
-  <data name="SignUpAsMember" xml:space="preserve">
-    <value>اشترك كعضو لتتمتع بمزايا اخرى للبرنامج</value>
-  </data>
-  <data name="SignUpNow" xml:space="preserve">
-    <value>تسجيل الان </value>
-  </data>
-  <data name="WriteComment" xml:space="preserve">
-    <value>اكتب تعليق </value>
-  </data>
-  <data name="EmailAddress" xml:space="preserve">
-    <value>عنوان البريد الالكتروني</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>اعدادات</value>
-  </data>
   <data name="Help" xml:space="preserve">
     <value>مساعدة</value>
-  </data>
-  <data name="Menu" xml:space="preserve">
-    <value>القائمة</value>
-  </data>
-  <data name="Views" xml:space="preserve">
-    <value>عرض </value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>حذف  </value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>تسجيل الدخول</value>
@@ -214,77 +132,8 @@
   <data name="Connect" xml:space="preserve">
     <value>الاتصال</value>
   </data>
-  <data name="OnlyPeople" xml:space="preserve">
-    <value>الأشخاص التي تمنح إذن الدخول صراحةُ لها فقط حق الوصول. يلزم تسجيل الدخول.</value>
-  </data>
-  <data name="AnyoneWho" xml:space="preserve">
-    <value>يمكن لأي شخص لديه الرابط أن يكون له حق الوصول. لا يلزم تسجيل الدخول.</value>
-  </data>
-  <data name="Remove" xml:space="preserve">
-    <value>حذف</value>
-  </data>
-  <data name="InviteFriends" xml:space="preserve">
-    <value>دعوة صديق</value>
-  </data>
   <data name="Message" xml:space="preserve">
     <value>الرسالة</value>
-  </data>
-  <data name="Sent" xml:space="preserve">
-    <value>تم الإرسال</value>
-  </data>
-  <data name="ShowAll" xml:space="preserve">
-    <value>عرض الكل</value>
-  </data>
-  <data name="Files" xml:space="preserve">
-    <value>ملفات </value>
-  </data>
-  <data name="Answers" xml:space="preserve">
-    <value>الإجابات</value>
-  </data>
-  <data name="Following" xml:space="preserve">
-    <value>عضو</value>
-  </data>
-  <data name="ActiveMember" xml:space="preserve">
-    <value>عضو نشط</value>
-  </data>
-  <data name="Friends" xml:space="preserve">
-    <value>اعضاء</value>
-  </data>
-  <data name="Pending" xml:space="preserve">
-    <value>قيد الانتظار</value>
-  </data>
-  <data name="Reinvite" xml:space="preserve">
-    <value>تم دعوته مرة أخرى</value>
-  </data>
-  <data name="ContactUs" xml:space="preserve">
-    <value>للاتصال </value>
-  </data>
-  <data name="CloudentsHelp" xml:space="preserve">
-    <value>مساعدة Spitball</value>
-  </data>
-  <data name="OrCopyLink" xml:space="preserve">
-    <value>أو نسخ هذا الرابط ...</value>
-  </data>
-  <data name="Questions" xml:space="preserve">
-    <value>الأسئلة</value>
-  </data>
-  <data name="ShareItem" xml:space="preserve">
-    <value>مشاركة عنصر</value>
-  </data>
-  <data name="ShareUsing" xml:space="preserve">
-    <value>مشاركة هذا الملف باستخدام:</value>
-  </data>
-  <data name="ShowLess" xml:space="preserve">
-    <value>عرض الأقل</value>
-  </data>
-  <data name="ShowMore" xml:space="preserve">
-    <value>عرض المزيد</value>
-  </data>
-  <data name="StillHave" xml:space="preserve">
-    <value>هل لا يزال لديك سؤال؟</value>
-  </data>
-  <data name="Activity" xml:space="preserve">
-    <value>نشاط</value>
   </data>
   <data name="Points" xml:space="preserve">
     <value>النقاط</value>
@@ -292,60 +141,14 @@
   <data name="WriteMessage" xml:space="preserve">
     <value>كتابة رسالة ...</value>
   </data>
-  <data name="Dashboard" xml:space="preserve">
-    <value>لوحة التحكم</value>
-  </data>
-  <data name="Courses" xml:space="preserve">
-    <value>مساقات</value>
-  </data>
   <data name="Members" xml:space="preserve">
     <value>اعضاء </value>
-  </data>
-  <data name="Department" xml:space="preserve">
-    <value>القسم</value>
-  </data>
-  <data name="All" xml:space="preserve">
-    <value>الكل </value>
-  </data>
-  <data name="AllResults" xml:space="preserve">
-    <value>عرض كل النتائج عن</value>
-  </data>
-  <data name="Materials" xml:space="preserve">
-    <value>المواد</value>
-  </data>
-  <data name="People" xml:space="preserve">
-    <value>الأشخاص</value>
   </data>
   <data name="Pts" xml:space="preserve">
     <value>نقاط</value>
   </data>
-  <data name="ResultsOther" xml:space="preserve">
-    <value>نتائج من جامعات أخرى</value>
-  </data>
   <data name="SweetPoints" xml:space="preserve">
     <value>جميل، لقد كسبت للتو</value>
-  </data>
-  <data name="NoResults" xml:space="preserve">
-    <value>لا توجد نتائج</value>
-  </data>
-  <data name="Rename" xml:space="preserve">
-    <value>تغيير الاسم</value>
-  </data>
-  <data name="Downloads" xml:space="preserve">
-    <value>التنزيلات</value>
-  </data>
-  <data name="New" xml:space="preserve">
-    <value>جديد 
-</value>
-  </data>
-  <data name="InvitesYou" xml:space="preserve">
-    <value>يدعوك</value>
-  </data>
-  <data name="Uploaded" xml:space="preserve">
-    <value>تم التحميل على الموقع</value>
-  </data>
-  <data name="Female" xml:space="preserve">
-    <value>أنثى </value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>الاسم الأول 
@@ -354,45 +157,11 @@
   <data name="LastName" xml:space="preserve">
     <value>اسم العائلة</value>
   </data>
-  <data name="Male" xml:space="preserve">
-    <value>ذكر </value>
-  </data>
-  <data name="MiddleName" xml:space="preserve">
-    <value>الاسم الأوسط </value>
-  </data>
-  <data name="GroupBoxes" xml:space="preserve">
-    <value>صناديق المجموعة 
-</value>
-  </data>
-  <data name="NoNotifications" xml:space="preserve">
-    <value>لا توجد الإخطارات</value>
-  </data>
-  <data name="Answer" xml:space="preserve">
-    <value>الإجابة</value>
-  </data>
-  <data name="Comment" xml:space="preserve">
-    <value>تعليق</value>
-  </data>
-  <data name="Post" xml:space="preserve">
-    <value>نشر</value>
-  </data>
-  <data name="Draft" xml:space="preserve">
-    <value>مسودة</value>
-  </data>
-  <data name="Question" xml:space="preserve">
-    <value>سؤال</value>
-  </data>
-  <data name="Course" xml:space="preserve">
-    <value>مسار</value>
-  </data>
   <data name="FacebookSignUp" xml:space="preserve">
     <value>التسجيل عبر الفيس بوك</value>
   </data>
   <data name="EmailSignUp" xml:space="preserve">
     <value>تسجيل الدخول بالبريد الإلكتروني </value>
-  </data>
-  <data name="Close" xml:space="preserve">
-    <value>اغلاق</value>
   </data>
   <data name="CloudentsQuizzes" xml:space="preserve">
     <value>ألغاز Spitball - قم بإنشاء ومشاركة ومشاركة الألغاز وكن مستعداً لامتحاناتك!</value>
@@ -421,9 +190,6 @@
   <data name="PublishQuiz" xml:space="preserve">
     <value> انشر اللغز وشاركه مع أصدقائك</value>
   </data>
-  <data name="RegisterFirst" xml:space="preserve">
-    <value>للوصول إلى كافة الميزات</value>
-  </data>
   <data name="RegisterFree" xml:space="preserve">
     <value>اشترك مجانا!</value>
   </data>
@@ -441,13 +207,6 @@
   <data name="UseMaterial" xml:space="preserve">
     <value> استخدم المواد أو الوثائق التعليمية الخاصة بك الموجودة بالفعل على Spitball</value>
   </data>
-  <data name="Choose" xml:space="preserve">
-    <value>اختار
-</value>
-  </data>
-  <data name="Created" xml:space="preserve">
-    <value>خلق</value>
-  </data>
   <data name="EmailRequired" xml:space="preserve">
     <value>ادخل بريدك الالكتروني</value>
   </data>
@@ -455,30 +214,7 @@
     <value>رسالة شخصية
 </value>
   </data>
-  <data name="AddComment" xml:space="preserve">
-    <value>اكتب تعليقاً...</value>
-  </data>
-  <data name="Feed" xml:space="preserve">
-    <value>التغذية</value>
-  </data>
-  <data name="Quizzes" xml:space="preserve">
-    <value>اختبارات
-</value>
-  </data>
-  <data name="ChooseDept" xml:space="preserve">
-    <value>اختر قسم</value>
-  </data>
-  <data name="BestInSchool" xml:space="preserve">
-    <value>الأفضل في المدرسة
-</value>
-  </data>
-  <data name="Unfollow" xml:space="preserve">
-    <value>ازالة المتابعة </value>
-  </data>
   <data name="Jobs" xml:space="preserve">
     <value>وظائف</value>
-  </data>
-  <data name="NowAvailable" xml:space="preserve">
-    <value>متوفر في الوقت الحاضر على هاتفك النقال!</value>
   </data>
 </root>

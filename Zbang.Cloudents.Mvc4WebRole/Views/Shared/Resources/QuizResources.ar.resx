@@ -117,69 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddAnswer" xml:space="preserve">
-    <value>أضف إجابة</value>
-  </data>
-  <data name="AddQuestion" xml:space="preserve">
-    <value>أضف سؤال</value>
-  </data>
-  <data name="CheckAnswers" xml:space="preserve">
-    <value>تحقق من الإجابات</value>
-  </data>
-  <data name="CheckQuiz" xml:space="preserve">
-    <value>تحقق من اختبارك</value>
-  </data>
-  <data name="ChooseDraft" xml:space="preserve">
-    <value>يمكنك اختيار حفظ هذا الاختبار بوصفه "مسودة" حيث يمكنك تحريره في المستقبل (يمكنك رؤية وتحرير المسودة فقط)</value>
-  </data>
-  <data name="ChooseName" xml:space="preserve">
-    <value>اختر اسم الاختبار</value>
-  </data>
-  <data name="Correct" xml:space="preserve">
-    <value>صحيحة</value>
-  </data>
-  <data name="CorrectAnswer" xml:space="preserve">
-    <value>اجابة صحيحة</value>
-  </data>
-  <data name="CreateQuiz" xml:space="preserve">
-    <value>انشئ اختبار</value>
-  </data>
-  <data name="DeleteQuiz" xml:space="preserve">
-    <value>حذف الاختبار</value>
-  </data>
-  <data name="LeaveQuiz" xml:space="preserve">
-    <value>هل أنت متأكد أنك تريد أن تترك هذا الاختبار؟</value>
-  </data>
-  <data name="MultipleChoice" xml:space="preserve">
-    <value>أسئلة متعددة الإختيارات</value>
-  </data>
-  <data name="NotFinished" xml:space="preserve">
-    <value>لم تنته من اختبارك بعد.</value>
-  </data>
-  <data name="PreviewQuiz" xml:space="preserve">
-    <value>معاينة الاختبار</value>
-  </data>
-  <data name="Publish" xml:space="preserve">
-    <value>أنشر</value>
-  </data>
-  <data name="PublishQuiz" xml:space="preserve">
-    <value>نشر الاختبار</value>
-  </data>
-  <data name="RetakeQuiz" xml:space="preserve">
-    <value>إعادة الاختبار</value>
-  </data>
-  <data name="SaveDraft" xml:space="preserve">
-    <value>حفظ كمسودة</value>
-  </data>
-  <data name="Wrong" xml:space="preserve">
-    <value>خاطئة</value>
-  </data>
-  <data name="YourScore" xml:space="preserve">
-    <value>نتيجتك</value>
-  </data>
-  <data name="NoAnswer" xml:space="preserve">
-    <value>الجواب لا</value>
-  </data>
   <data name="Afraid" xml:space="preserve">
     <value>خائف</value>
   </data>
@@ -189,14 +126,8 @@
   <data name="QuizTime" xml:space="preserve">
     <value>وقت الاختبار</value>
   </data>
-  <data name="ScoreDistribution" xml:space="preserve">
-    <value>توزيع الدرجات</value>
-  </data>
   <data name="TakeChance" xml:space="preserve">
     <value>خذ فرصة</value>
-  </data>
-  <data name="TopThree" xml:space="preserve">
-    <value>أعلى ثلاثة</value>
   </data>
   <data name="YouReady" xml:space="preserve">
     <value>أنت مستعد</value>

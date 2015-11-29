@@ -117,19 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ConfirmEmailCompare" xml:space="preserve">
-    <value>это неправильный адрес эл. почты</value>
-  </data>
-  <data name="FieldRequired" xml:space="preserve">
-    <value>Это поле обязательно для заполнения</value>
-  </data>
-  <data name="GenderRequired" xml:space="preserve">
-    <value>Пожалуйста, выберите пол</value>
-  </data>
-  <data name="InvalidEmail" xml:space="preserve">
-    <value>это неправильный адрес эл. почты</value>
-  </data>
-  <data name="PwdAtLeast6Chars" xml:space="preserve">
-    <value>должен иметь не менее 6 символов</value>
-  </data>
 </root>

@@ -120,19 +120,10 @@
   <data name="ChooseDept" xml:space="preserve">
     <value>اختر قسم</value>
   </data>
-  <data name="Country" xml:space="preserve">
-    <value>الدولة</value>
-  </data>
   <data name="CreateDept" xml:space="preserve">
     <value>أنشيء قسم</value>
   </data>
   <data name="FieldRequired" xml:space="preserve">
     <value>يجب تعبئة هذا الحقل</value>
-  </data>
-  <data name="SchoolName" xml:space="preserve">
-    <value>اسم المعهد الاكاديمي </value>
-  </data>
-  <data name="Type" xml:space="preserve">
-    <value>نوع</value>
   </data>
 </root>

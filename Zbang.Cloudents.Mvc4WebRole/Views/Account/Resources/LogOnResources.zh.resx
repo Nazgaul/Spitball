@@ -120,12 +120,6 @@
   <data name="AlreadyHave" xml:space="preserve">
     <value>已经有账户了？</value>
   </data>
-  <data name="ByEmail" xml:space="preserve">
-    <value>或通过 Email</value>
-  </data>
-  <data name="CreateNew" xml:space="preserve">
-    <value>加入 Spitball</value>
-  </data>
   <data name="DontHaveAnAccount" xml:space="preserve">
     <value>没有账户？</value>
   </data>
@@ -138,14 +132,8 @@
   <data name="LogIn" xml:space="preserve">
     <value>登录</value>
   </data>
-  <data name="NoAccount" xml:space="preserve">
-    <value>没有账户？</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>密码</value>
-  </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>合作账号登录</value>
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>注册</value>

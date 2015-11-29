@@ -117,16 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MyGroup" xml:space="preserve">
-    <value>我的群组主题框</value>
-  </data>
-  <data name="Upload" xml:space="preserve">
-    <value>上传</value>
-  </data>
-  <data name="UploadContent" xml:space="preserve">
-    <value>上传内容并邀请你所选择的协作人员</value>
-  </data>
-  <data name="WhereStudy" xml:space="preserve">
-    <value>学习群组就此集中</value>
-  </data>
 </root>

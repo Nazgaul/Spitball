@@ -27,7 +27,7 @@
 
         <div ng-if="lc.createUniversity" class="add-univeristy">
             <form ng-submit="lc.createNewUniversity()" novalidate>
-              
+
                 <md-input-container>
                     <label>Country</label>
                     <md-select ng-model="lc.countryCode" md-container-class="dd-list">
@@ -35,13 +35,31 @@
                     </md-select>
                 </md-input-container>
                 <md-input-container>
-                    <label>School name</label>
-                    <input type="text" ng-model="lc.universityName" required
+                    @*<label>School name</label>*@
+                    @*<input type="text" ng-model="lc.universityName" required
                            uib-typeahead="item.name for item in lc.searchAutoComplete($viewValue)"
                            typeahead-wait-ms="250"
                            typeahead-min-length="2"
-                           typeahead-on-select="lc.selectUniversity($item)" />
+                           typeahead-on-select="lc.selectUniversity($item)" />*@
+                    <md-autocomplete required
+                                     md-delay="250"
+                                     md-input-minlength="2"
+                                     md-no-cache="false"
+                                     md-selected-item-change="lc.selectUniversity(item)"
+                                     md-select-on-match="true"
+                                     @*md-selected-item="lc.selectUniversity"*@
+                                     md-search-text="lc.universityName"
+                                     md-items="item in lc.searchAutoComplete(lc.universityName)"
+                                     md-item-text="item.name"
+                                     md-floating-label="School name">
+                        <md-item-template>
+                            <span md-highlight-text="lc.universityName">{{item.name}}</span>
+                        </md-item-template>
+                    </md-autocomplete>
+
                 </md-input-container>
+               
+                
 
                 <button type="button" class="btn btn-default pull-right text-capitalize" ng-click="lc.createUniversity = false">cancel</button>
                 <button type="submit" class="btn btn-primary pull-right text-capitalize">create</button>

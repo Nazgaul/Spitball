@@ -117,40 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddItem" xml:space="preserve">
-    <value>Добавить элемент</value>
-  </data>
-  <data name="BoxEmpty" xml:space="preserve">
-    <value>Здесь одиноко,
-у вас есть, чем поделиться?</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Отменить</value>
-  </data>
-  <data name="ChooseFiles" xml:space="preserve">
-    <value>Выберите файлы, которые вы хотите добавить</value>
-  </data>
-  <data name="CreateTab" xml:space="preserve">
-    <value>Создать новую вкладку</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Удалить</value>
-  </data>
-  <data name="FeedEmpty" xml:space="preserve">
-    <value>Искусство и наука задавать вопросы —
-это источник всех знаний.</value>
-  </data>
-  <data name="Manage" xml:space="preserve">
-    <value>Управление</value>
-  </data>
-  <data name="Privacy" xml:space="preserve">
-    <value>Конфиденциальность</value>
-  </data>
-  <data name="QuizEmpty" xml:space="preserve">
-    <value>Здесь пока нечего решать.
-Создайте тест первым.</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>Сохранить</value>
-  </data>
 </root>

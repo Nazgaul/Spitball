@@ -117,25 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddCourse" xml:space="preserve">
-    <value>添加一个课程</value>
-  </data>
-  <data name="AddItem" xml:space="preserve">
-    <value>新增一个项目</value>
-  </data>
-  <data name="CreateCourse" xml:space="preserve">
-    <value>创建新课程</value>
-  </data>
-  <data name="FillGap" xml:space="preserve">
-    <value>填空</value>
-  </data>
-  <data name="SomethingMissing" xml:space="preserve">
-    <value>缺少什么？</value>
-  </data>
-  <data name="Students" xml:space="preserve">
-    <value>学生</value>
-  </data>
-  <data name="ThisDepartment" xml:space="preserve">
-    <value>该系</value>
-  </data>
 </root>
