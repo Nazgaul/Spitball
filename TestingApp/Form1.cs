@@ -134,7 +134,7 @@ namespace TestingApp
             var read = iocFactory.Resolve<IItemReadSearchProvider2>();
             var sw = new Stopwatch();
             sw.Start();
-            var retVal = await read.SearchItem(new SearchQuery(textBox1.Text, Convert.ToInt64(textBoxUserId.Text),
+            var retVal = await read.SearchItemAsync(new SearchQuery(textBox1.Text, Convert.ToInt64(textBoxUserId.Text),
                 Convert.ToInt64(textBoxUniversityName.Text)), default(CancellationToken));
             sw.Stop();
             textBox2.Text = string.Empty;

@@ -1,4 +1,7 @@
-﻿.library-choose .row {
+﻿.library-choose {
+  color: #798590;
+}
+.library-choose .row {
   margin-top: 20px;
 }
 .library-choose .univeristy {
@@ -139,4 +142,3 @@
   width: 100%;
   margin-left: 15px;
 }
-  color: #798590;

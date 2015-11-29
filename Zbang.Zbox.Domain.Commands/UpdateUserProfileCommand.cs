@@ -7,9 +7,8 @@ namespace Zbang.Zbox.Domain.Commands
     {
         public UpdateUserProfileCommand(long id,
             string firstName,
-            string lastName, long universityId)
+            string lastName)
         {
-            UniversityId = universityId;
             Id = id;
 
             FirstName = firstName;
@@ -22,7 +21,6 @@ namespace Zbang.Zbox.Domain.Commands
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
 
-        public long UniversityId { get; private set; }
 
     }
 }

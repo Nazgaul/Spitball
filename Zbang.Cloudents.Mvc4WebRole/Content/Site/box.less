@@ -3,7 +3,7 @@
 .class {
     .page-title {
         svg {
-            fill: #484F56;
+            fill: @svgColorGrey;
             width: 30px;
             height: 30px;
         }
@@ -15,13 +15,13 @@
 
     .need-follow {
         margin-top: 20px;
-        background: #006072;
+        background: @backgroundColorFollow;
     }
 
     .invite-btn {
-        border: 1px solid #fff;
+        border: 1px solid @borderColorWhite;
         border-radius: 4px;
-        color: #fff;
+        color: @textColorWhite;
         text-transform: uppercase;
         padding: 5px 50px 3px;
     }
@@ -32,7 +32,7 @@
         margin-bottom: 15px;
 
         div {
-            border: 1px solid #3D4348;
+            border: 1px solid @borderColorGrey;
             padding: 15px;
             -ms-flex: 1;
             -webkit-flex: 1;
@@ -44,11 +44,11 @@
 
         a, button {
             font-size: 18px;
-            color: #A8B3BB;
+            color: @textColorGrey;
         }
 
         svg {
-            fill: #A8B3BB;
+            fill: @textColorGrey;
             width: 40px;
             height: 40px;
             display: block;
@@ -95,25 +95,25 @@
     }
 
     .comment-date {
-        color: #6E7983;
+        color: @textColorDarkGrey;
         font-size: 12px;
     }
 
     .items-container {
-        overflow-x: hidden;
+        overflow-x: auto;
         white-space: nowrap;
         padding-left: 34px;
     }
 
     .comment {
-        background: #212427;
+        background: @backgroundColor;
         position: relative;
         //overflow: hidden;
         border-radius: 10px;
         margin-bottom: 25px;
 
         .c-img {
-            border: 3px solid #353a3f;
+            border: 3px solid @borderColorDarkGrey;
         }
 
         & > .top {
@@ -121,7 +121,7 @@
             padding-top: 5px;
             padding-bottom: 5px;
             border-radius: 10px 10px 0 0;
-            color: #f5f5f5;
+            color: @textColorWhite;
         }
 
         .margins {
@@ -131,13 +131,13 @@
         .like {
             // border: 1px solid #5B9CC2;
             //background: #4190b9;
-            color: #4190b9;
+            color: @textColorLike;
             margin-left: 18px;
             margin-right: 0;
         }
 
         .user-name {
-            color: #2698D4;
+            color: @textColorBlue;
             font-weight: 700;
         }
 
@@ -166,7 +166,7 @@
         .like {
             //background-color: transparent;
             //border: 1px solid #6E7983;
-            color: #6E7983;
+            color: @textColorDarkGrey;
             margin-right: 0;
         }
 
@@ -174,8 +174,8 @@
             margin: 0 10px 10px 0;
 
             &:hover {
-                border-color: #5B9CC2;
-                color: #5B9CC2;
+                border-color: @textColorHover;
+                color: @textColorHover;
             }
         }
 
@@ -190,7 +190,7 @@
         }
 
         .user-name {
-            color: #2698D4;
+            color: @textColorBlue;
             font-weight: normal;
         }
 
@@ -204,7 +204,7 @@
     }
 
     .actions {
-        color: #6E7983;
+        color: @textColorDarkGrey;
         padding-bottom: 10px;
         margin: 10px 0 0 6px;
         font-size: 13px;
@@ -212,7 +212,7 @@
         svg {
             width: 20px;
             height: 20px;
-            fill: #535B63;
+            fill: @textColorDarkGrey;
             vertical-align: middle;
 
             &:hover {
@@ -220,17 +220,23 @@
             }
         }
 
+        .anonymous {
+                &:hover {
+                    fill: @anonymousColor;
+                }
+            }
+
         .dropbox {
 
             &:hover {
-                fill: #007EE5;
+                fill: @dropboxColor;
             }
         }
     }
 
 
     .replies {
-        border-top: 2px solid #353A3F;
+        border-top: 2px solid @borderColorDarkGrey;
         padding-top: 15px;
     }
 
@@ -274,12 +280,12 @@
 
     .list-inline > li {
         margin: 0 10px;
-        border: 1px solid #42494F;
+        border: 1px solid @borderColorGrey;
         padding: 5px 5px 0;
     }
 
     margin-bottom: 25px;
-    background: #212427;
+    background: @backgroundColor;
     padding: 10px;
 
     .new-comment-border {
@@ -289,7 +295,7 @@
     textarea {
         width: 100%;
         border: none;
-        background: #212427;
+        background: @backgroundColor;
         outline: none; //override
         resize: none;
         padding-left: 10px;
@@ -315,7 +321,7 @@
         display: none;
 
         &:checked + label svg {
-            fill: red;
+            fill: @anonymousColor;
         }
     }
 
@@ -325,7 +331,7 @@
         font-size: 13px;
         border-radius: 6px;
         margin: 5px 0 0 20px;
-        color: #fff;
+        color: @textColorWhite;
     }
 
     svg {
@@ -333,18 +339,24 @@
         height: 35px;
         vertical-align: middle;
         margin: 0 12px;
-        fill: #535B63;
+        fill: @svgColorGrey;
     }
 
     .file {
         &:hover {
-            fill: #F9F9F9;
+            fill: @fileColor;
+        }
+    }
+
+    .dropbox {
+        &:hover {
+            fill: @dropboxColor;
         }
     }
 
     .link {
         &:hover {
-            fill: #64D0FF;
+            fill: @linkColor;
         }
     }
 
@@ -353,7 +365,7 @@
         height: 35px;
 
         &:hover {
-            fill: #F9F9F9;
+            fill: @anonymousColor;
         }
     }
 }
@@ -368,17 +380,11 @@
     }
 
     .member-name {
-        color: #bababa;
+        color: @textColorGrey;
         font-size: 15px;
         margin-left: 10px;
     }
 }
-
-
-
-
-
-
 
 .quiz {
     // border: 1px solid #42494F;
@@ -387,7 +393,7 @@
         //height: 72px;
         padding-bottom: 60.5%;
         position: relative;
-        color: #f5f5f5;
+        color: @textColorWhite;
 
         .first-letter {
             position: absolute;
@@ -401,7 +407,7 @@
             height: 20vw;
             text-align: center;
             line-height: 20vw;
-            border: 1px solid @color2;
+            border: 1px solid @textColorWhite;
 
             @media (min-width: 768px) {
                 font-size: 13vw;
@@ -428,7 +434,7 @@
 
     .bottom {
         // height: 101px;
-        background: @color2;
+        background: @backgroundColorQuiz;
         position: relative;
         //padding: 10px;
         padding-bottom: 80.5%;
@@ -437,7 +443,7 @@
             margin-top: 5px;
             padding: 0 6px;
             position: absolute; //take no height
-            color: @textColor;
+            color: @textColorBlack;
             //display: block;
             //display: -webkit-box;
             max-height: 40px; /* Fallback for non-webkit */
@@ -466,7 +472,7 @@
             position: absolute;
             border-style: solid;
             border-width: 39px 39px 0 0 /*rtl:ignore*/;
-            border-color: @color2 transparent;
+            border-color: @borderColorWhite transparent;
         }
     }
 
@@ -475,9 +481,9 @@
     .details {
         display: none;
         height: 325px;
-        background: #484F56;
+        background: @backgroundColorMenu;
         padding: 10px;
-        color: #fff;
+        color: @textColorWhite;
         direction: ltr /*rtl:ignore*/;
         position: relative;
 
@@ -517,7 +523,7 @@
     .stats {
         width: 100%;
         height: 38px;
-        color: @color2;
+        color: @textColorWhite;
         font-size: 14px;
         padding: 12px;
     }
@@ -579,8 +585,8 @@
     }
 
     .extra {
-        color: #fff;
-        background: #6a737d;
+        color: @textColorWhite;
+        background: @backgroundColorItem;
         position: absolute;
         top: 100%;
         left: 0;
@@ -601,7 +607,7 @@
     .stats {
         //width: 100%;
         //height: 38px;
-        color: @color2;
+        color: @textColorWhite;
         font-size: 14px;
         padding: 0 12px;
     }
@@ -611,7 +617,7 @@
     margin-bottom: 15px;
 
     .base {
-        border: 1px solid #42494F;
+        border: 1px solid @borderColorGrey;
         padding: 5px;
         display: inline-block;
         width: 100%;
@@ -628,7 +634,7 @@
     svg {
         width: 12px;
         height: 12px;
-        fill: @color2;
+        fill: @textColorWhite;
     }
 }
 
@@ -638,7 +644,7 @@
     svg {
         width: 14px;
         height: 14px;
-        fill: @color2;
+        fill: @textColorWhite;
     }
 }
 
@@ -700,17 +706,17 @@
         font-size: 18px;
 
         svg {
-            fill: #fff;
+            fill: @fileColor;
             width: 80px;
             height: 80px;
         }
 
         .link {
-            fill: #64D0FF;
+            fill: @linkColor;
         }
 
         .dropbox {
-            fill: #007EE5;
+            fill: @dropboxColor;
         }
 
         span {

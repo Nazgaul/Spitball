@@ -1,0 +1,105 @@
+﻿@{
+    const string url = "~/images/site/uploadIcons.svg";
+}
+<div class="row margin-bottom-20" ng-cloak uib-collapse="!u.open" ng-controller="Upload as u">
+    <div class="col-md-12">
+        <div class="portlet box upload">
+            <div class="portlet-title">
+                <div class="caption">
+                    upload files
+                </div>
+                <button type="button" class="close" ng-click="u.toggleUpload(false)">@Html.Svg("~/images/site/icons.svg", "close")</button>
+            </div>
+            <div class="portlet-body form">
+                <div class="form-horizontal">
+                    <div class="form-body">
+                        <div class="tab-content">
+                            <div ng-if="u.alert" class="alert alert-danger alert-dismissible" role="alert">{{u.alert}}</div>
+                            <div class="row uploadSection" ng-if="u.uploadStep === 0">
+                                <div class="col-md-3" ng-click="u.uploadStep = 1">
+                                    <button type="button">
+                                        <span>
+                                            @Html.Svg(url, "file")
+                                        </span>
+                                        upload files from computer
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" ng-click="u.google()" ng-disabled="!u.googleDriveLoaded">
+                                        <span>
+                                            @Html.Svg(url, "googleDrive")
+                                        </span>
+
+                                        upload files from google drive
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" ng-click="u.dropBox()" ng-disabled="!u.dropBoxLoaded">
+                                        <span>
+                                            @Html.Svg(url, "dropbox", new { @class = "dropbox" }))
+                                        </span>
+                                        upload files from dropbox
+                                    </button>
+                                </div>
+                                <div class="col-md-3" ng-click="u.uploadStep = 4">
+                                    <button type="button">
+                                        <span>
+                                            @Html.Svg(url, "link", new { @class = "link" })
+                                        </span>
+                                        add website link
+                                    </button>
+                                </div>
+                            </div>
+                            <div ng-if="u.uploadStep === 1" id="dropElement" class="text-center upload-file">
+                                <div ng-hide="u.files.length">
+                                    <div>Drag and drop your files here</div>
+                                    <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn" plupload-callbacks="u.fileUpload.callbacks">
+                                        upload files
+                                    </a>
+                                </div>
+                                <h5 ng-if="u.files.length">{{u.files.length}} files | upload complete</h5>
+                                <ul class="list-inline">
+                                    @*<li class="file-upload">
+                                            <span class="check-mark" ng-if="true">@Html.Svg(url, "checkMark")</span>
+                                            <div class="file-name ellipsis">
+                                                Coldpaly_-_A_Sky_Full_Of_Stars.mp3
+
+                                                <div class="progress file-upload-progress" ng-if="!file.complete">
+                                                    <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" ng-style="{width: 50 + '%'}">
+                                                        <span class="sr-only">50% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="file-size">4.2 mb</div>
+                                            <button type="button">remove file</button>
+                                        </li>*@
+                                    <li class="file-upload" ng-repeat="file in u.files" ng-include="'file-upload.html'">
+                                </ul>
+                            </div>
+                            <div ng-if="u.uploadStep === 4" ng-form="uploadLink">
+
+                                <label for="uploadLink">share with your firends youtube video, artivle or other educational material from any site</label>
+                                <input type="url" spellcheck="false" class="form-control" ng-model="u.link" id="uploadLink" name="uploadLink" autofocus required>
+                                <input type="submit" class="btn blue" ng-click="u.uploadLink()" ng-disabled="u.submitFormProcess" value="share" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="file-upload.html">
+    <span class="check-mark" ng-if="file.complete">@Html.Svg(url, "checkMark")</span>
+    <div class="file-name ellipsis">
+        {{::file.name}}
+
+        <div class="progress file-upload-progress" ng-if="!file.complete">
+            <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{file.percent}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width: file.percent + '%'}">
+                <span class="sr-only">{{file.percent}}% Complete</span>
+            </div>
+        </div>
+    </div>
+    <div class="file-size">{{::file.sizeFormated}}</div>
+    <button type="button">remove file</button>
+</script>

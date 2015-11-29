@@ -3073,7 +3073,7 @@
     <Content Include="Views\Shared\Partials2\_LeaderBoard.cshtml" />
     <Content Include="Views\Box\_Members2.cshtml" />
     <Content Include="Views\Box\_Quizzes2.cshtml" />
-    <Content Include="Views\Box\_Upload.cshtml" />
+    <Content Include="Views\Shared\Partials2\_Upload.cshtml" />
     <Content Include="Views\Quiz\Index2.cshtml" />
     <Content Include="Views\Shared\Partials2\_Invite.cshtml" />
     <Content Include="Views\Shared\Partials2\_commonTemplate.cshtml" />
@@ -3086,7 +3086,7 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Library\Choose.cshtml" />
     <Content Include="Views\Box\_Settings.cshtml" />
-    <Content Include="Views\Error\P404.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

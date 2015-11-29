@@ -4,7 +4,7 @@
 
     function upload($scope, itemService, $q, $timeout, $stateParams, $rootScope, externalUploadProvider) {
         var u = this;
-        var boxid = $stateParams.boxId || $scope.$parent.cc.box.id;
+        var boxid = 0;// $stateParams.boxId || $scope.$parent.cc.box.id;
         var cc = $scope.$parent.cc || {};
 
         var uploadChoose = {
@@ -14,8 +14,10 @@
             dropbox: 3,
             link: 4
         };
-
+        
         $scope.$on('open_upload', function () {
+            u.open = true;
+           
             externalUploadProvider.dropboxInit().then(function() {
                 u.dropBoxLoaded = true;
             });

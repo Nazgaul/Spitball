@@ -34,8 +34,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("MembersOnly");
         }
 
-        public ActionResult P404()
+        public ActionResult NotFound()
         {
+            Response.StatusCode = 404;
             return View();
         }
 
