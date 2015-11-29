@@ -17,21 +17,50 @@
 @color11:#db4437;
 
 
-//new variables
-@backgroundColor:#212427;
-@backgroundColor2: #9E9E9E; //overall background color
-@buttonColorBlue :#4190b9;
+//new pallete:
+//texts
+@textColorBlack: #282828;
+@textColorWhite: #f5f5f5;
+@textColorGrey: #A8B3BB;
+@textColorDarkGrey: #8c99a6;
+@textColorLike: #4190b9;
+@textColorBlue: #2698D4;
+@textColorHover: #5B9CC2;
 
+//backgrounds
+@backgroundColor: #212427;
+@backgroundColor2: #9E9E9E; //Eidan background color choice
+@backgroundColorQuiz: #f5f5f5;
+@backgroundColorMenu: #484F56;
+@backgroundColorFollow: #006072;
+@backgroundColorItem: #6a737d;
 
-//new pallete
+//borders
+@borderColorGrey: #3D4348;
+@borderColorDarkGrey: #353a3f;
+@borderColorWhite: #f5f5f5;
+@borderColorBlack: #282828;
 
+//buttons
+@buttonColorBlue: #4190b9;
+@buttonColorHover: #26566e;
+
+//svg/images
+@fileColor: #f9f9f9;
+@linkColor: #64D0FF;
+@svgColorGrey: #484F56;
+@dropboxColor: #007EE5;
+@anonymousColor: #d39f10;
+
+//scrollbar
+@scrollbarColor: rgba(157,153,156,.5);
 
 
 .buttonBlue() {
     background:@buttonColorBlue;
 
     &:hover {
-        background:#26566e;
+        background: @buttonColorHover;
         color:inherit;
     }
     &:focus {

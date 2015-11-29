@@ -109,7 +109,7 @@
                                     @Html.Svg(url, "file", new { @class = "file" })
                                 </a>
                                 <button type="button" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()">@Html.Svg(url, "googleDrive")</button>
-                                <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox")</button>
+                                <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
                                 <button type="button">@Html.Svg(url, "link", new { @class = "link" })</button>
                                 <button type="submit" class="btn pull-right text-uppercase" ng-disabled="f.add.disabled">post</button>
                                 @*<input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
