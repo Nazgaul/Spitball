@@ -19,7 +19,6 @@
     }
 
     .invite-btn {
-        float: right;
         border: 1px solid #fff;
         border-radius: 4px;
         color: #fff;
@@ -59,6 +58,25 @@
 
     .settings {
         width: ~"calc(100% - 60px)";
+
+        .padding {
+            @media (min-width: 960px) {
+                padding-right: 30px;
+            }
+        }
+
+        .btn {
+            padding: 0 16px;
+        }
+
+        .btn-primary {
+            .buttonBlue();
+            margin-left: 20px;
+        }
+
+        .btn-default {
+            border: none;
+        }
     }
 }
 

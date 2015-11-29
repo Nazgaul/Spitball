@@ -12,7 +12,6 @@
   background: #006072;
 }
 .class .invite-btn {
-  float: left;
   border: 1px solid #fff;
   border-radius: 4px;
   color: #fff;
@@ -50,6 +49,28 @@
 }
 .class .settings {
   width: calc(100% - 60px);
+}
+@media (min-width: 960px) {
+  .class .settings .padding {
+    padding-left: 30px;
+  }
+}
+.class .settings .btn {
+  padding: 0 16px;
+}
+.class .settings .btn-primary {
+  background: #4190b9;
+  margin-right: 20px;
+}
+.class .settings .btn-primary:hover {
+  background: #26566e;
+  color: inherit;
+}
+.class .settings .btn-primary:focus {
+  color: inherit;
+}
+.class .settings .btn-default {
+  border: none;
 }
 .feed {
   font-size: 16px;
