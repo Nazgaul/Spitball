@@ -513,10 +513,11 @@ Page Header
     height: 40px;
     margin-right: 16px;
     font-size: 15px;
+    line-height: 40px;
   }
-  .page-header.navbar .search-form.search-form-expanded .input-group .form-control:hover {
-    cursor: text;
-  }
+  /*.page-header.navbar .search-form.search-form-expanded .input-group .form-control:hover {
+        cursor: text;
+    }*/
   /* Boxed Layout */
   .page-boxed .page-header.navbar {
     /* Page logo */

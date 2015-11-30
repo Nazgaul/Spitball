@@ -62,7 +62,7 @@
                 </a>
                 <a href="@Url.Action("Index","Search")" @shouldPostBack class="search-form search-form-expanded" ng-hide="app.hideSearch">
                     <div class="input-group">
-                        <input type="text" class="form-control input-sm" placeholder="Search..." name="query" disabled>
+                        <span type="text" class="form-control input-sm">Search...</span>
                         <span class="input-group-btn">
                             @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })
                         </span>

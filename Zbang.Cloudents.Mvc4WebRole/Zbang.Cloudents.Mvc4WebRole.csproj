@@ -337,10 +337,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>JsResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Mobile\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Models\Account\Confirmation.cs" />
     <Compile Include="Models\Account\FacebookLogIn.cs" />
     <Compile Include="Models\Account\ForgotPassword.cs" />

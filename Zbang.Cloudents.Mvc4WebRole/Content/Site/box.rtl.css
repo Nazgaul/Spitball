@@ -470,6 +470,7 @@
 .item .content {
   position: relative;
   display: inline-block;
+  width: 100%;
 }
 .item:hover .extra {
   top: 0;
