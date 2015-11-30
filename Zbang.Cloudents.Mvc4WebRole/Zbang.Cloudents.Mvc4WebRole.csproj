@@ -76,8 +76,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="FiftyOne.Foundation">
-      <HintPath>..\packages\51Degrees.mobi.3.1.10.2\lib\NET40\FiftyOne.Foundation.dll</HintPath>
+    <Reference Include="FiftyOne.Foundation, Version=3.2.5.6, Culture=neutral, PublicKeyToken=e0b3a8da0bbce49c, processorArchitecture=MSIL">
+      <HintPath>..\packages\51Degrees.mobi.3.2.5.6\lib\NET40\FiftyOne.Foundation.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1275,6 +1276,7 @@
     <Content Include="bower_components\textAngular\changelog.md" />
     <Content Include="bower_components\textAngular\CONTRIBUTING.md" />
     <Content Include="bower_components\textAngular\README.md" />
+    <Content Include="App_Data\51Degrees.dat" />
     <None Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -1461,6 +1463,12 @@
     <Content Include="Content\Site\dashboard.rtl.min.css">
       <DependentUpon>dashboard.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\error.min.css">
+      <DependentUpon>error.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\error.rtl.min.css">
+      <DependentUpon>error.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
@@ -1572,14 +1580,8 @@
     <Content Include="Content\Site\error.css">
       <DependentUpon>error.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\error.min.css">
-      <DependentUpon>error.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\error.rtl.css">
       <DependentUpon>error.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\error.rtl.min.css">
-      <DependentUpon>error.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\plugins.css">
       <DependentUpon>plugins.less</DependentUpon>
@@ -2188,6 +2190,7 @@
     <Content Include="Images\Store\category.png.scss">
       <DependentUpon>category.png</DependentUpon>
     </Content>
+    <Content Include="Mobile\Default.aspx" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
@@ -2221,9 +2224,9 @@
     <Content Include="Scripts\elasticTextBox.js" />
     <Content Include="Scripts\externalScriptLoader.js" />
     <Content Include="Images\Web.config" />
-    <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-messages.min.js.map" />

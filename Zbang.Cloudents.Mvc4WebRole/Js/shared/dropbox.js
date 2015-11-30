@@ -41,7 +41,7 @@
                         defer.reject('dropbox choose error');
                     },
                     linkType: "direct",
-                    multiselect: true
+                    multiselect: false
                 });
 
                 return defer.promise;

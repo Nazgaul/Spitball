@@ -36,6 +36,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult NotFound()
         {
+            ViewBag.postBag = true;
             Response.StatusCode = 404;
             return View();
         }

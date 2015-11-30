@@ -12,30 +12,24 @@
 
         //self.init = function () {
 
-            
+
         //    $q.all([googleService.initDrive(), googleService.initGApi()]).then(function () {
         //        self.googleDriveLoaded = true;
         //    });
         //}
 
-        self.dropboxInit = function() {
+        self.dropboxInit = function () {
             return dropboxService.init();
         }
 
-        self.googleDriveInit = function() {
+        self.googleDriveInit = function () {
             return $q.all([googleService.initDrive(), googleService.initGApi()]);
         }
 
         self.google = function (boxId) {
             var defer = $q.defer();
             googleService.picker().then(function (response) {
-                var filesUpload = [];
-                for (var i = 0; i < response.length; i++) {
-                    filesUpload.push(itemService.addLink(response[i].link, boxId, null, response[i].name));
-                }
-                $q.all(filesUpload).then(function (retVal) {
-                    defer.resolve(retVal);
-                });
+                defer.resolve(itemService.addLink(response[0].link, boxId, null, response[0].name));
             });
             return defer.promise;
         }
@@ -43,13 +37,7 @@
         self.dropBox = function (boxId) {
             var defer = $q.defer();
             dropboxService.choose().then(function (response) {
-                var filesUpload = [];
-                for (var i = 0; i < response.length; i++) {
-                    filesUpload.push(itemService.addFromDropBox(boxId, response[i].link, response[i].name));
-                }
-                $q.all(filesUpload).then(function (retVal) {
-                    defer.resolve(retVal);
-                });
+                defer.resolve(itemService.addFromDropBox(boxId, response[0].link, response[0].name));
             });
             return defer.promise;
 

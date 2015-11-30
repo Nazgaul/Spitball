@@ -132,7 +132,7 @@ input, li, [contenteditable], span, textarea, [role="button"] {
     width: 55px;
     height: 55px;
     border-radius: 50%;
-    background: #db4437;
+    background: @buttonColorRed;
     z-index: 1;
     right: 24px;
     bottom: 25px;
@@ -149,7 +149,7 @@ input, li, [contenteditable], span, textarea, [role="button"] {
 .dd-list {
 
     md-content {
-        background: #353A3F;
+        background: @backgroundColorMenu;
         color: @textColorWhite;
     }
 
@@ -159,10 +159,10 @@ input, li, [contenteditable], span, textarea, [role="button"] {
         font-size: 13px;
 
         &[selected] {
-            color: #3598dc;
+            color: @textColorBlue;
 
             &:focus {
-                color: #3598dc;
+                color: @textColorBlue;
             }
         }
 
@@ -178,34 +178,34 @@ input, li, [contenteditable], span, textarea, [role="button"] {
 }
 
 md-select:not([disabled]):focus .md-select-value {
-    color: #ECECEC;
-    border-bottom: 1px solid #376E8C;
+    color: @textColorWhite;
+    border-bottom: 1px solid @borderColorDarkBlue;
 }
 
 md-select .md-select-value.md-select-placeholder {
-    color:#ECECEC;
+    color:@textColorWhite;
 }
 
 md-input-container:not(.md-input-invalid).md-input-has-value label {
-    color: #798590;
+    color: @textColorDarkGrey;
 }
 
 md-input-container label {
-    color: #798590;
+    color: @textColorDarkGrey;
 }
 
 .md-select-value .md-select-icon,
 md-select .md-select-value,
 md-input-container .md-input {
-    border-color: #376E8C;
+    border-color: @borderColorDarkBlue;
 
     &:focus, &:active {
-        color: #376E8C;
+        color: @textColorBlue;
     }
 }
 
 md-input-container .md-input {
-    color: #fff;
+    color: @textColorWhite;
 }
 
 .md-select-value *:first-child {
@@ -243,7 +243,7 @@ md-input-container .md-input {
     z-index: 1000;
     overflow-y: auto;
     background: @backgroundColor;
-    background: #F4F4F4;
+    background: @backgroundColorWhite;
 
     header {
         height: @fullScreenHeaderHeight;
@@ -255,7 +255,7 @@ md-input-container .md-input {
         right: 0;
         font-size: 20px;
         z-index: 5;
-        border-bottom: 5px solid #212427;
+        border-bottom: 5px solid @borderColorBlack;
 
         .close {
             position: absolute;
@@ -401,11 +401,11 @@ md-input-container .md-input {
             border: 0;
             padding: 12px 13px 5px 13px;
             font-size: 13px;
-            color: #6c6c6c;
+            color: @textColorDarkGrey;
         }
 
         .overElement() {
-            color: @color2;
+            color: @textColorWhite;
             background: none;
             border: 0;
             margin: 0;
@@ -424,7 +424,7 @@ md-input-container .md-input {
                 .overElement();
             }
 
-            border-bottom: 3px solid @color7;
+            border-bottom: 3px solid @borderColorBlue;
             position: relative;
         }
 
@@ -439,7 +439,7 @@ md-input-container .md-input {
 .nav-tabs, .tabbable {
     border-bottom: none;
     border-radius: 5px;
-    background: #353a3f;
+    background: @backgroundColorMenu;
     padding: 10px 10px 0;
     margin-bottom: 20px;
     font-size: 16px;
@@ -447,37 +447,37 @@ md-input-container .md-input {
     li {
         margin: 0 20px 0 10px;
         background: transparent;
-        color: #8c99a6;
+        color: @textColorDarkGrey;
         outline: none;
 
         &:hover, &:focus {
             background: transparent;
-            color: #3598dc;
+            color: @textColorBlue;
         }
 
         &.active, &:active {
             background: transparent;
             border: 0;
-            border-bottom: 3px solid #3293f6;
+            border-bottom: 3px solid @borderColorBlue;
             font-weight: bold;
-            color: #f5f5f5;
+            color: @textColorWhite;
         }
 
         &.active > a, &.active > a:hover, &.active > a:focus {
             background: transparent;
             border: 0;
             font-weight: bold;
-            color: #f5f5f5;
+            color: @textColorWhite;
             cursor: auto;
         }
 
         & > a {
-            color: #8c99a6;
+            color: @textColorDarkGrey;
             font-size: 16px;
             border: none;
 
             &:hover {
-                color: #3598dc;
+                color: @textColorBlue;
                 border: none;
             }
         }

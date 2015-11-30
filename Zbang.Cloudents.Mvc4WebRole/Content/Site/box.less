@@ -27,16 +27,20 @@
     }
     //add button
     .add-button {
-        text-align: center;
-        .displayFlex();
+        
+        //text-align: center;
+        //.displayFlex();
         margin-bottom: 15px;
-
-        div {
+        
+        .aspect-ratio();
+        
+        .content {
             border: 1px solid @borderColorGrey;
             padding: 15px;
-            -ms-flex: 1;
-            -webkit-flex: 1;
-            flex: 1;
+            
+            //-ms-flex: 1;
+            //-webkit-flex: 1;
+            //flex: 1;
             .displayFlex();
             justify-content: center;
             align-items: center;
@@ -434,7 +438,7 @@
 
     .bottom {
         // height: 101px;
-        background: @backgroundColorQuiz;
+        background: @backgroundColorWhite;
         position: relative;
         //padding: 10px;
         padding-bottom: 80.5%;
@@ -565,6 +569,7 @@
     .content {
         position: relative;
         display: inline-block;
+        width:100%;
     }
 
     &:hover .extra {
@@ -649,18 +654,18 @@
 }
 
 .i-q-wrapper {
-    padding: 0 0.5%;
+    margin: 0 0.5%;
 
     @media (min-width : 960px ) and (max-width:1200px) {
-        padding: 0 1%;
+        margin: 0 1%;
     }
 
     @media (min-width : 600px ) and (max-width:960px) {
-        padding: 0 1.2%;
+        margin: 0 1.2%;
     }
 
     @media (max-width:600px) {
-        padding: 0 2%;
+        margin: 0 2%;
     }
 }
 

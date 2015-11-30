@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.box').controller('BoxController', box);
-    box.$inject = ['boxService', 'boxData', '$stateParams', '$location', '$scope', '$state', '$rootScope'];
+    box.$inject = ['boxService', 'boxData', '$stateParams', '$location', '$scope', '$state'];
 
-    function box(boxService, boxData, $stateParams, $location, $scope, $state, $rootScope) {
+    function box(boxService, boxData, $stateParams, $location, $scope, $state) {
 
         if (!$location.hash()) {
             $state.go('box.feed');
@@ -23,7 +23,7 @@
 
         //b.uploadOn = false;
         //b.uploadShow = isItemState($state.current.name);
-        b.toggleUpload = toggleUpload;
+        //b.toggleUpload = toggleUpload;
         b.toggleSettings = toggleSettings;
 
         function toggleSettings() {
@@ -81,16 +81,16 @@
             b.inviteOpen = true;
             $scope.$broadcast('open_invite');
         }
-        function toggleUpload(open) {
+        //function toggleUpload(open) {
 
-            b.uploadShow = !open;
-            b.uploadOn = open;
-            if (b.uploadShow) {
-                $scope.$broadcast('open_upload');
-            } else {
-                $scope.$broadcast('close_upload');
-            }
-        }
+        //    b.uploadShow = !open;
+        //    b.uploadOn = open;
+        //    if (b.uploadShow) {
+        //        $scope.$broadcast('open_upload');
+        //    } else {
+        //        $scope.$broadcast('close_upload');
+        //    }
+        //}
         function follow() {
             boxService.follow(boxId);
             b.needFollow = false;

@@ -99,11 +99,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc),
                     Url = result2.File.Url,
                     DownloadUrl = Url.RouteUrl("ItemDownload2", new { model.BoxId, itemId = result2.File.Id }),
-                    
+
                 };
-                
+
                 m_CookieHelper.RemoveCookie("upload");
-                return JsonOk(new { fileDto, boxId = model.BoxId });
+                return JsonOk(new { item = fileDto, boxId = model.BoxId });
 
             }
             catch (Exception ex)
@@ -274,7 +274,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     Url = result2.Link.Url,
                     DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = result2.Link.Box.Id, itemId = result2.Link.Id })
                 };
-                return JsonOk(item);
+                return JsonOk(new { item, boxId = model.BoxId });
             }
             catch (DuplicateNameException)
             {
@@ -311,12 +311,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (notUploaded)
             {
                 await m_QueueProvider.Value.InsertMessageToDownloadAsync(
-                    new UrlToDownloadData(model.Url,model.Name, model.BoxId, userId));
+                    new UrlToDownloadData(model.Url, model.Name, model.BoxId, userId));
                 return JsonOk();
             }
             var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                model.Name,
-                size,  model.Question);
+                size, model.Question);
             var result = await ZboxWriteService.AddItemToBoxAsync(command);
             var result2 = result as AddFileToBoxCommandResult;
             if (result2 == null)
@@ -330,13 +330,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 OwnerId = result2.File.Uploader.Id,
                 UserUrl = result2.File.Uploader.Url,
                 Source = result2.File.ItemContentUrl,
-               // Thumbnail = result2.File.ThumbnailUrl,
+                // Thumbnail = result2.File.ThumbnailUrl,
                 Owner = result2.File.Uploader.Name,
                 Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc),
                 Url = result2.File.Url,
                 DownloadUrl = Url.RouteUrl("ItemDownload2", new { model.BoxId, itemId = result2.File.Id })
             };
-            return JsonOk(fileDto);
+            return JsonOk(new { item = fileDto, boxId = model.BoxId });
 
 
         }

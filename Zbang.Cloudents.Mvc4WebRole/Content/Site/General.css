@@ -196,7 +196,7 @@ textarea,
     }*/
 }
 .dd-list md-content {
-  background: #353A3F;
+  background: #353a3f;
   color: #f5f5f5;
 }
 .dd-list md-option {
@@ -205,10 +205,10 @@ textarea,
   font-size: 13px;
 }
 .dd-list md-option[selected] {
-  color: #3598dc;
+  color: #2698d4;
 }
 .dd-list md-option[selected]:focus {
-  color: #3598dc;
+  color: #2698d4;
 }
 .dd-list md-option:last-child {
   border: none;
@@ -218,22 +218,22 @@ textarea,
   padding-bottom: 0;
 }
 md-select:not([disabled]):focus .md-select-value {
-  color: #ECECEC;
-  border-bottom: 1px solid #376E8C;
+  color: #f5f5f5;
+  border-bottom: 1px solid #376e8c;
 }
 md-select .md-select-value.md-select-placeholder {
-  color: #ECECEC;
+  color: #f5f5f5;
 }
 md-input-container:not(.md-input-invalid).md-input-has-value label {
-  color: #798590;
+  color: #8c99a6;
 }
 md-input-container label {
-  color: #798590;
+  color: #8c99a6;
 }
 .md-select-value .md-select-icon,
 md-select .md-select-value,
 md-input-container .md-input {
-  border-color: #376E8C;
+  border-color: #376e8c;
 }
 .md-select-value .md-select-icon:focus,
 md-select .md-select-value:focus,
@@ -241,10 +241,10 @@ md-input-container .md-input:focus,
 .md-select-value .md-select-icon:active,
 md-select .md-select-value:active,
 md-input-container .md-input:active {
-  color: #376E8C;
+  color: #2698d4;
 }
 md-input-container .md-input {
-  color: #fff;
+  color: #f5f5f5;
 }
 .md-select-value *:first-child {
   max-width: 100%;
@@ -270,7 +270,7 @@ md-input-container .md-input {
   z-index: 1000;
   overflow-y: auto;
   background: #212427;
-  background: #F4F4F4;
+  background: #f5f5f5;
 }
 .full-screen header {
   height: 80px;
@@ -282,7 +282,7 @@ md-input-container .md-input {
   right: 0;
   font-size: 20px;
   z-index: 5;
-  border-bottom: 5px solid #212427;
+  border-bottom: 5px solid #282828;
 }
 .full-screen header .close {
   position: absolute;
@@ -392,7 +392,7 @@ md-input-container .md-input {
   border: 0;
   padding: 12px 13px 5px 13px;
   font-size: 13px;
-  color: #6c6c6c;
+  color: #8c99a6;
 }
 .tab-from-right > li.active {
   border-bottom: 3px solid #3598dc;
@@ -443,7 +443,7 @@ md-input-container .md-input {
 .nav-tabs li:focus,
 .tabbable li:focus {
   background: transparent;
-  color: #3598dc;
+  color: #2698d4;
 }
 .nav-tabs li.active,
 .tabbable li.active,
@@ -451,7 +451,7 @@ md-input-container .md-input {
 .tabbable li:active {
   background: transparent;
   border: 0;
-  border-bottom: 3px solid #3293f6;
+  border-bottom: 3px solid #3598dc;
   font-weight: bold;
   color: #f5f5f5;
 }
@@ -475,6 +475,6 @@ md-input-container .md-input {
 }
 .nav-tabs li > a:hover,
 .tabbable li > a:hover {
-  color: #3598dc;
+  color: #2698d4;
   border: none;
 }

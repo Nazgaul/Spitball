@@ -20,17 +20,25 @@
   padding: 5px 50px 3px;
 }
 .class .add-button {
-  text-align: center;
-  display: -webkit-flex;
-  display: flex;
   margin-bottom: 15px;
+  position: relative;
 }
-.class .add-button div {
+.class .add-button:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 141.42%;
+}
+.class .add-button > .content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+.class .add-button .content {
   border: 1px solid #3d4348;
   padding: 15px;
-  -ms-flex: 1;
-  -webkit-flex: 1;
-  flex: 1;
   display: -webkit-flex;
   display: flex;
   justify-content: center;
@@ -414,7 +422,7 @@
 .quiz .details {
   display: none;
   height: 325px;
-  background: #484f56;
+  background: #353a3f;
   padding: 10px;
   color: #f5f5f5;
   direction: ltr ;
@@ -470,6 +478,7 @@
 .item .content {
   position: relative;
   display: inline-block;
+  width: 100%;
 }
 .item:hover .extra {
   top: 0;
@@ -538,21 +547,21 @@
   fill: #f5f5f5;
 }
 .i-q-wrapper {
-  padding: 0 0.5%;
+  margin: 0 0.5%;
 }
 @media (min-width: 960px) and (max-width: 1200px) {
   .i-q-wrapper {
-    padding: 0 1%;
+    margin: 0 1%;
   }
 }
 @media (min-width: 600px) and (max-width: 960px) {
   .i-q-wrapper {
-    padding: 0 1.2%;
+    margin: 0 1.2%;
   }
 }
 @media (max-width: 600px) {
   .i-q-wrapper {
-    padding: 0 2%;
+    margin: 0 2%;
   }
 }
 .item-animate.ng-move,

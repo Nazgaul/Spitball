@@ -154,7 +154,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
                         new JsFileWithCdn("~/scripts/angular.min.js",
-                            "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"),
+                            "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"),
                         //new JsFileWithCdn("~/scripts/angular-sanitize.js"
                         //    //"https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-sanitize.min.js"
                         //    ),

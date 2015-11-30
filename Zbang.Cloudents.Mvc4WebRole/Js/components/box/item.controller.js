@@ -23,6 +23,7 @@
 
         function openUpload() {
             $rootScope.$broadcast('open_upload');
+            i.uploadShow = false;
         }
 
 
@@ -58,9 +59,12 @@
             if (response.boxId != $stateParams.boxId) { // string an int comarison
                 return;
             }
-            var item = response.fileDto;
+            var item = response.item;
             item.thumbnail = buildThumbnailUrl(item.source);
             i.items.unshift(item);
+        });
+        $rootScope.$on('close_upload', function() {
+            i.uploadShow = true;
         });
 
         function iterateItem() {

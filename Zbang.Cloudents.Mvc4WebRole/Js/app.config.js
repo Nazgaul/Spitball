@@ -47,7 +47,7 @@
                             window.open('/account/', '_self');
                             break;
                         case 404:
-                            window.open('/error/', '_self');
+                            window.open('/error/notfound/', '_self');
                             break;
                         case 500:
                             window.open('/error/', '_self');
