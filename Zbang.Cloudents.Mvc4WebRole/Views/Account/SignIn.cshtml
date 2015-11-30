@@ -130,26 +130,20 @@
                 <form class="register-form" action="" method="post">
                     @{ Html.RenderAction("AntiForgeryToken", "Home", true);}
                     <h3>@LogOnResources.CreateAccount</h3>
-                    <div class="login-options">
-                        <button type="button" class="facebook">@Html.Svg("/images/signin/icons.svg", "facebook") @LogOnResources.ExternalProvider</button>
-                        <button type="button" class="google">@Html.Svg("/images/signin/icons.svg", "google") @LogOnResources.ExternalProvider</button>
-                    </div>
                     <div id="register_alert_text" class="alert alert-danger display-hide">
                         <button class="close" data-close="alert"></button>
                         <span></span>
                     </div>
-                    <div class="form-group">
-                        <h4>@LogOnResources.OrSignupWith</h4>
+                    <div class="form-group first">
+
                         <label class="control-label visible-ie8 visible-ie9">@SharedResources.FirstName</label>
                         <div class="input-icon">
-                            <i class="fa fa-font"></i>
                             <input class="form-control placeholder-no-fix" type="text" placeholder="@SharedResources.FirstName" name="firstName" />
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group second">
                         <label class="control-label visible-ie8 visible-ie9">@SharedResources.LastName</label>
                         <div class="input-icon">
-                            <i class="fa fa-font"></i>
                             <input class="form-control placeholder-no-fix" type="text" placeholder="@SharedResources.LastName" name="lastName" />
                         </div>
                     </div>
@@ -157,51 +151,40 @@
                         <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                         <label class="control-label visible-ie8 visible-ie9">@SharedResources.Email</label>
                         <div class="input-icon">
-                            <i class="fa fa-envelope"></i>
                             <input class="form-control placeholder-no-fix" type="text" placeholder="@SharedResources.Email" name="NewEmail" id="register_email" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                        <label class="control-label visible-ie8 visible-ie9">@RegisterResources.VerifyEmail</label>
-                        <div class="input-icon">
-                            <i class="fa fa-envelope"></i>
-                            <input class="form-control placeholder-no-fix" type="text" placeholder="@RegisterResources.VerifyEmail" name="ConfirmEmail" />
-                        </div>
-                    </div>
+                    
 
                     <div class="form-group">
                         <label class="control-label visible-ie8 visible-ie9">@LogOnResources.Password</label>
                         <div class="input-icon">
-                            <i class="fa fa-lock"></i>
                             <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="@LogOnResources.Password" name="Password" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="input-icon">
-                            <i class="fa fa-globe"></i>
-                            <select class="bs-select form-control" id="lang_select">
-                                <option value="en-us" data-href="@Url.Action("Signup","Account", new { lang = "en-US"})">@Languages.EnglishUsName</option>
-                                <option value="en-uk" data-href="@Url.Action("Signup", "Account", new { lang = "en-UK" })">@Languages.EnglishGbName</option>
-                                <option value="he-il" data-href="@Url.Action("Signup", "Account", new { lang = "he-IL" })">@Languages.HebrewName</option>
-                                <option value="ru-ru" data-href="@Url.Action("Signup", "Account", new { lang = "ru-RU" })">@Languages.RussianName</option>
-                                <option value="ar-ae" data-href="@Url.Action("Signup", "Account", new { lang = "ar-AE" })">@Languages.ArabicName</option>
-                            </select>
+                    
+                    <div class="form-actions-container">
+                        <div class="form-group">
+                            <label>
+                                @RegisterResources.IAgree
+                                <a class="tos" target="_blank" href="@Url.Action("TermsOfService", "Home")">&nbsp;@RegisterResources.TermsOfServices</a>&nbsp;@RegisterResources.And&nbsp;<a target="_blank" href="@Url.Action("Privacy", "Home")">@RegisterResources.PrivacyPolicy</a>&nbsp;@RegisterResources.ofZbang
+                            </label>
+                        </div>
+
+                        <div class="form-actions pull-right">
+                            @*<button id="register-back-btn" type="button" class="btn">
+                    <i class="m-icon-swapleft"></i> Back
+                </button>*@
+                            <button type="submit" id="register-submit-btn" class="btn blue">
+                                @LogOnResources.SignUp
+                            </button>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>
-                            @RegisterResources.IAgree
-                            <a class="tos" target="_blank" href="@Url.Action("TermsOfService", "Home")">&nbsp;@RegisterResources.TermsOfServices</a>&nbsp;@RegisterResources.And&nbsp;<a target="_blank" href="@Url.Action("Privacy", "Home")">@RegisterResources.PrivacyPolicy</a>&nbsp;@RegisterResources.ofZbang
-                        </label>
-                    </div>
-                    <div class="form-actions pull-right">
-                        @*<button id="register-back-btn" type="button" class="btn">
-                                <i class="m-icon-swapleft"></i> Back
-                            </button>*@
-                        <button type="submit" id="register-submit-btn" class="btn blue">
-                            @LogOnResources.SignUp <i class="m-icon-swapright m-icon-white"></i>
-                        </button>
+                    
+                    <div class="login-options">
+                        <h4>@LogOnResources.OrSignupWith</h4>
+                        <button type="button" class="facebook">@Html.Svg("/images/signin/icons.svg", "facebook")</button>
+                        <button type="button" class="google">@Html.Svg("/images/signin/icons.svg", "google")</button>
                     </div>
                     <div class="login-account">
                         <p>
@@ -236,15 +219,6 @@
             Layout.init(); // init current layout
             Login.init();
             Demo.init();
-            // init background slide images
-            $.backstretch([
-                "/images/signin/1a.png",
-                "/images/signin/2a.png",
-                "/images/signin/3a.png"
-            ], {
-                fade: 1000,
-                duration: 8000
-            });
         });
     </script>
 </body>
