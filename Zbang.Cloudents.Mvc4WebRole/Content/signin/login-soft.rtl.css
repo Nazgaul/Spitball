@@ -27,24 +27,46 @@ Login page
   padding-top: 20px;
   padding-bottom: 15px;
 }
-.login .content h3 {
-  color: #3598dc;
-  margin-top: 0;
-  margin-bottom: 28px;
+.login .content p {
+  padding-bottom: 5px;
 }
 .login .content h4 {
   color: #8290a3;
   float: right;
   font-size: 18px;
+  margin-bottom: 20px;
 }
-.login .content p {
+.login .content h3 {
+  color: #3598dc;
+  margin-top: 0;
+  margin-bottom: 28px;
+  margin-right: 14%;
+}
+.login .content .create-account p,
+.login .content .login-account p {
   color: #E2E4E6;
   line-height: 40px;
-  padding-bottom: 5px;
 }
-.login .content label {
+.login .content .forget-password {
+  display: flex;
+}
+.login .content .forget-password p {
   color: #8290a3;
   font-size: 11px;
+  padding-right: 5%;
+  flex: 2;
+  margin: 0;
+  align-self: center;
+}
+.login .content .form-actions-container label {
+  color: #8290a3;
+  font-size: 11px;
+}
+.login .content label {
+  padding-left: 20%;
+}
+.login .checker {
+  margin-right: -2px;
 }
 .login .content .login-form,
 .login .content .forget-form {
@@ -98,7 +120,11 @@ Login page
 }
 .form-actions-container {
   display: flex;
-  margin-top: 30px;
+  margin-top: 25px;
+  padding-left: 6px;
+}
+.form-actions-container .form-group {
+  align-self: center;
 }
 .login .content .form-title {
   font-weight: 300;
@@ -117,6 +143,7 @@ Login page
   padding-right: 0;
   margin-top: 8px;
   display: inline-block;
+  color: #8290a3;
 }
 .login .content .forget-form .form-actions {
   border: 0;
@@ -125,31 +152,32 @@ Login page
 }
 .login .content .register-form .form-actions {
   border: 0;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
   padding-bottom: 0;
 }
 .login .content .form-actions .btn {
   margin-top: 1px;
-}
-.login .content .forget-password {
-  margin-top: 25px;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 17px;
+  font-weight: normal;
+  text-transform: none;
+  padding: 7px 24px;
 }
 .login .content .create-account {
-  border-top: 1px dotted #eee;
   padding-top: 10px;
   margin-top: 15px;
 }
-.login .content .create-account a {
-  display: inline-block;
-  margin-top: 5px;
-}
-.login .content .login-account {
+.login .content .login-account,
+.login .content .create-account {
   padding-top: 10px;
   clear: both;
   background: #6c7a8d;
   margin: -30px;
   padding: 0 80px 0 30px;
+  border: none;
 }
+.login .content .create-account a,
 .login .content .login-account a {
   display: inline-block;
   margin-top: 5px;
@@ -199,6 +227,18 @@ Login page
   margin-left: 0;
   width: inherit;
   float: left;
+}
+.login .login-options .facebook svg {
+  fill: #8493B3;
+}
+.login .login-options .google svg {
+  fill: #E07B6F;
+}
+.login .login-options svg {
+  width: 37px;
+  height: 37px;
+  margin-left: 10px;
+  margin-right: -8px;
 }
 .login label a {
   color: #30333A;
