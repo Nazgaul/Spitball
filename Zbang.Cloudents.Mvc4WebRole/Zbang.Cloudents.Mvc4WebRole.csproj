@@ -1572,14 +1572,8 @@
     <Content Include="Content\Site\error.css">
       <DependentUpon>error.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\error.min.css">
-      <DependentUpon>error.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\error.rtl.css">
       <DependentUpon>error.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\error.rtl.min.css">
-      <DependentUpon>error.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\plugins.css">
       <DependentUpon>plugins.less</DependentUpon>

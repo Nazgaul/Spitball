@@ -8,7 +8,7 @@
                 <div class="caption">
                     upload files
                 </div>
-                <button type="button" class="close" ng-click="u.toggleUpload(false)">@Html.Svg("~/images/site/icons.svg", "close")</button>
+                <button type="button" class="close" ng-click="u.closeUpload()">@Html.Svg("~/images/site/icons.svg", "close")</button>
             </div>
             <div class="portlet-body form">
                 <div class="form-horizontal">
@@ -36,7 +36,7 @@
                                 <div class="col-md-3">
                                     <button type="button" ng-click="u.dropBox()" ng-disabled="!u.dropBoxLoaded">
                                         <span>
-                                            @Html.Svg(url, "dropbox", new { @class = "dropbox" }))
+                                            @Html.Svg(url, "dropbox", new { @class = "dropbox" })
                                         </span>
                                         upload files from dropbox
                                     </button>
@@ -50,7 +50,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div ng-if="u.uploadStep === 1" id="dropElement" class="text-center upload-file">
+                            <div ng-if="u.uploadStep === 1" id="dropElement" class="text-center">
                                 <div ng-hide="u.files.length">
                                     <div>Drag and drop your files here</div>
                                     <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn" plupload-callbacks="u.fileUpload.callbacks">
@@ -77,10 +77,11 @@
                                 </ul>
                             </div>
                             <div ng-if="u.uploadStep === 4" ng-form="uploadLink">
-
-                                <label for="uploadLink">share with your firends youtube video, artivle or other educational material from any site</label>
-                                <input type="url" spellcheck="false" class="form-control" ng-model="u.link" id="uploadLink" name="uploadLink" autofocus required>
-                                <input type="submit" class="btn blue" ng-click="u.uploadLink()" ng-disabled="u.submitFormProcess" value="share" />
+                                <md-input-container flex="100" flex-gt-md="33" class="padding">
+                                    <label>share with your firends youtube video, artivle or other educational material from any site</label>
+                                    <input type="url" spellcheck="false" autocomplete="off" ng-model="u.link" autofocus required />
+                                </md-input-container>
+                                <input type="button" class="btn blue" ng-click="u.uploadLink()" ng-disabled="u.submitFormProcess" value="share" />
                             </div>
                         </div>
                     </div>

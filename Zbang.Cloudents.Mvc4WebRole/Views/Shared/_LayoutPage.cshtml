@@ -57,11 +57,10 @@
                         <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
                     </div>
                 </div>
-                <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
                 <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
                     @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
                 </a>
-                <a ui-sref="search" class="search-form search-form-expanded" ng-hide="app.hideSearch">
+                <a href="@Url.Action("Index","Search")" @shouldPostBack class="search-form search-form-expanded" ng-hide="app.hideSearch">
                     <div class="input-group">
                         <input type="text" class="form-control input-sm" placeholder="Search..." name="query" disabled>
                         <span class="input-group-btn">
@@ -189,7 +188,7 @@
                             <!-- END TODO DROPDOWN -->
                             <!-- BEGIN USER LOGIN DROPDOWN -->
                             <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                            <li class="dropdown dropdown-user dropdown-dark" ng-controller="UserDetails as ud">
+                            <li class="dropdown dropdown-user dropdown-dark" ng-cloak ng-controller="UserDetails as ud">
                                 <a ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <span class="username username-hide-on-mobile">
                                         {{ud.name}}

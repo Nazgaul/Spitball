@@ -2,10 +2,10 @@
 <form novalidate ng-submit="b.updateBox(updateBoxForm)" name="updateBoxForm">
     <md-input-container>
         <label>Name:</label>
-        <input type="text" autocomplete="off" name="name" ng-model="b.settings.name" required md-maxlength="250" />
+        <input type="text" autocomplete="off" name="name" ng-model="b.settings.name" required />
     </md-input-container>
 
-    <div layout="row" ng-if="b.isAcademic">
+    <div layout="row" layout-wrap ng-if="b.isAcademic">
         <md-input-container flex="100" flex-gt-md="33" class="padding">
             <label>Number:</label>
             <input type="text" autocomplete="off" name="number" ng-model="b.settings.courseId" />
@@ -16,7 +16,7 @@
             <input type="text" autocomplete="off" name="lecturer" ng-model="b.settings.professorName" />
         </md-input-container>
     </div>
-    <div layout="row" ng-if="!b.isAcademic && b.owner">
+    <div layout="row"  ng-if="!b.isAcademic && b.owner">
         <md-input-container flex="100">
             <label>Privacy settings:</label>
             <md-select name="notification" ng-model="b.settings.privacy" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
@@ -25,7 +25,7 @@
             </md-select>
         </md-input-container>
     </div>
-    <div layout="row">
+    <div layout="row" layout-wrap>
         <md-input-container flex="100" flex-gt-md="33" class="padding">
             <label>Notify Me:</label>
             <md-select name="notification" ng-model="b.settings.notificationSettings" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
@@ -43,7 +43,7 @@
                 <md-option ng-value="true">UnFollow</md-option>
             </md-select>
         </md-input-container>
-        <div layout="row" layout-align="end center" layout-align-gt-md="end center" flex="100" flex-gt-md="33">
+        <div layout="row" layout-align="end center" flex="100" flex-gt-md="33">
             <button type="button" class="btn btn-default" ng-click="b.settingsOpen = false">Cancel</button>
             <button type="submit" class="btn btn-primary">Save changes</button>
         </div>

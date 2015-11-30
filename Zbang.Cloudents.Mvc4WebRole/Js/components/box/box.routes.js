@@ -13,7 +13,7 @@
                 config: {
                     url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/',
                     controller: 'BoxController as b',
-                    containerClass: 'boxState',
+                    //containerClass: 'boxState',
                     resolve: {
                         boxData: [
                             'boxService', '$stateParams', function (boxService, $stateParams) {
