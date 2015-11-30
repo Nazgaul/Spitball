@@ -1,33 +1,35 @@
-﻿<div class="page-head">
-    <div class="page-title">
-        <h1>Account Page</h1>
+﻿<div class="accountPage-wrapper">
+    <div class="page-head">
+        <div class="page-title">
+            <h1>Settings</h1>
+        </div>
     </div>
-</div>
-<div class="row accountPage">
-    <div class="col-md-12">
-        <div class="profile-content">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="portlet light">
-                        <div class="portlet-title tabbable-line">
-                            <div class="caption caption-md">
-                               <span class="caption-subject  bold uppercase">Profile Account</span>
+    <div class="row accountPage">
+        <div class="col-md-12">
+            <div class="profile-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption caption-md">
+                                    <span class="caption-subject uppercase">Profile Account</span>
+                                </div>
+                                <ul class="nav nav-tabs tab-from-right">
+                                    <li ui-sref-active="active">
+                                        <a ui-sref="settings.profile" data-toggle="tab">Personal info</a>
+                                    </li>
+                                    <li ui-sref-active="active">
+                                        <a ui-sref="settings.password" data-toggle="tab">Change password</a>
+                                    </li>
+                                    <li ui-sref-active="active">
+                                        <a ui-sref="settings.notification" data-toggle="tab">Notifications</a>
+                                    </li>
+                                </ul>
                             </div>
-                            <ul class="nav nav-tabs tab-from-right">
-                                <li ui-sref-active="active">
-                                    <a ui-sref="settings.profile" data-toggle="tab">Personal info</a>
-                                </li>
-                                <li ui-sref-active="active">
-                                    <a ui-sref="settings.password" data-toggle="tab">Change password</a>
-                                </li>
-                                <li ui-sref-active="active">
-                                    <a ui-sref="settings.notification" data-toggle="tab">Notification</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="tab-content">
-                                <div ui-view></div>
+                            <div class="portlet-body">
+                                <div class="tab-content">
+                                    <div ui-view></div>
+                                </div>
                             </div>
                         </div>
                     </div>

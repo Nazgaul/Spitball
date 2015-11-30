@@ -26,7 +26,6 @@ Login page
 
 
 .login .content {
-    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACtJREFUeNrszTEBACAMA7CCJfxr61SwKzGQ0/bls5sFEolEIpFIJJKMAAMAa/wDYqqLVjAAAAAASUVORK5CYII=') /*/Images/signin/bg-white-lock.png*/ repeat;
     width: 400px;
     margin: 0 auto;
     margin-bottom: 0;
@@ -39,14 +38,14 @@ Login page
     }
 
     h4 {
-        color: #8290a3;
+        color: @color10;
         float: left;
         font-size: 18px;
         margin-bottom: 20px;
     }
 
     h3 {
-        color: #3598dc;
+        color: @color7;
         margin-top: 0;
         margin-bottom: 28px;
         margin-left: 14%;
@@ -54,7 +53,7 @@ Login page
 
     .create-account p,
     .login-account p {
-        color: #E2E4E6;
+        color: @color2;
         line-height: 40px;
     }
 
@@ -62,9 +61,11 @@ Login page
         display: flex;
 
         p {
-            color: #8290a3;
+            color: @color10;
             font-size: 11px;
             padding-left: 5%;
+            -ms-flex: 2;
+            -webkit-flex: 2;
             flex: 2;
             margin: 0;
             align-self: center;
@@ -72,7 +73,7 @@ Login page
     }
 
     .form-actions-container label {
-        color: #8290a3;
+        color: @color10;
         font-size: 11px;
     }
 }
@@ -94,7 +95,7 @@ Login page
 .login .content .form-control {
     padding-right: 1em;
     background-color: #dde3ec;
-    color: #8290a3;
+    color: @color10;
     border: 1px solid #dde3ec;
     border-radius: 0;
     padding-left: 15px;
@@ -131,19 +132,19 @@ Login page
 }
 
 .login .form-group input::-webkit-input-placeholder {
-    color: #8290a3;
+    color: @color10;
 }
 
 .login .form-group input:-moz-placeholder { /* Firefox 18- */
-    color: #8290a3;
+    color: @color10;
 }
 
 .login .form-group input::-moz-placeholder { /* Firefox 19+ */
-    color: #8290a3;
+    color: @color10;
 }
 
 .login .form-group input:-ms-input-placeholder {
-    color: #8290a3;
+    color: @color10;
 }
 
 .form-actions-container {
@@ -175,7 +176,7 @@ Login page
     padding-left: 0;
     margin-top: 8px;
     display: inline-block;
-    color: #8290a3;
+    color: @color10;
 }
 
 .login .content .forget-form .form-actions {
@@ -220,7 +221,7 @@ Login page
 .login .content .login-account a {
     display: inline-block;
     margin-top: 5px;
-    color: #E2E4E6;
+    color: @color2;
 }
 
 
@@ -229,7 +230,7 @@ Login page
 .login .content .select2-container i {
     display: inline-block;
     position: relative;
-    color: #ccc;
+    color: @color9;
     z-index: 1;
     top: 1px;
     margin: 4px 4px 0 -1px;
