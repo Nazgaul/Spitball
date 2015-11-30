@@ -1463,6 +1463,12 @@
     <Content Include="Content\Site\dashboard.rtl.min.css">
       <DependentUpon>dashboard.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\error.min.css">
+      <DependentUpon>error.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\error.rtl.min.css">
+      <DependentUpon>error.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
