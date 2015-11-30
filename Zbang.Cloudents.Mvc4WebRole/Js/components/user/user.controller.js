@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.user').controller('UserController', user);
-    user.$inject = ['userService', '$stateParams', 'userData', 'itemThumbnail'];
+    user.$inject = ['userService', '$stateParams', 'userData', 'itemThumbnailService'];
 
-    function user(userService, $stateParams, userData, itemThumbnail) {
+    function user(userService, $stateParams, userData, itemThumbnailService) {
         var self = this;
         var boxesPage = 0, friendPage = 0, itemsPage = 0, commentPage = 0, quizzesPage = 0;
         var friends = [], boxes = [], files = [], feed = [], quiz = [];
@@ -103,9 +103,7 @@
             }
             self.itemsLoading = true;
             userService.files($stateParams.userId, itemsPage).then(function (response) {
-                for (var i = 0; i < response.length; i++) {
-                    response[i].thumbnail = itemThumbnail.get(response[i].name, 368, 520);
-                }
+                response = itemThumbnailService.assignValues(response);
                 files = files.concat(response);
                 if (self.tab === self.state.item) {
                     self.elements = files;

@@ -238,11 +238,11 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Boxname = s.Document.BoxName,
                 Content = HighLightInField(s, ContentField, s.Document.MetaContent),
                 Id = long.Parse(s.Document.Id),
-                Image = s.Document.Image,
+                //Image = s.Document.Image,
                 Name = HighLightInField(s, NameField, s.Document.Name),
                 UniName = s.Document.UniversityName,
                 Url = s.Document.Url,
-                BlobName = s.Document.BlobName
+                Source = s.Document.BlobName
 
 
             });
@@ -271,7 +271,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Id = long.Parse(s.Document.Id),
                 Name = s.Document.Name,
                 Url = s.Document.Url,
-                BlobName = s.Document.BlobName
+                Source = s.Document.BlobName
 
 
             });

@@ -3,7 +3,6 @@ using System.Linq;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
 
@@ -11,7 +10,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 {
     public class SaveUserQuizCommandHandler : ICommandHandler<SaveUserQuizCommand>
     {
-        private readonly IQuizRepository m_QuizRepository;
+        private readonly IRepository<Domain.Quiz> m_QuizRepository;
         private readonly IRepository<SolvedQuiz> m_SolvedQuizRepository;
         private readonly IRepository<SolvedQuestion> m_SolvedQuestionRepository;
         private readonly IRepository<Answer> m_AnswerRepository;
@@ -20,7 +19,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         private readonly IUserRepository m_UserRepository;
 
         public SaveUserQuizCommandHandler(
-            IQuizRepository quizRepository,
+            IRepository<Domain.Quiz> quizRepository,
             IUserRepository userRepository,
             IRepository<SolvedQuiz> solvedQuizRepository,
             IRepository<SolvedQuestion> solvedQuestionRepository,
@@ -70,11 +69,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             solvedQuiz.Score = (int)Math.Round(score * 100);
             m_SolvedQuizRepository.Save(solvedQuiz, true);
 
-            var avg = m_QuizRepository.ComputeAverage(quiz.Id);
-            var stdevp = m_QuizRepository.ComputeStdevp(quiz.Id);
 
-            quiz.UpdateQuizStats(avg, stdevp);
-            m_QuizRepository.Save(quiz);
+            //m_QuizRepository.Save(quiz);
         }
 
         private void DeleteAnswers(SolvedQuiz answerSheet)

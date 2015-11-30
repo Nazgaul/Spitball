@@ -38,9 +38,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public string BoxUrl { get; set; }
 
-        public double Stdevp { get; set; }
-
-        public int Average { get; set; }
 
 
         public bool Publish { get; set; }

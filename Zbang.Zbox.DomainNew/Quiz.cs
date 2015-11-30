@@ -55,8 +55,8 @@ namespace Zbang.Zbox.Domain
 
         public virtual string Url { get; set; }
 
-        public virtual int Average { get; set; }
-        public virtual double Stdevp { get; set; }
+        //public virtual int Average { get; set; }
+        //public virtual double Stdevp { get; set; }
 
         public virtual Comment Comment { get; set; }
 
@@ -93,11 +93,11 @@ namespace Zbang.Zbox.Domain
             NumberOfViews++;
         }
 
-        public virtual void UpdateQuizStats(int average, double stdevp)
-        {
-            Average = average;
-            Stdevp = stdevp;
-        }
+        //public virtual void UpdateQuizStats(int average, double stdevp)
+        //{
+        //    Average = average;
+        //    Stdevp = stdevp;
+        //}
 
         public bool IsDirty {get;set;}
 

@@ -1,27 +1,20 @@
 ﻿(function () {
     angular.module('app.box.feed').controller('FeedController', feed);
-    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnail', 'user'];
+    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService', 'user'];
 
-    function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnail, user) {
+    function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user) {
         var self = this, boxId = $stateParams.boxId;
         boxService.getFeed(boxId).then(function (response) {
             self.data = response;
 
             for (var i = 0; i < self.data.length; i++) {
-                for (var j = 0; j < self.data[i].files.length; j++) {
-                    self.data[i].files[j].thumbnail = buildThumbnailUrl(self.data[i].files[j].source);
-                }
+                self.data[i].files = itemThumbnailService.assignValues(self.data[i].files, 100, 125);
                 for (var k = 0; k < self.data[i].answers.length; k++) {
-                    for (var l = 0; l < self.data[i].answers[k].files.length; l++) {
-                        self.data[i].answers[k].files[l].thumbnail = buildThumbnailUrl(self.data[i].answers[k].files[l].source);
-                    }
+                    self.data[i].answers[k].files = itemThumbnailService.assignValues(self.data[i].answers[k].files, 100, 125);
                 }
             }
         });
 
-        function buildThumbnailUrl(name) {
-            return itemThumbnail.get(name, 100, 125);
-        }
 
         self.add = {
             files: [],
@@ -50,7 +43,10 @@
                     userName: user.name,
                     files: self.add.files.map(function (c) {
                         var temp = c.system;
-                        temp.thumbnail = buildThumbnailUrl(c.source);
+                        //temp = itemThumbnailService.assignValues(c, 100, 125);
+                        var retVal = itemThumbnailService.assignValue(c.source, 100, 125);
+                        temp.thumbnail = retVal.thumbnail;
+                        temp.icon = retVal.icon;
                         return temp;
                     })
                 });
@@ -82,7 +78,9 @@
                     userName: response.userName,
                     files: self.add.files.map(function (c) {
                         var temp = c.system;
-                        temp.thumbnail = buildThumbnailUrl(c.source);
+                        var retVal = itemThumbnailService.assignValue(c.source, 100, 125);
+                        temp.thumbnail = retVal.thumbnail;
+                        temp.icon = retVal.icon;
                         return temp;
                     })
                 });
