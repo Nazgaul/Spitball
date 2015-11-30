@@ -22,7 +22,7 @@
     angular.module('app.box.members', ['app.ajaxservice']);
 })();
 (function () {
-    angular.module('app.box', ['app.ajaxservice', 'app.box.feed', 'app.box.quizzes', 'displayTime', 'app.box.items', 'app.box.members']);
+    angular.module('app.box', ['app.ajaxservice', 'app.box.feed', 'app.box.quizzes', 'app.box.items', 'app.box.members']);
 })();
 
 

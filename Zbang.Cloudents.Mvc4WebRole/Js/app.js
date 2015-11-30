@@ -14,7 +14,7 @@
         'angular-plupload',
         'countUpModule',
         'infinite-scroll',
-        'displayTime',
+       // 'displayTime',
         'app.dashboard',
         'app.library',
         'app.user',

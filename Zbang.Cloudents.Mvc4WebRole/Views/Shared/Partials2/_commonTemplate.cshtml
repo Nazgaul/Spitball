@@ -33,7 +33,7 @@
                 <img class="img-responsive" ng-src="{{::e.thumbnail}}" alt="{{::e.thumbnail}}" />
                 <div class="extra">
                     <h5 ng-bind-html="::e.name"></h5>
-                    <img src="http://lorempixel.com/30/30/" alt="" />
+                    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{::e.icon}}"></use></svg>
                     <div class="uploader-date">
                         <div>{{::e.owner}}</div>
                         {{::e.date | date : 'shortDate'}}
@@ -58,11 +58,16 @@
 <script type="text/ng-template" id="quiz-template.html">
     <a class="quiz" href="{{e.url}}">
         <div class="base">
-            <div class="top background" d-color="{{::e.name.length}}">
+            
+            <div ng-if="e.publish" class="top background" d-color="{{::e.name.length}}">
                 <span class="first-letter" first-letter="{{::e.name}}"></span>
+            </div>
+            <div ng-if="!e.publish" class="top draft-wpr">
+                <span class="draft">draft</span>
             </div>
             <div class="bottom">
                 <span class="name ellipsis" ng-bind-html="::e.name"></span>
+                @Html.Svg(svgUrl, "corner", new { @class = "corner", viewBox = "0 0 70 70" })
                 @*<div class="triangle-up-left"></div>*@
             </div>
             <div class="stats clearfix" ng-hide="::e.numOfViews === underfined">

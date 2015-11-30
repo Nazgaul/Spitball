@@ -5,24 +5,10 @@ namespace Zbang.Zbox.ViewModel.Dto.Search
     [Serializable]
     public class SearchItems
     {
-        public SearchItems()
-        {
-            
-        }
-        public SearchItems(string image, string name, long id,  string content,
-            string boxName, string uniName,string url)
-        {
-            Image = image;
-            Name = name;
-            Id = id;
-            Content = content;
-            UniName = uniName;
-            Boxname = boxName;
-            Url = url;
-        }
+      
 
-        [Obsolete]
-        public string Image { get; set; }
+        //[Obsolete]
+       // public string Image { get; set; }
 
 
         public string Name { get; set; }
@@ -33,9 +19,9 @@ namespace Zbang.Zbox.ViewModel.Dto.Search
         public string UniName { get; set; }
         public string Url { get; set; }
 
-        public string BlobName { get; set; }
+        public string Source { get; set; }
 
-        public long BoxId { get; set; }
+        public long? BoxId { get; set; }
         public string Extension { get; set; }
     }
 
