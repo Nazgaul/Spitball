@@ -1718,6 +1718,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\3rdParty\logo_120_4_google.png" />
+    <Content Include="Images\signin\facebook.svg" />
+    <Content Include="Images\signin\google.svg" />
+    <Content Include="Images\signin\loginOptions.svg" />
     <Content Include="Images\Site\404_image.png" />
     <Content Include="Images\HomePage2\apple.png" />
     <Content Include="Images\HomePage2\google.png" />
