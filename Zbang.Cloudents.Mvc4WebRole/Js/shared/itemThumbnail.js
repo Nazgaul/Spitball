@@ -1,15 +1,18 @@
 ﻿(function () {
     angular.module('app').service('itemThumbnailService', itemThumbnailService);
 
-    itemThumbnailService.$inject = ['$sce'];
-
-    function itemThumbnailService($sce) {
+    function itemThumbnailService() {
         var self = this;
-        self.get = function (name, width, height) {
+        self.get = get;
+
+        self.assignValues = assignValues;
+
+        self.assignValue = assignValue;
+        self.getIcon = getIcon;
+        function get(name, width, height) {
             return 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(name) + '.jpg?width=' + width + '&height=' + height + '&mode=crop&scale=both';
         }
-
-        self.assignValues = function (elements, widthElement, heightElement) {
+        function assignValues(elements, widthElement, heightElement) {
 
 
             for (var i = 0; i < elements.length; i++) {
@@ -20,13 +23,11 @@
             return elements;
 
         }
-
-        self.assignValue = assignValue;
         function assignValue(source, widthElement, heightElement) {
             widthElement = widthElement || 368;
             heightElement = heightElement || 520;
-            var thumbnail = self.get(source, widthElement, heightElement),
-            icon = self.getIcon(source);
+            var thumbnail = get(source, widthElement, heightElement),
+            icon = getIcon(source);
 
             return {
                 thumbnail: thumbnail,
@@ -35,7 +36,8 @@
             };
         }
 
-        self.getIcon = function (source) {
+
+        function getIcon(source) {
             var prefix = "/images/site/box-icons.svg?1#";
             if (source.startsWith('http://')) {
                 return prefix + 'item-link';
