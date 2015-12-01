@@ -20,18 +20,26 @@
   padding: 5px 50px 3px;
 }
 .class .add-button {
-  text-align: center;
-  display: -webkit-flex;
   display: -ms-flex;
-  display: flex;
   margin-bottom: 15px;
+  position: relative;
 }
-.class .add-button div {
+.class .add-button:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 141.42%;
+}
+.class .add-button > .content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+.class .add-button .content {
   border: 1px solid #3d4348;
   padding: 15px;
-  -ms-flex: 1;
-  -webkit-flex: 1;
-  flex: 1;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -341,7 +349,8 @@
   position: relative;
   color: #f5f5f5;
 }
-.quiz .top .first-letter {
+.quiz .top .first-letter,
+.quiz .top .draft {
   position: absolute;
   top: 0;
   left: 0;
@@ -353,18 +362,19 @@
   height: 20vw;
   text-align: center;
   line-height: 20vw;
-  border: 1px solid #f5f5f5;
 }
-@media (min-width: 768px) {
-  .quiz .top .first-letter {
+@media (min-width: 600px) {
+  .quiz .top .first-letter,
+  .quiz .top .draft {
     font-size: 13vw;
     width: 13vw;
     height: 13vw;
     line-height: 13vw;
   }
 }
-@media (min-width: 992px) {
-  .quiz .top .first-letter {
+@media (min-width: 960px) {
+  .quiz .top .first-letter,
+  .quiz .top .draft {
     font-size: 8vw;
     width: 8vw;
     height: 8vw;
@@ -372,12 +382,23 @@
   }
 }
 @media (min-width: 1200px) {
-  .quiz .top .first-letter {
+  .quiz .top .first-letter,
+  .quiz .top .draft {
     font-size: 3vw;
     width: 3vw;
     height: 3vw;
     line-height: 3vw;
   }
+}
+.quiz .top .draft {
+  text-transform: uppercase;
+  width: 100%;
+}
+.quiz .top.draft-wpr {
+  border: 1px solid #fff;
+}
+.quiz .top .first-letter {
+  border: 1px solid #f5f5f5;
 }
 .quiz .bottom {
   background: #f5f5f5;
@@ -395,24 +416,11 @@
   line-height: 16px;
   width: 100%;
 }
-.quiz .bottom:before {
-  content: "";
+.quiz .bottom .corner {
+  position: absolute;
   bottom: 0;
   right: 0 ;
-  height: 42px;
-  width: 42px;
-  position: absolute;
-  background: #9e9e9e;
-}
-.quiz .bottom:after {
-  content: '';
-  display: block;
-  right: 0 ;
-  bottom: 0;
-  position: absolute;
-  border-style: solid;
-  border-width: 39px 39px 0 0 ;
-  border-color: #f5f5f5 transparent;
+  width: 40%;
 }
 .quiz .details {
   display: none;
@@ -473,6 +481,7 @@
 .item .content {
   position: relative;
   display: inline-block;
+  width: 100%;
 }
 .item:hover .extra {
   top: 0;
@@ -499,6 +508,12 @@
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   overflow: hidden;
+}
+.item .extra svg {
+  width: 45px;
+  height: 45px;
+  margin-right: 15px;
+  fill: #f5f5f5;
 }
 .item svg {
   vertical-align: top;
@@ -541,21 +556,21 @@
   fill: #f5f5f5;
 }
 .i-q-wrapper {
-  padding: 0 0.5%;
+  margin: 0 0.5%;
 }
 @media (min-width: 960px) and (max-width: 1200px) {
   .i-q-wrapper {
-    padding: 0 1%;
+    margin: 0 1%;
   }
 }
 @media (min-width: 600px) and (max-width: 960px) {
   .i-q-wrapper {
-    padding: 0 1.2%;
+    margin: 0 1.2%;
   }
 }
 @media (max-width: 600px) {
   .i-q-wrapper {
-    padding: 0 2%;
+    margin: 0 2%;
   }
 }
 .item-animate.ng-move,
@@ -690,6 +705,3 @@
   background-color: #db4437;
   color: #f5f5f5;
 }
-/*.no-background {
-    background: none;
-}*/

@@ -12,7 +12,6 @@
     /*.nav-tabs, .tabbable {
         border: 0;
     }*/
-
     .need-follow {
         margin-top: 20px;
         background: @backgroundColorFollow;
@@ -27,16 +26,17 @@
     }
     //add button
     .add-button {
-        text-align: center;
-        .displayFlex();
+        //text-align: center;
+        //.displayFlex();
         margin-bottom: 15px;
+        .aspect-ratio();
 
-        div {
+        .content {
             border: 1px solid @borderColorGrey;
             padding: 15px;
-            -ms-flex: 1;
-            -webkit-flex: 1;
-            flex: 1;
+            //-ms-flex: 1;
+            //-webkit-flex: 1;
+            //flex: 1;
             .displayFlex();
             justify-content: center;
             align-items: center;
@@ -221,10 +221,10 @@
         }
 
         .anonymous {
-                &:hover {
-                    fill: @anonymousColor;
-                }
+            &:hover {
+                fill: @anonymousColor;
             }
+        }
 
         .dropbox {
 
@@ -394,7 +394,8 @@
         position: relative;
         color: @textColorWhite;
 
-        .first-letter {
+
+        .first-letter, .draft {
             position: absolute;
             top: 0;
             right: 0;
@@ -406,16 +407,15 @@
             height: 20vw;
             text-align: center;
             line-height: 20vw;
-            border: 1px solid @textColorWhite;
 
-            @media (min-width: 768px) {
+            @media (min-width: 600px) {
                 font-size: 13vw;
                 width: 13vw;
                 height: 13vw;
                 line-height: 13vw;
             }
 
-            @media (min-width: 992px) {
+            @media (min-width: 960px) {
                 font-size: 8vw;
                 width: 8vw;
                 height: 8vw;
@@ -428,6 +428,20 @@
                 height: 3vw;
                 line-height: 3vw;
             }
+        }
+
+        .draft {
+            text-transform: uppercase;
+            width: 100%;
+            //border:1px solid @textColorWhite;
+        }
+
+        &.draft-wpr {
+            border: 1px solid #fff;
+        }
+
+        .first-letter {
+            border: 1px solid @textColorWhite;
         }
     }
 
@@ -453,26 +467,31 @@
             width: 100%;
         }
 
-        &:before {
-            content: "";
+        .corner {
+            position: absolute;
             bottom: 0;
             right: 0 /*rtl:ignore*/;
-            height: 42px;
-            width: 42px;
-            position: absolute;
-            background: @backgroundColor2;
+            width: 40%;
         }
-
-        &:after {
-            content: '';
-            display: block;
-            right: 0 /*rtl:ignore*/;
-            bottom: 0;
-            position: absolute;
-            border-style: solid;
-            border-width: 39px 39px 0 0 /*rtl:ignore*/;
-            border-color: @borderColorWhite transparent;
-        }
+        //&:before {
+        //    content: "";
+        //    bottom: 0;
+        //    right: 0 /*rtl:ignore*/;
+        //    height: 42px;
+        //    width: 42px;
+        //    position: absolute;
+        //    background: @backgroundColor2;
+        //}
+        //&:after {
+        //    content: '';
+        //    display: block;
+        //    right: 0 /*rtl:ignore*/;
+        //    bottom: 0;
+        //    position: absolute;
+        //    border-style: solid;
+        //    border-width: 39px 39px 0 0 /*rtl:ignore*/;
+        //    border-color: @borderColorWhite transparent;
+        //}
     }
 
 
@@ -564,6 +583,7 @@
     .content {
         position: relative;
         display: inline-block;
+        width: 100%;
     }
 
     &:hover .extra {
@@ -596,6 +616,13 @@
         -webkit-transition: all 0.5s ease;
         transition: all 0.5s ease;
         overflow: hidden;
+
+        svg {
+            width: 45px;
+            height: 45px;
+            margin-left: 15px;
+            fill:#f5f5f5;
+        }
     }
 
     svg {
@@ -648,18 +675,18 @@
 }
 
 .i-q-wrapper {
-    padding: 0 0.5%;
+    margin: 0 0.5%;
 
     @media (min-width : 960px ) and (max-width:1200px) {
-        padding: 0 1%;
+        margin: 0 1%;
     }
 
     @media (min-width : 600px ) and (max-width:960px) {
-        padding: 0 1.2%;
+        margin: 0 1.2%;
     }
 
     @media (max-width:600px) {
-        padding: 0 2%;
+        margin: 0 2%;
     }
 }
 
@@ -827,7 +854,3 @@
         color: @textColorWhite;
     }
 }
-
-/*.no-background {
-    background: none;
-}*/

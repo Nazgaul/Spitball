@@ -76,8 +76,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="FiftyOne.Foundation">
-      <HintPath>..\packages\51Degrees.mobi.3.1.10.2\lib\NET40\FiftyOne.Foundation.dll</HintPath>
+    <Reference Include="FiftyOne.Foundation, Version=3.2.5.6, Culture=neutral, PublicKeyToken=e0b3a8da0bbce49c, processorArchitecture=MSIL">
+      <HintPath>..\packages\51Degrees.mobi.3.2.5.6\lib\NET40\FiftyOne.Foundation.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -558,11 +559,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Share\Resources\InviteResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>InviteResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\User\Resources\UserResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1275,6 +1271,7 @@
     <Content Include="bower_components\textAngular\changelog.md" />
     <Content Include="bower_components\textAngular\CONTRIBUTING.md" />
     <Content Include="bower_components\textAngular\README.md" />
+    <Content Include="App_Data\51Degrees.dat" />
     <None Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -1284,12 +1281,6 @@
     </Content>
     <Content Include="Content\signin\components-md.rtl.min.css">
       <DependentUpon>components-md.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\customRtl.min.css">
-      <DependentUpon>customRtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\customRtl.rtl.min.css">
-      <DependentUpon>customRtl.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\signin\default.min.css">
       <DependentUpon>default.css</DependentUpon>
@@ -1349,17 +1340,11 @@
     <Content Include="Content\signin\custom.rtl.min.css">
       <DependentUpon>custom.rtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\signin\customRtl.css">
-      <DependentUpon>customRtl.less</DependentUpon>
-    </Content>
     <Content Include="Content\signin\custom.css">
       <DependentUpon>custom.less</DependentUpon>
     </Content>
     <Content Include="Content\signin\custom.rtl.css">
       <DependentUpon>custom.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\customRtl.rtl.css">
-      <DependentUpon>customRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\signin\default.css">
       <DependentUpon>default.less</DependentUpon>
@@ -1448,6 +1433,12 @@
     </Content>
     <Content Include="Content\Site\dashboard.rtl.min.css">
       <DependentUpon>dashboard.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\error.min.css">
+      <DependentUpon>error.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\error.rtl.min.css">
+      <DependentUpon>error.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\General.css">
       <DependentUpon>General.less</DependentUpon>
@@ -1560,14 +1551,8 @@
     <Content Include="Content\Site\error.css">
       <DependentUpon>error.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\error.min.css">
-      <DependentUpon>error.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\error.rtl.css">
       <DependentUpon>error.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\error.rtl.min.css">
-      <DependentUpon>error.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\profile.css">
       <DependentUpon>profile.less</DependentUpon>
@@ -1680,6 +1665,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\3rdParty\logo_120_4_google.png" />
+    <Content Include="Images\signin\facebook.svg" />
+    <Content Include="Images\signin\google.svg" />
+    <Content Include="Images\signin\loginOptions.svg" />
     <Content Include="Images\Site\404_image.png" />
     <Content Include="Images\HomePage2\apple.png" />
     <Content Include="Images\HomePage2\google.png" />
@@ -1805,7 +1793,6 @@
       <DependentUpon>site.png.rtl.css</DependentUpon>
     </Content>
     <Content Include="Images\Site\BG.png" />
-    <Content Include="Images\Site\correct_wrong.png" />
     <Content Include="Images\Site\libChooseIcons.svg" />
     <Content Include="Images\Site\quizbackground.png" />
     <Content Include="Images\Site\quizCreateIcons.svg" />
@@ -1999,7 +1986,6 @@
     <Content Include="Js\homePage\theme.js" />
     <Content Include="Js\routerHelperProvider.js" />
     <Content Include="Js\shared\colorOnLength.js" />
-    <Content Include="Js\shared\displayTime.js" />
     <Content Include="Js\shared\dropbox.js" />
     <Content Include="Js\shared\focusMe.js" />
     <Content Include="Js\shared\google.js" />
@@ -2008,13 +1994,6 @@
     <Content Include="Js\shared\userimage.js" />
     <Content Include="Js\signin\bootstrap.min.js" />
     <Content Include="Js\signin\demo.js" />
-    <Content Include="Js\signin\jquery-migrate.min.js" />
-    <Content Include="Js\signin\jquery.backstretch.min.js" />
-    <Content Include="Js\signin\jquery.blockui.min.js" />
-    <Content Include="Js\signin\jquery.cokie.min.js" />
-    <Content Include="Js\signin\jquery.min.js" />
-    <Content Include="Js\signin\jquery.uniform.min.js" />
-    <Content Include="Js\signin\jquery.validate.min.js" />
     <Content Include="Js\signin\layout.js" />
     <Content Include="Js\signin\login-soft.js" />
     <Content Include="Js\signin\metronic.js" />
@@ -2114,7 +2093,6 @@
     <Content Include="Content\signin\uniform.default.less" />
     <Content Include="Content\signin\layout.less" />
     <Content Include="Content\signin\plugins-md.less" />
-    <None Include="Content\signin\customRtl.less" />
     <Content Include="Content\Site\components-rounded.less" />
     <Content Include="Content\Site\layout.less" />
     <Content Include="Content\Site\light.less" />
@@ -2179,9 +2157,9 @@
     <Content Include="Scripts\elasticTextBox.js" />
     <Content Include="Scripts\externalScriptLoader.js" />
     <Content Include="Images\Web.config" />
-    <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-messages.min.js.map" />
@@ -2991,29 +2969,23 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Library\_CreateLibraryItem.cshtml" />
     <Content Include="startup\disableTimeout.cmd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
     <Content Include="Views\Error\Unsupported.cshtml" />
-    <Content Include="Views\Shared\_LayoutStatic.cshtml" />
     <Content Include="Views\Account\Confirmation.cshtml" />
     <Content Include="Views\Item\_FlagItem.cshtml" />
-    <Content Include="Views\Share\Invites.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Item\_PreviewLinkDenied.cshtml" />
     <Content Include="Views\Item\_PreviewMediaLoading.cshtml" />
-    <Content Include="Views\Share\Index.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />
     <Content Include="Views\Quiz\_QuizDialog.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Item\_PreviewSvg.cshtml" />
-    <Content Include="Views\Item\FullScreen.cshtml" />
     <Content Include="Views\Box\_Feed.cshtml" />
-    <Content Include="Views\Item\_ItemRegister.cshtml" />
     <Content Include="Views\Item\_PreviewText.cshtml" />
     <Content Include="Views\Home\IFrame.cshtml" />
     <Content Include="Views\Account\Index3.cshtml" />
@@ -3048,6 +3020,7 @@
     <Content Include="Views\Library\Choose.cshtml" />
     <Content Include="Views\Box\_Settings.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3494,14 +3467,6 @@
       <LastGenOutput>ValidationResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\ValidationResources.ru.resx" />
-    <EmbeddedResource Include="Views\Share\Resources\InviteResources.ar.resx" />
-    <EmbeddedResource Include="Views\Share\Resources\InviteResources.he.resx" />
-    <EmbeddedResource Include="Views\Share\Resources\InviteResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>InviteResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Share\Resources\InviteResources.ru.resx" />
-    <EmbeddedResource Include="Views\Share\Resources\InviteResources.zh.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.ar.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.en-gb.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.he.resx" />
@@ -3543,16 +3508,7 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_Layout3.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Error\MembersOnly.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Share\_Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="cdn\Web.config" />

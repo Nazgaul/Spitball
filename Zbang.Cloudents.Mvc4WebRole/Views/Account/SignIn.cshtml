@@ -1,31 +1,12 @@
 ﻿@{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-@using Zbang.Zbox.Infrastructure.Culture;
 
-<!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en" dir="rtl">
-<!--<![endif]-->
-<!-- BEGIN HEAD -->
-<head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    @{Html.RenderPartial("_Head");}
-    @Html.Css2("signin")
 
-    <meta name="google-signin-client_id" content="997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com" />
-</head>
-<!-- END HEAD -->
-<!-- BEGIN BODY -->
-<body class="page-md  @Html.ClassOfRtl()">
-    <!-- Google Tag Manager -->
+<body class="page-md">
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=GTM-NDZLW7"
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -39,7 +20,6 @@
             j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
             '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
-    <!-- End Google Tag Manager -->
     <div class="login">
         <div>
             <div class="logo">
@@ -52,11 +32,6 @@
                 <form class="login-form" action="" method="post">
                     @{ Html.RenderAction("AntiForgeryToken", "Home", true);}
                     <h3 class="form-title">@LogOnResources.LoginToAccount</h3>
-                    <div class="login-options">
-                        <button type="button" class="facebook">@Html.Svg("/images/signin/icons.svg", "facebook") @LogOnResources.ExternalProvider</button>
-                        <button type="button" class="google">@Html.Svg("/images/signin/icons.svg", "google") @LogOnResources.ExternalProvider</button>
-                    </div>
-
                     @*<div class="g-signin2" data-onsuccess="onSignIn"></div>*@
 
                     <div id="login_alert_text" class="alert alert-danger display-hide">
@@ -64,27 +39,17 @@
                         <span></span>
                     </div>
                     <div class="form-group">
-                        <h4>@LogOnResources.OrLoginWith</h4>
-                        <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                        <label class="control-label visible-ie8 visible-ie9">@LogOnResources.Email</label>
-                        <div class="input-icon">
-                            <i class="fa fa-user"></i>
-                            <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="@LogOnResources.Email" name="email" />
-                        </div>
+                        <input class="form-control" type="text"  placeholder="@LogOnResources.Email" name="email" />
                     </div>
                     <div class="form-group">
-                        <label class="control-label visible-ie8 visible-ie9">@LogOnResources.Email</label>
-                        <div class="input-icon">
-                            <i class="fa fa-lock"></i>
-                            <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="@LogOnResources.Password" name="password" />
-                        </div>
+                        <input class="form-control" type="password"  placeholder="@LogOnResources.Password" name="password" />
                     </div>
                     <div class="form-actions">
                         <label class="checkbox">
                             <input type="checkbox" name="rememberMe" value="true" /> @LogOnResources.RememberMe
                         </label>
                         <button type="submit" class="btn blue pull-right">
-                            @LogOnResources.LogIn <i class="m-icon-swapright m-icon-white"></i>
+                            @LogOnResources.LogIn
                         </button>
                     </div>
                     <div class="forget-password">
@@ -95,6 +60,11 @@
                             </a>
                             @LogOnResources.ToResetPassword.
                         </p>
+                    </div>
+                    <div class="login-options">
+                        <h4>@LogOnResources.OrLoginWith</h4>
+                        <button type="button" class="google">@Html.Svg("/images/signin/loginOptions.svg", "google")</button>
+                        <button type="button" class="facebook">@Html.Svg("/images/signin/loginOptions.svg", "facebook")</button>
                     </div>
                     <div class="create-account">
                         <p>
@@ -135,34 +105,20 @@
                         <span></span>
                     </div>
                     <div class="form-group first">
-
-                        <label class="control-label visible-ie8 visible-ie9">@SharedResources.FirstName</label>
-                        <div class="input-icon">
-                            <input class="form-control placeholder-no-fix" type="text" placeholder="@SharedResources.FirstName" name="firstName" />
-                        </div>
+                        <input class="form-control" type="text" placeholder="@SharedResources.FirstName" name="firstName" />
                     </div>
                     <div class="form-group second">
-                        <label class="control-label visible-ie8 visible-ie9">@SharedResources.LastName</label>
-                        <div class="input-icon">
-                            <input class="form-control placeholder-no-fix" type="text" placeholder="@SharedResources.LastName" name="lastName" />
-                        </div>
+                        <input class="form-control" type="text" placeholder="@SharedResources.LastName" name="lastName" />
                     </div>
                     <div class="form-group">
-                        <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                        <label class="control-label visible-ie8 visible-ie9">@SharedResources.Email</label>
-                        <div class="input-icon">
-                            <input class="form-control placeholder-no-fix" type="text" placeholder="@SharedResources.Email" name="NewEmail" id="register_email" />
-                        </div>
+                        <input class="form-control" type="text" placeholder="@SharedResources.Email" name="NewEmail" id="register_email" />
                     </div>
-                    
+
 
                     <div class="form-group">
-                        <label class="control-label visible-ie8 visible-ie9">@LogOnResources.Password</label>
-                        <div class="input-icon">
-                            <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="@LogOnResources.Password" name="Password" />
-                        </div>
+                        <input class="form-control" type="password" autocomplete="off" placeholder="@LogOnResources.Password" name="Password" />
                     </div>
-                    
+
                     <div class="form-actions-container">
                         <div class="form-group">
                             <label>
@@ -173,18 +129,18 @@
 
                         <div class="form-actions pull-right">
                             @*<button id="register-back-btn" type="button" class="btn">
-                    <i class="m-icon-swapleft"></i> Back
-                </button>*@
+                                    <i class="m-icon-swapleft"></i> Back
+                                </button>*@
                             <button type="submit" id="register-submit-btn" class="btn blue">
                                 @LogOnResources.SignUp
                             </button>
                         </div>
                     </div>
-                    
+
                     <div class="login-options">
                         <h4>@LogOnResources.OrSignupWith</h4>
-                        <button type="button" class="facebook">@Html.Svg("/images/signin/icons.svg", "facebook")</button>
-                        <button type="button" class="google">@Html.Svg("/images/signin/icons.svg", "google")</button>
+                        <button type="button" class="google">@Html.Svg("/images/signin/loginOptions.svg", "google")</button>
+                        <button type="button" class="facebook">@Html.Svg("/images/signin/loginOptions.svg", "facebook")</button>
                     </div>
                     <div class="login-account">
                         <p>
@@ -193,7 +149,6 @@
                     </div>
 
                 </form>
-                <!-- END REGISTRATION FORM -->
             </div>
         </div>
     </div>

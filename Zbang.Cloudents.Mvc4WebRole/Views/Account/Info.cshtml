@@ -2,10 +2,12 @@
 <div class="tab-pane active" id="info">
     <div class="form-group">
         <div class="fileinput" data-provides="fileinput">
+            <h2>Profile Picture</h2>
             <div class="thumbnail" style="width: 150px; height: 150px;">
+                
                 <img src="{{i.data.image}}" alt="" width="150" height="150" />
-                <a plupload="i.fileUpload.url" plupload-options="i.fileUpload.options" class="bg-grey-cascade ontop" plupload-callbacks="i.fileUpload.callbacks">
-                    Update Picture
+                <a plupload="i.fileUpload.url" plupload-options="i.fileUpload.options" class="ontop" plupload-callbacks="i.fileUpload.callbacks">
+                    Select image
                 </a>
             </div>
 
@@ -21,14 +23,14 @@
                 <input type="text" autocomplete="off" ng-model="i.data.lastName" />
             </md-input-container>
 
-            <div class="form-group">
-                <label class="control-label" for="email">Change mail</label>
-                <input type="email" id="email" placeholder="{{::i.data.email}}" class="form-control" />
-            </div>
-            <a ui-sref="universityChoose">change univeristy</a>
-            
             <md-input-container>
-                <label>language:</label>
+                <label class="control-label" for="email">Change mail</label>
+                <input type="email" id="email" ng-model="i.data.email" class="form-control" />
+            </md-input-container>
+            <a ui-sref="universityChoose">change univeristy</a>
+
+            <md-input-container>
+                <label>language</label>
                 <md-select name="notification" md-on-close="i.changeLanguage()" ng-model="i.data.language" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
                     @foreach (var lang in Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures)
                     {
@@ -40,8 +42,8 @@
 
             <div class="margin-top-10 text-right">
 
-                <button type="submit" class="btn blue">Save changes</button>
                 <button type="reset" class="btn default">Cancel</button>
+                <button type="submit" class="btn blue">Save changes</button>
             </div>
         </form>
     </div>

@@ -4,8 +4,8 @@
 
     function upload($scope, itemService, $q, $timeout, $stateParams, $rootScope, externalUploadProvider) {
         var u = this;
-        var boxid = 0;// $stateParams.boxId || $scope.$parent.cc.box.id;
-        var cc = $scope.$parent.cc || {};
+        // $stateParams.boxId || $scope.$parent.cc.box.id;
+        //var cc = $scope.$parent.cc || {};
 
         var uploadChoose = {
             none: 0,
@@ -14,41 +14,48 @@
             dropbox: 3,
             link: 4
         };
-        
+
         $scope.$on('open_upload', function () {
             u.open = true;
-           
-            externalUploadProvider.dropboxInit().then(function() {
+
+            externalUploadProvider.dropboxInit().then(function () {
                 u.dropBoxLoaded = true;
             });
-            externalUploadProvider.googleDriveInit().then(function() {
+            externalUploadProvider.googleDriveInit().then(function () {
                 u.googleDriveLoaded = true;
             });
-           
+
 
         });
-        $scope.$on('close_upload', function () {
-            u.files = u.files.filter(function(file) {
+
+        u.closeUpload = closeUpload;
+        //u.dropBoxLoaded = false;
+        //u.googleDriveLoaded = false;
+
+        u.google = function () {
+            externalUploadProvider.google($stateParams.boxId).then(function (response) {
+                $rootScope.$broadcast('item_upload', response);
+            }, function (response) {
+                u.alert = response;
+            });
+        }
+
+        u.dropBox = function () {
+            externalUploadProvider.dropBox($stateParams.boxId).then(function (response) {
+                $rootScope.$broadcast('item_upload', response);
+            });
+        };
+
+        function closeUpload() {
+            u.open = false;
+            u.files = u.files.filter(function (file) {
                 return !file.complete;
             });
             if (!u.files.length) {
                 u.uploadStep = uploadChoose.none;
             }
-        });
-        //u.dropBoxLoaded = false;
-        //u.googleDriveLoaded = false;
-
-        u.google = function () {
-            externalUploadProvider.google(boxid).then(function () {
-                alert('done');
-            });
+            $rootScope.$broadcast('close_upload');
         }
-
-        u.dropBox = function () {
-            externalUploadProvider.dropBox(boxid).then(function () {
-                alert('done');
-            });
-        };
 
         u.uploadStep = uploadChoose.none;
 
@@ -65,13 +72,14 @@
                 u.alert = 'not a valid url';
                 return;
             }
-            u.submitFormProcess = cc.submitFormProcess = true;
-            itemService.addLink(u.link, boxid).then(function () {
+            u.submitFormProcess = true;
+            itemService.addLink(u.link, $stateParams.boxId).then(function (response) {
+                $rootScope.$broadcast('item_upload', response);
                 u.uploadStep = uploadChoose.none;
             }, function (response) {
                 u.alert = response;
             }).finally(function () {
-                u.submitFormProcess = cc.submitFormProcess = false;
+                u.submitFormProcess = false;
             });
 
         }
@@ -101,7 +109,7 @@
                     up.settings.multipart_params = {
                         fileName: file.name,
                         fileSize: file.size,
-                        boxId: boxid,
+                        boxId: $stateParams.boxId,
                         comment: false
                     };
                 },

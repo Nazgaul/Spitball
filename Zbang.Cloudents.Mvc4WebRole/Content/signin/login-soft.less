@@ -10,229 +10,262 @@ Login page
 
 
 .login {
-  //background-color: #666 !important;
-  background-color: #364150;
-  .displayFlex();
-  justify-content:center;
-  align-items:center;
-  height:100vh;
+    //background-color: #666 !important;
+    background-color: #364150;
+    .displayFlex();
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .login .logo {
-  //margin: 60px auto 20px auto;
-  padding: 15px;
-  text-align: center;
+    //margin: 60px auto 20px auto;
+    padding: 15px;
+    text-align: center;
 }
+
 
 .login .content {
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACtJREFUeNrszTEBACAMA7CCJfxr61SwKzGQ0/bls5sFEolEIpFIJJKMAAMAa/wDYqqLVjAAAAAASUVORK5CYII=') /*/Images/signin/bg-white-lock.png*/ repeat;
-  width: 400px;
-  margin: 0 auto;
-  margin-bottom: 0;
-  padding: 30px;
-  padding-top: 20px;
-  padding-bottom: 15px;
-}
+    width: 400px;
+    margin: 0 auto;
+    margin-bottom: 0;
+    padding: 30px;
+    padding-top: 20px;
+    padding-bottom: 15px;
 
-.login .content h3 {
-  color: #3598dc;
-  margin-top: 0;
-  margin-bottom: 28px;
-}
+    p {
+        padding-bottom: 5px;
+    }
 
-.login .content h4 {
-  color: #8290a3;
-  float: left;
-  font-size: 18px;
-}
+    h4 {
+        color: @color10;
+        float: left;
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
 
-.login .content p{
-    color: #E2E4E6;
-    line-height: 40px;
-    padding-bottom: 5px;
+    h3 {
+        color: @color7;
+        margin-top: 0;
+        margin-bottom: 28px;
+        margin-left: 14%;
+    }
+
+    .create-account p,
+    .login-account p {
+        color: @color2;
+        line-height: 40px;
+    }
+
+    .forget-password {
+        display: flex;
+
+        p {
+            color: @color10;
+            font-size: 11px;
+            padding-left: 5%;
+            -ms-flex: 2;
+            -webkit-flex: 2;
+            flex: 2;
+            margin: 0;
+            align-self: center;
+        }
+    }
+
+    .form-actions-container label {
+        color: @color10;
+        font-size: 11px;
+    }
 }
 
 .login .content label {
-    color: #8290a3;
-    font-size: 11px;
+    padding-right: 20%;
+}
+
+.login .checker {
+    margin-left: -2px;
 }
 
 .login .content .login-form,
 .login .content .forget-form {
-  padding: 0;
-  margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 .login .content .form-control {
     padding-right: 1em;
     background-color: #dde3ec;
-    color: #8290a3;
+    color: @color10;
     border: 1px solid #dde3ec;
     border-radius: 0;
     padding-left: 15px;
 }
 
-.login .content .form-control:focus{
+.login .content .form-control:focus {
     border-color: #c3ccda;
 }
 
 .login .content .forget-form {
-  display: none;
+    display: none;
 }
 
 .login .content .register-form {
-  display: none;
+    display: none;
 }
 
-.login .content .form-group{
+.login .content .form-group {
     margin-bottom: 20px;
 }
 
-.login .content .form-group.first{
+.login .content .form-group.first {
     width: 44%;
     float: left;
 }
 
-.login .content .form-group.second{
+.login .content .form-group.second {
     width: ~"calc(56% - 10px)";
     float: right;
 }
 
-.login .content .form-group input{
+.login .content .form-group input {
     height: 48px;
 }
 
 .login .form-group input::-webkit-input-placeholder {
-   color: #8290a3;
+    color: @color10;
 }
 
 .login .form-group input:-moz-placeholder { /* Firefox 18- */
-   color: #8290a3;  
+    color: @color10;
 }
 
-.login .form-group input::-moz-placeholder {  /* Firefox 19+ */
-   color: #8290a3;  
+.login .form-group input::-moz-placeholder { /* Firefox 19+ */
+    color: @color10;
 }
 
-.login .form-group input:-ms-input-placeholder {  
-   color: #8290a3;  
+.login .form-group input:-ms-input-placeholder {
+    color: @color10;
 }
 
 .form-actions-container {
     display: flex;
-    margin-top: 30px;
+    margin-top: 25px;
+    padding-right: 6px;
+
+    .form-group{
+        align-self: center;
+    }
 }
 
 .login .content .form-title {
-  font-weight: 300;
-  margin-bottom: 25px;
+    font-weight: 300;
+    margin-bottom: 25px;
 }
 
 .login .content .form-actions {
-  background-color: transparent;
-  clear: both;
-  border: 0;
-  padding: 0 30px 25px 30px;
-  margin-left: -30px;
-  margin-right: -30px;
+    background-color: transparent;
+    clear: both;
+    border: 0;
+    padding: 0 30px 25px 30px;
+    margin-left: -30px;
+    margin-right: -30px;
 }
 
 .login .content .form-actions .checkbox {
-  margin-left: 0;
-  padding-left: 0;
+    margin-left: 0;
+    padding-left: 0;
     margin-top: 8px;
-  display: inline-block;
+    display: inline-block;
+    color: @color10;
 }
 
 .login .content .forget-form .form-actions {
-  border: 0;
-  margin-bottom: 0;
-  padding-bottom: 20px;
+    border: 0;
+    margin-bottom: 0;
+    padding-bottom: 20px;
 }
 
 .login .content .register-form .form-actions {
-  border: 0;
-  margin-bottom: 15px;
-  padding-bottom: 0;
+    border: 0;
+    margin-bottom: 30px;
+    padding-bottom: 0;
 }
 
 
 .login .content .form-actions .btn {
-  margin-top: 1px;
-}
-
-.login .content .forget-password {
-  margin-top: 25px;
+    margin-top: 1px;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 17px;
+    font-weight: normal;
+    text-transform: none;
+    padding: 7px 24px;
 }
 
 .login .content .create-account {
-  border-top: 1px dotted #eee;
-  padding-top: 10px;
-  margin-top: 15px;
+    padding-top: 10px;
+    margin-top: 15px;
 }
 
-.login .content .create-account a {
-  display: inline-block;
-  margin-top: 5px;
+.login .content .login-account,
+.login .content .create-account {
+    padding-top: 10px;
+    clear: both;
+    background: #6c7a8d;
+    margin: -30px;
+    padding: 0 30px 0 80px;
+    border: none;
 }
 
-
-.login .content .login-account {
-  padding-top: 10px;
-  clear:both;
-  background: #6c7a8d;
-  margin: -30px;
-  padding: 0 30px 0 80px;
-}
-
+.login .content .create-account a,
 .login .content .login-account a {
-  display: inline-block;
-  margin-top: 5px;
-  color: #E2E4E6;
+    display: inline-block;
+    margin-top: 5px;
+    color: @color2;
 }
 
 
 
 /* select2 dropdowns */
 .login .content .select2-container i {
-  display: inline-block;
-  position: relative;
-  color: #ccc;
-  z-index: 1;
-  top: 1px;
-  margin: 4px 4px 0 -1px;
-  width: 16px;
-  height: 16px;
-  font-size: 16px;
-  text-align: center;
+    display: inline-block;
+    position: relative;
+    color: @color9;
+    z-index: 1;
+    top: 1px;
+    margin: 4px 4px 0 -1px;
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    text-align: center;
 }
 
 .login .content .has-error .select2-container i {
-  color: #b94a48;
+    color: #b94a48;
 }
 
 .login .content .select2-container a span {
-  font-size: 13px;
+    font-size: 13px;
 }
 
 .login .content .select2-container a span img {
-  margin-left: 4px;
+    margin-left: 4px;
 }
 
 #ssIFrame_google {
-    left:-9999px !important;
+    left: -9999px !important;
 }
 
 /* footer copyright */
 .login .copyright {
-  text-align: center;
-  margin: 0 auto;
-  padding: 10px;
-  color: #eee;
-  font-size: 13px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px;
+    color: #eee;
+    font-size: 13px;
 }
 
-.login .login-options{
+.login .login-options {
     clear: both;
 }
 
@@ -246,28 +279,44 @@ Login page
     float: right;
 }
 
-.login label a{
+.login .login-options .facebook svg {
+    fill: #8493B3;
+}
+
+.login .login-options .google svg {
+    fill: #E07B6F;
+}
+
+.login .login-options svg {
+    width: 37px;
+    height: 37px;
+    margin-right: 10px;
+    margin-left: -8px;
+}
+
+.login label a {
     color: #30333A;
 }
 
+
 @media (max-width: 480px) {
-  /***
+    /***
   Login page
   ***/
-  /*.login .logo {
+    /*.login .logo {
     margin-top: 10px;
   }*/
 
-  .login .content {
-    padding: 30px;
-    width: 222px;
-  }
+    .login .content {
+        padding: 30px;
+        width: 222px;
+    }
 
-  .login .content h3 {
-    font-size: 22px;
-  }
+    .login .content h3 {
+        font-size: 22px;
+    }
 
-  .login .checkbox {
-    font-size: 13px;
-  }
+    .login .checkbox {
+        font-size: 13px;
+    }
 }

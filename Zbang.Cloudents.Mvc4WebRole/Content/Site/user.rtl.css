@@ -89,6 +89,7 @@
   display: -ms-flex;
   display: flex;
   color: #fff;
+  align-items: center;
 }
 .userPage .posts > div {
   width: 100%;
@@ -103,5 +104,6 @@
 .userPage .posts .time-ago {
   color: #8c99a6;
   font-size: 18px;
-  margin-top: 20px;
+  flex-basis: 200px;
+  text-align: left;
 }

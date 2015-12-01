@@ -29,18 +29,18 @@ namespace Zbang.Cloudents.Mvc4WebRole
                   {
                     "signin", new[]
                     {
-                        "~/Content/signin/font-awesome.css",
-                        "~/Content/signin/simple-line-icons.css",
+                        //"~/Content/signin/font-awesome.css",
+                        //"~/Content/signin/simple-line-icons.css",
                         "~/Content/homepage/bootstrap.css",
-                        "~/Content/signin/uniform.default.css",
-                        "~/Content/signin/select2.css",
+                        //"~/Content/signin/uniform.default.css",
+                        //"~/Content/signin/select2.css",
                         "~/Content/signin/login-soft.css",
                         "~/Content/signin/components-md.css",
                         "~/Content/signin/plugins-md.css",
                         "~/Content/site/layout.css",
                         "~/Content/signin/default.css",
                         "~/Content/signin/custom.css",
-                        "~/Content/signin/customRtl.css"
+                        //"~/Content/signin/customRtl.css"
                     }
                 },
                  {
@@ -49,10 +49,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/bower_components/angular-material/material.css",
                         "~/bower_components/textAngular/dist/textAngular.css",
                         
-                        "~/Content/signin/font-awesome.css",
+                        //"~/Content/signin/font-awesome.css",
                         //"~/Content/signin/simple-line-icons.css",
                         "~/Content/homepage/bootstrap.css",
-                        "~/Content/signin/uniform.default.css",
+                        //"~/Content/signin/uniform.default.css",
                         //"~/Content/site/bootstrap-switch.css",
                         //"~/Content/site/portfolio.css",
                         "~/content/site/profile.css",
@@ -90,16 +90,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
             var jsDictionary = new Dictionary<string, IEnumerable<JsFileWithCdn>>
             {
                 
-                {
-                    "static", new[]
-                    {
-                        new JsFileWithCdn("~/Scripts/validatinator.min.js"),
-                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
-                        new JsFileWithCdn("~/Js/staticShim.js"),
-                        new JsFileWithCdn("~/Js/Logon.js"),
-                        new JsFileWithCdn("~/Js/HomePage.js")
-                    }
-                },
+                //{
+                //    "static", new[]
+                //    {
+                //        new JsFileWithCdn("~/Scripts/validatinator.min.js"),
+                //         new JsFileWithCdn("~/scripts/svg4everybody.js"),
+                //        new JsFileWithCdn("~/Js/staticShim.js"),
+                //        new JsFileWithCdn("~/Js/Logon.js"),
+                //        new JsFileWithCdn("~/Js/HomePage.js")
+                //    }
+                //},
                
                 {
                     "homePage", new[]
@@ -117,15 +117,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
 
 
-                        new JsFileWithCdn("~/js/signin/jquery.min.js"),
-                        new JsFileWithCdn("~/js/signin/jquery-migrate.min.js"),
+                        new JsFileWithCdn("~/scripts/jquery-2.1.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"),
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
-                        new JsFileWithCdn("~/js/signin/jquery.blockui.min.js"),
-                        new JsFileWithCdn("~/js/signin/jquery.uniform.min.js"),
-                        new JsFileWithCdn("~/js/signin/jquery.cokie.min.js"),
-                        new JsFileWithCdn("~/js/signin/jquery.validate.min.js"),
+                        //new JsFileWithCdn("~/js/signin/jquery.blockui.min.js"),
+                        //new JsFileWithCdn("~/js/signin/jquery.uniform.min.js"),
+                        //new JsFileWithCdn("~/js/signin/jquery.cokie.min.js"),
+                        new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
                         //new JsFileWithCdn("~/js/signin/jquery.backstretch.min.js"),
-                        new JsFileWithCdn("~/js/signin/select2.min.js"),
+                        //new JsFileWithCdn("~/js/signin/select2.min.js"),
                         new JsFileWithCdn("~/js/signin/demo.js"),
                         new JsFileWithCdn("~/js/signin/metronic.js"),
                         new JsFileWithCdn("~/js/signin/layout.js"),
@@ -137,28 +136,22 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "site4", new[]
                     {
 
-                        new JsFileWithCdn("~/js/signin/jquery.min.js"),
-                        new JsFileWithCdn("~/js/signin/jquery-migrate.min.js"),
+                        new JsFileWithCdn("~/scripts/jquery-2.1.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"),
+                        //new JsFileWithCdn("~/js/signin/jquery-migrate.min.js"),
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
                         
-                        //new JsFileWithCdn("~/scripts/stacktrace.js"), 
-
-                        //new JsFileWithCdn("~/scripts/site/jquery-ui.min.js"), //?
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-hover-dropdown.js"),
                         new JsFileWithCdn("~/scripts/site/jquery.slimscroll.js"),
-                        new JsFileWithCdn("~/js/signin/jquery.blockui.min.js"),
-                        new JsFileWithCdn("~/js/signin/jquery.cokie.min.js"),
-                        new JsFileWithCdn("~/js/signin/jquery.uniform.min.js"),
-                        //new JsFileWithCdn("~/scripts/site/bootstrap-switch.js"),//?
+                        //new JsFileWithCdn("~/js/signin/jquery.blockui.min.js"),
+                        //new JsFileWithCdn("~/js/signin/jquery.cokie.min.js"),
+                        //new JsFileWithCdn("~/js/signin/jquery.uniform.min.js"),
 
 
                         new JsFileWithCdn("~/scripts/angular.min.js",
-                            "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"),
-                        //new JsFileWithCdn("~/scripts/angular-sanitize.js"
-                        //    //"https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-sanitize.min.js"
-                        //    ),
-                        new JsFileWithCdn("~/scripts/angular-ui-router.js"),
+                            "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"),
+                        
+                            new JsFileWithCdn("~/scripts/angular-ui-router.js"),
                         new JsFileWithCdn("~/scripts/angulartics.js"),
                         new JsFileWithCdn("~/scripts/angulartics-ga.js"),
                         new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
@@ -173,7 +166,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         
                         new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js"),
                         new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
-                        new JsFileWithCdn("~/bower_components/angular-material/angular-material.js"),
+                        new JsFileWithCdn("~/bower_components/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc4/angular-material.min.js"),
 
                         new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
 
@@ -276,7 +269,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/userimage.js"),
                         new JsFileWithCdn("~/js/shared/megaNumbers.js"),
                         new JsFileWithCdn("~/js/shared/focusMe.js"),
-                        new JsFileWithCdn("~/js/shared/displayTime.js"),
+                        //new JsFileWithCdn("~/js/shared/displayTime.js"),
                         new JsFileWithCdn("~/js/shared/userDetails.js"),
                         new JsFileWithCdn("~/js/shared/tabDrop.js"),
                         new JsFileWithCdn("~/js/shared/showForm.js"),

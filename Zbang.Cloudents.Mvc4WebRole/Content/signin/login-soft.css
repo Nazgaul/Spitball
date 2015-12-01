@@ -20,7 +20,6 @@ Login page
   text-align: center;
 }
 .login .content {
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACtJREFUeNrszTEBACAMA7CCJfxr61SwKzGQ0/bls5sFEolEIpFIJJKMAAMAa/wDYqqLVjAAAAAASUVORK5CYII=') /*/Images/signin/bg-white-lock.png*/ repeat;
   width: 400px;
   margin: 0 auto;
   margin-bottom: 0;
@@ -28,24 +27,48 @@ Login page
   padding-top: 20px;
   padding-bottom: 15px;
 }
+.login .content p {
+  padding-bottom: 5px;
+}
+.login .content h4 {
+  color: #8c99a6;
+  float: left;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
 .login .content h3 {
   color: #3598dc;
   margin-top: 0;
   margin-bottom: 28px;
+  margin-left: 14%;
 }
-.login .content h4 {
-  color: #8290a3;
-  float: left;
-  font-size: 18px;
-}
-.login .content p {
-  color: #E2E4E6;
+.login .content .create-account p,
+.login .content .login-account p {
+  color: #f5f5f5;
   line-height: 40px;
-  padding-bottom: 5px;
+}
+.login .content .forget-password {
+  display: flex;
+}
+.login .content .forget-password p {
+  color: #8c99a6;
+  font-size: 11px;
+  padding-left: 5%;
+  -ms-flex: 2;
+  -webkit-flex: 2;
+  flex: 2;
+  margin: 0;
+  align-self: center;
+}
+.login .content .form-actions-container label {
+  color: #8c99a6;
+  font-size: 11px;
 }
 .login .content label {
-  color: #8290a3;
-  font-size: 11px;
+  padding-right: 20%;
+}
+.login .checker {
+  margin-left: -2px;
 }
 .login .content .login-form,
 .login .content .forget-form {
@@ -55,7 +78,7 @@ Login page
 .login .content .form-control {
   padding-right: 1em;
   background-color: #dde3ec;
-  color: #8290a3;
+  color: #8c99a6;
   border: 1px solid #dde3ec;
   border-radius: 0;
   padding-left: 15px;
@@ -84,22 +107,26 @@ Login page
   height: 48px;
 }
 .login .form-group input::-webkit-input-placeholder {
-  color: #8290a3;
+  color: #8c99a6;
 }
 .login .form-group input:-moz-placeholder {
   /* Firefox 18- */
-  color: #8290a3;
+  color: #8c99a6;
 }
 .login .form-group input::-moz-placeholder {
   /* Firefox 19+ */
-  color: #8290a3;
+  color: #8c99a6;
 }
 .login .form-group input:-ms-input-placeholder {
-  color: #8290a3;
+  color: #8c99a6;
 }
 .form-actions-container {
   display: flex;
-  margin-top: 30px;
+  margin-top: 25px;
+  padding-right: 6px;
+}
+.form-actions-container .form-group {
+  align-self: center;
 }
 .login .content .form-title {
   font-weight: 300;
@@ -118,6 +145,7 @@ Login page
   padding-left: 0;
   margin-top: 8px;
   display: inline-block;
+  color: #8c99a6;
 }
 .login .content .forget-form .form-actions {
   border: 0;
@@ -126,41 +154,42 @@ Login page
 }
 .login .content .register-form .form-actions {
   border: 0;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
   padding-bottom: 0;
 }
 .login .content .form-actions .btn {
   margin-top: 1px;
-}
-.login .content .forget-password {
-  margin-top: 25px;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 17px;
+  font-weight: normal;
+  text-transform: none;
+  padding: 7px 24px;
 }
 .login .content .create-account {
-  border-top: 1px dotted #eee;
   padding-top: 10px;
   margin-top: 15px;
 }
-.login .content .create-account a {
-  display: inline-block;
-  margin-top: 5px;
-}
-.login .content .login-account {
+.login .content .login-account,
+.login .content .create-account {
   padding-top: 10px;
   clear: both;
   background: #6c7a8d;
   margin: -30px;
   padding: 0 30px 0 80px;
+  border: none;
 }
+.login .content .create-account a,
 .login .content .login-account a {
   display: inline-block;
   margin-top: 5px;
-  color: #E2E4E6;
+  color: #f5f5f5;
 }
 /* select2 dropdowns */
 .login .content .select2-container i {
   display: inline-block;
   position: relative;
-  color: #ccc;
+  color: #cccccc;
   z-index: 1;
   top: 1px;
   margin: 4px 4px 0 -1px;
@@ -200,6 +229,18 @@ Login page
   margin-right: 0;
   width: inherit;
   float: right;
+}
+.login .login-options .facebook svg {
+  fill: #8493B3;
+}
+.login .login-options .google svg {
+  fill: #E07B6F;
+}
+.login .login-options svg {
+  width: 37px;
+  height: 37px;
+  margin-right: 10px;
+  margin-left: -8px;
 }
 .login label a {
   color: #30333A;

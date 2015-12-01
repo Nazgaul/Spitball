@@ -13,8 +13,8 @@
     <property name="Rate" not-null="true"></property>
     <property name="NumberOfViews" not-null="true"></property>
     <property name="NumberOfComments" not-null="true"></property>
-    <property name="Average" not-null="false"></property>
-    <property name="Stdevp" not-null="false"></property>
+    <!--<property name="Average" not-null="false"></property>
+    <property name="Stdevp" not-null="false"></property>-->
     <property name="Url" not-null="false" length="8000"></property>
     <property name="Banner" length="8000"></property>
 

@@ -222,10 +222,10 @@ var Login = function () {
 
        
 
-        jQuery('#lang_select').change(function (e) {
-            saveRegisterData();
-            window.location.href = jQuery(this).find(':selected').attr('data-href');
-        });
+        //jQuery('#lang_select').change(function (e) {
+        //    saveRegisterData();
+        //    window.location.href = jQuery(this).find(':selected').attr('data-href');
+        //});
     }
 
     var handleExtenalLogin = function() {
@@ -238,55 +238,55 @@ var Login = function () {
         });
     }
 
-    var handleLanguage = function () {
-        var lang = $.cookie('l2');
-        if (!lang) {
-            return;
-        }
-        $('#lang_select').val(lang.toLowerCase());
-    }
+    //var handleLanguage = function () {
+    //    var lang = $.cookie('l2');
+    //    if (!lang) {
+    //        return;
+    //    }
+    //    $('#lang_select').val(lang.toLowerCase());
+    //}
 
-    function saveRegisterData() {
-        if (!window.sessionStorage) {
-            return;
-        }
+    //function saveRegisterData() {
+    //    if (!window.sessionStorage) {
+    //        return;
+    //    }
 
-        var signupData = {
-            firstname: $('.register-form input[name="firstname"]').val(),
-            lastname: $('.register-form input[name="lastname"]').val(),
-            email: $('.register-form input[name="email"]').val(),
-            confirmEmail: $('.register-form input[name="confirmemail"]').val(),
-            password: $('.register-form input[name="password"]').val()
-        };
+    //    var signupData = {
+    //        firstname: $('.register-form input[name="firstname"]').val(),
+    //        lastname: $('.register-form input[name="lastname"]').val(),
+    //        email: $('.register-form input[name="email"]').val(),
+    //        confirmEmail: $('.register-form input[name="confirmemail"]').val(),
+    //        password: $('.register-form input[name="password"]').val()
+    //    };
 
-        window.sessionStorage.setItem('signup', JSON.stringify(signupData));
+    //    window.sessionStorage.setItem('signup', JSON.stringify(signupData));
 
-    }
+    //}
 
-    function loadRegisterData() {
-        if (!window.sessionStorage) {
-            return;
-        }
+    //function loadRegisterData() {
+    //    if (!window.sessionStorage) {
+    //        return;
+    //    }
 
-        var signupData = window.sessionStorage.getItem('signup');
-        if (!signupData) {
-            return;
-        }
+    //    var signupData = window.sessionStorage.getItem('signup');
+    //    if (!signupData) {
+    //        return;
+    //    }
 
-        var signupObj;
-        try {
-            signupObj = JSON.parse(signupData);
-        } catch (e) {
-            signupObj = {};
-        }
+    //    var signupObj;
+    //    try {
+    //        signupObj = JSON.parse(signupData);
+    //    } catch (e) {
+    //        signupObj = {};
+    //    }
 
-        for (var key in signupObj) {
-            if (signupObj.hasOwnProperty(key)) {
-                $('.register-form input[name="' + key.toLowerCase() + '"]').val(signupObj[key]);
-            }
-        }
-        window.sessionStorage.removeItem('signup');
-    }
+    //    for (var key in signupObj) {
+    //        if (signupObj.hasOwnProperty(key)) {
+    //            $('.register-form input[name="' + key.toLowerCase() + '"]').val(signupObj[key]);
+    //        }
+    //    }
+    //    window.sessionStorage.removeItem('signup');
+    //}
 
     function signup(form) {
         //var firstname = $('.register-form input[name="firstname"]').val(),
@@ -471,12 +471,12 @@ var Login = function () {
             handleLogin();
             //handleForgetPassword();
             handleRegister();
-            handleLanguage();
+            //handleLanguage();
             handleExtenalLogin();
             if (window.location.pathname.indexOf('/signup') > -1) {
                 jQuery('.login-form').hide();
                 jQuery('.register-form').show();
-                loadRegisterData();
+                //loadRegisterData();
             }
 
             $.each(jQuery.validator.messages, function (key, value) {

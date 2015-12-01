@@ -13,6 +13,9 @@
                 getUpdates();
             }
         });
+        self.getUpdates = updates;
+        self.boxUpdates = boxUpdates;
+        self.deleteUpdates = deleteUpdates;
         
         $rootScope.$on('universityChange', function () {
             getUpdates();
@@ -24,17 +27,38 @@
             });
         }
 
-        self.getUpdates = function (boxid, callBack) {
+        function deleteUpdates(boxId) {
+            ajaxservice.post('/box/DeleteUpdates', new {
+                boxId: boxId
+            });
+        }
+
+        
+
+        function updates(boxid, callBack) {
+            boxUpdates(boxid, function(x) {
+                var v = x.length;
+                callBack(v);
+            });
+            //var promise = deferred.promise;
+
+            //promise.then(function () {
+            //    var v = self.data.filter(function (i) {
+            //        return i.boxId === boxid;
+            //    }).length;
+            //    callBack(v);
+            //});
+        }
+
+        function boxUpdates(boxid, callBack) {
             var promise = deferred.promise;
 
             promise.then(function () {
                 var v = self.data.filter(function (i) {
                     return i.boxId === boxid;
-                }).length;
+                });
                 callBack(v);
             });
-
-
         }
     }
 

@@ -1,4 +1,6 @@
-﻿.accountPage {
+﻿@import "variables.less";
+
+.accountPage-wrapper {
 
     svg {
         width: 17px;
@@ -8,26 +10,100 @@
         margin-right: 12px;
     }
 
+    .btn {
+        padding: 5px 13px;
+        font-size: 11px;
+    }
 
     .ontop {
         text-align: center;
         position: relative;
         top: -22px;
         display: block;
+        background: @loginColor;
+        color: @color2;
+        font-size: 11px;
+        line-height: 22px;
+    }
+
+    .portlet.light {
+        .portlet-body .form-group .fileinput {
+
+            h2 {
+                font-size: 12px;
+                margin-top: 6px;
+            }
+
+            .thumbnail {
+                border-radius: 0;
+            }
+        }
+
+        > .portlet-title {
+            border-bottom: 1px solid #F4F4F4;
+            min-height: 12px;
+            display: flex;
+            padding-left: 5px;
+
+            > .caption {
+                align-self: flex-end;
+                flex-grow: 1;
+            }
+
+            > .caption.caption-md > .caption-subject {
+                font-size: 12px;
+            }
+        }
+    }
+
+    .tab-from-right > li {
+        margin: 0;
+
+        > a {
+            font-size: 11px;
+            padding: 13px 8px 5px 8px;
+        }
+    }
+
+    .page-head .page-title {
+        padding: 10px 0;
+
+        > h1 {
+            font-size: 18px;
+        }
+    }
+
+    .nav-tabs {
+        padding: 0;
     }
 
     .notification-list {
         // background:#353A3F;
-        color:#fff;
-        padding: 0 10px;
-
-        select {
-            background: #353A3F;
-        }
+        color: #fff;
 
         li {
-            padding: 10px 0;
-            border-bottom: 1px solid red;
+            display: flex;
+            padding: 10px 0 10px 5px;
+            border-bottom: 1px solid @borderColorGrey;
+
+            select {
+                background: #353A3F;
+                align-self: center;
+            }
+
+            .box-data {
+                flex-grow: 1;
+            }
+
+            .owner {
+                color: #6a737d;
+                font-size: 10px;
+                font-weight: bold;
+            }
+
+            .name {
+                font-size: 15px;
+            }
         }
     }
 }

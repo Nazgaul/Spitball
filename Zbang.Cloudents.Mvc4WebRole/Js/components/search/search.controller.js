@@ -1,8 +1,8 @@
 ﻿(function() {
     angular.module('app.search').controller('SearchController', search);
 
-    search.$inject = ['searchService', '$location', 'itemThumbnail'];
-    function search(searchService, $location, itemThumbnail) {
+    search.$inject = ['searchService', '$location', 'itemThumbnailService'];
+    function search(searchService, $location, itemThumbnailService) {
         var self = this, page = 0, loading = false, needToBringMore = true;
         
 
@@ -32,12 +32,15 @@
                 loading = true;
                 searchService.search(self.term, page).then(function(response) {
                     //self.result = response;
-                    for (var i = 0; i < response.items.length; i++) {
-                        response.items[i].thumbnail = buildThumbnailUrl(response.items[i].source);
+                    response.items = itemThumbnailService.assignValues(response.items)
+                    
+                    for (var j = 0; j < response.quizzes.length; j++) {
+                        response.quizzes[j].publish = true;
                     }
                     if (needToAppend) {
                         self.result.boxes = self.result.boxes.concat(response.boxes);
                         self.result.items = self.result.items.concat(response.items);
+                       
                         self.result.quizzes = self.result.quizzes.concat(response.quizzes);
                     } else {
                         self.result = response;
@@ -50,8 +53,6 @@
                 });
             }
         }
-        function buildThumbnailUrl(name) {
-            return itemThumbnail.get(name, 368, 520);
-        }
+        
     }
 })();

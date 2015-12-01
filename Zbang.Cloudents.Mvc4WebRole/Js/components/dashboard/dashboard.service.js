@@ -15,7 +15,7 @@
 
             if (!serverCall) {
                 serverCall = true;
-                ajaxservice.get('/dashboard/boxlist/', {page : page}, 1800000).then(function (response) {
+                ajaxservice.get('/dashboard/boxlist/', {page : page}).then(function (response) {
                     serverCall = false;
                     d.boxes = response;
                     for (var i = 0; i < d.boxes.length; i++) {
