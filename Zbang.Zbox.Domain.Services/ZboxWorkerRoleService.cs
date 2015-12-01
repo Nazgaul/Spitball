@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Domain.Services
 
         private void UpdateUsersReputation()
         {
-            int i = 0;
+            int i = 407;
             IList<long> users;
 
 

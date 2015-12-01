@@ -76,7 +76,7 @@
                     var elementHeight = elem[0].getAttribute('height');
 
 
-                    innerEl.css({
+                    $(innerEl).css({
                         width: elem[0].getAttribute('width') + 'px',
                         height: elementHeight + 'px',
                         lineHeight: (elementHeight - borderWidth) + 'px'
