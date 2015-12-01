@@ -786,19 +786,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public ActionResult PasswordUpdate(string key)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
-            if (string.IsNullOrWhiteSpace(key))
-            {
-                return RedirectToAction("index");
-            }
-            var data = UnEncryptElement(key);
-            if (data == null)
-            {
-                return RedirectToAction("index");
-            }
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    return RedirectToAction("Index", "Dashboard");
+            //}
+            //if (string.IsNullOrWhiteSpace(key))
+            //{
+            //    return RedirectToAction("index");
+            //}
+            //var data = UnEncryptElement(key);
+            //if (data == null)
+            //{
+            //    return RedirectToAction("index");
+            //}
             return View(new NewPassword());
         }
 

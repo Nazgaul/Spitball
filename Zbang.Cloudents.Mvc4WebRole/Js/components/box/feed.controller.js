@@ -1,9 +1,9 @@
 ﻿(function () {
     angular.module('app.box.feed').controller('FeedController', feed);
-    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService', 'user'];
+    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService', 'user', 'userUpdatesService'];
 
-    function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user) {
-        var self = this, boxId = $stateParams.boxId;
+    function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService) {
+        var self = this, boxId = parseInt($stateParams.boxId, 10);
         boxService.getFeed(boxId).then(function (response) {
             self.data = response;
 
@@ -13,7 +13,30 @@
                     self.data[i].answers[k].files = itemThumbnailService.assignValues(self.data[i].answers[k].files, 100, 125);
                 }
             }
+            userUpdatesService.boxUpdates(boxId, function (updates) {
+                console.log(updates);
+                for (var j = 0; j < updates.length; j++) {
+                    var update = updates[j];
+                    attachNew(update);
+
+                }
+            });
         });
+        function attachNew(update) {
+            if (update.itemId) {
+                for (var i = 0; i < self.data.length; i++) {
+
+                }
+            }
+            if (update.questionId) {
+                var question = self.data.find(function (e) {
+                    return e.id === update.questionId;
+                });
+                
+
+
+            }
+        }
 
 
         self.add = {
