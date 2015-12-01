@@ -3,8 +3,11 @@
 <div class="tab-pane" id="notification">
     <ul class="list-unstyled notification-list">
         <li ng-repeat="box in ::n.notifications track by box.id" class="clearfix">
-            <div class="pull-left">{{::box.name}}</div>
-            <select class="pull-right" ng-model="box.notifications" ng-change="n.updateNotification(box)">
+            <div class="box-data" d-color="{{::box.name.length}}">
+                <div class="name">{{::box.name}}</div>
+                <div class="owner">Owner: TBA@*{{::box.owner}}*@</div>
+            </div>
+            <select class="" ng-model="box.notifications" ng-change="n.updateNotification(box)">
                 <option value="@NotificationSettings.Off.GetStringValueLowerCase()">@NotificationSettings.Off.GetEnumDescription()</option>
                 <option value="@NotificationSettings.OnEveryChange.GetStringValueLowerCase()">@NotificationSettings.OnEveryChange.GetEnumDescription()</option>
                 <option value="@NotificationSettings.OnceADay.GetStringValueLowerCase()">@NotificationSettings.OnceADay.GetEnumDescription()</option>

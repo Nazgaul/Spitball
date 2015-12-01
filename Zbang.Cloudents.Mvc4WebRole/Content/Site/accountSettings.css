@@ -5,6 +5,10 @@
   vertical-align: middle;
   margin-right: 12px;
 }
+.accountPage-wrapper .btn {
+  padding: 5px 13px;
+  font-size: 11px;
+}
 .accountPage-wrapper .ontop {
   text-align: center;
   position: relative;
@@ -26,6 +30,7 @@
   border-bottom: 1px solid #F4F4F4;
   min-height: 12px;
   display: flex;
+  padding-left: 5px;
 }
 .accountPage-wrapper .portlet.light > .portlet-title > .caption {
   align-self: flex-end;
@@ -39,7 +44,7 @@
 }
 .accountPage-wrapper .tab-from-right > li > a {
   font-size: 11px;
-  padding: 12px 8px 5px 8px;
+  padding: 13px 8px 5px 8px;
 }
 .accountPage-wrapper .page-head .page-title {
   padding: 10px 0;
@@ -52,12 +57,24 @@
 }
 .accountPage-wrapper .notification-list {
   color: #fff;
-  padding: 0 10px;
-}
-.accountPage-wrapper .notification-list select {
-  background: #353A3F;
 }
 .accountPage-wrapper .notification-list li {
-  padding: 10px 0;
-  border-bottom: 1px solid red;
+  display: flex;
+  padding: 10px 0 10px 5px;
+  border-bottom: 1px solid #3d4348;
+}
+.accountPage-wrapper .notification-list li select {
+  background: #353A3F;
+  align-self: center;
+}
+.accountPage-wrapper .notification-list li .box-data {
+  flex-grow: 1;
+}
+.accountPage-wrapper .notification-list li .owner {
+  color: #6a737d;
+  font-size: 10px;
+  font-weight: bold;
+}
+.accountPage-wrapper .notification-list li .name {
+  font-size: 15px;
 }

@@ -30,7 +30,7 @@
             <a ui-sref="universityChoose">change univeristy</a>
 
             <md-input-container>
-                <label>language:</label>
+                <label>language</label>
                 <md-select name="notification" md-on-close="i.changeLanguage()" ng-model="i.data.language" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
                     @foreach (var lang in Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures)
                     {
@@ -42,8 +42,8 @@
 
             <div class="margin-top-10 text-right">
 
-                <button type="submit" class="btn blue">Save changes</button>
                 <button type="reset" class="btn default">Cancel</button>
+                <button type="submit" class="btn blue">Save changes</button>
             </div>
         </form>
     </div>
