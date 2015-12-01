@@ -9,15 +9,15 @@
             <h1>Dashboard</h1>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-6  col-md-8 col-sm-12">
+    <div @*class="row"*@ layout="row" layout-padding layout-wrap>
+        <div @*class="col-lg-6  col-md-8 col-sm-12"*@  flex-gt-lg="33" flex-lg="33" flex="100" class="flex">
             @{ Html.RenderPartial("_University");}
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 leaderboard">
+        <div @*class="col-lg-3 col-md-4 col-sm-6 col-xs-6 leaderboard"*@ class="leaderboard flex" flex-gt-lg="33" flex-lg="33" flex-md="50" flex="100">
             @{ Html.RenderPartial("_Leaderboard");}
         </div>
 
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+        <div @*class="col-lg-3 col-md-4 col-sm-6 col-xs-6"*@ flex-gt-lg="33" flex-lg="33" flex-md="50" flex="100" class="flex">
             <div class="portlet light invite">
                 <button type="button" ng-click="d.inviteToSpitabll()" class="portlet-body">
                     @Html.Svg("~/images/site/icons.svg", "invite")
@@ -25,7 +25,7 @@
                 </button>
             </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12  create-box hidden-xs" ng-class="{'create-box-show' : d.createBoxOn}">
+        <div @*class="col-lg-3 col-md-4 col-sm-6 col-xs-12  create-box"*@ flex-gt-lg="33" flex-lg="33" flex-md="50" flex-sm="100" class="create-box flex" ng-class="{'create-box-show' : d.createBoxOn}">
             <div class="dashboard-stat2">
                 <button ng-hide="d.createBoxOn" type="button" ng-click="d.createBoxOn = true" class="create-btn">
                     <div class="plus">+</div>
@@ -51,7 +51,7 @@
                 </form>
             </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="e in d.boxes" ng-include="'box-template.html'"></div>
+        <div @*class="col-lg-3 col-md-4 col-sm-6 col-xs-12"*@ flex-gt-lg="33" flex-lg="33" flex-md="50" flex-sm="100" ng-repeat="e in d.boxes" ng-include="'box-template.html'" class="flex"></div>
     </div>
 </div>
 

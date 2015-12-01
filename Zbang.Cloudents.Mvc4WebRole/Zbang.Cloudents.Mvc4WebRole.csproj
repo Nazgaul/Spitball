@@ -621,18 +621,6 @@
     <Content Include="bower_components\angular-material\demos\toolbar\demoBasicUsage\img\icons\menu.svg" />
     <Content Include="bower_components\angular-material\demos\toolbar\demoBasicUsage\img\icons\more_vert.svg" />
     <Content Include="bower_components\angular-material\index.js" />
-    <Content Include="bower_components\angular-material\material.css">
-      <DependentUpon>material.less</DependentUpon>
-    </Content>
-    <Content Include="bower_components\angular-material\material.min.css">
-      <DependentUpon>material.css</DependentUpon>
-    </Content>
-    <Content Include="bower_components\angular-material\material.rtl.css">
-      <DependentUpon>material.css</DependentUpon>
-    </Content>
-    <Content Include="bower_components\angular-material\material.rtl.min.css">
-      <DependentUpon>material.rtl.css</DependentUpon>
-    </Content>
     <Content Include="bower_components\angular-material\modules\closure\autocomplete\autocomplete-default-theme.css" />
     <Content Include="bower_components\angular-material\modules\closure\autocomplete\autocomplete-default-theme.min.css" />
     <Content Include="bower_components\angular-material\modules\closure\autocomplete\autocomplete.css" />
@@ -1226,7 +1214,6 @@
     <Content Include="bower_components\angular\package.json" />
     <Content Include="bower_components\angular\README.md" />
     <Content Include="bower.json" />
-    <Content Include="bower_components\angular-material\material.less" />
     <Content Include="bower_components\font-awesome\.bower.json" />
     <Content Include="bower_components\font-awesome\.npmignore" />
     <Content Include="bower_components\font-awesome\bower.json" />

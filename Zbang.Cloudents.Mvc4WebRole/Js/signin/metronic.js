@@ -1010,8 +1010,8 @@ var Metronic = function() {
             // bootstrap responsive breakpoints
             var sizes = {
                 'xs' : 480,     // extra small
-                'sm' : 768,     // small
-                'md' : 992,     // medium
+                'sm' : 600,     // small
+                'md' : 961,     // medium
                 'lg' : 1200     // large
             };
 
