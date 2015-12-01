@@ -24,278 +24,283 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     @Html.Css2("site4")
     <base href="/" />
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
 </head>
-    <body ng-controller="AppController as app" class="page-header-fixed page-sidebar-closed-hide-logo page-sidebar-closed-hide-logo page-sidebar-fixed">
-     
-        <!-- Google Tag Manager -->
-        <noscript>
-            <iframe src="//www.googletagmanager.com/ns.html?id=GTM-NDZLW7"
-                    height="0" width="0" style="display:none;visibility:hidden"></iframe>
-        </noscript>
-        <script>
-(function (w, d, s, l, i) {
-    w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-            new Date().getTime(), event: 'gtm.js'
-    }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-        '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-})(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
-        <!-- End Google Tag Manager -->
-        <div ng-spinner-bar class="page-spinner-bar">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
-        </div>
-        <div class="page-header navbar navbar-fixed-top">
-            <div class="page-header-inner">
-                <div class="page-logo">
-                    <a href="@url" @shouldPostBack>
-                        @Html.Svg(svgUrl, "logo", new { @class = "logo-default" })
-                    </a>
-                    <div class="menu-toggler sidebar-toggler">
-                        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-                    </div>
+<body ng-controller="AppController as app" class="page-header-fixed page-sidebar-closed-hide-logo page-sidebar-closed-hide-logo page-sidebar-fixed">
+
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-NDZLW7"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
+    <!-- End Google Tag Manager -->
+    <div ng-spinner-bar class="page-spinner-bar">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+    <div class="page-header navbar navbar-fixed-top">
+        <div class="page-header-inner">
+            <div class="page-logo">
+                <a href="@url" @shouldPostBack>
+                    @Html.Svg(svgUrl, "logo", new { @class = "logo-default" })
+                </a>
+                <div class="menu-toggler sidebar-toggler">
+                    <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
                 </div>
-                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-                    @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
-                </a>
-                <a href="@Url.Action("Index","Search")" @shouldPostBack class="search-form search-form-expanded" ng-hide="app.hideSearch">
-                    <div class="input-group">
-                        <span type="text" class="form-control input-sm">Search...</span>
-                        <span class="input-group-btn">
-                            @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })
-                        </span>
-                    </div>
-                </a>
-                <!-- BEGIN PAGE TOP -->
-                <div class="page-top">
-                    <!-- BEGIN TOP NAVIGATION MENU -->
-                    <div class="top-menu">
-                        <ul class="nav navbar-nav pull-right">
-                            <li class="separator hide">
-                            </li>
-                            @*<li>
+            </div>
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
+            </a>
+            <a href="@Url.Action("Index","Search")" @shouldPostBack class="search-form search-form-expanded" ng-hide="app.hideSearch">
+                <div class="input-group">
+                    <span type="text" class="form-control input-sm">Search...</span>
+                    <span class="input-group-btn">
+                        @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })
+                    </span>
+                </div>
+            </a>
+            <!-- BEGIN PAGE TOP -->
+            <div class="page-top">
+                <!-- BEGIN TOP NAVIGATION MENU -->
+                <div class="top-menu">
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="separator hide">
+                        </li>
+                        @*<li>
                                 @Html.Svg(svgUrl, "headerInvite")
                             </li>*@
-                            <li class="separator hide">
-                            </li>
-                            <li>
-                                <a href="@Url.RouteUrl("Help")" class="headerHelp">
-                                    @Html.Svg(svgUrl, "headerHelp")
-                                </a>
-                            </li>
-                            <li class="separator hide">
-                            </li>
-                            <!-- BEGIN TODO DROPDOWN -->
-                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                            <li class="dropdown dropdown-extended dropdown-tasks dropdown-dark" id="header_task_bar">
-                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    @*<i class="icon-calendar"></i>*@
-                                    @Html.Svg(svgUrl, "headerNotification", new { @class = "headerNotification" })
-                                    <span class="badge badge-notifcation">
-                                        3
-                                    </span>
-                                </a>
-                                <ul class="dropdown-menu extended tasks">
-                                    <li class="external">
-                                        <h3>You have <span class="bold">12 pending</span> tasks</h3>
-                                        <a href="page_todo.html">view all</a>
-                                    </li>
-                                    <li>
-                                        <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="task">
-                                                        <span class="desc">New release v1.2 </span>
-                                                        <span class="percent">30%</span>
-                                                    </span>
-                                                    <span class="progress">
-                                                        <span style="width: 40%;" class="progress-bar progress-bar-success" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">40% Complete</span></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="task">
-                                                        <span class="desc">Application deployment</span>
-                                                        <span class="percent">65%</span>
-                                                    </span>
-                                                    <span class="progress">
-                                                        <span style="width: 65%;" class="progress-bar progress-bar-danger" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">65% Complete</span></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="task">
-                                                        <span class="desc">Mobile app release</span>
-                                                        <span class="percent">98%</span>
-                                                    </span>
-                                                    <span class="progress">
-                                                        <span style="width: 98%;" class="progress-bar progress-bar-success" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">98% Complete</span></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="task">
-                                                        <span class="desc">Database migration</span>
-                                                        <span class="percent">10%</span>
-                                                    </span>
-                                                    <span class="progress">
-                                                        <span style="width: 10%;" class="progress-bar progress-bar-warning" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">10% Complete</span></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="task">
-                                                        <span class="desc">Web server upgrade</span>
-                                                        <span class="percent">58%</span>
-                                                    </span>
-                                                    <span class="progress">
-                                                        <span style="width: 58%;" class="progress-bar progress-bar-info" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">58% Complete</span></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="task">
-                                                        <span class="desc">Mobile development</span>
-                                                        <span class="percent">85%</span>
-                                                    </span>
-                                                    <span class="progress">
-                                                        <span style="width: 85%;" class="progress-bar progress-bar-success" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">85% Complete</span></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="task">
-                                                        <span class="desc">New UI release</span>
-                                                        <span class="percent">38%</span>
-                                                    </span>
-                                                    <span class="progress progress-striped">
-                                                        <span style="width: 38%;" class="progress-bar progress-bar-important" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">38% Complete</span></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- END TODO DROPDOWN -->
-                            <!-- BEGIN USER LOGIN DROPDOWN -->
-                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                            <li class="dropdown dropdown-user dropdown-dark" ng-cloak ng-controller="UserDetails as ud">
-                                <a ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <span class="username username-hide-on-mobile">
-                                        {{ud.name}}
-                                        @*<span class="headerPoints">{{ud.score}}</span>*@
-                                    </span>
-                                    <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                                    <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39"></user-image>
-                                </a>
-                                <ul ng-if="ud.isLoggedIn" class="dropdown-menu dropdown-menu-default">
-                                    <li>
-                                        <a href="extra_profile.html">
-                                            <i class="icon-user"></i> My Profile
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page_calendar.html">
-                                            <i class="icon-calendar"></i> My Calendar
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="inbox.html">
-                                            <i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger">
-                                                                                            3
-                                                                                        </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page_todo.html">
-                                            <i class="icon-rocket"></i> My Tasks <span class="badge badge-success">
-                                                                                     7
-                                                                                 </span>
-                                        </a>
-                                    </li>
-                                    <li class="divider">
-                                    </li>
-                                    <li>
-                                        <a href="extra_lock.html">
-                                            <i class="icon-lock"></i> Lock Screen
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="@Url.Action("logoff","account")" @shouldPostBack>
-                                            <i class="icon-key"></i> Log Out
-                                        </a>
-                                    </li>
-                                </ul>
-                                <a class="btn btn-defalut" target="_self" href="@Url.Action("SignUp", "Account")" ng-if="!ud.isLoggedIn">sign up</a>
-                                <a class="btn btn-primary" target="_self" href="@Url.Action("SignIn","Account")" ng-if="!ud.isLoggedIn">log in</a>
-                            </li>
+                        <li class="separator hide">
+                        </li>
+                        <li>
+                            <a href="@Url.RouteUrl("Help")" class="headerHelp">
+                                @Html.Svg(svgUrl, "headerHelp")
+                            </a>
+                        </li>
+                        <li class="separator hide">
+                        </li>
+                        <!-- BEGIN TODO DROPDOWN -->
+                        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                        <li class="dropdown dropdown-extended dropdown-tasks dropdown-dark" id="header_task_bar">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                @*<i class="icon-calendar"></i>*@
+                                @Html.Svg(svgUrl, "headerNotification", new { @class = "headerNotification" })
+                                <span class="badge badge-notifcation">
+                                    3
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu extended tasks">
+                                <li class="external">
+                                    <h3>You have <span class="bold">12 pending</span> tasks</h3>
+                                    <a href="page_todo.html">view all</a>
+                                </li>
+                                <li>
+                                    <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">New release v1.2 </span>
+                                                    <span class="percent">30%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 40%;" class="progress-bar progress-bar-success" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">40% Complete</span></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">Application deployment</span>
+                                                    <span class="percent">65%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 65%;" class="progress-bar progress-bar-danger" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">65% Complete</span></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">Mobile app release</span>
+                                                    <span class="percent">98%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 98%;" class="progress-bar progress-bar-success" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">98% Complete</span></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">Database migration</span>
+                                                    <span class="percent">10%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 10%;" class="progress-bar progress-bar-warning" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">10% Complete</span></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">Web server upgrade</span>
+                                                    <span class="percent">58%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 58%;" class="progress-bar progress-bar-info" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">58% Complete</span></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">Mobile development</span>
+                                                    <span class="percent">85%</span>
+                                                </span>
+                                                <span class="progress">
+                                                    <span style="width: 85%;" class="progress-bar progress-bar-success" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">85% Complete</span></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="task">
+                                                    <span class="desc">New UI release</span>
+                                                    <span class="percent">38%</span>
+                                                </span>
+                                                <span class="progress progress-striped">
+                                                    <span style="width: 38%;" class="progress-bar progress-bar-important" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">38% Complete</span></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- END TODO DROPDOWN -->
+                        <!-- BEGIN USER LOGIN DROPDOWN -->
+                        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                        <li class="dropdown dropdown-user dropdown-dark" ng-cloak ng-controller="UserDetails as ud">
+                            <a ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <span class="username username-hide-on-mobile">
+                                    {{ud.name}}
+                                    @*<span class="headerPoints">{{ud.score}}</span>*@
+                                </span>
+                                <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
+                                <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39"></user-image>
+                            </a>
+                            <ul ng-if="ud.isLoggedIn" class="dropdown-menu dropdown-menu-default">
+                                <li>
+                                    <a href="extra_profile.html">
+                                        <i class="icon-user"></i> My Profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="page_calendar.html">
+                                        <i class="icon-calendar"></i> My Calendar
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="inbox.html">
+                                        <i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger">
+                                            3
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="page_todo.html">
+                                        <i class="icon-rocket"></i> My Tasks <span class="badge badge-success">
+                                            7
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a href="extra_lock.html">
+                                        <i class="icon-lock"></i> Lock Screen
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("logoff","account")" @shouldPostBack>
+                                        <i class="icon-key"></i> Log Out
+                                    </a>
+                                </li>
+                            </ul>
+                            <a class="btn btn-defalut" target="_self" href="@Url.Action("SignUp", "Account")" ng-if="!ud.isLoggedIn">sign up</a>
+                            <a class="btn btn-primary" target="_self" href="@Url.Action("SignIn","Account")" ng-if="!ud.isLoggedIn">log in</a>
+                        </li>
 
-                            <!-- END USER LOGIN DROPDOWN -->
-                            <!-- BEGIN USER LOGIN DROPDOWN -->
-                            @*<li class="dropdown dropdown-extended quick-sidebar-toggler">
+                        <!-- END USER LOGIN DROPDOWN -->
+                        <!-- BEGIN USER LOGIN DROPDOWN -->
+                        @*<li class="dropdown dropdown-extended quick-sidebar-toggler">
                                 <span class="sr-only">Toggle Quick Sidebar</span>
                                 <i class="icon-logout"></i>
                             </li>*@
-                            <!-- END USER LOGIN DROPDOWN -->
-                        </ul>
-                    </div>
-                    <!-- END TOP NAVIGATION MENU -->
+                        <!-- END USER LOGIN DROPDOWN -->
+                    </ul>
                 </div>
-                <!-- END PAGE TOP -->
+                <!-- END TOP NAVIGATION MENU -->
             </div>
-            <!-- END HEADER INNER -->
+            <!-- END PAGE TOP -->
         </div>
-        <div class="clearfix">
+        <!-- END HEADER INNER -->
+    </div>
+    <div class="clearfix">
+    </div>
+    <!-- END HEADER -->
+    <div class="page-container">
+        @RenderBody()
+    </div>
+    <div class="page-footer">
+        <div class="scroll-to-top">
+            <i class="icon-arrow-up"></i>
         </div>
-        <!-- END HEADER -->
-        <div class="page-container">
-           @RenderBody()
-        </div>
-        <div class="page-footer">
-            <div class="scroll-to-top">
-                <i class="icon-arrow-up"></i>
-            </div>
-        </div>
-    
-        @{ Html.RenderPartial("_commonTemplate");}
-        @Html.Script2("site4")
-        @RenderSection("scripts", false)
-        <script>
-            jQuery(document).ready(function () {
-                Metronic.init(); // init metronic core componets
-                Layout.initHeader();
-                Layout.initSidebar();
-                Layout.initFooter();
-                //Layout.init(); // init layout
-                //Demo.init(); // init demo features
-                //QuickSidebar.init(); // init quick sidebar
-                //Index.init(); // init index page
-                //Tasks.initDashboardWidget(); // init tash dashboard widget
-            });
-            window.version = '@VersionHelper.CurrentVersion(true)';
+    </div>
 
-            (function (i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date(); a = s.createElement(o),
-                    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-        </script>
-        @*<script type="text/ng-template" id="userimageTemplate.html">
-        <img ng-if="image" alt="" ng-src="{{image}}" />
-        <span ng-if="!image && name" class="userLetter background" d-color="name.length">{{name[0]}}</span>
-        <img ng-if="!image && !name" class="userImg" src="/images/user.svg" />
-    </script>*@
-    </body>
+    @{ Html.RenderPartial("_commonTemplate");}
+    @Html.Script2("site4")
+    @RenderSection("scripts", false)
+    <script>
+        jQuery(document).ready(function () {
+            Metronic.init(); // init metronic core componets
+            Layout.initHeader();
+            Layout.initSidebar();
+            Layout.initFooter();
+            //Layout.init(); // init layout
+            //Demo.init(); // init demo features
+            //QuickSidebar.init(); // init quick sidebar
+            //Index.init(); // init index page
+            //Tasks.initDashboardWidget(); // init tash dashboard widget
+        });
+        window.version = '@VersionHelper.CurrentVersion(true)';
+
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    </script>
+    @*<script type="text/ng-template" id="userimageTemplate.html">
+            <img ng-if="image" alt="" ng-src="{{image}}" />
+            <span ng-if="!image && name" class="userLetter background" d-color="name.length">{{name[0]}}</span>
+            <img ng-if="!image && !name" class="userImg" src="/images/user.svg" />
+        </script>*@
+</body>
 
 
 

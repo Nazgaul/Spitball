@@ -130,54 +130,54 @@ var Metronic = function() {
             }
         });
 
-        $('body').on('click', '.portlet > .portlet-title > .tools > a.reload', function(e) {
-            e.preventDefault();
-            var el = $(this).closest(".portlet").children(".portlet-body");
-            var url = $(this).attr("data-url");
-            var error = $(this).attr("data-error-display");
-            if (url) {
-                Metronic.blockUI({
-                    target: el,
-                    animate: true,
-                    overlayColor: 'none'
-                });
-                $.ajax({
-                    type: "GET",
-                    cache: false,
-                    url: url,
-                    dataType: "html",
-                    success: function(res) {
-                        Metronic.unblockUI(el);
-                        el.html(res);
-                    },
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        Metronic.unblockUI(el);
-                        var msg = 'Error on reloading the content. Please check your connection and try again.';
-                        if (error == "toastr" && toastr) {
-                            toastr.error(msg);
-                        } else if (error == "notific8" && $.notific8) {
-                            $.notific8('zindex', 11500);
-                            $.notific8(msg, {
-                                theme: 'ruby',
-                                life: 3000
-                            });
-                        } else {
-                            alert(msg);
-                        }
-                    }
-                });
-            } else {
-                // for demo purpose
-                Metronic.blockUI({
-                    target: el,
-                    animate: true,
-                    overlayColor: 'none'
-                });
-                window.setTimeout(function() {
-                    Metronic.unblockUI(el);
-                }, 1000);
-            }
-        });
+        //$('body').on('click', '.portlet > .portlet-title > .tools > a.reload', function(e) {
+        //    e.preventDefault();
+        //    var el = $(this).closest(".portlet").children(".portlet-body");
+        //    var url = $(this).attr("data-url");
+        //    var error = $(this).attr("data-error-display");
+        //    if (url) {
+        //        Metronic.blockUI({
+        //            target: el,
+        //            animate: true,
+        //            overlayColor: 'none'
+        //        });
+        //        $.ajax({
+        //            type: "GET",
+        //            cache: false,
+        //            url: url,
+        //            dataType: "html",
+        //            success: function(res) {
+        //                Metronic.unblockUI(el);
+        //                el.html(res);
+        //            },
+        //            error: function(xhr, ajaxOptions, thrownError) {
+        //                Metronic.unblockUI(el);
+        //                var msg = 'Error on reloading the content. Please check your connection and try again.';
+        //                if (error == "toastr" && toastr) {
+        //                    toastr.error(msg);
+        //                } else if (error == "notific8" && $.notific8) {
+        //                    $.notific8('zindex', 11500);
+        //                    $.notific8(msg, {
+        //                        theme: 'ruby',
+        //                        life: 3000
+        //                    });
+        //                } else {
+        //                    alert(msg);
+        //                }
+        //            }
+        //        });
+        //    } else {
+        //        // for demo purpose
+        //        Metronic.blockUI({
+        //            target: el,
+        //            animate: true,
+        //            overlayColor: 'none'
+        //        });
+        //        window.setTimeout(function() {
+        //            Metronic.unblockUI(el);
+        //        }, 1000);
+        //    }
+        //});
 
         // load ajax data on page init
         $('.portlet .portlet-title a.reload[data-load="true"]').click();
@@ -196,20 +196,20 @@ var Metronic = function() {
     };
 
     // Handles custom checkboxes & radios using jQuery Uniform plugin
-    var handleUniform = function() {
-        if (!$().uniform) {
-            return;
-        }
-        var test = $("input[type=checkbox]:not(.toggle, .md-check, .md-radiobtn, .make-switch, .icheck), input[type=radio]:not(.toggle, .md-check, .md-radiobtn, .star, .make-switch, .icheck)");
-        if (test.size() > 0) {
-            test.each(function() {
-                if ($(this).parents(".checker").size() === 0) {
-                    $(this).show();
-                    $(this).uniform();
-                }
-            });
-        }
-    };
+    //var handleUniform = function() {
+    //    if (!$().uniform) {
+    //        return;
+    //    }
+    //    var test = $("input[type=checkbox]:not(.toggle, .md-check, .md-radiobtn, .make-switch, .icheck), input[type=radio]:not(.toggle, .md-check, .md-radiobtn, .star, .make-switch, .icheck)");
+    //    if (test.size() > 0) {
+    //        test.each(function() {
+    //            if ($(this).parents(".checker").size() === 0) {
+    //                $(this).show();
+    //                $(this).uniform();
+    //            }
+    //        });
+    //    }
+    //};
 
     // Handlesmaterial design checkboxes
     var handleMaterialDesign = function() {
@@ -524,14 +524,14 @@ var Metronic = function() {
     };
 
     // Handle Select2 Dropdowns
-    var handleSelect2 = function() {
-        if ($().select2) {
-            $('.select2me').select2({
-                placeholder: "Select",
-                allowClear: true
-            });
-        }
-    };
+    //var handleSelect2 = function() {
+    //    if ($().select2) {
+    //        $('.select2me').select2({
+    //            placeholder: "Select",
+    //            allowClear: true
+    //        });
+    //    }
+    //};
 
     // handle group element heights
     var handleHeight = function() {
@@ -581,12 +581,12 @@ var Metronic = function() {
 
             //UI Component handlers     
             handleMaterialDesign(); // handle material design       
-            handleUniform(); // hanfle custom radio & checkboxes
+            //handleUniform(); // hanfle custom radio & checkboxes
             handleiCheck(); // handles custom icheck radio and checkboxes
             handleBootstrapSwitch(); // handle bootstrap switch plugin
             handleScrollers(); // handles slim scrolling contents 
             handleFancybox(); // handle fancy box
-            handleSelect2(); // handle custom Select2 dropdowns
+            //handleSelect2(); // handle custom Select2 dropdowns
             handlePortletTools(); // handles portlet action bar functionality(refresh, configure, toggle, remove)
             handleAlerts(); //handle closabled alerts
             handleDropdowns(); // handle dropdowns
@@ -608,12 +608,12 @@ var Metronic = function() {
 
         //main function to initiate core javascript after ajax complete
         initAjax: function() {
-            handleUniform(); // handles custom radio & checkboxes     
+            //handleUniform(); // handles custom radio & checkboxes     
             handleiCheck(); // handles custom icheck radio and checkboxes
             handleBootstrapSwitch(); // handle bootstrap switch plugin
             handleDropdownHover(); // handles dropdown hover       
             handleScrollers(); // handles slim scrolling contents 
-            handleSelect2(); // handle custom Select2 dropdowns
+            //handleSelect2(); // handle custom Select2 dropdowns
             handleFancybox(); // handle fancy box
             handleDropdowns(); // handle dropdowns
             handleTooltips(); // handle bootstrap tooltips
@@ -740,71 +740,71 @@ var Metronic = function() {
         },
 
         // wrMetronicer function to  block element(indicate loading)
-        blockUI: function(options) {
-            options = $.extend(true, {}, options);
-            var html = '';
-            if (options.animate) {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '">' + '<div class="block-spinner-bar"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>' + '</div>';
-            } else if (options.iconOnly) {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><img src="' + this.getGlobalImgPath() + 'loading-spinner-grey.gif" align=""></div>';
-            } else if (options.textOnly) {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
-            } else {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><img src="' + this.getGlobalImgPath() + 'loading-spinner-grey.gif" align=""><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
-            }
+        //blockUI: function(options) {
+        //    options = $.extend(true, {}, options);
+        //    var html = '';
+        //    if (options.animate) {
+        //        html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '">' + '<div class="block-spinner-bar"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>' + '</div>';
+        //    } else if (options.iconOnly) {
+        //        html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><img src="' + this.getGlobalImgPath() + 'loading-spinner-grey.gif" align=""></div>';
+        //    } else if (options.textOnly) {
+        //        html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
+        //    } else {
+        //        html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><img src="' + this.getGlobalImgPath() + 'loading-spinner-grey.gif" align=""><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
+        //    }
 
-            if (options.target) { // element blocking
-                var el = $(options.target);
-                if (el.height() <= ($(window).height())) {
-                    options.cenrerY = true;
-                }
-                el.block({
-                    message: html,
-                    baseZ: options.zIndex ? options.zIndex : 1000,
-                    centerY: options.cenrerY !== undefined ? options.cenrerY : false,
-                    css: {
-                        top: '10%',
-                        border: '0',
-                        padding: '0',
-                        backgroundColor: 'none'
-                    },
-                    overlayCSS: {
-                        backgroundColor: options.overlayColor ? options.overlayColor : '#555',
-                        opacity: options.boxed ? 0.05 : 0.1,
-                        cursor: 'wait'
-                    }
-                });
-            } else { // page blocking
-                $.blockUI({
-                    message: html,
-                    baseZ: options.zIndex ? options.zIndex : 1000,
-                    css: {
-                        border: '0',
-                        padding: '0',
-                        backgroundColor: 'none'
-                    },
-                    overlayCSS: {
-                        backgroundColor: options.overlayColor ? options.overlayColor : '#555',
-                        opacity: options.boxed ? 0.05 : 0.1,
-                        cursor: 'wait'
-                    }
-                });
-            }
-        },
+        //    if (options.target) { // element blocking
+        //        var el = $(options.target);
+        //        if (el.height() <= ($(window).height())) {
+        //            options.cenrerY = true;
+        //        }
+        //        el.block({
+        //            message: html,
+        //            baseZ: options.zIndex ? options.zIndex : 1000,
+        //            centerY: options.cenrerY !== undefined ? options.cenrerY : false,
+        //            css: {
+        //                top: '10%',
+        //                border: '0',
+        //                padding: '0',
+        //                backgroundColor: 'none'
+        //            },
+        //            overlayCSS: {
+        //                backgroundColor: options.overlayColor ? options.overlayColor : '#555',
+        //                opacity: options.boxed ? 0.05 : 0.1,
+        //                cursor: 'wait'
+        //            }
+        //        });
+        //    } else { // page blocking
+        //        $.blockUI({
+        //            message: html,
+        //            baseZ: options.zIndex ? options.zIndex : 1000,
+        //            css: {
+        //                border: '0',
+        //                padding: '0',
+        //                backgroundColor: 'none'
+        //            },
+        //            overlayCSS: {
+        //                backgroundColor: options.overlayColor ? options.overlayColor : '#555',
+        //                opacity: options.boxed ? 0.05 : 0.1,
+        //                cursor: 'wait'
+        //            }
+        //        });
+        //    }
+        //},
 
-        // wrMetronicer function to  un-block element(finish loading)
-        unblockUI: function(target) {
-            if (target) {
-                $(target).unblock({
-                    onUnblock: function() {
-                        $(target).css('position', '');
-                        $(target).css('zoom', '');
-                    }
-                });
-            } else {
-                $.unblockUI();
-            }
-        },
+        //// wrMetronicer function to  un-block element(finish loading)
+        //unblockUI: function(target) {
+        //    if (target) {
+        //        $(target).unblock({
+        //            onUnblock: function() {
+        //                $(target).css('position', '');
+        //                $(target).css('zoom', '');
+        //            }
+        //        });
+        //    } else {
+        //        $.unblockUI();
+        //    }
+        //},
 
         startPageLoading: function(options) {
             if (options && options.animate) {
@@ -874,23 +874,23 @@ var Metronic = function() {
         },
 
         // initializes uniform elements
-        initUniform: function(els) {
-            if (els) {
-                $(els).each(function() {
-                    if ($(this).parents(".checker").size() === 0) {
-                        $(this).show();
-                        $(this).uniform();
-                    }
-                });
-            } else {
-                handleUniform();
-            }
-        },
+        //initUniform: function(els) {
+        //    if (els) {
+        //        $(els).each(function() {
+        //            if ($(this).parents(".checker").size() === 0) {
+        //                $(this).show();
+        //                $(this).uniform();
+        //            }
+        //        });
+        //    } else {
+        //        handleUniform();
+        //    }
+        //},
 
         //wrMetronicer function to update/sync jquery uniform checkbox & radios
-        updateUniform: function(els) {
-            $.uniform.update(els); // update the uniform checkbox & radios UI after the actual input control state changed
-        },
+        //updateUniform: function(els) {
+        //    $.uniform.update(els); // update the uniform checkbox & radios UI after the actual input control state changed
+        //},
 
         //public function to initialize the fancybox plugin
         initFancybox: function() {

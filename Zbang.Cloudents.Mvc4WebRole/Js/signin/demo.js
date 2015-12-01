@@ -249,9 +249,9 @@ var Demo = function () {
 
         $('#style_components').attr("href", Metronic.getGlobalCssPath() + file + ".css");
 
-        if ($.cookie) {
-            $.cookie('layout-style-option', style);
-        }
+        //if ($.cookie) {
+        //    $.cookie('layout-style-option', style);
+        //}
     };
 
     return {
@@ -262,15 +262,15 @@ var Demo = function () {
             handleTheme(); 
 
             // handle layout style change
-            $('.theme-panel .layout-style-option').change(function() {
-                 setThemeStyle($(this).val());
-            });
+            //$('.theme-panel .layout-style-option').change(function() {
+            //     setThemeStyle($(this).val());
+            //});
 
             // set layout style from cookie
-            if ($.cookie && $.cookie('layout-style-option') === 'rounded') {
-                setThemeStyle($.cookie('layout-style-option'));
-                $('.theme-panel .layout-style-option').val($.cookie('layout-style-option'));
-            }            
+            //if ($.cookie && $.cookie('layout-style-option') === 'rounded') {
+            //    setThemeStyle($.cookie('layout-style-option'));
+            //    $('.theme-panel .layout-style-option').val($.cookie('layout-style-option'));
+            //}            
         }
     };
 

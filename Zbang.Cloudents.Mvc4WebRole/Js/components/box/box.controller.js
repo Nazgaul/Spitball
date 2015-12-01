@@ -17,14 +17,18 @@
         b.updateBox = updateBox;
         b.inviteToBox = inviteToBox;
 
-        $scope.$on("close_invite", function () {
-            b.inviteOpen = false;
-        });
+
 
         //b.uploadOn = false;
         //b.uploadShow = isItemState($state.current.name);
         //b.toggleUpload = toggleUpload;
         b.toggleSettings = toggleSettings;
+
+        
+
+        $scope.$on("close_invite", function () {
+            b.inviteOpen = false;
+        });
 
         function toggleSettings() {
             b.settingsOpen = true;
@@ -98,6 +102,11 @@
         //function isItemState(stateName) {
         //    return stateName === 'box.items';
         //}
+
+        //$scope.$on('$stateChangeStart', function (event, toState) {
+        //    console.log('here');
+
+        //});
 
         //$rootScope.$on('$stateChangeSuccess',
         //    function (event, toState) {

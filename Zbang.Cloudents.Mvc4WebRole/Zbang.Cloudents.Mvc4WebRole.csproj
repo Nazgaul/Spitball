@@ -560,11 +560,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Share\Resources\InviteResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>InviteResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Views\User\Resources\UserResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1287,12 +1282,6 @@
     <Content Include="Content\signin\components-md.rtl.min.css">
       <DependentUpon>components-md.rtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\signin\customRtl.min.css">
-      <DependentUpon>customRtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\customRtl.rtl.min.css">
-      <DependentUpon>customRtl.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\signin\default.min.css">
       <DependentUpon>default.css</DependentUpon>
     </Content>
@@ -1351,17 +1340,11 @@
     <Content Include="Content\signin\custom.rtl.min.css">
       <DependentUpon>custom.rtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\signin\customRtl.css">
-      <DependentUpon>customRtl.less</DependentUpon>
-    </Content>
     <Content Include="Content\signin\custom.css">
       <DependentUpon>custom.less</DependentUpon>
     </Content>
     <Content Include="Content\signin\custom.rtl.css">
       <DependentUpon>custom.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\customRtl.rtl.css">
-      <DependentUpon>customRtl.css</DependentUpon>
     </Content>
     <Content Include="Content\signin\default.css">
       <DependentUpon>default.less</DependentUpon>
@@ -2047,13 +2030,6 @@
     <Content Include="Js\shared\userimage.js" />
     <Content Include="Js\signin\bootstrap.min.js" />
     <Content Include="Js\signin\demo.js" />
-    <Content Include="Js\signin\jquery-migrate.min.js" />
-    <Content Include="Js\signin\jquery.backstretch.min.js" />
-    <Content Include="Js\signin\jquery.blockui.min.js" />
-    <Content Include="Js\signin\jquery.cokie.min.js" />
-    <Content Include="Js\signin\jquery.min.js" />
-    <Content Include="Js\signin\jquery.uniform.min.js" />
-    <Content Include="Js\signin\jquery.validate.min.js" />
     <Content Include="Js\signin\layout.js" />
     <Content Include="Js\signin\login-soft.js" />
     <Content Include="Js\signin\metronic.js" />
@@ -2153,7 +2129,6 @@
     <Content Include="Content\signin\uniform.default.less" />
     <Content Include="Content\signin\layout.less" />
     <Content Include="Content\signin\plugins-md.less" />
-    <None Include="Content\signin\customRtl.less" />
     <Content Include="Content\Site\bootstrap-switch.less" />
     <Content Include="Content\Site\components-rounded.less" />
     <Content Include="Content\Site\plugins.less" />
@@ -3033,29 +3008,23 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Library\_CreateLibraryItem.cshtml" />
     <Content Include="startup\disableTimeout.cmd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
     <Content Include="Views\Error\Unsupported.cshtml" />
-    <Content Include="Views\Shared\_LayoutStatic.cshtml" />
     <Content Include="Views\Account\Confirmation.cshtml" />
     <Content Include="Views\Item\_FlagItem.cshtml" />
-    <Content Include="Views\Share\Invites.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Item\_PreviewLinkDenied.cshtml" />
     <Content Include="Views\Item\_PreviewMediaLoading.cshtml" />
-    <Content Include="Views\Share\Index.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />
     <Content Include="Views\Quiz\_QuizDialog.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Item\_PreviewSvg.cshtml" />
-    <Content Include="Views\Item\FullScreen.cshtml" />
     <Content Include="Views\Box\_Feed.cshtml" />
-    <Content Include="Views\Item\_ItemRegister.cshtml" />
     <Content Include="Views\Item\_PreviewText.cshtml" />
     <Content Include="Views\Home\IFrame.cshtml" />
     <Content Include="Views\Account\Index3.cshtml" />
@@ -3536,14 +3505,6 @@
       <LastGenOutput>ValidationResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\ValidationResources.ru.resx" />
-    <EmbeddedResource Include="Views\Share\Resources\InviteResources.ar.resx" />
-    <EmbeddedResource Include="Views\Share\Resources\InviteResources.he.resx" />
-    <EmbeddedResource Include="Views\Share\Resources\InviteResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>InviteResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Share\Resources\InviteResources.ru.resx" />
-    <EmbeddedResource Include="Views\Share\Resources\InviteResources.zh.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.ar.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.en-gb.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.he.resx" />
@@ -3585,16 +3546,7 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_Layout3.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Error\MembersOnly.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Share\_Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="cdn\Web.config" />

@@ -4,15 +4,9 @@
 
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-@using Zbang.Zbox.Infrastructure.Culture;
 
 <!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
 <html lang="en" dir="rtl">
-<!--<![endif]-->
-<!-- BEGIN HEAD -->
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -22,10 +16,7 @@
 
     <meta name="google-signin-client_id" content="997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com" />
 </head>
-<!-- END HEAD -->
-<!-- BEGIN BODY -->
-<body class="page-md  @Html.ClassOfRtl()">
-    <!-- Google Tag Manager -->
+<body class="page-md">
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=GTM-NDZLW7"
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -39,7 +30,6 @@
             j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
             '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
-    <!-- End Google Tag Manager -->
     <div class="login">
         <div>
             <div class="logo">
@@ -169,7 +159,6 @@
                     </div>
 
                 </form>
-                <!-- END REGISTRATION FORM -->
             </div>
         </div>
     </div>

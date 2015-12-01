@@ -1,25 +1,16 @@
 ﻿@{
-    ViewBag.Title = "Error";
-    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+    ViewBag.Title = "Not found";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
-@model HandleErrorInfo
+@*<div class="error-page">
+    <h2>
+        404
+        <span>Oops the file flew </span>
+    </h2>
 
-@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-
-<div class="membersOnly">
-
-    @if (User.Identity.IsAuthenticated)
-    {
-        <h2>@ErrorResources.NeedPermission</h2>
-        <div>@ErrorResources.InvitationOnly</div>
-    }
-
-    else
-    {
-        <h2>@ErrorResources.MembersOnly</h2>
-        <div>@ErrorResources.ToAccessFile</div>
-        <a href="#" class="btn addConnect">@SharedResources.SignIn</a>
-    }
-</div>
-
+    <div class="image">
+        <img src="@Url.CdnContent("~/Images/Site/404_image.png")" alt="Page not found">
+        <a href="@Url.Action("Index","Dashboard")">Back to dashboard</a>
+    </div>
+</div>*@
