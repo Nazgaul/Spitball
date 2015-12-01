@@ -30,7 +30,7 @@
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li ng-repeat="box in d.courses" id="menubox{{::box.id}}">
+                    <li ng-repeat="box in d.courses track by box.id" id="menubox{{::box.id}}">
                         <a class="ellipsis" href="{{::box.url}}">
                             <span class="badge badge-danger" ng-if="box.updates !== 0">{{box.updates}}</span>
                             {{::box.name}}
@@ -45,7 +45,7 @@
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li ng-repeat="box in d.privateBoxes" id="menubox{{::box.id}}">
+                    <li ng-repeat="box in d.privateBoxes track by box.id" id="menubox{{::box.id}}">
                         <a class="ellipsis" href="{{::box.url}}">
                             <span class="badge badge-danger" ng-if="box.updates !== 0">{{box.updates}}</span>
                             {{::box.name}}

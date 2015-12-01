@@ -20,6 +20,11 @@
         $rootScope.$on('universityChange', function () {
             getUpdates();
         });
+        $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+            if (fromState.parent === 'box') {
+                deleteUpdates(fromParams.boxId);
+            }
+        });
         function getUpdates() {
             ajaxservice.get('/user/updates/').then(function (response2) {
                 self.data = response2;
@@ -28,8 +33,22 @@
         }
 
         function deleteUpdates(boxId) {
-            ajaxservice.post('/box/DeleteUpdates', new {
-                boxId: boxId
+            boxId = parseInt(boxId, 10);
+            updates(boxId, function (length) {
+                if (!length) {
+                    return;
+                }
+                //ajaxservice.post('/box/deleteupdates/', {
+                //    boxId: boxId
+                //});
+                var tempArr = [];
+                for (var i = 0; i < self.data.length; i++) {
+                    var temp = self.data[i];
+                    if (temp.boxId !== boxId) {
+                        tempArr.push(temp);
+                    }
+                }
+                self.data = tempArr;
             });
         }
 
