@@ -29,12 +29,12 @@ Rounded Portlets
 .headerMenu {
   width: 20px;
   height: 20px;
-  fill: #5f6871;
+  fill: #3d4348;
 }
 .searchIcon {
   width: 15px;
   height: 15px;
-  fill: #fff;
+  fill: #f5f5f5;
 }
 .headerHelp {
   padding: 0 !important;
@@ -67,19 +67,19 @@ Rounded Portlets
 .signin {
   display: inline-block !important;
   border-radius: 25px;
-  background: #ffffff;
-  color: #000;
+  background: #f5f5f5;
+  color: #282828;
   margin-top: 13px;
   font-size: 20px;
   text-transform: capitalize;
 }
 .login:hover,
 .signin:hover {
-  background: #ffffff !important;
+  background: #f5f5f5 !important;
 }
 .login {
   background: #3293f6;
-  color: #fff;
+  color: #f5f5f5;
 }
 .login:hover {
   background: #3293f6 !important;

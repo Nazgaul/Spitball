@@ -54,10 +54,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/homepage/bootstrap.css",
                         //"~/Content/signin/uniform.default.css",
                         //"~/Content/site/bootstrap-switch.css",
-                        "~/Content/site/portfolio.css",
+                        //"~/Content/site/portfolio.css",
                         "~/content/site/profile.css",
                         "~/Content/site/components-rounded.css",
-                        "~/Content/site/plugins.css",
+                        //"~/Content/site/plugins.css",
                         "~/Content/site/layout.css",
                         "~/Content/site/light.css",
                         

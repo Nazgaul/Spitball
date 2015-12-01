@@ -8,7 +8,7 @@
 
     .portlet.box {
         background: #353a3f;
-        color: #f5f5f5;
+        color: @textColorWhite;
         text-transform: uppercase;
 
         &.friends > .portlet-title {
@@ -19,7 +19,7 @@
         //color: #5b9bd1;
         margin-bottom: 7px;
         padding-bottom: 15px;
-        color: #f5f5f5;
+        color: @textColorWhite;
         font-family: "Open Sans", sans-serif;
         font-size: 15px;
     }
@@ -32,7 +32,7 @@
 
     .points-container {
         text-align: center;
-        background: #3598dc;
+        background: @backgroundColorSpitballBlue;
         padding: 8px 0;
     }
 
@@ -47,7 +47,7 @@
 
     .points-awards {
         margin-top: 18px;
-        color: #8c99a6;
+        color: @borderColorLightGrey;
         line-height: 18px;
         padding-left: 5px;
 
@@ -57,14 +57,14 @@
 
         hr {
             margin: 5px 5px 7px 0;
-            border-color: #8c99a6;
+            border-color: @borderColorLightGrey;
         }
     }
 
     svg {
         width: 17px;
         height: 17px;
-        fill: #fff;
+        fill: @fileColor;
         vertical-align: middle;
         margin-right: 12px;
     }
@@ -99,7 +99,7 @@
         h3 {
             font-size: 13px;
             margin: 12px 0 8px 0;
-            color: #8c99a6;
+            color: @textColorGrey;
         }
     }
 
@@ -110,7 +110,7 @@
     .posts {
         margin-bottom: 10px;
         .displayFlex();
-        color: #fff;
+        color: @textColorWhite;
         align-items: center;
 
         > div {
@@ -127,7 +127,7 @@
         }
 
         .time-ago {
-            color: #8c99a6;
+            color: @textColorGrey;
             font-size: 18px;
             flex-basis: 200px;
             text-align:right;

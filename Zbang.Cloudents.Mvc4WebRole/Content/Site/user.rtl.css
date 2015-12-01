@@ -21,7 +21,7 @@
 }
 .userPage .points-container {
   text-align: center;
-  background: #3598dc;
+  background: #3293f6;
   padding: 8px 0;
 }
 .userPage h5 {
@@ -47,7 +47,7 @@
 .userPage svg {
   width: 17px;
   height: 17px;
-  fill: #fff;
+  fill: #f9f9f9;
   vertical-align: middle;
   margin-left: 12px;
 }
@@ -86,8 +86,9 @@
 .userPage .posts {
   margin-bottom: 10px;
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
-  color: #fff;
+  color: #f5f5f5;
   align-items: center;
 }
 .userPage .posts > div {

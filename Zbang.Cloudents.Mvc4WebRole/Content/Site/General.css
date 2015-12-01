@@ -217,10 +217,10 @@ md-select .md-select-value.md-select-placeholder {
   color: #f5f5f5;
 }
 md-input-container:not(.md-input-invalid).md-input-has-value label {
-  color: #8c99a6;
+  color: #3d4348;
 }
 md-input-container label {
-  color: #8c99a6;
+  color: #3d4348;
 }
 .md-select-value .md-select-icon,
 md-select .md-select-value,
@@ -384,7 +384,7 @@ md-input-container .md-input {
   border: 0;
   padding: 12px 13px 5px 13px;
   font-size: 13px;
-  color: #8c99a6;
+  color: #3d4348;
 }
 .tab-from-right > li.active {
   border-bottom: 3px solid #3598dc;
@@ -427,7 +427,7 @@ md-input-container .md-input {
 .tabbable li {
   margin: 0 20px 0 10px;
   background: transparent;
-  color: #8c99a6;
+  color: #f5f5f5;
   outline: none;
 }
 .nav-tabs li:hover,

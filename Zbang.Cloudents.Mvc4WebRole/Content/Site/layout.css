@@ -1,6 +1,6 @@
 ﻿@media print {
   body {
-    background-color: #fff !important;
+    background-color: #f5f5f5 !important;
   }
   .page-bar {
     display: none;
@@ -113,7 +113,7 @@ Page Header
   cursor: pointer;
 }
 .page-header.navbar .search-form .input-group .input-group-btn {
-  padding: 0 12px 0 0;
+  padding: 0 12px;
   margin: 0;
 }
 .page-header.navbar .search-form .input-group .input-group-btn .btn.submit {
@@ -231,7 +231,7 @@ Page Header
   right: 9px;
   display: inline-block !important;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid #eee;
+  border-bottom: 7px solid #f5f5f5;
   border-left: 7px solid transparent;
   border-bottom-color: rgba(0, 0, 0, 0.2);
   content: '';
@@ -242,7 +242,7 @@ Page Header
   right: 10px;
   display: inline-block !important;
   border-right: 6px solid transparent;
-  border-bottom: 6px solid #fff;
+  border-bottom: 6px solid #f5f5f5;
   border-left: 6px solid transparent;
   content: '';
 }
@@ -252,7 +252,7 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav > li.separator {
   height: 18px;
   width: 1px;
-  background: #F0F3F5;
+  background: #f5f5f5;
   padding: 0;
   margin: 26px 0 0 0;
 }

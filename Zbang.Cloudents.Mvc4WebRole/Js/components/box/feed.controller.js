@@ -14,7 +14,6 @@
                 }
             }
             userUpdatesService.boxUpdates(boxId, function (updates) {
-                console.log(updates);
                 for (var j = 0; j < updates.length; j++) {
                     var update = updates[j];
                     attachNew(update);
@@ -25,6 +24,24 @@
         function attachNew(update) {
             if (update.itemId) {
                 for (var i = 0; i < self.data.length; i++) {
+                    var questionForItem = self.data[i];
+                    var exists = questionForItem.files.find(function (e) {
+                        return e.id === update.itemId;
+                    });
+                    if (exists) {
+                        questionForItem.isNew = true;
+                        return;
+                    }
+                    for (var k = 0; k < questionForItem.answers.length; k++) {
+                        exists = questionForItem.answers[k].files.find(function (e) {
+                            return e.id === update.itemId;
+                        });
+                        if (exists) {
+                            questionForItem.isNew = true;
+                            return;
+                        }
+                    }
+                    console.log(update.itemId);
 
                 }
             }
@@ -32,7 +49,19 @@
                 var question = self.data.find(function (e) {
                     return e.id === update.questionId;
                 });
-                
+                if (!question) {
+                    console.log('something wrong');
+                }
+                if (update.answerId) {
+                    var answer = question.answers.find(function (e) {
+                        return e.id === update.answerId;
+                    });
+                    if (!answer) {
+                        console.log('something wrong');
+                    }
+                    answer.isNew = true;
+                }
+                question.isNew = true;
 
 
             }
