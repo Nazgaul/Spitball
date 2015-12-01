@@ -86,6 +86,7 @@
 .userPage .posts {
   margin-bottom: 10px;
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   color: #fff;
   align-items: center;

@@ -1,14 +1,12 @@
-﻿.library-choose {
-  color: #798590;
-}
-.library-choose .row {
+﻿.library-choose .row {
   margin-top: 20px;
 }
 .library-choose .univeristy {
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   margin-bottom: 30px;
-  color: #98A2AA;
+  color: #8c99a6;
   font-weight: 700;
 }
 .library-choose .univeristy > div {
@@ -21,16 +19,17 @@
   width: 100%;
 }
 .library-choose .univeristy .img-circle {
-  background: #fff;
+  background: #f5f5f5;
 }
 .library-choose .univeristy .list-inline img {
   border-radius: 4px;
 }
 .library-choose .add-uni-btn {
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   align-items: center;
-  color: #98A2AA;
+  color: #3d4348;
 }
 .library-choose .add-uni-btn span {
   display: inline-block;
@@ -39,8 +38,8 @@
   line-height: 66px;
   font-size: 50px;
   text-align: center;
-  border: 3px solid #E2E2E2;
-  color: #e2e2e2;
+  border: 3px solid #3d4348;
+  color: #3d4348;
   border-radius: 50%;
 }
 .library-choose .add-uni-btn div {
@@ -83,6 +82,7 @@
 .library-choose .code > div,
 .library-choose .code > form > div {
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   align-items: center;
 }
@@ -102,7 +102,7 @@
 .library-choose .code .closed-uni-i {
   width: 150px;
   height: 150px;
-  fill: #fff;
+  fill: #f9f9f9;
   margin-right: 15px;
   padding-top: 30px;
 }
@@ -117,13 +117,13 @@
 .library-choose .code .info-i {
   width: 30px;
   height: 30px;
-  fill: #6D7882;
+  fill: #5f6871;
 }
 .library-choose .code .arrow-up {
   position: absolute;
   bottom: -230px;
   left: 18px;
-  background: #2B2F33;
+  background: #212427;
   border-radius: 5px;
   padding: 15px;
 }
@@ -133,7 +133,7 @@
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-bottom: 15px solid #2B2F33;
+  border-bottom: 15px solid #212427;
   position: absolute;
   top: -15px;
   left: 15px;

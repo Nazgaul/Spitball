@@ -1,16 +1,16 @@
 ﻿.search ::-webkit-input-placeholder {
-  color: #646e77;
+  color: #8c99a6;
 }
 .search :-moz-placeholder {
   /* Firefox 18- */
-  color: #646e77;
+  color: #8c99a6;
 }
 .search ::-moz-placeholder {
   /* Firefox 19+ */
-  color: #646e77;
+  color: #8c99a6;
 }
 .search :-ms-input-placeholder {
-  color: #646e77;
+  color: #8c99a6;
 }
 .search .nav-tabs,
 .search .tabbable {

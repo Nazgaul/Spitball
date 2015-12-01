@@ -9,6 +9,7 @@ Login page
 .login {
   background-color: #364150;
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   justify-content: center;
   align-items: center;

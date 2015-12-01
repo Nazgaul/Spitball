@@ -1401,18 +1401,6 @@
     <Content Include="Content\signin\uniform.default.rtl.css">
       <DependentUpon>uniform.default.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\bootstrap-switch.css">
-      <DependentUpon>bootstrap-switch.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\bootstrap-switch.min.css">
-      <DependentUpon>bootstrap-switch.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\bootstrap-switch.rtl.css">
-      <DependentUpon>bootstrap-switch.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\bootstrap-switch.rtl.min.css">
-      <DependentUpon>bootstrap-switch.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\box.min.css">
       <DependentUpon>box.css</DependentUpon>
     </Content>
@@ -1565,30 +1553,6 @@
     </Content>
     <Content Include="Content\Site\error.rtl.css">
       <DependentUpon>error.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\plugins.css">
-      <DependentUpon>plugins.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\plugins.min.css">
-      <DependentUpon>plugins.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\plugins.rtl.css">
-      <DependentUpon>plugins.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\plugins.rtl.min.css">
-      <DependentUpon>plugins.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\Portfolio.css">
-      <DependentUpon>Portfolio.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\Portfolio.min.css">
-      <DependentUpon>Portfolio.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\Portfolio.rtl.css">
-      <DependentUpon>Portfolio.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\Portfolio.rtl.min.css">
-      <DependentUpon>Portfolio.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\profile.css">
       <DependentUpon>profile.less</DependentUpon>
@@ -2129,15 +2093,12 @@
     <Content Include="Content\signin\uniform.default.less" />
     <Content Include="Content\signin\layout.less" />
     <Content Include="Content\signin\plugins-md.less" />
-    <Content Include="Content\Site\bootstrap-switch.less" />
     <Content Include="Content\Site\components-rounded.less" />
-    <Content Include="Content\Site\plugins.less" />
     <Content Include="Content\Site\layout.less" />
     <Content Include="Content\Site\light.less" />
     <Content Include="Content\Site\header.less" />
     <Content Include="Content\Site\variables.less" />
     <Content Include="Content\Site\dashboard.less" />
-    <Content Include="Content\Site\Portfolio.less" />
     <Content Include="Content\Site\profile.less" />
     <Content Include="Content\Site\user.less" />
     <Content Include="Content\Site\menu.less" />
