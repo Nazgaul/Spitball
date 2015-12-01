@@ -213,6 +213,19 @@
   margin-bottom: 25px;
   background: #212427;
   padding: 10px;
+  /*.actions {
+        display: none;
+    }*/
+  /*&.open {
+        .actions {
+            display: block;
+            //height: auto;
+        }
+
+        textarea {
+            
+        }
+    }*/
 }
 .add-comment ::-webkit-input-placeholder {
   color: #646e77;
@@ -241,24 +254,21 @@
 }
 .add-comment .new-comment-border {
   border: 1px solid #646e77;
+  max-height: 250px;
+  overflow: auto;
 }
 .add-comment textarea {
   width: 100%;
   border: none;
   background: #212427;
-  outline: none;
-  resize: none;
   padding-left: 10px;
-  height: 40px;
 }
-.add-comment .actions {
-  display: none;
+.add-comment md-input-container {
+  padding-bottom: 0;
 }
-.add-comment.open .actions {
-  display: block;
-}
-.add-comment.open textarea {
-  height: auto;
+.add-comment md-input-container .md-input:active,
+.add-comment md-input-container .md-input:focus {
+  color: #fff;
 }
 .add-comment input[type=checkbox] {
   display: none;

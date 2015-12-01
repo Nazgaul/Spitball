@@ -5,24 +5,28 @@
     <div class="col-lg-6 col-md-8 col-sm-12">
         <div class="portlet light">
             <div class="portlet-body feed">
-                <form class="add-comment" ng-submit="f.add.createComment()" ng-click="f.openForm = true" ng-class="{open: f.openForm}">
+                <form class="add-comment" ng-submit="f.add.createComment()">
                     <div class="new-comment-border">
-                        <textarea ng-model="f.add.newText" placeholder="what's on your mind?"></textarea>
-                        <ul class="list-inline">
+                        <md-input-container>
+                            <label>what's on your mind?</label>
+                            <textarea ng-model="f.add.newText"></textarea>
+                        </md-input-container>
+                        @*<textarea ng-model="f.add.newText" placeholder="what's on your mind?"></textarea>*@
+                        <ul class="list-inline" ng-if=" f.add.files.length">
                             @*<li class="file-upload">
-                                <span class="check-mark">@Html.Svg(url, "checkMark")</span>
-                                <div class="file-name">
-                                    Some doc.docx
-                                    <div class="progress file-upload-progress">
-                                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" ng-style="{width: 50 + '%'}">
-                                            <span class="sr-only">{{50*20}}% Complete</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                    
-                                <div class="file-size">25mb</div>
-                                <button type="button">remove file</button>
-                            </li>*@
+                <span class="check-mark">@Html.Svg(url, "checkMark")</span>
+                <div class="file-name">
+                    Some doc.docx
+                    <div class="progress file-upload-progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" ng-style="{width: 50 + '%'}">
+                            <span class="sr-only">{{50*20}}% Complete</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file-size">25mb</div>
+                <button type="button">remove file</button>
+            </li>*@
                             <li class="file-upload" ng-repeat="file in f.add.files" ng-include="'file-upload.html'">
                         </ul>
                     </div>
@@ -40,26 +44,14 @@
                     </div>
                 </form>
                 <ol class="list-unstyled">
-                    <li ng-repeat="post in f.data" class="comment">
-                        <div class="top">
+                    <li ng-repeat="post in f.data" class="comment" >
+                        <div class="top" ng-style="{ background: post.isNew ? 'red' : '' }">
                             <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="54" height="54"></user-image>
-                            <span class="user-name">{{::post.userName}}</span> @*at*@
-                            
+                            <span class="user-name">{{::post.userName}}</span>
                             <div ng-bind-html="::post.content" class="content-text"></div>
                         </div>
                         <ul class="list-inline items-container">
-                            <li ng-repeat="e in post.files" ng-include="'item-template.html'">
-                                @*<a class="item" href="{{::item.url}}">
-                                    <div class="content">
-                                        <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
-                                        <div class="extra">
-                                            <h5>{{::item.name}}</h5>
-                                            <img src="http://lorempixel.com/30/30/" alt="" />
-
-                                        </div>
-                                    </div>
-                                </a>*@
-                            </li>
+                            <li ng-repeat="e in post.files" ng-include="'item-template.html'"></li>
                         </ul>
                         <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:m'}}</span>
                         <div class="actions">
@@ -69,24 +61,24 @@
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.answers.length">
                             <li ng-repeat="reply in post.answers" class="reply">
-                                <div class="top">
+                                <div class="top" ng-style="{ background: post.isNew ? 'red' : '' }">
                                     <user-image class="img-circle c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
                                     <span class="user-name">{{::reply.userName}}</span> @*at*@
-                                    
+
                                     <div ng-bind-html="::reply.content" class="content-text"></div>
                                 </div>
                                 <ul class="list-inline items-container">
                                     <li ng-repeat="e in reply.files" ng-include="'item-template.html'">
                                         @*<a class="item" href="{{::item.url}}">
-                                            <div class="content">
-                                                <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
-                                                <div class="extra">
-                                                    <h5>{{::item.name}}</h5>
-                                                    <img src="http://lorempixel.com/30/30/" alt="" />
+                                <div class="content">
+                                    <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
+                                    <div class="extra">
+                                        <h5>{{::item.name}}</h5>
+                                        <img src="http://lorempixel.com/30/30/" alt="" />
 
-                                                </div>
-                                            </div>
-                                        </a>*@
+                                    </div>
+                                </div>
+                            </a>*@
                                     </li>
                                 </ul>
                                 <span class="comment-date">{{::reply.creationTime | date : 'MMM d,yyyy H:m'}}</span>
@@ -113,7 +105,7 @@
                                 <button type="button">@Html.Svg(url, "link", new { @class = "link" })</button>
                                 <button type="submit" class="btn pull-right text-uppercase" ng-disabled="f.add.disabled">post</button>
                                 @*<input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
-                                <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
+                    <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
                             </div>
                         </form>
                     </li>

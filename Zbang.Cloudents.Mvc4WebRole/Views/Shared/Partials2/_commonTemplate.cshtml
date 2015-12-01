@@ -58,7 +58,7 @@
 <script type="text/ng-template" id="quiz-template.html">
     <a class="quiz" href="{{e.url}}">
         <div class="base">
-            
+
             <div ng-if="e.publish" class="top background" d-color="{{::e.name.length}}">
                 <span class="first-letter" first-letter="{{::e.name}}"></span>
             </div>
@@ -71,9 +71,9 @@
                 @*<div class="triangle-up-left"></div>*@
             </div>
             <div class="stats clearfix" ng-hide="::e.numOfViews === underfined">
-                <div class="item-quiz-likes">
+                @*<div class="item-quiz-likes">
                     {{::e.rate}} @Html.Svg(svgUrl, "like")
-                </div>
+                                </div>*@
                 <div class="item-quiz-views">
                     {{::e.numOfViews}} @Html.Svg(svgUrl, "eye")
                 </div>
