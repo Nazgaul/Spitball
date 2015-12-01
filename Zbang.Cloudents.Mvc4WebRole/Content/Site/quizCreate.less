@@ -12,8 +12,8 @@
         padding: 10px 15px 0;
 
         .add-question {
-            color: #3293f6;
-            border: 1px solid #3293f6;
+            color: @textColorSpitballBlue;
+            border: 1px solid @textColorSpitballBlue;
             background: transparent;
         }
 
@@ -39,24 +39,24 @@
     }
 
     .portlet.box > .portlet-body {
-        background-color: #fff;
+        background-color: @backgroundColorWhite;
         padding: 10px;
-        border: 5px solid #3598dc;
+        border: 5px solid @borderColorBlue;
         border-top-width: 0;
     }
 
 
     .form-control {
-        color: #464646;
-        background-color: #fff;
-        border: 1px solid #c2c2c2;
+        color: @textColorDarkGrey;
+        background-color: @backgroundColorWhite;
+        border: 1px solid @borderColorLightGrey;
         border-radius: 0;
         margin-bottom: 20px;
 
         &[disabled] {
             border: 0;
             background: transparent;
-            color: #4190B9;
+            color: @textColorLike;
             cursor: default;
             width: ~"calc(100% - 32px)";
             display: inline-block;
@@ -83,7 +83,7 @@
         svg {
             width: 18px;
             height: 18px;
-            fill: #fff;
+            fill: @fileColor;
         }
     }
 
@@ -97,7 +97,7 @@
     }*/
 
     .question-content {
-        border: 1px solid #c2c2c2;
+        border: 1px solid @borderColorLightGrey;
         margin-bottom: 12px;
         //color: #000;
     }
@@ -107,11 +107,11 @@
 
     .ta-toolbar {
         display: none;
-        background: #cfd1cf;
+        background: @backgroundColorWhite;
         padding: 8px 0;
         margin: 0; //override on bootstrap
         .btn-group {
-            border: 1px solid #a6a6a6;
+            border: 1px solid @borderColorLightGrey;
         }
 
         button {
@@ -120,7 +120,7 @@
             padding: 0;
             border-radius: 0;
             border: 0;
-            background: #e4e4e4;
+            background: @backgroundColorWhite;
         }
 
         &.focussed {
@@ -156,7 +156,7 @@
             top: 0;
             left: 0;
             pointer-events: none;
-            background: #e4e4e4;
+            background: @backgroundColorWhite;
             line-height: @heightContent;
         }
     }
@@ -167,8 +167,8 @@
         &:before {
             width: @heightOfAnswer;
             height: @heightOfAnswer;
-            background: #4190B9;
-            color: white;
+            background: @backgroundColorSpitballBlue;
+            color: @textColorWhite;
             vertical-align: middle;
             display: inline-block;
             line-height: 25px;
@@ -178,7 +178,7 @@
         &:after {
             content: '';
             display: inline-block;
-            border-top: @heightOfAnswer solid #4190B9;
+            border-top: @heightOfAnswer solid @backgroundColorSpitballBlue;
             border-right: 10px solid transparent;
             vertical-align: middle;
         }
@@ -194,7 +194,7 @@
 
         div {
             display: inline-block;
-            border: 1px solid #4190B9;
+            border: 1px solid @borderColorSpitballBlue;
             width: 70%;
 
             input {
@@ -210,7 +210,7 @@
         svg {
             width: 20px;
             height: 20px;
-            fill: #B7B7B7;
+            fill: @backgroundColorItem;
             vertical-align: middle;
         }
 
@@ -231,27 +231,27 @@
 
     .error {
         [contenteditable="true"] {
-            border: 1px solid #FF0000;
+            border: 1px solid @borderColorRed;
             background: #FFD0C5;
         }
 
         .counter-view {
             &:before {
-                background: #FF0000;
+                background: @backgroundColorRed;
             }
 
             &:after {
-                border-top-color: #FF0000;
-                border-right-color: #FFD0C5;
+                border-top-color: @borderColorRed;
+                border-right-color: @borderColorWhite;
             }
         }
 
         &.answer div {
-            border-color: #FF0000;
+            border-color: @borderColorRed;
         }
 
         .ng-invalid {
-            background: #FFD0C5;
+            background: @backgroundColorWhite;
         }
 
         .error-answer-msg {
@@ -261,7 +261,7 @@
 
     .correct-answer-error {
         display: none;
-        color: #ff0000;
+        color: @textColorRed;
         width: 50px;
 
         &.error {
@@ -271,22 +271,22 @@
 
     .error-answer-msg {
         display: none;
-        color: #ff0000;
+        color: @textColorRed;
     }
 
     .add-answer {
         .counter-view {
             &:before {
-                background: #B7B7B7;
+                background: @backgroundColor2;
             }
 
             &:after {
-                border-top-color: #B7B7B7;
+                border-top-color: @borderColorLightGrey;
             }
         }
 
         div {
-            border-color: #B7B7B7;
+            border-color: @borderColorLightGrey;
         }
     }
 }
@@ -311,14 +311,14 @@
 
     .modal-content {
         background: transparent;
-        color: #fff;
+        color: @textColorWhite;
         box-shadow: none;
         border: 0;
         text-align: center;
     }
 
     h4 {
-        color: #F76446;
+        color: @textColorRed;
         font-size: 20px;
     }
 
@@ -332,8 +332,8 @@
     }
 
     .save {
-        color: #f5f5f5;
-        background-color: #3293f6;
+        color: @textColorWhite;
+        background-color: @backgroundColorSpitballBlue;
         border: none;
     }
 }

@@ -32,7 +32,7 @@
   }
 }
 .search em {
-  color: #EBB707;
+  color: #ffa500;
 }
 .search .item,
 .search .quiz {
@@ -60,7 +60,7 @@
 .search .item .extra-details h5,
 .search .quiz .extra-details h5 {
   margin: 21px 0;
-  color: #919EAC;
+  color: #8c99a6;
 }
 .search-text {
   font-size: 7em;
