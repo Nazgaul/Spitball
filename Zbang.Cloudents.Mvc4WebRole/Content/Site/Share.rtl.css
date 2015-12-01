@@ -63,6 +63,7 @@
 }
 .invite .gmail {
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   padding-top: 10px;
   background: #C2C2C2;

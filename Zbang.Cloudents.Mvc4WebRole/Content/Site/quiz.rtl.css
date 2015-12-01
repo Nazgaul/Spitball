@@ -35,6 +35,7 @@
   margin-bottom: 12px;
   border: 3px solid #4190b9;
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   align-items: center;
   border-radius: 10px;
@@ -57,6 +58,7 @@
 }
 .quizPage .quiz-take-stats .stop-watch-wrapper {
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   padding: 11px 10px 9px 15px;
 }
@@ -80,6 +82,7 @@
 }
 .quizPage .quiz-take-stats .progress-wrapper {
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   padding: 10px;
   background: #DDD;
@@ -130,6 +133,7 @@
 }
 .quizPage .score-details {
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   font-size: 60px;
   font-weight: bold;
@@ -141,6 +145,7 @@
 }
 .quizPage .score-details > div {
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   width: 50%;
   justify-content: center;
@@ -219,6 +224,7 @@
 }
 .quiz-question .q {
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
 }
 .quiz-question .q-body {
@@ -227,6 +233,7 @@
 }
 .quiz-question .q-actions {
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   visibility: hidden;
 }
@@ -241,6 +248,7 @@
 .quiz-question li {
   padding: 0 0 10px;
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
 }
 .quiz-question .circle {
@@ -277,6 +285,7 @@
 }
 .quiz-challenge .goodjob {
   display: -webkit-flex;
+  display: -ms-flex;
   display: inline-flex;
 }
 .quiz-challenge h4 {
@@ -306,11 +315,13 @@
 .quiz-challenge .classmates {
   margin-bottom: 25px;
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
 }
 .quiz-challenge .classmates > div {
   margin: 0 25px 0 0;
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   width: 70px;
   -ms-flex-wrap: wrap;
@@ -329,6 +340,7 @@
 }
 .quiz-challenge .ready {
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   align-items: center;
 }
@@ -346,6 +358,7 @@
 }
 .quiz-challenge .complete {
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   align-items: center;
 }
@@ -364,6 +377,7 @@
 }
 .quiz-challenge .ranking {
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   align-items: center;
 }

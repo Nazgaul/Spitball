@@ -20,7 +20,7 @@
         // width: 28%;
         margin-bottom: 15px;
         line-height: 35px;
-        color: @color5;
+        color: @textColorDarkGrey;
         text-transform: uppercase;
     }
 
@@ -35,18 +35,18 @@
         left: 8px;
         top: -3px;
         margin: -6px 0 0 0;
-        background-color: @color11;
+        background-color: @backgroundColorRed;
         font-size: 11px;
         font-weight: 300;
         border-radius: 12px;
-        color: @color2;
+        color: @textColorWhite;
         padding: 4px 9px;
         height: 24px;
     }
 
     .universityimg {
         border-radius: 50%;
-        background: white;
+        background: @backgroundColorWhite;
         /*width: 9vmax;
         height: 9vmax;
         max-width: 70px;
@@ -73,18 +73,18 @@
     .universityStats {
         float: right;
         width: 40%;
-        border-left: 2px solid grey;
+        border-left: 2px solid @borderColorLightGrey;
         padding-left: 10px;
         font-size: 17px;
         //font-weight: bold;
-        color: #A8B3BB;
+        color: @textColorGrey;
         line-height: 32px;
         position: relative;
         top: 8px;
     }
 
     .universityLink {
-        color: #f5f5f5;
+        color: @textColorWhite;
         width: 100%;
         display: inline-block;
         font-size: 20px;
@@ -96,12 +96,11 @@
     }
 
     .create-box {
-        @color-create-box: #7D8894;
 
         .dashboard-stat2 {
-            border: 2px solid @color-create-box;
+            border: 2px solid @borderColorGrey;
             background: transparent;
-            color: #A8B3BB;
+            color: @textColorDarkGrey;
             padding-bottom: 10px;
         }
 
@@ -132,30 +131,30 @@
         }
 
         md-input-container .md-input {
-            color: @color2;
-            border-color: @color-create-box;
+            color: @textColorWhite;
+            border-color: @borderColorLightGrey;
             font-size: 18px;
         }
 
         md-input-container label {
-            color: @color-create-box;
+            color: @textColorGrey;
         }
 
         .btn {
             .buttonBlue();
             margin: 0 5px;
             display: block;
-            color: #fff;
+            color: @textColorWhite;
             border-radius: 5px;
         }
 
         .btn-default {
-            background: @color2;
-            color: @color1;
+            background: @backgroundColorWhite;
+            color: @textColorDarkGrey;
         }
 
         .error {
-            color: @color11;
+            color: @textColorRed;
             order: 3;
             margin-top: 10px;
         }
@@ -165,6 +164,10 @@
 
     .create-box-show {
         display: block;
+
+        .dashboard-stat2 {
+            border: 2px solid @borderColorLightGrey;
+        }
     }
 }
 //create class

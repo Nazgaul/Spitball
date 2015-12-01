@@ -22,6 +22,7 @@
 .class .add-button {
   text-align: center;
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   margin-bottom: 15px;
 }
@@ -32,6 +33,7 @@
   -webkit-flex: 1;
   flex: 1;
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,10 +41,10 @@
 .class .add-button a,
 .class .add-button button {
   font-size: 18px;
-  color: #a8b3bb;
+  color: #3d4348;
 }
 .class .add-button svg {
-  fill: #a8b3bb;
+  fill: #3d4348;
   width: 40px;
   height: 40px;
   display: block;
@@ -85,7 +87,7 @@
   left: -19px;
 }
 .feed .comment-date {
-  color: #8c99a6;
+  color: #3d4348;
   font-size: 12px;
 }
 .feed .items-container {
@@ -139,7 +141,7 @@
   top: -7px;
 }
 .feed .reply .like {
-  color: #8c99a6;
+  color: #3d4348;
   margin-right: 0;
 }
 .feed .reply .margins {
@@ -168,7 +170,7 @@
   padding-left: 34px;
 }
 .feed .actions {
-  color: #8c99a6;
+  color: #3d4348;
   padding-bottom: 10px;
   margin: 10px 0 0 6px;
   font-size: 13px;
@@ -176,7 +178,7 @@
 .feed .actions svg {
   width: 20px;
   height: 20px;
-  fill: #8c99a6;
+  fill: #3d4348;
   vertical-align: middle;
 }
 .feed .actions svg:hover {
@@ -207,18 +209,18 @@
   padding: 10px;
 }
 .add-comment ::-webkit-input-placeholder {
-  color: #646e77;
+  color: #3d4348;
 }
 .add-comment :-moz-placeholder {
   /* Firefox 18- */
-  color: #646e77;
+  color: #3d4348;
 }
 .add-comment ::-moz-placeholder {
   /* Firefox 19+ */
-  color: #646e77;
+  color: #3d4348;
 }
 .add-comment :-ms-input-placeholder {
-  color: #646e77;
+  color: #3d4348;
 }
 .add-comment .list-inline {
   padding: 22px 0 10px 0;
@@ -232,7 +234,7 @@
   padding: 5px 5px 0;
 }
 .add-comment .new-comment-border {
-  border: 1px solid #646e77;
+  border: 1px solid #3d4348;
 }
 .add-comment textarea {
   width: 100%;
@@ -298,6 +300,7 @@
 }
 .member {
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   margin-bottom: 20px;
 }
@@ -306,7 +309,7 @@
   text-decoration: none;
 }
 .member .member-name {
-  color: #a8b3bb;
+  color: #f5f5f5;
   font-size: 15px;
   margin-left: 10px;
 }
@@ -574,9 +577,10 @@
   opacity: 1;
 }
 .upload .tab-content {
-  background: #000;
+  background: #212427;
   min-height: 300px;
   display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
@@ -601,7 +605,7 @@
 }
 .upload .uploadSection span {
   display: block;
-  background: #353A3F;
+  background: #353a3f;
   border-radius: 50%;
   width: 110px;
   height: 110px;
@@ -614,12 +618,12 @@
 }
 .upload .actions {
   text-align: right;
-  background-color: #000;
+  background-color: #212427;
   padding: 20px 10px 10px 0;
 }
 .file-upload {
   text-align: center;
-  color: #5d5d5d;
+  color: #3d4348;
   width: 115px;
   height: 165px;
   font-size: 14px;
@@ -628,7 +632,7 @@
   margin: 5px;
 }
 .file-upload .progress-wrap {
-  background: #fff;
+  background: #f5f5f5;
   padding-bottom: 10px;
 }
 .file-upload .progress {
@@ -640,10 +644,10 @@
   background-color: #8dc63f;
 }
 .file-upload .btn {
-  border: 1px solid #3293F6;
+  border: 1px solid #3293f6;
   padding: 5px 40px;
   font-size: 18px;
-  color: #3293F6;
+  color: #3293f6;
 }
 .file-upload .check-mark {
   position: absolute;
@@ -655,17 +659,17 @@
   z-index: 1;
 }
 .file-upload .check-mark svg {
-  fill: #8DC63F;
+  fill: #8dc63f;
   margin: 0;
   width: 20px;
   height: 20px;
   vertical-align: middle;
 }
 .file-upload h5 {
-  color: #8DC63F;
+  color: #8dc63f;
 }
 .file-upload .file-size {
-  background: #fff;
+  background: #f5f5f5;
 }
 .file-upload .file-upload-progress {
   height: 5px;
@@ -678,7 +682,7 @@
 .file-upload .file-name {
   height: 100px;
   position: relative;
-  background: #ddd;
+  background: #f5f5f5;
   padding-top: 4px;
 }
 .file-upload button {
