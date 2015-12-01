@@ -19,7 +19,6 @@ Login page
   text-align: center;
 }
 .login .content {
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACtJREFUeNrszTEBACAMA7CCJfxr61SwKzGQ0/bls5sFEolEIpFIJJKMAAMAa/wDYqqLVjAAAAAASUVORK5CYII=') /*/Images/signin/bg-white-lock.png*/ repeat;
   width: 400px;
   margin: 0 auto;
   margin-bottom: 0;
@@ -31,7 +30,7 @@ Login page
   padding-bottom: 5px;
 }
 .login .content h4 {
-  color: #8290a3;
+  color: #8c99a6;
   float: left;
   font-size: 18px;
   margin-bottom: 20px;
@@ -44,22 +43,24 @@ Login page
 }
 .login .content .create-account p,
 .login .content .login-account p {
-  color: #E2E4E6;
+  color: #f5f5f5;
   line-height: 40px;
 }
 .login .content .forget-password {
   display: flex;
 }
 .login .content .forget-password p {
-  color: #8290a3;
+  color: #8c99a6;
   font-size: 11px;
   padding-left: 5%;
+  -ms-flex: 2;
+  -webkit-flex: 2;
   flex: 2;
   margin: 0;
   align-self: center;
 }
 .login .content .form-actions-container label {
-  color: #8290a3;
+  color: #8c99a6;
   font-size: 11px;
 }
 .login .content label {
@@ -76,7 +77,7 @@ Login page
 .login .content .form-control {
   padding-right: 1em;
   background-color: #dde3ec;
-  color: #8290a3;
+  color: #8c99a6;
   border: 1px solid #dde3ec;
   border-radius: 0;
   padding-left: 15px;
@@ -105,18 +106,18 @@ Login page
   height: 48px;
 }
 .login .form-group input::-webkit-input-placeholder {
-  color: #8290a3;
+  color: #8c99a6;
 }
 .login .form-group input:-moz-placeholder {
   /* Firefox 18- */
-  color: #8290a3;
+  color: #8c99a6;
 }
 .login .form-group input::-moz-placeholder {
   /* Firefox 19+ */
-  color: #8290a3;
+  color: #8c99a6;
 }
 .login .form-group input:-ms-input-placeholder {
-  color: #8290a3;
+  color: #8c99a6;
 }
 .form-actions-container {
   display: flex;
@@ -143,7 +144,7 @@ Login page
   padding-left: 0;
   margin-top: 8px;
   display: inline-block;
-  color: #8290a3;
+  color: #8c99a6;
 }
 .login .content .forget-form .form-actions {
   border: 0;
@@ -181,13 +182,13 @@ Login page
 .login .content .login-account a {
   display: inline-block;
   margin-top: 5px;
-  color: #E2E4E6;
+  color: #f5f5f5;
 }
 /* select2 dropdowns */
 .login .content .select2-container i {
   display: inline-block;
   position: relative;
-  color: #ccc;
+  color: #cccccc;
   z-index: 1;
   top: 1px;
   margin: 4px 4px 0 -1px;

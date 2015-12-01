@@ -1,4 +1,6 @@
-﻿.accountPage {
+﻿@import "variables.less";
+
+.accountPage-wrapper {
 
     svg {
         width: 17px;
@@ -14,11 +16,65 @@
         position: relative;
         top: -22px;
         display: block;
+        background: @loginColor;
+        color: @color2;
+        font-size: 11px;
+        line-height: 22px;
+    }
+
+    .portlet.light {
+        .portlet-body .form-group .fileinput {
+
+            h2 {
+                font-size: 12px;
+                margin-top: 6px;
+            }
+
+            .thumbnail {
+                border-radius: 0;
+            }
+        }
+
+        > .portlet-title {
+            border-bottom: 1px solid #F4F4F4;
+            min-height: 12px;
+            display: flex;
+
+            > .caption {
+                align-self: flex-end;
+                flex-grow: 1;
+            }
+
+            > .caption.caption-md > .caption-subject {
+                font-size: 12px;
+            }
+        }
+    }
+
+    .tab-from-right > li {
+        margin: 0;
+
+        > a {
+            font-size: 11px;
+            padding: 12px 8px 5px 8px;
+        }
+    }
+
+    .page-head .page-title {
+        padding: 10px 0;
+
+        > h1 {
+            font-size: 18px;
+        }
+    }
+
+    .nav-tabs {
+        padding: 0;
     }
 
     .notification-list {
         // background:#353A3F;
-        color:#fff;
+        color: #fff;
         padding: 0 10px;
 
         select {
