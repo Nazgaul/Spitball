@@ -1,5 +1,9 @@
 var Login = function () {
 
+    var forgotPasswordState = 0,
+        loginState = 1,
+        signupState = 2;
+
     var handleLogin = function () {
         $('.login-form').validate({
             errorElement: 'span', //default input error message container
@@ -204,23 +208,30 @@ var Login = function () {
         });
 
         jQuery('#register-btn').click(function () {
-            jQuery('.login-form').hide();
+            jQuery('.login-form, .forgot-password-form').hide();
             jQuery('.register-form').show();
-            pushState(false);
+            pushState(signupState);
             ga('send', 'pageview', '/account/signup');
             trackConversion();
         });
 
         jQuery('#login-btn').click(function () {
             jQuery('.login-form').show();
-            jQuery('.register-form').hide();
-            pushState(true);
+            jQuery('.register-form, forgot-password-form').hide();
+            pushState(loginState);
             ga('send', 'pageview', '/account/signin');
             trackConversion();
         });
 
+        jQuery('#forget-password').click(function () {
+            jQuery('.forgot-password-form').show();
+            jQuery('.login-form, .register-form').hide();
+            pushState(forgotPasswordState);
+            ga('send', 'pageview', '/account/resetpassword');
+            trackConversion();
+        });
 
-       
+
 
         //jQuery('#lang_select').change(function (e) {
         //    saveRegisterData();
@@ -228,7 +239,7 @@ var Login = function () {
         //});
     }
 
-    var handleExtenalLogin = function() {
+    var handleExtenalLogin = function () {
         jQuery('.facebook').click(function () {
             facebookLogin();
         });
@@ -442,15 +453,19 @@ var Login = function () {
             window.sessionStorage.clear();
         }
     }
-    function pushState(isLogin) {
+    function pushState(state) {
         if (!window.history) {
             return;
         }
-        if (isLogin) {
-            window.history.replaceState(null, "Signin", "/account/signin");
+        if (state === loginState) {
+            window.history.pushState(null, "Signin", "/account/signin");
             return;
         }
-        window.history.replaceState(null, "Sign up", "/account/signup");
+        if (state === signupState) {
+            window.history.pushState(null, "Sign up", "/account/signup");
+            return;
+        }
+        window.history.pushState(null, "Forgot password", "/account/resetpassword");
     }
 
     function getUrlVars() {
@@ -487,7 +502,7 @@ var Login = function () {
 
             $('.content').show();
         },
-        initExternalLogin: function() {
+        initExternalLogin: function () {
             handleExtenalLogin();
 
         }
