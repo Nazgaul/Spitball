@@ -152,7 +152,7 @@ Login page
     margin-top: 25px;
     padding-right: 6px;
 
-    .form-group{
+    .form-group {
         align-self: center;
     }
 }
@@ -162,6 +162,26 @@ Login page
     margin-bottom: 25px;
 }
 
+
+.login .content .forgot-password-form {
+
+    .text {
+        margin-bottom: 30px;
+        font-size: 16px;
+        font-weight: normal;
+        color: @color10;
+    }
+
+    .form-actions {
+        margin-bottom: 55px;
+        float: right;
+
+        .btn.blue {
+            margin-left: 10px;
+        }
+    }
+}
+
 .login .content .form-actions {
     background-color: transparent;
     clear: both;
@@ -169,14 +189,73 @@ Login page
     padding: 0 30px 25px 30px;
     margin-left: -30px;
     margin-right: -30px;
+    display: flex;
+
+    .checkbox-design {
+        flex-grow: 1;
+        color: @color10;
+
+        .remember-me {
+            display: inline-flex;
+            width: 12px;
+            height: 12px;
+            border: 1px solid @textColorGrey;
+            padding: 0;
+            margin: 0;
+            border-radius: 3px;
+            background: grey;
+            background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, @color9 100%);
+            background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, @color9 100%);
+            background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, @color9 100%);
+            background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, @color9 100%);
+            background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, @color9 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfff4', endColorstr='#b3bead', GradientType=0);
+            margin: 20px auto;
+            -webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+            -moz-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+            box-shadow: inset 0px 1px 1px white, 0px 1px 1px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        label:after {
+            opacity: 0;
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 4px;
+            background: transparent;
+            top: 2px;
+            left: 1px;
+            border: 2px solid #000000;
+            border-top: none;
+            border-right: none /*rtl:ignore*/;
+            -webkit-transform: rotate(-45deg) /*rtl:ignore*/;
+            -moz-transform: rotate(-45deg) /*rtl:ignore*/;
+            -o-transform: rotate(-45deg) /*rtl:ignore*/;
+            -ms-transform: rotate(-45deg) /*rtl:ignore*/;
+            transform: rotate(-45deg) /*rtl:ignore*/;
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        input[type=checkbox]:checked + label:after {
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+            filter: alpha(opacity=100);
+            opacity: 1;
+        }
+    }
 }
 
-.login .content .form-actions .checkbox {
-    margin-left: 0;
-    padding-left: 0;
-    margin-top: 8px;
-    display: inline-block;
-    color: @color10;
+#forget-password {
+    color: @loginColor;
+}
+
+#forget-password:hover {
+    color: #337ab7;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .login .content .forget-form .form-actions {
@@ -205,6 +284,7 @@ Login page
 .login .content .create-account {
     padding-top: 10px;
     margin-top: 15px;
+    min-height: 50px;
 }
 
 .login .content .login-account,

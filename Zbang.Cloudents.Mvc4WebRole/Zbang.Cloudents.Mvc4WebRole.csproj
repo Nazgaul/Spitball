@@ -1613,18 +1613,6 @@
     <Content Include="Content\Site\Share.rtl.min.css">
       <DependentUpon>Share.rtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\unused-components.css">
-      <DependentUpon>unused-components.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\unused-components.min.css">
-      <DependentUpon>unused-components.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\unused-components.rtl.css">
-      <DependentUpon>unused-components.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\unused-components.rtl.min.css">
-      <DependentUpon>unused-components.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\user.css">
       <DependentUpon>user.less</DependentUpon>
     </Content>
@@ -2097,7 +2085,6 @@
     <Content Include="Content\Site\quiz.less" />
     <Content Include="Content\Site\Share.less" />
     <Content Include="Content\Site\leaderboard.less" />
-    <Content Include="Content\Site\unused-components.less" />
     <Content Include="Content\Site\quizCreate.less" />
     <Content Include="Content\Site\search.less" />
     <Content Include="Content\Site\libraryChoose.less" />

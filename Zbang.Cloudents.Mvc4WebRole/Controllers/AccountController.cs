@@ -132,6 +132,23 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
+        public ActionResult resetPassword(string lang)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
+            if (!string.IsNullOrEmpty(lang))
+            {
+                m_LanguageCookie.InjectCookie(lang);
+                RouteData.Values.Remove("lang");
+                return RedirectToAction("resetpassword");
+            }
+
+
+            return View("Signin");
+        }
+
 
 
         #region Login

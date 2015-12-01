@@ -2,7 +2,7 @@
 
 
 .quizPage {
-    color: @textColor;
+    color: @textColorBlack;
 
     header + div {
         margin-top: @fullScreenHeaderHeight + 80px;
@@ -19,7 +19,7 @@
         svg {
             width: 30px;
             height: 30px;
-            fill: #C5C5C5;
+            fill: @svgQuizArrows;
         }
 
         &.prev {
@@ -45,7 +45,7 @@
 
     .quiz-take-stats {
         margin-bottom: 12px;
-        border: 3px solid #4190b9;
+        border: 3px solid @borderColorBlue;
         .displayFlex();
         align-items: center;
         border-radius: 10px;
@@ -79,7 +79,7 @@
             margin-left: 5px;
             width: 36px;
             height: 36px;
-            fill: #4190b9;
+            fill: @svgQuizPlay;
             //display: inline-block;
             //vertical-align: middle;
         }
@@ -103,7 +103,7 @@
         .progress-wrapper {
             .displayFlex();
             padding: 10px;
-            background: #DDD;
+            background: @backgroundColorWhite;
             // align-self:center;
             /*display:inline-block;
             background:grey;*/
@@ -116,11 +116,11 @@
             // display: inline-block;
             width: 100%;
             margin: 0;
-            background: #F5F5F5;
+            background: @backgroundColorWhite;
             border: 1px solid grey;
 
             .progress-bar {
-                background: #85A7B8;
+                background: @progressbarColorQuiz;
             }
         }
     }
@@ -137,16 +137,16 @@
 
     .retake {
         width: 100%;
-        background: #4190B9;
-        color: white;
+        background: @buttonColorBlue;
+        color: @textColorWhite;
         border-radius: 10px;
         padding: 2px 0;
         font-size: 24px;
     }
 
     .black-bullet {
-        background: #353A3F;
-        color: #fff;
+        background: @borderColorDarkGrey;
+        color: @textColorWhite;
         text-align: center;
         border-radius: 10px;
     }
@@ -182,7 +182,7 @@
             margin: 15px 0;
 
             &:first-child {
-                border-right: 1px solid gray;
+                border-right: 1px solid @borderColorLightGrey;
             }
         }
 
@@ -192,24 +192,24 @@
         svg {
             width: 42px;
             height: 39px;
-            fill: #007E01;
+            fill: @svgQuizCorrect;
             margin-top: 20px;
             margin-left: 5px;
             align-self: center;
 
             &:last-child {
                 width: 45px;
-                fill: #BE2A4A;
+                fill: @svgQuizWrong;
             }
         }
     }
 
     .time-taken {
         font-size: 36px;
-        color: #9AC6E9;
+        color: @textColorBlue;
 
         svg {
-            fill: #9AC6E9;
+            fill: @svgQuizTime;
             width: 46px;
             height: 52px;
             vertical-align: middle;
@@ -231,7 +231,7 @@
 
         .send {
             .buttonBlue();
-            color: #fff;
+            color: @textColorWhite;
             //margin: 0 15px 15px 0;
             padding: 5px 35px;
         }
@@ -241,12 +241,12 @@
         background: transparent;
 
         & > .top {
-            color: #000;
+            color: @textColorBlack;
         }
     }
 
     .feed .reply .user-name {
-        color: #000;
+        color: @textColorBlack;
         font-weight: 700;
     }
 }
@@ -262,7 +262,7 @@
     padding: 26px;
     margin: 10px 0;*/
     .index {
-        color: #4190B9;
+        color: @textColorBlue;
     }
 
     .q {
@@ -282,7 +282,7 @@
         svg {
             width: 16px;
             height: 16px;
-            fill: #676767;
+            fill: @svgColorGrey;
         }
     }
 
@@ -300,8 +300,8 @@
 
         .counter-view {
             border-radius: 50%;
-            border: 2px solid #4190B9;
-            color: #4190B9;
+            border: 2px solid @borderColorBlue;
+            color: @textColorBlue;
             font-size: 20px;
             //padding: 5px 10px;
         }
@@ -316,15 +316,15 @@
     }
 
     .a-body {
-        border-bottom: 1px solid #4190B9;
+        border-bottom: 1px solid @borderColorBlue;
         width: 100%;
         padding: 15px 10px 20px;
         margin-right: 50px;
     }
 
     .answer-selected {
-        background: #4190B9;
-        color: #fff;
+        background: @backgroundColorSpitballBlue;
+        color: @textColorWhite;
     }
 }
 
@@ -340,13 +340,13 @@
     }
 
     h4 {
-        color: #4190B9;
+        color: @textColorSpitballBlue;
         font-size: 50px;
         margin: 0; //override
     }
 
     h5 {
-        color: #4190B9;
+        color: @textColorSpitballBlue;
         font-weight: bold;
         font-size: 50px;
         margin: 0 10px 0 0; //override
@@ -361,9 +361,9 @@
     .backgrounds {
         margin: 25px auto;
         padding: 5px 0;
-        background: #353a3f;
+        background: @backgroundColorMenu;
         border-radius: 10px;
-        color: #f5f5f5;
+        color: @textColorWhite;
         width: 52%;
     }
 
@@ -400,7 +400,7 @@
         svg {
             width: 50px;
             height: 50px;
-            fill: #4190b9;
+            fill: @svgQuizBald;
             margin: 5px 10px 5px 30px;
         }
 
@@ -419,7 +419,7 @@
         svg {
             width: 50px;
             height: 50px;
-            fill: #9782B1;
+            fill: @svgQuizCompleted;
             margin: 5px 10px 5px 30px;
         }
 
@@ -439,7 +439,7 @@
         svg {
             width: 50px;
             height: 50px;
-            fill: #F76446;
+            fill: @svgQuizRanking;
             margin: 5px 10px 5px 30px;
         }
 
@@ -455,8 +455,8 @@
     .buttons {
 
         .scared {
-            background: #858585;
-            color: #f5f5f5;
+            background: @backgroundColor2;
+            color: @textColorWhite;
             border: 0;
             margin: 10px 0 0;
             width: 25%;
@@ -474,9 +474,9 @@
 }
 
 .quiz-wrapper {
-    border: 1px solid #B7B7B7;
-    background: #fff;
-    color: #000;
+    border: 1px solid @borderColorLightGrey;
+    background: @backgroundColorWhite;
+    color: @textColorBlack;
     padding: 26px;
     margin: 10px 0;
 
@@ -484,8 +484,8 @@
     .no-answer-element {
         display: none;
         text-align: center;
-        background: red;
-        color: white;
+        background: @backgroundColorRed;
+        color: @textColorWhite;
         font-size: 20px;
     }
 
@@ -495,8 +495,8 @@
         }
 
         .correct-answer {
-            background: #4190B9;
-            color: #fff;
+            background: @backgroundColorSpitballBlue;
+            color: @textColorWhite;
 
             &:before {
                 content: '\2714';
@@ -506,9 +506,9 @@
 
     &.wrong {
         .answer-selected {
-            background: #D1294D;
+            background: @backgroundColorRed;
             color: #fff;
-            border-color: #D1294D;
+            border-color: @borderColorRed;
 
             &:before {
                 content: '\2716';
@@ -516,9 +516,9 @@
         }
 
         .correct-answer {
-            background: #008000;
+            background: @backgroundColorGreen;
             color: #fff;
-            border-color: #008000;
+            border-color: @borderColorGreen;
 
             &:before {
                 content: '\2714';
@@ -528,9 +528,9 @@
 
     &.correct {
         .correct-answer {
-            background: #008000;
+            background: @backgroundColorGreen;
             color: #fff;
-            border-color: #008000;
+            border-color: @borderColorGreen;
 
             &:before {
                 content: '\2714';

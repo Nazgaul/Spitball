@@ -7,7 +7,7 @@
     height: @dashboardCubeHeight;
 
     svg {
-        fill: @color2;
+        fill: @fileColor;
         width: 75px;
         height: 75px;
         display: block;
@@ -18,7 +18,7 @@
 }
 
 .invite {
-    background: @color4;
+    background: @backgroundColorMenu;
     padding: 0 10px 10px;
 
     .tab-from-right {
@@ -34,19 +34,19 @@
         @colorplaceholder: #646E77;
 
         ::-webkit-input-placeholder {
-            color: @colorplaceholder;
+            color: @textColorGrey;
         }
 
         :-moz-placeholder { /* Firefox 18- */
-            color: @colorplaceholder;
+            color: @textColorGrey;
         }
 
         ::-moz-placeholder { /* Firefox 19+ */
-            color: @colorplaceholder;
+            color: @textColorGrey;
         }
 
         :-ms-input-placeholder {
-            color: @colorplaceholder;
+            color: @textColorGrey;
         }
 
         background: @backgroundColor;
@@ -67,7 +67,7 @@
     .gmail {
         .displayFlex();
         padding-top: 10px;
-        background: #C2C2C2;
+        background: @backgroundColor2;
         margin: 0 auto;
         width: 230px;
         white-space: normal;
@@ -83,8 +83,8 @@
 
         svg {
             width: 60px;
-            fill: #ED1921;
-            background-color: #fff;
+            fill: @svgGmail;
+            background-color: @backgroundColorWhite;
             vertical-align: middle;
         }
 
@@ -96,7 +96,7 @@
 }
 
 .md-chips .md-chip-input-container {
-    color: #f5f5f5;
+    color: @textColorWhite;
 }
 
 .chipsdemoContactChips md-content.autocomplete {
@@ -138,7 +138,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    color: #A8B3BB;
+    color: @textColorLightGrey;
 }
 
 @media (min-width: 900px) {

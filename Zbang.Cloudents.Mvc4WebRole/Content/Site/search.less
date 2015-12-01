@@ -1,7 +1,6 @@
 ﻿@import "variables.less";
 
 .search {
-    @colorplaceholder: #646E77;
 
     ::-webkit-input-placeholder {
         color: @textColorGrey;
@@ -18,10 +17,6 @@
     :-ms-input-placeholder {
         color: @textColorGrey;
     }
-
-
-
-
 
     .nav-tabs, .tabbable {
         display: none;
@@ -42,7 +37,7 @@
     }
 
     em {
-        color: #EBB707;
+        color: @textColorOrange;
     }
 
     .item, .quiz {
@@ -63,12 +58,12 @@
             left: 40%;
             top: 0;
             text-align: justify;
-            color: #f5f5f5;
+            color: @textColorWhite;
             padding-left: 15px;
 
             h5 {
                 margin: 21px 0;
-                color: #919EAC;
+                color: @textColorGrey;
             }
         }
     }
@@ -78,7 +73,7 @@
     font-size: 7em;
     background: transparent;
     border: none;
-    color: #3293f6;
+    color: @textColorSpitballBlue;
     outline: none;
 }
 

@@ -39,15 +39,27 @@
                         <span></span>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="text"  placeholder="@LogOnResources.Email" name="email" />
+                        <input class="form-control" type="text" placeholder="@LogOnResources.Email" name="email" />
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="password"  placeholder="@LogOnResources.Password" name="password" />
+                        <input class="form-control" type="password" placeholder="@LogOnResources.Password" name="password" />
                     </div>
                     <div class="form-actions">
-                        <label class="checkbox">
-                            <input type="checkbox" name="rememberMe" value="true" /> @LogOnResources.RememberMe
-                        </label>
+                        @*<label class="checkbox">
+                                <input type="checkbox" name="rememberMe" value="true" /> @LogOnResources.RememberMe
+                            </label>*@
+
+                        @*<div class="checkbox-design"></div>
+                            <label class="remember-me" for="remember-me"></label>
+                            <input type="checkbox" name="rememberMe" value="true" id="remember-me">
+                            <span>Remember me</span>*@
+
+                        <div class="checkbox-design">
+                            <input type="checkbox" name="rememberMe" value="true" id="remember-me">
+                            <label class="remember-me" for="remember-me"></label>
+                            <span>@LogOnResources.RememberMe</span>
+                        </div>
+
                         <button type="submit" class="btn blue pull-right">
                             @LogOnResources.LogIn
                         </button>
@@ -55,9 +67,9 @@
                     <div class="forget-password">
                         <h4>@LogOnResources.ForgotYourPassword</h4>
                         <p>
-                            @LogOnResources.NoWorries <a href="@Url.Action("ResetPassword","Account")" id="forget-password">
+                            @LogOnResources.NoWorries <span id="forget-password">
                                 @LogOnResources.Here
-                            </a>
+                            </span>
                             @LogOnResources.ToResetPassword.
                         </p>
                     </div>
@@ -97,6 +109,25 @@
                     </form>
                     <!-- END FORGOT PASSWORD FORM -->*@
                 <!-- BEGIN REGISTRATION FORM -->
+
+                <form class="forgot-password-form" action="" method="post" style="display:none;">
+                    <h3 class=" form-title">
+                        @LogOnResources.ForgotYourPassword
+                    </h3>
+                    <div class="text">
+                        <p>Just enter the email address you used to create your account.</p>
+                        <p>We will locate your account and send you an email with the link to reset your password.</p>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="@LogOnResources.Email" name="email" />
+                    </div>
+                    <div class="form-actions">
+                        <button type="reset" class="btn grey pull-right">Cancel</button>
+                        <button type="submit" class="btn blue pull-right">@LogOnResources.LogIn</button>
+                    </div>
+                    <div class="create-account"></div>
+                </form>
+
                 <form class="register-form" action="" method="post">
                     @{ Html.RenderAction("AntiForgeryToken", "Home", true);}
                     <h3>@LogOnResources.CreateAccount</h3>
