@@ -1846,7 +1846,6 @@
       <DependentUpon>site.png.rtl.css</DependentUpon>
     </Content>
     <Content Include="Images\Site\BG.png" />
-    <Content Include="Images\Site\correct_wrong.png" />
     <Content Include="Images\Site\libChooseIcons.svg" />
     <Content Include="Images\Site\quizbackground.png" />
     <Content Include="Images\Site\quizCreateIcons.svg" />
@@ -2189,7 +2188,6 @@
     <Content Include="Images\Store\category.png.scss">
       <DependentUpon>category.png</DependentUpon>
     </Content>
-    <Content Include="Mobile\Default.aspx" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />

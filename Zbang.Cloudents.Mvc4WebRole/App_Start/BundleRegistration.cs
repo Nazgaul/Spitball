@@ -137,28 +137,22 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "site4", new[]
                     {
 
-                        new JsFileWithCdn("~/js/signin/jquery.min.js"),
-                        new JsFileWithCdn("~/js/signin/jquery-migrate.min.js"),
+                        new JsFileWithCdn("~/scripts/jquery-2.1.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"),
+                        //new JsFileWithCdn("~/js/signin/jquery-migrate.min.js"),
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
                         
-                        //new JsFileWithCdn("~/scripts/stacktrace.js"), 
-
-                        //new JsFileWithCdn("~/scripts/site/jquery-ui.min.js"), //?
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-hover-dropdown.js"),
                         new JsFileWithCdn("~/scripts/site/jquery.slimscroll.js"),
                         new JsFileWithCdn("~/js/signin/jquery.blockui.min.js"),
                         new JsFileWithCdn("~/js/signin/jquery.cokie.min.js"),
                         new JsFileWithCdn("~/js/signin/jquery.uniform.min.js"),
-                        //new JsFileWithCdn("~/scripts/site/bootstrap-switch.js"),//?
 
 
                         new JsFileWithCdn("~/scripts/angular.min.js",
                             "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"),
-                        //new JsFileWithCdn("~/scripts/angular-sanitize.js"
-                        //    //"https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-sanitize.min.js"
-                        //    ),
-                        new JsFileWithCdn("~/scripts/angular-ui-router.js"),
+                        
+                            new JsFileWithCdn("~/scripts/angular-ui-router.js"),
                         new JsFileWithCdn("~/scripts/angulartics.js"),
                         new JsFileWithCdn("~/scripts/angulartics-ga.js"),
                         new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
@@ -173,7 +167,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         
                         new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js"),
                         new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
-                        new JsFileWithCdn("~/bower_components/angular-material/angular-material.js"),
+                        new JsFileWithCdn("~/bower_components/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc4/angular-material.min.js"),
 
                         new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
 

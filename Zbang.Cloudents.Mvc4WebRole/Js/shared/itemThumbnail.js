@@ -74,7 +74,7 @@
             if (extension === ".mp3") {
                 return prefix + "item-audio";
             }
-            return prefix + "item-audio";
+            return prefix + "item-default";
 
         }
     }
