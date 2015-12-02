@@ -54,6 +54,14 @@ var Login = function () {
         });
     }
 
+    var handleForgetPassword = function () {
+        $('.forgot-password-form').submit(function (e) {
+            alert("An email was sent to you");
+            $(this).trigger('reset');
+            return false;
+        });
+    }
+
     //var handleForgetPassword = function () {
     //	$('.forget-form').validate({
     //            errorElement: 'span', //default input error message container
@@ -458,14 +466,14 @@ var Login = function () {
             return;
         }
         if (state === loginState) {
-            window.history.pushState(null, "Signin", "/account/signin");
+            window.history.replaceState(null, "Signin", "/account/signin");
             return;
         }
         if (state === signupState) {
-            window.history.pushState(null, "Sign up", "/account/signup");
+            window.history.replaceState(null, "Sign up", "/account/signup");
             return;
         }
-        window.history.pushState(null, "Forgot password", "/account/resetpassword");
+        window.history.replaceState(null, "Forgot password", "/account/resetpassword");
     }
 
     function getUrlVars() {
@@ -484,7 +492,7 @@ var Login = function () {
         init: function () {
 
             handleLogin();
-            //handleForgetPassword();
+            handleForgetPassword();
             handleRegister();
             //handleLanguage();
             handleExtenalLogin();

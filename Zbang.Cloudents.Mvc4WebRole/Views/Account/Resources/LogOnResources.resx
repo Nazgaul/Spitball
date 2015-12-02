@@ -165,4 +165,7 @@
   <data name="ExternalProvider" xml:space="preserve">
     <value>Connect</value>
   </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
 </root>

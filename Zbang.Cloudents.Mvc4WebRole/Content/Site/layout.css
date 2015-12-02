@@ -193,7 +193,10 @@ Page Header
   display: inline-block;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown:last-child {
-  position: relative;
+  display: flex;
+}
+.page-header.navbar .top-menu .navbar-nav > li.dropdown:last-child a {
+  align-self: center;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle {
   margin: 0;
