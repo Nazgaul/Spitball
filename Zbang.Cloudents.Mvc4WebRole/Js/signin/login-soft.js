@@ -54,13 +54,6 @@ var Login = function () {
         });
     }
 
-    var handleForgetPassword = function () {
-        $('.forgot-password-form').submit(function (e) {
-            alert("An email was sent to you");
-            $(this).trigger('reset');
-            return false;
-        });
-    }
 
     //var handleForgetPassword = function () {
     //	$('.forget-form').validate({
@@ -223,9 +216,9 @@ var Login = function () {
             trackConversion();
         });
 
-        jQuery('#login-btn').click(function () {
+        jQuery('#login-btn, .forgot-password-form .cancel').click(function () {
             jQuery('.login-form').show();
-            jQuery('.register-form, forgot-password-form').hide();
+            jQuery('.register-form, .forgot-password-form').hide();
             pushState(loginState);
             ga('send', 'pageview', '/account/signin');
             trackConversion();
@@ -239,7 +232,11 @@ var Login = function () {
             trackConversion();
         });
 
-
+        jQuery('.forgot-password-form').submit(function (e) {
+            e.preventDefault();
+            jQuery('.check-email-message').show();
+            jQuery('.forgot-password-form').hide();
+        });
 
         //jQuery('#lang_select').change(function (e) {
         //    saveRegisterData();
@@ -257,7 +254,7 @@ var Login = function () {
         });
     }
 
-   
+
 
     function signup(form) {
 
@@ -439,13 +436,19 @@ var Login = function () {
         init: function () {
 
             handleLogin();
-            handleForgetPassword();
+            //handleForgetPassword();
             handleRegister();
             //handleLanguage();
             handleExtenalLogin();
             if (window.location.pathname.indexOf('/signup') > -1) {
-                jQuery('.login-form').hide();
+                jQuery('.login-form, .forgot-password-form').hide();
                 jQuery('.register-form').show();
+                //loadRegisterData();
+            }
+
+            if (window.location.pathname.indexOf('/resetpassword') > -1) {
+                jQuery('.login-form, .register-form').hide();
+                jQuery('.forgot-password-form').show();
                 //loadRegisterData();
             }
 

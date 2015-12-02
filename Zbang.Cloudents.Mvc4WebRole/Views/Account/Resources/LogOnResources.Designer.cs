@@ -70,6 +70,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check your email.
+        /// </summary>
+        public static string CheckEmailTitle {
+            get {
+                return ResourceManager.GetString("CheckEmailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create an account.
         /// </summary>
         public static string CreateAccount {
