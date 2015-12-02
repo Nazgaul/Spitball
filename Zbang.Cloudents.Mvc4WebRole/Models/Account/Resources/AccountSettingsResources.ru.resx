@@ -168,9 +168,6 @@
   <data name="UsernameEmpty" xml:space="preserve">
     <value>Имя пользователя не должно быть пустым.</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Имя:</value>
-  </data>
   <data name="LastNameRequired" xml:space="preserve">
     <value> Требуется фамилия
 </value>

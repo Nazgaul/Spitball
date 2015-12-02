@@ -29,6 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             // 
 
             Box box = m_BoxRepository.Get(command.BoxId); // need to get not to get proxy
+            User user = m_UserRepository.Load(command.UserId);
 
             var academicBox = box as AcademicBox;
             if (academicBox != null)
@@ -44,11 +45,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var boxNameExists = box.Owner.GetUserOwnedBoxes().FirstOrDefault(w => w.Name == command.BoxName.Trim() && w.Id != box.Id);
             if (boxNameExists != null)
                 throw new ArgumentException("box with that name already exists");
-
-            box.ChangeBoxName(command.BoxName);
+            
+            box.ChangeBoxName(command.BoxName,user);
             if (command.Privacy.HasValue)
             {
-                User user = m_UserRepository.Load(command.UserId);
                 box.ChangePrivacySettings(command.Privacy.Value, user);
             }
             ChangeNotificationSettings(command.UserId, command.BoxId, command.Notification);

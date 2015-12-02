@@ -172,9 +172,6 @@
   <data name="UsernameEmpty" xml:space="preserve">
     <value>Username cannot be empty</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name:</value>
-  </data>
   <data name="LastNameRequired" xml:space="preserve">
     <value>Last name is required</value>
   </data>

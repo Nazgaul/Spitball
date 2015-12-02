@@ -132,7 +132,4 @@
   <data name="TermsOfServices" xml:space="preserve">
     <value>Условия предоставления услуг</value>
   </data>
-  <data name="VerifyEmail" xml:space="preserve">
-    <value>Подтвердить адрес электронной почты</value>
-  </data>
 </root>

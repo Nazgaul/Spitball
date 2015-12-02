@@ -1,16 +1,15 @@
-﻿<div class="dashboard">
-    <div class="row " uib-collapse="!d.inviteOpen">
-        <div class="col-md-12">
-            @{Html.RenderPartial("_Invite");}
-        </div>
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
+<div class="dashboard">
+    <div class="page-head"> </div>
+    <div uib-collapse="!d.inviteOpen">
+        @{Html.RenderPartial("_Invite");}
     </div>
-    <div class="page-head">
-        <div class="page-title">
-            <h1>Dashboard</h1>
-        </div>
+    <div class="page-title">
+        <h1>@IndexResource.Title</h1>
     </div>
+
     <div @*class="row"*@ layout="row" layout-padding layout-wrap>
-        <div @*class="col-lg-6  col-md-8 col-sm-12"*@  flex-gt-lg="33" flex-lg="33" flex="100" class="flex">
+        <div @*class="col-lg-6  col-md-8 col-sm-12"*@ flex-gt-lg="33" flex-lg="33" flex="100" class="flex">
             @{ Html.RenderPartial("_University");}
         </div>
         <div @*class="col-lg-3 col-md-4 col-sm-6 col-xs-6 leaderboard"*@ class="leaderboard flex" flex-gt-lg="33" flex-lg="33" flex-md="50" flex="100">

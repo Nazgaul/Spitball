@@ -104,14 +104,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
                 return ResourceManager.GetString("TermsOfServices", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Verify email.
-        /// </summary>
-        public static string VerifyEmail {
-            get {
-                return ResourceManager.GetString("VerifyEmail", resourceCulture);
-            }
-        }
     }
 }

@@ -126,23 +126,11 @@
   <data name="HomePage" xml:space="preserve">
     <value>الصفحة الرئيسية</value>
   </data>
-  <data name="InvitationOnly" xml:space="preserve">
-    <value>لقد قام المالك بأجراء دعوة المحتوى تلك فقط</value>
-  </data>
-  <data name="MembersOnly" xml:space="preserve">
-    <value>هذا المضمون للاعضاء فقط</value>
-  </data>
-  <data name="NeedPermission" xml:space="preserve">
-    <value>تحتاج إلى إذن لكي يمكنك الوصول إلى هذا المحتوى</value>
-  </data>
   <data name="NotFound" xml:space="preserve">
     <value>يبدو أن الصفحة التي تبحث عنها غير موجودة.</value>
   </data>
   <data name="Oops" xml:space="preserve">
     <value>عفوا</value>
-  </data>
-  <data name="ToAccessFile" xml:space="preserve">
-    <value>تحتاج إلى تسجيل الدخول إلى Spitball للوصول إلى هذا الملف</value>
   </data>
   <data name="UseOtherBrowser" xml:space="preserve">
     <value>يرجى تحديث إصدار Internet Explorer لديك أو استخدام متصفح آخر</value>

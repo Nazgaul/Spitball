@@ -4964,6 +4964,7 @@ Dashboard Stats 2
   width: 100%;
   height: 179px;
   position: relative;
+  line-height: 1;
 }
 .dashboard-stat2 .display {
   margin-bottom: 20px;

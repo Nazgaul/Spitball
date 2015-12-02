@@ -126,23 +126,11 @@
   <data name="HomePage" xml:space="preserve">
     <value>לדף הבית</value>
   </data>
-  <data name="InvitationOnly" xml:space="preserve">
-    <value>ניתן לצפות בתוכן זה - בהזמנה בלבד</value>
-  </data>
-  <data name="MembersOnly" xml:space="preserve">
-    <value>תוכן זה מיועד לחברים בלבד</value>
-  </data>
-  <data name="NeedPermission" xml:space="preserve">
-    <value>צריך הרשאה לצפות בתוכן הזה</value>
-  </data>
   <data name="NotFound" xml:space="preserve">
     <value>הדף שאתה מחפש לא קיים.</value>
   </data>
   <data name="Oops" xml:space="preserve">
     <value>אופס</value>
-  </data>
-  <data name="ToAccessFile" xml:space="preserve">
-    <value>צריך להרשם למערכת על מנת לצפות בתוכן זה</value>
   </data>
   <data name="UseOtherBrowser" xml:space="preserve">
     <value>אנא עדכן את הגרסה של Internet Explorer שלך

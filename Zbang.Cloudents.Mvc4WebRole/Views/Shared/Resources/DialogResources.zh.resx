@@ -120,19 +120,4 @@
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="Create" xml:space="preserve">
-    <value>创建</value>
-  </data>
-  <data name="CreateItem" xml:space="preserve">
-    <value>创建新的院系</value>
-  </data>
-  <data name="Next" xml:space="preserve">
-    <value>下一个</value>
-  </data>
-  <data name="Send" xml:space="preserve">
-    <value>发送</value>
-  </data>
-  <data name="To" xml:space="preserve">
-    <value>致：</value>
-  </data>
 </root>

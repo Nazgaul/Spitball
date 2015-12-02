@@ -85,13 +85,19 @@ namespace Zbang.Zbox.Domain
         public virtual int CommentCount { get; protected set; }
 
 
-        public void ChangeBoxName(string newBoxName)
+        public void ChangeBoxName(string newBoxName, User user)
         {
             if (newBoxName == null)
             {
                 throw new ArgumentNullException("newBoxName");
             }
+            if (String.Equals(Name, newBoxName, StringComparison.CurrentCultureIgnoreCase))
+            {
+                return;
+            }
+
             Name = newBoxName.Trim();
+            UserTime.UpdateUserTime(user.Email);
             GenerateUrl();
         }
 

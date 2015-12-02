@@ -59,14 +59,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to has invited you to join.
-        /// </summary>
-        public static string HasInvited {
-            get {
-                return ResourceManager.GetString("HasInvited", resourceCulture);
-            }
-        }
     }
 }

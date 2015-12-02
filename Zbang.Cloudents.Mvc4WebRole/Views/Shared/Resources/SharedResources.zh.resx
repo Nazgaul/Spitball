@@ -120,23 +120,11 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
-  <data name="Invite" xml:space="preserve">
-    <value>邀请</value>
-  </data>
   <data name="Help" xml:space="preserve">
     <value>帮助</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>登录</value>
-  </data>
-  <data name="Connect" xml:space="preserve">
-    <value>连接</value>
-  </data>
-  <data name="Message" xml:space="preserve">
-    <value>消息</value>
-  </data>
-  <data name="Members" xml:space="preserve">
-    <value>会员</value>
   </data>
   <data name="FacebookSignUp" xml:space="preserve">
     <value>使用 Facebook 注册</value>

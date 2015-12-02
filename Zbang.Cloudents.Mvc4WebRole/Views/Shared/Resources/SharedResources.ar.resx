@@ -120,35 +120,11 @@
   <data name="Email" xml:space="preserve">
     <value>بريد الكتروني </value>
   </data>
-  <data name="Invite" xml:space="preserve">
-    <value>دعوة </value>
-  </data>
   <data name="Help" xml:space="preserve">
     <value>مساعدة</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>تسجيل الدخول</value>
-  </data>
-  <data name="Connect" xml:space="preserve">
-    <value>الاتصال</value>
-  </data>
-  <data name="Message" xml:space="preserve">
-    <value>الرسالة</value>
-  </data>
-  <data name="Points" xml:space="preserve">
-    <value>النقاط</value>
-  </data>
-  <data name="WriteMessage" xml:space="preserve">
-    <value>كتابة رسالة ...</value>
-  </data>
-  <data name="Members" xml:space="preserve">
-    <value>اعضاء </value>
-  </data>
-  <data name="Pts" xml:space="preserve">
-    <value>نقاط</value>
-  </data>
-  <data name="SweetPoints" xml:space="preserve">
-    <value>جميل، لقد كسبت للتو</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>الاسم الأول 
@@ -162,57 +138,6 @@
   </data>
   <data name="EmailSignUp" xml:space="preserve">
     <value>تسجيل الدخول بالبريد الإلكتروني </value>
-  </data>
-  <data name="CloudentsQuizzes" xml:space="preserve">
-    <value>ألغاز Spitball - قم بإنشاء ومشاركة ومشاركة الألغاز وكن مستعداً لامتحاناتك!</value>
-  </data>
-  <data name="CreateShare" xml:space="preserve">
-    <value>قم بعمل ومشاركة ألغاز Spitball للتحضير لامتحان واختبار معلومات أصدقائك</value>
-  </data>
-  <data name="DiscussQuiz" xml:space="preserve">
-    <value> ناقش الأسئلة والأجوبة مع أصدقائك</value>
-  </data>
-  <data name="Dismiss" xml:space="preserve">
-    <value>انصراف</value>
-  </data>
-  <data name="ExamQuestion" xml:space="preserve">
-    <value> إضافة سؤال محتمل في الامتحان</value>
-  </data>
-  <data name="MultipleAnswers" xml:space="preserve">
-    <value> إضافة إجابات متعددة ووضع علامة على الإجابة الصحيحة</value>
-  </data>
-  <data name="PrepareExam" xml:space="preserve">
-    <value>استعد للامتحانات من خلال حل ألغاز Spitball </value>
-  </data>
-  <data name="Previous" xml:space="preserve">
-    <value>السابق</value>
-  </data>
-  <data name="PublishQuiz" xml:space="preserve">
-    <value> انشر اللغز وشاركه مع أصدقائك</value>
-  </data>
-  <data name="RegisterFree" xml:space="preserve">
-    <value>اشترك مجانا!</value>
-  </data>
-  <data name="SeeScore" xml:space="preserve">
-    <value> اعرف درجاتك والوقت الذي استغرقته للانتهاء من الامتحانات
-</value>
-  </data>
-  <data name="ShareQuiz" xml:space="preserve">
-    <value> شارك اللغز مع أصدقائك
-</value>
-  </data>
-  <data name="TryIt" xml:space="preserve">
-    <value>لماذا لا تُجرِّب؟ حظاً موفقاً!</value>
-  </data>
-  <data name="UseMaterial" xml:space="preserve">
-    <value> استخدم المواد أو الوثائق التعليمية الخاصة بك الموجودة بالفعل على Spitball</value>
-  </data>
-  <data name="EmailRequired" xml:space="preserve">
-    <value>ادخل بريدك الالكتروني</value>
-  </data>
-  <data name="PersonalMsg" xml:space="preserve">
-    <value>رسالة شخصية
-</value>
   </data>
   <data name="Jobs" xml:space="preserve">
     <value>وظائف</value>

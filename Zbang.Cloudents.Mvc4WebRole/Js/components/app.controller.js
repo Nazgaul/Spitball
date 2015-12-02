@@ -33,6 +33,9 @@
 
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
+            if (fromState.name === toState.name) {
+                console.log('here')
+            }
             var details = userDetails.get();
             if (!details) {
                 return;
@@ -45,28 +48,7 @@
                 $rootScope.$broadcast('state-change-start-prevent');
                 event.preventDefault();
             }
-
-            //if (self.userDetails) {
-            //    if (self.userDetails.university.id) {
-            //        return;
-            //    } else {
-            //        if (fromState.name === userWithNoUniversityState && toState.name !== userWithNoUniversityState) {
-            //            $rootScope.$broadcast('state-change-start-prevent');
-            //            event.preventDefault();
-            //            return;
-            //        }
-            //        if (toState.name !== userWithNoUniversityState) {
-            //            $state.go(userWithNoUniversityState);
-            //        }
-
-            //        return;
-            //    }
-            //    return;
-            //}
-            //event.preventDefault();
-
-
-
+           
         });
 
 

@@ -120,28 +120,4 @@
   <data name="Cancel" xml:space="preserve">
     <value>الغاء </value>
   </data>
-  <data name="Create" xml:space="preserve">
-    <value>انشاء</value>
-  </data>
-  <data name="CreateItem" xml:space="preserve">
-    <value>اعداد قسم جديد</value>
-  </data>
-  <data name="Next" xml:space="preserve">
-    <value>التالي </value>
-  </data>
-  <data name="Send" xml:space="preserve">
-    <value>ارسل </value>
-  </data>
-  <data name="To" xml:space="preserve">
-    <value>ل:</value>
-  </data>
-  <data name="MessageRequired" xml:space="preserve">
-    <value>مطلوب رسالة</value>
-  </data>
-  <data name="CrystalClear" xml:space="preserve">
-    <value>التوقيع على Spitball ثم كل شيء سيكون واضحا وضوح الشمس</value>
-  </data>
-  <data name="IsItBlurry" xml:space="preserve">
-    <value>هل ضبابية؟</value>
-  </data>
 </root>

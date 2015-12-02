@@ -168,7 +168,4 @@
   <data name="UsernameEmpty" xml:space="preserve">
     <value>用户名不可为空</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>名称：</value>
-  </data>
 </root>

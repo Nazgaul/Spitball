@@ -1831,42 +1831,15 @@ Page content
 .page-head:after {
   clear: both;
 }
-.page-head .page-title {
+.page-title {
   padding: 10px;
 }
-.page-head .page-title > h1 {
+.page-title > h1 {
   color: #f5f5f5;
   font-size: 25px;
   font-weight: 400;
   margin: 0;
   padding: 0;
-}
-.page-head .page-title > h1 > small {
-  color: #9eacb4;
-  font-size: 13px;
-  font-weight: 400;
-}
-.page-head .page-toolbar {
-  display: inline-block;
-  float: right;
-}
-.breadcrumb {
-  background: none;
-  padding: 0 0 15px 0;
-  margin: 0;
-  color: #c5ccd5;
-}
-.breadcrumb > li + li:before {
-  display: none;
-}
-.breadcrumb .fa {
-  font-size: 6px;
-  margin: 0 2px 0 4px;
-  position: relative;
-  top: -1px;
-}
-.breadcrumb > .active {
-  color: #9eacb4;
 }
 /* Page content */
 .page-content {

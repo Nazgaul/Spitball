@@ -89,33 +89,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The owner has made this content - invitation only.
-        /// </summary>
-        public static string InvitationOnly {
-            get {
-                return ResourceManager.GetString("InvitationOnly", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This content is for members only.
-        /// </summary>
-        public static string MembersOnly {
-            get {
-                return ResourceManager.GetString("MembersOnly", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You need permission to access this content.
-        /// </summary>
-        public static string NeedPermission {
-            get {
-                return ResourceManager.GetString("NeedPermission", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The page you&apos;re looking for doesn&apos;t exist..
         /// </summary>
         public static string NotFound {
@@ -130,15 +103,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string Oops {
             get {
                 return ResourceManager.GetString("Oops", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You need to sign in to Spitball to access this file.
-        /// </summary>
-        public static string ToAccessFile {
-            get {
-                return ResourceManager.GetString("ToAccessFile", resourceCulture);
             }
         }
         

@@ -120,28 +120,4 @@
   <data name="Cancel" xml:space="preserve">
     <value>ביטול</value>
   </data>
-  <data name="Create" xml:space="preserve">
-    <value>צור</value>
-  </data>
-  <data name="CreateItem" xml:space="preserve">
-    <value>צור מחלקה חדשה</value>
-  </data>
-  <data name="Next" xml:space="preserve">
-    <value>הבא</value>
-  </data>
-  <data name="Send" xml:space="preserve">
-    <value>שלח</value>
-  </data>
-  <data name="To" xml:space="preserve">
-    <value>ל:</value>
-  </data>
-  <data name="MessageRequired" xml:space="preserve">
-    <value>חובה לצרף הודעה</value>
-  </data>
-  <data name="CrystalClear" xml:space="preserve">
-    <value>הרשמו לSpitball ואז הכל יהיה ברור</value>
-  </data>
-  <data name="IsItBlurry" xml:space="preserve">
-    <value>רואים מטושטש?</value>
-  </data>
 </root>

@@ -132,7 +132,4 @@
   <data name="TermsOfServices" xml:space="preserve">
     <value>לתנאי שירות</value>
   </data>
-  <data name="VerifyEmail" xml:space="preserve">
-    <value>הזן שוב כתובת דוא"ל</value>
-  </data>
 </root>
