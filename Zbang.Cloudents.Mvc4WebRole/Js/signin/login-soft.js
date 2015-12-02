@@ -249,63 +249,9 @@ var Login = function () {
         });
     }
 
-    //var handleLanguage = function () {
-    //    var lang = $.cookie('l2');
-    //    if (!lang) {
-    //        return;
-    //    }
-    //    $('#lang_select').val(lang.toLowerCase());
-    //}
-
-    //function saveRegisterData() {
-    //    if (!window.sessionStorage) {
-    //        return;
-    //    }
-
-    //    var signupData = {
-    //        firstname: $('.register-form input[name="firstname"]').val(),
-    //        lastname: $('.register-form input[name="lastname"]').val(),
-    //        email: $('.register-form input[name="email"]').val(),
-    //        confirmEmail: $('.register-form input[name="confirmemail"]').val(),
-    //        password: $('.register-form input[name="password"]').val()
-    //    };
-
-    //    window.sessionStorage.setItem('signup', JSON.stringify(signupData));
-
-    //}
-
-    //function loadRegisterData() {
-    //    if (!window.sessionStorage) {
-    //        return;
-    //    }
-
-    //    var signupData = window.sessionStorage.getItem('signup');
-    //    if (!signupData) {
-    //        return;
-    //    }
-
-    //    var signupObj;
-    //    try {
-    //        signupObj = JSON.parse(signupData);
-    //    } catch (e) {
-    //        signupObj = {};
-    //    }
-
-    //    for (var key in signupObj) {
-    //        if (signupObj.hasOwnProperty(key)) {
-    //            $('.register-form input[name="' + key.toLowerCase() + '"]').val(signupObj[key]);
-    //        }
-    //    }
-    //    window.sessionStorage.removeItem('signup');
-    //}
+   
 
     function signup(form) {
-        //var firstname = $('.register-form input[name="firstname"]').val(),
-        //    lastname = $('.register-form input[name="lastname"]').val(),
-        //    email = $('.register-form input[name="email"]').val(),
-        //    confirmEmail = $('.register-form input[name="confirmemail"]').val(),
-        //    password = $('.register-form input[name="password"]').val(),
-        //        returnUrl = getUrlVars()['returnUrl'];
 
         var values = $(form).serialize();
         var returnUrl = getUrlVars()['returnUrl'];
@@ -331,7 +277,7 @@ var Login = function () {
             ga('send', 'event', 'Signup', 'Email');
 
             clearStorage();
-            setNewUser();
+            //setNewUser();
             if (returnUrl) {
                 window.location.href = returnUrl;
                 return;
@@ -410,12 +356,13 @@ var Login = function () {
         }
     }
     // this is a hack for using angular cache element in the next page
-    function setNewUser() {
-        var date = new Date().getTime();
-        sessionStorage.setItem('angular-cache.caches.points.keys', '["register"]');
-        sessionStorage.setItem('angular-cache.caches.points.data.register', '{"key":"register","value":true,"created":' + date + ',"accessed":' + date + ',"expires":' + (date + 600000) + '}');
+    //function setNewUser() {
+    //    var date = new Date().getTime();
+    //    sessionStorage.setItem('angular-cache.caches.points.keys', '["register"]');
+    //    sessionStorage.setItem('angular-cache.caches.points.data.register', '{"key":"register","value":true,"created":' + date + ',"accessed":' + date + ',"expires":' + (date + 600000) + '}');
 
-    }
+    //}
+
     function externalLogIn(data, type) { //Type google or facebook
         if (!data.success) {
             alert('there is a problem signing you in with facebook');
@@ -425,7 +372,7 @@ var Login = function () {
         clearStorage();
         var obj = data.payload;
         if (obj.isnew) {
-            setNewUser();
+            //setNewUser();
             //FB.api('/me', function () {	                    
             if (obj.url) {
                 window.location.href = obj.url;

@@ -40,7 +40,6 @@
                   .cancel('Cancel');
 
             $mdDialog.show(confirm).then(function () {
-
                 var index = d.boxes.indexOf(box);
                 d.boxes.splice(index, 1);
                 boxService.unfollow(box.id);

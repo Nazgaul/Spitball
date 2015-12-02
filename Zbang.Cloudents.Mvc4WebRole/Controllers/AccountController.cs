@@ -114,40 +114,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //   VaryByCustom = CustomCacheKeys.Lang,
         //   Duration = TimeConsts.Day,
         //   Location = OutputCacheLocation.Server, Order = 2)]
-        public ActionResult Signup(string lang)
+        public ActionResult Signup()
         {
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Dashboard");
             }
-            if (!string.IsNullOrEmpty(lang))
-            {
-                m_LanguageCookie.InjectCookie(lang);
-                RouteData.Values.Remove("lang");
-                return RedirectToAction("Signup");
-            }
-
-
             return View("Signin");
         }
 
 
-        public ActionResult resetPassword(string lang)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
-            if (!string.IsNullOrEmpty(lang))
-            {
-                m_LanguageCookie.InjectCookie(lang);
-                RouteData.Values.Remove("lang");
-                return RedirectToAction("resetpassword");
-            }
-
-
-            return View("Signin");
-        }
+      
 
 
 
@@ -691,8 +668,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("Index", "Dashboard");
             }
-
-            return View();
+            return View("Signin");
         }
 
         [HttpPost, System.Web.Mvc.ValidateAntiForgeryToken]
