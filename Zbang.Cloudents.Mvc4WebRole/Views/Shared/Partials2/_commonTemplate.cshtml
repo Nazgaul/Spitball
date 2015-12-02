@@ -3,7 +3,6 @@
 }
 <script type="text/ng-template" id="box-template.html">
     <a href="{{::e.url}}" class="dashboard-stat2">
-        <div class="updates" ng-if="e.updates !== 0">{{e.updates}}</div>
         <span ng-if="e.recommended" class="ribbon background" d-color="{{::e.name.length}}">Suggested</span>
         <div class="display">
             <div class="number">
