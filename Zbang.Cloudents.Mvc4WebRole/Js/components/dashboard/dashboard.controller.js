@@ -37,10 +37,7 @@
 
         function deleteBox(ev, box) {
 
-            //console.log(box);
-            //if (box.boxType === 'academic')
             //boxType //userType
-            // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.confirm()
                   .title('Would you like to unfollow this class?')
                   //.textContent('All of the banks have agreed to forgive you your debts.')

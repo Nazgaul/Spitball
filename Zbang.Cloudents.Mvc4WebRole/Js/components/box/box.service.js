@@ -37,6 +37,11 @@
         d.postComment = function(content,boxId, files, anonymously) {
             return ajaxservice.post('/qna/addcomment/', { content: content, boxId: boxId, files: files, anonymously: anonymously });
         }
+        d.deleteComment = function (commentId) {
+            return ajaxservice.post('/qna/deletequestion/', {
+                questionId: commentId
+            });
+        }
         d.postReply = function(content,boxId,commentId, files) {
             return ajaxservice.post('/qna/addreply/', {
                 content: content,

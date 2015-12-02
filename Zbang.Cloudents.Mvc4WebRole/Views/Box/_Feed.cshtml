@@ -44,7 +44,19 @@
                 </form>
                 <ol class="list-unstyled">
                     <li ng-repeat="post in f.data" class="comment" >
-                       
+                        <md-menu>
+                            <md-button class="md-icon-button delete" ng-click="f.openMenu($mdOpenMenu, $event)">
+                                @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
+                            </md-button>
+                            <md-menu-content width="1">
+                                <md-menu-item>
+                                    <md-button ng-click="f.deleteComment($event,post)">
+
+                                        @Html.Svg("~/images/site/icons.svg", "delete", new { @class = "delete-icon" })
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
                         <div class="top">
                             <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="54" height="54"></user-image>
                             <span class="user-name">{{::post.userName}}</span>
