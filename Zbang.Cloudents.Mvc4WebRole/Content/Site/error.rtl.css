@@ -93,6 +93,21 @@
 .unsupported-error .browsers svg {
   height: 135px;
 }
+.error-500-page {
+  text-align: center;
+  margin-top: 70px;
+}
+.error-500-page .text {
+  margin-top: -128px;
+}
+.error-500-page .text h2 {
+  font-size: 25px;
+  color: #5f6871;
+  font-weight: bold;
+}
+.error-500-page img {
+  max-width: 100%;
+}
 @media only screen and (max-width: 768px) {
   .error-page h2 {
     font-size: 24vw;
