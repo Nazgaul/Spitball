@@ -1781,7 +1781,9 @@
       <DependentUpon>site.png.rtl.css</DependentUpon>
     </Content>
     <Content Include="Images\Site\BG.png" />
+    <Content Include="Images\Site\browsers.svg" />
     <Content Include="Images\Site\libChooseIcons.svg" />
+    <Content Include="Images\Site\membersOnly.png" />
     <Content Include="Images\Site\quizbackground.png" />
     <Content Include="Images\Site\quizCreateIcons.svg" />
     <Content Include="Images\Site\quizIcons.svg" />

@@ -1,64 +1,30 @@
 ﻿@{
-    Layout = null;
+    ViewBag.Title = "Not found";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 
+<div class="unsupported-error">
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Unsupported</title>
-    <link rel="SHORTCUT ICON" href="/favicon.ico" />
-
-
-    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-    <meta charset="utf-8">
-
-
-    <meta name="title" content="Unsupported" />
-    <meta name="description" content="Join the social studying revolution at Spitball" />
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
-    <link rel="image_src" href="/Images/cloudents.png?v=1" />
-
-
-    <link rel="stylesheet" type="text/css" href="/Content/General.css" />
-    <link rel="stylesheet" type="text/css" href="/Content/Header.css" />
-    <link rel="stylesheet" type="text/css" href="/Content/Static.css" />
-
-
-
-</head>
-<body>
-
-    <div class="wrap">
-        <header class="siteHeader">
-            <a class="siteLogo lFloat" href="/">
-                @Html.Svg("~/Images/Defs.svg", "logo", new { @class = "svg-logo" })
-            </a>
-        </header>
-        <div class="staticContent">
-
-            <div class="unsupported">
-                <h2>@ErrorResources.BrowserUnsupported</h2>
-                <span>@ErrorResources.UseOtherBrowser</span>
-
-                <ul>
-                    <li>
-                        <a class="browser ie" href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">Internet Explorer</a>
-                    </li>
-                    <li>
-                        <a class="browser firefox" href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">Firefox</a>
-                    </li>
-
-                    <li>
-                        <a class="browser chrome" href="https://www.google.com/intl/en/chrome/browser/" target="_blank">Chrome</a>
-                    </li>
-                </ul>
-            </div>
+    <div class="text">
+        <h2>
+            Spitball<br />doesn't support your browser version
+        </h2>
+        <p>Please update your version of Internet Explorer or use fufferent browser</p>
+    </div>
+    <div class="browsers">
+        <div class="ie">
+            @Html.Svg("/images/Site/browsers.svg", "IE")
+            <p>Explorer</p>
+        </div>
+        <div class="ff">
+            @Html.Svg("/images/Site/browsers.svg", "FF")
+            <p>Firefox</p>
+        </div>
+        <div class="chrome">
+            @Html.Svg("/images/Site/browsers.svg", "chrome")
+            <p>Chrome</p>
         </div>
     </div>
-   @{Html.RenderPartial("_Footer");}
-</body>
-</html>
+</div>
