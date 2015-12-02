@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.box.items').controller('ItemsController', items);
-    items.$inject = ['boxService', '$stateParams', '$rootScope', 'itemThumbnailService'];
+    items.$inject = ['boxService', '$stateParams', '$rootScope', 'itemThumbnailService', '$mdDialog'];
 
-    function items(boxService, $stateParams, $rootScope, itemThumbnailService) {
+    function items(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog) {
         var i = this,
         itemsInBox = [], boxId = $stateParams.boxId;
         i.items = [];
@@ -21,10 +21,28 @@
         }
         i.filter = filter;
         i.openUpload = openUpload;
+        i.deleteItem = deleteItem;
 
         function openUpload() {
             $rootScope.$broadcast('open_upload');
             i.uploadShow = false;
+        }
+
+        function deleteItem(ev, item) {
+            var confirm = $mdDialog.confirm()
+                 .title('Would you like to delete this item?')
+                 //.textContent('All of the banks have agreed to forgive you your debts.')
+                 .targetEvent(ev)
+                 .ok('Ok')
+                 .cancel('Cancel');
+
+            $mdDialog.show(confirm).then(function () {
+                var index = itemsInBox.lastIndexOf(item);
+                itemsInBox.splice(index, 1);
+                index = i.items.indexOf(item);
+                i.items.splice(index, 1);
+                boxService.deleteItem(item.id, boxId);
+            });
         }
 
 

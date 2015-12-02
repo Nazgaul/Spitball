@@ -16,5 +16,19 @@
             </a>
         </div>
     </li>
-    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" class="margin-bottom-20 i-q-wrapper" ng-repeat="e in q.quizzes" ng-include="'quiz-template.html'"></li>
+    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" class="margin-bottom-20 i-q-wrapper" ng-repeat="e in q.quizzes">
+        <div ng-include="'quiz-template.html'"></div>
+        <md-menu ng-if="b.canDelete(e.ownerId)">
+            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="b.openMenu($mdOpenMenu, $event)">
+                @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
+            </md-button>
+            <md-menu-content width="1">
+                <md-menu-item>
+                    <md-button aria-label="delete reply" ng-click="q.deleteQuiz($event,e)">
+                        @Html.Svg("~/images/site/icons.svg", "delete", new { @class = "delete-icon" })
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </li>
 </ul>

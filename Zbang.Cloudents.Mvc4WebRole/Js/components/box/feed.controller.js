@@ -28,9 +28,9 @@
         self.add.google = google;
         self.add.dropbox = dropbox;
 
-        self.openMenu = openMenu;
+       
         self.deleteComment = deleteComment;
-        self.canDelete = canDelete;
+       
         self.deleteReply = deleteReply;
 
         boxService.getFeed(boxId).then(function (response) {
@@ -50,18 +50,9 @@
                 }
             });
         });
-        function canDelete(userId) {
-            if (user.isAdmin || user.id === userId) {
-                return true;
-            }
-            return false;
-
-        }
-        var originatorEv;
-        function openMenu($mdOpenMenu, ev) {
-            originatorEv = ev;
-            $mdOpenMenu(ev);
-        };
+        
+        
+       
         function attachNew(update) {
             if (update.itemId) {
                 for (var i = 0; i < self.data.length; i++) {
