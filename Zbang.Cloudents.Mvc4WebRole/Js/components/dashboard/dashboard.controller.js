@@ -26,6 +26,15 @@
 
         d.deleteBox = deleteBox;
 
+
+        d.openMenu = openMenu;
+
+        var originatorEv;
+        function openMenu($mdOpenMenu, ev) {
+            originatorEv = ev;
+            $mdOpenMenu(ev);
+        };
+
         function deleteBox(ev, box) {
 
             //console.log(box);

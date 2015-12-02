@@ -103,10 +103,7 @@
         //    return stateName === 'box.items';
         //}
 
-        //$scope.$on('$stateChangeStart', function (event, toState) {
-        //    console.log('here');
-
-        //});
+     
 
         //$rootScope.$on('$stateChangeSuccess',
         //    function (event, toState) {

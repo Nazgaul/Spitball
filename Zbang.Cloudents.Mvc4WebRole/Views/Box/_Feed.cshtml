@@ -7,9 +7,8 @@
             <div class="portlet-body feed">
                 <form class="add-comment" ng-submit="f.add.createComment()">
                     <div class="new-comment-border">
-                        <md-input-container>
-                            <label>what's on your mind?</label>
-                            <textarea ng-model="f.add.newText"></textarea>
+                        <md-input-container md-no-float>
+                            <textarea ng-model="f.add.newText" placeholder="what's on your mind?"></textarea>
                         </md-input-container>
                         @*<textarea ng-model="f.add.newText" placeholder="what's on your mind?"></textarea>*@
                         <ul class="list-inline" ng-if=" f.add.files.length">
@@ -45,7 +44,8 @@
                 </form>
                 <ol class="list-unstyled">
                     <li ng-repeat="post in f.data" class="comment" >
-                        <div class="top" ng-style="{ background: post.isNew ? 'red' : '' }">
+                       
+                        <div class="top">
                             <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="54" height="54"></user-image>
                             <span class="user-name">{{::post.userName}}</span>
                             <div ng-bind-html="::post.content" class="content-text"></div>
@@ -58,6 +58,7 @@
                             <button type="button" class="text-capitalize like margins">15 like</button>
                             <button type="button" class=" text-capitalize margins" show-form>comment</button>
                             <button type="button" class="margins share">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
+                            <span class="ribbon" ng-if="post.isNew">New</span>
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.answers.length">
                             <li ng-repeat="reply in post.answers" class="reply">
@@ -85,6 +86,7 @@
                                 <div class="actions padding">
                                     <button type="button" class="text-capitalize like margins">15 like</button>
                                     <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
+                                    <span class="ribbon" ng-if="post.isNew">New</span>
                                 </div>
                             </li>
                         </ol>
@@ -125,28 +127,7 @@
         </div>
 
         <div class="row margin-top-10" ng-controller="RecommendedController as r" ng-hide="r.isPrivate">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-repeat="e in r.boxes" ng-include="'box-template.html'">
-                @*<a href="{{box.url}}" class="dashboard-stat2" d-color="{{box.name.length}}">
-                <div class="display">
-                    <div class="number">
-                        <h3>{{box.name}}</h3>
-                        <small>{{box.courseCode}}</small>
-                    </div>
-                </div>
-                <div class="progress-info">
-                    <div class="progress">
-                    </div>
-                    <div class="status">
-                        <div class="status-title">
-                            {{box.membersCount}} members
-                        </div>
-                        <div class="status-number">
-                            {{box.itemCount}} items
-                        </div>
-                    </div>
-                </div>
-            </a>*@
-            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-repeat="e in r.boxes" ng-include="'box-template.html'"></div>
         </div>
     </div>
 </div>
