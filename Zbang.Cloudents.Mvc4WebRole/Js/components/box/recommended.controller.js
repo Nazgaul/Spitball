@@ -11,7 +11,10 @@
             r.isPrivate = true;
         } else {
             r.boxes = [];
-            boxService.getRecommended($stateParams.boxId).then(function(response) {
+            boxService.getRecommended($stateParams.boxId).then(function (response) {
+                for (var i = 0; i < response.length; i++) {
+                    response[i].recommended = true;
+                }
                 r.boxes = response;
             });
         }
