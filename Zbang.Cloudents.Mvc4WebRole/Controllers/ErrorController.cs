@@ -22,6 +22,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult Unsupported()
         {
+            ViewBag.postBag = true;
             return View();
 
         }
@@ -29,6 +30,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NoCache]
         public ActionResult MembersOnly(string returnUrl)
         {
+            ViewBag.postBag = true;
             if (string.IsNullOrEmpty(returnUrl))
             {
                 return RedirectToAction("Index", "Dashboard");

@@ -432,9 +432,10 @@
 }
 .quiz .bottom .corner {
   position: absolute;
-  bottom: 0;
-  right: 0 ;
+  bottom: -1px;
+  right: -1px ;
   width: 40%;
+  fill: #212427;
 }
 .quiz .details {
   display: none;
