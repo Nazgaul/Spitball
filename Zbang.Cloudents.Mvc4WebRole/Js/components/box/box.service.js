@@ -19,6 +19,12 @@
         d.items = function (boxId,  page) {
             return ajaxservice.get('/box/items/', { id: boxId, page: page });
         };
+        d.deleteItem = function(itemId, boxId) {
+            return ajaxservice.post('/item/Delete/', {
+                itemId: itemId,
+                boxId: boxId
+            });
+        };
         d.filterItem = function(term, boxId, page) {
             return ajaxservice.get('/search/iteminbox/', {
                 term: term,

@@ -902,7 +902,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonOk(new { /*token,*/ Culture = CultureInfo.CurrentCulture.Name });
             }
             var retVal = await ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
-            retVal.IsAdmin = false;
             //retVal.Token = token;
             return JsonOk(retVal);
 

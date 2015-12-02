@@ -570,6 +570,7 @@
   fill: #f5f5f5;
 }
 .i-q-wrapper {
+  position: relative;
   margin: 0 0.5%;
 }
 @media (min-width: 960px) and (max-width: 1200px) {

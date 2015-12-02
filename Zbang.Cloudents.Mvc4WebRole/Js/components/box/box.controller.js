@@ -1,11 +1,11 @@
 ﻿(function () {
     angular.module('app.box').controller('BoxController', box);
-    box.$inject = ['boxService', 'boxData', '$stateParams', '$location', '$scope', '$state'];
+    box.$inject = ['boxService', 'boxData', '$stateParams', '$location', '$scope', '$state', 'user'];
 
-    function box(boxService, boxData, $stateParams, $location, $scope, $state) {
+    function box(boxService, boxData, $stateParams, $location, $scope, $state, user) {
 
         if (!$location.hash()) {
-            $state.go('box.feed');
+            $state.go('box.feed', $stateParams, { location: "replace" });
         }
         var b = this, boxId = $stateParams.boxId;
         b.data = boxData;
@@ -24,12 +24,26 @@
         //b.toggleUpload = toggleUpload;
         b.toggleSettings = toggleSettings;
 
-        
+        //stuff for child elements
+        b.canDelete = canDelete;
+        b.openMenu = openMenu;
+
+        var originatorEv;
+        function openMenu($mdOpenMenu, ev) {
+            originatorEv = ev;
+            $mdOpenMenu(ev);
+        };
 
         $scope.$on("close_invite", function () {
             b.inviteOpen = false;
         });
+        function canDelete(userId) {
+            if (user.isAdmin || user.id === userId) {
+                return true;
+            }
+            return false;
 
+        }
         function toggleSettings() {
             b.settingsOpen = true;
 
@@ -103,7 +117,7 @@
         //    return stateName === 'box.items';
         //}
 
-     
+
 
         //$rootScope.$on('$stateChangeSuccess',
         //    function (event, toState) {
