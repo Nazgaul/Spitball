@@ -30,6 +30,84 @@
   right: 0;
   padding-top: 6vh;
 }
+.members-only-page img {
+  max-width: 240px;
+  width: 95%;
+  margin: 0 auto;
+  display: block;
+  padding-top: 50px;
+  margin-bottom: 3px;
+}
+.members-only-page .text {
+  text-align: center;
+}
+.members-only-page .text h2,
+.members-only-page .text p {
+  font-size: 15px;
+  margin: 0 auto;
+}
+.members-only-page .text h2 {
+  color: #4190b9;
+  font-weight: bold;
+  max-width: 230px;
+}
+.members-only-page .text p {
+  color: white;
+  max-width: 170px;
+  line-height: 15px;
+  margin-top: 3px;
+}
+.unsupported-error {
+  text-align: center;
+}
+.unsupported-error .text {
+  text-align: center;
+  margin: 100px auto 0 auto;
+}
+.unsupported-error .text h2 {
+  color: #4190b9;
+  font-weight: bold;
+  font-size: 28px;
+}
+.unsupported-error .text p {
+  font-size: 27px;
+  line-height: 30px;
+  max-width: 570px;
+  margin: 0 auto;
+}
+.unsupported-error .browsers div {
+  text-align: center;
+  font-size: 22px;
+  padding: 65px 30px 0 30px;
+  display: inline-block;
+}
+.unsupported-error .browsers .ie svg {
+  width: 117px;
+}
+.unsupported-error .browsers .ff svg {
+  width: 109px;
+}
+.unsupported-error .browsers .chrome svg {
+  width: 107px;
+}
+.unsupported-error .browsers svg {
+  height: 135px;
+}
+.error-500-page {
+  text-align: center;
+  margin-top: 70px;
+}
+.error-500-page .text {
+  margin-top: -128px;
+}
+.error-500-page .text h2 {
+  font-size: 25px;
+  color: #5f6871;
+  font-weight: bold;
+}
+.error-500-page img {
+  max-width: 100%;
+}
 @media only screen and (max-width: 768px) {
   .error-page h2 {
     font-size: 24vw;

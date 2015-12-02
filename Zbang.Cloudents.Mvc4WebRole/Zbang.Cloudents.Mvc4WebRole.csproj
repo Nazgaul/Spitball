@@ -1639,6 +1639,7 @@
     <Content Include="Images\quizSprite.png.min.css">
       <DependentUpon>quizSprite.png.css</DependentUpon>
     </Content>
+    <Content Include="Images\Site\500_image.png" />
     <Content Include="Images\Site\box-icons.svg" />
     <Content Include="Images\favIcons\favicon_114.png" />
     <Content Include="Images\favIcons\favicon_120.png" />
@@ -1758,7 +1759,9 @@
       <DependentUpon>site.png.rtl.css</DependentUpon>
     </Content>
     <Content Include="Images\Site\BG.png" />
+    <Content Include="Images\Site\browsers.svg" />
     <Content Include="Images\Site\libChooseIcons.svg" />
+    <Content Include="Images\Site\membersOnly.png" />
     <Content Include="Images\Site\quizbackground.png" />
     <Content Include="Images\Site\quizIcons.svg" />
     <Content Include="Images\Site\itemIcons.svg" />
@@ -2984,6 +2987,7 @@
     <Content Include="Views\Box\_Settings.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Views\Error\InternalServerError.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

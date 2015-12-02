@@ -41,6 +41,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
+        public ActionResult InternalServerError()
+        {
+            ViewBag.postBag = true;
+            return View();
+        }
+
         [HttpPost]
         public JsonResult JsLog(JavaScriptError log)
         {
