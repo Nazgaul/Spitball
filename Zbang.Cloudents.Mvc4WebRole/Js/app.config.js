@@ -8,7 +8,6 @@
     function config($controllerProvider, $locationProvider, $angularCacheFactoryProvider, $provide) {
         //$locationProvider.html5Mode(true).hashPrefix('!');
         $controllerProvider.allowGlobals();
-
         $angularCacheFactoryProvider.setCacheDefaults({
             maxAge: 45000, //45 seconds
             deleteOnExpire: 'aggressive',

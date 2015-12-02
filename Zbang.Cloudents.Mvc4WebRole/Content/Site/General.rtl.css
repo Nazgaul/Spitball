@@ -241,6 +241,12 @@ md-input-container .md-input {
 .md-select-value *:first-child {
   max-width: 100%;
 }
+md-dialog {
+  color: #282828;
+}
+md-dialog-actions {
+  order: 2;
+}
 .close {
   float: left;
   margin-top: 6px;
@@ -360,10 +366,15 @@ md-input-container .md-input {
         -moz-transform: translate3d(0.1, 0.1, 0.1);
         transform: translate3d(0.1, 0.1, 0.1);*/
 }
-/*.portlet.box > .portlet-title {
-    margin-left: -10px;
-    color: #f5f5f5;
-}*/
+.delete {
+  position: absolute;
+  top: 5px;
+  left: 0;
+}
+.delete svg {
+  width: 30px;
+  height: 30px;
+}
 .tab-from-right {
   background: none;
   margin: 0;

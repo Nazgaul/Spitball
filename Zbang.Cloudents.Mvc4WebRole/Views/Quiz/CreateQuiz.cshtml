@@ -9,7 +9,7 @@
 
         <span>Course: Name</span>
         <input class="form-control" ng-disabled="q.quizNameDisabled" type="text" placeholder="Enter quiz name" autofocus required ng-model="q.name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
-        <button type="button" ng-click="q.quizNameDisabled = false">@Html.Svg("~/images/site/quizcreateicons.svg", "pencil")</button>
+        <button type="button" ng-click="q.quizNameDisabled = false">@Html.Svg("~/images/site/icons.svg", "edit")</button>
         <div class="quiz-wrapper" ng-repeat="question in q.questions" ng-include="q.template(question)"></div>
         <button type="button" class="btn btn-primary text-capitalize add-question" ng-click="q.addQuestion()">+ add question</button>
         <button type="button" ng-click="q.publish()" class="btn btn-primary text-capitalize pull-right">publish</button>
@@ -21,7 +21,7 @@
         <div class="portlet-title">
             <div class="caption">Question #{{$index + 1}}</div>
             <div class="tools">
-                <button type="button" ng-show="q.deleteQuestionShow()" ng-click="q.deleteQuestion(question)">@Html.Svg("~/images/site/quizcreateicons.svg", "delete")</button>
+                <button type="button" ng-show="q.deleteQuestionShow()" ng-click="q.deleteQuestion(question)">@Html.Svg("~/images/site/icons.svg", "delete")</button>
             </div>
         </div>
         <div class="portlet-body">
@@ -35,7 +35,7 @@
                         <input type="text" required ng-model="answer.text" ng-blur="q.saveAnswer(question,answer)" placeholder="Answer {{$index + 1}}" />
                     </div>
                     <input required type="radio" name="question {{$parent.$index}}" ng-disabled="!answer.text.length" ng-click="q.markcorrect(question,answer)" ng-checked="answer.id === question.correctAnswer" />
-                    <button type="button" ng-show="q.deleteAnswerShow(question)" ng-click="q.deleteAnswer(question,answer)">@Html.Svg("~/images/site/quizcreateicons.svg", "delete")</button>
+                    <button type="button" ng-show="q.deleteAnswerShow(question)" ng-click="q.deleteAnswer(question,answer)">@Html.Svg("~/images/site/icons.svg", "delete")</button>
                     <span class="error-answer-msg">Add answer</span>
                 </li>
                 <li class="answer add-answer counter-inc" ng-click="q.addAnswer(question)">
@@ -57,8 +57,8 @@
             <span class="index">{{$index + 1}}.</span>
             <div class="q-body" ng-bind-html="::question.text"></div>
             <div class="q-actions">
-                <button type="button" ng-click="q.editQuestion(question)">@Html.Svg("~/images/site/quizcreateicons.svg", "pencil")</button>
-                <button type="button" ng-show="q.deleteQuestionShow()" ng-click="q.deleteQuestion(question)">@Html.Svg("~/images/site/quizcreateicons.svg", "delete")</button>
+                <button type="button" ng-click="q.editQuestion(question)">@Html.Svg("~/images/site/icons.svg", "edit")</button>
+                <button type="button" ng-show="q.deleteQuestionShow()" ng-click="q.deleteQuestion(question)">@Html.Svg("~/images/site/icons.svg", "delete")</button>
             </div>
         </div>
         <ol class="counter">

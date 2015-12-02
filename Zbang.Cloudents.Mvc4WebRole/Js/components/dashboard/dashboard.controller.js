@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.dashboard').controller('Dashboard', dashboard);
-    dashboard.$inject = ['dashboardService', '$scope'];
+    dashboard.$inject = ['dashboardService', '$scope', '$mdDialog', 'boxService'];
 
-    function dashboard(dashboardService, $scope) {
+    function dashboard(dashboardService, $scope, $mdDialog, boxService) {
         var d = this;
         d.boxes = [];
         d.inviteOpen = false;
@@ -24,7 +24,28 @@
             });
         });
 
+        d.deleteBox = deleteBox;
 
+        function deleteBox(ev, box) {
+
+            //console.log(box);
+            //if (box.boxType === 'academic')
+            //boxType //userType
+            // Appending dialog to document.body to cover sidenav in docs app
+            var confirm = $mdDialog.confirm()
+                  .title('Would you like to unfollow this class?')
+                  //.textContent('All of the banks have agreed to forgive you your debts.')
+                  .targetEvent(ev)
+                  .ok('Ok')
+                  .cancel('Cancel');
+
+            $mdDialog.show(confirm).then(function () {
+
+                var index = d.boxes.indexOf(box);
+                d.boxes.splice(index, 1);
+                boxService.unfollow(box.id);
+            });
+        }
 
         $scope.$on("close_invite", function () {
             d.inviteOpen = false;
