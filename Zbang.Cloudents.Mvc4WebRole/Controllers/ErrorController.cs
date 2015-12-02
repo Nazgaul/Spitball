@@ -15,6 +15,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             + CustomCacheKeys.Lang)]
         public ActionResult Index()
         {
+            ViewBag.postBag = true;
+            Response.StatusCode = 500;
             return View("error");
         }
 
@@ -41,12 +43,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-        public ActionResult InternalServerError()
-        {
-            ViewBag.postBag = true;
-            return View();
-        }
-
+    
         [HttpPost]
         public JsonResult JsLog(JavaScriptError log)
         {
