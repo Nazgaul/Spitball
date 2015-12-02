@@ -5,6 +5,7 @@
 }
 .dashboard .unibox {
   height: 179px;
+  padding: 12px 6px 15px 6px;
 }
 .dashboard .leaderboardbox {
   height: 179px;
@@ -41,44 +42,50 @@
 .dashboard .universityimg {
   border-radius: 50%;
   background: #f5f5f5;
-  /*width: 9vmax;
-        height: 9vmax;
-        max-width: 70px;
-        max-height: 70px;*/
+  height: 60px;
+  width: 60px;
 }
 .dashboard .universityTitle {
-  float: left;
-  width: 60%;
-  display: table;
-  position: relative;
-  top: 16px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
 }
 .dashboard .universityTitle span {
-  font-size: 20px;
-  vertical-align: middle;
-  display: table-cell;
+  font-size: 17px;
   padding-left: 10px;
-  line-height: 26px;
+  line-height: 20px;
+  align-self: center;
+  text-align: center;
+  width: 50%;
 }
 .dashboard .universityStats {
-  float: right;
-  width: 40%;
-  border-left: 2px solid #8c99a6;
-  padding-left: 10px;
-  font-size: 17px;
+  font-size: 11px;
   color: #8c99a6;
-  line-height: 32px;
-  position: relative;
-  top: 8px;
+  margin-top: 27px;
+  display: block;
+  text-align: center;
+}
+.dashboard .universityStats div {
+  height: 10px;
+  line-height: 10px;
+  display: inline-block;
+}
+.dashboard .universityStats div :nth-child(2) {
+  padding: 0 6px;
+  border-right: 1px solid #8c99a6;
+  border-left: 1px solid #8c99a6;
+  margin: 0 6px;
 }
 .dashboard .universityLink {
   color: #f5f5f5;
   width: 100%;
   display: inline-block;
-  font-size: 20px;
+  font-size: 17px;
   text-align: center;
   border-radius: 5px;
-  margin-top: 23px;
+  margin-top: 9px;
+  line-height: 26px;
+  padding-top: 4px;
   text-decoration: none;
   background: #4190b9;
 }
