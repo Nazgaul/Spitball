@@ -21,10 +21,15 @@
 
                             }
                         ]
-                    }
+                    },
+                    //onEnter: ['$location', '$state', '$stateParams', function ($location, $state, $stateParams) {
+                        //$state.go('box.feed');
+                    //}],
                 },
                 templateUrl: '/box/indexpartial/'
-            }, {
+            },
+              
+            {
                 state: 'box.feed',
                 config: {
                     url: '#feed',
@@ -54,7 +59,7 @@
                     config: {
                         url: '#members',
                         controller: 'MembersController as m',
-                        parent:'box'
+                        parent: 'box'
                     },
                     templateUrl: '/box/memberspartial/'
                 }

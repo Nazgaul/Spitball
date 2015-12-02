@@ -127,23 +127,11 @@ your browser version</value>
   <data name="HomePage" xml:space="preserve">
     <value>home page</value>
   </data>
-  <data name="InvitationOnly" xml:space="preserve">
-    <value>The owner has made this content - invitation only</value>
-  </data>
-  <data name="MembersOnly" xml:space="preserve">
-    <value>This content is for members only</value>
-  </data>
-  <data name="NeedPermission" xml:space="preserve">
-    <value>You need permission to access this content</value>
-  </data>
   <data name="NotFound" xml:space="preserve">
     <value>The page you're looking for doesn't exist.</value>
   </data>
   <data name="Oops" xml:space="preserve">
     <value>Oops</value>
-  </data>
-  <data name="ToAccessFile" xml:space="preserve">
-    <value>You need to sign in to Spitball to access this file</value>
   </data>
   <data name="UseOtherBrowser" xml:space="preserve">
     <value>Please update your version of Internet Explorer

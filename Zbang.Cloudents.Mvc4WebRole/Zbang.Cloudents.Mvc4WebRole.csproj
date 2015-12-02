@@ -495,25 +495,15 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Views\Account\Resources\UserDetailResources.Designer.cs">
-      <DependentUpon>UserDetailResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Views\Box\Resources\IndexResources.Designer.cs">
       <DependentUpon>IndexResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Views\Box\Resources\MainViewResources.Designer.cs">
+    <Compile Include="Views\Dashboard\Resources\IndexResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MainViewResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dashboard\Resources\IndexResources.Designer.cs">
-      <DependentUpon>IndexResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+      <DependentUpon>IndexResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Item\Resources\FlagItemResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -621,18 +611,6 @@
     <Content Include="bower_components\angular-material\demos\toolbar\demoBasicUsage\img\icons\menu.svg" />
     <Content Include="bower_components\angular-material\demos\toolbar\demoBasicUsage\img\icons\more_vert.svg" />
     <Content Include="bower_components\angular-material\index.js" />
-    <Content Include="bower_components\angular-material\material.css">
-      <DependentUpon>material.less</DependentUpon>
-    </Content>
-    <Content Include="bower_components\angular-material\material.min.css">
-      <DependentUpon>material.css</DependentUpon>
-    </Content>
-    <Content Include="bower_components\angular-material\material.rtl.css">
-      <DependentUpon>material.css</DependentUpon>
-    </Content>
-    <Content Include="bower_components\angular-material\material.rtl.min.css">
-      <DependentUpon>material.rtl.css</DependentUpon>
-    </Content>
     <Content Include="bower_components\angular-material\modules\closure\autocomplete\autocomplete-default-theme.css" />
     <Content Include="bower_components\angular-material\modules\closure\autocomplete\autocomplete-default-theme.min.css" />
     <Content Include="bower_components\angular-material\modules\closure\autocomplete\autocomplete.css" />
@@ -1226,7 +1204,6 @@
     <Content Include="bower_components\angular\package.json" />
     <Content Include="bower_components\angular\README.md" />
     <Content Include="bower.json" />
-    <Content Include="bower_components\angular-material\material.less" />
     <Content Include="bower_components\font-awesome\.bower.json" />
     <Content Include="bower_components\font-awesome\.npmignore" />
     <Content Include="bower_components\font-awesome\bower.json" />
@@ -3313,54 +3290,16 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\RegisterResources.ru.resx" />
     <EmbeddedResource Include="Views\Account\Resources\RegisterResources.zh.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\UserDetailResources.ar.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\UserDetailResources.he.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\UserDetailResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>UserDetailResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\UserDetailResources.ru.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\UserDetailResources.zh.resx" />
-    <EmbeddedResource Include="Views\Box\Resources\IndexResources.ar.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Box\Resources\IndexResources.en-gb.resx" />
-    <EmbeddedResource Include="Views\Box\Resources\IndexResources.he.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Box\Resources\IndexResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Box\Resources\IndexResources.ru.resx" />
-    <EmbeddedResource Include="Views\Box\Resources\IndexResources.zh.resx" />
-    <EmbeddedResource Include="Views\Box\Resources\MainViewResources.ar.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Box\Resources\MainViewResources.he.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Box\Resources\MainViewResources.resx">
+    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResource.he.resx" />
+    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>MainViewResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+      <LastGenOutput>IndexResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Box\Resources\MainViewResources.ru.resx" />
-    <EmbeddedResource Include="Views\Box\Resources\MainViewResources.zh.resx" />
-    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.ar.resx" />
-    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.en-gb.resx" />
-    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.he.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.ru.resx" />
-    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResources.zh.resx" />
     <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.ar.resx" />
     <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.he.resx" />
     <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.resx">

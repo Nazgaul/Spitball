@@ -61,53 +61,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 
-        ///Spitball Quizzes - Create, share, practice and be prepared for your exams!
-        ///.
-        /// </summary>
-        public static string CloudentsQuizzes {
-            get {
-                return ResourceManager.GetString("CloudentsQuizzes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connect.
-        /// </summary>
-        public static string Connect {
-            get {
-                return ResourceManager.GetString("Connect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create and share Spitball Quizzes to prepare for exams and test your friends&apos; knowledge..
-        /// </summary>
-        public static string CreateShare {
-            get {
-                return ResourceManager.GetString("CreateShare", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Discuss the questions and answers with your friends.
-        /// </summary>
-        public static string DiscussQuiz {
-            get {
-                return ResourceManager.GetString("DiscussQuiz", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dismiss.
-        /// </summary>
-        public static string Dismiss {
-            get {
-                return ResourceManager.GetString("Dismiss", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
@@ -117,29 +70,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter email address.
-        /// </summary>
-        public static string EmailRequired {
-            get {
-                return ResourceManager.GetString("EmailRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Sign up with email.
         /// </summary>
         public static string EmailSignUp {
             get {
                 return ResourceManager.GetString("EmailSignUp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add a potential exam question.
-        /// </summary>
-        public static string ExamQuestion {
-            get {
-                return ResourceManager.GetString("ExamQuestion", resourceCulture);
             }
         }
         
@@ -171,15 +106,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite.
-        /// </summary>
-        public static string Invite {
-            get {
-                return ResourceManager.GetString("Invite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Jobs.
         /// </summary>
         public static string Jobs {
@@ -198,155 +124,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to members.
-        /// </summary>
-        public static string Members {
-            get {
-                return ResourceManager.GetString("Members", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Message.
-        /// </summary>
-        public static string Message {
-            get {
-                return ResourceManager.GetString("Message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add multiple answers and mark the correct one.
-        /// </summary>
-        public static string MultipleAnswers {
-            get {
-                return ResourceManager.GetString("MultipleAnswers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Personal message.
-        /// </summary>
-        public static string PersonalMsg {
-            get {
-                return ResourceManager.GetString("PersonalMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Points.
-        /// </summary>
-        public static string Points {
-            get {
-                return ResourceManager.GetString("Points", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Prepare for an exam by taking a Spitball Quiz..
-        /// </summary>
-        public static string PrepareExam {
-            get {
-                return ResourceManager.GetString("PrepareExam", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Previous.
-        /// </summary>
-        public static string Previous {
-            get {
-                return ResourceManager.GetString("Previous", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to pts.
-        /// </summary>
-        public static string Pts {
-            get {
-                return ResourceManager.GetString("Pts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Publish the Quiz and share it with friends.
-        /// </summary>
-        public static string PublishQuiz {
-            get {
-                return ResourceManager.GetString("PublishQuiz", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sign up for free!.
-        /// </summary>
-        public static string RegisterFree {
-            get {
-                return ResourceManager.GetString("RegisterFree", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to See how you score and how long it took to complete.
-        /// </summary>
-        public static string SeeScore {
-            get {
-                return ResourceManager.GetString("SeeScore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Share the Quiz with your friends.
-        /// </summary>
-        public static string ShareQuiz {
-            get {
-                return ResourceManager.GetString("ShareQuiz", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Log in.
         /// </summary>
         public static string SignIn {
             get {
                 return ResourceManager.GetString("SignIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sweet, you just earned.
-        /// </summary>
-        public static string SweetPoints {
-            get {
-                return ResourceManager.GetString("SweetPoints", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Why not give it a go? Good luck!.
-        /// </summary>
-        public static string TryIt {
-            get {
-                return ResourceManager.GetString("TryIt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use your own material or documents already on Spitball.
-        /// </summary>
-        public static string UseMaterial {
-            get {
-                return ResourceManager.GetString("UseMaterial", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Write a message....
-        /// </summary>
-        public static string WriteMessage {
-            get {
-                return ResourceManager.GetString("WriteMessage", resourceCulture);
             }
         }
     }

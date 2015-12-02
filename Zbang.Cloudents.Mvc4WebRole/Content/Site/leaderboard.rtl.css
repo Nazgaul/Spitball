@@ -6,6 +6,16 @@
   text-align: center;
   margin-bottom: 10px;
 }
+@media (min-height: 960px) {
+  .leaderboad h4 {
+    font-size: 1.5vw;
+  }
+}
+@media (min-height: 1200px) {
+  .leaderboad h4 {
+    font-size: 1.5vw;
+  }
+}
 .leaderboad .userLetter {
   font-size: 17px;
 }

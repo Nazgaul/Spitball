@@ -46,7 +46,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                  {
                     "site4", new[]
                     {
-                        "~/bower_components/angular-material/material.css",
+                        "~/bower_components/angular-material/angular-material.css",
                         "~/bower_components/textAngular/dist/textAngular.css",
                         
                         //"~/Content/signin/font-awesome.css",

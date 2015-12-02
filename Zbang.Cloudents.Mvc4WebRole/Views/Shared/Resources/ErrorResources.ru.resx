@@ -126,23 +126,11 @@
   <data name="HomePage" xml:space="preserve">
     <value>Домашняя страница</value>
   </data>
-  <data name="InvitationOnly" xml:space="preserve">
-    <value>Владелец сделал этот контент доступным только по приглашению</value>
-  </data>
-  <data name="MembersOnly" xml:space="preserve">
-    <value>Этот контент предназначен только для участников</value>
-  </data>
-  <data name="NeedPermission" xml:space="preserve">
-    <value>Для доступа к этому контенту требуется разрешение </value>
-  </data>
   <data name="NotFound" xml:space="preserve">
     <value>Похоже, запрошенная вами страница не существует.</value>
   </data>
   <data name="Oops" xml:space="preserve">
     <value>Ой!</value>
-  </data>
-  <data name="ToAccessFile" xml:space="preserve">
-    <value>Для доступа к этому файлу необходимо зарегистрироваться на Spitball</value>
   </data>
   <data name="UseOtherBrowser" xml:space="preserve">
     <value>Пожалуйста, обновите свою версию Internet Explorer или используйте другой браузер</value>

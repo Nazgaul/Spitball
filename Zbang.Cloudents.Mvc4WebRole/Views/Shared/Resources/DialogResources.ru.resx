@@ -120,28 +120,4 @@
   <data name="Cancel" xml:space="preserve">
     <value>Отменить</value>
   </data>
-  <data name="Create" xml:space="preserve">
-    <value>Создать</value>
-  </data>
-  <data name="CreateItem" xml:space="preserve">
-    <value>Создать новый отдел</value>
-  </data>
-  <data name="Next" xml:space="preserve">
-    <value>Следующий</value>
-  </data>
-  <data name="Send" xml:space="preserve">
-    <value>Отправить</value>
-  </data>
-  <data name="To" xml:space="preserve">
-    <value>Кому:</value>
-  </data>
-  <data name="MessageRequired" xml:space="preserve">
-    <value>Требуется cообщение</value>
-  </data>
-  <data name="CrystalClear" xml:space="preserve">
-    <value>Зарегистрироваться в Spitball и тогда все будет кристально ясно</value>
-  </data>
-  <data name="IsItBlurry" xml:space="preserve">
-    <value>Видите размыто?</value>
-  </data>
 </root>

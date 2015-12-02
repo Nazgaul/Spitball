@@ -1,6 +1,6 @@
 ﻿(function () {
     angular.module('app.dashboard').controller('Dashboard', dashboard);
-    dashboard.$inject = ['dashboardService','$scope'];
+    dashboard.$inject = ['dashboardService', '$scope'];
 
     function dashboard(dashboardService, $scope) {
         var d = this;
@@ -12,17 +12,24 @@
         }
 
 
-
-
-
-        dashboardService.getBoxes(0).then(function (response) {
-            d.boxes = response;
+        d.boxes = [];
+        dashboardService.getBoxes().then(function (response) {
+            d.boxes = d.boxes.concat(response);
+            dashboardService.recommended().then(function (response2) {
+                for (var i = 0; i < response2.length; i++) {
+                    response2[i].recommended = true;
+                    response2[i].updates = 0;
+                }
+                d.boxes = d.boxes.concat(response2);
+            });
         });
+
+
 
         $scope.$on("close_invite", function () {
             d.inviteOpen = false;
         });
-      
+
     }
 })();
 

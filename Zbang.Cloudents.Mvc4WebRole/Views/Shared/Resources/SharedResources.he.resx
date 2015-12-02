@@ -120,35 +120,11 @@
   <data name="Email" xml:space="preserve">
     <value>דואר אלקטרוני</value>
   </data>
-  <data name="Invite" xml:space="preserve">
-    <value>הזמן</value>
-  </data>
   <data name="Help" xml:space="preserve">
     <value>עזרה</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>התחבר</value>
-  </data>
-  <data name="Connect" xml:space="preserve">
-    <value>התחבר</value>
-  </data>
-  <data name="Message" xml:space="preserve">
-    <value>הודעה</value>
-  </data>
-  <data name="Points" xml:space="preserve">
-    <value>נקודות</value>
-  </data>
-  <data name="WriteMessage" xml:space="preserve">
-    <value>כתוב הודעה ...</value>
-  </data>
-  <data name="Members" xml:space="preserve">
-    <value>חברים</value>
-  </data>
-  <data name="Pts" xml:space="preserve">
-    <value>נק'</value>
-  </data>
-  <data name="SweetPoints" xml:space="preserve">
-    <value>מגניב, קיבלת </value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>שם פרטי</value>
@@ -161,54 +137,6 @@
   </data>
   <data name="EmailSignUp" xml:space="preserve">
     <value>הרשם דרך אימייל</value>
-  </data>
-  <data name="RegisterFree" xml:space="preserve">
-    <value>הירשמו בחינם!</value>
-  </data>
-  <data name="CloudentsQuizzes" xml:space="preserve">
-    <value>הקווזים של Spitball - צרו, שתפו, תרגלו והצליחו במבחן!</value>
-  </data>
-  <data name="CreateShare" xml:space="preserve">
-    <value>חדש בSpitball יצירת מבחנים (שאלון אמריקאי) צורו ושתפו מבחנים שאתם בונים כחלק מהכנה לבחינת הקורס.</value>
-  </data>
-  <data name="DiscussQuiz" xml:space="preserve">
-    <value>דיון בין חברי הקורס על שאלות ספציפיות ודברים לא מובנים בבחינה</value>
-  </data>
-  <data name="Dismiss" xml:space="preserve">
-    <value>סגור</value>
-  </data>
-  <data name="ExamQuestion" xml:space="preserve">
-    <value>סימון תשובות נכונות</value>
-  </data>
-  <data name="MultipleAnswers" xml:space="preserve">
-    <value>שמירה אוטומטית של התוכן בענן</value>
-  </data>
-  <data name="PrepareExam" xml:space="preserve">
-    <value>קוויז שיעזור לכם להתכונן טוב יותר לבחינה, נסו אותו!</value>
-  </data>
-  <data name="Previous" xml:space="preserve">
-    <value>קודם</value>
-  </data>
-  <data name="PublishQuiz" xml:space="preserve">
-    <value>שיתוף של המבחן עם החברים</value>
-  </data>
-  <data name="SeeScore" xml:space="preserve">
-    <value>קבלת ציון וזמן של הבחינה</value>
-  </data>
-  <data name="ShareQuiz" xml:space="preserve">
-    <value>שיתוף של הבחינה עם חברים כדי שתוכלו ללמוד ביחד</value>
-  </data>
-  <data name="TryIt" xml:space="preserve">
-    <value>למה אתה מחכים, שיהיה בהצלחה!</value>
-  </data>
-  <data name="UseMaterial" xml:space="preserve">
-    <value>יצירת המבחן על גבי מסמכים קיימים בSpitball</value>
-  </data>
-  <data name="EmailRequired" xml:space="preserve">
-    <value>הכנס כתובת דוא"ל</value>
-  </data>
-  <data name="PersonalMsg" xml:space="preserve">
-    <value>הודעה אישית</value>
   </data>
   <data name="Jobs" xml:space="preserve">
     <value>משרות</value>

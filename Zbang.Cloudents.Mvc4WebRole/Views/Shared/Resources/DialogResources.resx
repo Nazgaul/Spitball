@@ -120,28 +120,4 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="Create" xml:space="preserve">
-    <value>Create</value>
-  </data>
-  <data name="CreateItem" xml:space="preserve">
-    <value>Create new department</value>
-  </data>
-  <data name="Next" xml:space="preserve">
-    <value>Next</value>
-  </data>
-  <data name="Send" xml:space="preserve">
-    <value>Send</value>
-  </data>
-  <data name="To" xml:space="preserve">
-    <value>To:</value>
-  </data>
-  <data name="MessageRequired" xml:space="preserve">
-    <value>Message required</value>
-  </data>
-  <data name="CrystalClear" xml:space="preserve">
-    <value>Sign up to Spitball and then everything will be crystal clear</value>
-  </data>
-  <data name="IsItBlurry" xml:space="preserve">
-    <value>Is it blurry?</value>
-  </data>
 </root>

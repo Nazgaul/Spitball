@@ -1231,6 +1231,192 @@ md-backdrop {
 }
 
 
+$bottom-sheet-horizontal-padding: 2 * $baseline-grid !default;
+$bottom-sheet-vertical-padding: 1 * $baseline-grid !default;
+$bottom-sheet-icon-after-margin: 4 * $baseline-grid !default;
+$bottom-sheet-list-item-height: 6 * $baseline-grid !default;
+$bottom-sheet-hidden-bottom-padding: 80px !default;
+$bottom-sheet-header-height: 7 * $baseline-grid !default;
+$bottom-sheet-grid-font-weight: 400 !default;
+
+md-bottom-sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: $bottom-sheet-vertical-padding $bottom-sheet-horizontal-padding $bottom-sheet-vertical-padding + $bottom-sheet-hidden-bottom-padding $bottom-sheet-horizontal-padding;
+  z-index: $z-index-bottom-sheet;
+
+  border-top-width: 1px;
+  border-top-style: solid;
+
+  transform: translate3d(0, $bottom-sheet-hidden-bottom-padding, 0);
+  transition: $swift-ease-out;
+  transition-property: transform;
+
+  &.md-has-header {
+    padding-top: 0;
+  }
+
+  &.ng-enter {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  &.ng-enter-active {
+    opacity: 1;
+    display: block;
+    transform: translate3d(0, $bottom-sheet-hidden-bottom-padding, 0) !important;
+  }
+
+
+  &.ng-leave-active {
+    transform: translate3d(0, 100%, 0) !important;
+    transition: $swift-ease-in;
+  }
+
+  .md-subheader {
+    background-color: transparent;
+    font-family: $font-family;
+    line-height: $bottom-sheet-header-height;
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  md-inline-icon {
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    fill: #444;
+  }
+
+  md-list-item {
+    display: flex;
+    outline: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &.md-list {
+    md-list-item {
+      padding: 0;
+      align-items: center;
+      height: $bottom-sheet-list-item-height;
+
+      div.md-icon-container {
+        display: inline-block;
+        height: 3 * $baseline-grid;
+        margin-right: $bottom-sheet-icon-after-margin;
+      }
+    }
+  }
+
+
+
+  &.md-grid {
+    padding-left: 3 * $baseline-grid;
+    padding-right: 3 * $baseline-grid;
+    padding-top: 0;
+
+    md-list {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      transition: all 0.5s;
+      align-items: center;
+    }
+
+    md-list-item {
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.5s;
+
+      height: 12 * $baseline-grid;
+
+      margin-top: $baseline-grid;
+      margin-bottom: $baseline-grid;
+
+      /* Mixin for how many grid items to show per row */
+      @mixin grid-items-per-row($num, $alignEdges: false) {
+        $width: 100% / $num;
+        flex: 1 1 $width;
+        max-width: $width;
+
+        @if $alignEdges {
+          &:nth-of-type(#{$num}n + 1) {
+            align-items: flex-start;
+          }
+          &:nth-of-type(#{$num}n) {
+            align-items: flex-end;
+          }
+        }
+      }
+      
+      @media screen and (max-width: $layout-breakpoint-sm) {
+        @include grid-items-per-row(3, true);
+      }
+
+      @media screen and (min-width: $layout-breakpoint-sm) and (max-width: $layout-breakpoint-md) {
+        @include grid-items-per-row(4);
+      }
+
+      @media screen and (min-width: $layout-breakpoint-md) and (max-width: $layout-breakpoint-lg) {
+        @include grid-items-per-row(6);
+      }
+
+      @media screen and (min-width: $layout-breakpoint-lg) {
+        @include grid-items-per-row(7);
+      }
+
+
+
+      .md-list-item-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 6 * $baseline-grid;
+        padding-bottom: 2 * $baseline-grid;
+      }
+
+      .md-grid-item-content {
+        border: 1px solid transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 10 * $baseline-grid;
+      }
+
+      .md-icon-container {
+        display: inline-block;
+        box-sizing: border-box;
+        height: 6 * $baseline-grid;
+        width: 6 * $baseline-grid;
+        margin: 0 0;
+      }
+
+      .md-grid-text {
+        font-weight: $bottom-sheet-grid-font-weight;
+        line-height: 2 * $baseline-grid;
+        font-size: 2 * $baseline-grid - 3;
+        margin: 0;
+        white-space: nowrap;
+        width: 8 * $baseline-grid;
+        text-align: center;
+        text-transform: none;
+        padding-top: 1 * $baseline-grid;
+      }
+    }
+  }
+}
+
+@media screen and (-ms-high-contrast: active) {
+  md-bottom-sheet {
+    border: 1px solid #fff;
+  }
+}
+
 $button-border-radius: 3px !default;
 $button-fab-border-radius: 50% !default;
 $button-icon-border-radius: $button-fab-border-radius;
@@ -1460,192 +1646,6 @@ button.md-button::-moz-focus-inner {
   }
 }
 
-$bottom-sheet-horizontal-padding: 2 * $baseline-grid !default;
-$bottom-sheet-vertical-padding: 1 * $baseline-grid !default;
-$bottom-sheet-icon-after-margin: 4 * $baseline-grid !default;
-$bottom-sheet-list-item-height: 6 * $baseline-grid !default;
-$bottom-sheet-hidden-bottom-padding: 80px !default;
-$bottom-sheet-header-height: 7 * $baseline-grid !default;
-$bottom-sheet-grid-font-weight: 400 !default;
-
-md-bottom-sheet {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: $bottom-sheet-vertical-padding $bottom-sheet-horizontal-padding $bottom-sheet-vertical-padding + $bottom-sheet-hidden-bottom-padding $bottom-sheet-horizontal-padding;
-  z-index: $z-index-bottom-sheet;
-
-  border-top-width: 1px;
-  border-top-style: solid;
-
-  transform: translate3d(0, $bottom-sheet-hidden-bottom-padding, 0);
-  transition: $swift-ease-out;
-  transition-property: transform;
-
-  &.md-has-header {
-    padding-top: 0;
-  }
-
-  &.ng-enter {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-  }
-
-  &.ng-enter-active {
-    opacity: 1;
-    display: block;
-    transform: translate3d(0, $bottom-sheet-hidden-bottom-padding, 0) !important;
-  }
-
-
-  &.ng-leave-active {
-    transform: translate3d(0, 100%, 0) !important;
-    transition: $swift-ease-in;
-  }
-
-  .md-subheader {
-    background-color: transparent;
-    font-family: $font-family;
-    line-height: $bottom-sheet-header-height;
-    padding: 0;
-    white-space: nowrap;
-  }
-
-  md-inline-icon {
-    display: inline-block;
-    height: 24px;
-    width: 24px;
-    fill: #444;
-  }
-
-  md-list-item {
-    display: flex;
-    outline: none;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  &.md-list {
-    md-list-item {
-      padding: 0;
-      align-items: center;
-      height: $bottom-sheet-list-item-height;
-
-      div.md-icon-container {
-        display: inline-block;
-        height: 3 * $baseline-grid;
-        margin-right: $bottom-sheet-icon-after-margin;
-      }
-    }
-  }
-
-
-
-  &.md-grid {
-    padding-left: 3 * $baseline-grid;
-    padding-right: 3 * $baseline-grid;
-    padding-top: 0;
-
-    md-list {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      transition: all 0.5s;
-      align-items: center;
-    }
-
-    md-list-item {
-      flex-direction: column;
-      align-items: center;
-      transition: all 0.5s;
-
-      height: 12 * $baseline-grid;
-
-      margin-top: $baseline-grid;
-      margin-bottom: $baseline-grid;
-
-      /* Mixin for how many grid items to show per row */
-      @mixin grid-items-per-row($num, $alignEdges: false) {
-        $width: 100% / $num;
-        flex: 1 1 $width;
-        max-width: $width;
-
-        @if $alignEdges {
-          &:nth-of-type(#{$num}n + 1) {
-            align-items: flex-start;
-          }
-          &:nth-of-type(#{$num}n) {
-            align-items: flex-end;
-          }
-        }
-      }
-      
-      @media screen and (max-width: $layout-breakpoint-sm) {
-        @include grid-items-per-row(3, true);
-      }
-
-      @media screen and (min-width: $layout-breakpoint-sm) and (max-width: $layout-breakpoint-md) {
-        @include grid-items-per-row(4);
-      }
-
-      @media screen and (min-width: $layout-breakpoint-md) and (max-width: $layout-breakpoint-lg) {
-        @include grid-items-per-row(6);
-      }
-
-      @media screen and (min-width: $layout-breakpoint-lg) {
-        @include grid-items-per-row(7);
-      }
-
-
-
-      .md-list-item-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 6 * $baseline-grid;
-        padding-bottom: 2 * $baseline-grid;
-      }
-
-      .md-grid-item-content {
-        border: 1px solid transparent;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 10 * $baseline-grid;
-      }
-
-      .md-icon-container {
-        display: inline-block;
-        box-sizing: border-box;
-        height: 6 * $baseline-grid;
-        width: 6 * $baseline-grid;
-        margin: 0 0;
-      }
-
-      .md-grid-text {
-        font-weight: $bottom-sheet-grid-font-weight;
-        line-height: 2 * $baseline-grid;
-        font-size: 2 * $baseline-grid - 3;
-        margin: 0;
-        white-space: nowrap;
-        width: 8 * $baseline-grid;
-        text-align: center;
-        text-transform: none;
-        padding-top: 1 * $baseline-grid;
-      }
-    }
-  }
-}
-
-@media screen and (-ms-high-contrast: active) {
-  md-bottom-sheet {
-    border: 1px solid #fff;
-  }
-}
-
 $card-padding: 16px !default;
 $card-box-shadow: $whiteframe-shadow-1dp !default;
 
@@ -1659,7 +1659,10 @@ md-card {
 
   > img,
   > :not(md-card-content) img {
+    display: flex;
+    flex: 0 0 auto;
     width: 100%;
+    height: auto;
   }
 
   md-card-content {
@@ -1832,154 +1835,6 @@ md-checkbox {
     @include rtl(margin-left, $checkbox-text-margin, 0);
     @include rtl(margin-right, 0, $checkbox-text-margin);
 
-  }
-}
-
-md-content {
-
-  display: block;
-  position: relative;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-
-  &[md-scroll-y] {
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-  &[md-scroll-x] {
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-  &[md-scroll-xy] {
-  }
-
-  // For iOS allow disabling of momentum scrolling
-  // @see issue #2640.
-
-  &.autoScroll {
-    -webkit-overflow-scrolling: auto;
-  }
-}
-
-
-
-$dialog-padding: $baseline-grid * 3;
-
-.md-dialog-is-showing {
-  max-height: 100%;
-}
-.md-dialog-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: $z-index-dialog;
-  overflow: hidden;
-}
-
-md-dialog {
-
-  &.md-transition-in {
-    opacity: 1;
-    transition: $swift-ease-out;
-    transform: translate3d(0,0,0) scale(1.0);
-  }
-  &.md-transition-out {
-    opacity: 0;
-    transition: $swift-ease-out;
-    transform: translate3d(0,100%,0) scale(0.2);
-  }
-
-  opacity: 0;
-  min-width: 240px;
-  max-width: 80%;
-  max-height: 80%;
-  position: relative;
-  overflow: auto; // stop content from leaking out of dialog parent and fix IE
-
-  box-shadow: $whiteframe-shadow-13dp;
-
-  display: flex;
-  flex-direction: column;
-
-  &> form {
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
-  }
-
-  .md-dialog-content {
-    padding: $dialog-padding;
-  }
-
-  md-dialog-content {
-    order: 1;
-    flex-direction: column;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-
-    &:not([layout=row]) > *:first-child:not(.md-subheader) {
-      margin-top: 0;
-    }
-
-    &:focus {
-      outline: none;
-    }
-
-    .md-subheader {
-      margin: 0;
-
-      &.sticky-clone {
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
-      }
-    }
-    &.sticky-container {
-      padding: 0;
-
-      &> div {
-        padding: $dialog-padding;
-        padding-top: 0;
-      }
-    }
-
-    .md-dialog-content-body {
-      width:100%;
-    }
-  }
-
-  .md-actions {
-    display: flex;
-    order: 2;
-    box-sizing: border-box;
-    align-items: center;
-    justify-content: flex-end;
-    margin-bottom: 0;
-    padding-right: $baseline-grid;
-    padding-left: $baseline-grid * 2;
-    min-height: $baseline-grid * 6.5;
-    overflow: hidden;
-
-    .md-button {
-      margin-bottom: $baseline-grid;
-      margin-left: $baseline-grid;
-      margin-right: 0;
-      margin-top: $baseline-grid;
-    }
-  }
-  &.md-content-overflow .md-actions {
-    border-top-width: 1px;
-    border-top-style: solid;
-  }
-
-}
-
-@media screen and (-ms-high-contrast: active) {
-  md-dialog {
-    border: 1px solid #fff;
   }
 }
 
@@ -2174,6 +2029,165 @@ $contact-chip-name-width: rem(12) !default;
   }
 }
 
+
+md-content {
+
+  display: block;
+  position: relative;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+
+  &[md-scroll-y] {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  &[md-scroll-x] {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  &[md-scroll-xy] {
+  }
+
+  // For iOS allow disabling of momentum scrolling
+  // @see issue #2640.
+
+  &.autoScroll {
+    -webkit-overflow-scrolling: auto;
+  }
+}
+
+
+
+$dialog-padding: $baseline-grid * 3;
+
+.md-dialog-is-showing {
+  max-height: 100%;
+}
+.md-dialog-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: $z-index-dialog;
+  overflow: hidden;
+}
+
+md-dialog {
+
+  &.md-transition-in {
+    opacity: 1;
+    transition: $swift-ease-out;
+    transform: translate3d(0,0,0) scale(1.0);
+  }
+  &.md-transition-out {
+    opacity: 0;
+    transition: $swift-ease-out;
+    transform: translate3d(0,100%,0) scale(0.2);
+  }
+
+  opacity: 0;
+  min-width: 240px;
+  max-width: 80%;
+  max-height: 80%;
+  position: relative;
+  overflow: auto; // stop content from leaking out of dialog parent and fix IE
+
+  box-shadow: $whiteframe-shadow-13dp;
+
+  display: flex;
+  flex-direction: column;
+
+  &> form {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+  }
+
+  .md-dialog-content {
+    padding: $dialog-padding;
+  }
+
+  md-dialog-content {
+    order: 1;
+    flex-direction: column;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    &:not([layout=row]) > *:first-child:not(.md-subheader) {
+      margin-top: 0;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    .md-subheader {
+      margin: 0;
+
+      &.sticky-clone {
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
+      }
+    }
+    &.sticky-container {
+      padding: 0;
+
+      &> div {
+        padding: $dialog-padding;
+        padding-top: 0;
+      }
+    }
+
+    .md-dialog-content-body {
+      width:100%;
+    }
+  }
+
+  .md-actions {
+    display: flex;
+    order: 2;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 0;
+    padding-right: $baseline-grid;
+    padding-left: $baseline-grid * 2;
+    min-height: $baseline-grid * 6.5;
+    overflow: hidden;
+
+    .md-button {
+      margin-bottom: $baseline-grid;
+      margin-left: $baseline-grid;
+      margin-right: 0;
+      margin-top: $baseline-grid;
+    }
+  }
+  &.md-content-overflow .md-actions {
+    border-top-width: 1px;
+    border-top-style: solid;
+  }
+
+}
+
+@media screen and (-ms-high-contrast: active) {
+  md-dialog {
+    border: 1px solid #fff;
+  }
+}
+
+md-divider {
+  display: block;
+  border-top-width: 1px;
+  border-top-style: solid;
+  margin: 0;
+
+  &[md-inset] {
+    margin-left: $baseline-grid * 10;
+  }
+}
 
 /** Styles for mdCalendar. */
 $md-calendar-cell-size: 44px !default;
@@ -2515,17 +2529,6 @@ md-datepicker[disabled] {
 
   &.md-pane-open .md-calendar {
     transform: translateY(0);
-  }
-}
-
-md-divider {
-  display: block;
-  border-top-width: 1px;
-  border-top-style: solid;
-  margin: 0;
-
-  &[md-inset] {
-    margin-left: $baseline-grid * 10;
   }
 }
 
@@ -3293,7 +3296,7 @@ md-list-item {
   .md-no-style {
     position: relative;
     padding: $list-item-padding-vertical $list-item-padding-horizontal;
-    flex: 1;
+    flex: 1 1 auto;
     
     &.md-button {
       font-size: inherit;
@@ -3334,6 +3337,7 @@ md-list-item, md-list-item .md-list-item-inner {
   justify-content: flex-start;
   align-items: center;
   min-height: $list-item-height;
+  height:auto;
 
   // Layout for controls in primary or secondary divs, or auto-infered first child
   & > div.md-primary > md-icon:not(.md-avatar-icon),
@@ -3464,7 +3468,12 @@ md-list-item.md-3-line > .md-no-style {
 
 md-list-item.md-2-line,
 md-list-item.md-2-line > .md-no-style {
-  height: $list-item-two-line-height;
+  height:auto;
+  min-height: $list-item-two-line-height;
+  &.md-long-text {
+      margin:1.6em;
+    }
+
   > .md-avatar, .md-avatar-icon {
     margin-top: $baseline-grid * 1.5;
   }
@@ -3478,7 +3487,13 @@ md-list-item.md-2-line > .md-no-style {
 
 md-list-item.md-3-line,
 md-list-item.md-3-line > .md-no-style {
-  height: $list-item-three-line-height;
+  height:auto;
+  min-height: $list-item-three-line-height;
+
+  &.md-long-text {
+    margin:1.6em;
+  }
+
   > md-icon:first-child,
   > .md-avatar {
     margin-top: $baseline-grid * 2;
@@ -3888,6 +3903,126 @@ md-progress-circular {
 }
 
 
+$radio-width: 16px !default;
+$radio-height: $radio-width !default;
+$radio-text-margin: 10px !default;
+$radio-top-left: -15px !default;
+
+md-radio-button,
+.md-switch-thumb { // Used in switch
+  box-sizing: border-box;
+  display: block;
+  margin: 15px;
+  white-space: nowrap;
+  cursor: pointer;
+
+  .md-container {
+    box-sizing: border-box;
+    position: relative;
+    top: 4px;
+    display: inline-block;
+    width: $radio-width;
+    height: $radio-width;
+    cursor: pointer;
+
+    .md-ripple-container {
+      position: absolute;
+      display: block;
+      width: $radio-width * 3;
+      height: $radio-width * 3;
+      left: -$radio-width;
+      top: -$radio-width;
+    }
+
+    &:before {
+      box-sizing: border-box;
+      background-color: transparent;
+      border-radius: 50%;
+      content: '';
+      position: absolute;
+      display: block;
+      height: auto;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      transition: all 0.5s;
+      width: auto;
+    }
+  }
+
+  &.md-align-top-left > div.md-container {
+     top: $radio-top-left;
+   }
+
+  .md-off {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $radio-width;
+    height: $radio-width;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 50%;
+    transition: border-color ease 0.28s;
+  }
+
+  .md-on {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $radio-width;
+    height: $radio-width;
+    border-radius: 50%;
+    transition: transform ease 0.28s;
+    transform: scale(0);
+  }
+
+  &.md-checked .md-on {
+    transform: scale(0.50);
+  }
+
+  .md-label {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+
+    @include rtl(margin-left, $radio-text-margin, 0);
+    @include rtl(margin-right, 0, $radio-text-margin);
+
+    vertical-align: middle;
+    white-space: normal;
+    pointer-events: none;
+    width: auto;
+  }
+
+  .circle {
+    border-radius: 50%;
+  }
+
+}
+md-radio-group {
+  &:focus {
+    outline: none;
+  }
+  &.md-focused {
+    .md-checked .md-container:before {
+      left: -8px;
+      top: -8px;
+      right: -8px;
+      bottom: -8px;
+    }
+  }
+}
+
+@media screen and (-ms-high-contrast: active) {
+  md-radio-button.md-default-theme .md-on {
+    background-color: #fff;
+  }
+}
+
 $progress-linear-bar-height: 5px !default;
 
 md-progress-linear {
@@ -4092,126 +4227,6 @@ md-progress-linear {
 }
 
 
-
-$radio-width: 16px !default;
-$radio-height: $radio-width !default;
-$radio-text-margin: 10px !default;
-$radio-top-left: -15px !default;
-
-md-radio-button,
-.md-switch-thumb { // Used in switch
-  box-sizing: border-box;
-  display: block;
-  margin: 15px;
-  white-space: nowrap;
-  cursor: pointer;
-
-  .md-container {
-    box-sizing: border-box;
-    position: relative;
-    top: 4px;
-    display: inline-block;
-    width: $radio-width;
-    height: $radio-width;
-    cursor: pointer;
-
-    .md-ripple-container {
-      position: absolute;
-      display: block;
-      width: $radio-width * 3;
-      height: $radio-width * 3;
-      left: -$radio-width;
-      top: -$radio-width;
-    }
-
-    &:before {
-      box-sizing: border-box;
-      background-color: transparent;
-      border-radius: 50%;
-      content: '';
-      position: absolute;
-      display: block;
-      height: auto;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      transition: all 0.5s;
-      width: auto;
-    }
-  }
-
-  &.md-align-top-left > div.md-container {
-     top: $radio-top-left;
-   }
-
-  .md-off {
-    box-sizing: border-box;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: $radio-width;
-    height: $radio-width;
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 50%;
-    transition: border-color ease 0.28s;
-  }
-
-  .md-on {
-    box-sizing: border-box;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: $radio-width;
-    height: $radio-width;
-    border-radius: 50%;
-    transition: transform ease 0.28s;
-    transform: scale(0);
-  }
-
-  &.md-checked .md-on {
-    transform: scale(0.50);
-  }
-
-  .md-label {
-    box-sizing: border-box;
-    position: relative;
-    display: inline-block;
-
-    @include rtl(margin-left, $radio-text-margin, 0);
-    @include rtl(margin-right, 0, $radio-text-margin);
-
-    vertical-align: middle;
-    white-space: normal;
-    pointer-events: none;
-    width: auto;
-  }
-
-  .circle {
-    border-radius: 50%;
-  }
-
-}
-md-radio-group {
-  &:focus {
-    outline: none;
-  }
-  &.md-focused {
-    .md-checked .md-container:before {
-      left: -8px;
-      top: -8px;
-      right: -8px;
-      bottom: -8px;
-    }
-  }
-}
-
-@media screen and (-ms-high-contrast: active) {
-  md-radio-button.md-default-theme .md-on {
-    background-color: #fff;
-  }
-}
 
 $select-option-height: 48px;
 $select-option-padding: 16px;
@@ -4549,23 +4564,6 @@ md-sidenav {
   }
 }
 
-.md-sticky-clone {
-  z-index: 2;
-  top: 0;
-  left: 0;
-  right: 0;
-  position: absolute !important;
-
-  transform: translate3d(-9999px,-9999px,0);
-
-  &[sticky-state="active"] {
-    transform: translate3d(0, 0, 0);
-    &:not(.md-sticky-no-effect) .md-subheader-inner {
-      animation: subheaderStickyHoverIn 0.3s ease-out both;
-    }
-  }
-}
-
 $slider-background-color:  rgb(200, 200, 200) !default;
 $slider-height:  48px !default;
 
@@ -4860,6 +4858,23 @@ md-slider {
 }
 
 
+.md-sticky-clone {
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  position: absolute !important;
+
+  transform: translate3d(-9999px,-9999px,0);
+
+  &[sticky-state="active"] {
+    transform: translate3d(0, 0, 0);
+    &:not(.md-sticky-no-effect) .md-subheader-inner {
+      animation: subheaderStickyHoverIn 0.3s ease-out both;
+    }
+  }
+}
+
 $subheader-line-height: 1em !default;
 $subheader-font-size: rem(1.4) !default;
 $subheader-padding: ($baseline-grid * 2) 0px ($baseline-grid * 2) ($baseline-grid * 2) !default;
@@ -5066,6 +5081,158 @@ md-switch {
   }
   md-switch.md-default-theme .md-thumb {
     background-color: #fff;
+  }
+}
+
+// See height set globally, depended on by buttons
+
+
+md-toast {
+  display: flex;
+  position:absolute;
+  z-index: $z-index-toast;
+
+  box-sizing: border-box;
+  align-items: center;
+
+  min-height: 48px;
+  padding-left: 24px;
+  padding-right: 24px;
+
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  border-radius: 2px;
+  font-size: 14px;
+  cursor: default;
+
+  height: 0px;
+  max-height: 7*$toast-height;
+  max-width: 100%;
+
+  overflow:hidden;
+
+  &.md-capsule {
+    border-radius: 24px;
+  }
+
+  opacity: 1;
+  transform: translate3d(0,0,0) rotateZ(0deg);
+  transition: $swift-ease-out;
+
+  &.ng-leave-active {
+    transition: $swift-ease-in;
+  }
+
+  /* Transition differently when swiping */
+  &.md-swipeleft,
+  &.md-swiperight,
+  &.md-swipeup,
+  &.md-swipedown {
+    transition: $swift-ease-out;
+  }
+
+  &.ng-enter {
+    transform: translate3d(0, 100%, 0);
+    &.md-top {
+      transform: translate3d(0, -100%, 0);
+    }
+    opacity: 0;
+    &.ng-enter-active {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+  }
+  &.ng-leave.ng-leave-active {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+    &.md-top {
+      transform: translate3d(0, -100%, 0);
+    }
+    &.md-swipeleft {
+      transform: translate3d(-100%, 0%, 0);
+    }
+    &.md-swiperight {
+      transform: translate3d(100%, 0%, 0);
+    }
+  }
+
+  .md-action {
+    line-height: 19px;
+    margin-left: 24px;
+    cursor: pointer;
+    text-transform: uppercase;
+    float: right;
+
+    &.md-button {
+      min-width: 0;
+    }
+  }
+}
+
+@media (max-width: $layout-breakpoint-sm) {
+  md-toast {
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    border-radius: 0;
+    bottom: 0;
+    &.md-top {
+      bottom: auto;
+      top: 0;
+    }
+  }
+}
+@media (min-width: $layout-breakpoint-sm) {
+  md-toast {
+    min-width: 288px;
+    &.md-bottom {
+      bottom: $toast-margin;
+    }
+    &.md-left {
+      left: $toast-margin;
+    }
+    &.md-right {
+      right: $toast-margin;
+    }
+    &.md-top {
+      top: $toast-margin;
+    }
+
+    /*
+     * When the toast doesn't take up the whole screen,
+     * make it rotate when the user swipes it away
+     */
+    &.ng-leave.ng-leave-active {
+      &.md-swipeleft {
+        transform: translate3d(-100%, 25%, 0) rotateZ(-15deg);
+      }
+      &.md-swiperight {
+        transform: translate3d(100%, 25%, 0) rotateZ(15deg);
+      }
+      &.md-top {
+        &.md-swipeleft {
+          transform: translate3d(-100%, 0, 0) rotateZ(-15deg);
+        }
+        &.md-swiperight {
+          transform: translate3d(100%, 0, 0) rotateZ(15deg);
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $layout-breakpoint-lg) {
+  md-toast {
+    max-width: $baseline-grid * 71;
+  }
+}
+
+
+
+@media screen and (-ms-high-contrast: active) {
+  md-toast {
+    border: 1px solid #fff;
   }
 }
 
@@ -5353,158 +5520,6 @@ md-tab {
 md-toolbar + md-tabs {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-}
-
-// See height set globally, depended on by buttons
-
-
-md-toast {
-  display: flex;
-  position:absolute;
-  z-index: $z-index-toast;
-
-  box-sizing: border-box;
-  align-items: center;
-
-  min-height: 48px;
-  padding-left: 24px;
-  padding-right: 24px;
-
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-  border-radius: 2px;
-  font-size: 14px;
-  cursor: default;
-
-  height: 0px;
-  max-height: 7*$toast-height;
-  max-width: 100%;
-
-  overflow:hidden;
-
-  &.md-capsule {
-    border-radius: 24px;
-  }
-
-  opacity: 1;
-  transform: translate3d(0,0,0) rotateZ(0deg);
-  transition: $swift-ease-out;
-
-  &.ng-leave-active {
-    transition: $swift-ease-in;
-  }
-
-  /* Transition differently when swiping */
-  &.md-swipeleft,
-  &.md-swiperight,
-  &.md-swipeup,
-  &.md-swipedown {
-    transition: $swift-ease-out;
-  }
-
-  &.ng-enter {
-    transform: translate3d(0, 100%, 0);
-    &.md-top {
-      transform: translate3d(0, -100%, 0);
-    }
-    opacity: 0;
-    &.ng-enter-active {
-      transform: translate3d(0, 0, 0);
-      opacity: 1;
-    }
-  }
-  &.ng-leave.ng-leave-active {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-    &.md-top {
-      transform: translate3d(0, -100%, 0);
-    }
-    &.md-swipeleft {
-      transform: translate3d(-100%, 0%, 0);
-    }
-    &.md-swiperight {
-      transform: translate3d(100%, 0%, 0);
-    }
-  }
-
-  .md-action {
-    line-height: 19px;
-    margin-left: 24px;
-    cursor: pointer;
-    text-transform: uppercase;
-    float: right;
-
-    &.md-button {
-      min-width: 0;
-    }
-  }
-}
-
-@media (max-width: $layout-breakpoint-sm) {
-  md-toast {
-    left: 0;
-    right: 0;
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    border-radius: 0;
-    bottom: 0;
-    &.md-top {
-      bottom: auto;
-      top: 0;
-    }
-  }
-}
-@media (min-width: $layout-breakpoint-sm) {
-  md-toast {
-    min-width: 288px;
-    &.md-bottom {
-      bottom: $toast-margin;
-    }
-    &.md-left {
-      left: $toast-margin;
-    }
-    &.md-right {
-      right: $toast-margin;
-    }
-    &.md-top {
-      top: $toast-margin;
-    }
-
-    /*
-     * When the toast doesn't take up the whole screen,
-     * make it rotate when the user swipes it away
-     */
-    &.ng-leave.ng-leave-active {
-      &.md-swipeleft {
-        transform: translate3d(-100%, 25%, 0) rotateZ(-15deg);
-      }
-      &.md-swiperight {
-        transform: translate3d(100%, 25%, 0) rotateZ(15deg);
-      }
-      &.md-top {
-        &.md-swipeleft {
-          transform: translate3d(-100%, 0, 0) rotateZ(-15deg);
-        }
-        &.md-swiperight {
-          transform: translate3d(100%, 0, 0) rotateZ(15deg);
-        }
-      }
-    }
-  }
-}
-
-@media (min-width: $layout-breakpoint-lg) {
-  md-toast {
-    max-width: $baseline-grid * 71;
-  }
-}
-
-
-
-@media screen and (-ms-high-contrast: active) {
-  md-toast {
-    border: 1px solid #fff;
-  }
 }
 
 // Standard/Desktop Heights

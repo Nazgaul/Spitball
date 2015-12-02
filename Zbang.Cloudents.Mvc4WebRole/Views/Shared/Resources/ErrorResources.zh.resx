@@ -127,23 +127,11 @@
   <data name="HomePage" xml:space="preserve">
     <value>主页</value>
   </data>
-  <data name="InvitationOnly" xml:space="preserve">
-    <value>主题拥有者将内容设为只有受邀请的人才能看</value>
-  </data>
-  <data name="MembersOnly" xml:space="preserve">
-    <value>内容仅会员可见。</value>
-  </data>
-  <data name="NeedPermission" xml:space="preserve">
-    <value>您尚无权限访问此内容</value>
-  </data>
   <data name="NotFound" xml:space="preserve">
     <value>您查找的页面似乎不存在。</value>
   </data>
   <data name="Oops" xml:space="preserve">
     <value>糟糕！</value>
-  </data>
-  <data name="ToAccessFile" xml:space="preserve">
-    <value>必须登录 Spitball 才可以访问该文件</value>
   </data>
   <data name="UseOtherBrowser" xml:space="preserve">
     <value>请升级您的 IE 浏览器版本

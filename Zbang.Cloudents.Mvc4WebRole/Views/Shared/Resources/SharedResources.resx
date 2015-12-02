@@ -120,35 +120,11 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
-  <data name="Invite" xml:space="preserve">
-    <value>Invite</value>
-  </data>
   <data name="Help" xml:space="preserve">
     <value>Help</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Log in</value>
-  </data>
-  <data name="Connect" xml:space="preserve">
-    <value>Connect</value>
-  </data>
-  <data name="Message" xml:space="preserve">
-    <value>Message</value>
-  </data>
-  <data name="Points" xml:space="preserve">
-    <value>Points</value>
-  </data>
-  <data name="WriteMessage" xml:space="preserve">
-    <value>Write a message...</value>
-  </data>
-  <data name="Members" xml:space="preserve">
-    <value>members</value>
-  </data>
-  <data name="Pts" xml:space="preserve">
-    <value>pts</value>
-  </data>
-  <data name="SweetPoints" xml:space="preserve">
-    <value>Sweet, you just earned</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>First name</value>
@@ -161,56 +137,6 @@
   </data>
   <data name="EmailSignUp" xml:space="preserve">
     <value>Sign up with email</value>
-  </data>
-  <data name="Dismiss" xml:space="preserve">
-    <value>Dismiss</value>
-  </data>
-  <data name="Previous" xml:space="preserve">
-    <value>Previous</value>
-  </data>
-  <data name="RegisterFree" xml:space="preserve">
-    <value>Sign up for free!</value>
-  </data>
-  <data name="CloudentsQuizzes" xml:space="preserve">
-    <value>
-Spitball Quizzes - Create, share, practice and be prepared for your exams!
-</value>
-  </data>
-  <data name="CreateShare" xml:space="preserve">
-    <value>Create and share Spitball Quizzes to prepare for exams and test your friends' knowledge.</value>
-  </data>
-  <data name="DiscussQuiz" xml:space="preserve">
-    <value>Discuss the questions and answers with your friends</value>
-  </data>
-  <data name="ExamQuestion" xml:space="preserve">
-    <value>Add a potential exam question</value>
-  </data>
-  <data name="MultipleAnswers" xml:space="preserve">
-    <value>Add multiple answers and mark the correct one</value>
-  </data>
-  <data name="PrepareExam" xml:space="preserve">
-    <value>Prepare for an exam by taking a Spitball Quiz.</value>
-  </data>
-  <data name="PublishQuiz" xml:space="preserve">
-    <value>Publish the Quiz and share it with friends</value>
-  </data>
-  <data name="SeeScore" xml:space="preserve">
-    <value>See how you score and how long it took to complete</value>
-  </data>
-  <data name="ShareQuiz" xml:space="preserve">
-    <value>Share the Quiz with your friends</value>
-  </data>
-  <data name="TryIt" xml:space="preserve">
-    <value>Why not give it a go? Good luck!</value>
-  </data>
-  <data name="UseMaterial" xml:space="preserve">
-    <value>Use your own material or documents already on Spitball</value>
-  </data>
-  <data name="EmailRequired" xml:space="preserve">
-    <value>Enter email address</value>
-  </data>
-  <data name="PersonalMsg" xml:space="preserve">
-    <value>Personal message</value>
   </data>
   <data name="Jobs" xml:space="preserve">
     <value>Jobs</value>

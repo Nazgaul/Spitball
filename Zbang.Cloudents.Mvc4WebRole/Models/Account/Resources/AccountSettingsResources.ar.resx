@@ -168,9 +168,6 @@
   <data name="UsernameEmpty" xml:space="preserve">
     <value>لا يمكن ان يكون حقل البريد الالكتروني فارغاً</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>الاسم:</value>
-  </data>
   <data name="LastNameRequired" xml:space="preserve">
     <value>مطلوب الاسم الأخير</value>
   </data>

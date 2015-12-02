@@ -7,7 +7,7 @@
         var serverCall = false;
         var defer = $q.defer();
 
-        d.getBoxes = function (page) {
+        d.getBoxes = function () {
             if (d.boxes) {
                 defer.resolve(d.boxes);
                 return defer.promise;
@@ -15,7 +15,7 @@
 
             if (!serverCall) {
                 serverCall = true;
-                ajaxservice.get('/dashboard/boxlist/', {page : page}).then(function (response) {
+                ajaxservice.get('/dashboard/boxlist/').then(function (response) {
                     serverCall = false;
                     d.boxes = response;
                     for (var i = 0; i < d.boxes.length; i++) {
@@ -42,6 +42,12 @@
 
         d.leaderboard = function() {
             return ajaxservice.get('/dashboard/leaderboard/');
+        }
+
+        d.recommended = recommended;
+
+        function recommended() {
+            return ajaxservice.get('/dashboard/recommendedcourses/');
         }
     }
 })();

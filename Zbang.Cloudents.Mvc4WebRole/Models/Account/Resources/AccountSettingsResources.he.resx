@@ -168,9 +168,6 @@
   <data name="UsernameEmpty" xml:space="preserve">
     <value>שם משתמש לא יכול להיות ריק</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>שם:</value>
-  </data>
   <data name="LastNameRequired" xml:space="preserve">
     <value>יש למלא שם משפחה</value>
   </data>
