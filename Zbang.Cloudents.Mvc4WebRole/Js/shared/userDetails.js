@@ -54,7 +54,7 @@
                 image: data.image,
                 score: data.score,
                 url: data.url,
-                //isAdmin: data.isAdmin,
+                isAdmin: data.isAdmin,
                 //culture: data.culture,
 
                 //firstTimeDashboard: data.firstTimeDashboard,
