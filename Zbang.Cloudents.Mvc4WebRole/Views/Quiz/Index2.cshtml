@@ -11,7 +11,7 @@
 
         <div class="hidden-sm hidden-xs arrows prev" ng-if="q.state === 2 || q.state === 4">
             <button type="button" ng-click="q.back()" ng-show="q.index > 0 && q.index < q.questions.length">
-                @Html.Svg(svgUrl, "arrow")
+                @Html.Svg("~/images/site/icons.svg", "arrow")
             </button>
         </div>
         <div class="wrapper">
@@ -103,7 +103,7 @@
         </div>
         <div class="hidden-sm hidden-xs arrows next" ng-if="q.state === 2 || q.state === 4">
             <button type="button" ng-show="(q.state === 2 && q.index < q.questions.length) || (q.state === 4 && q.index < q.questions.length - 1)" ng-click="q.next()">
-                @Html.Svg(svgUrl, "arrow")
+                @Html.Svg("~/images/site/icons.svg", "arrow")
             </button>
         </div>
     </div>

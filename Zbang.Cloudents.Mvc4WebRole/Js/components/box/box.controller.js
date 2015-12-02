@@ -5,7 +5,7 @@
     function box(boxService, boxData, $stateParams, $location, $scope, $state, user) {
 
         if (!$location.hash()) {
-            $state.go('box.feed');
+            $state.go('box.feed', $stateParams, { location: "replace" });
         }
         var b = this, boxId = $stateParams.boxId;
         b.data = boxData;
@@ -16,7 +16,7 @@
         b.follow = follow;
         b.updateBox = updateBox;
         b.inviteToBox = inviteToBox;
-       
+
 
 
         //b.uploadOn = false;
@@ -117,7 +117,7 @@
         //    return stateName === 'box.items';
         //}
 
-     
+
 
         //$rootScope.$on('$stateChangeSuccess',
         //    function (event, toState) {
