@@ -50,6 +50,11 @@
                 files: files
             });
         }
+        d.deleteReply = function(postId) {
+            return ajaxservice.post('/qna/deleteanswer/', {
+                answerId: postId
+            });
+        }
         d.follow = function(boxId) {
             return ajaxservice.post('/share/subscribetobox/', {
                 boxId: boxId

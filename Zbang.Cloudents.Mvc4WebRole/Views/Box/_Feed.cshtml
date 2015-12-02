@@ -44,14 +44,13 @@
                 </form>
                 <ol class="list-unstyled">
                     <li ng-repeat="post in f.data" class="comment" >
-                        <md-menu>
-                            <md-button class="md-icon-button delete" ng-click="f.openMenu($mdOpenMenu, $event)">
+                        <md-menu ng-if="f.canDelete(post.userId)">
+                            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="f.openMenu($mdOpenMenu, $event)">
                                 @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
                             </md-button>
                             <md-menu-content width="1">
                                 <md-menu-item>
-                                    <md-button ng-click="f.deleteComment($event,post)">
-
+                                    <md-button aria-label="delete post" ng-click="f.deleteComment($event,post)">
                                         @Html.Svg("~/images/site/icons.svg", "delete", new { @class = "delete-icon" })
                                     </md-button>
                                 </md-menu-item>
@@ -74,7 +73,19 @@
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.answers.length">
                             <li ng-repeat="reply in post.answers" class="reply">
-                                <div class="top" ng-style="{ background: post.isNew ? 'red' : '' }">
+                                <md-menu ng-if="f.canDelete(reply.userId)">
+                                    <md-button aria-label="open menu" class="md-icon-button delete" ng-click="f.openMenu($mdOpenMenu, $event)">
+                                        @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
+                                    </md-button>
+                                    <md-menu-content width="1">
+                                        <md-menu-item>
+                                            <md-button aria-label="delete reply" ng-click="f.deleteReply($event,post,reply)">
+                                                @Html.Svg("~/images/site/icons.svg", "delete", new { @class = "delete-icon" })
+                                            </md-button>
+                                        </md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
+                                <div class="top">
                                     <user-image class="img-circle c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
                                     <span class="user-name">{{::reply.userName}}</span> @*at*@
 

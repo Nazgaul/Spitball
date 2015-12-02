@@ -4,7 +4,7 @@
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService, $mdDialog) {
         var self = this, boxId = parseInt($stateParams.boxId, 10);
-       
+
         self.add = {
             files: [],
             disabled: false,
@@ -30,6 +30,8 @@
 
         self.openMenu = openMenu;
         self.deleteComment = deleteComment;
+        self.canDelete = canDelete;
+        self.deleteReply = deleteReply;
 
         boxService.getFeed(boxId).then(function (response) {
             self.data = response;
@@ -48,7 +50,13 @@
                 }
             });
         });
+        function canDelete(userId) {
+            if (user.isAdmin || user.id === userId) {
+                return true;
+            }
+            return false;
 
+        }
         var originatorEv;
         function openMenu($mdOpenMenu, ev) {
             originatorEv = ev;
@@ -113,6 +121,22 @@
                 var index = self.data.indexOf(post);
                 self.data.splice(index, 1);
                 boxService.deleteComment(post.id);
+            });
+        }
+        function deleteReply(ev, post, reply) {
+
+            //boxType //userType
+            var confirm = $mdDialog.confirm()
+                  .title('Would you like to delete this reply?')
+                  //.textContent('All of the banks have agreed to forgive you your debts.')
+                  .targetEvent(ev)
+                  .ok('Ok')
+                  .cancel('Cancel');
+
+            $mdDialog.show(confirm).then(function () {
+                var index = post.answers.indexOf(reply);
+                post.answers.splice(index, 1);
+                boxService.deleteReply(reply.id);
             });
         }
         function createReply(comment) {
