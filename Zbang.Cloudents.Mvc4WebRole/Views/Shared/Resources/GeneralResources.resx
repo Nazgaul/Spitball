@@ -117,14 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ButtonText" xml:space="preserve">
-    <value>הורד</value>
+  <data name="Cancel" xml:space="preserve">
+    <value>cancel</value>
   </data>
-  <data name="ButtonTextBold" xml:space="preserve">
-    <value>חינם!</value>
+  <data name="Done" xml:space="preserve">
+    <value>done</value>
   </data>
-  <data name="Header" xml:space="preserve">
-    <value>לצפיה בספיטבול
-הורידות את האפליקציה או כנסו לאתר מהמחשב</value>
+  <data name="Plus" xml:space="preserve">
+    <value>+</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>save changes</value>
   </data>
 </root>

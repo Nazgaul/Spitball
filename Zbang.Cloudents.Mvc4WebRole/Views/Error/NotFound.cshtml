@@ -1,4 +1,5 @@
-﻿
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources
+
 @{
     ViewBag.Title = "Not found";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
@@ -7,12 +8,12 @@
 <div class="error-page">
     <h2>
         404
-        <span>Oops the file flew </span>
+        <span class="text-capitalize">@IndexResources.FileFlew</span>
     </h2>
     
     <div class="image">
         <img src="@Url.CdnContent("~/Images/Site/404_image.png")" alt="Page not found">
-        <a target="_self" href="@Url.Action("Index","Dashboard")">Back to dashboard</a>
+        <a target="_self" href="@Url.Action("Index","Dashboard")" class="text-capitalize">@IndexResources.Back</a>
     </div>
 </div>
 
