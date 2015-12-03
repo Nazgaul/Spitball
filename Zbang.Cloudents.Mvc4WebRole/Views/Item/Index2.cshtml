@@ -4,18 +4,36 @@
     const string svgUrl = "~/images/site/itemIcons.svg";
 }
 <div class="full-screen itemPage">
-    <header>
-        <div class="like">
+    <header layout="row" layout-align="space-between center">
+        <div>
             <button type="button" ng-click="i.like()">@GeneralResources.Like</button>
         </div>
-        <button type="button" ng-click="app.back(i.details.boxUrl)" class="closeItem">@Html.Svg("~/images/site/icons.svg", "close")</button>
-        <div class="text-center">
+        
+        <div @*class="text-center"*@>
             <a target="_blank" href="{{i.details.downloadUrl}}">@Html.Svg(svgUrl, "download")</a>
             <a target="_blank" href="{{i.details.printUrl}}">@Html.Svg(svgUrl, "print")</a>
             <a href="#" tooltip-placement="bottom" tooltip-html="">@Html.Svg(svgUrl, "share")</a>
             <a href="#" tooltip-placement="bottom" tooltip-class="copy-right"
                tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
+            <md-menu flex>
+                <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
+                    @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
+                </md-button>
+                <md-menu-content width="1">
+                    <md-menu-item>
+                        <md-button aria-label="delete post" ng-click="i.deleteItem($event,e)">
+                            Rename
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button aria-label="delete post" ng-click="i.deleteItem($event,e)">
+                            flag an item
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
         </div>
+        <button type="button" ng-click="app.back(i.details.boxUrl)" class="closeItem">@Html.Svg("~/images/site/icons.svg", "close")</button>
 
     </header>
     <div class="full-screen-body">
