@@ -34,6 +34,7 @@
                     if (data.preview.indexOf('iframe') > 0
                         || data.preview.indexOf('audio') > 0
                         || data.preview.indexOf('video') > 0) {
+                        //i.preview = data.preview;
                         i.preview += $sce.trustAsHtml(data.preview);
                     } else {
                         i.preview += data.preview;
@@ -42,6 +43,7 @@
                         //});
                         loadMore = true;
                     }
+                    console.log(i.preview);
                     //$scope.$broadcast('update', data.preview); //for fullscreen
                 }
             });
