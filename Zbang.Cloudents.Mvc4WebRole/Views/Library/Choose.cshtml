@@ -1,4 +1,7 @@
-﻿<div class="library-choose" ng-init="lc.countryCode = '@ViewBag.country'">
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+<div class="library-choose" ng-init="lc.countryCode = '@ViewBag.country'">
     <div ng-if="!lc.needCode">
         <input ng-disabled="lc.createUniversity" type="search" class="search-text" placeholder="Search..." ng-model="lc.term" ng-model-options="{debounce : 250}" ng-change="lc.search()" ng-minlength="2" />
         <div class="row" ng-if="!lc.createUniversity">
@@ -19,8 +22,8 @@
             </div>
             <div class="col-xs-12 col-md-6 col-lg-4">
                 <div class="add-uni-btn" ng-click="lc.createUniversity = true">
-                    <span>+</span>
-                    <div>Add your school</div>
+                    <span>@Html.Svg("~/images/site/icons.svg", "add")</span>
+                    <div class="text-capitalize">@LibraryResources.AddSchool</div>
                 </div>
             </div>
         </div>
@@ -29,7 +32,7 @@
             <form ng-submit="lc.createNewUniversity()" novalidate>
 
                 <md-input-container>
-                    <label>Country</label>
+                    <label class="text-capitalize">@LibraryResources.Country</label>
                     <md-select ng-model="lc.countryCode" md-container-class="dd-list">
                         <md-option ng-value="country.iso" ng-repeat="country in ::lc.countries">{{ country.name }}</md-option>
                     </md-select>
@@ -61,8 +64,8 @@
                
                 
 
-                <button type="button" class="btn btn-default pull-right text-capitalize" ng-click="lc.createUniversity = false">cancel</button>
-                <button type="submit" class="btn btn-primary pull-right text-capitalize">create</button>
+                <button type="button" class="btn btn-default pull-right text-capitalize" ng-click="lc.createUniversity = false">@GeneralResources.Cancel</button>
+                <button type="submit" class="btn btn-primary pull-right text-capitalize">@GeneralResources.Create</button>
             </form>
         </div>
     </div>
@@ -70,7 +73,7 @@
         <div class="top-contant">
             @Html.Svg("~/images/site/libChooseIcons.svg", "closed_uni", new { @class = "closed-uni-i" })
             <div class="contant">
-                <h4 class="text-capitalize">hi {{::lc.code.userName}}</h4>
+                <h4 class="text-capitalize">@LibraryResources.Hi {{::lc.code.userName}}</h4>
                 <span class="uni-details" ng-bind-html="::lc.code.closedUniText1"></span>
             </div>
         </div>
@@ -79,11 +82,11 @@
                 @Html.Svg("~/images/site/libChooseIcons.svg", "info", new { @class = "info-i" })
                 <div class="arrow-up" ng-bind-html="::lc.code.closedUniText2"></div>
                 <md-input-container>
-                    <label>Enter 9 digit id</label>
+                    <label class="text-capitalize">@LibraryResources.EnterID</label>
                     <input type="text" ng-model="lc.code.studentId" required />
                 </md-input-container>
             </div>
-            <button type="submit" class="btn btn-primary pull-right">continue</button>
+            <button type="submit" class="btn btn-primary pull-right">@LibraryResources.Continue</button>
         </form>
     </div>
 </div>

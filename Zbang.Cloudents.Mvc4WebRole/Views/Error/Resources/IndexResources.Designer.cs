@@ -79,7 +79,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to unsupported.
+        ///   Looks up a localized string similar to Please update your version of Internet Explorer or use different browser.
+        /// </summary>
+        public static string PleaseUpdate {
+            get {
+                return ResourceManager.GetString("PleaseUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to doesn&apos;t support your browser version.
         /// </summary>
         public static string Unsupported {
             get {

@@ -1,10 +1,12 @@
-﻿@{
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+@{
     const string svgUrl = "~/images/site/itemIcons.svg";
 }
 <div class="full-screen itemPage">
     <header>
         <div class="like">
-            <button type="button" ng-click="i.like()">Like</button>
+            <button type="button" ng-click="i.like()">@GeneralResources.Like</button>
         </div>
         <button type="button" ng-click="app.back(i.details.boxUrl)" class="closeItem">@Html.Svg("~/images/site/icons.svg", "close")</button>
         <div class="text-center">

@@ -36,9 +36,9 @@
         <div class="dashboard-stat2">
             <button ng-hide="l.createDepartmentOn" type="button" ng-click="l.createDepartmentOn = true" class="create-btn">
                 <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-                <div class="title">add department</div>
+                <div class="title">add class</div>
             </button>
-            <form name="createDepartment" novalidate ng-submit="l.createDepartment()" ng-show="l.createDepartmentOn">
+            <form name="createBox" novalidate ng-submit="l.createBox()" ng-show="l.createBoxOn">
                 <div layout="column">
                     <md-content layout="column">
                         <div layout layout-sm="column">
@@ -48,12 +48,21 @@
                                 <span class="error" ng-show="l.error">{{l.error}}</span>
                             </md-input-container>
                         </div>
+                        <input autocomplete="off" required ng-model="l.boxName">
+                    </md-input-container>
+                    <md-input-container ng-if="l.secondStep">
+                        <label>Enter code</label>
+                        <input autocomplete="off" ng-model="l.code">
+                    </md-input-container>
+                    <md-input-container ng-if="l.secondStep">
+                        <label>instractor</label>
+                        <input autocomplete="off" ng-model="l.professor">
+                    </md-input-container>
                     </md-content>
 
                 </div>
-                <span layout="row" layout-align="space-between center">
-                    <button type="button" class="btn btn-default text-capitalize " ng-click="l.createDepartmentOn = false">cancel</button>
-                    <button type="submit" class="btn text-capitalize" ng-disabled="!createDepartment.$valid">done</button>
+                    <button type="button" class="btn text-capitalize" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()">next</button>
+                    <button type="submit" class="btn text-capitalize" ng-if="l.secondStep" ng-disabled="!createBox.$valid">done</button>
                 </span>
             </form>
         </div>
@@ -78,13 +87,12 @@
             </div>
         </a>
         <md-menu ng-if="l.canDelete(dep)">
-            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="d.openMenu($mdOpenMenu, $event)">
+            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
                 @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
             </md-button>
             <md-menu-content width="1">
                 <md-menu-item>
-                    <md-button aria-label="remove box" ng-click="d.deleteBox($event,e)">
-
+                    <md-button aria-label="remove department" ng-click="l.deleteDepartment($event,dep)">
                         @Html.Svg("~/images/site/icons.svg", "delete", new { @class = "delete-icon" })
                     </md-button>
                 </md-menu-item>
