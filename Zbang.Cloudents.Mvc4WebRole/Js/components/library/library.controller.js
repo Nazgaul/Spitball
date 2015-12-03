@@ -29,8 +29,10 @@ parentUrl: "/library/"*/
 
         function renameNode() {
             libraryService.renameNode(l.settings.name, nodeId).then(function () {
-                l.nodeDetail.name = l.settings.name, nodeId;
+                l.nodeDetail.name = l.settings.name;
+                l.settingsOpen = false;
             });
+            
         }
         function toggleSettings() {
             l.settings = {
@@ -81,6 +83,7 @@ parentUrl: "/library/"*/
         }
         function departmentCancel() {
             resetFiled();
+            l.createDepartmentOn = false;
         }
 
         function deleteDepartment(ev, department) {
