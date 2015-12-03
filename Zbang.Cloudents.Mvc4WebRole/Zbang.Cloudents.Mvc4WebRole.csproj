@@ -2941,7 +2941,6 @@
     </Content>
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
     <Content Include="Views\Error\Unsupported.cshtml" />
-    <Content Include="Views\Account\Confirmation.cshtml" />
     <Content Include="Views\Item\_FlagItem.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Item\_PreviewLinkDenied.cshtml" />
@@ -3408,9 +3407,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\_ViewStart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\AboutUs.cshtml" />
