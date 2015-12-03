@@ -89,46 +89,26 @@
                     b.data.professorName = b.settings.professorName;
                 }
 
-                boxService.updateBox(boxId, b.data.name, b.settings.courseId, b.settings.professorName, b.settings.privacy, b.settings.notificationSettings);
+                boxService.updateBox(boxId, b.data.name, b.settings.courseId, b.settings.professorName, b.settings.privacy, b.settings.notificationSettings).then(function (response) {
+                    b.settingsOpen = false;
+                    $stateParams.boxName = response.queryString;
+                    $state.go('box.feed', $stateParams, { location: "replace" });
+                    
+                });
 
             }
-            b.settingsOpen = false;
         }
 
         function inviteToBox() {
             b.inviteOpen = true;
             $scope.$broadcast('open_invite');
         }
-        //function toggleUpload(open) {
 
-        //    b.uploadShow = !open;
-        //    b.uploadOn = open;
-        //    if (b.uploadShow) {
-        //        $scope.$broadcast('open_upload');
-        //    } else {
-        //        $scope.$broadcast('close_upload');
-        //    }
-        //}
         function follow() {
             boxService.follow(boxId);
             b.needFollow = false;
         }
-        //function isItemState(stateName) {
-        //    return stateName === 'box.items';
-        //}
 
-
-
-        //$rootScope.$on('$stateChangeSuccess',
-        //    function (event, toState) {
-
-        //        if (isItemState(toState.name)) {
-        //            b.uploadShow = true;
-        //        } else {
-        //            b.uploadShow = false;
-        //        }
-
-        //    });
     }
 })();
 

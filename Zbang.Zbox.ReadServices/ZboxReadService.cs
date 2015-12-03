@@ -782,9 +782,10 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<Box.BoxNotificationDto>(@"select b.BoxId as Id, b.BoxName as Name,  ub.NotificationSettings as Notifications, b.Url as url
+                return await conn.QueryAsync<Box.BoxNotificationDto>(@"select b.BoxId as Id, b.BoxName as Name,  ub.NotificationSettings as Notifications, b.Url as url, u.UserName
                     from zbox.Box b 
 	                inner join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
+					inner join zbox.Users u on b.OwnerId = u.UserId
                     and ub.UserId = @UserId", new { query.UserId });
             }
 

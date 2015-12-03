@@ -5,7 +5,7 @@
         <li ng-repeat="box in ::n.notifications track by box.id" class="clearfix">
             <div class="box-data" d-color="{{::box.name.length}}">
                 <div class="name">{{::box.name}}</div>
-                <div class="owner">Owner: TBA@*{{::box.owner}}*@</div>
+                <div class="owner">Owner: {{::box.userName}}</div>
             </div>
             <select class="" ng-model="box.notifications" ng-change="n.updateNotification(box)">
                 <option value="@NotificationSettings.Off.GetStringValueLowerCase()">@NotificationSettings.Off.GetEnumDescription()</option>

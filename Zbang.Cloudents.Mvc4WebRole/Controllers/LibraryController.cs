@@ -213,29 +213,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var guid = GuidEncoder.TryParseNullableGuid(model.Id);
             if (!guid.HasValue)
             {
-                ModelState.AddModelError(string.Empty, "Error");
+                return JsonError("need node");
             }
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetModelStateErrors().First().Value[0]));
+                return JsonError(GetErrorFromModelState());
             }
 
             var universityId = User.GetUniversityData();
 
             if (!universityId.HasValue)
             {
-                return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
+                return JsonError(LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
             }
             try
             {
                 var command = new RenameNodeCommand(model.NewName, guid.Value, universityId.Value);
 
                 ZboxWriteService.RenameNodeLibrary(command);
-                return Json(new JsonResponse(true));
+                return JsonOk();
             }
             catch (ArgumentException ex)
             {
-                return Json(new JsonResponse(false, ex.Message));
+                return JsonError(ex.Message);
             }
         }
         #endregion
@@ -295,20 +295,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetErrorFromModelState());
             }
             var universityId = User.GetUniversityId();
 
             if (!universityId.HasValue)
             {
-                ModelState.AddModelError(string.Empty, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
             }
             var guid = GuidEncoder.TryParseNullableGuid(model.DepartmentId);
             if (!guid.HasValue)
             {
-                ModelState.AddModelError(string.Empty, "Department id is required");
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(LibraryControllerResources.LibraryController_CreateBox_Department_id_is_required);
             }
             try
             {
@@ -318,19 +316,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
                                                            model.CourseId, model.Professor, guid.Value);
                 var result = ZboxWriteService.CreateBox(command);
-                return Json(new JsonResponse(true, new { result.Url, result.Id }));
+                return JsonOk(new { result.Url });
             }
             catch (BoxNameAlreadyExistsException)
             {
-                ModelState.AddModelError(string.Empty, LibraryControllerResources.course_already_exists);
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(LibraryControllerResources.course_already_exists);
 
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("CreateAcademic user: {0} model: {1}", User.GetUserId(), model), ex);
-                ModelState.AddModelError(string.Empty, LibraryControllerResources.Problem_with_create_a_course);
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(LibraryControllerResources.Problem_with_create_a_course);
             }
         }
 

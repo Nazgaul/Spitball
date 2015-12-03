@@ -100,7 +100,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [DonutOutputCache(VaryByParam = "lang;invId",
             VaryByCustom = CustomCacheKeys.Lang,
-            Duration = TimeConsts.Day,
+            Duration = TimeConsts.Second,
             Location = OutputCacheLocation.Server, Order = 2)]
         public ActionResult SignIn()
         {

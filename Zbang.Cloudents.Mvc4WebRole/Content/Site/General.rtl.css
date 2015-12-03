@@ -1,4 +1,21 @@
-﻿.color17 {
+﻿/*@color1: #5f6871;
+@loginColor : #3293f6;
+@registerColor: #fff;
+//@siteBg: #212427;
+
+@textColor:#282828; //text color over white background
+
+@color4: #353a3f;
+@color2: #f5f5f5;
+@color3:#292d31;
+@color5:#6a737d;
+@color6:#326F2D;
+@color7:#3598dc;
+@color8:#90A5DB;
+@color9:#cccccc;
+@color10:#8c99a6;
+@color11:#db4437;*/
+.color17 {
   color: #4faf61;
 }
 .color17.background {
@@ -262,6 +279,79 @@ md-dialog-actions {
   width: 17px;
   height: 17px;
 }
+.create-box .dashboard-stat2 {
+  border: 2px solid #3d4348;
+  background: transparent;
+  color: #3d4348;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.create-box .create-btn {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.create-box .plus {
+  margin-bottom: 12px;
+}
+.create-box .plus svg {
+  width: 50px;
+  height: 50px;
+  fill: #3d4348;
+}
+.create-box span {
+  margin-top: 15px;
+}
+.create-box md-content {
+  background: transparent;
+}
+.create-box md-input-container {
+  padding-bottom: 2px;
+  margin-bottom: 0;
+}
+.create-box md-input-container .md-input {
+  color: #f5f5f5;
+  border-color: #8c99a6;
+  font-size: 18px;
+}
+.create-box md-input-container label {
+  color: #8c99a6;
+}
+.create-box .btn {
+  background: #4190b9;
+  margin: 0 5px;
+  display: block;
+  color: #f5f5f5;
+  border-radius: 5px;
+}
+.create-box .btn:hover {
+  background: #26566e;
+  color: inherit;
+}
+.create-box .btn:focus {
+  color: inherit;
+}
+.create-box .btn-default {
+  background: #f5f5f5;
+  color: #3d4348;
+}
+.create-box .error {
+  color: #db4437;
+  order: 3;
+  margin-top: 10px;
+}
+@media only screen and (max-width: 768px) {
+  .create-box {
+    display: none;
+  }
+}
 .full-screen {
   position: fixed;
   top: 0;
@@ -382,6 +472,11 @@ md-dialog-actions {
   height: 20px;
   width: 20px;
   fill: #3d4348;
+}
+.page-title svg {
+  fill: #484f56;
+  width: 30px;
+  height: 30px;
 }
 .tab-from-right {
   background: none;

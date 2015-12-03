@@ -94,9 +94,8 @@
                         </li>
                         <!-- BEGIN TODO DROPDOWN -->
                         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                        <li class="dropdown dropdown-extended dropdown-tasks dropdown-dark" id="header_task_bar">
+                        @*<li class="dropdown dropdown-extended dropdown-tasks dropdown-dark" ng-controller="UserNotificationController as un">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                @*<i class="icon-calendar"></i>*@
                                 @Html.Svg(svgUrl, "headerNotification", new { @class = "headerNotification" })
                                 <span class="badge badge-notifcation">
                                     3
@@ -189,11 +188,11 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </li>
+                        </li>*@
                         <!-- END TODO DROPDOWN -->
                         <!-- BEGIN USER LOGIN DROPDOWN -->
                         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                        <li class="dropdown dropdown-user dropdown-dark" ng-cloak ng-controller="UserDetailsController as ud">
+                        <li class="dropdown dropdown-user dropdown-dark" ng-controller="UserDetailsController as ud">
                             <a ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <span class="username username-hide-on-mobile">
                                     {{ud.name}}
@@ -222,25 +221,13 @@
                             <a class="btn btn-defalut" target="_self" href="@Url.Action("SignUp", "Account")" ng-if="!ud.isLoggedIn">sign up</a>
                             <a class="btn btn-primary" target="_self" href="@Url.Action("SignIn","Account")" ng-if="!ud.isLoggedIn">log in</a>
                         </li>
-
-                        <!-- END USER LOGIN DROPDOWN -->
-                        <!-- BEGIN USER LOGIN DROPDOWN -->
-                        @*<li class="dropdown dropdown-extended quick-sidebar-toggler">
-                                <span class="sr-only">Toggle Quick Sidebar</span>
-                                <i class="icon-logout"></i>
-                            </li>*@
-                        <!-- END USER LOGIN DROPDOWN -->
                     </ul>
                 </div>
-                <!-- END TOP NAVIGATION MENU -->
             </div>
-            <!-- END PAGE TOP -->
         </div>
-        <!-- END HEADER INNER -->
     </div>
     <div class="clearfix">
     </div>
-    <!-- END HEADER -->
     <div class="page-container">
         @RenderBody()
     </div>

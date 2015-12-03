@@ -1808,6 +1808,7 @@
     <Content Include="Images\Site\info.svg" />
     <Content Include="Images\Site\libChooseIcons.svg" />
     <Content Include="Images\Site\membersOnly.png" />
+    <Content Include="Images\Site\preview_failed_icon.png" />
     <Content Include="Images\Site\quizbackground.png" />
     <Content Include="Images\Site\quizIcons.svg" />
     <Content Include="Images\Site\itemIcons.svg" />
@@ -1949,6 +1950,7 @@
     <Content Include="Js\components\quiz\quizCreate.controller.js" />
     <Content Include="Js\components\search\search.service.js" />
     <Content Include="Js\components\user\user.routes.js" />
+    <Content Include="Js\components\user\userNotification.controller.js" />
     <Content Include="Js\polyfills.js" />
     <Content Include="Js\shared\animClass.js" />
     <Content Include="Js\shared\facebook.js" />
@@ -3029,6 +3031,7 @@
     <Content Include="Views\Box\_Settings.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Views\Library\_Settings.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
