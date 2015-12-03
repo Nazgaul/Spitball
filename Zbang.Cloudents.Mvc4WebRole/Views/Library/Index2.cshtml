@@ -6,39 +6,51 @@
 
 </div>
 <div layout="row" layout-padding layout-wrap class="library margin-top-10">
-    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-if="l.createClassShow">
-        <button type="button" ng-click="l.createBoxOn = true">
-            <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-            <div class="title">add class</div>
-        </button>
-        <form name="createDepartment" novalidate ng-submit="l.createBox()" ng-show="l.createBoxOn">
-            <md-content layout="column">
-                <span class="error" ng-show="l.error">{{l.error}}</span>
-                <md-input-container>
-                    <label>Enter department name</label>
-                    <input autocomplete="off" required ng-model="l.departmentName">
-                </md-input-container>
-            </md-content>
-            <span layout="row" layout-align="space-around center">
-                <button type="button" class="btn btn-default text-capitalize " ng-click="l.createDepartmentOn = false">cancel</button>
-                <button type="submit" class="btn text-capitalize" ng-disabled="!createDepartment.$valid">done</button>
-            </span>
-        </form>
-    </div>
-    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-if="l.createDepartmentShow">
+    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="create-box flex" ng-if="l.createClassShow">
         <div class="dashboard-stat2">
-            <button ng-hide="l.createDepartmentOn" type="button" ng-click="l.createDepartmentOn = true">
+                <button type="button" ng-hide="l.createBoxOn" ng-click="l.createBoxOn = true" class="create-btn">
+                    <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
+                    <div class="title">add class</div>
+                </button>
+                <form name="createDepartment" novalidate ng-submit="l.createBox()" ng-show="l.createBoxOn">
+                    <div layout="column">
+                        <md-content layout="column">
+                            <div layout layout-sm="column">
+                                <md-input-container flex>
+                                    <label>Enter department name</label>
+                                    <input autocomplete="off" required ng-model="l.departmentName">
+                                    <span class="error" ng-show="l.error">{{l.error}}</span>
+                                </md-input-container>
+                            </div>
+                        </md-content>
+
+                    </div>
+                    <span layout="row" layout-align="space-between center">
+                        <button type="button" class="btn btn-default text-capitalize " ng-click="l.createDepartmentOn = false">cancel</button>
+                        <button type="submit" class="btn text-capitalize" ng-disabled="!createDepartment.$valid">done</button>
+                    </span>
+                </form>
+        </div>
+    </div>
+    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="create-box flex" ng-if="l.createDepartmentShow">
+        <div class="dashboard-stat2">
+            <button ng-hide="l.createDepartmentOn" type="button" ng-click="l.createDepartmentOn = true" class="create-btn">
                 <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
                 <div class="title">add department</div>
             </button>
             <form name="createDepartment" novalidate ng-submit="l.createDepartment()" ng-show="l.createDepartmentOn">
-                <md-content layout="column">
-                    <md-input-container>
-                        <label>Enter department name</label>
-                        <input autocomplete="off" required ng-model="l.departmentName">
-                    </md-input-container>
-                    <span class="error" ng-show="l.error">{{l.error}}</span>
-                </md-content>
+                <div layout="column">
+                    <md-content layout="column">
+                        <div layout layout-sm="column">
+                            <md-input-container flex>
+                                <label>Enter department name</label>
+                                <input autocomplete="off" required ng-model="l.departmentName">
+                                <span class="error" ng-show="l.error">{{l.error}}</span>
+                            </md-input-container>
+                        </div>
+                    </md-content>
+
+                </div>
                 <span layout="row" layout-align="space-between center">
                     <button type="button" class="btn btn-default text-capitalize " ng-click="l.createDepartmentOn = false">cancel</button>
                     <button type="submit" class="btn text-capitalize" ng-disabled="!createDepartment.$valid">done</button>
@@ -81,5 +93,5 @@
     </div>
     <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
 
-    
+
 </div>
