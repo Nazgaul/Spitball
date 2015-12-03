@@ -47,7 +47,7 @@
                 <ol class="list-unstyled">
                     <li ng-repeat="post in f.data" class="comment" >
                         <md-menu ng-if="b.canDelete(post.userId)">
-                            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="b.openMenu($mdOpenMenu, $event)">
+                            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
                                 @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
                             </md-button>
                             <md-menu-content width="1">
@@ -76,7 +76,7 @@
                         <ol class="list-unstyled replies" ng-if="post.answers.length">
                             <li ng-repeat="reply in post.answers" class="reply">
                                 <md-menu ng-if="b.canDelete(reply.userId)">
-                                    <md-button aria-label="open menu" class="md-icon-button delete" ng-click="b.openMenu($mdOpenMenu, $event)">
+                                    <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
                                         @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
                                     </md-button>
                                     <md-menu-content width="1">

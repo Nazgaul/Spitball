@@ -20,7 +20,17 @@
             $state.go(element.name, element.params);
         }
 
+        self.openMenu = openMenu;
         self.hideSearch = false;
+
+
+       // var originatorEv;
+        function openMenu($mdOpenMenu, ev) {
+            //originatorEv = ev;
+            $mdOpenMenu(ev);
+        };
+
+        
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
             if (toState.name === 'search') {
                 self.hideSearch = true;

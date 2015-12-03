@@ -13,14 +13,29 @@
                 state: 'department',
                 config: {
                     url: '/library/',
-                    controller: 'Library as l'
+                    controller: 'Library as l',
+                    resolve: {
+                        nodeData: [
+                           'libraryService', function (libraryService) {
+                               return libraryService.getDepartments();
+                           }
+                        ]
+                    }
                 },
+                
                 templateUrl: partial
             },
             {
                 state: 'departmentWithNode', config: {
                     url: '/library/:nodeId/:nodeName/',
-                    controller: 'Library as l'
+                    controller: 'Library as l',
+                    resolve: {
+                        nodeData: [
+                           'libraryService', '$stateParams', function (libraryService, $stateParams) {
+                               return libraryService.getDepartments($stateParams.nodeId);
+                           }
+                        ]
+                    }
                 },
                 templateUrl: partial
             },

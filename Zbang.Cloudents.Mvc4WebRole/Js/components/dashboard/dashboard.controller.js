@@ -27,13 +27,13 @@
         d.deleteBox = deleteBox;
 
 
-        d.openMenu = openMenu;
+        //d.openMenu = openMenu;
 
-        var originatorEv;
-        function openMenu($mdOpenMenu, ev) {
-            originatorEv = ev;
-            $mdOpenMenu(ev);
-        };
+        //var originatorEv;
+        //function openMenu($mdOpenMenu, ev) {
+        //    originatorEv = ev;
+        //    $mdOpenMenu(ev);
+        //};
 
         function deleteBox(ev, box) {
 

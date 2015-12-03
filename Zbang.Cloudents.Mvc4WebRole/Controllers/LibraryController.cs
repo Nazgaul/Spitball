@@ -82,7 +82,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<PartialViewResult> ChoosePartial()
         {
 
-            ViewBag.country = await UserLanguage.GetCountryByIpAsync(HttpContext);;
+            ViewBag.country = await UserLanguage.GetCountryByIpAsync(HttpContext); ;
             return PartialView("Choose");
         }
 
@@ -156,11 +156,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (!universityId.HasValue)
             {
-                return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university), JsonRequestBehavior.AllowGet);
+                return JsonError(LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
             }
             var query = new GetLibraryNodeQuery(universityId.Value, guid, User.GetUserId());
             var result = await ZboxReadService.GetLibraryNodeAsync(query);
-            return Json(new JsonResponse(true, result));
+            return JsonOk(result);
 
         }
 
@@ -258,13 +258,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetModelStateErrors()));
+                return JsonError(GetErrorFromModelState());
             }
             var universityId = User.GetUniversityData();
 
             if (!universityId.HasValue)
             {
-                return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
+                return JsonError(LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
             }
 
             try
@@ -273,15 +273,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new AddNodeToLibraryCommand(model.Name, universityId.Value, parentId, User.GetUserId());
                 ZboxWriteService.CreateDepartment(command);
                 var result = new NodeDto { Id = command.Id, Name = model.Name, Url = command.Url };
-                return Json(new JsonResponse(true, result));
+                return JsonOk(result);
             }
             catch (DuplicateDepartmentNameException)
             {
-                return Json(new JsonResponse(false, LibraryControllerResources.DepartmentAlreadyExists));
+                return JsonError(LibraryControllerResources.DepartmentAlreadyExists);
             }
             catch (BoxesInDepartmentNodeException)
             {
-                return Json(new JsonResponse(false, "Cannot add library to box node"));
+                return JsonError("Cannot add library to box node");
             }
         }
 
@@ -388,7 +388,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             AuthenticationManager.SignIn(user);
 
-            return JsonOk( new
+            return JsonOk(new
             {
                 command.Id,
                 //name = model.Name

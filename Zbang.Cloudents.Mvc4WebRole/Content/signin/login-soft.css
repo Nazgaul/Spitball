@@ -169,6 +169,11 @@ Login page
   height: 45px;
   margin-top: 25px;
 }
+.login .content .check-email-message .text button {
+  color: #3293f6;
+  background: none;
+  border: none;
+}
 .login .content .form-actions {
   background-color: transparent;
   clear: both;

@@ -10,5 +10,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Library
         public string Url { get; set; }
 
         public int NoBoxes { get; set; }
+
+        public int NoDepartment { get; set; }
     }
 }
