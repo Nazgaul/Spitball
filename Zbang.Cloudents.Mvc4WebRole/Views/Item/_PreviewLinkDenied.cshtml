@@ -1,7 +1,8 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
 @model Zbang.Cloudents.Mvc4WebRole.Models.ItemPreview
 
-<div class="previewDenied">
-    <h2>@ItemsResources.SecurityReasons</h2>
+<div class="preview-page previewDenied">
+    <img src="@Url.CdnContent("~/Images/Site/preview_denied.png")" alt="Preview failed">
+    <p>@ItemsResources.SecurityReasons</p>
     <a class="previewDeniedBtn" href="@Model.Src.FirstOrDefault()" target="_blank">@ItemsResources.OpenLink</a>
 </div>
