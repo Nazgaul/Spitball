@@ -1991,9 +1991,6 @@
     <Content Include="Js\CDNFallback.min.js">
       <DependentUpon>CDNFallback.js</DependentUpon>
     </Content>
-    <Content Include="Js\RT.js" />
-    <Content Include="Js\staticShim.js" />
-    <Content Include="Js\TooltipGuide.js" />
     <Content Include="Js\Logon.js" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />

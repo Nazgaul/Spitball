@@ -5,8 +5,8 @@
     </div>
 
 </div>
-<div class="row library margin-top-10">
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6" ng-repeat="dep in l.departments">
+<div layout="row" layout-padding layout-wrap class="library margin-top-10">
+    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-repeat="dep in l.departments">
         <a href="{{::dep.url}}" class="dashboard-stat2 department" d-color="{{::dep.name.length}}">
             <div class="corner" d-color="{{::dep.name.length}}">
             </div>
@@ -26,5 +26,18 @@
             </div>
         </a>
     </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
+    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
+    
+    <div flex-gt-lg ="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex">
+        <button type="button" ng-click="d.createBoxOn = true" class="create-btn">
+            <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
+            <div class="title">add study group</div>
+        </button>
+    </div>
+    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex">
+        <button type="button" ng-click="d.createBoxOn = true" class="create-btn">
+            <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
+            <div class="title">add study group</div>
+        </button>
+    </div>
 </div>
