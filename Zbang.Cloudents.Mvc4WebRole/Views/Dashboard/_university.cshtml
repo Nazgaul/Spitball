@@ -1,4 +1,6 @@
-﻿<div class="portlet light unibox" ng-controller="UniversityController as u">
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
+
+<div class="portlet light unibox" ng-controller="UniversityController as u">
     <md-progress-circular ng-if="u.loading" md-mode="indeterminate" class="circle-loading"></md-progress-circular>
     <div class="clearfix" ng-if="!u.loading">
         
@@ -7,11 +9,11 @@
             <span>{{::u.info.name}}</span>
         </div>
         <div class="universityStats">
-            <div>{{::u.info.numOfBoxes | megaNumber}} courses</div>
-            <div>{{::u.info.numOfUsers | megaNumber}} membres</div>
-            <div>{{::u.info.numOfItems | megaNumber}} files</div>
+            <div>{{::u.info.numOfBoxes | megaNumber}} @IndexResource.Courses</div>
+            <div>{{::u.info.numOfUsers | megaNumber}} @IndexResource.Members</div>
+            <div>{{::u.info.numOfItems | megaNumber}} @IndexResource.Files</div>
         </div>
     </div>
-    <a href="#" ui-sref="department" class="universityLink">Browse courses</a>
+    <a href="#" ui-sref="department" class="universityLink text-capitalize">@IndexResource.Browse</a>
 </div>
 

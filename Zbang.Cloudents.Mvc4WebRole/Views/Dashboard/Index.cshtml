@@ -1,4 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
 <div class="dashboard">
     <div class="page-head"> </div>
     <div uib-collapse="!d.inviteOpen">
@@ -20,7 +22,7 @@
             <div class="portlet light invite">
                 <button type="button" ng-click="d.inviteToSpitabll()" class="portlet-body">
                     @Html.Svg("~/images/site/icons.svg", "invite")
-                    Invite your friends to spitball
+                    @IndexResource.InviteToSpitball
                 </button>
             </div>
         </div>
@@ -28,7 +30,7 @@
             <div class="dashboard-stat2">
                 <button ng-hide="d.createBoxOn" type="button" ng-click="d.createBoxOn = true" class="create-btn">
                     <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-                    <div class="title">add study group</div>
+                    <div class="title">@IndexResource.StudyGroup</div>
                 </button>
                 <form name="createBox" novalidate ng-submit="cb.create()" ng-show="d.createBoxOn" ng-controller="CreateBoxController as cb">
                     <div layout="column">
@@ -44,8 +46,8 @@
 
                     </div>
                     <span>
-                        <button type="button" class="btn btn-default text-capitalize pull-left" ng-click="d.createBoxOn = false">cancel</button>
-                        <button type="submit" class="btn text-capitalize pull-right" ng-disabled="!createBox.$valid">done</button>
+                        <button type="button" class="btn btn-default text-capitalize pull-left" ng-click="d.createBoxOn = false">@GeneralResources.Cancel</button>
+                        <button type="submit" class="btn text-capitalize pull-right" ng-disabled="!createBox.$valid">@GeneralResources.Done</button>
                     </span>
                 </form>
             </div>
@@ -75,4 +77,4 @@
     </div>
 </div>
 
-<button type="button" class="add visible-xs-block" ng-click="d.createBoxOn = true" ng-hide="d.createBoxOn">+</button>
+<button type="button" class="add visible-xs-block" ng-click="d.createBoxOn = true" ng-hide="d.createBoxOn">@GeneralResources.Plus</button>
