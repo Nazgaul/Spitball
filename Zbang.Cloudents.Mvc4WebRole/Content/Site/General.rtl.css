@@ -469,6 +469,11 @@ md-dialog-actions {
   width: 20px;
   fill: #3d4348;
 }
+.page-title svg {
+  fill: #484f56;
+  width: 30px;
+  height: 30px;
+}
 .tab-from-right {
   background: none;
   margin: 0;

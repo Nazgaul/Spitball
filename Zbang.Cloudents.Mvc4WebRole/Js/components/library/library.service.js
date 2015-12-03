@@ -53,5 +53,16 @@
                 departmentId: nodeId
             });
         };
+        /*[Required]
+        public string Id { get; set; }
+
+        [Required(AllowEmptyStrings = false)]
+        public string NewName { get; set; }*/
+        d.renameNode = function(name,nodeId) {
+            return ajaxservice.post('/library/renamenode/', {
+                id: nodeId,
+                newName: name
+            });
+        }
     }
 })();

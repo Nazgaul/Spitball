@@ -213,29 +213,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var guid = GuidEncoder.TryParseNullableGuid(model.Id);
             if (!guid.HasValue)
             {
-                ModelState.AddModelError(string.Empty, "Error");
+                return JsonError("need node");
             }
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetModelStateErrors().First().Value[0]));
+                return JsonError(GetErrorFromModelState());
             }
 
             var universityId = User.GetUniversityData();
 
             if (!universityId.HasValue)
             {
-                return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university));
+                return JsonError(LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
             }
             try
             {
                 var command = new RenameNodeCommand(model.NewName, guid.Value, universityId.Value);
 
                 ZboxWriteService.RenameNodeLibrary(command);
-                return Json(new JsonResponse(true));
+                return JsonOk();
             }
             catch (ArgumentException ex)
             {
-                return Json(new JsonResponse(false, ex.Message));
+                return JsonError(ex.Message);
             }
         }
         #endregion
