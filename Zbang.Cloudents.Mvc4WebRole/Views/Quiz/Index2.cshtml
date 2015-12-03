@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources
+
+@{
     const string svgUrl = "~/images/site/quizIcons.svg";
 }
 
@@ -18,13 +20,13 @@
             <div ng-if="q.state === 4" class="solveActions">
                 <div class="row margin-bottom-15">
                     <div class="col-sm-4 col-sm-offset-4">
-                        <button class="retake" type="button" ng-click="q.retakeQuiz()">retake quiz</button>
+                        <button class="retake" type="button" ng-click="q.retakeQuiz()">@QuizResources.Retake</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4 col-xs-12 margin-bottom-15">
                         <div class="black-bullet score">
-                            <h5>Your score:</h5>
+                            <h5 class="text-capitalize">@QuizResources.Score</h5>
                             {{q.sheet.score}}
                         </div>
                     </div>
@@ -34,13 +36,13 @@
                             <div>
                                 @Html.Svg(svgUrl, "correct")
                                 <div>
-                                    <h6>correct</h6>
+                                    <h6>@QuizResources.Correct</h6>
                                     {{q.sheet.correct}}
                                 </div>
                             </div>
                             <div>
                                 <div>
-                                    <h6>wrong</h6>
+                                    <h6>@QuizResources.Wrong</h6>
                                     {{q.sheet.wrong}}
 
                                 </div>
@@ -69,7 +71,7 @@
                     @*<div class="progress-wrapper">*@
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="{{q.index/q.questions.length*100}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width: q.index/q.questions.length*100 + '%'}">
-                            <span class="sr-only">{{q.index/q.questions.length*100}}% Complete</span>
+                            <span class="sr-only">{{q.index/q.questions.length*100}}% @QuizResources.Complete</span>
                         </div>
                     </div>
                     @*</div>*@
@@ -77,12 +79,12 @@
             </div>
             <div class="quiz-challenge" ng-if="q.state === 1" ng-include="'quizChallenge.html'"></div>
             <div class="quiz-wrapper" ng-class="q.isCorrect(q.questions[q.index])" ng-if="q.state === 2 || q.state === 4">
-                <div class="no-answer-element">no answer given</div>
+                <div class="no-answer-element">@QuizResources.NoAnswer</div>
                 <div ng-if="q.index < q.questions.length" ng-include="'quiz-question-template.html'" ng-repeat="question in ::q.questions"></div>
                 <div ng-if="q.state === 4"  class="add-discussion">
                     <form class="clearfix" novalidate name="addDiscussion"  ng-submit="q.postComment(q.questions[q.index])">
                         <textarea required placeholder="Write a comment" ng-model="q.questions[q.index].newComment"></textarea>
-                        <button class="btn pull-right send" ng-disabled="!addDiscussion.$valid" type="submit">post</button>
+                        <button class="btn pull-right send" ng-disabled="!addDiscussion.$valid" type="submit">@QuizResources.Post</button>
                     </form>
                     <ol class="list-unstyled feed">
                         <li class="comment reply" ng-repeat="post in q.questions[q.index].comments">

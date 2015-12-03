@@ -117,22 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cancel" xml:space="preserve">
-    <value>cancel</value>
-  </data>
-  <data name="Create" xml:space="preserve">
-    <value>create</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>delete</value>
-  </data>
-  <data name="Done" xml:space="preserve">
-    <value>done</value>
-  </data>
-  <data name="Like" xml:space="preserve">
-    <value>like</value>
-  </data>
-  <data name="SaveChanges" xml:space="preserve">
-    <value>save changes</value>
-  </data>
 </root>

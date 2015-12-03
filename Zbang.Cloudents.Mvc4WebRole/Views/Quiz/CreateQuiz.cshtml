@@ -1,51 +1,53 @@
-﻿<div class="full-screen quiz-create">
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources
+
+<div class="full-screen quiz-create">
     <header>
-        <div class="text-center text-capitalize">create a quiz</div>
+        <div class="text-center text-capitalize">@QuizResources.CreateQuiz</div>
         <button type="button" ng-click="q.openClose()" class="close">@Html.Svg("~/images/site/icons.svg", "close")</button>
     </header>
-    <div class=" full-screen-body not-supported">this is not supported section</div>
+    <div class=" full-screen-body not-supported">@QuizResources.NotSupported</div>
 
     <div class="supported" next-question>
 
-        <span>Course: Name</span>
+        <span>@QuizResources.Course Name</span>
         <input class="form-control" ng-disabled="q.quizNameDisabled" type="text" placeholder="Enter quiz name" autofocus required ng-model="q.name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
         <button type="button" ng-click="q.quizNameDisabled = false">@Html.Svg("~/images/site/icons.svg", "edit")</button>
         <div class="quiz-wrapper" ng-repeat="question in q.questions" ng-include="q.template(question)"></div>
-        <button type="button" class="btn btn-primary text-capitalize add-question" ng-click="q.addQuestion()">+ add question</button>
-        <button type="button" ng-click="q.publish()" class="btn btn-primary text-capitalize pull-right">publish</button>
+        <button type="button" class="btn btn-primary text-capitalize add-question" ng-click="q.addQuestion()">@Html.Svg("~/images/site/icons.svg", "add") @QuizResources.AddQuestion</button>
+        <button type="button" ng-click="q.publish()" class="btn btn-primary text-capitalize pull-right">@QuizResources.Publish</button>
     </div>
 </div>
 
 <script type="text/ng-template" id="create-quiz-question-template.html">
     <div id="{{question.$$hashKey}}" ng-form="questionForm" class="portlet box blue create-question">
         <div class="portlet-title">
-            <div class="caption">Question #{{$index + 1}}</div>
+            <div class="caption text-capitalize">@QuizResources.QuestionNumber{{$index + 1}}</div>
             <div class="tools">
                 <button type="button" ng-show="q.deleteQuestionShow()" ng-click="q.deleteQuestion(question)">@Html.Svg("~/images/site/icons.svg", "delete")</button>
             </div>
         </div>
         <div class="portlet-body">
             <div placeholder="Write your question:" ng-blur="q.saveQuestion(question)" text-angular ta-text-editor-class="question-content" ng-model="question.text" data-ng-required></div>
-            <div class="answers-header">Answers:</div>
-            <span class="correct-answer-error">correct answer</span>
+            <div class="answers-header text-capitalize">@QuizResources.Answers</div>
+            <span class="correct-answer-error">@QuizResources.CorrectAnswer</span>
             <ol class ="counter">
                 <li class="answer counter-inc" ng-repeat="answer in question.answers">
                     <div>
                         <span class="counter-view"></span>
-                        <input type="text" required ng-model="answer.text" ng-blur="q.saveAnswer(question,answer)" placeholder="Answer {{$index + 1}}" />
+                        <input type="text" required ng-model="answer.text" ng-blur="q.saveAnswer(question,answer)" placeholder="@QuizResources.Answer {{$index + 1}}" />
                     </div>
                     <input required type="radio" name="question {{$parent.$index}}" ng-disabled="!answer.text.length" ng-click="q.markcorrect(question,answer)" ng-checked="answer.id === question.correctAnswer" />
                     <button type="button" ng-show="q.deleteAnswerShow(question)" ng-click="q.deleteAnswer(question,answer)">@Html.Svg("~/images/site/icons.svg", "delete")</button>
-                    <span class="error-answer-msg">Add answer</span>
+                    <span class="error-answer-msg">@QuizResources.AddAnswer</span>
                 </li>
                 <li class="answer add-answer counter-inc" ng-click="q.addAnswer(question)">
                     <div>
                         <span class="counter-view"></span>
-                        <input type="text" placeholder="Add an answer" />
+                        <input type="text" placeholder="@QuizResources.AddAnswer" />
                     </div>
                     <input disabled type="radio" />
                 </li>
-            </olclass>
+            </ol>
         </div>
     </div>
 </script>
@@ -75,11 +77,11 @@
 
 
 <script type="text/ng-template" id="quiz-create-leave-template.html">
-    <h4>Are you sure you want to leave this quiz?</h4>
-    <div>You can choose to save the quiz as a 'draft' for future editing</div>
-    <div>(only you can see and edit the draft)</div>
+    <h4 class ="text-capitalize">@QuizResources.Leave</h4>
+    <div class="text-capitalize">@QuizResources.CanChoose</div>
+    <div>(@QuizResources.OnlyYou)</div>
     <div class="buttons">
-        <button type="button" class="btn btn-default save" ng-click="c.draft()">Save as draft</button>
-        <button type="button" class="btn btn-default delete" ng-click="c.delete()">Delete</button>
+        <button type="button" class="btn btn-default save text-capitalize" ng-click="c.draft()">@QuizResources.Draft</button>
+        <button type="button" class="btn btn-default delete text-capitalize" ng-click="c.delete()">@QuizResources.Delete</button>
     </div>
 </script>

@@ -36,7 +36,7 @@
   color: inherit;
 }
 .invite {
-  background: #353a3f;
+  background: #323538;
   padding: 0 10px 10px;
 }
 .invite .tab-from-right {
@@ -143,7 +143,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  color: #a8b3bb;
+  color: #c3c3c3;
 }
 @media (min-width: 900px) {
   .chipsdemoContactChips .contact-item {

@@ -1,45 +1,47 @@
-﻿@{
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources
+
+@{
     const string svgUrl = "~/images/site/quizIcons.svg";
 }
 
 <script type="text/ng-template" id="quizChallenge.html">
-    <h4>Time to</h4>
-    <h5>take a quiz</h5>
+    <h4 class="text-capitalize">@QuizResources.Time</h4>
+    <h5 class="text-capitalize">@QuizResources.Take</h5>
     <div class="classmates backgrounds">
         <div>
             <div ng-repeat="user in ::q.topUsers">
                 <user-image class="img-circle c-img" name="::user.name" image="::user.image" width="25" height="25"></user-image>
             </div>
         </div>
-        <span>{{::q.classmatesCount}} of your classmates took this quiz</span>
+        <span>{{::q.classmatesCount}} @QuizResources.OfClassmates</span>
     </div>
     <div class="ready backgrounds">
         @Html.Svg("/images/site/quizicons.svg", "bald")
-        <span>Are you read to test yourself?</span>
+        <span class="text-capitalize">@QuizResources.TestYourself</span>
     </div>
     <div class="buttons">
-        <button type="button" class="btn btn-default scared" ng-click="q.afraid()">Not yet, I'm scared</button>
-        <button type="button" class="btn btn-primary chance" ng-click="q.start()">Take a chance</button>
+        <button type="button" class="btn btn-default scared" ng-click="q.afraid()">@QuizResources.Scared</button>
+        <button type="button" class="btn btn-primary chance" ng-click="q.start()">@QuizResources.Chance</button>
     </div>
 </script>
 
 
 <script type="text/ng-template" id="quizGoodJob.html">
     <div class="goodjob">
-        <h5 class="text-uppercase good">Good </h5>
-        <h4 class="text-uppercase"> job</h4>
+        <h5 class="text-uppercase good">@QuizResources.Good </h5>
+        <h4 class="text-uppercase"> @QuizResources.Job</h4>
     </div>
     <div class="complete backgrounds">
         @Html.Svg("/images/site/quizicons.svg", "checkmark")
-        <span>you have completed the quiz</span>
+        <span>@QuizResources.CompletedQuiz</span>
     </div>
     <div class="ranking backgrounds">
         @Html.Svg("/images/site/quizicons.svg", "rank")
-        <span>you have answered {{q.answersCount}}/{{::q.questions.length}}</span>
+        <span>@QuizResources.Answered {{q.answersCount}}/{{::q.questions.length}}</span>
     </div>
     <div class="buttons">
-        <button type="button" class="btn btn-default scared" ng-click="q.back()">Go back and check</button>
-        <button type="button" class="btn btn-primary chance" ng-click="q.checkAnswers()">Submit</button>
+        <button type="button" class="btn btn-default scared text-capitalize" ng-click="q.back()">@QuizResources.GoBack</button>
+        <button type="button" class="btn btn-primary chance text-capitalize" ng-click="q.checkAnswers()">@QuizResources.Submit</button>
      </div>
 </script>
 
