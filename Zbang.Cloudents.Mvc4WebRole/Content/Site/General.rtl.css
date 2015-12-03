@@ -205,7 +205,7 @@ textarea,
     }*/
 }
 .dd-list md-content {
-  background: #353a3f;
+  background: #323538;
   color: #f5f5f5;
 }
 .dd-list md-option {
@@ -234,7 +234,7 @@ md-select .md-select-value.md-select-placeholder {
   color: #f5f5f5;
 }
 md-input-container:not(.md-input-invalid).md-input-has-value label {
-  color: #8c99a6;
+  color: #888b8e;
 }
 md-input-container label {
   color: #3d4348;
@@ -322,7 +322,7 @@ md-dialog-actions {
   font-size: 18px;
 }
 .create-box md-input-container label {
-  color: #8c99a6;
+  color: #888b8e;
 }
 .create-box .btn {
   background: #4190b9;
@@ -360,13 +360,13 @@ md-dialog-actions {
   left: 0;
   z-index: 1000;
   overflow-y: auto;
-  background: #212427;
+  background: #181c1d;
   background: #f5f5f5;
 }
 .full-screen header {
   height: 80px;
   color: #f5f5f5;
-  background-color: #353a3f;
+  background-color: #323538;
   line-height: 80px;
   position: fixed;
   right: 0;
@@ -532,7 +532,7 @@ md-dialog-actions {
 .tabbable {
   border-bottom: none;
   border-radius: 5px;
-  background: #353a3f;
+  background: #323538;
   padding: 10px 10px 0;
   margin-bottom: 20px;
   font-size: 16px;
@@ -575,7 +575,7 @@ md-dialog-actions {
 }
 .nav-tabs li > a,
 .tabbable li > a {
-  color: #8c99a6;
+  color: #888b8e;
   font-size: 16px;
   border: none;
 }

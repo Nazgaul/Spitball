@@ -16,18 +16,18 @@
 @color10:#8c99a6;
 @color11:#db4437;*/
 .search ::-webkit-input-placeholder {
-  color: #8c99a6;
+  color: #888b8e;
 }
 .search :-moz-placeholder {
   /* Firefox 18- */
-  color: #8c99a6;
+  color: #888b8e;
 }
 .search ::-moz-placeholder {
   /* Firefox 19+ */
-  color: #8c99a6;
+  color: #888b8e;
 }
 .search :-ms-input-placeholder {
-  color: #8c99a6;
+  color: #888b8e;
 }
 .search .nav-tabs,
 .search .tabbable {
@@ -77,7 +77,7 @@
 .search .item .extra-details h5,
 .search .quiz .extra-details h5 {
   margin: 21px 0;
-  color: #8c99a6;
+  color: #888b8e;
 }
 .search-text {
   font-size: 7em;

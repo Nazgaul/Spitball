@@ -12,6 +12,23 @@
 General reset
 ***/
 /* Set default body */
+/*@color1: #5f6871;
+@loginColor : #3293f6;
+@registerColor: #fff;
+//@siteBg: #212427;
+
+@textColor:#282828; //text color over white background
+
+@color4: #353a3f;
+@color2: #f5f5f5;
+@color3:#292d31;
+@color5:#6a737d;
+@color6:#326F2D;
+@color7:#3598dc;
+@color8:#90A5DB;
+@color9:#cccccc;
+@color10:#8c99a6;
+@color11:#db4437;*/
 body {
   color: #f5f5f5;
   font-family: "Open Sans", sans-serif;
@@ -2528,14 +2545,14 @@ Chats
   margin-left: 10px;
 }
 .chats li .name {
-  color: #3598dc;
+  color: #3d4348;
   font-size: 13px;
   font-weight: 400;
   margin-right: 5px;
   unicode-bidi: embed;
 }
 .chats li.out .name {
-  color: #3598dc;
+  color: #3d4348;
   margin-right: 5px;
 }
 .chats li .datetime {
@@ -2563,7 +2580,7 @@ Chats
   margin-right: 65px;
   background: #f5f5f5;
   text-align: right;
-  color: #353a3f;
+  color: #3d4348;
 }
 .chats li.in .message .arrow {
   position: absolute;
@@ -4801,7 +4818,7 @@ Portlets
 /* Light Portlet */
 .portlet.light {
   padding: 12px 20px 15px 20px;
-  background-color: #353a3f;
+  background-color: #323538;
 }
 .portlet.light.bordered {
   border: 1px solid #e1e1e1 !important;
@@ -4957,7 +4974,7 @@ Dashboard Stats 2
 ***/
 .dashboard-stat2 {
   border-radius: 4px;
-  background: #353a3f;
+  background: #181c1d;
   padding: 15px 15px 30px 15px;
   margin-bottom: 20px;
   display: block;
@@ -5374,7 +5391,7 @@ Responsive & Scrollable Tables
   float: left;
   margin: 0 !important;
   margin-bottom: 0;
-  background-color: #353a3f;
+  background-color: #323538;
 }
 .table-scrollable > .table > thead > tr > th,
 .table-scrollable > .table > tbody > tr > th,
@@ -5621,7 +5638,7 @@ Light Table
 .table.table-light.table-hover > tbody > tr > th:hover,
 .table.table-light.table-hover > tbody > tr:hover > td,
 .table.table-light.table-hover > tbody > tr:hover > th {
-  background: #353a3f;
+  background: #323538;
 }
 /***
 Customized Bootstrap Tabs 
@@ -5860,24 +5877,24 @@ Custom tabs
 }
 .tabbable-line > .nav-tabs > li.open,
 .tabbable-line > .nav-tabs > li:hover {
-  border-bottom: 4px solid #90a5db;
+  border-bottom: 4px solid #3598dc;
 }
 .tabbable-line > .nav-tabs > li.open > a,
 .tabbable-line > .nav-tabs > li:hover > a {
   border: 0;
   background: none !important;
-  color: #3598dc;
+  color: #3d4348;
 }
 .tabbable-line > .nav-tabs > li.open > a > i,
 .tabbable-line > .nav-tabs > li:hover > a > i {
-  color: #3598dc;
+  color: #3d4348;
 }
 .tabbable-line > .nav-tabs > li.open .dropdown-menu,
 .tabbable-line > .nav-tabs > li:hover .dropdown-menu {
   margin-top: 0;
 }
 .tabbable-line > .nav-tabs > li.active {
-  border-bottom: 4px solid #3598dc;
+  border-bottom: 4px solid #3d4348;
   position: relative;
 }
 .tabbable-line > .nav-tabs > li.active > a {

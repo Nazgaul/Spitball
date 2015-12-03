@@ -43,25 +43,25 @@
   margin-right: 25px;
 }
 .invite .body {
-  background: #212427;
+  background: #181c1d;
 }
 .invite md-content {
-  background: #212427;
+  background: #181c1d;
   position: relative;
 }
 .invite md-content ::-webkit-input-placeholder {
-  color: #8c99a6;
+  color: #888b8e;
 }
 .invite md-content :-moz-placeholder {
   /* Firefox 18- */
-  color: #8c99a6;
+  color: #888b8e;
 }
 .invite md-content ::-moz-placeholder {
   /* Firefox 19+ */
-  color: #8c99a6;
+  color: #888b8e;
 }
 .invite md-content :-ms-input-placeholder {
-  color: #8c99a6;
+  color: #888b8e;
 }
 .invite md-list md-list-item button.md-button:not([disabled]):hover {
   background-color: transparent;

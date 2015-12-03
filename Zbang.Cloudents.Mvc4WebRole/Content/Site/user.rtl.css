@@ -95,7 +95,7 @@
 .userPage .tabbable h3 {
   font-size: 13px;
   margin: 12px 0 8px 0;
-  color: #8c99a6;
+  color: #888b8e;
 }
 .userPage .portlet.light {
   padding: 0;
@@ -119,7 +119,7 @@
   display: inline-block;
 }
 .userPage .posts .time-ago {
-  color: #8c99a6;
+  color: #888b8e;
   font-size: 18px;
   flex-basis: 200px;
   text-align: left;
