@@ -39,7 +39,7 @@
                 <div class="title">add class</div>
             </button>
             <form name="createBox" novalidate ng-submit="l.createBox()" ng-show="l.createBoxOn">
-                <md-content layout="column">
+                <md-content layout="column" flex>
                     <span class="error" ng-show="l.error">{{l.error}}</span>
                     <md-input-container flex ng-if="!l.secondStep">
                         <label>Enter class name</label>
@@ -55,7 +55,7 @@
                     </md-input-container>
                     <span class="error" ng-show="l.error">{{l.error}}</span>
                 </md-content>
-                <span layout="row" layout-align="space-around center">
+                <span layout="row" layout-align="space-between stretch">
                     <button type="button" class="btn btn-default text-capitalize " ng-click="l.boxCancel()">cancel</button>
                     <button type="button" class="btn text-capitalize" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()">next</button>
                     <button type="submit" class="btn text-capitalize" ng-if="l.secondStep" ng-disabled="!createBox.$valid">done</button>
