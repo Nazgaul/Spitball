@@ -53,7 +53,7 @@
                             <md-menu-content width="1">
                                 <md-menu-item>
                                     <md-button aria-label="delete post" ng-click="f.deleteComment($event,post)">
-                                        @Html.Svg("~/images/site/icons.svg", "delete", new { @class = "delete-icon" })
+                                       @GeneralResources.Delete
                                     </md-button>
                                 </md-menu-item>
                             </md-menu-content>
@@ -68,9 +68,9 @@
                         </ul>
                         <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:m'}}</span>
                         <div class="actions">
-                            <button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>
+                            @*<button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>*@
                             <button type="button" class=" text-capitalize margins" show-form>@BoxResources.Comment</button>
-                            <button type="button" class="margins share">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
+                            @*<button type="button" class="margins share">@Html.Svg("~/images/site/box-icons.svg", "share")</button>*@
                             <span class="ribbon" ng-if="post.isNew">New</span>
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.answers.length">
@@ -82,7 +82,7 @@
                                     <md-menu-content width="1">
                                         <md-menu-item>
                                             <md-button aria-label="delete reply" ng-click="f.deleteReply($event,post,reply)">
-                                                @Html.Svg("~/images/site/icons.svg", "delete", new { @class = "delete-icon" })
+                                                @GeneralResources.Delete
                                             </md-button>
                                         </md-menu-item>
                                     </md-menu-content>
@@ -109,8 +109,8 @@
                                 </ul>
                                 <span class="comment-date">{{::reply.creationTime | date : 'MMM d,yyyy H:m'}}</span>
                                 <div class="actions padding">
-                                    <button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>
-                                    <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
+                                    @*<button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>
+                                    <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>*@
                                     <span class="ribbon" ng-if="post.isNew">New</span>
                                 </div>
                             </li>

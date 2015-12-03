@@ -19,9 +19,9 @@
 .library .corner:after {
   content: "";
   display: inline-block;
-  border-left: 40px solid transparent;
-  border-bottom: 40px solid transparent;
-  border-right: 40px solid;
+  border-left: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  border-right: 50px solid;
   position: absolute;
   top: 0;
   right: 0;
@@ -30,6 +30,19 @@
   position: relative;
 }
 .library .department {
-  border: 2px solid;
-  color: #a8b3bb;
+  border-radius: 0;
+  border: 4px solid;
+  color: #c3c3c3;
+}
+.library .department .display {
+  margin-bottom: 0;
+}
+.library .department .display h3 {
+  margin-top: 12px;
+}
+.library .department .display .number {
+  height: 100px;
+}
+.library .department .status {
+  margin-top: 15px;
 }

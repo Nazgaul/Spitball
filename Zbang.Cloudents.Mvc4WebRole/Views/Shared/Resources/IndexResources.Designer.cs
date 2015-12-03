@@ -22,14 +22,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class GeneralResources {
+    public class IndexResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal GeneralResources() {
+        internal IndexResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources.GeneralResources", typeof(GeneralResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources.IndexResources", typeof(IndexResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,47 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to cancel.
+        ///   Looks up a localized string similar to draft.
         /// </summary>
-        public static string Cancel {
+        public static string Draft {
             get {
-                return ResourceManager.GetString("Cancel", resourceCulture);
+                return ResourceManager.GetString("Draft", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to create.
+        ///   Looks up a localized string similar to invite your friends to spitball.
         /// </summary>
-        public static string Create {
+        public static string Invite {
             get {
-                return ResourceManager.GetString("Create", resourceCulture);
+                return ResourceManager.GetString("Invite", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to delete.
+        ///   Looks up a localized string similar to items.
         /// </summary>
-        public static string Delete {
+        public static string Items {
             get {
-                return ResourceManager.GetString("Delete", resourceCulture);
+                return ResourceManager.GetString("Items", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to done.
+        ///   Looks up a localized string similar to members.
         /// </summary>
-        public static string Done {
+        public static string Members {
             get {
-                return ResourceManager.GetString("Done", resourceCulture);
+                return ResourceManager.GetString("Members", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to like.
+        ///   Looks up a localized string similar to suggested.
         /// </summary>
-        public static string Like {
+        public static string Suggested {
             get {
-                return ResourceManager.GetString("Like", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to save changes.
-        /// </summary>
-        public static string SaveChanges {
-            get {
-                return ResourceManager.GetString("SaveChanges", resourceCulture);
+                return ResourceManager.GetString("Suggested", resourceCulture);
             }
         }
     }

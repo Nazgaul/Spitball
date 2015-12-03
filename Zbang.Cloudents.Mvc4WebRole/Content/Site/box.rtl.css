@@ -455,7 +455,7 @@
 .quiz .details {
   display: none;
   height: 325px;
-  background: #353a3f;
+  background: #323538;
   padding: 10px;
   color: #f5f5f5;
   direction: ltr ;
@@ -651,7 +651,7 @@
 }
 .upload .uploadSection span {
   display: block;
-  background: #353a3f;
+  background: #323538;
   border-radius: 50%;
   width: 110px;
   height: 110px;
