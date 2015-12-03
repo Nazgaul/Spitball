@@ -28,16 +28,28 @@
         self.add.google = google;
         self.add.dropbox = dropbox;
 
-       
+
         self.deleteComment = deleteComment;
-       
+
         self.deleteReply = deleteReply;
+        self.postItemTemplate = postItemTemplate;
 
         boxService.getFeed(boxId).then(function (response) {
             self.data = response;
 
             for (var i = 0; i < self.data.length; i++) {
-                self.data[i].files = itemThumbnailService.assignValues(self.data[i].files, 100, 125);
+                var files = self.data[i].files;
+                for (var j = 0; j < files.length; j++) {
+                    var item = files[j];
+                    if (item.type) {
+                        var retVal = itemThumbnailService.assignValue(item.source, 100, 125);
+                        item.thumbnail = retVal.thumbnail;
+                        item.icon = retVal.icon;
+                    } else {
+                        item.publish = true;
+                    }
+                }
+                //self.data[i].files = itemThumbnailService.assignValues(self.data[i].files, 100, 125);
                 for (var k = 0; k < self.data[i].answers.length; k++) {
                     self.data[i].answers[k].files = itemThumbnailService.assignValues(self.data[i].answers[k].files, 100, 125);
                 }
@@ -50,9 +62,14 @@
                 }
             });
         });
-        
-        
-       
+
+
+        function postItemTemplate(elmenet) {
+            if (elmenet.type) {
+                return 'item-template.html';
+            }
+            return 'quiz-template.html';
+        }
         function attachNew(update) {
             if (update.itemId) {
                 for (var i = 0; i < self.data.length; i++) {
