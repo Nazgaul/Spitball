@@ -80,10 +80,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new ItemNotFoundException();
                 }
-                if (Request.Url != null && model.Url != Server.UrlDecode(Request.Url.AbsolutePath))
+                if (UrlConsts.NameToQueryString(model.Name) != itemName)
                 {
                     throw new ItemNotFoundException();
                 }
+                
                 if (model.Discriminator.ToUpper() != "FILE") return View("Empty");
                 ViewBag.imageSrc = ViewBag.fbImage = "https://az779114.vo.msecnd.net/preview/" + model.ImageUrl +
                                   ".jpg?width=1200&height=630&mode=crop";
@@ -110,7 +111,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (ItemNotFoundException)
             {
-                return RedirectToAction("Index", "Error");
+                return RedirectToAction("NotFound", "Error");
             }
             catch (Exception ex)
             {
