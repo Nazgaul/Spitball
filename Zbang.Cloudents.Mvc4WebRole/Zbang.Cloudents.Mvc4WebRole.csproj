@@ -535,6 +535,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Views\Library\Resources\LibraryResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibraryResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Library\Resources\MainViewResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3018,6 +3023,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\Quiz\Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -3358,6 +3364,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.ru.resx" />
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.zh.resx" />
+    <EmbeddedResource Include="Views\Library\Resources\LibraryResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LibraryResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Library\Resources\MainViewResources.ar.resx" />
     <EmbeddedResource Include="Views\Library\Resources\MainViewResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Library\Resources\MainViewResources.he.resx">
