@@ -9,8 +9,10 @@
   top: 0;
   right: 0;
 }
-.library .department {
+.library .department-wrap {
   position: relative;
+}
+.library .department {
   border: 2px solid;
   color: #a8b3bb;
 }

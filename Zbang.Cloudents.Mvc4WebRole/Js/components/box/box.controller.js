@@ -26,13 +26,13 @@
 
         //stuff for child elements
         b.canDelete = canDelete;
-        b.openMenu = openMenu;
+        //b.openMenu = openMenu;
 
-        var originatorEv;
-        function openMenu($mdOpenMenu, ev) {
-            originatorEv = ev;
-            $mdOpenMenu(ev);
-        };
+        //var originatorEv;
+        //function openMenu($mdOpenMenu, ev) {
+        //    originatorEv = ev;
+        //    $mdOpenMenu(ev);
+        //};
 
         $scope.$on("close_invite", function () {
             b.inviteOpen = false;

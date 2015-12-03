@@ -31,5 +31,13 @@
                 country:country
             });
         }
+
+      
+        d.createDepartment = function (name, nodeId) {
+            return ajaxservice.post('/library/create/', {
+                name: name,
+                parentId: nodeId
+            });
+        }
     }
 })();

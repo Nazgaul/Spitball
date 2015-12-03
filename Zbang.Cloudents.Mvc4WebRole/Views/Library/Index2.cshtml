@@ -6,7 +6,47 @@
 
 </div>
 <div layout="row" layout-padding layout-wrap class="library margin-top-10">
-    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-repeat="dep in l.departments">
+    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-if="l.createClassShow">
+        <button type="button" ng-click="l.createBoxOn = true">
+            <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
+            <div class="title">add class</div>
+        </button>
+        <form name="createDepartment" novalidate ng-submit="l.createBox()" ng-show="l.createBoxOn">
+            <md-content layout="column">
+                <span class="error" ng-show="l.error">{{l.error}}</span>
+                <md-input-container>
+                    <label>Enter department name</label>
+                    <input autocomplete="off" required ng-model="l.departmentName">
+                </md-input-container>
+            </md-content>
+            <span layout="row" layout-align="space-around center">
+                <button type="button" class="btn btn-default text-capitalize " ng-click="l.createDepartmentOn = false">cancel</button>
+                <button type="submit" class="btn text-capitalize" ng-disabled="!createDepartment.$valid">done</button>
+            </span>
+        </form>
+    </div>
+    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-if="l.createDepartmentShow">
+        <div class="dashboard-stat2">
+            <button ng-hide="l.createDepartmentOn" type="button" ng-click="l.createDepartmentOn = true">
+                <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
+                <div class="title">add department</div>
+            </button>
+            <form name="createDepartment" novalidate ng-submit="l.createDepartment()" ng-show="l.createDepartmentOn">
+                <md-content layout="column">
+                    <md-input-container>
+                        <label>Enter department name</label>
+                        <input autocomplete="off" required ng-model="l.departmentName">
+                    </md-input-container>
+                    <span class="error" ng-show="l.error">{{l.error}}</span>
+                </md-content>
+                <span layout="row" layout-align="space-between center">
+                    <button type="button" class="btn btn-default text-capitalize " ng-click="l.createDepartmentOn = false">cancel</button>
+                    <button type="submit" class="btn text-capitalize" ng-disabled="!createDepartment.$valid">done</button>
+                </span>
+            </form>
+        </div>
+    </div>
+    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex department-wrap" ng-repeat=" dep in l.departments">
         <a href="{{::dep.url}}" class="dashboard-stat2 department" d-color="{{::dep.name.length}}">
             <div class="corner" d-color="{{::dep.name.length}}">
             </div>
@@ -25,19 +65,21 @@
                 </div>
             </div>
         </a>
+        <md-menu ng-if="l.canDelete(dep)">
+            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="d.openMenu($mdOpenMenu, $event)">
+                @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
+            </md-button>
+            <md-menu-content width="1">
+                <md-menu-item>
+                    <md-button aria-label="remove box" ng-click="d.deleteBox($event,e)">
+
+                        @Html.Svg("~/images/site/icons.svg", "delete", new { @class = "delete-icon" })
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
     </div>
     <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
+
     
-    <div flex-gt-lg ="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex">
-        <button type="button" ng-click="d.createBoxOn = true" class="create-btn">
-            <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-            <div class="title">add study group</div>
-        </button>
-    </div>
-    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex">
-        <button type="button" ng-click="d.createBoxOn = true" class="create-btn">
-            <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-            <div class="title">add study group</div>
-        </button>
-    </div>
 </div>
