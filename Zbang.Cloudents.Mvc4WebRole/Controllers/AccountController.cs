@@ -671,16 +671,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Signin");
         }
 
-        [HttpPost, System.Web.Mvc.ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model)
+        [HttpPost]
+        public async Task<JsonResult> ResetPassword([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
+            
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return JsonError(GetErrorFromModelState());
             }
             try
             {
@@ -692,87 +689,31 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 await Task.WhenAll(tUser, tResult);
                 if (tUser.Result == null && tResult.Result != null)
                 {
-                    ModelState.AddModelError("Email", AccountControllerResources.FbRegisterError);
-                    return View(model);
+                    return JsonError(AccountControllerResources.FbRegisterError);
                 }
                 if (tUser.Result == null)
                 {
-                    ModelState.AddModelError("Email", AccountControllerResources.EmailDoesNotExists);
-                    return View(model);
+                    return JsonError(AccountControllerResources.EmailDoesNotExists);
                 }
 
                 var user = tUser.Result;
                 //var tResult = ZboxReadService.GetUserDetailsByMembershipId(query);
                 var identitylinkData = await m_UserManager.GeneratePasswordResetTokenAsync(user.Id);
 
-
-                var code = RandomString(10);
-
-
                 var data = new ForgotPasswordLinkData(Guid.Parse(user.Id), 1, identitylinkData);
 
                 var linkData = EncryptElement(data);
-                //Session[SessionResetPassword] = data;
-                await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(code, linkData, tResult.Result.Name.Split(' ')[0], model.Email, tResult.Result.Culture));
+                await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(linkData, tResult.Result.Name.Split(' ')[0], model.Email, tResult.Result.Culture));
 
-                TempData["key"] = Crypto.HashPassword(code);
-
-                return RedirectToAction("Confirmation", new { @continue = linkData });
+                return JsonOk();
 
             }
 
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("ForgotPassword email: {0}", model.Email), ex);
-                ModelState.AddModelError(string.Empty, AccountControllerResources.UnspecifiedError);
+                return JsonError(AccountControllerResources.UnspecifiedError);
             }
-
-
-
-            return View(model);
-        }
-
-        [HttpGet, NoCache]
-        public ActionResult Confirmation(string @continue)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
-            if (TempData["key"] == null)
-            {
-                return RedirectToAction("ResetPassword");
-            }
-            //var userData = Session[SessionResetPassword] as ForgotPasswordLinkData;
-            if (@continue == null)
-            {
-                return RedirectToAction("ResetPassword");
-            }
-            return View(new Confirmation { Key = TempData["key"].ToString() });
-        }
-
-        [HttpPost, System.Web.Mvc.ValidateAntiForgeryToken]
-        public ActionResult Confirmation([ModelBinder(typeof(TrimModelBinder))] Confirmation model,
-            string @continue)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var userData = UnEncryptElement(@continue);//  Session[SessionResetPassword] as ForgotPasswordLinkData;
-
-            if (userData == null)
-            {
-                return RedirectToAction("ResetPassword");
-            }
-            if (Crypto.VerifyHashedPassword(model.Key, model.Code))
-            {
-                userData.Step = 2;
-                var key = EncryptElement(userData);
-                return RedirectToAction("PasswordUpdate", new { key });
-            }
-            ModelState.AddModelError(string.Empty, "This is not the correct code");
-            return View(model);
 
         }
 
@@ -792,7 +733,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //{
             //    return RedirectToAction("index");
             //}
-            return View(new NewPassword());
+            return View();
         }
 
         [HttpPost]

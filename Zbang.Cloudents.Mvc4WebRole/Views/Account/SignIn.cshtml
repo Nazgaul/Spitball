@@ -88,7 +88,7 @@
                 </form>
 
 
-                <form class="forgot-password-form" action="" method="post" style="display:none;">
+                <form id="f-forgot-password" class="forgot-password-form" action="" method="post" style="display:none;">
                     <h3 class="form-title">
                         @LogOnResources.ForgotYourPassword
                     </h3>
@@ -103,7 +103,7 @@
                         <input class="form-control" type="email" placeholder="@LogOnResources.Email" name="email" />
                     </div>
                     <div class="form-actions">
-                        <button class="cancel btn grey pull-right">@GeneralResources.Cancel</button>
+                        <button type="button" class="cancel btn grey pull-right">@GeneralResources.Cancel</button>
                         <button type="submit" class="btn blue pull-right">@LogOnResources.Submit</button>
                     </div>
                     <div class="create-account"></div>
@@ -120,7 +120,7 @@
                             <span class="bold">Didn't receive the email?</span><br />
                             Check your mail spam folder or<br />
 
-                            <button onclick="location.href = 'resetpassword';">send another request</button>
+                            <button id="resendRequest">send another request</button>
                         </p>
                     </div>
                     <div class="create-account"></div>

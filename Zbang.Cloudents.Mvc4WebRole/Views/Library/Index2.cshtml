@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
 <div class="page-head">
     <div class="page-title">
         <h1>{{::l.universityName}}</h1>
@@ -89,7 +90,7 @@
             <md-menu-content width="1">
                 <md-menu-item>
                     <md-button aria-label="remove department" ng-click="l.deleteDepartment($event,dep)">
-                        @Html.Svg("~/images/site/icons.svg", "delete", new { @class = "delete-icon" })
+                        @GeneralResources.Delete
                     </md-button>
                 </md-menu-item>
             </md-menu-content>

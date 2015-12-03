@@ -545,6 +545,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MainViewResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Quiz\Resources\QuizResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuizResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Search\Resources\SearchResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SearchResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shared\Resources\ErrorResources.Designer.cs">
       <DependentUpon>ErrorResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -559,6 +569,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GeneralResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Resources\IndexResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IndexResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\Resources\QuizResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1936,6 +1951,7 @@
     <Content Include="Js\components\quiz\quizCreate.controller.js" />
     <Content Include="Js\components\search\search.service.js" />
     <Content Include="Js\components\user\user.routes.js" />
+    <Content Include="Js\components\user\userNotification.controller.js" />
     <Content Include="Js\polyfills.js" />
     <Content Include="Js\shared\animClass.js" />
     <Content Include="Js\shared\facebook.js" />
@@ -3026,7 +3042,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\Quiz\Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -3383,6 +3398,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Library\Resources\MainViewResources.ru.resx" />
     <EmbeddedResource Include="Views\Library\Resources\MainViewResources.zh.resx" />
+    <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.he.resx" />
+    <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>QuizResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Search\Resources\SearchResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SearchResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\DialogResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\DialogResources.ru.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\DialogResources.zh.resx" />
@@ -3410,6 +3434,10 @@
     <EmbeddedResource Include="Views\Shared\Resources\GeneralResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>GeneralResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Shared\Resources\IndexResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\QuizResources.ar.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\QuizResources.he.resx" />

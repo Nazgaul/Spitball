@@ -155,20 +155,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-        public ActionResult MessagePartial()
-        {
-            try
-            {
-                return PartialView("_Message");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_Message ", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
+        //public ActionResult MessagePartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_Message");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_Message ", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
 
         [HttpPost]
         [ZboxAuthorize]
@@ -199,29 +199,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return Json(new JsonResponse(true, new string[0]));
+                return JsonOk(new string[0]);
             }
             var userid = User.GetUserId();
             try
             {
                 var query = new GetInvitesQuery(userid);
                 var invites = await ZboxReadService.GetInvitesAsync(query);
-                return Json(new JsonResponse(true, invites));
+                return JsonOk(invites);
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("Share Notifications userid " + userid, ex);
-                return Json(new JsonResponse(true, new string[0]));
+                return JsonOk(new string[0]);
             }
         }
 
 
-        [ChildActionOnly]
-        [ActionName("Invites")]
-        public ActionResult Invites()
-        {
-            return PartialView();
-        }
+        //[ChildActionOnly]
+        //[ActionName("Invites")]
+        //public ActionResult Invites()
+        //{
+        //    return PartialView();
+        //}
 
         [HttpGet]
         public async Task<ActionResult> FromEmail(string key, string email)

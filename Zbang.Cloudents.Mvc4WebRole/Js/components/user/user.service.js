@@ -25,5 +25,9 @@
             return ajaxservice.get('/user/quiz/', { id: userid, page: page });
         }
 
+        u.getNotification = function() {
+            return ajaxservice.get('/share/notifications/');
+        }
+
     }
 })();

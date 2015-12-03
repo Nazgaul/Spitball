@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using System;
+using ProtoBuf;
 
 namespace Zbang.Zbox.Infrastructure.Transport
 {
@@ -10,7 +11,13 @@ namespace Zbang.Zbox.Infrastructure.Transport
         {
 
         }
-        public ForgotPasswordData2(string code, string linkAddress,string name, string emailAddress, string culture)
+        public ForgotPasswordData2(string linkAddress, string name, string emailAddress, string culture)
+            : base(emailAddress, culture)
+        {
+            Link = linkAddress;
+            Name = name;
+        }
+        public ForgotPasswordData2(string code, string linkAddress, string name, string emailAddress, string culture)
             : base(emailAddress, culture)
         {
             Code = code;
@@ -18,7 +25,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
             Name = name;
         }
         [ProtoMember(2)]
-        public string Code { get; private set; }
+        public string Code { get;private set; }
 
         [ProtoMember(3)]
         public string Link { get; private set; }

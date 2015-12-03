@@ -1,32 +1,34 @@
-﻿<div class="search">
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Search.Resources
+
+<div class="search">
     <button type="button" class="close" ng-click="app.back('/dashboard/')">@Html.Svg("~/images/site/icons.svg", "close")</button>
     <input type="search" class="search-text" placeholder="Search..." ng-model="s.term" ng-model-options="{debounce : 250}" ng-change="s.search()" ng-minlength="2" />
     <ul class="nav nav-tabs tabbable">
         <li ng-class="{active: s.tab === 'b'}">
-            <button type="button" ng-click="s.tab = 'b'">Classes</button>
+            <button type="button" class="text-capitalize" ng-click="s.tab = 'b'">@SearchResources.Classes</button>
         </li>
         <li ng-class="{active: s.tab === 'i'}">
-            <button type="button" ng-click="s.tab = 'i'">Items</button>
+            <button type="button" class="text-capitalize" ng-click="s.tab = 'i'">@SearchResources.Items</button>
         </li>
         <li ng-class="{active: s.tab === 'q'}">
-            <button type="button" ng-click="s.tab = 'q'">Quizzes</button>
+            <button type="button" class="text-capitalize" ng-click="s.tab = 'q'">@SearchResources.Quizzes</button>
         </li>
     </ul>
     <div class="row" infinite-scroll="s.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
         <div class="col-md-4 col-sm-12 s-hide" ng-class="{show: s.tab === 'b'}">
-            <h3>Classes</h3>
+            <h3 class="text-capitalize">@SearchResources.Classes</h3>
             <div class="row">
                 <div class="col-sm-6 col-xs-12 col-md-12" ng-repeat="e in s.result.boxes" ng-include="'box-template.html'"></div>
             </div>
         </div>
         <div class="col-md-4 col-sm-12 s-hide" ng-class="{show: s.tab === 'i'}">
-            <h3>items</h3>
+            <h3 class="text-capitalize">@SearchResources.Items</h3>
             <div class="row">
                 <div class="col-sm-6 col-xs-12 col-md-12" ng-repeat="e in s.result.items" ng-include="'item-template.html'"></div>
             </div>
         </div>
         <div class="col-md-4 col-sm-12 s-hide" ng-class="{show: s.tab === 'q'}">
-            <h3>quizzes</h3>
+            <h3 class="text-capitalize">@SearchResources.Quizzes</h3>
             <div class="row">
                 <div class="col-sm-6 col-xs-12 col-md-12" ng-repeat="e in s.result.quizzes" ng-include="'quiz-template.html'"></div>
             </div>

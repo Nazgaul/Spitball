@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <ul layout="row" layout-margin layout-wrap class="list-unstyled">
     @*<li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 quiz-create margin-bottom-20 add-button">
@@ -27,7 +28,7 @@
             <md-menu-content width="1">
                 <md-menu-item>
                     <md-button aria-label="delete reply" ng-click="q.deleteQuiz($event,e)">
-                        @Html.Svg("~/images/site/icons.svg", "delete", new { @class = "delete-icon" })
+                        @GeneralResources.Delete
                     </md-button>
                 </md-menu-item>
             </md-menu-content>

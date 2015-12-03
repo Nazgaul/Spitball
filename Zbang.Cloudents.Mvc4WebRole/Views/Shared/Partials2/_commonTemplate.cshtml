@@ -1,9 +1,11 @@
-﻿@{
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+@{
     const string svgUrl = "~/images/site/box-icons.svg";
 }
 <script type="text/ng-template" id="box-template.html">
     <a href="{{::e.url}}" class="dashboard-stat2">
-        <span ng-if="e.recommended" class="ribbon background" d-color="{{::e.name.length}}">Suggested</span>
+        <span ng-if="e.recommended" class="ribbon background text-capitalize" d-color="{{::e.name.length}}">@IndexResources.Suggested</span>
         <div class="display">
             <div class="number">
                 <h5 d-color="{{::e.name.length}}" ng-bind-html="::e.name"></h5>
@@ -16,10 +18,10 @@
             </div>
             <div class="status">
                 <div class="status-title" ng-hide="::e.membersCount === undefined">
-                    {{::e.membersCount}} members
+                    {{::e.membersCount}} @IndexResources.Members
                 </div>
                 <div class="status-number" ng-hide="::e.itemCount === undefined">
-                    {{::e.itemCount}} items
+                    {{::e.itemCount}} @IndexResources.Items
                 </div>
             </div>
         </div>
@@ -63,7 +65,7 @@
                 <span class="first-letter" first-letter="{{::e.name}}"></span>
             </div>
             <div ng-if="!e.publish" class="top draft-wpr">
-                <span class="draft">draft</span>
+                <span class="draft">@IndexResources.Draft</span>
             </div>
             <div class="bottom">
                 <span class="name ellipsis" ng-bind-html="::e.name"></span>
