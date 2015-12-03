@@ -88,6 +88,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Department id is required.
+        /// </summary>
+        public static string LibraryController_CreateBox_Department_id_is_required {
+            get {
+                return ResourceManager.GetString("LibraryController_CreateBox_Department_id_is_required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Problem creating a class.
         /// </summary>
         public static string Problem_with_create_a_course {

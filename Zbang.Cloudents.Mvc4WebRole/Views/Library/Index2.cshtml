@@ -6,25 +6,6 @@
 
 </div>
 <div layout="row" layout-padding layout-wrap class="library margin-top-10">
-    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-if="l.createClassShow">
-        <button type="button" ng-click="l.createBoxOn = true">
-            <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-            <div class="title">add class</div>
-        </button>
-        <form name="createDepartment" novalidate ng-submit="l.createBox()" ng-show="l.createBoxOn">
-            <md-content layout="column">
-                <span class="error" ng-show="l.error">{{l.error}}</span>
-                <md-input-container>
-                    <label>Enter department name</label>
-                    <input autocomplete="off" required ng-model="l.departmentName">
-                </md-input-container>
-            </md-content>
-            <span layout="row" layout-align="space-around center">
-                <button type="button" class="btn btn-default text-capitalize " ng-click="l.createDepartmentOn = false">cancel</button>
-                <button type="submit" class="btn text-capitalize" ng-disabled="!createDepartment.$valid">done</button>
-            </span>
-        </form>
-    </div>
     <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-if="l.createDepartmentShow">
         <div class="dashboard-stat2">
             <button ng-hide="l.createDepartmentOn" type="button" ng-click="l.createDepartmentOn = true">
@@ -40,8 +21,38 @@
                     <span class="error" ng-show="l.error">{{l.error}}</span>
                 </md-content>
                 <span layout="row" layout-align="space-between center">
-                    <button type="button" class="btn btn-default text-capitalize " ng-click="l.createDepartmentOn = false">cancel</button>
+                    <button type="button" class="btn btn-default text-capitalize " ng-click="l.departmentCancel()">cancel</button>
                     <button type="submit" class="btn text-capitalize" ng-disabled="!createDepartment.$valid">done</button>
+                </span>
+            </form>
+        </div>
+    </div>
+    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-if="l.createClassShow">
+        <div class="dashboard-stat2">
+            <button ng-hide="l.createBoxOn" type="button" ng-click="l.createBoxOn = true">
+                <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
+                <div class="title">add class</div>
+            </button>
+            <form name="createBox" novalidate ng-submit="l.createBox()" ng-show="l.createBoxOn">
+                <md-content layout="column">
+                    <span class="error" ng-show="l.error">{{l.error}}</span>
+                    <md-input-container ng-if="!l.secondStep">
+                        <label>Enter class name</label>
+                        <input autocomplete="off" required ng-model="l.boxName">
+                    </md-input-container>
+                    <md-input-container ng-if="l.secondStep">
+                        <label>Enter code</label>
+                        <input autocomplete="off" ng-model="l.code">
+                    </md-input-container>
+                    <md-input-container ng-if="l.secondStep">
+                        <label>instractor</label>
+                        <input autocomplete="off" ng-model="l.professor">
+                    </md-input-container>
+                </md-content>
+                <span layout="row" layout-align="space-around center">
+                    <button type="button" class="btn btn-default text-capitalize " ng-click="l.boxCancel()">cancel</button>
+                    <button type="button" class="btn text-capitalize" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()">next</button>
+                    <button type="submit" class="btn text-capitalize" ng-if="l.secondStep" ng-disabled="!createBox.$valid">done</button>
                 </span>
             </form>
         </div>
@@ -80,5 +91,5 @@
     </div>
     <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
 
-    
+
 </div>
