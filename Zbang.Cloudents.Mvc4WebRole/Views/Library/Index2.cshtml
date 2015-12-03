@@ -66,13 +66,12 @@
             </div>
         </a>
         <md-menu ng-if="l.canDelete(dep)">
-            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="d.openMenu($mdOpenMenu, $event)">
+            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
                 @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
             </md-button>
             <md-menu-content width="1">
                 <md-menu-item>
-                    <md-button aria-label="remove box" ng-click="d.deleteBox($event,e)">
-
+                    <md-button aria-label="remove department" ng-click="l.deleteDepartment($event,dep)">
                         @Html.Svg("~/images/site/icons.svg", "delete", new { @class = "delete-icon" })
                     </md-button>
                 </md-menu-item>

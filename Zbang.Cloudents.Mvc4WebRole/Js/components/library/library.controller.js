@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.library').controller('Library', library);
-    library.$inject = ['libraryService', '$stateParams', 'user', 'nodeData'];
+    library.$inject = ['libraryService', '$stateParams', 'user', 'nodeData', '$mdDialog'];
 
-    function library(libraryService, $stateParams, user, nodeData) {
+    function library(libraryService, $stateParams, user, nodeData, $mdDialog) {
         var l = this;
 
         //libraryService.getDepartments($stateParams.nodeId).then(function (response) {
@@ -19,6 +19,7 @@ parentUrl: "/library/"*/
         l.createClassShow = l.departments.length === 0;
         l.createDepartment = createDepartment;
         l.canDelete = canDelete;
+        l.deleteDepartment = deleteDepartment;
 
         function createDepartment() {
 
@@ -33,6 +34,21 @@ parentUrl: "/library/"*/
 
         function canDelete(dep) {
             return user.isAdmin && dep.noDepartment === 0 && dep.noBoxes === 0;
+        }
+
+        function deleteDepartment(ev, department) {
+            var confirm = $mdDialog.confirm()
+                  .title('Would you like to delete this department?')
+                  //.textContent('All of the banks have agreed to forgive you your debts.')
+                  .targetEvent(ev)
+                  .ok('Ok')
+                  .cancel('Cancel');
+
+            $mdDialog.show(confirm).then(function () {
+                var index = l.departments.indexOf(department);
+                l.departments.splice(index, 1);
+                libraryService.deleteDepartment(department.id);
+            });
         }
     }
 })();

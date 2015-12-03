@@ -39,5 +39,10 @@
                 parentId: nodeId
             });
         }
+        d.deleteDepartment = function(id) {
+            return ajaxservice.post('/library/deletenode/', {
+                id: id
+            });
+        }
     }
 })();
