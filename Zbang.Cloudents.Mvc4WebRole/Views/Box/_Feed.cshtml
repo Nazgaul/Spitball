@@ -64,7 +64,7 @@
                             <div ng-bind-html="::post.content" class="content-text"></div>
                         </div>
                         <ul class="list-inline items-container">
-                            <li ng-repeat="e in post.files" ng-include="'item-template.html'"></li>
+                            <li ng-repeat="e in post.files" ng-include="f.postItemTemplate(e)"></li>
                         </ul>
                         <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:m'}}</span>
                         <div class="actions">

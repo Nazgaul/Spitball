@@ -227,6 +227,9 @@
 .feed .add-reply {
   display: none;
 }
+.feed .quiz .base {
+  width: 100px;
+}
 .add-comment {
   margin-bottom: 25px;
   background: #212427;
