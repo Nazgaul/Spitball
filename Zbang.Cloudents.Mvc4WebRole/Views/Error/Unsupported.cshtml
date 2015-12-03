@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Not found";
+    ViewBag.Title = "Unsupported browser";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
@@ -14,17 +14,26 @@
         <p>Please update your version of Internet Explorer or use fufferent browser</p>
     </div>
     <div class="browsers">
-        <div class="ie">
-            @Html.Svg("/images/Site/browsers.svg", "IE")
-            <p>Explorer</p>
-        </div>
-        <div class="ff">
-            @Html.Svg("/images/Site/browsers.svg", "FF")
-            <p>Firefox</p>
-        </div>
-        <div class="chrome">
-            @Html.Svg("/images/Site/browsers.svg", "chrome")
-            <p>Chrome</p>
-        </div>
+        <ul>
+            <li class="ie">
+                <a class="browser ie" href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">
+                    @Html.Svg("/images/Site/browsers.svg", "IE")
+                    <div>Explorer</div>
+                </a>
+            </li>
+            <li class="ff">
+                <a class="browser firefox" href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">
+                    @Html.Svg("/images/Site/browsers.svg", "FF")
+                    <div>Firefox</div>
+                </a>
+            </li>
+            <li class="chrome">
+                <a class="browser chrome" href="https://www.google.com/intl/en/chrome/browser/" target="_blank">
+                    @Html.Svg("/images/Site/browsers.svg", "chrome")
+                    <div>Chrome</div>
+
+                </a>
+            </li>
+        </ul>
     </div>
 </div>

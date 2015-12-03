@@ -55,7 +55,13 @@ var Login = function () {
     }
 
 
-    //var handleForgetPassword = function () {
+    var handleForgetPassword = function () {
+        jQuery('.forgot-password-form .btn[type="submit"]').click(function (e) {
+            e.preventDefault();
+            jQuery('.check-email-message').show();
+            jQuery('.forgot-password-form').hide();
+        });
+
     //	$('.forget-form').validate({
     //            errorElement: 'span', //default input error message container
     //            errorClass: 'help-block', // default input error message class
@@ -116,7 +122,7 @@ var Login = function () {
     //            jQuery('.forget-form').hide();
     //        });
 
-    //}
+    }
 
     var handleRegister = function () {
 
@@ -224,18 +230,13 @@ var Login = function () {
             trackConversion();
         });
 
+
         jQuery('#forget-password').click(function () {
             jQuery('.forgot-password-form').show();
             jQuery('.login-form, .register-form').hide();
             pushState(forgotPasswordState);
             ga('send', 'pageview', '/account/resetpassword');
             trackConversion();
-        });
-
-        jQuery('.forgot-password-form').submit(function (e) {
-            e.preventDefault();
-            jQuery('.check-email-message').show();
-            jQuery('.forgot-password-form').hide();
         });
 
         //jQuery('#lang_select').change(function (e) {
@@ -436,7 +437,7 @@ var Login = function () {
         init: function () {
 
             handleLogin();
-            //handleForgetPassword();
+            handleForgetPassword();
             handleRegister();
             //handleLanguage();
             handleExtenalLogin();
