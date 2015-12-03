@@ -117,16 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Back" xml:space="preserve">
-    <value>back to dashboard</value>
+  <data name="AddSchool" xml:space="preserve">
+    <value>add your school</value>
   </data>
-  <data name="FileFlew" xml:space="preserve">
-    <value>oops the file flew</value>
+  <data name="Continue" xml:space="preserve">
+    <value>continue</value>
   </data>
-  <data name="PleaseUpdate" xml:space="preserve">
-    <value>Please update your version of Internet Explorer or use different browser</value>
+  <data name="Country" xml:space="preserve">
+    <value>country</value>
   </data>
-  <data name="Unsupported" xml:space="preserve">
-    <value>doesn't support your browser version</value>
+  <data name="EnterID" xml:space="preserve">
+    <value>enter 9 digit id</value>
+  </data>
+  <data name="Hi" xml:space="preserve">
+    <value>hi</value>
   </data>
 </root>

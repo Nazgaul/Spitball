@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
+namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class GeneralResources {
+    public class LibraryResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal GeneralResources() {
+        internal LibraryResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources.GeneralResources", typeof(GeneralResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources.LibraryResources", typeof(LibraryResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,47 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to cancel.
+        ///   Looks up a localized string similar to add your school.
         /// </summary>
-        public static string Cancel {
+        public static string AddSchool {
             get {
-                return ResourceManager.GetString("Cancel", resourceCulture);
+                return ResourceManager.GetString("AddSchool", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to create.
+        ///   Looks up a localized string similar to continue.
         /// </summary>
-        public static string Create {
+        public static string Continue {
             get {
-                return ResourceManager.GetString("Create", resourceCulture);
+                return ResourceManager.GetString("Continue", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to done.
+        ///   Looks up a localized string similar to country.
         /// </summary>
-        public static string Done {
+        public static string Country {
             get {
-                return ResourceManager.GetString("Done", resourceCulture);
+                return ResourceManager.GetString("Country", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to like.
+        ///   Looks up a localized string similar to enter 9 digit id.
         /// </summary>
-        public static string Like {
+        public static string EnterID {
             get {
-                return ResourceManager.GetString("Like", resourceCulture);
+                return ResourceManager.GetString("EnterID", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to save changes.
+        ///   Looks up a localized string similar to hi.
         /// </summary>
-        public static string SaveChanges {
+        public static string Hi {
             get {
-                return ResourceManager.GetString("SaveChanges", resourceCulture);
+                return ResourceManager.GetString("Hi", resourceCulture);
             }
         }
     }

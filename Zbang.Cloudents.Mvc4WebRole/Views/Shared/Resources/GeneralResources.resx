@@ -120,11 +120,14 @@
   <data name="Cancel" xml:space="preserve">
     <value>cancel</value>
   </data>
+  <data name="Create" xml:space="preserve">
+    <value>create</value>
+  </data>
   <data name="Done" xml:space="preserve">
     <value>done</value>
   </data>
-  <data name="Plus" xml:space="preserve">
-    <value>+</value>
+  <data name="Like" xml:space="preserve">
+    <value>like</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>save changes</value>
