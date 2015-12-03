@@ -2830,7 +2830,7 @@ Chats
 }
 
 .chats li .name {
-    color: @color7;
+    color: @textColorDarkGrey;
     font-size: 13px;
     font-weight: 400;
     margin-left: 5px;
@@ -2838,12 +2838,12 @@ Chats
 }
 
 .chats li.out .name {
-    color: @color7;
+    color: @textColorDarkGrey;
     margin-left: 5px;
 }
 
 .chats li .datetime {
-    color: @color2;
+    color: @textColorWhite;
     font-size: 13px;
     font-weight: 400;
 }
@@ -2857,7 +2857,7 @@ Chats
 
 .chats li.in .message {
     text-align: left;
-    border: 2px solid @color2;
+    border: 2px solid @borderColorWhite;
     margin-left: 65px;
     background: rgba(0, 0, 0, 0.48);
     display: block;
@@ -2865,18 +2865,18 @@ Chats
     // padding: 7px 20px 7px 10px;
     //position: relative;
     //margin-left: 65px;
-    color: @color2;
+    color: @textColorWhite;
     //border-radius: 10px;
     font-size: 13px;
 }
 
 
 .chats li.out .message {
-    border: 2px solid @color2;
+    border: 2px solid @borderColorWhite;
     margin-left: 65px;
-    background: @color2;
+    background: @backgroundColorWhite;
     text-align: left;
-    color: @color4;
+    color: @textColorDarkGrey;
 }
 
 .chats li.in .message .arrow {
@@ -2885,7 +2885,7 @@ Chats
     left: -11px;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-right: 10px solid @color2;
+    border-right: 10px solid @borderColorWhite;
 }
 
 
@@ -2896,7 +2896,7 @@ Chats
     left: -11px;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-right: 10px solid @color2;
+    border-right: 10px solid @borderColorWhite;
 }
 
 .chats li.out .name,
@@ -5544,7 +5544,7 @@ Portlets
 /* Light Portlet */
 .portlet.light {
     padding: 12px 20px 15px 20px;
-    background-color: @color4;
+    background-color: @backgroundColorMenu;
 }
 
 .portlet.light.bordered {
@@ -5565,7 +5565,7 @@ Portlets
 }
 
 .portlet.light > .portlet-title > .caption {
-    color: @color2;
+    color: @textColorWhite;
     padding: 10px 0;
 }
 
@@ -5751,7 +5751,7 @@ Dashboard Stats 2
 ***/
 .dashboard-stat2 {
     border-radius: 4px;
-    background: @color4;
+    background: @backgroundColor;
     padding: 15px 15px 30px 15px;
     margin-bottom: 20px;
     display: block;
@@ -5827,7 +5827,7 @@ Dashboard Stats 2
 .dashboard-stat2 .progress-info .status {
     margin-top: 5px;
     font-size: 15px;
-    color: @color2;
+    color: @textColorWhite;
 }
 
 .dashboard-stat2 .progress-info .status .status-title {
@@ -6231,7 +6231,7 @@ Responsive & Scrollable Tables
     float: right;
     margin: 0 !important;
     margin-bottom: 0;
-    background-color: @color4;
+    background-color: @backgroundColorMenu;
 }
 
 .table-scrollable > .table > thead > tr > th,
@@ -6525,7 +6525,7 @@ Light Table
 
 .table.table-light.table-hover > tbody > tr > td:hover,
 .table.table-light.table-hover > tbody > tr > th:hover, .table.table-light.table-hover > tbody > tr:hover > td, .table.table-light.table-hover > tbody > tr:hover > th {
-    background: @color4;
+    background: @backgroundColorMenu;
 }
 
 /***
@@ -6804,25 +6804,25 @@ Custom tabs
 .tabbable-line > .nav-tabs > li > a {
     border: 0;
     margin-right: 0;
-    color: @color2;
+    color: @textColorWhite;
 }
 
 .tabbable-line > .nav-tabs > li > a > i {
-    color: @color2;
+    color: @textColorWhite;
 }
 
 .tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
-    border-bottom: 4px solid @color8;
+    border-bottom: 4px solid @borderColorBlue;
 }
 
 .tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
     border: 0;
     background: none !important;
-    color: @color7;
+    color: @textColorDarkGrey;
 }
 
 .tabbable-line > .nav-tabs > li.open > a > i, .tabbable-line > .nav-tabs > li:hover > a > i {
-    color: @color7;
+    color: @textColorDarkGrey;
 }
 
 .tabbable-line > .nav-tabs > li.open .dropdown-menu, .tabbable-line > .nav-tabs > li:hover .dropdown-menu {
@@ -6830,17 +6830,17 @@ Custom tabs
 }
 
 .tabbable-line > .nav-tabs > li.active {
-    border-bottom: 4px solid @color7;
+    border-bottom: 4px solid @textColorDarkGrey;
     position: relative;
 }
 
 .tabbable-line > .nav-tabs > li.active > a {
     border: 0;
-    color: @color2;
+    color: @textColorWhite;
 }
 
 .tabbable-line > .nav-tabs > li.active > a > i {
-    color: @color2;
+    color: @textColorWhite;
 }
 
 .tabbable-line > .tab-content {

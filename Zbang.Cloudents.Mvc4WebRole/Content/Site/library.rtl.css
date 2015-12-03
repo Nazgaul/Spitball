@@ -31,8 +31,8 @@
 }
 .library .department {
   border-radius: 0;
-  border: 4px solid;
-  color: #c3c3c3;
+  border: 4px solid #c3c3c3;
+  color: #888b8e;
 }
 .library .department .display {
   margin-bottom: 0;

@@ -977,7 +977,7 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var retVal = await conn.QueryAsync<Item.FileSeo>(Sql.Seo.FileSeo, new { query.ItemId });
-                return retVal.First();
+                return retVal.FirstOrDefault();
             }
         }
 

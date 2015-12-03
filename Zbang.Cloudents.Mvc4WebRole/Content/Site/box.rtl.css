@@ -139,7 +139,7 @@
   padding-right: 34px;
 }
 .feed .comment {
-  background: #212427;
+  background: #181c1d;
   position: relative;
   border-radius: 10px;
   margin-bottom: 25px;
@@ -252,7 +252,7 @@
 }
 .add-comment {
   margin-bottom: 25px;
-  background: #212427;
+  background: #181c1d;
   padding: 10px;
   /*.actions {
         display: none;
@@ -301,7 +301,7 @@
 .add-comment textarea {
   width: 100%;
   border: none;
-  background: #212427;
+  background: #181c1d;
   padding-right: 10px;
 }
 .add-comment md-input-container {
@@ -470,7 +470,7 @@
   bottom: -1px;
   right: -1px ;
   width: 40%;
-  fill: #212427;
+  fill: #181c1d;
 }
 .quiz .details {
   display: none;
@@ -643,7 +643,7 @@
   opacity: 1;
 }
 .upload .tab-content {
-  background: #212427;
+  background: #181c1d;
   min-height: 300px;
   display: -webkit-flex;
   display: -ms-flex;
@@ -684,7 +684,7 @@
 }
 .upload .actions {
   text-align: left;
-  background-color: #212427;
+  background-color: #181c1d;
   padding: 20px 0 10px 10px;
 }
 .file-upload {

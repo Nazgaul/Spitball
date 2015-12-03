@@ -23,7 +23,7 @@
   display: -ms-flex;
   display: flex;
   margin-bottom: 30px;
-  color: #8c99a6;
+  color: #888b8e;
   font-weight: 700;
 }
 .library-choose .univeristy > div {
@@ -140,7 +140,7 @@
   position: absolute;
   bottom: -230px;
   right: 18px;
-  background: #212427;
+  background: #181c1d;
   border-radius: 5px;
   padding: 15px;
 }
@@ -150,7 +150,7 @@
   height: 0;
   border-right: 10px solid transparent;
   border-left: 10px solid transparent;
-  border-bottom: 15px solid #212427;
+  border-bottom: 15px solid #181c1d;
   position: absolute;
   top: -15px;
   right: 15px;

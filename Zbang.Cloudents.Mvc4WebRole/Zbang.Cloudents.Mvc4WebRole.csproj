@@ -595,6 +595,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\User\Resources\IndexResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IndexResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\User\Resources\UserResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3479,6 +3484,10 @@
       <LastGenOutput>ValidationResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\ValidationResources.ru.resx" />
+    <EmbeddedResource Include="Views\User\Resources\IndexResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\User\Resources\UserResources.ar.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.en-gb.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.he.resx" />

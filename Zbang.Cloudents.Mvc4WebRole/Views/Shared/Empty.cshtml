@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+@{
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
     const string svgUrl = "~/images/site/icons.svg";
 
@@ -21,12 +23,12 @@
             <li class="start">
                 <a @shouldPostBack href="@Url.Action("Index","Dashboard")">
                     @Html.Svg(svgUrl, "houseMenu")
-                    <span class="title">Dashboard</span>
+                    <span class="title">@IndexResources.Dashboard</span>
                 </a>
             </li>
             <li>
                 <a href="javascript:;">
-                    <span class="title">My Classes</span>
+                    <span class="title">@IndexResources.Classes</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
@@ -41,7 +43,7 @@
             </li>
             <li>
                 <a href="javascript:;">
-                    <span class="title">My Group</span>
+                    <span class="title">@IndexResources.Group</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
@@ -58,25 +60,25 @@
             <li>
                 <a @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")">
                     @Html.Svg(svgUrl, "universityMenu")
-                    <span class="title">University Page</span>
+                    <span class="title">@IndexResources.Uni</span>
                 </a>
             </li>
             <li>
                 <a @shouldPostBack href="{{::d.userUrl}}">
                     @Html.Svg(svgUrl, "userMenu")
-                    <span class="title">User Page</span>
+                    <span class="title">@IndexResources.User</span>
                 </a>
             </li>
             <li>
                 <a @shouldPostBack href="@Url.RouteUrl("AccountSettings")">
                     @Html.Svg(svgUrl, "settingMenu")
-                    <span class="title">Settings</span>
+                    <span class="title">@IndexResources.Settings</span>
                 </a>
             </li>
             <li class="last ">
                 <a target="_self" href="@Url.Action("logoff","account")">
                     @Html.Svg(svgUrl, "logOffMenu")
-                    <span class="title">Log out</span>
+                    <span class="title">@IndexResources.Logout</span>
                 </a>
             </li>
         </ul>
