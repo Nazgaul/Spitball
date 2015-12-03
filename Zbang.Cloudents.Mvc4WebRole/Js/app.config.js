@@ -3,12 +3,11 @@
 
     angular.module('app').config(config);
 
-    config.$inject = ['$controllerProvider', '$locationProvider', '$angularCacheFactoryProvider', '$provide'];
+    config.$inject = ['$controllerProvider', '$locationProvider', '$angularCacheFactoryProvider', '$provide', '$mdThemingProvider'];
 
-    function config($controllerProvider, $locationProvider, $angularCacheFactoryProvider, $provide) {
+    function config($controllerProvider, $locationProvider, $angularCacheFactoryProvider, $provide, $mdThemingProvider) {
         //$locationProvider.html5Mode(true).hashPrefix('!');
         $controllerProvider.allowGlobals();
-
         $angularCacheFactoryProvider.setCacheDefaults({
             maxAge: 45000, //45 seconds
             deleteOnExpire: 'aggressive',
@@ -16,6 +15,8 @@
             cacheFlushInterval: 45000,
             storageMode: 'sessionStorage'
         });
+        //deep-purple
+        //$mdThemingProvider.setDefaultTheme('deep-purple');
         //$mdBiDirectionalProvider.rtlMode(true);
         $provide.factory('requestinterceptor', [function () {
 

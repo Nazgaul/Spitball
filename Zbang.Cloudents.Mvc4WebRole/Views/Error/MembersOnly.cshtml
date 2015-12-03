@@ -3,14 +3,12 @@
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
-@*<div class="error-page">
-    <h2>
-        404
-        <span>Oops the file flew </span>
-    </h2>
-
-    <div class="image">
-        <img src="@Url.CdnContent("~/Images/Site/404_image.png")" alt="Page not found">
-        <a href="@Url.Action("Index","Dashboard")">Back to dashboard</a>
+<div class="members-only-page">
+    <img src="@Url.CdnContent("~/Images/Site/membersOnly.png")" alt="Page not found">
+    <div class="text">
+        <h2>
+            You need permission to access this content
+        </h2>
+        <p>The owner has made this content - invitation only</p>
     </div>
-</div>*@
+</div>

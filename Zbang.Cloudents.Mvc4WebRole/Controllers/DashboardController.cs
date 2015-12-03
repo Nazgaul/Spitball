@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> BoxList(int page)
+        public async Task<JsonResult> BoxList()
         {
             var userid = User.GetUserId();
             try

@@ -185,7 +185,7 @@ md-select .md-select-value.md-select-placeholder {
 }
 
 md-input-container:not(.md-input-invalid).md-input-has-value label {
-    color: @textColorDarkGrey;
+    color: @textColorGrey;
 }
 
 md-input-container label {
@@ -208,6 +208,18 @@ md-input-container .md-input {
 
 .md-select-value *:first-child {
     max-width: 100%;
+}
+
+md-dialog {
+    color: @textColorBlack;
+}
+
+md-menu-item > .md-button span {
+    color: @textColorBlack;
+}
+
+md-dialog-actions {
+    order: 2;
 }
 
 .close {
@@ -363,20 +375,29 @@ md-input-container .md-input {
     }
 }
 
+//box-template.html
 
 
 
+.delete {
+    position: absolute;
+    top: 5px;
+    right: 0;
+}
+
+.delete-icon {
+    height: 30px;
+    width: 30px;
+}
+
+.dots-3 {
+    height: 20px;
+    width: 20px;
+    fill: @textColorDarkGrey;
+}
 
 
 
-
-
-
-
-/*.portlet.box > .portlet-title {
-    margin-left: -10px;
-    color: #f5f5f5;
-}*/
 
 // moved from components rouned
 .tab-from-right {
@@ -483,42 +504,55 @@ md-input-container .md-input {
 }
 
 .ribbon {
-	position: absolute;
-	bottom: 3em;
-	right: 0;
-	margin-left: 1em;
-	padding: .75em 1.25em .75em .75em;
-	border-radius: .5em 0 0 .5em;
-	background-color: #39f;
-	background-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,.1) 100%);
-	box-shadow: inset 0 .062em 0 rgba(255,255,255,.6), 0 .125em .25em rgba(0,0,0,.2);
-	color: #fff;
-	text-shadow: 0 -.062em 0 rgba(0,0,0,.2);
-	white-space: nowrap;
+    position: absolute;
+    bottom: 3em;
+    right: 0;
+    margin-left: 1em;
+    padding: .75em 1.25em .75em .75em;
+    border-radius: .5em 0 0 .5em;
+    background-color: @backgroundColorRed;
+    background-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,.1) 100%);
+    box-shadow: inset 0 .062em 0 rgba(255,255,255,.6), 0 .125em .25em rgba(0,0,0,.2);
+    color: #fff;
+    text-shadow: 0 -.062em 0 rgba(0,0,0,.2);
+    white-space: nowrap;
 }
 
 .ribbon:before,
 .ribbon:after {
-	position: absolute;
-	background-color: inherit;
-	content: "";
+    position: absolute;
+    background-color: inherit;
+    content: "";
 }
 
 .ribbon:before {
-	bottom: 0;
-	right: -.5em;
-	width: .5em;
-	height: 3em;
-	border-radius: 0 0 .5em 0;
-	background-image: linear-gradient(to left,  rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 100%);
+    bottom: 0;
+    right: -.5em;
+    width: .5em;
+    height: 3em;
+    border-radius: 0 0 .5em 0;
+    background-image: linear-gradient(to left, rgba(0,0,0,.2) 0%, rgba(0,0,0,0) 100%);
 }
 
 .ribbon:after {
-	top: -1em;
-	right: -.5em;
-	width: .5em;
-	height: 1em;
-	border-radius:  0 .5em .5em 0;
-	background-image: linear-gradient(to left,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 100%);
-	box-shadow: 0 .062em 0 rgba(255,255,255,.6);
+    top: -1em;
+    right: -.5em;
+    width: .5em;
+    height: 1em;
+    border-radius: 0 .5em .5em 0;
+    background-image: linear-gradient(to left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 100%);
+    box-shadow: 0 .062em 0 rgba(255,255,255,.6);
+}
+//footer arrow up
+.scroll-to-top {
+    svg {
+        width: 32px;
+        height: 32px;
+        -moz-transform: rotate(270deg);
+        -ms-transform: rotate(270deg);
+        -o-transform: rotate(270deg);
+        -webkit-transform: rotate(270deg);
+        transform: rotate(270deg);
+        fill:@borderColorBlue;
+    }
 }

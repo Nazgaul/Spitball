@@ -193,7 +193,7 @@
                         <!-- END TODO DROPDOWN -->
                         <!-- BEGIN USER LOGIN DROPDOWN -->
                         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                        <li class="dropdown dropdown-user dropdown-dark" ng-cloak ng-controller="UserDetails as ud">
+                        <li class="dropdown dropdown-user dropdown-dark" ng-cloak ng-controller="UserDetailsController as ud">
                             <a ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <span class="username username-hide-on-mobile">
                                     {{ud.name}}
@@ -204,39 +204,18 @@
                             </a>
                             <ul ng-if="ud.isLoggedIn" class="dropdown-menu dropdown-menu-default">
                                 <li>
-                                    <a href="extra_profile.html">
-                                        <i class="icon-user"></i> My Profile
+                                    <a href="{{::ud.url}}" @shouldPostBack>
+                                        @Html.Svg(svgUrl, "userMenu") my activities
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="page_calendar.html">
-                                        <i class="icon-calendar"></i> My Calendar
+                                    <a href="@Url.RouteUrl("AccountSettings")" @shouldPostBack>
+                                        @Html.Svg(svgUrl, "settingMenu") settings
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="inbox.html">
-                                        <i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger">
-                                            3
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="page_todo.html">
-                                        <i class="icon-rocket"></i> My Tasks <span class="badge badge-success">
-                                            7
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="divider">
-                                </li>
-                                <li>
-                                    <a href="extra_lock.html">
-                                        <i class="icon-lock"></i> Lock Screen
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("logoff","account")" @shouldPostBack>
-                                        <i class="icon-key"></i> Log Out
+                                    <a target="_self" href="@Url.Action("logoff","account")" @shouldPostBack>
+                                        @Html.Svg(svgUrl, "logOffMenu") Log Out
                                     </a>
                                 </li>
                             </ul>
@@ -267,7 +246,7 @@
     </div>
     <div class="page-footer">
         <div class="scroll-to-top">
-            Scroll
+            @Html.Svg(svgUrl, "arrow")
         </div>
     </div>
 

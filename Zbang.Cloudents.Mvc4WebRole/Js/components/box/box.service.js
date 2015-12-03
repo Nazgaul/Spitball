@@ -19,6 +19,12 @@
         d.items = function (boxId,  page) {
             return ajaxservice.get('/box/items/', { id: boxId, page: page });
         };
+        d.deleteItem = function(itemId, boxId) {
+            return ajaxservice.post('/item/Delete/', {
+                itemId: itemId,
+                boxId: boxId
+            });
+        };
         d.filterItem = function(term, boxId, page) {
             return ajaxservice.get('/search/iteminbox/', {
                 term: term,
@@ -37,12 +43,22 @@
         d.postComment = function(content,boxId, files, anonymously) {
             return ajaxservice.post('/qna/addcomment/', { content: content, boxId: boxId, files: files, anonymously: anonymously });
         }
+        d.deleteComment = function (commentId) {
+            return ajaxservice.post('/qna/deletequestion/', {
+                questionId: commentId
+            });
+        }
         d.postReply = function(content,boxId,commentId, files) {
             return ajaxservice.post('/qna/addreply/', {
                 content: content,
                 boxId: boxId,
                 commentId: commentId,
                 files: files
+            });
+        }
+        d.deleteReply = function(postId) {
+            return ajaxservice.post('/qna/deleteanswer/', {
+                answerId: postId
             });
         }
         d.follow = function(boxId) {

@@ -1664,6 +1664,7 @@
     <Content Include="Images\quizSprite.png.min.css">
       <DependentUpon>quizSprite.png.css</DependentUpon>
     </Content>
+    <Content Include="Images\Site\500_image.png" />
     <Content Include="Images\Site\box-icons.svg" />
     <Content Include="Images\favIcons\favicon_114.png" />
     <Content Include="Images\favIcons\favicon_120.png" />
@@ -1783,9 +1784,11 @@
       <DependentUpon>site.png.rtl.css</DependentUpon>
     </Content>
     <Content Include="Images\Site\BG.png" />
+    <Content Include="Images\Site\browsers.svg" />
+    <Content Include="Images\Site\info.svg" />
     <Content Include="Images\Site\libChooseIcons.svg" />
+    <Content Include="Images\Site\membersOnly.png" />
     <Content Include="Images\Site\quizbackground.png" />
-    <Content Include="Images\Site\quizCreateIcons.svg" />
     <Content Include="Images\Site\quizIcons.svg" />
     <Content Include="Images\Site\itemIcons.svg" />
     <Content Include="Images\Site\icons.svg" />
@@ -2013,9 +2016,6 @@
     <Content Include="Js\CDNFallback.min.js">
       <DependentUpon>CDNFallback.js</DependentUpon>
     </Content>
-    <Content Include="Js\RT.js" />
-    <Content Include="Js\staticShim.js" />
-    <Content Include="Js\TooltipGuide.js" />
     <Content Include="Js\Logon.js" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />

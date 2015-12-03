@@ -10,9 +10,8 @@
             <div class="portlet-body feed">
                 <form class="add-comment" ng-submit="f.add.createComment()">
                     <div class="new-comment-border">
-                        <md-input-container>
-                            <label>@BoxResources.Whats</label>
-                            <textarea ng-model="f.add.newText"></textarea>
+                        <md-input-container md-no-float>
+                            <textarea ng-model="f.add.newText" placeholder="what's on your mind?"></textarea>
                         </md-input-container>
                         @*<textarea ng-model="f.add.newText" placeholder="what's on your mind?"></textarea>*@
                         <ul class="list-inline" ng-if=" f.add.files.length">
@@ -40,7 +39,6 @@
                         </a>
                         <button type="button" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()">@Html.Svg(url, "googleDrive")</button>
                         <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox",new {@class="dropbox"})</button>
-                        <button type="button">@Html.Svg(url, "link", new { @class = "link" })</button>
                         <button type="submit" class="btn pull-right text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
                         <input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
                         <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
@@ -48,7 +46,19 @@
                 </form>
                 <ol class="list-unstyled">
                     <li ng-repeat="post in f.data" class="comment" >
-                        <div class="top" ng-style="{ background: post.isNew ? 'red' : '' }">
+                        <md-menu ng-if="b.canDelete(post.userId)">
+                            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="b.openMenu($mdOpenMenu, $event)">
+                                @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
+                            </md-button>
+                            <md-menu-content width="1">
+                                <md-menu-item>
+                                    <md-button aria-label="delete post" ng-click="f.deleteComment($event,post)">
+                                        @Html.Svg("~/images/site/icons.svg", "delete", new { @class = "delete-icon" })
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                        <div class="top">
                             <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="54" height="54"></user-image>
                             <span class="user-name">{{::post.userName}}</span>
                             <div ng-bind-html="::post.content" class="content-text"></div>
@@ -61,10 +71,23 @@
                             <button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>
                             <button type="button" class=" text-capitalize margins" show-form>@BoxResources.Comment</button>
                             <button type="button" class="margins share">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
+                            <span class="ribbon" ng-if="post.isNew">New</span>
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.answers.length">
                             <li ng-repeat="reply in post.answers" class="reply">
-                                <div class="top" ng-style="{ background: post.isNew ? 'red' : '' }">
+                                <md-menu ng-if="b.canDelete(reply.userId)">
+                                    <md-button aria-label="open menu" class="md-icon-button delete" ng-click="b.openMenu($mdOpenMenu, $event)">
+                                        @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
+                                    </md-button>
+                                    <md-menu-content width="1">
+                                        <md-menu-item>
+                                            <md-button aria-label="delete reply" ng-click="f.deleteReply($event,post,reply)">
+                                                @Html.Svg("~/images/site/icons.svg", "delete", new { @class = "delete-icon" })
+                                            </md-button>
+                                        </md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
+                                <div class="top">
                                     <user-image class="img-circle c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
                                     <span class="user-name">{{::reply.userName}}</span> @*at*@
 
@@ -88,6 +111,7 @@
                                 <div class="actions padding">
                                     <button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>
                                     <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
+                                    <span class="ribbon" ng-if="post.isNew">New</span>
                                 </div>
                             </li>
                         </ol>
@@ -105,7 +129,6 @@
                                 </a>
                                 <button type="button" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()">@Html.Svg(url, "googleDrive")</button>
                                 <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
-                                <button type="button">@Html.Svg(url, "link", new { @class = "link" })</button>
                                 <button type="submit" class="btn pull-right text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
                                 @*<input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
                     <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
@@ -128,28 +151,7 @@
         </div>
 
         <div class="row margin-top-10" ng-controller="RecommendedController as r" ng-hide="r.isPrivate">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-repeat="e in r.boxes" ng-include="'box-template.html'">
-                @*<a href="{{box.url}}" class="dashboard-stat2" d-color="{{box.name.length}}">
-                <div class="display">
-                    <div class="number">
-                        <h3>{{box.name}}</h3>
-                        <small>{{box.courseCode}}</small>
-                    </div>
-                </div>
-                <div class="progress-info">
-                    <div class="progress">
-                    </div>
-                    <div class="status">
-                        <div class="status-title">
-                            {{box.membersCount}} members
-                        </div>
-                        <div class="status-number">
-                            {{box.itemCount}} items
-                        </div>
-                    </div>
-                </div>
-            </a>*@
-            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-repeat="e in r.boxes" ng-include="'box-template.html'"></div>
         </div>
     </div>
 </div>

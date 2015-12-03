@@ -24,6 +24,9 @@ Theme Colors
 /***********
 Body bg color
 ***********/
+html {
+  background: #212427;
+}
 body {
   background: #212427;
   /*background-image: url('../../Images/Site/BG.png');
