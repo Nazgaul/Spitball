@@ -24,8 +24,20 @@ parentUrl: "/library/"*/
         l.boxCancel = boxCancel;
         l.departmentCancel = departmentCancel;
         l.createBox = createBox;
+        l.toggleSettings = toggleSettings;
+        l.renameNode = renameNode;
 
-
+        function renameNode() {
+            libraryService.renameNode(l.settings.name, nodeId).then(function () {
+                l.nodeDetail.name = l.settings.name, nodeId;
+            });
+        }
+        function toggleSettings() {
+            l.settings = {
+                name: l.nodeDetail.name
+            };
+            l.settingsOpen = true;
+        }
         function createBox() {
 
             libraryService.createClass(l.boxName, l.code, l.professor, nodeId).then(function (response) {

@@ -1,0 +1,13 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+<div uib-collapse="!l.settingsOpen" class="settings">
+    <form ng-submit="l.renameNode()" novalidate name="nodeSettings" layout="row" layout-wrap>
+        <md-input-container flex="100" flex-gt-md="66">
+            <label class="text-capitalize">Rename</label>
+            <input type="text" autocomplete="off" name="lecturer" required ng-model="l.settings.name" />
+        </md-input-container>
+        <div layout="row" layout-align="end center" flex="100" flex-gt-md="33">
+            <button type="button" class="btn btn-default text-capitalize" ng-click="l.settingsOpen = false">@GeneralResources.Cancel</button>
+            <button type="submit" class="btn btn-primary text-capitalize" ng-disabled="!nodeSettings.$valid">@GeneralResources.SaveChanges</button>
+        </div>
+    </form>
+</div>
