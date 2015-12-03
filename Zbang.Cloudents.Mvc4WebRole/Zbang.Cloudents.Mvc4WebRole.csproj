@@ -1991,9 +1991,6 @@
     <Content Include="Js\CDNFallback.min.js">
       <DependentUpon>CDNFallback.js</DependentUpon>
     </Content>
-    <Content Include="Js\RT.js" />
-    <Content Include="Js\staticShim.js" />
-    <Content Include="Js\TooltipGuide.js" />
     <Content Include="Js\Logon.js" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />
@@ -2941,7 +2938,6 @@
     </Content>
     <Content Include="Views\Home\_AntiForgeryToken.cshtml" />
     <Content Include="Views\Error\Unsupported.cshtml" />
-    <Content Include="Views\Account\Confirmation.cshtml" />
     <Content Include="Views\Item\_FlagItem.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Item\_PreviewLinkDenied.cshtml" />
@@ -2988,7 +2984,6 @@
     <Content Include="Views\Box\_Settings.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
-    <Content Include="Views\Error\InternalServerError.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3409,9 +3404,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\_ViewStart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\AboutUs.cshtml" />

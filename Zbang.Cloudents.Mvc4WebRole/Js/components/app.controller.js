@@ -34,7 +34,7 @@
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             if (fromParams.boxId && toParams.boxId) {
-                if (fromParams.boxId === toParams.boxId && toState.name === 'box') {
+                if (fromParams.boxId === toParams.boxId && toState.name === 'box' && fromState.name.startsWidth('box')) {
                     event.preventDefault();
                     $rootScope.$broadcast('state-change-start-prevent');
                 }

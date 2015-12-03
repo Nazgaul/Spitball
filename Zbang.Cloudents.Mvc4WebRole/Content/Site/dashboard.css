@@ -115,9 +115,12 @@
   flex-direction: column;
 }
 .dashboard .create-box .plus {
-  font-size: 100px;
-  line-height: 50px;
   margin-bottom: 12px;
+}
+.dashboard .create-box .plus svg {
+  width: 50px;
+  height: 50px;
+  fill: #3d4348;
 }
 .dashboard .create-box md-content {
   background: transparent;
