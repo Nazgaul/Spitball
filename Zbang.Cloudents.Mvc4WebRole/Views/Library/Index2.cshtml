@@ -1,4 +1,5 @@
-﻿<div class="page-head">
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+<div class="page-head">
     <div class="page-title">
         <h1>{{::l.universityName}}</h1>
         <h2 ng-if="l.nodeDetail"><a href="{{::l.nodeDetail.parentUrl}}">back {{::l.nodeDetail.name}}</a></h2>
@@ -38,9 +39,9 @@
                 <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
                 <div class="title">add class</div>
             </button>
-            <form name="createBox" novalidate ng-submit="l.createBox()" ng-show="l.createBoxOn">
+            <form name="createDepartment" novalidate ng-submit="l.createDepartment()" ng-show="l.createDepartmentOn">
                 <div layout="column">
-                    <md-content layout="column">
+                    <md-content>
                         <div layout layout-sm="column">
                             <md-input-container flex>
                                 <label>Enter department name</label>
@@ -48,21 +49,12 @@
                                 <span class="error" ng-show="l.error">{{l.error}}</span>
                             </md-input-container>
                         </div>
-                        <input autocomplete="off" required ng-model="l.boxName">
-                    </md-input-container>
-                    <md-input-container ng-if="l.secondStep">
-                        <label>Enter code</label>
-                        <input autocomplete="off" ng-model="l.code">
-                    </md-input-container>
-                    <md-input-container ng-if="l.secondStep">
-                        <label>instractor</label>
-                        <input autocomplete="off" ng-model="l.professor">
-                    </md-input-container>
                     </md-content>
 
                 </div>
-                    <button type="button" class="btn text-capitalize" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()">next</button>
-                    <button type="submit" class="btn text-capitalize" ng-if="l.secondStep" ng-disabled="!createBox.$valid">done</button>
+                <span layout="row" layout-align="space-between center">
+                    <button type="button" class="btn btn-default text-capitalize" ng-click="l.createDepartmentOn = false">@GeneralResources.Cancel</button>
+                    <button type="submit" class="btn text-capitalize" ng-disabled="!createDepartment.$valid">@GeneralResources.Done</button>                    
                 </span>
             </form>
         </div>
