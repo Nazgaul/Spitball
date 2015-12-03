@@ -156,6 +156,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
             char previousChar = '\0';
             var sb = new StringBuilder();
             name = name.Replace(Convert.ToChar(160), ' ');
+            name = name.Replace("\n", string.Empty);
 
             foreach (var character in name)
             {

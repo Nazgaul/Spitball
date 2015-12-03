@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Domain
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             DateTimeUser = new UserTimeDetails(uploader.Email);
 
-            Name = itemName;
+            Name = itemName.Trim();
             Uploader = uploader;
             Size = iSized;
             Box = box;

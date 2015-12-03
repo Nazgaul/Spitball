@@ -34,8 +34,11 @@
 
     .preview {
         text-align: center;
-        width: 800px;
         margin: 0 auto;
+        /*width: 800px;*/
+        .preview-page {
+            width: 800px;
+        }
 
         .previewFailed {
             p {
@@ -48,23 +51,37 @@
             }
         }
 
+        .previewDenied {
+            width: 100%;
+
+            p {
+                color: @textColorBlack;
+                font-size: 22px;
+            }
+
+            a {
+                background: #5b9bd1;
+                color: @textColorWhite;
+                padding: 5px 30px;
+                border-radius: 7px;
+
+                :hover {
+                    color: @textColorWhite;
+                }
+            }
+        }
+
+        .preview-svg .svgContent, .preview-image .imageContent {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 3px 8px @progressbarBackgroundColor;
+        }
+
         img {
             max-width: 100%;
             background: @backgroundColorWhite;
             margin: 10px 0;
         }
-    }
-
-    .like {
-        float: left;
-    }
-
-    .actions {
-        text-align: center;
-    }
-
-    .closeItem {
-        float: right;
     }
 
     svg {

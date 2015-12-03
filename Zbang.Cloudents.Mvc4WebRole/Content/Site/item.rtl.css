@@ -40,8 +40,11 @@
 }
 .itemPage .preview {
   text-align: center;
-  width: 800px;
   margin: 0 auto;
+  /*width: 800px;*/
+}
+.itemPage .preview .preview-page {
+  width: 800px;
 }
 .itemPage .preview .previewFailed p {
   color: #282828;
@@ -50,19 +53,32 @@
 .itemPage .preview .previewFailed img {
   margin-bottom: 30px;
 }
+.itemPage .preview .previewDenied {
+  width: 100%;
+}
+.itemPage .preview .previewDenied p {
+  color: #282828;
+  font-size: 22px;
+}
+.itemPage .preview .previewDenied a {
+  background: #5b9bd1;
+  color: #f5f5f5;
+  padding: 5px 30px;
+  border-radius: 7px;
+}
+.itemPage .preview .previewDenied a :hover {
+  color: #f5f5f5;
+}
+.itemPage .preview .preview-svg .svgContent,
+.itemPage .preview .preview-image .imageContent {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 3px 8px #dfe2e9;
+}
 .itemPage .preview img {
   max-width: 100%;
   background: #f5f5f5;
   margin: 10px 0;
-}
-.itemPage .like {
-  float: right;
-}
-.itemPage .actions {
-  text-align: center;
-}
-.itemPage .closeItem {
-  float: left;
 }
 .itemPage svg {
   width: 17px;

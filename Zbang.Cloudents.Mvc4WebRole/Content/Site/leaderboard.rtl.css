@@ -23,12 +23,12 @@
   text-align: center;
   margin-bottom: 10px;
 }
-@media (min-height: 960px) {
+@media (min-width: 960px) {
   .leaderboad h4 {
     font-size: 1.5vw;
   }
 }
-@media (min-height: 1200px) {
+@media (min-width: 1200px) {
   .leaderboad h4 {
     font-size: 1.5vw;
   }
