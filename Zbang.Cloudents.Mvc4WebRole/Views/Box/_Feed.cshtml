@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+@{
     const string url = "~/images/site/uploadIcons.svg";
 }
 <div class="row">
@@ -36,7 +39,7 @@
                         </a>
                         <button type="button" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()">@Html.Svg(url, "googleDrive")</button>
                         <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox",new {@class="dropbox"})</button>
-                        <button type="submit" class="btn pull-right text-uppercase" ng-disabled="f.add.disabled">post</button>
+                        <button type="submit" class="btn pull-right text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
                         <input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
                         <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
                     </div>
@@ -65,8 +68,8 @@
                         </ul>
                         <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:m'}}</span>
                         <div class="actions">
-                            <button type="button" class="text-capitalize like margins">15 like</button>
-                            <button type="button" class=" text-capitalize margins" show-form>comment</button>
+                            <button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>
+                            <button type="button" class=" text-capitalize margins" show-form>@BoxResources.Comment</button>
                             <button type="button" class="margins share">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
                             <span class="ribbon" ng-if="post.isNew">New</span>
                         </div>
@@ -106,7 +109,7 @@
                                 </ul>
                                 <span class="comment-date">{{::reply.creationTime | date : 'MMM d,yyyy H:m'}}</span>
                                 <div class="actions padding">
-                                    <button type="button" class="text-capitalize like margins">15 like</button>
+                                    <button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>
                                     <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>
                                     <span class="ribbon" ng-if="post.isNew">New</span>
                                 </div>
@@ -126,7 +129,7 @@
                                 </a>
                                 <button type="button" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()">@Html.Svg(url, "googleDrive")</button>
                                 <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
-                                <button type="submit" class="btn pull-right text-uppercase" ng-disabled="f.add.disabled">post</button>
+                                <button type="submit" class="btn pull-right text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
                                 @*<input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
                     <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
                             </div>
@@ -143,7 +146,7 @@
         <div class="portlet light invite">
             <button type="button" ng-click="b.inviteToBox()" class="portlet-body">
                 @Html.Svg("~/images/site/icons.svg", "invite")
-                Invite your friends to spitball
+                @BoxResources.InviteFriends
             </button>
         </div>
 

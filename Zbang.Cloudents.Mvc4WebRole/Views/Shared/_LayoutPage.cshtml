@@ -205,17 +205,17 @@
                             <ul ng-if="ud.isLoggedIn" class="dropdown-menu dropdown-menu-default">
                                 <li>
                                     <a href="{{::ud.url}}" @shouldPostBack>
-                                        @Html.Svg(svgUrl, "userMenu") my activities
+                                        @Html.Svg(svgUrl, "userMenu")<span>my activities</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="@Url.RouteUrl("AccountSettings")" @shouldPostBack>
-                                        @Html.Svg(svgUrl, "settingMenu") settings
+                                        @Html.Svg(svgUrl, "settingMenu") <span>settings</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a target="_self" href="@Url.Action("logoff","account")" @shouldPostBack>
-                                        @Html.Svg(svgUrl, "logOffMenu") Log Out
+                                        @Html.Svg(svgUrl, "logOffMenu") <span>Log Out</span>
                                     </a>
                                 </li>
                             </ul>

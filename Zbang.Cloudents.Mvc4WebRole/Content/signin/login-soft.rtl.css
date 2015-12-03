@@ -169,6 +169,11 @@ Login page
   height: 45px;
   margin-top: 25px;
 }
+.login .content .check-email-message .text button {
+  color: #3293f6;
+  background: none;
+  border: none;
+}
 .login .content .form-actions {
   background-color: transparent;
   clear: both;
@@ -330,8 +335,7 @@ Login page
 .login .login-options svg {
   width: 37px;
   height: 37px;
-  margin-left: 10px;
-  margin-right: -8px;
+  margin-left: 0;
 }
 .login label a {
   color: #30333A;

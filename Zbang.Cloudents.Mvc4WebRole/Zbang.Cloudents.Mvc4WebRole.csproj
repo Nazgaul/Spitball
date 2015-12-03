@@ -455,6 +455,11 @@
     <Compile Include="Models\UploadFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Views\Account\Resources\AccountResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Account\Resources\AccountSettingsResources.Designer.cs">
       <DependentUpon>AccountSettingsResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -495,6 +500,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Views\Box\Resources\BoxResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BoxResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Box\Resources\IndexResources.Designer.cs">
       <DependentUpon>IndexResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -504,6 +514,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IndexResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Error\Resources\IndexResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IndexResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\Resources\HomeResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HomeResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Item\Resources\FlagItemResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -529,6 +549,11 @@
       <DependentUpon>FooterResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\Shared\Resources\GeneralResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GeneralResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\Resources\QuizResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -3208,6 +3233,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.ru.resx" />
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.zh.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\AccountResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccountResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.ar.resx" />
     <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.he.resx" />
@@ -3287,6 +3316,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\RegisterResources.ru.resx" />
     <EmbeddedResource Include="Views\Account\Resources\RegisterResources.zh.resx" />
+    <EmbeddedResource Include="Views\Box\Resources\BoxResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoxResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Box\Resources\IndexResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
@@ -3296,6 +3329,14 @@
     <EmbeddedResource Include="Views\Dashboard\Resources\IndexResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Error\Resources\IndexResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Home\Resources\HomeResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>HomeResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.ar.resx" />
     <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.he.resx" />
@@ -3353,6 +3394,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.ru.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.zh.resx" />
+    <EmbeddedResource Include="Views\Shared\Resources\GeneralResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GeneralResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\QuizResources.ar.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\QuizResources.he.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\QuizResources.resx">

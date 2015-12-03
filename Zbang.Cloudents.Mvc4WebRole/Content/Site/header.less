@@ -30,9 +30,9 @@ Rounded Portlets
     }
 }*/
 .headerMenu {
-    width:20px;
-    height:20px;
-     fill: @textColorDarkGrey;
+    width: 20px;
+    height: 20px;
+    fill: @textColorDarkGrey;
 }
 
 .searchIcon {
@@ -40,9 +40,11 @@ Rounded Portlets
     height: 15px;
     fill: @textColorWhite;
 }
+
 .headerHelp {
-    padding:0 !important;
+    padding: 0 !important;
 }
+
 .nav > li > a:hover, .nav > li > a:focus {
     background: transparent;
 }
@@ -54,19 +56,35 @@ Rounded Portlets
 
 .top-menu {
     svg {
-    fill:@headerImagesColor;
-    height: 20px;
-    width: 20px;
-    margin-top: 30px;
-    margin-right:20px;
+        fill: @headerImagesColor;
+        height: 20px;
+        width: 20px;
+        margin-top: 30px;
+        margin-right: 20px;
+    }
+
+    .navbar-nav .open li {
+        a {
+            display: flex;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+
+            svg, span {
+                align-self: center;
+            }
+
+            svg {
+                margin-top: 0;
+                fill: @backgroundColorWhite;
+            }
+        }
     }
 
     .headerNotification {
         width: 20px;
         height: 20px;
-        margin-top:0;
-        margin-right:0;
-
+        margin-top: 0;
+        margin-right: 0;
     }
 
     .badge-notifcation {
@@ -74,30 +92,30 @@ Rounded Portlets
     }
 }
 
-.login ,.signin {
-    display:inline-block !important;
+.login, .signin {
+    display: inline-block !important;
     border-radius: 25px;
-    background:@backgroundColorWhite;
+    background: @backgroundColorWhite;
     color: @textColorBlack;
-    margin-top:13px;
+    margin-top: 13px;
     //background:#3293f6;
-    font-size:20px;
-    text-transform:capitalize;
+    font-size: 20px;
+    text-transform: capitalize;
 
     &:hover {
-        background:@backgroundColorWhite !important;
+        background: @backgroundColorWhite !important;
     }
-
 }
+
 .login {
-    background:@backgroundColorSpitballBlue;
+    background: @backgroundColorSpitballBlue;
     color: @textColorWhite;
+
     &:hover {
         background: @backgroundColorSpitballBlue !important;
     }
 }
+
 .search-wrapper {
-    display:inline;
+    display: inline;
 }
-
-
