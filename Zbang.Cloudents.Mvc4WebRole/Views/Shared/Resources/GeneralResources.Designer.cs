@@ -113,5 +113,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
                 return ResourceManager.GetString("SaveChanges", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to spitball.
+        /// </summary>
+        public static string Spitball {
+            get {
+                return ResourceManager.GetString("Spitball", resourceCulture);
+            }
+        }
     }
 }

@@ -117,106 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activities" xml:space="preserve">
-    <value>my activities</value>
+  <data name="Accepted" xml:space="preserve">
+    <value>150 pts Each accepted invite</value>
   </data>
-  <data name="AddMail" xml:space="preserve">
-    <value>Add email to invite friends</value>
+  <data name="AcceptedToCourse" xml:space="preserve">
+    <value>50 pts Each accepted invite to course</value>
   </data>
-  <data name="Best" xml:space="preserve">
-    <value>the best in class</value>
+  <data name="Answering" xml:space="preserve">
+    <value>100 pts Answering a question</value>
+  </data>
+  <data name="Asking" xml:space="preserve">
+    <value>50 pts Asking a question</value>
   </data>
   <data name="Classes" xml:space="preserve">
-    <value>My Classes</value>
+    <value>classes</value>
   </data>
-  <data name="Complete" xml:space="preserve">
-    <value>complete</value>
+  <data name="Creating" xml:space="preserve">
+    <value>300 pts Creating a quiz</value>
   </data>
-  <data name="Completed" xml:space="preserve">
-    <value>files | upload complete</value>
+  <data name="Earn" xml:space="preserve">
+    <value>Earn points by:</value>
   </data>
-  <data name="Dashboard" xml:space="preserve">
-    <value>Dashboard</value>
+  <data name="Friends" xml:space="preserve">
+    <value>friends</value>
   </data>
-  <data name="Draft" xml:space="preserve">
-    <value>draft</value>
+  <data name="MaxStars" xml:space="preserve">
+    <value>150 pts Receiving a 5 star rating</value>
   </data>
-  <data name="DragHere" xml:space="preserve">
-    <value>Drag and drop your files here</value>
+  <data name="MoreStars" xml:space="preserve">
+    <value>100 pts Receiving a 4 star rating</value>
   </data>
-  <data name="GmailContact" xml:space="preserve">
-    <value>import contact from gmail</value>
+  <data name="Points" xml:space="preserve">
+    <value>points</value>
   </data>
-  <data name="Group" xml:space="preserve">
-    <value>My Group</value>
+  <data name="Posts" xml:space="preserve">
+    <value>posts</value>
   </data>
-  <data name="Invite" xml:space="preserve">
-    <value>invite your friends to spitball</value>
+  <data name="Quizzes" xml:space="preserve">
+    <value>quizzes</value>
   </data>
-  <data name="Items" xml:space="preserve">
-    <value>items</value>
+  <data name="ShareFB" xml:space="preserve">
+    <value>50 pts Sharing on FB</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>log in</value>
+  <data name="Stars" xml:space="preserve">
+    <value>50 pts Receiving a 3 star rating</value>
   </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Log Out</value>
+  <data name="UploadItem" xml:space="preserve">
+    <value>100 pts Upload an item to a cours</value>
   </data>
-  <data name="Mail" xml:space="preserve">
-    <value>mail</value>
+  <data name="Uploads" xml:space="preserve">
+    <value>uploads</value>
   </data>
-  <data name="Members" xml:space="preserve">
-    <value>members</value>
-  </data>
-  <data name="Oops" xml:space="preserve">
-    <value>Oops!</value>
-  </data>
-  <data name="Pts" xml:space="preserve">
-    <value>pts</value>
-  </data>
-  <data name="Remove" xml:space="preserve">
-    <value>remove file</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>Search...</value>
-  </data>
-  <data name="Send" xml:space="preserve">
-    <value>send</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>settings</value>
-  </data>
-  <data name="Share" xml:space="preserve">
-    <value>share with your firends youtube video, artivle or other educational material from any site</value>
-  </data>
-  <data name="Signup" xml:space="preserve">
-    <value>sign up</value>
-  </data>
-  <data name="Suggested" xml:space="preserve">
-    <value>suggested</value>
-  </data>
-  <data name="Uni" xml:space="preserve">
-    <value>University Page</value>
-  </data>
-  <data name="UploadFiles" xml:space="preserve">
-    <value>upload files</value>
-  </data>
-  <data name="UploadFromComputer" xml:space="preserve">
-    <value>upload files from computer</value>
-  </data>
-  <data name="UploadFromDropbox" xml:space="preserve">
-    <value>upload files from dropbox</value>
-  </data>
-  <data name="UploadFromGoogle" xml:space="preserve">
-    <value>upload files from google drive</value>
-  </data>
-  <data name="User" xml:space="preserve">
-    <value>User Page</value>
-  </data>
-  <data name="WebLink" xml:space="preserve">
-    <value>add website link</value>
-  </data>
-  <data name="WentWrong" xml:space="preserve">
-    <value>Something went wrong.</value>
+  <data name="UserPage" xml:space="preserve">
+    <value>user page</value>
   </data>
 </root>

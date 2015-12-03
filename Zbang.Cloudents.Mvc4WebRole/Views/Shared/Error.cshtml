@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+@{
     ViewBag.Title = "Internal server error";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
@@ -7,7 +9,7 @@
     <img src="@Url.CdnContent("~/Images/Site/500_image.png")" alt="Internal server error">
     <div class="text">
         <h2>
-            Oops!<br />Something went wrong.
+            @IndexResources.Oops<br />@IndexResources.WentWrong
         </h2>
     </div>
 </div>

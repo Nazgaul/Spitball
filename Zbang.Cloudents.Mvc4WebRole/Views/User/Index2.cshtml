@@ -1,9 +1,11 @@
-﻿<script type="text/ng-template" id="userboxes.html">
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
+
+<script type="text/ng-template" id="userboxes.html">
     this is a text
 </script>
 <div class="page-head">
     <div class="page-title">
-        <h1>user page </h1>
+        <h1>@IndexResources.UserPage </h1>
     </div>
 </div>
 <div class="row userPage">
@@ -24,22 +26,22 @@
             </div>
             <div class="points-container">
                 <h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>
-                <h5>points</h5>
+                <h5>@IndexResources.Points</h5>
             </div>
             <div class="points-awards">
-                <span class="earn">Earn points by:</span>
+                <span class="earn">@IndexResources.Earn</span>
                 <hr />
                 <ul class="list-unstyled">
-                    <li>300 pts Creating a quiz</li>
-                    <li>150 pts Each accepted invite</li>
-                    <li>50 pts Each accepted invite to course</li>
-                    <li>100 pts Upload an item to a course</li>
-                    <li>100 pts Answering a question</li>
-                    <li>50 pts Asking a question</li>
-                    <li>150 pts Receiving a 5 star rating</li>
-                    <li>100 pts Receiving a 4 star rating</li>
-                    <li>50 pts Receiving a 3 star rating</li>
-                    <li>50 pts Sharing on FB</li>
+                    <li>@IndexResources.Creating</li>
+                    <li>@IndexResources.Accepted</li>
+                    <li>@IndexResources.AcceptedToCourse</li>
+                    <li>@IndexResources.UploadItem</li>
+                    <li>@IndexResources.Answering</li>
+                    <li>@IndexResources.Asking</li>
+                    <li>@IndexResources.MaxStars</li>
+                    <li>@IndexResources.MoreStars</li>
+                    <li>@IndexResources.Stars</li>
+                    <li>@IndexResources.ShareFB</li>
                 </ul>
             </div>
         </div>
@@ -50,20 +52,20 @@
                         <ul class="nav nav-tabs tabbable">
                             <li ng-class="{active: u.tab === u.state.box}">
                                 <button type="button" ng-click="u.changeTab(u.state.box)">
-                                    <h3 class="text-capitalize">Classes</h3> {{::u.details.numClass | megaNumber}}
+                                    <h3 class="text-capitalize">@IndexResources.Classes</h3> {{::u.details.numClass | megaNumber}}
                                 </button>
                             </li>
                             <li ng-class="{active:u.tab === u.state.item}">
-                                <button type="button" ng-click="u.changeTab(u.state.item)"><h3 class="text-capitalize">uploads</h3> {{::u.details.numItem | megaNumber}}</button>
+                                <button type="button" ng-click="u.changeTab(u.state.item)"><h3 class="text-capitalize">@IndexResources.Uploads</h3> {{::u.details.numItem | megaNumber}}</button>
                             </li>
                             <li ng-class="{active: u.tab === u.state.post}">
-                                <button type="button" ng-click="u.changeTab(u.state.post)"><h3 class="text-capitalize">posts</h3> {{::u.details.numFeed | megaNumber}}</button>
+                                <button type="button" ng-click="u.changeTab(u.state.post)"><h3 class="text-capitalize">@IndexResources.Posts</h3> {{::u.details.numFeed | megaNumber}}</button>
                             </li>
                             <li ng-class="{active: u.tab === u.state.quiz}">
-                                <button type="button" ng-click="u.changeTab(u.state.quiz)"><h3 class="text-capitalize">quizzes</h3> {{::u.details.numQuiz | megaNumber}}</button>
+                                <button type="button" ng-click="u.changeTab(u.state.quiz)"><h3 class="text-capitalize">@IndexResources.Quizzes</h3> {{::u.details.numQuiz | megaNumber}}</button>
                             </li>
                             <li ng-class="{active: u.tab === u.state.friend}">
-                                <button type="button" ng-click="u.changeTab(u.state.friend)"><h3 class="text-capitalize">friends</h3> {{::u.details.numFriend | megaNumber}}</button>
+                                <button type="button" ng-click="u.changeTab(u.state.friend)"><h3 class="text-capitalize">@IndexResources.Friends</h3> {{::u.details.numFriend | megaNumber}}</button>
                             </li>
                         </ul>
                     </div>
