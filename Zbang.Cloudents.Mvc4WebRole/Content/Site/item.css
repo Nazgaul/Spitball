@@ -36,11 +36,19 @@
   max-width: 430px;
   margin: 0 auto;
   overflow: hidden;
+  padding: 20px 0;
 }
 .itemPage .preview {
   text-align: center;
   width: 800px;
   margin: 0 auto;
+}
+.itemPage .preview .previewFailed p {
+  color: #282828;
+  font-size: 22px;
+}
+.itemPage .preview .previewFailed img {
+  margin-bottom: 30px;
 }
 .itemPage .preview img {
   max-width: 100%;

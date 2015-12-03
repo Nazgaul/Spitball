@@ -1793,6 +1793,7 @@
     <Content Include="Images\Site\info.svg" />
     <Content Include="Images\Site\libChooseIcons.svg" />
     <Content Include="Images\Site\membersOnly.png" />
+    <Content Include="Images\Site\preview_failed_icon.png" />
     <Content Include="Images\Site\quizbackground.png" />
     <Content Include="Images\Site\quizIcons.svg" />
     <Content Include="Images\Site\itemIcons.svg" />

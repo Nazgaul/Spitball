@@ -6,8 +6,8 @@
 
         a {
             margin: 0 15px;
-            height:17px;
-            width:17px;
+            height: 17px;
+            width: 17px;
         }
 
         svg {
@@ -29,12 +29,24 @@
         max-width: 430px;
         margin: 0 auto;
         overflow: hidden;
+        padding: 20px 0;
     }
 
     .preview {
         text-align: center;
         width: 800px;
         margin: 0 auto;
+
+        .previewFailed {
+            p {
+                color: @textColorBlack;
+                font-size: 22px;
+            }
+
+            img {
+                margin-bottom: 30px;
+            }
+        }
 
         img {
             max-width: 100%;
@@ -59,11 +71,12 @@
         width: 17px;
         height: 17px;
     }
+
     .copy-right {
-        width:500px;
+        width: 500px;
     }
     //override bootstrap
     .tooltip-inner {
-        max-width:500px;
+        max-width: 500px;
     }
 }
