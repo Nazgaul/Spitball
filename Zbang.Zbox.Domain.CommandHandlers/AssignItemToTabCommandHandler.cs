@@ -33,29 +33,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException("You need to follow the box");
             }
 
-            var itemTab = m_ItemTabRepository.Get(message.TabId);
-
-            if (itemTab == null)
-            {
-                throw new NullReferenceException("itemTab");
-            }
-            if (message.NeedDelete)
-            {
-                itemTab.DeleteReferenceToItems();
-            }
-            foreach (var itemid in message.ItemsId)
-            {
-                var item = m_ItemRepository.Get(itemid);
-                if (item == null)
-                {
-                    throw new NullReferenceException("item");
-                }
-
-
-                itemTab.AddItemToTab(item);
-
-                m_ItemTabRepository.Save(itemTab);
-            }
+            var itemTab = m_ItemTabRepository.Load(message.TabId);
+            //if (message.NeedDelete)
+            //{
+            //    itemTab.DeleteReferenceToItems();
+            //}
+            //foreach (var itemid in message.ItemsId)
+            //{
+            var item = m_ItemRepository.Load(message.ItemId);
+            itemTab.AddItemToTab(item);
+            m_ItemTabRepository.Save(itemTab);
+            //}
         }
     }
 }

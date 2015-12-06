@@ -23,10 +23,17 @@
         i.deleteItem = deleteItem;
         i.tabChange = tabChange;
         i.upDir = upDir;
-        i.test = function(ev, x) {
-            console.log(ev, x);
-        }
+        i.addItemToTab = addItemToTab;
+        i.dropToTabSuccess = dropToTabSuccess;
         getItems();
+
+        function addItemToTab($data, tab) {
+            boxService.addItemToTab(boxId, tab.id, $data.id);
+
+        }
+        function dropToTabSuccess(index) {
+            i.items.splice(index, 1);
+        }
         function tabChange(tab) {
             //i.tabSelectedId = tab.id;
             i.tabSelected = tab;

@@ -41,10 +41,10 @@ namespace Zbang.Zbox.Domain
             Items.Remove(item);
         }
 
-        public void DeleteReferenceToItems()
-        {
-            Items.Clear();
-        }
+        //public void DeleteReferenceToItems()
+        //{
+        //    Items.Clear();
+        //}
 
         public override bool Equals(object other)
         {
