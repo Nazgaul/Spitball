@@ -12,34 +12,45 @@
         </li>
         <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 item-animate" ng-repeat="e in i.items track by e.id " ng-include="'item-template.html'"></li>
     </ul>*@
-<div layout="row" layout-align="space-between stretch">
-    <div layout="row" flex="50">
-        <div flex="none" class="arrow">@Html.Svg("~/images/site/icons.svg", "arrow")</div>
-        <div flex class="folder-name">
-            <div layout="row" layout-align="space-between none">
-                <div layout="row" layout-align="space-between none">
-                    <div>@Html.Svg("~/images/folder_icon.svg", "folder")</div>
-                    <p class="ellipsis" flex>Folder name goes here</p>
+<div layout="row" class="location-search-area" layout-align="space-between end">
+    <div class="folder" flex="50">
+        <div layout="row" layout-align="start center">
+            <div layout="row" layout-align="none  center" class="arrow">@Html.Svg("~/images/site/icons.svg", "arrow")</div>
+            <div flex class="folder-name">
+                <div layout="row" layout-align="space-between center">
+                    <div class="name-and-icon" layout="row" layout-align="start center">
+                        <div layout="row" class="icon">@Html.Svg("~/images/folder_icon.svg", "folder")</div>
+                        <div class="text ellipsis">
+                            Folder name goes here
+                        </div>
+                    </div>
+                    <md-menu ng-if="b.canDelete(e.ownerId)">
+                        <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
+                            @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
+                        </md-button>
+                        <md-menu-content width="1">
+                            <md-menu-item>
+                                <md-button aria-label="delete post" ng-click="i.deleteItem($event,e)">
+                                    @GeneralResources.Delete
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button aria-label="delete post" ng-click="i.deleteItem($event,e)">
+                                    @GeneralResources.Delete
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
                 </div>
-                <md-menu ng-if="b.canDelete(e.ownerId)">
-                    <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
-                        @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
-                    </md-button>
-                    <md-menu-content width="1">
-                        <md-menu-item>
-                            <md-button aria-label="delete post" ng-click="i.deleteItem($event,e)">
-                                @GeneralResources.Delete
-                            </md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
             </div>
         </div>
     </div>
-    <md-input-container flex="50">
-        <label class="text-capitalize">@BoxResources.Search</label>
-        <input type="search" ng-model="i.term" ng-model-options="{debounce : 250}" ng-change="i.filter()" ng-minlength="2" />
-    </md-input-container>
+    <div class="search-box" flex="50">
+        <md-input-container>
+            <label class="text-capitalize">@BoxResources.Search</label>
+            <input type="search" ng-model="i.term" ng-model-options="{debounce : 250}" ng-change="i.filter()" ng-minlength="2" />
+        </md-input-container>
+    </div>
 </div>
 
 <ul layout="row" layout-fill layout-wrap class="list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
