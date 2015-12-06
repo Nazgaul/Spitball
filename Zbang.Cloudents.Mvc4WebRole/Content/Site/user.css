@@ -52,7 +52,7 @@
   margin-top: 18px;
   color: #888b8e;
   line-height: 18px;
-  padding-left: 5px;
+  padding-left: 13px;
 }
 .userPage .points-awards .earn {
   font-size: 16px;
@@ -60,6 +60,10 @@
 .userPage .points-awards hr {
   margin: 5px 5px 7px 0;
   border-color: #8c99a6;
+}
+.userPage .points-awards ul {
+  padding-left: 0;
+  margin-top: 11.5px;
 }
 .userPage svg {
   width: 17px;

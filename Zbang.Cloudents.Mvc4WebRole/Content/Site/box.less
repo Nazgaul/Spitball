@@ -1,34 +1,41 @@
 ﻿@import "variables.less";
 
 .class {
+    .location-search-area, .folders {
+        .folder-name {
+            background: @backgroundColorItem;
+
+            .icon svg {
+                width: 21px;
+                height: 21px;
+                fill: @backgroundColor2;
+                margin: 0 7px;
+            }
+        }
+    }
+
     .location-search-area {
         padding-bottom: 40px;
 
-        .folder {
-            .folder-name {
-                background: @backgroundColorItem;
+        .md-menu {
+            padding: 0;
 
-                .icon svg {
-                    width: 21px;
-                    height: 21px;
-                    fill: @backgroundColor2;
-                    margin: 0 7px;
-                }
-
-                .md-menu {
-                    padding: 0;
-
-                    button {
-                        height: 0;
-                        width: 30px;
-                    }
-                }
-            }
-
-            .name-and-icon {
-                width: ~"calc(100% - 40px)";
+            button {
+                height: 0;
+                width: 30px;
             }
         }
+
+        .name-and-icon {
+            width: ~"calc(100% - 40px)";
+        }
+
+
+        .dots-3 {
+            margin-left: 0;
+            fill: @backgroundColor;
+        }
+
 
         .search-box md-input-container {
             padding-bottom: 0;
@@ -47,7 +54,6 @@
 
 
 
-
         .arrow svg {
             width: 22px;
             height: 22px;
@@ -58,6 +64,16 @@
             transform: rotate(180deg);
             fill: @backgroundColorItem;
             margin-right: 15px;
+        }
+    }
+
+    .folders {
+        .folder-name {
+            margin: 10px;
+        }
+
+        .folder-name, .folder-name .content {
+            width: 200px;
         }
     }
     //dont think we need that
