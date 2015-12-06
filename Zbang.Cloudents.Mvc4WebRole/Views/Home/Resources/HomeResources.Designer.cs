@@ -59,23 +59,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to modal title.
-        /// </summary>
-        public static string Title {
-            get {
-                return ResourceManager.GetString("Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string Widget {
-            get {
-                return ResourceManager.GetString("Widget", resourceCulture);
-            }
-        }
     }
 }

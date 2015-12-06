@@ -377,7 +377,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public async Task GetBoxItemsPaged2_Query_ReturnResult()
         {
-            var query = new GetBoxItemsPagedQuery(3732);
+            var query = new GetBoxItemsPagedQuery(3732,null);
             try
             {
                 var x = await m_ZboxReadService.GetBoxItemsPagedAsync(query);
@@ -390,7 +390,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public async Task GetBoxItemsPaged2WithTab_Query_ReturnResult()
         {
-            var query = new GetBoxItemsPagedQuery(3732);
+            var query = new GetBoxItemsPagedQuery(3732, null);
             try
             {
                 var x = await m_ZboxReadService.GetBoxItemsPagedAsync(query);

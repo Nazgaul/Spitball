@@ -117,24 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BrowserUnsupported" xml:space="preserve">
-    <value>Spitball doesn't support
-your browser version</value>
-  </data>
-  <data name="GoBack" xml:space="preserve">
-    <value>Return to the</value>
-  </data>
-  <data name="HomePage" xml:space="preserve">
-    <value>home page</value>
-  </data>
-  <data name="NotFound" xml:space="preserve">
-    <value>The page you're looking for doesn't exist.</value>
-  </data>
-  <data name="Oops" xml:space="preserve">
-    <value>Oops</value>
-  </data>
-  <data name="UseOtherBrowser" xml:space="preserve">
-    <value>Please update your version of Internet Explorer
-or use a different browser</value>
-  </data>
 </root>

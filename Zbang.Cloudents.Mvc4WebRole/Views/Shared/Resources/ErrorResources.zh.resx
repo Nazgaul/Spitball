@@ -117,24 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BrowserUnsupported" xml:space="preserve">
-    <value>Spitball 不支持
-您的浏览器版本</value>
-  </data>
-  <data name="GoBack" xml:space="preserve">
-    <value>返回至</value>
-  </data>
-  <data name="HomePage" xml:space="preserve">
-    <value>主页</value>
-  </data>
-  <data name="NotFound" xml:space="preserve">
-    <value>您查找的页面似乎不存在。</value>
-  </data>
-  <data name="Oops" xml:space="preserve">
-    <value>糟糕！</value>
-  </data>
-  <data name="UseOtherBrowser" xml:space="preserve">
-    <value>请升级您的 IE 浏览器版本
-或使用其他浏览器</value>
-  </data>
 </root>
