@@ -117,10 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CoursesFollow" xml:space="preserve">
-    <value>Modules I follow</value>
-  </data>
-  <data name="DeleteCourse" xml:space="preserve">
-    <value>Deleting this module will delete all its content including files and Q&amp;A. Are you sure you would like to delete this module?</value>
-  </data>
 </root>

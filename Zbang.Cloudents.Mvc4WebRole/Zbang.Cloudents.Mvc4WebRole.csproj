@@ -337,13 +337,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>JsResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Account\Confirmation.cs" />
     <Compile Include="Models\Account\FacebookLogIn.cs" />
     <Compile Include="Models\Account\ForgotPassword.cs" />
     <Compile Include="Models\Account\ForgotPasswordLinkData.cs" />
     <Compile Include="Models\Account\Invite.cs" />
     <Compile Include="Models\Account\LogOn.cs" />
-    <Compile Include="Models\Account\LogOnRegister.cs" />
     <Compile Include="Models\Account\NewPassword.cs" />
     <Compile Include="Models\Account\Register.cs" />
     <Compile Include="Models\Account\Resources\AccountSettingsResources.Designer.cs">
@@ -366,14 +364,10 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Models\Account\Settings\AccountSettings.cs" />
     <Compile Include="Models\Account\Settings\ChangeMail.cs" />
-    <Compile Include="Models\Account\Settings\Notification.cs" />
     <Compile Include="Models\Account\Settings\Password.cs" />
     <Compile Include="Models\Account\Settings\Profile.cs" />
-    <Compile Include="Models\Account\Settings\Storage.cs" />
     <Compile Include="Models\Account\Settings\University.cs" />
-    <Compile Include="Models\Account\Settings\UserLanguage.cs" />
     <Compile Include="Models\AddFromDropBox.cs" />
     <Compile Include="Models\AddLink.cs" />
     <Compile Include="Models\ChooseDepartment.cs" />

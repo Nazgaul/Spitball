@@ -41,10 +41,10 @@
       <key column="BoxId"/>
       <one-to-many class="Quiz"/>
     </bag>
-    <!--<bag name="ItemTabs"  cascade="all-delete-orphan" inverse="true" lazy="true">
+    <bag name="ItemTabs"  cascade="all-delete-orphan" inverse="true" lazy="true">
       <key column="BoxId"/>
       <one-to-many class="ItemTab"/>
-    </bag>-->
+    </bag>
 
     
     <bag name="Comments" cascade="all-delete-orphan" inverse="true" lazy="true">

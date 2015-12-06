@@ -8,7 +8,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         public string FileName { get; set; }
         public long FileSize { get; set; }
 
-        //public Guid? TabId { get; set; }
+        public Guid? TabId { get; set; }
 
         public bool Comment { get; set; }
 

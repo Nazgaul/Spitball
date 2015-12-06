@@ -159,7 +159,4 @@
   <data name="SelectImg" xml:space="preserve">
     <value>select image</value>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>settings</value>
-  </data>
 </root>

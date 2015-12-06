@@ -185,14 +185,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
                 return ResourceManager.GetString("SelectImg", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to settings.
-        /// </summary>
-        public static string Settings {
-            get {
-                return ResourceManager.GetString("Settings", resourceCulture);
-            }
-        }
     }
 }

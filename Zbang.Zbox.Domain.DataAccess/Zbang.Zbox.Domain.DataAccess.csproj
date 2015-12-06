@@ -81,9 +81,11 @@
     <Compile Include="IInviteRepository.cs" />
     <Compile Include="IItemRateRepository.cs" />
     <Compile Include="IItemRepository.cs" />
+    <Compile Include="IItemTabRepository.cs" />
     <Compile Include="InviteRepository.cs" />
     <Compile Include="IQuestionRepository.cs" />
     <Compile Include="ItemRepository.cs" />
+    <Compile Include="ItemTabRepository.cs" />
     <Compile Include="IUniversityRepository.cs" />
     <Compile Include="IUpdatesRepository.cs" />
     <Compile Include="IUserBoxRelRepository.cs" />
