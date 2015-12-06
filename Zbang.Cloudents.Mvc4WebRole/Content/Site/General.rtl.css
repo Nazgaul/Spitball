@@ -237,7 +237,7 @@ md-input-container:not(.md-input-invalid).md-input-has-value label {
   color: #888b8e;
 }
 md-input-container label {
-  color: #3d4348;
+  color: #323538;
 }
 .md-select-value .md-select-icon,
 md-select .md-select-value,
@@ -280,9 +280,9 @@ md-dialog-actions {
   height: 17px;
 }
 .create-box .dashboard-stat2 {
-  border: 2px solid #3d4348;
+  border: 2px solid #323538;
   background: transparent;
-  color: #3d4348;
+  color: #323538;
   padding-bottom: 5px;
   padding-top: 5px;
 }
@@ -304,7 +304,7 @@ md-dialog-actions {
 .create-box .plus svg {
   width: 50px;
   height: 50px;
-  fill: #3d4348;
+  fill: #323538;
 }
 .create-box span {
   margin-top: 15px;
@@ -340,7 +340,7 @@ md-dialog-actions {
 }
 .create-box .btn-default {
   background: #f5f5f5;
-  color: #3d4348;
+  color: #323538;
 }
 .create-box .error {
   color: #db4437;
@@ -469,9 +469,10 @@ md-dialog-actions {
   width: 30px;
 }
 .dots-3 {
+  margin-right: 27px;
   height: 20px;
   width: 20px;
-  fill: #3d4348;
+  fill: #5d6063;
 }
 .page-title svg {
   fill: #484f56;
@@ -498,7 +499,7 @@ md-dialog-actions {
   border: 0;
   padding: 12px 13px 5px 13px;
   font-size: 13px;
-  color: #3d4348;
+  color: #323538;
 }
 .tab-from-left > li.active {
   border-bottom: 3px solid #3598dc;
@@ -586,7 +587,7 @@ md-dialog-actions {
 }
 .ribbon {
   position: absolute;
-  bottom: 3em;
+  bottom: 5em;
   left: 0;
   margin-right: 1em;
   padding: .75em .75em .75em 1.25em;
