@@ -42,6 +42,10 @@
 .class .location-search-area .folder .name-and-icon {
   width: calc(100% - 40px);
 }
+.class .location-search-area .folder .dots-3 {
+  margin-left: 0;
+  fill: #181c1d;
+}
 .class .location-search-area .search-box md-input-container {
   padding-bottom: 0;
   width: 150px;
