@@ -20,8 +20,8 @@
         position: relative;
         top: -22px;
         display: block;
-        background: @loginColor;
-        color: @color2;
+        background: @backgroundColorSpitballBlue;
+        color: @textColorWhite;
         font-size: 11px;
         line-height: 22px;
     }
@@ -56,12 +56,38 @@
         }
     }
 
+    .left-flex {
+        margin-right: 20px;
+    }
+
+    md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+        border-bottom: 1px solid @textColorBlue;
+    }
+
     .tab-from-right > li {
         margin: 0;
 
+        &:hover {
+             border: none;
+
+             > a {
+                 color: @textColorBlue;
+             }
+         }
+
+         &.active {
+             border-bottom: 3px solid @borderColorBlue;
+
+             > a {
+                 color: @textColorWhite;
+             }
+         }
+
         > a {
+            color: @textColorGrey;
             font-size: 11px;
             padding: 13px 8px 5px 8px;
+            border: none;
         }
     }
 
@@ -84,7 +110,7 @@
         li {
             display: flex;
             padding: 10px 0 10px 5px;
-            border-bottom: 1px solid @borderColorGrey;
+            border-bottom: 1px solid @borderColorBottomGrey;
 
             select {
                 background: #353A3F;
@@ -96,13 +122,13 @@
             }
 
             .owner {
-                color: #6a737d;
-                font-size: 10px;
+                color: @textColorGrey;
+                font-size: 12px;
                 font-weight: bold;
             }
 
             .name {
-                font-size: 15px;
+                font-size: 18px;
             }
         }
     }
