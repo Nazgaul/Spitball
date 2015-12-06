@@ -24,6 +24,9 @@
   height: 179px;
   padding: 12px 6px 15px 6px;
 }
+.dashboard .layout-padding > .flex {
+  padding: 12px;
+}
 .dashboard .leaderboardbox {
   height: 179px;
   padding: 10px;
@@ -35,7 +38,7 @@
   font-size: 38px;
   margin-bottom: 15px;
   line-height: 35px;
-  color: #3d4348;
+  color: #323538;
   text-transform: uppercase;
 }
 .dashboard .leaderBoardBody {

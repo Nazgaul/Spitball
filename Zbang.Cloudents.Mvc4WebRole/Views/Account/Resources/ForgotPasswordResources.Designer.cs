@@ -59,41 +59,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Forgot your password?.
-        /// </summary>
-        public static string ForgotPassword {
-            get {
-                return ResourceManager.GetString("ForgotPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Just enter the email address you used to create your account..
-        /// </summary>
-        public static string JustEnter {
-            get {
-                return ResourceManager.GetString("JustEnter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to We will locate your account and send you an email with a link to reset your password..
-        /// </summary>
-        public static string LocateAccount {
-            get {
-                return ResourceManager.GetString("LocateAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Submit.
-        /// </summary>
-        public static string Submit {
-            get {
-                return ResourceManager.GetString("Submit", resourceCulture);
-            }
-        }
     }
 }

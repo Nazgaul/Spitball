@@ -105,10 +105,10 @@
 .class .add-button a,
 .class .add-button button {
   font-size: 18px;
-  color: #3d4348;
+  color: #323538;
 }
 .class .add-button svg {
-  fill: #3d4348;
+  fill: #323538;
   width: 40px;
   height: 40px;
   display: block;
@@ -155,7 +155,7 @@
   left: -19px;
 }
 .feed .comment-date {
-  color: #3d4348;
+  color: #323538;
   font-size: 12px;
 }
 .feed .items-container {
@@ -170,7 +170,7 @@
   margin-bottom: 25px;
 }
 .feed .comment .c-img {
-  border: 3px solid #353a3f;
+  border: 3px solid #323538;
 }
 .feed .comment > .top {
   padding-left: 44px;
@@ -209,7 +209,7 @@
   top: -7px;
 }
 .feed .reply .like {
-  color: #3d4348;
+  color: #323538;
   margin-right: 0;
 }
 .feed .reply .margins {
@@ -238,7 +238,7 @@
   padding-left: 34px;
 }
 .feed .actions {
-  color: #3d4348;
+  color: #323538;
   padding-bottom: 10px;
   margin: 10px 0 0 6px;
   font-size: 13px;
@@ -247,7 +247,7 @@
 .feed .actions svg {
   width: 20px;
   height: 20px;
-  fill: #3d4348;
+  fill: #323538;
   vertical-align: middle;
 }
 .feed .actions svg:hover {
@@ -260,7 +260,7 @@
   fill: #007ee5;
 }
 .feed .replies {
-  border-top: 2px solid #353a3f;
+  border-top: 2px solid #323538;
   padding-top: 15px;
 }
 .feed .content-text {
@@ -294,18 +294,18 @@
     }*/
 }
 .add-comment ::-webkit-input-placeholder {
-  color: #3d4348;
+  color: #323538;
 }
 .add-comment :-moz-placeholder {
   /* Firefox 18- */
-  color: #3d4348;
+  color: #323538;
 }
 .add-comment ::-moz-placeholder {
   /* Firefox 19+ */
-  color: #3d4348;
+  color: #323538;
 }
 .add-comment :-ms-input-placeholder {
-  color: #3d4348;
+  color: #323538;
 }
 .add-comment .list-inline {
   padding: 22px 0 10px 0;
@@ -714,7 +714,7 @@
 }
 .file-upload {
   text-align: center;
-  color: #3d4348;
+  color: #323538;
   width: 115px;
   height: 165px;
   font-size: 14px;

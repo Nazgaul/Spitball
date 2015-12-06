@@ -78,7 +78,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                     fileUploadedDetails.FileName,
-                     fileUploadedDetails.TotalUploadBytes, model.Comment);
+                     fileUploadedDetails.TotalUploadBytes, model.TabId, model.Comment);
                 var result = await ZboxWriteService.AddItemToBoxAsync(command);
 
                 var result2 = result as AddFileToBoxCommandResult;
@@ -86,6 +86,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new NullReferenceException("result2");
                 }
+
 
                 var fileDto = new ItemDto
                 {
@@ -101,6 +102,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     DownloadUrl = Url.RouteUrl("ItemDownload2", new { model.BoxId, itemId = result2.File.Id }),
 
                 };
+                if (model.TabId.HasValue)
+                {
+                    fileDto.TabId = model.TabId.Value;
+                }
 
                 m_CookieHelper.RemoveCookie("upload");
                 return JsonOk(new { item = fileDto, boxId = model.BoxId });
@@ -311,12 +316,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (notUploaded)
             {
                 await m_QueueProvider.Value.InsertMessageToDownloadAsync(
-                    new UrlToDownloadData(model.Url, model.Name, model.BoxId, userId));
+                    new UrlToDownloadData(model.Url, model.Name, model.BoxId, model.TabId, userId));
                 return JsonOk();
             }
             var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                model.Name,
-                size, model.Question);
+                size, model.TabId, model.Question);
             var result = await ZboxWriteService.AddItemToBoxAsync(command);
             var result2 = result as AddFileToBoxCommandResult;
             if (result2 == null)

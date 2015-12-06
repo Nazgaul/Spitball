@@ -15,5 +15,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         public bool Question { get; set; }
 
         public string Name { get; set; }
+
+        public Guid? TabId { get; set; }
     }
 }

@@ -51,9 +51,9 @@ namespace Zbang.Zbox.Domain.Common
         //void CreateBoxItemTab(CreateItemTabCommand command);
 
 
-        //void AssignBoxItemToTab(AssignItemToTabCommand command);
-        //void RenameBoxItemTab(ChangeItemTabNameCommand command);
-        //void DeleteBoxItemTab(DeleteItemTabCommand command);
+        void AssignBoxItemToTab(AssignItemToTabCommand command);
+        void RenameBoxItemTab(ChangeItemTabNameCommand command);
+        void DeleteBoxItemTab(DeleteItemTabCommand command);
 
 
         void UpdateUserFirstTimeStatus(UpdateUserFirstTimeStatusCommand command);

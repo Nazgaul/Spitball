@@ -26,7 +26,7 @@
 }
 .userPage .profile-usertitle-job {
   margin-bottom: 7px;
-  padding-bottom: 15px;
+  padding-bottom: 20px;
   color: #f5f5f5;
   font-family: "Open Sans", sans-serif;
   font-size: 15px;
@@ -50,7 +50,7 @@
 }
 .userPage .points-awards {
   margin-top: 18px;
-  color: #8c99a6;
+  color: #888b8e;
   line-height: 18px;
   padding-left: 5px;
 }
@@ -101,7 +101,7 @@
   padding: 0;
 }
 .userPage .posts {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -113,6 +113,7 @@
 }
 .userPage .posts .post-headline {
   display: block;
+  font-size: 18px;
 }
 .userPage .posts .post-content {
   width: 70%;
@@ -120,7 +121,7 @@
 }
 .userPage .posts .time-ago {
   color: #888b8e;
-  font-size: 18px;
+  font-size: 11px;
   flex-basis: 200px;
   text-align: right;
 }

@@ -8,8 +8,11 @@
         i.items = [];
         var page = 0, loading = false, needToBringMore = true;
 
+        boxService.getTabs(boxId).then(function(data) {
+            console.log(data);
+        });
 
-        boxService.items(boxId, page).then(function (data) {
+        boxService.items(boxId, i.tabSelectedId, page).then(function (data) {
             data = itemThumbnailService.assignValues(data);
             i.items = itemsInBox = data;
             //iterateItem();

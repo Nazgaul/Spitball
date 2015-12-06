@@ -72,7 +72,7 @@ namespace Zbang.Zbox.Domain
         //protected virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
 
-        //protected virtual ICollection<ItemTab> ItemTabs { get; set; }
+        protected virtual ICollection<ItemTab> ItemTabs { get; set; }
 
         protected virtual ICollection<Updates> Updates { get; set; }
         public virtual ICollection<InviteToBox> Invites { get; set; }
@@ -277,7 +277,7 @@ namespace Zbang.Zbox.Domain
             Invites.Clear();
             UserBoxRelationship.Clear();
             Comments.Clear();
-            //ItemTabs.Clear();
+            ItemTabs.Clear();
             Updates.Clear();
         }
 

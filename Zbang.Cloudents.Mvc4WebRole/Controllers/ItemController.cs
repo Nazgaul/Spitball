@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.SessionState;
-using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -549,19 +548,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //    return Json(new JsonResponse(true));
         //}
 
-        [HttpGet]
-        [OutputCache(CacheProfile = "PartialCache")]
-        public ActionResult ItemRegisterPartial()
-        {
-            try
-            {
-                return PartialView("_ItemRegister");
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("_ItemRegister", ex);
-                return Json(new JsonResponse(false));
-            }
-        }
+        //[HttpGet]
+        //[OutputCache(CacheProfile = "PartialCache")]
+        //public ActionResult ItemRegisterPartial()
+        //{
+        //    try
+        //    {
+        //        return PartialView("_ItemRegister");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("_ItemRegister", ex);
+        //        return Json(new JsonResponse(false));
+        //    }
+        //}
     }
 }

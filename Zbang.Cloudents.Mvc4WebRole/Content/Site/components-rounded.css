@@ -2545,14 +2545,14 @@ Chats
   margin-right: 10px;
 }
 .chats li .name {
-  color: #3d4348;
+  color: #323538;
   font-size: 13px;
   font-weight: 400;
   margin-left: 5px;
   unicode-bidi: embed;
 }
 .chats li.out .name {
-  color: #3d4348;
+  color: #323538;
   margin-left: 5px;
 }
 .chats li .datetime {
@@ -2580,7 +2580,7 @@ Chats
   margin-left: 65px;
   background: #f5f5f5;
   text-align: left;
-  color: #3d4348;
+  color: #323538;
 }
 .chats li.in .message .arrow {
   position: absolute;
@@ -4524,7 +4524,6 @@ Portlets
 /* Basic portlet */
 .portlet {
   margin-top: 0;
-  margin-bottom: 25px;
   padding: 0;
   border-radius: 4px;
 }
@@ -4974,17 +4973,13 @@ Dashboard Stats 2
 ***/
 .dashboard-stat2 {
   border-radius: 4px;
-  background: #181c1d;
+  background: #323538;
   padding: 15px 15px 30px 15px;
-  margin-bottom: 20px;
   display: block;
   width: 100%;
   height: 179px;
   position: relative;
   line-height: 1;
-}
-.dashboard-stat2 .display {
-  margin-bottom: 20px;
 }
 .dashboard-stat2 .display:before,
 .dashboard-stat2 .display:after {
@@ -5001,7 +4996,7 @@ Dashboard Stats 2
   width: 100%;
 }
 .dashboard-stat2 .display .number h5 {
-  margin: 0 0 2px 0;
+  margin: 0 0 8px 0;
   padding: 0;
   font-size: 25px;
   height: 58px;
@@ -5038,7 +5033,7 @@ Dashboard Stats 2
   display: block;
 }
 .dashboard-stat2 .progress-info .status {
-  margin-top: 5px;
+  margin-top: 15px;
   font-size: 15px;
   color: #f5f5f5;
 }
@@ -5883,18 +5878,18 @@ Custom tabs
 .tabbable-line > .nav-tabs > li:hover > a {
   border: 0;
   background: none !important;
-  color: #3d4348;
+  color: #323538;
 }
 .tabbable-line > .nav-tabs > li.open > a > i,
 .tabbable-line > .nav-tabs > li:hover > a > i {
-  color: #3d4348;
+  color: #323538;
 }
 .tabbable-line > .nav-tabs > li.open .dropdown-menu,
 .tabbable-line > .nav-tabs > li:hover .dropdown-menu {
   margin-top: 0;
 }
 .tabbable-line > .nav-tabs > li.active {
-  border-bottom: 4px solid #3d4348;
+  border-bottom: 4px solid #323538;
   position: relative;
 }
 .tabbable-line > .nav-tabs > li.active > a {

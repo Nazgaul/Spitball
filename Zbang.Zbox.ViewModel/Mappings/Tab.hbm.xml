@@ -9,10 +9,10 @@
     ]]>
   </query>-->
   
-  <!--<query read-only="true" name="GetBoxTabs">
+  <query read-only="true" name="GetBoxTabs">
     <![CDATA[
     select Name as Name, Id as Id from ItemTab where Box.Id = :BoxId
     ]]>
-  </query>-->
+  </query>
   
 </hibernate-mapping>

@@ -11,6 +11,7 @@ namespace Zbang.Zbox.Domain.Commands
             string blobAddressName,
             string fileName, 
             long length,
+            Guid? tabId,
              bool isQuestion)
             : base(userId, boxId)
         {
@@ -18,11 +19,12 @@ namespace Zbang.Zbox.Domain.Commands
             BlobAddressName = blobAddressName;
             FileName = fileName;
             Length = length;
+            TabId = tabId;
 
         }
 
-       
 
+        public Guid? TabId { get; private set; }
 
         public string BlobAddressName { get; private set; }
 

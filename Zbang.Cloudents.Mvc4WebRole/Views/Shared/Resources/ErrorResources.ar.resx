@@ -117,22 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BrowserUnsupported" xml:space="preserve">
-    <value>لا يدعم Spitball إصدار متصفحك</value>
-  </data>
-  <data name="GoBack" xml:space="preserve">
-    <value>عودة إلى</value>
-  </data>
-  <data name="HomePage" xml:space="preserve">
-    <value>الصفحة الرئيسية</value>
-  </data>
-  <data name="NotFound" xml:space="preserve">
-    <value>يبدو أن الصفحة التي تبحث عنها غير موجودة.</value>
-  </data>
-  <data name="Oops" xml:space="preserve">
-    <value>عفوا</value>
-  </data>
-  <data name="UseOtherBrowser" xml:space="preserve">
-    <value>يرجى تحديث إصدار Internet Explorer لديك أو استخدام متصفح آخر</value>
-  </data>
 </root>

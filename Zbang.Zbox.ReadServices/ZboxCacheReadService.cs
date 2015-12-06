@@ -65,6 +65,10 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetBoxItemsPagedAsync(query);
         }
+        public Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetWebServiceBoxItemsPagedAsync(GetBoxItemsPagedQuery query)
+        {
+            return m_ReadService.GetWebServiceBoxItemsPagedAsync(query);
+        }
         public Task<IEnumerable<QuizDto>> GetBoxQuizesAsync(GetBoxQuizesPagedQuery query)
         {
             return m_ReadService.GetBoxQuizesAsync(query);
@@ -88,10 +92,10 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetBoxMetaWithMembersAsync(query, numberOfMembers);
         }
 
-        //public Task<IEnumerable<TabDto>> GetBoxTabsAsync(GetBoxQuery query)
-        //{
-        //    return m_ReadService.GetBoxTabsAsync(query);
-        //}
+        public Task<IEnumerable<TabDto>> GetBoxTabsAsync(GetBoxQuery query)
+        {
+            return m_ReadService.GetBoxTabsAsync(query);
+        }
 
        
 

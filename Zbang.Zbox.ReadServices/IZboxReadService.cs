@@ -34,6 +34,7 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<InviteDto>> GetInvitesAsync(GetInvitesQuery query);
 
         Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetBoxItemsPagedAsync(GetBoxItemsPagedQuery query);
+        Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetWebServiceBoxItemsPagedAsync(GetBoxItemsPagedQuery query);
         Task<IEnumerable<QuizDto>> GetBoxQuizesAsync(GetBoxQuizesPagedQuery query);
 
         Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetLeaderBoardQuery query);
@@ -49,7 +50,7 @@ namespace Zbang.Zbox.ReadServices
         Task<BoxDto2> GetBox2Async(GetBoxQuery query);
 
         Task<BoxDtoWithMembers> GetBoxMetaWithMembersAsync(GetBoxQuery query, int numberOfMembers);
-        //Task<IEnumerable<TabDto>> GetBoxTabsAsync(GetBoxQuery query);
+        Task<IEnumerable<TabDto>> GetBoxTabsAsync(GetBoxQuery query);
 
 
         Task<IEnumerable<UserDto>> GetUserFriendsAsync(GetUserFriendsQuery query);

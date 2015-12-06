@@ -214,33 +214,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(result);
         }
 
-        //[HttpGet]
-        //[ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[BoxPermission("id")]
-        //public async Task<JsonResult> Tabs(long id)
-        //{
-        //    try
-        //    {
-        //        var query = new GetBoxQuery(id);
-        //        var result = await ZboxReadService.GetBoxTabsAsync(query);
-        //        return JsonOk(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError(string.Format("Box Tabs id {0}", id), ex);
-        //        return JsonError();
-        //    }
-        //}
+        [HttpGet]
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [BoxPermission("id")]
+        public async Task<JsonResult> Tabs(long id)
+        {
+            try
+            {
+                var query = new GetBoxQuery(id);
+                var result = await ZboxReadService.GetBoxTabsAsync(query);
+                return JsonOk(result);
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError(string.Format("Box Tabs id {0}", id), ex);
+                return JsonError();
+            }
+        }
 
 
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id")]
-        public async Task<JsonResult> Items(long id, int page)
+        public async Task<JsonResult> Items(long id, int page, Guid? tabId = null)
         {
             try
             {
-                var query = new GetBoxItemsPagedQuery(id, page, 25);
+                var query = new GetBoxItemsPagedQuery(id, tabId, page, 25);
                 var result = await ZboxReadService.GetBoxItemsPagedAsync(query);
                 var itemDtos = result as IList<ItemDto> ?? result.ToList();
                 foreach (var item in itemDtos)
@@ -253,7 +253,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     //s.CommentsCount,
                     s.Date,
                     s.Description,
-                    s.DownloadUrl,
+                    //s.DownloadUrl,
                     s.Id,
                     s.Name,
                     s.NumOfDownloads,
@@ -265,7 +265,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     //s.TabId,
                     //s.Thumbnail,
                     s.Url,
-                    s.UserUrl,
+                    //s.UserUrl,
                     s.Type,
                     s.Source
 

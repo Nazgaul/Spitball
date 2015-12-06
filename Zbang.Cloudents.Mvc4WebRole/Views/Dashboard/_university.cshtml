@@ -9,11 +9,11 @@
             <span>{{::u.info.name}}</span>
         </div>
         <div class="universityStats">
-            <div>{{::u.info.numOfBoxes | megaNumber}} @IndexResource.Courses</div>
-            <div>{{::u.info.numOfUsers | megaNumber}} @IndexResource.Members</div>
-            <div>{{::u.info.numOfItems | megaNumber}} @IndexResource.Files</div>
+            <div>{{::u.info.numOfBoxes | megaNumber}} @DashboardResource.Courses</div>
+            <div>{{::u.info.numOfUsers | megaNumber}} @DashboardResource.Members</div>
+            <div>{{::u.info.numOfItems | megaNumber}} @DashboardResource.Files</div>
         </div>
     </div>
-    <a href="#" ui-sref="department" class="universityLink text-capitalize">@IndexResource.Browse</a>
+    <a href="#" ui-sref="department" class="universityLink text-capitalize">@DashboardResource.Browse</a>
 </div>
 
