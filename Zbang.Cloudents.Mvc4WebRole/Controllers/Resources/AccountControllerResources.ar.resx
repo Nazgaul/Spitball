@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChangeEmailCodeError" xml:space="preserve">
-    <value>خطأ في كلمة المرور </value>
+    <value>خطأ في كلمة المرور</value>
   </data>
   <data name="EmailDoesNotExists" xml:space="preserve">
-    <value>هذا البريد الإلكتروني غير موجود </value>
+    <value>هذا البريد الإلكتروني غير موجود</value>
   </data>
   <data name="FacebookGetDataError" xml:space="preserve">
     <value>مشكلة في الحصول على معلومات من فيس بوك</value>
@@ -130,7 +130,7 @@
     <value>لقد سجلت ل Spitball من خلال الفيسبوك - الذهاب الى الصفحة الرئيسية وانقر على زر الفيسبوك لتسجيل</value>
   </data>
   <data name="LogonError" xml:space="preserve">
-    <value>خطأ في اسم المستخدم او كلمة المرور </value>
+    <value>خطأ في اسم المستخدم او كلمة المرور</value>
   </data>
   <data name="UnspecifiedError" xml:space="preserve">
     <value>حصل خلل - حاول في وقت لاحق</value>

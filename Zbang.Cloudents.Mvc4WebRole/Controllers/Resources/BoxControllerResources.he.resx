@@ -127,9 +127,12 @@
     <value>הקישור כבר קיים במערכת</value>
   </data>
   <data name="NoFilesReceived" xml:space="preserve">
-    <value>לא התקבלו קבצים </value>
+    <value>לא התקבלו קבצים</value>
   </data>
   <data name="ProblemUrl" xml:space="preserve">
     <value>ישנה בעיה עם כתובת הURL</value>
+  </data>
+  <data name="DashboardController_Create_Problem_with_Create_new_box" xml:space="preserve">
+    <value>בעיה ביצירת קופסא חדשה</value>
   </data>
 </root>

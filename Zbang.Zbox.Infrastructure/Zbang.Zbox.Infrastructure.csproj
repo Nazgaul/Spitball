@@ -230,6 +230,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Enums\Resources\EnumResources.ar.resx" />
+    <EmbeddedResource Include="Enums\Resources\EnumResources.en-GB.resx" />
     <EmbeddedResource Include="Enums\Resources\EnumResources.he.resx" />
     <EmbeddedResource Include="Enums\Resources\EnumResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -287,7 +288,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Enums\Resources\QuestionResource.ru.resx" />
+    <EmbeddedResource Include="Enums\Resources\QuestionResource.zh.resx" />
     <EmbeddedResource Include="Security\Resources\Validation.ar.resx" />
+    <EmbeddedResource Include="Security\Resources\Validation.en-GB.resx" />
     <EmbeddedResource Include="Security\Resources\Validation.he.resx" />
     <EmbeddedResource Include="Security\Resources\Validation.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

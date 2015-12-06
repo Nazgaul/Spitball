@@ -124,8 +124,7 @@
     <value>Эта ссылка уже существует</value>
   </data>
   <data name="NoFilesReceived" xml:space="preserve">
-    <value>Файлы не получены
-</value>
+    <value>Файлы не получены</value>
   </data>
   <data name="ProblemUrl" xml:space="preserve">
     <value>Проблема с URL</value>

@@ -23,10 +23,16 @@
             return ajaxservice.get('/box/tabs/', { id: boxid });
         };
         d.addItemToTab = function (boxId, tabId, itemId) {
-            return ajaxservice.post('/box/AddItemToTab/', {
+            return ajaxservice.post('/box/additemtotab/', {
                 boxId: boxId,
                 tabId: tabId,
                 itemId: itemId
+            });
+        }
+        d.deleteTab = function(tabId,boxId) {
+            return ajaxservice.post('/box/deletetab/', {
+                tabId: tabId,
+                boxId: boxId
             });
         }
         d.deleteItem = function(itemId, boxId) {

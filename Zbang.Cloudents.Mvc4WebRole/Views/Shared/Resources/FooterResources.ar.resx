@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutUs" xml:space="preserve">
-    <value>من نحن </value>
+    <value>من نحن</value>
   </data>
   <data name="ContactUs" xml:space="preserve">
-    <value>للاتصال </value>
+    <value>للاتصال</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
-    <value>مزايا الخصوصية </value>
+    <value>مزايا الخصوصية</value>
   </data>
   <data name="RightsReserved" xml:space="preserve">
     <value>كافة الحقوق محفوظة</value>
   </data>
   <data name="TermsOfService" xml:space="preserve">
-    <value>شروط الخدمة </value>
+    <value>شروط الخدمة</value>
   </data>
 </root>

@@ -127,12 +127,51 @@
     <value>عنوان بريدك الالكتروني غير مضبوط</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>كلمة المرور </value>
+    <value>كلمة المرور</value>
   </data>
   <data name="PwdAtLeast6Chars" xml:space="preserve">
-    <value>يجب ان يكون 6 احرف على الاقل </value>
+    <value>يجب ان يكون 6 احرف على الاقل</value>
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>تذكر بياناتي</value>
+  </data>
+  <data name="AlreadyHave" xml:space="preserve">
+    <value>ألديك حساب مسبقاُ؟</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>إنشاء حساب</value>
+  </data>
+  <data name="DontHaveAnAccount" xml:space="preserve">
+    <value>لا يوجد لديك حساب ؟</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>عنوان البريد الكتروني</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>نسيت كلمة المرور ؟</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>هنا</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>الاتصال</value>
+  </data>
+  <data name="LoginToAccount" xml:space="preserve">
+    <value>تسجيل الدخول إلى حسابك</value>
+  </data>
+  <data name="NoWorries" xml:space="preserve">
+    <value>لا تقلق، انقر فوق</value>
+  </data>
+  <data name="OrLoginWith" xml:space="preserve">
+    <value>أو الدخول مع</value>
+  </data>
+  <data name="OrSignupWith" xml:space="preserve">
+    <value>أو الاشتراك مع</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>التسجيل</value>
+  </data>
+  <data name="ToResetPassword" xml:space="preserve">
+    <value>لإعادة ضبط كلمة المرور الخاصة بك</value>
   </data>
 </root>

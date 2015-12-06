@@ -141,4 +141,16 @@
   <data name="PwdRequired" xml:space="preserve">
     <value>عليك تعبئة كلمه المرور</value>
   </data>
+  <data name="IAgree" xml:space="preserve">
+    <value>انا موافق , للتسجل للموقع</value>
+  </data>
+  <data name="ofZbang" xml:space="preserve">
+    <value>زبنج</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>وتعليمات وقواعد الخصوصية</value>
+  </data>
+  <data name="TermsOfServices" xml:space="preserve">
+    <value>شروط الخدمة</value>
+  </data>
 </root>

@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChangeEmailCodeError" xml:space="preserve">
-    <value>The code is wrong</value>
+    <value>Incorrect code</value>
   </data>
   <data name="EmailDoesNotExists" xml:space="preserve">
-    <value>This email does not exist</value>
+    <value>This email address does not exist</value>
   </data>
   <data name="FacebookGetDataError" xml:space="preserve">
-    <value>Problem with getting Facebook data.</value>
+    <value>There seems to be a problem getting data from Facebook</value>
   </data>
   <data name="FbRegisterError" xml:space="preserve">
-    <value>You have registered to Spitball through Facebook. Go to the homepage and click on the Facebook button to register</value>
+    <value>You have signed up to Spitball using Facebook. To register, go to the homepage and click on the Facebook button</value>
   </data>
   <data name="LogonError" xml:space="preserve">
-    <value>The user name or password provided is incorrect.</value>
+    <value>The user name or password provided is incorrect</value>
   </data>
   <data name="UnspecifiedError" xml:space="preserve">
-    <value>Unspecified error - retry later</value>
+    <value>Whoops, we seem to be experiencing a technical error. Please try again</value>
   </data>
 </root>

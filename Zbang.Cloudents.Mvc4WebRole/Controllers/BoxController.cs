@@ -459,7 +459,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
             }
             try
             {
@@ -482,7 +482,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
             }
             var userId = User.GetUserId();
             var command = new AssignItemToTabCommand(model.ItemId, model.TabId, model.BoxId, userId);
@@ -495,7 +495,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
             }
             var userId = User.GetUserId();
             var command = new ChangeItemTabNameCommand(model.TabId, model.Name, userId, model.BoxId);
@@ -507,15 +507,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
             }
             var userId = User.GetUserId();
-            var command = new DeleteItemTabCommand(userId, model.TabId, model.BoxId);
+            var command = new DeleteItemTabCommand(userId, model.TabId.Value, model.BoxId);
             ZboxWriteService.DeleteBoxItemTab(command);
             return JsonOk();
         }
 
-       
+
         #endregion
 
         [ZboxAuthorize]

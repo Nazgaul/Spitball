@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="course_already_exists" xml:space="preserve">
-    <value>Данный курс уже существует </value>
+    <value>Данный курс уже существует</value>
   </data>
   <data name="LibraryController_Create_You_need_to_sign_up_for_university" xml:space="preserve">
     <value>Вы должны зарегистрироваться в университете</value>

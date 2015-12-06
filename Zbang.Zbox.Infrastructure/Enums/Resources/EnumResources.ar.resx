@@ -130,7 +130,7 @@
     <value>المعهد</value>
   </data>
   <data name="Hateful" xml:space="preserve">
-    <value>مضمون كراهية او عدواني </value>
+    <value>مضمون كراهية او عدواني</value>
   </data>
   <data name="HighSchool" xml:space="preserve">
     <value>مدرسة ثانوية</value>
@@ -157,18 +157,18 @@
     <value>مضمون غير اخلااقي</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>اخر </value>
+    <value>اخر</value>
   </data>
   <data name="Spam" xml:space="preserve">
     <value>مضمون قُمامة</value>
   </data>
   <data name="University" xml:space="preserve">
-    <value>جامعة </value>
+    <value>جامعة</value>
   </data>
   <data name="UserNotExists" xml:space="preserve">
     <value>كلمة المرور التي ادخلت لا تتوفر في الجهاز او غير صحيحة , الرجاء المحاولة مجددا.</value>
   </data>
   <data name="WrongPassword" xml:space="preserve">
-    <value>كلمة المرور التي ادخلت غير صحيحة </value>
+    <value>كلمة المرور التي ادخلت غير صحيحة</value>
   </data>
 </root>
