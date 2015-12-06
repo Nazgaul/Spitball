@@ -43,17 +43,23 @@
     </div>
 </div>
 <ul ayout-fill layout-wrap class="list-unstyled folders" layout="row" layout-align="start center" ng-if="!i.tabSelected.id">
-    <li class="folder-name item-animate add-button i-q-wrapper" ng-click="">
-        <div class="content" ng-if="!i.xxx">
-            <button type="button">
+    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" hide-sm class="add-folder folder-name item-animate i-q-wrapper" ng-click="i.opened=true" ng-init="i.opened=false">
+        <div class="content" ng-if="!i.opened">
+            <button layout="row" layout-align="start center" type="button">
                 @Html.Svg("~/images/site/icons.svg", "add")
-                @BoxResources.UploadFiles
+                <span>
+                    Add folder
+                </span>
             </button>
         </div>
-     
+        <div class="content" ng-if="i.opened">
+            <form>
+                <input focus-me="true" type="text"/>
+            </form>
+        </div>
     </li>
 
-    <li ui-on-drop="i.test($event,$data)" flex class="folder-name" ng-repeat="e in i.tabs" ng-click="i.tabChange(e)">
+    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" hide-sm ui-on-drop="i.test($event,$data)" flex class="folder-name" ng-repeat="e in i.tabs" ng-click="i.tabChange(e)">
         <div layout="row" layout-align="space-between center">
             <div class="name-and-icon" layout="row" layout-align="start center">
                 <div layout="row" class="icon">@Html.Svg("~/images/folder_icon.svg", "folder")</div>

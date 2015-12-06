@@ -23,6 +23,7 @@
 .class .location-search-area .folder-name,
 .class .folders .folder-name {
   background: #6a737d;
+  border: 1px solid #6a737d;
 }
 .class .location-search-area .folder-name .icon svg,
 .class .folders .folder-name .icon svg {
@@ -73,10 +74,29 @@
 }
 .class .folders .folder-name {
   margin: 10px;
+  padding: 2px;
 }
-.class .folders .folder-name,
-.class .folders .folder-name .content {
-  width: 200px;
+.class .folders .add-folder {
+  background: none;
+}
+.class .folders .add-folder svg {
+  width: 15px;
+  height: 15px;
+  fill: #3d4348;
+}
+.class .folders .add-folder span {
+  font-weight: bold;
+  color: #3d4348;
+  font-size: 16px;
+  line-height: 20px;
+  padding-left: 10px;
+}
+.class .folders .add-folder input {
+  width: 100%;
+  background: none;
+  border-width: 0 0 1px 0;
+  border-color: #3d4348;
+  padding: 0 10px;
 }
 .class .need-follow {
   margin-top: 20px;
