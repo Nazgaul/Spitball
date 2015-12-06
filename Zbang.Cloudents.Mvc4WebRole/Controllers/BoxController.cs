@@ -253,7 +253,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     //s.CommentsCount,
                     s.Date,
                     s.Description,
-                    s.DownloadUrl,
+                    //s.DownloadUrl,
                     s.Id,
                     s.Name,
                     s.NumOfDownloads,
@@ -262,10 +262,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     s.OwnerId,
                     s.Likes,
                     //s.Sponsored,
-                    s.TabId,
+                    //s.TabId,
                     //s.Thumbnail,
                     s.Url,
-                    s.UserUrl,
+                    //s.UserUrl,
                     s.Type,
                     s.Source
 
