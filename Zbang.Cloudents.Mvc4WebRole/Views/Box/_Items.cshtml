@@ -12,10 +12,35 @@
         </li>
         <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 item-animate" ng-repeat="e in i.items track by e.id " ng-include="'item-template.html'"></li>
     </ul>*@
-<md-input-container>
-    <label class="text-capitalize">@BoxResources.Search</label>
-    <input type="search" ng-model="i.term" ng-model-options="{debounce : 250}" ng-change="i.filter()" ng-minlength="2" />
-</md-input-container>
+<div layout="row" layout-align="space-between stretch">
+    <div layout="row" flex="50">
+        <div flex="none" class="arrow">@Html.Svg("~/images/site/icons.svg", "arrow")</div>
+        <div flex class="folder-name">
+            <div layout="row" layout-align="space-between none">
+                <div layout="row" layout-align="space-between none">
+                    <div>@Html.Svg("~/images/folder_icon.svg", "folder")</div>
+                    <p class="ellipsis" flex>Folder name goes here</p>
+                </div>
+                <md-menu ng-if="b.canDelete(e.ownerId)">
+                    <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
+                        @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
+                    </md-button>
+                    <md-menu-content width="1">
+                        <md-menu-item>
+                            <md-button aria-label="delete post" ng-click="i.deleteItem($event,e)">
+                                @GeneralResources.Delete
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+        </div>
+    </div>
+    <md-input-container flex="50">
+        <label class="text-capitalize">@BoxResources.Search</label>
+        <input type="search" ng-model="i.term" ng-model-options="{debounce : 250}" ng-change="i.filter()" ng-minlength="2" />
+    </md-input-container>
+</div>
 
 <ul layout="row" layout-fill layout-wrap class="list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
     <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" hide-sm class="item-animate add-button i-q-wrapper" ng-click="i.openUpload()">

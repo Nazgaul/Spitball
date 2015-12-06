@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+@{
     var url = Url.Action("Index", "Account");
     if (User != null && User.Identity.IsAuthenticated)
     {
@@ -67,7 +69,7 @@
             </a>
             <a href="@Url.Action("Index","Search")" @shouldPostBack class="search-form search-form-expanded" ng-hide="app.hideSearch">
                 <div class="input-group">
-                    <span type="text" class="form-control input-sm">Search...</span>
+                    <span type="text" class="form-control input-sm">@IndexResources.Search</span>
                     <span class="input-group-btn">
                         @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })
                     </span>
@@ -204,22 +206,22 @@
                             <ul ng-if="ud.isLoggedIn" class="dropdown-menu dropdown-menu-default">
                                 <li>
                                     <a href="{{::ud.url}}" @shouldPostBack>
-                                        @Html.Svg(svgUrl, "userMenu")<span>my activities</span>
+                                        @Html.Svg(svgUrl, "userMenu")<span>@IndexResources.Activities</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="@Url.RouteUrl("AccountSettings")" @shouldPostBack>
-                                        @Html.Svg(svgUrl, "settingMenu") <span>settings</span>
+                                        @Html.Svg(svgUrl, "settingMenu") <span>@IndexResources.Settings</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a target="_self" href="@Url.Action("logoff","account")" @shouldPostBack>
-                                        @Html.Svg(svgUrl, "logOffMenu") <span>Log Out</span>
+                                        @Html.Svg(svgUrl, "logOffMenu") <span>@IndexResources.Logout</span>
                                     </a>
                                 </li>
                             </ul>
-                            <a class="btn btn-defalut" target="_self" href="@Url.Action("SignUp", "Account")" ng-if="!ud.isLoggedIn">sign up</a>
-                            <a class="btn btn-primary" target="_self" href="@Url.Action("SignIn","Account")" ng-if="!ud.isLoggedIn">log in</a>
+                            <a class="btn btn-defalut" target="_self" href="@Url.Action("SignUp", "Account")" ng-if="!ud.isLoggedIn">@IndexResources.Signup</a>
+                            <a class="btn btn-primary" target="_self" href="@Url.Action("SignIn","Account")" ng-if="!ud.isLoggedIn">@IndexResources.Login</a>
                         </li>
                     </ul>
                 </div>

@@ -1,7 +1,28 @@
 ﻿@import "variables.less";
 
 .class {
-   
+    .folder-name {
+        background: @backgroundColorItem;
+
+        svg {
+            width: 21px;
+            height: 21px;
+            fill: @backgroundColor2;
+            margin: 0 7px;
+        }
+    }
+
+    .arrow svg {
+        width: 22px;
+        height: 22px;
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        fill: @backgroundColorItem;
+        margin-right: 15px;
+    }
     //dont think we need that
     /*.nav-tabs, .tabbable {
         border: 0;
@@ -76,13 +97,15 @@
 
 .feed {
     font-size: 16px;
-    line-height:1;
+    line-height: 1;
+
     .like {
         //border-radius: 22px;
         width: 80px;
     }
+
     .ribbon {
-        bottom:1em;
+        bottom: 1em;
     }
 
     .c-img {
@@ -250,7 +273,7 @@
     }
 
     .quiz .base {
-        width:100px;
+        width: 100px;
     }
 }
 
@@ -300,14 +323,14 @@
         border: none;
         background: @backgroundColor;
         padding-left: 10px;
-
     }
 
     md-input-container {
         padding-bottom: 0;
+
         .md-input:active, .md-input:focus {
-            color:#fff;
-            }
+            color: #fff;
+        }
     }
     /*.actions {
         display: none;
@@ -478,7 +501,7 @@
             bottom: -1px;
             right: -1px /*rtl:ignore*/;
             width: 40%;
-            fill:@backgroundColor;
+            fill: @backgroundColor;
         }
         //&:before {
         //    content: "";
@@ -682,7 +705,7 @@
 }
 
 .i-q-wrapper {
-    position:relative;
+    position: relative;
     margin: 0 0.5%;
 
 

@@ -11,10 +11,10 @@
         <div class="clearfix" ng-show="i.inBox">
             <ul class="nav nav-tabs tab-from-right">
                 <li ng-class="{active: i.inMail}">
-                    <a class="text-capitalize" ng-click="i.mail()">mail</a>
+                    <a class="text-capitalize" ng-click="i.mail()">@IndexResources.Mail</a>
                 </li>
                 <li ng-class="{active: !i.inMail}">
-                    <a class="text-capitalize" ng-click="i.system()">spitball</a>
+                    <a class="text-capitalize" ng-click="i.system()">@GeneralResources.Spitball</a>
                 </li>
 
             </ul>
@@ -29,7 +29,7 @@
                                   md-require-match="true"
                                   md-highlight-flags="i"
                                   filter-selected="i.filterSelected"
-                                  placeholder="Add email to invite friends">
+                                  placeholder="@IndexResources.AddMail">
                 </md-contact-chips>
 
                 <md-list class="fixedRows" ng-if="i.allContacts.length">
@@ -58,13 +58,13 @@
                         </g>
                     </svg>
                     <span>
-                        import contact from gmail
+                        @IndexResources.GmailContact
                     </span>
                 </button>
 
             </md-content>
         </div>
-        <button type="button" class="btn pull-right send" ng-click="i.sendInvite()" ng-disabled="!i.contacts.length">Send</button>
+        <button type="button" class="btn pull-right send text-capitalize" ng-click="i.sendInvite()" ng-disabled="!i.contacts.length">@IndexResources.Send</button>
     </div>
 </div>
 
