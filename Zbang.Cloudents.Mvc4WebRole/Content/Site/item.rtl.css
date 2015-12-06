@@ -25,6 +25,15 @@
   height: 17px;
   fill: #c2c2c2;
 }
+.itemPage header .fb-like button {
+  font-size: 14px;
+  color: #c2c2c2;
+  padding-right: 25px;
+  text-transform: capitalize;
+}
+.itemPage header .fb-like button svg {
+  margin-left: 10px;
+}
 .itemPage .fileName {
   text-align: center;
   color: #282828;
@@ -37,6 +46,29 @@
   margin: 0 auto;
   overflow: hidden;
   padding: 20px 0;
+}
+.itemPage .fileName svg {
+  fill: #c2c2c2;
+}
+.itemPage .arrows svg {
+  width: 40px;
+  height: 40px;
+}
+.itemPage .arrows .arrow {
+  position: fixed;
+  top: 50%;
+  fill: #c2c2c2;
+}
+.itemPage .arrows .right {
+  left: 10px;
+}
+.itemPage .arrows .left {
+  -moz-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
+  -webkit-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+  right: 10px;
 }
 .itemPage .preview {
   text-align: center;

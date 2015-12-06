@@ -5,16 +5,14 @@
 }
 <div class="full-screen itemPage">
     <header layout="row" layout-align="space-between center">
-        <div>
-            <button type="button" ng-click="i.like()">@GeneralResources.Like</button>
+        <div class="fb-like">
+            <button type="button" ng-click="i.like()">@Html.Svg("~/images/site/box-icons.svg", "like") @GeneralResources.Like</button>
         </div>
-        
+
         <div @*class="text-center"*@>
             <a target="_blank" href="{{i.details.downloadUrl}}">@Html.Svg(svgUrl, "download")</a>
             <a target="_blank" href="{{i.details.printUrl}}">@Html.Svg(svgUrl, "print")</a>
             @*<a href="#" tooltip-placement="bottom" tooltip-html="">@Html.Svg(svgUrl, "share")</a>*@
-            <a href="#" tooltip-placement="bottom" tooltip-class="copy-right"
-               tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
             <md-menu flex>
                 <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
                     @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
@@ -39,7 +37,13 @@
     <div class="full-screen-body">
         <div class="fileName">
             <span contenteditable="{{i.renameOn}}" ng-model="i.details.name" focus-me="i.renameOn"></span>
-            <button type="button" ng-click="i.renameItem()">@Html.Svg("~/images/site/icons.svg", "edit")</button>
+            @*<button type="button" ng-click="i.renameItem()">@Html.Svg("~/images/site/icons.svg", "edit")</button>*@
+            <a class="info" href="#" tooltip-placement="bottom" tooltip-class="copy-right"
+               tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
+        </div>
+        <div class="arrows">
+            <button type="button" class="arrow left">@Html.Svg("~/images/site/icons.svg", "arrow")</button>
+            <button type="button" class="arrow right">@Html.Svg("~/images/site/icons.svg", "arrow")</button>
         </div>
         <div class="preview" ng-bind-html="i.preview" infinite-scroll="i.loadMore()" infinite-scroll-distance="2">
         </div>

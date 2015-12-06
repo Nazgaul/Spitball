@@ -15,6 +15,17 @@
             height: 17px;
             fill: @svgLightGrey;
         }
+
+        .fb-like button {
+            font-size: 14px;
+            color: @svgLightGrey;
+            padding-left: 25px;
+            text-transform: capitalize;
+
+            svg {
+                margin-right: 10px;
+            }
+        }
     }
 
 
@@ -30,7 +41,41 @@
         margin: 0 auto;
         overflow: hidden;
         padding: 20px 0;
+
+        svg{
+            fill: @svgLightGrey;
+        }
     }
+
+    .arrows {
+
+
+        svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .arrow {
+            position: fixed;
+            top: 50%;
+            fill: @svgLightGrey;
+        }
+
+        .right {
+            right: 10px;
+        }
+
+        .left {
+            -moz-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+            left: 10px;
+        }
+    }
+
+
 
     .preview {
         text-align: center;
