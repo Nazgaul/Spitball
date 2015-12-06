@@ -179,7 +179,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         {
             //TODO: Claim to check box permission
             var query = new GetBoxItemsPagedQuery(id, tabId, page, sizePerPage);
-            var result = await ZboxReadService.GetBoxItemsPagedAsync(query) ?? new List<Zbox.ViewModel.Dto.ItemDtos.ItemDto>();
+            var result = await ZboxReadService.GetWebServiceBoxItemsPagedAsync(query) ?? new List<Zbox.ViewModel.Dto.ItemDtos.ItemDto>();
             return Request.CreateResponse(result.Select(s => new
             {
                 s.Name,

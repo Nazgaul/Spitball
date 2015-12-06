@@ -16,8 +16,11 @@
         d.getRecommended = function (boxid) {
             return ajaxservice.get('/box/recommended/', { id: boxid });
         };
-        d.items = function (boxId,  page) {
-            return ajaxservice.get('/box/items/', { id: boxId, page: page });
+        d.items = function(boxId, tabId, page) {
+            return ajaxservice.get('/box/items/', { id: boxId, tabId: tabId, page: page });
+        };
+        d.getTabs = function (boxid) {
+            return ajaxservice.get('/box/tabs/', { id: boxid });
         };
         d.deleteItem = function(itemId, boxId) {
             return ajaxservice.post('/item/Delete/', {

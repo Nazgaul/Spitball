@@ -262,8 +262,7 @@ namespace Zbang.Zbox.ReadServices
                     "select NotificationSettings from zbox.UserBoxRel where userid = @UserId and boxid = @BoxId";
                 var val = await conn.QueryAsync<NotificationSettings>(getBoxNotification, new
                 {
-                    UserId = userId,
-                    BoxId = query.BoxId
+                    UserId = userId, query.BoxId
                 });
                 return val.FirstOrDefault();
             }
@@ -283,7 +282,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Item.ItemDto>> GetBoxItemsPagedAsync(GetBoxItemsPagedQuery query)
+        public async Task<IEnumerable<Item.ItemDto>> GetWebServiceBoxItemsPagedAsync(GetBoxItemsPagedQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -293,6 +292,29 @@ namespace Zbang.Zbox.ReadServices
                      pageNumber = query.PageNumber,
                      rowsperpage = query.RowsPerPage, query.TabId
                  });
+            }
+        }
+
+        public async Task<IEnumerable<Item.ItemDto>> GetBoxItemsPagedAsync(GetBoxItemsPagedQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                if (!query.TabId.HasValue)
+                {
+                    return await conn.QueryAsync<Item.ItemDto>(Sql.Box.ItemsWithoutTabs, new
+                    {
+                        query.BoxId,
+                        pageNumber = query.PageNumber,
+                        rowsperpage = query.RowsPerPage,
+                    });
+                }
+                return await conn.QueryAsync<Item.ItemDto>(Sql.Box.Items, new
+                {
+                    query.BoxId,
+                    pageNumber = query.PageNumber,
+                    rowsperpage = query.RowsPerPage,
+                    query.TabId
+                });
             }
         }
 

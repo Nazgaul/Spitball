@@ -320,5 +320,34 @@ union
     order by i.itemid desc
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
+
+
+        public const string ItemsWithoutTabs = @" select
+    i.itemid as Id,
+    i.Name as Name,
+    i.userid as OwnerId,
+    u.UserName as Owner,
+    u.Url as UserUrl,
+    i.Discriminator as Discriminator,
+    i.NumberOfViews as NumOfViews,
+    i.LikeCount as Likes,
+    i.sponsored as Sponsored,
+    i.BlobName as BlobName,
+    i.NumberOfDownloads as NumOfDownloads,
+    i.creationTime as Date,
+	i.numberofcomments as commentsCount,
+    i.Url as Url,
+    i.Discriminator as type,
+    i.BlobName as source
+    from zbox.item i join zbox.users u on i.UserId = u.UserId
+    where i.IsDeleted = 0
+    and i.BoxId = @BoxId
+    AND i.ItemTabId is null
+    order by i.itemid desc
+    offset @pageNumber*@rowsperpage ROWS
+    FETCH NEXT @rowsperpage ROWS ONLY;";
     }
+
+
+   
 }
