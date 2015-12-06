@@ -25,12 +25,16 @@
         i.upDir = upDir;
         i.addItemToTab = addItemToTab;
         i.dropToTabSuccess = dropToTabSuccess;
-        i.addFolder = addFolder;
+        i.addTab = addTab;
         i.renameTab = renameTab;
         i.deleteTab = deleteTab;
         getItems();
 
-        function addFolder() {
+        function renameFolder() {
+            console.log(i.renamedFolderName);
+        }
+
+        function addTab() {
             console.log(i.newFolderName);
         }
 
@@ -58,6 +62,7 @@
         }
 
         function renameTab() {
+            console.log(i.tabNewName);
             //todo: dont know how to continue
         }
         function deleteTab(ev) {

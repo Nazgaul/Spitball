@@ -7,12 +7,15 @@
         <div layout="row" layout-align="start center" ng-if="i.tabSelected.id">
             <div layout="row" layout-align="none  center" class="arrow" ng-click="i.upDir()">@Html.Svg("~/images/site/icons.svg", "arrow")</div>
             <div flex class="folder-name">
-                <div layout="row" layout-align="space-between center">
+                <div layout="row" layout-align="space-between center" ng-init="i.openRenameTab=false">
                     <div class="name-and-icon" layout="row" layout-align="start center">
                         <div layout="row" class="icon">@Html.Svg("~/images/folder_icon.svg", "folder")</div>
-                        <div class="text ellipsis">
+                        <div class="text ellipsis" ng-if="!i.openRenameTab">
                             {{i.tabSelected.name}}
                         </div>
+                        <form class="content" ng-if="i.openRenameTab" ng-submit="i.renameTab()">
+                            <input autofocus class="designed-input" type="text" ng-model="i.tabNewName" />
+                        </form>
                     </div>
                     <md-menu ng-if="b.canDelete(e.ownerId)">
                         <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
@@ -20,7 +23,7 @@
                         </md-button>
                         <md-menu-content width="1">
                             <md-menu-item>
-                                <md-button aria-label="delete post" ng-click="i.renameTab($event)">
+                                <md-button aria-label="delete post" ng-click="i.renameTab($event); i.openRenameTab=true">
                                     Rename
                                 </md-button>
                             </md-menu-item>
@@ -43,8 +46,8 @@
     </div>
 </div>
 <ul ayout-fill layout-wrap class="list-unstyled folders" layout="row" layout-align="start center" ng-if="!i.tabSelected.id">
-    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" hide-sm class="add-folder folder-name item-animate i-q-wrapper" ng-click="i.opened=true" ng-init="i.opened=false">
-        <div class="content" ng-if="!i.opened">
+    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" hide-sm class="add-folder folder-name item-animate i-q-wrapper" ng-click="i.newFolderTabOpened=true" ng-init="i.newFolderTabOpened=false">
+        <div class="content" ng-if="!i.newFolderTabOpened">
             <button layout="row" layout-align="start center" type="button">
                 @Html.Svg("~/images/site/icons.svg", "add")
                 <span>
@@ -52,8 +55,8 @@
                 </span>
             </button>
         </div>
-        <form class="content" ng-if="i.opened" ng-submit="i.addFolder()">
-            <input autofocus type="text" ng-model="i.newFolderName" />
+        <form class="content" ng-if="i.newFolderTabOpened" ng-submit="i.addTab()">
+            <input autofocus type="text" class="designed-input" ng-model="i.newFolderName" />
         </form>
     </li>
 
