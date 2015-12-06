@@ -10,6 +10,7 @@
         'ngAnimate',
         'ngMaterial',
         'textAngular',
+        'ang-drag-drop',
         'angulartics.google.analytics',
         'angular-plupload',
         'countUpModule',

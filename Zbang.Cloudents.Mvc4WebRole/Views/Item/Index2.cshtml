@@ -12,7 +12,7 @@
         <div @*class="text-center"*@>
             <a target="_blank" href="{{i.details.downloadUrl}}">@Html.Svg(svgUrl, "download")</a>
             <a target="_blank" href="{{i.details.printUrl}}">@Html.Svg(svgUrl, "print")</a>
-            <a href="#" tooltip-placement="bottom" tooltip-html="">@Html.Svg(svgUrl, "share")</a>
+            @*<a href="#" tooltip-placement="bottom" tooltip-html="">@Html.Svg(svgUrl, "share")</a>*@
             <a href="#" tooltip-placement="bottom" tooltip-class="copy-right"
                tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
             <md-menu flex>

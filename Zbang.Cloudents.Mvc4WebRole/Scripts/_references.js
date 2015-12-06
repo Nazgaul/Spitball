@@ -270,3 +270,4 @@
 /// <reference path="angular-cookies.min.js" />
 /// <reference path="angular-messages.min.js" />
 /// <reference path="../js/components/user/usernotification.controller.js" />
+/// <reference path="draganddrop.min.js" />

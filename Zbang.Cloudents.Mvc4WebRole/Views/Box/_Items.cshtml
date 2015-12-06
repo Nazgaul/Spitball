@@ -63,7 +63,7 @@
         </div>
     </li>
     <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" class="item-animate i-q-wrapper" ng-repeat="e in i.items track by e.id ">
-        <div ng-include="'item-template.html'"></div>
+        <div ui-draggable="true" ng-include="'item-template.html'"></div>
         <md-menu ng-if="b.canDelete(e.ownerId)">
             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
                 @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })

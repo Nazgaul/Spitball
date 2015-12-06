@@ -11,6 +11,40 @@
 </div>
 @{ Html.RenderPartial("_Settings");}
 <div layout="row" layout-padding layout-wrap class="library margin-top-10">
+   
+    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex department-wrap" ng-repeat=" dep in l.departments">
+        <a href="{{::dep.url}}" class="dashboard-stat2 department" d-color="{{::dep.name.length}}">
+            <div class="corner" d-color="{{::dep.name.length}}">
+            </div>
+            <div class="display">
+                <div class="number">
+                    <h3>{{::dep.name}}</h3>
+                </div>
+            </div>
+            <div class="progress-info">
+                <div class="progress background" d-color="{{::dep.name.length}}">
+                </div>
+                <div class="status">
+                    <div class="status-title">
+                        {{::dep.noBoxes}} Courses
+                    </div>
+                </div>
+            </div>
+        </a>
+        <md-menu ng-if="l.canDelete(dep)">
+            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
+                @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
+            </md-button>
+            <md-menu-content width="1">
+                <md-menu-item>
+                    <md-button aria-label="remove department" ng-click="l.deleteDepartment($event,dep)">
+                        @GeneralResources.Delete
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </div>
+    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
     <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="create-box flex" ng-if="l.createDepartmentShow">
         <div class="dashboard-stat2">
             <button type="button" ng-hide="l.createDepartmentOn" ng-click="l.createDepartmentOn = true" class="create-btn">
@@ -64,39 +98,5 @@
             </form>
         </div>
     </div>
-    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex department-wrap" ng-repeat=" dep in l.departments">
-        <a href="{{::dep.url}}" class="dashboard-stat2 department" d-color="{{::dep.name.length}}">
-            <div class="corner" d-color="{{::dep.name.length}}">
-            </div>
-            <div class="display">
-                <div class="number">
-                    <h3>{{::dep.name}}</h3>
-                </div>
-            </div>
-            <div class="progress-info">
-                <div class="progress background" d-color="{{::dep.name.length}}">
-                </div>
-                <div class="status">
-                    <div class="status-title">
-                        {{::dep.noBoxes}} Courses
-                    </div>
-                </div>
-            </div>
-        </a>
-        <md-menu ng-if="l.canDelete(dep)">
-            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
-                @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
-            </md-button>
-            <md-menu-content width="1">
-                <md-menu-item>
-                    <md-button aria-label="remove department" ng-click="l.deleteDepartment($event,dep)">
-                        @GeneralResources.Delete
-                    </md-button>
-                </md-menu-item>
-            </md-menu-content>
-        </md-menu>
-    </div>
-    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
-
 
 </div>
