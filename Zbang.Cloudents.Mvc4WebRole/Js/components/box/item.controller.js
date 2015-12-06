@@ -27,15 +27,20 @@
         i.dropToTabSuccess = dropToTabSuccess;
         i.addTab = addTab;
         i.renameTab = renameTab;
+        i.renameTabOpen = renameTabOpen;
         i.deleteTab = deleteTab;
         getItems();
 
-        function renameFolder() {
-            console.log(i.renamedFolderName);
+        function renameTabOpen() {
+            i.openRenameTab = true;
+            i.tabNewName = i.tabSelected.name;
         }
 
         function addTab() {
-            console.log(i.newFolderName);
+            boxService.createTab(i.newFolderName, boxId).then(function(response) {
+                i.tabs.push(response);
+                i.newFolderTabOpened = false;
+            });
         }
 
         function addItemToTab($data, tab) {
@@ -63,7 +68,9 @@
 
         function renameTab() {
             console.log(i.tabNewName);
-            //todo: dont know how to continue
+            boxService.renameTab(i.tabSelected.id, i.tabNewName, boxId);
+            i.tabSelected.name = i.tabNewName;
+            i.openRenameTab = false;
         }
         function deleteTab(ev) {
             var confirm = $mdDialog.confirm()

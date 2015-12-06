@@ -14,16 +14,16 @@
                             {{i.tabSelected.name}}
                         </div>
                         <form class="content" ng-if="i.openRenameTab" ng-submit="i.renameTab()">
-                            <input autofocus class="designed-input" type="text" ng-model="i.tabNewName" />
+                            <input autofocus class="designed-input" type="text" required ng-model="i.tabNewName" />
                         </form>
                     </div>
-                    <md-menu ng-if="b.canDelete(e.ownerId)">
+                    <md-menu ng-if="!b.needFollow">
                         <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
                             @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
                         </md-button>
                         <md-menu-content width="1">
                             <md-menu-item>
-                                <md-button aria-label="delete post" ng-click="i.renameTab($event); i.openRenameTab=true">
+                                <md-button aria-label="delete post" ng-click="i.renameTabOpen()">
                                     Rename
                                 </md-button>
                             </md-menu-item>
@@ -46,7 +46,7 @@
     </div>
 </div>
 <ul ayout-fill layout-wrap class="list-unstyled folders" layout="row" layout-align="start center" ng-if="!i.tabSelected.id">
-    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" hide-sm class="add-folder folder-name item-animate i-q-wrapper" ng-click="i.newFolderTabOpened=true" ng-init="i.newFolderTabOpened=false">
+    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" hide-sm class="add-folder folder-name item-animate i-q-wrapper" ng-click="i.newFolderTabOpened=true" >
         <div class="content" ng-if="!i.newFolderTabOpened">
             <button layout="row" layout-align="start center" type="button">
                 @Html.Svg("~/images/site/icons.svg", "add")
@@ -56,7 +56,7 @@
             </button>
         </div>
         <form class="content" ng-if="i.newFolderTabOpened" ng-submit="i.addTab()">
-            <input autofocus type="text" class="designed-input" ng-model="i.newFolderName" />
+            <input required autofocus type="text" class="designed-input" ng-model="i.newFolderName" />
         </form>
     </li>
 
