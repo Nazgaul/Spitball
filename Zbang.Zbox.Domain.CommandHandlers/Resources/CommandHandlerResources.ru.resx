@@ -118,8 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CannotChangeEmail" xml:space="preserve">
-    <value>Невозможно изменить эл.почту пользователя
-</value>
+    <value>Невозможно изменить эл.почту пользователя</value>
   </data>
   <data name="CannotChangePwd" xml:space="preserve">
     <value>Невозможно изменить пароль</value>
@@ -128,11 +127,9 @@
     <value>неправильный формат электронной почты</value>
   </data>
   <data name="EmailTaken" xml:space="preserve">
-    <value>Этот адрес эл.почты занят
-</value>
+    <value>Этот адрес эл.почты занят</value>
   </data>
   <data name="UserNotExist" xml:space="preserve">
-    <value>Пользователь не существует
-</value>
+    <value>Пользователь не существует</value>
   </data>
 </root>

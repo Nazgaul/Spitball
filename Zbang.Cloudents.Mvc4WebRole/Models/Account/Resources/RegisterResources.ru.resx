@@ -141,4 +141,16 @@
   <data name="PwdRequired" xml:space="preserve">
     <value>Требуется пароль</value>
   </data>
+  <data name="And" xml:space="preserve">
+    <value>и</value>
+  </data>
+  <data name="IAgree" xml:space="preserve">
+    <value>Присоединяясь, я соглашаюсь с условиями и положениями</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>политикой конфиденциальности</value>
+  </data>
+  <data name="TermsOfServices" xml:space="preserve">
+    <value>Условия предоставления услуг</value>
+  </data>
 </root>

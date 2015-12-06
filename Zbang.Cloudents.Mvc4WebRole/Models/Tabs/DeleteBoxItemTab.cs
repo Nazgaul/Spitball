@@ -6,7 +6,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Tabs
     public class DeleteBoxItemTab
     {
         [Required]
-        public Guid TabId { get; set; }
+        public Guid? TabId { get; set; }
 
 
         [Required]

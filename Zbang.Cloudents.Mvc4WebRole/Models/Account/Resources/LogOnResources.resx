@@ -135,4 +135,52 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Remember me</value>
   </data>
+  <data name="AlreadyHave" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="CheckEmailTitle" xml:space="preserve">
+    <value>Check your email</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Create an account</value>
+  </data>
+  <data name="DontHaveAnAccount" xml:space="preserve">
+    <value>Don't have an account?</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ExternalProvider" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>here</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="LoginToAccount" xml:space="preserve">
+    <value>Login to your account</value>
+  </data>
+  <data name="NoWorries" xml:space="preserve">
+    <value>no worries, click</value>
+  </data>
+  <data name="OrLoginWith" xml:space="preserve">
+    <value>Or login with</value>
+  </data>
+  <data name="OrSignupWith" xml:space="preserve">
+    <value>Or signup with</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Sign up</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="ToResetPassword" xml:space="preserve">
+    <value>to reset your password</value>
+  </data>
 </root>

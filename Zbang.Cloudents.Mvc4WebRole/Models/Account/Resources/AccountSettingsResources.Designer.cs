@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notifications:.
+        ///   Looks up a localized string similar to Notifications.
         /// </summary>
         public static string Notifications {
             get {

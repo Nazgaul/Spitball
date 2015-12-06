@@ -141,4 +141,16 @@
   <data name="PwdRequired" xml:space="preserve">
     <value>עליך למלא סיסמא</value>
   </data>
+  <data name="IAgree" xml:space="preserve">
+    <value>בהרשמה, אני מסכים</value>
+  </data>
+  <data name="ofZbang" xml:space="preserve">
+    <value>של Spitball</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>ומדיניות פרטיות</value>
+  </data>
+  <data name="TermsOfServices" xml:space="preserve">
+    <value>לתנאי שירות</value>
+  </data>
 </root>

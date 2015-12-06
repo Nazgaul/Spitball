@@ -135,4 +135,22 @@
   <data name="RememberMe" xml:space="preserve">
     <value>记住密码</value>
   </data>
+  <data name="AlreadyHave" xml:space="preserve">
+    <value>已经有账户了？</value>
+  </data>
+  <data name="DontHaveAnAccount" xml:space="preserve">
+    <value>没有账户？</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>忘记密码？</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>注册</value>
+  </data>
 </root>

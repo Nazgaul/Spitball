@@ -25,6 +25,8 @@
         i.upDir = upDir;
         i.addItemToTab = addItemToTab;
         i.dropToTabSuccess = dropToTabSuccess;
+        i.renameTab = renameTab;
+        i.deleteTab = deleteTab;
         getItems();
 
         function addItemToTab($data, tab) {
@@ -50,7 +52,24 @@
             tabChange({});
         }
 
-       
+        function renameTab() {
+            //todo: dont know how to continue
+        }
+        function deleteTab(ev) {
+            var confirm = $mdDialog.confirm()
+                 .title('Would you like to delete this tab?')
+                 .targetEvent(ev)
+                 .ok('Ok')
+                 .cancel('Cancel');
+
+            $mdDialog.show(confirm).then(function () {
+                var index = i.tabs.indexOf(i.tabSelected);
+                i.tabs.splice(index, 1);
+                boxService.deleteTab(i.tabSelected.id, boxId).then(function () {
+                    upDir();
+                });
+            });
+        }
 
         function openUpload() {
             $rootScope.$broadcast('open_upload');

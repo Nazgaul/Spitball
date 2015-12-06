@@ -135,4 +135,43 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Запомнить меня</value>
   </data>
+  <data name="AlreadyHave" xml:space="preserve">
+    <value>У вас уже есть учетная запись?</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Создать учетную запись</value>
+  </data>
+  <data name="DontHaveAnAccount" xml:space="preserve">
+    <value>Нет учетной записи?</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Электронная почта</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>Забыли пароль?</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>здесь</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="LoginToAccount" xml:space="preserve">
+    <value>Вход в вашу учетную запись</value>
+  </data>
+  <data name="NoWorries" xml:space="preserve">
+    <value>не беспокойтесь, нажмите</value>
+  </data>
+  <data name="OrLoginWith" xml:space="preserve">
+    <value>Или войдите с помощью</value>
+  </data>
+  <data name="OrSignupWith" xml:space="preserve">
+    <value>или зарегистрироваться с</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Зарегистрироваться</value>
+  </data>
+  <data name="ToResetPassword" xml:space="preserve">
+    <value>для сброса вашего пароля</value>
+  </data>
 </root>
