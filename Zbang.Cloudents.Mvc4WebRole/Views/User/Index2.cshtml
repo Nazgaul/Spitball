@@ -5,7 +5,7 @@
 </script>
 <div class="page-head">
     <div class="page-title">
-        <h1>@IndexResources.UserPage </h1>
+        <h1>@UserResources.UserPage </h1>
     </div>
 </div>
 <div class="row userPage">
@@ -26,22 +26,22 @@
             </div>
             <div class="points-container">
                 <h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>
-                <h5>@IndexResources.Points</h5>
+                <h5>@UserResources.Points</h5>
             </div>
             <div class="points-awards">
-                <span class="earn">@IndexResources.Earn</span>
+                <span class="earn">@UserResources.Earn</span>
                 <hr />
                 <ul class="list-unstyled">
-                    <li>@IndexResources.Creating</li>
-                    <li>@IndexResources.Accepted</li>
-                    <li>@IndexResources.AcceptedToCourse</li>
-                    <li>@IndexResources.UploadItem</li>
-                    <li>@IndexResources.Answering</li>
-                    <li>@IndexResources.Asking</li>
-                    <li>@IndexResources.MaxStars</li>
-                    <li>@IndexResources.MoreStars</li>
-                    <li>@IndexResources.Stars</li>
-                    <li>@IndexResources.ShareFB</li>
+                    <li>@UserResources.Creating</li>
+                    <li>@UserResources.Accepted</li>
+                    <li>@UserResources.AcceptedToCourse</li>
+                    <li>@UserResources.UploadItem</li>
+                    <li>@UserResources.Answering</li>
+                    <li>@UserResources.Asking</li>
+                    <li>@UserResources.MaxStars</li>
+                    <li>@UserResources.MoreStars</li>
+                    <li>@UserResources.Stars</li>
+                    <li>@UserResources.ShareFB</li>
                 </ul>
             </div>
         </div>
@@ -52,20 +52,20 @@
                         <ul class="nav nav-tabs tabbable">
                             <li ng-class="{active: u.tab === u.state.box}">
                                 <button type="button" ng-click="u.changeTab(u.state.box)">
-                                    <h3 class="text-capitalize">@IndexResources.Classes</h3> {{::u.details.numClass | megaNumber}}
+                                    <h3 class="text-capitalize">@UserResources.Classes</h3> {{::u.details.numClass | megaNumber}}
                                 </button>
                             </li>
                             <li ng-class="{active:u.tab === u.state.item}">
-                                <button type="button" ng-click="u.changeTab(u.state.item)"><h3 class="text-capitalize">@IndexResources.Uploads</h3> {{::u.details.numItem | megaNumber}}</button>
+                                <button type="button" ng-click="u.changeTab(u.state.item)"><h3 class="text-capitalize">@UserResources.Uploads</h3> {{::u.details.numItem | megaNumber}}</button>
                             </li>
                             <li ng-class="{active: u.tab === u.state.post}">
-                                <button type="button" ng-click="u.changeTab(u.state.post)"><h3 class="text-capitalize">@IndexResources.Posts</h3> {{::u.details.numFeed | megaNumber}}</button>
+                                <button type="button" ng-click="u.changeTab(u.state.post)"><h3 class="text-capitalize">@UserResources.Posts</h3> {{::u.details.numFeed | megaNumber}}</button>
                             </li>
                             <li ng-class="{active: u.tab === u.state.quiz}">
-                                <button type="button" ng-click="u.changeTab(u.state.quiz)"><h3 class="text-capitalize">@IndexResources.Quizzes</h3> {{::u.details.numQuiz | megaNumber}}</button>
+                                <button type="button" ng-click="u.changeTab(u.state.quiz)"><h3 class="text-capitalize">@UserResources.Quizzes</h3> {{::u.details.numQuiz | megaNumber}}</button>
                             </li>
                             <li ng-class="{active: u.tab === u.state.friend}">
-                                <button type="button" ng-click="u.changeTab(u.state.friend)"><h3 class="text-capitalize">@IndexResources.Friends</h3> {{::u.details.numFriend | megaNumber}}</button>
+                                <button type="button" ng-click="u.changeTab(u.state.friend)"><h3 class="text-capitalize">@UserResources.Friends</h3> {{::u.details.numFriend | megaNumber}}</button>
                             </li>
                         </ul>
                     </div>

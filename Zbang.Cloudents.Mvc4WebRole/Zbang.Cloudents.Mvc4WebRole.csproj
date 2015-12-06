@@ -505,20 +505,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BoxResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Box\Resources\IndexResources.Designer.cs">
-      <DependentUpon>IndexResources.resx</DependentUpon>
+    <Compile Include="Views\Dashboard\Resources\DashboardResource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>DashboardResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dashboard\Resources\IndexResource.Designer.cs">
+    <Compile Include="Views\Error\Resources\ErrorResources1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IndexResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Error\Resources\IndexResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IndexResources.resx</DependentUpon>
+      <DependentUpon>ErrorResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Home\Resources\HomeResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -594,11 +589,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\User\Resources\IndexResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IndexResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\User\Resources\UserResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -3350,19 +3340,13 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BoxResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Box\Resources\IndexResources.resx">
+    <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+      <LastGenOutput>DashboardResource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResource.he.resx" />
-    <EmbeddedResource Include="Views\Dashboard\Resources\IndexResource.resx">
+    <EmbeddedResource Include="Views\Error\Resources\ErrorResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>IndexResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Error\Resources\IndexResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>ErrorResources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Home\Resources\HomeResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -3484,10 +3468,6 @@
       <LastGenOutput>ValidationResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\ValidationResources.ru.resx" />
-    <EmbeddedResource Include="Views\User\Resources\IndexResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\User\Resources\UserResources.ar.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.en-gb.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.he.resx" />

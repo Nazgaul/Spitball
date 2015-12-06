@@ -117,4 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accepted" xml:space="preserve">
+    <value>150 pts Each accepted invite</value>
+  </data>
+  <data name="AcceptedToCourse" xml:space="preserve">
+    <value>50 pts Each accepted invite to course</value>
+  </data>
+  <data name="Answering" xml:space="preserve">
+    <value>100 pts Answering a question</value>
+  </data>
+  <data name="Asking" xml:space="preserve">
+    <value>50 pts Asking a question</value>
+  </data>
+  <data name="Classes" xml:space="preserve">
+    <value>classes</value>
+  </data>
+  <data name="Creating" xml:space="preserve">
+    <value>300 pts Creating a quiz</value>
+  </data>
+  <data name="Earn" xml:space="preserve">
+    <value>Earn points by:</value>
+  </data>
+  <data name="Friends" xml:space="preserve">
+    <value>friends</value>
+  </data>
+  <data name="MaxStars" xml:space="preserve">
+    <value>150 pts Receiving a 5 star rating</value>
+  </data>
+  <data name="MoreStars" xml:space="preserve">
+    <value>100 pts Receiving a 4 star rating</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value>points</value>
+  </data>
+  <data name="Posts" xml:space="preserve">
+    <value>posts</value>
+  </data>
+  <data name="Quizzes" xml:space="preserve">
+    <value>quizzes</value>
+  </data>
+  <data name="ShareFB" xml:space="preserve">
+    <value>50 pts Sharing on FB</value>
+  </data>
+  <data name="Stars" xml:space="preserve">
+    <value>50 pts Receiving a 3 star rating</value>
+  </data>
+  <data name="UploadItem" xml:space="preserve">
+    <value>100 pts Upload an item to a cours</value>
+  </data>
+  <data name="Uploads" xml:space="preserve">
+    <value>uploads</value>
+  </data>
+  <data name="UserPage" xml:space="preserve">
+    <value>user page</value>
+  </data>
 </root>
