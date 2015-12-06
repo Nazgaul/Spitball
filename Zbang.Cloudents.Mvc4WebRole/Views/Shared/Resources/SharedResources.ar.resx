@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Email" xml:space="preserve">
-    <value>بريد الكتروني </value>
+    <value>بريد الكتروني</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>مساعدة</value>
@@ -127,8 +127,7 @@
     <value>تسجيل الدخول</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>الاسم الأول 
-</value>
+    <value>الاسم الأول</value>
   </data>
   <data name="LastName" xml:space="preserve">
     <value>اسم العائلة</value>
@@ -137,7 +136,7 @@
     <value>التسجيل عبر الفيس بوك</value>
   </data>
   <data name="EmailSignUp" xml:space="preserve">
-    <value>تسجيل الدخول بالبريد الإلكتروني </value>
+    <value>تسجيل الدخول بالبريد الإلكتروني</value>
   </data>
   <data name="Jobs" xml:space="preserve">
     <value>وظائف</value>

@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The code is wrong.
+        ///   Looks up a localized string similar to Incorrect code.
         /// </summary>
         internal static string ChangeEmailCodeError {
             get {
@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This email does not exist.
+        ///   Looks up a localized string similar to This email address does not exist.
         /// </summary>
         internal static string EmailDoesNotExists {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Problem with getting Facebook data..
+        ///   Looks up a localized string similar to There seems to be a problem getting data from Facebook.
         /// </summary>
         internal static string FacebookGetDataError {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have registered to Spitball through Facebook. Go to the homepage and click on the Facebook button to register.
+        ///   Looks up a localized string similar to You have signed up to Spitball using Facebook. To register, go to the homepage and click on the Facebook button.
         /// </summary>
         internal static string FbRegisterError {
             get {
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The user name or password provided is incorrect..
+        ///   Looks up a localized string similar to The user name or password provided is incorrect.
         /// </summary>
         internal static string LogonError {
             get {
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unspecified error - retry later.
+        ///   Looks up a localized string similar to Whoops, we seem to be experiencing a technical error. Please try again.
         /// </summary>
         internal static string UnspecifiedError {
             get {

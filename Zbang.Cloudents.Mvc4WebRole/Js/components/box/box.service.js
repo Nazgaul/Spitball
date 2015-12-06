@@ -22,6 +22,32 @@
         d.getTabs = function (boxid) {
             return ajaxservice.get('/box/tabs/', { id: boxid });
         };
+        d.addItemToTab = function (boxId, tabId, itemId) {
+            return ajaxservice.post('/box/additemtotab/', {
+                boxId: boxId,
+                tabId: tabId,
+                itemId: itemId
+            });
+        }
+        d.createTab = function (name, boxId) {
+            return ajaxservice.post('/box/createtab/', {
+                name:name,
+                boxId: boxId
+            });
+        }
+        d.renameTab = function (tabId, name, boxId) {
+            return ajaxservice.post('/box/renametab/', {
+                tabId: tabId,
+                name: name,
+                boxId: boxId
+            });
+        }
+        d.deleteTab = function(tabId,boxId) {
+            return ajaxservice.post('/box/deletetab/', {
+                tabId: tabId,
+                boxId: boxId
+            });
+        }
         d.deleteItem = function(itemId, boxId) {
             return ajaxservice.post('/item/Delete/', {
                 itemId: itemId,

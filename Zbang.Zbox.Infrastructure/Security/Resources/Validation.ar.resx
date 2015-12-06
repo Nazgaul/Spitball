@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DefaultError" xml:space="preserve">
-    <value>خطأ غير معروف , الرجاء ادخال البيانات والمحاولة مجدداً.اذا لم يتم تخطي المشكلة , يرجى مراجعة مسؤول النظام . </value>
+    <value>خطأ غير معروف , الرجاء ادخال البيانات والمحاولة مجدداً.اذا لم يتم تخطي المشكلة , يرجى مراجعة مسؤول النظام .</value>
   </data>
   <data name="DuplicateEmail" xml:space="preserve">
     <value>هذا البريد موجود سابقاً</value>
@@ -127,6 +127,6 @@
     <value>البريد الالكتروني غير صحيح , الرجاء استعادة المدخلات</value>
   </data>
   <data name="InvalidPassword" xml:space="preserve">
-    <value>اكلمة المرور المُدخلت غير صحيحة , الرجاء ادخال كلمة مرور صحيحة </value>
+    <value>اكلمة المرور المُدخلت غير صحيحة , الرجاء ادخال كلمة مرور صحيحة</value>
   </data>
 </root>

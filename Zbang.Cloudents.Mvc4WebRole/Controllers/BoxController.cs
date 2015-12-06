@@ -9,6 +9,7 @@ using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
+using Zbang.Cloudents.Mvc4WebRole.Models.Tabs;
 using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -17,6 +18,7 @@ using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Url;
+using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Queries;
 
@@ -449,86 +451,72 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        //#region Tab
+        #region Tab
 
 
-        //[HttpPost, ZboxAuthorize]
-        //public JsonResult CreateTab(CreateBoxItemTab model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return JsonError(GetModelStateErrors());
-        //    }
-        //    try
-        //    {
-        //        var userId = User.GetUserId();
-        //        var guid = Guid.NewGuid();
-        //        var command = new CreateItemTabCommand(guid, model.Name, model.BoxId, userId);
-        //        ZboxWriteService.CreateBoxItemTab(command);
-        //        var result = new TabDto { Id = guid, Name = model.Name };
-        //        return JsonOk(result);
-        //    }
-        //    catch (ArgumentException ex)
-        //    {
-        //        return JsonError(ex.Message);
-        //    }
+        [HttpPost, ZboxAuthorize]
+        public JsonResult CreateTab(CreateBoxItemTab model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return JsonError(GetErrorFromModelState());
+            }
+            try
+            {
+                var userId = User.GetUserId();
+                var guid = Guid.NewGuid();
+                var command = new CreateItemTabCommand(guid, model.Name, model.BoxId, userId);
+                ZboxWriteService.CreateBoxItemTab(command);
+                var result = new TabDto { Id = guid, Name = model.Name };
+                return JsonOk(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return JsonError(ex.Message);
+            }
 
-        //}
+        }
 
-        //[HttpPost, ZboxAuthorize]
-        //public JsonResult AddItemToTab(AssignItemToTab model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return JsonError(GetModelStateErrors());
-        //    }
-        //    model.ItemId = model.ItemId ?? new long[0];
-        //    var userId = User.GetUserId();
-        //    var command = new AssignItemToTabCommand(model.ItemId, model.TabId, model.BoxId, userId, model.NDelete);
-        //    ZboxWriteService.AssignBoxItemToTab(command);
-        //    return JsonOk();
-        //}
+        [HttpPost, ZboxAuthorize]
+        public JsonResult AddItemToTab(AssignItemToTab model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return JsonError(GetErrorFromModelState());
+            }
+            var userId = User.GetUserId();
+            var command = new AssignItemToTabCommand(model.ItemId, model.TabId, model.BoxId, userId);
+            ZboxWriteService.AssignBoxItemToTab(command);
+            return JsonOk();
+        }
 
-        //[HttpPost, ZboxAuthorize]
-        //public JsonResult RenameTab(ChangeBoxItemTabName model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return JsonError(GetModelStateErrors());
-        //    }
-        //    var userId = User.GetUserId();
-        //    var command = new ChangeItemTabNameCommand(model.TabId, model.Name, userId, model.BoxId);
-        //    ZboxWriteService.RenameBoxItemTab(command);
-        //    return JsonOk();
-        //}
-        //[HttpPost, ZboxAuthorize]
-        //public JsonResult DeleteTab(DeleteBoxItemTab model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return JsonError(GetModelStateErrors());
-        //    }
-        //    var userId = User.GetUserId();
-        //    var command = new DeleteItemTabCommand(userId, model.TabId, model.BoxId);
-        //    ZboxWriteService.DeleteBoxItemTab(command);
-        //    return JsonOk();
-        //}
+        [HttpPost, ZboxAuthorize]
+        public JsonResult RenameTab(ChangeBoxItemTabName model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return JsonError(GetErrorFromModelState());
+            }
+            var userId = User.GetUserId();
+            var command = new ChangeItemTabNameCommand(model.TabId, model.Name, userId, model.BoxId);
+            ZboxWriteService.RenameBoxItemTab(command);
+            return JsonOk();
+        }
+        [HttpPost, ZboxAuthorize]
+        public JsonResult DeleteTab(DeleteBoxItemTab model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return JsonError(GetErrorFromModelState());
+            }
+            var userId = User.GetUserId();
+            var command = new DeleteItemTabCommand(userId, model.TabId.Value, model.BoxId);
+            ZboxWriteService.DeleteBoxItemTab(command);
+            return JsonOk();
+        }
 
-        ////[HttpGet]
-        ////[OutputCache(CacheProfile = "PartialCache")]
-        ////public ActionResult CreateTabPartial()
-        ////{
-        ////    try
-        ////    {
-        ////        return PartialView("_CreateTab");
-        ////    }
-        ////    catch (Exception ex)
-        ////    {
-        ////        TraceLog.WriteError("_CreateTab ", ex);
-        ////        return JsonError();
-        ////    }
-        ////}
-        //#endregion
+
+        #endregion
 
         [ZboxAuthorize]
         [HttpPost]

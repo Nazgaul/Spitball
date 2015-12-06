@@ -120,4 +120,10 @@
   <data name="MetaDescription" xml:space="preserve">
     <value>למד ושתף את הסיכומים שלך  ב{0} {1} {2}, אונליין או בסמארטפון דרך Spitball.</value>
   </data>
+  <data name="Cloudents" xml:space="preserve">
+    <value>ספיטבול</value>
+  </data>
+  <data name="FillComment" xml:space="preserve">
+    <value>עלייך לרשום משהו או להעלות קבצים</value>
+  </data>
 </root>

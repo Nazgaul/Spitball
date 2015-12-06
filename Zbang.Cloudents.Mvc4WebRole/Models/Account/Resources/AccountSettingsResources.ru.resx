@@ -154,7 +154,7 @@
     <value>Новый пароль не может быть пустым</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>Уведомления:</value>
+    <value>Уведомления</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль:</value>
@@ -169,7 +169,6 @@
     <value>Имя пользователя не должно быть пустым.</value>
   </data>
   <data name="LastNameRequired" xml:space="preserve">
-    <value> Требуется фамилия
-</value>
+    <value>Требуется фамилия</value>
   </data>
 </root>

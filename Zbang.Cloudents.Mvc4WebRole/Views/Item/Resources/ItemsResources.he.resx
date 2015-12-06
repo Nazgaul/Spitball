@@ -136,7 +136,7 @@
     <value>לא ניתן לצפות בתוכן זה</value>
   </data>
   <data name="SecurityReasons" xml:space="preserve">
-    <value>מטעמי אבטחה, לא ניתן לפתוח את הקישור הזה </value>
+    <value>מטעמי אבטחה, לא ניתן לפתוח את הקישור הזה</value>
   </data>
   <data name="MayTake" xml:space="preserve">
     <value>זה עשוי להימשך מספר דקות</value>

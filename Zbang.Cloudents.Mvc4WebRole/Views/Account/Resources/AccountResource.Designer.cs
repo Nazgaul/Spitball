@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to change mail.
+        ///   Looks up a localized string similar to Change your email address.
         /// </summary>
         public static string ChangeMail {
             get {

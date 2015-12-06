@@ -158,7 +158,7 @@
     <value>New password cannot be empty</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>Notifications:</value>
+    <value>Notifications</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password:</value>

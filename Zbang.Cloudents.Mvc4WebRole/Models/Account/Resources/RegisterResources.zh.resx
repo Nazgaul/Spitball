@@ -141,4 +141,16 @@
   <data name="PwdRequired" xml:space="preserve">
     <value>需要密码</value>
   </data>
+  <data name="And" xml:space="preserve">
+    <value>和</value>
+  </data>
+  <data name="IAgree" xml:space="preserve">
+    <value>注册加入，代表我同意遵守 Zbang 的相关条款</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>隐私政策</value>
+  </data>
+  <data name="TermsOfServices" xml:space="preserve">
+    <value>服务条款</value>
+  </data>
 </root>

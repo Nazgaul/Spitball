@@ -48,7 +48,7 @@ namespace Zbang.Zbox.Domain.Common
      
 
 
-        //void CreateBoxItemTab(CreateItemTabCommand command);
+        void CreateBoxItemTab(CreateItemTabCommand command);
 
 
         void AssignBoxItemToTab(AssignItemToTabCommand command);

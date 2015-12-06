@@ -136,7 +136,7 @@
     <value>لا يمكن ان يكون حقل البريد الالكتروني فارغاً</value>
   </data>
   <data name="EmailNotCorrect" xml:space="preserve">
-    <value>مبنى بريد الكتروني خاطئ </value>
+    <value>مبنى بريد الكتروني خاطئ</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>لغة</value>
@@ -145,19 +145,19 @@
     <value>لغة غير مدعومه  . ارسل رد وسنقوم باضافة اللغه .</value>
   </data>
   <data name="Min6Chars" xml:space="preserve">
-    <value>6احرف على الاقل </value>
+    <value>6احرف على الاقل</value>
   </data>
   <data name="NewPassword" xml:space="preserve">
     <value>كلمه مرور جديدة</value>
   </data>
   <data name="NewPwdEmpty" xml:space="preserve">
-    <value>حقل المرور الجديدة لا يمكن ان يكون فارغة </value>
+    <value>حقل المرور الجديدة لا يمكن ان يكون فارغة</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>تنبيه الى البريد الالكتروني </value>
+    <value>تنبيه</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>كلمة مرور:</value>
+    <value>كلمة المرور</value>
   </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>يرجى إدخال اسم الجامعة</value>

@@ -215,9 +215,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var x = typeof(Js.Resources.JsResources);
             var sb = new StringBuilder();
             sb.Append("JsResources={");
+            
             foreach (var p in x.GetProperties())
             {
-
                 var s = p.GetValue(null, null);
                 if (s is string)
                 {
@@ -226,10 +226,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                               "\",");
                     sb.AppendLine();
                 }
-
-
             }
-            sb.Remove(sb.Length - 1, 1);
+            if (x.GetProperties().Length > 0)
+            {
+                sb.Remove(sb.Length - 1, 1);
+            }
             sb.Append("}");
             return Content(sb.ToString(), "application/javascript");
         }

@@ -1,39 +1,42 @@
 ﻿@import "variables.less";
 
 .class {
+    .location-search-area, .folders {
+        .folder-name {
+            background: @backgroundColorItem;
+            border: 1px solid @backgroundColorItem;
+
+            .icon svg {
+                width: 21px;
+                height: 21px;
+                fill: @backgroundColor2;
+                margin: 0 7px;
+            }
+        }
+    }
+
     .location-search-area {
         padding-bottom: 40px;
 
-        .folder {
-            .folder-name {
-                background: @backgroundColorItem;
+        .md-menu {
+            padding: 0;
 
-                .icon svg {
-                    width: 21px;
-                    height: 21px;
-                    fill: @backgroundColor2;
-                    margin: 0 7px;
-                }
-
-                .md-menu {
-                    padding: 0;
-
-                    button {
-                        height: 0;
-                        width: 30px;
-                    }
-                }
-            }
-
-            .name-and-icon {
-                width: ~"calc(100% - 40px)";
-            }
-
-            .dots-3 {
-                margin-left: 0;
-                fill: @backgroundColor;
+            button {
+                height: 0;
+                width: 30px;
             }
         }
+
+        .name-and-icon {
+            width: ~"calc(100% - 40px)";
+        }
+
+
+        .dots-3 {
+            margin-left: 0;
+            fill: @backgroundColor;
+        }
+
 
         .search-box md-input-container {
             padding-bottom: 0;
@@ -52,7 +55,6 @@
 
 
 
-
         .arrow svg {
             width: 22px;
             height: 22px;
@@ -65,6 +67,39 @@
             margin-right: 15px;
         }
     }
+
+    .folders {
+        .folder-name {
+            padding: 2px;
+        }
+
+        .add-folder {
+            background: none;
+
+            svg {
+                width: 15px;
+                height: 15px;
+                fill: @borderColorGrey;
+            }
+
+            span {
+                font-weight: bold;
+                color: @borderColorGrey;
+                font-size: 16px;
+                line-height: 20px;
+                padding-left: 10px;
+            }
+        }
+    }
+
+    .designed-input {
+        width: 100%;
+        background: none;
+        border-width: 0 0 1px 0;
+        border-color: @borderColorGrey;
+        padding: 0 10px;
+    }
+
     //dont think we need that
     /*.nav-tabs, .tabbable {
         border: 0;

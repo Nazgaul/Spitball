@@ -124,14 +124,12 @@
     <value>خطأ</value>
   </data>
   <data name="LinkExists" xml:space="preserve">
-    <value>هذا الرابط موجود بالفعل 
-</value>
+    <value>هذا الرابط موجود بالفعل</value>
   </data>
   <data name="NoFilesReceived" xml:space="preserve">
-    <value>تلقى أية ملفات </value>
+    <value>تلقى أية ملفات</value>
   </data>
   <data name="ProblemUrl" xml:space="preserve">
-    <value>المشكلة مع رابط 
-</value>
+    <value>المشكلة مع رابط</value>
   </data>
 </root>

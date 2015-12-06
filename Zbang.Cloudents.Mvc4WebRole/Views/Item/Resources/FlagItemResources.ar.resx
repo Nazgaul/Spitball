@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContactYou" xml:space="preserve">
-    <value>سوف نتصل بك عبر البريد الالكتروني خلال 24 ساعه للاجابة </value>
+    <value>سوف نتصل بك عبر البريد الالكتروني خلال 24 ساعه للاجابة</value>
   </data>
   <data name="ReportItem" xml:space="preserve">
     <value>ارسال تقرير</value>

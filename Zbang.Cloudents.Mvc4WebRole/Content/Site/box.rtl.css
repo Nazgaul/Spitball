@@ -20,29 +20,32 @@
         border: 0;
     }*/
 }
-.class .location-search-area {
-  padding-bottom: 40px;
-}
-.class .location-search-area .folder .folder-name {
+.class .location-search-area .folder-name,
+.class .folders .folder-name {
   background: #6a737d;
+  border: 1px solid #6a737d;
 }
-.class .location-search-area .folder .folder-name .icon svg {
+.class .location-search-area .folder-name .icon svg,
+.class .folders .folder-name .icon svg {
   width: 21px;
   height: 21px;
   fill: #9e9e9e;
   margin: 0 7px;
 }
-.class .location-search-area .folder .folder-name .md-menu {
+.class .location-search-area {
+  padding-bottom: 40px;
+}
+.class .location-search-area .md-menu {
   padding: 0;
 }
-.class .location-search-area .folder .folder-name .md-menu button {
+.class .location-search-area .md-menu button {
   height: 0;
   width: 30px;
 }
-.class .location-search-area .folder .name-and-icon {
+.class .location-search-area .name-and-icon {
   width: calc(100% - 40px);
 }
-.class .location-search-area .folder .dots-3 {
+.class .location-search-area .dots-3 {
   margin-right: 0;
   fill: #181c1d;
 }
@@ -68,6 +71,31 @@
   transform: rotate(-180deg);
   fill: #6a737d;
   margin-left: 15px;
+}
+.class .folders .folder-name {
+  padding: 2px;
+}
+.class .folders .add-folder {
+  background: none;
+}
+.class .folders .add-folder svg {
+  width: 15px;
+  height: 15px;
+  fill: #3d4348;
+}
+.class .folders .add-folder span {
+  font-weight: bold;
+  color: #3d4348;
+  font-size: 16px;
+  line-height: 20px;
+  padding-right: 10px;
+}
+.class .designed-input {
+  width: 100%;
+  background: none;
+  border-width: 0 0 1px 0;
+  border-color: #3d4348;
+  padding: 0 10px;
 }
 .class .need-follow {
   margin-top: 20px;

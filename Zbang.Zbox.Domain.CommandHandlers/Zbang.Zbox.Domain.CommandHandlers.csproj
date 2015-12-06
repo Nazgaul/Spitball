@@ -183,12 +183,14 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\CommandHandlerResources.ar.resx" />
+    <EmbeddedResource Include="Resources\CommandHandlerResources.en-GB.resx" />
     <EmbeddedResource Include="Resources\CommandHandlerResources.he.resx" />
     <EmbeddedResource Include="Resources\CommandHandlerResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CommandHandlerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommandHandlerResources.ru.resx" />
+    <EmbeddedResource Include="Resources\CommandHandlerResources.zh.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

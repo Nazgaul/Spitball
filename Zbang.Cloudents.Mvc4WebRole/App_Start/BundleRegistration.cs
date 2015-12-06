@@ -178,6 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/site/bootstrap-tabdrop.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
+                        new JsFileWithCdn("~/scripts/draganddrop.js"),
                         new JsFileWithCdn("~/js/polyfills.js"),
 
                         new JsFileWithCdn("~/js/signin/metronic.js"),
