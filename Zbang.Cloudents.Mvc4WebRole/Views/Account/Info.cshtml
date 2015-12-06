@@ -17,32 +17,38 @@
         </div>
         <form role="form" ng-submit="i.submit()">
             <div ng-if="i.done" class="alert alert-success text-capitalize" role="alert">@AccountResource.Saved</div>
-            <md-input-container>
-                <label class="text-capitalize">@AccountResource.First</label>
-                <input type="text" autocomplete="off" ng-model="i.data.firstName" />
-            </md-input-container>
-            <md-input-container>
-                <label class="text-capitalize">@AccountResource.Last</label>
-                <input type="text" autocomplete="off" ng-model="i.data.lastName" />
-            </md-input-container>
-
-            <md-input-container>
-                <label class="control-label text-capitalize" for="email">@AccountResource.ChangeMail</label>
-                <input type="email" id="email" ng-model="i.data.email" class="form-control" />
-            </md-input-container>
-            <a ui-sref="universityChoose">change univeristy</a>
-
-            <md-input-container>
-                <label>@AccountResource.Lang</label>
-                <md-select name="notification" md-on-close="i.changeLanguage()" ng-model="i.data.language" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
-                    @foreach (var lang in Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures)
-                    {
-                        <md-option value="@lang.Culture">@lang.Name</md-option>
-                    }
-                </md-select>
-
-            </md-input-container>
-
+            <div layout layout-sm="column">
+                <md-input-container flex class="left-flex">
+                    <label class="text-capitalize">@AccountResource.First</label>
+                    <input type="text" autocomplete="off" ng-model="i.data.firstName" />
+                </md-input-container>
+                <md-input-container flex>
+                    <label class="text-capitalize">@AccountResource.Last</label>
+                    <input type="text" autocomplete="off" ng-model="i.data.lastName" />
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column">
+                <md-input-container flex class="left-flex">
+                    <label class="control-label text-capitalize" for="email">@AccountResource.ChangeMail</label>
+                    <input type="email" id="email" ng-model="i.data.email" class="form-control" />
+                </md-input-container>
+                <md-input-container flex>
+                    <label class="control-label text-capitalize">@AccountResource.EnterCode</label>
+                    <input type="text" autocomplete="off" />
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column">
+                <a ui-sref="universityChoose" flex>change univeristy</a>
+                <md-input-container flex>
+                    <label>@AccountResource.Lang</label>
+                    <md-select name="notification" md-on-close="i.changeLanguage()" ng-model="i.data.language" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
+                        @foreach (var lang in Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures)
+                        {
+                            <md-option value="@lang.Culture">@lang.Name</md-option>
+                        }
+                    </md-select>
+                </md-input-container>
+            </div>
             <div class="margin-top-10 text-right">
 
                 <button type="reset" class="btn default text-capitalize">@GeneralResources.Cancel</button>
