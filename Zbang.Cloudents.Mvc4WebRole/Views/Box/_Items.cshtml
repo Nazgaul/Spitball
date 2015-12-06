@@ -1,27 +1,17 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-@*<ul class="row list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
-        <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 item-animate item-create add-button" ng-click="b.toggleUpload(true)">
-            <div>
-                <button type="button">
-                    @Html.Svg("~/images/site/icons.svg", "add")
-                    upload files
-                </button>
-            </div>
-        </li>
-        <li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 item-animate" ng-repeat="e in i.items track by e.id " ng-include="'item-template.html'"></li>
-    </ul>*@
+
 <div layout="row" class="location-search-area" layout-align="space-between end">
     <div class="folder" flex="50">
-        <div layout="row" layout-align="start center">
-            <div layout="row" layout-align="none  center" class="arrow">@Html.Svg("~/images/site/icons.svg", "arrow")</div>
+        <div layout="row" layout-align="start center" ng-if="i.tabSelected.id">
+            <div layout="row" layout-align="none  center" class="arrow" ng-click="i.upDir()">@Html.Svg("~/images/site/icons.svg", "arrow")</div>
             <div flex class="folder-name">
                 <div layout="row" layout-align="space-between center">
                     <div class="name-and-icon" layout="row" layout-align="start center">
                         <div layout="row" class="icon">@Html.Svg("~/images/folder_icon.svg", "folder")</div>
                         <div class="text ellipsis">
-                            Folder name goes here
+                            {{i.tabSelected.name}}
                         </div>
                     </div>
                     <md-menu ng-if="b.canDelete(e.ownerId)">
@@ -52,25 +42,31 @@
         </md-input-container>
     </div>
 </div>
+<ul ayout-fill layout-wrap class="list-unstyled folders" layout="row" layout-align="start center" ng-if="!i.tabSelected.id">
+    <li class="folder-name item-animate add-button i-q-wrapper" ng-click="">
+        <div class="content" ng-if="!i.xxx">
+            <button type="button">
+                @Html.Svg("~/images/site/icons.svg", "add")
+                @BoxResources.UploadFiles
+            </button>
+        </div>
+     
+    </li>
 
+    <li ui-on-drop="i.test($event,$data)" flex class="folder-name" ng-repeat="e in i.tabs" ng-click="i.tabChange(e)">
+        <div layout="row" layout-align="space-between center">
+            <div class="name-and-icon" layout="row" layout-align="start center">
+                <div layout="row" class="icon">@Html.Svg("~/images/folder_icon.svg", "folder")</div>
+                <div class="text ellipsis">
+                    {{:: e.name}}
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-<ul ayout-fill layout-wrap class="list-unstyled folders" layout="row" layout-align="start center">
-    <li class="folder-name item-animate add-button i-q-wrapper" ng-click="i.openUpload()">
+<ul layout="row" layout-fill layout-wrap class="list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" hide-sm class="item-animate add-button i-q-wrapper" ng-click="i.openUpload()">
         <div class="content">
             <button type="button">
                 @Html.Svg("~/images/site/icons.svg", "add")
@@ -78,62 +74,20 @@
             </button>
         </div>
     </li>
-
-    <li flex class="folder-name">
-        <div layout="row" layout-align="space-between center">
-            <div class="name-and-icon" layout="row" layout-align="start center">
-                <div layout="row" class="icon">@Html.Svg("~/images/folder_icon.svg", "folder")</div>
-                <div class="text ellipsis">
-                    Folder name goes here
-                </div>
-            </div>
-        </div>
-    </li>
-    <li flex class="folder-name">
-        <div layout="row" layout-align="space-between center">
-            <div class="name-and-icon" layout="row" layout-align="start center">
-                <div layout="row" class="icon">@Html.Svg("~/images/folder_icon.svg", "folder")</div>
-                <div class="text ellipsis">
-                    Folder name goes here
-                </div>
-            </div>
-        </div>
-    </li>
-    <li flex class="folder-name">
-        <div layout="row" layout-align="space-between center">
-            <div class="name-and-icon" layout="row" layout-align="start center">
-                <div layout="row" class="icon">@Html.Svg("~/images/folder_icon.svg", "folder")</div>
-                <div class="text ellipsis">
-                    Folder name goes here
-                </div>
-            </div>
-        </div>
+    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" class="item-animate i-q-wrapper" ng-repeat="e in i.items track by e.id ">
+        <div ui-draggable="true" ng-include="'item-template.html'"></div>
+        <md-menu ng-if="b.canDelete(e.ownerId)">
+            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
+                @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
+            </md-button>
+            <md-menu-content width="1">
+                <md-menu-item>
+                    <md-button aria-label="delete post" ng-click="i.deleteItem($event,e)">
+                        @GeneralResources.Delete
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
     </li>
 </ul>
-
-        <ul layout="row" layout-fill layout-wrap class="list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
-            <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" hide-sm class="item-animate add-button i-q-wrapper" ng-click="i.openUpload()">
-                <div class="content">
-                    <button type="button">
-                        @Html.Svg("~/images/site/icons.svg", "add")
-                        @BoxResources.UploadFiles
-                    </button>
-                </div>
-            </li>
-            <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" class="item-animate i-q-wrapper" ng-repeat="e in i.items track by e.id ">
-        <div ui-draggable="true" ng-include="'item-template.html'"></div>
-                <md-menu ng-if="b.canDelete(e.ownerId)">
-                    <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
-                        @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
-                    </md-button>
-                    <md-menu-content width="1">
-                        <md-menu-item>
-                            <md-button aria-label="delete post" ng-click="i.deleteItem($event,e)">
-                                @GeneralResources.Delete
-                            </md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
-            </li>
-        </ul>
-        <button type="button" class="add visible-xs-block" ng-click="i.openUpload()" ng-show="i.uploadShow">@Html.Svg("~/images/site/icons.svg", "add")</button>
+<button type="button" class="add visible-xs-block" ng-click="i.openUpload()" ng-show="i.uploadShow">@Html.Svg("~/images/site/icons.svg", "add")</button>

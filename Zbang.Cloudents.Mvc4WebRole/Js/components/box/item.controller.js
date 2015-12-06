@@ -4,20 +4,16 @@
 
     function items(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog) {
         var i = this,
-        itemsInBox = [], boxId = $stateParams.boxId;
+        boxId = $stateParams.boxId;
         i.items = [];
+        i.tabSelected = {};
         var page = 0, loading = false, needToBringMore = true;
 
         boxService.getTabs(boxId).then(function(data) {
-            console.log(data);
+            i.tabs = data;
         });
 
-        boxService.items(boxId, i.tabSelectedId, page).then(function (data) {
-            data = itemThumbnailService.assignValues(data);
-            i.items = itemsInBox = data;
-            //iterateItem();
-            page++;
-        });
+        
 
         i.myPagingFunction = function () {
             getItems(true);
@@ -25,6 +21,29 @@
         i.filter = filter;
         i.openUpload = openUpload;
         i.deleteItem = deleteItem;
+        i.tabChange = tabChange;
+        i.upDir = upDir;
+        i.test = function(ev, x) {
+            console.log(ev, x);
+        }
+        getItems();
+        function tabChange(tab) {
+            //i.tabSelectedId = tab.id;
+            i.tabSelected = tab;
+            resetParams();
+            getItems();
+        }
+
+        function resetParams() {
+            page = 0;
+            needToBringMore = true;
+        }
+
+        function upDir() {
+            tabChange({});
+        }
+
+       
 
         function openUpload() {
             $rootScope.$broadcast('open_upload');
@@ -40,9 +59,7 @@
                  .cancel('Cancel');
 
             $mdDialog.show(confirm).then(function () {
-                var index = itemsInBox.lastIndexOf(item);
-                itemsInBox.splice(index, 1);
-                index = i.items.indexOf(item);
+                var index = i.items.indexOf(item);
                 i.items.splice(index, 1);
                 boxService.deleteItem(item.id, boxId);
             });
@@ -53,9 +70,13 @@
             if (!loading && needToBringMore) {
                 loading = true;
 
-                boxService.items(boxId, page).then(function (response) {
+                boxService.items(boxId, i.tabSelected.id, page).then(function (response) {
                     response = itemThumbnailService.assignValues(response);
-                    i.items = itemsInBox = i.items.concat(response);
+                    if (page > 0) {
+                        i.items = i.items.concat(response);
+                    } else {
+                        i.items = response;
+                    }
 
                     if (!response.length) {
                         needToBringMore = false;
@@ -67,7 +88,9 @@
         }
         function filter() {
             if (!i.term) {
-                i.items = itemsInBox;
+                i.tabSelected = {};
+                resetParams();
+                getItems();
             }
             boxService.filterItem(i.term, boxId, 0).then(function (response) {
                 response = itemThumbnailService.assignValues(response);
