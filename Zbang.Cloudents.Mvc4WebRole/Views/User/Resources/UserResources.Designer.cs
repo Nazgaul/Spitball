@@ -59,5 +59,167 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 150 pts Each accepted invite.
+        /// </summary>
+        public static string Accepted {
+            get {
+                return ResourceManager.GetString("Accepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 50 pts Each accepted invite to course.
+        /// </summary>
+        public static string AcceptedToCourse {
+            get {
+                return ResourceManager.GetString("AcceptedToCourse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 100 pts Answering a question.
+        /// </summary>
+        public static string Answering {
+            get {
+                return ResourceManager.GetString("Answering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 50 pts Asking a question.
+        /// </summary>
+        public static string Asking {
+            get {
+                return ResourceManager.GetString("Asking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to classes.
+        /// </summary>
+        public static string Classes {
+            get {
+                return ResourceManager.GetString("Classes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 300 pts Creating a quiz.
+        /// </summary>
+        public static string Creating {
+            get {
+                return ResourceManager.GetString("Creating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Earn points by:.
+        /// </summary>
+        public static string Earn {
+            get {
+                return ResourceManager.GetString("Earn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to friends.
+        /// </summary>
+        public static string Friends {
+            get {
+                return ResourceManager.GetString("Friends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 150 pts Receiving a 5 star rating.
+        /// </summary>
+        public static string MaxStars {
+            get {
+                return ResourceManager.GetString("MaxStars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 100 pts Receiving a 4 star rating.
+        /// </summary>
+        public static string MoreStars {
+            get {
+                return ResourceManager.GetString("MoreStars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to points.
+        /// </summary>
+        public static string Points {
+            get {
+                return ResourceManager.GetString("Points", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to posts.
+        /// </summary>
+        public static string Posts {
+            get {
+                return ResourceManager.GetString("Posts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to quizzes.
+        /// </summary>
+        public static string Quizzes {
+            get {
+                return ResourceManager.GetString("Quizzes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 50 pts Sharing on FB.
+        /// </summary>
+        public static string ShareFB {
+            get {
+                return ResourceManager.GetString("ShareFB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 50 pts Receiving a 3 star rating.
+        /// </summary>
+        public static string Stars {
+            get {
+                return ResourceManager.GetString("Stars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 100 pts Upload an item to a cours.
+        /// </summary>
+        public static string UploadItem {
+            get {
+                return ResourceManager.GetString("UploadItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to uploads.
+        /// </summary>
+        public static string Uploads {
+            get {
+                return ResourceManager.GetString("Uploads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to user page.
+        /// </summary>
+        public static string UserPage {
+            get {
+                return ResourceManager.GetString("UserPage", resourceCulture);
+            }
+        }
     }
 }

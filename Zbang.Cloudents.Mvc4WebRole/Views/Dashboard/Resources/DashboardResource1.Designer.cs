@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources {
+namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class IndexResources {
+    public class DashboardResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal IndexResources() {
+        internal DashboardResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources.IndexResources", typeof(IndexResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources.DashboardResource", typeof(DashboardResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,65 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to back to dashboard.
+        ///   Looks up a localized string similar to browse courses.
         /// </summary>
-        public static string Back {
+        public static string Browse {
             get {
-                return ResourceManager.GetString("Back", resourceCulture);
+                return ResourceManager.GetString("Browse", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to oops the file flew.
+        ///   Looks up a localized string similar to courses.
         /// </summary>
-        public static string FileFlew {
+        public static string Courses {
             get {
-                return ResourceManager.GetString("FileFlew", resourceCulture);
+                return ResourceManager.GetString("Courses", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please update your version of Internet Explorer or use different browser.
+        ///   Looks up a localized string similar to files.
         /// </summary>
-        public static string PleaseUpdate {
+        public static string Files {
             get {
-                return ResourceManager.GetString("PleaseUpdate", resourceCulture);
+                return ResourceManager.GetString("Files", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to doesn&apos;t support your browser version.
+        ///   Looks up a localized string similar to Invite your friends to spitball.
         /// </summary>
-        public static string Unsupported {
+        public static string InviteToSpitball {
             get {
-                return ResourceManager.GetString("Unsupported", resourceCulture);
+                return ResourceManager.GetString("InviteToSpitball", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to members.
+        /// </summary>
+        public static string Members {
+            get {
+                return ResourceManager.GetString("Members", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to add study group.
+        /// </summary>
+        public static string StudyGroup {
+            get {
+                return ResourceManager.GetString("StudyGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dashboard.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
     }
