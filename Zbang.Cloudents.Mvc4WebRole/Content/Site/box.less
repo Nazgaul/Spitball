@@ -4,6 +4,7 @@
     .location-search-area, .folders {
         .folder-name {
             background: @backgroundColorItem;
+            border: 1px solid @backgroundColorItem;
 
             .icon svg {
                 width: 21px;
@@ -69,11 +70,33 @@
 
     .folders {
         .folder-name {
-            margin: 10px;
+            padding: 2px;
         }
 
-        .folder-name, .folder-name .content {
-            width: 200px;
+        .add-folder {
+            background: none;
+
+            svg {
+                width: 15px;
+                height: 15px;
+                fill: @borderColorGrey;
+            }
+
+            span {
+                font-weight: bold;
+                color: @borderColorGrey;
+                font-size: 16px;
+                line-height: 20px;
+                padding-left: 10px;
+            }
+
+            input {
+                width: 100%;
+                background: none;
+                border-width: 0 0 1px 0;
+                border-color: @borderColorGrey;
+                padding: 0 10px;
+            }
         }
     }
     //dont think we need that
