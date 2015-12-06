@@ -24,6 +24,9 @@
   height: 179px;
   padding: 12px 6px 15px 6px;
 }
+.dashboard .layout-padding > .flex {
+  padding: 12px;
+}
 .dashboard .leaderboardbox {
   height: 179px;
   padding: 10px;
