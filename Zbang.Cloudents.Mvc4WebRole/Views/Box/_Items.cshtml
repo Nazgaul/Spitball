@@ -52,13 +52,11 @@
                 </span>
             </button>
         </div>
-        <div class="content" ng-if="i.opened">
-            <form>
-                <input focus-me="true" type="text"/>
-            </form>
-        </div>
+        <form class="content" ng-if="i.opened" ng-submit="i.addFolder()">
+            <input autofocus type="text" ng-model="i.newFolderName" />
+        </form>
     </li>
-    
+
 
     <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" hide-sm ui-on-drop="i.test($event,$data)" class="folder-name i-q-wrapper" ng-repeat="e in i.tabs" ng-click="i.tabChange(e)">
         <div layout="row" layout-align="space-between center">

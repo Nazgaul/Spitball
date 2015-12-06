@@ -25,7 +25,12 @@
         i.upDir = upDir;
         i.addItemToTab = addItemToTab;
         i.dropToTabSuccess = dropToTabSuccess;
+        i.addFolder = addFolder;
         getItems();
+
+        function addFolder() {
+            console.log(i.newFolderName);
+        }
 
         function addItemToTab($data, tab) {
             boxService.addItemToTab(boxId, tab.id, $data.id);
