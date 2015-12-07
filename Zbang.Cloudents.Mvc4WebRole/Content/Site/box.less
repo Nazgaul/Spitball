@@ -185,21 +185,15 @@
         bottom: 1em;
     }
 
-    .c-img {
-        position: absolute;
-        top: -9px;
-        left: -19px;
-    }
-
     .comment-date {
-        color: @textColorDarkGrey;
+        color: @svgDots;
         font-size: 12px;
     }
 
     .items-container {
         overflow-x: auto;
         white-space: nowrap;
-        padding-left: 34px;
+        padding-left: 47px;
     }
 
     .comment {
@@ -214,11 +208,13 @@
         }
 
         & > .top {
-            padding-left: 44px;
             padding-top: 5px;
             padding-bottom: 5px;
             border-radius: 10px 10px 0 0;
             color: @textColorWhite;
+            position: absolute;
+            top: -15px;
+            left: -18px;
         }
 
         .margins {
@@ -235,21 +231,18 @@
 
         .user-name {
             color: @textColorBlue;
-            font-weight: 700;
+            font-weight: 400;
+            margin-left: 10px;
         }
 
         .comment-date {
-            margin-left: 44px;
-        }
-
-        .items-container {
-            margin: 0 5px -8px;
+            margin-left: 47px;
         }
     }
 
     .reply {
         position: relative;
-        margin-left: 35px;
+        margin-left: 26px;
 
         .actions {
             margin-top: 0;
@@ -282,7 +275,7 @@
         }
 
         .items-container {
-            padding-left: 24px;
+            padding-left: 40px;
             margin: 0 5px;
         }
 
@@ -292,18 +285,18 @@
         }
 
         .comment-date {
-            margin-left: 34px;
+            margin-left: 51px;
         }
-    }
 
-    .top {
-        padding-left: 34px;
+        .content-text {
+            margin-left: 50px;
+        }
     }
 
     .actions {
         color: @textColorDarkGrey;
         padding-bottom: 10px;
-        margin: 10px 0 0 6px;
+        margin: 10px 0 0 40px;
         font-size: 13px;
         position: relative;
 
@@ -338,11 +331,14 @@
         padding-top: 15px;
     }
 
+    .post > .content-text {
+        padding: 38px 0 0 46px;
+    }
+
     .content-text {
         line-height: 22px;
-        margin-bottom: 5px;
-        padding-right: 10px;
-        margin-top: 8px;
+        margin-bottom: 10px;
+        margin-right: 15px;
     }
 
     .add-reply {

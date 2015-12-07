@@ -623,6 +623,18 @@ md-dialog-actions {
   background-image: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%);
   box-shadow: 0 0.062em 0 rgba(255, 255, 255, 0.6);
 }
+.md-button.md-icon-button .md-ripple-container {
+  left: 10px;
+  top: -5px;
+}
+md-menu-content {
+  padding: 0;
+  border-radius: 5px;
+}
+md-menu-item {
+  min-height: 36px;
+  height: 36px;
+}
 .scroll-to-top svg {
   width: 32px;
   height: 32px;
