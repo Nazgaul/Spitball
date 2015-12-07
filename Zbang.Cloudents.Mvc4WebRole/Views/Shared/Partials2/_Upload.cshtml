@@ -94,15 +94,20 @@
 </div>
 <script type="text/ng-template" id="file-upload.html">
     <span class="check-mark" ng-if="file.complete">@Html.Svg(url, "checkMark")</span>
-    <div class="file-name ellipsis">
-        {{::file.name}}
-
-        <div class="progress file-upload-progress" ng-if="!file.complete">
-            <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{file.percent}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width: file.percent + '%'}">
-                <span class="sr-only">{{file.percent}}% @IndexResources.Complete</span>
+    <div class="file" layout="column" layout-align="space-between center">
+        <div class="file-name">
+            <div class="multi-line-ellipsis limit-three">
+                {{::file.name}}
+            </div>
+            <div class="progress file-upload-progress" ng-if="!file.complete">
+                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{file.percent}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width: file.percent + '%'}">
+                    <span class="sr-only">{{file.percent}}% @IndexResources.Complete</span>
+                </div>
             </div>
         </div>
+        <div class="file-footer">
+            <div class="file-size">{{::file.sizeFormated}}</div>
+            <button type="button">@IndexResources.Remove</button>
+        </div>
     </div>
-    <div class="file-size">{{::file.sizeFormated}}</div>
-    <button type="button">@IndexResources.Remove</button>
 </script>

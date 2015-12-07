@@ -84,6 +84,15 @@ input, li, [contenteditable], span, textarea, [role="button"] {
     font-size: 25px;
 }
 
+//ellipsis longer than 3 lines
+.multi-line-ellipsis {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+.multi-line-ellipsis.limit-three{
+        -webkit-line-clamp: 3;
+}
 
 //create
 /*.create {

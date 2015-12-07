@@ -157,6 +157,14 @@ textarea,
   text-transform: capitalize;
   font-size: 25px;
 }
+.multi-line-ellipsis {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.multi-line-ellipsis.limit-three {
+  -webkit-line-clamp: 3;
+}
 /*.create {
     background: @color4;
     //height: 475px;
