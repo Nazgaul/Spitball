@@ -14,6 +14,7 @@
             getPreview();
         });
 
+
         function getPreview() {
             //if (index > 0) {
             //    $scope.load.contentLoadMore = true;
@@ -48,8 +49,6 @@
             });
         }
 
-       
-
         i.loadMore = function () {
             if (loadMore) {
                 loadMore = false;
@@ -60,6 +59,7 @@
 
 
         i.renameOn = false;
+        i.flagItemOn = true;
 
         i.renameItem = function () {
             if (!i.renameOn) {
@@ -70,6 +70,21 @@
                 i.details.name = response.name;
                 $location.path(response.url).replace();
             });
+        }
+
+        i.flagItem = function () {
+            if (!i.flagItemOn) {
+                i.flagItemOn = true;
+                return;
+            }
+
+            console.log(i.flag, i.customFlag);
+            //TODO: flag the the item
+        }
+
+        i.itemCancel = function () {
+            i.renameOn = false;
+            i.flagItemOn = false;
         }
 
         i.like = function() {

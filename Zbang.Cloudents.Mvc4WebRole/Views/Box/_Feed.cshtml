@@ -45,7 +45,14 @@
                     </div>
                 </form>
                 <ol class="list-unstyled">
-                    <li ng-repeat="post in f.data" class="comment" >
+                    <li ng-repeat="post in f.data" class="post comment">
+
+                        <div class="top" layout="row" layout-align="space-between center">
+                            <div layout="row" layout-align="start center" class="username">
+                                <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="54" height="54"></user-image>
+                                <span class="user-name">{{::post.userName}}</span>
+                            </div>
+                        </div>
                         <md-menu ng-if="b.canDelete(post.userId)">
                             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
                                 @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
@@ -53,16 +60,12 @@
                             <md-menu-content width="1">
                                 <md-menu-item>
                                     <md-button aria-label="delete post" ng-click="f.deleteComment($event,post)">
-                                       @GeneralResources.Delete
+                                        @GeneralResources.Delete
                                     </md-button>
                                 </md-menu-item>
                             </md-menu-content>
                         </md-menu>
-                        <div class="top">
-                            <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="54" height="54"></user-image>
-                            <span class="user-name">{{::post.userName}}</span>
-                            <div ng-bind-html="::post.content" class="content-text"></div>
-                        </div>
+                        <div ng-bind-html="::post.content" class="content-text"></div>
                         <ul class="list-inline items-container">
                             <li ng-repeat="e in post.files" ng-include="f.postItemTemplate(e)"></li>
                         </ul>
@@ -88,29 +91,30 @@
                                     </md-menu-content>
                                 </md-menu>
                                 <div class="top">
-                                    <user-image class="img-circle c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
-                                    <span class="user-name">{{::reply.userName}}</span> @*at*@
-
+                                    <div layout="row" layout-align="start center" class="username">
+                                        <user-image class="img-circle c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
+                                        <span class="user-name">{{::reply.userName}}</span> @*at*@
+                                    </div>
                                     <div ng-bind-html="::reply.content" class="content-text"></div>
                                 </div>
                                 <ul class="list-inline items-container">
                                     <li ng-repeat="e in reply.files" ng-include="'item-template.html'">
                                         @*<a class="item" href="{{::item.url}}">
-                                <div class="content">
-                                    <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
-                                    <div class="extra">
-                                        <h5>{{::item.name}}</h5>
-                                        <img src="http://lorempixel.com/30/30/" alt="" />
+                                    <div class="content">
+                                        <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
+                                        <div class="extra">
+                                            <h5>{{::item.name}}</h5>
+                                            <img src="http://lorempixel.com/30/30/" alt="" />
 
+                                        </div>
                                     </div>
-                                </div>
-                            </a>*@
+                                </a>*@
                                     </li>
                                 </ul>
                                 <span class="comment-date">{{::reply.creationTime | date : 'MMM d,yyyy H:m'}}</span>
                                 <div class="actions padding">
                                     @*<button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>
-                                    <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>*@
+                            <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>*@
                                     <span class="ribbon" ng-if="post.isNew">New</span>
                                 </div>
                             </li>
@@ -131,7 +135,7 @@
                                 <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
                                 <button type="submit" class="btn btn-primary pull-right text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
                                 @*<input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
-                    <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
+                        <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
                             </div>
                         </form>
                     </li>

@@ -35,11 +35,45 @@
 
     </header>
     <div class="full-screen-body">
-        <div class="fileName">
-            <span contenteditable="{{i.renameOn}}" ng-model="i.details.name" focus-me="i.renameOn"></span>
-            @*<button type="button" ng-click="i.renameItem()">@Html.Svg("~/images/site/icons.svg", "edit")</button>*@
-            <a class="info" href="#" tooltip-placement="bottom" tooltip-class="copy-right"
-               tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
+        <div class="fileName" layout="row" layout-align="center center">
+            <div class="name-info" focus-me="i.renameOn" ng-if="!i.renameOn && !i.flagItemOn">
+                <span contenteditable="{{i.renameOn}}" ng-model="i.details.name"></span>
+                @*<button type="button" ng-click="i.renameItem()">@Html.Svg("~/images/site/icons.svg", "edit")</button>*@
+                <a class="info" href="#" tooltip-placement="bottom" tooltip-class="copy-right"
+                   tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
+            </div>
+            <form name="rename-item" class="rename-form" novalidate ng-submit="i.renameItem()" ng-if="i.renameOn && !i.flagItemOn">
+                <md-content layout="column">
+                    <md-input-container flex>
+                        <label>Name</label>
+                        <input autocomplete="off" required ng-model="i.details.name" />
+                    </md-input-container>
+                </md-content>
+
+                <span layout="row" layout-align="end center">
+                    <button type="button" class="btn grey btn-default text-capitalize" ng-click="i.itemCancel()">cancel</button>
+                    <button type="submit" class="btn blue text-capitalize">save</button>
+                </span>
+            </form>
+
+            <form name="flag-item" class="flag-form" novalidate ng-submit="i.flagItem()" ng-if="i.flagItemOn && !i.renameOn">
+                <div class="title">Report abuse</div>
+                <md-content layout="column">
+                    <md-input-container flex="100">
+                        <md-select name="flag" ng-model="i.flag" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
+                            <md-option value="woop1">woop1</md-option>
+                            <md-option value="woop2">woop2</md-option>
+                            <md-option value="other">other</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <input class="rounded-input" autocomplete="off" required ng-model="i.customFlag" ng-if="i.flag === 'other'" />
+                </md-content>
+
+                <span layout="row" layout-align="end center">
+                    <button type="button" class="btn grey btn-default text-capitalize" ng-click="i.itemCancel()">cancel</button>
+                    <button type="submit" class="btn blue text-capitalize">report</button>
+                </span>
+            </form>
         </div>
         <div class="arrows">
             <button type="button" class="arrow left">@Html.Svg("~/images/site/icons.svg", "arrow")</button>
