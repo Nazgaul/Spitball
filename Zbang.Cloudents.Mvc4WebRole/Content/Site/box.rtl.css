@@ -155,23 +155,6 @@
     padding-left: 30px;
   }
 }
-.class .settings .btn {
-  padding: 0 16px;
-}
-.class .settings .btn-primary {
-  background: #4190b9;
-  margin-right: 20px;
-}
-.class .settings .btn-primary:hover {
-  background: #26566e;
-  color: inherit;
-}
-.class .settings .btn-primary:focus {
-  color: inherit;
-}
-.class .settings .btn-default {
-  border: none;
-}
 .feed {
   font-size: 16px;
   line-height: 1;
@@ -339,6 +322,14 @@
             
         }
     }*/
+  /*button[type=submit] {
+        .buttonBlue();
+        padding: 2px 10px 0 10px;
+        font-size: 13px;
+        border-radius: 6px;
+        margin: 5px 0 0 20px;
+        color: @textColorWhite;
+    }*/
 }
 .add-comment ::-webkit-input-placeholder {
   color: #323538;
@@ -392,6 +383,7 @@
 .add-comment input[type=checkbox]:checked + label svg {
   fill: #d39f10;
 }
+<<<<<<< HEAD
 .add-comment button[type=submit] {
   background: #4190b9;
   padding: 2px 10px 0 10px;
@@ -406,6 +398,8 @@
 .add-comment button[type=submit]:focus {
   color: inherit;
 }
+=======
+>>>>>>> 81f96cbc69369ca2754d0f31ee3ad66a2aaa3845
 .add-comment svg {
   width: 25px;
   height: 35px;

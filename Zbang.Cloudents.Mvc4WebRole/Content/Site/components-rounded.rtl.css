@@ -1951,7 +1951,7 @@ Customized Bootstrap Buttons
   box-shadow: none;
 }
 .btn + .btn {
-  margin-right: 5px;
+  margin-right: 15px;
 }
 .btn-default {
   border-width: 1px;

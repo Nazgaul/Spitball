@@ -5,12 +5,11 @@
         <div class="caption text-capitalize">
             @IndexResources.Invite
         </div>
-        <button type="button" class="close" ng-click="i.closeInvite()">@Html.Svg("~/images/site/icons.svg", "close")</button>
     </div>
     <div class="body clearfix tabbable-line">
         <div class="clearfix" ng-show="i.inBox">
             <ul class="nav nav-tabs tab-from-right">
-                <li ng-class="{active: i.inMail}">
+                <li class="mail" ng-class="{active: i.inMail}">
                     <a class="text-capitalize" ng-click="i.mail()">@IndexResources.Mail</a>
                 </li>
                 <li ng-class="{active: !i.inMail}">
@@ -64,7 +63,8 @@
 
             </md-content>
         </div>
-        <button type="button" class="btn pull-right send text-capitalize" ng-click="i.sendInvite()" ng-disabled="!i.contacts.length">@IndexResources.Send</button>
+        <button type="button" class="btn btn-primary send pull-right text-capitalize" ng-click="i.sendInvite()" ng-disabled="!i.contacts.length">@IndexResources.Send</button>
+        <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="i.closeInvite()">@GeneralResources.Cancel</button>
     </div>
 </div>
 
