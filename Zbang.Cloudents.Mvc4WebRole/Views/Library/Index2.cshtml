@@ -62,7 +62,7 @@
 
                 <span layout="row" layout-align="space-between center">
                     <button type="button" class="btn btn-default text-capitalize" ng-click="l.departmentCancel()">cancel</button>
-                    <button type="submit" class="btn text-capitalize" ng-disabled="!createDepartment.$valid">done</button>
+                    <button type="submit" class="btn btn-primary text-capitalize" ng-disabled="!createDepartment.$valid">done</button>
                 </span>
             </form>
         </div>
@@ -93,7 +93,7 @@
                 <span layout="row" layout-align="space-between stretch">
                     <button type="button" class="btn btn-default text-capitalize " ng-click="l.boxCancel()">cancel</button>
                     <button type="button" class="btn text-capitalize" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()">next</button>
-                    <button type="submit" class="btn text-capitalize" ng-if="l.secondStep" ng-disabled="!createBox.$valid">done</button>
+                    <button type="submit" class="btn btn-primary text-capitalize" ng-if="l.secondStep" ng-disabled="!createBox.$valid">done</button>
                 </span>
             </form>
         </div>

@@ -154,23 +154,6 @@
     padding-right: 30px;
   }
 }
-.class .settings .btn {
-  padding: 0 16px;
-}
-.class .settings .btn-primary {
-  background: #4190b9;
-  margin-left: 20px;
-}
-.class .settings .btn-primary:hover {
-  background: #26566e;
-  color: inherit;
-}
-.class .settings .btn-primary:focus {
-  color: inherit;
-}
-.class .settings .btn-default {
-  border: none;
-}
 .feed {
   font-size: 16px;
   line-height: 1;
@@ -384,7 +367,7 @@
 }
 .add-comment button[type=submit]:hover {
   background: #26566e;
-  color: inherit;
+  color: #f5f5f5;
 }
 .add-comment button[type=submit]:focus {
   color: inherit;

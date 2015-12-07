@@ -30,7 +30,7 @@
 }
 .portlet.light.invite:hover {
   background: #26566e;
-  color: inherit;
+  color: #f5f5f5;
 }
 .portlet.light.invite:focus {
   color: inherit;
@@ -73,7 +73,7 @@
 }
 .invite .send:hover {
   background: #26566e;
-  color: inherit;
+  color: #f5f5f5;
 }
 .invite .send:focus {
   color: inherit;
