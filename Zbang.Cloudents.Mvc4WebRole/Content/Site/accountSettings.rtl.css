@@ -15,6 +15,9 @@
 @color9:#cccccc;
 @color10:#8c99a6;
 @color11:#db4437;*/
+.accountPage-wrapper .profile-content {
+  width: 50%;
+}
 .accountPage-wrapper svg {
   width: 17px;
   height: 17px;
@@ -114,4 +117,14 @@
 }
 .accountPage-wrapper .notification-list li .name {
   font-size: 18px;
+}
+.accountPage-wrapper .uni-image {
+  border-radius: 50%;
+  margin-left: 20px;
+}
+.accountPage-wrapper .uni-name {
+  font-size: 20px;
+}
+.accountPage-wrapper .margin-top-10 {
+  margin-bottom: 20px;
 }
