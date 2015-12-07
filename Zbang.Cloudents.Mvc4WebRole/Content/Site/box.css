@@ -74,6 +74,7 @@
 }
 .class .folders .folder-name {
   padding: 2px;
+  margin-bottom: 15px;
 }
 .class .folders .add-folder {
   background: none;

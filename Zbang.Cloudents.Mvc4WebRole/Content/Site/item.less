@@ -37,13 +37,51 @@
         -ms-text-overflow: ellipsis;
         -o-text-overflow: ellipsis;
         text-overflow: ellipsis;
-        max-width: 430px;
         margin: 0 auto;
         overflow: hidden;
         padding: 20px 0;
 
-        svg{
+        .name-info, .flag-form {
+            max-width: 430px;
+            width: 100%;
+        }
+
+        .rename-form {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        form {
+
+            .title, label {
+                text-align: left;
+            }
+
+            .layout-column {
+                background: none;
+            }
+
+            md-input-container .md-input {
+                color: @textColorDarkGrey;
+            }
+
+            .rounded-input {
+                border-radius: 5px;
+                border: 1px solid #3293f6;
+                padding: 5px 10px;
+                margin-bottom: 20px;
+            }
+        }
+
+        a {
+            line-height: 0;
+            margin-left: 10px;
+        }
+
+        svg {
             fill: @svgLightGrey;
+            width: 20px;
+            height: 20px;
         }
     }
 
@@ -57,7 +95,7 @@
 
         .arrow {
             position: fixed;
-            top: 50%;
+            top: ~"calc(50% + 80px)";
             fill: @svgLightGrey;
         }
 
@@ -127,11 +165,6 @@
             background: @backgroundColorWhite;
             margin: 10px 0;
         }
-    }
-
-    svg {
-        width: 17px;
-        height: 17px;
     }
 
     .copy-right {
