@@ -299,6 +299,18 @@ md-dialog-actions {
   -webkit-flex-direction: column;
   flex-direction: column;
 }
+.create-box .create-txt {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 12px;
+  width: 100%;
+  height: 100%;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
 .create-box .plus {
   margin-bottom: 12px;
 }
@@ -325,23 +337,12 @@ md-dialog-actions {
 .create-box md-input-container label {
   color: #888b8e;
 }
-.create-box .btn {
-  background: #4190b9;
-  margin: 0 5px;
-  display: block;
-  color: #f5f5f5;
-  border-radius: 5px;
+.create-box md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+  border-bottom: 1px solid #888b8e;
+  color: #888b8e;
 }
-.create-box .btn:hover {
-  background: #26566e;
-  color: #f5f5f5;
-}
-.create-box .btn:focus {
-  color: inherit;
-}
-.create-box .btn-default {
-  background: #f5f5f5;
-  color: #323538;
+.create-box .btn-primary {
+  margin-right: 15px;
 }
 .create-box .error {
   color: #db4437;

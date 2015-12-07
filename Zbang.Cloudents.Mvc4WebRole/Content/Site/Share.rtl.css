@@ -40,7 +40,12 @@
   padding: 0 10px 10px;
 }
 .invite .tab-from-right {
-  margin-left: 25px;
+  background: none;
+  padding-top: 0;
+  padding-left: 0;
+}
+.invite .tab-from-right .mail {
+  margin-left: 0;
 }
 .invite .body {
   background: #181c1d;
@@ -67,16 +72,7 @@
   background-color: transparent;
 }
 .invite .send {
-  background: #4190b9;
-  margin: 0 0 15px 15px;
-  padding: 5px 35px;
-}
-.invite .send:hover {
-  background: #26566e;
-  color: #f5f5f5;
-}
-.invite .send:focus {
-  color: inherit;
+  margin: 0 15px 15px 15px;
 }
 .invite .gmail {
   display: -webkit-flex;
