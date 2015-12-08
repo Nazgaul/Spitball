@@ -49,15 +49,18 @@
   color: #323538;
 }
 .library-choose .add-uni-btn span {
-  display: inline-block;
   height: 70px;
   width: 70px;
-  line-height: 66px;
-  font-size: 50px;
+  line-height: 70px;
+  font-size: 35px;
   text-align: center;
   border: 3px solid #3d4348;
-  color: #323538;
   border-radius: 50%;
+}
+.library-choose .add-uni-btn svg {
+  width: 30px;
+  height: 30px;
+  fill: #484f56;
 }
 .library-choose .add-uni-btn div {
   margin-left: 15px;
