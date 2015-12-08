@@ -130,7 +130,7 @@
     <value>או הירשם באמצעות כתובת המייל שלך</value>
   </data>
   <data name="A6" xml:space="preserve">
-    <value>ספיטבול נבנתה ע״י סטודנטים עבור סטודנטים</value>
+    <value>ספיטבול נבנתה ע״י סטודנטים ובעבור סטודנטים</value>
   </data>
   <data name="A8" xml:space="preserve">
     <value>בלוג</value>
@@ -139,7 +139,7 @@
     <value>מה מחכה לכם בפנים:</value>
   </data>
   <data name="B10" xml:space="preserve">
-    <value>אלפי מבחנים כבר מחכים לכם! צרו ותרגלו מבחנים בצורה אינטרקטיבית כחלק ממערכת חדשנית לתרגול מבחנים.</value>
+    <value>אלפי מבחנים כבר מחכים לכם! צרו ותרגלו מבחנים בצורה אינטרקטיבית כחלק ממערכת חדשנית לתרגול ויצירת מבחנים.</value>
   </data>
   <data name="B2" xml:space="preserve">
     <value>הינה הצצה קצרה לחלק מהפיצ׳רים שהופכים את ספיטבול למה שהיא</value>
@@ -234,5 +234,8 @@
   </data>
   <data name="Testimonial4Title" xml:space="preserve">
     <value>מנהל עסקים, האוניברסיטה הפתוחה</value>
+  </data>
+  <data name="A7" xml:space="preserve">
+    <value>הורד את האפליקציה לנייד</value>
   </data>
 </root>

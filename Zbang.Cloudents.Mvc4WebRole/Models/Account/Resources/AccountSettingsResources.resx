@@ -121,7 +121,7 @@
     <value>Confirmation code:</value>
   </data>
   <data name="CodeIncorrect" xml:space="preserve">
-    <value>הקוד שהזנת שגוי</value>
+    <value>The code you entered is incorrect</value>
     <comment>Netanya code error msg (Hebrew)</comment>
   </data>
   <data name="CodeIncorrect2" xml:space="preserve">
@@ -131,22 +131,22 @@
     <value>Current password</value>
   </data>
   <data name="CurrentPwdEmpty" xml:space="preserve">
-    <value>Current password cannot be empty</value>
+    <value>You must enter your current password</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email:</value>
   </data>
   <data name="EmailEmpty" xml:space="preserve">
-    <value>Email field cannot be empty</value>
+    <value>You must enter a valid email address</value>
   </data>
   <data name="EmailNotCorrect" xml:space="preserve">
-    <value>Email is not in correct format</value>
+    <value>This email address is not in the correct format</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language:</value>
   </data>
   <data name="LanguageNotSupported" xml:space="preserve">
-    <value>Language is not supported</value>
+    <value>Sorry, your language is not supported</value>
   </data>
   <data name="Min6Chars" xml:space="preserve">
     <value>- Min 6 characters</value>
@@ -155,22 +155,22 @@
     <value>New password</value>
   </data>
   <data name="NewPwdEmpty" xml:space="preserve">
-    <value>New password cannot be empty</value>
+    <value>You must enter your new password</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>Notifications</value>
+    <value>Notifications:</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password:</value>
   </data>
   <data name="SchoolRequired" xml:space="preserve">
-    <value>Please enter university name</value>
+    <value>Please enter the name of your university </value>
   </data>
   <data name="TypeCodeReceived" xml:space="preserve">
     <value>Type code received by email</value>
   </data>
   <data name="UsernameEmpty" xml:space="preserve">
-    <value>Username cannot be empty</value>
+    <value>You must enter a username</value>
   </data>
   <data name="LastNameRequired" xml:space="preserve">
     <value>Last name is required</value>

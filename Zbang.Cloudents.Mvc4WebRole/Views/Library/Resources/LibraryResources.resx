@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddSchool" xml:space="preserve">
-    <value>add your school</value>
+    <value>Add your university</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>continue</value>
+    <value>Continue</value>
   </data>
   <data name="Country" xml:space="preserve">
-    <value>country</value>
+    <value>Country</value>
   </data>
   <data name="EnterID" xml:space="preserve">
-    <value>enter 9 digit id</value>
+    <value>Please enter your 9 digit ID</value>
   </data>
   <data name="Hi" xml:space="preserve">
-    <value>hi</value>
+    <value>Hi</value>
   </data>
 </root>

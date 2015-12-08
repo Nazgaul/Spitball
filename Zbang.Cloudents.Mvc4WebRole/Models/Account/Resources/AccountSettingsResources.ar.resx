@@ -154,10 +154,10 @@
     <value>حقل المرور الجديدة لا يمكن ان يكون فارغة</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>تنبيه</value>
+    <value>تنبيه الى البريد الالكتروني</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>كلمة المرور</value>
+    <value>كلمة مرور:</value>
   </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>يرجى إدخال اسم الجامعة</value>

@@ -124,10 +124,10 @@
     <value>Help</value>
   </data>
   <data name="SignIn" xml:space="preserve">
-    <value>Log in</value>
+    <value>Log In</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>First name</value>
+    <value>First Name</value>
   </data>
   <data name="LastName" xml:space="preserve">
     <value>Last name</value>

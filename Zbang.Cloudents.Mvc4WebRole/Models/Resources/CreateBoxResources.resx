@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BoxName" xml:space="preserve">
-    <value>Box name</value>
+    <value>Study Group Name</value>
   </data>
   <data name="BoxNameUpTo" xml:space="preserve">
-    <value>Box name can have up to 120 chars</value>
+    <value>Study group names can have up to 120 characters</value>
   </data>
   <data name="FieldRequired" xml:space="preserve">
     <value>This field is required</value>

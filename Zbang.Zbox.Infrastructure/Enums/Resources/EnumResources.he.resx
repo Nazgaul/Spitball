@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Attacks" xml:space="preserve">
-    <value>תוקף קבוצה או יחידים</value>
+    <value>פוגע בקבוצה או יחידים</value>
   </data>
   <data name="BoxPrivacySettingsAnyoneWithUrl" xml:space="preserve">
-    <value>נגיש לכולם</value>
+    <value>ציבורי</value>
   </data>
   <data name="BoxPrivacySettingsMembersOnly" xml:space="preserve">
-    <value>בהזמנה בלבד</value>
+    <value>באמצעות הזמנה בלבד</value>
   </data>
   <data name="College" xml:space="preserve">
     <value>מכללה</value>
   </data>
   <data name="Hateful" xml:space="preserve">
-    <value>תוכן רווי שנאה או פוגעני</value>
+    <value>מכיל תוכן פוגעני</value>
   </data>
   <data name="HighSchool" xml:space="preserve">
     <value>תיכון</value>
@@ -139,7 +139,7 @@
     <value>מפר את הזכויות שלי</value>
   </data>
   <data name="LockedOut" xml:space="preserve">
-    <value>הדואר האלקטרוני ננעל. בחר ב"שכחתי סיסמה", כדי ליצור סיסמה חדשה.</value>
+    <value>הדואר האלקטרוני ננעל. בחר ב"שכחתי סיסמה", על מנת ליצור סיסמה חדשה.</value>
   </data>
   <data name="NotificationSettingsOff" xml:space="preserve">
     <value>כבוי</value>
@@ -154,7 +154,7 @@
     <value>כל שינוי</value>
   </data>
   <data name="Nudity" xml:space="preserve">
-    <value>תוכן מיני</value>
+    <value>מכיל תוכן בלתי הולם</value>
   </data>
   <data name="Other" xml:space="preserve">
     <value>אחר</value>
@@ -166,7 +166,7 @@
     <value>אוניברסיטה</value>
   </data>
   <data name="UserNotExists" xml:space="preserve">
-    <value>הדואר האלקטרוני או הסיסמה שהקלדת לא קיימים במערכת או שאינם נכונים. אנא נסה שנית.</value>
+    <value>כתובת המייל או הסיסמה שהקלדת לא קיימים במערכת או שאינם נכונים. אנא נסה שנית.</value>
   </data>
   <data name="WrongPassword" xml:space="preserve">
     <value>הסיסמה שהקלדת אינה נכונה, אנא נסה שנית.</value>

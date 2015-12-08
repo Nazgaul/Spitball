@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to add your school.
+        ///   Looks up a localized string similar to Add your university.
         /// </summary>
         public static string AddSchool {
             get {
@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to continue.
+        ///   Looks up a localized string similar to Continue.
         /// </summary>
         public static string Continue {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to country.
+        ///   Looks up a localized string similar to Country.
         /// </summary>
         public static string Country {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to enter 9 digit id.
+        ///   Looks up a localized string similar to Please enter your 9 digit ID.
         /// </summary>
         public static string EnterID {
             get {
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to hi.
+        ///   Looks up a localized string similar to Hi.
         /// </summary>
         public static string Hi {
             get {

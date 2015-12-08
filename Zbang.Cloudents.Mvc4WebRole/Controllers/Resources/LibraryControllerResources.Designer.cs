@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This department name already exists.
+        ///   Looks up a localized string similar to This department already exists.
         /// </summary>
         public static string DepartmentAlreadyExists {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You need to sign up for a university.
+        ///   Looks up a localized string similar to You must register to a university.
         /// </summary>
         public static string LibraryController_Create_You_need_to_sign_up_for_university {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Department id is required.
+        ///   Looks up a localized string similar to Department ID is required.
         /// </summary>
         public static string LibraryController_CreateBox_Department_id_is_required {
             get {
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Problem creating a class.
+        ///   Looks up a localized string similar to Uh oh, there seems to be an issue creating this class.
         /// </summary>
         public static string Problem_with_create_a_course {
             get {

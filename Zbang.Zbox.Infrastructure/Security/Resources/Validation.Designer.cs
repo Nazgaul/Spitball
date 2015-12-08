@@ -61,7 +61,7 @@ namespace Zbang.Zbox.Infrastructure.Security.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator..
+        ///   Looks up a localized string similar to An unknown error occurred. Please verify your file and try again. If the problem persists, please contact Spitball support.
         /// </summary>
         public static string DefaultError {
             get {
@@ -70,7 +70,7 @@ namespace Zbang.Zbox.Infrastructure.Security.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This email is already registered.
+        ///   Looks up a localized string similar to This email is already registered to Spitball.
         /// </summary>
         public static string DuplicateEmail {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Zbox.Infrastructure.Security.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The email address provided is invalid. Please check the value and try again..
+        ///   Looks up a localized string similar to The email address provided is invalid. Please verify it and try once more.
         /// </summary>
         public static string InvalidEmail {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Zbox.Infrastructure.Security.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The password provided is invalid. Please enter a valid password value..
+        ///   Looks up a localized string similar to The password provided is invalid. Please enter a valid password .
         /// </summary>
         public static string InvalidPassword {
             get {

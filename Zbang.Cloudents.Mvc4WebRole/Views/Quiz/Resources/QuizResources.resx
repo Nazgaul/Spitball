@@ -121,19 +121,19 @@
     <value>Add an answer</value>
   </data>
   <data name="AddQuestion" xml:space="preserve">
-    <value>add question</value>
+    <value>Add a question</value>
   </data>
   <data name="Answer" xml:space="preserve">
     <value>Answer</value>
   </data>
   <data name="Answered" xml:space="preserve">
-    <value>you have answered</value>
+    <value>You have answered</value>
   </data>
   <data name="Answers" xml:space="preserve">
-    <value>answers:</value>
+    <value>Answers:</value>
   </data>
   <data name="CanChoose" xml:space="preserve">
-    <value>you can choose to save the quiz as a 'draft' for future editing</value>
+    <value>Save this quiz as a draft for future editing</value>
   </data>
   <data name="Chance" xml:space="preserve">
     <value>Take a chance</value>
@@ -142,37 +142,37 @@
     <value>Complete</value>
   </data>
   <data name="CompletedQuiz" xml:space="preserve">
-    <value>you have completed the quiz</value>
+    <value>You completed the quiz!</value>
   </data>
   <data name="Correct" xml:space="preserve">
-    <value>correct</value>
+    <value>Correct</value>
   </data>
   <data name="CorrectAnswer" xml:space="preserve">
-    <value>correct answer</value>
+    <value>Correct answer</value>
   </data>
   <data name="Course" xml:space="preserve">
-    <value>Course:</value>
+    <value>Class:</value>
   </data>
   <data name="CreateQuiz" xml:space="preserve">
-    <value>create a quiz</value>
+    <value>Create a quiz</value>
   </data>
   <data name="Draft" xml:space="preserve">
-    <value>save as draft</value>
+    <value>Save as draft</value>
   </data>
   <data name="GoBack" xml:space="preserve">
-    <value>go back and check</value>
+    <value>Go back and check your answers</value>
   </data>
   <data name="Good" xml:space="preserve">
-    <value>good</value>
+    <value>Good</value>
   </data>
   <data name="Job" xml:space="preserve">
-    <value>job</value>
+    <value>Job</value>
   </data>
   <data name="Leave" xml:space="preserve">
-    <value>are you sure you want to leave this quiz?</value>
+    <value>You haven't finished this quiz. Do you want to leave?</value>
   </data>
   <data name="NoAnswer" xml:space="preserve">
-    <value>no answer given</value>
+    <value>No answer given</value>
   </data>
   <data name="NotSupported" xml:space="preserve">
     <value>Quiz creation is only available on Spitball desktop site.
@@ -184,56 +184,54 @@ browse the existing quizzes!</value>
     <value>of your classmates took this quiz</value>
   </data>
   <data name="OnlyYou" xml:space="preserve">
-    <value>only you can see and edit the draft</value>
+    <value>Only you are able to see and edit the draft</value>
   </data>
   <data name="Post" xml:space="preserve">
-    <value>post</value>
+    <value>Post</value>
   </data>
   <data name="Publish" xml:space="preserve">
-    <value>publish</value>
+    <value>Publish</value>
   </data>
   <data name="QuestionNumber" xml:space="preserve">
-    <value>question #</value>
+    <value>Question #</value>
   </data>
   <data name="Retake" xml:space="preserve">
-    <value>retake quiz</value>
+    <value>Retake this quiz</value>
   </data>
   <data name="Scared" xml:space="preserve">
-    <value>Not yet, I'm scared</value>
+    <value>Not right now</value>
   </data>
   <data name="Score" xml:space="preserve">
-    <value>your score:</value>
+    <value>Your score:</value>
   </data>
   <data name="Submit" xml:space="preserve">
-    <value>submit</value>
+    <value>Submit</value>
   </data>
   <data name="Take" xml:space="preserve">
-    <value>take a quiz</value>
+    <value>Take a quiz</value>
   </data>
   <data name="TestYourself" xml:space="preserve">
-    <value>are you ready to test yourself?</value>
+    <value>Are you ready to test yourself?</value>
   </data>
   <data name="Time" xml:space="preserve">
-    <value>time to</value>
+    <value>Time to</value>
   </data>
   <data name="Wrong" xml:space="preserve">
-    <value>wrong</value>
+    <value>Incorrect</value>
   </data>
   <data name="Afraid" xml:space="preserve">
-    <value>Not yet, I'm scared</value>
+    <value>Not right now</value>
   </data>
   <data name="OfYourMates" xml:space="preserve">
-    <value>of your classmates
-took this quiz</value>
+    <value>of your classmates took this quiz</value>
   </data>
   <data name="QuizTime" xml:space="preserve">
-    <value>Time to take a quiz</value>
+    <value>Test your knowledge</value>
   </data>
   <data name="TakeChance" xml:space="preserve">
     <value>Take a chance</value>
   </data>
   <data name="YouReady" xml:space="preserve">
-    <value>Are you ready to
-test yourself?</value>
+    <value>Are you ready to test yourself?</value>
   </data>
 </root>

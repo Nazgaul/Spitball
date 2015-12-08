@@ -4,8 +4,8 @@
 <div class="library-choose" ng-init="lc.countryCode = '@ViewBag.country'">
     <div ng-if="!lc.needCode">
         <input ng-disabled="lc.createUniversity" type="search" class="search-text" placeholder="Search..." ng-model="lc.term" ng-model-options="{debounce : 250}" ng-change="lc.search()" ng-minlength="2" />
-        <div class="row" ng-if="!lc.createUniversity">
-            <div class="col-xs-12 col-md-6 col-lg-4" ng-repeat="u in lc.universities track by u.id">
+        <div layout="row" layout-align="start center" layout-padding layout-wrap @*class="row"*@ ng-if="!lc.createUniversity">
+            <div flex-gt-lg="50" flex-lg="50" flex="100" class="flex" @*class="col-xs-12 col-md-6 col-lg-4"*@ ng-repeat="u in lc.universities track by u.id">
                 <div ng-click="lc.selectUniversity(u)" class="univeristy">
                     <img class="img-circle" ng-src="{{::u.image}}" width="70" height="70" />
                     <div>
@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-6 col-lg-4">
+            <div flex-gt-lg="50" flex-lg="50" flex="100" @*class="col-xs-12 col-md-6 col-lg-4"*@ class="flex">
                 <div class="add-uni-btn" ng-click="lc.createUniversity = true">
                     <span>@Html.Svg("~/images/site/icons.svg", "add")</span>
                     <div class="text-capitalize">@LibraryResources.AddSchool</div>

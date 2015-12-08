@@ -97,7 +97,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hateful speech or symbols.
+        ///   Looks up a localized string similar to Contains hateful speech or symbols.
         /// </summary>
         internal static string Hateful {
             get {
@@ -115,7 +115,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Infringes my rights.
+        ///   Looks up a localized string similar to Infringes upon my rights.
         /// </summary>
         internal static string Infringe {
             get {
@@ -124,7 +124,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The email is locked out. Go to Forgot Password to retrieve a new one.
+        ///   Looks up a localized string similar to This email has been locked out. To retrieve your password, go to Forgot Password.
         /// </summary>
         internal static string LockedOut {
             get {
@@ -160,7 +160,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to On every change.
+        ///   Looks up a localized string similar to For every update to this class.
         /// </summary>
         internal static string NotificationSettingsOnEveryChange {
             get {
@@ -169,7 +169,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nudity or pornography.
+        ///   Looks up a localized string similar to Contains nudity or pornographic images.
         /// </summary>
         internal static string Nudity {
             get {
@@ -205,7 +205,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The email or password you entered does not appear in the system or is incorrect. Please try again..
+        ///   Looks up a localized string similar to The email or password you entered is either incorrect or not registered to Spitball. Please try again.
         /// </summary>
         internal static string UserNotExists {
             get {
@@ -214,7 +214,7 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The password you entered is incorrect. Please try again..
+        ///   Looks up a localized string similar to The password you entered is incorrect. Please try again.
         /// </summary>
         internal static string WrongPassword {
             get {

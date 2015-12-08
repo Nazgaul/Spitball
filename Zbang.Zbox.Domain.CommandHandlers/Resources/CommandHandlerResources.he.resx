@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CannotChangeEmail" xml:space="preserve">
-    <value>לא ניתן לשנות אימייל של המשתמש</value>
+    <value>לא ניתן לשנות את כתובת המייל של המשתמש</value>
   </data>
   <data name="CannotChangePwd" xml:space="preserve">
-    <value>לא ניתן לשנות סיסמא</value>
+    <value>לא ניתן לשנות סיסמה</value>
   </data>
   <data name="EmailNotCorrect" xml:space="preserve">
-    <value>הדוא"ל לא בפורמט נכון</value>
+    <value>כתובת המייל אינה חוקית</value>
   </data>
   <data name="EmailTaken" xml:space="preserve">
-    <value>האימייל הזה תפוס</value>
+    <value>כבר קיים משתמש עם כתובת מייל זו</value>
   </data>
   <data name="UserNotExist" xml:space="preserve">
     <value>משתמש לא קיים</value>

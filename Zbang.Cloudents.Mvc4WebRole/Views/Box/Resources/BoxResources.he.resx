@@ -124,13 +124,13 @@
     <value>צור מבחן</value>
   </data>
   <data name="Feed" xml:space="preserve">
-    <value>עידכונים</value>
+    <value>עדכונים</value>
   </data>
   <data name="Follow" xml:space="preserve">
     <value>עקוב</value>
   </data>
   <data name="InviteFriends" xml:space="preserve">
-    <value>הזמן את חבריך לספיטבול</value>
+    <value>הזמן את חבריך להצטרף לספיטבול</value>
   </data>
   <data name="Items" xml:space="preserve">
     <value>פריטים</value>
@@ -145,13 +145,13 @@
     <value>שם:</value>
   </data>
   <data name="Notify" xml:space="preserve">
-    <value>שלח לי הודעה:</value>
+    <value>שלח לי התראה על:</value>
   </data>
   <data name="Number" xml:space="preserve">
     <value>מספר:</value>
   </data>
   <data name="Post" xml:space="preserve">
-    <value>הודעה</value>
+    <value>פוסט</value>
   </data>
   <data name="Privacy" xml:space="preserve">
     <value>הגדרות פרטיות:</value>
@@ -167,5 +167,11 @@
   </data>
   <data name="Unfollow" xml:space="preserve">
     <value>בטל מעקב</value>
+  </data>
+  <data name="UploadFiles" xml:space="preserve">
+    <value>העלה קבצים</value>
+  </data>
+  <data name="Whats" xml:space="preserve">
+    <value>מה אתה חושב?</value>
   </data>
 </root>

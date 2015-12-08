@@ -118,60 +118,60 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Comment" xml:space="preserve">
-    <value>comment</value>
+    <value>Comment</value>
   </data>
   <data name="CreateQuiz" xml:space="preserve">
     <value>Create a quiz</value>
   </data>
   <data name="Feed" xml:space="preserve">
-    <value>feed</value>
+    <value>Class Feed</value>
   </data>
   <data name="Follow" xml:space="preserve">
-    <value>follow</value>
+    <value>Follow</value>
   </data>
   <data name="InviteFriends" xml:space="preserve">
-    <value>Invite your friends to spitball</value>
+    <value>Invite your friends to join Spitball</value>
   </data>
   <data name="Items" xml:space="preserve">
-    <value>items</value>
+    <value>Documents</value>
   </data>
   <data name="Lecturer" xml:space="preserve">
-    <value>lecturer</value>
+    <value>Professor</value>
   </data>
   <data name="Members" xml:space="preserve">
-    <value>members</value>
+    <value>Members</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>name:</value>
+    <value>Name:</value>
   </data>
   <data name="Notify" xml:space="preserve">
-    <value>notify Me:</value>
+    <value>Notify me:</value>
   </data>
   <data name="Number" xml:space="preserve">
-    <value>number:</value>
+    <value>Number:</value>
   </data>
   <data name="Post" xml:space="preserve">
-    <value>post</value>
+    <value>Post</value>
   </data>
   <data name="Privacy" xml:space="preserve">
-    <value>privacy settings:</value>
+    <value>Privacy Settings</value>
   </data>
   <data name="Quizzes" xml:space="preserve">
-    <value>quizzes</value>
+    <value>Quizzes</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>search...</value>
+    <value>Search</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>status:</value>
+    <value>Status:</value>
   </data>
   <data name="Unfollow" xml:space="preserve">
-    <value>unfollow</value>
+    <value>Unfollow</value>
   </data>
   <data name="UploadFiles" xml:space="preserve">
-    <value>upload files</value>
+    <value>Upload Files</value>
   </data>
   <data name="Whats" xml:space="preserve">
-    <value>what's on your mind?</value>
+    <value>What would you like to post?</value>
   </data>
 </root>

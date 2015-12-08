@@ -203,7 +203,7 @@
   content: '';
   display: inline-block;
   border-top: 25px solid #3293f6;
-  border-right: 10px solid transparent;
+  border-right: 10px solid #fff;
   vertical-align: middle;
 }
 .create-question .answers-header {
@@ -277,10 +277,10 @@
   background: #9e9e9e;
 }
 .create-question .add-answer .counter-view:after {
-  border-top-color: #8c99a6;
+  border-top-color: #9e9e9e;
 }
 .create-question .add-answer div {
-  border-color: #8c99a6;
+  border-color: #9e9e9e;
 }
 .modal-backdrop.quiz-create-backdrop {
   opacity: 0.9;

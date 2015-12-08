@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to my activities.
+        ///   Looks up a localized string similar to My activities.
         /// </summary>
         public static string Activities {
             get {
@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add email to invite friends.
+        ///   Looks up a localized string similar to Invite friends via email.
         /// </summary>
         public static string AddMail {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to the best in class.
+        ///   Looks up a localized string similar to Best in the class.
         /// </summary>
         public static string Best {
             get {
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to complete.
+        ///   Looks up a localized string similar to Upload complete!.
         /// </summary>
         public static string Complete {
             get {
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to files | upload complete.
+        ///   Looks up a localized string similar to Upload complete!.
         /// </summary>
         public static string Completed {
             get {
@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to draft.
+        ///   Looks up a localized string similar to Draft.
         /// </summary>
         public static string Draft {
             get {
@@ -142,7 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to import contact from gmail.
+        ///   Looks up a localized string similar to Import contacts from Gmail.
         /// </summary>
         public static string GmailContact {
             get {
@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My Groups.
+        ///   Looks up a localized string similar to My Study Groups.
         /// </summary>
         public static string Group {
             get {
@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to invite your friends to spitball.
+        ///   Looks up a localized string similar to Invite your friends to Spitball.
         /// </summary>
         public static string Invite {
             get {
@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to items.
+        ///   Looks up a localized string similar to Items.
         /// </summary>
         public static string Items {
             get {
@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to log in.
+        ///   Looks up a localized string similar to Log In.
         /// </summary>
         public static string Login {
             get {
@@ -196,7 +196,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to mail.
+        ///   Looks up a localized string similar to Email address.
         /// </summary>
         public static string Mail {
             get {
@@ -205,7 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to members.
+        ///   Looks up a localized string similar to Members.
         /// </summary>
         public static string Members {
             get {
@@ -223,7 +223,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to pts.
+        ///   Looks up a localized string similar to Points.
         /// </summary>
         public static string Pts {
             get {
@@ -232,7 +232,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to remove file.
+        ///   Looks up a localized string similar to Delete file.
         /// </summary>
         public static string Remove {
             get {
@@ -241,7 +241,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search....
+        ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Search {
             get {
@@ -250,7 +250,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to send.
+        ///   Looks up a localized string similar to Send.
         /// </summary>
         public static string Send {
             get {
@@ -259,7 +259,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to settings.
+        ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string Settings {
             get {
@@ -268,7 +268,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to share with your firends youtube video, artivle or other educational material from any site.
+        ///   Looks up a localized string similar to Upload videos, audio files, articles and more!.
         /// </summary>
         public static string Share {
             get {
@@ -277,7 +277,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to sign up.
+        ///   Looks up a localized string similar to Sign Up.
         /// </summary>
         public static string Signup {
             get {
@@ -286,7 +286,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to suggested.
+        ///   Looks up a localized string similar to Suggested.
         /// </summary>
         public static string Suggested {
             get {
@@ -304,7 +304,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to upload files.
+        ///   Looks up a localized string similar to Upload Files.
         /// </summary>
         public static string UploadFiles {
             get {
@@ -313,7 +313,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to upload files from computer.
+        ///   Looks up a localized string similar to Upload from this device.
         /// </summary>
         public static string UploadFromComputer {
             get {
@@ -322,7 +322,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to upload files from dropbox.
+        ///   Looks up a localized string similar to Upload from dropbox.
         /// </summary>
         public static string UploadFromDropbox {
             get {
@@ -331,7 +331,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to upload files from google drive.
+        ///   Looks up a localized string similar to Upload from Google Drive.
         /// </summary>
         public static string UploadFromGoogle {
             get {
@@ -349,7 +349,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to add website link.
+        ///   Looks up a localized string similar to Add a link.
         /// </summary>
         public static string WebLink {
             get {
@@ -358,7 +358,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Something went wrong..
+        ///   Looks up a localized string similar to Something went wrong.
         /// </summary>
         public static string WentWrong {
             get {

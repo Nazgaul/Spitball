@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create department.
+        ///   Looks up a localized string similar to Create a department.
         /// </summary>
         public static string CreateDept {
             get {

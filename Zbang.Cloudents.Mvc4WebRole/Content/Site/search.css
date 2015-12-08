@@ -43,6 +43,9 @@
     display: none;
   }
 }
+.search .dashboard-stat2 {
+  margin-bottom: 12px;
+}
 @media (max-width: 992px) {
   .search h3 {
     display: none;

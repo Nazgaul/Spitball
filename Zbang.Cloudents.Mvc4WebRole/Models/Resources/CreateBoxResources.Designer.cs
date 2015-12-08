@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Box name.
+        ///   Looks up a localized string similar to Study Group Name.
         /// </summary>
         public static string BoxName {
             get {
@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Box name can have up to 120 chars.
+        ///   Looks up a localized string similar to Study group names can have up to 120 characters.
         /// </summary>
         public static string BoxNameUpTo {
             get {

@@ -127,7 +127,7 @@
     <value>Email is not in the correct format</value>
   </data>
   <data name="EmailTaken" xml:space="preserve">
-    <value>This email is taken</value>
+    <value>There is a Spitball account already associated with this email address</value>
   </data>
   <data name="UserNotExist" xml:space="preserve">
     <value>User does not exist</value>

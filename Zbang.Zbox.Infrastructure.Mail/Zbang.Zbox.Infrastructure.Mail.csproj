@@ -98,11 +98,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\EmailResource.ar.resx" />
+    <EmbeddedResource Include="Resources\EmailResource.en-GB.resx" />
     <EmbeddedResource Include="Resources\EmailResource.he.resx" />
     <EmbeddedResource Include="Resources\EmailResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>EmailResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EmailResource.ru.resx" />
+    <EmbeddedResource Include="Resources\EmailResource.zh.resx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MailTemplate\ChangeEmail.html" />

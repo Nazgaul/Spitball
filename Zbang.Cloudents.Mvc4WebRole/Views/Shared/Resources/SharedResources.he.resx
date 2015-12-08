@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Email" xml:space="preserve">
-    <value>דואר אלקטרוני</value>
+    <value>כתובת מייל</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>עזרה</value>
@@ -133,10 +133,10 @@
     <value>שם משפחה</value>
   </data>
   <data name="FacebookSignUp" xml:space="preserve">
-    <value>הרשם דרך פייסבוק</value>
+    <value>הרשם באמצעות פייסבוק</value>
   </data>
   <data name="EmailSignUp" xml:space="preserve">
-    <value>הרשם דרך אימייל</value>
+    <value>הרשם באמצעות מייל</value>
   </data>
   <data name="Jobs" xml:space="preserve">
     <value>משרות</value>

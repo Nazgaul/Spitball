@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You need to write something or post files.
+        ///   Looks up a localized string similar to You must start a discussion or post a document.
         /// </summary>
         internal static string FillComment {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Study and share your class notes for {0} {1} {2} , online or on your phone through Spitball..
+        ///   Looks up a localized string similar to Study and share your class notes for {0} {1} {2} , online or via the Spitball app.
         /// </summary>
         internal static string MetaDescription {
             get {
