@@ -59,35 +59,49 @@
         width: 60px;
     }
 
-
-    .universityTitle {
-        margin-top: 15px;
+    .portlet {
         display: flex;
-        justify-content: center;
-
-        span {
-            font-size: 17px;
-            padding-left: 10px;
-            line-height: 20px;
-            align-self: center;
-            text-align: center;
-            width: 50%;
-        }
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
     }
 
-    .universityStats {
-        font-size: 11px;
-        color: @textColorGrey;
-        margin-top: 27px;
-        display: block;
-        text-align: center;
+    .content {
+        display: flex;
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        flex-grow: 1;
 
-        div {
-            height: 10px;
-            line-height: 10px;
-            display: inline-block;
 
-            :nth-child(2) {
+        .universityTitle {
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
+
+            span {
+                font-size: 17px;
+                padding-left: 10px;
+                line-height: 20px;
+                align-self: center;
+                text-align: center;
+                width: 50%;
+            }
+        }
+
+        .universityStats {
+            font-size: 11px;
+            color: @textColorGrey;
+            text-align: center;
+            align-self: auto;
+
+            div {
+                height: 10px;
+                line-height: 10px;
+                display: inline-block;
+            }
+
+            div:nth-child(2) {
                 padding: 0 6px;
                 border-right: 1px solid #8c99a6;
                 border-left: 1px solid #8c99a6;

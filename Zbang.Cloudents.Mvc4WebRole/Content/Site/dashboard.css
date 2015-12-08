@@ -65,12 +65,25 @@
   height: 60px;
   width: 60px;
 }
-.dashboard .universityTitle {
-  margin-top: 15px;
+.dashboard .portlet {
+  display: flex;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.dashboard .content {
+  display: flex;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.dashboard .content .universityTitle {
   display: flex;
   justify-content: center;
+  flex-grow: 1;
 }
-.dashboard .universityTitle span {
+.dashboard .content .universityTitle span {
   font-size: 17px;
   padding-left: 10px;
   line-height: 20px;
@@ -78,19 +91,18 @@
   text-align: center;
   width: 50%;
 }
-.dashboard .universityStats {
+.dashboard .content .universityStats {
   font-size: 11px;
   color: #888b8e;
-  margin-top: 27px;
-  display: block;
   text-align: center;
+  align-self: auto;
 }
-.dashboard .universityStats div {
+.dashboard .content .universityStats div {
   height: 10px;
   line-height: 10px;
   display: inline-block;
 }
-.dashboard .universityStats div :nth-child(2) {
+.dashboard .content .universityStats div:nth-child(2) {
   padding: 0 6px;
   border-right: 1px solid #8c99a6;
   border-left: 1px solid #8c99a6;
