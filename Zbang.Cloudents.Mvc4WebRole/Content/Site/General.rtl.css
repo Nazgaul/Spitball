@@ -157,6 +157,14 @@ textarea,
   text-transform: capitalize;
   font-size: 25px;
 }
+.multi-line-ellipsis {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.multi-line-ellipsis.limit-three {
+  -webkit-line-clamp: 3;
+}
 /*.create {
     background: @color4;
     //height: 475px;
@@ -242,7 +250,8 @@ md-input-container label {
 .md-select-value .md-select-icon,
 md-select .md-select-value,
 md-input-container .md-input {
-  border-color: #376e8c;
+  color: #4190b9;
+  border-color: #4190b9;
 }
 .md-select-value .md-select-icon:focus,
 md-select .md-select-value:focus,
@@ -298,6 +307,18 @@ md-dialog-actions {
   -webkit-flex-direction: column;
   flex-direction: column;
 }
+.create-box .create-txt {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 12px;
+  width: 100%;
+  height: 100%;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
 .create-box .plus {
   margin-bottom: 12px;
 }
@@ -324,23 +345,12 @@ md-dialog-actions {
 .create-box md-input-container label {
   color: #888b8e;
 }
-.create-box .btn {
-  background: #4190b9;
-  margin: 0 5px;
-  display: block;
-  color: #f5f5f5;
-  border-radius: 5px;
+.create-box md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+  border-bottom: 1px solid #888b8e;
+  color: #888b8e;
 }
-.create-box .btn:hover {
-  background: #26566e;
-  color: inherit;
-}
-.create-box .btn:focus {
-  color: inherit;
-}
-.create-box .btn-default {
-  background: #f5f5f5;
-  color: #323538;
+.create-box .btn-primary {
+  margin-right: 15px;
 }
 .create-box .error {
   color: #db4437;
@@ -622,6 +632,18 @@ md-dialog-actions {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%);
   box-shadow: 0 0.062em 0 rgba(255, 255, 255, 0.6);
 }
+.md-button.md-icon-button .md-ripple-container {
+  right: 10px;
+  top: -5px;
+}
+md-menu-content {
+  padding: 0;
+  border-radius: 5px;
+}
+md-menu-item {
+  min-height: 36px;
+  height: 36px;
+}
 .scroll-to-top svg {
   width: 32px;
   height: 32px;
@@ -631,4 +653,25 @@ md-dialog-actions {
   -webkit-transform: rotate(-270deg);
   transform: rotate(-270deg);
   fill: #3598dc;
+}
+.mobile-plus svg {
+  width: 20px;
+  height: 20px;
+  fill: #f5f5f5;
+}
+.btn {
+  padding: 0 16px;
+}
+.btn-primary {
+  background: #4190b9;
+}
+.btn-primary:hover {
+  background: #26566e;
+  color: #f5f5f5;
+}
+.btn-primary:focus {
+  color: inherit;
+}
+.btn-default {
+  border: none;
 }

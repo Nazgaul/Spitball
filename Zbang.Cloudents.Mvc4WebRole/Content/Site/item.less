@@ -15,6 +15,17 @@
             height: 17px;
             fill: @svgLightGrey;
         }
+
+        .fb-like button {
+            font-size: 14px;
+            color: @svgLightGrey;
+            padding-left: 25px;
+            text-transform: capitalize;
+
+            svg {
+                margin-right: 10px;
+            }
+        }
     }
 
 
@@ -26,11 +37,88 @@
         -ms-text-overflow: ellipsis;
         -o-text-overflow: ellipsis;
         text-overflow: ellipsis;
-        max-width: 430px;
         margin: 0 auto;
         overflow: hidden;
         padding: 20px 0;
+
+        .name-info, .flag-form {
+            max-width: 430px;
+            width: 100%;
+        }
+
+        .rename-form {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        form {
+
+            .title, label {
+                text-align: left;
+            }
+
+            .layout-column {
+                background: none;
+            }
+
+            md-input-container .md-input {
+                color: @textColorDarkGrey;
+            }
+
+            .rounded-input {
+                border-radius: 5px;
+                border: 1px solid #3293f6;
+                padding: 5px 10px;
+                margin-bottom: 20px;
+            }
+        }
+
+        a {
+            line-height: 0;
+            margin-left: 10px;
+        }
+
+        svg {
+            fill: @svgLightGrey;
+            width: 20px;
+            height: 20px;
+        }
     }
+
+    .iframeContent {
+        height: ~"calc(100vh - 270px)";
+        width: ~"calc(100% - 155px)";
+    }
+
+    .arrows {
+
+
+        svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .arrow {
+            position: fixed;
+            top: ~"calc(50% + 80px)";
+            fill: @svgLightGrey;
+        }
+
+        .right {
+            right: 10px;
+        }
+
+        .left {
+            -moz-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+            left: 10px;
+        }
+    }
+
+
 
     .preview {
         text-align: center;
@@ -82,11 +170,6 @@
             background: @backgroundColorWhite;
             margin: 10px 0;
         }
-    }
-
-    svg {
-        width: 17px;
-        height: 17px;
     }
 
     .copy-right {

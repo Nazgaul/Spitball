@@ -18,7 +18,7 @@
             </div>
             <div class="display">
                 <div class="number">
-                    <h3>{{::dep.name}}</h3>
+                    <h3 class="multi-line-ellipsis limit-three">{{::dep.name}}</h3>
                 </div>
             </div>
             <div class="progress-info">
@@ -61,8 +61,8 @@
                 </md-content>
 
                 <span layout="row" layout-align="space-between center">
-                    <button type="button" class="btn btn-default text-capitalize" ng-click="l.departmentCancel()">cancel</button>
-                    <button type="submit" class="btn text-capitalize" ng-disabled="!createDepartment.$valid">done</button>
+                    <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="l.departmentCancel()">cancel</button>
+                    <button type="submit" class="btn btn-primary text-capitalize pull-right" ng-disabled="!createDepartment.$valid">done</button>
                 </span>
             </form>
         </div>
@@ -91,9 +91,9 @@
                     <span class="error" ng-show="l.error">{{l.error}}</span>
                 </md-content>
                 <span layout="row" layout-align="space-between stretch">
-                    <button type="button" class="btn btn-default text-capitalize " ng-click="l.boxCancel()">cancel</button>
-                    <button type="button" class="btn text-capitalize" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()">next</button>
-                    <button type="submit" class="btn text-capitalize" ng-if="l.secondStep" ng-disabled="!createBox.$valid">done</button>
+                    <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="l.boxCancel()">cancel</button>
+                    <button type="button" class="btn btn-primary text-capitalize pull-right" ng-if=" !l.secondstep" ng-disabled="!l.boxName" ng-click="l.boxNext()">next</button>
+                    <button type="submit" class="btn btn-primary text-capitalize pull-right" ng-if=" l.secondstep" ng-disabled="!createBox.$valid">done</button>
                 </span>
             </form>
         </div>

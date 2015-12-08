@@ -129,6 +129,9 @@
   <data name="EmailToReset" xml:space="preserve">
     <value>Just enter the email address you used to create your account. We will locate your account and send you an email with the link to reset your password.</value>
   </data>
+  <data name="EnterCode" xml:space="preserve">
+    <value>enter code</value>
+  </data>
   <data name="First" xml:space="preserve">
     <value>first name</value>
   </data>

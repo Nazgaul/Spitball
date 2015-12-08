@@ -74,6 +74,7 @@
 }
 .class .folders .folder-name {
   padding: 2px;
+  margin-bottom: 15px;
 }
 .class .folders .add-folder {
   background: none;
@@ -154,23 +155,6 @@
     padding-right: 30px;
   }
 }
-.class .settings .btn {
-  padding: 0 16px;
-}
-.class .settings .btn-primary {
-  background: #4190b9;
-  margin-left: 20px;
-}
-.class .settings .btn-primary:hover {
-  background: #26566e;
-  color: inherit;
-}
-.class .settings .btn-primary:focus {
-  color: inherit;
-}
-.class .settings .btn-default {
-  border: none;
-}
 .feed {
   font-size: 16px;
   line-height: 1;
@@ -181,19 +165,23 @@
 .feed .ribbon {
   bottom: 1em;
 }
-.feed .c-img {
-  position: absolute;
-  top: -9px;
-  left: -19px;
-}
 .feed .comment-date {
-  color: #323538;
+  color: #5d6063;
   font-size: 12px;
 }
 .feed .items-container {
   overflow-x: auto;
   white-space: nowrap;
-  padding-left: 34px;
+  padding-left: 47px;
+}
+.feed .posts-list .actions {
+  margin: 10px 0 0 40px;
+}
+.feed .quiz .top .first-letter {
+  font-size: 40px;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
 }
 .feed .comment {
   background: #181c1d;
@@ -205,11 +193,13 @@
   border: 3px solid #323538;
 }
 .feed .comment > .top {
-  padding-left: 44px;
   padding-top: 5px;
   padding-bottom: 5px;
   border-radius: 10px 10px 0 0;
   color: #f5f5f5;
+  position: absolute;
+  top: -15px;
+  left: -18px;
 }
 .feed .comment .margins {
   margin: 0 10px 10px 0;
@@ -221,17 +211,15 @@
 }
 .feed .comment .user-name {
   color: #2698d4;
-  font-weight: 700;
+  font-weight: 400;
+  margin-left: 10px;
 }
 .feed .comment .comment-date {
-  margin-left: 44px;
-}
-.feed .comment .items-container {
-  margin: 0 5px -8px;
+  margin-left: 47px;
 }
 .feed .reply {
   position: relative;
-  margin-left: 35px;
+  margin-left: 26px;
 }
 .feed .reply .actions {
   margin-top: 0;
@@ -256,7 +244,7 @@
   margin-top: 10px;
 }
 .feed .reply .items-container {
-  padding-left: 24px;
+  padding-left: 40px;
   margin: 0 5px;
 }
 .feed .reply .user-name {
@@ -264,26 +252,30 @@
   font-weight: normal;
 }
 .feed .reply .comment-date {
-  margin-left: 34px;
+  margin-left: 51px;
 }
-.feed .top {
-  padding-left: 34px;
+.feed .reply .content-text {
+  margin-left: 50px;
 }
 .feed .actions {
   color: #323538;
   padding-bottom: 10px;
-  margin: 10px 0 0 6px;
+  margin-top: 10px;
   font-size: 13px;
   position: relative;
 }
 .feed .actions svg {
   width: 20px;
   height: 20px;
-  fill: #323538;
+  fill: #5d6063;
   vertical-align: middle;
 }
 .feed .actions svg:hover {
   fill: #5B9CC2;
+}
+.feed .actions .anonymous {
+  width: 28px;
+  height: 28px;
 }
 .feed .actions .anonymous:hover {
   fill: #d39f10;
@@ -295,14 +287,20 @@
   border-top: 2px solid #323538;
   padding-top: 15px;
 }
+.feed .post > .content-text {
+  padding: 38px 0 0 46px;
+}
 .feed .content-text {
   line-height: 22px;
-  margin-bottom: 5px;
-  padding-right: 10px;
-  margin-top: 8px;
+  margin-bottom: 10px;
+  margin-right: 15px;
 }
 .feed .add-reply {
   display: none;
+}
+.feed .add-reply .reply-wrapper {
+  border: 1px solid #5d6063;
+  margin-bottom: 10px;
 }
 .feed .quiz .base {
   width: 100px;
@@ -324,6 +322,14 @@
             
         }
     }*/
+  /*button[type=submit] {
+        .buttonBlue();
+        padding: 2px 10px 0 10px;
+        font-size: 13px;
+        border-radius: 6px;
+        margin: 5px 0 0 20px;
+        color: @textColorWhite;
+    }*/
 }
 .add-comment ::-webkit-input-placeholder {
   color: #323538;
@@ -339,6 +345,9 @@
 .add-comment :-ms-input-placeholder {
   color: #323538;
 }
+.add-comment label {
+  margin-bottom: 0;
+}
 .add-comment .list-inline {
   padding: 22px 0 10px 0;
   overflow-x: hidden;
@@ -351,7 +360,7 @@
   padding: 5px 5px 0;
 }
 .add-comment .new-comment-border {
-  border: 1px solid #3d4348;
+  border: 1px solid #5d6063;
   max-height: 250px;
   overflow: auto;
 }
@@ -373,21 +382,6 @@
 }
 .add-comment input[type=checkbox]:checked + label svg {
   fill: #d39f10;
-}
-.add-comment button[type=submit] {
-  background: #4190b9;
-  padding: 2px 10px 0 10px;
-  font-size: 13px;
-  border-radius: 6px;
-  margin: 5px 0 0 20px;
-  color: #f5f5f5;
-}
-.add-comment button[type=submit]:hover {
-  background: #26566e;
-  color: inherit;
-}
-.add-comment button[type=submit]:focus {
-  color: inherit;
 }
 .add-comment svg {
   width: 25px;
@@ -753,6 +747,17 @@
   position: relative;
   padding: 0;
   margin: 5px;
+  background: #f9f9f9;
+  margin: 0 10px;
+  border: none;
+  padding: 5px 5px 0;
+}
+.file-upload .file {
+  height: 100%;
+}
+.file-upload .file-footer {
+  width: 100%;
+  margin-bottom: 8px;
 }
 .file-upload .progress-wrap {
   background: #f5f5f5;
@@ -774,11 +779,11 @@
 }
 .file-upload .check-mark {
   position: absolute;
-  top: -16px;
-  right: -8px;
+  top: -10px;
+  right: -10px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.6);
-  padding: 3px 4px;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 5px;
   z-index: 1;
 }
 .file-upload .check-mark svg {
@@ -792,7 +797,8 @@
   color: #8dc63f;
 }
 .file-upload .file-size {
-  background: #f5f5f5;
+  text-align: left;
+  font-weight: bold;
 }
 .file-upload .file-upload-progress {
   height: 5px;
@@ -805,11 +811,14 @@
 .file-upload .file-name {
   height: 100px;
   position: relative;
-  background: #f5f5f5;
+  background: #c3c3c3;
   padding-top: 4px;
 }
 .file-upload button {
-  width: 100%;
   background-color: #db4437;
   color: #f5f5f5;
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  margin-top: 3px;
 }

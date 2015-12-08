@@ -32,7 +32,7 @@
                     <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
                     <div class="title">@DashboardResource.StudyGroup</div>
                 </button>
-                <form name="createBox" novalidate ng-submit="cb.create()" ng-show="d.createBoxOn" ng-controller="CreateBoxController as cb">
+                <form name="createBox" class="create-txt" novalidate ng-submit="cb.create()" ng-show="d.createBoxOn" ng-controller="CreateBoxController as cb">
                     <div layout="column">
                         <md-content>
                             <div layout layout-sm="column">
@@ -43,11 +43,10 @@
                                 </md-input-container>
                             </div>
                         </md-content>
-
                     </div>
                     <span>
-                        <button type="button" class="btn btn-default text-capitalize pull-left" ng-click="d.createBoxOn = false">@GeneralResources.Cancel</button>
-                        <button type="submit" class="btn text-capitalize pull-right" ng-disabled="!createBox.$valid">@GeneralResources.Done</button>
+                        <button type="submit" class="btn btn-primary text-capitalize pull-right" ng-disabled="!createBox.$valid">@GeneralResources.Done</button>
+                        <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="d.createBoxOn = false">@GeneralResources.Cancel</button>
                     </span>
                 </form>
             </div>
@@ -76,4 +75,8 @@
     </div>
 </div>
 
-<button type="button" class="add visible-xs-block" ng-click="d.createBoxOn = true" ng-hide="d.createBoxOn">@Html.Svg("~/images/site/icons.svg", "add")</button>
+<button type="button" class="add visible-xs-block" ng-click="d.createBoxOn = true" ng-hide="d.createBoxOn">
+    <div class="mobile-plus">
+        @Html.Svg("~/images/site/icons.svg", "add")
+    </div>
+</button>

@@ -71,6 +71,7 @@
     .folders {
         .folder-name {
             padding: 2px;
+            margin-bottom: 15px;
         }
 
         .add-folder {
@@ -99,7 +100,6 @@
         border-color: @borderColorGrey;
         padding: 0 10px;
     }
-
     //dont think we need that
     /*.nav-tabs, .tabbable {
         border: 0;
@@ -156,19 +156,6 @@
                 padding-right: 30px;
             }
         }
-
-        .btn {
-            padding: 0 16px;
-        }
-
-        .btn-primary {
-            .buttonBlue();
-            margin-left: 20px;
-        }
-
-        .btn-default {
-            border: none;
-        }
     }
 }
 
@@ -185,21 +172,30 @@
         bottom: 1em;
     }
 
-    .c-img {
-        position: absolute;
-        top: -9px;
-        left: -19px;
-    }
-
     .comment-date {
-        color: @textColorDarkGrey;
+        color: @svgDots;
         font-size: 12px;
     }
 
     .items-container {
         overflow-x: auto;
         white-space: nowrap;
-        padding-left: 34px;
+        padding-left: 47px;
+    }
+
+    .posts-list {
+        .actions {
+            margin: 10px 0 0 40px;
+        }
+    }
+
+    .quiz {
+        .top .first-letter {
+            font-size: 40px;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+        }
     }
 
     .comment {
@@ -214,11 +210,13 @@
         }
 
         & > .top {
-            padding-left: 44px;
             padding-top: 5px;
             padding-bottom: 5px;
             border-radius: 10px 10px 0 0;
             color: @textColorWhite;
+            position: absolute;
+            top: -15px;
+            left: -18px;
         }
 
         .margins {
@@ -235,21 +233,18 @@
 
         .user-name {
             color: @textColorBlue;
-            font-weight: 700;
+            font-weight: 400;
+            margin-left: 10px;
         }
 
         .comment-date {
-            margin-left: 44px;
-        }
-
-        .items-container {
-            margin: 0 5px -8px;
+            margin-left: 47px;
         }
     }
 
     .reply {
         position: relative;
-        margin-left: 35px;
+        margin-left: 26px;
 
         .actions {
             margin-top: 0;
@@ -282,7 +277,7 @@
         }
 
         .items-container {
-            padding-left: 24px;
+            padding-left: 40px;
             margin: 0 5px;
         }
 
@@ -292,25 +287,25 @@
         }
 
         .comment-date {
-            margin-left: 34px;
+            margin-left: 51px;
         }
-    }
 
-    .top {
-        padding-left: 34px;
+        .content-text {
+            margin-left: 50px;
+        }
     }
 
     .actions {
         color: @textColorDarkGrey;
         padding-bottom: 10px;
-        margin: 10px 0 0 6px;
+        margin-top: 10px;
         font-size: 13px;
         position: relative;
 
         svg {
             width: 20px;
             height: 20px;
-            fill: @textColorDarkGrey;
+            fill: @svgDots;
             vertical-align: middle;
 
             &:hover {
@@ -319,6 +314,9 @@
         }
 
         .anonymous {
+            width: 28px;
+            height: 28px;
+
             &:hover {
                 fill: @anonymousColor;
             }
@@ -338,15 +336,23 @@
         padding-top: 15px;
     }
 
+    .post > .content-text {
+        padding: 38px 0 0 46px;
+    }
+
     .content-text {
         line-height: 22px;
-        margin-bottom: 5px;
-        padding-right: 10px;
-        margin-top: 8px;
+        margin-bottom: 10px;
+        margin-right: 15px;
     }
 
     .add-reply {
         display: none;
+
+        .reply-wrapper {
+            border: 1px solid @svgDots;
+            margin-bottom: 10px;
+        }
     }
 
     .quiz .base {
@@ -372,6 +378,10 @@
         color: @textColorDarkGrey;
     }
 
+    label {
+        margin-bottom: 0;
+    }
+
     .list-inline {
         padding: 22px 0 10px 0;
         overflow-x: hidden;
@@ -390,7 +400,7 @@
     padding: 10px;
 
     .new-comment-border {
-        border: 1px solid @borderColorGrey;
+        border: 1px solid @svgDots;
         max-height: 250px;
         overflow: auto;
     }
@@ -430,14 +440,13 @@
         }
     }
 
-    button[type=submit] {
+    /*button[type=submit] {
         .buttonBlue();
         padding: 2px 10px 0 10px;
         font-size: 13px;
         border-radius: 6px;
-        margin: 5px 0 0 20px;
         color: @textColorWhite;
-    }
+    }*/
 
     svg {
         width: 25px;
@@ -891,7 +900,20 @@
     //override bootstrap
     padding: 0;
     margin: 5px;
+    background: @fileColor;
+    margin: 0 10px;
+    border: none;
+    padding: 5px 5px 0;
 
+
+    .file {
+        height: 100%;
+    }
+
+    .file-footer {
+        width: 100%;
+        margin-bottom: 8px;
+    }
 
     .progress-wrap {
         background: @backgroundColorWhite;
@@ -917,11 +939,11 @@
 
     .check-mark {
         position: absolute;
-        top: -16px;
-        right: -8px;
+        top: -10px;
+        right: -10px;
         border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.6);
-        padding: 3px 4px;
+        background-color: rgba(255, 255, 255, 0.4);
+        padding: 5px;
         z-index: 1;
 
         svg {
@@ -938,7 +960,8 @@
     }
 
     .file-size {
-        background: @backgroundColorWhite;
+        text-align: left;
+        font-weight: bold;
     }
 
     .file-upload-progress {
@@ -953,13 +976,16 @@
     .file-name {
         height: 100px;
         position: relative;
-        background: @backgroundColorWhite;
+        background: @textColorLightGrey;
         padding-top: 4px;
     }
 
     button {
-        width: 100%;
         background-color: @backgroundColorRed;
         color: @textColorWhite;
+        width: 100%;
+        padding: 8px;
+        border-radius: 5px;
+        margin-top: 3px;
     }
 }

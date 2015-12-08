@@ -1,13 +1,29 @@
-﻿.accountPage-wrapper svg {
+﻿/*@color1: #5f6871;
+@loginColor : #3293f6;
+@registerColor: #fff;
+//@siteBg: #212427;
+
+@textColor:#282828; //text color over white background
+
+@color4: #353a3f;
+@color2: #f5f5f5;
+@color3:#292d31;
+@color5:#6a737d;
+@color6:#326F2D;
+@color7:#3598dc;
+@color8:#90A5DB;
+@color9:#cccccc;
+@color10:#8c99a6;
+@color11:#db4437;*/
+.accountPage-wrapper .profile-content {
+  width: 50%;
+}
+.accountPage-wrapper svg {
   width: 17px;
   height: 17px;
   fill: #fff;
   vertical-align: middle;
   margin-right: 12px;
-}
-.accountPage-wrapper .btn {
-  padding: 5px 13px;
-  font-size: 11px;
 }
 .accountPage-wrapper .ontop {
   text-align: center;
@@ -39,12 +55,32 @@
 .accountPage-wrapper .portlet.light > .portlet-title > .caption.caption-md > .caption-subject {
   font-size: 12px;
 }
+.accountPage-wrapper .left-flex {
+  margin-right: 20px;
+}
+.accountPage-wrapper md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+  border-bottom: 1px solid #2698d4;
+}
 .accountPage-wrapper .tab-from-right > li {
   margin: 0;
 }
+.accountPage-wrapper .tab-from-right > li:hover {
+  border: none;
+}
+.accountPage-wrapper .tab-from-right > li:hover > a {
+  color: #2698d4;
+}
+.accountPage-wrapper .tab-from-right > li.active {
+  border-bottom: 3px solid #3598dc;
+}
+.accountPage-wrapper .tab-from-right > li.active > a {
+  color: #f5f5f5;
+}
 .accountPage-wrapper .tab-from-right > li > a {
+  color: #888b8e;
   font-size: 11px;
   padding: 13px 8px 5px 8px;
+  border: none;
 }
 .accountPage-wrapper .page-head .page-title {
   padding: 10px 0;
@@ -61,7 +97,7 @@
 .accountPage-wrapper .notification-list li {
   display: flex;
   padding: 10px 0 10px 5px;
-  border-bottom: 1px solid #3d4348;
+  border-bottom: 1px solid #5d6063;
 }
 .accountPage-wrapper .notification-list li select {
   background: #353A3F;
@@ -71,10 +107,20 @@
   flex-grow: 1;
 }
 .accountPage-wrapper .notification-list li .owner {
-  color: #6a737d;
-  font-size: 10px;
+  color: #888b8e;
+  font-size: 12px;
   font-weight: bold;
 }
 .accountPage-wrapper .notification-list li .name {
-  font-size: 15px;
+  font-size: 18px;
+}
+.accountPage-wrapper .uni-image {
+  border-radius: 50%;
+  margin-right: 20px;
+}
+.accountPage-wrapper .uni-name {
+  font-size: 20px;
+}
+.accountPage-wrapper .margin-top-10 {
+  margin-bottom: 20px;
 }
