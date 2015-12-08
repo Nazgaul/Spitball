@@ -66,7 +66,7 @@
                 </li>
             </ul>
         </div>
-        <div layout-padding layout="row" layout-wrap layout-align="space-between center" infinite-scroll="u.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+        <div layout-padding layout="row" layout-wrap layout-align="start center" infinite-scroll="u.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
             <div flex="{{u.angularGridAttribute}}" flex-sm="{{u.flexSm}}" flex-md="{{u.flexMd}}" ng-repeat="e in u.elements" ng-include="u.template()" class="flex"></div>
         </div>
     </div>

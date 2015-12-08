@@ -29,7 +29,7 @@
             switch (self.tab) {
                 case self.state.item:
                     loadItems(true);
-                    self.angularGridAttribute = 25;
+                    self.angularGridAttribute = 20;
                     self.flexSm = 50;
                     self.flexMd = 50;
                     break;
@@ -41,7 +41,7 @@
                     break;
                 case self.state.quiz:
                     loadQuiz(true);
-                    self.angularGridAttribute = 25;
+                    self.angularGridAttribute = 20;
                     self.flexSm = 50;
                     self.flexMd = 50;
                     break;
