@@ -19,7 +19,7 @@
 
     <div class="supported" show-gt-md hide-md hide-sm>
 
-        <span>@QuizResources.Course Name</span>
+        <span>@QuizResources.Course {{::q.boxName}}</span>
         <input class="form-control" ng-disabled="q.quizNameDisabled" type="text" placeholder="Enter quiz name" autofocus required ng-model="q.name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
         <button type="button" ng-click="q.quizNameDisabled = false">@Html.Svg("~/images/site/icons.svg", "edit")</button>
         <div class="quiz-wrapper" ng-repeat="question in q.questions" ng-include="q.template(question)"></div>
