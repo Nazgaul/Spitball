@@ -5,6 +5,9 @@
         var self = this;
         self.arr = [];
         $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams) {
+            if (fromState.name === toState.name) {
+                return;
+            }
             // to be used for back button //won't work when page is reloaded.
             self.arr.push({
                 name: fromState.name,

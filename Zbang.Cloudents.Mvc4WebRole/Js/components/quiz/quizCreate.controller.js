@@ -1,16 +1,17 @@
 ﻿(function () {
     angular.module('app.quiz').controller('QuizCreateController', quizCreate);
-    quizCreate.$inject = ['quizService', 'draft', 'boxUrl', '$stateParams', '$q', '$location', '$scope', '$uibModal'];
+    quizCreate.$inject = ['quizService', 'draft', 'boxUrl', '$stateParams', '$q', '$location', '$scope', '$uibModal', 'boxName'];
 
 
 
-    function quizCreate(quizService, draft, boxUrl, $stateParams, $q, $location, $scope, $uibModal) {
+    function quizCreate(quizService, draft, boxUrl, $stateParams, $q, $location, $scope, $uibModal, boxName) {
         var self = this;
         self.boxUrl = boxUrl;
         draft = draft || {
             questions: [new question()]
         };
         self.name = draft.name || '';
+        self.boxName = boxName;
         self.quizNameDisabled = self.name.length;
         self.id = draft.id;
 

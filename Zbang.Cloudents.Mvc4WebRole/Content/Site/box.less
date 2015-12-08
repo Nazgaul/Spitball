@@ -528,6 +528,14 @@
         position: relative;
         color: @textColorWhite;
 
+        @sizeOfTextSmall: 13vw;
+        @sizeOfDraftSmall:  @sizeOfTextSmall / 2;
+        @sizeOfTextMedium: 8vw;
+        @sizeOfDraftMedium:  @sizeOfTextMedium / 2;
+        @sizeOfTextLarge: 3vw;
+        @sizeOfDraftLarge:  @sizeOfTextLarge / 2;
+
+        
 
         .first-letter, .draft {
             position: absolute;
@@ -540,34 +548,44 @@
             width: 20vw;
             height: 20vw;
             text-align: center;
-            line-height: 20vw;
+            line-height: 90%;
+            text-transform:lowercase;
+
+            .sizeOfLetter(@size) {
+                 font-size: @size;
+                width: @size;
+                height: @size;
+            }
 
             @media (min-width: 600px) {
-                font-size: 13vw;
-                width: 13vw;
-                height: 13vw;
-                line-height: 13vw;
+                .sizeOfLetter(@sizeOfTextSmall);
             }
 
             @media (min-width: 960px) {
-                font-size: 8vw;
-                width: 8vw;
-                height: 8vw;
-                line-height: 8vw;
+                .sizeOfLetter(@sizeOfTextMedium);
             }
 
             @media (min-width: 1200px) {
-                font-size: 3vw;
-                width: 3vw;
-                height: 3vw;
-                line-height: 3vw;
+                .sizeOfLetter(@sizeOfTextLarge);
             }
         }
 
         .draft {
             text-transform: uppercase;
             width: 100%;
-            //border:1px solid @textColorWhite;
+            font-size:@sizeOfDraftSmall;
+             @media (min-width: 600px) {
+                font-size:@sizeOfDraftSmall;
+            }
+
+            @media (min-width: 960px) {
+                font-size:@sizeOfDraftMedium;
+            }
+
+            @media (min-width: 1200px) {
+                font-size:@sizeOfDraftLarge;
+            }
+
         }
 
         &.draft-wpr {

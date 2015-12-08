@@ -14,9 +14,11 @@
                     url: '/quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}/',
                     controller: 'QuizController as q',
                     resolve: {
-                        data: ['quizService', '$stateParams', function (quizService, $stateParams) {
-                            return quizService.getQuiz($stateParams.boxId, $stateParams.quizId);
-                        }]
+                        data: [
+                            'quizService', '$stateParams', function (quizService, $stateParams) {
+                                return quizService.getQuiz($stateParams.boxId, $stateParams.quizId);
+                            }
+                        ]
                     }
 
 
@@ -28,20 +30,30 @@
                     url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/quizcreate/',
                     controller: 'QuizCreateController as q',
                     resolve: {
-                        draft: ['quizService', '$location', function (quizService, $location) {
-                            if ($location.search().quizid) {
-                                return quizService.draft($location.search().quizid);
+                        draft: [
+                            'quizService', '$location', function (quizService, $location) {
+                                if ($location.search().quizid) {
+                                    return quizService.draft($location.search().quizid);
+                                }
+
                             }
+                        ],
+                        boxUrl: [
+                            '$location', function ($location) {
+                                var path = $location.path().slice(0, -1),
+                                    index = path.lastIndexOf('/');
 
-                        }],
-                        boxUrl: ['$location', function ($location) {
-                            var path = $location.path().slice(0, -1),
-                                 index = path.lastIndexOf('/');
-
-                            return path.substring(0, index) + '/' + '#quizzes';
-                            //$location.path(path).hash('quizzes');
+                                return path.substring(0, index) + '/' + '#quizzes';
+                            }
+                        ],
+                        boxName: ['$location', '$stateParams', function ($location, $stateParams) {
+                            if ($location.search().name) {
+                                return $location.search().name;
+                            }
+                            return $stateParams.boxName;
                         }]
-                    }
+                    },
+                    params: { boxName: null }
                 },
                 templateUrl: '/quiz/createpartial/'
             }

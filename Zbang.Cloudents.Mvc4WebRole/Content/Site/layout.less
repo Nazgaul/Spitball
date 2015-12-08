@@ -244,7 +244,7 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav > li.dropdown:last-child {
     display: flex;
 
-    a{
+    a {
         align-self: center;
     }
 }
@@ -2515,45 +2515,20 @@ Page footer
     text-align: center;
     position: fixed;
     z-index: 10001;
-    bottom: 100px;
+    bottom: 50px;
     display: none;
     right: 33px;
-}
-
-.scroll-to-top > i {
-    display: inline-block;
-    color: #687991;
-    font-size: 32px;
-    opacity: 0.7;
-    filter: alpha(opacity=70);
-}
-
-.scroll-to-top:hover {
     cursor: pointer;
-}
 
-.scroll-to-top:hover > i {
-    opacity: 1;
-    filter: alpha(opacity=100);
-}
-
-@media (min-width: 961px) {
-    /* 992px */
-    .scroll-to-top {
-        right: 33px;
+    @media (max-width: 768px) {
+        //override inline styling
+        display: none !important;
     }
 }
 
-@media (max-width: 991px) {
-    /* 991px */
-    .scroll-to-top {
-        right: 33px;
-    }
 
-    .scroll-to-top > i {
-        font-size: 28px;
-    }
-}
+
+
 /***
 Theme Panel
 ***/

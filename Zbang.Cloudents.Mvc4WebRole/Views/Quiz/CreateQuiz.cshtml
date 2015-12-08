@@ -19,7 +19,7 @@
 
     <div class="supported" show-gt-md hide-md hide-sm>
 
-        <span>@QuizResources.Course Name</span>
+        <span>@QuizResources.Course {{::q.boxName}}</span>
         <input class="form-control" ng-disabled="q.quizNameDisabled" type="text" placeholder="Enter quiz name" autofocus required ng-model="q.name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
         <button type="button" ng-click="q.quizNameDisabled = false">@Html.Svg("~/images/site/icons.svg", "edit")</button>
         <div class="quiz-wrapper" ng-repeat="question in q.questions" ng-include="q.template(question)"></div>
@@ -90,8 +90,8 @@
     <h4 class="text-capitalize">@QuizResources.Leave</h4>
     <div class="text-capitalize">@QuizResources.CanChoose</div>
     <div>(@QuizResources.OnlyYou)</div>
-    <div class="buttons">
-        <button type="button" class="btn btn-default save text-capitalize" ng-click="c.draft()">@QuizResources.Draft</button>
-        <button type="button" class="btn btn-default delete text-capitalize" ng-click="c.delete()">@GeneralResources.Delete</button>
+    <div class="buttons text-capitalize">
+        <button type="button" class="btn btn-default save" ng-click="c.draft()">@QuizResources.Draft</button>
+        <button type="button" class="btn btn-default" ng-click="c.delete()">@GeneralResources.Delete</button>
     </div>
 </script>

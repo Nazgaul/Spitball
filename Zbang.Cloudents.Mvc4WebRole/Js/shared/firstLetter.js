@@ -5,7 +5,7 @@
                 restrict: 'A',
                 link: function (scope, element, attrs) {
                     if (attrs.firstLetter) {
-                        element.text(attrs.firstLetter[0].toUpperCase());
+                        element.text(attrs.firstLetter[0]);
                     }
                 }
             };

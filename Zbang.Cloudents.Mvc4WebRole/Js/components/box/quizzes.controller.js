@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.box.quizzes').controller('QuizzesController', quizzes);
-    quizzes.$inject = ['boxService', '$stateParams', '$location', '$mdDialog', 'quizService'];
+    quizzes.$inject = ['boxService', '$stateParams', '$location', '$mdDialog', 'quizService', 'boxData'];
 
-    function quizzes(boxService, $stateParams, $location, $mdDialog, quizService) {
+    function quizzes(boxService, $stateParams, $location, $mdDialog, quizService, boxData) {
         var q = this;
         q.params = $stateParams;
         q.deleteQuiz = deleteQuiz;
@@ -10,14 +10,14 @@
             for (var i = 0; i < response.length; i++) {
                 var quiz = response[i];
                 if (!quiz.publish) {
-                    var path = $location.path() + 'quizcreate/?quizid=' + quiz.id;
+                    var path = $location.path() + 'quizcreate/?quizid=' + quiz.id + '&name=' + boxData.name;
                     quiz.url = path;
                 }
             }
             q.quizzes = response;
         });
 
-        
+
 
         function deleteQuiz(ev, quiz) {
             var confirm = $mdDialog.confirm()
