@@ -118,57 +118,57 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Accepted" xml:space="preserve">
-    <value>150 pts Each accepted invite</value>
+    <value>Each accepted invite: 150 pts</value>
   </data>
   <data name="AcceptedToCourse" xml:space="preserve">
-    <value>50 pts Each accepted invite to course</value>
+    <value>Each accepted class invite: 50 pts </value>
   </data>
   <data name="Answering" xml:space="preserve">
-    <value>100 pts Answering a question</value>
+    <value>Answering a question: 100 pts </value>
   </data>
   <data name="Asking" xml:space="preserve">
-    <value>50 pts Asking a question</value>
+    <value>Asking a question: 50 pts </value>
   </data>
   <data name="Classes" xml:space="preserve">
-    <value>classes</value>
+    <value>Classes</value>
   </data>
   <data name="Creating" xml:space="preserve">
-    <value>300 pts Creating a quiz</value>
+    <value>Creating a quiz: 300 pts </value>
   </data>
   <data name="Earn" xml:space="preserve">
     <value>Earn points by:</value>
   </data>
   <data name="Friends" xml:space="preserve">
-    <value>friends</value>
+    <value>Friends</value>
   </data>
   <data name="MaxStars" xml:space="preserve">
-    <value>150 pts Receiving a 5 star rating</value>
+    <value>Receiving a 5 star rating: 150 pts </value>
   </data>
   <data name="MoreStars" xml:space="preserve">
-    <value>100 pts Receiving a 4 star rating</value>
+    <value>Receiving a 4 star rating: 100 pts </value>
   </data>
   <data name="Points" xml:space="preserve">
-    <value>points</value>
+    <value>Points</value>
   </data>
   <data name="Posts" xml:space="preserve">
-    <value>posts</value>
+    <value>Posts</value>
   </data>
   <data name="Quizzes" xml:space="preserve">
-    <value>quizzes</value>
+    <value>Quizzes</value>
   </data>
   <data name="ShareFB" xml:space="preserve">
-    <value>50 pts Sharing on FB</value>
+    <value>Sharing on FB: 50 pts </value>
   </data>
   <data name="Stars" xml:space="preserve">
-    <value>50 pts Receiving a 3 star rating</value>
+    <value>Receiving a 3 star rating: 50 pts </value>
   </data>
   <data name="UploadItem" xml:space="preserve">
-    <value>100 pts Upload an item to a cours</value>
+    <value>Upload an item to a class: 100 pts </value>
   </data>
   <data name="Uploads" xml:space="preserve">
-    <value>uploads</value>
+    <value>Uploads</value>
   </data>
   <data name="UserPage" xml:space="preserve">
-    <value>user page</value>
+    <value>User Page</value>
   </data>
 </root>

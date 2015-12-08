@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to comment.
+        ///   Looks up a localized string similar to Comment.
         /// </summary>
         public static string Comment {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to feed.
+        ///   Looks up a localized string similar to Class Feed.
         /// </summary>
         public static string Feed {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to follow.
+        ///   Looks up a localized string similar to Follow.
         /// </summary>
         public static string Follow {
             get {
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite your friends to spitball.
+        ///   Looks up a localized string similar to Invite your friends to join Spitball.
         /// </summary>
         public static string InviteFriends {
             get {
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to items.
+        ///   Looks up a localized string similar to Documents.
         /// </summary>
         public static string Items {
             get {
@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to lecturer.
+        ///   Looks up a localized string similar to Professor.
         /// </summary>
         public static string Lecturer {
             get {
@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to members.
+        ///   Looks up a localized string similar to Members.
         /// </summary>
         public static string Members {
             get {
@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to name:.
+        ///   Looks up a localized string similar to Name:.
         /// </summary>
         public static string Name {
             get {
@@ -142,7 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to notify Me:.
+        ///   Looks up a localized string similar to Notify me:.
         /// </summary>
         public static string Notify {
             get {
@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to number:.
+        ///   Looks up a localized string similar to Number:.
         /// </summary>
         public static string Number {
             get {
@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to post.
+        ///   Looks up a localized string similar to Post.
         /// </summary>
         public static string Post {
             get {
@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to privacy settings:.
+        ///   Looks up a localized string similar to Privacy Settings.
         /// </summary>
         public static string Privacy {
             get {
@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to quizzes.
+        ///   Looks up a localized string similar to Quizzes.
         /// </summary>
         public static string Quizzes {
             get {
@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to search....
+        ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Search {
             get {
@@ -196,7 +196,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to status:.
+        ///   Looks up a localized string similar to Status:.
         /// </summary>
         public static string Status {
             get {
@@ -205,7 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to unfollow.
+        ///   Looks up a localized string similar to Unfollow.
         /// </summary>
         public static string Unfollow {
             get {
@@ -214,7 +214,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to upload files.
+        ///   Looks up a localized string similar to Upload Files.
         /// </summary>
         public static string UploadFiles {
             get {
@@ -223,7 +223,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to what&apos;s on your mind?.
+        ///   Looks up a localized string similar to What would you like to post?.
         /// </summary>
         public static string Whats {
             get {

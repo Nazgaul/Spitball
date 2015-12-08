@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BoxExists" xml:space="preserve">
-    <value>This box already exists</value>
+    <value>This class already exists</value>
   </data>
   <data name="DashboardController_Create_Problem_with_Create_new_box" xml:space="preserve">
-    <value>Problem with Create new box</value>
+    <value>There seems to be an issue creating this new study group</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
   <data name="LinkExists" xml:space="preserve">
-    <value>This link already exists</value>
+    <value>One of your classmates has already posted this link</value>
   </data>
   <data name="NoFilesReceived" xml:space="preserve">
-    <value>No files received</value>
+    <value>No documents received</value>
   </data>
   <data name="ProblemUrl" xml:space="preserve">
-    <value>Problem with url</value>
+    <value>That URL doesn't seem to be valid. Please double check it and try again</value>
   </data>
 </root>

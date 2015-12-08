@@ -125,13 +125,111 @@
 כבר בחנו את עצמם</value>
   </data>
   <data name="QuizTime" xml:space="preserve">
-    <value>הגיע הזמן לבדוק כמה אתה טוב</value>
+    <value>הגיע הזמן לבדוק עד כמה אתה טוב</value>
   </data>
   <data name="TakeChance" xml:space="preserve">
-    <value>הולך על זה</value>
+    <value>נסה את מזלך</value>
   </data>
   <data name="YouReady" xml:space="preserve">
-    <value>אתה מוכן לבחון את
-עצמך?</value>
+    <value>אתה מוכן לבדוק עד כמה אתה טוב?</value>
+  </data>
+  <data name="AddAnswer" xml:space="preserve">
+    <value>הוסף תשובה</value>
+  </data>
+  <data name="AddQuestion" xml:space="preserve">
+    <value>הוסף שאלה</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>תשובה</value>
+  </data>
+  <data name="Answered" xml:space="preserve">
+    <value>ענית על</value>
+  </data>
+  <data name="Answers" xml:space="preserve">
+    <value>תשובות:</value>
+  </data>
+  <data name="CanChoose" xml:space="preserve">
+    <value>שמור את המבחן כ"טיוטא" לשם עריכה </value>
+  </data>
+  <data name="Chance" xml:space="preserve">
+    <value>נסה את מזלך</value>
+  </data>
+  <data name="Complete" xml:space="preserve">
+    <value>השלם</value>
+  </data>
+  <data name="CompletedQuiz" xml:space="preserve">
+    <value>סיימת את המבחן!</value>
+  </data>
+  <data name="Correct" xml:space="preserve">
+    <value>נכון</value>
+  </data>
+  <data name="CorrectAnswer" xml:space="preserve">
+    <value>תשובה נכונה</value>
+  </data>
+  <data name="Course" xml:space="preserve">
+    <value>קורס:</value>
+  </data>
+  <data name="CreateQuiz" xml:space="preserve">
+    <value>צור מבחן</value>
+  </data>
+  <data name="Draft" xml:space="preserve">
+    <value>שמור כטיוטא</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>חזור אחורה ובדוק את התשובות שלך</value>
+  </data>
+  <data name="Good" xml:space="preserve">
+    <value>טובה</value>
+  </data>
+  <data name="Job" xml:space="preserve">
+    <value>עבודה</value>
+  </data>
+  <data name="Leave" xml:space="preserve">
+    <value>לא סיימת את המבחן, בטוח שאתה רוצה לצאת?</value>
+  </data>
+  <data name="NoAnswer" xml:space="preserve">
+    <value>לא הזנת תשובה</value>
+  </data>
+  <data name="NotSupported" xml:space="preserve">
+    <value>חלק זה אינו נתמך</value>
+  </data>
+  <data name="OfClassmates" xml:space="preserve">
+    <value>מחבריך עשו את המבחן </value>
+  </data>
+  <data name="OnlyYou" xml:space="preserve">
+    <value>רק אתה יכול לראות ולערוך את הטיוטא </value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>הודעה</value>
+  </data>
+  <data name="Publish" xml:space="preserve">
+    <value>פרסם</value>
+  </data>
+  <data name="QuestionNumber" xml:space="preserve">
+    <value>שאלה</value>
+  </data>
+  <data name="Retake" xml:space="preserve">
+    <value>החבחן שוב</value>
+  </data>
+  <data name="Scared" xml:space="preserve">
+    <value>עוד לא, אני מפחד</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>הציון שלך:</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>בוא נראה כמה קיבלתי</value>
+  </data>
+  <data name="Take" xml:space="preserve">
+    <value>היבחן</value>
+  </data>
+  <data name="TestYourself" xml:space="preserve">
+    <value>האם אתה מוכן לבדוק עד כמה אתה טוב?</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>זמן ל</value>
+  </data>
+  <data name="Wrong" xml:space="preserve">
+    <value>טעויות</value>
   </data>
 </root>

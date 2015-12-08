@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to back to dashboard.
+        ///   Looks up a localized string similar to Return to dashboard.
         /// </summary>
         public static string Back {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please update your version of Internet Explorer or use different browser.
+        ///   Looks up a localized string similar to Please update your version of Internet Explorer or use a different web browser.
         /// </summary>
         public static string PleaseUpdate {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to doesn&apos;t support your browser version.
+        ///   Looks up a localized string similar to Your browser version is not supported.
         /// </summary>
         public static string Unsupported {
             get {

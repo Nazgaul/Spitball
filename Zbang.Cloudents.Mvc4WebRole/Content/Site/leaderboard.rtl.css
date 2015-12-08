@@ -25,12 +25,12 @@
 }
 @media (min-width: 960px) {
   .leaderboad h4 {
-    font-size: 1.5vw;
+    font-size: 1.2vw;
   }
 }
 @media (min-width: 1200px) {
   .leaderboad h4 {
-    font-size: 1.5vw;
+    font-size: 1.2vw;
   }
 }
 .leaderboad .userLetter {

@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BoxExists" xml:space="preserve">
-    <value>קופסה זו כבר קיימת</value>
+    <value>קורס זה כבר קיים</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>שגיאה</value>
   </data>
   <data name="LinkExists" xml:space="preserve">
-    <value>הקישור כבר קיים במערכת</value>
+    <value>הקישור ששיתפת כבר קיים</value>
   </data>
   <data name="NoFilesReceived" xml:space="preserve">
-    <value>לא התקבלו קבצים</value>
+    <value>לא התקבלו קבצים חדשים</value>
   </data>
   <data name="ProblemUrl" xml:space="preserve">
-    <value>ישנה בעיה עם כתובת הURL</value>
+    <value>ישנה בעיה עם כתובת הURL שהזנת</value>
   </data>
   <data name="DashboardController_Create_Problem_with_Create_new_box" xml:space="preserve">
     <value>בעיה ביצירת קופסא חדשה</value>

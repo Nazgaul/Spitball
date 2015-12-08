@@ -121,21 +121,21 @@
     <value>Dashboard</value>
   </data>
   <data name="InviteToSpitball" xml:space="preserve">
-    <value>Invite your friends to spitball</value>
+    <value>Invite your friends to Spitball</value>
   </data>
   <data name="StudyGroup" xml:space="preserve">
-    <value>add study group</value>
+    <value>Create a study group</value>
   </data>
   <data name="Browse" xml:space="preserve">
-    <value>browse courses</value>
+    <value>Browse Classes</value>
   </data>
   <data name="Courses" xml:space="preserve">
-    <value>courses</value>
+    <value>Classes</value>
   </data>
   <data name="Files" xml:space="preserve">
-    <value>files</value>
+    <value>Items</value>
   </data>
   <data name="Members" xml:space="preserve">
-    <value>members</value>
+    <value>Members</value>
   </data>
 </root>

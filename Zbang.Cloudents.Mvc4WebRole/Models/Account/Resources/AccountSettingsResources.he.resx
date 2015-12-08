@@ -124,51 +124,54 @@
     <value>הקוד שהזנת שגוי</value>
   </data>
   <data name="CurrentPassword" xml:space="preserve">
-    <value>סיסמא נוכחית</value>
+    <value>סיסמה נוכחית</value>
   </data>
   <data name="CurrentPwdEmpty" xml:space="preserve">
-    <value>סיסמא נוכחית לא יכולה להיות ריקה</value>
+    <value>עליך להזין את הסיסמה הישנה</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>דוא"ל:</value>
   </data>
   <data name="EmailEmpty" xml:space="preserve">
-    <value>שדה אימייל אינו יכול להיות ריק</value>
+    <value>עליך להזין כתובת מייל חוקית</value>
   </data>
   <data name="EmailNotCorrect" xml:space="preserve">
-    <value>אימייל הוא לא בפורמט נכון</value>
+    <value>כתובת המייל שהזנת אינה חוקית</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>שפה:</value>
   </data>
   <data name="LanguageNotSupported" xml:space="preserve">
-    <value>שפה לא נתמכת</value>
+    <value>השפה שבחרת אינה נתמכת</value>
   </data>
   <data name="Min6Chars" xml:space="preserve">
     <value>- מינימום 6 תווים</value>
   </data>
   <data name="NewPassword" xml:space="preserve">
-    <value>סיסמא חדשה</value>
+    <value>סיסמה חדשה</value>
   </data>
   <data name="NewPwdEmpty" xml:space="preserve">
-    <value>סיסמא חדשה לא יכולה להיות ריקה</value>
+    <value>עליך להזין את הסיסמה החדשה</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>התראות</value>
+    <value>התראות:</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>סיסמא:</value>
+    <value>סיסמה:</value>
   </data>
   <data name="SchoolRequired" xml:space="preserve">
-    <value>אנא הקלד מוסד אקדמי</value>
+    <value>אנא הזן מוסד אקדמי</value>
   </data>
   <data name="TypeCodeReceived" xml:space="preserve">
     <value>הקלד את הקוד שקבלת בדוא"ל</value>
   </data>
   <data name="UsernameEmpty" xml:space="preserve">
-    <value>שם משתמש לא יכול להיות ריק</value>
+    <value>עליך להזין שם משתמש</value>
   </data>
   <data name="LastNameRequired" xml:space="preserve">
-    <value>יש למלא שם משפחה</value>
+    <value>עליך למלא שם משפחה</value>
+  </data>
+  <data name="CodeIncorrect" xml:space="preserve">
+    <value>הקוד שהזנת שגוי</value>
   </data>
 </root>

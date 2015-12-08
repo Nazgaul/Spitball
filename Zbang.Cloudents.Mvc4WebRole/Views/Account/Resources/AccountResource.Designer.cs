@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to change password.
+        ///   Looks up a localized string similar to Change your password.
         /// </summary>
         public static string ChangePassword {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to current password.
+        ///   Looks up a localized string similar to Your current password.
         /// </summary>
         public static string CurrentPassword {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Just enter the email address you used to create your account. We will locate your account and send you an email with the link to reset your password..
+        ///   Looks up a localized string similar to Please enter the email address associated with your Spitball account. You will receive a link to reset your password to this email account shortly.
         /// </summary>
         public static string EmailToReset {
             get {
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to first name.
+        ///   Looks up a localized string similar to First Name.
         /// </summary>
         public static string First {
             get {
@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to personal info.
+        ///   Looks up a localized string similar to Personal Info.
         /// </summary>
         public static string Info {
             get {
@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to language.
+        ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Lang {
             get {
@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to last name.
+        ///   Looks up a localized string similar to Last Name.
         /// </summary>
         public static string Last {
             get {
@@ -142,7 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to new password.
+        ///   Looks up a localized string similar to New password.
         /// </summary>
         public static string NewPassword {
             get {
@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to notifications.
+        ///   Looks up a localized string similar to Notifications.
         /// </summary>
         public static string Notifications {
             get {
@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to profile Picture.
+        ///   Looks up a localized string similar to Profile Picture.
         /// </summary>
         public static string Profile {
             get {
@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to profile account.
+        ///   Looks up a localized string similar to Personal account.
         /// </summary>
         public static string ProfileAccount {
             get {
@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to saved.
+        ///   Looks up a localized string similar to Saved.
         /// </summary>
         public static string Saved {
             get {
@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to select image.
+        ///   Looks up a localized string similar to Select Image.
         /// </summary>
         public static string SelectImg {
             get {

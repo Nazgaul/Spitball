@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to enter email address.
+        ///   Looks up a localized string similar to Please enter your email address.
         /// </summary>
         public static string EmailRequired {
             get {
@@ -142,7 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to here.
+        ///   Looks up a localized string similar to Here.
         /// </summary>
         public static string Here {
             get {
@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log in.
+        ///   Looks up a localized string similar to Log In.
         /// </summary>
         public static string LogIn {
             get {
@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login to your account.
+        ///   Looks up a localized string similar to Log in to your account.
         /// </summary>
         public static string LoginToAccount {
             get {
@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to not a valid email address.
+        ///   Looks up a localized string similar to This is not a valid email address.
         /// </summary>
         public static string NotValidEmail {
             get {
@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to no worries, click.
+        ///   Looks up a localized string similar to No worries, click here to reset your password.
         /// </summary>
         public static string NoWorries {
             get {
@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Or login with.
+        ///   Looks up a localized string similar to Or log in with.
         /// </summary>
         public static string OrLoginWith {
             get {
@@ -196,7 +196,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Or signup with.
+        ///   Looks up a localized string similar to Or sign up with.
         /// </summary>
         public static string OrSignupWith {
             get {
@@ -214,7 +214,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to must be at least 6 characters.
+        ///   Looks up a localized string similar to Your password must be at least 6 characters.
         /// </summary>
         public static string PwdAtLeast6Chars {
             get {
@@ -250,7 +250,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to to reset your password.
+        ///   Looks up a localized string similar to To reset your password.
         /// </summary>
         public static string ToResetPassword {
             get {

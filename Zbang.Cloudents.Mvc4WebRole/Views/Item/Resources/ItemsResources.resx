@@ -136,8 +136,7 @@
     <value>option to view.</value>
   </data>
   <data name="PreviewNotAvailable" xml:space="preserve">
-    <value>Preview not available
-for this file type.</value>
+    <value>The preview is unavailable for this file type</value>
   </data>
   <data name="Processing" xml:space="preserve">
     <value>Processing new media file</value>

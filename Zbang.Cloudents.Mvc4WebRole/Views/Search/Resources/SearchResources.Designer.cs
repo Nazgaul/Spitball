@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Search.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to classes.
+        ///   Looks up a localized string similar to Classes.
         /// </summary>
         public static string Classes {
             get {
@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Search.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to items.
+        ///   Looks up a localized string similar to Items.
         /// </summary>
         public static string Items {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Search.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to quizzes.
+        ///   Looks up a localized string similar to Quizzes.
         /// </summary>
         public static string Quizzes {
             get {

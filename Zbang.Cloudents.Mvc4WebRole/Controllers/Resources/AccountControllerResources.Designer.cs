@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have signed up to Spitball using Facebook. To register, go to the homepage and click on the Facebook button.
+        ///   Looks up a localized string similar to You have signed up to Spitball using Facebook. To log in, go to the homepage and click on the Facebook button.
         /// </summary>
         internal static string FbRegisterError {
             get {

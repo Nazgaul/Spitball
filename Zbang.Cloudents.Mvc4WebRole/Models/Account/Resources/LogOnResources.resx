@@ -121,16 +121,16 @@
     <value>Email address</value>
   </data>
   <data name="EmailRequired" xml:space="preserve">
-    <value>enter email address</value>
+    <value>Please enter your email address</value>
   </data>
   <data name="NotValidEmail" xml:space="preserve">
-    <value>not a valid email address</value>
+    <value>This is not a valid email address</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
   <data name="PwdAtLeast6Chars" xml:space="preserve">
-    <value>must be at least 6 characters</value>
+    <value>Your password must be at least 6 characters</value>
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Remember me</value>
@@ -157,22 +157,22 @@
     <value>Forgot password?</value>
   </data>
   <data name="Here" xml:space="preserve">
-    <value>here</value>
+    <value>Here</value>
   </data>
   <data name="LogIn" xml:space="preserve">
-    <value>Log in</value>
+    <value>Log In</value>
   </data>
   <data name="LoginToAccount" xml:space="preserve">
-    <value>Login to your account</value>
+    <value>Log in to your account</value>
   </data>
   <data name="NoWorries" xml:space="preserve">
-    <value>no worries, click</value>
+    <value>No worries, click here to reset your password</value>
   </data>
   <data name="OrLoginWith" xml:space="preserve">
-    <value>Or login with</value>
+    <value>Or log in with</value>
   </data>
   <data name="OrSignupWith" xml:space="preserve">
-    <value>Or signup with</value>
+    <value>Or sign up with</value>
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>Sign up</value>
@@ -181,6 +181,6 @@
     <value>Submit</value>
   </data>
   <data name="ToResetPassword" xml:space="preserve">
-    <value>to reset your password</value>
+    <value>To reset your password</value>
   </data>
 </root>

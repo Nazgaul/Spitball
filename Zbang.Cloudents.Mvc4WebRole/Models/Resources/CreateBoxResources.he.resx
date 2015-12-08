@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BoxName" xml:space="preserve">
-    <value>שם הקופסא</value>
+    <value>שם קבוצת הלימוד</value>
   </data>
   <data name="BoxNameUpTo" xml:space="preserve">
-    <value>שם הקופסא יכול להכיל עד 120 תווים</value>
+    <value>שם קבוצת הלימוד יכול להכיל עד 120 תווים</value>
   </data>
   <data name="FieldRequired" xml:space="preserve">
     <value>חובה למלא שדה זה</value>

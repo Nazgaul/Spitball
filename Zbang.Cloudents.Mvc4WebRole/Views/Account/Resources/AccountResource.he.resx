@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChangeMail" xml:space="preserve">
-    <value>שינוי אימייל</value>
+    <value>החלף כתובת מייל</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
-    <value>שינוי סיסמא</value>
+    <value>החלף סיסמה</value>
   </data>
   <data name="CurrentPassword" xml:space="preserve">
-    <value>סיסמא נוכחית</value>
+    <value>סיסמה ישנה</value>
   </data>
   <data name="First" xml:space="preserve">
     <value>שם פרטי</value>
@@ -139,7 +139,7 @@
     <value>שם משפחה</value>
   </data>
   <data name="NewPassword" xml:space="preserve">
-    <value>סיסמא חדשה</value>
+    <value>סיסמה חדשה</value>
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>התראות</value>
@@ -148,12 +148,15 @@
     <value>תמונת משתמש</value>
   </data>
   <data name="ProfileAccount" xml:space="preserve">
-    <value>חשבון המשתמש</value>
+    <value>חשבון משתמש</value>
   </data>
   <data name="Saved" xml:space="preserve">
     <value>נשמר</value>
   </data>
   <data name="SelectImg" xml:space="preserve">
-    <value>לבחור תמונה</value>
+    <value>שנה תמונה</value>
+  </data>
+  <data name="EmailToReset" xml:space="preserve">
+    <value>אנא הזן את כתובת המייל שבאמצעותה נרשמת לספיטבול. תוך מספר דקות יישלח לכתובת זו מייל לשם שיחזור הסיסמה</value>
   </data>
 </root>

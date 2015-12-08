@@ -118,40 +118,40 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="EmailAddress" xml:space="preserve">
-    <value>כתובת דוא"ל</value>
+    <value>כתובת מייל</value>
   </data>
   <data name="EmailRequired" xml:space="preserve">
-    <value>הכנס כתובת דוא"ל</value>
+    <value>הכנס כתובת מייל</value>
   </data>
   <data name="NotValidEmail" xml:space="preserve">
-    <value>כתובת דוא"ל זו אינה חוקית</value>
+    <value>כתובת המייל שהזנת אינה חוקית</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>סיסמא</value>
+    <value>סיסמה</value>
   </data>
   <data name="PwdAtLeast6Chars" xml:space="preserve">
-    <value>חייבת להיות באורך של 6 תווים לפחות</value>
+    <value>הסיסמה חייבת להיות מורכבת מ-6 תווים לכל הפחות</value>
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>זכור אותי</value>
   </data>
   <data name="AlreadyHave" xml:space="preserve">
-    <value>כבר יש לך חשבון?</value>
+    <value>כבר רשום?</value>
   </data>
   <data name="CreateAccount" xml:space="preserve">
-    <value>צור חשבון</value>
+    <value>הירשם</value>
   </data>
   <data name="DontHaveAnAccount" xml:space="preserve">
-    <value>עדיין אין לך חשבון?</value>
+    <value>עדיין לא נרשמת לספיטבול?</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>דוא"ל</value>
+    <value>כתובת מייל</value>
   </data>
   <data name="ExternalProvider" xml:space="preserve">
     <value>התחבר</value>
   </data>
   <data name="ForgotYourPassword" xml:space="preserve">
-    <value>שכחת סיסמא?</value>
+    <value>שכחת סיסמה?</value>
   </data>
   <data name="Here" xml:space="preserve">
     <value>כאן</value>
@@ -163,7 +163,7 @@
     <value>התחבר לחשבון שלך</value>
   </data>
   <data name="NoWorries" xml:space="preserve">
-    <value>אל דאגה, לחץ</value>
+    <value>אל דאגה, לחץ כאן לאיפוס סיסמה</value>
   </data>
   <data name="OrLoginWith" xml:space="preserve">
     <value>או התחבר באמצעות</value>
@@ -172,9 +172,15 @@
     <value>או הירשם באמצעות</value>
   </data>
   <data name="SignUp" xml:space="preserve">
-    <value>הרשם</value>
+    <value>הירשם</value>
   </data>
   <data name="ToResetPassword" xml:space="preserve">
-    <value>לאיפוס סיסמא</value>
+    <value>לאיפוס סיסמה</value>
+  </data>
+  <data name="CheckEmailTitle" xml:space="preserve">
+    <value>תבדוק את תיבת המייל שלך</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>שלח</value>
   </data>
 </root>

@@ -121,9 +121,9 @@
     <value>Spitball</value>
   </data>
   <data name="MetaDescription" xml:space="preserve">
-    <value>Study and share your class notes for {0} {1} {2} , online or on your phone through Spitball.</value>
+    <value>Study and share your class notes for {0} {1} {2} , online or via the Spitball app</value>
   </data>
   <data name="FillComment" xml:space="preserve">
-    <value>You need to write something or post files</value>
+    <value>You must start a discussion or post a document</value>
   </data>
 </root>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddSchool" xml:space="preserve">
+    <value>הוסף את המוסד האקדמי בו אתה לומד</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>המשך</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>מדינה</value>
+  </data>
+  <data name="EnterID" xml:space="preserve">
+    <value>הכנס ת.ז בעל 9 ספרות</value>
+  </data>
+  <data name="Hi" xml:space="preserve">
+    <value>היי</value>
+  </data>
 </root>
