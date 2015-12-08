@@ -29,27 +29,22 @@
             switch (self.tab) {
                 case self.state.item:
                     loadItems(true);
-                    self.bootstrapClass = 'col-md-3';
                     self.angularGridAttribute = '25';
                     break;
                 case self.state.post:
                     loadComment(true);
-                    self.bootstrapClass = 'col-md-12';
                     self.angularGridAttribute = '100';
                     break;
                 case self.state.quiz:
                     loadQuiz(true);
-                    self.bootstrapClass = 'col-md-3';
                     self.angularGridAttribute = '25';
                     break;
                 case self.state.friend:
                     loadFriends(true);
-                    self.bootstrapClass = 'col-md-6';
                     self.angularGridAttribute = '50';
                     break;
                 default:
                     loadboxes(true);
-                    self.bootstrapClass = 'col-md-4';
                     self.angularGridAttribute = '33';
             }
         }

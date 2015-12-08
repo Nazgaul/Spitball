@@ -129,3 +129,9 @@
   flex-basis: 200px;
   text-align: left;
 }
+.userPage .profile-content .container {
+  margin: 0 3px;
+}
+.userPage .profile-content .portlet.light {
+  margin: 0 12px;
+}
