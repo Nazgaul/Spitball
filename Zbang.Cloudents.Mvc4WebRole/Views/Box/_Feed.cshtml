@@ -4,8 +4,8 @@
 @{
     const string url = "~/images/site/uploadIcons.svg";
 }
-<div class="row">
-    <div class="col-lg-6 col-md-8 col-sm-12">
+<div layout="row" layout-padding layout-wrap layout-align="space-between start">
+    <div class="flex" layout-padding flex-sm="100" flex-md="66" flex-lg="50" flex-gt-lg="50">
         <div class="portlet light">
             <div class="portlet-body feed">
                 <form class="add-comment" ng-submit="f.add.createComment()">
@@ -153,18 +153,20 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6 col-md-4 col-sm-12">
-        @{ Html.RenderPartial("_LeaderBoard");}
-
-        <div class="portlet light invite">
-            <button type="button" ng-click="b.inviteToBox()" class="portlet-body">
-                @Html.Svg("~/images/site/icons.svg", "invite")
-                @BoxResources.InviteFriends
-            </button>
+    <div class="right-side-area" layout-padding flex-sm="100" flex-md="33" flex-lg="50" flex-gt-lg="50">
+        <div layout="row" layout-align="space-between stretch">
+            <div flex-lg="50" flex-gt-lg="50">
+                @{ Html.RenderPartial("_LeaderBoard");}
+            </div>
+            <div layout="row" class="portlet light invite" flex-lg="50" flex-gt-lg="50">
+                <button type="button" ng-click="b.inviteToBox()" class="portlet-body">
+                    @Html.Svg("~/images/site/icons.svg", "invite")
+                    @BoxResources.InviteFriends
+                </button>
+            </div>
         </div>
-
-        <div class="row margin-top-10" ng-controller="RecommendedController as r" ng-hide="r.isPrivate">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-repeat="e in r.boxes" ng-include="'box-template.html'"></div>
+        <div class="flex" layout="row" layout-padding layout-wrap layout-align="space-between center" class="margin-top-10" ng-controller="RecommendedController as r" ng-hide="r.isPrivate">
+            <div flex="50" class="flex" ng-repeat="e in r.boxes" ng-include="'box-template.html'"></div>
         </div>
     </div>
 </div>

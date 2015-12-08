@@ -45,6 +45,7 @@
         </div>
     </div>
     <div class="profile-content">
+                <div class="container">
         <div class="portlet light">
             <ul class="nav nav-tabs tabbable">
                 <li ng-class="{active: u.tab === u.state.box}">
@@ -69,9 +70,6 @@
         <div layout-padding layout="row" layout-wrap layout-align="space-between center" infinite-scroll="u.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
             <div flex="{{u.angularGridAttribute}}" ng-repeat="e in u.elements" ng-include="u.template()" class="flex"></div>
         </div>
-        @*<div class="row" infinite-scroll="u.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
-                <div class="{{u.bootstrapClass}}" ng-repeat="e in u.elements" ng-include="u.template()"></div>
-            </div>*@
     </div>
 </div>
 
