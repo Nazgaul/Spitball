@@ -32,7 +32,12 @@
   text-transform: capitalize;
 }
 .itemPage header .fb-like button svg {
+  width: 30px;
+  height: 30px;
   margin-right: 10px;
+}
+.itemPage header .fb-like.blue svg {
+  fill: #4190b9;
 }
 .itemPage .fileName {
   text-align: center;

@@ -4,7 +4,13 @@
 
     function item($stateParams, itemService, $sce, $location) {
         var i = this;
-        var index = 0, loadMore = false;
+        var index = 0, needLoadMore = false;
+
+        i.state = {
+            regular: 0,
+            rename: 1,
+            flag: 2
+        };
 
         i.preview = '';
         itemService.getDetails($stateParams.boxId, $stateParams.itemId).then(function (response) {
@@ -16,13 +22,6 @@
 
 
         function getPreview() {
-            //if (index > 0) {
-            //    $scope.load.contentLoadMore = true;
-            //} else {
-            //    $scope.load.contentLoading = true;
-            //}
-            //blobName, index, itemId, boxId
-            //string blobName, int imageNumber, long id, string boxId, int width = 0, int height = 0
             itemService.getPreview(
                  i.details.blob,
                  index,
@@ -42,37 +41,44 @@
                         //$analytics.eventTrack('Get Prview', {
                         //    category: 'Item'
                         //});
-                        loadMore = true;
+                        needLoadMore = true;
                     }
                     //$scope.$broadcast('update', data.preview); //for fullscreen
                 }
             });
         }
 
-        i.loadMore = function () {
-            if (loadMore) {
-                loadMore = false;
+        //i.renameOn = true;
+        i.loadMore = loadMore;
+        i.selectedState = i.state.regular;
+
+        i.flagItemOn = true;
+
+        i.renameItem = renameItem;
+        i.flagItem = flagItem;
+        i.like = like;
+        i.showRename = showRename;
+
+        function showRename() {
+            i.selectedState = i.state.rename;
+            i.renameText = i.details.name;
+        }
+
+        function loadMore() {
+            if (needLoadMore) {
+                needLoadMore = false;
                 ++index;
                 getPreview();
             }
         };
-
-
-        i.renameOn = false;
-        i.flagItemOn = true;
-
-        i.renameItem = function () {
-            if (!i.renameOn) {
-                i.renameOn = true;
-                return;
-            }
-            itemService.renameItem(i.details.name, $stateParams.itemId).then(function (response) {
+        function renameItem() {
+            itemService.renameItem(i.renameText, $stateParams.itemId).then(function (response) {
                 i.details.name = response.name;
                 $location.path(response.url).replace();
             });
         }
 
-        i.flagItem = function () {
+        function flagItem() {
             if (!i.flagItemOn) {
                 i.flagItemOn = true;
                 return;
@@ -82,17 +88,13 @@
             //TODO: flag the the item
         }
 
-        i.itemCancel = function () {
-            i.renameOn = false;
-            i.flagItemOn = false;
-        }
-
-        i.like = function() {
+        
+        function like() {
             itemService.like($stateParams.itemId, $stateParams.boxId);
         }
     }
 
-    
+
 })();
 
 
