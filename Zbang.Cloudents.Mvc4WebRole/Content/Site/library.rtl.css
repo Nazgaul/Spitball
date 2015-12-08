@@ -46,3 +46,6 @@
 .library .department .status {
   margin-top: 15px;
 }
+.library .back-arrow svg {
+  vertical-align: middle;
+}
