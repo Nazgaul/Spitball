@@ -5,8 +5,10 @@
 }
 <div class="full-screen itemPage">
     <header layout="row" layout-align="space-between center">
-        <div class="fb-like">
-            <button type="button" ng-click="i.like()">@Html.Svg("~/images/site/box-icons.svg", "like") @GeneralResources.Like</button>
+        <div class="fb-like" ng-class="blue-if-expression">
+            <button type="button" ng-click="i.like()" layout="row" layout-align="center center">
+                <div layout="row">@Html.Svg("~/images/site/box-icons.svg", "like") </div><div layout="row">@GeneralResources.Like</div>
+            </button>
         </div>
 
         <div @*class="text-center"*@>
