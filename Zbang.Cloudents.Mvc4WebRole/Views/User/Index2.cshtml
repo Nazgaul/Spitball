@@ -1,84 +1,77 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 
-<script type="text/ng-template" id="userboxes.html">
-    this is a text
-</script>
 <div class="page-head">
     <div class="page-title">
         <h1>@UserResources.UserPage </h1>
     </div>
 </div>
-<div class="row userPage">
-    <div class="col-md-12">
-        <div class="profile-sidebar" style="width: 250px;">
-            <div class="portlet light profile-sidebar-portlet">
-                <div class="profile-userpic">
-                    <user-image ng-if="u.details" class="img-responsive" name="u.details.name" image="u.details.image" width="150" height="150"></user-image>
-                </div>
-                <div class="profile-usertitle">
-                    <h3 class="profile-usertitle-name">
-                        {{::u.details.name}}
-                    </h3>
-                    <h4 class="profile-usertitle-job">
-                        {{::u.details.universityName}}
-                    </h4>
-                </div>
+<div class="userPage">
+    <div class="profile-sidebar" style="width: 250px;">
+        <div class="portlet light profile-sidebar-portlet">
+            <div class="profile-userpic">
+                <user-image ng-if="u.details" class="img-responsive" name="u.details.name" image="u.details.image" width="150" height="150"></user-image>
             </div>
-            <div class="points-container">
-                <h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>
-                <h5>@UserResources.Points</h5>
-            </div>
-            <div class="points-awards">
-                <span class="earn">Share</span>
-                <ul style="list-style-type:square">
-                    <li>@UserResources.Creating</li>
-                    <li>@UserResources.Accepted</li>
-                </ul>
-                <span class="earn">Study Socially</span>
-                <ul style="list-style-type:square">
-                    <li>@UserResources.AcceptedToCourse</li>
-                    <li>@UserResources.UploadItem</li>
-                    <li>@UserResources.Answering</li>
-                    <li>@UserResources.Asking</li>
-                    <li>@UserResources.MaxStars</li>
-                    <li>@UserResources.MoreStars</li>
-                    <li>@UserResources.Stars</li>
-                    <li>@UserResources.ShareFB</li>
-                </ul>
+            <div class="profile-usertitle">
+                <h3 class="profile-usertitle-name">
+                    {{::u.details.name}}
+                </h3>
+                <h4 class="profile-usertitle-job">
+                    {{::u.details.universityName}}
+                </h4>
             </div>
         </div>
-        <div class="profile-content">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="portlet light">
-                        <ul class="nav nav-tabs tabbable">
-                            <li ng-class="{active: u.tab === u.state.box}">
-                                <button type="button" ng-click="u.changeTab(u.state.box)">
-                                    <h3 class="text-capitalize">@UserResources.Classes</h3> {{::u.details.numClass | megaNumber}}
-                                </button>
-                            </li>
-                            <li ng-class="{active:u.tab === u.state.item}">
-                                <button type="button" ng-click="u.changeTab(u.state.item)"><h3 class="text-capitalize">@UserResources.Uploads</h3> {{::u.details.numItem | megaNumber}}</button>
-                            </li>
-                            <li ng-class="{active: u.tab === u.state.post}">
-                                <button type="button" ng-click="u.changeTab(u.state.post)"><h3 class="text-capitalize">@UserResources.Posts</h3> {{::u.details.numFeed | megaNumber}}</button>
-                            </li>
-                            <li ng-class="{active: u.tab === u.state.quiz}">
-                                <button type="button" ng-click="u.changeTab(u.state.quiz)"><h3 class="text-capitalize">@UserResources.Quizzes</h3> {{::u.details.numQuiz | megaNumber}}</button>
-                            </li>
-                            <li ng-class="{active: u.tab === u.state.friend}">
-                                <button type="button" ng-click="u.changeTab(u.state.friend)"><h3 class="text-capitalize">@UserResources.Friends</h3> {{::u.details.numFriend | megaNumber}}</button>
-                            </li>
-                        </ul>
-                    </div>
-                    <div layout-padding layout="row" layout-wrap layout-align="space-between center" infinite-scroll="u.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
-                        <div flex="{{u.angularGridAttribute}}" ng-repeat="e in u.elements" ng-include="u.template()" class="flex"></div>
-                    </div>
-                    @*<div class="row" infinite-scroll="u.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
-                        <div class="{{u.bootstrapClass}}" ng-repeat="e in u.elements" ng-include="u.template()"></div>
-                    </div>*@
-            </div>
+        
+        <div class="points-container" hide-sm>
+            <h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>
+            <h5>@UserResources.Points</h5>
         </div>
+        <div class="points-awards" hide-sm>
+            <span class="earn">Share</span>
+            <ul style="list-style-type:square">
+                <li>@UserResources.Creating</li>
+                <li>@UserResources.Accepted</li>
+            </ul>
+            <span class="earn">Study Socially</span>
+            <ul style="list-style-type:square">
+                <li>@UserResources.AcceptedToCourse</li>
+                <li>@UserResources.UploadItem</li>
+                <li>@UserResources.Answering</li>
+                <li>@UserResources.Asking</li>
+                <li>@UserResources.MaxStars</li>
+                <li>@UserResources.MoreStars</li>
+                <li>@UserResources.Stars</li>
+                <li>@UserResources.ShareFB</li>
+            </ul>
+        </div>
+    </div>
+    <div class="profile-content">
+        <div class="portlet light">
+            <ul class="nav nav-tabs tabbable">
+                <li ng-class="{active: u.tab === u.state.box}">
+                    <button type="button" ng-click="u.changeTab(u.state.box)">
+                        <h3 class="text-capitalize">@UserResources.Classes</h3> {{::u.details.numClass | megaNumber}}
+                    </button>
+                </li>
+                <li ng-class="{active:u.tab === u.state.item}">
+                    <button type="button" ng-click="u.changeTab(u.state.item)"><h3 class="text-capitalize">@UserResources.Uploads</h3> {{::u.details.numItem | megaNumber}}</button>
+                </li>
+                <li ng-class="{active: u.tab === u.state.post}">
+                    <button type="button" ng-click="u.changeTab(u.state.post)"><h3 class="text-capitalize">@UserResources.Posts</h3> {{::u.details.numFeed | megaNumber}}</button>
+                </li>
+                <li ng-class="{active: u.tab === u.state.quiz}">
+                    <button type="button" ng-click="u.changeTab(u.state.quiz)"><h3 class="text-capitalize">@UserResources.Quizzes</h3> {{::u.details.numQuiz | megaNumber}}</button>
+                </li>
+                <li ng-class="{active: u.tab === u.state.friend}">
+                    <button type="button" ng-click="u.changeTab(u.state.friend)"><h3 class="text-capitalize">@UserResources.Friends</h3> {{::u.details.numFriend | megaNumber}}</button>
+                </li>
+            </ul>
+        </div>
+        <div layout-padding layout="row" layout-wrap layout-align="space-between center" infinite-scroll="u.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+            <div flex="{{u.angularGridAttribute}}" ng-repeat="e in u.elements" ng-include="u.template()" class="flex"></div>
+        </div>
+        @*<div class="row" infinite-scroll="u.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+                <div class="{{u.bootstrapClass}}" ng-repeat="e in u.elements" ng-include="u.template()"></div>
+            </div>*@
     </div>
 </div>
 
