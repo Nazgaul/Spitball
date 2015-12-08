@@ -3,7 +3,7 @@
     item.$inject = ['$stateParams', 'itemService', '$sce', '$location'];
 
     function item($stateParams, itemService, $sce, $location) {
-        var i = this;
+        var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         var index = 0, needLoadMore = false;
 
         i.state = {
@@ -13,7 +13,7 @@
         };
 
         i.preview = '';
-        itemService.getDetails($stateParams.boxId, $stateParams.itemId).then(function (response) {
+        itemService.getDetails(boxid, itemId).then(function (response) {
             i.details = response;
             i.details.downloadUrl = $location.url() + 'download/';
             i.details.printUrl = $location.url() + 'print/';
@@ -25,8 +25,8 @@
             itemService.getPreview(
                  i.details.blob,
                  index,
-                 $stateParams.itemId,
-                $stateParams.boxId
+                itemId,
+                boxid
             ).then(function (data) {
                 data = data || {};
                 //$scope.load.contentLoading = $scope.load.contentLoadMore = false;
@@ -52,11 +52,11 @@
         i.loadMore = loadMore;
         i.selectedState = i.state.regular;
 
-        i.flagItemOn = true;
-
+        
         i.renameItem = renameItem;
         i.flagItem = flagItem;
         i.like = like;
+
         i.showRename = showRename;
 
         function showRename() {
@@ -72,25 +72,21 @@
             }
         };
         function renameItem() {
-            itemService.renameItem(i.renameText, $stateParams.itemId).then(function (response) {
+            itemService.renameItem(i.renameText, itemId).then(function (response) {
                 i.details.name = response.name;
                 $location.path(response.url).replace();
             });
         }
 
         function flagItem() {
-            if (!i.flagItemOn) {
-                i.flagItemOn = true;
-                return;
-            }
-
-            console.log(i.flag, i.customFlag);
-            //TODO: flag the the item
+            itemService.flag(i.flag, i.customFlag, itemId);
+            i.selectedState = i.state.regular;
         }
 
         
         function like() {
-            itemService.like($stateParams.itemId, $stateParams.boxId);
+            itemService.like(itemId, boxid);
+            i.details.rate = !i.details.rate;
         }
     }
 

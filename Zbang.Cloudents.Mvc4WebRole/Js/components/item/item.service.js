@@ -6,7 +6,7 @@
         var d = this;
 
         d.getDetails = function (boxId, itemId) {
-            return ajaxservice.get('/item/load/', { boxId: boxId, itemId: itemId }, 1800000);
+            return ajaxservice.get('/item/load/', { boxId: boxId, itemId: itemId });
         };
         d.getPreview = function (blobName, index, itemId, boxId) {
             return ajaxservice.get('/item/preview/', {
@@ -19,7 +19,7 @@
 
 
         d.addLink = function (url, boxid, question, name) {
-            return ajaxservice.post('upload/link', {
+            return ajaxservice.post('/upload/link', {
                 url: url,
                 boxid: boxid,
                 
@@ -28,7 +28,7 @@
             });
         }
         d.addFromDropBox = function (boxId, url, name,  question) {
-            return ajaxservice.post('upload/dropbox/', {
+            return ajaxservice.post('/upload/dropbox/', {
                 boxId: boxId,
                 url: url,
                 name: name,
@@ -37,7 +37,7 @@
         }
 
         d.renameItem = function (name, id) {
-            return ajaxservice.post('item/rename', {
+            return ajaxservice.post('/item/rename', {
                 id: id,
                 newName: name
             }).then(function (response) {
@@ -47,11 +47,21 @@
 
         //no need to wipe cache
         d.like = function (id, boxId) {
-            return ajaxservice.post('item/like', {
+            return ajaxservice.post('/item/like', {
                 itemId: id,
                 boxId: boxId
             }, true);
         };
+
+
+      
+        d.flag = function (badItem, other, itemId) {
+            return ajaxservice.post('/item/flagrequest/', {
+                badItem: badItem,
+                other: other,
+                itemId: itemId
+            });
+        }
 
     }
 })();

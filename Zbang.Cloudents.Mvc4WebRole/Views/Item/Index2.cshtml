@@ -1,12 +1,11 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-@using Zbang.Zbox.Infrastructure.Enums
 
 @{
     const string svgUrl = "~/images/site/itemIcons.svg";
 }
 <div class="full-screen itemPage">
     <header layout="row" layout-align="space-between center">
-        <div class="fb-like" ng-class="blue-if-expression">
+        <div class="fb-like" ng-class="{blue : i.details.rate}">
             <button type="button" ng-click="i.like()" layout="row" layout-align="center center">
                 <div layout="row">@Html.Svg("~/images/site/box-icons.svg", "like") </div><div layout="row">@GeneralResources.Like</div>
             </button>
@@ -27,7 +26,7 @@
                         </md-button>
                     </md-menu-item>
                     <md-menu-item>
-                        <md-button aria-label="delete post" ng-click="i.deleteItem($event,e)">
+                        <md-button aria-label="delete post" ng-click="i.selectedState = i.state.flag">
                             flag an item
                         </md-button>
                     </md-menu-item>
@@ -42,7 +41,7 @@
             <div class="name-info" ng-if="i.selectedState === i.state.regular">
                 <span>{{i.details.name}}</span>
                 <a class="info" href="#" tooltip-placement="bottom" tooltip-class="copy-right"
-                   tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
+                   uib-tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
             </div>
             <form name="rename-item" class="rename-form" novalidate ng-submit="i.renameItem()" ng-if="i.selectedState === i.state.rename">
                 <md-content layout="column">
@@ -61,8 +60,8 @@
             @{ Html.RenderPartial("_FlagItem");}
         </div>
         <div class="arrows">
-            <button type="button" hide-sm class="arrow left">@Html.Svg("~/images/site/icons.svg", "arrow")</button>
-            <button type="button" hide-sm class="arrow right">@Html.Svg("~/images/site/icons.svg", "arrow")</button>
+            <a ng-if="i.details.previous" href="{{i.details.previous}}" hide-sm class="arrow left">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
+            <a ng-if="i.details.next" href="{{i.details.next}}" hide-sm class="arrow right">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
         </div>
         <div class="preview" ng-bind-html="i.preview" infinite-scroll="i.loadMore()" infinite-scroll-distance="2">
         </div>

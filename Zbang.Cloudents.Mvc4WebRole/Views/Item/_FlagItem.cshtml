@@ -1,11 +1,11 @@
 ﻿@using Zbang.Zbox.Infrastructure.Enums
 
 
-<form name="flag-item" class="flag-form" novalidate ng-submit="i.flagItem()" ng-if="false">
+<form name="flagitem" class="flag-form" novalidate ng-submit="i.flagItem()" ng-if="i.selectedState === i.state.flag">
     <div class="title">Report abuse</div>
     <md-content layout="column">
         <md-input-container flex="100">
-            <md-select name="flag" ng-model="i.flag" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
+            <md-select placeholder="choose" required name="flag" ng-model="i.flag" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
                 <md-option value="@BadItem.RightViolation">@BadItem.RightViolation.GetEnumDescription()</md-option>
                 <md-option value="@BadItem.Spam">@BadItem.Spam.GetEnumDescription()</md-option>
                 <md-option value="@BadItem.Porn">@BadItem.Porn.GetEnumDescription()</md-option>
@@ -14,12 +14,12 @@
                 <md-option value="@BadItem.Other">@BadItem.Other.GetEnumDescription()</md-option>
             </md-select>
         </md-input-container>
-        <input class="rounded-input" autocomplete="off" required ng-model="i.customFlag" ng-if="i.flag === 'other'" />
+        <input class="rounded-input" autofocus autocomplete="off" ng-model="i.customFlag" ng-if="i.flag === 'Other'" />
     </md-content>
 
     <span layout="row" layout-align="end center">
-        <button type="button" class="btn grey btn-default text-capitalize" ng-click="i.itemCancel()">cancel</button>
-        <button type="submit" class="btn blue text-capitalize">report</button>
+        <button type="button" class="btn grey btn-default text-capitalize" ng-click="i.selectedState = i.state.regular">cancel</button>
+        <button type="submit" class="btn blue text-capitalize" ng-disabled="!flagitem.$valid">report</button>
     </span>
 </form>
 
