@@ -28,8 +28,8 @@
             </li>
             <li>
                 <a href="javascript:;">
+                    <span class="arrow">@Html.Svg("~/images/site/icons.svg", "side-menu-arrow")</span>
                     <span class="title">@IndexResources.Classes</span>
-                    <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
                     <li ng-repeat="box in d.courses track by box.id" id="menubox{{::box.id}}">
@@ -43,8 +43,8 @@
             </li>
             <li>
                 <a href="javascript:;">
+                    <span class="arrow">@Html.Svg("~/images/site/icons.svg", "side-menu-arrow")</span>
                     <span class="title">@IndexResources.Group</span>
-                    <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
                     <li ng-repeat="box in d.privateBoxes track by box.id" id="menubox{{::box.id}}">

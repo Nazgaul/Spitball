@@ -873,12 +873,15 @@
 
     .uploadSection {
         text-align: center;
-        font-size: 18px;
+        font-size: 14px;
+        line-height: 15px;
+        width: 58%;
+        margin: 0 auto;
 
         svg {
             fill: @fileColor;
-            width: 80px;
-            height: 80px;
+            width: 50px;
+            height: 50px;
         }
 
         .link {
@@ -893,10 +896,14 @@
             display: block;
             background: @backgroundColorMenu;
             border-radius: 50%;
-            width: 110px;
-            height: 110px;
+            width: 80px;
+            height: 80px;
             padding: 15px;
-            margin: 0 auto;
+            margin: 0 auto 10px;
+
+            &:hover {
+                background: @backgroundColorMouseOver;
+            }
         }
     }
 
