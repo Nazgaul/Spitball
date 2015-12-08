@@ -29,23 +29,33 @@
             switch (self.tab) {
                 case self.state.item:
                     loadItems(true);
-                    self.angularGridAttribute = '25';
+                    self.angularGridAttribute = 25;
+                    self.flexSm = 50;
+                    self.flexMd = 50;
                     break;
                 case self.state.post:
                     loadComment(true);
-                    self.angularGridAttribute = '100';
+                    self.angularGridAttribute = 100;
+                    self.flexSm = 100;
+                    self.flexMd = 100;
                     break;
                 case self.state.quiz:
                     loadQuiz(true);
-                    self.angularGridAttribute = '25';
+                    self.angularGridAttribute = 25;
+                    self.flexSm = 50;
+                    self.flexMd = 50;
                     break;
                 case self.state.friend:
                     loadFriends(true);
-                    self.angularGridAttribute = '50';
+                    self.angularGridAttribute = 50;
+                    self.flexSm = 100;
+                    self.flexMd = 50;
                     break;
                 default:
                     loadboxes(true);
-                    self.angularGridAttribute = '33';
+                    self.angularGridAttribute = 33;
+                    self.flexSm = 100;
+                    self.flexMd = 50;
             }
         }
 

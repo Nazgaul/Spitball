@@ -26,6 +26,7 @@ New Profile Page
   float: right;
   width: 300px;
   margin-left: 20px;
+  width: 250px;
 }
 .profile-content {
   overflow: hidden;
@@ -160,8 +161,8 @@ New Profile Page
   /* 991px */
   .profile-sidebar {
     float: none;
-    width: 100% !important;
-    margin: 0;
+    width: calc(100% - 24px);
+    margin: 0 12px 32px;
   }
   .profile-sidebar > .portlet {
     margin-bottom: 20px;
