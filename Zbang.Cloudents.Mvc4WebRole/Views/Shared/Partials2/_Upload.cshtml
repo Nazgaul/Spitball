@@ -10,7 +10,7 @@
                 <div class="caption">
                     @IndexResources.UploadFiles
                 </div>
-                <button type="button" class="close" ng-click="u.closeUpload()">@Html.Svg("~/images/site/icons.svg", "close")</button>
+                @*<button type="button" class="close" ng-click="u.closeUpload()">@Html.Svg("~/images/site/icons.svg", "close")</button>*@
             </div>
             <div class="portlet-body form">
                 <div class="form-horizontal">
@@ -86,6 +86,7 @@
                                 <input type="button" class="btn btn-primary pull-right" ng-click="u.uploadLink()" ng-disabled="u.submitFormProcess" value="share" />
                             </div>
                         </div>
+                       <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="u.closeUpload()">@GeneralResources.Cancel</button>
                     </div>
                 </div>
             </div>
