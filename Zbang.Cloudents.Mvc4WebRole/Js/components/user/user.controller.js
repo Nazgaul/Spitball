@@ -123,7 +123,9 @@
             }
             self.quizLoading = true;
             userService.quiz($stateParams.userId, quizzesPage).then(function (response) {
-
+                for (var i = 0; i < response.length; i++) {
+                    response[i].publish = true;
+                }
                 quiz = quiz.concat(response);
                 if (self.tab === self.state.quiz) {
                     self.elements = quiz;
