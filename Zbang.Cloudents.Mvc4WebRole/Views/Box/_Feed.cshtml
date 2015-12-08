@@ -32,7 +32,6 @@
                             <li class="file-upload" ng-repeat="file in f.add.files" ng-include="'file-upload.html'">
                         </ul>
                     </div>
-<<<<<<< HEAD
                     <div class="actions" layout="row" layout-align="space-between center">
                         <div class="upload-options">
                             <a plupload="f.add.fileUpload.url"
@@ -47,18 +46,6 @@
                             <label for="anonymous">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
                             <button type="submit" class="btn pull-right text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
                         </div>
-=======
-                    <div class="actions">
-                        <a plupload="f.add.fileUpload.url"
-                           plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks">
-                            @Html.Svg(url, "file", new { @class = "file" })
-                        </a>
-                        <button type="button" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()">@Html.Svg(url, "googleDrive")</button>
-                        <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox",new {@class="dropbox"})</button>
-                        <button type="submit" class="btn btn-primary pull-right text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
-                        <input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
-                        <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
->>>>>>> 81f96cbc69369ca2754d0f31ee3ad66a2aaa3845
                     </div>
                 </form>
                 <ol class="list-unstyled posts-list">
@@ -136,6 +123,7 @@
                                 </div>
                             </li>
                         </ol>
+
                         <form class="add-comment add-reply" ng-submit="f.add.createReply(post)">
                             <div class="reply-wrapper">
                                 <textarea ng-model="f.add.newText" type="text" placeholder="what's on your mind?"></textarea>
@@ -143,21 +131,20 @@
                                     <li class="file-upload" ng-repeat="file in f.add.files" ng-include="'file-upload.html'">
                                 </ul>
                             </div>
-                            <div>
-                                <a plupload="f.add.fileUpload.url"
-                                   plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks">
-                                    @Html.Svg(url, "file", new { @class = "file" })
-                                </a>
-                                <button type="button" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()">@Html.Svg(url, "googleDrive")</button>
-                                <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
-<<<<<<< HEAD
-
-                                <button type="submit" class="btn pull-right text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
-=======
-                                <button type="submit" class="btn btn-primary pull-right text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
->>>>>>> 81f96cbc69369ca2754d0f31ee3ad66a2aaa3845
-                                @*<input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
-                                    <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
+                            <div layout="row" layout-align="space-between center">
+                                <div class="upload-options">
+                                    <a plupload="f.add.fileUpload.url"
+                                       plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks">
+                                        @Html.Svg(url, "file", new { @class = "file" })
+                                    </a>
+                                    <button type="button" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()">@Html.Svg(url, "googleDrive")</button>
+                                    <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
+                                </div>
+                                <div class="submit area-options" layout="row" layout-align="space-between center">
+                                    <button type="submit" class="btn btn-primary pull-right text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
+                                    @*<input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
+                                        <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
+                                </div>
                             </div>
                         </form>
                     </li>
