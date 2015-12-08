@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to passwords don&apos;t match.
+        ///   Looks up a localized string similar to Your passwords don&apos;t match. Please double check and try again.
         /// </summary>
         public static string ConfirmPasswordComapre {
             get {
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to email is not in the correct format.
+        ///   Looks up a localized string similar to Email is not in the correct format.
         /// </summary>
         public static string EmailNotCorrect {
             get {
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to this email address is not valid.
+        ///   Looks up a localized string similar to That email address is invalid. Please try again.
         /// </summary>
         public static string EmailNotValid {
             get {
@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to this field is required.
+        ///   Looks up a localized string similar to This field is required.
         /// </summary>
         public static string FieldRequired {
             get {

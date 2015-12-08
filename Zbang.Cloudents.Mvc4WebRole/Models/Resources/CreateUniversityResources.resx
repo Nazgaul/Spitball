@@ -121,7 +121,7 @@
     <value>Choose a department</value>
   </data>
   <data name="CreateDept" xml:space="preserve">
-    <value>Create department</value>
+    <value>Create a department</value>
   </data>
   <data name="FieldRequired" xml:space="preserve">
     <value>This field is required</value>

@@ -130,7 +130,7 @@
     <value>Once a week</value>
   </data>
   <data name="NotificationSettingsOnEveryChange" xml:space="preserve">
-    <value>On every change</value>
+    <value>For every update to this class</value>
   </data>
   <data name="BoxPrivacySettingsMembersOnly" xml:space="preserve">
     <value>By invitation only</value>
@@ -145,25 +145,25 @@
     <value>University</value>
   </data>
   <data name="UserNotExists" xml:space="preserve">
-    <value>The email or password you entered does not appear in the system or is incorrect. Please try again.</value>
+    <value>The email or password you entered is either incorrect or not registered to Spitball. Please try again</value>
   </data>
   <data name="WrongPassword" xml:space="preserve">
-    <value>The password you entered is incorrect. Please try again.</value>
+    <value>The password you entered is incorrect. Please try again</value>
   </data>
   <data name="LockedOut" xml:space="preserve">
-    <value>The email is locked out. Go to Forgot Password to retrieve a new one</value>
+    <value>This email has been locked out. To retrieve your password, go to Forgot Password</value>
   </data>
   <data name="Attacks" xml:space="preserve">
     <value>Attacks a group or individual</value>
   </data>
   <data name="Hateful" xml:space="preserve">
-    <value>Hateful speech or symbols</value>
+    <value>Contains hateful speech or symbols</value>
   </data>
   <data name="Infringe" xml:space="preserve">
-    <value>Infringes my rights</value>
+    <value>Infringes upon my rights</value>
   </data>
   <data name="Nudity" xml:space="preserve">
-    <value>Nudity or pornography</value>
+    <value>Contains nudity or pornographic images</value>
   </data>
   <data name="Other" xml:space="preserve">
     <value>Other</value>

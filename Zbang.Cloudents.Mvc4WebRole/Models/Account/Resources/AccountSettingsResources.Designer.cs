@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to הקוד שהזנת שגוי.
+        ///   Looks up a localized string similar to The code you entered is incorrect.
         /// </summary>
         public static string CodeIncorrect {
             get {
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current password cannot be empty.
+        ///   Looks up a localized string similar to You must enter your current password.
         /// </summary>
         public static string CurrentPwdEmpty {
             get {
@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email field cannot be empty.
+        ///   Looks up a localized string similar to You must enter a valid email address.
         /// </summary>
         public static string EmailEmpty {
             get {
@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email is not in correct format.
+        ///   Looks up a localized string similar to This email address is not in the correct format.
         /// </summary>
         public static string EmailNotCorrect {
             get {
@@ -142,7 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Language is not supported.
+        ///   Looks up a localized string similar to Sorry, your language is not supported.
         /// </summary>
         public static string LanguageNotSupported {
             get {
@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New password cannot be empty.
+        ///   Looks up a localized string similar to You must enter your new password.
         /// </summary>
         public static string NewPwdEmpty {
             get {
@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notifications.
+        ///   Looks up a localized string similar to Notifications:.
         /// </summary>
         public static string Notifications {
             get {
@@ -205,7 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter university name.
+        ///   Looks up a localized string similar to Please enter the name of your university .
         /// </summary>
         public static string SchoolRequired {
             get {
@@ -223,7 +223,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username cannot be empty.
+        ///   Looks up a localized string similar to You must enter a username.
         /// </summary>
         public static string UsernameEmpty {
             get {

@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DefaultError" xml:space="preserve">
-    <value>An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.</value>
+    <value>An unknown error occurred. Please verify your file and try again. If the problem persists, please contact Spitball support</value>
   </data>
   <data name="DuplicateEmail" xml:space="preserve">
-    <value>This email is already registered</value>
+    <value>This email is already registered to Spitball</value>
   </data>
   <data name="InvalidEmail" xml:space="preserve">
-    <value>The email address provided is invalid. Please check the value and try again.</value>
+    <value>The email address provided is invalid. Please verify it and try once more</value>
   </data>
   <data name="InvalidPassword" xml:space="preserve">
-    <value>The password provided is invalid. Please enter a valid password value.</value>
+    <value>The password provided is invalid. Please enter a valid password </value>
   </data>
 </root>

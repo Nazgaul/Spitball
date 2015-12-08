@@ -127,7 +127,7 @@
     <value>There seems to be a problem getting data from Facebook</value>
   </data>
   <data name="FbRegisterError" xml:space="preserve">
-    <value>You have signed up to Spitball using Facebook. To register, go to the homepage and click on the Facebook button</value>
+    <value>You have signed up to Spitball using Facebook. To log in, go to the homepage and click on the Facebook button</value>
   </data>
   <data name="LogonError" xml:space="preserve">
     <value>The user name or password provided is incorrect</value>

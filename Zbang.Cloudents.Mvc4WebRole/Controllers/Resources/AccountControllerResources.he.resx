@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChangeEmailCodeError" xml:space="preserve">
-    <value>הקוד שגוי</value>
+    <value>הקוד שהזנת שגוי</value>
   </data>
   <data name="EmailDoesNotExists" xml:space="preserve">
-    <value>אימייל לא קיים</value>
+    <value>כתובת המייל לא קיימת במערכת</value>
   </data>
   <data name="FacebookGetDataError" xml:space="preserve">
-    <value>בעייה לקבל מיידע מפייסבוק</value>
+    <value>אופס..לא הצלחנו לקבל את המידע הנחוץ מפייסבוק</value>
   </data>
   <data name="FbRegisterError" xml:space="preserve">
-    <value>נרשמת לSpitball דרך פייסבוק. יש לחזור לדף הבית וללחוץ על כפתור הרשמה דרך פייסבוק</value>
+    <value>נרשמת לספיטבול באמצעות פייסבוק. עליך לחזור לדף הבית וללחוץ על כפתור ״התחבר באמצעות פייסבוק״</value>
   </data>
   <data name="LogonError" xml:space="preserve">
-    <value>שם משתמש או סיסמא שגויים</value>
+    <value>שם משתמש או הסיסמה שהזנת שגויים</value>
   </data>
   <data name="UnspecifiedError" xml:space="preserve">
-    <value>קרתה שגיאה - נסה מאוחר</value>
+    <value>אופס..ארתה שגיאה. אנא נסה שוב</value>
   </data>
 </root>

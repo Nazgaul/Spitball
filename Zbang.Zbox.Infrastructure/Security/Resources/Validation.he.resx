@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DefaultError" xml:space="preserve">
-    <value>קרתה תקלה בלתי צפויה. בדוק את הערך שהקלדת ונסה שוב. אם התקלה חוזרת על עצמה, עדכן את המנהל האדמנסטרטיבי שלך.</value>
+    <value>ארתה תקלה בלתי צפויה. אנא בדוק את הקובץ שהעלת ונסה שוב. אם התקלה חוזרת על עצמה, לחץ על ״עזרה״. </value>
   </data>
   <data name="DuplicateEmail" xml:space="preserve">
-    <value>אימייל זה כבר מופיע במערכת</value>
+    <value>כבר קיים משתמש עם כתובת מייל זו</value>
   </data>
   <data name="InvalidEmail" xml:space="preserve">
-    <value>האימייל שהוקלד לא תקין.</value>
+    <value>כתובת המייל שהזנת לא חוקית. אנא נסה שוב</value>
   </data>
   <data name="InvalidPassword" xml:space="preserve">
     <value>הסיסמה שהקלדת אינה נכונה, אנא נסה שנית.</value>

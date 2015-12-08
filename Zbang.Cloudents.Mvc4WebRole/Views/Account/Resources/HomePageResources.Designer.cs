@@ -313,7 +313,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to As a sophomore, I found myself looking for a new way to communicate and study with my classmates. After searching online, I was shocked that there was no real solution that fit my lifestyle (nothing I could easily access on my phone or computer). Then someone invited me to Spitball... it saved me..
+        ///   Looks up a localized string similar to As a sophomore, I found myself looking for a new way to communicate and study with my classmates. After searching online, I was shocked that there was no real solution that fit my lifestyle (nothing I could easily access on my phone or computer). Then someone invited me to Spitball... it saved me.
+        ///.
         /// </summary>
         public static string Testimonial1 {
             get {
@@ -322,7 +323,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Donna Floyed.
+        ///   Looks up a localized string similar to Donna Floyd.
         /// </summary>
         public static string Testimonial1Person {
             get {
@@ -394,7 +395,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spitball is such a great idea! I love the quizzes - such a great way to test my knowledge of the coursework! I also really like that it&apos;s interactive. The chat feed is really helpful if you miss a class or don&apos;t understand the material. During the last semester I feel like all I did was talk about Spitball! It was funny, people actually thought that it was my job..
+        ///   Looks up a localized string similar to Spitball is such a great idea! I love the quizzes - such a great way to test my knowledge of the coursework! I also really like that it&apos;s interactive. The chat feed is really helpful if you miss a class or don&apos;t understand the material. During my last semester, I feel like all I did was talk about Spitball! It was funny, people actually thought that it was my job..
         /// </summary>
         public static string Testimonial4 {
             get {

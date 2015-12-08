@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Back" xml:space="preserve">
-    <value>back to dashboard</value>
+    <value>Return to dashboard</value>
   </data>
   <data name="FileFlew" xml:space="preserve">
     <value>oops the file flew</value>
   </data>
   <data name="PleaseUpdate" xml:space="preserve">
-    <value>Please update your version of Internet Explorer or use different browser</value>
+    <value>Please update your version of Internet Explorer or use a different web browser</value>
   </data>
   <data name="Unsupported" xml:space="preserve">
-    <value>doesn't support your browser version</value>
+    <value>Your browser version is not supported</value>
   </data>
 </root>

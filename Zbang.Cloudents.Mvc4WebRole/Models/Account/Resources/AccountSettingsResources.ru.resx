@@ -154,7 +154,7 @@
     <value>Новый пароль не может быть пустым</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>Уведомления</value>
+    <value>Уведомления:</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль:</value>

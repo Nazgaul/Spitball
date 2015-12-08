@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to browse courses.
+        ///   Looks up a localized string similar to Browse Classes.
         /// </summary>
         public static string Browse {
             get {
@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to courses.
+        ///   Looks up a localized string similar to Classes.
         /// </summary>
         public static string Courses {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to files.
+        ///   Looks up a localized string similar to Items.
         /// </summary>
         public static string Files {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite your friends to spitball.
+        ///   Looks up a localized string similar to Invite your friends to Spitball.
         /// </summary>
         public static string InviteToSpitball {
             get {
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to members.
+        ///   Looks up a localized string similar to Members.
         /// </summary>
         public static string Members {
             get {
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to add study group.
+        ///   Looks up a localized string similar to Create a study group.
         /// </summary>
         public static string StudyGroup {
             get {

@@ -154,7 +154,7 @@
     <value>新密码不可为空</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>通知</value>
+    <value>通知：</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>密码：</value>

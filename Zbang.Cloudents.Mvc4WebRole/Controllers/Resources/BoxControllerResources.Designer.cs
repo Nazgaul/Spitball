@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This box already exists.
+        ///   Looks up a localized string similar to This class already exists.
         /// </summary>
         internal static string BoxExists {
             get {
@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Problem with Create new box.
+        ///   Looks up a localized string similar to There seems to be an issue creating this new study group.
         /// </summary>
         internal static string DashboardController_Create_Problem_with_Create_new_box {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This link already exists.
+        ///   Looks up a localized string similar to One of your classmates has already posted this link.
         /// </summary>
         internal static string LinkExists {
             get {
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No files received.
+        ///   Looks up a localized string similar to No documents received.
         /// </summary>
         internal static string NoFilesReceived {
             get {
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Problem with url.
+        ///   Looks up a localized string similar to That URL doesn&apos;t seem to be valid. Please double check it and try again.
         /// </summary>
         internal static string ProblemUrl {
             get {

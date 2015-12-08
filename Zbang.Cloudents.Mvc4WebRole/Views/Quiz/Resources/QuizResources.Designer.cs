@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to add question.
+        ///   Looks up a localized string similar to Add a question.
         /// </summary>
         public static string AddQuestion {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not yet, I&apos;m scared.
+        ///   Looks up a localized string similar to Not right now.
         /// </summary>
         public static string Afraid {
             get {
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to you have answered.
+        ///   Looks up a localized string similar to You have answered.
         /// </summary>
         public static string Answered {
             get {
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to answers:.
+        ///   Looks up a localized string similar to Answers:.
         /// </summary>
         public static string Answers {
             get {
@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to you can choose to save the quiz as a &apos;draft&apos; for future editing.
+        ///   Looks up a localized string similar to Save this quiz as a draft for future editing.
         /// </summary>
         public static string CanChoose {
             get {
@@ -142,7 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to you have completed the quiz.
+        ///   Looks up a localized string similar to You completed the quiz!.
         /// </summary>
         public static string CompletedQuiz {
             get {
@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to correct.
+        ///   Looks up a localized string similar to Correct.
         /// </summary>
         public static string Correct {
             get {
@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to correct answer.
+        ///   Looks up a localized string similar to Correct answer.
         /// </summary>
         public static string CorrectAnswer {
             get {
@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Course:.
+        ///   Looks up a localized string similar to Class:.
         /// </summary>
         public static string Course {
             get {
@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to create a quiz.
+        ///   Looks up a localized string similar to Create a quiz.
         /// </summary>
         public static string CreateQuiz {
             get {
@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to save as draft.
+        ///   Looks up a localized string similar to Save as draft.
         /// </summary>
         public static string Draft {
             get {
@@ -196,7 +196,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to go back and check.
+        ///   Looks up a localized string similar to Go back and check your answers.
         /// </summary>
         public static string GoBack {
             get {
@@ -205,7 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to good.
+        ///   Looks up a localized string similar to Good.
         /// </summary>
         public static string Good {
             get {
@@ -214,7 +214,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to job.
+        ///   Looks up a localized string similar to Job.
         /// </summary>
         public static string Job {
             get {
@@ -223,7 +223,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to are you sure you want to leave this quiz?.
+        ///   Looks up a localized string similar to You haven&apos;t finished this quiz. Do you want to leave?.
         /// </summary>
         public static string Leave {
             get {
@@ -232,7 +232,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to no answer given.
+        ///   Looks up a localized string similar to No answer given.
         /// </summary>
         public static string NoAnswer {
             get {
@@ -241,7 +241,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to this is not supported section.
+        ///   Looks up a localized string similar to This section is not supported.
         /// </summary>
         public static string NotSupported {
             get {
@@ -259,8 +259,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to of your classmates
-        ///took this quiz.
+        ///   Looks up a localized string similar to of your classmates took this quiz.
         /// </summary>
         public static string OfYourMates {
             get {
@@ -269,7 +268,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to only you can see and edit the draft.
+        ///   Looks up a localized string similar to Only you are able to see and edit the draft.
         /// </summary>
         public static string OnlyYou {
             get {
@@ -278,7 +277,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to post.
+        ///   Looks up a localized string similar to Post.
         /// </summary>
         public static string Post {
             get {
@@ -287,7 +286,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to publish.
+        ///   Looks up a localized string similar to Publish.
         /// </summary>
         public static string Publish {
             get {
@@ -296,7 +295,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to question #.
+        ///   Looks up a localized string similar to Question #.
         /// </summary>
         public static string QuestionNumber {
             get {
@@ -305,7 +304,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Time to take a quiz.
+        ///   Looks up a localized string similar to Test your knowledge.
         /// </summary>
         public static string QuizTime {
             get {
@@ -314,7 +313,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to retake quiz.
+        ///   Looks up a localized string similar to Retake this quiz.
         /// </summary>
         public static string Retake {
             get {
@@ -323,7 +322,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not yet, I&apos;m scared.
+        ///   Looks up a localized string similar to Not right now.
         /// </summary>
         public static string Scared {
             get {
@@ -332,7 +331,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to your score:.
+        ///   Looks up a localized string similar to Your score:.
         /// </summary>
         public static string Score {
             get {
@@ -341,7 +340,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to submit.
+        ///   Looks up a localized string similar to Submit.
         /// </summary>
         public static string Submit {
             get {
@@ -350,7 +349,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to take a quiz.
+        ///   Looks up a localized string similar to Take a quiz.
         /// </summary>
         public static string Take {
             get {
@@ -368,7 +367,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to are you ready to test yourself?.
+        ///   Looks up a localized string similar to Are you ready to test yourself?.
         /// </summary>
         public static string TestYourself {
             get {
@@ -377,7 +376,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to time to.
+        ///   Looks up a localized string similar to Time to.
         /// </summary>
         public static string Time {
             get {
@@ -386,7 +385,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to wrong.
+        ///   Looks up a localized string similar to Incorrect.
         /// </summary>
         public static string Wrong {
             get {
@@ -395,8 +394,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you ready to
-        ///test yourself?.
+        ///   Looks up a localized string similar to Are you ready to test yourself?.
         /// </summary>
         public static string YouReady {
             get {

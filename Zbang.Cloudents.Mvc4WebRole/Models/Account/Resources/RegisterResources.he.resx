@@ -118,39 +118,42 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConfirmPassword" xml:space="preserve">
-    <value>אשר סיסמא</value>
+    <value>אשר סיסמה</value>
   </data>
   <data name="ConfirmPasswordComapre" xml:space="preserve">
-    <value>סיסמאות חייבות להיות זהות</value>
+    <value>הסיסמאות חייבות להיות זהות</value>
   </data>
   <data name="EmailAddress" xml:space="preserve">
-    <value>כתובת דוא"ל</value>
+    <value>כתובת מייל</value>
   </data>
   <data name="EmailNotCorrect" xml:space="preserve">
-    <value>אימייל הוא לא בפורמט נכון</value>
+    <value>כתובת המייל שהזנת אינה חוקית</value>
   </data>
   <data name="EmailNotValid" xml:space="preserve">
-    <value>כתובת דוא"ל זו אינה חוקית</value>
+    <value>כתובת המייל שהזנת אינה חוקית. אנא נסה שוב</value>
   </data>
   <data name="FieldRequired" xml:space="preserve">
-    <value>השדה הזה הוא חובה</value>
+    <value>שדה זה הינו חובה</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>סיסמא</value>
+    <value>סיסמה</value>
   </data>
   <data name="PwdRequired" xml:space="preserve">
-    <value>עליך למלא סיסמא</value>
+    <value>עליך למלא סיסמה</value>
   </data>
   <data name="IAgree" xml:space="preserve">
     <value>בהרשמה, אני מסכים</value>
   </data>
   <data name="ofZbang" xml:space="preserve">
-    <value>של Spitball</value>
+    <value>של ספיטבול</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>ומדיניות פרטיות</value>
   </data>
   <data name="TermsOfServices" xml:space="preserve">
     <value>לתנאי שירות</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>ו</value>
   </data>
 </root>

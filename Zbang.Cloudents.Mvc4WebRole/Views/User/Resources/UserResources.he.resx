@@ -117,4 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accepted" xml:space="preserve">
+    <value>150 נק' בעבור הזמנת חבר שנענה</value>
+  </data>
+  <data name="AcceptedToCourse" xml:space="preserve">
+    <value>50 נק' בעבור הזמנת חבר לקורס שנענה</value>
+  </data>
+  <data name="Answering" xml:space="preserve">
+    <value>100 נק' בעבור תשובה</value>
+  </data>
+  <data name="Asking" xml:space="preserve">
+    <value>50 נק' בעבור שאלה</value>
+  </data>
+  <data name="Classes" xml:space="preserve">
+    <value>קורסים</value>
+  </data>
+  <data name="Creating" xml:space="preserve">
+    <value>300 נק' בעבור יצירת מבחן</value>
+  </data>
+  <data name="Earn" xml:space="preserve">
+    <value>צבור נק' על ידי:</value>
+  </data>
+  <data name="Friends" xml:space="preserve">
+    <value>חברים</value>
+  </data>
+  <data name="MaxStars" xml:space="preserve">
+    <value>150 נק' בעבור קבלת 5 כוכבים</value>
+  </data>
+  <data name="MoreStars" xml:space="preserve">
+    <value>100 נק' בעבור קבלת 4 כוכבים</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value>נק'</value>
+  </data>
+  <data name="Posts" xml:space="preserve">
+    <value>הודעות</value>
+  </data>
+  <data name="Quizzes" xml:space="preserve">
+    <value>מבחנים</value>
+  </data>
+  <data name="ShareFB" xml:space="preserve">
+    <value>50 נק' בעבור שיתוף בפייסבוק</value>
+  </data>
+  <data name="Stars" xml:space="preserve">
+    <value>50 נק' בעבור קבלת 3 כוכבים</value>
+  </data>
+  <data name="UploadItem" xml:space="preserve">
+    <value>100 נק' בעבור העלאת קובץ לקורס</value>
+  </data>
+  <data name="Uploads" xml:space="preserve">
+    <value>העלאות</value>
+  </data>
+  <data name="UserPage" xml:space="preserve">
+    <value>האיזור האישי</value>
+  </data>
 </root>

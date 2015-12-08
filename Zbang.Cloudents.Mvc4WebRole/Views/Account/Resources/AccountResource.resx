@@ -121,45 +121,45 @@
     <value>Change your email address</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
-    <value>change password</value>
+    <value>Change your password</value>
   </data>
   <data name="CurrentPassword" xml:space="preserve">
-    <value>current password</value>
+    <value>Your current password</value>
   </data>
   <data name="EmailToReset" xml:space="preserve">
-    <value>Just enter the email address you used to create your account. We will locate your account and send you an email with the link to reset your password.</value>
+    <value>Please enter the email address associated with your Spitball account. You will receive a link to reset your password to this email account shortly</value>
   </data>
   <data name="EnterCode" xml:space="preserve">
     <value>enter code</value>
   </data>
   <data name="First" xml:space="preserve">
-    <value>first name</value>
+    <value>First Name</value>
   </data>
   <data name="Info" xml:space="preserve">
-    <value>personal info</value>
+    <value>Personal Info</value>
   </data>
   <data name="Lang" xml:space="preserve">
-    <value>language</value>
+    <value>Language</value>
   </data>
   <data name="Last" xml:space="preserve">
-    <value>last name</value>
+    <value>Last Name</value>
   </data>
   <data name="NewPassword" xml:space="preserve">
-    <value>new password</value>
+    <value>New password</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>notifications</value>
+    <value>Notifications</value>
   </data>
   <data name="Profile" xml:space="preserve">
-    <value>profile Picture</value>
+    <value>Profile Picture</value>
   </data>
   <data name="ProfileAccount" xml:space="preserve">
-    <value>profile account</value>
+    <value>Personal account</value>
   </data>
   <data name="Saved" xml:space="preserve">
-    <value>saved</value>
+    <value>Saved</value>
   </data>
   <data name="SelectImg" xml:space="preserve">
-    <value>select image</value>
+    <value>Select Image</value>
   </data>
 </root>

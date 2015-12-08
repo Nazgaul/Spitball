@@ -115,8 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Preview not available
-        ///for this file type..
+        ///   Looks up a localized string similar to The preview is unavailable for this file type.
         /// </summary>
         public static string PreviewNotAvailable {
             get {

@@ -202,10 +202,11 @@
     <value>Study socially on your smartphone, laptop and tablet anytime, anywhere</value>
   </data>
   <data name="Testimonial1" xml:space="preserve">
-    <value>As a sophomore, I found myself looking for a new way to communicate and study with my classmates. After searching online, I was shocked that there was no real solution that fit my lifestyle (nothing I could easily access on my phone or computer). Then someone invited me to Spitball... it saved me.</value>
+    <value>As a sophomore, I found myself looking for a new way to communicate and study with my classmates. After searching online, I was shocked that there was no real solution that fit my lifestyle (nothing I could easily access on my phone or computer). Then someone invited me to Spitball... it saved me.
+</value>
   </data>
   <data name="Testimonial1Person" xml:space="preserve">
-    <value>Donna Floyed</value>
+    <value>Donna Floyd</value>
   </data>
   <data name="Testimonial1Title" xml:space="preserve">
     <value>Sophomore at UC Davis</value>
@@ -229,7 +230,7 @@
     <value>Senior at UCLA</value>
   </data>
   <data name="Testimonial4" xml:space="preserve">
-    <value>Spitball is such a great idea! I love the quizzes - such a great way to test my knowledge of the coursework! I also really like that it's interactive. The chat feed is really helpful if you miss a class or don't understand the material. During the last semester I feel like all I did was talk about Spitball! It was funny, people actually thought that it was my job.</value>
+    <value>Spitball is such a great idea! I love the quizzes - such a great way to test my knowledge of the coursework! I also really like that it's interactive. The chat feed is really helpful if you miss a class or don't understand the material. During my last semester, I feel like all I did was talk about Spitball! It was funny, people actually thought that it was my job.</value>
   </data>
   <data name="Testimonial4Person" xml:space="preserve">
     <value>Sarah Friedman</value>

@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="MetaDescription" xml:space="preserve">
-    <value>למד ושתף את הסיכומים שלך  ב{0} {1} {2}, אונליין או בסמארטפון דרך Spitball.</value>
+    <value>למד ושתף את הסיכומים שלך  ב{0} {1} {2}, אונליין או באמצעות אפליקציית ספיטבול לנייד</value>
   </data>
   <data name="Cloudents" xml:space="preserve">
     <value>ספיטבול</value>
   </data>
   <data name="FillComment" xml:space="preserve">
-    <value>עלייך לרשום משהו או להעלות קבצים</value>
+    <value>עליך להתחיל דיון חדש או לשתף קובץ</value>
   </data>
 </root>

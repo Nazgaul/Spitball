@@ -61,7 +61,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to answer.
+        ///   Looks up a localized string similar to Answer.
         /// </summary>
         internal static string answer {
             get {
@@ -70,7 +70,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to answers.
+        ///   Looks up a localized string similar to Answers.
         /// </summary>
         internal static string answers {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invitation to {0}.
+        ///   Looks up a localized string similar to Invite to {0}.
         /// </summary>
         internal static string InviteSubject {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to item.
+        ///   Looks up a localized string similar to Item.
         /// </summary>
         internal static string item {
             get {
@@ -97,7 +97,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to items.
+        ///   Looks up a localized string similar to Items.
         /// </summary>
         internal static string items {
             get {
@@ -106,7 +106,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to question.
+        ///   Looks up a localized string similar to Question.
         /// </summary>
         internal static string question {
             get {
@@ -115,7 +115,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to questions.
+        ///   Looks up a localized string similar to Questions.
         /// </summary>
         internal static string questions {
             get {
