@@ -610,9 +610,6 @@
     <Content Include="bower_components\angular-material\angular-material.rtl.css">
       <DependentUpon>angular-material.css</DependentUpon>
     </Content>
-    <Content Include="bower_components\angular-material\angular-material.rtl.min.css">
-      <DependentUpon>angular-material.rtl.css</DependentUpon>
-    </Content>
     <Content Include="bower_components\angular-material\demos\bottomSheet\demoBasicUsage\img\icons\copy.svg" />
     <Content Include="bower_components\angular-material\demos\bottomSheet\demoBasicUsage\img\icons\copy2.svg" />
     <Content Include="bower_components\angular-material\demos\bottomSheet\demoBasicUsage\img\icons\facebook.svg" />
@@ -1799,6 +1796,7 @@
     <Content Include="Images\Site\info.svg" />
     <Content Include="Images\Site\libChooseIcons.svg" />
     <Content Include="Images\Site\membersOnly.png" />
+    <Content Include="Images\Site\oops.png" />
     <Content Include="Images\Site\preview_denied.png" />
     <Content Include="Images\Site\preview_failed_icon.png" />
     <Content Include="Images\Site\quizbackground.png" />

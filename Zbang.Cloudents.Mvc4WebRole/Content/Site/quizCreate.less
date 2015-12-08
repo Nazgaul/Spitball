@@ -2,12 +2,57 @@
 
 .quiz-create {
     .not-supported {
-        display: none;
+        height: 100vh;
+        background: @backgroundColor;
+        color: @textColorGrey;
+        padding: 0 15px;
+
+        .bubble {
+            max-width: 360px;
+            padding-top: 150px;
+            margin: 0 auto;
+
+            .text {
+                font-size: 16px;
+                border: 1px solid @textColorGrey;
+                border-radius: 10px;
+                padding: 25px 10px;
+                text-align: center;
+                position: relative;
+            }
+
+            img {
+                width: 100%;
+                padding-bottom: 10px;
+            }
+        }
+
+        .text:before {
+            content: ' ';
+            position: absolute;
+            width: 0;
+            height: 0;
+            left: 60%;
+            top: -40px;
+            border: 20px solid;
+            border-color: transparent transparent @textColorGrey @textColorGrey;
+        }
+
+        .text:after {
+            content: ' ';
+            position: absolute;
+            width: 0;
+            height: 0;
+            left: ~"calc(60% + 1px)";
+            top: -37px;
+            border: 19px solid;
+            border-color: transparent transparent @backgroundColor @backgroundColor;
+        }
     }
 
     .supported {
         margin: @fullScreenHeaderHeight + 80px auto;
-        color: #9d9d9d;
+        color: @textColorGrey;
         width: 800px;
         padding: 10px 15px 0;
 
@@ -24,16 +69,17 @@
     }
 
     @media only screen and (max-width : 768px) {
-        .not-supported {
+        /*.not-supported {
             display: block;
         }
 
         .supported {
             display: none;
-        }
+        }*/
     }
+
     .quiz-wrapper {
-        background:transparent;
+        background: transparent;
         padding: 0;
         border: 0;
     }
@@ -86,23 +132,20 @@
             fill: @fileColor;
         }
     }
-
-
-
     /*.question {
         border: 1px solid #c2c2c2;
         border-radius: 3px;
         margin-bottom: 10px;
         padding: 12px;
     }*/
-
     .question-content {
         border: 1px solid @borderColorLightGrey;
         margin-bottom: 12px;
         //color: #000;
     }
+
     .ta-scroll-window > .ta-bind {
-        min-height:90px;
+        min-height: 90px;
     }
 
     .ta-toolbar {
