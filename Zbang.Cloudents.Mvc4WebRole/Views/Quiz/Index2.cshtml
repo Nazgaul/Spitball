@@ -84,7 +84,7 @@
                 <div ng-if="q.state === 4"  class="add-discussion">
                     <form class="clearfix" novalidate name="addDiscussion"  ng-submit="q.postComment(q.questions[q.index])">
                         <textarea required placeholder="Write a comment" ng-model="q.questions[q.index].newComment"></textarea>
-                        <button class="btn pull-right send" ng-disabled="!addDiscussion.$valid" type="submit">@QuizResources.Post</button>
+                        <button class="btn btn-primary pull-right" ng-disabled="!addDiscussion.$valid" type="submit">@QuizResources.Post</button>
                     </form>
                     <ol class="list-unstyled feed">
                         <li class="comment reply" ng-repeat="post in q.questions[q.index].comments">

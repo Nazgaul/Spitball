@@ -55,9 +55,14 @@
   line-height: 66px;
   font-size: 50px;
   text-align: center;
-  border: 3px solid #3d4348;
+  border: 3px solid #323538;
   color: #323538;
   border-radius: 50%;
+}
+.library-choose .add-uni-btn span svg {
+  width: 35px;
+  height: 35px;
+  fill: #323538;
 }
 .library-choose .add-uni-btn div {
   margin-right: 15px;
