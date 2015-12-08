@@ -42,7 +42,6 @@
     padding: 0 !important;
   }
   .page-content {
-    padding: 0 !important;
     min-height: 300px !important;
     padding: 0 20px 20px !important;
     margin: 0 !important;
@@ -1538,7 +1537,7 @@ Page sidebar
 @media (min-width: 961px) {
   /* 992px */
   .page-sidebar {
-    width: 275px;
+    width: 250px;
     float: right;
     position: relative;
     margin-left: -100%;
@@ -1559,7 +1558,7 @@ Page sidebar
     margin-right: -100%;
   }
   .page-sidebar-reversed.page-sidebar-fixed .page-sidebar {
-    margin-right: -275px;
+    margin-right: -250px;
   }
   .page-sidebar-reversed.page-sidebar-fixed .page-sidebar-wrapper {
     position: relative;
@@ -1877,7 +1876,7 @@ Page content
     width: 100%;
   }
   .page-content-wrapper .page-content {
-    margin-right: 275px;
+    margin-right: 250px;
     margin-top: 0;
     min-height: 600px;
     padding: 0 20px 0 0;
