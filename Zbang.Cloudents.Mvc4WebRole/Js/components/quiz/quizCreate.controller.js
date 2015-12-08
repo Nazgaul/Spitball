@@ -8,7 +8,7 @@
         var self = this;
         self.boxUrl = boxUrl;
         draft = draft || {
-            questions: [new question(), new question()]
+            questions: [new question()]
         };
         self.name = draft.name || '';
         self.quizNameDisabled = self.name.length;
@@ -16,7 +16,7 @@
 
         self.openClose = openClose;
 
-        for (var k = draft.questions.length; k < 2; k++) {
+        for (var k = draft.questions.length; k < 1; k++) {
             draft.questions.push(new question);
         }
 
@@ -176,7 +176,19 @@
             });
         }
         function addQuestion() {
-            self.questions.push(new question());
+            var valid = true;
+            for (var u = 0; u < draft.questions.length; u++) {
+                var q2 = draft.questions[u];
+                if (isQuestionOk(q2)) {
+                    q2.done = true;
+                }
+                else {
+                    valid = false;
+                }
+            }
+            if (valid) {
+                self.questions.push(new question());
+            }
         };
         function addAnswer(q) {
             q.answers.push(new answer());

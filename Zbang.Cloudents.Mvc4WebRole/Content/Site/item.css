@@ -80,6 +80,10 @@
   width: 20px;
   height: 20px;
 }
+.itemPage .iframeContent {
+  height: calc(100vh - 270px);
+  width: calc(100% - 155px);
+}
 .itemPage .arrows svg {
   width: 40px;
   height: 40px;

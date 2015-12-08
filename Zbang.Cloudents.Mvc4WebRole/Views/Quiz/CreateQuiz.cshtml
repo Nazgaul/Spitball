@@ -1,4 +1,5 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using QuizResources = Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources.QuizResources
 
 <div class="full-screen quiz-create">
     <header>
@@ -7,7 +8,7 @@
     </header>
     <div class=" full-screen-body not-supported">@QuizResources.NotSupported</div>
 
-    <div class="supported" next-question>
+    <div class="supported">
 
         <span>@QuizResources.Course Name</span>
         <input class="form-control" ng-disabled="q.quizNameDisabled" type="text" placeholder="Enter quiz name" autofocus required ng-model="q.name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
@@ -82,6 +83,6 @@
     <div>(@QuizResources.OnlyYou)</div>
     <div class="buttons">
         <button type="button" class="btn btn-default save text-capitalize" ng-click="c.draft()">@QuizResources.Draft</button>
-        <button type="button" class="btn btn-default delete text-capitalize" ng-click="c.delete()">@QuizResources.Delete</button>
+        <button type="button" class="btn btn-default delete text-capitalize" ng-click="c.delete()">@GeneralResources.Delete</button>
     </div>
 </script>

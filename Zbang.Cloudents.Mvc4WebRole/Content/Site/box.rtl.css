@@ -172,7 +172,20 @@
 .feed .items-container {
   overflow-x: auto;
   white-space: nowrap;
-  padding-right: 47px;
+  margin-right: 47px;
+  margin-left: 15px;
+}
+.feed .items-container li:first-child {
+  padding-right: 0;
+}
+.feed .posts-list .actions {
+  margin: 10px 40px 0 0;
+}
+.feed .quiz .top .first-letter {
+  font-size: 40px;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
 }
 .feed .comment {
   background: #181c1d;
@@ -249,20 +262,24 @@
   margin-right: 50px;
 }
 .feed .actions {
-  color: #323538;
+  color: #5d6063;
   padding-bottom: 10px;
-  margin: 10px 40px 0 0;
+  margin-top: 10px;
   font-size: 13px;
   position: relative;
 }
 .feed .actions svg {
   width: 20px;
   height: 20px;
-  fill: #323538;
+  fill: #5d6063;
   vertical-align: middle;
 }
 .feed .actions svg:hover {
   fill: #5B9CC2;
+}
+.feed .actions .anonymous {
+  width: 28px;
+  height: 28px;
 }
 .feed .actions .anonymous:hover {
   fill: #d39f10;
@@ -277,13 +294,23 @@
 .feed .post > .content-text {
   padding: 38px 46px 0 0;
 }
+.feed li.post:last-child {
+  margin-bottom: 0;
+}
 .feed .content-text {
   line-height: 22px;
   margin-bottom: 10px;
   margin-left: 15px;
 }
+.feed .content-text img {
+  max-width: 100%;
+}
 .feed .add-reply {
   display: none;
+}
+.feed .add-reply .reply-wrapper {
+  border: 1px solid #5d6063;
+  margin-bottom: 10px;
 }
 .feed .quiz .base {
   width: 100px;
@@ -310,7 +337,6 @@
         padding: 2px 10px 0 10px;
         font-size: 13px;
         border-radius: 6px;
-        margin: 5px 0 0 20px;
         color: @textColorWhite;
     }*/
 }
@@ -328,6 +354,9 @@
 .add-comment :-ms-input-placeholder {
   color: #323538;
 }
+.add-comment label {
+  margin-bottom: 0;
+}
 .add-comment .list-inline {
   padding: 22px 0 10px 0;
   overflow-x: hidden;
@@ -340,7 +369,7 @@
   padding: 5px 5px 0;
 }
 .add-comment .new-comment-border {
-  border: 1px solid #3d4348;
+  border: 1px solid #5d6063;
   max-height: 250px;
   overflow: auto;
 }
@@ -727,6 +756,17 @@
   position: relative;
   padding: 0;
   margin: 5px;
+  background: #f9f9f9;
+  margin: 0 10px;
+  border: none;
+  padding: 5px 5px 0;
+}
+.file-upload .file {
+  height: 100%;
+}
+.file-upload .file-footer {
+  width: 100%;
+  margin-bottom: 8px;
 }
 .file-upload .progress-wrap {
   background: #f5f5f5;
@@ -748,11 +788,11 @@
 }
 .file-upload .check-mark {
   position: absolute;
-  top: -16px;
-  left: -8px;
+  top: -10px;
+  left: -10px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.6);
-  padding: 3px 4px;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 5px;
   z-index: 1;
 }
 .file-upload .check-mark svg {
@@ -766,7 +806,8 @@
   color: #8dc63f;
 }
 .file-upload .file-size {
-  background: #f5f5f5;
+  text-align: right;
+  font-weight: bold;
 }
 .file-upload .file-upload-progress {
   height: 5px;
@@ -779,11 +820,14 @@
 .file-upload .file-name {
   height: 100px;
   position: relative;
-  background: #f5f5f5;
+  background: #c3c3c3;
   padding-top: 4px;
 }
 .file-upload button {
-  width: 100%;
   background-color: #db4437;
   color: #f5f5f5;
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  margin-top: 3px;
 }
