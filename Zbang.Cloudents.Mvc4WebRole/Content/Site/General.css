@@ -393,18 +393,9 @@ md-dialog-actions {
   z-index: 5;
   border-bottom: 5px solid #282828;
 }
-.full-screen header .close {
-  position: absolute;
-  top: 20px;
-  right: 50px;
-}
-.full-screen header .close svg {
-  width: 20px;
-  height: 20px;
-  fill: #C2C2C2;
-}
 .full-screen .full-screen-body {
   margin-top: 80px;
+  min-height: calc( 100% - 80px);
 }
 .r-table {
   display: table;

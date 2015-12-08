@@ -59,6 +59,22 @@
 
         i.showRename = showRename;
 
+        i.swipeLeft = swipeLeft;
+        i.swipeRight = swipeRight;
+
+        function swipeLeft() {
+            if (i.details.next) {
+                $location.url(i.details.next);
+            }
+        }
+
+       
+        function swipeRight() {
+            if (i.details.previous) {
+                $location.url(i.details.previous);
+            }
+        }
+
         function showRename() {
             i.selectedState = i.state.rename;
             i.renameText = i.details.name;
