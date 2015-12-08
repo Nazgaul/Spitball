@@ -194,7 +194,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.module.js"),
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.filter.js"),
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.directive.js"),
-                        new JsFileWithCdn("~/js/components/quiz/nextQuestion.js"),
+                        //new JsFileWithCdn("~/js/components/quiz/nextQuestion.js"),
 
 
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.challenge.module.js"),

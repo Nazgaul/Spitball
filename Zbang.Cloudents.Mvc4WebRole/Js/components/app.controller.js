@@ -37,8 +37,12 @@
             } else {
                 self.hideSearch = false;
             }
-
+           
         });
+
+        //$rootScope.$on('viewContentLoaded', function() {
+        //    svg4everybody();
+        //});
 
 
 
