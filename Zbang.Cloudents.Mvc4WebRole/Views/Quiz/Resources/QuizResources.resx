@@ -175,7 +175,10 @@
     <value>No answer given</value>
   </data>
   <data name="NotSupported" xml:space="preserve">
-    <value>This section is not supported</value>
+    <value>Quiz creation is only available on Spitball desktop site.
+Please go to www.spitball.co on desktop to make yours.
+In the meantime,
+browse the existing quizzes!</value>
   </data>
   <data name="OfClassmates" xml:space="preserve">
     <value>of your classmates took this quiz</value>

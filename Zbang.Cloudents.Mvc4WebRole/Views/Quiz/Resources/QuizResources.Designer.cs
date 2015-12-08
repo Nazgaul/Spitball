@@ -241,7 +241,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This section is not supported.
+        ///   Looks up a localized string similar to Quiz creation is only available on Spitball desktop site.
+        ///Please go to www.spitball.co on desktop to make yours.
+        ///In the meantime,
+        ///browse the existing quizzes!.
         /// </summary>
         public static string NotSupported {
             get {
