@@ -27,3 +27,7 @@
   vertical-align: middle;
   margin-right: 15px;
 }
+.page-sidebar-menu .arrow svg {
+  width: 20px;
+  height: 20px;
+}
