@@ -71,10 +71,12 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="row" infinite-scroll="u.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
-                        <div class="{{u.bootstrapClass}}" ng-repeat="e in u.elements" ng-include="u.template()"></div>
+                    <div layout="row" layout-wrap layout-align="space-between center" infinite-scroll="u.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+                        <div flex="{{u.angularGridAttribute}}" ng-repeat="e in u.elements" ng-include="u.template()"></div>
                     </div>
-                </div>
+                    @*<div class="row" infinite-scroll="u.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+                        <div class="{{u.bootstrapClass}}" ng-repeat="e in u.elements" ng-include="u.template()"></div>
+                    </div>*@
             </div>
         </div>
     </div>
