@@ -1,102 +1,107 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-
-<div class="page-head">
-    <div class="page-title">
-        <h1>{{::l.universityName}}</h1>
-        <div ng-if="l.nodeDetail && !l.settingsOpen" layout="row" layout-align="space-between center">
-            <h2><a href="{{::l.nodeDetail.parentUrl}}">back {{::l.nodeDetail.name}}</a></h2>
-            <button flex="none" type="button" ng-click="l.toggleSettings()">@Html.Svg("/images/site/box-icons.svg", "settings")</button>
+<div class="library">
+    <div class="page-head">
+        <div class="page-title">
+            <h1>{{::l.universityName}}</h1>
+            <div ng-if="l.nodeDetail && !l.settingsOpen" layout="row" layout-align="space-between center">
+                <h2 layout="row">
+                    <a href="{{::l.nodeDetail.parentUrl}}">
+                        <span class="arrow back-arrow">@Html.Svg("~/images/site/icons.svg", "arrow")</span>
+                        {{::l.nodeDetail.name}}
+                    </a>
+                </h2>
+                <button flex="none" type="button" ng-click="l.toggleSettings()">@Html.Svg("/images/site/box-icons.svg", "settings")</button>
+            </div>
         </div>
     </div>
-</div>
-@{ Html.RenderPartial("_Settings");}
-<div layout="row" layout-padding layout-wrap class="library margin-top-10">
-   
-    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex department-wrap" ng-repeat=" dep in l.departments">
-        <a href="{{::dep.url}}" class="dashboard-stat2 department" d-color="{{::dep.name.length}}">
-            <div class="corner" d-color="{{::dep.name.length}}">
-            </div>
-            <div class="display">
-                <div class="number">
-                    <h3 class="multi-line-ellipsis limit-three">{{::dep.name}}</h3>
+    @{ Html.RenderPartial("_Settings");}
+    <div layout="row" layout-padding layout-wrap class="margin-top-10">
+
+        <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex department-wrap" ng-repeat=" dep in l.departments">
+            <a href="{{::dep.url}}" class="dashboard-stat2 department" d-color="{{::dep.name.length}}">
+                <div class="corner" d-color="{{::dep.name.length}}">
                 </div>
-            </div>
-            <div class="progress-info">
-                <div class="progress background" d-color="{{::dep.name.length}}">
-                </div>
-                <div class="status">
-                    <div class="status-title">
-                        {{::dep.noBoxes}} Courses
+                <div class="display">
+                    <div class="number">
+                        <h3 class="multi-line-ellipsis limit-three">{{::dep.name}}</h3>
                     </div>
                 </div>
+                <div class="progress-info">
+                    <div class="progress background" d-color="{{::dep.name.length}}">
+                    </div>
+                    <div class="status">
+                        <div class="status-title">
+                            {{::dep.noBoxes}} Courses
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <md-menu ng-if="l.canDelete(dep)">
+                <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
+                    @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
+                </md-button>
+                <md-menu-content width="1">
+                    <md-menu-item>
+                        <md-button aria-label="remove department" ng-click="l.deleteDepartment($event,dep)">
+                            @GeneralResources.Delete
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </div>
+        <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
+        <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="create-box flex" ng-if="l.createDepartmentShow">
+            <div class="dashboard-stat2">
+                <button type="button" ng-hide="l.createDepartmentOn" ng-click="l.createDepartmentOn = true" class="create-btn">
+                    <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
+                    <div class="title">add department</div>
+                </button>
+                <form name="createDepartment" novalidate ng-submit="l.createDepartment()" ng-show="l.createDepartmentOn">
+                    <md-content layout="column">
+                        <md-input-container flex>
+                            <label>Enter department name</label>
+                            <input autocomplete="off" required ng-model="l.departmentName" />
+                        </md-input-container>
+                        <span class="error" ng-show="l.error">{{l.error}}</span>
+                    </md-content>
+
+                    <span layout="row" layout-align="end center">
+                        <button type="button" class="btn btn-default text-capitalize" ng-click="l.departmentCancel()">cancel</button>
+                        <button type="submit" class="btn btn-primary text-capitalize" ng-disabled="!createDepartment.$valid">done</button>
+                    </span>
+                </form>
             </div>
-        </a>
-        <md-menu ng-if="l.canDelete(dep)">
-            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
-                @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
-            </md-button>
-            <md-menu-content width="1">
-                <md-menu-item>
-                    <md-button aria-label="remove department" ng-click="l.deleteDepartment($event,dep)">
-                        @GeneralResources.Delete
-                    </md-button>
-                </md-menu-item>
-            </md-menu-content>
-        </md-menu>
-    </div>
-    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
-    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="create-box flex" ng-if="l.createDepartmentShow">
-        <div class="dashboard-stat2">
-            <button type="button" ng-hide="l.createDepartmentOn" ng-click="l.createDepartmentOn = true" class="create-btn">
-                <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-                <div class="title">add department</div>
-            </button>
-            <form name="createDepartment" novalidate ng-submit="l.createDepartment()" ng-show="l.createDepartmentOn">
-                <md-content layout="column">
-                    <md-input-container flex>
-                        <label>Enter department name</label>
-                        <input autocomplete="off" required ng-model="l.departmentName" />
-                    </md-input-container>
-                    <span class="error" ng-show="l.error">{{l.error}}</span>
-                </md-content>
-
-                <span layout="row" layout-align="space-between center">
-                    <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="l.departmentCancel()">cancel</button>
-                    <button type="submit" class="btn btn-primary text-capitalize pull-right" ng-disabled="!createDepartment.$valid">done</button>
-                </span>
-            </form>
+        </div>
+        <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="create-box flex" ng-if="l.createClassShow">
+            <div class="dashboard-stat2">
+                <button ng-hide="l.createBoxOn" type="button" ng-click="l.createBoxOn = true" class="create-btn">
+                    <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
+                    <div class="title">add class</div>
+                </button>
+                <form name="createBox" novalidate ng-submit="l.createBox()" ng-show="l.createBoxOn">
+                    <md-content layout="column" flex>
+                        <span class="error" ng-show="l.error">{{l.error}}</span>
+                        <md-input-container flex ng-if="!l.secondStep">
+                            <label>Enter class name</label>
+                            <input autocomplete="off" required ng-model="l.boxName" />
+                        </md-input-container>
+                        <md-input-container flex ng-if="l.secondStep">
+                            <label>Enter code</label>
+                            <input autocomplete="off" ng-model="l.code" />
+                        </md-input-container>
+                        <md-input-container flex ng-if="l.secondStep">
+                            <label>instractor</label>
+                            <input autocomplete="off" ng-model="l.professor" />
+                        </md-input-container>
+                        <span class="error" ng-show="l.error">{{l.error}}</span>
+                    </md-content>
+                    <span layout="row" layout-align="end stretch">
+                        <button type="button" class="btn btn-default text-capitalize" ng-click="l.boxCancel()">cancel</button>
+                        <button type="button" class="btn btn-primary text-capitalize" ng-if=" !l.secondstep" ng-disabled="!l.boxName" ng-click="l.boxNext()">next</button>
+                        <button type="submit" class="btn btn-primary text-capitalize" ng-if=" l.secondstep" ng-disabled="!createBox.$valid">done</button>
+                    </span>
+                </form>
+            </div>
         </div>
     </div>
-    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="create-box flex" ng-if="l.createClassShow">
-        <div class="dashboard-stat2">
-            <button ng-hide="l.createBoxOn" type="button" ng-click="l.createBoxOn = true" class="create-btn">
-                <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-                <div class="title">add class</div>
-            </button>
-            <form name="createBox" novalidate ng-submit="l.createBox()" ng-show="l.createBoxOn">
-                <md-content layout="column" flex>
-                    <span class="error" ng-show="l.error">{{l.error}}</span>
-                    <md-input-container flex ng-if="!l.secondStep">
-                        <label>Enter class name</label>
-                        <input autocomplete="off" required ng-model="l.boxName" />
-                    </md-input-container>
-                    <md-input-container flex ng-if="l.secondStep">
-                        <label>Enter code</label>
-                        <input autocomplete="off" ng-model="l.code" />
-                    </md-input-container>
-                    <md-input-container flex ng-if="l.secondStep">
-                        <label>instractor</label>
-                        <input autocomplete="off" ng-model="l.professor" />
-                    </md-input-container>
-                    <span class="error" ng-show="l.error">{{l.error}}</span>
-                </md-content>
-                <span layout="row" layout-align="space-between stretch">
-                    <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="l.boxCancel()">cancel</button>
-                    <button type="button" class="btn btn-primary text-capitalize pull-right" ng-if=" !l.secondstep" ng-disabled="!l.boxName" ng-click="l.boxNext()">next</button>
-                    <button type="submit" class="btn btn-primary text-capitalize pull-right" ng-if=" l.secondstep" ng-disabled="!createBox.$valid">done</button>
-                </span>
-            </form>
-        </div>
-    </div>
-
 </div>
