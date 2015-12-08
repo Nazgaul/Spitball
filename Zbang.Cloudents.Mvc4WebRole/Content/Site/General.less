@@ -375,21 +375,22 @@ md-dialog-actions {
         z-index: 5;
         border-bottom: 5px solid @borderColorBlack;
 
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 50px;
-
-            svg {
-                width: 20px;
-                height: 20px;
-                fill: #C2C2C2;
-            }
-        }
+        //.close {
+        //    position: absolute;
+        //    top: 20px;
+        //    right: 50px;
+        //
+        //    svg {
+        //        width: 20px;
+        //        height: 20px;
+        //        fill: #C2C2C2;
+        //    }
+        //}
     }
 
     .full-screen-body {
         margin-top: @fullScreenHeaderHeight;
+        min-height: ~"calc( 100% - 80px)";
     }
 }
 

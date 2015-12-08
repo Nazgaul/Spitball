@@ -477,7 +477,8 @@
   width: 20vw;
   height: 20vw;
   text-align: center;
-  line-height: 20vw;
+  line-height: 90%;
+  text-transform: lowercase;
 }
 @media (min-width: 600px) {
   .quiz .top .first-letter,
@@ -485,7 +486,6 @@
     font-size: 13vw;
     width: 13vw;
     height: 13vw;
-    line-height: 13vw;
   }
 }
 @media (min-width: 960px) {
@@ -494,7 +494,6 @@
     font-size: 8vw;
     width: 8vw;
     height: 8vw;
-    line-height: 8vw;
   }
 }
 @media (min-width: 1200px) {
@@ -503,12 +502,27 @@
     font-size: 3vw;
     width: 3vw;
     height: 3vw;
-    line-height: 3vw;
   }
 }
 .quiz .top .draft {
   text-transform: uppercase;
   width: 100%;
+  font-size: 6.5vw;
+}
+@media (min-width: 600px) {
+  .quiz .top .draft {
+    font-size: 6.5vw;
+  }
+}
+@media (min-width: 960px) {
+  .quiz .top .draft {
+    font-size: 4vw;
+  }
+}
+@media (min-width: 1200px) {
+  .quiz .top .draft {
+    font-size: 1.5vw;
+  }
 }
 .quiz .top.draft-wpr {
   border: 1px solid #fff;

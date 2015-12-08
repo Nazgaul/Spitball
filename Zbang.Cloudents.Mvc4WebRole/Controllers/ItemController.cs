@@ -62,7 +62,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [BoxPermission("boxId", Order = 2)]
-        [RedirectToMobile(Order = 1)]
         //[DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
         //  Duration = TimeConsts.Hour * 1, VaryByParam = "itemid",
         //  Location = OutputCacheLocation.Server, Order = 4)]

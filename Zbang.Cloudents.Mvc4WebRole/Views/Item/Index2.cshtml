@@ -36,7 +36,7 @@
         <button type="button" ng-click="app.back(i.details.boxUrl)">@Html.Svg("~/images/site/icons.svg", "close")</button>
 
     </header>
-    <div class="full-screen-body">
+    <div class="full-screen-body" md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">
         <div class="fileName" layout="row" layout-align="center center">
             <div class="name-info" ng-if="i.selectedState === i.state.regular">
                 <span>{{i.details.name}}</span>

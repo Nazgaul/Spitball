@@ -71,7 +71,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //TODO: put output cache
         [HttpGet]
         [NoCache]
-        [RedirectToMobile(Order = 1)]
         public ActionResult Choose()
         {
             return View("Empty");
