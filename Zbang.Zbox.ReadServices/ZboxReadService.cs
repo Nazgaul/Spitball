@@ -376,12 +376,12 @@ namespace Zbang.Zbox.ReadServices
                 using (
                     var grid =
                         await
-                            conn.QueryMultipleAsync(string.Format("{0} {1}",
+                            conn.QueryMultipleAsync(string.Format("{0} {1} {2}",
                             Sql.Item.ItemDetail,
-                            Sql.Item.Navigation
+                            Sql.Item.Navigation,
                     //Sql.Item.ItemComments,
                     //Sql.Item.ItemCommentReply,
-                    //Sql.Item.UserItemRate
+                          Sql.Item.UserItemRate
                             ),
                                 new { query.ItemId, query.BoxId, query.UserId }))
                 {
@@ -402,7 +402,7 @@ namespace Zbang.Zbox.ReadServices
                     //    comment.Replies.AddRange(replies.Where(w => w.ParentId == comment.Id));
 
                     //}
-                    //retVal.Rate = grid.Read<int>().FirstOrDefault();
+                    retVal.Rate = grid.Read<int>().FirstOrDefault();
                     return retVal;
                 }
 

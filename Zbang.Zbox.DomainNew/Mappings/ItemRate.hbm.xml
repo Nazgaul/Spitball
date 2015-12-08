@@ -9,6 +9,6 @@
 
     <many-to-one name="Item" lazy="false"  class="Item" column="ItemId" not-null="true" foreign-key="itemIdItemRate" unique-key="itemrateItemIdOwnerId"/>
     <many-to-one name="User" class="User" column="OwnerId" not-null="true" foreign-key="ownerIdItemRate" unique-key="itemrateItemIdOwnerId"/>
-    <!--<property name="Rate" column="Rate" not-null="true"/>-->
+    <property name="Rate" column="Rate" not-null="true"/>
   </class>
 </hibernate-mapping>
