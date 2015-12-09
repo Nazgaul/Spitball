@@ -154,11 +154,11 @@
         </div>
     </div>
     <div class="right-side-area" layout-padding flex-sm="100" flex-md="33" flex-lg="50" flex-gt-lg="50">
-        <div layout="row" layout-align="space-between stretch">
+        <div layout="row" layout-align="space-between center">
             <div flex-lg="50" flex-gt-lg="50">
                 @{ Html.RenderPartial("_LeaderBoard");}
             </div>
-            <div layout="row" class="portlet light invite" flex-lg="50" flex-gt-lg="50">
+            <div class="portlet light invite" flex-lg="50" flex-gt-lg="50">
                 <button type="button" ng-click="b.inviteToBox()" class="portlet-body">
                     @Html.Svg("~/images/site/icons.svg", "invite")
                     @BoxResources.InviteFriends

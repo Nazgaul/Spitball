@@ -52,6 +52,9 @@
 .invite .tab-from-right .mail {
   margin-right: 0;
 }
+.invite button {
+  margin: 0 auto;
+}
 .invite .body {
   background: #181c1d;
 }
