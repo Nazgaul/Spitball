@@ -1,4 +1,7 @@
-﻿.search ::-webkit-input-placeholder {
+﻿.search {
+  background: #181c1d;
+}
+.search ::-webkit-input-placeholder {
   color: #888b8e;
 }
 .search :-moz-placeholder {
@@ -16,20 +19,18 @@
 .search .tabbable {
   display: none;
 }
-@media (max-width: 992px) {
+@media (max-width: 959px) {
   .search .nav-tabs,
   .search .tabbable {
     display: block;
   }
-  .search .nav-tabs .s-hide,
-  .search .tabbable .s-hide {
+}
+@media (max-width: 959px) {
+  .search .s-hide {
     display: none;
   }
 }
-.search .dashboard-stat2 {
-  margin-bottom: 12px;
-}
-@media (max-width: 992px) {
+@media (max-width: 959px) {
   .search h3 {
     display: none;
   }

@@ -1,6 +1,7 @@
 ﻿@import "variables.less";
 
 .search {
+    background: @backgroundColor;
 
     ::-webkit-input-placeholder {
         color: @textColorGrey;
@@ -21,20 +22,24 @@
     .nav-tabs, .tabbable {
         display: none;
 
-        @media (max-width: 992px) {
+        @media (max-width: 959px) {
             display: block;
-
-            .s-hide {
-                display: none;
-            }
         }
     }
+
+    @media (max-width: 959px) {
+
+        .s-hide {
+            display: none;
+        }
+    }
+
     .dashboard-stat2 {
-        margin-bottom:12px;
+        //  margin-bottom:12px;
     }
 
     h3 {
-        @media (max-width: 992px) {
+        @media (max-width: 959px) {
             display: none;
         }
     }
