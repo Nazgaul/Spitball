@@ -583,11 +583,7 @@
             line-height: 90%;
             text-transform: lowercase;
 
-            .sizeOfLetter(@size) {
-                font-size: @size;
-                width: @size;
-                height: @size;
-            }
+           
 
             @media (min-width: 600px) {
                 .sizeOfLetter(@sizeOfTextSmall);
@@ -597,7 +593,7 @@
                 .sizeOfLetter(@sizeOfTextMedium);
             }
 
-            @media (min-width: 1200px) {
+            @media (min-width: 1280px) {
                 .sizeOfLetter(@sizeOfTextLarge);
             }
         }

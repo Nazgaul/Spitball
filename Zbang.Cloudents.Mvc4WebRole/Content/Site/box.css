@@ -499,7 +499,7 @@
     height: 8vw;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 1280px) {
   .quiz .top .first-letter,
   .quiz .top .draft {
     font-size: 3vw;
