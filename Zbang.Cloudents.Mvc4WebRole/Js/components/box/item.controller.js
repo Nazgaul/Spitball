@@ -37,6 +37,9 @@
         }
 
         function addTab() {
+            if (!i.newFolderName) {
+                i.newFolderTabOpened = false;
+            }
             boxService.createTab(i.newFolderName, boxId).then(function(response) {
                 i.tabs.push(response);
                 i.newFolderTabOpened = false;
@@ -51,6 +54,7 @@
             i.items.splice(index, 1);
         }
         function tabChange(tab) {
+            $rootScope.$broadcast('close-collapse');
             //i.tabSelectedId = tab.id;
             i.tabSelected = tab;
             resetParams();
@@ -88,7 +92,7 @@
         }
 
         function openUpload() {
-            $rootScope.$broadcast('open_upload');
+            $rootScope.$broadcast('open_upload', i.tabSelected.id);
             i.uploadShow = false;
         }
 

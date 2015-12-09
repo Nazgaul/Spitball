@@ -13,8 +13,8 @@
                         <div class="text ellipsis" ng-if="!i.openRenameTab">
                             {{i.tabSelected.name}}
                         </div>
-                        <form class="content" ng-if="i.openRenameTab" ng-submit="i.renameTab()">
-                            <input autofocus class="designed-input" type="text" required ng-model="i.tabNewName" />
+                        <form class="content" ng-if="i.openRenameTab" ng-submit="i.renameTab()" >
+                            <input autofocus class="designed-input" type="text" required ng-model="i.tabNewName"  />
                         </form>
                     </div>
                     <md-menu ng-if="!b.needFollow">
@@ -55,8 +55,8 @@
                 </span>
             </button>
         </div>
-        <form class="content" ng-if="i.newFolderTabOpened" ng-submit="i.addTab()">
-            <input required autofocus type="text" class="designed-input" ng-model="i.newFolderName" />
+        <form class="content" ng-if="i.newFolderTabOpened" ng-submit="i.addTab()" >
+            <input required autofocus type="text" class="designed-input" ng-model="i.newFolderName" ng-blur="i.addTab()" />
         </form>
     </li>
 
