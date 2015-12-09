@@ -45,8 +45,8 @@
         </md-input-container>
     </div>
 </div>
-<ul ayout-fill layout-wrap class="list-unstyled folders" layout="row" layout-align="start center" ng-if="!i.tabSelected.id">
-    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" hide-sm class="add-folder folder-name item-animate i-q-wrapper" ng-click="i.newFolderTabOpened=true" >
+<ul layout-padding layout-wrap class="list-unstyled folders" layout="row" layout-align="start center" ng-if="!i.tabSelected.id">
+    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="add-folder folder-name item-animate i-q-wrapper" ng-click="i.newFolderTabOpened=true">
         <div class="content" ng-if="!i.newFolderTabOpened">
             <button layout="row" layout-align="start center" type="button">
                 @Html.Svg("~/images/site/icons.svg", "add")
@@ -55,13 +55,13 @@
                 </span>
             </button>
         </div>
-        <form class="content" ng-if="i.newFolderTabOpened" ng-submit="i.addTab()" >
+        <form class="content" ng-if="i.newFolderTabOpened" ng-submit="i.addTab()">
             <input required autofocus type="text" class="designed-input" ng-model="i.newFolderName" ng-blur="i.addTab()" />
         </form>
     </li>
 
 
-    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" hide-sm ui-on-drop="i.test($event,$data)" class="folder-name i-q-wrapper" ng-repeat="e in i.tabs" ng-click="i.tabChange(e)">
+    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" ui-on-drop="i.test($event,$data)" class="folder-name i-q-wrapper" ng-repeat="e in i.tabs" ng-click="i.tabChange(e)">
         <div layout="row" layout-align="space-between center">
             <div class="name-and-icon" layout="row" layout-align="start center">
                 <div layout="row" class="icon">@Html.Svg("~/images/folder_icon.svg", "folder")</div>
@@ -73,16 +73,16 @@
     </li>
 </ul>
 
-<ul layout="row" layout-fill layout-wrap class="list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
-    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" hide-sm class="item-animate add-button i-q-wrapper" ng-click="i.openUpload()">
-        <div class="content">
+<ul layout="row" layout-padding layout-fill layout-wrap class="list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" hide-xs class="item-animate add-button " ng-click="i.openUpload()">
+        <div class="content ">
             <button type="button">
                 @Html.Svg("~/images/site/icons.svg", "add")
                 @BoxResources.UploadFiles
             </button>
         </div>
     </li>
-    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" class="item-animate i-q-wrapper" ng-repeat="e in i.items track by e.id ">
+    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="item-animate i-q-wrapper" ng-repeat="e in i.items track by e.id ">
         <div ui-draggable="true" drag="e" on-drop-success="i.dropToTabSuccess($index)" ng-include="'item-template.html'"></div>
         <md-menu ng-if="b.canDelete(e.ownerId)">
             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">

@@ -17,7 +17,7 @@
     @{ Html.RenderPartial("_Settings");}
     <div layout="row" layout-padding layout-wrap class="margin-top-10">
 
-        <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex department-wrap" ng-repeat=" dep in l.departments">
+        <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" class="flex department-wrap" ng-repeat=" dep in l.departments">
             <a href="{{::dep.url}}" class="dashboard-stat2 department" d-color="{{::dep.name.length}}">
                 <div class="corner" d-color="{{::dep.name.length}}">
                 </div>
@@ -49,8 +49,8 @@
                 </md-menu-content>
             </md-menu>
         </div>
-        <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
-        <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="create-box flex" ng-if="l.createDepartmentShow">
+        <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
+        <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" class="create-box flex" ng-if="l.createDepartmentShow">
             <div class="dashboard-stat2">
                 <button type="button" ng-hide="l.createDepartmentOn" ng-click="l.createDepartmentOn = true" class="create-btn">
                     <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
@@ -72,7 +72,7 @@
                 </form>
             </div>
         </div>
-        <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" class="create-box flex" ng-if="l.createClassShow">
+        <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" class="create-box flex" ng-if="l.createClassShow">
             <div class="dashboard-stat2">
                 <button ng-hide="l.createBoxOn" type="button" ng-click="l.createBoxOn = true" class="create-btn">
                     <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
