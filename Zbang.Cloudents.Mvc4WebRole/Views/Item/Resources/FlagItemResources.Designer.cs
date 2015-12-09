@@ -59,50 +59,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to We will send you a response within the next 24 hours to the email address you provided .
-        /// </summary>
-        public static string ContactYou {
-            get {
-                return ResourceManager.GetString("ContactYou", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Report abuse.
-        /// </summary>
-        public static string ReportItem {
-            get {
-                return ResourceManager.GetString("ReportItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Thank you, the report has been sent successfully!.
-        /// </summary>
-        public static string ReportSent {
-            get {
-                return ResourceManager.GetString("ReportSent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Report.
-        /// </summary>
-        public static string SendReport {
-            get {
-                return ResourceManager.GetString("SendReport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please submit details below to report this item.
-        /// </summary>
-        public static string WhyReport {
-            get {
-                return ResourceManager.GetString("WhyReport", resourceCulture);
-            }
-        }
     }
 }

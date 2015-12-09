@@ -56,7 +56,7 @@
                 <md-input-container flex>
                     <label>@AccountResource.Lang</label>
                     <md-select name="notification" md-on-close="i.changeLanguage()" ng-model="i.data.language" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
-                        @foreach (var lang in Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures)
+                        @foreach (var lang in Zbang.Zbox.Infrastructure.Culture.Languages.SpitballSupportedCultures)
                         {
                             <md-option value="@lang.Culture">@lang.Name</md-option>
                         }

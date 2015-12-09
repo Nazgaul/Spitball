@@ -38,14 +38,14 @@ Login page
     }
 
     h4 {
-        color: @color10;
+        color: @borderColorLightGrey;
         float: left;
         font-size: 18px;
         margin-bottom: 20px;
     }
 
     h3 {
-        color: @color7;
+        color: @borderColorBlue;
         margin-top: 0;
         margin-bottom: 28px;
         margin-left: 14%;
@@ -53,7 +53,7 @@ Login page
 
     .create-account p,
     .login-account p {
-        color: @color2;
+        color: @textColorWhite;
         line-height: 40px;
     }
 
@@ -61,7 +61,7 @@ Login page
         display: flex;
 
         p {
-            color: @color10;
+            color: @borderColorLightGrey;
             font-size: 11px;
             padding-left: 5%;
             -ms-flex: 2;
@@ -73,7 +73,7 @@ Login page
     }
 
     .form-actions-container label {
-        color: @color10;
+        color: @borderColorLightGrey;
         font-size: 11px;
     }
 }
@@ -95,7 +95,7 @@ Login page
 .login .content .form-control {
     padding-right: 1em;
     background-color: #dde3ec;
-    color: @color10;
+    color: @borderColorLightGrey;
     border: 1px solid #dde3ec;
     border-radius: 0;
     padding-left: 15px;
@@ -132,19 +132,19 @@ Login page
 }
 
 .login .form-group input::-webkit-input-placeholder {
-    color: @color10;
+    color: @borderColorLightGrey;
 }
 
 .login .form-group input:-moz-placeholder { /* Firefox 18- */
-    color: @color10;
+    color: @borderColorLightGrey;
 }
 
 .login .form-group input::-moz-placeholder { /* Firefox 19+ */
-    color: @color10;
+    color: @borderColorLightGrey;
 }
 
 .login .form-group input:-ms-input-placeholder {
-    color: @color10;
+    color: @borderColorLightGrey;
 }
 
 .form-actions-container {
@@ -169,7 +169,7 @@ Login page
         margin-bottom: 30px;
         font-size: 16px;
         font-weight: normal;
-        color: @color10;
+        color: @borderColorLightGrey;
     }
 
     .form-actions {
@@ -196,15 +196,15 @@ Login page
         line-height: 22px;
 
         p {
-            color: @color10;
+            color: @borderColorLightGrey;
         }
 
         .bold {
-            color: @color5;
+            color: @backgroundColorItem;
         }
 
         svg {
-            fill: @color1;
+            fill: @headerImagesColor;
             width: 45px;
             height: 45px;
             margin-top: 25px;
@@ -229,7 +229,7 @@ Login page
 
     .checkbox-design {
         flex-grow: 1;
-        color: @color10;
+        color: @borderColorLightGrey;
 
         .remember-me {
             display: inline-flex;
@@ -237,14 +237,13 @@ Login page
             height: 12px;
             border: 1px solid @textColorGrey;
             padding: 0;
-            margin: 0;
             border-radius: 3px;
             background: grey;
-            background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, @color9 100%);
-            background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, @color9 100%);
-            background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, @color9 100%);
-            background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, @color9 100%);
-            background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, @color9 100%);
+            background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #ccc 100%);
+            background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #ccc 100%);
+            background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #ccc 100%);
+            background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #ccc 100%);
+            background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #ccc 100%);
             filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfff4', endColorstr='#b3bead', GradientType=0);
             margin: 20px auto;
             -webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
@@ -253,7 +252,7 @@ Login page
             position: relative;
         }
 
-        label:after {
+        label:before {
             opacity: 0;
             content: '';
             position: absolute;
@@ -276,7 +275,7 @@ Login page
             display: none;
         }
 
-        input[type=checkbox]:checked + label:after {
+        input[type=checkbox]:checked ~ label:before {
             -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
             filter: alpha(opacity=100);
             opacity: 1;
@@ -285,7 +284,7 @@ Login page
 }
 
 #forget-password {
-    color: @loginColor;
+    color: @textColorSpitballBlue;
 }
 
 #forget-password:hover {
@@ -337,7 +336,7 @@ Login page
 .login .content .login-account a {
     display: inline-block;
     margin-top: 5px;
-    color: @color2;
+    color: @textColorWhite;
 }
 
 
@@ -346,7 +345,7 @@ Login page
 .login .content .select2-container i {
     display: inline-block;
     position: relative;
-    color: @color9;
+    color: #ccc;
     z-index: 1;
     top: 1px;
     margin: 4px 4px 0 -1px;

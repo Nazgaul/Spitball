@@ -1,13 +1,11 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 
-<div class="row " uib-collapse="!b.inviteOpen">
-    <div class="col-md-12">
-        @{Html.RenderPartial("_Invite");}
-    </div>
+<div uib-collapse="!b.inviteOpen">
+    @{Html.RenderPartial("_Invite");}
 </div>
 
 <div class="class">
-    <div  class="page-head">
+    <div class="page-head">
         <div layout="row" layout-align="space-between center" ng-hide="b.settingsOpen" class="page-title" ng-class="{'need-follow' : b.needFollow}">
             <h1 flex>{{b.data.name}}</h1>
             <button flex="none" ng-if="b.needFollow" type="button" ng-click="b.follow()" class="invite-btn text-capitalize">@BoxResources.Follow</button>

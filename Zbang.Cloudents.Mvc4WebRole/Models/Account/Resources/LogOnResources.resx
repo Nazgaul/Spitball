@@ -166,10 +166,10 @@
     <value>Log in to your account</value>
   </data>
   <data name="NoWorries" xml:space="preserve">
-    <value>No worries, click here to reset your password</value>
+    <value>Click here to reset </value>
   </data>
   <data name="OrLoginWith" xml:space="preserve">
-    <value>Or log in with</value>
+    <value>Log in with</value>
   </data>
   <data name="OrSignupWith" xml:space="preserve">
     <value>Or sign up with</value>

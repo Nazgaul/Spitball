@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿/*@color1: #5f6871;
 @loginColor : #3293f6;
 @registerColor: #fff;
@@ -19,6 +20,9 @@
   padding: 0 25px;
 }
 .quiz-create .not-supported {
+=======
+﻿.quiz-create .not-supported {
+>>>>>>> 0abb81347fddf2d695fbd6670fef650600a983e1
   height: 100vh;
   background: #181c1d;
   color: #888b8e;

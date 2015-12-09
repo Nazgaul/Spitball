@@ -61,29 +61,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confirmation code:.
-        /// </summary>
-        public static string Code {
-            get {
-                return ResourceManager.GetString("Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The code you entered is incorrect.
         /// </summary>
         public static string CodeIncorrect {
             get {
                 return ResourceManager.GetString("CodeIncorrect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The code you entered is incorrect.
-        /// </summary>
-        public static string CodeIncorrect2 {
-            get {
-                return ResourceManager.GetString("CodeIncorrect2", resourceCulture);
             }
         }
         
@@ -133,24 +115,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Language:.
-        /// </summary>
-        public static string Language {
-            get {
-                return ResourceManager.GetString("Language", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sorry, your language is not supported.
-        /// </summary>
-        public static string LanguageNotSupported {
-            get {
-                return ResourceManager.GetString("LanguageNotSupported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Last name is required.
         /// </summary>
         public static string LastNameRequired {
@@ -183,24 +147,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         public static string NewPwdEmpty {
             get {
                 return ResourceManager.GetString("NewPwdEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Notifications:.
-        /// </summary>
-        public static string Notifications {
-            get {
-                return ResourceManager.GetString("Notifications", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password:.
-        /// </summary>
-        public static string Password {
-            get {
-                return ResourceManager.GetString("Password", resourceCulture);
             }
         }
         

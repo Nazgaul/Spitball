@@ -135,17 +135,8 @@
   <data name="Creating" xml:space="preserve">
     <value>300 נק' בעבור יצירת מבחן</value>
   </data>
-  <data name="Earn" xml:space="preserve">
-    <value>צבור נק' על ידי:</value>
-  </data>
   <data name="Friends" xml:space="preserve">
     <value>חברים</value>
-  </data>
-  <data name="MaxStars" xml:space="preserve">
-    <value>150 נק' בעבור קבלת 5 כוכבים</value>
-  </data>
-  <data name="MoreStars" xml:space="preserve">
-    <value>100 נק' בעבור קבלת 4 כוכבים</value>
   </data>
   <data name="Points" xml:space="preserve">
     <value>נק'</value>
@@ -158,9 +149,6 @@
   </data>
   <data name="ShareFB" xml:space="preserve">
     <value>50 נק' בעבור שיתוף בפייסבוק</value>
-  </data>
-  <data name="Stars" xml:space="preserve">
-    <value>50 נק' בעבור קבלת 3 כוכבים</value>
   </data>
   <data name="UploadItem" xml:space="preserve">
     <value>100 נק' בעבור העלאת קובץ לקורס</value>

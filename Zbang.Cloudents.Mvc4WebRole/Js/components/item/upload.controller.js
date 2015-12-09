@@ -3,9 +3,7 @@
     upload.$inject = ['$scope', 'itemService', '$q', '$timeout', '$stateParams', '$rootScope', 'externalUploadProvider'];
 
     function upload($scope, itemService, $q, $timeout, $stateParams, $rootScope, externalUploadProvider) {
-        var u = this;
-        // $stateParams.boxId || $scope.$parent.cc.box.id;
-        //var cc = $scope.$parent.cc || {};
+        var u = this, tab = null;
 
         var uploadChoose = {
             none: 0,
@@ -15,7 +13,9 @@
             link: 4
         };
 
-        $scope.$on('open_upload', function () {
+        $scope.$on('open_upload', function (e, args) {
+            tab = args;
+            $rootScope.$broadcast('close-collapse');
             u.open = true;
 
             externalUploadProvider.dropboxInit().then(function () {
@@ -28,11 +28,23 @@
 
         });
 
+        $scope.$on('close-collapse', function () {
+            closeUpload();
+        });
+
         u.closeUpload = closeUpload;
         //u.dropBoxLoaded = false;
         //u.googleDriveLoaded = false;
 
-        u.google = function () {
+        u.google = google;
+        u.dropBox = dropBox;
+        u.uploadStep = uploadChoose.none;
+        u.link = 'http://';
+        u.alert = null;
+        u.submitFormProcess = false;
+        u.uploadLink = uploadLink;
+
+        function google() {
             externalUploadProvider.google($stateParams.boxId).then(function (response) {
                 $rootScope.$broadcast('item_upload', response);
             }, function (response) {
@@ -40,7 +52,7 @@
             });
         }
 
-        u.dropBox = function () {
+        function dropBox() {
             externalUploadProvider.dropBox($stateParams.boxId).then(function (response) {
                 $rootScope.$broadcast('item_upload', response);
             });
@@ -57,17 +69,14 @@
             $rootScope.$broadcast('close_upload');
         }
 
-        u.uploadStep = uploadChoose.none;
 
-        u.link = 'http://';
-        u.alert = null;
-        u.submitFormProcess = false;
 
         $scope.closeAlert = function () {
             u.alert = null;
         }
         //upload 
-        u.uploadLink = function () {
+
+        function uploadLink() {
             if (!u.link) {
                 u.alert = 'not a valid url';
                 return;
@@ -110,6 +119,7 @@
                         fileName: file.name,
                         fileSize: file.size,
                         boxId: $stateParams.boxId,
+                        tabId: tab,
                         comment: false
                     };
                 },

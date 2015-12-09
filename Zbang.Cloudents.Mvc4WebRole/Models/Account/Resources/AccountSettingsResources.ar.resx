@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Code" xml:space="preserve">
-    <value>رمز التأكيد:</value>
-  </data>
-  <data name="CodeIncorrect2" xml:space="preserve">
-    <value>الرمز الذي أدخلته غير صحيح</value>
-  </data>
   <data name="CurrentPassword" xml:space="preserve">
     <value>كلمة المرور الحالية</value>
   </data>
@@ -138,12 +132,6 @@
   <data name="EmailNotCorrect" xml:space="preserve">
     <value>مبنى بريد الكتروني خاطئ</value>
   </data>
-  <data name="Language" xml:space="preserve">
-    <value>لغة</value>
-  </data>
-  <data name="LanguageNotSupported" xml:space="preserve">
-    <value>لغة غير مدعومه  . ارسل رد وسنقوم باضافة اللغه .</value>
-  </data>
   <data name="Min6Chars" xml:space="preserve">
     <value>6احرف على الاقل</value>
   </data>
@@ -152,12 +140,6 @@
   </data>
   <data name="NewPwdEmpty" xml:space="preserve">
     <value>حقل المرور الجديدة لا يمكن ان يكون فارغة</value>
-  </data>
-  <data name="Notifications" xml:space="preserve">
-    <value>تنبيه الى البريد الالكتروني</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>كلمة مرور:</value>
   </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>يرجى إدخال اسم الجامعة</value>

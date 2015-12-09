@@ -117,22 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutUs" xml:space="preserve">
-    <value>מי אנחנו</value>
-  </data>
-  <data name="ContactUs" xml:space="preserve">
-    <value>צור קשר</value>
-  </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>מדיניות פרטיות</value>
   </data>
-  <data name="RightsReserved" xml:space="preserve">
-    <value>כל הזכויות שמורות</value>
-  </data>
   <data name="TermsOfService" xml:space="preserve">
     <value>תנאי שימוש</value>
-  </data>
-  <data name="ZbangIt" xml:space="preserve">
-    <value>ספיטבול</value>
   </data>
 </root>

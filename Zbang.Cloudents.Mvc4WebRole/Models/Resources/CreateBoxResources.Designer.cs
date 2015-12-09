@@ -86,14 +86,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Resources {
                 return ResourceManager.GetString("FieldRequired", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name.
-        /// </summary>
-        public static string TabName {
-            get {
-                return ResourceManager.GetString("TabName", resourceCulture);
-            }
-        }
     }
 }

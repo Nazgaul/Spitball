@@ -117,19 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ContactYou" xml:space="preserve">
-    <value>我们将在 24 小时内将答复发送到你提供的 Email 地址</value>
-  </data>
-  <data name="ReportItem" xml:space="preserve">
-    <value>报告项目</value>
-  </data>
-  <data name="ReportSent" xml:space="preserve">
-    <value>谢谢你，报告已成功发送！</value>
-  </data>
-  <data name="SendReport" xml:space="preserve">
-    <value>发送报告</value>
-  </data>
-  <data name="WhyReport" xml:space="preserve">
-    <value>为什么你要报告该项目？</value>
-  </data>
 </root>

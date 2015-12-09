@@ -135,17 +135,11 @@
   <data name="Creating" xml:space="preserve">
     <value>Creating a quiz: 300 pts </value>
   </data>
-  <data name="Earn" xml:space="preserve">
-    <value>Earn points by:</value>
-  </data>
   <data name="Friends" xml:space="preserve">
     <value>Friends</value>
   </data>
-  <data name="MaxStars" xml:space="preserve">
-    <value>Receiving a 5 star rating: 150 pts </value>
-  </data>
-  <data name="MoreStars" xml:space="preserve">
-    <value>Receiving a 4 star rating: 100 pts </value>
+  <data name="Likes" xml:space="preserve">
+    <value>Getting a like: 150 pts </value>
   </data>
   <data name="Points" xml:space="preserve">
     <value>Points</value>
@@ -158,9 +152,6 @@
   </data>
   <data name="ShareFB" xml:space="preserve">
     <value>Sharing on FB: 50 pts </value>
-  </data>
-  <data name="Stars" xml:space="preserve">
-    <value>Receiving a 3 star rating: 50 pts </value>
   </data>
   <data name="UploadItem" xml:space="preserve">
     <value>Upload an item to a class: 100 pts </value>

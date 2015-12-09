@@ -55,9 +55,11 @@
                             <span>Remember me</span>*@
 
                         <div class="checkbox-design">
-                            <input type="checkbox" name="rememberMe" value="true" id="remember-me">
-                            <label class="remember-me" for="remember-me"></label>
-                            <span>@LogOnResources.RememberMe</span>
+                            @Html.CheckBox("RememberMe", true, new { id = "rememberMe" })
+                            @*<input type="checkbox" name="rememberMe" value="true" id="remember-me">*@
+                            <label class="remember-me" for="rememberMe"></label>
+                            <label for="rememberMe">@LogOnResources.RememberMe</label>
+                            @*<span></span>*@
                         </div>
 
                         <button type="submit" class="btn btn-primary pull-right">

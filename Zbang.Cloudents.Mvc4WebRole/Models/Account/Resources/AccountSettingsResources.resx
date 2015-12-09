@@ -117,15 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Code" xml:space="preserve">
-    <value>Confirmation code:</value>
-  </data>
   <data name="CodeIncorrect" xml:space="preserve">
     <value>The code you entered is incorrect</value>
     <comment>Netanya code error msg (Hebrew)</comment>
-  </data>
-  <data name="CodeIncorrect2" xml:space="preserve">
-    <value>The code you entered is incorrect</value>
   </data>
   <data name="CurrentPassword" xml:space="preserve">
     <value>Current password</value>
@@ -142,12 +136,6 @@
   <data name="EmailNotCorrect" xml:space="preserve">
     <value>This email address is not in the correct format</value>
   </data>
-  <data name="Language" xml:space="preserve">
-    <value>Language:</value>
-  </data>
-  <data name="LanguageNotSupported" xml:space="preserve">
-    <value>Sorry, your language is not supported</value>
-  </data>
   <data name="Min6Chars" xml:space="preserve">
     <value>- Min 6 characters</value>
   </data>
@@ -156,12 +144,6 @@
   </data>
   <data name="NewPwdEmpty" xml:space="preserve">
     <value>You must enter your new password</value>
-  </data>
-  <data name="Notifications" xml:space="preserve">
-    <value>Notifications:</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password:</value>
   </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>Please enter the name of your university </value>

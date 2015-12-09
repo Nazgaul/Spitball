@@ -1,21 +1,4 @@
-﻿/*@color1: #5f6871;
-@loginColor : #3293f6;
-@registerColor: #fff;
-//@siteBg: #212427;
-
-@textColor:#282828; //text color over white background
-
-@color4: #353a3f;
-@color2: #f5f5f5;
-@color3:#292d31;
-@color5:#6a737d;
-@color6:#326F2D;
-@color7:#3598dc;
-@color8:#90A5DB;
-@color9:#cccccc;
-@color10:#8c99a6;
-@color11:#db4437;*/
-.class {
+﻿.class {
   /*.nav-tabs, .tabbable {
         border: 0;
     }*/
@@ -134,6 +117,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 8px;
 }
 .class .add-button a,
 .class .add-button button {
@@ -415,6 +399,18 @@
 }
 .add-comment .dropbox:hover {
   fill: #007ee5;
+}
+.add-comment .google svg:first-child {
+  display: none;
+}
+.add-comment .google svg:last-child {
+  display: inline;
+}
+.add-comment .google:hover svg:first-child {
+  display: inline;
+}
+.add-comment .google:hover svg:last-child {
+  display: none;
 }
 .add-comment .link:hover {
   fill: #64d0ff;
@@ -701,23 +697,25 @@
 }
 .i-q-wrapper {
   position: relative;
-  margin: 0 0.5%;
 }
-@media (min-width: 960px) and (max-width: 1200px) {
-  .i-q-wrapper {
-    margin: 0 1%;
-  }
+.i-q-wrapper .delete {
+  top: 13px;
 }
-@media (min-width: 600px) and (max-width: 960px) {
-  .i-q-wrapper {
-    margin: 0 1.2%;
-  }
-}
-@media (max-width: 600px) {
-  .i-q-wrapper {
-    margin: 0 2%;
-  }
-}
+/*    margin: 0 0.5%;
+
+
+    @media (min-width : 960px ) and (max-width:1280px) {
+        margin: 0 1%;
+    }
+
+    @media (min-width : 600px ) and (max-width:960px) {
+        margin: 0 1.2%;
+    }
+
+    @media (max-width:600px) {
+        margin: 0 2%;
+    }
+}*/
 .item-animate.ng-move,
 .item-animate.ng-enter,
 .item-animate.ng-leave {

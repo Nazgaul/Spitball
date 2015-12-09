@@ -126,7 +126,4 @@
   <data name="FieldRequired" xml:space="preserve">
     <value>يجب تعبئة هذا الحقل</value>
   </data>
-  <data name="TabName" xml:space="preserve">
-    <value>الاسم</value>
-  </data>
 </root>
