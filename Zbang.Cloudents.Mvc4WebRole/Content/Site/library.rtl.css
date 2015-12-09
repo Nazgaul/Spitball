@@ -1,21 +1,4 @@
 ﻿/* Set default body */
-/*@color1: #5f6871;
-@loginColor : #3293f6;
-@registerColor: #fff;
-//@siteBg: #212427;
-
-@textColor:#282828; //text color over white background
-
-@color4: #353a3f;
-@color2: #f5f5f5;
-@color3:#292d31;
-@color5:#6a737d;
-@color6:#326F2D;
-@color7:#3598dc;
-@color8:#90A5DB;
-@color9:#cccccc;
-@color10:#8c99a6;
-@color11:#db4437;*/
 .library .corner:after {
   content: "";
   display: inline-block;

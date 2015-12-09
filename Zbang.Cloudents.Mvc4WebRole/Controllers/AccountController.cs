@@ -317,7 +317,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     var identity = await user.GenerateUserIdentityAsync(m_UserManager, systemUser.Id,
                         systemUser.UniversityId, systemUser.UniversityData);
-                    m_AuthenticationManager.SignIn(identity);
+                    m_AuthenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = model.RememberMe,
+                    } , identity);
 
                     m_CookieHelper.RemoveCookie(Invite.CookieName);
                     m_LanguageCookie.InjectCookie(systemUser.Culture);
