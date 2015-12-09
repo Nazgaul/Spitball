@@ -117,6 +117,7 @@
 }
 .library-choose .code form {
   padding-right: 30px;
+  min-height: 400px;
 }
 .library-choose .code .info-i {
   width: 30px;
@@ -124,12 +125,14 @@
   fill: #5f6871;
 }
 .library-choose .code .arrow-up {
+  display: none;
   position: absolute;
-  bottom: -230px;
-  right: 18px;
-  background: #181c1d;
+  top: 55px;
+  right: -25px;
+  background: #323538;
   border-radius: 5px;
   padding: 15px;
+  width: 300px;
 }
 .library-choose .code .arrow-up:before {
   content: '';
@@ -137,10 +140,16 @@
   height: 0;
   border-right: 10px solid transparent;
   border-left: 10px solid transparent;
-  border-bottom: 15px solid #181c1d;
+  border-bottom: 20px solid #323538;
   position: absolute;
-  top: -15px;
-  right: 15px;
+  top: -20px;
+  right: 30px;
+}
+.library-choose .code .info-tooltip {
+  position: relative;
+}
+.library-choose .code .info-tooltip:hover .arrow-up {
+  display: block;
 }
 .library-choose .code md-input-container {
   width: 100%;

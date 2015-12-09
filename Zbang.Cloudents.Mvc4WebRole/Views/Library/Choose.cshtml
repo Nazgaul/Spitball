@@ -40,10 +40,10 @@
                 <md-input-container>
                     @*<label>School name</label>*@
                     @*<input type="text" ng-model="lc.universityName" required
-                           uib-typeahead="item.name for item in lc.searchAutoComplete($viewValue)"
-                           typeahead-wait-ms="250"
-                           typeahead-min-length="2"
-                           typeahead-on-select="lc.selectUniversity($item)" />*@
+                        uib-typeahead="item.name for item in lc.searchAutoComplete($viewValue)"
+                        typeahead-wait-ms="250"
+                        typeahead-min-length="2"
+                        typeahead-on-select="lc.selectUniversity($item)" />*@
                     <md-autocomplete required
                                      md-delay="250"
                                      md-input-minlength="2"
@@ -61,8 +61,8 @@
                     </md-autocomplete>
 
                 </md-input-container>
-               
-                
+
+
 
                 <button type="button" class="btn btn-default pull-right text-capitalize" ng-click="lc.createUniversity = false">@GeneralResources.Cancel</button>
                 <button type="submit" class="btn btn-primary pull-right text-capitalize">@GeneralResources.Create</button>
@@ -79,8 +79,10 @@
         </div>
         <form novalidate ng-submit="lc.selectUniversity(lc.code.university)">
             <div>
-                @Html.Svg("~/images/site/libChooseIcons.svg", "info", new { @class = "info-i" })
-                <div class="arrow-up" ng-bind-html="::lc.code.closedUniText2"></div>
+                <div class="info-tooltip">
+                    @Html.Svg("~/images/site/libChooseIcons.svg", "info", new { @class = "info-i" })
+                    <div class="arrow-up" ng-bind-html="::lc.code.closedUniText2"></div>
+                </div>
                 <md-input-container>
                     <label class="text-capitalize">@LibraryResources.EnterID</label>
                     <input type="text" ng-model="lc.code.studentId" required />

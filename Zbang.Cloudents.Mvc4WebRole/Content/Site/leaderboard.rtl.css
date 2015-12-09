@@ -52,5 +52,5 @@
 }
 .leaderboad .r-table-cell.last {
   text-align: left;
-  width: 60px;
+  white-space: nowrap;
 }
