@@ -436,6 +436,7 @@
   color: #f5f5f5;
   font-size: 15px;
   margin-right: 10px;
+  width: calc(100% - 45px);
 }
 .quiz {
   /*.triangle-up-left {

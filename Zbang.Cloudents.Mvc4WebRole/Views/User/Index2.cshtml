@@ -6,7 +6,7 @@
     </div>
 </div>
 <div class="userPage">
-    <div class="profile-sidebar" style="width: 250px;">
+    <div class="profile-sidebar" @*style="width: 250px;"*@>
         <div class="portlet light profile-sidebar-portlet">
             <div class="profile-userpic">
                 <user-image ng-if="u.details" class="img-responsive" name="u.details.name" image="u.details.image" width="150" height="150"></user-image>
@@ -20,8 +20,8 @@
                 </h4>
             </div>
         </div>
-        
-        <div class="points-container" hide-sm>
+
+        <div class="points-container">
             <h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>
             <h5>@UserResources.Points</h5>
         </div>
@@ -45,7 +45,6 @@
         </div>
     </div>
     <div class="profile-content">
-                <div class="container">
         <div class="portlet light">
             <ul class="nav nav-tabs tabbable">
                 <li ng-class="{active: u.tab === u.state.box}">
@@ -67,8 +66,8 @@
                 </li>
             </ul>
         </div>
-        <div layout-padding layout="row" layout-wrap layout-align="space-between center" infinite-scroll="u.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
-            <div flex="{{u.angularGridAttribute}}" ng-repeat="e in u.elements" ng-include="u.template()" class="flex"></div>
+        <div layout-padding layout="row" layout-wrap layout-align="start center" infinite-scroll="u.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+            <div flex="{{u.angularGridAttribute}}" flex-sm="{{u.flexSm}}" flex-md="{{u.flexMd}}" ng-repeat="e in u.elements" ng-include="u.template()" class="flex"></div>
         </div>
     </div>
 </div>
