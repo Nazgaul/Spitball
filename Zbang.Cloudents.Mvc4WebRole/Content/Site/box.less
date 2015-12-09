@@ -1,14 +1,22 @@
 ﻿@import "variables.less";
 
 .class {
+    .folders .folder-name .content {
+        padding: 2px 6px;
+    }
+
     .location-search-area, .folders {
         .folder-name {
-            background: @backgroundColorItem;
-            border: 1px solid @backgroundColorItem;
+
+
+            .content {
+                background: @textColorDarkGrey;
+                border: 1px solid @textColorDarkGrey;
+            }
 
             .icon svg {
-                width: 21px;
-                height: 21px;
+                width: 27px;
+                height: 27px;
                 fill: @backgroundColor2;
                 margin: 0 7px;
             }
@@ -69,13 +77,11 @@
     }
 
     .folders {
-        .folder-name {
-            padding: 2px;
-            margin-bottom: 15px;
-        }
-
         .add-folder {
-            background: none;
+            .content {
+                padding: 6px;
+                background: none;
+            }
 
             svg {
                 width: 15px;
@@ -90,6 +96,12 @@
                 line-height: 20px;
                 padding-left: 10px;
             }
+        }
+
+
+        .text {
+            font-size: 18px;
+            padding-left: 6px;
         }
     }
 
@@ -583,7 +595,7 @@
             line-height: 90%;
             text-transform: lowercase;
 
-           
+
 
             @media (min-width: 600px) {
                 .sizeOfLetter(@sizeOfTextSmall);
@@ -863,8 +875,9 @@
 
 .i-q-wrapper {
     position: relative;
+
     .delete {
-        top:13px;
+        top: 13px;
     }
 }
 /*    margin: 0 0.5%;
