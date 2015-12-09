@@ -44,7 +44,7 @@
                         <div class="submit area-options" layout="row" layout-align="space-between center">
                             <input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
                             <label for="anonymous">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
-                            <button type="submit" class="btn pull-right text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
+                            <button type="submit" class="btn btn-primary text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
                         </div>
                     </div>
                 </form>
@@ -104,21 +104,21 @@
                                 <ul class="list-inline items-container">
                                     <li ng-repeat="e in reply.files" ng-include="'item-template.html'">
                                         @*<a class="item" href="{{::item.url}}">
-                                <div class="content">
-                                    <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
-                                    <div class="extra">
-                                        <h5>{{::item.name}}</h5>
-                                        <img src="http://lorempixel.com/30/30/" alt="" />
+                                                <div class="content">
+                                                    <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
+                                                    <div class="extra">
+                                                        <h5>{{::item.name}}</h5>
+                                                        <img src="http://lorempixel.com/30/30/" alt="" />
 
-                                    </div>
-                                </div>
-                            </a>*@
+                                                    </div>
+                                                </div>
+                                            </a>*@
                                     </li>
                                 </ul>
                                 <span class="comment-date">{{::reply.creationTime | date : 'MMM d,yyyy H:m'}}</span>
                                 <div class="actions padding">
                                     @*<button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>
-                        <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>*@
+                                        <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>*@
                                     <span class="ribbon" ng-if="post.isNew">New</span>
                                 </div>
                             </li>
@@ -141,9 +141,9 @@
                                     <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
                                 </div>
                                 <div class="submit area-options" layout="row" layout-align="space-between center">
-                                    <button type="submit" class="btn btn-primary pull-right text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
+                                    <button type="submit" class="btn btn-primary text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
                                     @*<input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
-                        <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
+                                        <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
                                 </div>
                             </div>
                         </form>
@@ -153,16 +153,18 @@
             </div>
         </div>
     </div>
-    <div class="right-side-area" layout-padding flex-sm="100" flex-md="33" flex-lg="50" flex-gt-lg="50">
-        <div layout="row" layout-align="space-between center">
-            <div flex-lg="50" flex-gt-lg="50">
+    <div class="right-side-area" layout-padding flex-sm="100" flex-md="33" flex-lg="50" flex-gt-lg="50" ng-controller="LeaderboardController as lb">
+        <div class="flex" layout-wrap layout-padding layout="row" layout-align="space-between stretch">
+            <div flex-xs="100" flex-sm="100" flex-md="100" flex-lg="100" flex-gt-lg="50" ng-if="!lb.isPrivate" class="flex leader-board">
                 @{ Html.RenderPartial("_LeaderBoard");}
             </div>
-            <div class="portlet light invite" flex-lg="50" flex-gt-lg="50">
-                <button type="button" ng-click="b.inviteToBox()" class="portlet-body">
-                    @Html.Svg("~/images/site/icons.svg", "invite")
-                    @BoxResources.InviteFriends
-                </button>
+            <div flex-xs="100" flex-sm="100" flex-md="100" flex-lg="100" flex-gt-lg="{{lb.flexWidth}}" class="flex">
+                <div class=" flex portlet light invite">
+                    <button type="button" ng-click="b.inviteToBox()" class="portlet-body">
+                        @Html.Svg("~/images/site/icons.svg", "invite")
+                        @BoxResources.InviteFriends
+                    </button>
+                </div>
             </div>
         </div>
         <div class="flex" layout="row" layout-padding layout-wrap layout-align="space-between center" class="margin-top-10" ng-controller="RecommendedController as r" ng-hide="r.isPrivate">

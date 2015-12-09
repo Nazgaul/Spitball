@@ -139,6 +139,7 @@
 .class .add-button button {
   font-size: 18px;
   color: #323538;
+  text-align: center;
 }
 .class .add-button svg {
   fill: #323538;
@@ -318,6 +319,9 @@
 .feed .add-reply .reply-wrapper {
   border: 1px solid #5d6063;
   margin-bottom: 10px;
+}
+.feed .add-reply .reply-wrapper textarea {
+  padding: 10px;
 }
 .feed .quiz .base {
   width: 100px;

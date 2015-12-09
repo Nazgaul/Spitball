@@ -15,6 +15,9 @@
 @color9:#cccccc;
 @color10:#8c99a6;
 @color11:#db4437;*/
+.quiz-create header {
+  padding: 0 25px;
+}
 .quiz-create .not-supported {
   height: 100vh;
   background: #181c1d;
@@ -69,11 +72,24 @@
   border: 1px solid #3293f6;
   background: transparent;
 }
+.quiz-create .supported .add-question svg {
+  margin-left: 10px;
+  fill: #3293f6;
+  width: 15px;
+  height: 15px;
+}
 @media only screen and (min-width: 768px) and (max-width: 920px) {
   .quiz-create .supported {
     margin: 0 20px;
     width: calc(100% - 40px);
   }
+}
+.quiz-create .counter {
+  padding-right: 0;
+}
+.quiz-create .header {
+  color: #9e9e9e;
+  padding: 10px 0;
 }
 @media only screen and (max-width: 768px) {
   .quiz-create {
@@ -90,6 +106,9 @@
   background: transparent;
   padding: 0;
   border: 0;
+}
+.quiz-create .quiz-wrapper .portlet-title .caption {
+  padding-right: 10px;
 }
 .quiz-create .portlet.box > .portlet-body {
   background-color: #f5f5f5;
@@ -229,7 +248,7 @@
 .create-question .answer svg {
   width: 20px;
   height: 20px;
-  fill: #6a737d;
+  fill: #9e9e9e;
   vertical-align: middle;
 }
 .create-question .answer button {
@@ -265,6 +284,7 @@
   display: none;
   color: #db4437;
   width: 50px;
+  line-height: 15px;
 }
 .create-question .correct-answer-error.error {
   display: inline-block;

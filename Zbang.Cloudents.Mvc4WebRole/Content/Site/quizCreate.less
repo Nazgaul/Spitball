@@ -1,6 +1,10 @@
 ﻿@import "variables.less";
 
 .quiz-create {
+    header {
+        padding: 0 25px;
+    }
+
     .not-supported {
         height: 100vh;
         background: @backgroundColor;
@@ -60,12 +64,28 @@
             color: @textColorSpitballBlue;
             border: 1px solid @textColorSpitballBlue;
             background: transparent;
+
+            svg {
+                margin-right: 10px;
+                fill: @textColorSpitballBlue;
+                width: 15px;
+                height: 15px;
+            }
         }
 
         @media only screen and (min-width : 768px ) and (max-width:920px) {
             margin: 0 20px;
             width: ~"calc(100% - 40px)";
         }
+    }
+
+    .counter {
+        padding-left: 0;
+    }
+
+    .header {
+        color: @backgroundColor2;
+        padding: 10px 0;
     }
 
     @media only screen and (max-width : 768px) {
@@ -82,6 +102,10 @@
         background: transparent;
         padding: 0;
         border: 0;
+
+        .portlet-title .caption {
+            padding-left: 10px;
+        }
     }
 
     .portlet.box > .portlet-body {
@@ -253,7 +277,7 @@
         svg {
             width: 20px;
             height: 20px;
-            fill: @backgroundColorItem;
+            fill: @backgroundColor2;
             vertical-align: middle;
         }
 
@@ -306,6 +330,7 @@
         display: none;
         color: @textColorRed;
         width: 50px;
+        line-height: 15px;
 
         &.error {
             display: inline-block;
