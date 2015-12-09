@@ -120,7 +120,7 @@
     .add-button {
         //text-align: center;
         //.displayFlex();
-        margin-bottom: 15px;
+        //margin-bottom: 15px;
         .aspect-ratio();
 
 
@@ -134,7 +134,11 @@
             justify-content: center;
             align-items: center;
             margin: 8px; //same as angular material padding
+            &.quizCreate {
+                margin-bottom: 13px; //fix issue with quiz
+            }
         }
+
 
         a, button {
             font-size: 18px;
@@ -719,10 +723,9 @@
 
     .stats {
         width: 100%;
-        height: 38px;
         color: @textColorWhite;
         font-size: 14px;
-        padding: 12px;
+        padding: 2px 12px 0;
     }
     /*.triangle-up-left {
         width: 0;
@@ -828,7 +831,6 @@
 }
 
 .item, .quiz {
-    margin-bottom: 15px;
 
     .base {
         border: 1px solid @borderColorGrey;
@@ -859,6 +861,7 @@
         width: 14px;
         height: 14px;
         fill: @textColorWhite;
+        //vertical-align:middle; its mess up the item
     }
 }
 
