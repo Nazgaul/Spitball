@@ -30,32 +30,42 @@
                 case self.state.item:
                     loadItems(true);
                     self.angularGridAttribute = 20;
-                    self.flexSm = 50;
-                    self.flexMd = 50;
+                    self.flexSm = 33;
+                    self.flexMd = 33;
+                    self.flexXl = 15;
+                    self.flexXs = 50;
                     break;
                 case self.state.post:
                     loadComment(true);
                     self.angularGridAttribute = 100;
                     self.flexSm = 100;
                     self.flexMd = 100;
+                    self.flexXl = 100;
+                    self.flexXs = 100;
                     break;
                 case self.state.quiz:
                     loadQuiz(true);
                     self.angularGridAttribute = 20;
-                    self.flexSm = 50;
-                    self.flexMd = 50;
+                    self.flexSm = 33;
+                    self.flexMd = 33;
+                    self.flexXs = 50;
+                    self.flexXl = 15;
                     break;
                 case self.state.friend:
                     loadFriends(true);
                     self.angularGridAttribute = 50;
                     self.flexSm = 100;
+                    self.flexXs = 100;
                     self.flexMd = 50;
+                    self.flexXl = 25;
                     break;
                 default:
                     loadboxes(true);
                     self.angularGridAttribute = 33;
+                    self.flexXs = 100;
                     self.flexSm = 100;
                     self.flexMd = 50;
+                    self.flexXl = 33;
             }
         }
 
