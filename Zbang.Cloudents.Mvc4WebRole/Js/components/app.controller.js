@@ -39,6 +39,7 @@
                 self.hideSearch = false;
             }
            
+
         });
 
         //$rootScope.$on('viewContentLoaded', function() {
@@ -54,6 +55,7 @@
                     $rootScope.$broadcast('state-change-start-prevent');
                 }
             }
+            $rootScope.$broadcast('close-collapse');
             var details = userDetails.get();
             if (!details) {
                 return;

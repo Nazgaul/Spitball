@@ -16,6 +16,7 @@
         };
 
         $scope.$on('open_upload', function () {
+            $rootScope.$broadcast('close-collapse');
             u.open = true;
 
             externalUploadProvider.dropboxInit().then(function () {
@@ -28,11 +29,23 @@
 
         });
 
+        $scope.$on('close-collapse', function() {
+            closeUpload();
+        });
+
         u.closeUpload = closeUpload;
         //u.dropBoxLoaded = false;
         //u.googleDriveLoaded = false;
 
-        u.google = function () {
+        u.google = google;
+        u.dropBox = dropBox;
+        u.uploadStep = uploadChoose.none;
+        u.link = 'http://';
+        u.alert = null;
+        u.submitFormProcess = false;
+        u.uploadLink = uploadLink;
+
+        function google() {
             externalUploadProvider.google($stateParams.boxId).then(function (response) {
                 $rootScope.$broadcast('item_upload', response);
             }, function (response) {
@@ -40,7 +53,7 @@
             });
         }
 
-        u.dropBox = function () {
+        function dropBox() {
             externalUploadProvider.dropBox($stateParams.boxId).then(function (response) {
                 $rootScope.$broadcast('item_upload', response);
             });
@@ -57,17 +70,14 @@
             $rootScope.$broadcast('close_upload');
         }
 
-        u.uploadStep = uploadChoose.none;
-
-        u.link = 'http://';
-        u.alert = null;
-        u.submitFormProcess = false;
+       
 
         $scope.closeAlert = function () {
             u.alert = null;
         }
         //upload 
-        u.uploadLink = function () {
+        
+        function uploadLink() {
             if (!u.link) {
                 u.alert = 'not a valid url';
                 return;
