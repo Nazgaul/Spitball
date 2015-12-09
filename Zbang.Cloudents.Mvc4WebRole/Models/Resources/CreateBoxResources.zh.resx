@@ -126,7 +126,4 @@
   <data name="FieldRequired" xml:space="preserve">
     <value>该字段为必填项</value>
   </data>
-  <data name="TabName" xml:space="preserve">
-    <value>名称</value>
-  </data>
 </root>

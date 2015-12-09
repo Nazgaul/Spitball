@@ -1,8 +1,9 @@
 ﻿@using Zbang.Zbox.Infrastructure.Enums
-
+@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <form name="flagitem" class="flag-form" novalidate ng-submit="i.flagItem()" ng-if="i.selectedState === i.state.flag">
-    <div class="title">Report abuse</div>
+    <div class="title text-capitalize">@ItemsResources.ReportAbuse</div>
     <md-content layout="column">
         <md-input-container flex="100">
             <md-select placeholder="choose" required name="flag" ng-model="i.flag" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
@@ -18,8 +19,8 @@
     </md-content>
 
     <span layout="row" layout-align="end center">
-        <button type="button" class="btn grey btn-default text-capitalize" ng-click="i.selectedState = i.state.regular">cancel</button>
-        <button type="submit" class="btn blue text-capitalize" ng-disabled="!flagitem.$valid">report</button>
+        <button type="button" class="btn grey btn-default text-capitalize" ng-click="i.selectedState = i.state.regular">@GeneralResources.Cancel</button>
+        <button type="submit" class="btn blue text-capitalize" ng-disabled="!flagitem.$valid">@ItemsResources.Report</button>
     </span>
 </form>
 

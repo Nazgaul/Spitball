@@ -1,5 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-
+@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
 @{
     const string svgUrl = "~/images/site/itemIcons.svg";
 }
@@ -21,13 +21,13 @@
                 </md-button>
                 <md-menu-content width="1">
                     <md-menu-item>
-                        <md-button aria-label="delete post" ng-click="i.showRename()">
-                            Rename
+                        <md-button class="text-capitalize" aria-label="delete post" ng-click="i.showRename()">
+                            @ItemsResources.Rename
                         </md-button>
                     </md-menu-item>
                     <md-menu-item>
                         <md-button aria-label="delete post" ng-click="i.selectedState = i.state.flag">
-                            flag an item
+                            @ItemsResources.Flag
                         </md-button>
                     </md-menu-item>
                 </md-menu-content>
@@ -46,14 +46,14 @@
             <form name="rename-item" class="rename-form" novalidate ng-submit="i.renameItem()" ng-if="i.selectedState === i.state.rename">
                 <md-content layout="column">
                     <md-input-container flex>
-                        <label>Name</label>
+                        <label class="text-capitalize">@ItemsResources.Name</label>
                         <input autocomplete="off" required ng-model="i.renameText" />
                     </md-input-container>
                 </md-content>
 
                 <span layout="row" layout-align="end center">
-                    <button type="button" class="btn grey btn-default text-capitalize" ng-click="i.selectedState = i.state.regular">cancel</button>
-                    <button type="submit" class="btn blue text-capitalize">save</button>
+                    <button type="button" class="btn grey btn-default text-capitalize" ng-click="i.selectedState = i.state.regular">@GeneralResources.Cancel</button>
+                    <button type="submit" class="btn blue text-capitalize">@ItemsResources.Save</button>
                 </span>
             </form>
 

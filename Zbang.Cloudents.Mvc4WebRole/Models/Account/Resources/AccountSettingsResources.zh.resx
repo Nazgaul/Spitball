@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Code" xml:space="preserve">
-    <value>代码</value>
-  </data>
-  <data name="CodeIncorrect2" xml:space="preserve">
-    <value>代码错误</value>
-  </data>
   <data name="CurrentPassword" xml:space="preserve">
     <value>当前密码</value>
   </data>
@@ -138,12 +132,6 @@
   <data name="EmailNotCorrect" xml:space="preserve">
     <value>Email 格式不正确</value>
   </data>
-  <data name="Language" xml:space="preserve">
-    <value>语言：</value>
-  </data>
-  <data name="LanguageNotSupported" xml:space="preserve">
-    <value>该语言不被支持</value>
-  </data>
   <data name="Min6Chars" xml:space="preserve">
     <value>- 至少 6 个字符长</value>
   </data>
@@ -152,12 +140,6 @@
   </data>
   <data name="NewPwdEmpty" xml:space="preserve">
     <value>新密码不可为空</value>
-  </data>
-  <data name="Notifications" xml:space="preserve">
-    <value>通知：</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>密码：</value>
   </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>请输入大学名称</value>

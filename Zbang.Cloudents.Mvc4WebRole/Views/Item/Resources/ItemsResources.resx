@@ -144,4 +144,22 @@
   <data name="SecurityReasons" xml:space="preserve">
     <value>For security reasons, this link cannot be opened in Spitball</value>
   </data>
+  <data name="ReportAbuse" xml:space="preserve">
+    <value>report abuse</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>report</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>rename</value>
+  </data>
+  <data name="Flag" xml:space="preserve">
+    <value>flag an item</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>name</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>save</value>
+  </data>
 </root>

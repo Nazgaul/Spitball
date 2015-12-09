@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No worries, click here to reset your password.
+        ///   Looks up a localized string similar to Click here to reset .
         /// </summary>
         public static string NoWorries {
             get {
@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Or log in with.
+        ///   Looks up a localized string similar to Log in with.
         /// </summary>
         public static string OrLoginWith {
             get {

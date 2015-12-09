@@ -126,7 +126,4 @@
   <data name="FieldRequired" xml:space="preserve">
     <value>Это поле обязательно для заполнения</value>
   </data>
-  <data name="TabName" xml:space="preserve">
-    <value>Имя</value>
-  </data>
 </root>

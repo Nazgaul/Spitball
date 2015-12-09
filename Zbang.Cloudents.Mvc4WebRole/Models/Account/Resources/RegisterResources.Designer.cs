@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Terms of Services.
+        ///   Looks up a localized string similar to Terms of Service.
         /// </summary>
         public static string TermsOfServices {
             get {
