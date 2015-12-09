@@ -67,7 +67,6 @@
         }
 
         function renameTab() {
-            console.log(i.tabNewName);
             boxService.renameTab(i.tabSelected.id, i.tabNewName, boxId);
             i.tabSelected.name = i.tabNewName;
             i.openRenameTab = false;

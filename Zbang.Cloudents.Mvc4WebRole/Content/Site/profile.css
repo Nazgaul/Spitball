@@ -26,6 +26,7 @@ New Profile Page
   float: left;
   width: 300px;
   margin-right: 20px;
+  width: 250px;
 }
 .profile-content {
   overflow: hidden;
@@ -55,7 +56,6 @@ New Profile Page
 .profile-usertitle-job {
   margin-bottom: 7px;
   color: #f5f5f5;
-  font-family: "Open Sans", sans-serif;
   font-size: 15px;
 }
 /*.profile-userbuttons {
@@ -160,8 +160,8 @@ New Profile Page
   /* 991px */
   .profile-sidebar {
     float: none;
-    width: 100% !important;
-    margin: 0;
+    width: calc(100% - 24px);
+    margin: 0 12px 32px;
   }
   .profile-sidebar > .portlet {
     margin-bottom: 20px;

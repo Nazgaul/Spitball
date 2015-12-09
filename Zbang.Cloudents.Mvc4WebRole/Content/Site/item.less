@@ -92,9 +92,15 @@
     }
 
     .iframeContent {
-        height: ~"calc(100vh - 270px)";
+        border: 0;
+        height: ~"calc(100vh - 175px)";
         width: ~"calc(100% - 155px)";
+
+        @media (max-width: 600px) {
+            width: ~"calc(100% - 20px)";
+        }
     }
+
 
     .arrows {
 
@@ -109,80 +115,80 @@
             top: ~"calc(50% + 80px)";
             fill: @svgLightGrey;
         }
-
-        .right {
-            right: 10px;
-        }
-
-        .left {
-            -moz-transform: rotate(180deg);
-            -ms-transform: rotate(180deg);
-            -o-transform: rotate(180deg);
-            -webkit-transform: rotate(180deg);
-            transform: rotate(180deg);
-            left: 10px;
-        }
     }
 
+    .right {
+        right: 10px;
+    }
+
+    .left {
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        left: 10px;
+    }
+}
 
 
-    .preview {
-        text-align: center;
-        margin: 0 auto;
-        /*width: 800px;*/
-        .preview-page {
-            width: 800px;
-        }
 
-        .previewFailed {
-            p {
-                color: @textColorBlack;
-                font-size: 22px;
-            }
+.preview {
+    text-align: center;
+    margin: 0 auto;
+    /*width: 800px;*/
+    .preview-page {
+        width: 800px;
+    }
 
-            img {
-                margin-bottom: 30px;
-            }
-        }
-
-        .previewDenied {
-            width: 100%;
-
-            p {
-                color: @textColorBlack;
-                font-size: 22px;
-            }
-
-            a {
-                background: #5b9bd1;
-                color: @textColorWhite;
-                padding: 5px 30px;
-                border-radius: 7px;
-
-                :hover {
-                    color: @textColorWhite;
-                }
-            }
-        }
-
-        .preview-svg .svgContent, .preview-image .imageContent {
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 3px 8px @progressbarBackgroundColor;
+    .previewFailed {
+        p {
+            color: @textColorBlack;
+            font-size: 22px;
         }
 
         img {
-            max-width: 100%;
-            background: @backgroundColorWhite;
-            margin: 10px 0;
+            margin-bottom: 30px;
         }
     }
 
-    .copy-right {
-        width: 500px;
+    .previewDenied {
+        width: 100%;
+
+        p {
+            color: @textColorBlack;
+            font-size: 22px;
+        }
+
+        a {
+            background: #5b9bd1;
+            color: @textColorWhite;
+            padding: 5px 30px;
+            border-radius: 7px;
+
+            :hover {
+                color: @textColorWhite;
+            }
+        }
     }
-    //override bootstrap
-    .tooltip-inner {
-        max-width: 500px;
+
+    .preview-svg .svgContent, .preview-image .imageContent {
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 3px 8px @progressbarBackgroundColor;
     }
+
+    img {
+        max-width: 100%;
+        background: @backgroundColorWhite;
+        margin: 10px 0;
+    }
+}
+
+.copy-right {
+    width: 500px;
+}
+//override bootstrap
+.tooltip-inner {
+    max-width: 500px;
 }

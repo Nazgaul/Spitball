@@ -29,28 +29,33 @@
             switch (self.tab) {
                 case self.state.item:
                     loadItems(true);
-                    self.bootstrapClass = 'col-md-3';
-                    self.angularGridAttribute = '25';
+                    self.angularGridAttribute = 20;
+                    self.flexSm = 50;
+                    self.flexMd = 50;
                     break;
                 case self.state.post:
                     loadComment(true);
-                    self.bootstrapClass = 'col-md-12';
-                    self.angularGridAttribute = '100';
+                    self.angularGridAttribute = 100;
+                    self.flexSm = 100;
+                    self.flexMd = 100;
                     break;
                 case self.state.quiz:
                     loadQuiz(true);
-                    self.bootstrapClass = 'col-md-3';
-                    self.angularGridAttribute = '25';
+                    self.angularGridAttribute = 20;
+                    self.flexSm = 50;
+                    self.flexMd = 50;
                     break;
                 case self.state.friend:
                     loadFriends(true);
-                    self.bootstrapClass = 'col-md-6';
-                    self.angularGridAttribute = '50';
+                    self.angularGridAttribute = 50;
+                    self.flexSm = 100;
+                    self.flexMd = 50;
                     break;
                 default:
                     loadboxes(true);
-                    self.bootstrapClass = 'col-md-4';
-                    self.angularGridAttribute = '33';
+                    self.angularGridAttribute = 33;
+                    self.flexSm = 100;
+                    self.flexMd = 50;
             }
         }
 
@@ -128,7 +133,9 @@
             }
             self.quizLoading = true;
             userService.quiz($stateParams.userId, quizzesPage).then(function (response) {
-
+                for (var i = 0; i < response.length; i++) {
+                    response[i].publish = true;
+                }
                 quiz = quiz.concat(response);
                 if (self.tab === self.state.quiz) {
                     self.elements = quiz;

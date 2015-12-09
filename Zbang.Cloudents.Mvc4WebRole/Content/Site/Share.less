@@ -17,10 +17,17 @@
     .buttonBlue();
 }
 
+.right-side-area {
+    .portlet {
+        margin: 12px;
+    }
+}
+
 .invite {
     background: @backgroundColorMenu;
     padding: 0 10px 10px;
     margin-top: 10px;
+    margin: 0;
 
     .tab-from-right {
         background: none;
@@ -30,6 +37,10 @@
         .mail {
             margin-right: 0;
         }
+    }
+
+    button {
+        margin: 0 auto;
     }
 
     .body {
@@ -58,7 +69,6 @@
 
         background: @backgroundColor;
         position: relative;
-
     }
 
     md-list md-list-item button.md-button:not([disabled]):hover {
@@ -68,7 +78,7 @@
     .send {
         margin: 0 15px 15px 15px;
     }
-   
+
     .gmail {
         .displayFlex();
         padding: 10px 0 10px 16px;

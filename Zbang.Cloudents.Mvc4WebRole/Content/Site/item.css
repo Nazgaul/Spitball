@@ -86,8 +86,14 @@
   height: 20px;
 }
 .itemPage .iframeContent {
-  height: calc(100vh - 270px);
+  border: 0;
+  height: calc(100vh - 175px);
   width: calc(100% - 155px);
+}
+@media (max-width: 600px) {
+  .itemPage .iframeContent {
+    width: calc(100% - 20px);
+  }
 }
 .itemPage .arrows svg {
   width: 40px;
@@ -98,10 +104,10 @@
   top: calc(50% + 80px);
   fill: #c2c2c2;
 }
-.itemPage .arrows .right {
+.itemPage .right {
   right: 10px;
 }
-.itemPage .arrows .left {
+.itemPage .left {
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   -o-transform: rotate(180deg);
@@ -109,51 +115,51 @@
   transform: rotate(180deg);
   left: 10px;
 }
-.itemPage .preview {
+.preview {
   text-align: center;
   margin: 0 auto;
   /*width: 800px;*/
 }
-.itemPage .preview .preview-page {
+.preview .preview-page {
   width: 800px;
 }
-.itemPage .preview .previewFailed p {
+.preview .previewFailed p {
   color: #282828;
   font-size: 22px;
 }
-.itemPage .preview .previewFailed img {
+.preview .previewFailed img {
   margin-bottom: 30px;
 }
-.itemPage .preview .previewDenied {
+.preview .previewDenied {
   width: 100%;
 }
-.itemPage .preview .previewDenied p {
+.preview .previewDenied p {
   color: #282828;
   font-size: 22px;
 }
-.itemPage .preview .previewDenied a {
+.preview .previewDenied a {
   background: #5b9bd1;
   color: #f5f5f5;
   padding: 5px 30px;
   border-radius: 7px;
 }
-.itemPage .preview .previewDenied a :hover {
+.preview .previewDenied a :hover {
   color: #f5f5f5;
 }
-.itemPage .preview .preview-svg .svgContent,
-.itemPage .preview .preview-image .imageContent {
+.preview .preview-svg .svgContent,
+.preview .preview-image .imageContent {
   background: #fff;
   border-radius: 15px;
   box-shadow: 0 3px 8px #dfe2e9;
 }
-.itemPage .preview img {
+.preview img {
   max-width: 100%;
   background: #f5f5f5;
   margin: 10px 0;
 }
-.itemPage .copy-right {
+.copy-right {
   width: 500px;
 }
-.itemPage .tooltip-inner {
+.tooltip-inner {
   max-width: 500px;
 }

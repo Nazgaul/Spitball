@@ -35,10 +35,14 @@
 .portlet.light.invite:focus {
   color: inherit;
 }
+.left-side-area .portlet {
+  margin: 12px;
+}
 .invite {
   background: #323538;
   padding: 0 10px 10px;
   margin-top: 10px;
+  margin: 0;
 }
 .invite .tab-from-right {
   background: none;
@@ -47,6 +51,9 @@
 }
 .invite .tab-from-right .mail {
   margin-left: 0;
+}
+.invite button {
+  margin: 0 auto;
 }
 .invite .body {
   background: #181c1d;

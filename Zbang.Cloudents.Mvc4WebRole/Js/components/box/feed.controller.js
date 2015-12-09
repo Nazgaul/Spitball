@@ -33,6 +33,7 @@
 
         self.deleteReply = deleteReply;
         self.postItemTemplate = postItemTemplate;
+        self.myPagingFunction = myPagingFunction;
 
         boxService.getFeed(boxId).then(function (response) {
             self.data = response;
@@ -61,8 +62,12 @@
 
                 }
             });
+            self.viewData = self.data.slice(0, 25);
         });
-
+        function myPagingFunction() {
+            var page = self.viewData.length / 25;
+            self.viewData = self.viewData.concat(self.data.slice(page * 25, (page * 25) + 25));
+        }
 
         function postItemTemplate(elmenet) {
             if (elmenet.type) {

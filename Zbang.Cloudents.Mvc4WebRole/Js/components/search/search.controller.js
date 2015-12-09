@@ -21,7 +21,11 @@
 
 
 
-        self.myPagingFunction = function() {
+        self.myPagingFunction = function () {
+            //no paging in initial state
+            if (!self.term) {
+                return;
+            }
             doQuery(true);
         }
 

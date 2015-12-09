@@ -65,13 +65,6 @@
   padding-right: 0;
   margin-top: 11.5px;
 }
-.userPage svg {
-  width: 17px;
-  height: 17px;
-  fill: #f9f9f9;
-  vertical-align: middle;
-  margin-left: 12px;
-}
 .userPage .r-table {
   display: table;
   border-spacing: 15px;
@@ -128,4 +121,10 @@
   font-size: 11px;
   flex-basis: 200px;
   text-align: left;
+}
+.userPage .profile-content .container {
+  margin: 0 3px;
+}
+.userPage .profile-content .portlet.light {
+  margin: 0 12px;
 }

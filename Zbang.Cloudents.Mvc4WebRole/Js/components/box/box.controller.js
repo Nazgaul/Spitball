@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.box').controller('BoxController', box);
-    box.$inject = ['boxService', 'boxData', '$stateParams', '$location', '$scope', '$state', 'user'];
+    box.$inject = ['boxService', 'boxData', '$stateParams', '$location', '$scope', '$state', 'user', '$rootScope'];
 
-    function box(boxService, boxData, $stateParams, $location, $scope, $state, user) {
+    function box(boxService, boxData, $stateParams, $location, $scope, $state, user, $rootScope) {
 
         if (!$location.hash()) {
             $state.go('box.feed', $stateParams, { location: "replace" });
@@ -19,20 +19,10 @@
 
 
 
-        //b.uploadOn = false;
-        //b.uploadShow = isItemState($state.current.name);
-        //b.toggleUpload = toggleUpload;
         b.toggleSettings = toggleSettings;
 
         //stuff for child elements
         b.canDelete = canDelete;
-        //b.openMenu = openMenu;
-
-        //var originatorEv;
-        //function openMenu($mdOpenMenu, ev) {
-        //    originatorEv = ev;
-        //    $mdOpenMenu(ev);
-        //};
 
         $scope.$on("close_invite", function () {
             b.inviteOpen = false;
@@ -45,6 +35,7 @@
 
         }
         function toggleSettings() {
+            $rootScope.$broadcast('close-collapse');
             b.settingsOpen = true;
 
             b.settings = b.settings || {};
@@ -100,9 +91,15 @@
         }
 
         function inviteToBox() {
+            $rootScope.$broadcast('close-collapse');
             b.inviteOpen = true;
             $scope.$broadcast('open_invite');
         }
+
+        $scope.$on('close-collapse', function () {
+            b.inviteOpen = false;
+            b.settingsOpen = false;
+        });
 
         function follow() {
             boxService.follow(boxId);
