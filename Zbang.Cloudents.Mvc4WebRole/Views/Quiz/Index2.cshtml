@@ -9,7 +9,7 @@
         <div class="text-center" id="quiz-top">{{::q.name}}</div>
         <button type="button" ng-click="app.back(q.boxUrl)" class="close">@Html.Svg("~/images/site/icons.svg", "close")</button>
     </header>
-    <div>
+    <div md-swipe-left="q.swipeLeft()" md-swipe-right="q.swipeRight()">
 
         <div class="hidden-sm hidden-xs arrows prev" ng-if="q.state === 2 || q.state === 4">
             <button type="button" ng-click="q.back()" ng-show="q.index > 0 && q.index < q.questions.length">
@@ -81,8 +81,8 @@
             <div class="quiz-wrapper" ng-class="q.isCorrect(q.questions[q.index])" ng-if="q.state === 2 || q.state === 4">
                 <div class="no-answer-element">@QuizResources.NoAnswer</div>
                 <div ng-if="q.index < q.questions.length" ng-include="'quiz-question-template.html'" ng-repeat="question in ::q.questions"></div>
-                <div ng-if="q.state === 4"  class="add-discussion">
-                    <form class="clearfix" novalidate name="addDiscussion"  ng-submit="q.postComment(q.questions[q.index])">
+                <div ng-if="q.state === 4" class="add-discussion">
+                    <form class="clearfix" novalidate name="addDiscussion" ng-submit="q.postComment(q.questions[q.index])">
                         <textarea required placeholder="Write a comment" ng-model="q.questions[q.index].newComment"></textarea>
                         <button class="btn btn-primary pull-right" ng-disabled="!addDiscussion.$valid" type="submit">@QuizResources.Post</button>
                     </form>
@@ -99,7 +99,7 @@
                     </ol>
                 </div>
             </div>
-            <div class ="quiz-challenge" ng-if="q.state === 3" ng-include="'quizGoodJob.html'">
+            <div class="quiz-challenge" ng-if="q.state === 3" ng-include="'quizGoodJob.html'">
 
             </div>
         </div>

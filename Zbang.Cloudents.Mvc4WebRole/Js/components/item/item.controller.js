@@ -22,6 +22,7 @@
 
 
         function getPreview() {
+            i.loader = true;
             itemService.getPreview(
                  i.details.blob,
                  index,
@@ -43,6 +44,7 @@
                         //});
                         needLoadMore = true;
                     }
+                    i.loader = false;
                     //$scope.$broadcast('update', data.preview); //for fullscreen
                 }
             });

@@ -36,12 +36,14 @@
         <button type="button" ng-click="app.back(i.details.boxUrl)">@Html.Svg("~/images/site/icons.svg", "close")</button>
 
     </header>
+   
     <div class="full-screen-body" md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">
+        <md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear>
         <div class="fileName" layout="row" layout-align="center center">
             <div class="name-info" ng-if="i.selectedState === i.state.regular">
                 <span>{{i.details.name}}</span>
                 <a class="info" href="#" tooltip-placement="bottom" tooltip-class="copy-right"
-                   uib-tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
+                   uib-tooltip="@ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
             </div>
             <form name="rename-item" class="rename-form" novalidate ng-submit="i.renameItem()" ng-if="i.selectedState === i.state.rename">
                 <md-content layout="column">

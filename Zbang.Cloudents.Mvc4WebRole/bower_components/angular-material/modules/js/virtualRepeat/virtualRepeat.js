@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.0.0-rc6
+ * v1.0.0-rc7
  */
 (function( window, angular, undefined ){
 "use strict";
@@ -12,7 +12,8 @@
  * @name material.components.virtualRepeat
  */
 angular.module('material.components.virtualRepeat', [
-  'material.core'
+  'material.core',
+  'material.components.showHide'
 ])
 .directive('mdVirtualRepeatContainer', VirtualRepeatContainerDirective)
 .directive('mdVirtualRepeat', VirtualRepeatDirective);
@@ -140,11 +141,18 @@ function VirtualRepeatContainerController(
   // make a best effort at re-measuring as it changes.
   var boundUpdateSize = angular.bind(this, this.updateSize);
 
-  $$rAF(function() {
+  $$rAF(angular.bind(this, function() {
     boundUpdateSize();
 
     var debouncedUpdateSize = $mdUtil.debounce(boundUpdateSize, 10, null, false);
     var jWindow = angular.element($window);
+
+    // Make one more attempt to get the size if it is 0.
+    // This is not by any means a perfect approach, but there's really no
+    // silver bullet here.
+    if (!this.size) {
+      debouncedUpdateSize();
+    }
 
     jWindow.on('resize', debouncedUpdateSize);
     $scope.$on('$destroy', function() {
@@ -152,7 +160,7 @@ function VirtualRepeatContainerController(
     });
 
     $scope.$on('$md-resize', boundUpdateSize);
-  });
+  }));
 }
 VirtualRepeatContainerController.$inject = ["$$rAF", "$mdUtil", "$parse", "$window", "$scope", "$element", "$attrs"];
 
@@ -196,6 +204,7 @@ VirtualRepeatContainerController.prototype.updateSize = function() {
   this.size = this.isHorizontal()
       ? this.$element[0].clientWidth
       : this.$element[0].clientHeight;
+
   this.repeater && this.repeater.containerUpdated();
 };
 
@@ -215,14 +224,15 @@ VirtualRepeatContainerController.prototype.sizeScroller_ = function(size) {
   var dimension =  this.isHorizontal() ? 'width' : 'height';
   var crossDimension = this.isHorizontal() ? 'height' : 'width';
 
+  // Clear any existing dimensions.
+  this.sizer.innerHTML = '';
+
   // If the size falls within the browser's maximum explicit size for a single element, we can
   // set the size and be done. Otherwise, we have to create children that add up the the desired
   // size.
   if (size < MAX_ELEMENT_SIZE) {
     this.sizer.style[dimension] = size + 'px';
   } else {
-    // Clear any existing dimensions.
-    this.sizer.innerHTML = '';
     this.sizer.style[dimension] = 'auto';
     this.sizer.style[crossDimension] = 'auto';
 
@@ -253,7 +263,8 @@ VirtualRepeatContainerController.prototype.sizeScroller_ = function(size) {
 VirtualRepeatContainerController.prototype.autoShrink_ = function(size) {
   var shrinkSize = Math.max(size, this.autoShrinkMin * this.repeater.getItemSize());
   if (this.autoShrink && shrinkSize !== this.size) {
-    if (shrinkSize < (this.originalSize || this.size)) {
+    var currentSize = this.originalSize || this.size;
+    if (!currentSize || shrinkSize < currentSize) {
       if (!this.originalSize) {
         this.originalSize = this.size;
       }
