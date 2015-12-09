@@ -24,5 +24,10 @@
                 self.loading = false;
             });
         }
+
+        self.flexWidth = 50;
+        if (self.isPrivate) {
+            self.flexWidth = 100;
+        }
     }
 })()
