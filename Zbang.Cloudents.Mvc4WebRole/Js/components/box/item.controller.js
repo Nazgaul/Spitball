@@ -150,6 +150,9 @@
             if (response.boxId != $stateParams.boxId) { // string an int comarison
                 return;
             }
+            if (response.tabId != i.tabSelected.id) {
+                return; //not the same tab
+            }
             var item = response.item, retVal = itemThumbnailService.assignValue(item.source);
 
             item.thumbnail = retVal.thumbnail;
