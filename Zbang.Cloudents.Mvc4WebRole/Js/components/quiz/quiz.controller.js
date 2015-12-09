@@ -75,29 +75,8 @@
             q.classmatesCount = response.solversCount;
         });
 
-        //$timeout(function () {
-        //    var modalInstance = $uibModal.open({
-        //        animation: true,
-        //        templateUrl: 'quizChallenge.html',
-        //        controller: 'QuizChallengeController',
-        //        controllerAs: 'c',
-        //        backdrop: 'static',
-        //        windowClass: 'challenge-modal',
-        //        resolve: {
-        //            solvers: function () {
-        //                return quizService.getNumberOfSolvers({ quizId: $stateParams.quizId });
-        //            }
-        //        }
-        //    });
-
-        //    modalInstance.result.then(function () {
-        //        start();
-        //    }, function () {
-        //        afraid();
-        //    });
-        //}, 1000);
-
-        //});
+        q.swipeLeft = next;
+        q.swipeRight = back;
 
 
         function start() {
@@ -126,22 +105,6 @@
             getDiscussion();
             solveQuiz();
         }
-
-        //function seeAnswers() {
-        //    q.isSolved = true;
-        //    //setResults();
-        //}
-
-        //function resume() {
-        //    if (!q.timerControl.isRunning) {
-        //        q.timerControl.toggle();
-        //    }
-        //}
-
-
-        //function pause() {
-
-        //}
 
         function reset() {
             q.isSolved = false;
@@ -207,17 +170,7 @@
             q.timerControl.toggle();
         }
 
-        function getId(item) {
-            return item.id.slice(0, 6);
-        }
-
-        function isSelectedAnswer(question, answer) {
-            if (question.selectedAnswer == null) {
-                return false;
-            }
-
-            return question.selectedAnswer.id == answer.id;
-        }
+       
 
         function isQuestionCorrect(question) {
             if (!q.isSolved) {
@@ -231,10 +184,7 @@
 
         }
 
-        function getButtonText() {
-            return q.timerControl.isRunning ? 'Pause' : 'Play';
-
-        }
+      
 
         function isCorrectAnswer(question, answer) {
             if (!q.isSolved) {

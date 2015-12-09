@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.0.0-rc6
+ * v1.0.0-rc7
  */
 md-card {
   box-sizing: border-box;
@@ -50,8 +50,9 @@ md-card {
               flex-direction: column; }
       md-card md-card-header md-card-header-text .md-subhead {
         font-size: 14px; }
-  md-card > img,
+  md-card md-card img,
   md-card > :not(md-card-content) img {
+    box-sizing: border-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -102,8 +103,10 @@ md-card {
   md-card md-card-content {
     display: block;
     padding: 16px; }
-    md-card md-card-content > p {
-      margin: 0; }
+    md-card md-card-content > p:first-child {
+      margin-top: 0; }
+    md-card md-card-content > p:last-child {
+      margin-bottom: 0; }
     md-card md-card-content .md-media-xl {
       height: 240px;
       width: 240px; }
