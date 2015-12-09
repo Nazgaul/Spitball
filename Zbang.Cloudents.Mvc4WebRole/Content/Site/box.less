@@ -170,7 +170,7 @@
         -webkit-transition: none;
         transition: none;
     }
-    
+
     .like {
         //border-radius: 22px;
         width: 80px;
@@ -487,6 +487,26 @@
         }
     }
 
+    .google {
+        svg:first-child {
+            display: none;
+        }
+
+        svg:last-child {
+            display: inline;
+        }
+
+        &:hover {
+            svg:first-child {
+                display: inline;
+            }
+
+            svg:last-child {
+                display: none;
+            }
+        }
+    }
+
     .link {
         &:hover {
             fill: @linkColor;
@@ -530,13 +550,13 @@
         color: @textColorWhite;
 
         @sizeOfTextSmall: 13vw;
-        @sizeOfDraftSmall:  @sizeOfTextSmall / 2;
+        @sizeOfDraftSmall: @sizeOfTextSmall / 2;
         @sizeOfTextMedium: 8vw;
-        @sizeOfDraftMedium:  @sizeOfTextMedium / 2;
+        @sizeOfDraftMedium: @sizeOfTextMedium / 2;
         @sizeOfTextLarge: 3vw;
-        @sizeOfDraftLarge:  @sizeOfTextLarge / 2;
+        @sizeOfDraftLarge: @sizeOfTextLarge / 2;
 
-        
+
 
         .first-letter, .draft {
             position: absolute;
@@ -550,10 +570,10 @@
             height: 20vw;
             text-align: center;
             line-height: 90%;
-            text-transform:lowercase;
+            text-transform: lowercase;
 
             .sizeOfLetter(@size) {
-                 font-size: @size;
+                font-size: @size;
                 width: @size;
                 height: @size;
             }
@@ -574,19 +594,19 @@
         .draft {
             text-transform: uppercase;
             width: 100%;
-            font-size:@sizeOfDraftSmall;
-             @media (min-width: 600px) {
-                font-size:@sizeOfDraftSmall;
+            font-size: @sizeOfDraftSmall;
+
+            @media (min-width: 600px) {
+                font-size: @sizeOfDraftSmall;
             }
 
             @media (min-width: 960px) {
-                font-size:@sizeOfDraftMedium;
+                font-size: @sizeOfDraftMedium;
             }
 
             @media (min-width: 1200px) {
-                font-size:@sizeOfDraftLarge;
+                font-size: @sizeOfDraftLarge;
             }
-
         }
 
         &.draft-wpr {
@@ -720,7 +740,7 @@
     }*/
 }
 
-.quiz-dots{
+.quiz-dots {
     fill: @textColorWhite;
 }
 

@@ -395,6 +395,18 @@
 .add-comment .dropbox:hover {
   fill: #007ee5;
 }
+.add-comment .google svg:first-child {
+  display: none;
+}
+.add-comment .google svg:last-child {
+  display: inline;
+}
+.add-comment .google:hover svg:first-child {
+  display: inline;
+}
+.add-comment .google:hover svg:last-child {
+  display: none;
+}
 .add-comment .link:hover {
   fill: #64d0ff;
 }

@@ -61,24 +61,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About us.
-        /// </summary>
-        public static string AboutUs {
-            get {
-                return ResourceManager.GetString("AboutUs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Contact us.
-        /// </summary>
-        public static string ContactUs {
-            get {
-                return ResourceManager.GetString("ContactUs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Privacy Policy.
         /// </summary>
         public static string PrivacyPolicy {
@@ -88,29 +70,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All rights reserved.
-        /// </summary>
-        public static string RightsReserved {
-            get {
-                return ResourceManager.GetString("RightsReserved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Terms of Service.
         /// </summary>
         public static string TermsOfService {
             get {
                 return ResourceManager.GetString("TermsOfService", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Spitball.
-        /// </summary>
-        public static string ZbangIt {
-            get {
-                return ResourceManager.GetString("ZbangIt", resourceCulture);
             }
         }
     }

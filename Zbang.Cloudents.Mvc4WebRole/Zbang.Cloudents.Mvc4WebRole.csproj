@@ -543,11 +543,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SearchResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Resources\ErrorResources.Designer.cs">
-      <DependentUpon>ErrorResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Views\Shared\Resources\FooterResources.Designer.cs">
       <DependentUpon>FooterResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -572,16 +567,6 @@
       <DependentUpon>SharedResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Shared\Resources\DialogResources.Designer.cs">
-      <DependentUpon>DialogResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Shared\Resources\ValidationResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ValidationResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\User\Resources\UserResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2991,7 +2976,6 @@
     <Content Include="Views\Account\Index3.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\Shared\_Head.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LayoutPage.cshtml" />
     <Content Include="Views\Home\Help2.cshtml" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -3440,22 +3424,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Search\Resources\SearchResources.ru.resx" />
     <EmbeddedResource Include="Views\Search\Resources\SearchResources.zh.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\DialogResources.en-gb.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\DialogResources.ru.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\DialogResources.zh.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\ErrorResources.ar.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\ErrorResources.he.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\ErrorResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ErrorResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\ErrorResources.ru.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\ErrorResources.zh.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.ar.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.he.resx" />
@@ -3504,24 +3472,8 @@
       <LastGenOutput>SharedResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\DialogResources.ar.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\DialogResources.he.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\DialogResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>DialogResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.ru.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.zh.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\ValidationResources.ar.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\ValidationResources.he.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\ValidationResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ValidationResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\ValidationResources.ru.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.ar.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.en-gb.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.he.resx" />
@@ -3555,9 +3507,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Item\_PreviewLink.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Error\MembersOnly.cshtml" />
