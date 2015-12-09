@@ -59,14 +59,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string Cancel {
-            get {
-                return ResourceManager.GetString("Cancel", resourceCulture);
-            }
-        }
     }
 }

@@ -117,19 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ContactYou" xml:space="preserve">
-    <value>We will send you a response within the next 24 hours to the email address you provided </value>
-  </data>
-  <data name="ReportItem" xml:space="preserve">
-    <value>Report abuse</value>
-  </data>
-  <data name="ReportSent" xml:space="preserve">
-    <value>Thank you, the report has been sent successfully!</value>
-  </data>
-  <data name="SendReport" xml:space="preserve">
-    <value>Report</value>
-  </data>
-  <data name="WhyReport" xml:space="preserve">
-    <value>Please submit details below to report this item</value>
-  </data>
 </root>

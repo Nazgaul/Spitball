@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Code" xml:space="preserve">
-    <value>קוד אימות:</value>
-  </data>
-  <data name="CodeIncorrect2" xml:space="preserve">
-    <value>הקוד שהזנת שגוי</value>
-  </data>
   <data name="CurrentPassword" xml:space="preserve">
     <value>סיסמה נוכחית</value>
   </data>
@@ -138,12 +132,6 @@
   <data name="EmailNotCorrect" xml:space="preserve">
     <value>כתובת המייל שהזנת אינה חוקית</value>
   </data>
-  <data name="Language" xml:space="preserve">
-    <value>שפה:</value>
-  </data>
-  <data name="LanguageNotSupported" xml:space="preserve">
-    <value>השפה שבחרת אינה נתמכת</value>
-  </data>
   <data name="Min6Chars" xml:space="preserve">
     <value>- מינימום 6 תווים</value>
   </data>
@@ -152,12 +140,6 @@
   </data>
   <data name="NewPwdEmpty" xml:space="preserve">
     <value>עליך להזין את הסיסמה החדשה</value>
-  </data>
-  <data name="Notifications" xml:space="preserve">
-    <value>התראות:</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>סיסמה:</value>
   </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>אנא הזן מוסד אקדמי</value>

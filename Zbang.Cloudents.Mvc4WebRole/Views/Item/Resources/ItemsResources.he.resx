@@ -144,4 +144,22 @@
   <data name="Processing" xml:space="preserve">
     <value>הקובץ עובר תהליך המרה</value>
   </data>
+  <data name="ReportAbuse" xml:space="preserve">
+    <value>דווח</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>דווח</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>שנה שם</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>שם</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>שמור</value>
+  </data>
+  <data name="Flag" xml:space="preserve">
+    <value>דווח</value>
+  </data>
 </root>

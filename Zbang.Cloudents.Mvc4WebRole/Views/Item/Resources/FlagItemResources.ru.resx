@@ -117,19 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ContactYou" xml:space="preserve">
-    <value>Мы дадим вам ответ в течение 24 по указанному адресу электронной почты</value>
-  </data>
-  <data name="ReportItem" xml:space="preserve">
-    <value>Элемент отчета</value>
-  </data>
-  <data name="ReportSent" xml:space="preserve">
-    <value>Спасибо, отчет был успешно отправлен!</value>
-  </data>
-  <data name="SendReport" xml:space="preserve">
-    <value>Отправить отчет</value>
-  </data>
-  <data name="WhyReport" xml:space="preserve">
-    <value>Почему вы сообщаете об этом элементе?</value>
-  </data>
 </root>

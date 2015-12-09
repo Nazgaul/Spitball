@@ -115,15 +115,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Earn points by:.
-        /// </summary>
-        public static string Earn {
-            get {
-                return ResourceManager.GetString("Earn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Friends.
         /// </summary>
         public static string Friends {
@@ -133,20 +124,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Receiving a 5 star rating: 150 pts .
+        ///   Looks up a localized string similar to Getting a like: 150 pts .
         /// </summary>
-        public static string MaxStars {
+        public static string Likes {
             get {
-                return ResourceManager.GetString("MaxStars", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Receiving a 4 star rating: 100 pts .
-        /// </summary>
-        public static string MoreStars {
-            get {
-                return ResourceManager.GetString("MoreStars", resourceCulture);
+                return ResourceManager.GetString("Likes", resourceCulture);
             }
         }
         
@@ -183,15 +165,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         public static string ShareFB {
             get {
                 return ResourceManager.GetString("ShareFB", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Receiving a 3 star rating: 50 pts .
-        /// </summary>
-        public static string Stars {
-            get {
-                return ResourceManager.GetString("Stars", resourceCulture);
             }
         }
         
