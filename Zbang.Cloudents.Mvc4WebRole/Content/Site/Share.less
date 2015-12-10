@@ -4,7 +4,6 @@
 .portlet.light.invite {
     text-align: center;
     font-size: 18px;
-    height: @dashboardCubeHeight;
 
     svg {
         fill: @fileColor;
@@ -17,11 +16,19 @@
     .buttonBlue();
 }
 
+
+.invite-container{
+    display: flex;
+    padding: 12px;
+    align-items: stretch;
+}
+
 .invite {
     background: @backgroundColorMenu;
     padding: 0 10px 10px;
     margin-top: 10px;
     margin: 0;
+    display: flex;
 
     .tab-from-right {
         background: none;

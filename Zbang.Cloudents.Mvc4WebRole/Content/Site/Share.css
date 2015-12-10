@@ -1,7 +1,6 @@
 ﻿.portlet.light.invite {
   text-align: center;
   font-size: 18px;
-  height: 179px;
   background: #4190b9;
 }
 .portlet.light.invite svg {
@@ -18,11 +17,17 @@
 .portlet.light.invite:focus {
   color: inherit;
 }
+.invite-container {
+  display: flex;
+  padding: 12px;
+  align-items: stretch;
+}
 .invite {
   background: #323538;
   padding: 0 10px 10px;
   margin-top: 10px;
   margin: 0;
+  display: flex;
 }
 .invite .tab-from-right {
   background: none;
