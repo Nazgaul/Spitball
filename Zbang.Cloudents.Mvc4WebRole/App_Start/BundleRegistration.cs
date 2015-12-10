@@ -90,16 +90,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             var jsDictionary = new Dictionary<string, IEnumerable<JsFileWithCdn>>
             {
                 
-                //{
-                //    "static", new[]
-                //    {
-                //        new JsFileWithCdn("~/Scripts/validatinator.min.js"),
-                //         new JsFileWithCdn("~/scripts/svg4everybody.js"),
-                //        new JsFileWithCdn("~/Js/staticShim.js"),
-                //        new JsFileWithCdn("~/Js/Logon.js"),
-                //        new JsFileWithCdn("~/Js/HomePage.js")
-                //    }
-                //},
                
                 {
                     "homePage", new[]
@@ -152,11 +142,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                             "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"),
                         
                             new JsFileWithCdn("~/scripts/angular-ui-router.js"),
-                        new JsFileWithCdn("~/scripts/angulartics.js"),
-                        new JsFileWithCdn("~/scripts/angulartics-ga.js"),
                         new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-sanitize.min.js"),
+                        new JsFileWithCdn("~/bower_components/angular-google-analytics/dist/angular-google-analytics.js"),
                         
 
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngularSetup.js"),

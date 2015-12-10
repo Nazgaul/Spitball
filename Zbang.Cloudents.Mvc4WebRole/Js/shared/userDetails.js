@@ -1,7 +1,7 @@
 ﻿(function () {
     angular.module('app').factory('userDetailsFactory', userDetails);
-    userDetails.$inject = ['$rootScope', '$filter', '$timeout', '$q', '$http', 'ajaxService'];
-    function userDetails($rootScope, $filter, $timeout, $q, $http, ajaxService) {
+    userDetails.$inject = ['$rootScope', '$filter', '$timeout', '$q', '$http', 'ajaxService', 'Analytics'];
+    function userDetails($rootScope, $filter, $timeout, $q, $http, ajaxService, analytics) {
         "use strict";
         var
             isAuthenticated = false,
@@ -24,13 +24,8 @@
         function setDetails(data) {
             data = data || {};
 
-            $http.defaults.headers.common["RequestVerificationToken"] = data.token;
-
-            var analyticsObj = {
-                'siteSpeedSampleRate': 70,
-                'cookieDomain': 'spitball.co',
-                'alwaysSendReferrer': true
-            }
+            //$http.defaults.headers.common["RequestVerificationToken"] = data.token;
+           
 
             if (data.id) {
                 isAuthenticated = true;
@@ -38,15 +33,17 @@
                 //isAuthenticated: true
                 //};
 
-                analyticsObj.userId = data.id;
+               
 
             }
-            var x = window.ga;
-            x('create', 'UA-9850006-3', analyticsObj);
+            //var x = window.ga;
+           
+            //x('create', 'UA-9850006-3', analyticsObj);
 
-            x('set', 'dimension1', data.universityName || null);
-            x('set', 'dimension2', data.universityCountry || null);
-            x('set', 'dimension3', data.id || null);
+            analytics.set('dimension1', data.universityName || null);
+            analytics.set('dimension2', data.universityCountry || null);
+            analytics.set('dimension3', data.id || null);
+           
 
             userData = {
                 id: data.id,

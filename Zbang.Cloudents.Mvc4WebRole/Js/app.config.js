@@ -3,9 +3,9 @@
 
     angular.module('app').config(config);
 
-    config.$inject = ['$controllerProvider', '$locationProvider', '$angularCacheFactoryProvider', '$provide', '$mdThemingProvider'];
+    config.$inject = ['$controllerProvider', '$locationProvider', '$angularCacheFactoryProvider', '$provide'];
 
-    function config($controllerProvider, $locationProvider, $angularCacheFactoryProvider, $provide, $mdThemingProvider) {
+    function config($controllerProvider, $locationProvider, $angularCacheFactoryProvider, $provide) {
         //$locationProvider.html5Mode(true).hashPrefix('!');
         $controllerProvider.allowGlobals();
         $angularCacheFactoryProvider.setCacheDefaults({
@@ -134,3 +134,39 @@
 
     }
 })();
+
+
+(function () {
+    angular.module('app').config(config);
+    config.$inject = ['AnalyticsProvider'];
+    function config(analyticsProvider) {
+
+        var analyticsObj = {
+            'siteSpeedSampleRate': 70,
+            'cookieDomain': 'spitball.co',
+            'alwaysSendReferrer': true
+        }
+        if (window.id) {
+            analyticsObj.userId = window.id;
+        }
+        analyticsProvider.setAccount({
+            tracker: 'UA-9850006-3',
+            fields: analyticsObj,
+            //set: {
+            //    'dimension1': data.universityName || null,
+            //    'dimension2': data.universityCountry || null,
+            //    'dimension3': data.id || null
+            //}
+        });
+        analyticsProvider.setPageEvent('$stateChangeSuccess');
+        //AnalyticsProvider.setDomainName('XXX');
+    }
+
+    angular.module('app').run(anylticsRun);
+    anylticsRun.$inject = ['Analytics'];
+    function anylticsRun(analytics) {
+        analytics.createAnalyticsScriptTag();
+        //for run the app
+    };
+
+})()
