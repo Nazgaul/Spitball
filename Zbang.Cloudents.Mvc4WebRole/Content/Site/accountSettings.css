@@ -1,5 +1,5 @@
 ﻿.accountPage-wrapper .profile-content {
-  width: 50%;
+  max-width: 800px;
 }
 .accountPage-wrapper svg {
   width: 17px;
@@ -103,7 +103,4 @@
 }
 .accountPage-wrapper .uni-name {
   font-size: 20px;
-}
-.accountPage-wrapper .margin-top-10 {
-  margin-bottom: 20px;
 }
