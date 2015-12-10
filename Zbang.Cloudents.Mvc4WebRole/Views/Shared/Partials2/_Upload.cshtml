@@ -60,21 +60,21 @@
                                     </a>
                                 </div>
                                 <h5 ng-if="u.files.length">{{u.files.length}} @IndexResources.Completed</h5>
-                                <ul class="list-inline">
+                                <ul class="list-inline file-upliad-area">
                                     @*<li class="file-upload">
-                                            <span class="check-mark" ng-if="true">@Html.Svg(url, "checkMark")</span>
-                                            <div class="file-name ellipsis">
-                                                Coldpaly_-_A_Sky_Full_Of_Stars.mp3
+                <span class="check-mark" ng-if="true">@Html.Svg(url, "checkMark")</span>
+                <div class="file-name ellipsis">
+                    Coldpaly_-_A_Sky_Full_Of_Stars.mp3
 
-                                                <div class="progress file-upload-progress" ng-if="!file.complete">
-                                                    <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" ng-style="{width: 50 + '%'}">
-                                                        <span class="sr-only">50% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="file-size">4.2 mb</div>
-                                            <button type="button">remove file</button>
-                                        </li>*@
+                    <div class="progress file-upload-progress" ng-if="!file.complete">
+                        <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" ng-style="{width: 50 + '%'}">
+                            <span class="sr-only">50% Complete</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="file-size">4.2 mb</div>
+                <button type="button">remove file</button>
+            </li>*@
                                     <li class="file-upload" ng-repeat="file in u.files" ng-include="'file-upload.html'">
                                 </ul>
                             </div>

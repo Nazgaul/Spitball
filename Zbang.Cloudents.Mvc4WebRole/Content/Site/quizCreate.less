@@ -60,6 +60,12 @@
         width: 800px;
         padding: 10px 15px 0;
 
+        .course-name {
+            font-size: 20px;
+            margin-bottom: 31px;
+            color: #323538;
+        }
+
         .add-question {
             color: @textColorSpitballBlue;
             border: 1px solid @textColorSpitballBlue;
@@ -122,6 +128,7 @@
         border: 1px solid @borderColorLightGrey;
         border-radius: 0;
         margin-bottom: 20px;
+        margin-top: 10px;
 
         &[disabled] {
             border: 0;
@@ -326,14 +333,13 @@
         }
     }
 
-    .correct-answer-error {
-        display: none;
-        color: @textColorRed;
+    .correct-answer {
         width: 50px;
         line-height: 15px;
+        margin-left: 4px;
 
         &.error {
-            display: inline-block;
+            color: @textColorRed;
         }
     }
 

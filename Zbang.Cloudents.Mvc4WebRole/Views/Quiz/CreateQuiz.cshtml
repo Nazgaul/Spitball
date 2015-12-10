@@ -19,7 +19,7 @@
 
     <div class="supported" show-gt-sm hide-xs hide-sm>
 
-        <span>@QuizResources.Course {{::q.boxName}}</span>
+        <span class="course-name">{{::q.boxName}}</span>
         <input class="form-control" ng-disabled="q.quizNameDisabled" type="text" placeholder="Enter quiz name" autofocus required ng-model="q.name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
         <button type="button" ng-click="q.quizNameDisabled = false">@Html.Svg("~/images/site/icons.svg", "edit")</button>
         <div class="quiz-wrapper" ng-repeat="question in q.questions" ng-include="q.template(question)"></div>
@@ -45,7 +45,7 @@
             <div placeholder="Write your question:" ng-blur="q.saveQuestion(question)" text-angular ta-text-editor-class="question-content" ng-model="question.text" data-ng-required></div>
             <div class="header" layout="row" layout-align="start center">
                 <div class="answers-header text-capitalize">@QuizResources.Answers</div>
-                <span class="correct-answer-error text-capitalize">@QuizResources.CorrectAnswer</span>
+                <span class="correct-answer text-capitalize">@QuizResources.CorrectAnswer</span>
             </div>
             <ol class="counter">
                 <li class="answer counter-inc" ng-repeat="answer in question.answers">
