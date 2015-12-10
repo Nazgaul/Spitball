@@ -32,7 +32,7 @@
             {
                 state: 'box.feed',
                 config: {
-                    url: '#feed',
+                    url: 'feed/',
                     controller: 'FeedController as f',
                     parent: 'box'
                 },
@@ -40,7 +40,7 @@
             }, {
                 state: 'box.items',
                 config: {
-                    url: '#items',
+                    url: 'items/',
                     controller: 'ItemsController as i',
                     parent: 'box'
                 },
@@ -48,7 +48,7 @@
             }, {
                 state: 'box.quiz',
                 config: {
-                    url: '#quizzes',
+                    url: 'quizzes/',
                     controller: 'QuizzesController as q',
                     parent: 'box'
                 },
@@ -57,7 +57,7 @@
                 {
                     state: 'box.members',
                     config: {
-                        url: '#members',
+                        url: 'members/',
                         controller: 'MembersController as m',
                         parent: 'box'
                     },
