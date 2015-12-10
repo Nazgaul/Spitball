@@ -1,18 +1,20 @@
 ﻿(function () {
     angular.module('app.account').controller('AccountSettingsInfoController', info);
-    info.$inject = ['accountService', '$timeout', 'userData'];
-    function info(accountService, $timeout, userData) {
+    info.$inject = ['accountService', '$timeout', 'userData', 'userDetailsFactory'];
+    function info(accountService, $timeout, userData, userDetailsFactory) {
         var self = this;
+        
         self.data = angular.copy(userData);
 
         self.submit = function () {
-
             var firstName = self.data.firstName,
             lastName = self.data.lastName;
             if (firstName == userData.firstName && lastName && userData.lastName) {
                 return;
             }
+
             accountService.setAccountDetails(firstName, lastName).then(function () {
+                userDetailsFactory.setName(firstName, lastName);
                 self.done = true;
             });
         }
@@ -43,6 +45,7 @@
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
                         self.data.image = obj.payload;
+                        userDetailsFactory.setImage(obj.payload);
                         accountService.changeImage(obj.payload);
                     }
                 },

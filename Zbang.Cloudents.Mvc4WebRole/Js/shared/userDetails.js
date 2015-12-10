@@ -25,7 +25,7 @@
             data = data || {};
 
             //$http.defaults.headers.common["RequestVerificationToken"] = data.token;
-           
+
 
             if (data.id) {
                 isAuthenticated = true;
@@ -33,17 +33,17 @@
                 //isAuthenticated: true
                 //};
 
-               
+
 
             }
             //var x = window.ga;
-           
+
             //x('create', 'UA-9850006-3', analyticsObj);
 
             analytics.set('dimension1', data.universityName || null);
             analytics.set('dimension2', data.universityCountry || null);
             analytics.set('dimension3', data.id || null);
-           
+
 
             userData = {
                 id: data.id,
@@ -61,7 +61,7 @@
                 university: {
                     //country: data.universityCountry, // for google analytics
                     name: data.universityName, // in library page
-                    id: data.universityId 
+                    id: data.universityId
                 }
             };
 
@@ -90,29 +90,28 @@
                 if (!serverCall) {
                     serverCall = true;
 
-                    ajaxService.get('/account/details/').then(function(response) {
+                    ajaxService.get('/account/details/').then(function (response) {
                         setDetails(response);
-                        //self.details = response;
                         deferDetails.resolve(userData);
-                        //deferAuth.resolve(isAuthenticated);
                     });
                 }
                 return deferDetails.promise;
             },
             get: function () {
                 return userData;
-                
+
             },
-           
+
 
             isAuthenticated: function () {
                 return isAuthenticated;
             },
-            //setName: function (first, middle, last) {
-            //    userData.firstName = first;
-            //    userData.middleName = middle;
-            //    userData.lastName = last;
-            //},
+            setName: function (first, last) {
+                //userData.firstName = first;
+                //userData.lastName = last;
+                userData.name = first + " " + last;
+                $rootScope.$broadcast('userDetailsChange');
+            },
             setImage: function (image) {
                 if (!image) {
                     return;
@@ -120,10 +119,10 @@
                 userData.image = image;
                 $rootScope.$broadcast('userDetailsChange');
             },
-            setUniversity: function(name,id ) {
+            setUniversity: function (name, id) {
                 userData.university.name = name;
                 userData.university.id = id;
-                $rootScope.$broadcast('universityChange',userData);
+                $rootScope.$broadcast('universityChange', userData);
             }
             //updateChange: function () {
             //    $rootScope.$broadcast('userDetailsChange');

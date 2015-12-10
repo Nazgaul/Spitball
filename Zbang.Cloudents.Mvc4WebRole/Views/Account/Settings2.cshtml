@@ -7,33 +7,27 @@
         </div>
     </div>
     <div class="row accountPage">
-        <div class="col-md-12">
-            <div class="profile-content">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="portlet light">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption caption-md">
-                                    <span class="caption-subject uppercase">@AccountResource.ProfileAccount</span>
-                                </div>
-                                <ul class="nav nav-tabs tab-from-right">
-                                    <li ui-sref-active="active">
-                                        <a class="text-capitalize" ui-sref="settings.profile" data-toggle="tab">@AccountResource.Info</a>
-                                    </li>
-                                    <li ui-sref-active="active">
-                                        <a class="text-capitalize" ui-sref="settings.password" data-toggle="tab">@AccountResource.ChangePassword</a>
-                                    </li>
-                                    <li ui-sref-active="active">
-                                        <a class="text-capitalize" ui-sref="settings.notification" data-toggle="tab">@AccountResource.Notifications</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="portlet-body">
-                                <div class="tab-content">
-                                    <div ui-view></div>
-                                </div>
-                            </div>
-                        </div>
+        <div class="profile-content">
+            <div class="portlet light">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption caption-md">
+                        <span class="caption-subject uppercase">@AccountResource.ProfileAccount</span>
+                    </div>
+                    <ul class="nav nav-tabs tab-from-right">
+                        <li ui-sref-active="active">
+                            <a class="text-capitalize" ui-sref="settings.profile" data-toggle="tab">@AccountResource.Info</a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a class="text-capitalize" ui-sref="settings.password" data-toggle="tab">@AccountResource.ChangePassword</a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a class="text-capitalize" ui-sref="settings.notification" data-toggle="tab">@AccountResource.Notifications</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="portlet-body">
+                    <div class="tab-content">
+                        <div ui-view></div>
                     </div>
                 </div>
             </div>
