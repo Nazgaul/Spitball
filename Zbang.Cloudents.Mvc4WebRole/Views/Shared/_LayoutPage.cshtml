@@ -79,15 +79,15 @@
                 <div class="top-menu">
                     <ul class="nav navbar-nav pull-right">
                         @*<li class="separator hide">
-                        </li>*@
+                            </li>*@
                         @*<li>
                                 @Html.Svg(svgUrl, "headerInvite")
                             </li>*@
                         @*<li class="separator hide">
-                        </li>
-                        <li class="separator hide">
-                        </li>*@
-                       
+                            </li>
+                            <li class="separator hide">
+                            </li>*@
+
                         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                         <li class="dropdown dropdown-user dropdown-dark" ng-controller="UserDetailsController as ud">
                             <a ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
@@ -110,15 +110,16 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" href="@Url.Action("logoff","account")" @shouldPostBack>
-                                        @Html.Svg(svgUrl, "logOffMenu") <span>@IndexResources.Logout</span>
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="@Url.RouteUrl("Help")">
                                         @Html.Svg(svgUrl, "headerHelp") <span>@SharedResources.Help</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a target="_self" href="@Url.Action("logoff","account")" @shouldPostBack>
+                                        @Html.Svg(svgUrl, "logOffMenu") <span>@IndexResources.Logout</span>
+                                    </a>
+                                </li>
+
                             </ul>
                             <a class="btn" target="_self" href="@Url.Action("SignUp", "Account")" ng-if="!ud.isLoggedIn">@IndexResources.Signup</a>
                             <a class="btn btn-primary" target="_self" href="@Url.Action("SignIn","Account")" ng-if="!ud.isLoggedIn">@IndexResources.Login</a>
