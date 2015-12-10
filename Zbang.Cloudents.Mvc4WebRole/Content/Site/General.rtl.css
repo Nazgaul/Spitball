@@ -664,3 +664,14 @@ md-menu-item {
 .btn-default {
   border: none;
 }
+.sb-loader {
+  position: fixed;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  z-index: 10051;
+}

@@ -16,7 +16,7 @@
         <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" flex="100" class="flex">
             @{ Html.RenderPartial("_University");}
         </div>
-        <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" class="leaderboard flex" flex="100">
+        <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" class="flex" flex="100">
             @{ Html.RenderPartial("_Leaderboard");}
         </div>
 
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="create-box flex" ng-class="{'create-box-show' : d.createBoxOn}">
-            <a id="createBoxLocation"></a>
+            <a id="create"></a>
             <div class="dashboard-stat2">
                 <button ng-hide="d.createBoxOn" type="button" ng-click="d.createBoxOn = true" class="create-btn">
                     <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
