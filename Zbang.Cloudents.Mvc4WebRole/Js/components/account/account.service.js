@@ -5,9 +5,6 @@
     function accountService(ajaxservice, $q, $rootScope) {
         var self = this;
 
-       // var serverCall = false;
-       // var defer = $q.defer();
-
         self.changeImage = function (src) {
             self.details.image = src;
             $rootScope.$broadcast('userDetailsChange');
@@ -29,23 +26,16 @@ universityName: "האוניברסיטה הפתוחה"
 url: "/user/1/ram-y/"
 */
 
-        //self.getDetails = function () {
-
-        //    if (self.details) {
-        //        defer.resolve(self.details);
-        //        return defer.promise;
-        //    }
-        //    if (!serverCall) {
-        //        serverCall = true;
-        //        ajaxservice.get('/account/details/', null, 1800000).then(function (response) {
-        //            serverCall = false;
-        //            self.details = response;
-        //            defer.resolve(self.details);
-        //        });
-        //    }
-        //    return defer.promise;
-        //}
-
+        self.changeEmail = function(email) {
+            return ajaxservice.post('/account/changeemail/', {
+                email: email
+            });
+        }
+        self.submitCode = function(code) {
+            return ajaxservice.post('/account/entercode/' , {
+                code: code
+            });
+        }
         self.getAccountDetails = function () {
             return ajaxservice.get('/account/settingsdata/', null, 1800000);
         }

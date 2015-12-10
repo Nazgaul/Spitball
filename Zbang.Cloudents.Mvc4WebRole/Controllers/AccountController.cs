@@ -110,10 +110,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             return View();
         }
-        //[DonutOutputCache(VaryByParam = "lang;invId",
-        //   VaryByCustom = CustomCacheKeys.Lang,
-        //   Duration = TimeConsts.Day,
-        //   Location = OutputCacheLocation.Server, Order = 2)]
+        [DonutOutputCache(VaryByParam = "lang;invId",
+           VaryByCustom = CustomCacheKeys.Lang,
+           Duration = TimeConsts.Day,
+           Location = OutputCacheLocation.Server, Order = 2)]
         public ActionResult Signup()
         {
             if (User.Identity.IsAuthenticated)
@@ -472,7 +472,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError(AccountControllerResources.ChangeEmailCodeError);
             }
             var model = m_CookieHelper.ReadCookie<ChangeMail>(SessionKey);
-            //var model = TempData[SessionKey] as ChangeMail;
             if (model == null)
             {
                 return JsonError(AccountControllerResources.ChangeEmailCodeError);
@@ -496,7 +495,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError(ex.Message);
             }
             m_CookieHelper.RemoveCookie(SessionKey);
-            //Session.Remove(SessionKey);
             return JsonOk(model.Email);
         }
 
@@ -506,7 +504,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
             }
             try
             {
@@ -515,9 +513,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model.Code = generatedCode;
                 model.TimeOfExpire = DateTime.UtcNow.AddHours(3);
                 m_CookieHelper.InjectCookie(SessionKey, model);
-                //TempData[SessionKey] = model;
-                //Session[SessionKey] = model;
-
+                
                 await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ChangeEmailData(generatedCode.ToString(CultureInfo.InvariantCulture),
                      model.Email, Thread.CurrentThread.CurrentCulture.Name));
                 return JsonOk(new { code = true });

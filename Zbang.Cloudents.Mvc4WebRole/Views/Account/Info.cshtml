@@ -14,39 +14,35 @@
                 </a>
             </div>
         </div>
-        <form role="form" ng-submit="i.submit()">
+        <form name="changeName" g-submit="i.submit()">
             <div ng-if="i.done" class="alert alert-success text-capitalize" role="alert">@AccountResource.Saved</div>
             <div layout layout-sm="column">
                 <md-input-container flex class="left-flex">
                     <label class="text-capitalize">@AccountResource.First</label>
-                    <input type="text" autocomplete="off" ng-model="i.data.firstName" />
+                    <input required autocomplete="off" type="text" autocomplete="off" ng-model="i.data.firstName" />
                 </md-input-container>
                 <md-input-container flex>
                     <label class="text-capitalize">@AccountResource.Last</label>
-                    <input type="text" autocomplete="off" ng-model="i.data.lastName" />
+                    <input required autocomplete="off" type="text" autocomplete="off" ng-model="i.data.lastName" />
                 </md-input-container>
             </div>
-            <div class="margin-top-10 text-right">
+            <div class="text-right">
                 <button type="reset" class="btn btn-default text-capitalize">@GeneralResources.Cancel</button>
-                <button type="submit" class="btn btn-primary text-capitalize">@GeneralResources.SaveChanges</button>
+                <button type="submit" ng-disabled="!changeName.$valid" class="btn btn-primary text-capitalize">@GeneralResources.SaveChanges</button>
             </div>
         </form>
-        <form>
+        <form name="changeEmail" ng-submit="i.changeEmail()">
             @*<div layout layout-sm="column">*@
             <md-input-container>
-                <label class="control-label text-capitalize" for="email">@AccountResource.ChangeMail</label>
-                <input type="email" id="email" ng-model="i.data.email" class="form-control" />
+                <label class="text-capitalize">@AccountResource.ChangeMail</label>
+                <input type="email" autocomplete="off" required ng-model="i.data.email" />
             </md-input-container>
-            <div class="margin-top-10 text-right">
-                <button type="reset" class="btn btn-default text-capitalize">@GeneralResources.Cancel</button>
-                <button type="submit" class="btn btn-primary text-capitalize">@GeneralResources.SaveChanges</button>
+            <div class="text-right">
+                <button type="button" class="btn btn-default text-capitalize" ng-click="i.cancelChangeEmail()">@GeneralResources.Cancel</button>
+                <button type="submit" class="btn btn-primary text-capitalize" ng-disabled="!changeEmail.$valid || i.data.email === i.original.email">@GeneralResources.SaveChanges</button>
             </div>
         </form>
-        @*<md-input-container flex>
-                <label class="control-label text-capitalize">@AccountResource.EnterCode</label>
-                <input type="text" autocomplete="off" />
-            </md-input-container>*@
-        @*</div>*@
+
         <div layout layout-sm="column">
             <div flex layout="row" layout-align="start center" class="left-flex">
                 <img src="{{::i.data.image}}" class="uni-image" alt="university logo" width="50" height="50" />
@@ -68,3 +64,18 @@
 
     </div>
 </div>
+
+<script type="text/ng-template" id="change-email-template.html">
+    Check your email
+    A verification code was sent to your new email
+    <form ng-submit="ic.submitCode()" novalidate name="insertCode">
+        <md-input-container>
+            <label>Enter verification code</label>
+            <input type="number"  autocomplete="off" required ng-model="ic.code" />
+        </md-input-container>
+        <div class="margin-top-10 text-right">
+            <button type="button" ng-click="ic.cancel()" class="btn btn-default text-capitalize">@GeneralResources.Cancel</button>
+            <button type="submit" class="btn btn-primary text-capitalize" ng-disabled="!insertCode.$valid">@GeneralResources.SaveChanges</button>
+        </div>
+    </form>
+</script>

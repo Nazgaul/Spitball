@@ -218,6 +218,9 @@ textarea,
   padding-top: 0;
   padding-bottom: 0;
 }
+md-input-container {
+  width: 100%;
+}
 md-select:not([disabled]):focus .md-select-value {
   color: #f5f5f5;
   border-bottom: 1px solid #376e8c;

@@ -4,7 +4,8 @@
 
 
     .profile-content {
-        width: 50%;
+        //width: 50%;
+        max-width: 800px;
     }
 
     svg {
@@ -68,20 +69,20 @@
         margin: 0;
 
         &:hover {
-             border: none;
+            border: none;
 
-             > a {
-                 color: @textColorBlue;
-             }
-         }
+            > a {
+                color: @textColorBlue;
+            }
+        }
 
-         &.active {
-             border-bottom: 3px solid @borderColorBlue;
+        &.active {
+            border-bottom: 3px solid @borderColorBlue;
 
-             > a {
-                 color: @textColorWhite;
-             }
-         }
+            > a {
+                color: @textColorWhite;
+            }
+        }
 
         > a {
             color: @textColorGrey;
@@ -141,8 +142,5 @@
     .uni-name {
         font-size: 20px;
     }
-
-    .margin-top-10 {
-        margin-bottom: 20px;
-    }
+   
 }
