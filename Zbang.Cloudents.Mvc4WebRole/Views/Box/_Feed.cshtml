@@ -55,10 +55,10 @@
                     <li ng-repeat="post in f.viewData" class="post comment">
 
                         <div class="top" layout="row" layout-align="space-between center">
-                            <div layout="row" layout-align="start center" class="username">
+                            <a href="{{::post.url}}" layout="row" layout-align="start center" class="username">
                                 <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="54" height="54"></user-image>
                                 <span class="user-name">{{::post.userName}}</span>
-                            </div>
+                            </a>
                         </div>
                         <md-menu ng-if="b.canDelete(post.userId)">
                             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
@@ -98,10 +98,10 @@
                                     </md-menu-content>
                                 </md-menu>
                                 <div class="top">
-                                    <div layout="row" layout-align="start center" class="username">
+                                    <a href="{{::reply.url}}" layout="row" layout-align="start center" class="username">
                                         <user-image class="img-circle c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
                                         <span class="user-name">{{::reply.userName}}</span> @*at*@
-                                    </div>
+                                    </a>
                                     <div ng-bind-html="::reply.content" class="content-text"></div>
                                 </div>
                                 <ul class="list-inline items-container">
