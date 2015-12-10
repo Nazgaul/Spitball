@@ -740,6 +740,15 @@
   justify-content: center;
   padding: 0 20px;
 }
+.upload .tab-content .alert-danger {
+  background-color: #f44336;
+  color: #fff;
+  padding: 10px;
+  border: none;
+}
+.upload .tab-content md-input-container {
+  width: 100%;
+}
 .upload .uploadSection {
   text-align: center;
   font-size: 14px;
