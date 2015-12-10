@@ -101,10 +101,17 @@
 .preview {
   text-align: center;
   margin: 0 auto;
-  /*width: 800px;*/
 }
 .preview .preview-page {
   width: 800px;
+}
+.preview .videoframe {
+  width: calc(100% - 155px) !important;
+}
+@media (max-width: 600px) {
+  .preview .videoframe {
+    width: calc(100% - 20px) !important;
+  }
 }
 .preview .previewFailed p {
   color: #282828;
