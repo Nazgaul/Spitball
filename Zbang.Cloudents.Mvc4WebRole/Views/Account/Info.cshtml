@@ -13,7 +13,6 @@
                     @AccountResource.SelectImg
                 </a>
             </div>
-
         </div>
         <form role="form" ng-submit="i.submit()">
             <div ng-if="i.done" class="alert alert-success text-capitalize" role="alert">@AccountResource.Saved</div>
@@ -31,38 +30,41 @@
                 <button type="reset" class="btn btn-default text-capitalize">@GeneralResources.Cancel</button>
                 <button type="submit" class="btn btn-primary text-capitalize">@GeneralResources.SaveChanges</button>
             </div>
+        </form>
+        <form>
             @*<div layout layout-sm="column">*@
-                <md-input-container>
-                    <label class="control-label text-capitalize" for="email">@AccountResource.ChangeMail</label>
-                    <input type="email" id="email" ng-model="i.data.email" class="form-control" />
-                </md-input-container>
+            <md-input-container>
+                <label class="control-label text-capitalize" for="email">@AccountResource.ChangeMail</label>
+                <input type="email" id="email" ng-model="i.data.email" class="form-control" />
+            </md-input-container>
             <div class="margin-top-10 text-right">
                 <button type="reset" class="btn btn-default text-capitalize">@GeneralResources.Cancel</button>
                 <button type="submit" class="btn btn-primary text-capitalize">@GeneralResources.SaveChanges</button>
             </div>
-                @*<md-input-container flex>
-                    <label class="control-label text-capitalize">@AccountResource.EnterCode</label>
-                    <input type="text" autocomplete="off" />
-                </md-input-container>*@
-            @*</div>*@
-            <div layout layout-sm="column">
-                <div flex layout="row" layout-align="start center" class="left-flex">
-                    <img src="{{i.data.image}}" class="uni-image" alt="" width="50" height="50" />
-                    <div layout="column">
-                        <span class="uni-name">University of life</span>
-                        <a ui-sref="universityChoose" flex>change univeristy</a>
-                    </div>
-                </div>
-                <md-input-container flex>
-                    <label>@AccountResource.Lang</label>
-                    <md-select name="notification" md-on-close="i.changeLanguage()" ng-model="i.data.language" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
-                        @foreach (var lang in Zbang.Zbox.Infrastructure.Culture.Languages.SpitballSupportedCultures)
-                        {
-                            <md-option value="@lang.Culture">@lang.Name</md-option>
-                        }
-                    </md-select>
-                </md-input-container>
-            </div>
         </form>
+        @*<md-input-container flex>
+                <label class="control-label text-capitalize">@AccountResource.EnterCode</label>
+                <input type="text" autocomplete="off" />
+            </md-input-container>*@
+        @*</div>*@
+        <div layout layout-sm="column">
+            <div flex layout="row" layout-align="start center" class="left-flex">
+                <img src="{{::i.data.image}}" class="uni-image" alt="university logo" width="50" height="50" />
+                <div layout="column">
+                    <span class="uni-name">{{::i.data.university}}</span>
+                    <a ui-sref="universityChoose" flex>change univeristy</a>
+                </div>
+            </div>
+            <md-input-container flex>
+                <label>@AccountResource.Lang</label>
+                <md-select name="notification" md-on-close="i.changeLanguage()" ng-model="i.data.language" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
+                    @foreach (var lang in Zbang.Zbox.Infrastructure.Culture.Languages.SpitballSupportedCultures)
+                    {
+                        <md-option value="@lang.Culture">@lang.Name</md-option>
+                    }
+                </md-select>
+            </md-input-container>
+        </div>
+
     </div>
 </div>

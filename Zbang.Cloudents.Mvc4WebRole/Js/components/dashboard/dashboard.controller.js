@@ -27,18 +27,11 @@
         d.deleteBox = deleteBox;
         d.createBoxMobile = createBoxMobile;
 
-        //d.openMenu = openMenu;
-
-        //var originatorEv;
-        //function openMenu($mdOpenMenu, ev) {
-        //    originatorEv = ev;
-        //    $mdOpenMenu(ev);
-        //};
+        
         function createBoxMobile() {
             d.createBoxOn = true;
-            $location.hash('createBoxLocation');
+            $location.hash('create');
             $anchorScroll();
-            $location.hash();
         }
         function deleteBox(ev, box) {
 

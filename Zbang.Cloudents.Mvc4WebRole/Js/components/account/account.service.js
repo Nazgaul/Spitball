@@ -53,10 +53,10 @@ url: "/user/1/ram-y/"
         
 
         self.setAccountDetails = function (firstName, lastName) {
-            self.details.name = firstName + " " + lastName;
+            //self.details.name = firstName + " " + lastName;
             //self.details.universityName = universityName;
             //self.details.universityId = universityId;
-            $rootScope.$broadcast('userDetailsChange');
+            //$rootScope.$broadcast('userDetailsChange');
             return ajaxservice.post('/account/changeprofile/', { firstName: firstName, lastName: lastName });
 
         }
