@@ -89,12 +89,12 @@ input, li, [contenteditable], span, textarea, [role="button"] {
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-}
 
-.multi-line-ellipsis.limit-three {
-    -webkit-line-clamp: 3;
-}
 
+    &.limit-three {
+        -webkit-line-clamp: 3;
+    }
+}
 //create
 /*.create {
     background: @color4;
@@ -374,7 +374,6 @@ md-dialog-actions {
         font-size: 20px;
         z-index: 5;
         border-bottom: 5px solid @borderColorBlack;
-
         //.close {
         //    position: absolute;
         //    top: 20px;
@@ -500,7 +499,7 @@ md-dialog-actions {
 }
 
 .dots-3 {
-   // margin-left: 27px;
+    // margin-left: 27px;
     height: 20px;
     width: 20px;
     fill: @svgDots;
@@ -701,7 +700,7 @@ md-menu-item {
         transform: rotate(180deg);
     }
 }
-        
+
 
 //mobile add button in the bottom right corner
 .mobile-plus {

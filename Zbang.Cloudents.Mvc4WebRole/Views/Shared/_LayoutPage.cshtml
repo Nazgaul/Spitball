@@ -87,11 +87,6 @@
                             </li>*@
                         <li class="separator hide">
                         </li>
-                        <li>
-                            <a href="@Url.RouteUrl("Help")" class="headerHelp">
-                                @Html.Svg(svgUrl, "headerHelp")
-                            </a>
-                        </li>
                         <li class="separator hide">
                         </li>
                         <!-- BEGIN TODO DROPDOWN -->
@@ -217,6 +212,11 @@
                                 <li>
                                     <a target="_self" href="@Url.Action("logoff","account")" @shouldPostBack>
                                         @Html.Svg(svgUrl, "logOffMenu") <span>@IndexResources.Logout</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.RouteUrl("Help")">
+                                        @Html.Svg(svgUrl, "headerHelp") <span>@SharedResources.Help</span>
                                     </a>
                                 </li>
                             </ul>

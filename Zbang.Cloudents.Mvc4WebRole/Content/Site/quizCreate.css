@@ -50,6 +50,11 @@
   width: 800px;
   padding: 10px 15px 0;
 }
+.quiz-create .supported .course-name {
+  font-size: 20px;
+  margin-bottom: 31px;
+  color: #323538;
+}
 .quiz-create .supported .add-question {
   color: #3293f6;
   border: 1px solid #3293f6;
@@ -105,6 +110,7 @@
   border: 1px solid #8c99a6;
   border-radius: 0;
   margin-bottom: 20px;
+  margin-top: 10px;
 }
 .quiz-create .form-control[disabled] {
   border: 0;
@@ -263,14 +269,13 @@
 .create-question .error .error-answer-msg {
   display: inline;
 }
-.create-question .correct-answer-error {
-  display: none;
-  color: #db4437;
+.create-question .correct-answer {
   width: 50px;
   line-height: 15px;
+  margin-left: 4px;
 }
-.create-question .correct-answer-error.error {
-  display: inline-block;
+.create-question .correct-answer.error {
+  color: #db4437;
 }
 .create-question .error-answer-msg {
   display: none;

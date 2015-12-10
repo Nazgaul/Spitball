@@ -426,13 +426,6 @@
         margin-bottom: 0;
     }
 
-    .list-inline {
-        padding: 22px 0 10px 0;
-        overflow-x: hidden;
-        white-space: nowrap;
-        margin: 0;
-    }
-
     .list-inline > li {
         margin: 0 10px;
         border: 1px solid @borderColorGrey;
@@ -458,6 +451,8 @@
 
     md-input-container {
         padding-bottom: 0;
+        width: 100%;
+        margin: 0;
 
         .md-input:active, .md-input:focus {
             color: #fff;
@@ -986,102 +981,116 @@
     }
 }
 
-.file-upload {
-    text-align: center;
-    color: @textColorDarkGrey;
-    width: 115px;
-    height: 165px;
-    font-size: 14px;
-    position: relative;
-    //override bootstrap
-    padding: 0;
-    margin: 5px;
-    background: @fileColor;
-    margin: 0 10px;
-    border: none;
-    padding: 5px 5px 0;
+.file-upliad-area {
 
-
-    .file {
-        height: 100%;
-    }
-
-    .file-footer {
-        width: 100%;
-        margin-bottom: 8px;
-    }
-
-    .progress-wrap {
-        background: @backgroundColorWhite;
-        padding-bottom: 10px;
-    }
-
-    .progress {
-        margin: 0 10px;
-        border-radius: 0;
-        height: 10px;
-
-        .progress-bar {
-            background-color: @progressbarColor;
-        }
-    }
-
-    .btn {
-        border: 1px solid @borderColorSpitballBlue;
-        padding: 5px 40px;
-        font-size: 18px;
-        color: @textColorSpitballBlue;
-    }
-
-    .check-mark {
-        position: absolute;
-        top: -10px;
-        right: -10px;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.4);
-        padding: 5px;
-        z-index: 1;
-
-        svg {
-            fill: @checkMarkColor;
-            margin: 0;
-            width: 20px;
-            height: 20px;
-            vertical-align: middle;
-        }
-    }
-
-    h5 {
-        color: @textColorGreen;
-    }
-
-    .file-size {
-        text-align: left;
-        font-weight: bold;
-    }
-
-    .file-upload-progress {
-        height: 5px;
+    &.list-inline {
+        padding: 22px 0 10px 0;
+        overflow-x: hidden;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
         margin: 0;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
     }
 
-    .file-name {
-        height: 100px;
+    .file-upload {
+        text-align: center;
+        color: @textColorDarkGrey;
+        width: 115px;
+        height: 165px;
+        font-size: 14px;
         position: relative;
-        background: @textColorLightGrey;
-        padding-top: 4px;
-    }
+        //override bootstrap
+        padding: 0;
+        margin: 5px;
+        background: @fileColor;
+        margin: 0 10px;
+        border: none;
+        padding: 5px 5px 0;
 
-    button {
-        background-color: @backgroundColorRed;
-        color: @textColorWhite;
-        width: 100%;
-        padding: 8px;
-        border-radius: 5px;
-        margin-top: 3px;
+
+        .file {
+            height: 100%;
+        }
+
+        .file-footer {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .progress-wrap {
+            background: @backgroundColorWhite;
+            padding-bottom: 10px;
+        }
+
+        .progress {
+            margin: 0 10px;
+            border-radius: 0;
+            height: 10px;
+
+            .progress-bar {
+                background-color: @progressbarColor;
+            }
+        }
+
+        .btn {
+            border: 1px solid @borderColorSpitballBlue;
+            padding: 5px 40px;
+            font-size: 18px;
+            color: @textColorSpitballBlue;
+        }
+
+        .check-mark {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.4);
+            z-index: 1;
+            height: 30px;
+            width: 30px;
+            line-height: 30px;
+
+            svg {
+                fill: @checkMarkColor;
+                margin: 0;
+                width: 20px;
+                height: 20px;
+                vertical-align: middle;
+            }
+        }
+
+        h5 {
+            color: @textColorGreen;
+        }
+
+        .file-size {
+            font-weight: bold;
+            line-height: 20px;
+        }
+
+        .file-upload-progress {
+            height: 5px;
+            margin: 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .file-name {
+            height: 105px;
+            width: 100%;
+            position: relative;
+            background: @textColorLightGrey;
+            text-align: left;
+            padding: 0 4px;
+        }
+
+        button {
+            background-color: @backgroundColorRed;
+            color: @textColorWhite;
+            width: 100%;
+            border-radius: 5px;
+            line-height: 20px;
+        }
     }
 }

@@ -8,6 +8,7 @@
   margin-bottom: 30px;
   color: #888b8e;
   font-weight: 700;
+  overflow: hidden;
 }
 .library-choose .univeristy > div {
   margin-right: 15px;
