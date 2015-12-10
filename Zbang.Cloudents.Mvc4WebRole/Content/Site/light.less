@@ -14,14 +14,15 @@ Body bg color
 html {
     background: @backgroundColor;
 }
+
 body {
-    background: @backgroundColor;//#212427;
+    background: @backgroundColor; //#212427;
     /*background-image: url('../../Images/Site/BG.png');
     background-attachment: scroll;
     background-size: cover;
     background-position: 50% 0;
     background-repeat: no-repeat;*/
-    height:auto; //override angular material
+    height: auto; //override angular material
 }
 
 /*body.page-md {
@@ -156,12 +157,12 @@ Page Header
 }*/
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu {
-    background: @backgroundColorDropdown;
+    background: @backgroundColorMenu;
     border: 0;
 }
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu:after {
-    border-bottom-color: #536470;
+    border-bottom-color: @backgroundColorMenu;
 }
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu > li.external {
@@ -189,7 +190,7 @@ Page Header
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu.dropdown-menu-default > li a:hover,
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu .dropdown-menu-list > li a:hover {
-    background: #5b6f7c;
+    background: @backgroundColorMouseOver;
 }
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu.dropdown-menu-default > li a {
@@ -291,7 +292,7 @@ Page Header
     .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a,
     .page-sidebar .page-sidebar-menu > li > a {
         /* 991px */
-      //  border-top: 1px solid white;
+        //  border-top: 1px solid white;
     }
 }
 
@@ -314,8 +315,7 @@ Page Header
 }*/
 
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a,
-.page-sidebar .page-sidebar-menu > li:hover > a,
-.page-sidebar .page-sidebar-menu > li.open > a {
+.page-sidebar .page-sidebar-menu > li:not(.open):hover > a {
     background: @backgroundColorHover;
     color: @textColorBlue;
 }
@@ -412,10 +412,22 @@ Page Header
     color: @color2;
 }*/
 
+
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.open > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.active > a,
 .page-sidebar .page-sidebar-menu .sub-menu > li:hover > a,
 .page-sidebar .page-sidebar-menu .sub-menu > li.open > a,
 .page-sidebar .page-sidebar-menu .sub-menu > li.active > a {
+    color: @textColorBlue;
+    background: @backgroundColorMenuSelect;
+}
+
+
+.page-sidebar .page-sidebar-menu > li.active.open > a {
+    background: none;
+    //color: #5b9bd1;
+}
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.open > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.active > a,
+.page-sidebar .page-sidebar-menu .sub-menu > li:hover > a {
     color: @textColorBlue;
     background: @backgroundColorHover;
 }
@@ -436,6 +448,33 @@ Page Header
 .page-sidebar .page-sidebar-menu .sub-menu > li.active > a > .arrow.open:before {
     color: @textColorBlue;
 }
+
+.page-sidebar .arrow svg {
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+    -moz-transition: transform 0.2s linear;
+    -o-transition: transform 0.2s linear;
+    -webkit-transition: transform 0.2s linear;
+    transition: transform 0.2s linear;
+}
+
+.page-sidebar .arrow.open svg {
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -moz-transition: transform 0.2s linear;
+    -o-transition: transform 0.2s linear;
+    -webkit-transition: transform 0.2s linear;
+    transition: transform 0.2s linear;
+}
+
+
+
 
 /******
 Page Footer 
@@ -530,7 +569,7 @@ Page Footer
     }
 
     .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle:hover {
-        background-color: #f6f7fa;
+        background-color: @backgroundColorMouseOver;
     }
 }
 

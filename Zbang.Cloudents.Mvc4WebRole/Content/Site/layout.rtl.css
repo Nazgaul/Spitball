@@ -241,7 +241,7 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu:after {
   position: absolute;
   top: -6px;
-  left: 10px;
+  left: 25px;
   display: inline-block !important;
   border-left: 6px solid transparent;
   border-bottom: 6px solid #f5f5f5;

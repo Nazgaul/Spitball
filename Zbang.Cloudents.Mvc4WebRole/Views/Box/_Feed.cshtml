@@ -161,8 +161,8 @@
             <div flex-xs="100" flex-sm="100" flex-md="100" flex-lg="50" flex-gt-lg="50" ng-if="!lb.isPrivate" class="flex leader-board">
                 @{ Html.RenderPartial("_LeaderBoard");}
             </div>
-            <div flex-xs="100" flex-sm="100" flex-md="100" flex-lg="50" flex-gt-lg="{{lb.flexWidth}}" class="flex">
-                <div class=" flex portlet light invite">
+            <div class="invite-container" flex-xs="100" flex-sm="100" flex-md="100" flex-lg="50" flex-gt-lg="{{lb.flexWidth}}" class="flex">
+                <div class="flex portlet light invite">
                     <button type="button" ng-click="b.inviteToBox()" class="portlet-body">
                         @Html.Svg("~/images/site/icons.svg", "invite")
                         @BoxResources.InviteFriends
