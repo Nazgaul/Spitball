@@ -9,8 +9,7 @@
         }
         var b = this, boxId = $stateParams.boxId;
         b.data = boxData;
-        b.isAcademic = b.data.boxType === 'academic';
-
+        b.showLeaderboard =  b.isAcademic = b.data.boxType === 'academic';
         b.needFollow = boxData.userType === 'invite' || boxData.userType === 'none';
         b.owner = boxData.userType === 'owner';
         b.follow = follow;
@@ -84,7 +83,7 @@
                     b.settingsOpen = false;
                     $stateParams.boxName = response.queryString;
                     $state.go('box.feed', $stateParams, { location: "replace" });
-                    
+
                 });
 
             }
@@ -101,6 +100,9 @@
             b.settingsOpen = false;
         });
 
+        $scope.$on('hide-leader-board', function () {
+            b.showLeaderboard = false;
+        });
         function follow() {
             boxService.follow(boxId);
             b.needFollow = false;

@@ -46,12 +46,16 @@
   width: 60px;
 }
 .dashboard .portlet {
+  display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
   flex-direction: column;
 }
 .dashboard .content {
+  display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
@@ -59,6 +63,8 @@
   flex-grow: 1;
 }
 .dashboard .content .universityTitle {
+  display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   justify-content: center;
   flex-grow: 1;

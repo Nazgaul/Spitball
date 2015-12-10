@@ -1,19 +1,23 @@
 ﻿(function () {
     angular.module('app').controller('LeaderboardController', leaderboard);
 
-    leaderboard.$inject = ['dashboardService', '$stateParams', 'boxService'];
+    leaderboard.$inject = ['dashboardService', '$stateParams', 'boxService', '$scope'];
 
-    function leaderboard(dashboardService, $stateParams, boxService) {
+    function leaderboard(dashboardService, $stateParams, boxService, $scope) {
         var self = this;
 
         self.loading = true;
-        self.isPrivate = false;
+        self.hide = false;
         if ($stateParams.boxId) {
             if ($stateParams.boxtype.toLowerCase() === 'box') {
-                self.isPrivate = true;
+                self.hide = true;
             } else {
                 boxService.leaderBoard($stateParams.boxId).then(function(response) {
                     self.leaderboard = response;
+                    if (!response.length) {
+                        self.hide = true;
+                        $scope.$emit('hide-leader-board');
+                    }
                     self.loading = false;
                 });
             }
@@ -25,9 +29,6 @@
             });
         }
 
-        self.flexWidth = 50;
-        if (self.isPrivate) {
-            self.flexWidth = 100;
-        }
+       
     }
 })()

@@ -1,6 +1,13 @@
-﻿.portlet.light.invite {
+﻿.inviteBtn {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
+.portlet.light.invite {
   text-align: center;
   font-size: 18px;
+  width: 100%;
+  justify-content: center;
   background: #4190b9;
 }
 .portlet.light.invite svg {
