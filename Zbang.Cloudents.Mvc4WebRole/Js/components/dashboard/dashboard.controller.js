@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.dashboard').controller('Dashboard', dashboard);
-    dashboard.$inject = ['dashboardService', '$scope', '$mdDialog', 'boxService'];
+    dashboard.$inject = ['dashboardService', '$scope', '$mdDialog', 'boxService', '$anchorScroll', '$location'];
 
-    function dashboard(dashboardService, $scope, $mdDialog, boxService) {
+    function dashboard(dashboardService, $scope, $mdDialog, boxService, $anchorScroll, $location) {
         var d = this;
         d.boxes = [];
         d.inviteOpen = false;
@@ -25,7 +25,7 @@
         });
 
         d.deleteBox = deleteBox;
-
+        d.createBoxMobile = createBoxMobile;
 
         //d.openMenu = openMenu;
 
@@ -34,7 +34,12 @@
         //    originatorEv = ev;
         //    $mdOpenMenu(ev);
         //};
-
+        function createBoxMobile() {
+            d.createBoxOn = true;
+            $location.hash('createBoxLocation');
+            $anchorScroll();
+            $location.hash();
+        }
         function deleteBox(ev, box) {
 
             //boxType //userType
