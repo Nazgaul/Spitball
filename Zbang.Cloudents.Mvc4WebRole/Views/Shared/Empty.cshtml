@@ -73,6 +73,12 @@
                     <span class="title">@IndexResources.Settings</span>
                 </a>
             </li>
+            <li>
+                <a href="@Url.RouteUrl("Help")">
+                    @Html.Svg(svgUrl, "headerHelp")
+                    <span class="title">@SharedResources.Help</span>
+                </a>
+            </li>
             <li class="last ">
                 <a target="_self" href="@Url.Action("logoff","account")">
                     @Html.Svg(svgUrl, "logOffMenu")
