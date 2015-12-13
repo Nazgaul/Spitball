@@ -152,3 +152,8 @@
     width: @size;
     height: @size;
 }
+
+.ratio(@width: 1, @height: 1.4142) {
+    width: 100%;
+    height: (@height / @width) * 100%;
+}

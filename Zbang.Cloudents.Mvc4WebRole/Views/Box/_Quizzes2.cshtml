@@ -10,6 +10,7 @@
                 </div>
             </a>
     </li>
+
     <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="i-q-wrapper" ng-repeat="e in q.quizzes">
         <div ng-include="'quiz-template.html'"></div>
         <md-menu ng-if="b.canDelete(e.ownerId)">
