@@ -185,9 +185,11 @@ input, li, [contenteditable], span, textarea, [role="button"] {
         padding-bottom: 0;
     }
 }
+
 md-input-container {
-    width:100%;
+    width: 100%;
 }
+
 md-select:not([disabled]):focus .md-select-value {
     color: @textColorWhite;
     border-bottom: 1px solid @borderColorDarkBlue;
@@ -242,6 +244,15 @@ md-dialog-actions {
     > .flex {
         padding: 12px;
     }
+}
+
+/*tabs*/
+md-tabs {
+    background: #323538;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    padding: 10px 10px 0;
 }
 /*#endregion*/
 
@@ -726,13 +737,13 @@ md-menu-item {
 }
 
 
-//loder 
+//loder
 .sb-loader {
-    position:fixed;
+    position: fixed;
     .displayFlex;
-    width:100vw;
-    height:100vh;
-    justify-content:center;
-    align-items:center;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
     z-index: 10051;
 }

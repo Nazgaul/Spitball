@@ -87,6 +87,7 @@ i.Content,
 i.NumberOfViews as numOfViews,
 i.Name as name,
 i.url as Url,
+i.Discriminator as Type,
 b.BoxId as boxId
 
                         from zbox.item i 

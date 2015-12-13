@@ -1,4 +1,9 @@
 ﻿/* Set default body */
+.library {
+  /*md-input-container {
+        margin:0;
+    }*/
+}
 .library .corner:after {
   content: "";
   display: inline-block;

@@ -1,10 +1,10 @@
 ﻿(function () {
     angular.module('app.box').controller('BoxController', box);
-    box.$inject = ['boxService', 'boxData', '$stateParams', '$location', '$scope', '$state', 'user', '$rootScope'];
+    box.$inject = ['boxService', 'boxData', '$stateParams', '$scope', '$state', 'user', '$rootScope'];
 
-    function box(boxService, boxData, $stateParams, $location, $scope, $state, user, $rootScope) {
+    function box(boxService, boxData, $stateParams, $scope, $state, user, $rootScope) {
 
-        if (!$location.hash()) {
+        if ($state.current.name === 'box') {
             $state.go('box.feed', $stateParams, { location: "replace" });
         }
         var b = this, boxId = $stateParams.boxId;
@@ -16,7 +16,7 @@
         b.updateBox = updateBox;
         b.inviteToBox = inviteToBox;
 
-
+        b.isActiveState = isActiveState;
 
         b.toggleSettings = toggleSettings;
 
@@ -26,6 +26,10 @@
         $scope.$on("close_invite", function () {
             b.inviteOpen = false;
         });
+
+        function isActiveState(state) {
+            return state === $state.current.name;
+        }
         function canDelete(userId) {
             if (user.isAdmin || user.id === userId) {
                 return true;
