@@ -104,3 +104,30 @@
 .accountPage-wrapper .uni-name {
   font-size: 20px;
 }
+.change-email-dialog {
+  padding: 30px 30px 30px 50px;
+}
+.change-email-dialog .icon,
+.change-email-dialog .content {
+  float: right;
+}
+.change-email-dialog svg {
+  width: 25px;
+  height: 25px;
+  fill: #323538;
+}
+.change-email-dialog .content {
+  margin-right: 10px;
+}
+.change-email-dialog .content md-input-container {
+  margin-bottom: 0;
+}
+.change-email-dialog .content span {
+  font-size: 16px;
+}
+.change-email-dialog .content button {
+  padding: 6px 13px;
+}
+.change-email-dialog .content .btn-default {
+  background: #c3c3c3;
+}
