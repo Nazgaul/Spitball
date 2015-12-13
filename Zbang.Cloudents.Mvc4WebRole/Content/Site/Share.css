@@ -36,6 +36,9 @@
   background: #323538;
   padding: 0 10px 10px;
   margin-top: 10px;
+  margin: 10px;
+}
+.invite.light {
   margin: 0;
 }
 .invite .tab-from-right {
@@ -74,7 +77,7 @@
   background-color: transparent;
 }
 .invite .send {
-  margin: 0 15px 15px 15px;
+  margin: 10px 15px;
 }
 .invite .gmail {
   display: -webkit-flex;
