@@ -62,20 +62,32 @@
 .userPage .header .r-table-cell {
   text-align: center;
 }
-.userPage .nav-tabs,
-.userPage .tabbable {
-  padding: 0;
+.userPage md-tabs-canvas,
+.userPage md-pagination-wrapper {
+  height: 75px;
 }
-.userPage .nav-tabs button,
-.userPage .tabbable button {
+.userPage md-tabs .md-tab.md-active {
+  font-weight: bold;
+}
+.userPage md-tabs md-tab-item {
+  padding: 0 10px;
+  margin: 0 10px;
+}
+.userPage md-tabs md-tab-item .number {
+  color: #f5f5f5;
   font-size: 25px;
-  padding-bottom: 5px;
+  line-height: 40px;
 }
-.userPage .nav-tabs h3,
-.userPage .tabbable h3 {
+.userPage md-tabs h3 {
   font-size: 13px;
-  margin: 12px 0 8px 0;
+  margin: 3px 0 8px 0;
   color: #888b8e;
+}
+.userPage md-tabs md-tab {
+  margin: 0 20px 0 10px;
+  background: transparent;
+  color: #f5f5f5;
+  outline: none;
 }
 .userPage .portlet.light {
   padding: 0;
