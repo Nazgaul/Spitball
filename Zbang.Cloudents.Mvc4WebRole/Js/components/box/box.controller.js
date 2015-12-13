@@ -9,12 +9,13 @@
         }
         var b = this, boxId = $stateParams.boxId;
         b.data = boxData;
-        b.showLeaderboard =  b.isAcademic = b.data.boxType === 'academic';
+        b.showLeaderboard = b.isAcademic = b.data.boxType === 'academic';
         b.needFollow = boxData.userType === 'invite' || boxData.userType === 'none';
         b.owner = boxData.userType === 'owner';
         b.follow = follow;
         b.updateBox = updateBox;
         b.inviteToBox = inviteToBox;
+        b.closeCollapse = closeCollapse;
 
         b.isActiveState = isActiveState;
 
@@ -97,6 +98,10 @@
             $rootScope.$broadcast('close-collapse');
             b.inviteOpen = true;
             $scope.$broadcast('open_invite');
+        }
+
+        function closeCollapse() {
+            $rootScope.$broadcast('close-collapse');
         }
 
         $scope.$on('close-collapse', function () {

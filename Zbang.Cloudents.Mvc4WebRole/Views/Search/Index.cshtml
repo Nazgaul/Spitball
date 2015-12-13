@@ -14,7 +14,7 @@
             <button type="button" class="text-capitalize" ng-click="s.tab = 'q'">@SearchResources.Quizzes</button>
         </li>
     </ul>
-    <div layout="row" layout-align="space-around start" layout-wrap infinite-scroll="s.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
+    <div layout="row" layout-align="space-between start" layout-wrap infinite-scroll="s.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
         <div flex-gt-sm="25" flex="100" class="s-hide" ng-class="{show: s.tab === 'b'}">
             <h3 class="text-capitalize">@SearchResources.Classes</h3>
             <div layout="row" layout-padding layout-wrap>

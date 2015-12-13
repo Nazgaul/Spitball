@@ -36,6 +36,9 @@
   background: #323538;
   padding: 0 10px 10px;
   margin-top: 10px;
+  margin: 10px;
+}
+.invite.light {
   margin: 0;
 }
 .invite .tab-from-right {
@@ -47,7 +50,7 @@
   margin-left: 0;
 }
 .invite button {
-  margin: 0 auto;
+  margin: 10px auto;
 }
 .invite .body {
   background: #181c1d;
@@ -74,7 +77,7 @@
   background-color: transparent;
 }
 .invite .send {
-  margin: 0 15px 15px 15px;
+  margin: 10px 15px;
 }
 .invite .gmail {
   display: -webkit-flex;
@@ -105,6 +108,10 @@
   line-height: 18px;
   width: 60%;
   margin-top: 3px;
+  padding-right: 5px;
+}
+.invite md-chips .md-chips {
+  box-shadow: 0 1px #888b8e;
 }
 .md-chips .md-chip-input-container {
   color: #f5f5f5;

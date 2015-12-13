@@ -17,8 +17,8 @@
                     <div class="form-body">
                         <div class="tab-content">
                             <div ng-if="u.alert" class="alert alert-danger alert-dismissible" role="alert">{{u.alert}}</div>
-                            <div class="row uploadSection" ng-if="u.uploadStep === 0">
-                                <div class="col-md-3" ng-click="u.uploadStep = 1">
+                            <div layout-wrap layout="row" class="row uploadSection" ng-if="u.uploadStep === 0">
+                                <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25" ng-click="u.uploadStep = 1">
                                     <button type="button">
                                         <span>
                                             @Html.Svg(url, "file")
@@ -26,7 +26,7 @@
                                         @IndexResources.UploadFromComputer
                                     </button>
                                 </div>
-                                <div class="col-md-3">
+                                <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25">
                                     <button type="button" ng-click="u.google()" ng-disabled="!u.googleDriveLoaded">
                                         <span>
                                             @Html.Svg(url, "googleDrive")
@@ -35,7 +35,7 @@
                                         @IndexResources.UploadFromGoogle
                                     </button>
                                 </div>
-                                <div class="col-md-3">
+                                <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25">
                                     <button type="button" ng-click="u.dropBox()" ng-disabled="!u.dropBoxLoaded">
                                         <span>
                                             @Html.Svg(url, "dropbox", new { @class = "dropbox" })
@@ -43,7 +43,7 @@
                                         @IndexResources.UploadFromDropbox
                                     </button>
                                 </div>
-                                <div class="col-md-3" ng-click="u.uploadStep = 4">
+                                <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25" ng-click="u.uploadStep = 4">
                                     <button type="button">
                                         <span>
                                             @Html.Svg(url, "link", new { @class = "link" })

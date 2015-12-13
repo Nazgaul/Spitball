@@ -2,6 +2,9 @@
 
 .search {
     background: @backgroundColor;
+    @media (min-width: 960px) {
+        padding: 0 5%;
+    }
 
     ::-webkit-input-placeholder {
         color: @textColorGrey;
@@ -26,6 +29,7 @@
             display: block;
         }
     }
+
 
     @media (max-width: 959px) {
 
@@ -78,6 +82,7 @@
 
     .quiz .top .first-letter {
         .sizeOfLetter(10vw);
+
         @media (min-width: 600px) {
             .sizeOfLetter(6vw);
         }

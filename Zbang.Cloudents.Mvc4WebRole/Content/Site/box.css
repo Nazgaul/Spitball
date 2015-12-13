@@ -269,9 +269,6 @@
   fill: #5d6063;
   vertical-align: middle;
 }
-.feed .actions svg:hover {
-  fill: #5B9CC2;
-}
 .feed .actions .anonymous {
   width: 28px;
   height: 28px;
@@ -753,7 +750,6 @@
   text-align: center;
   font-size: 14px;
   line-height: 15px;
-  width: 58%;
   margin: 0 auto;
 }
 .upload .uploadSection svg {

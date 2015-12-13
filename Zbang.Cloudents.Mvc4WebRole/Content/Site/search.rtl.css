@@ -1,6 +1,11 @@
 ﻿.search {
   background: #181c1d;
 }
+@media (min-width: 960px) {
+  .search {
+    padding: 0 5%;
+  }
+}
 .search ::-webkit-input-placeholder {
   color: #888b8e;
 }
