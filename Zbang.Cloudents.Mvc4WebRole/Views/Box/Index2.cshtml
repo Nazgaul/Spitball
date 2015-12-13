@@ -15,20 +15,20 @@
     <div uib-collapse="!b.settingsOpen" class="settings">
         @{Html.RenderPartial("_Settings");}
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="portlet box">
-                <div class="portlet-body">
-                    <ul class="nav nav-tabs tabbable">
-                        <li class="text-capitalize" ui-sref-active="active"><a ui-sref="box.feed">@BoxResources.Feed</a></li>
-                        <li class="text-capitalize" ui-sref-active="active"><a ui-sref="box.items">@BoxResources.Items</a></li>
-                        <li class="text-capitalize" ui-sref-active="active"><a ui-sref="box.quiz">@BoxResources.Quizzes</a></li>
-                        <li class="text-capitalize" ui-sref-active="active"><a ui-sref="box.members">@BoxResources.Members</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    <md-tabs>
+        <md-tab ui-sref="box.feed" md-active="b.isActiveState('box.feed')">
+            <md-tab-label>@BoxResources.Feed</md-tab-label>
+        </md-tab>
+        <md-tab ui-sref="box.items" md-active="b.isActiveState('box.items')">
+            <md-tab-label>@BoxResources.Items</md-tab-label>
+        </md-tab>
+        <md-tab ui-sref="box.quiz" md-active="b.isActiveState('box.quiz')">
+            <md-tab-label>@BoxResources.Quizzes</md-tab-label>
+        </md-tab>
+        <md-tab ui-sref="box.members" md-active="b.isActiveState('box.members')">
+            <md-tab-label>@BoxResources.Members</md-tab-label>
+        </md-tab>
+    </md-tabs>
     <div ui-view></div>
 </div>
 

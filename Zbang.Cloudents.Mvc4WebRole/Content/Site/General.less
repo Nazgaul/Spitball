@@ -252,6 +252,22 @@ md-tabs {
     margin-bottom: 20px;
     font-size: 16px;
     padding: 10px 10px 0;
+
+    .md-tab {
+        color: @textColorGrey;
+        font-size: 16px;
+        text-transform: capitalize;
+
+        &.md-active {
+            //  border-bottom: 3px solid #3598dc;
+            color: @textColorWhite;
+        }
+    }
+
+    md-ink-bar {
+        color: @borderColorBlue;
+        background: @borderColorBlue;
+    }
 }
 /*#endregion*/
 
