@@ -66,6 +66,9 @@
 .userPage md-pagination-wrapper {
   height: 75px;
 }
+.userPage md-tabs {
+  padding: 0;
+}
 .userPage md-tabs .md-tab.md-active {
   font-weight: bold;
 }
@@ -76,11 +79,12 @@
 .userPage md-tabs md-tab-item .number {
   color: #f5f5f5;
   font-size: 25px;
-  line-height: 40px;
+  line-height: 30px;
+  padding-bottom: 10px;
 }
 .userPage md-tabs h3 {
   font-size: 13px;
-  margin: 3px 0 8px 0;
+  margin: 13px 0 8px 0;
   color: #888b8e;
 }
 .userPage md-tabs md-tab {
