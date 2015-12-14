@@ -19,7 +19,7 @@
             <input type="text" autocomplete="off" name="lecturer" ng-model="b.settings.professorName" />
         </md-input-container>
     </div>
-    <div layout="row"  ng-if="!b.isAcademic && b.owner">
+    <div layout="row" ng-if="!b.isAcademic && b.owner">
         <md-input-container flex="100">
             <label class="text-capitalize">@BoxResources.Privacy</label>
             <md-select name="notification" ng-model="b.settings.privacy" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
@@ -46,10 +46,10 @@
                 <md-option class="text-capitalize" ng-value="true">@BoxResources.Unfollow</md-option>
             </md-select>
         </md-input-container>
-        <div layout="row" layout-align="end center" flex="100" flex-gt-md="33">
+        <md-input-container layout="row" layout-align="end center" flex="100" flex-gt-md="33">
             <button type="button" class="btn btn-default text-capitalize" ng-click="b.settingsOpen = false">@GeneralResources.Cancel</button>
             <button type="submit" class="btn btn-primary text-capitalize">@GeneralResources.SaveChanges</button>
-        </div>
+        </md-input-container>
     </div>
 </form>
 
