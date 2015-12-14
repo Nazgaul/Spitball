@@ -1,9 +1,10 @@
 ﻿(function () {
     angular.module('app.box.feed').controller('FeedController', feed);
-    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService', 'user', 'userUpdatesService', '$mdDialog'];
+    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
+        'user', 'userUpdatesService', '$mdDialog', '$scope'];
 
-    function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService, $mdDialog) {
-        var self = this, boxId = parseInt($stateParams.boxId, 10);
+    function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService, $mdDialog, $scope) {
+        var self = this, boxId = parseInt($stateParams.boxId, 10), page = 0, ajaxFinish = true;
 
         self.add = {
             files: [],
@@ -35,9 +36,29 @@
         self.postItemTemplate = postItemTemplate;
         self.myPagingFunction = myPagingFunction;
 
-        boxService.getFeed(boxId).then(function (response) {
+        boxService.getFeed(boxId, page).then(function (response) {
             self.data = response;
+            assignData();
 
+        });
+        function myPagingFunction() {
+            if (ajaxFinish) {
+                ajaxFinish = false;
+                page++;
+                boxService.getFeed(boxId, page).then(function (response) {
+                    if (!response.length) {
+                        return;
+                    }
+                    self.data = self.data.concat(response);
+                    assignData();
+                    ajaxFinish = true;
+                });
+            }
+            //var page = self.viewData.length / 25;
+            //self.viewData = self.viewData.concat(self.data.slice(page * 25, (page * 25) + 25));
+        }
+
+        function assignData() {
             for (var i = 0; i < self.data.length; i++) {
                 var files = self.data[i].files;
                 for (var j = 0; j < files.length; j++) {
@@ -56,17 +77,12 @@
                 }
             }
             userUpdatesService.boxUpdates(boxId, function (updates) {
-                for (var j = 0; j < updates.length; j++) {
-                    var update = updates[j];
+                for (var jj = 0; jj < updates.length; jj++) {
+                    var update = updates[jj];
                     attachNew(update);
 
                 }
             });
-            self.viewData = self.data.slice(0, 25);
-        });
-        function myPagingFunction() {
-            var page = self.viewData.length / 25;
-            self.viewData = self.viewData.concat(self.data.slice(page * 25, (page * 25) + 25));
         }
 
         function postItemTemplate(elmenet) {
@@ -104,14 +120,14 @@
                     return e.id === update.questionId;
                 });
                 if (!question) {
-                   // console.log('something wrong');
+                    // console.log('something wrong');
                 }
                 if (update.answerId) {
                     var answer = question.answers.find(function (e) {
                         return e.id === update.answerId;
                     });
                     if (!answer) {
-                       // console.log('something wrong');
+                        // console.log('something wrong');
                     }
                     answer.isNew = true;
                 }
@@ -161,7 +177,7 @@
 
             self.add.disabled = true;
             boxService.postReply(self.add.newText, boxId, comment.id, filesId).then(function (response) {
-                comment.answers.unshift({
+                var newComment = {
                     content: self.newText,
                     creationTime: new Date(),
                     id: response.commentId,
@@ -178,9 +194,11 @@
                         temp.icon = retVal.icon;
                         return temp;
                     })
-                });
+                };
+                comment.answers.unshift(newComment);
                 self.add.newText = '';
                 self.add.files = [];
+                $scope.$emit('follow-box');
             }).finally(function () {
                 self.add.disabled = false;
             });
@@ -196,7 +214,7 @@
 
             //content,boxId, files, anonymously
             boxService.postComment(self.add.newText, boxId, filesId, self.add.anonymous).then(function (response) {
-                self.data.unshift({
+                var newComment = {
                     content: self.add.newText,
                     creationTime: new Date(),
                     id: response.commentId,
@@ -211,10 +229,12 @@
                         temp.icon = retVal.icon;
                         return temp;
                     })
-                });
+                };
+                self.data.unshift(newComment);
                 self.add.newText = '';
                 self.add.files = [];
                 self.add.anonymous = false;
+                $scope.$emit('follow-box');
                 /*answers: []
 content: "asdasdasd"
 creationTime: "2015-11-04T13:11:32.6519547Z"
@@ -252,7 +272,7 @@ userName: "ram y"*/
             },
             callbacks: {
                 filesAdded: function (uploader, files) {
-
+                    $scope.$emit('follow-box');
                     for (var i = 0; i < files.length; i++) {
                         files[i].sizeFormated = plupload.formatSize(files[i].size);
                         files[i].complete = false;
@@ -269,8 +289,6 @@ userName: "ram y"*/
                         fileSize: file.size,
                         boxId: boxId,
                         comment: true
-                        //isComment: false
-
                     };
                 },
                 fileUploaded: function (uploader, file, response) {
@@ -296,6 +314,7 @@ userUrl: "/user/1/ram-y/"*/
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
                         file.system = obj.payload.fileDto;
+
                         // $rootScope.$broadcast('item_upload', obj.payload);
                     }
                 }
