@@ -297,9 +297,6 @@
 .feed .content-text img {
   max-width: 100%;
 }
-.feed .add-reply {
-  display: none;
-}
 .feed .add-reply .reply-wrapper {
   border: 1px solid #5d6063;
   margin-bottom: 10px;
