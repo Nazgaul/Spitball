@@ -167,6 +167,7 @@ q.NumberOfViews as numOfViews
                          left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
                         where q.UserId = @Myfriend
                         and q.IsSystemGenerated = 0
+                        and q.text is not null
                         and (b.PrivacySetting = 3 or 
                          ub.UserId = @Me)
 					union 
@@ -175,6 +176,7 @@ q.NumberOfViews as numOfViews
                  join zbox.box b on b.BoxId = a.BoxId and b.IsDeleted = 0
                  left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
                  where a.UserId = @Myfriend
+                 and a.text is not null
                  and (b.PrivacySetting = 3 or  ub.UserId = @Me)
 				 ) as t
 				 order by t.CreationTime desc

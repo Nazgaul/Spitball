@@ -56,7 +56,8 @@
         <div class="page-header-inner">
             <div class="page-logo">
                 <a href="@url" @shouldPostBack>
-                    @Html.Svg(svgUrl, "logo", new { @class = "logo-default" })
+                    @Html.Svg(svgUrl, "logo", new { @class = "logo-default", hide_xs = "" })
+                    @Html.Svg(svgUrl, "smallLogo", new { @class = "logo-default", hide = "", show_xs = "" })
                 </a>
                 <div class="menu-toggler sidebar-toggler">
                     <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->

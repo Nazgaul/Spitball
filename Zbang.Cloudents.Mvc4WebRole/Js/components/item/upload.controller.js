@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.upload').controller('Upload', upload);
-    upload.$inject = ['$scope', 'itemService', '$q', '$timeout', '$stateParams', '$rootScope', 'externalUploadProvider'];
+    upload.$inject = ['$scope', 'itemService', '$q', '$timeout', '$stateParams', '$rootScope', 'externalUploadProvider', '$location', '$anchorScroll'];
 
-    function upload($scope, itemService, $q, $timeout, $stateParams, $rootScope, externalUploadProvider) {
+    function upload($scope, itemService, $q, $timeout, $stateParams, $rootScope, externalUploadProvider, $location, $anchorScroll) {
         var u = this, tab = null;
 
         var uploadChoose = {
@@ -16,6 +16,8 @@
         $scope.$on('open_upload', function (e, args) {
             tab = args;
             $rootScope.$broadcast('close-collapse');
+            $location.hash('upload');
+            $anchorScroll();
             u.open = true;
 
             externalUploadProvider.dropboxInit().then(function () {

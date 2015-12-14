@@ -6,6 +6,7 @@
         var i = this,
         boxId = $stateParams.boxId;
         i.items = [];
+        i.uploadShow = true;
         i.tabSelected = {};
         var page = 0, loading = false, needToBringMore = true;
 

@@ -28,8 +28,7 @@
             </div>
         </div>
         <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="create-box flex" ng-class="{'create-box-show' : d.createBoxOn}">
-            <a id="create"></a>
-            <div class="dashboard-stat2">
+            <div id="create" class="dashboard-stat2">
                 <button ng-hide="d.createBoxOn" type="button" ng-click="d.createBoxOn = true" class="create-btn">
                     <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
                     <div class="title">@DashboardResource.StudyGroup</div>
@@ -40,7 +39,7 @@
                             <div layout layout-sm="column">
                                 <md-input-container flex>
                                     <label>Enter study group name</label>
-                                    <input autocomplete="off" required ng-model="cb.boxName">
+                                    <input autofocus autocomplete="off" required ng-model="cb.boxName">
                                     <span class="error" ng-show="cb.error">{{cb.error}}</span>
                                 </md-input-container>
                             </div>
@@ -74,7 +73,7 @@
     </div>
 </div>
 
-<button type="button" class="add visible-xs-block" ng-click="d.createBoxMobile()" ng-hide="d.createBoxOn">
+<button type="button" class="add" hide show-xs ng-click="d.createBoxOn = true" ng-hide="d.createBoxOn">
     <div class="mobile-plus">
         @Html.Svg("~/images/site/icons.svg", "add")
     </div>

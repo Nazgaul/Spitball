@@ -94,7 +94,6 @@ Page Header
     padding-right: 20px;
 }
 
-.page-header.navbar .page-logo > .logo-image,
 .page-header.navbar .page-logo > a {
     display: block;
     float: left;
@@ -105,17 +104,30 @@ Page Header
     width: 180px;
     height: 75px;
     fill: @textColorWhite;
+
+    @media (max-width: 600px) {
+        &:first-child {
+            display:none;
+
+        }
+    }
+    @media (min-width: 600px) {
+        &:last-child {
+            display:none;
+        }
+    }
 }
 
-.page-header.navbar .page-logo .logo-mini {
-    display: none;
-    margin-left: 5px;
-}
 
-.page-header.navbar .page-logo .text-logo {
-    padding-left: 20px;
-    padding-top: 12px;
-}
+//.page-header.navbar .page-logo .logo-mini {
+//    display: none;
+//    margin-left: 5px;
+//}
+//
+//.page-header.navbar .page-logo .text-logo {
+//    padding-left: 20px;
+//    padding-top: 12px;
+//}
 
 .page-header.navbar .page-top {
     height: 75px;

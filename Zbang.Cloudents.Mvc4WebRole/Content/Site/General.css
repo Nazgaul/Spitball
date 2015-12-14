@@ -1,104 +1,62 @@
-﻿.color17 {
+﻿.color10 {
   color: #4faf61;
 }
-.color17.background {
+.color10.background {
   background: #4faf61;
 }
-.color16 {
+.color9 {
   color: #4e5384;
 }
-.color16.background {
+.color9.background {
   background: #4e5384;
 }
-.color15 {
-  color: #549af7;
-}
-.color15.background {
-  background: #549af7;
-}
-.color14 {
+.color8 {
   color: #c33f40;
 }
-.color14.background {
+.color8.background {
   background: #c33f40;
 }
-.color13 {
-  color: #6ea77b;
-}
-.color13.background {
-  background: #6ea77b;
-}
-.color12 {
+.color7 {
   color: #73b435;
 }
-.color12.background {
+.color7.background {
   background: #73b435;
 }
-.color11 {
+.color6 {
   color: #f76446;
 }
-.color11.background {
+.color6.background {
   background: #f76446;
 }
-.color10 {
+.color5 {
   color: #f36f6e;
 }
-.color10.background {
+.color5.background {
   background: #f36f6e;
 }
-.color9 {
-  color: #695b47;
-}
-.color9.background {
-  background: #695b47;
-}
-.color8 {
-  color: #e3b75f;
-}
-.color8.background {
-  background: #e3b75f;
-}
-.color7 {
-  color: #5474cf;
-}
-.color7.background {
-  background: #5474cf;
-}
-.color6 {
+.color4 {
   color: #848fa6;
 }
-.color6.background {
+.color4.background {
   background: #848fa6;
 }
-.color5 {
+.color3 {
   color: #ffb933;
 }
-.color5.background {
+.color3.background {
   background: #ffb933;
 }
-.color4 {
+.color2 {
   color: #e775ce;
 }
-.color4.background {
+.color2.background {
   background: #e775ce;
 }
-.color3 {
+.color1 {
   color: #ff9853;
 }
-.color3.background {
-  background: #ff9853;
-}
-.color2 {
-  color: #666e70;
-}
-.color2.background {
-  background: #666e70;
-}
-.color1 {
-  color: #9d87b7;
-}
 .color1.background {
-  background: #9d87b7;
+  background: #ff9853;
 }
 .color0 {
   color: #64a9f8;
@@ -189,7 +147,6 @@ textarea,
   font-size: 28px;
   line-height: 55px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 0 1px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-  display: none;
   /*@media only screen and (max-width : 768px) {
         display: block;
     }*/

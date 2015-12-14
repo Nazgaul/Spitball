@@ -3,65 +3,65 @@
 @{
     const string url = "~/images/site/uploadIcons.svg";
 }
-<div class="row margin-bottom-20" ng-cloak uib-collapse="!u.open" ng-controller="Upload as u">
-    <div class="col-md-12">
-        <div class="portlet invite box upload">
-            <div class="portlet-title">
-                <div class="caption">
-                    @IndexResources.UploadFiles
-                </div>
-                @*<button type="button" class="close" ng-click="u.closeUpload()">@Html.Svg("~/images/site/icons.svg", "close")</button>*@
+<div class="margin-bottom-20" ng-cloak uib-collapse="!u.open" ng-controller="Upload as u">
+    <a id="upload"></a>
+    <div class="portlet invite box upload">
+        <div class="portlet-title">
+            <div class="caption">
+                @IndexResources.UploadFiles
             </div>
-            <div class="portlet-body form">
-                <div class="form-horizontal">
-                    <div class="form-body">
-                        <div class="tab-content">
-                            <div ng-if="u.alert" class="alert alert-danger alert-dismissible" role="alert">{{u.alert}}</div>
-                            <div layout-wrap layout="row" class="row uploadSection" ng-if="u.uploadStep === 0">
-                                <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25" ng-click="u.uploadStep = 1">
-                                    <button type="button">
-                                        <span>
-                                            @Html.Svg(url, "file")
-                                        </span>
-                                        @IndexResources.UploadFromComputer
-                                    </button>
-                                </div>
-                                <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25">
-                                    <button type="button" ng-click="u.google()" ng-disabled="!u.googleDriveLoaded">
-                                        <span>
-                                            @Html.Svg(url, "googleDrive")
-                                        </span>
-
-                                        @IndexResources.UploadFromGoogle
-                                    </button>
-                                </div>
-                                <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25">
-                                    <button type="button" ng-click="u.dropBox()" ng-disabled="!u.dropBoxLoaded">
-                                        <span>
-                                            @Html.Svg(url, "dropbox", new { @class = "dropbox" })
-                                        </span>
-                                        @IndexResources.UploadFromDropbox
-                                    </button>
-                                </div>
-                                <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25" ng-click="u.uploadStep = 4">
-                                    <button type="button">
-                                        <span>
-                                            @Html.Svg(url, "link", new { @class = "link" })
-                                        </span>
-                                        @IndexResources.WebLink
-                                    </button>
-                                </div>
+            @*<button type="button" class="close" ng-click="u.closeUpload()">@Html.Svg("~/images/site/icons.svg", "close")</button>*@
+        </div>
+        <div class="portlet-body form">
+            <div class="form-horizontal">
+                <div class="form-body">
+                    <div class="tab-content">
+                        <div ng-if="u.alert" class="alert alert-danger alert-dismissible" role="alert">{{u.alert}}</div>
+                        <div layout-wrap layout="row" class="row uploadSection" ng-if="u.uploadStep === 0">
+                            <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25" ng-click="u.uploadStep = 1">
+                                <button type="button">
+                                    <span>
+                                        @Html.Svg(url, "file")
+                                    </span>
+                                    @IndexResources.UploadFromComputer
+                                </button>
                             </div>
-                            <div ng-if="u.uploadStep === 1" id="dropElement" class="text-center">
-                                <div ng-hide="u.files.length">
-                                    <div>@IndexResources.DragHere</div>
-                                    <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn" plupload-callbacks="u.fileUpload.callbacks">
-                                        @IndexResources.UploadFiles
-                                    </a>
-                                </div>
-                                <h5 ng-if="u.files.length">{{u.files.length}} @IndexResources.Completed</h5>
-                                <ul class="list-inline file-upliad-area">
-                                    @*<li class="file-upload">
+                            <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25">
+                                <button type="button" ng-click="u.google()" ng-disabled="!u.googleDriveLoaded">
+                                    <span>
+                                        @Html.Svg(url, "googleDrive")
+                                    </span>
+
+                                    @IndexResources.UploadFromGoogle
+                                </button>
+                            </div>
+                            <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25">
+                                <button type="button" ng-click="u.dropBox()" ng-disabled="!u.dropBoxLoaded">
+                                    <span>
+                                        @Html.Svg(url, "dropbox", new { @class = "dropbox" })
+                                    </span>
+                                    @IndexResources.UploadFromDropbox
+                                </button>
+                            </div>
+                            <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25" ng-click="u.uploadStep = 4">
+                                <button type="button">
+                                    <span>
+                                        @Html.Svg(url, "link", new { @class = "link" })
+                                    </span>
+                                    @IndexResources.WebLink
+                                </button>
+                            </div>
+                        </div>
+                        <div ng-if="u.uploadStep === 1" id="dropElement" class="text-center">
+                            <div ng-hide="u.files.length">
+                                <div>@IndexResources.DragHere</div>
+                                <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn" plupload-callbacks="u.fileUpload.callbacks">
+                                    @IndexResources.UploadFiles
+                                </a>
+                            </div>
+                            <h5 ng-if="u.files.length">{{u.files.length}} @IndexResources.Completed</h5>
+                            <ul class="list-inline file-upliad-area">
+                                @*<li class="file-upload">
                 <span class="check-mark" ng-if="true">@Html.Svg(url, "checkMark")</span>
                 <div class="file-name ellipsis">
                     Coldpaly_-_A_Sky_Full_Of_Stars.mp3
@@ -75,19 +75,18 @@
                 <div class="file-size">4.2 mb</div>
                 <button type="button">remove file</button>
             </li>*@
-                                    <li class="file-upload" ng-repeat="file in u.files" ng-include="'file-upload.html'">
-                                </ul>
-                            </div>
-                            <div ng-if="u.uploadStep === 4" ng-form="uploadLink">
-                                <md-input-container class="padding">
-                                    <label>@IndexResources.Share</label>
-                                    <input type="url" spellcheck="false" autocomplete="off" ng-model="u.link" autofocus required />
-                                </md-input-container>
-                                <input type="button" class="btn btn-primary pull-right" ng-click="u.uploadLink()" ng-disabled="u.submitFormProcess" value="share" />
-                            </div>
+                                <li class="file-upload" ng-repeat="file in u.files" ng-include="'file-upload.html'">
+                            </ul>
                         </div>
-                       <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="u.closeUpload()">@GeneralResources.Cancel</button>
+                        <div ng-if="u.uploadStep === 4" ng-form="uploadLink">
+                            <md-input-container class="padding">
+                                <label>@IndexResources.Share</label>
+                                <input type="url" spellcheck="false" autocomplete="off" ng-model="u.link" autofocus required />
+                            </md-input-container>
+                            <input type="button" class="btn btn-primary pull-right" ng-click="u.uploadLink()" ng-disabled="u.submitFormProcess" value="share" />
+                        </div>
                     </div>
+                    <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="u.closeUpload()">@GeneralResources.Cancel</button>
                 </div>
             </div>
         </div>
