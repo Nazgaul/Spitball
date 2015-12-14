@@ -1,77 +1,77 @@
 {
   "images": [
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/quiz-correct.png",
+      "name": "/Images/quiz-correct.png",
       "width": 38,
       "height": 38,
       "offsetX": 1,
       "offsetY": 1
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/quiz-eye.png",
+      "name": "/Images/quiz-eye.png",
       "width": 38,
       "height": 23,
       "offsetX": 1,
       "offsetY": 40
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/quiz-icon.png",
+      "name": "/Images/quiz-icon.png",
       "width": 45,
       "height": 45,
       "offsetX": 1,
       "offsetY": 64
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/quiz-star.png",
+      "name": "/Images/quiz-star.png",
       "width": 20,
       "height": 18,
       "offsetX": 1,
       "offsetY": 110
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/quiz-stopwatch.png",
+      "name": "/Images/quiz-stopwatch.png",
       "width": 233,
       "height": 264,
       "offsetX": 1,
       "offsetY": 129
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/quiz-time.png",
+      "name": "/Images/quiz-time.png",
       "width": 39,
       "height": 43,
       "offsetX": 1,
       "offsetY": 394
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/quiz-user.png",
+      "name": "/Images/quiz-user.png",
       "width": 36,
       "height": 37,
       "offsetX": 1,
       "offsetY": 438
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/quiz-wrong.png",
+      "name": "/Images/quiz-wrong.png",
       "width": 40,
       "height": 34,
       "offsetX": 1,
       "offsetY": 476
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/big-quiz.png",
+      "name": "/Images/big-quiz.png",
       "width": 111,
       "height": 111,
       "offsetX": 1,
       "offsetY": 511
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/user-icon.png",
+      "name": "/Images/user-icon.png",
       "width": 37,
       "height": 37,
       "offsetX": 1,
       "offsetY": 623
     },
     {
-      "name": "/Zbang.Cloudents.Mvc4WebRole/Images/quiz-icon-tt.png",
+      "name": "/Images/quiz-icon-tt.png",
       "width": 32,
       "height": 32,
       "offsetX": 1,

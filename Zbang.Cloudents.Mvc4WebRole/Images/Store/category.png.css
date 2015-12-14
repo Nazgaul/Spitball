@@ -1,75 +1,75 @@
 ﻿/*
 This is an example of how to use the image sprite in your own CSS files
 */
-.Images-ball {
+.Images-Store-ball {
 /* You may have to set 'display: block' */
 	width: 108px;
 	height: 106px;
-	background: url('category.png') 0 0;
+	background: url('category.png') -1px -1px;
 }
-.Images-chair {
+.Images-Store-chair {
 /* You may have to set 'display: block' */
 	width: 108px;
 	height: 106px;
-	background: url('category.png') 0 -106px;
+	background: url('category.png') -1px -108px;
 }
-.Images-computer {
+.Images-Store-computer {
 /* You may have to set 'display: block' */
 	width: 108px;
 	height: 106px;
-	background: url('category.png') 0 -212px;
+	background: url('category.png') -1px -215px;
 }
-.Images-covers {
+.Images-Store-covers {
 /* You may have to set 'display: block' */
 	width: 108px;
 	height: 106px;
-	background: url('category.png') 0 -318px;
+	background: url('category.png') -1px -322px;
 }
-.Images-dic {
+.Images-Store-dic {
 /* You may have to set 'display: block' */
 	width: 108px;
 	height: 106px;
-	background: url('category.png') 0 -424px;
+	background: url('category.png') -1px -429px;
 }
-.Images-eco {
+.Images-Store-eco {
 /* You may have to set 'display: block' */
 	width: 108px;
 	height: 106px;
-	background: url('category.png') 0 -530px;
+	background: url('category.png') -1px -536px;
 }
-.Images-house {
+.Images-Store-house {
 /* You may have to set 'display: block' */
 	width: 108px;
 	height: 106px;
-	background: url('category.png') 0 -636px;
+	background: url('category.png') -1px -643px;
 }
-.Images-smartphone {
+.Images-Store-smartphone {
 /* You may have to set 'display: block' */
 	width: 108px;
 	height: 106px;
-	background: url('category.png') 0 -742px;
+	background: url('category.png') -1px -750px;
 }
-.Images-tv {
+.Images-Store-tv {
 /* You may have to set 'display: block' */
 	width: 108px;
 	height: 106px;
-	background: url('category.png') 0 -848px;
+	background: url('category.png') -1px -857px;
 }
-.Images-printers {
+.Images-Store-printers {
 /* You may have to set 'display: block' */
 	width: 108px;
 	height: 106px;
-	background: url('category.png') 0 -954px;
+	background: url('category.png') -1px -964px;
 }
-.Images-martini {
+.Images-Store-martini {
 /* You may have to set 'display: block' */
 	width: 108px;
 	height: 106px;
-	background: url('category.png') 0 -1060px;
+	background: url('category.png') -1px -1071px;
 }
-.Images-cal {
+.Images-Store-cal {
 /* You may have to set 'display: block' */
 	width: 108px;
 	height: 106px;
-	background: url('category.png') 0 -1166px;
+	background: url('category.png') -1px -1178px;
 }

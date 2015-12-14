@@ -60,7 +60,8 @@ Page Header
     color: #ffffff;
 }*/
 
-.page-header.navbar .top-menu .navbar-nav > li.dropdown.open .dropdown-toggle {
+.page-header.navbar .top-menu .navbar-nav > li.dropdown.open .dropdown-toggle,
+.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle:hover {
     background-color: @backgroundColorMouseOver;
 }
 
@@ -334,7 +335,7 @@ Page Header
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a,
 .page-sidebar .page-sidebar-menu > li.active > a,
 .page-sidebar .page-sidebar-menu > li.active.open > a {
-    background: @backgroundColorMenuSelect;
+    background: @backgroundColorMouseOver;
     //color: #5b9bd1;
 }
 /*.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a:hover, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a:hover,
@@ -415,7 +416,7 @@ Page Header
 .page-sidebar .page-sidebar-menu .sub-menu > li.open > a,
 .page-sidebar .page-sidebar-menu .sub-menu > li.active > a {
     color: @textColorBlue;
-    background: @backgroundColorMenuSelect;
+    background: @backgroundColorMouseOver;
 }
 
 

@@ -1,88 +1,88 @@
 {
   "images": [
     {
-      "name": "/Images/ball.png",
+      "name": "/Images/Store/ball.png",
       "width": 108,
       "height": 106,
-      "offsetX": 0,
-      "offsetY": 0
+      "offsetX": 1,
+      "offsetY": 1
     },
     {
-      "name": "/Images/chair.png",
+      "name": "/Images/Store/chair.png",
       "width": 108,
       "height": 106,
-      "offsetX": 0,
-      "offsetY": 106
+      "offsetX": 1,
+      "offsetY": 108
     },
     {
-      "name": "/Images/computer.png",
+      "name": "/Images/Store/computer.png",
       "width": 108,
       "height": 106,
-      "offsetX": 0,
-      "offsetY": 212
+      "offsetX": 1,
+      "offsetY": 215
     },
     {
-      "name": "/Images/covers.png",
+      "name": "/Images/Store/covers.png",
       "width": 108,
       "height": 106,
-      "offsetX": 0,
-      "offsetY": 318
+      "offsetX": 1,
+      "offsetY": 322
     },
     {
-      "name": "/Images/dic.png",
+      "name": "/Images/Store/dic.png",
       "width": 108,
       "height": 106,
-      "offsetX": 0,
-      "offsetY": 424
+      "offsetX": 1,
+      "offsetY": 429
     },
     {
-      "name": "/Images/eco.png",
+      "name": "/Images/Store/eco.png",
       "width": 108,
       "height": 106,
-      "offsetX": 0,
-      "offsetY": 530
+      "offsetX": 1,
+      "offsetY": 536
     },
     {
-      "name": "/Images/house.png",
+      "name": "/Images/Store/house.png",
       "width": 108,
       "height": 106,
-      "offsetX": 0,
-      "offsetY": 636
+      "offsetX": 1,
+      "offsetY": 643
     },
     {
-      "name": "/Images/smartphone.png",
+      "name": "/Images/Store/smartphone.png",
       "width": 108,
       "height": 106,
-      "offsetX": 0,
-      "offsetY": 742
+      "offsetX": 1,
+      "offsetY": 750
     },
     {
-      "name": "/Images/tv.png",
+      "name": "/Images/Store/tv.png",
       "width": 108,
       "height": 106,
-      "offsetX": 0,
-      "offsetY": 848
+      "offsetX": 1,
+      "offsetY": 857
     },
     {
-      "name": "/Images/printers.png",
+      "name": "/Images/Store/printers.png",
       "width": 108,
       "height": 106,
-      "offsetX": 0,
-      "offsetY": 954
+      "offsetX": 1,
+      "offsetY": 964
     },
     {
-      "name": "/Images/martini.png",
+      "name": "/Images/Store/martini.png",
       "width": 108,
       "height": 106,
-      "offsetX": 0,
-      "offsetY": 1060
+      "offsetX": 1,
+      "offsetY": 1071
     },
     {
-      "name": "/Images/cal.png",
+      "name": "/Images/Store/cal.png",
       "width": 108,
       "height": 106,
-      "offsetX": 0,
-      "offsetY": 1166
+      "offsetX": 1,
+      "offsetY": 1178
     }
   ]
 }

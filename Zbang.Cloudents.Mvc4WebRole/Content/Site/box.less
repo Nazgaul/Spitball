@@ -1,13 +1,29 @@
 ﻿@import "variables.less";
 
 .class {
+    md-tabs {
+        border-bottom-right-radius: 0;
+    }
+
+    .folder {
+        @media (max-width: 600px) {
+            width: 100%;
+        }
+
+        @media (min-width: 601px) {
+            max-width: 50%;
+        }
+    }
+
     .folders .folder-name .content {
         padding: 2px 6px;
     }
 
     .location-search-area, .folders {
         .folder-name {
-
+            .folder-name-inner {
+                background: #5F6871;
+            }
 
             .content {
                 background: @textColorDarkGrey;
@@ -35,7 +51,7 @@
         }
 
         .name-and-icon {
-            width: ~"calc(100% - 40px)";
+            /*width: ~"calc(100% - 40px)";*/
         }
 
 
@@ -45,16 +61,54 @@
         }
 
 
-        .search-box md-input-container {
-            padding-bottom: 0;
-            width: 150px;
-            float: right;
-            -moz-transition: width 300ms ease;
-            -o-transition: width 300ms ease;
-            -webkit-transition: width 300ms ease;
-            transition: width 300ms ease;
-        }
+        .search-box {
+            width: 100%;
+            display: inline-block;
 
+            input {
+                border: 10px solid @backgroundColorMenu;
+                border-radius: 0 0 5px 5px;
+                width: 200px;
+                float: right;
+                padding: 0 8px;
+                background: @textColorLightGrey;
+                height: 44px;
+                -webkit-transition: width 0.5s;
+                -moz-transition: width 0.5s;
+                -o-transition: width 0.5s;
+                transition: width 0.5s;
+                color: @textColorBlack;
+
+                @media (max-width: 600px) {
+                    width: 100%;
+                    margin-bottom: 20px;
+                }
+
+                &:focus {
+                    @media (min-width: 601px) {
+                        width: 50%;
+                    }
+                }
+            }
+
+
+
+            ::-webkit-input-placeholder {
+                color: @textColorBlack;
+            }
+
+            :-moz-placeholder { /* Firefox 18- */
+                color: @textColorBlack;
+            }
+
+            ::-moz-placeholder { /* Firefox 19+ */
+                color: @textColorBlack;
+            }
+
+            :-ms-input-placeholder {
+                color: @textColorBlack;
+            }
+        }
 
         md-input-container.md-input-focused {
             width: 95%;
@@ -383,8 +437,7 @@
     }
 
     .add-reply {
-       // display: none;
-
+        // display: none;
         .reply-wrapper {
             border: 1px solid @svgDots;
             margin-bottom: 10px;

@@ -4,64 +4,64 @@
       "name": "/Images/Store/fb-off.png",
       "width": 42,
       "height": 42,
-      "offsetX": 0,
-      "offsetY": 0
+      "offsetX": 1,
+      "offsetY": 1
     },
     {
       "name": "/Images/Store/fb-on.png",
       "width": 42,
       "height": 42,
-      "offsetX": 0,
-      "offsetY": 42
+      "offsetX": 1,
+      "offsetY": 44
     },
     {
       "name": "/Images/Store/tw-off.png",
       "width": 42,
       "height": 42,
-      "offsetX": 0,
-      "offsetY": 84
+      "offsetX": 1,
+      "offsetY": 87
     },
     {
       "name": "/Images/Store/tw-on.png",
       "width": 42,
       "height": 42,
-      "offsetX": 0,
-      "offsetY": 126
+      "offsetX": 1,
+      "offsetY": 130
     },
     {
       "name": "/Images/Store/yt-off.png",
       "width": 42,
       "height": 42,
-      "offsetX": 0,
-      "offsetY": 168
+      "offsetX": 1,
+      "offsetY": 173
     },
     {
       "name": "/Images/Store/yt-on.png",
       "width": 42,
       "height": 42,
-      "offsetX": 0,
-      "offsetY": 210
+      "offsetX": 1,
+      "offsetY": 216
     },
     {
       "name": "/Images/Store/logo.png",
       "width": 210,
       "height": 40,
-      "offsetX": 0,
-      "offsetY": 252
+      "offsetX": 1,
+      "offsetY": 259
     },
     {
       "name": "/Images/Store/close.png",
       "width": 25,
       "height": 25,
-      "offsetX": 0,
-      "offsetY": 292
+      "offsetX": 1,
+      "offsetY": 300
     },
     {
       "name": "/Images/Store/envelop.png",
       "width": 31,
       "height": 26,
-      "offsetX": 0,
-      "offsetY": 317
+      "offsetX": 1,
+      "offsetY": 326
     }
   ]
 }

@@ -3,8 +3,25 @@
         border: 0;
     }*/
 }
+.class md-tabs {
+  border-bottom-left-radius: 0;
+}
+@media (max-width: 600px) {
+  .class .folder {
+    width: 100%;
+  }
+}
+@media (min-width: 601px) {
+  .class .folder {
+    max-width: 50%;
+  }
+}
 .class .folders .folder-name .content {
   padding: 2px 6px;
+}
+.class .location-search-area .folder-name .folder-name-inner,
+.class .folders .folder-name .folder-name-inner {
+  background: #5F6871;
 }
 .class .location-search-area .folder-name .content,
 .class .folders .folder-name .content {
@@ -26,20 +43,54 @@
   width: 30px;
 }
 .class .location-search-area .name-and-icon {
-  width: calc(100% - 40px);
+  /*width: ~"calc(100% - 40px)";*/
 }
 .class .location-search-area .dots-3 {
   margin-right: 0;
   fill: #181c1d;
 }
-.class .location-search-area .search-box md-input-container {
-  padding-bottom: 0;
-  width: 150px;
+.class .location-search-area .search-box {
+  width: 100%;
+  display: inline-block;
+}
+.class .location-search-area .search-box input {
+  border: 10px solid #323538;
+  border-radius: 0 0 5px 5px;
+  width: 200px;
   float: left;
-  -moz-transition: width 300ms ease;
-  -o-transition: width 300ms ease;
-  -webkit-transition: width 300ms ease;
-  transition: width 300ms ease;
+  padding: 0 8px;
+  background: #c3c3c3;
+  height: 44px;
+  -webkit-transition: width 0.5s;
+  -moz-transition: width 0.5s;
+  -o-transition: width 0.5s;
+  transition: width 0.5s;
+  color: #282828;
+}
+@media (max-width: 600px) {
+  .class .location-search-area .search-box input {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+@media (min-width: 601px) {
+  .class .location-search-area .search-box input:focus {
+    width: 50%;
+  }
+}
+.class .location-search-area .search-box ::-webkit-input-placeholder {
+  color: #282828;
+}
+.class .location-search-area .search-box :-moz-placeholder {
+  /* Firefox 18- */
+  color: #282828;
+}
+.class .location-search-area .search-box ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #282828;
+}
+.class .location-search-area .search-box :-ms-input-placeholder {
+  color: #282828;
 }
 .class .location-search-area md-input-container.md-input-focused {
   width: 95%;

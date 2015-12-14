@@ -2,19 +2,26 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 
-<div layout="row" class="location-search-area" layout-align="space-between end">
-    <div class="folder" flex="50">
+<div class="location-search-area">
+    <div class="search-box">
+        <input type="search" placeholder="@BoxResources.Search" ng-model="i.term" ng-model-options="{debounce : 250}" ng-change="i.filter()" ng-minlength="2" />
+        @*<md-input-container>
+            <label class="text-capitalize">@BoxResources.Search</label>
+            <input type="search" ng-model="i.term" ng-model-options="{debounce : 250}" ng-change="i.filter()" ng-minlength="2" />
+        </md-input-container>*@
+    </div>
+    <div class="folder">
         <div layout="row" layout-align="start center" ng-if="i.tabSelected.id">
             <div layout="row" layout-align="none  center" class="arrow" ng-click="i.upDir()">@Html.Svg("~/images/site/icons.svg", "arrow")</div>
             <div flex class="folder-name">
-                <div layout="row" layout-align="space-between center" ng-init="i.openRenameTab=false">
+                <div layout="row" layout-align="start center" ng-init="i.openRenameTab=false" class="folder-name-inner">
                     <div class="name-and-icon" layout="row" layout-align="start center">
                         <div layout="row" class="icon">@Html.Svg("~/images/folder_icon.svg", "folder")</div>
                         <div class="text ellipsis" ng-if="!i.openRenameTab">
                             {{i.tabSelected.name}}
                         </div>
-                        <form class="content" ng-if="i.openRenameTab" ng-submit="i.renameTab()" >
-                            <input autofocus class="designed-input" type="text" required ng-model="i.tabNewName"  />
+                        <form class="content" ng-if="i.openRenameTab" ng-submit="i.renameTab()">
+                            <input autofocus class="designed-input" type="text" required ng-model="i.tabNewName" />
                         </form>
                     </div>
                     <md-menu ng-if="!b.needFollow">
@@ -37,12 +44,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="search-box" flex="50">
-        <md-input-container>
-            <label class="text-capitalize">@BoxResources.Search</label>
-            <input type="search" ng-model="i.term" ng-model-options="{debounce : 250}" ng-change="i.filter()" ng-minlength="2" />
-        </md-input-container>
     </div>
 </div>
 <ul layout-padding layout-wrap class="list-unstyled folders" layout="row" layout-align="start center" ng-if="!i.tabSelected.id">

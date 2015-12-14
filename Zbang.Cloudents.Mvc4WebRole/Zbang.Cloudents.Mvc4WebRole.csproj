@@ -2067,6 +2067,7 @@
     <Content Include="Content\Site\search.less" />
     <Content Include="Content\Site\libraryChoose.less" />
     <Content Include="Content\Site\error.less" />
+    <Content Include="Content\category.png.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
