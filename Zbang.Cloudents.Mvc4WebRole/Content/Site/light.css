@@ -41,9 +41,6 @@ Page Header
   /* Language */
   /* Dark version */
 }
-.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle:hover {
-  background-color: #212325;
-}
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle > i {
   color: #C0CDDC;
 }
@@ -127,6 +124,7 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu {
   background: #323538;
   border: 0;
+  box-shadow: 0 0 10px #181c1d;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu:after {
   border-bottom-color: #323538;

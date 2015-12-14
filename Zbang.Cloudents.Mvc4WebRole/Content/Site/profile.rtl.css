@@ -11,6 +11,9 @@ New Profile Page
   margin-left: 20px;
   width: 250px;
 }
+.profile-sidebar .profile-userpic {
+  text-align: center;
+}
 .profile-content {
   overflow: hidden;
 }

@@ -53,80 +53,85 @@
         <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
     </div>
     <div class="page-header navbar navbar-fixed-top">
-        <div class="page-header-inner">
-            <div class="page-logo">
-                <a href="@url" @shouldPostBack>
-                    @Html.Svg(svgUrl, "logo", new { @class = "logo-default", hide_xs = "" })
-                    @Html.Svg(svgUrl, "smallLogo", new { @class = "logo-default", hide = "", show_xs = "" })
+        <div layout="row" layout-align="space-between center" class="page-header-inner">
+            <div layout="row" layout-align="space-between center">
+                <div class="page-logo">
+                    <a href="@url" @shouldPostBack>
+                        @Html.Svg(svgUrl, "logo", new { @class = "logo-default", hide_xs = "" })
+                        @Html.Svg(svgUrl, "smallLogo", new { @class = "logo-default", hide = "", show_xs = "" })
+                    </a>
+                    <div class="menu-toggler sidebar-toggler">
+                        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                    </div>
+                </div>
+
+                <a href="@Url.Action("Index","Search")" @shouldPostBack class="search-form search-form-expanded" ng-hide="app.hideSearch">
+                    <div class="input-group">
+                        <span type="text" class="form-control input-sm">@IndexResources.Search</span>
+                        <span class="input-group-btn">
+                            @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })
+                        </span>
+                    </div>
                 </a>
-                <div class="menu-toggler sidebar-toggler">
-                    <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-                </div>
             </div>
-            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-                @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
-            </a>
-            <a href="@Url.Action("Index","Search")" @shouldPostBack class="search-form search-form-expanded" ng-hide="app.hideSearch">
-                <div class="input-group">
-                    <span type="text" class="form-control input-sm">@IndexResources.Search</span>
-                    <span class="input-group-btn">
-                        @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })
-                    </span>
-                </div>
-            </a>
-            <!-- BEGIN PAGE TOP -->
-            <div class="page-top">
-                <!-- BEGIN TOP NAVIGATION MENU -->
-                <div class="top-menu">
-                    <ul class="nav navbar-nav pull-right">
-                        @*<li class="separator hide">
-                            </li>*@
-                        @*<li>
-                                @Html.Svg(svgUrl, "headerInvite")
-                            </li>*@
-                        @*<li class="separator hide">
+            <div layout="row" layout-align="space-between center">
+                <!-- BEGIN PAGE TOP -->
+                <div class="page-top">
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                    <div class="top-menu">
+                        <ul class="nav navbar-nav">
+                            @*<li class="separator hide">
+                                </li>*@
+                            @*<li>
+                                    @Html.Svg(svgUrl, "headerInvite")
+                                </li>*@
+                            @*<li class="separator hide">
+                                </li>
+                                <li class="separator hide">
+                                </li>*@
+
+                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                            <li class="dropdown dropdown-user dropdown-dark" ng-controller="UserDetailsController as ud">
+                                <a layout="row" layout-align="space-between center" ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <span class="username username-hide-on-mobile">
+                                        {{ud.name}}
+                                        @*<span class="headerPoints">{{ud.score}}</span>*@
+                                    </span>
+                                    <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
+                                    <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39"></user-image>
+                                </a>
+                                <ul ng-if="ud.isLoggedIn" class="dropdown-menu dropdown-menu-default">
+                                    <li>
+                                        <a href="{{::ud.url}}" @shouldPostBack>
+                                            @Html.Svg(svgUrl, "userMenu")<span>@IndexResources.Activities</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.RouteUrl("AccountSettings")" @shouldPostBack>
+                                            @Html.Svg(svgUrl, "settingMenu") <span>@IndexResources.Settings</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.RouteUrl("Help")">
+                                            @Html.Svg(svgUrl, "headerHelp") <span>@SharedResources.Help</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a target="_self" href="@Url.Action("logoff","account")" @shouldPostBack>
+                                            @Html.Svg(svgUrl, "logOffMenu") <span>@IndexResources.Logout</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                                <a class="btn" target="_self" href="@Url.Action("SignUp", "Account")" ng-if="!ud.isLoggedIn">@IndexResources.Signup</a>
+                                <a class="btn btn-primary" target="_self" href="@Url.Action("SignIn","Account")" ng-if="!ud.isLoggedIn">@IndexResources.Login</a>
                             </li>
-                            <li class="separator hide">
-                            </li>*@
-
-                        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                        <li class="dropdown dropdown-user dropdown-dark" ng-controller="UserDetailsController as ud">
-                            <a ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <span class="username username-hide-on-mobile">
-                                    {{ud.name}}
-                                    @*<span class="headerPoints">{{ud.score}}</span>*@
-                                </span>
-                                <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                                <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39"></user-image>
-                            </a>
-                            <ul ng-if="ud.isLoggedIn" class="dropdown-menu dropdown-menu-default">
-                                <li>
-                                    <a href="{{::ud.url}}" @shouldPostBack>
-                                        @Html.Svg(svgUrl, "userMenu")<span>@IndexResources.Activities</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.RouteUrl("AccountSettings")" @shouldPostBack>
-                                        @Html.Svg(svgUrl, "settingMenu") <span>@IndexResources.Settings</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.RouteUrl("Help")">
-                                        @Html.Svg(svgUrl, "headerHelp") <span>@SharedResources.Help</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" href="@Url.Action("logoff","account")" @shouldPostBack>
-                                        @Html.Svg(svgUrl, "logOffMenu") <span>@IndexResources.Logout</span>
-                                    </a>
-                                </li>
-
-                            </ul>
-                            <a class="btn" target="_self" href="@Url.Action("SignUp", "Account")" ng-if="!ud.isLoggedIn">@IndexResources.Signup</a>
-                            <a class="btn btn-primary" target="_self" href="@Url.Action("SignIn","Account")" ng-if="!ud.isLoggedIn">@IndexResources.Login</a>
-                        </li>
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                    @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
+                </a>
             </div>
         </div>
     </div>

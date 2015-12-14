@@ -29,7 +29,10 @@ Rounded Portlets
 .headerMenu {
   width: 20px;
   height: 20px;
-  fill: #323538;
+  fill: #5d6063;
+}
+.headerMenu:hover {
+  fill: #212325;
 }
 .searchIcon {
   width: 15px;
