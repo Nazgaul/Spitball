@@ -18,7 +18,6 @@
         self.add.createComment = createComment;
 
 
-        //TODO: upon collapse
         externalUploadProvider.googleDriveInit().then(function () {
             self.add.googleDisabled = false;
         });
@@ -176,7 +175,7 @@
                 return c.system.id;
             });
 
-            
+
 
             self.add.disabled = true;
             boxService.postReply(self.add.newReplyText, boxId, comment.id, filesId).then(function (response) {
@@ -190,7 +189,7 @@
                     userImage: user.image,
                     userName: user.name,
                     files: self.add.files.map(pushItem)
-            };
+                };
                 comment.answers.push(newComment);
                 self.add.newReplyText = '';
                 self.add.files = [];
@@ -215,7 +214,7 @@
 
         function createComment() {
 
-            var files = self.add.files.filter(function(e) {
+            var files = self.add.files.filter(function (e) {
                 return e.postId == null;
             });
             var filesId = files.map(function (c) {
@@ -255,25 +254,36 @@ userName: "ram y"*/
                 self.add.disabled = false;
             });
         }
-        function google() {
+        function google(post) {
+            postId = post;
             externalUploadProvider.google(boxId).then(externalUploadComplete);
         }
-        function dropbox() {
+        function dropbox(post) {
+            postId = post;
             externalUploadProvider.dropBox(boxId).then(externalUploadComplete);
         }
         function externalUploadComplete(response) {
-            for (var i = 0; i < response.length; i++) {
-                self.add.files.push({
-                    complete: true,
-                    name: response[i].name,
-                    system: response[i]
-                });
-            }
+            var link = response.item;
+            self.add.files.push({
+                complete: true,
+                name: link.name,
+                system: link,
+                postId: postId
+            });
         }
 
         var postId;
         self.add.upload = uploadFile;
+        self.openReply = openReply;
 
+        function openReply(post) {
+            angular.forEach(self.data, function (elem) {
+                elem.showFrom = false;
+            });
+            post.showFrom = true;
+            self.add.newReplyText = '';
+            self.add.files = [];
+        }
         function uploadFile(post) {
             postId = post;
         }
