@@ -1,3 +1,12 @@
-﻿<div layout="row" layout-wrap>
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+<div layout="row">
+    <div flex-gt-md ="25" flex-md="33" flex-sm="50" flex-xs="100">
+        <button type="button" ng-click="b.inviteToBox()" class="member-invite">
+            @Html.Svg("~/images/site/icons.svg", "invite")
+            @BoxResources.InviteFriends
+        </button>
+    </div>
+</div>
+<div layout="row" layout-wrap>
     <div flex-gt-md="25" flex-md="33" flex-sm="50" flex-xs="100" ng-repeat="e in m.members" ng-include="'user-template.html'"></div>
 </div>
