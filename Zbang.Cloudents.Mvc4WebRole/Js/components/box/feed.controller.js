@@ -95,7 +95,7 @@
                             return;
                         }
                     }
-                    console.log(update.itemId);
+                    //console.log(update.itemId);
 
                 }
             }
@@ -104,14 +104,14 @@
                     return e.id === update.questionId;
                 });
                 if (!question) {
-                    console.log('something wrong');
+                   // console.log('something wrong');
                 }
                 if (update.answerId) {
                     var answer = question.answers.find(function (e) {
                         return e.id === update.answerId;
                     });
                     if (!answer) {
-                        console.log('something wrong');
+                       // console.log('something wrong');
                     }
                     answer.isNew = true;
                 }

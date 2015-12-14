@@ -80,7 +80,7 @@
         <rect width="70" height="70" />
         <polygon style="fill:#f5f5f5;" points="5,5 5,70 70,5" />
     </symbol>
-    <symbol id="item-video" viewBox="180 -179 459 459">
+    <symbol id="itemVideo" viewBox="180 -179 459 459">
         <g style="fill:#91CD37;">
             <path d="M588.1-179h-357c-28,0-51,23-51,51v357c0,28,23,51,51,51h357c28,0,51-23,51-51v-357
 			C639.1-156,616.1-179,588.1-179z" />
@@ -95,7 +95,7 @@
         </g>
     </symbol>
 
-    <symbol id="item-excel" viewBox="180 -179 459 459">
+    <symbol id="itemExcel" viewBox="180 -179 459 459">
         <g style="fill:#207245;">
             <path d="M588-179H231c-28.1,0-51,22.9-51,51v357c0,28,22.9,51,51,51h357c28,0,51-23,51-51v-357
 				C639-156.1,616-179,588-179z" />
@@ -106,7 +106,7 @@
         </g>
     </symbol>
 
-    <symbol id="item-word" viewBox="180 -179 459 459">
+    <symbol id="itemWord" viewBox="180 -179 459 459">
         <g style="fill:#295496;">
             <path d="M588-179H231c-28.1,0-51,22.9-51,51v357c0,28,22.9,51,51,51h357c28,0,51-23,51-51v-357
 				C639-156.1,616.1-179,588-179z" />
@@ -117,7 +117,7 @@
         </g>
     </symbol>
 
-    <symbol id="item-ppt" viewBox="180 -179 459 459">
+    <symbol id="itemPpt" viewBox="180 -179 459 459">
         <g>
             <path style="fill:#D24625;" d="M588-179H231c-28,0-51,23-51,51v357c0,28,23,51,51,51h357c28,0,51-23,51-51v-357C639-156,616-179,588-179z" />
         </g>
@@ -128,7 +128,7 @@
         </g>
     </symbol>
 
-    <symbol id="item-link" viewBox="180 -179 459 459">
+    <symbol id="itemLink" viewBox="180 -179 459 459">
         <g style="fill:#0B0080;">
             <path d="M588-179H231c-28,0-51,23-51,51v357c0,28,23,51,51,51h357c28,0,51-23,51-51v-357C639-156,616-179,588-179z" />
         </g>
@@ -144,7 +144,7 @@
         </g>
     </symbol>
 
-    <symbol id="item-pdf" viewBox="180 -179 459 459">
+    <symbol id="itemPdf" viewBox="180 -179 459 459">
         <g style="fill:#DA251C;">
             <path d="M588-179H231c-28.1,0-51,22.9-51,51v357c0,28,22.9,51,51,51h357c28,0,51-23,51-51v-357
 				C639-156.1,616-179,588-179z" />
@@ -164,7 +164,7 @@
         </g>
     </symbol>
 
-    <symbol id="item-audio" viewBox="180 -179 459 459">
+    <symbol id="itemAudio" viewBox="180 -179 459 459">
         <g style="fill:#25AAE1;">
             <path class="st0" d="M588-179H231c-28,0-51,23-51,51v357c0,28,23,51,51,51h357c28,0,51-23,51-51v-357C639-156,616-179,588-179z" />
         </g>
@@ -211,7 +211,7 @@
         </g>
     </symbol>
 
-    <symbol id="item-text" viewBox="180 -179 459 459">
+    <symbol id="itemText" viewBox="180 -179 459 459">
         <g style="fill:#7F2587;">
             <path d="M588-179H231c-28,0-51,23-51,51v357c0,28,23,51,51,51h357c28,0,51-23,51-51v-357C639-156,616-179,588-179z" />
         </g>
@@ -221,7 +221,7 @@
         </g>
     </symbol>
 
-    <symbol id="item-image" viewBox="180 -179 459 459">
+    <symbol id="itemImage" viewBox="180 -179 459 459">
         <g style="fill:#FA9D1C;">
             <path class="st0" d="M588-179H231c-28,0-51,23-51,51v357c0,28,23,51,51,51h357c28,0,51-23,51-51v-357C639-156,616-179,588-179z" />
         </g>
@@ -231,7 +231,7 @@
 	c9.6-15.3,24.6-14.9,33.4,0.8l80.9,144.7C571,161.5,563.4,174.3,545.4,174.3z" />
         </g>
     </symbol>
-    <symbol id="item-default" viewBox="180 -179 459 459">
+    <symbol id="itemDefault" viewBox="180 -179 459 459">
         <g style="fill:#3293F6;">
             <path d="M588.5-178.5h-357c-28,0-51,23-51,51v357c0,28,23,51,51,51h357c28,0,51-23,51-51v-357
 			C639.5-155.5,616.5-178.5,588.5-178.5z" />

@@ -76,6 +76,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         }
 
+/*
         private async Task BuildIndex()
         {
             try
@@ -88,6 +89,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             m_CheckIndexExists = true;
         }
+*/
 
 
 
@@ -106,8 +108,8 @@ namespace Zbang.Zbox.Infrastructure.Search
             var searchParametes = new SearchParameters
             {
                 Top = query.RowsPerPage,
-                Skip = query.RowsPerPage*query.PageNumber,
-                Select = new[] {IdField, NameField, ImageField, MembersCountField, MembersImagesField},
+                Skip = query.RowsPerPage * query.PageNumber,
+                Select = new[] { IdField, NameField, ImageField, MembersCountField, MembersImagesField },
             };
 
             if (string.IsNullOrEmpty(query.Term))
@@ -150,7 +152,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (!m_CheckIndexExists)
             {
-                await BuildIndex();
+                //await BuildIndex();
             }
 
             var listOfCommands = new List<IndexAction<UniversitySearch>>();
@@ -167,7 +169,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                                s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
                                    .Where(w => w.StartsWith("ה") || w.StartsWith("ל"))
                                    .Select(s1 => s1.Remove(0, 1))),
-                        Image = s.Image.Trim(),
+                        Image = string.IsNullOrEmpty(s.Image) ? null : s.Image.Trim(),
                         Country = s.Country,
                         MembersCount = s.NoOfUsers,
                         MembersImages = s.UsersImages.Where(w => w != null).ToArray()

@@ -1301,12 +1301,6 @@
     <Content Include="Content\signin\default.rtl.min.css">
       <DependentUpon>default.rtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\signin\font-awesome.min.css">
-      <DependentUpon>font-awesome.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\font-awesome.rtl.min.css">
-      <DependentUpon>font-awesome.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\signin\login-soft.min.css">
       <DependentUpon>login-soft.css</DependentUpon>
     </Content>
@@ -1318,12 +1312,6 @@
     </Content>
     <Content Include="Content\signin\plugins-md.rtl.min.css">
       <DependentUpon>plugins-md.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\uniform.default.min.css">
-      <DependentUpon>uniform.default.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\uniform.default.rtl.min.css">
-      <DependentUpon>uniform.default.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\accountSettings.css">
       <DependentUpon>accountSettings.less</DependentUpon>
@@ -1365,12 +1353,6 @@
     <Content Include="Content\signin\default.rtl.css">
       <DependentUpon>default.css</DependentUpon>
     </Content>
-    <Content Include="Content\signin\font-awesome.css">
-      <DependentUpon>font-awesome.less</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\font-awesome.rtl.css">
-      <DependentUpon>font-awesome.css</DependentUpon>
-    </Content>
     <Content Include="Content\signin\layout.css">
       <DependentUpon>layout.less</DependentUpon>
     </Content>
@@ -1394,25 +1376,6 @@
     </Content>
     <Content Include="Content\signin\plugins-md.rtl.css">
       <DependentUpon>plugins-md.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\select2.css" />
-    <Content Include="Content\signin\simple-line-icons.css">
-      <DependentUpon>simple-line-icons.less</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\simple-line-icons.min.css">
-      <DependentUpon>simple-line-icons.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\simple-line-icons.rtl.css">
-      <DependentUpon>simple-line-icons.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\simple-line-icons.rtl.min.css">
-      <DependentUpon>simple-line-icons.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\uniform.default.css">
-      <DependentUpon>uniform.default.less</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\uniform.default.rtl.css">
-      <DependentUpon>uniform.default.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\box.min.css">
       <DependentUpon>box.css</DependentUpon>
@@ -1990,7 +1953,6 @@
     <Content Include="Js\components\userdetails\userdetails.module.js" />
     <Content Include="Js\components\user\user.controller.js" />
     <Content Include="Js\contact-us.js" />
-    <Content Include="Js\filters\highlight.js" />
     <Content Include="Js\homePage\homeScreen.js" />
     <Content Include="Js\homePage\theme.js" />
     <Content Include="Js\routerHelperProvider.js" />
@@ -2006,22 +1968,12 @@
     <Content Include="Js\signin\layout.js" />
     <Content Include="Js\signin\login-soft.js" />
     <Content Include="Js\signin\metronic.js" />
-    <Content Include="Js\signin\select2.min.js" />
     <Content Include="Js\staticCDNFallback.js" />
     <Content Include="Js\staticCDNFallback.min.js">
       <DependentUpon>staticCDNFallback.js</DependentUpon>
     </Content>
-    <Content Include="Js\filters\defaultImage.js" />
-    <Content Include="Js\filters\escapeHtmlChars.js" />
-    <Content Include="Js\filters\fileSize.js" />
-    <Content Include="Js\filters\kNumber.js" />
     <Content Include="Js\HomePage.js" />
     <Content Include="Js\modules\angular-timer.js" />
-    <Content Include="Js\filters\extToClass.js" />
-    <Content Include="Js\filters\actionText.js" />
-    <Content Include="Js\filters\orderBy.js" />
-    <Content Include="Js\filters\store\percentage.js" />
-    <Content Include="Js\filters\stringFormat.js" />
     <Content Include="Js\modules\carousel.js" />
     <Content Include="Js\modules\displayTime.js" />
     <Content Include="Js\modules\lazySrc.js" />
@@ -2093,10 +2045,7 @@
     <Content Include="Content\signin\components-md.less" />
     <Content Include="Content\signin\custom.less" />
     <Content Include="Content\signin\default.less" />
-    <Content Include="Content\signin\font-awesome.less" />
     <Content Include="Content\signin\login-soft.less" />
-    <Content Include="Content\signin\simple-line-icons.less" />
-    <Content Include="Content\signin\uniform.default.less" />
     <Content Include="Content\signin\layout.less" />
     <Content Include="Content\signin\plugins-md.less" />
     <Content Include="Content\Site\components-rounded.less" />
