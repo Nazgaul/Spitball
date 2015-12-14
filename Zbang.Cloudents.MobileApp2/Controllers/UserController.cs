@@ -94,8 +94,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             return Request.CreateResponse(result.Select(s => new
             {
                 s.Id,
-                s.BoxId,
-                Source = s.Source,
+                s.BoxId, s.Source,
                 s.Name,
                 s.Type
             }));

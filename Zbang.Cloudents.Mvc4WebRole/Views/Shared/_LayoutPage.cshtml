@@ -1,4 +1,5 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+﻿@using Zbang.Cloudents.SiteExtension
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{
     var url = Url.Action("Index", "Account");
@@ -75,9 +76,7 @@
                 </a>
             </div>
             <div layout="row" layout-align="space-between center">
-                <!-- BEGIN PAGE TOP -->
                 <div class="page-top">
-                    <!-- BEGIN TOP NAVIGATION MENU -->
                     <div class="top-menu">
                         <ul class="nav navbar-nav">
                             @*<li class="separator hide">
@@ -91,7 +90,7 @@
                                 </li>*@
 
                             <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                            <li class="dropdown dropdown-user dropdown-dark" ng-controller="UserDetailsController as ud">
+                            <li class="dropdown dropdown-user dropdown-dark" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
                                 <a layout="row" layout-align="space-between center" ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <span class="username username-hide-on-mobile">
                                         {{ud.name}}
@@ -116,6 +115,7 @@
                                             @Html.Svg(svgUrl, "headerHelp") <span>@SharedResources.Help</span>
                                         </a>
                                     </li>
+                                  
                                     <li>
                                         <a target="_self" href="@Url.Action("logoff","account")" @shouldPostBack>
                                             @Html.Svg(svgUrl, "logOffMenu") <span>@IndexResources.Logout</span>
@@ -166,15 +166,10 @@
         @if (User != null)
         {
             <text>
-        window.id = '@User.Identity.Name';
+        window.id = '@User.GetUserId()';
         </text>
         }
-        //(function (i, s, o, g, r, a, m) {
-        //    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-        //        (i[r].q = i[r].q || []).push(arguments)
-        //    }, i[r].l = 1 * new Date(); a = s.createElement(o),
-        //        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-        //})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
     </script>
     @RenderSection("scripts", false)
 </body>

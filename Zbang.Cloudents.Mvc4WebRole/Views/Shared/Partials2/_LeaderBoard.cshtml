@@ -8,7 +8,7 @@
         <div class="r-table">
             <div class="r-table-row" ng-repeat="l in lb.leaderboard">
                 <div class="r-table-cell">
-                    <a href="{{::l.url}}">
+                    <a href="{{::l.url}}" ga-track-event="['leaderboard', 'userPage']">
                         <user-image class="img-circle" name="l.name" image="l.image" width="30" height="30"></user-image>
                         <span class="user-name">{{::l.name}}</span>
                     </a>
