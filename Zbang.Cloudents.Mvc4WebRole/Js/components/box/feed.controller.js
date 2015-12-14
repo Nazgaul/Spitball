@@ -4,7 +4,7 @@
         'user', 'userUpdatesService', '$mdDialog', '$scope'];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService, $mdDialog, $scope) {
-        var self = this, boxId = parseInt($stateParams.boxId, 10);
+        var self = this, boxId = parseInt($stateParams.boxId, 10), page = 0, ajaxFinish = true;
 
         self.add = {
             files: [],
@@ -36,9 +36,29 @@
         self.postItemTemplate = postItemTemplate;
         self.myPagingFunction = myPagingFunction;
 
-        boxService.getFeed(boxId).then(function (response) {
+        boxService.getFeed(boxId, page).then(function (response) {
             self.data = response;
+            assignData();
 
+        });
+        function myPagingFunction() {
+            if (ajaxFinish) {
+                ajaxFinish = false;
+                page++;
+                boxService.getFeed(boxId, page).then(function (response) {
+                    if (!response.length) {
+                        return;
+                    }
+                    self.data = self.data.concat(response);
+                    assignData();
+                    ajaxFinish = true;
+                });
+            }
+            //var page = self.viewData.length / 25;
+            //self.viewData = self.viewData.concat(self.data.slice(page * 25, (page * 25) + 25));
+        }
+
+        function assignData() {
             for (var i = 0; i < self.data.length; i++) {
                 var files = self.data[i].files;
                 for (var j = 0; j < files.length; j++) {
@@ -63,11 +83,6 @@
 
                 }
             });
-            self.viewData = self.data.slice(0, 25);
-        });
-        function myPagingFunction() {
-            var page = self.viewData.length / 25;
-            self.viewData = self.viewData.concat(self.data.slice(page * 25, (page * 25) + 25));
         }
 
         function postItemTemplate(elmenet) {
@@ -105,14 +120,14 @@
                     return e.id === update.questionId;
                 });
                 if (!question) {
-                   // console.log('something wrong');
+                    // console.log('something wrong');
                 }
                 if (update.answerId) {
                     var answer = question.answers.find(function (e) {
                         return e.id === update.answerId;
                     });
                     if (!answer) {
-                       // console.log('something wrong');
+                        // console.log('something wrong');
                     }
                     answer.isNew = true;
                 }
@@ -162,7 +177,7 @@
 
             self.add.disabled = true;
             boxService.postReply(self.add.newText, boxId, comment.id, filesId).then(function (response) {
-                comment.answers.unshift({
+                var newComment = {
                     content: self.newText,
                     creationTime: new Date(),
                     id: response.commentId,
@@ -179,7 +194,8 @@
                         temp.icon = retVal.icon;
                         return temp;
                     })
-                });
+                };
+                comment.answers.unshift(newComment);
                 self.add.newText = '';
                 self.add.files = [];
                 $scope.$emit('follow-box');
@@ -198,7 +214,7 @@
 
             //content,boxId, files, anonymously
             boxService.postComment(self.add.newText, boxId, filesId, self.add.anonymous).then(function (response) {
-                self.data.unshift({
+                var newComment = {
                     content: self.add.newText,
                     creationTime: new Date(),
                     id: response.commentId,
@@ -213,7 +229,8 @@
                         temp.icon = retVal.icon;
                         return temp;
                     })
-                });
+                };
+                self.data.unshift(newComment);
                 self.add.newText = '';
                 self.add.files = [];
                 self.add.anonymous = false;
