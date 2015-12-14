@@ -169,15 +169,15 @@
         </div>
     </div>
 </div>
-<div id="cssCheck"></div>
-@Html.Script2("signin")
-@Html.JqueryValidateLocale()
 
-<script>
-    jQuery(document).ready(function () {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
-        Login.init();
-        Demo.init();
-    });
-</script>
+
+@section scripts {
+    <script>
+        jQuery(document).ready(function() {
+            Metronic.init(); // init metronic core components
+            Layout.init(); // init current layout
+            Login.init();
+            Demo.init();
+        });
+    </script>
+}

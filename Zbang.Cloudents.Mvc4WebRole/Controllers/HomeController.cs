@@ -45,7 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [DonutOutputCache(VaryByParam = "lang;invId",
-           VaryByCustom = CustomCacheKeys.Lang + ";" + CustomCacheKeys.Url,
+           VaryByCustom = CustomCacheKeys.Lang + ";" + CustomCacheKeys.Url + ";" + CustomCacheKeys.Auth,
            Duration = TimeConsts.Day,
            Location = OutputCacheLocation.Server, Order = 2)]
         public ActionResult Index(string lang, string invId)
