@@ -1,8 +1,9 @@
 ﻿(function () {
     angular.module('app.box.feed').controller('FeedController', feed);
-    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService', 'user', 'userUpdatesService', '$mdDialog'];
+    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
+        'user', 'userUpdatesService', '$mdDialog', '$scope'];
 
-    function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService, $mdDialog) {
+    function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService, $mdDialog, $scope) {
         var self = this, boxId = parseInt($stateParams.boxId, 10);
 
         self.add = {
@@ -56,8 +57,8 @@
                 }
             }
             userUpdatesService.boxUpdates(boxId, function (updates) {
-                for (var j = 0; j < updates.length; j++) {
-                    var update = updates[j];
+                for (var jj = 0; jj < updates.length; jj++) {
+                    var update = updates[jj];
                     attachNew(update);
 
                 }
@@ -181,6 +182,7 @@
                 });
                 self.add.newText = '';
                 self.add.files = [];
+                $scope.$emit('follow-box');
             }).finally(function () {
                 self.add.disabled = false;
             });
@@ -215,6 +217,7 @@
                 self.add.newText = '';
                 self.add.files = [];
                 self.add.anonymous = false;
+                $scope.$emit('follow-box');
                 /*answers: []
 content: "asdasdasd"
 creationTime: "2015-11-04T13:11:32.6519547Z"
@@ -252,7 +255,7 @@ userName: "ram y"*/
             },
             callbacks: {
                 filesAdded: function (uploader, files) {
-
+                    $scope.$emit('follow-box');
                     for (var i = 0; i < files.length; i++) {
                         files[i].sizeFormated = plupload.formatSize(files[i].size);
                         files[i].complete = false;
@@ -269,8 +272,6 @@ userName: "ram y"*/
                         fileSize: file.size,
                         boxId: boxId,
                         comment: true
-                        //isComment: false
-
                     };
                 },
                 fileUploaded: function (uploader, file, response) {
@@ -296,6 +297,7 @@ userUrl: "/user/1/ram-y/"*/
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
                         file.system = obj.payload.fileDto;
+
                         // $rootScope.$broadcast('item_upload', obj.payload);
                     }
                 }

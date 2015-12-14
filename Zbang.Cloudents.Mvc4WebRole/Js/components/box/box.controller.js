@@ -117,6 +117,10 @@
             b.needFollow = false;
         }
 
+        $scope.$on('follow-box', function () {
+            b.needFollow = false;
+        });
+
     }
 })();
 
