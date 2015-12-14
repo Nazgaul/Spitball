@@ -95,13 +95,16 @@ Page Header
     display: none;
   }
 }
+.page-header.navbar .page-top {
+  height: 100%;
+  /*&:hover {
+        background-color: @backgroundColorMouseOver;
+    }*/
+}
 @media (max-width: 600px) {
   .page-header.navbar .page-top {
     display: none;
   }
-}
-.page-header.navbar .page-top:hover {
-  background-color: #212325;
 }
 .page-header.navbar .search-form {
   display: inline-block;
@@ -181,10 +184,15 @@ Page Header
   display: inline-block;
   margin: 0;
   padding: 0;
+  height: 100%;
+}
+.page-top-wrapper {
+  height: 100%;
 }
 .page-header.navbar .top-menu .navbar-nav {
   padding: 0;
   display: block;
+  height: 100%;
   /* Extended Dropdowns */
   /* Notification */
   /* Inbox */
@@ -192,6 +200,13 @@ Page Header
   /* User */
   /* Language */
   /* Dark version */
+}
+.page-header.navbar .top-menu .navbar-nav > li.dropdown.dropdown-user {
+  height: 100%;
+}
+.page-header.navbar .top-menu .navbar-nav > li.dropdown.dropdown-user .dropdown-toggle {
+  display: flex;
+  height: 100%;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown {
   margin: 0;

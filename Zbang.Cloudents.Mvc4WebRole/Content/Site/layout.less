@@ -131,13 +131,14 @@ Page Header
 //}
 
 .page-header.navbar .page-top {
+    height: 100%;
+
     @media (max-width: 600px) {
         display: none;
     }
-
-    &:hover {
+    /*&:hover {
         background-color: @backgroundColorMouseOver;
-    }
+    }*/
 }
 
 .page-header.navbar .search-form {
@@ -239,11 +240,26 @@ Page Header
     display: inline-block;
     margin: 0;
     padding: 0;
+    height: 100%;
+}
+
+.page-top-wrapper {
+    height: 100%;
 }
 
 .page-header.navbar .top-menu .navbar-nav {
     padding: 0;
     display: block;
+    height: 100%;
+
+    > li.dropdown.dropdown-user {
+        height: 100%;
+
+        .dropdown-toggle {
+            display: flex;
+            height: 100%;
+        }
+    }
     /* Extended Dropdowns */
     /* Notification */
     /* Inbox */

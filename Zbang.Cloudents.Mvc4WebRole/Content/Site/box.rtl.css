@@ -790,14 +790,16 @@
   background-color: #181c1d;
   padding: 20px 0 10px 10px;
 }
-.file-upliad-area.list-inline {
+.file-upload-area.list-inline,
+.reply-wrapper.list-inline {
   padding: 22px 0 10px 0;
   overflow-x: hidden;
   -ms-word-wrap: break-word;
   word-wrap: break-word;
   margin: 0;
 }
-.file-upliad-area .file-upload {
+.file-upload-area .file-upload,
+.reply-wrapper .file-upload {
   text-align: center;
   color: #323538;
   width: 115px;
@@ -811,32 +813,39 @@
   border: none;
   padding: 5px 5px 0;
 }
-.file-upliad-area .file-upload .file {
+.file-upload-area .file-upload .file,
+.reply-wrapper .file-upload .file {
   height: 100%;
 }
-.file-upliad-area .file-upload .file-footer {
+.file-upload-area .file-upload .file-footer,
+.reply-wrapper .file-upload .file-footer {
   width: 100%;
   margin-bottom: 8px;
 }
-.file-upliad-area .file-upload .progress-wrap {
+.file-upload-area .file-upload .progress-wrap,
+.reply-wrapper .file-upload .progress-wrap {
   background: #f5f5f5;
   padding-bottom: 10px;
 }
-.file-upliad-area .file-upload .progress {
+.file-upload-area .file-upload .progress,
+.reply-wrapper .file-upload .progress {
   margin: 0 10px;
   border-radius: 0;
   height: 10px;
 }
-.file-upliad-area .file-upload .progress .progress-bar {
+.file-upload-area .file-upload .progress .progress-bar,
+.reply-wrapper .file-upload .progress .progress-bar {
   background-color: #8dc63f;
 }
-.file-upliad-area .file-upload .btn {
+.file-upload-area .file-upload .btn,
+.reply-wrapper .file-upload .btn {
   border: 1px solid #3293f6;
   padding: 5px 40px;
   font-size: 18px;
   color: #3293f6;
 }
-.file-upliad-area .file-upload .check-mark {
+.file-upload-area .file-upload .check-mark,
+.reply-wrapper .file-upload .check-mark {
   position: absolute;
   top: -10px;
   left: -10px;
@@ -847,21 +856,25 @@
   width: 30px;
   line-height: 30px;
 }
-.file-upliad-area .file-upload .check-mark svg {
+.file-upload-area .file-upload .check-mark svg,
+.reply-wrapper .file-upload .check-mark svg {
   fill: #8dc63f;
   margin: 0;
   width: 20px;
   height: 20px;
   vertical-align: middle;
 }
-.file-upliad-area .file-upload h5 {
+.file-upload-area .file-upload h5,
+.reply-wrapper .file-upload h5 {
   color: #8dc63f;
 }
-.file-upliad-area .file-upload .file-size {
+.file-upload-area .file-upload .file-size,
+.reply-wrapper .file-upload .file-size {
   font-weight: bold;
   line-height: 20px;
 }
-.file-upliad-area .file-upload .file-upload-progress {
+.file-upload-area .file-upload .file-upload-progress,
+.reply-wrapper .file-upload .file-upload-progress {
   height: 5px;
   margin: 0;
   position: absolute;
@@ -869,7 +882,8 @@
   right: 0;
   left: 0;
 }
-.file-upliad-area .file-upload .file-name {
+.file-upload-area .file-upload .file-name,
+.reply-wrapper .file-upload .file-name {
   height: 105px;
   width: 100%;
   position: relative;
@@ -877,10 +891,16 @@
   text-align: right;
   padding: 0 4px;
 }
-.file-upliad-area .file-upload button {
+.file-upload-area .file-upload .file-name .multi-line-ellipsis,
+.reply-wrapper .file-upload .file-name .multi-line-ellipsis {
+  line-height: 16px;
+}
+.file-upload-area .file-upload button,
+.reply-wrapper .file-upload button {
   background-color: #db4437;
   color: #f5f5f5;
   width: 100%;
   border-radius: 5px;
   line-height: 20px;
+  margin: 0;
 }

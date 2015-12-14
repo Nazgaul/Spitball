@@ -996,7 +996,7 @@
     }
 }
 
-.file-upliad-area {
+.file-upload-area, .reply-wrapper {
 
     &.list-inline {
         padding: 22px 0 10px 0;
@@ -1098,6 +1098,10 @@
             background: @textColorLightGrey;
             text-align: left;
             padding: 0 4px;
+
+            .multi-line-ellipsis {
+                line-height: 16px;
+            }
         }
 
         button {
@@ -1106,6 +1110,7 @@
             width: 100%;
             border-radius: 5px;
             line-height: 20px;
+            margin: 0;
         }
     }
 }

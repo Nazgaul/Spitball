@@ -1,272 +1,483 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @{
-    Layout = null;
+    //Layout = null;
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
     const string svgUrl = "~/images/site/icons.svg";
 }
 
 
 
-<!DOCTYPE html>
+@*<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>IFrame</title>
-    <style type="text/css">
-        html, body {
-            height: 100%;
-        }
-
-        body {
-            background: url(/Images/iframeBg.png?v=1) center center no-repeat;
-            background-size: cover;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            font-family: Arial;
-            color: #fff;
-        }
-
-        .siteLogo {
-            display: block;
-            padding-top: 40px;
-        }
-
-            .siteLogo svg {
-                fill: #f5f5f5;
-                -webkit-filter: drop-shadow(2px 2px 12px #000);
-                filter: drop-shadow(2px 2px 12px #000 );
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>IFrame</title>
+        <style type="text/css">
+            html, body {
+                height: 100%;
             }
 
-        .logo {
-            fill: #fff;
-            width: 206px;
-            height: 37px;
-        }
-
-        h1 {
-            font-weight: normal;
-            font-size: 24px;
-            color: #fff;
-            display: inline-block;
-            width: 300px;
-            /*white-space: pre-wrap;*/
-        }
-
-        .actions {
-            position: absolute;
-            bottom: 40px;
-            margin: auto;
-            left: 0;
-            right: 0;
-            width: 290px;
-        }
-
-        .facebook, .email {
-            width: 228px;
-            margin: auto;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-        }
-
-        .facebook {
-            font-size: 15px;
-            margin: 35px auto 10px;
-            cursor: pointer;
-            padding: 8px 15px 9px 55px;
-            border-radius: 5px;
-            position: relative;
-            line-height: 25px;
-            background: #3b5998;
-            color: #fff;
-        }
-
-        .fbImg, .emailImg {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            margin: auto;
-            display: inline-block;
-            left: 16px;
-        }
-
-            .fbImg:after, .emailImg:after {
-                content: '';
-                display: inline-block;
-                width: 1px;
-                height: 30px;
-                background: #fff;
-                position: relative;
-                left: 12px;
-                top: 6px;
-                opacity: .5;
+            body {
+                background: url(/Images/iframeBg.png?v=1) center center no-repeat;
+                background-size: cover;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                font-family: Arial;
+                color: #fff;
             }
 
-        .svg-fb {
-            width: 11px;
-            height: 22px;
-            fill: #fff;
-            position: relative;
-            top: 2px;
-        }
-
-        .google {
-            color: #676767;
-            background: #fff;
-            border: 1px solid #fff;
-            padding: 7px 15px 8px 53px;
-            cursor: pointer;
-            font-size: 15px;
-            border-radius: 5px;
-            position: relative;
-            display: inline-block;
-            line-height: 25px;
-        }
-
-        .emailImg {
-            left: 8px;
-        }
-
-            .emailImg:after {
-                background: #676767;
-                top: 5px;
-                left: 6px;
+            .siteLogo {
+                display: block;
+                padding-top: 40px;
             }
 
-        .svg-email {
-            width: 24px;
-            height: 20px;
-            fill: silver;
-        }
+                .siteLogo svg {
+                    fill: #f5f5f5;
+                    -webkit-filter: drop-shadow(2px 2px 12px #000);
+                    filter: drop-shadow(2px 2px 12px #000 );
+                }
 
-        .connect {
-            margin-top: 15px;
-        }
-
-        .addConnect {
-            color: #3293f6;
-            background: transparent;
-            outline: none;
-            border: none;
-            font-weight: bold;
-        }
-
-        a {
-            background-color: transparent;
-            outline: none;
-            text-decoration: none;
-            color: inherit;
-            cursor: pointer;
-            display: inline-block;
-        }
-
-        .facebook,
-        .google {
-            background: #3a5795;
-            border: none;
-            padding: 10px;
-            margin-right: 5px;
-            width: 190px;
-            color: #fff;
-            outline: 0;
-            font-size: 16px;
-        }
-
-            .facebook svg,
-            .google svg {
-                float: left;
-                margin-left: 5px;
-                width: 30px;
-                height: 30px;
-                vertical-align: middle;
+            .logo {
                 fill: #fff;
+                width: 206px;
+                height: 37px;
             }
 
-        .google {
-            margin-right: 0;
-            margin-left: 5px;
-            background: #DD4B39;
-        }
+            h1 {
+                font-weight: normal;
+                font-size: 24px;
+                color: #fff;
+                display: inline-block;
+                width: 300px;
+                /*white-space: pre-wrap;*/
+            }
 
-        .bigger {
-            font-size: 4vw;
-            line-height: 1.2;
-            width: 80%;
-            margin: 0 auto;
-        }
+            .actions {
+                position: absolute;
+                bottom: 40px;
+                margin: auto;
+                left: 0;
+                right: 0;
+                width: 290px;
+            }
 
-        .btnSignIn {
-            background: rgba(40, 40, 40, 0.7) !important;
-            width: 348px;
-        }
+            .facebook, .email {
+                width: 228px;
+                margin: auto;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
 
-        .btn.btn-lg, button.btn-lg, input[type="submit"].btn-lg, .button.btn-lg {
-            border-radius: 10px;
-            font-size: 20px;
-            padding: 10px 24px;
-        }
+            .facebook {
+                font-size: 15px;
+                margin: 35px auto 10px;
+                cursor: pointer;
+                padding: 8px 15px 9px 55px;
+                border-radius: 5px;
+                position: relative;
+                line-height: 25px;
+                background: #3b5998;
+                color: #fff;
+            }
 
-        .element-bottom-20 {
-            margin-bottom: 20px !important;
-        }
+            .fbImg, .emailImg {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                display: inline-block;
+                left: 16px;
+            }
 
-        .element-top-20 {
-            margin-top: 20px !important;
-        }
+                .fbImg:after, .emailImg:after {
+                    content: '';
+                    display: inline-block;
+                    width: 1px;
+                    height: 30px;
+                    background: #fff;
+                    position: relative;
+                    left: 12px;
+                    top: 6px;
+                    opacity: .5;
+                }
 
-        .bold {
-            font-weight: 600 !important;
-        }
+            .svg-fb {
+                width: 11px;
+                height: 22px;
+                fill: #fff;
+                position: relative;
+                top: 2px;
+            }
 
-        .big {
-            font-size: 36px;
-            line-height: 48px;
-        }
-    </style>
-</head>
-<body>
-    <a class="siteLogo lFloat" href="~/" target="_blank">
-        @Html.Svg(svgUrl, "logo", new { @class = "logo-default" })
-    </a>
+            .google {
+                color: #676767;
+                background: #fff;
+                border: 1px solid #fff;
+                padding: 7px 15px 8px 53px;
+                cursor: pointer;
+                font-size: 15px;
+                border-radius: 5px;
+                position: relative;
+                display: inline-block;
+                line-height: 25px;
+            }
+
+            .emailImg {
+                left: 8px;
+            }
+
+                .emailImg:after {
+                    background: #676767;
+                    top: 5px;
+                    left: 6px;
+                }
+
+            .svg-email {
+                width: 24px;
+                height: 20px;
+                fill: silver;
+            }
+
+            .connect {
+                margin-top: 15px;
+            }
+
+            .addConnect {
+                color: #3293f6;
+                background: transparent;
+                outline: none;
+                border: none;
+                font-weight: bold;
+            }
+
+            a {
+                background-color: transparent;
+                outline: none;
+                text-decoration: none;
+                color: inherit;
+                cursor: pointer;
+                display: inline-block;
+            }
+
+            .facebook,
+            .google {
+                background: #3a5795;
+                border: none;
+                padding: 10px;
+                margin-right: 5px;
+                width: 190px;
+                color: #fff;
+                outline: 0;
+                font-size: 16px;
+            }
+
+                .facebook svg,
+                .google svg {
+                    float: left;
+                    margin-left: 5px;
+                    width: 30px;
+                    height: 30px;
+                    vertical-align: middle;
+                    fill: #fff;
+                }
+
+            .google {
+                margin-right: 0;
+                margin-left: 5px;
+                background: #DD4B39;
+            }
+
+            .bigger {
+                font-size: 4vw;
+                line-height: 1.2;
+                width: 80%;
+                margin: 0 auto;
+            }
+
+            .btnSignIn {
+                background: rgba(40, 40, 40, 0.7) !important;
+                width: 348px;
+            }
+
+            .btn.btn-lg, button.btn-lg, input[type="submit"].btn-lg, .button.btn-lg {
+                border-radius: 10px;
+                font-size: 20px;
+                padding: 10px 24px;
+            }
+
+            .element-bottom-20 {
+                margin-bottom: 20px !important;
+            }
+
+            .element-top-20 {
+                margin-top: 20px !important;
+            }
+
+            .bold {
+                font-weight: 600 !important;
+            }
+
+            .big {
+                font-size: 36px;
+                line-height: 48px;
+            }
+        </style>
+    </head>
+    <body>*@
+<a class="siteLogo lFloat" href="~/" target="_blank">
+    @Html.Svg(svgUrl, "logo", new { @class = "logo-default" })
+</a>
 
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12  text-center">
-                <div class="divider-wrapper">
-                    <div class="visible-xs element-height-50"></div>
-                    <div class="visible-sm element-height-100"></div>
-                    <div class="visible-md element-height-200"></div>
-                    <div class="visible-lg element-height-200"></div>
-                </div>
-                <div class="col-text-1 bold text-center element-top-80 os-animation element-bottom-40"
-                     data-os-animation="fadeIn" data-os-animation-delay="0.1s">
-                    <p class="bigger text-light" style="white-space:pre-wrap; text-shadow:2px 2px 12px #000;">@HomePageResources.A4</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12  text-center">
+            <div class="divider-wrapper">
+                <div class="visible-xs element-height-50"></div>
+                <div class="visible-sm element-height-100"></div>
+                <div class="visible-md element-height-200"></div>
+                <div class="visible-lg element-height-200"></div>
+            </div>
+            <div class="col-text-1 bold text-center element-top-80 os-animation element-bottom-40"
+                 data-os-animation="fadeIn" data-os-animation-delay="0.1s">
+                <p class="bigger text-light" style="white-space:pre-wrap; text-shadow:2px 2px 12px #000;">@HomePageResources.A4</p>
 
-                </div>
-                <button type="button" class="facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg("/images/signin/icons.svg", "facebook") @LogOnResources.ExternalProvider</button>
-                <button type="button" class="google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg("/images/signin/icons.svg", "google") @LogOnResources.ExternalProvider</button>
-                <br />
-                <a href="@Url.Action("SignUp", "Account")" target="_blank" class="btn btn-primary btn-lg element-bottom-20 element-top-20 text-center bold os-animation btnSignIn"
+            </div>
+            <button type="button" class="facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg("/images/signin/icons.svg", "facebook") @LogOnResources.ExternalProvider</button>
+            <button type="button" class="google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg("/images/signin/icons.svg", "google") @LogOnResources.ExternalProvider</button>
+            <br />
+            <a href="@Url.Action("SignUp", "Account")" target="_blank" class="btn btn-primary btn-lg element-bottom-20 element-top-20 text-center bold os-animation btnSignIn"
+               target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                @HomePageResources.A5
+            </a>
+            @*<a href="@Url.Action("SignIn", "Account")" class="btn btn-primary btn-lg  text-center bold element-top-20 element-bottom-20 os-animation btnSignIn"
                    target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                    @HomePageResources.A5
-                </a>
-                @*<a href="@Url.Action("SignIn", "Account")" class="btn btn-primary btn-lg  text-center bold element-top-20 element-bottom-20 os-animation btnSignIn"
-                       target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                        @HomePageResources.A1
-                    </a>*@
+                    @HomePageResources.A1
+                </a>*@
 
-                <div class="divider-wrapper">
-                    <div class="visible-xs element-height-100"></div>
-                    <div class="visible-sm element-height-100"></div>
-                    <div class="visible-md element-height-100"></div>
-                    <div class="visible-lg element-height-100"></div>
-                </div>
+            <div class="divider-wrapper">
+                <div class="visible-xs element-height-100"></div>
+                <div class="visible-sm element-height-100"></div>
+                <div class="visible-md element-height-100"></div>
+                <div class="visible-lg element-height-100"></div>
             </div>
         </div>
     </div>
-    </div>
-</body>
-</html>
+</div>
+<style type="text/css">
+    html, body {
+        height: 100%;
+    }
+
+    body {
+        background: url(/Images/iframeBg.png?v=1) center center no-repeat;
+        background-size: cover;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        font-family: Arial;
+        color: #fff;
+    }
+
+    .siteLogo {
+        display: block;
+        padding-top: 40px;
+    }
+
+        .siteLogo svg {
+            fill: #f5f5f5;
+            -webkit-filter: drop-shadow(2px 2px 12px #000);
+            filter: drop-shadow(2px 2px 12px #000 );
+        }
+
+    .logo {
+        fill: #fff;
+        width: 206px;
+        height: 37px;
+    }
+
+    h1 {
+        font-weight: normal;
+        font-size: 24px;
+        color: #fff;
+        display: inline-block;
+        width: 300px;
+        /*white-space: pre-wrap;*/
+    }
+
+    .actions {
+        position: absolute;
+        bottom: 40px;
+        margin: auto;
+        left: 0;
+        right: 0;
+        width: 290px;
+    }
+
+    .facebook, .email {
+        width: 228px;
+        margin: auto;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .facebook {
+        font-size: 15px;
+        margin: 35px auto 10px;
+        cursor: pointer;
+        padding: 8px 15px 9px 55px;
+        border-radius: 5px;
+        position: relative;
+        line-height: 25px;
+        background: #3b5998;
+        color: #fff;
+    }
+
+    .fbImg, .emailImg {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        display: inline-block;
+        left: 16px;
+    }
+
+        .fbImg:after, .emailImg:after {
+            content: '';
+            display: inline-block;
+            width: 1px;
+            height: 30px;
+            background: #fff;
+            position: relative;
+            left: 12px;
+            top: 6px;
+            opacity: .5;
+        }
+
+    .svg-fb {
+        width: 11px;
+        height: 22px;
+        fill: #fff;
+        position: relative;
+        top: 2px;
+    }
+
+    .google {
+        color: #676767;
+        background: #fff;
+        border: 1px solid #fff;
+        padding: 7px 15px 8px 53px;
+        cursor: pointer;
+        font-size: 15px;
+        border-radius: 5px;
+        position: relative;
+        display: inline-block;
+        line-height: 25px;
+    }
+
+    .emailImg {
+        left: 8px;
+    }
+
+        .emailImg:after {
+            background: #676767;
+            top: 5px;
+            left: 6px;
+        }
+
+    .svg-email {
+        width: 24px;
+        height: 20px;
+        fill: silver;
+    }
+
+    .connect {
+        margin-top: 15px;
+    }
+
+    .addConnect {
+        color: #3293f6;
+        background: transparent;
+        outline: none;
+        border: none;
+        font-weight: bold;
+    }
+
+    a {
+        background-color: transparent;
+        outline: none;
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .facebook,
+    .google {
+        background: #3a5795;
+        border: none;
+        padding: 10px;
+        margin-right: 5px;
+        width: 190px;
+        color: #fff;
+        outline: 0;
+        font-size: 16px;
+    }
+
+        .facebook svg,
+        .google svg {
+            float: left;
+            margin-left: 5px;
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+            fill: #fff;
+        }
+
+    .google {
+        margin-right: 0;
+        margin-left: 5px;
+        background: #DD4B39;
+    }
+
+    .bigger {
+        font-size: 4vw;
+        line-height: 1.2;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .btnSignIn {
+        background: rgba(40, 40, 40, 0.7) !important;
+        width: 348px;
+    }
+
+    .btn.btn-lg, button.btn-lg, input[type="submit"].btn-lg, .button.btn-lg {
+        border-radius: 10px;
+        font-size: 20px;
+        padding: 10px 24px;
+    }
+
+    .element-bottom-20 {
+        margin-bottom: 20px !important;
+    }
+
+    .element-top-20 {
+        margin-top: 20px !important;
+    }
+
+    .bold {
+        font-weight: 600 !important;
+    }
+
+    .big {
+        font-size: 36px;
+        line-height: 48px;
+    }
+</style>
+
