@@ -103,7 +103,7 @@
   margin: 0 auto;
 }
 .preview .preview-page {
-  width: 800px;
+  max-width: 800px;
 }
 .preview .videoframe {
   width: calc(100% - 155px) !important;

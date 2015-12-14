@@ -147,11 +147,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             routes.MapRoute("Blog2",
              "blog",
-             new { controller = "Home", action = "Blog" }
+             new { controller = "Home", action = "IndexEmpty" }
          );
             routes.MapRoute("Blog",
               "blog/{lang}",
-              new { controller = "Home", action = "Blog", lang = UrlParameter.Optional },
+              new { controller = "Home", action = "IndexEmpty", lang = UrlParameter.Optional },
               new { lang = "^[A-Za-z]{2}-[A-Za-z]{2}$" }
           );
 

@@ -2911,7 +2911,7 @@
     <Content Include="Views\Box\_Feed.cshtml" />
     <Content Include="Views\Item\_PreviewText.cshtml" />
     <Content Include="Views\Home\IFrame.cshtml" />
-    <Content Include="Views\Account\Index3.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\Shared\_Head.cshtml" />
     <Content Include="Views\Shared\_LayoutPage.cshtml" />

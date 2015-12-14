@@ -49,7 +49,7 @@
                         </div>
                     </md-list-item>
                 </md-list>
-                <button class="btn gmail text-capitalize" ng-click="i.importGoogleContract()" ng-if="!(i.allContacts.length) && i.inMail" type="button">
+                <button class="btn gmail text-capitalize" ng-click="i.importGoogleContract()" ng-if="!(i.allContacts.length) && i.inMail" type="button" ga-track-event="['invite', 'import gmail']">
                     <svg viewBox="-468 273.5 21.5 15.6">
                         <g>
                             <path d="M-468,273.5V289h21.5v-15.6H-468z M-452.3,274l-5,5l-5.5-5H-452.3z M-465.1,276.5l6,5.2l-6,4.6
@@ -64,8 +64,8 @@
 
             </md-content>
         </div>
-        <button type="button" class="btn btn-primary send pull-right text-capitalize" ng-click="i.sendInvite()" ng-disabled="!i.contacts.length">@IndexResources.Send</button>
-        <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="i.closeInvite()">@GeneralResources.Cancel</button>
+        <button type="button" class="btn btn-primary send pull-right text-capitalize" ga-track-event="['invite', 'send']" ng-click="i.sendInvite()" ng-disabled="!i.contacts.length">@IndexResources.Send</button>
+        <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="i.closeInvite()" ga-track-event="['invite', 'cancel']">@GeneralResources.Cancel</button>
     </div>
 </div>
 
