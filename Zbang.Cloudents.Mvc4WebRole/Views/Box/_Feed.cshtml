@@ -29,12 +29,12 @@
                                     <div class="file-size">25mb</div>
                                     <button type="button">remove file</button>
                                 </li>*@
-                            <li class="file-upload" ng-repeat="file in f.add.files" ng-include="'file-upload.html'">
+                            <li class="file-upload" ng-repeat="file in f.add.files | filter:{postId: '!'}" ng-include="'file-upload.html'">
                         </ul>
                     </div>
                     <div class="actions" layout="row" layout-align="space-between center">
                         <div class="upload-options" layout="row" layout-wrap layout-align="space-between start">
-                            <a plupload="f.add.fileUpload.url"
+                            <a plupload="f.add.fileUpload.url" ng-click="f.add.upload()"
                                plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks">
                                 @Html.Svg(url, "file", new { @class = "file" })
                             </a>
@@ -76,10 +76,10 @@
                         <ul class="list-inline items-container">
                             <li ng-repeat="e in post.files" ng-include="f.postItemTemplate(e)"></li>
                         </ul>
-                        <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:m'}}</span>
+                        <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
                         <div class="actions">
                             @*<button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>*@
-                            <button type="button" class=" text-capitalize margins" show-form>@BoxResources.Comment</button>
+                            <button type="button" class=" text-capitalize margins" ng-click="f.openReply(post)">@BoxResources.Comment</button>
                             @*<button type="button" class="margins share">@Html.Svg("~/images/site/box-icons.svg", "share")</button>*@
                             <span class="ribbon" ng-if="post.isNew">New</span>
                         </div>
@@ -100,53 +100,58 @@
                                 <div class="top">
                                     <a href="{{::reply.url}}" layout="row" layout-align="start center" class="username">
                                         <user-image class="img-circle c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
-                                        <span class="user-name">{{::reply.userName}}</span> @*at*@
+                                        <span class="user-name">{{::reply.userName}}</span>
                                     </a>
                                     <div ng-bind-html="::reply.content" class="content-text"></div>
                                 </div>
                                 <ul class="list-inline items-container">
                                     <li ng-repeat="e in reply.files" ng-include="'item-template.html'">
                                         @*<a class="item" href="{{::item.url}}">
-                                <div class="content">
-                                    <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
-                                    <div class="extra">
-                                        <h5>{{::item.name}}</h5>
-                                        <img src="http://lorempixel.com/30/30/" alt="" />
+                                                <div class="content">
+                                                    <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
+                                                    <div class="extra">
+                                                        <h5>{{::item.name}}</h5>
+                                                        <img src="http://lorempixel.com/30/30/" alt="" />
 
-                                    </div>
-                                </div>
-                            </a>*@
+                                                    </div>
+                                                </div>
+                                            </a>*@
                                     </li>
                                 </ul>
-                                <span class="comment-date">{{::reply.creationTime | date : 'MMM d,yyyy H:m'}}</span>
+                                <span class="comment-date">{{::reply.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
                                 <div class="actions padding">
                                     @*<button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>
-                        <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>*@
+                                        <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>*@
                                     <span class="ribbon" ng-if="post.isNew">New</span>
                                 </div>
                             </li>
                         </ol>
 
-                        <form class="add-comment add-reply" ng-submit="f.add.createReply(post)">
+                        <form class="add-comment add-reply" ng-if="post.showFrom" ng-submit="f.add.createReply(post)">
                             <div class="reply-wrapper">
-                                <textarea ng-model="f.add.newText" type="text" placeholder="what's on your mind?"></textarea>
+                                <md-input-container md-no-float>
+                                    <textarea autofocus ng-model="f.add.newReplyText" ng-focus="b.closeCollapse()" placeholder="what's on your mind?"></textarea>
+                                </md-input-container>
                                 <ul class="list-inline">
-                                    <li class="file-upload" ng-repeat="file in f.add.files" ng-include="'file-upload.html'">
+                                    <li class="file-upload" ng-repeat="file in f.add.files | filter:{postId: post.id}" ng-include="'file-upload.html'">
                                 </ul>
                             </div>
                             <div layout="row" layout-align="space-between center">
                                 <div class="upload-options" layout="row" layout-wrap layout-align="space-between start">
-                                    <a plupload="f.add.fileUpload.url"
+                                    <a plupload="f.add.fileUpload.url" ng-click="f.add.upload(post.id)"
                                        plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks">
                                         @Html.Svg(url, "file", new { @class = "file" })
                                     </a>
-                                    <button type="button" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()">@Html.Svg(url, "googleDrive")</button>
-                                    <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
+                                    <button type="button" class="google" ng-disabled="f.add.googleDisabled" ng-click="f.add.google(post.id)">
+                                        @Html.Svg(url, "googleDrive")
+                                        @Html.Svg(url, "googleDriveClean")
+                                    </button>
+                                    <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox(post.id)">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
                                 </div>
                                 <div class="submit area-options" layout="row" layout-align="space-between center">
                                     <button type="submit" class="btn btn-primary text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
                                     @*<input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
-                        <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
+                                        <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
                                 </div>
                             </div>
                         </form>
