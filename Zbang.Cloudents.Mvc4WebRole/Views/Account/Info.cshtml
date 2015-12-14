@@ -1,4 +1,5 @@
-﻿@using Zbang.Zbox.Infrastructure.Enums
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
+@using Zbang.Zbox.Infrastructure.Enums
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources;
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
@@ -66,16 +67,25 @@
 </div>
 
 <script type="text/ng-template" id="change-email-template.html">
-    Check your email
-    A verification code was sent to your new email
-    <form ng-submit="ic.submitCode()" novalidate name="insertCode">
-        <md-input-container>
-            <label>Enter verification code</label>
-            <input type="number"  autocomplete="off" required ng-model="ic.code" />
-        </md-input-container>
-        <div class="margin-top-10 text-right">
-            <button type="button" ng-click="ic.cancel()" class="btn btn-default text-capitalize">@GeneralResources.Cancel</button>
-            <button type="submit" class="btn btn-primary text-capitalize" ng-disabled="!insertCode.$valid">@GeneralResources.SaveChanges</button>
+    <div class="change-email-dialog">
+        <div class="icon">@Html.Svg("~/images/site/itemIcons.svg", "info")</div>
+        <div class="content">
+            <div class="text">
+                <span>Check your email</span>
+                <br />A verification code was sent to your new email
+            </div>
+            <form ng-submit="ic.submitCode()" novalidate name="insertCode">
+                <md-input-container>
+                    <label>Enter verification code</label>
+                    <input type="number" autocomplete="off" required ng-model="ic.code" />
+                </md-input-container>
+                <div class="margin-top-10 text-right">
+                    <button type="button" ng-click="ic.cancel()" class="btn-default text-capitalize">@GeneralResources.Cancel</button>
+                    <button type="submit" class="btn-primary text-capitalize" ng-disabled="!insertCode.$valid">@ItemsResources.Save</button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
+
+
 </script>
