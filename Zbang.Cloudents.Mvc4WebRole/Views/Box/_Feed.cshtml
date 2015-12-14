@@ -142,7 +142,7 @@
                                        plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks">
                                         @Html.Svg(url, "file", new { @class = "file" })
                                     </a>
-                                    <button type="button" ng-disabled="f.add.googleDisabled" ng-click="f.add.google(post.id)">
+                                    <button type="button" class="google" ng-disabled="f.add.googleDisabled" ng-click="f.add.google(post.id)">
                                         @Html.Svg(url, "googleDrive")
                                         @Html.Svg(url, "googleDriveClean")
                                     </button>
