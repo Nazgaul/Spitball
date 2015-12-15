@@ -130,6 +130,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(CacheProfile = "FullPage")]
         public ActionResult Privacy()
         {
+            ViewBag.postBag = true;
             return View();
         }
 

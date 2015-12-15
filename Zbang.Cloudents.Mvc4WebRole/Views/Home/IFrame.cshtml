@@ -7,11 +7,9 @@
 
 
 
-<a class="siteLogo lFloat" href="~/" target="_blank">
+<a class="siteLogo lFloat" href="~/" target="_blank" style="padding-top: 0;">
     @Html.Svg(svgUrl, "logo", new { @class = "logo-default" })
 </a>
-
-
 <div class="container">
     <div class="row">
         <div class="col-md-12  text-center">
@@ -29,7 +27,7 @@
             <button type="button" class="facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg("/images/signin/icons.svg", "facebook") @LogOnResources.ExternalProvider</button>
             <button type="button" class="google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg("/images/signin/icons.svg", "google") @LogOnResources.ExternalProvider</button>
             <br />
-            <a href="@Url.Action("SignUp", "Account")" target="_blank" class="btn btn-primary btn-lg element-bottom-20 element-top-20 text-center bold os-animation btnSignIn"
+            <a href="@Url.Action("SignUp", "Account")" target="_blank" class="btn-primary btn-lg element-bottom-20 element-top-20 text-center bold os-animation btnSignIn"
                target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                 @HomePageResources.A5
             </a>
@@ -110,7 +108,6 @@
         margin: 35px auto 10px;
         cursor: pointer;
         padding: 8px 15px 9px 55px;
-        border-radius: 5px;
         position: relative;
         line-height: 25px;
         background: #3b5998;
@@ -153,7 +150,7 @@
         padding: 7px 15px 8px 53px;
         cursor: pointer;
         font-size: 15px;
-        border-radius: 5px;
+        border-radius: 10px;
         position: relative;
         display: inline-block;
         line-height: 25px;
@@ -206,6 +203,7 @@
         color: #fff;
         outline: 0;
         font-size: 16px;
+        border-radius: 10px;
     }
 
         .facebook svg,
@@ -257,5 +255,34 @@
     .big {
         font-size: 36px;
         line-height: 48px;
+    }
+
+    button:hover {
+        background-color: #3293f6;
+        color: #ffffff;
+    }
+
+    .btn-primary {
+        font-size: 20px;
+        max-width: 390px;
+        border-radius: 10px;
+        margin-top: 10px !important;
+        width: 60vw;
+    }
+
+        .btn-primary:hover {
+            text-decoration: none;
+        }
+
+    .container {
+        margin-top: 30vh;
+    }
+
+    .logo-default {
+        width: 57vw;
+        height: 12vw;
+        margin-top: 3vh;
+        max-width: 300px;
+        max-height: 100px;
     }
 </style>
