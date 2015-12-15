@@ -603,6 +603,19 @@
     <Content Include="bower_components\angular-material\angular-material.rtl.min.css">
       <DependentUpon>angular-material.rtl.css</DependentUpon>
     </Content>
+    <Content Include="bower_components\angular-material\angular-material.rtl.rtl.css">
+      <DependentUpon>angular-material.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="bower_components\angular-material\angular-material.rtl.rtl.min.css">
+      <DependentUpon>angular-material.rtl.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="bower_components\angular-material\angularWithChanges.css" />
+    <Content Include="bower_components\angular-material\angularWithChanges.rtl.css">
+      <DependentUpon>angularWithChanges.css</DependentUpon>
+    </Content>
+    <Content Include="bower_components\angular-material\angularWithChanges.rtl.min.css">
+      <DependentUpon>angularWithChanges.rtl.css</DependentUpon>
+    </Content>
     <Content Include="bower_components\angular-material\demos\bottomSheet\demoBasicUsage\img\icons\copy.svg" />
     <Content Include="bower_components\angular-material\demos\bottomSheet\demoBasicUsage\img\icons\copy2.svg" />
     <Content Include="bower_components\angular-material\demos\bottomSheet\demoBasicUsage\img\icons\facebook.svg" />
