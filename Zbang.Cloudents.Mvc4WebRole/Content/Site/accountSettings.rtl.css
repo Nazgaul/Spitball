@@ -127,6 +127,7 @@
 }
 .change-email-dialog .content button {
   padding: 6px 13px;
+  border-radius: 5px;
 }
 .change-email-dialog .content .btn-default {
   background: #c3c3c3;

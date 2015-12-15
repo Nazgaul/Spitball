@@ -1602,6 +1602,18 @@
     <Content Include="Content\Site\Share.rtl.min.css">
       <DependentUpon>Share.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\staticPages.css">
+      <DependentUpon>staticPages.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\staticPages.min.css">
+      <DependentUpon>staticPages.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\staticPages.rtl.css">
+      <DependentUpon>staticPages.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\staticPages.rtl.min.css">
+      <DependentUpon>staticPages.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\user.css">
       <DependentUpon>user.less</DependentUpon>
     </Content>
@@ -2068,6 +2080,7 @@
     <Content Include="Content\Site\libraryChoose.less" />
     <Content Include="Content\Site\error.less" />
     <Content Include="Content\category.png.less" />
+    <Content Include="Content\Site\staticPages.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -7,7 +7,7 @@
     <header layout="row" layout-align="space-between center">
         <div class="fb-like" ng-class="{blue : i.details.rate}">
             <button type="button" ng-click="i.like()" layout="row" layout-align="center center">
-                <div layout="row">@Html.Svg("~/images/site/box-icons.svg", "like") </div><div layout="row">@GeneralResources.Like</div>
+                <div flex>@Html.Svg("~/images/site/box-icons.svg", "like") @GeneralResources.Like</div>
             </button>
         </div>
 
