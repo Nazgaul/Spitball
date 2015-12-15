@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.0.0-rc7
+ * v1.0.0
  */
 (function( window, angular, undefined ){
 "use strict";
@@ -278,7 +278,10 @@ function inputTextareaDirective($mdUtil, $window, $mdAria) {
     }
 
     var isErrorGetter = containerCtrl.isErrorGetter || function() {
-      return ngModelCtrl.$invalid && (ngModelCtrl.$touched || ngModelCtrl.$$parentForm.$submitted);
+      return ngModelCtrl.$invalid && (
+        ngModelCtrl.$touched ||
+        (ngModelCtrl.$$parentForm && ngModelCtrl.$$parentForm.$submitted)
+      );
     };
 
     scope.$watch(isErrorGetter, containerCtrl.setInvalid);

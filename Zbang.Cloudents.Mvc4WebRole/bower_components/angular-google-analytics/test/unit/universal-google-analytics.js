@@ -114,6 +114,21 @@ describe('universal analytics', function () {
         expect(Analytics.getCookieConfig()).toEqual({ userId: 1234 });
       });
     });
+
+    describe('with a prefix set', function(){
+      beforeEach(module(function (AnalyticsProvider){
+        AnalyticsProvider
+          .trackPrefix("test-prefix");
+      }));
+
+      it('should send the url, including the prefix', function(){
+        inject(function (Analytics) {
+          Analytics.log.length = 0; // clear log
+          Analytics.createAnalyticsScriptTag();
+          expect(Analytics.log[2]).toEqual(['send', 'pageview', 'test-prefix']);
+        });
+      });
+    });
   });
 
   describe('hybrid mobile application support', function () {
@@ -546,6 +561,18 @@ describe('universal analytics', function () {
       });
     });
 
+    it('should track add to cart event with product list', function () {
+      inject(function (Analytics) {
+        Analytics.log.length = 0; // clear log
+        Analytics.addProduct('sku-2', 'Test Product 2', 'Category-1', 'Brand 2', 'variant-3', '2499', '1', 'FLAT10', '1');
+        Analytics.trackCart('add', 'product-list');
+        expect(Analytics.log.length).toBe(3);
+        expect(Analytics.log[0][0]).toBe('ec:addProduct');
+        expect(Analytics.log[1]).toEqual([ 'ec:setAction', 'add', {list: 'product-list'} ]);
+        expect(Analytics.log[2]).toEqual([ 'send', 'event', 'UX', 'click', 'add to cart', undefined, {} ]);
+      });
+    });
+
     it('should track remove from cart event', function () {
       inject(function (Analytics) {
         Analytics.log.length = 0; // clear log
@@ -555,6 +582,18 @@ describe('universal analytics', function () {
         expect(Analytics.log[0][0]).toBe('ec:addProduct');
         expect(Analytics.log[1][0]).toBe('ec:setAction');
         expect(Analytics.log[1][1]).toBe('remove');
+        expect(Analytics.log[2]).toEqual([ 'send', 'event', 'UX', 'click', 'remove from cart', undefined, {} ]);
+      });
+    });
+
+    it('should track remove from cart event with product list', function () {
+      inject(function (Analytics) {
+        Analytics.log.length = 0; // clear log
+        Analytics.addProduct('sku-2', 'Test Product 2', 'Category-1', 'Brand 2', 'variant-3', '2499', '1', 'FLAT10', '1');
+        Analytics.trackCart('remove', 'product-list');
+        expect(Analytics.log.length).toBe(3);
+        expect(Analytics.log[0][0]).toBe('ec:addProduct');
+        expect(Analytics.log[1]).toEqual([ 'ec:setAction', 'remove', {list: 'product-list'} ]);
         expect(Analytics.log[2]).toEqual([ 'send', 'event', 'UX', 'click', 'remove from cart', undefined, {} ]);
       });
     });
