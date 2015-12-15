@@ -18,6 +18,7 @@
   width: 30px;
   height: 30px;
   margin-left: 10px;
+  vertical-align: middle;
 }
 .itemPage header .fb-like.blue svg {
   fill: #4190b9;

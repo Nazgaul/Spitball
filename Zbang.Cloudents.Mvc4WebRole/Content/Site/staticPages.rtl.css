@@ -1,0 +1,20 @@
+﻿.static-page {
+  background: #f5f5f5;
+  color: #181C1D;
+  border-radius: 7px;
+  overflow: hidden;
+}
+.static-page h1 {
+  background: #4190B9;
+  color: #f5f5f5;
+  margin-top: 0;
+  font-size: 18px;
+  padding: 10px;
+}
+.static-page > div {
+  margin: 10px;
+}
+.static-page .content {
+  background: #f5f5f5;
+  color: #181C1D;
+}
