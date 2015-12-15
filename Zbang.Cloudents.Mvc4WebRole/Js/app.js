@@ -8,6 +8,7 @@
         'ui.bootstrap',
         'angular-google-analytics',
         'ngAnimate',
+        'ngMessages',
         'ngMaterial',
         'textAngular',
         'ang-drag-drop',

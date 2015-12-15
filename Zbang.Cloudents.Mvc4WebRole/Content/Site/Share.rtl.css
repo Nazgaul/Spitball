@@ -41,12 +41,12 @@
 .invite.light {
   margin: 0;
 }
-.invite .tab-from-right {
+.invite .tab-from-r {
   background: none;
   padding-top: 0;
   padding-left: 0;
 }
-.invite .tab-from-right .mail {
+.invite .tab-from-r .mail {
   margin-left: 0;
 }
 .invite button {

@@ -112,10 +112,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         new JsFileWithCdn("~/scripts/site/bootstrap-hover-dropdown.js"),
                         new JsFileWithCdn("~/scripts/site/jquery.slimscroll.js"),
-                        new JsFileWithCdn("~/scripts/angular.min.js",
-                            "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"),
+                        new JsFileWithCdn("~/scripts/angular.min.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"),
                         
-                         new JsFileWithCdn("~/scripts/angular-ui-router.js"),
+                        new JsFileWithCdn("~/scripts/angular-ui-router.js"),
+                        new JsFileWithCdn("~/scripts/angular-messages.js"),
                         new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-sanitize.min.js"),

@@ -129,9 +129,6 @@
   <data name="EmailToReset" xml:space="preserve">
     <value>Please enter the email address associated with your Spitball account. You will receive a link to reset your password to this email account shortly</value>
   </data>
-  <data name="EnterCode" xml:space="preserve">
-    <value>enter code</value>
-  </data>
   <data name="First" xml:space="preserve">
     <value>First Name</value>
   </data>
@@ -161,5 +158,8 @@
   </data>
   <data name="SelectImg" xml:space="preserve">
     <value>Select Image</value>
+  </data>
+  <data name="changeUniversityBtn" xml:space="preserve">
+    <value>Change univeristy</value>
   </data>
 </root>

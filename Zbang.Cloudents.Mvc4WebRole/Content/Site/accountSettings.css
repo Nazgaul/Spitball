@@ -44,22 +44,22 @@
 .accountPage-wrapper md-input-container:not(.md-input-invalid).md-input-focused .md-input {
   border-bottom: 1px solid #2698d4;
 }
-.accountPage-wrapper .tab-from-right > li {
+.accountPage-wrapper .tab-from-r > li {
   margin: 0;
 }
-.accountPage-wrapper .tab-from-right > li:hover {
+.accountPage-wrapper .tab-from-r > li:hover {
   border: none;
 }
-.accountPage-wrapper .tab-from-right > li:hover > a {
+.accountPage-wrapper .tab-from-r > li:hover > a {
   color: #2698d4;
 }
-.accountPage-wrapper .tab-from-right > li.active {
+.accountPage-wrapper .tab-from-r > li.active {
   border-bottom: 3px solid #3598dc;
 }
-.accountPage-wrapper .tab-from-right > li.active > a {
+.accountPage-wrapper .tab-from-r > li.active > a {
   color: #f5f5f5;
 }
-.accountPage-wrapper .tab-from-right > li > a {
+.accountPage-wrapper .tab-from-r > li > a {
   color: #888b8e;
   font-size: 11px;
   padding: 13px 8px 5px 8px;
