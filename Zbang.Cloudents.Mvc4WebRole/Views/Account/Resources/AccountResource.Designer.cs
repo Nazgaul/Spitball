@@ -79,6 +79,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change univeristy.
+        /// </summary>
+        public static string changeUniversityBtn {
+            get {
+                return ResourceManager.GetString("changeUniversityBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your current password.
         /// </summary>
         public static string CurrentPassword {
@@ -93,15 +102,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         public static string EmailToReset {
             get {
                 return ResourceManager.GetString("EmailToReset", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to enter code.
-        /// </summary>
-        public static string EnterCode {
-            get {
-                return ResourceManager.GetString("EnterCode", resourceCulture);
             }
         }
         

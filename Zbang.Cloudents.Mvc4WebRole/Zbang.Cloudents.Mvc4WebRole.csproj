@@ -453,11 +453,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AccountResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Account\Resources\AccountSettingsResources.Designer.cs">
-      <DependentUpon>AccountSettingsResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Views\Account\Resources\HomePageResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2082,6 +2077,8 @@
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-cookies.min.js" />
     <Content Include="Scripts\angular-countUp.js" />
+    <Content Include="Scripts\angular-messages.js" />
+    <Content Include="Scripts\angular-messages.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular-sanitize.js" />
@@ -2098,6 +2095,7 @@
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
     <Content Include="Scripts\angular-cookies.min.js.map" />
+    <Content Include="Scripts\angular-messages.min.js.map" />
     <None Include="Scripts\jquery-2.1.4-vsdoc.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
@@ -2906,7 +2904,6 @@
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />
-    <Content Include="Views\Quiz\_QuizDialog.cshtml" />
     <Content Include="Views\Item\_PreviewSvg.cshtml" />
     <Content Include="Views\Box\_Feed.cshtml" />
     <Content Include="Views\Item\_PreviewText.cshtml" />
@@ -3188,18 +3185,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\AccountResource.ru.resx" />
     <EmbeddedResource Include="Views\Account\Resources\AccountResource.zh.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.ar.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.en-gb.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.he.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AccountSettingsResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.ru.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.zh.resx" />
     <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.ru.resx" />
     <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.zh.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.ar.resx" />

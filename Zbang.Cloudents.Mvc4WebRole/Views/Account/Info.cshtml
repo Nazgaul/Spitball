@@ -46,10 +46,10 @@
 
         <div layout layout-sm="column">
             <div flex layout="row" layout-align="start center" class="left-flex">
-                <img src="{{::i.data.image}}" class="uni-image" alt="university logo" width="50" height="50" />
+                <img src="{{::i.data.universityImage}}" class="uni-image" alt="university logo" width="50" height="50" />
                 <div layout="column">
                     <span class="uni-name">{{::i.data.university}}</span>
-                    <a ui-sref="universityChoose" flex>change univeristy</a>
+                    <a ui-sref="universityChoose" flex>@AccountResource.changeUniversityBtn</a>
                 </div>
             </div>
             <md-input-container flex>

@@ -448,11 +448,11 @@ Page Header
 }
 
 .page-sidebar .arrow svg {
-    -moz-transform: rotate(0);
-    -ms-transform: rotate(0);
-    -o-transform: rotate(0);
-    -webkit-transform: rotate(0);
-    transform: rotate(0);
+    -moz-transform: rotate(0) /*rtl:rotate(180deg)*/;
+    -ms-transform: rotate(0) /*rtl:rotate(180deg)*/;
+    -o-transform: rotate(0) /*rtl:rotate(180deg)*/;
+    -webkit-transform: rotate(0) /*rtl:rotate(180deg)*/;
+    transform: rotate(0) /*rtl:rotate(180deg)*/;
     -moz-transition: transform 0.2s linear;
     -o-transition: transform 0.2s linear;
     -webkit-transition: transform 0.2s linear;
@@ -460,11 +460,11 @@ Page Header
 }
 
 .page-sidebar .arrow.open svg {
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
+    -moz-transform: rotate(90deg)/*rtl:rotate(90deg)*/;
+    -ms-transform: rotate(90deg)/*rtl:rotate(90deg)*/;
+    -o-transform: rotate(90deg)/*rtl:rotate(90deg)*/;
+    -webkit-transform: rotate(90deg)/*rtl:rotate(90deg)*/;
+    transform: rotate(90deg)/*rtl:rotate(90deg)*/;
     -moz-transition: transform 0.2s linear;
     -o-transition: transform 0.2s linear;
     -webkit-transition: transform 0.2s linear;

@@ -248,3 +248,4 @@
 /// <reference path="../bower_components/angular-google-analytics/test/karma.conf.js" />
 /// <reference path="../bower_components/angular-google-analytics/dist/angular-google-analytics.js" />
 /// <reference path="../bower_components/angular-google-analytics/src/angular-google-analytics.js" />
+/// <reference path="angular-messages.min.js" />

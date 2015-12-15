@@ -11,26 +11,26 @@
     </header>
     <div md-swipe-left="q.swipeLeft()" md-swipe-right="q.swipeRight()">
 
-        <div class="hidden-sm hidden-xs arrows prev" ng-if="q.state === 2 || q.state === 4">
+        <div class="arrows prev" hide show-gt-sm ng-if="q.state === 2 || q.state === 4">
             <button type="button" ng-click="q.back()" ng-show="q.index > 0 && q.index < q.questions.length">
                 @Html.Svg("~/images/site/icons.svg", "arrow")
             </button>
         </div>
         <div class="wrapper">
             <div ng-if="q.state === 4" class="solveActions">
-                <div class="row margin-bottom-15">
-                    <div class="col-sm-4 col-sm-offset-4">
+                <div layout-padding layout="row" class="margin-bottom-15">
+                    <div flex="33" flex-offset="33">
                         <button class="retake" type="button" ng-click="q.retakeQuiz()">@QuizResources.Retake</button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-4 col-xs-12 margin-bottom-15">
+                <div layout-padding layout="row" class="margin-bottom-15">
+                    <div flex="33" flex-xs="100">
                         <div class="black-bullet score">
                             <h5 class="text-capitalize">@QuizResources.Score</h5>
                             {{q.sheet.score}}
                         </div>
                     </div>
-                    <div class="col-sm-4 col-xs-12 margin-bottom-15">
+                    <div flex="33" flex-xs="100">
 
                         <div class="black-bullet score-details">
                             <div>
@@ -51,7 +51,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-4 col-xs-12 margin-bottom-15">
+                    <div flex="33" flex-xs="100">
                         <div class="black-bullet time-taken">
                             @Html.Svg(svgUrl, "clock") <span>{{q.sheet.timeTaken}}</span>
                         </div>
@@ -67,14 +67,8 @@
                     </button>
                 </div>
                 <div class="progress-wrapper">
-                    <span class="question-progress">{{q.index}}/{{q.questions.length}}</span>
-                    @*<div class="progress-wrapper">*@
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="{{q.index/q.questions.length*100}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width: q.index/q.questions.length*100 + '%'}">
-                            <span class="sr-only">{{q.index/q.questions.length*100}}% @QuizResources.Complete</span>
-                        </div>
-                    </div>
-                    @*</div>*@
+                    <span class="question-progress">{{q.index + 1}}/{{q.questions.length}}</span>
+                    <md-progress-linear md-mode="determinate" value="{{q.index /(q.questions.length - 1)*100}}"></md-progress-linear>
                 </div>
             </div>
             <div class="quiz-challenge" ng-if="q.state === 1" ng-include="'quizChallenge.html'"></div>
@@ -83,15 +77,22 @@
                 <div ng-if="q.index < q.questions.length" ng-include="'quiz-question-template.html'" ng-repeat="question in ::q.questions"></div>
                 <div ng-if="q.state === 4" class="add-discussion">
                     <form class="clearfix" novalidate name="addDiscussion" ng-submit="q.postComment(q.questions[q.index])">
-                        <textarea required placeholder="Write a comment" ng-model="q.questions[q.index].newComment"></textarea>
-                        <button class="btn btn-primary pull-right" ng-disabled="!addDiscussion.$valid" type="submit">@QuizResources.Post</button>
+                        <md-input-container md-no-float>
+                            <textarea required placeholder="Write a comment" name="newComment" ng-model="q.questions[q.index].newComment"></textarea>
+                            <div ng-messages="addDiscussion.newComment.$error">
+                                <div ng-message="required">This is required!</div>
+                            </div>
+                            <button class="btn btn-primary pull-right" ng-disabled="!addDiscussion.$valid" type="submit">@QuizResources.Post</button>
+                        </md-input-container>
+                        
                     </form>
                     <ol class="list-unstyled feed">
                         <li class="comment reply" ng-repeat="post in q.questions[q.index].comments">
                             <div class="top">
-                                <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="48" height="48"></user-image>
-                                <span class="user-name">{{::post.userName}}</span>
-
+                                <a href="{{::post.url}}" layout="row" layout-align="start center" class="username">
+                                    <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="48" height="48"></user-image>
+                                    <span class="user-name">{{::post.userName}}</span>
+                                </a>
                                 <div ng-bind-html="::post.content" class="content-text"></div>
                             </div>
                             <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
@@ -103,7 +104,7 @@
 
             </div>
         </div>
-        <div class="hidden-sm hidden-xs arrows next" ng-if="q.state === 2 || q.state === 4">
+        <div class="arrows next" hide show-gt-sm ng-if="q.state === 2 || q.state === 4">
             <button type="button" ng-show="(q.state === 2 && q.index < q.questions.length) || (q.state === 4 && q.index < q.questions.length - 1)" ng-click="q.next()">
                 @Html.Svg("~/images/site/icons.svg", "arrow")
             </button>

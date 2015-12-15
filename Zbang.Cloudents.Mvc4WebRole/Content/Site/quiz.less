@@ -9,10 +9,15 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;*/
-
     header + div {
         margin-top: @fullScreenHeaderHeight + 80px;
         //min-height: ~"calc(100% - 160px)";
+    }
+
+    .close {
+        position: absolute;
+        top: 25px;
+        right: 10px;
     }
 
     .arrows {
@@ -57,10 +62,10 @@
         border-radius: 10px;
         overflow: hidden;
         width: 100%;
-        -moz-transition: all linear 1s;
-        -o-transition: all linear 1s;
-        -webkit-transition: all linear 1s;
-        transition: all linear 1s;
+        -moz-transition: all linear .2s;
+        -o-transition: all linear .2s;
+        -webkit-transition: all linear .2s;
+        transition: all linear .2s;
 
         &.no-progress {
             width: 200px;
@@ -109,16 +114,10 @@
             .displayFlex();
             padding: 10px;
             background: @backgroundColorWhite;
-            // align-self:center;
-            /*display:inline-block;
-            background:grey;*/
             width: 100%;
             align-items: center;
-            //line-height: 54px;
         }
-
-        .progress {
-            // display: inline-block;
+        /*.progress {
             width: 100%;
             margin: 0;
             background: @backgroundColorWhite;
@@ -127,7 +126,7 @@
             .progress-bar {
                 background: @progressbarColorQuiz;
             }
-        }
+        }*/
     }
 
     .solveActions {
@@ -232,6 +231,7 @@
         textarea {
             width: 100%;
             margin-bottom: 10px;
+            border: 1px solid @borderColorGrey;
         }
     }
     //comment section
@@ -240,6 +240,7 @@
 
         & > .top {
             color: @textColorBlack;
+            position: inherit;
         }
     }
 
@@ -292,16 +293,18 @@
         .displayFlex();
     }
 
+    .counter-view {
+        border-radius: 50%;
+        border: 2px solid @borderColorBlue;
+        color: @textColorBlue;
+        font-size: 20px;
+        //padding: 5px 10px;
+    }
+
     .circle {
         padding: 10px;
 
-        .counter-view {
-            border-radius: 50%;
-            border: 2px solid @borderColorBlue;
-            color: @textColorBlue;
-            font-size: 20px;
-            //padding: 5px 10px;
-        }
+
 
         span {
             padding: 5px 10px;
@@ -475,7 +478,7 @@
     background: @backgroundColorWhite;
     color: @textColorBlack;
     padding: 26px;
-    margin: 10px 0;
+    margin: 10px 8px;
 
 
     .no-answer-element {

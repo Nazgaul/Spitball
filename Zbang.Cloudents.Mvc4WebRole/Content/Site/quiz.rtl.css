@@ -10,6 +10,11 @@
 .quizPage header + div {
   margin-top: 160px;
 }
+.quizPage .close {
+  position: absolute;
+  top: 25px;
+  left: 10px;
+}
 .quizPage .arrows {
   position: fixed;
   top: 50%;
@@ -47,10 +52,20 @@
   border-radius: 10px;
   overflow: hidden;
   width: 100%;
-  -moz-transition: all linear 1s;
-  -o-transition: all linear 1s;
-  -webkit-transition: all linear 1s;
-  transition: all linear 1s;
+  -moz-transition: all linear .2s;
+  -o-transition: all linear .2s;
+  -webkit-transition: all linear .2s;
+  transition: all linear .2s;
+  /*.progress {
+            width: 100%;
+            margin: 0;
+            background: @backgroundColorWhite;
+            border: 1px solid grey;
+
+            .progress-bar {
+                background: @progressbarColorQuiz;
+            }
+        }*/
 }
 .quizPage .quiz-take-stats.no-progress {
   width: 200px;
@@ -92,19 +107,8 @@
   display: flex;
   padding: 10px;
   background: #f5f5f5;
-  /*display:inline-block;
-            background:grey;*/
   width: 100%;
   align-items: center;
-}
-.quizPage .quiz-take-stats .progress {
-  width: 100%;
-  margin: 0;
-  background: #f5f5f5;
-  border: 1px solid grey;
-}
-.quizPage .quiz-take-stats .progress .progress-bar {
-  background: #85a7b8;
 }
 .quizPage .solveActions .row {
   margin: 0;
@@ -192,12 +196,14 @@
 .quizPage .add-discussion textarea {
   width: 100%;
   margin-bottom: 10px;
+  border: 1px solid #3d4348;
 }
 .quizPage .feed .comment {
   background: transparent;
 }
 .quizPage .feed .comment > .top {
   color: #282828;
+  position: inherit;
 }
 .quizPage .feed .reply .user-name {
   color: #282828;
@@ -245,14 +251,14 @@
   display: -ms-flex;
   display: flex;
 }
-.quiz-question .circle {
-  padding: 10px;
-}
-.quiz-question .circle .counter-view {
+.quiz-question .counter-view {
   border-radius: 50%;
   border: 2px solid #3598dc;
   color: #2698d4;
   font-size: 20px;
+}
+.quiz-question .circle {
+  padding: 10px;
 }
 .quiz-question .circle span {
   padding: 5px 10px;
@@ -408,7 +414,7 @@
   background: #f5f5f5;
   color: #282828;
   padding: 26px;
-  margin: 10px 0;
+  margin: 10px 8px;
 }
 .quiz-wrapper .no-answer-element {
   display: none;

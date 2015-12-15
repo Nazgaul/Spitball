@@ -106,9 +106,6 @@ textarea,
 .multi-line-ellipsis.limit-three {
   -webkit-line-clamp: 3;
 }
-.multi-line-ellipsis.limit-two {
-  -webkit-line-clamp: 2;
-}
 /*.create {
     background: @color4;
     //height: 475px;
@@ -452,21 +449,21 @@ md-tabs md-ink-bar {
   width: 30px;
   height: 30px;
 }
-.tab-from-right {
+.tab-from-r {
   background: none;
   margin: 0;
   float: right;
   display: inline-block;
   border: 0;
 }
-.tab-from-right > li {
+.tab-from-r > li {
   background: none;
   margin: 0 5px 0 10px;
   border: 0;
   padding: 0;
   text-align: center;
 }
-.tab-from-right > li > a {
+.tab-from-r > li > a {
   background: none;
   margin: 0;
   border: 0;
@@ -474,29 +471,29 @@ md-tabs md-ink-bar {
   font-size: 13px;
   color: #323538;
 }
-.tab-from-right > li.active {
+.tab-from-r > li.active {
   border-bottom: 3px solid #3598dc;
   position: relative;
 }
-.tab-from-right > li.active > a {
+.tab-from-r > li.active > a {
   color: #f5f5f5;
   background: none;
   border: 0;
   margin: 0;
 }
-.tab-from-right > li.active > a:hover {
+.tab-from-r > li.active > a:hover {
   color: #f5f5f5;
   background: none;
   border: 0;
   margin: 0;
 }
-.tab-from-right > li.active > a:focus {
+.tab-from-r > li.active > a:focus {
   color: #f5f5f5;
   background: none;
   border: 0;
   margin: 0;
 }
-.tab-from-right > li:hover > a {
+.tab-from-r > li:hover > a {
   color: #f5f5f5;
   background: none;
   border: 0;
