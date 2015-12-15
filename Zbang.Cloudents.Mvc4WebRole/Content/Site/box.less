@@ -1,235 +1,244 @@
 ﻿@import "variables.less";
 
 .class {
-    md-tabs {
-        border-bottom-right-radius: 0;
-    }
-
     .folder {
-        @media (max-width: 600px) {
-            width: 100%;
-        }
-
-        @media (min-width: 601px) {
-            max-width: 50%;
-        }
-    }
-
-    .folders .folder-name .content {
-        padding: 2px 6px;
-    }
-
-    .location-search-area, .folders {
-        .folder-name {
-            .folder-name-inner {
-                background: #5F6871;
-            }
-
-            .content {
-                background: @textColorDarkGrey;
-                border: 1px solid @textColorDarkGrey;
-            }
-
-            .icon svg {
-                width: 27px;
-                height: 27px;
-                fill: @backgroundColor2;
-                margin: 0 7px;
-            }
-        }
-    }
-
-    .location-search-area {
-
-        .md-menu {
-            padding: 0;
-
-            button {
-                height: 0;
-                width: 30px;
-            }
-        }
-
-        .name-and-icon {
-            /*width: ~"calc(100% - 40px)";*/
-        }
-
-
-        .dots-3 {
-            margin-left: 0;
-            fill: @backgroundColor;
-        }
-
-
-        .search-box {
-            width: 100%;
-            display: inline-block;
-
-            input {
-                border: 10px solid @backgroundColorMenu;
-                border-radius: 0 0 5px 5px;
-                width: 200px;
-                float: right;
-                padding: 0 8px;
-                background: @textColorLightGrey;
-                height: 44px;
-                -webkit-transition: width 0.5s;
-                -moz-transition: width 0.5s;
-                -o-transition: width 0.5s;
-                transition: width 0.5s;
-                color: @textColorBlack;
-
-                @media (max-width: 600px) {
-                    width: 100%;
-                    margin-bottom: 20px;
-                }
-
-                &:focus {
-                    @media (min-width: 601px) {
-                        width: 50%;
-                    }
-                }
-            }
-
-
-
-            ::-webkit-input-placeholder {
-                color: @textColorBlack;
-            }
-
-            :-moz-placeholder { /* Firefox 18- */
-                color: @textColorBlack;
-            }
-
-            ::-moz-placeholder { /* Firefox 19+ */
-                color: @textColorBlack;
-            }
-
-            :-ms-input-placeholder {
-                color: @textColorBlack;
-            }
-        }
-
-        md-input-container.md-input-focused {
-            width: 95%;
-        }
-
-
-
-        .arrow svg {
-            width: 22px;
-            height: 22px;
-            -moz-transform: rotate(180deg);
-            -ms-transform: rotate(180deg);
-            -o-transform: rotate(180deg);
-            -webkit-transform: rotate(180deg);
-            transform: rotate(180deg);
-            fill: @backgroundColorItem;
-            margin-right: 15px;
-        }
-    }
-
-    .folders {
-        .add-folder {
-            .content {
-                padding: 6px;
-                background: none;
-            }
-
-            svg {
-                width: 15px;
-                height: 15px;
-                fill: @borderColorGrey;
-            }
-
-            span {
-                font-weight: bold;
-                color: @borderColorGrey;
-                font-size: 16px;
-                line-height: 20px;
-                padding-left: 10px;
-            }
-        }
-
-
-        .text {
-            font-size: 18px;
-            padding-left: 6px;
-        }
-    }
-
-    .designed-input {
         width: 100%;
-        background: none;
-        border-width: 0 0 1px 0;
-        border-color: @borderColorGrey;
-        padding: 0 10px;
-    }
-    //dont think we need that
-    /*.nav-tabs, .tabbable {
-        border: 0;
-    }*/
-    .need-follow {
-        margin-top: 20px;
-        background: @backgroundColorFollow;
     }
 
-    .invite-btn {
-        border: 1px solid @borderColorWhite;
-        border-radius: 4px;
-        color: @textColorWhite;
-        text-transform: uppercase;
-        padding: 5px 50px 3px;
+    .text {
+        max-width: ~"calc(100% - 45px)";
+        min-width: 150px;
     }
-    //add button
-    .add-button {
-        //text-align: center;
-        //.displayFlex();
-        //margin-bottom: 15px;
-        .aspect-ratio();
+}
 
+.folders .folder-name .content {
+    padding: 2px 6px;
+}
+
+.location-search-area, .folders {
+    .folder-name {
+        width: ~"calc(100% - 38px)";
+
+        .folder-name-inner {
+            background: #5F6871;
+
+            @media (min-width: 601px) {
+                max-width: 50%;
+                min-width: 200px;
+            }
+        }
 
         .content {
-            border: 1px solid @borderColorGrey;
-            padding: 15px;
-            //-ms-flex: 1;
-            //-webkit-flex: 1;
-            //flex: 1;
-            .displayFlex();
-            justify-content: center;
-            align-items: center;
-            margin: 8px; //same as angular material padding
-            &.quizCreate {
-                margin-bottom: 13px; //fix issue with quiz
-            }
+            background: @textColorDarkGrey;
+            border: 1px solid @textColorDarkGrey;
         }
 
-
-        a, button {
-            font-size: 18px;
-            color: @textColorDarkGrey;
-            text-align: center;
-        }
-
-        svg {
-            fill: @textColorDarkGrey;
-            width: 40px;
-            height: 40px;
-            display: block;
-            margin: auto;
-        }
-    }
-
-    .settings {
-        width: ~"calc(100% - 60px)";
-
-        .padding {
-            @media (min-width: 960px) {
-                padding-right: 30px;
-            }
+        .icon svg {
+            width: 27px;
+            height: 27px;
+            fill: @backgroundColor2;
+            margin: 0 7px;
         }
     }
 }
+
+.location-search-area {
+    .folder {
+        margin-bottom: 20px;
+    }
+
+    .md-menu {
+        padding: 0;
+
+        button {
+            height: 0;
+            width: 30px;
+        }
+    }
+
+    .name-and-icon {
+        width: ~"calc(100% - 40px)";
+    }
+
+
+    .dots-3 {
+        margin-left: 0;
+        fill: @backgroundColor;
+    }
+
+
+    .search-box {
+        width: 100%;
+        display: inline-block;
+
+        input {
+            border: 10px solid @backgroundColorMenu;
+            border-top-width: 15px;
+            margin-top: -5px;
+            border-radius: 0 0 5px 5px;
+            width: 200px;
+            float: right;
+            padding: 0 8px;
+            background: @textColorLightGrey;
+            height: 50px;
+            -webkit-transition: width 0.5s;
+            -moz-transition: width 0.5s;
+            -o-transition: width 0.5s;
+            transition: width 0.5s;
+            color: @textColorBlack;
+
+            @media (max-width: 600px) {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            &:focus {
+                @media (min-width: 601px) {
+                    width: 50%;
+                }
+            }
+        }
+
+
+
+        ::-webkit-input-placeholder {
+            color: @textColorBlack;
+        }
+
+        :-moz-placeholder { /* Firefox 18- */
+            color: @textColorBlack;
+        }
+
+        ::-moz-placeholder { /* Firefox 19+ */
+            color: @textColorBlack;
+        }
+
+        :-ms-input-placeholder {
+            color: @textColorBlack;
+        }
+    }
+
+    md-input-container.md-input-focused {
+        width: 95%;
+    }
+
+
+
+    .arrow svg {
+        width: 22px;
+        height: 22px;
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        fill: @backgroundColorItem;
+        margin-right: 15px;
+    }
+}
+
+.folders {
+    .add-folder {
+        .content {
+            padding: 6px;
+            background: none;
+        }
+
+        svg {
+            width: 15px;
+            height: 15px;
+            fill: @borderColorGrey;
+        }
+
+        span {
+            font-weight: bold;
+            color: @borderColorGrey;
+            font-size: 16px;
+            line-height: 20px;
+            padding-left: 10px;
+        }
+    }
+
+
+    .text {
+        font-size: 18px;
+        padding-left: 6px;
+    }
+}
+
+.designed-input {
+    width: 100%;
+    background: none;
+    border-width: 0 0 1px 0;
+    border-color: @borderColorGrey;
+    padding: 0 10px;
+}
+//dont think we need that
+/*.nav-tabs, .tabbable {
+        border: 0;
+    }*/
+.need-follow {
+    margin-top: 20px;
+    background: @backgroundColorFollow;
+}
+
+.invite-btn {
+    border: 1px solid @borderColorWhite;
+    border-radius: 4px;
+    color: @textColorWhite;
+    text-transform: uppercase;
+    padding: 5px 50px 3px;
+}
+//add button
+.add-button {
+    //text-align: center;
+    //.displayFlex();
+    //margin-bottom: 15px;
+    .aspect-ratio();
+
+
+    .content {
+        border: 1px solid @borderColorGrey;
+        padding: 15px;
+        //-ms-flex: 1;
+        //-webkit-flex: 1;
+        //flex: 1;
+        .displayFlex();
+        justify-content: center;
+        align-items: center;
+        margin: 8px; //same as angular material padding
+        &.quizCreate {
+            margin-bottom: 13px; //fix issue with quiz
+        }
+    }
+
+
+    a, button {
+        font-size: 18px;
+        color: @textColorDarkGrey;
+        text-align: center;
+    }
+
+    svg {
+        fill: @textColorDarkGrey;
+        width: 40px;
+        height: 40px;
+        display: block;
+        margin: auto;
+    }
+}
+
+.settings {
+    width: ~"calc(100% - 60px)";
+
+    .padding {
+        @media (min-width: 960px) {
+            padding-right: 30px;
+        }
+    }
+}
+
+
 
 .feed {
     font-size: 16px;

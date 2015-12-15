@@ -1,66 +1,71 @@
-﻿.class {
-  /*.nav-tabs, .tabbable {
-        border: 0;
-    }*/
+﻿.class .folder {
+  width: 100%;
 }
-.class md-tabs {
-  border-bottom-left-radius: 0;
+.class .text {
+  max-width: calc(100% - 45px);
+  min-width: 150px;
 }
-@media (max-width: 600px) {
-  .class .folder {
-    width: 100%;
-  }
-}
-@media (min-width: 601px) {
-  .class .folder {
-    max-width: 50%;
-  }
-}
-.class .folders .folder-name .content {
+.folders .folder-name .content {
   padding: 2px 6px;
 }
-.class .location-search-area .folder-name .folder-name-inner,
-.class .folders .folder-name .folder-name-inner {
+.location-search-area .folder-name,
+.folders .folder-name {
+  width: calc(100% - 38px);
+}
+.location-search-area .folder-name .folder-name-inner,
+.folders .folder-name .folder-name-inner {
   background: #5F6871;
 }
-.class .location-search-area .folder-name .content,
-.class .folders .folder-name .content {
+@media (min-width: 601px) {
+  .location-search-area .folder-name .folder-name-inner,
+  .folders .folder-name .folder-name-inner {
+    max-width: 50%;
+    min-width: 200px;
+  }
+}
+.location-search-area .folder-name .content,
+.folders .folder-name .content {
   background: #323538;
   border: 1px solid #323538;
 }
-.class .location-search-area .folder-name .icon svg,
-.class .folders .folder-name .icon svg {
+.location-search-area .folder-name .icon svg,
+.folders .folder-name .icon svg {
   width: 27px;
   height: 27px;
   fill: #9e9e9e;
   margin: 0 7px;
 }
-.class .location-search-area .md-menu {
+.location-search-area .folder {
+  margin-bottom: 20px;
+}
+.location-search-area .md-menu {
   padding: 0;
 }
-.class .location-search-area .md-menu button {
+.location-search-area .md-menu button {
   height: 0;
   width: 30px;
 }
-.class .location-search-area .name-and-icon {
-  /*width: ~"calc(100% - 40px)";*/
+.location-search-area .name-and-icon {
+  width: calc(100% - 40px);
 }
-.class .location-search-area .dots-3 {
+.location-search-area .dots-3 {
   margin-right: 0;
   fill: #181c1d;
 }
-.class .location-search-area .search-box {
+.location-search-area .search-box {
   width: 100%;
   display: inline-block;
 }
-.class .location-search-area .search-box input {
+.location-search-area .search-box input {
   border: 10px solid #323538;
+  border-top-width: 15px;
+  margin-top: -5px;
   border-radius: 0 0 5px 5px;
   width: 200px;
   float: left;
   padding: 0 8px;
   background: #c3c3c3;
-  height: 44px;
+  height: 50px;
   -webkit-transition: width 0.5s;
   -moz-transition: width 0.5s;
   -o-transition: width 0.5s;
@@ -68,34 +73,34 @@
   color: #282828;
 }
 @media (max-width: 600px) {
-  .class .location-search-area .search-box input {
+  .location-search-area .search-box input {
     width: 100%;
     margin-bottom: 20px;
   }
 }
 @media (min-width: 601px) {
-  .class .location-search-area .search-box input:focus {
+  .location-search-area .search-box input:focus {
     width: 50%;
   }
 }
-.class .location-search-area .search-box ::-webkit-input-placeholder {
+.location-search-area .search-box ::-webkit-input-placeholder {
   color: #282828;
 }
-.class .location-search-area .search-box :-moz-placeholder {
+.location-search-area .search-box :-moz-placeholder {
   /* Firefox 18- */
   color: #282828;
 }
-.class .location-search-area .search-box ::-moz-placeholder {
+.location-search-area .search-box ::-moz-placeholder {
   /* Firefox 19+ */
   color: #282828;
 }
-.class .location-search-area .search-box :-ms-input-placeholder {
+.location-search-area .search-box :-ms-input-placeholder {
   color: #282828;
 }
-.class .location-search-area md-input-container.md-input-focused {
+.location-search-area md-input-container.md-input-focused {
   width: 95%;
 }
-.class .location-search-area .arrow svg {
+.location-search-area .arrow svg {
   width: 22px;
   height: 22px;
   -moz-transform: rotate(-180deg);
@@ -106,61 +111,64 @@
   fill: #6a737d;
   margin-left: 15px;
 }
-.class .folders .add-folder .content {
+.folders .add-folder .content {
   padding: 6px;
   background: none;
 }
-.class .folders .add-folder svg {
+.folders .add-folder svg {
   width: 15px;
   height: 15px;
   fill: #3d4348;
 }
-.class .folders .add-folder span {
+.folders .add-folder span {
   font-weight: bold;
   color: #3d4348;
   font-size: 16px;
   line-height: 20px;
   padding-right: 10px;
 }
-.class .folders .text {
+.folders .text {
   font-size: 18px;
   padding-right: 6px;
 }
-.class .designed-input {
+.designed-input {
   width: 100%;
   background: none;
   border-width: 0 0 1px 0;
   border-color: #3d4348;
   padding: 0 10px;
 }
-.class .need-follow {
+/*.nav-tabs, .tabbable {
+        border: 0;
+    }*/
+.need-follow {
   margin-top: 20px;
   background: #006072;
 }
-.class .invite-btn {
+.invite-btn {
   border: 1px solid #f5f5f5;
   border-radius: 4px;
   color: #f5f5f5;
   text-transform: uppercase;
   padding: 5px 50px 3px;
 }
-.class .add-button {
+.add-button {
   position: relative;
 }
-.class .add-button:before {
+.add-button:before {
   display: block;
   content: "";
   width: 100%;
   padding-top: 141.42%;
 }
-.class .add-button > .content {
+.add-button > .content {
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
 }
-.class .add-button .content {
+.add-button .content {
   border: 1px solid #3d4348;
   padding: 15px;
   display: -webkit-flex;
@@ -170,27 +178,27 @@
   align-items: center;
   margin: 8px;
 }
-.class .add-button .content.quizCreate {
+.add-button .content.quizCreate {
   margin-bottom: 13px;
 }
-.class .add-button a,
-.class .add-button button {
+.add-button a,
+.add-button button {
   font-size: 18px;
   color: #323538;
   text-align: center;
 }
-.class .add-button svg {
+.add-button svg {
   fill: #323538;
   width: 40px;
   height: 40px;
   display: block;
   margin: auto;
 }
-.class .settings {
+.settings {
   width: calc(100% - 60px);
 }
 @media (min-width: 960px) {
-  .class .settings .padding {
+  .settings .padding {
     padding-left: 30px;
   }
 }
