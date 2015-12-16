@@ -413,11 +413,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Models\Resources\CreateAcademicBoxResources.Designer.cs">
-      <DependentUpon>CreateAcademicBoxResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Models\Resources\CreateBoxResources.Designer.cs">
       <DependentUpon>CreateBoxResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -463,25 +458,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HomeResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Account\Resources\PasswordSentResources.Designer.cs">
-      <DependentUpon>PasswordSentResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Account\Resources\ForgotPasswordResources.Designer.cs">
-      <DependentUpon>ForgotPasswordResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Views\Account\Resources\LogOnResources.Designer.cs">
       <DependentUpon>LogOnResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Account\Resources\MobileResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MobileResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Account\Resources\RegisterResources.Designer.cs">
       <DependentUpon>RegisterResources.resx</DependentUpon>
@@ -508,11 +488,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HomeResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Item\Resources\FlagItemResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FlagItemResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Views\Item\Resources\ItemsResources.Designer.cs">
       <DependentUpon>ItemsResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -522,11 +497,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LibraryResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Library\Resources\MainViewResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MainViewResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Quiz\Resources\QuizResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -552,11 +522,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IndexResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\Resources\QuizResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QuizResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\Resources\SharedResources.Designer.cs">
       <DependentUpon>SharedResources.resx</DependentUpon>
@@ -1677,24 +1642,6 @@
     <Content Include="Images\favIcons\mstile-310x150.png" />
     <Content Include="Images\favIcons\mstile-310x310.png" />
     <Content Include="Images\favIcons\mstile-70x70.png" />
-    <Content Include="Images\HomePage\HomePageBottom.png.min.css">
-      <DependentUpon>HomePageBottom.png.css</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageBottom.png.rtl.css">
-      <DependentUpon>HomePageBottom.png.css</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageBottom.png.rtl.min.css">
-      <DependentUpon>HomePageBottom.png.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageTop.png.min.css">
-      <DependentUpon>HomePageTop.png.css</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageTop.png.rtl.css">
-      <DependentUpon>HomePageTop.png.css</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageTop.png.rtl.min.css">
-      <DependentUpon>HomePageTop.png.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Images\job-page-logo2.png" />
     <Content Include="Images\signin\1a.png" />
     <Content Include="Images\signin\2a.png" />
@@ -1716,57 +1663,14 @@
     <Content Include="Images\HomePage2\testimonial3.jpg" />
     <Content Include="Images\HomePage2\testimonial4.jpg" />
     <Content Include="Images\HomePage2\user.png" />
-    <Content Include="Images\HomePage\academic.png" />
-    <Content Include="Images\HomePage\app_store.png" />
     <Content Include="Images\app_store_small.png" />
     <Content Include="Images\bg6.jpg" />
     <Content Include="Images\boxIcons.svg" />
     <Content Include="Images\common27-sprite.png" />
-    <Content Include="Images\HomePage\google_play.png" />
     <Content Include="Images\google_play_small.png" />
     <Content Include="Images\gradient-arrow.png" />
     <Content Include="Images\hiring.png" />
-    <Content Include="Images\HomePage\achva.png" />
-    <Content Include="Images\HomePage\asva.png" />
-    <Content Include="Images\HomePage\avaibleEverywhere.png" />
-    <Content Include="Images\HomePage\berel.png" />
-    <Content Include="Images\HomePage\gsb.png" />
-    <Content Include="Images\HomePage\haGlobe.png" />
-    <Content Include="Images\HomePage\HomePageBottom.png">
-      <DependentUpon>HomePageBottom.sprite</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageBottom.png.css">
-      <DependentUpon>HomePageBottom.png</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageTop.png">
-      <DependentUpon>HomePageTop.sprite</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageTop.png.css">
-      <DependentUpon>HomePageTop.png</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\idius.png" />
-    <Content Include="Images\HomePage\openU.png" />
-    <Content Include="Images\HomePage\peres.png" />
-    <Content Include="Images\HomePage\questionAndAnswers.png" />
-    <Content Include="Images\HomePage\srvu.png" />
-    <Content Include="Images\HomePage\watchAndShare.png" />
-    <Content Include="Images\HomePage\logo1.png" />
     <Content Include="Images\logo2.png" />
-    <Content Include="Images\Mobile\app_store.png" />
-    <Content Include="Images\Mobile\background.jpg" />
-    <Content Include="Images\Mobile\google_play.png" />
-    <Content Include="Images\Mobile\logo.png" />
-    <Content Include="Images\Mobile\logo_1440.png" />
-    <Content Include="Images\Mobile\logo_720.png" />
-    <Content Include="Images\Mobile\mobile1.png" />
-    <Content Include="Images\Mobile\mobile1_1440.png" />
-    <Content Include="Images\Mobile\mobile1_720.png" />
-    <Content Include="Images\Mobile\mobile2.png" />
-    <Content Include="Images\Mobile\mobile2_1440.png" />
-    <Content Include="Images\Mobile\mobile2_720.png" />
-    <Content Include="Images\Mobile\mobile3.png" />
-    <Content Include="Images\Mobile\mobile3_1440.png" />
-    <Content Include="Images\Mobile\mobile3_720.png" />
     <Content Include="Images\signin\googleplus.png" />
     <Content Include="Images\signin\signup_logo.png" />
     <Content Include="Images\signin\icons.svg" />
@@ -1799,21 +1703,9 @@
     <Content Include="Images\spitball_invite_off.png" />
     <Content Include="Images\spitball_invite_on.png" />
     <Content Include="Images\spitball_logo_mobile.png" />
-    <Content Include="Images\Store\ball.png" />
     <Content Include="Images\big-quiz.png" />
     <Content Include="Images\box18-sprite.png" />
     <Content Include="Images\browsers-sprite.png" />
-    <Content Include="Images\Store\cal.png" />
-    <Content Include="Images\Store\category.png">
-      <DependentUpon>category.sprite</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\category.png.css">
-      <DependentUpon>category.png</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\category.png.min.css">
-      <DependentUpon>category.png.css</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\chair.png" />
     <Content Include="Images\checkbox-sprite1.png" />
     <Content Include="Images\close.png" />
     <Content Include="Images\cloudents-share-FB-1.png" />
@@ -1821,16 +1713,11 @@
     <Content Include="Images\cloudents1-57x57.png" />
     <Content Include="Images\cloudents.png" />
     <Content Include="Images\code-icon1.png" />
-    <Content Include="Images\Store\computer.png" />
     <Content Include="Images\course.png" />
-    <Content Include="Images\Store\covers.png" />
     <Content Include="Images\dash13-sprite.png" />
     <Content Include="Images\dashboardEmpty-sprite.png" />
-    <Content Include="Images\Store\dic.png" />
     <Content Include="Images\drive_upload.png" />
     <Content Include="Images\earth.png" />
-    <Content Include="Images\Store\eco.png" />
-    <Content Include="Images\Store\house.png" />
     <Content Include="Images\iframeBg.png" />
     <Content Include="Images\invite-sprite.png" />
     <Content Include="Images\item13-sprite.png" />
@@ -1838,11 +1725,9 @@
     <Content Include="Images\loader1.png" />
     <Content Include="Images\loader2.gif" />
     <Content Include="Images\loading-media.png" />
-    <Content Include="Images\Store\martini.png" />
     <Content Include="Images\members-only.png" />
     <Content Include="Images\no-preview.png" />
     <Content Include="Images\points-Bg.png" />
-    <Content Include="Images\Store\printers.png" />
     <Content Include="Images\QnA-sprite.png" />
     <Content Include="Images\quiz-correct.png" />
     <Content Include="Images\quiz-eye.png" />
@@ -1867,36 +1752,10 @@
     <Content Include="Images\site.png.css">
       <DependentUpon>site.png</DependentUpon>
     </Content>
-    <Content Include="Images\Store\smartphone.png" />
-    <Content Include="Images\Store\close.png" />
-    <Content Include="Images\Store\envelop.png" />
-    <Content Include="Images\Store\fb-off.png" />
-    <Content Include="Images\Store\fb-on.png" />
-    <Content Include="Images\Store\logo.png" />
-    <Content Include="Images\Store\social.png.rtl.css">
-      <DependentUpon>social.png.css</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\social.png.rtl.min.css">
-      <DependentUpon>social.png.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\store-popup.png" />
-    <Content Include="Images\Store\purchase_confirmation.png" />
-    <Content Include="Images\Store\social.png">
-      <DependentUpon>social.sprite</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\social.png.css">
-      <DependentUpon>social.png</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\thank-students.png" />
-    <Content Include="Images\Store\tw-off.png" />
-    <Content Include="Images\Store\tw-on.png" />
-    <Content Include="Images\Store\yt-off.png" />
-    <Content Include="Images\Store\yt-on.png" />
     <Content Include="Images\students.jpg" />
     <Content Include="Images\studentUnion.png" />
     <Content Include="Images\textEditor.svg" />
     <Content Include="Images\tt-sprite.png" />
-    <Content Include="Images\Store\tv.png" />
     <Content Include="Images\uni_logo.png" />
     <Content Include="Images\upload15-sprite.png" />
     <Content Include="Images\user-icon.png" />
@@ -2005,20 +1864,6 @@
     <Content Include="Js\Logon.js" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />
-    <Content Include="Images\Store\category.sprite" />
-    <Content Include="Images\Store\category.png.map">
-      <DependentUpon>category.png</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\social.sprite" />
-    <Content Include="Images\Store\social.png.map">
-      <DependentUpon>social.png</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\social.png.less">
-      <DependentUpon>social.png</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\social.png.scss">
-      <DependentUpon>social.png</DependentUpon>
-    </Content>
     <Content Include="Images\quizSprite.sprite" />
     <Content Include="Images\quizSprite.png.map">
       <DependentUpon>quizSprite.png</DependentUpon>
@@ -2040,26 +1885,6 @@
       <DependentUpon>site.png</DependentUpon>
     </Content>
     <Content Include="51Degrees.config" />
-    <Content Include="Images\HomePage\HomePageTop.sprite" />
-    <Content Include="Images\HomePage\HomePageTop.png.map">
-      <DependentUpon>HomePageTop.png</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageTop.png.less">
-      <DependentUpon>HomePageTop.png</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageTop.png.scss">
-      <DependentUpon>HomePageTop.png</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageBottom.sprite" />
-    <Content Include="Images\HomePage\HomePageBottom.png.map">
-      <DependentUpon>HomePageBottom.png</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageBottom.png.less">
-      <DependentUpon>HomePageBottom.png</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageBottom.png.scss">
-      <DependentUpon>HomePageBottom.png</DependentUpon>
-    </Content>
     <Content Include="Content\signin\components-md.less" />
     <Content Include="Content\signin\custom.less" />
     <Content Include="Content\signin\default.less" />
@@ -2095,9 +1920,6 @@
     <None Include="Js\Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="Images\Store\category.png.scss">
-      <DependentUpon>category.png</DependentUpon>
-    </Content>
     <Content Include="robots.txt" />
     <Content Include="Scripts\angular-cache-2.4.1.js" />
     <Content Include="Scripts\angular-cookies.js" />
@@ -3152,16 +2974,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Resources\AddLinkResources.ru.resx" />
     <EmbeddedResource Include="Models\Resources\AddLinkResources.zh.resx" />
-    <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.ar.resx" />
-    <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.en-gb.resx" />
-    <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.he.resx" />
-    <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>CreateAcademicBoxResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.ru.resx" />
-    <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.zh.resx" />
     <EmbeddedResource Include="Models\Resources\CreateBoxResources.ar.resx" />
     <EmbeddedResource Include="Models\Resources\CreateBoxResources.en-GB.resx" />
     <EmbeddedResource Include="Models\Resources\CreateBoxResources.he.resx">
@@ -3211,8 +3023,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\AccountResource.ru.resx" />
     <EmbeddedResource Include="Views\Account\Resources\AccountResource.zh.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.ru.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.zh.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.ar.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.he.resx" />
@@ -3235,24 +3045,6 @@
     <EmbeddedResource Include="Views\Account\Resources\LogOnResources.zh.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\MobileResources.en-gb.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\MobileResources.ru.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\MobileResources.zh.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\PasswordSentResources.ar.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\PasswordSentResources.he.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\PasswordSentResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>PasswordSentResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.ar.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.he.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ForgotPasswordResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\LogOnResources.ar.resx" />
     <EmbeddedResource Include="Views\Account\Resources\LogOnResources.he.resx">
       <SubType>Designer</SubType>
@@ -3262,15 +3054,6 @@
       <LastGenOutput>LogOnResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\MobileResources.ar.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\MobileResources.he.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\MobileResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>MobileResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\PasswordSentResources.ru.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\PasswordSentResources.zh.resx" />
     <EmbeddedResource Include="Views\Account\Resources\RegisterResources.ar.resx" />
     <EmbeddedResource Include="Views\Account\Resources\RegisterResources.he.resx">
       <SubType>Designer</SubType>
@@ -3313,15 +3096,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HomeResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.ar.resx" />
-    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.en-GB.resx" />
-    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.he.resx" />
-    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>FlagItemResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.ru.resx" />
-    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.zh.resx" />
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.ar.resx" />
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.he.resx">
@@ -3343,18 +3117,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Library\Resources\LibraryResources.ru.resx" />
     <EmbeddedResource Include="Views\Library\Resources\LibraryResources.zh.resx" />
-    <EmbeddedResource Include="Views\Library\Resources\MainViewResources.ar.resx" />
-    <EmbeddedResource Include="Views\Library\Resources\MainViewResources.en-gb.resx" />
-    <EmbeddedResource Include="Views\Library\Resources\MainViewResources.he.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Library\Resources\MainViewResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>MainViewResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Library\Resources\MainViewResources.ru.resx" />
-    <EmbeddedResource Include="Views\Library\Resources\MainViewResources.zh.resx" />
     <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.ar.resx" />
     <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.he.resx" />
@@ -3400,15 +3162,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.ru.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.zh.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\QuizResources.ar.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\QuizResources.he.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\QuizResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>QuizResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\QuizResources.ru.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\QuizResources.zh.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.ar.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

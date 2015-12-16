@@ -344,7 +344,7 @@
                                             </p>
                                             <div class="box box-small box-round">
                                                 <div class="box-dummy"></div>
-                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial1.jpg")" class="attachment-thumbnail wp-post-image" alt="app-t-01" /> </div>
+                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial1.jpg")" class="attachment-thumbnail wp-post-image" alt="user pic" /> </div>
                                             </div>
                                             <footer>@HomePageResources.Testimonial1Person&nbsp;<cite title="@HomePageResources.Testimonial1Title">@HomePageResources.Testimonial1Title</cite></footer>
                                         </blockquote>
@@ -356,7 +356,7 @@
                                             </p>
                                             <div class="box box-small box-round">
                                                 <div class="box-dummy"></div>
-                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial2.jpg")" class="attachment-thumbnail wp-post-image" alt="app-t-02" /> </div>
+                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial2.jpg")" class="attachment-thumbnail wp-post-image" alt="user pic" /> </div>
                                             </div>
                                             <footer>@HomePageResources.Testimonial2Person&nbsp;<cite title="@HomePageResources.Testimonial2Title">@HomePageResources.Testimonial2Title</cite></footer>
                                         </blockquote>
@@ -368,7 +368,7 @@
                                             </p>
                                             <div class="box box-small box-round">
                                                 <div class="box-dummy"></div>
-                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial3.jpg")" class="attachment-thumbnail wp-post-image" alt="app-t-03" /> </div>
+                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial3.jpg")" class="attachment-thumbnail wp-post-image" alt="user pic" /> </div>
                                             </div>
                                             <footer>@HomePageResources.Testimonial3Person&nbsp;<cite title="@HomePageResources.Testimonial3Title">@HomePageResources.Testimonial3Title</cite></footer>
                                         </blockquote>
@@ -380,7 +380,7 @@
                                             </p>
                                             <div class="box box-small box-round">
                                                 <div class="box-dummy"></div>
-                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial4.jpg")" class="attachment-thumbnail wp-post-image" alt="app-t-03" /> </div>
+                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial4.jpg")" class="attachment-thumbnail wp-post-image" alt="user pic" /> </div>
                                             </div>
                                             <footer>@HomePageResources.Testimonial4Person&nbsp;<cite title="@HomePageResources.Testimonial4Title">@HomePageResources.Testimonial4Title</cite></footer>
                                         </blockquote>
@@ -449,10 +449,10 @@
                                 <div class="visible-lg element-height-10"></div>
                             </div>
                             <a href="@Url.Action("AboutUs", "Home")">@HomeResources.AboutCloudents</a>&nbsp;|
-                            <a href="@Url.Action("jobs","home")">@SharedResources.Jobs</a>&nbsp;|
-                            <a href="@Url.Action("Help", "Home")">@SharedResources.Help</a>&nbsp;|
+                            <a href="@Url.RouteUrl("Jobs")">@SharedResources.Jobs</a>&nbsp;|
+                            <a href="@Url.RouteUrl("Help")">@SharedResources.Help</a>&nbsp;|
                             <a href="@Url.Action("Privacy", "Home")">@FooterResources.PrivacyPolicy</a>&nbsp;|
-                            <a href="@Url.Action("TermsOfService", "Home")">@FooterResources.TermsOfService</a>&nbsp;|
+                            <a href="@Url.RouteUrl("TOS")">@FooterResources.TermsOfService</a>&nbsp;|
                             <a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a>
                             <div class="divider-wrapper">
                                 <div class="visible-xs element-height-10"></div>

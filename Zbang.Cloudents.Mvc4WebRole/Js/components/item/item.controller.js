@@ -21,6 +21,23 @@
         });
 
 
+       
+
+        //i.renameOn = true;
+        i.loadMore = loadMore;
+        i.selectedState = i.state.regular;
+
+        
+        i.renameItem = renameItem;
+        i.flagItem = flagItem;
+        i.cancelFlag = cancelFlag;
+        i.like = like;
+
+        i.showRename = showRename;
+
+        i.swipeLeft = swipeLeft;
+        i.swipeRight = swipeRight;
+
         function getPreview() {
             i.loader = true;
             itemService.getPreview(
@@ -49,21 +66,6 @@
                 }
             });
         }
-
-        //i.renameOn = true;
-        i.loadMore = loadMore;
-        i.selectedState = i.state.regular;
-
-        
-        i.renameItem = renameItem;
-        i.flagItem = flagItem;
-        i.like = like;
-
-        i.showRename = showRename;
-
-        i.swipeLeft = swipeLeft;
-        i.swipeRight = swipeRight;
-
         function swipeLeft() {
             if (i.details.next) {
                 $location.url(i.details.next);
@@ -98,6 +100,11 @@
 
         function flagItem() {
             itemService.flag(i.flag, i.customFlag, itemId);
+            cancelFlag();
+        }
+
+        function cancelFlag() {
+            i.flag = '';
             i.selectedState = i.state.regular;
         }
 

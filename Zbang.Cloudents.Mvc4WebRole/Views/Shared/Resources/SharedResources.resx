@@ -132,12 +132,6 @@
   <data name="LastName" xml:space="preserve">
     <value>Last name</value>
   </data>
-  <data name="FacebookSignUp" xml:space="preserve">
-    <value>Sign up with Facebook</value>
-  </data>
-  <data name="EmailSignUp" xml:space="preserve">
-    <value>Sign up with email</value>
-  </data>
   <data name="Jobs" xml:space="preserve">
     <value>Jobs</value>
   </data>

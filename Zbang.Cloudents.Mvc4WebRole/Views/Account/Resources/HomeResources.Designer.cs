@@ -68,14 +68,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
                 return ResourceManager.GetString("AboutCloudents", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to It&apos;s more than just studying, it&apos;s social studying.
-        /// </summary>
-        public static string SocialStudy {
-            get {
-                return ResourceManager.GetString("SocialStudy", resourceCulture);
-            }
-        }
     }
 }

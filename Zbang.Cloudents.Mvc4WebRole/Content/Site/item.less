@@ -26,13 +26,22 @@
                 width: 30px;
                 height: 30px;
                 margin-right: 10px;
-                vertical-align:middle;
+                vertical-align: middle;
             }
         }
 
         .fb-like.blue svg {
             fill: #4190b9;
         }
+    }
+
+    md-select:not([disabled]):focus .md-select-value {
+        color: @textColorBlack;
+        border-bottom: 1px solid @borderColorDarkBlue;
+    }
+
+    md-select .md-select-value.md-select-placeholder {
+        color: @textColorBlack;
     }
 
 
@@ -119,15 +128,20 @@
     }
 
     .right {
+        -moz-transform: rotate(0) /*rtl:rotate(180deg)*/;
+        -ms-transform: rotate(0) /*rtl:rotate(180deg)*/;
+        -o-transform: rotate(0) /*rtl:rotate(180deg)*/;
+        -webkit-transform: rotate(0) /*rtl:rotate(180deg)*/;
+        transform: rotate(0) /*rtl:rotate(180deg)*/;
         right: 10px;
     }
 
     .left {
-        -moz-transform: rotate(180deg);
-        -ms-transform: rotate(180deg);
-        -o-transform: rotate(180deg);
-        -webkit-transform: rotate(180deg);
-        transform: rotate(180deg);
+        -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
+        -ms-transform: rotate(180deg) /*rtl:rotate(0)*/;
+        -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
+        -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
+        transform: rotate(180deg) /*rtl:rotate(0)*/;
         left: 10px;
     }
 }

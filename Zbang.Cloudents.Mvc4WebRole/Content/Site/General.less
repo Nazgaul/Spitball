@@ -191,6 +191,10 @@ md-select .md-select-value.md-select-placeholder {
     color: @textColorWhite;
 }
 
+md-select-menu md-option:focus:not([disabled]):not([selected]) {
+    background:@backgroundColorMenu;
+}
+
 md-input-container:not(.md-input-invalid).md-input-has-value label {
     color: @textColorGrey;
 }
@@ -744,7 +748,7 @@ md-menu-item {
     border: none;
 }
 
-md-tabs{
+md-tabs {
     margin-bottom: 0;
 }
 

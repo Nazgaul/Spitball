@@ -88,6 +88,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose.
+        /// </summary>
+        public static string FlagItemPlaceHolder {
+            get {
+                return ResourceManager.GetString("FlagItemPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This may take several minutes.
         /// </summary>
         public static string MayTake {

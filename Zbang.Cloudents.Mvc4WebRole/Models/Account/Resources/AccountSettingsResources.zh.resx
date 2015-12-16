@@ -123,9 +123,6 @@
   <data name="CurrentPwdEmpty" xml:space="preserve">
     <value>当前密码不可为空</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email：</value>
-  </data>
   <data name="EmailEmpty" xml:space="preserve">
     <value>Email 字段不可为空</value>
   </data>
@@ -143,9 +140,6 @@
   </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>请输入大学名称</value>
-  </data>
-  <data name="TypeCodeReceived" xml:space="preserve">
-    <value>输入 Email 中提供的代码</value>
   </data>
   <data name="UsernameEmpty" xml:space="preserve">
     <value>用户名不可为空</value>
