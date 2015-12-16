@@ -1,4 +1,7 @@
-﻿.itemPage header a {
+﻿.itemPage header {
+  position: fixed;
+}
+.itemPage header a {
   margin: 0 15px;
   height: 17px;
   width: 17px;
@@ -7,6 +10,9 @@
   width: 17px;
   height: 17px;
   fill: #c2c2c2;
+}
+.itemPage header .fb-like {
+  position: absolute;
 }
 .itemPage header .fb-like button {
   font-size: 14px;
@@ -19,6 +25,13 @@
   height: 30px;
   margin-left: 10px;
   vertical-align: middle;
+  margin-bottom: 14px;
+}
+.itemPage header .close-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-left: 25px;
 }
 .itemPage header .fb-like.blue svg {
   fill: #4190b9;
@@ -41,6 +54,9 @@
   margin: 0 auto;
   overflow: hidden;
   padding: 20px 0;
+}
+.itemPage .fileName .name-info {
+  margin: 0 auto;
 }
 .itemPage .fileName .name-info,
 .itemPage .fileName .flag-form {
@@ -101,7 +117,7 @@
   -o-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
-  left: 10px;
+  left: 20px;
 }
 .itemPage .left {
   -moz-transform: rotate(0);

@@ -2712,3 +2712,241 @@ Page Loading
     -webkit-transition: all 2s;
     transition: all 2s;
 }
+
+
+
+.unreg-user {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+
+    .content-wrapper {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.75);
+        display: flex;
+        align-items: center;
+
+        .content {
+            margin: 0 auto;
+        }
+    }
+
+    .noHeight, .smallHeight, .mediumHeight, .largeHeight {
+        -webkit-transition: height 0.5s cubic-bezier(0.26, 0.87, 0.74, 0.93);
+        -moz-transition: height 0.5s cubic-bezier(0.26, 0.87, 0.74, 0.93);
+        -o-transition: height 0.5s cubic-bezier(0.26, 0.87, 0.74, 0.93);
+        transition: height 0.5s cubic-bezier(0.26, 0.87, 0.74, 0.93);
+    }
+
+    .noHeight {
+        height: 0;
+        overflow: hidden;
+    }
+
+    .smallHeight {
+        height: 300px;
+    }
+
+    .mediumHeight {
+        height: 60vh;
+    }
+
+    .largeHeight {
+        height: 100vh;
+    }
+
+
+
+
+    h1 {
+        font-weight: normal;
+        font-size: 24px;
+        color: #fff;
+        display: inline-block;
+        width: 300px;
+        /*white-space: pre-wrap;*/
+    }
+
+    .actions {
+        position: absolute;
+        bottom: 40px;
+        margin: auto;
+        left: 0;
+        right: 0;
+        width: 290px;
+    }
+
+    .facebook, .email {
+        width: 228px;
+        margin: auto;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .facebook {
+        font-size: 15px;
+        margin: 35px auto 10px;
+        cursor: pointer;
+        padding: 8px 15px 9px 55px;
+        position: relative;
+        line-height: 25px;
+        background: #3b5998;
+        color: #fff;
+    }
+
+    .fbImg, .emailImg {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        display: inline-block;
+        left: 16px;
+    }
+
+    .fbImg:after, .emailImg:after {
+        content: '';
+        display: inline-block;
+        width: 1px;
+        height: 30px;
+        background: #fff;
+        position: relative;
+        left: 12px;
+        top: 6px;
+        opacity: .5;
+    }
+
+    .svg-fb {
+        width: 11px;
+        height: 22px;
+        fill: #fff;
+        position: relative;
+        top: 2px;
+    }
+
+    .google {
+        color: #676767;
+        background: #fff;
+        border: 1px solid #fff;
+        padding: 7px 15px 8px 53px;
+        cursor: pointer;
+        font-size: 15px;
+        border-radius: 10px;
+        position: relative;
+        display: inline-block;
+        line-height: 25px;
+    }
+
+    .emailImg {
+        left: 8px;
+    }
+
+    .emailImg:after {
+        background: #676767;
+        top: 5px;
+        left: 6px;
+    }
+
+    .svg-email {
+        width: 24px;
+        height: 20px;
+        fill: silver;
+    }
+
+    .connect {
+        margin-top: 15px;
+    }
+
+    .addConnect {
+        color: #3293f6;
+        background: transparent;
+        outline: none;
+        border: none;
+        font-weight: bold;
+    }
+
+    a {
+        background-color: transparent;
+        outline: none;
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .facebook,
+    .google {
+        background: #3a5795;
+        border: none;
+        padding: 10px;
+        margin-right: 5px;
+        width: 190px;
+        color: #fff;
+        outline: 0;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+
+    .facebook svg,
+    .google svg {
+        float: left;
+        margin-left: 5px;
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+        fill: #fff;
+    }
+
+    .google {
+        margin-right: 0;
+        margin-left: 5px;
+        background: #DD4B39;
+    }
+
+    .btnSignIn {
+        background: rgba(40, 40, 40, 0.7) !important;
+        width: 348px;
+    }
+
+    .btn.btn-lg, button.btn-lg, input[type="submit"].btn-lg, .button.btn-lg {
+        border-radius: 10px;
+        font-size: 20px;
+        padding: 10px 24px;
+    }
+
+    button:hover {
+        background-color: #3293f6;
+        color: #ffffff;
+    }
+
+    .btn-primary {
+        font-size: 20px;
+        max-width: 390px;
+        border-radius: 10px;
+        margin-top: 10px !important;
+        width: 60vw;
+    }
+
+    .btn-primary:hover {
+        text-decoration: none;
+    }
+
+    .text {
+        p {
+            margin-bottom: 0;
+        }
+
+        .large {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 0;
+        }
+
+        .normal {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    }
+}
