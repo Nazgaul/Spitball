@@ -26,6 +26,9 @@
 .library-choose .univeristy .list-inline img {
   border-radius: 4px;
 }
+.library-choose .search-text {
+  width: 100%;
+}
 .library-choose .add-uni-btn {
   display: -webkit-flex;
   display: -ms-flex;
