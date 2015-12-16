@@ -132,12 +132,6 @@
   <data name="LastName" xml:space="preserve">
     <value>שם משפחה</value>
   </data>
-  <data name="FacebookSignUp" xml:space="preserve">
-    <value>הרשם באמצעות פייסבוק</value>
-  </data>
-  <data name="EmailSignUp" xml:space="preserve">
-    <value>הרשם באמצעות מייל</value>
-  </data>
   <data name="Jobs" xml:space="preserve">
     <value>משרות</value>
   </data>

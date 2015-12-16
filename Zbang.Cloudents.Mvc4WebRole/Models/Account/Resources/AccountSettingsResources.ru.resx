@@ -123,9 +123,6 @@
   <data name="CurrentPwdEmpty" xml:space="preserve">
     <value>Текущий пароль не может быть пустым</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>Электронная почта:</value>
-  </data>
   <data name="EmailEmpty" xml:space="preserve">
     <value>Поле электронной почты не должно быть пустым</value>
   </data>
@@ -143,9 +140,6 @@
   </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>Пожалуйста, введите название университета</value>
-  </data>
-  <data name="TypeCodeReceived" xml:space="preserve">
-    <value>Введите код, полученный по электронной почте</value>
   </data>
   <data name="UsernameEmpty" xml:space="preserve">
     <value>Имя пользователя не должно быть пустым.</value>

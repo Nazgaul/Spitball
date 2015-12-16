@@ -117,20 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Afraid" xml:space="preserve">
-    <value>Пока нет, я боюсь</value>
-  </data>
-  <data name="OfYourMates" xml:space="preserve">
-    <value>из ваших товарищей
-по учебе прошли этот тест</value>
-  </data>
-  <data name="QuizTime" xml:space="preserve">
-    <value>Время пройти тест</value>
-  </data>
-  <data name="TakeChance" xml:space="preserve">
-    <value>Попробовать</value>
-  </data>
-  <data name="YouReady" xml:space="preserve">
-    <value>Готовы протестировать себя?</value>
-  </data>
 </root>

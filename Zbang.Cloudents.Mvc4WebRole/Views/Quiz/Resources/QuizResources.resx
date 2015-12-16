@@ -138,9 +138,6 @@
   <data name="Chance" xml:space="preserve">
     <value>Take a chance</value>
   </data>
-  <data name="Complete" xml:space="preserve">
-    <value>Complete</value>
-  </data>
   <data name="CompletedQuiz" xml:space="preserve">
     <value>You completed the quiz!</value>
   </data>
@@ -149,9 +146,6 @@
   </data>
   <data name="CorrectAnswer" xml:space="preserve">
     <value>Correct answer</value>
-  </data>
-  <data name="Course" xml:space="preserve">
-    <value>Class:</value>
   </data>
   <data name="CreateQuiz" xml:space="preserve">
     <value>Create a quiz</value>
@@ -215,20 +209,5 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Incorrect</value>
-  </data>
-  <data name="Afraid" xml:space="preserve">
-    <value>Not right now</value>
-  </data>
-  <data name="OfYourMates" xml:space="preserve">
-    <value>of your classmates took this quiz</value>
-  </data>
-  <data name="QuizTime" xml:space="preserve">
-    <value>Test your knowledge</value>
-  </data>
-  <data name="TakeChance" xml:space="preserve">
-    <value>Take a chance</value>
-  </data>
-  <data name="YouReady" xml:space="preserve">
-    <value>Are you ready to test yourself?</value>
   </data>
 </root>

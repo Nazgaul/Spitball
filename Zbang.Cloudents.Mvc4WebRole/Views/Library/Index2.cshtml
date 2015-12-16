@@ -97,8 +97,8 @@
                     </md-content>
                     <span layout="row" layout-align="end stretch">
                         <button type="button" class="btn btn-default text-capitalize" ng-click="l.boxCancel()">cancel</button>
-                        <button type="button" class="btn btn-primary text-capitalize" ng-if=" !l.secondstep" ng-disabled="!l.boxName" ng-click="l.boxNext()">next</button>
-                        <button type="submit" class="btn btn-primary text-capitalize" ng-if=" l.secondstep" ng-disabled="!createBox.$valid">done</button>
+                        <button type="button" class="btn btn-primary text-capitalize" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()">next</button>
+                        <button type="submit" class="btn btn-primary text-capitalize" ng-if="l.secondStep" ng-disabled="!createBox.$valid">done</button>
                     </span>
                 </form>
             </div>

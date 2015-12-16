@@ -146,7 +146,7 @@
             'cookieDomain': 'spitball.co',
             'alwaysSendReferrer': true
         }
-        if (window.id) {
+        if (window.id && window.id > 0) {
             analyticsObj.userId = window.id;
         }
         analyticsProvider.setAccount({

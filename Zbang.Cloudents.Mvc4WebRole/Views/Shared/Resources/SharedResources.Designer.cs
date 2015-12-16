@@ -70,24 +70,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign up with email.
-        /// </summary>
-        public static string EmailSignUp {
-            get {
-                return ResourceManager.GetString("EmailSignUp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sign up with Facebook.
-        /// </summary>
-        public static string FacebookSignUp {
-            get {
-                return ResourceManager.GetString("FacebookSignUp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to First Name.
         /// </summary>
         public static string FirstName {

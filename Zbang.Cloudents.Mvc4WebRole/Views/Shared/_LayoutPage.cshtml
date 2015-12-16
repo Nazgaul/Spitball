@@ -80,14 +80,14 @@
                     <div class="top-menu">
                         <ul class="nav navbar-nav">
                             @*<li class="separator hide">
-                        </li>*@
+                                </li>*@
                             @*<li>
-                            @Html.Svg(svgUrl, "headerInvite")
-                        </li>*@
+                                    @Html.Svg(svgUrl, "headerInvite")
+                                </li>*@
                             @*<li class="separator hide">
-                        </li>
-                        <li class="separator hide">
-                        </li>*@
+                                </li>
+                                <li class="separator hide">
+                                </li>*@
 
                             <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                             <li class="dropdown dropdown-user dropdown-dark" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
@@ -115,7 +115,7 @@
                                             @Html.Svg(svgUrl, "headerHelp") <span>@SharedResources.Help</span>
                                         </a>
                                     </li>
-                                  
+
                                     <li>
                                         <a target="_self" href="@Url.Action("logoff","account")" @shouldPostBack>
                                             @Html.Svg(svgUrl, "logOffMenu") <span>@IndexResources.Logout</span>
@@ -145,8 +145,8 @@
             @Html.Svg(svgUrl, "arrow")
         </div>
     </div>
-@*DO NOT REMOVE THIS AT ALL TIME*@
-<div id="cssCheck"></div>
+    @*DO NOT REMOVE THIS AT ALL TIME*@
+    <div id="cssCheck"></div>
 
     @* ReSharper disable once Mvc.PartialViewNotResolved *@
     @{ Html.RenderPartial("_commonTemplate");}
@@ -168,7 +168,7 @@
         @if (User != null)
         {
             <text>
-        window.id = '@User.GetUserId()';
+        window.id = @User.GetUserId(false);
         </text>
         }
 

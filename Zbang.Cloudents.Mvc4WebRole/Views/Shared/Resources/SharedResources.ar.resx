@@ -132,12 +132,6 @@
   <data name="LastName" xml:space="preserve">
     <value>اسم العائلة</value>
   </data>
-  <data name="FacebookSignUp" xml:space="preserve">
-    <value>التسجيل عبر الفيس بوك</value>
-  </data>
-  <data name="EmailSignUp" xml:space="preserve">
-    <value>تسجيل الدخول بالبريد الإلكتروني</value>
-  </data>
   <data name="Jobs" xml:space="preserve">
     <value>وظائف</value>
   </data>

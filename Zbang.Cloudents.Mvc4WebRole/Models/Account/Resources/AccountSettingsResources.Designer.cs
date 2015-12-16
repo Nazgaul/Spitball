@@ -88,15 +88,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email:.
-        /// </summary>
-        public static string Email {
-            get {
-                return ResourceManager.GetString("Email", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to You must enter a valid email address.
         /// </summary>
         public static string EmailEmpty {
@@ -156,15 +147,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         public static string SchoolRequired {
             get {
                 return ResourceManager.GetString("SchoolRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Type code received by email.
-        /// </summary>
-        public static string TypeCodeReceived {
-            get {
-                return ResourceManager.GetString("TypeCodeReceived", resourceCulture);
             }
         }
         

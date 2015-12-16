@@ -117,22 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Afraid" xml:space="preserve">
-    <value>מפחד לנסות</value>
-  </data>
-  <data name="OfYourMates" xml:space="preserve">
-    <value>סטודנטים מהכיתה שלך
-כבר בחנו את עצמם</value>
-  </data>
-  <data name="QuizTime" xml:space="preserve">
-    <value>הגיע הזמן לבדוק עד כמה אתה טוב</value>
-  </data>
-  <data name="TakeChance" xml:space="preserve">
-    <value>נסה את מזלך</value>
-  </data>
-  <data name="YouReady" xml:space="preserve">
-    <value>אתה מוכן לבדוק עד כמה אתה טוב?</value>
-  </data>
   <data name="AddAnswer" xml:space="preserve">
     <value>הוסף תשובה</value>
   </data>
@@ -154,9 +138,6 @@
   <data name="Chance" xml:space="preserve">
     <value>נסה את מזלך</value>
   </data>
-  <data name="Complete" xml:space="preserve">
-    <value>השלם</value>
-  </data>
   <data name="CompletedQuiz" xml:space="preserve">
     <value>סיימת את המבחן!</value>
   </data>
@@ -165,9 +146,6 @@
   </data>
   <data name="CorrectAnswer" xml:space="preserve">
     <value>תשובה נכונה</value>
-  </data>
-  <data name="Course" xml:space="preserve">
-    <value>קורס:</value>
   </data>
   <data name="CreateQuiz" xml:space="preserve">
     <value>צור מבחן</value>

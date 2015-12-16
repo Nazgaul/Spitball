@@ -449,10 +449,10 @@
                                 <div class="visible-lg element-height-10"></div>
                             </div>
                             <a href="@Url.Action("AboutUs", "Home")">@HomeResources.AboutCloudents</a>&nbsp;|
-                            <a href="@Url.Action("jobs","home")">@SharedResources.Jobs</a>&nbsp;|
-                            <a href="@Url.Action("Help", "Home")">@SharedResources.Help</a>&nbsp;|
+                            <a href="@Url.RouteUrl("Jobs")">@SharedResources.Jobs</a>&nbsp;|
+                            <a href="@Url.RouteUrl("Help")">@SharedResources.Help</a>&nbsp;|
                             <a href="@Url.Action("Privacy", "Home")">@FooterResources.PrivacyPolicy</a>&nbsp;|
-                            <a href="@Url.Action("TermsOfService", "Home")">@FooterResources.TermsOfService</a>&nbsp;|
+                            <a href="@Url.RouteUrl("TOS")">@FooterResources.TermsOfService</a>&nbsp;|
                             <a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a>
                             <div class="divider-wrapper">
                                 <div class="visible-xs element-height-10"></div>
