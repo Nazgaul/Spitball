@@ -402,7 +402,7 @@ namespace Zbang.Zbox.ReadServices
                     //    comment.Replies.AddRange(replies.Where(w => w.ParentId == comment.Id));
 
                     //}
-                    retVal.Rate = grid.Read<int>().FirstOrDefault();
+                    retVal.Like = grid.Read<int>().FirstOrDefault();
                     return retVal;
                 }
 

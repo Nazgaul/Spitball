@@ -47,6 +47,7 @@
                 boxid
             ).then(function (data) {
                 data = data || {};
+                i.loader = false;
                 //$scope.load.contentLoading = $scope.load.contentLoadMore = false;
                 if (data.preview) {
                     if (data.preview.indexOf('iframe') > 0
@@ -61,7 +62,7 @@
                         //});
                         needLoadMore = true;
                     }
-                    i.loader = false;
+                    
                     //$scope.$broadcast('update', data.preview); //for fullscreen
                 }
             });
@@ -111,7 +112,13 @@
         
         function like() {
             itemService.like(itemId, boxid);
-            i.details.rate = !i.details.rate;
+            if (i.details.like) {
+                i.details.likes--;
+            } else {
+                i.details.likes++;
+            }
+            i.details.like = !i.details.like;
+
         }
     }
 

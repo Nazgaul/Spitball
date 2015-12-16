@@ -156,9 +156,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 await Task.WhenAll(tItem, tTransAction);
                 var retVal = tItem.Result;
-                retVal.UserType = ViewBag.UserType;
+                //retVal.UserType = ViewBag.UserType;
                 //retVal.Name = Path.GetFileNameWithoutExtension(retVal.Name);
-                retVal.ShortUrl = UrlConsts.BuildShortItemUrl(new Base62(itemId).ToString());
+               // retVal.ShortUrl = UrlConsts.BuildShortItemUrl(new Base62(itemId).ToString());
                 return JsonOk(new
                 {
                     retVal.Blob,
@@ -172,8 +172,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     //retVal.Owner,
                     //retVal.OwnerId,
                     //retVal.PrintUrl,
-                    retVal.Rate,
-                    retVal.ShortUrl,
+                    retVal.Like,
+                    retVal.Likes,
+                    //retVal.ShortUrl,
                     //retVal.UpdateTime,
                     //retVal.UserType
                 });

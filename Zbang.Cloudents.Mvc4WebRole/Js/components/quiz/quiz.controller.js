@@ -43,7 +43,14 @@
         q.questions = quizData.quiz.questions;
         q.index = 0;
         q.sheet = quizData.sheet || {};
-        q.topUsers = quizData.quiz.topUsers;
+        q.topUsers = quizData.quiz.topUsers || [];
+
+        for (var j = q.topUsers.length; j < 4; j++) {
+            q.topUsers.push({
+                    image: '/images/site/user_' + j + '.png'
+                });
+        }
+
         q.boxUrl = quizData.quiz.boxUrl;
 
         q.afraid = afraid;

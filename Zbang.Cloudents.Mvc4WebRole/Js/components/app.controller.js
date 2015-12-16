@@ -2,7 +2,7 @@
     angular.module('app').controller('AppController', appController);
     appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state', 'userDetailsFactory'];
 
-    function appController($rootScope, $window, $location, history, $state, userDetails) {
+    function appController($rootScope, $window, $location, h, $state, userDetails) {
         var self = this;
         $rootScope.$on('$viewContentLoaded', function () {
             var path = $location.path(),
@@ -12,11 +12,16 @@
         });
 
         self.back = function (defaultUrl) {
-            if (history.arr.length === 1) {
+            var element = h.popElement();
+            if (!element) {
                 $location.url(defaultUrl);
                 return;
             }
-            var element = history.arr[history.arr.length - 1];
+            if (typeof element === 'string') {
+                $location.url(element);
+            }
+            $rootScope.$broadcast('from-back');
+            //element.params.fromBack = true;
             $state.go(element.name, element.params);
         }
 
@@ -24,13 +29,13 @@
         self.hideSearch = false;
 
 
-       // var originatorEv;
+        // var originatorEv;
         function openMenu($mdOpenMenu, ev) {
             //originatorEv = ev;
             $mdOpenMenu(ev);
         };
 
-        
+
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
             var name = toState.name;
             if (name === 'search' || name === 'universityChoose') {
@@ -38,7 +43,7 @@
             } else {
                 self.hideSearch = false;
             }
-           
+
 
         });
 
@@ -56,10 +61,10 @@
                 }
             }
             $rootScope.$broadcast('close-collapse');
-            var details = userDetails.get();
-            if (!details) {
+            if (!userDetails.isAuthenticated()) {
                 return;
             }
+            var details = userDetails.get();
             if (details.university.id) {
                 return;
             }
@@ -68,7 +73,7 @@
                 $rootScope.$broadcast('state-change-start-prevent');
                 event.preventDefault();
             }
-           
+
         });
 
 

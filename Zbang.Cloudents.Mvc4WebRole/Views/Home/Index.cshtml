@@ -7,7 +7,6 @@
     ViewBag.moveToSpitBall = ViewBag.moveToSpitBall ?? false;
     ViewBag.metaDescription = HomePageResources.A4;
 }
-
 <!doctype html>
 <html>
 <head>
@@ -15,7 +14,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
     @Html.Css2("homePage")
     <meta name="google-signin-client_id" content="997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com" />
-
 </head>
 <body class="transparent-header pace-on pace-dot">
     <!-- Google Tag Manager -->
@@ -44,8 +42,6 @@
         </div>
     }
 
-
-
     <div id="masthead" class="menu navbar navbar-static-top header-logo-left-menu-right navbar-sticky text-none" role="banner">
         <div class="container">
             <div class="navbar-header">
@@ -72,12 +68,10 @@
                             <li class="menu-item nav-highlight-ghost"> <a href="#buy">@HomePageResources.A7</a> </li>
                         </ul>
                     </div>
-
                 </nav>
             </div>
         </div>
     </div>
-
     <div id="content" role="main">
         <article>
             <section class="section" id="spitballFeatures">
@@ -100,7 +94,6 @@
                     </video>
                 </div>
 
-
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12  text-center">
@@ -112,8 +105,7 @@
                             </div>
                             <div class="col-text-1 bold text-center element-top-80 os-animation element-bottom-40"
                                  data-os-animation="fadeIn" data-os-animation-delay="0.1s">
-                                <p class="bigger text-light" style="white-space:pre-wrap; text-shadow:2px 2px 12px #000;">@HomePageResources.A4</p>
-
+                                <h1 class="bigger text-light" style="white-space:pre-wrap; text-shadow:2px 2px 12px #000;">@HomePageResources.A4</h1>
                             </div>
                             <button type="button" class="facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg("/images/signin/icons.svg", "facebook") @LogOnResources.ExternalProvider</button>
                             <button type="button" class="google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg("/images/signin/icons.svg", "google") @LogOnResources.ExternalProvider</button>
@@ -126,7 +118,7 @@
                                    target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                                     @HomePageResources.A1
                                 </a>*@
-                            <p class="text-light os-animation element-top-10 big" data-os-animation="fadeIn" data-os-animation-delay="0.5s" style="text-shadow:2px 2px 6px #000; white-space:pre-wrap;">@HomePageResources.A6</p>
+                            <h2 class="text-light os-animation element-top-10 big" data-os-animation="fadeIn" data-os-animation-delay="0.5s" style="text-shadow:2px 2px 6px #000; white-space:pre-wrap;">@HomePageResources.A6</h2>
                             <div class="divider-wrapper">
                                 <div class="visible-xs element-height-100"></div>
                                 <div class="visible-sm element-height-100"></div>
@@ -145,9 +137,9 @@
                             <div class="row">
                                 <div class="col-md-2 text-default small-screen-default"></div>
                                 <div class="col-md-8 text-default small-screen-default">
-                                    <h1 class="text-center element-top-60 element-bottom-20 text-normal os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                    <h2 class="text-center element-top-60 element-bottom-20 text-normal os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
                                         @HomePageResources.D1
-                                    </h1>
+                                    </h2>
                                     <div class="divider-border divider-border-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
                                         <div class="divider-border-inner"></div>
                                     </div>
@@ -162,7 +154,6 @@
                                                 <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;@HomePageResources.D5</li>
                                             </ul>
                                         </div>
-
                                         <div class="col-md-6">
                                             <ul class="skills-list lead element-top-20 element-bottom-40 text-normal os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">
                                                 <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;@HomePageResources.D6</li>
@@ -173,11 +164,26 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 text-default small-screen-default"></div>
+                                @{
+                                    var queryString = string.Empty;
+                                    if (!string.IsNullOrEmpty(Request.QueryString["utm_medium"]))
+                                    {
+                                        queryString = string.Format("?af_prt=peachmedia&af_siteid={0}&pid={1}&c={2}", Request.QueryString["utm_medium"], Request.QueryString["utm_source"], Request.QueryString["utm_campaign"]);
+                                    }
+
+                                }
+                                <div class="col-md-12 text-center small-screen-default">
+                                    <a id="iOs" target="_blank" href="@string.Format("https://app.appsflyer.com/id990911114{0}", queryString)"
+                                       class="element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation mobileLink"
+                                       data-os-animation="fadeIn" data-os-animation-delay="0.3s" style="display:inline-block">
+                                        <img src="@Url.CdnContent("~/Images/HomePage2/apple.png")" alt="apple" width="160" height="46" />
+                                    </a> <a id="Android" target="_blank" href="@string.Format("http://app.appsflyer.com/com.cloudents.zbox2{0}", queryString)" class="element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation mobilelink" data-os-animation="fadeIn" data-os-animation-delay="0.3s" style="display:inline-block">
+                                        <img src="@Url.CdnContent("~/Images/HomePage2/google.png")" alt="google" width="160" height="46" />
+                                    </a>
+                                </div>
                             </div>
                             <div class="element-top-20 element-bottom-0 os-animation" data-os-animation="fadeInUp" data-os-animation-delay="0.3s">
-
                                 <img class="img-responsive" style="margin: 0 auto;" src="@Url.CdnContent("/Images/HomePage2/mobile.png?v=3")" alt="Mobile Studying App" />
-
                             </div>
                         </div>
                     </div>
@@ -188,9 +194,9 @@
                     <div class="row vertical-default">
                         <div class="col-md-2 text-default small-screen-default"></div>
                         <div class="col-md-8 text-default small-screen-default">
-                            <h1 class="text-center element-top-60 element-bottom-20 text-normal os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                            <h2 class="text-center element-top-60 element-bottom-20 text-normal os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
                                 @HomePageResources.B1
-                            </h1>
+                            </h2>
                             <div class="divider-border divider-border-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
                                 <div class="divider-border-inner"></div>
                             </div>
@@ -241,7 +247,6 @@
                     </div>
                 </div>
             </section>
-
             <section class="section" id="screenshots">
                 <div class="background-overlay grid-overlay-0 " style="background-color: #c2c2c2"></div>
                 <div class="container-fullwidth container-vertical-default">
@@ -250,13 +255,12 @@
                             <div class="row">
                                 <div class="col-md-2 text-default small-screen-default"></div>
                                 <div class="col-md-8 text-default small-screen-default">
-                                    <h1 class="text-center element-top-60 element-bottom-20 text-normal os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                    <h2 class="text-center element-top-60 element-bottom-20 text-normal os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
                                         @HomePageResources.C1
-                                    </h1>
+                                    </h2>
                                     <div class="divider-border divider-border-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
                                         <div class="divider-border-inner"></div>
                                     </div>
-
                                 </div>
                                 <div class="col-md-2 text-default small-screen-default"></div>
                             </div>
@@ -317,14 +321,12 @@
                                             </a>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-
 
             <section class="section text-normal section-text-no-shadow section-inner-no-shadow section-normal section-opaque" id="testimonials">
                 <div class="background-overlay grid-overlay-0 " style="background-color: rgba(240,240,240,1);"></div>
@@ -400,34 +402,25 @@
                     <div class="row vertical-top">
                         <div class="col-md-1 text-left small-screen-center"></div>
                         <div class="col-md-10 text-center small-screen-default">
-                            <h1 class="text-default element-top-70 element-bottom-20 text-light os-animation big default"
+                            <h2 class="text-default element-top-70 element-bottom-20 text-light os-animation big default"
                                 data-os-animation="fadeIn" data-os-animation-delay="0s" style="text-shadow:2px 2px 12px #000;">
                                 @HomePageResources.F1
-                            </h1>
+                            </h2>
                             <div class="divider-border divider-border-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
                                 <div class="divider-border-inner" style="background:#3293f6"></div>
                             </div>
                             <div class="col-text-1 text-light big element-top-20 element-bottom-20 os-animation"
                                  data-os-animation="fadeIn" data-os-animation-delay="0.2s">
-                                <p style="text-shadow:2px 2px 12px #000;">
+                                <h2 class="big" style="text-shadow:2px 2px 12px #000;">
                                     @HomePageResources.F2
-                                </p>
-                                @{
-                                    var queryString = string.Empty;
-                                    if (!string.IsNullOrEmpty(Request.QueryString["utm_medium"]))
-                                    {
-                                        queryString = string.Format("?af_prt=peachmedia&af_siteid={0}&pid={1}&c={2}", Request.QueryString["utm_medium"], Request.QueryString["utm_source"], Request.QueryString["utm_campaign"]);
-                                    }
-
-                                }
-                            </div> <a id="iOs" target="_blank" href="@string.Format("https://app.appsflyer.com/id990911114{0}", queryString)"
-                                      class="element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation mobileLink"
-                                      data-os-animation="fadeIn" data-os-animation-delay="0.3s" style="display:inline-block">
+                                </h2>
+                            </div>
+                            <a id="iOs" target="_blank" href="@string.Format("https://app.appsflyer.com/id990911114{0}", queryString)"
+                               class="element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation mobileLink"
+                               data-os-animation="fadeIn" data-os-animation-delay="0.3s" style="display:inline-block">
                                 <img src="@Url.CdnContent("~/Images/HomePage2/apple.png")" alt="apple" width="160" height="46" />
-
                             </a> <a id="Android" target="_blank" href="@string.Format("http://app.appsflyer.com/com.cloudents.zbox2{0}", queryString)" class="element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation mobilelink" data-os-animation="fadeIn" data-os-animation-delay="0.3s" style="display:inline-block">
                                 <img src="@Url.CdnContent("~/Images/HomePage2/google.png")" alt="google" width="160" height="46" />
-                                >
                             </a>
                             <div class="divider-wrapper">
                                 <div class="element-height-100"></div>
@@ -461,7 +454,6 @@
                                 <div class="visible-lg element-height-10"></div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </section>
@@ -478,7 +470,5 @@
     <script type="text/javascript">
         Login.initExternalLogin();
     </script>
-
 </body>
-
 </html>

@@ -3,9 +3,9 @@
 
     angular.module('app').config(config);
 
-    config.$inject = ['$controllerProvider', '$locationProvider', '$angularCacheFactoryProvider', '$provide'];
+    config.$inject = ['$controllerProvider', '$locationProvider', '$angularCacheFactoryProvider', '$provide', '$httpProvider'];
 
-    function config($controllerProvider, $locationProvider, $angularCacheFactoryProvider, $provide) {
+    function config($controllerProvider, $locationProvider, $angularCacheFactoryProvider, $provide, $httpProvider) {
         //$locationProvider.html5Mode(true).hashPrefix('!');
         $controllerProvider.allowGlobals();
         $angularCacheFactoryProvider.setCacheDefaults({
@@ -15,6 +15,7 @@
             cacheFlushInterval: 45000,
             storageMode: 'sessionStorage'
         });
+        $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
         //deep-purple
         //$mdThemingProvider.setDefaultTheme('deep-purple');
         //$mdBiDirectionalProvider.rtlMode(true);
@@ -45,7 +46,7 @@
                             break;
                         case 401:
                         case 403:
-                            window.open('/account/', '_self');
+                            window.open('/', '_self');
                             break;
                         case 404:
                             window.open('/error/notfound/', '_self');
@@ -64,7 +65,7 @@
                 }
             };
         }]);
-
+        $httpProvider.interceptors.push('requestinterceptor');
 
 
 

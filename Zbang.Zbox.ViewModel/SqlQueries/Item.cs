@@ -30,6 +30,7 @@ where cte.itemid = @itemid;
 	i.NumberOfViews as numberOfViews,
 	i.numberofdownloads as numberOfDownloads,
     i.BlobName as blob,
+    i.likeCount as Likes,
     b.Url as BoxUrl
     from zbox.Item i
     join zbox.Users u on u.UserId = i.UserId
