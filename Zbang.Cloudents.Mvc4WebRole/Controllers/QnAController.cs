@@ -36,7 +36,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             if (!ModelState.IsValid)
             {
-                return JsonError(GetErrorsFromModelState());
+                return JsonError(GetErrorFromModelState());
             }
 
             var questionId = m_IdGenerator.GetId();
@@ -56,7 +56,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             if (!ModelState.IsValid)
             {
-                return JsonError(GetErrorsFromModelState());
+                return JsonError(GetErrorFromModelState());
             }
             try
             {
@@ -81,7 +81,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var command = new DeleteCommentCommand(questionId, User.GetUserId());
                 ZboxWriteService.DeleteComment(command);
-                return Json(new JsonResponse(true));
+                return JsonOk();
             }
             catch (Exception ex)
             {
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var command = new DeleteReplyCommand(answerId, User.GetUserId());
                 ZboxWriteService.DeleteAnswer(command);
-                return Json(new JsonResponse(true));
+                return JsonOk();
             }
             catch (Exception ex)
             {

@@ -91,7 +91,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-      
+
 
 
 
@@ -161,7 +161,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_AuthenticationManager.SignIn(identity);
             m_CookieHelper.RemoveCookie(Invite.CookieName);
 
-            return JsonOk(new { isnew = isNew, url = Url.RouteUrl("LibraryDesktop", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }) });
+            return JsonOk(new { isnew = isNew, url = Url.Action("Choose", "Library", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }) });
         }
 
         [HttpPost]
@@ -227,7 +227,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 m_AuthenticationManager.SignIn(identity);
                 m_CookieHelper.RemoveCookie(Invite.CookieName);
-                return JsonOk(new { isnew = isNew, url = Url.RouteUrl("LibraryDesktop", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }) });
+                return JsonOk(new { isnew = isNew, url = Url.Action("Choose", "Library", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }) });
             }
             catch (ArgumentException)
             {
@@ -254,7 +254,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
             }
             try
             {
@@ -269,12 +269,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 if (systemUser == null)
                 {
                     ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
-                    return JsonError(GetModelStateErrors());
+                    return JsonError(GetErrorFromModelState());
                 }
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountErrors.InvalidEmail));
-                    return JsonError(GetModelStateErrors());
+                    return JsonError(GetErrorFromModelState());
                 }
 
 
@@ -287,7 +287,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     m_AuthenticationManager.SignIn(new AuthenticationProperties
                     {
                         IsPersistent = model.RememberMe,
-                    } , identity);
+                    }, identity);
 
                     m_CookieHelper.RemoveCookie(Invite.CookieName);
                     m_LanguageCookie.InjectCookie(systemUser.Culture);
@@ -300,16 +300,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountErrors.InvalidPassword));
             }
-            //catch (UserNotFoundException)
-            //{
-            //    ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
-            //}
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("LogOn model : {0} ", model), ex);
                 ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
             }
-            return JsonError(GetModelStateErrors());
+            return JsonError(GetErrorFromModelState());
         }
 
 
@@ -331,7 +327,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //if (Session != null)
             //Session.Abandon(); // remove the session cookie from user computer. wont continue session if user log in with a diffrent id.            
             m_AuthenticationManager.SignOut();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
 
@@ -345,7 +341,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (!ModelState.IsValid)
             {
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
             }
             try
             {
@@ -390,7 +386,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     m_CookieHelper.RemoveCookie(Invite.CookieName);
                     return
                         JsonOk(
-                            Url.RouteUrl("LibraryDesktop", new { returnUrl = CheckIfToLocal(model.ReturnUrl), @new = "true" }));
+                            Url.Action("Choose", "Library", new { returnUrl = CheckIfToLocal(model.ReturnUrl), @new = "true" }));
 
                 }
                 foreach (var error in createStatus.Errors)
@@ -407,11 +403,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ModelState.AddModelError(string.Empty, "Something went wrong");
                 TraceLog.WriteError("Register model:" + model, ex);
             }
-            return JsonError(GetModelStateErrors());
+            return JsonError(GetErrorFromModelState());
         }
         #endregion
 
-        
+
         [ZboxAuthorize, NoUniversity]
         public async Task<JsonResult> SettingsData()
         {
@@ -480,7 +476,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model.Code = generatedCode;
                 model.TimeOfExpire = DateTime.UtcNow.AddHours(3);
                 m_CookieHelper.InjectCookie(SessionKey, model);
-                
+
                 await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ChangeEmailData(generatedCode.ToString(CultureInfo.InvariantCulture),
                      model.Email, Thread.CurrentThread.CurrentCulture.Name));
                 return JsonOk(new { code = true });
@@ -510,28 +506,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost, ZboxAuthorize]
         public async Task<ActionResult> UpdateUniversity(University model)
         {
-            //var retVal = await ZboxReadService.GetRussianDepartmentList(model.UniversityId);
-            //if (retVal.Count() != 0 && !model.DepartmentId.HasValue)
-            //{
-            //    return RedirectToAction("SelectDepartment", "Library", new { universityId = model.UniversityId });
-            //}
             var needId = await ZboxReadService.GetUniversityNeedIdAsync(model.UniversityId);
             if (needId != null && string.IsNullOrEmpty(model.StudentId))
             {
                 return JsonOk(needId);
-                //TempData["universityText"] = needId;
-                //return RedirectToAction("InsertId", "Library", new { universityId = model.UniversityId });
             }
-
-            //var needCode = await ZboxReadService.GetUniversityNeedCode(model.UniversityId);
-            //if (needCode && string.IsNullOrEmpty(model.Code))
-            //{
-            //    return RedirectToAction("InsertCode", "Library", new { universityId = model.UniversityId });
-            //}
 
             if (!ModelState.IsValid)
             {
-                return JsonError(new { error = GetModelStateErrors() });
+                return JsonError(new { error = GetErrorFromModelState() });
             }
 
             try
@@ -572,20 +555,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (ArgumentException)
             {
                 ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
 
             }
             catch (NullReferenceException)
             {
                 ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
 
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("update university model " + model, ex);
                 ModelState.AddModelError("Code", Models.Account.Resources.AccountSettingsResources.CodeIncorrect);
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
             }
         }
 
@@ -603,7 +586,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var commandResult = await ZboxWriteService.UpdateUserPasswordAsync(command);
             return Json(new JsonResponse(!commandResult.HasErrors, commandResult.Error));
         }
-        
+
 
         [HttpPost]
         public JsonResult ChangeLocale(string language)
@@ -640,7 +623,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         public async Task<JsonResult> ResetPassword([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model)
         {
-            
+
             if (!ModelState.IsValid)
             {
                 return JsonError(GetErrorFromModelState());
