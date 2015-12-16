@@ -44,10 +44,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_LanguageCookie = languageCookie;
         }
 
-        [DonutOutputCache(VaryByParam = "lang;invId",
-           VaryByCustom = CustomCacheKeys.Lang + ";" + CustomCacheKeys.Url + ";" + CustomCacheKeys.Auth,
-           Duration = TimeConsts.Day,
-           Location = OutputCacheLocation.Server, Order = 2)]
+        //[DonutOutputCache(VaryByParam = "lang;invId",
+        //   VaryByCustom = CustomCacheKeys.Lang + ";" + CustomCacheKeys.Url + ";" + CustomCacheKeys.Auth,
+        //   Duration = TimeConsts.Day,
+        //   Location = OutputCacheLocation.Server, Order = 2)]
         public ActionResult Index(string lang, string invId)
         {
             if (User.Identity.IsAuthenticated)
