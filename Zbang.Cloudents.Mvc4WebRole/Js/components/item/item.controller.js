@@ -112,7 +112,13 @@
         
         function like() {
             itemService.like(itemId, boxid);
-            i.details.rate = !i.details.rate;
+            if (i.details.like) {
+                i.details.likes--;
+            } else {
+                i.details.likes++;
+            }
+            i.details.like = !i.details.like;
+
         }
     }
 
