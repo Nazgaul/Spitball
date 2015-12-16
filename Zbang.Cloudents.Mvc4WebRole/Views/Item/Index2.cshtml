@@ -41,7 +41,7 @@
         <md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear>
         <div class="fileName">
             <div class="name-info" layout="row" layout-align="center center" ng-if="i.selectedState === i.state.regular">
-                <span>{{i.details.name}}</span>
+                <span class="ellipsis">{{i.details.name}}</span>
                 <a class="info" href="#" tooltip-placement="bottom" tooltip-class="copy-right"
                    uib-tooltip="@ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
             </div>

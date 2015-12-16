@@ -62,6 +62,7 @@
 .itemPage .fileName .flag-form {
   max-width: 430px;
   width: 100%;
+  padding: 0 20px;
 }
 .itemPage .fileName .rename-form {
   max-width: 800px;
@@ -130,6 +131,7 @@
 .preview {
   text-align: center;
   margin: 0 auto;
+  padding: 0 12px;
 }
 .preview .preview-page {
   max-width: 800px;
@@ -146,12 +148,27 @@
   color: #282828;
   font-size: 22px;
 }
+@media (max-width: 600px) {
+  .preview .previewFailed p {
+    font-size: 16px;
+  }
+}
 .preview .previewFailed img {
   margin-bottom: 30px;
+}
+@media (max-width: 600px) {
+  .preview .previewFailed img {
+    width: 27vw;
+  }
 }
 .preview .previewDenied {
   width: 100%;
   max-width: 100%;
+}
+.preview .previewDenied img {
+  max-width: calc(100% + 24px);
+  margin-right: -12px;
+  margin-left: -12px;
 }
 .preview .previewDenied p {
   color: #282828;

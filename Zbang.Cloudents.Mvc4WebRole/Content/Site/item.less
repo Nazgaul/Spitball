@@ -78,6 +78,7 @@
         .name-info, .flag-form {
             max-width: 430px;
             width: 100%;
+            padding: 0 20px;
         }
 
         .rename-form {
@@ -169,6 +170,7 @@
 .preview {
     text-align: center;
     margin: 0 auto;
+    padding: 0 12px;
 
     .preview-page {
         max-width: 800px;
@@ -186,16 +188,30 @@
         p {
             color: @textColorBlack;
             font-size: 22px;
+
+            @media (max-width: 600px) {
+                font-size: 16px;
+            }
         }
 
         img {
             margin-bottom: 30px;
+
+            @media (max-width: 600px) {
+                width: 27vw;
+            }
         }
     }
 
     .previewDenied {
         width: 100%;
         max-width: 100%;
+
+        img {
+            max-width: ~"calc(100% + 24px)";
+            margin-right: -12px;
+            margin-left: -12px;
+        }
 
         p {
             color: @textColorBlack;
