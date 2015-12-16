@@ -3,21 +3,28 @@
     dashboard.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope'];
 
     function dashboard(dashboardService, userDetails, $rootScope) {
-        var d = this;
+        var d = this ,notloaded = true;
         d.courses = [];
         d.privateBoxes = [];
+        d.open = open;
 
-
-        $rootScope.$on('universityChange', function () {
-            getBoxes();
-        });
+        //$rootScope.$on('universityChange', function () {
+        //    getBoxes();
+        //});
         userDetails.init().then(function () {
             d.userUrl = userDetails.get().url;
 
-            if (userDetails.get().university.id) {
-                getBoxes();
-            }
+            //if (userDetails.get().university.id) {
+            //    getBoxes();
+            //}
         });
+
+        function open() {
+            if (notloaded) {
+                getBoxes();
+                notloaded = false;
+            }
+        }
 
         function getBoxes() {
             dashboardService.getBoxes().then(function (response2) {

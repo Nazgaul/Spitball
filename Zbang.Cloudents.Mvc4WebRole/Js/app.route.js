@@ -62,9 +62,10 @@
                     {
                         state: 'search',
                         config: {
-                            url: '/search/',
+                            url: '/search/?q',
                             controller: 'SearchController as s',
-                            data: { animateClass: 'searchState' }
+                            data: { animateClass: 'searchState' },
+                            
                             //onEnter: routerHelper.universityRedirect
                         },
                         templateUrl: '/search/indexpartial/'

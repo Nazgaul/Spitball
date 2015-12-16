@@ -65,7 +65,7 @@
             <a ng-if="i.details.previous" href="{{i.details.previous}}" hide-xs class="arrow left">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
             <a ng-if="i.details.next" href="{{i.details.next}}" hide-xs class="arrow right">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
         </div>
-        <div class="preview" ng-bind-html="i.preview" infinite-scroll="i.loadMore()" infinite-scroll-distance="2">
+        <div class="preview" ng-bind-html="i.preview" infinite-scroll="i.loadMore()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false">
         </div>
     </div>
 </div>
