@@ -27,7 +27,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Account");
+                return RedirectToAction("Index", "Home");
             }
             return View("Empty");
         }

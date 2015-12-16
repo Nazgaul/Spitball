@@ -38,7 +38,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return JsonError(GetModelStateErrors());
+                    return JsonError(GetErrorFromModelState());
                 }
                 var userId = User.GetUserId();
 
@@ -91,7 +91,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 if (!ModelState.IsValid)
                 {
-                    return JsonError(GetModelStateErrors());
+                    return JsonError(GetErrorFromModelState());
                 }
 
                 var userId = User.GetUserId();
@@ -103,19 +103,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 ModelState.AddModelError(string.Empty, @"You do not have permission to share a box");
                 TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", User.GetUserId(), model), ex);
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
             }
             catch (ArgumentException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
             }
             catch (Exception ex)
             {
 
                 TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", User.GetUserId(), model), ex);
                 ModelState.AddModelError(string.Empty, @"Unspecified error. try again later");
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
             }
         }
 
@@ -140,7 +140,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return JsonError(GetModelStateErrors());
+                    return JsonError(GetErrorFromModelState());
                 }
                 var userId = User.GetUserId();
                 var command = new SendMessageCommand(userId, model.Recepients,

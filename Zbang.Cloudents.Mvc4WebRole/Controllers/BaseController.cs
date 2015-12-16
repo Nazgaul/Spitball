@@ -57,16 +57,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             base.HandleUnknownAction(actionName);
         }
 
-        protected IEnumerable<KeyValuePair<string, string[]>> GetModelStateErrors()
-        {
-            return ModelState.ToDictionary(kvp => kvp.Key,
-                 kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()).Where(m => m.Value.Any());
-        }
+        //protected IEnumerable<KeyValuePair<string, string[]>> GetModelStateErrors()
+        //{
+        //    return ModelState.ToDictionary(kvp => kvp.Key,
+        //         kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()).Where(m => m.Value.Any());
+        //}
 
-        protected IEnumerable<string> GetErrorsFromModelState()
-        {
-            return ModelState.SelectMany(x => x.Value.Errors.Select(error => error.ErrorMessage));
-        }
+        //protected IEnumerable<string> GetErrorsFromModelState()
+        //{
+        //    return ModelState.SelectMany(x => x.Value.Errors.Select(error => error.ErrorMessage));
+        //}
 
         protected string GetErrorFromModelState()
         {

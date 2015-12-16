@@ -132,7 +132,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var query = new GetDisscussionQuery(quizId);
             var model = await ZboxReadService.GetDiscussionAsync(query);
-            return Json(new JsonResponse(true, model.Select(s=> new
+            return Json(new JsonResponse(true, model.Select(s => new
             {
                 CreationTime = s.Date,
                 s.Id,
@@ -190,12 +190,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return JsonError(GetErrorsFromModelState());
+                return JsonError(GetErrorFromModelState());
             }
             if (model.Answers == null)
             {
                 ModelState.AddModelError(string.Empty, "Answers is requeried");
-                return JsonError(GetErrorsFromModelState());
+                return JsonError(GetErrorFromModelState());
             }
             try
             {
@@ -228,7 +228,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 throw new ArgumentException("This is not the owner");
             }
-            return JsonOk( new
+            return JsonOk(new
             {
                 values.Id,
                 values.Questions,
@@ -425,12 +425,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponse(false, GetErrorsFromModelState()));
+                return JsonError(GetErrorFromModelState());
             }
             var id = m_GuidGenerator.GetId();
             var command = new CreateDiscussionCommand(User.GetUserId(), model.Text, model.QuestionId, id);
             ZboxWriteService.CreateItemInDiscussion(command);
-            return Json(new JsonResponse(true, id));
+            return JsonOk(id);
         }
 
         [HttpPost, ZboxAuthorize]
@@ -438,7 +438,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var command = new DeleteDiscussionCommand(id, User.GetUserId());
             ZboxWriteService.DeleteItemInDiscussion(command);
-            return Json(new JsonResponse(true, id));
+            return JsonOk(id);
 
         }
 

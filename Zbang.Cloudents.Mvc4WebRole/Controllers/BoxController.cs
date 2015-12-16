@@ -344,7 +344,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (ArgumentException)
             {
                 ModelState.AddModelError(string.Empty, BoxControllerResources.BoxExists);
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
             }
             catch (Exception ex)
             {
