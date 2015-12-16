@@ -20,7 +20,7 @@
         });
 
         function getBoxes() {
-            dashboardService.getBoxes(0).then(function (response2) {
+            dashboardService.getBoxes().then(function (response2) {
                 for (var i = 0; i < response2.length; i++) {
                     var b = response2[i];
                     if (b.boxType === 'academic') {
@@ -29,27 +29,38 @@
                         d.privateBoxes.push(b);
                     }
                 }
-                //d.courses = $.grep(response2, function (b) {
-                //    return b.boxType === 'academic';
-                //});
-                //d.privateBoxes = $.grep(response2, function (b) {
-                //    return b.boxType === 'box';
-                //});
+              
             });
+        }
+
+        $rootScope.$on('remove-box', function (e, arg) {
+            arg = parseInt(arg, 10);
+            removeElement(d.courses, arg);
+            removeElement(d.privateBoxes, arg);
+        });
+
+        function removeElement(arr, arg) {
+            var box =arr.find(function (e) {
+                return e.id === arg;
+            });
+            if (box) {
+                var index = arr.indexOf(box);
+                arr.splice(index, 1);
+            }
         }
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (fromState.parent === 'box') {
                 if (fromParams.boxtype === 'box') {
-                    var box = d.privateBoxes.filter(function(i) {
+                    var box = d.privateBoxes.find(function(i) {
                         return i.id == fromParams.boxId;
                     }) || {};
-                    box[0].updates = 0;
+                    box.updates = 0;
                 } else {
-                    var abox = d.courses.filter(function (i) {
+                    var abox = d.courses.find(function (i) {
                         return i.id == fromParams.boxId;
                     }) || {};
-                    abox[0].updates = 0;
+                    abox.updates = 0;
                 }
 
             }

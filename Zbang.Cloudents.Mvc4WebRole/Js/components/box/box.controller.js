@@ -65,6 +65,7 @@
         function updateBox(updateBoxForm) {
             if (b.settings.needFollow) {
                 boxService.unfollow(boxId).then(function () {
+                    $rootScope.$broadcast('remove-box', boxId);
                     $state.go('dashboard');
                 });
                 return;
