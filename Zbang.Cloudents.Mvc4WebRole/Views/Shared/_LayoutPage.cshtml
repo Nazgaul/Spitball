@@ -1,4 +1,5 @@
-﻿@using Zbang.Cloudents.SiteExtension
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@using Zbang.Cloudents.SiteExtension
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{
@@ -151,7 +152,55 @@
     @* ReSharper disable once Mvc.PartialViewNotResolved *@
     @{ Html.RenderPartial("_commonTemplate");}
     @Html.Script2("site4")
+    @if (User != null && !User.Identity.IsAuthenticated)
+    {
+        <script>
+            $( window ).scroll(function() {
+                var scrollPos = $(window).scrollTop();
+                var unregContainer = $(".unreg-user .content-wrapper");
+                if(scrollPos > 0){
+                    unregContainer.removeClass('noHeight mediumHeight largeHeight').addClass('smallHeight');
+                    if (scrollPos > 300) {
+                        unregContainer.removeClass('smallHeight largeHeight').addClass('mediumHeight');
+                        if (scrollPos > 600) {
+                            unregContainer.removeClass('smallHeight mediumHeight').addClass('largeHeight');
+                        }
+                    }
+                }
+                else {
+                    unregContainer.removeClass('smallHeight').addClass('noHeight');
+                }
+            });
+        </script>
+        <div class="unreg-user">
+            <div class="col-md-12 content-wrapper noHeight text-center">
+                <div class="content">
+                    <div class="text">
+                        <p class="large">There is more to see...</p>
+                        <p class="normal">Register, it takes less tha 15 seconds!</p>
+                    </div>
+                    <button type="button" class="facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg("/images/signin/icons.svg", "facebook") @LogOnResources.ExternalProvider</button>
+                    <button type="button" class="google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg("/images/signin/icons.svg", "google") @LogOnResources.ExternalProvider</button>
+                    <br />
+                    <a href="@Url.Action("SignUp", "Account")" target="_blank" class="btn-primary btn-lg element-bottom-20 element-top-20 text-center bold os-animation btnSignIn"
+                       target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                        @HomePageResources.A5
+                    </a>
+                    @*<a href="@Url.Action("SignIn", "Account")" class="btn btn-primary btn-lg  text-center bold element-top-20 element-bottom-20 os-animation btnSignIn"
+                           target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                            @HomePageResources.A1
+                        </a>*@
 
+                    <div class="divider-wrapper">
+                        <div class="visible-xs element-height-100"></div>
+                        <div class="visible-sm element-height-100"></div>
+                        <div class="visible-md element-height-100"></div>
+                        <div class="visible-lg element-height-100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
     <script>
         jQuery(document).ready(function () {
             Metronic.init(); // init metronic core componets

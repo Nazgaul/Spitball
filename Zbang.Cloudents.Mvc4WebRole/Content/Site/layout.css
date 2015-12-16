@@ -2227,3 +2227,210 @@ Page Loading
   -webkit-transition: all 2s;
   transition: all 2s;
 }
+.unreg-user {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+.unreg-user .content-wrapper {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+}
+.unreg-user .content-wrapper .content {
+  margin: 0 auto;
+}
+.unreg-user .noHeight,
+.unreg-user .smallHeight,
+.unreg-user .mediumHeight,
+.unreg-user .largeHeight {
+  -webkit-transition: height 0.5s cubic-bezier(0.26, 0.87, 0.74, 0.93);
+  -moz-transition: height 0.5s cubic-bezier(0.26, 0.87, 0.74, 0.93);
+  -o-transition: height 0.5s cubic-bezier(0.26, 0.87, 0.74, 0.93);
+  transition: height 0.5s cubic-bezier(0.26, 0.87, 0.74, 0.93);
+}
+.unreg-user .noHeight {
+  height: 0;
+  overflow: hidden;
+}
+.unreg-user .smallHeight {
+  height: 300px;
+}
+.unreg-user .mediumHeight {
+  height: 60vh;
+}
+.unreg-user .largeHeight {
+  height: 100vh;
+}
+.unreg-user h1 {
+  font-weight: normal;
+  font-size: 24px;
+  color: #fff;
+  display: inline-block;
+  width: 300px;
+  /*white-space: pre-wrap;*/
+}
+.unreg-user .actions {
+  position: absolute;
+  bottom: 40px;
+  margin: auto;
+  left: 0;
+  right: 0;
+  width: 290px;
+}
+.unreg-user .facebook,
+.unreg-user .email {
+  width: 228px;
+  margin: auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.unreg-user .facebook {
+  font-size: 15px;
+  margin: 35px auto 10px;
+  cursor: pointer;
+  padding: 8px 15px 9px 55px;
+  position: relative;
+  line-height: 25px;
+  background: #3b5998;
+  color: #fff;
+}
+.unreg-user .fbImg,
+.unreg-user .emailImg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  display: inline-block;
+  left: 16px;
+}
+.unreg-user .fbImg:after,
+.unreg-user .emailImg:after {
+  content: '';
+  display: inline-block;
+  width: 1px;
+  height: 30px;
+  background: #fff;
+  position: relative;
+  left: 12px;
+  top: 6px;
+  opacity: .5;
+}
+.unreg-user .svg-fb {
+  width: 11px;
+  height: 22px;
+  fill: #fff;
+  position: relative;
+  top: 2px;
+}
+.unreg-user .google {
+  color: #676767;
+  background: #fff;
+  border: 1px solid #fff;
+  padding: 7px 15px 8px 53px;
+  cursor: pointer;
+  font-size: 15px;
+  border-radius: 10px;
+  position: relative;
+  display: inline-block;
+  line-height: 25px;
+}
+.unreg-user .emailImg {
+  left: 8px;
+}
+.unreg-user .emailImg:after {
+  background: #676767;
+  top: 5px;
+  left: 6px;
+}
+.unreg-user .svg-email {
+  width: 24px;
+  height: 20px;
+  fill: silver;
+}
+.unreg-user .connect {
+  margin-top: 15px;
+}
+.unreg-user .addConnect {
+  color: #3293f6;
+  background: transparent;
+  outline: none;
+  border: none;
+  font-weight: bold;
+}
+.unreg-user a {
+  background-color: transparent;
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  display: inline-block;
+}
+.unreg-user .facebook,
+.unreg-user .google {
+  background: #3a5795;
+  border: none;
+  padding: 10px;
+  margin-right: 5px;
+  width: 190px;
+  color: #fff;
+  outline: 0;
+  font-size: 16px;
+  border-radius: 10px;
+}
+.unreg-user .facebook svg,
+.unreg-user .google svg {
+  float: left;
+  margin-left: 5px;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  fill: #fff;
+}
+.unreg-user .google {
+  margin-right: 0;
+  margin-left: 5px;
+  background: #DD4B39;
+}
+.unreg-user .btnSignIn {
+  background: rgba(40, 40, 40, 0.7) !important;
+  width: 348px;
+}
+.unreg-user .btn.btn-lg,
+.unreg-user button.btn-lg,
+.unreg-user input[type="submit"].btn-lg,
+.unreg-user .button.btn-lg {
+  border-radius: 10px;
+  font-size: 20px;
+  padding: 10px 24px;
+}
+.unreg-user button:hover {
+  background-color: #3293f6;
+  color: #ffffff;
+}
+.unreg-user .btn-primary {
+  font-size: 20px;
+  max-width: 390px;
+  border-radius: 10px;
+  margin-top: 10px !important;
+  width: 60vw;
+}
+.unreg-user .btn-primary:hover {
+  text-decoration: none;
+}
+.unreg-user .text p {
+  margin-bottom: 0;
+}
+.unreg-user .text .large {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+.unreg-user .text .normal {
+  font-size: 18px;
+  font-weight: bold;
+}
