@@ -549,7 +549,6 @@
     <Content Include="bower_components\angular-google-analytics\dist\angular-google-analytics.min.js" />
     <Content Include="bower_components\angular-google-analytics\Gruntfile.js" />
     <Content Include="bower_components\angular-google-analytics\index.js" />
-    <Content Include="bower_components\angular-google-analytics\src\angular-google-analytics.js" />
     <Content Include="bower_components\angular-google-analytics\test\karma.conf.js" />
     <Content Include="bower_components\angular-google-analytics\test\unit\classic-google-analytics.js" />
     <Content Include="bower_components\angular-google-analytics\test\unit\directives.js" />
@@ -1254,7 +1253,6 @@
     <Content Include="App_Data\51Degrees.dat" />
     <Content Include="bower_components\angular-google-analytics\.bower.json" />
     <Content Include="bower_components\angular-google-analytics\bower.json" />
-    <Content Include="bower_components\angular-google-analytics\CHANGELOG.md" />
     <Content Include="bower_components\angular-google-analytics\LICENSE" />
     <Content Include="bower_components\angular-google-analytics\package.json" />
     <Content Include="bower_components\angular-google-analytics\README.md" />
@@ -1578,14 +1576,8 @@
     <Content Include="Content\Site\staticPages.css">
       <DependentUpon>staticPages.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\staticPages.min.css">
-      <DependentUpon>staticPages.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\staticPages.rtl.css">
       <DependentUpon>staticPages.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\staticPages.rtl.min.css">
-      <DependentUpon>staticPages.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\user.css">
       <DependentUpon>user.less</DependentUpon>
