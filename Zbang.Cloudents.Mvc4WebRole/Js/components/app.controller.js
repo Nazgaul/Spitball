@@ -56,10 +56,10 @@
                 }
             }
             $rootScope.$broadcast('close-collapse');
-            var details = userDetails.get();
-            if (!details) {
+            if (!userDetails.isAuthenticated()) {
                 return;
             }
+            var details = userDetails.get();
             if (details.university.id) {
                 return;
             }
