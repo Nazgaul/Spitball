@@ -12,6 +12,7 @@
         margin-bottom: 30px;
         color: @textColorGrey;
         font-weight: 700;
+        overflow: hidden;
 
         > div {
             margin-left: 15px;
@@ -122,6 +123,7 @@
 
         form {
             padding-left: 30px;
+            min-height: 400px;
         }
 
         .info-i {
@@ -131,12 +133,14 @@
         }
 
         .arrow-up {
+            display: none;
             position: absolute;
-            bottom: -230px;
-            left: 18px;
-            background: @backgroundColor;
+            top: 55px;
+            left: -25px;
+            background: #323538;
             border-radius: 5px;
             padding: 15px;
+            width: 300px;
 
             &:before {
                 content: '';
@@ -144,10 +148,18 @@
                 height: 0;
                 border-left: 10px solid transparent;
                 border-right: 10px solid transparent;
-                border-bottom: 15px solid @backgroundColor;
+                border-bottom: 20px solid @backgroundColorMenu;
                 position: absolute;
-                top: -15px;
-                left: 15px;
+                top: -20px;
+                left: 30px;
+            }
+        }
+
+        .info-tooltip {
+            position: relative;
+
+            &:hover .arrow-up {
+                display: block;
             }
         }
 

@@ -4,7 +4,9 @@
 
 
     .profile-content {
-        width: 50%;
+        //width: 50%;
+        max-width: 800px;
+        
     }
 
     svg {
@@ -64,24 +66,24 @@
         border-bottom: 1px solid @textColorBlue;
     }
 
-    .tab-from-right > li {
+    .tab-from-r > li {
         margin: 0;
 
         &:hover {
-             border: none;
+            border: none;
 
-             > a {
-                 color: @textColorBlue;
-             }
-         }
+            > a {
+                color: @textColorBlue;
+            }
+        }
 
-         &.active {
-             border-bottom: 3px solid @borderColorBlue;
+        &.active {
+            border-bottom: 3px solid @borderColorBlue;
 
-             > a {
-                 color: @textColorWhite;
-             }
-         }
+            > a {
+                color: @textColorWhite;
+            }
+        }
 
         > a {
             color: @textColorGrey;
@@ -141,8 +143,39 @@
     .uni-name {
         font-size: 20px;
     }
+}
 
-    .margin-top-10 {
-        margin-bottom: 20px;
+.change-email-dialog {
+    padding: 30px 50px 30px 30px;
+
+    .icon, .content {
+        float: left;
+    }
+
+    svg {
+        width: 25px;
+        height: 25px;
+        fill: @backgroundColorMenu;
+    }
+
+    .content {
+        margin-left: 10px;
+
+        md-input-container {
+            margin-bottom: 0;
+        }
+
+        span {
+            font-size: 16px;
+        }
+
+        button {
+            padding: 6px 13px;
+            border-radius: 5px;
+        }
+
+        .btn-default {
+            background: #c3c3c3;
+        }
     }
 }

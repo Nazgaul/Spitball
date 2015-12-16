@@ -1,11 +1,12 @@
 ﻿(function () {
     angular.module('app.box.items').controller('ItemsController', items);
-    items.$inject = ['boxService', '$stateParams', '$rootScope', 'itemThumbnailService', '$mdDialog'];
+    items.$inject = ['boxService', '$stateParams', '$rootScope', 'itemThumbnailService', '$mdDialog', '$scope'];
 
-    function items(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog) {
+    function items(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog, $scope) {
         var i = this,
         boxId = $stateParams.boxId;
         i.items = [];
+        i.uploadShow = true;
         i.tabSelected = {};
         var page = 0, loading = false, needToBringMore = true;
 
@@ -37,6 +38,9 @@
         }
 
         function addTab() {
+            if (!i.newFolderName) {
+                i.newFolderTabOpened = false;
+            }
             boxService.createTab(i.newFolderName, boxId).then(function(response) {
                 i.tabs.push(response);
                 i.newFolderTabOpened = false;
@@ -51,6 +55,7 @@
             i.items.splice(index, 1);
         }
         function tabChange(tab) {
+            $rootScope.$broadcast('close-collapse');
             //i.tabSelectedId = tab.id;
             i.tabSelected = tab;
             resetParams();
@@ -88,7 +93,7 @@
         }
 
         function openUpload() {
-            $rootScope.$broadcast('open_upload');
+            $rootScope.$broadcast('open_upload', i.tabSelected.id);
             i.uploadShow = false;
         }
 
@@ -146,6 +151,10 @@
             if (response.boxId != $stateParams.boxId) { // string an int comarison
                 return;
             }
+            if (response.tabId != i.tabSelected.id) {
+                return; //not the same tab
+            }
+            $scope.$emit('follow-box');
             var item = response.item, retVal = itemThumbnailService.assignValue(item.source);
 
             item.thumbnail = retVal.thumbnail;
@@ -155,19 +164,5 @@
         $rootScope.$on('close_upload', function () {
             i.uploadShow = true;
         });
-
-        //function iterateItem() {
-        //    for (var j = 0; j < i.items.length; j++) {
-        //        if (i.items[j].thumbnail) {
-        //            continue;
-        //        }
-        //        i.items[j].thumbnail = buildThumbnailUrl(i.items[j].source);
-        //    }
-        //}
-        //function buildThumbnailUrl(name) {
-        //    return itemThumbnail.get(name, 368, 520);
-        //}
-
-
     }
 })();

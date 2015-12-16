@@ -5,7 +5,7 @@
     <div ng-if="!lc.needCode">
         <input autofocus ng-disabled="lc.createUniversity" type="search" class="search-text" placeholder="Search..." ng-model="lc.term" ng-model-options="{debounce : 250}" ng-change="lc.search()" ng-minlength="2" />
         <div layout="row" layout-align="start center" layout-padding layout-wrap @*class="row"*@ ng-if="!lc.createUniversity">
-            <div flex-gt-lg="50" flex-lg="50" flex="100" class="flex" @*class="col-xs-12 col-md-6 col-lg-4"*@ ng-repeat="u in lc.universities track by u.id">
+            <div flex-gt-lg="33" flex-lg="50" flex="100" class="flex" @*class="col-xs-12 col-md-6 col-lg-4"*@ ng-repeat="u in lc.universities track by u.id">
                 <div ng-click="lc.selectUniversity(u)" class="univeristy">
                     <img class="img-circle" ng-src="{{::u.image}}" width="70" height="70" />
                     <div>
@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <div flex-gt-lg="50" flex-lg="50" flex="100" @*class="col-xs-12 col-md-6 col-lg-4"*@ class="flex">
+            <div flex-gt-lg="33" flex-lg="50" flex="100" @*class="col-xs-12 col-md-6 col-lg-4"*@ class="flex">
                 <div class="add-uni-btn" ng-click="lc.createUniversity = true">
                     <span>@Html.Svg("~/images/site/icons.svg", "add")</span>
                     <div class="text-capitalize">@LibraryResources.AddSchool</div>
@@ -38,19 +38,12 @@
                     </md-select>
                 </md-input-container>
                 <md-input-container>
-                    @*<label>School name</label>*@
-                    @*<input type="text" ng-model="lc.universityName" required
-                           uib-typeahead="item.name for item in lc.searchAutoComplete($viewValue)"
-                           typeahead-wait-ms="250"
-                           typeahead-min-length="2"
-                           typeahead-on-select="lc.selectUniversity($item)" />*@
                     <md-autocomplete required
                                      md-delay="250"
                                      md-input-minlength="2"
                                      md-no-cache="false"
                                      md-selected-item-change="lc.selectUniversity(item)"
                                      md-select-on-match="true"
-                                     @*md-selected-item="lc.selectUniversity"*@
                                      md-search-text="lc.universityName"
                                      md-items="item in lc.searchAutoComplete(lc.universityName)"
                                      md-item-text="item.name"
@@ -59,11 +52,7 @@
                             <span md-highlight-text="lc.universityName">{{item.name}}</span>
                         </md-item-template>
                     </md-autocomplete>
-
                 </md-input-container>
-               
-                
-
                 <button type="button" class="btn btn-default pull-right text-capitalize" ng-click="lc.createUniversity = false">@GeneralResources.Cancel</button>
                 <button type="submit" class="btn btn-primary pull-right text-capitalize">@GeneralResources.Create</button>
             </form>
@@ -71,7 +60,7 @@
     </div>
     <div ng-if="lc.needCode" class="code">
         <div class="top-contant">
-            @Html.Svg("~/images/site/libChooseIcons.svg", "closed_uni", new { @class = "closed-uni-i" })
+            @Html.Svg("~/images/site/libChooseIcons.svg", "closedUni", new { @class = "closed-uni-i" })
             <div class="contant">
                 <h4 class="text-capitalize">@LibraryResources.Hi {{::lc.code.userName}}</h4>
                 <span class="uni-details" ng-bind-html="::lc.code.closedUniText1"></span>
@@ -79,8 +68,10 @@
         </div>
         <form novalidate ng-submit="lc.selectUniversity(lc.code.university)">
             <div>
-                @Html.Svg("~/images/site/libChooseIcons.svg", "info", new { @class = "info-i" })
-                <div class="arrow-up" ng-bind-html="::lc.code.closedUniText2"></div>
+                <div class="info-tooltip">
+                    @Html.Svg("~/images/site/libChooseIcons.svg", "info", new { @class = "info-i" })
+                    <div class="arrow-up" ng-bind-html="::lc.code.closedUniText2"></div>
+                </div>
                 <md-input-container>
                     <label class="text-capitalize">@LibraryResources.EnterID</label>
                     <input type="text" ng-model="lc.code.studentId" required />

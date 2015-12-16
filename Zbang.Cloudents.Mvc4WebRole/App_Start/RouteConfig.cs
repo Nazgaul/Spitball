@@ -33,12 +33,22 @@ namespace Zbang.Cloudents.Mvc4WebRole
             new { controller = "Box", action = "Index" },
             new { boxId = new LongRouteConstraint() }
             );
+            routes.MapRoute("PrivateBoxWithSub",
+           "box/my/{boxId}/{boxName}/{part}",
+           new { controller = "Box", action = "Index" },
+           new { boxId = new LongRouteConstraint(), part = "feed|items|quizzes|members" }
+           );
            
 
             routes.MapRoute("CourseBox",
               "course/{universityName}/{boxId}/{boxName}",
               new { controller = "Box", action = "Index" },
               new { boxId = new LongRouteConstraint() }
+            );
+            routes.MapRoute("CourseBoxWithSub",
+              "course/{universityName}/{boxId}/{boxName}/{part}",
+              new { controller = "Box", action = "Index" },
+              new { boxId = new LongRouteConstraint(), part = "feed|items|quizzes|members" }
             );
          
 
@@ -129,14 +139,19 @@ namespace Zbang.Cloudents.Mvc4WebRole
              "account/settings",
              new { controller = "Home", action = "IndexEmpty" }
             );
+            routes.MapRoute("AccountSettingsPart",
+            "account/settings/{part}",
+            new { controller = "Home", action = "IndexEmpty" },
+            new { part = "info|password|notification" }
+           );
 
             routes.MapRoute("Blog2",
              "blog",
-             new { controller = "Home", action = "Blog" }
+             new { controller = "Home", action = "IndexEmpty" }
          );
             routes.MapRoute("Blog",
               "blog/{lang}",
-              new { controller = "Home", action = "Blog", lang = UrlParameter.Optional },
+              new { controller = "Home", action = "IndexEmpty", lang = UrlParameter.Optional },
               new { lang = "^[A-Za-z]{2}-[A-Za-z]{2}$" }
           );
 
@@ -153,9 +168,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             "terms",
             new { controller = "Home", action = "Terms" }
             );
-            //routes.MapRoute("EmptyRedirectToDashboard",
-            //    "",
-            //    new { controller = "Home", action = "Redirect" });
+            
 
             routes.MapRoute("Default", "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }

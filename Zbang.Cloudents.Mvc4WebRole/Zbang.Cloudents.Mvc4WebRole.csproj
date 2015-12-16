@@ -413,11 +413,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Models\Resources\CreateAcademicBoxResources.Designer.cs">
-      <DependentUpon>CreateAcademicBoxResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Models\Resources\CreateBoxResources.Designer.cs">
       <DependentUpon>CreateBoxResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -453,11 +448,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AccountResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Account\Resources\AccountSettingsResources.Designer.cs">
-      <DependentUpon>AccountSettingsResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Views\Account\Resources\HomePageResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -468,25 +458,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HomeResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Account\Resources\PasswordSentResources.Designer.cs">
-      <DependentUpon>PasswordSentResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Account\Resources\ForgotPasswordResources.Designer.cs">
-      <DependentUpon>ForgotPasswordResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Views\Account\Resources\LogOnResources.Designer.cs">
       <DependentUpon>LogOnResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Account\Resources\MobileResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MobileResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Account\Resources\RegisterResources.Designer.cs">
       <DependentUpon>RegisterResources.resx</DependentUpon>
@@ -513,11 +488,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HomeResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Item\Resources\FlagItemResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FlagItemResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Views\Item\Resources\ItemsResources.Designer.cs">
       <DependentUpon>ItemsResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -528,11 +498,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LibraryResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Library\Resources\MainViewResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MainViewResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Views\Quiz\Resources\QuizResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -542,11 +507,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SearchResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\Resources\ErrorResources.Designer.cs">
-      <DependentUpon>ErrorResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Views\Shared\Resources\FooterResources.Designer.cs">
       <DependentUpon>FooterResources.resx</DependentUpon>
@@ -563,25 +523,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IndexResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\Resources\QuizResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QuizResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Views\Shared\Resources\SharedResources.Designer.cs">
       <DependentUpon>SharedResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Shared\Resources\DialogResources.Designer.cs">
-      <DependentUpon>DialogResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Shared\Resources\ValidationResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ValidationResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\User\Resources\UserResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -599,6 +544,17 @@
     <Content Include="bower_components\angular-aria\angular-aria.js" />
     <Content Include="bower_components\angular-aria\angular-aria.min.js" />
     <Content Include="bower_components\angular-aria\index.js" />
+    <Content Include="bower_components\angular-google-analytics\.gitignore" />
+    <Content Include="bower_components\angular-google-analytics\dist\angular-google-analytics.js" />
+    <Content Include="bower_components\angular-google-analytics\dist\angular-google-analytics.min.js" />
+    <Content Include="bower_components\angular-google-analytics\Gruntfile.js" />
+    <Content Include="bower_components\angular-google-analytics\index.js" />
+    <Content Include="bower_components\angular-google-analytics\test\karma.conf.js" />
+    <Content Include="bower_components\angular-google-analytics\test\unit\classic-google-analytics.js" />
+    <Content Include="bower_components\angular-google-analytics\test\unit\directives.js" />
+    <Content Include="bower_components\angular-google-analytics\test\unit\offline-mode.js" />
+    <Content Include="bower_components\angular-google-analytics\test\unit\scenarios.js" />
+    <Content Include="bower_components\angular-google-analytics\test\unit\universal-google-analytics.js" />
     <Content Include="bower_components\angular-material\.gitignore" />
     <Content Include="bower_components\angular-material\angular-material-mocks.js" />
     <Content Include="bower_components\angular-material\angular-material.css" />
@@ -607,6 +563,22 @@
     <Content Include="bower_components\angular-material\angular-material.min.js" />
     <Content Include="bower_components\angular-material\angular-material.rtl.css">
       <DependentUpon>angular-material.css</DependentUpon>
+    </Content>
+    <Content Include="bower_components\angular-material\angular-material.rtl.min.css">
+      <DependentUpon>angular-material.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="bower_components\angular-material\angular-material.rtl.rtl.css">
+      <DependentUpon>angular-material.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="bower_components\angular-material\angular-material.rtl.rtl.min.css">
+      <DependentUpon>angular-material.rtl.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="bower_components\angular-material\angularWithChanges.css" />
+    <Content Include="bower_components\angular-material\angularWithChanges.rtl.css">
+      <DependentUpon>angularWithChanges.css</DependentUpon>
+    </Content>
+    <Content Include="bower_components\angular-material\angularWithChanges.rtl.min.css">
+      <DependentUpon>angularWithChanges.rtl.css</DependentUpon>
     </Content>
     <Content Include="bower_components\angular-material\demos\bottomSheet\demoBasicUsage\img\icons\copy.svg" />
     <Content Include="bower_components\angular-material\demos\bottomSheet\demoBasicUsage\img\icons\copy2.svg" />
@@ -1279,6 +1251,11 @@
     <Content Include="bower_components\textAngular\CONTRIBUTING.md" />
     <Content Include="bower_components\textAngular\README.md" />
     <Content Include="App_Data\51Degrees.dat" />
+    <Content Include="bower_components\angular-google-analytics\.bower.json" />
+    <Content Include="bower_components\angular-google-analytics\bower.json" />
+    <Content Include="bower_components\angular-google-analytics\LICENSE" />
+    <Content Include="bower_components\angular-google-analytics\package.json" />
+    <Content Include="bower_components\angular-google-analytics\README.md" />
     <None Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -1295,12 +1272,6 @@
     <Content Include="Content\signin\default.rtl.min.css">
       <DependentUpon>default.rtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\signin\font-awesome.min.css">
-      <DependentUpon>font-awesome.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\font-awesome.rtl.min.css">
-      <DependentUpon>font-awesome.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\signin\login-soft.min.css">
       <DependentUpon>login-soft.css</DependentUpon>
     </Content>
@@ -1312,12 +1283,6 @@
     </Content>
     <Content Include="Content\signin\plugins-md.rtl.min.css">
       <DependentUpon>plugins-md.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\uniform.default.min.css">
-      <DependentUpon>uniform.default.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\uniform.default.rtl.min.css">
-      <DependentUpon>uniform.default.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\accountSettings.css">
       <DependentUpon>accountSettings.less</DependentUpon>
@@ -1359,12 +1324,6 @@
     <Content Include="Content\signin\default.rtl.css">
       <DependentUpon>default.css</DependentUpon>
     </Content>
-    <Content Include="Content\signin\font-awesome.css">
-      <DependentUpon>font-awesome.less</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\font-awesome.rtl.css">
-      <DependentUpon>font-awesome.css</DependentUpon>
-    </Content>
     <Content Include="Content\signin\layout.css">
       <DependentUpon>layout.less</DependentUpon>
     </Content>
@@ -1388,25 +1347,6 @@
     </Content>
     <Content Include="Content\signin\plugins-md.rtl.css">
       <DependentUpon>plugins-md.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\select2.css" />
-    <Content Include="Content\signin\simple-line-icons.css">
-      <DependentUpon>simple-line-icons.less</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\simple-line-icons.min.css">
-      <DependentUpon>simple-line-icons.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\simple-line-icons.rtl.css">
-      <DependentUpon>simple-line-icons.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\simple-line-icons.rtl.min.css">
-      <DependentUpon>simple-line-icons.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\uniform.default.css">
-      <DependentUpon>uniform.default.less</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\uniform.default.rtl.css">
-      <DependentUpon>uniform.default.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\box.min.css">
       <DependentUpon>box.css</DependentUpon>
@@ -1633,6 +1573,12 @@
     <Content Include="Content\Site\Share.rtl.min.css">
       <DependentUpon>Share.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\staticPages.css">
+      <DependentUpon>staticPages.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\staticPages.rtl.css">
+      <DependentUpon>staticPages.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\user.css">
       <DependentUpon>user.less</DependentUpon>
     </Content>
@@ -1688,24 +1634,6 @@
     <Content Include="Images\favIcons\mstile-310x150.png" />
     <Content Include="Images\favIcons\mstile-310x310.png" />
     <Content Include="Images\favIcons\mstile-70x70.png" />
-    <Content Include="Images\HomePage\HomePageBottom.png.min.css">
-      <DependentUpon>HomePageBottom.png.css</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageBottom.png.rtl.css">
-      <DependentUpon>HomePageBottom.png.css</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageBottom.png.rtl.min.css">
-      <DependentUpon>HomePageBottom.png.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageTop.png.min.css">
-      <DependentUpon>HomePageTop.png.css</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageTop.png.rtl.css">
-      <DependentUpon>HomePageTop.png.css</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageTop.png.rtl.min.css">
-      <DependentUpon>HomePageTop.png.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Images\job-page-logo2.png" />
     <Content Include="Images\signin\1a.png" />
     <Content Include="Images\signin\2a.png" />
@@ -1727,57 +1655,14 @@
     <Content Include="Images\HomePage2\testimonial3.jpg" />
     <Content Include="Images\HomePage2\testimonial4.jpg" />
     <Content Include="Images\HomePage2\user.png" />
-    <Content Include="Images\HomePage\academic.png" />
-    <Content Include="Images\HomePage\app_store.png" />
     <Content Include="Images\app_store_small.png" />
     <Content Include="Images\bg6.jpg" />
     <Content Include="Images\boxIcons.svg" />
     <Content Include="Images\common27-sprite.png" />
-    <Content Include="Images\HomePage\google_play.png" />
     <Content Include="Images\google_play_small.png" />
     <Content Include="Images\gradient-arrow.png" />
     <Content Include="Images\hiring.png" />
-    <Content Include="Images\HomePage\achva.png" />
-    <Content Include="Images\HomePage\asva.png" />
-    <Content Include="Images\HomePage\avaibleEverywhere.png" />
-    <Content Include="Images\HomePage\berel.png" />
-    <Content Include="Images\HomePage\gsb.png" />
-    <Content Include="Images\HomePage\haGlobe.png" />
-    <Content Include="Images\HomePage\HomePageBottom.png">
-      <DependentUpon>HomePageBottom.sprite</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageBottom.png.css">
-      <DependentUpon>HomePageBottom.png</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageTop.png">
-      <DependentUpon>HomePageTop.sprite</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageTop.png.css">
-      <DependentUpon>HomePageTop.png</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\idius.png" />
-    <Content Include="Images\HomePage\openU.png" />
-    <Content Include="Images\HomePage\peres.png" />
-    <Content Include="Images\HomePage\questionAndAnswers.png" />
-    <Content Include="Images\HomePage\srvu.png" />
-    <Content Include="Images\HomePage\watchAndShare.png" />
-    <Content Include="Images\HomePage\logo1.png" />
     <Content Include="Images\logo2.png" />
-    <Content Include="Images\Mobile\app_store.png" />
-    <Content Include="Images\Mobile\background.jpg" />
-    <Content Include="Images\Mobile\google_play.png" />
-    <Content Include="Images\Mobile\logo.png" />
-    <Content Include="Images\Mobile\logo_1440.png" />
-    <Content Include="Images\Mobile\logo_720.png" />
-    <Content Include="Images\Mobile\mobile1.png" />
-    <Content Include="Images\Mobile\mobile1_1440.png" />
-    <Content Include="Images\Mobile\mobile1_720.png" />
-    <Content Include="Images\Mobile\mobile2.png" />
-    <Content Include="Images\Mobile\mobile2_1440.png" />
-    <Content Include="Images\Mobile\mobile2_720.png" />
-    <Content Include="Images\Mobile\mobile3.png" />
-    <Content Include="Images\Mobile\mobile3_1440.png" />
-    <Content Include="Images\Mobile\mobile3_720.png" />
     <Content Include="Images\signin\googleplus.png" />
     <Content Include="Images\signin\signup_logo.png" />
     <Content Include="Images\signin\icons.svg" />
@@ -1810,21 +1695,9 @@
     <Content Include="Images\spitball_invite_off.png" />
     <Content Include="Images\spitball_invite_on.png" />
     <Content Include="Images\spitball_logo_mobile.png" />
-    <Content Include="Images\Store\ball.png" />
     <Content Include="Images\big-quiz.png" />
     <Content Include="Images\box18-sprite.png" />
     <Content Include="Images\browsers-sprite.png" />
-    <Content Include="Images\Store\cal.png" />
-    <Content Include="Images\Store\category.png">
-      <DependentUpon>category.sprite</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\category.png.css">
-      <DependentUpon>category.png</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\category.png.min.css">
-      <DependentUpon>category.png.css</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\chair.png" />
     <Content Include="Images\checkbox-sprite1.png" />
     <Content Include="Images\close.png" />
     <Content Include="Images\cloudents-share-FB-1.png" />
@@ -1832,16 +1705,11 @@
     <Content Include="Images\cloudents1-57x57.png" />
     <Content Include="Images\cloudents.png" />
     <Content Include="Images\code-icon1.png" />
-    <Content Include="Images\Store\computer.png" />
     <Content Include="Images\course.png" />
-    <Content Include="Images\Store\covers.png" />
     <Content Include="Images\dash13-sprite.png" />
     <Content Include="Images\dashboardEmpty-sprite.png" />
-    <Content Include="Images\Store\dic.png" />
     <Content Include="Images\drive_upload.png" />
     <Content Include="Images\earth.png" />
-    <Content Include="Images\Store\eco.png" />
-    <Content Include="Images\Store\house.png" />
     <Content Include="Images\iframeBg.png" />
     <Content Include="Images\invite-sprite.png" />
     <Content Include="Images\item13-sprite.png" />
@@ -1849,11 +1717,9 @@
     <Content Include="Images\loader1.png" />
     <Content Include="Images\loader2.gif" />
     <Content Include="Images\loading-media.png" />
-    <Content Include="Images\Store\martini.png" />
     <Content Include="Images\members-only.png" />
     <Content Include="Images\no-preview.png" />
     <Content Include="Images\points-Bg.png" />
-    <Content Include="Images\Store\printers.png" />
     <Content Include="Images\QnA-sprite.png" />
     <Content Include="Images\quiz-correct.png" />
     <Content Include="Images\quiz-eye.png" />
@@ -1878,36 +1744,10 @@
     <Content Include="Images\site.png.css">
       <DependentUpon>site.png</DependentUpon>
     </Content>
-    <Content Include="Images\Store\smartphone.png" />
-    <Content Include="Images\Store\close.png" />
-    <Content Include="Images\Store\envelop.png" />
-    <Content Include="Images\Store\fb-off.png" />
-    <Content Include="Images\Store\fb-on.png" />
-    <Content Include="Images\Store\logo.png" />
-    <Content Include="Images\Store\social.png.rtl.css">
-      <DependentUpon>social.png.css</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\social.png.rtl.min.css">
-      <DependentUpon>social.png.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\store-popup.png" />
-    <Content Include="Images\Store\purchase_confirmation.png" />
-    <Content Include="Images\Store\social.png">
-      <DependentUpon>social.sprite</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\social.png.css">
-      <DependentUpon>social.png</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\thank-students.png" />
-    <Content Include="Images\Store\tw-off.png" />
-    <Content Include="Images\Store\tw-on.png" />
-    <Content Include="Images\Store\yt-off.png" />
-    <Content Include="Images\Store\yt-on.png" />
     <Content Include="Images\students.jpg" />
     <Content Include="Images\studentUnion.png" />
     <Content Include="Images\textEditor.svg" />
     <Content Include="Images\tt-sprite.png" />
-    <Content Include="Images\Store\tv.png" />
     <Content Include="Images\uni_logo.png" />
     <Content Include="Images\upload15-sprite.png" />
     <Content Include="Images\user-icon.png" />
@@ -1946,8 +1786,6 @@
     <Content Include="Js\shared\firstLetter.js" />
     <Content Include="Js\shared\history.js" />
     <Content Include="Js\shared\itemThumbnail.js" />
-    <Content Include="Js\shared\showForm.js" />
-    <Content Include="Js\shared\tabDrop.js" />
     <Content Include="Js\shared\userDetails.js" />
     <Content Include="Js\components\app.controller.js" />
     <Content Include="Js\components\box\box.service.js" />
@@ -1984,7 +1822,6 @@
     <Content Include="Js\components\userdetails\userdetails.module.js" />
     <Content Include="Js\components\user\user.controller.js" />
     <Content Include="Js\contact-us.js" />
-    <Content Include="Js\filters\highlight.js" />
     <Content Include="Js\homePage\homeScreen.js" />
     <Content Include="Js\homePage\theme.js" />
     <Content Include="Js\routerHelperProvider.js" />
@@ -2000,22 +1837,12 @@
     <Content Include="Js\signin\layout.js" />
     <Content Include="Js\signin\login-soft.js" />
     <Content Include="Js\signin\metronic.js" />
-    <Content Include="Js\signin\select2.min.js" />
     <Content Include="Js\staticCDNFallback.js" />
     <Content Include="Js\staticCDNFallback.min.js">
       <DependentUpon>staticCDNFallback.js</DependentUpon>
     </Content>
-    <Content Include="Js\filters\defaultImage.js" />
-    <Content Include="Js\filters\escapeHtmlChars.js" />
-    <Content Include="Js\filters\fileSize.js" />
-    <Content Include="Js\filters\kNumber.js" />
     <Content Include="Js\HomePage.js" />
     <Content Include="Js\modules\angular-timer.js" />
-    <Content Include="Js\filters\extToClass.js" />
-    <Content Include="Js\filters\actionText.js" />
-    <Content Include="Js\filters\orderBy.js" />
-    <Content Include="Js\filters\store\percentage.js" />
-    <Content Include="Js\filters\stringFormat.js" />
     <Content Include="Js\modules\carousel.js" />
     <Content Include="Js\modules\displayTime.js" />
     <Content Include="Js\modules\lazySrc.js" />
@@ -2029,20 +1856,6 @@
     <Content Include="Js\Logon.js" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />
-    <Content Include="Images\Store\category.sprite" />
-    <Content Include="Images\Store\category.png.map">
-      <DependentUpon>category.png</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\social.sprite" />
-    <Content Include="Images\Store\social.png.map">
-      <DependentUpon>social.png</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\social.png.less">
-      <DependentUpon>social.png</DependentUpon>
-    </Content>
-    <Content Include="Images\Store\social.png.scss">
-      <DependentUpon>social.png</DependentUpon>
-    </Content>
     <Content Include="Images\quizSprite.sprite" />
     <Content Include="Images\quizSprite.png.map">
       <DependentUpon>quizSprite.png</DependentUpon>
@@ -2064,33 +1877,10 @@
       <DependentUpon>site.png</DependentUpon>
     </Content>
     <Content Include="51Degrees.config" />
-    <Content Include="Images\HomePage\HomePageTop.sprite" />
-    <Content Include="Images\HomePage\HomePageTop.png.map">
-      <DependentUpon>HomePageTop.png</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageTop.png.less">
-      <DependentUpon>HomePageTop.png</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageTop.png.scss">
-      <DependentUpon>HomePageTop.png</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageBottom.sprite" />
-    <Content Include="Images\HomePage\HomePageBottom.png.map">
-      <DependentUpon>HomePageBottom.png</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageBottom.png.less">
-      <DependentUpon>HomePageBottom.png</DependentUpon>
-    </Content>
-    <Content Include="Images\HomePage\HomePageBottom.png.scss">
-      <DependentUpon>HomePageBottom.png</DependentUpon>
-    </Content>
     <Content Include="Content\signin\components-md.less" />
     <Content Include="Content\signin\custom.less" />
     <Content Include="Content\signin\default.less" />
-    <Content Include="Content\signin\font-awesome.less" />
     <Content Include="Content\signin\login-soft.less" />
-    <Content Include="Content\signin\simple-line-icons.less" />
-    <Content Include="Content\signin\uniform.default.less" />
     <Content Include="Content\signin\layout.less" />
     <Content Include="Content\signin\plugins-md.less" />
     <Content Include="Content\Site\components-rounded.less" />
@@ -2114,29 +1904,22 @@
     <Content Include="Content\Site\search.less" />
     <Content Include="Content\Site\libraryChoose.less" />
     <Content Include="Content\Site\error.less" />
+    <Content Include="Content\category.png.less" />
+    <Content Include="Content\Site\staticPages.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Js\Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="Images\Store\category.png.scss">
-      <DependentUpon>category.png</DependentUpon>
-    </Content>
     <Content Include="robots.txt" />
-    <Content Include="Scripts\angular-animate.js" />
-    <Content Include="Scripts\angular-animate.min.js" />
-    <Content Include="Scripts\angular-appinsights.js" />
     <Content Include="Scripts\angular-cache-2.4.1.js" />
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-cookies.min.js" />
     <Content Include="Scripts\angular-countUp.js" />
-    <Content Include="Scripts\angular-file-upload.js" />
-    <Content Include="Scripts\angular-mcustomscrollbar.js" />
     <Content Include="Scripts\angular-messages.js" />
     <Content Include="Scripts\angular-messages.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
-    <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular-sanitize.js" />
     <Content Include="Scripts\angular-sanitize.min.js" />
@@ -2144,23 +1927,12 @@
     <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\angulartics-ga.js" />
-    <Content Include="Scripts\angulartics-ga.min.js" />
-    <Content Include="Scripts\angulartics.js" />
-    <Content Include="Scripts\angulartics.min.js" />
     <Content Include="Scripts\browser-deeplink.js" />
     <Content Include="Scripts\browser-deeplink.min.js" />
-    <Content Include="Scripts\angular-debounce.js" />
-    <Content Include="Scripts\angular-draganddrop.js" />
     <Content Include="Scripts\draganddrop.js" />
     <Content Include="Scripts\draganddrop.min.js" />
-    <Content Include="Scripts\elastic.js" />
-    <Content Include="Scripts\elasticTextBox.js" />
-    <Content Include="Scripts\externalScriptLoader.js" />
     <Content Include="Images\Web.config" />
-    <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-messages.min.js.map" />
@@ -2931,10 +2703,6 @@
     <Content Include="Scripts\textAngular\textAngular-sanitize.js" />
     <Content Include="Scripts\textAngular\textAngular.js" />
     <Content Include="Scripts\textAngular\textAngularSetup.js" />
-    <Content Include="Scripts\jquery.js" />
-    <Content Include="Scripts\jquery.min.js" />
-    <Content Include="Scripts\jquery.mCustomScrollbar.js" />
-    <Content Include="Scripts\jquery.mousewheel.min.js" />
     <Content Include="Scripts\ng-infinite-scroll.js" />
     <Content Include="Scripts\ng-infinite-scroll.min.js" />
     <Content Include="Scripts\plupload2\angular-plupload.js" />
@@ -2943,16 +2711,10 @@
     <Content Include="Scripts\plupload2\Moxie.swf" />
     <Content Include="Scripts\plupload2\plupload.dev.js" />
     <Content Include="Scripts\plupload2\plupload.full.min.js" />
-    <Content Include="Scripts\stacktrace.js" />
     <Content Include="Scripts\Modernizr.js" />
     <Content Include="Scripts\svg4everybody.js" />
     <Content Include="Scripts\ui-bootstrap-custom-tpls-0.14.3.js" />
     <Content Include="Scripts\ui-bootstrap-custom-tpls-0.14.3.min.js" />
-    <Content Include="Scripts\ui-bootstrap-tpls.min.js" />
-    <Content Include="Scripts\underscore-min.js" />
-    <Content Include="Scripts\underscore.js" />
-    <Content Include="Scripts\underscore.min.js" />
-    <Content Include="Scripts\validatinator.min.js" />
     <Content Include="Images\Defs.svg" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
@@ -2982,16 +2744,13 @@
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />
     <Content Include="Views\Home\InsertUser.cshtml" />
-    <Content Include="Views\Quiz\_QuizDialog.cshtml" />
-    <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Item\_PreviewSvg.cshtml" />
     <Content Include="Views\Box\_Feed.cshtml" />
     <Content Include="Views\Item\_PreviewText.cshtml" />
     <Content Include="Views\Home\IFrame.cshtml" />
-    <Content Include="Views\Account\Index3.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\Shared\_Head.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LayoutPage.cshtml" />
     <Content Include="Views\Home\Help2.cshtml" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -3207,16 +2966,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Resources\AddLinkResources.ru.resx" />
     <EmbeddedResource Include="Models\Resources\AddLinkResources.zh.resx" />
-    <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.ar.resx" />
-    <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.en-gb.resx" />
-    <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.he.resx" />
-    <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>CreateAcademicBoxResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.ru.resx" />
-    <EmbeddedResource Include="Models\Resources\CreateAcademicBoxResources.zh.resx" />
     <EmbeddedResource Include="Models\Resources\CreateBoxResources.ar.resx" />
     <EmbeddedResource Include="Models\Resources\CreateBoxResources.en-GB.resx" />
     <EmbeddedResource Include="Models\Resources\CreateBoxResources.he.resx">
@@ -3266,20 +3015,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\AccountResource.ru.resx" />
     <EmbeddedResource Include="Views\Account\Resources\AccountResource.zh.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.ar.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.en-gb.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.he.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AccountSettingsResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.ru.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\AccountSettingsResources.zh.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.ru.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.zh.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.ar.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.he.resx" />
@@ -3302,24 +3037,6 @@
     <EmbeddedResource Include="Views\Account\Resources\LogOnResources.zh.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\MobileResources.en-gb.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\MobileResources.ru.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\MobileResources.zh.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\PasswordSentResources.ar.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\PasswordSentResources.he.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\PasswordSentResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>PasswordSentResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.ar.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.he.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\ForgotPasswordResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ForgotPasswordResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\LogOnResources.ar.resx" />
     <EmbeddedResource Include="Views\Account\Resources\LogOnResources.he.resx">
       <SubType>Designer</SubType>
@@ -3329,15 +3046,6 @@
       <LastGenOutput>LogOnResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\MobileResources.ar.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\MobileResources.he.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\MobileResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>MobileResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\PasswordSentResources.ru.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\PasswordSentResources.zh.resx" />
     <EmbeddedResource Include="Views\Account\Resources\RegisterResources.ar.resx" />
     <EmbeddedResource Include="Views\Account\Resources\RegisterResources.he.resx">
       <SubType>Designer</SubType>
@@ -3380,15 +3088,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HomeResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.ar.resx" />
-    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.en-GB.resx" />
-    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.he.resx" />
-    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>FlagItemResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.ru.resx" />
-    <EmbeddedResource Include="Views\Item\Resources\FlagItemResources.zh.resx" />
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.ar.resx" />
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.he.resx">
@@ -3410,18 +3109,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Library\Resources\LibraryResources.ru.resx" />
     <EmbeddedResource Include="Views\Library\Resources\LibraryResources.zh.resx" />
-    <EmbeddedResource Include="Views\Library\Resources\MainViewResources.ar.resx" />
-    <EmbeddedResource Include="Views\Library\Resources\MainViewResources.en-gb.resx" />
-    <EmbeddedResource Include="Views\Library\Resources\MainViewResources.he.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Library\Resources\MainViewResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>MainViewResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Library\Resources\MainViewResources.ru.resx" />
-    <EmbeddedResource Include="Views\Library\Resources\MainViewResources.zh.resx" />
     <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.ar.resx" />
     <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.he.resx" />
@@ -3440,22 +3127,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Search\Resources\SearchResources.ru.resx" />
     <EmbeddedResource Include="Views\Search\Resources\SearchResources.zh.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\DialogResources.en-gb.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\DialogResources.ru.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\DialogResources.zh.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\ErrorResources.ar.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\ErrorResources.he.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\ErrorResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ErrorResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\ErrorResources.ru.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\ErrorResources.zh.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.ar.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.he.resx" />
@@ -3483,15 +3154,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.ru.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.zh.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\QuizResources.ar.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\QuizResources.he.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\QuizResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>QuizResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\QuizResources.ru.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\QuizResources.zh.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.ar.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -3504,24 +3166,8 @@
       <LastGenOutput>SharedResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\DialogResources.ar.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\DialogResources.he.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\DialogResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>DialogResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.ru.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.zh.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\ValidationResources.ar.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\ValidationResources.he.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\ValidationResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ValidationResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\ValidationResources.ru.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.ar.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.en-gb.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.he.resx" />
@@ -3555,9 +3201,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Item\_PreviewLink.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Error\MembersOnly.cshtml" />

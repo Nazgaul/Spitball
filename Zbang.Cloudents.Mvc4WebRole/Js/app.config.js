@@ -3,9 +3,9 @@
 
     angular.module('app').config(config);
 
-    config.$inject = ['$controllerProvider', '$locationProvider', '$angularCacheFactoryProvider', '$provide', '$mdThemingProvider'];
+    config.$inject = ['$controllerProvider', '$locationProvider', '$angularCacheFactoryProvider', '$provide', '$httpProvider'];
 
-    function config($controllerProvider, $locationProvider, $angularCacheFactoryProvider, $provide, $mdThemingProvider) {
+    function config($controllerProvider, $locationProvider, $angularCacheFactoryProvider, $provide, $httpProvider) {
         //$locationProvider.html5Mode(true).hashPrefix('!');
         $controllerProvider.allowGlobals();
         $angularCacheFactoryProvider.setCacheDefaults({
@@ -15,6 +15,7 @@
             cacheFlushInterval: 45000,
             storageMode: 'sessionStorage'
         });
+        $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
         //deep-purple
         //$mdThemingProvider.setDefaultTheme('deep-purple');
         //$mdBiDirectionalProvider.rtlMode(true);
@@ -45,7 +46,7 @@
                             break;
                         case 401:
                         case 403:
-                            window.open('/account/', '_self');
+                            window.open('/', '_self');
                             break;
                         case 404:
                             window.open('/error/notfound/', '_self');
@@ -64,7 +65,7 @@
                 }
             };
         }]);
-
+        $httpProvider.interceptors.push('requestinterceptor');
 
 
 
@@ -134,3 +135,39 @@
 
     }
 })();
+
+
+(function () {
+    angular.module('app').config(config);
+    config.$inject = ['AnalyticsProvider'];
+    function config(analyticsProvider) {
+
+        var analyticsObj = {
+            'siteSpeedSampleRate': 70,
+            'cookieDomain': 'spitball.co',
+            'alwaysSendReferrer': true
+        }
+        if (window.id && window.id > 0) {
+            analyticsObj.userId = window.id;
+        }
+        analyticsProvider.setAccount({
+            tracker: 'UA-9850006-3',
+            fields: analyticsObj,
+            //set: {
+            //    'dimension1': data.universityName || null,
+            //    'dimension2': data.universityCountry || null,
+            //    'dimension3': data.id || null
+            //}
+        });
+        analyticsProvider.setPageEvent('$stateChangeSuccess');
+        //AnalyticsProvider.setDomainName('XXX');
+    }
+
+    angular.module('app').run(anylticsRun);
+    anylticsRun.$inject = ['Analytics'];
+    function anylticsRun(analytics) {
+        analytics.createAnalyticsScriptTag();
+        //for run the app
+    };
+
+})()

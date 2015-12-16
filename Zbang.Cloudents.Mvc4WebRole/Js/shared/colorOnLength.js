@@ -4,7 +4,7 @@
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {
-                    var length = attrs.dColor % 17;
+                    var length = attrs.dColor % 10;
                     element.addClass('color' + length);
                 }
             };

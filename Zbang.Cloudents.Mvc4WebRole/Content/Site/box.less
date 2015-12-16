@@ -1,163 +1,244 @@
 ﻿@import "variables.less";
 
 .class {
-    .location-search-area, .folders {
-        .folder-name {
-            background: @backgroundColorItem;
-            border: 1px solid @backgroundColorItem;
-
-            .icon svg {
-                width: 21px;
-                height: 21px;
-                fill: @backgroundColor2;
-                margin: 0 7px;
-            }
-        }
-    }
-
-    .location-search-area {
-        padding-bottom: 40px;
-
-        .md-menu {
-            padding: 0;
-
-            button {
-                height: 0;
-                width: 30px;
-            }
-        }
-
-        .name-and-icon {
-            width: ~"calc(100% - 40px)";
-        }
-
-
-        .dots-3 {
-            margin-left: 0;
-            fill: @backgroundColor;
-        }
-
-
-        .search-box md-input-container {
-            padding-bottom: 0;
-            width: 150px;
-            float: right;
-            -moz-transition: width 300ms ease;
-            -o-transition: width 300ms ease;
-            -webkit-transition: width 300ms ease;
-            transition: width 300ms ease;
-        }
-
-
-        md-input-container.md-input-focused {
-            width: 95%;
-        }
-
-
-
-        .arrow svg {
-            width: 22px;
-            height: 22px;
-            -moz-transform: rotate(180deg);
-            -ms-transform: rotate(180deg);
-            -o-transform: rotate(180deg);
-            -webkit-transform: rotate(180deg);
-            transform: rotate(180deg);
-            fill: @backgroundColorItem;
-            margin-right: 15px;
-        }
-    }
-
-    .folders {
-        .folder-name {
-            padding: 2px;
-            margin-bottom: 15px;
-        }
-
-        .add-folder {
-            background: none;
-
-            svg {
-                width: 15px;
-                height: 15px;
-                fill: @borderColorGrey;
-            }
-
-            span {
-                font-weight: bold;
-                color: @borderColorGrey;
-                font-size: 16px;
-                line-height: 20px;
-                padding-left: 10px;
-            }
-        }
-    }
-
-    .designed-input {
+    .folder {
         width: 100%;
-        background: none;
-        border-width: 0 0 1px 0;
-        border-color: @borderColorGrey;
-        padding: 0 10px;
-    }
-    //dont think we need that
-    /*.nav-tabs, .tabbable {
-        border: 0;
-    }*/
-    .need-follow {
-        margin-top: 20px;
-        background: @backgroundColorFollow;
     }
 
-    .invite-btn {
-        border: 1px solid @borderColorWhite;
-        border-radius: 4px;
-        color: @textColorWhite;
-        text-transform: uppercase;
-        padding: 5px 50px 3px;
+    .text {
+        max-width: ~"calc(100% - 45px)";
+        min-width: 150px;
     }
-    //add button
-    .add-button {
-        //text-align: center;
-        //.displayFlex();
-        margin-bottom: 15px;
-        .aspect-ratio();
+}
+
+.folders .folder-name .content {
+    padding: 2px 6px;
+}
+
+.location-search-area, .folders {
+    .folder-name {
+        width: ~"calc(100% - 38px)";
+
+        .folder-name-inner {
+            background: #5F6871;
+
+            @media (min-width: 601px) {
+                max-width: 50%;
+                min-width: 200px;
+            }
+        }
 
         .content {
-            border: 1px solid @borderColorGrey;
-            padding: 15px;
-            //-ms-flex: 1;
-            //-webkit-flex: 1;
-            //flex: 1;
-            .displayFlex();
-            justify-content: center;
-            align-items: center;
+            background: @textColorDarkGrey;
+            border: 1px solid @textColorDarkGrey;
         }
 
-        a, button {
-            font-size: 18px;
-            color: @textColorDarkGrey;
-        }
-
-        svg {
-            fill: @textColorDarkGrey;
-            width: 40px;
-            height: 40px;
-            display: block;
-            margin: auto;
-        }
-    }
-
-    .settings {
-        width: ~"calc(100% - 60px)";
-
-        .padding {
-            @media (min-width: 960px) {
-                padding-right: 30px;
-            }
+        .icon svg {
+            width: 27px;
+            height: 27px;
+            fill: @backgroundColor2;
+            margin: 0 7px;
         }
     }
 }
+
+.location-search-area {
+    .folder {
+        margin-bottom: 20px;
+    }
+
+    .md-menu {
+        padding: 0;
+
+        button {
+            height: 0;
+            width: 30px;
+        }
+    }
+
+    .name-and-icon {
+        width: ~"calc(100% - 40px)";
+    }
+
+
+    .dots-3 {
+        margin-left: 0;
+        fill: @backgroundColor;
+    }
+
+
+    .search-box {
+        width: 100%;
+        display: inline-block;
+
+        input {
+            border: 10px solid @backgroundColorMenu;
+            border-top-width: 15px;
+            margin-top: -5px;
+            border-radius: 0 0 5px 5px;
+            width: 200px;
+            float: right;
+            padding: 0 8px;
+            background: @textColorLightGrey;
+            height: 50px;
+            -webkit-transition: width 0.5s;
+            -moz-transition: width 0.5s;
+            -o-transition: width 0.5s;
+            transition: width 0.5s;
+            color: @textColorBlack;
+
+            @media (max-width: 600px) {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            &:focus {
+                @media (min-width: 601px) {
+                    width: 50%;
+                }
+            }
+        }
+
+
+
+        ::-webkit-input-placeholder {
+            color: @textColorBlack;
+        }
+
+        :-moz-placeholder { /* Firefox 18- */
+            color: @textColorBlack;
+        }
+
+        ::-moz-placeholder { /* Firefox 19+ */
+            color: @textColorBlack;
+        }
+
+        :-ms-input-placeholder {
+            color: @textColorBlack;
+        }
+    }
+
+    md-input-container.md-input-focused {
+        width: 95%;
+    }
+
+
+
+    .arrow svg {
+        width: 22px;
+        height: 22px;
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        fill: @backgroundColorItem;
+        margin-right: 15px;
+    }
+}
+
+.folders {
+    .add-folder {
+        .content {
+            padding: 6px;
+            background: none;
+        }
+
+        svg {
+            width: 15px;
+            height: 15px;
+            fill: @borderColorGrey;
+        }
+
+        span {
+            font-weight: bold;
+            color: @borderColorGrey;
+            font-size: 16px;
+            line-height: 20px;
+            padding-left: 10px;
+        }
+    }
+
+
+    .text {
+        font-size: 18px;
+        padding-left: 6px;
+    }
+}
+
+.designed-input {
+    width: 100%;
+    background: none;
+    border-width: 0 0 1px 0;
+    border-color: @borderColorGrey;
+    padding: 0 10px;
+}
+//dont think we need that
+/*.nav-tabs, .tabbable {
+        border: 0;
+    }*/
+.need-follow {
+    margin-top: 20px;
+    background: @backgroundColorFollow;
+}
+
+.invite-btn {
+    border: 1px solid @borderColorWhite;
+    border-radius: 4px;
+    color: @textColorWhite;
+    text-transform: uppercase;
+    padding: 5px 50px 3px;
+}
+//add button
+.add-button {
+    //text-align: center;
+    //.displayFlex();
+    //margin-bottom: 15px;
+    .aspect-ratio();
+
+
+    .content {
+        border: 1px solid @borderColorGrey;
+        padding: 15px;
+        //-ms-flex: 1;
+        //-webkit-flex: 1;
+        //flex: 1;
+        .displayFlex();
+        justify-content: center;
+        align-items: center;
+        margin: 8px; //same as angular material padding
+        &.quizCreate {
+            margin-bottom: 13px; //fix issue with quiz
+        }
+    }
+
+
+    a, button {
+        font-size: 18px;
+        color: @textColorDarkGrey;
+        text-align: center;
+    }
+
+    svg {
+        fill: @textColorDarkGrey;
+        width: 40px;
+        height: 40px;
+        display: block;
+        margin: auto;
+    }
+}
+
+.settings {
+    width: ~"calc(100% - 60px)";
+
+    .padding {
+        @media (min-width: 960px) {
+            padding-right: 30px;
+        }
+    }
+}
+
+
 
 .feed {
     font-size: 16px;
@@ -170,7 +251,7 @@
         -webkit-transition: none;
         transition: none;
     }
-    
+
     .like {
         //border-radius: 22px;
         width: 80px;
@@ -320,15 +401,12 @@
             height: 20px;
             fill: @svgDots;
             vertical-align: middle;
-
-            &:hover {
-                fill: #5B9CC2;
-            }
         }
 
         .anonymous {
             width: 28px;
             height: 28px;
+            margin-right: 12px;
 
             &:hover {
                 fill: @anonymousColor;
@@ -352,7 +430,6 @@
     .post > .content-text {
         padding: 38px 0 0 46px;
     }
-
     li.post:last-child {
         margin-bottom: 0;
     }
@@ -361,6 +438,8 @@
         line-height: 22px;
         margin-bottom: 10px;
         margin-right: 15px;
+        -ms-word-break: break-word;
+        word-break: break-word;
 
         img {
             max-width: 100%;
@@ -368,11 +447,14 @@
     }
 
     .add-reply {
-        display: none;
-
+        // display: none;
         .reply-wrapper {
             border: 1px solid @svgDots;
             margin-bottom: 10px;
+
+            textarea {
+                padding: 10px;
+            }
         }
     }
 
@@ -403,13 +485,6 @@
         margin-bottom: 0;
     }
 
-    .list-inline {
-        padding: 22px 0 10px 0;
-        overflow-x: hidden;
-        white-space: nowrap;
-        margin: 0;
-    }
-
     .list-inline > li {
         margin: 0 10px;
         border: 1px solid @borderColorGrey;
@@ -435,6 +510,8 @@
 
     md-input-container {
         padding-bottom: 0;
+        width: 100%;
+        margin: 0;
 
         .md-input:active, .md-input:focus {
             color: #fff;
@@ -471,8 +548,17 @@
         width: 25px;
         height: 35px;
         vertical-align: middle;
-        margin: 0 12px;
         fill: @svgColorGrey;
+    }
+
+    .upload-options {
+        width: 45%;
+        max-width: 160px;
+        padding: 0 12px;
+
+        a, button {
+            padding: 0;
+        }
     }
 
     .file {
@@ -484,6 +570,26 @@
     .dropbox {
         &:hover {
             fill: @dropboxColor;
+        }
+    }
+
+    .google {
+        svg:first-child {
+            display: none;
+        }
+
+        svg:last-child {
+            display: inline;
+        }
+
+        &:hover {
+            svg:first-child {
+                display: inline;
+            }
+
+            svg:last-child {
+                display: none;
+            }
         }
     }
 
@@ -500,6 +606,19 @@
         &:hover {
             fill: @anonymousColor;
         }
+    }
+}
+
+.member-invite {
+    background: @backgroundColorSpitballBlue;
+    border-radius: 10px;
+    margin-bottom: 20px;
+
+    svg {
+        height: 35px;
+        fill: @backgroundColorWhite;
+        width: 35px;
+        vertical-align: middle;
     }
 }
 
@@ -530,13 +649,13 @@
         color: @textColorWhite;
 
         @sizeOfTextSmall: 13vw;
-        @sizeOfDraftSmall:  @sizeOfTextSmall / 2;
+        @sizeOfDraftSmall: @sizeOfTextSmall / 2;
         @sizeOfTextMedium: 8vw;
-        @sizeOfDraftMedium:  @sizeOfTextMedium / 2;
+        @sizeOfDraftMedium: @sizeOfTextMedium / 2;
         @sizeOfTextLarge: 3vw;
-        @sizeOfDraftLarge:  @sizeOfTextLarge / 2;
+        @sizeOfDraftLarge: @sizeOfTextLarge / 2;
 
-        
+
 
         .first-letter, .draft {
             position: absolute;
@@ -550,13 +669,9 @@
             height: 20vw;
             text-align: center;
             line-height: 90%;
-            text-transform:lowercase;
+            text-transform: lowercase;
 
-            .sizeOfLetter(@size) {
-                 font-size: @size;
-                width: @size;
-                height: @size;
-            }
+
 
             @media (min-width: 600px) {
                 .sizeOfLetter(@sizeOfTextSmall);
@@ -566,7 +681,7 @@
                 .sizeOfLetter(@sizeOfTextMedium);
             }
 
-            @media (min-width: 1200px) {
+            @media (min-width: 1280px) {
                 .sizeOfLetter(@sizeOfTextLarge);
             }
         }
@@ -574,19 +689,19 @@
         .draft {
             text-transform: uppercase;
             width: 100%;
-            font-size:@sizeOfDraftSmall;
-             @media (min-width: 600px) {
-                font-size:@sizeOfDraftSmall;
+            font-size: @sizeOfDraftSmall;
+
+            @media (min-width: 600px) {
+                font-size: @sizeOfDraftSmall;
             }
 
             @media (min-width: 960px) {
-                font-size:@sizeOfDraftMedium;
+                font-size: @sizeOfDraftMedium;
             }
 
             @media (min-width: 1200px) {
-                font-size:@sizeOfDraftLarge;
+                font-size: @sizeOfDraftLarge;
             }
-
         }
 
         &.draft-wpr {
@@ -692,10 +807,9 @@
 
     .stats {
         width: 100%;
-        height: 38px;
         color: @textColorWhite;
         font-size: 14px;
-        padding: 12px;
+        padding: 2px 12px 0;
     }
     /*.triangle-up-left {
         width: 0;
@@ -720,7 +834,7 @@
     }*/
 }
 
-.quiz-dots{
+.quiz-dots {
     fill: @textColorWhite;
 }
 
@@ -801,7 +915,6 @@
 }
 
 .item, .quiz {
-    margin-bottom: 15px;
 
     .base {
         border: 1px solid @borderColorGrey;
@@ -832,15 +945,21 @@
         width: 14px;
         height: 14px;
         fill: @textColorWhite;
+        //vertical-align:middle; its mess up the item
     }
 }
 
 .i-q-wrapper {
     position: relative;
-    margin: 0 0.5%;
+
+    .delete {
+        top: 13px;
+    }
+}
+/*    margin: 0 0.5%;
 
 
-    @media (min-width : 960px ) and (max-width:1200px) {
+    @media (min-width : 960px ) and (max-width:1280px) {
         margin: 0 1%;
     }
 
@@ -851,7 +970,8 @@
     @media (max-width:600px) {
         margin: 0 2%;
     }
-}
+}*/
+
 
 .item-animate.ng-move,
 .item-animate.ng-enter,
@@ -888,13 +1008,23 @@
         flex-direction: column;
         justify-content: center;
         padding: 0 20px;
+
+        .alert-danger {
+            background-color: #f44336;
+            color: #fff;
+            padding: 10px;
+            border: none;
+        }
+
+        md-input-container {
+            width: 100%;
+        }
     }
 
     .uploadSection {
         text-align: center;
         font-size: 14px;
         line-height: 15px;
-        width: 58%;
         margin: 0 auto;
 
         svg {
@@ -942,102 +1072,121 @@
     }
 }
 
-.file-upload {
-    text-align: center;
-    color: @textColorDarkGrey;
-    width: 115px;
-    height: 165px;
-    font-size: 14px;
-    position: relative;
-    //override bootstrap
-    padding: 0;
-    margin: 5px;
-    background: @fileColor;
-    margin: 0 10px;
-    border: none;
-    padding: 5px 5px 0;
+.file-upload-area, .reply-wrapper {
 
-
-    .file {
-        height: 100%;
-    }
-
-    .file-footer {
-        width: 100%;
-        margin-bottom: 8px;
-    }
-
-    .progress-wrap {
-        background: @backgroundColorWhite;
-        padding-bottom: 10px;
-    }
-
-    .progress {
-        margin: 0 10px;
-        border-radius: 0;
-        height: 10px;
-
-        .progress-bar {
-            background-color: @progressbarColor;
-        }
-    }
-
-    .btn {
-        border: 1px solid @borderColorSpitballBlue;
-        padding: 5px 40px;
-        font-size: 18px;
-        color: @textColorSpitballBlue;
-    }
-
-    .check-mark {
-        position: absolute;
-        top: -10px;
-        right: -10px;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.4);
-        padding: 5px;
-        z-index: 1;
-
-        svg {
-            fill: @checkMarkColor;
-            margin: 0;
-            width: 20px;
-            height: 20px;
-            vertical-align: middle;
-        }
-    }
-
-    h5 {
-        color: @textColorGreen;
-    }
-
-    .file-size {
-        text-align: left;
-        font-weight: bold;
-    }
-
-    .file-upload-progress {
-        height: 5px;
+    &.list-inline {
+        padding: 22px 0 10px 0;
+        overflow-x: hidden;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
         margin: 0;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
     }
 
-    .file-name {
-        height: 100px;
+    .file-upload {
+        text-align: center;
+        color: @textColorDarkGrey;
+        width: 115px;
+        height: 165px;
+        font-size: 14px;
         position: relative;
-        background: @textColorLightGrey;
-        padding-top: 4px;
-    }
+        //override bootstrap
+        padding: 0;
+        margin: 5px;
+        background: @fileColor;
+        margin: 0 10px;
+        border: none;
+        padding: 5px 5px 0;
 
-    button {
-        background-color: @backgroundColorRed;
-        color: @textColorWhite;
-        width: 100%;
-        padding: 8px;
-        border-radius: 5px;
-        margin-top: 3px;
+
+        .file {
+            height: 100%;
+        }
+
+        .file-footer {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .progress-wrap {
+            background: @backgroundColorWhite;
+            padding-bottom: 10px;
+        }
+
+        .progress {
+            margin: 0 10px;
+            border-radius: 0;
+            height: 10px;
+
+            .progress-bar {
+                background-color: @progressbarColor;
+            }
+        }
+
+        .btn {
+            border: 1px solid @borderColorSpitballBlue;
+            padding: 5px 40px;
+            font-size: 18px;
+            color: @textColorSpitballBlue;
+        }
+
+        .check-mark {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.4);
+            z-index: 1;
+            height: 30px;
+            width: 30px;
+            line-height: 30px;
+
+            svg {
+                fill: @checkMarkColor;
+                margin: 0;
+                width: 20px;
+                height: 20px;
+                vertical-align: middle;
+            }
+        }
+
+        h5 {
+            color: @textColorGreen;
+        }
+
+        .file-size {
+            font-weight: bold;
+            line-height: 20px;
+        }
+
+        .file-upload-progress {
+            height: 5px;
+            margin: 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .file-name {
+            height: 105px;
+            width: 100%;
+            position: relative;
+            background: @textColorLightGrey;
+            text-align: left;
+            padding: 0 4px;
+
+            .multi-line-ellipsis {
+                line-height: 16px;
+            }
+        }
+
+        button {
+            background-color: @backgroundColorRed;
+            color: @textColorWhite;
+            width: 100%;
+            border-radius: 5px;
+            line-height: 20px;
+            margin: 0;
+        }
     }
 }

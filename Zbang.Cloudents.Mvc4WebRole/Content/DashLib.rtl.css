@@ -305,7 +305,7 @@
   /* You may have to set 'display: block' */
   width: 19px;
   height: 19px;
-  background: url('../Images/site.png') -1px -97px;
+  background: url('../Images/site.png') -1px -1px;
 }
 .setupCourse .svg-doc {
   width: 38px;
@@ -375,7 +375,7 @@
   /* You may have to set 'display: block' */
   width: 130px;
   height: 128px;
-  background: url('../Images/site.png') -1px -117px;
+  background: url('../Images/site.png') -1px -21px;
   margin: 0 auto;
 }
 .browseCourses {
@@ -390,7 +390,7 @@
   /* You may have to set 'display: block' */
   width: 130px;
   height: 128px;
-  background: url('../Images/site.png') -1px -246px;
+  background: url('../Images/site.png') -1px -150px;
 }
 .createCourse {
   padding: 0 16px;
@@ -972,7 +972,7 @@
   /* You may have to set 'display: block' */
   width: 79px;
   height: 78px;
-  background: url('../Images/site.png') -1px -1547px;
+  background: url('../Images/site.png') -1px -471px;
 }
 .uploadSrcWpr .dropBoxBtn {
   margin: 0 90px;
@@ -981,13 +981,13 @@
   /* You may have to set 'display: block' */
   width: 82px;
   height: 79px;
-  background: url('../Images/site.png') -1px -1258px;
+  background: url('../Images/site.png') -1px -391px;
 }
 .uploadSrcWpr .driveBtn:before {
   /* You may have to set 'display: block' */
   width: 86px;
   height: 76px;
-  background: url('../Images/site.png') -1px -438px;
+  background: url('../Images/site.png') -1px -279px;
 }
 /*#endregion */
 /*#endregion */

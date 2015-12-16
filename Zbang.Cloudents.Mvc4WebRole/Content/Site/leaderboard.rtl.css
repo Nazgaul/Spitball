@@ -1,21 +1,4 @@
-﻿/*@color1: #5f6871;
-@loginColor : #3293f6;
-@registerColor: #fff;
-//@siteBg: #212427;
-
-@textColor:#282828; //text color over white background
-
-@color4: #353a3f;
-@color2: #f5f5f5;
-@color3:#292d31;
-@color5:#6a737d;
-@color6:#326F2D;
-@color7:#3598dc;
-@color8:#90A5DB;
-@color9:#cccccc;
-@color10:#8c99a6;
-@color11:#db4437;*/
-.leaderboad h4 {
+﻿.leaderboard h4 {
   font-size: 21px;
   font-weight: 700;
   margin-top: 0;
@@ -24,19 +7,19 @@
   margin-bottom: 10px;
 }
 @media (min-width: 960px) {
-  .leaderboad h4 {
+  .leaderboard h4 {
     font-size: 1.2vw;
   }
 }
 @media (min-width: 1200px) {
-  .leaderboad h4 {
+  .leaderboard h4 {
     font-size: 1.2vw;
   }
 }
-.leaderboad .userLetter {
+.leaderboard .userLetter {
   font-size: 17px;
 }
-.leaderboad .user-name {
+.leaderboard .user-name {
   -ms-text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
@@ -45,29 +28,30 @@
   overflow: hidden;
   white-space: nowrap;
   vertical-align: middle;
+  color: #f5f5f5;
 }
-.leaderboad .img-circle {
+.leaderboard .img-circle {
   margin-left: 10px;
 }
-.leaderboad .r-table {
+.leaderboard .r-table {
   text-align: center;
   font-size: 12px;
   width: 100%;
 }
-.leaderboad .r-table-row {
+.leaderboard .r-table-row {
   height: 40px;
   line-height: 40px;
 }
-.leaderboad .r-table-cell {
+.leaderboard .r-table-cell {
   width: calc(100% - 75px);
   text-align: right;
 }
-.leaderboad .r-table-cell:nth-child(even) {
+.leaderboard .r-table-cell:nth-child(even) {
   width: 15px;
   color: #ffa500;
   text-align: center;
 }
-.leaderboad .r-table-cell.last {
+.leaderboard .r-table-cell.last {
   text-align: left;
-  width: 60px;
+  white-space: nowrap;
 }

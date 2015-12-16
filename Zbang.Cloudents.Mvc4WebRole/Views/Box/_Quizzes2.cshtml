@@ -1,29 +1,21 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<ul layout="row" layout-margin layout-wrap class="list-unstyled">
-    @*<li class="col-lg-2 col-md-3 col-sm-4 col-xs-6 quiz-create margin-bottom-20 add-button">
-            <div>
-                <a ui-sref="quizCreate({boxtype: q.params.boxtype, universityType:q.params.universityType, boxId: q.params.boxId, boxName:q.params.boxName})">
+<ul layout="row" layout-padding layout-wrap layout-align="start stretch" class="list-unstyled">
+    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" hide-xs class="add-button i-q-wrapper">
+            <a class="content" ui-sref="quizCreate({boxtype: q.params.boxtype, universityType:q.params.universityType, boxId: q.params.boxId, boxName:q.params.boxName})">
+                <div class="quizCreate">
                     @Html.Svg("~/images/site/icons.svg", "add")
-                    Create a quiz
-                </a>
-            </div>
-        </li>
-        <li class="col-lg-2 col-md-4 col-sm-4 col-xs-6 margin-bottom-20" ng-repeat="e in q.quizzes" ng-include="'quiz-template.html'"></li>*@
-    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" class="hidden-xs margin-bottom-20 add-button i-q-wrapper">
-        <div class="content">
-            <a ui-sref="quizCreate({boxtype: q.params.boxtype, universityType:q.params.universityType, boxId: q.params.boxId, boxName:q.params.boxName})">
-                @Html.Svg("~/images/site/icons.svg", "add")
-                @BoxResources.CreateQuiz
+                    @BoxResources.CreateQuiz
+                </div>
             </a>
-        </div>
     </li>
-    <li flex-gt-lg="15" flex-lg="20" flex-md="25" flex-sm="50" class="margin-bottom-20 i-q-wrapper" ng-repeat="e in q.quizzes">
+
+    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="i-q-wrapper" ng-repeat="e in q.quizzes">
         <div ng-include="'quiz-template.html'"></div>
         <md-menu ng-if="b.canDelete(e.ownerId)">
             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
-                @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3 quiz-dots" })
+                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 quiz-dots" })
             </md-button>
             <md-menu-content width="1">
                 <md-menu-item>

@@ -1,9 +1,10 @@
 ﻿(function () {
     angular.module('app.box.feed').controller('FeedController', feed);
-    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService', 'user', 'userUpdatesService', '$mdDialog'];
+    feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
+        'user', 'userUpdatesService', '$mdDialog', '$scope'];
 
-    function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService, $mdDialog) {
-        var self = this, boxId = parseInt($stateParams.boxId, 10);
+    function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService, $mdDialog, $scope) {
+        var self = this, boxId = parseInt($stateParams.boxId, 10), page = 0, ajaxFinish = true;
 
         self.add = {
             files: [],
@@ -17,7 +18,6 @@
         self.add.createComment = createComment;
 
 
-        //TODO: upon collapse
         externalUploadProvider.googleDriveInit().then(function () {
             self.add.googleDisabled = false;
         });
@@ -35,9 +35,29 @@
         self.postItemTemplate = postItemTemplate;
         self.myPagingFunction = myPagingFunction;
 
-        boxService.getFeed(boxId).then(function (response) {
+        boxService.getFeed(boxId, page).then(function (response) {
             self.data = response;
+            assignData();
 
+        });
+        function myPagingFunction() {
+            if (ajaxFinish) {
+                ajaxFinish = false;
+                page++;
+                boxService.getFeed(boxId, page).then(function (response) {
+                    if (!response.length) {
+                        return;
+                    }
+                    self.data = self.data.concat(response);
+                    assignData();
+                    ajaxFinish = true;
+                });
+            }
+            //var page = self.viewData.length / 25;
+            //self.viewData = self.viewData.concat(self.data.slice(page * 25, (page * 25) + 25));
+        }
+
+        function assignData() {
             for (var i = 0; i < self.data.length; i++) {
                 var files = self.data[i].files;
                 for (var j = 0; j < files.length; j++) {
@@ -56,17 +76,12 @@
                 }
             }
             userUpdatesService.boxUpdates(boxId, function (updates) {
-                for (var j = 0; j < updates.length; j++) {
-                    var update = updates[j];
+                for (var jj = 0; jj < updates.length; jj++) {
+                    var update = updates[jj];
                     attachNew(update);
 
                 }
             });
-            self.viewData = self.data.slice(0, 25);
-        });
-        function myPagingFunction() {
-            var page = self.viewData.length / 25;
-            self.viewData = self.viewData.concat(self.data.slice(page * 25, (page * 25) + 25));
         }
 
         function postItemTemplate(elmenet) {
@@ -95,7 +110,7 @@
                             return;
                         }
                     }
-                    console.log(update.itemId);
+                    //console.log(update.itemId);
 
                 }
             }
@@ -104,14 +119,14 @@
                     return e.id === update.questionId;
                 });
                 if (!question) {
-                    console.log('something wrong');
+                    // console.log('something wrong');
                 }
                 if (update.answerId) {
                     var answer = question.answers.find(function (e) {
                         return e.id === update.answerId;
                     });
                     if (!answer) {
-                        console.log('something wrong');
+                        // console.log('something wrong');
                     }
                     answer.isNew = true;
                 }
@@ -154,15 +169,18 @@
         }
         function createReply(comment) {
 
-
-            var filesId = self.add.files.map(function (c) {
+            var filesId = self.add.files.filter(function (e) {
+                return e.postId == comment.id;
+            }).map(function (c) {
                 return c.system.id;
             });
 
+
+
             self.add.disabled = true;
-            boxService.postReply(self.add.newText, boxId, comment.id, filesId).then(function (response) {
-                comment.answers.unshift({
-                    content: self.newText,
+            boxService.postReply(self.add.newReplyText, boxId, comment.id, filesId).then(function (response) {
+                var newComment = {
+                    content: self.add.newReplyText,
                     creationTime: new Date(),
                     id: response.commentId,
                     url: response.userUrl,
@@ -170,25 +188,36 @@
                     userId: user.id,
                     userImage: user.image,
                     userName: user.name,
-                    files: self.add.files.map(function (c) {
-                        var temp = c.system;
-                        //temp = itemThumbnailService.assignValues(c, 100, 125);
-                        var retVal = itemThumbnailService.assignValue(c.source, 100, 125);
-                        temp.thumbnail = retVal.thumbnail;
-                        temp.icon = retVal.icon;
-                        return temp;
-                    })
-                });
-                self.add.newText = '';
+                    files: self.add.files.map(pushItem)
+                };
+                comment.answers.push(newComment);
+                self.add.newReplyText = '';
                 self.add.files = [];
+                comment.showFrom = false;
+                $scope.$emit('follow-box');
             }).finally(function () {
                 self.add.disabled = false;
             });
 
         }
+
+        function pushItem(c) {
+            var temp = c.system;
+            //temp = itemThumbnailService.assignValues(c, 100, 125);
+            var retVal = itemThumbnailService.assignValue(temp.source, 100, 125);
+            temp.thumbnail = retVal.thumbnail;
+            temp.icon = retVal.icon;
+            temp.numOfViews = undefined;
+            temp.type = 'item';
+            return temp;
+        }
+
         function createComment() {
 
-            var filesId = self.add.files.map(function (c) {
+            var files = self.add.files.filter(function (e) {
+                return e.postId == null;
+            });
+            var filesId = files.map(function (c) {
                 return c.system.id;
             });
 
@@ -196,7 +225,7 @@
 
             //content,boxId, files, anonymously
             boxService.postComment(self.add.newText, boxId, filesId, self.add.anonymous).then(function (response) {
-                self.data.unshift({
+                var newComment = {
                     content: self.add.newText,
                     creationTime: new Date(),
                     id: response.commentId,
@@ -204,17 +233,13 @@
                     userId: response.userId,
                     userImage: response.userImage,
                     userName: response.userName,
-                    files: self.add.files.map(function (c) {
-                        var temp = c.system;
-                        var retVal = itemThumbnailService.assignValue(c.source, 100, 125);
-                        temp.thumbnail = retVal.thumbnail;
-                        temp.icon = retVal.icon;
-                        return temp;
-                    })
-                });
+                    files: files.map(pushItem)
+                };
+                self.data.unshift(newComment);
                 self.add.newText = '';
                 self.add.files = [];
                 self.add.anonymous = false;
+                $scope.$emit('follow-box');
                 /*answers: []
 content: "asdasdasd"
 creationTime: "2015-11-04T13:11:32.6519547Z"
@@ -229,20 +254,38 @@ userName: "ram y"*/
                 self.add.disabled = false;
             });
         }
-        function google() {
+        function google(post) {
+            postId = post;
             externalUploadProvider.google(boxId).then(externalUploadComplete);
         }
-        function dropbox() {
+        function dropbox(post) {
+            postId = post;
             externalUploadProvider.dropBox(boxId).then(externalUploadComplete);
         }
         function externalUploadComplete(response) {
-            for (var i = 0; i < response.length; i++) {
-                self.add.files.push({
-                    complete: true,
-                    name: response[i].name,
-                    system: response[i]
-                });
-            }
+            var link = response.item;
+            self.add.files.push({
+                complete: true,
+                name: link.name,
+                system: link,
+                postId: postId
+            });
+        }
+
+        var postId;
+        self.add.upload = uploadFile;
+        self.openReply = openReply;
+
+        function openReply(post) {
+            angular.forEach(self.data, function (elem) {
+                elem.showFrom = false;
+            });
+            post.showFrom = true;
+            self.add.newReplyText = '';
+            self.add.files = [];
+        }
+        function uploadFile(post) {
+            postId = post;
         }
 
         self.add.fileUpload = {
@@ -252,51 +295,30 @@ userName: "ram y"*/
             },
             callbacks: {
                 filesAdded: function (uploader, files) {
-
+                    $scope.$emit('follow-box');
                     for (var i = 0; i < files.length; i++) {
                         files[i].sizeFormated = plupload.formatSize(files[i].size);
                         files[i].complete = false;
+                        files[i].postId = postId;
                         self.add.files.push(files[i]);
                     }
                     $timeout(function () {
                         uploader.start();
                     }, 1);
                 },
-
                 beforeUpload: function (up, file) {
                     up.settings.multipart_params = {
                         fileName: file.name,
                         fileSize: file.size,
                         boxId: boxId,
                         comment: true
-                        //isComment: false
-
                     };
                 },
                 fileUploaded: function (uploader, file, response) {
-
-                    /*boxId: 100346
-fileDto: {id: 392401, name: "google.png", likes: 0, ownerId: 1, owner: "ram y", numOfViews: 0,…}
-commentsCount: 0
-date: "2015-11-05T08:19:37.883568Z"
-downloadUrl: "/d/100346/392401/"
-id: 392401
-likes: 0
-name: "google.png"
-numOfDownloads: 0
-numOfViews: 0
-owner: "ram y"
-ownerId: 1
-source: "fb4bd221-360e-4d69-b70c-1334619d1ad3.png"
-sponsored: false
-url: "/item/noa-university/100346/nice-picture/392401/google.png/"
-userUrl: "/user/1/ram-y/"*/
                     file.complete = true;
-                    // $scope.loading = false;
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
-                        file.system = obj.payload.fileDto;
-                        // $rootScope.$broadcast('item_upload', obj.payload);
+                        file.system = obj.payload.item;
                     }
                 }
                 //error: function (uploader, error) {

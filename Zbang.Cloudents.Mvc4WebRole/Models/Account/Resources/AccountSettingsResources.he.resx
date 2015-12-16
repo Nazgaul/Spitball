@@ -123,9 +123,6 @@
   <data name="CurrentPwdEmpty" xml:space="preserve">
     <value>עליך להזין את הסיסמה הישנה</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>דוא"ל:</value>
-  </data>
   <data name="EmailEmpty" xml:space="preserve">
     <value>עליך להזין כתובת מייל חוקית</value>
   </data>
@@ -143,9 +140,6 @@
   </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>אנא הזן מוסד אקדמי</value>
-  </data>
-  <data name="TypeCodeReceived" xml:space="preserve">
-    <value>הקלד את הקוד שקבלת בדוא"ל</value>
   </data>
   <data name="UsernameEmpty" xml:space="preserve">
     <value>עליך להזין שם משתמש</value>

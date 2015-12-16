@@ -1,9 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{
-    Layout = "~/Views/Shared/_LayoutPage.cshtml";
     const string svgUrl = "~/images/site/icons.svg";
-
     var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
 }
 
@@ -27,8 +25,8 @@
                 </a>
             </li>
             <li>
-                <a href="javascript:;">
-                    <span class="arrow">@Html.Svg("~/images/site/icons.svg", "side-menu-arrow")</span>
+                <a href="javascript:;" ng-click="d.open()">
+                    <span class="arrow">@Html.Svg("~/images/site/icons.svg", "sideMenuArrow")</span>
                     <span class="title">@IndexResources.Classes</span>
                 </a>
                 <ul class="sub-menu">
@@ -42,8 +40,8 @@
                 </ul>
             </li>
             <li>
-                <a href="javascript:;">
-                    <span class="arrow">@Html.Svg("~/images/site/icons.svg", "side-menu-arrow")</span>
+                <a href="javascript:;" ng-click="d.open()">
+                    <span class="arrow">@Html.Svg("~/images/site/icons.svg", "sideMenuArrow")</span>
                     <span class="title">@IndexResources.Group</span>
                 </a>
                 <ul class="sub-menu">
@@ -75,6 +73,17 @@
                     <span class="title">@IndexResources.Settings</span>
                 </a>
             </li>
+            <li>
+                <a href="@Url.RouteUrl("Help")">
+                    @Html.Svg(svgUrl, "headerHelp")
+                    <span class="title">@SharedResources.Help</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.RouteUrl("Blog2")">
+                    @Html.Svg(svgUrl, "blog") <span class="title">Blog</span>
+                </a>
+            </li>
             <li class="last ">
                 <a target="_self" href="@Url.Action("logoff","account")">
                     @Html.Svg(svgUrl, "logOffMenu")
@@ -87,11 +96,13 @@
 </div>
 <div class="page-content-wrapper">
     <div class="page-content">
+        @* ReSharper disable once Mvc.PartialViewNotResolved *@
         @{ Html.RenderPartial("_Upload");}
         <div ui-view anim-class></div>
     </div>
 </div>
-
+@if (!User.Identity.IsAuthenticated) {
+}
 
 @section scripts
 {

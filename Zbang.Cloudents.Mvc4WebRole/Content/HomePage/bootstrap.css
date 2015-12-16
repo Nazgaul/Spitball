@@ -6613,12 +6613,13 @@ button.close {
 .pull-left {
   float: left !important;
 }
-.hide {
-  display: none !important;
+/*.hide {
+  display: none;
 }
+
 .show {
-  display: block !important;
-}
+  display: block;
+}*/
 .invisible {
   visibility: hidden;
 }

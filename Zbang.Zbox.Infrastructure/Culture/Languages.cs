@@ -20,8 +20,12 @@ namespace Zbang.Zbox.Infrastructure.Culture
             new LanguagesDetail(HebrewName,"he-IL"),
             new LanguagesDetail(ArabicName,"ar-AE"),
             new LanguagesDetail(RussianName,"ru-RU")
-           // new LanguagesDetail(ChineseName,"zh-CN")
         };
+
+        public static readonly List<LanguagesDetail> SpitballSupportedCultures = new List<LanguagesDetail> {
+            new LanguagesDetail(EnglishUsName,"en-US"),
+            new LanguagesDetail(HebrewName,"he-IL"),
+        }; 
 
         /// <summary>
         /// used by razor to generate the languages

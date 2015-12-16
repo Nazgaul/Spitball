@@ -20,6 +20,9 @@ namespace Zbang.Cloudents.MobileApp2
         {
             try
             {
+                var currentUser = context.Principal as ServiceUser;
+                var userId = currentUser.GetCloudentsUserId();
+                services.Log.Info("trying to register userid: " + userId);
                 // Perform a check here for user ID tags, which are not allowed.
                 if (!ValidateTags(registration))
                 {
@@ -35,8 +38,7 @@ namespace Zbang.Cloudents.MobileApp2
                 //        string.Join(";", registrationDescription.Tags)));
                 //}
                 // Get the logged-in user.
-                var currentUser = context.Principal as ServiceUser;
-                var userId = currentUser.GetCloudentsUserId();
+
                 //wns, mpns, apns, or gcm
                 var tagId = userId.ToString(CultureInfo.InvariantCulture);
                 try
@@ -61,6 +63,7 @@ namespace Zbang.Cloudents.MobileApp2
                     services.Log.Error(ex.ToString());
                 }
                 registration.Tags.Add(tagId);
+                services.Log.Info("register userid: " + userId + " with tag " + tagId + " on platform " + registration.Platform);
 
             }
             catch (Exception ex)
@@ -91,9 +94,9 @@ namespace Zbang.Cloudents.MobileApp2
         public Task Unregister(ApiServices services, HttpRequestContext context,
             string deviceId)
         {
-            //var currentUser = context.Principal as ServiceUser;
+            var currentUser = context.Principal as ServiceUser;
 
-            //services.Log.Info(string.Format("deviceid: {0} of user {1} logged out", deviceId, currentUser.GetCloudentsUserId()));
+            services.Log.Info(string.Format("deviceid: {0} of user {1} logged out", deviceId, currentUser.GetCloudentsUserId()));
             // This is where you can hook into registration deletion.
             return Task.FromResult(true);
         }

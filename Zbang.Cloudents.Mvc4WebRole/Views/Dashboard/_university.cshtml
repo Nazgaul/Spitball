@@ -5,7 +5,7 @@
     <div class="content clearfix" ng-if="!u.loading">
         
         <div class="universityTitle" layout="row" layout-align="center center">
-            <img class="universityimg" ng-src="{{::u.info.img}}" alt="univerisy picture" width="70" height="70" />
+            <img class="universityimg img-circle" ng-src="{{::u.info.img}}" alt="univerisy picture" width="70" height="70" />
             <span>{{::u.info.name}}</span>
         </div>
         <div class="universityStats">
@@ -14,6 +14,6 @@
             <div>{{::u.info.numOfItems | megaNumber}} @DashboardResource.Files</div>
         </div>
     </div>
-    <a href="#" ui-sref="department" class="universityLink text-capitalize">@DashboardResource.Browse</a>
+    <a ui-sref="department" class="universityLink text-capitalize" ga-track-event="['dashboard', 'browse classes']">@DashboardResource.Browse</a>
 </div>
 

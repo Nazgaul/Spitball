@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div class="portlet light leaderboad leaderboardbox" ng-controller="LeaderboardController as lb" ng-hide="lb.isPrivate">
+<div class="portlet light leaderboard leaderboardbox" ng-controller="LeaderboardController as lb" ng-hide="lb.hide">
     <div class="portlet-body">
         <h4 class="uppercase">@IndexResources.Best</h4>
 
@@ -8,8 +8,10 @@
         <div class="r-table">
             <div class="r-table-row" ng-repeat="l in lb.leaderboard">
                 <div class="r-table-cell">
-                    <user-image class="img-circle" name="l.name" image="l.image" width="30" height="30"></user-image>
-                    <span class="user-name">{{::l.name}}</span>
+                    <a href="{{::l.url}}" ga-track-event="['leaderboard', 'userPage']">
+                        <user-image class="img-circle" name="l.name" image="l.image" width="30" height="30"></user-image>
+                        <span class="user-name">{{::l.name}}</span>
+                    </a>
                 </div>
                 <div class="r-table-cell">{{::$index + 1}}</div>
                 <div class="r-table-cell last">{{::l.score | megaNumber}} @IndexResources.Pts</div>

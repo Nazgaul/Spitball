@@ -1,11 +1,9 @@
 ﻿(function () {
     angular.module('app.upload').controller('Upload', upload);
-    upload.$inject = ['$scope', 'itemService', '$q', '$timeout', '$stateParams', '$rootScope', 'externalUploadProvider'];
+    upload.$inject = ['$scope', 'itemService', '$q', '$timeout', '$stateParams', '$rootScope', 'externalUploadProvider', '$location', '$anchorScroll'];
 
-    function upload($scope, itemService, $q, $timeout, $stateParams, $rootScope, externalUploadProvider) {
-        var u = this;
-        // $stateParams.boxId || $scope.$parent.cc.box.id;
-        //var cc = $scope.$parent.cc || {};
+    function upload($scope, itemService, $q, $timeout, $stateParams, $rootScope, externalUploadProvider, $location, $anchorScroll) {
+        var u = this, tab = null;
 
         var uploadChoose = {
             none: 0,
@@ -15,8 +13,11 @@
             link: 4
         };
 
-        $scope.$on('open_upload', function () {
+        $scope.$on('open_upload', function (e, args) {
+            tab = args;
             $rootScope.$broadcast('close-collapse');
+            $location.hash('upload');
+            $anchorScroll();
             u.open = true;
 
             externalUploadProvider.dropboxInit().then(function () {
@@ -29,7 +30,7 @@
 
         });
 
-        $scope.$on('close-collapse', function() {
+        $scope.$on('close-collapse', function () {
             closeUpload();
         });
 
@@ -70,13 +71,13 @@
             $rootScope.$broadcast('close_upload');
         }
 
-       
+
 
         $scope.closeAlert = function () {
             u.alert = null;
         }
         //upload 
-        
+
         function uploadLink() {
             if (!u.link) {
                 u.alert = 'not a valid url';
@@ -120,6 +121,7 @@
                         fileName: file.name,
                         fileSize: file.size,
                         boxId: $stateParams.boxId,
+                        tabId: tab,
                         comment: false
                     };
                 },

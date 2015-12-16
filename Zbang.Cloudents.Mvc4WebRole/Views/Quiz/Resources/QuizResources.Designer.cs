@@ -79,15 +79,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not right now.
-        /// </summary>
-        public static string Afraid {
-            get {
-                return ResourceManager.GetString("Afraid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Answer.
         /// </summary>
         public static string Answer {
@@ -133,15 +124,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Complete.
-        /// </summary>
-        public static string Complete {
-            get {
-                return ResourceManager.GetString("Complete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to You completed the quiz!.
         /// </summary>
         public static string CompletedQuiz {
@@ -165,15 +147,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         public static string CorrectAnswer {
             get {
                 return ResourceManager.GetString("CorrectAnswer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Class:.
-        /// </summary>
-        public static string Course {
-            get {
-                return ResourceManager.GetString("Course", resourceCulture);
             }
         }
         
@@ -259,15 +232,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to of your classmates took this quiz.
-        /// </summary>
-        public static string OfYourMates {
-            get {
-                return ResourceManager.GetString("OfYourMates", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Only you are able to see and edit the draft.
         /// </summary>
         public static string OnlyYou {
@@ -300,15 +264,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         public static string QuestionNumber {
             get {
                 return ResourceManager.GetString("QuestionNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Test your knowledge.
-        /// </summary>
-        public static string QuizTime {
-            get {
-                return ResourceManager.GetString("QuizTime", resourceCulture);
             }
         }
         
@@ -358,15 +313,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Take a chance.
-        /// </summary>
-        public static string TakeChance {
-            get {
-                return ResourceManager.GetString("TakeChance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Are you ready to test yourself?.
         /// </summary>
         public static string TestYourself {
@@ -390,15 +336,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         public static string Wrong {
             get {
                 return ResourceManager.GetString("Wrong", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you ready to test yourself?.
-        /// </summary>
-        public static string YouReady {
-            get {
-                return ResourceManager.GetString("YouReady", resourceCulture);
             }
         }
     }

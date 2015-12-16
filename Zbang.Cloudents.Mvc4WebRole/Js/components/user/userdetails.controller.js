@@ -10,6 +10,7 @@
             assignValues(userDetails.get());
 
             ud.isLoggedIn = userDetails.isAuthenticated();
+            ud.loaded = true;
         });
         $scope.$on('userDetailsChange', function () {
             assignValues(userDetails.get());

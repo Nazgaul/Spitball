@@ -1,20 +1,11 @@
-﻿/*@color1: #5f6871;
-@loginColor : #3293f6;
-@registerColor: #fff;
-//@siteBg: #212427;
-
-@textColor:#282828; //text color over white background
-
-@color4: #353a3f;
-@color2: #f5f5f5;
-@color3:#292d31;
-@color5:#6a737d;
-@color6:#326F2D;
-@color7:#3598dc;
-@color8:#90A5DB;
-@color9:#cccccc;
-@color10:#8c99a6;
-@color11:#db4437;*/
+﻿.search {
+  background: #181c1d;
+}
+@media (min-width: 960px) {
+  .search {
+    padding: 0 5%;
+  }
+}
 .search ::-webkit-input-placeholder {
   color: #888b8e;
 }
@@ -33,20 +24,18 @@
 .search .tabbable {
   display: none;
 }
-@media (max-width: 992px) {
+@media (max-width: 959px) {
   .search .nav-tabs,
   .search .tabbable {
     display: block;
   }
-  .search .nav-tabs .s-hide,
-  .search .tabbable .s-hide {
+}
+@media (max-width: 959px) {
+  .search .s-hide {
     display: none;
   }
 }
-.search .dashboard-stat2 {
-  margin-bottom: 12px;
-}
-@media (max-width: 992px) {
+@media (max-width: 959px) {
   .search h3 {
     display: none;
   }
@@ -81,6 +70,25 @@
 .search .quiz .extra-details h5 {
   margin: 21px 0;
   color: #888b8e;
+}
+.search .quiz .top .first-letter {
+  font-size: 10vw;
+  width: 10vw;
+  height: 10vw;
+}
+@media (min-width: 600px) {
+  .search .quiz .top .first-letter {
+    font-size: 6vw;
+    width: 6vw;
+    height: 6vw;
+  }
+}
+@media (min-width: 960px) {
+  .search .quiz .top .first-letter {
+    font-size: 3vw;
+    width: 3vw;
+    height: 3vw;
+  }
 }
 .search-text {
   font-size: 7em;

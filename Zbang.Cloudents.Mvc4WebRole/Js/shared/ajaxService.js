@@ -3,12 +3,11 @@
     ajaxService.$inject = [
         '$http',
         '$q',
-        '$angularCacheFactory',
-        '$analytics'
+        '$angularCacheFactory', 'Analytics'
     ];
 
 
-    function ajaxService($http, $q, $angularCacheFactory, $analytics /*, $log*/) {
+    function ajaxService($http, $q, $angularCacheFactory, analytics) {
         "use strict";
         var ttls = {},
             cancelObjs = {},
@@ -115,15 +114,11 @@
         function trackTime(startTime, url, data, type) {
             var timeSpent = new Date().getTime() - startTime;
 
-            var properties = {
-                category: url.toLowerCase() !== '/item/preview/' ? 'ajax ' + type
-                    : 'ajaxPreview',
-                timeSpent: timeSpent,
-                variable: url,
-                label: JSON.stringify(data)
-            };
+           
 
-            $analytics.timingTrack(properties);
+            analytics.trackTimings(url.toLowerCase() !== '/item/preview/' ? 'ajax ' + type
+                    : 'ajaxPreview', url, timeSpent, JSON.stringify(data));
+            //$analytics.timingTrack(properties);
         }
 
 

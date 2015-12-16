@@ -27,16 +27,8 @@ select count(*)*50 as questionScore from zbox.Question a join zbox.Box b on a.Bo
 ),
 rate as 
 (
-select coalesce(sum(rate),0) as rateScore from (
-select 
-case 
-when ir.Rate = 3 then 50
-when ir.rate = 4 then 100
-when ir.rate = 5 then 150
-else 0
-end as rate
- from zbox.ItemRate ir join zbox.Item i  on ir.ItemId = i.ItemId join zbox.Box b on i.BoxId = b.BoxId and b.Discriminator = 2
-where i.UserId = @userid) t
+select count(*)*150 as rateScore from zbox.ItemRate ir join zbox.Item i  on ir.ItemId = i.ItemId join zbox.Box b on i.BoxId = b.BoxId and b.Discriminator = 2
+where i.UserId = @userid
 ),
 invite as (
 select coalesce( sum(invitesScore),0) as inviteScore from (

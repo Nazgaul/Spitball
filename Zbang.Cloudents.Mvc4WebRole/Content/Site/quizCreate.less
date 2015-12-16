@@ -1,6 +1,10 @@
 ﻿@import "variables.less";
 
 .quiz-create {
+    header {
+        padding: 0 25px;
+    }
+
     .not-supported {
         height: 100vh;
         background: @backgroundColor;
@@ -56,16 +60,38 @@
         width: 800px;
         padding: 10px 15px 0;
 
+        .course-name {
+            font-size: 20px;
+            margin-bottom: 31px;
+            color: #323538;
+        }
+
         .add-question {
             color: @textColorSpitballBlue;
             border: 1px solid @textColorSpitballBlue;
             background: transparent;
+
+            svg {
+                margin-right: 10px;
+                fill: @textColorSpitballBlue;
+                width: 15px;
+                height: 15px;
+            }
         }
 
         @media only screen and (min-width : 768px ) and (max-width:920px) {
             margin: 0 20px;
             width: ~"calc(100% - 40px)";
         }
+    }
+
+    .counter {
+        padding-left: 0;
+    }
+
+    .header {
+        color: @backgroundColor2;
+        padding: 10px 0;
     }
 
     @media only screen and (max-width : 768px) {
@@ -82,6 +108,10 @@
         background: transparent;
         padding: 0;
         border: 0;
+
+        .portlet-title .caption {
+            padding-left: 10px;
+        }
     }
 
     .portlet.box > .portlet-body {
@@ -98,6 +128,7 @@
         border: 1px solid @borderColorLightGrey;
         border-radius: 0;
         margin-bottom: 20px;
+        margin-top: 10px;
 
         &[disabled] {
             border: 0;
@@ -251,9 +282,9 @@
         }
 
         svg {
-            width: 20px;
-            height: 20px;
-            fill: @backgroundColorItem;
+            width: 15px;
+            height: 15px;
+            fill: @backgroundColor2;
             vertical-align: middle;
         }
 
@@ -302,13 +333,13 @@
         }
     }
 
-    .correct-answer-error {
-        display: none;
-        color: @textColorRed;
+    .correct-answer {
         width: 50px;
+        line-height: 15px;
+        margin-left: 4px;
 
         &.error {
-            display: inline-block;
+            color: @textColorRed;
         }
     }
 

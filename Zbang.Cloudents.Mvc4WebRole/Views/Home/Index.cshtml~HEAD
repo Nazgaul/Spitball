@@ -1,0 +1,494 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources;
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources;
+@using Zbang.Zbox.Infrastructure.Culture;
+@{
+
+    Layout = null;
+    ViewBag.moveToSpitBall = ViewBag.moveToSpitBall ?? false;
+    ViewBag.metaDescription = HomePageResources.A4;
+}
+
+<!doctype html>
+<html>
+<head>
+    @{Html.RenderPartial("_Head");}
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    @Html.Css2("homePage")
+    <meta name="google-signin-client_id" content="997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com" />
+
+</head>
+<body class="transparent-header pace-on pace-dot">
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-NDZLW7"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
+    <!-- End Google Tag Manager -->
+    <div class="pace-overlay"></div>
+    @if (ViewBag.moveToSpitBall)
+    {
+        <div class="alert alert-info element-bottom-0 alert-dismissible fade in" style="width:100%; background:#f05a28; font-size:18px;" role="alert">
+            <div class="container">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                להתראות Cloudents שלום Spitball
+            </div>
+        </div>
+    }
+
+
+
+    <div id="masthead" class="menu navbar navbar-static-top header-logo-left-menu-right navbar-sticky text-none" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".main-navbar"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                <a href="@Url.Action("Index","Account")" class="navbar-brand"> <img src="@Url.CdnContent("/Images/HomePage2/logo.png?v=3")" alt="logo"> </a>
+            </div>
+            <div class="nav-container">
+                <nav class="collapse navbar-collapse main-navbar logo-navbar navbar-right" role="navigation">
+                    <div class="menu-container">
+                        <ul id="menu-main" class="nav navbar-nav">
+                            <li class="menu-item"> <a href="@Url.Action("SignIn","Account")">@HomePageResources.A1</a> </li>
+                            <li class="menu-item"> <a href="@Url.Action("Jobs","Home")">@HomePageResources.A2</a> </li>
+                            <li class="menu-item dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="">@Html.Svg("/images/homepage2/homePageIcons.svg", "globus", new { @class = "globus" })&nbsp;<span>@Languages.EnglishUsName</span></a>
+                                <ul class="dropdown-menu dropdown-menu-left ">
+                                    <li class="menu-item"> <a href="@Url.Action("Index","Account", new { lang = "en-US"})">@Languages.EnglishUsName</a> </li>
+                                    <li class="menu-item"> <a href="@Url.Action("Index", "Account", new { lang = "en-UK" })">@Languages.EnglishGbName</a> </li>
+                                    <li class="menu-item"> <a href="@Url.Action("Index", "Account", new { lang = "he-IL" })">@Languages.HebrewName</a> </li>
+                                    @*<li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ru-RU" })">@Languages.RussianName</a> </li>
+                                        <li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ar-AE" })">@Languages.ArabicName</a> </li>*@
+                                </ul>
+                            </li>
+                            <li class="menu-item"> <a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a> </li>
+                            <li class="menu-item nav-highlight-ghost"> <a href="#buy">@HomePageResources.A7</a> </li>
+                        </ul>
+                    </div>
+
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div id="content" role="main">
+        <article>
+            <section class="section" id="spitballFeatures">
+                @*<div class="background-media" style="background-image: url('@Url.CdnContent("/Images/HomePage2/headr_image5.png")'); background-repeat:no-repeat; background-size:cover; background-attachment:scroll; background-position: 50% 0%;" data-start="background-position: 50% 0px"
+                    data-0-top-bottom="background-position: 50% 300px"></div>*@
+                @* <div class="homepage-hero-module">
+                    <div class="video-container">
+                         <div class="filter"></div>
+                         <video autoplay loop class="fillWidth">
+                             <source src="https://zboxstorage.blob.core.windows.net/videos/SB_6.mp4" type="video/mp4" />Your browser does not support the video tag. I suggest you upgrade your browser.
+                             <source src="https://zboxstorage.blob.core.windows.net/videos/SB_6.webm" type="video/webm" />Your browser does not support the video tag. I suggest you upgrade your browser.
+                         </video>
+                         <div class="poster hidden">
+                             <img src="@Url.CdnContent("/Images/HomePage2/headr_image5.png")" alt="">
+                         </div>
+                     </div>*@
+                <div id="video-viewport">
+                    <video autoplay preload="auto" width="1920" height="1080" loop poster="@Url.CdnContent("/Images/HomePage2/headr_image5.png")">
+                        <source src="https://az32006.vo.msecnd.net/videos/SB_6_1.mp4" />
+                    </video>
+                </div>
+
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12  text-center">
+                            <div class="divider-wrapper">
+                                <div class="visible-xs element-height-50"></div>
+                                <div class="visible-sm element-height-100"></div>
+                                <div class="visible-md element-height-200"></div>
+                                <div class="visible-lg element-height-200"></div>
+                            </div>
+                            <div class="col-text-1 bold text-center element-top-80 os-animation element-bottom-40"
+                                 data-os-animation="fadeIn" data-os-animation-delay="0.1s">
+                                <h1 class="bigger text-light" style="white-space:pre-wrap; text-shadow:2px 2px 12px #000;">@HomePageResources.A4</h1>
+
+                            </div>
+                            <button type="button" class="facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg("/images/signin/icons.svg", "facebook") @LogOnResources.ExternalProvider</button>
+                            <button type="button" class="google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg("/images/signin/icons.svg", "google") @LogOnResources.ExternalProvider</button>
+                            <br />
+                            <a href="@Url.Action("SignUp", "Account")" class="btn btn-primary btn-lg element-bottom-20 element-top-20 text-center bold os-animation btnSignIn"
+                               target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                                @HomePageResources.A5
+                            </a>
+                            @*<a href="@Url.Action("SignIn", "Account")" class="btn btn-primary btn-lg  text-center bold element-top-20 element-bottom-20 os-animation btnSignIn"
+                                   target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                                    @HomePageResources.A1
+                                </a>*@
+                            <h2 class="text-light os-animation element-top-10 big" data-os-animation="fadeIn" data-os-animation-delay="0.5s" style="text-shadow:2px 2px 6px #000; white-space:pre-wrap;">@HomePageResources.A6</h2>
+                            <div class="divider-wrapper">
+                                <div class="visible-xs element-height-100"></div>
+                                <div class="visible-sm element-height-100"></div>
+                                <div class="visible-md element-height-100"></div>
+                                <div class="visible-lg element-height-100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section" id="bestApp">
+                <div class="background-overlay grid-overlay-0" style="background-color: #353E4D;"></div>
+                <div class="container container-vertical-default">
+                    <div class="row vertical-default">
+                        <div class="col-md-12 text-default small-screen-default">
+                            <div class="row">
+                                <div class="col-md-2 text-default small-screen-default"></div>
+                                <div class="col-md-8 text-default small-screen-default">
+                                    <h2 class="text-center element-top-60 element-bottom-20 text-normal os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                        @HomePageResources.D1
+                                    </h2>
+                                    <div class="divider-border divider-border-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
+                                        <div class="divider-border-inner"></div>
+                                    </div>
+                                    <p class="lead text-center left text-normal element-top-20 element-bottom-20" data-os-animation="none" data-os-animation-delay="0s">
+                                        @HomePageResources.D2
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <ul class="skills-list lead element-top-20 element-bottom-40 text-normal os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;@HomePageResources.D3</li>
+                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;@HomePageResources.D4</li>
+                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;@HomePageResources.D5</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <ul class="skills-list lead element-top-20 element-bottom-40 text-normal os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;@HomePageResources.D6</li>
+                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;@HomePageResources.D7</li>
+                                                <li>@Html.Svg("/images/homepage2/homePageIcons.svg", "checkmark")&nbsp;@HomePageResources.D8</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 text-default small-screen-default"></div>
+                                @{
+                                    var queryString = string.Empty;
+                                    if (!string.IsNullOrEmpty(Request.QueryString["utm_medium"]))
+                                    {
+                                        queryString = string.Format("?af_prt=peachmedia&af_siteid={0}&pid={1}&c={2}", Request.QueryString["utm_medium"], Request.QueryString["utm_source"], Request.QueryString["utm_campaign"]);
+                                    }
+
+                                }
+                                <div class="col-md-12 text-center small-screen-default">
+                                    <a id="iOs" target="_blank" href="@string.Format("https://app.appsflyer.com/id990911114{0}", queryString)"
+                                       class="element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation mobileLink"
+                                       data-os-animation="fadeIn" data-os-animation-delay="0.3s" style="display:inline-block">
+                                        <img src="@Url.CdnContent("~/Images/HomePage2/apple.png")" alt="apple" width="160" height="46" />
+
+                                    </a> <a id="Android" target="_blank" href="@string.Format("http://app.appsflyer.com/com.cloudents.zbox2{0}", queryString)" class="element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation mobilelink" data-os-animation="fadeIn" data-os-animation-delay="0.3s" style="display:inline-block">
+                                        <img src="@Url.CdnContent("~/Images/HomePage2/google.png")" alt="google" width="160" height="46" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="element-top-20 element-bottom-0 os-animation" data-os-animation="fadeInUp" data-os-animation-delay="0.3s">
+
+                                <img class="img-responsive" style="margin: 0 auto;" src="@Url.CdnContent("/Images/HomePage2/mobile.png?v=3")" alt="Mobile Studying App" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section" id="features">
+                <div class="container container-vertical-default">
+                    <div class="row vertical-default">
+                        <div class="col-md-2 text-default small-screen-default"></div>
+                        <div class="col-md-8 text-default small-screen-default">
+                            <h2 class="text-center element-top-60 element-bottom-20 text-normal os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                @HomePageResources.B1
+                            </h2>
+                            <div class="divider-border divider-border-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
+                                <div class="divider-border-inner"></div>
+                            </div>
+                            <p class="lead text-center center text-normal element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.2s">
+                                @HomePageResources.B2
+                            </p>
+                        </div>
+                        <div class="col-md-2 text-default small-screen-default"></div>
+                    </div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="container container-vertical-middle">
+                    <div class="row">
+                        <div class="col-md-4 text-default small-screen-default">
+                            <ul class="features-list text-normal element-top-20 element-bottom-20" data-os-animation="none" data-os-animation-delay="0s">
+                                <li class=" element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.1s">
+                                    <div class="features-list-icon box-animate" data-animation="">@Html.Svg("/images/homepage2/homePageIcons.svg", "web", new { @class = "svgIcon" })</div>
+                                    <h3>@HomePageResources.B3</h3>
+                                    <p>@HomePageResources.B4</p>
+                                </li>
+                                <li class="element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.3s">
+                                    <div class="features-list-icon box-animate" data-animation="">@Html.Svg("/images/homepage2/homePageIcons.svg", "speech", new { @class = "svgIcon" }) </div>
+                                    <h3>@HomePageResources.B5</h3>
+                                    <p>@HomePageResources.B6</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 text-center small-screen-default">
+                            <div class="figure element-top-20 element-bottom-20 scroll-to-id os-animation" data-os-animation="fadeInUp" data-os-animation-delay="0.1s">
+                                <img src="@Url.CdnContent("/Images/HomePage2/computer.png")" alt="Social Studying Dashboard" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-default small-screen-default">
+                            <ul class="features-list text-normal element-top-20 element-bottom-20" data-os-animation="none" data-os-animation-delay="0s">
+                                <li class=" element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.2s">
+                                    <div class="features-list-icon box-animate" data-animation=""> @Html.Svg("/images/homepage2/homePageIcons.svg", "social-network", new { @class = "svgIcon" }) </div>
+                                    <h3>@HomePageResources.B7</h3>
+                                    <p>@HomePageResources.B8</p>
+                                </li>
+                                <li class="element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.4s">
+                                    <div class="features-list-icon box-animate" data-animation=""> @Html.Svg("/images/homepage2/homePageIcons.svg", "hand214", new { @class = "svgIcon" }) </div>
+                                    <h3>@HomePageResources.B9</h3>
+                                    <p>@HomePageResources.B10</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="screenshots">
+                <div class="background-overlay grid-overlay-0 " style="background-color: #c2c2c2"></div>
+                <div class="container-fullwidth container-vertical-default">
+                    <div class="row vertical-default">
+                        <div class="col-md-12 text-default small-screen-default">
+                            <div class="row">
+                                <div class="col-md-2 text-default small-screen-default"></div>
+                                <div class="col-md-8 text-default small-screen-default">
+                                    <h2 class="text-center element-top-60 element-bottom-20 text-normal os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                        @HomePageResources.C1
+                                    </h2>
+                                    <div class="divider-border divider-border-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
+                                        <div class="divider-border-inner"></div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2 text-default small-screen-default"></div>
+                            </div>
+                            <div class="portfolio-container element-top-20 element-bottom-20 text-normal element-left-50 element-right-50">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="portfolio-header clearfix">
+                                            <div class="portfolio-filters pull-right"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="portfolio masonry no-transition" data-padding="40" data-col-xs="1" data-col-sm="1" data-col-md="4" data-col-lg="4" data-layout="fitRows">
+                                    <div class="masonry-item portfolio-item filter-screens" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
+                                        <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                            <a href="@Url.CdnContent("/Images/HomePage2/image.png")" class="figure-image magnific" data-links="" target="_self">
+                                                <img src="@Url.CdnContent("/Images/HomePage2/image.png")" alt="Private study groups" class="normalwidth" />
+                                                <div class="figure-overlay grid-overlay-0">
+                                                    <div class="figure-overlay-container">
+                                                        <div class="figure-caption"> @Html.Svg("/images/homepage2/homePageIcons.svg", "magnifyGlass") </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="masonry-item portfolio-item filter-screens" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
+                                        <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                            <a href="@Url.CdnContent("/Images/HomePage2/Items_0.png")" class="figure-image magnific" data-links="" target="_self">
+                                                <img src="@Url.CdnContent("/Images/HomePage2/Items_0.png")" alt="Class notes" class="normalwidth" />
+                                                <div class="figure-overlay grid-overlay-0">
+                                                    <div class="figure-overlay-container">
+                                                        <div class="figure-caption"> @Html.Svg("/images/homepage2/homePageIcons.svg", "magnifyGlass") </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="masonry-item portfolio-item filter-screens" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
+                                        <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                            <a href="@Url.CdnContent("/Images/HomePage2/quiz_0.png")" class="figure-image magnific" data-links="" target="_self">
+                                                <img src="@Url.CdnContent("/Images/HomePage2/quiz_0.png")" alt="Quiz solving" class="normalwidth" />
+                                                <div class="figure-overlay grid-overlay-0">
+                                                    <div class="figure-overlay-container">
+                                                        <div class="figure-caption"> @Html.Svg("/images/homepage2/homePageIcons.svg", "magnifyGlass") </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="masonry-item portfolio-item filter-screens" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
+                                        <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                            <a href="@Url.CdnContent("/Images/HomePage2/user.png")" class="figure-image magnific" data-links="" target="_self">
+                                                <img src="@Url.CdnContent("/Images/HomePage2/user.png")" alt="Social syudying personal pae" class="normalwidth" />
+                                                <div class="figure-overlay grid-overlay-0">
+                                                    <div class="figure-overlay-container">
+                                                        <div class="figure-caption"> @Html.Svg("/images/homepage2/homePageIcons.svg", "magnifyGlass") </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="section text-normal section-text-no-shadow section-inner-no-shadow section-normal section-opaque" id="testimonials">
+                <div class="background-overlay grid-overlay-0 " style="background-color: rgba(240,240,240,1);"></div>
+                <div class="container container-vertical-middle">
+                    <div class="row vertical-middle">
+                        <div class="col-md-1 text-left small-screen-center"></div>
+                        <div class="col-md-10 text-default small-screen-default">
+                            <div id="flexslider-120" class="element-top-80 element-bottom-80 text-center text-normal os-animation flexslider feature-slider"
+                                 data-os-animation="fadeIn" data-os-animation-delay="0s" data-flex-animation="slide" data-flex-controls-position="outside"
+                                 data-flex-controlsalign="center" data-flex-directions="hide" data-flex-speed="7000" data-flex-controls="show"
+                                 data-flex-slideshow="true">
+                                <ul class="slides">
+                                    <li>
+                                        <blockquote>
+                                            <p>
+                                                @HomePageResources.Testimonial1
+                                            </p>
+                                            <div class="box box-small box-round">
+                                                <div class="box-dummy"></div>
+                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial1.jpg")" class="attachment-thumbnail wp-post-image" alt="user pic" /> </div>
+                                            </div>
+                                            <footer>@HomePageResources.Testimonial1Person&nbsp;<cite title="@HomePageResources.Testimonial1Title">@HomePageResources.Testimonial1Title</cite></footer>
+                                        </blockquote>
+                                    </li>
+                                    <li>
+                                        <blockquote>
+                                            <p>
+                                                @HomePageResources.Testimonial2
+                                            </p>
+                                            <div class="box box-small box-round">
+                                                <div class="box-dummy"></div>
+                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial2.jpg")" class="attachment-thumbnail wp-post-image" alt="user pic" /> </div>
+                                            </div>
+                                            <footer>@HomePageResources.Testimonial2Person&nbsp;<cite title="@HomePageResources.Testimonial2Title">@HomePageResources.Testimonial2Title</cite></footer>
+                                        </blockquote>
+                                    </li>
+                                    <li>
+                                        <blockquote>
+                                            <p>
+                                                @HomePageResources.Testimonial3
+                                            </p>
+                                            <div class="box box-small box-round">
+                                                <div class="box-dummy"></div>
+                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial3.jpg")" class="attachment-thumbnail wp-post-image" alt="user pic" /> </div>
+                                            </div>
+                                            <footer>@HomePageResources.Testimonial3Person&nbsp;<cite title="@HomePageResources.Testimonial3Title">@HomePageResources.Testimonial3Title</cite></footer>
+                                        </blockquote>
+                                    </li>
+                                    <li>
+                                        <blockquote>
+                                            <p>
+                                                @HomePageResources.Testimonial4
+                                            </p>
+                                            <div class="box box-small box-round">
+                                                <div class="box-dummy"></div>
+                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial4.jpg")" class="attachment-thumbnail wp-post-image" alt="user pic" /> </div>
+                                            </div>
+                                            <footer>@HomePageResources.Testimonial4Person&nbsp;<cite title="@HomePageResources.Testimonial4Title">@HomePageResources.Testimonial4Title</cite></footer>
+                                        </blockquote>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-1 text-default small-screen-default"></div>
+                    </div>
+                </div>
+            </section>
+            <section class="section text-normal section-text-no-shadow section-inner-no-shadow section-normal section-opaque">
+                <div class="background-media" style="background-image: url('@Url.CdnContent("/Images/HomePage2/headr_image5.png")'); background-repeat:no-repeat; background-size:cover; background-attachment:fixed; background-position: 50% 0%;" data-start="background-position: 50% 0px"
+                     data-0-top-bottom="background-position: 50% -84px"></div>
+                <div class="background-overlay"></div>
+                <div class="container container-vertical-top">
+                    <div class="row vertical-top">
+                        <div class="col-md-1 text-left small-screen-center"></div>
+                        <div class="col-md-10 text-center small-screen-default">
+                            <h2 class="text-default element-top-70 element-bottom-20 text-light os-animation big default"
+                                data-os-animation="fadeIn" data-os-animation-delay="0s" style="text-shadow:2px 2px 12px #000;">
+                                @HomePageResources.F1
+                            </h2>
+                            <div class="divider-border divider-border-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
+                                <div class="divider-border-inner" style="background:#3293f6"></div>
+                            </div>
+                            <div class="col-text-1 text-light big element-top-20 element-bottom-20 os-animation"
+                                 data-os-animation="fadeIn" data-os-animation-delay="0.2s">
+                                <h2 class="big" style="text-shadow:2px 2px 12px #000;">
+                                    @HomePageResources.F2
+                                </h2>
+                            </div>
+                            <a id="iOs" target="_blank" href="@string.Format("https://app.appsflyer.com/id990911114{0}", queryString)"
+                               class="element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation mobileLink"
+                               data-os-animation="fadeIn" data-os-animation-delay="0.3s" style="display:inline-block">
+                                <img src="@Url.CdnContent("~/Images/HomePage2/apple.png")" alt="apple" width="160" height="46" />
+
+                            </a> <a id="Android" target="_blank" href="@string.Format("http://app.appsflyer.com/com.cloudents.zbox2{0}", queryString)" class="element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation mobilelink" data-os-animation="fadeIn" data-os-animation-delay="0.3s" style="display:inline-block">
+                                <img src="@Url.CdnContent("~/Images/HomePage2/google.png")" alt="google" width="160" height="46" />
+                            </a>
+                            <div class="divider-wrapper">
+                                <div class="element-height-100"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 text-default small-screen-default"></div>
+                    </div>
+                </div>
+            </section>
+            <section class="section text-normal sbfooter" id="buy">
+                <div class="background-overlay grid-overlay-0 " style="background-color: #282828"></div>
+                <div class="container container-vertical-middle">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <div class="divider-wrapper">
+                                <div class="visible-xs element-height-10"></div>
+                                <div class="visible-sm element-height-10"></div>
+                                <div class="visible-md element-height-10"></div>
+                                <div class="visible-lg element-height-10"></div>
+                            </div>
+                            <a href="@Url.Action("AboutUs", "Home")">@HomeResources.AboutCloudents</a>&nbsp;|
+                            <a href="@Url.RouteUrl("Jobs")">@SharedResources.Jobs</a>&nbsp;|
+                            <a href="@Url.RouteUrl("Help")">@SharedResources.Help</a>&nbsp;|
+                            <a href="@Url.Action("Privacy", "Home")">@FooterResources.PrivacyPolicy</a>&nbsp;|
+                            <a href="@Url.RouteUrl("TOS")">@FooterResources.TermsOfService</a>&nbsp;|
+                            <a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a>
+                            <div class="divider-wrapper">
+                                <div class="visible-xs element-height-10"></div>
+                                <div class="visible-sm element-height-10"></div>
+                                <div class="visible-md element-height-10"></div>
+                                <div class="visible-lg element-height-10"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <div class="bullet-nav" data-show-tooltips="off">
+                <ul></ul>
+            </div>
+        </article>
+    </div>
+    <a class="go-top go-top-circle" href="javascript:void(0)">@Html.Svg("/images/homepage2/homePageIcons.svg", "up")</a>
+    <div id="cssCheck"></div>
+    <script type="text/javascript" src="~/js/CDNFallbackWithoutAngular.js?v=@VersionHelper.CurrentVersion(true)"></script>
+    @Html.Script2("homePage")
+    <script src="https://apis.google.com/js/platform.js" onload="googleLoad()" async defer></script>
+    <script type="text/javascript">
+        Login.initExternalLogin();
+    </script>
+
+</body>
+
+</html>

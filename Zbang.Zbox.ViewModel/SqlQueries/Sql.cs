@@ -87,6 +87,7 @@ i.Content,
 i.NumberOfViews as numOfViews,
 i.Name as name,
 i.url as Url,
+i.Discriminator as Type,
 b.BoxId as boxId
 
                         from zbox.item i 
@@ -166,6 +167,7 @@ q.NumberOfViews as numOfViews
                          left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
                         where q.UserId = @Myfriend
                         and q.IsSystemGenerated = 0
+                        and q.text is not null
                         and (b.PrivacySetting = 3 or 
                          ub.UserId = @Me)
 					union 
@@ -174,6 +176,7 @@ q.NumberOfViews as numOfViews
                  join zbox.box b on b.BoxId = a.BoxId and b.IsDeleted = 0
                  left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
                  where a.UserId = @Myfriend
+                 and a.text is not null
                  and (b.PrivacySetting = 3 or  ub.UserId = @Me)
 				 ) as t
 				 order by t.CreationTime desc
@@ -324,7 +327,7 @@ u.Culture as Culture,
     u.LastName as LastName,
     u.UserImageLarge as Image, 
     v.UniversityName as University,
-    v.LargeImage as UniversityPic,
+    v.LargeImage as UniversityImage,
     u.Email as Email,
     u.Culture as Language,
 	u.AllocatedSize as AllocatedSize,

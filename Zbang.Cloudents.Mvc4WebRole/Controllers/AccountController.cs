@@ -60,42 +60,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        //[FlushHeader(PartialViewName = "_HomeHeader")]
-        //issue with ie
-        //[RedirectToMobile(Order = 1)]
-        [DonutOutputCache(VaryByParam = "lang;invId",
-            VaryByCustom = CustomCacheKeys.Lang + ";" + CustomCacheKeys.Url,
-            Duration = TimeConsts.Day,
-            Location = OutputCacheLocation.Server, Order = 2)]
         public ActionResult Index(string lang, string invId)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
-            if (!string.IsNullOrEmpty(lang))
-            {
-                m_LanguageCookie.InjectCookie(lang);
-                RouteData.Values.Remove("lang");
-                return RedirectToAction("Index", new { invId });
-            }
-            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
-            {
-                ViewBag.moveToSpitBall = true;
-            }
-            //if (!string.IsNullOrEmpty(invId))
-            //{
-            //    var guid = GuidEncoder.TryParseNullableGuid(invId);
-            //    if (guid.HasValue)
-            //    {
-            //        m_CookieHelper.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
-            //    }
-            //}
-
-            //ViewBag.title = Views.Account.Resources.HomeResources.Title;
-            //ViewBag.metaDescription = Views.Account.Resources.HomeResources.Description;
-
-            return View("Index3");
+            return RedirectToActionPermanent("Index", "Home");
         }
 
         [DonutOutputCache(VaryByParam = "lang;invId",
@@ -110,10 +77,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             return View();
         }
-        //[DonutOutputCache(VaryByParam = "lang;invId",
-        //   VaryByCustom = CustomCacheKeys.Lang,
-        //   Duration = TimeConsts.Day,
-        //   Location = OutputCacheLocation.Server, Order = 2)]
+        [DonutOutputCache(VaryByParam = "lang;invId",
+           VaryByCustom = CustomCacheKeys.Lang,
+           Duration = TimeConsts.Day,
+           Location = OutputCacheLocation.Server, Order = 2)]
         public ActionResult Signup()
         {
             if (User.Identity.IsAuthenticated)
@@ -317,7 +284,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     var identity = await user.GenerateUserIdentityAsync(m_UserManager, systemUser.Id,
                         systemUser.UniversityId, systemUser.UniversityData);
-                    m_AuthenticationManager.SignIn(identity);
+                    m_AuthenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = model.RememberMe,
+                    } , identity);
 
                     m_CookieHelper.RemoveCookie(Invite.CookieName);
                     m_LanguageCookie.InjectCookie(systemUser.Culture);
@@ -361,7 +331,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //if (Session != null)
             //Session.Abandon(); // remove the session cookie from user computer. wont continue session if user log in with a diffrent id.            
             m_AuthenticationManager.SignOut();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
 
@@ -469,7 +439,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError(AccountControllerResources.ChangeEmailCodeError);
             }
             var model = m_CookieHelper.ReadCookie<ChangeMail>(SessionKey);
-            //var model = TempData[SessionKey] as ChangeMail;
             if (model == null)
             {
                 return JsonError(AccountControllerResources.ChangeEmailCodeError);
@@ -493,7 +462,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError(ex.Message);
             }
             m_CookieHelper.RemoveCookie(SessionKey);
-            //Session.Remove(SessionKey);
             return JsonOk(model.Email);
         }
 
@@ -503,7 +471,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return JsonError(GetModelStateErrors());
+                return JsonError(GetErrorFromModelState());
             }
             try
             {
@@ -512,9 +480,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model.Code = generatedCode;
                 model.TimeOfExpire = DateTime.UtcNow.AddHours(3);
                 m_CookieHelper.InjectCookie(SessionKey, model);
-                //TempData[SessionKey] = model;
-                //Session[SessionKey] = model;
-
+                
                 await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ChangeEmailData(generatedCode.ToString(CultureInfo.InvariantCulture),
                      model.Email, Thread.CurrentThread.CurrentCulture.Name));
                 return JsonOk(new { code = true });

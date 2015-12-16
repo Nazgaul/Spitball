@@ -127,9 +127,6 @@
   <data name="CurrentPwdEmpty" xml:space="preserve">
     <value>You must enter your current password</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email:</value>
-  </data>
   <data name="EmailEmpty" xml:space="preserve">
     <value>You must enter a valid email address</value>
   </data>
@@ -147,9 +144,6 @@
   </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>Please enter the name of your university </value>
-  </data>
-  <data name="TypeCodeReceived" xml:space="preserve">
-    <value>Type code received by email</value>
   </data>
   <data name="UsernameEmpty" xml:space="preserve">
     <value>You must enter a username</value>

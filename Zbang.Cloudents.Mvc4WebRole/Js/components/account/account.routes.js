@@ -27,7 +27,7 @@
                 {
                     state: 'settings.profile',
                     config: {
-                        url: '#info',
+                        url: 'info/',
                         controller: 'AccountSettingsInfoController as i',
                         parent: 'settings'
                     },
@@ -36,7 +36,7 @@
                 {
                     state: 'settings.password',
                     config: {
-                        url: '#password',
+                        url: 'password/',
                         controller: 'AccountSettingsPasswordController as p',
                         parent: 'settings'
                     },
@@ -44,7 +44,7 @@
                 }, {
                     state: 'settings.notification',
                     config: {
-                        url: '#notification',
+                        url: 'notification/',
                         controller: 'AccountSettingsNotificationController as n',
                         parent: 'settings'
                     },

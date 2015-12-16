@@ -21,7 +21,25 @@
         });
 
 
+       
+
+        //i.renameOn = true;
+        i.loadMore = loadMore;
+        i.selectedState = i.state.regular;
+
+        
+        i.renameItem = renameItem;
+        i.flagItem = flagItem;
+        i.cancelFlag = cancelFlag;
+        i.like = like;
+
+        i.showRename = showRename;
+
+        i.swipeLeft = swipeLeft;
+        i.swipeRight = swipeRight;
+
         function getPreview() {
+            i.loader = true;
             itemService.getPreview(
                  i.details.blob,
                  index,
@@ -29,6 +47,7 @@
                 boxid
             ).then(function (data) {
                 data = data || {};
+                i.loader = false;
                 //$scope.load.contentLoading = $scope.load.contentLoadMore = false;
                 if (data.preview) {
                     if (data.preview.indexOf('iframe') > 0
@@ -43,25 +62,11 @@
                         //});
                         needLoadMore = true;
                     }
+                    
                     //$scope.$broadcast('update', data.preview); //for fullscreen
                 }
             });
         }
-
-        //i.renameOn = true;
-        i.loadMore = loadMore;
-        i.selectedState = i.state.regular;
-
-        
-        i.renameItem = renameItem;
-        i.flagItem = flagItem;
-        i.like = like;
-
-        i.showRename = showRename;
-
-        i.swipeLeft = swipeLeft;
-        i.swipeRight = swipeRight;
-
         function swipeLeft() {
             if (i.details.next) {
                 $location.url(i.details.next);
@@ -96,13 +101,24 @@
 
         function flagItem() {
             itemService.flag(i.flag, i.customFlag, itemId);
+            cancelFlag();
+        }
+
+        function cancelFlag() {
+            i.flag = '';
             i.selectedState = i.state.regular;
         }
 
         
         function like() {
             itemService.like(itemId, boxid);
-            i.details.rate = !i.details.rate;
+            if (i.details.like) {
+                i.details.likes--;
+            } else {
+                i.details.likes++;
+            }
+            i.details.like = !i.details.like;
+
         }
     }
 

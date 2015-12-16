@@ -1,23 +1,23 @@
 ﻿(function () {
     angular.module('app.box').controller('BoxController', box);
-    box.$inject = ['boxService', 'boxData', '$stateParams', '$location', '$scope', '$state', 'user', '$rootScope'];
+    box.$inject = ['boxService', 'boxData', '$stateParams', '$scope', '$state', 'user', '$rootScope'];
 
-    function box(boxService, boxData, $stateParams, $location, $scope, $state, user, $rootScope) {
+    function box(boxService, boxData, $stateParams, $scope, $state, user, $rootScope) {
 
-        if (!$location.hash()) {
+        if ($state.current.name === 'box') {
             $state.go('box.feed', $stateParams, { location: "replace" });
         }
         var b = this, boxId = $stateParams.boxId;
         b.data = boxData;
-        b.isAcademic = b.data.boxType === 'academic';
-
+        b.showLeaderboard = b.isAcademic = b.data.boxType === 'academic';
         b.needFollow = boxData.userType === 'invite' || boxData.userType === 'none';
         b.owner = boxData.userType === 'owner';
         b.follow = follow;
         b.updateBox = updateBox;
         b.inviteToBox = inviteToBox;
+        b.closeCollapse = closeCollapse;
 
-
+        b.isActiveState = isActiveState;
 
         b.toggleSettings = toggleSettings;
 
@@ -27,6 +27,10 @@
         $scope.$on("close_invite", function () {
             b.inviteOpen = false;
         });
+
+        function isActiveState(state) {
+            return state === $state.current.name;
+        }
         function canDelete(userId) {
             if (user.isAdmin || user.id === userId) {
                 return true;
@@ -61,6 +65,7 @@
         function updateBox(updateBoxForm) {
             if (b.settings.needFollow) {
                 boxService.unfollow(boxId).then(function () {
+                    $rootScope.$broadcast('remove-box', boxId);
                     $state.go('dashboard');
                 });
                 return;
@@ -84,7 +89,7 @@
                     b.settingsOpen = false;
                     $stateParams.boxName = response.queryString;
                     $state.go('box.feed', $stateParams, { location: "replace" });
-                    
+
                 });
 
             }
@@ -96,15 +101,26 @@
             $scope.$broadcast('open_invite');
         }
 
+        function closeCollapse() {
+            $rootScope.$broadcast('close-collapse');
+        }
+
         $scope.$on('close-collapse', function () {
             b.inviteOpen = false;
             b.settingsOpen = false;
         });
 
+        $scope.$on('hide-leader-board', function () {
+            b.showLeaderboard = false;
+        });
         function follow() {
             boxService.follow(boxId);
             b.needFollow = false;
         }
+
+        $scope.$on('follow-box', function () {
+            b.needFollow = false;
+        });
 
     }
 })();

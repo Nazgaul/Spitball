@@ -16,23 +16,6 @@ Rounded Portlets
 	border-radius: 0px 0px 4px 4px !important;
 }
 */
-/*@color1: #5f6871;
-@loginColor : #3293f6;
-@registerColor: #fff;
-//@siteBg: #212427;
-
-@textColor:#282828; //text color over white background
-
-@color4: #353a3f;
-@color2: #f5f5f5;
-@color3:#292d31;
-@color5:#6a737d;
-@color6:#326F2D;
-@color7:#3598dc;
-@color8:#90A5DB;
-@color9:#cccccc;
-@color10:#8c99a6;
-@color11:#db4437;*/
 /*.header-menu {
     background: transparent;
     border: transparent;
@@ -46,7 +29,10 @@ Rounded Portlets
 .headerMenu {
   width: 20px;
   height: 20px;
-  fill: #323538;
+  fill: #5d6063;
+}
+.headerMenu:hover {
+  fill: #212325;
 }
 .searchIcon {
   width: 15px;

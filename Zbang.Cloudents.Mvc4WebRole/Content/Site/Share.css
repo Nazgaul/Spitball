@@ -1,24 +1,13 @@
-﻿/*@color1: #5f6871;
-@loginColor : #3293f6;
-@registerColor: #fff;
-//@siteBg: #212427;
-
-@textColor:#282828; //text color over white background
-
-@color4: #353a3f;
-@color2: #f5f5f5;
-@color3:#292d31;
-@color5:#6a737d;
-@color6:#326F2D;
-@color7:#3598dc;
-@color8:#90A5DB;
-@color9:#cccccc;
-@color10:#8c99a6;
-@color11:#db4437;*/
+﻿.inviteBtn {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
 .portlet.light.invite {
   text-align: center;
   font-size: 18px;
-  height: 179px;
+  width: 100%;
+  justify-content: center;
   background: #4190b9;
 }
 .portlet.light.invite svg {
@@ -35,25 +24,33 @@
 .portlet.light.invite:focus {
   color: inherit;
 }
-.right-side-area .portlet {
-  margin: 12px;
+.invite-container {
+  display: flex;
+  padding: 12px;
+  align-items: stretch;
+}
+.invite-container .invite {
+  display: flex;
 }
 .invite {
   background: #323538;
   padding: 0 10px 10px;
   margin-top: 10px;
+  margin: 10px;
+}
+.invite.light {
   margin: 0;
 }
-.invite .tab-from-right {
+.invite .tab-from-r {
   background: none;
   padding-top: 0;
   padding-right: 0;
 }
-.invite .tab-from-right .mail {
+.invite .tab-from-r .mail {
   margin-right: 0;
 }
 .invite button {
-  margin: 0 auto;
+  margin: 10px auto;
 }
 .invite .body {
   background: #181c1d;
@@ -80,7 +77,7 @@
   background-color: transparent;
 }
 .invite .send {
-  margin: 0 15px 15px 15px;
+  margin: 10px 15px;
 }
 .invite .gmail {
   display: -webkit-flex;
@@ -111,6 +108,10 @@
   line-height: 18px;
   width: 60%;
   margin-top: 3px;
+  padding-left: 5px;
+}
+.invite md-chips .md-chips {
+  box-shadow: 0 1px #888b8e;
 }
 .md-chips .md-chip-input-container {
   color: #f5f5f5;

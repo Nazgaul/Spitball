@@ -1,20 +1,20 @@
-﻿/*@color1: #5f6871;
-@loginColor : #3293f6;
-@registerColor: #fff;
-//@siteBg: #212427;
-
-@textColor:#282828; //text color over white background
-
-@color4: #353a3f;
-@color2: #f5f5f5;
-@color3:#292d31;
-@color5:#6a737d;
-@color6:#326F2D;
-@color7:#3598dc;
-@color8:#90A5DB;
-@color9:#cccccc;
-@color10:#8c99a6;
-@color11:#db4437;*/
+﻿//@color1: #5f6871;
+//@loginColor : #3293f6;
+//@registerColor: #fff;
+////@siteBg: #212427;
+//
+//@textColor:#282828; //text color over white background
+//
+//@color4: #353a3f;
+//@color2: #f5f5f5;
+//@color3:#292d31;
+//@color5:#6a737d;
+//@color6:#326F2D;
+//@color7:#3598dc;
+//@color8:#90A5DB;
+//@color9:#cccccc;
+//@color10:#8c99a6;
+//@color11:#db4437;
 
 
 //new pallete:
@@ -34,7 +34,7 @@
 
 //backgrounds
 @backgroundColor: #181c1d;
-@backgroundColor2: #9E9E9E; 
+@backgroundColor2: #9E9E9E;
 @backgroundColorWhite: #f5f5f5;
 @backgroundColorMenu: #323538;
 @backgroundColorFollow: #006072;
@@ -94,14 +94,15 @@
 
 
 .buttonBlue() {
-    background:@buttonColorBlue;
+    background: @buttonColorBlue;
 
     &:hover {
         background: @buttonColorHover;
         color: @textColorWhite;
     }
+
     &:focus {
-        color:inherit;
+        color: inherit;
     }
 }
 
@@ -113,9 +114,9 @@
 
 
 .displayFlex() {
-    display:-webkit-flex;
+    display: -webkit-flex;
     display: -ms-flex;
-    display:flex;
+    display: flex;
 }
 
 .displayInlineFlex() {
@@ -126,21 +127,33 @@
 
 
 
-.aspect-ratio(@width:1, @height:1.4142) {
-  position: relative;
-  &:before {
-    display: block;
-    content: "";
-    width: 100%;
-    padding-top: (@height / @width) * 100%;
-  }
-  > .content {
-    position: absolute;
-    top:0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
+.aspect-ratio(@width: 1, @height: 1.4142) {
+    position: relative;
+
+    &:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: (@height / @width) * 100%;
+    }
+
+    > .content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
 }
 
+//quiz
+.sizeOfLetter(@size) {
+    font-size: @size;
+    width: @size;
+    height: @size;
+}
 
+.ratio(@width: 1, @height: 1.4142) {
+    width: 100%;
+    height: (@height / @width) * 100%;
+}

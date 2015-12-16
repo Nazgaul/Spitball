@@ -5,9 +5,10 @@
 }
 <div class="full-screen itemPage">
     <header layout="row" layout-align="space-between center">
-        <div class="fb-like" ng-class="{blue : i.details.rate}">
+        <div class="fb-like" ng-class="{blue : i.details.like}">
             <button type="button" ng-click="i.like()" layout="row" layout-align="center center">
-                <div layout="row">@Html.Svg("~/images/site/box-icons.svg", "like") </div><div layout="row">@GeneralResources.Like</div>
+                
+                <div flex>@Html.Svg("~/images/site/box-icons.svg", "like") {{i.details.likes}} @GeneralResources.Like</div>
             </button>
         </div>
 
@@ -17,7 +18,7 @@
             @*<a href="#" tooltip-placement="bottom" tooltip-html="">@Html.Svg(svgUrl, "share")</a>*@
             <md-menu flex>
                 <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
-                    @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
+                    @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
                 </md-button>
                 <md-menu-content width="1">
                     <md-menu-item>
@@ -36,12 +37,14 @@
         <button type="button" ng-click="app.back(i.details.boxUrl)">@Html.Svg("~/images/site/icons.svg", "close")</button>
 
     </header>
+   
     <div class="full-screen-body" md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">
+        <md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear>
         <div class="fileName" layout="row" layout-align="center center">
             <div class="name-info" ng-if="i.selectedState === i.state.regular">
                 <span>{{i.details.name}}</span>
                 <a class="info" href="#" tooltip-placement="bottom" tooltip-class="copy-right"
-                   uib-tooltip="@Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources.ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
+                   uib-tooltip="@ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
             </div>
             <form name="rename-item" class="rename-form" novalidate ng-submit="i.renameItem()" ng-if="i.selectedState === i.state.rename">
                 <md-content layout="column">
@@ -60,10 +63,10 @@
             @{ Html.RenderPartial("_FlagItem");}
         </div>
         <div class="arrows">
-            <a ng-if="i.details.previous" href="{{i.details.previous}}" hide-sm class="arrow left">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
-            <a ng-if="i.details.next" href="{{i.details.next}}" hide-sm class="arrow right">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
+            <a ng-if="i.details.previous" href="{{i.details.previous}}" hide-xs class="arrow left">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
+            <a ng-if="i.details.next" href="{{i.details.next}}" hide-xs class="arrow right">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
         </div>
-        <div class="preview" ng-bind-html="i.preview" infinite-scroll="i.loadMore()" infinite-scroll-distance="2">
+        <div class="preview" ng-bind-html="i.preview" infinite-scroll="i.loadMore()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false">
         </div>
     </div>
 </div>

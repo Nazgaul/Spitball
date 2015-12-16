@@ -123,9 +123,6 @@
   <data name="CurrentPwdEmpty" xml:space="preserve">
     <value>حقل كلمة المرور لا يمكن ان يكون فارغا</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>بريد إلكتروني</value>
-  </data>
   <data name="EmailEmpty" xml:space="preserve">
     <value>لا يمكن ان يكون حقل البريد الالكتروني فارغاً</value>
   </data>
@@ -143,9 +140,6 @@
   </data>
   <data name="SchoolRequired" xml:space="preserve">
     <value>يرجى إدخال اسم الجامعة</value>
-  </data>
-  <data name="TypeCodeReceived" xml:space="preserve">
-    <value>اكتب كلمة المرور التي حصلت عليها في البريد الالكتروني</value>
   </data>
   <data name="UsernameEmpty" xml:space="preserve">
     <value>لا يمكن ان يكون حقل البريد الالكتروني فارغاً</value>

@@ -2,8 +2,8 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <div class="dashboard">
-    <div class="page-head"> </div>
     <div uib-collapse="!d.inviteOpen">
+        @* ReSharper disable once Mvc.PartialViewNotResolved *@
         @{Html.RenderPartial("_Invite");}
     </div>
     <div class="page-title">
@@ -11,24 +11,25 @@
     </div>
 
     <div layout="row" layout-padding layout-wrap>
-        <div flex-gt-lg="33" flex-lg="33" flex="100" class="flex">
+        <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" flex="100" class="flex">
             @{ Html.RenderPartial("_University");}
         </div>
-        <div flex-gt-lg="33" flex-lg="33" flex-md="50" class="leaderboard flex" flex="100">
+        <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" class="flex" flex="100">
+            @* ReSharper disable once Mvc.PartialViewNotResolved *@
             @{ Html.RenderPartial("_Leaderboard");}
         </div>
 
-        <div flex-gt-lg="33" flex-lg="33" flex-md="50" flex="100" class="flex">
+        <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" flex="100" class="flex inviteBtn">
             <div class="portlet light invite">
-                <button type="button" ng-click="d.inviteToSpitabll()" class="portlet-body">
+                <button type="button" ng-click="d.inviteToSpitabll()" class="portlet-body" ga-track-event="['dashboard', 'invite open']">
                     @Html.Svg("~/images/site/icons.svg", "invite")
                     @DashboardResource.InviteToSpitball
                 </button>
             </div>
         </div>
-        <div flex-gt-lg="33" flex-lg="33" flex-md="50" flex-sm="100" class="create-box flex" ng-class="{'create-box-show' : d.createBoxOn}">
-            <div class="dashboard-stat2">
-                <button ng-hide="d.createBoxOn" type="button" ng-click="d.createBoxOn = true" class="create-btn">
+        <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="create-box flex" ng-class="{'create-box-show' : d.createBoxOn}">
+            <div id="create" class="dashboard-stat2">
+                <button ng-hide="d.createBoxOn" type="button" ng-click="d.createBoxOn = true" class="create-btn" ga-track-event="['dashboard', 'createbox']">
                     <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
                     <div class="title">@DashboardResource.StudyGroup</div>
                 </button>
@@ -38,44 +39,41 @@
                             <div layout layout-sm="column">
                                 <md-input-container flex>
                                     <label>Enter study group name</label>
-                                    <input autocomplete="off" required ng-model="cb.boxName">
+                                    <input autofocus autocomplete="off" required ng-model="cb.boxName">
                                     <span class="error" ng-show="cb.error">{{cb.error}}</span>
                                 </md-input-container>
                             </div>
                         </md-content>
                     </div>
                     <span>
-                        <button type="submit" class="btn btn-primary text-capitalize pull-right" ng-disabled="!createBox.$valid">@GeneralResources.Done</button>
-                        <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="d.createBoxOn = false">@GeneralResources.Cancel</button>
+                        <button type="submit" class="btn btn-primary text-capitalize pull-right" ga-track-event="['dashboard', 'createbox', 'done']" ng-disabled="!createBox.$valid">@GeneralResources.Done</button>
+                        <button type="button" class="btn btn-default text-capitalize pull-right" ga-track-event="['dashboard', 'createbox', 'cancel']" ng-click="d.createBoxOn = false">@GeneralResources.Cancel</button>
                     </span>
                 </form>
             </div>
         </div>
-        <div flex-gt-lg="33" flex-lg="33" flex-md="50" flex-sm="100" ng-repeat="e in d.boxes" class="flex">
+        <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-repeat="e in d.boxes" class="flex">
             <div class="box-cube">
                 <div ng-include="'box-template.html'"></div>
                 <div class="updates" ng-if="e.updates !== 0">{{e.updates}}</div>
-
                 <md-menu>
-                    <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
-                        @Html.Svg("~/images/site/icons.svg", "3-dots", new { @class = "dots-3" })
+                    <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['dashboard', 'deleteBoxMenu']">
+                        @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
                     </md-button>
                     <md-menu-content width="1">
                         <md-menu-item>
-                            <md-button aria-label="remove box" ng-click="d.deleteBox($event,e)">
+                            <md-button aria-label="remove box" ng-click="d.deleteBox($event,e)" ga-track-event="['dashboard', 'deleteBox']">
                                 @GeneralResources.Delete
                             </md-button>
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
-
-                @*<button ng-click="d.deleteBox($event,e)" type="button" class="delete">@Html.Svg("~/images/site/icons.svg", "delete")</button>*@
             </div>
         </div>
     </div>
 </div>
 
-<button type="button" class="add visible-xs-block" ng-click="d.createBoxOn = true" ng-hide="d.createBoxOn">
+<button type="button" class="add" hide show-xs ng-click="d.createBoxOn = true" ng-hide="d.createBoxOn" ga-track-event="['dashboard', 'createbox', 'plus']">
     <div class="mobile-plus">
         @Html.Svg("~/images/site/icons.svg", "add")
     </div>

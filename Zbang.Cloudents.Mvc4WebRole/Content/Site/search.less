@@ -1,6 +1,10 @@
 ﻿@import "variables.less";
 
 .search {
+    background: @backgroundColor;
+    @media (min-width: 960px) {
+        padding: 0 5%;
+    }
 
     ::-webkit-input-placeholder {
         color: @textColorGrey;
@@ -21,20 +25,25 @@
     .nav-tabs, .tabbable {
         display: none;
 
-        @media (max-width: 992px) {
+        @media (max-width: 959px) {
             display: block;
-
-            .s-hide {
-                display: none;
-            }
         }
     }
+
+
+    @media (max-width: 959px) {
+
+        .s-hide {
+            display: none;
+        }
+    }
+
     .dashboard-stat2 {
-        margin-bottom:12px;
+        //  margin-bottom:12px;
     }
 
     h3 {
-        @media (max-width: 992px) {
+        @media (max-width: 959px) {
             display: none;
         }
     }
@@ -68,6 +77,18 @@
                 margin: 21px 0;
                 color: @textColorGrey;
             }
+        }
+    }
+
+    .quiz .top .first-letter {
+        .sizeOfLetter(10vw);
+
+        @media (min-width: 600px) {
+            .sizeOfLetter(6vw);
+        }
+
+        @media (min-width: 960px) {
+            .sizeOfLetter(3vw);
         }
     }
 }

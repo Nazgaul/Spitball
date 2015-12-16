@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.dashboard').service('dashboardService', dashboard);
-    dashboard.$inject = ['$q', 'ajaxService', 'userUpdatesService'];
+    dashboard.$inject = ['$q', 'ajaxService', 'userUpdatesService', '$rootScope'];
 
-    function dashboard($q, ajaxservice, userUpdatesService) {
+    function dashboard($q, ajaxservice, userUpdatesService, $rootScope) {
         var d = this;
         var serverCall = false;
         var defer = $q.defer();
@@ -30,6 +30,16 @@
             }
             return defer.promise;
         }
+        $rootScope.$on('remove-box', function (e, arg) {
+            arg = parseInt(arg, 10);
+            var box = d.boxes.find(function (v) {
+                return v.id === arg;
+            });
+            if (box) {
+                var index = d.boxes.indexOf(box);
+                d.boxes.splice(index, 1);
+            }
+        });
 
         d.getUniversityMeta = function () {
             return ajaxservice.get('/dashboard/university/', null, 1800000);
@@ -40,7 +50,7 @@
             return ajaxservice.post('/dashboard/create/', { boxName: boxName });
         }
 
-        d.leaderboard = function() {
+        d.leaderboard = function () {
             return ajaxservice.get('/dashboard/leaderboard/');
         }
 

@@ -1,10 +1,15 @@
 ﻿@import "variables.less";
 
 //invite btn in dashboard/box
+.inviteBtn {
+    .displayFlex();
+}
+
 .portlet.light.invite {
     text-align: center;
     font-size: 18px;
-    height: @dashboardCubeHeight;
+    width: 100%;
+    justify-content: center;
 
     svg {
         fill: @fileColor;
@@ -17,19 +22,29 @@
     .buttonBlue();
 }
 
-.right-side-area {
-    .portlet {
-        margin: 12px;
-    }
+
+.invite-container {
+    display: flex;
+    padding: 12px;
+    align-items: stretch;
+}
+
+.invite-container .invite {
+    display: flex;
 }
 
 .invite {
     background: @backgroundColorMenu;
     padding: 0 10px 10px;
     margin-top: 10px;
-    margin: 0;
+    margin: 10px;
 
-    .tab-from-right {
+    &.light {
+        margin: 0;
+    }
+
+
+    .tab-from-r {
         background: none;
         padding-top: 0;
         padding-right: 0;
@@ -40,7 +55,7 @@
     }
 
     button {
-        margin: 0 auto;
+        margin: 10px auto;
     }
 
     .body {
@@ -76,7 +91,7 @@
     }
 
     .send {
-        margin: 0 15px 15px 15px;
+        margin: 10px 15px;
     }
 
     .gmail {
@@ -107,7 +122,12 @@
             line-height: 18px;
             width: 60%;
             margin-top: 3px;
+            padding-left: 5px;
         }
+    }
+
+    md-chips .md-chips {
+        box-shadow: 0 1px #888b8e;
     }
 }
 

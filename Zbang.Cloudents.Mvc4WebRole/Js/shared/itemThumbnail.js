@@ -40,7 +40,7 @@
         function getIcon(source) {
             var prefix = "/images/site/box-icons.svg?1#";
             if (source.startsWith('http://')) {
-                return prefix + 'item-link';
+                return prefix + 'itemLink';
             }
             var wordExtension = [".rtf", ".docx", ".doc", ".odt"],
                 excelExtension = [".xls", ".xlsx", ".xlsm", ".xltx", ".ods", ".csv"],
@@ -51,30 +51,30 @@
 
             var extension = source.substr(source.lastIndexOf('.')).toLowerCase();
             if (wordExtension.indexOf(extension) > -1) {
-                return prefix + "item-word";
+                return prefix + "itemWord";
             }
             if (excelExtension.indexOf(extension) > -1) {
-                return prefix + "item-excel";
+                return prefix + "itemExcel";
             }
             if (imageExtension.indexOf(extension) > -1) {
-                return prefix + "item-image";
+                return prefix + "itemImage";
             }
             if (extension === ".pdf") {
-                return prefix + "item-pdf";
+                return prefix + "itemPdf";
             }
             if (pptExtension.indexOf(extension) > -1) {
-                return prefix + "item-ppt";
+                return prefix + "itemPpt";
             }
             if (videoExtension.indexOf(extension) > -1) {
-                return prefix + "item-video";
+                return prefix + "itemVideo";
             }
             if (textExtension.indexOf(extension) > -1) {
-                return prefix + "item-text";
+                return prefix + "itemText";
             }
             if (extension === ".mp3") {
-                return prefix + "item-audio";
+                return prefix + "itemAudio";
             }
-            return prefix + "item-default";
+            return prefix + "itemDefault";
 
         }
     }

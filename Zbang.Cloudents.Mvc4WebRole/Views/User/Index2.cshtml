@@ -25,7 +25,7 @@
             <h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>
             <h5>@UserResources.Points</h5>
         </div>
-        <div class="points-awards" hide-sm>
+        <div class="points-awards" hide-xs>
             <span class="earn">Share</span>
             <ul style="list-style-type:square">
                 <li>@UserResources.Creating</li>
@@ -44,28 +44,29 @@
     </div>
     <div class="profile-content">
         <div class="portlet light">
-            <ul class="nav nav-tabs tabbable">
-                <li ng-class="{active: u.tab === u.state.box}">
-                    <button type="button" ng-click="u.changeTab(u.state.box)">
-                        <h3 class="text-capitalize">@UserResources.Classes</h3> {{::u.details.numClass | megaNumber}}
-                    </button>
-                </li>
-                <li ng-class="{active:u.tab === u.state.item}">
-                    <button type="button" ng-click="u.changeTab(u.state.item)"><h3 class="text-capitalize">@UserResources.Uploads</h3> {{::u.details.numItem | megaNumber}}</button>
-                </li>
-                <li ng-class="{active: u.tab === u.state.post}">
-                    <button type="button" ng-click="u.changeTab(u.state.post)"><h3 class="text-capitalize">@UserResources.Posts</h3> {{::u.details.numFeed | megaNumber}}</button>
-                </li>
-                <li ng-class="{active: u.tab === u.state.quiz}">
-                    <button type="button" ng-click="u.changeTab(u.state.quiz)"><h3 class="text-capitalize">@UserResources.Quizzes</h3> {{::u.details.numQuiz | megaNumber}}</button>
-                </li>
-                <li ng-class="{active: u.tab === u.state.friend}">
-                    <button type="button" ng-click="u.changeTab(u.state.friend)"><h3 class="text-capitalize">@UserResources.Friends</h3> {{::u.details.numFriend | megaNumber}}</button>
-                </li>
-            </ul>
+       
+            <md-tabs>
+                <md-tab md-on-select="u.changeTab(u.state.box)" md-active="u.tab === u.state.box">
+                    <md-tab-label><h3>@UserResources.Classes</h3> <div class="number">{{::u.details.numClass | megaNumber}}</div></md-tab-label>
+                </md-tab>
+                <md-tab md-on-select="u.changeTab(u.state.item)" md-active="u.tab === u.state.item">
+                    <md-tab-label><h3>@UserResources.Uploads</h3> <div class="number">{{::u.details.numItem | megaNumber}}</div></md-tab-label>
+                </md-tab>
+                <md-tab md-on-select="u.changeTab(u.state.post)" md-active="u.tab === u.state.post">
+                    <md-tab-label><h3>@UserResources.Posts</h3> <div class="number">{{::u.details.numFeed | megaNumber}}</div></md-tab-label>
+                </md-tab>
+                <md-tab md-on-select="u.changeTab(u.state.quiz)" md-active="u.tab === u.state.quiz">
+                    <md-tab-label><h3>@UserResources.Quizzes</h3> <div class="number">{{::u.details.numQuiz | megaNumber}}</div></md-tab-label>
+                </md-tab>
+                <md-tab md-on-select="u.changeTab(u.state.friend)" md-active="u.tab === u.state.friend">
+                    <md-tab-label><h3>@UserResources.Friends</h3> <div class="number">{{::u.details.numFriend | megaNumber}}</div></md-tab-label>
+                </md-tab>
+
+            </md-tabs>
+            
         </div>
         <div layout-padding layout="row" layout-wrap layout-align="start center" infinite-scroll="u.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
-            <div flex="{{u.angularGridAttribute}}" flex-sm="{{u.flexSm}}" flex-md="{{u.flexMd}}" ng-repeat="e in u.elements" ng-include="u.template()" class="flex"></div>
+            <div flex-xs="{{u.flexXs}}" flex-xl="{{u.flexXl}}" flex="{{u.angularGridAttribute}}" flex-sm="{{u.flexSm}}" flex-md="{{u.flexMd}}" ng-repeat="e in u.elements" ng-include="u.template()" class="flex"></div>
         </div>
     </div>
 </div>
@@ -76,6 +77,6 @@
             <span class="post-headline" d-color="{{::e.boxName.length}}">{{::e.boxName}}</span>
             <span class="post-content">{{::e.content}}</span>
         </div>
-        <span class="time-ago">{{::e.creationTime | date : 'MMM d,yyyy H:m'}}</span>
+        <span class="time-ago">{{::e.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
     </a>
 </script>

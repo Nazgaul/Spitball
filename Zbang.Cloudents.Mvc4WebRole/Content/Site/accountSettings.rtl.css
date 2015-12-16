@@ -1,22 +1,5 @@
-﻿/*@color1: #5f6871;
-@loginColor : #3293f6;
-@registerColor: #fff;
-//@siteBg: #212427;
-
-@textColor:#282828; //text color over white background
-
-@color4: #353a3f;
-@color2: #f5f5f5;
-@color3:#292d31;
-@color5:#6a737d;
-@color6:#326F2D;
-@color7:#3598dc;
-@color8:#90A5DB;
-@color9:#cccccc;
-@color10:#8c99a6;
-@color11:#db4437;*/
-.accountPage-wrapper .profile-content {
-  width: 50%;
+﻿.accountPage-wrapper .profile-content {
+  max-width: 800px;
 }
 .accountPage-wrapper svg {
   width: 17px;
@@ -61,22 +44,22 @@
 .accountPage-wrapper md-input-container:not(.md-input-invalid).md-input-focused .md-input {
   border-bottom: 1px solid #2698d4;
 }
-.accountPage-wrapper .tab-from-left > li {
+.accountPage-wrapper .tab-from-r > li {
   margin: 0;
 }
-.accountPage-wrapper .tab-from-left > li:hover {
+.accountPage-wrapper .tab-from-r > li:hover {
   border: none;
 }
-.accountPage-wrapper .tab-from-left > li:hover > a {
+.accountPage-wrapper .tab-from-r > li:hover > a {
   color: #2698d4;
 }
-.accountPage-wrapper .tab-from-left > li.active {
+.accountPage-wrapper .tab-from-r > li.active {
   border-bottom: 3px solid #3598dc;
 }
-.accountPage-wrapper .tab-from-left > li.active > a {
+.accountPage-wrapper .tab-from-r > li.active > a {
   color: #f5f5f5;
 }
-.accountPage-wrapper .tab-from-left > li > a {
+.accountPage-wrapper .tab-from-r > li > a {
   color: #888b8e;
   font-size: 11px;
   padding: 13px 8px 5px 8px;
@@ -121,6 +104,31 @@
 .accountPage-wrapper .uni-name {
   font-size: 20px;
 }
-.accountPage-wrapper .margin-top-10 {
-  margin-bottom: 20px;
+.change-email-dialog {
+  padding: 30px 30px 30px 50px;
+}
+.change-email-dialog .icon,
+.change-email-dialog .content {
+  float: right;
+}
+.change-email-dialog svg {
+  width: 25px;
+  height: 25px;
+  fill: #323538;
+}
+.change-email-dialog .content {
+  margin-right: 10px;
+}
+.change-email-dialog .content md-input-container {
+  margin-bottom: 0;
+}
+.change-email-dialog .content span {
+  font-size: 16px;
+}
+.change-email-dialog .content button {
+  padding: 6px 13px;
+  border-radius: 5px;
+}
+.change-email-dialog .content .btn-default {
+  background: #c3c3c3;
 }

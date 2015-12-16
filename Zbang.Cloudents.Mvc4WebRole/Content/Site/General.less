@@ -1,25 +1,18 @@
 ﻿@import "variables.less";
 
 @boxColor0: #64A9F8;
-@boxColor1: #9d87b7;
-@boxColor2: #666e70;
-@boxColor3: #ff9853;
-@boxColor4: #e775ce;
-@boxColor5: #ffb933;
-@boxColor6: #848fa6;
-@boxColor7: #5474cf;
-@boxColor8: #e3b75f;
-@boxColor9: #695b47;
-@boxColor10: #f36f6e;
-@boxColor11: #f76446;
-@boxColor12: #73b435;
-@boxColor13: #6ea77b;
-@boxColor14: #c33f40;
-@boxColor15: #549af7;
-@boxColor16: #4e5384;
-@boxColor17: #4faf61;
+@boxColor1: #ff9853;
+@boxColor2: #e775ce;
+@boxColor3: #ffb933;
+@boxColor4: #848fa6;
+@boxColor5: #f36f6e;
+@boxColor6: #f76446;
+@boxColor7: #73b435;
+@boxColor8: #c33f40;
+@boxColor9: #4e5384;
+@boxColor10: #4faf61;
 
-@iterations: 17;
+@iterations: 10;
 
 .define(@var) {
     @colorSet: 'boxColor@{var}';
@@ -89,12 +82,12 @@ input, li, [contenteditable], span, textarea, [role="button"] {
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-}
 
-.multi-line-ellipsis.limit-three {
-    -webkit-line-clamp: 3;
-}
 
+    &.limit-three {
+        -webkit-line-clamp: 3;
+    }
+}
 //create
 /*.create {
     background: @color4;
@@ -119,13 +112,12 @@ input, li, [contenteditable], span, textarea, [role="button"] {
 
 ::-webkit-scrollbar {
     width: 10px;
-    height: 10px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
     border-radius: 5px;
     background: @scrollbarColor;
-    box-shadow: inset 0 0 6px rgba(0,0,0,.5);
 }
 
 //loader
@@ -147,7 +139,7 @@ input, li, [contenteditable], span, textarea, [role="button"] {
     font-size: 28px;
     line-height: 55px;
     box-shadow: 0 2px 10px rgba(0,0,0,.3),0 0 1px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.15);
-    display: none;
+    //display: none;
     //display:block;
     /*@media only screen and (max-width : 768px) {
         display: block;
@@ -186,6 +178,10 @@ input, li, [contenteditable], span, textarea, [role="button"] {
     }
 }
 
+md-input-container {
+    width: 100%;
+}
+
 md-select:not([disabled]):focus .md-select-value {
     color: @textColorWhite;
     border-bottom: 1px solid @borderColorDarkBlue;
@@ -193,6 +189,10 @@ md-select:not([disabled]):focus .md-select-value {
 
 md-select .md-select-value.md-select-placeholder {
     color: @textColorWhite;
+}
+
+md-select-menu md-option:focus:not([disabled]):not([selected]) {
+    background:@backgroundColorMenu;
 }
 
 md-input-container:not(.md-input-invalid).md-input-has-value label {
@@ -239,6 +239,31 @@ md-dialog-actions {
 
     > .flex {
         padding: 12px;
+    }
+}
+
+/*tabs*/
+md-tabs {
+    background: #323538;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    padding: 10px 10px 0;
+
+    .md-tab {
+        color: @textColorGrey;
+        font-size: 16px;
+        text-transform: capitalize;
+
+        &.md-active {
+            //  border-bottom: 3px solid #3598dc;
+            color: @textColorWhite;
+        }
+    }
+
+    md-ink-bar {
+        color: @borderColorBlue;
+        background: @borderColorBlue;
     }
 }
 /*#endregion*/
@@ -360,7 +385,6 @@ md-dialog-actions {
     right: 0;
     z-index: 2;
     overflow-y: auto;
-    background: @backgroundColor;
     background: @backgroundColorWhite;
 
     header {
@@ -374,7 +398,6 @@ md-dialog-actions {
         font-size: 20px;
         z-index: 5;
         border-bottom: 5px solid @borderColorBlack;
-
         //.close {
         //    position: absolute;
         //    top: 20px;
@@ -500,7 +523,7 @@ md-dialog-actions {
 }
 
 .dots-3 {
-    margin-left: 27px;
+    // margin-left: 27px;
     height: 20px;
     width: 20px;
     fill: @svgDots;
@@ -508,7 +531,7 @@ md-dialog-actions {
 //if page title have svg its settings
 .page-title {
     svg {
-        fill: @svgColorGrey;
+        fill: @backgroundColorMenu;
         width: 30px;
         height: 30px;
     }
@@ -516,7 +539,7 @@ md-dialog-actions {
 
 
 // moved from components rouned
-.tab-from-right {
+.tab-from-r {
     background: none;
     margin: 0;
     float: right;
@@ -701,7 +724,7 @@ md-menu-item {
         transform: rotate(180deg);
     }
 }
-        
+
 
 //mobile add button in the bottom right corner
 .mobile-plus {
@@ -722,4 +745,20 @@ md-menu-item {
 
 .btn-default {
     border: none;
+}
+
+md-tabs {
+    margin-bottom: 0;
+}
+
+
+//loder
+.sb-loader {
+    position: fixed;
+    .displayFlex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    z-index: 10051;
 }

@@ -1,21 +1,4 @@
-﻿/*@color1: #5f6871;
-@loginColor : #3293f6;
-@registerColor: #fff;
-//@siteBg: #212427;
-
-@textColor:#282828; //text color over white background
-
-@color4: #353a3f;
-@color2: #f5f5f5;
-@color3:#292d31;
-@color5:#6a737d;
-@color6:#326F2D;
-@color7:#3598dc;
-@color8:#90A5DB;
-@color9:#cccccc;
-@color10:#8c99a6;
-@color11:#db4437;*/
-.userPage .portlet {
+﻿.userPage .portlet {
   margin-bottom: 0;
   border-radius: 0;
 }
@@ -79,20 +62,36 @@
 .userPage .header .r-table-cell {
   text-align: center;
 }
-.userPage .nav-tabs,
-.userPage .tabbable {
+.userPage md-tabs-canvas,
+.userPage md-pagination-wrapper {
+  height: 75px;
+}
+.userPage md-tabs {
   padding: 0;
 }
-.userPage .nav-tabs button,
-.userPage .tabbable button {
-  font-size: 25px;
-  padding-bottom: 5px;
+.userPage md-tabs .md-tab.md-active {
+  font-weight: bold;
 }
-.userPage .nav-tabs h3,
-.userPage .tabbable h3 {
+.userPage md-tabs md-tab-item {
+  padding: 0 10px;
+  margin: 0 10px;
+}
+.userPage md-tabs md-tab-item .number {
+  color: #f5f5f5;
+  font-size: 25px;
+  line-height: 30px;
+  padding-bottom: 10px;
+}
+.userPage md-tabs h3 {
   font-size: 13px;
-  margin: 12px 0 8px 0;
+  margin: 13px 0 8px 0;
   color: #888b8e;
+}
+.userPage md-tabs md-tab {
+  margin: 0 20px 0 10px;
+  background: transparent;
+  color: #f5f5f5;
+  outline: none;
 }
 .userPage .portlet.light {
   padding: 0;
@@ -127,4 +126,25 @@
 }
 .userPage .profile-content .portlet.light {
   margin: 0 12px;
+}
+@media (max-width: 599px) {
+  .userPage .quiz .top .first-letter {
+    font-size: 10vw;
+    width: 10vw;
+    height: 10vw;
+  }
+}
+@media (min-width: 601px) and (max-width: 960px) {
+  .userPage .quiz .top .first-letter {
+    font-size: 7vw;
+    width: 7vw;
+    height: 7vw;
+  }
+}
+@media (min-width: 961px) and (max-width: 1280px) {
+  .userPage .quiz .top .first-letter {
+    font-size: 4vw;
+    width: 4vw;
+    height: 4vw;
+  }
 }

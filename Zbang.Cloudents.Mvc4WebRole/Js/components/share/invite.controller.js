@@ -1,9 +1,9 @@
 ﻿(function () {
     angular.module('app').controller('inviteController', invite);
 
-    invite.$inject = ['googleService', 'shareService', '$scope', '$stateParams', '$q'];
+    invite.$inject = ['googleService', 'shareService', '$scope', '$stateParams', '$location', '$anchorScroll'];
 
-    function invite(googleService, shareService, $scope, $stateParams, $q) {
+    function invite(googleService, shareService, $scope, $stateParams, $location, $anchorScroll) {
         var self = this;
         self.querySearch = querySearch;
         self.allContacts = [];// loadContacts();
@@ -31,6 +31,8 @@
 
 
         $scope.$on("open_invite", function () {
+            $location.hash('invite');
+            $anchorScroll();
             googleService.initGApi().then(function () {
                 if (googleService.isAuthenticated()) {
                     getGoogleContacts();
