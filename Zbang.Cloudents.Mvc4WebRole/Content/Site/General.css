@@ -280,7 +280,8 @@ md-tabs md-ink-bar {
   -webkit-flex-direction: column;
   flex-direction: column;
 }
-.create-box .create-txt {
+.create-box .create-txt,
+.create-box .create-department {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
