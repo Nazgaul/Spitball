@@ -65,7 +65,7 @@ url: "/user/1/ram-y/"
         }
 
         self.getNotification = function() {
-            return ajaxservice.get('/user/notification');
+            return ajaxservice.get('/user/notification/');
         }
 
         self.setNotification = function(boxId, notification) {
@@ -78,6 +78,19 @@ url: "/user/1/ram-y/"
         self.changeLocale = function(lang) {
             return ajaxservice.post('/account/changelocale/', {
                 language: lang
+            });
+        }
+
+        self.facebookLogIn = function (token, boxId) {
+            return ajaxservice.post('/account/facebooklogin/', {
+                token: token,
+                boxId: boxId
+            });
+        }
+        self.googleLogIn = function (token, boxId) {
+            return ajaxservice.post('/account/googlelogin/', {
+                token: token,
+                boxId: boxId
             });
         }
     }
