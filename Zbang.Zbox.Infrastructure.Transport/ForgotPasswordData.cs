@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 
 namespace Zbang.Zbox.Infrastructure.Transport
 {
@@ -16,6 +15,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
         {
             Link = linkAddress;
             Name = name;
+            Code = string.Empty;
         }
         public ForgotPasswordData2(string code, string linkAddress, string name, string emailAddress, string culture)
             : base(emailAddress, culture)
