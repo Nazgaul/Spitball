@@ -70,6 +70,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chrome.
+        /// </summary>
+        public static string Chrome {
+            get {
+                return ResourceManager.GetString("Chrome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explorer.
+        /// </summary>
+        public static string Explorer {
+            get {
+                return ResourceManager.GetString("Explorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to oops the file flew.
         /// </summary>
         public static string FileFlew {
@@ -79,11 +97,47 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Firefox.
+        /// </summary>
+        public static string Firefox {
+            get {
+                return ResourceManager.GetString("Firefox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need permission to access this content.
+        /// </summary>
+        public static string NeedPermission {
+            get {
+                return ResourceManager.GetString("NeedPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 404.
+        /// </summary>
+        public static string NotFound {
+            get {
+                return ResourceManager.GetString("NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please update your version of Internet Explorer or use a different web browser.
         /// </summary>
         public static string PleaseUpdate {
             get {
                 return ResourceManager.GetString("PleaseUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The owner has made this content - invitation only.
+        /// </summary>
+        public static string PrivateContent {
+            get {
+                return ResourceManager.GetString("PrivateContent", resourceCulture);
             }
         }
         

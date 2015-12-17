@@ -129,4 +129,22 @@
   <data name="Unsupported" xml:space="preserve">
     <value>Your browser version is not supported</value>
   </data>
+  <data name="NeedPermission" xml:space="preserve">
+    <value>You need permission to access this content</value>
+  </data>
+  <data name="PrivateContent" xml:space="preserve">
+    <value>The owner has made this content - invitation only</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>404</value>
+  </data>
+  <data name="Explorer" xml:space="preserve">
+    <value>Explorer</value>
+  </data>
+  <data name="Firefox" xml:space="preserve">
+    <value>Firefox</value>
+  </data>
+  <data name="Chrome" xml:space="preserve">
+    <value>Chrome</value>
+  </data>
 </root>

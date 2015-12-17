@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources
+
+@{
     ViewBag.Title = "Members only";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
@@ -7,8 +9,8 @@
     <img src="@Url.CdnContent("~/Images/Site/membersOnly.png")" alt="Members only">
     <div class="text">
         <h2>
-            You need permission to access this content
+            @ErrorResources.NeedPermission
         </h2>
-        <p>The owner has made this content - invitation only</p>
+        <p>@ErrorResources.PrivateContent</p>
     </div>
 </div>
