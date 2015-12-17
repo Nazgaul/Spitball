@@ -63,13 +63,13 @@
 }
 .library-choose .add-univeristy .btn-primary {
   background: #4190b9;
+  /*&:focus {
+        color: inherit;
+    }*/
 }
 .library-choose .add-univeristy .btn-primary:hover {
   background: #26566e;
   color: #f5f5f5;
-}
-.library-choose .add-univeristy .btn-primary:focus {
-  color: inherit;
 }
 .library-choose .add-univeristy .btn-default {
   margin-right: 20px;
@@ -99,13 +99,13 @@
 }
 .library-choose .code .btn-primary {
   background: #4190b9;
+  /*&:focus {
+        color: inherit;
+    }*/
 }
 .library-choose .code .btn-primary:hover {
   background: #26566e;
   color: #f5f5f5;
-}
-.library-choose .code .btn-primary:focus {
-  color: inherit;
 }
 .library-choose .code .closed-uni-i {
   width: 150px;

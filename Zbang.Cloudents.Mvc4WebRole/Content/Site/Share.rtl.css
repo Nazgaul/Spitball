@@ -9,6 +9,9 @@
   width: 100%;
   justify-content: center;
   background: #4190b9;
+  /*&:focus {
+        color: inherit;
+    }*/
 }
 .portlet.light.invite svg {
   fill: #f9f9f9;
@@ -20,9 +23,6 @@
 .portlet.light.invite:hover {
   background: #26566e;
   color: #f5f5f5;
-}
-.portlet.light.invite:focus {
-  color: inherit;
 }
 .invite-container {
   display: flex;

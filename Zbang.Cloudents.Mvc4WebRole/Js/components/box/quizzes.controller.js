@@ -1,10 +1,8 @@
 ﻿(function () {
     angular.module('app.box.quizzes').controller('QuizzesController', quizzes);
-    quizzes.$inject = ['boxService', '$stateParams', '$location', '$mdDialog', 'quizService', 'boxData', 'user', '$rootScope'];
-    quizzes.$inject = ['boxService', '$stateParams', '$mdDialog', 'quizService', 'boxData', '$mdMedia', '$state'];
+    quizzes.$inject = ['boxService', '$stateParams', '$mdDialog', 'quizService', 'boxData', '$mdMedia', '$state', 'user', '$rootScope'];
 
-    function quizzes(boxService, $stateParams, $location, $mdDialog, quizService, boxData, user, $rootScope) {
-    function quizzes(boxService, $stateParams,  $mdDialog, quizService, boxData, $mdMedia, $state) {
+    function quizzes(boxService, $stateParams, $mdDialog, quizService, boxData, $mdMedia, $state, user, $rootScope) {
         var q = this;
         q.params = $stateParams;
         q.deleteQuiz = deleteQuiz;

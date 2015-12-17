@@ -2,22 +2,18 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <ul layout="row" layout-padding layout-wrap layout-align="start stretch" class="list-unstyled margin-top-10">
-    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" hide-xs class="add-button i-q-wrapper">
 <<<<<<< HEAD
-            <a class="content" ui-sref="quizCreate({boxtype: q.params.boxtype, universityType:q.params.universityType, boxId: q.params.boxId, boxName:q.params.boxName})">
-                <div class="quizCreate">
-                    @Html.Svg("~/images/site/icons.svg", "add")
-                    @GeneralResources.CreateQuiz
-                </div>
-            </a>
+    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" hide-xs class="add-button i-q-wrapper">
+        <a class="content" ng-click="q.createQuiz($event)" ui-sref="quizCreate({boxtype: q.params.boxtype, universityType:q.params.universityType, boxId: q.params.boxId, boxName:q.params.boxName})">
 =======
+    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="add-button i-q-wrapper">
         <a class="content" ui-sref="quizCreate({boxtype: q.params.boxtype, universityType:q.params.universityType, boxId: q.params.boxId, boxName:q.params.boxName})">
+>>>>>>> c63cbc217b336016a802b680022558072c6da87d
             <div class="quizCreate">
                 @Html.Svg("~/images/site/icons.svg", "add")
-                @BoxResources.CreateQuiz
+                @GeneralResources.CreateQuiz
             </div>
         </a>
->>>>>>> db648579d88b786aec39b22f0f54132938adbf54
     </li>
 
     <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="i-q-wrapper" ng-repeat="e in q.quizzes">
