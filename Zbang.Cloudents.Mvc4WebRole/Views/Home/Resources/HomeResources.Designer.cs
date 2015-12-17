@@ -59,5 +59,41 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modal title.
+        /// </summary>
+        public static string ModalTitle {
+            get {
+                return ResourceManager.GetString("ModalTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save changes.
+        /// </summary>
+        public static string SaveChanges {
+            get {
+                return ResourceManager.GetString("SaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Widget settings form goes here.
+        /// </summary>
+        public static string WidgetSettings {
+            get {
+                return ResourceManager.GetString("WidgetSettings", resourceCulture);
+            }
+        }
     }
 }

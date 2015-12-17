@@ -171,4 +171,7 @@
   <data name="Courses" xml:space="preserve">
     <value>Courses</value>
   </data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>About Us</value>
+  </data>
 </root>

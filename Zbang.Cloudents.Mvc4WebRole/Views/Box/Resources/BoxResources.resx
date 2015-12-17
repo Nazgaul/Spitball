@@ -162,4 +162,7 @@
   <data name="Whats" xml:space="preserve">
     <value>What would you like to post?</value>
   </data>
+  <data name="AddFolder" xml:space="preserve">
+    <value>Add folder</value>
+  </data>
 </root>

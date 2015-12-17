@@ -3,14 +3,14 @@
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 @using Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources
-
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 
 <div class="unsupported-error">
 
     <div class="text">
         <h2>
-            Spitball<br />@ErrorResources.Unsupported
+            @GeneralResources.Spitball<br />@ErrorResources.Unsupported
         </h2>
         <p>@ErrorResources.PleaseUpdate</p>
     </div>
@@ -19,19 +19,19 @@
             <li class="ie">
                 <a class="browser ie" href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">
                     @Html.Svg("/images/Site/browsers.svg", "IE")
-                    <div>Explorer</div>
+                    <div>@ErrorResources.Explorer</div>
                 </a>
             </li>
             <li class="ff">
                 <a class="browser firefox" href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">
                     @Html.Svg("/images/Site/browsers.svg", "FF")
-                    <div>Firefox</div>
+                    <div>@ErrorResources.Firefox</div>
                 </a>
             </li>
             <li class="chrome">
                 <a class="browser chrome" href="https://www.google.com/intl/en/chrome/browser/" target="_blank">
                     @Html.Svg("/images/Site/browsers.svg", "chrome")
-                    <div>Chrome</div>
+                    <div>@ErrorResources.Chrome</div>
 
                 </a>
             </li>
