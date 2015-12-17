@@ -129,13 +129,7 @@
   <data name="Browse" xml:space="preserve">
     <value>Browse Classes</value>
   </data>
-  <data name="Courses" xml:space="preserve">
-    <value>Classes</value>
-  </data>
   <data name="Files" xml:space="preserve">
     <value>Items</value>
-  </data>
-  <data name="Members" xml:space="preserve">
-    <value>Members</value>
   </data>
 </root>

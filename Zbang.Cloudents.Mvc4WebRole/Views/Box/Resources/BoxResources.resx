@@ -120,9 +120,6 @@
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
-  <data name="CreateQuiz" xml:space="preserve">
-    <value>Create a quiz</value>
-  </data>
   <data name="Feed" xml:space="preserve">
     <value>Class Feed</value>
   </data>
@@ -138,9 +135,6 @@
   <data name="Lecturer" xml:space="preserve">
     <value>Professor</value>
   </data>
-  <data name="Members" xml:space="preserve">
-    <value>Members</value>
-  </data>
   <data name="Name" xml:space="preserve">
     <value>Name:</value>
   </data>
@@ -150,14 +144,8 @@
   <data name="Number" xml:space="preserve">
     <value>Number:</value>
   </data>
-  <data name="Post" xml:space="preserve">
-    <value>Post</value>
-  </data>
   <data name="Privacy" xml:space="preserve">
     <value>Privacy Settings</value>
-  </data>
-  <data name="Quizzes" xml:space="preserve">
-    <value>Quizzes</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>

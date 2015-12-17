@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{
     const string svgUrl = "~/images/site/quizIcons.svg";
@@ -82,7 +83,7 @@
                             <div ng-messages="addDiscussion.newComment.$error">
                                 <div ng-message="required">This is required!</div>
                             </div>
-                            <button class="btn btn-primary pull-right" ng-disabled="!addDiscussion.$valid" type="submit">@QuizResources.Post</button>
+                            <button class="btn btn-primary pull-right" ng-disabled="!addDiscussion.$valid" type="submit">@GeneralResources.Post</button>
                         </md-input-container>
                         
                     </form>

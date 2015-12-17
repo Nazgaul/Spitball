@@ -147,9 +147,6 @@
   <data name="CorrectAnswer" xml:space="preserve">
     <value>Correct answer</value>
   </data>
-  <data name="CreateQuiz" xml:space="preserve">
-    <value>Create a quiz</value>
-  </data>
   <data name="Draft" xml:space="preserve">
     <value>Save as draft</value>
   </data>
@@ -176,9 +173,6 @@
   </data>
   <data name="OnlyYou" xml:space="preserve">
     <value>Only you are able to see and edit the draft</value>
-  </data>
-  <data name="Post" xml:space="preserve">
-    <value>Post</value>
   </data>
   <data name="Publish" xml:space="preserve">
     <value>Publish</value>

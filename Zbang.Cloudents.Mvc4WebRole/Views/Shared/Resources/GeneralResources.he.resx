@@ -138,4 +138,19 @@
   <data name="Spitball" xml:space="preserve">
     <value>ספיטבול</value>
   </data>
+  <data name="Classes" xml:space="preserve">
+    <value>קורסים</value>
+  </data>
+  <data name="CreateQuiz" xml:space="preserve">
+    <value>צור מבחן</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>חברים</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>הודעה</value>
+  </data>
+  <data name="Quizzes" xml:space="preserve">
+    <value>מבחנים</value>
+  </data>
 </root>
