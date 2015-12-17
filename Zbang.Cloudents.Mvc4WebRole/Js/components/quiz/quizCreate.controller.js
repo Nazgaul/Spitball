@@ -196,34 +196,34 @@
         }
         function publish() {
             if (!self.name) {
-                alert('need name');
+                $scope.app.showToaster('need name', 'quizCreate');
                 return;
             }
             for (var v = 0; v < self.questions.length; v++) {
                 var q = self.questions[v];
                 if (!q.text) {
-                    alert('need question text');
+                    $scope.app.showToaster('need question text', 'quizCreate');
                     return;
                 }
                 if (q.correctAnswer == null) {
-                    alert('need correct answer');
+                    $scope.app.showToaster('need correct answer', 'quizCreate');
                     return;
                 }
                 if (q.answers.length < 2) {
-                    alert('need minimum 2 answers');
+                    $scope.app.showToaster('need minimum 2 answers', 'quizCreate');
                     return;
                 }
                 for (var l = 0; l < q.answers.length; l++) {
                     if (q.answers[l].text === '') {
-                        alert('need answer text');
+                        $scope.app.showToaster('need answer text', 'quizCreate');
                         return;
                     }
                 }
             }
             quizService.publish(self.id).then(function (response) {
-                $location.url(response);
+                $location.url(response.url);
             }, function (response) {
-                alert(response);
+                $scope.app.showToaster(response, 'quizCreate');
             });
         }
 
