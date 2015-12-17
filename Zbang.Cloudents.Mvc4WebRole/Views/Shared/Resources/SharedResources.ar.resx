@@ -126,9 +126,6 @@
   <data name="SignIn" xml:space="preserve">
     <value>تسجيل الدخول</value>
   </data>
-  <data name="FirstName" xml:space="preserve">
-    <value>الاسم الأول</value>
-  </data>
   <data name="LastName" xml:space="preserve">
     <value>اسم العائلة</value>
   </data>

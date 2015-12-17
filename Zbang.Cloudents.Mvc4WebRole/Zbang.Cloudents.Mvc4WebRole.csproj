@@ -397,7 +397,6 @@
     <Compile Include="Models\RateModel.cs" />
     <Compile Include="Models\Rename.cs" />
     <Compile Include="Models\ReplyItemComment.cs" />
-    <Compile Include="Models\SettingsUnauth.cs" />
     <Compile Include="Models\Share\Invite.cs" />
     <Compile Include="Models\Share\InviteSystemFromFacebook.cs" />
     <Compile Include="Models\Share\InviteToBoxFromFacebook.cs" />

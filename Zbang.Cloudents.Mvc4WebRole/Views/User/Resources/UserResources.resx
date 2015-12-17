@@ -129,9 +129,6 @@
   <data name="Asking" xml:space="preserve">
     <value>Asking a question: 50 pts </value>
   </data>
-  <data name="Classes" xml:space="preserve">
-    <value>Classes</value>
-  </data>
   <data name="Creating" xml:space="preserve">
     <value>Creating a quiz: 300 pts </value>
   </data>
@@ -146,9 +143,6 @@
   </data>
   <data name="Posts" xml:space="preserve">
     <value>Posts</value>
-  </data>
-  <data name="Quizzes" xml:space="preserve">
-    <value>Quizzes</value>
   </data>
   <data name="ShareFB" xml:space="preserve">
     <value>Sharing on FB: 50 pts </value>

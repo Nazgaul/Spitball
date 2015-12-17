@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources;
-using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources;
 using Zbang.Zbox.Domain;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models

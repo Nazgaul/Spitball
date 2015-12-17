@@ -47,7 +47,7 @@
                         <div class="submit area-options" layout="row" layout-align="space-between center">
                             <input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
                             <label for="anonymous">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
-                            <button type="submit" class="btn btn-primary text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
+                            <button type="submit" class="btn btn-primary text-uppercase" ng-disabled="f.add.disabled">@GeneralResources.Post</button>
                         </div>
                     </div>
                 </form>
@@ -149,7 +149,7 @@
                                     <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox(post.id)">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
                                 </div>
                                 <div class="submit area-options" layout="row" layout-align="space-between center">
-                                    <button type="submit" class="btn btn-primary text-uppercase" ng-disabled="f.add.disabled">@BoxResources.Post</button>
+                                    <button type="submit" class="btn btn-primary text-uppercase" ng-disabled="f.add.disabled">@GeneralResources.Post</button>
                                     @*<input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
                                         <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
                                 </div>

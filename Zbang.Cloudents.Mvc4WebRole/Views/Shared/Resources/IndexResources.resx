@@ -137,7 +137,7 @@
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
-  </data>
+  <comment>need to remove</comment></data>
   <data name="Draft" xml:space="preserve">
     <value>Draft</value>
   </data>

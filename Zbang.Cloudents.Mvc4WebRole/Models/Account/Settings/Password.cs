@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources;
-using Zbang.Cloudents.SiteExtension;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
 {

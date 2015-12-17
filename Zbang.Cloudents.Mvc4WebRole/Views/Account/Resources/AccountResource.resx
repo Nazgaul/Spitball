@@ -162,4 +162,7 @@
   <data name="changeUniversityBtn" xml:space="preserve">
     <value>Change univeristy</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
 </root>

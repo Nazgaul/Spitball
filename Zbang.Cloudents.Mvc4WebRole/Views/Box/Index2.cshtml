@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <div uib-collapse="!b.inviteOpen">
     @{Html.RenderPartial("_Invite");}
@@ -23,10 +24,10 @@
             <md-tab-label>@BoxResources.Items</md-tab-label>
         </md-tab>
         <md-tab ui-sref="box.quiz" md-active="b.isActiveState('box.quiz')">
-            <md-tab-label>@BoxResources.Quizzes</md-tab-label>
+            <md-tab-label>@GeneralResources.Quizzes</md-tab-label>
         </md-tab>
         <md-tab ui-sref="box.members" md-active="b.isActiveState('box.members')">
-            <md-tab-label>@BoxResources.Members</md-tab-label>
+            <md-tab-label>@GeneralResources.Members</md-tab-label>
         </md-tab>
     </md-tabs>
     <div ui-view></div>

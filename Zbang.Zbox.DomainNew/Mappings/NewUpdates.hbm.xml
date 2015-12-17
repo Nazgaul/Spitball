@@ -40,4 +40,12 @@
     delete from Updates c where c.CreationTime < getutcdate() - 365
     ]]>
   </query>
+  <sql-query name="DeleteNotConnectedUpdates">
+    <![CDATA[
+    delete from zbox.newupdates where id in (
+    select n.id from zbox.newupdates n  
+    left join zbox.userboxrel ub on ub.userid = n.userid and n.boxid = ub.boxid
+    where userboxrelid is null
+    )]]>
+  </sql-query>
 </hibernate-mapping>

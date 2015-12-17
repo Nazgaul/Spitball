@@ -117,13 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Classes" xml:space="preserve">
-    <value>קורסים</value>
-  </data>
   <data name="Items" xml:space="preserve">
     <value>פריטים</value>
-  </data>
-  <data name="Quizzes" xml:space="preserve">
-    <value>מבחנים</value>
   </data>
 </root>
