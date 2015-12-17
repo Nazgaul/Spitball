@@ -17,7 +17,7 @@
                     $mdToast.simple()
                     .textContent('password change')
                     .position('top')
-                    .parent($document[0].querySelector('#passwordForm'))
+                    .parent($document[0].querySelector('#accountPage'))
                     .hideDelay(1000));
             }, function (response) {
                 myform.old.$error.server = true;
