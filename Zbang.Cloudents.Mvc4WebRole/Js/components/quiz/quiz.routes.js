@@ -27,7 +27,7 @@
             }, {
                 state: 'quizCreate',
                 config: {
-                    url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/quizcreate/',
+                    url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/quizcreate/?quizid&name',
                     controller: 'QuizCreateController as q',
                     resolve: {
                         draft: [

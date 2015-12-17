@@ -153,4 +153,7 @@
   <data name="Quizzes" xml:space="preserve">
     <value>מבחנים</value>
   </data>
+  <data name="Submit" xml:space="preserve">
+    <value>שלח</value>
+  </data>
 </root>

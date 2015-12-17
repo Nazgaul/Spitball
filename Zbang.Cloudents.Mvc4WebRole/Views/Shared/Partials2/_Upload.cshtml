@@ -3,20 +3,19 @@
 @{
     const string url = "~/images/site/uploadIcons.svg";
 }
-<div class="margin-bottom-20" ng-cloak uib-collapse="!u.open" ng-controller="Upload as u">
+<div  class="margin-bottom-20" ng-cloak uib-collapse="!u.open" ng-controller="Upload as u">
     <a id="upload"></a>
-    <div class="portlet invite box upload">
+    <div class="portlet invite box upload" >
         <div class="portlet-title">
             <div class="caption">
                 @IndexResources.UploadFiles
             </div>
-            @*<button type="button" class="close" ng-click="u.closeUpload()">@Html.Svg("~/images/site/icons.svg", "close")</button>*@
         </div>
-        <div class="portlet-body form">
+        <div class="portlet-body form" id="uploadSection">
             <div class="form-horizontal">
                 <div class="form-body">
                     <div class="tab-content">
-                        <div ng-if="u.alert" class="alert alert-danger alert-dismissible" role="alert">{{u.alert}}</div>
+
                         <div layout-wrap layout="row" class="row uploadSection" ng-if="u.uploadStep === 0">
                             <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25" ng-click="u.uploadStep = 1">
                                 <button type="button">
@@ -79,11 +78,17 @@
                             </ul>
                         </div>
                         <div ng-if="u.uploadStep === 4" ng-form="uploadLink">
-                            <md-input-container class="padding">
-                                <label>@IndexResources.Share</label>
-                                <input type="url" spellcheck="false" autocomplete="off" ng-model="u.link" autofocus required />
-                            </md-input-container>
-                            <input type="button" class="btn btn-primary pull-right" ng-click="u.uploadLink()" ng-disabled="u.submitFormProcess" value="share" />
+                            <form name="uploadLink" novalidate ng-submit="u.uploadLink(uploadLink)">
+                                <md-input-container class="padding">
+                                    <label>@IndexResources.Share</label>
+                                    <input type="url" spellcheck="false" name="link" autocomplete="off" ng-model="u.link" autofocus required />
+                                    <div ng-messages="uploadLink.link.$error">
+                                        <div ng-message="required">@GeneralResources.RequiredField</div>
+                                        <div ng-message="server">{{u.error}}</div>
+                                    </div>
+                                </md-input-container>
+                                <input type="submit" class="btn btn-primary pull-right" ng-disabled="u.submitFormProcess || !uploadLink.$valid" value="share" />
+                            </form>
                         </div>
                     </div>
                     <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="u.closeUpload()">@GeneralResources.Cancel</button>

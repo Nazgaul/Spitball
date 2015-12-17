@@ -111,6 +111,10 @@
   fill: #6a737d;
   margin-left: 15px;
 }
+.folders md-toast.md-default-theme .md-toast-content,
+.folders md-toast .md-toast-content {
+  background: #db4437;
+}
 .folders .add-folder .content {
   padding: 6px;
   background: none;
@@ -802,6 +806,10 @@
 .item-animate.ng-move.ng-move-active,
 .item-animate.ng-enter.ng-enter-active {
   opacity: 1;
+}
+.upload md-toast.md-default-theme .md-toast-content,
+.upload md-toast .md-toast-content {
+  background: #db4437;
 }
 .upload .tab-content {
   background: #181c1d;

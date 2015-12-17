@@ -21,14 +21,14 @@
                     <label class="text-capitalize">@AccountResource.First</label>
                     <input required autocomplete="off" type="text" name="firstName" ng-model="i.data.firstName" />
                     <div ng-messages="changeName.firstName.$error" ng-show="changeName.firstName.$dirty">
-                        <div ng-message="required">This is required!</div>
+                        <div ng-message="required">@GeneralResources.RequiredField</div>
                     </div>
                 </md-input-container>
                 <md-input-container flex>
                     <label class="text-capitalize">@AccountResource.Last</label>
                     <input required autocomplete="off" type="text" name="lastName" ng-model="i.data.lastName" />
                     <div ng-messages="changeName.lastName.$error" ng-show="changeName.lastName.$dirty">
-                        <div ng-message="required">This is required!</div>
+                        <div ng-message="required">@GeneralResources.RequiredField</div>
                     </div>
                 </md-input-container>
             </div>
@@ -76,12 +76,12 @@
         <div class="icon">@Html.Svg("~/images/site/itemIcons.svg", "info")</div>
         <div class="content">
             <div class="text">
-                <span>Check your email</span>
-                <br />A verification code was sent to your new email
+                <span>@AccountResource.CheckYourEmail</span>
+                <br />@AccountResource.VerificationCode
             </div>
             <form ng-submit="ic.submitCode()" novalidate name="insertCode">
                 <md-input-container>
-                    <label>Enter verification code</label>
+                    <label>@AccountResource.EnterVerification</label>
                     <input type="number" autocomplete="off" required ng-model="ic.code" />
                 </md-input-container>
                 <div class="margin-top-10 text-right">

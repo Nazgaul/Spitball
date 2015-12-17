@@ -70,6 +70,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter study group name.
+        /// </summary>
+        public static string EnterGroupName {
+            get {
+                return ResourceManager.GetString("EnterGroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Items.
         /// </summary>
         public static string Files {

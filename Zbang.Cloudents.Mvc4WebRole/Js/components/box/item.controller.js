@@ -48,6 +48,8 @@
             boxService.createTab(i.newFolderName, boxId).then(function(response) {
                 i.tabs.push(response);
                 i.newFolderTabOpened = false;
+            }, function(response) {
+                $scope.app.showToaster(response, 'tabSection');
             });
         }
 

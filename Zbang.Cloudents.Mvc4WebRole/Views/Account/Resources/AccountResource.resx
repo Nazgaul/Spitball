@@ -165,4 +165,28 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="CheckYourEmail" xml:space="preserve">
+    <value>Check your email</value>
+  </data>
+  <data name="VerificationCode" xml:space="preserve">
+    <value>A verification code was sent to your new email</value>
+  </data>
+  <data name="EnterVerification" xml:space="preserve">
+    <value>Enter verification code</value>
+  </data>
+  <data name="EmailedPassword" xml:space="preserve">
+    <value>We've emailed you password</value>
+  </data>
+  <data name="ResetInstructions" xml:space="preserve">
+    <value>reset instructions.</value>
+  </data>
+  <data name="DidntReceivedEmail" xml:space="preserve">
+    <value>Didn't receive the email?</value>
+  </data>
+  <data name="CheckEmailSpam" xml:space="preserve">
+    <value>Check your mail spam folder or</value>
+  </data>
+  <data name="AnotherRequest" xml:space="preserve">
+    <value>send another request</value>
+  </data>
 </root>

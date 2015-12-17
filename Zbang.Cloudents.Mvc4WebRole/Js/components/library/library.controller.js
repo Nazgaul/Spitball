@@ -1,17 +1,13 @@
 ﻿(function () {
     angular.module('app.library').controller('Library', library);
-    library.$inject = ['libraryService', '$stateParams', 'user', 'nodeData', '$mdDialog', '$location'];
+    library.$inject = ['libraryService', '$stateParams', 'user', 'nodeData', '$mdDialog', '$location', '$scope'];
 
-    function library(libraryService, $stateParams, user, nodeData, $mdDialog, $location) {
+    function library(libraryService, $stateParams, user, nodeData, $mdDialog, $location, $scope) {
         var l = this;
         var nodeId = $stateParams.nodeId;
-        //libraryService.getDepartments($stateParams.nodeId).then(function (response) {
         l.departments = nodeData.nodes;
         l.boxes = nodeData.boxes;
-        /*name: "10612"
-parentUrl: "/library/"*/
         l.nodeDetail = nodeData.details;
-        //});
 
         l.universityName = user.university.name;
 
@@ -27,12 +23,15 @@ parentUrl: "/library/"*/
         l.toggleSettings = toggleSettings;
         l.renameNode = renameNode;
 
-        function renameNode() {
+        function renameNode(myform) {
             libraryService.renameNode(l.settings.name, nodeId).then(function () {
                 l.nodeDetail.name = l.settings.name;
                 l.settingsOpen = false;
+            }, function(response) {
+                myform.name.$setValidity('server', false);
+                l.error = response;
             });
-            
+
         }
         function toggleSettings() {
             l.settings = {
@@ -40,25 +39,25 @@ parentUrl: "/library/"*/
             };
             l.settingsOpen = true;
         }
-        function createBox() {
-
+        function createBox(myform) {
             libraryService.createClass(l.boxName, l.code, l.professor, nodeId).then(function (response) {
-                //l.departments.push(response);
-                l.createClassShow =  l.secondStep = false;
-                resetFiled();
+                l.createClassShow = l.secondStep = false;
+                resetFiled(myform);
                 $location.url(response.url);
             }, function (response) {
+                myform.professor.$setValidity('server', false);
                 l.error = response;
             });
         };
 
-        function createDepartment() {
+        function createDepartment(myform) {
 
             libraryService.createDepartment(l.departmentName, nodeId).then(function (response) {
                 l.departments.push(response);
                 l.createDepartmentOn = false;
-                resetFiled();
+                resetFiled(myform);
             }, function (response) {
+                myform.name.$setValidity('server', false);
                 l.error = response;
             });
         };
@@ -78,11 +77,12 @@ parentUrl: "/library/"*/
             l.createBoxOn = false;
             resetFiled();
         }
-        function resetFiled() {
+        function resetFiled(myform) {
             l.departmentName = l.boxName = l.code = l.professor = '';
+            $scope.app.resetForm(myform);
         }
-        function departmentCancel() {
-            resetFiled();
+        function departmentCancel(myform) {
+            resetFiled(myform);
             l.createDepartmentOn = false;
         }
 

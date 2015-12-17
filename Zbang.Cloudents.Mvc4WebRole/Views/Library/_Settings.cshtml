@@ -1,13 +1,17 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div uib-collapse="!l.settingsOpen" class="settings">
-    <form ng-submit="l.renameNode()" novalidate name="nodeSettings" layout="row" layout-wrap>
+    <form ng-submit="l.renameNode(nodeSettings)" novalidate name="nodeSettings" layout="row" layout-wrap>
         <md-input-container flex="100" flex-gt-md="66">
             <label class="text-capitalize">Rename</label>
-            <input type="text" autocomplete="off" name="lecturer" required ng-model="l.settings.name" />
+            <input type="text" autocomplete="off" name="name" required ng-model="l.settings.name" ng-change="nodeSettings.name.$setValidity('server',true)" />
+            <div ng-messages="nodeSettings.name.$error">
+                <div ng-message="required">This is required!</div>
+                <div ng-message="server">{{l.error}}</div>
+            </div>
         </md-input-container>
-        <div layout="row" layout-align="end center" flex="100" flex-gt-md="33">
-            <button type="button" class="btn btn-default text-capitalize" ng-click="l.settingsOpen = false">@GeneralResources.Cancel</button>
-            <button type="submit" class="btn btn-primary text-capitalize" ng-disabled="!nodeSettings.$valid">@GeneralResources.SaveChanges</button>
+        <div layout="row" layout-align="end center" class="text-capitalize" flex="100" flex-gt-md="33">
+            <button type="button" class="btn btn-default" ng-click="l.settingsOpen = false">@GeneralResources.Cancel</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="!nodeSettings.$valid">@GeneralResources.SaveChanges</button>
         </div>
     </form>
 </div>

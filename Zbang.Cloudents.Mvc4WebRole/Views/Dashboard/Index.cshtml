@@ -38,10 +38,10 @@
                         <md-content>
                             <div layout layout-sm="column">
                                 <md-input-container flex>
-                                    <label>Enter study group name</label>
-                                    <input autofocus autocomplete="off" required ng-model="cb.boxName" name="name" ng-change="createBox.name.$error.server = null">
+                                    <label>@DashboardResource.EnterGroupName</label>
+                                    <input autofocus autocomplete="off" required ng-model="cb.boxName" name="name" ng-change="createBox.name.$setValidity('server',true)">
                                     <div ng-messages="createBox.name.$error" ng-show="createBox.name.$dirty">
-                                        <div ng-message="required">This is required!</div>
+                                        <div ng-message="required">@GeneralResources.RequiredField</div>
                                         <div ng-message="server">{{cb.error}}</div>
                                     </div>
                                 </md-input-container>
@@ -50,7 +50,7 @@
                     </div>
                     <span class="text-capitalize pull-right">
                         <button type="submit" class="btn btn-primary" ga-track-event="['dashboard', 'createbox', 'done']" ng-disabled="!createBox.$valid">@GeneralResources.Done</button>
-                        <button type="button" class="btn btn-default" ga-track-event="['dashboard', 'createbox', 'cancel']" ng-click="d.createBoxOn = false">@GeneralResources.Cancel</button>
+                        <button type="button" class="btn btn-default" ga-track-event="['dashboard', 'createbox', 'cancel']" ng-click="cb.cancel(createBox)">@GeneralResources.Cancel</button>
                     </span>
                 </form>
             </div>

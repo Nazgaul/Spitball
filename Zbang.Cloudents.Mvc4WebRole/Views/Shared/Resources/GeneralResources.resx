@@ -156,4 +156,13 @@
   <data name="Blog" xml:space="preserve">
     <value>Blog</value>
   </data>
+  <data name="RequiredField" xml:space="preserve">
+    <value>This is Required!</value>
+  </data>
+  <data name="TooShort" xml:space="preserve">
+    <value>That's too short!</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
 </root>

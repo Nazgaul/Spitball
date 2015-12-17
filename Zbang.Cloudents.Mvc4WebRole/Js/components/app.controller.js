@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app').controller('AppController', appController);
-    appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state', 'userDetailsFactory'];
+    appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state', 'userDetailsFactory', '$mdToast', '$document'];
 
-    function appController($rootScope, $window, $location, h, $state, userDetails) {
+    function appController($rootScope, $window, $location, h, $state, userDetails, $mdToast, $document) {
         var self = this;
         $rootScope.$on('$viewContentLoaded', function () {
             var path = $location.path(),
@@ -27,7 +27,17 @@
 
         self.openMenu = openMenu;
         self.hideSearch = false;
+        self.resetForm = resetForm;
+        self.showToaster = showToaster;
 
+        function showToaster(text,parentId) {
+            $mdToast.show(
+                  $mdToast.simple()
+                  .textContent(text)
+                  .position('top')
+                  .parent($document[0].querySelector('#' + parentId))
+                  .hideDelay(2000));
+        }
 
         // var originatorEv;
         function openMenu($mdOpenMenu, ev) {
@@ -35,6 +45,10 @@
             $mdOpenMenu(ev);
         };
 
+        function resetForm(myform) {
+            myform.$setPristine();
+            myform.$setUntouched();
+        }
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
             var name = toState.name;

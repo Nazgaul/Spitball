@@ -1,7 +1,7 @@
 ﻿(function () {
     angular.module('app.account').controller('AccountSettingsInfoController', info);
-    info.$inject = ['accountService', '$timeout', 'userData', 'userDetailsFactory', '$mdDialog', '$mdMedia', '$mdToast', '$document'];
-    function info(accountService, $timeout, userData, userDetailsFactory, $mdDialog, $mdMedia, $mdToast, $document) {
+    info.$inject = ['accountService', '$timeout', 'userData', 'userDetailsFactory', '$mdDialog', '$mdMedia', '$scope'];
+    function info(accountService, $timeout, userData, userDetailsFactory, $mdDialog, $mdMedia, $scope) {
         var self = this;
         self.original = userData;
         self.data = angular.copy(userData);
@@ -24,7 +24,7 @@
         function submitChangeName() {
                 var firstName = self.data.firstName,
                 lastName = self.data.lastName;
-                if (firstName == userData.firstName && lastName && userData.lastName) {
+                if (firstName === userData.firstName && lastName === userData.lastName) {
                     return;
                 }
 
@@ -94,12 +94,8 @@
         }
 
         function showToast(messae) {
-            $mdToast.show(
-                   $mdToast.simple()
-                   .textContent(messae)
-                   .position('top')
-                   .parent($document[0].querySelector('#accountPage'))
-                   .hideDelay(3000));
+            $scope.app.showToaster(messae, 'accountPage');
+           
         }
     }
 })();

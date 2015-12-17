@@ -3,7 +3,7 @@
     upload.$inject = ['$scope', 'itemService', '$q', '$timeout', '$stateParams', '$rootScope', 'externalUploadProvider', '$location', '$anchorScroll'];
 
     function upload($scope, itemService, $q, $timeout, $stateParams, $rootScope, externalUploadProvider, $location, $anchorScroll) {
-        var u = this, tab = null;
+        var u = this, tab = null, boxid = $stateParams.boxId;
 
         var uploadChoose = {
             none: 0,
@@ -15,6 +15,7 @@
 
         $scope.$on('open_upload', function (e, args) {
             tab = args;
+            boxid = $stateParams.boxId;
             $rootScope.$broadcast('close-collapse');
             $location.hash('upload');
             $anchorScroll();
@@ -42,21 +43,22 @@
         u.dropBox = dropBox;
         u.uploadStep = uploadChoose.none;
         u.link = 'http://';
-        u.alert = null;
         u.submitFormProcess = false;
         u.uploadLink = uploadLink;
 
         function google() {
-            externalUploadProvider.google($stateParams.boxId).then(function (response) {
+            externalUploadProvider.google(boxid).then(function (response) {
                 $rootScope.$broadcast('item_upload', response);
             }, function (response) {
-                u.alert = response;
+                $scope.app.showToaster(response, 'uploadSection');
             });
         }
 
         function dropBox() {
-            externalUploadProvider.dropBox($stateParams.boxId).then(function (response) {
+            externalUploadProvider.dropBox(boxid).then(function (response) {
                 $rootScope.$broadcast('item_upload', response);
+            }, function (response) {
+                $scope.app.showToaster(response, 'uploadSection');
             });
         };
 
@@ -73,22 +75,17 @@
 
 
 
-        $scope.closeAlert = function () {
-            u.alert = null;
-        }
+      
         //upload 
 
-        function uploadLink() {
-            if (!u.link) {
-                u.alert = 'not a valid url';
-                return;
-            }
+        function uploadLink(myform) {
             u.submitFormProcess = true;
-            itemService.addLink(u.link, $stateParams.boxId).then(function (response) {
+            itemService.addLink(u.link, boxid).then(function (response) {
                 $rootScope.$broadcast('item_upload', response);
                 u.uploadStep = uploadChoose.none;
             }, function (response) {
-                u.alert = response;
+                myform.link.$setValidity('server', false);
+                u.error = response;
             }).finally(function () {
                 u.submitFormProcess = false;
             });
@@ -120,7 +117,7 @@
                     up.settings.multipart_params = {
                         fileName: file.name,
                         fileSize: file.size,
-                        boxId: $stateParams.boxId,
+                        boxId: boxid,
                         tabId: tab,
                         comment: false
                     };
@@ -133,7 +130,7 @@
                     }
                 },
                 error: function (uploader, error) {
-                    u.alert = error.message;
+                    $scope.app.showToaster(error.message, 'upload');
                 }
             }
         }
