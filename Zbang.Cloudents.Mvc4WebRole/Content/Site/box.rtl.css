@@ -516,42 +516,60 @@
   margin-right: 10px;
   width: calc(100% - 45px);
 }
-.quiz {
-  /*.triangle-up-left {
-        width: 0;
-        height: 0;
-        padding-bottom: 40%;
-        padding-left: 40%;
-        overflow: hidden;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        background: @backgroundColor;
-    }
-
-    .triangle-up-left:after {
-        content: "";
-        display: block;
-        width: 0;
-        height: 0;
-        margin-left: -500px;
-        border-bottom: 500px solid transparent;
-        border-left: 500px solid #4679BD;
-    }*/
+.item .base,
+.quiz .base {
+  border: 1px solid #3d4348;
+  padding: 5px;
+  display: inline-block;
+  width: 100%;
+}
+.item .extra-details,
+.quiz .extra-details {
+  display: none;
+}
+.item .stats,
+.quiz .stats {
+  color: #f5f5f5;
+  font-size: 14px;
+  padding: 0 12px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: space-between;
+}
+.item .stats svg,
+.quiz .stats svg {
+  width: 12px;
+  height: 12px;
+  fill: #f5f5f5;
+}
+.quiz .quiz-ratio {
+  position: relative;
+}
+.quiz .quiz-ratio:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 141.42%;
+}
+.quiz .quiz-ratio > .content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
 }
 .quiz .top {
-  padding-bottom: 60.5%;
-  position: relative;
+  height: 45%;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #f5f5f5;
 }
 .quiz .top .first-letter,
 .quiz .top .draft {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
   font-size: 20vw;
   width: 20vw;
   height: 20vw;
@@ -612,12 +630,11 @@
 .quiz .bottom {
   background: #f5f5f5;
   position: relative;
-  padding-bottom: 80.5%;
+  height: calc(100% - 45% - 28px);
 }
 .quiz .bottom .name {
   margin-top: 5px;
   padding: 0 6px;
-  position: absolute;
   color: #282828;
   max-height: 40px;
   /* Fallback for non-webkit */
@@ -627,10 +644,13 @@
 }
 .quiz .bottom .corner {
   position: absolute;
-  bottom: -1px;
-  right: -1px ;
+  bottom: 0;
+  right: 0 ;
   width: 40%;
   fill: #181c1d;
+}
+.quiz .stats {
+  padding-top: 5px;
 }
 .quiz .details {
   display: none;
@@ -668,12 +688,6 @@
 .quiz .details .more {
   position: absolute;
   bottom: 10px;
-}
-.quiz .stats {
-  width: 100%;
-  color: #f5f5f5;
-  font-size: 14px;
-  padding: 2px 12px 0;
 }
 .quiz-dots {
   fill: #f5f5f5;
@@ -736,59 +750,12 @@
   vertical-align: top;
   margin-top: 5px;
 }
-.item .stats {
-  color: #f5f5f5;
-  font-size: 14px;
-  padding: 0 12px;
-}
-.item .base,
-.quiz .base {
-  border: 1px solid #3d4348;
-  padding: 5px;
-  display: inline-block;
-  width: 100%;
-}
-.item .extra-details,
-.quiz .extra-details {
-  display: none;
-}
-.item-quiz-likes {
-  float: left;
-}
-.item-quiz-likes svg {
-  width: 12px;
-  height: 12px;
-  fill: #f5f5f5;
-}
-.item-quiz-views {
-  float: right;
-}
-.item-quiz-views svg {
-  width: 14px;
-  height: 14px;
-  fill: #f5f5f5;
-}
 .i-q-wrapper {
   position: relative;
 }
 .i-q-wrapper .delete {
   top: 13px;
 }
-/*    margin: 0 0.5%;
-
-
-    @media (min-width : 960px ) and (max-width:1280px) {
-        margin: 0 1%;
-    }
-
-    @media (min-width : 600px ) and (max-width:960px) {
-        margin: 0 1.2%;
-    }
-
-    @media (max-width:600px) {
-        margin: 0 2%;
-    }
-}*/
 .item-animate.ng-move,
 .item-animate.ng-enter,
 .item-animate.ng-leave {
@@ -886,8 +853,6 @@
   height: 165px;
   font-size: 14px;
   position: relative;
-  padding: 0;
-  margin: 5px;
   background: #f9f9f9;
   margin: 0 10px;
   border: none;

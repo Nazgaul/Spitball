@@ -42,11 +42,11 @@
                     </div>
                 </div>
             </div>
-            <div class="stats clearfix" ng-hide="::e.numOfViews == undefined">
-                <div class="item-quiz-likes">
+            <div class="stats" ng-hide="::e.numOfViews == undefined">
+                <div>
                     {{::e.numOfViews}} @Html.Svg(svgUrl, "eye")
                 </div>
-                <div class="item-quiz-views">
+                <div>
                     {{::e.likes}} @Html.Svg(svgUrl, "like")
                 </div>
             </div>
@@ -59,25 +59,22 @@
 </script>
 <script type="text/ng-template" id="quiz-template.html">
     <a class="quiz" href="{{e.url}}">
-        <div class="base">
-
-            <div ng-if="e.publish" class="top background" d-color="{{::e.name.length}}">
-                <span class="first-letter" first-letter="{{::e.name}}"></span>
-            </div>
-            <div ng-if="!e.publish" class="top draft-wpr">
-                <span class="draft">@IndexResources.Draft</span>
-            </div>
-            <div class="bottom">
-                <span class="name ellipsis" ng-bind-html="::e.name"></span>
-                @Html.Svg(svgUrl, "corner", new { @class = "corner", viewBox = "0 0 70 70" })
-                @*<div class="triangle-up-left"></div>*@
-            </div>
-            <div class="stats clearfix" ng-hide="::e.numOfViews === underfined">
-                @*<div class="item-quiz-likes">
-                    {{::e.rate}} @Html.Svg(svgUrl, "like")
-                                </div>*@
-                <div class="item-quiz-views">
-                    {{::e.numOfViews}} @Html.Svg(svgUrl, "eye")
+        <div class="quiz-ratio">
+            <div class="base content">
+                <div ng-if="e.publish" class="top background" d-color="{{::e.name.length}}">
+                    <span class="first-letter" first-letter="{{::e.name}}"></span>
+                </div>
+                <div ng-if="!e.publish" class="top draft-wpr">
+                    <span class="draft">@IndexResources.Draft</span>
+                </div>
+                <div class="bottom">
+                    <span class="name ellipsis" ng-bind-html="::e.name"></span>
+                    @Html.Svg(svgUrl, "corner", new { @class = "corner", viewBox = "0 0 70 70" })
+                </div>
+                <div class="stats" ng-hide="::e.numOfViews === underfined">
+                    <div>
+                        {{::e.numOfViews}} @Html.Svg(svgUrl, "eye")
+                    </div>
                 </div>
             </div>
         </div>
