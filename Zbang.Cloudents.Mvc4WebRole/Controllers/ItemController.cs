@@ -241,20 +241,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return new BlobFileStream(blob, contentType, item.Name, true);
         }
 
-        //[HttpGet, ZboxAuthorize]
-        //public ActionResult Rename()
-        //{
-
-        //    try
-        //    {
-        //        return PartialView("Rename");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("Rename ", ex);
-        //        return Json(new JsonResponse(false));
-        //    }
-        //}
+        
 
         /// <summary>
         /// Used to rename file name - item name cannot be changed
