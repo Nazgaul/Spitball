@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{
     ViewBag.Title = "About Us | Spitball";
@@ -12,14 +13,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title text-capitalize">Modal title</h4>
+                    <h4 class="modal-title text-capitalize">@HomeResources.ModalTitle</h4>
                 </div>
                 <div class="modal-body">
-                    Widget settings form goes here
+                    @HomeResources.WidgetSettings
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn blue">Save changes</button>
-                    <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn blue">@HomeResources.SaveChanges</button>
+                    <button type="button" class="btn default" data-dismiss="modal">@HomeResources.Close</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -32,7 +33,7 @@
     <!-- BEGIN PAGE HEAD -->
     <!-- BEGIN PAGE TITLE -->
 
-    <h1>About Us</h1>
+    <h1>@GeneralResources.AboutUs</h1>
 
     <!-- END PAGE TITLE -->
     <!-- BEGIN PAGE TOOLBAR -->
