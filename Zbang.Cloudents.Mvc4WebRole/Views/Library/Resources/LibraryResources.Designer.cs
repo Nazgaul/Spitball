@@ -61,6 +61,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to add class.
+        /// </summary>
+        public static string AddClass {
+            get {
+                return ResourceManager.GetString("AddClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to add department.
+        /// </summary>
+        public static string AddDepartment {
+            get {
+                return ResourceManager.GetString("AddDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add your university.
         /// </summary>
         public static string AddSchool {
@@ -88,6 +106,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter class name.
+        /// </summary>
+        public static string EnterClassName {
+            get {
+                return ResourceManager.GetString("EnterClassName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter code.
+        /// </summary>
+        public static string EnterCode {
+            get {
+                return ResourceManager.GetString("EnterCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter department name.
+        /// </summary>
+        public static string EnterDepName {
+            get {
+                return ResourceManager.GetString("EnterDepName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter your 9 digit ID.
         /// </summary>
         public static string EnterID {
@@ -102,6 +147,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         public static string Hi {
             get {
                 return ResourceManager.GetString("Hi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to instractor.
+        /// </summary>
+        public static string Instractor {
+            get {
+                return ResourceManager.GetString("Instractor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to next.
+        /// </summary>
+        public static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
             }
         }
     }

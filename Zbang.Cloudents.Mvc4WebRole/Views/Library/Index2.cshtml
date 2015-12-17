@@ -1,4 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+
 <div class="library">
     <div class="page-head">
         <div class="page-title">
@@ -31,7 +33,7 @@
                     </div>
                     <div class="status">
                         <div class="status-title">
-                            {{::dep.noBoxes}} Courses
+                            {{::dep.noBoxes}} @GeneralResources.Courses
                         </div>
                     </div>
                 </div>
@@ -54,22 +56,22 @@
             <div class="dashboard-stat2">
                 <button type="button" ng-hide="l.createDepartmentOn" ng-click="l.createDepartmentOn = true" class="create-btn">
                     <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-                    <div class="title">add department</div>
+                    <div class="title">@LibraryResources.AddDepartment</div>
                 </button>
                 <form name="createDepartment" class="create-department" novalidate ng-submit="l.createDepartment(createDepartment)" ng-show="l.createDepartmentOn">
                     <md-content layout="column">
                         <md-input-container flex>
-                            <label>Enter department name</label>
+                            <label>@LibraryResources.EnterDepName</label>
                             <input autocomplete="off" name="name" required ng-model="l.departmentName" ng-change="createDepartment.name.$setValidity('server',true)" />
                             <div ng-messages="createDepartment.name.$error" ng-show="createDepartment.name.$dirty">
-                                <div ng-message="required">This is required!</div>
+                                <div ng-message="required">@GeneralResources.RequiredField</div>
                                 <div ng-message="server">{{l.error}}</div>
                             </div>
                         </md-input-container>
                     </md-content>
                     <span layout="row" layout-align="end center text-capitalize">
-                        <button type="button" class="btn btn-default" ng-click="l.departmentCancel(createDepartment)">cancel</button>
-                        <button type="submit" class="btn btn-primary" ng-disabled="!createDepartment.$valid">done</button>
+                        <button type="button" class="btn btn-default" ng-click="l.departmentCancel(createDepartment)">@GeneralResources.Cancel</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled="!createDepartment.$valid">@GeneralResources.Done</button>
                     </span>
                 </form>
             </div>
@@ -78,23 +80,23 @@
             <div class="dashboard-stat2">
                 <button ng-hide="l.createBoxOn" type="button" ng-click="l.createBoxOn = true" class="create-btn">
                     <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-                    <div class="title">add class</div>
+                    <div class="title">@LibraryResources.AddClass</div>
                 </button>
                 <form name="createBox" novalidate ng-submit="l.createBox(createBox)" ng-show="l.createBoxOn">
                     <md-content layout="column" flex>
                         <md-input-container flex ng-if="!l.secondStep">
-                            <label>Enter class name</label>
+                            <label>@LibraryResources.EnterClassName</label>
                             <input autocomplete="off" name="name" required ng-model="l.boxName" ng-change="createBox.professor.$setValidity('server',true)" />
                             <div ng-messages="createBox.name.$error" ng-show="createBox.name.$dirty">
-                                <div ng-message="required">This is required!</div>
+                                <div ng-message="required">@GeneralResources.RequiredField</div>
                             </div>
                         </md-input-container>
                         <md-input-container flex ng-if="l.secondStep">
-                            <label>Enter code</label>
+                            <label>@LibraryResources.EnterCode</label>
                             <input autocomplete="off" ng-model="l.code" ng-change="createBox.professor.$setValidity('server',true)" />
                         </md-input-container>
                         <md-input-container flex ng-if="l.secondStep">
-                            <label>instractor</label>
+                            <label>@LibraryResources.Instractor</label>
                             <input autocomplete="off" ng-model="l.professor" name="professor" ng-change="createBox.professor.$setValidity('server',true)" />
                             <div ng-messages="createBox.professor.$error">
                                 <div ng-message="server">{{l.error}}</div>
@@ -103,9 +105,9 @@
 
                     </md-content>
                     <span layout="row" layout-align="end stretch">
-                        <button type="button" class="btn btn-default text-capitalize" ng-click="l.boxCancel()">cancel</button>
-                        <button type="button" class="btn btn-primary text-capitalize" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()">next</button>
-                        <button type="submit" class="btn btn-primary text-capitalize" ng-if="l.secondStep" ng-disabled="!createBox.$valid">done</button>
+                        <button type="button" class="btn btn-default text-capitalize" ng-click="l.boxCancel()">@GeneralResources.Cancel</button>
+                        <button type="button" class="btn btn-primary text-capitalize" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()">@LibraryResources.Next</button>
+                        <button type="submit" class="btn btn-primary text-capitalize" ng-if="l.secondStep" ng-disabled="!createBox.$valid">@GeneralResources.Done</button>
                     </span>
                 </form>
             </div>
