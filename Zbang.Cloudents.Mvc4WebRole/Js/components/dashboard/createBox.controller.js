@@ -7,13 +7,14 @@
         self.create = create;
 
 
-        function create() {
+        function create(myform) {
            
             dashboardService.createPrivateBox(self.boxName).then(function (response) {
                 $scope.$parent.d.createBoxOn = false;
                 self.boxName = '';
                 $location.url(response.url);
             }, function (response) {
+                myform.name.$error.server = true;
                 self.error = response;
             });
         };

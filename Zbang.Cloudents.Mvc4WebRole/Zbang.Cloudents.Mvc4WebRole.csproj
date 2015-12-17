@@ -397,7 +397,6 @@
     <Compile Include="Models\RateModel.cs" />
     <Compile Include="Models\Rename.cs" />
     <Compile Include="Models\ReplyItemComment.cs" />
-    <Compile Include="Models\SettingsUnauth.cs" />
     <Compile Include="Models\Share\Invite.cs" />
     <Compile Include="Models\Share\InviteSystemFromFacebook.cs" />
     <Compile Include="Models\Share\InviteToBoxFromFacebook.cs" />
@@ -1764,6 +1763,8 @@
     <Content Include="Js\components\account\info.controller.js" />
     <Content Include="Js\components\account\notification.controller.js" />
     <Content Include="Js\components\account\password.controller.js" />
+    <Content Include="Js\components\account\unregister.controller.js" />
+    <Content Include="Js\components\account\unregisterShow.directive.js" />
     <Content Include="Js\components\box\box.routes.js" />
     <Content Include="Js\components\dashboard\createBox.controller.js" />
     <Content Include="Js\components\item\externalProviderUpload.service.js" />
@@ -2781,6 +2782,7 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Library\_Settings.cshtml" />
+    <Content Include="Views\Shared\_UnregView.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

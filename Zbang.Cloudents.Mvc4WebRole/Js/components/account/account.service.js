@@ -6,25 +6,8 @@
         var self = this;
 
         self.changeImage = function (src) {
-            self.details.image = src;
             $rootScope.$broadcast('userDetailsChange');
         }
-
-        /*culture: "en-US"
-firstTimeBox: false
-firstTimeDashboard: false
-firstTimeItem: false
-firstTimeLibrary: false
-id: 1
-image: "http://127.0.0.1:10000/devstoreaccount1/zboxprofilepic/S100X100/d35f6930-4e44-469d-adf8-ecac2a1b934f.jpg"
-isAdmin: true
-name: "ram y"
-score: 51550
-universityCountry: "IL"
-universityId: 920
-universityName: "האוניברסיטה הפתוחה"
-url: "/user/1/ram-y/"
-*/
 
         self.changeEmail = function(email) {
             return ajaxservice.post('/account/changeemail/', {
@@ -65,7 +48,7 @@ url: "/user/1/ram-y/"
         }
 
         self.getNotification = function() {
-            return ajaxservice.get('/user/notification');
+            return ajaxservice.get('/user/notification/');
         }
 
         self.setNotification = function(boxId, notification) {
@@ -78,6 +61,19 @@ url: "/user/1/ram-y/"
         self.changeLocale = function(lang) {
             return ajaxservice.post('/account/changelocale/', {
                 language: lang
+            });
+        }
+
+        self.facebookLogIn = function (token, boxId) {
+            return ajaxservice.post('/account/facebooklogin/', {
+                token: token,
+                boxId: boxId
+            });
+        }
+        self.googleLogIn = function (token, boxId) {
+            return ajaxservice.post('/account/googlelogin/', {
+                token: token,
+                boxId: boxId
             });
         }
     }

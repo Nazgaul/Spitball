@@ -192,7 +192,7 @@ md-select .md-select-value.md-select-placeholder {
 }
 
 md-select-menu md-option:focus:not([disabled]):not([selected]) {
-    background:@backgroundColorMenu;
+    background: @backgroundColorMenu;
 }
 
 md-input-container:not(.md-input-invalid).md-input-has-value label {
@@ -200,7 +200,7 @@ md-input-container:not(.md-input-invalid).md-input-has-value label {
 }
 
 md-input-container label {
-    color: @textColorDarkGrey;
+    color: @textColorLightGrey;
 }
 
 .md-select-value .md-select-icon,
@@ -229,6 +229,10 @@ md-dialog {
 md-menu-item > .md-button span {
     color: @textColorBlack;
 }
+md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
+    background:@buttonColorBlue;
+}
+
 
 md-dialog-actions {
     order: 2;
@@ -311,7 +315,7 @@ md-tabs {
         flex-direction: column;
     }
 
-    .create-txt {
+    .create-txt, .create-department {
         .displayFlex();
         justify-content: center;
         padding-bottom: 12px;
@@ -353,9 +357,7 @@ md-tabs {
         font-size: 18px;
     }
 
-    md-input-container label {
-        color: @textColorGrey;
-    }
+
 
     md-input-container:not(.md-input-invalid).md-input-focused .md-input {
         border-bottom: 1px solid @textColorGrey;
@@ -366,11 +368,11 @@ md-tabs {
         margin-left: 15px;
     }
 
-    .error {
+   /* .error {
         color: @textColorRed;
         order: 3;
         margin-top: 10px;
-    }
+    }*/
 
     @media only screen and (max-width : 768px) {
         display: none;

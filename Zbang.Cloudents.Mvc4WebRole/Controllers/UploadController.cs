@@ -189,12 +189,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 if (HttpContext.Request.Files.Count == 0)
                 {
-                    return JsonError();
+                    return JsonError("no image found");
                 }
                 var httpPostedFileBase = HttpContext.Request.Files[0];
                 if (httpPostedFileBase == null)
                 {
-                    return JsonError();
+                    return JsonError("no image found");
                 }
                 var result = await m_ProfilePicture.UploadProfilePicturesAsync(httpPostedFileBase.InputStream);
                 var command = new UpdateUserProfileImageCommand(User.GetUserId(), result.Image.AbsoluteUri);
@@ -203,7 +203,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception)
             {
-                return JsonError();
+                return JsonError("can't upload image");
             }
         }
 

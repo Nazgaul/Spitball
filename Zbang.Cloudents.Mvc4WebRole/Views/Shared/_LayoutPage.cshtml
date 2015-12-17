@@ -1,4 +1,5 @@
-﻿@using Zbang.Cloudents.SiteExtension
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@using Zbang.Cloudents.SiteExtension
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{
@@ -145,11 +146,15 @@
             @Html.Svg(svgUrl, "arrow")
         </div>
     </div>
+    @* ReSharper disable once Mvc.PartialViewNotResolved *@
+    @{
+        Html.RenderPartial("_commonTemplate");
+        Html.RenderPartial("_UnregView");
+    }
     @*DO NOT REMOVE THIS AT ALL TIME*@
     <div id="cssCheck"></div>
 
-    @* ReSharper disable once Mvc.PartialViewNotResolved *@
-    @{ Html.RenderPartial("_commonTemplate");}
+    
     @Html.Script2("site4")
 
     <script>

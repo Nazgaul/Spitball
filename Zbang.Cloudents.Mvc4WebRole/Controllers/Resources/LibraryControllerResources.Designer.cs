@@ -79,6 +79,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot add library to box node.
+        /// </summary>
+        public static string LibraryController_Create_Cannot_add_library_to_box_node {
+            get {
+                return ResourceManager.GetString("LibraryController_Create_Cannot_add_library_to_box_node", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must register to a university.
         /// </summary>
         public static string LibraryController_Create_You_need_to_sign_up_for_university {

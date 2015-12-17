@@ -1,32 +1,38 @@
 ﻿(function () {
     angular.module('app.account').controller('AccountSettingsInfoController', info);
-    info.$inject = ['accountService', '$timeout', 'userData', 'userDetailsFactory', '$mdDialog', '$mdMedia'];
-    function info(accountService, $timeout, userData, userDetailsFactory, $mdDialog, $mdMedia) {
+    info.$inject = ['accountService', '$timeout', 'userData', 'userDetailsFactory', '$mdDialog', '$mdMedia', '$mdToast', '$document'];
+    function info(accountService, $timeout, userData, userDetailsFactory, $mdDialog, $mdMedia, $mdToast, $document) {
         var self = this;
         self.original = userData;
         self.data = angular.copy(userData);
 
-        self.submit = function () {
-            var firstName = self.data.firstName,
-            lastName = self.data.lastName;
-            if (firstName == userData.firstName && lastName && userData.lastName) {
-                return;
-            }
-
-            accountService.setAccountDetails(firstName, lastName).then(function () {
-                userDetailsFactory.setName(firstName, lastName);
-                self.done = true;
-            });
-        }
+        self.submit = submitChangeName;
         self.changeLanguage = changeLanguage;
 
         self.changeEmail = changeEmail;
         self.cancelChangeEmail = cancelChangeEmail;
+        self.cancelChangeName = cancelChangeName;
 
         function cancelChangeEmail() {
             self.data.email = self.original.email;
         }
+        function cancelChangeName() {
+            self.data.firstName = self.original.firstName;
+            self.data.lastName = self.original.lastName;
+        }
 
+        function submitChangeName() {
+                var firstName = self.data.firstName,
+                lastName = self.data.lastName;
+                if (firstName == userData.firstName && lastName && userData.lastName) {
+                    return;
+                }
+
+                accountService.setAccountDetails(firstName, lastName).then(function () {
+                    userDetailsFactory.setName(firstName, lastName);
+                    showToast('update complete');
+                });
+        }
        
 
         function changeEmail(ev) {
@@ -59,16 +65,11 @@
             },
             callbacks: {
                 filesAdded: function (uploader) {
-                    //$scope.loading = true;
                     $timeout(function () {
                         uploader.start();
                     }, 1);
                 },
-                //uploadProgress: function (uploader, file) {
-                //    $scope.loading = file.percent / 100.0;
-                //},
                 fileUploaded: function (uploader, file, response) {
-                    // $scope.loading = false;
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
                         self.data.image = obj.payload;
@@ -77,8 +78,7 @@
                     }
                 },
                 error: function (uploader, error) {
-                    //$scope.loading = false;
-                    alert(error.message);
+                    showToast(error.message);
                 }
             }
         }
@@ -91,6 +91,15 @@
             accountService.changeLocale(self.data.language).then(function () {
                 location.reload(true);
             });
+        }
+
+        function showToast(messae) {
+            $mdToast.show(
+                   $mdToast.simple()
+                   .textContent(messae)
+                   .position('top')
+                   .parent($document[0].querySelector('#accountPage'))
+                   .hideDelay(3000));
         }
     }
 })();

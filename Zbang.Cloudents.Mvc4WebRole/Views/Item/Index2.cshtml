@@ -4,15 +4,14 @@
     const string svgUrl = "~/images/site/itemIcons.svg";
 }
 <div class="full-screen itemPage">
-    <header layout="row" layout-align="space-between center">
+    <header>
         <div class="fb-like" ng-class="{blue : i.details.like}">
-            <button type="button" ng-click="i.like()" layout="row" layout-align="center center">
-                
-                <div flex>@Html.Svg("~/images/site/box-icons.svg", "like") {{i.details.likes}} @GeneralResources.Like</div>
+            <button type="button" ng-click="i.like()">
+                <div class="content">@Html.Svg("~/images/site/box-icons.svg", "like") {{i.details.likes}} @GeneralResources.Like</div>
             </button>
         </div>
 
-        <div @*class="text-center"*@>
+        <div class="text-center">
             <a target="_blank" href="{{i.details.downloadUrl}}">@Html.Svg(svgUrl, "download")</a>
             <a target="_blank" href="{{i.details.printUrl}}">@Html.Svg(svgUrl, "print")</a>
             @*<a href="#" tooltip-placement="bottom" tooltip-html="">@Html.Svg(svgUrl, "share")</a>*@
@@ -34,15 +33,15 @@
                 </md-menu-content>
             </md-menu>
         </div>
-        <button type="button" ng-click="app.back(i.details.boxUrl)">@Html.Svg("~/images/site/icons.svg", "close")</button>
+        <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl)">@Html.Svg("~/images/site/icons.svg", "close")</button>
 
     </header>
    
     <div class="full-screen-body" md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">
         <md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear>
-        <div class="fileName" layout="row" layout-align="center center">
-            <div class="name-info" ng-if="i.selectedState === i.state.regular">
-                <span>{{i.details.name}}</span>
+        <div class="fileName">
+            <div class="name-info" layout="row" layout-align="center center" ng-if="i.selectedState === i.state.regular">
+                <span class="ellipsis">{{i.details.name}}</span>
                 <a class="info" href="#" tooltip-placement="bottom" tooltip-class="copy-right"
                    uib-tooltip="@ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
             </div>

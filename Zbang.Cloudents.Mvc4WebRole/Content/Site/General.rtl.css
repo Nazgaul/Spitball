@@ -191,7 +191,7 @@ md-input-container:not(.md-input-invalid).md-input-has-value label {
   color: #888b8e;
 }
 md-input-container label {
-  color: #323538;
+  color: #c3c3c3;
 }
 .md-select-value .md-select-icon,
 md-select .md-select-value,
@@ -218,6 +218,10 @@ md-dialog {
 }
 md-menu-item > .md-button span {
   color: #282828;
+}
+md-toast.md-default-theme .md-toast-content,
+md-toast .md-toast-content {
+  background: #4190b9;
 }
 md-dialog-actions {
   order: 2;
@@ -261,6 +265,13 @@ md-tabs md-ink-bar {
   width: 17px;
   height: 17px;
 }
+.create-box {
+  /* .error {
+        color: @textColorRed;
+        order: 3;
+        margin-top: 10px;
+    }*/
+}
 .create-box .dashboard-stat2 {
   border: 2px solid #323538;
   background: transparent;
@@ -280,7 +291,8 @@ md-tabs md-ink-bar {
   -webkit-flex-direction: column;
   flex-direction: column;
 }
-.create-box .create-txt {
+.create-box .create-txt,
+.create-box .create-department {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -315,20 +327,12 @@ md-tabs md-ink-bar {
   border-color: #8c99a6;
   font-size: 18px;
 }
-.create-box md-input-container label {
-  color: #888b8e;
-}
 .create-box md-input-container:not(.md-input-invalid).md-input-focused .md-input {
   border-bottom: 1px solid #888b8e;
   color: #888b8e;
 }
 .create-box .btn-primary {
   margin-right: 15px;
-}
-.create-box .error {
-  color: #db4437;
-  order: 3;
-  margin-top: 10px;
 }
 @media only screen and (max-width: 768px) {
   .create-box {

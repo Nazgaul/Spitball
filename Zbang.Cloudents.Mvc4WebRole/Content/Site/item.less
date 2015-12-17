@@ -3,6 +3,7 @@
 .itemPage {
 
     header {
+        position: fixed;
 
         a {
             margin: 0 15px;
@@ -16,18 +17,31 @@
             fill: @svgLightGrey;
         }
 
-        .fb-like button {
-            font-size: 14px;
-            color: @svgLightGrey;
-            padding-left: 25px;
-            text-transform: capitalize;
+        .fb-like {
+            position: absolute;
 
-            svg {
-                width: 30px;
-                height: 30px;
-                margin-right: 10px;
-                vertical-align: middle;
+            button {
+                font-size: 14px;
+                color: @svgLightGrey;
+                padding-left: 25px;
+                text-transform: capitalize;
+
+
+                svg {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                    vertical-align: middle;
+                    margin-bottom: 14px;
+                }
             }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding-right: 25px;
         }
 
         .fb-like.blue svg {
@@ -57,9 +71,14 @@
         overflow: hidden;
         padding: 20px 0;
 
+        .name-info {
+            margin: 0 auto;
+        }
+
         .name-info, .flag-form {
             max-width: 430px;
             width: 100%;
+            padding: 0 20px;
         }
 
         .rename-form {
@@ -133,7 +152,7 @@
         -o-transform: rotate(0) /*rtl:rotate(180deg)*/;
         -webkit-transform: rotate(0) /*rtl:rotate(180deg)*/;
         transform: rotate(0) /*rtl:rotate(180deg)*/;
-        right: 10px;
+        right: 20px;
     }
 
     .left {
@@ -151,6 +170,7 @@
 .preview {
     text-align: center;
     margin: 0 auto;
+    padding: 0 12px;
 
     .preview-page {
         max-width: 800px;
@@ -168,15 +188,30 @@
         p {
             color: @textColorBlack;
             font-size: 22px;
+
+            @media (max-width: 600px) {
+                font-size: 16px;
+            }
         }
 
         img {
             margin-bottom: 30px;
+
+            @media (max-width: 600px) {
+                width: 27vw;
+            }
         }
     }
 
     .previewDenied {
         width: 100%;
+        max-width: 100%;
+
+        img {
+            max-width: ~"calc(100% + 24px)";
+            margin-right: -12px;
+            margin-left: -12px;
+        }
 
         p {
             color: @textColorBlack;

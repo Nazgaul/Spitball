@@ -10,7 +10,6 @@ using System.Web.SessionState;
 using Microsoft.Owin.Security;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Domain.Commands;
@@ -81,7 +80,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<PartialViewResult> ChoosePartial()
         {
 
-            ViewBag.country = await UserLanguage.GetCountryByIpAsync(HttpContext); ;
+            ViewBag.country = await UserLanguage.GetCountryByIpAsync(HttpContext);
             return PartialView("Choose");
         }
 
@@ -174,37 +173,23 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (!universityId.HasValue)
             {
-                return Json(new JsonResponse(false, LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university), JsonRequestBehavior.AllowGet);
+                return JsonError(LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
             }
             if (!guid.HasValue)
             {
-                return Json(new JsonResponse(false, "Error"));
+                return JsonError("Error");
             }
 
             var command = new DeleteNodeFromLibraryCommand(guid.Value, universityId.Value);
             ZboxWriteService.DeleteNodeLibrary(command);
-            return Json(new JsonResponse(true));
+            return JsonOk();
 
         }
         #endregion
 
         #region RenameNode
 
-        //[HttpGet]
-        //[OutputCache(CacheProfile = "PartialCache")]
-
-        //public ActionResult Rename()
-        //{
-        //    try
-        //    {
-        //        return PartialView("Rename");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("Rename ", ex);
-        //        return Json(new JsonResponse(false));
-        //    }
-        //}
+      
 
         [HttpPost]
         public JsonResult RenameNode(RenameLibraryNode model)
@@ -239,15 +224,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         #endregion
 
-        //[ActionName("SelectDepartment")]
-        //[HttpGet]
-        //public async Task<JsonResult> SelectDepartmentRussian(long universityId)
-        //{
-        //    var retVal = await ZboxReadService.GetRussianDepartmentList(universityId);
-        //    return Json(new JsonResponse(true, new { html = RenderRazorViewToString("SelectDepartment", retVal) }));
-        //}
-
-
 
         #region Create
 
@@ -280,7 +256,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (BoxesInDepartmentNodeException)
             {
-                return JsonError("Cannot add library to box node");
+                return JsonError(LibraryControllerResources.LibraryController_Create_Cannot_add_library_to_box_node);
             }
         }
 
@@ -397,37 +373,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-
-        //[HttpGet]
-        //public JsonResult InsertId(long universityId)
-        //{
-        //    dynamic universityData = TempData["universityText"];
-        //    if (universityData != null)
-        //    {
-        //        ViewBag.TextPopupUpper = universityData["TextPopupUpper"];
-        //        ViewBag.TextPopupLower = universityData["TextPopupLower"];
-        //    }
-        //    return Json(new JsonResponse(true, new { html = RenderRazorViewToString("InsertID", new Models.Account.Settings.University()) }));
-        //}
-
-
-
-        //[HttpGet]
-        //public async Task<JsonResult> RussianDepartments()
-        //{
-        //    var universityId = User.GetUniversityId().Value;
-
-        //    var retVal = await ZboxReadService.GetRussianDepartmentList(universityId);
-        //    return Json(new JsonResponse(true, retVal));
-        //}
-
-
-
-        //[HttpPost]
-        //public JsonResult Verify(string code)
-        //{
-        //    var isValid = code == "cloudvivt";
-        //    return Json(new JsonResponse(true, isValid));
-        //}
     }
 }

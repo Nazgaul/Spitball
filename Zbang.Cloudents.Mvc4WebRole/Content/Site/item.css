@@ -1,4 +1,7 @@
-﻿.itemPage header a {
+﻿.itemPage header {
+  position: fixed;
+}
+.itemPage header a {
   margin: 0 15px;
   height: 17px;
   width: 17px;
@@ -7,6 +10,9 @@
   width: 17px;
   height: 17px;
   fill: #c2c2c2;
+}
+.itemPage header .fb-like {
+  position: absolute;
 }
 .itemPage header .fb-like button {
   font-size: 14px;
@@ -19,6 +25,13 @@
   height: 30px;
   margin-right: 10px;
   vertical-align: middle;
+  margin-bottom: 14px;
+}
+.itemPage header .close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-right: 25px;
 }
 .itemPage header .fb-like.blue svg {
   fill: #4190b9;
@@ -42,10 +55,14 @@
   overflow: hidden;
   padding: 20px 0;
 }
+.itemPage .fileName .name-info {
+  margin: 0 auto;
+}
 .itemPage .fileName .name-info,
 .itemPage .fileName .flag-form {
   max-width: 430px;
   width: 100%;
+  padding: 0 20px;
 }
 .itemPage .fileName .rename-form {
   max-width: 800px;
@@ -101,7 +118,7 @@
   -o-transform: rotate(0) /*rtl:rotate(180deg)*/;
   -webkit-transform: rotate(0) /*rtl:rotate(180deg)*/;
   transform: rotate(0) /*rtl:rotate(180deg)*/;
-  right: 10px;
+  right: 20px;
 }
 .itemPage .left {
   -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
@@ -114,6 +131,7 @@
 .preview {
   text-align: center;
   margin: 0 auto;
+  padding: 0 12px;
 }
 .preview .preview-page {
   max-width: 800px;
@@ -130,11 +148,27 @@
   color: #282828;
   font-size: 22px;
 }
+@media (max-width: 600px) {
+  .preview .previewFailed p {
+    font-size: 16px;
+  }
+}
 .preview .previewFailed img {
   margin-bottom: 30px;
 }
+@media (max-width: 600px) {
+  .preview .previewFailed img {
+    width: 27vw;
+  }
+}
 .preview .previewDenied {
   width: 100%;
+  max-width: 100%;
+}
+.preview .previewDenied img {
+  max-width: calc(100% + 24px);
+  margin-right: -12px;
+  margin-left: -12px;
 }
 .preview .previewDenied p {
   color: #282828;

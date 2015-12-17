@@ -34,7 +34,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/signin/plugins-md.css",
                         "~/Content/site/layout.css",
                         "~/Content/signin/default.css",
-                        "~/Content/signin/custom.css",
+                        "~/Content/signin/custom.css"
                     }
                 },
                  {
@@ -63,7 +63,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/leaderboard.css",
                         "~/content/site/search.css",
                         "~/content/site/libraryChoose.css",
-                        "~/content/site/error.css"
+                        "~/content/site/error.css",
+                        "~/Content/site/staticPages.css"
                     }
                 },
             };
@@ -191,7 +192,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/account/info.controller.js"),
                         new JsFileWithCdn("~/js/components/account/account.service.js"),
                         new JsFileWithCdn("~/js/components/account/account.routes.js"),
-
+                        new JsFileWithCdn("~/js/components/account/unregister.controller.js"),
+                        new JsFileWithCdn("~/js/components/account/unregisterShow.directive.js"),
+                        
                        
 
 
