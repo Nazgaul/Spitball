@@ -36,7 +36,7 @@
                   .textContent(text)
                   .position('top')
                   .parent($document[0].querySelector('#' + parentId))
-                  .hideDelay(1000));
+                  .hideDelay(2000));
         }
 
         // var originatorEv;

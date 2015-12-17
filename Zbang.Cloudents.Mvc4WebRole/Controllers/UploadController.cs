@@ -235,6 +235,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonError(GetErrorFromModelState());
             }
+            if (!model.BoxId.HasValue)
+            {
+                return JsonError("invalid query");
+            }
             try
             {
                 var userid = User.GetUserId();
@@ -258,7 +262,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     title = model.Name;
                 }
 
-                var command = new AddLinkToBoxCommand(userid, model.BoxId, model.Url, model.TabId, title, model.Question);
+                var command = new AddLinkToBoxCommand(userid, model.BoxId.Value, model.Url, model.TabId, title, model.Question);
                 var result = await ZboxWriteService.AddItemToBoxAsync(command);
                 var result2 = result as AddLinkToBoxCommandResult;
                 if (result2 == null)

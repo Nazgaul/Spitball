@@ -24,7 +24,7 @@
         function submitChangeName() {
                 var firstName = self.data.firstName,
                 lastName = self.data.lastName;
-                if (firstName == userData.firstName && lastName && userData.lastName) {
+                if (firstName === userData.firstName && lastName === userData.lastName) {
                     return;
                 }
 

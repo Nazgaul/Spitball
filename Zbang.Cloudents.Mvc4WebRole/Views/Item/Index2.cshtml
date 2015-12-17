@@ -45,17 +45,20 @@
                 <a class="info" href="#" tooltip-placement="bottom" tooltip-class="copy-right"
                    uib-tooltip="@ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
             </div>
-            <form name="rename-item" class="rename-form" novalidate ng-submit="i.renameItem()" ng-if="i.selectedState === i.state.rename">
+            <form name="renameItem" class="rename-form" novalidate ng-submit="i.renameItem(renameItem)" ng-if="i.selectedState === i.state.rename">
                 <md-content layout="column">
                     <md-input-container flex>
                         <label class="text-capitalize">@ItemsResources.Name</label>
-                        <input autocomplete="off" required ng-model="i.renameText" />
+                        <input autocomplete="off" required ng-model="i.renameText" name="name" />
+                        <div ng-messages="renameItem.name.$error" ng-show="renameItem.name.$dirty">
+                            <div ng-message="required">This is required!</div>
+                        </div>
                     </md-input-container>
                 </md-content>
 
-                <span layout="row" layout-align="end center">
-                    <button type="button" class="btn grey btn-default text-capitalize" ng-click="i.selectedState = i.state.regular">@GeneralResources.Cancel</button>
-                    <button type="submit" class="btn blue text-capitalize">@ItemsResources.Save</button>
+                <span layout="row" layout-align="end center  text-capitalize">
+                    <button type="button" class="btn grey btn-default" ng-click="i.selectedState = i.state.regular">@GeneralResources.Cancel</button>
+                    <button type="submit" class="btn blue" ng-disabled="!renameItem.$valid">@ItemsResources.Save</button>
                 </span>
             </form>
 

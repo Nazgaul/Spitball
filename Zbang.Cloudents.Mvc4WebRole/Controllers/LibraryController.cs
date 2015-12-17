@@ -217,9 +217,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ZboxWriteService.RenameNodeLibrary(command);
                 return JsonOk();
             }
-            catch (ArgumentException ex)
+            catch (DuplicateDepartmentNameException ex)
             {
-                return JsonError(ex.Message);
+                return JsonError(LibraryControllerResources.DepartmentAlreadyExists);
             }
         }
         #endregion
