@@ -172,6 +172,8 @@ order by 1";
             {
                 var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteOldUpdates");
                 query.ExecuteUpdate();
+                query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteNotConnectedUpdates");
+                query.ExecuteUpdate();
             }
         }
 
