@@ -61,6 +61,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to send another request.
+        /// </summary>
+        public static string AnotherRequest {
+            get {
+                return ResourceManager.GetString("AnotherRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change your email address.
         /// </summary>
         public static string ChangeMail {
@@ -88,6 +97,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check your mail spam folder or.
+        /// </summary>
+        public static string CheckEmailSpam {
+            get {
+                return ResourceManager.GetString("CheckEmailSpam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check your email.
+        /// </summary>
+        public static string CheckYourEmail {
+            get {
+                return ResourceManager.GetString("CheckYourEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your current password.
         /// </summary>
         public static string CurrentPassword {
@@ -97,11 +124,38 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Didn&apos;t receive the email?.
+        /// </summary>
+        public static string DidntReceivedEmail {
+            get {
+                return ResourceManager.GetString("DidntReceivedEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We&apos;ve emailed you password.
+        /// </summary>
+        public static string EmailedPassword {
+            get {
+                return ResourceManager.GetString("EmailedPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the email address associated with your Spitball account. You will receive a link to reset your password to this email account shortly.
         /// </summary>
         public static string EmailToReset {
             get {
                 return ResourceManager.GetString("EmailToReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter verification code.
+        /// </summary>
+        public static string EnterVerification {
+            get {
+                return ResourceManager.GetString("EnterVerification", resourceCulture);
             }
         }
         
@@ -178,6 +232,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to reset instructions..
+        /// </summary>
+        public static string ResetInstructions {
+            get {
+                return ResourceManager.GetString("ResetInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saved.
         /// </summary>
         public static string Saved {
@@ -201,6 +264,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         public static string Settings {
             get {
                 return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A verification code was sent to your new email.
+        /// </summary>
+        public static string VerificationCode {
+            get {
+                return ResourceManager.GetString("VerificationCode", resourceCulture);
             }
         }
     }
