@@ -296,7 +296,6 @@
     </Compile>
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ShareController.cs" />
-    <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\JsonNetResult.cs" />

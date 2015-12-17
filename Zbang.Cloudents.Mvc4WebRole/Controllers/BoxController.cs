@@ -375,35 +375,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        //[HttpGet]
-        //[OutputCache(CacheProfile = "PartialCache")]
-        //public ActionResult SettingsPartial()
-        //{
-        //    try
-        //    {
-        //        return PartialView("_BoxSettings");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("_BoxSettings", ex);
-        //        return JsonError();
-        //    }
-        //}
-
-        //[HttpGet]
-        //[OutputCache(CacheProfile = "PartialCache")]
-        //public ActionResult LeavePromptPartial()
-        //{
-        //    try
-        //    {
-        //        return PartialView("_LeavePrompt");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("_LeavePrompt", ex);
-        //        return JsonError();
-        //    }
-        //}
+     
 
         #region DeleteBox
 

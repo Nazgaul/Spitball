@@ -23,10 +23,13 @@
         l.toggleSettings = toggleSettings;
         l.renameNode = renameNode;
 
-        function renameNode() {
+        function renameNode(myform) {
             libraryService.renameNode(l.settings.name, nodeId).then(function () {
                 l.nodeDetail.name = l.settings.name;
                 l.settingsOpen = false;
+            }, function(response) {
+                myform.name.$setValidity('server', false);
+                l.error = response;
             });
 
         }
@@ -37,9 +40,7 @@
             l.settingsOpen = true;
         }
         function createBox(myform) {
-
             libraryService.createClass(l.boxName, l.code, l.professor, nodeId).then(function (response) {
-                //l.departments.push(response);
                 l.createClassShow = l.secondStep = false;
                 resetFiled(myform);
                 $location.url(response.url);
