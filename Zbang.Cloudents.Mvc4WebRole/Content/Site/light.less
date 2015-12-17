@@ -157,6 +157,11 @@ Page Header
     background: @backgroundColorMenu;
     border: 0;
     box-shadow: 0 0 10px @backgroundColor;
+
+    @media (max-width: 768px) {
+        right: 0;
+        left: auto;
+    }
 }
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu:after {
@@ -424,6 +429,7 @@ Page Header
     background: none;
     //color: #5b9bd1;
 }
+
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.open > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.active > a,
 .page-sidebar .page-sidebar-menu .sub-menu > li:hover > a {
     color: @textColorBlue;
@@ -460,11 +466,11 @@ Page Header
 }
 
 .page-sidebar .arrow.open svg {
-    -moz-transform: rotate(90deg)/*rtl:rotate(90deg)*/;
-    -ms-transform: rotate(90deg)/*rtl:rotate(90deg)*/;
-    -o-transform: rotate(90deg)/*rtl:rotate(90deg)*/;
-    -webkit-transform: rotate(90deg)/*rtl:rotate(90deg)*/;
-    transform: rotate(90deg)/*rtl:rotate(90deg)*/;
+    -moz-transform: rotate(90deg) /*rtl:rotate(90deg)*/;
+    -ms-transform: rotate(90deg) /*rtl:rotate(90deg)*/;
+    -o-transform: rotate(90deg) /*rtl:rotate(90deg)*/;
+    -webkit-transform: rotate(90deg) /*rtl:rotate(90deg)*/;
+    transform: rotate(90deg) /*rtl:rotate(90deg)*/;
     -moz-transition: transform 0.2s linear;
     -o-transition: transform 0.2s linear;
     -webkit-transition: transform 0.2s linear;

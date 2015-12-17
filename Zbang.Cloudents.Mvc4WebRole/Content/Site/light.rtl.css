@@ -127,6 +127,12 @@ Page Header
   border: 0;
   box-shadow: 0 0 10px #181c1d;
 }
+@media (max-width: 768px) {
+  .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu {
+    left: 0;
+    right: auto;
+  }
+}
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu:after {
   border-bottom-color: #323538;
 }

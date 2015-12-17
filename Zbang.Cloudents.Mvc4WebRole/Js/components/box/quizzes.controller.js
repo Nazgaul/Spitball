@@ -1,11 +1,12 @@
 ﻿(function () {
     angular.module('app.box.quizzes').controller('QuizzesController', quizzes);
-    quizzes.$inject = ['boxService', '$stateParams', '$location', '$mdDialog', 'quizService', 'boxData'];
+    quizzes.$inject = ['boxService', '$stateParams', '$location', '$mdDialog', 'quizService', 'boxData', 'user', '$rootScope'];
 
-    function quizzes(boxService, $stateParams, $location, $mdDialog, quizService, boxData) {
+    function quizzes(boxService, $stateParams, $location, $mdDialog, quizService, boxData, user, $rootScope) {
         var q = this;
         q.params = $stateParams;
         q.deleteQuiz = deleteQuiz;
+        q.createQuiz = createQuiz;
         boxService.getQuizzes($stateParams.boxId).then(function (response) {
             for (var i = 0; i < response.length; i++) {
                 var quiz = response[i];
@@ -17,7 +18,13 @@
             q.quizzes = response;
         });
 
-
+        function createQuiz(event) {
+            if (!user.id) {
+                event.preventDefault();
+                $rootScope.$broadcast('show-unregisterd-box');
+                return;
+            }
+        }
 
         function deleteQuiz(ev, quiz) {
             var confirm = $mdDialog.confirm()
@@ -33,5 +40,7 @@
                 quizService.deleteQuiz(quiz.id);
             });
         }
+
+
     }
 })();
