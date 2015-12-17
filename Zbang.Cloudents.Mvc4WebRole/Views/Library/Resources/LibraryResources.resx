@@ -132,4 +132,25 @@
   <data name="Hi" xml:space="preserve">
     <value>Hi</value>
   </data>
+  <data name="AddDepartment" xml:space="preserve">
+    <value>add department</value>
+  </data>
+  <data name="EnterDepName" xml:space="preserve">
+    <value>Enter department name</value>
+  </data>
+  <data name="AddClass" xml:space="preserve">
+    <value>add class</value>
+  </data>
+  <data name="EnterClassName" xml:space="preserve">
+    <value>Enter class name</value>
+  </data>
+  <data name="EnterCode" xml:space="preserve">
+    <value>Enter code</value>
+  </data>
+  <data name="Instractor" xml:space="preserve">
+    <value>instractor</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>next</value>
+  </data>
 </root>
