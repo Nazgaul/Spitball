@@ -1,36 +1,30 @@
 ﻿(function () {
     angular.module('app.account').controller('AccountSettingsPasswordController', password);
 
-    password.$inject = ['accountService', '$mdToast', '$document'];
-    function password(accountService, $mdToast, $document) {
+    password.$inject = ['accountService', '$mdToast', '$document', '$scope'];
+    function password(accountService, $mdToast, $document, $scope) {
         var self = this;
 
 
         self.submit = function (myform) {
             accountService.updatePassword(self.old, self.new).then(function () {
-                //alert('password change');
-                reset(myform);
+         
                 self.old = '';
                 self.new = '';
-               
-                $mdToast.show(
-                    $mdToast.simple()
-                    .textContent('password change')
-                    .position('top')
-                    .parent($document[0].querySelector('#accountPage'))
-                    .hideDelay(1000));
+                $scope.app.resetForm(myform);
+                $scope.app.showToaster('password change', 'accountPage');
             }, function (response) {
-                myform.old.$error.server = true;
+                myform.old.$setValidity('server',false);
                 self.error = response;
             });
         }
-        self.reset = reset;
 
-    
+        self.cancel = cancel;
 
-        function reset(myform) {
-            myform.$setPristine();
-            myform.$setUntouched();
+        function cancel(myform) {
+            self.old = '';
+            self.new = '';
+            $scope.app.resetForm(myform);
         }
     }
 })();
