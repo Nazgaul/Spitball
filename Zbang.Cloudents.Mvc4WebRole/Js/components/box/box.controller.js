@@ -96,6 +96,10 @@
         }
 
         function inviteToBox() {
+            if (!user.id) {
+                $rootScope.$broadcast('show-unregisterd-box');
+                return;
+            }
             $rootScope.$broadcast('close-collapse');
             b.inviteOpen = true;
             $scope.$broadcast('open_invite');
@@ -114,6 +118,10 @@
             b.showLeaderboard = false;
         });
         function follow() {
+            if (!user.id) {
+                $rootScope.$broadcast('show-unregisterd-box');
+                return;
+            }
             boxService.follow(boxId);
             b.needFollow = false;
         }
@@ -121,6 +129,7 @@
         $scope.$on('follow-box', function () {
             b.needFollow = false;
         });
+
 
     }
 })();

@@ -1,11 +1,16 @@
 ﻿(function () {
     angular.module('app').directive('unregisterShow', unregShow);
-    unregShow.$inject = ['$window'];
+    unregShow.$inject = ['$window', '$rootScope'];
 
-    function unregShow($window) {
+    function unregShow($window, $rootScope) {
         return {
             restrict: 'A',
             link: function (scope, element) {
+
+                $rootScope.$on('show-unregisterd-box', function () {
+                    element.removeClass('noHeight').addClass('smallHeight');
+                });
+
                 $($window).scroll(function () {
                     var scrollPos = $(window).scrollTop();
                     //var unregContainer = $(".unreg-user .content-wrapper");
@@ -25,5 +30,6 @@
             }
         };
     }
+
     ;
 })();
