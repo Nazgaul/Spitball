@@ -278,6 +278,15 @@ md-tabs md-ink-bar {
   color: #323538;
   padding-bottom: 5px;
   padding-top: 5px;
+  display: flex;
+  padding-top: 0;
+}
+.create-box .dashboard-stat2 form {
+  width: 100%;
+  align-self: center;
+}
+.create-box .dashboard-stat2 form span {
+  margin: 0;
 }
 .create-box .create-btn {
   display: -webkit-flex;

@@ -229,8 +229,9 @@ md-dialog {
 md-menu-item > .md-button span {
     color: @textColorBlack;
 }
+
 md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
-    background:@buttonColorBlue;
+    background: @buttonColorBlue;
 }
 
 
@@ -302,6 +303,17 @@ md-tabs {
         color: @textColorDarkGrey;
         padding-bottom: 5px;
         padding-top: 5px;
+        display: flex;
+        padding-top: 0;
+
+        form {
+            width: 100%;
+            align-self: center;
+
+            span {
+                margin: 0;
+            }
+        }
     }
 
     .create-btn {
@@ -367,13 +379,11 @@ md-tabs {
     .btn-primary {
         margin-left: 15px;
     }
-
-   /* .error {
+    /* .error {
         color: @textColorRed;
         order: 3;
         margin-top: 10px;
     }*/
-
     @media only screen and (max-width : 768px) {
         display: none;
     }

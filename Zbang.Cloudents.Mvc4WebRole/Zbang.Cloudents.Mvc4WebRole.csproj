@@ -1278,6 +1278,18 @@
     <Content Include="Content\signin\plugins-md.rtl.min.css">
       <DependentUpon>plugins-md.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\accordionPageStyle.css">
+      <DependentUpon>accordionPageStyle.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\accordionPageStyle.min.css">
+      <DependentUpon>accordionPageStyle.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\accordionPageStyle.rtl.css">
+      <DependentUpon>accordionPageStyle.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\accordionPageStyle.rtl.min.css">
+      <DependentUpon>accordionPageStyle.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\accountSettings.css">
       <DependentUpon>accountSettings.less</DependentUpon>
     </Content>
@@ -1902,6 +1914,7 @@
     <Content Include="Content\Site\error.less" />
     <Content Include="Content\category.png.less" />
     <Content Include="Content\Site\staticPages.less" />
+    <Content Include="Content\Site\accordionPageStyle.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
