@@ -151,15 +151,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create a quiz.
-        /// </summary>
-        public static string CreateQuiz {
-            get {
-                return ResourceManager.GetString("CreateQuiz", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Save as draft.
         /// </summary>
         public static string Draft {
@@ -237,15 +228,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         public static string OnlyYou {
             get {
                 return ResourceManager.GetString("OnlyYou", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Post.
-        /// </summary>
-        public static string Post {
-            get {
-                return ResourceManager.GetString("Post", resourceCulture);
             }
         }
         

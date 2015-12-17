@@ -120,9 +120,6 @@
   <data name="Comment" xml:space="preserve">
     <value>תגובה</value>
   </data>
-  <data name="CreateQuiz" xml:space="preserve">
-    <value>צור מבחן</value>
-  </data>
   <data name="Feed" xml:space="preserve">
     <value>עדכונים</value>
   </data>
@@ -138,9 +135,6 @@
   <data name="Lecturer" xml:space="preserve">
     <value>מרצה</value>
   </data>
-  <data name="Members" xml:space="preserve">
-    <value>חברים</value>
-  </data>
   <data name="Name" xml:space="preserve">
     <value>שם:</value>
   </data>
@@ -150,14 +144,8 @@
   <data name="Number" xml:space="preserve">
     <value>מספר:</value>
   </data>
-  <data name="Post" xml:space="preserve">
-    <value>פוסט</value>
-  </data>
   <data name="Privacy" xml:space="preserve">
     <value>הגדרות פרטיות:</value>
-  </data>
-  <data name="Quizzes" xml:space="preserve">
-    <value>מבחנים</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>חיפוש...</value>

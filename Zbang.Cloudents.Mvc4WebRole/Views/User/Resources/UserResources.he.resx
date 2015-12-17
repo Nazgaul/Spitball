@@ -129,9 +129,6 @@
   <data name="Asking" xml:space="preserve">
     <value>50 נק' בעבור שאלה</value>
   </data>
-  <data name="Classes" xml:space="preserve">
-    <value>קורסים</value>
-  </data>
   <data name="Creating" xml:space="preserve">
     <value>300 נק' בעבור יצירת מבחן</value>
   </data>
@@ -143,9 +140,6 @@
   </data>
   <data name="Posts" xml:space="preserve">
     <value>הודעות</value>
-  </data>
-  <data name="Quizzes" xml:space="preserve">
-    <value>מבחנים</value>
   </data>
   <data name="ShareFB" xml:space="preserve">
     <value>50 נק' בעבור שיתוף בפייסבוק</value>

@@ -147,9 +147,6 @@
   <data name="CorrectAnswer" xml:space="preserve">
     <value>תשובה נכונה</value>
   </data>
-  <data name="CreateQuiz" xml:space="preserve">
-    <value>צור מבחן</value>
-  </data>
   <data name="Draft" xml:space="preserve">
     <value>שמור כטיוטא</value>
   </data>
@@ -176,9 +173,6 @@
   </data>
   <data name="OnlyYou" xml:space="preserve">
     <value>רק אתה יכול לראות ולערוך את הטיוטא </value>
-  </data>
-  <data name="Post" xml:space="preserve">
-    <value>הודעה</value>
   </data>
   <data name="Publish" xml:space="preserve">
     <value>פרסם</value>

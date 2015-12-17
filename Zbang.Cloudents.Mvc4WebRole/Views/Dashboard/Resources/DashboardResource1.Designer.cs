@@ -70,15 +70,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Classes.
-        /// </summary>
-        public static string Courses {
-            get {
-                return ResourceManager.GetString("Courses", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Items.
         /// </summary>
         public static string Files {
@@ -93,15 +84,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         public static string InviteToSpitball {
             get {
                 return ResourceManager.GetString("InviteToSpitball", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Members.
-        /// </summary>
-        public static string Members {
-            get {
-                return ResourceManager.GetString("Members", resourceCulture);
             }
         }
         
