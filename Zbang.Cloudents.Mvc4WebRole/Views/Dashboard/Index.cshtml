@@ -33,21 +33,24 @@
                     <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
                     <div class="title">@DashboardResource.StudyGroup</div>
                 </button>
-                <form name="createBox" class="create-txt" novalidate ng-submit="cb.create()" ng-show="d.createBoxOn" ng-controller="CreateBoxController as cb">
+                <form name="createBox" class="create-txt" novalidate ng-submit="cb.create(createBox)" ng-show="d.createBoxOn" ng-controller="CreateBoxController as cb">
                     <div layout="column">
                         <md-content>
                             <div layout layout-sm="column">
                                 <md-input-container flex>
                                     <label>Enter study group name</label>
-                                    <input autofocus autocomplete="off" required ng-model="cb.boxName">
-                                    <span class="error" ng-show="cb.error">{{cb.error}}</span>
+                                    <input autofocus autocomplete="off" required ng-model="cb.boxName" name="name" ng-change="createBox.name.$error.server = null">
+                                    <div ng-messages="createBox.name.$error" ng-show="createBox.name.$dirty">
+                                        <div ng-message="required">This is required!</div>
+                                        <div ng-message="server">{{cb.error}}</div>
+                                    </div>
                                 </md-input-container>
                             </div>
                         </md-content>
                     </div>
-                    <span>
-                        <button type="submit" class="btn btn-primary text-capitalize pull-right" ga-track-event="['dashboard', 'createbox', 'done']" ng-disabled="!createBox.$valid">@GeneralResources.Done</button>
-                        <button type="button" class="btn btn-default text-capitalize pull-right" ga-track-event="['dashboard', 'createbox', 'cancel']" ng-click="d.createBoxOn = false">@GeneralResources.Cancel</button>
+                    <span class="text-capitalize pull-right">
+                        <button type="submit" class="btn btn-primary" ga-track-event="['dashboard', 'createbox', 'done']" ng-disabled="!createBox.$valid">@GeneralResources.Done</button>
+                        <button type="button" class="btn btn-default" ga-track-event="['dashboard', 'createbox', 'cancel']" ng-click="d.createBoxOn = false">@GeneralResources.Cancel</button>
                     </span>
                 </form>
             </div>

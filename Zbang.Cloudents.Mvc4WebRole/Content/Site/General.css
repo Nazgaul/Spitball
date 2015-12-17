@@ -265,6 +265,13 @@ md-tabs md-ink-bar {
   width: 17px;
   height: 17px;
 }
+.create-box {
+  /* .error {
+        color: @textColorRed;
+        order: 3;
+        margin-top: 10px;
+    }*/
+}
 .create-box .dashboard-stat2 {
   border: 2px solid #323538;
   background: transparent;
@@ -326,11 +333,6 @@ md-tabs md-ink-bar {
 }
 .create-box .btn-primary {
   margin-left: 15px;
-}
-.create-box .error {
-  color: #db4437;
-  order: 3;
-  margin-top: 10px;
 }
 @media only screen and (max-width: 768px) {
   .create-box {
