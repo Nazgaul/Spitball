@@ -2,77 +2,11 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 
-<div class="location-search-area">
-    <div class="search-box">
-        <input type="search" placeholder="@BoxResources.Search" ng-model="i.term" ng-model-options="{debounce : 250}" ng-change="i.filter()" ng-minlength="2" />
-        @*<md-input-container>
-            <label class="text-capitalize">@BoxResources.Search</label>
-            <input type="search" ng-model="i.term" ng-model-options="{debounce : 250}" ng-change="i.filter()" ng-minlength="2" />
-        </md-input-container>*@
-    </div>
-    <div class="folder">
-        <div layout="row" layout-align="start center" ng-if="i.tabSelected.id">
-            <div layout="row" layout-align="none  center" class="arrow" ng-click="i.upDir()">@Html.Svg("~/images/site/icons.svg", "arrow")</div>
-            <div class="folder-name">
-                <div layout="row" layout-align="start center" ng-init="i.openRenameTab=false" class="folder-name-inner">
-                    <div class="name-and-icon" layout="row" layout-align="start center">
-                        <div layout="row" class="icon">@Html.Svg("~/images/folder_icon.svg", "folder")</div>
-                        <div class="text ellipsis" ng-if="!i.openRenameTab">
-                            {{i.tabSelected.name}}
-                        </div>
-                        <form class="content" ng-if="i.openRenameTab" ng-submit="i.renameTab()">
-                            <input autofocus class="designed-input" type="text" required ng-model="i.tabNewName" />
-                        </form>
-                    </div>
-                    <md-menu ng-if="!b.needFollow">
-                        <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
-                            @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
-                        </md-button>
-                        <md-menu-content width="1">
-                            <md-menu-item>
-                                <md-button aria-label="delete post" ng-click="i.renameTabOpen()">
-                                    Rename
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button aria-label="delete post" ng-click="i.deleteTab($event)">
-                                    @GeneralResources.Delete
-                                </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="search-box">
+    <input type="search" placeholder="@BoxResources.Search" ng-model="i.term" ng-model-options="{debounce : 250}" ng-change="i.filter()" ng-minlength="2" />
 </div>
-<ul id="tabSection" layout-padding layout-wrap class="list-unstyled folders" layout="row" layout-align="start center" ng-if="!i.tabSelected.id">
-    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" ui-on-drop="i.test($event,$data)" class="folder-name i-q-wrapper" ng-repeat="e in i.tabs" ng-click="i.tabChange(e)">
-        <div class="content">
-            <div layout="row" layout-align="space-between center">
-                <div class="name-and-icon" layout="row" layout-align="start center">
-                    <div layout="row" class="icon">@Html.Svg("~/images/folder_icon.svg", "folder")</div>
-                    <div class="text ellipsis">
-                        {{:: e.name}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </li>
-    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="add-folder folder-name item-animate i-q-wrapper" ng-click="i.newFolderTabOpened=true">
-        <div class="content" ng-if="!i.newFolderTabOpened">
-            <button layout="row" layout-align="start center" type="button">
-                @Html.Svg("~/images/site/icons.svg", "add")
-                <span>
+@{ Html.RenderPartial("_Tabs");}
                     @BoxResources.AddFolder
-                </span>
-            </button>
-        </div>
-        <form class="content" ng-if="i.newFolderTabOpened" ng-submit="i.addTab()" name="addTabForm">
-            <input required autofocus type="text" class="designed-input" ng-model="i.newFolderName" ng-blur="i.addTab()" />
-        </form>
-    </li>
-</ul>
 
 <ul layout="row" layout-padding layout-fill layout-wrap class="list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
     <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="item-animate add-button " ng-click="i.openUpload()">
