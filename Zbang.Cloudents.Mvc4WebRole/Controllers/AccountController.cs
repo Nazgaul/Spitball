@@ -604,8 +604,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         #region passwordReset
-        //private const string SessionResetPassword = "SResetPassword";
-        // ;
         [HttpGet]
         //issue with ie
         //[DonutOutputCache(VaryByParam = "none", VaryByCustom = CustomCacheKeys.Auth + ";"

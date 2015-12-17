@@ -2,12 +2,10 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
-using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models.Share;
 using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Url;
@@ -36,9 +34,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
+                if (model.Recipients.Length == 0)
                 {
-                    return JsonError(GetErrorFromModelState());
+                    return JsonError("recipients is empty");
                 }
                 var userId = User.GetUserId();
 
@@ -53,34 +51,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError("Unspecified error. try again later");
             }
         }
-        //[HttpPost, ZboxAuthorize]
-        //public ActionResult InviteFacebook(InviteSystemFromFacebook model)
-        //{
-        //    try
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            return Json(new JsonResponse(false, GetModelStateErrors()));
-        //        }
-        //        var userId = User.GetUserId();
-
-        //        var inviteCommand = new InviteToSystemFacebookCommand(userId, model.Id, string.Format("{0} {1}", model.FirstName, model.LastName));
-
-        //        ZboxWriteService.InviteSystemFromFacebook(inviteCommand);
-
-        //        if (!inviteCommand.Id.HasValue)
-        //        {
-        //            return JsonError("User is already connected to Spitball");
-        //        }
-        //        return JsonOk(new { url = UrlConsts.BuildInviteCloudentsUrl(GuidEncoder.Encode(inviteCommand.Id.Value)) });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError(string.Format("Share/InviteFacebook user: {0} model: {1}", User.GetUserId(), model), ex);
-        //        return Json(new JsonResponse(false, "Unspecified error. try again later"));
-        //    }
-        //}
-
+        
 
         [HttpPost]
         [ZboxAuthorize]
@@ -119,56 +90,32 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        //[HttpPost, ZboxAuthorize]
-        //public ActionResult InviteBoxFacebook(InviteToBoxFromFacebook model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return Json(new JsonResponse(false, GetModelStateErrors()));
-        //    }
-        //    var userId = User.GetUserId();
-        //    var command = new ShareBoxFacebookCommand(userId, model.Id, model.BoxId, string.Format("{0} {1}", model.FirstName, model.LastName));
-        //    ZboxWriteService.ShareBoxFacebook(command);
-        //    return JsonOk(new { url = command.Url });
-        //}
+        
 
-        [HttpPost]
-        [ZboxAuthorize]
-        public async Task<JsonResult> Message(Message model)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return JsonError(GetErrorFromModelState());
-                }
-                var userId = User.GetUserId();
-                var command = new SendMessageCommand(userId, model.Recepients,
-                        model.Note);
-                await ZboxWriteService.SendMessageAsync(command);
-                return JsonOk();
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(string.Format("SendMessage user: {0} model: {1}", User.GetUserId(), model), ex);
-                return JsonError("Unspecified error. try again later");
-            }
-        }
-
-        //[HttpGet]
-        //[OutputCache(CacheProfile = "PartialCache")]
-        //public ActionResult MessagePartial()
+        //[HttpPost]
+        //[ZboxAuthorize]
+        //public async Task<JsonResult> Message(Message model)
         //{
         //    try
         //    {
-        //        return PartialView("_Message");
+        //        if (!ModelState.IsValid)
+        //        {
+        //            return JsonError(GetErrorFromModelState());
+        //        }
+        //        var userId = User.GetUserId();
+        //        var command = new SendMessageCommand(userId, model.Recepients,
+        //                model.Note);
+        //        await ZboxWriteService.SendMessageAsync(command);
+        //        return JsonOk();
         //    }
         //    catch (Exception ex)
         //    {
-        //        TraceLog.WriteError("_Message ", ex);
-        //        return Json(new JsonResponse(false));
+        //        TraceLog.WriteError(string.Format("SendMessage user: {0} model: {1}", User.GetUserId(), model), ex);
+        //        return JsonError("Unspecified error. try again later");
         //    }
         //}
+
+       
 
         [HttpPost]
         [ZboxAuthorize]
@@ -216,12 +163,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        //[ChildActionOnly]
-        //[ActionName("Invites")]
-        //public ActionResult Invites()
-        //{
-        //    return PartialView();
-        //}
+       
 
         [HttpGet]
         public async Task<ActionResult> FromEmail(string key, string email)
@@ -286,13 +228,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(true));
         }
 
-        //[HttpPost, ZboxAuthorize]
-        //public ActionResult NotificationOld()
-        //{
-        //    var command = new MarkMessagesAsOldCommand(User.GetUserId());
-        //    ZboxWriteService.MarkMessagesAsOld(command);
-        //    return Json(new JsonResponse(true));
-        //}
+        
         [HttpPost, ZboxAuthorize]
         public ActionResult NotificationDelete(Guid messageId)
         {
