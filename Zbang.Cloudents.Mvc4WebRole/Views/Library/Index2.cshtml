@@ -56,18 +56,20 @@
                     <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
                     <div class="title">add department</div>
                 </button>
-                <form name="createDepartment" class="create-department" novalidate ng-submit="l.createDepartment()" ng-show="l.createDepartmentOn">
+                <form name="createDepartment" class="create-department" novalidate ng-submit="l.createDepartment(createDepartment)" ng-show="l.createDepartmentOn">
                     <md-content layout="column">
                         <md-input-container flex>
                             <label>Enter department name</label>
-                            <input autocomplete="off" required ng-model="l.departmentName" />
+                            <input autocomplete="off" name="name" required ng-model="l.departmentName" ng-change="createDepartment.name.$setValidity('server',true)" />
+                            <div ng-messages="createDepartment.name.$error" ng-show="createDepartment.name.$dirty">
+                                <div ng-message="required">This is required!</div>
+                                <div ng-message="server">{{l.error}}</div>
+                            </div>
                         </md-input-container>
-                        <span class="error" ng-show="l.error">{{l.error}}</span>
                     </md-content>
-
-                    <span layout="row" layout-align="end center">
-                        <button type="button" class="btn btn-default text-capitalize" ng-click="l.departmentCancel()">cancel</button>
-                        <button type="submit" class="btn btn-primary text-capitalize" ng-disabled="!createDepartment.$valid">done</button>
+                    <span layout="row" layout-align="end center text-capitalize">
+                        <button type="button" class="btn btn-default" ng-click="l.departmentCancel(createDepartment)">cancel</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled="!createDepartment.$valid">done</button>
                     </span>
                 </form>
             </div>
@@ -78,22 +80,27 @@
                     <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
                     <div class="title">add class</div>
                 </button>
-                <form name="createBox" novalidate ng-submit="l.createBox()" ng-show="l.createBoxOn">
+                <form name="createBox" novalidate ng-submit="l.createBox(createBox)" ng-show="l.createBoxOn">
                     <md-content layout="column" flex>
-                        <span class="error" ng-show="l.error">{{l.error}}</span>
                         <md-input-container flex ng-if="!l.secondStep">
                             <label>Enter class name</label>
-                            <input autocomplete="off" required ng-model="l.boxName" />
+                            <input autocomplete="off" name="name" required ng-model="l.boxName" ng-change="createBox.professor.$setValidity('server',true)" />
+                            <div ng-messages="createBox.name.$error" ng-show="createBox.name.$dirty">
+                                <div ng-message="required">This is required!</div>
+                            </div>
                         </md-input-container>
                         <md-input-container flex ng-if="l.secondStep">
                             <label>Enter code</label>
-                            <input autocomplete="off" ng-model="l.code" />
+                            <input autocomplete="off" ng-model="l.code" ng-change="createBox.professor.$setValidity('server',true)" />
                         </md-input-container>
                         <md-input-container flex ng-if="l.secondStep">
                             <label>instractor</label>
-                            <input autocomplete="off" ng-model="l.professor" />
+                            <input autocomplete="off" ng-model="l.professor" name="professor" ng-change="createBox.professor.$setValidity('server',true)" />
+                            <div ng-messages="createBox.professor.$error">
+                                <div ng-message="server">{{l.error}}</div>
+                            </div>
                         </md-input-container>
-                        <span class="error" ng-show="l.error">{{l.error}}</span>
+
                     </md-content>
                     <span layout="row" layout-align="end stretch">
                         <button type="button" class="btn btn-default text-capitalize" ng-click="l.boxCancel()">cancel</button>

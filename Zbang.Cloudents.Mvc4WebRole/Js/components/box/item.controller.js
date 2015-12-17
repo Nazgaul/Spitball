@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.box.items').controller('ItemsController', items);
-    items.$inject = ['boxService', '$stateParams', '$rootScope', 'itemThumbnailService', '$mdDialog', '$scope'];
+    items.$inject = ['boxService', '$stateParams', '$rootScope', 'itemThumbnailService', '$mdDialog', '$scope', 'user'];
 
-    function items(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog, $scope) {
+    function items(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog, $scope, user) {
         var i = this,
         boxId = $stateParams.boxId;
         i.items = [];
@@ -38,6 +38,10 @@
         }
 
         function addTab() {
+            if (!user.id) {
+                $rootScope.$broadcast('show-unregisterd-box');
+                return;
+            }
             if (!i.newFolderName) {
                 i.newFolderTabOpened = false;
             }
@@ -93,6 +97,10 @@
         }
 
         function openUpload() {
+            if (!user.id) {
+                $rootScope.$broadcast('show-unregisterd-box');
+                return;
+            }
             $rootScope.$broadcast('open_upload', i.tabSelected.id);
             i.uploadShow = false;
         }

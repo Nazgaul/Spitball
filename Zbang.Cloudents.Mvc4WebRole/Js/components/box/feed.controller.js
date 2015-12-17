@@ -1,9 +1,9 @@
 ﻿(function () {
     angular.module('app.box.feed').controller('FeedController', feed);
     feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
-        'user', 'userUpdatesService', '$mdDialog', '$scope'];
+        'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope'];
 
-    function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService, $mdDialog, $scope) {
+    function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService, $mdDialog, $scope, $rootScope) {
         var self = this, boxId = parseInt($stateParams.boxId, 10), page = 0, ajaxFinish = true;
 
         self.add = {
@@ -168,7 +168,10 @@
             });
         }
         function createReply(comment) {
-
+            if (!user.id) {
+                $rootScope.$broadcast('show-unregisterd-box');
+                return;
+            }
             var filesId = self.add.files.filter(function (e) {
                 return e.postId == comment.id;
             }).map(function (c) {
@@ -213,6 +216,10 @@
         }
 
         function createComment() {
+            if (!user.id) {
+                $rootScope.$broadcast('show-unregisterd-box');
+                return;
+            }
 
             var files = self.add.files.filter(function (e) {
                 return e.postId == null;
@@ -226,7 +233,7 @@
             //content,boxId, files, anonymously
             boxService.postComment(self.add.newText, boxId, filesId, self.add.anonymous).then(function (response) {
                 var newComment = {
-                    content:  extractUrls(self.add.newText.replace(/[&<>]/g, replaceTag)),
+                    content: extractUrls(self.add.newText.replace(/[&<>]/g, replaceTag)),
                     creationTime: new Date(),
                     id: response.commentId,
                     url: response.userUrl,
