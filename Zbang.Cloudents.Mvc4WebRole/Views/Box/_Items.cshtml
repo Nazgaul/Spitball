@@ -6,6 +6,7 @@
     <input type="search" placeholder="@BoxResources.Search" ng-model="i.term" ng-model-options="{debounce : 250}" ng-change="i.filter()" ng-minlength="2" />
 </div>
 @{ Html.RenderPartial("_Tabs");}
+                    @BoxResources.AddFolder
 
 <ul layout="row" layout-padding layout-fill layout-wrap class="list-unstyled" infinite-scroll="i.myPagingFunction()" infinite-scroll-distance="1" infinite-scroll-immediate-check="false">
     <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="item-animate add-button " ng-click="i.openUpload()">
