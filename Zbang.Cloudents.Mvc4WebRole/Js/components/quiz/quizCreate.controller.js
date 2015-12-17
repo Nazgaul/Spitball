@@ -221,6 +221,7 @@
                 }
             }
             quizService.publish(self.id).then(function (response) {
+                $rootScope.$broadcast('from-back'); // prevent going back to quiz create page
                 $location.url(response.url);
             }, function (response) {
                 $scope.app.showToaster(response, 'quizCreate');

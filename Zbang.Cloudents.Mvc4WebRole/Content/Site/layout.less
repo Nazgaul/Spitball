@@ -278,10 +278,20 @@ Page Header
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown:last-child {
     display: flex;
+    position: relative;
+
+    @media (min-width: 768px) {
+        min-width: 195px;
+    }
 
     a {
         align-self: center;
     }
+}
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle {
+    right: 0;
+    position: absolute;
 }
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle {
@@ -340,6 +350,8 @@ Page Header
     border-bottom: 6px solid @borderColorWhite;
     border-left: 6px solid transparent;
     content: '';
+    left: auto;
+    right: 28px;
 }
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu > li > a {
@@ -513,6 +525,10 @@ Page Header
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user {
     padding: 0 0 0 10px;
+    
+    @media (max-width: 768px) {
+        padding: 0 25px;
+    }
 }
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > .username {

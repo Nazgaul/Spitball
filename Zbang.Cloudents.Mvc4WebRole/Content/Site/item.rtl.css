@@ -68,6 +68,9 @@
   max-width: 800px;
   width: 100%;
 }
+.itemPage .fileName form {
+  margin: 0 auto;
+}
 .itemPage .fileName form .title,
 .itemPage .fileName form label {
   text-align: right;
