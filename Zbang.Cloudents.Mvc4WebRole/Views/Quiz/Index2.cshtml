@@ -81,7 +81,7 @@
                         <md-input-container md-no-float>
                             <textarea required placeholder="Write a comment" name="newComment" ng-model="q.questions[q.index].newComment"></textarea>
                             <div ng-messages="addDiscussion.newComment.$error">
-                                <div ng-message="required">This is required!</div>
+                                <div ng-message="required">@GeneralResources.RequiredField</div>
                             </div>
                             <button class="btn btn-primary pull-right" ng-disabled="!addDiscussion.$valid" type="submit">@GeneralResources.Post</button>
                         </md-input-container>
