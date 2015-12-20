@@ -774,3 +774,47 @@ md-tabs {
     align-items: center;
     z-index: 10051;
 }
+
+//md-tabs alignment
+
+
+.header.md-tab-header {
+    border-bottom: 1px solid @textColorWhite;
+
+    md-tabs {
+        background: none;
+        padding: 0;
+
+        .md-tab {
+            font-size: 11px;
+            padding: 10px;
+        }
+    }
+
+    @media only screen and (min-width : 600px) {
+        .displayFlex();
+        align-items: center;
+        font-size: 12px;
+        margin-bottom: 10px;
+
+
+
+        .caption {
+            padding-left: 5px;
+        }
+
+        md-tabs-canvas, md-pagination-wrapper {
+            height: 38px;
+        }
+
+        md-tabs {
+            flex-grow: 1;
+            padding: 0;
+
+            md-pagination-wrapper {
+                left: inherit;
+                right: 0;
+            }
+        }
+    }
+}
