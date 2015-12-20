@@ -35,19 +35,19 @@
                     <div class="actions" layout="row" layout-align="space-between center">
                         <div class="upload-options" layout="row" layout-wrap layout-align="space-between start">
                             <a plupload="f.add.fileUpload.url" ng-click="f.add.upload()"
-                               plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks">
+                               plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks" ga-track-event="['box-new-commnet', 'addFile']">
                                 @Html.Svg(url, "file", new { @class = "file" })
                             </a>
-                            <button type="button" class="google" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()">
+                            <button type="button" class="google" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()" ga-track-event="['box-new-commnet', 'googleDrive']">
                                 @Html.Svg(url, "googleDrive")
                                 @Html.Svg(url, "googleDriveClean")
                             </button>
-                            <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
+                            <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()" ga-track-event="['box-new-commnet', 'dropbox']">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
                         </div>
                         <div class="submit area-options" layout="row" layout-align="space-between center">
                             <input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
-                            <label for="anonymous">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
-                            <button type="submit" class="btn btn-primary text-uppercase" ng-disabled="f.add.disabled">@GeneralResources.Post</button>
+                            <label for="anonymous" ga-track-event="['box-new-commnet', 'anonymous']">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
+                            <button type="submit" class="btn btn-primary text-uppercase" ng-disabled="f.add.disabled" ga-track-event="['box-new-commnet', 'postComment']">@GeneralResources.Post</button>
                         </div>
                     </div>
                 </form>
@@ -55,18 +55,18 @@
                     <li ng-repeat="post in f.data" class="post comment">
 
                         <div class="top" layout="row" layout-align="space-between center">
-                            <a href="{{::post.url}}" layout="row" layout-align="start center" class="username">
+                            <a href="{{::post.url}}" layout="row" layout-align="start center" class="username" ga-track-event="['box-feed', 'userNameImage']">
                                 <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="54" height="54"></user-image>
                                 <span class="user-name">{{::post.userName}}</span>
                             </a>
                         </div>
                         <md-menu ng-if="b.canDelete(post.userId)">
-                            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
+                            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
                                 @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
                             </md-button>
                             <md-menu-content width="1">
                                 <md-menu-item>
-                                    <md-button aria-label="delete post" ng-click="f.deleteComment($event,post)">
+                                    <md-button aria-label="delete post" ng-click="f.deleteComment($event,post)" ga-track-event="['box-feed', 'didDelete']">
                                         @GeneralResources.Delete
                                     </md-button>
                                 </md-menu-item>
@@ -84,26 +84,26 @@
                         <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
                         <div class="actions">
                             @*<button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>*@
-                            <button type="button" class=" text-capitalize margins" ng-click="f.openReply(post)">@BoxResources.Comment</button>
+                            <button type="button" class=" text-capitalize margins" ng-click="f.openReply(post)" ga-track-event="['box-feed', 'deletePost']">@BoxResources.Comment</button>
                             @*<button type="button" class="margins share">@Html.Svg("~/images/site/box-icons.svg", "share")</button>*@
                             <span class="ribbon" ng-if="post.isNew">New</span>
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.answers.length">
                             <li ng-repeat="reply in post.answers" class="reply">
                                 <md-menu ng-if="b.canDelete(reply.userId)">
-                                    <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
+                                    <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
                                         @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
                                     </md-button>
                                     <md-menu-content width="1">
                                         <md-menu-item>
-                                            <md-button aria-label="delete reply" ng-click="f.deleteReply($event,post,reply)">
+                                            <md-button aria-label="delete reply" ng-click="f.deleteReply($event,post,reply)" ga-track-event="['box-feed', 'didDelete']">
                                                 @GeneralResources.Delete
                                             </md-button>
                                         </md-menu-item>
                                     </md-menu-content>
                                 </md-menu>
                                 <div class="top">
-                                    <a href="{{::reply.url}}" layout="row" layout-align="start center" class="username">
+                                    <a href="{{::reply.url}}" layout="row" layout-align="start center" class="username" ga-track-event="['box-feed', 'replyUserNameImg']">
                                         <user-image class="img-circle c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
                                         <span class="user-name">{{::reply.userName}}</span>
                                     </a>
@@ -149,17 +149,17 @@
                             <div layout="row" layout-align="space-between center">
                                 <div class="upload-options" layout="row" layout-wrap layout-align="space-between start">
                                     <a plupload="f.add.fileUpload.url" ng-click="f.add.upload(post.id)"
-                                       plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks">
+                                       plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks" ga-track-event="['box-feed', 'addFile']">
                                         @Html.Svg(url, "file", new { @class = "file" })
                                     </a>
-                                    <button type="button" class="google" ng-disabled="f.add.googleDisabled" ng-click="f.add.google(post.id)">
+                                    <button type="button" class="google" ng-disabled="f.add.googleDisabled" ng-click="f.add.google(post.id)" ga-track-event="['box-feed', 'googleDrive']">
                                         @Html.Svg(url, "googleDrive")
                                         @Html.Svg(url, "googleDriveClean")
                                     </button>
-                                    <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox(post.id)">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
+                                    <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox(post.id)" ga-track-event="['box-feed', 'dropbox']">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
                                 </div>
                                 <div class="submit area-options" layout="row" layout-align="space-between center">
-                                    <button type="submit" class="btn btn-primary text-uppercase" ng-disabled="f.add.disabled">@GeneralResources.Post</button>
+                                    <button type="submit" class="btn btn-primary text-uppercase" ng-disabled="f.add.disabled" ga-track-event="['box-feed', 'postReply']">@GeneralResources.Post</button>
                                     @*<input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
                                         <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
                                 </div>
@@ -179,7 +179,7 @@
             </div>
             <div class="invite-container" flex class="flex">
                 <div class="flex portlet light invite">
-                    <button type="button" ng-click="b.inviteToBox()" class="portlet-body">
+                    <button type="button" ng-click="b.inviteToBox()" class="portlet-body" ga-track-event="['box-feed', 'inviteFriends']">
                         @Html.Svg("~/images/site/icons.svg", "invite")
                         @BoxResources.InviteFriends
                     </button>
