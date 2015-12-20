@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
+
+@{
     ViewBag.Title = "Contact | Spitball | Study better by working together";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
@@ -16,8 +19,8 @@
                 Widget settings form goes here
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn blue">Save changes</button>
-                <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn blue">@GeneralResources.SaveChanges</button>
+                <button type="button" class="btn default" data-dismiss="modal">@HomeResources.Close</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -31,7 +34,7 @@
 <div class="page-head">
     <!-- BEGIN PAGE TITLE -->
     <div class="page-title">
-        <h1>Contact Us <small>contact us page</small></h1>
+        <h1>Contact Us <small>@HomeResources.ContactUs</small></h1>
     </div>
     <!-- END PAGE TITLE -->
     <!-- BEGIN PAGE TOOLBAR -->
