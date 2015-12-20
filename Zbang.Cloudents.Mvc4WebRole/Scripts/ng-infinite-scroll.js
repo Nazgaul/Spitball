@@ -83,7 +83,8 @@ mod.directive('infiniteScroll', [
       return {
           link: function (scope, elem, attrs) {
               var checkWhenEnabled, handler, scrollDistance, scrollEnabled;
-              $window = angular.element($window);
+              //$window = angular.element($window);
+              var $scrollElem = attrs.infiniteScrollElement ? angular.element(elem) : angular.element($window);
               scrollDistance = 0;
               if (attrs.infiniteScrollDistance != null) {
                   scope.$watch(attrs.infiniteScrollDistance, function (value) {

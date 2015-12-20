@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                  {
                     "site4", new[]
                     {
-                        "~/bower_components/angular-material/angularWithChanges.css",
+                        "~/content/site/angularWithChanges.css",
                         "~/bower_components/textAngular/dist/textAngular.css",
                         
                         "~/Content/homepage/bootstrap.css",
@@ -117,8 +117,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         
                         new JsFileWithCdn("~/scripts/angular-ui-router.js"),
                         new JsFileWithCdn("~/scripts/angular-messages.js"),
-                        new JsFileWithCdn("~/scripts/angular-cache-2.4.1.js"),
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
+                        new JsFileWithCdn("~/bower_components/angular-cache/dist/angular-cache.min.js"),
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-sanitize.min.js"),
                         new JsFileWithCdn("~/bower_components/ngSlimscroll/src/js/ngSlimscroll.js"),
                         new JsFileWithCdn("~/bower_components/angular-google-analytics/dist/angular-google-analytics.js"),
@@ -132,6 +132,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc7/angular-material.min.js"),
 
                         new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
+                        new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),
+                        
 
                         new JsFileWithCdn("~/scripts/plupload2/moxie.min.js"),
                         new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),

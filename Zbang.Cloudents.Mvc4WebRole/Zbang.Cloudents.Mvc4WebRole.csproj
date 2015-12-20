@@ -538,6 +538,23 @@
     <Content Include="bower_components\angular-aria\angular-aria.js" />
     <Content Include="bower_components\angular-aria\angular-aria.min.js" />
     <Content Include="bower_components\angular-aria\index.js" />
+    <Content Include="bower_components\angular-cache\build_examples\browserify\app.js" />
+    <Content Include="bower_components\angular-cache\build_examples\browserify\index.html" />
+    <Content Include="bower_components\angular-cache\build_examples\r.js\app.js" />
+    <Content Include="bower_components\angular-cache\build_examples\r.js\index.html" />
+    <Content Include="bower_components\angular-cache\build_examples\r.js\main.js" />
+    <Content Include="bower_components\angular-cache\build_examples\r.js\require.config.js" />
+    <Content Include="bower_components\angular-cache\build_examples\webpack\app.js" />
+    <Content Include="bower_components\angular-cache\build_examples\webpack\index.html" />
+    <Content Include="bower_components\angular-cache\build_examples\webpack\webpack.config.js" />
+    <Content Include="bower_components\angular-cache\build_examples\webpack_es6\app.js" />
+    <Content Include="bower_components\angular-cache\build_examples\webpack_es6\index.html" />
+    <Content Include="bower_components\angular-cache\build_examples\webpack_es6\webpack.config.js" />
+    <Content Include="bower_components\angular-cache\build_examples\webpack_es6_2\app.js" />
+    <Content Include="bower_components\angular-cache\build_examples\webpack_es6_2\index.html" />
+    <Content Include="bower_components\angular-cache\build_examples\webpack_es6_2\webpack.config.js" />
+    <Content Include="bower_components\angular-cache\dist\angular-cache.js" />
+    <Content Include="bower_components\angular-cache\dist\angular-cache.min.js" />
     <Content Include="bower_components\angular-google-analytics\.gitignore" />
     <Content Include="bower_components\angular-google-analytics\dist\angular-google-analytics.js" />
     <Content Include="bower_components\angular-google-analytics\dist\angular-google-analytics.min.js" />
@@ -561,8 +578,8 @@
     <Content Include="bower_components\angular-material\angular-material.rtl.rtl.css">
       <DependentUpon>angular-material.rtl.css</DependentUpon>
     </Content>
-    <Content Include="bower_components\angular-material\angularWithChanges.css" />
-    <Content Include="bower_components\angular-material\angularWithChanges.rtl.css">
+    <Content Include="Content\Site\angularWithChanges.css" />
+    <Content Include="Content\Site\angularWithChanges.rtl.css">
       <DependentUpon>angularWithChanges.css</DependentUpon>
     </Content>
     <Content Include="bower_components\angular-material\demos\bottomSheet\demoBasicUsage\img\icons\copy.svg" />
@@ -1249,6 +1266,19 @@
     <Content Include="bower_components\ngSlimscroll\LICENSE" />
     <Content Include="bower_components\ngSlimscroll\package.json" />
     <Content Include="bower_components\ngSlimscroll\README.md" />
+    <Content Include="bower_components\angular-cache\.bower.json" />
+    <Content Include="bower_components\angular-cache\bower.json" />
+    <Content Include="bower_components\angular-cache\build_examples\browserify\README.md" />
+    <Content Include="bower_components\angular-cache\build_examples\r.js\README.md" />
+    <Content Include="bower_components\angular-cache\build_examples\webpack\README.md" />
+    <Content Include="bower_components\angular-cache\build_examples\webpack_es6\README.md" />
+    <Content Include="bower_components\angular-cache\build_examples\webpack_es6_2\README.md" />
+    <Content Include="bower_components\angular-cache\CHANGELOG.md" />
+    <Content Include="bower_components\angular-cache\circle.yml" />
+    <Content Include="bower_components\angular-cache\dist\angular-cache.min.map" />
+    <Content Include="bower_components\angular-cache\LICENSE" />
+    <Content Include="bower_components\angular-cache\README.md" />
+    <Content Include="bower_components\angular-cache\TRANSITION.md" />
     <None Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -1918,6 +1948,7 @@
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular-sanitize.js" />
     <Content Include="Scripts\angular-sanitize.min.js" />
+    <Content Include="Scripts\angular-srph-infinite-scroll.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\angular.js" />

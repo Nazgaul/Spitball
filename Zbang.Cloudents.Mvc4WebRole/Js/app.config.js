@@ -3,17 +3,17 @@
 
     angular.module('app').config(config);
 
-    config.$inject = ['$controllerProvider', '$locationProvider', '$angularCacheFactoryProvider', '$provide', '$httpProvider'];
+    config.$inject = ['$controllerProvider', '$locationProvider', '$provide', '$httpProvider', 'CacheFactoryProvider'];
 
-    function config($controllerProvider, $locationProvider, $angularCacheFactoryProvider, $provide, $httpProvider) {
+    function config($controllerProvider, $locationProvider, $provide, $httpProvider, cacheFactoryProvider) {
         //$locationProvider.html5Mode(true).hashPrefix('!');
         $controllerProvider.allowGlobals();
-        $angularCacheFactoryProvider.setCacheDefaults({
-            maxAge: 45000, //45 seconds
+        angular.extend(cacheFactoryProvider.defaults, {
             deleteOnExpire: 'aggressive',
-            recycleFreq: 45000,
-            cacheFlushInterval: 45000,
-            storageMode: 'sessionStorage'
+            maxAge: 45000, //45 seconds
+            recycleFreq: 15000, // 15 seconds
+            storageMode: 'sessionStorage',
+            storagePrefix: 'sb.c.'
         });
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
         //deep-purple

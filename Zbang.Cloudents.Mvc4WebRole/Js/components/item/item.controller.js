@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.item').controller('ItemController', item);
-    item.$inject = ['$stateParams', 'itemService', '$sce', '$location'];
+    item.$inject = ['$stateParams', 'itemService', '$sce', '$location','$q'];
 
-    function item($stateParams, itemService, $sce, $location) {
+    function item($stateParams, itemService, $sce, $location, $q) {
         var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         var index = 0, needLoadMore = false;
 
@@ -21,13 +21,13 @@
         });
 
 
-       
+
 
         //i.renameOn = true;
         i.loadMore = loadMore;
         i.selectedState = i.state.regular;
 
-        
+
         i.renameItem = renameItem;
         i.flagItem = flagItem;
         i.cancelFlag = cancelFlag;
@@ -40,7 +40,7 @@
 
         function getPreview() {
             i.loader = true;
-            itemService.getPreview(
+            return itemService.getPreview(
                  i.details.blob,
                  index,
                 itemId,
@@ -62,7 +62,7 @@
                         //});
                         needLoadMore = true;
                     }
-                    
+
                     //$scope.$broadcast('update', data.preview); //for fullscreen
                 }
             });
@@ -73,7 +73,7 @@
             }
         }
 
-       
+
         function swipeRight() {
             if (i.details.previous) {
                 $location.url(i.details.previous);
@@ -86,11 +86,14 @@
         }
 
         function loadMore() {
+            var defer = $q.defer();
             if (needLoadMore) {
                 needLoadMore = false;
                 ++index;
-                getPreview();
+                return getPreview();
             }
+            defer.resolve();
+            return defer.promise;
         };
         function renameItem() {
             itemService.renameItem(i.renameText, itemId).then(function (response) {
@@ -109,7 +112,7 @@
             i.selectedState = i.state.regular;
         }
 
-        
+
         function like() {
             itemService.like(itemId, boxid);
             if (i.details.like) {
