@@ -9,7 +9,7 @@
                    
 
 <ul layout="row" layout-padding layout-fill layout-wrap class="list-unstyled" srph-infinite-scroll="i.myPagingFunction()">
-    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="item-animate add-button " ng-click="i.openUpload()">
+    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="item-animate add-button " ng-click="i.openUpload()" ga-track-event="['box-items', 'addFile']">
         <div class="content ">
             <button type="button">
                 @Html.Svg("~/images/site/icons.svg", "add")
@@ -20,12 +20,12 @@
     <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="item-animate i-q-wrapper" ng-repeat="e in i.items track by e.id ">
         <div ui-draggable="true" drag="e" on-drop-success="i.dropToTabSuccess($index)" ng-include="'item-template.html'"></div>
         <md-menu ng-if="b.canDelete(e.ownerId)">
-            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
+            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-items', 'deleteFile']">
                 @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
             </md-button>
             <md-menu-content width="1">
                 <md-menu-item>
-                    <md-button aria-label="delete post" ng-click="i.deleteItem($event,e)">
+                    <md-button aria-label="delete post" ng-click="i.deleteItem($event,e)" ga-track-event="['box-items', 'didDelete']">
                         @GeneralResources.Delete
                     </md-button>
                 </md-menu-item>
@@ -33,7 +33,7 @@
         </md-menu>
     </li>
 </ul>
-<button type="button" class="add" hide show-xs ng-click="i.openUpload()" ng-show="i.uploadShow">
+<button type="button" class="add" hide show-xs ng-click="i.openUpload()" ng-show="i.uploadShow" ga-track-event="['box-items', 'addFile']">
     <div class="mobile-plus">
         @Html.Svg("~/images/site/icons.svg", "add")
     </div>

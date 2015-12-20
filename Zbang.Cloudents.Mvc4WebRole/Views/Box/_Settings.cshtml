@@ -47,8 +47,8 @@
             </md-select>
         </md-input-container>
         <md-input-container layout="row" layout-align="end center" flex="100" flex-gt-md="33">
-            <button type="button" class="btn btn-default text-capitalize" ng-click="b.settingsOpen = false">@GeneralResources.Cancel</button>
-            <button type="submit" class="btn btn-primary text-capitalize">@GeneralResources.SaveChanges</button>
+            <button type="button" class="btn btn-default text-capitalize" ng-click="b.settingsOpen = false" ga-track-event="['box-settings', 'cancel']">@GeneralResources.Cancel</button>
+            <button type="submit" class="btn btn-primary text-capitalize" ga-track-event="['box-settings', 'save']">@GeneralResources.SaveChanges</button>
         </md-input-container>
     </div>
 </form>
