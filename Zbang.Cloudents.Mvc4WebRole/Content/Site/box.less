@@ -260,10 +260,8 @@
 
     .quiz {
         .top .first-letter {
-            font-size: 40px;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
+            .sizeOfLetter(38px);
+            line-height: 38px;
         }
     }
 
@@ -435,7 +433,7 @@
     }
 
     .quiz .quiz-ratio {
-        width: 100px;
+        .aspect-ratio(0.8,1);
     }
 }
 
@@ -674,8 +672,6 @@
             line-height: 90%;
             text-transform: lowercase;
 
-
-
             @media (min-width: 600px) {
                 .sizeOfLetter(@sizeOfTextSmall);
             }
@@ -722,7 +718,7 @@
         position: relative;
         //padding: 10px;
         //padding-bottom: 80.5%;
-        height: ~"calc(100% - @{heightOfTop} - 28px)";
+        height: ~"calc(100% - @{heightOfTop})";
 
         .name {
             margin-top: 5px;
@@ -736,8 +732,8 @@
 
         .corner {
             position: absolute;
-            bottom: 0;
-            right: 0 /*rtl:ignore*/;
+            bottom: -1px;
+            right: -1px /*rtl:ignore*/;
             width: 40%;
             fill: @backgroundColor;
         }
