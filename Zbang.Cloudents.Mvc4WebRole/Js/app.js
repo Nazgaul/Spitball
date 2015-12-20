@@ -15,6 +15,7 @@
         'angular-plupload',
         'countUpModule',
         'infinite-scroll',
+        'jkuri.slimscroll',
        // 'displayTime',
         'app.dashboard',
         'app.library',
