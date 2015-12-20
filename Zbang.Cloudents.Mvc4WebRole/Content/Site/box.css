@@ -215,12 +215,17 @@
   font-size: 12px;
 }
 .feed .items-container {
-  overflow-x: auto;
   white-space: nowrap;
   margin-left: 47px;
   margin-right: 15px;
 }
-.feed .items-container li:first-child {
+.feed .items-container ul {
+  margin: 0;
+}
+.feed .items-container li {
+  width: 119px;
+}
+.feed .items-container li::first-child {
   padding-left: 0;
 }
 .feed .posts-list .actions {

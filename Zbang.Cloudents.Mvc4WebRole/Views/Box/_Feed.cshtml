@@ -73,9 +73,14 @@
                             </md-menu-content>
                         </md-menu>
                         <div ng-bind-html="::post.content" class="content-text"></div>
-                        <ul class="list-inline items-container" ng-if="post.files.length" watch-content="true" ng-slimscroll horizontal-scroll="true" height="140">
-                            <li style="width:117px;" ng-repeat="e in post.files" ng-include="f.postItemTemplate(e)"></li>
-                        </ul>
+                        <div class="items-container" ng-if="post.files.length">
+                            <ul class="list-inline " watch-content="true"
+                                ng-slimscroll horizontal-scroll="true"
+                                color="#BBB" width="auto"
+                                height="140">
+                                <li ng-repeat="e in post.files" ng-include="f.postItemTemplate(e)"></li>
+                            </ul>
+                        </div>
                         <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
                         <div class="actions">
                             @*<button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>*@
@@ -104,20 +109,25 @@
                                     </a>
                                     <div ng-bind-html="::reply.content" class="content-text"></div>
                                 </div>
-                                <ul class="list-inline items-container">
-                                    <li ng-repeat="e in reply.files" ng-include="'item-template.html'">
-                                        @*<a class="item" href="{{::item.url}}">
-                                                <div class="content">
-                                                    <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
-                                                    <div class="extra">
-                                                        <h5>{{::item.name}}</h5>
-                                                        <img src="http://lorempixel.com/30/30/" alt="" />
+                                <div class="items-container" ng-if="reply.files.length">
+                                    <ul class="list-inline" watch-content="true"
+                                        ng-slimscroll horizontal-scroll="true"
+                                        color="#BBB" width="auto"
+                                        height="140">
+                                        <li ng-repeat="e in reply.files" ng-include="'item-template.html'">
+                                            @*<a class="item" href="{{::item.url}}">
+                                                    <div class="content">
+                                                        <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
+                                                        <div class="extra">
+                                                            <h5>{{::item.name}}</h5>
+                                                            <img src="http://lorempixel.com/30/30/" alt="" />
 
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </a>*@
-                                    </li>
-                                </ul>
+                                                </a>*@
+                                        </li>
+                                    </ul>
+                                </div>
                                 <span class="comment-date">{{::reply.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
                                 <div class="actions padding">
                                     @*<button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>
