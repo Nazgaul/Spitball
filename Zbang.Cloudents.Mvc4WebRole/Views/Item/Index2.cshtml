@@ -3,7 +3,7 @@
 @{
     const string svgUrl = "~/images/site/itemIcons.svg";
 }
-<div class="full-screen itemPage">
+<div class="full-screen itemPage" srph-infinite-scroll="i.loadMore()" container="true">
     <header>
         <div class="fb-like" ng-class="{blue : i.details.like}">
             <button type="button" ng-click="i.like()">
@@ -36,7 +36,7 @@
         <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl)">@Html.Svg("~/images/site/icons.svg", "close")</button>
 
     </header>
-   
+
     <div class="full-screen-body" md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">
         <md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear>
         <div class="fileName">
@@ -68,7 +68,7 @@
             <a ng-if="i.details.previous" href="{{i.details.previous}}" hide-xs class="arrow left">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
             <a ng-if="i.details.next" href="{{i.details.next}}" hide-xs class="arrow right">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
         </div>
-        <div class="preview" ng-bind-html="i.preview" infinite-scroll="i.loadMore()" infinite-scroll-distance="2" infinite-scroll-immediate-check="false">
+        <div class="preview" ng-bind-html="i.preview">
         </div>
     </div>
 </div>

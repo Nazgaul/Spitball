@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.user').controller('UserController', user);
-    user.$inject = ['userService', '$stateParams', 'userData', 'itemThumbnailService'];
+    user.$inject = ['userService', '$stateParams', 'userData', 'itemThumbnailService', '$q'];
 
-    function user(userService, $stateParams, userData, itemThumbnailService) {
+    function user(userService, $stateParams, userData, itemThumbnailService, $q) {
         var self = this;
         var boxesPage = 0, friendPage = 0, itemsPage = 0, commentPage = 0, quizzesPage = 0;
         var friends = [], boxes = [], files = [], feed = [], quiz = [];
@@ -19,10 +19,6 @@
         }
         self.tab = self.state.box;
         self.elements = [];
-
-        ;
-
-
 
         self.changeTab = function (tab) {
             self.tab = tab;
@@ -86,19 +82,15 @@
         self.myPagingFunction = function () {
             switch (self.tab) {
                 case self.state.item:
-                    loadItems();
-                    break;
+                    return loadItems();
                 case self.state.post:
-                    loadComment();
-                    break;
+                    return loadComment();
                 case self.state.quiz:
-                    loadQuiz();
-                    break;
+                    return loadQuiz();
                 case self.state.friend:
-                    loadFriends();
-                    break;
+                    return loadFriends();
                 default:
-                    loadboxes();
+                    return loadboxes();
             }
         }
 
@@ -116,13 +108,13 @@
         //TODO: write this as one function.
         function loadItems(fromTab) {
             if (haveData(fromTab, files)) {
-                return;
+                return returnEmptyPromise();
             }
             if (self.itemsLoading) {
-                return;
+                return returnEmptyPromise();
             }
             self.itemsLoading = true;
-            userService.files($stateParams.userId, itemsPage).then(function (response) {
+            return userService.files($stateParams.userId, itemsPage).then(function (response) {
                 response = itemThumbnailService.assignValues(response);
                 files = files.concat(response);
                 if (self.tab === self.state.item) {
@@ -136,13 +128,13 @@
         }
         function loadQuiz(fromTab) {
             if (haveData(fromTab, quiz)) {
-                return;
+                return returnEmptyPromise();
             }
             if (self.quizLoading) {
-                return;
+                return returnEmptyPromise();
             }
             self.quizLoading = true;
-            userService.quiz($stateParams.userId, quizzesPage).then(function (response) {
+            return userService.quiz($stateParams.userId, quizzesPage).then(function (response) {
                 for (var i = 0; i < response.length; i++) {
                     response[i].publish = true;
                 }
@@ -159,13 +151,13 @@
         }
         function loadboxes(fromTab) {
             if (haveData(fromTab, boxes)) {
-                return;
+                return returnEmptyPromise();
             }
             if (self.boxesLoading) {
-                return;
+                return returnEmptyPromise();
             }
             self.boxesLoading = true;
-            userService.boxes($stateParams.userId, boxesPage).then(function (response) {
+            return userService.boxes($stateParams.userId, boxesPage).then(function (response) {
                 boxes = boxes.concat(response);
                 if (self.tab === self.state.box) {
                     self.elements = boxes;
@@ -182,13 +174,13 @@
 
         function loadComment(fromTab) {
             if (haveData(fromTab, feed)) {
-                return;
+                return returnEmptyPromise();
             }
             if (self.commentsLoading) {
-                return;
+                return returnEmptyPromise();
             }
             self.commentsLoading = true;
-            userService.feed($stateParams.userId, commentPage).then(function (response) {
+            return userService.feed($stateParams.userId, commentPage).then(function (response) {
                 feed = feed.concat(response);
                 if (self.tab === self.state.post) {
                     self.elements = feed;
@@ -204,13 +196,13 @@
 
         function loadFriends(fromTab) {
             if (haveData(fromTab, friends)) {
-                return;
+                return returnEmptyPromise();
             }
             if (self.friendLoading) {
-                return;
+                return returnEmptyPromise();
             }
             self.friendLoading = true;
-            userService.friends($stateParams.userId, friendPage).then(function (response) {
+            return userService.friends($stateParams.userId, friendPage).then(function (response) {
                 friends = friends.concat(response);
                 if (self.tab === self.state.friend) {
                     self.elements = friends;
@@ -220,6 +212,12 @@
                     self.friendLoading = false;
                 }
             });
+        }
+
+        function returnEmptyPromise() {
+            var defer = $q.defer();
+            defer.resolve();
+            return defer.promise;
         }
     }
 })();

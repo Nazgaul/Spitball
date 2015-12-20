@@ -1,23 +1,23 @@
 ﻿(function () {
     angular.module('app.box.items').controller('ItemsController', items);
-    items.$inject = ['boxService', '$stateParams', '$rootScope', 'itemThumbnailService', '$mdDialog', '$scope', 'user'];
+    items.$inject = ['boxService', '$stateParams', '$rootScope', 'itemThumbnailService', '$mdDialog', '$scope', 'user','$q'];
 
-    function items(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog, $scope, user) {
+    function items(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog, $scope, user, $q) {
         var i = this,
         boxId = $stateParams.boxId;
         i.items = [];
         i.uploadShow = true;
         i.tabSelected = {};
-        var page = 0, loading = false, needToBringMore = true;
+        var page = 0, needToBringMore = true;
 
-        boxService.getTabs(boxId).then(function(data) {
+        boxService.getTabs(boxId).then(function (data) {
             i.tabs = data;
         });
 
-        
+
 
         i.myPagingFunction = function () {
-            getItems(true);
+            return getItems(true);
         }
         i.filter = filter;
         i.openUpload = openUpload;
@@ -45,10 +45,10 @@
             if (!i.newFolderName) {
                 i.newFolderTabOpened = false;
             }
-            boxService.createTab(i.newFolderName, boxId).then(function(response) {
+            boxService.createTab(i.newFolderName, boxId).then(function (response) {
                 i.tabs.push(response);
                 i.newFolderTabOpened = false;
-            }, function(response) {
+            }, function (response) {
                 $scope.app.showToaster(response, 'tabSection');
             });
         }
@@ -124,24 +124,25 @@
 
 
         function getItems() {
-            if (!loading && needToBringMore) {
-                loading = true;
 
-                boxService.items(boxId, i.tabSelected.id, page).then(function (response) {
-                    response = itemThumbnailService.assignValues(response);
-                    if (page > 0) {
-                        i.items = i.items.concat(response);
-                    } else {
-                        i.items = response;
-                    }
-
-                    if (!response.length) {
-                        needToBringMore = false;
-                    }
-                    page++;
-                    loading = false;
-                });
+            if (!needToBringMore) {
+                var defer = $q.defer();
+                defer.resolve();
+                return defer.promise;
             }
+            return boxService.items(boxId, i.tabSelected.id, page).then(function (response) {
+                response = itemThumbnailService.assignValues(response);
+                if (page > 0) {
+                    i.items = i.items.concat(response);
+                } else {
+                    i.items = response;
+                }
+
+                if (!response.length) {
+                    needToBringMore = false;
+                }
+                page++;
+            });
         }
         function filter() {
             if (!i.term) {

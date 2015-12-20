@@ -4,7 +4,7 @@
         'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope'];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService, $mdDialog, $scope, $rootScope) {
-        var self = this, boxId = parseInt($stateParams.boxId, 10), page = 0, ajaxFinish = true;
+        var self = this, boxId = parseInt($stateParams.boxId, 10), page = 0;
 
         self.add = {
             files: [],
@@ -41,18 +41,14 @@
 
         });
         function myPagingFunction() {
-            if (ajaxFinish) {
-                ajaxFinish = false;
-                page++;
-                boxService.getFeed(boxId, page).then(function (response) {
-                    if (!response.length) {
-                        return;
-                    }
-                    self.data = self.data.concat(response);
-                    assignData();
-                    ajaxFinish = true;
-                });
-            }
+            page++;
+            return boxService.getFeed(boxId, page).then(function (response) {
+                if (!response.length) {
+                    return;
+                }
+                self.data = self.data.concat(response);
+                assignData();
+            });
             //var page = self.viewData.length / 25;
             //self.viewData = self.viewData.concat(self.data.slice(page * 25, (page * 25) + 25));
         }

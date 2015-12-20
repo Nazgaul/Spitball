@@ -263,3 +263,4 @@
 /// <reference path="../bower_components/angular-cache/build_examples/webpack_es6_2/app.js" />
 /// <reference path="../bower_components/angular-cache/build_examples/webpack_es6_2/webpack.config.js" />
 /// <reference path="../bower_components/angular-cache/dist/angular-cache.js" />
+/// <reference path="angular-srph-infinite-scroll.js" />
