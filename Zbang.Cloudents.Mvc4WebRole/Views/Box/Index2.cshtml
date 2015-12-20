@@ -9,8 +9,8 @@
     <div class="page-head">
         <div layout="row" layout-align="space-between center" ng-hide="b.settingsOpen" class="page-title" ng-class="{'need-follow' : b.needFollow}">
             <h1 flex>{{b.data.name}}</h1>
-            <button flex="none" ng-if="b.needFollow" type="button" ng-click="b.follow()" class="invite-btn text-capitalize">@BoxResources.Follow</button>
-            <button flex="none" ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()">@Html.Svg("/images/site/box-icons.svg", "settings")</button>
+            <button flex="none" ng-if="b.needFollow" type="button" ng-click="b.follow()" class="invite-btn text-capitalize" ga-track-event="['box', 'follow']">@BoxResources.Follow</button>
+            <button flex="none" ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" ga-track-event="['box', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings")</button>
         </div>
     </div>
     <div uib-collapse="!b.settingsOpen" class="settings">
