@@ -65,7 +65,7 @@
                             url: '/search/?q',
                             controller: 'SearchController as s',
                             data: { animateClass: 'searchState' },
-                            
+                            reloadOnSearch: false
                             //onEnter: routerHelper.universityRedirect
                         },
                         templateUrl: '/search/indexpartial/'

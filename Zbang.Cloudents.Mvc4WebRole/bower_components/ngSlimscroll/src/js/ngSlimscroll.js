@@ -289,19 +289,31 @@ angular.module('jkuri.slimscroll', [])
 			});
 
 			if (scope.watchContent) {
-				var contentWatcher = scope.$watch(
-					function() {
-					     return element.html();
-					},
-					function() {
-					     scope.init();
-					}
-				)
-				scope.$on("$destroy", function () { contentWatcher(); });
+			    var contentWatcher = scope.$watch(
+			        function() {
+			            return element.html();
+			        },
+			        function() {
+			            scope.init();
+			        }
+			    );
+			    var windowWatcher = scope.$watch(
+			        function () {
+			            return $window.innerWidth;
+			        },
+			        function () {
+			            scope.init();
+			        }
+			    );
+			   
+				scope.$on("$destroy", function () {
+				    contentWatcher();
+				    windowWatcher();
+				});
 			}
 
 			scope.init = function () {
-				bar.css('top','0');
+				//bar.css('top','0');
 				if (!scope.horizontalScroll) {
 					scope.getBarHeight();
 					scope.makeBarDraggable();

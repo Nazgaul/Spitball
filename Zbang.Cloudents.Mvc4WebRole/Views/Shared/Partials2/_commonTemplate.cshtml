@@ -59,22 +59,26 @@
 </script>
 <script type="text/ng-template" id="quiz-template.html">
     <a class="quiz" href="{{e.url}}">
-        <div class="quiz-ratio">
-            <div class="base content">
-                <div ng-if="e.publish" class="top background" d-color="{{::e.name.length}}">
-                    <span class="first-letter" first-letter="{{::e.name}}"></span>
-                </div>
-                <div ng-if="!e.publish" class="top draft-wpr">
-                    <span class="draft">@IndexResources.Draft</span>
-                </div>
-                <div class="bottom">
-                    <span class="name ellipsis" ng-bind-html="::e.name"></span>
-                    @Html.Svg(svgUrl, "corner", new { @class = "corner", viewBox = "0 0 70 70" })
-                </div>
-                <div class="stats" ng-hide="::e.numOfViews === underfined">
-                    <div>
-                        {{::e.numOfViews}} @Html.Svg(svgUrl, "eye")
+        <div class="base">
+            <div class="quiz-ratio">
+                <div class="content">
+                    <div ng-if="e.publish" class="top background" d-color="{{::e.name.length}}">
+                        <span class="first-letter" first-letter="{{::e.name}}"></span>
                     </div>
+                    <div ng-if="!e.publish" class="top draft-wpr">
+                        <span class="draft">@IndexResources.Draft</span>
+                    </div>
+                    <div class="bottom">
+                        <span class="name ellipsis" ng-bind-html="::e.name"></span>
+                        @Html.Svg(svgUrl, "corner", new { @class = "corner", viewBox = "0 0 70 70" })
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="stats" ng-hide="::e.numOfViews === underfined">
+                <div>
+                    {{::e.numOfViews}} @Html.Svg(svgUrl, "eye")
                 </div>
             </div>
         </div>

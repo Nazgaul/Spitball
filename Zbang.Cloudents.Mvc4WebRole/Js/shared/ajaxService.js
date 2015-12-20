@@ -1,96 +1,103 @@
-﻿(function  (){
+﻿(function () {
     angular.module('app.ajaxservice').factory('ajaxService', ajaxService);
-    ajaxService.$inject = [
-        '$http',
-        '$q',
-        '$angularCacheFactory', 'Analytics'
-    ];
+    ajaxService.$inject = ['$http', '$q', 'Analytics', 'CacheFactory'];
 
 
-    function ajaxService($http, $q, $angularCacheFactory, analytics) {
+
+    function ajaxService($http, $q, analytics, cacheFactory) {
         "use strict";
-        var ttls = {},
-            cancelObjs = {},
-            service = {
-                get: function(url, data, ttl, noCache, cancellable) {
-                    var dfd = $q.defer(),
-                        startTime = new Date().getTime();
+        var cancelObjs = {};
 
-                    var getObj = {
-                        params: data
-                    };
+        function post(url, data, disableClearCache) {
+            var dfd = $q.defer(),
+                startTime = new Date().getTime();
 
-                    if (cancelObjs[url]) {
-                        cancelObjs[url].resolve();
-                    }
-
-                    if (cancellable) {
-                        cancelObjs[url] = $q.defer();
-                        getObj.timeout = cancelObjs[url].promise;
-                    }
-
-                    if (!noCache) {
-                        ttl = ttl || 15000; //default to 30 seconds
-                        getObj.cache = getCache(ttl);
-                    }
-                    url = url.toLowerCase();
-                    $http.get(url, getObj).success(function(response) {
-                        trackTime(startTime, url, data, 'get');
-
-                        if (!response) {
-                            dfd.reject();
-                            return;
-                        }
-
-                        if (response.success) {
-                            dfd.resolve(response.payload);
-                            cancelObjs[url] = null;
-                            return;
-                        }
-                        dfd.reject(response.payload);
-                        cancelObjs[url] = null;
-                        logError(url, data, response);
-
-                    }).error(function(response) {
-                        dfd.reject(response);
-                        logError(url, data, response);
-                    });
-                    return dfd.promise;
-
-                },
-                post: function(url, data, disableClearCache) {
-                    var dfd = $q.defer(),
-                        startTime = new Date().getTime();
-                    url = url.toLowerCase();
-                    $http.post(url, data).success(function(response) {
-                        trackTime(startTime, url, data, 'post');
-                        if (!disableClearCache) {
-                            angular.forEach(ttls, function(ttl) {
-                                ttl.removeAll();
-                            });
-                        }
-                        if (!response) {
-                            logError(url, data);
-                            dfd.reject();
-                            return;
-                        }
-                        if (response.success) {
-                            dfd.resolve(response.payload);
-                            return;
-                        }
-
-                        dfd.reject(response.payload);
-                        logError(url, data, response);
-
-                    }).error(function(response) {
-                        dfd.reject(response);
-                        logError(url, data, response);
-                    });
-                    return dfd.promise;
+            $http.post(buildUrl(url), data).then(function (response) {
+                var retVal = response.data;
+                trackTime(startTime, url, data, 'post');
+                if (!disableClearCache) {
+                    cacheFactory.clearAll();
+                    //angular.forEach(ttls, function (ttl) {
+                    //    ttl.removeAll();
+                    //});
                 }
+                if (!retVal) {
+                    logError(url, data);
+                    dfd.reject();
+                    return;
+                }
+                if (retVal.success) {
+                    dfd.resolve(retVal.payload);
+                    return;
+                }
+
+                dfd.reject(retVal.payload);
+                //logError(url, data, retVal);
+
+            }, function (response) {
+                dfd.reject(response);
+                logError(url, data, response);
+            });
+            return dfd.promise;
+        }
+
+
+        function get(url, data, ttl) {
+            var dfd = $q.defer(),
+                startTime = new Date().getTime();
+
+            var getObj = {
+                params: data
+            };
+
+
+            if (cancelObjs[url]) {
+                cancelObjs[url].resolve();
             }
 
-        return service;
+            cancelObjs[url] = $q.defer();
+            getObj.timeout = cancelObjs[url].promise;
+
+            ttl = ttl || 45000;
+            getObj.cache = getCache(ttl);
+
+
+            $http.get(buildUrl(url), getObj).then(function (response) {
+                //var data = response.data;
+                var retVal = response.data;
+                trackTime(startTime, url, data, 'get');
+
+                if (!retVal) {
+                    dfd.reject();
+                    return;
+                }
+
+                if (retVal.success) {
+                    dfd.resolve(retVal.payload);
+                    cancelObjs[url] = null;
+                    return;
+                }
+                dfd.reject(retVal.payload);
+                cancelObjs[url] = null;
+
+            }, function (response) {
+                dfd.reject(response);
+                logError(url, data, response);
+            });
+            return dfd.promise;
+
+        }
+        function buildUrl(url) {
+            url = url.toLowerCase();
+            if (!url.startsWith('/')) {
+                url = '/' + url;
+            }
+            if (!url.endsWith('/')) {
+                url = url + '/';
+            };
+            return url;
+        }
+
 
         function logError(url, data, payload) {
             var log = {
@@ -114,7 +121,7 @@
         function trackTime(startTime, url, data, type) {
             var timeSpent = new Date().getTime() - startTime;
 
-           
+
 
             analytics.trackTimings(url.toLowerCase() !== '/item/preview/' ? 'ajax ' + type
                     : 'ajaxPreview', url, timeSpent, JSON.stringify(data));
@@ -124,18 +131,20 @@
 
         function getCache(ttl) {
             var ttlString = ttl.toString();
-            if (ttls[ttlString]) {
-                return ttls[ttlString];
+
+            var dataCache = cacheFactory.get(ttlString);
+            if (!dataCache) {
+                dataCache = cacheFactory(ttlString, {
+                    maxAge: ttl
+                });
             }
-
-            var cache = $angularCacheFactory(ttlString, {
-                maxAge: ttl
-            });
-
-            ttls[ttlString] = cache;
-
-            return cache;
+            return dataCache;
         }
+
+        return {
+            get: get,
+            post: post
+        };
 
     }
 })();
