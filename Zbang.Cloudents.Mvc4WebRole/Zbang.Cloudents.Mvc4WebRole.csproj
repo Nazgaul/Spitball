@@ -561,8 +561,8 @@
     <Content Include="bower_components\angular-material\angular-material.rtl.rtl.css">
       <DependentUpon>angular-material.rtl.css</DependentUpon>
     </Content>
-    <Content Include="bower_components\angular-material\angularWithChanges.css" />
-    <Content Include="bower_components\angular-material\angularWithChanges.rtl.css">
+    <Content Include="Content\Site\angularWithChanges.css" />
+    <Content Include="Content\Site\angularWithChanges.rtl.css">
       <DependentUpon>angularWithChanges.css</DependentUpon>
     </Content>
     <Content Include="bower_components\angular-material\demos\bottomSheet\demoBasicUsage\img\icons\copy.svg" />
