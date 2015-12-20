@@ -1,11 +1,12 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div class="folder-selected" layout="row" layout-align="start center" ng-if="i.tabSelected.id">
     @Html.Svg("~/images/site/icons.svg", "arrow", new { flex = "none", @class = "arrow", ng_click = "i.upDir()" })
     <div flex="100" flex-gt-xs="50" class="folder-name">
         <div layout="row" layout-align="start center" class="folder-name-inner">
             <div class="name-and-icon" layout="row" layout-align="start center">
                 @Html.Svg("~/images/folder_icon.svg", "folder", new { flex = "none", @class = "icon" })
-                <div class="ellipsis" ng-if="!i.openRenameTab">
+                <div class="text ellipsis" ng-if="!i.openRenameTab">
                     {{i.tabSelected.name}}
                 </div>
                 <form class="content" ng-if="i.openRenameTab" ng-submit="i.renameTab()">
@@ -33,7 +34,7 @@
     </div>
 </div>
 <ul id="tabSection" layout-padding layout-wrap class="list-unstyled folders" layout="row" layout-align="start center" ng-if="!i.tabSelected.id">
-    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" ui-on-drop="i.test($event,$data)" class="folder-name i-q-wrapper" ng-repeat="e in i.tabs" ng-click="i.tabChange(e)">
+    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" @*ui-on-drop="i.test($event,$data)"*@ class="folder-name i-q-wrapper" ng-repeat="e in i.tabs" ng-click="i.tabChange(e)">
         <div class="name-and-icon content" layout="row" layout-align="start center">
             @Html.Svg("~/images/folder_icon.svg", "folder", new { flex = "none", @class = "icon" })
             <div flex class="text ellipsis">
@@ -46,7 +47,7 @@
             <button layout="row" layout-align="start center" type="button">
                 @Html.Svg("~/images/site/icons.svg", "add")
                 <span>
-                    Add folder
+                    @BoxResources.AddFolder
                 </span>
             </button>
         </div>

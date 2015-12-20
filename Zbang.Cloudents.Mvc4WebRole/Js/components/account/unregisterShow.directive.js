@@ -6,7 +6,7 @@
         return {
             restrict: 'A',
             link: function (scope, element) {
-
+                var windowHeight = $(window).height();
                 $rootScope.$on('show-unregisterd-box', function () {
                     element.removeClass('noHeight').addClass('smallHeight');
                 });
@@ -16,9 +16,9 @@
                     //var unregContainer = $(".unreg-user .content-wrapper");
                     if (scrollPos > 0) {
                         element.removeClass('noHeight mediumHeight largeHeight').addClass('smallHeight');
-                        if (scrollPos > 300) {
+                        if (scrollPos > windowHeight*0.5) {
                             element.removeClass('smallHeight largeHeight').addClass('mediumHeight');
-                            if (scrollPos > 600) {
+                            if (scrollPos > windowHeight*0.75) {
                                 element.removeClass('smallHeight mediumHeight').addClass('largeHeight');
                             }
                         }

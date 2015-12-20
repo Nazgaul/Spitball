@@ -2,8 +2,11 @@
 
 .search {
     background: @backgroundColor;
+
     @media (min-width: 960px) {
-        padding: 0 5%;
+        .content {
+            padding: 0 5%;
+        }
     }
 
     ::-webkit-input-placeholder {
@@ -91,6 +94,10 @@
             .sizeOfLetter(3vw);
         }
     }
+
+    .close {
+        padding: 25px;
+    }
 }
 
 .search-text {
@@ -99,6 +106,10 @@
     border: none;
     color: @textColorSpitballBlue;
     outline: none;
+
+    @media (min-width: 960px) {
+        padding-left: 5%;
+    }
 }
 
 //search btn on header

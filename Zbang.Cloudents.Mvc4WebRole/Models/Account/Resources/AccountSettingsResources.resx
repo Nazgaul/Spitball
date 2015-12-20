@@ -121,9 +121,6 @@
     <value>The code you entered is incorrect</value>
     <comment>Netanya code error msg (Hebrew)</comment>
   </data>
-  <data name="CurrentPassword" xml:space="preserve">
-    <value>Current password</value>
-  </data>
   <data name="CurrentPwdEmpty" xml:space="preserve">
     <value>You must enter your current password</value>
   </data>
@@ -135,9 +132,6 @@
   </data>
   <data name="Min6Chars" xml:space="preserve">
     <value>- Min 6 characters</value>
-  </data>
-  <data name="NewPassword" xml:space="preserve">
-    <value>New password</value>
   </data>
   <data name="NewPwdEmpty" xml:space="preserve">
     <value>You must enter your new password</value>

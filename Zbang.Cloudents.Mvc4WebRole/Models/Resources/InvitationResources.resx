@@ -120,7 +120,4 @@
   <data name="FieldRequired" xml:space="preserve">
     <value>- This field is required</value>
   </data>
-  <data name="To" xml:space="preserve">
-    <value>To:</value>
-  </data>
 </root>

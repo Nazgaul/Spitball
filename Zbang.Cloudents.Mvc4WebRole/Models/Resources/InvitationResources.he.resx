@@ -120,7 +120,4 @@
   <data name="FieldRequired" xml:space="preserve">
     <value>- עליך למלא שדה זה.</value>
   </data>
-  <data name="To" xml:space="preserve">
-    <value>אל:</value>
-  </data>
 </root>

@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CurrentPassword" xml:space="preserve">
-    <value>当前密码</value>
-  </data>
   <data name="CurrentPwdEmpty" xml:space="preserve">
     <value>当前密码不可为空</value>
   </data>
@@ -131,9 +128,6 @@
   </data>
   <data name="Min6Chars" xml:space="preserve">
     <value>- 至少 6 个字符长</value>
-  </data>
-  <data name="NewPassword" xml:space="preserve">
-    <value>新密码</value>
   </data>
   <data name="NewPwdEmpty" xml:space="preserve">
     <value>新密码不可为空</value>

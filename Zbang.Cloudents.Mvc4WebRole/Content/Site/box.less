@@ -12,7 +12,8 @@
     .folder-name {
 
         .folder-name-inner {
-            background: #5F6871;
+            background: @backgroundColorMenu;
+            padding: 0 6px;
         }
 
         .content {
@@ -22,8 +23,8 @@
         }
 
         .icon {
-            width: 27px;
-            height: 27px;
+            width: 18px;
+            height: 18px;
             fill: @backgroundColor2;
             margin: 0 7px;
             vertical-align: middle;
@@ -64,7 +65,7 @@
         -o-transform: rotate(180deg);
         -webkit-transform: rotate(180deg);
         transform: rotate(180deg);
-        fill: @backgroundColorItem;
+        fill: @backgroundColorMenu;
         margin-right: 15px;
     }
 }
@@ -73,6 +74,7 @@
     width: 100%;
     display: inline-block;
     .placeHolder(@textColorBlack);
+
     input {
         border: 10px solid @backgroundColorMenu;
         border-top-width: 15px;
@@ -100,9 +102,6 @@
             }
         }
     }
-
-    
-
 }
 
 
@@ -131,12 +130,11 @@
             padding-left: 10px;
         }
     }
+}
 
-
-    .text {
-        font-size: 18px;
-        padding-left: 6px;
-    }
+.folders .text, .folder-selected .text {
+    font-size: 18px;
+    padding-left: 6px;
 }
 
 .designed-input {
@@ -240,13 +238,17 @@
     }
 
     .items-container {
-        overflow-x: auto;
         white-space: nowrap;
         margin-left: 47px;
         margin-right: 15px;
-
-        li:first-child {
-            padding-left: 0;
+        ul {
+            margin:0;
+        }
+        li {
+            width:119px;
+            &::first-child {
+                padding-left: 0;
+            }
         }
     }
 
@@ -258,10 +260,8 @@
 
     .quiz {
         .top .first-letter {
-            font-size: 40px;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
+            .sizeOfLetter(38px);
+            line-height: 38px;
         }
     }
 
@@ -433,7 +433,7 @@
     }
 
     .quiz .quiz-ratio {
-        width: 100px;
+        .aspect-ratio(0.8,1);
     }
 }
 
@@ -672,8 +672,6 @@
             line-height: 90%;
             text-transform: lowercase;
 
-
-
             @media (min-width: 600px) {
                 .sizeOfLetter(@sizeOfTextSmall);
             }
@@ -720,7 +718,7 @@
         position: relative;
         //padding: 10px;
         //padding-bottom: 80.5%;
-        height: ~"calc(100% - @{heightOfTop} - 28px)";
+        height: ~"calc(100% - @{heightOfTop})";
 
         .name {
             margin-top: 5px;
@@ -734,8 +732,8 @@
 
         .corner {
             position: absolute;
-            bottom: 0;
-            right: 0 /*rtl:ignore*/;
+            bottom: -1px;
+            right: -1px /*rtl:ignore*/;
             width: 40%;
             fill: @backgroundColor;
         }

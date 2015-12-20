@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CurrentPassword" xml:space="preserve">
-    <value>كلمة المرور الحالية</value>
-  </data>
   <data name="CurrentPwdEmpty" xml:space="preserve">
     <value>حقل كلمة المرور لا يمكن ان يكون فارغا</value>
   </data>
@@ -131,9 +128,6 @@
   </data>
   <data name="Min6Chars" xml:space="preserve">
     <value>6احرف على الاقل</value>
-  </data>
-  <data name="NewPassword" xml:space="preserve">
-    <value>كلمه مرور جديدة</value>
   </data>
   <data name="NewPwdEmpty" xml:space="preserve">
     <value>حقل المرور الجديدة لا يمكن ان يكون فارغة</value>
