@@ -4,6 +4,7 @@
   "license": "MIT",
   "dependencies": {
     "angular-material": "~0.11.4",
-    "textAngular": "~1.4.6"
+    "textAngular": "~1.4.6",
+    "ngSlimscroll": "*"
   }
 }

@@ -70,15 +70,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current password.
-        /// </summary>
-        public static string CurrentPassword {
-            get {
-                return ResourceManager.GetString("CurrentPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to You must enter your current password.
         /// </summary>
         public static string CurrentPwdEmpty {
@@ -120,15 +111,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         public static string Min6Chars {
             get {
                 return ResourceManager.GetString("Min6Chars", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to New password.
-        /// </summary>
-        public static string NewPassword {
-            get {
-                return ResourceManager.GetString("NewPassword", resourceCulture);
             }
         }
         

@@ -1,0 +1,35 @@
+{
+  "name": "ngSlimscroll",
+  "homepage": "https://github.com/jkuri/ngSlimscroll",
+  "authors": [
+    "Jan Kuri <jkuri88@gmail.com>"
+  ],
+  "description": "AngularJS implementation of slimScroll",
+  "main": "src/js/ngSlimscroll.js",
+  "keywords": [
+    "AngularJS",
+    "slimscroll",
+    "scroller"
+  ],
+  "license": "GPLv2",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.0"
+  },
+  "_release": "30655eaa99",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "30655eaa99bea265517ab24caaf7c3494c955aa8"
+  },
+  "_source": "git://github.com/jkuri/ngSlimscroll.git",
+  "_target": "*",
+  "_originalSource": "ngSlimscroll",
+  "_direct": true
+}

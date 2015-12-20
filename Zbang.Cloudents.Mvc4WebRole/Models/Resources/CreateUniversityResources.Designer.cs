@@ -61,15 +61,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose a department.
-        /// </summary>
-        public static string ChooseDept {
-            get {
-                return ResourceManager.GetString("ChooseDept", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create a department.
         /// </summary>
         public static string CreateDept {
