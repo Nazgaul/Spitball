@@ -1034,6 +1034,9 @@
     <Content Include="bower_components\font-awesome\css\font-awesome.min.css" />
     <Content Include="bower_components\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="bower_components\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="bower_components\ngSlimscroll\index.js" />
+    <Content Include="bower_components\ngSlimscroll\src\js\ngSlimscroll.js" />
+    <Content Include="bower_components\ngSlimscroll\src\js\ngSlimscroll.min.js" />
     <Content Include="bower_components\rangy\rangy-classapplier.js" />
     <Content Include="bower_components\rangy\rangy-classapplier.min.js" />
     <Content Include="bower_components\rangy\rangy-core.js" />
@@ -1250,6 +1253,11 @@
     <Content Include="bower_components\angular-google-analytics\LICENSE" />
     <Content Include="bower_components\angular-google-analytics\package.json" />
     <Content Include="bower_components\angular-google-analytics\README.md" />
+    <Content Include="bower_components\ngSlimscroll\.bower.json" />
+    <Content Include="bower_components\ngSlimscroll\bower.json" />
+    <Content Include="bower_components\ngSlimscroll\LICENSE" />
+    <Content Include="bower_components\ngSlimscroll\package.json" />
+    <Content Include="bower_components\ngSlimscroll\README.md" />
     <None Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

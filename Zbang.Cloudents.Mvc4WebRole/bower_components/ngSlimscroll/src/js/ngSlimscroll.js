@@ -290,8 +290,12 @@ angular.module('jkuri.slimscroll', [])
 
 			if (scope.watchContent) {
 				var contentWatcher = scope.$watch(
-					function() { return element.html(); },
-					function() { scope.init(); }
+					function() {
+					     return element.html();
+					},
+					function() {
+					     scope.init();
+					}
 				)
 				scope.$on("$destroy", function () { contentWatcher(); });
 			}

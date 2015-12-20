@@ -73,8 +73,8 @@
                             </md-menu-content>
                         </md-menu>
                         <div ng-bind-html="::post.content" class="content-text"></div>
-                        <ul class="list-inline items-container">
-                            <li ng-repeat="e in post.files" ng-include="f.postItemTemplate(e)"></li>
+                        <ul class="list-inline items-container" ng-if="post.files.length" watch-content="true" ng-slimscroll horizontal-scroll="true" height="140">
+                            <li style="width:117px;" ng-repeat="e in post.files" ng-include="f.postItemTemplate(e)"></li>
                         </ul>
                         <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
                         <div class="actions">

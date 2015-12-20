@@ -250,3 +250,5 @@
 /// <reference path="angular-messages.min.js" />
 /// <reference path="../js/components/account/unregister.controller.js" />
 /// <reference path="../js/components/account/unregistershow.directive.js" />
+/// <reference path="../bower_components/ngslimscroll/index.js" />
+/// <reference path="../bower_components/ngslimscroll/src/js/ngSlimscroll.js" />
