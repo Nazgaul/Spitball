@@ -1,12 +1,14 @@
-﻿.accountPage-wrapper .profile-content {
-  max-width: 800px;
+﻿.accountPage-wrapper {
+  /*svg {
+        width: 17px;
+        height: 17px;
+        fill: #fff;
+        vertical-align: middle;
+        margin-right: 12px;
+    }*/
 }
-.accountPage-wrapper svg {
-  width: 17px;
-  height: 17px;
-  fill: #fff;
-  vertical-align: middle;
-  margin-right: 12px;
+.accountPage-wrapper .profile-content {
+  max-width: 800px;
 }
 .accountPage-wrapper .ontop {
   text-align: center;
