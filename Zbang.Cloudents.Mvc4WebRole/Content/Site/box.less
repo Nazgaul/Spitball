@@ -241,11 +241,14 @@
         white-space: nowrap;
         margin-left: 47px;
         margin-right: 15px;
+
         ul {
-            margin:0;
+            margin: 0;
         }
+
         li {
-            width:119px;
+            width: 119px;
+
             &::first-child {
                 padding-left: 0;
             }
@@ -394,7 +397,6 @@
         }
     }
 
-
     .replies {
         border-top: 2px solid @borderColorDarkGrey;
         padding-top: 15px;
@@ -436,6 +438,17 @@
         .aspect-ratio(0.8,1);
     }
 }
+
+.right-side-area {
+    .leaderboard-container {
+        display: flex;
+
+        .leaderboard {
+            width: 100%;
+        }
+    }
+}
+
 
 .add-comment {
 

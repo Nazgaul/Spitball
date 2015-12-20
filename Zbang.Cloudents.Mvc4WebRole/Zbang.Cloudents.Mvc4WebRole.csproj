@@ -1422,6 +1422,12 @@
     <Content Include="Content\Site\General.rtl.min.css">
       <DependentUpon>General.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\General.rtl.rtl.css">
+      <DependentUpon>General.rtl.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\General.rtl.rtl.min.css">
+      <DependentUpon>General.rtl.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\item.css">
       <DependentUpon>item.less</DependentUpon>
     </Content>

@@ -1,4 +1,7 @@
-﻿.leaderboard h4 {
+﻿.leaderboard {
+  width: 100%;
+}
+.leaderboard h4 {
   font-size: 21px;
   font-weight: 700;
   margin-top: 0;
