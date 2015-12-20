@@ -6,7 +6,7 @@
         <div layout="row" layout-align="start center" class="folder-name-inner">
             <div class="name-and-icon" layout="row" layout-align="start center">
                 @Html.Svg("~/images/folder_icon.svg", "folder", new { flex = "none", @class = "icon" })
-                <div class="ellipsis" ng-if="!i.openRenameTab">
+                <div class="text ellipsis" ng-if="!i.openRenameTab">
                     {{i.tabSelected.name}}
                 </div>
                 <form class="content" ng-if="i.openRenameTab" ng-submit="i.renameTab()">

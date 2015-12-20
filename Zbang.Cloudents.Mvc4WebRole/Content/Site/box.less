@@ -12,7 +12,8 @@
     .folder-name {
 
         .folder-name-inner {
-            background: #5F6871;
+            background: @backgroundColorMenu;
+            padding: 0 6px;
         }
 
         .content {
@@ -22,8 +23,8 @@
         }
 
         .icon {
-            width: 27px;
-            height: 27px;
+            width: 18px;
+            height: 18px;
             fill: @backgroundColor2;
             margin: 0 7px;
             vertical-align: middle;
@@ -64,7 +65,7 @@
         -o-transform: rotate(180deg);
         -webkit-transform: rotate(180deg);
         transform: rotate(180deg);
-        fill: @backgroundColorItem;
+        fill: @backgroundColorMenu;
         margin-right: 15px;
     }
 }
@@ -129,12 +130,11 @@
             padding-left: 10px;
         }
     }
+}
 
-
-    .text {
-        font-size: 18px;
-        padding-left: 6px;
-    }
+.folders .text, .folder-selected .text {
+    font-size: 18px;
+    padding-left: 6px;
 }
 
 .designed-input {

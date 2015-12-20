@@ -2,7 +2,7 @@
   background: #181c1d;
 }
 @media (min-width: 960px) {
-  .search {
+  .search .content {
     padding: 0 5%;
   }
 }
@@ -90,12 +90,20 @@
     height: 3vw;
   }
 }
+.search .close {
+  padding: 25px;
+}
 .search-text {
   font-size: 7em;
   background: transparent;
   border: none;
   color: #3293f6;
   outline: none;
+}
+@media (min-width: 960px) {
+  .search-text {
+    padding-left: 5%;
+  }
 }
 .search-form {
   -moz-transition: all linear .5s;
