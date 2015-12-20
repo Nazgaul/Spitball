@@ -6,7 +6,7 @@
 .folder-selected .folder-name .folder-name-inner,
 .folders .folder-name .folder-name-inner {
   background: #323538;
-  padding: 2px 6px;
+  padding: 0 6px;
 }
 .folder-selected .folder-name .content,
 .folders .folder-name .content {
