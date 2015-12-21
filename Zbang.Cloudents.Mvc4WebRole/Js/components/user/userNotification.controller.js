@@ -11,7 +11,6 @@
                 return;
             }
             userService.getNotification(function(response) {
-                console.log(response);
             });
         });
     }

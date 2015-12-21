@@ -46,7 +46,7 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".main-navbar"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                <a href="@Url.Action("Index","Account")" class="navbar-brand"> <img src="@Url.CdnContent("/Images/HomePage2/logo.png?v=3")" alt="logo"> </a>
+                <a href="@Url.Action("Index","Home")" class="navbar-brand"> <img src="@Url.CdnContent("/Images/HomePage2/logo.png?v=3")" alt="logo"> </a>
             </div>
             <div class="nav-container">
                 <nav class="collapse navbar-collapse main-navbar logo-navbar navbar-right" role="navigation">
@@ -57,9 +57,9 @@
                             <li class="menu-item dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="">@Html.Svg("/images/homepage2/homePageIcons.svg", "globus", new { @class = "globus" })&nbsp;<span>@Languages.EnglishUsName</span></a>
                                 <ul class="dropdown-menu dropdown-menu-left ">
-                                    <li class="menu-item"> <a href="@Url.Action("Index","Account", new { lang = "en-US"})">@Languages.EnglishUsName</a> </li>
-                                    <li class="menu-item"> <a href="@Url.Action("Index", "Account", new { lang = "en-UK" })">@Languages.EnglishGbName</a> </li>
-                                    <li class="menu-item"> <a href="@Url.Action("Index", "Account", new { lang = "he-IL" })">@Languages.HebrewName</a> </li>
+                                    <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-US" })">@Languages.EnglishUsName</a> </li>
+                                    <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-UK" })">@Languages.EnglishGbName</a> </li>
+                                    <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "he-IL" })">@Languages.HebrewName</a> </li>
                                     @*<li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ru-RU" })">@Languages.RussianName</a> </li>
                                         <li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ar-AE" })">@Languages.ArabicName</a> </li>*@
                                 </ul>

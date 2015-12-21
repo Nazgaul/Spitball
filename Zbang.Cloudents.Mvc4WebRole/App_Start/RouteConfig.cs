@@ -21,8 +21,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
             routes.MapRoute("AccountLanguage",
-                "account/{lang}",
-                new { controller = "Account", action = "Index", lang = UrlParameter.Optional },
+                "{lang}",
+                new { controller = "Home", action = "Index", lang = UrlParameter.Optional },
                 new { lang = "^[A-Za-z]{2}-[A-Za-z]{2}$" });
 
 

@@ -29,10 +29,10 @@
         </div>
 
         <div ng-if="lc.createUniversity" class="add-univeristy">
-            <form ng-submit="lc.createNewUniversity()" novalidate>
+            <form ng-submit="lc.createNewUniversity()" class="text-capitalize" novalidate>
 
                 <md-input-container>
-                    <label class="text-capitalize">@LibraryResources.Country</label>
+                    <label>@LibraryResources.Country</label>
                     <md-select ng-model="lc.countryCode" md-container-class="dd-list">
                         <md-option ng-value="country.iso" ng-repeat="country in ::lc.countries">{{ country.name }}</md-option>
                     </md-select>
@@ -53,8 +53,8 @@
                         </md-item-template>
                     </md-autocomplete>
                 </md-input-container>
-                <button type="button" class="btn btn-default pull-right text-capitalize" ng-click="lc.createUniversity = false" ga-track-event="['universityChoose', 'cancel new university']">@GeneralResources.Cancel</button>
-                <button type="submit" class="btn btn-primary pull-right text-capitalize" ga-track-event="['universityChoose', 'create new university']">@GeneralResources.Create</button>
+                <button type="button" class="btn btn-default pull-right" ng-click="lc.createUniversity = false" ga-track-event="['universityChoose', 'cancel new university']">@GeneralResources.Cancel</button>
+                <button type="submit" class="btn btn-primary pull-right" ga-track-event="['universityChoose', 'create new university']">@GeneralResources.Create</button>
             </form>
         </div>
     </div>
@@ -66,7 +66,7 @@
                 <span class="uni-details" ng-bind-html="::lc.code.closedUniText1"></span>
             </div>
         </div>
-        <form novalidate ng-submit="lc.selectUniversity(lc.code.university)">
+        <form name="enterId" novalidate ng-submit="lc.selectUniversity(lc.code.university,enterId)">
             <div>
                 <div class="info-tooltip">
                     @Html.Svg("~/images/site/libChooseIcons.svg", "info", new { @class = "info-i" })
@@ -74,10 +74,14 @@
                 </div>
                 <md-input-container>
                     <label class="text-capitalize">@LibraryResources.EnterID</label>
-                    <input type="text" ng-model="lc.code.studentId" required />
+                    <input name="studentId" type="text" ng-model="lc.code.studentId" required ng-change="enterId.studentId.$setValidity('server',true)" />
+                    <div ng-messages="enterId.studentId.$error" ng-show="enterId.studentId.$dirty">
+                        <div ng-message="required">@GeneralResources.RequiredField</div>
+                        <div ng-message="server">{{lc.error}}</div>
+                    </div>
                 </md-input-container>
             </div>
-            <button type="submit" class="btn btn-primary pull-right" ga-track-event="['universityChoose', 'create new university']">@LibraryResources.Continue</button>
+            <button type="submit" class="btn btn-primary pull-right" ng-disabled="!enterId.$valid" ga-track-event="['universityChoose', 'create new university']">@LibraryResources.Continue</button>
         </form>
     </div>
 </div>

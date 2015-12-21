@@ -1806,7 +1806,6 @@
     <Content Include="Js\components\quiz\quizCreate.controller.js" />
     <Content Include="Js\components\search\search.service.js" />
     <Content Include="Js\components\user\user.routes.js" />
-    <Content Include="Js\components\user\userNotification.controller.js" />
     <Content Include="Js\polyfills.js" />
     <Content Include="Js\shared\animationClass.js" />
     <Content Include="Js\shared\animationLocation.js" />

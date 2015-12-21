@@ -234,7 +234,6 @@
 /// <reference path="angular.min.js" />
 /// <reference path="angular-sanitize.min.js" />
 /// <reference path="angular-cookies.min.js" />
-/// <reference path="../js/components/user/usernotification.controller.js" />
 /// <reference path="draganddrop.min.js" />
 /// <reference path="angular-route.min.js" />
 /// <reference path="../bower_components/angular-google-analytics/gruntfile.js" />
