@@ -14,17 +14,17 @@
                 </form>
             </div>
             <md-menu ng-if="!b.needFollow">
-                <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
+                <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-tabs', 'deleteTab']">
                     @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
                 </md-button>
                 <md-menu-content width="1">
                     <md-menu-item>
-                        <md-button aria-label="delete post" ng-click="i.renameTabOpen()">
+                        <md-button aria-label="delete post" ng-click="i.renameTabOpen()" ga-track-event="['box-tab', 'rename']">
                             Rename
                         </md-button>
                     </md-menu-item>
                     <md-menu-item>
-                        <md-button aria-label="delete post" ng-click="i.deleteTab($event)">
+                        <md-button aria-label="delete post" ng-click="i.deleteTab($event)" ga-track-event="['box-tabs', 'didDelete']">
                             @GeneralResources.Delete
                         </md-button>
                     </md-menu-item>
@@ -44,7 +44,7 @@
     </li>
     <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="add-folder folder-name item-animate i-q-wrapper" ng-click="i.newFolderTabOpened=true">
         <div class="content" ng-if="!i.newFolderTabOpened">
-            <button layout="row" layout-align="start center" type="button">
+            <button layout="row" layout-align="start center" type="button" ga-track-event="['box-Tabs', 'addFolder']">
                 @Html.Svg("~/images/site/icons.svg", "add")
                 <span>
                     @BoxResources.AddFolder

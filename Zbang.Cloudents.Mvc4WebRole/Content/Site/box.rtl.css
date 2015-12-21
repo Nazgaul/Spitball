@@ -135,15 +135,15 @@
         border: 0;
     }*/
 .need-follow {
-  margin-top: 20px;
   background: #006072;
+  border-radius: 5px;
 }
 .invite-btn {
   border: 1px solid #f5f5f5;
   border-radius: 4px;
   color: #f5f5f5;
   text-transform: uppercase;
-  padding: 5px 50px 3px;
+  padding: 5px 3vw 3px;
 }
 .add-button {
   position: relative;
@@ -379,6 +379,12 @@
   right: 0;
   left: 0;
   bottom: 0;
+}
+.left-side-area .leaderboard-container {
+  display: flex;
+}
+.left-side-area .leaderboard-container .leaderboard {
+  width: 100%;
 }
 .add-comment {
   margin-bottom: 25px;

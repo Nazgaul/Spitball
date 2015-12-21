@@ -14,7 +14,7 @@
         <!-- END PAGE HEAD -->
         <!-- BEGIN PAGE BREADCRUMB -->*@
     <div class="portlet light">
-        <div class="portlet-title tabbable-line">
+        @*<div class="portlet-title tabbable-line">
             <div layout="row" layout-align="space-between center">
                 <div class="caption caption-md">
                     <span class="caption-subject">@HomeResources.Help</span>
@@ -37,10 +37,37 @@
                     }
                 </ul>
             </div>
-        </div>
+        </div>*@
 
         
-        
+        <div class="header md-tab-header">
+            <div class="caption caption-md">
+                <span class="caption-subject uppercase">Help</span>
+            </div>
+
+            <md-tabs class="align-right">
+                @{
+                    int i = 1;
+
+                    foreach (var category in Model)
+                    {
+                        var active = i == 1 ? "active" : null;
+
+                        <md-tab ui-sref="#tab_@i" md-active="i == 1">
+                            <md-tab-label class="text-capitalize">@category.Name</md-tab-label>
+                        </md-tab>
+
+                        i++;
+                    }
+                }
+            </md-tabs>
+
+
+        </div>
+
+
+
+
         
 
 

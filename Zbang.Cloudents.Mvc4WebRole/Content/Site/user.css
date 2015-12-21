@@ -77,7 +77,6 @@
   margin: 0 10px;
 }
 .userPage md-tabs md-tab-item .number {
-  color: #f5f5f5;
   font-size: 25px;
   line-height: 30px;
   padding-bottom: 10px;
@@ -85,7 +84,6 @@
 .userPage md-tabs h3 {
   font-size: 13px;
   margin: 13px 0 8px 0;
-  color: #888b8e;
 }
 .userPage md-tabs md-tab {
   margin: 0 20px 0 10px;
