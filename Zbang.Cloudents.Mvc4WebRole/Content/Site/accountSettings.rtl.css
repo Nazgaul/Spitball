@@ -21,7 +21,12 @@
   margin-top: 6px;
 }
 .accountPage-wrapper .profile-content .portlet-body .form-group .fileinput .thumbnail {
-  border-radius: 0;
+  background: none;
+  border: none;
+}
+.accountPage-wrapper .profile-content .portlet-body .form-group .fileinput .thumbnail img {
+  border-radius: 100%;
+  border: 4px solid #181C1D;
 }
 .accountPage-wrapper .ontop {
   text-align: center;
