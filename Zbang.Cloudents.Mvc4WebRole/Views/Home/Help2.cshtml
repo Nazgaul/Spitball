@@ -39,22 +39,46 @@
             </div>
         </div>*@
 
-        
-        <div class="header md-tab-header">
-            <div class="caption caption-md">
+                    <div class="caption caption-md">
                 <span class="caption-subject uppercase">Help</span>
             </div>
 
-            <md-tabs class="align-right">
+            <md-tabs>
                 @{
                     int i = 1;
 
                     foreach (var category in Model)
                     {
                         var active = i == 1 ? "active" : null;
-
+                        var j = 1;
                         <md-tab ui-sref="#tab_@i" md-active="i == 1">
                             <md-tab-label class="text-capitalize">@category.Name</md-tab-label>
+                            <md-tab-body>
+                                <div id="tab_@i" class="tab-pane @active">
+                                    <div id="accordion@(i)" class="panel-group">
+                                        @foreach (var faq in category.QuestionNAnswers)
+                                        {
+                                            var inClass = j == 1 ? "in" : null;
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion@(i)" href="#accordion@(i)_@j">
+                                                            @faq.Question
+                                                        </a>
+                                                    </h4>
+                                                </div>
+
+                                                <div id="accordion@(i)_@j" class="panel-collapse collapse @inClass">
+                                                    <div class="panel-body">
+                                                        @Html.Raw(faq.Answer)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            j++;
+                                        }
+                                    </div>
+                                </div>
+                            </md-tab-body>
                         </md-tab>
 
                         i++;
@@ -63,7 +87,6 @@
             </md-tabs>
 
 
-        </div>
 
 
 
@@ -74,7 +97,7 @@
         <!-- END PAGE BREADCRUMB -->
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
-        <div class="portlet-body">
+        @*<div class="portlet-body">
             <div class="row">
                 <div class="col-md-9">
                     <div class="tab-content">
@@ -114,7 +137,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>*@
 
     </div>
 </div>

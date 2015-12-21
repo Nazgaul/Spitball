@@ -1,6 +1,7 @@
 ﻿@using Zbang.Zbox.Infrastructure.Enums
 
 <div class="tab-pane" id="notification">
+    <div class="section">
     <ul class="list-unstyled notification-list">
         <li ng-repeat="box in ::n.notifications track by box.id" class="clearfix">
             <div class="box-data" d-color="{{::box.name.length}}">
@@ -16,4 +17,5 @@
 
         </li>
     </ul>
+</div>
 </div>

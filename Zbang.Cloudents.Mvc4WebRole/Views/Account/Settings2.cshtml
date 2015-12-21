@@ -7,29 +7,24 @@
         </div>
     </div>
     <div class="profile-content">
-        <div class="portlet light">
-            <div class="header md-tab-header">
-                <div class="caption caption-md">
-                    <span class="caption-subject uppercase">@AccountResource.ProfileAccount</span>
-                </div>
-                <md-tabs @*class="align-right"*@>
+        <div class="header md-tab-header">
+            <md-tabs @*class="align-right"*@>
 
-                    <md-tab ui-sref="settings.profile" md-active="b.isActiveState('settings.profile')">
-                        <md-tab-label>@AccountResource.Info</md-tab-label>
-                    </md-tab>
-                    <md-tab ui-sref="settings.password" md-active="b.isActiveState('settings.password')">
-                        <md-tab-label>@AccountResource.ChangePassword</md-tab-label>
-                    </md-tab>
-                    <md-tab ui-sref="settings.notification" md-active="b.isActiveState('settings.notification')">
-                        <md-tab-label>@AccountResource.Notifications</md-tab-label>
-                    </md-tab>
-                </md-tabs>
-            </div>
+                <md-tab ui-sref="settings.profile" md-active="b.isActiveState('settings.profile')">
+                    <md-tab-label>@AccountResource.ProfileAccount</md-tab-label>
+                </md-tab>
+                <md-tab ui-sref="settings.password" md-active="b.isActiveState('settings.password')">
+                    <md-tab-label>@AccountResource.ChangePassword</md-tab-label>
+                </md-tab>
+                <md-tab ui-sref="settings.notification" md-active="b.isActiveState('settings.notification')">
+                    <md-tab-label>@AccountResource.Notifications</md-tab-label>
+                </md-tab>
+            </md-tabs>
+        </div>
 
-            <div class="portlet-body">
-                <div class="tab-content">
-                    <div ui-view></div>
-                </div>
+        <div class="portlet-body">
+            <div class="tab-content">
+                <div ui-view></div>
             </div>
         </div>
     </div>
