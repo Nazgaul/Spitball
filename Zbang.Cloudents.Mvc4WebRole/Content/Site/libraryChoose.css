@@ -33,6 +33,7 @@
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
+  -webkit-align-items: center;
   align-items: center;
   color: #323538;
 }
@@ -92,6 +93,7 @@
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
+  -webkit-align-items: center;
   align-items: center;
 }
 .library-choose .code .btn {

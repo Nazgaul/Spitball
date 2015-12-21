@@ -47,10 +47,10 @@
                         </div>
                     </md-content>
                 </div>
-                <span class="text-capitalize pull-right">
-                    <button type="submit" class="btn btn-primary" ga-track-event="['dashboard', 'createbox', 'done']" ng-disabled="!createBox.$valid">@GeneralResources.Done</button>
+                <div layout="row" layout-align="end center" class="text-capitalize">
                     <button type="button" class="btn btn-default" ga-track-event="['dashboard', 'createbox', 'cancel']" ng-click="cb.cancel(createBox)">@GeneralResources.Cancel</button>
-                </span>
+                    <button type="submit" class="btn btn-primary" ga-track-event="['dashboard', 'createbox', 'done']" ng-disabled="!createBox.$valid">@GeneralResources.Done</button>
+                </div>
             </form>
         </div>
     </div>

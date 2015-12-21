@@ -290,7 +290,9 @@ md-tabs md-ink-bar {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
+  -webkit-justify-content: center;
   justify-content: center;
+  -webkit-align-items: center;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -303,6 +305,7 @@ md-tabs md-ink-bar {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
+  -webkit-justify-content: center;
   justify-content: center;
   padding-bottom: 12px;
   width: 100%;
@@ -661,7 +664,9 @@ md-menu-item {
   display: flex;
   width: 100vw;
   height: 100vh;
+  -webkit-justify-content: center;
   justify-content: center;
+  -webkit-align-items: center;
   align-items: center;
   z-index: 10051;
 }
@@ -681,6 +686,7 @@ md-menu-item {
     display: -webkit-flex;
     display: -ms-flex;
     display: flex;
+    -webkit-align-items: center;
     align-items: center;
     font-size: 12px;
     margin-bottom: 10px;

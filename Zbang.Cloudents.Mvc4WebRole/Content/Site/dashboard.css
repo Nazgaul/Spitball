@@ -69,6 +69,7 @@
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
+  -webkit-justify-content: center;
   justify-content: center;
   flex-grow: 1;
 }

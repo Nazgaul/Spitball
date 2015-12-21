@@ -11,7 +11,9 @@ Login page
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
+  -webkit-justify-content: center;
   justify-content: center;
+  -webkit-align-items: center;
   align-items: center;
   height: 100vh;
 }

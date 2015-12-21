@@ -162,21 +162,16 @@
 }
 //add button
 .add-button {
-    //text-align: center;
-    //.displayFlex();
-    //margin-bottom: 15px;
     .aspect-ratio();
 
 
     .content {
         border: 1px solid @borderColorGrey;
         padding: 15px;
-        //-ms-flex: 1;
-        //-webkit-flex: 1;
-        //flex: 1;
+        //TODO: angular flex
         .displayFlex();
-        justify-content: center;
-        align-items: center;
+        .justifyContet(center);
+        .align-items(center);
         margin: 8px; //same as angular material padding
         &.quizCreate {
             margin-bottom: 13px; //fix issue with quiz
@@ -595,6 +590,7 @@
 }
 
 .member {
+    //TODO: angular flex
     .displayFlex();
     margin-bottom: 20px;
     //override bootstrap
@@ -628,8 +624,9 @@
         color: @textColorWhite;
         font-size: 14px;
         padding: 0 12px;
+        //TODO:angular flex
         .displayFlex();
-        justify-content: space-between;
+        .justifyContet(space-between);
 
         svg {
             width: 12px;
@@ -649,8 +646,8 @@
     .top {
         height: @heightOfTop;
         .displayFlex();
-        align-items: center;
-        justify-content: center;
+        .justifyContet(center);
+        .align-items(center);
         color: @textColorWhite;
 
         @sizeOfTextSmall: 13vw;
@@ -765,7 +762,6 @@
         .name {
             text-align: left /*rtl:ignore*/;
             display: block;
-            
             max-height: 80px; /* Fallback for non-webkit */
             font-size: 14px;
             line-height: 20px;
@@ -903,7 +899,7 @@
         -ms-flex-direction: column;
         -webkit-flex-direction: column;
         flex-direction: column;
-        justify-content: center;
+        .justifyContet(center);
         padding: 0 20px;
 
         .alert-danger {
