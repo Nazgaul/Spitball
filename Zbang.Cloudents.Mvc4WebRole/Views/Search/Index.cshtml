@@ -1,38 +1,36 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Search.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div class="search">
-    <button type="button" class="close" ng-click="app.back('/dashboard/')" ga-track-event="['search', 'close search']">@Html.Svg("~/images/site/icons.svg", "close")</button>
-    <input type="search" class="search-text" placeholder="@SearchResources.Search" ng-model="s.term" ng-model-options="{debounce : 250}" ng-change="s.search()" ng-minlength="2" />
-    <ul class="nav nav-tabs tabbable">
-        <li ng-class="{active: s.tab === 'b'}">
-            <button type="button" class="text-capitalize" ng-click="s.tab = 'b'" ga-track-event="['search', 'search classes']">@GeneralResources.Classes</button>
-        </li>
-        <li ng-class="{active: s.tab === 'i'}">
-            <button type="button" class="text-capitalize" ng-click="s.tab = 'i'" ga-track-event="['search', 'search items']">@SearchResources.Items</button>
-        </li>
-        <li ng-class="{active: s.tab === 'q'}">
-            <button type="button" class="text-capitalize" ng-click="s.tab = 'q'" ga-track-event="['search', 'search quizzes']">@GeneralResources.Quizzes</button>
-        </li>
-    </ul>
-    <div layout="row" layout-align="space-between start" layout-wrap srph-infinite-scroll="s.myPagingFunction()" class="content">
-        <div flex-gt-sm="25" flex="100" class="s-hide" ng-class="{show: s.tab === 'b'}">
-            <h3 class="text-capitalize">@GeneralResources.Classes</h3>
-            <div layout="row" layout-padding layout-wrap>
-                <div flex-gt-sm="100" flex-sm="50" flex-xs="100" ng-repeat="e in s.result.boxes" ng-include="'box-template.html'"></div>
-            </div>
+<button type="button" class="close" ng-click="app.back('/dashboard/')" ga-track-event="['search', 'close search']">@Html.Svg("~/images/site/icons.svg", "close")</button>
+<input type="search" class="search-text" placeholder="@SearchResources.Search" ng-model="s.term" ng-model-options="{debounce : 250}" ng-change="s.search()" ng-minlength="2" />
+<ul class="nav nav-tabs tabbable">
+    <li ng-class="{active: s.tab === 'b'}">
+        <button type="button" class="text-capitalize" ng-click="s.tab = 'b'" ga-track-event="['search', 'search classes']">@GeneralResources.Classes</button>
+    </li>
+    <li ng-class="{active: s.tab === 'i'}">
+        <button type="button" class="text-capitalize" ng-click="s.tab = 'i'" ga-track-event="['search', 'search items']">@SearchResources.Items</button>
+    </li>
+    <li ng-class="{active: s.tab === 'q'}">
+        <button type="button" class="text-capitalize" ng-click="s.tab = 'q'" ga-track-event="['search', 'search quizzes']">@GeneralResources.Quizzes</button>
+    </li>
+</ul>
+<div layout="row" layout-align="space-between start" layout-wrap srph-infinite-scroll="s.myPagingFunction()" class="content">
+    <div flex-gt-sm="25" flex="100" class="s-hide" ng-class="{show: s.tab === 'b'}">
+        <h3 class="text-capitalize">@GeneralResources.Classes</h3>
+        <div layout="row" layout-padding layout-wrap>
+            <div flex-gt-sm="100" flex-sm="50" flex-xs="100" ng-repeat="e in s.result.boxes" ng-include="'box-template.html'"></div>
         </div>
-        <div flex-gt-sm="25" flex="100" class="s-hide" ng-class="{show: s.tab === 'i'}">
-            <h3 class="text-capitalize">@SearchResources.Items</h3>
-            <div layout="row" layout-padding layout-wrap>
-                <div flex-gt-sm="100" flex-sm="50" flex-xs="100" ng-repeat="e in s.result.items" ng-include="'item-template.html'"></div>
-            </div>
+    </div>
+    <div flex-gt-sm="25" flex="100" class="s-hide" ng-class="{show: s.tab === 'i'}">
+        <h3 class="text-capitalize">@SearchResources.Items</h3>
+        <div layout="row" layout-padding layout-wrap>
+            <div flex-gt-sm="100" flex-sm="50" flex-xs="100" ng-repeat="e in s.result.items" ng-include="'item-template.html'"></div>
         </div>
-        <div flex-gt-sm="25" flex="100" class="s-hide" ng-class="{show: s.tab === 'q'}">
-            <h3 class="text-capitalize">@GeneralResources.Quizzes</h3>
-            <div layout="row" layout-padding layout-wrap layout-align="start stretch">
-                <div flex-gt-sm="100" flex-sm="50" flex-xs="100" ng-repeat="e in s.result.quizzes" ng-include="'quiz-template.html'"></div>
-            </div>
+    </div>
+    <div flex-gt-sm="25" flex="100" class="s-hide" ng-class="{show: s.tab === 'q'}">
+        <h3 class="text-capitalize">@GeneralResources.Quizzes</h3>
+        <div layout="row" layout-padding layout-wrap layout-align="start stretch">
+            <div flex-gt-sm="100" flex-sm="50" flex-xs="100" ng-repeat="e in s.result.quizzes" ng-include="'quiz-template.html'"></div>
         </div>
     </div>
 </div>

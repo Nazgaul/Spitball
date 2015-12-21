@@ -1,38 +1,59 @@
-﻿(function() {
-    angular.module('app').directive('animClass', animClass);
-    animClass.$inject = ['$state', '$rootScope'];
+﻿(function () {
+    angular.module('app').directive('animationClass', animClass);
+    animClass.$inject = ['$state'];
 
-    function animClass($state, $rootScope) {
+    function animClass($state) {
         return {
-            link: function(scope, elm) {
-                //if ($state.current.data) {
-                //    var enterClass = $state.current.data.animateClass;
-                //    //elm.addClass(enterClass);
-                //    scope.app.extra = enterClass
-                //}
-                ////scope.$on('$destroy', function () {
-                ////    console.log('on desktroy')
-                ////    elm.removeClass(enterClass);
-                ////    if ($state.current.data) {
-                ////        elm.addClass($state.current.data.animateClass);
-                ////    }
-                ////});
-                //$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
-                //    console.log(event);
-                //    if (toState.data) {
-                //        scope.app.extra = toState.data.animateClass;
-                //    }
-                //});
+            link: function(scope, elem) {
 
-                var enterClass = $state.current.data.animateClass;
-                elm.addClass(enterClass);
+                if (scope.app.clickLocation) {
+                    var x = scope.app.clickLocation.x, y = scope.app.clickLocation.y;
+                    elem.css({
+                        '-moz-transform-origin': x + ' ' + y,
+                        '-ms-transform-origin': x + ' ' + y,
+                        '-webkit-transform-origin': x + ' ' + y,
+                        'transform-origin': x + ' ' + y,
+
+                    });
+                    scope.app.clickLocation = null;
+                }
+                if ($state.current.data) {
+                    var enterClass = $state.current.data.animateClass;
+                    elem.addClass(enterClass);
+                }
                 scope.$on('$destroy', function() {
-                    elm.removeClass(enterClass);
+                    elem.removeClass(enterClass);
                     if ($state.current.data) {
-                        elm.addClass($state.current.data.animateClass);
+                        elem.addClass($state.current.data.animateClass);
                     }
                 });
             }
-        }
-    };
+        };
+    }
+})();
+
+(function() {
+    angular.module('app').directive('animationLocation', animationLocation);
+
+    function animationLocation() {
+        return {
+            link: function(scope, elem) {
+                $(elem).on('click', 'a', function(e) {
+                    var xPos = e.clientX + 'px', yPos = e.clientY + 'px';
+                    scope.app.clickLocation = {
+                        x: xPos,
+                        y: yPos
+                    };
+                    //$('[animation-class]').css({
+                    //    '-moz-transform-origin': xPos + ' ' + yPos,
+                    //    '-ms-transform-origin': xPos + ' ' + yPos,
+                    //    '-webkit-transform-origin': xPos + ' ' + yPos,
+                    //    'transform-origin': xPos + ' ' + yPos,
+
+                    //});
+                    console.log(e);
+                });
+            }
+        };
+    }
 })();
