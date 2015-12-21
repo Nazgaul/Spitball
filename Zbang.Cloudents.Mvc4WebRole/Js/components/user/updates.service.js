@@ -1,14 +1,14 @@
 ﻿(function () {
     angular.module('app.user').service('userUpdatesService', userUpdates);
-    userUpdates.$inject = ['ajaxService', '$q', 'userDetailsFactory', '$rootScope'];
+    userUpdates.$inject = ['ajaxService', '$q', 'userDetailsFactory', '$rootScope', '$window', '$stateParams'];
 
-    function userUpdates(ajaxservice, $q, userDetails, $rootScope) {
+    function userUpdates(ajaxservice, $q, userDetails, $rootScope, $window, $stateParams) {
         var self = this;
         self.data = [];
 
         var deferred = $q.defer();
 
-        userDetails.init().then(function() {
+        userDetails.init().then(function () {
             if (userDetails.get().university.id) {
                 getUpdates();
             }
@@ -16,11 +16,11 @@
         self.getUpdates = updates;
         self.boxUpdates = boxUpdates;
         self.deleteUpdates = deleteUpdates;
-        
+
         $rootScope.$on('universityChange', function () {
             getUpdates();
         });
-        $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (fromState.parent === 'box') {
                 deleteUpdates(fromParams.boxId);
             }
@@ -32,15 +32,26 @@
             });
         }
 
+        $window.onbeforeunload = function () {
+            var boxId = $stateParams.boxId;
+            if (boxId) {
+                deleteFromServer(boxId);
+            }
+        };
+
+        function deleteFromServer(boxId) {
+            ajaxservice.post('/box/deleteupdates/', {
+                boxId: boxId
+            });
+        }
+
         function deleteUpdates(boxId) {
             boxId = parseInt(boxId, 10);
             updates(boxId, function (length) {
                 if (!length) {
                     return;
                 }
-                //ajaxservice.post('/box/deleteupdates/', {
-                //    boxId: boxId
-                //});
+                deleteFromServer(boxId);
                 var tempArr = [];
                 for (var i = 0; i < self.data.length; i++) {
                     var temp = self.data[i];
@@ -52,10 +63,10 @@
             });
         }
 
-        
+
 
         function updates(boxid, callBack) {
-            boxUpdates(boxid, function(x) {
+            boxUpdates(boxid, function (x) {
                 var v = x.length;
                 callBack(v);
             });

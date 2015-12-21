@@ -1,9 +1,11 @@
 ﻿(function () {
     angular.module('app.account').controller('UnregisterShowController', unregister);
-    unregister.$inject = ['facebookService', 'accountService', '$stateParams', 'googleService'];
+    unregister.$inject = ['facebookService', 'accountService', '$stateParams', 'googleService', '$state'];
 
-    function unregister(facebookService, accountService, $stateParams, googleService) {
-
+    function unregister(facebookService, accountService, $stateParams, googleService, $state) {
+        if ($state.current.data && $state.current.data.staticPage) {
+            return;
+        }
         var ur = this;
         var boxId = $stateParams.boxId;
         ur.facebook = facebook;

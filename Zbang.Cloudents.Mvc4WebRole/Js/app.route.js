@@ -34,6 +34,9 @@
                     state: 'jobs',
                     config: {
                         url: '/jobs/',
+                        data: {
+                            staticPage : true
+                        }
                     },
                     templateUrl: '/home/jobs/'
                 },
@@ -41,6 +44,9 @@
                      state: 'blog',
                      config: {
                          url: '/blog/',
+                         data: {
+                             staticPage: true
+                         }
                      },
                      templateUrl: '/home/blog/'
                  },
@@ -48,6 +54,9 @@
                       state: 'help',
                       config: {
                           url: '/help/',
+                          data: {
+                              staticPage: true
+                          }
                       },
                       templateUrl: '/home/helppartial/'
                   },
