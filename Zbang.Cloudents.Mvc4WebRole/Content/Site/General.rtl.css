@@ -685,8 +685,7 @@ md-menu-item {
 
     @media only screen and (min-width : 600px) {
         .displayFlex();
-    -webkit-align-items: center;
-        align-items: center;
+        .align-items(center);
         font-size: 12px;
         margin-bottom: 10px;
 
@@ -718,10 +717,9 @@ md-menu-item {
 .help-page md-tabs md-tabs-content-wrapper {
   top: 58px;
 }
-.help-page md-tabs md-tabs-wrapper {
-  background: #323538;
-  margin-bottom: 20px;
-}
 .help-page md-tabs md-tab-content {
   margin-top: 15px;
+}
+.help-page h2 {
+  font-size: 16px;
 }

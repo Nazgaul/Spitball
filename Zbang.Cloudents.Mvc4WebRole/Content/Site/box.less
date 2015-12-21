@@ -374,15 +374,22 @@
             vertical-align: middle;
         }
 
-        .anonymous {
-            width: 28px;
-            height: 28px;
-            margin-right: 12px;
+        .anonymous-wrapper {
+            .text {
+                display: none;
+            }
 
-            &:hover {
-                fill: @anonymousColor;
+            .anonymous {
+                width: 28px;
+                height: 28px;
+                margin-right: 12px;
+
+                &:hover {
+                    fill: @anonymousColor;
+                }
             }
         }
+
 
         .dropbox {
 
@@ -475,6 +482,22 @@
         padding-left: 10px;
     }
 
+    ::-webkit-input-placeholder {
+        color: @borderColorBottomGrey;
+    }
+
+    :-moz-placeholder { /* Firefox 18- */
+        color: @borderColorBottomGrey;
+    }
+
+    ::-moz-placeholder { /* Firefox 19+ */
+        color: @borderColorBottomGrey;
+    }
+
+    :-ms-input-placeholder {
+        color: @borderColorBottomGrey;
+    }
+
     md-input-container {
         padding-bottom: 0;
         width: 100%;
@@ -500,8 +523,19 @@
     input[type=checkbox] {
         display: none;
 
-        &:checked + label svg {
-            fill: @anonymousColor;
+        &:checked + label {
+            .text {
+                @media (min-width: 600px) {
+                    padding-right: 10px;
+                    font-size: 12px;
+                    display: inline-block;
+                    color: @anonymousColor;
+                }
+            }
+
+            svg {
+                fill: @anonymousColor;
+            }
         }
     }
     /*button[type=submit] {
@@ -963,6 +997,10 @@
         background-color: @backgroundColor;
         padding: 20px 10px 10px 0;
     }
+}
+
+md-tabs.box-nav-bar md-tabs-wrapper {
+    margin-bottom: 0;
 }
 
 .file-upload-area, .reply-wrapper {
