@@ -3070,6 +3070,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\HomeResources.ru.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomeResources.zh.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\LogOnResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Account\Resources\LogOnResources.ru.resx" />
     <EmbeddedResource Include="Views\Account\Resources\LogOnResources.zh.resx">
       <SubType>Designer</SubType>
@@ -3084,6 +3085,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\RegisterResources.ar.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\RegisterResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Account\Resources\RegisterResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -3121,10 +3123,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Error\Resources\ErrorResources.ru.resx" />
     <EmbeddedResource Include="Views\Error\Resources\ErrorResources.zh.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\HomeResources.ar.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\HomeResources.en-GB.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\HomeResources.he.resx" />
     <EmbeddedResource Include="Views\Home\Resources\HomeResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HomeResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Home\Resources\HomeResources.ru.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\HomeResources.zh.resx" />
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.ar.resx" />
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.he.resx">

@@ -6,7 +6,7 @@
         <input autofocus ng-disabled="lc.createUniversity" type="search" class="search-text" placeholder="Search..." ng-model="lc.term" ng-model-options="{debounce : 250}" ng-change="lc.search()" ng-minlength="2" />
         <div layout="row" layout-align="start center" layout-padding layout-wrap @*class="row"*@ ng-if="!lc.createUniversity">
             <div flex-gt-lg="33" flex-lg="50" flex="100" class="flex" @*class="col-xs-12 col-md-6 col-lg-4"*@ ng-repeat="u in lc.universities track by u.id">
-                <div ng-click="lc.selectUniversity(u)" class="univeristy">
+                <div ng-click="lc.selectUniversity(u)" class="univeristy" ga-track-event="['universityChoose', 'selected university']">
                     <img class="img-circle" ng-src="{{::u.image}}" width="70" height="70" />
                     <div>
                         <span class="ellipsis">{{::u.name}}</span>
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div flex-gt-lg="33" flex-lg="50" flex="100" @*class="col-xs-12 col-md-6 col-lg-4"*@ class="flex">
-                <div class="add-uni-btn" ng-click="lc.createUniversity = true">
+                <div class="add-uni-btn" ng-click="lc.createUniversity = true" ga-track-event="['universityChoose', 'add new university']">
                     <span>@Html.Svg("~/images/site/icons.svg", "add")</span>
                     <div class="text-capitalize">@LibraryResources.AddSchool</div>
                 </div>
@@ -53,8 +53,8 @@
                         </md-item-template>
                     </md-autocomplete>
                 </md-input-container>
-                <button type="button" class="btn btn-default pull-right text-capitalize" ng-click="lc.createUniversity = false">@GeneralResources.Cancel</button>
-                <button type="submit" class="btn btn-primary pull-right text-capitalize">@GeneralResources.Create</button>
+                <button type="button" class="btn btn-default pull-right text-capitalize" ng-click="lc.createUniversity = false" ga-track-event="['universityChoose', 'cancel new university']">@GeneralResources.Cancel</button>
+                <button type="submit" class="btn btn-primary pull-right text-capitalize" ga-track-event="['universityChoose', 'create new university']">@GeneralResources.Create</button>
             </form>
         </div>
     </div>
@@ -77,7 +77,7 @@
                     <input type="text" ng-model="lc.code.studentId" required />
                 </md-input-container>
             </div>
-            <button type="submit" class="btn btn-primary pull-right">@LibraryResources.Continue</button>
+            <button type="submit" class="btn btn-primary pull-right" ga-track-event="['universityChoose', 'create new university']">@LibraryResources.Continue</button>
         </form>
     </div>
 </div>
