@@ -14,7 +14,7 @@
                         }
                     ]
                 },
-                template: '<div ui-view anim-class></div>'
+                template: '<div ui-view animation-class></div>'
             });
     }
 })();
