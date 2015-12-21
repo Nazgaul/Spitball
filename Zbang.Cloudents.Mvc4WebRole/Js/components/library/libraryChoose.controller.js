@@ -33,7 +33,7 @@
             return libraryService.getUniversity(term);
         }
 
-        function selectUniversity(university) {
+        function selectUniversity(university, myform) {
             libraryService.chooseUniversity(university.id, self.code.studentId).then(function (response) {
                 if (response) {
 
@@ -45,6 +45,9 @@
                 }
 
                 goToLibrary(university.name, university.id);
+            }, function(response) {
+                myform.studentId.$setValidity('server', false);
+                self.error = response;
             });
         }
 
