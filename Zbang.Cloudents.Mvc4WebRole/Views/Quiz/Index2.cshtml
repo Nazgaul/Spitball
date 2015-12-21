@@ -13,7 +13,7 @@
     <div md-swipe-left="q.swipeLeft()" md-swipe-right="q.swipeRight()">
 
         <div class="arrows prev" hide show-gt-sm ng-if="q.state === 2 || q.state === 4">
-            <button type="button" ng-click="q.back()" ng-show="q.index > 0 && q.index < q.questions.length">
+            <button type="button" ng-click="q.back()" ng-show="q.index > 0 && q.index < q.questions.length" ga-track-event="['quiz', 'previous question']">
                 @Html.Svg("~/images/site/icons.svg", "arrow")
             </button>
         </div>
@@ -21,7 +21,7 @@
             <div ng-if="q.state === 4" class="solveActions">
                 <div layout-padding layout="row" class="margin-bottom-15">
                     <div flex="33" flex-offset="33">
-                        <button class="retake" type="button" ng-click="q.retakeQuiz()">@QuizResources.Retake</button>
+                        <button class="retake" type="button" ng-click="q.retakeQuiz()" ga-track-event="['quiz', 'retake quiz']">@QuizResources.Retake</button>
                     </div>
                 </div>
                 <div layout-padding layout="row" class="margin-bottom-15">
@@ -83,14 +83,14 @@
                             <div ng-messages="addDiscussion.newComment.$error">
                                 <div ng-message="required">@GeneralResources.RequiredField</div>
                             </div>
-                            <button class="btn btn-primary pull-right" ng-disabled="!addDiscussion.$valid" type="submit">@GeneralResources.Post</button>
+                            <button class="btn btn-primary pull-right" ng-disabled="!addDiscussion.$valid" type="submit" ga-track-event="['quiz', 'post comment']">@GeneralResources.Post</button>
                         </md-input-container>
                         
                     </form>
                     <ol class="list-unstyled feed">
                         <li class="comment reply" ng-repeat="post in q.questions[q.index].comments">
                             <div class="top">
-                                <a href="{{::post.url}}" layout="row" layout-align="start center" class="username">
+                                <a href="{{::post.url}}" layout="row" layout-align="start center" class="username" ga-track-event="['quiz', 'go to user page']">
                                     <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="48" height="48"></user-image>
                                     <span class="user-name">{{::post.userName}}</span>
                                 </a>
@@ -106,7 +106,7 @@
             </div>
         </div>
         <div class="arrows next" hide show-gt-sm ng-if="q.state === 2 || q.state === 4">
-            <button type="button" ng-show="(q.state === 2 && q.index < q.questions.length) || (q.state === 4 && q.index < q.questions.length - 1)" ng-click="q.next()">
+            <button type="button" ng-show="(q.state === 2 && q.index < q.questions.length) || (q.state === 4 && q.index < q.questions.length - 1)" ng-click="q.next()" ga-track-event="['quiz', 'next question']">
                 @Html.Svg("~/images/site/icons.svg", "arrow")
             </button>
         </div>
