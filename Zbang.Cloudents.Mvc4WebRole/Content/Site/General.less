@@ -246,12 +246,13 @@ md-dialog-actions {
 
 /*tabs*/
 md-tabs {
-    background: #323538;
-    border-radius: 5px;
-    //margin-bottom: 20px;
-    font-size: 16px;
-    padding: 10px 10px 0;
-    margin-bottom: 0;
+    md-tabs-wrapper {
+        background: #323538;
+        border-radius: 5px;
+        font-size: 16px;
+        padding: 10px 10px 0;
+        margin-bottom: 20px;
+    }
 
     .md-tab {
         color: @textColorGrey;
@@ -768,7 +769,7 @@ md-menu-item {
 //md-tabs alignment
 
 
-.header.md-tab-header {
+/*.header.md-tab-header {
     border-bottom: 1px solid @textColorWhite;
 
     md-tabs {
@@ -807,4 +808,25 @@ md-menu-item {
             }
         }
     }
+}*/
+
+.help-page {
+    md-tabs {
+        background: none;
+        height: 80vh;
+
+        md-tabs-content-wrapper {
+            top: 58px;
+        }
+
+        md-tabs-wrapper {
+            background: @textColorDarkGrey;
+            margin-bottom: 20px;
+        }
+
+        md-tab-content {
+            margin-top: 15px;
+        }
+    }
 }
+

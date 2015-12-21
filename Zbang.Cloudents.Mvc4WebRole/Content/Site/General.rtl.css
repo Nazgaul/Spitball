@@ -232,12 +232,12 @@ md-dialog-actions {
   padding: 12px;
 }
 /*tabs*/
-md-tabs {
+md-tabs md-tabs-wrapper {
   background: #323538;
   border-radius: 5px;
   font-size: 16px;
   padding: 10px 10px 0;
-  margin-bottom: 0;
+  margin-bottom: 20px;
 }
 md-tabs .md-tab {
   color: #888b8e;
@@ -665,39 +665,57 @@ md-menu-item {
   align-items: center;
   z-index: 10051;
 }
-.header.md-tab-header {
-  border-bottom: 1px solid #f5f5f5;
-}
-.header.md-tab-header md-tabs {
+/*.header.md-tab-header {
+    border-bottom: 1px solid @textColorWhite;
+
+    md-tabs {
+        background: none;
+        padding: 0;
+
+        .md-tab {
+            font-size: 11px;
+            padding: 10px;
+        }
+    }
+
+    @media only screen and (min-width : 600px) {
+        .displayFlex();
+        align-items: center;
+        font-size: 12px;
+        margin-bottom: 10px;
+
+
+
+        .caption {
+            padding-left: 5px;
+        }
+
+        md-tabs-canvas, md-pagination-wrapper {
+            height: 38px;
+        }
+
+        md-tabs {
+            flex-grow: 1;
+            padding: 0;
+
+            md-pagination-wrapper {
+                left: inherit;
+                right: 0;
+            }
+        }
+    }
+}*/
+.help-page md-tabs {
   background: none;
-  padding: 0;
+  height: 80vh;
 }
-.header.md-tab-header md-tabs .md-tab {
-  font-size: 11px;
-  padding: 10px;
+.help-page md-tabs md-tabs-content-wrapper {
+  top: 58px;
 }
-@media only screen and (min-width: 600px) {
-  .header.md-tab-header {
-    display: -webkit-flex;
-    display: -ms-flex;
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    margin-bottom: 10px;
-  }
-  .header.md-tab-header .caption {
-    padding-right: 5px;
-  }
-  .header.md-tab-header md-tabs-canvas,
-  .header.md-tab-header md-pagination-wrapper {
-    height: 38px;
-  }
-  .header.md-tab-header md-tabs {
-    flex-grow: 1;
-    padding: 0;
-  }
-  .header.md-tab-header md-tabs md-pagination-wrapper {
-    right: inherit;
-    left: 0;
-  }
+.help-page md-tabs md-tabs-wrapper {
+  background: #323538;
+  margin-bottom: 20px;
+}
+.help-page md-tabs md-tab-content {
+  margin-top: 15px;
 }
