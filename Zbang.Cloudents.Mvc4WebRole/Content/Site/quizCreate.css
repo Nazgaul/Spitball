@@ -294,6 +294,9 @@
 .create-question .add-answer div {
   border-color: #9e9e9e;
 }
+.create-question .add-answer input:disabled {
+  background: #fff;
+}
 .modal-backdrop.quiz-create-backdrop {
   opacity: 0.9;
 }
