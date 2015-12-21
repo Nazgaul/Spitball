@@ -6,34 +6,34 @@
 <div class="full-screen itemPage" srph-infinite-scroll="i.loadMore()" container="true">
     <header>
         <div class="fb-like" ng-class="{blue : i.details.like}">
-            <button type="button" ng-click="i.like()">
+            <button type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
                 <div class="content">@Html.Svg("~/images/site/box-icons.svg", "like") {{i.details.likes}} @GeneralResources.Like</div>
             </button>
         </div>
 
         <div class="text-center">
-            <a target="_blank" href="{{i.details.downloadUrl}}">@Html.Svg(svgUrl, "download")</a>
-            <a target="_blank" href="{{i.details.printUrl}}">@Html.Svg(svgUrl, "print")</a>
+            <a target="_blank" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download")</a>
+            <a target="_blank" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print")</a>
             @*<a href="#" tooltip-placement="bottom" tooltip-html="">@Html.Svg(svgUrl, "share")</a>*@
             <md-menu flex>
-                <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
+                <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">
                     @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
                 </md-button>
                 <md-menu-content width="1">
                     <md-menu-item>
-                        <md-button class="text-capitalize" aria-label="delete post" ng-click="i.showRename()">
+                        <md-button class="text-capitalize" aria-label="delete post" ng-click="i.showRename()" ga-track-event="['itemPage', 'rename']">
                             @GeneralResources.Rename
                         </md-button>
                     </md-menu-item>
                     <md-menu-item>
-                        <md-button aria-label="delete post" ng-click="i.selectedState = i.state.flag">
+                        <md-button aria-label="delete post" ng-click="i.selectedState = i.state.flag" ga-track-event="['itemPage', 'flag']">
                             @ItemsResources.Flag
                         </md-button>
                     </md-menu-item>
                 </md-menu-content>
             </md-menu>
         </div>
-        <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl)">@Html.Svg("~/images/site/icons.svg", "close")</button>
+        <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl)" ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
 
     </header>
 
@@ -57,16 +57,16 @@
                 </md-content>
 
                 <span layout="row" layout-align="end center  text-capitalize">
-                    <button type="button" class="btn grey btn-default" ng-click="i.selectedState = i.state.regular">@GeneralResources.Cancel</button>
-                    <button type="submit" class="btn blue" ng-disabled="!renameItem.$valid">@ItemsResources.Save</button>
+                    <button type="button" class="btn grey btn-default" ng-click="i.selectedState = i.state.regular" ga-track-event="['itemPage', 'cancel rename']">@GeneralResources.Cancel</button>
+                    <button type="submit" class="btn blue" ng-disabled="!renameItem.$valid" ga-track-event="['itemPage', 'save rename']">@ItemsResources.Save</button>
                 </span>
             </form>
 
             @{ Html.RenderPartial("_FlagItem");}
         </div>
         <div class="arrows">
-            <a ng-if="i.details.previous" href="{{i.details.previous}}" hide-xs class="arrow left">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
-            <a ng-if="i.details.next" href="{{i.details.next}}" hide-xs class="arrow right">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
+            <a ng-if="i.details.previous" href="{{i.details.previous}}" hide-xs class="arrow left" ga-track-event="['itemPage', 'previous item']">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
+            <a ng-if="i.details.next" href="{{i.details.next}}" hide-xs class="arrow right" ga-track-event="['itemPage', 'next item']">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
         </div>
         <div class="preview" ng-bind-html="i.preview">
         </div>
