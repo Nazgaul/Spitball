@@ -451,22 +451,7 @@
 
 
 .add-comment {
-
-    ::-webkit-input-placeholder {
-        color: @textColorDarkGrey;
-    }
-
-    :-moz-placeholder { /* Firefox 18- */
-        color: @textColorDarkGrey;
-    }
-
-    ::-moz-placeholder { /* Firefox 19+ */
-        color: @textColorDarkGrey;
-    }
-
-    :-ms-input-placeholder {
-        color: @textColorDarkGrey;
-    }
+    .placeHolder(@textColorDarkGrey);
 
     label {
         margin-bottom: 0;
@@ -780,12 +765,11 @@
         .name {
             text-align: left /*rtl:ignore*/;
             display: block;
-            display: -webkit-box;
+            
             max-height: 80px; /* Fallback for non-webkit */
             font-size: 14px;
             line-height: 20px;
-            -webkit-line-clamp: 4;
-            -webkit-box-orient: vertical;
+            .elipsisWebKit(4);
             overflow: hidden;
             -ms-text-overflow: ellipsis;
             -o-text-overflow: ellipsis;

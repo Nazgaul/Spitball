@@ -4920,11 +4920,15 @@ Dashboard Stats 2
   width: 100%;
 }
 .dashboard-stat2 .display .number h5 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   margin: 0 0 8px 0;
   padding: 0;
   font-size: 25px;
   height: 58px;
   overflow: hidden;
+  width: calc(100% - 20px);
 }
 /*.dashboard-stat2 .display .number h3 > small {
     font-size: 23px;

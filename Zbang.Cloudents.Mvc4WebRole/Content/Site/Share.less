@@ -64,23 +64,8 @@
     }
 
     md-content {
-        @colorplaceholder: #646E77;
 
-        ::-webkit-input-placeholder {
-            color: @textColorGrey;
-        }
-
-        :-moz-placeholder { /* Firefox 18- */
-            color: @textColorGrey;
-        }
-
-        ::-moz-placeholder { /* Firefox 19+ */
-            color: @textColorGrey;
-        }
-
-        :-ms-input-placeholder {
-            color: @textColorGrey;
-        }
+        .placeHolder(@textColorGrey);
 
         background: @backgroundColor;
         position: relative;

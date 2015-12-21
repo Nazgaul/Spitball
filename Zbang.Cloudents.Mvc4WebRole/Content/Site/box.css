@@ -686,11 +686,11 @@
 .quiz .details .name {
   text-align: left /*rtl:ignore*/;
   display: block;
-  display: -webkit-box;
   max-height: 80px;
   /* Fallback for non-webkit */
   font-size: 14px;
   line-height: 20px;
+  display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;

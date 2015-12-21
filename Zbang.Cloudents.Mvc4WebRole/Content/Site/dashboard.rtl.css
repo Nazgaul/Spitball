@@ -27,6 +27,9 @@
 .dashboard .box-cube {
   position: relative;
 }
+.dashboard .delete {
+  left: -5px;
+}
 .dashboard .updates {
   position: absolute;
   right: -10px;
