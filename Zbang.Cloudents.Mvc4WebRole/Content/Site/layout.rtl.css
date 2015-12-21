@@ -836,7 +836,7 @@ Page container
   /* Page container */
   .page-container {
     margin: 0 !important;
-    padding: 10px 10px 0 10px;
+    padding: 0 10px 0 10px;
   }
   .page-header-fixed.page-header-fixed-mobile .page-container {
     margin-top: 75px !important;
@@ -847,7 +847,6 @@ Page container
   /* Page container */
   .page-container {
     margin: 0 !important;
-    padding: 0;
   }
 }
 @media (max-width: 480px) {
@@ -1939,9 +1938,11 @@ Page content
 }
 @media (max-width: 600px) {
   .page-content-wrapper .page-content {
-    padding: 10px;
     overflow: hidden;
     /* Page title */
+  }
+  .page-title > h1 {
+    font-size: 5vw;
   }
 }
 /***

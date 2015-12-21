@@ -71,14 +71,12 @@
                     dfd.reject();
                     return;
                 }
-
+                cancelObjs[url] = null;
                 if (retVal.success) {
                     dfd.resolve(retVal.payload);
-                    cancelObjs[url] = null;
                     return;
                 }
                 dfd.reject(retVal.payload);
-                cancelObjs[url] = null;
 
             }, function (response) {
                 dfd.reject(response);
