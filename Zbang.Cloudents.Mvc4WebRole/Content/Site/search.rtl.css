@@ -28,20 +28,13 @@
 .search :-ms-input-placeholder {
   color: #888b8e;
 }
-.search .nav-tabs,
-.search .tabbable {
-  display: none;
-}
-@media (max-width: 959px) {
-  .search .nav-tabs,
-  .search .tabbable {
-    display: block;
-  }
-}
 @media (max-width: 959px) {
   .search .s-hide {
     display: none;
   }
+}
+.search .show {
+  display: block;
 }
 @media (max-width: 959px) {
   .search h3 {
@@ -99,10 +92,10 @@
   }
 }
 .search .close {
-  padding: 25px;
+  padding: 25px 25px 0;
 }
 .search-text {
-  font-size: 7em;
+  font-size: 7vw;
   background: transparent;
   border: none;
   color: #3293f6;
