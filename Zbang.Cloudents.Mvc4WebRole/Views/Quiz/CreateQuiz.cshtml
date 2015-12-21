@@ -4,7 +4,7 @@
 <div class="full-screen quiz-create">
     <header layout="row">
         <div flex class="text-center text-capitalize">@GeneralResources.CreateQuiz</div>
-        <button flex="none" type="button" ng-click="q.openClose()" class="close">@Html.Svg("~/images/site/icons.svg", "close")</button>
+        <button flex="none" type="button" ng-click="q.openClose()" class="close" ga-track-event="['createQuiz', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
     </header>
     <div class="not-supported" hide-gt-sm show-xs show-sm>
         <div class="bubble">
@@ -23,13 +23,13 @@
         <input class="form-control" ng-disabled="q.quizNameDisabled" type="text" placeholder="Enter quiz name" autofocus required ng-model="q.name" ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
         <button type="button" ng-click="q.quizNameDisabled = false">@Html.Svg("~/images/site/icons.svg", "edit")</button>
         <div class="quiz-wrapper" ng-repeat="question in q.questions" ng-include="q.template(question)"></div>
-        <button type="button" class="btn btn-primary text-capitalize add-question" ng-click="q.addQuestion()">
+        <button type="button" class="btn btn-primary text-capitalize add-question" ng-click="q.addQuestion()" ga-track-event="['createQuiz', 'add question']">
             <div layout="row" layout-align="start center">
                 @Html.Svg("~/images/site/icons.svg", "add")
                 <span>@QuizResources.AddQuestion</span>
             </div>
         </button>
-        <button type="button" ng-click="q.publish()" class="btn btn-primary text-capitalize pull-right">@QuizResources.Publish</button>
+        <button type="button" ng-click="q.publish()" class="btn btn-primary text-capitalize pull-right" ga-track-event="['createQuiz', 'publish quiz']">@QuizResources.Publish</button>
     </div>
 </div>
 
@@ -38,7 +38,7 @@
         <div class="portlet-title">
             <div class="caption text-capitalize">@QuizResources.QuestionNumber{{$index + 1}}</div>
             <div class="tools">
-                <button type="button" ng-show="q.deleteQuestionShow()" ng-click="q.deleteQuestion(question)">@Html.Svg("~/images/site/icons.svg", "delete")</button>
+                <button type="button" ng-show="q.deleteQuestionShow()" ng-click="q.deleteQuestion(question)" ga-track-event="['createQuiz', 'delete question']">@Html.Svg("~/images/site/icons.svg", "delete")</button>
             </div>
         </div>
         <div class="portlet-body">
@@ -54,7 +54,7 @@
                         <input type="text" required ng-model="answer.text" ng-blur="q.saveAnswer(question,answer)" placeholder="@QuizResources.Answer {{$index + 1}}" />
                     </div>
                     <input required type="radio" name="question {{$parent.$index}}" ng-disabled="!answer.text.length" ng-click="q.markcorrect(question,answer)" ng-checked="answer.id === question.correctAnswer" />
-                    <button type="button" ng-show="q.deleteAnswerShow(question)" ng-click="q.deleteAnswer(question,answer)">@Html.Svg("~/images/site/icons.svg", "delete")</button>
+                    <button type="button" ng-show="q.deleteAnswerShow(question)" ng-click="q.deleteAnswer(question,answer)" ga-track-event="['createQuiz', 'delete answer']">@Html.Svg("~/images/site/icons.svg", "delete")</button>
                     <span class="error-answer-msg">@QuizResources.AddAnswer</span>
                 </li>
                 <li class="answer add-answer counter-inc" ng-click="q.addAnswer(question)">
@@ -75,8 +75,8 @@
             <span class="index">{{$index + 1}}.</span>
             <div class="q-body" ng-bind-html="::question.text"></div>
             <div class="q-actions">
-                <button type="button" ng-click="q.editQuestion(question)">@Html.Svg("~/images/site/icons.svg", "edit")</button>
-                <button type="button" ng-show="q.deleteQuestionShow()" ng-click="q.deleteQuestion(question)">@Html.Svg("~/images/site/icons.svg", "delete")</button>
+                <button type="button" ng-click="q.editQuestion(question)" ga-track-event="['createQuiz', 'edit question']">@Html.Svg("~/images/site/icons.svg", "edit")</button>
+                <button type="button" ng-show="q.deleteQuestionShow()" ng-click="q.deleteQuestion(question)" ga-track-event="['createQuiz', 'delete question']">@Html.Svg("~/images/site/icons.svg", "delete")</button>
             </div>
         </div>
         <ol class="counter">
