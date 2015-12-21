@@ -3,11 +3,11 @@ Core script to handle the entire theme and core functions
 **/
 var Layout = function () {
 
-    var layoutImgPath = 'admin/layout/img/';
+   // var layoutImgPath = 'admin/layout/img/';
 
-    var layoutCssPath = 'admin/layout/css/';
+    //var layoutCssPath = 'admin/layout/css/';
 
-    var resBreakpointMd = Metronic.getResponsiveBreakpoint('md');
+    var resBreakpointMd = 961;// Metronic.getResponsiveBreakpoint('md');
 
     //* BEGIN:CORE HANDLERS *//
     // this function handles responsive layout on screen size resize or mobile device rotate.
@@ -59,11 +59,15 @@ var Layout = function () {
         } else if (mode === 'match') {
             menu.find("li > a").each(function() {
                 var path = $(this).attr("href").toLowerCase();       
-                // url match condition         
-                if (path.length > 1 && url.substr(1, path.length - 1) == path.substr(1)) {
+                // url match condition  
+                if (url.startsWith(path)) {
                     el = $(this);
-                    return; 
+                    return;
                 }
+                //if (path.length > 1 && url.substr(1, path.length - 1) == path.substr(1)) {
+                //    el = $(this);
+                //    return; 
+                //}
             });
         }
 
@@ -75,8 +79,8 @@ var Layout = function () {
             return;
         }        
 
-        var slideSpeed = parseInt(menu.data("slide-speed"));
-        var keepExpand = menu.data("keep-expanded");
+        //var slideSpeed = parseInt(menu.data("slide-speed"));
+        //var keepExpand = menu.data("keep-expanded");
 
         // disable active states
         menu.find('li.active').removeClass('active');
@@ -196,86 +200,86 @@ var Layout = function () {
         });
 
         // handle ajax links within sidebar menu
-        $('.page-sidebar').on('click', ' li > a.ajaxify', function (e) {
-            e.preventDefault();
-            Metronic.scrollTop();
+        //$('.page-sidebar').on('click', ' li > a.ajaxify', function (e) {
+        //    e.preventDefault();
+        //    Metronic.scrollTop();
 
-            var url = $(this).attr("href");
-            var menuContainer = $('.page-sidebar ul');
-            var pageContent = $('.page-content');
-            var pageContentBody = $('.page-content .page-content-body');
+        //    var url = $(this).attr("href");
+        //    var menuContainer = $('.page-sidebar ul');
+        //    var pageContent = $('.page-content');
+        //    var pageContentBody = $('.page-content .page-content-body');
 
-            menuContainer.children('li.active').removeClass('active');
-            menuContainer.children('arrow.open').removeClass('open');
+        //    menuContainer.children('li.active').removeClass('active');
+        //    menuContainer.children('arrow.open').removeClass('open');
 
-            $(this).parents('li').each(function () {
-                $(this).addClass('active');
-                $(this).children('a > span.arrow').addClass('open');
-            });
-            $(this).parents('li').addClass('active');
+        //    $(this).parents('li').each(function () {
+        //        $(this).addClass('active');
+        //        $(this).children('a > span.arrow').addClass('open');
+        //    });
+        //    $(this).parents('li').addClass('active');
 
-            if (Metronic.getViewPort().width < resBreakpointMd && $('.page-sidebar').hasClass("in")) { // close the menu on mobile view while laoding a page 
-                $('.page-header .responsive-toggler').click();
-            }
+        //    if (Metronic.getViewPort().width < resBreakpointMd && $('.page-sidebar').hasClass("in")) { // close the menu on mobile view while laoding a page 
+        //        $('.page-header .responsive-toggler').click();
+        //    }
 
-            Metronic.startPageLoading();
+        //   // Metronic.startPageLoading();
 
-            var the = $(this);
+        //    var the = $(this);
             
-            $.ajax({
-                type: "GET",
-                cache: false,
-                url: url,
-                dataType: "html",
-                success: function (res) {
-                    if (the.parents('li.open').size() === 0) {
-                        $('.page-sidebar-menu > li.open > a').click();
-                    }
+        //    $.ajax({
+        //        type: "GET",
+        //        cache: false,
+        //        url: url,
+        //        dataType: "html",
+        //        success: function (res) {
+        //            if (the.parents('li.open').size() === 0) {
+        //                $('.page-sidebar-menu > li.open > a').click();
+        //            }
 
-                    Metronic.stopPageLoading();
-                    pageContentBody.html(res);
-                    Layout.fixContentHeight(); // fix content height
-                    Metronic.initAjax(); // initialize core stuff
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    Metronic.stopPageLoading();
-                    pageContentBody.html('<h4>Could not load the requested content.</h4>');
-                }
-            });
-        });
+        //            //Metronic.stopPageLoading();
+        //            pageContentBody.html(res);
+        //            Layout.fixContentHeight(); // fix content height
+        //            Metronic.initAjax(); // initialize core stuff
+        //        },
+        //        error: function (xhr, ajaxOptions, thrownError) {
+        //            //Metronic.stopPageLoading();
+        //            pageContentBody.html('<h4>Could not load the requested content.</h4>');
+        //        }
+        //    });
+        //});
 
         // handle ajax link within main content
-        $('.page-content').on('click', '.ajaxify', function (e) {
-            e.preventDefault();
-            Metronic.scrollTop();
+        //$('.page-content').on('click', '.ajaxify', function (e) {
+        //    e.preventDefault();
+        //    Metronic.scrollTop();
 
-            var url = $(this).attr("href");
-            var pageContent = $('.page-content');
-            var pageContentBody = $('.page-content .page-content-body');
+        //    var url = $(this).attr("href");
+        //    var pageContent = $('.page-content');
+        //    var pageContentBody = $('.page-content .page-content-body');
 
-            Metronic.startPageLoading();
+        //    //Metronic.startPageLoading();
 
-            if (Metronic.getViewPort().width < resBreakpointMd && $('.page-sidebar').hasClass("in")) { // close the menu on mobile view while laoding a page 
-                $('.page-header .responsive-toggler').click();
-            }
+        //    if (Metronic.getViewPort().width < resBreakpointMd && $('.page-sidebar').hasClass("in")) { // close the menu on mobile view while laoding a page 
+        //        $('.page-header .responsive-toggler').click();
+        //    }
 
-            $.ajax({
-                type: "GET",
-                cache: false,
-                url: url,
-                dataType: "html",
-                success: function (res) {
-                    Metronic.stopPageLoading();
-                    pageContentBody.html(res);
-                    Layout.fixContentHeight(); // fix content height
-                    Metronic.initAjax(); // initialize core stuff
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    pageContentBody.html('<h4>Could not load the requested content.</h4>');
-                    Metronic.stopPageLoading();
-                }
-            });
-        });
+        //    $.ajax({
+        //        type: "GET",
+        //        cache: false,
+        //        url: url,
+        //        dataType: "html",
+        //        success: function (res) {
+        //            //Metronic.stopPageLoading();
+        //            pageContentBody.html(res);
+        //            Layout.fixContentHeight(); // fix content height
+        //            Metronic.initAjax(); // initialize core stuff
+        //        },
+        //        error: function (xhr, ajaxOptions, thrownError) {
+        //            pageContentBody.html('<h4>Could not load the requested content.</h4>');
+        //            //Metronic.stopPageLoading();
+        //        }
+        //    });
+        //});
 
         // handle scrolling to top on responsive menu toggler click when header is fixed for mobile view
         $(document).on('click', '.page-header-fixed-mobile .page-header .responsive-toggler', function(){
@@ -461,12 +465,12 @@ var Layout = function () {
     };
 
     // Handles Bootstrap Tabs.
-    var handleTabs = function () {
-        // fix content height on tab click
-        $('body').on('shown.bs.tab', 'a[data-toggle="tab"]', function () {
-            handleSidebarAndContentHeight();
-        });
-    };
+    //var handleTabs = function () {
+    //    // fix content height on tab click
+    //    $('body').on('shown.bs.tab', 'a[data-toggle="tab"]', function () {
+    //        handleSidebarAndContentHeight();
+    //    });
+    //};
 
     // Handles the go to top button at the footer
     var handleGoTop = function () {
@@ -574,7 +578,7 @@ var Layout = function () {
 
         initContent: function() {
             handle100HeightContent(); // handles 100% height elements(block, portlet, etc)
-            handleTabs(); // handle bootstrah tabs
+            //handleTabs(); // handle bootstrah tabs
 
             Metronic.addResizeHandler(handleSidebarAndContentHeight); // recalculate sidebar & content height on window resize
             Metronic.addResizeHandler(handle100HeightContent); // reinitialize content height on window resize 
@@ -604,13 +608,13 @@ var Layout = function () {
             handleFixedSidebar();
         },
 
-        getLayoutImgPath: function () {
-            return Metronic.getAssetsPath() + layoutImgPath;
-        },
+        //getLayoutImgPath: function () {
+        //    return Metronic.getAssetsPath() + layoutImgPath;
+        //},
 
-        getLayoutCssPath: function () {
-            return Metronic.getAssetsPath() + layoutCssPath;
-        }
+        //getLayoutCssPath: function () {
+        //    return Metronic.getAssetsPath() + layoutCssPath;
+        //}
     };
 
 }();

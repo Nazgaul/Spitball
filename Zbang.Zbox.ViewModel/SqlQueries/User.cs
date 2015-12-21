@@ -15,8 +15,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
     join zbox.box b on b.BoxId = uFriend.BoxId and b.IsDeleted = 0
     left join zbox.UserBoxRel uMe on b.BoxId = uMe.BoxId and uMe.UserId = @Me
     where uFriend.UserId = @Myfriend
-    and (b.PrivacySetting = 3 or uMe.UserId = @Me)
-	union all
+    and (b.PrivacySetting = 3 or uMe.UserId = @Me);
 		 select count(*)
                         from zbox.item i 
                         join zbox.box b on i.boxid = b.BoxId and b.IsDeleted = 0
@@ -24,19 +23,22 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
                         where i.UserId = @Myfriend
                         and i.IsDeleted = 0
                         and (b.PrivacySetting = 3 or 
-                         ub.UserId = @Me)
+                         ub.UserId = @Me);
     select count(*)
                         from zbox.Question q 
                         join zbox.box b on q.boxid = b.BoxId and b.IsDeleted = 0
                         left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
                         where q.UserId = @Myfriend
-                        and (b.PrivacySetting = 3 or ub.UserId = @Me)
+                        and q.IsSystemGenerated = 0
+						and q.text is not null
+                        and (b.PrivacySetting = 3 or ub.UserId = @Me);
    select count(*)
                         from zbox.Answer q 
                         join zbox.box b on q.boxid = b.BoxId and b.IsDeleted = 0
                         left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
                         where q.UserId = @Myfriend
-                        and (b.PrivacySetting = 3 or ub.UserId = @Me)
+                        and q.text is not null
+                        and (b.PrivacySetting = 3 or ub.UserId = @Me);
   select count(*)
                         from zbox.Quiz q 
                         join zbox.box b on q.boxid = b.BoxId and b.IsDeleted = 0
@@ -45,7 +47,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
                         and q.IsDeleted = 0
 						and q.Publish = 1
                         and (b.PrivacySetting = 3 or 
-                         ub.UserId = @Me)
+                         ub.UserId = @Me);
 
 						select count(*)
                                 from zbox.userboxrel ub 

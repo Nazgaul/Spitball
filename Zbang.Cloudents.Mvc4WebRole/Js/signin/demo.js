@@ -243,16 +243,16 @@ var Demo = function () {
     };
 
     // handle theme style
-    var setThemeStyle = function(style) {
-        var file = (style === 'rounded' ? 'components-rounded' : 'components');
-        file = (Metronic.isRTL() ? file + '-rtl' : file);
+    //var setThemeStyle = function(style) {
+    //    var file = (style === 'rounded' ? 'components-rounded' : 'components');
+    //    file = (Metronic.isRTL() ? file + '-rtl' : file);
 
-        $('#style_components').attr("href", Metronic.getGlobalCssPath() + file + ".css");
+    //    $('#style_components').attr("href", Metronic.getGlobalCssPath() + file + ".css");
 
-        //if ($.cookie) {
-        //    $.cookie('layout-style-option', style);
-        //}
-    };
+    //    //if ($.cookie) {
+    //    //    $.cookie('layout-style-option', style);
+    //    //}
+    //};
 
     return {
 
