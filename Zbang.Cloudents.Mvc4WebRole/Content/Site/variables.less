@@ -118,6 +118,16 @@
     display: flex;
 }
 
+.justifyContet(@var) {
+    -webkit-justify-content: @var;
+    justify-content: @var;
+}
+
+.align-items(@var) {
+    -webkit-align-items: @var;
+    align-items: @var;
+}
+
 .displayInlineFlex() {
     display: -webkit-flex;
     display: -ms-flex;
@@ -184,4 +194,10 @@
     z-index: 2;
     overflow-y: auto;
     background: @backgroundColorWhite;
+}
+
+.elipsisWebKit(@lines) {
+    display: -webkit-box;
+    -webkit-line-clamp: @lines;
+    -webkit-box-orient: vertical;
 }

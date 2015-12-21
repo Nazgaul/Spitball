@@ -27,6 +27,9 @@
 .dashboard .box-cube {
   position: relative;
 }
+.dashboard .delete {
+  right: -5px;
+}
 .dashboard .updates {
   position: absolute;
   left: -10px;
@@ -66,6 +69,7 @@
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
+  -webkit-justify-content: center;
   justify-content: center;
   flex-grow: 1;
 }

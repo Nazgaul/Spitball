@@ -599,7 +599,7 @@ namespace Zbang.Zbox.ReadServices
                     {
                         retVal.NumClass = grid.Read<int>().FirstOrDefault();
                         retVal.NumItem = grid.Read<int>().FirstOrDefault();
-                        retVal.NumFeed = grid.Read<int>().FirstOrDefault();
+                        retVal.NumFeed = grid.Read<int>().FirstOrDefault() + grid.Read<int>().FirstOrDefault();
                         retVal.NumQuiz = grid.Read<int>().FirstOrDefault();
                         retVal.NumFriend = grid.Read<int>().FirstOrDefault();
 

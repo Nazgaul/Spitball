@@ -9,7 +9,7 @@
     text-align: center;
     font-size: 18px;
     width: 100%;
-    justify-content: center;
+    .justifyContet(center);
 
     svg {
         fill: @fileColor;
@@ -26,7 +26,7 @@
 .invite-container {
     display: flex;
     padding: 12px;
-    align-items: stretch;
+    .align-items(stretch);
 }
 
 .invite-container .invite {
@@ -64,23 +64,8 @@
     }
 
     md-content {
-        @colorplaceholder: #646E77;
 
-        ::-webkit-input-placeholder {
-            color: @textColorGrey;
-        }
-
-        :-moz-placeholder { /* Firefox 18- */
-            color: @textColorGrey;
-        }
-
-        ::-moz-placeholder { /* Firefox 19+ */
-            color: @textColorGrey;
-        }
-
-        :-ms-input-placeholder {
-            color: @textColorGrey;
-        }
+        .placeHolder(@textColorGrey);
 
         background: @backgroundColor;
         position: relative;

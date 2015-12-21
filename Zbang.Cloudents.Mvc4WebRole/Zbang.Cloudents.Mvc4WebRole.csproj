@@ -1602,8 +1602,14 @@
     <Content Include="Content\Site\staticPages.css">
       <DependentUpon>staticPages.less</DependentUpon>
     </Content>
+    <Content Include="Content\Site\staticPages.min.css">
+      <DependentUpon>staticPages.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\staticPages.rtl.css">
       <DependentUpon>staticPages.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\staticPages.rtl.min.css">
+      <DependentUpon>staticPages.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\user.css">
       <DependentUpon>user.less</DependentUpon>
