@@ -132,4 +132,19 @@
   <data name="Hi" xml:space="preserve">
     <value>היי</value>
   </data>
+  <data name="AddDepartment" xml:space="preserve">
+    <value>הוסף מחלקה</value>
+  </data>
+  <data name="EnterDepName" xml:space="preserve">
+    <value>הזן שם מחלקה</value>
+  </data>
+  <data name="AddClass" xml:space="preserve">
+    <value>הוסף קורס</value>
+  </data>
+  <data name="EnterClassName" xml:space="preserve">
+    <value>הזן שם קורס</value>
+  </data>
+  <data name="EnterCode" xml:space="preserve">
+    <value>הזן קוד</value>
+  </data>
 </root>

@@ -153,4 +153,10 @@
   <data name="UserPage" xml:space="preserve">
     <value>האיזור האישי</value>
   </data>
+  <data name="Likes" xml:space="preserve">
+    <value>150 נק׳ בעבור קבלת לייק</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>שתף</value>
+  </data>
 </root>
