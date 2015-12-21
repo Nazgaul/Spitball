@@ -1,4 +1,6 @@
-﻿.static-page {
+﻿@import "variables.less";
+
+.static-page {
     background: #f5f5f5;
     color: #181C1D;
     border-radius: 7px;
@@ -69,6 +71,7 @@
 
         .caption {
             padding-top: 10px;
+            padding-bottom: 10px;
             font-size: 16px;
         }
 
@@ -80,5 +83,16 @@
 
     .col-md-9 {
         width: 100%;
+    }
+
+    .accordion-toggle {
+        .panel-heading {
+            color: @textColorWhite;
+            background: @textColorGrey;
+        }
+
+        &:not(.collapsed) .panel-heading {
+            background: @buttonColorBlue;
+        }
     }
 }

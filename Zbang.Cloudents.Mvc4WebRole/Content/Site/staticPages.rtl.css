@@ -56,6 +56,7 @@
 }
 .help-page .portlet.light .caption {
   padding-top: 10px;
+  padding-bottom: 10px;
   font-size: 16px;
 }
 .help-page .portlet.light > .portlet-title {
@@ -64,4 +65,11 @@
 }
 .help-page .col-md-9 {
   width: 100%;
+}
+.help-page .accordion-toggle .panel-heading {
+  color: #f5f5f5;
+  background: #888b8e;
+}
+.help-page .accordion-toggle:not(.collapsed) .panel-heading {
+  background: #4190b9;
 }

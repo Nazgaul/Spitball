@@ -15,129 +15,132 @@
         <!-- BEGIN PAGE BREADCRUMB -->*@
     <div class="portlet light">
         @*<div class="portlet-title tabbable-line">
-            <div layout="row" layout-align="space-between center">
-                <div class="caption caption-md">
-                    <span class="caption-subject">@HomeResources.Help</span>
-                </div>
-                <ul class="nav nav-tabs tab-from-right">
-                    
-                    
-                    @{
-                             int i = 1;
-
-                            foreach (var category in Model)
-                            {
-                                var active = i == 1 ? "active" : null;
-
-                                <li ui-sref-active="@active">
-                                    <a class="text-capitalize" ui-sref="#tab_@i" data-toggle="tab">@category.Name</a>
-                                </li>
-                                i++;
-                            }
-                    }
-                </ul>
-            </div>
-        </div>*@
-
+                <div layout="row" layout-align="space-between center">
                     <div class="caption caption-md">
-                <span class="caption-subject uppercase">Help</span>
-            </div>
+                        <span class="caption-subject">@HomeResources.Help</span>
+                    </div>
+                    <ul class="nav nav-tabs tab-from-right">
 
-            <md-tabs>
-                @{
-                    int i = 1;
 
-                    foreach (var category in Model)
-                    {
-                        var active = i == 1 ? "active" : null;
-                        var j = 1;
-                        <md-tab ui-sref="#tab_@i" md-active="i == 1">
-                            <md-tab-label class="text-capitalize">@category.Name</md-tab-label>
-                            <md-tab-body>
-                                <div id="tab_@i" class="tab-pane @active">
-                                    <div id="accordion@(i)" class="panel-group">
-                                        @foreach (var faq in category.QuestionNAnswers)
-                                        {
-                                            var inClass = j == 1 ? "in" : null;
-                                            <div class="panel panel-default">
+                        @{
+                                 int i = 1;
+
+                                foreach (var category in Model)
+                                {
+                                    var active = i == 1 ? "active" : null;
+
+                                    <li ui-sref-active="@active">
+                                        <a class="text-capitalize" ui-sref="#tab_@i" data-toggle="tab">@category.Name</a>
+                                    </li>
+                                    i++;
+                                }
+                        }
+                    </ul>
+                </div>
+            </div>*@
+
+        <div class="caption caption-md">
+            <span class="caption-subject uppercase">Help</span>
+        </div>
+
+        <md-tabs>
+            @{
+                int i = 1;
+
+                foreach (var category in Model)
+                {
+                    var active = i == 1 ? "active" : null;
+                    var j = 1;
+                    <md-tab ui-sref="#tab_@i" md-active="i == 1">
+                        <md-tab-label class="text-capitalize">@category.Name</md-tab-label>
+                        <md-tab-body>
+                            <div id="tab_@i" class="tab-pane @active">
+                                <div id="accordion@(i)" class="panel-group">
+                                    @foreach (var faq in category.QuestionNAnswers)
+                                    {
+                                        var inClass = j == 1 ? "in" : null;
+                                        var collapsed = j != 1 ? "collapsed" : null;
+                                        <div class="panel panel-default">
+                                            <a class="accordion-toggle @collapsed" data-toggle="collapse" data-parent="#accordion@(i)" href="#accordion@(i)_@j">
                                                 <div class="panel-heading">
-                                                    <h4 class="panel-title">
-                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion@(i)" href="#accordion@(i)_@j">
-                                                            @faq.Question
-                                                        </a>
-                                                    </h4>
-                                                </div>
 
-                                                <div id="accordion@(i)_@j" class="panel-collapse collapse @inClass">
-                                                    <div class="panel-body">
-                                                        @Html.Raw(faq.Answer)
-                                                    </div>
+                                                    <h4 class="panel-title">
+                                                        @faq.Question
+                                                    </h4>
+
+
+                                                </div>
+                                            </a>
+                                            <div id="accordion@(i)_@j" class="panel-collapse collapse @inClass">
+                                                <div class="panel-body">
+                                                    @Html.Raw(faq.Answer)
                                                 </div>
                                             </div>
-                                            j++;
-                                        }
-                                    </div>
+                                        </div>
+                                        j++;
+                                    }
                                 </div>
-                            </md-tab-body>
-                        </md-tab>
+                            </div>
+                        </md-tab-body>
+                    </md-tab>
 
-                        i++;
-                    }
+                                    i++;
                 }
-            </md-tabs>
+            }
+        </md-tabs>
 
 
 
 
 
 
-        
+
 
 
         <!-- END PAGE BREADCRUMB -->
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
         @*<div class="portlet-body">
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="tab-content">
-                        @{
-                            i = 1;
-                            foreach (var category in Model)
-                            {
-                                var active = i == 1 ? "active" : null;
-                                var j = 1;
-                                <div id="tab_@i" class="tab-pane @active">
-                                    <div id="accordion@(i)" class="panel-group">
-                                        @foreach (var faq in category.QuestionNAnswers)
-                                        {
-                                            var inClass = j == 1 ? "in" : null;
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h4 class="panel-title">
-                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion@(i)" href="#accordion@(i)_@j">
-                                                            @faq.Question
-                                                        </a>
-                                                    </h4>
-                                                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            @{
+                                i = 1;
+                                foreach (var category in Model)
+                                {
+                                    var active = i == 1 ? "active" : null;
+                                    var j = 1;
+                                    <div id="tab_@i" class="tab-pane @active">
+                                        <div id="accordion@(i)" class="panel-group">
+                                            @foreach (var faq in category.QuestionNAnswers)
+                                            {
+                                                var inClass = j == 1 ? "in" : null;
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion@(i)" href="#accordion@(i)_@j">
+                                                                @faq.Question
+                                                            </a>
+                                                        </h4>
+                                                    </div>
 
-                                                <div id="accordion@(i)_@j" class="panel-collapse collapse @inClass">
-                                                    <div class="panel-body">
-                                                        @Html.Raw(faq.Answer)
+                                                    <div id="accordion@(i)_@j" class="panel-collapse collapse @inClass">
+                                                        <div class="panel-body">
+                                                            @Html.Raw(faq.Answer)
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            j++;
-                                        }
+                                                j++;
+                                            }
+                                        </div>
                                     </div>
-                                </div>
-                                        i++;
+                                            i++;
+                                }
                             }
-                        }
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
 
     </div>
 </div>
