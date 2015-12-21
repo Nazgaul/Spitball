@@ -2,17 +2,17 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <div class="search full-screen">
-    <button type="button" class="close" ng-click="app.back('/dashboard/')">@Html.Svg("~/images/site/icons.svg", "close")</button>
+    <button type="button" class="close" ng-click="app.back('/dashboard/')" ga-track-event="['search', 'close search']">@Html.Svg("~/images/site/icons.svg", "close")</button>
     <input type="search" class="search-text" placeholder="@SearchResources.Search" ng-model="s.term" ng-model-options="{debounce : 250}" ng-change="s.search()" ng-minlength="2" />
     <ul class="nav nav-tabs tabbable">
         <li ng-class="{active: s.tab === 'b'}">
-            <button type="button" class="text-capitalize" ng-click="s.tab = 'b'">@GeneralResources.Classes</button>
+            <button type="button" class="text-capitalize" ng-click="s.tab = 'b'" ga-track-event="['search', 'search classes']">@GeneralResources.Classes</button>
         </li>
         <li ng-class="{active: s.tab === 'i'}">
-            <button type="button" class="text-capitalize" ng-click="s.tab = 'i'">@SearchResources.Items</button>
+            <button type="button" class="text-capitalize" ng-click="s.tab = 'i'" ga-track-event="['search', 'search items']">@SearchResources.Items</button>
         </li>
         <li ng-class="{active: s.tab === 'q'}">
-            <button type="button" class="text-capitalize" ng-click="s.tab = 'q'">@GeneralResources.Quizzes</button>
+            <button type="button" class="text-capitalize" ng-click="s.tab = 'q'" ga-track-event="['search', 'search quizzes']">@GeneralResources.Quizzes</button>
         </li>
     </ul>
     <div layout="row" layout-align="space-between start" layout-wrap srph-infinite-scroll="s.myPagingFunction()" class="content">
