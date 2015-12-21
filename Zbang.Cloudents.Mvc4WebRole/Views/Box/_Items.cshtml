@@ -6,7 +6,7 @@
     <input type="search" placeholder="@BoxResources.Search" ng-model="i.term" ng-model-options="{debounce : 250}" ng-change="i.filter()" ng-minlength="2" />
 </div>
 @{ Html.RenderPartial("_Tabs");}
-                   
+
 
 <ul layout="row" layout-padding layout-fill layout-wrap class="list-unstyled" srph-infinite-scroll="i.myPagingFunction()">
     <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="item-animate add-button " ng-click="i.openUpload()" ga-track-event="['box-items', 'addFile']">
@@ -34,7 +34,5 @@
     </li>
 </ul>
 <button type="button" class="add" hide show-xs ng-click="i.openUpload()" ng-show="i.uploadShow" ga-track-event="['box-items', 'addFile']">
-    <div class="mobile-plus">
-        @Html.Svg("~/images/site/icons.svg", "add")
-    </div>
+    @Html.Svg("~/images/site/icons.svg", "add")
 </button>

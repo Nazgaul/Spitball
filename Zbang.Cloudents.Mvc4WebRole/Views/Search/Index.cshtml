@@ -2,18 +2,22 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <button type="button" class="close" ng-click="app.back('/dashboard/')" ga-track-event="['search', 'close search']">@Html.Svg("~/images/site/icons.svg", "close")</button>
-<input type="search" class="search-text" placeholder="@SearchResources.Search" ng-model="s.term" ng-model-options="{debounce : 250}" ng-change="s.search()" ng-minlength="2" />
-<ul class="nav nav-tabs tabbable">
-    <li ng-class="{active: s.tab === 'b'}">
-        <button type="button" class="text-capitalize" ng-click="s.tab = 'b'" ga-track-event="['search', 'search classes']">@GeneralResources.Classes</button>
-    </li>
-    <li ng-class="{active: s.tab === 'i'}">
-        <button type="button" class="text-capitalize" ng-click="s.tab = 'i'" ga-track-event="['search', 'search items']">@SearchResources.Items</button>
-    </li>
-    <li ng-class="{active: s.tab === 'q'}">
-        <button type="button" class="text-capitalize" ng-click="s.tab = 'q'" ga-track-event="['search', 'search quizzes']">@GeneralResources.Quizzes</button>
-    </li>
-</ul>
+<form novalidate remove-keyboard ng-submit="s.search()">
+    <input type="search" class="search-text" placeholder="@SearchResources.Search" ng-model="s.term" ng-model-options="{debounce : 250}" ng-change="s.search()" ng-minlength="2" />
+</form>
+
+<md-tabs hide-gt-sm>
+    <md-tab md-on-select="s.tab = 'b'" md-active="s.tab === 'b'" md-on-select="s.tab = 'b'" ga-track-event="['search', 'search classes']">
+        <md-tab-label>@GeneralResources.Classes</md-tab-label>
+    </md-tab>
+    <md-tab md-on-select="s.tab = 'i'" md-active="s.tab === 'i'" md-on-select="s.tab = 'i'" ga-track-event="['search', 'search items']">
+        <md-tab-label>@SearchResources.Items</md-tab-label>
+    </md-tab>
+    <md-tab md-on-select="s.tab = 'q'" md-active="s.tab === 'q'" md-on-select="s.tab = 'q'" ga-track-event="['search', 'search quizzes']">
+        <md-tab-label>@GeneralResources.Quizzes</md-tab-label>
+    </md-tab>
+</md-tabs>
+
 <div layout="row" layout-align="space-between start" layout-wrap srph-infinite-scroll="s.myPagingFunction()" class="content">
     <div flex-gt-sm="25" flex="100" class="s-hide" ng-class="{show: s.tab === 'b'}">
         <h3 class="text-capitalize">@GeneralResources.Classes</h3>

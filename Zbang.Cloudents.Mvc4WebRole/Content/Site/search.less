@@ -9,15 +9,9 @@
             padding: 0 5%;
         }
     }
+
     .placeHolder(@textColorGrey);
 
-    .nav-tabs, .tabbable {
-        display: none;
-
-        @media (max-width: 959px) {
-            display: block;
-        }
-    }
 
 
     @media (max-width: 959px) {
@@ -27,8 +21,8 @@
         }
     }
 
-    .dashboard-stat2 {
-        //  margin-bottom:12px;
+    .show {
+        display: block;
     }
 
     h3 {
@@ -82,12 +76,12 @@
     }
 
     .close {
-        padding: 25px;
+        padding: 25px 25px 0;
     }
 }
 
 .search-text {
-    font-size: 7em;
+    font-size: 7vw;
     background: transparent;
     border: none;
     color: @textColorSpitballBlue;

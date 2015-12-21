@@ -141,6 +141,12 @@ input, li, [contenteditable], span, textarea, [role="button"] {
     font-size: 28px;
     line-height: 55px;
     box-shadow: 0 2px 10px rgba(0,0,0,.3),0 0 1px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.15);
+    text-align:center;
+    svg {
+        width: 20px;
+        height: 20px;
+        fill: @textColorWhite;
+    }
 }
 //override of angular material
 /*#region angularmaterial*/
@@ -732,13 +738,7 @@ md-menu-item {
 
 
 //mobile add button in the bottom right corner
-.mobile-plus {
-    svg {
-        width: 20px;
-        height: 20px;
-        fill: @textColorWhite;
-    }
-}
+
 
 .btn {
     padding: 0 16px;

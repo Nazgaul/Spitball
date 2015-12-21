@@ -1602,14 +1602,8 @@
     <Content Include="Content\Site\staticPages.css">
       <DependentUpon>staticPages.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\staticPages.min.css">
-      <DependentUpon>staticPages.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\staticPages.rtl.css">
       <DependentUpon>staticPages.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\staticPages.rtl.min.css">
-      <DependentUpon>staticPages.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\user.css">
       <DependentUpon>user.less</DependentUpon>
@@ -1814,12 +1808,14 @@
     <Content Include="Js\components\user\user.routes.js" />
     <Content Include="Js\components\user\userNotification.controller.js" />
     <Content Include="Js\polyfills.js" />
-    <Content Include="Js\shared\animClass.js" />
+    <Content Include="Js\shared\animationClass.js" />
+    <Content Include="Js\shared\animationLocation.js" />
     <Content Include="Js\shared\facebook.js" />
     <Content Include="Js\shared\fileReader.js" />
     <Content Include="Js\shared\firstLetter.js" />
     <Content Include="Js\shared\history.js" />
     <Content Include="Js\shared\itemThumbnail.js" />
+    <Content Include="Js\shared\removeKeyboard.js" />
     <Content Include="Js\shared\userDetails.js" />
     <Content Include="Js\components\app.controller.js" />
     <Content Include="Js\components\box\box.service.js" />
