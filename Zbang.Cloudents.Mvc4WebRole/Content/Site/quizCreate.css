@@ -152,6 +152,9 @@
   border: 1px solid #8c99a6;
   margin-bottom: 12px;
 }
+.create-question .question-content img {
+  width: 100%;
+}
 .create-question .ta-scroll-window > .ta-bind {
   min-height: 90px;
 }
