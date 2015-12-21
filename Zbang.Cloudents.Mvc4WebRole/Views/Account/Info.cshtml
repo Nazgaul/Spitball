@@ -8,7 +8,7 @@
         <div class="fileinput text-capitalize">
             <h2>@AccountResource.Profile</h2>
             <div class="thumbnail" style="width: 150px; height: 150px;">
-                <img ng-if="{{i.data.image}}" ng-src="{{i.data.image}}" alt="" width="150" height="150" />
+                <img ng-if="i.data.image" ng-src="{{i.data.image}}" alt="" width="150" height="150" />
                 <a plupload="i.fileUpload.url" plupload-options="i.fileUpload.options" class="ontop" plupload-callbacks="i.fileUpload.callbacks">
                     @AccountResource.SelectImg
                 </a>
