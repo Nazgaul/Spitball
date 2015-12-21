@@ -16,7 +16,7 @@
 <div uib-collapse="!b.settingsOpen" class="settings">
     @{Html.RenderPartial("_Settings");}
 </div>
-<md-tabs>
+<md-tabs class="box-nav-bar">
     <md-tab ui-sref="box.feed" md-active="b.isActiveState('box.feed')">
         <md-tab-label>@BoxResources.Feed</md-tab-label>
     </md-tab>

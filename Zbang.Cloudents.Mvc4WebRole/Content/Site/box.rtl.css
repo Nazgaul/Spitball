@@ -328,12 +328,15 @@
   fill: #5d6063;
   vertical-align: middle;
 }
-.feed .actions .anonymous {
+.feed .actions .anonymous-wrapper .text {
+  display: none;
+}
+.feed .actions .anonymous-wrapper .anonymous {
   width: 28px;
   height: 28px;
   margin-left: 12px;
 }
-.feed .actions .anonymous:hover {
+.feed .actions .anonymous-wrapper .anonymous:hover {
   fill: #d39f10;
 }
 .feed .actions .dropbox:hover {
@@ -446,6 +449,20 @@
   background: #181c1d;
   padding-right: 10px;
 }
+.add-comment ::-webkit-input-placeholder {
+  color: #5d6063;
+}
+.add-comment :-moz-placeholder {
+  /* Firefox 18- */
+  color: #5d6063;
+}
+.add-comment ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #5d6063;
+}
+.add-comment :-ms-input-placeholder {
+  color: #5d6063;
+}
 .add-comment md-input-container {
   padding-bottom: 0;
   width: 100%;
@@ -457,6 +474,14 @@
 }
 .add-comment input[type=checkbox] {
   display: none;
+}
+@media (min-width: 600px) {
+  .add-comment input[type=checkbox]:checked + label .text {
+    padding-left: 10px;
+    font-size: 12px;
+    display: inline-block;
+    color: #d39f10;
+  }
 }
 .add-comment input[type=checkbox]:checked + label svg {
   fill: #d39f10;
@@ -855,6 +880,9 @@
   text-align: left;
   background-color: #181c1d;
   padding: 20px 0 10px 10px;
+}
+md-tabs.box-nav-bar md-tabs-wrapper {
+  margin-bottom: 0;
 }
 .file-upload-area.list-inline,
 .reply-wrapper.list-inline {

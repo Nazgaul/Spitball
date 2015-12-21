@@ -718,10 +718,9 @@ md-menu-item {
 .help-page md-tabs md-tabs-content-wrapper {
   top: 58px;
 }
-.help-page md-tabs md-tabs-wrapper {
-  background: #323538;
-  margin-bottom: 20px;
-}
 .help-page md-tabs md-tab-content {
   margin-top: 15px;
+}
+.help-page h2 {
+  font-size: 16px;
 }
