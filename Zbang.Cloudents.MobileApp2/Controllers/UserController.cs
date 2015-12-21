@@ -60,8 +60,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             return Request.CreateResponse(result.Select(s => new
             {
                 s.Id,
-                s.Name,
-                Image = s.LargeImage
+                s.Name, s.Image
             }));
         }
 

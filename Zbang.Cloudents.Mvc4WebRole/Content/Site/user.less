@@ -10,9 +10,6 @@
         background: #353a3f;
         color: @textColorWhite;
         text-transform: uppercase;
-
-        &.friends > .portlet-title {
-        }
     }
 
     .profile-usertitle-job {
@@ -20,13 +17,16 @@
         margin-bottom: 7px;
         padding-bottom: 20px;
         color: @textColorWhite;
-        font-family: "Open Sans", sans-serif;
         font-size: 15px;
+    }
+    .profile-userpic {
+        .userLetter {
+            font-size: 75px;
+        }
     }
 
     .profile-usertitle-name {
-        color: #f5f5f5;
-        font-family: "Open Sans", sans-serif;
+        color: @textColorWhite;
         font-size: 20px;
     }
 
@@ -122,7 +122,7 @@
         md-tab {
             margin: 0 20px 0 10px;
             background: transparent;
-            color: #f5f5f5;
+            color: @textColorWhite;
             outline: none;
         }
     }

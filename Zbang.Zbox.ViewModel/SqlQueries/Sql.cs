@@ -28,7 +28,7 @@
 								select u.userid as Id,
                                 u.UserName as Name ,
                                 u.url as Url,
-                                u.UserImageLarge as LargeImage,
+                                u.UserImageLarge as Image,
                                 u.UserReputation
                                 from zbox.userboxrel ub 
                                 join zbox.userboxrel ub2 on ub.boxid = ub2.boxid
