@@ -390,14 +390,8 @@ md-tabs {
     //position: absolute;
     //top: -85px;
     //bottom: -33px;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;
-    overflow-y: auto;
-    background: @backgroundColorWhite;
+    .fullScreen();
+   
 
     header {
         height: @fullScreenHeaderHeight;
@@ -474,13 +468,7 @@ md-tabs {
     -webkit-transform-origin: ~"50% 50%";
     transform-origin: ~"50% 50%";
 
-    &.searchState {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-        bottom: 0;
-        z-index: 2;
+    &.search {
         -moz-transform-origin: ~"275px 20px";
         -ms-transform-origin: ~"275px 20px";
         -o-transform-origin: ~"275px 20px";

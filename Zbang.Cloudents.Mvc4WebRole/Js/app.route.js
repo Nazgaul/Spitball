@@ -64,7 +64,7 @@
                         config: {
                             url: '/search/?q',
                             controller: 'SearchController as s',
-                            data: { animateClass: 'searchState' },
+                            data: { animateClass: 'search' },
                             reloadOnSearch: false
                             //onEnter: routerHelper.universityRedirect
                         },
@@ -75,7 +75,7 @@
                          config: {
                              url: '/dashboard/',
                              controller: 'Dashboard as d',
-                             data: { animateClass: 'dashboardState' },
+                             data: { animateClass: 'dashboard' },
                              //onEnter: routerHelper.universityRedirect
 
                          },

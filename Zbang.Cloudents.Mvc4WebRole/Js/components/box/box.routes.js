@@ -22,9 +22,7 @@
                             }
                         ]
                     },
-                    //onEnter: ['$location', '$state', '$stateParams', function ($location, $state, $stateParams) {
-                        //$state.go('box.feed');
-                    //}],
+                    data: { animateClass: 'class' },
                 },
                 templateUrl: '/box/indexpartial/'
             },

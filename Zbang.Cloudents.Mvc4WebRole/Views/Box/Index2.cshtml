@@ -2,34 +2,33 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <div uib-collapse="!b.inviteOpen">
+    @* ReSharper disable once Mvc.PartialViewNotResolved *@
     @{Html.RenderPartial("_Invite");}
 </div>
 
-<div class="class">
-    <div class="page-head">
-        <div layout="row" layout-align="space-between center" ng-hide="b.settingsOpen" class="page-title" ng-class="{'need-follow' : b.needFollow}">
-            <h1 flex>{{b.data.name}}</h1>
-            <button flex="none" ng-if="b.needFollow" type="button" ng-click="b.follow()" class="invite-btn text-capitalize" ga-track-event="['box', 'follow']">@BoxResources.Follow</button>
-            <button flex="none" ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" ga-track-event="['box', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings")</button>
-        </div>
+<div class="page-head">
+    <div layout="row" layout-align="space-between center" ng-hide="b.settingsOpen" class="page-title" ng-class="{'need-follow' : b.needFollow}">
+        <h1 flex>{{b.data.name}}</h1>
+        <button flex="none" ng-if="b.needFollow" type="button" ng-click="b.follow()" class="invite-btn text-capitalize" ga-track-event="['box', 'follow']">@BoxResources.Follow</button>
+        <button flex="none" ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" ga-track-event="['box', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings")</button>
     </div>
-    <div uib-collapse="!b.settingsOpen" class="settings">
-        @{Html.RenderPartial("_Settings");}
-    </div>
-    <md-tabs>
-        <md-tab ui-sref="box.feed" md-active="b.isActiveState('box.feed')">
-            <md-tab-label>@BoxResources.Feed</md-tab-label>
-        </md-tab>
-        <md-tab ui-sref="box.items" md-active="b.isActiveState('box.items')">
-            <md-tab-label>@BoxResources.Items</md-tab-label>
-        </md-tab>
-        <md-tab ui-sref="box.quiz" md-active="b.isActiveState('box.quiz')">
-            <md-tab-label>@GeneralResources.Quizzes</md-tab-label>
-        </md-tab>
-        <md-tab ui-sref="box.members" md-active="b.isActiveState('box.members')">
-            <md-tab-label>@GeneralResources.Members</md-tab-label>
-        </md-tab>
-    </md-tabs>
-    <div ui-view></div>
 </div>
+<div uib-collapse="!b.settingsOpen" class="settings">
+    @{Html.RenderPartial("_Settings");}
+</div>
+<md-tabs>
+    <md-tab ui-sref="box.feed" md-active="b.isActiveState('box.feed')">
+        <md-tab-label>@BoxResources.Feed</md-tab-label>
+    </md-tab>
+    <md-tab ui-sref="box.items" md-active="b.isActiveState('box.items')">
+        <md-tab-label>@BoxResources.Items</md-tab-label>
+    </md-tab>
+    <md-tab ui-sref="box.quiz" md-active="b.isActiveState('box.quiz')">
+        <md-tab-label>@GeneralResources.Quizzes</md-tab-label>
+    </md-tab>
+    <md-tab ui-sref="box.members" md-active="b.isActiveState('box.members')">
+        <md-tab-label>@GeneralResources.Members</md-tab-label>
+    </md-tab>
+</md-tabs>
+<div ui-view></div>
 
