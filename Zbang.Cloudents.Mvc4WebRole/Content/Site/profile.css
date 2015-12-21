@@ -21,7 +21,8 @@ New Profile Page
 .profile-sidebar-portlet {
   padding: 30px 0 0 0 !important;
 }
-.profile-userpic img {
+.profile-userpic img,
+.profile-userpic span {
   float: none;
   margin: 0 auto;
   width: 50%;
