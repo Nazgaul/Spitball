@@ -197,19 +197,19 @@ Login page
   padding: 0;
   border-radius: 3px;
   background: grey;
-  background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #cccccc 100%);
-  background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #cccccc 100%);
-  background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #cccccc 100%);
-  background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #cccccc 100%);
-  background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #cccccc 100%);
+  background: -webkit-linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #cccccc 100%);
+  background: -moz-linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #cccccc 100%);
+  background: -o-linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #cccccc 100%);
+  background: -ms-linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #cccccc 100%);
+  background: linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #cccccc 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfff4', endColorstr='#b3bead', GradientType=0);
   margin: 20px auto;
   -webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
-  box-shadow: inset 0px 1px 1px white, 0px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 1px white, 0 1px 1px rgba(0, 0, 0, 0.2);
   position: relative;
 }
-.login .content .form-actions .checkbox-design label:before {
+.login .content .form-actions .checkbox-design .remember-me:before {
   opacity: 0;
   content: '';
   position: absolute;
@@ -218,7 +218,7 @@ Login page
   background: transparent;
   top: 2px;
   right: 1px;
-  border: 2px solid #000000;
+  border: 2px solid #000;
   border-top: none;
   border-right: none ;
   -webkit-transform: rotate(-45deg) ;

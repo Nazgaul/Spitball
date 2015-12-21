@@ -228,6 +228,10 @@
 }
 .feed .items-container li {
   width: 119px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .feed .items-container li::first-child {
   padding-left: 0;
