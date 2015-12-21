@@ -11,8 +11,8 @@
             </div>
         </md-input-container>
         <div layout="row" layout-align="end center" class="text-capitalize" flex="100" flex-gt-md="33">
-            <button type="button" class="btn btn-default" ng-click="l.settingsOpen = false">@GeneralResources.Cancel</button>
-            <button type="submit" class="btn btn-primary" ng-disabled="!nodeSettings.$valid">@GeneralResources.SaveChanges</button>
+            <button type="button" class="btn btn-default" ng-click="l.settingsOpen = false" ga-track-event="['university', 'cancel settings']">@GeneralResources.Cancel</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="!nodeSettings.$valid" ga-track-event="['itemPage', 'save settings']">@GeneralResources.SaveChanges</button>
         </div>
     </form>
 </div>

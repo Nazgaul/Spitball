@@ -162,4 +162,7 @@
   <data name="Flag" xml:space="preserve">
     <value>דווח</value>
   </data>
+  <data name="FlagItemPlaceHolder" xml:space="preserve">
+    <value>בחר</value>
+  </data>
 </root>

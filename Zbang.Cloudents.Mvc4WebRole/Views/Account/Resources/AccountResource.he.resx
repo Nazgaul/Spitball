@@ -159,4 +159,34 @@
   <data name="EmailToReset" xml:space="preserve">
     <value>אנא הזן את כתובת המייל שבאמצעותה נרשמת לספיטבול. תוך מספר דקות יישלח לכתובת זו מייל לשם שיחזור הסיסמה</value>
   </data>
+  <data name="changeUniversityBtn" xml:space="preserve">
+    <value>החלף מוסד אקדמי</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>הגדרות</value>
+  </data>
+  <data name="CheckYourEmail" xml:space="preserve">
+    <value>בדוק את תיבת המייל שלך</value>
+  </data>
+  <data name="VerificationCode" xml:space="preserve">
+    <value>קוד אימות נשלח לכתובת המייל החדשה שהזנת</value>
+  </data>
+  <data name="EnterVerification" xml:space="preserve">
+    <value>הכנס קוד אימות</value>
+  </data>
+  <data name="EmailedPassword" xml:space="preserve">
+    <value>הסיסמה החדשה נשלחה לכתובת המייל שלך</value>
+  </data>
+  <data name="ResetInstructions" xml:space="preserve">
+    <value>הוראות אתחול מחדש</value>
+  </data>
+  <data name="DidntReceivedEmail" xml:space="preserve">
+    <value>לא קבלת מייל מאיתנו?</value>
+  </data>
+  <data name="CheckEmailSpam" xml:space="preserve">
+    <value>אנא בדוק את תקיית ״דואר זבל״ בתיבת המייל שלך</value>
+  </data>
+  <data name="AnotherRequest" xml:space="preserve">
+    <value>שלח בקשה נוספת</value>
+  </data>
 </root>

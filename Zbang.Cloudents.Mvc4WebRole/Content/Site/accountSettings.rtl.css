@@ -10,6 +10,19 @@
 .accountPage-wrapper .profile-content {
   max-width: 800px;
 }
+.accountPage-wrapper .profile-content .section {
+  background: #323538;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 5px;
+}
+.accountPage-wrapper .profile-content .portlet-body .form-group .fileinput h2 {
+  font-size: 12px;
+  margin-top: 6px;
+}
+.accountPage-wrapper .profile-content .portlet-body .form-group .fileinput .thumbnail {
+  border-radius: 0;
+}
 .accountPage-wrapper .ontop {
   text-align: center;
   position: absolute;
@@ -20,13 +33,6 @@
   line-height: 22px;
   right: 0;
   left: 0;
-}
-.accountPage-wrapper .portlet.light .portlet-body .form-group .fileinput h2 {
-  font-size: 12px;
-  margin-top: 6px;
-}
-.accountPage-wrapper .portlet.light .portlet-body .form-group .fileinput .thumbnail {
-  border-radius: 0;
 }
 .accountPage-wrapper .portlet.light > .portlet-title {
   border-bottom: 1px solid #F4F4F4;
@@ -106,6 +112,10 @@
 }
 .accountPage-wrapper .uni-name {
   font-size: 20px;
+}
+.accountPage-wrapper .md-tab {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .change-email-dialog {
   padding: 30px 30px 30px 50px;

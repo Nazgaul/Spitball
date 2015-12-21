@@ -7,12 +7,12 @@
             <h1>{{::l.universityName}}</h1>
             <div ng-if="l.nodeDetail && !l.settingsOpen" layout="row" layout-align="space-between center">
                 <h2 layout="row">
-                    <a href="{{::l.nodeDetail.parentUrl}}">
+                    <a href="{{::l.nodeDetail.parentUrl}}" ga-track-event="['university', 'back arrow']">
                         <span class="arrow back-arrow">@Html.Svg("~/images/site/icons.svg", "arrow")</span>
                         {{::l.nodeDetail.name}}
                     </a>
                 </h2>
-                <button flex="none" type="button" ng-click="l.toggleSettings()">@Html.Svg("/images/site/box-icons.svg", "settings")</button>
+                <button flex="none" type="button" ng-click="l.toggleSettings()" ga-track-event="['university', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings")</button>
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
     <div layout="row" layout-padding layout-wrap class="margin-top-10">
 
         <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" class="flex department-wrap" ng-repeat=" dep in l.departments">
-            <a href="{{::dep.url}}" class="dashboard-stat2 department" d-color="{{::dep.name.length}}">
+            <a href="{{::dep.url}}" class="dashboard-stat2 department" d-color="{{::dep.name.length}}" ga-track-event="['university', 'select department']">
                 <div class="corner" d-color="{{::dep.name.length}}">
                 </div>
                 <div class="display">
@@ -39,12 +39,12 @@
                 </div>
             </a>
             <md-menu ng-if="l.canDelete(dep)">
-                <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)">
+                <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['university', 'delete department']">
                     @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
                 </md-button>
                 <md-menu-content width="1">
                     <md-menu-item>
-                        <md-button aria-label="remove department" ng-click="l.deleteDepartment($event,dep)">
+                        <md-button aria-label="remove department" ng-click="l.deleteDepartment($event,dep)" ga-track-event="['university', 'didDelete']">
                             @GeneralResources.Delete
                         </md-button>
                     </md-menu-item>
@@ -54,7 +54,7 @@
         <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
         <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" class="create-box flex" ng-if="l.createDepartmentShow">
             <div class="dashboard-stat2">
-                <button type="button" ng-hide="l.createDepartmentOn" ng-click="l.createDepartmentOn = true" class="create-btn">
+                <button type="button" ng-hide="l.createDepartmentOn" ng-click="l.createDepartmentOn = true" class="create-btn" ga-track-event="['university', 'add new department']">
                     <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
                     <div class="title">@LibraryResources.AddDepartment</div>
                 </button>
@@ -70,15 +70,15 @@
                         </md-input-container>
                     </md-content>
                     <span layout="row" layout-align="end center text-capitalize">
-                        <button type="button" class="btn btn-default" ng-click="l.departmentCancel(createDepartment)">@GeneralResources.Cancel</button>
-                        <button type="submit" class="btn btn-primary" ng-disabled="!createDepartment.$valid">@GeneralResources.Done</button>
+                        <button type="button" class="btn btn-default" ng-click="l.departmentCancel(createDepartment)" ga-track-event="['university', 'cancel new department']">@GeneralResources.Cancel</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled="!createDepartment.$valid" ga-track-event="['university', 'create new department']">@GeneralResources.Done</button>
                     </span>
                 </form>
             </div>
         </div>
         <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" class="create-box flex" ng-if="l.createClassShow">
             <div class="dashboard-stat2">
-                <button ng-hide="l.createBoxOn" type="button" ng-click="l.createBoxOn = true" class="create-btn">
+                <button ng-hide="l.createBoxOn" type="button" ng-click="l.createBoxOn = true" class="create-btn" ga-track-event="['university', 'add new class']">
                     <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
                     <div class="title">@LibraryResources.AddClass</div>
                 </button>
@@ -105,9 +105,9 @@
 
                     </md-content>
                     <span layout="row" layout-align="end stretch">
-                        <button type="button" class="btn btn-default text-capitalize" ng-click="l.boxCancel()">@GeneralResources.Cancel</button>
-                        <button type="button" class="btn btn-primary text-capitalize" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()">@LibraryResources.Next</button>
-                        <button type="submit" class="btn btn-primary text-capitalize" ng-if="l.secondStep" ng-disabled="!createBox.$valid">@GeneralResources.Done</button>
+                        <button type="button" class="btn btn-default text-capitalize" ng-click="l.boxCancel()" ga-track-event="['university', 'cancel new class']">@GeneralResources.Cancel</button>
+                        <button type="button" class="btn btn-primary text-capitalize" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()" ga-track-event="['university', 'next step new class']">@LibraryResources.Next</button>
+                        <button type="submit" class="btn btn-primary text-capitalize" ng-if="l.secondStep" ng-disabled="!createBox.$valid" ga-track-event="['university', 'create new class']">@GeneralResources.Done</button>
                     </span>
                 </form>
             </div>

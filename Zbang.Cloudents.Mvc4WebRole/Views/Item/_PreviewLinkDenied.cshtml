@@ -4,5 +4,5 @@
 <div class="preview-page previewDenied">
     <img src="@Url.CdnContent("~/Images/Site/preview_denied.png")" alt="Preview failed">
     <p>@ItemsResources.SecurityReasons</p>
-    <a class="previewDeniedBtn" href="@Model.Src.FirstOrDefault()" target="_blank">@ItemsResources.OpenLink</a>
+    <a class="previewDeniedBtn" href="@Model.Src.FirstOrDefault()" target="_blank" ga-track-event="['itemPage'', 'open link']">@ItemsResources.OpenLink</a>
 </div>

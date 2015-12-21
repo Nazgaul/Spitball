@@ -162,4 +162,16 @@
   <data name="Courses" xml:space="preserve">
     <value>קורסים</value>
   </data>
+  <data name="Blog" xml:space="preserve">
+    <value>בלוג</value>
+  </data>
+  <data name="RequiredField" xml:space="preserve">
+    <value>שדה חובה</value>
+  </data>
+  <data name="TooShort" xml:space="preserve">
+    <value>קצר מידי</value>
+  </data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>מי אנחנו</value>
+  </data>
 </root>
