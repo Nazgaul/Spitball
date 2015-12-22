@@ -1,6 +1,8 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
+@{
+    ViewBag.postBag = ViewBag.postBag ?? false;
 }
 @if (User != null && !User.Identity.IsAuthenticated && !ViewBag.postBag)
 {

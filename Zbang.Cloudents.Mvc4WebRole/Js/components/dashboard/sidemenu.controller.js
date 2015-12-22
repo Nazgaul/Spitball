@@ -13,10 +13,6 @@
         //});
         userDetails.init().then(function () {
             d.userUrl = userDetails.get().url;
-
-            //if (userDetails.get().university.id) {
-            //    getBoxes();
-            //}
         });
 
         function open() {

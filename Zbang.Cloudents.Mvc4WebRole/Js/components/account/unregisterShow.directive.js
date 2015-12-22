@@ -16,9 +16,9 @@
                     //var unregContainer = $(".unreg-user .content-wrapper");
                     if (scrollPos > 0) {
                         element.removeClass('noHeight mediumHeight largeHeight').addClass('smallHeight');
-                        if (scrollPos > windowHeight*0.5) {
+                        if (scrollPos > windowHeight * 0.5) {
                             element.removeClass('smallHeight largeHeight').addClass('mediumHeight');
-                            if (scrollPos > windowHeight*0.75) {
+                            if (scrollPos > windowHeight * 0.75) {
                                 element.removeClass('smallHeight mediumHeight').addClass('largeHeight');
                             }
                         }
@@ -31,5 +31,28 @@
         };
     }
 
-    ;
+
+})();//
+
+(function () {
+    angular.module('app').directive('userNotRegisterClick', unregShow);
+    unregShow.$inject = ['$window', '$rootScope', 'userDetailsFactory'];
+
+    function unregShow($window, $rootScope, userDetailsFactory) {
+        return {
+            restrict: 'A',
+            link: function (scope, element) {
+                if (userDetailsFactory.isAuthenticated()) {
+                    return;
+                }
+                element.on('click', 'a', function (e) {
+                    e.preventDefault();
+                    $rootScope.$broadcast('show-unregisterd-box');
+                });
+
+            }
+        };
+    }
+
+
 })();

@@ -273,6 +273,9 @@ md-tabs md-ink-bar {
   width: 17px;
   height: 17px;
 }
+#ssIFrame_google {
+  left: -9999px !important;
+}
 .create-box {
   /* .error {
         color: @textColorRed;
