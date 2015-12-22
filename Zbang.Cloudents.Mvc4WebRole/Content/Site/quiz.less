@@ -52,6 +52,11 @@
     .wrapper {
         max-width: 800px;
         margin: 0 auto;
+        padding: 10px;
+
+        .retake-wrapper {
+            margin: 0 auto;
+        }
     }
 
     .quiz-take-stats {
@@ -66,13 +71,10 @@
         -o-transition: all linear .2s;
         -webkit-transition: all linear .2s;
         transition: all linear .2s;
-
-        &.no-progress {
-            width: 200px;
-            //transition:all linear 3s;
-            //progress-wrapper:none;
-        }
-
+        //&.no-progress {
+        //transition:all linear 3s;
+        //progress-wrapper:none;
+        //}
         @media (max-width: 768px) {
             -ms-flex-wrap: wrap;
             -webkit-flex-wrap: wrap;
@@ -153,6 +155,8 @@
         color: @textColorWhite;
         text-align: center;
         border-radius: 10px;
+        margin-bottom: 15px;
+        padding: 10px;
     }
 
     .score {
@@ -217,7 +221,7 @@
             width: 46px;
             height: 52px;
             vertical-align: middle;
-            margin: 25px 0;
+            margin-right: 10px;
         }
     }
 
@@ -331,18 +335,16 @@
 .quiz-challenge {
     margin-top: 30px;
     padding-top: 100px;
+    padding-bottom: 100px;
     background-image: url("/images/site/quizbackground.png");
     text-align: center;
-    height: ~"calc(100vh - 277px)";
+
+    .completed-quiz {
+        margin: 0 auto;
+    }
 
     .goodjob {
         .displayInlineFlex();
-    }
-
-    h4 {
-        color: @textColorLike;
-        font-size: 50px;
-        margin: 0 0 10px; //override
     }
 
     h5 {
@@ -351,10 +353,7 @@
         font-size: 50px;
         margin: 0 10px 0 0; //override
         padding-bottom: 10px;
-
-        span {
-            font-weight: normal;
-        }
+        font-weight: normal;
     }
 
     .good {
@@ -366,9 +365,6 @@
         background: @backgroundColorMenu;
         border-radius: 10px;
         color: @textColorWhite;
-        width: 52%;
-        .displayFlex();
-        .align-items(center);
         padding: 10px 20px;
 
         svg {
@@ -383,29 +379,17 @@
         }
     }
 
+
+
     .classmates {
-        margin-bottom: 25px;
-        .displayFlex();
-
-        & > div {
-            margin: 0 0 0 25px;
-            .displayFlex();
+        .classmates-images {
             width: 70px;
-            -ms-flex-wrap: wrap;
-            -webkit-flex-wrap: wrap;
-            flex-wrap: wrap;
+            margin-right: 10px;
 
-            & > div {
-                margin: 5px 10px 5px 0;
+            .img-wrapper {
+                display: inline-block;
+                padding: 5px;
             }
-        }
-
-        & > span {
-            margin: auto;
-            margin-left: 50px; //override
-            font-size: 20px;
-            width: 48%;
-            line-height: 24px;
         }
     }
 
@@ -413,18 +397,19 @@
         .displayFlex();
         .align-items(center);
 
+        .img-wrapper {
+            padding: 5px;
+        }
+
         svg {
             width: 50px;
             height: 50px;
             fill: @svgQuizBald;
-            margin: 5px 10px 5px 30px;
         }
 
         span {
             margin: auto;
             font-size: 20px;
-            width: 48%;
-            line-height: 24px;
         }
     }
 
@@ -441,22 +426,20 @@
     }
 
     .buttons {
+        margin: 0 auto;
+
+        .scared, .chance {
+            width: 50%;
+            font-size: 18px;
+            border-radius: 10px;
+            padding: 5px;
+            border: 0;
+            white-space: normal;
+        }
 
         .scared {
             background: @backgroundColor2;
             color: @textColorWhite;
-            border: 0;
-            margin: 10px 0 0;
-            width: 25%;
-            font-size: 18px;
-            border-radius: 10px;
-        }
-
-        .chance {
-            margin: 10px 5px 0;
-            width: 25%;
-            font-size: 18px;
-            border-radius: 10px;
         }
     }
 }
@@ -466,7 +449,6 @@
     background: @backgroundColorWhite;
     color: @textColorBlack;
     padding: 26px;
-    margin: 10px 8px;
 
 
     .no-answer-element {

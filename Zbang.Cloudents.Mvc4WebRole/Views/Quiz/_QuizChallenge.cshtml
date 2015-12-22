@@ -5,43 +5,48 @@
 }
 
 <script type="text/ng-template" id="quizChallenge.html">
-    <h4 class="text-capitalize">@QuizResources.Time</h4>
-    <h5 class="text-capitalize">@QuizResources.Take</h5>
-    <div class="classmates backgrounds">
-        <div>
-            <div ng-repeat="user in ::q.topUsers">
-                <user-image class="img-circle c-img" name="::user.name" image="::user.image" width="25" height="25"></user-image>
+    <h5 class="text-uppercase">@QuizResources.Time @QuizResources.Take</h5>
+    <div class="completed-quiz" flex-xs="80" flex-gt-xs="50">
+        <div layout="row" class="classmates backgrounds">
+            <div class="classmates-images">
+                <div class="img-wrapper" ng-repeat="user in ::q.topUsers">
+                    <user-image class="img-circle c-img" name="::user.name" image="::user.image" width="25" height="25"></user-image>
+                </div>
             </div>
+            <span flex>{{::q.classmatesCount}} @QuizResources.OfClassmates</span>
         </div>
-        <span>{{::q.classmatesCount}} @QuizResources.OfClassmates</span>
-    </div>
-    <div class="ready backgrounds">
-        @Html.Svg("/images/site/quizicons.svg", "bald")
-        <span class="text-capitalize">@QuizResources.TestYourself</span>
-    </div>
-    <div class="buttons">
-        <button type="button" class="btn btn-default scared" ng-click="q.afraid()" ga-track-event="['quiz', 'scared']">@QuizResources.Scared</button>
-        <button type="button" class="btn btn-primary chance" ng-click="q.start()" ga-track-event="['quiz', 'take a chance']">@QuizResources.Chance</button>
+        <div class="ready backgrounds">
+            <div class="img-wrapper">
+                @Html.Svg("/images/site/quizicons.svg", "bald")
+            </div>
+            <span class="text-capitalize">@QuizResources.TestYourself</span>
+        </div>
+        <div class="buttons" layout="row" layout-align="center stretch">
+            <button type="button" class="btn btn-default scared" ng-click="q.afraid()" ga-track-event="['quiz', 'scared']">@QuizResources.Scared</button>
+            <button type="button" class="btn btn-primary chance" ng-click="q.start()" ga-track-event="['quiz', 'take a chance']">@QuizResources.Chance</button>
+        </div>
     </div>
 </script>
 
 
 <script type="text/ng-template" id="quizGoodJob.html">
     <div class="goodjob">
-        <h5 class="text-uppercase">@QuizResources.Good <span>@QuizResources.Job</span></h5>
+        <h5 class="text-uppercase">@QuizResources.Good @QuizResources.Job</h5>
     </div>
-    <div layout="row" layout-align="space-between center" class="complete backgrounds">
-        @Html.Svg("/images/site/quizicons.svg", "checkmark")
-        <span>@QuizResources.CompletedQuiz</span>
+    <div class="completed-quiz" flex-xs="80" flex-gt-xs="50">
+        <div layout="row" layout-align="space-between center" class="complete backgrounds">
+            @Html.Svg("/images/site/quizicons.svg", "checkmark")
+            <span>@QuizResources.CompletedQuiz</span>
+        </div>
+        <div layout="row" layout-align="space-between center" class="ranking backgrounds">
+            @Html.Svg("/images/site/quizicons.svg", "rank")
+            <span>@QuizResources.Answered {{q.answersCount}}/{{::q.questions.length}}</span>
+        </div>
+        <div class="buttons" layout="row" layout-align="center stretch">
+            <button type="button" class="btn btn-default scared text-capitalize" ng-click="q.back()" ga-track-event="['quiz', 'go back']">@QuizResources.GoBack</button>
+            <button type="button" class="btn btn-primary chance text-capitalize" ng-click="q.checkAnswers()" ga-track-event="['quiz', 'submit']">@QuizResources.Submit</button>
+        </div>
     </div>
-    <div layout="row" layout-align="space-between center" class="ranking backgrounds">
-        @Html.Svg("/images/site/quizicons.svg", "rank")
-        <span>@QuizResources.Answered {{q.answersCount}}/{{::q.questions.length}}</span>
-    </div>
-    <div class="buttons">
-        <button type="button" class="btn btn-default scared text-capitalize" ng-click="q.back()" ga-track-event="['quiz', 'go back']">@QuizResources.GoBack</button>
-        <button type="button" class="btn btn-primary chance text-capitalize" ng-click="q.checkAnswers()" ga-track-event="['quiz', 'submit']">@QuizResources.Submit</button>
-     </div>
 </script>
 
 
