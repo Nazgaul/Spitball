@@ -41,13 +41,14 @@
         function toggleSettings() {
             $rootScope.$broadcast('close-collapse');
             b.settingsOpen = true;
-
+            
             b.settings = b.settings || {};
             //boxType
             //privacySetting
 
             b.settings.name = b.data.name;
             b.settings.needFollow = b.needFollow;
+            b.settings.submitDisabled = false;
             if (b.isAcademic) {
                 b.settings.courseId = b.data.courseId;
                 b.settings.professorName = b.data.professorName;
@@ -63,11 +64,11 @@
         }
 
         function updateBox(updateBoxForm) {
+           
             if (b.settings.needFollow) {
-                boxService.unfollow(boxId).then(function () {
-                    $rootScope.$broadcast('remove-box', boxId);
-                    $state.go('dashboard');
-                });
+                boxService.unfollow(boxId);
+                $rootScope.$broadcast('remove-box', boxId);
+                $state.go('dashboard');
                 return;
             }
             var needToSave = false;
@@ -84,12 +85,14 @@
                     b.data.courseId = b.settings.courseId;
                     b.data.professorName = b.settings.professorName;
                 }
-
+                b.settings.submitDisabled = true;
                 boxService.updateBox(boxId, b.data.name, b.settings.courseId, b.settings.professorName, b.settings.privacy, b.settings.notificationSettings).then(function (response) {
                     b.settingsOpen = false;
                     $stateParams.boxName = response.queryString;
                     $state.go('box.feed', $stateParams, { location: "replace" });
 
+                }).finally(function() {
+                    b.settings.submitDisabled = false;
                 });
 
             }

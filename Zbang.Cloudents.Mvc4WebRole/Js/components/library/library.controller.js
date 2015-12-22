@@ -22,16 +22,21 @@
         l.createBox = createBox;
         l.toggleSettings = toggleSettings;
         l.renameNode = renameNode;
+        l.openCreateBox = openCreateBox;
+        l.openCreateDepartment = openCreateDepartment;
 
         l.submitDisabled = false;
 
         function renameNode(myform) {
+            l.submitDisabled = true;
             libraryService.renameNode(l.settings.name, nodeId).then(function () {
                 l.nodeDetail.name = l.settings.name;
                 l.settingsOpen = false;
             }, function(response) {
                 myform.name.$setValidity('server', false);
                 l.error = response;
+            }).finally(function() {
+                l.submitDisabled = false;
             });
 
         }
@@ -40,6 +45,15 @@
                 name: l.nodeDetail.name
             };
             l.settingsOpen = true;
+        }
+
+        function openCreateBox() {
+            l.settingsOpen = false;
+            l.createBoxOn = true;
+        }
+        function openCreateDepartment() {
+            l.createDepartmentOn = true;
+            l.settingsOpen = false;
         }
 
         function createBox(myform) {
