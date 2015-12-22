@@ -336,12 +336,12 @@ var Layout = function () {
 
     // Helper function to calculate sidebar height for fixed sidebar layout.
     var _calculateFixedSidebarViewportHeight = function () {
-        var sidebarHeight = Metronic.getViewPort().height - $('.page-header').outerHeight();
+        var sidebarHeight = Metronic.getViewPort().height - $('.page-header').outerHeight() - 10; //10 for padding
         if ($('body').hasClass("page-footer-fixed")) {
             sidebarHeight = sidebarHeight - $('.page-footer').outerHeight();
         }
 
-        return sidebarHeight;
+        return sidebarHeight ;
     };
 
     // Handles fixed sidebar

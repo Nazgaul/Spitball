@@ -117,4 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="deleteDepartment" xml:space="preserve">
+    <value>האם אתה רוצה למחוק את מחלקה זו?</value>
+  </data>
+  <data name="deleteItem" xml:space="preserve">
+    <value>האם אתה רוצה למחוק את פריט זה?</value>
+  </data>
+  <data name="deletePost" xml:space="preserve">
+    <value>האם אתה רוצה למחוק את הפוסט הזה?</value>
+  </data>
+  <data name="deleteQuiz" xml:space="preserve">
+    <value>האם אתה רוצה למחוק את המבחן הזה?</value>
+  </data>
+  <data name="deleteReply" xml:space="preserve">
+    <value>האם אתה רוצה למחוק את התגובה הזו?</value>
+  </data>
+  <data name="deleteTab" xml:space="preserve">
+    <value>האם אתה רוצה למחוק את תגובה זו?</value>
+  </data>
+  <data name="dialogCancel" xml:space="preserve">
+    <value>בטל</value>
+  </data>
+  <data name="dialogOk" xml:space="preserve">
+    <value>אוקי</value>
+  </data>
+  <data name="passwordChangeSuccess" xml:space="preserve">
+    <value>הסיסמה החדשה נשמרה</value>
+  </data>
+  <data name="quizCreateCorrectAnswer" xml:space="preserve">
+    <value>אנא בחר את התשובה הנכונה</value>
+  </data>
+  <data name="quizCreateNeedAnswers" xml:space="preserve">
+    <value>עליך להזין לפחות 2 תשובות אפשריות</value>
+  </data>
+  <data name="quizCreateNeedAnswerText" xml:space="preserve">
+    <value>אנא הזן תשובה</value>
+  </data>
+  <data name="quizCreateNeedName" xml:space="preserve">
+    <value>אנא הזן שם למבחן</value>
+  </data>
+  <data name="quizCreateNeedQuestionText" xml:space="preserve">
+    <value>אנא הזן שאלות</value>
+  </data>
+  <data name="unfollowClass" xml:space="preserve">
+    <value>האם אתה מעוניין להפסיק לעקוב אחרי קורס זה?</value>
+  </data>
 </root>

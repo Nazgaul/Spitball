@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get the app.
+        ///   Looks up a localized string similar to Get the Spitball app.
         /// </summary>
         public static string A7 {
             get {

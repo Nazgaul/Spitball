@@ -142,22 +142,22 @@
     <value>Ok</value>
   </data>
   <data name="passwordChangeSuccess" xml:space="preserve">
-    <value>password change</value>
+    <value>The new password was saved</value>
   </data>
   <data name="quizCreateCorrectAnswer" xml:space="preserve">
-    <value>need correct answer</value>
+    <value>Please select the correct answer</value>
   </data>
   <data name="quizCreateNeedAnswers" xml:space="preserve">
-    <value>need minimum 2 answers</value>
+    <value>You need to provide a minimum of 2 answers</value>
   </data>
   <data name="quizCreateNeedAnswerText" xml:space="preserve">
-    <value>need answer text</value>
+    <value>Please provide answers</value>
   </data>
   <data name="quizCreateNeedName" xml:space="preserve">
-    <value>need name</value>
+    <value>Please provide a name for the quiz</value>
   </data>
   <data name="quizCreateNeedQuestionText" xml:space="preserve">
-    <value>need questionText</value>
+    <value>Please provide questions</value>
   </data>
   <data name="unfollowClass" xml:space="preserve">
     <value>Would you like to unfollow this class?</value>

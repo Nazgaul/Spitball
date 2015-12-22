@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to password change.
+        ///   Looks up a localized string similar to The new password was saved.
         /// </summary>
         public static string passwordChangeSuccess {
             get {
@@ -142,7 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to need correct answer.
+        ///   Looks up a localized string similar to Please select the correct answer.
         /// </summary>
         public static string quizCreateCorrectAnswer {
             get {
@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to need minimum 2 answers.
+        ///   Looks up a localized string similar to You need to provide a minimum of 2 answers.
         /// </summary>
         public static string quizCreateNeedAnswers {
             get {
@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to need answer text.
+        ///   Looks up a localized string similar to Please provide answers.
         /// </summary>
         public static string quizCreateNeedAnswerText {
             get {
@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to need name.
+        ///   Looks up a localized string similar to Please provide a name for the quiz.
         /// </summary>
         public static string quizCreateNeedName {
             get {
@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to need questionText.
+        ///   Looks up a localized string similar to Please provide questions.
         /// </summary>
         public static string quizCreateNeedQuestionText {
             get {

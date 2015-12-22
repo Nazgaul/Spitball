@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No documents received.
+        ///   Looks up a localized string similar to No documents were received.
         /// </summary>
         internal static string NoFilesReceived {
             get {

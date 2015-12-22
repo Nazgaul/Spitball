@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to contact us page.
+        ///   Looks up a localized string similar to Contact us page.
         /// </summary>
         public static string ContactUs {
             get {

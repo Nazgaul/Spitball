@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to flag an item.
+        ///   Looks up a localized string similar to Flag an item.
         /// </summary>
         public static string Flag {
             get {
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to name.
+        ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {
             get {
@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to option to view..
+        ///   Looks up a localized string similar to Option to view..
         /// </summary>
         public static string PreviewFailed2 {
             get {
@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to rename.
+        ///   Looks up a localized string similar to Rename.
         /// </summary>
         public static string Rename {
             get {
@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to report.
+        ///   Looks up a localized string similar to Report.
         /// </summary>
         public static string Report {
             get {
@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to report abuse.
+        ///   Looks up a localized string similar to Report abuse.
         /// </summary>
         public static string ReportAbuse {
             get {
@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to save.
+        ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
             get {

@@ -31,8 +31,9 @@
                 deferred.resolve();//(self.data);
             });
         }
-
+        
         $window.onbeforeunload = function () {
+           
             var boxId = $stateParams.boxId;
             if (boxId) {
                 deleteFromServer(boxId);
@@ -40,6 +41,9 @@
         };
 
         function deleteFromServer(boxId) {
+            if (!userDetails.isAuthenticated()) {
+                return;
+            }
             ajaxservice.post('/box/deleteupdates/', {
                 boxId: boxId
             });
