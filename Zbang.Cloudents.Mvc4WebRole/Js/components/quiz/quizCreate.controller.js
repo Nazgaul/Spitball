@@ -1,10 +1,10 @@
 ﻿(function () {
     angular.module('app.quiz').controller('QuizCreateController', quizCreate);
-    quizCreate.$inject = ['quizService', 'draft', 'boxUrl', '$stateParams', '$q', '$location', '$scope', '$uibModal', 'boxName'];
+    quizCreate.$inject = ['quizService', 'draft', 'boxUrl', '$stateParams', '$q', '$location', '$scope', '$uibModal', 'boxName', '$rootScope'];
 
 
 
-    function quizCreate(quizService, draft, boxUrl, $stateParams, $q, $location, $scope, $uibModal, boxName) {
+    function quizCreate(quizService, draft, boxUrl, $stateParams, $q, $location, $scope, $uibModal, boxName, $rootScope) {
         var self = this;
         self.boxUrl = boxUrl;
         draft = draft || {
@@ -220,11 +220,14 @@
                     }
                 }
             }
+            self.submitDisabled = true;
             quizService.publish(self.id).then(function (response) {
                 $rootScope.$broadcast('from-back'); // prevent going back to quiz create page
                 $location.url(response.url);
             }, function (response) {
                 $scope.app.showToaster(response, 'quizCreate');
+            }).finally(function() {
+                self.submitDisabled = false;
             });
         }
 
