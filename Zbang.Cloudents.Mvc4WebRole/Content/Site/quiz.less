@@ -172,14 +172,20 @@
 
     .score {
         font-size: 60px;
+        line-height: normal;
+
+        @media (min-width: 600px) {
+            font-size: 5vmin;
+            line-height: 58px;
+        }
+
         font-weight: bold;
-        line-height: 74px;
+
 
         h5 {
             margin: 0;
-            font-size: 20px;
-            padding: 10px 0 0;
-            line-height: 20px;
+            font-size: 16px;
+            padding-top: 15px;
         }
     }
 
@@ -235,13 +241,19 @@
         }
 
         .text {
-            font-size: 5vmin;
+            @media (min-width: 600px) {
+                font-size: 5vmin;
+            }
+
             width: 70%;
+            line-height: normal;
         }
     }
 
     .time-taken .text {
-        font-size: 3.5vmin;
+        @media (min-width: 600px) {
+            font-size: 3.5vmin;
+        }
     }
 
     .time-taken {
