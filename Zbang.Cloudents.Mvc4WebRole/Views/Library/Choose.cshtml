@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <div ng-if="!lc.needCode" >
         <input autofocus ng-disabled="lc.createUniversity" type="search" class="search-text" placeholder="@GeneralResources.Search" ng-model="lc.term" ng-model-options="{debounce : 250}" ng-change="lc.search()" ng-minlength="2" />

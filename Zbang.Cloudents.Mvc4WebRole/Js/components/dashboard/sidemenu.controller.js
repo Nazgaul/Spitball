@@ -3,7 +3,7 @@
     dashboard.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope'];
 
     function dashboard(dashboardService, userDetails, $rootScope) {
-        var d = this ,notloaded = true;
+        var d = this, notloaded = true;
         d.courses = [];
         d.privateBoxes = [];
         d.open = open;
@@ -13,13 +13,13 @@
         //});
         userDetails.init().then(function () {
             d.userUrl = userDetails.get().url;
-
-            //if (userDetails.get().university.id) {
-            //    getBoxes();
-            //}
         });
 
         function open() {
+            if (!userDetails.isAuthenticated()) {
+                $rootScope.$broadcast('show-unregisterd-box');
+                return;
+            }
             if (notloaded) {
                 getBoxes();
                 notloaded = false;
@@ -36,7 +36,7 @@
                         d.privateBoxes.push(b);
                     }
                 }
-              
+
             });
         }
 
@@ -47,7 +47,7 @@
         });
 
         function removeElement(arr, arg) {
-            var box =arr.find(function (e) {
+            var box = arr.find(function (e) {
                 return e.id === arg;
             });
             if (box) {
@@ -59,7 +59,7 @@
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (fromState.parent === 'box') {
                 if (fromParams.boxtype === 'box') {
-                    var box = d.privateBoxes.find(function(i) {
+                    var box = d.privateBoxes.find(function (i) {
                         return i.id == fromParams.boxId;
                     }) || {};
                     box.updates = 0;

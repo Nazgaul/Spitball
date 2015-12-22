@@ -35,7 +35,7 @@ window.addEventListener("load", function load(event) {
     if (willShow != null) {
         $('.alert').alert('close');
     }
-    var val = getCookie('l2').toLowerCase();
+    var val = getCookie('l3').toLowerCase();
     var text = document.querySelector('[href$="' + val + '/"]').text;
     document.querySelector('[data-toggle=dropdown] span').innerText = text;
 
