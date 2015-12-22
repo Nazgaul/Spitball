@@ -59,5 +59,140 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to delete this department?.
+        /// </summary>
+        public static string deleteDepartment {
+            get {
+                return ResourceManager.GetString("deleteDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to delete this item?.
+        /// </summary>
+        public static string deleteItem {
+            get {
+                return ResourceManager.GetString("deleteItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to delete this post?.
+        /// </summary>
+        public static string deletePost {
+            get {
+                return ResourceManager.GetString("deletePost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to delete this quiz?.
+        /// </summary>
+        public static string deleteQuiz {
+            get {
+                return ResourceManager.GetString("deleteQuiz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to delete this reply?.
+        /// </summary>
+        public static string deleteReply {
+            get {
+                return ResourceManager.GetString("deleteReply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to delete this tab?.
+        /// </summary>
+        public static string deleteTab {
+            get {
+                return ResourceManager.GetString("deleteTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string dialogCancel {
+            get {
+                return ResourceManager.GetString("dialogCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string dialogOk {
+            get {
+                return ResourceManager.GetString("dialogOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to password change.
+        /// </summary>
+        public static string passwordChangeSuccess {
+            get {
+                return ResourceManager.GetString("passwordChangeSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to need correct answer.
+        /// </summary>
+        public static string quizCreateCorrectAnswer {
+            get {
+                return ResourceManager.GetString("quizCreateCorrectAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to need minimum 2 answers.
+        /// </summary>
+        public static string quizCreateNeedAnswers {
+            get {
+                return ResourceManager.GetString("quizCreateNeedAnswers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to need answer text.
+        /// </summary>
+        public static string quizCreateNeedAnswerText {
+            get {
+                return ResourceManager.GetString("quizCreateNeedAnswerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to need name.
+        /// </summary>
+        public static string quizCreateNeedName {
+            get {
+                return ResourceManager.GetString("quizCreateNeedName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to need questionText.
+        /// </summary>
+        public static string quizCreateNeedQuestionText {
+            get {
+                return ResourceManager.GetString("quizCreateNeedQuestionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to unfollow this class?.
+        /// </summary>
+        public static string unfollowClass {
+            get {
+                return ResourceManager.GetString("unfollowClass", resourceCulture);
+            }
+        }
     }
 }

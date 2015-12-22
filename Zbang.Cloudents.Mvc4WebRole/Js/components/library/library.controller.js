@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.library').controller('Library', library);
-    library.$inject = ['libraryService', '$stateParams', 'user', 'nodeData', '$mdDialog', '$location', '$scope'];
+    library.$inject = ['libraryService', '$stateParams', 'user', 'nodeData', '$mdDialog', '$location', '$scope', 'resManager'];
 
-    function library(libraryService, $stateParams, user, nodeData, $mdDialog, $location, $scope) {
+    function library(libraryService, $stateParams, user, nodeData, $mdDialog, $location, $scope, resManager) {
         var l = this;
         var nodeId = $stateParams.nodeId;
         l.departments = nodeData.nodes;
@@ -110,11 +110,10 @@
 
         function deleteDepartment(ev, department) {
             var confirm = $mdDialog.confirm()
-                  .title('Would you like to delete this department?')
-                  //.textContent('All of the banks have agreed to forgive you your debts.')
+                  .title(resManager.get('deleteDepartment'))
                   .targetEvent(ev)
-                  .ok('Ok')
-                  .cancel('Cancel');
+                   .ok(resManager.get('dialogOk'))
+                 .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
                 var index = l.departments.indexOf(department);

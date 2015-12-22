@@ -1,10 +1,10 @@
 ﻿(function () {
     angular.module('app.quiz').controller('QuizCreateController', quizCreate);
-    quizCreate.$inject = ['quizService', 'draft', 'boxUrl', '$stateParams', '$q', '$location', '$scope', '$uibModal', 'boxName', '$rootScope'];
+    quizCreate.$inject = ['quizService', 'draft', 'boxUrl', '$stateParams', '$q', '$location', '$scope', '$uibModal', 'boxName', '$rootScope', 'resManager'];
 
 
 
-    function quizCreate(quizService, draft, boxUrl, $stateParams, $q, $location, $scope, $uibModal, boxName, $rootScope) {
+    function quizCreate(quizService, draft, boxUrl, $stateParams, $q, $location, $scope, $uibModal, boxName, $rootScope, resManager) {
         var self = this;
         self.boxUrl = boxUrl;
         draft = draft || {
@@ -196,26 +196,27 @@
         }
         function publish() {
             if (!self.name) {
-                $scope.app.showToaster('need name', 'quizCreate');
+                $scope.app.showToaster(resManager.get('quizCreateNeedName'), 'quizCreate');
                 return;
             }
             for (var v = 0; v < self.questions.length; v++) {
                 var q = self.questions[v];
                 if (!q.text) {
-                    $scope.app.showToaster('need question text', 'quizCreate');
-                    return;
-                }
-                if (q.correctAnswer == null) {
-                    $scope.app.showToaster('need correct answer', 'quizCreate');
+                    $scope.app.showToaster(resManager.get('quizCreateNeedQuestionText'), 'quizCreate');
                     return;
                 }
                 if (q.answers.length < 2) {
-                    $scope.app.showToaster('need minimum 2 answers', 'quizCreate');
+                    $scope.app.showToaster(resManager.get('quizCreateNeedAnswers'), 'quizCreate');
                     return;
                 }
+                if (q.correctAnswer == null) {
+                    $scope.app.showToaster(resManager.get('quizCreateCorrectAnswer'), 'quizCreate');
+                    return;
+                }
+               
                 for (var l = 0; l < q.answers.length; l++) {
                     if (q.answers[l].text === '') {
-                        $scope.app.showToaster('need answer text', 'quizCreate');
+                        $scope.app.showToaster(resManager.get('quizCreateNeedAnswerText'), 'quizCreate');
                         return;
                     }
                 }
