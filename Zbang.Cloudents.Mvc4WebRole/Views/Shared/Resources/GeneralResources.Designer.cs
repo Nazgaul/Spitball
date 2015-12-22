@@ -196,6 +196,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Register, it takes less than 15 seconds!.
+        /// </summary>
+        public static string RegisterTakesLess {
+            get {
+                return ResourceManager.GetString("RegisterTakesLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to rename.
         /// </summary>
         public static string Rename {
@@ -223,6 +232,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search....
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spitball.
         /// </summary>
         public static string Spitball {
@@ -237,6 +255,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string Submit {
             get {
                 return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is more to see.
+        /// </summary>
+        public static string ThereIsMore {
+            get {
+                return ResourceManager.GetString("ThereIsMore", resourceCulture);
             }
         }
         

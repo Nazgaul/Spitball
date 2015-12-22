@@ -3,7 +3,7 @@
 
 <div class="library-choose" ng-init="lc.countryCode = '@ViewBag.country'">
     <div ng-if="!lc.needCode">
-        <input autofocus ng-disabled="lc.createUniversity" type="search" class="search-text" placeholder="Search..." ng-model="lc.term" ng-model-options="{debounce : 250}" ng-change="lc.search()" ng-minlength="2" />
+        <input autofocus ng-disabled="lc.createUniversity" type="search" class="search-text" placeholder="@GeneralResources.Search" ng-model="lc.term" ng-model-options="{debounce : 250}" ng-change="lc.search()" ng-minlength="2" />
         <div layout="row" layout-align="start center" layout-padding layout-wrap @*class="row"*@ ng-if="!lc.createUniversity">
             <div flex-gt-lg="33" flex-lg="50" flex="100" class="flex" @*class="col-xs-12 col-md-6 col-lg-4"*@ ng-repeat="u in lc.universities track by u.id">
                 <div ng-click="lc.selectUniversity(u)" class="univeristy" ga-track-event="['universityChoose', 'selected university']">
