@@ -130,7 +130,7 @@
     <value>One of your classmates has already posted this link</value>
   </data>
   <data name="NoFilesReceived" xml:space="preserve">
-    <value>No documents received</value>
+    <value>No documents were received</value>
   </data>
   <data name="ProblemUrl" xml:space="preserve">
     <value>That URL doesn't seem to be valid. Please double check it and try again</value>

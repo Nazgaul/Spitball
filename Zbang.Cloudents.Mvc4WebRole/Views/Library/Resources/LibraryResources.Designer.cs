@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to add class.
+        ///   Looks up a localized string similar to Add a class.
         /// </summary>
         public static string AddClass {
             get {
@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to add department.
+        ///   Looks up a localized string similar to Add a department.
         /// </summary>
         public static string AddDepartment {
             get {
@@ -142,6 +142,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to University name must be more than 1 character.
+        /// </summary>
+        public static string EntryLength {
+            get {
+                return ResourceManager.GetString("EntryLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hi.
         /// </summary>
         public static string Hi {
@@ -151,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to instractor.
+        ///   Looks up a localized string similar to Instractor.
         /// </summary>
         public static string Instractor {
             get {
@@ -160,11 +169,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to next.
+        ///   Looks up a localized string similar to Next.
         /// </summary>
         public static string Next {
             get {
                 return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to School name.
+        /// </summary>
+        public static string SchoolName {
+            get {
+                return ResourceManager.GetString("SchoolName", resourceCulture);
             }
         }
     }
