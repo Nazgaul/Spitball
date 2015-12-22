@@ -27,32 +27,7 @@
         </div>
     </div>
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="create-box flex" ng-class="{'create-box-show' : d.createBoxOn}">
-        <div id="create" class="dashboard-stat2">
-            <button ng-hide="d.createBoxOn" type="button" ng-click="d.createBoxOn = true" class="create-btn" ga-track-event="['dashboard', 'createbox']">
-                <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-                <div class="title">@DashboardResource.StudyGroup</div>
-            </button>
-            <form name="createBox" class="create-txt" novalidate ng-submit="cb.create(createBox)" ng-show="d.createBoxOn" ng-controller="CreateBoxController as cb">
-                <div layout="column">
-                    <md-content>
-                        <div layout layout-sm="column">
-                            <md-input-container flex>
-                                <label>@DashboardResource.EnterGroupName</label>
-                                <input autofocus autocomplete="off" required ng-model="cb.boxName" name="name" ng-change="createBox.name.$setValidity('server',true)">
-                                <div ng-messages="createBox.name.$error" ng-show="createBox.name.$dirty">
-                                    <div ng-message="required">@GeneralResources.RequiredField</div>
-                                    <div ng-message="server">{{cb.error}}</div>
-                                </div>
-                            </md-input-container>
-                        </div>
-                    </md-content>
-                </div>
-                <div layout="row" layout-align="end center" class="text-capitalize">
-                    <button type="button" class="btn btn-default" ga-track-event="['dashboard', 'createbox', 'cancel']" ng-click="cb.cancel(createBox)">@GeneralResources.Cancel</button>
-                    <button type="submit" class="btn btn-primary" ga-track-event="['dashboard', 'createbox', 'done']" ng-disabled="!createBox.$valid">@GeneralResources.Done</button>
-                </div>
-            </form>
-        </div>
+        @{ Html.RenderPartial("_Create");}
     </div>
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-repeat="e in d.boxes" class="flex">
         <div class="box-cube">

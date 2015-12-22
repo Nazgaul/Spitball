@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.box.quizzes').controller('QuizzesController', quizzes);
-    quizzes.$inject = ['boxService', '$stateParams', '$mdDialog', 'quizService', 'boxData', '$mdMedia', '$state', 'user', '$rootScope'];
+    quizzes.$inject = ['boxService', '$stateParams', '$mdDialog', 'quizService', 'boxData', '$mdMedia', '$state', 'user', '$rootScope', 'resManager'];
 
-    function quizzes(boxService, $stateParams, $mdDialog, quizService, boxData, $mdMedia, $state, user, $rootScope) {
+    function quizzes(boxService, $stateParams, $mdDialog, quizService, boxData, $mdMedia, $state, user, $rootScope, resManager) {
         var q = this;
         q.params = $stateParams;
         q.deleteQuiz = deleteQuiz;
@@ -37,11 +37,10 @@
 
         function deleteQuiz(ev, quiz) {
             var confirm = $mdDialog.confirm()
-                .title('Would you like to delete this quiz?')
-                //.textContent('All of the banks have agreed to forgive you your debts.')
+                .title(resManager.get('deleteQuiz'))
                 .targetEvent(ev)
-                .ok('Ok')
-                .cancel('Cancel');
+                 .ok(resManager.get('dialogOk'))
+                 .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
                 var index = q.quizzes.lastIndexOf(quiz);

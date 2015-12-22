@@ -180,4 +180,13 @@
   <data name="Register" xml:space="preserve">
     <value></value>
   </data>
+  <data name="ThereIsMore" xml:space="preserve">
+    <value>There is more to see</value>
+  </data>
+  <data name="RegisterTakesLess" xml:space="preserve">
+    <value>Register, it takes less than 15 seconds!</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search...</value>
+  </data>
 </root>

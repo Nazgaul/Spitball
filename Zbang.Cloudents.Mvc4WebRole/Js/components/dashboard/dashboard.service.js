@@ -15,7 +15,7 @@
 
             if (!serverCall) {
                 serverCall = true;
-                ajaxservice.get('/dashboard/boxlist/').then(function (response) {
+                ajaxservice.get('dashboard/boxlist').then(function (response) {
                     serverCall = false;
                     d.boxes = response;
                     for (var i = 0; i < d.boxes.length; i++) {
@@ -40,24 +40,28 @@
                 d.boxes.splice(index, 1);
             }
         });
+        $rootScope.$on('create-box', function() {
+            d.boxes = null;
+            defer = $q.defer();
+        });
 
         d.getUniversityMeta = function () {
-            return ajaxservice.get('/dashboard/university/', null, 1800000);
+            return ajaxservice.get('dashboard/university', null, 1800000);
         }
 
 
         d.createPrivateBox = function (boxName) {
-            return ajaxservice.post('/dashboard/create/', { boxName: boxName });
+            return ajaxservice.post('dashboard/create', { boxName: boxName });
         }
 
         d.leaderboard = function () {
-            return ajaxservice.get('/dashboard/leaderboard/');
+            return ajaxservice.get('dashboard/leaderboard');
         }
 
         d.recommended = recommended;
 
         function recommended() {
-            return ajaxservice.get('/dashboard/recommendedcourses/');
+            return ajaxservice.get('dashboard/recommendedcourses');
         }
     }
 })();

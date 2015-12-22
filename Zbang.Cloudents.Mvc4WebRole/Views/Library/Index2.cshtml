@@ -1,5 +1,4 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
 
 <div class="library">
     <div class="page-head">
@@ -53,64 +52,10 @@
         </div>
         <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
         <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" class="create-box flex" ng-if="l.createDepartmentShow">
-            <div class="dashboard-stat2">
-                <button type="button" ng-hide="l.createDepartmentOn" ng-click="l.createDepartmentOn = true" class="create-btn" ga-track-event="['university', 'add new department']">
-                    <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-                    <div class="title">@LibraryResources.AddDepartment</div>
-                </button>
-                <form name="createDepartment" class="create-department" novalidate ng-submit="l.createDepartment(createDepartment)" ng-show="l.createDepartmentOn">
-                    <md-content layout="column">
-                        <md-input-container flex>
-                            <label>@LibraryResources.EnterDepName</label>
-                            <input autocomplete="off" name="name" required ng-model="l.departmentName" ng-change="createDepartment.name.$setValidity('server',true)" />
-                            <div ng-messages="createDepartment.name.$error" ng-show="createDepartment.name.$dirty">
-                                <div ng-message="required">@GeneralResources.RequiredField</div>
-                                <div ng-message="server">{{l.error}}</div>
-                            </div>
-                        </md-input-container>
-                    </md-content>
-                    <span layout="row" layout-align="end center text-capitalize">
-                        <button type="button" class="btn btn-default" ng-click="l.departmentCancel(createDepartment)" ga-track-event="['university', 'cancel new department']">@GeneralResources.Cancel</button>
-                        <button type="submit" class="btn btn-primary" ng-disabled="!createDepartment.$valid" ga-track-event="['university', 'create new department']">@GeneralResources.Done</button>
-                    </span>
-                </form>
-            </div>
+           @{ Html.RenderPartial("_CreateDepartment");}
         </div>
         <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" class="create-box flex" ng-if="l.createClassShow">
-            <div class="dashboard-stat2">
-                <button ng-hide="l.createBoxOn" type="button" ng-click="l.createBoxOn = true" class="create-btn" ga-track-event="['university', 'add new class']">
-                    <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-                    <div class="title">@LibraryResources.AddClass</div>
-                </button>
-                <form name="createBox" novalidate ng-submit="l.createBox(createBox)" ng-show="l.createBoxOn">
-                    <md-content layout="column" flex>
-                        <md-input-container flex ng-if="!l.secondStep">
-                            <label>@LibraryResources.EnterClassName</label>
-                            <input autocomplete="off" name="name" required ng-model="l.boxName" ng-change="createBox.professor.$setValidity('server',true)" />
-                            <div ng-messages="createBox.name.$error" ng-show="createBox.name.$dirty">
-                                <div ng-message="required">@GeneralResources.RequiredField</div>
-                            </div>
-                        </md-input-container>
-                        <md-input-container flex ng-if="l.secondStep">
-                            <label>@LibraryResources.EnterCode</label>
-                            <input autocomplete="off" ng-model="l.code" ng-change="createBox.professor.$setValidity('server',true)" />
-                        </md-input-container>
-                        <md-input-container flex ng-if="l.secondStep">
-                            <label>@LibraryResources.Instractor</label>
-                            <input autocomplete="off" ng-model="l.professor" name="professor" ng-change="createBox.professor.$setValidity('server',true)" />
-                            <div ng-messages="createBox.professor.$error">
-                                <div ng-message="server">{{l.error}}</div>
-                            </div>
-                        </md-input-container>
-
-                    </md-content>
-                    <span layout="row" layout-align="end stretch">
-                        <button type="button" class="btn btn-default text-capitalize" ng-click="l.boxCancel()" ga-track-event="['university', 'cancel new class']">@GeneralResources.Cancel</button>
-                        <button type="button" class="btn btn-primary text-capitalize" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()" ga-track-event="['university', 'next step new class']">@LibraryResources.Next</button>
-                        <button type="submit" class="btn btn-primary text-capitalize" ng-if="l.secondStep" ng-disabled="!createBox.$valid" ga-track-event="['university', 'create new class']">@GeneralResources.Done</button>
-                    </span>
-                </form>
-            </div>
+            @{ Html.RenderPartial("_CreateCourse");}
         </div>
     </div>
 </div>

@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.library').controller('Library', library);
-    library.$inject = ['libraryService', '$stateParams', 'user', 'nodeData', '$mdDialog', '$location', '$scope'];
+    library.$inject = ['libraryService', '$stateParams', 'user', 'nodeData', '$mdDialog', '$location', '$scope', 'resManager'];
 
-    function library(libraryService, $stateParams, user, nodeData, $mdDialog, $location, $scope) {
+    function library(libraryService, $stateParams, user, nodeData, $mdDialog, $location, $scope, resManager) {
         var l = this;
         var nodeId = $stateParams.nodeId;
         l.departments = nodeData.nodes;
@@ -22,14 +22,21 @@
         l.createBox = createBox;
         l.toggleSettings = toggleSettings;
         l.renameNode = renameNode;
+        l.openCreateBox = openCreateBox;
+        l.openCreateDepartment = openCreateDepartment;
+
+        l.submitDisabled = false;
 
         function renameNode(myform) {
+            l.submitDisabled = true;
             libraryService.renameNode(l.settings.name, nodeId).then(function () {
                 l.nodeDetail.name = l.settings.name;
                 l.settingsOpen = false;
             }, function(response) {
                 myform.name.$setValidity('server', false);
                 l.error = response;
+            }).finally(function() {
+                l.submitDisabled = false;
             });
 
         }
@@ -39,7 +46,18 @@
             };
             l.settingsOpen = true;
         }
+
+        function openCreateBox() {
+            l.settingsOpen = false;
+            l.createBoxOn = true;
+        }
+        function openCreateDepartment() {
+            l.createDepartmentOn = true;
+            l.settingsOpen = false;
+        }
+
         function createBox(myform) {
+            l.submitDisabled = true;
             libraryService.createClass(l.boxName, l.code, l.professor, nodeId).then(function (response) {
                 l.createClassShow = l.secondStep = false;
                 resetFiled(myform);
@@ -47,11 +65,13 @@
             }, function (response) {
                 myform.professor.$setValidity('server', false);
                 l.error = response;
+            }).finally(function () {
+                l.submitDisabled = false;
             });
         };
 
         function createDepartment(myform) {
-
+            l.submitDisabled = true;
             libraryService.createDepartment(l.departmentName, nodeId).then(function (response) {
                 l.departments.push(response);
                 l.createDepartmentOn = false;
@@ -59,6 +79,8 @@
             }, function (response) {
                 myform.name.$setValidity('server', false);
                 l.error = response;
+            }).finally(function () {
+                l.submitDisabled = false;
             });
         };
 
@@ -88,11 +110,10 @@
 
         function deleteDepartment(ev, department) {
             var confirm = $mdDialog.confirm()
-                  .title('Would you like to delete this department?')
-                  //.textContent('All of the banks have agreed to forgive you your debts.')
+                  .title(resManager.get('deleteDepartment'))
                   .targetEvent(ev)
-                  .ok('Ok')
-                  .cancel('Cancel');
+                   .ok(resManager.get('dialogOk'))
+                 .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
                 var index = l.departments.indexOf(department);

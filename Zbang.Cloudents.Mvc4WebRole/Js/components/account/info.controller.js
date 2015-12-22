@@ -110,7 +110,6 @@
         ic.cancel = cancel;
         ic.submitCode = submitCode;
         function submitCode() {
-            console.log(ic.code);
             accountService.submitCode(ic.code).then(function() {
                 $mdDialog.hide();
             });

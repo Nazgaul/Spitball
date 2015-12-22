@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.box.items').controller('ItemsController', items);
-    items.$inject = ['boxService', '$stateParams', '$rootScope', 'itemThumbnailService', '$mdDialog', '$scope', 'user','$q'];
+    items.$inject = ['boxService', '$stateParams', '$rootScope', 'itemThumbnailService', '$mdDialog', '$scope', 'user', '$q', 'resManager'];
 
-    function items(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog, $scope, user, $q) {
+    function items(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog, $scope, user, $q, resManager) {
         var i = this,
         boxId = $stateParams.boxId;
         i.items = [];
@@ -37,19 +37,28 @@
             i.tabNewName = i.tabSelected.name;
         }
 
+        var submitDisabled = false;
         function addTab() {
             if (!user.id) {
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
             }
+            
             if (!i.newFolderName) {
                 i.newFolderTabOpened = false;
             }
+            if (submitDisabled) {
+                return;
+            }
+            submitDisabled = true;
             boxService.createTab(i.newFolderName, boxId).then(function (response) {
                 i.tabs.push(response);
                 i.newFolderTabOpened = false;
             }, function (response) {
                 $scope.app.showToaster(response, 'tabSection');
+            }).finally(function() {
+                submitDisabled = false;
+                i.newFolderName = '';
             });
         }
 
@@ -84,10 +93,10 @@
         }
         function deleteTab(ev) {
             var confirm = $mdDialog.confirm()
-                 .title('Would you like to delete this tab?')
+                 .title(resManager.get('deleteTab'))
                  .targetEvent(ev)
-                 .ok('Ok')
-                 .cancel('Cancel');
+                 .ok(resManager.get('dialogOk'))
+                 .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
                 var index = i.tabs.indexOf(i.tabSelected);
@@ -109,11 +118,11 @@
 
         function deleteItem(ev, item) {
             var confirm = $mdDialog.confirm()
-                 .title('Would you like to delete this item?')
+                 .title(resManager.get('deleteItem'))
                  //.textContent('All of the banks have agreed to forgive you your debts.')
                  .targetEvent(ev)
-                 .ok('Ok')
-                 .cancel('Cancel');
+                 .ok(resManager.get('dialogOk'))
+                 .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
                 var index = i.items.indexOf(item);

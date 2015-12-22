@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.account').controller('AccountSettingsPasswordController', password);
 
-    password.$inject = ['accountService', '$mdToast', '$document', '$scope'];
-    function password(accountService, $mdToast, $document, $scope) {
+    password.$inject = ['accountService', '$mdToast', '$document', '$scope', 'resManager'];
+    function password(accountService, $mdToast, $document, $scope, resManager) {
         var self = this;
 
 
@@ -12,7 +12,7 @@
                 self.old = '';
                 self.new = '';
                 $scope.app.resetForm(myform);
-                $scope.app.showToaster('password change', 'accountPage');
+                $scope.app.showToaster(resManager.get('passwordChangeSuccess'), 'accountPage');
             }, function (response) {
                 myform.old.$setValidity('server',false);
                 self.error = response;

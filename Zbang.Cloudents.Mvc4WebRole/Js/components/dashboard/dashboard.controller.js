@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.dashboard').controller('Dashboard', dashboard);
-    dashboard.$inject = ['dashboardService', '$scope', '$mdDialog', 'boxService', '$rootScope'];
+    dashboard.$inject = ['dashboardService', '$scope', '$mdDialog', 'boxService', '$rootScope', 'resManager'];
 
-    function dashboard(dashboardService, $scope, $mdDialog, boxService, $rootScope) {
+    function dashboard(dashboardService, $scope, $mdDialog, boxService, $rootScope, resManager) {
         var d = this;
         d.boxes = [];
         d.inviteOpen = false;
@@ -30,11 +30,10 @@
 
             //boxType //userType
             var confirm = $mdDialog.confirm()
-                  .title('Would you like to unfollow this class?')
-                  //.textContent('All of the banks have agreed to forgive you your debts.')
+                  .title(resManager.get('unfollowClass'))
                   .targetEvent(ev)
-                  .ok('Ok')
-                  .cancel('Cancel');
+                   .ok(resManager.get('dialogOk'))
+                 .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
                 var index = d.boxes.indexOf(box);

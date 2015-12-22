@@ -250,7 +250,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/item/externalProviderUpload.service.js"),
                         new JsFileWithCdn("~/js/shared/dropbox.js"),
                         new JsFileWithCdn("~/js/shared/google.js"),
-                        new JsFileWithCdn("~/js/shared/facebook.js")
+                        new JsFileWithCdn("~/js/shared/facebook.js"),
+                        new JsFileWithCdn("~/js/shared/resourceManager.js")
                     }
 
                 },

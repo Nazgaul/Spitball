@@ -120,7 +120,4 @@
   <data name="Items" xml:space="preserve">
     <value>פריטים</value>
   </data>
-  <data name="Search" xml:space="preserve">
-    <value>חפש...</value>
-  </data>
 </root>

@@ -19,19 +19,19 @@
         <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true"
             data-slide-speed="200" ng-controller="SideMenu as d">
             <li class="start">
-                <a @shouldPostBack href="@Url.Action("Index","Dashboard")">
+                <a @shouldPostBack href="@Url.Action("Index","Dashboard")" ga-track-event="['sidebar', 'dashboard']">
                     @Html.Svg(svgUrl, "houseMenu")
                     <span class="title">@IndexResources.Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="javascript:;" ng-click="d.open()">
+                <a href="javascript:;" ng-click="d.open()" ga-track-event="['sidebar', 'classes']">
                     <span class="arrow">@Html.Svg("~/images/site/icons.svg", "sideMenuArrow")</span>
                     <span class="title">@IndexResources.Classes</span>
                 </a>
                 <ul class="sub-menu">
                     <li ng-repeat="box in d.courses track by box.id" id="menubox{{::box.id}}">
-                        <a class="ellipsis" href="{{::box.url}}">
+                        <a class="ellipsis" href="{{::box.url}}" ga-track-event="['sidebar', 'selected class']">
                             <span class="badge badge-danger" ng-if="box.updates !== 0">{{box.updates}}</span>
                             {{::box.name}}
                         </a>
@@ -40,13 +40,13 @@
                 </ul>
             </li>
             <li>
-                <a href="javascript:;" ng-click="d.open()">
+                <a href="javascript:;" ng-click="d.open()" ga-track-event="['sidebar', 'group']">
                     <span class="arrow">@Html.Svg("~/images/site/icons.svg", "sideMenuArrow")</span>
                     <span class="title">@IndexResources.Group</span>
                 </a>
                 <ul class="sub-menu">
                     <li ng-repeat="box in d.privateBoxes track by box.id" id="menubox{{::box.id}}">
-                        <a class="ellipsis" href="{{::box.url}}">
+                        <a class="ellipsis" href="{{::box.url}}" ga-track-event="['sidebar', 'selected group']">
                             <span class="badge badge-danger" ng-if="box.updates !== 0">{{box.updates}}</span>
                             {{::box.name}}
                         </a>
@@ -56,36 +56,36 @@
             </li>
 
             <li>
-                <a @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")">
+                <a @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")" ga-track-event="['sidebar', 'university']">
                     @Html.Svg(svgUrl, "universityMenu")
                     <span class="title">@IndexResources.Uni</span>
                 </a>
             </li>
             <li>
-                <a @shouldPostBack href="{{::d.userUrl}}">
+                <a @shouldPostBack href="{{::d.userUrl}}" ga-track-event="['sidebar', 'user']">
                     @Html.Svg(svgUrl, "userMenu")
                     <span class="title">@IndexResources.User</span>
                 </a>
             </li>
             <li>
-                <a @shouldPostBack href="@Url.RouteUrl("AccountSettings")">
+                <a @shouldPostBack href="@Url.RouteUrl("AccountSettings")" ga-track-event="['sidebar', 'settings']">
                     @Html.Svg(svgUrl, "settingMenu")
                     <span class="title">@IndexResources.Settings</span>
                 </a>
             </li>
             <li>
-                <a href="@Url.RouteUrl("Help")">
+                <a href="@Url.RouteUrl("Help")" ga-track-event="['sidebar', 'help']">
                     @Html.Svg(svgUrl, "headerHelp")
                     <span class="title">@SharedResources.Help</span>
                 </a>
             </li>
             <li>
-                <a href="@Url.RouteUrl("Blog2")">
+                <a href="@Url.RouteUrl("Blog2")" ga-track-event="['sidebar', 'blog']">
                     @Html.Svg(svgUrl, "blog") <span class="title">@GeneralResources.Blog</span>
                 </a>
             </li>
             <li class="last ">
-                <a target="_self" href="@Url.Action("logoff","account")">
+                <a target="_self" href="@Url.Action("logoff","account")" ga-track-event="['sidebar', 'logout']">
                     @Html.Svg(svgUrl, "logOffMenu")
                     <span class="title">@IndexResources.Logout</span>
                 </a>

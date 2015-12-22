@@ -29,7 +29,7 @@
                 <span>@QuizResources.AddQuestion</span>
             </div>
         </button>
-        <button type="button" ng-click="q.publish()" class="btn btn-primary text-capitalize pull-right" ga-track-event="['createQuiz', 'publish quiz']">@QuizResources.Publish</button>
+        <button type="button" ng-click="q.publish()" ng-disabled="q.submitDisabled" class="btn btn-primary text-capitalize pull-right" ga-track-event="['createQuiz', 'publish quiz']">@QuizResources.Publish</button>
     </div>
 </div>
 

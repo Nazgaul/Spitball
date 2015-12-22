@@ -265,3 +265,4 @@
 /// <reference path="../js/shared/animationclass.js" />
 /// <reference path="../js/shared/animationlocation.js" />
 /// <reference path="../js/shared/removekeyboard.js" />
+/// <reference path="../js/shared/resourcemanager.js" />

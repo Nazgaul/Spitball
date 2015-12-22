@@ -174,4 +174,13 @@
   <data name="AboutUs" xml:space="preserve">
     <value>מי אנחנו</value>
   </data>
+  <data name="ThereIsMore" xml:space="preserve">
+    <value>יש עוד הרבה מה לראות</value>
+  </data>
+  <data name="RegisterTakesLess" xml:space="preserve">
+    <value>הירשם, זה לוקח פחות מ-15 שניות!</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>חפש...</value>
+  </data>
 </root>

@@ -2,26 +2,26 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @using Zbang.Zbox.Infrastructure.Enums
-<form novalidate ng-submit="b.updateBox(updateBoxForm)" name="updateBoxForm">
+<form novalidate ng-submit="b.updateBox(updateBoxForm)" name="updateBoxForm" class="text-capitalize">
     <md-input-container>
-        <label class="text-capitalize">@BoxResources.Name</label>
+        <label>@BoxResources.Name</label>
         <input type="text" autocomplete="off" name="name" ng-model="b.settings.name" required />
     </md-input-container>
 
     <div layout="row" layout-wrap ng-if="b.isAcademic">
         <md-input-container flex="100" flex-gt-md="33" class="padding">
-            <label class="text-capitalize">@BoxResources.Number</label>
+            <label>@BoxResources.Number</label>
             <input type="text" autocomplete="off" name="number" ng-model="b.settings.courseId" />
         </md-input-container>
 
         <md-input-container flex="100" flex-gt-md="66">
-            <label class="text-capitalize">@BoxResources.Lecturer</label>
+            <label>@BoxResources.Lecturer</label>
             <input type="text" autocomplete="off" name="lecturer" ng-model="b.settings.professorName" />
         </md-input-container>
     </div>
     <div layout="row" ng-if="!b.isAcademic && b.owner">
         <md-input-container flex="100">
-            <label class="text-capitalize">@BoxResources.Privacy</label>
+            <label>@BoxResources.Privacy</label>
             <md-select name="notification" ng-model="b.settings.privacy" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
                 <md-option value="@BoxPrivacySettings.AnyoneWithUrl.GetStringValueLowerCase()">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</md-option>
                 <md-option value="@BoxPrivacySettings.MembersOnly.GetStringValueLowerCase()">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</md-option>
@@ -30,7 +30,7 @@
     </div>
     <div layout="row" layout-wrap>
         <md-input-container flex="100" flex-gt-md="33" class="padding">
-            <label class="text-capitalize">@BoxResources.Notify</label>
+            <label>@BoxResources.Notify</label>
             <md-select name="notification" ng-model="b.settings.notificationSettings" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
                 <md-option value="@NotificationSettings.Off.GetStringValueLowerCase()">@NotificationSettings.Off.GetEnumDescription()</md-option>
                 <md-option value="@NotificationSettings.OnEveryChange.GetStringValueLowerCase()">@NotificationSettings.OnEveryChange.GetEnumDescription()</md-option>
@@ -40,15 +40,15 @@
         </md-input-container>
 
         <md-input-container flex="100" flex-gt-md="33">
-            <label class="text-capitalize">@BoxResources.Status</label>
+            <label>@BoxResources.Status</label>
             <md-select name="follow" ng-model="b.settings.needFollow" md-container-class="dd-list">
-                <md-option class="text-capitalize" ng-value="false">@BoxResources.Follow</md-option>
-                <md-option class="text-capitalize" ng-value="true">@BoxResources.Unfollow</md-option>
+                <md-option ng-value="false">@BoxResources.Follow</md-option>
+                <md-option ng-value="true">@BoxResources.Unfollow</md-option>
             </md-select>
         </md-input-container>
         <md-input-container layout="row" layout-align="end center" flex="100" flex-gt-md="33">
-            <button type="button" class="btn btn-default text-capitalize" ng-click="b.settingsOpen = false" ga-track-event="['box-settings', 'cancel']">@GeneralResources.Cancel</button>
-            <button type="submit" class="btn btn-primary text-capitalize" ga-track-event="['box-settings', 'save']">@GeneralResources.SaveChanges</button>
+            <button type="button" class="btn btn-default" ng-click="b.settingsOpen = false" ga-track-event="['box-settings', 'cancel']">@GeneralResources.Cancel</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="b.settings.submitDisabled" ga-track-event="['box-settings', 'save']">@GeneralResources.SaveChanges</button>
         </md-input-container>
     </div>
 </form>

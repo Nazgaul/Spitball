@@ -1,9 +1,10 @@
 ﻿(function () {
     angular.module('app.box.feed').controller('FeedController', feed);
     feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
-        'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope'];
+        'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope', 'resManager'];
 
-    function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService, $mdDialog, $scope, $rootScope) {
+    function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService,
+        $mdDialog, $scope, $rootScope, resManager) {
         var self = this, boxId = parseInt($stateParams.boxId, 10), page = 0;
 
         self.add = {
@@ -135,11 +136,10 @@
 
             //boxType //userType
             var confirm = $mdDialog.confirm()
-                  .title('Would you like to delete this post?')
-                  //.textContent('All of the banks have agreed to forgive you your debts.')
+                  .title(resManager.get('deletePost'))
                   .targetEvent(ev)
-                  .ok('Ok')
-                  .cancel('Cancel');
+                  .ok(resManager.get('dialogOk'))
+                  .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
                 var index = self.data.indexOf(post);
@@ -151,11 +151,11 @@
 
             //boxType //userType
             var confirm = $mdDialog.confirm()
-                  .title('Would you like to delete this reply?')
+                  .title(resManager.get('deleteReply'))
                   //.textContent('All of the banks have agreed to forgive you your debts.')
                   .targetEvent(ev)
-                  .ok('Ok')
-                  .cancel('Cancel');
+                  .ok(resManager.get('dialogOk'))
+                  .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
                 var index = post.answers.indexOf(reply);
