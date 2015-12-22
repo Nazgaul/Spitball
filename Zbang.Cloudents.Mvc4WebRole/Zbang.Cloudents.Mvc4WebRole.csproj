@@ -2816,6 +2816,8 @@
     <Content Include="Views\Dashboard\_Create.cshtml" />
     <Content Include="Views\Library\_CreateDepartment.cshtml" />
     <Content Include="Views\Library\_CreateCourse.cshtml" />
+    <Content Include="Views\Library\_ChooseEnterCode.cshtml" />
+    <Content Include="Views\Library\_ChooseCreateUniversity.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

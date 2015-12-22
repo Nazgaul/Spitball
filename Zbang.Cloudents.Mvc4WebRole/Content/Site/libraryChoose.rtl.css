@@ -1,11 +1,7 @@
-﻿.library-choose .row {
-  margin-top: 20px;
-}
-.library-choose .univeristy {
+﻿.library-choose .univeristy {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
-  margin-bottom: 30px;
   color: #888b8e;
   font-weight: 700;
   overflow: hidden;
@@ -36,6 +32,7 @@
   -webkit-align-items: center;
   align-items: center;
   color: #323538;
+  margin-bottom: 30px;
 }
 .library-choose .add-uni-btn span {
   height: 70px;

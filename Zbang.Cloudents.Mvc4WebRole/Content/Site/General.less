@@ -184,6 +184,9 @@ input, li, [contenteditable], span, textarea, [role="button"] {
 md-input-container {
     width: 100%;
 }
+md-input-container:not(.md-input-has-value) input:not(:focus) {
+    color:inherit;
+}
 
 md-select:not([disabled]):focus .md-select-value {
     color: @textColorWhite;

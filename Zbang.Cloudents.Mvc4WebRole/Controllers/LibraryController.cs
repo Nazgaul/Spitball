@@ -362,7 +362,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(new
             {
                 command.Id,
-                //name = model.Name
             });
         }
         private IAuthenticationManager AuthenticationManager
