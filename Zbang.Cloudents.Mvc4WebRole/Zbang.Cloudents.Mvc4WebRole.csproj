@@ -2813,6 +2813,9 @@
     <Content Include="Views\Library\_Settings.cshtml" />
     <Content Include="Views\Shared\_UnregView.cshtml" />
     <Content Include="Views\Box\_Tabs.cshtml" />
+    <Content Include="Views\Dashboard\_Create.cshtml" />
+    <Content Include="Views\Library\_CreateDepartment.cshtml" />
+    <Content Include="Views\Library\_CreateCourse.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -16,6 +16,7 @@
         self.importGoogleContract = importGoogleContacts;
         self.contactSelected = contactSelected;
         self.sendInvite = sendInvite;
+        self.submitDisabled = false;
 
         self.closeInvite = function () {
             self.contacts = [];
@@ -127,18 +128,20 @@
         }
 
         function sendInvite() {
+            self.submitDisabled = true;
             var contacts = self.contacts.map(function (c) {
                 return c.email;
             });
             if (self.inBox) {
-                shareService.inviteToBox(contacts, $stateParams.boxId).then(function () {
-                    self.closeInvite();
-                });
+                shareService.inviteToBox(contacts, $stateParams.boxId).then(successSend);
             } else {
-                shareService.inviteToSystem(contacts).then(function () {
-                    self.closeInvite();
-                });
+                shareService.inviteToSystem(contacts).then(successSend);
             }
+        }
+
+        function successSend() {
+            self.closeInvite();
+            self.submitDisabled = false;
         }
 
     }

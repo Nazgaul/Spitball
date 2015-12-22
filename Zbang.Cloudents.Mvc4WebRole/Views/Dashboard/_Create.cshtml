@@ -1,132 +1,28 @@
-﻿@{
-    const string url = "~/images/site/uploadIcons.svg";
-}
-<div class="portlet box create" ng-controller="CreateClass as cc">
-    <div class="portlet-title">
-        <div class="caption">
-            Create a new group
-        </div>
-        <button type="button" class="close" ng-click="d.createBoxOn = false">X</button>
-    </div>
-    <div class="portlet-body form">
-        <div class="form-horizontal">
-            <form name="createBox" class="form-wizard" novalidate>
-                <div class="form-body">
-                    <ul class="nav nav-pills nav-justified steps">
-                        <li ng-class="{active:cc.step === 1}">
-                            <a class="step">
-                                <span class="number">
-                                    1
-                                </span>
-                                <span class="desc">
-                                    Type
-                                </span>
-                            </a>
-                        </li>
-                        <li ng-class="{active:cc.step === 2}">
-                            <a class="step">
-                                <span class="number">
-                                    2
-                                </span>
-                                <span class="desc">
-                                    Name
-                                </span>
-                            </a>
-                        </li>
-                        <li ng-class="{active:cc.step === 3}">
-                            <a class="step">
-                                <span class="number">
-                                    3
-                                </span>
-                                <span class="desc">
-                                    Department
-                                </span>
-                            </a>
-                        </li>
-                        <li ng-class="{active:cc.step === 4}">
-                            <a class="step">
-                                <span class="number">
-                                    4
-                                </span>
-                                <span class="desc">
-                                    Upload
-                                </span>
-                            </a>
-                        </li>
-                        <li ng-class="{active:cc.step === 5}">
-                            <a class="step">
-                                <span class="number">
-                                    5
-                                </span>
-                                <span class="desc">
-                                    Invite
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="progress-wrap">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{cc.step*20}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width: cc.step*20 + '%'}">
-                                <span class="sr-only">{{cc.step*20}}% Complete</span>
-                            </div>
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+<div id="create" class="dashboard-stat2">
+    <button ng-hide="d.createBoxOn" type="button" ng-click="d.createBoxOn = true" class="create-btn" ga-track-event="['dashboard', 'createbox']">
+        <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
+        <div class="title">@DashboardResource.StudyGroup</div>
+    </button>
+    <form name="createBox" class="create-txt" novalidate ng-submit="cb.create(createBox)" ng-show="d.createBoxOn" ng-controller="CreateBoxController as cb">
+        <div layout="column">
+            <md-content>
+                <div layout layout-sm="column">
+                    <md-input-container flex>
+                        <label>@DashboardResource.EnterGroupName</label>
+                        <input autofocus autocomplete="off" required ng-model="cb.boxName" name="name" ng-change="createBox.name.$setValidity('server',true)">
+                        <div ng-messages="createBox.name.$error" ng-show="createBox.name.$dirty">
+                            <div ng-message="required">@GeneralResources.RequiredField</div>
+                            <div ng-message="server">{{cb.error}}</div>
                         </div>
-                    </div>
-                    <div class="tab-content">
-                        <div ng-if="cc.alert" class="alert alert-danger alert-dismissible" role="alert">{{cc.alert}}</div>
-                        <div class="tab-pane text-center" ng-class="{active:cc.step === 1}">
-                            <button type="button" ng-click="cc.chooseBox(2)">
-                                @Html.Svg(url, "createClass")
-                                <h6>Open Group</h6>
-                                Share with the entire class
-                            </button>
-                            <button type="button" ng-click="cc.chooseBox(1)">
-                                @Html.Svg(url, "createBox")
-                                <h6>Study Group</h6>
-                                To work on things in a group
-                            </button>
-                        </div>
-                        <div class="tab-pane" ng-class="{active:cc.step === 2}">
-                            <div ng-hide="cc.boxType === 2" ng-form="createGroupBox">
-                                <label for="createGroupBoxName">class name</label>
-                                <input id="createGroupBoxName" required autofocus class="form-control" name="groupBoxName" type="text" ng-model="cc.box.name" />
-                            </div>
-                            <div ng-hide="cc.boxType === 1">
-                                class name
-                                <input autofocus class="form-control" type="text" ng-model="cc.boxName" />
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        class code
-                                        <input class="form-control" type="text" ng-model="cc.code" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        instructor
-                                        <input class="form-control" type="text" ng-model="cc.professor" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" ng-class="{active:cc.step === 3}">
-                            department
-                        </div>
-                        <div class="tab-pane" ng-class="{active:cc.step === 4}">
-                            @{ Html.RenderPartial("_Upload"); }
-                        </div>
-                        <div class="tab-pane" ng-class="{active:cc.step === 5}">
-                            invite
-                        </div>
-                    </div>
+                    </md-input-container>
                 </div>
-                <div class="form-actions" ng-hide="cc.step === 1">
-                    <div class="actions">
-                        @*<a href="javascript:;" class="btn default button-previous">
-                        Back
-                    </a>*@
-                        <button type="submit" class="btn blue" ng-click="cc.stepFinish()" ng-disabled="cc.submitFormProcess">
-                            Next
-                        </button>
-                    </div>
-                </div>
-            </form>
+            </md-content>
         </div>
-    </div>
+        <div layout="row" layout-align="end center" class="text-capitalize">
+            <button type="button" class="btn btn-default" ga-track-event="['dashboard', 'createbox', 'cancel']" ng-click="cb.cancel(createBox)">@GeneralResources.Cancel</button>
+            <button type="submit" class="btn btn-primary" ga-track-event="['dashboard', 'createbox', 'done']" ng-disabled="!createBox.$valid || cb.submitDisabled">@GeneralResources.Done</button>
+        </div>
+    </form>
 </div>

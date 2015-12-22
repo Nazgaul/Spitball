@@ -1,0 +1,24 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+<div class="dashboard-stat2">
+    <button type="button" ng-hide="l.createDepartmentOn" ng-click="l.createDepartmentOn = true" class="create-btn" ga-track-event="['university', 'add new department']">
+        <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
+        <div class="title">@LibraryResources.AddDepartment</div>
+    </button>
+    <form name="createDepartment" class="create-department" novalidate ng-submit="l.createDepartment(createDepartment)" ng-show="l.createDepartmentOn">
+        <md-content layout="column">
+            <md-input-container flex>
+                <label>@LibraryResources.EnterDepName</label>
+                <input autocomplete="off" name="name" required ng-model="l.departmentName" ng-change="createDepartment.name.$setValidity('server',true)" />
+                <div ng-messages="createDepartment.name.$error" ng-show="createDepartment.name.$dirty">
+                    <div ng-message="required">@GeneralResources.RequiredField</div>
+                    <div ng-message="server">{{l.error}}</div>
+                </div>
+            </md-input-container>
+        </md-content>
+        <span layout="row" layout-align="end center text-capitalize">
+            <button type="button" class="btn btn-default" ng-click="l.departmentCancel(createDepartment)" ga-track-event="['university', 'cancel new department']">@GeneralResources.Cancel</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="!createDepartment.$valid || l.submitDisabled" ga-track-event="['university', 'create new department']">@GeneralResources.Done</button>
+        </span>
+    </form>
+</div>
