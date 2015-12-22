@@ -61,9 +61,9 @@
 
     .quiz-take-stats {
         margin-bottom: 12px;
-        border: 3px solid @borderColorBlue;
+        border: 2px solid @borderColorBlue;
         .displayFlex();
-        .align-items(center);
+        .align-items(stretch);
         border-radius: 10px;
         overflow: hidden;
         width: 100%;
@@ -75,7 +75,7 @@
         //transition:all linear 3s;
         //progress-wrapper:none;
         //}
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
             -ms-flex-wrap: wrap;
             -webkit-flex-wrap: wrap;
             flex-wrap: wrap;
@@ -109,15 +109,19 @@
         .question-progress {
             //align-self:center;
             margin-right: 10px;
-            font-size: 36px;
+            font-size: 26px;
         }
 
         .progress-wrapper {
             .displayFlex();
             padding: 10px;
-            background: @backgroundColorWhite;
+            background: #ddd;
             width: 100%;
             .align-items(center);
+
+            md-progress-linear .md-container {
+                background-color: #fff;
+            }
         }
         /*.progress {
             width: 100%;
@@ -157,6 +161,13 @@
         border-radius: 10px;
         margin-bottom: 15px;
         padding: 10px;
+
+
+        @media (min-width: 600px) {
+            -webkit-flex: 0 32%;
+            -ms-flex: 0 32%;
+            flex: 0 32%;
+        }
     }
 
     .score {
@@ -181,6 +192,7 @@
         h6 {
             margin: 0;
             font-size: 16px;
+            /*padding: 0 5px;*/
         }
 
         & > div {
@@ -195,21 +207,41 @@
         }
 
 
+        .svg-wrapper {
+            align-self: center;
+        }
 
+        .correct {
+            padding-right: 10px;
+            margin-right: 10px;
+
+            svg {
+                margin-left: 5px;
+                fill: @svgQuizCorrect;
+            }
+        }
+
+        .wrong svg {
+            width: 45px;
+            fill: @svgQuizWrong;
+            margin-right: 5px;
+        }
 
         svg {
             width: 42px;
             height: 39px;
-            fill: @svgQuizCorrect;
             margin-top: 20px;
-            margin-left: 5px;
             align-self: center;
-
-            &:last-child {
-                width: 45px;
-                fill: @svgQuizWrong;
-            }
         }
+
+        .text {
+            font-size: 5vmin;
+            width: 70%;
+        }
+    }
+
+    .time-taken .text {
+        font-size: 3.5vmin;
     }
 
     .time-taken {
@@ -235,7 +267,8 @@
         textarea {
             width: 100%;
             margin-bottom: 10px;
-            border: 1px solid @borderColorGrey;
+            color: @textColorBlack;
+            /*border: 1px solid @borderColorGrey;*/
         }
     }
     //comment section
@@ -245,6 +278,15 @@
         & > .top {
             color: @textColorBlack;
             position: inherit;
+        }
+
+        .text {
+            margin-left: 47px;
+
+            .content-text, .comment-date {
+                margin-left: 0;
+                margin-bottom: 0;
+            }
         }
     }
 
@@ -269,7 +311,8 @@
     }
 
     .q {
-        .displayFlex()
+        .displayFlex();
+        font-size: 14px;
     }
 
     .q-body {
@@ -297,6 +340,10 @@
         .displayFlex();
     }
 
+    li:last-child .a-body {
+        border: none;
+    }
+
     .counter-view {
         border-radius: 50%;
         border: 2px solid @borderColorBlue;
@@ -316,6 +363,8 @@
 
         button {
             padding: 0 10px;
+            height: 38px;
+            width: 38px;
         }
     }
 
@@ -341,6 +390,11 @@
 
     .completed-quiz {
         margin: 0 auto;
+        font-size: 20px;
+
+        @media (max-width: 600px) {
+            font-size: 5vmin;
+        }
     }
 
     .goodjob {
@@ -354,6 +408,10 @@
         margin: 0 10px 0 0; //override
         padding-bottom: 10px;
         font-weight: normal;
+
+        @media (max-width: 600px) {
+            font-size: 11vmin;
+        }
     }
 
     .good {
@@ -375,7 +433,6 @@
 
         & > span {
             margin: auto;
-            font-size: 20px;
         }
     }
 
@@ -409,7 +466,6 @@
 
         span {
             margin: auto;
-            font-size: 20px;
         }
     }
 
@@ -435,6 +491,10 @@
             padding: 5px;
             border: 0;
             white-space: normal;
+
+            @media (max-width: 600px) {
+                font-size: 5vmin;
+            }
         }
 
         .scared {
@@ -445,10 +505,28 @@
 }
 
 .quiz-wrapper {
-    border: 1px solid @borderColorLightGrey;
     background: @backgroundColorWhite;
     color: @textColorBlack;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 3px 8px @progressbarBackgroundColor;
     padding: 26px;
+
+    @media (max-width: 600px) {
+        padding: 15px;
+
+        .counter {
+            padding-left: 0;
+
+            .a-body {
+                margin-right: 0;
+            }
+        }
+
+        .add-discussion {
+            margin: 0;
+        }
+    }
 
 
     .no-answer-element {

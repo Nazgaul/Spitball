@@ -26,21 +26,21 @@
                 </div>
 
                 <div layout-wrap layout="row" layout-align="space-between stretch" layoutclass="margin-bottom-15">
-                    <div flex="30" flex-xs="100" class="black-bullet score">
+                    <div flex-xs="100" class="black-bullet score">
                         <h5 class="text-capitalize">@QuizResources.Score</h5>
                         {{q.sheet.score}}
                     </div>
 
-                    <div flex="30" flex-xs="100" class="black-bullet score-details">
-                        <div>
+                    <div flex-xs="100" class="black-bullet score-details">
+                        <div class="correct">
                             @Html.Svg(svgUrl, "correct")
-                            <div>
+                            <div class="text">
                                 <h6>@QuizResources.Correct</h6>
                                 {{q.sheet.correct}}
                             </div>
                         </div>
-                        <div>
-                            <div>
+                        <div class="wrong">
+                            <div class="text">
                                 <h6>@QuizResources.Wrong</h6>
                                 {{q.sheet.wrong}}
 
@@ -49,8 +49,8 @@
                         </div>
                     </div>
 
-                    <div flex="30" flex-xs="100" class="black-bullet time-taken" layout="row" layout-align="center center">
-                        @Html.Svg(svgUrl, "clock") <span>{{q.sheet.timeTaken}}</span>
+                    <div flex-xs="100" class="black-bullet time-taken" layout="row" layout-align="center center">
+                        @Html.Svg(svgUrl, "clock") <span class="text">{{q.sheet.timeTaken}}</span>
                     </div>
                 </div>
 
