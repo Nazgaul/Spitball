@@ -19,45 +19,41 @@
         </div>
         <div class="wrapper">
             <div ng-if="q.state === 4" class="solveActions">
-                <div layout-padding layout="row" class="margin-bottom-15">
-                    <div flex="33" flex-offset="33">
+                <div layout="row" class="margin-bottom-15">
+                    <div class="retake-wrapper" flex-gt-xs="33" flex-xs="100">
                         <button class="retake" type="button" ng-click="q.retakeQuiz()" ga-track-event="['quiz', 'retake quiz']">@QuizResources.Retake</button>
                     </div>
                 </div>
-                <div layout-padding layout="row" class="margin-bottom-15">
-                    <div flex="33" flex-xs="100">
-                        <div class="black-bullet score">
-                            <h5 class="text-capitalize">@QuizResources.Score</h5>
-                            {{q.sheet.score}}
-                        </div>
+
+                <div layout-wrap layout="row" layout-align="space-between stretch" layoutclass="margin-bottom-15">
+                    <div flex="30" flex-xs="100" class="black-bullet score">
+                        <h5 class="text-capitalize">@QuizResources.Score</h5>
+                        {{q.sheet.score}}
                     </div>
-                    <div flex="33" flex-xs="100">
 
-                        <div class="black-bullet score-details">
+                    <div flex="30" flex-xs="100" class="black-bullet score-details">
+                        <div>
+                            @Html.Svg(svgUrl, "correct")
                             <div>
-                                @Html.Svg(svgUrl, "correct")
-                                <div>
-                                    <h6>@QuizResources.Correct</h6>
-                                    {{q.sheet.correct}}
-                                </div>
+                                <h6>@QuizResources.Correct</h6>
+                                {{q.sheet.correct}}
                             </div>
+                        </div>
+                        <div>
                             <div>
-                                <div>
-                                    <h6>@QuizResources.Wrong</h6>
-                                    {{q.sheet.wrong}}
+                                <h6>@QuizResources.Wrong</h6>
+                                {{q.sheet.wrong}}
 
-                                </div>
-                                @Html.Svg(svgUrl, "wrong")
                             </div>
+                            @Html.Svg(svgUrl, "wrong")
                         </div>
                     </div>
 
-                    <div flex="33" flex-xs="100">
-                        <div class="black-bullet time-taken">
-                            @Html.Svg(svgUrl, "clock") <span>{{q.sheet.timeTaken}}</span>
-                        </div>
+                    <div flex="30" flex-xs="100" class="black-bullet time-taken" layout="row" layout-align="center center">
+                        @Html.Svg(svgUrl, "clock") <span>{{q.sheet.timeTaken}}</span>
                     </div>
                 </div>
+
             </div>
             <div class="quiz-take-stats" ng-class="{'no-progress': q.state === 1}" ng-show="q.state !== 4">
                 <div class="stop-watch-wrapper">
@@ -85,7 +81,7 @@
                             </div>
                             <button class="btn btn-primary pull-right" ng-disabled="!addDiscussion.$valid" type="submit" ga-track-event="['quiz', 'post comment']">@GeneralResources.Post</button>
                         </md-input-container>
-                        
+
                     </form>
                     <ol class="list-unstyled feed">
                         <li class="comment reply" ng-repeat="post in q.questions[q.index].comments">
