@@ -147,4 +147,16 @@
   <data name="EnterCode" xml:space="preserve">
     <value>הזן קוד</value>
   </data>
+  <data name="Instractor" xml:space="preserve">
+    <value>מרצה</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>הבא</value>
+  </data>
+  <data name="EntryLength" xml:space="preserve">
+    <value>שם המוסד האקדמי חייב להכיל יותר מתו אחד</value>
+  </data>
+  <data name="SchoolName" xml:space="preserve">
+    <value>שם מוסד הלימודים</value>
+  </data>
 </root>

@@ -10,13 +10,13 @@
         <div class="header md-tab-header">
             <md-tabs @*class="align-right"*@>
 
-                <md-tab ui-sref="settings.profile" md-active="b.isActiveState('settings.profile')">
+                <md-tab ui-sref="settings.profile" md-active="b.isActiveState('settings.profile')" ga-track-event="['settings', 'moved to profile']">
                     <md-tab-label>@AccountResource.ProfileAccount</md-tab-label>
                 </md-tab>
-                <md-tab ui-sref="settings.password" md-active="b.isActiveState('settings.password')">
+                <md-tab ui-sref="settings.password" md-active="b.isActiveState('settings.password')" ga-track-event="['settings', 'moved to password']">
                     <md-tab-label>@AccountResource.ChangePassword</md-tab-label>
                 </md-tab>
-                <md-tab ui-sref="settings.notification" md-active="b.isActiveState('settings.notification')">
+                <md-tab ui-sref="settings.notification" md-active="b.isActiveState('settings.notification')" ga-track-event="['settings', 'moved to notifications']">
                     <md-tab-label>@AccountResource.Notifications</md-tab-label>
                 </md-tab>
             </md-tabs>

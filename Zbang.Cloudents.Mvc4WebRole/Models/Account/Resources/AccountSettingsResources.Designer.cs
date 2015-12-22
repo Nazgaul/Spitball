@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - Min 6 characters.
+        ///   Looks up a localized string similar to - Min. 6 characters.
         /// </summary>
         public static string Min6Chars {
             get {
@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must enter your new password.
+        ///   Looks up a localized string similar to Please enter your new password.
         /// </summary>
         public static string NewPwdEmpty {
             get {

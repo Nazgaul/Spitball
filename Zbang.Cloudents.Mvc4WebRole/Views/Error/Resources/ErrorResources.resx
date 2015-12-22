@@ -121,10 +121,10 @@
     <value>Return to dashboard</value>
   </data>
   <data name="FileFlew" xml:space="preserve">
-    <value>oops the file flew</value>
+    <value>Oops the file was not found</value>
   </data>
   <data name="PleaseUpdate" xml:space="preserve">
-    <value>Please update your version of Internet Explorer or use a different web browser</value>
+    <value>Please update your Internet Explorer version or use a different web browser</value>
   </data>
   <data name="Unsupported" xml:space="preserve">
     <value>Your browser version is not supported</value>
@@ -133,7 +133,7 @@
     <value>You need permission to access this content</value>
   </data>
   <data name="PrivateContent" xml:space="preserve">
-    <value>The owner has made this content - invitation only</value>
+    <value>This content is by invitation only</value>
   </data>
   <data name="NotFound" xml:space="preserve">
     <value>404</value>

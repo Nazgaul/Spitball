@@ -133,7 +133,7 @@
     <value>Please use the</value>
   </data>
   <data name="PreviewFailed2" xml:space="preserve">
-    <value>option to view.</value>
+    <value>Option to view.</value>
   </data>
   <data name="PreviewNotAvailable" xml:space="preserve">
     <value>The preview is unavailable for this file type</value>
@@ -145,22 +145,22 @@
     <value>For security reasons, this link cannot be opened in Spitball</value>
   </data>
   <data name="ReportAbuse" xml:space="preserve">
-    <value>report abuse</value>
+    <value>Report abuse</value>
   </data>
   <data name="Report" xml:space="preserve">
-    <value>report</value>
+    <value>Report</value>
   </data>
   <data name="Rename" xml:space="preserve">
-    <value>rename</value>
+    <value>Rename</value>
   </data>
   <data name="Flag" xml:space="preserve">
-    <value>flag an item</value>
+    <value>Flag an item</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>name</value>
+    <value>Name</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>save</value>
+    <value>Save</value>
   </data>
   <data name="FlagItemPlaceHolder" xml:space="preserve">
     <value>Choose</value>

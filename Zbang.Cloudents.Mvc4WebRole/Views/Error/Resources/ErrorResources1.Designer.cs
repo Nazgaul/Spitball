@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to oops the file flew.
+        ///   Looks up a localized string similar to Oops the file was not found.
         /// </summary>
         public static string FileFlew {
             get {
@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please update your version of Internet Explorer or use a different web browser.
+        ///   Looks up a localized string similar to Please update your Internet Explorer version or use a different web browser.
         /// </summary>
         public static string PleaseUpdate {
             get {
@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The owner has made this content - invitation only.
+        ///   Looks up a localized string similar to This content is by invitation only.
         /// </summary>
         public static string PrivateContent {
             get {

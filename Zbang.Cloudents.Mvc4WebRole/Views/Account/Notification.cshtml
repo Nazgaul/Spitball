@@ -8,7 +8,7 @@
                 <div class="name">{{::box.name}}</div>
                 <div class="owner">Owner: {{::box.userName}}</div>
             </div>
-            <select class="" ng-model="box.notifications" ng-change="n.updateNotification(box)">
+            <select class="" ng-model="box.notifications" ng-change="n.updateNotification(box)" ga-track-event="['notifications', 'change notification timing']">
                 <option value="@NotificationSettings.Off.GetStringValueLowerCase()">@NotificationSettings.Off.GetEnumDescription()</option>
                 <option value="@NotificationSettings.OnEveryChange.GetStringValueLowerCase()">@NotificationSettings.OnEveryChange.GetEnumDescription()</option>
                 <option value="@NotificationSettings.OnceADay.GetStringValueLowerCase()">@NotificationSettings.OnceADay.GetEnumDescription()</option>
