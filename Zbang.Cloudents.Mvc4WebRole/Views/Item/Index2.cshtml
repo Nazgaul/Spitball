@@ -14,7 +14,6 @@
         <div class="text-center">
             <a target="_blank" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download")</a>
             <a target="_blank" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print")</a>
-            @*<a href="#" tooltip-placement="bottom" tooltip-html="">@Html.Svg(svgUrl, "share")</a>*@
             <md-menu flex>
                 <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">
                     @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
@@ -58,7 +57,7 @@
 
                 <span layout="row" layout-align="end center  text-capitalize">
                     <button type="button" class="btn grey btn-default" ng-click="i.selectedState = i.state.regular" ga-track-event="['itemPage', 'cancel rename']">@GeneralResources.Cancel</button>
-                    <button type="submit" class="btn blue" ng-disabled="!renameItem.$valid" ga-track-event="['itemPage', 'save rename']">@ItemsResources.Save</button>
+                    <button type="submit" class="btn blue" ng-disabled="!renameItem.$valid || i.submitDisabled" ga-track-event="['itemPage', 'save rename']">@ItemsResources.Save</button>
                 </span>
             </form>
 

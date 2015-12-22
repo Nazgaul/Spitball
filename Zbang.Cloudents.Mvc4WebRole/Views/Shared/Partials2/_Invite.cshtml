@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-
+<a id="invite"></a>
 <div class="portlet invite" ng-cloak ng-controller="inviteController as i">
-    <a id="invite"></a>
+    
     <div class="portlet-title">
         <div class="caption text-capitalize">
             @IndexResources.Invite
@@ -9,12 +9,12 @@
     </div>
     <div class="body clearfix tabbable-line">
         <div class="clearfix" ng-show="i.inBox">
-            <ul class="nav nav-tabs tab-from-r">
+            <ul class="nav nav-tabs tab-from-r text-capitalize">
                 <li class="mail" ng-class="{active: i.inMail}">
-                    <a class="text-capitalize" ng-click="i.mail()">@IndexResources.Mail</a>
+                    <a ng-click="i.mail()">@IndexResources.Mail</a>
                 </li>
                 <li ng-class="{active: !i.inMail}">
-                    <a class="text-capitalize" ng-click="i.system()">@GeneralResources.Spitball</a>
+                    <a ng-click="i.system()">@GeneralResources.Spitball</a>
                 </li>
 
             </ul>
@@ -64,7 +64,7 @@
 
             </md-content>
         </div>
-        <button type="button" class="btn btn-primary send pull-right text-capitalize" ga-track-event="['invite', 'send']" ng-click="i.sendInvite()" ng-disabled="!i.contacts.length">@IndexResources.Send</button>
+        <button type="button" class="btn btn-primary send pull-right text-capitalize" ga-track-event="['invite', 'send']" ng-click="i.sendInvite()" ng-disabled="!i.contacts.length || i.submitDisabled">@IndexResources.Send</button>
         <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="i.closeInvite()" ga-track-event="['invite', 'cancel']">@GeneralResources.Cancel</button>
     </div>
 </div>

@@ -37,19 +37,28 @@
             i.tabNewName = i.tabSelected.name;
         }
 
+        var submitDisabled = false;
         function addTab() {
             if (!user.id) {
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
             }
+            
             if (!i.newFolderName) {
                 i.newFolderTabOpened = false;
             }
+            if (submitDisabled) {
+                return;
+            }
+            submitDisabled = true;
             boxService.createTab(i.newFolderName, boxId).then(function (response) {
                 i.tabs.push(response);
                 i.newFolderTabOpened = false;
             }, function (response) {
                 $scope.app.showToaster(response, 'tabSection');
+            }).finally(function() {
+                submitDisabled = false;
+                i.newFolderName = '';
             });
         }
 

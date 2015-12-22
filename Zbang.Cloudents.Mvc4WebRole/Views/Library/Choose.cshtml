@@ -1,83 +1,31 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
-@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div class="library-choose" ng-init="lc.countryCode = '@ViewBag.country'">
-    <div ng-if="!lc.needCode">
+<div ng-if="!lc.needCode" >
         <input autofocus ng-disabled="lc.createUniversity" type="search" class="search-text" placeholder="@GeneralResources.Search" ng-model="lc.term" ng-model-options="{debounce : 250}" ng-change="lc.search()" ng-minlength="2" />
-        <div layout="row" layout-align="start center" layout-padding layout-wrap @*class="row"*@ ng-if="!lc.createUniversity">
-            <div flex-gt-lg="33" flex-lg="50" flex="100" class="flex" @*class="col-xs-12 col-md-6 col-lg-4"*@ ng-repeat="u in lc.universities track by u.id">
-                <div ng-click="lc.selectUniversity(u)" class="univeristy" ga-track-event="['universityChoose', 'selected university']">
-                    <img class="img-circle" ng-src="{{::u.image}}" width="70" height="70" />
-                    <div>
-                        <span class="ellipsis">{{::u.name}}</span>
-                        <ul class="list-inline">
-                            <li ng-repeat="img in ::u.userImages track by $index">
-                                <img ng-src="{{::img}}" width="30" height="30" />
-                            </li>
-                            <li ng-if="u.extraPeople">+{{::u.extraPeople}}</li>
-                        </ul>
+    <div layout="row" layout-align="start center" layout-padding layout-wrap ng-if="!lc.createUniversity">
+        <div flex-gt-lg="33" flex-lg="50" flex="100" class="flex" ng-repeat="u in lc.universities track by u.id">
+            <div ng-click="lc.selectUniversity(u)" class="univeristy" ga-track-event="['universityChoose', 'selected university']">
+                <img class="img-circle" ng-src="{{::u.image}}" width="70" height="70" />
+                <div>
+                    <span class="ellipsis">{{::u.name}}</span>
+                    <ul class="list-inline">
+                        <li ng-repeat="img in ::u.userImages track by $index">
+                            <img ng-src="{{::img}}" width="30" height="30" />
+                        </li>
+                        <li ng-if="u.extraPeople">+{{::u.extraPeople}}</li>
+                    </ul>
 
-                    </div>
-                </div>
-            </div>
-            <div flex-gt-lg="33" flex-lg="50" flex="100" @*class="col-xs-12 col-md-6 col-lg-4"*@ class="flex">
-                <div class="add-uni-btn" ng-click="lc.createUniversity = true" ga-track-event="['universityChoose', 'add new university']">
-                    <span>@Html.Svg("~/images/site/icons.svg", "add")</span>
-                    <div class="text-capitalize">@LibraryResources.AddSchool</div>
                 </div>
             </div>
         </div>
-
-        <div ng-if="lc.createUniversity" class="add-univeristy">
-            <form ng-submit="lc.createNewUniversity()" novalidate>
-
-                <md-input-container>
-                    <label class="text-capitalize">@LibraryResources.Country</label>
-                    <md-select ng-model="lc.countryCode" md-container-class="dd-list">
-                        <md-option ng-value="country.iso" ng-repeat="country in ::lc.countries">{{ country.name }}</md-option>
-                    </md-select>
-                </md-input-container>
-                <md-input-container>
-                    <md-autocomplete required
-                                     md-delay="250"
-                                     md-input-minlength="2"
-                                     md-no-cache="false"
-                                     md-selected-item-change="lc.selectUniversity(item)"
-                                     md-select-on-match="true"
-                                     md-search-text="lc.universityName"
-                                     md-items="item in lc.searchAutoComplete(lc.universityName)"
-                                     md-item-text="item.name"
-                                     md-floating-label="School name">
-                        <md-item-template>
-                            <span md-highlight-text="lc.universityName">{{item.name}}</span>
-                        </md-item-template>
-                    </md-autocomplete>
-                </md-input-container>
-                <button type="button" class="btn btn-default pull-right text-capitalize" ng-click="lc.createUniversity = false" ga-track-event="['universityChoose', 'cancel new university']">@GeneralResources.Cancel</button>
-                <button type="submit" class="btn btn-primary pull-right text-capitalize" ga-track-event="['universityChoose', 'create new university']">@GeneralResources.Create</button>
-            </form>
+        <div flex-gt-lg="33" flex-lg="50" flex="100" class="flex">
+            <div class="add-uni-btn" ng-click="lc.createUniversity = true" ga-track-event="['universityChoose', 'add new university']">
+                <span>@Html.Svg("~/images/site/icons.svg", "add")</span>
+                <div class="text-capitalize">@LibraryResources.AddSchool</div>
+            </div>
         </div>
     </div>
-    <div ng-if="lc.needCode" class="code">
-        <div class="top-contant">
-            @Html.Svg("~/images/site/libChooseIcons.svg", "closedUni", new { @class = "closed-uni-i" })
-            <div class="contant">
-                <h4 class="text-capitalize">@LibraryResources.Hi {{::lc.code.userName}}</h4>
-                <span class="uni-details" ng-bind-html="::lc.code.closedUniText1"></span>
-            </div>
-        </div>
-        <form novalidate ng-submit="lc.selectUniversity(lc.code.university)">
-            <div>
-                <div class="info-tooltip">
-                    @Html.Svg("~/images/site/libChooseIcons.svg", "info", new { @class = "info-i" })
-                    <div class="arrow-up" ng-bind-html="::lc.code.closedUniText2"></div>
-                </div>
-                <md-input-container>
-                    <label class="text-capitalize">@LibraryResources.EnterID</label>
-                    <input type="text" ng-model="lc.code.studentId" required />
-                </md-input-container>
-            </div>
-            <button type="submit" class="btn btn-primary pull-right" ga-track-event="['universityChoose', 'create new university']">@LibraryResources.Continue</button>
-        </form>
-    </div>
+
+    @{ Html.RenderPartial("_ChooseCreateUniversity");}
 </div>
+@{ Html.RenderPartial("_ChooseEnterCode");}

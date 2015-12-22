@@ -1,7 +1,8 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-@if (User != null && !User.Identity.IsAuthenticated)
+}
+@if (User != null && !User.Identity.IsAuthenticated && !ViewBag.postBag)
 {
     <div class="unreg-user" >
         <div class="content-wrapper noHeight text-center" unregister-show>

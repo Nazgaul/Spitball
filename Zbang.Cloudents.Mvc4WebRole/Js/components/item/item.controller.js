@@ -40,30 +40,19 @@
 
         function getPreview() {
             i.loader = true;
-            return itemService.getPreview(
-                 i.details.blob,
-                 index,
-                itemId,
-                boxid
-            ).then(function (data) {
+            return itemService.getPreview(i.details.blob,index,itemId,boxid).then(function (data) {
                 data = data || {};
                 i.loader = false;
-                //$scope.load.contentLoading = $scope.load.contentLoadMore = false;
                 if (data.preview) {
                     if (data.preview.indexOf('iframe') > 0
                         || data.preview.indexOf('audio') > 0
                         || data.preview.indexOf('video') > 0) {
-                        //i.preview = data.preview;
                         i.preview = $sce.trustAsHtml(data.preview);
                     } else {
                         i.preview += data.preview;
-                        //$analytics.eventTrack('Get Prview', {
-                        //    category: 'Item'
-                        //});
                         needLoadMore = true;
                     }
 
-                    //$scope.$broadcast('update', data.preview); //for fullscreen
                 }
             });
         }
@@ -96,9 +85,12 @@
             return defer.promise;
         };
         function renameItem() {
+            i.submitDisabled = true;
             itemService.renameItem(i.renameText, itemId).then(function (response) {
                 i.details.name = response.name;
                 $location.path(response.url).replace();
+            }).finally(function() {
+                i.submitDisabled = false;
             });
         }
 

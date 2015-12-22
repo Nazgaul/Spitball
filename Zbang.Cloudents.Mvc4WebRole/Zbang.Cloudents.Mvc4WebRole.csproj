@@ -1806,7 +1806,6 @@
     <Content Include="Js\components\quiz\quizCreate.controller.js" />
     <Content Include="Js\components\search\search.service.js" />
     <Content Include="Js\components\user\user.routes.js" />
-    <Content Include="Js\components\user\userNotification.controller.js" />
     <Content Include="Js\polyfills.js" />
     <Content Include="Js\shared\animationClass.js" />
     <Content Include="Js\shared\animationLocation.js" />
@@ -2814,6 +2813,11 @@
     <Content Include="Views\Library\_Settings.cshtml" />
     <Content Include="Views\Shared\_UnregView.cshtml" />
     <Content Include="Views\Box\_Tabs.cshtml" />
+    <Content Include="Views\Dashboard\_Create.cshtml" />
+    <Content Include="Views\Library\_CreateDepartment.cshtml" />
+    <Content Include="Views\Library\_CreateCourse.cshtml" />
+    <Content Include="Views\Library\_ChooseEnterCode.cshtml" />
+    <Content Include="Views\Library\_ChooseCreateUniversity.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

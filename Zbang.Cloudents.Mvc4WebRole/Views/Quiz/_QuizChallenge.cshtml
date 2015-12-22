@@ -28,14 +28,13 @@
 
 <script type="text/ng-template" id="quizGoodJob.html">
     <div class="goodjob">
-        <h5 class="text-uppercase good">@QuizResources.Good </h5>
-        <h4 class="text-uppercase"> @QuizResources.Job</h4>
+        <h5 class="text-uppercase">@QuizResources.Good <span>@QuizResources.Job</span></h5>
     </div>
-    <div class="complete backgrounds">
+    <div layout="row" layout-align="space-between center" class="complete backgrounds">
         @Html.Svg("/images/site/quizicons.svg", "checkmark")
         <span>@QuizResources.CompletedQuiz</span>
     </div>
-    <div class="ranking backgrounds">
+    <div layout="row" layout-align="space-between center" class="ranking backgrounds">
         @Html.Svg("/images/site/quizicons.svg", "rank")
         <span>@QuizResources.Answered {{q.answersCount}}/{{::q.questions.length}}</span>
     </div>

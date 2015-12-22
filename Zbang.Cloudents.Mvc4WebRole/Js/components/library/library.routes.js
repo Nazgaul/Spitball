@@ -43,6 +43,7 @@
                 state: 'universityChoose', config: {
                     url: '/library/choose/',
                     controller: 'LibraryChoose as lc',
+                    data: { animateClass: 'library-choose' },
                     resolve: {
                         universitySuggest: [
                             'facebookService', 'libraryService', function (facebookService, libraryService) {
