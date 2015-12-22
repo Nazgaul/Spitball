@@ -196,8 +196,12 @@ var Login = function () {
 
         var values = $(form).serialize();
         var returnUrl = getUrlVars()['returnUrl'];
+        var universityId = getUrlVars()['universityid'];
         if (returnUrl) {
-            values += "&returnUrl=" + encodeURIComponent(getUrlVars()['returnUrl']);
+            values += "&returnUrl=" + encodeURIComponent(returnUrl);
+        }
+        if (universityId) {
+            values += "&universityId=" + encodeURIComponent(universityId);
         }
 
 
@@ -270,7 +274,8 @@ var Login = function () {
             var id_token = googleUser.getAuthResponse().id_token;
             trackConversion();
             $.post('/account/GoogleLogin', {
-                token: id_token
+                token: id_token,
+                universityId : getUrlVars()['universityid']
             }).done(function (data) {
                 externalLogIn(data, 'Google');
             });
@@ -289,8 +294,8 @@ var Login = function () {
         function processLogin(accessToken) {
             trackConversion();
             $.post('/account/facebookLogin', {
-                token: accessToken
-                //returnUrl: getUrlVars()['returnUrl']
+                token: accessToken,
+                universityId: getUrlVars()['universityid']
             }).done(function (data) {
                 externalLogIn(data, 'Facebook');
             });
@@ -345,15 +350,21 @@ var Login = function () {
         if (!window.history) {
             return;
         }
+        var universityId = getUrlVars()['universityid'];
+        var ext = '';
+        if (universityId) {
+            ext = '?universityid=' + universityId;
+        }
         if (state === loginState) {
-            window.history.replaceState(null, "Signin", "/account/signin");
+
+            window.history.replaceState(null, "Signin", "/account/signin/" + ext);
             return;
         }
         if (state === signupState) {
-            window.history.replaceState(null, "Sign up", "/account/signup");
+            window.history.replaceState(null, "Sign up", "/account/signup/" + ext);
             return;
         }
-        window.history.replaceState(null, "Forgot password", "/account/resetpassword");
+        window.history.replaceState(null, "Forgot password", "/account/resetpassword/");
     }
 
     function getUrlVars() {

@@ -45,7 +45,7 @@ namespace Zbang.Zbox.Infrastructure.Security
                 app.UseCookieAuthentication(new CookieAuthenticationOptions
                 {
                    // CookieDomain = "spitball.co",
-                    CookieName = "a1",
+                    CookieName = "a2",
                     CookieSecure = CookieSecureOption.Always,
                     LogoutPath = new PathString("/account/logoff/"),
                     SlidingExpiration = true,

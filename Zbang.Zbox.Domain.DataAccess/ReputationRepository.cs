@@ -42,7 +42,7 @@ end as invitesScore
 where isused = 1 and senderid = 1) t
 ),
 share as (
-select count(*)*50 as shareScore from zbox.Reputation r where r.Action = 7 and r.UserId = @userid )
+select count(distinct(DATEADD(DAY, DATEDIFF(DAY, 0, r.creationTime), 0)))*50 as shareScore from zbox.Reputation r where r.Action = 7 and r.UserId = @userid )
 
 select 500 + quizScore + itemScore + answerScore + questionScore + rateScore + inviteScore + shareScore 
 from quiz,item,answers,question,rate,invite,share

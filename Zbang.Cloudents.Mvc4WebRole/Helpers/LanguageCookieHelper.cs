@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Web;
+﻿using System.Globalization;
 using Zbang.Cloudents.SiteExtension;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Helpers
@@ -10,7 +6,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
     public class LanguageCookieHelper : ILanguageCookieHelper
     {
         private readonly ICookieHelper m_CookieHelper;
-        const string CookieName = "l2";
+        const string CookieName = "l3";
         public LanguageCookieHelper(ICookieHelper cookieHelper)
         {
             m_CookieHelper = cookieHelper;

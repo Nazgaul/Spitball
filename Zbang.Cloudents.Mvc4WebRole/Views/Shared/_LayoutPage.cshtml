@@ -2,11 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{
-    var url = Url.Action("Index", "Account");
-    if (User != null && User.Identity.IsAuthenticated)
-    {
-        url = Url.Action("Index", "Dashboard");
-    }
+    
     const string svgUrl = "~/images/site/icons.svg";
 
     var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
@@ -57,7 +53,7 @@
         <div layout="row" layout-align="space-between center" class="page-header-inner">
             <div layout="row" layout-align="space-between center">
                 <div class="page-logo">
-                    <a href="@url" @shouldPostBack ga-track-event="['header', 'to dashboard']">
+                    <a ui-sref="dashboard" @shouldPostBack ga-track-event="['header', 'logo']">
                         @Html.Svg(svgUrl, "logo", new { @class = "logo-default", hide_xs = "" })
                         @Html.Svg(svgUrl, "smallLogo", new { @class = "logo-default", hide = "", show_xs = "" })
                     </a>
