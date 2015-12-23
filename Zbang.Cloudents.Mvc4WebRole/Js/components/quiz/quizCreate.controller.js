@@ -31,7 +31,7 @@
                 q1.answers.push(new answer());
             }
         }
-       
+
 
         self.questions = draft.questions;
 
@@ -39,7 +39,7 @@
         defer.resolve();
         var currentPromise = defer.promise;
 
-        
+
 
         self.saveName = saveName;
         self.saveNameOnBlur = saveNameOnBlur;
@@ -80,9 +80,11 @@
             }
         };
         function saveNameOnBlur() {
+            self.quizNameDisabled = true;
             if (self.id) {
                 return;
             }
+
             addToCurrent(quizService.createQuiz($stateParams.boxId, self.name).then(function (response) {
                 self.id = response;
             }));
@@ -196,27 +198,27 @@
         }
         function publish() {
             if (!self.name) {
-                $scope.app.showToaster(resManager.get('quizCreateNeedName'), 'quizCreate');
+                $scope.app.showToaster(resManager.get('quizCreateNeedName'), 'quiz-error');
                 return;
             }
             for (var v = 0; v < self.questions.length; v++) {
                 var q = self.questions[v];
                 if (!q.text) {
-                    $scope.app.showToaster(resManager.get('quizCreateNeedQuestionText'), 'quizCreate');
+                    $scope.app.showToaster(resManager.get('quizCreateNeedQuestionText'), 'create-question');
                     return;
                 }
                 if (q.answers.length < 2) {
-                    $scope.app.showToaster(resManager.get('quizCreateNeedAnswers'), 'quizCreate');
+                    $scope.app.showToaster(resManager.get('quizCreateNeedAnswers'), 'create-question');
                     return;
                 }
                 if (q.correctAnswer == null) {
-                    $scope.app.showToaster(resManager.get('quizCreateCorrectAnswer'), 'quizCreate');
+                    $scope.app.showToaster(resManager.get('quizCreateCorrectAnswer'), 'create-question');
                     return;
                 }
-               
+
                 for (var l = 0; l < q.answers.length; l++) {
                     if (q.answers[l].text === '') {
-                        $scope.app.showToaster(resManager.get('quizCreateNeedAnswerText'), 'quizCreate');
+                        $scope.app.showToaster(resManager.get('quizCreateNeedAnswerText'), 'publish-btn');
                         return;
                     }
                 }
@@ -227,7 +229,7 @@
                 $location.url(response.url);
             }, function (response) {
                 $scope.app.showToaster(response, 'quizCreate');
-            }).finally(function() {
+            }).finally(function () {
                 self.submitDisabled = false;
             });
         }

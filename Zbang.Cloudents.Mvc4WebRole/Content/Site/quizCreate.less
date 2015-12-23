@@ -9,6 +9,10 @@
         background: @buttonColorRed;
     }
 
+    #quiz-error{
+        height: 100px;
+    }
+
     .not-supported {
         height: 100vh;
         background: @backgroundColor;
@@ -59,12 +63,13 @@
     }
 
     .supported {
-        margin: @fullScreenHeaderHeight + 80px auto;
+        margin: @fullScreenHeaderHeight + 16px auto;
         color: @textColorGrey;
         width: 800px;
         padding: 10px 15px 0;
 
         .quiz-name {
+            margin-top: 0;
 
             button {
                 position: absolute;
@@ -90,6 +95,7 @@
             font-size: 20px;
             margin-bottom: 31px;
             color: #323538;
+            padding-left: 5px;
         }
 
         .add-question {
