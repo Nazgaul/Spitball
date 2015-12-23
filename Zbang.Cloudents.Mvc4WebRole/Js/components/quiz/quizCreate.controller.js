@@ -1,10 +1,11 @@
 ﻿(function () {
     angular.module('app.quiz').controller('QuizCreateController', quizCreate);
-    quizCreate.$inject = ['quizService', 'draft', 'boxUrl', '$stateParams', '$q', '$location', '$scope', '$uibModal', 'boxName', '$rootScope', 'resManager'];
+    quizCreate.$inject = ['quizService', 'draft', 'boxUrl', '$stateParams', '$q', '$location', '$scope',
+        '$uibModal', 'boxName', '$rootScope', 'resManager', '$document'];
 
 
 
-    function quizCreate(quizService, draft, boxUrl, $stateParams, $q, $location, $scope, $uibModal, boxName, $rootScope, resManager) {
+    function quizCreate(quizService, draft, boxUrl, $stateParams, $q, $location, $scope, $uibModal, boxName, $rootScope, resManager, $document) {
         var self = this;
         self.boxUrl = boxUrl;
         draft = draft || {
@@ -198,27 +199,27 @@
         }
         function publish() {
             if (!self.name) {
-                $scope.app.showToaster(resManager.get('quizCreateNeedName'), 'quiz-error');
+                self.quizNameDisabled = false;
                 return;
             }
             for (var v = 0; v < self.questions.length; v++) {
                 var q = self.questions[v];
                 if (!q.text) {
-                    $scope.app.showToaster(resManager.get('quizCreateNeedQuestionText'), 'create-question');
+                    $scope.app.showToaster(resManager.get('quizCreateNeedQuestionText'), 'quiz-error');
                     return;
                 }
                 if (q.answers.length < 2) {
-                    $scope.app.showToaster(resManager.get('quizCreateNeedAnswers'), 'create-question');
+                    $scope.app.showToaster(resManager.get('quizCreateNeedAnswers'), 'quiz-error');
                     return;
                 }
                 if (q.correctAnswer == null) {
-                    $scope.app.showToaster(resManager.get('quizCreateCorrectAnswer'), 'create-question');
+                    $scope.app.showToaster(resManager.get('quizCreateCorrectAnswer'), 'quiz-error');
                     return;
                 }
 
                 for (var l = 0; l < q.answers.length; l++) {
                     if (q.answers[l].text === '') {
-                        $scope.app.showToaster(resManager.get('quizCreateNeedAnswerText'), 'publish-btn');
+                        $scope.app.showToaster(resManager.get('quizCreateNeedAnswerText'), 'quiz-error');
                         return;
                     }
                 }
