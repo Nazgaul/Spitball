@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
@@ -19,62 +20,69 @@ namespace Zbang.Cloudents.Mvc4WebRole
     /// </summary>
     public static class UnityConfig
     {
+        private static readonly Object ThisLock = new Object();
         public static void RegisterTypes(IAppBuilder app)
         {
-            var builder = IocFactory.IocWrapper.ContainerBuilder;
-
-            Zbox.Infrastructure.RegisterIoc.Register();
-            Zbox.Infrastructure.Data.RegisterIoc.Register();
-            Zbox.Infrastructure.File.RegisterIoc.Register();
-            Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
+            lock (ThisLock)
+            {
 
 
-            builder.RegisterType<SeachConnection>()
-               .As<ISearchConnection>()
-               .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
-               .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
-               .WithParameter("isDevelop", false) // this do nothing its only read only
-               .InstancePerLifetimeScope();
+                var builder = IocFactory.IocWrapper.ContainerBuilder;
 
-            RegisterIoc.Register();
-
-            var x = new ApplicationDbContext(ConfigFetcher.Fetch("Zbox"));
-            builder.Register(c => x).AsSelf().InstancePerRequest();
-            builder.RegisterType<ApplicationUserManager>().AsSelf().As<IAccountService>().InstancePerRequest();
-
-            builder.Register(c => new UserStore<ApplicationUser>(x))
-                .AsImplementedInterfaces().InstancePerRequest();
-
-            IocFactory.IocWrapper.ContainerBuilder.Register(
-                c => HttpContext.Current.GetOwinContext().Authentication);
+                Zbox.Infrastructure.RegisterIoc.Register();
+                Zbox.Infrastructure.Data.RegisterIoc.Register();
+                Zbox.Infrastructure.File.RegisterIoc.Register();
+                Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
 
 
-            Zbox.Domain.Services.RegisterIoc.Register();
+                builder.RegisterType<SeachConnection>()
+                    .As<ISearchConnection>()
+                    .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
+                    .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
+                    .WithParameter("isDevelop", false) // this do nothing its only read only
+                    .InstancePerLifetimeScope();
 
-            Zbox.ReadServices.RegisterIoc.Register();
-            Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
+                RegisterIoc.Register();
 
-            builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
-            builder.RegisterFilterProvider();
+                var x = new ApplicationDbContext(ConfigFetcher.Fetch("Zbox"));
+                builder.Register(c => x).AsSelf().InstancePerRequest();
+                builder.RegisterType<ApplicationUserManager>().AsSelf().As<IAccountService>().InstancePerRequest();
 
+                builder.Register(c => new UserStore<ApplicationUser>(x))
+                    .AsImplementedInterfaces().InstancePerRequest();
 
-            builder.RegisterModule<AutofacWebTypesModule>(); builder.RegisterModule<AutofacWebTypesModule>();
-
-            builder.RegisterType<CookieHelper>().As<ICookieHelper>();
-            builder.RegisterType<LanguageCookieHelper>().As<ILanguageCookieHelper>();
-            builder.RegisterType<LanguageMiddleware>().InstancePerRequest();
-
-            var container = IocFactory.IocWrapper.Build();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+                IocFactory.IocWrapper.ContainerBuilder.Register(
+                    c => HttpContext.Current.GetOwinContext().Authentication);
 
 
-            //we need that for blob getting the blob container url
-            DependencyResolver.Current.GetService<IBlobProvider>();
+                Zbox.Domain.Services.RegisterIoc.Register();
 
-            DependencyResolver.Current.GetService<Zbox.Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
+                Zbox.ReadServices.RegisterIoc.Register();
+                Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
-            app.UseAutofacMiddleware(container);
-            app.UseAutofacMvc();
+                builder.RegisterControllers(typeof (MvcApplication).Assembly).PropertiesAutowired();
+                builder.RegisterFilterProvider();
+
+
+                builder.RegisterModule<AutofacWebTypesModule>();
+                builder.RegisterModule<AutofacWebTypesModule>();
+
+                builder.RegisterType<CookieHelper>().As<ICookieHelper>();
+                builder.RegisterType<LanguageCookieHelper>().As<ILanguageCookieHelper>();
+                builder.RegisterType<LanguageMiddleware>().InstancePerRequest();
+
+                var container = IocFactory.IocWrapper.Build();
+                DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
+
+                //we need that for blob getting the blob container url
+                DependencyResolver.Current.GetService<IBlobProvider>();
+
+                DependencyResolver.Current.GetService<Zbox.Domain.Common.IZboxServiceBootStrapper>().BootStrapper();
+
+                app.UseAutofacMiddleware(container);
+                app.UseAutofacMvc();
+            }
         }
     }
 }
