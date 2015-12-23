@@ -42,16 +42,13 @@
                     emptyState();
 
                 }
-                complie();
-                function complie() {
-                    var el = $compile(innerEl)(scope);
+                var el = $compile(innerEl)(scope);
 
-                    elem.after(el);
-                    if (scope.noremove) {
-                        return;
-                    }
-                    elem.remove();
+                elem.after(el);
+                if (scope.noremove) {
+                    return;
                 }
+                elem.remove();
 
                 function image() {
                     innerEl = angular.element(imageTemplate);
