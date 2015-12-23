@@ -30,15 +30,7 @@
                     }
                     elem.remove();
                 }
-                scope.$watch('image', function () {
-                    if (scope.image) {
-                        elem.next().remove();
-                        image();
-                        compile();
-                    }
-
-                    //elem.remove();
-                });
+               
                 //scope.$watch('name', function () {
                 //    console.log('z');
                 //});
@@ -53,6 +45,17 @@
                 } else {
                     emptyState();
 
+                }
+                if (scope.noremove) {
+                    scope.$watch('image', function () {
+                        if (scope.image) {
+                            elem.next().remove();
+                            image();
+                            compile();
+                        }
+
+                        //elem.remove();
+                    });
                 }
                 compile();
                
