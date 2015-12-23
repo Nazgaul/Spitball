@@ -3,9 +3,9 @@
 @{
     const string url = "~/images/site/uploadIcons.svg";
 }
-<div  class="margin-bottom-20" ng-cloak uib-collapse="!u.open" ng-controller="Upload as u">
+<div class="margin-bottom-20" ng-cloak uib-collapse="!u.open" ng-controller="Upload as u">
     <a id="upload"></a>
-    <div class="portlet invite box upload" >
+    <div class="portlet invite box upload">
         <div class="portlet-title">
             <div class="caption">
                 @IndexResources.UploadFiles
@@ -61,19 +61,21 @@
                             <h5 ng-if="u.files.length">{{u.files.length}} @IndexResources.Completed</h5>
                             <ul class="list-inline file-upload-area">
                                 @*<li class="file-upload">
-                                        <span class="check-mark" ng-if="true">@Html.Svg(url, "checkMark")</span>
-                                        <div class="file-name ellipsis">
-                                            Coldpaly_-_A_Sky_Full_Of_Stars.mp3
-
-                                            <div class="progress file-upload-progress" ng-if="!file.complete">
-                                                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" ng-style="{width: 50 + '%'}">
-                                                    <span class="sr-only">50% Complete</span>
-                                                </div>
+                                    <span class="check-mark" ng-if="file.complete">@Html.Svg(url, "checkMark")</span>
+                                    <div class="file" layout="column" layout-align="space-between center">
+                                        <div class="file-name">
+                                            <div class="multi-line-ellipsis limit-three">
+                                                this is a test
                                             </div>
+                                            <md-progress-linear class="file-upload-progress" value="50" ng-if="!file.complete" md-mode="determinate">
+                                            </md-progress-linear>
                                         </div>
-                                        <div class="file-size">4.2 mb</div>
-                                        <button type="button">remove file</button>
-                                    </li>*@
+                                        <div class="file-footer">
+                                            <div class="file-size">25kb</div>
+                                            <button type="button" ng-click="file.remove()">@IndexResources.Remove</button>
+                                        </div>
+                                    </div>
+                                </li>*@
                                 <li class="file-upload" ng-repeat="file in u.files" ng-include="'file-upload.html'">
                             </ul>
                         </div>
@@ -104,21 +106,12 @@
             <div class="multi-line-ellipsis limit-three">
                 {{::file.name}}
             </div>
-            <md-progress-linear class="progress file-upload-progress" md-buffer-value="{{file.percent}}" ng-if="!file.complete" md-mode="determinate">
-                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{file.percent}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width: file.percent + '%'}">
-                    <span class="sr-only">{{file.percent}}% @IndexResources.Complete</span>
-                </div>
+            <md-progress-linear class="file-upload-progress" value="{{file.percent}}" ng-if="!file.complete" md-mode="determinate">
             </md-progress-linear>
-
-            @*<div class="progress file-upload-progress" ng-if="!file.complete">
-                    <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{file.percent}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width: file.percent + '%'}">
-                        <span class="sr-only">{{file.percent}}% @IndexResources.Complete</span>
-                    </div>
-                </div>*@
         </div>
         <div class="file-footer">
             <div class="file-size">{{::file.sizeFormated}}</div>
-            <button type="button">@IndexResources.Remove</button>
+            <button type="button" ng-click="file.remove()">@IndexResources.Remove</button>
         </div>
     </div>
 </script>

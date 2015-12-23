@@ -1,8 +1,9 @@
 ﻿(function () {
     angular.module('app.upload').controller('Upload', upload);
-    upload.$inject = ['$scope', 'itemService', '$q', '$timeout', '$stateParams', '$rootScope', 'externalUploadProvider', '$location', '$anchorScroll'];
+    upload.$inject = ['$scope', 'itemService', '$q', '$timeout', '$stateParams', '$rootScope',
+        'externalUploadProvider', '$location', '$anchorScroll', 'boxService'];
 
-    function upload($scope, itemService, $q, $timeout, $stateParams, $rootScope, externalUploadProvider, $location, $anchorScroll) {
+    function upload($scope, itemService, $q, $timeout, $stateParams, $rootScope, externalUploadProvider, $location, $anchorScroll, boxService) {
         var u = this, tab = null, boxid = $stateParams.boxId;
 
         var uploadChoose = {
@@ -75,7 +76,7 @@
 
 
 
-      
+
         //upload 
 
         function uploadLink(myform) {
@@ -92,6 +93,27 @@
 
         }
 
+        function removeFile(file, uploader) {
+            //var file = this;
+            if (file.status === plupload.UPLOADING) {
+                uploader.stop();
+            }
+            uploader.removeFile(file);
+
+            if (uploader.total.queued > 0) {
+                $timeout(function () {
+                    uploader.start();
+                });
+            }
+            if (file.systemId) {
+                boxService.deleteItem(file.systemId, boxid);
+                $rootScope.$broadcast('item_delete', file.systemId);
+            }
+            var index = u.files.indexOf(file);
+            u.files.splice(index, 1);
+
+        }
+
         u.files = [];
 
         u.fileUpload = {
@@ -104,9 +126,11 @@
                 filesAdded: function (uploader, files) {
 
                     for (var i = 0; i < files.length; i++) {
-                        files[i].sizeFormated = plupload.formatSize(files[i].size);
-                        files[i].complete = false;
-                        u.files.push(files[i]);
+                        var file = files[i];
+                        file.sizeFormated = plupload.formatSize(file.size);
+                        file.complete = false;
+                        file.remove = function () { removeFile(file, uploader); }
+                        u.files.push(file);
                     }
                     $timeout(function () {
                         uploader.start();
@@ -126,6 +150,7 @@
                     file.complete = true;
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
+                        file.systemId = obj.payload.item.id;
                         $rootScope.$broadcast('item_upload', obj.payload);
                     }
                 },

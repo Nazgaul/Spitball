@@ -43,7 +43,7 @@
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
             }
-            
+
             if (!i.newFolderName) {
                 i.newFolderTabOpened = false;
             }
@@ -56,7 +56,7 @@
                 i.newFolderTabOpened = false;
             }, function (response) {
                 $scope.app.showToaster(response, 'tabSection');
-            }).finally(function() {
+            }).finally(function () {
                 submitDisabled = false;
                 i.newFolderName = '';
             });
@@ -183,6 +183,15 @@
         });
         $rootScope.$on('close_upload', function () {
             i.uploadShow = true;
+        });
+        $rootScope.$on('item_delete', function (e, itemId) {
+            var item = i.items.find(function (x) {
+                return x.id === itemId;
+            });
+            if (item) {
+                var index = i.items.indexOf(item);
+                i.items.splice(index, 1);
+            }
         });
     }
 })();

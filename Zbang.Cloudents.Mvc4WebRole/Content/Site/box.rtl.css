@@ -918,21 +918,6 @@ md-tabs.box-nav-bar md-tabs-wrapper {
   width: 100%;
   margin-bottom: 8px;
 }
-.file-upload-area .file-upload .progress-wrap,
-.reply-wrapper .file-upload .progress-wrap {
-  background: #f5f5f5;
-  padding-bottom: 10px;
-}
-.file-upload-area .file-upload .progress,
-.reply-wrapper .file-upload .progress {
-  margin: 0 10px;
-  border-radius: 0;
-  height: 10px;
-}
-.file-upload-area .file-upload .progress .progress-bar,
-.reply-wrapper .file-upload .progress .progress-bar {
-  background-color: #8dc63f;
-}
 .file-upload-area .file-upload .btn,
 .reply-wrapper .file-upload .btn {
   border: 1px solid #3293f6;
@@ -977,6 +962,10 @@ md-tabs.box-nav-bar md-tabs-wrapper {
   bottom: 0;
   right: 0;
   left: 0;
+}
+.file-upload-area .file-upload .file-upload-progress .md-bar2,
+.reply-wrapper .file-upload .file-upload-progress .md-bar2 {
+  background-color: #8dc63f;
 }
 .file-upload-area .file-upload .file-name,
 .reply-wrapper .file-upload .file-name {

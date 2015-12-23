@@ -3,6 +3,7 @@
 
 <ul layout="row" layout-padding layout-wrap layout-align="start stretch" class="list-unstyled margin-top-10">
     <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="add-button i-q-wrapper">
+        @*TODO: use directive user-not-register-click - its not working somehow *@
         <a class="content" ng-click="q.createQuiz($event)" ui-sref="quizCreate({boxtype: q.params.boxtype, universityType:q.params.universityType, boxId: q.params.boxId, boxName:q.params.boxName})" ga-track-event="['box-quizzes', 'addQuiz']">
             <div class="quizCreate">
                 @Html.Svg("~/images/site/icons.svg", "add")

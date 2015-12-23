@@ -271,7 +271,10 @@ userName: "ram y"*/
                 complete: true,
                 name: link.name,
                 system: link,
-                postId: postId
+                postId: postId,
+                remove: function() {
+                    removeItem(link);
+                }
             });
         }
 
@@ -291,6 +294,30 @@ userName: "ram y"*/
             postId = post;
         }
 
+        function removeFile(file, uploader) {
+            //var file = this;
+            if (file.status === plupload.UPLOADING) {
+                uploader.stop();
+            }
+            uploader.removeFile(file);
+
+            if (uploader.total.queued > 0) {
+                $timeout(function () {
+                    uploader.start();
+                });
+            }
+            removeItem(file);
+
+        }
+        function removeItem(item) {
+            if (item.system) {
+                boxService.deleteItem(item.system.id, boxId);
+            }
+            var index = self.add.files.indexOf(item);
+            self.add.files.splice(index, 1);
+        }
+      
+
         self.add.fileUpload = {
             url: '/upload/file/',
             options: {
@@ -300,10 +327,12 @@ userName: "ram y"*/
                 filesAdded: function (uploader, files) {
                     $scope.$emit('follow-box');
                     for (var i = 0; i < files.length; i++) {
-                        files[i].sizeFormated = plupload.formatSize(files[i].size);
-                        files[i].complete = false;
-                        files[i].postId = postId;
-                        self.add.files.push(files[i]);
+                        var file = files[i];
+                        file.sizeFormated = plupload.formatSize(file.size);
+                        file.complete = false;
+                        file.postId = postId;
+                        file.remove = function () { removeFile(file, uploader); }
+                        self.add.files.push(file);
                     }
                     $timeout(function () {
                         uploader.start();
