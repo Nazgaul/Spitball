@@ -160,6 +160,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter quiz name.
+        /// </summary>
+        public static string EnterQuizName {
+            get {
+                return ResourceManager.GetString("EnterQuizName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Go back and check your answers.
         /// </summary>
         public static string GoBack {
@@ -309,6 +318,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         public static string Time {
             get {
                 return ResourceManager.GetString("Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write a comment.
+        /// </summary>
+        public static string WriteComment {
+            get {
+                return ResourceManager.GetString("WriteComment", resourceCulture);
             }
         }
         

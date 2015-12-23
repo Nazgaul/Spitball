@@ -129,9 +129,6 @@
   <data name="Classes" xml:space="preserve">
     <value>My Classes</value>
   </data>
-  <data name="Complete" xml:space="preserve">
-    <value>Upload complete!</value>
-  </data>
   <data name="Completed" xml:space="preserve">
     <value>Upload complete!</value>
   </data>

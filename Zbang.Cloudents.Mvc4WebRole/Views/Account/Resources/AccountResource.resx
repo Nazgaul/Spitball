@@ -132,9 +132,6 @@
   <data name="First" xml:space="preserve">
     <value>First Name</value>
   </data>
-  <data name="Info" xml:space="preserve">
-    <value>Personal Info</value>
-  </data>
   <data name="Lang" xml:space="preserve">
     <value>Language</value>
   </data>
@@ -152,9 +149,6 @@
   </data>
   <data name="ProfileAccount" xml:space="preserve">
     <value>Personal account</value>
-  </data>
-  <data name="Saved" xml:space="preserve">
-    <value>Saved</value>
   </data>
   <data name="SelectImg" xml:space="preserve">
     <value>Select Image</value>

@@ -169,15 +169,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please provide a name for the quiz.
-        /// </summary>
-        public static string quizCreateNeedName {
-            get {
-                return ResourceManager.GetString("quizCreateNeedName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Please provide questions.
         /// </summary>
         public static string quizCreateNeedQuestionText {

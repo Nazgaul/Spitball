@@ -99,15 +99,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Upload complete!.
         /// </summary>
-        public static string Complete {
-            get {
-                return ResourceManager.GetString("Complete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Upload complete!.
-        /// </summary>
         public static string Completed {
             get {
                 return ResourceManager.GetString("Completed", resourceCulture);

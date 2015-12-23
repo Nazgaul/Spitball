@@ -41,13 +41,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public Task HandleAsync(ShareBoxCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
-
-            var senderType = m_UserRepository.GetUserToBoxRelationShipType(command.InviteeId, command.BoxId);
-            if (senderType == UserRelationshipType.None || senderType == UserRelationshipType.Invite)
-            {
-                throw new UnauthorizedAccessException("User is not connected to box");
-            }
-
+            
             var sender = m_UserRepository.Load(command.InviteeId);
             var box = m_BoxRepository.Load(command.BoxId);
 

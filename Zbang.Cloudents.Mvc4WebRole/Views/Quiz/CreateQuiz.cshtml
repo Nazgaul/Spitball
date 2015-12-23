@@ -24,7 +24,7 @@
         <form name="quizName" novalidate>
             <md-input-container class="quiz-name" md-no-float>
                 <input class="form-control" focus-me="q.quizNameDisabled === false" name="name" ng-disabled="q.quizNameDisabled" type="text" 
-                       placeholder="Enter quiz name" autofocus required ng-model="q.name" 
+                       placeholder="@QuizResources.EnterQuizName" autofocus required ng-model="q.name" 
                        ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
                        ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
                 <button type="button" ng-click="q.quizNameDisabled = false">@Html.Svg("~/images/site/icons.svg", "edit")</button>

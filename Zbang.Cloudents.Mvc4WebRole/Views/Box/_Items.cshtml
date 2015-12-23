@@ -2,9 +2,9 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 
-<div class="search-box">
+<form novalidate remove-keyboard ng-submit="i.filter()" class="search-box">
     <input type="search" placeholder="@BoxResources.Search" ng-model="i.term" ng-model-options="{debounce : 250}" ng-change="i.filter()" ng-minlength="2" />
-</div>
+</form>
 @{ Html.RenderPartial("_Tabs");}
 
 

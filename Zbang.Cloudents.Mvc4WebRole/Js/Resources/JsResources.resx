@@ -153,9 +153,6 @@
   <data name="quizCreateNeedAnswerText" xml:space="preserve">
     <value>Please provide answers</value>
   </data>
-  <data name="quizCreateNeedName" xml:space="preserve">
-    <value>Please provide a name for the quiz</value>
-  </data>
   <data name="quizCreateNeedQuestionText" xml:space="preserve">
     <value>Please provide questions</value>
   </data>

@@ -30,7 +30,7 @@
                 </div>
             </md-autocomplete>
         </md-input-container>
-        <button type="button" class="btn btn-default pull-right" ng-click="lc.createUniversity = false" ga-track-event="['universityChoose', 'cancel new university']">@GeneralResources.Cancel</button>
         <button type="submit" class="btn btn-primary pull-right" ng-disabled="!createUniversity.$valid || lc.submitDisabled" ga-track-event="['universityChoose', 'create new university']">@GeneralResources.Create</button>
+        <button type="button" class="btn btn-default pull-right" ng-click="lc.createUniversity = false" ga-track-event="['universityChoose', 'cancel new university']">@GeneralResources.Cancel</button>
     </form>
 </div>

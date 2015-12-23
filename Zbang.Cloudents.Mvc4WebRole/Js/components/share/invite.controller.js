@@ -133,6 +133,7 @@
                 return c.email;
             });
             if (self.inBox) {
+                $scope.$emit('follow-box');
                 shareService.inviteToBox(contacts, $stateParams.boxId).then(successSend);
             } else {
                 shareService.inviteToSystem(contacts).then(successSend);

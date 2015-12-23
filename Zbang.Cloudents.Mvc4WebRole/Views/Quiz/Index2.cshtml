@@ -75,7 +75,7 @@
                 <div ng-if="q.state === 4" class="add-discussion">
                     <form class="clearfix" novalidate name="addDiscussion" ng-submit="q.postComment(q.questions[q.index])">
                         <md-input-container md-no-float>
-                            <textarea required placeholder="Write a comment" name="newComment" ng-model="q.questions[q.index].newComment"></textarea>
+                            <textarea required placeholder="@QuizResources.WriteComment" name="newComment" ng-model="q.questions[q.index].newComment"></textarea>
                             <div ng-messages="addDiscussion.newComment.$error">
                                 <div ng-message="required">@GeneralResources.RequiredField</div>
                             </div>

@@ -190,7 +190,10 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                await m_CommandBus.SendAsync(command);
+                var autoFollowCommand = new SubscribeToSharedBoxCommand(command.InviteeId, command.BoxId);
+                var t1 =  m_CommandBus.SendAsync(autoFollowCommand);
+                var t2 =  m_CommandBus.SendAsync(command);
+                await Task.WhenAll(t1, t2);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
