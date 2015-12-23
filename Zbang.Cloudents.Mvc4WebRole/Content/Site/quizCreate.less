@@ -64,6 +64,28 @@
         width: 800px;
         padding: 10px 15px 0;
 
+        .quiz-name {
+
+            button {
+                position: absolute;
+                top: 15px;
+                right: 0;
+                display: none;
+
+
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+                    fill: @svgColorGrey;
+                }
+            }
+
+            &:hover button {
+                display: block;
+            }
+        }
+
         .course-name {
             font-size: 20px;
             margin-bottom: 31px;
@@ -109,17 +131,24 @@
     }
 
     .quiz-wrapper {
-        background: transparent;
+        background: #fff;
         padding: 0;
         border: 0;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        overflow: hidden;
 
         .portlet-title .caption {
             padding-left: 10px;
         }
+
+        .quiz-question {
+            padding: 15px;
+        }
     }
 
     .portlet.box > .portlet-body {
-        background-color: @backgroundColorWhite;
+        background-color: #fff;
         padding: 10px;
         border: 5px solid @borderColorBlue;
         border-top-width: 0;
@@ -129,7 +158,6 @@
     .form-control {
         color: @textColorDarkGrey;
         background-color: @backgroundColorWhite;
-        border: 1px solid @borderColorLightGrey;
         border-radius: 0;
         margin-bottom: 20px;
         margin-top: 10px;
@@ -183,6 +211,10 @@
 
         ol {
             padding-left: 40px;
+        }
+
+        div[contenteditable="true"]:before {
+            color: @backgroundColor2;
         }
         //color: #000;
     }
