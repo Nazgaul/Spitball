@@ -65,7 +65,7 @@
             </md-content>
         </div>
         <button type="button" class="btn btn-primary send pull-right text-capitalize" ga-track-event="['invite', 'send']" ng-click="i.sendInvite()" ng-disabled="!i.contacts.length || i.submitDisabled">@IndexResources.Send</button>
-        <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="i.closeInvite()" ga-track-event="['invite', 'cancel']">@GeneralResources.Cancel</button>
+        <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="i.closeInvite()" ga-track-event="['invite', 'cancel']">@Html.Svg("~/images/site/icons.svg", "close")</button>
     </div>
 </div>
 

@@ -34,6 +34,7 @@
 }
 
 .invite {
+    position: relative;
     background: @backgroundColorMenu;
     padding: 0 10px 10px;
     margin-top: 10px;
@@ -54,8 +55,27 @@
         }
     }
 
-    button {
+    button.btn-default {
+        background: transparent;
+        top: 0;
+        position: absolute;
+        right: 0;
+        padding: 5px 15px;
         margin: 10px auto;
+
+        &:active:hover {
+            background: transparent;
+
+            svg {
+                fill: @backgroundColor2;
+            }
+        }
+
+        svg {
+            width: 15px;
+            height: 15px;
+            fill: @textColorLightGrey;
+        }
     }
 
     .body {
@@ -64,9 +84,7 @@
     }
 
     md-content {
-
         .placeHolder(@textColorGrey);
-
         background: @backgroundColor;
         position: relative;
     }
