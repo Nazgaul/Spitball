@@ -1,16 +1,13 @@
 ﻿(function () {
     angular.module('app').factory('versionCheckerFactory', verionChecker);
-    verionChecker.$inject = ['$http', 'CacheFactory', '$mdToast'];
+    verionChecker.$inject = ['$http', 'CacheFactory', '$mdToast', 'resManager'];
 
-    function verionChecker($http, cacheFactory, $mdToast) {
+    function verionChecker($http, cacheFactory, $mdToast, resManager) {
         "use strict";
         var clientVersion = window.version,
-            //currentVersion,
-            //timeInterval = 300000; //five minutes
-            timeInterval = 30000;
+            timeInterval = 300000; //five minutes
 
         setInterval(checkVersion, timeInterval);
-        //checkVersion();
         return {
             checkVersion: checkVersion,
             //currentVersion: clientVersion
@@ -24,8 +21,7 @@
                         return;
                     }
                     cacheFactory.clearAll();
-
-                    var toast = $mdToast.simple().textContent('Spitball has updated').action('OK')
+                    var toast = $mdToast.simple().textContent(resManager.get('spitballUpdate')).action(resManager.get('dialogOk'))
                         .highlightAction(false)
                         .position('top');
                     $mdToast.show(toast).then(function () {

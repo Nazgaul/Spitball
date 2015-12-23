@@ -162,4 +162,7 @@
   <data name="unfollowClass" xml:space="preserve">
     <value>Would you like to unfollow this class?</value>
   </data>
+  <data name="spitballUpdate" xml:space="preserve">
+    <value>Spitball has updated</value>
+  </data>
 </root>

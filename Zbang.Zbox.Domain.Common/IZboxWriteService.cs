@@ -45,10 +45,10 @@ namespace Zbang.Zbox.Domain.Common
         void RenameNodeLibrary(RenameNodeCommand command);
         void DeleteNodeLibrary(DeleteNodeFromLibraryCommand command);
 
-     
 
 
-        void CreateBoxItemTab(CreateItemTabCommand command);
+
+        Task CreateBoxItemTabAsync(CreateItemTabCommand command);
 
 
         void AssignBoxItemToTab(AssignItemToTabCommand command);

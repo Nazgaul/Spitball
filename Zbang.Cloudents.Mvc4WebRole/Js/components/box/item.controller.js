@@ -53,6 +53,7 @@
             submitDisabled = true;
             boxService.createTab(i.newFolderName, boxId).then(function (response) {
                 i.tabs.push(response);
+                $scope.$emit('follow-box');
                 i.newFolderTabOpened = false;
             }, function (response) {
                 $scope.app.showToaster(response, 'tabSection');

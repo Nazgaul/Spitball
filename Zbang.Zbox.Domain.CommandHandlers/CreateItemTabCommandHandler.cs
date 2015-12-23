@@ -1,4 +1,5 @@
 ﻿using System;
+using Zbang.Zbox.Domain.CommandHandlers.Resources;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -26,24 +27,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new NullReferenceException("message.Name");
             }
 
-
-            var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
-            if (userType == Infrastructure.Enums.UserRelationshipType.None || userType == Infrastructure.Enums.UserRelationshipType.Invite)
-            {
-                throw new UnauthorizedAccessException("You need to follow the box");
-            }
-
-
-            var box = m_BoxRepository.Get(message.BoxId);
-            if (box == null)
-            {
-                throw new NullReferenceException("box");
-            }
+            var box = m_BoxRepository.Load(message.BoxId);
 
             var existsBoxTab = m_ItemTabRepository.GetTabWithTheSameName(message.Name, box.Id);
             if (existsBoxTab != null)
             {
-                throw new ArgumentException("Cannot have several tabs with the same name");
+                throw new ArgumentException(CommandHandlerResources.CreateItemTabCommandHandler_Handle_Cannot_have_several_tabs_with_the_same_name);
             }
 
             var itemTab = new ItemTab(message.TabId, message.Name, box);
