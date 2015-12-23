@@ -149,6 +149,7 @@
   right: 30px;
 }
 .library-choose .code .info-tooltip {
+  padding-bottom: 25px;
   position: relative;
 }
 .library-choose .code .info-tooltip:hover .arrow-up {
