@@ -1007,7 +1007,25 @@ md-tabs.box-nav-bar md-tabs-wrapper {
     margin-bottom: 0;
 }
 
+#dropElement {
+    h5 {
+        color: @borderColorBottomGrey;
+
+        .completed {
+            color: @textColorGreen;
+            margin-right: 5px;
+        }
+
+        .failed {
+            color: @textColorRed;
+            margin-left: 5px;
+        }
+    }
+}
+
 .file-upload-area, .reply-wrapper {
+
+
 
     &.list-inline {
         padding: 22px 0 10px 0;
@@ -1077,11 +1095,15 @@ md-tabs.box-nav-bar md-tabs-wrapper {
                 height: 20px;
                 vertical-align: middle;
             }
+
+            &.error {
+                svg {
+                    fill: @textColorRed;
+                }
+            }
         }
 
-        h5 {
-            color: @textColorGreen;
-        }
+
 
         .file-size {
             font-weight: bold;

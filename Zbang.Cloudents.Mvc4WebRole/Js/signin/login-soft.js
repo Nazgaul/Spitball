@@ -101,11 +101,6 @@ var Login = function () {
                     required: true,
                     email: true
                 },
-                confirmemail: {
-                    required: true,
-                    email: true,
-                    equalTo: "#register_email"
-                },
                 password: {
                     required: true,
                     minlength: 6
@@ -190,11 +185,14 @@ var Login = function () {
         });
     }
 
+    function disableState(elem) {
+        $(elem).attr('disabled', 'disabed').addClass('disabled');
+    }
 
 
     function signup(form) {
         var submitBtn = $(form).find('.btn-primary');
-        submitBtn.addClass('disabled');
+        disableState(submitBtn);
         var values = $(form).serialize();
         var returnUrl = getUrlVars()['returnUrl'];
         var universityId = getUrlVars()['universityid'];
@@ -217,7 +215,7 @@ var Login = function () {
                 }
                 $('#register_alert_text span').text(text);
                 $('#register_alert_text').show();
-                submitBtn.removeClass('disabled');
+                submitBtn.removeClass('disabled').removeAttr('disabled');
                 return;
             }
 
@@ -236,7 +234,7 @@ var Login = function () {
 
     function signin(form) {
         var submitBtn = $(form).find('.btn-primary');
-        submitBtn.addClass('disabled');
+        disableState(submitBtn);
         var values = $(form).serialize();
         var returnUrl = getUrlVars()['returnUrl'];
         if (returnUrl) {
@@ -254,7 +252,7 @@ var Login = function () {
                 }
                 $('#login_alert_text span').text(text);
                 $('#login_alert_text').show();
-                submitBtn.removeClass('disabled');
+                submitBtn.removeClass('disabled').removeAttr('disabled');
                 return;
             }
 
@@ -390,7 +388,7 @@ var Login = function () {
             handleForgetPassword();
             handleRegister();
             //handleLanguage();
-            handleExtenalLogin();
+            //handleExtenalLogin();
             if (window.location.pathname.indexOf('/signup') > -1) {
                 jQuery('.login-form, .forgot-password-form').hide();
                 jQuery('.register-form').show();
