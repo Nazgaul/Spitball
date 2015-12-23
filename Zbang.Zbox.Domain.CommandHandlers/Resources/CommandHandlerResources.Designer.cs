@@ -79,6 +79,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot have several tabs with the same name.
+        /// </summary>
+        public static string CreateItemTabCommandHandler_Handle_Cannot_have_several_tabs_with_the_same_name {
+            get {
+                return ResourceManager.GetString("CreateItemTabCommandHandler_Handle_Cannot_have_several_tabs_with_the_same_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email is not in the correct format.
         /// </summary>
         public static string EmailNotCorrect {

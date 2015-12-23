@@ -266,3 +266,4 @@
 /// <reference path="../js/shared/animationlocation.js" />
 /// <reference path="../js/shared/removekeyboard.js" />
 /// <reference path="../js/shared/resourcemanager.js" />
+/// <reference path="../js/shared/versionchecker.js" />

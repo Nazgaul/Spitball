@@ -187,6 +187,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Spitball has updated.
+        /// </summary>
+        public static string spitballUpdate {
+            get {
+                return ResourceManager.GetString("spitballUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Would you like to unfollow this class?.
         /// </summary>
         public static string unfollowClass {

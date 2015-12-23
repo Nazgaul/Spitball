@@ -1862,6 +1862,7 @@
     <Content Include="Js\shared\loader.js" />
     <Content Include="Js\shared\megaNumbers.js" />
     <Content Include="Js\shared\userimage.js" />
+    <Content Include="Js\shared\versionChecker.js" />
     <Content Include="Js\signin\bootstrap.min.js" />
     <Content Include="Js\signin\demo.js" />
     <Content Include="Js\signin\layout.js" />

@@ -39,3 +39,11 @@
 
 
 })();
+
+(function() {
+    angular.module('app').run(appRun);
+    appRun.$inject = ['versionCheckerFactory'];
+    function appRun(versionCheckerFactory) {
+        versionCheckerFactory.checkVersion();
+    }
+})()
