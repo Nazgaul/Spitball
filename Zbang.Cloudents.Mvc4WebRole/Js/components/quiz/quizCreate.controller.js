@@ -31,7 +31,7 @@
                 q1.answers.push(new answer());
             }
         }
-       
+
 
         self.questions = draft.questions;
 
@@ -39,7 +39,7 @@
         defer.resolve();
         var currentPromise = defer.promise;
 
-        
+
 
         self.saveName = saveName;
         self.saveNameOnBlur = saveNameOnBlur;
@@ -80,9 +80,11 @@
             }
         };
         function saveNameOnBlur() {
+            self.quizNameDisabled = true;
             if (self.id) {
                 return;
             }
+
             addToCurrent(quizService.createQuiz($stateParams.boxId, self.name).then(function (response) {
                 self.id = response;
             }));
@@ -213,7 +215,7 @@
                     $scope.app.showToaster(resManager.get('quizCreateCorrectAnswer'), 'quizCreate');
                     return;
                 }
-               
+
                 for (var l = 0; l < q.answers.length; l++) {
                     if (q.answers[l].text === '') {
                         $scope.app.showToaster(resManager.get('quizCreateNeedAnswerText'), 'quizCreate');
@@ -227,7 +229,7 @@
                 $location.url(response.url);
             }, function (response) {
                 $scope.app.showToaster(response, 'quizCreate');
-            }).finally(function() {
+            }).finally(function () {
                 self.submitDisabled = false;
             });
         }
