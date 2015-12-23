@@ -130,11 +130,12 @@
     <value>My Classes</value>
   </data>
   <data name="Completed" xml:space="preserve">
-    <value>Upload complete!</value>
+    <value>upload completed</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
-  <comment>need to remove</comment></data>
+    <comment>need to remove</comment>
+  </data>
   <data name="Draft" xml:space="preserve">
     <value>Draft</value>
   </data>
@@ -194,6 +195,9 @@
   </data>
   <data name="Uni" xml:space="preserve">
     <value>University Page</value>
+  </data>
+  <data name="UploadFailed" xml:space="preserve">
+    <value>upload failed</value>
   </data>
   <data name="UploadFiles" xml:space="preserve">
     <value>Upload Files</value>

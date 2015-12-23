@@ -888,6 +888,17 @@
 md-tabs.box-nav-bar md-tabs-wrapper {
   margin-bottom: 0;
 }
+#dropElement h5 {
+  color: #5d6063;
+}
+#dropElement h5 .completed {
+  color: #8dc63f;
+  margin-right: 5px;
+}
+#dropElement h5 .failed {
+  color: #db4437;
+  margin-left: 5px;
+}
 .file-upload-area.list-inline,
 .reply-wrapper.list-inline {
   padding: 22px 0 10px 0;
@@ -945,9 +956,9 @@ md-tabs.box-nav-bar md-tabs-wrapper {
   height: 20px;
   vertical-align: middle;
 }
-.file-upload-area .file-upload h5,
-.reply-wrapper .file-upload h5 {
-  color: #8dc63f;
+.file-upload-area .file-upload .check-mark.error svg,
+.reply-wrapper .file-upload .check-mark.error svg {
+  fill: #db4437;
 }
 .file-upload-area .file-upload .file-size,
 .reply-wrapper .file-upload .file-size {

@@ -1632,7 +1632,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\3rdParty\logo_120_4_google.png" />
-    <Content Include="Images\folder_icon.svg" />
     <Content Include="Images\signin\facebooknew.svg" />
     <Content Include="Images\signin\facebook.svg" />
     <Content Include="Images\signin\google.svg" />
@@ -1640,9 +1639,6 @@
     <Content Include="Images\Site\404_image.png" />
     <Content Include="Images\HomePage2\apple.png" />
     <Content Include="Images\HomePage2\google.png" />
-    <Content Include="Images\quizSprite.png.min.css">
-      <DependentUpon>quizSprite.png.css</DependentUpon>
-    </Content>
     <Content Include="Images\Site\500_image.png" />
     <Content Include="Images\Site\box-icons.svg" />
     <Content Include="Images\favIcons\favicon_114.png" />
@@ -1661,7 +1657,6 @@
     <Content Include="Images\favIcons\mstile-310x150.png" />
     <Content Include="Images\favIcons\mstile-310x310.png" />
     <Content Include="Images\favIcons\mstile-70x70.png" />
-    <Content Include="Images\job-page-logo2.png" />
     <Content Include="Images\signin\1a.png" />
     <Content Include="Images\signin\2a.png" />
     <Content Include="Images\signin\3a.png" />
@@ -1682,25 +1677,11 @@
     <Content Include="Images\HomePage2\testimonial3.jpg" />
     <Content Include="Images\HomePage2\testimonial4.jpg" />
     <Content Include="Images\HomePage2\user.png" />
-    <Content Include="Images\app_store_small.png" />
-    <Content Include="Images\bg6.jpg" />
-    <Content Include="Images\boxIcons.svg" />
-    <Content Include="Images\common27-sprite.png" />
-    <Content Include="Images\google_play_small.png" />
-    <Content Include="Images\gradient-arrow.png" />
-    <Content Include="Images\hiring.png" />
-    <Content Include="Images\logo2.png" />
     <Content Include="Images\signin\googleplus.png" />
     <Content Include="Images\signin\signup_logo.png" />
     <Content Include="Images\signin\icons.svg" />
     <Content Include="Images\signin\sprite.png" />
     <Content Include="Images\signin\syncfusion-icons-white.png" />
-    <Content Include="Images\site.png.rtl.css">
-      <DependentUpon>site.png.css</DependentUpon>
-    </Content>
-    <Content Include="Images\site.png.rtl.min.css">
-      <DependentUpon>site.png.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Images\Site\BG.png" />
     <Content Include="Images\Site\browsers.svg" />
     <Content Include="Images\Site\info.svg" />
@@ -1719,69 +1700,6 @@
     <Content Include="Images\Site\user_2.png" />
     <Content Include="Images\Site\user_3.png" />
     <Content Include="Images\Site\user_4.png" />
-    <Content Include="Images\spitball_invite_off.png" />
-    <Content Include="Images\spitball_invite_on.png" />
-    <Content Include="Images\spitball_logo_mobile.png" />
-    <Content Include="Images\big-quiz.png" />
-    <Content Include="Images\box18-sprite.png" />
-    <Content Include="Images\browsers-sprite.png" />
-    <Content Include="Images\checkbox-sprite1.png" />
-    <Content Include="Images\close.png" />
-    <Content Include="Images\cloudents-share-FB-1.png" />
-    <Content Include="Images\cloudents-share-FB.png" />
-    <Content Include="Images\cloudents1-57x57.png" />
-    <Content Include="Images\cloudents.png" />
-    <Content Include="Images\code-icon1.png" />
-    <Content Include="Images\course.png" />
-    <Content Include="Images\dash13-sprite.png" />
-    <Content Include="Images\dashboardEmpty-sprite.png" />
-    <Content Include="Images\drive_upload.png" />
-    <Content Include="Images\earth.png" />
-    <Content Include="Images\iframeBg.png" />
-    <Content Include="Images\invite-sprite.png" />
-    <Content Include="Images\item13-sprite.png" />
-    <Content Include="Images\loader1.gif" />
-    <Content Include="Images\loader1.png" />
-    <Content Include="Images\loader2.gif" />
-    <Content Include="Images\loading-media.png" />
-    <Content Include="Images\members-only.png" />
-    <Content Include="Images\no-preview.png" />
-    <Content Include="Images\points-Bg.png" />
-    <Content Include="Images\QnA-sprite.png" />
-    <Content Include="Images\quiz-correct.png" />
-    <Content Include="Images\quiz-eye.png" />
-    <Content Include="Images\quiz-icon-tt.png" />
-    <Content Include="Images\quiz-icon.png" />
-    <Content Include="Images\quiz-star.png" />
-    <Content Include="Images\quiz-stopwatch.png" />
-    <Content Include="Images\quiz-time.png" />
-    <Content Include="Images\quiz-user.png" />
-    <Content Include="Images\quiz-wrong.png" />
-    <Content Include="Images\quiz.png" />
-    <Content Include="Images\quizSprite.png">
-      <DependentUpon>quizSprite.sprite</DependentUpon>
-    </Content>
-    <Content Include="Images\quizSprite.png.css">
-      <DependentUpon>quizSprite.png</DependentUpon>
-    </Content>
-    <Content Include="Images\radioBtn.png" />
-    <Content Include="Images\site.png">
-      <DependentUpon>site.sprite</DependentUpon>
-    </Content>
-    <Content Include="Images\site.png.css">
-      <DependentUpon>site.png</DependentUpon>
-    </Content>
-    <Content Include="Images\students.jpg" />
-    <Content Include="Images\studentUnion.png" />
-    <Content Include="Images\textEditor.svg" />
-    <Content Include="Images\tt-sprite.png" />
-    <Content Include="Images\uni_logo.png" />
-    <Content Include="Images\upload15-sprite.png" />
-    <Content Include="Images\user-icon.png" />
-    <Content Include="Images\user.svg" />
-    <Content Include="Images\user13-sprite.png" />
-    <Content Include="Images\userBg.png" />
-    <Content Include="Images\web_upload.png" />
     <Content Include="Js\app.config.js" />
     <Content Include="Js\app.js" />
     <Content Include="Js\app.route.js" />
@@ -1888,26 +1806,6 @@
     <Content Include="Js\Logon.js" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />
-    <Content Include="Images\quizSprite.sprite" />
-    <Content Include="Images\quizSprite.png.map">
-      <DependentUpon>quizSprite.png</DependentUpon>
-    </Content>
-    <Content Include="Images\quizSprite.png.less">
-      <DependentUpon>quizSprite.png</DependentUpon>
-    </Content>
-    <Content Include="Images\quizSprite.png.scss">
-      <DependentUpon>quizSprite.png</DependentUpon>
-    </Content>
-    <Content Include="Images\site.sprite" />
-    <Content Include="Images\site.png.map">
-      <DependentUpon>site.png</DependentUpon>
-    </Content>
-    <Content Include="Images\site.png.less">
-      <DependentUpon>site.png</DependentUpon>
-    </Content>
-    <Content Include="Images\site.png.scss">
-      <DependentUpon>site.png</DependentUpon>
-    </Content>
     <Content Include="51Degrees.config" />
     <Content Include="Content\signin\components-md.less" />
     <Content Include="Content\signin\custom.less" />
@@ -1964,7 +1862,6 @@
     <Content Include="Scripts\browser-deeplink.min.js" />
     <Content Include="Scripts\draganddrop.js" />
     <Content Include="Scripts\draganddrop.min.js" />
-    <Content Include="Images\Web.config" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
     <Content Include="Scripts\angular-cookies.min.js.map" />
@@ -2748,7 +2645,6 @@
     <Content Include="Scripts\svg4everybody.js" />
     <Content Include="Scripts\ui-bootstrap-custom-tpls-0.14.3.js" />
     <Content Include="Scripts\ui-bootstrap-custom-tpls-0.14.3.min.js" />
-    <Content Include="Images\Defs.svg" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
     <Content Include="Views\Item\Print.cshtml" />
@@ -3198,6 +3094,7 @@
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.ru.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.zh.resx" />

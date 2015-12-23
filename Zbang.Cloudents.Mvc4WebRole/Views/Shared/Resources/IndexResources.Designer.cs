@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload complete!.
+        ///   Looks up a localized string similar to upload completed.
         /// </summary>
         public static string Completed {
             get {
@@ -291,6 +291,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string Uni {
             get {
                 return ResourceManager.GetString("Uni", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to upload failed.
+        /// </summary>
+        public static string UploadFailed {
+            get {
+                return ResourceManager.GetString("UploadFailed", resourceCulture);
             }
         }
         

@@ -69,6 +69,9 @@
                 return !file.complete;
             });
             if (!u.files.length) {
+                u.files = [];
+                u.filesCompleteCount = 0;
+                u.filesErrorCount = 0;
                 u.uploadStep = uploadChoose.none;
             }
             $rootScope.$broadcast('close_upload');
@@ -108,13 +111,26 @@
             if (file.systemId) {
                 boxService.deleteItem(file.systemId, boxid);
                 $rootScope.$broadcast('item_delete', file.systemId);
+                
             }
+            
             var index = u.files.indexOf(file);
             u.files.splice(index, 1);
+
+            u.filesCompleteCount = u.files.filter(function(f) {
+                return f.complete;
+            }).length;
+            u.filesErrorCount = u.files.filter(function (f) {
+                return f.error;
+            }).length;
+            // u.filesCompleteCount = 0;
+            // u.filesErrorCount = 0;
 
         }
 
         u.files = [];
+        u.filesCompleteCount = 0;
+        u.filesErrorCount = 0;
 
         u.fileUpload = {
             url: '/upload/file/',
@@ -151,12 +167,14 @@
                     file.complete = true;
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
+                        u.filesCompleteCount++;
                         file.systemId = obj.payload.item.id;
                         $rootScope.$broadcast('item_upload', obj.payload);
                     }
                 },
                 error: function (uploader, error) {
-                    $scope.app.showToaster(error.message, 'upload');
+                    error.file.error = true;
+                    u.filesErrorCount++;
                 }
             }
         }
