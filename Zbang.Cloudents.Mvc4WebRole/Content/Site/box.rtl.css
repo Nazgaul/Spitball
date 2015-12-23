@@ -963,6 +963,10 @@ md-tabs.box-nav-bar md-tabs-wrapper {
   right: 0;
   left: 0;
 }
+.file-upload-area .file-upload .file-upload-progress .md-bar2,
+.reply-wrapper .file-upload .file-upload-progress .md-bar2 {
+  background-color: #8dc63f;
+}
 .file-upload-area .file-upload .file-name,
 .reply-wrapper .file-upload .file-name {
   height: 105px;
