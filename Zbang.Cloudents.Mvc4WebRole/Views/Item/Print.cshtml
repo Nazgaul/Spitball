@@ -26,7 +26,8 @@
             window.onload = function () {
                 window.focus();
                 window.print();
-                window.close();
+                window.onfocus = function () { window.close(); }
+               // window.close();
             };
         </script>
     </body>

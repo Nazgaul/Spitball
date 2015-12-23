@@ -5,9 +5,9 @@
     function accountService(ajaxservice, $q, $rootScope) {
         var self = this;
 
-        self.changeImage = function (src) {
-            $rootScope.$broadcast('userDetailsChange');
-        }
+        //self.changeImage = function (src) {
+        //    //$rootScope.$broadcast('userDetailsChange');
+        //}
 
         self.changeEmail = function(email) {
             return ajaxservice.post('/account/changeemail/', {

@@ -33,11 +33,11 @@
             </md-menu>
         </div>
         <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl)" ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
-
+        <md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear>
     </header>
 
     <div class="full-screen-body" md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">
-        <md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear>
+        
         <div class="fileName">
             <div class="name-info" layout="row" layout-align="center center" ng-if="i.selectedState === i.state.regular">
                 <span class="ellipsis">{{i.details.name}}</span>

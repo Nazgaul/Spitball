@@ -8,6 +8,8 @@
         var imageTemplate = '<img alt="" />',
             letterTemplate = '<span class="userLetter background"></span>',
             emptyTemplate = '<img class="userImg" src="/images/user.svg" />';
+
+
         return {
             restrict: "E",
             scope: {
@@ -19,14 +21,16 @@
             //templateUrl: 'usericon.html'
             link: function (scope, elem) {
 
-                //scope.$watch('image', function () {
-                //    if (scope.image) {
-                //        image();
-                //        complie();
-                //    }
+                function compile() {
+                    var el = $compile(innerEl)(scope);
 
-                //    //elem.remove();
-                //});
+                    elem.after(el);
+                    if (scope.noremove) {
+                        return;
+                    }
+                    elem.remove();
+                }
+               
                 //scope.$watch('name', function () {
                 //    console.log('z');
                 //});
@@ -42,16 +46,19 @@
                     emptyState();
 
                 }
-                complie();
-                function complie() {
-                    var el = $compile(innerEl)(scope);
+                if (scope.noremove) {
+                    scope.$watch('image', function () {
+                        if (scope.image) {
+                            elem.next().remove();
+                            image();
+                            compile();
+                        }
 
-                    elem.after(el);
-                    if (scope.noremove) {
-                        return;
-                    }
-                    elem.remove();
+                        //elem.remove();
+                    });
                 }
+                compile();
+               
 
                 function image() {
                     innerEl = angular.element(imageTemplate);

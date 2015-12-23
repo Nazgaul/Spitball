@@ -58,7 +58,7 @@
             <div class="quiz-take-stats" ng-class="{'no-progress': q.state === 1}" ng-show="q.state !== 4">
                 <div class="stop-watch-wrapper">
                     <stopwatch control="q.timerControl"></stopwatch>
-                    <button type="button" class="stopwatch-btn" ng-click="q.start()" ng-disabled="q.state === 1">
+                    <button type="button" class="stopwatch-btn" ng-click=" q.timerControl.toggle()" ng-disabled="q.state === 1">
                         @Html.Svg(svgUrl, "pause", new { @class = "pause", ng_if = "q.timerControl.isRunning" })
                         @Html.Svg(svgUrl, "play", new { @class = "play", ng_if = "!q.timerControl.isRunning" })
                     </button>

@@ -1,10 +1,10 @@
 ﻿(function () {
     angular.module('app.box.feed').controller('FeedController', feed);
     feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
-        'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope', 'resManager'];
+        'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope', 'resManager', 'CacheFactory'];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService,
-        $mdDialog, $scope, $rootScope, resManager) {
+        $mdDialog, $scope, $rootScope, resManager, cacheFactory) {
         var self = this, boxId = parseInt($stateParams.boxId, 10), page = 0;
 
         self.add = {
@@ -351,6 +351,7 @@ userName: "ram y"*/
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
                         file.system = obj.payload.item;
+                        cacheFactory.clearAll();
                     }
                 }
                 //error: function (uploader, error) {

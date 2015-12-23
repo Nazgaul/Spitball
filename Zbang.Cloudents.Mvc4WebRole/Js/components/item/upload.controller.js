@@ -1,9 +1,9 @@
 ﻿(function () {
     angular.module('app.upload').controller('Upload', upload);
     upload.$inject = ['$scope', 'itemService', '$q', '$timeout', '$stateParams', '$rootScope',
-        'externalUploadProvider', '$location', '$anchorScroll', 'boxService'];
+        'externalUploadProvider', '$location', '$anchorScroll', 'boxService', 'CacheFactory'];
 
-    function upload($scope, itemService, $q, $timeout, $stateParams, $rootScope, externalUploadProvider, $location, $anchorScroll, boxService) {
+    function upload($scope, itemService, $q, $timeout, $stateParams, $rootScope, externalUploadProvider, $location, $anchorScroll, boxService, cacheFactory) {
         var u = this, tab = null, boxid = $stateParams.boxId;
 
         var uploadChoose = {
@@ -147,6 +147,7 @@
                     };
                 },
                 fileUploaded: function (uploader, file, response) {
+                    cacheFactory.clearAll();
                     file.complete = true;
                     var obj = JSON.parse(response.response);
                     if (obj.success) {

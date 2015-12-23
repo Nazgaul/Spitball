@@ -1,7 +1,7 @@
 ﻿(function () {
     angular.module('app.account').controller('AccountSettingsInfoController', info);
-    info.$inject = ['accountService', '$timeout', 'userData', 'userDetailsFactory', '$mdDialog', '$mdMedia', '$scope'];
-    function info(accountService, $timeout, userData, userDetailsFactory, $mdDialog, $mdMedia, $scope) {
+    info.$inject = ['accountService', '$timeout', 'userData', 'userDetailsFactory', '$mdDialog', '$mdMedia', '$scope', 'CacheFactory'];
+    function info(accountService, $timeout, userData, userDetailsFactory, $mdDialog, $mdMedia, $scope, cacheFactory) {
         var self = this;
         self.original = userData;
         self.data = angular.copy(userData);
@@ -73,8 +73,9 @@
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
                         self.data.image = obj.payload;
+                        cacheFactory.clearAll();
                         userDetailsFactory.setImage(obj.payload);
-                        accountService.changeImage(obj.payload);
+                        
                     }
                 },
                 error: function (uploader, error) {
