@@ -6,7 +6,7 @@
     function userDetailsController(accountService, $scope, userDetails) {
         var ud = this;
         ud.isLoggedIn = false;
-        userDetails.init().then(function() {
+        userDetails.init().then(function () {
             assignValues(userDetails.get());
 
             ud.isLoggedIn = userDetails.isAuthenticated();
