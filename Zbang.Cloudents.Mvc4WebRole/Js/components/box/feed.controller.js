@@ -300,10 +300,12 @@ userName: "ram y"*/
                 filesAdded: function (uploader, files) {
                     $scope.$emit('follow-box');
                     for (var i = 0; i < files.length; i++) {
-                        files[i].sizeFormated = plupload.formatSize(files[i].size);
-                        files[i].complete = false;
-                        files[i].postId = postId;
-                        self.add.files.push(files[i]);
+                        var file = files[i];
+                        file.sizeFormated = plupload.formatSize(file.size);
+                        file.complete = false;
+                        file.postId = postId;
+                        
+                        self.add.files.push(file);
                     }
                     $timeout(function () {
                         uploader.start();
