@@ -129,9 +129,6 @@
   <data name="First" xml:space="preserve">
     <value>שם פרטי</value>
   </data>
-  <data name="Info" xml:space="preserve">
-    <value>פרטים אישיים</value>
-  </data>
   <data name="Lang" xml:space="preserve">
     <value>שפה</value>
   </data>
@@ -149,9 +146,6 @@
   </data>
   <data name="ProfileAccount" xml:space="preserve">
     <value>חשבון משתמש</value>
-  </data>
-  <data name="Saved" xml:space="preserve">
-    <value>נשמר</value>
   </data>
   <data name="SelectImg" xml:space="preserve">
     <value>שנה תמונה</value>

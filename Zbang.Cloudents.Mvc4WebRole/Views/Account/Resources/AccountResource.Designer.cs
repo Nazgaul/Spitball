@@ -169,15 +169,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Personal Info.
-        /// </summary>
-        public static string Info {
-            get {
-                return ResourceManager.GetString("Info", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Lang {
@@ -237,15 +228,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         public static string ResetInstructions {
             get {
                 return ResourceManager.GetString("ResetInstructions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Saved.
-        /// </summary>
-        public static string Saved {
-            get {
-                return ResourceManager.GetString("Saved", resourceCulture);
             }
         }
         

@@ -150,6 +150,9 @@
   <data name="Draft" xml:space="preserve">
     <value>Save as draft</value>
   </data>
+  <data name="EnterQuizName" xml:space="preserve">
+    <value>Enter quiz name</value>
+  </data>
   <data name="GoBack" xml:space="preserve">
     <value>Go back and check your answers</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="Time" xml:space="preserve">
     <value>Time to</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Write a comment</value>
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Incorrect</value>

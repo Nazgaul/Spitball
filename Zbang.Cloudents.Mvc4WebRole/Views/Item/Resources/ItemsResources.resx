@@ -150,9 +150,6 @@
   <data name="Report" xml:space="preserve">
     <value>Report</value>
   </data>
-  <data name="Rename" xml:space="preserve">
-    <value>Rename</value>
-  </data>
   <data name="Flag" xml:space="preserve">
     <value>Flag an item</value>
   </data>

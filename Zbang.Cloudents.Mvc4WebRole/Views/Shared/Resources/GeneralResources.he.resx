@@ -126,9 +126,6 @@
   <data name="Delete" xml:space="preserve">
     <value>מחק</value>
   </data>
-  <data name="Done" xml:space="preserve">
-    <value>בוצע</value>
-  </data>
   <data name="Like" xml:space="preserve">
     <value>לייק</value>
   </data>
