@@ -35,6 +35,7 @@
   display: flex;
 }
 .invite {
+  position: relative;
   background: #323538;
   padding: 0 10px 10px;
   margin-top: 10px;
@@ -51,8 +52,24 @@
 .invite .tab-from-r .mail {
   margin-left: 0;
 }
-.invite button {
+.invite button.btn-default {
+  background: transparent;
+  top: 0;
+  position: absolute;
+  left: 0;
+  padding: 5px 15px;
   margin: 10px auto;
+}
+.invite button.btn-default:active:hover {
+  background: transparent;
+}
+.invite button.btn-default:active:hover svg {
+  fill: #9e9e9e;
+}
+.invite button.btn-default svg {
+  width: 15px;
+  height: 15px;
+  fill: #c3c3c3;
 }
 .invite .body {
   background: #181c1d;
