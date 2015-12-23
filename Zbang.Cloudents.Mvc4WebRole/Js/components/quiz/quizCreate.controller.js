@@ -198,27 +198,27 @@
         }
         function publish() {
             if (!self.name) {
-                $scope.app.showToaster(resManager.get('quizCreateNeedName'), 'quizCreate');
+                $scope.app.showToaster(resManager.get('quizCreateNeedName'), 'quiz-error');
                 return;
             }
             for (var v = 0; v < self.questions.length; v++) {
                 var q = self.questions[v];
                 if (!q.text) {
-                    $scope.app.showToaster(resManager.get('quizCreateNeedQuestionText'), 'quizCreate');
+                    $scope.app.showToaster(resManager.get('quizCreateNeedQuestionText'), 'create-question');
                     return;
                 }
                 if (q.answers.length < 2) {
-                    $scope.app.showToaster(resManager.get('quizCreateNeedAnswers'), 'quizCreate');
+                    $scope.app.showToaster(resManager.get('quizCreateNeedAnswers'), 'create-question');
                     return;
                 }
                 if (q.correctAnswer == null) {
-                    $scope.app.showToaster(resManager.get('quizCreateCorrectAnswer'), 'quizCreate');
+                    $scope.app.showToaster(resManager.get('quizCreateCorrectAnswer'), 'create-question');
                     return;
                 }
 
                 for (var l = 0; l < q.answers.length; l++) {
                     if (q.answers[l].text === '') {
-                        $scope.app.showToaster(resManager.get('quizCreateNeedAnswerText'), 'quizCreate');
+                        $scope.app.showToaster(resManager.get('quizCreateNeedAnswerText'), 'publish-btn');
                         return;
                     }
                 }

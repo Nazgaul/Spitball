@@ -193,7 +193,8 @@ var Login = function () {
 
 
     function signup(form) {
-
+        var submitBtn = $(form).find('.btn-primary');
+        submitBtn.addClass('disabled');
         var values = $(form).serialize();
         var returnUrl = getUrlVars()['returnUrl'];
         var universityId = getUrlVars()['universityid'];
@@ -216,6 +217,7 @@ var Login = function () {
                 }
                 $('#register_alert_text span').text(text);
                 $('#register_alert_text').show();
+                submitBtn.removeClass('disabled');
                 return;
             }
 
@@ -233,7 +235,8 @@ var Login = function () {
     }
 
     function signin(form) {
-
+        var submitBtn = $(form).find('.btn-primary');
+        submitBtn.addClass('disabled');
         var values = $(form).serialize();
         var returnUrl = getUrlVars()['returnUrl'];
         if (returnUrl) {
@@ -251,9 +254,10 @@ var Login = function () {
                 }
                 $('#login_alert_text span').text(text);
                 $('#login_alert_text').show();
-
+                submitBtn.removeClass('disabled');
                 return;
             }
+
             clearStorage();
 
             ga('send', 'event', 'Signin', 'Email');
@@ -275,7 +279,7 @@ var Login = function () {
             trackConversion();
             $.post('/account/GoogleLogin', {
                 token: id_token,
-                universityId : getUrlVars()['universityid']
+                universityId: getUrlVars()['universityid']
             }).done(function (data) {
                 externalLogIn(data, 'Google');
             });

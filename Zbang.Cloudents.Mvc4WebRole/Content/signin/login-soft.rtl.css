@@ -21,6 +21,11 @@ Login page
   padding: 15px;
   text-align: center;
 }
+.login .logo svg {
+  fill: white;
+  width: 180px;
+  height: 43px;
+}
 .login .content {
   width: 400px;
   margin: 0 auto;
@@ -42,7 +47,7 @@ Login page
   color: #3598dc;
   margin-top: 0;
   margin-bottom: 28px;
-  margin-right: 14%;
+  text-align: center;
 }
 .login .content .create-account p,
 .login .content .login-account p {
@@ -80,7 +85,7 @@ Login page
 .login .content .form-control {
   padding-left: 1em;
   background-color: #dde3ec;
-  color: #8c99a6;
+  color: #282828;
   border: 1px solid #dde3ec;
   border-radius: 0;
   padding-right: 15px;

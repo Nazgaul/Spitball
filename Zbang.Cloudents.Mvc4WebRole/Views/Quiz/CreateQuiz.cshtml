@@ -26,14 +26,16 @@
             <button type="button" ng-click="q.quizNameDisabled = false">@Html.Svg("~/images/site/icons.svg", "edit")</button>
         </md-input-container>
 
-        <div class="quiz-wrapper" ng-repeat="question in q.questions" ng-include="q.template(question)"></div>
-        <button type="button" class="btn btn-primary text-capitalize add-question" ng-click="q.addQuestion()" ga-track-event="['createQuiz', 'add question']">
-            <div layout="row" layout-align="start center">
-                @Html.Svg("~/images/site/icons.svg", "add")
-                <span>@QuizResources.AddQuestion</span>
-            </div>
-        </button>
-        <button type="button" ng-click="q.publish()" ng-disabled="q.submitDisabled" class="btn btn-primary text-capitalize pull-right" ga-track-event="['createQuiz', 'publish quiz']">@QuizResources.Publish</button>
+        <div id="create-question" class="quiz-wrapper" ng-repeat="question in q.questions" ng-include="q.template(question)"></div>
+        
+            <button type="button" class="btn btn-primary text-capitalize add-question" ng-click="q.addQuestion()" ga-track-event="['createQuiz', 'add question']">
+                <div layout="row" layout-align="start center">
+                    @Html.Svg("~/images/site/icons.svg", "add")
+                    <span>@QuizResources.AddQuestion</span>
+                </div>
+            </button>
+            <button type="button" ng-click="q.publish()" ng-disabled="q.submitDisabled" class="btn btn-primary text-capitalize pull-right" ga-track-event="['createQuiz', 'publish quiz']">@QuizResources.Publish</button>
+        <div id="quiz-error"></div>
     </div>
 </div>
 

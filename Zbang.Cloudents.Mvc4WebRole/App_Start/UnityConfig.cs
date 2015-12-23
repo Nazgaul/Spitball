@@ -47,9 +47,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 var x = new ApplicationDbContext(ConfigFetcher.Fetch("Zbox"));
                 builder.Register(c => x).AsSelf().InstancePerRequest();
                 builder.RegisterType<ApplicationUserManager>().AsSelf().As<IAccountService>().InstancePerRequest();
-                var element = new UserStore<ApplicationUser>(x);
                 
-                builder.Register(c => element)
+                builder.Register(c =>  new UserStore<ApplicationUser>(x))
                     .AsImplementedInterfaces().InstancePerRequest();
 
                 IocFactory.IocWrapper.ContainerBuilder.Register(
