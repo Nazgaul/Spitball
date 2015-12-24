@@ -120,13 +120,10 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
             var query = new GetItemQuery(userId, id, boxId);
 
-            var item = ZboxReadService.GetItem(query);
+            //var item = ZboxReadService.GetItem(query);
+            var t2 = ZboxReadService.GetItemDetailApiAsync(query);
 
-            var filedto = item as FileWithDetailDto;
-            if (filedto == null) // link
-            {
-                return item.Blob;
-            }
+
             var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
             var t3 = ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);
 
@@ -140,10 +137,13 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                         }
                     }, userId, DateTime.UtcNow));
 
-
-
-            await Task.WhenAll(t1, t3);
-            return BlobUpload.GenerateReadAccessPermissionToBlob(filedto.Blob);
+            await Task.WhenAll(t1, t2, t3);
+            var item = t2.Result;
+            if (item.Type == "Link")
+            {
+                return item.Source;
+            }
+            return BlobUpload.GenerateReadAccessPermissionToBlob(item.Source);
 
         }
 

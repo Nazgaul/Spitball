@@ -165,4 +165,7 @@
   <data name="AddFolder" xml:space="preserve">
     <value>Add folder</value>
   </data>
+  <data name="Anonymous" xml:space="preserve">
+    <value>Anonymous</value>
+  </data>
 </root>

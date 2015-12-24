@@ -39,7 +39,7 @@ namespace Zbang.Zbox.ReadServices
 
         Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetLeaderBoardQuery query);
         Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query);
-        ItemWithDetailDto GetItem(GetItemQuery query);
+        //ItemWithDetailDto GetItem(GetItemQuery query);
 
         Task<ItemDetailDto> GetItem2Async(GetItemQuery query);
         Task<ItemMobileDto> GetItemDetailApiAsync(GetItemQuery query);

@@ -74,10 +74,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetBoxQuizesAsync(query);
         }
 
-        public ItemWithDetailDto GetItem(GetItemQuery query)
-        {
-            return m_ReadService.GetItem(query);
-        }
+       
         public Task<ItemDetailDto> GetItem2Async(GetItemQuery query)
         {
             return m_ReadService.GetItem2Async(query);
