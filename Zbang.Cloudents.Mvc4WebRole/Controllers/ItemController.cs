@@ -82,7 +82,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new ItemNotFoundException();
                 }
-                
+
                 if (model.Discriminator.ToUpper() != "FILE") return View("Empty");
                 ViewBag.imageSrc = ViewBag.fbImage = "https://az779114.vo.msecnd.net/preview/" + model.ImageUrl +
                                   ".jpg?width=1200&height=630&mode=crop";
@@ -158,7 +158,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var retVal = tItem.Result;
                 //retVal.UserType = ViewBag.UserType;
                 //retVal.Name = Path.GetFileNameWithoutExtension(retVal.Name);
-               // retVal.ShortUrl = UrlConsts.BuildShortItemUrl(new Base62(itemId).ToString());
+                // retVal.ShortUrl = UrlConsts.BuildShortItemUrl(new Base62(itemId).ToString());
                 return JsonOk(new
                 {
                     retVal.Blob,
@@ -213,15 +213,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userId = User.GetUserId();
 
             var query = new GetItemQuery(userId, itemId, boxId);
-
-            var item = ZboxReadService.GetItem(query);
-
-            var filedto = item as FileWithDetailDto;
-            if (filedto == null) // link
-            {
-                return Redirect(item.Blob);
-            }
-            await m_QueueProvider.InsertMessageToTranactionAsync(
+            var t1 = m_QueueProvider.InsertMessageToTranactionAsync(
                    new StatisticsData4(new List<StatisticsData4.StatisticItemData>
                     {
                         new StatisticsData4.StatisticItemData
@@ -230,8 +222,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             Action = (int)StatisticsAction.Download
                         }
                     }, userId, DateTime.UtcNow));
-
-            var blob = m_CloudBlobProvider.GetFile(filedto.Blob);
+            var t2 = ZboxReadService.GetItemDetailApiAsync(query);
+            var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
+            var t3 = ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);
+            await Task.WhenAll(t1, t2, t3);
+            var item = t2.Result;
+            if (item.Type == "Link")
+            {
+                return Redirect(item.Source);
+            }
+            var blob = m_CloudBlobProvider.GetFile(item.Source);
             var contentType = defaultMimeType;
 
             if (!string.IsNullOrWhiteSpace(blob.Properties.ContentType))
@@ -241,7 +241,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return new BlobFileStream(blob, contentType, item.Name, true);
         }
 
-        
+
 
         /// <summary>
         /// Used to rename file name - item name cannot be changed
@@ -297,33 +297,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [BoxPermission("boxId")]
         public async Task<ActionResult> Print(long boxId, long itemId)
         {
-
+            var userId = User.GetUserId();
             var query = new GetItemQuery(User.GetUserId(false), itemId, boxId);
 
-            var item = ZboxReadService.GetItem(query);
-
-
-
-            var filedto = item as FileWithDetailDto;
-            if (filedto != null)
+            var t1 = ZboxReadService.GetItemDetailApiAsync(query);
+            var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
+            var t2 = ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);
+            await Task.WhenAll(t1, t2);
+            var item = t1.Result;
+            if (item.Type == "Link")
             {
-                var uri = new Uri(m_BlobProvider.GetBlobUrl(filedto.Blob));
-
-
-
-                IEnumerable<string> retVal = null;
-
-
-                var processor = m_FileProcessorFactory.GetProcessor(uri);
-                if (processor != null)
-                {
-                    var result = await processor.ConvertFileToWebSitePreview(uri, int.MaxValue, int.MaxValue, 0);
-                    retVal = result.Content;
-
-                }
-                return View(retVal);
+                return Redirect(item.Source);
             }
-            return Redirect(item.Blob);
+
+            var uri = new Uri(m_BlobProvider.GetBlobUrl(item.Source));
+            IEnumerable<string> retVal = null;
+            var processor = m_FileProcessorFactory.GetProcessor(uri);
+            if (processor != null)
+            {
+                var result = await processor.ConvertFileToWebSitePreview(uri, int.MaxValue, int.MaxValue, 0);
+                retVal = result.Content;
+            }
+            return View(retVal);
 
         }
 
@@ -441,7 +436,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
 
-        
+
 
         [HttpPost]
         [ZboxAuthorize]
@@ -457,6 +452,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
 
-        
+
     }
 }

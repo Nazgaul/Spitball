@@ -335,30 +335,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        /// <summary>
-        /// User in Item page to get an item
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        [Obsolete("Use getItem2")]
-        public Item.ItemWithDetailDto GetItem(GetItemQuery query)
-        {
-            using (UnitOfWork.Start())
-            {
-                IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetItem");
-                dbQuery.SetInt64("ItemId", query.ItemId);
-                dbQuery.SetResultTransformer(ExtensionTransformers.Transformers.AliasToDerivedClassesCtorTransformer(typeof(Item.FileWithDetailDto), typeof(Item.LinkWithDetailDto)));
-
-                var item = dbQuery.FutureValue<Item.ItemWithDetailDto>();
-
-                if (item.Value == null)
-                {
-                    throw new ItemNotFoundException();
-                }
-                var retVal = item.Value;
-                return retVal;
-            }
-        }
+       
 
         public async Task<Item.ItemMobileDto> GetItemDetailApiAsync(GetItemQuery query)
         {

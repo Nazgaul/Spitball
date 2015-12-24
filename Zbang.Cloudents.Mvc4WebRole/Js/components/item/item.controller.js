@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.item').controller('ItemController', item);
-    item.$inject = ['$stateParams', 'itemService', '$sce', '$location','$q'];
+    item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user'];
 
-    function item($stateParams, itemService, $sce, $location, $q) {
+    function item($stateParams, itemService, $sce, $location, $q, user) {
         var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         var index = 0, needLoadMore = false;
 
@@ -76,7 +76,8 @@
 
         function loadMore() {
             var defer = $q.defer();
-            if (needLoadMore) {
+
+            if (needLoadMore && user.id) {
                 needLoadMore = false;
                 ++index;
                 return getPreview();

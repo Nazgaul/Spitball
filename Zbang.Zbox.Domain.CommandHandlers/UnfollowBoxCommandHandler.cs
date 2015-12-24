@@ -15,15 +15,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IQueueProvider m_QueueProvider;
+        private readonly IUpdatesRepository m_UpdatesRepository;
 
         public UnFollowBoxCommandHandler(IRepository<Box> boxRepository,
             IUserRepository userRepository,
-            IQueueProvider queueProvider
-            )
+            IQueueProvider queueProvider, IUpdatesRepository updatesRepository)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
             m_QueueProvider = queueProvider;
+            m_UpdatesRepository = updatesRepository;
         }
 
         public async Task HandleAsync(UnFollowBoxCommand message)
@@ -83,6 +84,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private void UnFollowBox(Box box, long userId)
         {
             box.UnFollowBox(userId);
+            m_UpdatesRepository.DeleteUserUpdateByBoxId(userId, box.Id);
             m_BoxRepository.Save(box);
         }
     }

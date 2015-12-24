@@ -401,34 +401,6 @@ namespace Zbang.Zbox.ReadServicesTests
             }
         }
         [TestMethod]
-        public void GetItem_Query_ReturnResult()
-        {
-            var query = new GetItemQuery(3, 17, 4);
-            try
-            {
-                m_ZboxReadService.GetItem(query);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
-
-
-        //[TestMethod]
-        //public void GetBoxComments_Query_ReturnResult()
-        //{
-        //    var query = new GetBoxCommentsQuery(1, 1);
-        //    try
-        //    {
-        //        m_ZboxReadService.GetBoxComments(query);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
-        //    }
-        //}
-        [TestMethod]
         public async Task GetQuestions_Query_ReturnResult()
         {
             var query = new GetBoxQuestionsQuery(60193);

@@ -68,14 +68,20 @@
 
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            var toStateName = toState.name
             if (fromParams.boxId && toParams.boxId) {
-                if (fromParams.boxId === toParams.boxId && toState.name === 'box' && fromState.name.startsWith('box')) {
+                if (fromParams.boxId === toParams.boxId && toStateName === 'box' && fromState.name.startsWith('box')) {
                     event.preventDefault();
                     $rootScope.$broadcast('state-change-start-prevent');
                 }
             }
             $rootScope.$broadcast('close-collapse');
             if (!userDetails.isAuthenticated()) {
+                if (toStateName === 'search') {
+                    $rootScope.$broadcast('show-unregisterd-box');
+                    $rootScope.$broadcast('state-change-start-prevent');
+                    event.preventDefault();
+                }
                 return;
             }
             var details = userDetails.get();
@@ -83,7 +89,7 @@
                 return;
             }
             var userWithNoUniversityState = 'universityChoose';
-            if (toState.name !== userWithNoUniversityState) {
+            if (toStateName !== userWithNoUniversityState) {
                 $rootScope.$broadcast('state-change-start-prevent');
                 event.preventDefault();
             }

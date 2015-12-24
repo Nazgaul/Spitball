@@ -50,7 +50,7 @@
             return ajaxservice.post('/item/like', {
                 itemId: id,
                 boxId: boxId
-            }, true);
+            });
         };
 
 

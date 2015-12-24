@@ -3,7 +3,7 @@
 @{
     const string svgUrl = "~/images/site/itemIcons.svg";
 }
-<div class="full-screen itemPage" srph-infinite-scroll="i.loadMore()" container="true">
+<div class="full-screen itemPage" srph-infinite-scroll="i.loadMore()" container="true" unregister-scroll="true">
     <header>
         <div class="fb-like" ng-class="{blue : i.details.like}">
             <button type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
@@ -37,7 +37,7 @@
     </header>
 
     <div class="full-screen-body" md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">
-        
+
         <div class="fileName">
             <div class="name-info" layout="row" layout-align="center center" ng-if="i.selectedState === i.state.regular">
                 <span class="ellipsis">{{i.details.name}}</span>

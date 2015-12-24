@@ -17,8 +17,10 @@
             d.boxes = d.boxes.concat(response);
             dashboardService.recommended().then(function (response2) {
                 for (var i = 0; i < response2.length; i++) {
-                    response2[i].recommended = true;
-                    response2[i].updates = 0;
+                    var retVal = response2[i];
+                    retVal.recommended = true;
+                    retVal.updates = 0;
+
                 }
                 d.boxes = d.boxes.concat(response2);
             });

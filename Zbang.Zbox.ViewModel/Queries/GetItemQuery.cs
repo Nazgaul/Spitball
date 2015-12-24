@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
 using Zbang.Zbox.Infrastructure.Query;
 namespace Zbang.Zbox.ViewModel.Queries
