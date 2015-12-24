@@ -704,7 +704,8 @@
   position: absolute;
   bottom: -1px;
   right: -1px /*rtl:ignore*/;
-  width: 40%;
+  width: 32%;
+  height: 40%;
   fill: #181c1d;
 }
 .quiz .stats {

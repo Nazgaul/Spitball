@@ -14,6 +14,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
     @Html.Css2("homePage")
     <meta name="google-signin-client_id" content="997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com" />
+    <style>
+        .social-links svg {
+            fill: white;
+            width: 35px;
+            height: 35px;
+            margin: 15px 5px;
+            -webkit-filter: drop-shadow( 2px 2px 12px #404346 ); /* svg shadow */
+            filter: drop-shadow( 2px 2px 12px #404346 ); /* svg shadow */
+        }
+    </style>
 </head>
 <body class="transparent-header pace-on pace-dot">
     <noscript>
@@ -404,9 +414,16 @@
                             </a> <a id="Android" target="_blank" href="@string.Format("http://app.appsflyer.com/com.cloudents.zbox2{0}", queryString)" class="element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation mobilelink" data-os-animation="fadeIn" data-os-animation-delay="0.3s" style="display:inline-block">
                                 <img src="@Url.CdnContent("~/Images/HomePage2/google.png")" alt="google" width="160" height="46" />
                             </a>
-                            <div class="divider-wrapper">
-                                <div class="element-height-100"></div>
+                            <div class="social-links">
+                                <a target="_blank" href="https://www.facebook.com/cloudents.il">@Html.Svg("~/images/site/social-icons.svg", "facebook")</a>
+                                <a target="_blank" href="https://twitter.com/SpitballStudy">@Html.Svg("~/images/site/social-icons.svg", "twitter")</a>
+                                <a target="_blank" href="https://plus.google.com/+Cloudents">@Html.Svg("~/images/site/social-icons.svg", "google")</a>
+                                <a target="_blank" href="https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg">@Html.Svg("~/images/site/social-icons.svg", "youtube")</a>
+                                <a target="_blank" href="http://instagram.com/spitballstudy">@Html.Svg("~/images/site/social-icons.svg", "instagram")</a>
                             </div>
+                            @*<div class="divider-wrapper">
+                                    <div class="element-height-100"></div>
+                                </div>*@
                         </div>
                         <div class="col-md-1 text-default"></div>
                     </div>
