@@ -24,8 +24,31 @@
         l.renameNode = renameNode;
         l.openCreateBox = openCreateBox;
         l.openCreateDepartment = openCreateDepartment;
+        l.createShow = createShow;
 
         l.submitDisabled = false;
+
+        function createShow() {
+            l.createOn = true;
+            //if (l.createClassShow && l.createDepartmentShow) {
+            //    l.createOn = false;
+            //    l.createBoxOn = true;
+            //    l.createDepartmentOn = true;
+            //    return;l.createBoxOn
+            //}
+            if (l.createClassShow) {
+                openCreateBox();
+            } 
+            if (l.createDepartmentShow) {
+                openCreateDepartment();
+            }
+            
+        }
+        //if (l.createDepartmentShow && l.createClassShow) {
+        //    l.createOn = true;
+        //    l.createDepartmentOn = true;
+        //    l.createBoxOn = true;
+        //}
 
         function renameNode(myform) {
             l.submitDisabled = true;
@@ -75,6 +98,7 @@
             libraryService.createDepartment(l.departmentName, nodeId).then(function (response) {
                 l.departments.push(response);
                 l.createDepartmentOn = false;
+                l.createClassShow = false;
                 resetFiled(myform);
             }, function (response) {
                 myform.name.$setValidity('server', false);
@@ -97,6 +121,7 @@
                 return;
             }
             l.createBoxOn = false;
+            l.createOn = false;
             resetFiled();
         }
         function resetFiled(myform) {
@@ -106,6 +131,7 @@
         function departmentCancel(myform) {
             resetFiled(myform);
             l.createDepartmentOn = false;
+            l.createOn = false;
         }
 
         function deleteDepartment(ev, department) {
@@ -119,6 +145,7 @@
                 var index = l.departments.indexOf(department);
                 l.departments.splice(index, 1);
                 libraryService.deleteDepartment(department.id);
+                l.createClassShow = l.departments.length === 0;
             });
         }
     }

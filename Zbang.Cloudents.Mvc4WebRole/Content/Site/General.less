@@ -355,8 +355,6 @@ md-tabs {
     }
 
     .plus {
-        //font-size: 100px;
-        //line-height: 50px;
         margin-bottom: 12px;
 
         svg {
@@ -384,8 +382,16 @@ md-tabs {
         border-color: @borderColorLightGrey;
         font-size: 18px;
     }
+    &.create-box-show,&.create-deparment-show {
+        display: block !important; //override hide-xs
 
-
+        .dashboard-stat2 {
+            border: 2px solid @borderColorLightGrey;
+        }
+    }
+    &.create-init {
+        display: block !important; //override hide-xs
+    }
 
     md-input-container:not(.md-input-invalid).md-input-focused .md-input {
         border-bottom: 1px solid @textColorGrey;
@@ -395,14 +401,10 @@ md-tabs {
     .btn-primary {
         margin-left: 15px;
     }
-    /* .error {
-        color: @textColorRed;
-        order: 3;
-        margin-top: 10px;
-    }*/
-    @media only screen and (max-width : 768px) {
+    
+    /*@media only screen and (max-width : 600px) {
         display: none;
-    }
+    }*/
 }
 
 .full-screen {
@@ -740,11 +742,11 @@ md-menu-item {
 .back-arrow {
     svg {
         margin-right: 10px;
-        -moz-transform: rotate(180deg);
-        -ms-transform: rotate(180deg);
-        -o-transform: rotate(180deg);
-        -webkit-transform: rotate(180deg);
-        transform: rotate(180deg);
+        -moz-transform: rotate(180deg)/*rtl:rotate(0)*/;
+        -ms-transform: rotate(180deg)/*rtl:rotate(0)*/;
+        -o-transform: rotate(180deg)/*rtl:rotate(0)*/;
+        -webkit-transform: rotate(180deg)/*rtl:rotate(0)*/;
+        transform: rotate(180deg)/*rtl:rotate(0)*/;
     }
 }
 
@@ -778,49 +780,6 @@ md-menu-item {
     z-index: 10051;
 }
 
-//md-tabs alignment
-
-
-/*.header.md-tab-header {
-    border-bottom: 1px solid @textColorWhite;
-
-    md-tabs {
-        background: none;
-        padding: 0;
-
-        .md-tab {
-            font-size: 11px;
-            padding: 10px;
-        }
-    }
-
-    @media only screen and (min-width : 600px) {
-        .displayFlex();
-        .align-items(center);
-        font-size: 12px;
-        margin-bottom: 10px;
-
-
-
-        .caption {
-            padding-left: 5px;
-        }
-
-        md-tabs-canvas, md-pagination-wrapper {
-            height: 38px;
-        }
-
-        md-tabs {
-            flex-grow: 1;
-            padding: 0;
-
-            md-pagination-wrapper {
-                left: inherit;
-                right: 0;
-            }
-        }
-    }
-}*/
 
 .help-page {
     md-tabs {

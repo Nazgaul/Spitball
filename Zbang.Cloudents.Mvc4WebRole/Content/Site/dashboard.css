@@ -118,9 +118,3 @@
   background: #26566e;
   color: #f5f5f5;
 }
-.dashboard .create-box-show {
-  display: block;
-}
-.dashboard .create-box-show .dashboard-stat2 {
-  border: 2px solid #8c99a6;
-}
