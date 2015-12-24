@@ -33,7 +33,7 @@
         <div class="box-cube">
             <div ng-include="'box-template.html'"></div>
             <div class="updates" ng-if="e.updates !== 0">{{e.updates}}</div>
-            <md-menu>
+            <md-menu ng-if="!e.recommended">
                 <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['dashboard', 'deleteBoxMenu']">
                     @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
                 </md-button>
