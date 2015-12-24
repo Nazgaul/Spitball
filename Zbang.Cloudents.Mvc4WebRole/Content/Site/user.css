@@ -67,6 +67,9 @@
 .userPage md-pagination-wrapper {
   height: 75px;
 }
+.userPage md-tab-content {
+  background: #181c1d;
+}
 .userPage md-tabs {
   padding: 0;
 }

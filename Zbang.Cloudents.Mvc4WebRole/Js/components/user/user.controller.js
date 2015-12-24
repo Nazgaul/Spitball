@@ -5,7 +5,11 @@
     function user(userService, $stateParams, userData, itemThumbnailService, $q) {
         var self = this;
         var boxesPage = 0, friendPage = 0, itemsPage = 0, commentPage = 0, quizzesPage = 0;
-        var friends = [], boxes = [], files = [], feed = [], quiz = [];
+        self.friends = [];
+        self.boxes = [];
+        self.files = [];
+        self.feed = [];
+        self.quiz = [];
 
 
         self.details = userData;
@@ -18,67 +22,67 @@
 
         }
         self.tab = self.state.box;
-        self.elements = [];
+        //self.elements = [];
 
         self.changeTab = function (tab) {
             self.tab = tab;
             switch (self.tab) {
                 case self.state.item:
                     loadItems(true);
-                    self.angularGridAttribute = 20;
-                    self.flexSm = 33;
-                    self.flexMd = 33;
-                    self.flexXl = 15;
-                    self.flexXs = 50;
+                    //self.angularGridAttribute = 20;
+                    //self.flexSm = 33;
+                    //self.flexMd = 33;
+                    //self.flexXl = 15;
+                    //self.flexXs = 50;
                     break;
                 case self.state.post:
                     loadComment(true);
-                    self.angularGridAttribute = 100;
-                    self.flexSm = 100;
-                    self.flexMd = 100;
-                    self.flexXl = 100;
-                    self.flexXs = 100;
+                    //self.angularGridAttribute = 100;
+                    //self.flexSm = 100;
+                    //self.flexMd = 100;
+                    //self.flexXl = 100;
+                    //self.flexXs = 100;
                     break;
                 case self.state.quiz:
                     loadQuiz(true);
-                    self.angularGridAttribute = 20;
-                    self.flexSm = 33;
-                    self.flexMd = 33;
-                    self.flexXs = 50;
-                    self.flexXl = 15;
+                    //self.angularGridAttribute = 20;
+                    //self.flexSm = 33;
+                    //self.flexMd = 33;
+                    //self.flexXs = 50;
+                    //self.flexXl = 15;
                     break;
                 case self.state.friend:
                     loadFriends(true);
-                    self.angularGridAttribute = 50;
-                    self.flexSm = 100;
-                    self.flexXs = 100;
-                    self.flexMd = 50;
-                    self.flexXl = 25;
+                    //self.angularGridAttribute = 50;
+                    //self.flexSm = 100;
+                    //self.flexXs = 100;
+                    //self.flexMd = 50;
+                    //self.flexXl = 25;
                     break;
                 default:
                     loadboxes(true);
-                    self.angularGridAttribute = 33;
-                    self.flexXs = 100;
-                    self.flexSm = 100;
-                    self.flexMd = 50;
-                    self.flexXl = 33;
+                    //self.angularGridAttribute = 33;
+                    //self.flexXs = 100;
+                    //self.flexSm = 100;
+                    //self.flexMd = 50;
+                    //self.flexXl = 33;
             }
         }
 
-        self.template = function () {
-            switch (self.tab) {
-                case self.state.item:
-                    return 'item-template.html';
-                case self.state.post:
-                    return 'user-feed-template.html';
-                case self.state.quiz:
-                    return 'quiz-template.html';
-                case self.state.friend:
-                    return 'user-template.html';
-                default:
-                    return 'box-template.html';
-            }
-        }
+        //self.template = function () {
+        //    switch (self.tab) {
+        //        case self.state.item:
+        //            return 'item-template.html';
+        //        case self.state.post:
+        //            return 'user-feed-template.html';
+        //        case self.state.quiz:
+        //            return 'quiz-template.html';
+        //        case self.state.friend:
+        //            return 'user-template.html';
+        //        default:
+        //            return 'box-template.html';
+        //    }
+        //}
         self.myPagingFunction = function () {
             switch (self.tab) {
                 case self.state.item:
@@ -98,16 +102,16 @@
 
         self.changeTab(self.tab);
 
-        function haveData(fromTab, arr) {
-            if (fromTab && arr.length) {
-                self.elements = arr;
-                return true;
-            }
-            return false;
-        }
+        //function haveData(fromTab, arr) {
+        //    if (fromTab && arr.length) {
+        //        self.elements = arr;
+        //        return true;
+        //    }
+        //    return false;
+        //}
         //TODO: write this as one function.
         function loadItems(fromTab) {
-            if (haveData(fromTab, files)) {
+            if (fromTab && self.files.length) {
                 return returnEmptyPromise();
             }
             if (self.itemsLoading) {
@@ -116,10 +120,7 @@
             self.itemsLoading = true;
             return userService.files($stateParams.userId, itemsPage).then(function (response) {
                 response = itemThumbnailService.assignValues(response);
-                files = files.concat(response);
-                if (self.tab === self.state.item) {
-                    self.elements = files;
-                }
+                self.files = self.files.concat(response);
                 if (response.length) {
                     self.itemsLoading = false;
                     itemsPage++;
@@ -127,7 +128,7 @@
             });
         }
         function loadQuiz(fromTab) {
-            if (haveData(fromTab, quiz)) {
+            if (fromTab && self.quiz.length) {
                 return returnEmptyPromise();
             }
             if (self.quizLoading) {
@@ -138,10 +139,7 @@
                 for (var i = 0; i < response.length; i++) {
                     response[i].publish = true;
                 }
-                quiz = quiz.concat(response);
-                if (self.tab === self.state.quiz) {
-                    self.elements = quiz;
-                }
+                self.quiz = self.quiz.concat(response);
                 if (response.length) {
                     self.quizLoading = false;
                     quizzesPage++;
@@ -150,7 +148,7 @@
             });
         }
         function loadboxes(fromTab) {
-            if (haveData(fromTab, boxes)) {
+            if (fromTab && self.boxes.length){
                 return returnEmptyPromise();
             }
             if (self.boxesLoading) {
@@ -158,10 +156,7 @@
             }
             self.boxesLoading = true;
             return userService.boxes($stateParams.userId, boxesPage).then(function (response) {
-                boxes = boxes.concat(response);
-                if (self.tab === self.state.box) {
-                    self.elements = boxes;
-                }
+                self.boxes = self.boxes.concat(response);
                 if (response.length) {
                     self.boxesLoading = false;
                     boxesPage++;
@@ -173,7 +168,7 @@
 
 
         function loadComment(fromTab) {
-            if (haveData(fromTab, feed)) {
+            if (fromTab && self.feed.length) {
                 return returnEmptyPromise();
             }
             if (self.commentsLoading) {
@@ -181,10 +176,7 @@
             }
             self.commentsLoading = true;
             return userService.feed($stateParams.userId, commentPage).then(function (response) {
-                feed = feed.concat(response);
-                if (self.tab === self.state.post) {
-                    self.elements = feed;
-                }
+                self.feed = self.feed.concat(response);
 
                 if (response.length) {
                     self.commentsLoading = false;
@@ -195,7 +187,7 @@
 
 
         function loadFriends(fromTab) {
-            if (haveData(fromTab, friends)) {
+            if (fromTab && self.friends.length) {
                 return returnEmptyPromise();
             }
             if (self.friendLoading) {
@@ -203,10 +195,7 @@
             }
             self.friendLoading = true;
             return userService.friends($stateParams.userId, friendPage).then(function (response) {
-                friends = friends.concat(response);
-                if (self.tab === self.state.friend) {
-                    self.elements = friends;
-                }
+                self.friends = self.friends.concat(response);
                 if (response.length) {
                     friendPage++;
                     self.friendLoading = false;
