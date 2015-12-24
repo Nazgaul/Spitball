@@ -54,9 +54,9 @@
                         <div ng-if="u.uploadStep === 1" id="dropElement" class="text-center">
                             <div ng-hide="u.files.length">
                                 <div>@IndexResources.DragHere</div>
-                                <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn" plupload-callbacks="u.fileUpload.callbacks">
+                                <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn btn-primary upload-button" plupload-callbacks="u.fileUpload.callbacks">
                                     @IndexResources.UploadFiles
-                                </a>
+                                </a>   
                             </div>
                             <h5 ng-if="u.files.length">
                                 <span class="completed">{{u.filesCompleteCount}} @IndexResources.Completed</span> |
