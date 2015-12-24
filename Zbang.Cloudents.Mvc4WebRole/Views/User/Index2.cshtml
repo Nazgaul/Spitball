@@ -46,29 +46,54 @@
     <div class="profile-content">
         <div class="portlet light">
        
-            <md-tabs>
+            <md-tabs md-dynamic-height="true">
                 <md-tab md-on-select="u.changeTab(u.state.box)" md-active="u.tab === u.state.box">
                     <md-tab-label><h3>@GeneralResources.Classes</h3> <div class="number">{{::u.details.numClass | megaNumber}}</div></md-tab-label>
+                    <md-tab-body>
+                        <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
+                            <div flex-xs="100" flex-xl="33" flex="33" flex-sm="100" flex-md="50" ng-repeat="e in u.boxes" ng-include="'box-template.html'" class="flex"></div>
+                        </div>
+                    </md-tab-body>
                 </md-tab>
                 <md-tab md-on-select="u.changeTab(u.state.item)" md-active="u.tab === u.state.item">
                     <md-tab-label><h3>@UserResources.Uploads</h3> <div class="number">{{::u.details.numItem | megaNumber}}</div></md-tab-label>
+                    <md-tab-body>
+                        <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
+                            <div flex-xs="50" flex-xl="15" flex="20" flex-sm="33" flex-md="33" ng-repeat="e in u.files" ng-include="'item-template.html'" class="flex"></div>
+                        </div>
+                    </md-tab-body>
                 </md-tab>
                 <md-tab md-on-select="u.changeTab(u.state.post)" md-active="u.tab === u.state.post">
                     <md-tab-label><h3>@UserResources.Posts</h3> <div class="number">{{::u.details.numFeed | megaNumber}}</div></md-tab-label>
+                    <md-tab-body>
+                        <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
+                            <div flex="100" ng-repeat="e in u.feed" ng-include="'user-feed-template.html'" class="flex"></div>
+                        </div>
+                    </md-tab-body>
                 </md-tab>
                 <md-tab md-on-select="u.changeTab(u.state.quiz)" md-active="u.tab === u.state.quiz">
                     <md-tab-label><h3>@GeneralResources.Quizzes</h3> <div class="number">{{::u.details.numQuiz | megaNumber}}</div></md-tab-label>
+                    <md-tab-body>
+                        <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
+                            <div flex-xs="50" flex-xl="15" flex="20" flex-sm="33" flex-md="33" ng-repeat="e in u.quiz" ng-include="'quiz-template.html'" class="flex"></div>
+                        </div>
+                    </md-tab-body>
                 </md-tab>
                 <md-tab md-on-select="u.changeTab(u.state.friend)" md-active="u.tab === u.state.friend">
                     <md-tab-label><h3>@UserResources.Friends</h3> <div class="number">{{::u.details.numFriend | megaNumber}}</div></md-tab-label>
+                    <md-tab-body>
+                        <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
+                            <div flex-xs="100" flex-xl="25" flex="50" flex-sm="100" flex-md="50" ng-repeat="e in u.friends" ng-include="'user-template.html'" class="flex"></div>
+                        </div>
+                    </md-tab-body>
                 </md-tab>
 
             </md-tabs>
             
         </div>
-        <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
+        @*<div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
             <div flex-xs="{{u.flexXs}}" flex-xl="{{u.flexXl}}" flex="{{u.angularGridAttribute}}" flex-sm="{{u.flexSm}}" flex-md="{{u.flexMd}}" ng-repeat="e in u.elements" ng-include="u.template()" class="flex"></div>
-        </div>
+        </div>*@
     </div>
 </div>
 

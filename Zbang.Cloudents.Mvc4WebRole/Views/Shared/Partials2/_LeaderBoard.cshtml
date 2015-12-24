@@ -5,7 +5,7 @@
         <h4 class="uppercase">@IndexResources.Best</h4>
 
         <md-progress-circular ng-if="l.loading" md-mode="indeterminate" class="circle-loading"></md-progress-circular>
-        <div class="r-table">
+        <div class="r-table" user-not-register-click>
             <div class="r-table-row" ng-repeat="l in lb.leaderboard">
                 <div class="r-table-cell">
                     <a href="{{::l.url}}" ga-track-event="['leaderboard', 'userPage']">

@@ -1,9 +1,10 @@
 ﻿(function () {
     angular.module('app.library').controller('LibraryChoose', libraryChoose);
 
-    libraryChoose.$inject = ['libraryService', 'userDetailsFactory', '$state', 'countryService', 'universitySuggest', 'universityInit'];
+    libraryChoose.$inject = ['libraryService', 'userDetailsFactory', '$state', 'countryService',
+        'universitySuggest', 'universityInit', 'userDetailsFactory'];
 
-    function libraryChoose(libraryService, userDetails, $state, countryService, universitySuggest, universityInit) {
+    function libraryChoose(libraryService, userDetails, $state, countryService, universitySuggest, universityInit, userDetailsFactory) {
         var self = this;
         self.term = '';
         self.universities = [];
@@ -46,8 +47,9 @@
                     self.code.closedUniText2 = response.textPopupLower;
                     return;
                 }
-
-                goToLibrary(university.name, university.id);
+                userDetailsFactory.init(true).then(function () {
+                    goToLibrary(university.name, university.id);
+                });
             }, function(response) {
                 myform.studentId.$setValidity('server', false);
                 self.error = response;
@@ -85,7 +87,9 @@
             }
             self.submitDisabled = true;
             libraryService.createUniversity(self.universityName, self.countryCode).then(function (response) {
-                goToLibrary(self.universityName, response.id);
+                userDetailsFactory.init(true).then(function() {
+                    goToLibrary(self.universityName, response.id);
+                });
             }).finally(function() {
                 self.submitDisabled = false;
             });

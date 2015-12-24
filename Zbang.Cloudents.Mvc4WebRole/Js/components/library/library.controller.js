@@ -1,17 +1,17 @@
 ﻿(function () {
     angular.module('app.library').controller('Library', library);
-    library.$inject = ['libraryService', '$stateParams', 'user', 'nodeData', '$mdDialog', '$location', '$scope', 'resManager'];
+    library.$inject = ['libraryService', '$stateParams', 'userDetailsFactory', 'nodeData', '$mdDialog', '$location', '$scope', 'resManager'];
 
-    function library(libraryService, $stateParams, user, nodeData, $mdDialog, $location, $scope, resManager) {
+    function library(libraryService, $stateParams, userDetailsFactory, nodeData, $mdDialog, $location, $scope, resManager) {
         var l = this;
         var nodeId = $stateParams.nodeId;
         l.departments = nodeData.nodes;
         l.boxes = nodeData.boxes;
         l.nodeDetail = nodeData.details;
 
-        l.universityName = user.university.name;
+        l.universityName = userDetailsFactory.get().university.name;
 
-        l.createDepartmentShow = user.isAdmin && (nodeId == null || l.boxes.length === 0);
+        l.createDepartmentShow = userDetailsFactory.get().isAdmin && (nodeId == null || l.boxes.length === 0);
         l.createClassShow = l.departments.length === 0;
         l.createDepartment = createDepartment;
         l.canDelete = canDelete;
@@ -24,8 +24,31 @@
         l.renameNode = renameNode;
         l.openCreateBox = openCreateBox;
         l.openCreateDepartment = openCreateDepartment;
+        l.createShow = createShow;
 
         l.submitDisabled = false;
+
+        function createShow() {
+            l.createOn = true;
+            //if (l.createClassShow && l.createDepartmentShow) {
+            //    l.createOn = false;
+            //    l.createBoxOn = true;
+            //    l.createDepartmentOn = true;
+            //    return;l.createBoxOn
+            //}
+            if (l.createClassShow) {
+                openCreateBox();
+            } 
+            if (l.createDepartmentShow) {
+                openCreateDepartment();
+            }
+            
+        }
+        //if (l.createDepartmentShow && l.createClassShow) {
+        //    l.createOn = true;
+        //    l.createDepartmentOn = true;
+        //    l.createBoxOn = true;
+        //}
 
         function renameNode(myform) {
             l.submitDisabled = true;
@@ -75,6 +98,7 @@
             libraryService.createDepartment(l.departmentName, nodeId).then(function (response) {
                 l.departments.push(response);
                 l.createDepartmentOn = false;
+                l.createClassShow = false;
                 resetFiled(myform);
             }, function (response) {
                 myform.name.$setValidity('server', false);
@@ -85,7 +109,7 @@
         };
 
         function canDelete(dep) {
-            return user.isAdmin && dep.noDepartment === 0 && dep.noBoxes === 0;
+            return userDetailsFactory.get().isAdmin && dep.noDepartment === 0 && dep.noBoxes === 0;
         }
 
         function boxNext() {
@@ -97,6 +121,7 @@
                 return;
             }
             l.createBoxOn = false;
+            l.createOn = false;
             resetFiled();
         }
         function resetFiled(myform) {
@@ -106,6 +131,7 @@
         function departmentCancel(myform) {
             resetFiled(myform);
             l.createDepartmentOn = false;
+            l.createOn = false;
         }
 
         function deleteDepartment(ev, department) {
@@ -119,6 +145,7 @@
                 var index = l.departments.indexOf(department);
                 l.departments.splice(index, 1);
                 libraryService.deleteDepartment(department.id);
+                l.createClassShow = l.departments.length === 0;
             });
         }
     }

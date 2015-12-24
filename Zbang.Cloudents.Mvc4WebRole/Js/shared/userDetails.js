@@ -9,42 +9,14 @@
             serverCall = false,
             deferDetails = $q.defer();
 
-        //self.init();
-        //ajaxService.get('/account/details/').then(function (response) {
-        //    setDetails(response);
-        //    //self.details = response;
-        //    deferDetails.resolve(userData);
-        //    deferAuth.resolve(isAuthenticated);
-        //    loadData = true;
-        //});
-
-
-
-
         function setDetails(data) {
             data = data || {};
-
-            //$http.defaults.headers.common["RequestVerificationToken"] = data.token;
-
-
             if (data.id) {
                 isAuthenticated = true;
-                //$rootScope.user = {
-                //isAuthenticated: true
-                //};
-
-
-
             }
-            //var x = window.ga;
-
-            //x('create', 'UA-9850006-3', analyticsObj);
-
             analytics.set('dimension1', data.universityName || null);
             analytics.set('dimension2', data.universityCountry || null);
             analytics.set('dimension3', data.id || null);
-
-
             userData = {
                 id: data.id,
                 name: data.name,
@@ -64,25 +36,14 @@
                     id: data.universityId
                 }
             };
-
-            //if (userData.name) {
-            //    var splitted = data.name.split(' ');
-            //    userData.firstName = splitted[0];
-            //    switch (splitted) {
-            //        case 2:
-            //            userData.lastName = splitted[1];
-            //            break;
-            //        case 3:
-            //            userData.middleName = splitted[1];
-            //            userData.lastName = splitted[2];
-            //            break;
-            //    }
-            //}
-
         }
 
         return {
-            init: function () {
+            init: function (refresh) {
+                if (refresh) {
+                    deferDetails = $q.defer();
+                    userData = null;
+                }
                 if (userData) {
                     deferDetails.resolve(userData);
                     return deferDetails.promise;
@@ -93,6 +54,7 @@
                     ajaxService.get('/account/details/').then(function (response) {
                         setDetails(response);
                         deferDetails.resolve(userData);
+                        serverCall = false;
                     });
                 }
                 return deferDetails.promise;
@@ -101,6 +63,7 @@
                 return userData;
 
             },
+
 
 
             isAuthenticated: function () {
