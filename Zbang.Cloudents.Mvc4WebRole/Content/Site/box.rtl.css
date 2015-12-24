@@ -107,6 +107,17 @@
   padding: 6px;
   background: none;
 }
+.folders .add-folder .content button {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
+.folders .add-folder .content button div {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  align-items: center;
+}
 .folders .add-folder svg {
   width: 15px;
   height: 15px;
