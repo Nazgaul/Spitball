@@ -132,6 +132,9 @@
 .invite md-chips .md-chips {
   box-shadow: 0 1px #888b8e;
 }
+.invite .upload-button {
+  margin-top: 15px;
+}
 .md-chips .md-chip-input-container {
   color: #f5f5f5;
 }
