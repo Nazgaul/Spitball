@@ -1,17 +1,17 @@
 ﻿(function () {
     angular.module('app.library').controller('Library', library);
-    library.$inject = ['libraryService', '$stateParams', 'user', 'nodeData', '$mdDialog', '$location', '$scope', 'resManager'];
+    library.$inject = ['libraryService', '$stateParams', 'userDetailsFactory', 'nodeData', '$mdDialog', '$location', '$scope', 'resManager'];
 
-    function library(libraryService, $stateParams, user, nodeData, $mdDialog, $location, $scope, resManager) {
+    function library(libraryService, $stateParams, userDetailsFactory, nodeData, $mdDialog, $location, $scope, resManager) {
         var l = this;
         var nodeId = $stateParams.nodeId;
         l.departments = nodeData.nodes;
         l.boxes = nodeData.boxes;
         l.nodeDetail = nodeData.details;
 
-        l.universityName = user.university.name;
+        l.universityName = userDetailsFactory.get().university.name;
 
-        l.createDepartmentShow = user.isAdmin && (nodeId == null || l.boxes.length === 0);
+        l.createDepartmentShow = userDetailsFactory.get().isAdmin && (nodeId == null || l.boxes.length === 0);
         l.createClassShow = l.departments.length === 0;
         l.createDepartment = createDepartment;
         l.canDelete = canDelete;
@@ -109,7 +109,7 @@
         };
 
         function canDelete(dep) {
-            return user.isAdmin && dep.noDepartment === 0 && dep.noBoxes === 0;
+            return userDetailsFactory.get().isAdmin && dep.noDepartment === 0 && dep.noBoxes === 0;
         }
 
         function boxNext() {
