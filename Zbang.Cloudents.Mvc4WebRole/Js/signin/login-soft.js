@@ -22,8 +22,8 @@ var Login = function () {
                     required: false
                 }
             },
-            invalidHandler: function (event, validator) { //display error alert on form submit   	                
-            },
+            //invalidHandler: function (event, validator) { //display error alert on form submit   	                
+            //},
 
             highlight: function (element) { // hightlight error inputs
                 $(element)
@@ -36,7 +36,7 @@ var Login = function () {
             },
 
             errorPlacement: function (error, element) {
-                error.insertAfter(element.closest('.input-icon'));
+                error.insertAfter(element);
             },
 
             submitHandler: function (form) {
@@ -57,9 +57,10 @@ var Login = function () {
 
     var handleForgetPassword = function () {
         var serializedEmail;
-        $('#f-forgot-password').submit(function (ev) {
+        var $forgotPassword = $('#f-forgot-password');
+        $forgotPassword.submit(function (ev) {
             ev.preventDefault();
-            var btn = $('#f-forgot-password').find(':submit').attr('disabled', 'disabled');
+            $forgotPassword.find(':submit').attr('disabled', 'disabled');
             serializedEmail = $(this).serialize();
             sendRequest();
 
@@ -70,7 +71,7 @@ var Login = function () {
 
         function sendRequest() {
             $.post('/account/resetpassword/', serializedEmail).done(function (data) {
-                $('#f-forgot-password').find(':submit').removeAttr('disabled');
+                $forgotPassword.find(':submit').removeAttr('disabled');
                 if (!data.success) {
                     var text = data.payload;
                     alert(text);
@@ -90,25 +91,24 @@ var Login = function () {
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",
             rules: {
-
-                firstname: {
+                firstName: {
                     required: true
                 },
-                lastname: {
+                lastName: {
                     required: true
                 },
-                email: {
+                NewEmail: {
                     required: true,
                     email: true
                 },
-                password: {
+                Password: {
                     required: true,
                     minlength: 6
                 }
             },
-            invalidHandler: function (event, validator) { //display error alert on form submit   
+            //invalidHandler: function (event, validator) { //display error alert on form submit   
 
-            },
+            //},
 
             highlight: function (element) { // hightlight error inputs
                 $(element)
@@ -123,11 +123,10 @@ var Login = function () {
             errorPlacement: function (error, element) {
                 if (element.attr("name") == "tnc") { // insert checkbox errors after the container                  
                     error.insertAfter($('#register_tnc_error'));
-                } else if (element.closest('.input-icon').size() === 1) {
-                    error.insertAfter(element.closest('.input-icon'));
-                } else {
                     error.insertAfter(element);
+                    return;
                 }
+                error.insertAfter(element);
             },
 
             submitHandler: function (form) {
@@ -168,11 +167,7 @@ var Login = function () {
             ga('send', 'pageview', '/account/resetpassword');
             trackConversion();
         });
-
-        //jQuery('#lang_select').change(function (e) {
-        //    saveRegisterData();
-        //    window.location.href = jQuery(this).find(':selected').attr('data-href');
-        //});
+       
     }
 
     var handleExtenalLogin = function () {
@@ -273,10 +268,10 @@ var Login = function () {
     function googleLogIn() {
         var authInstance = gapi.auth2.getAuthInstance();
         authInstance.signIn().then(function (googleUser) {
-            var id_token = googleUser.getAuthResponse().id_token;
+            var idToken = googleUser.getAuthResponse().id_token;
             trackConversion();
             $.post('/account/GoogleLogin', {
-                token: id_token,
+                token: idToken,
                 universityId: getUrlVars()['universityid']
             }).done(function (data) {
                 externalLogIn(data, 'Google');
