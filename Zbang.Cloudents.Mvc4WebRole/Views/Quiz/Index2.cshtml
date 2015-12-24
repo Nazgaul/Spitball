@@ -73,7 +73,7 @@
                 <div class="no-answer-element">@QuizResources.NoAnswer</div>
                 <div ng-if="q.index < q.questions.length" ng-include="'quiz-question-template.html'" ng-repeat="question in ::q.questions"></div>
                 <div ng-if="q.state === 4" class="add-discussion">
-                    <form class="clearfix" novalidate name="addDiscussion" ng-submit="q.postComment(q.questions[q.index])">
+                    <form class="clearfix" novalidate name="addDiscussion" ng-submit="q.postComment(q.questions[q.index],addDiscussion)">
                         <md-input-container md-no-float>
                             <textarea required placeholder="@QuizResources.WriteComment" name="newComment" ng-model="q.questions[q.index].newComment"></textarea>
                             <div ng-messages="addDiscussion.newComment.$error">

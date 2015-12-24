@@ -47,15 +47,23 @@
 
         &.prev {
             svg {
-                -moz-transform: rotate(180deg);
-                -ms-transform: rotate(180deg);
-                -o-transform: rotate(180deg);
-                -webkit-transform: rotate(180deg);
-                transform: rotate(180deg);
+                -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
+                -ms-transform: rotate(180deg) /*rtl:rotate(0)*/;
+                -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
+                -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
+                transform: rotate(180deg) /*rtl:rotate(0)*/;
             }
         }
 
         &.next {
+            svg {
+                -moz-transform: rotate(0) /*rtl:rotate(180deg)*/;
+                -ms-transform: rotate(0) /*rtl:rotate(180deg)*/;
+                -o-transform: rotate(0) /*rtl:rotate(180deg)*/;
+                -webkit-transform: rotate(0) /*rtl:rotate(180deg)*/;
+                transform: rotate(0) /*rtl:rotate(180deg)*/;
+            }
+
             right: 10px;
             left: auto;
         }
