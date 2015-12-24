@@ -1,9 +1,9 @@
 ﻿(function () {
     angular.module('app.quiz').controller('QuizController', quiz);
 
-    quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter', 'user', '$rootScope'];
+    quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter', 'user', '$rootScope', '$scope'];
 
-    function quiz(quizData, $timeout, $stateParams, quizService, $filter, user, $rootScope) {
+    function quiz(quizData, $timeout, $stateParams, quizService, $filter, user, $rootScope, $scope) {
 
         var q = this;
         q.states = {
@@ -278,6 +278,10 @@
 
         function getDiscussion() {
             quizService.getDiscussion({ quizId: $stateParams.quizId }).then(function (data) {
+                angular.forEach(q.questions, function(qq) {
+                    qq.comments = [];
+                });
+
                 angular.forEach(data, function (comment) {
                     var question = $filter('filter')(q.questions, function (c) {
                         return comment.questionId === c.id;
@@ -298,7 +302,7 @@
             });
         }
 
-        function postComment(question) {
+        function postComment(question,myform) {
 
             var comment = {
                 questionId: question.id,
@@ -310,12 +314,14 @@
                 isDelete: true
             };
 
-            question.newComment = '';
+           
 
             quizService.createDiscussion({ questionId: comment.questionId, text: comment.content }).then(function () {
                 if (!question.comments) {
                     question.comments = [];
                 }
+                $scope.app.resetForm(myform);
+                question.newComment = '';
                 question.comments.push(comment);
             });;
         }

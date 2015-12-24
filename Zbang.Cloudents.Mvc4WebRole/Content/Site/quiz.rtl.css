@@ -38,15 +38,22 @@
   fill: #c5c5c5;
 }
 .quizPage .arrows.prev svg {
-  -moz-transform: rotate(-180deg);
-  -ms-transform: rotate(-180deg);
-  -o-transform: rotate(-180deg);
-  -webkit-transform: rotate(-180deg);
-  transform: rotate(-180deg);
+  -moz-transform: rotate(0);
+  -ms-transform: rotate(0);
+  -o-transform: rotate(0);
+  -webkit-transform: rotate(0);
+  transform: rotate(0);
 }
 .quizPage .arrows.next {
   left: 10px;
   right: auto;
+}
+.quizPage .arrows.next svg {
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 .quizPage .wrapper {
   max-width: 800px;

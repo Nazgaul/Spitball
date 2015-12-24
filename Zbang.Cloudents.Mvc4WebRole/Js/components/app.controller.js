@@ -30,7 +30,7 @@
         self.resetForm = resetForm;
         self.showToaster = showToaster;
 
-        function showToaster(text,parentId) {
+        function showToaster(text, parentId) {
             $mdToast.show(
                   $mdToast.simple()
                   .textContent(text)
@@ -68,12 +68,16 @@
 
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            var toStateName = toState.name
+            var toStateName = toState.name;
             if (fromParams.boxId && toParams.boxId) {
                 if (fromParams.boxId === toParams.boxId && toStateName === 'box' && fromState.name.startsWith('box')) {
                     event.preventDefault();
                     $rootScope.$broadcast('state-change-start-prevent');
                 }
+            }
+            if (toStateName === 'settings' && fromState.name.startsWith('settings')) {
+                event.preventDefault();
+                $rootScope.$broadcast('state-change-start-prevent');
             }
             $rootScope.$broadcast('close-collapse');
             if (!userDetails.isAuthenticated()) {
