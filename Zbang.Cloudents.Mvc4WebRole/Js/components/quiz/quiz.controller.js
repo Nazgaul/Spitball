@@ -1,9 +1,9 @@
 ﻿(function () {
     angular.module('app.quiz').controller('QuizController', quiz);
 
-    quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter', 'user'];
+    quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter', 'user', '$rootScope'];
 
-    function quiz(quizData, $timeout, $stateParams, quizService, $filter, user) {
+    function quiz(quizData, $timeout, $stateParams, quizService, $filter, user, $rootScope) {
 
         var q = this;
         q.states = {
@@ -84,6 +84,10 @@
 
 
         function start() {
+            if (!user.id) {
+                $rootScope.$broadcast('show-unregisterd-box');
+                return;
+            }
             if (q.timerControl.isRunning) {
                 q.timerControl.pause();
                 return;
@@ -100,6 +104,10 @@
         }
 
         function afraid() {
+            if (!user.id) {
+                $rootScope.$broadcast('show-unregisterd-box');
+                return;
+            }
             q.isSolved = true;
             q.sheet.score = 0;
             q.sheet.correct = 0;

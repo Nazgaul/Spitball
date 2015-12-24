@@ -1,10 +1,10 @@
 ﻿(function () {
     angular.module('app.box.feed').controller('FeedController', feed);
     feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
-        'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope', 'resManager', 'CacheFactory'];
+        'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope', 'resManager', 'CacheFactory', '$q'];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService,
-        $mdDialog, $scope, $rootScope, resManager, cacheFactory) {
+        $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q) {
         var self = this, boxId = parseInt($stateParams.boxId, 10), page = 0;
 
         self.add = {
@@ -42,6 +42,11 @@
 
         });
         function myPagingFunction() {
+            if (!user.id) {
+                var defer = $q.defer();
+                defer.resolve();
+                return defer.promise;
+            }
             page++;
             return boxService.getFeed(boxId, page).then(function (response) {
                 if (!response.length) {
@@ -50,8 +55,6 @@
                 self.data = self.data.concat(response);
                 assignData();
             });
-            //var page = self.viewData.length / 25;
-            //self.viewData = self.viewData.concat(self.data.slice(page * 25, (page * 25) + 25));
         }
 
         function assignData() {

@@ -17,6 +17,11 @@
 
 
         i.myPagingFunction = function () {
+            if (!user.id) {
+                var defer = $q.defer();
+                defer.resolve();
+                return defer.promise;
+            }
             return getItems(true);
         }
         i.filter = filter;
@@ -27,6 +32,7 @@
         i.addItemToTab = addItemToTab;
         i.dropToTabSuccess = dropToTabSuccess;
         i.addTab = addTab;
+        i.openCreateTab = openCreateTab;
         i.renameTab = renameTab;
         i.renameTabOpen = renameTabOpen;
         i.deleteTab = deleteTab;
@@ -37,13 +43,16 @@
             i.tabNewName = i.tabSelected.name;
         }
 
-        var submitDisabled = false;
-        function addTab() {
+        function openCreateTab() {
             if (!user.id) {
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
             }
+            i.newFolderTabOpened = true;
+        }
 
+        var submitDisabled = false;
+        function addTab() {
             if (!i.newFolderName) {
                 i.newFolderTabOpened = false;
             }
@@ -120,7 +129,6 @@
         function deleteItem(ev, item) {
             var confirm = $mdDialog.confirm()
                  .title(resManager.get('deleteItem'))
-                 //.textContent('All of the banks have agreed to forgive you your debts.')
                  .targetEvent(ev)
                  .ok(resManager.get('dialogOk'))
                  .cancel(resManager.get('dialogCancel'));

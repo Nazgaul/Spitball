@@ -42,8 +42,8 @@
             </div>
         </div>
     </li>
-    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="add-folder folder-name item-animate i-q-wrapper" ng-click="i.newFolderTabOpened=true">
-        <div class="content" ng-if="!i.newFolderTabOpened">
+    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="add-folder folder-name item-animate i-q-wrapper" >
+        <div class="content" ng-if="!i.newFolderTabOpened" ng-click="i.openCreateTab()">
             <button layout="row" layout-align="start center" type="button" ga-track-event="['box-Tabs', 'addFolder']">
                 @Html.Svg("~/images/site/icons.svg", "add")
                 <span>
