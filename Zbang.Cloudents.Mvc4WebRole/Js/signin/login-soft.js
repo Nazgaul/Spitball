@@ -204,7 +204,7 @@ var Login = function () {
 
                 var text;
                 try {
-                    text = data.payload[0].value[0];
+                    text = data.payload;
                 } catch (e) {
                     text = 'Unspecified error';
                 }
@@ -241,7 +241,7 @@ var Login = function () {
             if (!data.success) {
                 var text;
                 try {
-                    text = data.payload[0].value[0];
+                    text = data.payload;
                 } catch (e) {
                     text = 'Unspecified error';
                 }
