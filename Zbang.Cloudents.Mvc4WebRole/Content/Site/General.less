@@ -90,7 +90,7 @@ input, li, [contenteditable], span, textarea, [role="button"] {
         -webkit-line-clamp: 3;
     }
 
-    
+
     &.limit-two {
         -webkit-line-clamp: 2;
     }
@@ -136,21 +136,22 @@ input, li, [contenteditable], span, textarea, [role="button"] {
 //add btn
 .add {
     position: fixed;
-    width: 55px;
-    height: 55px;
+    width: 54px;
+    height: 54px;
     border-radius: 50%;
     background: @buttonColorRed;
     z-index: 1;
     right: 24px;
     bottom: 25px;
-    font-size: 28px;
-    line-height: 55px;
+    font-size: 0;
     box-shadow: 0 2px 10px rgba(0,0,0,.3),0 0 1px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.15);
-    text-align:center;
+    padding: 0 12px;
+
     svg {
         width: 20px;
         height: 20px;
         fill: @textColorWhite;
+        margin: 0 auto;
     }
 }
 //override of angular material
@@ -189,8 +190,9 @@ input, li, [contenteditable], span, textarea, [role="button"] {
 md-input-container {
     width: 100%;
 }
+
 md-input-container:not(.md-input-has-value) input:not(:focus) {
-    color:inherit;
+    color: inherit;
 }
 
 md-select:not([disabled]):focus .md-select-value {
@@ -333,14 +335,17 @@ md-tabs {
     }
 
     .create-btn {
-        .displayFlex();
-        .justifyContet(center);
-        .align-items(center);
         width: 100%;
         height: 100%;
-        -ms-flex-direction: column;
-        -webkit-flex-direction: column;
-        flex-direction: column;
+
+        div {
+            .displayFlex();
+            .justifyContet(center);
+            .align-items(center);
+            -ms-flex-direction: column;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+        }
     }
 
     .create-txt, .create-department {
@@ -382,13 +387,14 @@ md-tabs {
         border-color: @borderColorLightGrey;
         font-size: 18px;
     }
-    &.create-box-show,&.create-deparment-show {
-        display: block !important; //override hide-xs
 
+    &.create-box-show, &.create-deparment-show {
+        display: block !important; //override hide-xs
         .dashboard-stat2 {
             border: 2px solid @borderColorLightGrey;
         }
     }
+
     &.create-init {
         display: block !important; //override hide-xs
     }
@@ -401,7 +407,6 @@ md-tabs {
     .btn-primary {
         margin-left: 15px;
     }
-    
     /*@media only screen and (max-width : 600px) {
         display: none;
     }*/
@@ -742,11 +747,11 @@ md-menu-item {
 .back-arrow {
     svg {
         margin-right: 10px;
-        -moz-transform: rotate(180deg)/*rtl:rotate(0)*/;
-        -ms-transform: rotate(180deg)/*rtl:rotate(0)*/;
-        -o-transform: rotate(180deg)/*rtl:rotate(0)*/;
-        -webkit-transform: rotate(180deg)/*rtl:rotate(0)*/;
-        transform: rotate(180deg)/*rtl:rotate(0)*/;
+        -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
+        -ms-transform: rotate(180deg) /*rtl:rotate(0)*/;
+        -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
+        -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
+        transform: rotate(180deg) /*rtl:rotate(0)*/;
     }
 }
 

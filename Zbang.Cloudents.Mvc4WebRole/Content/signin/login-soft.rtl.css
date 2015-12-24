@@ -17,6 +17,9 @@ Login page
   align-items: center;
   height: 100vh;
 }
+.login .wrapper {
+  width: 100%;
+}
 .login .logo {
   padding: 15px;
   text-align: center;

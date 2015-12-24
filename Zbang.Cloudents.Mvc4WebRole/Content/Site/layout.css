@@ -616,6 +616,7 @@ Page Header
   }
   .page-header.navbar .menu-toggler.responsive-toggler {
     display: inline-block;
+    margin-right: 15px;
   }
   .page-header.navbar .search-form {
     margin-left: 30px;
