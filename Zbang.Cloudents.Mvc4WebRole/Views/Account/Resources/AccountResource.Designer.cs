@@ -232,7 +232,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select Image.
+        ///   Looks up a localized string similar to Change.
         /// </summary>
         public static string SelectImg {
             get {

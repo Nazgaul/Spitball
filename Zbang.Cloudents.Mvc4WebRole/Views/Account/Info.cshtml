@@ -9,10 +9,12 @@
             <div class="fileinput text-capitalize">
                 <h2>@AccountResource.Profile</h2>
                 <div class="thumbnail" style="width: 150px; height: 150px;">
-                <img ng-if="i.data.image" ng-src="{{i.data.image}}" alt="" width="150" height="150" />
-                    <a plupload="i.fileUpload.url" plupload-options="i.fileUpload.options" class="ontop" plupload-callbacks="i.fileUpload.callbacks" ga-track-event="['settings', 'change user image']">
-                        @AccountResource.SelectImg
-                    </a>
+                    <img ng-if="i.data.image" ng-src="{{i.data.image}}" alt="" width="150" height="150" />
+                    <div class="ov-hidden">
+                        <a plupload="i.fileUpload.url" plupload-options="i.fileUpload.options" class="ontop" plupload-callbacks="i.fileUpload.callbacks" ga-track-event="['settings', 'change user image']">
+                            @AccountResource.SelectImg
+                        </a>
+                    </div>
                 </div>
             </div>
             <form name="changeName" class="text-capitalize" ng-submit="i.submit()">
@@ -52,8 +54,8 @@
             </form>
         </div>
         <div class="section">
-            <div layout layout-sm="column">
-                <div flex layout="row" layout-align="start center" class="left-flex">
+            <div layout layout-wrap layout-sm="column">
+                <div flex layout="row" flex-xs="100" layout-align="start center" class="left-flex university">
                     <img src="{{::i.data.universityImage}}" class="uni-image" alt="university logo" width="50" height="50" />
                     <div layout="column">
                         <span class="uni-name">{{::i.data.university}}</span>
