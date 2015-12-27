@@ -449,9 +449,11 @@
   margin-bottom: 0;
 }
 .add-comment .list-inline > li {
-  margin: 0 10px;
+  margin: 10px;
   border: 1px solid #3d4348;
   padding: 5px 5px 0;
+  width: calc(50% - 20px);
+  max-width: 115px;
 }
 .add-comment .new-comment-border {
   border: 1px solid #5d6063;
