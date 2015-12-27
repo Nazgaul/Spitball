@@ -19,9 +19,17 @@
             fill: white;
             width: 35px;
             height: 35px;
-            margin: 15px 5px;
+            margin: 15px 8px;
             -webkit-filter: drop-shadow( 2px 2px 12px #404346 ); /* svg shadow */
             filter: drop-shadow( 2px 2px 12px #404346 ); /* svg shadow */
+        }
+
+        .social-links a {
+            float: left;
+        }
+
+        .social-links .wrapper {
+            display: inline-block;
         }
     </style>
 </head>
@@ -414,12 +422,14 @@
                             </a> <a id="Android" target="_blank" href="@string.Format("http://app.appsflyer.com/com.cloudents.zbox2{0}", queryString)" class="element-top-20 element-bottom-20 element-left-10 element-right-10 os-animation mobilelink" data-os-animation="fadeIn" data-os-animation-delay="0.3s" style="display:inline-block">
                                 <img src="@Url.CdnContent("~/Images/HomePage2/google.png")" alt="google" width="160" height="46" />
                             </a>
-                            <div class="social-links" dir="ltr">
-                                <a target="_blank" href="https://www.facebook.com/cloudents.il">@Html.Svg("~/images/site/social-icons.svg", "facebook")</a>
-                                <a target="_blank" href="https://twitter.com/SpitballStudy">@Html.Svg("~/images/site/social-icons.svg", "twitter")</a>
-                                <a target="_blank" href="https://plus.google.com/+Cloudents">@Html.Svg("~/images/site/social-icons.svg", "google")</a>
-                                <a target="_blank" href="https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg">@Html.Svg("~/images/site/social-icons.svg", "youtube")</a>
-                                <a target="_blank" href="http://instagram.com/spitballstudy">@Html.Svg("~/images/site/social-icons.svg", "instagram")</a>
+                            <div class="social-links">
+                                <div class="wrapper" dir="ltr">
+                                    <a target="_blank" href="https://www.facebook.com/cloudents.il">@Html.Svg("~/images/site/social-icons.svg", "facebook")</a>
+                                    <a target="_blank" href="https://twitter.com/SpitballStudy">@Html.Svg("~/images/site/social-icons.svg", "twitter")</a>
+                                    <a target="_blank" href="https://plus.google.com/+Cloudents">@Html.Svg("~/images/site/social-icons.svg", "google")</a>
+                                    <a target="_blank" href="https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg">@Html.Svg("~/images/site/social-icons.svg", "youtube")</a>
+                                    <a target="_blank" href="http://instagram.com/spitballstudy">@Html.Svg("~/images/site/social-icons.svg", "instagram")</a>
+                                </div>
                             </div>
                             @*<div class="divider-wrapper">
                                     <div class="element-height-100"></div>
