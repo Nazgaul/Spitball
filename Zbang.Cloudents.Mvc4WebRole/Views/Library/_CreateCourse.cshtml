@@ -6,7 +6,7 @@
         <div class="title">@LibraryResources.AddClass</div>
     </button>
     <form name="createBox" novalidate ng-submit="l.createBox(createBox)" ng-show="l.createBoxOn">
-        <md-content layout="column" flex>
+        <md-content flex>
             <md-input-container flex ng-if="!l.secondStep">
                 <label>@LibraryResources.EnterClassName</label>
                 <input autocomplete="off" name="name" required ng-model="l.boxName" ng-change="createBox.professor.$setValidity('server',true)" />

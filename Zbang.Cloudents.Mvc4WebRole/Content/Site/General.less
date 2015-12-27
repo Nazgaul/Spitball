@@ -321,7 +321,7 @@ md-tabs {
         background: transparent;
         color: @textColorDarkGrey;
         padding-bottom: 5px;
-        display: flex;
+        .displayFlex();
         padding-top: 0;
 
         form {
@@ -357,6 +357,15 @@ md-tabs {
         -ms-flex-direction: column;
         -webkit-flex-direction: column;
         flex-direction: column;
+
+        form {
+            width: 100%;
+            align-self: center;
+
+            span {
+                margin: 0;
+            }
+        }
     }
 
     .plus {

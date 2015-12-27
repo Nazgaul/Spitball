@@ -289,6 +289,8 @@ md-tabs md-ink-bar {
   background: transparent;
   color: #323538;
   padding-bottom: 5px;
+  display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   padding-top: 0;
 }
@@ -328,6 +330,15 @@ md-tabs md-ink-bar {
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
   flex-direction: column;
+}
+.create-box .create-txt form,
+.create-box .create-department form {
+  width: 100%;
+  align-self: center;
+}
+.create-box .create-txt form span,
+.create-box .create-department form span {
+  margin: 0;
 }
 .create-box .plus {
   margin-bottom: 12px;

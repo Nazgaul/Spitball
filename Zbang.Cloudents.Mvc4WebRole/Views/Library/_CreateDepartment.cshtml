@@ -6,7 +6,7 @@
         <div class="title">@LibraryResources.AddDepartment</div>
     </button>
     <form name="createDepartment" class="create-department" novalidate ng-submit="l.createDepartment(createDepartment)" ng-show="l.createDepartmentOn">
-        <md-content layout="column">
+        <md-content>
             <md-input-container flex>
                 <label>@LibraryResources.EnterDepName</label>
                 <input autocomplete="off" name="name" required ng-model="l.departmentName" ng-change="createDepartment.name.$setValidity('server',true)" />
