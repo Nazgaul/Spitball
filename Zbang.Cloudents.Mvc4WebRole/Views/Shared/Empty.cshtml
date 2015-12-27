@@ -20,13 +20,13 @@
             data-slide-speed="200" ng-controller="SideMenu as d">
             <li class="start">
                 <a @shouldPostBack href="@Url.Action("Index","Dashboard")" ga-track-event="['sidebar', 'dashboard']">
-                    @Html.Svg(svgUrl, "houseMenu")
+                    <span class="dashboard icon">@Html.Svg(svgUrl, "houseMenu")</span>
                     <span class="title">@IndexResources.Dashboard</span>
                 </a>
             </li>
             <li>
                 <a href="javascript:;" ng-click="d.open()" ga-track-event="['sidebar', 'classes']">
-                    <span class="arrow">@Html.Svg("~/images/site/icons.svg", "sideMenuArrow")</span>
+                    <span class="arrow icon">@Html.Svg("~/images/site/icons.svg", "sideMenuArrow")</span>
                     <span class="title">@IndexResources.Classes</span>
                 </a>
                 <ul class="sub-menu">
@@ -41,7 +41,7 @@
             </li>
             <li>
                 <a href="javascript:;" ng-click="d.open()" ga-track-event="['sidebar', 'group']">
-                    <span class="arrow">@Html.Svg("~/images/site/icons.svg", "sideMenuArrow")</span>
+                    <span class="arrow icon">@Html.Svg("~/images/site/icons.svg", "sideMenuArrow")</span>
                     <span class="title">@IndexResources.Group</span>
                 </a>
                 <ul class="sub-menu">
@@ -57,36 +57,37 @@
 
             <li>
                 <a @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")" ga-track-event="['sidebar', 'university']">
-                    @Html.Svg(svgUrl, "universityMenu")
+                    <span class="uni icon"> @Html.Svg(svgUrl, "universityMenu")</span>
                     <span class="title">@IndexResources.Uni</span>
                 </a>
             </li>
             <li>
                 <a @shouldPostBack href="{{::d.userUrl}}" ga-track-event="['sidebar', 'user']">
-                    @Html.Svg(svgUrl, "userMenu")
+                    <span class="user icon">@Html.Svg(svgUrl, "userMenu")</span>
                     <span class="title">@IndexResources.User</span>
                 </a>
             </li>
             <li>
                 <a @shouldPostBack href="@Url.RouteUrl("AccountSettings")" ga-track-event="['sidebar', 'settings']">
-                    @Html.Svg(svgUrl, "settingMenu")
+                    <span class="settings icon">@Html.Svg(svgUrl, "settingMenu")</span>
                     <span class="title">@IndexResources.Settings</span>
                 </a>
             </li>
             <li>
                 <a href="@Url.RouteUrl("Help")" ga-track-event="['sidebar', 'help']">
-                    @Html.Svg(svgUrl, "headerHelp")
+                    <span class="help icon">@Html.Svg(svgUrl, "headerHelp")</span>
                     <span class="title">@SharedResources.Help</span>
                 </a>
             </li>
             <li>
                 <a href="@Url.RouteUrl("Blog2")" ga-track-event="['sidebar', 'blog']">
-                    @Html.Svg(svgUrl, "blog") <span class="title">@GeneralResources.Blog</span>
+                    <span class="blog icon">@Html.Svg(svgUrl, "blog")</span>
+                    <span class="title">@GeneralResources.Blog</span>
                 </a>
             </li>
             <li class="last ">
                 <a target="_self" href="@Url.Action("logoff","account")" ga-track-event="['sidebar', 'logout']">
-                    @Html.Svg(svgUrl, "logOffMenu")
+                    <span class="logout icon">@Html.Svg(svgUrl, "logOffMenu")</span>
                     <span class="title">@IndexResources.Logout</span>
                 </a>
             </li>
