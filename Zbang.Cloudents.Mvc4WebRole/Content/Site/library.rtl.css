@@ -26,7 +26,8 @@
   margin-bottom: 0;
 }
 .library .department .display h3 {
-  margin-top: 12px;
+  margin-top: 22px;
+  line-height: initial;
 }
 .library .department .display .number {
   height: 100px;
