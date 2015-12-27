@@ -3,17 +3,28 @@
 <div class="tab-pane" id="notification">
     <div class="section">
     <ul class="list-unstyled notification-list">
-        <li ng-repeat="box in ::n.notifications track by box.id" class="clearfix">
+        <li ng-repeat="box in ::n.notifications track by box.id" class="clearfix" layout-wrap>
             <div class="box-data" d-color="{{::box.name.length}}">
                 <div class="name">{{::box.name}}</div>
                 <div class="owner">Owner: {{::box.userName}}</div>
             </div>
-            <select class="" ng-model="box.notifications" ng-change="n.updateNotification(box)" ga-track-event="['notifications', 'change notification timing']">
+            <md-input-container flex-xs="100" flex-gt-xs="30">
+                <md-select md-container-class="dd-list" ng-model="box.notifications" ng-change="n.updateNotification(box)" ga-track-event="['notifications', 'change notification timing']">
+                    <md-option value="@NotificationSettings.Off.GetStringValueLowerCase()">@NotificationSettings.Off.GetEnumDescription()</md-option>
+                    <md-option value="@NotificationSettings.OnEveryChange.GetStringValueLowerCase()">@NotificationSettings.OnEveryChange.GetEnumDescription()</md-option>
+                    <md-option value="@NotificationSettings.OnceADay.GetStringValueLowerCase()">@NotificationSettings.OnceADay.GetEnumDescription()</md-option>
+                    <md-option value="@NotificationSettings.OnceAWeek.GetStringValueLowerCase()">@NotificationSettings.OnceAWeek.GetEnumDescription()</md-option>
+                </md-select>
+            </md-input-container>
+
+
+
+            @*<select class="" ng-model="box.notifications" ng-change="n.updateNotification(box)" ga-track-event="['notifications', 'change notification timing']">
                 <option value="@NotificationSettings.Off.GetStringValueLowerCase()">@NotificationSettings.Off.GetEnumDescription()</option>
                 <option value="@NotificationSettings.OnEveryChange.GetStringValueLowerCase()">@NotificationSettings.OnEveryChange.GetEnumDescription()</option>
                 <option value="@NotificationSettings.OnceADay.GetStringValueLowerCase()">@NotificationSettings.OnceADay.GetEnumDescription()</option>
                 <option value="@NotificationSettings.OnceAWeek.GetStringValueLowerCase()">@NotificationSettings.OnceAWeek.GetEnumDescription()</option>
-            </select>
+            </select>*@
 
         </li>
     </ul>
