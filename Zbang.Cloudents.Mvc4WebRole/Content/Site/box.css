@@ -833,6 +833,12 @@
 .item-animate.ng-enter.ng-enter-active {
   opacity: 1;
 }
+.upload .form-body {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  background: #181c1d;
+}
 .upload md-toast.md-default-theme .md-toast-content,
 .upload md-toast .md-toast-content {
   background: #db4437;
@@ -864,6 +870,11 @@
   font-size: 14px;
   line-height: 15px;
   margin: 0 auto;
+  max-width: 600px;
+  width: 100%;
+}
+.upload .uploadSection > div {
+  margin: 15px 0;
 }
 .upload .uploadSection svg {
   fill: #f9f9f9;

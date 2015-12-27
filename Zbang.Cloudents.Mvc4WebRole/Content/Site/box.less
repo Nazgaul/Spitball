@@ -936,6 +936,11 @@
 
 
 .upload {
+    .form-body {
+        .displayFlex;
+        background: #181c1d;
+    }
+
     md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
         background: @buttonColorRed;
     }
@@ -967,6 +972,12 @@
         font-size: 14px;
         line-height: 15px;
         margin: 0 auto;
+        max-width: 600px;
+        width: 100%;
+
+        > div {
+            margin: 15px 0;
+        }
 
         svg {
             fill: @fileColor;

@@ -14,7 +14,7 @@
         <div class="portlet-body form" id="uploadSection">
             <div class="form-horizontal">
                 <div class="form-body">
-                    <div class="tab-content">
+                    <div class="tab-content" flex="100">
 
                         <div layout-wrap layout="row" class="row uploadSection" ng-if="u.uploadStep === 0">
                             <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25" ng-click="u.uploadStep = 1">
@@ -56,7 +56,7 @@
                                 <div>@IndexResources.DragHere</div>
                                 <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn btn-primary upload-button" plupload-callbacks="u.fileUpload.callbacks">
                                     @IndexResources.UploadFiles
-                                </a>   
+                                </a>
                             </div>
                             <h5 ng-if="u.files.length">
                                 <span class="completed">{{u.filesCompleteCount}} @IndexResources.Completed</span> |
@@ -64,21 +64,21 @@
                             </h5>
                             <ul class="list-inline file-upload-area">
                                 @*<li class="file-upload">
-                                        <span class="check-mark" ng-if="file.complete">@Html.Svg(url, "checkMark")</span>
-                                        <div class="file" layout="column" layout-align="space-between center">
-                                            <div class="file-name">
-                                                <div class="multi-line-ellipsis limit-three">
-                                                    this is a test
-                                                </div>
-                                                <md-progress-linear class="file-upload-progress" value="50" ng-if="!file.complete" md-mode="determinate">
-                                                </md-progress-linear>
-                                            </div>
-                                            <div class="file-footer">
-                                                <div class="file-size">25kb</div>
-                                                <button type="button" ng-click="file.remove()">@IndexResources.Remove</button>
-                                            </div>
-                                        </div>
-                                    </li>*@
+                        <span class="check-mark" ng-if="file.complete">@Html.Svg(url, "checkMark")</span>
+                        <div class="file" layout="column" layout-align="space-between center">
+                            <div class="file-name">
+                                <div class="multi-line-ellipsis limit-three">
+                                    this is a test
+                                </div>
+                                <md-progress-linear class="file-upload-progress" value="50" ng-if="!file.complete" md-mode="determinate">
+                                </md-progress-linear>
+                            </div>
+                            <div class="file-footer">
+                                <div class="file-size">25kb</div>
+                                <button type="button" ng-click="file.remove()">@IndexResources.Remove</button>
+                            </div>
+                        </div>
+                    </li>*@
                                 <li class="file-upload" ng-repeat="file in u.files" ng-include="'file-upload.html'">
                             </ul>
                         </div>
