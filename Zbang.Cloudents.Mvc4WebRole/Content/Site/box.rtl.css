@@ -547,15 +547,19 @@
   fill: #d39f10;
 }
 .member-invite {
-  background: #3293f6;
+  background: #4190b9;
   border-radius: 10px;
   margin-bottom: 20px;
+  padding: 5px 13px 0 15px;
+  font-size: 16px;
 }
 .member-invite svg {
-  height: 35px;
+  height: 25px;
   fill: #f5f5f5;
-  width: 35px;
+  width: 25px;
   vertical-align: middle;
+  margin-left: 2px;
+  margin-bottom: 5px;
 }
 .member {
   display: -webkit-flex;

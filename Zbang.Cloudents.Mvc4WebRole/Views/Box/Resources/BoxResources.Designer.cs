@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite your friends.
+        ///   Looks up a localized string similar to Invite friends.
         /// </summary>
         public static string InviteFriends {
             get {
