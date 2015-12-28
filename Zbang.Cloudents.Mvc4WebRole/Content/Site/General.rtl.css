@@ -684,6 +684,10 @@ md-menu-item {
 .btn-default {
   border: none;
 }
+md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
+md-input-container:not(.md-input-invalid).md-input-focused label {
+  color: #4190b9;
+}
 .sb-loader {
   position: fixed;
   display: -webkit-flex;
