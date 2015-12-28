@@ -1685,6 +1685,7 @@
     <Content Include="Images\Site\info.svg" />
     <Content Include="Images\Site\libChooseIcons.svg" />
     <Content Include="Images\Site\membersOnly.png" />
+    <Content Include="Images\Site\noResults.png" />
     <Content Include="Images\Site\oops.png" />
     <Content Include="Images\Site\preview_denied.png" />
     <Content Include="Images\Site\preview_failed_icon.png" />

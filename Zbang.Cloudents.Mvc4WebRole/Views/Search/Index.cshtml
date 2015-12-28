@@ -6,7 +6,7 @@
     <input type="search" class="search-text" placeholder="@GeneralResources.Search" autofocus ng-model="s.term" ng-model-options="{debounce : 250}" ng-change="s.search()" ng-minlength="2" />
 </form>
 
-<md-tabs hide-gt-sm>
+<md-tabs hide-gt-sm ng-show="!s.noResults">
     <md-tab md-on-select="s.tab = 'b'" md-active="s.tab === 'b'" md-on-select="s.tab = 'b'" ga-track-event="['search', 'search classes']">
         <md-tab-label>@GeneralResources.Classes</md-tab-label>
     </md-tab>
@@ -18,7 +18,7 @@
     </md-tab>
 </md-tabs>
 
-<div layout="row" layout-align="space-between start" layout-wrap srph-infinite-scroll="s.myPagingFunction()" class="content">
+<div layout="row" layout-align="space-between start" layout-wrap srph-infinite-scroll="s.myPagingFunction()" ng-show="!s.noResults" class="content">
     <div flex-gt-sm="25" flex="100" class="s-hide" ng-class="{show: s.tab === 'b'}">
         <h3 class="text-capitalize">@GeneralResources.Classes</h3>
         <div layout="row" layout-padding layout-wrap>
@@ -36,5 +36,11 @@
         <div layout="row" layout-padding layout-wrap layout-align="start stretch">
             <div flex-gt-sm="100" flex-sm="50" flex-xs="100" ng-repeat="e in s.result.quizzes" ng-include="'quiz-template.html'"></div>
         </div>
+    </div>
+</div>
+<div class="no-results" ng-show="s.noResults" class="content">
+    <div class="wrapper">
+        <img src="@Url.CdnContent("~/Images/Site/noResults.png")" alt="No results were found">
+        <div>@GeneralResources.NoResults</div>
     </div>
 </div>

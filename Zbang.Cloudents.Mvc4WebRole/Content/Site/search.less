@@ -80,6 +80,37 @@
     }
 }
 
+.no-results {
+    text-align: center;
+
+    .wrapper {
+        display: inline-block;
+        position: relative;
+        padding: 15px;
+
+        div {
+            top: 37%;
+            right: 16% /*rtl:ignore*/;
+            position: absolute;
+            color: @textColorBlack;
+            font-size: 38px;
+            width: 30%;
+            font-weight: bold;
+            line-height: 34px;
+
+            @media (max-width: 730px) {
+                font-size: 5vw;
+                line-height: 5vw;
+            }
+        }
+
+        img {
+            max-width: 700px;
+            width: 100%;
+        }
+    }
+}
+
 .search-text {
     font-size: 7vw;
     background: transparent;

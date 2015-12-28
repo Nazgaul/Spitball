@@ -180,4 +180,7 @@
   <data name="Search" xml:space="preserve">
     <value>חפש...</value>
   </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>לא נמצאו תוצאות</value>
+  </data>
 </root>

@@ -5,7 +5,6 @@
     function search(searchService, $location, itemThumbnailService, $q) {
         var self = this, page = 0, needToBringMore = true;
 
-
         if (typeof $location.search().q === 'string') {
             self.term = $location.search().q;
         }
@@ -42,6 +41,7 @@
             return searchService.search(self.term, page).then(function (response) {
                 //self.result = response;
                 response.items = itemThumbnailService.assignValues(response.items);
+                self.noResults = false;
 
                 for (var j = 0; j < response.quizzes.length; j++) {
                     response.quizzes[j].publish = true;
@@ -56,6 +56,7 @@
                 }
                 if (!response.boxes.length && !response.items.length && !response.quizzes.length) {
                     needToBringMore = false;
+                    self.noResults = true;
                 }
                 page++;
             });

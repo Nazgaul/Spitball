@@ -192,9 +192,6 @@
   <data name="Submit" xml:space="preserve">
     <value>בוא נראה כמה קיבלתי</value>
   </data>
-  <data name="Take" xml:space="preserve">
-    <value>להיבחן</value>
-  </data>
   <data name="TestYourself" xml:space="preserve">
     <value>האם אתה מוכן לבדוק עד כמה אתה טוב?</value>
   </data>
