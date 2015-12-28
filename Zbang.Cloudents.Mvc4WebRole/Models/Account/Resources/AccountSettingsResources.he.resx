@@ -144,4 +144,13 @@
   <data name="CodeIncorrect" xml:space="preserve">
     <value>הקוד שהזנת שגוי</value>
   </data>
+  <data name="ChoosePassword" xml:space="preserve">
+    <value>בחר סיסמה חדשה</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>סיסמה חדשה</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>אימות סיסמה</value>
+  </data>
 </root>

@@ -145,4 +145,13 @@
   <data name="LastNameRequired" xml:space="preserve">
     <value>Last name is required</value>
   </data>
+  <data name="ChoosePassword" xml:space="preserve">
+    <value>Choose new password</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
 </root>

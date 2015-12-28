@@ -61,11 +61,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose new password.
+        /// </summary>
+        public static string ChoosePassword {
+            get {
+                return ResourceManager.GetString("ChoosePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The code you entered is incorrect.
         /// </summary>
         public static string CodeIncorrect {
             get {
                 return ResourceManager.GetString("CodeIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm password.
+        /// </summary>
+        public static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
             }
         }
         
@@ -111,6 +129,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         public static string Min6Chars {
             get {
                 return ResourceManager.GetString("Min6Chars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New password.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
             }
         }
         

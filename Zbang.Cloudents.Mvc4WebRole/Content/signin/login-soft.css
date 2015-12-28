@@ -143,6 +143,10 @@ Login page
   font-weight: 300;
   margin-bottom: 25px;
 }
+.login .content .password-update-form .form-actions {
+  margin-bottom: 55px;
+  float: right;
+}
 .login .content .forgot-password-form .text {
   margin-bottom: 30px;
   font-size: 16px;
