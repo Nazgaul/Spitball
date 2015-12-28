@@ -45,7 +45,7 @@
                    uib-tooltip="@ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
             </div>
             <form name="renameItem" class="rename-form" novalidate ng-submit="i.renameItem(renameItem)" ng-if="i.selectedState === i.state.rename">
-                <md-content layout="column">
+                <md-content>
                     <md-input-container flex>
                         <label class="text-capitalize">@ItemsResources.Name</label>
                         <input autocomplete="off" required ng-model="i.renameText" name="name" />

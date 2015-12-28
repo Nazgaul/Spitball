@@ -4,7 +4,7 @@
 
 <form name="flagitem" class="flag-form" novalidate ng-submit="i.flagItem()" ng-if="i.selectedState === i.state.flag">
     <div class="title text-capitalize">@ItemsResources.ReportAbuse</div>
-    <md-content layout="column">
+    <md-content>
         <md-input-container flex="100">
             <md-select placeholder="@ItemsResources.FlagItemPlaceHolder" required name="flag" ng-model="i.flag" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
                 <md-option value="@BadItem.RightViolation">@BadItem.RightViolation.GetEnumDescription()</md-option>

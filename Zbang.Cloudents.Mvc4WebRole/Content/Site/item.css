@@ -78,6 +78,9 @@
 .itemPage .fileName form .layout-column {
   background: none;
 }
+.itemPage .fileName form md-content {
+  background: none;
+}
 .itemPage .fileName form md-input-container .md-input {
   color: #323538;
 }
