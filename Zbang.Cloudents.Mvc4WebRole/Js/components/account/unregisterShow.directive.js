@@ -55,7 +55,7 @@
                         if (scrollPos > windowHeight * 0.5) {
                             $rootScope.$broadcast('show-unregisterd-box-medium');
                             if (scrollPos > windowHeight * 0.75) {
-                                $rootScope.$broadcast('show-unregisterd-large');
+                                $rootScope.$broadcast('show-unregisterd-box-large');
                             }
                         }
                     } else {
