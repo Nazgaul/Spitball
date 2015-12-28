@@ -19,14 +19,15 @@
             fill: white;
             width: 35px;
             height: 35px;
-            margin: 15px 8px;
-            -webkit-filter: drop-shadow( 2px 2px 12px #404346 ); /* svg shadow */
-            filter: drop-shadow( 2px 2px 12px #404346 ); /* svg shadow */
+            margin: 15px 10px;
+            border-radius: 100%;
+            box-shadow: 2px 2px 35px #5d6063;
+            background: rgba(64, 67, 70, 0.5);
         }
 
         .social-links a {
             float: left;
-            width: 55px;
+            border-radius: 100%;
         }
 
         .social-links .wrapper {
@@ -51,12 +52,12 @@
     <div class="pace-overlay"></div>
     @if (ViewBag.moveToSpitBall)
     {
-    <div class="alert alert-info element-bottom-0 alert-dismissible fade in" style="width:100%; background:#f05a28; font-size:18px;" role="alert">
-        <div class="container">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            להתראות Cloudents שלום Spitball
+        <div class="alert alert-info element-bottom-0 alert-dismissible fade in" style="width:100%; background:#f05a28; font-size:18px;" role="alert">
+            <div class="container">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                להתראות Cloudents שלום Spitball
+            </div>
         </div>
-    </div>
     }
 
     <div id="masthead" class="menu navbar navbar-static-top header-logo-left-menu-right navbar-sticky text-none" role="banner">
@@ -78,7 +79,7 @@
                                     <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-UK" })">@Languages.EnglishGbName</a> </li>
                                     <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "he-IL" })">@Languages.HebrewName</a> </li>
                                     @*<li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ru-RU" })">@Languages.RussianName</a> </li>
-                                    <li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ar-AE" })">@Languages.ArabicName</a> </li>*@
+                                        <li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ar-AE" })">@Languages.ArabicName</a> </li>*@
                                 </ul>
                             </li>
                             <li class="menu-item"> <a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a> </li>
@@ -119,9 +120,9 @@
                                 @HomePageResources.A5
                             </a>
                             @*<a href="@Url.Action("SignIn", "Account")" class="btn btn-primary btn-lg  text-center bold element-top-20 element-bottom-20 os-animation btnSignIn"
-                            target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                            @HomePageResources.A1
-                            </a>*@
+                                target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                                @HomePageResources.A1
+                                </a>*@
                             <h2 class="text-light os-animation element-top-10 big" data-os-animation="fadeIn" data-os-animation-delay="0.5s" style="text-shadow:2px 2px 6px #000; white-space:pre-wrap;">@HomePageResources.A6</h2>
                             <div class="divider-wrapper">
                                 <div class="element-height-100"></div>
@@ -166,11 +167,11 @@
                                 </div>
                                 <div class="col-md-2 text-default"></div>
                                 @{
-                                var queryString = string.Empty;
-                                if (!string.IsNullOrEmpty(Request.QueryString["utm_medium"]))
-                                {
-                                queryString = string.Format("?af_prt=peachmedia&af_siteid={0}&pid={1}&c={2}", Request.QueryString["utm_medium"], Request.QueryString["utm_source"], Request.QueryString["utm_campaign"]);
-                                }
+                                    var queryString = string.Empty;
+                                    if (!string.IsNullOrEmpty(Request.QueryString["utm_medium"]))
+                                    {
+                                        queryString = string.Format("?af_prt=peachmedia&af_siteid={0}&pid={1}&c={2}", Request.QueryString["utm_medium"], Request.QueryString["utm_source"], Request.QueryString["utm_campaign"]);
+                                    }
 
                                 }
                                 <div class="col-md-12 text-center">
@@ -433,8 +434,8 @@
                                 </div>
                             </div>
                             @*<div class="divider-wrapper">
-                            <div class="element-height-100"></div>
-                            </div>*@
+                                <div class="element-height-100"></div>
+                                </div>*@
                         </div>
                         <div class="col-md-1 text-default"></div>
                     </div>
