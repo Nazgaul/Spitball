@@ -119,8 +119,10 @@
                                     </li>
 
                                 </ul>
-                                <button class="btn btn-default" role="button" onclick="window.location='@Url.Action("SignUp", "Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'sign up']">@IndexResources.Signup</button>
-                                <button class="btn btn-primary" role="button" onclick="window.location='@Url.Action("SignIn","Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</button>
+                                <div class="login-buttons">
+                                    <button class="btn btn-default" role="button" onclick="window.location='@Url.Action("SignUp", "Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'sign up']">@IndexResources.Signup</button>
+                                    <button class="btn btn-primary" role="button" onclick="window.location='@Url.Action("SignIn","Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</button>
+                                </div>
                             </li>
                         </ul>
                     </div>

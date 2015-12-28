@@ -218,10 +218,14 @@ Page Header
   align-items: center;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown:last-child {
+  position: relative;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
-  position: relative;
+  align-items: baseline;
+}
+.page-header.navbar .top-menu .navbar-nav > li.dropdown:last-child .login-buttons {
+  align-self: center;
 }
 @media (min-width: 768px) {
   .page-header.navbar .top-menu .navbar-nav > li.dropdown:last-child {

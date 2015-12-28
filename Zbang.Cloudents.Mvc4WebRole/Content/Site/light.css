@@ -393,7 +393,7 @@ Page Header
 .page-sidebar .page-sidebar-menu .sub-menu > li.active > a > .arrow.open:before {
   color: #2698d4;
 }
-.page-sidebar .arrow svg {
+.page-sidebar .arrow {
   -moz-transform: rotate(0) /*rtl:rotate(180deg)*/;
   -ms-transform: rotate(0) /*rtl:rotate(180deg)*/;
   -o-transform: rotate(0) /*rtl:rotate(180deg)*/;
@@ -404,7 +404,7 @@ Page Header
   -webkit-transition: transform 0.2s linear;
   transition: transform 0.2s linear;
 }
-.page-sidebar .arrow.open svg {
+.page-sidebar .arrow.open {
   -moz-transform: rotate(90deg) /*rtl:rotate(90deg)*/;
   -ms-transform: rotate(90deg) /*rtl:rotate(90deg)*/;
   -o-transform: rotate(90deg) /*rtl:rotate(90deg)*/;

@@ -276,14 +276,19 @@ Page Header
     display: inline-block;
 }
 
-.page-header.navbar .top-menu .navbar-nav > .dropdown-user{
+.page-header.navbar .top-menu .navbar-nav > .dropdown-user {
     align-items: center;
 }
 
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown:last-child {
-    .displayFlex;
     position: relative;
+    .displayFlex;
+    align-items: baseline;
+
+    .login-buttons {
+        align-self: center;
+    }
 
     @media (min-width: 768px) {
         min-width: 195px;

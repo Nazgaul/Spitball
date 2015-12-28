@@ -11,6 +11,8 @@
   margin-top: 160px;
 }
 .quizPage header {
+  display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   align-items: center;
 }
