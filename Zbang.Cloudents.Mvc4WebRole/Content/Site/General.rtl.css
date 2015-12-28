@@ -653,11 +653,11 @@ md-menu-item {
 .scroll-to-top svg {
   width: 32px;
   height: 32px;
-  -moz-transform: rotate(270deg) ;
-  -ms-transform: rotate(270deg) ;
-  -o-transform: rotate(270deg) ;
-  -webkit-transform: rotate(270deg) ;
-  transform: rotate(270deg) ;
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
   fill: #3598dc;
 }
 .back-arrow svg {

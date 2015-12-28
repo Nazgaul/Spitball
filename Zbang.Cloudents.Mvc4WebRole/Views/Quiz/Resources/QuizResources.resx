@@ -210,4 +210,7 @@
   <data name="Wrong" xml:space="preserve">
     <value>Incorrect</value>
   </data>
+  <data name="GoodJob" xml:space="preserve">
+    <value>Good job</value>
+  </data>
 </root>

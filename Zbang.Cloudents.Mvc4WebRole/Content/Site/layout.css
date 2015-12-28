@@ -214,7 +214,12 @@ Page Header
   height: 75px;
   display: inline-block;
 }
+.page-header.navbar .top-menu .navbar-nav > .dropdown-user {
+  align-items: center;
+}
 .page-header.navbar .top-menu .navbar-nav > li.dropdown:last-child {
+  display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
   position: relative;
 }

@@ -187,6 +187,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Good job.
+        /// </summary>
+        public static string GoodJob {
+            get {
+                return ResourceManager.GetString("GoodJob", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Job.
         /// </summary>
         public static string Job {

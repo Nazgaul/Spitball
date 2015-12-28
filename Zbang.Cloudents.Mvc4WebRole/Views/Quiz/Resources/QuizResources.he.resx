@@ -181,7 +181,7 @@
     <value>שאלה</value>
   </data>
   <data name="Retake" xml:space="preserve">
-    <value>החבחן שוב</value>
+    <value>היבחן שוב</value>
   </data>
   <data name="Scared" xml:space="preserve">
     <value>עוד לא, אני מפחד</value>
@@ -193,15 +193,18 @@
     <value>בוא נראה כמה קיבלתי</value>
   </data>
   <data name="Take" xml:space="preserve">
-    <value>היבחן</value>
+    <value>להיבחן</value>
   </data>
   <data name="TestYourself" xml:space="preserve">
     <value>האם אתה מוכן לבדוק עד כמה אתה טוב?</value>
   </data>
   <data name="Time" xml:space="preserve">
-    <value>זמן ל</value>
+    <value>זמן</value>
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>טעויות</value>
+  </data>
+  <data name="GoodJob" xml:space="preserve">
+    <value>עבודה טובה</value>
   </data>
 </root>

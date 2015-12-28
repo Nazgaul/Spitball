@@ -1632,9 +1632,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\3rdParty\logo_120_4_google.png" />
-    <Content Include="Images\signin\facebooknew.svg" />
-    <Content Include="Images\signin\facebook.svg" />
-    <Content Include="Images\signin\google.svg" />
     <Content Include="Images\signin\loginOptions.svg" />
     <Content Include="Images\Site\404_image.png" />
     <Content Include="Images\HomePage2\apple.png" />
@@ -1684,6 +1681,7 @@
     <Content Include="Images\signin\syncfusion-icons-white.png" />
     <Content Include="Images\Site\BG.png" />
     <Content Include="Images\Site\browsers.svg" />
+    <Content Include="Images\Site\gmail.svg" />
     <Content Include="Images\Site\info.svg" />
     <Content Include="Images\Site\libChooseIcons.svg" />
     <Content Include="Images\Site\membersOnly.png" />

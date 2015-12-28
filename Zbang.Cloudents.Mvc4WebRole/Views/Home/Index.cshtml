@@ -51,12 +51,12 @@
     <div class="pace-overlay"></div>
     @if (ViewBag.moveToSpitBall)
     {
-        <div class="alert alert-info element-bottom-0 alert-dismissible fade in" style="width:100%; background:#f05a28; font-size:18px;" role="alert">
-            <div class="container">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                להתראות Cloudents שלום Spitball
-            </div>
+    <div class="alert alert-info element-bottom-0 alert-dismissible fade in" style="width:100%; background:#f05a28; font-size:18px;" role="alert">
+        <div class="container">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            להתראות Cloudents שלום Spitball
         </div>
+    </div>
     }
 
     <div id="masthead" class="menu navbar navbar-static-top header-logo-left-menu-right navbar-sticky text-none" role="banner">
@@ -70,7 +70,7 @@
                     <div class="menu-container">
                         <ul id="menu-main" class="nav navbar-nav">
                             <li class="menu-item"> <a href="@Url.Action("SignIn", "Account", new { universityid = Request.QueryString["universityid"] })">@HomePageResources.A1</a> </li>
-                            <li class="menu-item"> <a href="@Url.Action("Jobs","Home")">@HomePageResources.A2</a> </li>
+                            <li class="menu-item"> <a href="@Url.RouteUrl("Jobs")">@HomePageResources.A2</a> </li>
                             <li class="menu-item dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="">@Html.Svg("/images/homepage2/homePageIcons.svg", "globus", new { @class = "globus" })&nbsp;<span>@Languages.EnglishUsName</span></a>
                                 <ul class="dropdown-menu dropdown-menu-left ">
@@ -78,7 +78,7 @@
                                     <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-UK" })">@Languages.EnglishGbName</a> </li>
                                     <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "he-IL" })">@Languages.HebrewName</a> </li>
                                     @*<li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ru-RU" })">@Languages.RussianName</a> </li>
-                                        <li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ar-AE" })">@Languages.ArabicName</a> </li>*@
+                                    <li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ar-AE" })">@Languages.ArabicName</a> </li>*@
                                 </ul>
                             </li>
                             <li class="menu-item"> <a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a> </li>
@@ -119,9 +119,9 @@
                                 @HomePageResources.A5
                             </a>
                             @*<a href="@Url.Action("SignIn", "Account")" class="btn btn-primary btn-lg  text-center bold element-top-20 element-bottom-20 os-animation btnSignIn"
-                                   target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                                    @HomePageResources.A1
-                                </a>*@
+                            target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                            @HomePageResources.A1
+                            </a>*@
                             <h2 class="text-light os-animation element-top-10 big" data-os-animation="fadeIn" data-os-animation-delay="0.5s" style="text-shadow:2px 2px 6px #000; white-space:pre-wrap;">@HomePageResources.A6</h2>
                             <div class="divider-wrapper">
                                 <div class="element-height-100"></div>
@@ -166,11 +166,11 @@
                                 </div>
                                 <div class="col-md-2 text-default"></div>
                                 @{
-                                    var queryString = string.Empty;
-                                    if (!string.IsNullOrEmpty(Request.QueryString["utm_medium"]))
-                                    {
-                                        queryString = string.Format("?af_prt=peachmedia&af_siteid={0}&pid={1}&c={2}", Request.QueryString["utm_medium"], Request.QueryString["utm_source"], Request.QueryString["utm_campaign"]);
-                                    }
+                                var queryString = string.Empty;
+                                if (!string.IsNullOrEmpty(Request.QueryString["utm_medium"]))
+                                {
+                                queryString = string.Format("?af_prt=peachmedia&af_siteid={0}&pid={1}&c={2}", Request.QueryString["utm_medium"], Request.QueryString["utm_source"], Request.QueryString["utm_campaign"]);
+                                }
 
                                 }
                                 <div class="col-md-12 text-center">
@@ -433,8 +433,8 @@
                                 </div>
                             </div>
                             @*<div class="divider-wrapper">
-                                    <div class="element-height-100"></div>
-                                </div>*@
+                            <div class="element-height-100"></div>
+                            </div>*@
                         </div>
                         <div class="col-md-1 text-default"></div>
                     </div>
