@@ -157,9 +157,7 @@
 }
 @media (min-width: 600px) {
   .quizPage .black-bullet {
-    -webkit-flex: 0 32%;
-    -ms-flex: 0 32%;
-    flex: 0 32%;
+    width: 32%;
   }
 }
 .quizPage .score {
