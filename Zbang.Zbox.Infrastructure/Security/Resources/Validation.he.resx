@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DefaultError" xml:space="preserve">
-    <value>ארתה תקלה בלתי צפויה. אנא בדוק את הקובץ שהעלת ונסה שוב. אם התקלה חוזרת על עצמה, לחץ על ״עזרה״. </value>
+    <value>ארתה תקלה בלתי צפויה. אנא בדוק את הקובץ שהעלת ונסה שוב. אם התקלה חוזרת על עצמה, לחץ על ״עזרה״.</value>
   </data>
   <data name="DuplicateEmail" xml:space="preserve">
     <value>כבר קיים משתמש עם כתובת מייל זו</value>

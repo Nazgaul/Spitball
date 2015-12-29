@@ -160,19 +160,19 @@
     <value>Here</value>
   </data>
   <data name="LogIn" xml:space="preserve">
-    <value>Log In</value>
+    <value>Log in</value>
   </data>
   <data name="LoginToAccount" xml:space="preserve">
-    <value>Log in to your account</value>
+    <value>Login to your account</value>
   </data>
   <data name="NoWorries" xml:space="preserve">
-    <value>Click here to reset </value>
+    <value>No worries, click</value>
   </data>
   <data name="OrLoginWith" xml:space="preserve">
-    <value>Log in with</value>
+    <value>Or login with</value>
   </data>
   <data name="OrSignupWith" xml:space="preserve">
-    <value>Or sign up with</value>
+    <value>Or signup with</value>
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>Sign up</value>

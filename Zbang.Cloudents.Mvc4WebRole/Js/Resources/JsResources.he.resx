@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="deleteDepartment" xml:space="preserve">
-    <value>האם אתה רוצה למחוק את מחלקה זו?</value>
+    <value>האם אתה רוצה למחוק את המחלקה הזו?</value>
   </data>
   <data name="deleteItem" xml:space="preserve">
-    <value>האם אתה רוצה למחוק את פריט זה?</value>
+    <value>האם את רוצה למחוק את הפריט הזה?</value>
   </data>
   <data name="deletePost" xml:space="preserve">
     <value>האם אתה רוצה למחוק את הפוסט הזה?</value>
@@ -158,5 +158,8 @@
   </data>
   <data name="unfollowClass" xml:space="preserve">
     <value>האם אתה מעוניין להפסיק לעקוב אחרי קורס זה?</value>
+  </data>
+  <data name="spitballUpdate" xml:space="preserve">
+    <value>מערכת ספיטבול עודכנה</value>
   </data>
 </root>

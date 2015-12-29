@@ -130,7 +130,7 @@
     <value>הקורסים שלי</value>
   </data>
   <data name="Completed" xml:space="preserve">
-    <value>פריטים העלאה השולמה</value>
+    <value>העלאה הושלמה</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>הקורסים שלי</value>
@@ -145,13 +145,13 @@
     <value>ייבוא אנשי קשר מ Gmail</value>
   </data>
   <data name="Group" xml:space="preserve">
-    <value>קבוצות לימוד שלי</value>
+    <value>קבוצות הלימוד שלי</value>
   </data>
   <data name="Invite" xml:space="preserve">
     <value>הזמן את חבריך לספיטבול</value>
   </data>
   <data name="Items" xml:space="preserve">
-    <value>פריטים </value>
+    <value>פריטים</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>התחבר</value>
@@ -163,7 +163,7 @@
     <value>כתובת מייל</value>
   </data>
   <data name="Members" xml:space="preserve">
-    <value>חברים </value>
+    <value>חברים</value>
   </data>
   <data name="Oops" xml:space="preserve">
     <value>אופס!</value>
@@ -211,9 +211,12 @@
     <value>האיזור האישי</value>
   </data>
   <data name="WebLink" xml:space="preserve">
-    <value>הוסף קישור </value>
+    <value>הוסף קישור</value>
   </data>
   <data name="WentWrong" xml:space="preserve">
     <value>משהו השתבש</value>
+  </data>
+  <data name="UploadFailed" xml:space="preserve">
+    <value>העלאה נכשלה</value>
   </data>
 </root>

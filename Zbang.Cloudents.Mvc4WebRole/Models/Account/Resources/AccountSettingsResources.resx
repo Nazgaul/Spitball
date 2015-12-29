@@ -137,7 +137,7 @@
     <value>Please enter your new password</value>
   </data>
   <data name="SchoolRequired" xml:space="preserve">
-    <value>Please enter the name of your university </value>
+    <value>Please enter the name of your university</value>
   </data>
   <data name="UsernameEmpty" xml:space="preserve">
     <value>You must enter a username</value>

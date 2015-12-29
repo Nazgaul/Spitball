@@ -133,7 +133,7 @@
     <value>תשובות:</value>
   </data>
   <data name="CanChoose" xml:space="preserve">
-    <value>שמור את המבחן כ"טיוטא" לשם עריכה </value>
+    <value>שמור את המבחן כ"טיוטא" לשם עריכה</value>
   </data>
   <data name="Chance" xml:space="preserve">
     <value>נסה את מזלך</value>
@@ -169,10 +169,10 @@
     <value>חלק זה אינו נתמך</value>
   </data>
   <data name="OfClassmates" xml:space="preserve">
-    <value>מחבריך עשו את המבחן </value>
+    <value>מחבריך עשו את המבחן</value>
   </data>
   <data name="OnlyYou" xml:space="preserve">
-    <value>רק אתה יכול לראות ולערוך את הטיוטא </value>
+    <value>רק אתה יכול לראות ולערוך את הטיוטא</value>
   </data>
   <data name="Publish" xml:space="preserve">
     <value>פרסם</value>
@@ -203,5 +203,14 @@
   </data>
   <data name="GoodJob" xml:space="preserve">
     <value>עבודה טובה</value>
+  </data>
+  <data name="EnterQuizName" xml:space="preserve">
+    <value>הזן שם מבחן</value>
+  </data>
+  <data name="Take" xml:space="preserve">
+    <value>בחן את עצמך</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>הוסף תגובה</value>
   </data>
 </root>

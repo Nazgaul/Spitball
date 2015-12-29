@@ -135,4 +135,7 @@
   <data name="EnterGroupName" xml:space="preserve">
     <value>הזן את השם של קבוצת הלימוד</value>
   </data>
+  <data name="LeaderboardTitle" xml:space="preserve">
+    <value>הסטודנט המצטיין</value>
+  </data>
 </root>

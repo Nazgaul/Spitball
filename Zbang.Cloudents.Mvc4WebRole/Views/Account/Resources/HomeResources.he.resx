@@ -120,4 +120,16 @@
   <data name="AboutCloudents" xml:space="preserve">
     <value>אודות</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>סגור</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>עמוד צור קשר</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>עזרה</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>שמור שינויים</value>
+  </data>
 </root>

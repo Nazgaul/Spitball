@@ -88,7 +88,7 @@ namespace Zbang.Zbox.Infrastructure.Security.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The password provided is invalid. Please enter a valid password .
+        ///   Looks up a localized string similar to The password provided is invalid. Please enter a valid password.
         /// </summary>
         public static string InvalidPassword {
             get {

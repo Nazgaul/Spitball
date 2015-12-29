@@ -132,4 +132,7 @@
   <data name="UserNotExist" xml:space="preserve">
     <value>משתמש לא קיים</value>
   </data>
+  <data name="CreateItemTabCommandHandler_Handle_Cannot_have_several_tabs_with_the_same_name" xml:space="preserve">
+    <value>לא ניתן להוסיף תקיות בעלות שם זהה</value>
+  </data>
 </root>

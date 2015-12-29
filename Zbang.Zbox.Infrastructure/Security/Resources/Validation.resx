@@ -127,6 +127,6 @@
     <value>The email address provided is invalid. Please verify it and try once more</value>
   </data>
   <data name="InvalidPassword" xml:space="preserve">
-    <value>The password provided is invalid. Please enter a valid password </value>
+    <value>The password provided is invalid. Please enter a valid password</value>
   </data>
 </root>

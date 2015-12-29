@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log In.
+        ///   Looks up a localized string similar to Log in.
         /// </summary>
         public static string LogIn {
             get {
@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log in to your account.
+        ///   Looks up a localized string similar to Login to your account.
         /// </summary>
         public static string LoginToAccount {
             get {
@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here to reset .
+        ///   Looks up a localized string similar to No worries, click.
         /// </summary>
         public static string NoWorries {
             get {
@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log in with.
+        ///   Looks up a localized string similar to Or login with.
         /// </summary>
         public static string OrLoginWith {
             get {
@@ -196,7 +196,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Or sign up with.
+        ///   Looks up a localized string similar to Or signup with.
         /// </summary>
         public static string OrSignupWith {
             get {

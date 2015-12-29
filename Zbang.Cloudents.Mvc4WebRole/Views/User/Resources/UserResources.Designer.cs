@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Each accepted class invite: 50 pts .
+        ///   Looks up a localized string similar to Each accepted class invite: 50 pts.
         /// </summary>
         public static string AcceptedToCourse {
             get {
@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Answering a question: 100 pts .
+        ///   Looks up a localized string similar to Answering a question: 100 pts.
         /// </summary>
         public static string Answering {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Asking a question: 50 pts .
+        ///   Looks up a localized string similar to Asking a question: 50 pts.
         /// </summary>
         public static string Asking {
             get {
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating a quiz: 300 pts .
+        ///   Looks up a localized string similar to Creating a quiz: 300 pts.
         /// </summary>
         public static string Creating {
             get {
@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Getting a like: 150 pts .
+        ///   Looks up a localized string similar to Getting a like: 150 pts.
         /// </summary>
         public static string Likes {
             get {
@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sharing on FB: 50 pts .
+        ///   Looks up a localized string similar to Sharing on FB: 50 pts.
         /// </summary>
         public static string ShareFB {
             get {
@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload an item to a class: 100 pts .
+        ///   Looks up a localized string similar to Upload an item to a class: 100 pts.
         /// </summary>
         public static string UploadItem {
             get {
