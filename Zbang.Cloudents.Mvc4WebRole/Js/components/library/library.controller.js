@@ -12,7 +12,7 @@
         l.universityName = userDetailsFactory.get().university.name;
 
         l.createDepartmentShow = userDetailsFactory.get().isAdmin && (nodeId == null || l.boxes.length === 0);
-        l.createClassShow = l.departments.length === 0;
+        l.createClassShow = l.departments.length === 0 && nodeId != null;
         l.createDepartment = createDepartment;
         l.canDelete = canDelete;
         l.deleteDepartment = deleteDepartment;
