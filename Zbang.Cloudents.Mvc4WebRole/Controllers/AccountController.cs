@@ -250,7 +250,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<JsonResult> LogIn(
-            [ModelBinder(typeof(TrimModelBinder))]LogOn model, string returnUrl)
+            [ModelBinder(typeof(TrimModelBinder))]LogOn model)
         {
             if (!ModelState.IsValid)
             {

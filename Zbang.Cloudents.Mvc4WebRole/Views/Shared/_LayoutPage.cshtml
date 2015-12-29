@@ -75,16 +75,7 @@
                 <div class="page-top">
                     <div class="top-menu">
                         <ul class="nav navbar-nav">
-                            @*<li class="separator hide">
-                                </li>*@
-                            @*<li>
-                                    @Html.Svg(svgUrl, "headerInvite")
-                                </li>*@
-                            @*<li class="separator hide">
-                                </li>
-                                <li class="separator hide">
-                                </li>*@
-
+                           
                             <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                             <li class="dropdown dropdown-user dropdown-dark" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
                                 <a layout="row" layout-align="space-between center" ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" ga-track-event="['header', 'open menu']">
@@ -120,8 +111,10 @@
 
                                 </ul>
                                 <div class="login-buttons">
-                                    <button class="btn btn-default" role="button" onclick="window.location='@Url.Action("SignUp", "Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'sign up']">@IndexResources.Signup</button>
-                                    <button class="btn btn-primary" role="button" onclick="window.location='@Url.Action("SignIn","Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</button>
+                                    <a class="btn btn-default" target="_self" href="@Url.Action("SignUp", "Account", new { returnUrl= Request.Url })" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'sign up']">@IndexResources.Signup</a>
+                                    <a class="btn btn-primary" target="_self" href="@Url.Action("SignIn", "Account", new { returnUrl = Request.Url })" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
+                                    @*<button class="btn btn-default" role="button" onclick="window.location='@Url.Action("SignUp", "Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'sign up']">@IndexResources.Signup</button>
+                                    <button class="btn btn-primary" role="button" onclick="window.location='@Url.Action("SignIn","Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</button>*@
                                 </div>
                             </li>
                         </ul>

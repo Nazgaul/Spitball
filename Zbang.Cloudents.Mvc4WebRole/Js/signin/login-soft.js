@@ -192,10 +192,10 @@ var Login = function () {
         var returnUrl = getUrlVars()['returnUrl'];
         var universityId = getUrlVars()['universityid'];
         if (returnUrl) {
-            values += "&returnUrl=" + encodeURIComponent(returnUrl);
+            values += "&returnUrl=" + returnUrl;
         }
         if (universityId) {
-            values += "&universityId=" + encodeURIComponent(universityId);
+            values += "&universityId=" + universityId;
         }
 
 
@@ -219,7 +219,7 @@ var Login = function () {
             clearStorage();
             //setNewUser();
             if (returnUrl) {
-                window.location.href = returnUrl;
+                window.location.href = decodeURIComponent(returnUrl);
                 return;
             }
 
@@ -232,9 +232,6 @@ var Login = function () {
         disableState(submitBtn);
         var values = $(form).serialize();
         var returnUrl = getUrlVars()['returnUrl'];
-        if (returnUrl) {
-            values += "&returnUrl=" + encodeURIComponent(getUrlVars()['returnUrl']);
-        }
 
 
         $.post('/account/login', values).done(function (data) {
@@ -257,7 +254,7 @@ var Login = function () {
 
 
             if (returnUrl) {
-                window.location.href = returnUrl;
+                window.location.href = decodeURIComponent(returnUrl);
                 return;
             }
             window.location.href = data.payload;

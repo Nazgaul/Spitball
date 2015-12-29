@@ -16,7 +16,7 @@
                 <button type="button" ng-click="ur.facebook()" class="facebook">@Html.Svg("/images/signin/loginoptions.svg", "facebook") @LogOnResources.ExternalProvider</button>
                 <button type="button" ng-click="ur.google()" ng-disabled="ur.googleDisabled" class="google">@Html.Svg("/images/signin/loginoptions.svg", "google") @LogOnResources.ExternalProvider</button>
                 <br />
-                <a href="@Url.Action("SignUp", "Account")" target="_blank" class="btn btn-primary btn-lg bold btnSignIn"
+                <a href="@Url.Action("SignUp", "Account", new { returnUrl = Request.Url })" target="_blank" class="btn btn-primary btn-lg bold btnSignIn"
                    target="_self">
                     @HomePageResources.A5
                 </a>
