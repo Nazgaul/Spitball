@@ -3,13 +3,13 @@
 
 
 <form novalidate remove-keyboard ng-submit="i.filter()" class="search-box">
-    <input user-not-register-focus ng-focus="i.searchFocus($event)" type="search" placeholder="@BoxResources.Search" ng-model="i.term" ng-model-options="{debounce : 250}" ng-change="i.filter()" ng-minlength="2" />
+    <input user-not-register-popup="focus" type="search" placeholder="@BoxResources.Search" ng-model="i.term" ng-model-options="{debounce : 250}" ng-change="i.filter()" ng-minlength="2" />
 </form>
 @{ Html.RenderPartial("_Tabs");}
 
 
 <ul layout="row" layout-padding layout-fill layout-wrap class="list-unstyled" srph-infinite-scroll="i.myPagingFunction()">
-    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="item-animate add-button " ng-click="i.openUpload()" ga-track-event="['box-items', 'addFile']">
+    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="item-animate add-button "  ng-click="i.openUpload()" ga-track-event="['box-items', 'addFile']">
         <div class="content ">
             <button type="button">
                 @Html.Svg("~/images/site/icons.svg", "add")

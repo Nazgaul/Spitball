@@ -6,16 +6,16 @@
 <div class="full-screen itemPage" srph-infinite-scroll="i.loadMore()" container="true" unregister-scroll="true">
     <header>
         <div class="fb-like" ng-class="{blue : i.details.like}">
-            <button type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
+            <button user-not-register-popup="click" type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
                 <div class="content">@Html.Svg("~/images/site/box-icons.svg", "like") {{i.details.likes}} @GeneralResources.Like</div>
             </button>
         </div>
 
         <div class="text-center">
-            <a target="_blank" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download")</a>
-            <a target="_blank" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print")</a>
+            <a target="_blank" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download")</a>
+            <a target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print")</a>
             <md-menu flex>
-                <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">
+                <md-button aria-label="open menu" class="md-icon-button" user-not-register-popup="click" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">
                     @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
                 </md-button>
                 <md-menu-content width="1">

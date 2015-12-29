@@ -19,7 +19,7 @@
         <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true"
             data-slide-speed="200" ng-controller="SideMenu as d">
             <li class="start">
-                <a @shouldPostBack href="@Url.Action("Index","Dashboard")" ga-track-event="['sidebar', 'dashboard']">
+                <a user-not-register-popup="click" @shouldPostBack href="@Url.Action("Index","Dashboard")" ga-track-event="['sidebar', 'dashboard']">
                     <span class="dashboard icon">@Html.Svg(svgUrl, "houseMenu")</span>
                     <span class="title">@IndexResources.Dashboard</span>
                 </a>
@@ -56,19 +56,19 @@
             </li>
 
             <li>
-                <a @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")" ga-track-event="['sidebar', 'university']">
+                <a user-not-register-popup="click" @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")" ga-track-event="['sidebar', 'university']">
                     <span class="uni icon"> @Html.Svg(svgUrl, "universityMenu")</span>
                     <span class="title">@IndexResources.Uni</span>
                 </a>
             </li>
             <li>
-                <a @shouldPostBack href="{{::d.userUrl}}" ga-track-event="['sidebar', 'user']">
+                <a user-not-register-popup="click" @shouldPostBack href="{{::d.userUrl}}" ga-track-event="['sidebar', 'user']">
                     <span class="user icon">@Html.Svg(svgUrl, "userMenu")</span>
                     <span class="title">@IndexResources.User</span>
                 </a>
             </li>
             <li>
-                <a @shouldPostBack href="@Url.RouteUrl("AccountSettings")" ga-track-event="['sidebar', 'settings']">
+                <a user-not-register-popup="click" @shouldPostBack href="@Url.RouteUrl("AccountSettings")" ga-track-event="['sidebar', 'settings']">
                     <span class="settings icon">@Html.Svg(svgUrl, "settingMenu")</span>
                     <span class="title">@IndexResources.Settings</span>
                 </a>
@@ -86,7 +86,7 @@
                 </a>
             </li>
             <li class="last ">
-                <a target="_self" href="@Url.Action("logoff","account")" ga-track-event="['sidebar', 'logout']">
+                <a user-not-register-popup="click" target="_self" href="@Url.Action("logoff","account")" ga-track-event="['sidebar', 'logout']">
                     <span class="logout icon">@Html.Svg(svgUrl, "logOffMenu")</span>
                     <span class="title">@IndexResources.Logout</span>
                 </a>

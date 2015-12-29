@@ -32,31 +32,18 @@
         i.addItemToTab = addItemToTab;
         i.dropToTabSuccess = dropToTabSuccess;
         i.addTab = addTab;
-        i.openCreateTab = openCreateTab;
         i.renameTab = renameTab;
         i.renameTabOpen = renameTabOpen;
         i.deleteTab = deleteTab;
-        i.searchFocus = searchFocus;
 
         getItems();
-
-
-        function searchFocus(e) {
-            e.preventDefault();
-        }
 
         function renameTabOpen() {
             i.openRenameTab = true;
             i.tabNewName = i.tabSelected.name;
         }
 
-        function openCreateTab() {
-            if (!user.id) {
-                $rootScope.$broadcast('show-unregisterd-box');
-                return;
-            }
-            i.newFolderTabOpened = true;
-        }
+       
 
         var submitDisabled = false;
         function addTab() {

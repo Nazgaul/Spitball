@@ -7,7 +7,7 @@
             restrict: 'A',
             link: function (scope, element) {
                 var css = 'smallHeight mediumHeight largeHeight noHeight';
-                var windowHeight = $(window).height();
+                //var windowHeight = $(window).height();
                 $rootScope.$on('show-unregisterd-box', function () {
                     element.removeClass(css).addClass('smallHeight');
                 });
@@ -34,7 +34,7 @@
     function unregShow($window, $rootScope, userDetailsFactory) {
         return {
             restrict: 'A',
-            
+
             link: function (scope, element, attrs) {
                 if (userDetailsFactory.isAuthenticated()) {
                     return;
@@ -91,20 +91,27 @@
 })();
 
 (function () {
-    angular.module('app').directive('userNotRegisterFocus', unregShow);
+    angular.module('app').directive('userNotRegisterPopup', unregShow);
     unregShow.$inject = ['$window', '$rootScope', 'userDetailsFactory'];
 
     function unregShow($window, $rootScope, userDetailsFactory) {
         return {
             restrict: 'A',
-            link: function (scope, element) {
+            priority: -1,
+            link: function (scope, element, attrs) {
                 if (userDetailsFactory.isAuthenticated()) {
                     return;
                 }
-                element.focus(function () {
+                element.on(attrs.userNotRegisterPopup, function (e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
                     element.blur();
                     $rootScope.$broadcast('show-unregisterd-box');
                 });
+                //element.focus(function () {
+                //    element.blur();
+                //    $rootScope.$broadcast('show-unregisterd-box');
+                //});
 
             }
         };
