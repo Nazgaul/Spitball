@@ -1,4 +1,5 @@
-﻿@using Zbang.Zbox.Infrastructure.Enums
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@using Zbang.Zbox.Infrastructure.Enums
 
 <div class="tab-pane" id="notification">
     <div class="section">
@@ -6,7 +7,7 @@
         <li ng-repeat="box in ::n.notifications track by box.id" class="clearfix" layout-wrap>
             <div class="box-data" d-color="{{::box.name.length}}">
                 <div class="name">{{::box.name}}</div>
-                <div class="owner">Owner: {{::box.userName}}</div>
+                <div class="owner">@AccountResource.NotificationOwner: {{::box.userName}}</div>
             </div>
             <md-input-container flex-xs="100" flex-gt-xs="30">
                 <md-select md-container-class="dd-list" ng-model="box.notifications" ng-change="n.updateNotification(box)" ga-track-event="['notifications', 'change notification timing']">

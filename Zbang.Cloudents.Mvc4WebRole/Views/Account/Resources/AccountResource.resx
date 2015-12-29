@@ -183,4 +183,7 @@
   <data name="AnotherRequest" xml:space="preserve">
     <value>send another request</value>
   </data>
+  <data name="NotificationOwner" xml:space="preserve">
+    <value>Owner</value>
+  </data>
 </root>
