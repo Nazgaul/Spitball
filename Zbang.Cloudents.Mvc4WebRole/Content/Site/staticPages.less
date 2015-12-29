@@ -81,10 +81,6 @@
         }
     }
 
-    .col-md-9 {
-        width: 100%;
-    }
-
     .accordion-toggle {
         .panel-heading {
             color: @textColorWhite;
@@ -94,5 +90,21 @@
         &:not(.collapsed) .panel-heading {
             background: @buttonColorBlue;
         }
+    }
+
+    md-tabs {
+        background: none;
+
+        md-tabs-content-wrapper {
+            top: 58px;
+        }
+
+        md-tab-content {
+            margin-top: 15px;
+        }
+    }
+
+    h2 {
+        font-size: 16px;
     }
 }

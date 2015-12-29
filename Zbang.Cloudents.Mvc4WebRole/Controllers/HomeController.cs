@@ -83,16 +83,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //don't put in here route attribute
         [DonutOutputCache(CacheProfile = "FullPage")]
         [NoUniversity]
-        //this is for search,library choose,account settings home page
         public ActionResult IndexEmpty()
         {
             return View("Empty");
         }
 
-        //public ActionResult Redirect()
-        //{
-        //    return RedirectToAction("Index", User.Identity.IsAuthenticated ? "Dashboard" : "Account");
-        //}
+        [DonutOutputCache(CacheProfile = "FullPage")]
+        [NoUniversity]
+        [Route("home/aboutus")]
+        [Route("home/privacy")]
+        [Route("terms", Name = "TOS")]
+        public ActionResult IndexEmptyRoute()
+        {
+            return View("Empty");
+        }
 
         [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang)]
@@ -122,17 +126,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToRoutePermanent("TOS");
         }
 
-        public ActionResult Terms()
+        public ActionResult TermsPartial()
         {
             ViewBag.postBag = true;
-            return View("TermsOfService");
+            return PartialView("TermsOfService");
         }
 
         [DonutOutputCache(CacheProfile = "FullPage")]
-        public ActionResult Privacy()
+        public ActionResult PrivacyPartial()
         {
-            ViewBag.postBag = true;
-            return View();
+            //ViewBag.postBag = true;
+            return PartialView("Privacy");
         }
 
         [DonutOutputCache(CacheProfile = "FullPage")]
@@ -181,7 +185,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (model != null)
             {
                 return PartialView(viewName, model.Where(w => String.Equals(w.Language,
-                     System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
+                     Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
 
             }
             using (var stream = await m_BlobProvider.Value.GetFaqQuestion())
@@ -208,13 +212,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 await m_CacheProvider.Value.AddToCacheAsync(faqQuestionCacheName, model, TimeSpan.FromHours(1), faqQuestionCacheName);
             }
             return PartialView(viewName, model.Where(w => String.Equals(w.Language,
-                System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
+                Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
 
         }
         [DonutOutputCache(CacheProfile = "FullPage")]
-        public ActionResult AboutUs()
+        public ActionResult AboutUsPartial()
         {
-            return View();
+
+            return View("AboutUs");
         }
 
         [DonutOutputCache(CacheProfile = "FullPage")]

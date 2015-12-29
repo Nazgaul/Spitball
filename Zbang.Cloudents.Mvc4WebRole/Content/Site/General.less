@@ -743,11 +743,11 @@ md-menu-item {
     svg {
         width: 32px;
         height: 32px;
-        -moz-transform: rotate(270deg) /*rtl:rotate(90deg)*/;
-        -ms-transform: rotate(270deg) /*rtl:rotate(90deg)*/;
-        -o-transform: rotate(270deg) /*rtl:rotate(90deg)*/;
-        -webkit-transform: rotate(270deg) /*rtl:rotate(90deg)*/;
-        transform: rotate(270deg) /*rtl:rotate(90deg)*/;
+        -moz-transform: rotate(270deg) /*rtl:ignore*/;
+        -ms-transform: rotate(270deg) /*rtl:ignore*/;
+        -o-transform: rotate(270deg) /*rtl:ignore*/;
+        -webkit-transform: rotate(270deg) /*rtl:ignore*/;
+        transform: rotate(270deg) /*rtl:ignore*/;
         fill: @borderColorBlue;
     }
 }
@@ -799,21 +799,4 @@ md-input-container:not(.md-input-invalid).md-input-focused label{
 }
 
 
-.help-page {
-    md-tabs {
-        background: none;
-        height: 80vh;
 
-        md-tabs-content-wrapper {
-            top: 58px;
-        }
-
-        md-tab-content {
-            margin-top: 15px;
-        }
-    }
-
-    h2 {
-        font-size: 16px;
-    }
-}

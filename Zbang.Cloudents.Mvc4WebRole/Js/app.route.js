@@ -41,6 +41,36 @@
                     templateUrl: '/home/jobs/'
                 },
                  {
+                     state: 'abousUs',
+                     config: {
+                         url: '/home/aboutus/',
+                         data: {
+                             staticPage: true
+                         }
+                     },
+                     templateUrl: '/home/aboutuspartial/'
+                 },
+                 {
+                     state: 'privacy',
+                     config: {
+                         url: '/home/privacy/',
+                         data: {
+                             staticPage: true
+                         }
+                     },
+                     templateUrl: '/home/privacypartial/'
+                 },
+                 {
+                     state: 'terms',
+                     config: {
+                         url: '/terms/',
+                         data: {
+                             staticPage: true
+                         }
+                     },
+                     templateUrl: '/home/termspartial/'
+                 },
+                 {
                      state: 'blog',
                      config: {
                          url: '/blog/',
