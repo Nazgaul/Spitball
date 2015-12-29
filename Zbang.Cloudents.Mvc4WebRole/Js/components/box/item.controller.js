@@ -36,7 +36,14 @@
         i.renameTab = renameTab;
         i.renameTabOpen = renameTabOpen;
         i.deleteTab = deleteTab;
+        i.searchFocus = searchFocus;
+
         getItems();
+
+
+        function searchFocus(e) {
+            e.preventDefault();
+        }
 
         function renameTabOpen() {
             i.openRenameTab = true;

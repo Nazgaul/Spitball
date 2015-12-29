@@ -88,6 +88,25 @@
             }
         };
     }
+})();
 
+(function () {
+    angular.module('app').directive('userNotRegisterFocus', unregShow);
+    unregShow.$inject = ['$window', '$rootScope', 'userDetailsFactory'];
 
+    function unregShow($window, $rootScope, userDetailsFactory) {
+        return {
+            restrict: 'A',
+            link: function (scope, element) {
+                if (userDetailsFactory.isAuthenticated()) {
+                    return;
+                }
+                element.focus(function () {
+                    element.blur();
+                    $rootScope.$broadcast('show-unregisterd-box');
+                });
+
+            }
+        };
+    }
 })();
