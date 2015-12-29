@@ -47,9 +47,9 @@
                     <label class="text-capitalize">@AccountResource.ChangeMail</label>
                     <input type="email" autocomplete="off" required ng-model="i.data.email" />
                 </md-input-container>
-                <div class="text-right">
-                    <button type="button" class="btn btn-default text-capitalize" ng-click="i.cancelChangeEmail()" ga-track-event="['settings', 'cancel changes']">@GeneralResources.Cancel</button>
-                    <button type="submit" class="btn btn-primary text-capitalize" ng-disabled="!changeEmail.$valid || i.data.email === i.original.email" ga-track-event="['settings', 'save changes']">@GeneralResources.SaveChanges</button>
+                <div class="text-right text-capitalize">
+                    <button type="button" class="btn btn-default" ng-click="i.cancelChangeEmail()" ga-track-event="['settings', 'cancel changes']">@GeneralResources.Cancel</button>
+                    <button type="submit" class="btn btn-primary" ng-disabled="!changeEmail.$valid || i.data.email === i.original.email" ga-track-event="['settings', 'save changes']">@GeneralResources.SaveChanges</button>
                 </div>
             </form>
         </div>

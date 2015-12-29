@@ -3,6 +3,11 @@
     info.$inject = ['accountService', '$timeout', 'userData', 'userDetailsFactory', '$mdDialog', '$mdMedia', '$scope', 'CacheFactory'];
     function info(accountService, $timeout, userData, userDetailsFactory, $mdDialog, $mdMedia, $scope, cacheFactory) {
         var self = this;
+
+
+        if (!userData.universityImage) {
+            userData.universityImage = 'https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/universityEmptyState.png';
+        }
         self.original = userData;
         self.data = angular.copy(userData);
 
@@ -22,21 +27,21 @@
         }
 
         function submitChangeName() {
-                var firstName = self.data.firstName,
-                lastName = self.data.lastName;
-                if (firstName === userData.firstName && lastName === userData.lastName) {
-                    return;
-                }
+            var firstName = self.data.firstName,
+            lastName = self.data.lastName;
+            if (firstName === userData.firstName && lastName === userData.lastName) {
+                return;
+            }
 
-                accountService.setAccountDetails(firstName, lastName).then(function () {
-                    userDetailsFactory.setName(firstName, lastName);
-                    showToast('update complete');
-                });
+            accountService.setAccountDetails(firstName, lastName).then(function () {
+                userDetailsFactory.setName(firstName, lastName);
+                showToast('update complete');
+            });
         }
-       
+
 
         function changeEmail(ev) {
-            accountService.changeEmail(self.data.email).then(function() {
+            accountService.changeEmail(self.data.email).then(function () {
                 $mdDialog.show({
                     controller: 'InsertCodeController',
                     controllerAs: 'ic',
@@ -45,9 +50,9 @@
                     targetEvent: ev,
                     clickOutsideToClose: true,
                     fullscreen: $mdMedia('xs')
-                }).then(function() {
+                }).then(function () {
                     self.original.email = self.data.email;
-                }, function() {
+                }, function () {
                     cancelChangeEmail();
                 });
             });
@@ -75,7 +80,7 @@
                         self.data.image = obj.payload;
                         cacheFactory.clearAll();
                         userDetailsFactory.setImage(obj.payload);
-                        
+
                     }
                 },
                 error: function (uploader, error) {
@@ -96,7 +101,7 @@
 
         function showToast(messae) {
             $scope.app.showToaster(messae, 'accountPage');
-           
+
         }
     }
 })();
@@ -104,14 +109,14 @@
 
 (function () {
     angular.module('app.account').controller('InsertCodeController', code);
-    code.$inject = ['$mdDialog',  'accountService'];
+    code.$inject = ['$mdDialog', 'accountService'];
 
     function code($mdDialog, accountService) {
         var ic = this;
         ic.cancel = cancel;
         ic.submitCode = submitCode;
         function submitCode() {
-            accountService.submitCode(ic.code).then(function() {
+            accountService.submitCode(ic.code).then(function () {
                 $mdDialog.hide();
             });
 
