@@ -175,7 +175,7 @@
         <div layout-wrap layout-padding layout="row" layout-align="space-between stretch">
             <div flex="100" flex-gt-md="50" ng-if="b.showLeaderboard" class="flex leaderboard-container">
                 @* ReSharper disable once Mvc.PartialViewNotResolved *@
-                @{ Html.RenderPartial("_LeaderBoard");}
+                @{ Html.RenderPartial("_LeaderBoard", IndexResources.Best);}
             </div>
             <div class="invite-container" flex class="flex">
                 <div class="flex portlet light invite">

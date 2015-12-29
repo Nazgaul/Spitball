@@ -135,4 +135,7 @@
   <data name="EnterGroupName" xml:space="preserve">
     <value>Enter study group name</value>
   </data>
+  <data name="LeaderboardTitle" xml:space="preserve">
+    <value>Top of the school</value>
+  </data>
 </root>

@@ -97,6 +97,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Top of the school.
+        /// </summary>
+        public static string LeaderboardTitle {
+            get {
+                return ResourceManager.GetString("LeaderboardTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create a study group.
         /// </summary>
         public static string StudyGroup {
