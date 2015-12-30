@@ -119,7 +119,7 @@
                     return {
                         name: c.name,
                         email: c.id,
-                        image: c.image ||  '/images/user.svg' ,
+                        image: c.image,// ||  '/images/user.svg' ,
                         _lowername: c.name.toLowerCase()
                     }
                 });
