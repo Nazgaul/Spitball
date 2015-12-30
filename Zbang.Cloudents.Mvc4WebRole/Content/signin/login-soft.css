@@ -308,7 +308,8 @@ Login page
   font-size: 16px;
   text-align: center;
 }
-.login .content .has-error .select2-container i {
+.login .content .has-error .select2-container i,
+.field-validation-error {
   color: #b94a48;
 }
 .login .content .select2-container a span {

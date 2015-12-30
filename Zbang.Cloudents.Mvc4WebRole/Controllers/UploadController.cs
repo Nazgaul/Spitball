@@ -42,7 +42,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [RemoveBoxCookie]
         public async Task<ActionResult> File(UploadFile model)
         {
-            await Task.Delay(TimeSpan.FromSeconds(10));
             var userId = User.GetUserId();
             try
             {
