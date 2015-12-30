@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public CreateMembershipUserCommandHandler(IUserRepository userRepository,
             IRepository<University> universityRepository,
             IQueueProvider queueRepository,
-            IRepository<InviteToSystem> inviteToCloudentsRepository,
+            IRepository<Invite> inviteToCloudentsRepository,
             IRepository<Reputation> reputationRepository,
             IRepository<AcademicBox> academicBoxRepository)
             : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository, reputationRepository, academicBoxRepository)
@@ -30,7 +30,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new NullReferenceException("command.Email");
             }
-            GiveReputation(command.InviteId);
+
 
 
             var user = GetUserByEmail(command.Email);
@@ -60,6 +60,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 UpdateUniversity(membershipCommand.UniversityId.Value, retVal, user);
 
             }
+            GiveReputationAndAssignToBox(command.InviteId, user);
             UserRepository.Save(user);
             return retVal;
         }

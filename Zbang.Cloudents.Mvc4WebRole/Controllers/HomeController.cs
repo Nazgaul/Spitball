@@ -14,6 +14,7 @@ using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
+using Zbang.Cloudents.Mvc4WebRole.Models.Account;
 using Zbang.Cloudents.Mvc4WebRole.Models.FAQ;
 using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Domain.Commands;
@@ -23,6 +24,7 @@ using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
+using Zbang.Zbox.Infrastructure.Url;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -33,15 +35,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<ICache> m_CacheProvider;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly ILanguageCookieHelper m_LanguageCookie;
+        private readonly ICookieHelper m_CookieHelper;
 
         public HomeController(
             Lazy<IBlobProvider> blobProvider,
-            Lazy<ICache> cacheProvider, Lazy<IQueueProvider> queueProvider, ILanguageCookieHelper languageCookie)
+            Lazy<ICache> cacheProvider, Lazy<IQueueProvider> queueProvider, ILanguageCookieHelper languageCookie, ICookieHelper cookieHelper)
         {
             m_BlobProvider = blobProvider;
             m_CacheProvider = cacheProvider;
             m_QueueProvider = queueProvider;
             m_LanguageCookie = languageCookie;
+            m_CookieHelper = cookieHelper;
         }
 
         //[DonutOutputCache(VaryByParam = "lang;invId",
@@ -64,14 +68,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 ViewBag.moveToSpitBall = true;
             }
-            //if (!string.IsNullOrEmpty(invId))
-            //{
-            //    var guid = GuidEncoder.TryParseNullableGuid(invId);
-            //    if (guid.HasValue)
-            //    {
-            //        m_CookieHelper.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
-            //    }
-            //}
+            if (!string.IsNullOrEmpty(invId))
+            {
+                var guid = GuidEncoder.TryParseNullableGuid(invId);
+                if (guid.HasValue)
+                {
+                    m_CookieHelper.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
+                }
+            }
 
             //ViewBag.title = Views.Account.Resources.HomeResources.Title;
             //ViewBag.metaDescription = Views.Account.Resources.HomeResources.Description;
