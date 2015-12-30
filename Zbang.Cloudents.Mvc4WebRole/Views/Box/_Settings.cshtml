@@ -6,6 +6,9 @@
     <md-input-container>
         <label>@BoxResources.Name</label>
         <input type="text" autocomplete="off" name="name" ng-model="b.settings.name" required />
+        <div ng-messages="updateBoxForm.name.$error" ng-show="updateBoxForm.name.$dirty">
+            <div ng-message="required">@GeneralResources.RequiredField</div>
+        </div>
     </md-input-container>
 
     <div layout="row" layout-wrap ng-if="b.isAcademic">
@@ -48,7 +51,7 @@
         </md-input-container>
         <md-input-container layout="row" layout-align="end center" flex="100" flex-gt-md="33">
             <button type="button" class="btn btn-default" ng-click="b.settingsOpen = false" ga-track-event="['box-settings', 'cancel']">@GeneralResources.Cancel</button>
-            <button type="submit" class="btn btn-primary" ng-disabled="b.settings.submitDisabled" ga-track-event="['box-settings', 'save']">@GeneralResources.SaveChanges</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="b.settings.submitDisabled || !updateBoxForm.$valid" ga-track-event="['box-settings', 'save']">@GeneralResources.SaveChanges</button>
         </md-input-container>
     </div>
 </form>
