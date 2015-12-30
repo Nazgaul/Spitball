@@ -69,7 +69,7 @@
                         <span class="counter-view"></span>
                         <input type="text" required ng-model="answer.text" ng-blur="q.saveAnswer(question,answer)" placeholder="@QuizResources.Answer {{$index + 1}}" />
                     </div>
-                    <input required type="radio" name="question {{$parent.$index}}" ng-disabled="!answer.text.length" ng-click="q.markcorrect(question,answer)" ng-checked="answer.id === question.correctAnswer" />
+                    <input required type="radio" name="question {{$parent.$index}}" ng-disabled="!answer.text.length" ng-click="q.markcorrect(question,answer)" ng-checked="answer.id != null && answer.id === question.correctAnswer" />
                     <button type="button" ng-show="q.deleteAnswerShow(question)" ng-click="q.deleteAnswer(question,answer)" ga-track-event="['createQuiz', 'delete answer']">@Html.Svg("~/images/site/icons.svg", "delete")</button>
                     <span class="error-answer-msg">@QuizResources.AddAnswer</span>
                 </li>
