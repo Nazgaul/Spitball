@@ -30,7 +30,7 @@
                     }
                     elem.remove();
                 }
-               
+
                 //scope.$watch('name', function () {
                 //    console.log('z');
                 //});
@@ -58,7 +58,7 @@
                     });
                 }
                 compile();
-               
+
 
                 function image() {
                     innerEl = angular.element(imageTemplate);
@@ -79,7 +79,10 @@
                         innerEl.addClass(className);
                     }
                     innerEl.attr('d-color', scope.name.length);
-                    var borderWidth = parseInt(elem.css('border-width')) * 2;
+                    var borderWidthValue = elem.css('border-width'), borderWidth = 0;
+                    if (borderWidthValue) {
+                        borderWidth = parseInt(borderWidthValue, 10) * 2;
+                    }
                     var elementHeight = elem[0].getAttribute('height');
 
 
