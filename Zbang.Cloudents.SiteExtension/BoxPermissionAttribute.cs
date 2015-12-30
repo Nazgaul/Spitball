@@ -38,16 +38,16 @@ namespace Zbang.Cloudents.SiteExtension
                 }
                 catch (BoxDoesntExistException)
                 {
-                    if (filterContext.HttpContext.Request.IsAjaxRequest())
-                    {
+                    //if (filterContext.HttpContext.Request.IsAjaxRequest())
+                    //{
                         filterContext.Result = new HttpStatusCodeResult(404);
-                        return;
-                    }
-                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
-                    {
-                        {"action", "Index"},
-                        {"controller", "Error"}
-                    });
+                        //return;
+                    //}
+                    //filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
+                   // {
+                        //{"action", "Index"},
+                        //{"controller", "Error"}
+                    //});
                     return;
                 }
                 catch (BoxAccessDeniedException)
@@ -61,7 +61,8 @@ namespace Zbang.Cloudents.SiteExtension
                     {
                         {"action", "MembersOnly"},
                         {"controller", "Error"},
-                        {"returnUrl", filterContext.HttpContext.Request.Url != null ? filterContext.HttpContext.Request.Url.AbsolutePath : null}
+                        {"returnUrl", filterContext.HttpContext.Request.Url != null ? filterContext.HttpContext.Request.Url.AbsolutePath : null},
+                        {"invId", filterContext.HttpContext.Request.QueryString["invId"]}
                     });
                     return;
                 }

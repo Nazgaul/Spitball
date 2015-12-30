@@ -9,7 +9,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             filters.Add(new ZboxHandleErrorAttribute());
             //filters.Add(new RedirectToWWW());
-            filters.Add(new RequireHttpsWrapperAttribute());
+            filters.Add(new RequireHttpsAttribute());
             filters.Add(new NoCacheAjaxFilterAttribute());
             filters.Add(new ETagAttribute());
            
@@ -17,13 +17,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
     }
 
 
-    public class RequireHttpsWrapperAttribute : RequireHttpsAttribute
-    {
-        public override void OnAuthorization(AuthorizationContext filterContext)
-        {
-            if (filterContext.HttpContext.Request.IsLocal)
-                return;
-            base.OnAuthorization(filterContext);
-        }
-    }
+    //public class RequireHttpsWrapperAttribute : RequireHttpsAttribute
+    //{
+    //    public override void OnAuthorization(AuthorizationContext filterContext)
+    //    {
+    //        //if (filterContext.HttpContext.Request.IsLocal)
+    //        //    return;
+    //        base.OnAuthorization(filterContext);
+    //    }
+    //}
 }

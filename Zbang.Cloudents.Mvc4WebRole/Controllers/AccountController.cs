@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.UI;
 using DevTrends.MvcDonutCaching;
@@ -62,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult Index(string lang, string invId)
         {
-            return RedirectToActionPermanent("Index", "Home");
+            return RedirectToActionPermanent("Index", "Home", new { lang, invId });
         }
 
         [DonutOutputCache(VaryByParam = "lang;invId",
@@ -81,11 +80,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
            VaryByCustom = CustomCacheKeys.Lang,
            Duration = TimeConsts.Day,
            Location = OutputCacheLocation.Server, Order = 2)]
-        public ActionResult Signup()
+        public ActionResult Signup(string invId)
         {
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Dashboard");
+            }
+            if (!string.IsNullOrEmpty(invId))
+            {
+                var guid = GuidEncoder.TryParseNullableGuid(invId);
+                if (guid.HasValue)
+                {
+                    m_CookieHelper.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
+                }
             }
             return View("Signin");
         }

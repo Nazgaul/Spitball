@@ -15,7 +15,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         private const string UserUrl = "/user/{0}/{1}/";
         private const string LibraryUrl = "/library/{0}/{1}/";
         private const string StoreProductUrl = "/store/product/{0}/{1}/";
-        private const string LogInUrl = "/account/?invId={0}";
+        private const string LogInUrl = "/?invId={0}";
 
         public const string ShortBox = "b/{box62Id}";
         public const string ShortItem = "i/{item62Id}";

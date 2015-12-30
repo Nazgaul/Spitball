@@ -267,13 +267,17 @@
   border: 1px solid #3293f6;
   width: 70%;
 }
-.create-question .answer div input {
+.create-question .answer div input,
+.create-question .answer div .disabled {
   border: 0;
   height: 25px;
   line-height: 24px;
   width: calc(100% - 35px);
   margin-left: -4px;
   padding-left: 15px;
+}
+.create-question .answer div .disabled {
+  color: #9E9E9E;
 }
 .create-question .answer svg {
   width: 15px;

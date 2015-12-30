@@ -99,10 +99,10 @@
             restrict: 'A',
             priority: -1,
             link: function (scope, element, attrs) {
-                if (userDetailsFactory.isAuthenticated()) {
-                    return;
-                }
                 element.on(attrs.userNotRegisterPopup, function (e) {
+                    if (userDetailsFactory.isAuthenticated()) {
+                        return;
+                    }
                     e.preventDefault();
                     e.stopImmediatePropagation();
                     element.blur();

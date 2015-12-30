@@ -321,7 +321,7 @@
             border: 1px solid @borderColorSpitballBlue;
             width: 70%;
 
-            input {
+            input, .disabled {
                 border: 0;
                 height: @heightOfAnswer;
                 line-height: @heightOfAnswer - 1px;
@@ -329,6 +329,10 @@
                 margin-left: -4px;
                 padding-left: 15px;
             }
+            .disabled {
+                color:#9E9E9E;
+            }
+
         }
 
         svg {

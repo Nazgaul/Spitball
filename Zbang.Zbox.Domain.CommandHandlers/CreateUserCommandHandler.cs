@@ -3,6 +3,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Domain.DataAccess;
@@ -17,14 +18,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         protected readonly IUserRepository UserRepository;
         private readonly IQueueProvider m_QueueRepository;
         private readonly IRepository<University> m_UniversityRepository;
-        private readonly IRepository<InviteToSystem> m_InviteToCloudentsRepository;
+        private readonly IRepository<Invite> m_InviteToCloudentsRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
         private readonly IRepository<AcademicBox> m_AcademicBoxRepository;
 
         protected CreateUserCommandHandler(IUserRepository userRepository,
             IQueueProvider queueRepository,
             IRepository<University> universityRepository,
-            IRepository<InviteToSystem> inviteToCloudentsRepository,
+            IRepository<Invite> inviteToCloudentsRepository,
             IRepository<Reputation> reputationRepository, IRepository<AcademicBox> academicBoxRepository)
         {
             UserRepository = userRepository;
@@ -43,7 +44,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return m_QueueRepository.InsertMessageToMailNewAsync(new WelcomeMailData(user.Email, user.Name, user.Culture));
         }
 
-        protected void GiveReputation(Guid? invId)
+        protected void GiveReputationAndAssignToBox(Guid? invId, User user)
         {
             if (!invId.HasValue)
             {
@@ -65,6 +66,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             UserRepository.Save(invite.Sender);
             m_InviteToCloudentsRepository.Save(invite);
             m_QueueRepository.InsertMessageToTranaction(new ReputationData(invite.Sender.Id));
+
+            var inviteToBox = invite as InviteToBox;
+            if (inviteToBox != null)
+            {
+                user.ChangeUserRelationShipToBoxType(inviteToBox.Box, UserRelationshipType.Subscribe);
+            }
         }
 
 

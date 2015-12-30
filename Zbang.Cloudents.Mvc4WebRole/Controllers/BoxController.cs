@@ -35,7 +35,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //   Duration = TimeConsts.Day, VaryByParam = "boxId",
         //   Location = OutputCacheLocation.Server, Order = 4)]
         [BoxPermission("boxId", Order = 3)]
-        public async Task<ActionResult> Index(long boxId, string boxName)
+        public async Task<ActionResult> Index(long boxId, string boxName, string invId)
         {
             var userId = User.GetUserId(false);
             try
@@ -70,7 +70,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (BoxAccessDeniedException)
             {
                 return Request.Url == null ? RedirectToAction("MembersOnly", "Error")
-                    : RedirectToAction("MembersOnly", "Error", new { returnUrl = Request.Url.AbsolutePath });
+                    : RedirectToAction("MembersOnly", "Error",
+                    new { returnUrl = Request.Url.AbsolutePath, invId });
             }
             catch (BoxDoesntExistException)
             {
@@ -375,7 +376,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-     
+
 
         #region DeleteBox
 

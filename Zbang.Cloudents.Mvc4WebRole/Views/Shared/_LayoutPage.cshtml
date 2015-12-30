@@ -109,9 +109,14 @@
                                     </li>
 
                                 </ul>
+                                @{
+                                    var returnUrl = Request.QueryString["returnUrl"] ?? Request.Url.ToString();
+                                    var invId = Request.QueryString["invId"];
+                                    
+                                }
                                 <div class="login-buttons">
-                                    <a class="btn btn-default" target="_self" href="@Url.Action("SignUp", "Account", new { returnUrl= Request.Url })" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'sign up']">@IndexResources.Signup</a>
-                                    <a class="btn btn-primary" target="_self" href="@Url.Action("SignIn", "Account", new { returnUrl = Request.Url })" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
+                                    <a class="btn btn-default" target="_self" href="@Url.Action("SignUp", "Account", new { returnUrl,invId })" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'sign up']">@IndexResources.Signup</a>
+                                    <a class="btn btn-primary" target="_self" href="@Url.Action("SignIn", "Account", new { returnUrl, invId })" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
                                     @*<button class="btn btn-default" role="button" onclick="window.location='@Url.Action("SignUp", "Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'sign up']">@IndexResources.Signup</button>
                                     <button class="btn btn-primary" role="button" onclick="window.location='@Url.Action("SignIn","Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</button>*@
                                 </div>
