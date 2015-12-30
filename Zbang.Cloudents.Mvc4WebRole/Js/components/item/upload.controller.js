@@ -144,6 +144,8 @@
                     for (var i = 0; i < files.length; i++) {
                         var file = files[i];
                         file.sizeFormated = plupload.formatSize(file.size);
+                        file.boxId = boxid;
+                        file.tabId = tab;
                         file.complete = false;
                         file.remove = function () { removeFile(file, uploader); }
                         u.files.push(file);
@@ -157,8 +159,8 @@
                     up.settings.multipart_params = {
                         fileName: file.name,
                         fileSize: file.size,
-                        boxId: boxid,
-                        tabId: tab,
+                        boxId: file.boxId,
+                        tabId: file.tabId,
                         comment: false
                     };
                 },
