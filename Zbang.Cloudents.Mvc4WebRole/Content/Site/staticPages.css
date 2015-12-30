@@ -169,3 +169,93 @@
 .contactUs-page .social-links .wrapper {
   display: inline-block;
 }
+.aboutUs-page .advantages {
+  color: #888b8e;
+}
+.aboutUs-page .advantages .portlet {
+  background-color: #f5f5f5;
+  border-radius: 0;
+  text-align: center;
+  padding: 30px;
+}
+.aboutUs-page .advantages .card-icon {
+  padding-bottom: 15px;
+}
+.aboutUs-page .advantages .card-icon svg {
+  width: 65px;
+  height: 65px;
+  fill: #282828;
+}
+.aboutUs-page .advantages .card-title {
+  color: #323538;
+  font-weight: bold;
+}
+.aboutUs-page .about-text {
+  font-size: 16px;
+  line-height: initial;
+  background: transparent;
+  padding: 0;
+  height: 360px;
+  overflow: scroll;
+  color: #f5f5f5;
+  padding-right: 10px;
+  margin-right: 25px;
+}
+.aboutUs-page .about-text h4 {
+  font-weight: bold;
+  margin: 0;
+}
+.aboutUs-page .about-text div {
+  margin-bottom: 20px;
+}
+.aboutUs-page .team-header h1 {
+  font-size: 25px;
+  text-align: center;
+  font-weight: bold;
+}
+.aboutUs-page .team > div {
+  padding: 15px;
+}
+.aboutUs-page .team .portlet {
+  text-align: center;
+  background: #f5f5f5;
+  color: #282828;
+  border-radius: 0;
+}
+.aboutUs-page .team .portlet .desc {
+  height: 44px;
+  display: block;
+}
+.aboutUs-page .team .portlet .photo {
+  display: inline-block;
+  width: 50%;
+}
+.aboutUs-page .middle-area {
+  margin-right: 0;
+  margin-left: 0;
+  text-align: center;
+}
+.aboutUs-page .middle-area .about-text-wrapper {
+  text-align: left;
+  width: calc(100% - 644px);
+  display: inline-block;
+}
+@media (max-width: 1200px) {
+  .aboutUs-page .middle-area .about-text-wrapper {
+    width: 100%;
+    display: block;
+  }
+  .aboutUs-page .middle-area .about-text-wrapper .about-text {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
+.aboutUs-page .middle-area .video-wrapper {
+  display: inline-block;
+}
+.aboutUs-page .about-header {
+  height: 500px;
+  background-image: url("/Images/aboutUs/aboutBg.jpg");
+  background-position: center;
+  margin: 0 -20px;
+}

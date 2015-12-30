@@ -94,11 +94,9 @@
 
     md-tabs {
         background: none;
-
         /*md-tabs-content-wrapper {
             top: 58px;
         }*/
-
         md-tab-content {
             margin-top: 15px;
         }
@@ -217,5 +215,116 @@
         .wrapper {
             display: inline-block;
         }
+    }
+}
+
+.aboutUs-page {
+    .advantages {
+        color: @textColorGrey;
+
+        .portlet {
+            background-color: @backgroundColorWhite;
+            border-radius: 0;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .card-icon {
+            padding-bottom: 15px;
+
+            svg {
+                width: 65px;
+                height: 65px;
+                fill: @textColorBlack;
+            }
+        }
+
+        .card-title {
+            color: @textColorDarkGrey;
+            font-weight: bold;
+        }
+    }
+
+    .about-text {
+        font-size: 16px;
+        line-height: initial;
+        background: transparent;
+        padding: 0;
+        height: 360px;
+        overflow: scroll;
+        color: @textColorWhite;
+        padding-right: 10px;
+        margin-right: 25px;
+
+        h4 {
+            font-weight: bold;
+            margin: 0;
+        }
+
+        div {
+            margin-bottom: 20px;
+        }
+    }
+
+    .team-header h1 {
+        font-size: 25px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .team {
+        > div {
+            padding: 15px;
+        }
+
+        .portlet {
+            text-align: center;
+            background: @backgroundColorWhite;
+            color: @textColorBlack;
+            border-radius: 0;
+
+            .desc {
+                height: 44px;
+                display: block;
+            }
+
+            .photo {
+                display: inline-block;
+                width: 50%;
+            }
+        }
+    }
+
+    .middle-area {
+        margin-right: 0;
+        margin-left: 0;
+        text-align: center;
+
+        .about-text-wrapper {
+            text-align: left;
+            width: ~"calc(100% - 644px)";
+            display: inline-block;
+
+            @media (max-width: 1200px) {
+                width: 100%;
+                display: block;
+
+                .about-text {
+                    margin-right: 0;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+
+        .video-wrapper {
+            display: inline-block;
+        }
+    }
+
+    .about-header {
+        height: 500px;
+        background-image: url("/Images/aboutUs/aboutBg.jpg");
+        background-position: center;
+        margin: 0 -20px;
     }
 }

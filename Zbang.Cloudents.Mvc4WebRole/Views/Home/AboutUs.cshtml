@@ -3,35 +3,268 @@
 
 @{
     ViewBag.Title = "About Us | Spitball";
-    Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
-<div class="static-page">
-    <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title text-capitalize">Modal title</h4>
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+<link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+@*<link href="../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />*@
+@*<link href="../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />*@
+@*<link href="../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />*@
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN THEME GLOBAL STYLES -->
+@*<link href="../assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="../assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="../assets/pages/css/about.min.css" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href="../assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/layouts/layout4/css/themes/light.min.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="../assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME LAYOUT STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />*@
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTENT -->
+<div class="aboutUs-page">
+    <!-- BEGIN CONTENT BODY -->
+    <!-- BEGIN PAGE HEAD-->
+    <div class="page-head">
+        <!-- BEGIN PAGE TITLE -->
+        <div class="page-title">
+            <h1>About Us</h1>
+        </div>
+        <!-- END PAGE TITLE -->
+    </div>
+    
+    <div class="row margin-bottom-40 about-header">
+        <div class="col-md-12">
+            <h1>About Us</h1>
+            <h2>Life is either a great adventure or nothing</h2>
+        </div>
+    </div>
+    <!-- END PAGE HEAD-->
+    <!-- BEGIN PAGE BASE CONTENT -->
+    <!-- BEGIN CONTENT HEADER -->
+    <!-- END CONTENT HEADER -->
+    <!-- BEGIN CARDS -->
+    <div class="advantages row margin-bottom-20">
+        <div class="col-lg-3 col-md-6">
+            <div class="portlet light">
+                <div class="card-icon">
+                    @Html.Svg("/images/aboutUs/aboutUsIcons.svg", "school")
                 </div>
-                <div class="modal-body">
-                    Widget settings form goes here
+                <div class="card-title">
+                    <span> Best User Expierence </span>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn blue">@HomeResources.SaveChanges</button>
-                    <button type="button" class="btn default" data-dismiss="modal">@HomeResources.Close</button>
+                <div class="card-desc">
+                    <span>
+                        The best way to find yourself is
+                        <br> to lose yourself in the service of others
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="portlet light">
+                <div class="card-icon">
+                    @Html.Svg("/images/aboutUs/aboutUsIcons.svg", "documents")
+                </div>
+                <div class="card-title">
+                    <span> Best User Expierence </span>
+                </div>
+                <div class="card-desc">
+                    <span>
+                        The best way to find yourself is
+                        <br> to lose yourself in the service of others
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="portlet light">
+                <div class="card-icon">
+                    @Html.Svg("/images/aboutUs/aboutUsIcons.svg", "bald")
+                </div>
+                <div class="card-title">
+                    <span> Best User Expierence </span>
+                </div>
+                <div class="card-desc">
+                    <span>
+                        The best way to find yourself is
+                        <br> to lose yourself in the service of others
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="portlet light">
+                <div class="card-icon">
+                    @Html.Svg("/images/aboutUs/aboutUsIcons.svg", "smartphone")
+                </div>
+                <div class="card-title">
+                    <span> Best User Expierence </span>
+                </div>
+                <div class="card-desc">
+                    <span>
+                        The best way to find yourself is
+                        <br> to lose yourself in the service of others
+                    </span>
                 </div>
             </div>
         </div>
     </div>
-  
+    <!-- END CARDS -->
+    <!-- BEGIN TEXT & VIDEO -->
+    <div class="middle-area row margin-bottom-40">
+        <div class="about-text-wrapper">
+            <div class="portlet light about-text">
+                <h4>
+                    What is Spitball?
+                </h4>
+                <div>
+                    <p>
+                        Spitball is a free online and mobile social studying platform. A community focused on academic activity so you can focus on studying. It is a place to work together on assignments, find the study material you need, test your knowledge or discuss ideas and texts.
+                    </p>
+                </div>
+                <h4>
+                    The background
+                </h4>
+                <div>
+                    <p>
+                        Many students are caught between various online services for collaboration. On one side official virtual learning environments provided by their university, official but often clunky and inflexible. On the other side Facebook –geared for social life, not academic collaboration– where distractions are never far away.
+                    </p>
+                    <p>
+                        To fill this gap we set out to create a social studying platform that combines the flexibility and social elements of Facebook with the focus on academic work of official virtual learning environments.
+                    </p>
+                    <p>
+                        All Spitball features are specifically designed with students’ needs in mind, integrated as part of a single, easy to use and free social studying platform.
+                    </p>
+                </div>
+                <h4>
+                    Our mission
+                </h4>
+                <div>
+                    <p>
+                        We want our users to improve academically. We want to facilitate cross-pollination of ideas, the sharing of materials and academic collaboration. We want our users to become better students.
+                    </p>
+                </div>
+                <h4>
+                    Our company
+                </h4>
+                <div>
+                    <p>
+                        The Spitball platform is developed by a young bunch of specialists in online platforms. Our combined background includes various online platforms such as AVG MultiMi and Yahoo’s client facing applications such as Mail, Messenger, Groups and My Yahoo!
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="video-wrapper" flex="none">
+            <iframe width="640" height="360" src="https://www.youtube.com/embed/69daYsNqNUA" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <!-- END TEXT & VIDEO -->
+    <!-- BEGIN MEMBERS SUCCESS STORIES -->
+    <div class="row margin-bottom-40 team-header" data-auto-height="true">
+        <div class="col-md-12 margin-top-20">
+            <h1>Spitball Team</h1>
+        </div>
+    </div>
+    <div class="row margin-bottom-40 team">
+        <div class="col-lg-3 col-md-6">
+            <div class="portlet light">
+                <div class="photo">
+                    <img src="/images/aboutUs/eidan.png" alt="" class="img-responsive" />
+                </div>
+                <div class="title">
+                    <span> Eidan Apelbaum Ph.D. </span>
+                </div>
+                <div class="desc">
+                    <span>
+                        CEO<br />
+                        Co-Founder
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="portlet light">
+                <div class="photo">
+                    <img src="/images/aboutUs/matan.png" alt="" class="img-responsive" />
+                </div>
+                <div class="title">
+                    <span> Matan Libis </span>
+                </div>
+                <div class="desc">
+                    <span>
+                        CoO<br />
+                        Co-Founder
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="portlet light">
+                <div class="photo">
+                    <img src="/images/aboutUs/ram.png" alt="" class="img-responsive" />
+                </div>
+                <div class="title">
+                    <span> Ram Yaari </span>
+                </div>
+                <div class="desc">
+                    <span>
+                        CTO
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="portlet light">
+                <div class="photo">
+                    <img src="/images/aboutUs/dean.png" alt="" class="img-responsive" />
+                </div>
+                <div class="title">
+                    <span> Dean Apfel  </span>
+                </div>
+                <div class="desc">
+                    <span>
+                        IOS Developer
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="portlet light">
+                <div class="photo">
+                    <img src="/images/aboutUs/shlomi.png" alt="" class="img-responsive" />
+                </div>
+                <div class="title">
+                    <span> Shlomi Kastoryano </span>
+                </div>
+                <div class="desc">
+                    <span>
+                        Design UX UI
+                    </span>
+                </div>
+            </div>
+        </div>
 
-    <h1>@GeneralResources.AboutUs</h1>
-
-    <!-- END PAGE TITLE -->
-  
-    <div>
-        <p>The text will go here</p>
+        <div class="col-lg-3 col-md-6">
+            <div class="portlet light">
+                <div class="photo">
+                    <img src="/images/aboutUs/irena.png" alt="" class="img-responsive" />
+                </div>
+                <div class="title">
+                    <span> Irena Dorfman </span>
+                </div>
+                <div class="desc">
+                    <span>
+                        Web developer
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

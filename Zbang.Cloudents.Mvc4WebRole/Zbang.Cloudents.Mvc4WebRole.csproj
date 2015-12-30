@@ -1632,6 +1632,13 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\3rdParty\logo_120_4_google.png" />
+    <Content Include="Images\aboutUs\aboutBg.jpg" />
+    <Content Include="Images\aboutUs\dean.png" />
+    <Content Include="Images\aboutUs\eidan.png" />
+    <Content Include="Images\aboutUs\irena.png" />
+    <Content Include="Images\aboutUs\matan.png" />
+    <Content Include="Images\aboutUs\ram.png" />
+    <Content Include="Images\aboutUs\shlomi.png" />
     <Content Include="Images\signin\loginOptions.svg" />
     <Content Include="Images\Site\404_image.png" />
     <Content Include="Images\HomePage2\apple.png" />
@@ -1682,6 +1689,7 @@
     <Content Include="Images\Site\BG.png" />
     <Content Include="Images\Site\browsers.svg" />
     <Content Include="Images\Site\gmail.svg" />
+    <Content Include="Images\aboutUs\aboutUsIcons.svg" />
     <Content Include="Images\Site\info.svg" />
     <Content Include="Images\Site\libChooseIcons.svg" />
     <Content Include="Images\Site\membersOnly.png" />
