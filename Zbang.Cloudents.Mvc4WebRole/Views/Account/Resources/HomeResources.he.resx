@@ -124,12 +124,21 @@
     <value>סגור</value>
   </data>
   <data name="ContactUs" xml:space="preserve">
-    <value>עמוד צור קשר</value>
+    <value>צור קשר</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>עזרה</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>שמור שינויים</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>כתובת</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>דוא"ל</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>משוב</value>
   </data>
 </root>
