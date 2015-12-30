@@ -72,9 +72,9 @@
 }
 .help-page md-tabs {
   background: none;
-}
-.help-page md-tabs md-tabs-content-wrapper {
-  top: 58px;
+  /*md-tabs-content-wrapper {
+            top: 58px;
+        }*/
 }
 .help-page md-tabs md-tab-content {
   margin-top: 15px;
