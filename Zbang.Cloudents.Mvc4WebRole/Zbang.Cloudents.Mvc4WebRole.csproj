@@ -1700,6 +1700,7 @@
     <Content Include="Images\Site\user_2.png" />
     <Content Include="Images\Site\user_3.png" />
     <Content Include="Images\Site\user_4.png" />
+    <Content Include="Images\textEditor.svg" />
     <Content Include="Images\user.svg" />
     <Content Include="Js\app.config.js" />
     <Content Include="Js\app.js" />

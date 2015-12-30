@@ -266,10 +266,25 @@ md-tabs md-tabs-wrapper {
   padding: 10px 10px 0;
   margin-bottom: 20px;
 }
+md-tabs md-pagination-wrapper {
+  left: 0;
+}
+@media (max-width: 600px) {
+  md-tabs md-pagination-wrapper {
+    left: 0 /*rtl:ignore*/;
+    right: auto /*rtl:ignore*/;
+  }
+}
 md-tabs .md-tab {
+  float: left;
   color: #888b8e;
   font-size: 16px;
   text-transform: capitalize;
+}
+@media (max-width: 600px) {
+  md-tabs .md-tab {
+    float: left /*rtl:ignore*/;
+  }
 }
 md-tabs .md-tab.md-active {
   color: #f5f5f5;

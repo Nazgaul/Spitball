@@ -229,16 +229,17 @@ md-input-container .md-input,
 }
 
 md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input,
-md-input-container:not(.md-input-invalid).md-input-focused .md-input{
-        border-color: @textColorLike;
+md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+    border-color: @textColorLike;
 }
+
 .form-group.form-md-line-input .form-control.edited:not([readonly]) ~ label:after,
 .form-group.form-md-line-input .form-control.edited:not([readonly]) ~ .form-control-focus:after,
 .form-group.form-md-line-input .form-control:focus:not([readonly]) ~ label:after,
 .form-group.form-md-line-input .form-control:focus:not([readonly]) ~ .form-control-focus:after,
 .form-group.form-md-line-input .form-control.focus:not([readonly]) ~ label:after,
-.form-group.form-md-line-input .form-control.focus:not([readonly]) ~ .form-control-focus:after{
-        background: @textColorLike;
+.form-group.form-md-line-input .form-control.focus:not([readonly]) ~ .form-control-focus:after {
+    background: @textColorLike;
 }
 
 md-input-container .md-input {
@@ -276,6 +277,7 @@ md-dialog-actions {
 
 /*tabs*/
 md-tabs {
+
     md-tabs-wrapper {
         background: #323538;
         border-radius: 5px;
@@ -283,8 +285,21 @@ md-tabs {
         padding: 10px 10px 0;
         margin-bottom: 20px;
     }
+    md-pagination-wrapper {
+        left: 0;
 
+        @media (max-width: 600px) {
+           left: 0 /*rtl:ignore*/;
+           right:auto /*rtl:ignore*/;
+        }
+    }
     .md-tab {
+        float: left;
+
+        @media (max-width: 600px) {
+            float: left /*rtl:ignore*/;
+        }
+
         color: @textColorGrey;
         font-size: 16px;
         text-transform: capitalize;
@@ -797,7 +812,7 @@ md-menu-item {
 
 //md-input colors override:
 md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
-md-input-container:not(.md-input-invalid).md-input-focused label{
+md-input-container:not(.md-input-invalid).md-input-focused label {
     color: #4190b9;
 }
 
@@ -811,6 +826,3 @@ md-input-container:not(.md-input-invalid).md-input-focused label{
     .align-items(center);
     z-index: 10051;
 }
-
-
-
