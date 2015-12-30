@@ -163,8 +163,9 @@
         }
         function deleteQuestion(q) {
             currentPromise.then(function () {
-
-                addToCurrent(quizService.deleteQuestion(q.id));
+                if (q.id) {
+                    addToCurrent(quizService.deleteQuestion(q.id));
+                }
                 var index = self.questions.indexOf(q);
 
                 self.questions.splice(index, 1);
