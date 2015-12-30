@@ -212,6 +212,7 @@
             if (q.isSolved) {
                 return;
             }
+            q.timerControl.start();
             assignAnswerToQuestion(question, answer);
 
             $timeout(function () {
