@@ -52,7 +52,7 @@
     <div class="page-header navbar navbar-fixed-top">
         <div layout="row" layout-align="space-between center" class="page-header-inner">
             <div layout="row" layout-align="space-between center">
-                <div class="page-logo">
+                <div class="page-logo" flex="none">
                     <a ui-sref="dashboard" @shouldPostBack ga-track-event="['header', 'logo']" user-not-register-popup="click">
                         @Html.Svg(svgUrl, "logo", new { @class = "logo-default", hide_xs = "" })
                         @Html.Svg(svgUrl, "smallLogo", new { @class = "logo-default", hide = "", show_xs = "" })
@@ -62,7 +62,7 @@
                     </div>
                 </div>
 
-                <a href="@Url.Action("Index","Search")" @shouldPostBack class="search-form search-form-expanded" ng-hide="app.hideSearch" ga-track-event="['header', 'search']" user-not-register-popup="click">
+                <a flex="auto" href="@Url.Action("Index","Search")" @shouldPostBack class="search-form search-form-expanded" ng-hide="app.hideSearch" ga-track-event="['header', 'search']" user-not-register-popup="click">
                     <div class="input-group">
                         <span type="text" class="form-control input-sm">@IndexResources.Search</span>
                         <span class="input-group-btn">
@@ -71,7 +71,7 @@
                     </div>
                 </a>
             </div>
-            <div layout="row" layout-align="space-between center" class="page-top-wrapper">
+            <div flex="none" layout="row" layout-align="space-between center" class="page-top-wrapper">
                 <div class="page-top">
                     <div class="top-menu">
                         <ul class="nav navbar-nav">
@@ -124,7 +124,7 @@
                         </ul>
                     </div>
                 </div>
-                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse" ga-track-event="['header', 'open menu']">
+                <a flex="none" href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse" ga-track-event="['header', 'open menu']">
                     @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
                 </a>
             </div>
