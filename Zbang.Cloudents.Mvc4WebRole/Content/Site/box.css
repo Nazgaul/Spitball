@@ -723,6 +723,7 @@
   height: calc(100% - 45%);
 }
 .quiz .bottom .name {
+  display: inline-block;
   margin-top: 5px;
   padding: 0 6px;
   color: #282828;
