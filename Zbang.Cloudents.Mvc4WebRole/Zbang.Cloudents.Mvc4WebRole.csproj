@@ -289,6 +289,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Controllers\Resources\HomeControllerResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HomeControllerResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\Resources\LibraryControllerResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -373,6 +378,7 @@
     <Compile Include="Models\DeleteItemCommentReply.cs" />
     <Compile Include="Models\FAQ\Category.cs" />
     <Compile Include="Models\FAQ\QnA.cs" />
+    <Compile Include="Models\Feedback.cs" />
     <Compile Include="Models\FlagBadItem.cs" />
     <Compile Include="Models\CreateAcademicBox.cs" />
     <Compile Include="Models\CreateBox.cs" />
@@ -1722,6 +1728,7 @@
     <Content Include="Js\components\account\unregister.controller.js" />
     <Content Include="Js\components\account\unregisterShow.directive.js" />
     <Content Include="Js\components\box\box.routes.js" />
+    <Content Include="Js\components\contactUs.controller.js" />
     <Content Include="Js\components\dashboard\createBox.controller.js" />
     <Content Include="Js\components\item\externalProviderUpload.service.js" />
     <Content Include="Js\components\library\countryService.service.js" />
@@ -1780,7 +1787,6 @@
     <Content Include="Js\components\user\userdetails.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
     <Content Include="Js\components\user\user.controller.js" />
-    <Content Include="Js\contact-us.js" />
     <Content Include="Js\homePage\homeScreen.js" />
     <Content Include="Js\homePage\theme.js" />
     <Content Include="Js\routerHelperProvider.js" />
@@ -2783,6 +2789,10 @@
       <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>
       <Name>Zbang.Zbox.Infrastructure.Ioc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Mail\Zbang.Zbox.Infrastructure.Mail.csproj">
+      <Project>{f5e270cf-6b83-4879-9b04-773b87f80b0e}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Mail</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Search\Zbang.Zbox.Infrastructure.Search.csproj">
       <Project>{d79b5cec-09de-4337-873f-0c65b58d86d3}</Project>
       <Name>Zbang.Zbox.Infrastructure.Search</Name>
@@ -2838,6 +2848,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.ru.resx" />
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.zh.resx" />
+    <EmbeddedResource Include="Controllers\Resources\HomeControllerResources.he.resx" />
+    <EmbeddedResource Include="Controllers\Resources\HomeControllerResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>HomeControllerResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.ar.resx" />
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.en-gb.resx" />
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.he.resx" />

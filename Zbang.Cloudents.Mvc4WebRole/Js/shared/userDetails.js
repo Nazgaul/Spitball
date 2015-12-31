@@ -13,6 +13,25 @@
             data = data || {};
             if (data.id) {
                 isAuthenticated = true;
+                var dateCreate = new Date(data.dateTime);
+                window.Intercom('boot', {
+                    app_id: "njmpgayv",
+                    name: data.name,
+                    email: data.email,
+                    created_at: dateCreate.getTime(),
+                    user_id: data.id,
+                    user_image: data.image,
+                    university_id: data.universityId,
+                    university_name: data.universityName,
+                    reputation: data.score,
+                    language: data.culture,
+                    university_country: data.universityCountry
+
+                });
+            } else {
+                window.Intercom('boot', {
+                    app_id: "njmpgayv"
+                });
             }
             analytics.set('dimension1', data.universityName || null);
             analytics.set('dimension2', data.universityCountry || null);
@@ -24,18 +43,13 @@
                 score: data.score,
                 url: data.url,
                 isAdmin: data.isAdmin,
-                //culture: data.culture,
-
-                //firstTimeDashboard: data.firstTimeDashboard,
-                //firstTimeBox: data.firstTimeBox,
-                //firstTimeLibrary: data.firstTimeLibrary,
-                //firstTimeItem: data.firstTimeItem,
                 university: {
                     //country: data.universityCountry, // for google analytics
                     name: data.universityName, // in library page
                     id: data.universityId
                 }
             };
+
         }
 
         return {

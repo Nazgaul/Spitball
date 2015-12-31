@@ -6,13 +6,11 @@
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
-<div class="contactUs-page" flex-gt-sm="90">
+<div class="contactUs-page" flex-gt-sm="90" ng-controller="contactUsController as cu">
     <div class="page-title">
         <h1>@HomeResources.ContactUs</h1>
     </div>
-    <!-- BEGIN PAGE CONTENT-->
     <div>
-        <!-- Google Map -->
         <div class="map-wrapper">
             <div id="map" class="gmaps margin-bottom-40" style="height:400px;">
             </div>
@@ -21,13 +19,13 @@
             <div class="contact-us" flex="100" flex-gt-sm="50">
                 <h3>@HomeResources.ContactUs</h3>
                 <div class="data">
-                    <h4>@HomeResources.Address</h4>
+                    <h4>Address</h4>
                     <address class="address">
                         Cloudetns LTD.<br>
                         Hanasi Harishon, 38<br>
                         Rehovot, Israel<br>
                     </address>
-                    <h4>@HomeResources.Email</h4>
+                    <h4>Email</h4>
                     <address class="email">
                         <a href="mailto:support@spitball.co">
                             support@spitball.co
@@ -45,45 +43,46 @@
                 </div>
 
             </div>
-            <div class="feedback" flex="100" flex-gt-sm="50">
-                <!-- BEGIN FORM-->
-                <h3 class="form-section">@HomeResources.Feedback</h3>
+            <div class="feedback" id="feedback" flex="100" flex-gt-sm="50">
+                <h3 class="form-section">Feedback</h3>
 
-                <form action="#" class="data">
+                <form novalidate ng-submit="cu.feedback(feedback)" name="feedback" class="data">
                     <p>
-                        @HomeResources.FeedbackIntro
+                        Spitball is a free online and mobile social studying platform. a community focused on academic activity
                     </p>
 
                     <md-content>
                         <md-input-container>
                             <label>Subject</label>
-                            <input type="text">
+                            <input type="text" required ng-model="cu.subject">
                         </md-input-container>
                         <md-input-container>
                             <label>Name</label>
-                            <input type="text">
+                            <input type="text" required ng-model="cu.name">
                         </md-input-container>
                         <md-input-container>
                             <label>Email</label>
-                            <input type="text">
+                            <input type="email" required ng-model="cu.email">
                         </md-input-container>
+                        <md-input-container>
+                            <textarea placeholder="Feedback" required ng-model="cu.feedbackTxt"></textarea>
+                        </md-input-container>
+
                     </md-content>
 
 
-                    <div class="form-group form-md-line-input form-md-floating-label">
-                        <textarea class="form-control" rows="2"></textarea>
-                        <label for="form_control">Feedback</label>
-                    </div>
+                    @*<div class="form-group form-md-line-input form-md-floating-label">
+                            <textarea class="form-control" rows="2"></textarea>
+                            <label for="form_control">Feedback</label>
+                        </div>*@
                     <div class="submit-wrapper">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled="!feedback.$valid">Submit</button>
                     </div>
                 </form>
-                <!-- END FORM-->
             </div>
         </div>
     </div>
 </div>
-<!-- END PAGE CONTENT-->
 @section scripts {
     <script src="https://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
     @Html.Script2("contactUs")

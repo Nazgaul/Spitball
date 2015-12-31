@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Xml.Linq;
+using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
@@ -21,6 +22,7 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -36,16 +38,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly ILanguageCookieHelper m_LanguageCookie;
         private readonly ICookieHelper m_CookieHelper;
+        private readonly IMailComponent m_MailComponent;
 
         public HomeController(
             Lazy<IBlobProvider> blobProvider,
-            Lazy<ICache> cacheProvider, Lazy<IQueueProvider> queueProvider, ILanguageCookieHelper languageCookie, ICookieHelper cookieHelper)
+            Lazy<ICache> cacheProvider, Lazy<IQueueProvider> queueProvider, ILanguageCookieHelper languageCookie, ICookieHelper cookieHelper, IMailComponent mailComponent)
         {
             m_BlobProvider = blobProvider;
             m_CacheProvider = cacheProvider;
             m_QueueProvider = queueProvider;
             m_LanguageCookie = languageCookie;
             m_CookieHelper = cookieHelper;
+            m_MailComponent = mailComponent;
         }
 
         //[DonutOutputCache(VaryByParam = "lang;invId",
@@ -82,7 +86,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return View("Index");
         }
-        
+
 
         //don't put in here route attribute
         [DonutOutputCache(CacheProfile = "FullPage")]
@@ -102,12 +106,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Empty");
         }
 
-        [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
-            + CustomCacheKeys.Lang)]
+        //[DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
+        //    + CustomCacheKeys.Lang)]
         public ActionResult ContactUs()
         {
             ViewBag.postBag = true;
             return View();
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> Feedback(Feedback model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return JsonError(GetErrorFromModelState());
+            }
+            await m_MailComponent.FeedbackEmailAsync(model.Subject, model.Name, model.Email, model.Message);
+            return JsonOk();
+
         }
 
         public ActionResult Blog(string lang)
@@ -132,7 +148,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult TermsPartial()
         {
-            ViewBag.postBag = true;
+            //ViewBag.postBag = true;
             return PartialView("TermsOfService");
         }
 
@@ -147,7 +163,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Jobs()
         {
             ViewBag.Title = "Jobs | Spitball | Study better by working together";
-            ViewBag.pageTitle = "Jobs";
+            ViewBag.pageTitle = HomeControllerResources.JobTitle;
             using (var stream = await m_BlobProvider.Value.GetJobsXml())
             {
                 var data = XDocument.Load(stream);
@@ -181,8 +197,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> HelpPartial()
         {
             const string viewName = "help2";
-            //ViewBag.Title = "Spitball Help Center";
-            ViewBag.pageTitle = "Help";
+            ViewBag.pageTitle = HomeControllerResources.HelpTitle;
             const string faqQuestionCacheName = "faqQuestionCacheName";
             var model = await m_CacheProvider.Value.GetFromCacheAsync<IEnumerable<Category>>(faqQuestionCacheName, faqQuestionCacheName);
 
@@ -259,7 +274,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var x = typeof(Js.Resources.JsResources);
             var sb = new StringBuilder();
             sb.Append("JsResources={");
-            
+
             foreach (var p in x.GetProperties())
             {
                 var s = p.GetValue(null, null);

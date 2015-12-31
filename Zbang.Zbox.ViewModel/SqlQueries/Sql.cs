@@ -241,21 +241,22 @@ and userreputation > 0
 
 
         public const string UserAuthenticationDetail =
-    @"select u.UserId as Id, u.UserName as Name, u.UserImageLarge as Image,
-     u.FirstTimeDashboard as FirstTimeDashboard,
-     u.FirstTimeLibrary as FirstTimeLibrary,
-     u.FirstTimeItem as FirstTimeItem,
-     u.FirstTimeBox as FirstTimeBox, 
-     u.Url as Url,
-     u.Culture as Culture,
-     u.UserReputation as Score,
-     uu.UniversityName as UniversityName,
-     uu.Country as UniversityCountry,
-	 uu.id as UniversityId,
-     case when u.UserReputation >= uu.AdminScore or usertype = 1 then 1 else 0 end  as isAdmin
-     from zbox.Users u 
-	 left join zbox.University uu on u.UniversityId = uu.Id
-     where u.userid = @UserId";
+    @"select 
+u.UserId as Id, 
+u.UserName as Name, 
+u.UserImageLarge as Image,
+u.Url as Url,
+u.Culture as Culture,
+u.UserReputation as Score,
+uu.UniversityName as UniversityName,
+uu.Country as UniversityCountry,
+uu.id as UniversityId,
+case when u.UserReputation >= uu.AdminScore or usertype = 1 then 1 else 0 end  as isAdmin,
+u.Email as Email,
+u.CreationTime as DateTime
+from zbox.Users u 
+left join zbox.University uu on u.UniversityId = uu.Id
+where u.userid = @UserId";
 
         public const string GetUserByMembershipId = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
     u.UserImageLarge as Image, u.Email as Email,

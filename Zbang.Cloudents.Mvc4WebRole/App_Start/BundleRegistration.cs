@@ -260,7 +260,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "contactUs", new[]
                     {
                          new JsFileWithCdn("~/scripts/site/gmaps.js"),
-                          new JsFileWithCdn("~/js/contact-us.js")
+                          new JsFileWithCdn("~/js/components/contactUs.controller.js")
                     }
                 }
             };

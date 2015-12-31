@@ -133,6 +133,6 @@
     <value>שם משתמש או הסיסמה שהזנת שגויים</value>
   </data>
   <data name="UnspecifiedError" xml:space="preserve">
-    <value>אופס..ארתה שגיאה. אנא נסה שוב</value>
+    <value>אופס..קרתה שגיאה. אנא נסה שוב</value>
   </data>
 </root>
