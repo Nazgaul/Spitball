@@ -2400,6 +2400,8 @@ Page Loading
   border-radius: 10px;
   margin-top: 10px !important;
   width: 60vw;
+  white-space: normal;
+  min-width: 190px;
 }
 .unreg-user .btn-primary:hover {
   text-decoration: none;
