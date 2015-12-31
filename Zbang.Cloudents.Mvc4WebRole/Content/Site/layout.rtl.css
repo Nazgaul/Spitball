@@ -2075,9 +2075,9 @@ Page footer
   text-align: center;
   position: fixed;
   z-index: 10001;
-  bottom: 50px;
+  bottom: 70px;
   display: none;
-  left: 33px;
+  left: 29px;
   cursor: pointer;
 }
 @media (max-width: 768px) {
