@@ -285,14 +285,16 @@ md-tabs {
         padding: 10px 10px 0;
         margin-bottom: 20px;
     }
+
     md-pagination-wrapper {
         left: 0;
 
         @media (max-width: 600px) {
-           left: 0 /*rtl:ignore*/;
-           right:auto /*rtl:ignore*/;
+            left: 0 /*rtl:ignore*/;
+            right: auto /*rtl:ignore*/;
         }
     }
+
     .md-tab {
         float: left;
 
@@ -783,14 +785,14 @@ md-menu-item {
 
 //back arrow
 .back-arrow {
-    svg {
-        margin-right: 10px;
-        -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
-        -ms-transform: rotate(180deg) /*rtl:rotate(0)*/;
-        -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
-        -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
-        transform: rotate(180deg) /*rtl:rotate(0)*/;
-    }
+    margin-right: 10px;
+    -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
+    -ms-transform: rotate(180deg) /*rtl:rotate(0)*/;
+    -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
+    -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
+    transform: rotate(180deg) /*rtl:rotate(0)*/;
+    display: flex;
+    align-items: center;
 }
 
 
