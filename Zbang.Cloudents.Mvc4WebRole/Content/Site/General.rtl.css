@@ -258,12 +258,15 @@ md-dialog-actions {
 .layout-padding > .flex {
   padding: 12px;
 }
+.profile-content md-tabs-wrapper {
+  margin-bottom: 0;
+}
 /*tabs*/
 md-tabs md-tabs-wrapper {
   background: #323538;
   border-radius: 5px;
   font-size: 16px;
-  padding: 10px 10px 0;
+  padding: 0 10px 0;
   margin-bottom: 20px;
 }
 md-tabs md-pagination-wrapper {
@@ -314,10 +317,17 @@ md-tabs md-ink-bar {
         display: none;
     }*/
 }
+.create-box:hover .dashboard-stat2 {
+  border: 2px solid #4190b9;
+  color: #4190b9;
+}
+.create-box:hover .plus svg {
+  fill: #4190b9;
+}
 .create-box .dashboard-stat2 {
-  border: 2px solid #323538;
+  border: 2px solid #888b8e;
   background: transparent;
-  color: #323538;
+  color: #888b8e;
   padding-bottom: 5px;
   display: -webkit-flex;
   display: -ms-flex;
@@ -376,7 +386,7 @@ md-tabs md-ink-bar {
 .create-box .plus svg {
   width: 50px;
   height: 50px;
-  fill: #323538;
+  fill: #888b8e;
 }
 .create-box span {
   margin-top: 15px;
@@ -690,13 +700,15 @@ md-menu-item {
   transform: rotate(270deg) ;
   fill: #3598dc;
 }
-.back-arrow svg {
+.back-arrow {
   margin-left: 10px;
   -moz-transform: rotate(0);
   -ms-transform: rotate(0);
   -o-transform: rotate(0);
   -webkit-transform: rotate(0);
   transform: rotate(0);
+  display: flex;
+  align-items: center;
 }
 .btn {
   padding: 0 16px;
@@ -730,4 +742,8 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
   -webkit-align-items: center;
   align-items: center;
   z-index: 10051;
+}
+.feed-wrapper {
+  margin: -12px;
+  /* This is a patch - to be fixed in future*/
 }

@@ -275,6 +275,9 @@ md-dialog-actions {
     }
 }
 
+.profile-content md-tabs-wrapper {
+    margin-bottom: 0;
+}
 /*tabs*/
 md-tabs {
 
@@ -282,17 +285,20 @@ md-tabs {
         background: #323538;
         border-radius: 5px;
         font-size: 16px;
-        padding: 10px 10px 0;
+        padding: 0 10px 0;
         margin-bottom: 20px;
     }
+
+
     md-pagination-wrapper {
         left: 0;
 
         @media (max-width: 600px) {
-           left: 0 /*rtl:ignore*/;
-           right:auto /*rtl:ignore*/;
+            left: 0 /*rtl:ignore*/;
+            right: auto /*rtl:ignore*/;
         }
     }
+
     .md-tab {
         float: left;
 
@@ -344,14 +350,29 @@ md-tabs {
 }
 
 .create-box {
+    &:hover {
+        .dashboard-stat2 {
+            border: 2px solid @buttonColorBlue;
+            color: @buttonColorBlue;
+        }
+
+        .plus {
+
+            svg {
+                fill: @buttonColorBlue;
+            }
+        }
+    }
 
     .dashboard-stat2 {
-        border: 2px solid @borderColorDarkGrey;
+        border: 2px solid @textColorGrey;
         background: transparent;
-        color: @textColorDarkGrey;
+        color: @textColorGrey;
         padding-bottom: 5px;
         .displayFlex();
         padding-top: 0;
+
+
 
         form {
             width: 100%;
@@ -403,7 +424,7 @@ md-tabs {
         svg {
             width: 50px;
             height: 50px;
-            fill: @backgroundColorMenu;
+            fill: @textColorGrey;
         }
     }
 
@@ -783,14 +804,14 @@ md-menu-item {
 
 //back arrow
 .back-arrow {
-    svg {
-        margin-right: 10px;
-        -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
-        -ms-transform: rotate(180deg) /*rtl:rotate(0)*/;
-        -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
-        -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
-        transform: rotate(180deg) /*rtl:rotate(0)*/;
-    }
+    margin-right: 10px;
+    -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
+    -ms-transform: rotate(180deg) /*rtl:rotate(0)*/;
+    -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
+    -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
+    transform: rotate(180deg) /*rtl:rotate(0)*/;
+    display: flex;
+    align-items: center;
 }
 
 
@@ -825,4 +846,8 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
     .justifyContet(center);
     .align-items(center);
     z-index: 10051;
+}
+
+.feed-wrapper {
+    margin: -12px; /* This is a patch - to be fixed in future*/
 }

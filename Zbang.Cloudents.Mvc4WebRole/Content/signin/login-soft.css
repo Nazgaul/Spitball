@@ -196,10 +196,9 @@ Login page
   padding: 0 30px 25px 30px;
   margin-left: -30px;
   margin-right: -30px;
-  display: flex;
 }
 .login .content .form-actions .checkbox-design {
-  flex-grow: 1;
+  display: inline;
   color: #8c99a6;
 }
 .login .content .form-actions .checkbox-design .remember-me {
@@ -247,6 +246,9 @@ Login page
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
   filter: alpha(opacity=100);
   opacity: 1;
+}
+.login .content .form-actions .btn-default {
+  margin-left: 10px;
 }
 #forget-password {
   color: #3293f6;
