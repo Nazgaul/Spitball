@@ -103,9 +103,25 @@
 .folders md-toast .md-toast-content {
   background: #db4437;
 }
+.folders .add-folder:hover .content {
+  border: 1px solid #4190b9;
+}
+.folders .add-folder:hover .content svg {
+  fill: #4190b9;
+}
+.folders .add-folder:hover .content span {
+  color: #4190b9;
+}
 .folders .add-folder .content {
   padding: 6px;
   background: none;
+  border: 1px solid #888b8e;
+}
+.folders .add-folder .content svg {
+  fill: #888b8e;
+}
+.folders .add-folder .content span {
+  color: #888b8e;
 }
 .folders .add-folder .content button {
   display: -webkit-flex;
@@ -172,8 +188,18 @@
   right: 0;
   bottom: 0;
 }
+.add-button:hover .content {
+  border: 1px solid #4190b9;
+}
+.add-button:hover a,
+.add-button:hover button {
+  color: #4190b9;
+}
+.add-button:hover svg {
+  fill: #4190b9;
+}
 .add-button .content {
-  border: 1px solid #3d4348;
+  border: 1px solid #888b8e;
   padding: 15px;
   display: -webkit-flex;
   display: -ms-flex;
@@ -190,11 +216,11 @@
 .add-button a,
 .add-button button {
   font-size: 18px;
-  color: #323538;
+  color: #888b8e;
   text-align: center;
 }
 .add-button svg {
-  fill: #323538;
+  fill: #888b8e;
   width: 40px;
   height: 40px;
   display: block;
