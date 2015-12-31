@@ -14,7 +14,7 @@
                 var quiz = response[i];
 
                 if (!quiz.publish) {
-                    if ($mdMedia('xs')) {
+                    if ($mdMedia('xs') || $mdMedia('sm')) {
                         continue;
                     }
                     var params = angular.copy($stateParams);

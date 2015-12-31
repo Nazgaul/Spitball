@@ -34,7 +34,7 @@
     </div>
 </div>
 <ul id="tabSection" layout-padding layout-wrap class="list-unstyled folders" layout="row" layout-align="start center" ng-if="!i.tabSelected.id">
-    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" @*ui-on-drop="i.test($event,$data)"*@ class="folder-name i-q-wrapper" ng-repeat="e in i.tabs" ng-click="i.tabChange(e)">
+    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" ui-on-drop class="folder-name i-q-wrapper" ng-repeat="e in i.tabs" ng-click="i.tabChange(e)">
         <div class="name-and-icon content" layout="row" layout-align="start center">
             @Html.Svg("~/images/folder_icon.svg", "folder", new { flex = "none", @class = "icon" })
             <div flex class="text ellipsis">

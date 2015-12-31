@@ -184,8 +184,8 @@
                 var newComment = {
                     content: extractUrls(self.add.newReplyText.replace(/[&<>]/g, replaceTag)),
                     creationTime: new Date(),
-                    id: response.commentId,
-                    url: response.userUrl,
+                    id: response,
+                    url: user.url,
 
                     userId: user.id,
                     userImage: user.image,
