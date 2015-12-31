@@ -258,12 +258,15 @@ md-dialog-actions {
 .layout-padding > .flex {
   padding: 12px;
 }
+.profile-content md-tabs-wrapper {
+  margin-bottom: 0;
+}
 /*tabs*/
 md-tabs md-tabs-wrapper {
   background: #323538;
   border-radius: 5px;
   font-size: 16px;
-  padding: 10px 10px 0;
+  padding: 0 10px 0;
   margin-bottom: 20px;
 }
 md-tabs md-pagination-wrapper {
