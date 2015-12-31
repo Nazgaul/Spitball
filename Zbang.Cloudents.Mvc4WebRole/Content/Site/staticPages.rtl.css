@@ -176,10 +176,39 @@
   background-color: #f5f5f5;
   border-radius: 0;
   text-align: center;
-  padding: 30px;
+  padding: 22px 30px;
+  min-height: 240px;
 }
 .aboutUs-page .advantages .card-icon {
-  padding-bottom: 15px;
+  border-radius: 100%;
+  border: 1px solid #dfe2e9;
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  padding: 14px;
+  margin-bottom: 20px;
+}
+.aboutUs-page .advantages .card-icon.speech svg {
+  width: 40px;
+  height: 40px;
+}
+.aboutUs-page .advantages .card-icon.web svg {
+  width: 40px;
+  height: 40px;
+}
+.aboutUs-page .advantages .card-icon.social-network {
+  padding: 10px;
+}
+.aboutUs-page .advantages .card-icon.social-network svg {
+  width: 45px;
+  height: 45px;
+}
+.aboutUs-page .advantages .card-icon.hand {
+  padding: 15px;
+}
+.aboutUs-page .advantages .card-icon.hand svg {
+  width: 37px;
+  height: 37px;
 }
 .aboutUs-page .advantages .card-icon svg {
   width: 65px;
@@ -189,6 +218,10 @@
 .aboutUs-page .advantages .card-title {
   color: #323538;
   font-weight: bold;
+}
+.aboutUs-page .advantages .card-desc span {
+  line-height: 17px;
+  display: block;
 }
 .aboutUs-page .about-text {
   font-size: 16px;
@@ -257,5 +290,17 @@
   height: 500px;
   background-image: url("/Images/aboutUs/aboutBg.jpg");
   background-position: center;
-  margin: 0 -20px;
+  margin: 0 -5px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #f5f5f5;
+}
+.aboutUs-page .about-header h1 {
+  font-weight: 600;
+  font-size: 52px;
+}
+.aboutUs-page .about-header h2 {
+  text-transform: uppercase;
+  font-size: 22px;
 }
