@@ -1,7 +1,7 @@
 ﻿(function () {
     angular.module('app.account').controller('AccountSettingsInfoController', info);
-    info.$inject = ['accountService', '$timeout', 'userData', 'userDetailsFactory', '$mdDialog', '$mdMedia', '$scope', 'CacheFactory'];
-    function info(accountService, $timeout, userData, userDetailsFactory, $mdDialog, $mdMedia, $scope, cacheFactory) {
+    info.$inject = ['accountService', '$timeout', 'userData', 'userDetailsFactory', '$mdDialog', '$mdMedia', '$scope', 'CacheFactory', 'resManager'];
+    function info(accountService, $timeout, userData, userDetailsFactory, $mdDialog, $mdMedia, $scope, cacheFactory, resManager) {
         var self = this;
 
 
@@ -35,7 +35,7 @@
 
             accountService.setAccountDetails(firstName, lastName).then(function () {
                 userDetailsFactory.setName(firstName, lastName);
-                showToast('update complete');
+                showToast(resManager.get('settingsChangeName'));
             });
         }
 

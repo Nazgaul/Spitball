@@ -162,4 +162,10 @@
   <data name="spitballUpdate" xml:space="preserve">
     <value>Spitball has updated</value>
   </data>
+  <data name="settingsChangeName" xml:space="preserve">
+    <value>update complete</value>
+  </data>
+  <data name="settingsDone" xml:space="preserve">
+    <value>done</value>
+  </data>
 </root>
