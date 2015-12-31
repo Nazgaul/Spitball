@@ -237,7 +237,7 @@
   overflow: scroll;
   color: #f5f5f5;
   padding-left: 10px;
-  margin-left: 25px;
+  margin-bottom: 20px;
 }
 .aboutUs-page .about-text h4 {
   font-weight: bold;
@@ -275,18 +275,6 @@
 }
 .aboutUs-page .middle-area .about-text-wrapper {
   text-align: right;
-  width: calc(100% - 644px);
-  display: inline-block;
-}
-@media (max-width: 1200px) {
-  .aboutUs-page .middle-area .about-text-wrapper {
-    width: 100%;
-    display: block;
-  }
-  .aboutUs-page .middle-area .about-text-wrapper .about-text {
-    margin-left: 0;
-    margin-bottom: 20px;
-  }
 }
 .aboutUs-page .middle-area .video-wrapper {
   position: relative;
@@ -295,9 +283,9 @@
   height: 0;
   overflow: hidden;
 }
-.aboutUs-page .middle-area .video-container iframe,
-.aboutUs-page .middle-area .video-container object,
-.aboutUs-page .middle-area .video-container embed {
+.aboutUs-page .middle-area .video-wrapper iframe,
+.aboutUs-page .middle-area .video-wrapper object,
+.aboutUs-page .middle-area .video-wrapper embed {
   position: absolute;
   top: 0;
   right: 0;

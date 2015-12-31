@@ -299,7 +299,7 @@
         overflow: scroll;
         color: @textColorWhite;
         padding-right: 10px;
-        margin-right: 25px;
+        margin-bottom: 20px;
 
         h4 {
             font-weight: bold;
@@ -347,18 +347,6 @@
 
         .about-text-wrapper {
             text-align: left;
-            width: ~"calc(100% - 644px)";
-            display: inline-block;
-
-            @media (max-width: 1200px) {
-                width: 100%;
-                display: block;
-
-                .about-text {
-                    margin-right: 0;
-                    margin-bottom: 20px;
-                }
-            }
         }
 
         .video-wrapper {
@@ -369,7 +357,7 @@
             overflow: hidden;
         }
 
-        .video-container iframe, .video-container object, .video-container embed {
+        .video-wrapper iframe, .video-wrapper object, .video-wrapper embed {
             position: absolute;
             top: 0;
             left: 0;
