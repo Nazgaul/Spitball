@@ -28,9 +28,6 @@
   overflow: hidden;
   padding: 0;
 }
-.accountPage-wrapper .profile-content .portlet-body .form-group .fileinput .thumbnail:hover .ontop {
-  display: block;
-}
 .accountPage-wrapper .ov-hidden {
   overflow: hidden;
   width: 100%;
@@ -51,7 +48,6 @@
   display: block;
   margin-top: calc(100% - 25px);
   position: initial !important;
-  display: none;
 }
 .accountPage-wrapper .portlet.light > .portlet-title {
   border-bottom: 1px solid #F4F4F4;
