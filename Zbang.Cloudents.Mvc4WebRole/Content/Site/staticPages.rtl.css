@@ -289,7 +289,20 @@
   }
 }
 .aboutUs-page .middle-area .video-wrapper {
-  display: inline-block;
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+.aboutUs-page .middle-area .video-container iframe,
+.aboutUs-page .middle-area .video-container object,
+.aboutUs-page .middle-area .video-container embed {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
 }
 .aboutUs-page .about-header {
   height: 500px;
