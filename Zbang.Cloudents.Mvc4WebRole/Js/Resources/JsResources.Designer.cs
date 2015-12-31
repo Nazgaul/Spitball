@@ -178,6 +178,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to update complete.
+        /// </summary>
+        public static string settingsChangeName {
+            get {
+                return ResourceManager.GetString("settingsChangeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to done.
+        /// </summary>
+        public static string settingsDone {
+            get {
+                return ResourceManager.GetString("settingsDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spitball has updated.
         /// </summary>
         public static string spitballUpdate {

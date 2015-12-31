@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.account').controller('AccountSettingsNotificationController', notification);
 
-    notification.$inject = ['accountService', '$mdToast', '$document'];
-    function notification(accountService, $mdToast, $document) {
+    notification.$inject = ['accountService', '$mdToast', '$document', 'resManager'];
+    function notification(accountService, $mdToast, $document, resManager) {
         var self = this;
 
 
@@ -12,7 +12,7 @@
 
         self.updateNotification = function (box) {
             accountService.setNotification(box.id, box.notifications).then(function () {
-                showToast('complete');
+                showToast(resManager.get('settingsDone'));
             });
         }
 
