@@ -173,7 +173,7 @@ Login page
     margin-bottom: 25px;
 }
 
-.login .content .password-update-form .form-actions{
+.login .content .password-update-form .form-actions {
     margin-bottom: 55px;
     float: right;
 }
@@ -240,10 +240,9 @@ Login page
     padding: 0 30px 25px 30px;
     margin-left: -30px;
     margin-right: -30px;
-    display: flex;
 
     .checkbox-design {
-        flex-grow: 1;
+        display: inline;
         color: @borderColorLightGrey;
 
         .remember-me {
@@ -295,6 +294,10 @@ Login page
             filter: alpha(opacity=100);
             opacity: 1;
         }
+    }
+
+    .btn-default{
+        margin-left: 10px;
     }
 }
 
@@ -370,7 +373,7 @@ Login page
     text-align: center;
 }
 
-.login .content .has-error .select2-container i,.field-validation-error {
+.login .content .has-error .select2-container i, .field-validation-error {
     color: #b94a48;
 }
 
