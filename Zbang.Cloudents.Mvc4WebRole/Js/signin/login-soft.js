@@ -178,6 +178,9 @@ var Login = function () {
         jQuery('.google').click(function () {
             googleLogIn();
         });
+        window.Intercom('boot', {
+            app_id: "njmpgayv",
+        });
     }
 
     function disableState(elem) {

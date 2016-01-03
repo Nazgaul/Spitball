@@ -2946,6 +2946,7 @@ blockquote.text-light:before {
   background: #DD4B39;
 }
 #ssIFrame_google {
+  left: auto !important;
   right: -9999px !important;
 }
 /*.homepage-hero-module {
