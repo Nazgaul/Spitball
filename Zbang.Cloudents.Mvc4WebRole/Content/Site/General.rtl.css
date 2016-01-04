@@ -440,6 +440,9 @@ md-tabs md-ink-bar {
 .full-screen.itemPage header > div {
   height: 80px;
 }
+.full-screen.quizPage {
+  top: 0;
+}
 .full-screen header {
   height: 80px;
   color: #f5f5f5;

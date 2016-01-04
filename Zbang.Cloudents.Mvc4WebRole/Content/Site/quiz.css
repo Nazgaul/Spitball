@@ -11,15 +11,13 @@
   margin-top: 80px;
 }
 .quizPage header {
-  position: relative;
   align-items: center;
+  white-space: nowrap;
 }
 .quizPage header .text-center {
+  display: inline-block;
+  line-height: 85px;
   width: 100%;
-  line-height: initial;
-  margin: 0 auto;
-  position: absolute;
-  padding: 29px 0;
 }
 .quizPage .close {
   position: absolute;
