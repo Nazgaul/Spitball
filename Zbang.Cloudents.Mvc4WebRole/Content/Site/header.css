@@ -103,3 +103,151 @@ Rounded Portlets
 .search-wrapper {
   display: inline;
 }
+.nav-bar {
+  padding: 0 10px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 85px;
+  z-index: 1030;
+  background: #323538;
+  border-bottom: 5px solid #181c1d;
+}
+.nav-bar .logo-search {
+  height: 100%;
+}
+.nav-bar .logo-search .search-form {
+  max-width: 250px;
+  width: 100%;
+  margin: 0 30px;
+}
+.nav-bar .logo-search .search-form .search-area {
+  position: relative;
+  background: #181C1D;
+}
+.nav-bar .logo-search .search-form .search-area .search-btn {
+  position: absolute;
+  right: 15px;
+  top: 12px;
+}
+.nav-bar .logo-search .search-form .search-area .text {
+  font-size: 15px;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 15px;
+  padding-right: 37px;
+  color: #f5f5f5;
+}
+.nav-bar .logo-search .logo {
+  margin: 0 16px;
+}
+.nav-bar .logo-search .logo .logo-default {
+  width: 180px;
+  fill: #fff;
+  height: 35px;
+  margin-top: 15px;
+}
+@media (max-width: 600px) {
+  .nav-bar .logo-search .logo .logo-default {
+    display: none;
+  }
+}
+.nav-bar .logo-search .logo .logo-small {
+  height: 30px;
+  width: 60px;
+  fill: #fff;
+  margin-top: 7px;
+  display: none;
+}
+@media (max-width: 600px) {
+  .nav-bar .logo-search .logo .logo-small:last-child {
+    display: block;
+  }
+}
+.nav-bar .user-menu {
+  text-align: right;
+  margin-right: 10px;
+}
+@media (max-width: 600px) {
+  .nav-bar .user-menu {
+    display: none;
+  }
+}
+.nav-bar .user-menu ul,
+.nav-bar .user-menu li {
+  list-style-type: none;
+}
+.nav-bar .user-menu > a {
+  white-space: nowrap;
+  display: inline-block;
+  line-height: 80px;
+  padding: 0 15px;
+}
+.nav-bar .user-menu > a:hover {
+  background: #212325;
+}
+.nav-bar .user-menu > a .username {
+  color: #f5f5f5;
+  margin-right: 5px;
+  font-size: 14px;
+  font-weight: 600;
+}
+@media (max-width: 767px) {
+  .nav-bar .user-menu > a .username {
+    display: none;
+  }
+}
+.nav-bar .user-menu .menu-items {
+  background: #323538;
+  text-align: left;
+  padding: 0;
+  border-radius: 4px;
+  min-width: 180px;
+  margin-top: 9px;
+  box-shadow: 0 0 10px #181c1d;
+  position: absolute;
+  right: 20px;
+  display: none;
+}
+.nav-bar .user-menu .menu-items:before {
+  content: "";
+  width: 0;
+  height: 0;
+  top: -7px;
+  right: 28px;
+  border-style: solid;
+  border-width: 0 7px 8px 7px;
+  border-color: transparent transparent #323538 transparent;
+  position: absolute;
+}
+.nav-bar .user-menu .menu-items a {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  padding: 0 15px;
+}
+.nav-bar .user-menu .menu-items a:hover {
+  background: #212325;
+}
+.nav-bar .user-menu .menu-items a > * {
+  padding: 10px 0;
+}
+.nav-bar .user-menu .menu-items a div {
+  padding-right: 15px;
+}
+.nav-bar .user-menu .menu-items a svg {
+  width: 20px;
+  height: 20px;
+  fill: #f5f5f5;
+}
+.nav-bar .user-menu .menu-items a span {
+  white-space: nowrap;
+  color: #f5f5f5;
+}
+.nav-bar .user-menu.open .menu-items {
+  display: block;
+}
+.page-header {
+  top: 100px;
+}

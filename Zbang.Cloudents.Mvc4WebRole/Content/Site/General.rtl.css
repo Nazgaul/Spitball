@@ -424,7 +424,7 @@ md-tabs md-ink-bar {
 }
 .full-screen {
   position: fixed;
-  top: 0;
+  top: 85px;
   left: 0;
   right: 0;
   bottom: 0;

@@ -1,6 +1,6 @@
 ﻿.search {
   position: fixed;
-  top: 0;
+  top: 85px;
   right: 0;
   left: 0;
   bottom: 0;
@@ -130,6 +130,9 @@
   border: none;
   color: #3293f6;
   outline: none;
+  line-height: normal;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 @media (min-width: 960px) {
   .search-text {
