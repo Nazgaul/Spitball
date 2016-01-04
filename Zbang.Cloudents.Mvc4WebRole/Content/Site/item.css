@@ -27,16 +27,24 @@
   vertical-align: middle;
   margin-bottom: 14px;
 }
-@media (max-width: 400px) {
-  .itemPage header .fb-like .like-text {
-    display: none;
-  }
-}
 .itemPage header .item-actions {
   white-space: nowrap;
 }
+.itemPage header .item-actions .md-icon-button {
+  margin: 0;
+}
 .itemPage header .close-btn {
-  padding-right: 25px;
+  padding: 15px;
+  margin-left: 50px;
+  line-height: normal;
+}
+@media (max-width: 400px) {
+  .itemPage header .like-text {
+    display: none;
+  }
+  .itemPage header .close-btn {
+    margin-left: 15px;
+  }
 }
 .itemPage header .fb-like.blue svg {
   fill: #4190b9;

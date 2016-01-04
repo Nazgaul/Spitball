@@ -35,20 +35,30 @@
                     margin-bottom: 14px;
                 }
             }
-
-            .like-text {
-                @media (max-width: 400px) {
-                    display: none;
-                }
-            }
         }
 
         .item-actions {
             white-space: nowrap;
+
+            .md-icon-button {
+                margin: 0;
+            }
         }
 
         .close-btn {
-            padding-right: 25px;
+            padding: 15px;
+            margin-left: 50px;
+            line-height: normal;
+        }
+
+        @media (max-width: 400px) {
+            .like-text {
+                display: none;
+            }
+
+            .close-btn {
+                margin-left: 15px;
+            }
         }
 
         .fb-like.blue svg {
