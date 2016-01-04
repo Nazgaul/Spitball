@@ -114,8 +114,7 @@
                             </div>
                             <button type="button" class="facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg("/images/signin/loginoptions.svg", "facebook") @LogOnResources.ExternalProvider</button>
                             <button type="button" class="google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg("/images/signin/loginoptions.svg", "google") @LogOnResources.ExternalProvider</button>
-                            <br />
-                            <a href="@Url.Action("SignUp", "Account", new { universityid = Request.QueryString["universityid"] })" class="btn btn-primary btn-lg element-bottom-20 element-top-20 text-center bold os-animation btnSignIn"
+                            <a href="@Url.Action("SignUp", "Account", new { universityid = Request.QueryString["universityid"] })" class="btn btn-primary btn-lg element-bottom-20 element-top-10 text-center bold os-animation btnSignIn"
                                target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                                 @HomePageResources.A5
                             </a>
