@@ -1,0 +1,200 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@{
+    const string svgUrl = "~/images/site/icons.svg";
+    var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
+}
+
+<md-sidenav class="md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+
+    <md-content role="navigation" ng-controller="SideMenu as d">
+        <ul class="side-menu">
+            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
+                <md-button ui-sref-active="active" @shouldPostBack href="@Url.Action("Index","Dashboard")" ng-click="focusSection()">
+                    @Html.Svg(svgUrl, "houseMenu")
+                    @IndexResources.Dashboard
+                </md-button>
+            </li>
+            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
+                <md-button class="md-button-toggle" ng-click="d.toggleOpen('courses')" flex layout="row">
+                    
+                    <span class="arrow" ng-class="{toggled:d.isOpen('courses')}">
+                        @Html.Svg("~/images/site/icons.svg", "sideMenuArrow")
+                    </span>
+                    @IndexResources.Classes
+                </md-button>
+                <ul ng-show="d.isOpen('courses')" id="side-menu-courses" class="menu-toggle-list">
+                    <li ng-repeat="box in d.courses track by box.id">
+                        <menu-link section="box"></menu-link>
+                    </li>
+                </ul>
+            </li>
+            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
+                <md-button class="md-button-toggle" ng-click="d.toggleOpen('boxes')" flex layout="row">
+                    
+                    <span class="arrow" ng-class="{toggled:d.isOpen('boxes')}">
+                        @Html.Svg("~/images/site/icons.svg", "sideMenuArrow")
+                    </span>
+                    @IndexResources.Group
+                </md-button>
+                <ul ng-show="d.isOpen('boxes')" id="side-menu-boxes" class="menu-toggle-list">
+                    <li ng-repeat="box in d.privateBoxes track by box.id">
+                        <menu-link section="box"></menu-link>
+                    </li>
+                </ul>
+            </li>
+            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
+                <md-button ui-sref-active="active" @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")" ng-click="focusSection()">
+                    @Html.Svg(svgUrl, "universityMenu")
+                    @IndexResources.Uni
+                </md-button>
+            </li>
+            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
+                <md-button ui-sref-active="active" @shouldPostBack href="{{::d.userUrl}}" ng-click="focusSection()">
+                    @Html.Svg(svgUrl, "userMenu")
+                    @IndexResources.User
+                </md-button>
+            </li>
+            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
+                <md-button ui-sref-active="active" @shouldPostBack href="@Url.RouteUrl("AccountSettings")" ng-click="focusSection()">
+                    @Html.Svg(svgUrl, "settingMenu")
+                    @IndexResources.Settings
+                </md-button>
+            </li>
+            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
+                <md-button ui-sref-active="active" @shouldPostBack href="@Url.RouteUrl("Help")" ng-click="focusSection()">
+                    @Html.Svg(svgUrl, "headerHelp")
+                    @SharedResources.Help
+                </md-button>
+            </li>
+            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
+                <md-button ui-sref-active="active" @shouldPostBack href="@Url.RouteUrl("Blog2")" ng-click="focusSection()">
+                    @Html.Svg(svgUrl, "blog")
+                    @GeneralResources.Blog
+                </md-button>
+            </li>
+            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
+                <md-button target="_self" user-not-register-popup="click" href="@Url.Action("logoff","account")" ng-click="focusSection()">
+                    @Html.Svg(svgUrl, "logOffMenu")
+                    @IndexResources.Logout
+                </md-button>
+            </li>
+
+
+            @*<li class="parent-list-item">
+                    <menu-toggle section="courses"></menu-toggle>
+                </li>*@
+            @*<li ng-repeat="section in vm.menu.sections" class="parent-list-item"
+                    ng-class="{'parentActive' : vm.isSectionSelected(section)}">
+                    <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
+                    <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
+                </li>*@
+        </ul>
+    </md-content>
+</md-sidenav>
+<script type="text/ng-template" id="partials/menu-link.tmpl.html">
+    <md-button ng-class="{section.icon : true}" ui-sref-active="active"
+               href="{{::section.url}}" ng-click="focusSection()">
+        {{::section.name}}
+    </md-button>
+</script>
+@*<script type="text/ng-template" id="partials/menu-toggle.tmpl.html">
+        <md-button class="md-button-toggle" ng-click="toggle()" flex layout="row">
+            {{section.name}}
+            @Html.Svg("~/images/site/icons.svg", "sideMenuArrow", new { ng_class = "{toggled:isopen()}" })
+        </md-button>
+        <ul ng-show="isOpen()" id="side-menu-{{section.name | nospace}}" class="menu-toggle-list">
+            <li ng-repeat="page in section.pages">
+                <menu-link section="page"></menu-link>
+            </li>
+        </ul>
+    </script>*@
+@*<div class="page-sidebar-wrapper">
+        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- BEGIN SIDEBAR MENU -->
+            <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+            <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+            <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+            <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+            <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+            <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true"
+                data-slide-speed="200" ng-controller="SideMenu as d">
+                <li class="start">
+                    <a user-not-register-popup="click" @shouldPostBack href="@Url.Action("Index","Dashboard")" ga-track-event="['sidebar', 'dashboard']">
+                        <span class="dashboard icon">@Html.Svg(svgUrl, "houseMenu")</span>
+                        <span class="title">@IndexResources.Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;" ng-click="d.open()" ga-track-event="['sidebar', 'classes']">
+                        <span class="arrow icon">@Html.Svg("~/images/site/icons.svg", "sideMenuArrow")</span>
+                        <span class="title">@IndexResources.Classes</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li ng-repeat="box in d.courses track by box.id" id="menubox{{::box.id}}">
+                            <a class="ellipsis" href="{{::box.url}}" ga-track-event="['sidebar', 'selected class']">
+                                <span class="badge badge-danger" ng-if="box.updates !== 0">{{box.updates}}</span>
+                                {{::box.name}}
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;" ng-click="d.open()" ga-track-event="['sidebar', 'group']">
+                        <span class="arrow icon">@Html.Svg("~/images/site/icons.svg", "sideMenuArrow")</span>
+                        <span class="title">@IndexResources.Group</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li ng-repeat="box in d.privateBoxes track by box.id" id="menubox{{::box.id}}">
+                            <a class="ellipsis" href="{{::box.url}}" ga-track-event="['sidebar', 'selected group']">
+                                <span class="badge badge-danger" ng-if="box.updates !== 0">{{box.updates}}</span>
+                                {{::box.name}}
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li>
+                    <a user-not-register-popup="click" @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")" ga-track-event="['sidebar', 'university']">
+                        <span class="uni icon"> @Html.Svg(svgUrl, "universityMenu")</span>
+                        <span class="title">@IndexResources.Uni</span>
+                    </a>
+                </li>
+                <li>
+                    <a user-not-register-popup="click" @shouldPostBack href="{{::d.userUrl}}" ga-track-event="['sidebar', 'user']">
+                        <span class="user icon">@Html.Svg(svgUrl, "userMenu")</span>
+                        <span class="title">@IndexResources.User</span>
+                    </a>
+                </li>
+                <li>
+                    <a user-not-register-popup="click" @shouldPostBack href="@Url.RouteUrl("AccountSettings")" ga-track-event="['sidebar', 'settings']">
+                        <span class="settings icon">@Html.Svg(svgUrl, "settingMenu")</span>
+                        <span class="title">@IndexResources.Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.RouteUrl("Help")" ga-track-event="['sidebar', 'help']">
+                        <span class="help icon">@Html.Svg(svgUrl, "headerHelp")</span>
+                        <span class="title">@SharedResources.Help</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.RouteUrl("Blog2")" ga-track-event="['sidebar', 'blog']">
+                        <span class="blog icon">@Html.Svg(svgUrl, "blog")</span>
+                        <span class="title">@GeneralResources.Blog</span>
+                    </a>
+                </li>
+                <li class="last ">
+                    <a user-not-register-popup="click" target="_self" href="@Url.Action("logoff","account")" ga-track-event="['sidebar', 'logout']">
+                        <span class="logout icon">@Html.Svg(svgUrl, "logOffMenu")</span>
+                        <span class="title">@IndexResources.Logout</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>*@

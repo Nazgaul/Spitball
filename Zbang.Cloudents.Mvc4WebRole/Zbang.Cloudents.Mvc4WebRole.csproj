@@ -1742,6 +1742,10 @@
     <Content Include="Js\components\quiz\quizCreate.controller.js" />
     <Content Include="Js\components\search\search.service.js" />
     <Content Include="Js\components\user\user.routes.js" />
+    <Content Include="Js\menu\menu.service.js" />
+    <Content Include="Js\menu\menulink.directive.js" />
+    <Content Include="Js\menu\menu_toggle.directive.js" />
+    <Content Include="Js\menu\nospace.filter.js" />
     <Content Include="Js\polyfills.js" />
     <Content Include="Js\shared\animationClass.js" />
     <Content Include="Js\shared\animationLocation.js" />
@@ -1763,7 +1767,7 @@
     <Content Include="Js\components\box\recommended.controller.js" />
     <Content Include="Js\components\dashboard\dashboard.controller.js" />
     <Content Include="Js\components\dashboard\dashboard.service.js" />
-    <Content Include="Js\components\dashboard\sidemenu.controller.js" />
+    <Content Include="Js\menu\sidemenu.controller.js" />
     <Content Include="Js\components\dashboard\university.controller.js" />
     <Content Include="Js\components\leaderboard.controller.js" />
     <Content Include="Js\components\quiz\popup\quiz.challenge.controller.js" />
@@ -2733,6 +2737,7 @@
     <Content Include="Views\Library\_CreateCourse.cshtml" />
     <Content Include="Views\Library\_ChooseEnterCode.cshtml" />
     <Content Include="Views\Library\_ChooseCreateUniversity.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

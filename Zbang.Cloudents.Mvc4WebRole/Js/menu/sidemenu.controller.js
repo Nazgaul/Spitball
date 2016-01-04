@@ -1,20 +1,60 @@
 ﻿(function () {
     angular.module('app.dashboard').controller('SideMenu', dashboard);
-    dashboard.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope'];
+    dashboard.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope', '$mdSidenav'];
 
-    function dashboard(dashboardService, userDetails, $rootScope) {
+    function dashboard(dashboardService, userDetails, $rootScope,  $mdSidenav) {
         var d = this, notloaded = true;
         d.courses = [];
         d.privateBoxes = [];
         d.open = open;
 
-        //$rootScope.$on('universityChange', function () {
-        //    getBoxes();
-        //});
+        
         userDetails.init().then(function () {
             d.userUrl = userDetails.get().url;
         });
 
+        d.isOpen = isOpen;
+        d.toggleOpen = toggleOpen;
+        d.isSectionSelected = isSectionSelected;
+        d.autoFocusContent = false;
+
+        var openedSection;
+        //d.menu = menu;
+
+        function isOpen(section) {
+            return openedSection === section;
+            //  return menu.isSectionSelected(section);
+        }
+
+        function toggleOpen(section) {
+            console.log(section);
+            openedSection = section;
+            if (!userDetails.isAuthenticated()) {
+                $rootScope.$broadcast('show-unregisterd-box');
+                return;
+            }
+            if (notloaded) {
+                getBoxes();
+                notloaded = false;
+            }
+            //  menu.toggleSelectSection(section);
+        }
+
+        function isSectionSelected(section) {
+            var selected = false;
+            var openedSectionX = openedSection;
+            if (openedSectionX === section) {
+                selected = true;
+            }
+            else if (section.children) {
+                section.children.forEach(function (childSection) {
+                    if (childSection === openedSectionX) {
+                        selected = true;
+                    }
+                });
+            }
+            return selected;
+        }
         function open() {
             if (!userDetails.isAuthenticated()) {
                 $rootScope.$broadcast('show-unregisterd-box');
@@ -40,6 +80,9 @@
             });
         }
 
+        $rootScope.$on('open-menu', function() {
+            $mdSidenav('left').toggle();
+        });
         $rootScope.$on('remove-box', function (e, arg) {
             arg = parseInt(arg, 10);
             removeElement(d.courses, arg);
