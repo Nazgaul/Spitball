@@ -4,7 +4,7 @@
     var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
 }
 
-<md-sidenav class="md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+<md-sidenav ng-cloak class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
 
     <md-content role="navigation" ng-controller="SideMenu as d">
         <ul class="side-menu">

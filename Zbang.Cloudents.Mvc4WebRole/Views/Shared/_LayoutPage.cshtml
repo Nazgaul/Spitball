@@ -109,13 +109,13 @@
                 </li>
             </ul>
 
-                <a flex="none" ng-click="app.toggleMenu()" href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse" ga-track-event="['header', 'open menu']">
+            <button type="button" flex="none" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" ga-track-event="['header', 'open menu']">
+                @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
+            </button>
         </div>
     </div>
 
 
-    <div class="clearfix">
-    </div>
     @*<div class="page-container">*@
     <div layout="row" class="page-body">
         @RenderBody()
