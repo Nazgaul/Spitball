@@ -427,7 +427,7 @@ md-tabs md-ink-bar {
 }
 .full-screen {
   position: fixed;
-  top: 0;
+  top: 85px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -436,6 +436,15 @@ md-tabs md-ink-bar {
   background: #f5f5f5;
   height: 100vh;
   width: 100vw;
+}
+.full-screen.itemPage {
+  top: 0;
+}
+.full-screen.itemPage header > div {
+  height: 80px;
+}
+.full-screen.quizPage {
+  top: 0;
 }
 .full-screen header {
   height: 80px;

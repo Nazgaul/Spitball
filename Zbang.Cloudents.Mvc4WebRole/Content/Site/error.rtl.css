@@ -105,6 +105,11 @@
 .error-500-page .text {
   margin-top: -128px;
 }
+@media (max-width: 768px) {
+  .error-500-page .text {
+    margin-top: -15vw;
+  }
+}
 .error-500-page .text h2 {
   font-size: 25px;
   color: #5f6871;

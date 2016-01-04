@@ -11,21 +11,35 @@
   margin-top: 80px;
 }
 .quizPage header {
-  position: relative;
   align-items: center;
+  white-space: nowrap;
 }
-.quizPage header .text-center {
-  width: 100%;
-  line-height: initial;
-  margin: 0 auto;
-  position: absolute;
-  padding: 29px 0;
+.quizPage header .fb-like button {
+  font-size: 14px;
+  color: #c2c2c2;
+  padding-left: 25px;
+  text-transform: capitalize;
 }
-.quizPage .close {
-  position: absolute;
-  padding: 29px 15px;
-  right: 10px;
+.quizPage header .fb-like button svg {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  vertical-align: middle;
+  margin-bottom: 14px;
+  fill: #c2c2c2;
+}
+.quizPage header .close {
+  padding: 15px;
+  margin-left: 70px;
   margin-top: 0;
+}
+@media (max-width: 400px) {
+  .quizPage header .like-text {
+    display: none;
+  }
+  .quizPage header .close {
+    margin-left: 40px;
+  }
 }
 .quizPage .arrows {
   position: fixed;

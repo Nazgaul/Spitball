@@ -49,87 +49,71 @@
     <div ng-spinner-bar class="sb-loader">
         <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
     </div>
-    <div class="page-header navbar navbar-fixed-top">
-        <div layout="row" layout-align="space-between center" class="page-header-inner">
-            <div layout="row" layout-align="start center" flex="100">
-                <div class="page-logo" flex="none">
+
+    <div class="nav-bar" layout="row">
+        <div class="logo-search" layout="row" layout-align="start center" flex="100">
+            <div class="logo">
+                <div class="page-logo">
                     <a ui-sref="dashboard" @shouldPostBack ga-track-event="['header', 'logo']" user-not-register-popup="click">
                         @Html.Svg(svgUrl, "logo", new { @class = "logo-default", hide_xs = "" })
-                        @Html.Svg(svgUrl, "smallLogo", new { @class = "logo-default", hide = "", show_xs = "" })
+                        @Html.Svg(svgUrl, "smallLogo", new { @class = "logo-small", hide = "", show_xs = "" })
                     </a>
-                    <div class="menu-toggler sidebar-toggler">
-                        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-                    </div>
+                    @*<div class="menu-toggler sidebar-toggler">
+                            <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                        </div>*@
                 </div>
-
-                <a flex href="@Url.Action("Index","Search")" @shouldPostBack class="search-form search-form-expanded" ng-hide="app.hideSearch" ga-track-event="['header', 'search']" user-not-register-popup="click">
-                    <div class="input-group">
-                        <span type="text" class="form-control input-sm">@IndexResources.Search</span>
-                        <span class="input-group-btn">
-                            @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })
-                        </span>
-                    </div>
-                </a>
             </div>
-            <div flex="none" layout="row" layout-align="space-between center" class="page-top-wrapper">
-                <div class="page-top">
-                    <div class="top-menu">
-                        <ul class="nav navbar-nav">
-                           
-                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                            <li class="dropdown dropdown-user dropdown-dark" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
-                                <a layout="row" layout-align="space-between center" ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" ga-track-event="['header', 'open menu']">
-                                    <span class="username username-hide-on-mobile">
-                                        {{ud.name}}
-                                        @*<span class="headerPoints">{{ud.score}}</span>*@
-                                    </span>
-                                    <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39" noremove="true"></user-image>
-                                </a>
-                                <ul ng-if="ud.isLoggedIn" class="dropdown-menu dropdown-menu-default">
-                                    <li>
-                                        <a href="{{::ud.url}}" @shouldPostBack ga-track-event="['header', 'user activities']">
-                                            @Html.Svg(svgUrl, "userMenu")<span>@IndexResources.Activities</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="@Url.RouteUrl("AccountSettings")" @shouldPostBack ga-track-event="['header', 'settings']">
-                                            @Html.Svg(svgUrl, "settingMenu") <span>@IndexResources.Settings</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="@Url.RouteUrl("Help")" ga-track-event="['header', 'help']">
-                                            @Html.Svg(svgUrl, "headerHelp") <span>@SharedResources.Help</span>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a target="_self" href="@Url.Action("logoff","account")" @shouldPostBack ga-track-event="['header', 'logout']">
-                                            @Html.Svg(svgUrl, "logOffMenu") <span>@IndexResources.Logout</span>
-                                        </a>
-                                    </li>
-
-                                </ul>
-                                @{
-                                    var returnUrl = Request.QueryString["returnUrl"] ?? Request.Url.ToString();
-                                    var invId = Request.QueryString["invId"];
-                                    
-                                }
-                                <div class="login-buttons">
-                                    <a class="btn btn-default" target="_self" href="@Url.Action("SignUp", "Account", new { returnUrl,invId })" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'sign up']">@IndexResources.Signup</a>
-                                    <a class="btn btn-primary" target="_self" href="@Url.Action("SignIn", "Account", new { returnUrl, invId })" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
-                                    @*<button class="btn btn-default" role="button" onclick="window.location='@Url.Action("SignUp", "Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'sign up']">@IndexResources.Signup</button>
-                                    <button class="btn btn-primary" role="button" onclick="window.location='@Url.Action("SignIn","Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</button>*@
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+            <a href="@Url.Action("Index","Search")" @shouldPostBack class="search-form search-form-expanded" ng-hide="app.hideSearch" ga-track-event="['header', 'search']" user-not-register-popup="click">
+                <div class="search-area">
+                    <span type="text" class="text" input-sm">@IndexResources.Search</span>
+                    <span class="search-btn">
+                        @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })
+                    </span>
                 </div>
+            </a>
+        </div>
+
+        <div class="user-menu" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
+            <a ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" ga-track-event="['header', 'open menu']">
+                <span class="username username-hide-on-mobile">
+                    {{ud.name}}
+                    @*<span class="headerPoints">{{ud.score}}</span>*@
+                </span>
+                <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39" noremove="true"></user-image>
+            </a>
+            <ul class="menu-items">
+                <li>
+                    <a href="{{::ud.url}}" @shouldPostBack ga-track-event="['header', 'user activities']">
+                        <div>@Html.Svg(svgUrl, "userMenu")</div>
+                        <span>@IndexResources.Activities</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.RouteUrl("AccountSettings")" @shouldPostBack ga-track-event="['header', 'settings']">
+                        <div>@Html.Svg(svgUrl, "settingMenu")</div>
+                        <span>@IndexResources.Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.RouteUrl("Help")" ga-track-event="['header', 'help']">
+                        <div>@Html.Svg(svgUrl, "headerHelp")</div>
+                        <span>@SharedResources.Help</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a target="_self" href="@Url.Action("logoff","account")" @shouldPostBack ga-track-event="['header', 'logout']">
+                        <div>@Html.Svg(svgUrl, "logOffMenu")</div>
+                        <span>@IndexResources.Logout</span>
+                    </a>
+                </li>
+            </ul>
+
                 <a flex="none" ng-click="app.toggleMenu()" href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse" ga-track-event="['header', 'open menu']">
-                    @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
-                </a>
-            </div>
         </div>
     </div>
+
+
     <div class="clearfix">
     </div>
     @*<div class="page-container">*@

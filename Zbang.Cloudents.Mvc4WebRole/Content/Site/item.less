@@ -18,7 +18,7 @@
         }
 
         .fb-like {
-            position: absolute;
+            white-space: nowrap;
 
             button {
                 font-size: 14px;
@@ -37,11 +37,28 @@
             }
         }
 
+        .item-actions {
+            white-space: nowrap;
+
+            .md-icon-button {
+                margin: 0;
+            }
+        }
+
         .close-btn {
-            position: absolute;
-            top: 0;
-            right: 0;
-            padding-right: 25px;
+            padding: 15px;
+            margin-left: 50px;
+            line-height: normal;
+        }
+
+        @media (max-width: 400px) {
+            .like-text {
+                display: none;
+            }
+
+            .close-btn {
+                margin-left: 15px;
+            }
         }
 
         .fb-like.blue svg {
@@ -240,8 +257,9 @@
         border-radius: 15px;
         box-shadow: 0 3px 8px @progressbarBackgroundColor;
     }
+
     .preview-svg .svgContent {
-        height:100%; // fix for bug 4897
+        height: 100%; // fix for bug 4897
     }
 
     img {
