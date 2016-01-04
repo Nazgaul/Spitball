@@ -8,15 +8,14 @@
 
     <md-content role="navigation" ng-controller="SideMenu as d">
         <ul class="side-menu">
-            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
-                <md-button ui-sref-active="active" @shouldPostBack href="@Url.Action("Index","Dashboard")" ng-click="focusSection()">
+            <li>
+                <md-button ng-class="{active: d.isSectionSelected('@Url.Action("Index","Dashboard")')}" @shouldPostBack href="@Url.Action("Index","Dashboard")">
                     @Html.Svg(svgUrl, "houseMenu")
                     @IndexResources.Dashboard
                 </md-button>
             </li>
-            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
+            <li>
                 <md-button class="md-button-toggle" ng-click="d.toggleOpen('courses')" flex layout="row">
-                    
                     <span class="arrow" ng-class="{toggled:d.isOpen('courses')}">
                         @Html.Svg("~/images/site/icons.svg", "sideMenuArrow")
                     </span>
@@ -28,9 +27,8 @@
                     </li>
                 </ul>
             </li>
-            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
+            <li>
                 <md-button class="md-button-toggle" ng-click="d.toggleOpen('boxes')" flex layout="row">
-                    
                     <span class="arrow" ng-class="{toggled:d.isOpen('boxes')}">
                         @Html.Svg("~/images/site/icons.svg", "sideMenuArrow")
                     </span>
@@ -42,38 +40,38 @@
                     </li>
                 </ul>
             </li>
-            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
-                <md-button ui-sref-active="active" @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")" ng-click="focusSection()">
+            <li>
+                <md-button ng-class="{active: d.isSectionSelected('@Url.RouteUrl("LibraryDesktop")')}" @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")">
                     @Html.Svg(svgUrl, "universityMenu")
                     @IndexResources.Uni
                 </md-button>
             </li>
-            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
-                <md-button ui-sref-active="active" @shouldPostBack href="{{::d.userUrl}}" ng-click="focusSection()">
+            <li>
+                <md-button ng-class="{active:d.isSectionSelected(d.userUrl)}" @shouldPostBack href="{{::d.userUrl}}">
                     @Html.Svg(svgUrl, "userMenu")
                     @IndexResources.User
                 </md-button>
             </li>
-            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
-                <md-button ui-sref-active="active" @shouldPostBack href="@Url.RouteUrl("AccountSettings")" ng-click="focusSection()">
+            <li>
+                <md-button ng-class="{active:d.isSectionSelected('@Url.RouteUrl("AccountSettings")')}" @shouldPostBack href="@Url.RouteUrl("AccountSettings")">
                     @Html.Svg(svgUrl, "settingMenu")
                     @IndexResources.Settings
                 </md-button>
             </li>
-            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
-                <md-button ui-sref-active="active" @shouldPostBack href="@Url.RouteUrl("Help")" ng-click="focusSection()">
+            <li>
+                <md-button ng-class="{active: d.isSectionSelected('@Url.RouteUrl("Help")')}" @shouldPostBack href="@Url.RouteUrl("Help")">
                     @Html.Svg(svgUrl, "headerHelp")
                     @SharedResources.Help
                 </md-button>
             </li>
-            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
-                <md-button ui-sref-active="active" @shouldPostBack href="@Url.RouteUrl("Blog2")" ng-click="focusSection()">
+            <li>
+                <md-button ng-class="{active:d.isSectionSelected('@Url.RouteUrl("Blog2")')}" ui-sref-active="active" @shouldPostBack href="@Url.RouteUrl("Blog2")">
                     @Html.Svg(svgUrl, "blog")
                     @GeneralResources.Blog
                 </md-button>
             </li>
-            <li ng-class="{'parentActive' : vm.isSectionSelected('dashboard')}">
-                <md-button target="_self" user-not-register-popup="click" href="@Url.Action("logoff","account")" ng-click="focusSection()">
+            <li>
+                <md-button target="_self" user-not-register-popup="click" href="@Url.Action("logoff","account")">
                     @Html.Svg(svgUrl, "logOffMenu")
                     @IndexResources.Logout
                 </md-button>

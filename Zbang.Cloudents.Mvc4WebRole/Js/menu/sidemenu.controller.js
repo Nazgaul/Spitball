@@ -1,12 +1,12 @@
 ﻿(function () {
     angular.module('app.dashboard').controller('SideMenu', dashboard);
-    dashboard.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope', '$mdSidenav'];
+    dashboard.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope', '$mdSidenav','$location'];
 
-    function dashboard(dashboardService, userDetails, $rootScope,  $mdSidenav) {
+    function dashboard(dashboardService, userDetails, $rootScope, $mdSidenav, $location) {
         var d = this, notloaded = true;
         d.courses = [];
         d.privateBoxes = [];
-        d.open = open;
+        //d.open = open;
 
         
         userDetails.init().then(function () {
@@ -16,7 +16,7 @@
         d.isOpen = isOpen;
         d.toggleOpen = toggleOpen;
         d.isSectionSelected = isSectionSelected;
-        d.autoFocusContent = false;
+        //d.autoFocusContent = false;
 
         var openedSection;
         //d.menu = menu;
@@ -27,7 +27,10 @@
         }
 
         function toggleOpen(section) {
-            console.log(section);
+            if (section === openedSection) {
+                openedSection = null;
+                return;
+            }
             openedSection = section;
             if (!userDetails.isAuthenticated()) {
                 $rootScope.$broadcast('show-unregisterd-box');
@@ -41,30 +44,31 @@
         }
 
         function isSectionSelected(section) {
-            var selected = false;
-            var openedSectionX = openedSection;
-            if (openedSectionX === section) {
-                selected = true;
-            }
-            else if (section.children) {
-                section.children.forEach(function (childSection) {
-                    if (childSection === openedSectionX) {
-                        selected = true;
-                    }
-                });
-            }
-            return selected;
+            return $location.url().startsWith(section);
+            //var selected = false;
+            //var openedSectionX = openedSection;
+            //if (openedSectionX === section) {
+            //    selected = true;
+            //}
+            //else if (section.children) {
+            //    section.children.forEach(function (childSection) {
+            //        if (childSection === openedSectionX) {
+            //            selected = true;
+            //        }
+            //    });
+            //}
+            //return selected;
         }
-        function open() {
-            if (!userDetails.isAuthenticated()) {
-                $rootScope.$broadcast('show-unregisterd-box');
-                return;
-            }
-            if (notloaded) {
-                getBoxes();
-                notloaded = false;
-            }
-        }
+        //function open() {
+        //    if (!userDetails.isAuthenticated()) {
+        //        $rootScope.$broadcast('show-unregisterd-box');
+        //        return;
+        //    }
+        //    if (notloaded) {
+        //        getBoxes();
+        //        notloaded = false;
+        //    }
+        //}
 
         function getBoxes() {
             dashboardService.getBoxes().then(function (response2) {
