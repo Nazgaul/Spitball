@@ -102,7 +102,7 @@
             padding: 65px 30px 0 30px;
             display: inline-block;
 
-            a{
+            a {
                 display: block;
                 color: @textColorWhite;
             }
@@ -132,6 +132,11 @@
 
     .text {
         margin-top: -128px;
+
+        @media (max-width : 768px) {
+            margin-top: -15vw;
+        }
+
 
         h2 {
             font-size: 25px;
