@@ -90,6 +90,9 @@ textarea,
 [role="button"] {
   outline: 0;
 }
+.page-body {
+  margin-top: 85px;
+}
 .userLetter {
   border-radius: 50%;
   color: #f5f5f5;

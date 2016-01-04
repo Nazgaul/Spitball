@@ -109,15 +109,18 @@
                 </li>
             </ul>
 
+            <button type="button" flex="none" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" ga-track-event="['header', 'open menu']">
+                @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
+            </button>
         </div>
     </div>
 
 
-    <div class="clearfix">
-    </div>
-    <div class="page-container">
+    @*<div class="page-container">*@
+    <div layout="row" class="page-body">
         @RenderBody()
     </div>
+    @*</div>*@
     <div class="page-footer">
         <div class="scroll-to-top">
             @Html.Svg(svgUrl, "arrow")

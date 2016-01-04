@@ -31,6 +31,12 @@
         self.resetForm = resetForm;
         self.showToaster = showToaster;
 
+        self.toggleMenu = toggleMenu;
+
+        function toggleMenu() {
+            $rootScope.$broadcast('open-menu');
+        }
+
         function showToaster(text, parentId) {
             $mdToast.show(
                   $mdToast.simple()
