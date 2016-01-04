@@ -12,7 +12,7 @@
   fill: #c2c2c2;
 }
 .itemPage header .fb-like {
-  position: absolute;
+  white-space: nowrap;
 }
 .itemPage header .fb-like button {
   font-size: 14px;
@@ -27,10 +27,15 @@
   vertical-align: middle;
   margin-bottom: 14px;
 }
+@media (max-width: 400px) {
+  .itemPage header .fb-like .like-text {
+    display: none;
+  }
+}
+.itemPage header .item-actions {
+  white-space: nowrap;
+}
 .itemPage header .close-btn {
-  position: absolute;
-  top: 0;
-  left: 0;
   padding-left: 25px;
 }
 .itemPage header .fb-like.blue svg {

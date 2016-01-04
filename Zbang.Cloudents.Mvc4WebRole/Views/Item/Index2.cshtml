@@ -5,36 +5,75 @@
 }
 <div class="full-screen itemPage" srph-infinite-scroll="i.loadMore()" container="true" unregister-scroll="true">
     <header>
-        <div class="fb-like" ng-class="{blue : i.details.like}">
-            <button user-not-register-popup="click" type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
-                <div class="content">@Html.Svg("~/images/site/box-icons.svg", "like") {{i.details.likes}} @GeneralResources.Like</div>
-            </button>
-        </div>
+        <div layout="row" layout-align="space-between center">
+            <div class="fb-like" ng-class="{blue : i.details.like}">
+                <button user-not-register-popup="click" type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
+                    <div class="content">
+                        @Html.Svg("~/images/site/box-icons.svg", "like")
+                        <span class="like-text">
+                            {{i.details.likes}} @GeneralResources.Like
+                        </span>
+                    </div>
+                </button>
+            </div>
 
-        <div class="text-center">
-            <a target="_blank" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download")</a>
-            <a target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print")</a>
-            <md-menu flex>
-                <md-button aria-label="open menu" class="md-icon-button" user-not-register-popup="click" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">
-                    @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
-                </md-button>
-                <md-menu-content width="1">
-                    <md-menu-item>
-                        <md-button class="text-capitalize" aria-label="delete post" ng-click="i.showRename()" ga-track-event="['itemPage', 'rename']">
-                            @GeneralResources.Rename
-                        </md-button>
-                    </md-menu-item>
-                    <md-menu-item>
-                        <md-button aria-label="delete post" ng-click="i.selectedState = i.state.flag" ga-track-event="['itemPage', 'flag']">
-                            @ItemsResources.Flag
-                        </md-button>
-                    </md-menu-item>
-                </md-menu-content>
-            </md-menu>
+            <div class="item-actions">
+                <a target="_blank" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download")</a>
+                <a target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print")</a>
+                <md-menu flex>
+                    <md-button aria-label="open menu" class="md-icon-button" user-not-register-popup="click" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">
+                        @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
+                    </md-button>
+                    <md-menu-content width="1">
+                        <md-menu-item>
+                            <md-button class="text-capitalize" aria-label="delete post" ng-click="i.showRename()" ga-track-event="['itemPage', 'rename']">
+                                @GeneralResources.Rename
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button aria-label="delete post" ng-click="i.selectedState = i.state.flag" ga-track-event="['itemPage', 'flag']">
+                                @ItemsResources.Flag
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+            <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl)" ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
         </div>
-        <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl)" ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
         <md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear>
     </header>
+
+    @*<header>
+            <div class="fb-like" ng-class="{blue : i.details.like}">
+                <button user-not-register-popup="click" type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
+                    <div class="content">@Html.Svg("~/images/site/box-icons.svg", "like") {{i.details.likes}} @GeneralResources.Like</div>
+                </button>
+            </div>
+
+            <div class="text-center">
+                <a target="_blank" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download")</a>
+                <a target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print")</a>
+                <md-menu flex>
+                    <md-button aria-label="open menu" class="md-icon-button" user-not-register-popup="click" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">
+                        @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
+                    </md-button>
+                    <md-menu-content width="1">
+                        <md-menu-item>
+                            <md-button class="text-capitalize" aria-label="delete post" ng-click="i.showRename()" ga-track-event="['itemPage', 'rename']">
+                                @GeneralResources.Rename
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button aria-label="delete post" ng-click="i.selectedState = i.state.flag" ga-track-event="['itemPage', 'flag']">
+                                @ItemsResources.Flag
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+            <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl)" ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
+            <md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear>
+        </header>*@
 
     <div class="full-screen-body" md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">
 

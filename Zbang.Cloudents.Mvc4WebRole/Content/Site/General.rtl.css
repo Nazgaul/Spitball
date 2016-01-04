@@ -434,6 +434,12 @@ md-tabs md-ink-bar {
   height: 100vh;
   width: 100vw;
 }
+.full-screen.itemPage {
+  top: 0;
+}
+.full-screen.itemPage header > div {
+  height: 80px;
+}
 .full-screen header {
   height: 80px;
   color: #f5f5f5;

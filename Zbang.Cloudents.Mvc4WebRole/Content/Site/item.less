@@ -18,7 +18,7 @@
         }
 
         .fb-like {
-            position: absolute;
+            white-space: nowrap;
 
             button {
                 font-size: 14px;
@@ -35,12 +35,19 @@
                     margin-bottom: 14px;
                 }
             }
+
+            .like-text {
+                @media (max-width: 400px) {
+                    display: none;
+                }
+            }
+        }
+
+        .item-actions {
+            white-space: nowrap;
         }
 
         .close-btn {
-            position: absolute;
-            top: 0;
-            right: 0;
             padding-right: 25px;
         }
 
@@ -240,8 +247,9 @@
         border-radius: 15px;
         box-shadow: 0 3px 8px @progressbarBackgroundColor;
     }
+
     .preview-svg .svgContent {
-        height:100%; // fix for bug 4897
+        height: 100%; // fix for bug 4897
     }
 
     img {
