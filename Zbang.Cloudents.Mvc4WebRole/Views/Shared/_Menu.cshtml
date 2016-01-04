@@ -65,7 +65,7 @@
                 </md-button>
             </li>
             <li>
-                <md-button ng-class="{active:d.isSectionSelected('@Url.RouteUrl("Blog2")')}" ui-sref-active="active" @shouldPostBack href="@Url.RouteUrl("Blog2")">
+                <md-button ng-class="{active:d.isSectionSelected('@Url.RouteUrl("Blog2")')}" @shouldPostBack href="@Url.RouteUrl("Blog2")">
                     @Html.Svg(svgUrl, "blog")
                     @GeneralResources.Blog
                 </md-button>
@@ -90,8 +90,7 @@
     </md-content>
 </md-sidenav>
 <script type="text/ng-template" id="partials/menu-link.tmpl.html">
-    <md-button ng-class="{section.icon : true}" ui-sref-active="active"
-               href="{{::section.url}}" ng-click="focusSection()">
+    <md-button ng-class="{ active: isSectionSelected(section.url)}" href="{{::section.url}}">
         {{::section.name}}
     </md-button>
 </script>

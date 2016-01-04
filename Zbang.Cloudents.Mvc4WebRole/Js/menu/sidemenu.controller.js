@@ -1,6 +1,6 @@
 ﻿(function () {
     angular.module('app.dashboard').controller('SideMenu', dashboard);
-    dashboard.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope', '$mdSidenav','$location'];
+    dashboard.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope', '$mdSidenav', '$location'];
 
     function dashboard(dashboardService, userDetails, $rootScope, $mdSidenav, $location) {
         var d = this, notloaded = true;
@@ -8,7 +8,7 @@
         d.privateBoxes = [];
         //d.open = open;
 
-        
+
         userDetails.init().then(function () {
             d.userUrl = userDetails.get().url;
         });
@@ -44,7 +44,12 @@
         }
 
         function isSectionSelected(section) {
-            return $location.url().startsWith(section);
+
+            var x = $location.url().startsWith(section);
+            if (x) {
+                console.log(section, x);
+            }
+            return x;
             //var selected = false;
             //var openedSectionX = openedSection;
             //if (openedSectionX === section) {
@@ -84,7 +89,7 @@
             });
         }
 
-        $rootScope.$on('open-menu', function() {
+        $rootScope.$on('open-menu', function () {
             $mdSidenav('left').toggle();
         });
         $rootScope.$on('remove-box', function (e, arg) {
