@@ -209,6 +209,12 @@ Rounded Portlets
   position: absolute;
   left: 20px;
   display: none;
+  top: 80px;
+}
+@media (max-width: 959px) {
+  .nav-bar .user-menu .menu-items {
+    left: 50px;
+  }
 }
 .nav-bar .user-menu .menu-items:before {
   content: "";
