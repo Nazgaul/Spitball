@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Threading;
-using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
-using Microsoft.WindowsAzure.Storage;
 
 namespace Zbang.Cloudents.OneTimeWorkerRole
 {
@@ -23,10 +17,10 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
         {
             // This is a sample worker implementation. Replace with your logic.
             Trace.TraceInformation("Zbang.Cloudents.OneTimeWorkerRole entry point called", "Information");
-            //var updateThumbnail = m_Unity.Resolve<IUpdateThumbnails>();
-            //updateThumbnail.UpdateThumbnailPicture();
-            var updateThumbnail = m_Unity.Resolve<IOneTimeDbi>();
-            updateThumbnail.Run();
+            var updateThumbnail = m_Unity.Resolve<IUpdateThumbnails>();
+            updateThumbnail.UpdateThumbnailPicture();
+            //var updateThumbnail = m_Unity.Resolve<IOneTimeDbi>();
+            //updateThumbnail.Run();
             Trace.TraceInformation("Finish Processing", "Information");
             while (true)
             {

@@ -44,6 +44,7 @@ select Name,boxid from c";
   i.Content as content,
   i.blobName as blobName,
   i.Url as url,
+  i.discriminator as type,
   u.id as universityid,
   b.BoxName as boxname,
   u.UniversityName as universityName,
@@ -54,7 +55,6 @@ select Name,boxid from c";
    where i.isdirty = 1 
    and i.IsDeleted = 0
     and i.itemid % @count  = @index
-   and i.discriminator = 'File'
     order by i.ItemId desc";
 
         public const string GetItemUsersToUploadToSearch =

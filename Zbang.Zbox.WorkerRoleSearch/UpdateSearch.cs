@@ -47,7 +47,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ItemSearchProvider3 = itemSearchProvider3;
 
             var cloudStorageAccount = CloudStorageAccount.Parse(
-                
+
                     Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("StorageConnectionString"));
 
             m_BlobClient = cloudStorageAccount.CreateCloudBlobClient();
@@ -134,7 +134,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             }
             var isSuccess2 =
-                await m_ItemSearchProvider3.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
+                await m_ItemSearchProvider3.UpdateData(updates.ItemsToUpdate.Where(w => w.Type.ToLower() == "file"), updates.ItemsToDelete);
             if (isSuccess2)
             {
                 await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(

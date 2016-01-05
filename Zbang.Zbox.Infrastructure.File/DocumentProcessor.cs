@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Infrastructure.File
             Func<int> getPageCount,
             string getCacheVersionPrefix,
             Func<Stream> thumbnailStream
-           
+
             )
         {
             var thumbnailUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
@@ -35,7 +35,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 {
                     var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailUri, ms, "image/jpeg");
                     var t2 = UploadMetaData(blobName, getPageCount(), getCacheVersionPrefix);
-                    var t3 = BlobProvider.UploadFilePreviewAsync(blobName+ ".jpg", msPreview, "image/jpeg");
+                    var t3 = BlobProvider.UploadFilePreviewAsync(blobName + ".jpg", msPreview, "image/jpeg");
                     await Task.WhenAll(t1, t2, t3);
                 }
             }

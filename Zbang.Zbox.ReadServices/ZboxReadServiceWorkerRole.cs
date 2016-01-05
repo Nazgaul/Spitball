@@ -123,8 +123,8 @@ namespace Zbang.Zbox.ReadServices
                 //--'excelv4.jpg'
                 //--)
 
-                return await conn.QueryAsync(@"select itemid, blobname from zbox.item 
-                where  Discriminator = 'FILE'
+                return await conn.QueryAsync(@"select itemid, blobname, Discriminator from zbox.item 
+                where  Discriminator = 'Link'
                 and isdeleted = 0
                 and itemid >=  @start
                 order by itemid
