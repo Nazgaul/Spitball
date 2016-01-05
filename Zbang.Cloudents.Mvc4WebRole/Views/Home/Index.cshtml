@@ -4,7 +4,6 @@
 @{
 
     Layout = null;
-    ViewBag.moveToSpitBall = ViewBag.moveToSpitBall ?? false;
     ViewBag.metaDescription = HomePageResources.A4;
 }
 <!doctype html>
@@ -50,15 +49,6 @@
             '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
     <div class="pace-overlay"></div>
-    @if (ViewBag.moveToSpitBall)
-    {
-        <div class="alert alert-info element-bottom-0 alert-dismissible fade in" style="width:100%; background:#f05a28; font-size:18px;" role="alert">
-            <div class="container">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                להתראות Cloudents שלום Spitball
-            </div>
-        </div>
-    }
 
     <div id="masthead" class="menu navbar navbar-static-top header-logo-left-menu-right navbar-sticky text-none" role="banner">
         <div class="container">
@@ -78,8 +68,6 @@
                                     <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-US" })">@Languages.EnglishUsName</a> </li>
                                     <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-UK" })">@Languages.EnglishGbName</a> </li>
                                     <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "he-IL" })">@Languages.HebrewName</a> </li>
-                                    @*<li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ru-RU" })">@Languages.RussianName</a> </li>
-                                        <li class="menu-item"> <a href="@Url.Action("Index", new { lang = "ar-AE" })">@Languages.ArabicName</a> </li>*@
                                 </ul>
                             </li>
                             <li class="menu-item"> <a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a> </li>
@@ -166,7 +154,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2 text-default"></div>
+                                @*<div class="col-md-2 text-default"></div>*@
                                 @{
                                     var queryString = string.Empty;
                                     if (!string.IsNullOrEmpty(Request.QueryString["utm_medium"]))
@@ -195,7 +183,6 @@
             <section class="section" id="features">
                 <div class="container">
                     <div class="row">
-                        @*<div class="col-md-2 text-default"></div>*@
                         <div class="col-md-offset-2 col-md-8 text-default">
                             <h2 class="text-center element-top-60 element-bottom-20 os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
                                 @HomePageResources.B1
@@ -203,11 +190,11 @@
                             <div class="divider-border divider-border-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
                                 <div class="divider-border-inner"></div>
                             </div>
-                            <p class="lead text-center center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.2s">
+                            <p class="lead text-center element-top-20 element-bottom-20 os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.2s">
                                 @HomePageResources.B2
                             </p>
                         </div>
-                        <div class="col-md-2 text-default"></div>
+                        @*<div class="col-md-2 text-default"></div>*@
                     </div>
                 </div>
             </section>
@@ -235,7 +222,7 @@
                         </div>
                         <div class="col-md-4 text-default">
                             <ul class="features-list element-top-20 element-bottom-20" data-os-animation="none" data-os-animation-delay="0s">
-                                <li class=" element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.2s">
+                                <li class="element-top-40 element-bottom-40 os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.2s">
                                     <div class="features-list-icon box-animate" data-animation=""> @Html.Svg("/images/homepage2/homePageIcons.svg", "social-network", new { @class = "svgIcon" }) </div>
                                     <h3>@HomePageResources.B7</h3>
                                     <p>@HomePageResources.B8</p>
@@ -256,8 +243,8 @@
                     <div class="row">
                         <div class="col-md-12 text-default">
                             <div class="row">
-                                <div class="col-md-2 text-default"></div>
-                                <div class="col-md-8 text-default">
+                                @*<div class="col-md-2 text-default"></div>*@
+                                <div class="col-md-offset-2 col-md-8 text-default">
                                     <h2 class="text-center element-top-60 element-bottom-20 os-animation big default" data-os-animation="fadeIn" data-os-animation-delay="0s">
                                         @HomePageResources.C1
                                     </h2>
@@ -265,19 +252,19 @@
                                         <div class="divider-border-inner"></div>
                                     </div>
                                 </div>
-                                <div class="col-md-2 text-default"></div>
+                                @*<div class="col-md-2 text-default"></div>*@
                             </div>
                             <div class="element-top-20 element-bottom-20 element-left-50 element-right-50">
-                                <div class="row">
+                                @*<div class="row">
                                     <div class="col-md-12">
                                         <div class="clearfix">
                                             <div class="portfolio-filters pull-right"></div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>*@
                                 <div class="portfolio masonry no-transition" data-padding="40" data-col-xs="1" data-col-sm="1" data-col-md="4" data-col-lg="4" data-layout="fitRows">
-                                    <div class="masonry-item portfolio-item filter-screens" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
-                                        <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                    <div class="masonry-item" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
+                                        <div class="figure portfolio-os-animation fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
                                             <a href="@Url.CdnContent("/Images/HomePage2/image.png")" class="figure-image magnific" data-links="" target="_self">
                                                 <img src="@Url.CdnContent("/Images/HomePage2/image.png")" alt="Private study groups" class="normalwidth" />
                                                 <div class="figure-overlay">
@@ -288,8 +275,8 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="masonry-item portfolio-item filter-screens" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
-                                        <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                    <div class="masonry-item" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
+                                        <div class="figure  portfolio-os-animation fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
                                             <a href="@Url.CdnContent("/Images/HomePage2/Items_0.png")" class="figure-image magnific" data-links="" target="_self">
                                                 <img src="@Url.CdnContent("/Images/HomePage2/Items_0.png")" alt="Class notes" class="normalwidth" />
                                                 <div class="figure-overlay">
@@ -300,8 +287,8 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="masonry-item portfolio-item filter-screens" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
-                                        <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                    <div class="masonry-item" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
+                                        <div class="figure portfolio-os-animation fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
                                             <a href="@Url.CdnContent("/Images/HomePage2/quiz_0.png")" class="figure-image magnific" data-links="" target="_self">
                                                 <img src="@Url.CdnContent("/Images/HomePage2/quiz_0.png")" alt="Quiz solving" class="normalwidth" />
                                                 <div class="figure-overlay">
@@ -312,8 +299,8 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="masonry-item portfolio-item filter-screens" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
-                                        <div class="figure element-top-no-top element-bottom-no-bottom portfolio-os-animation image-filter-none image-filter-onhover fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                                    <div class="masonry-item" data-menu-order="1" data-date="2014-11-06T14:25:57+00:00" data-title="screen01" data-comments="0">
+                                        <div class="figure portfolio-os-animation fade-in text-center figcaption-middle normalwidth" data-os-animation="fadeIn" data-os-animation-delay="0s">
                                             <a href="@Url.CdnContent("/Images/HomePage2/user.png")" class="figure-image magnific" data-links="" target="_self">
                                                 <img src="@Url.CdnContent("/Images/HomePage2/user.png")" alt="Social syudying personal pae" class="normalwidth" />
                                                 <div class="figure-overlay">
@@ -331,13 +318,13 @@
                 </div>
             </section>
 
-            <section class="section section-inner-no-shadow section-normal section-opaque" id="testimonials">
+            <section class="section" id="testimonials">
                 <div class="background-overlay" style="background-color: rgba(240,240,240,1);"></div>
                 <div class="container">
                     <div class="row vertical-middle">
-                        <div class="col-md-1 text-left small-screen-center"></div>
-                        <div class="col-md-10 text-default">
-                            <div id="flexslider-120" class="element-top-80 element-bottom-80 text-center os-animation flexslider feature-slider"
+                        @*<div class="col-md-1 text-left small-screen-center"></div>*@
+                        <div class="col-md-10 text-default col-md-offset-1">
+                            <div id="flexslider-120" class="element-top-80 element-bottom-80 text-center os-animation flexslider"
                                  data-os-animation="fadeIn" data-os-animation-delay="0s" data-flex-animation="slide" data-flex-controls-position="outside"
                                  data-flex-controlsalign="center" data-flex-directions="hide" data-flex-speed="7000" data-flex-controls="show"
                                  data-flex-slideshow="true">
@@ -349,7 +336,7 @@
                                             </p>
                                             <div class="box box-small box-round">
                                                 <div class="box-dummy"></div>
-                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial1.jpg")" class="attachment-thumbnail wp-post-image" alt="user pic" /> </div>
+                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial1.jpg")" class="wp-post-image" alt="user pic" /> </div>
                                             </div>
                                             <footer>@HomePageResources.Testimonial1Person&nbsp;<cite title="@HomePageResources.Testimonial1Title">@HomePageResources.Testimonial1Title</cite></footer>
                                         </blockquote>
@@ -361,7 +348,7 @@
                                             </p>
                                             <div class="box box-small box-round">
                                                 <div class="box-dummy"></div>
-                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial2.jpg")" class="attachment-thumbnail wp-post-image" alt="user pic" /> </div>
+                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial2.jpg")" alt="user pic" /> </div>
                                             </div>
                                             <footer>@HomePageResources.Testimonial2Person&nbsp;<cite title="@HomePageResources.Testimonial2Title">@HomePageResources.Testimonial2Title</cite></footer>
                                         </blockquote>
@@ -373,7 +360,7 @@
                                             </p>
                                             <div class="box box-small box-round">
                                                 <div class="box-dummy"></div>
-                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial3.jpg")" class="attachment-thumbnail wp-post-image" alt="user pic" /> </div>
+                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial3.jpg")" alt="user pic" /> </div>
                                             </div>
                                             <footer>@HomePageResources.Testimonial3Person&nbsp;<cite title="@HomePageResources.Testimonial3Title">@HomePageResources.Testimonial3Title</cite></footer>
                                         </blockquote>
@@ -385,7 +372,7 @@
                                             </p>
                                             <div class="box box-small box-round">
                                                 <div class="box-dummy"></div>
-                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial4.jpg")" class="attachment-thumbnail wp-post-image" alt="user pic" /> </div>
+                                                <div class="box-inner"> <img width="150" height="150" src="@Url.CdnContent("/Images/HomePage2/testimonial4.jpg")" alt="user pic" /> </div>
                                             </div>
                                             <footer>@HomePageResources.Testimonial4Person&nbsp;<cite title="@HomePageResources.Testimonial4Title">@HomePageResources.Testimonial4Title</cite></footer>
                                         </blockquote>
@@ -397,14 +384,14 @@
                     </div>
                 </div>
             </section>
-            <section class="section section-inner-no-shadow section-normal section-opaque">
+            <section class="section">
                 <div class="background-media" style="background-image: url('@Url.CdnContent("/Images/HomePage2/headr_image5.png")'); background-repeat:no-repeat; background-size:cover; background-attachment:fixed; background-position: 50% 0;" data-start="background-position: 50% 0px"
                      data-0-top-bottom="background-position: 50% 0"></div>
                 <div class="background-overlay"></div>
-                <div class="container container-vertical-top">
+                <div class="container">
                     <div class="row vertical-top">
-                        <div class="col-md-1 text-left small-screen-center"></div>
-                        <div class="col-md-10 text-center">
+                        @*<div class="col-md-1 text-left small-screen-center"></div>*@
+                        <div class="col-md-offset-1 col-md-10 text-center">
                             <h2 class="text-default element-top-70 element-bottom-20 text-light os-animation big default"
                                 data-os-animation="fadeIn" data-os-animation-delay="0s" style="text-shadow:2px 2px 12px #000;">
                                 @HomePageResources.F1
@@ -438,7 +425,7 @@
                                 <div class="element-height-100"></div>
                                 </div>*@
                         </div>
-                        <div class="col-md-1 text-default"></div>
+                        @*<div class="col-md-1 text-default"></div>*@
                     </div>
                 </div>
             </section>
@@ -450,10 +437,10 @@
                             <div class="divider-wrapper">
                                 <div class="element-height-10"></div>
                             </div>
-                            <a href="@Url.Action("AboutUs", "Home")">@HomeResources.AboutCloudents</a>&nbsp;|
+                            <a href="@Url.RouteUrl("AboutUs")">@HomeResources.AboutCloudents</a>&nbsp;|
                             <a href="@Url.RouteUrl("Jobs")">@SharedResources.Jobs</a>&nbsp;|
                             <a href="@Url.RouteUrl("Help")">@SharedResources.Help</a>&nbsp;|
-                            <a href="@Url.Action("Privacy", "Home")">@FooterResources.PrivacyPolicy</a>&nbsp;|
+                            <a href="@Url.RouteUrl("Privacy")">@FooterResources.PrivacyPolicy</a>&nbsp;|
                             <a href="@Url.RouteUrl("TOS")">@FooterResources.TermsOfService</a>&nbsp;|
                             <a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a>
                             <div class="divider-wrapper">

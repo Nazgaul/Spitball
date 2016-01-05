@@ -68,10 +68,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 RouteData.Values.Remove("lang");
                 return RedirectToAction("Index", new { invId });
             }
-            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
-            {
-                ViewBag.moveToSpitBall = true;
-            }
             if (!string.IsNullOrEmpty(invId))
             {
                 var guid = GuidEncoder.TryParseNullableGuid(invId);
@@ -98,8 +94,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [DonutOutputCache(CacheProfile = "FullPage")]
         [NoUniversity]
-        [Route("home/aboutus")]
-        [Route("home/privacy")]
+        [Route("home/aboutus", Name="AboutUs")]
+        [Route("home/privacy", Name="Privacy")]
         [Route("terms", Name = "TOS")]
         public ActionResult IndexEmptyRoute()
         {
