@@ -7,7 +7,7 @@
 <md-sidenav ng-cloak class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
 
     <md-content role="navigation" ng-controller="SideMenu as d">
-        <ul class="side-menu">
+        <ul class="side-menu" ng-slimscroll watch-content="true" height="calc(100vh - 90px)" color="#BBB">
             <li class="dashboard nav-item">
                 <md-button ng-class="{active: d.isSectionSelected('@Url.Action("Index","Dashboard")')}" @shouldPostBack href="@Url.Action("Index","Dashboard")">
                     <span class="icon">@Html.Svg(svgUrl, "houseMenu")</span>
@@ -91,13 +91,13 @@
 
 
             @*<li class="parent-list-item">
-                    <menu-toggle section="courses"></menu-toggle>
-                </li>*@
+                <menu-toggle section="courses"></menu-toggle>
+            </li>*@
             @*<li ng-repeat="section in vm.menu.sections" class="parent-list-item"
-                    ng-class="{'parentActive' : vm.isSectionSelected(section)}">
-                    <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
-                    <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
-                </li>*@
+                ng-class="{'parentActive' : vm.isSectionSelected(section)}">
+                <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
+                <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
+            </li>*@
         </ul>
     </md-content>
 </md-sidenav>

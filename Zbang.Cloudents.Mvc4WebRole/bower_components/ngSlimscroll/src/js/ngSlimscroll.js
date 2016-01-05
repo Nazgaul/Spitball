@@ -63,16 +63,16 @@ angular.module('jkuri.slimscroll', [])
 
 			element.css({
 				'overflow': 'hidden',
-				'width': scope.width + 'px',
-				'height': scope.height + 'px',
+				'width': scope.width,
+				'height': scope.height,
 			});
 
 			var wrapper = angular.element('<div></div>');
 			wrapper.css({
 				'position': 'relative',
 				'overflow': 'hidden',
-				'width': scope.width + 'px',
-				'height': scope.height + 'px'
+				'width': scope.width,
+				'height': scope.height
 			});
 
 			if (!scope.horizontalScroll) {
