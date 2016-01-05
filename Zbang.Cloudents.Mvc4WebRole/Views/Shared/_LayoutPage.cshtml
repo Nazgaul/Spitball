@@ -72,43 +72,43 @@
                 </div>
             </a>
         </div>
+        <div layout="row" layout-align="center center">
+            <div class="user-menu" layout="row" lyout-align="center center" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
+                <a ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" ga-track-event="['header', 'open menu']">
+                    <span class="username username-hide-on-mobile">
+                        {{ud.name}}
+                        @*<span class="headerPoints">{{ud.score}}</span>*@
+                    </span>
+                    <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39" noremove="true"></user-image>
+                </a>
+                <ul class="menu-items">
+                    <li>
+                        <a href="{{::ud.url}}" @shouldPostBack ga-track-event="['header', 'user activities']">
+                            <div>@Html.Svg(svgUrl, "userMenu")</div>
+                            <span>@IndexResources.Activities</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.RouteUrl("AccountSettings")" @shouldPostBack ga-track-event="['header', 'settings']">
+                            <div>@Html.Svg(svgUrl, "settingMenu")</div>
+                            <span>@IndexResources.Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.RouteUrl("Help")" ga-track-event="['header', 'help']">
+                            <div>@Html.Svg(svgUrl, "headerHelp")</div>
+                            <span>@SharedResources.Help</span>
+                        </a>
+                    </li>
 
-        <div class="user-menu" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
-            <a ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" ga-track-event="['header', 'open menu']">
-                <span class="username username-hide-on-mobile">
-                    {{ud.name}}
-                    @*<span class="headerPoints">{{ud.score}}</span>*@
-                </span>
-                <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39" noremove="true"></user-image>
-            </a>
-            <ul class="menu-items">
-                <li>
-                    <a href="{{::ud.url}}" @shouldPostBack ga-track-event="['header', 'user activities']">
-                        <div>@Html.Svg(svgUrl, "userMenu")</div>
-                        <span>@IndexResources.Activities</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.RouteUrl("AccountSettings")" @shouldPostBack ga-track-event="['header', 'settings']">
-                        <div>@Html.Svg(svgUrl, "settingMenu")</div>
-                        <span>@IndexResources.Settings</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.RouteUrl("Help")" ga-track-event="['header', 'help']">
-                        <div>@Html.Svg(svgUrl, "headerHelp")</div>
-                        <span>@SharedResources.Help</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a target="_self" href="@Url.Action("logoff","account")" @shouldPostBack ga-track-event="['header', 'logout']">
-                        <div>@Html.Svg(svgUrl, "logOffMenu")</div>
-                        <span>@IndexResources.Logout</span>
-                    </a>
-                </li>
-            </ul>
-
+                    <li>
+                        <a target="_self" href="@Url.Action("logoff","account")" @shouldPostBack ga-track-event="['header', 'logout']">
+                            <div>@Html.Svg(svgUrl, "logOffMenu")</div>
+                            <span>@IndexResources.Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
             <button type="button" flex="none" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" ga-track-event="['header', 'open menu']">
                 @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
             </button>

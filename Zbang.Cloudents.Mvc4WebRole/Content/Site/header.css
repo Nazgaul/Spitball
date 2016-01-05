@@ -248,6 +248,14 @@ Rounded Portlets
 .nav-bar .user-menu.open .menu-items {
   display: block;
 }
+.nav-bar .menu-toggler {
+  height: 20px;
+}
+@media (min-width: 960px) {
+  .nav-bar .menu-toggler {
+    display: none;
+  }
+}
 .page-header {
   top: 100px;
 }

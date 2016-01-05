@@ -47,8 +47,20 @@
   display: -ms-flex;
   display: flex;
 }
-md-sidenav {
-  overflow: visible;
+.page-body md-sidenav {
+  overflow: scroll;
+  position: fixed;
+  top: 85px;
+  background: #323538;
+  border-radius: 5px;
+  margin: 10px 15px;
+}
+.page-body md-sidenav * {
+  background: transparent;
+}
+.page-body md-sidenav md-content .md-button {
+  color: #f5f5f5;
+  fill: #f5f5f5;
 }
 .side-menu,
 .side-menu ul {
@@ -78,12 +90,19 @@ md-sidenav {
 .side-menu > li {
   border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
+.md-button-toggle .arrow {
+  -moz-transform:  rotate(180deg);
+  -ms-transform:  rotate(180deg);
+  -o-transform:  rotate(180deg);
+  -webkit-transform:  rotate(180deg);
+  transform:  rotate(180deg);
+}
 .md-button-toggle .arrow.toggled {
-  -moz-transform: rotate(-90deg);
-  -ms-transform: rotate(-90deg);
-  -o-transform: rotate(-90deg);
-  -webkit-transform: rotate(-90deg);
-  transform: rotate(-90deg);
+  -moz-transform:  rotate(90deg);
+  -ms-transform:  rotate(90deg);
+  -o-transform:  rotate(90deg);
+  -webkit-transform:  rotate(90deg);
+  transform:  rotate(90deg);
 }
 .side-menu .md-button-toggle .arrow {
   background-size: 100% auto;
