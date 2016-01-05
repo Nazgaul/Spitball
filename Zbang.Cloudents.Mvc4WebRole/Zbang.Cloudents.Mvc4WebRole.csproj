@@ -1693,6 +1693,7 @@
     <Content Include="Images\signin\syncfusion-icons-white.png" />
     <Content Include="Images\Site\BG.png" />
     <Content Include="Images\Site\browsers.svg" />
+    <Content Include="Images\Site\folder_icon.svg" />
     <Content Include="Images\Site\gmail.svg" />
     <Content Include="Images\aboutUs\aboutUsIcons.svg" />
     <Content Include="Images\Site\info.svg" />
