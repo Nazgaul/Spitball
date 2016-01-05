@@ -44,13 +44,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/bower_components/textAngular/dist/textAngular.css",
                         
                         "~/Content/homepage/bootstrap.css",
-                        "~/content/site/profile.css",
-                        "~/Content/site/components-rounded.css",
-                        "~/Content/site/layout.css",
-                        "~/Content/site/light.css",
+                        "~/content/site/profile.css",//
+                        "~/Content/site/components-rounded.css",//
+                        "~/Content/site/layout.css",//
+                        "~/Content/site/light.css",//
                         "~/Content/site/menu.css",
                         "~/Content/site/header.css",
-                        "~/content/site/general.css",
+                        "~/content/site/general.css", // this should be on top
                         "~/Content/site/dashboard.css",
                         "~/Content/site/box.css",
                         "~/Content/site/user.css",
@@ -110,9 +110,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/jquery-2.1.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
                         
-                        new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
-                        new JsFileWithCdn("~/scripts/site/bootstrap-hover-dropdown.js"),
-                        new JsFileWithCdn("~/scripts/site/jquery.slimscroll.js"),
+                       new JsFileWithCdn("~/js/signin/bootstrap.min.js"),//
+                       new JsFileWithCdn("~/scripts/site/bootstrap-hover-dropdown.js"),//
+                       new JsFileWithCdn("~/scripts/site/jquery.slimscroll.js"),//
                         new JsFileWithCdn("~/scripts/angular.min.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"),
                         
                         new JsFileWithCdn("~/scripts/angular-ui-router.js"),
@@ -131,7 +131,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
                         new JsFileWithCdn("~/bower_components/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc7/angular-material.min.js"),
 
-                        new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),
+                       new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),// 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),
                         
 
@@ -140,15 +140,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/plupload2/angular-plupload2.js"),
 
                         new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-0.14.3.min.js"),
-                        //new JsFileWithCdn("~/scripts/site/bootstrap-tabdrop.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
                         new JsFileWithCdn("~/scripts/draganddrop.js"),
                         new JsFileWithCdn("~/js/polyfills.js"),
 
-                        new JsFileWithCdn("~/js/signin/metronic.js"),
-                        new JsFileWithCdn("~/js/signin/layout.js"),
-                        new JsFileWithCdn("~/js/signin/demo.js"),
+                        new JsFileWithCdn("~/js/signin/metronic.js"), //
+                        new JsFileWithCdn("~/js/signin/layout.js"), //
+                        new JsFileWithCdn("~/js/signin/demo.js"), //
 
                         new JsFileWithCdn("~/js/app.js"),
                         new JsFileWithCdn("~/js/app.config.js"),

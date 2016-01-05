@@ -18,7 +18,7 @@
                     app_id: "njmpgayv",
                     name: data.name,
                     email: data.email,
-                    created_at: dateCreate.getTime(),
+                    created_at: Math.round(dateCreate.getTime() / 1000),
                     user_id: data.id,
                     user_image: data.image,
                     university_id: data.universityId,

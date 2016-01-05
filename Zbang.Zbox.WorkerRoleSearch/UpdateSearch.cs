@@ -133,9 +133,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 elem.Content = ExtractContentToUploadToSearch(elem);
 
             }
-            var isSuccess2 =
+            var isSuccess =
                 await m_ItemSearchProvider3.UpdateData(updates.ItemsToUpdate.Where(w => w.Type.ToLower() == "file"), updates.ItemsToDelete);
-            if (isSuccess2)
+            if (isSuccess)
             {
                 await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                     new UpdateDirtyToRegularCommand(
@@ -144,16 +144,45 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return true;
         }
 
+        private Processor GetProcessor(ItemSearchDto msgData)
+        {
+            if (msgData.Type.ToLower() != "file")
+            {
+                Uri uri;
+                if (Uri.TryCreate(msgData.BlobName, UriKind.Absolute, out uri))
+                {
+                    return new Processor
+                    {
+                        ContentProcessor = m_FileProcessorFactory.GetProcessor(uri),
+                        Uri = uri
+                    };
 
+                }
+
+            }
+            var blob = m_BlobProvider.GetFile(msgData.BlobName);
+            return new Processor
+            {
+                ContentProcessor = m_FileProcessorFactory.GetProcessor(blob.Uri),
+                Uri = blob.Uri
+            };
+        }
+
+        private class Processor
+        {
+            public IContentProcessor ContentProcessor { get; set; }
+            public Uri Uri { get; set; }
+        }
 
         private void PreProcessFile(ItemSearchDto msgData)
         {
-            var blob = m_BlobProvider.GetFile(msgData.BlobName);
-            var processor = m_FileProcessorFactory.GetProcessor(blob.Uri);
-            if (processor == null) return;
+            var processor = GetProcessor(msgData);
+            //var blob = m_BlobProvider.GetFile(msgData.BlobName);
+            //var processor = m_FileProcessorFactory.GetProcessor(blob.Uri);
+            if (processor.ContentProcessor == null) return;
             var previewContainer = m_BlobClient.GetContainerReference(BlobProvider.AzurePreviewContainer.ToLower());
             var blobInPreview = previewContainer.GetBlockBlobReference(msgData.BlobName + ".jpg");
-            if (blobInPreview.Exists() && !(processor is WordProcessor))
+            if (blobInPreview.Exists() && !(processor.ContentProcessor is WordProcessor))
             {
                 return;
             }
@@ -167,7 +196,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     var tokenSource = new CancellationTokenSource();
                     tokenSource.CancelAfter(TimeSpan.FromMinutes(29));
                     //some long running method requiring synchronization
-                    var retVal = await processor.PreProcessFile(blob.Uri, tokenSource.Token);
+                    var retVal = await processor.ContentProcessor.PreProcessFile(processor.Uri, tokenSource.Token);
 
                     if (retVal == null)
                     {
