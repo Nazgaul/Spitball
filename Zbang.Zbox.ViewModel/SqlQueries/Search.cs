@@ -63,7 +63,6 @@ select top 1 i.boxid  from zbox.item i  join zbox.box b on i.BoxId = b.BoxId
    left join zbox.University u on b.University = u.id
   where  i.isdirty = 1 
   and i.isdeleted = 0 
-  and i.discriminator = 'File'
    and i.itemid % @count  = @index
   order by i.ItemId desc)";
 
