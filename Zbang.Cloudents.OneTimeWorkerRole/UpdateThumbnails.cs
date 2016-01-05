@@ -44,10 +44,10 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
 
 
                 var blobClient = cloudStorageAccount.CreateCloudBlobClient();
-                var container = blobClient.GetContainerReference("deployn");
-                var blobId = container.GetBlockBlobReference("id.txt");
-                var txt = blobId.DownloadText();
-                var id = Convert.ToInt64(txt);
+                //var container = blobClient.GetContainerReference("deployn");
+                //var blobId = container.GetBlockBlobReference("id.txt");
+                //var txt = blobId.DownloadText();
+                var id = 0;//Convert.ToInt64(txt);
                 // var thumbnailContainer = blobClient.GetContainerReference(BlobProvider.azureThumbnailContainer.ToLower());
                 var fileContainer = blobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
                 var previewContainer = blobClient.GetContainerReference(BlobProvider.AzurePreviewContainer.ToLower());
@@ -60,7 +60,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 bool cont = true;
                 while (cont)
                 {
-                    blobId.UploadText(id.ToString(CultureInfo.InvariantCulture));
+                    //blobId.UploadText(id.ToString(CultureInfo.InvariantCulture));
                     TraceLog.WriteWarning("processing now index starting from  " + id);
                     var items = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs(0, id).Result.ToList();
                     if (!items.Any())

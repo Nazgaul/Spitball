@@ -45,6 +45,8 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
+
+            //BlobProvider.UploadFilePreviewAsync(blobName + ".jpg", msPreview, "image/jpeg");
             return Task.FromResult<PreProcessFileResult>(null);
         }
 
