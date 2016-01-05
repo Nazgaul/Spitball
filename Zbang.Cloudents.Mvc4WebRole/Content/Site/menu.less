@@ -61,23 +61,57 @@
 
 .page-body {
     md-sidenav {
-        overflow: scroll;
-        position: fixed;
-        top: 85px;
+        position: fixed !important;
+        top: 80px;
         background: @textColorDarkGrey;
         border-radius: 5px;
-        margin: 10px 15px;
+        width: 250px;
+        margin-left: 0;
+        margin-top: 10px;
+        z-index: 9999999999;
 
         * {
             background: transparent;
         }
 
         md-content {
-
-
             .md-button {
                 color: @textColorWhite;
                 fill: @backgroundColorWhite;
+
+                span {
+                    text-transform: capitalize;
+                }
+            }
+        }
+
+        .expendable svg {
+            width: 19px;
+            height: 19px;
+        }
+
+        li.nav-item {
+            width: 100%;
+        }
+
+        .dashboard, .help, .logout {
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        .settings, .blog {
+            svg {
+                width: 21px;
+                height: 21px;
+            }
+        }
+
+        .uni, .user {
+            svg {
+                width: 22px;
+                height: 22px;
             }
         }
     }
@@ -90,32 +124,33 @@
 }
 
 .side-menu {
+    li {
+        > .md-button, > button {
+            .displayFlex;
+
+            > span:not(.icon) {
+                margin-left: 35px;
+            }
+        }
+    }
+
     svg {
         width: 20px;
         height: 20px;
+        display: inherit;
     }
 }
 
 .side-menu .md-button.active {
-    color: deeppink;
+    background: @backgroundColorMouseOver;
 }
 
 .side-menu .menu-toggle-list a.md-button {
-    display: block;
-    padding: 0 16px 0 32px;
+    .displayFlex;
     text-transform: none;
     text-rendering: optimizeLegibility;
     font-weight: 500;
-}
-
-.side-menu .menu-toggle-list .md-button {
-    display: block;
-    padding: 0 16px 0 32px;
-    text-transform: none;
-}
-
-.side-menu > li {
-    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    padding-left: 55px;
 }
 
 .md-button-toggle .arrow {
@@ -137,8 +172,8 @@
 .side-menu .md-button-toggle .arrow {
     background-size: 100% auto;
     display: inline-block;
-    margin: auto 0 auto auto;
-    width: 15px;
+    /*margin: auto 0 auto auto;*/
+    /*width: 15px;*/
     color: darkgray;
     -moz-transition: transform .3s ease-in-out;
     -o-transition: transform .3s ease-in-out;
@@ -155,15 +190,27 @@
     color: inherit;
     cursor: pointer;
     font-weight: 400;
-    line-height: 40px;
+    line-height: 50px;
     margin: 0;
-    max-height: 40px;
+    max-height: 50px;
     overflow: hidden;
     padding: 0px 16px;
     text-align: left;
     text-decoration: none;
     white-space: normal;
     width: 100%;
+
+    span:not(.icon) {
+        overflow: hidden;
+        white-space: nowrap;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+    }
+
+    span.icon {
+        width: 22px;
+    }
 }
 
 .menu-toggle-list {

@@ -110,7 +110,7 @@ Rounded Portlets
   right: 0;
   left: 0;
   height: 85px;
-  z-index: 2;
+  z-index: 100;
   background: #323538;
   border-bottom: 5px solid #181c1d;
 }

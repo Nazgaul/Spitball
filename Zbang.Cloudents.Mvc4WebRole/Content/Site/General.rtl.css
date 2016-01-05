@@ -92,6 +92,13 @@ textarea,
 }
 .page-body {
   margin-top: 85px;
+  padding: 0 10px;
+}
+@media (min-width: 961px) {
+  .page-body {
+    margin-right: 250px;
+    padding: 0 20px;
+  }
 }
 .userLetter {
   border-radius: 50%;
