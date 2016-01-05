@@ -48,12 +48,14 @@
   display: flex;
 }
 .page-body md-sidenav {
-  overflow: scroll;
-  position: fixed;
-  top: 85px;
+  position: fixed !important;
+  top: 80px;
   background: #323538;
   border-radius: 5px;
-  margin: 10px 15px;
+  width: 250px;
+  margin-left: 0;
+  margin-top: 10px;
+  z-index: 9999999999;
 }
 .page-body md-sidenav * {
   background: transparent;
@@ -62,33 +64,64 @@
   color: #f5f5f5;
   fill: #f5f5f5;
 }
+.page-body md-sidenav md-content .md-button span {
+  text-transform: capitalize;
+}
+.page-body md-sidenav .expendable svg {
+  width: 19px;
+  height: 19px;
+}
+.page-body md-sidenav li.nav-item {
+  width: 100%;
+}
+.page-body md-sidenav .dashboard svg,
+.page-body md-sidenav .help svg,
+.page-body md-sidenav .logout svg {
+  width: 20px;
+  height: 20px;
+}
+.page-body md-sidenav .settings svg,
+.page-body md-sidenav .blog svg {
+  width: 21px;
+  height: 21px;
+}
+.page-body md-sidenav .uni svg,
+.page-body md-sidenav .user svg {
+  width: 22px;
+  height: 22px;
+}
 .side-menu,
 .side-menu ul {
   list-style: none;
   padding: 0;
   margin-top: 0;
 }
+.side-menu li > .md-button,
+.side-menu li > button {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
+.side-menu li > .md-button > span:not(.icon),
+.side-menu li > button > span:not(.icon) {
+  margin-left: 35px;
+}
 .side-menu svg {
   width: 20px;
   height: 20px;
+  display: inherit;
 }
 .side-menu .md-button.active {
-  color: deeppink;
+  background: #212325;
 }
 .side-menu .menu-toggle-list a.md-button {
-  display: block;
-  padding: 0 16px 0 32px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
   text-transform: none;
   text-rendering: optimizeLegibility;
   font-weight: 500;
-}
-.side-menu .menu-toggle-list .md-button {
-  display: block;
-  padding: 0 16px 0 32px;
-  text-transform: none;
-}
-.side-menu > li {
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding-left: 55px;
 }
 .md-button-toggle .arrow {
   -moz-transform: rotate(0) /*rtl: rotate(180deg)*/;
@@ -107,8 +140,8 @@
 .side-menu .md-button-toggle .arrow {
   background-size: 100% auto;
   display: inline-block;
-  margin: auto 0 auto auto;
-  width: 15px;
+  /*margin: auto 0 auto auto;*/
+  /*width: 15px;*/
   color: darkgray;
   -moz-transition: transform 0.3s ease-in-out;
   -o-transition: transform 0.3s ease-in-out;
@@ -123,15 +156,25 @@
   color: inherit;
   cursor: pointer;
   font-weight: 400;
-  line-height: 40px;
+  line-height: 50px;
   margin: 0;
-  max-height: 40px;
+  max-height: 50px;
   overflow: hidden;
   padding: 0px 16px;
   text-align: left;
   text-decoration: none;
   white-space: normal;
   width: 100%;
+}
+.side-menu .md-button span:not(.icon) {
+  overflow: hidden;
+  white-space: nowrap;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+.side-menu .md-button span.icon {
+  width: 22px;
 }
 .menu-toggle-list {
   background: #fff;
