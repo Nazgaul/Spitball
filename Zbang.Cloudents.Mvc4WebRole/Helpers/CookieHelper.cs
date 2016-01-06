@@ -1,10 +1,11 @@
-﻿using System;
+﻿//using Zbang.Zbox.Infrastructure.Trace;
+using System;
 using System.Web;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
-    public class CookieHelper
+    public class CookieHelper : ICookieHelper
     {
         private readonly HttpContextBase m_HttpContext;
         public CookieHelper(HttpContextBase httpContext)
@@ -16,7 +17,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             m_HttpContext = httpContext;
         }
 
-        public void InjectCookie<T>(string cookieName, T cookieData) where T : class
+        public void InjectCookie<T>(string cookieName, T cookieData, bool httpOnly = true) where T : class
         {
             string value;
             if (typeof(T) == typeof(string))
@@ -29,9 +30,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             }
             var cookie = new HttpCookie(cookieName)
             {
-                HttpOnly = true,
-                Value = value,
-                Expires = DateTime.Now.AddDays(1)
+                HttpOnly = httpOnly,
+                Value = value
+                //Expires = DateTime.Now.AddDays(1)
             };
             m_HttpContext.Response.Cookies.Add(cookie);
         }
@@ -52,7 +53,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             return obj2 as T;
         }
 
-        public void RemoveCookie(string cookieName)
+        public  void RemoveCookie(string cookieName)
         {
             HttpCookie cookie = m_HttpContext.Request.Cookies[cookieName];
             if (cookie != null)
@@ -99,5 +100,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             }
 
         }
+    }
+
+    public interface ICookieHelper
+    {
+        void InjectCookie<T>(string cookieName, T cookieData, bool httpOnly = true) where T : class;
+        T ReadCookie<T>(string cookieName) where T : class;
+        void RemoveCookie(string cookieName);
     }
 }

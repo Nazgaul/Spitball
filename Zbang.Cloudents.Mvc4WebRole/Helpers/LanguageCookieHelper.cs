@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using Zbang.Cloudents.SiteExtension;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {

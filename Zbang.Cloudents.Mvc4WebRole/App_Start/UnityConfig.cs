@@ -6,7 +6,6 @@ using Autofac.Integration.Mvc;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Owin;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
-using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Search;

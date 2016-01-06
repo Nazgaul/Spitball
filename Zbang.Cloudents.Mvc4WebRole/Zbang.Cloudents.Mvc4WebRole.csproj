@@ -304,9 +304,11 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\JsonNetResult.cs" />
     <Compile Include="Extensions\JsonNetSerializer.cs" />
+    <Compile Include="Extensions\PrincipalExtension.cs" />
     <Compile Include="Extensions\UrlHelperExtension.cs" />
     <Compile Include="Extensions\HtmlHelper.cs" />
     <Compile Include="Extensions\VersionHelper.cs" />
+    <Compile Include="Filters\BoxPermissionAttribute.cs" />
     <Compile Include="Filters\CacheFilterAttribute.cs" />
     <Compile Include="Filters\ETagAttribute.cs" />
     <Compile Include="Filters\JsonHandleErrorAttribute.cs" />
@@ -314,6 +316,9 @@
     <Compile Include="Filters\NoCacheAttribute.cs" />
     <Compile Include="Filters\NoEtagAttribute.cs" />
     <Compile Include="Filters\NoUniversityAttribute.cs" />
+    <Compile Include="Filters\RemoveBoxCookieAttribute.cs" />
+    <Compile Include="Filters\ValidatePasswordLengthAttribute.cs" />
+    <Compile Include="Filters\ZboxAuthorizeAttribute.cs" />
     <Compile Include="Filters\ZboxHandleErrorAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -321,6 +326,7 @@
     <Compile Include="Extensions\BlobFileStream.cs" />
     <Compile Include="Helpers\CloudentsOutsputCacheProvider.cs" />
     <Compile Include="Helpers\CloudentsViewLocationCache.cs" />
+    <Compile Include="Helpers\CookieHelper.cs" />
     <Compile Include="Helpers\CookieTempDataProvider.cs" />
     <Compile Include="Helpers\CustomCacheKeys.cs" />
     <Compile Include="Helpers\ILanguageCookieHelper.cs" />
@@ -2752,10 +2758,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Zbang.Cloudents.SiteExtension\Zbang.Cloudents.SiteExtension.csproj">
-      <Project>{aba85231-d459-4c97-80e0-b6771e1c79a2}</Project>
-      <Name>Zbang.Cloudents.SiteExtension</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj">
       <Project>{9ed04567-b2d0-4040-88a6-1ad752a3d83f}</Project>
       <Name>Zbang.Zbox.Domain.CommandHandlers</Name>

@@ -10,11 +10,11 @@ using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using Microsoft.Owin.Security;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings;
-using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
@@ -728,16 +728,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [NonAction]
-        private string RandomString(int size)
-        {
-            var random = new Random();
-            const string input = "0123456789";
-            var chars = Enumerable.Range(0, size)
-                                   .Select(x => input[random.Next(0, input.Length)]);
-            return new string(chars.ToArray());
-            //return "12345";
-        }
+        //[NonAction]
+        //private string RandomString(int size)
+        //{
+        //    var random = new Random();
+        //    const string input = "0123456789";
+        //    var chars = Enumerable.Range(0, size)
+        //                           .Select(x => input[random.Next(0, input.Length)]);
+        //    return new string(chars.ToArray());
+        //    //return "12345";
+        //}
 
         private const string ResetPasswordCrypticPropose = "reset password";
         [NonAction]

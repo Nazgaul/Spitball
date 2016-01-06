@@ -272,7 +272,7 @@ var Login = function () {
             trackConversion();
             $.post('/account/GoogleLogin', {
                 token: idToken,
-                universityId: getUrlVars()['universityid']
+                universityId: decodeURIComponent(getUrlVars()['returnUrl'])
             }).done(function (data) {
                 externalLogIn(data, 'Google');
             });

@@ -17,14 +17,12 @@ using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account;
 using Zbang.Cloudents.Mvc4WebRole.Models.FAQ;
-using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Infrastructure.Url;
 
@@ -68,10 +66,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 RouteData.Values.Remove("lang");
                 return RedirectToAction("Index", new { invId });
             }
-            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
-            {
-                ViewBag.moveToSpitBall = true;
-            }
             if (!string.IsNullOrEmpty(invId))
             {
                 var guid = GuidEncoder.TryParseNullableGuid(invId);
@@ -98,8 +92,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [DonutOutputCache(CacheProfile = "FullPage")]
         [NoUniversity]
-        [Route("home/aboutus")]
-        [Route("home/privacy")]
+        [Route("home/aboutus", Name="AboutUs")]
+        [Route("home/privacy", Name="Privacy")]
         [Route("terms", Name = "TOS")]
         public ActionResult IndexEmptyRoute()
         {
