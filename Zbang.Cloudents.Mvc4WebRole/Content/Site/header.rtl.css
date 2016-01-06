@@ -136,6 +136,15 @@ Rounded Portlets
 .md-user-menu .user-menu-item md-icon {
   margin: 0 10px;
 }
+.login-buttons {
+  padding: 10px;
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .login-buttons {
+    display: none;
+  }
+}
 .nav-bar {
   padding: 0 10px;
   position: fixed;
@@ -197,6 +206,9 @@ Rounded Portlets
   .nav-bar .logo-search .logo .logo-small:last-child {
     display: block;
   }
+}
+.nav-bar .menu-toggler {
+  height: 20px;
 }
 @media (min-width: 990px) {
   .nav-bar .menu-toggler {

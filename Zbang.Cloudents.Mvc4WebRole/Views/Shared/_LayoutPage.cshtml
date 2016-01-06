@@ -71,8 +71,8 @@
                 </div>
             </a>
         </div>
-        <div layout="row" layout-align="center center">
-            <md-menu class="user-md-menu" md-offset="-115 80" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
+        <div layout="row" layout-align="center center" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
+            <md-menu class="user-md-menu" ng-if="ud.isLoggedIn" md-offset="-115 80">
                 <!-- Trigger element is a md-button with an icon -->
                 <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="Open sample menu">
                     {{ud.name}}
@@ -107,7 +107,17 @@
                     </md-menu-item>
                 </md-menu-content>
             </md-menu>
+            @{
+                var returnUrl = Request.QueryString["returnUrl"] ?? Request.Url.ToString();
+                var invId = Request.QueryString["invId"];
 
+            }
+            <div class="login-buttons" ng-if="!ud.isLoggedIn">
+                <a class="btn btn-default" target="_self" href="@Url.Action("SignUp", "Account", new { returnUrl,invId })" ga-track-event="['header', 'sign up']">@IndexResources.Signup</a>
+                <a class="btn btn-primary" target="_self" href="@Url.Action("SignIn", "Account", new { returnUrl, invId })" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
+                @*<button class="btn btn-default" role="button" onclick="window.location='@Url.Action("SignUp", "Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'sign up']">@IndexResources.Signup</button>
+            <button class="btn btn-primary" role="button" onclick="window.location='@Url.Action("SignIn","Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</button>*@
+            </div>
             <button type="button" flex="none" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" ga-track-event="['header', 'open menu']">
                 @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
             </button>
