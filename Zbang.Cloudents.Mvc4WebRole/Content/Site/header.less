@@ -125,6 +125,52 @@ Rounded Portlets
 }
 
 
+.md-user-menu {
+    background: @backgroundColorMenu;
+
+
+
+    &:before {
+        position: absolute;
+        top: -8px;
+        right: 25px;
+        display: inline-block !important;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid @backgroundColorMenu;
+        border-left: 8px solid transparent;
+        content: '';
+    }
+
+
+
+    .user-menu-item {
+        height: inherit;
+
+        svg {
+            width: 20px;
+            height: 20px;
+            fill: @textColorWhite;
+        }
+
+
+
+        .md-button {
+            margin: 0;
+            padding: 5px 0;
+            width: 180px;
+            text-align: left;
+
+            span {
+                color: @textColorWhite;
+            }
+        }
+
+        md-icon {
+            margin: 0 10px;
+        }
+    }
+}
+
 .nav-bar {
     padding: 0 10px;
     position: fixed;
@@ -197,33 +243,35 @@ Rounded Portlets
         }
     }
 
-    .user-menu {
-        text-align: right;
-        margin-right: 10px;
+    .menu-toggler {
+        @media (min-width: 990px) {
+            display: none;
+        }
+    }
 
-        @media (max-width: 600px) {
+    .user-md-menu {
+        display: inline-block;
+        padding: 0;
+
+        &:hover {
+            background: @backgroundColorMouseOver;
+        }
+
+        .md-ripple-container {
             display: none;
         }
 
-        ul, li {
-            list-style-type: none;
-        }
 
-        > a {
-            white-space: nowrap;
-            display: inline-block;
-            line-height: 80px;
-            padding: 0 15px;
+        .md-icon-button {
+            width: inherit;
+            height: 80px;
 
-            &:hover {
-                background: @backgroundColorMouseOver;
+            @media (max-width: 600px) {
+                display: none;
             }
 
-            .username {
-                color: #f5f5f5;
-                margin-right: 5px;
-                font-size: 14px;
-                font-weight: 600;
+            span {
+                text-transform: none;
 
                 @media (max-width: 767px) {
                     display: none;
@@ -231,75 +279,9 @@ Rounded Portlets
             }
         }
 
-        .menu-items {
-            background: @backgroundColorMenu;
-            //display: none;
-            text-align: left;
-            padding: 0;
-            border-radius: 4px;
-            min-width: 180px;
-            margin-top: 9px;
-            box-shadow: 0 0 10px @backgroundColor;
-            position: absolute;
-            right: 20px;
-            display: none;
-            top: 80px;
-
-            @media (max-width: 959px){
-                right: 50px;
-            }
-
-            &:before {
-                content: "";
-                width: 0;
-                height: 0;
-                top: -7px;
-                right: 28px;
-                border-style: solid;
-                border-width: 0 7px 8px 7px;
-                border-color: transparent transparent @backgroundColorMenu transparent;
-                position: absolute;
-            }
-
-            a {
-                .displayFlex;
-                padding: 0 15px;
-
-                &:hover {
-                    background: @backgroundColorMouseOver;
-                }
-
-                > * {
-                    padding: 10px 0;
-                }
-
-                div {
-                    padding-right: 15px;
-                }
-
-                svg {
-                    width: 20px;
-                    height: 20px;
-                    fill: @borderColorWhite;
-                }
-
-                span {
-                    white-space: nowrap;
-                    color: @borderColorWhite;
-                }
-            }
-        }
-
-        &.open .menu-items {
-            display: block;
-        }
-    }
-
-    .menu-toggler {
-        height: 20px;
-
-        @media (min-width: 960px) {
-            display: none;
+        md-icon {
+            width: 40px;
+            height: 40px;
         }
     }
 }
