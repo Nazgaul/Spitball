@@ -49,23 +49,23 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            string url2pngAPIKey = "PE733F61DA16EFE";
-            string url2pngPrivateKey = "S_B085D82FEC756";
+            const string url2PngApiKey = "PE733F61DA16EFE";
+            const string url2PngPrivateKey = "S_B085D82FEC756";
 
             string url = WebUtility.UrlEncode(blobUri.AbsoluteUri);
 
             string getstring = "fullpage=true&url=" + url;
 
-            string SecurityHash_url2png = Md5HashPHPCompliant(url2pngPrivateKey + "+" + getstring).ToLower();
+            string securityHashUrl2Png = Md5HashPHPCompliant(url2PngPrivateKey + "+" + getstring).ToLower();
 
-            var url2pngLink = "http://api.url2png.com/v6/" + url2pngAPIKey + "/" + SecurityHash_url2png + "/" + "png/?" + getstring;
+            var url2PngLink = "http://api.url2png.com/v6/" + url2PngApiKey + "/" + securityHashUrl2Png + "/" + "png/?" + getstring;
 
             using (var httpClient = new HttpClient())
             {
-                var bytes = await httpClient.GetByteArrayAsync(url2pngLink);
+                var bytes = await httpClient.GetByteArrayAsync(url2PngLink);
                 using (var stream = new MemoryStream(bytes))
                 {
-                    await BlobProvider.UploadFilePreviewAsync(url + ".jpg", stream, "image/jpeg", cancelToken);
+                    await BlobProvider.UploadFilePreviewAsync(blobUri.AbsoluteUri + ".jpg", stream, "image/jpeg", cancelToken);
                     return null;
                 }
             }

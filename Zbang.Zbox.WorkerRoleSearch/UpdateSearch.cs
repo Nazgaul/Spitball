@@ -131,14 +131,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 elem.Content = ExtractContentToUploadToSearch(elem);
 
             }
-            var isSuccess =
-                await m_ItemSearchProvider3.UpdateData(updates.ItemsToUpdate.Where(w => w.Type.ToLower() == "file"), updates.ItemsToDelete);
-            if (isSuccess)
-            {
-                await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
-                    new UpdateDirtyToRegularCommand(
-                        updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));
-            }
+            await m_ItemSearchProvider3.UpdateDataAsync(updates.ItemsToUpdate.Where(w => w.Type.ToLower() == "file"), updates.ItemsToDelete);
+            await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
+                new UpdateDirtyToRegularCommand(
+                    updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));
             return true;
         }
 
@@ -156,7 +152,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     };
 
                 }
-
             }
             var blob = m_BlobProvider.GetFile(msgData.BlobName);
             return new Processor

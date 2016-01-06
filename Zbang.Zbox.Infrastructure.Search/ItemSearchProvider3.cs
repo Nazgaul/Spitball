@@ -97,7 +97,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             m_CheckIndexExists = true;
         }
 
-        public async Task<bool> UpdateData(IEnumerable<ItemSearchDto> itemToUpload, IEnumerable<long> itemToDelete)
+        public async Task UpdateDataAsync(IEnumerable<ItemSearchDto> itemToUpload, IEnumerable<long> itemToDelete)
         {
             if (!m_CheckIndexExists)
             {
@@ -133,7 +133,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     })));
             }
             var commands = listOfCommands.ToArray();
-            if (commands.Length == 0) return true;
+            if (commands.Length == 0) return;
 
             try
             {
@@ -144,15 +144,15 @@ namespace Zbang.Zbox.Infrastructure.Search
                 TraceLog.WriteError("Failed to index some of the documents: " +
                                     String.Join(", ",
                                         ex.IndexResponse.Results.Where(r => !r.Succeeded).Select(r => r.Key)));
-                return false;
+                throw;
             }
             catch (CloudException ex)
             {
                 TraceLog.WriteError("Failed to do batch", ex);
-                return false;
+                //return false;
+                throw;
             }
 
-            return true;
         }
 
 
