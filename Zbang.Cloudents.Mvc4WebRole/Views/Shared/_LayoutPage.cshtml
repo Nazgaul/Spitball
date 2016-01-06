@@ -71,42 +71,52 @@
                 </div>
             </a>
         </div>
-        <div layout="row" layout-align="center center">
-            <div class="user-menu" layout="row" lyout-align="center center" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
-                <a ng-if="ud.isLoggedIn" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" ga-track-event="['header', 'open menu']">
-                    <span class="username username-hide-on-mobile">
-                        {{ud.name}}
-                        @*<span class="headerPoints">{{ud.score}}</span>*@
-                    </span>
-                    <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39" noremove="true"></user-image>
-                </a>
-                <ul class="menu-items">
-                    <li>
-                        <a href="{{::ud.url}}" @shouldPostBack ga-track-event="['header', 'user activities']">
-                            <div>@Html.Svg(svgUrl, "userMenu")</div>
-                            <span>@IndexResources.Activities</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.RouteUrl("AccountSettings")" @shouldPostBack ga-track-event="['header', 'settings']">
-                            <div>@Html.Svg(svgUrl, "settingMenu")</div>
-                            <span>@IndexResources.Settings</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.RouteUrl("Help")" ga-track-event="['header', 'help']">
-                            <div>@Html.Svg(svgUrl, "headerHelp")</div>
-                            <span>@SharedResources.Help</span>
-                        </a>
-                    </li>
+        <div layout="row" layout-align="center center" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
+            <md-menu class="user-md-menu" ng-if="ud.isLoggedIn" md-offset="-115 80">
+                <!-- Trigger element is a md-button with an icon -->
+                <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="Open sample menu">
+                    {{ud.name}}
+                    <md-icon md-menu-origin>
+                        <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39" noremove="true"></user-image>
+                    </md-icon>
+                </md-button>
+                <md-menu-content md-menu-align-target class="md-user-menu">
+                    <md-menu-item class="user-menu-item">
+                        <md-button href="{{::ud.url}}" @shouldPostBack ga-track-event="['header', 'user activities']">
+                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "userMenu")</md-icon>
+                            @IndexResources.Activities
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item class="user-menu-item">
+                        <md-button href="@Url.RouteUrl("AccountSettings")" @shouldPostBack ga-track-event="['header', 'settings']">
+                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "settingMenu")</md-icon>
+                            @IndexResources.Settings
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item class="user-menu-item">
+                        <md-button href="@Url.RouteUrl("Help")" ga-track-event="['header', 'help']">
+                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "headerHelp")</md-icon>
+                            @SharedResources.Help
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item class="user-menu-item">
+                        <md-button target="_self" href="@Url.Action("logoff","account")" @shouldPostBack ga-track-event="['header', 'logout']">
+                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "logOffMenu")</md-icon>
+                            @IndexResources.Logout
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+            @{
+                var returnUrl = Request.QueryString["returnUrl"] ?? Request.Url.ToString();
+                var invId = Request.QueryString["invId"];
 
-                    <li>
-                        <a target="_self" href="@Url.Action("logoff","account")" @shouldPostBack ga-track-event="['header', 'logout']">
-                            <div>@Html.Svg(svgUrl, "logOffMenu")</div>
-                            <span>@IndexResources.Logout</span>
-                        </a>
-                    </li>
-                </ul>
+            }
+            <div class="login-buttons" ng-if="!ud.isLoggedIn">
+                <a class="btn btn-default" target="_self" href="@Url.Action("SignUp", "Account", new { returnUrl,invId })" ga-track-event="['header', 'sign up']">@IndexResources.Signup</a>
+                <a class="btn btn-primary" target="_self" href="@Url.Action("SignIn", "Account", new { returnUrl, invId })" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
+                @*<button class="btn btn-default" role="button" onclick="window.location='@Url.Action("SignUp", "Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'sign up']">@IndexResources.Signup</button>
+            <button class="btn btn-primary" role="button" onclick="window.location='@Url.Action("SignIn","Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</button>*@
             </div>
             <button type="button" flex="none" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" ga-track-event="['header', 'open menu']">
                 @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
