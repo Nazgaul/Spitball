@@ -9,9 +9,9 @@ using System.Web.Mvc;
 using System.Web.SessionState;
 using Microsoft.Owin.Security;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models;
-using Zbang.Cloudents.SiteExtension;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -20,6 +20,7 @@ using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ViewModel.Dto.Library;
+using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.Search;
 
@@ -80,7 +81,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<PartialViewResult> ChoosePartial()
         {
 
-            ViewBag.country = await UserLanguage.GetCountryByIpAsync(HttpContext);
+            ViewBag.country = await GetCountryByIpAsync(HttpContext);
             return PartialView("Choose");
         }
 
@@ -93,7 +94,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var country = string.Empty;
             if (string.IsNullOrEmpty(term))
             {
-                country = await UserLanguage.GetCountryByIpAsync(HttpContext);
+                country = await GetCountryByIpAsync(HttpContext);
             }
             try
             {
@@ -105,6 +106,35 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError("SeachUniversity term:  " + term, ex);
                 return JsonError();
             }
+        }
+
+        private Task<string> GetCountryByIpAsync(HttpContextBase context)
+        {
+            string userIp = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (string.IsNullOrWhiteSpace(userIp))
+            {
+                userIp = context.Request.ServerVariables["REMOTE_ADDR"];
+            }
+            if (context.Request.IsLocal)
+            {
+                userIp = "81.218.135.73";
+            }
+            var ipNumber = Ip2Long(userIp);
+            return ZboxReadService.GetLocationByIpAsync(new GetCountryByIpQuery(ipNumber));
+        }
+
+        private static long Ip2Long(string ip)
+        {
+            double num = 0;
+            if (!string.IsNullOrEmpty(ip))
+            {
+                string[] ipBytes = ip.Split('.');
+                for (int i = ipBytes.Length - 1; i >= 0; i--)
+                {
+                    num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
+                }
+            }
+            return (long)num;
         }
 
         [HttpGet]
@@ -217,7 +247,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ZboxWriteService.RenameNodeLibrary(command);
                 return JsonOk();
             }
-            catch (DuplicateDepartmentNameException ex)
+            catch (DuplicateDepartmentNameException)
             {
                 return JsonError(LibraryControllerResources.DepartmentAlreadyExists);
             }

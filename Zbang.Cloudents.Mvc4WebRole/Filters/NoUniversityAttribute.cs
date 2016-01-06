@@ -1,8 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
-using Zbang.Cloudents.SiteExtension;
-using Zbang.Zbox.Infrastructure.Security;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {
