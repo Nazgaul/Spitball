@@ -167,7 +167,7 @@ var Login = function () {
             ga('send', 'pageview', '/account/resetpassword');
             trackConversion();
         });
-       
+
     }
 
     var handleExtenalLogin = function () {
@@ -272,7 +272,7 @@ var Login = function () {
             trackConversion();
             $.post('/account/GoogleLogin', {
                 token: idToken,
-                universityId: decodeURIComponent(getUrlVars()['returnUrl'])
+                universityId: getUrlVars()['returnUrl']
             }).done(function (data) {
                 externalLogIn(data, 'Google');
             });
@@ -332,7 +332,7 @@ var Login = function () {
 
         var returnUrl = getUrlVars()['returnUrl'];
         if (returnUrl) {
-            window.location.href = returnUrl;
+            window.location.href = decodeURIComponent(returnUrl);
             return;
         }
         window.location.href = '/dashboard/';
