@@ -497,8 +497,7 @@ namespace Testing
             var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(1, 1);
             if (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
             {
-                var isSuccess =
-                    await m_ItemSearchProvider.UpdateData(updates.ItemsToUpdate, updates.ItemsToDelete);
+                    await m_ItemSearchProvider.UpdateDataAsync(updates.ItemsToUpdate, updates.ItemsToDelete);
             }
         }
 
