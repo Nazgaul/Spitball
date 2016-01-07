@@ -9,7 +9,7 @@
     <md-content role="navigation" ng-controller="SideMenu as d">
         <ul class="side-menu" ng-slimscroll watch-content="true" height="calc(100vh - 90px)" color="#BBB">
             <li class="dashboard nav-item">
-                <md-button ng-class="{active: d.isSectionSelected('@Url.Action("Index","Dashboard")')}" @shouldPostBack href="@Url.Action("Index","Dashboard")">
+                <md-button user-not-register-popup="click" ng-class="{active: d.isSectionSelected('@Url.Action("Index","Dashboard")')}" @shouldPostBack href="@Url.Action("Index","Dashboard")">
                     <span class="icon">@Html.Svg(svgUrl, "houseMenu")</span>
                     @IndexResources.Dashboard
                 </md-button>
@@ -41,7 +41,7 @@
                 </ul>
             </li>
             <li class="uni nav-item">
-                <md-button class="ellipsis" ng-class="{active: d.isSectionSelected('@Url.RouteUrl("LibraryDesktop")')}" @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")">
+                <md-button class="ellipsis" user-not-register-popup="click" ng-class="{active: d.isSectionSelected('@Url.RouteUrl("LibraryDesktop")')}" @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")">
                     <span class="icon">
                         @Html.Svg(svgUrl, "universityMenu")
                     </span>
@@ -49,7 +49,7 @@
                 </md-button>
             </li>
             <li class="user nav-item">
-                <md-button ng-class="{active:d.isSectionSelected(d.userUrl)}" @shouldPostBack href="{{::d.userUrl}}">
+                <md-button user-not-register-popup="click" ng-class="{active:d.isSectionSelected(d.userUrl)}" @shouldPostBack href="{{::d.userUrl}}">
                     <span class="icon">
                         @Html.Svg(svgUrl, "userMenu")
                     </span>
@@ -57,7 +57,7 @@
                 </md-button>
             </li>
             <li class="settings nav-item">
-                <md-button ng-class="{active:d.isSectionSelected('@Url.RouteUrl("AccountSettings")')}" @shouldPostBack href="@Url.RouteUrl("AccountSettings")">
+                <md-button user-not-register-popup="click" ng-class="{active:d.isSectionSelected('@Url.RouteUrl("AccountSettings")')}" @shouldPostBack href="@Url.RouteUrl("AccountSettings")">
                     <span class="icon">
                         @Html.Svg(svgUrl, "settingMenu")
                     </span>
