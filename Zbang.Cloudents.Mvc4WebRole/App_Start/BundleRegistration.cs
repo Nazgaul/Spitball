@@ -145,8 +145,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/draganddrop.js"),
                         new JsFileWithCdn("~/js/polyfills.js"),
 
-                        new JsFileWithCdn("~/js/signin/metronic.js"), //
-                        new JsFileWithCdn("~/js/signin/layout.js"), //
+                        new JsFileWithCdn("~/js/signin/metronic.js"), // takes care of the invite + upload file boxes
+                        new JsFileWithCdn("~/js/signin/layout.js"), // responsible for footer behavior (scroll to top arrow) and full size pages (quiz, item)
                         new JsFileWithCdn("~/js/signin/demo.js"), //
 
                         new JsFileWithCdn("~/js/app.js"),

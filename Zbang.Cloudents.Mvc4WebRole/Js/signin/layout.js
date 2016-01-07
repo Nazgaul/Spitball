@@ -13,7 +13,7 @@ var Layout = function () {
     // this function handles responsive layout on screen size resize or mobile device rotate.
 
     // Set proper height for sidebar and content. The content and sidebar height must be synced always.
-    var handleSidebarAndContentHeight = function () {
+    //var handleSidebarAndContentHeight = function () {
         //var content = $('.page-content');
         //var sidebar = $('.page-sidebar');
         //var body = $('body');
@@ -46,10 +46,10 @@ var Layout = function () {
         //    }
         //    content.attr('style', 'min-height:' + height + 'px');
         //}
-    };
+    //};
 
     // Handle sidebar menu links
-    var handleSidebarMenuActiveLink = function(mode, el) {
+    //var handleSidebarMenuActiveLink = function(mode, el) {
         //var url = location.pathname.toLowerCase();
 
         //var menu = $('.page-sidebar-menu');
@@ -119,7 +119,7 @@ var Layout = function () {
         //        $('.page-header .responsive-toggler').click();
         //    }
         //}
-    };
+    //};
 
     // Handle sidebar menu
     //var handleSidebarMenu = function () {
