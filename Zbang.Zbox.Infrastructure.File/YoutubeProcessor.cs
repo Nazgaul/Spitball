@@ -9,8 +9,11 @@ using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    public class YoutubeProcessor : IContentProcessor
+    public class YoutubeProcessor : LinkProcessor
     {
+        public YoutubeProcessor(IBlobProvider blobProvider) : base(blobProvider)
+        {  }
+
         private static readonly Regex YoutubeRegex = new Regex(
            @"# Match non-linked youtube URL in the wild. (Rev:20111012)
             https?://         # Required scheme. Either http or https.
@@ -35,7 +38,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private const string ContentFormat = "<iframe class=\"youtubeframe\" width=\"{0}\" height=\"{1}\" src=\"https://www.youtube.com/embed/{2}\" frameborder=\"0\" allowfullscreen></iframe>";
 
-        public Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobName, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public new Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobName, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var match = YoutubeRegex.Match(blobName.AbsoluteUri);
             if (match.Groups.Count < 2 || String.IsNullOrEmpty(match.Groups[1].Value))
@@ -50,7 +53,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
 
 
-        public bool CanProcessFile(Uri blobName)
+        public new bool CanProcessFile(Uri blobName)
         {
 
             return Domains.Any(d => blobName.AbsoluteUri.StartsWith(d, StringComparison.OrdinalIgnoreCase));
@@ -70,20 +73,9 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        public Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
-        {
-            return Task.FromResult<PreProcessFileResult>(null);
-        }
-
-        public string GetDefaultThumbnailPicture()
-        {
-            return DefaultPicture.LinkTypePicture;
-        }
-
-
-        public Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
-        {
-            return Task.FromResult<string>(null);
-        }
+        //public Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        //{
+        //    return Task.FromResult<PreProcessFileResult>(null);
+        //}
     }
 }

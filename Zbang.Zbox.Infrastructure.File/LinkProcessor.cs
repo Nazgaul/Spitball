@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
@@ -20,19 +21,25 @@ namespace Zbang.Zbox.Infrastructure.File
             BlobProvider = blobProvider;
         }
 
-        private const string ContentFormat = "<iframe class=\"iframeContent\" src=\"{0}\"></iframe>";
+        //private const string ContentFormat = "<iframe class=\"iframeContent\" src=\"{0}\"></iframe>";
 
         public Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
-            if (blobUri.Scheme == "http")
+            //if (blobUri.Scheme == "http")
+            //{
+            //    return Task.FromResult(new PreviewResult
+            //    {
+            //        ViewName = "LinkDenied",
+            //        Content = new List<string> { blobUri.AbsoluteUri }
+            //    });
+            //}
+            var blobsNamesInCache = new List<string>
             {
-                return Task.FromResult(new PreviewResult
-                {
-                    ViewName = "LinkDenied",
-                    Content = new List<string> { blobUri.AbsoluteUri }
-                });
-            }
-            return Task.FromResult(new PreviewResult { Content = new List<string> { string.Format(ContentFormat, blobUri.AbsoluteUri) } });
+                "https://az779114.vo.msecnd.net/preview/" + WebUtility.UrlEncode( blobUri.AbsoluteUri) +
+                string.Format(".jpg?width={0}&height={1}", 1024, 768)
+            };
+            return Task.FromResult(new PreviewResult { ViewName = "Image", Content = blobsNamesInCache });
+            //return Task.FromResult(new PreviewResult { Content = new List<string> { string.Format(ContentFormat, blobUri.AbsoluteUri) } });
         }
 
         public string TypeOfView
@@ -56,17 +63,26 @@ namespace Zbang.Zbox.Infrastructure.File
 
             string getstring = "fullpage=true&url=" + url;
 
-            string securityHashUrl2Png = Md5HashPHPCompliant(url2PngPrivateKey + "+" + getstring).ToLower();
+            string securityHashUrl2Png = Md5HashPhpCompliant(url2PngPrivateKey + "+" + getstring).ToLower();
 
             var url2PngLink = "http://api.url2png.com/v6/" + url2PngApiKey + "/" + securityHashUrl2Png + "/" + "png/?" + getstring;
 
             using (var httpClient = new HttpClient())
             {
-                var bytes = await httpClient.GetByteArrayAsync(url2PngLink);
-                using (var stream = new MemoryStream(bytes))
+                using (var response = await httpClient.GetAsync(url2PngLink, cancelToken))
                 {
-                    await BlobProvider.UploadFilePreviewAsync(blobUri.AbsoluteUri + ".jpg", stream, "image/jpeg", cancelToken);
-                    return null;
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        TraceLog.WriteError("cannot generate link preview " + blobUri.AbsoluteUri);
+                        return null;
+                    }
+
+                    var bytes = await response.Content.ReadAsByteArrayAsync();
+                    using (var stream = new MemoryStream(bytes))
+                    {
+                        await BlobProvider.UploadFilePreviewAsync(url + ".jpg", stream, "image/jpeg", cancelToken);
+                        return null;
+                    }
                 }
             }
 
@@ -75,7 +91,7 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        private static string Md5HashPHPCompliant(string pass)
+        private static string Md5HashPhpCompliant(string pass)
         {
 
             using (var md5 = new System.Security.Cryptography.MD5CryptoServiceProvider())

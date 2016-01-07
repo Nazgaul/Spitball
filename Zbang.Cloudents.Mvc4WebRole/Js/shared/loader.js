@@ -4,6 +4,7 @@
         '$rootScope','$timeout',
         function ($rootScope, $timeout) {
             return {
+                //TODO: write this better
                 link: function(scope, element) {
                     // by defult hide the spinner bar
                     element.addClass('hide'); // hide spinner bar by default
@@ -17,8 +18,9 @@
                     $rootScope.$on('$stateChangeSuccess', function() {
                         element.addClass('hide'); // hide spinner bar
                         $('body').removeClass('page-on-load'); // remove page loading indicator
-                        Layout.setSidebarMenuActiveLink('match'); // activate selected link in the sidebar menu
+                        //Layout.setSidebarMenuActiveLink('match'); // activate selected link in the sidebar menu
 
+                       
                         // auto scorll to page top
                         setTimeout(function() {
                             Metronic.scrollTop(); // scroll to the top on content load

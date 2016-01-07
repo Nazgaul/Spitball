@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,17 +21,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class UpdateSearch : IJob
     {
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
-
-
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
-
-
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IItemWriteSearchProvider3 m_ItemSearchProvider3;
         private readonly ICloudBlockProvider m_BlobProvider;
 
         private readonly Microsoft.WindowsAzure.Storage.Blob.CloudBlobClient m_BlobClient;
-
         private const string PrefixLog = "Search Item";
 
         public UpdateSearch(IZboxReadServiceWorkerRole zboxReadService,
@@ -174,8 +170,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //var processor = m_FileProcessorFactory.GetProcessor(blob.Uri);
             if (processor.ContentProcessor == null) return;
             var previewContainer = m_BlobClient.GetContainerReference(BlobProvider.AzurePreviewContainer.ToLower());
-            var blobInPreview = previewContainer.GetBlockBlobReference(msgData.BlobName + ".jpg");
-            if (blobInPreview.Exists() && !(processor.ContentProcessor is WordProcessor))
+            var blobInPreview = previewContainer.GetBlockBlobReference(WebUtility.UrlEncode(msgData.BlobName + ".jpg"));
+
+            if (blobInPreview.Exists())
             {
                 return;
             }
@@ -187,7 +184,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 try
                 {
                     var tokenSource = new CancellationTokenSource();
-                    tokenSource.CancelAfter(TimeSpan.FromMinutes(29));
+                    tokenSource.CancelAfter(TimeSpan.FromMinutes(10));
                     //some long running method requiring synchronization
                     var retVal = await processor.ContentProcessor.PreProcessFile(processor.Uri, tokenSource.Token);
 
@@ -209,7 +206,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
             });
             work.Start();
-            Boolean signal = wait.WaitOne(TimeSpan.FromMinutes(30));
+            Boolean signal = wait.WaitOne(TimeSpan.FromMinutes(10));
             if (!signal)
             {
                 work.Abort();
@@ -220,6 +217,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
         readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(3);
         private string ExtractContentToUploadToSearch(ItemSearchDto elem)
         {
+            if (elem.Type.ToLower() != "file")
+            {
+                return null;
+            }
             TraceLog.WriteInfo(PrefixLog, "search processing " + elem);
             try
             {
