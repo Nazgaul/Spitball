@@ -2209,7 +2209,7 @@ Page Loading
   width: 100%;
   position: fixed;
   bottom: 0;
-  z-index: 999;
+  z-index: 9999999999;
 }
 .unreg-user .content-wrapper {
   width: 100%;
