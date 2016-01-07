@@ -50,9 +50,9 @@ var Demo = function () {
 
         var setLayout = function () {
 
-            var layoutOption = $('.layout-option', panel).val();
-            var sidebarOption = $('.sidebar-option', panel).val();
-            var headerOption = $('.page-header-option', panel).val();
+            //var layoutOption = $('.layout-option', panel).val();
+            //var sidebarOption = $('.sidebar-option', panel).val();
+            //var headerOption = $('.page-header-option', panel).val();
             var footerOption = $('.page-footer-option', panel).val();
             var sidebarPosOption = $('.sidebar-pos-option', panel).val();
             var sidebarStyleOption = $('.sidebar-style-option', panel).val();
