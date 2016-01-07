@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
 using Zbang.Zbox.Infrastructure.File;
-using Zbang.Zbox.Infrastructure.Ioc;
-using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Cloudents.Images
 {
-    public class Global : System.Web.HttpApplication
+    public class Global : HttpApplication
     {
 
         protected void Application_Start(object sender, EventArgs e)
@@ -29,10 +24,16 @@ namespace Zbang.Cloudents.Images
                     {
                         //Uri uri;
                         var url = c.Request.ServerVariables["UNENCODED_URL"];
-                        string urlPath = url.Substring(0, url.IndexOf("?", System.StringComparison.Ordinal));
+                        var urlPath = url.Replace("/preview/", string.Empty);
+                        var indexOfQueryString = urlPath.IndexOf("?", StringComparison.Ordinal);
+                        if (indexOfQueryString > 0)
+                        {
+                            urlPath = urlPath.Substring(0,
+                                urlPath.IndexOf("?", StringComparison.Ordinal));
+                        }
 
                         //var url = Server.UrlEncode(blobName);
-                        args.VirtualPath = urlPath;
+                        args.VirtualPath = "/preview/" + Server.UrlEncode(urlPath);
                         //args.VirtualPath = "preview";
                         args.QueryString["404"] = "~/images/link_720.png";
                         return;

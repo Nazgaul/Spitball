@@ -101,7 +101,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (!m_CheckIndexExists)
             {
-                await BuildIndex();
+              //  await BuildIndex();
             }
             var listOfCommands = new List<IndexAction<ItemSearch>>();
             if (itemToUpload != null)
