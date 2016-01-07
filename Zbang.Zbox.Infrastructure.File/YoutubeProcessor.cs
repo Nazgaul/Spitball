@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -43,7 +44,12 @@ namespace Zbang.Zbox.Infrastructure.File
             var match = YoutubeRegex.Match(blobName.AbsoluteUri);
             if (match.Groups.Count < 2 || String.IsNullOrEmpty(match.Groups[1].Value))
             {
-                return Task.FromResult(new PreviewResult { ViewName = "LinkDenied", Content = new List<string> { blobName.AbsoluteUri } });
+                var blobsNamesInCache = new List<string>
+            {
+                "https://az779114.vo.msecnd.net/preview/" + WebUtility.UrlEncode( blobName.AbsoluteUri) +
+                string.Format(".jpg?width={0}&height={1}", 1024, 768)
+            };
+                return Task.FromResult(new PreviewResult { ViewName = "Image", Content = blobsNamesInCache });
             }
 
             var videoId = match.Groups[1].Value;

@@ -170,7 +170,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //var processor = m_FileProcessorFactory.GetProcessor(blob.Uri);
             if (processor.ContentProcessor == null) return;
             var previewContainer = m_BlobClient.GetContainerReference(BlobProvider.AzurePreviewContainer.ToLower());
-            var blobInPreview = previewContainer.GetBlockBlobReference(WebUtility.UrlEncode(msgData.BlobName + ".jpg"));
+            var previewBlobName = WebUtility.UrlEncode(msgData.BlobName + ".jpg");
+            if (previewBlobName != null && previewBlobName.Length > 1024)
+            {
+                return;
+            }
+            var blobInPreview = previewContainer.GetBlockBlobReference(previewBlobName);
 
             if (blobInPreview.Exists())
             {
