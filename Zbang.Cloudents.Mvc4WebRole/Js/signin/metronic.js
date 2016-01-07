@@ -51,27 +51,27 @@ var Metronic = function () {
     //};
 
     // runs callback functions set by Metronic.addResponsiveHandler().
-    var _runResizeHandlers = function () {
-        // reinitialize other subscribed elements
-        for (var i = 0; i < resizeHandlers.length; i++) {
-            var each = resizeHandlers[i];
-            each.call();
-        }
-    };
+    //var _runResizeHandlers = function () {
+    //    // reinitialize other subscribed elements
+    //    for (var i = 0; i < resizeHandlers.length; i++) {
+    //        var each = resizeHandlers[i];
+    //        each.call();
+    //    }
+    //};
 
     // handle the layout reinitialization on window resize
-    var handleOnResize = function () {
-        var resize;
-        $(window).resize(function () {
-            if (resize) {
-                clearTimeout(resize);
-            }
-            resize = setTimeout(function () {
-                _runResizeHandlers();
-            }, 50); // wait 50ms until window resize finishes.
-        });
+    //var handleOnResize = function () {
+    //    var resize;
+    //    $(window).resize(function () {
+    //        if (resize) {
+    //            clearTimeout(resize);
+    //        }
+    //        resize = setTimeout(function () {
+    //            _runResizeHandlers();
+    //        }, 50); // wait 50ms until window resize finishes.
+    //    });
 
-    };
+    //};
 
     // Handles portlet tools & actions
     var handlePortletTools = function () {
@@ -537,14 +537,14 @@ var Metronic = function () {
 
             //Core handlers
             //handleInit(); // initialize core variables
-            handleOnResize(); // set and handle responsive    
+            //handleOnResize(); // set and handle responsive    
 
             //UI Component handlers     
             //handleMaterialDesign(); // handle material design       
             //handleUniform(); // hanfle custom radio & checkboxes
             //handleiCheck(); // handles custom icheck radio and checkboxes
             //handleBootstrapSwitch(); // handle bootstrap switch plugin
-            handleScrollers(); // handles slim scrolling contents 
+            //handleScrollers(); // handles slim scrolling contents 
             //handleFancybox(); // handle fancy box
             //handleSelect2(); // handle custom Select2 dropdowns
             handlePortletTools(); // handles portlet action bar functionality(refresh, configure, toggle, remove)

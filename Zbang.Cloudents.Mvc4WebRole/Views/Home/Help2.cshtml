@@ -4,7 +4,7 @@
         <div class="caption caption-md">
             <h2 class="caption-subject uppercase">@ViewBag.pageTitle</h2>
         </div>
-        <md-tabs md-dynamic-height>
+        <md-tabs md-enable-disconnect md-dynamic-height>
             @{
                 int i = 1;
 
@@ -41,7 +41,7 @@
                             </div>
                         </md-tab-body>
                     </md-tab>
-                    i++;
+                                    i++;
                 }
             }
         </md-tabs>
