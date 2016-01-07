@@ -438,7 +438,7 @@ md-tabs md-ink-bar {
   right: 0;
   left: 0;
   bottom: 0;
-  z-index: 9999999999;
+  z-index: 102;
   overflow-y: auto;
   background: #f5f5f5;
   height: 100vh;
@@ -768,4 +768,8 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 .feed-wrapper {
   margin: -12px;
   /* This is a patch - to be fixed in future*/
+}
+#intercom-container,
+#intercom-launcher {
+  z-index: 1004;
 }
