@@ -47,8 +47,8 @@
 
         for (var j = q.topUsers.length; j < 4; j++) {
             q.topUsers.push({
-                    image: '/images/site/user_' + j + '.png'
-                });
+                image: '/images/site/user_' + j + '.png'
+            });
         }
 
         q.boxUrl = quizData.quiz.boxUrl;
@@ -279,7 +279,7 @@
 
         function getDiscussion() {
             quizService.getDiscussion({ quizId: $stateParams.quizId }).then(function (data) {
-                angular.forEach(q.questions, function(qq) {
+                angular.forEach(q.questions, function (qq) {
                     qq.comments = [];
                 });
 
@@ -303,7 +303,7 @@
             });
         }
 
-        function postComment(question,myform) {
+        function postComment(question, myform) {
 
             var comment = {
                 questionId: question.id,
@@ -317,12 +317,13 @@
 
            
 
-            quizService.createDiscussion({ questionId: comment.questionId, text: comment.content }).then(function () {
+            quizService.createDiscussion({ questionId: comment.questionId, text: comment.content }).then(function (id) {
                 if (!question.comments) {
                     question.comments = [];
                 }
                 $scope.app.resetForm(myform);
                 question.newComment = '';
+                comment.id = id;
                 question.comments.push(comment);
             });;
         }

@@ -1,6 +1,5 @@
 ﻿@import "variables.less";
 
-
 .quizPage {
     color: @textColorBlack;
     /*-webkit-touch-callout: none;
@@ -13,6 +12,8 @@
         margin-top: 80px;
         //min-height: ~"calc(100% - 160px)";
     }
+
+
 
     header {
         align-items: center;
@@ -326,8 +327,13 @@
     //comment section
     .feed .comment {
         background: transparent;
+        .displayFlex;
 
-        & > .top {
+        > div{
+              flex-grow: 1;
+          }
+
+        .top {
             color: @textColorBlack;
             position: inherit;
         }
@@ -554,6 +560,10 @@
             color: @textColorWhite;
         }
     }
+}
+
+.md-open-menu-container {
+    z-index: 9999;
 }
 
 .quiz-wrapper {
