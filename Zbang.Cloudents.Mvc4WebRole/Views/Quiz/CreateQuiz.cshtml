@@ -63,25 +63,29 @@
                 <div class="answers-header text-capitalize">@QuizResources.Answers</div>
                 <span class="correct-answer text-capitalize">@QuizResources.CorrectAnswer</span>
             </div>
-            <ol class="counter">
-                <li class="answer counter-inc" ng-repeat="answer in question.answers">
-                    <div>
-                        <span class="counter-view"></span>
-                        <input type="text" required ng-model="answer.text" ng-blur="q.saveAnswer(question,answer)" placeholder="@QuizResources.Answer {{$index + 1}}" />
-                    </div>
-                    <input required type="radio" name="question {{$parent.$index}}" ng-disabled="!answer.text.length" ng-click="q.markcorrect(question,answer)" ng-checked="answer.id != null && answer.id === question.correctAnswer" />
-                    <button type="button" ng-show="q.deleteAnswerShow(question)" ng-click="q.deleteAnswer(question,answer)" ga-track-event="['createQuiz', 'delete answer']">@Html.Svg("~/images/site/icons.svg", "delete")</button>
-                    <span class="error-answer-msg">@QuizResources.AddAnswer</span>
-                </li>
-                <li class="answer add-answer counter-inc" ng-click="q.addAnswer(question)">
-                    <div>
-                        <span class="counter-view"></span>
-                        @*<input disbaled type="text" placeholder="@QuizResources.AddAnswer" />*@
-                        <span class="disabled">@QuizResources.AddAnswer</span>
-                    </div>
-                    <input disabled type="radio" />
-                </li>
-            </ol>
+            <md-radio-group>
+                <ol class="counter">
+                    <li class="answer counter-inc" ng-repeat="answer in question.answers">
+                        <div>
+                            <span class="counter-view"></span>
+                            <input type="text" required ng-model="answer.text" ng-blur="q.saveAnswer(question,answer)" placeholder="@QuizResources.Answer {{$index + 1}}" />
+                        </div>
+                        <md-radio-button required name="question {{$parent.$index}}" ng-disabled="!answer.text.length" ng-click="q.markcorrect(question,answer)" ng-value="answer.id != null && answer.id === question.correctAnswer"></md-radio-button>
+
+
+                        <button type="button" ng-show="q.deleteAnswerShow(question)" ng-click="q.deleteAnswer(question,answer)" ga-track-event="['createQuiz', 'delete answer']">@Html.Svg("~/images/site/icons.svg", "delete")</button>
+                        <span class="error-answer-msg">@QuizResources.AddAnswer</span>
+                    </li>
+                    <li class="answer add-answer counter-inc">
+                        <div ng-click="q.addAnswer(question)">
+                            <span class="counter-view"></span>
+                            @*<input disbaled type="text" placeholder="@QuizResources.AddAnswer" />*@
+                            <span class="disabled">@QuizResources.AddAnswer</span>
+                        </div>
+                        <md-radio-button ng-disabled="true"></md-radio-button>
+                    </li>
+                </ol>
+            </md-radio-group>
         </div>
     </div>
 </script>
