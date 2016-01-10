@@ -26,15 +26,15 @@ function getCookie(cname) {
 
 window.addEventListener("load", function load(event) {
     window.removeEventListener("load", load, false); //remove listener, no longer needed
-    var removeCloudentsBanner = 'removeCloudentsBanner';
-    $('.alert').on('closed.bs.alert', function () {
-        localStorage.setItem(removeCloudentsBanner, '1');
-    });
+    //var removeCloudentsBanner = 'removeCloudentsBanner';
+    //$('.alert').on('closed.bs.alert', function () {
+    //    localStorage.setItem(removeCloudentsBanner, '1');
+    //});
 
-    var willShow = localStorage.getItem(removeCloudentsBanner);
-    if (willShow != null) {
-        $('.alert').alert('close');
-    }
+    //var willShow = localStorage.getItem(removeCloudentsBanner);
+    //if (willShow != null) {
+    //    $('.alert').alert('close');
+    //}
     var val = getCookie('l3').toLowerCase();
     var text = document.querySelector('[href$="' + val + '/"]').text;
     document.querySelector('[data-toggle=dropdown] span').innerText = text;

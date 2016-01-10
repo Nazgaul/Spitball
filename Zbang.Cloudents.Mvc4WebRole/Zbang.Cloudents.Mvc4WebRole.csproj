@@ -1707,7 +1707,6 @@
     <Content Include="Images\Site\membersOnly.png" />
     <Content Include="Images\Site\noResults.png" />
     <Content Include="Images\Site\oops.png" />
-    <Content Include="Images\Site\preview_denied.png" />
     <Content Include="Images\Site\preview_failed_icon.png" />
     <Content Include="Images\Site\quizbackground.png" />
     <Content Include="Images\Site\quizIcons.svg" />
@@ -2692,7 +2691,6 @@
     <Content Include="Views\Error\Unsupported.cshtml" />
     <Content Include="Views\Item\_FlagItem.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Item\_PreviewLinkDenied.cshtml" />
     <Content Include="Views\Item\_PreviewMediaLoading.cshtml" />
     <Content Include="Views\Quiz\CreateQuiz.cshtml" />
     <Content Include="Views\Shared\Empty.cshtml" />

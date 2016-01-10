@@ -22,6 +22,7 @@ namespace Zbang.Cloudents.Images
                     var blobName = args.VirtualPath.Replace("/preview/", string.Empty);
                     if (blobName.ToLower().StartsWith("http"))
                     {
+                        args.QueryString["404"] = "~/images/link_720.png";
                         //Uri uri;
                         var url = c.Request.ServerVariables["UNENCODED_URL"];
                         var urlPath = url.Replace("/preview/", string.Empty);
@@ -31,11 +32,13 @@ namespace Zbang.Cloudents.Images
                             urlPath = urlPath.Substring(0,
                                 urlPath.IndexOf("?", StringComparison.Ordinal));
                         }
-
-                        //var url = Server.UrlEncode(blobName);
-                        args.VirtualPath = "/preview/" + Server.UrlEncode(urlPath);
-                        //args.VirtualPath = "preview";
-                        args.QueryString["404"] = "~/images/link_720.png";
+                        var encodedUrlPath = Server.UrlEncode(urlPath);
+                        if (encodedUrlPath != null && encodedUrlPath.Length > 1024)
+                        {
+                            args.VirtualPath = "preview";
+                            return;
+                        }
+                        args.VirtualPath = "/preview/" + encodedUrlPath;
                         return;
                     }
 
