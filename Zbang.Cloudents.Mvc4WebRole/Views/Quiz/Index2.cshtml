@@ -7,16 +7,16 @@
 
 <div class="full-screen quizPage">
     <header layout="row" layout-align="space-between center">
-        <div class="fb-like">
-            <button>
-                <div class="content">
-                    @Html.Svg("~/images/site/box-icons.svg", "like")
-                    <span class="like-text">
-                        x @GeneralResources.Like
-                    </span>
-                </div>
-            </button>
-        </div>
+        @*<div class="fb-like">
+                <button>
+                    <div class="content">
+                        @Html.Svg("~/images/site/box-icons.svg", "like")
+                        <span class="like-text">
+                            x @GeneralResources.Like
+                        </span>
+                    </div>
+                </button>
+            </div>*@
         <div class="ellipsis text-center" id="quiz-top" ng-bind-html="::q.name"></div>
         <button type="button" ng-click="app.back(q.boxUrl)" class="close" ga-track-event="['quiz', 'close quiz']">@Html.Svg("~/images/site/icons.svg", "close")</button>
     </header>
@@ -97,14 +97,29 @@
                     </form>
                     <ol class="list-unstyled feed">
                         <li class="comment reply" ng-repeat="post in q.questions[q.index].comments">
-                            <div class="top">
-                                <a href="{{::post.url}}" layout="row" layout-align="start center" class="username" ga-track-event="['quiz', 'go to user page']">
-                                    <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="48" height="48"></user-image>
-                                    <span class="user-name">{{::post.userName}}</span>
-                                </a>
-                                <div ng-bind-html="::post.content" class="content-text"></div>
+                            <div>
+                                <div class="top">
+                                    <a href="{{::post.url}}" layout="row" layout-align="start center" class="username" ga-track-event="['quiz', 'go to user page']">
+                                        <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="48" height="48"></user-image>
+                                        <span class="user-name">{{::post.userName}}</span>
+                                    </a>
+                                    <div ng-bind-html="::post.content" class="content-text"></div>
+                                </div>
+                                <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
                             </div>
-                            <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
+
+                            <md-menu>
+                                <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
+                                    @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
+                                </md-button>
+                                <md-menu-content width="1">
+                                    <md-menu-item>
+                                        <md-button aria-label="delete post" ng-click="q.removeComment(q.questions[q.index], post)" ga-track-event="['box-feed', 'didDelete']">
+                                            @GeneralResources.Delete
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
                         </li>
                     </ol>
                 </div>
