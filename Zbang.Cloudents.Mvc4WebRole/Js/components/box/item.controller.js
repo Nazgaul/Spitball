@@ -143,7 +143,13 @@
                 return defer.promise;
             }
             return boxService.items(boxId, i.tabSelected.id, page).then(function (response) {
-                response = itemThumbnailService.assignValues(response);
+                //response = itemThumbnailService.assignValues(response);
+                angular.forEach(response, function(value) {
+                    value.downloadLink = value.url + 'download/';
+                    var retVal = itemThumbnailService.assignValue(value.source);
+                    value.thumbnail = retVal.thumbnail;
+                    value.icon = retVal.icon;
+                });
                 if (page > 0) {
                     i.items = i.items.concat(response);
                 } else {
