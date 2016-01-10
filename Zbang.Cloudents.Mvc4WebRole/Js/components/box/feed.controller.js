@@ -65,7 +65,7 @@
                     if (item.type) {
                         var retVal = itemThumbnailService.assignValue(item.source, 100, 125);
                         item.thumbnail = retVal.thumbnail;
-                        item.icon = retVal.icon;
+                        //item.icon = retVal.icon;
                     } else {
                         item.publish = true;
                     }

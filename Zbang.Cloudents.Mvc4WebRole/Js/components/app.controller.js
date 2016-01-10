@@ -107,6 +107,12 @@
 
         });
 
+        $rootScope.$on('$stateNotFound',
+            function(event, unfoundState, fromState, fromParams) {
+                console.log(unfoundState.to); // "lazy.state"
+                console.log(unfoundState.toParams); // {a:1, b:2}
+                console.log(unfoundState.options); // {inherit:false} + default options
+            });
 
 
     }

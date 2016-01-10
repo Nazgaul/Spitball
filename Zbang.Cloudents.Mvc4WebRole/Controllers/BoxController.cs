@@ -254,14 +254,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonOk(itemDtos.Select(s => new
                 {
                     //s.CommentsCount,
-                    s.Date,
-                    s.Description,
+                    //s.Date,
+                    //s.Description,
                     //s.DownloadUrl,
                     s.Id,
                     s.Name,
-                    s.NumOfDownloads,
-                    s.NumOfViews,
-                    s.Owner,
+                    NumOfViews = s.NumOfViews + s.NumOfDownloads,
+                    //s.Owner,
                     s.OwnerId,
                     s.Likes,
                     //s.Sponsored,
