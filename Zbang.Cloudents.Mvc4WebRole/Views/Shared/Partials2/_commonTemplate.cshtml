@@ -31,14 +31,16 @@
 <script type="text/ng-template" id="item-template.html">
     <a class="clearfix item" href="{{::e.url}}">
         <div class="base">
-            <div class="content">
-                <img class="img-responsive" ng-src="{{::e.thumbnail}}" width="368" height="520" alt="thumbnail" />
-                <div class="extra">
-                    <h5 class="multi-line-ellipsis limit-two" ng-bind-html="::e.name"></h5>
-                    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{::e.icon}}"></use></svg>
+            <div class="item-ratio">
+                <div class="content">
+                    <img class="img-responsive" ng-src="{{::e.thumbnail}}" width="368" height="520" alt="thumbnail" />
+                    <div class="extra">
+                        <h5 class="multi-line-ellipsis" ng-bind-html="::e.nameExtension"></h5>
+                        @*<svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{::e.icon}}"></use></svg>
                     <div class="uploader-date">
                         <div>{{::e.owner}}</div>
                         {{::e.date | date : 'shortDate'}}
+                    </div>*@
                     </div>
                 </div>
             </div>
@@ -51,10 +53,7 @@
                 </div>
             </div>
         </div>
-        <div class="extra-details">
-            <h5 ng-bind-html="::e.name"></h5>
-            <span ng-bind-html="::e.content"></span>
-        </div>
+        <div class="extra-details" ng-bind-html="::e.content"></div>
     </a>
 </script>
 <script type="text/ng-template" id="quiz-template.html">

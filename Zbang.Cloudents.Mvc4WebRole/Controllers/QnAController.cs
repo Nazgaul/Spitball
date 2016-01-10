@@ -127,7 +127,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         s.Url,
                         s.UserId,
                         s.UserImage,
-                        s.Files,
+                        Files = s.Files.Select(x=> new
+                        {
+                            x.Source,
+                            x.Type,
+                            x.Id,
+                            x.Url
+                        }),
                         Answers = s.Answers.Select(v => new
                         {
                             v.Content,
@@ -136,7 +142,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             v.Url,
                             v.UserId,
                             v.UserImage,
-                            v.Files
+                            Files = v.Files.Select(b => new
+                            {
+                                b.Source,
+                                b.Type,
+                                b.Id,
+                                b.Url
+                            })
                         })
 
                     }));

@@ -148,7 +148,8 @@
                     value.downloadLink = value.url + 'download/';
                     var retVal = itemThumbnailService.assignValue(value.source);
                     value.thumbnail = retVal.thumbnail;
-                    value.icon = retVal.icon;
+                    //value.icon = retVal.icon;
+                    value.nameExtension = value.name.replace(/\.[^/.]+$/, "");
                 });
                 if (page > 0) {
                     i.items = i.items.concat(response);

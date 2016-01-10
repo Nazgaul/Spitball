@@ -99,9 +99,20 @@
                        templateUrl: '/item/indexpartial/'
                    },
                     {
-                        state: 'search',
+                        state: 'searchWithQuery',
                         config: {
                             url: '/search/?q',
+                            controller: 'SearchController as s',
+                            data: { animateClass: 'search' },
+                            reloadOnSearch: false
+                            //onEnter: routerHelper.universityRedirect
+                        },
+                        templateUrl: '/search/indexpartial/'
+                    },
+                    {
+                        state: 'search',
+                        config: {
+                            url: '/search/',
                             controller: 'SearchController as s',
                             data: { animateClass: 'search' },
                             reloadOnSearch: false

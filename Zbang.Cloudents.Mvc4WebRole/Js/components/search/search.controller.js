@@ -40,7 +40,11 @@
             }
             return searchService.search(self.term, page).then(function (response) {
                 //self.result = response;
-                response.items = itemThumbnailService.assignValues(response.items);
+                angular.forEach(response.items, function (value) {
+                    var retVal = itemThumbnailService.assignValue(value.source);
+                    value.thumbnail = retVal.thumbnail;
+                    value.nameExtension = value.name.replace(/\.[^/.]+$/, "");
+                });
                 self.noResults = false;
 
                 for (var j = 0; j < response.quizzes.length; j++) {
