@@ -159,9 +159,6 @@
   <data name="UploadFiles" xml:space="preserve">
     <value>העלה קבצים</value>
   </data>
-  <data name="Whats" xml:space="preserve">
-    <value>מה אתה חושב?</value>
-  </data>
   <data name="AddFolder" xml:space="preserve">
     <value>הוסף תיקייה</value>
   </data>

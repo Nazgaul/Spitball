@@ -205,7 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What would you like to post?.
+        ///   Looks up a localized string similar to Ask question, share study material....
         /// </summary>
         public static string Whats {
             get {

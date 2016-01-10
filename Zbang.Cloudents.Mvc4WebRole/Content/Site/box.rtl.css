@@ -282,6 +282,17 @@
   height: 38px;
   line-height: 38px;
 }
+.feed .comment > .top,
+.feed .add-comment > .top {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 10px 10px 0 0;
+  color: #f5f5f5;
+  position: absolute;
+  top: -15px;
+  right: -18px;
+  z-index: 1;
+}
 .feed .comment {
   background: #181c1d;
   position: relative;
@@ -290,15 +301,6 @@
 }
 .feed .comment .c-img {
   border: 3px solid #323538;
-}
-.feed .comment > .top {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  border-radius: 10px 10px 0 0;
-  color: #f5f5f5;
-  position: absolute;
-  top: -15px;
-  right: -18px;
 }
 .feed .comment .margins {
   margin: 0 0 10px 10px;
@@ -366,7 +368,7 @@
 .feed .actions svg {
   width: 20px;
   height: 20px;
-  fill: #5d6063;
+  fill: #888b8e;
   vertical-align: middle;
 }
 .feed .actions .anonymous-wrapper .text {
@@ -571,6 +573,41 @@
 }
 .add-comment .anonymous:hover {
   fill: #d39f10;
+}
+.add-comment.new-post {
+  padding: 0;
+  position: relative;
+}
+.add-comment.new-post .top img {
+  background: #323538;
+  border: 3px solid #323538;
+}
+.add-comment.new-post .new-comment-border {
+  border: none;
+}
+.add-comment.new-post .new-comment-border ::-webkit-input-placeholder {
+  color: #888b8e;
+}
+.add-comment.new-post .new-comment-border :-moz-placeholder {
+  color: #888b8e;
+}
+.add-comment.new-post .new-comment-border ::-moz-placeholder {
+  color: #888b8e;
+}
+.add-comment.new-post .new-comment-border :-ms-input-placeholder {
+  color: #888b8e;
+}
+.add-comment.new-post .new-comment-border :placeholder-shown {
+  color: #888b8e;
+}
+.add-comment.new-post .new-comment-border textarea {
+  min-height: 65px;
+  padding: 10px 45px 0 0;
+  font-size: 18px;
+}
+.add-comment.new-post .actions {
+  padding: 10px;
+  border-top: 1px solid #888b8e;
 }
 .member-invite {
   background: #4190b9;
