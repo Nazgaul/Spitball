@@ -24,8 +24,8 @@
 
         }
         function assignValue(source, widthElement, heightElement) {
-            widthElement = widthElement || 368;
-            heightElement = heightElement || 520;
+            widthElement = widthElement || 298;
+            heightElement = heightElement || 421;
             var thumbnail = get(source, widthElement, heightElement),
             icon = getIcon(source);
 
