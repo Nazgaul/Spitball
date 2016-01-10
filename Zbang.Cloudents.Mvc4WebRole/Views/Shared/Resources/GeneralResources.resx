@@ -183,4 +183,7 @@
   <data name="NoResults" xml:space="preserve">
     <value>No results were found</value>
   </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
 </root>
