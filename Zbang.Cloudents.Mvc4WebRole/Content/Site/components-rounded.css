@@ -4929,6 +4929,8 @@ Dashboard Stats 2
   height: 58px;
   overflow: hidden;
   width: calc(100% - 20px);
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
 }
 /*.dashboard-stat2 .display .number h3 > small {
     font-size: 23px;

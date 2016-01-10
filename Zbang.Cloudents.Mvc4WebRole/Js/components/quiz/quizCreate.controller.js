@@ -228,7 +228,12 @@
             self.submitDisabled = true;
             quizService.publish(self.id).then(function (response) {
                 $rootScope.$broadcast('from-back'); // prevent going back to quiz create page
-                $location.url(response.url);
+
+                var path = $location.path().slice(0, -1),
+                    index = path.lastIndexOf('/'),
+                    quizzesUrl = path.substring(0, index) + '/quizzes/';
+
+                $location.url(quizzesUrl);
             }, function (response) {
                 $scope.app.showToaster(response, 'quizCreate');
             }).finally(function () {
