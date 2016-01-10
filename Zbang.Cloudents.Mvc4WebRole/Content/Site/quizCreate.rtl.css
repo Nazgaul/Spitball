@@ -262,13 +262,13 @@
 .create-question .answer {
   margin-bottom: 5px;
 }
-.create-question .answer div {
+.create-question .answer > div {
   display: inline-block;
   border: 1px solid #3293f6;
   width: 70%;
 }
-.create-question .answer div input,
-.create-question .answer div .disabled {
+.create-question .answer > div input,
+.create-question .answer > div .disabled {
   border: 0;
   height: 25px;
   line-height: 24px;
@@ -276,8 +276,27 @@
   margin-right: -4px;
   padding-right: 15px;
 }
-.create-question .answer div .disabled {
+.create-question .answer > div .disabled {
   color: #9E9E9E;
+}
+.create-question .answer md-radio-button {
+  display: inline-block;
+  width: 46px;
+}
+.create-question .answer md-radio-button:focus {
+  outline: none;
+}
+.create-question .answer md-radio-button .md-container {
+  right: 13px;
+}
+.create-question .answer md-radio-button.md-checked .md-off {
+  border-color: #8dc63f;
+}
+.create-question .answer md-radio-button.md-checked .md-ink-ripple {
+  color: rgba(141, 198, 63, 0.26);
+}
+.create-question .answer md-radio-button .md-on {
+  background-color: #8dc63f;
 }
 .create-question .answer svg {
   width: 15px;

@@ -8,11 +8,9 @@
     md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
         background: @buttonColorRed;
     }
-
     /*#quiz-error{
         height: 100px;
     }*/
-
     .not-supported {
         height: 100vh;
         background: @backgroundColor;
@@ -316,7 +314,7 @@
     .answer {
         margin-bottom: 5px;
 
-        div {
+        > div {
             display: inline-block;
             border: 1px solid @borderColorSpitballBlue;
             width: 70%;
@@ -329,10 +327,37 @@
                 margin-left: -4px;
                 padding-left: 15px;
             }
+
             .disabled {
-                color:#9E9E9E;
+                color: #9E9E9E;
+            }
+        }
+
+        md-radio-button {
+            display: inline-block;
+            width: 46px;
+
+            &:focus {
+                outline: none;
             }
 
+            .md-container {
+                left: 13px;
+            }
+
+            &.md-checked {
+                .md-off {
+                    border-color: #8dc63f;
+                }
+
+                .md-ink-ripple {
+                    color: rgba(141,198,63,0.26);
+                }
+            }
+
+            .md-on {
+                background-color: #8dc63f;
+            }
         }
 
         svg {
