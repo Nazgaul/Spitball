@@ -85,6 +85,15 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
+        public void UpdateUserTheme(UpdateUserThemeCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
         public CreateBoxCommandResult CreateBox(CreateBoxCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
@@ -166,7 +175,7 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
-        
+
 
         public void DeleteUserFromBox(DeleteUserFromBoxCommand command)
         {
@@ -191,8 +200,8 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.InviteeId, command.BoxId);
-                var t1 =  m_CommandBus.SendAsync(autoFollowCommand);
-                var t2 =  m_CommandBus.SendAsync(command);
+                var t1 = m_CommandBus.SendAsync(autoFollowCommand);
+                var t2 = m_CommandBus.SendAsync(command);
                 await Task.WhenAll(t1, t2);
                 UnitOfWork.Current.TransactionalFlush();
             }
@@ -298,7 +307,7 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
-               await m_CommandBus.SendAsync(autoFollowCommand);
+                await m_CommandBus.SendAsync(autoFollowCommand);
                 m_CommandBus.Send(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
@@ -332,14 +341,7 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
-        public void UpdateUserFirstTimeStatus(UpdateUserFirstTimeStatusCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+       
 
         #region annotation
         //public async Task AddAnnotationAsync(AddAnnotationCommand command)
@@ -388,7 +390,7 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
-                var t1 = m_CommandBus.DispatchAsync<AddCommentCommand,AddCommentCommandResult>(command);
+                var t1 = m_CommandBus.DispatchAsync<AddCommentCommand, AddCommentCommandResult>(command);
                 var t2 = m_CommandBus.SendAsync(autoFollowCommand);
                 await Task.WhenAll(t1, t2);
                 UnitOfWork.Current.TransactionalFlush();
@@ -455,7 +457,7 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-       
+
 
         public void DeleteUpdates(DeleteUpdatesCommand command)
         {
@@ -591,7 +593,7 @@ namespace Zbang.Zbox.Domain.Services
         #endregion
         public void AddStudent(AddStudentCommand command)
         {
-            
+
             using (UnitOfWork.Start())
             {
                 m_CommandBus.Send(command);
@@ -636,6 +638,6 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
-        
+
     }
 }

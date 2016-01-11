@@ -10,6 +10,10 @@
 
 .folder-selected, .folders {
     .folder-name {
+        -moz-transition: all .5s ease-in-out;
+        -o-transition: all .5s ease-in-out;
+        -webkit-transition: all .5s ease-in-out;
+        transition: all .5s ease-in-out;
 
         .folder-name-inner {
             background: @backgroundColorMenu;
@@ -20,6 +24,7 @@
             background: @textColorDarkGrey;
             border: 1px solid @textColorDarkGrey;
             width: 100%;
+            box-shadow: 0 0 2px @backgroundColor;
         }
 
         .icon {
@@ -28,6 +33,15 @@
             fill: @backgroundColor2;
             margin: 0 7px;
             vertical-align: middle;
+        }
+
+        &.on-drag-hover {
+            -moz-transform: scale(1.5);
+            -ms-transform: scale(1.5);
+            -o-transform: scale(1.5);
+            -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+            z-index: 2;
         }
     }
 
@@ -928,6 +942,7 @@
 
 .item {
     display: block;
+
     .item-ratio {
         .aspect-ratio();
     }
@@ -966,19 +981,20 @@
     //}
     .extra {
         color: @textColorWhite;
-        background: @backgroundColorMenu;
+        background: @buttonColorBlue;
         position: absolute;
         //top: 100%;
         left: 0;
         right: 0;
         bottom: 0;
-        opacity:.95;
+        opacity: .95;
         //-moz-transition: all 0.5s ease;
         //-o-transition: all 0.5s ease;
         //-webkit-transition: all 0.5s ease;
         //transition: all 0.5s ease;
         overflow: hidden;
         height: 70px;
+        border-top: 1px solid @buttonColorHover;
         //svg {
         //    width: 30px;
         //    height: 30px;

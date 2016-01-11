@@ -248,6 +248,7 @@ u.UserImageLarge as Image,
 u.Url as Url,
 u.Culture as Culture,
 u.UserReputation as Score,
+u.theme as Theme,
 uu.UniversityName as UniversityName,
 uu.Country as UniversityCountry,
 uu.id as UniversityId,
@@ -256,6 +257,12 @@ u.Email as Email,
 u.CreationTime as DateTime
 from zbox.Users u 
 left join zbox.University uu on u.UniversityId = uu.Id
+where u.userid = @UserId";
+
+
+        public const string UserTheme = @"select 
+u.theme as Theme
+from zbox.Users u 
 where u.userid = @UserId";
 
         public const string GetUserByMembershipId = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
@@ -327,13 +334,11 @@ u.Culture as Culture,
     u.FirstName as FirstName,
     u.LastName as LastName,
     u.UserImageLarge as Image, 
+    u.theme as Theme,
     v.UniversityName as University,
     v.LargeImage as UniversityImage,
     u.Email as Email,
-    u.Culture as Language,
-	u.AllocatedSize as AllocatedSize,
-	u.UniversityId as UniversityId, 
-    u.UsedSpace as UsedSpace
+    u.Culture as Language
     from zbox.Users u left join zbox.University v on u.UniversityId = v.Id
     where u.userId = @UserId";
     }

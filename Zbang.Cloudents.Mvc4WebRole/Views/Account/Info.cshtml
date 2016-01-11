@@ -71,6 +71,13 @@
                         }
                     </md-select>
                 </md-input-container>
+                <md-input-container flex>
+                    <label>Theme</label>
+                    <md-select name="theme" md-on-close="i.changeTheme()" ng-model="i.data.theme" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}" ga-track-event="['settings', 'change theme']">
+                        <md-option value="@Theme.Dark.GetStringValueLowerCase()">Dark</md-option>
+                        <md-option value="@Theme.Light.GetStringValueLowerCase()">Light</md-option>
+                    </md-select>
+                </md-input-container>
             </div>
         </div>
     </div>

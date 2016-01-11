@@ -68,6 +68,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 builder.RegisterType<CookieHelper>().As<ICookieHelper>();
                 builder.RegisterType<LanguageCookieHelper>().As<ILanguageCookieHelper>();
+                builder.RegisterType<ThemeCookieHelper>().As<IThemeCookieHelper>();
                 builder.RegisterType<LanguageMiddleware>().InstancePerRequest();
 
                 var container = IocFactory.IocWrapper.Build();

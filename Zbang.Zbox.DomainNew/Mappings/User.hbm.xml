@@ -36,14 +36,14 @@
     <property name="StudentId" column="UserCode"/>
     <property name="Reputation" column="UserReputation"/>
 
-    <component name="FirstTime" class="UserFirstTime">
+    <!--<component name="FirstTime" class="UserFirstTime">
       <property name="Dashboard" not-null="true">
         <column name="FirstTimeDashboard" default="1"/>
       </property>
       <property name="Library" not-null="true" column="FirstTimeLibrary"/>
       <property name="Item" not-null="true" column="FirstTimeItem"/>
       <property name="Box" not-null="true" column="FirstTimeBox"/>
-    </component>
+    </component>-->
 
     <component name="Quota" class="Quota">
       <property name="AllocatedSize"/>
@@ -55,6 +55,7 @@
     <property name="RegisterNumber"/>
     <property name="MobileDevice" />
     <property name="PushNotificationSetting" />
+    <property name="Theme" />
     <set name="UserBoxRel" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key column="UserId"/>
       <one-to-many class="UserBoxRel"/>

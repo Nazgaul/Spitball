@@ -410,5 +410,11 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetUserProfileWithStatsAsync(query);
         }
+
+
+        public Task<Theme> GetUserThemeAsync(GetUserDetailsQuery query)
+        {
+            return m_ReadService.GetUserThemeAsync(query);
+        }
     }
 }

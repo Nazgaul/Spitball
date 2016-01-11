@@ -17,7 +17,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         private readonly HttpContextBase m_ContextBase;
         private readonly ILanguageCookieHelper m_LanguageCookie;
 
-        public LanguageMiddleware(OwinMiddleware next, IZboxReadService zboxReadService, HttpContextBase contextBase, ILanguageCookieHelper languageCookie)
+        public LanguageMiddleware(OwinMiddleware next, IZboxReadService zboxReadService, 
+            HttpContextBase contextBase, 
+            ILanguageCookieHelper languageCookie)
             : base(next)
         {
             m_ZboxReadService = zboxReadService;

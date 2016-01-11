@@ -13,6 +13,7 @@ namespace Zbang.Zbox.Domain.Common
         void UpdateUserProfile(UpdateUserProfileCommand command);
         void UpdateUserImage(UpdateUserProfileImageCommand command);
         void UpdateUserLanguage(UpdateUserLanguageCommand command);
+        void UpdateUserTheme(UpdateUserThemeCommand command);
         void UpdateUserUniversity(UpdateUserUniversityCommand command);
         CreateBoxCommandResult CreateBox(CreateBoxCommand command);
         void ChangeBoxInfo(ChangeBoxInfoCommand command);
@@ -56,7 +57,6 @@ namespace Zbang.Zbox.Domain.Common
         void DeleteBoxItemTab(DeleteItemTabCommand command);
 
 
-        void UpdateUserFirstTimeStatus(UpdateUserFirstTimeStatusCommand command);
 
 
 

@@ -120,9 +120,9 @@
     <Compile Include="UpdateStatisticsCommandHandler.cs" />
     <Compile Include="UpdateThumbnailCommandHandler.cs" />
     <Compile Include="UpdateUniversityStatsCommandHandler.cs" />
-    <Compile Include="UpdateUserFirstTimeStatusCommandHandler.cs" />
     <Compile Include="UpdateUserMobileSettings.cs" />
     <Compile Include="UpdateUserProfileImageCommandHandler.cs" />
+    <Compile Include="UpdateUserThemeCommandHandler.cs" />
     <Compile Include="UpdateUserUniversityCommandHandler.cs" />
     <Compile Include="UpdateUserLanguageCommandHandler.cs" />
     <Compile Include="UpdateUserPasswordCommandHandler.cs" />

@@ -1,4 +1,6 @@
 ﻿
+using Zbang.Zbox.Infrastructure.Enums;
+
 namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 {
     public class UserAccountDto
@@ -10,7 +12,7 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public string Image { get; set; }
         public string University { get; set; }
 
-        public long UniversityId { get; set; }
+        //public long UniversityId { get; set; }
 
         public string UniversityImage { get; set; }
 
@@ -18,8 +20,6 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public string Email { get; set; }
         public string Language { get; set; }
 
-        //storage
-        public long AllocatedSize { get; set; }
-        public long UsedSpace { get; set; }
+        public Theme Theme { get; set; }
     }
 }
