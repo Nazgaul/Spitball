@@ -31,6 +31,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             .RegisterType(typeof(ICommandHandlerAsync<UpdateUserEmailCommand>), typeof(UpdateUserEmailCommandHandler))
             .RegisterType(typeof(ICommandHandler<UpdateUserProfileCommand>), typeof(UpdateUserProfileCommandHandler))
              .RegisterType(typeof(ICommandHandler<UpdateUserProfileImageCommand>), typeof(UpdateUserProfileImageCommandHandler))
+             .RegisterType(typeof(ICommandHandler<UpdateUserThemeCommand>), typeof(UpdateUserThemeCommandHandler))
             .RegisterType<ICommandHandler<CreateBoxCommand, CreateBoxCommandResult>, CreateBoxCommandHandler>("CreateBoxCommand");
             ioc.RegisterType<ICommandHandler<CreateBoxCommand, CreateBoxCommandResult>, CreateAcademicBoxCommandHandler>("CreateAcademicBoxCommand");
             ioc.RegisterType(typeof(ICommandHandler<ChangeBoxInfoCommand>), typeof(ChangeBoxInfoCommandHandler))
@@ -74,8 +75,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<ChangeItemTabNameCommand>), typeof(ChangeItemTabNameCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteItemTabCommand>), typeof(DeleteItemTabCommandHandler));
 
-            //first time
-            ioc.RegisterType(typeof(ICommandHandler<UpdateUserFirstTimeStatusCommand>), typeof(UpdateUserFirstTimeStatusCommandHandler));
 
             //item command
             ioc.RegisterType(typeof(ICommandHandlerAsync<RateItemCommand>), typeof(RateItemCommandHandler));

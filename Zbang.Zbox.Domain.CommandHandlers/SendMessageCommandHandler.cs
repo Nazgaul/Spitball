@@ -47,7 +47,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     {
                         continue;
                     }
-                    recipientUser = new User(recipient, null, null);
+                    recipientUser = new User(recipient, null);
                     m_UserRepository.Save(recipientUser);
 
 

@@ -123,9 +123,9 @@
     <Compile Include="UpdateStatisticsCommand.cs" />
     <Compile Include="UpdateThumbnailCommand.cs" />
     <Compile Include="UpdateUniversityStatsCommand.cs" />
-    <Compile Include="UpdateUserFirstTimeStatusCommand.cs" />
     <Compile Include="RegisterMobileDeviceCommand.cs" />
     <Compile Include="UpdateUserProfileImageCommand.cs" />
+    <Compile Include="UpdateUserThemeCommand.cs" />
     <Compile Include="UpdateUserUniversityCommand.cs" />
     <Compile Include="UpdateUserLanguageCommand.cs" />
     <Compile Include="UpdateUserPasswordCommand.cs" />

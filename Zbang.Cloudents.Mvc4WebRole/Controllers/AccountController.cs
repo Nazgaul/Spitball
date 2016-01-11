@@ -18,6 +18,7 @@ using Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -39,6 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly IAuthenticationManager m_AuthenticationManager;
         private readonly ICookieHelper m_CookieHelper;
         private readonly ILanguageCookieHelper m_LanguageCookie;
+        private readonly IThemeCookieHelper m_ThemeCookieHelper;
 
 
         public AccountController(
@@ -46,7 +48,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
            Lazy<IQueueProvider> queueProvider,
            Lazy<IEncryptObject> encryptObject,
            ApplicationUserManager userManager,
-        IAuthenticationManager authenticationManager, ICookieHelper cookieHelper, ILanguageCookieHelper languageCookie, Lazy<IGoogleService> googleService)
+        IAuthenticationManager authenticationManager, ICookieHelper cookieHelper, ILanguageCookieHelper languageCookie, Lazy<IGoogleService> googleService, IThemeCookieHelper themeCookieHelper)
         {
             m_FacebookService = facebookService;
             m_QueueProvider = queueProvider;
@@ -56,6 +58,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_CookieHelper = cookieHelper;
             m_LanguageCookie = languageCookie;
             m_GoogleService = googleService;
+            m_ThemeCookieHelper = themeCookieHelper;
         }
 
 
@@ -605,6 +608,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ZboxWriteService.UpdateUserLanguage(command);
             }
             m_LanguageCookie.InjectCookie(language);
+            return JsonOk();
+        }
+
+        [HttpPost]
+        public JsonResult ChangeTheme(Theme theme)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var id = User.GetUserId();
+                var command = new UpdateUserThemeCommand(id, theme);
+                ZboxWriteService.UpdateUserTheme(command);
+            }
+            m_ThemeCookieHelper.InjectCookie(theme);
             return JsonOk();
         }
 
