@@ -33,8 +33,8 @@
         <div class="base">
             <div class="item-ratio">
                 <div class="content">
-                    <img ui-draggable="true" drag="e" on-drop-success="i.dropToTabSuccess($index)" class="img-responsive" ng-src="{{::e.thumbnail}}" width="368" height="520" alt="thumbnail" />
-                    <div class="extra">
+                    <img class="img-responsive" ng-src="{{::e.thumbnail}}" width="368" height="520" alt="thumbnail" />
+                    <div class="extra" id="drag{{::$index}}">
                         <h5 class="multi-line-ellipsis" ng-bind-html="::e.nameExtension"></h5>
                     </div>
                 </div>

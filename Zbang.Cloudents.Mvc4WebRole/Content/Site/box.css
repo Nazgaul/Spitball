@@ -884,7 +884,7 @@
 }
 .item .extra {
   color: #f5f5f5;
-  background: #323538;
+  background: #4190b9;
   position: absolute;
   left: 0;
   right: 0;
@@ -892,6 +892,7 @@
   opacity: .95;
   overflow: hidden;
   height: 70px;
+  border-top: 1px solid #26566e;
 }
 .item svg {
   vertical-align: top;

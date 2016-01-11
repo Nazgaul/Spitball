@@ -41,8 +41,7 @@
             -o-transform: scale(1.5);
             -webkit-transform: scale(1.5);
             transform: scale(1.5);
-            z-index:2;
-            
+            z-index: 2;
         }
     }
 
@@ -943,6 +942,7 @@
 
 .item {
     display: block;
+
     .item-ratio {
         .aspect-ratio();
     }
@@ -981,19 +981,20 @@
     //}
     .extra {
         color: @textColorWhite;
-        background: @backgroundColorMenu;
+        background: @buttonColorBlue;
         position: absolute;
         //top: 100%;
         left: 0;
         right: 0;
         bottom: 0;
-        opacity:.95;
+        opacity: .95;
         //-moz-transition: all 0.5s ease;
         //-o-transition: all 0.5s ease;
         //-webkit-transition: all 0.5s ease;
         //transition: all 0.5s ease;
         overflow: hidden;
         height: 70px;
+        border-top: 1px solid @buttonColorHover;
         //svg {
         //    width: 30px;
         //    height: 30px;
