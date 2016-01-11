@@ -259,7 +259,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload videos, audio files, articles and more!.
+        ///   Looks up a localized string similar to Please enter the URL you wish to share here.
         /// </summary>
         public static string Share {
             get {
