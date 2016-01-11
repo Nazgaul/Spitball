@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 result.UserType = ViewBag.UserType;
                 result.ShortUrl = UrlConsts.BuildShortBoxUrl(new Base62(id).ToString());
 
-                if (Request.Browser.Crawler)
+                if (IsCrawler())
                 {
                     return JsonOk(new
                     {
@@ -204,7 +204,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var query = new GetLeaderBoardQuery(id);
             var result = await ZboxReadService.GetBoxLeaderBoardAsync(query);
-            if (Request.Browser.Crawler)
+            if (IsCrawler())
             {
                 return JsonOk(result.Select(s => new
                 {

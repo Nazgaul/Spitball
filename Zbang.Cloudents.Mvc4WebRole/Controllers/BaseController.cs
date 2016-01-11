@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
@@ -26,6 +27,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
                 return sw.GetStringBuilder().ToString().Trim();
             }
+        }
+
+        protected bool IsCrawler()
+        {
+            return Regex.IsMatch(HttpContext.Request.UserAgent, @"bot|crawler|baiduspider|80legs|ia_archiver|voyager|curl|wget|yahoo! slurp|mediapartners-google", RegexOptions.IgnoreCase);
         }
         protected override void OnException(ExceptionContext filterContext)
         {

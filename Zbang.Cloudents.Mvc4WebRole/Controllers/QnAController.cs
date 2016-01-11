@@ -116,7 +116,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var retVal =
                   await ZboxReadService.GetQuestionsWithAnswersAsync(query);
                 //removing user name
-                if (Request.Browser.Crawler)
+                if (IsCrawler())
                 {
 
                     return JsonOk(retVal.Select(s => new
