@@ -119,7 +119,7 @@ md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
 
 /*tabs*/
 md-tabs {
-     md-tabs-wrapper {
+    md-tabs-wrapper {
         background: #323538;
     }
 
@@ -581,83 +581,83 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
     .md-input:active, .md-input:focus {
         color: #fff;
     }
-}
 
-input[type=checkbox] {
-    &:checked + label {
-        .text {
-            @media (min-width: 600px) {
-                color: @anonymousColor;
+
+    input[type=checkbox] {
+        &:checked + label {
+            .text {
+                @media (min-width: 600px) {
+                    color: @anonymousColor;
+                }
+            }
+
+            svg {
+                fill: @anonymousColor;
             }
         }
+    }
 
-        svg {
+    svg {
+        fill: @svgColorGrey;
+    }
+
+    .file {
+        &:hover {
+            fill: @fileColor;
+        }
+    }
+
+    .dropbox {
+        &:hover {
+            fill: @dropboxColor;
+        }
+    }
+
+    .link {
+        &:hover {
+            fill: @linkColor;
+        }
+    }
+
+    .anonymous {
+        &:hover {
             fill: @anonymousColor;
         }
     }
-}
 
-svg {
-    fill: @svgColorGrey;
-}
-
-.file {
-    &:hover {
-        fill: @fileColor;
-    }
-}
-
-.dropbox {
-    &:hover {
-        fill: @dropboxColor;
-    }
-}
-
-.link {
-    &:hover {
-        fill: @linkColor;
-    }
-}
-
-.anonymous {
-    &:hover {
-        fill: @anonymousColor;
-    }
-}
-
-&.new-post {
-    .top img {
-        background: @borderColorDarkGrey;
-        border: 3px solid @borderColorDarkGrey;
-    }
-
-    .new-comment-border {
-        ::-webkit-input-placeholder {
-            color: @textColorGrey;
+    &.new-post {
+        .top img {
+            background: @borderColorDarkGrey;
+            border: 3px solid @borderColorDarkGrey;
         }
 
-        :-moz-placeholder {
-            color: @textColorGrey;
+        .new-comment-border {
+            ::-webkit-input-placeholder {
+                color: @textColorGrey;
+            }
+
+            :-moz-placeholder {
+                color: @textColorGrey;
+            }
+
+            ::-moz-placeholder {
+                color: @textColorGrey;
+            }
+
+            :-ms-input-placeholder {
+                color: @textColorGrey;
+            }
+
+            :placeholder-shown {
+                color: @textColorGrey;
+            }
         }
 
-        ::-moz-placeholder {
-            color: @textColorGrey;
+        .actions {
+            border-top: 1px solid @textColorGrey;
         }
-
-        :-ms-input-placeholder {
-            color: @textColorGrey;
-        }
-
-        :placeholder-shown {
-            color: @textColorGrey;
-        }
-    }
-
-    .actions {
-        border-top: 1px solid @textColorGrey;
     }
 }
-
 
 .member-invite {
     background: @buttonColorBlue;
@@ -2502,7 +2502,7 @@ md-chips .md-chips.md-focused {
     .points-container {
         background: @backgroundColorSpitballBlue;
     }
-    
+
     .points-awards {
         color: @textColorGrey;
 

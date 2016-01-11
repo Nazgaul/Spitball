@@ -425,48 +425,48 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
   color: #fff;
 }
 @media (min-width: 600px) {
-  input[type=checkbox]:checked + label .text {
+  .add-comment input[type=checkbox]:checked + label .text {
     color: #d39f10;
   }
 }
-input[type=checkbox]:checked + label svg {
+.add-comment input[type=checkbox]:checked + label svg {
   fill: #d39f10;
 }
-svg {
+.add-comment svg {
   fill: #484f56;
 }
-.file:hover {
+.add-comment .file:hover {
   fill: #f9f9f9;
 }
-.dropbox:hover {
+.add-comment .dropbox:hover {
   fill: #007ee5;
 }
-.link:hover {
+.add-comment .link:hover {
   fill: #64d0ff;
 }
-.anonymous:hover {
+.add-comment .anonymous:hover {
   fill: #d39f10;
 }
-.new-post .top img {
+.add-comment.new-post .top img {
   background: #ffffff;
   border: 3px solid #ffffff;
 }
-.new-post .new-comment-border ::-webkit-input-placeholder {
+.add-comment.new-post .new-comment-border ::-webkit-input-placeholder {
   color: #888b8e;
 }
-.new-post .new-comment-border :-moz-placeholder {
+.add-comment.new-post .new-comment-border :-moz-placeholder {
   color: #888b8e;
 }
-.new-post .new-comment-border ::-moz-placeholder {
+.add-comment.new-post .new-comment-border ::-moz-placeholder {
   color: #888b8e;
 }
-.new-post .new-comment-border :-ms-input-placeholder {
+.add-comment.new-post .new-comment-border :-ms-input-placeholder {
   color: #888b8e;
 }
-.new-post .new-comment-border :placeholder-shown {
+.add-comment.new-post .new-comment-border :placeholder-shown {
   color: #888b8e;
 }
-.new-post .actions {
+.add-comment.new-post .actions {
   border-top: 1px solid #888b8e;
 }
 .member-invite {
@@ -1850,7 +1850,8 @@ md-chips .md-chips.md-focused {
 .nav-bar .logo-search .search-form .search-area svg {
   fill: #ffffff;
 }
-.box-cube {
+.box-cube,
+.dashboard-stat2 {
   box-shadow: 0 0 1px #777777;
 }
 .portlet.light {
@@ -1883,5 +1884,16 @@ md-tabs md-tabs-wrapper {
 }
 md-tabs .md-tab.md-active {
   color: #4190b9;
-  font-weight: bold;
+}
+.dots-3,
+.page-title svg {
+  fill: #c3c3c3;
+}
+.add-comment .file:hover {
+  fill: #29769e;
+}
+.add-comment md-input-container .md-input:active,
+.add-comment md-input-container .md-input:focus,
+md-menu-item > .md-button span {
+  color: #212325;
 }
