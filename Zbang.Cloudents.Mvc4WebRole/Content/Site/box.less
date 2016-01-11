@@ -314,6 +314,19 @@
         }
     }
 
+    .comment, .add-comment {
+        & > .top {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 10px 10px 0 0;
+            color: @textColorWhite;
+            position: absolute;
+            top: -15px;
+            left: -18px;
+            z-index: 1;
+        }
+    }
+
     .comment {
         background: @backgroundColor;
         position: relative;
@@ -325,15 +338,7 @@
             border: 3px solid @borderColorDarkGrey;
         }
 
-        & > .top {
-            padding-top: 5px;
-            padding-bottom: 5px;
-            border-radius: 10px 10px 0 0;
-            color: @textColorWhite;
-            position: absolute;
-            top: -15px;
-            left: -18px;
-        }
+
 
         .margins {
             margin: 0 10px 10px 0;
@@ -421,7 +426,7 @@
         svg {
             width: 20px;
             height: 20px;
-            fill: @svgDots;
+            fill: @textColorGrey;
             vertical-align: middle;
         }
 
@@ -501,7 +506,6 @@
         }
     }
 }
-
 
 .add-comment {
     .placeHolder(@textColorDarkGrey);
@@ -659,6 +663,52 @@
 
         &:hover {
             fill: @anonymousColor;
+        }
+    }
+
+    &.new-post {
+        padding: 0;
+        position: relative;
+
+        .top img {
+            background: @borderColorDarkGrey;
+            border: 3px solid @borderColorDarkGrey;
+        }
+
+        .new-comment-border {
+            border: none;
+
+            ::-webkit-input-placeholder {
+                color: @textColorGrey;
+            }
+
+            :-moz-placeholder {
+                color: @textColorGrey;
+            }
+
+            ::-moz-placeholder {
+                color: @textColorGrey;
+            }
+
+            :-ms-input-placeholder {
+                color: @textColorGrey;
+            }
+
+            :placeholder-shown {
+                color: @textColorGrey;
+            }
+
+
+            textarea {
+                min-height: 65px;
+                padding: 10px 0 0 45px;
+                font-size: 18px;
+            }
+        }
+
+        .actions {
+            padding: 10px;
+            border-top: 1px solid @textColorGrey;
         }
     }
 }
