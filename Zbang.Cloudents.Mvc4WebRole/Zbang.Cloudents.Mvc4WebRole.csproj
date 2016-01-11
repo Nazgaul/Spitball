@@ -1616,6 +1616,18 @@
     <Content Include="Content\Site\staticPages.rtl.css">
       <DependentUpon>staticPages.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\ThemeDark.css">
+      <DependentUpon>ThemeDark.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\ThemeDark.rtl.css">
+      <DependentUpon>ThemeDark.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\themeLight.css">
+      <DependentUpon>themeLight.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\themeLight.rtl.css">
+      <DependentUpon>themeLight.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\user.css">
       <DependentUpon>user.less</DependentUpon>
     </Content>
@@ -1859,6 +1871,8 @@
     <Content Include="Content\Site\error.less" />
     <Content Include="Content\category.png.less" />
     <Content Include="Content\Site\staticPages.less" />
+    <Content Include="Content\Site\ThemeDark.less" />
+    <Content Include="Content\Site\themeLight.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
