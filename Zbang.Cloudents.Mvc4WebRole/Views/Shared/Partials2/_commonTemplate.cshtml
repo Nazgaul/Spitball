@@ -33,14 +33,9 @@
         <div class="base">
             <div class="item-ratio">
                 <div class="content">
-                    <img class="img-responsive" ng-src="{{::e.thumbnail}}" width="368" height="520" alt="thumbnail" />
+                    <img ui-draggable="true" drag="e" on-drop-success="i.dropToTabSuccess($index)" class="img-responsive" ng-src="{{::e.thumbnail}}" width="368" height="520" alt="thumbnail" />
                     <div class="extra">
                         <h5 class="multi-line-ellipsis" ng-bind-html="::e.nameExtension"></h5>
-                        @*<svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{::e.icon}}"></use></svg>
-                    <div class="uploader-date">
-                        <div>{{::e.owner}}</div>
-                        {{::e.date | date : 'shortDate'}}
-                    </div>*@
                     </div>
                 </div>
             </div>

@@ -63,7 +63,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //[DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
         //  Duration = TimeConsts.Hour * 1, VaryByParam = "itemid",
         //  Location = OutputCacheLocation.Server, Order = 4)]
-        //[RedirectToMobile(Order = 1)]
         public async Task<ActionResult> Index(long boxId, long itemid, string itemName, string universityName, string boxName)
         {
 
