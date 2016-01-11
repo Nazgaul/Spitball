@@ -23,7 +23,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             return m_CookieHelper.ReadCookie<string>(CookieName);
         }
-
-
     }
 }

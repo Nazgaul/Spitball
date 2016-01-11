@@ -19,12 +19,11 @@ namespace Zbang.Zbox.Domain
             //Invites = new HashSet<Invite>();
             Quota = new Quota();
             UserTime = new UserTimeDetails("Sys");
-            FirstTime = new UserFirstTime();
             UserType = UserType.Regular;
         }
 
 
-        public User(string email, string smallImage, string largeImage)
+        public User(string email, string largeImage)
             : this()
         {
             if (email == null) throw new ArgumentNullException("email");
@@ -43,15 +42,11 @@ namespace Zbang.Zbox.Domain
             if (firstName == null) throw new ArgumentNullException("firstName");
             if (lastName == null) throw new ArgumentNullException("lastName");
             Email = email;
-           // Image = smallImage;
             ImageLarge = image;
 
             FirstName = firstName.Trim();
             LastName = lastName.Trim();
-           
-
             CreateName();
-           
             UpdateLanguage(culture);
             AddReputation(ReputationAction.Register);
         }
@@ -83,7 +78,7 @@ namespace Zbang.Zbox.Domain
         public UserType UserType { get; set; }
         public virtual bool IsRegisterUser { get; set; }
         public virtual string Name { get; protected set; }
-
+        public virtual Theme Theme { get; set; }
 
         public virtual string FirstName { get; set; }
         //public virtual string MiddleName { get; set; }
@@ -107,7 +102,6 @@ namespace Zbang.Zbox.Domain
         public virtual string StudentId { get; set; }
         public virtual DateTime? LastAccessTime { get; set; }
 
-        public virtual UserFirstTime FirstTime { get; set; }
         public virtual int Reputation { get; set; }
 
         public virtual RussianDepartment RussianDepartment { get; set; }
@@ -169,16 +163,10 @@ namespace Zbang.Zbox.Domain
             Culture = Languages.GetCultureBaseOnCulture(culture);
         }
 
-        public void UpdateUniversity(University university,
-            string studentId/*, RussianDepartment department, string groupNumber,
-            string registerNumber*/)
+        public void UpdateUniversity(University university,string studentId)
         {
             University = university;
             StudentId = studentId;
-            //RussianDepartment = department;
-            //GroupNumber = groupNumber;
-           // RegisterNumber = registerNumber;
-            // Department = null;
         }
 
         public virtual bool IsAdmin()
@@ -192,24 +180,7 @@ namespace Zbang.Zbox.Domain
             Email = email;
         }
 
-        #region firstTime
-        public void UpdateDashboardFirstTime()
-        {
-            FirstTime.DashboardFirstTimeShow();
-        }
-        public void UpdateLibraryFirstTime()
-        {
-            FirstTime.LibraryFirstTimeShow();
-        }
-        public void UpdateItemFirstTime()
-        {
-            FirstTime.ItemFirstTimeShow();
-        }
-        public void UpdateBoxFirstTime()
-        {
-            FirstTime.BoxFirstTimeShow();
-        }
-        #endregion
+       
 
         #region Nhibernate
         public override bool Equals(object other)

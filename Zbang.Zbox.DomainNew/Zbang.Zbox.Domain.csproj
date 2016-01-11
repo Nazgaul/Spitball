@@ -80,7 +80,6 @@
     <Compile Include="Library.cs" />
     <Compile Include="RussianDepartment.cs" />
     <Compile Include="Discussion.cs" />
-    <Compile Include="FirstTime.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemRate.cs" />
     <Compile Include="Message.cs" />

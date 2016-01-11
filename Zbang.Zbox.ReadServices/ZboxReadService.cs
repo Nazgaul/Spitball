@@ -743,6 +743,22 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public async Task<Theme> GetUserThemeAsync(GetUserDetailsQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal =
+                       await conn.QueryAsync<Theme?>(Sql.Sql.UserTheme,
+                       new { query.UserId });
+                var firstResult = retVal.First();
+                if (!firstResult.HasValue)
+                {
+                    return Theme.Dark;
+                }
+                return firstResult.Value;
+            }
+        }
+
 
         /// <summary>
         /// Get box settings data for ajax request

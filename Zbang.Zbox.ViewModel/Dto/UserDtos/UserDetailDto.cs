@@ -1,4 +1,5 @@
 ﻿using System;
+using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 {
@@ -8,12 +9,6 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public string Name { get; set; }
         public string Image { get; set; }
        
-        //public bool FirstTimeDashboard { get; set; }
-        //public bool FirstTimeLibrary { get; set; }
-        //public bool FirstTimeItem { get; set; }
-        //public bool FirstTimeBox { get; set; }
-
-        
 
         public string Url { get; set; }
         public string Culture { get; set; }
@@ -30,5 +25,6 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public bool IsAdmin { get; set; }
 
         public string Token { get; set; }
+
     }
 }

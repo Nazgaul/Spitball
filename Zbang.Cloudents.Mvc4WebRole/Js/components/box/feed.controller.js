@@ -63,7 +63,7 @@
                 for (var j = 0; j < files.length; j++) {
                     var item = files[j];
                     if (item.type) {
-                        var retVal = itemThumbnailService.assignValue(item.source, 100, 125);
+                        var retVal = itemThumbnailService.assignValue(item.source, 100, 141);
                         item.thumbnail = retVal.thumbnail;
                         //item.icon = retVal.icon;
                     } else {
@@ -72,7 +72,7 @@
                 }
                 //self.data[i].files = itemThumbnailService.assignValues(self.data[i].files, 100, 125);
                 for (var k = 0; k < self.data[i].answers.length; k++) {
-                    self.data[i].answers[k].files = itemThumbnailService.assignValues(self.data[i].answers[k].files, 100, 125);
+                    self.data[i].answers[k].files = itemThumbnailService.assignValues(self.data[i].answers[k].files, 100, 141);
                 }
             }
             userUpdatesService.boxUpdates(boxId, function (updates) {

@@ -248,6 +248,7 @@ u.UserImageLarge as Image,
 u.Url as Url,
 u.Culture as Culture,
 u.UserReputation as Score,
+u.theme as Theme,
 uu.UniversityName as UniversityName,
 uu.Country as UniversityCountry,
 uu.id as UniversityId,
@@ -256,6 +257,12 @@ u.Email as Email,
 u.CreationTime as DateTime
 from zbox.Users u 
 left join zbox.University uu on u.UniversityId = uu.Id
+where u.userid = @UserId";
+
+
+        public const string UserTheme = @"select 
+u.theme as Theme
+from zbox.Users u 
 where u.userid = @UserId";
 
         public const string GetUserByMembershipId = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
