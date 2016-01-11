@@ -1,6 +1,149 @@
-﻿
-@textColorDarkGrey: red;
+﻿@import "variables.less";
 
-.dashboard-stat2 {
-    background:@textColorDarkGrey;
+
+@textColorBlack: #ffffff;
+@textColorWhite: #212325;
+@textColorGrey: #888b8e;
+@textColorDarkGrey: #ffffff;
+@textColorLightGrey: #c3c3c3;
+@textColorLike: #4190b9;
+@textColorBlue: #2698D4;
+@textColorHover: #5B9CC2;
+@textColorSpitballBlue: #3293F6;
+@textColorGreen: #8dc63f;
+@textColorRed: #db4437;
+@textColorOrange: #ffa500;
+
+//backgrounds
+@backgroundColor: #e9eaed;
+@backgroundColor2: #9E9E9E;
+@backgroundColorWhite: #212325;
+@backgroundColorMenu: #ffffff;
+@backgroundColorFollow: #006072;
+@backgroundColorItem: #6a737d;
+@backgroundColorRed: #db4437;
+@backgroundColorSpitballBlue: #3293F6;
+@backgroundColorDropdown: #536470;
+@backgroundColorHover: #404346;
+@backgroundColorGreen: #008000;
+@backgroundColorMenuSelect: #292d31;
+@backgroundColorMouseOver: #dadce2;
+
+//borders
+@borderColorGrey: #3D4348;
+@borderColorLightGrey: #8c99a6;
+@borderColorDarkGrey: #ffffff;
+@borderColorWhite: #212325;
+@borderColorBlack: #282828;
+@borderColorDarkBlue: #376E8C;
+@borderColorBlue: #3598dc;
+@borderColorSpitballBlue: #3293F6;
+@borderColorRed: #db4437;
+@borderColorGreen: #008000;
+@borderColorBottomGrey: #5d6063;
+//buttons
+@buttonColorBlue: #4190b9;
+@buttonColorHover: #26566e;
+@buttonColorRed: #db4437;
+
+//svg/images
+@fileColor: #f9f9f9;
+@linkColor: #64D0FF;
+@svgColorGrey: #484F56;
+@dropboxColor: #007EE5;
+@anonymousColor: #d39f10;
+@checkMarkColor: #8dc63f;
+@headerImagesColor: #5f6871;
+@svgLightGrey: #c2c2c2;
+@svgQuizArrows: #c5c5c5;
+@svgQuizPlay: #3598dc;
+@svgQuizCorrect: #007E01;
+@svgQuizWrong: #BE2A4A;
+@svgQuizTime: #2698D4;
+@svgQuizBald: #4190b9;
+@svgQuizCompleted: #9782B1;
+@svgQuizRanking: #F76446;
+@svgGmail: #ED1921;
+@svgDots: #5d6063;
+
+//scrollbar
+@scrollbarColor: rgba(157,153,156,.5);
+
+//progressbar
+@progressbarColor: #8dc63f;
+@progressbarColorQuiz: #85A7B8;
+@progressbarBackgroundColor: #dfe2e9;
+
+
+@import "siteColors.less";
+
+.nav-bar {
+    background: #4190b9;
+
+    .user-md-menu {
+        color: @backgroundColor;
+
+        &:hover {
+            background: #29769e;
+        }
+    }
+}
+
+.nav-bar .logo-search .search-form .search-area {
+    background: #29769e;
+
+    .text {
+        color: @textColorBlack;
+    }
+
+    svg {
+        fill: @textColorBlack;
+    }
+}
+
+.box-cube {
+    box-shadow: 0 0 1px #777777;
+}
+
+.portlet.light {
+    color: @backgroundColor;
+
+    &.leaderboard, &.unibox {
+        background-color: #777777;
+    }
+
+
+    .universityTitle, .user-name, .userLetter, h4 {
+        color: @backgroundColor;
+    }
+
+
+    &.unibox {
+        .universityStats {
+            color: @textColorLightGrey;
+        }
+
+        .universityLink {
+            color: @textColorBlack;
+        }
+    }
+}
+
+.page-body md-sidenav {
+    background: transparent;
+}
+
+.leaderboard .user-name {
+    color: @textColorBlack;
+}
+
+md-tabs {
+    md-tabs-wrapper {
+        background: @textColorBlack;
+    }
+
+    .md-tab.md-active {
+        color: #4190b9;
+        font-weight: bold;
+    }
 }

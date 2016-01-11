@@ -1873,6 +1873,7 @@
     <Content Include="Content\Site\staticPages.less" />
     <Content Include="Content\Site\ThemeDark.less" />
     <Content Include="Content\Site\themeLight.less" />
+    <Content Include="Content\Site\siteColors.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
