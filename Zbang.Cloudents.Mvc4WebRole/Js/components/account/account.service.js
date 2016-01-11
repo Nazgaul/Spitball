@@ -64,6 +64,12 @@
             });
         }
 
+        self.changeTheme = function (theme) {
+            return ajaxservice.post('/account/ChangeTheme/', {
+                theme: theme
+            });
+        }
+
         self.facebookLogIn = function (token, boxId) {
             return ajaxservice.post('/account/facebooklogin/', {
                 token: token,

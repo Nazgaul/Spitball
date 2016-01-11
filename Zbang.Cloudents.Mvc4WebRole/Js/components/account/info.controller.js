@@ -13,6 +13,7 @@
 
         self.submit = submitChangeName;
         self.changeLanguage = changeLanguage;
+        self.changeTheme = changeTheme;
 
         self.changeEmail = changeEmail;
         self.cancelChangeEmail = cancelChangeEmail;
@@ -95,6 +96,16 @@
             }
 
             accountService.changeLocale(self.data.language).then(function () {
+                location.reload(true);
+            });
+        }
+
+        function changeTheme() {
+            if (self.data.theme == userData.theme) {
+                return;
+            }
+
+            accountService.changeTheme(self.data.theme).then(function () {
                 location.reload(true);
             });
         }

@@ -44,25 +44,7 @@
         }
 
         function isSectionSelected(section) {
-
-            var x = $location.url().startsWith(section);
-            if (x) {
-                console.log(section, x);
-            }
-            return x;
-            //var selected = false;
-            //var openedSectionX = openedSection;
-            //if (openedSectionX === section) {
-            //    selected = true;
-            //}
-            //else if (section.children) {
-            //    section.children.forEach(function (childSection) {
-            //        if (childSection === openedSectionX) {
-            //            selected = true;
-            //        }
-            //    });
-            //}
-            //return selected;
+            return $location.url().startsWith(section);
         }
         //function open() {
         //    if (!userDetails.isAuthenticated()) {

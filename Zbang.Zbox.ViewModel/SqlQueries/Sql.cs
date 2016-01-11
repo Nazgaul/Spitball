@@ -334,13 +334,11 @@ u.Culture as Culture,
     u.FirstName as FirstName,
     u.LastName as LastName,
     u.UserImageLarge as Image, 
+    u.theme as Theme,
     v.UniversityName as University,
     v.LargeImage as UniversityImage,
     u.Email as Email,
-    u.Culture as Language,
-	u.AllocatedSize as AllocatedSize,
-	u.UniversityId as UniversityId, 
-    u.UsedSpace as UsedSpace
+    u.Culture as Language
     from zbox.Users u left join zbox.University v on u.UniversityId = v.Id
     where u.userId = @UserId";
     }
