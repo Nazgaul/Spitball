@@ -67,6 +67,7 @@
         }
 
         function addItemToTab($data, tab) {
+            tab.count++;
             boxService.addItemToTab(boxId, tab.id, $data.id);
 
         }

@@ -13,5 +13,6 @@
       <key column="ItemTabId" not-null="false" foreign-key="itemTabItems" />
       <one-to-many class="Item"/>
     </bag>
+    <property name="ItemCount"/>
   </class>
 </hibernate-mapping>

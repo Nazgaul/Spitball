@@ -22,9 +22,12 @@ namespace Zbang.Zbox.Domain
 
         protected virtual ICollection<Item> Items { get; set; }
 
+        protected virtual int ItemCount { get; set; }
+
         public void AddItemToTab(Item item)
         {
             Items.Add(item);
+            ItemCount = Items.Count;
         }
 
         public void ChangeName(string name)
@@ -39,6 +42,7 @@ namespace Zbang.Zbox.Domain
         public void DeleteItemFromTab(Item item)
         {
             Items.Remove(item);
+            ItemCount = Items.Count;
         }
 
         public void DeleteReferenceToItems()

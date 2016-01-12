@@ -124,6 +124,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to items.
+        /// </summary>
+        public static string itemsInTab {
+            get {
+                return ResourceManager.GetString("itemsInTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Professor.
         /// </summary>
         public static string Lecturer {
@@ -205,7 +214,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ask question, share study material....
+        ///   Looks up a localized string similar to Ask a question, share study material....
         /// </summary>
         public static string Whats {
             get {

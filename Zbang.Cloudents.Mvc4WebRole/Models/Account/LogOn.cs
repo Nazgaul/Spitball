@@ -27,5 +27,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 
         [Display(ResourceType = typeof(LogOnResources), Name = "RememberMe")]
         public bool RememberMe { get; set; }
+
+        public override string ToString()
+        {
+            return "Email: " + Email + " Password: " + Password;
+        }
     }
 }

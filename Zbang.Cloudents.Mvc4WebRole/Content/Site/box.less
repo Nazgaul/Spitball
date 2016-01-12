@@ -7,10 +7,11 @@
         -o-transition: all .5s ease-in-out;
         -webkit-transition: all .5s ease-in-out;
         transition: all .5s ease-in-out;
-
+        .displayFlex();
         .folder-name-inner {
             //background: @backgroundColorMenu;
             padding: 0 6px;
+            width:100%;
         }
 
         .content {
@@ -44,7 +45,11 @@
 }
 
 .folders .folder-name .content {
-    padding: 2px 6px;
+    //padding: 2px 6px;
+    text-align:center;
+    div:last-child {
+        margin-top:3px;
+    }
 }
 
 .folder-selected {
@@ -158,6 +163,7 @@
         svg {
             width: 15px;
             height: 15px;
+            vertical-align:middle;
             //fill: @borderColorGrey;
         }
 
@@ -167,6 +173,7 @@
             font-size: 16px;
             line-height: 20px;
             padding-left: 10px;
+            vertical-align:middle;
         }
     }
 }
