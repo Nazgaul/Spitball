@@ -317,6 +317,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 .folders .folder-name .content {
   background: #ffffff;
   border: 1px solid #ffffff;
+  box-shadow: 0 0 2px #e9eaed;
 }
 .folder-selected .folder-name .icon,
 .folders .folder-name .icon {
@@ -589,7 +590,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 }
 .item .extra {
   color: #212325;
-  background: #ffffff;
+  background: #4190b9;
 }
 .upload .form-body {
   background: #e9eaed;

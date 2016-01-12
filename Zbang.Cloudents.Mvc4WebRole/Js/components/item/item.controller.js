@@ -15,6 +15,7 @@
         i.preview = '';
         itemService.getDetails(boxid, itemId).then(function (response) {
             i.details = response;
+            console.log("response", response);
             i.details.downloadUrl = $location.url() + 'download/';
             i.details.printUrl = $location.url() + 'print/';
             getPreview();
@@ -37,10 +38,13 @@
 
         i.swipeLeft = swipeLeft;
         i.swipeRight = swipeRight;
+        i.addComment = addComment;
+        i.addCommentReply = addCommentReply;
+        i.openReply = openReply;
 
         function getPreview() {
             i.loader = true;
-            return itemService.getPreview(i.details.blob,index,itemId,boxid).then(function (data) {
+            return itemService.getPreview(i.details.blob, index, itemId, boxid).then(function (data) {
                 data = data || {};
                 i.loader = false;
                 if (data.preview) {
@@ -90,9 +94,30 @@
             itemService.renameItem(i.renameText, itemId).then(function (response) {
                 i.details.name = response.name;
                 $location.path(response.url).replace();
-            }).finally(function() {
+            }).finally(function () {
                 i.submitDisabled = false;
             });
+        }
+        function addComment() {
+            itemService.addComment(i.newCommentText, boxid, itemId).then(function (response) {
+                console.log(response);
+            });
+
+        }
+
+        function addCommentReply(comment) {
+            console.log("comment.id", comment.id);
+            itemService.replycomment(i.newCommentReplyText, itemId, boxid, comment.id).then(function (response) {
+                console.log(response);
+            });
+        }
+
+        function openReply(comment) {
+            angular.forEach(i.details.comments, function (elem) {
+                elem.showFrom = false;
+            });
+            comment.showFrom = true;
+            i.newCommentReplyText = '';
         }
 
         function flagItem() {

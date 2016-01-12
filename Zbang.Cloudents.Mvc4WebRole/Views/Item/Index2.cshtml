@@ -106,6 +106,46 @@
             <a ng-if="i.details.previous" href="{{i.details.previous}}" hide-xs class="arrow left" ga-track-event="['itemPage', 'previous item']">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
             <a ng-if="i.details.next" href="{{i.details.next}}" hide-xs class="arrow right" ga-track-event="['itemPage', 'next item']">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
         </div>
+        <div class="comments">
+            <div class="new-comment">
+                <div class="user-image" ng-controller="UserDetailsController as ud">
+                    <a href="{{::ud.url}}" user-not-register-popup=" click" class="username" ga-track-event="['box-feed', 'userNameImage']">
+                        <user-image class="img-circle c-img" name="ud.name" image="ud.image" width="54" height="54" noremove="true"></user-image>
+                    </a>
+                </div>
+                <form name="newComment" class="new-comment-form" novalidate ng-submit="i.addComment(newComment)">
+                    <input autocomplete="off" required ng-model="i.newCommentText" name="newComment" placeholder="@ItemsResources.NewComment" />
+                    @*<div ng-messages="renameItem.name.$error" ng-show="renameItem.name.$dirty">
+                            <div ng-message="required">@GeneralResources.RequiredField</div>
+                        </div>*@
+                </form>
+            </div>
+            <ul class="comments-list list-unstyled">
+                <li ng-repeat="comment in i.details.comments" class="reply">
+                    <div class="comment-data">
+                        <div class="user-image"></div>
+                        <div class="comment-text">
+                            <div class="comment-info">Written by NAME in DATE</div>
+                            <div>{{::comment.comment}}</div>
+                        </div>
+                    </div>
+                    <ul class="comment-replies list-unstyled">
+                        <li ng-repeat="reply in comment.replies" class="reply">{{::reply.comment}}</li>
+                    </ul>
+                    <button type="button" class=" text-capitalize margins" ng-click="i.openReply(comment)">Comment</button>
+
+                    <form class="add-comment-reply add-reply" ng-if="comment.showFrom" ng-submit="i.addCommentReply(comment)">
+                        <md-input-container md-no-float>
+                            <textarea autofocus ng-model="i.newCommentReplyText" placeholder="reply"></textarea>
+                        </md-input-container>
+                        </>
+                        <button type="submit" class="btn btn-primary text-uppercase">reply</button>
+                        @*<input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
+                            <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
+                    </form>
+                </li>
+            </ul>
+        </div>
         <div class="preview" ng-bind-html="i.preview">
         </div>
     </div>

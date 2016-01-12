@@ -228,9 +228,10 @@
             });
 
             self.add.disabled = true;
-
+                console.log(self.add, self.add.newText);
             //content,boxId, files, anonymously
             boxService.postComment(self.add.newText, boxId, filesId, self.add.anonymous).then(function (response) {
+
                 var newComment = {
                     content: extractUrls(self.add.newText.replace(/[&<>]/g, replaceTag)),
                     creationTime: new Date(),

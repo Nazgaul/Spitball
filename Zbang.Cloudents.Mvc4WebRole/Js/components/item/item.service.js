@@ -22,12 +22,12 @@
             return ajaxservice.post('/upload/link', {
                 url: url,
                 boxid: boxid,
-                
+
                 quesion: question,
                 name: name
             });
         }
-        d.addFromDropBox = function (boxId, url, name,  question) {
+        d.addFromDropBox = function (boxId, url, name, question) {
             return ajaxservice.post('/upload/dropbox/', {
                 boxId: boxId,
                 url: url,
@@ -45,6 +45,23 @@
             });
         }
 
+        d.addComment = function (comment, boxId, id) {
+            return ajaxservice.post('/item/addcomment', {
+                itemId: id,
+                boxId: boxId,
+                comment: comment
+            });
+        }
+
+        d.replycomment = function (reply, itemId, boxid, commentId) {
+            return ajaxservice.post('/item/replycomment', {
+                comment: reply,
+                itemid: itemId,
+                commentid: commentId,
+                boxid: boxid
+            });
+    }
+
         //no need to wipe cache
         d.like = function (id, boxId) {
             return ajaxservice.post('/item/like', {
@@ -54,7 +71,7 @@
         };
 
 
-      
+
         d.flag = function (badItem, other, itemId) {
             return ajaxservice.post('/item/flagrequest/', {
                 badItem: badItem,

@@ -162,4 +162,7 @@
   <data name="FlagItemPlaceHolder" xml:space="preserve">
     <value>Choose</value>
   </data>
+  <data name="NewComment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
 </root>

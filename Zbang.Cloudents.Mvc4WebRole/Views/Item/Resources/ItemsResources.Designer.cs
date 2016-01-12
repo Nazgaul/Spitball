@@ -115,6 +115,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comment.
+        /// </summary>
+        public static string NewComment {
+            get {
+                return ResourceManager.GetString("NewComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open link in new tab.
         /// </summary>
         public static string OpenLink {
