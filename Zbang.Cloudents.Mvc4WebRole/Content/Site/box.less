@@ -1,12 +1,5 @@
 ﻿@import "variables.less";
 
-/*.class {
-    .folder {
-        width: 100%;
-    }
-}*/
-
-
 
 .folder-selected, .folders {
     .folder-name {
@@ -16,21 +9,21 @@
         transition: all .5s ease-in-out;
 
         .folder-name-inner {
-            background: @backgroundColorMenu;
+            //background: @backgroundColorMenu;
             padding: 0 6px;
         }
 
         .content {
-            background: @textColorDarkGrey;
-            border: 1px solid @textColorDarkGrey;
+            //background: @textColorDarkGrey;
+            //border: 1px solid @textColorDarkGrey;
             width: 100%;
-            box-shadow: 0 0 2px @backgroundColor;
+            //box-shadow: 0 0 2px @backgroundColor;
         }
 
         .icon {
             width: 18px;
             height: 18px;
-            fill: @backgroundColor2;
+            //fill: @backgroundColor2;
             margin: 0 7px;
             vertical-align: middle;
         }
@@ -68,7 +61,7 @@
 
     .dots-3 {
         margin-left: 0;
-        fill: @backgroundColor;
+        //fill: @backgroundColor;
     }
 
     .arrow {
@@ -79,7 +72,7 @@
         -o-transform: rotate(180deg);
         -webkit-transform: rotate(180deg);
         transform: rotate(180deg);
-        fill: @backgroundColorMenu;
+        //fill: @backgroundColorMenu;
         margin-right: 15px;
     }
 }
@@ -87,23 +80,23 @@
 .search-box {
     width: 100%;
     display: inline-block;
-    .placeHolder(@textColorBlack);
+    //.placeHolder(@textColorBlack);
 
     input {
-        border: 10px solid @backgroundColorMenu;
+        //border: 10px solid @backgroundColorMenu;
         border-top-width: 15px;
         margin-top: -5px;
         border-radius: 0 0 5px 5px;
         width: 200px;
         float: right;
         padding: 0 8px;
-        background: @textColorLightGrey;
+        //background: @textColorLightGrey;
         height: 50px;
         -webkit-transition: width 0.5s;
         -moz-transition: width 0.5s;
         -o-transition: width 0.5s;
         transition: width 0.5s;
-        color: @textColorBlack;
+        //color: @textColorBlack;
 
         @media (max-width: 600px) {
             width: 100%;
@@ -120,37 +113,37 @@
 
 
 .folders {
-    md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
-        background: @buttonColorRed;
-    }
+   // md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
+   //     background: @buttonColorRed;
+   // }
 
     .add-folder {
-        &:hover {
-            .content {
-                border: 1px solid @buttonColorBlue;
-
-                svg {
-                    fill: @buttonColorBlue;
-                }
-
-                span {
-                    color: @buttonColorBlue;
-                }
-            }
-        }
+       // &:hover {
+       //     .content {
+       //        // border: 1px solid @buttonColorBlue;
+       //
+       //        // svg {
+       //        //     fill: @buttonColorBlue;
+       //        // }
+       //
+       //        // span {
+       //        //     color: @buttonColorBlue;
+       //        // }
+       //     }
+       // }
 
         .content {
             padding: 6px;
             background: none;
-            border: 1px solid @textColorGrey;
+           // border: 1px solid @textColorGrey;
 
-            svg {
-                fill: @textColorGrey;
-            }
+           // svg {
+           //     fill: @textColorGrey;
+           // }
 
-            span {
-                color: @textColorGrey;
-            }
+           // span {
+           //     color: @textColorGrey;
+           // }
 
             button {
                 .displayFlex();
@@ -165,12 +158,12 @@
         svg {
             width: 15px;
             height: 15px;
-            fill: @borderColorGrey;
+            //fill: @borderColorGrey;
         }
 
         span {
             font-weight: bold;
-            color: @borderColorGrey;
+            //color: @borderColorGrey;
             font-size: 16px;
             line-height: 20px;
             padding-left: 10px;
@@ -187,22 +180,20 @@
     width: 100%;
     background: none;
     border-width: 0 0 1px 0;
-    border-color: @borderColorGrey;
+    //border-color: @borderColorGrey;
     padding: 0 10px;
 }
 //dont think we need that
-/*.nav-tabs, .tabbable {
-        border: 0;
-    }*/
+
 .need-follow {
-    background: @backgroundColorFollow;
+    //background: @backgroundColorFollow;
     border-radius: 5px;
 }
 
 .invite-btn {
-    border: 1px solid @borderColorWhite;
+   // border: 1px solid @borderColorWhite;
     border-radius: 4px;
-    color: @textColorWhite;
+   // color: @textColorWhite;
     text-transform: uppercase;
     padding: 5px 3vw 3px;
 }
@@ -210,24 +201,24 @@
 .add-button {
     .aspect-ratio();
 
-    &:hover {
-        .content {
-            border: 1px solid @buttonColorBlue;
-        }
-
-
-        a, button {
-            color: @buttonColorBlue;
-        }
-
-        svg {
-            fill: @buttonColorBlue;
-        }
-    }
+   // &:hover {
+   //     .content {
+   //         border: 1px solid @buttonColorBlue;
+   //     }
+   //
+   //
+   //     a, button {
+   //         color: @buttonColorBlue;
+   //     }
+   //
+   //     svg {
+   //         fill: @buttonColorBlue;
+   //     }
+   // }
 
 
     .content {
-        border: 1px solid @textColorGrey;
+       // border: 1px solid @textColorGrey;
         padding: 15px;
         //TODO: angular flex
         .displayFlex();
@@ -242,12 +233,12 @@
 
     a, button {
         font-size: 18px;
-        color: @textColorGrey;
+       // color: @textColorGrey;
         text-align: center;
     }
 
     svg {
-        fill: @textColorGrey;
+      //  fill: @textColorGrey;
         width: 40px;
         height: 40px;
         display: block;
@@ -289,7 +280,7 @@
     }
 
     .comment-date {
-        color: @svgDots;
+        //color: @svgDots;
         font-size: 12px;
     }
 
@@ -333,7 +324,7 @@
             padding-top: 5px;
             padding-bottom: 5px;
             border-radius: 10px 10px 0 0;
-            color: @textColorWhite;
+            //color: @textColorWhite;
             position: absolute;
             top: -15px;
             left: -18px;
@@ -342,15 +333,15 @@
     }
 
     .comment {
-        background: @backgroundColor;
+        //background: @backgroundColor;
         position: relative;
         //overflow: hidden;
         border-radius: 10px;
         margin-bottom: 25px;
 
-        .c-img {
-            border: 3px solid @borderColorDarkGrey;
-        }
+        //.c-img {
+        //    border: 3px solid @borderColorDarkGrey;
+        //}
 
 
 
@@ -361,13 +352,13 @@
         .like {
             // border: 1px solid #5B9CC2;
             //background: #4190b9;
-            color: @textColorLike;
+            //color: @textColorLike;
             margin-left: 18px;
             margin-right: 0;
         }
 
         .user-name {
-            color: @textColorBlue;
+           // color: @textColorBlue;
             font-weight: 400;
             margin-left: 10px;
         }
@@ -393,17 +384,17 @@
         .like {
             //background-color: transparent;
             //border: 1px solid #6E7983;
-            color: @textColorDarkGrey;
+            //color: @textColorDarkGrey;
             margin-right: 0;
         }
 
         .margins {
             margin: 0 10px 10px 0;
 
-            &:hover {
-                border-color: @textColorHover;
-                color: @textColorHover;
-            }
+            //&:hover {
+            //    border-color: @textColorHover;
+            //    color: @textColorHover;
+            //}
         }
 
         .padding {
@@ -417,7 +408,7 @@
         }
 
         .user-name {
-            color: @textColorBlue;
+            //color: @textColorBlue;
             font-weight: normal;
         }
 
@@ -431,7 +422,7 @@
     }
 
     .actions {
-        color: @svgDots;
+        //color: @svgDots;
         padding-bottom: 10px;
         margin-top: 10px;
         font-size: 13px;
@@ -440,7 +431,7 @@
         svg {
             width: 20px;
             height: 20px;
-            fill: @textColorGrey;
+           // fill: @textColorGrey;
             vertical-align: middle;
         }
 
@@ -454,23 +445,23 @@
                 height: 28px;
                 margin-right: 12px;
 
-                &:hover {
-                    fill: @anonymousColor;
-                }
+               // &:hover {
+               //     fill: @anonymousColor;
+               // }
             }
         }
 
 
         .dropbox {
 
-            &:hover {
-                fill: @dropboxColor;
-            }
+            //&:hover {
+            //    fill: @dropboxColor;
+            //}
         }
     }
 
     .replies {
-        border-top: 2px solid @borderColorDarkGrey;
+       // border-top: 2px solid @borderColorDarkGrey;
         padding-top: 15px;
     }
 
@@ -497,7 +488,7 @@
     .add-reply {
         // display: none;
         .reply-wrapper {
-            border: 1px solid @svgDots;
+            //border: 1px solid @svgDots;
             margin-bottom: 10px;
 
             textarea {
@@ -522,7 +513,7 @@
 }
 
 .add-comment {
-    .placeHolder(@textColorDarkGrey);
+    //.placeHolder(@textColorDarkGrey);
 
     label {
         margin-bottom: 0;
@@ -530,18 +521,18 @@
 
     .list-inline > li {
         margin: 10px;
-        border: 1px solid @borderColorGrey;
+        //border: 1px solid @borderColorGrey;
         padding: 5px 5px 0;
         width: ~"calc(50% - 20px)";
         max-width: 115px;
     }
 
     margin-bottom: 25px;
-    background: @backgroundColor;
+   // background: @backgroundColor;
     padding: 10px;
 
     .new-comment-border {
-        border: 1px solid @svgDots;
+       // border: 1px solid @svgDots;
         max-height: 250px;
         overflow: auto;
     }
@@ -549,25 +540,11 @@
     textarea {
         width: 100%;
         border: none;
-        background: @backgroundColor;
+       // background: @backgroundColor;
         padding-left: 10px;
     }
 
-    ::-webkit-input-placeholder {
-        color: @borderColorBottomGrey;
-    }
-
-    :-moz-placeholder { /* Firefox 18- */
-        color: @borderColorBottomGrey;
-    }
-
-    ::-moz-placeholder { /* Firefox 19+ */
-        color: @borderColorBottomGrey;
-    }
-
-    :-ms-input-placeholder {
-        color: @borderColorBottomGrey;
-    }
+    
 
     md-input-container {
         padding-bottom: 0;
@@ -578,19 +555,7 @@
             color: #fff;
         }
     }
-    /*.actions {
-        display: none;
-    }*/
-    /*&.open {
-        .actions {
-            display: block;
-            //height: auto;
-        }
-
-        textarea {
-            
-        }
-    }*/
+   
     input[type=checkbox] {
         display: none;
 
@@ -600,27 +565,21 @@
                     padding-right: 10px;
                     font-size: 12px;
                     display: inline-block;
-                    color: @anonymousColor;
+                  //  color: @anonymousColor;
                 }
             }
 
-            svg {
-                fill: @anonymousColor;
-            }
+            //svg {
+            //    fill: @anonymousColor;
+            //}
         }
     }
-    /*button[type=submit] {
-        .buttonBlue();
-        padding: 2px 10px 0 10px;
-        font-size: 13px;
-        border-radius: 6px;
-        color: @textColorWhite;
-    }*/
+    
     svg {
         width: 25px;
         height: 35px;
         vertical-align: middle;
-        fill: @svgColorGrey;
+       // fill: @svgColorGrey;
     }
 
     .upload-options {
@@ -633,17 +592,17 @@
         }
     }
 
-    .file {
-        &:hover {
-            fill: @fileColor;
-        }
-    }
-
-    .dropbox {
-        &:hover {
-            fill: @dropboxColor;
-        }
-    }
+   // .file {
+   //     &:hover {
+   //         fill: @fileColor;
+   //     }
+   // }
+   //
+   // .dropbox {
+   //     &:hover {
+   //         fill: @dropboxColor;
+   //     }
+   // }
 
     .google {
         svg:first-child {
@@ -665,52 +624,34 @@
         }
     }
 
-    .link {
-        &:hover {
-            fill: @linkColor;
-        }
-    }
+    //.link {
+    //    &:hover {
+    //        fill: @linkColor;
+    //    }
+    //}
 
     .anonymous {
         width: 35px;
         height: 35px;
 
-        &:hover {
-            fill: @anonymousColor;
-        }
+        //&:hover {
+        //    fill: @anonymousColor;
+        //}
     }
 
     &.new-post {
         padding: 0;
         position: relative;
 
-        .top img {
-            background: @borderColorDarkGrey;
-            border: 3px solid @borderColorDarkGrey;
-        }
-
+        //.top img {
+        //    background: @borderColorDarkGrey;
+        //    border: 3px solid @borderColorDarkGrey;
+        //}
+        
         .new-comment-border {
             border: none;
 
-            ::-webkit-input-placeholder {
-                color: @textColorGrey;
-            }
-
-            :-moz-placeholder {
-                color: @textColorGrey;
-            }
-
-            ::-moz-placeholder {
-                color: @textColorGrey;
-            }
-
-            :-ms-input-placeholder {
-                color: @textColorGrey;
-            }
-
-            :placeholder-shown {
-                color: @textColorGrey;
-            }
+            
 
 
             textarea {
@@ -722,13 +663,11 @@
 
         .actions {
             padding: 10px;
-            border-top: 1px solid @textColorGrey;
         }
     }
 }
 
 .member-invite {
-    background: @buttonColorBlue;
     border-radius: 10px;
     margin-bottom: 20px;
     padding: 5px 15px 0 13px;
@@ -736,7 +675,6 @@
 
     svg {
         height: 25px;
-        fill: @backgroundColorWhite;
         width: 25px;
         vertical-align: middle;
         margin-right: 2px;
@@ -755,7 +693,6 @@
     }
 
     .member-name {
-        color: @textColorWhite;
         font-size: 15px;
         margin-left: 10px;
         width: ~"calc(100% - 45px)";
@@ -765,7 +702,6 @@
 .item, .quiz {
 
     .base {
-        border: 1px solid @borderColorGrey;
         padding: 5px;
         display: inline-block;
         width: 100%;
@@ -776,7 +712,6 @@
     }
 
     .stats {
-        color: @textColorWhite;
         font-size: 14px;
         padding: 0 12px;
         //TODO:angular flex
@@ -786,7 +721,6 @@
         svg {
             width: 12px;
             height: 12px;
-            fill: @textColorWhite;
         }
     }
 }
@@ -803,7 +737,6 @@
         .displayFlex();
         .justifyContet(center);
         .align-items(center);
-        color: @textColorWhite;
 
         @sizeOfTextSmall: 13vw;
         @sizeOfDraftSmall: @sizeOfTextSmall / 2;
@@ -858,13 +791,11 @@
         }
 
         .first-letter {
-            border: 1px solid @textColorWhite;
         }
     }
 
     .bottom {
         // height: 101px;
-        background: @backgroundColorWhite;
         position: relative;
         //padding: 10px;
         //padding-bottom: 80.5%;
@@ -874,7 +805,6 @@
             display: inline-block;
             margin-top: 5px;
             padding: 0 6px;
-            color: @textColorBlack;
             max-height: 40px; /* Fallback for non-webkit */
             font-size: 14px;
             line-height: 16px;
@@ -887,7 +817,6 @@
             right: -1px /*rtl:ignore*/;
             width: 32%;
             height: 40%;
-            fill: @backgroundColor;
         }
     }
 
@@ -898,9 +827,7 @@
     .details {
         display: none;
         height: 325px;
-        background: @backgroundColorMenu;
         padding: 10px;
-        color: @textColorWhite;
         direction: ltr /*rtl:ignore*/;
         position: relative;
 
@@ -936,9 +863,6 @@
     }
 }
 
-.quiz-dots {
-    fill: @textColorWhite;
-}
 
 .item {
     display: block;
@@ -972,35 +896,14 @@
         -webkit-line-clamp: 3;
         line-height: 20px;
     }
-    //.uploader-date {
-    //    margin-top: 33%;
-    //    padding-left: 10px;
-    //    line-height: 16px;
-    //    //position: absolute;
-    //    //bottom: 15px;
-    //}
     .extra {
-        color: @textColorWhite;
-        background: @buttonColorBlue;
         position: absolute;
-        //top: 100%;
         left: 0;
         right: 0;
         bottom: 0;
         opacity: .95;
-        //-moz-transition: all 0.5s ease;
-        //-o-transition: all 0.5s ease;
-        //-webkit-transition: all 0.5s ease;
-        //transition: all 0.5s ease;
         overflow: hidden;
         height: 70px;
-        border-top: 1px solid @buttonColorHover;
-        //svg {
-        //    width: 30px;
-        //    height: 30px;
-        //    margin-left: 10px;
-        //    fill: #f5f5f5;
-        //}
     }
 
     svg {
@@ -1048,15 +951,12 @@
 .upload {
     .form-body {
         .displayFlex;
-        background: @backgroundColor;
     }
 
     md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
-        background: @buttonColorRed;
     }
 
     .tab-content {
-        background: @backgroundColor;
         min-height: 300px;
         .displayFlex();
         -ms-flex-direction: column;
@@ -1090,31 +990,20 @@
         }
 
         svg {
-            fill: @fileColor;
             width: 50px;
             height: 50px;
         }
 
-        .link {
-            fill: @linkColor;
-        }
 
-        .dropbox {
-            fill: @dropboxColor;
-        }
 
         span {
             display: block;
-            background: @backgroundColorMenu;
             border-radius: 50%;
             width: 80px;
             height: 80px;
             padding: 15px;
             margin: 0 auto 10px;
 
-            &:hover {
-                background: @backgroundColorMouseOver;
-            }
         }
     }
 
@@ -1129,7 +1018,6 @@
 
     .actions {
         text-align: right;
-        background-color: @backgroundColor;
         padding: 20px 10px 10px 0;
     }
 }
@@ -1140,15 +1028,12 @@ md-tabs.box-nav-bar md-tabs-wrapper {
 
 #dropElement {
     h5 {
-        color: @borderColorBottomGrey;
 
         .completed {
-            color: @textColorGreen;
             margin-right: 5px;
         }
 
         .failed {
-            color: @textColorRed;
             margin-left: 5px;
         }
     }
@@ -1168,13 +1053,11 @@ md-tabs.box-nav-bar md-tabs-wrapper {
 
     .file-upload {
         text-align: center;
-        color: @textColorDarkGrey;
         width: 115px;
         height: 165px;
         font-size: 14px;
         position: relative;
         //override bootstrap
-        background: @fileColor;
         margin: 0 10px;
         border: none;
         padding: 5px 5px 0;
@@ -1188,24 +1071,9 @@ md-tabs.box-nav-bar md-tabs-wrapper {
             width: 100%;
             margin-bottom: 8px;
         }
-        //.progress-wrap {
-        //    background: @backgroundColorWhite;
-        //    padding-bottom: 10px;
-        //}
-        //.progress {
-        //    margin: 0 10px;
-        //    border-radius: 0;
-        //    height: 10px;
-        //
-        //    .progress-bar {
-        //        background-color: @progressbarColor;
-        //    }
-        //}
         .btn {
-            border: 1px solid @borderColorSpitballBlue;
             padding: 5px 40px;
             font-size: 18px;
-            color: @textColorSpitballBlue;
         }
 
         .check-mark {
@@ -1220,18 +1088,12 @@ md-tabs.box-nav-bar md-tabs-wrapper {
             line-height: 30px;
 
             svg {
-                fill: @checkMarkColor;
                 margin: 0;
                 width: 20px;
                 height: 20px;
                 vertical-align: middle;
             }
 
-            &.error {
-                svg {
-                    fill: @textColorRed;
-                }
-            }
         }
 
 
@@ -1249,16 +1111,12 @@ md-tabs.box-nav-bar md-tabs-wrapper {
             left: 0;
             right: 0;
 
-            .md-bar2 {
-                background-color: @progressbarColor;
-            }
         }
 
         .file-name {
             height: 105px;
             width: 100%;
             position: relative;
-            background: @textColorLightGrey;
             text-align: left;
             padding: 0 4px;
 
@@ -1268,8 +1126,6 @@ md-tabs.box-nav-bar md-tabs-wrapper {
         }
 
         button {
-            background-color: @backgroundColorRed;
-            color: @textColorWhite;
             width: 100%;
             border-radius: 5px;
             line-height: 20px;

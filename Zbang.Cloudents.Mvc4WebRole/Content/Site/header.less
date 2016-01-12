@@ -1,51 +1,18 @@
-﻿/* here you can put your own css to customize and override the theme */
+﻿@import "variables";
 
-/***
-Rounded Portlets
-***/
-/*
-.portlet {
-	border-radius: 4px !important;
-}
-
-.portlet .portlet-title {
-	border-radius: 4px 4px 0px 0px !important;
-}
-
-.portlet .portlet-body,
-.portlet .portlet-body .form-actions  {
-	border-radius: 0px 0px 4px 4px !important;
-}
-*/
-@import "variables";
-
-/*.header-menu {
-    background: transparent;
-    border: transparent;
-
-    svg {
-        width: 24px;
-        height: 24px;
-        fill: @color1;
-    }
-}*/
 .headerMenu {
     width: 20px;
     height: 20px;
-    fill: @borderColorBottomGrey;
 }
 
-.headerMenu:hover {
-    fill: @backgroundColorMouseOver;
-}
 
 .searchIcon {
     width: 15px;
     height: 15px;
-    fill: @textColorWhite;
 }
 
 .headerHelp {
+    //TODO: why important
     padding: 0 !important;
 }
 
@@ -60,7 +27,6 @@ Rounded Portlets
 
 .top-menu {
     svg {
-        fill: @headerImagesColor;
         height: 20px;
         width: 20px;
         margin-top: 30px;
@@ -79,7 +45,6 @@ Rounded Portlets
 
             svg {
                 margin-top: 0;
-                fill: @backgroundColorWhite;
             }
         }
     }
@@ -90,35 +55,18 @@ Rounded Portlets
         margin-top: 0;
         margin-right: 0;
     }
-
-    .badge-notifcation {
-        background-color: @backgroundColorRed;
-    }
 }
 
 .login, .signin {
     display: inline-block !important;
     border-radius: 25px;
-    background: @backgroundColorWhite;
-    color: @textColorBlack;
     margin-top: 13px;
     //background:#3293f6;
     font-size: 20px;
     text-transform: capitalize;
 
-    &:hover {
-        background: @backgroundColorWhite !important;
-    }
 }
 
-.login {
-    background: @backgroundColorSpitballBlue;
-    color: @textColorWhite;
-
-    &:hover {
-        background: @backgroundColorSpitballBlue !important;
-    }
-}
 
 .search-wrapper {
     display: inline;
@@ -126,7 +74,6 @@ Rounded Portlets
 
 
 .md-user-menu {
-    background: @backgroundColorMenu;
 
 
 
@@ -136,7 +83,6 @@ Rounded Portlets
         right: 25px;
         display: inline-block !important;
         border-right: 8px solid transparent;
-        border-bottom: 8px solid @backgroundColorMenu;
         border-left: 8px solid transparent;
         content: '';
     }
@@ -149,7 +95,6 @@ Rounded Portlets
         svg {
             width: 20px;
             height: 20px;
-            fill: @textColorWhite;
         }
 
 
@@ -160,9 +105,6 @@ Rounded Portlets
             width: 180px;
             text-align: left;
 
-            span {
-                color: @textColorWhite;
-            }
         }
 
         md-icon {
@@ -188,8 +130,6 @@ Rounded Portlets
     left: 0;
     height: 85px;
     z-index: 100;
-    background: @backgroundColorMenu;
-    border-bottom: 5px solid @backgroundColor;
 
     .logo-search {
         height: 100%;
@@ -203,7 +143,6 @@ Rounded Portlets
 
             .search-area {
                 position: relative;
-                background: @backgroundColor;
 
                 .search-btn {
                     position: absolute;
@@ -217,7 +156,6 @@ Rounded Portlets
                     line-height: 40px;
                     padding-left: 15px;
                     padding-right: 37px;
-                    color: @textColorWhite;
                 }
             }
         }
@@ -263,10 +201,6 @@ Rounded Portlets
     .user-md-menu {
         display: inline-block;
         padding: 0;
-
-        &:hover {
-            background: @backgroundColorMouseOver;
-        }
 
         .md-ripple-container {
             display: none;

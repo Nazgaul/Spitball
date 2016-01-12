@@ -1571,18 +1571,6 @@
     <Content Include="Content\Site\quizCreate.rtl.min.css">
       <DependentUpon>quizCreate.rtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\rtlFix.css">
-      <DependentUpon>rtlFix.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\rtlFix.min.css">
-      <DependentUpon>rtlFix.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\rtlFix.rtl.css">
-      <DependentUpon>rtlFix.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\rtlFix.rtl.min.css">
-      <DependentUpon>rtlFix.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\search.css">
       <DependentUpon>search.less</DependentUpon>
     </Content>
@@ -1857,7 +1845,6 @@
     <Content Include="Content\Site\item.less" />
     <Content Include="Content\Site\accountSettings.less" />
     <Content Include="Content\Site\General.less" />
-    <Content Include="Content\Site\rtlFix.less" />
     <Content Include="Content\Site\quiz.less" />
     <Content Include="Content\Site\Share.less" />
     <Content Include="Content\Site\leaderboard.less" />

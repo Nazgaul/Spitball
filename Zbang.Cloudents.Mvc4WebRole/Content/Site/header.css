@@ -1,43 +1,10 @@
-﻿/* here you can put your own css to customize and override the theme */
-/***
-Rounded Portlets
-***/
-/*
-.portlet {
-	border-radius: 4px !important;
-}
-
-.portlet .portlet-title {
-	border-radius: 4px 4px 0px 0px !important;
-}
-
-.portlet .portlet-body,
-.portlet .portlet-body .form-actions  {
-	border-radius: 0px 0px 4px 4px !important;
-}
-*/
-/*.header-menu {
-    background: transparent;
-    border: transparent;
-
-    svg {
-        width: 24px;
-        height: 24px;
-        fill: @color1;
-    }
-}*/
-.headerMenu {
+﻿.headerMenu {
   width: 20px;
   height: 20px;
-  fill: #5d6063;
-}
-.headerMenu:hover {
-  fill: #212325;
 }
 .searchIcon {
   width: 15px;
   height: 15px;
-  fill: #f5f5f5;
 }
 .headerHelp {
   padding: 0 !important;
@@ -51,7 +18,6 @@ Rounded Portlets
   margin-top: -7px;
 }
 .top-menu svg {
-  fill: #5f6871;
   height: 20px;
   width: 20px;
   margin-top: 30px;
@@ -68,7 +34,6 @@ Rounded Portlets
 }
 .top-menu .navbar-nav .open li a svg {
   margin-top: 0;
-  fill: #f5f5f5;
 }
 .top-menu .headerNotification {
   width: 20px;
@@ -76,35 +41,16 @@ Rounded Portlets
   margin-top: 0;
   margin-right: 0;
 }
-.top-menu .badge-notifcation {
-  background-color: #db4437;
-}
 .login,
 .signin {
   display: inline-block !important;
   border-radius: 25px;
-  background: #f5f5f5;
-  color: #282828;
   margin-top: 13px;
   font-size: 20px;
   text-transform: capitalize;
 }
-.login:hover,
-.signin:hover {
-  background: #f5f5f5 !important;
-}
-.login {
-  background: #3293f6;
-  color: #f5f5f5;
-}
-.login:hover {
-  background: #3293f6 !important;
-}
 .search-wrapper {
   display: inline;
-}
-.md-user-menu {
-  background: #323538;
 }
 .md-user-menu:before {
   position: absolute;
@@ -112,7 +58,6 @@ Rounded Portlets
   right: 25px;
   display: inline-block !important;
   border-right: 8px solid transparent;
-  border-bottom: 8px solid #323538;
   border-left: 8px solid transparent;
   content: '';
 }
@@ -122,16 +67,12 @@ Rounded Portlets
 .md-user-menu .user-menu-item svg {
   width: 20px;
   height: 20px;
-  fill: #f5f5f5;
 }
 .md-user-menu .user-menu-item .md-button {
   margin: 0;
   padding: 5px 0;
   width: 180px;
   text-align: left;
-}
-.md-user-menu .user-menu-item .md-button span {
-  color: #f5f5f5;
 }
 .md-user-menu .user-menu-item md-icon {
   margin: 0 10px;
@@ -153,8 +94,6 @@ Rounded Portlets
   left: 0;
   height: 85px;
   z-index: 100;
-  background: #323538;
-  border-bottom: 5px solid #181c1d;
 }
 .nav-bar .logo-search {
   height: 100%;
@@ -166,7 +105,6 @@ Rounded Portlets
 }
 .nav-bar .logo-search .search-form .search-area {
   position: relative;
-  background: #181c1d;
 }
 .nav-bar .logo-search .search-form .search-area .search-btn {
   position: absolute;
@@ -179,7 +117,6 @@ Rounded Portlets
   line-height: 40px;
   padding-left: 15px;
   padding-right: 37px;
-  color: #f5f5f5;
 }
 .nav-bar .logo-search .logo {
   margin: 0 16px;
@@ -218,9 +155,6 @@ Rounded Portlets
 .nav-bar .user-md-menu {
   display: inline-block;
   padding: 0;
-}
-.nav-bar .user-md-menu:hover {
-  background: #212325;
 }
 .nav-bar .user-md-menu .md-ripple-container {
   display: none;

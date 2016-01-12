@@ -208,6 +208,17 @@ md-tabs {
         fill: @backgroundColorMenu;
     }
 }
+.button-Blue {
+    background: @buttonColorBlue;
+
+    &:hover {
+        background: @buttonColorHover;
+        color: @textColorWhite;
+    }
+    /*&:focus {
+        color: inherit;
+    }*/
+}
 
 .tab-from-r {
     & > li {
@@ -2229,7 +2240,7 @@ body {
             line-height: @heightContent;
         }
     }
-
+    //TODO: remove this
     @heightOfAnswer: 25px;
 
     .counter-view {
@@ -2436,7 +2447,7 @@ md-chips .md-chips.md-focused {
 }
 /*#endregion*/
 
-/*#region staticPages.less*/
+/*#region Share.less*/
 .portlet.light.invite {
     svg {
         fill: @fileColor;
@@ -2484,6 +2495,99 @@ md-chips .md-chips.md-focused {
 .chipsdemoContactChips .contact-item .md-list-item-text h3, .chipsdemoContactChips .contact-item .md-list-item-text p {
     color: @textColorLightGrey;
 }
+/*#endregion*/
+
+/*#region staticPages.less*/
+
+
+.help-page {
+    .accordion-toggle {
+        .panel-heading {
+            color: @textColorWhite;
+            background: @textColorGrey;
+        }
+
+        &:not(.collapsed) .panel-heading {
+            background: @buttonColorBlue;
+        }
+    }
+}
+
+
+.contactUs-page {
+    #map {
+        color: @textColorBlack;
+    }
+
+    .contact-us {
+        
+        .data {
+            background: @backgroundColorWhite;
+            color: @textColorBlack;
+           
+            h4 {
+                background: @buttonColorBlue;
+                color: @textColorWhite;
+            }
+
+            address {
+                a {
+                    color: @textColorBlack;
+                }
+            }
+        }
+    }
+
+    .feedback {
+        label {
+            color: @textColorGrey !important;
+        }
+
+    }
+
+    .social-links {
+        svg {
+            fill: @buttonColorBlue;
+        }
+    }
+}
+
+.aboutUs-page {
+    .advantages {
+        color: @textColorGrey;
+
+        .portlet {
+            background-color: @backgroundColorWhite;
+        }
+
+        .card-icon {
+            border: 1px solid @progressbarBackgroundColor;
+            svg {
+                fill: @textColorBlack;
+            }
+        }
+
+        .card-title {
+            color: @textColorDarkGrey;
+        }
+    }
+
+    .about-text {
+        color: @textColorWhite;
+    }
+
+    .team {
+        .portlet {
+            background: @backgroundColorWhite;
+            color: @textColorBlack;
+        }
+    }
+
+    .about-header {
+        color: @textColorWhite;
+    }
+}
+
 /*#endregion*/
 
 /*#region user.less*/

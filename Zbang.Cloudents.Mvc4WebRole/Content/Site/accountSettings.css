@@ -11,7 +11,6 @@
   max-width: 800px;
 }
 .accountPage-wrapper .profile-content .section {
-  background: #323538;
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 5px;
@@ -41,8 +40,6 @@
 }
 .accountPage-wrapper .ontop {
   text-align: center;
-  background: #3293f6;
-  color: #f5f5f5;
   font-size: 11px;
   line-height: 25px;
   display: block;
@@ -65,26 +62,13 @@
 .accountPage-wrapper .left-flex {
   margin-right: 20px;
 }
-.accountPage-wrapper md-input-container:not(.md-input-invalid).md-input-focused .md-input {
-  border-bottom: 1px solid #2698d4;
-}
 .accountPage-wrapper .tab-from-r > li {
   margin: 0;
 }
 .accountPage-wrapper .tab-from-r > li:hover {
   border: none;
 }
-.accountPage-wrapper .tab-from-r > li:hover > a {
-  color: #2698d4;
-}
-.accountPage-wrapper .tab-from-r > li.active {
-  border-bottom: 3px solid #3598dc;
-}
-.accountPage-wrapper .tab-from-r > li.active > a {
-  color: #f5f5f5;
-}
 .accountPage-wrapper .tab-from-r > li > a {
-  color: #888b8e;
   font-size: 11px;
   padding: 13px 8px 5px 8px;
   border: none;
@@ -104,7 +88,6 @@
 .accountPage-wrapper .notification-list li {
   display: flex;
   padding: 10px 0 10px 5px;
-  border-bottom: 1px solid #5d6063;
 }
 .accountPage-wrapper .notification-list li select {
   background: #353A3F;
@@ -114,7 +97,6 @@
   flex-grow: 1;
 }
 .accountPage-wrapper .notification-list li .owner {
-  color: #888b8e;
   font-size: 12px;
   font-weight: bold;
 }
@@ -145,7 +127,6 @@
 .change-email-dialog svg {
   width: 25px;
   height: 25px;
-  fill: #323538;
 }
 .change-email-dialog .content {
   margin-left: 10px;

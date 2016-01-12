@@ -36,7 +36,7 @@
                 </div>
                 <div class="text-right">
                     <button type="button" class="btn btn-default" ng-click="i.cancelChangeName()" ga-track-event="['settings', 'cancel changes']">@GeneralResources.Cancel</button>
-                    <button type="submit" ng-disabled="!changeName.$valid || (i.data.lastName === i.original.lastName && i.data.firstName === i.original.firstName)" class="btn btn-primary" ga-track-event="['settings', 'save changes']">@GeneralResources.SaveChanges</button>
+                    <button type="submit" ng-disabled="!changeName.$valid || (i.data.lastName === i.original.lastName && i.data.firstName === i.original.firstName)" class="btn btn-primary button-Blue" ga-track-event="['settings', 'save changes']">@GeneralResources.SaveChanges</button>
                 </div>
             </form>
         </div>
@@ -49,7 +49,7 @@
                 </md-input-container>
                 <div class="text-right text-capitalize">
                     <button type="button" class="btn btn-default" ng-click="i.cancelChangeEmail()" ga-track-event="['settings', 'cancel changes']">@GeneralResources.Cancel</button>
-                    <button type="submit" class="btn btn-primary" ng-disabled="!changeEmail.$valid || i.data.email === i.original.email" ga-track-event="['settings', 'save changes']">@GeneralResources.SaveChanges</button>
+                    <button type="submit" class="btn button-Blue btn-primary" ng-disabled="!changeEmail.$valid || i.data.email === i.original.email" ga-track-event="['settings', 'save changes']">@GeneralResources.SaveChanges</button>
                 </div>
             </form>
         </div>
@@ -99,7 +99,7 @@
                 </md-input-container>
                 <div class="margin-top-10 text-right">
                     <button type="button" ng-click="ic.cancel()" class="btn-default text-capitalize">@GeneralResources.Cancel</button>
-                    <button type="submit" class="btn-primary text-capitalize" ng-disabled="!insertCode.$valid">@ItemsResources.Save</button>
+                    <button type="submit" class="button-Blue btn-primary text-capitalize" ng-disabled="!insertCode.$valid">@ItemsResources.Save</button>
                 </div>
             </form>
         </div>

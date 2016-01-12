@@ -103,7 +103,7 @@
                         config: {
                             url: '/search/?q',
                             controller: 'SearchController as s',
-                            data: { animateClass: 'search' },
+                            data: { animateClass: 'search full-screen' },
                             reloadOnSearch: false
                             //onEnter: routerHelper.universityRedirect
                         },
@@ -114,7 +114,7 @@
                         config: {
                             url: '/search/',
                             controller: 'SearchController as s',
-                            data: { animateClass: 'search' },
+                            data: { animateClass: 'search full-screen' },
                             reloadOnSearch: false
                             //onEnter: routerHelper.universityRedirect
                         },

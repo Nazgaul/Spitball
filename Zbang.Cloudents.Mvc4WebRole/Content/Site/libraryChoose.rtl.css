@@ -2,7 +2,6 @@
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
-  color: #888b8e;
   font-weight: 700;
   overflow: hidden;
 }
@@ -16,7 +15,6 @@
   width: 100%;
 }
 .library-choose .univeristy .img-circle {
-  background: #f5f5f5;
   overflow: hidden;
 }
 .library-choose .univeristy .list-inline img {
@@ -31,7 +29,6 @@
   display: flex;
   -webkit-align-items: center;
   align-items: center;
-  color: #323538;
   margin-bottom: 30px;
 }
 .library-choose .add-uni-btn span {
@@ -40,13 +37,11 @@
   line-height: 70px;
   font-size: 35px;
   text-align: center;
-  border: 3px solid #323538;
   border-radius: 50%;
 }
 .library-choose .add-uni-btn span svg {
   width: 35px;
   height: 35px;
-  fill: #323538;
 }
 .library-choose .add-uni-btn div {
   margin-right: 15px;
@@ -58,16 +53,6 @@
 }
 .library-choose .add-univeristy .btn {
   padding: 0 16px;
-}
-.library-choose .add-univeristy .btn-primary {
-  background: #4190b9;
-  /*&:focus {
-        color: inherit;
-    }*/
-}
-.library-choose .add-univeristy .btn-primary:hover {
-  background: #26566e;
-  color: #f5f5f5;
 }
 .library-choose .add-univeristy .btn-default {
   margin-left: 20px;
@@ -82,9 +67,6 @@
   padding-top: 50px;
   max-width: 420px;
 }
-.library-choose .code h4 {
-  color: #f5f5f5;
-}
 .library-choose .code > div,
 .library-choose .code > form > div {
   display: -webkit-flex;
@@ -96,25 +78,13 @@
 .library-choose .code .btn {
   padding: 0 16px;
 }
-.library-choose .code .btn-primary {
-  background: #4190b9;
-  /*&:focus {
-        color: inherit;
-    }*/
-}
-.library-choose .code .btn-primary:hover {
-  background: #26566e;
-  color: #f5f5f5;
-}
 .library-choose .code .closed-uni-i {
   width: 150px;
   height: 150px;
-  fill: #f9f9f9;
   margin-left: 15px;
   padding-top: 30px;
 }
 .library-choose .code .uni-details {
-  color: #f5f5f5;
   line-height: 20px;
   font-size: 17px;
 }
@@ -125,14 +95,12 @@
 .library-choose .code .info-i {
   width: 30px;
   height: 30px;
-  fill: #5f6871;
 }
 .library-choose .code .arrow-up {
   display: none;
   position: absolute;
   top: 55px;
   right: -25px;
-  background: #323538;
   border-radius: 5px;
   padding: 15px;
   width: 300px;
@@ -143,7 +111,6 @@
   height: 0;
   border-right: 10px solid transparent;
   border-left: 10px solid transparent;
-  border-bottom: 20px solid #323538;
   position: absolute;
   top: -20px;
   right: 30px;

@@ -1,7 +1,6 @@
 ﻿@import "variables.less";
 
 .quizPage {
-    color: @textColorBlack;
     /*-webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -10,7 +9,6 @@
     user-select: none;*/
     header + div {
         margin-top: 80px;
-        //min-height: ~"calc(100% - 160px)";
     }
 
 
@@ -65,7 +63,6 @@
         svg {
             width: 30px;
             height: 30px;
-            fill: @svgQuizArrows;
         }
 
         &.prev {
@@ -104,7 +101,6 @@
 
     .quiz-take-stats {
         margin-bottom: 12px;
-        border: 2px solid @borderColorBlue;
         .displayFlex();
         .align-items(stretch);
         border-radius: 10px;
@@ -135,9 +131,6 @@
             margin-left: 5px;
             width: 36px;
             height: 36px;
-            fill: @svgQuizPlay;
-            //display: inline-block;
-            //vertical-align: middle;
         }
 
         .stopwatch {
@@ -190,16 +183,12 @@
 
     .retake {
         width: 100%;
-        background: @buttonColorBlue;
-        color: @textColorWhite;
         border-radius: 10px;
         padding: 2px 0;
         font-size: 24px;
     }
 
     .black-bullet {
-        background: @borderColorDarkGrey;
-        color: @textColorWhite;
         text-align: center;
         border-radius: 10px;
         margin-bottom: 15px;
@@ -248,9 +237,6 @@
             .justifyContet(center);
             margin: 15px 0;
 
-            &:first-child {
-                border-right: 1px solid @borderColorLightGrey;
-            }
         }
 
 
@@ -264,13 +250,11 @@
 
             svg {
                 margin-left: 5px;
-                fill: @svgQuizCorrect;
             }
         }
 
         .wrong svg {
             width: 45px;
-            fill: @svgQuizWrong;
             margin-right: 5px;
         }
 
@@ -299,10 +283,8 @@
 
     .time-taken {
         font-size: 36px;
-        color: @textColorBlue;
 
         svg {
-            fill: @svgQuizTime;
             width: 46px;
             height: 52px;
             vertical-align: middle;
@@ -320,8 +302,6 @@
         textarea {
             width: 100%;
             margin-bottom: 10px;
-            color: @textColorBlack;
-            /*border: 1px solid @borderColorGrey;*/
         }
     }
     //comment section
@@ -334,7 +314,6 @@
           }
 
         .top {
-            color: @textColorBlack;
             position: inherit;
         }
 
@@ -349,7 +328,6 @@
     }
 
     .feed .reply .user-name {
-        color: @textColorBlack;
         font-weight: 700;
     }
 }
@@ -359,15 +337,6 @@
     p {
         margin: 0 0 0 10px;
     }
-    /*border: 1px solid #B7B7B7;
-    background: #fff;
-    color: #000;
-    padding: 26px;
-    margin: 10px 0;*/
-    .index {
-        color: @textColorBlue;
-    }
-
     .q {
         .displayFlex();
         font-size: 14px;
@@ -385,7 +354,6 @@
         svg {
             width: 16px;
             height: 16px;
-            fill: @svgColorGrey;
         }
     }
 
@@ -404,10 +372,7 @@
 
     .counter-view {
         border-radius: 50%;
-        border: 2px solid @borderColorBlue;
-        color: @textColorBlue;
         font-size: 20px;
-        //padding: 5px 10px;
     }
 
     .circle {
@@ -427,16 +392,11 @@
     }
 
     .a-body {
-        border-bottom: 1px solid @borderColorBlue;
         width: 100%;
         padding: 15px 10px 20px;
         margin-right: 50px;
     }
 
-    .answer-selected {
-        background: @backgroundColorSpitballBlue;
-        color: @textColorWhite;
-    }
 }
 
 .quiz-challenge {
@@ -460,8 +420,6 @@
     }
 
     h5 {
-        color: @textColorLike;
-        font-weight: bold;
         font-size: 50px;
         margin: 0 10px 0 0; //override
         padding-bottom: 10px;
@@ -478,9 +436,7 @@
 
     .backgrounds {
         margin: 25px auto;
-        background: @backgroundColorMenu;
         border-radius: 10px;
-        color: @textColorWhite;
         padding: 10px 20px;
 
         svg {
@@ -519,7 +475,6 @@
         svg {
             width: 50px;
             height: 50px;
-            fill: @svgQuizBald;
         }
 
         span {
@@ -527,17 +482,7 @@
         }
     }
 
-    .complete {
-        svg {
-            fill: @svgQuizCompleted;
-        }
-    }
 
-    .ranking {
-        svg {
-            fill: @svgQuizRanking;
-        }
-    }
 
     .buttons {
         margin: 0 auto;
@@ -555,10 +500,6 @@
             }
         }
 
-        .scared {
-            background: @backgroundColor2;
-            color: @textColorWhite;
-        }
     }
 }
 
@@ -567,11 +508,8 @@
 }
 
 .quiz-wrapper {
-    background: @backgroundColorWhite;
-    color: @textColorBlack;
     border-radius: 10px;
-    background: #fff;
-    box-shadow: 0 3px 8px @progressbarBackgroundColor;
+    background: #fff; //TODO: why not theme?
     padding: 26px;
 
     @media (max-width: 600px) {
@@ -594,8 +532,6 @@
     .no-answer-element {
         display: none;
         text-align: center;
-        background: @backgroundColorRed;
-        color: @textColorWhite;
         font-size: 20px;
     }
 
@@ -605,8 +541,6 @@
         }
 
         .correct-answer {
-            background: @backgroundColorSpitballBlue;
-            color: @textColorWhite;
 
             &:before {
                 content: '\2714';
@@ -616,9 +550,7 @@
 
     &.wrong {
         .answer-selected {
-            background: @backgroundColorRed;
             color: #fff;
-            border-color: @borderColorRed;
 
             &:before {
                 content: '\2716';
@@ -626,9 +558,7 @@
         }
 
         .correct-answer {
-            background: @backgroundColorGreen;
             color: #fff;
-            border-color: @borderColorGreen;
 
             &:before {
                 content: '\2714';
@@ -638,9 +568,7 @@
 
     &.correct {
         .correct-answer {
-            background: @backgroundColorGreen;
             color: #fff;
-            border-color: @borderColorGreen;
 
             &:before {
                 content: '\2714';

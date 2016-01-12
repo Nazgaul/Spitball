@@ -9,14 +9,12 @@
 .itemPage header svg {
   width: 17px;
   height: 17px;
-  fill: #c2c2c2;
 }
 .itemPage header .fb-like {
   white-space: nowrap;
 }
 .itemPage header .fb-like button {
   font-size: 14px;
-  color: #c2c2c2;
   padding-left: 25px;
   text-transform: capitalize;
 }
@@ -46,19 +44,8 @@
     margin-left: 15px;
   }
 }
-.itemPage header .fb-like.blue svg {
-  fill: #4190b9;
-}
-.itemPage md-select:not([disabled]):focus .md-select-value {
-  color: #282828;
-  border-bottom: 1px solid #376e8c;
-}
-.itemPage md-select .md-select-value.md-select-placeholder {
-  color: #282828;
-}
 .itemPage .fileName {
   text-align: center;
-  color: #282828;
   font-size: 20px;
   white-space: nowrap;
   -ms-text-overflow: ellipsis;
@@ -94,12 +81,8 @@
 .itemPage .fileName form md-content {
   background: none;
 }
-.itemPage .fileName form md-input-container .md-input {
-  color: #323538;
-}
 .itemPage .fileName form .rounded-input {
   border-radius: 5px;
-  border: 1px solid #3293f6;
   padding: 5px 10px;
   margin-bottom: 20px;
 }
@@ -108,7 +91,6 @@
   margin-left: 10px;
 }
 .itemPage .fileName svg {
-  fill: #c2c2c2;
   width: 20px;
   height: 20px;
 }
@@ -129,7 +111,6 @@
 .itemPage .arrows .arrow {
   position: fixed;
   top: calc(50% + 80px);
-  fill: #c2c2c2;
 }
 .itemPage .right {
   -moz-transform: rotate(0) /*rtl:rotate(180deg)*/;
@@ -164,7 +145,6 @@
   }
 }
 .preview .previewFailed p {
-  color: #282828;
   font-size: 22px;
 }
 @media (max-width: 600px) {
@@ -184,14 +164,12 @@
 .preview .preview-image .imageContent {
   background: #fff;
   border-radius: 15px;
-  box-shadow: 0 3px 8px #dfe2e9;
 }
 .preview .preview-svg .svgContent {
   height: 100%;
 }
 .preview img {
   max-width: 100%;
-  background: #f5f5f5;
   margin: 10px 0;
 }
 .copy-right {

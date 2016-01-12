@@ -1,33 +1,7 @@
-﻿.search {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1002;
-  overflow-y: auto;
-  background: #f5f5f5;
-  height: 100vh;
-  width: 100vw;
-  background: #181c1d;
-}
-@media (min-width: 960px) {
+﻿@media (min-width: 960px) {
   .search .s-content {
     padding: 0 5%;
   }
-}
-.search ::-webkit-input-placeholder {
-  color: #888b8e;
-}
-.search :-moz-placeholder {
-  /* Firefox 18- */
-  color: #888b8e;
-}
-.search ::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #888b8e;
-}
-.search :-ms-input-placeholder {
-  color: #888b8e;
 }
 @media (max-width: 959px) {
   .search .s-hide {
@@ -41,9 +15,6 @@
   .search h3 {
     display: none;
   }
-}
-.search em {
-  color: #ffa500;
 }
 .search .item,
 .search .quiz {
@@ -65,7 +36,6 @@
   right: 40%;
   top: 0;
   text-align: justify;
-  color: #f5f5f5;
   padding-right: 15px;
 }
 .search .quiz .top .first-letter {
@@ -102,7 +72,6 @@
   top: 37%;
   right: 16% ;
   position: absolute;
-  color: #282828;
   font-size: 38px;
   width: 30%;
   font-weight: bold;
@@ -122,7 +91,6 @@
   font-size: 7vw;
   background: transparent;
   border: none;
-  color: #3293f6;
   outline: none;
   line-height: normal;
   padding-top: 25px;
