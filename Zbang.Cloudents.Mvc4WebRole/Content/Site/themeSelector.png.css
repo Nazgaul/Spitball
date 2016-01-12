@@ -1,0 +1,15 @@
+﻿/*
+This is an example of how to use the image sprite in your own CSS files
+*/
+.Images-Site-themeDark {
+/* You may have to set 'display: block' */
+	width: 150px;
+	height: 75px;
+	background: url('themeSelector.png') -1px -1px;
+}
+.Images-Site-themeLight {
+/* You may have to set 'display: block' */
+	width: 150px;
+	height: 75px;
+	background: url('themeSelector.png') -1px -77px;
+}

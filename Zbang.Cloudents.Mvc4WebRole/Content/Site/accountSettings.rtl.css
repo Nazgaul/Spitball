@@ -1,4 +1,8 @@
-﻿.accountPage-wrapper {
+﻿/*
+@import this file directly into your existing Less files to use these mixins
+*/
+.accountPage-wrapper {
+  max-width: 800px;
   /*svg {
         width: 17px;
         height: 17px;
@@ -7,25 +11,45 @@
         margin-right: 12px;
     }*/
 }
-.accountPage-wrapper .profile-content {
-  max-width: 800px;
+.accountPage-wrapper h2 {
+  font-size: 12px;
+  margin-top: 6px;
 }
-.accountPage-wrapper .profile-content .section {
+.accountPage-wrapper .themeDark {
+  /* You may have to set 'display: block' */
+  width: 150px;
+  height: 75px;
+  background: url('themeSelector.png') -1px -1px;
+}
+.accountPage-wrapper .themeLight {
+  /* You may have to set 'display: block' */
+  width: 150px;
+  height: 75px;
+  background: url('themeSelector.png') -1px -77px;
+}
+.accountPage-wrapper .theme-section {
+  text-align: right;
+}
+.accountPage-wrapper .theme-section.selected {
+  color: #2698D4;
+}
+.accountPage-wrapper .theme-section.selected div {
+  border: 1px solid #2698D4;
+}
+.accountPage-wrapper .section {
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 5px;
 }
-.accountPage-wrapper .profile-content .portlet-body .form-group .fileinput h2 {
-  font-size: 12px;
-  margin-top: 6px;
-}
-.accountPage-wrapper .profile-content .portlet-body .form-group .fileinput .thumbnail {
+.accountPage-wrapper .fileinput .thumbnail {
   background: none;
   border: none;
   border-radius: 100%;
   position: relative;
   overflow: hidden;
   padding: 0;
+  width: 150px;
+  height: 150px;
 }
 .accountPage-wrapper .ov-hidden {
   overflow: hidden;
@@ -41,9 +65,9 @@
 .accountPage-wrapper .ontop {
   text-align: center;
   font-size: 11px;
-  line-height: 25px;
+  line-height: 30px;
   display: block;
-  margin-top: calc(100% - 25px);
+  margin-top: calc(100% - 30px);
   position: initial !important;
 }
 .accountPage-wrapper .portlet.light > .portlet-title {

@@ -142,14 +142,14 @@ md-tabs md-ink-bar {
   fill: #ffffff;
 }
 .button-Blue {
-  background: #4190b9;
+  background: #4190b9 !important;
   /*&:focus {
         color: inherit;
     }*/
 }
 .button-Blue:hover {
-  background: #26566e;
-  color: #212325;
+  background: #26566e !important;
+  color: #212325 !important;
 }
 .tab-from-r > li > a {
   color: #ffffff;
@@ -214,7 +214,10 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 }
 /*#endregion*/
 /*#region accountSettings.less*/
-.accountPage-wrapper .profile-content .section {
+.accountPage-wrapper .fileinput .thumbnail {
+  border: 1px solid #3293f6;
+}
+.accountPage-wrapper .section {
   background: #ffffff;
 }
 .accountPage-wrapper .ontop {
@@ -1961,4 +1964,7 @@ md-tabs .md-tab.md-active {
 .add-comment md-input-container .md-input:focus,
 md-menu-item > .md-button span {
   color: #212325;
+}
+.accountPage-wrapper .ontop {
+  color: #f5f5f5;
 }

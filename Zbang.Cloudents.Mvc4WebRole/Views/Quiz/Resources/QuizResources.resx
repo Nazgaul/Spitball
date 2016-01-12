@@ -156,12 +156,6 @@
   <data name="GoBack" xml:space="preserve">
     <value>Go back and check your answers</value>
   </data>
-  <data name="Good" xml:space="preserve">
-    <value>Good</value>
-  </data>
-  <data name="Job" xml:space="preserve">
-    <value>Job</value>
-  </data>
   <data name="Leave" xml:space="preserve">
     <value>You haven't finished this quiz. Do you want to leave?</value>
   </data>

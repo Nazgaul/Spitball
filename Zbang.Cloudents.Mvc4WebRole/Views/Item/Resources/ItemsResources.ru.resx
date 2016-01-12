@@ -123,9 +123,6 @@
   <data name="Download" xml:space="preserve">
     <value>Загрузить</value>
   </data>
-  <data name="OpenLink" xml:space="preserve">
-    <value>Открыть ссылку в новой вкладке</value>
-  </data>
   <data name="PleaseUseThe" xml:space="preserve">
     <value>Пожалуйста, используйте</value>
   </data>
@@ -137,9 +134,6 @@
     <value>Предварительный просмотр
 
 недоступен для файлов этого типа.</value>
-  </data>
-  <data name="SecurityReasons" xml:space="preserve">
-    <value>По соображениям безопасности эту ссылку невозможно открыть в Spitball</value>
   </data>
   <data name="MayTake" xml:space="preserve">
     <value>это может занять пару минут</value>

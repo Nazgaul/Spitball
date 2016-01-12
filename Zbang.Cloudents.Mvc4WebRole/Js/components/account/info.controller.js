@@ -100,12 +100,12 @@
             });
         }
 
-        function changeTheme() {
-            if (self.data.theme == userData.theme) {
+        function changeTheme(theme) {
+            if (theme == userData.theme) {
                 return;
             }
 
-            accountService.changeTheme(self.data.theme).then(function () {
+            accountService.changeTheme(theme).then(function () {
                 location.reload(true);
             });
         }

@@ -106,7 +106,6 @@
       <LastGenOutput>EmailResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\EmailResource.ru.resx" />
-    <EmbeddedResource Include="Resources\EmailResource.zh.resx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MailTemplate\ChangeEmail.html" />

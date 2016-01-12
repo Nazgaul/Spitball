@@ -266,7 +266,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Enums\Resources\EnumResources.ru.resx" />
-    <EmbeddedResource Include="Enums\Resources\EnumResources.zh.resx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">
@@ -288,7 +287,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Enums\Resources\QuestionResource.ru.resx" />
-    <EmbeddedResource Include="Enums\Resources\QuestionResource.zh.resx" />
     <EmbeddedResource Include="Security\Resources\Validation.ar.resx" />
     <EmbeddedResource Include="Security\Resources\Validation.en-GB.resx" />
     <EmbeddedResource Include="Security\Resources\Validation.he.resx" />
@@ -298,7 +296,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Security\Resources\Validation.ru.resx" />
-    <EmbeddedResource Include="Security\Resources\Validation.zh.resx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Profile\Resources\S100X100Lib1.jpg" />

@@ -61,38 +61,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Close.
-        /// </summary>
-        public static string Close {
-            get {
-                return ResourceManager.GetString("Close", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Contact us page.
         /// </summary>
         public static string ContactUs {
             get {
                 return ResourceManager.GetString("ContactUs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Help.
-        /// </summary>
-        public static string Help {
-            get {
-                return ResourceManager.GetString("Help", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save changes.
-        /// </summary>
-        public static string SaveChanges {
-            get {
-                return ResourceManager.GetString("SaveChanges", resourceCulture);
             }
         }
     }

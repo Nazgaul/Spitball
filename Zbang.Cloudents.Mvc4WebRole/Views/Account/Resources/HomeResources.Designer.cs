@@ -70,74 +70,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Address.
-        /// </summary>
-        public static string Address {
-            get {
-                return ResourceManager.GetString("Address", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Close.
-        /// </summary>
-        public static string Close {
-            get {
-                return ResourceManager.GetString("Close", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Contact us.
         /// </summary>
         public static string ContactUs {
             get {
                 return ResourceManager.GetString("ContactUs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Email.
-        /// </summary>
-        public static string Email {
-            get {
-                return ResourceManager.GetString("Email", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Feedback.
-        /// </summary>
-        public static string Feedback {
-            get {
-                return ResourceManager.GetString("Feedback", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Spitball is a free online and mobile social studying platform. A community focused on academic activity.
-        /// </summary>
-        public static string FeedbackIntro {
-            get {
-                return ResourceManager.GetString("FeedbackIntro", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Help.
-        /// </summary>
-        public static string Help {
-            get {
-                return ResourceManager.GetString("Help", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save changes.
-        /// </summary>
-        public static string SaveChanges {
-            get {
-                return ResourceManager.GetString("SaveChanges", resourceCulture);
             }
         }
     }

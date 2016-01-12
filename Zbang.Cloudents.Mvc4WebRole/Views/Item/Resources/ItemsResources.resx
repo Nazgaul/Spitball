@@ -126,9 +126,6 @@
   <data name="MayTake" xml:space="preserve">
     <value>This may take several minutes</value>
   </data>
-  <data name="OpenLink" xml:space="preserve">
-    <value>Open link in new tab</value>
-  </data>
   <data name="PleaseUseThe" xml:space="preserve">
     <value>Please use the</value>
   </data>
@@ -140,9 +137,6 @@
   </data>
   <data name="Processing" xml:space="preserve">
     <value>Processing new media file</value>
-  </data>
-  <data name="SecurityReasons" xml:space="preserve">
-    <value>For security reasons, this link cannot be opened in Spitball</value>
   </data>
   <data name="ReportAbuse" xml:space="preserve">
     <value>Report abuse</value>

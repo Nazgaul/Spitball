@@ -115,15 +115,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open link in new tab.
-        /// </summary>
-        public static string OpenLink {
-            get {
-                return ResourceManager.GetString("OpenLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Please use the.
         /// </summary>
         public static string PleaseUseThe {
@@ -183,15 +174,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to For security reasons, this link cannot be opened in Spitball.
-        /// </summary>
-        public static string SecurityReasons {
-            get {
-                return ResourceManager.GetString("SecurityReasons", resourceCulture);
             }
         }
     }
