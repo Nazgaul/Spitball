@@ -62,25 +62,25 @@ where cte.itemid = @itemid;
             @"select ir.Rate from zbox.ItemRate ir where ir.ItemId = @ItemId and ir.OwnerId = @UserId;";
 
 
-//        public const string ItemComments = @"SELECT [ItemCommentId] as Id
-//                          ,[Comment]
-//                          ,ic.CreationTime as CreationDate
-//	                      ,u.UserName
-//                          ,u.userid as UserId
-//  FROM [Zbox].[ItemComment] ic join zbox.Users u on ic.UserId = u.UserId
-//                      where itemid = @ItemId
-//                      order by ic.CreationTime desc;";
+        public const string ItemComments = @"SELECT [ItemCommentId] as Id
+                          ,[Comment]
+                          ,ic.CreationTime as CreationDate
+	                      ,u.UserName
+                          ,u.userid as UserId
+  FROM [Zbox].[ItemComment] ic join zbox.Users u on ic.UserId = u.UserId
+                      where itemid = @ItemId
+                      order by ic.CreationTime desc;";
 
-//        public const string ItemCommentReply = @"SELECT [ItemReplyId] as Id
-//,[Comment]
-//,cr.CreationTime as CreationDate
-//,u.UserName as UserName
-//    
-//      ,u.UserId
-//      ,[ParentId]
-//      
-//  FROM [Zbox].[ItemCommentReply] cr join zbox.Users u on cr.UserId = u.userid
-//  where itemid = @ItemId
-//  order by cr.CreationTime desc;";
+        public const string ItemCommentReply = @"SELECT [ItemReplyId] as Id
+,[Comment]
+,cr.CreationTime as CreationDate
+,u.UserName as UserName
+    
+      ,u.UserId
+      ,[ParentId]
+      
+  FROM [Zbox].[ItemCommentReply] cr join zbox.Users u on cr.UserId = u.userid
+  where itemid = @ItemId
+  order by cr.CreationTime desc;";
     }
 }

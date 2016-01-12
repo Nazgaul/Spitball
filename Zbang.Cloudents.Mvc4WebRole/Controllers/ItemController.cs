@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     retVal.Blob,
                     retVal.BoxUrl,
-                    //retVal.Comments,
+                    retVal.Comments,
                     retVal.Name,
                     retVal.Navigation.Next,
                     retVal.Navigation.Previous,
@@ -446,6 +446,63 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
 
             m_QueueProvider.InsertMessageToTranaction(new BadItemData(model.BadItem.GetEnumDescription(), model.Other, User.GetUserId(), model.ItemId));
+            return JsonOk();
+        }
+
+
+        [HttpPost, ZboxAuthorize]
+        public async Task<JsonResult> AddComment(NewAnnotation model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return JsonError(GetErrorFromModelState());
+            }
+            try
+            {
+                var command = new AddAnnotationCommand(model.Comment, model.ItemId, User.GetUserId(), model.BoxId);
+                await ZboxWriteService.AddAnnotationAsync(command);
+                return JsonOk(command.AnnotationId);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return JsonError();
+            }
+        }
+        [HttpPost]
+        [ZboxAuthorize]
+        public JsonResult DeleteComment(DeleteItemComment model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return JsonError(GetErrorFromModelState());
+            }
+            var command = new DeleteItemCommentCommand(model.CommentId, User.GetUserId());
+            ZboxWriteService.DeleteAnnotation(command);
+            return JsonOk();
+        }
+        [HttpPost]
+        [ZboxAuthorize]
+        public async Task<JsonResult> ReplyComment(ReplyItemComment model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return JsonError(GetErrorFromModelState());
+
+            }
+            var command = new AddReplyToAnnotationCommand(User.GetUserId(), model.ItemId, model.Comment, model.CommentId, model.BoxId);
+            await ZboxWriteService.AddReplyAnnotationAsync(command);
+            return JsonOk(command.ReplyId);
+        }
+
+        [HttpPost, ZboxAuthorize]
+        public JsonResult DeleteCommentReply(DeleteItemCommentReply model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return JsonError(GetErrorFromModelState());
+            }
+            var command = new DeleteItemCommentReplyCommand(User.GetUserId(), model.ReplyId);
+            ZboxWriteService.DeleteItemCommentReply(command);
             return JsonOk();
         }
 

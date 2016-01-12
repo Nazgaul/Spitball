@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Enums;
 
 
@@ -30,8 +31,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public string BoxUrl { get; set; }
 
-        //public string PreviousUrl { get; set; }
-        //public string NextUrl { get; set; }
 
         public string DownloadUrl { get; set; }
         public string PrintUrl { get; set; }
@@ -40,7 +39,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public UserRelationshipType UserType { get; set; }
 
-        //public IEnumerable<ActivityDtos.AnnotationDto> Comments { get; set; }
+        public IEnumerable<ActivityDtos.AnnotationDto> Comments { get; set; }
 
         public string ShortUrl { get; set; }
     }

@@ -60,6 +60,7 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddAnnotationCommand.cs" />
     <Compile Include="AddAnswerToQuestionCommand.cs" />
     <Compile Include="AddCommentCommandResult.cs" />
     <Compile Include="AddFileToBoxCommand.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="AddNewUpdatesCommand.cs" />
     <Compile Include="AddCommentCommand.cs" />
     <Compile Include="AddNodeToLibraryCommand.cs" />
+    <Compile Include="AddReplyToAnnotationCommand.cs" />
     <Compile Include="AddStudentCommand.cs" />
     <Compile Include="AssignItemToTabCommand.cs" />
     <Compile Include="ChangeBoxInfoCommand.cs" />
@@ -87,6 +89,8 @@
     <Compile Include="CreateMembershipUserCommandResult.cs" />
     <Compile Include="CreateUniversityCommand.cs" />
     <Compile Include="DeleteBoxCommand.cs" />
+    <Compile Include="DeleteItemCommentCommand.cs" />
+    <Compile Include="DeleteItemCommentReplyCommand.cs" />
     <Compile Include="DeleteItemTabCommand.cs" />
     <Compile Include="DeleteNodeFromLibraryCommand.cs" />
     <Compile Include="DeleteNotificationCommand.cs" />

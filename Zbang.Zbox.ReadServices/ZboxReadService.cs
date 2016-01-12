@@ -262,7 +262,8 @@ namespace Zbang.Zbox.ReadServices
                     "select NotificationSettings from zbox.UserBoxRel where userid = @UserId and boxid = @BoxId";
                 var val = await conn.QueryAsync<NotificationSettings>(getBoxNotification, new
                 {
-                    UserId = userId, query.BoxId
+                    UserId = userId,
+                    query.BoxId
                 });
                 return val.FirstOrDefault();
             }
@@ -290,7 +291,8 @@ namespace Zbang.Zbox.ReadServices
                  {
                      query.BoxId,
                      pageNumber = query.PageNumber,
-                     rowsperpage = query.RowsPerPage, query.TabId
+                     rowsperpage = query.RowsPerPage,
+                     query.TabId
                  });
             }
         }
@@ -335,7 +337,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-       
+
 
         public async Task<Item.ItemMobileDto> GetItemDetailApiAsync(GetItemQuery query)
         {
@@ -353,11 +355,11 @@ namespace Zbang.Zbox.ReadServices
                 using (
                     var grid =
                         await
-                            conn.QueryMultipleAsync(string.Format("{0} {1} {2}",
+                            conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4}",
                             Sql.Item.ItemDetail,
                             Sql.Item.Navigation,
-                    //Sql.Item.ItemComments,
-                    //Sql.Item.ItemCommentReply,
+                           Sql.Item.ItemComments,
+                           Sql.Item.ItemCommentReply,
                           Sql.Item.UserItemRate
                             ),
                                 new { query.ItemId, query.BoxId, query.UserId }))
@@ -368,17 +370,17 @@ namespace Zbang.Zbox.ReadServices
                         throw new ItemNotFoundException();
                     }
                     retVal.Navigation = grid.Read<Item.ItemNavigationDto>().FirstOrDefault();
-                    //retVal.Comments = await grid.ReadAsync<Activity.AnnotationDto>();
+                    retVal.Comments = await grid.ReadAsync<Activity.AnnotationDto>();
 
 
-                    //IEnumerable<Activity.AnnotationReplyDto> replies =
-                    //    grid.Read<Activity.AnnotationReplyDto>().ToList();
+                    IEnumerable<Activity.AnnotationReplyDto> replies =
+                        grid.Read<Activity.AnnotationReplyDto>().ToList();
 
-                    //foreach (var comment in retVal.Comments)
-                    //{
-                    //    comment.Replies.AddRange(replies.Where(w => w.ParentId == comment.Id));
+                    foreach (var comment in retVal.Comments)
+                    {
+                        comment.Replies.AddRange(replies.Where(w => w.ParentId == comment.Id));
 
-                    //}
+                    }
                     retVal.Like = grid.Read<int>().FirstOrDefault();
                     return retVal;
                 }
