@@ -1595,6 +1595,12 @@
     <Content Include="Content\Site\Share.rtl.min.css">
       <DependentUpon>Share.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\siteColors.css">
+      <DependentUpon>siteColors.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\siteColors.rtl.css">
+      <DependentUpon>siteColors.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\staticPages.css">
       <DependentUpon>staticPages.less</DependentUpon>
     </Content>
