@@ -358,9 +358,9 @@ namespace Zbang.Zbox.ReadServices
                             conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4}",
                             Sql.Item.ItemDetail,
                             Sql.Item.Navigation,
-                           Sql.Item.ItemComments,
-                           Sql.Item.ItemCommentReply,
-                          Sql.Item.UserItemRate
+                            Sql.Item.ItemComments,
+                            Sql.Item.ItemCommentReply,
+                            Sql.Item.UserItemRate
                             ),
                                 new { query.ItemId, query.BoxId, query.UserId }))
                 {
