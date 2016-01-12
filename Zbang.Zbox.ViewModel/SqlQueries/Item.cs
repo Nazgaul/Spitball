@@ -66,6 +66,7 @@ where cte.itemid = @itemid;
                           ,[Comment]
                           ,ic.CreationTime as CreationDate
 	                      ,u.UserName
+,u.UserImageLarge as UserImage
                           ,u.userid as UserId
   FROM [Zbox].[ItemComment] ic join zbox.Users u on ic.UserId = u.UserId
                       where itemid = @ItemId
@@ -75,7 +76,7 @@ where cte.itemid = @itemid;
 ,[Comment]
 ,cr.CreationTime as CreationDate
 ,u.UserName as UserName
-    
+    ,u.UserImageLarge as UserImage
       ,u.UserId
       ,[ParentId]
       

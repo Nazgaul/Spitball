@@ -1,0 +1,15 @@
+﻿/*
+@import this file directly into your existing Scss files to use these mixins
+*/
+@mixin sprite-Images-Site-themeDark() {
+/* You may have to set 'display: block' */
+	width: 150px;
+	height: 75px;
+	background: url('themeSelector.png') -1px -1px;
+}
+@mixin sprite-Images-Site-themeLight() {
+/* You may have to set 'display: block' */
+	width: 150px;
+	height: 75px;
+	background: url('themeSelector.png') -1px -77px;
+}

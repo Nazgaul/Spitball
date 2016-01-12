@@ -168,9 +168,6 @@
   <data name="TooShort" xml:space="preserve">
     <value>קצר מידי</value>
   </data>
-  <data name="AboutUs" xml:space="preserve">
-    <value>מי אנחנו</value>
-  </data>
   <data name="ThereIsMore" xml:space="preserve">
     <value>יש עוד הרבה מה לראות</value>
   </data>

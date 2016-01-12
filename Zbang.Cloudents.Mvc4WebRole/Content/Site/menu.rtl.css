@@ -1,15 +1,9 @@
-﻿/*.menuSvg {
-    width: 30px;
-    height: 25px;
-    fill: #fff;
-}*/
-.page-sidebar-menu .icon {
+﻿.page-sidebar-menu .icon {
   margin-left: 15px;
   width: 22px;
   display: inline-block;
 }
 .page-sidebar-menu .icon svg {
-  fill: #f5f5f5;
   vertical-align: middle;
 }
 .page-sidebar-menu .arrow.icon svg {
@@ -50,7 +44,6 @@
 .page-body md-sidenav {
   position: fixed !important;
   top: 80px;
-  background: #323538;
   border-radius: 5px;
   width: 250px;
   margin-right: 0;
@@ -59,10 +52,6 @@
 }
 .page-body md-sidenav * {
   background: transparent;
-}
-.page-body md-sidenav md-content .md-button {
-  color: #f5f5f5;
-  fill: #f5f5f5;
 }
 .page-body md-sidenav md-content .md-button span {
   text-transform: capitalize;
@@ -110,9 +99,6 @@
   width: 20px;
   height: 20px;
   display: inherit;
-}
-.side-menu .md-button.active {
-  background: #212325;
 }
 .side-menu .menu-toggle-list a.md-button {
   display: -webkit-flex;

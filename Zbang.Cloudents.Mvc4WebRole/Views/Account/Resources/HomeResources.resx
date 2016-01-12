@@ -120,28 +120,7 @@
   <data name="AboutCloudents" xml:space="preserve">
     <value>About Spitball</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Close</value>
-  </data>
   <data name="ContactUs" xml:space="preserve">
     <value>Contact us</value>
-  </data>
-  <data name="Help" xml:space="preserve">
-    <value>Help</value>
-  </data>
-  <data name="SaveChanges" xml:space="preserve">
-    <value>Save changes</value>
-  </data>
-  <data name="Address" xml:space="preserve">
-    <value>Address</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="Feedback" xml:space="preserve">
-    <value>Feedback</value>
-  </data>
-  <data name="FeedbackIntro" xml:space="preserve">
-    <value>Spitball is a free online and mobile social studying platform. A community focused on academic activity</value>
   </data>
 </root>

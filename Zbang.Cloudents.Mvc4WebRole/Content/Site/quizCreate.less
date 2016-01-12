@@ -5,16 +5,8 @@
         padding: 0 25px;
     }
 
-    md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
-        background: @buttonColorRed;
-    }
-    /*#quiz-error{
-        height: 100px;
-    }*/
     .not-supported {
         height: 100vh;
-        background: @backgroundColor;
-        color: @textColorGrey;
         padding: 0 15px;
 
         .bubble {
@@ -24,7 +16,6 @@
 
             .text {
                 font-size: 16px;
-                border: 1px solid @textColorGrey;
                 border-radius: 10px;
                 padding: 25px 10px;
                 text-align: center;
@@ -45,7 +36,6 @@
             left: 60%;
             top: -40px;
             border: 20px solid;
-            border-color: transparent transparent @textColorGrey @textColorGrey;
         }
 
         .text:after {
@@ -56,13 +46,11 @@
             left: ~"calc(60% + 1px)";
             top: -37px;
             border: 19px solid;
-            border-color: transparent transparent @backgroundColor @backgroundColor;
         }
     }
 
     .supported {
         margin: @fullScreenHeaderHeight + 16px auto;
-        color: @textColorGrey;
         width: 800px;
         padding: 10px 15px 0;
 
@@ -80,7 +68,6 @@
                 svg {
                     width: 16px;
                     height: 16px;
-                    fill: @svgColorGrey;
                 }
             }
 
@@ -97,13 +84,10 @@
         }
 
         .add-question {
-            color: @textColorSpitballBlue;
-            border: 1px solid @textColorSpitballBlue;
             background: transparent;
 
             svg {
                 margin-right: 10px;
-                fill: @textColorSpitballBlue;
                 width: 15px;
                 height: 15px;
             }
@@ -120,19 +104,10 @@
     }
 
     .header {
-        color: @backgroundColor2;
         padding: 10px 0;
     }
 
-    @media only screen and (max-width : 768px) {
-        /*.not-supported {
-            display: block;
-        }
 
-        .supported {
-            display: none;
-        }*/
-    }
 
     .quiz-wrapper {
         background: #fff;
@@ -154,14 +129,11 @@
     .portlet.box > .portlet-body {
         background-color: #fff;
         padding: 10px;
-        border: 5px solid @borderColorBlue;
         border-top-width: 0;
     }
 
 
     .form-control {
-        color: @textColorDarkGrey;
-        background-color: @backgroundColorWhite;
         border-radius: 0;
         margin-bottom: 20px;
         margin-top: 10px;
@@ -169,7 +141,6 @@
         &[disabled] {
             border: 0;
             background: transparent;
-            color: @textColorLike;
             cursor: default;
             width: ~"calc(100% - 32px)";
             display: inline-block;
@@ -196,17 +167,9 @@
         svg {
             width: 18px;
             height: 18px;
-            fill: @fileColor;
         }
     }
-    /*.question {
-        border: 1px solid #c2c2c2;
-        border-radius: 3px;
-        margin-bottom: 10px;
-        padding: 12px;
-    }*/
     .question-content {
-        border: 1px solid @borderColorLightGrey;
         margin-bottom: 12px;
 
         img {
@@ -216,11 +179,6 @@
         ol {
             padding-left: 40px;
         }
-
-        div[contenteditable="true"]:before {
-            color: @backgroundColor2;
-        }
-        //color: #000;
     }
 
     .ta-scroll-window > .ta-bind {
@@ -229,12 +187,8 @@
 
     .ta-toolbar {
         display: none;
-        background: @backgroundColorWhite;
         padding: 8px 0;
         margin: 0; //override on bootstrap
-        .btn-group {
-            border: 1px solid @borderColorLightGrey;
-        }
 
         button {
             width: 28px;
@@ -242,7 +196,6 @@
             padding: 0;
             border-radius: 0;
             border: 0;
-            background: @backgroundColorWhite;
         }
 
         &.focussed {
@@ -278,7 +231,6 @@
             top: 0;
             left: 0;
             pointer-events: none;
-            background: @backgroundColorWhite;
             line-height: @heightContent;
         }
     }
@@ -289,8 +241,6 @@
         &:before {
             width: @heightOfAnswer;
             height: @heightOfAnswer;
-            background: @backgroundColorSpitballBlue;
-            color: @textColorWhite;
             vertical-align: middle;
             display: inline-block;
             line-height: 25px;
@@ -300,7 +250,6 @@
         &:after {
             content: '';
             display: inline-block;
-            border-top: @heightOfAnswer solid @backgroundColorSpitballBlue;
             border-right: 10px solid #fff;
             vertical-align: middle;
         }
@@ -316,7 +265,6 @@
 
         > div {
             display: inline-block;
-            border: 1px solid @borderColorSpitballBlue;
             width: 70%;
 
             input, .disabled {
@@ -363,7 +311,6 @@
         svg {
             width: 15px;
             height: 15px;
-            fill: @backgroundColor2;
             vertical-align: middle;
         }
 
@@ -384,27 +331,7 @@
 
     .error {
         [contenteditable="true"] {
-            border: 1px solid @borderColorRed;
             background: #FFD0C5;
-        }
-
-        .counter-view {
-            &:before {
-                background: @backgroundColorRed;
-            }
-
-            &:after {
-                border-top-color: @borderColorRed;
-                border-right-color: @borderColorWhite;
-            }
-        }
-
-        &.answer div {
-            border-color: @borderColorRed;
-        }
-
-        .ng-invalid {
-            background: @backgroundColorWhite;
         }
 
         .error-answer-msg {
@@ -417,31 +344,13 @@
         line-height: 15px;
         margin-left: 4px;
 
-        &.error {
-            color: @textColorRed;
-        }
     }
 
     .error-answer-msg {
         display: none;
-        color: @textColorRed;
     }
 
     .add-answer {
-        .counter-view {
-            &:before {
-                background: @backgroundColor2;
-            }
-
-            &:after {
-                border-top-color: @backgroundColor2;
-            }
-        }
-
-        div {
-            border-color: @backgroundColor2;
-        }
-
         input:disabled {
             background: #fff;
         }
@@ -468,14 +377,12 @@
 
     .modal-content {
         background: transparent;
-        color: @textColorWhite;
         box-shadow: none;
         border: 0;
         text-align: center;
     }
 
     h4 {
-        color: @textColorRed;
         font-size: 20px;
     }
 
@@ -489,8 +396,6 @@
     }
 
     .save {
-        color: @textColorWhite;
-        background-color: @backgroundColorSpitballBlue;
         border: none;
     }
 }

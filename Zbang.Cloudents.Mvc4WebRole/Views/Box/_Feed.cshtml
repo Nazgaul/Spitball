@@ -51,7 +51,7 @@
                         <div class="submit" layout="row" layout-align="space-between center">
                             <input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
                             <label class="anonymous-wrapper" title="@BoxResources.Anonymous" for="anonymous" ga-track-event="['box-new-commnet', 'anonymous']"><span class="text">@BoxResources.Anonymous</span>@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
-                            <button type="submit" class="btn btn-primary text-uppercase" ng-disabled="f.add.disabled" ga-track-event="['box-new-commnet', 'postComment']">@GeneralResources.Post</button>
+                            <button type="submit" class="btn button-Blue btn-primary text-uppercase" ng-disabled="f.add.disabled" ga-track-event="['box-new-commnet', 'postComment']">@GeneralResources.Post</button>
                         </div>
                     </div>
                 </form>
@@ -163,7 +163,7 @@
                                     <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox(post.id)" ga-track-event="['box-feed', 'dropbox']">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
                                 </div>
                                 <div class="submit" layout="row" layout-align="space-between center">
-                                    <button type="submit" class="btn btn-primary text-uppercase" ng-disabled="f.add.disabled" ga-track-event="['box-feed', 'postReply']">@GeneralResources.Post</button>
+                                    <button type="submit" class="btn button-Blue btn-primary text-uppercase" ng-disabled="f.add.disabled" ga-track-event="['box-feed', 'postReply']">@GeneralResources.Post</button>
                                     @*<input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
                                         <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
                                 </div>
@@ -182,7 +182,7 @@
                 @{ Html.RenderPartial("_LeaderBoard", IndexResources.Best);}
             </div>
             <div class="invite-container" flex class="flex">
-                <div class="flex portlet light invite">
+                <div class="flex portlet light invite button-Blue">
                     <button type="button" ng-click="b.inviteToBox()" class="portlet-body" ga-track-event="['box-feed', 'inviteFriends']">
                         @Html.Svg("~/images/site/icons.svg", "invite")
                         @BoxResources.InviteFriends

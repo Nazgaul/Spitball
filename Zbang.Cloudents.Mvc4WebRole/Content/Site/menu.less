@@ -1,10 +1,5 @@
 ﻿@import "variables.less";
 
-/*.menuSvg {
-    width: 30px;
-    height: 25px;
-    fill: #fff;
-}*/
 
 .page-sidebar-menu {
 
@@ -15,7 +10,6 @@
         display: inline-block;
 
         svg {
-            fill: @textColorWhite;
             vertical-align: middle;
         }
     }
@@ -63,7 +57,6 @@
     md-sidenav {
         position: fixed !important;
         top: 80px;
-        background: @textColorDarkGrey;
         border-radius: 5px;
         width: 250px;
         margin-left: 0;
@@ -76,8 +69,6 @@
 
         md-content {
             .md-button {
-                color: @textColorWhite;
-                fill: @backgroundColorWhite;
 
                 span {
                     text-transform: capitalize;
@@ -141,9 +132,6 @@
     }
 }
 
-.side-menu .md-button.active {
-    background: @backgroundColorMouseOver;
-}
 
 .side-menu .menu-toggle-list a.md-button {
     .displayFlex;

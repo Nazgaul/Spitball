@@ -194,7 +194,6 @@
       <LastGenOutput>CommandHandlerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommandHandlerResources.ru.resx" />
-    <EmbeddedResource Include="Resources\CommandHandlerResources.zh.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

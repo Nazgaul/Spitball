@@ -1,4 +1,8 @@
-﻿.accountPage-wrapper {
+﻿/*
+@import this file directly into your existing Less files to use these mixins
+*/
+.accountPage-wrapper {
+  max-width: 800px;
   /*svg {
         width: 17px;
         height: 17px;
@@ -7,26 +11,45 @@
         margin-right: 12px;
     }*/
 }
-.accountPage-wrapper .profile-content {
-  max-width: 800px;
+.accountPage-wrapper h2 {
+  font-size: 12px;
+  margin-top: 6px;
 }
-.accountPage-wrapper .profile-content .section {
-  background: #323538;
+.accountPage-wrapper .themeDark {
+  /* You may have to set 'display: block' */
+  width: 150px;
+  height: 75px;
+  background: url('themeSelector.png') -1px -1px;
+}
+.accountPage-wrapper .themeLight {
+  /* You may have to set 'display: block' */
+  width: 150px;
+  height: 75px;
+  background: url('themeSelector.png') -1px -77px;
+}
+.accountPage-wrapper .theme-section {
+  text-align: left;
+}
+.accountPage-wrapper .theme-section.selected {
+  color: #2698D4;
+}
+.accountPage-wrapper .theme-section.selected div {
+  border: 1px solid #2698D4;
+}
+.accountPage-wrapper .section {
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 5px;
 }
-.accountPage-wrapper .profile-content .portlet-body .form-group .fileinput h2 {
-  font-size: 12px;
-  margin-top: 6px;
-}
-.accountPage-wrapper .profile-content .portlet-body .form-group .fileinput .thumbnail {
+.accountPage-wrapper .fileinput .thumbnail {
   background: none;
   border: none;
   border-radius: 100%;
   position: relative;
   overflow: hidden;
   padding: 0;
+  width: 150px;
+  height: 150px;
 }
 .accountPage-wrapper .ov-hidden {
   overflow: hidden;
@@ -41,12 +64,10 @@
 }
 .accountPage-wrapper .ontop {
   text-align: center;
-  background: #3293f6;
-  color: #f5f5f5;
   font-size: 11px;
-  line-height: 25px;
+  line-height: 30px;
   display: block;
-  margin-top: calc(100% - 25px);
+  margin-top: calc(100% - 30px);
   position: initial !important;
 }
 .accountPage-wrapper .portlet.light > .portlet-title {
@@ -65,26 +86,13 @@
 .accountPage-wrapper .left-flex {
   margin-right: 20px;
 }
-.accountPage-wrapper md-input-container:not(.md-input-invalid).md-input-focused .md-input {
-  border-bottom: 1px solid #2698d4;
-}
 .accountPage-wrapper .tab-from-r > li {
   margin: 0;
 }
 .accountPage-wrapper .tab-from-r > li:hover {
   border: none;
 }
-.accountPage-wrapper .tab-from-r > li:hover > a {
-  color: #2698d4;
-}
-.accountPage-wrapper .tab-from-r > li.active {
-  border-bottom: 3px solid #3598dc;
-}
-.accountPage-wrapper .tab-from-r > li.active > a {
-  color: #f5f5f5;
-}
 .accountPage-wrapper .tab-from-r > li > a {
-  color: #888b8e;
   font-size: 11px;
   padding: 13px 8px 5px 8px;
   border: none;
@@ -104,7 +112,6 @@
 .accountPage-wrapper .notification-list li {
   display: flex;
   padding: 10px 0 10px 5px;
-  border-bottom: 1px solid #5d6063;
 }
 .accountPage-wrapper .notification-list li select {
   background: #353A3F;
@@ -114,7 +121,6 @@
   flex-grow: 1;
 }
 .accountPage-wrapper .notification-list li .owner {
-  color: #888b8e;
   font-size: 12px;
   font-weight: bold;
 }
@@ -145,7 +151,6 @@
 .change-email-dialog svg {
   width: 25px;
   height: 25px;
-  fill: #323538;
 }
 .change-email-dialog .content {
   margin-left: 10px;

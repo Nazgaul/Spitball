@@ -121,9 +121,6 @@
     <EmbeddedResource Include="Migrations\201502080955543_initial.ru.resx">
       <DependentUpon>201502080955543_initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502080955543_initial.zh.resx">
-      <DependentUpon>201502080955543_initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">

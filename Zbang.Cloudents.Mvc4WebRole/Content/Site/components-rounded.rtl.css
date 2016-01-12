@@ -13,7 +13,6 @@ General reset
 ***/
 /* Set default body */
 body {
-  color: #f5f5f5;
   font-family: "Open Sans", sans-serif;
   padding: 0 !important;
   margin: 0 !important;
@@ -2528,18 +2527,15 @@ Chats
   margin-left: 10px;
 }
 .chats li .name {
-  color: #323538;
   font-size: 13px;
   font-weight: 400;
   margin-right: 5px;
   unicode-bidi: embed;
 }
 .chats li.out .name {
-  color: #323538;
   margin-right: 5px;
 }
 .chats li .datetime {
-  color: #f5f5f5;
   font-size: 13px;
   font-weight: 400;
 }
@@ -2550,20 +2546,15 @@ Chats
 }
 .chats li.in .message {
   text-align: right;
-  border: 2px solid #f5f5f5;
   margin-right: 65px;
   background: rgba(0, 0, 0, 0.48);
   display: block;
   overflow: hidden;
-  color: #f5f5f5;
   font-size: 13px;
 }
 .chats li.out .message {
-  border: 2px solid #f5f5f5;
   margin-right: 65px;
-  background: #f5f5f5;
   text-align: right;
-  color: #323538;
 }
 .chats li.in .message .arrow {
   position: absolute;
@@ -2571,7 +2562,6 @@ Chats
   right: -11px;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-left: 10px solid #f5f5f5;
 }
 .chats li.out .message .arrow {
   display: block;
@@ -2580,7 +2570,6 @@ Chats
   right: -11px;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-left: 10px solid #f5f5f5;
 }
 .chats li.out .name,
 .chats li.out .datetime {
@@ -4741,33 +4730,16 @@ Portlets
 /* Light Portlet */
 .portlet.light {
   padding: 12px 20px 15px 20px;
-  background-color: #323538;
-}
-.portlet.light.bordered {
-  border: 1px solid #e1e1e1 !important;
-}
-.portlet.light.bordered > .portlet-title {
-  border-bottom: 1px solid #eee;
-}
-.portlet.light.bg-inverse {
-  background: #F7F7F7;
 }
 .portlet.light > .portlet-title {
   padding: 0;
   min-height: 48px;
 }
 .portlet.light > .portlet-title > .caption {
-  color: #f5f5f5;
   padding: 10px 0;
 }
 .portlet.light > .portlet-title > .caption > .caption-subject {
   font-size: 16px;
-}
-.portlet.light > .portlet-title > .caption > i {
-  color: #777;
-  font-size: 15px;
-  font-weight: 300;
-  margin-top: 3px;
 }
 .portlet.light > .portlet-title > .caption.caption-md > .caption-subject {
   font-size: 15px;
@@ -4897,7 +4869,6 @@ Dashboard Stats 2
 ***/
 .dashboard-stat2 {
   border-radius: 4px;
-  background: #323538;
   padding: 15px 15px 30px 15px;
   display: block;
   width: 100%;
@@ -4932,27 +4903,13 @@ Dashboard Stats 2
   -ms-word-wrap: break-word;
   word-wrap: break-word;
 }
-/*.dashboard-stat2 .display .number h3 > small {
-    font-size: 23px;
-}*/
 .dashboard-stat2 .display .number small {
   font-size: 14px;
-  color: #f5f5f5;
   font-weight: 400;
   text-transform: uppercase;
   height: 16px;
   display: inline-block;
 }
-/*.dashboard-stat2 .display .icon {
-    display: inline-block;
-    float: right;
-    padding: 7px 0 0 0;
-}
-
-.dashboard-stat2 .display .icon > i {
-    color: #cbd4e0;
-    font-size: 26px;
-}*/
 .dashboard-stat2 .progress-info {
   clear: both;
 }
@@ -4965,7 +4922,6 @@ Dashboard Stats 2
 .dashboard-stat2 .progress-info .status {
   margin-top: 15px;
   font-size: 15px;
-  color: #f5f5f5;
 }
 .dashboard-stat2 .progress-info .status .status-title {
   float: right;
@@ -5302,56 +5258,6 @@ Default table
 /***
 Responsive & Scrollable Tables
 ***/
-.table-scrollable {
-  width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  border: 1px solid #dddddd;
-}
-.table-scrollable.table-scrollable-borderless {
-  border: 0;
-}
-.table-scrollable > .table {
-  width: 100% !important;
-  float: left;
-  margin: 0 !important;
-  margin-bottom: 0;
-  background-color: #323538;
-}
-.table-scrollable > .table > thead > tr > th,
-.table-scrollable > .table > tbody > tr > th,
-.table-scrollable > .table > tfoot > tr > th,
-.table-scrollable > .table > tfoot > tr > th,
-.table-scrollable > .table > tfoot > tr > td {
-  white-space: nowrap;
-}
-.table-scrollable > .table-bordered {
-  border: 0;
-}
-.table-scrollable > .table-bordered > thead > tr > th:first-child,
-.table-scrollable > .table-bordered > tbody > tr > th:first-child,
-.table-scrollable > .table-bordered > tfoot > tr > th:first-child,
-.table-scrollable > .table-bordered > thead > tr > td:first-child,
-.table-scrollable > .table-bordered > tbody > tr > td:first-child,
-.table-scrollable > .table-bordered > tfoot > tr > td:first-child {
-  border-right: 0;
-}
-.table-scrollable > .table-bordered > thead > tr > th:last-child,
-.table-scrollable > .table-bordered > tbody > tr > th:last-child,
-.table-scrollable > .table-bordered > tfoot > tr > th:last-child,
-.table-scrollable > .table-bordered > thead > tr > td:last-child,
-.table-scrollable > .table-bordered > tbody > tr > td:last-child,
-.table-scrollable > .table-bordered > tfoot > tr > td:last-child {
-  border-left: 0;
-}
-.table-scrollable > .table-bordered > thead > tr:last-child > th,
-.table-scrollable > .table-bordered > tbody > tr:last-child > th,
-.table-scrollable > .table-bordered > tfoot > tr:last-child > th,
-.table-scrollable > .table-bordered > thead > tr:last-child > td,
-.table-scrollable > .table-bordered > tbody > tr:last-child > td,
-.table-scrollable > .table-bordered > tfoot > tr:last-child > td {
-  border-bottom: 0;
-}
 /***
 Responsive Flip Scroll Tables
 ***/
@@ -5523,549 +5429,17 @@ Custom tables
 /***
 Light Table
 ***/
-.table.table-light {
-  border: 0 !important;
-}
-.table.table-light > thead > tr:hover > th {
-  background: none;
-}
-.table.table-light > thead > tr.uppercase {
-  text-transform: uppercase;
-}
-.table.table-light > thead > tr > th {
-  font-weight: 600;
-  font-size: 13px;
-  color: #93a2a9;
-  font-family: "Open Sans", sans-serif;
-  border: 0;
-  border-bottom: 1px solid #F2F5F8;
-}
-.table.table-light > tbody > tr:last-child > td {
-  border: 0;
-}
-.table.table-light > tbody > tr > td {
-  border: 0;
-  border-bottom: 1px solid #F2F5F8;
-  color: #8896a0;
-  vertical-align: middle;
-}
-.table.table-light > tbody > tr > td.fit {
-  width: 1px;
-  padding-left: 3px;
-}
-.table.table-light > tbody > tr > td .user-pic {
-  display: inline-block;
-  vertical-align: middle;
-  height: 30px;
-  border-radius: 100%;
-}
-.table.table-light.table-hover > tbody > tr > td:hover,
-.table.table-light.table-hover > tbody > tr > th:hover,
-.table.table-light.table-hover > tbody > tr:hover > td,
-.table.table-light.table-hover > tbody > tr:hover > th {
-  background: #323538;
-}
 /***
 Customized Bootstrap Tabs 
 ***/
 /* Tabs and pills */
-.nav-tabs > li > a,
-.nav-pills > li > a {
-  font-size: 14px;
-  border-radius: 4px 4px 0 0;
-}
-.nav-tabs > li > a > .badge,
-.nav-pills > li > a > .badge {
-  margin-top: -6px;
-}
-.nav-tabs > li .dropdown-menu:before,
-.nav-tabs > li .dropdown-menu:after,
-.nav-pills > li .dropdown-menu:before,
-.nav-pills > li .dropdown-menu:after {
-  display: none;
-}
-.nav-tabs.nav-tabs-sm > li > a,
-.nav-tabs.nav-pills-sm > li > a,
-.nav-pills.nav-tabs-sm > li > a,
-.nav-pills.nav-pills-sm > li > a {
-  font-size: 13px;
-}
-.nav-tabs .dropdown.open > .dropdown-toggle,
-.nav-pills .dropdown.open > .dropdown-toggle {
-  background: #eee;
-  color: #0d638f;
-  border-color: transparent;
-}
-/* Left and right tabs */
-.tabs-left.nav-tabs,
-.tabs-right.nav-tabs {
-  border-bottom: 0;
-}
-.tabs-left.nav-tabs > li,
-.tabs-right.nav-tabs > li {
-  float: none;
-}
-.tabs-right.nav-tabs > li > a,
-.tabs-left.nav-tabs > li > a {
-  margin-left: 0;
-  margin-bottom: 3px;
-}
-/* Left tabs */
-.tabs-left.nav-tabs {
-  border-left: 1px solid #ddd;
-}
-.tabs-left.nav-tabs > li > a {
-  display: block;
-  margin-left: -1px;
-}
-.tabs-left.nav-tabs > li > a:hover,
-.tabs-left.nav-tabs > li > a:focus {
-  border-radius: 0 4px 4px 0;
-  border-color: #eeeeee #eeeeee #eeeeee #dddddd;
-}
-.tabs-left.nav-tabs > li.active > a,
-.tabs-left.nav-tabs > li.active > a:hover > li.active > a:focus {
-  border-radius: 0 4px 4px 0;
-  border-color: #ddd #ddd #ddd transparent;
-  *border-left-color: #ffffff;
-}
-/* Right tabs */
-.tabs-right.nav-tabs {
-  border-right: 1px solid #ddd;
-}
-.tabs-right.nav-tabs > li > a {
-  display: block;
-  margin-right: -1px;
-}
-.tabs-right.nav-tabs > li > a:hover,
-.tabs-right.nav-tabs > li > a:focus {
-  border-radius: 4px 0 0 4px;
-  border-color: #eeeeee #dddddd #eeeeee #eeeeee;
-}
-.tabs-right.nav-tabs > li.active > a,
-.tabs-right.nav-tabs > li.active > a:hover > li.active > a:focus {
-  border-radius: 4px 0 0 4px;
-  border-color: #ddd transparent #ddd #ddd;
-  *border-right-color: #ffffff;
-}
-/* Below tabs */
-.tabs-below > .nav-tabs,
-.tabs-below > .nav-pills {
-  border-bottom: 0;
-  margin-bottom: 0;
-  margin-top: 10px;
-}
-.tabs-below > .nav-tabs {
-  border-top: 1px solid #ddd;
-  margin-bottom: 0;
-  margin-top: 10px;
-}
-.tabs-below > .nav-tabs > li > a {
-  margin-top: -1px;
-  margin-bottom: 0;
-}
-.tabs-below > .nav-tabs > li > a:hover,
-.tabs-below > .nav-tabs > li > a:focus {
-  border-top-color: #ddd;
-  border-bottom-color: transparent;
-}
-.tabs-below > .nav-tabs > li > a .dropdown-menu {
-  border-radius: 4px;
-}
-.tabs-below > .nav-tabs .active a,
-.tabs-below > .nav-tabs .active a:hover .active a:focus {
-  border-radius: 0 0 4px 4px;
-  border-color: transparent #ddd #ddd #ddd !important;
-}
 /***
 Custom tabs
 ***/
 /* In BS3.0.0 tabbable class was removed. We had to added it back */
-.tabbable:before,
-.tabbable:after {
-  content: " ";
-  display: table;
-}
-.tabbable:after {
-  clear: both;
-}
-.tabbable-custom {
-  margin-bottom: 15px;
-  padding: 0;
-  overflow: hidden;
-  /* justified tabs */
-  /* boxless tabs */
-  /* below justified tabs */
-  /* full width tabs */
-  /* below tabs */
-}
-.tabbable-custom > .nav-tabs {
-  border: none;
-  margin: 0;
-}
-.tabbable-custom > .nav-tabs > li {
-  margin-left: 2px;
-  border-top: 2px solid transparent;
-}
-.tabbable-custom > .nav-tabs > li > a {
-  margin-left: 0;
-  border-radius: 0;
-}
-.tabbable-custom > .nav-tabs > li > a:hover {
-  background: none;
-  border-color: transparent;
-}
-.tabbable-custom > .nav-tabs > li.active {
-  border-top: 3px solid #F3565D;
-  margin-top: 0;
-  position: relative;
-}
-.tabbable-custom > .nav-tabs > li.active > a {
-  border-top: none !important;
-  font-weight: 400;
-  border-radius: 0;
-}
-.tabbable-custom > .nav-tabs > li.active > a:hover {
-  border-radius: 0;
-  border-top: none;
-  background: #fff;
-  border-color: #d4d4d4 #d4d4d4 transparent;
-}
-.tabbable-custom > .tab-content {
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 0 0 4px 4px;
-}
-.tabbable-custom.nav-justified > .tab-content {
-  margin-top: -1px;
-}
-.tabbable-custom.boxless > .tab-content {
-  padding: 15px 0;
-  border-right: none;
-  border-left: none;
-  border-bottom: none;
-}
-.tabbable-custom.tabs-below.nav-justified .tab-content {
-  margin-top: 0;
-  margin-bottom: -2px;
-  border-radius: 4px 4px 0 0;
-}
-.tabbable-custom.tabbable-full-width > .nav-tabs > li > a {
-  color: #424242;
-  font-size: 15px;
-  padding: 9px 15px;
-}
-.tabbable-custom.tabbable-full-width > .tab-content {
-  padding: 15px 0;
-  border-right: none;
-  border-left: none;
-  border-bottom: none;
-}
-.tabbable-custom.tabs-below .nav-tabs > li > a {
-  border-top: none;
-  border-bottom: 2px solid transparent;
-  margin-top: -1px;
-}
-.tabbable-custom.tabs-below .nav-tabs > li.active {
-  border-top: none;
-  border-bottom: 3px solid #d12610;
-  margin-bottom: 0;
-  position: relative;
-}
-.tabbable-custom.tabs-below .nav-tabs > li.active > a {
-  border-bottom: none;
-}
-.tabbable-custom.tabs-below .nav-tabs > li.active > a:hover {
-  background: #fff;
-  border-color: #d4d4d4 #d4d4d4 transparent;
-}
-.tabbable-custom.tabbable-noborder > .nav-tabs > li > a {
-  border: 0;
-}
-.tabbable-custom.tabbable-noborder .tab-content {
-  border: 0;
-}
-.tabbable-line > .nav-tabs {
-  border: none;
-  margin: 0;
-}
-.tabbable-line > .nav-tabs > li {
-  margin-left: 2px;
-}
-.tabbable-line > .nav-tabs > li > a {
-  border: 0;
-  margin-left: 0;
-  color: #f5f5f5;
-}
-.tabbable-line > .nav-tabs > li > a > i {
-  color: #f5f5f5;
-}
-.tabbable-line > .nav-tabs > li.open,
-.tabbable-line > .nav-tabs > li:hover {
-  border-bottom: 4px solid #3598dc;
-}
-.tabbable-line > .nav-tabs > li.open > a,
-.tabbable-line > .nav-tabs > li:hover > a {
-  border: 0;
-  background: none !important;
-  color: #323538;
-}
-.tabbable-line > .nav-tabs > li.open > a > i,
-.tabbable-line > .nav-tabs > li:hover > a > i {
-  color: #323538;
-}
-.tabbable-line > .nav-tabs > li.open .dropdown-menu,
-.tabbable-line > .nav-tabs > li:hover .dropdown-menu {
-  margin-top: 0;
-}
-.tabbable-line > .nav-tabs > li.active {
-  border-bottom: 4px solid #323538;
-  position: relative;
-}
-.tabbable-line > .nav-tabs > li.active > a {
-  border: 0;
-  color: #f5f5f5;
-}
-.tabbable-line > .nav-tabs > li.active > a > i {
-  color: #f5f5f5;
-}
-.tabbable-line > .tab-content {
-  margin-top: -3px;
-  background-color: #fff;
-  border: 0;
-  border-top: 1px solid #eee;
-  padding: 15px 0;
-}
-.portlet .tabbable-line > .tab-content {
-  padding-bottom: 0;
-}
-.tabbable-line.tabs-below > .nav-tabs > li {
-  border-top: 4px solid transparent;
-}
-.tabbable-line.tabs-below > .nav-tabs > li > a {
-  margin-top: 0;
-}
-.tabbable-line.tabs-below > .nav-tabs > li:hover {
-  border-bottom: 0;
-  border-top: 4px solid #fbcdcf;
-}
-.tabbable-line.tabs-below > .nav-tabs > li.active {
-  margin-bottom: -2px;
-  border-bottom: 0;
-  border-top: 4px solid #F3565D;
-}
-.tabbable-line.tabs-below > .tab-content {
-  margin-top: -10px;
-  border-top: 0;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 15px;
-}
 /***
 Tiles(new in v1.1.1)
 ***/
-.tiles {
-  margin-left: -10px;
-}
-.tiles:before,
-.tiles:after {
-  display: table;
-  content: " ";
-}
-.tiles:after {
-  clear: both;
-}
-.tiles .tile {
-  display: block;
-  float: right;
-  height: 135px;
-  width: 135px !important;
-  cursor: pointer;
-  text-decoration: none;
-  color: #ffffff;
-  position: relative;
-  font-weight: 300;
-  font-size: 12px;
-  letter-spacing: 0.02em;
-  line-height: 20px;
-  overflow: hidden;
-  border: 4px solid transparent;
-  margin: 0 0 10px 10px;
-}
-.tiles .tile:after,
-.tiles .tile:before {
-  content: "";
-  float: right;
-}
-.tiles .tile.double {
-  width: 280px !important;
-}
-.tiles .tile.double-down {
-  height: 280px !important;
-}
-.tiles .tile.double-down i {
-  margin-top: 95px;
-}
-.tiles .tile:hover {
-  border-color: #aaa !important;
-}
-.tiles .tile:active,
-.tiles .tile.selected {
-  border-color: #ccc !important;
-}
-.tiles .tile.selected .corner:after {
-  content: "";
-  display: inline-block;
-  border-right: 40px solid transparent;
-  border-bottom: 40px solid transparent;
-  border-left: 40px solid #ccc;
-  position: absolute;
-  top: -3px;
-  left: -3px;
-}
-.tiles .tile.selected .check:after {
-  content: "\f00c";
-  font-family: FontAwesome;
-  font-size: 13px;
-  display: inline-block;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-}
-.tiles .tile.icon {
-  padding: 0;
-}
-.tiles .tile.image .tile-body {
-  padding: 0 !important;
-}
-.tiles .tile.image .tile-body > img {
-  width: 100%;
-  height: auto;
-  min-height: 100%;
-  max-width: 100%;
-}
-.tiles .tile.image .tile-body h3 {
-  display: inline-block;
-}
-.tiles .tile .tile-body {
-  height: 100%;
-  vertical-align: top;
-  padding: 10px 10px;
-  overflow: hidden;
-  position: relative;
-  font-weight: 400;
-  font-size: 12px;
-  color: #000000;
-  color: #ffffff;
-  margin-bottom: 10px;
-}
-.tiles .tile .tile-body p {
-  font-weight: 400;
-  font-size: 13px;
-  color: #000000;
-  color: #ffffff;
-  line-height: 20px;
-  overflow: hidden;
-}
-.tiles .tile .tile-body p:hover {
-  color: rgba(0, 0, 0, 0.8);
-}
-.tiles .tile .tile-body p:active {
-  color: rgba(0, 0, 0, 0.4);
-}
-.tiles .tile .tile-body p:hover {
-  color: #ffffff;
-}
-.tiles .tile .tile-body img {
-  float: right;
-  margin-left: 10px;
-}
-.tiles .tile .tile-body img.pull-right {
-  float: left !important;
-  margin-right: 10px;
-  margin-left: 0;
-}
-.tiles .tile .tile-body > .content {
-  display: inline-block;
-}
-.tiles .tile .tile-body > i {
-  margin-top: 17px;
-  display: block;
-  font-size: 56px;
-  line-height: 56px;
-  text-align: center;
-}
-.tiles .tile .tile-body h1,
-.tiles .tile .tile-body h2,
-.tiles .tile .tile-body h3,
-.tiles .tile .tile-body h4,
-.tiles .tile .tile-body h5,
-.tiles .tile .tile-body h6,
-.tiles .tile .tile-body p {
-  padding: 0;
-  margin: 0;
-  line-height: 14px;
-}
-.tiles .tile .tile-body h1:hover,
-.tiles .tile .tile-body h2:hover,
-.tiles .tile .tile-body h3:hover,
-.tiles .tile .tile-body h4:hover,
-.tiles .tile .tile-body h5:hover,
-.tiles .tile .tile-body h6:hover,
-.tiles .tile .tile-body p:hover {
-  color: #ffffff;
-}
-.tiles .tile .tile-body h3,
-.tiles .tile .tile-body h4 {
-  margin-bottom: 5px;
-}
-.tiles .tile .tile-object {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  min-height: 30px;
-  background-color: transparent;
-  *zoom: 1;
-}
-.tiles .tile .tile-object:before,
-.tiles .tile .tile-object:after {
-  display: table;
-  content: "";
-}
-.tiles .tile .tile-object:after {
-  clear: both;
-}
-.tiles .tile .tile-object > .name {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin-bottom: 5px;
-  margin-right: 10px;
-  margin-left: 15px;
-  font-weight: 400;
-  font-size: 13px;
-  color: #ffffff;
-}
-.tiles .tile .tile-object > .name > i {
-  vertical-align: middle;
-  display: block;
-  font-size: 24px;
-  height: 18px;
-  width: 24px;
-}
-.tiles .tile .tile-object > .number {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  color: #ffffff;
-  text-align: center;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 0.01em;
-  line-height: 14px;
-  margin-bottom: 8px;
-  margin-left: 10px;
-}
 /***
 Custimized Bootstrap Wells
 ***/

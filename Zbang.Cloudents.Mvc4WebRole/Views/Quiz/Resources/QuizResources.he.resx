@@ -153,12 +153,6 @@
   <data name="GoBack" xml:space="preserve">
     <value>חזור אחורה ובדוק את התשובות שלך</value>
   </data>
-  <data name="Good" xml:space="preserve">
-    <value>טובה</value>
-  </data>
-  <data name="Job" xml:space="preserve">
-    <value>עבודה</value>
-  </data>
   <data name="Leave" xml:space="preserve">
     <value>לא סיימת את המבחן, בטוח שאתה רוצה לצאת?</value>
   </data>

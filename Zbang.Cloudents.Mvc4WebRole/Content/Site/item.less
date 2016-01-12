@@ -14,7 +14,6 @@
         svg {
             width: 17px;
             height: 17px;
-            fill: @svgLightGrey;
         }
 
         .fb-like {
@@ -22,7 +21,6 @@
 
             button {
                 font-size: 14px;
-                color: @svgLightGrey;
                 padding-left: 25px;
                 text-transform: capitalize;
 
@@ -61,24 +59,13 @@
             }
         }
 
-        .fb-like.blue svg {
-            fill: @buttonColorBlue;
-        }
     }
 
-    md-select:not([disabled]):focus .md-select-value {
-        color: @textColorBlack;
-        border-bottom: 1px solid @borderColorDarkBlue;
-    }
 
-    md-select .md-select-value.md-select-placeholder {
-        color: @textColorBlack;
-    }
 
 
     .fileName {
         text-align: center;
-        color: @textColorBlack;
         font-size: 20px;
         white-space: nowrap;
         -ms-text-overflow: ellipsis;
@@ -118,13 +105,9 @@
                 background: none;
             }
 
-            md-input-container .md-input {
-                color: @textColorDarkGrey;
-            }
 
             .rounded-input {
                 border-radius: 5px;
-                border: 1px solid @textColorSpitballBlue;
                 padding: 5px 10px;
                 margin-bottom: 20px;
             }
@@ -136,7 +119,6 @@
         }
 
         svg {
-            fill: @svgLightGrey;
             width: 20px;
             height: 20px;
         }
@@ -164,7 +146,6 @@
         .arrow {
             position: fixed;
             top: ~"calc(50% + 80px)";
-            fill: @svgLightGrey;
         }
     }
 
@@ -208,7 +189,6 @@
 
     .previewFailed {
         p {
-            color: @textColorBlack;
             font-size: 22px;
 
             @media (max-width: 600px) {
@@ -255,7 +235,6 @@
     .preview-svg .svgContent, .preview-image .imageContent {
         background: #fff;
         border-radius: 15px;
-        box-shadow: 0 3px 8px @progressbarBackgroundColor;
     }
 
     .preview-svg .svgContent {
@@ -264,7 +243,6 @@
 
     img {
         max-width: 100%;
-        background: @backgroundColorWhite;
         margin: 10px 0;
     }
 }

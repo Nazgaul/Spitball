@@ -2,9 +2,9 @@
 @sideBarWidth: 250px;
 
 @media print {
-    body {
-        background-color: @backgroundColorWhite !important;
-    }
+   // body {
+   //     background-color: @backgroundColorWhite !important;
+   // }
 
     .page-bar {
         display: none;
@@ -78,7 +78,6 @@ Page Header
 .page-header.navbar.navbar-fixed-top {
     padding: 0 10px;
     z-index: 1;
-    border-bottom: 5px solid @backgroundColor;
 }
 
 .page-header.navbar.navbar-static-top {
@@ -100,7 +99,6 @@ Page Header
     margin: 3px 0 0 16px;
     width: 180px;
     height: 75px;
-    fill: @textColorWhite;
 
     @media (max-width: 600px) {
         &:first-child {
@@ -357,7 +355,6 @@ Page Header
     top: -6px;
     display: inline-block !important;
     border-right: 6px solid transparent;
-    border-bottom: 6px solid @borderColorWhite;
     border-left: 6px solid transparent;
     content: '';
     left: auto;
@@ -371,7 +368,6 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav > li.separator {
     height: 18px;
     width: 1px;
-    background: @backgroundColorWhite;
     padding: 0;
     margin: 26px 0 0 0;
 }
@@ -2294,7 +2290,6 @@ Page content
     padding: 10px;
 
     > h1 {
-        color: @textColorWhite;
         font-size: 25px;
         font-weight: 400;
         margin: 0 20px 0 0;
@@ -2881,7 +2876,6 @@ Page Loading
     }
 
     .addConnect {
-        color: @textColorSpitballBlue;
         background: transparent;
         outline: none;
         border: none;
@@ -2938,7 +2932,8 @@ Page Loading
     }
 
     button:hover {
-        background-color: @textColorSpitballBlue;
+        //background-color: @textColorSpitballBlue;
+        //TODO: why not in theme
         color: #ffffff;
     }
 

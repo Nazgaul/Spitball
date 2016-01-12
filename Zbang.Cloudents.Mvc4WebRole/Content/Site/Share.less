@@ -12,14 +12,12 @@
     .justifyContet(center);
 
     svg {
-        fill: @fileColor;
         width: 75px;
         height: 75px;
         display: block;
         margin: 0 auto;
     }
 
-    .buttonBlue();
 }
 
 
@@ -36,7 +34,6 @@
 
 .invite {
     position: relative;
-    background: @backgroundColorMenu;
     padding: 0 10px 10px;
     margin-top: 10px;
     margin: 10px;
@@ -66,27 +63,16 @@
 
         &:active:hover {
             background: transparent;
-
-            svg {
-                fill: @backgroundColor2;
-            }
         }
 
         svg {
             width: 15px;
             height: 15px;
-            fill: @textColorLightGrey;
         }
     }
 
-    .body {
-        //margin: 0 15px;
-        background: @backgroundColor;
-    }
 
     md-content {
-        .placeHolder(@textColorGrey);
-        background: @backgroundColor;
         position: relative;
     }
 
@@ -101,7 +87,6 @@
     .gmail {
         .displayFlex();
         padding: 10px 0 10px 16px;
-        background: @backgroundColor2;
         margin: 0 auto;
         width: 196px;
         white-space: normal;
@@ -139,13 +124,7 @@
     }
 }
 
-.md-chips .md-chip-input-container {
-    color: @textColorWhite;
-}
 
-md-chips .md-chips.md-focused {
-    box-shadow: 0 2px @textColorGrey;
-}
 
 .chipsdemoContactChips md-content.autocomplete {
     min-height: 300px;
@@ -186,7 +165,6 @@ md-chips .md-chips.md-focused {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    color: @textColorLightGrey;
 }
 
 @media (min-width: 900px) {

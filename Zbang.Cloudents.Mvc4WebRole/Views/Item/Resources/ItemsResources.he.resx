@@ -123,9 +123,6 @@
   <data name="Download" xml:space="preserve">
     <value>הורד</value>
   </data>
-  <data name="OpenLink" xml:space="preserve">
-    <value>לחץ כאן על מנת לפתוח את הקישור בכרטיסיה חדשה</value>
-  </data>
   <data name="PleaseUseThe" xml:space="preserve">
     <value>אנא השתמש ב</value>
   </data>
@@ -134,9 +131,6 @@
   </data>
   <data name="PreviewNotAvailable" xml:space="preserve">
     <value>לא ניתן להציג תצוגה מקדימה לקובץ זה</value>
-  </data>
-  <data name="SecurityReasons" xml:space="preserve">
-    <value>מטעמי אבטחה, לא ניתן לפתוח את הקישור הזה</value>
   </data>
   <data name="MayTake" xml:space="preserve">
     <value>זה עשוי להימשך מספר דקות</value>

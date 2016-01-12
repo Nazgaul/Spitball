@@ -29,8 +29,8 @@
         </md-content>
         <span layout="row" layout-align="end stretch" class="text-capitalize">
             <button type="button" class="btn btn-default" ng-click="l.boxCancel()" ga-track-event="['university', 'cancel new class']">@GeneralResources.Cancel</button>
-            <button type="button" class="btn btn-primary" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()" ga-track-event="['university', 'next step new class']">@LibraryResources.Next</button>
-            <button type="submit" class="btn btn-primary" ng-if="l.secondStep" ng-disabled="!createBox.$valid || l.submitDisabled" ga-track-event="['university', 'create new class']">@GeneralResources.Create</button>
+            <button type="button" class="btn button-Blue btn-primary" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()" ga-track-event="['university', 'next step new class']">@LibraryResources.Next</button>
+            <button type="submit" class="btn button-Blue btn-primary" ng-if="l.secondStep" ng-disabled="!createBox.$valid || l.submitDisabled" ga-track-event="['university', 'create new class']">@GeneralResources.Create</button>
         </span>
     </form>
 </div>

@@ -4,25 +4,21 @@
 }
 .userPage .portlet.box {
   background: #353a3f;
-  color: #f5f5f5;
   text-transform: uppercase;
 }
 .userPage .profile-usertitle-job {
   margin-bottom: 7px;
   padding-bottom: 20px;
-  color: #f5f5f5;
   font-size: 15px;
 }
 .userPage .profile-userpic .userLetter {
   font-size: 75px;
 }
 .userPage .profile-usertitle-name {
-  color: #f5f5f5;
   font-size: 20px;
 }
 .userPage .points-container {
   text-align: center;
-  background: #3293f6;
   padding: 8px 0;
 }
 .userPage h5 {
@@ -34,7 +30,6 @@
 }
 .userPage .points-awards {
   margin-top: 18px;
-  color: #888b8e;
   line-height: 18px;
   padding-left: 13px;
 }
@@ -43,7 +38,6 @@
 }
 .userPage .points-awards hr {
   margin: 5px 5px 7px 0;
-  border-color: #8c99a6;
 }
 .userPage .points-awards ul {
   padding-left: 0;
@@ -67,9 +61,6 @@
 .userPage md-pagination-wrapper {
   height: 75px;
 }
-.userPage md-tab-content {
-  background: #181c1d;
-}
 .userPage md-tabs {
   padding: 0;
 }
@@ -92,7 +83,6 @@
 .userPage md-tabs md-tab {
   margin: 0 20px 0 10px;
   background: transparent;
-  color: #f5f5f5;
   outline: none;
 }
 .userPage .portlet.light {
@@ -103,7 +93,6 @@
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
-  color: #f5f5f5;
   -webkit-align-items: center;
   align-items: center;
 }
@@ -119,7 +108,6 @@
   display: inline-block;
 }
 .userPage .posts .time-ago {
-  color: #888b8e;
   font-size: 11px;
   flex-basis: 200px;
   text-align: right;
