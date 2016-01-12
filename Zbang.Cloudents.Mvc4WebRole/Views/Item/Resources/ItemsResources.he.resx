@@ -156,4 +156,7 @@
   <data name="FlagItemPlaceHolder" xml:space="preserve">
     <value>בחר</value>
   </data>
+  <data name="NewComment" xml:space="preserve">
+    <value>כתוב תגובה</value>
+  </data>
 </root>
