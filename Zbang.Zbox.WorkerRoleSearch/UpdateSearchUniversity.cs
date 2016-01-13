@@ -87,7 +87,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<bool> UpdateUniversity(int instanceId, int instanceCount)
         {
-            var updates = await m_ZboxReadService.GetUniversityDirtyUpdates(instanceId, instanceCount);
+            var updates = await m_ZboxReadService.GetUniversityDirtyUpdates(instanceId, instanceCount, 10);
             if (updates.UniversitiesToDelete.Any() || updates.UniversitiesToUpdate.Any())
             {
                 TraceLog.WriteInfo(PrefixLog, string.Format("university updating {0} deleting {1}", updates.UniversitiesToUpdate.Count(),

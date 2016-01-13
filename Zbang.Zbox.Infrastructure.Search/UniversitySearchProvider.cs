@@ -31,6 +31,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private const string IdField = "id";
         private const string NameField = "name";
+        private const string NameField2 = "name2";
         private const string ExtraOneField = "extra1";
         private const string ExtraTwoField = "extra2";
         private const string ImageField = "imageField";
@@ -41,7 +42,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private const string CountryScoringProfile = "countryTag";
 
-        // private const string NameSuggest = "nameSuggest";
+        private const string NameSuggest = "nameSuggest";
 
         private Index GetUniversityIndex()
         {
@@ -49,6 +50,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 new Field(IdField, DataType.String) {IsKey = true, IsRetrievable = true},
                 new Field(NameField, DataType.String) {IsRetrievable = true, IsSearchable = true},
+                new Field(NameField2, DataType.String) {IsRetrievable = true, IsSearchable = true},
                 new Field(ExtraOneField, DataType.String) {IsSearchable = true, IsRetrievable = false},
                 new Field(ExtraTwoField, DataType.String) {IsSearchable = true, IsRetrievable = false},
                 new Field(ImageField, DataType.String) {IsRetrievable = true},
@@ -66,17 +68,14 @@ namespace Zbang.Zbox.Infrastructure.Search
             };
             scoringProfile.Functions.Add(scoringFunction);
             index.ScoringProfiles.Add(scoringProfile);
-            //{
-            //    Suggesters = new[]
-            //    {
-            //        new Suggester(NameSuggest, SuggesterSearchMode.AnalyzingInfixMatching, NameField)
-            //    }
-            //};
+
+            var suggester = new Suggester(NameSuggest, SuggesterSearchMode.AnalyzingInfixMatching, NameField2);
+            index.Suggesters.Add(suggester);
             return index;
 
         }
 
-/*
+
         private async Task BuildIndex()
         {
             try
@@ -89,7 +88,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             m_CheckIndexExists = true;
         }
-*/
+
 
 
 
@@ -109,7 +108,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
-                Select = new[] { IdField, NameField, ImageField, MembersCountField, MembersImagesField },
+                Select = new[] { IdField, NameField2, ImageField, MembersCountField, MembersImagesField },
             };
 
             if (string.IsNullOrEmpty(query.Term))
@@ -117,19 +116,18 @@ namespace Zbang.Zbox.Infrastructure.Search
                 searchParametes.ScoringProfile = CountryScoringProfile;
                 searchParametes.ScoringParameters = new[] { "country:" + query.Country };
             }
-
             var tResult = m_IndexClient.Documents.SearchAsync<UniversitySearch>(query.Term + "*", searchParametes, cancelToken);
 
-            //var tSuggest = Task.FromResult<Task<DocumentSuggestResponse<UniversitySearch>>>(null);
-            //if (query.Term.Length >= 3 && query.PageNumber == 0)
-            //{
-            //    tSuggest = m_IndexClient.Documents.SuggestAsync<UniversitySearch>(query.Term, NameSuggest, new SuggestParameters
-            //     {
-            //         UseFuzzyMatching = true,
-            //         Select = new[] { IdField, NameField, ImageField }
-            //     });
-            //}
-            await Task.WhenAll(tResult);
+            var tSuggest = Task.FromResult<DocumentSuggestResponse<UniversitySearch>>(null);
+            if (query.Term.Length >= 3 && query.PageNumber == 0)
+            {
+                tSuggest = m_IndexClient.Documents.SuggestAsync<UniversitySearch>(query.Term, NameSuggest, new SuggestParameters
+                 {
+                     UseFuzzyMatching = true,
+                     Select = new[] { IdField, NameField, ImageField }
+                 });
+            }
+            await Task.WhenAll(tResult, tSuggest);
 
 
 
@@ -152,7 +150,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (!m_CheckIndexExists)
             {
-                //await BuildIndex();
+                await BuildIndex();
             }
 
             var listOfCommands = new List<IndexAction<UniversitySearch>>();
@@ -163,6 +161,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     {
                         Id = s.Id.ToString(CultureInfo.InvariantCulture),
                         Name = s.Name.Trim(),
+                        Name2 = s.Name.Trim(),
                         Extra1 = s.Extra,
                         Extra2 = String.Join(
                                " ",
