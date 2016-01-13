@@ -8,6 +8,12 @@
                 base(term, userId, universityId, pageNumber, rowsPerPage)
         {
         }
+
+        public override string CacheKey
+        {
+            get { return GetUniversityId(); }
+        }
+
         public override string CacheRegion
         {
             get { return "searchMobile"; }

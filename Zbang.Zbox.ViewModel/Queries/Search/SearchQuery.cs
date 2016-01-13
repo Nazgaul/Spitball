@@ -4,9 +4,45 @@ using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.ViewModel.Queries.Search
 {
-    public class SearchQuery : IPagedQuery, IUserQuery, IQueryCache
+    public class SearchBoxesQuery : SearchQuery
     {
-        public SearchQuery(string term,
+        public SearchBoxesQuery(string term, long userId, long universityId, int pageNumber = 0, int rowsPerPage = 50) : base(term, userId, universityId, pageNumber, rowsPerPage)
+        {
+        }
+
+        public override string CacheKey
+        {
+            get { return "boxes " + GetUniversityId(); }
+        }
+    }
+    public class SearchItemsQuery : SearchQuery
+    {
+        public SearchItemsQuery(string term, long userId, long universityId, int pageNumber = 0, int rowsPerPage = 50)
+            : base(term, userId, universityId, pageNumber, rowsPerPage)
+        {
+        }
+
+        public override string CacheKey
+        {
+            get { return "items " + GetUniversityId(); }
+        }
+    }
+    public class SearchQuizesQuery : SearchQuery
+    {
+        public SearchQuizesQuery(string term, long userId, long universityId, int pageNumber = 0, int rowsPerPage = 50)
+            : base(term, userId, universityId, pageNumber, rowsPerPage)
+        {
+        }
+
+        public override string CacheKey
+        {
+            get { return "quizzes " + GetUniversityId(); }
+        }
+    }
+
+    public abstract class SearchQuery : IPagedQuery, IUserQuery, IQueryCache
+    {
+        protected SearchQuery(string term,
             long userId,
             long universityId, int pageNumber = 0, int rowsPerPage = 50)
         {
@@ -40,9 +76,14 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
         }
 
         //Note search is only for the empty state
-        public string CacheKey
+        public abstract string CacheKey {get;}
+        //{
+            //get { return UniversityId.ToString(CultureInfo.InvariantCulture); }
+        //}
+
+        protected string GetUniversityId()
         {
-            get { return UniversityId.ToString(CultureInfo.InvariantCulture); }
+            return UniversityId.ToString(CultureInfo.InvariantCulture);
         }
 
         public virtual string CacheRegion

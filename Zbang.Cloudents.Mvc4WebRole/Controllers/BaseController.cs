@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
@@ -14,6 +15,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     {
         public IZboxWriteService ZboxWriteService { get; set; }
         public IZboxCacheReadService ZboxReadService { get; set; }
+
+        protected CancellationTokenSource CreateCancellationToken(CancellationToken cancellationToken)
+        {
+            CancellationToken disconnectedToken = Response.ClientDisconnectedToken;
+            return CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, disconnectedToken);
+        }
 
         protected string RenderRazorViewToString(string viewName, object model)
         {

@@ -5,42 +5,37 @@
 <form novalidate remove-keyboard ng-submit="s.search()">
     <input type="search" class="search-text" placeholder="@GeneralResources.Search" autofocus ng-model="s.term" ng-model-options="{debounce : 250}" ng-change="s.search()" ng-minlength="2" />
 </form>
-
-<md-tabs hide-gt-sm ng-show="!s.noResults">
-    <md-tab md-on-select="s.tab = 'b'" md-active="s.tab === 'b'" md-on-select="s.tab = 'b'" ga-track-event="['search', 'search classes']">
-        <md-tab-label>@GeneralResources.Classes</md-tab-label>
-    </md-tab>
-    <md-tab md-on-select="s.tab = 'i'" md-active="s.tab === 'i'" md-on-select="s.tab = 'i'" ga-track-event="['search', 'search items']">
-        <md-tab-label>@SearchResources.Items</md-tab-label>
-    </md-tab>
-    <md-tab md-on-select="s.tab = 'q'" md-active="s.tab === 'q'" md-on-select="s.tab = 'q'" ga-track-event="['search', 'search quizzes']">
-        <md-tab-label>@GeneralResources.Quizzes</md-tab-label>
-    </md-tab>
-</md-tabs>
-
-<div layout="row" layout-align="space-between start" layout-wrap srph-infinite-scroll="s.myPagingFunction()" ng-show="!s.noResults" class="s-content">
-    <div flex-gt-sm="25" flex="100" class="s-hide" ng-class="{show: s.tab === 'b'}">
-        <h3 class="text-capitalize">@GeneralResources.Classes</h3>
-        <div layout="row" layout-padding layout-wrap>
-            <div flex-gt-sm="100" flex-sm="50" flex-xs="100" ng-repeat="e in s.result.boxes" ng-include="'box-template.html'"></div>
+<div srph-infinite-scroll="s.myPagingFunction()">
+    <md-tabs md-dynamic-height="true" md-selected="s.tabIndex">
+        <md-tab md-on-select="s.changeTab(s.state.box)" md-active="s.tab === s.state.box" ga-track-event="['search', 'search classes']">
+            <md-tab-label>@GeneralResources.Classes</md-tab-label>
+            <md-tab-body>
+                <div layout="row" layout-padding layout-wrap>
+                    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-repeat="e in s.result" ng-include="'box-template.html'"></div>
+                </div>
+            </md-tab-body>
+        </md-tab>
+        <md-tab md-on-select="s.changeTab(s.state.item)" md-active="s.tab === s.state.item" ga-track-event="['search', 'search items']">
+            <md-tab-label>@SearchResources.Items</md-tab-label>
+            <md-tab-body>
+                <div layout="row" layout-padding layout-wrap>
+                    <div flex-gt-lg="20" flex-lg="20" flex-md="33" flex-sm="50" flex-xs="100" ng-repeat="e in s.result" ng-include="'item-template.html'"></div>
+                </div>
+            </md-tab-body>
+        </md-tab>
+        <md-tab md-on-select="s.changeTab(s.state.quiz)" md-active="s.tab === s.state.quiz" ga-track-event="['search', 'search quizzes']">
+            <md-tab-label>@GeneralResources.Quizzes</md-tab-label>
+            <md-tab-body>
+                <div layout="row" layout-padding layout-wrap>
+                    <div flex-gt-lg="20" flex-lg="20" flex-md="33" flex-sm="50" flex-xs="100" ng-repeat="e in s.result" ng-include="'quiz-template.html'"></div>
+                </div>
+            </md-tab-body>
+        </md-tab>
+    </md-tabs>
+    <div class="no-results" ng-show="s.noResults" class="s-content">
+        <div class="wrapper">
+            <img src="@Url.CdnContent("~/Images/Site/noResults.png")" alt="No results were found">
+            <div>@GeneralResources.NoResults</div>
         </div>
-    </div>
-    <div flex-gt-sm="25" flex="100" class="s-hide" ng-class="{show: s.tab === 'i'}">
-        <h3 class="text-capitalize">@SearchResources.Items</h3>
-        <div layout="row" layout-padding layout-wrap>
-            <div flex-gt-sm="100" flex-sm="50" flex-xs="100" ng-repeat="e in s.result.items" ng-include="'item-template.html'"></div>
-        </div>
-    </div>
-    <div flex-gt-sm="25" flex="100" class="s-hide" ng-class="{show: s.tab === 'q'}">
-        <h3 class="text-capitalize">@GeneralResources.Quizzes</h3>
-        <div layout="row" layout-padding layout-wrap layout-align="start stretch">
-            <div flex-gt-sm="100" flex-sm="50" flex-xs="100" ng-repeat="e in s.result.quizzes" ng-include="'quiz-template.html'"></div>
-        </div>
-    </div>
-</div>
-<div class="no-results" ng-show="s.noResults" class="s-content">
-    <div class="wrapper">
-        <img src="@Url.CdnContent("~/Images/Site/noResults.png")" alt="No results were found">
-        <div>@GeneralResources.NoResults</div>
     </div>
 </div>
