@@ -104,11 +104,12 @@ namespace Zbang.Zbox.Infrastructure.Search
             //{
             //    return null;
             //}
+            var listOfSelectParams = new[] {IdField, NameField2, ImageField, MembersCountField, MembersImagesField};
             var searchParametes = new SearchParameters
             {
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
-                Select = new[] { IdField, NameField2, ImageField, MembersCountField, MembersImagesField },
+                Select = listOfSelectParams,
             };
 
             if (string.IsNullOrEmpty(query.Term))
@@ -119,29 +120,39 @@ namespace Zbang.Zbox.Infrastructure.Search
             var tResult = m_IndexClient.Documents.SearchAsync<UniversitySearch>(query.Term + "*", searchParametes, cancelToken);
 
             var tSuggest = Task.FromResult<DocumentSuggestResponse<UniversitySearch>>(null);
-            if (query.Term.Length >= 3 && query.PageNumber == 0)
+            if (!string.IsNullOrEmpty(query.Term) && query.Term.Length >= 3 && query.PageNumber == 0)
             {
                 tSuggest = m_IndexClient.Documents.SuggestAsync<UniversitySearch>(query.Term, NameSuggest, new SuggestParameters
                  {
                      UseFuzzyMatching = true,
-                     Select = new[] { IdField, NameField, ImageField }
+                     Select = listOfSelectParams
                  });
             }
             await Task.WhenAll(tResult, tSuggest);
 
-
-
-
-            return
-                tResult.Result.Select(
+            var result = tResult.Result.Select(
                     s => new UniversityByPrefixDto
                     {
                         Id = long.Parse(s.Document.Id),
                         Image = s.Document.Image,
-                        Name = s.Document.Name,
+                        Name = s.Document.Name2,
                         NumOfUsers = s.Document.MembersCount.HasValue ? s.Document.MembersCount.Value : 0,
                         UserImages = s.Document.MembersImages
                     });
+            if (tSuggest.Result != null)
+            {
+                result = result.Union(tSuggest.Result.Select(
+                      s => new UniversityByPrefixDto
+                      {
+                          Id = long.Parse(s.Document.Id),
+                          Image = s.Document.Image,
+                          Name = s.Document.Name2,
+                          NumOfUsers = s.Document.MembersCount.HasValue ? s.Document.MembersCount.Value : 0,
+                          UserImages = s.Document.MembersImages
+                      }));
+            }
+
+            return result;
 
         }
 

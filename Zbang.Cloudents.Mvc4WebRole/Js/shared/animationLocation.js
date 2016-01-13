@@ -18,7 +18,6 @@
                     //    'transform-origin': xPos + ' ' + yPos,
 
                     //});
-                    console.log(e);
                 });
             }
         };
