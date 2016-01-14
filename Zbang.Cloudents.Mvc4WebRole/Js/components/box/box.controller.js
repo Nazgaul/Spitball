@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.box').controller('BoxController', box);
-    box.$inject = ['boxService', 'boxData', '$stateParams', '$scope', '$state', 'user', '$rootScope'];
+    box.$inject = ['boxService', 'boxData', '$stateParams', '$scope', '$state', 'user', '$rootScope', 'userDetailsFactory'];
 
-    function box(boxService, boxData, $stateParams, $scope, $state, user, $rootScope) {
+    function box(boxService, boxData, $stateParams, $scope, $state, user, $rootScope, userDetailsFactory) {
 
         if ($state.current.name === 'box') {
             $state.go('box.feed', $stateParams, { location: "replace" });
@@ -17,6 +17,10 @@
         b.inviteToBox = inviteToBox;
         b.closeCollapse = closeCollapse;
 
+        b.user = userDetailsFactory.get();
+        
+        b.url = b.user.url;
+        b.image = b.user.image;
         b.isActiveState = isActiveState;
 
         b.toggleSettings = toggleSettings;
