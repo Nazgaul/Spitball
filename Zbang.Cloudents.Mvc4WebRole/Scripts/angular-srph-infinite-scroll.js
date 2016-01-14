@@ -88,7 +88,7 @@
              * the scope is destroyed
              */
             function $handleUnbind() {
-                $container.unbind('scroll', $handle);
+                $scrollingContainer.unbind('scroll', $handle);
             }
 
             /**

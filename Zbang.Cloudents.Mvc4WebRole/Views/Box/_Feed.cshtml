@@ -120,22 +120,22 @@
                                         height="150px">
                                         <li ng-repeat="e in reply.files" ng-include="'item-template.html'">
                                             @*<a class="item" href="{{::item.url}}">
-                                                    <div class="content">
-                                                        <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
-                                                        <div class="extra">
-                                                            <h5>{{::item.name}}</h5>
-                                                            <img src="http://lorempixel.com/30/30/" alt="" />
+                                        <div class="content">
+                                            <img class="img-responsive" ng-src="{{::item.thumbnail}}" alt="">
+                                            <div class="extra">
+                                                <h5>{{::item.name}}</h5>
+                                                <img src="http://lorempixel.com/30/30/" alt="" />
 
-                                                        </div>
-                                                    </div>
-                                                </a>*@
+                                            </div>
+                                        </div>
+                                    </a>*@
                                         </li>
                                     </ul>
                                 </div>
                                 <span class="comment-date">{{::reply.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
                                 <div class="actions padding">
                                     @*<button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>
-                                        <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>*@
+                            <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>*@
                                     <span class="ribbon" ng-if="post.isNew">New</span>
                                 </div>
                             </li>
@@ -165,7 +165,7 @@
                                 <div class="submit" layout="row" layout-align="space-between center">
                                     <button type="submit" class="btn button-Blue btn-primary text-uppercase" ng-disabled="f.add.disabled" ga-track-event="['box-feed', 'postReply']">@GeneralResources.Post</button>
                                     @*<input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
-                                        <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
+                            <label for="anonymous" class="pull-right">@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>*@
                                 </div>
                             </div>
                         </form>

@@ -323,6 +323,7 @@ md-tabs .md-tab {
   margin-right: 15px;
 }
 .full-screen {
+  background: #f5f5f5;
   position: fixed;
   left: 0;
   right: 0;
@@ -342,6 +343,9 @@ md-tabs .md-tab {
   top: 0;
 }
 .full-screen header {
+  color: #f5f5f5;
+  background-color: #323538;
+  border-bottom: 5px solid #282828;
   height: 80px;
   line-height: 80px;
   position: fixed;
