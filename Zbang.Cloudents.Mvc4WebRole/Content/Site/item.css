@@ -104,6 +104,71 @@
     width: calc(100% - 20px);
   }
 }
+.itemPage .comments-wrapper {
+  width: calc(50vw - 400px);
+  text-align: right;
+  min-width: 300px;
+  padding: 10px;
+  top: 85px;
+  bottom: 0;
+  position: fixed;
+  overflow: scroll;
+}
+.itemPage .comments-wrapper .title {
+  font-size: 16px;
+  padding: 10px 0;
+}
+.itemPage .comments-wrapper .comments {
+  text-align: left;
+  width: 280px;
+  display: inline-block;
+}
+.itemPage .comments-wrapper .comments .user-image {
+  padding-right: 10px;
+}
+.itemPage .comments-wrapper .comments md-input-container {
+  margin: 0;
+}
+.itemPage .comments-wrapper .comments md-menu {
+  padding: 0;
+}
+.itemPage .comments-wrapper .comments md-menu .md-button {
+  margin: 0;
+  padding: 0;
+  width: 20px;
+  height: 0;
+}
+.itemPage .comments-wrapper .comments md-menu .md-ripple-container {
+  left: 0;
+  top: 0;
+}
+.itemPage .comments-wrapper .comments .buttons {
+  text-align: right;
+}
+.itemPage .comments-wrapper .comments .comments-list > li {
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+.itemPage .comments-wrapper .comments .comment-replies .reply-data > div,
+.itemPage .comments-wrapper .comments .comment-replies .reply-data > md-menu {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.itemPage .comments-wrapper .comments .comment-text,
+.itemPage .comments-wrapper .comments .reply-text {
+  width: 100%;
+}
+.itemPage .comments-wrapper .new-comment {
+  padding: 0 10px;
+}
+.itemPage .comments-wrapper .new-comment .new-comment-form {
+  width: 100%;
+}
+.itemPage .comments-wrapper .reply-btn {
+  padding-top: 10px;
+  margin-top: 10px;
+}
 .itemPage .arrows svg {
   width: 40px;
   height: 40px;

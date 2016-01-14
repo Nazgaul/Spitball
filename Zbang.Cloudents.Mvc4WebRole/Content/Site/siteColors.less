@@ -188,6 +188,8 @@
 
 
     .full-screen {
+        background: @backgroundColorWhite;
+
         header {
             color: @textColorWhite;
             background-color: @backgroundColorMenu;
@@ -1162,6 +1164,42 @@
             svg {
                 fill: @svgLightGrey;
             }
+        }
+
+        @media (max-width: 1401px) {
+            .comments-wrapper {
+                background: @textColorWhite;
+                box-shadow: 0 0 50px @textColorDarkGrey;
+
+                .comments-list > li {
+                    border: 1px solid @borderColorBlue;
+                }
+            }
+        }
+
+        .comments-wrapper {
+            .title {
+                color: @textColorBlue;
+            }
+
+            .comments-list > li {
+                border: 1px solid @borderColorBlue;
+            }
+
+            .comment-replies {
+                .reply-text {
+                    border-top: 1px solid @borderColorLightGrey;
+                }
+            }
+
+            .reply-btn {
+                border-top: 1px solid @borderColorLightGrey;
+                color: @textColorBlue;
+            }
+        }
+
+        .comments-wrapper, .comments-wrapper md-input-container .md-input {
+            color: @textColorBlack;
         }
 
         .arrows {

@@ -58,7 +58,6 @@
                 margin-left: 15px;
             }
         }
-
     }
 
 
@@ -134,6 +133,87 @@
         }
     }
 
+    .comments-wrapper {
+        width: ~"calc(50vw - 400px)";
+        text-align: right;
+        min-width: 300px;
+        padding: 10px;
+        top: 85px;
+        bottom: 0;
+        position: fixed;
+        overflow: scroll;
+
+        .title {
+            font-size: 16px;
+            padding: 10px 0;
+        }
+
+        .comments {
+            text-align: left;
+            width: 280px;
+            display: inline-block;
+
+            .user-image {
+                padding-right: 10px;
+            }
+
+            md-input-container {
+                margin: 0;
+            }
+
+            md-menu {
+                padding: 0;
+
+                .md-button {
+                    margin: 0;
+                    padding: 0;
+                    width: 20px;
+                    height: 0;
+                }
+
+                .md-ripple-container {
+                    left: 0;
+                    top: 0;
+                }
+            }
+
+            .buttons {
+                text-align: right;
+            }
+
+            .comments-list > li {
+                border-radius: 5px;
+                padding: 10px;
+                margin: 10px 0;
+            }
+
+            .comment-replies {
+                .reply-data {
+                    > div, >md-menu {
+                        margin-top: 10px;
+                        padding-top: 10px;
+                    }
+                }
+            }
+
+            .comment-text, .reply-text {
+                width: 100%;
+            }
+        }
+
+        .new-comment {
+            padding: 0 10px;
+
+            .new-comment-form {
+                width: 100%;
+            }
+        }
+
+        .reply-btn {
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+    }
 
     .arrows {
 
@@ -204,7 +284,6 @@
             }
         }
     }
-
     //.previewDenied {
     //    width: 100%;
     //    max-width: 100%;
@@ -231,7 +310,6 @@
     //        }
     //    }
     //}
-
     .preview-svg .svgContent, .preview-image .imageContent {
         background: #fff;
         border-radius: 15px;

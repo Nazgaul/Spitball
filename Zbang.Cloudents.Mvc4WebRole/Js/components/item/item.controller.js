@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.item').controller('ItemController', item);
-    item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user'];
+    item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user', 'itemData', '$scope', '$timeout'];
 
-    function item($stateParams, itemService, $sce, $location, $q, user) {
+    function item($stateParams, itemService, $sce, $location, $q, user, itemData, $scope, $timeout) {
         var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         var index = 0, needLoadMore = false;
 
@@ -13,15 +13,15 @@
         };
 
         i.preview = '';
-        itemService.getDetails(boxid, itemId).then(function (response) {
-            i.details = response;
-            console.log("response", response);
-            i.details.downloadUrl = $location.url() + 'download/';
-            i.details.printUrl = $location.url() + 'print/';
-            getPreview();
-        });
 
 
+        i.details = itemData;
+        $timeout(function () {
+            $scope.$broadcast('itemData', itemData);
+        }, 1);
+        i.details.downloadUrl = $location.url() + 'download/';
+        i.details.printUrl = $location.url() + 'print/';
+        getPreview();
 
 
         //i.renameOn = true;
@@ -99,17 +99,12 @@
             });
         }
         function addComment() {
-            itemService.addComment(i.newCommentText, boxid, itemId).then(function (response) {
-                console.log(response);
-            });
+            itemService.addComment(i.newCommentText, boxid, itemId);
 
         }
 
         function addCommentReply(comment) {
-            console.log("comment.id", comment.id);
-            itemService.replycomment(i.newCommentReplyText, itemId, boxid, comment.id).then(function (response) {
-                console.log(response);
-            });
+            itemService.replycomment(i.newCommentReplyText, itemId, boxid, comment.id);
         }
 
         function openReply(comment) {

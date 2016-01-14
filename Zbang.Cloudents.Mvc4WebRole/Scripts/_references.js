@@ -269,3 +269,4 @@
 /// <reference path="../js/menu/menulink.directive.js" />
 /// <reference path="../js/menu/sidemenu.controller.js" />
 /// <reference path="../js/menu/nospace.filter.js" />
+/// <reference path="../js/components/item/comments.controller.js" />

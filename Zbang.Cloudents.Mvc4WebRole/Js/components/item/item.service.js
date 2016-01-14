@@ -60,7 +60,19 @@
                 commentid: commentId,
                 boxid: boxid
             });
-    }
+        }
+
+        d.deleteReply = function(replyId) {
+            return ajaxservice.post('/item/deletecommentreply', {
+                ReplyId: replyId
+            });
+        }
+
+        d.deleteComment = function (commentId) {
+            return ajaxservice.post('/item/deletecomment', {
+                CommentId: commentId
+            });
+        }
 
         //no need to wipe cache
         d.like = function (id, boxId) {

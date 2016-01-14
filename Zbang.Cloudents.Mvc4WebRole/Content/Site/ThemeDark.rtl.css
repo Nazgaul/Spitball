@@ -130,6 +130,9 @@ md-tabs md-ink-bar {
   border-bottom: 1px solid #888b8e;
   color: #888b8e;
 }
+.full-screen {
+  background: #f5f5f5;
+}
 .full-screen header {
   color: #f5f5f5;
   background-color: #323538;
@@ -823,6 +826,32 @@ body {
 }
 .itemPage .fileName svg {
   fill: #c2c2c2;
+}
+@media (max-width: 1401px) {
+  .itemPage .comments-wrapper {
+    background: #f5f5f5;
+    box-shadow: 0 0 50px #323538;
+  }
+  .itemPage .comments-wrapper .comments-list > li {
+    border: 1px solid #3598dc;
+  }
+}
+.itemPage .comments-wrapper .title {
+  color: #2698d4;
+}
+.itemPage .comments-wrapper .comments-list > li {
+  border: 1px solid #3598dc;
+}
+.itemPage .comments-wrapper .comment-replies .reply-text {
+  border-top: 1px solid #8c99a6;
+}
+.itemPage .comments-wrapper .reply-btn {
+  border-top: 1px solid #8c99a6;
+  color: #2698d4;
+}
+.itemPage .comments-wrapper,
+.itemPage .comments-wrapper md-input-container .md-input {
+  color: #282828;
 }
 .itemPage .arrows .arrow {
   fill: #c2c2c2;
