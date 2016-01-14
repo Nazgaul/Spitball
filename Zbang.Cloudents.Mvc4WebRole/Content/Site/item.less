@@ -134,15 +134,15 @@
     }
 
     .comments-wrapper {
-        width: ~"calc(50vw - 400px)";
         text-align: right;
-        min-width: 300px;
-        padding: 10px;
+        padding-left: ~"calc(50vw - 720px)";
         top: 85px;
         bottom: 0;
         position: fixed;
-        overflow: scroll;
 
+        > div{
+            margin: 0 auto;
+        }
         .title {
             font-size: 16px;
             padding: 10px 0;
@@ -150,7 +150,8 @@
 
         .comments {
             text-align: left;
-            width: 280px;
+            width: 300px;
+            padding: 15px;
             display: inline-block;
 
             .user-image {
@@ -189,7 +190,7 @@
 
             .comment-replies {
                 .reply-data {
-                    > div, >md-menu {
+                    > div, > md-menu {
                         margin-top: 10px;
                         padding-top: 10px;
                     }

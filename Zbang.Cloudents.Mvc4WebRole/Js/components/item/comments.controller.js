@@ -42,6 +42,7 @@
                 .finally(function () {
                     c.commentDesabled = false;
                     if (!c.error) {
+                        cancel(form);
                         c.showButtons = false;
                     }
                 });;
@@ -76,6 +77,7 @@
                 .finally(function () {
                     c.commentDesabled = false;
                     if (!c.error) {
+                        cancel(form);
                         comment.showFrom = false;
                     }
                 });;

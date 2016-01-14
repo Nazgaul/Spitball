@@ -105,14 +105,14 @@
   }
 }
 .itemPage .comments-wrapper {
-  width: calc(50vw - 400px);
   text-align: left;
-  min-width: 300px;
-  padding: 10px;
+  padding-right: calc(50vw - 720px);
   top: 85px;
   bottom: 0;
   position: fixed;
-  overflow: scroll;
+}
+.itemPage .comments-wrapper > div {
+  margin: 0 auto;
 }
 .itemPage .comments-wrapper .title {
   font-size: 16px;
@@ -120,7 +120,8 @@
 }
 .itemPage .comments-wrapper .comments {
   text-align: right;
-  width: 280px;
+  width: 300px;
+  padding: 15px;
   display: inline-block;
 }
 .itemPage .comments-wrapper .comments .user-image {
