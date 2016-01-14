@@ -338,7 +338,8 @@ u.Culture as Culture,
     v.UniversityName as University,
     v.LargeImage as UniversityImage,
     u.Email as Email,
-    u.Culture as Language
+    u.Culture as Language,
+    case when u.MembershipUserId is null then 0 else 1 end  as System
     from zbox.Users u left join zbox.University v on u.UniversityId = v.Id
     where u.userId = @UserId";
     }

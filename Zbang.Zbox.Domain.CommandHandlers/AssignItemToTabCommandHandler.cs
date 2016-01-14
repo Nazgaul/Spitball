@@ -8,14 +8,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class AssignItemToTabCommandHandler : ICommandHandler<AssignItemToTabCommand>
     {
-        private readonly IUserRepository m_UserRepository;
         private readonly IItemTabRepository m_ItemTabRepository;
         private readonly IRepository<Item> m_ItemRepository;
 
-        public AssignItemToTabCommandHandler(IUserRepository userRepository, IItemTabRepository itemTabRepository,
+        public AssignItemToTabCommandHandler(IItemTabRepository itemTabRepository,
            IRepository<Item> itemRepository)
         {
-            m_UserRepository = userRepository;
             m_ItemTabRepository = itemTabRepository;
             m_ItemRepository = itemRepository;
 
@@ -25,25 +23,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (message == null) throw new ArgumentNullException("message");
 
-
-            var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
-
-            if (userType == Infrastructure.Enums.UserRelationshipType.None || userType == Infrastructure.Enums.UserRelationshipType.Invite)
-            {
-                throw new UnauthorizedAccessException("You need to follow the box");
-            }
-
             var itemTab = m_ItemTabRepository.Load(message.TabId);
-            //if (message.NeedDelete)
-            //{
-            //    itemTab.DeleteReferenceToItems();
-            //}
-            //foreach (var itemid in message.ItemsId)
-            //{
             var item = m_ItemRepository.Load(message.ItemId);
             itemTab.AddItemToTab(item);
             m_ItemTabRepository.Save(itemTab);
-            //}
         }
     }
 }
