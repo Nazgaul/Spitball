@@ -348,14 +348,13 @@ md-tabs {
 
 
 .full-screen {
-    //.fullScreen();
+    .fullScreen();
     position: fixed;
     right: 0;
     left: 0;
     bottom: 0;
     z-index: 1002;
     overflow-y: auto;
-    //background: @backgroundColorWhite;
     height: 100vh;
     width: 100vw;
 
@@ -373,6 +372,9 @@ md-tabs {
 
 
     header {
+        color: @textColorWhite;
+        background-color: @backgroundColorMenu;
+        border-bottom: 5px solid @borderColorBlack;
         height: @fullScreenHeaderHeight;
         line-height: @fullScreenHeaderHeight;
         position: fixed;
@@ -387,7 +389,8 @@ md-tabs {
         min-height: ~"calc( 100% - 80px)";
     }
 }
-.md-dialog-container{
+
+.md-dialog-container {
     z-index: 1002;
 }
 

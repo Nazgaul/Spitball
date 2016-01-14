@@ -112,7 +112,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var comment =  m_CommentRepository.Load(commentId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, comment));
-
+            if (string.IsNullOrEmpty(comment.Text))
+            {
+                Task.FromResult<object>(null);
+            }
             var removeHtmlRegex = new Regex("<[^>]*>", RegexOptions.Compiled);
             var textToPush = removeHtmlRegex.Replace(comment.Text, string.Empty);
             if (string.IsNullOrEmpty(textToPush))

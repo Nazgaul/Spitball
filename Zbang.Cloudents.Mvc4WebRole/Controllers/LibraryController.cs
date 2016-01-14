@@ -86,6 +86,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var retVal = await m_UniversitySearch.Value.SearchUniversityAsync(new UniversitySearchQuery(term, country: country, rowsPerPage: 25), source.Token);
                 return JsonOk(retVal);
             }
+            catch (OperationCanceledException)
+            {
+                TraceLog.WriteInfo("search university - abort");
+                return JsonOk();
+            }
             catch (Exception ex)
             {
                 TraceLog.WriteError("SeachUniversity term:  " + term, ex);
