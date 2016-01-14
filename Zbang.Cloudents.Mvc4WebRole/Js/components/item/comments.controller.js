@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.item').controller('CommentsController', comments);
-    comments.$inject = ['$stateParams', 'itemService', '$scope', 'userDetailsFactory', '$mdDialog', 'resManager', '$mdSidenav'];
+    comments.$inject = ['$stateParams', 'itemService', '$scope', 'userDetailsFactory', '$mdDialog', 'resManager', '$mdSidenav', '$rootScope'];
 
-    function comments($stateParams, itemService, $scope, userDetailsFactory, $mdDialog, resManager, $mdSidenav) {
+    function comments($stateParams, itemService, $scope, userDetailsFactory, $mdDialog, resManager, $mdSidenav, $rootScope) {
         var c = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         $scope.$on('itemData', function (e, arg) {
             c.comments = arg.comments;
@@ -15,16 +15,36 @@
         c.canDelete = canDelete;
         c.deleteReply = deleteReply;
         c.deleteComment = deleteComment;
+        c.commentFocused = commentFocused;
+        c.replyClicked = replyClicked;
         c.showButtons = false;
         c.commentDesabled = false;
         c.cancel = cancel;
         c.showCommentMenu = false;
         c.toggleComments = toggleComments;
+        c.displayUnregBox = displayUnregBox;
 
         function toggleComments() {
             $mdSidenav('commentsMenu').toggle();
         }
 
+        function displayUnregBox() {
+            if (!c.currUser.id) {
+                $rootScope.$broadcast('show-unregisterd-box');
+            }
+            return !c.currUser.id;
+        }
+
+
+        function commentFocused() {
+            c.showButtons = !displayUnregBox();
+        }
+
+        function replyClicked(comment) {
+            if (!displayUnregBox()) {
+                c.openReply(comment);
+            }
+        }
 
         function addComment(form) {
             c.commentDesabled = true;

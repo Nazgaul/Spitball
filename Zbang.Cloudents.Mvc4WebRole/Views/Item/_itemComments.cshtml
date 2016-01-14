@@ -25,7 +25,7 @@
                     </div>
                     <form name="newComment" class="new-comment-form" novalidate ng-submit="c.addComment(newComment)">
                         <md-input-container md-no-float>
-                            <input autocomplete="off" required ng-model="c.newCommentText" name="comment" ng-focus="c.showButtons = true" placeholder="@ItemsResources.NewComment" ng-change="newComment.comment.$setValidity('server',true)">
+                            <input autocomplete="off" required ng-model="c.newCommentText" name="comment" ng-focus="c.commentFocused()" placeholder="@ItemsResources.NewComment" ng-change="newComment.comment.$setValidity('server',true)">
                             <div ng-messages="newComment.comment.$error" ng-show="newComment.comment.$dirty">
                                 <div ng-message="required">@GeneralResources.RequiredField</div>
                                 <div ng-message="server">{{c.error}}</div>
@@ -91,7 +91,7 @@
                             </li>
                         </ul>
                         <div class="reply-btn">
-                            <button type="button" class=" text-capitalize margins" ng-if="!comment.showFrom" ng-click="c.openReply(comment)">Reply</button>
+                            <button type="button" class=" text-capitalize margins" ng-if="!comment.showFrom" ng-click="c.replyClicked(comment)">Reply</button>
                         </div>
                         <form name="newReply" class="add-comment-reply add-reply" novalidate ng-if="comment.showFrom" ng-submit="c.addCommentReply(comment, newReply)">
                             <md-input-container md-no-float>
