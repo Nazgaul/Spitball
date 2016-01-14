@@ -185,5 +185,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
                 return ResourceManager.GetString("SchoolName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select your school....
+        /// </summary>
+        public static string UniversitySearchPlaceholder {
+            get {
+                return ResourceManager.GetString("UniversitySearchPlaceholder", resourceCulture);
+            }
+        }
     }
 }

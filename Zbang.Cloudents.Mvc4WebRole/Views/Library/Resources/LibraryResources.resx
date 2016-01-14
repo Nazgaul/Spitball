@@ -159,4 +159,7 @@
   <data name="SchoolName" xml:space="preserve">
     <value>School name</value>
   </data>
+  <data name="UniversitySearchPlaceholder" xml:space="preserve">
+    <value>Select your school...</value>
+  </data>
 </root>

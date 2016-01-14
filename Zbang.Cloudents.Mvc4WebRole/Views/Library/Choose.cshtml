@@ -3,7 +3,7 @@
 
 <div ng-if="!lc.needCode">
     <form novalidate remove-keyboard ng-submit="lc.search()">
-        <input spellcheck="false" autofocus ng-disabled="lc.createUniversity" type="search" class="search-text" placeholder="@GeneralResources.Search" ng-model="lc.term" ng-model-options="{debounce : 250}" ng-change="lc.search()" ng-minlength="2" />
+        <input spellcheck="false" autofocus ng-disabled="lc.createUniversity" type="search" class="search-text" placeholder="@LibraryResources.UniversitySearchPlaceholder" ng-model="lc.term" ng-model-options="{debounce : 250}" ng-change="lc.search()" ng-minlength="2" />
     </form>
     
     <div layout="row" layout-align="start center" layout-padding layout-wrap ng-if="!lc.createUniversity" srph-infinite-scroll="lc.paging()">
