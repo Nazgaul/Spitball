@@ -2846,7 +2846,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.ar.resx" />
-    <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.en-GB.resx" />
     <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -2855,16 +2854,12 @@
       <LastGenOutput>AccountControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.ru.resx" />
-    <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.ar.resx" />
-    <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.en-GB.resx" />
     <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>BaseControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.ru.resx" />
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.ar.resx" />
-    <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.en-GB.resx" />
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

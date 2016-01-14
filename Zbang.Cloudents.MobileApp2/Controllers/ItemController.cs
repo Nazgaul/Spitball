@@ -191,7 +191,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 {
                     try
                     {
-                        title = await helper.BringTitle(model.FileUrl);
+                        title = await helper.BringTitleAsync(model.FileUrl);
                     }
                     catch (Exception ex)
                     {

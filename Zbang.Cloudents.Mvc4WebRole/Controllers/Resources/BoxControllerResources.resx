@@ -129,6 +129,9 @@
   <data name="LinkExists" xml:space="preserve">
     <value>One of your classmates has already posted this link</value>
   </data>
+  <data name="LinkNotFound" xml:space="preserve">
+    <value>Link not found</value>
+  </data>
   <data name="NoFilesReceived" xml:space="preserve">
     <value>No documents were received</value>
   </data>

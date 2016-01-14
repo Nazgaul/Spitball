@@ -134,9 +134,9 @@
             });
             if (self.inBox) {
                 $scope.$emit('follow-box');
-                shareService.inviteToBox(contacts, $stateParams.boxId).then(successSend);
+                shareService.inviteToBox(contacts, $stateParams.boxId).finally(successSend);
             } else {
-                shareService.inviteToSystem(contacts).then(successSend);
+                shareService.inviteToSystem(contacts).finally(successSend);
             }
         }
 
