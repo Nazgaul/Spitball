@@ -22,7 +22,7 @@
 
             button {
                 font-size: 14px;
-                 color: @svgLightGrey;
+                color: @svgLightGrey;
                 padding-left: 25px;
                 text-transform: capitalize;
 
@@ -60,11 +60,13 @@
                 margin-left: 15px;
             }
         }
+
         .fb-like.blue svg {
             fill: #4190b9;
         }
     }
-     md-select:not([disabled]):focus .md-select-value {
+
+    md-select:not([disabled]):focus .md-select-value {
         color: @textColorBlack;
         border-bottom: 1px solid @borderColorDarkBlue;
     }
@@ -116,7 +118,8 @@
             md-content {
                 background: none;
             }
-             md-input-container .md-input {
+
+            md-input-container .md-input {
                 color: @textColorDarkGrey;
             }
 
@@ -148,16 +151,71 @@
             width: ~"calc(100% - 20px)";
         }
     }
-
-    .comments-wrapper {
-        width: ~"calc(50vw - 400px)";
-        text-align: right;
-        min-width: 300px;
-        padding: 10px;
+    /*.comments-section {
         top: 85px;
         bottom: 0;
         position: fixed;
-        overflow: scroll;
+
+        .menu-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+    }*/
+    .comments-wrapper, .comments-wrapper md-input-container .md-input {
+        color: @textColorBlack;
+    }
+
+    .commentsMenu {
+        width: 20px;
+        height: 20px;
+        fill: @borderColorLightGrey;
+    }
+
+    .comments-section {
+        > button {
+            position: fixed;
+            top: 90px;
+        }
+
+        .menu-icon {
+            padding-top: 10px;
+        }
+    }
+
+    .menu-toggler {
+        text-align: right;
+
+        @media (min-width: 960px) {
+            display: none;
+        }
+    }
+
+    .comments-wrapper {
+        background: @textColorWhite;
+        width: 300px;
+
+        .title {
+            color: @textColorBlue;
+        }
+
+        .comments-list > li {
+            border: 1px solid @borderColorBlue;
+        }
+
+        .comment-replies {
+            .reply-text {
+                border-top: 1px solid @borderColorLightGrey;
+            }
+        }
+
+        .reply-btn {
+            border-top: 1px solid @borderColorLightGrey;
+            color: @textColorBlue;
+        }
+
+        > div {
+            margin: 0 auto;
+        }
 
         .title {
             font-size: 16px;
@@ -165,8 +223,8 @@
         }
 
         .comments {
-            text-align: left;
-            width: 280px;
+            width: 300px;
+            padding: 15px;
             display: inline-block;
 
             .user-image {
@@ -205,7 +263,7 @@
 
             .comment-replies {
                 .reply-data {
-                    > div, >md-menu {
+                    > div, > md-menu {
                         margin-top: 10px;
                         padding-top: 10px;
                     }
@@ -242,7 +300,7 @@
         .arrow {
             position: fixed;
             top: ~"calc(50% + 80px)";
-             fill: @svgLightGrey;
+            fill: @svgLightGrey;
         }
     }
 

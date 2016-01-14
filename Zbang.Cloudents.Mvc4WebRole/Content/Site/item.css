@@ -1,4 +1,16 @@
-﻿.itemPage header {
+﻿.itemPage {
+  /*.comments-section {
+        top: 85px;
+        bottom: 0;
+        position: fixed;
+
+        .menu-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+    }*/
+}
+.itemPage header {
   position: fixed;
 }
 .itemPage header a {
@@ -121,23 +133,57 @@
     width: calc(100% - 20px);
   }
 }
-.itemPage .comments-wrapper {
-  width: calc(50vw - 400px);
-  text-align: right;
-  min-width: 300px;
-  padding: 10px;
-  top: 85px;
-  bottom: 0;
+.itemPage .comments-wrapper,
+.itemPage .comments-wrapper md-input-container .md-input {
+  color: #282828;
+}
+.itemPage .commentsMenu {
+  width: 20px;
+  height: 20px;
+  fill: #8c99a6;
+}
+.itemPage .comments-section > button {
   position: fixed;
-  overflow: scroll;
+  top: 90px;
+}
+.itemPage .comments-section .menu-icon {
+  padding-top: 10px;
+}
+.itemPage .menu-toggler {
+  text-align: right;
+}
+@media (min-width: 960px) {
+  .itemPage .menu-toggler {
+    display: none;
+  }
+}
+.itemPage .comments-wrapper {
+  background: #f5f5f5;
+  width: 300px;
+}
+.itemPage .comments-wrapper .title {
+  color: #2698d4;
+}
+.itemPage .comments-wrapper .comments-list > li {
+  border: 1px solid #3598dc;
+}
+.itemPage .comments-wrapper .comment-replies .reply-text {
+  border-top: 1px solid #8c99a6;
+}
+.itemPage .comments-wrapper .reply-btn {
+  border-top: 1px solid #8c99a6;
+  color: #2698d4;
+}
+.itemPage .comments-wrapper > div {
+  margin: 0 auto;
 }
 .itemPage .comments-wrapper .title {
   font-size: 16px;
   padding: 10px 0;
 }
 .itemPage .comments-wrapper .comments {
-  text-align: left;
-  width: 280px;
+  width: 300px;
+  padding: 15px;
   display: inline-block;
 }
 .itemPage .comments-wrapper .comments .user-image {
