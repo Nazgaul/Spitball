@@ -50,21 +50,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, NoUniversity]
         public ActionResult IndexPartial()
         {
-            //var userDetail = FormsAuthenticationService.GetUserData();
-            //var universityId = User.GetUniversityId();
-            //if (!universityId.HasValue)
-            //{
-            //    return RedirectToAction("Choose");
-            //}
-            //var query = new GetUniversityDetailQuery(universityId.Value
-            //     );
-
-            //var result = await ZboxReadService.GetUniversityDetail(query);
-            //if (result.Id == 0)
-            //{
-            //    return RedirectToAction("Choose");
-            //}
-            //return PartialView("Index2", result);
             return PartialView("Index2");
         }
 
@@ -151,19 +136,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var suggestedUniversity =
                     await ZboxReadService.GetUniversityListByFriendsIdsAsync(facebookFriendData.Select(s => s.Id));
 
-                //foreach (var university in suggestedUniversity)
-                //{
-                //    university.UserImages = university.Friends.Select(s =>
-                //    {
-                //        var facebookData = facebookFriendData.FirstOrDefault(f => f.Id == s.Id);
-                //        if (facebookData != null)
-                //        {
-                //            s.Image = facebookData.Image;
-                //            s.Name = facebookData.Name;
-                //        }
-                //        return s;
-                //    });
-                //}
 
                 return JsonOk(suggestedUniversity);
             }
@@ -376,9 +348,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var claimUniversity = user.Claims.SingleOrDefault(w => w.Type == ClaimConsts.UniversityIdClaim);
             var claimUniversityData = user.Claims.SingleOrDefault(w => w.Type == ClaimConsts.UniversityDataClaim);
 
-            user.RemoveClaim(claimUniversity);
-            user.RemoveClaim(claimUniversityData);
-
+            if (claimUniversity != null)
+            {
+                user.RemoveClaim(claimUniversity);
+            }
+            if (claimUniversityData != null)
+            {
+                user.RemoveClaim(claimUniversityData);
+            }
 
             user.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
                     command.Id.ToString(CultureInfo.InvariantCulture)));

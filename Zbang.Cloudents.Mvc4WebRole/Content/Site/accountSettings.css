@@ -35,6 +35,10 @@
 }
 .accountPage-wrapper .theme-section.selected div {
   border: 1px solid #2698D4;
+  box-shadow: 2px 3px 3px #282828;
+}
+.accountPage-wrapper .theme-section:hover div {
+  box-shadow: 2px 3px 3px #282828;
 }
 .accountPage-wrapper .section {
   margin-bottom: 20px;

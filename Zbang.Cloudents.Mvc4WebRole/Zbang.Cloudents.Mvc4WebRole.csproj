@@ -1708,7 +1708,6 @@
     <Content Include="Images\signin\syncfusion-icons-white.png" />
     <Content Include="Images\Site\BG.png" />
     <Content Include="Images\Site\browsers.svg" />
-    <Content Include="Images\Site\folder_icon.svg" />
     <Content Include="Images\Site\gmail.svg" />
     <Content Include="Images\aboutUs\aboutUsIcons.svg" />
     <Content Include="Images\Site\info.svg" />
@@ -3025,6 +3024,7 @@
     <EmbeddedResource Include="Views\Box\Resources\BoxResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BoxResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Box\Resources\BoxResources.ru.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResource.ar.resx" />

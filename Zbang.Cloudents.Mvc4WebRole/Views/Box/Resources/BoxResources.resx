@@ -160,12 +160,15 @@
     <value>Upload Files</value>
   </data>
   <data name="Whats" xml:space="preserve">
-    <value>Ask question, share study material...</value>
+    <value>Ask a question, share study material...</value>
   </data>
   <data name="AddFolder" xml:space="preserve">
     <value>Add folder</value>
   </data>
   <data name="Anonymous" xml:space="preserve">
     <value>Anonymous</value>
+  </data>
+  <data name="itemsInTab" xml:space="preserve">
+    <value>items</value>
   </data>
 </root>

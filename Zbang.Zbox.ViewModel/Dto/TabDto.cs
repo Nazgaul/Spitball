@@ -6,5 +6,7 @@ namespace Zbang.Zbox.ViewModel.Dto
     {
         public string Name { get; set; }
         public Guid Id { get; set; }
+
+        public int Count { get; set; }
     }
 }

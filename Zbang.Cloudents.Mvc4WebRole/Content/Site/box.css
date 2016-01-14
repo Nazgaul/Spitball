@@ -4,10 +4,14 @@
   -o-transition: all 0.5s ease-in-out;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
 }
 .folder-selected .folder-name .folder-name-inner,
 .folders .folder-name .folder-name-inner {
   padding: 0 6px;
+  width: 100%;
 }
 .folder-selected .folder-name .content,
 .folders .folder-name .content {
@@ -34,7 +38,10 @@
   width: 100%;
 }
 .folders .folder-name .content {
-  padding: 2px 6px;
+  text-align: center;
+}
+.folders .folder-name .content div:last-child {
+  margin-top: 3px;
 }
 .folder-selected {
   margin-bottom: 20px;
@@ -105,12 +112,14 @@
 .folders .add-folder svg {
   width: 15px;
   height: 15px;
+  vertical-align: middle;
 }
 .folders .add-folder span {
   font-weight: bold;
   font-size: 16px;
   line-height: 20px;
   padding-left: 10px;
+  vertical-align: middle;
 }
 .folders .text,
 .folder-selected .text {

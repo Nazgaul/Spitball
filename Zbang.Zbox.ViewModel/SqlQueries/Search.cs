@@ -3,7 +3,7 @@
     public static class Search
     {
         public const string GetBoxToUploadToSearch =
-            @"select top 500 b.boxid  as Id
+            @"select top (@top) b.boxid  as Id
 ,b.BoxName as Name, b.ProfessorName as Professor ,b.CourseCode as CourseCode
 , b.Url as Url, b.University as UniversityId ,  b.discriminator as Type
   from zbox.box b
@@ -11,13 +11,13 @@
   order by b.BoxId;";
 
         public const string GetBoxUsersToUploadToSearch = @"select UserId,BoxId from zbox.UserBoxRel where boxId in (
-select top 500 b.boxid  from zbox.box b
+select top (@top) b.boxid  from zbox.box b
   where isdirty = 1 and isdeleted = 0  and url is not null and b.boxid % @count  = @index
   order by b.BoxId);";
 
         public const string GetBoxDepartmentToUploadToSearch = @"  with c as (
 select l.*, b.boxid from zbox.library l join zbox.box b on l.libraryid = b.libraryid and b.boxid in 
-( select top 500 b.boxid  from zbox.box b
+( select top (@top) b.boxid  from zbox.box b
   where isdirty = 1 and isdeleted = 0  and url is not null and b.boxid % @count  = @index
   order by b.BoxId)
  
@@ -37,7 +37,7 @@ select Name,boxid from c";
         where isdirty = 1 and isdeleted = 1 and itemid % @count  = @index;";
 
         public const string GetItemsToUploadToSearch =
-            @" select top 1
+            @" select top (@top)
   i.ItemId as id,
   i.Name as name,
   i.ThumbnailUrl as image,
@@ -59,7 +59,7 @@ select Name,boxid from c";
 
         public const string GetItemUsersToUploadToSearch =
             @"  select UserId,BoxId from zbox.UserBoxRel where boxId in (
-select top 1 i.boxid  from zbox.item i  join zbox.box b on i.BoxId = b.BoxId
+select top (@top) i.boxid  from zbox.item i  join zbox.box b on i.BoxId = b.BoxId
    left join zbox.University u on b.University = u.id
   where  i.isdirty = 1 
   and i.isdeleted = 0 
@@ -76,7 +76,7 @@ select top 1 i.boxid  from zbox.item i  join zbox.box b on i.BoxId = b.BoxId
     and q.id % @count  = @index
 	order by Id);";
 
-        public const string GetQuizzesToUploadToSearch = @"select top 100 q.Id,
+        public const string GetQuizzesToUploadToSearch = @"select top (@top) q.Id,
 q.Name,
  b.BoxName,
  q.BoxId,
@@ -95,7 +95,7 @@ order by Id;";
 
         public const string GetQuizzesQuestionToUploadToSearch =
             @"select text, QuizId, Id as questionid  from zbox.QuizQuestion where QuizId in (
-select top 100 q.Id
+select top (@top) q.Id
 from zbox.quiz q 
 where publish = 1
 and q.isdeleted = 0
@@ -107,7 +107,7 @@ order by Id;";
 
         public const string GetQuizzesAnswersToUploadToSearch =
             @"select text,QuizId, questionid from zbox.QuizAnswer where QuizId in (
-select top 100 q.Id
+select top (@top) q.Id
 from zbox.quiz q 
 where publish = 1
 and q.isdeleted = 0
@@ -117,7 +117,7 @@ order by Id)
 order by QuestionId,Id;";
 
         public const string GetQuizzesToDeleteFromSearch = @"
-        select top 100 id as id from zbox.Quiz
+        select top (@top) id as id from zbox.Quiz
         where isdirty = 1 and isdeleted = 1 and id % @count  = @index;";
 
 
@@ -131,7 +131,7 @@ offset @pageNumber*@rowsperpage ROWS
 FETCH NEXT @rowsperpage ROWS ONLY; ";
 
 
-        public const string GetUniversityToUploadToSearch = @"select top 10 id as Id,UniversityName as Name,LargeImage as Image,
+        public const string GetUniversityToUploadToSearch = @"select top (@top) id as Id,UniversityName as Name,LargeImage as Image,
 extra as Extra, Country, NoOfUsers
 from zbox.University
 where isdirty = 1 and isdeleted = 0 
@@ -140,7 +140,7 @@ and id % @count  = @index;";
 
         public const string GetUniversityPeopleToUploadToSearch = @"select universityId, UserImageLarge as Image from (
 select userid, universityid, UserImageLarge, rowid = ROW_NUMBER() over (partition by UniversityId order by UserImageLarge desc) from zbox.Users u where UniversityId in (
-select top 10 id
+select top (@top) id
 from zbox.University u
 where isdirty = 1 and isdeleted = 0 )) t
 where t.rowid < 6";

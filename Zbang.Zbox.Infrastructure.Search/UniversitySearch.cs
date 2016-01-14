@@ -13,6 +13,9 @@ namespace Zbang.Zbox.Infrastructure.Search
         private const string ImageField = "imageField";*/
         public string Id { get; set; }
         public string Name { get; set; }
+
+        public string Name2 { get; set; }
+
         public string Extra1 { get; set; }
         public string Extra2 { get; set; }
         [JsonProperty("ImageField")]

@@ -45,7 +45,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             TraceLog.WriteWarning("quiz index " + index + " count " + count);
             while (!cancellationToken.IsCancellationRequested)
             {
-              
+
                 try
                 {
                     var retVal = await UpdateQuiz(index, count);
@@ -83,7 +83,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<bool> UpdateQuiz(int instanceId, int instanceCount)
         {
-            var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount);
+            var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, 100);
             if (updates.QuizzesToUpdate.Any() || updates.QuizzesToDelete.Any())
             {
                 TraceLog.WriteInfo(PrefixLog, string.Format("quiz updating {0} deleting {1}", updates.QuizzesToUpdate.Count(),

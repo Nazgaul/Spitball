@@ -166,7 +166,7 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public async Task<UniversityToUpdateSearchDto> GetUniversityDirtyUpdates(int index, int total)
+        public async Task<UniversityToUpdateSearchDto> GetUniversityDirtyUpdates(int index, int total, int top)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -174,7 +174,7 @@ namespace Zbang.Zbox.ReadServices
 
                 using (var grid = await conn.QueryMultipleAsync(Search.GetUniversityToUploadToSearch +
                     Search.GetUniversityPeopleToUploadToSearch + Search.GetUniversitiesToDeleteFromSearch
-                    , new { index, count = total }))
+                    , new { index, count = total, top }))
                 {
                     var retVal = new UniversityToUpdateSearchDto
                     {
@@ -196,7 +196,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<BoxToUpdateSearchDto> GetBoxDirtyUpdates(int index, int total)
+        public async Task<BoxToUpdateSearchDto> GetBoxDirtyUpdates(int index, int total, int top)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -205,7 +205,7 @@ namespace Zbang.Zbox.ReadServices
                     (Search.GetBoxToUploadToSearch +
                     Search.GetBoxUsersToUploadToSearch +
                     Search.GetBoxDepartmentToUploadToSearch +
-                    Search.GetBoxToDeleteToSearch, new { index, count = total }))
+                    Search.GetBoxToDeleteToSearch, new { index, count = total, top }))
                 {
                     var retVal = new BoxToUpdateSearchDto
                     {
@@ -231,14 +231,14 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<ItemToUpdateSearchDto> GetItemDirtyUpdatesAsync(int index, int total)
+        public async Task<ItemToUpdateSearchDto> GetItemDirtyUpdatesAsync(int index, int total, int top)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await conn.QueryMultipleAsync
                     (Search.GetItemsToUploadToSearch +
                     Search.GetItemUsersToUploadToSearch +
-                    Search.GetItemToDeleteToSearch, new { index, count = total }
+                    Search.GetItemToDeleteToSearch, new { index, count = total, top }
                     ))
                 {
                     var retVal = new ItemToUpdateSearchDto
@@ -259,7 +259,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync(int index, int total)
+        public async Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync(int index, int total, int top)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -268,7 +268,7 @@ namespace Zbang.Zbox.ReadServices
                      Search.GetQuizzesQuestionToUploadToSearch +
                      Search.GetQuizzesAnswersToUploadToSearch +
                      Search.GetQuizzesUsersToUploadToSearch +
-                     Search.GetQuizzesToDeleteFromSearch, new { index, count = total }
+                     Search.GetQuizzesToDeleteFromSearch, new { index, count = total, top }
                     ))
                 {
                     var retVal = new QuizToUpdateSearchDto

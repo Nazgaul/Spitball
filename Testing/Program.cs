@@ -494,10 +494,10 @@ namespace Testing
         {
             IZboxReadServiceWorkerRole m_ZboxReadService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
             IItemWriteSearchProvider m_ItemSearchProvider = iocFactory.Resolve<IItemWriteSearchProvider>();
-            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(1, 1);
+            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(1, 1, 1);
             if (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
             {
-                    await m_ItemSearchProvider.UpdateDataAsync(updates.ItemsToUpdate, updates.ItemsToDelete);
+                await m_ItemSearchProvider.UpdateDataAsync(updates.ItemsToUpdate, updates.ItemsToDelete);
             }
         }
 
@@ -608,9 +608,9 @@ namespace Testing
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new StoreOrder("ram y", "הליכון משגע", 12341234));
 
 
-            mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new InvitationToCloudentsMailParams("Eidan", 
+            mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new InvitationToCloudentsMailParams("Eidan",
                 "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg",
-                new CultureInfo("en-Us"),"yaari.ram@gmail.com"
+                new CultureInfo("en-Us"), "yaari.ram@gmail.com"
                 , "https://develop.cloudents.com/account/")).Wait();
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InvitationToCloudentsMailParams("Eidan", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg", new CultureInfo("he-IL"), "yaari.ram@gmail.com", null));
 

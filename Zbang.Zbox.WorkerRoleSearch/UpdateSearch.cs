@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -119,15 +120,22 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //    ItemsToDelete = new List<long>()
 
             //};
-            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(instanceId, instanceCount);
+            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(instanceId, instanceCount, 10);
             if (!updates.ItemsToUpdate.Any() && !updates.ItemsToDelete.Any()) return false;
+            var tasks = new List<Task>();
             foreach (var elem in updates.ItemsToUpdate)
             {
                 PreProcessFile(elem);
                 elem.Content = ExtractContentToUploadToSearch(elem);
-
+                if (elem.Type.ToLower() == "file")
+                {
+                    tasks.Add(
+                        m_ItemSearchProvider3.UpdateDataAsync(
+                            new[] {elem}, null));
+                }
             }
-            await m_ItemSearchProvider3.UpdateDataAsync(updates.ItemsToUpdate.Where(w => w.Type.ToLower() == "file"), updates.ItemsToDelete);
+            await Task.WhenAll(tasks);
+            await m_ItemSearchProvider3.UpdateDataAsync(null, updates.ItemsToDelete);
             await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                 new UpdateDirtyToRegularCommand(
                     updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));

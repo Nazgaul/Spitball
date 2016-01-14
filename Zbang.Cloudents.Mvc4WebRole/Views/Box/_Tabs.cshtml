@@ -5,7 +5,7 @@
     <div flex="100" flex-gt-xs="50" class="folder-name">
         <div layout="row" layout-align="start center" class="folder-name-inner">
             <div class="name-and-icon" layout="row" layout-align="start center">
-                @Html.Svg("~/images/folder_icon.svg", "folder", new { flex = "none", @class = "icon" })
+                @*@Html.Svg("~/images/folder_icon.svg", "folder", new { flex = "none", @class = "icon" })*@
                 <div class="text ellipsis" ng-if="!i.openRenameTab">
                     {{i.tabSelected.name}}
                 </div>
@@ -33,27 +33,22 @@
         </div>
     </div>
 </div>
-<ul id="tabSection" layout-padding layout-wrap class="list-unstyled folders" layout="row" layout-align="start center" ng-if="!i.tabSelected.id">
+<ul id="tabSection" layout-padding layout-wrap class="list-unstyled folders" layout="row" layout-align="start stretch" ng-if="!i.tabSelected.id">
     <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" ui-on-drop="i.addItemToTab($data,e)" class="folder-name i-q-wrapper" ng-repeat="e in i.tabs" ng-click="i.tabChange(e)">
-        <div class="name-and-icon content" layout="row" layout-align="start center">
-            @Html.Svg("~/images/folder_icon.svg", "folder", new { flex = "none", @class = "icon" })
-            <div flex class="text ellipsis">
+        <div class="name-and-icon content ">
+            <div class="text ellipsis background-blue">
                 {{:: e.name}}
             </div>
+            <div>{{e.count}} @BoxResources.itemsInTab</div>
         </div>
     </li>
     <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="add-folder folder-name item-animate i-q-wrapper">
-        <div class="content" ng-if="!i.newFolderTabOpened" user-not-register-popup="click" ng-click="i.newFolderTabOpened = true">
-            <button type="button" ga-track-event="['box-Tabs', 'addFolder']">
-                <div>
-                    @Html.Svg("~/images/site/icons.svg", "add")
-
-                    <span>
-                        @BoxResources.AddFolder
-                    </span>
-                </div>
-            </button>
-        </div>
+        <button type="button" ga-track-event="['box-Tabs', 'addFolder']" class="content" ng-if="!i.newFolderTabOpened" user-not-register-popup="click" ng-click="i.newFolderTabOpened = true">
+            @Html.Svg("~/images/site/icons.svg", "add")
+            <span>
+                @BoxResources.AddFolder
+            </span>
+        </button>
         <form class="content" ng-if="i.newFolderTabOpened" ng-submit="i.addTab()" name="addTabForm">
             <input required autofocus type="text" class="designed-input" ng-model="i.newFolderName" ng-blur="i.addTab()" />
         </form>
