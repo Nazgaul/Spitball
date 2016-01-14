@@ -17,8 +17,9 @@
         c.deleteComment = deleteComment;
         c.showButtons = false;
         c.commentDesabled = false;
+        c.cancel = cancel;
 
-        function addComment() {
+        function addComment(form) {
             c.commentDesabled = true;
             itemService.addComment(c.newCommentText, boxid, itemId).then(function (response) {
                 var newComment = {
@@ -33,14 +34,25 @@
                 };
 
                 c.comments.unshift(newComment);
-                c.newCommentText = '';
-            }).finally(function () {
-                c.commentDesabled = false;
-                c.showButtons = false;
-            });;
+            },
+                function (response) {
+                    form.comment.$setValidity('server', false);
+                    c.error = response;
+                })
+                .finally(function () {
+                    c.commentDesabled = false;
+                    if (!c.error) {
+                        c.showButtons = false;
+                    }
+                });;
         }
 
-        function addCommentReply(comment) {
+        function cancel(form) {
+            c.newCommentText = '';
+            $scope.app.resetForm(form);
+        }
+
+        function addCommentReply(comment, form) {
             c.commentDesabled = true;
             itemService.replycomment(c.newCommentReplyText, itemId, boxid, comment.id).then(function (response) {
                 var newResponse = {
@@ -56,10 +68,16 @@
 
                 comment.replies.push(newResponse);
                 c.newCommentReplyText = '';
+            },
+            function (response) {
+                form.reply.$setValidity('server', false);
+                c.error = response;
             })
                 .finally(function () {
                     c.commentDesabled = false;
-                    comment.showFrom = false;
+                    if (!c.error) {
+                        comment.showFrom = false;
+                    }
                 });;
         }
 

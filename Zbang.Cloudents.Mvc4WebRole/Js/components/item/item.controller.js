@@ -38,9 +38,6 @@
 
         i.swipeLeft = swipeLeft;
         i.swipeRight = swipeRight;
-        i.addComment = addComment;
-        i.addCommentReply = addCommentReply;
-        i.openReply = openReply;
 
         function getPreview() {
             i.loader = true;
@@ -98,23 +95,6 @@
                 i.submitDisabled = false;
             });
         }
-        function addComment() {
-            itemService.addComment(i.newCommentText, boxid, itemId);
-
-        }
-
-        function addCommentReply(comment) {
-            itemService.replycomment(i.newCommentReplyText, itemId, boxid, comment.id);
-        }
-
-        function openReply(comment) {
-            angular.forEach(i.details.comments, function (elem) {
-                elem.showFrom = false;
-            });
-            comment.showFrom = true;
-            i.newCommentReplyText = '';
-        }
-
         function flagItem() {
             itemService.flag(i.flag, i.customFlag, itemId);
             cancelFlag();
