@@ -5,7 +5,7 @@
         'universitySuggest', 'universityInit', 'userDetailsFactory'];
 
     function libraryChoose(libraryService, userDetails, $state, countryService, universitySuggest, universityInit, userDetailsFactory) {
-        var self = this;
+        var self = this, page = 0;
         self.term = '';
         self.universities = [];
         self.search = search;
@@ -15,7 +15,7 @@
         self.createUniversity = false;
         self.needCode = false;
         self.countries = [];
-
+        self.paging = paging;
         self.code = {}
         self.code.userName = userDetails.get().name;
 
@@ -25,15 +25,23 @@
         });
         assignData(universityInit);
 
-        function search() {
-            libraryService.getUniversity(self.term).then(function (response) {
-                assignData(response);
+        function search(needPage) {
+            needPage = needPage || false;
+            if (!needPage) {
+                page = 0;
+            }
+            return libraryService.getUniversity(self.term, page).then(function (response) {
+                assignData(response, needPage);
             });
+        }
+        function paging() {
+            page++;
+            return search(true);
         }
         function searchAutoComplete(term, myform) {
             myform.name.$setValidity('required', true);
             myform.name.$setValidity('server', true);
-            return libraryService.getUniversity(term);
+            return libraryService.getUniversity(term, 0);
         }
 
         function selectUniversity(university, myform) {
@@ -50,7 +58,7 @@
                 userDetailsFactory.init(true).then(function () {
                     goToLibrary(university.name, university.id);
                 });
-            }, function(response) {
+            }, function (response) {
                 myform.studentId.$setValidity('server', false);
                 self.error = response;
             }).finally(function () {
@@ -58,8 +66,9 @@
             });;
         }
 
-        function assignData(response) {
-            if (!self.term) {
+        function assignData(response, needPage) {
+
+            if (!self.term && !needPage) {
                 response = universitySuggest.concat(response);
             }
             var data = [];
@@ -77,25 +86,31 @@
                 }
                 data.push(uni);
             }
+            if (needPage) {
+                self.universities = self.universities.concat(data);
+
+                return;
+            }
+
             self.universities = data;
         }
         function createNewUniversity(myform) {
-           
+
             if (!self.universityName) {
                 myform.name.$setValidity('required', false);
                 return;
             }
             self.submitDisabled = true;
             libraryService.createUniversity(self.universityName, self.countryCode).then(function (response) {
-                userDetailsFactory.init(true).then(function() {
+                userDetailsFactory.init(true).then(function () {
                     goToLibrary(self.universityName, response.id);
                 });
-            }).finally(function() {
+            }).finally(function () {
                 self.submitDisabled = false;
             });
         }
 
-       
+
 
         function goToLibrary(universityName, id) {
             userDetails.setUniversity(universityName, id);

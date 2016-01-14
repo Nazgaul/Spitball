@@ -450,7 +450,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost, ZboxAuthorize]
-        public JsonResult AddItemToTab(AssignItemToTab model)
+        public async Task<JsonResult> AddItemToTab(AssignItemToTab model)
         {
             if (!ModelState.IsValid)
             {
@@ -458,7 +458,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var userId = User.GetUserId();
             var command = new AssignItemToTabCommand(model.ItemId, model.TabId, model.BoxId, userId);
-            ZboxWriteService.AssignBoxItemToTab(command);
+            await ZboxWriteService.AssignBoxItemToTabAsync(command);
             return JsonOk();
         }
 

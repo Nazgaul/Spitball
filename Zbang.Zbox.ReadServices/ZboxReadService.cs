@@ -745,12 +745,12 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<Theme> GetUserThemeAsync(GetUserDetailsQuery query)
+        public Theme GetUserTheme(GetUserDetailsQuery query)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = DapperConnection.OpenConnection())
             {
                 var retVal =
-                       await conn.QueryAsync<Theme?>(Sql.Sql.UserTheme,
+                        conn.Query<Theme?>(Sql.Sql.UserTheme,
                        new { query.UserId });
                 var firstResult = retVal.First();
                 if (!firstResult.HasValue)

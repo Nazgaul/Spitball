@@ -57,7 +57,7 @@ namespace Zbang.Zbox.ReadServices
 
         UserDetailDto GetUserData(GetUserDetailsQuery query);
         Task<UserDetailDto> GetUserDataAsync(GetUserDetailsQuery query);
-        Task<Theme> GetUserThemeAsync(GetUserDetailsQuery query);
+        Theme GetUserTheme(GetUserDetailsQuery query);
 
         Task<UserAccountDto> GetUserAccountDetailsAsync(GetUserDetailsQuery query);
         Task<IEnumerable<BoxNotificationDto>> GetUserBoxesNotificationAsync(GetUserDetailsQuery query);
