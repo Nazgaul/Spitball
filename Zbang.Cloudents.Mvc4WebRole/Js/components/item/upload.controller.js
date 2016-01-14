@@ -43,7 +43,7 @@
         u.google = google;
         u.dropBox = dropBox;
         u.uploadStep = uploadChoose.none;
-        u.link = 'http://';
+        //u.link = 'http://';
         u.submitFormProcess = false;
         u.uploadLink = uploadLink;
 
@@ -123,9 +123,6 @@
             u.filesErrorCount = u.files.filter(function (f) {
                 return f.error;
             }).length;
-            // u.filesCompleteCount = 0;
-            // u.filesErrorCount = 0;
-
         }
 
         u.files = [];

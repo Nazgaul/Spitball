@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.Entity.Core;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web;
@@ -248,22 +249,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var title = model.Name;
                 if (string.IsNullOrEmpty(title))
                 {
-                    try
-                    {
-                        title = await helper.BringTitle(model.Url);
-                    }
-                    catch (Exception ex)
-                    {
-                        TraceLog.WriteError("on bringing title of url " + model.Url, ex);
 
-                    }
+                    title = await helper.BringTitleAsync(model.Url);
+
                 }
                 if (string.IsNullOrWhiteSpace(title))
                 {
                     title = model.Name;
                 }
 
-                var command = new AddLinkToBoxCommand(userid, model.BoxId.Value, model.Url, model.TabId, title, model.Question);
+                var command = new AddLinkToBoxCommand(userid, model.BoxId.Value, model.Url, model.TabId, title,
+                    model.Question);
                 var result = await ZboxWriteService.AddItemToBoxAsync(command);
                 var result2 = result as AddLinkToBoxCommandResult;
                 if (result2 == null)
@@ -282,9 +278,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     Owner = result2.Link.Uploader.Name,
                     Date = DateTime.UtcNow,
                     Url = result2.Link.Url,
-                    DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = result2.Link.Box.Id, itemId = result2.Link.Id })
+                    DownloadUrl =
+                        Url.RouteUrl("ItemDownload2", new {boxId = result2.Link.Box.Id, itemId = result2.Link.Id})
                 };
-                return JsonOk(new { item, boxId = model.BoxId });
+                return JsonOk(new {item, boxId = model.BoxId});
+            }
+            catch (ObjectNotFoundException)
+            {
+                return JsonError(BoxControllerResources.LinkNotFound);
             }
             catch (DuplicateNameException)
             {

@@ -313,10 +313,12 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void AssignBoxItemToTab(AssignItemToTabCommand command)
+        public async Task AssignBoxItemToTabAsync(AssignItemToTabCommand command)
         {
             using (UnitOfWork.Start())
             {
+                var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
+                await m_CommandBus.SendAsync(autoFollowCommand);
                 m_CommandBus.Send(command);
                 UnitOfWork.Current.TransactionalFlush();
             }

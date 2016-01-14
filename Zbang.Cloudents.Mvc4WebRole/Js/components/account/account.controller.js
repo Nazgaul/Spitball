@@ -1,15 +1,15 @@
 ﻿(function () {
     angular.module('app.account').controller('AccountSettingsController', account);
-    account.$inject = ['$stateParams', '$state'];
+    account.$inject = ['$stateParams', '$state', 'userData'];
 
-    function account($stateParams, $state) {
-        
+    function account($stateParams, $state, userData) {
+        var self = this;
         if ($state.current.name === 'settings') {
             $state.go('settings.profile', $stateParams, { location: "replace" });
         }
       
-        this.isActiveState = isActiveState;
-
+        self.isActiveState = isActiveState;
+        self.needChangePassword = userData.system;
         function isActiveState(state) {
             return state === $state.current.name;
         }

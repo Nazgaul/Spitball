@@ -13,8 +13,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IAccountService m_AccountService;
 
-        public UpdateUserEmailCommandHandler(IUserRepository userRepository, 
-            IAccountService accountService 
+        public UpdateUserEmailCommandHandler(IUserRepository userRepository,
+            IAccountService accountService
             )
         {
             m_UserRepository = userRepository;
@@ -24,12 +24,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public async Task HandleAsync(UpdateUserEmailCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
-            User user = m_UserRepository.Get(command.Id);
-            if (user == null)
-            {
-                throw new NullReferenceException(Resources.CommandHandlerResources.UserNotExist);
-            }
-            if (user.Email == command.Email)
+            var user = m_UserRepository.Load(command.Id);
+            if (!IsChangeEmailNeeded(command.Email, user.Email))
             {
                 return;
             }
@@ -38,11 +34,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new ArgumentException(Resources.CommandHandlerResources.EmailTaken);
             }
 
-
-            if (IsChangeEmailNeeded(command.Email, user.Email))
-            {
-               await ChangeUserEmail(command.Email, user, command.TempFromFacebookLogin);
-            }
+            await ChangeUserEmail(command.Email, user);
 
         }
 
@@ -60,18 +52,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return !String.Equals(currentEmail, newUserEmail, StringComparison.CurrentCultureIgnoreCase);
         }
 
-        private async Task ChangeUserEmail(string email, User user, bool tempFromFacebookLogin)
+        private async Task ChangeUserEmail(string email, User user)
         {
             if (!Validation.IsEmailValid(email))
             {
                 throw new ArgumentException(Resources.CommandHandlerResources.EmailNotCorrect);
             }
             user.UpdateEmail(email);
-            if (tempFromFacebookLogin) return;
             if (user.MembershipId.HasValue)
             {
-               await m_AccountService.ChangeEmail(user.MembershipId.Value, email);
-                //m_MembershipService.ChangeUserEmail(user.MembershipId.Value, email);
+                await m_AccountService.ChangeEmail(user.MembershipId.Value, email);
             }
             else
             {

@@ -481,7 +481,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ChildActionOnly]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        public async Task<ContentResult> Theme()
+        public ContentResult Theme()
         {
             var theme = m_ThemeCookieHelper.ReadCookie();
             if (theme == null)
@@ -490,7 +490,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 if (User.Identity.IsAuthenticated)
                 {
 
-                    var userTheme = await ZboxReadService.GetUserThemeAsync(new GetUserDetailsQuery(User.GetUserId()));
+                    var userTheme = ZboxReadService.GetUserTheme(new GetUserDetailsQuery(User.GetUserId()));
 
                     theme = userTheme;
                 }

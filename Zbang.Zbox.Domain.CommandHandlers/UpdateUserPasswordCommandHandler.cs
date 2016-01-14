@@ -26,23 +26,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (command == null) throw new ArgumentNullException("command");
             User user = m_UserRepository.Load(command.Id);
-            if (user == null)
-                throw new NullReferenceException("user doesn't not exists");
 
 
-            if (user.MembershipId.HasValue)
+            if (!user.MembershipId.HasValue)
             {
-                await ChangeUserPassword(user.MembershipId.Value, command.CurrentPassword, command.NewPassword);
+                throw new Infrastructure.Exceptions.UserNotFoundException();
             }
-            else
-            {
-                await RegisterUserLocally(command, user);
-            }
+            await ChangeUserPasswordAsync(user.MembershipId.Value, command.CurrentPassword, command.NewPassword);
+
             m_UserRepository.Save(user);
             return m_Result;
         }
 
-        private async Task ChangeUserPassword(Guid userid, string currentPassword, string newPassword)
+        private async Task ChangeUserPasswordAsync(Guid userid, string currentPassword, string newPassword)
         {
             var retVal = await m_AccountService.ChangePassword(userid, currentPassword,
                 newPassword);
@@ -53,18 +49,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         }
 
-        private async Task RegisterUserLocally(UpdateUserPasswordCommand command, User user)
-        {
-            var retVal = await m_AccountService.CreateUser(user.Email, command.NewPassword);
-            if (retVal.HasValue)
-            {
-                user.MembershipId = retVal.Value;
-            }
-            else
-            {
-                m_Result.Error = Resources.CommandHandlerResources.CannotChangePwd;
-            }
-        }
+
 
 
 

@@ -97,6 +97,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Link not found.
+        /// </summary>
+        internal static string LinkNotFound {
+            get {
+                return ResourceManager.GetString("LinkNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No documents were received.
         /// </summary>
         internal static string NoFilesReceived {

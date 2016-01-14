@@ -412,9 +412,9 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<Theme> GetUserThemeAsync(GetUserDetailsQuery query)
+        public Theme GetUserTheme(GetUserDetailsQuery query)
         {
-            return m_ReadService.GetUserThemeAsync(query);
+            return m_ReadService.GetUserTheme(query);
         }
     }
 }

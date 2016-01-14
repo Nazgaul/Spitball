@@ -72,10 +72,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet]
-        public async Task<JsonResult> SearchUniversity(string term, CancellationToken cancellationToken)
+        public async Task<JsonResult> SearchUniversity(string term, int page, CancellationToken cancellationToken)
         {
-            CancellationToken disconnectedToken = Response.ClientDisconnectedToken;
-            var source = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, disconnectedToken);
+            var source = CreateCancellationToken(cancellationToken);
             var country = string.Empty;
             if (string.IsNullOrEmpty(term))
             {
@@ -83,7 +82,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                var retVal = await m_UniversitySearch.Value.SearchUniversityAsync(new UniversitySearchQuery(term, country: country, rowsPerPage: 25), source.Token);
+                var retVal = await m_UniversitySearch.Value.SearchUniversityAsync(new UniversitySearchQuery(term, pageNumber: page, country: country, rowsPerPage: 25), source.Token);
                 return JsonOk(retVal);
             }
             catch (OperationCanceledException)
@@ -196,7 +195,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region RenameNode
 
-      
+
 
         [HttpPost]
         public JsonResult RenameNode(RenameLibraryNode model)

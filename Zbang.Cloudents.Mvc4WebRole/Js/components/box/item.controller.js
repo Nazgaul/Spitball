@@ -67,7 +67,12 @@
         }
 
         function addItemToTab($data, tab) {
+            if (!user.id) {
+                $rootScope.$broadcast('show-unregisterd-box');
+                return;
+            }
             tab.count++;
+            $scope.$emit('follow-box');
             boxService.addItemToTab(boxId, tab.id, $data.id);
 
         }

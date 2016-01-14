@@ -74,7 +74,6 @@ namespace Zbang.Zbox.Infrastructure.File
             using (var stream = new StreamReader(await BlobProvider.DownloadFileAsync(blobName, cancelToken)))
             {
                 var content = await stream.ReadToEndAsync();
-                content = WebUtility.HtmlEncode(content);
                 using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(content)))
                 {
                     blobsNamesInCache.Add(await UploadFileToCache(ms, cacheFileName));
@@ -104,7 +103,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private string CreateCacheFileName(string blobName)
         {
-            return string.Format("{0}V2_{1}.html", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName));
+            return string.Format("{0}V3_{1}.html", Path.GetFileNameWithoutExtension(blobName), Path.GetExtension(blobName));
         }
 
 

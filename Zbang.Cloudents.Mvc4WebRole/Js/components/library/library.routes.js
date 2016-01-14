@@ -22,7 +22,7 @@
                         ]
                     }
                 },
-                
+
                 templateUrl: partial
             },
             {
@@ -49,15 +49,15 @@
                             'facebookService', 'libraryService', function (facebookService, libraryService) {
                                 return facebookService.getToken().then(function (token) {
                                     return libraryService.getUniversityByFriends(token);
-                                },function() {
+                                }, function () {
                                     return [];
                                 });
 
                             }
                         ],
                         universityInit: [
-                            'libraryService',function(libraryService) {
-                                return libraryService.getUniversity();
+                            'libraryService', function (libraryService) {
+                                return libraryService.getUniversity(null, 0);
                             }
                         ]
                     },

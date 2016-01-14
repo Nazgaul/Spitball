@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity.Core;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -8,7 +9,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
     public class UrlTitleBringer
     {
-        public async Task<string> BringTitle(string url)
+        public async Task<string> BringTitleAsync(string url)
         {
 
             using (var client = new HttpClient { Timeout = TimeSpan.FromSeconds(5) })
@@ -17,6 +18,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                 var uri = new UriBuilder(url).Uri;
                 using (var response = await client.GetAsync(uri))
                 {
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new ObjectNotFoundException();
+                    }
                     var html = await response.Content.ReadAsStringAsync();
                     var regExCharset = Regex.Match(html, "<meta.*?charset=([^\"']+)").Groups[1].Value;
 
@@ -26,10 +31,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                         return ExtractTitle(html);
                     }
                     html = Encoding.GetEncoding(regExCharset).GetString(await response.Content.ReadAsByteArrayAsync());
-
-                    //var response = await client.GetByteArrayAsync(uri);
-                    //var html = Encoding.Unicode.GetString(response, 0, response.Length - 1);
-                    //return responseString;
 
                     return ExtractTitle(html);
                 }

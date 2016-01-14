@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Domain.Common
         Task CreateBoxItemTabAsync(CreateItemTabCommand command);
 
 
-        void AssignBoxItemToTab(AssignItemToTabCommand command);
+        Task AssignBoxItemToTabAsync(AssignItemToTabCommand command);
         void RenameBoxItemTab(ChangeItemTabNameCommand command);
         void DeleteBoxItemTab(DeleteItemTabCommand command);
 

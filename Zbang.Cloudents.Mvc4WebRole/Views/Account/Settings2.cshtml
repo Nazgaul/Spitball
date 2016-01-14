@@ -10,7 +10,7 @@
         <md-tab ui-sref="settings.profile" md-active="a.isActiveState('settings.profile')" ga-track-event="['settings', 'moved to profile']">
             <md-tab-label>@AccountResource.ProfileAccount</md-tab-label>
         </md-tab>
-        <md-tab ui-sref="settings.password" md-active="a.isActiveState('settings.password')" ga-track-event="['settings', 'moved to password']">
+        <md-tab ng-if="a.needChangePassword" ui-sref="settings.password" md-active="a.isActiveState('settings.password')" ga-track-event="['settings', 'moved to password']">
             <md-tab-label>@AccountResource.ChangePassword</md-tab-label>
         </md-tab>
         <md-tab ui-sref="settings.notification" md-active="a.isActiveState('settings.notification')" ga-track-event="['settings', 'moved to notifications']">
