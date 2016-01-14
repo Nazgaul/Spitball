@@ -206,7 +206,7 @@
         function pushItem(c) {
             var temp = c.system;
             //temp = itemThumbnailService.assignValues(c, 100, 125);
-            var retVal = itemThumbnailService.assignValue(temp.source, 100, 125);
+            var retVal = itemThumbnailService.assignValue(temp.source, 100, 141);
             temp.thumbnail = retVal.thumbnail;
             temp.icon = retVal.icon;
             temp.numOfViews = undefined;
@@ -219,19 +219,15 @@
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
             }
-
+            self.add.disabled = true;
             var files = self.add.files.filter(function (e) {
                 return e.postId == null;
             });
             var filesId = files.map(function (c) {
                 return c.system.id;
             });
-
-            self.add.disabled = true;
-                console.log(self.add, self.add.newText);
-            //content,boxId, files, anonymously
             boxService.postComment(self.add.newText, boxId, filesId, self.add.anonymous).then(function (response) {
-
+                self.add.newText = self.add.newText || '';
                 var newComment = {
                     content: extractUrls(self.add.newText.replace(/[&<>]/g, replaceTag)),
                     creationTime: new Date(),
