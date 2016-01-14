@@ -4,7 +4,7 @@
     <button type="button" class="menu-icon" ng-click="c.toggleComments()">
         @Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "commentsMenu" })
     </button>
-    <md-sidenav ng-cloak class="comments-wrapper md-sidenav-left" md-component-id="commentsMenu" md-is-locked-open="$mdMedia('gt-sm')">
+    <md-sidenav ng-cloak class="comments-wrapper md-sidenav" md-component-id="commentsMenu" md-is-locked-open="$mdMedia('gt-sm')">
         <md-content role="navigation">
             <div class="menu-toggler">
                 <button type="button" class="menu-icon" ng-click="c.toggleComments()">
