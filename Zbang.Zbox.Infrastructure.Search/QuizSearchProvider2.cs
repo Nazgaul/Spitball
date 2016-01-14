@@ -158,11 +158,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             var filter = await m_FilterProvider.BuildFilterExpression(
               query.UniversityId, UniversityidField, UseridsField, query.UserId);
 
-            var term = query.Term;
-            if (string.IsNullOrEmpty(term))
-            {
-                term = "*";
-            }
+            var term = query.Term + "*";
             var result = await m_IndexClient.Documents.SearchAsync<QuizSearch>(term, new SearchParameters
             {
                 Filter = filter,
@@ -201,5 +197,17 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             return defaultValue;
         }
+    }
+
+
+    public interface IQuizWriteSearchProvider2 
+    {
+        Task<bool> UpdateData(IEnumerable<QuizSearchDto> quizToUpload, IEnumerable<long> itemToDelete);
+    }
+
+
+    public interface IQuizReadSearchProvider2
+    {
+        Task<IEnumerable<SearchQuizzes>> SearchQuiz(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
     }
 }

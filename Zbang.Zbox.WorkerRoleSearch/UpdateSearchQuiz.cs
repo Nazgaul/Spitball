@@ -13,14 +13,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class UpdateSearchQuiz : IJob
     {
-        private readonly IQuizWriteSearchProvider m_QuizSearchProviderOld;
         private readonly IQuizWriteSearchProvider2 m_QuizSearchProvider;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
         private const string PrefixLog = "Search Quiz";
-        public UpdateSearchQuiz(IQuizWriteSearchProvider quizSearchProviderOld, IQuizWriteSearchProvider2 quizSearchProvider, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService)
+        public UpdateSearchQuiz(IQuizWriteSearchProvider2 quizSearchProvider, IZboxReadServiceWorkerRole zboxReadService, IZboxWorkerRoleService zboxWriteService)
         {
-            m_QuizSearchProviderOld = quizSearchProviderOld;
             m_QuizSearchProvider = quizSearchProvider;
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
@@ -38,7 +36,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return currentIndex;
         }
 
-        public async Task Run(System.Threading.CancellationToken cancellationToken)
+        public async Task Run(CancellationToken cancellationToken)
         {
             var index = GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
@@ -89,7 +87,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 TraceLog.WriteInfo(PrefixLog, string.Format("quiz updating {0} deleting {1}", updates.QuizzesToUpdate.Count(),
                     updates.QuizzesToDelete.Count()));
 
-                await m_QuizSearchProviderOld.UpdateData(updates.QuizzesToUpdate, updates.QuizzesToDelete);
                 var isSuccess =
                     await m_QuizSearchProvider.UpdateData(updates.QuizzesToUpdate, updates.QuizzesToDelete);
                 if (isSuccess)

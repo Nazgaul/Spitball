@@ -152,7 +152,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                         query.UniversityId, query.UserId),
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
-                //HighlightFields = new[] { ProfessorField, CourseField, NameField },
                 Select = new[] { IdField, NameField, ProfessorField, CourseField, UrlField, TypeFiled }
             }, cancelToken);
             return result.Select(s => new SearchBoxes(
@@ -160,12 +159,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 s.Document.Name,
                 s.Document.Professor,
                 s.Document.Course,
-                //HighLightInField(s, NameField, s.Document.Name),
-                //HighLightInField(s, ProfessorField, s.Document.Professor),
-                //HighLightInField(s, CourseField, s.Document.Course),
                 s.Document.Url
-                //s.Document.Name,
-                //(BoxType)s.Document.Type.Value
                 )
             ).ToList();
         }
