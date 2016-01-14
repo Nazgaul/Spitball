@@ -1566,34 +1566,6 @@ md-chips .md-chips.md-focused {
   color: #888b8e;
 }
 /*#endregion*/
-/*#region item.less*/
-@media (max-width: 1400px) {
-  .comments-wrapper {
-    background: #f5f5f5;
-    box-shadow: 0 0 50px #323538;
-  }
-  .comments-wrapper .comments-list > li {
-    border: 1px solid #3598dc;
-  }
-}
-.comments-wrapper .title {
-  color: #2698d4;
-}
-.comments-wrapper .comments-list > li {
-  border: 1px solid #3598dc;
-}
-.comments-wrapper .comment-replies .reply-text {
-  border-top: 1px solid #8c99a6;
-}
-.comments-wrapper .reply-btn {
-  border-top: 1px solid #8c99a6;
-  color: #2698d4;
-}
-.comments-wrapper,
-.comments-wrapper md-input-container .md-input {
-  color: #282828;
-}
-/*#endregion*/
 .background-blue {
   background: #4190b9;
 }

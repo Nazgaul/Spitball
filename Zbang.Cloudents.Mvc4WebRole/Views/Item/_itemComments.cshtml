@@ -1,100 +1,115 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-
-<div class="comments-wrapper" ng-controller="CommentsController as c">
-    <div class="comments" ng-slimscroll watch-content="true" height="calc(100vh - 90px)" color="#BBB">
-        <div class="title">Write a comment</div>
-
-        <div class="new-comment" layout="row">
-            <div class="user-image">
-                <a href="{{::c.currUser.url}}" user-not-register-popup=" click" class="username" ga-track-event="['box-feed', 'userNameImage']">
-                    <user-image class="img-circle c-img" name="c.currUser.name" image="c.currUser.image" width="25" height="25"></user-image>
-                </a>
+<div class="comments-section" ng-controller="CommentsController as c">
+    <button type="button" class="menu-icon" ng-click="c.toggleComments()">
+        @Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "commentsMenu" })
+    </button>
+    <md-sidenav ng-cloak class="comments-wrapper md-sidenav-left" md-component-id="commentsMenu" md-is-locked-open="$mdMedia('gt-sm')">
+        <md-content role="navigation">
+            <div class="menu-toggler">
+                <button type="button" class="menu-icon" ng-click="c.toggleComments()">
+                    @Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "commentsMenu" })
+                </button>
             </div>
-            <form name="newComment" class="new-comment-form" novalidate ng-submit="c.addComment(newComment)">
-                <md-input-container md-no-float>
-                    <input autocomplete="off" required ng-model="c.newCommentText" name="comment" ng-focus="c.showButtons = true" placeholder="@ItemsResources.NewComment" ng-change="newComment.comment.$setValidity('server',true)">
-                    <div ng-messages="newComment.comment.$error" ng-show="newComment.comment.$dirty">
-                        <div ng-message="required">@GeneralResources.RequiredField</div>
-                        <div ng-message="server">{{c.error}}</div>
-                    </div>
-                </md-input-container>
-                <div class="buttons" ng-if="c.showButtons">
-                    <button type="button" class="btn grey btn-default" ng-click="c.cancel(newComment); c.showButtons = false;">@GeneralResources.Cancel</button>
-                    <button type="submit" ng-disabled="!newComment.$valid || c.commentDesabled" class="btn btn-primary"> @ItemsResources.NewComment</button>
-                </div>
-            </form>
-        </div>
-        <ul class="comments-list list-unstyled">
-            <li ng-repeat="comment in c.comments" class="reply">
-                <div class="comment-data" layout="row">
+            @*<button type="button" class="menu-icon" ng-if="!c.showCommentMenu" ng-click="c.showCommentMenu = true">
+                    @Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "commentsMenu" })
+                </button>*@
+            <div class="comments" ng-slimscroll watch-content="true" height="calc(100vh - 90px)" color="#BBB">
+                <div class="title">Write a comment</div>
+
+                <div class="new-comment" layout="row">
                     <div class="user-image">
-                        <a href="{{::comment.userUrl}}" user-not-register-popup=" click" class="username" ga-track-event="['box-feed', 'userNameImage']">
-                            <user-image class="img-circle c-img" name="comment.userName" image="comment.userImage" width="25" height="25"></user-image>
+                        <a href="{{::c.currUser.url}}" user-not-register-popup=" click" class="username" ga-track-event="['box-feed', 'userNameImage']">
+                            <user-image class="img-circle c-img" name="c.currUser.name" image="c.currUser.image" width="25" height="25"></user-image>
                         </a>
                     </div>
-                    <div class="comment-text">
-                        <div class="comment-info">Written by <a href="{{::comment.userUrl}}">{{::comment.userName}}</a> in {{::comment.creationDate | date : 'MMM d,yyyy H:mm'}}</div>
-                        <div>{{::comment.comment}}</div>
-
-                    </div>
-                    <md-menu ng-if="c.canDelete(comment.userId)">
-                        <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
-                            @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
-                        </md-button>
-                        <md-menu-content width="1">
-                            <md-menu-item>
-                                <md-button aria-label="delete reply" ng-click="c.deleteComment($event, comment)">
-                                    @GeneralResources.Delete
-                                </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
+                    <form name="newComment" class="new-comment-form" novalidate ng-submit="c.addComment(newComment)">
+                        <md-input-container md-no-float>
+                            <input autocomplete="off" required ng-model="c.newCommentText" name="comment" ng-focus="c.showButtons = true" placeholder="@ItemsResources.NewComment" ng-change="newComment.comment.$setValidity('server',true)">
+                            <div ng-messages="newComment.comment.$error" ng-show="newComment.comment.$dirty">
+                                <div ng-message="required">@GeneralResources.RequiredField</div>
+                                <div ng-message="server">{{c.error}}</div>
+                            </div>
+                        </md-input-container>
+                        <div class="buttons" ng-if="c.showButtons">
+                            <button type="button" class="btn grey btn-default" ng-click="c.cancel(newComment); c.showButtons = false;">@GeneralResources.Cancel</button>
+                            <button type="submit" ng-disabled="!newComment.$valid || c.commentDesabled" class="btn btn-primary"> @ItemsResources.NewComment</button>
+                        </div>
+                    </form>
                 </div>
-                <ul class="comment-replies list-unstyled">
-                    <li ng-repeat="reply in comment.replies" class="reply">
-                        <div class="reply-data" layout="row">
+                <ul class="comments-list list-unstyled">
+                    <li ng-repeat="comment in c.comments" class="reply">
+                        <div class="comment-data" layout="row">
                             <div class="user-image">
-                                <a href="{{::reply.userUrl}}" u u user-not-register-popup=" click" class="username" ga-track-event="['box-feed', 'userNameImage']">
+                                <a href="{{::comment.userUrl}}" user-not-register-popup=" click" class="username" ga-track-event="['box-feed', 'userNameImage']">
                                     <user-image class="img-circle c-img" name="comment.userName" image="comment.userImage" width="25" height="25"></user-image>
                                 </a>
                             </div>
-                            <div class="reply-text">
-                                <div class="comment-info">Written by <a href="{{::reply.userUrl}}">{{::reply.userName}}</a> in {{::reply.creationDate | date : 'MMM d,yyyy H:mm'}}</div>
-                                <div>{{::reply.comment}}</div>
+                            <div class="comment-text">
+                                <div class="comment-info">Written by <a href="{{::comment.userUrl}}">{{::comment.userName}}</a> in {{::comment.creationDate | date : 'MMM d,yyyy H:mm'}}</div>
+                                <div>{{::comment.comment}}</div>
+
                             </div>
-                            <md-menu ng-if="c.canDelete(reply.userId)">
+                            <md-menu ng-if="c.canDelete(comment.userId)">
                                 <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
                                     @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
                                 </md-button>
                                 <md-menu-content width="1">
                                     <md-menu-item>
-                                        <md-button aria-label="delete reply" ng-click="c.deleteReply($event, reply, comment)">
+                                        <md-button aria-label="delete reply" ng-click="c.deleteComment($event, comment)">
                                             @GeneralResources.Delete
                                         </md-button>
                                     </md-menu-item>
                                 </md-menu-content>
                             </md-menu>
                         </div>
+                        <ul class="comment-replies list-unstyled">
+                            <li ng-repeat="reply in comment.replies" class="reply">
+                                <div class="reply-data" layout="row">
+                                    <div class="user-image">
+                                        <a href="{{::reply.userUrl}}" u u user-not-register-popup=" click" class="username" ga-track-event="['box-feed', 'userNameImage']">
+                                            <user-image class="img-circle c-img" name="comment.userName" image="comment.userImage" width="25" height="25"></user-image>
+                                        </a>
+                                    </div>
+                                    <div class="reply-text">
+                                        <div class="comment-info">Written by <a href="{{::reply.userUrl}}">{{::reply.userName}}</a> in {{::reply.creationDate | date : 'MMM d,yyyy H:mm'}}</div>
+                                        <div>{{::reply.comment}}</div>
+                                    </div>
+                                    <md-menu ng-if="c.canDelete(reply.userId)">
+                                        <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
+                                            @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
+                                        </md-button>
+                                        <md-menu-content width="1">
+                                            <md-menu-item>
+                                                <md-button aria-label="delete reply" ng-click="c.deleteReply($event, reply, comment)">
+                                                    @GeneralResources.Delete
+                                                </md-button>
+                                            </md-menu-item>
+                                        </md-menu-content>
+                                    </md-menu>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="reply-btn">
+                            <button type="button" class=" text-capitalize margins" ng-if="!comment.showFrom" ng-click="c.openReply(comment)">Reply</button>
+                        </div>
+                        <form name="newReply" class="add-comment-reply add-reply" novalidate ng-if="comment.showFrom" ng-submit="c.addCommentReply(comment, newReply)">
+                            <md-input-container md-no-float>
+                                <input name="reply" required autofocus ng-model="c.newCommentReplyText" placeholder="@ItemsResources.NewComment" ng-change="newReply.reply.$setValidity('server',true)">
+                                <div ng-messages="newReply.reply.$error" ng-show="newReply.reply.$dirty">
+                                    <div ng-message="required">@GeneralResources.RequiredField</div>
+                                    <div ng-message="server">{{c.error}}</div>
+                                </div>
+                            </md-input-container>
+                            <div class="buttons">
+                                <button type="button" class="btn grey btn-default" ng-click="c.cancel(newComment); comment.showFrom = false">@GeneralResources.Cancel</button>
+                                <button type="submit" ng-disabled="!newReply.$valid || c.commentDesabled" class="btn btn-primary">@ItemsResources.NewComment</button>
+                            </div>
+                        </form>
                     </li>
                 </ul>
-                <div class="reply-btn">
-                    <button type="button" class=" text-capitalize margins" ng-if="!comment.showFrom" ng-click="c.openReply(comment)">Reply</button>
-                </div>
-                <form name="newReply" class="add-comment-reply add-reply" novalidate ng-if="comment.showFrom" ng-submit="c.addCommentReply(comment, newReply)">
-                    <md-input-container md-no-float>
-                        <input name="reply" required autofocus ng-model="c.newCommentReplyText" placeholder="@ItemsResources.NewComment" ng-change="newReply.reply.$setValidity('server',true)">
-                        <div ng-messages="newReply.reply.$error" ng-show="newReply.reply.$dirty">
-                            <div ng-message="required">@GeneralResources.RequiredField</div>
-                            <div ng-message="server">{{c.error}}</div>
-                        </div>
-                    </md-input-container>
-                    <div class="buttons">
-                        <button type="button" class="btn grey btn-default" ng-click="c.cancel(newComment); comment.showFrom = false">@GeneralResources.Cancel</button>
-                        <button type="submit" ng-disabled="!newReply.$valid || c.commentDesabled" class="btn btn-primary">@ItemsResources.NewComment</button>
-                    </div>
-                </form>
-            </li>
-        </ul>
-    </div>
+            </div>
+        </md-content>
+    </md-sidenav>
+
 </div>

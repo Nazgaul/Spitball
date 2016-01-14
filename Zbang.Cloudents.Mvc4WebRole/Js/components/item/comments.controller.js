@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.item').controller('CommentsController', comments);
-    comments.$inject = ['$stateParams', 'itemService', '$scope', 'userDetailsFactory', '$mdDialog', 'resManager'];
+    comments.$inject = ['$stateParams', 'itemService', '$scope', 'userDetailsFactory', '$mdDialog', 'resManager', '$mdSidenav'];
 
-    function comments($stateParams, itemService, $scope, userDetailsFactory, $mdDialog, resManager) {
+    function comments($stateParams, itemService, $scope, userDetailsFactory, $mdDialog, resManager, $mdSidenav) {
         var c = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         $scope.$on('itemData', function (e, arg) {
             c.comments = arg.comments;
@@ -18,6 +18,13 @@
         c.showButtons = false;
         c.commentDesabled = false;
         c.cancel = cancel;
+        c.showCommentMenu = false;
+        c.toggleComments = toggleComments;
+
+        function toggleComments() {
+            $mdSidenav('commentsMenu').toggle();
+        }
+
 
         function addComment(form) {
             c.commentDesabled = true;
