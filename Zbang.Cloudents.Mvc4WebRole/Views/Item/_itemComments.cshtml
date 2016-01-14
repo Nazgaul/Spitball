@@ -13,11 +13,15 @@
             </div>
             <form name="newComment" class="new-comment-form" novalidate ng-submit="c.addComment(newComment)">
                 <md-input-container md-no-float>
-                    <input autocomplete="off" required ng-model="c.newCommentText" name="newComment" ng-focus="c.showButtons = true" placeholder="@ItemsResources.NewComment" />
+                    <input autocomplete="off" required ng-model="c.newCommentText" name="comment" ng-focus="c.showButtons = true" placeholder="@ItemsResources.NewComment" ng-change="newComment.comment.$setValidity('server',true)">
+                    <div ng-messages="newComment.comment.$error" ng-show="newComment.comment.$dirty">
+                        <div ng-message="required">@GeneralResources.RequiredField</div>
+                        <div ng-message="server">{{c.error}}</div>
+                    </div>
                 </md-input-container>
                 <div class="buttons" ng-if="c.showButtons">
-                    <button type="button" class="btn grey btn-default" ng-click="c.showButtons = false">@GeneralResources.Cancel</button>
-                    <button type="submit" class="btn btn-primary"> @ItemsResources.NewComment</button>
+                    <button type="button" class="btn grey btn-default" ng-click="c.cancel(newComment); c.showButtons = false;">@GeneralResources.Cancel</button>
+                    <button type="submit" ng-disabled="!newComment.$valid || c.commentDesabled" class="btn btn-primary"> @ItemsResources.NewComment</button>
                 </div>
             </form>
         </div>
@@ -77,13 +81,17 @@
                 <div class="reply-btn">
                     <button type="button" class=" text-capitalize margins" ng-if="!comment.showFrom" ng-click="c.openReply(comment)">Reply</button>
                 </div>
-                <form class="add-comment-reply add-reply" ng-if="comment.showFrom" ng-submit="c.addCommentReply(comment)">
+                <form name="newReply" class="add-comment-reply add-reply" novalidate ng-if="comment.showFrom" ng-submit="c.addCommentReply(comment, newReply)">
                     <md-input-container md-no-float>
-                        <input autofocus ng-model="c.newCommentReplyText" placeholder="@ItemsResources.NewComment" />
+                        <input name="reply" required autofocus ng-model="c.newCommentReplyText" placeholder="@ItemsResources.NewComment" ng-change="newReply.reply.$setValidity('server',true)">
+                        <div ng-messages="newReply.reply.$error" ng-show="newReply.reply.$dirty">
+                            <div ng-message="required">@GeneralResources.RequiredField</div>
+                            <div ng-message="server">{{c.error}}</div>
+                        </div>
                     </md-input-container>
                     <div class="buttons">
-                        <button type="button" class="btn grey btn-default" ng-click="comment.showFrom = false">@GeneralResources.Cancel</button>
-                        <button type="submit" ng-disabled="c.commentDesabled" class="btn btn-primary">@ItemsResources.NewComment</button>
+                        <button type="button" class="btn grey btn-default" ng-click="c.cancel(newComment); comment.showFrom = false">@GeneralResources.Cancel</button>
+                        <button type="submit" ng-disabled="!newReply.$valid || c.commentDesabled" class="btn btn-primary">@ItemsResources.NewComment</button>
                     </div>
                 </form>
             </li>
