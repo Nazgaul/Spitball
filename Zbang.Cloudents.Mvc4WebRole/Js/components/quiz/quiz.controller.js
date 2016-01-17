@@ -1,9 +1,9 @@
 ﻿(function () {
     angular.module('app.quiz').controller('QuizController', quiz);
 
-    quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter', 'user', '$rootScope', '$scope'];
+    quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter', 'userDetailsFactory', '$rootScope', '$scope'];
 
-    function quiz(quizData, $timeout, $stateParams, quizService, $filter, user, $rootScope, $scope) {
+    function quiz(quizData, $timeout, $stateParams, quizService, $filter, userDetailsFactory, $rootScope, $scope) {
 
         var q = this;
         q.states = {
@@ -29,16 +29,11 @@
         q.back = back;
 
         q.user = {
-            id: user.id,
-            name: user.name,
-            image: user.image
+            id: userDetailsFactory.get().id,
+            name: userDetailsFactory.get().name,
+            image: userDetailsFactory.get().image
         };
 
-        //$scope.$on('$destroy', function () {
-        //    $uibModalStack.dismissAll();
-        //});
-
-        //quizService.getQuiz($stateParams.boxId, $stateParams.quizId).then(function (data) {
         q.name = quizData.quiz.name;
         q.questions = quizData.quiz.questions;
         q.index = 0;

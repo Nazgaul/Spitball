@@ -108,13 +108,13 @@
                                 <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
                             </div>
 
-                            <md-menu>
-                                <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
+                            <md-menu ng-if="post.userId === q.user.id">
+                                <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['quiz', 'deletePost']">
                                     @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
                                 </md-button>
                                 <md-menu-content width="1">
                                     <md-menu-item>
-                                        <md-button aria-label="delete post" ng-click="q.removeComment(q.questions[q.index], post)" ga-track-event="['box-feed', 'didDelete']">
+                                        <md-button aria-label="delete post" ng-click="q.removeComment(q.questions[q.index], post)" ga-track-event="['quiz', 'didDelete']">
                                             @GeneralResources.Delete
                                         </md-button>
                                     </md-menu-item>
