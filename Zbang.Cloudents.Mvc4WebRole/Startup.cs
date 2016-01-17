@@ -32,7 +32,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             UnityConfig.RegisterTypes(app);
             //app.CreatePerOwinContext(ApplicationDbContext.Create);
 
-            app.CreatePerOwinContext(() => DependencyResolver.Current.GetService<ApplicationUserManager>());
+            //app.CreatePerOwinContext(() => DependencyResolver.Current.GetService<ApplicationUserManager>());
             
 
         }

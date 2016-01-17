@@ -55,8 +55,9 @@ namespace Zbang.Zbox.Domain
         public virtual CommentReplies Answer { get; set; }
 
         protected virtual ICollection<Updates> Updates { get; set; }
-        //protected virtual ICollection<ItemComment> ItemComments { get; set; }
-        //protected virtual ICollection<ItemCommentReply> ItemReplies { get; set; }
+        protected virtual ICollection<ItemComment> ItemComments { get; set; }
+        protected virtual ICollection<ItemCommentReply> ItemReplies { get; set; }
+        public virtual ItemTab Tab { get; protected set; }
 
         //public virtual IEnumerable<long> GetItemCommentsUserIds()
         //{
@@ -87,8 +88,6 @@ namespace Zbang.Zbox.Domain
             Url = UrlConsts.BuildItemUrl(Box.Id, Box.Name, Id, Name, universityName);
         }
 
-        //public virtual float Rate { get; internal set; }
-
         public virtual int LikeCount { get; set; }
         public virtual bool Sponsored { get; set; }
         public virtual int NumberOfComments { get; private set; }
@@ -107,13 +106,6 @@ namespace Zbang.Zbox.Domain
             NumberOfComments--;
         }
 
-
-        //public virtual void CalculateRate(int rate)
-        //{
-        //    Rate = rate;
-        //}
-
-
         public abstract string ChangeName(string newName);
 
         public ICollection<ItemRate> ItemRates { get; set; }
@@ -123,8 +115,8 @@ namespace Zbang.Zbox.Domain
         {
             ItemRates.Clear();
             Updates.Clear();
-            // ItemComments.Clear();
-            //ItemReplies.Clear();
+            ItemComments.Clear();
+            ItemReplies.Clear();
         }
 
         public bool IsDirty { get; set; }

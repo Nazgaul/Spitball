@@ -20,13 +20,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<CommentReplies> m_CommentRepliesRepository;
         private readonly IQueueProvider m_QueueProvider;
+        private readonly IItemTabRepository m_ItemTabRepository;
 
         public DeleteItemCommandHandler(
 
             IRepository<Box> boxRepository,
             IUserRepository userRepository,
             IRepository<Item> itemRepository,
-            IRepository<CommentReplies> commentRepliesRepository, IQueueProvider queueProvider)
+            IRepository<CommentReplies> commentRepliesRepository, IQueueProvider queueProvider, IItemTabRepository itemTabRepository)
         {
 
             m_BoxRepository = boxRepository;
@@ -34,6 +35,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemRepository = itemRepository;
             m_CommentRepliesRepository = commentRepliesRepository;
             m_QueueProvider = queueProvider;
+            m_ItemTabRepository = itemTabRepository;
         }
 
         public Task HandleAsync(DeleteItemCommand command)
@@ -42,7 +44,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var userType = m_UserRepository.GetUserToBoxRelationShipType(command.UserId, command.BoxId);
 
 
-            Item item = m_ItemRepository.Get(command.ItemId);
+            Item item = m_ItemRepository.Load(command.ItemId);
             User user = m_UserRepository.Load(command.UserId);
 
 
@@ -56,18 +58,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             item.DateTimeUser.UpdateUserTime(user.Email);
-
-
-
             Box box = m_BoxRepository.Load(command.BoxId);
-            
-           
-
+            box.ShouldMakeDirty = () => false;
             var uploaderFileId = item.UploaderId;
-
             var usersAffectReputation = new List<long> { uploaderFileId };
-            //usersAffectReputation.AddRange(item.GetItemCommentsUserIds());
-
 
             if (item.Answer != null && string.IsNullOrEmpty(item.Answer.Text))
             {
@@ -80,6 +74,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 {
                     usersAffectReputation.AddRange(box.DeleteComment(item.Comment));
                 }
+            }
+            if (item.Tab != null)
+            {
+                item.Tab.DeleteItemFromTab(item);
+                m_ItemTabRepository.Save(item.Tab);
             }
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(usersAffectReputation));
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(uploaderFileId));
