@@ -1,5 +1,4 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
-@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <div ng-if="!lc.needCode">
     <form novalidate remove-keyboard ng-submit="lc.search()">
@@ -7,11 +6,11 @@
     </form>
     
     <div layout="row" layout-align="start center" layout-padding layout-wrap ng-if="!lc.createUniversity" srph-infinite-scroll="lc.paging()">
-        <div flex-gt-lg="33" flex-lg="50" flex="100" class="flex" ng-repeat="u in lc.universities track by u.id">
+        <div flex="100" class="flex" ng-repeat="u in lc.universities track by u.id">
             <div ng-click="lc.selectUniversity(u)" class="univeristy" ga-track-event="['universityChoose', 'selected university']">
                 <img class="img-circle" ng-src="{{::u.image}}" width="70" height="70" />
                 <div>
-                    <span class="ellipsis">{{::u.name}}</span>
+                    <span class="ellipsis color-1">{{::u.name}}</span>
                     <ul class="list-inline">
                         <li ng-repeat="img in ::u.userImages track by $index">
                             <img ng-src="{{::img}}" width="30" height="30" />
@@ -22,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div flex-gt-lg="33" flex-lg="50" flex="100" class="flex">
+        <div flex="100" class="flex">
             <div class="add-uni-btn" ng-click="lc.createUniversity = true" ga-track-event="['universityChoose', 'add new university']">
                 <span>@Html.Svg("~/images/site/icons.svg", "add")</span>
                 <div class="text-capitalize">@LibraryResources.AddSchool</div>

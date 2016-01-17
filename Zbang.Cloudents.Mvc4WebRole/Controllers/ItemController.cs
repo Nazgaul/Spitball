@@ -312,7 +312,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var processor = m_FileProcessorFactory.GetProcessor(uri);
             if (processor != null)
             {
-                var result = await processor.ConvertFileToWebSitePreview(uri, int.MaxValue, int.MaxValue, 0);
+                var result = await processor.ConvertFileToWebSitePreview(uri, 0);
                 retVal = result.Content;
             }
             return View(retVal);
@@ -391,7 +391,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             try
             {
-                var retVal = await processor.ConvertFileToWebSitePreview(uri, width, height, index * 3, cancellationToken);
+                var retVal = await processor.ConvertFileToWebSitePreview(uri, index * 3, cancellationToken);
                 if (retVal.Content == null)
                 {
                     return JsonOk(new
@@ -401,11 +401,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     });
 
                 }
+                if (!retVal.Content.Any())
+                {
+                    TraceLog.WriteError(string.Format("in content without data blobname {0} index {1} itemid {2} ",
+                        blobName, index, id));
+                    return JsonOk();
+                }
                 if (string.IsNullOrEmpty(retVal.ViewName))
                 {
                     return JsonOk(new { preview = retVal.Content.First() });
                 }
 
+                
                 return JsonOk(new
                 {
                     preview = RenderRazorViewToString("_Preview" + retVal.ViewName,

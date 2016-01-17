@@ -44,7 +44,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var index = GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
-            TraceLog.WriteWarning("item index " + index + " count " + count);
+            TraceLog.WriteWarning("university index " + index + " count " + count);
             while (!cancellationToken.IsCancellationRequested)
             {
                 try
@@ -57,7 +57,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     else
                     {
                         m_Interval = MinInterval;
-                        TraceLog.WriteInfo("decrease interval in quiz to " + m_Interval);
                     }
                 }
                 catch (Exception ex)
@@ -70,39 +69,32 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
         int m_Interval = MinInterval;
-        private const int MinInterval = 15;
+        private const int MinInterval = 10;
         private const int MaxInterval = 120;
         private async Task SleepAndIncreaseInterval(CancellationToken cancellationToken)
         {
-            var previous = m_Interval;
             m_Interval = Math.Min(MaxInterval, m_Interval * 2);
-            if (previous != m_Interval)
-            {
-                TraceLog.WriteInfo("increase interval in university to " + m_Interval);
-            }
             await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
-
         }
 
 
         private async Task<bool> UpdateUniversity(int instanceId, int instanceCount)
         {
-            var updates = await m_ZboxReadService.GetUniversityDirtyUpdates(instanceId, instanceCount, 10);
-            if (updates.UniversitiesToDelete.Any() || updates.UniversitiesToUpdate.Any())
+            const int updatesPerCycle = 10;
+            var updates = await m_ZboxReadService.GetUniversityDirtyUpdates(instanceId, instanceCount, updatesPerCycle);
+            if (!updates.UniversitiesToDelete.Any() && !updates.UniversitiesToUpdate.Any()) return false;
+            
+            TraceLog.WriteInfo(PrefixLog, string.Format("university updating {0} deleting {1}", updates.UniversitiesToUpdate.Count(),
+                updates.UniversitiesToDelete.Count()));
+            var isSuccess =
+                await m_UniversitySearchProvider.UpdateData(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);
+            if (isSuccess)
             {
-                TraceLog.WriteInfo(PrefixLog, string.Format("university updating {0} deleting {1}", updates.UniversitiesToUpdate.Count(),
-                    updates.UniversitiesToDelete.Count()));
-                var isSuccess =
-                    await m_UniversitySearchProvider.UpdateData(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);
-                if (isSuccess)
-                {
-                    await m_ZboxWriteService.UpdateSearchUniversityDirtyToRegularAsync(
-                        new UpdateDirtyToRegularCommand(
-                            updates.UniversitiesToDelete.Union(updates.UniversitiesToUpdate.Select(s => s.Id))));
-                }
-                return true;
+                await m_ZboxWriteService.UpdateSearchUniversityDirtyToRegularAsync(
+                    new UpdateDirtyToRegularCommand(
+                        updates.UniversitiesToDelete.Union(updates.UniversitiesToUpdate.Select(s => s.Id))));
             }
-            return false;
+            return updates.UniversitiesToUpdate.Count() == updatesPerCycle;
         }
     }
 }
