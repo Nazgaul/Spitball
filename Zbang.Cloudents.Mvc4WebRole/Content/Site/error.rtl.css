@@ -1,4 +1,12 @@
-﻿.error-page h2 {
+﻿.error-page {
+  width: 100%;
+}
+@media (min-width: 960px) {
+  .error-page {
+    width: calc(100% - 250px);
+  }
+}
+.error-page h2 {
   font-size: 150px;
   font-weight: bold;
   text-align: center;

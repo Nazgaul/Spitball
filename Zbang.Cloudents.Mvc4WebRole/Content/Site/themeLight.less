@@ -79,7 +79,7 @@
 .theme();
 
 .nav-bar {
-    background: #4190b9;
+    background: @svgQuizBald;
 
     .user-md-menu {
         color: @backgroundColor;
@@ -165,4 +165,21 @@ md-menu-item > .md-button span {
     .ontop {
         color: #f5f5f5;
     }
+}
+
+// color fixes to be changed to color classes
+.userPage h4.profile-usertitle-job {
+    color: @textColorGrey;
+}
+
+.userPage .points-container *{
+    color: @textColorBlack;
+}
+
+.dashboard .portlet{
+    background: @svgQuizBald;
+}
+
+.dashboard .portlet md-chips .md-chip {
+    background: @textColorLightGrey;
 }

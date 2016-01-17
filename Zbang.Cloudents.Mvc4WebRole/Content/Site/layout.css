@@ -2001,7 +2001,7 @@ Page footer
     position: fixed;
     left: 0;
     right: 0;
-    z-index: 10000;
+    z-index: 100;
     bottom: 0;
   }
   /* Footer with footer sidebar */
@@ -2066,7 +2066,7 @@ Page footer
   padding: 2px;
   text-align: center;
   position: fixed;
-  z-index: 1001;
+  z-index: 100;
   bottom: 70px;
   display: none;
   right: 29px;
@@ -2201,7 +2201,7 @@ Page Loading
   width: 100%;
   position: fixed;
   bottom: 0;
-  z-index: 1003;
+  z-index: 110;
 }
 .unreg-user .content-wrapper {
   width: 100%;

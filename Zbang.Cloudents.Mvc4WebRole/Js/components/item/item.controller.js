@@ -47,7 +47,8 @@
                 if (data.preview) {
                     if (data.preview.indexOf('iframe') > 0
                         || data.preview.indexOf('audio') > 0
-                        || data.preview.indexOf('video') > 0) {
+                        || data.preview.indexOf('video') > 0
+                        || data.preview.indexOf('previewFailed') > 0) {
                         i.preview = $sce.trustAsHtml(data.preview);
                     } else {
                         i.preview += data.preview;

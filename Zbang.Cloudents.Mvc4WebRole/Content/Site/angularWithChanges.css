@@ -18605,7 +18605,7 @@ md-toolbar + md-tabs {
 
 md-toast {
     position: absolute;
-    z-index: 105;
+    z-index: 30;
     box-sizing: border-box;
     cursor: default;
     overflow: hidden;

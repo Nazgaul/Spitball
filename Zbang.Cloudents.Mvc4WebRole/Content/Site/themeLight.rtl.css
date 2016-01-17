@@ -1637,3 +1637,15 @@ md-menu-item > .md-button span {
 .accountPage-wrapper .ontop {
   color: #f5f5f5;
 }
+.userPage h4.profile-usertitle-job {
+  color: #888b8e;
+}
+.userPage .points-container * {
+  color: #ffffff;
+}
+.dashboard .portlet {
+  background: #4190b9;
+}
+.dashboard .portlet md-chips .md-chip {
+  background: #c3c3c3;
+}
