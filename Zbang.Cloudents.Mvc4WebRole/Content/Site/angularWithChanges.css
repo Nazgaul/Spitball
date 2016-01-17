@@ -12599,7 +12599,7 @@ md-backdrop {
     }
 
     md-backdrop.md-sidenav-backdrop {
-        z-index: 59;
+        z-index: 9;
     }
 
     md-backdrop.md-click-catcher {

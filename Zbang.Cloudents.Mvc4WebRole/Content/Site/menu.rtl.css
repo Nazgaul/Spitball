@@ -41,7 +41,7 @@
   display: -ms-flex;
   display: flex;
 }
-.page-body .md-sidenav-left {
+.page-body .main-md-sidenav {
   position: fixed !important;
   top: 80px;
   border-radius: 5px;
@@ -50,32 +50,32 @@
   margin-top: 10px;
   z-index: 10;
 }
-.page-body .md-sidenav-right * {
+.page-body .main-md-sidenav * {
   background: transparent;
 }
-.page-body .md-sidenav-right md-content .md-button span {
+.page-body .main-md-sidenav md-content .md-button span {
   text-transform: capitalize;
 }
-.page-body .md-sidenav-right .expendable svg {
+.page-body .main-md-sidenav .expendable svg {
   width: 19px;
   height: 19px;
 }
-.page-body .md-sidenav-right li.nav-item {
+.page-body .main-md-sidenav li.nav-item {
   width: 100%;
 }
-.page-body .md-sidenav-right .dashboard svg,
-.page-body .md-sidenav-right .help svg,
-.page-body .md-sidenav-right .logout svg {
+.page-body .main-md-sidenav .dashboard svg,
+.page-body .main-md-sidenav .help svg,
+.page-body .main-md-sidenav .logout svg {
   width: 20px;
   height: 20px;
 }
-.page-body .md-sidenav-right .settings svg,
-.page-body .md-sidenav-right .blog svg {
+.page-body .main-md-sidenav .settings svg,
+.page-body .main-md-sidenav .blog svg {
   width: 21px;
   height: 21px;
 }
-.page-body .md-sidenav-right .uni svg,
-.page-body .md-sidenav-right .user svg {
+.page-body .main-md-sidenav .uni svg,
+.page-body .main-md-sidenav .user svg {
   width: 22px;
   height: 22px;
 }
