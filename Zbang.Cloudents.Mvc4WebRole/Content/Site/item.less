@@ -172,10 +172,25 @@
     }
 
     .comments-section {
-        width: 300px;
+        min-width: 300px;
         position: fixed;
         top: 90px;
         bottom: 0;
+        width: ~"calc(50% - 400px)";
+
+        md-sidenav {
+            width: 100%;
+            max-width: none;
+
+            @media (max-width: 1400px) {
+                box-shadow: 0 0 30px @borderColorLightGrey;
+            }
+
+            md-content {
+                width: 300px;
+                margin-left: auto;
+            }
+        }
 
         > button {
             position: fixed;
@@ -190,7 +205,7 @@
     .menu-toggler {
         text-align: right;
 
-        @media (min-width: 960px) {
+        @media (min-width: 1400px) {
             display: none;
         }
     }
@@ -198,6 +213,12 @@
     .comments-wrapper {
         background: @textColorWhite;
         width: 300px;
+        /*@media (max-width: 1399px) {
+            box-shadow: 0 5px 40px @borderColorLightGrey;
+        }*/
+        md-content {
+            background-color: @textColorWhite;
+        }
 
         .title {
             color: @textColorBlue;
