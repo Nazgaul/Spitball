@@ -1,40 +1,108 @@
 ﻿@model Zbang.Cloudents.Mvc4WebRole.Models.InsertUser
 @{
     var x = Request.QueryString["complete"];
-    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+    Layout = null;
 }
+<!DOCTYPE html>
 
-<div class="insertUser">
-    <h1>
-        טופס משתמש חדש לSpitball
-        <br />
-        אגודת הסטודנטים המכללה למינהל
-    </h1>
+<html data-culture="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name">
+<head>
+    <link rel="SHORTCUT ICON" href="@Url.Content("~/favicon.ico")" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <meta charset="utf-8">
 
-    @using (Html.BeginForm("InsertUser", "home", FormMethod.Post, new { @class = x }))
+    <meta name="title" content="@ViewBag.title" />
+    <meta name="description" content="Join the social studying revolution at Spitball" />
+    @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" || System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
     {
-        @Html.ValidationSummary(true)
-        @Html.ValidationMessageFor(m => m.FirstName)
-        @Html.LabelFor(m => m.FirstName)
-        @Html.TextBoxFor(m => m.FirstName, null, new { autocomplete = "off" })
-
-        @Html.ValidationMessageFor(m => m.LastName)
-        @Html.LabelFor(m => m.LastName)
-
-        @Html.TextBoxFor(m => m.LastName, null, new { autocomplete = "off" })
-        @Html.ValidationMessageFor(m => m.Id)
-        @Html.LabelFor(m => m.Id)
-
-        @Html.TextBoxFor(m => m.Id, null, new { autocomplete = "off" })
-
-        <input type="submit" value="עדכן" class="btn1" id="insert" />
-        <div class="success">הפרטים שהזנת עודכנו בהצלחה!</div>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
     }
+    <link rel="image_src" href="@Url.CdnContent("/images/cloudents.png?v=1")" />
 
-</div>
+    <meta property="fb:app_id" content="450314258355338">
+    <meta property="og:site_name" content="Spitball" />
+    <meta property="og:image" content="@Url.CdnContent("/images/cloudents.png?v=1")" />
+    <meta property="og:title" content="Spitball" />
+    <meta property="og:type" content="website" />
+    <meta id="fb_ShareLink" property="og:url" content="@Request.Url.AbsoluteUri" />
 
-@section scripts {
-    @Html.Script2("General")
+</head>
+<body>
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-NDZLW7"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
+    <!-- End Google Tag Manager -->
+    <!--[if IE]>
+        <script>
+            if (!window.document.documentMode || window.document.documentMode < 10) {
+                window.location = "/error/unsupported/";
+            }
+        </script>
+    <![endif]-->
+
+    <div class="wrap">
+        @{
+            var url = Url.Action("Index", "Account");
+            if (User != null && User.Identity.IsAuthenticated)
+            {
+                url = Url.Action("Index", "Dashboard");
+            }
+        }
+        <header class="siteHeader staticHeader">
+            <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
+            <div class="headerActions rFloat">
+                <label for="sidebarCb" class="headerSettings rFloat">
+                    @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
+                </label>
+            </div>
+            <div class="logoWrapper">
+                <a class="siteLogo" href="@url">
+                </a>
+            </div>
+        </header>
+        <div class="staticContent">
+            <div class="insertUser">
+                <h1>
+                    טופס משתמש חדש לSpitball
+                    <br />
+                    אגודת הסטודנטים המכללה למינהל
+                </h1>
+
+                @using (Html.BeginForm("InsertUser", "home", FormMethod.Post, new { @class = x }))
+                {
+                    @Html.ValidationSummary(true)
+                    @Html.ValidationMessageFor(m => m.FirstName)
+                    @Html.LabelFor(m => m.FirstName)
+                    @Html.TextBoxFor(m => m.FirstName, null, new { autocomplete = "off" })
+
+                    @Html.ValidationMessageFor(m => m.LastName)
+                    @Html.LabelFor(m => m.LastName)
+
+                    @Html.TextBoxFor(m => m.LastName, null, new { autocomplete = "off" })
+                    @Html.ValidationMessageFor(m => m.Id)
+                    @Html.LabelFor(m => m.Id)
+
+                    @Html.TextBoxFor(m => m.Id, null, new { autocomplete = "off" })
+
+                    <input type="submit" value="עדכן" class="btn1" id="insert" />
+                    <div class="success">הפרטים שהזנת עודכנו בהצלחה!</div>
+                }
+
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script>
         $('#mLoading').hide();
         //if (location.search.indexOf('complete') > 0) {
@@ -46,8 +114,7 @@
         if (window.history && window.history.replaceState) {
             window.history.replaceState(null, '', location.origin + location.pathname);
         }
-                $this.removeClass('complete');
+        $this.removeClass('complete');
     </script>
-
-
-}
+</body>
+</html>
