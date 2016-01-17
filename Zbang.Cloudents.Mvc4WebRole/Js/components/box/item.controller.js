@@ -14,8 +14,6 @@
             i.tabs = data;
         });
 
-
-
         i.myPagingFunction = function () {
             if (!user.id) {
                 var defer = $q.defer();
@@ -35,6 +33,7 @@
         i.renameTab = renameTab;
         i.renameTabOpen = renameTabOpen;
         i.deleteTab = deleteTab;
+        i.downloadItem = followBox;
 
         getItems();
 
@@ -43,7 +42,10 @@
             i.tabNewName = i.tabSelected.name;
         }
 
-       
+
+        function followBox() {
+            $scope.$emit('follow-box');
+        }
 
         var submitDisabled = false;
         function addTab() {
@@ -56,7 +58,7 @@
             submitDisabled = true;
             boxService.createTab(i.newFolderName, boxId).then(function (response) {
                 i.tabs.push(response);
-                $scope.$emit('follow-box');
+                followBox();
                 i.newFolderTabOpened = false;
             }, function (response) {
                 $scope.app.showToaster(response, 'tabSection');
@@ -72,7 +74,7 @@
                 return;
             }
             tab.count++;
-            $scope.$emit('follow-box');
+            followBox();
             boxService.addItemToTab(boxId, tab.id, $data.id);
 
         }
@@ -191,7 +193,7 @@
             if (response.tabId != i.tabSelected.id) {
                 return; //not the same tab
             }
-            $scope.$emit('follow-box');
+            followBox();
             var item = response.item, retVal = itemThumbnailService.assignValue(item.source);
 
             item.thumbnail = retVal.thumbnail;
