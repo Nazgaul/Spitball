@@ -70,6 +70,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Write a comment.
+        /// </summary>
+        public static string CreateComment {
+            get {
+                return ResourceManager.GetString("CreateComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download.
         /// </summary>
         public static string Download {

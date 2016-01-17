@@ -159,4 +159,7 @@
   <data name="NewComment" xml:space="preserve">
     <value>Comment</value>
   </data>
+  <data name="CreateComment" xml:space="preserve">
+    <value>Write a comment</value>
+  </data>
 </root>
