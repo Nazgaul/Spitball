@@ -33,6 +33,7 @@
 
     <many-to-one column="QuestionId" class="Comment" name="Comment" />
     <many-to-one column="AnswerId" class="CommentReplies" name="Answer"/>
+    <many-to-one column="ItemTabId" class="ItemTab" name="Tab"/>
 
     <property name="ItemContentUrl" column="BlobName"/>
 
@@ -53,14 +54,14 @@
       <one-to-many class="Updates"/>
     </bag>
     
-    <!--<bag name="ItemComments" inverse="true" lazy="true" cascade="delete-orphan" >
+    <bag name="ItemComments" inverse="true" lazy="true" cascade="delete-orphan" >
       <key column="ItemId" foreign-key="itemIdItemComment"/>
       <one-to-many class="ItemComment"/>
     </bag>
     <bag name="ItemReplies" inverse="true" lazy="true" cascade="delete-orphan" >
       <key column="ItemId" foreign-key="itemIdItemReply"/>
       <one-to-many class="ItemCommentReply"/>
-    </bag>-->
+    </bag>
     
     <subclass name="Link" discriminator-value="Link">
       <property name="Sponsored"/>

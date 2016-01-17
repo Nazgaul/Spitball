@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Zbang.Zbox.Domain
 {
@@ -27,7 +28,7 @@ namespace Zbang.Zbox.Domain
         public void AddItemToTab(Item item)
         {
             Items.Add(item);
-            ItemCount = Items.Count;
+            ItemCount = Items.Count(w => !w.IsDeleted);
         }
 
         public void ChangeName(string name)
@@ -42,7 +43,7 @@ namespace Zbang.Zbox.Domain
         public void DeleteItemFromTab(Item item)
         {
             Items.Remove(item);
-            ItemCount = Items.Count;
+            ItemCount = Items.Count(w => !w.IsDeleted);
         }
 
         public void DeleteReferenceToItems()

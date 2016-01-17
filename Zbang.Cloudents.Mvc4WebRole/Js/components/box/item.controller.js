@@ -135,6 +135,7 @@
 
             $mdDialog.show(confirm).then(function () {
                 var index = i.items.indexOf(item);
+                i.tabSelected.count--;
                 i.items.splice(index, 1);
                 boxService.deleteItem(item.id, boxId);
             });
