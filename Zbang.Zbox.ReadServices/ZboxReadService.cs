@@ -603,7 +603,7 @@ namespace Zbang.Zbox.ReadServices
                 const string sql = @" select country_code2  from zbox.ip_range 
     where ip_from <= @IP and @IP <= ip_to";
                 var retVal = await conn.QueryAsync<string>(sql, new { IP = query.IpAddress });
-                return retVal.First();
+                return retVal.FirstOrDefault();
             }
 
         }

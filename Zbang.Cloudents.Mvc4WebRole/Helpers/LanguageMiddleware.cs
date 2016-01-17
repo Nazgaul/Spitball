@@ -49,10 +49,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                     return;
                 }
                 var country = await GetCountryByIpAsync(m_ContextBase);
-                if (country.ToLower() == "nl")
-                {
-                    country = "gb";
-                }
+                //if (country.ToLower() == "nl")
+                //{
+                //    country = "gb";
+                //}
                 var culture = Languages.GetCultureBaseOnCountry(country);
                 m_LanguageCookie.InjectCookie(culture);
                 ChangeThreadCulture(culture);
