@@ -1,6 +1,7 @@
 ﻿(function () {
     angular.module('app.item').controller('ItemController', item);
-    item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user', 'itemData', '$scope', '$timeout'];
+    item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
+        'itemData', '$scope', '$timeout'];
 
     function item($stateParams, itemService, $sce, $location, $q, user, itemData, $scope, $timeout) {
         var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
@@ -44,14 +45,20 @@
             return itemService.getPreview(i.details.blob, index, itemId, boxid).then(function (data) {
                 data = data || {};
                 i.loader = false;
+                
                 if (data.preview) {
                     if (data.preview.indexOf('iframe') > 0
                         || data.preview.indexOf('audio') > 0
                         || data.preview.indexOf('video') > 0) {
                         i.preview = $sce.trustAsHtml(data.preview);
                     } else {
+                        var element = angular.element(data.preview);
+                        
                         i.preview += data.preview;
-                        needLoadMore = true;
+                        if (element.find('img,svg').length === 3) {
+                            needLoadMore = true;
+                        }
+                        
                     }
 
                 }

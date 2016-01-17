@@ -28,7 +28,7 @@ namespace Zbang.Zbox.Infrastructure.File
             return DefaultPicture.SoundFileTypePicture;
         }
 
-        public override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var url = BlobProvider.GenerateSharedAccressReadPermissionInStorage(blobUri, 600);
             return Task.FromResult(new PreviewResult { Content = new List<string> { string.Format(ContentFormat, url) } });

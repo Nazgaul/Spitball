@@ -104,20 +104,24 @@ namespace Zbang.Zbox.Infrastructure.Search
             //{
             //    return null;
             //}
-            var listOfSelectParams = new[] {IdField, NameField2, ImageField, MembersCountField, MembersImagesField};
+            var listOfSelectParams = new[] { IdField, NameField2, ImageField, MembersCountField, MembersImagesField };
             var searchParametes = new SearchParameters
             {
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
                 Select = listOfSelectParams,
             };
-
-            if (string.IsNullOrEmpty(query.Term))
+            var term = query.Term;
+            if (string.IsNullOrEmpty(term))
             {
                 searchParametes.ScoringProfile = CountryScoringProfile;
-                searchParametes.ScoringParameters = new[] { "country:" + query.Country };
+                searchParametes.ScoringParameters = new[] {"country:" + query.Country};
             }
-            var tResult = m_IndexClient.Documents.SearchAsync<UniversitySearch>(query.Term + "*", searchParametes, cancelToken);
+            else
+            {
+                term = query.Term.Replace("\"", string.Empty);
+            }
+            var tResult = m_IndexClient.Documents.SearchAsync<UniversitySearch>(term + "*", searchParametes, cancelToken);
 
             var tSuggest = Task.FromResult<DocumentSuggestResponse<UniversitySearch>>(null);
             if (!string.IsNullOrEmpty(query.Term) && query.Term.Length >= 3 && query.PageNumber == 0)
@@ -168,22 +172,32 @@ namespace Zbang.Zbox.Infrastructure.Search
             if (universityToUpload != null)
             {
                 listOfCommands.AddRange(
-                    universityToUpload.Select(s => new IndexAction<UniversitySearch>(IndexActionType.MergeOrUpload, new UniversitySearch
+                    universityToUpload.Select(s =>
                     {
-                        Id = s.Id.ToString(CultureInfo.InvariantCulture),
-                        Name = s.Name.Trim(),
-                        Name2 = s.Name.Trim(),
-                        Extra1 = s.Extra,
-                        Extra2 = String.Join(
-                               " ",
-                               s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
-                                   .Where(w => w.StartsWith("ה") || w.StartsWith("ל"))
-                                   .Select(s1 => s1.Remove(0, 1))),
-                        Image = string.IsNullOrEmpty(s.Image) ? null : s.Image.Trim(),
-                        Country = s.Country,
-                        MembersCount = s.NoOfUsers,
-                        MembersImages = s.UsersImages.Where(w => w != null).ToArray()
-                    })));
+                        return new IndexAction<UniversitySearch>(IndexActionType.MergeOrUpload,
+
+                            new UniversitySearch
+                            {
+                                Id = s.Id.ToString(CultureInfo.InvariantCulture),
+                                Name = s.Name.Trim(),
+                                Name2 = s.Name.Trim(),
+                                Extra1 = s.Extra,
+                                Extra2 = String.Join(
+                                    " ",
+                                    s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
+                                        .Where(w => w.StartsWith("ה") || w.StartsWith("ל"))
+                                        .Select(s1 => s1.Remove(0, 1))
+                                        .Union(s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
+                                            .Where(w => w.Contains('"'))
+
+                                            .Select(s2 => s2.Replace("\"", string.Empty)))),
+                                Image = string.IsNullOrEmpty(s.Image) ? null : s.Image.Trim(),
+                                Country = s.Country,
+                                MembersCount = s.NoOfUsers,
+                                MembersImages = s.UsersImages.Where(w => w != null).ToArray()
+                            }
+                            );
+                    }));
 
 
 

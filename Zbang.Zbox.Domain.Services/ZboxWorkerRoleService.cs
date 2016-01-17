@@ -49,10 +49,10 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 users = UnitOfWork.CurrentSession.QueryOver<User>()
-                    .Where(w => w.IsRegisterUser)
-                    .OrderBy(o => o.Id).Asc
+                    .Where(w => w.Id == 496060)
+                    //.OrderBy(o => o.Id).Asc
                     .Select(s => s.Id)
-                    .Skip(i * 100).Take(100)
+                    //.Skip(i * 100).Take(100)
                     .List<long>();
             }
             do

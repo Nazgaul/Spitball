@@ -23,23 +23,18 @@ namespace Zbang.Zbox.Infrastructure.File
 
         //private const string ContentFormat = "<iframe class=\"iframeContent\" src=\"{0}\"></iframe>";
 
-        public Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri,  int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
-            //if (blobUri.Scheme == "http")
-            //{
-            //    return Task.FromResult(new PreviewResult
-            //    {
-            //        ViewName = "LinkDenied",
-            //        Content = new List<string> { blobUri.AbsoluteUri }
-            //    });
-            //}
+            if (indexNum > 0)
+            {
+                return Task.FromResult(new PreviewResult { Content = new List<string>() });
+            }
             var blobsNamesInCache = new List<string>
             {
                 "https://az779114.vo.msecnd.net/preview/" + WebUtility.UrlEncode( blobUri.AbsoluteUri) +
                 string.Format(".jpg?width={0}&height={1}", 1024, 768)
             };
             return Task.FromResult(new PreviewResult { ViewName = "Image", Content = blobsNamesInCache });
-            //return Task.FromResult(new PreviewResult { Content = new List<string> { string.Format(ContentFormat, blobUri.AbsoluteUri) } });
         }
 
         public string TypeOfView

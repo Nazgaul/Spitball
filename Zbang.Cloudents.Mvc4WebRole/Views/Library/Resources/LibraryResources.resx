@@ -160,6 +160,6 @@
     <value>School name</value>
   </data>
   <data name="UniversitySearchPlaceholder" xml:space="preserve">
-    <value>Select your school...</value>
+    <value>Search for your school...</value>
   </data>
 </root>

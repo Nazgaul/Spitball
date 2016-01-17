@@ -30,7 +30,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var license = new License();
             license.SetLicense("Aspose.Total.lic");
         }
-        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             // var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);

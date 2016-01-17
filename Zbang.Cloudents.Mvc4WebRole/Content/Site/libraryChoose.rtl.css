@@ -1,4 +1,7 @@
-﻿.library-choose .univeristy {
+﻿.library-choose .layout-padding > .flex {
+  padding: 20px;
+}
+.library-choose .univeristy {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;

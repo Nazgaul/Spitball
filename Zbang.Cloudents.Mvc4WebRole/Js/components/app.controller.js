@@ -1,8 +1,9 @@
 ﻿(function () {
     angular.module('app').controller('AppController', appController);
-    appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state', 'userDetailsFactory', '$mdToast', '$document'];
+    appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state',
+        'userDetailsFactory', '$mdToast', '$document', '$mdMenu'];
 
-    function appController($rootScope, $window, $location, h, $state, userDetails, $mdToast, $document) {
+    function appController($rootScope, $window, $location, h, $state, userDetails, $mdToast, $document, $mdMenu) {
         var self = this;
         $rootScope.$on('$viewContentLoaded', function () {
             var path = $location.path(),
@@ -75,6 +76,7 @@
 
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            $mdMenu.hide();
             var toStateName = toState.name;
             if (fromParams.boxId && toParams.boxId) {
                 if (fromParams.boxId === toParams.boxId && toStateName === 'box' && fromState.name.startsWith('box')) {
@@ -108,7 +110,7 @@
         });
 
         $rootScope.$on('$stateNotFound',
-            function(event, unfoundState, fromState, fromParams) {
+            function (event, unfoundState, fromState, fromParams) {
                 console.log(unfoundState.to); // "lazy.state"
                 console.log(unfoundState.toParams); // {a:1, b:2}
                 console.log(unfoundState.options); // {inherit:false} + default options

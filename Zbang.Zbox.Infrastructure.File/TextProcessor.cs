@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -51,7 +50,7 @@ namespace Zbang.Zbox.Infrastructure.File
             return DefaultPicture.TextFileTypePicture;
         }
 
-        public override async Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int width, int height,
+        public override async Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, 
             int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
