@@ -495,9 +495,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public JsonResult DeleteUpdates(long boxId)
         {
             var userId = User.GetUserId();
-            var command = new DeleteUpdatesCommand(userId, boxId);
-            ZboxWriteService.DeleteUpdates(command);
-            return JsonOk();
+            try
+            {
+                
+                var command = new DeleteUpdatesCommand(userId, boxId);
+                ZboxWriteService.DeleteUpdates(command);
+                return JsonOk();
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("delete update boxid " + boxId + " userid" + userId, ex);
+                return JsonError();
+            }
         }
 
         //[HttpGet]

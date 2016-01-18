@@ -8,13 +8,6 @@ namespace Zbang.Zbox.Domain.DataAccess
     {
         public void DeleteUserUpdateByBoxId(long userId, long boxId)
         {
-
-            //            var query = UnitOfWork.CurrentSession.CreateSQLQuery(@"delete from zbox.NewUpdates
-            //                where userid = :userId and boxid = :boxId");
-            //            query.SetInt64("userId", userId);
-            //            query.SetInt64("boxId", boxId);
-            //            query.ExecuteUpdate();
-
             var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteUpdatesByBoxId");
             query.SetInt64("userid", userId);
             query.SetInt64("boxId", boxId);
