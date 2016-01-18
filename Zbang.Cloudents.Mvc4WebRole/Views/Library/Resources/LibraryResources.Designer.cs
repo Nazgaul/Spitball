@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find your school.
+        ///   Looks up a localized string similar to Search your school....
         /// </summary>
         public static string UniversitySearchPlaceholder {
             get {

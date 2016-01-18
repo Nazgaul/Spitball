@@ -132,14 +132,14 @@
 .library-choose .search-form-wrapper {
   text-align: center;
   margin: 0 auto;
-  width: 80%;
+  width: 95%;
   max-width: 600px;
 }
 .library-choose .search-form-wrapper .intro-text {
   font-size: 36px;
   font-weight: bold;
-  line-height: 100px;
   padding-top: 30px;
+  padding-bottom: 20px;
 }
 .library-choose .search-form-wrapper form {
   border-radius: 15px;
@@ -148,15 +148,28 @@
 .library-choose .search-form-wrapper form .search-text {
   background: #f5f5f5;
   font-size: 20px;
-  padding: 10px 25px;
-  width: calc(100% - 100px);
+  padding: 7px 10px 7px 25px;
+  width: calc(100% - 60px);
 }
 .library-choose .search-form-wrapper form .search-button {
   background: #4190b9;
-  width: 100px;
+  width: 60px;
+  line-height: 100%;
 }
 .library-choose .search-form-wrapper form .search-button svg {
   width: 22px;
   height: 22px;
   fill: #f5f5f5;
+}
+@media (max-width: 600px) {
+  .library-choose .search-form-wrapper .intro-text {
+    font-size: 26px;
+  }
+  .library-choose .search-form-wrapper form .search-text {
+    font-size: 16px;
+    width: calc(100% - 50px);
+  }
+  .library-choose .search-form-wrapper form .search-button {
+    width: 50px;
+  }
 }

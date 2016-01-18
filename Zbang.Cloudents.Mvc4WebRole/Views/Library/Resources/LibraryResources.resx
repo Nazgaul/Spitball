@@ -160,7 +160,7 @@
     <value>School name</value>
   </data>
   <data name="UniversitySearchPlaceholder" xml:space="preserve">
-    <value>Find your school</value>
+    <value>Search your school...</value>
   </data>
   <data name="UniversitySearchTitle" xml:space="preserve">
     <value>Welcome to Spitball!</value>
