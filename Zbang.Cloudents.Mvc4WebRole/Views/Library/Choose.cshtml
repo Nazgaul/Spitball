@@ -2,7 +2,7 @@
 
 <div ng-if="!lc.needCode" id="lib-choose">
     <div class="search-form-wrapper">
-        <div class="intro-text">Welcome to spitball</div>
+        <div class="intro-text">@LibraryResources.UniversitySearchTitle</div>
         <form novalidate ng-submit="lc.search()" layout="row" layout-wrap>
             <input spellcheck="false" autofocus ng-disabled="lc.createUniversity" type="search" class="search-text" placeholder="@LibraryResources.UniversitySearchPlaceholder" ng-model="lc.term" ng-model-options="{debounce : 250}" ng-change="lc.search()" ng-minlength="2" />
             <button type="submit" class="search-button">
