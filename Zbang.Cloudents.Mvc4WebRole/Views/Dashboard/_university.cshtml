@@ -7,7 +7,7 @@
         
         <div class="universityTitle" layout="row" layout-align="center center">
             <img class="universityimg img-circle" ng-src="{{::u.info.img}}" alt="univerisy picture" width="70" height="70" />
-            <span>{{::u.info.name}}</span>
+            <span class="multi-line-ellipsis limit-three">{{::u.info.name}}</span>
         </div>
         <div class="universityStats">
             <div>{{::u.info.numOfBoxes | megaNumber}} @GeneralResources.Classes</div>

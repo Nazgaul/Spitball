@@ -14,11 +14,15 @@
                 </md-button>
             </li>
             <li class="expendable nav-item">
-                <md-button class="md-button-toggle" ng-click="d.toggleOpen('courses')" flex layout="row">
-                    <span class="arrow icon" ng-class="{toggled:d.isOpen('courses')}">
-                        @Html.Svg("~/images/site/icons.svg", "sideMenuArrow")
-                    </span>
-                    @IndexResources.Classes
+                <md-button class="md-button-toggle" ng-click="d.toggleOpen('courses')">
+                    <div flex layout="row" layout-align="start center">
+                        <span class="arrow icon" ng-class="{toggled:d.isOpen('courses')}">
+                            @Html.Svg("~/images/site/icons.svg", "sideMenuArrow")
+                        </span>
+                        <span class="title">
+                            @IndexResources.Classes
+                        </span>
+                    </div>
                 </md-button>
                 <ul ng-show="d.isOpen('courses')" id="side-menu-courses" class="menu-toggle-list">
                     <li ng-repeat="box in d.courses track by box.id">
@@ -27,11 +31,15 @@
                 </ul>
             </li>
             <li class="expendable nav-item">
-                <md-button class="md-button-toggle" ng-click="d.toggleOpen('boxes')" flex layout="row">
-                    <span class="arrow icon" ng-class="{toggled:d.isOpen('boxes')}">
-                        @Html.Svg("~/images/site/icons.svg", "sideMenuArrow")
-                    </span>
-                    @IndexResources.Group
+                <md-button class="md-button-toggle" ng-click="d.toggleOpen('boxes')">
+                    <div flex layout="row" layout-align="start center">
+                        <span class="arrow icon" ng-class="{toggled:d.isOpen('boxes')}">
+                            @Html.Svg("~/images/site/icons.svg", "sideMenuArrow")
+                        </span>
+                        <span class="title">
+                            @IndexResources.Group
+                        </span>
+                    </div>
                 </md-button>
                 <ul ng-show="d.isOpen('boxes')" id="side-menu-boxes" class="menu-toggle-list">
                     <li ng-repeat="box in d.privateBoxes track by box.id">
@@ -90,13 +98,13 @@
 
 
             @*<li class="parent-list-item">
-                <menu-toggle section="courses"></menu-toggle>
-            </li>*@
+                    <menu-toggle section="courses"></menu-toggle>
+                </li>*@
             @*<li ng-repeat="section in vm.menu.sections" class="parent-list-item"
-                ng-class="{'parentActive' : vm.isSectionSelected(section)}">
-                <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
-                <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
-            </li>*@
+                    ng-class="{'parentActive' : vm.isSectionSelected(section)}">
+                    <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
+                    <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
+                </li>*@
         </ul>
     </md-content>
 </md-sidenav>

@@ -92,7 +92,9 @@
   display: flex;
 }
 .side-menu li > .md-button > span:not(.icon),
-.side-menu li > button > span:not(.icon) {
+.side-menu li > button > span:not(.icon),
+.side-menu li > .md-button .title,
+.side-menu li > button .title {
   margin-left: 35px;
 }
 .side-menu svg {
