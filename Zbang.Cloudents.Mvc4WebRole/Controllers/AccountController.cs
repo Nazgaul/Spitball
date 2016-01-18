@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using DevTrends.MvcDonutCaching;
@@ -128,6 +129,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     invId = inv.InviteId;
                 }
+                model.BoxId = GetBoxIdRouteDataFromDifferentUrl(returnUrl);
                 var command = new CreateGoogleUserCommand(googleUserData.Email,
                     googleUserData.Id,
                     googleUserData.Picture,
@@ -181,6 +183,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
+               
                 var isNew = false;
                 var facebookUserData = await m_FacebookService.Value.FacebookLogIn(model.Token);
                 if (facebookUserData == null)
@@ -198,6 +201,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         invId = inv.InviteId;
                     }
+                    model.BoxId = GetBoxIdRouteDataFromDifferentUrl(returnUrl);
                     var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
                          facebookUserData.LargeImage, model.UniversityId,
                         facebookUserData.First_name,
@@ -349,7 +353,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ValidateAntiForgeryToken]
         public async Task<JsonResult> Register([ModelBinder(typeof(TrimModelBinder))] Register model)
         {
-
+            model.BoxId = GetBoxIdRouteDataFromDifferentUrl(model.ReturnUrl);
             if (!ModelState.IsValid)
             {
                 return JsonError(GetErrorFromModelState());
@@ -396,8 +400,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                     m_CookieHelper.RemoveCookie(Invite.CookieName);
                     return
-                        JsonOk(
-                            Url.Action("Choose", "Library", new { returnUrl = CheckIfToLocal(model.ReturnUrl), @new = "true" }));
+                        JsonOk();
+                            //Url.Action("Choose", "Library", new { returnUrl = CheckIfToLocal(model.ReturnUrl), @new = "true" }));
 
                 }
                 foreach (var error in createStatus.Errors)
@@ -411,7 +415,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, "Something went wrong");
+                ModelState.AddModelError(string.Empty, AccountControllerResources.UnspecifiedError);
                 TraceLog.WriteError("Register model:" + model, ex);
             }
             return JsonError(GetErrorFromModelState());

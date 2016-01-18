@@ -1,8 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Domain.Common;
@@ -20,6 +23,31 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             CancellationToken disconnectedToken = Response.ClientDisconnectedToken;
             return CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, disconnectedToken);
+        }
+
+        protected long? GetBoxIdRouteDataFromDifferentUrl(string url)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                return null;
+            }
+            var routeFromUrl = RouteTable.Routes.GetRouteData(new HttpContextWrapper(new HttpContext(new HttpRequest(null, new UriBuilder(url).ToString(), string.Empty), new HttpResponse(new System.IO.StringWriter()))));
+            if (routeFromUrl == null)
+            {
+                return null;
+            }
+            if (routeFromUrl.Values["boxId"] == null)
+            {
+                return null;
+            }
+            long retVal;
+            if (long.TryParse(routeFromUrl.Values["boxId"].ToString(), out retVal))
+            {
+                return retVal;
+            }
+            return null;
+           
+
         }
 
         protected string RenderRazorViewToString(string viewName, object model)

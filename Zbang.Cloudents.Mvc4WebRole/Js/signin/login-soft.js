@@ -135,9 +135,10 @@ var Login = function () {
         });
 
         $('.register-form input').keypress(function (e) {
+            var $form = $('.register-form');
             if (e.which == 13) {
-                if ($('.register-form').validate().form()) {
-                    $('.register-form').submit();
+                if ($form.validate().form()) {
+                    $form.submit();
                 }
                 return false;
             }
@@ -272,7 +273,8 @@ var Login = function () {
             trackConversion();
             $.post('/account/GoogleLogin', {
                 token: idToken,
-                universityId: getUrlVars()['returnUrl']
+                universityId: getUrlVars()['universityid'],
+                returnUrl: getUrlVars()['returnUrl']
             }).done(function (data) {
                 externalLogIn(data, 'Google');
             });
@@ -292,7 +294,8 @@ var Login = function () {
             trackConversion();
             $.post('/account/facebookLogin', {
                 token: accessToken,
-                universityId: getUrlVars()['universityid']
+                universityId: getUrlVars()['universityid'],
+                returnUrl: getUrlVars()['returnUrl']
             }).done(function (data) {
                 externalLogIn(data, 'Facebook');
             });
@@ -308,28 +311,21 @@ var Login = function () {
 
     function externalLogIn(data, type) { //Type google or facebook
         if (!data.success) {
-            alert('there is a problem signing you in with facebook');
+            alert('there is a problem signing you in');
             return;
         }
 
         clearStorage();
         var obj = data.payload;
         if (obj.isnew) {
-            //setNewUser();
-            //FB.api('/me', function () {	                    
             if (obj.url) {
                 window.location.href = obj.url;
                 return;
             }
-            //});
-
             ga('send', 'event', 'Signup', type);
             return;
         }
-
-
         ga('send', 'event', 'Signin', type);
-
         var returnUrl = getUrlVars()['returnUrl'];
         if (returnUrl) {
             window.location.href = decodeURIComponent(returnUrl);
