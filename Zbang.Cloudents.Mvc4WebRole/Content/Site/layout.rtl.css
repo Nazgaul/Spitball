@@ -1874,6 +1874,8 @@ Page content
   font-weight: 400;
   margin: 0 0 0 20px;
   padding: 0;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
 }
 /* Page content */
 .page-content {
