@@ -129,3 +129,34 @@
   width: 100%;
   margin-right: 15px;
 }
+.library-choose .search-form-wrapper {
+  text-align: center;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 600px;
+}
+.library-choose .search-form-wrapper .intro-text {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 100px;
+  padding-top: 30px;
+}
+.library-choose .search-form-wrapper form {
+  border-radius: 15px;
+  overflow: hidden;
+}
+.library-choose .search-form-wrapper form .search-text {
+  background: #f5f5f5;
+  font-size: 20px;
+  padding: 10px 25px;
+  width: calc(100% - 100px);
+}
+.library-choose .search-form-wrapper form .search-button {
+  background: #4190b9;
+  width: 100px;
+}
+.library-choose .search-form-wrapper form .search-button svg {
+  width: 22px;
+  height: 22px;
+  fill: #f5f5f5;
+}

@@ -2,8 +2,9 @@
 
 .library-choose {
     .layout-padding > .flex {
-        padding:20px;
+        padding: 20px;
     }
+
     .univeristy {
         .displayFlex();
         font-weight: 700;
@@ -65,11 +66,9 @@
         .btn {
             padding: 0 16px;
         }
-
         //.btn-primary {
         //    .buttonBlue();
         //}
-
         .btn-default {
             margin-right: 20px;
             border: none;
@@ -95,11 +94,9 @@
         .btn {
             padding: 0 16px;
         }
-
         //.btn-primary {
         //    .buttonBlue();
         //}
-
         .closed-uni-i {
             width: 150px;
             height: 150px;
@@ -155,6 +152,44 @@
         md-input-container {
             width: 100%;
             margin-left: 15px;
+        }
+    }
+
+    .search-form-wrapper {
+        text-align: center;
+        margin: 0 auto;
+        width: 80%;
+        max-width: 600px;
+
+        .intro-text {
+            font-size: 36px;
+            font-weight: bold;
+            line-height: 100px;
+            padding-top: 30px;
+        }
+
+        form {
+            border-radius: 15px;
+            overflow: hidden;
+
+
+            .search-text {
+                background: @backgroundColorWhite;
+                font-size: 20px;
+                padding: 10px 25px;
+                width: ~"calc(100% - 100px)";
+            }
+
+            .search-button {
+                background: @buttonColorBlue;
+                width: 100px;
+
+                svg {
+                    width: 22px;
+                    height: 22px;
+                    fill: @backgroundColorWhite;
+                }
+            }
         }
     }
 }
