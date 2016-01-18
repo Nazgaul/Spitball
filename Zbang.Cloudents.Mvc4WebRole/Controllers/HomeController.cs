@@ -38,11 +38,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly ILanguageCookieHelper m_LanguageCookie;
         private readonly ICookieHelper m_CookieHelper;
         private readonly IMailComponent m_MailComponent;
-        private readonly IThemeCookieHelper m_ThemeCookieHelper;
+        //private readonly IThemeCookieHelper m_ThemeCookieHelper;
 
         public HomeController(
             Lazy<IBlobProvider> blobProvider,
-            Lazy<ICache> cacheProvider, Lazy<IQueueProvider> queueProvider, ILanguageCookieHelper languageCookie, ICookieHelper cookieHelper, IMailComponent mailComponent, IThemeCookieHelper themeCookieHelper)
+            Lazy<ICache> cacheProvider, Lazy<IQueueProvider> queueProvider, ILanguageCookieHelper languageCookie, ICookieHelper cookieHelper, IMailComponent mailComponent
+            //, IThemeCookieHelper themeCookieHelper
+            )
         {
             m_BlobProvider = blobProvider;
             m_CacheProvider = cacheProvider;
@@ -50,7 +52,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_LanguageCookie = languageCookie;
             m_CookieHelper = cookieHelper;
             m_MailComponent = mailComponent;
-            m_ThemeCookieHelper = themeCookieHelper;
+           // m_ThemeCookieHelper = themeCookieHelper;
         }
 
         //[DonutOutputCache(VaryByParam = "lang;invId",
@@ -479,25 +481,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(VersionHelper.CurrentVersion(true));
         }
 
-        [ChildActionOnly]
-        [ZboxAuthorize(IsAuthenticationRequired = false)]
-        public ContentResult Theme()
-        {
-            var theme = m_ThemeCookieHelper.ReadCookie();
-            if (theme == null)
-            {
-                theme = Zbang.Zbox.Infrastructure.Enums.Theme.Dark;
-                if (User.Identity.IsAuthenticated)
-                {
+        //[ChildActionOnly]
+        //[ZboxAuthorize(IsAuthenticationRequired = false)]
+        //public ContentResult Theme()
+        //{
+        //    var theme = m_ThemeCookieHelper.ReadCookie();
+        //    if (theme == null)
+        //    {
+        //        theme = Zbang.Zbox.Infrastructure.Enums.Theme.Dark;
+        //        if (User.Identity.IsAuthenticated)
+        //        {
 
-                    var userTheme = ZboxReadService.GetUserTheme(new GetUserDetailsQuery(User.GetUserId()));
+        //            var userTheme = ZboxReadService.GetUserTheme(new GetUserDetailsQuery(User.GetUserId()));
 
-                    theme = userTheme;
-                }
-                m_ThemeCookieHelper.InjectCookie(theme.Value);
-            }
-            var cssLinks = BundleConfig.CssLink("theme" + theme.GetStringValue());
-            return Content(cssLinks);
-        }
+        //            theme = userTheme;
+        //        }
+        //        m_ThemeCookieHelper.InjectCookie(theme.Value);
+        //    }
+        //    var cssLinks = BundleConfig.CssLink("theme" + theme.GetStringValue());
+        //    return Content(cssLinks);
+        //}
     }
 }

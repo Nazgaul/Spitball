@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly IAuthenticationManager m_AuthenticationManager;
         private readonly ICookieHelper m_CookieHelper;
         private readonly ILanguageCookieHelper m_LanguageCookie;
-        private readonly IThemeCookieHelper m_ThemeCookieHelper;
+        //private readonly IThemeCookieHelper m_ThemeCookieHelper;
 
 
         public AccountController(
@@ -48,7 +48,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
            Lazy<IQueueProvider> queueProvider,
            Lazy<IEncryptObject> encryptObject,
            ApplicationUserManager userManager,
-        IAuthenticationManager authenticationManager, ICookieHelper cookieHelper, ILanguageCookieHelper languageCookie, Lazy<IGoogleService> googleService, IThemeCookieHelper themeCookieHelper)
+        IAuthenticationManager authenticationManager, ICookieHelper cookieHelper, ILanguageCookieHelper languageCookie, Lazy<IGoogleService> googleService)
         {
             m_FacebookService = facebookService;
             m_QueueProvider = queueProvider;
@@ -58,7 +58,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_CookieHelper = cookieHelper;
             m_LanguageCookie = languageCookie;
             m_GoogleService = googleService;
-            m_ThemeCookieHelper = themeCookieHelper;
+            //m_ThemeCookieHelper = themeCookieHelper;
         }
 
 
@@ -620,7 +620,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var command = new UpdateUserThemeCommand(id, theme);
                 ZboxWriteService.UpdateUserTheme(command);
             }
-            m_ThemeCookieHelper.InjectCookie(theme);
+            //m_ThemeCookieHelper.InjectCookie(theme);
             return JsonOk();
         }
 

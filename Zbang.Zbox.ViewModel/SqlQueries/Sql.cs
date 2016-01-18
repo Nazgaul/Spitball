@@ -260,10 +260,10 @@ left join zbox.University uu on u.UniversityId = uu.Id
 where u.userid = @UserId";
 
 
-        public const string UserTheme = @"select 
-u.theme as Theme
-from zbox.Users u 
-where u.userid = @UserId";
+//        public const string UserTheme = @"select 
+//u.theme as Theme
+//from zbox.Users u 
+//where u.userid = @UserId";
 
         public const string GetUserByMembershipId = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
     u.UserImageLarge as Image, u.Email as Email,

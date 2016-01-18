@@ -26,5 +26,7 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 
         public string Token { get; set; }
 
+        public Theme Theme { get; set; }
+
     }
 }
