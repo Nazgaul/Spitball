@@ -1428,12 +1428,6 @@ input[type="button"] {
   color: #4c4c4c;
 }
 @media (min-width: 992px) {
-  .transparent-header .sticky-wrapper {
-    background: none;
-  }
-  .transparent-header #masthead:not(.navbar-scrolled) {
-    background: none;
-  }
   .transparent-header #masthead:not(.navbar-scrolled) a {
     color: #ffffff;
   }
@@ -2982,16 +2976,19 @@ blockquote.text-light:before {
 .video-container video.fillWidth {
     width: 100%;
 }*/
-#video-viewport {
-  position: absolute;
-  top: 0;
-  right: 0;
-  overflow: hidden;
+.social-links svg {
+  fill: white;
+  width: 35px;
+  height: 35px;
+  margin: 15px 10px;
+  border-radius: 100%;
+  box-shadow: -2px 2px 35px #5d6063;
+  background: rgba(64, 67, 70, 0.5);
 }
-#video-viewport video {
-  background-image: url('/Images/HomePage2/headr_image5.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: scroll;
-  background-position: 50% 0%;
+.social-links a {
+  float: right;
+  border-radius: 100%;
+}
+.social-links .wrapper {
+  display: inline-block;
 }

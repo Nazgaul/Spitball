@@ -1659,6 +1659,7 @@
     <Content Include="Images\aboutUs\matan.png" />
     <Content Include="Images\aboutUs\ram.png" />
     <Content Include="Images\aboutUs\shlomi.png" />
+    <Content Include="Images\HomePage2\HP_image.png" />
     <Content Include="Images\signin\loginOptions.svg" />
     <Content Include="Images\Site\404_image.png" />
     <Content Include="Images\HomePage2\apple.png" />
