@@ -27,10 +27,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         @Html.Css2("site4")
-        @{ Html.RenderAction("Theme", "Home", true);}
+        @*@{ Html.RenderAction("Theme", "Home", true);}*@
         <base href="/" />
     </head>
-<body ng-controller="AppController as app">
+<body ng-controller="AppController as app" @*class="theme-light"*@>
 
     <!-- Google Tag Manager -->
     <noscript>
@@ -118,7 +118,7 @@
                 <a class="btn btn-default" target="_self" href="@Url.Action("SignUp", "Account", new { returnUrl,invId })" ga-track-event="['header', 'sign up']">@IndexResources.Signup</a>
                 <a class="btn button-Blue btn-primary" target="_self" href="@Url.Action("SignIn", "Account", new { returnUrl, invId })" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
                 @*<button class="btn btn-default" role="button" onclick="window.location='@Url.Action("SignUp", "Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'sign up']">@IndexResources.Signup</button>
-            <button class="btn btn-primary" role="button" onclick="window.location='@Url.Action("SignIn","Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</button>*@
+                    <button class="btn btn-primary" role="button" onclick="window.location='@Url.Action("SignIn","Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</button>*@
             </div>
             <button type="button" flex="none" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" ga-track-event="['header', 'open menu']">
                 @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
@@ -170,7 +170,7 @@
 
     </script>
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    
+
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>

@@ -91,6 +91,7 @@
                 myform.link.$setValidity('server', false);
                 u.error = response;
             }).finally(function () {
+                u.link = '';
                 u.submitFormProcess = false;
             });
 

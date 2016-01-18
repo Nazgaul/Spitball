@@ -3,7 +3,7 @@
 
 <button type="button" class="close" ng-click="app.back('/dashboard/')" ga-track-event="['search', 'close search']">@Html.Svg("~/images/site/icons.svg", "close")</button>
 <form novalidate remove-keyboard ng-submit="s.search()">
-    <input type="search" class="search-text" placeholder="@GeneralResources.Search" autofocus ng-model="s.term" ng-model-options="{debounce : 250}" ng-change="s.search()" ng-minlength="2" />
+    <input type="search" class="search-text" placeholder="@GeneralResources.Search" autofocus ng-model="s.term" ng-model-options="{debounce : 300}" ng-change="s.search()" ng-minlength="2" />
 </form>
 <div srph-infinite-scroll="s.myPagingFunction()">
     <md-tabs md-dynamic-height="true" md-selected="s.tabIndex">

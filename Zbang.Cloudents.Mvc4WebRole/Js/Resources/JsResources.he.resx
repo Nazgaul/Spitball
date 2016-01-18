@@ -162,4 +162,7 @@
   <data name="spitballUpdate" xml:space="preserve">
     <value>מערכת ספיטבול עודכנה</value>
   </data>
+  <data name="universityChooseContinue" xml:space="preserve">
+    <value>סיים תהליך מציאת מוסד הלימודים</value>
+  </data>
 </root>

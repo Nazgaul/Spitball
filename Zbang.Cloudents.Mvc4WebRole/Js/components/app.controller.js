@@ -1,9 +1,9 @@
 ﻿(function () {
     angular.module('app').controller('AppController', appController);
     appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state',
-        'userDetailsFactory', '$mdToast', '$document', '$mdMenu'];
+        'userDetailsFactory', '$mdToast', '$document', '$mdMenu', 'resManager'];
 
-    function appController($rootScope, $window, $location, h, $state, userDetails, $mdToast, $document, $mdMenu) {
+    function appController($rootScope, $window, $location, h, $state, userDetails, $mdToast, $document, $mdMenu, resManager) {
         var self = this;
         $rootScope.$on('$viewContentLoaded', function () {
             var path = $location.path(),
@@ -103,6 +103,7 @@
             }
             var userWithNoUniversityState = 'universityChoose';
             if (toStateName !== userWithNoUniversityState) {
+                showToaster(resManager.get('universityChooseContinue'), 'lib-choose');
                 $rootScope.$broadcast('state-change-start-prevent');
                 event.preventDefault();
             }

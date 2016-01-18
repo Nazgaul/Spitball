@@ -168,4 +168,7 @@
   <data name="settingsDone" xml:space="preserve">
     <value>done</value>
   </data>
+  <data name="universityChooseContinue" xml:space="preserve">
+    <value>Complete finding your school before navigating</value>
+  </data>
 </root>

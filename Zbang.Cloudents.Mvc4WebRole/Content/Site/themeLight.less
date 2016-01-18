@@ -76,110 +76,114 @@
 
 
 @import "siteColors.less";
-.theme();
 
-.nav-bar {
-    background: @svgQuizBald;
+.theme-light {
+    .theme();
+    background: @backgroundColor;
 
-    .user-md-menu {
-        color: @backgroundColor;
 
-        &:hover {
-            background: #29769e;
+    .nav-bar {
+        background: @svgQuizBald;
+
+        .user-md-menu {
+            color: @backgroundColor;
+
+            &:hover {
+                background: #29769e;
+            }
         }
     }
-}
 
-.nav-bar .logo-search .search-form .search-area {
-    background: #29769e;
+    .nav-bar .logo-search .search-form .search-area {
+        background: #29769e;
 
-    .text {
+        .text {
+            color: @textColorBlack;
+        }
+
+        svg {
+            fill: @textColorBlack;
+        }
+    }
+
+    .box-cube, .dashboard-stat2 {
+        box-shadow: 0 0 1px #777777;
+    }
+
+    .portlet.light {
+        color: @backgroundColor;
+
+        &.leaderboard, &.unibox {
+            background-color: #777777;
+        }
+
+
+        .universityTitle, .user-name, .userLetter, h4 {
+            color: @backgroundColor;
+        }
+
+
+        &.unibox {
+            .universityStats {
+                color: @textColorLightGrey;
+            }
+
+            .universityLink {
+                color: @textColorBlack;
+            }
+        }
+    }
+
+    .page-body md-sidenav {
+        background: transparent;
+    }
+
+    .leaderboard .user-name {
         color: @textColorBlack;
     }
 
-    svg {
-        fill: @textColorBlack;
-    }
-}
-
-.box-cube, .dashboard-stat2 {
-    box-shadow: 0 0 1px #777777;
-}
-
-.portlet.light {
-    color: @backgroundColor;
-
-    &.leaderboard, &.unibox {
-        background-color: #777777;
-    }
-
-
-    .universityTitle, .user-name, .userLetter, h4 {
-        color: @backgroundColor;
-    }
-
-
-    &.unibox {
-        .universityStats {
-            color: @textColorLightGrey;
+    md-tabs {
+        md-tabs-wrapper {
+            background: @textColorBlack;
         }
 
-        .universityLink {
-            color: @textColorBlack;
+        .md-tab.md-active {
+            color: #4190b9;
         }
     }
-}
 
-.page-body md-sidenav {
-    background: transparent;
-}
-
-.leaderboard .user-name {
-    color: @textColorBlack;
-}
-
-md-tabs {
-    md-tabs-wrapper {
-        background: @textColorBlack;
+    .dots-3, .page-title svg {
+        fill: @textColorLightGrey;
     }
 
-    .md-tab.md-active {
-        color: #4190b9;
+    .add-comment .file:hover {
+        fill: #29769e;
     }
-}
 
-.dots-3, .page-title svg {
-    fill: @textColorLightGrey;
-}
-
-.add-comment .file:hover {
-    fill: #29769e;
-}
-
-.add-comment md-input-container .md-input:active, .add-comment md-input-container .md-input:focus,
-md-menu-item > .md-button span {
-    color: @textColorWhite;
-}
-
-.accountPage-wrapper {
-    .ontop {
-        color: #f5f5f5;
+    .add-comment md-input-container .md-input:active, .add-comment md-input-container .md-input:focus,
+    md-menu-item > .md-button span {
+        color: @textColorWhite;
     }
-}
 
-// color fixes to be changed to color classes
-.userPage h4.profile-usertitle-job {
-    color: @textColorGrey;
-}
+    .accountPage-wrapper {
+        .ontop {
+            color: #f5f5f5;
+        }
+    }
+    // color fixes to be changed to color classes
+    .userPage h4.profile-usertitle-job {
+        color: @textColorGrey;
+    }
 
-.userPage .points-container *{
-    color: @textColorBlack;
-}
+    .userPage .points-container * {
+        color: @textColorBlack;
+    }
 
-.dashboard .portlet{
-    background: @svgQuizBald;
-}
+    .dashboard .portlet {
+        background: @svgQuizBald;
+    }
 
-.dashboard .portlet md-chips .md-chip {
-    background: @textColorLightGrey;
+    .dashboard .portlet md-chips .md-chip {
+        background: @textColorLightGrey;
+    }
 }

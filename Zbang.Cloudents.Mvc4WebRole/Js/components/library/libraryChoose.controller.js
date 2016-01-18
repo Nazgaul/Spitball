@@ -2,9 +2,9 @@
     angular.module('app.library').controller('LibraryChoose', libraryChoose);
 
     libraryChoose.$inject = ['libraryService', 'userDetailsFactory', '$state', 'countryService',
-        'universitySuggest', 'universityInit', 'userDetailsFactory'];
+        'universitySuggest', 'userDetailsFactory'];
 
-    function libraryChoose(libraryService, userDetails, $state, countryService, universitySuggest, universityInit, userDetailsFactory) {
+    function libraryChoose(libraryService, userDetails, $state, countryService, universitySuggest, userDetailsFactory) {
         var self = this, page = 0;
         self.term = '';
         self.universities = [];
@@ -23,7 +23,7 @@
         countryService.getCountries(function (iso, country) {
             self.countries.push({ iso: iso, name: country });
         });
-        assignData(universityInit);
+        //assignData(universityInit);
 
         function search(needPage) {
             needPage = needPage || false;
