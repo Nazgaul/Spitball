@@ -54,12 +54,12 @@
                                 });
 
                             }
-                        ],
-                        universityInit: [
-                            'libraryService', function (libraryService) {
-                                return libraryService.getUniversity(null, 0);
-                            }
                         ]
+                        //universityInit: [
+                        //    'libraryService', function (libraryService) {
+                        //        return libraryService.getUniversity(null, 0);
+                        //    }
+                        //]
                     },
                     //onExit: routerHelper.universityRedirect
                 },

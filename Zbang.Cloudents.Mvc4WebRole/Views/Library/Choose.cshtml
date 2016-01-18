@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
 
-<div ng-if="!lc.needCode">
+<div ng-if="!lc.needCode" id="lib-choose">
     <form novalidate remove-keyboard ng-submit="lc.search()">
         <input spellcheck="false" autofocus ng-disabled="lc.createUniversity" type="search" class="search-text" placeholder="@LibraryResources.UniversitySearchPlaceholder" ng-model="lc.term" ng-model-options="{debounce : 300}" ng-change="lc.search()" ng-minlength="2" />
     </form>
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div flex="100" class="flex">
+        <div flex="100" class="flex" ng-if="lc.universities.length">
             <div class="add-uni-btn" ng-click="lc.createUniversity = true" ga-track-event="['universityChoose', 'add new university']">
                 <span>@Html.Svg("~/images/site/icons.svg", "add")</span>
                 <div class="text-capitalize">@LibraryResources.AddSchool</div>

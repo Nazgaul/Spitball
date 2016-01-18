@@ -159,4 +159,10 @@
   <data name="SchoolName" xml:space="preserve">
     <value>שם מוסד הלימודים</value>
   </data>
+  <data name="UniversitySearchPlaceholder" xml:space="preserve">
+    <value>מצא את מוסד הלימודים שלך</value>
+  </data>
+  <data name="UniversitySearchTitle" xml:space="preserve">
+    <value>ברוך הבא לספיטבול!</value>
+  </data>
 </root>
