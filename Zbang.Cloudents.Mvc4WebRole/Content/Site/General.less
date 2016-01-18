@@ -82,6 +82,7 @@ input, li, [contenteditable], span, textarea, [role="button"] {
     text-align: center;
     text-transform: capitalize;
     font-size: 25px;
+    color: @textColorWhite;
 }
 
 //ellipsis longer than 3 lines
@@ -132,6 +133,7 @@ input, li, [contenteditable], span, textarea, [role="button"] {
 
 ::-webkit-scrollbar-thumb {
     border-radius: 5px;
+    background: @scrollbarColor;
 }
 
 //loader
@@ -152,23 +154,38 @@ input, li, [contenteditable], span, textarea, [role="button"] {
     font-size: 0;
     box-shadow: 0 2px 10px rgba(0,0,0,.3),0 0 1px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.15);
     padding: 0 12px;
+    background: @buttonColorRed;
 
     svg {
         width: 20px;
         height: 20px;
         margin: 0 auto;
+        fill: @textColorWhite;
     }
 }
 //override of angular material
 /*#region angularmaterial*/
 .dd-list {
+    md-content {
+        background: @backgroundColorMenu;
+        color: @textColorWhite;
+    }
 
     md-option {
         margin: 0 15px;
         font-size: 13px;
+        border-bottom: 1px solid @borderColorBlack;
 
         &:last-child {
             border: none;
+        }
+
+        &[selected] {
+            color: @textColorBlue;
+
+            &:focus {
+                color: @textColorBlue;
+            }
         }
     }
 
@@ -176,6 +193,27 @@ input, li, [contenteditable], span, textarea, [role="button"] {
         padding-top: 0;
         padding-bottom: 0;
     }
+}
+
+md-select:not([disabled]):focus .md-select-value {
+    color: @textColorWhite;
+    border-bottom: 1px solid @borderColorDarkBlue;
+}
+
+md-select .md-select-value.md-select-placeholder {
+    color: @textColorWhite;
+}
+
+md-select-menu md-option:focus:not([disabled]):not([selected]) {
+    background: @backgroundColorMenu;
+}
+
+md-input-container:not(.md-input-invalid).md-input-has-value label {
+    color: @textColorGrey;
+}
+
+md-input-container label {
+    color: @textColorLightGrey;
 }
 
 md-input-container {
@@ -192,6 +230,48 @@ md-input-container:not(.md-input-has-value) input:not(:focus) {
 
 md-dialog-actions {
     order: 2;
+}
+
+.md-select-value .md-select-icon,
+md-select .md-select-value,
+md-input-container .md-input,
+.form-group.form-md-line-input .form-control {
+    color: @buttonColorBlue;
+    border-color: @buttonColorBlue;
+
+    &:focus, &:active {
+        color: @textColorBlue;
+    }
+}
+
+md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input,
+md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+    border-color: @textColorLike;
+}
+
+.form-group.form-md-line-input .form-control.edited:not([readonly]) ~ label:after,
+.form-group.form-md-line-input .form-control.edited:not([readonly]) ~ .form-control-focus:after,
+.form-group.form-md-line-input .form-control:focus:not([readonly]) ~ label:after,
+.form-group.form-md-line-input .form-control:focus:not([readonly]) ~ .form-control-focus:after,
+.form-group.form-md-line-input .form-control.focus:not([readonly]) ~ label:after,
+.form-group.form-md-line-input .form-control.focus:not([readonly]) ~ .form-control-focus:after {
+    background: @textColorLike;
+}
+
+md-input-container .md-input {
+    color: @textColorWhite;
+}
+
+md-dialog {
+    color: @textColorBlack;
+}
+
+md-menu-item > .md-button span {
+    color: @textColorBlack;
+}
+
+md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
+    background: @buttonColorBlue;
 }
 
 .layout-padding {
@@ -214,6 +294,7 @@ md-tabs {
         font-size: 16px;
         padding: 0 10px 0;
         margin-bottom: 20px;
+        background: #323538;
     }
 
 
@@ -228,6 +309,11 @@ md-tabs {
 
     .md-tab {
         float: left;
+        color: @textColorGrey;
+
+        &.md-active {
+            color: @textColorWhite;
+        }
 
         @media (max-width: 600px) {
             float: left /*rtl:ignore*/;
@@ -236,16 +322,24 @@ md-tabs {
         font-size: 16px;
         text-transform: capitalize;
     }
+
+    md-ink-bar {
+        color: @borderColorBlue;
+        background: @borderColorBlue;
+    }
 }
 /*#endregion*/
 
 .close {
     float: right;
     margin-top: 6px;
-
+     &:hover {
+            color: @textColorWhite;
+        }
     svg {
         width: 17px;
         height: 17px;
+        fill: @textColorWhite;
     }
 }
 //google sign in fix
@@ -254,12 +348,25 @@ md-tabs {
 }
 
 .create-box {
+    &:hover {
+            .dashboard-stat2 {
+                border: 2px solid @buttonColorBlue;
+                color: @buttonColorBlue;
+            }
 
+            .plus {
+                svg {
+                    fill: @buttonColorBlue;
+                }
+            }
+        }
     .dashboard-stat2 {
         background: transparent;
         padding-bottom: 5px;
         .displayFlex();
         padding-top: 0;
+         border: 2px solid @textColorGrey;
+            color: @textColorGrey;
 
 
 
@@ -313,6 +420,7 @@ md-tabs {
         svg {
             width: 50px;
             height: 50px;
+             fill: @textColorGrey;
         }
     }
 
@@ -331,10 +439,15 @@ md-tabs {
 
     md-input-container .md-input {
         font-size: 18px;
+         color: @textColorWhite;
+            border-color: @borderColorLightGrey;
     }
 
     &.create-box-show, &.create-deparment-show {
         display: block !important; //override hide-xs
+        .dashboard-stat2 {
+                border: 2px solid @borderColorLightGrey;
+            }
     }
 
     &.create-init {
@@ -344,6 +457,10 @@ md-tabs {
     .btn-primary {
         margin-left: 15px;
     }
+    md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+            border-bottom: 1px solid @textColorGrey;
+            color: @textColorGrey;
+        }
 }
 
 
@@ -500,14 +617,27 @@ md-tabs {
     // margin-left: 27px;
     height: 20px;
     width: 20px;
+    fill: @svgDots;
 }
 //if page title have svg its settings
 .page-title {
     svg {
         width: 30px;
         height: 30px;
+         fill: @backgroundColorMenu;
     }
 }
+ .button-Blue {
+        background: @buttonColorBlue !important;
+
+        &:hover {
+            background: @buttonColorHover !important;
+            color: @textColorWhite !important;
+        }
+        /*&:focus {
+        color: inherit;
+    }*/
+    }
 
 
 // moved from components rouned
@@ -531,15 +661,18 @@ md-tabs {
             border: 0;
             padding: 12px 13px 5px 13px;
             font-size: 13px;
+            color: @textColorDarkGrey;
         }
 
         .overElement() {
             background: none;
             border: 0;
             margin: 0;
+             color: @textColorWhite;
         }
 
         &.active {
+            border-bottom: 3px solid @borderColorBlue;
             & > a {
                 .overElement();
             }
@@ -564,6 +697,7 @@ md-tabs {
 }
 
 .nav-tabs, .tabbable {
+    background: @backgroundColorMenu;
     border-bottom: none;
     border-radius: 5px;
     padding: 10px 10px 0;
@@ -571,15 +705,19 @@ md-tabs {
     font-size: 16px;
 
     li {
+        color: @textColorWhite;
         margin: 0 20px 0 10px;
         background: transparent;
         outline: none;
 
         &:hover, &:focus {
+             color: @textColorBlue;
             background: transparent;
         }
 
         &.active, &:active {
+              border-bottom: 3px solid @borderColorBlue;
+                color: @textColorWhite;
             background: transparent;
             border: 0;
             font-weight: bold;
@@ -587,6 +725,7 @@ md-tabs {
 
         &.active > a, &.active > a:hover, &.active > a:focus {
             background: transparent;
+            color: @textColorWhite;
             border: 0;
             font-weight: bold;
             cursor: auto;
@@ -595,9 +734,10 @@ md-tabs {
         & > a {
             font-size: 16px;
             border: none;
-
+             color: @textColorGrey;
             &:hover {
                 border: none;
+                color: @textColorBlue;
             }
         }
     }
@@ -615,6 +755,7 @@ md-tabs {
     color: #fff;
     text-shadow: 0 -.062em 0 rgba(0,0,0,.2);
     white-space: nowrap;
+     background-color: @backgroundColorRed;
 }
 
 .ribbon:before,
@@ -669,8 +810,13 @@ md-menu-item {
         -o-transform: rotate(270deg) /*rtl:ignore*/;
         -webkit-transform: rotate(270deg) /*rtl:ignore*/;
         transform: rotate(270deg) /*rtl:ignore*/;
+        fill: @borderColorBlue;
     }
 }
+md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
+    md-input-container:not(.md-input-invalid).md-input-focused label {
+        color: @textColorLike;
+    }
 
 //back arrow
 .back-arrow {
