@@ -8,6 +8,7 @@
         var self = this, page = 0;
         self.term = '';
         self.universities = [];
+        self.universitySearch = universitySearch;
         self.search = search;
         self.searchAutoComplete = searchAutoComplete;
         self.createNewUniversity = createNewUniversity;
@@ -24,6 +25,11 @@
             self.countries.push({ iso: iso, name: country });
         });
         //assignData(universityInit);
+        function universitySearch(libraryChooseForm) {
+            if (libraryChooseForm.$valid) {
+                search();
+            }
+        }
 
         function search(needPage) {
             needPage = needPage || false;
