@@ -13,7 +13,7 @@
         <button flex="none" ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" ga-track-event="['box', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings")</button>
     </div>
 </div>
-<div uib-collapse="!b.settingsOpen" class="settings">
+<div uib-collapse="!b.settingsOpen" class="settings" ng-cloak>
     @{Html.RenderPartial("_Settings");}
 </div>
 <md-tabs class="box-nav-bar">

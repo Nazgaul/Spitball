@@ -6,7 +6,6 @@
         <form name="libraryChooseForm" novalidate ng-submit="lc.universitySearch(libraryChooseForm)" layout="row" layout-wrap>
             <input spellcheck="false" autofocus required ng-disabled="lc.createUniversity" type="search" class="search-text" placeholder="@LibraryResources.UniversitySearchPlaceholder"
                    ng-model="lc.term" ng-model-options="{debounce : 250}" ng-change="lc.universitySearch(libraryChooseForm)" ng-minlength="2" />
-                   ng-model="lc.term" ng-model-options="{debounce : 250}" ng-change="lc.search()" ng-minlength="2" />
             <button type="submit" class="search-button">
                 @Html.Svg("~/images/site/icons.svg", "searchIcon")
             </button>

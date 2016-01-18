@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
 using System.Data;
@@ -15,6 +16,13 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
         {
             var connection = new SqlConnection(ConfigFetcher.Fetch(connectionStringName));
             await connection.OpenAsync();
+            return connection;
+        }
+
+        public static async Task<IDbConnection> OpenConnectionAsync(CancellationToken cancellationToken,string connectionStringName = "Zbox")
+        {
+            var connection = new SqlConnection(ConfigFetcher.Fetch(connectionStringName));
+            await connection.OpenAsync(cancellationToken);
             return connection;
         }
 

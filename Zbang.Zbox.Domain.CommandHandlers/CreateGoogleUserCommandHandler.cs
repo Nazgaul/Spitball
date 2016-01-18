@@ -33,6 +33,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             var user = GetUserByEmail(command.Email);
+            if (user != null && user.Email == command.Email)
+            {
+                user.GoogleId = googleCommand.GoogleId;
+                return new CreateFacebookUserCommandResult(user); ;
+            }
             if (user != null && IsUserRegistered(user))
             {
                 throw new ArgumentException("user is already registered");

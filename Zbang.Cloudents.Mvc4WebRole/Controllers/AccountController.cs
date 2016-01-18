@@ -108,16 +108,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region Login
 
         [HttpPost]
-        public async Task<JsonResult> GoogleLogin(ExternalLogIn model, string returnUrl)
+        public async Task<JsonResult> GoogleLogin(ExternalLogIn model, string returnUrl, CancellationToken cancellationToken)
         {
+            var source = CreateCancellationToken(cancellationToken);
             var googleUserData = await m_GoogleService.Value.GoogleLogInAsync(model.Token);
             if (googleUserData == null)
             {
                 return JsonError(new { error = AccountControllerResources.FacebookGetDataError });
             }
-            var query = new GetUserByEmailQuery(googleUserData.Email);
+            var query = new GetUserByGoogleQuery(googleUserData.Id);
             var isNew = false;
-            LogInUserDto user = await ZboxReadService.GetUserDetailsByEmail(query);
+            LogInUserDto user = await ZboxReadService.GetUserDetailsByGoogleIdAsync(query, source.Token);
             if (user == null)
             {
 

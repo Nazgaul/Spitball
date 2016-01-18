@@ -294,6 +294,21 @@ where u.userid = @UserId";
     where u.FacebookUserId = @FacebookUserId
 	and u.IsEmailVerified = 1";
 
+        public const string GetUserByGoogleId = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
+    u.UserImageLarge as Image, u.Email as Email,
+    u.FirstTimeDashboard as FirstTimeDashboard,
+    u.FirstTimeLibrary as FirstTimeLibrary,
+    u.FirstTimeItem as FirstTimeItem,
+    u.FirstTimeBox as FirstTimeBox, 
+    u.UserReputation as Score,
+    uu.UniversityName as LibName,
+    uu.LargeImage as LibImage,
+    uu.Id as UniversityId,
+	uu.universityData as UniversityData
+    from zbox.Users u left join zbox.University uu on u.UniversityId = uu.Id
+    where u.GoogleUserId = @GoogleUserId
+	and u.IsEmailVerified = 1";
+
         public const string GetUserById = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
     u.UserImageLarge as Image, u.Email as Email,
     u.FirstTimeDashboard as FirstTimeDashboard,

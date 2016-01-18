@@ -61,6 +61,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The new email was saved.
+        /// </summary>
+        public static string changeEmailSuccess {
+            get {
+                return ResourceManager.GetString("changeEmailSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Would you like to delete this department?.
         /// </summary>
         public static string deleteDepartment {

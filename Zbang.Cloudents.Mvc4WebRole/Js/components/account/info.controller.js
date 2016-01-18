@@ -53,6 +53,7 @@
                     fullscreen: $mdMedia('xs')
                 }).then(function () {
                     self.original.email = self.data.email;
+                    showToast(resManager.get('changeEmailSuccess'));
                 }, function () {
                     cancelChangeEmail();
                 });
