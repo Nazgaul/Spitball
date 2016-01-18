@@ -12,7 +12,7 @@
     </div>
 
     <div layout="row" layout-align="start center" layout-padding layout-wrap ng-if="!lc.createUniversity" srph-infinite-scroll="lc.paging()" class="results">
-        <div flex="100" class="flex result" ng-repeat="u in lc.universities track by u.id">
+        <div flex="100" class="flex" ng-repeat="u in lc.universities track by u.id">
             <div ng-click="lc.selectUniversity(u)" class="univeristy" ga-track-event="['universityChoose', 'selected university']">
                 <img class="img-circle" ng-src="{{::u.image}}" width="70" height="70" />
                 <div>

@@ -1073,13 +1073,23 @@ Page Loading
   background: #212325;
 }
 .theme-light .library-choose .add-uni-btn {
-  color: #ffffff;
+  color: #888b8e;
 }
 .theme-light .library-choose .add-uni-btn span {
-  border: 3px solid #ffffff;
+  border: 3px solid #888b8e;
 }
 .theme-light .library-choose .add-uni-btn span svg {
-  fill: #ffffff;
+  fill: #888b8e;
+  vertical-align: text-top;
+}
+.theme-light .library-choose .add-uni-btn:hover {
+  color: #4190b9;
+}
+.theme-light .library-choose .add-uni-btn:hover span {
+  border-color: #4190b9;
+}
+.theme-light .library-choose .add-uni-btn:hover span svg {
+  fill: #4190b9;
 }
 .theme-light .library-choose .code h4 {
   color: #212325;

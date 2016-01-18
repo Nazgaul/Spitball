@@ -1463,13 +1463,26 @@ Page Loading
         }
 
         .add-uni-btn {
-            color: @textColorDarkGrey;
+            color: @textColorGrey;
 
             span {
-                border: 3px solid @borderColorDarkGrey;
+                border: 3px solid @textColorGrey;
 
                 svg {
-                    fill: @backgroundColorMenu;
+                    fill: @textColorGrey;
+                    vertical-align: text-top;
+                }
+            }
+
+            &:hover {
+                color: @buttonColorBlue;
+
+                span {
+                    border-color: @buttonColorBlue;
+
+                    svg {
+                        fill: @buttonColorBlue;
+                    }
                 }
             }
         }
@@ -2081,12 +2094,11 @@ Page Loading
         }
     }
     /*#endregion*/
-
     .background-blue {
         background: @textColorLike;
     }
 
     .color-1 {
-        color:@textColorLike;
+        color: @textColorLike;
     }
 }
