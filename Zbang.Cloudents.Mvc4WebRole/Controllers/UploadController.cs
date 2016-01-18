@@ -255,7 +255,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 if (string.IsNullOrWhiteSpace(title))
                 {
-                    title = model.Name;
+                    title = model.Name ?? model.Url;
                 }
 
                 var command = new AddLinkToBoxCommand(userid, model.BoxId.Value, model.Url, model.TabId, title,

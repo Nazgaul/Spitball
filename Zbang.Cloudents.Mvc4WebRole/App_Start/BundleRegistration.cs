@@ -55,28 +55,30 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/angularWithChanges.css",
                         "~/bower_components/textAngular/dist/textAngular.css",
                         
-                        "~/Content/homepage/bootstrap.css",
+                        "~/content/homepage/bootstrap.css",
                         "~/content/site/profile.css",//
-                        "~/Content/site/components-rounded.css",//
-                        "~/Content/site/layout.css",//
-                        "~/Content/site/light.css",//
-                        "~/Content/site/menu.css",
-                        "~/Content/site/header.css",
+                        "~/content/site/components-rounded.css",//
+                        "~/content/site/layout.css",//
+                        "~/content/site/light.css",//
+                        "~/content/site/menu.css",
+                        "~/content/site/header.css",
                         "~/content/site/general.css", // this should be on top
-                        "~/Content/site/dashboard.css",
-                        "~/Content/site/box.css",
-                        "~/Content/site/user.css",
-                        "~/Content/site/accountSettings.css",
-                        "~/Content/site/library.css",
-                        "~/Content/site/item.css",
-                        "~/Content/site/quiz.css",
-                        "~/Content/site/quizCreate.css",
-                        "~/Content/site/share.css",
+                        "~/content/site/dashboard.css",
+                        "~/content/site/box.css",
+                        "~/content/site/user.css",
+                        "~/content/site/accountSettings.css",
+                        "~/content/site/library.css",
+                        "~/content/site/item.css",
+                        "~/content/site/quiz.css",
+                        "~/content/site/quizCreate.css",
+                        "~/content/site/share.css",
                         "~/content/site/leaderboard.css",
                         "~/content/site/search.css",
                         "~/content/site/libraryChoose.css",
                         "~/content/site/error.css",
-                        "~/Content/site/staticPages.css"
+                        "~/content/site/staticPages.css",
+                        "~/content/site/themedark.css", 
+                        "~/content/site/themelight.css"
                     }
                 },
             };
