@@ -745,21 +745,21 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public Theme GetUserTheme(GetUserDetailsQuery query)
-        {
-            using (var conn = DapperConnection.OpenConnection())
-            {
-                var retVal =
-                        conn.Query<Theme?>(Sql.Sql.UserTheme,
-                       new { query.UserId });
-                var firstResult = retVal.First();
-                if (!firstResult.HasValue)
-                {
-                    return Theme.Dark;
-                }
-                return firstResult.Value;
-            }
-        }
+        //public Theme GetUserTheme(GetUserDetailsQuery query)
+        //{
+        //    using (var conn = DapperConnection.OpenConnection())
+        //    {
+        //        var retVal =
+        //                conn.Query<Theme?>(Sql.Sql.UserTheme,
+        //               new { query.UserId });
+        //        var firstResult = retVal.First();
+        //        if (!firstResult.HasValue)
+        //        {
+        //            return Theme.Dark;
+        //        }
+        //        return firstResult.Value;
+        //    }
+        //}
 
 
         /// <summary>

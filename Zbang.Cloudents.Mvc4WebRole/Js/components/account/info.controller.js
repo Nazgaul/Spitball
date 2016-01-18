@@ -106,7 +106,10 @@
             }
 
             accountService.changeTheme(theme).then(function () {
-                location.reload(true);
+                userDetailsFactory.setTheme(theme);
+                $scope.app.setTheme();
+                userData.theme = theme;
+                //location.reload(true);
             });
         }
 

@@ -412,9 +412,9 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Theme GetUserTheme(GetUserDetailsQuery query)
-        {
-            return m_ReadService.GetUserTheme(query);
-        }
+        //public Theme GetUserTheme(GetUserDetailsQuery query)
+        //{
+        //    return m_ReadService.GetUserTheme(query);
+        //}
     }
 }

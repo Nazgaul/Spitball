@@ -12,6 +12,11 @@
             $window.dataLayer.push({ event: 'virtualPageView', virtualUrl: virtualUrl });
             $window.Intercom('update');
         });
+        userDetails.init().then(function() {
+            setTheme();
+        });
+
+        self.setTheme = setTheme;
 
         self.back = function (defaultUrl) {
             var element = h.popElement();
@@ -23,7 +28,6 @@
                 $location.url(element);
             }
             $rootScope.$broadcast('from-back');
-            //element.params.fromBack = true;
             $state.go(element.name, element.params);
         }
 
@@ -33,7 +37,9 @@
         self.showToaster = showToaster;
 
         self.toggleMenu = toggleMenu;
-
+        function setTheme() {
+            self.theme = 'theme-' + userDetails.get().theme;
+        }
         function toggleMenu() {
             $rootScope.$broadcast('open-menu');
         }

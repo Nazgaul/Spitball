@@ -36,6 +36,7 @@
             analytics.set('dimension1', data.universityName || null);
             analytics.set('dimension2', data.universityCountry || null);
             analytics.set('dimension3', data.id || null);
+            analytics.set('dimension4', data.theme || 'dark');
             userData = {
                 id: data.id,
                 name: data.name,
@@ -43,6 +44,7 @@
                 score: data.score,
                 url: data.url,
                 isAdmin: data.isAdmin,
+                theme: data.theme,
                 university: {
                     //country: data.universityCountry, // for google analytics
                     name: data.universityName, // in library page
@@ -100,6 +102,10 @@
                 userData.university.name = name;
                 userData.university.id = id;
                 $rootScope.$broadcast('universityChange', userData);
+            },
+            setTheme: function(theme) {
+                userData.theme = theme;
+                //$rootScope.$broadcast('themeChange', userData);
             }
             //updateChange: function () {
             //    $rootScope.$broadcast('userDetailsChange');
