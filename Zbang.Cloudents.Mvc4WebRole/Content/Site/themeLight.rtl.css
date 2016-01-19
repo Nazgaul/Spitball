@@ -1625,26 +1625,27 @@ Page Loading
 }
 .theme-light .color-override.svgColor1 {
   fill: #e9eaed !important;
+}
 .theme-light .color-override.borderColor1 {
   border-color: #e9eaed !important;
-  background: #29769e;
-}
-.theme-light .nav-bar .logo-search .search-form .search-area .text ::-webkit-input-placeholder {
-  color: #212325;
-}
-.theme-light .nav-bar .logo-search .search-form .search-area .text :-moz-placeholder {
-  /* Firefox 18- */
-  color: #212325;
-}
-.theme-light .nav-bar .logo-search .search-form .search-area .text ::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #212325;
-}
-.theme-light .nav-bar .logo-search .search-form .search-area .text :-ms-input-placeholder {
-  color: #212325;
 }
 .theme-light .color-override.outlineColor1 {
   outline-color: #e9eaed !important;
+  background: #29769e;
+}
+.theme-light .color-override.outlineColor1 ::-webkit-input-placeholder {
+  color: #212325;
+}
+.theme-light .color-override.outlineColor1 :-moz-placeholder {
+  /* Firefox 18- */
+  color: #212325;
+}
+.theme-light .color-override.outlineColor1 ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #212325;
+}
+.theme-light .color-override.outlineColor1 :-ms-input-placeholder {
+  color: #212325;
 }
 .theme-light .color-override.hoverBackgroundColor1:hover {
   background: #e9eaed !important;
@@ -1663,6 +1664,21 @@ Page Loading
 }
 .theme-light .color-override.outlineColor2 {
   outline-color: #4190b9 !important;
+  background: #29769e;
+}
+.theme-light .color-override.outlineColor2 ::-webkit-input-placeholder {
+  color: #212325;
+}
+.theme-light .color-override.outlineColor2 :-moz-placeholder {
+  /* Firefox 18- */
+  color: #212325;
+}
+.theme-light .color-override.outlineColor2 ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #212325;
+}
+.theme-light .color-override.outlineColor2 :-ms-input-placeholder {
+  color: #212325;
 }
 .theme-light .color-override.hoverBackgroundColor2:hover {
   background: #4190b9 !important;
@@ -1681,6 +1697,21 @@ Page Loading
 }
 .theme-light .color-override.outlineColor3 {
   outline-color: #ffffff !important;
+  background: #29769e;
+}
+.theme-light .color-override.outlineColor3 ::-webkit-input-placeholder {
+  color: #212325;
+}
+.theme-light .color-override.outlineColor3 :-moz-placeholder {
+  /* Firefox 18- */
+  color: #212325;
+}
+.theme-light .color-override.outlineColor3 ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #212325;
+}
+.theme-light .color-override.outlineColor3 :-ms-input-placeholder {
+  color: #212325;
 }
 .theme-light .color-override.hoverBackgroundColor3:hover {
   background: #ffffff !important;
@@ -1699,6 +1730,21 @@ Page Loading
 }
 .theme-light .color-override.outlineColor4 {
   outline-color: #29769e !important;
+  background: #29769e;
+}
+.theme-light .color-override.outlineColor4 ::-webkit-input-placeholder {
+  color: #212325;
+}
+.theme-light .color-override.outlineColor4 :-moz-placeholder {
+  /* Firefox 18- */
+  color: #212325;
+}
+.theme-light .color-override.outlineColor4 ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #212325;
+}
+.theme-light .color-override.outlineColor4 :-ms-input-placeholder {
+  color: #212325;
 }
 .theme-light .color-override.hoverBackgroundColor4:hover {
   background: #29769e !important;
@@ -1717,6 +1763,21 @@ Page Loading
 }
 .theme-light .color-override.outlineColor5 {
   outline-color: #777777 !important;
+  background: #29769e;
+}
+.theme-light .color-override.outlineColor5 ::-webkit-input-placeholder {
+  color: #212325;
+}
+.theme-light .color-override.outlineColor5 :-moz-placeholder {
+  /* Firefox 18- */
+  color: #212325;
+}
+.theme-light .color-override.outlineColor5 ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #212325;
+}
+.theme-light .color-override.outlineColor5 :-ms-input-placeholder {
+  color: #212325;
 }
 .theme-light .color-override.hoverBackgroundColor5:hover {
   background: #777777 !important;
@@ -1735,6 +1796,21 @@ Page Loading
 }
 .theme-light .color-override.outlineColor6 {
   outline-color: #c3c3c3 !important;
+  background: #29769e;
+}
+.theme-light .color-override.outlineColor6 ::-webkit-input-placeholder {
+  color: #212325;
+}
+.theme-light .color-override.outlineColor6 :-moz-placeholder {
+  /* Firefox 18- */
+  color: #212325;
+}
+.theme-light .color-override.outlineColor6 ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #212325;
+}
+.theme-light .color-override.outlineColor6 :-ms-input-placeholder {
+  color: #212325;
 }
 .theme-light .color-override.hoverBackgroundColor6:hover {
   background: #c3c3c3 !important;
@@ -1753,6 +1829,21 @@ Page Loading
 }
 .theme-light .color-override.outlineTransparent {
   outline-color: transparent !important;
+  background: #29769e;
+}
+.theme-light .color-override.outlineTransparent ::-webkit-input-placeholder {
+  color: #212325;
+}
+.theme-light .color-override.outlineTransparent :-moz-placeholder {
+  /* Firefox 18- */
+  color: #212325;
+}
+.theme-light .color-override.outlineTransparent ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #212325;
+}
+.theme-light .color-override.outlineTransparent :-ms-input-placeholder {
+  color: #212325;
 }
 .theme-light .color-override.hoverBackgroundTransparent:hover {
   background: transparent !important;
