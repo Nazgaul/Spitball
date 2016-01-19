@@ -1,22 +1,4 @@
-﻿@media (min-width: 960px) {
-  .search .s-content {
-    padding: 0 5%;
-  }
-}
-@media (max-width: 959px) {
-  .search .s-hide {
-    display: none;
-  }
-}
-.search .show {
-  display: block;
-}
-@media (max-width: 959px) {
-  .search h3 {
-    display: none;
-  }
-}
-.search .item,
+﻿.search .item,
 .search .quiz {
   position: relative;
   overflow: hidden;
@@ -57,11 +39,13 @@
     height: 3vw;
   }
 }
-.search .close {
-  padding: 25px 25px 0;
-}
 .no-results {
   text-align: center;
+}
+@media (min-width: 960px) {
+  .no-results .s-content {
+    padding: 0 5%;
+  }
 }
 .no-results .wrapper {
   display: inline-block;

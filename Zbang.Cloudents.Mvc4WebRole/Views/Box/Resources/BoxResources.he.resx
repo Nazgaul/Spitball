@@ -165,4 +165,7 @@
   <data name="Anonymous" xml:space="preserve">
     <value>אנונימי</value>
   </data>
+  <data name="itemsInTab" xml:space="preserve">
+    <value>פריטים</value>
+  </data>
 </root>

@@ -2,31 +2,6 @@
 
 .search {
     //.fullScreen();
-
-    @media (min-width: 960px) {
-        .s-content {
-            padding: 0 5%;
-        }
-    }
-
-    @media (max-width: 959px) {
-
-        .s-hide {
-            display: none;
-        }
-    }
-
-    .show {
-        display: block;
-    }
-
-    h3 {
-        @media (max-width: 959px) {
-            display: none;
-        }
-    }
-
-
     .item, .quiz {
         position: relative;
         overflow: hidden;
@@ -60,14 +35,15 @@
             .sizeOfLetter(3vw);
         }
     }
-
-    .close {
-        padding: 25px 25px 0;
-    }
 }
 
 .no-results {
     text-align: center;
+     @media (min-width: 960px) {
+        .s-content {
+            padding: 0 5%;
+        }
+    }
 
     .wrapper {
         display: inline-block;

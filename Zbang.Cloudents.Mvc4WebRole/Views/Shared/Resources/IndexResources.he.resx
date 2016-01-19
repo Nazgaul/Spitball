@@ -213,4 +213,10 @@
   <data name="UploadFailed" xml:space="preserve">
     <value>העלאה נכשלה</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>חיפוש</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>אנא הזן את כתובת הURL שברצנוך לשתף כאן</value>
+  </data>
 </root>

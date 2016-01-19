@@ -1,8 +1,8 @@
 ﻿
 (function () {
     angular.module('app').config(config);
-    config.$inject = ['$stateProvider'];
-    function config($stateProvider) {
+    config.$inject = ['$stateProvider', '$urlRouterProvider'];
+    function config($stateProvider, $urlRouterProvider) {
 
         $stateProvider
             .state('root', {
@@ -16,6 +16,7 @@
                 },
                 template: '<div class="page-animation" ui-view animation-class></div>'
             });
+        //$urlRouterProvider.otherwise('/dashboard/');
     }
 })();
 
@@ -26,7 +27,6 @@
     appRun.$inject = ['routerHelper'];
     function appRun(routerHelper) {
         routerHelper.configureStates(getStates());
-
 
         function getStates() {
             return [
@@ -106,7 +106,7 @@
                     {
                         state: 'search',
                         config: {
-                            url: '/search/?q',
+                            url: '/search/',
                             controller: 'SearchController as s',
                             data: { animateClass: 'search' },
                             reloadOnSearch: false

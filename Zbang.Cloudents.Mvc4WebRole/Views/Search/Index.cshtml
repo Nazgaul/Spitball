@@ -1,10 +1,17 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Search.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Search.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<button type="button" class="close" ng-click="app.back('/dashboard/')" ga-track-event="['search', 'close search']">@Html.Svg("~/images/site/icons.svg", "close")</button>
+@*<button type="button" class="close" ng-click="app.back('/dashboard/')" ga-track-event="['search', 'close search']">@Html.Svg("~/images/site/icons.svg", "close")</button>*@
 @*<form novalidate remove-keyboard ng-submit="s.search()">
     <input type="search" class="search-text" placeholder="@GeneralResources.Search" autofocus ng-model="s.term" ng-model-options="{debounce : 300}" ng-change="s.search()" ng-minlength="2" />
 </form>*@
+<div class="page-head">
+    <div layout="row" layout-align="space-between center" ng-hide="b.settingsOpen" class="page-title" ng-class="{'need-follow' : b.needFollow}">
+        <h1 flex>@SearchResources.SearchTitle</h1>
+        <button flex="none" type="button" class="close" ng-click="s.back()" ga-track-event="['search', 'close search']">@Html.Svg("~/images/site/icons.svg", "close")</button>
+    </div>
+</div>
 <div srph-infinite-scroll="s.myPagingFunction()">
     <md-tabs md-dynamic-height="true" md-selected="s.tabIndex">
         <md-tab md-on-select="s.changeTab(s.state.box)" md-active="s.tab === s.state.box" ga-track-event="['search', 'search classes']">
@@ -16,7 +23,7 @@
             </md-tab-body>
         </md-tab>
         <md-tab md-on-select="s.changeTab(s.state.item)" md-active="s.tab === s.state.item" ga-track-event="['search', 'search items']">
-            <md-tab-label>@SearchResources.Items</md-tab-label>
+            <md-tab-label>@BoxResources.Items</md-tab-label>
             <md-tab-body>
                 <div layout="row" layout-padding layout-wrap>
                     <div flex-gt-lg="20" flex-lg="25" flex-md="33" flex-sm="50" flex-xs="100" ng-repeat="e in s.result" ng-include="'item-template.html'"></div>
@@ -32,7 +39,7 @@
             </md-tab-body>
         </md-tab>
     </md-tabs>
-    <div class="no-results" ng-show="s.noResults" class="s-content">
+    <div class="no-results" ng-show="s.noResults">
         <div class="wrapper">
             <img src="@Url.CdnContent("~/Images/Site/noResults.png")" alt="No results were found">
             <div>@GeneralResources.NoResults</div>

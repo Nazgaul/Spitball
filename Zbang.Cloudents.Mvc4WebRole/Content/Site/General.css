@@ -308,6 +308,11 @@ md-tabs md-ink-bar {
   background: #3598dc;
 }
 /*#endregion*/
+.page-title svg {
+  width: 30px;
+  height: 30px;
+  fill: #323538;
+}
 .close {
   float: right;
   margin-top: 6px;
@@ -548,11 +553,6 @@ md-tabs md-ink-bar {
   height: 20px;
   width: 20px;
   fill: #5d6063;
-}
-.page-title svg {
-  width: 30px;
-  height: 30px;
-  fill: #323538;
 }
 .button-Blue {
   background: #4190b9 !important;

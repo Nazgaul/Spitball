@@ -130,10 +130,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                new { controller = "Home", action = "IndexEmpty" },
                new { userId = new LongRouteConstraint() }
             );
-            routes.MapRoute("Search",
-              "search",
-              new { controller = "Home", action = "IndexEmpty" }
-            );
+            //routes.MapRoute("Search",
+            //  "search",
+            //  new { controller = "Home", action = "IndexEmpty" }
+            //);
 
             routes.MapRoute("AccountSettings",
              "account/settings",

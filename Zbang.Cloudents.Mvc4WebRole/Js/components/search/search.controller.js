@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.search').controller('SearchController', search);
 
-    search.$inject = ['searchService', '$location', 'itemThumbnailService', '$q'];
-    function search(searchService, $location, itemThumbnailService, $q) {
+    search.$inject = ['searchService', '$location', 'itemThumbnailService', '$q', '$rootScope', '$scope'];
+    function search(searchService, $location, itemThumbnailService, $q, $rootScope, $scope) {
         var self = this, page = 0, needToBringMore = true, term;
         self.state = {
             box: 'box',
@@ -10,23 +10,11 @@
             quiz: 'quiz',
         }
 
-        if (typeof $location.search().q === 'string') {
-            term = $location.search().q;
-        }
+
         self.tab = self.state.box;
         self.tabIndex = 0;
-        if (typeof $location.search().t === 'string') {
-            var index = 0;
-            for (var prop in self.state) {
-                if (self.state.hasOwnProperty(prop)) {
-                    if (self.state[prop] === $location.search().t) {
-                        self.tab = self.state[prop];
-                        self.tabIndex = index;
-                    }
-                }
-                index++;
-            }
-        }
+
+
         self.boxes = [];
         self.items = [];
         self.quizzes = [];
@@ -34,22 +22,17 @@
 
 
 
-        self.search = function () {
-            //    $location.search({
-            //        'q': self.term,
-            //        't': self.tab
-            //    });
-            page = 0;
-            needToBringMore = true;
-            doQuery();
 
 
-        }
+        $rootScope.$on('search-query', searchElements);
         self.changeTab = changeTab;
 
 
 
-
+        self.back = function () {
+            $rootScope.$broadcast('search-close');
+            $scope.app.back('/dashboard/');
+        }
 
         self.myPagingFunction = function () {
             //no paging in initial state
@@ -59,11 +42,40 @@
             return doQuery(true);
         }
 
-        self.search();
+        //searchElements();
+        function searchElements() {
+            //    $location.search({
+            //        'q': self.term,
+            //        't': self.tab
+            //    });
+            if (typeof $location.search().q === 'string') {
+                term = $location.search().q;
+            }
+            if (typeof $location.search().t === 'string') {
+                var index = 0;
+                for (var prop in self.state) {
+                    if (self.state.hasOwnProperty(prop)) {
+                        if (self.state[prop] === $location.search().t) {
+                            self.tab = self.state[prop];
+                            self.tabIndex = index;
+                        }
+                    }
+                    index++;
+                }
+            }
+            page = 0;
+            needToBringMore = true;
+            doQuery();
 
+
+        }
         function changeTab(tab) {
             self.tab = tab;
-            self.search();
+            $location.search({
+                'q': $location.search().q,
+                't': self.tab
+            });
+            searchElements();
         }
 
         function createEmptyPromise() {
@@ -147,23 +159,30 @@
 
 (function () {
     angular.module('app.search').controller('SearchTriggerController', searchTriggerController);
-    searchTriggerController.$inject = ['$state', '$rootScope'];
+    searchTriggerController.$inject = ['$state', '$rootScope', '$location'];
 
-    function searchTriggerController($state, $rootScope) {
+    function searchTriggerController($state, $rootScope, $location) {
         var st = this;
 
         st.search = search;
         st.change = search;
 
+        st.term = $location.search().q;
 
         function search(isValid) {
             console.log($state);
             if (isValid) {
-                $state.go('search', { q: st.term });
+                var url = $state.href('search', { q: st.term });
+                url += '?q=' + st.term;
+                $location.url(url);
                 if ($state.current.name === 'search') {
                     $rootScope.$broadcast('search-query');
                 }
             }
         }
+
+        $rootScope.$on('search-close', function() {
+            st.term = '';
+        });
     }
 })()

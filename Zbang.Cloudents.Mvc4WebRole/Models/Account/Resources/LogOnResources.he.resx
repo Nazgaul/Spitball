@@ -172,10 +172,10 @@
     <value>או הירשם באמצעות</value>
   </data>
   <data name="SignUp" xml:space="preserve">
-    <value>הירשם</value>
+    <value>הרשם</value>
   </data>
   <data name="ToResetPassword" xml:space="preserve">
-    <value>לאיפוס סיסמה</value>
+    <value>לאיפוס סיסמא</value>
   </data>
   <data name="CheckEmailTitle" xml:space="preserve">
     <value>בדוק את תיבת המייל שלך</value>

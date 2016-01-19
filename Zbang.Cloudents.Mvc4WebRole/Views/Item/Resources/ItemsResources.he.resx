@@ -159,4 +159,7 @@
   <data name="NewComment" xml:space="preserve">
     <value>כתוב תגובה</value>
   </data>
+  <data name="CreateComment" xml:space="preserve">
+    <value>הוסף תגובה</value>
+  </data>
 </root>

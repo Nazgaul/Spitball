@@ -34,9 +34,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_WithCache = withCache;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string q)
         {
-            return RedirectToAction("Index", "Dashboard");
+            if (string.IsNullOrEmpty(q))
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
+            return View("Empty");
         }
 
         public ActionResult IndexPartial()
