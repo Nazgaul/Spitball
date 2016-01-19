@@ -3,7 +3,7 @@
 
     search.$inject = ['searchService', '$location', 'itemThumbnailService', '$q'];
     function search(searchService, $location, itemThumbnailService, $q) {
-        var self = this, page = 0, needToBringMore = true;
+        var self = this, page = 0, needToBringMore = true, term;
         self.state = {
             box: 'box',
             item: 'item',
@@ -11,7 +11,7 @@
         }
 
         if (typeof $location.search().q === 'string') {
-            self.term = $location.search().q;
+            term = $location.search().q;
         }
         self.tab = self.state.box;
         self.tabIndex = 0;
@@ -30,15 +30,15 @@
         self.boxes = [];
         self.items = [];
         self.quizzes = [];
-        
 
-        
+
+
 
         self.search = function () {
-            $location.search({
-                'q': self.term,
-                't': self.tab
-            });
+            //    $location.search({
+            //        'q': self.term,
+            //        't': self.tab
+            //    });
             page = 0;
             needToBringMore = true;
             doQuery();
@@ -53,13 +53,13 @@
 
         self.myPagingFunction = function () {
             //no paging in initial state
-            if (!self.term) {
-                return createEmptyPromise();
-            }
+            //if (!self.term) {
+            //    return createEmptyPromise();
+            //}
             return doQuery(true);
         }
 
-        //self.search();
+        self.search();
 
         function changeTab(tab) {
             self.tab = tab;
@@ -84,35 +84,11 @@
                 default:
                     return getBoxes(needToAppend);
             }
-            //return searchService.search(self.term, page).then(function (response) {
-            //    //self.result = response;
-            //    angular.forEach(response.items, function (value) {
-            //        var retVal = itemThumbnailService.assignValue(value.source);
-            //        value.thumbnail = retVal.thumbnail;
-            //        value.nameExtension = value.name.replace(/\.[^/.]+$/, "");
-            //    });
-            //    self.noResults = false;
 
-            //    for (var j = 0; j < response.quizzes.length; j++) {
-            //        response.quizzes[j].publish = true;
-            //    }
-            //    if (needToAppend) {
-            //        self.result.boxes = self.result.boxes.concat(response.boxes);
-            //        self.result.items = self.result.items.concat(response.items);
-            //        self.result.quizzes = self.result.quizzes.concat(response.quizzes);
-            //    } else {
-            //        self.result = response;
-            //    }
-            //    if (!response.boxes.length && !response.items.length && !response.quizzes.length) {
-            //        needToBringMore = false;
-            //        self.noResults = true;
-            //    }
-            //    page++;
-            //});
         }
 
         function getBoxes(needToAppend) {
-            return searchService.searchBox(self.term, page).then(function (response) {
+            return searchService.searchBox(term, page).then(function (response) {
                 self.noResults = false;
                 if (needToAppend) {
                     self.result = self.result.concat(response);
@@ -127,7 +103,7 @@
             });
         }
         function getItems(needToAppend) {
-            return searchService.searchItems(self.term, page).then(function (response) {
+            return searchService.searchItems(term, page).then(function (response) {
                 self.noResults = false;
                 angular.forEach(response, function (value) {
                     var retVal = itemThumbnailService.assignValue(value.source);
@@ -147,7 +123,7 @@
             });
         }
         function getQuizzes(needToAppend) {
-            return searchService.searchQuizzes(self.term, page).then(function (response) {
+            return searchService.searchQuizzes(term, page).then(function (response) {
                 self.noResults = false;
                 for (var j = 0; j < response.length; j++) {
                     response[j].publish = true;
@@ -168,3 +144,26 @@
 
     }
 })();
+
+(function () {
+    angular.module('app.search').controller('SearchTriggerController', searchTriggerController);
+    searchTriggerController.$inject = ['$state', '$rootScope'];
+
+    function searchTriggerController($state, $rootScope) {
+        var st = this;
+
+        st.search = search;
+        st.change = search;
+
+
+        function search(isValid) {
+            console.log($state);
+            if (isValid) {
+                $state.go('search', { q: st.term });
+                if ($state.current.name === 'search') {
+                    $rootScope.$broadcast('search-query');
+                }
+            }
+        }
+    }
+})()

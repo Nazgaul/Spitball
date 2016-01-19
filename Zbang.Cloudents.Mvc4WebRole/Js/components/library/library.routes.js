@@ -45,16 +45,16 @@
                     controller: 'LibraryChoose as lc',
                     data: { animateClass: 'library-choose' },
                     resolve: {
-                        universitySuggest: [
-                            'facebookService', 'libraryService', function (facebookService, libraryService) {
-                                return facebookService.getToken().then(function (token) {
-                                    return libraryService.getUniversityByFriends(token);
-                                }, function () {
-                                    return [];
-                                });
+                        //universitySuggest: [
+                        //    'facebookService', 'libraryService', function (facebookService, libraryService) {
+                        //        return facebookService.getToken().then(function (token) {
+                        //            return libraryService.getUniversityByFriends(token);
+                        //        }, function () {
+                        //            return [];
+                        //        });
 
-                            }
-                        ]
+                        //    }
+                        //]
                         //universityInit: [
                         //    'libraryService', function (libraryService) {
                         //        return libraryService.getUniversity(null, 0);

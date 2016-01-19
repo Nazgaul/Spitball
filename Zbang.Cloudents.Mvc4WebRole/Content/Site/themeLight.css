@@ -3,8 +3,9 @@
   /*#region angularmaterial*/
   /*tabs*/
   /*#endregion*/
-  /*#region accountSettings.less*/
+  /*#region header.less*/
   /*#endregion*/
+  /*#region accountSettings.less*/
   /*#endregion*/
   /*#region box.less*/
   /*#endregion*/
@@ -13,8 +14,6 @@
   /*#region dashboard.less*/
   /*#endregion*/
   /*#region error.less*/
-  /*#endregion*/
-  /*#region header.less*/
   /*#endregion*/
   /*#region layout.less*/
   /***          
@@ -252,6 +251,71 @@ Page Loading
 .theme-light md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
 .theme-light md-input-container:not(.md-input-invalid).md-input-focused label {
   color: #4190b9;
+}
+.theme-light .headerMenu {
+  fill: #5d6063;
+}
+.theme-light .headerMenu:hover {
+  fill: #dadce2;
+}
+.theme-light .searchIcon {
+  fill: #212325;
+}
+.theme-light .top-menu svg {
+  fill: #5f6871;
+}
+.theme-light .top-menu .navbar-nav .open li a svg {
+  fill: #212325;
+}
+.theme-light .top-menu .badge-notifcation {
+  background-color: #db4437;
+}
+.theme-light .login,
+.theme-light .signin {
+  background: #212325;
+  color: #ffffff;
+}
+.theme-light .login:hover,
+.theme-light .signin:hover {
+  background: #212325 !important;
+}
+.theme-light .login {
+  background: #3293f6;
+  color: #212325;
+}
+.theme-light .login:hover {
+  background: #3293f6 !important;
+}
+.theme-light .md-user-menu {
+  background: #ffffff;
+}
+.theme-light .md-user-menu:before {
+  border-bottom: 8px solid #ffffff;
+}
+.theme-light .md-user-menu .user-menu-item svg {
+  fill: #212325;
+}
+.theme-light .md-user-menu .user-menu-item .md-button span {
+  color: #212325;
+}
+.theme-light .nav-bar {
+  background: #ffffff;
+  border-bottom: 5px solid #e9eaed;
+}
+.theme-light .nav-bar .logo-search .search-form .search-area {
+  background: #e9eaed;
+}
+.theme-light .nav-bar .logo-search .search-form .search-area .text {
+  color: #212325;
+}
+.theme-light .nav-bar .logo-search .logo .logo-default {
+  fill: #fff;
+}
+.theme-light .nav-bar .logo-search .logo .logo-small {
+  fill: #fff;
+}
+.theme-light .nav-bar .user-md-menu:hover {
+  background: #dadce2;
 }
 .theme-light .accountPage-wrapper .section {
   background: #ffffff;
@@ -754,71 +818,6 @@ Page Loading
 }
 .theme-light .error-500-page h2 {
   color: #5f6871;
-}
-.theme-light .headerMenu {
-  fill: #5d6063;
-}
-.theme-light .headerMenu:hover {
-  fill: #dadce2;
-}
-.theme-light .searchIcon {
-  fill: #212325;
-}
-.theme-light .top-menu svg {
-  fill: #5f6871;
-}
-.theme-light .top-menu .navbar-nav .open li a svg {
-  fill: #212325;
-}
-.theme-light .top-menu .badge-notifcation {
-  background-color: #db4437;
-}
-.theme-light .login,
-.theme-light .signin {
-  background: #212325;
-  color: #ffffff;
-}
-.theme-light .login:hover,
-.theme-light .signin:hover {
-  background: #212325 !important;
-}
-.theme-light .login {
-  background: #3293f6;
-  color: #212325;
-}
-.theme-light .login:hover {
-  background: #3293f6 !important;
-}
-.theme-light .md-user-menu {
-  background: #ffffff;
-}
-.theme-light .md-user-menu:before {
-  border-bottom: 8px solid #ffffff;
-}
-.theme-light .md-user-menu .user-menu-item svg {
-  fill: #212325;
-}
-.theme-light .md-user-menu .user-menu-item .md-button span {
-  color: #212325;
-}
-.theme-light .nav-bar {
-  background: #ffffff;
-  border-bottom: 5px solid #e9eaed;
-}
-.theme-light .nav-bar .logo-search .search-form .search-area {
-  background: #e9eaed;
-}
-.theme-light .nav-bar .logo-search .search-form .search-area .text {
-  color: #212325;
-}
-.theme-light .nav-bar .logo-search .logo .logo-default {
-  fill: #fff;
-}
-.theme-light .nav-bar .logo-search .logo .logo-small {
-  fill: #fff;
-}
-.theme-light .nav-bar .user-md-menu:hover {
-  background: #dadce2;
 }
 @media print {
   .theme-light body {
@@ -1590,11 +1589,23 @@ Page Loading
 .theme-light .nav-bar .user-md-menu:hover {
   background: #29769e;
 }
-.theme-light .nav-bar .logo-search .search-form .search-area {
-  background: #29769e;
-}
 .theme-light .nav-bar .logo-search .search-form .search-area .text {
   color: #ffffff;
+  background: #29769e;
+}
+.theme-light .nav-bar .logo-search .search-form .search-area .text ::-webkit-input-placeholder {
+  color: #212325;
+}
+.theme-light .nav-bar .logo-search .search-form .search-area .text :-moz-placeholder {
+  /* Firefox 18- */
+  color: #212325;
+}
+.theme-light .nav-bar .logo-search .search-form .search-area .text ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #212325;
+}
+.theme-light .nav-bar .logo-search .search-form .search-area .text :-ms-input-placeholder {
+  color: #212325;
 }
 .theme-light .nav-bar .logo-search .search-form .search-area svg {
   fill: #ffffff;

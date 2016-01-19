@@ -54,7 +54,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (!universityDataId.HasValue) return JsonError();
             var query = new SearchBoxesQuery(q, User.GetUserId(), universityDataId.Value, page,
                 ResultSizeRegularState);
-            return await SearchQueryAsync(q, cancellationToken, query, m_BoxSearchService.SearchBox);
+            return await SearchQueryAsync(q, cancellationToken, query, m_BoxSearchService.SearchBoxAsync);
         }
         [HttpGet]
         public async Task<JsonResult> Items(string q, int page, CancellationToken cancellationToken)
@@ -72,7 +72,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (!universityDataId.HasValue) return JsonError();
             var query = new SearchQuizesQuery(q, User.GetUserId(), universityDataId.Value, page,
                 ResultSizeRegularState);
-            return await SearchQueryAsync(q, cancellationToken, query,  m_QuizSearchService.SearchQuiz);
+            return await SearchQueryAsync(q, cancellationToken, query,  m_QuizSearchService.SearchQuizAsync);
         }
 
         private async Task<JsonResult> SearchQueryAsync<TD>(string q, CancellationToken cancellationToken, 
@@ -83,11 +83,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var source = CreateCancellationToken(cancellationToken);
             try
             {
+                
                 if (string.IsNullOrEmpty(q))
                 {
-
-                    var result = await m_WithCache.QueryAsync(func, query, source.Token);
-                    return JsonOk(result);
+                    return JsonError("need term");
+                    //var result = await m_WithCache.QueryAsync(func, query, source.Token);
+                    //return JsonOk(result);
                 }
                 var retVal = await func(query, source.Token);
                 return JsonOk(retVal);

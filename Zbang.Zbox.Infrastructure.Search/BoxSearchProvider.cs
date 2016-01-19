@@ -56,7 +56,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             });
         }
 
-        public async Task<bool> UpdateData(IEnumerable<BoxSearchDto> boxToUpload, IEnumerable<long> boxToDelete)
+        public async Task<bool> UpdateDataAsync(IEnumerable<BoxSearchDto> boxToUpload, IEnumerable<long> boxToDelete)
         {
             if (!m_CheckIndexExists)
             {
@@ -117,7 +117,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             m_CheckIndexExists = true;
         }
-        public async Task<IEnumerable<SearchBoxes>> SearchBox(ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken)
+        public async Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException("query");
             var result = await m_IndexClient.Documents.SearchAsync<BoxSearch>(query.Term + "*", new SearchParameters
@@ -142,7 +142,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             });
         }
 
-        public async Task<IEnumerable<SearchBoxes>> SearchBox(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
+        public async Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException("query");
             var result = await m_IndexClient.Documents.SearchAsync<BoxSearch>(query.Term + "*", new SearchParameters

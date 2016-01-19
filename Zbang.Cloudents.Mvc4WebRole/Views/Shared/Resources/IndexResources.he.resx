@@ -174,9 +174,6 @@
   <data name="Remove" xml:space="preserve">
     <value>הסר קובץ</value>
   </data>
-  <data name="Search" xml:space="preserve">
-    <value>חיפוש</value>
-  </data>
   <data name="Send" xml:space="preserve">
     <value>שלח</value>
   </data>

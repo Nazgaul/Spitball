@@ -3096,15 +3096,12 @@
       <LastGenOutput>GeneralResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\GeneralResources.ru.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\IndexResources.ar.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\IndexResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.he.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\IndexResources.ru.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.ar.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

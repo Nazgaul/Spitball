@@ -104,27 +104,27 @@
                        templateUrl: '/item/indexpartial/'
                    },
                     {
-                        state: 'searchWithQuery',
+                        state: 'search',
                         config: {
                             url: '/search/?q',
                             controller: 'SearchController as s',
-                            data: { animateClass: 'search full-screen' },
+                            data: { animateClass: 'search' },
                             reloadOnSearch: false
                             //onEnter: routerHelper.universityRedirect
                         },
                         templateUrl: '/search/indexpartial/'
                     },
-                    {
-                        state: 'search',
-                        config: {
-                            url: '/search/',
-                            controller: 'SearchController as s',
-                            data: { animateClass: 'search full-screen' },
-                            reloadOnSearch: false
-                            //onEnter: routerHelper.universityRedirect
-                        },
-                        templateUrl: '/search/indexpartial/'
-                    },
+                    //{
+                    //    state: 'search',
+                    //    config: {
+                    //        url: '/search/',
+                    //        controller: 'SearchController as s',
+                    //        data: { animateClass: 'search full-screen' },
+                    //        reloadOnSearch: false
+                    //        //onEnter: routerHelper.universityRedirect
+                    //    },
+                    //    templateUrl: '/search/indexpartial/'
+                    //},
                      {
                          state: 'dashboard',
                          config: {

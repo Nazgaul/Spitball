@@ -59,19 +59,16 @@
                         @Html.Svg(svgUrl, "logo", new { @class = "logo-default", hide_xs = "" })
                         @Html.Svg(svgUrl, "smallLogo", new { @class = "logo-small", hide = "", show_xs = "" })
                     </a>
-                    @*<div class="menu-toggler sidebar-toggler">
-                            <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-                        </div>*@
                 </div>
             </div>
-            <a href="@Url.Action("Index","Search")" @shouldPostBack class="search-form search-form-expanded" ng-hide="app.hideSearch" ga-track-event="['header', 'search']" user-not-register-popup="click">
+            <form ng-controller="SearchTriggerController as st" ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger" novalidate @*href="@Url.Action("Index","Search")" @shouldPostBack*@ class="search-form search-form-expanded" ng-hide="app.hideSearch" @*ga-track-event="['header', 'search']"*@>
                 <div class="search-area">
-                    <span type="text" class="text" input-sm">@IndexResources.Search</span>
-                    <span class="search-btn">
+                    <input required ng-change="st.change(searchTrigger.$valid)" ng-model="st.term" ng-model-options="{debounce : 300}" type="text" class="text" user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
+                    <button type="submit" class="search-btn">
                         @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })
-                    </span>
+                    </button>
                 </div>
-            </a>
+            </form>
         </div>
         <div layout="row" layout-align="center center" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
             <md-menu class="user-md-menu" ng-if="ud.isLoggedIn" md-offset="-115 80">

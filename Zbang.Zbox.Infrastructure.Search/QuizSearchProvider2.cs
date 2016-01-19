@@ -96,7 +96,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             m_CheckIndexExists = true;
         }
 
-        public async Task<bool> UpdateData(IEnumerable<QuizSearchDto> quizToUpload, IEnumerable<long> quizToDelete)
+        public async Task<bool> UpdateDataAsync(IEnumerable<QuizSearchDto> quizToUpload, IEnumerable<long> quizToDelete)
         {
             if (!m_CheckIndexExists)
             {
@@ -152,7 +152,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             return true;
         }
 
-        public async Task<IEnumerable<SearchQuizzes>> SearchQuiz(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
+        public async Task<IEnumerable<SearchQuizzes>> SearchQuizAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException("query");
             var filter = await m_FilterProvider.BuildFilterExpression(
@@ -202,12 +202,12 @@ namespace Zbang.Zbox.Infrastructure.Search
 
     public interface IQuizWriteSearchProvider2 
     {
-        Task<bool> UpdateData(IEnumerable<QuizSearchDto> quizToUpload, IEnumerable<long> itemToDelete);
+        Task<bool> UpdateDataAsync(IEnumerable<QuizSearchDto> quizToUpload, IEnumerable<long> itemToDelete);
     }
 
 
     public interface IQuizReadSearchProvider2
     {
-        Task<IEnumerable<SearchQuizzes>> SearchQuiz(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
+        Task<IEnumerable<SearchQuizzes>> SearchQuizAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
     }
 }

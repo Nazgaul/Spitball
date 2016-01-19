@@ -95,7 +95,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     updates.BoxesToDelete.Count()));
                 await m_BoxSearchProviderOld.UpdateData(updates.BoxesToUpdate, updates.BoxesToDelete);
                 var isSuccess =
-                    await m_BoxSearchProvider.UpdateData(updates.BoxesToUpdate, updates.BoxesToDelete);
+                    await m_BoxSearchProvider.UpdateDataAsync(updates.BoxesToUpdate, updates.BoxesToDelete);
                 if (isSuccess)
                 {
                     await m_ZboxWriteService.UpdateSearchBoxDirtyToRegularAsync(

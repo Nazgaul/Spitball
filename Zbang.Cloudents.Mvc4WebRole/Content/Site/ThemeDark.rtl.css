@@ -1,5 +1,4 @@
 ﻿/*#region general.less*/
-/*#endregion*/
 /*#region box.less*/
 .folder-selected .folder-name .folder-name-inner,
 .folders .folder-name .folder-name-inner {
@@ -477,73 +476,6 @@ body {
 }
 .error-500-page h2 {
   color: #5f6871;
-}
-/*#endregion*/
-/*#region header.less*/
-.headerMenu {
-  fill: #5d6063;
-}
-.headerMenu:hover {
-  fill: #212325;
-}
-.searchIcon {
-  fill: #f5f5f5;
-}
-.top-menu svg {
-  fill: #5f6871;
-}
-.top-menu .navbar-nav .open li a svg {
-  fill: #f5f5f5;
-}
-.top-menu .badge-notifcation {
-  background-color: #db4437;
-}
-.login,
-.signin {
-  background: #f5f5f5;
-  color: #282828;
-}
-.login:hover,
-.signin:hover {
-  background: #f5f5f5 !important;
-}
-.login {
-  background: #3293f6;
-  color: #f5f5f5;
-}
-.login:hover {
-  background: #3293f6 !important;
-}
-.md-user-menu {
-  background: #323538;
-}
-.md-user-menu:before {
-  border-bottom: 8px solid #323538;
-}
-.md-user-menu .user-menu-item svg {
-  fill: #f5f5f5;
-}
-.md-user-menu .user-menu-item .md-button span {
-  color: #f5f5f5;
-}
-.nav-bar {
-  background: #323538;
-  border-bottom: 5px solid #181c1d;
-}
-.nav-bar .logo-search .search-form .search-area {
-  background: #181c1d;
-}
-.nav-bar .logo-search .search-form .search-area .text {
-  color: #f5f5f5;
-}
-.nav-bar .logo-search .logo .logo-default {
-  fill: #fff;
-}
-.nav-bar .logo-search .logo .logo-small {
-  fill: #fff;
-}
-.nav-bar .user-md-menu:hover {
-  background: #212325;
 }
 /*#endregion*/
 /*#region layout.less*/

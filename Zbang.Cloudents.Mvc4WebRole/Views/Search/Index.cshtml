@@ -2,9 +2,9 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <button type="button" class="close" ng-click="app.back('/dashboard/')" ga-track-event="['search', 'close search']">@Html.Svg("~/images/site/icons.svg", "close")</button>
-<form novalidate remove-keyboard ng-submit="s.search()">
+@*<form novalidate remove-keyboard ng-submit="s.search()">
     <input type="search" class="search-text" placeholder="@GeneralResources.Search" autofocus ng-model="s.term" ng-model-options="{debounce : 300}" ng-change="s.search()" ng-minlength="2" />
-</form>
+</form>*@
 <div srph-infinite-scroll="s.myPagingFunction()">
     <md-tabs md-dynamic-height="true" md-selected="s.tabIndex">
         <md-tab md-on-select="s.changeTab(s.state.box)" md-active="s.tab === s.state.box" ga-track-event="['search', 'search classes']">

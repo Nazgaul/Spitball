@@ -1,10 +1,15 @@
 ﻿.headerMenu {
   width: 20px;
   height: 20px;
+  fill: #5d6063;
+}
+.headerMenu:hover {
+  fill: #212325;
 }
 .searchIcon {
   width: 15px;
   height: 15px;
+  fill: #f5f5f5;
 }
 .headerHelp {
   padding: 0 !important;
@@ -22,6 +27,7 @@
   width: 20px;
   margin-top: 30px;
   margin-right: 20px;
+  fill: #5f6871;
 }
 .top-menu .navbar-nav .open li a {
   display: flex;
@@ -34,12 +40,16 @@
 }
 .top-menu .navbar-nav .open li a svg {
   margin-top: 0;
+  fill: #f5f5f5;
 }
 .top-menu .headerNotification {
   width: 20px;
   height: 20px;
   margin-top: 0;
   margin-right: 0;
+}
+.top-menu .badge-notifcation {
+  background-color: #db4437;
 }
 .login,
 .signin {
@@ -48,9 +58,25 @@
   margin-top: 13px;
   font-size: 20px;
   text-transform: capitalize;
+  background: #f5f5f5;
+  color: #282828;
+}
+.login:hover,
+.signin:hover {
+  background: #f5f5f5 !important;
+}
+.login {
+  background: #3293f6;
+  color: #f5f5f5;
+}
+.login:hover {
+  background: #3293f6 !important;
 }
 .search-wrapper {
   display: inline;
+}
+.md-user-menu {
+  background: #323538;
 }
 .md-user-menu:before {
   position: absolute;
@@ -60,6 +86,7 @@
   border-right: 8px solid transparent;
   border-left: 8px solid transparent;
   content: '';
+  border-bottom: 8px solid #323538;
 }
 .md-user-menu .user-menu-item {
   height: inherit;
@@ -67,12 +94,16 @@
 .md-user-menu .user-menu-item svg {
   width: 20px;
   height: 20px;
+  fill: #f5f5f5;
 }
 .md-user-menu .user-menu-item .md-button {
   margin: 0;
   padding: 5px 0;
   width: 180px;
   text-align: left;
+}
+.md-user-menu .user-menu-item .md-button span {
+  color: #f5f5f5;
 }
 .md-user-menu .user-menu-item md-icon {
   margin: 0 10px;
@@ -94,6 +125,8 @@
   left: 0;
   height: 85px;
   z-index: 10;
+  background: #323538;
+  border-bottom: 5px solid #181c1d;
 }
 .nav-bar .logo-search {
   height: 100%;
@@ -112,11 +145,28 @@
   top: 12px;
 }
 .nav-bar .logo-search .search-form .search-area .text {
+  color: #f5f5f5;
+  background: #181c1d;
   font-size: 15px;
   height: 40px;
   line-height: 40px;
   padding-left: 15px;
   padding-right: 37px;
+  border: 0;
+}
+.nav-bar .logo-search .search-form .search-area .text ::-webkit-input-placeholder {
+  color: #f5f5f5;
+}
+.nav-bar .logo-search .search-form .search-area .text :-moz-placeholder {
+  /* Firefox 18- */
+  color: #f5f5f5;
+}
+.nav-bar .logo-search .search-form .search-area .text ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #f5f5f5;
+}
+.nav-bar .logo-search .search-form .search-area .text :-ms-input-placeholder {
+  color: #f5f5f5;
 }
 .nav-bar .logo-search .logo {
   margin: 0 16px;
@@ -155,6 +205,9 @@
 .nav-bar .user-md-menu {
   display: inline-block;
   padding: 0;
+}
+.nav-bar .user-md-menu:hover {
+  background: #212325;
 }
 .nav-bar .user-md-menu .md-ripple-container {
   display: none;
