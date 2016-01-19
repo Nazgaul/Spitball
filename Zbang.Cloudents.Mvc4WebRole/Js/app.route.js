@@ -13,12 +13,7 @@
                             //$q https://github.com/angular-ui/ui-router/issues/105
                             return userDetails.init();
                         }
-                    ],
-                    //x: ['$q', function ($q) {
-                    //    var defer = $q.defer();
-                    //    defer.resolve();
-                    //    return defer.promise;
-                    //}]
+                    ]
                 },
                 template: '<div class="page-animation" ui-view animation-class></div>'
             });
