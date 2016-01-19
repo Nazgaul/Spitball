@@ -680,33 +680,33 @@ namespace Zbang.Zbox.ReadServices
         //    }
         //}
 
-        public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByFriendsIdsAsync(IEnumerable<long> friendsIds)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                //we can only use 2100 in statement
-                using (var grid = await conn.QueryMultipleAsync(
-                     string.Format("{0} {1}", Sql.LibraryChoose.GetUniversityByFriendIds,
-                     Sql.LibraryChoose.GetFriendsInUniversitiesByFriendsIds),
-                    new { FriendsIds = friendsIds.Take(2099) }
-                     ))
-                {
-                    var retVal = await grid.ReadAsync<UniversityByPrefixDto>();
-                    var friends = await grid.ReadAsync<FriendPerUniversityDto>();
-                    retVal = retVal.Select(s =>
-                    {
-                        s.UserImages = friends.Where(w => w.UniversityId == s.Id).Select(s1 => s1.Image);
-                        return s;
-                    });
-                    //retVal = retVal.Select(s =>
-                    //   {
-                    //       s.Friends = friends.Where(w => w.UniversityId == s.Id);
-                    //       return s;
-                    //   }).ToList();
-                    return retVal;
-                }
-            }
-        }
+        //public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByFriendsIdsAsync(IEnumerable<long> friendsIds)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        //we can only use 2100 in statement
+        //        using (var grid = await conn.QueryMultipleAsync(
+        //             string.Format("{0} {1}", Sql.LibraryChoose.GetUniversityByFriendIds,
+        //             Sql.LibraryChoose.GetFriendsInUniversitiesByFriendsIds),
+        //            new { FriendsIds = friendsIds.Take(2099) }
+        //             ))
+        //        {
+        //            var retVal = await grid.ReadAsync<UniversityByPrefixDto>();
+        //            var friends = await grid.ReadAsync<FriendPerUniversityDto>();
+        //            retVal = retVal.Select(s =>
+        //            {
+        //                s.UserImages = friends.Where(w => w.UniversityId == s.Id).Select(s1 => s1.Image);
+        //                return s;
+        //            });
+        //            //retVal = retVal.Select(s =>
+        //            //   {
+        //            //       s.Friends = friends.Where(w => w.UniversityId == s.Id);
+        //            //       return s;
+        //            //   }).ToList();
+        //            return retVal;
+        //        }
+        //    }
+        //}
 
 
         /// <summary>

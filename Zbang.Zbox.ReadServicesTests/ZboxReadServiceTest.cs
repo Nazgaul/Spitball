@@ -213,18 +213,18 @@ namespace Zbang.Zbox.ReadServicesTests
 
 
 
-        [TestMethod]
-        public void GetUniversityListByFriendsIds_Query_ReturnResult()
-        {
-            try
-            {
-                var x = m_ZboxReadService.GetUniversityListByFriendsIdsAsync(Enumerable.Range(0, 500).Select(s => (long)s)).Result;
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+        //[TestMethod]
+        //public void GetUniversityListByFriendsIds_Query_ReturnResult()
+        //{
+        //    try
+        //    {
+        //        var x = m_ZboxReadService.GetUniversityListByFriendsIdsAsync(Enumerable.Range(0, 500).Select(s => (long)s)).Result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
 
         [TestMethod]
         public void GetInvite_Query_ReturnResult()
