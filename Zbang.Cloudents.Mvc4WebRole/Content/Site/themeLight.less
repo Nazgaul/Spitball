@@ -75,36 +75,53 @@
 @progressbarBackgroundColor: #dfe2e9;
 
 
+/*#region exception colors*/
+@Color1: @backgroundColor; // #e9eaed
+@Color2: @svgQuizBald; // #4190b9
+@Color3: @textColorBlack; // #ffffff
+@Color4: #29769e;
+@Color5: #777777;
+@Color6: #c3c3c3;
+/*@exceptionColor5:*/
+
+/*#endregion*/
 @import "siteColors.less";
 
 .theme-light {
     .theme();
-    background: @backgroundColor;
 
+    &.color-ovverride.backgroundColor1 {
+        background: @Color1 !important;
+    }
 
-    .nav-bar {
-        background: @svgQuizBald;
+    .color-classes(@name, @Color){
+        &.background@{name} {
+            background: @Color !important;
+        }
 
-        .user-md-menu {
-            color: @backgroundColor;
+        &.text@{name} {
+            color: @Color !important;
+        }
 
+        &.svg@{name} {
+            fill: @Color !important;
+        }
+
+        &.hoverBackground@{name} {
             &:hover {
-                background: #29769e;
+                background: @Color !important;
             }
         }
     }
 
-    .nav-bar .logo-search .search-form .search-area {
-        background: #29769e;
-
-        .text {
-            color: @textColorBlack;
-        }
-
-        svg {
-            fill: @textColorBlack;
-        }
+    .color-ovverride {
+            .color-classes(Color1, @Color1);
+            .color-classes(Color2, @Color2);
+            .color-classes(Color3, @Color3);
+            .color-classes(Color4, @Color4);
+            .color-classes(Color5, @Color5);
     }
+
 
     .box-cube, .dashboard-stat2 {
         box-shadow: 0 0 1px #777777;
