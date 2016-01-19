@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <a id="invite"></a>
-<div class="portlet invite" ng-cloak ng-controller="inviteController as i">
+<div class="portlet invite color-override backgroundColor2" ng-cloak ng-controller="inviteController as i">
 
     <div class="portlet-title">
         <div class="caption text-capitalize">
@@ -37,7 +37,7 @@
                                   ng-if="i.contacts.indexOf(contact) < 0">
                         <user-image class="md-avatar" name="contact.name" image="contact.image" width="40" height="40"></user-image>
                         <div class="md-list-item-text compact">
-                            <h3>{{contact.name}}</h3>
+                            <h3 class="color-override textColor7">{{contact.name}}</h3>
                         </div>
                     </md-list-item>
                     <md-list-item class="md-2-line contact-item selected" ng-repeat="(index, contact) in i.contacts">

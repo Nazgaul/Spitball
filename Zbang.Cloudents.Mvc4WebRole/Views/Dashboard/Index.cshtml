@@ -35,7 +35,7 @@
             <div class="updates" ng-if="e.updates !== 0">{{e.updates}}</div>
             <md-menu ng-if="!e.recommended">
                 <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['dashboard', 'deleteBoxMenu']">
-                    @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
+                    @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
                 </md-button>
                 <md-menu-content width="1">
                     <md-menu-item>

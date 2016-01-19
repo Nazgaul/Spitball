@@ -124,6 +124,8 @@
 .folders .text,
 .folder-selected .text {
   font-size: 18px;
+}
+.folder-selected .text {
   padding-right: 6px;
 }
 .designed-input {

@@ -1,9 +1,9 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div class="folder-selected" layout="row" layout-align="start center" ng-if="i.tabSelected.id">
-    @Html.Svg("~/images/site/icons.svg", "arrow", new { flex = "none", @class = "arrow", ng_click = "i.upDir()" })
+    @Html.Svg("~/images/site/icons.svg", "arrow", new { flex = "none", @class = "arrow color-override svgColor10", ng_click = "i.upDir()" })
     <div flex="100" flex-gt-xs="50" class="folder-name">
-        <div layout="row" layout-align="start center" class="folder-name-inner">
+        <div layout="row" layout-align="start center" class="folder-name-inner color-override backgroundColor10">
             <div class="name-and-icon" layout="row" layout-align="start center">
                 <div class="text ellipsis" ng-if="!i.openRenameTab">
                     {{i.tabSelected.name}}
@@ -14,7 +14,7 @@
             </div>
             <md-menu ng-if="!b.needFollow">
                 <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-tabs', 'deleteTab']">
-                    @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
+                    @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
                 </md-button>
                 <md-menu-content width="1">
                     <md-menu-item>
@@ -42,7 +42,7 @@
         </div>
     </li>
     <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="add-folder folder-name item-animate i-q-wrapper">
-        <button type="button" ga-track-event="['box-Tabs', 'addFolder']" class="content" ng-if="!i.newFolderTabOpened" user-not-register-popup="click" ng-click="i.newFolderTabOpened = true">
+        <button type="button" ga-track-event="['box-Tabs', 'addFolder']" class="content color-override backgroundTransparent" ng-if="!i.newFolderTabOpened" user-not-register-popup="click" ng-click="i.newFolderTabOpened = true">
             @Html.Svg("~/images/site/icons.svg", "add")
             <span>
                 @BoxResources.AddFolder

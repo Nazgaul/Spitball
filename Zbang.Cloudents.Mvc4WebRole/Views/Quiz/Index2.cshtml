@@ -6,17 +6,17 @@
 }
 
 <div class="full-screen quizPage">
-    <header layout="row" layout-align="space-between center">
+    <header class="color-override backgroundColor2" layout="row" layout-align="space-between center">
         <div class="fb-like">
-                <button>
-                    <div class="content">
-                        @*@Html.Svg("~/images/site/box-icons.svg", "like")
+            <button>
+                <div class="content">
+                    @*@Html.Svg("~/images/site/box-icons.svg", "like")
                         <span class="like-text">
                             x @GeneralResources.Like
                         </span>*@
-                    </div>
-                </button>
-            </div>
+                </div>
+            </button>
+        </div>
         <div class="ellipsis text-center" id="quiz-top" ng-bind-html="::q.name"></div>
         <button type="button" ng-click="app.back(q.boxUrl)" class="close" ga-track-event="['quiz', 'close quiz']">@Html.Svg("~/images/site/icons.svg", "close")</button>
     </header>

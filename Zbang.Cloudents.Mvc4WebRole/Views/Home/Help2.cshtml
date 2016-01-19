@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Zbang.Cloudents.Mvc4WebRole.Models.FAQ.Category>
 <div class="help-page">
-    <div class="portlet light">
+    <div class="portlet light color-override backgroundTransparent">
         <div class="caption caption-md">
             <h2 class="caption-subject uppercase">@ViewBag.pageTitle</h2>
         </div>
@@ -23,7 +23,7 @@
                                         var collapsed = j != 1 ? "collapsed" : null;
                                         <div class="panel panel-default">
                                             <a class="accordion-toggle @collapsed" data-toggle="collapse" data-parent="#accordion@(i)" href="#accordion@(i)_@j" ga-track-event="['help', 'click on collapsed']">
-                                                <div class="panel-heading">
+                                                <div class="panel-heading color-override textColor3">
                                                     <h4 class="panel-title">
                                                         @faq.Question
                                                     </h4>

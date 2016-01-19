@@ -5,7 +5,7 @@
 }
 <div class="margin-bottom-20" ng-cloak uib-collapse="!u.open" ng-controller="Upload as u">
     <a id="upload"></a>
-    <div class="portlet invite box upload">
+    <div class="portlet invite box upload color-override backgroundColor2">
         <div class="portlet-title">
             <div class="caption">
                 @IndexResources.UploadFiles
@@ -64,21 +64,21 @@
                             </h5>
                             <ul class="list-inline file-upload-area">
                                 @*<li class="file-upload">
-                        <span class="check-mark" ng-if="file.complete">@Html.Svg(url, "checkMark")</span>
-                        <div class="file" layout="column" layout-align="space-between center">
-                            <div class="file-name">
-                                <div class="multi-line-ellipsis limit-three">
-                                    this is a test
-                                </div>
-                                <md-progress-linear class="file-upload-progress" value="50" ng-if="!file.complete" md-mode="determinate">
-                                </md-progress-linear>
-                            </div>
-                            <div class="file-footer">
-                                <div class="file-size">25kb</div>
-                                <button type="button" ng-click="file.remove()">@IndexResources.Remove</button>
-                            </div>
-                        </div>
-                    </li>*@
+                                        <span class="check-mark" ng-if="file.complete">@Html.Svg(url, "checkMark")</span>
+                                        <div class="file" layout="column" layout-align="space-between center">
+                                            <div class="file-name">
+                                                <div class="multi-line-ellipsis limit-three">
+                                                    this is a test
+                                                </div>
+                                                <md-progress-linear class="file-upload-progress" value="50" ng-if="!file.complete" md-mode="determinate">
+                                                </md-progress-linear>
+                                            </div>
+                                            <div class="file-footer">
+                                                <div class="file-size">25kb</div>
+                                                <button type="button" ng-click="file.remove()">@IndexResources.Remove</button>
+                                            </div>
+                                        </div>
+                                    </li>*@
                                 <li class="file-upload" ng-repeat="file in u.files" ng-include="'file-upload.html'">
                             </ul>
                         </div>

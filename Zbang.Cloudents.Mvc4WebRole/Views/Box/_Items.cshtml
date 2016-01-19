@@ -21,7 +21,7 @@
         <div ui-draggable="true" drag="e" on-drop-success="i.dropToTabSuccess($index)" drag-image-element-id="'drag' + $index" ng-include="'item-template.html'"></div>
         <md-menu>
             <md-button aria-label="open menu"  class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-items', 'deleteFile']">
-                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
+                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
             </md-button>
             <md-menu-content width="1">
                 <md-menu-item ng-if="b.canDelete(e.ownerId)">
