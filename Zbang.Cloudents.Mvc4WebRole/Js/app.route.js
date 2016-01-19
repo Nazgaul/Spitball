@@ -1,15 +1,16 @@
 ﻿
 (function () {
     angular.module('app').config(config);
-    config.$inject = ['$stateProvider', '$urlRouterProvider'];
-    function config($stateProvider, $urlRouterProvider) {
+    config.$inject = ['$stateProvider'];
+    function config($stateProvider) {
 
         $stateProvider
             .state('root', {
                 abstract: true,
                 resolve: {
                     user: [
-                        'userDetailsFactory', function (userDetails) {
+                        '$q', 'userDetailsFactory', function ($q, userDetails) {
+                            //$q https://github.com/angular-ui/ui-router/issues/105
                             return userDetails.init();
                         }
                     ]

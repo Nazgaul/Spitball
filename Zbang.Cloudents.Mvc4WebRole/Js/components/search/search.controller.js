@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.search').controller('SearchController', search);
 
-    search.$inject = ['searchService', '$location', 'itemThumbnailService', '$q', '$rootScope', '$scope'];
-    function search(searchService, $location, itemThumbnailService, $q, $rootScope, $scope) {
+    search.$inject = ['searchService', '$location', 'itemThumbnailService', '$q', '$rootScope', '$scope', 'Analytics'];
+    function search(searchService, $location, itemThumbnailService, $q, $rootScope, $scope, analytics) {
         var self = this, page = 0, needToBringMore = true, term;
         self.state = {
             box: 'box',
@@ -88,6 +88,7 @@
             if (!needToBringMore) {
                 return createEmptyPromise();
             }
+            analytics.trackPage($location.url(), 'Search');
             switch (self.tab) {
                 case self.state.item:
                     return getItems(needToAppend);
