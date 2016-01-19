@@ -75,6 +75,8 @@
 @progressbarBackgroundColor: #dfe2e9;
 
 
+
+/*#endregion*/
 @import "siteColors.less";
 
 .theme-light {
@@ -247,7 +249,7 @@
             color: @textColorGrey;
         }
     }
-    
+
     .dots-3 {
         fill: @svgDots;
     }
@@ -448,11 +450,9 @@
         }
     }
     /*#endregion*/
-     /*#region accountSettings.less*/
+    /*#region accountSettings.less*/
     .accountPage-wrapper {
         //.profile-content {
-       
-
         .section {
             background: @textColorDarkGrey;
         }
@@ -504,39 +504,62 @@
     }
     /*#endregion*/
     .theme();
-    background: @backgroundColor;
+    /*#region ***************  OVERRIDE  ***************/
+    @Color1: @backgroundColor; // #e9eaed
+    @Color2: @svgQuizBald; // #4190b9
+    @Color3: @textColorBlack; // #ffffff
+    @Color4: #29769e;
+    @Color5: #777777;
+    @Color6: @textColorLightGrey; // #c3c3c3
+    @Transparent: transparent;
 
 
-    .nav-bar {
-        background: @svgQuizBald;
-
-        .user-md-menu {
-            color: @backgroundColor;
-
-            &:hover {
-                background: #29769e;
-            }
-        }
+    &.color-override.backgroundColor1 {
+        background: @Color1 !important;
     }
 
-    .nav-bar .logo-search .search-form .search-area {
-        
+    .color-classes(@name, @Color) {
+        &.background@{name} {
+            background: @Color !important;
+        }
 
-        .text {
-            color: @textColorBlack;
+        &.text@{name} {
+            color: @Color !important;
+        }
+
+        &.svg@{name} {
+            fill: @Color !important;
+        }
+
+        &.border@{name} {
+            border-color: @Color !important;
+        }
+
+        &.outline@{name} {
+            outline-color: @Color !important;
             background: #29769e;
             .placeHolder(@borderColorWhite);
         }
 
-        svg {
-            fill: @textColorBlack;
+        &.hoverBackground@{name} {
+            &:hover {
+                background: @Color !important;
+            }
         }
     }
 
-    .box-cube, .dashboard-stat2 {
-        box-shadow: 0 0 1px #777777;
+    .color-override {
+        .color-classes(Color1, @Color1);
+        .color-classes(Color2, @Color2);
+        .color-classes(Color3, @Color3);
+        .color-classes(Color4, @Color4);
+        .color-classes(Color5, @Color5);
+        .color-classes(Color6, @Color6);
+        .color-classes(Transparent, @Transparent);
     }
 
+
+/*
     .portlet.light {
         color: @backgroundColor;
 
@@ -568,6 +591,7 @@
     .leaderboard .user-name {
         color: @textColorBlack;
     }
+*/
 
     md-tabs {
         md-tabs-wrapper {
@@ -613,4 +637,5 @@
     .dashboard .portlet md-chips .md-chip {
         background: @textColorLightGrey;
     }
+    /*#endregion*/
 }

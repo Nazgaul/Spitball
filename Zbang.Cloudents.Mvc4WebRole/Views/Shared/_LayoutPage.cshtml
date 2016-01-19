@@ -30,7 +30,7 @@
         @*@{ Html.RenderAction("Theme", "Home", true);}*@
         <base href="/" />
     </head>
-<body ng-controller="AppController as app" class="{{app.theme}}" @*class="theme-light"*@>
+<body ng-controller="AppController as app" class="{{app.theme}} color-override backgroundColor1" @*class="theme-light"*@>
 
     <!-- Google Tag Manager -->
     <noscript>
@@ -51,7 +51,7 @@
         <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
     </div>
 
-    <div class="nav-bar" layout="row" ng-cloak>
+    <div class="nav-bar color-override backgroundColor2" layout="row" ng-cloak>
         <div class="logo-search" layout="row" layout-align="start center" flex="100">
             <div class="logo">
                 <div class="page-logo">
@@ -62,16 +62,17 @@
                 </div>
             </div>
             <form ng-controller="SearchTriggerController as st" ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger" novalidate @*href="@Url.Action("Index","Search")" @shouldPostBack*@ class="search-form search-form-expanded" ng-hide="app.hideSearch" @*ga-track-event="['header', 'search']"*@>
-                <div class="search-area">
+                <div class="search-area color-override backgroundColor4">
                     <input required ng-change="st.change(searchTrigger.$valid)" ng-model="st.term" ng-model-options="{debounce : 300}" type="text" class="text" user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
+                    <span type="text" class="text color-override textColor3" input-sm">@IndexResources.Search</span>
                     <button type="submit" class="search-btn">
-                        @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })
+                        @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon color-override svgColor3" })
                     </button>
                 </div>
             </form>
         </div>
         <div layout="row" layout-align="center center" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
-            <md-menu class="user-md-menu" ng-if="ud.isLoggedIn" md-offset="-115 80">
+            <md-menu class="user-md-menu color-override textColor1 hoverBackgroundColor1" ng-if="ud.isLoggedIn" md-offset="-115 80">
                 <!-- Trigger element is a md-button with an icon -->
                 <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="Open sample menu">
                     {{ud.name}}
