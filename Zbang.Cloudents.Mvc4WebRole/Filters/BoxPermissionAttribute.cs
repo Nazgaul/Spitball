@@ -5,6 +5,7 @@ using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
@@ -20,7 +21,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         //[Dependency]
         public IZboxReadSecurityReadService ZboxReadService { get; set; }
 
-        private const string CookieName = "p";
+        
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -28,28 +29,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             var boxId = Convert.ToInt64(boxid);
             var userId = filterContext.HttpContext.User.GetUserId(false);
 
+            var inviteId = filterContext.HttpContext.Request.QueryString["invId"];
+            var guid = GuidEncoder.TryParseNullableGuid(inviteId);
             var cookieHelper = new CookieHelper(filterContext.HttpContext);
-            var cookie = cookieHelper.ReadCookie<Permission>(CookieName);
+            var cookie = cookieHelper.ReadCookie<Permission>(Permission.CookieName);
             UserRelationshipType userType;
 
             if (cookie == null || cookie.Expire < DateTime.UtcNow || cookie.BoxId != boxId || cookie.UserId != userId)
             {
                 try
                 {
-                    userType = ZboxReadService.GetUserStatusToBox(boxId, userId);
+                    userType = ZboxReadService.GetUserStatusToBox(boxId, userId, guid);
                 }
                 catch (BoxDoesntExistException)
                 {
-                    //if (filterContext.HttpContext.Request.IsAjaxRequest())
-                    //{
-                        filterContext.Result = new HttpStatusCodeResult(404);
-                        //return;
-                    //}
-                    //filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
-                   // {
-                        //{"action", "Index"},
-                        //{"controller", "Error"}
-                    //});
+                    filterContext.Result = new HttpStatusCodeResult(404);
                     return;
                 }
                 catch (BoxAccessDeniedException)
@@ -69,11 +63,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                     return;
                 }
 
-                cookieHelper.InjectCookie(CookieName,
+                cookieHelper.InjectCookie(Permission.CookieName,
                     new Permission
                     {
                         BoxId = boxId,
-                        Expire = DateTime.UtcNow.AddMinutes(5),
+                        Expire = DateTime.UtcNow.AddMinutes(10),
                         UserId = userId,
                         UserType = userType
                     });
@@ -92,6 +86,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
 
         public class Permission
         {
+            public const string CookieName = "p";
             public long BoxId { get; set; }
             public DateTime Expire { get; set; }
             public long UserId { get; set; }

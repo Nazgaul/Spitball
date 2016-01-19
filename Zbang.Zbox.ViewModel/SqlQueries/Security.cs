@@ -13,5 +13,10 @@ and b.IsDeleted = 0;";
         where boxid = @BoxId and userid = @UserId
 	    ;";
 
+
+        public const string GetInviteToBoxInvite = @" 
+        select 1 from zbox.Invite where id=@InviteId and IsUsed = 0
+      ";
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -138,9 +139,9 @@ namespace Zbang.Zbox.ReadServices
 
         public Task<UserMinProfile> GetUserMinProfileAsync(GetUserMinProfileQuery query)
         {
-            return m_Cache.QueryAsync
-               (m_ReadService.GetUserMinProfileAsync, query);
-            //return m_ReadService.GetUserMinProfile(query);
+            //return m_Cache.QueryAsync
+            //   (m_ReadService.GetUserMinProfileAsync, query);
+            return m_ReadService.GetUserMinProfileAsync(query);
         }
 
         public Task<string> GetLocationByIpAsync(GetCountryByIpQuery query)
@@ -183,6 +184,10 @@ namespace Zbang.Zbox.ReadServices
         public Task<LogInUserDto> GetUserDetailsByFacebookId(GetUserByFacebookQuery query)
         {
             return m_ReadService.GetUserDetailsByFacebookId(query);
+        }
+        public Task<LogInUserDto> GetUserDetailsByGoogleIdAsync(GetUserByGoogleQuery query, CancellationToken cancellationToken)
+        {
+            return m_ReadService.GetUserDetailsByGoogleIdAsync(query, cancellationToken);
         }
 
         public Task<LogInUserDto> GetUserDetailsByEmail(GetUserByEmailQuery query)

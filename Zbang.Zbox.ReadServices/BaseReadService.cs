@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Dapper;
 using NHibernate;
 using System;
@@ -15,7 +16,7 @@ namespace Zbang.Zbox.ReadServices
 {
     public class BaseReadService : IBaseReadService, IZboxReadSecurityReadService
     {
-       
+
         #region login
         public async Task<LogInUserDto> GetUserDetailsByFacebookId(GetUserByFacebookQuery query)
         {
@@ -23,6 +24,17 @@ namespace Zbang.Zbox.ReadServices
             {
                 var retVal = await con.QueryAsync<LogInUserDto>(ViewModel.SqlQueries.Sql.GetUserByFacebookId,
                      new { FacebookUserId = query.FacebookId });
+                var t = retVal.FirstOrDefault();
+                return t;
+            }
+        }
+
+        public async Task<LogInUserDto> GetUserDetailsByGoogleIdAsync(GetUserByGoogleQuery query, CancellationToken cancellationToken)
+        {
+            using (var con = await DapperConnection.OpenConnectionAsync(cancellationToken))
+            {
+                var retVal = await con.QueryAsync<LogInUserDto>(new CommandDefinition(ViewModel.SqlQueries.Sql.GetUserByGoogleId,
+                    cancellationToken: cancellationToken, parameters: new { GoogleUserId = query.GoogleId }));
                 var t = retVal.FirstOrDefault();
                 return t;
             }
@@ -70,7 +82,7 @@ namespace Zbang.Zbox.ReadServices
         }
         #endregion
 
-       
+
         private UserRelationshipType GetUserStatusToBox(BoxPrivacySettings privacySettings, UserRelationshipType userRelationShipType)
         {
             if (userRelationShipType == UserRelationshipType.Owner)
@@ -94,20 +106,32 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public UserRelationshipType GetUserStatusToBox(long boxId, long userId)
+        public UserRelationshipType GetUserStatusToBox(long boxId, long userId, Guid? inviteId)
         {
             using (var conn = DapperConnection.OpenConnection())
             {
+                var sqlQueries = string.Format("{0} {1} ", ViewModel.SqlQueries.Security.GetBoxPrivacySettings,
+                    ViewModel.SqlQueries.Security.GetUserToBoxRelationship);
+                if (inviteId.HasValue)
+                {
+                    sqlQueries += " " + ViewModel.SqlQueries.Security.GetInviteToBoxInvite;
+                }
                 using (
                     var grid =
-                            conn.QueryMultiple(
-                                string.Format("{0} {1} ", ViewModel.SqlQueries.Security.GetBoxPrivacySettings,
-                                    ViewModel.SqlQueries.Security.GetUserToBoxRelationship), new { boxId, userId }))
+                            conn.QueryMultiple(sqlQueries, new { boxId, userId, inviteId }))
                 {
                     try
                     {
                         var privacySettings = grid.Read<BoxPrivacySettings>().First();
                         var userType = grid.Read<UserRelationshipType>().FirstOrDefault();
+                        if (inviteId.HasValue)
+                        {
+                            var x = grid.Read<int>();
+                            if (x.Any())
+                            {
+                                return UserRelationshipType.Invite;
+                            }
+                        }
                         return GetUserStatusToBox(privacySettings, userType);
                     }
                     catch (InvalidOperationException)
@@ -124,7 +148,7 @@ namespace Zbang.Zbox.ReadServices
             {
                 using (
                     var grid =
-                          await  conn.QueryMultipleAsync(
+                          await conn.QueryMultipleAsync(
                                 string.Format("{0} {1} ", ViewModel.SqlQueries.Security.GetBoxPrivacySettings,
                                     ViewModel.SqlQueries.Security.GetUserToBoxRelationship), new { boxId, userId }))
                 {
@@ -143,19 +167,10 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        //public long GetItemIdByBlobId(string blobId)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        IQuery query = UnitOfWork.CurrentSession.GetNamedQuery("GetItemIdByBlobId");
-        //        query.SetString("BlobName", blobId);
-        //        var x = query.UniqueResult();
-        //        return Convert.ToInt64(x);
-        //    }
-        //}
 
 
 
-        
+
+
     }
 }

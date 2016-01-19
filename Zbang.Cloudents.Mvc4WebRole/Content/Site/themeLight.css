@@ -6,8 +6,8 @@
   /*#region angularmaterial*/
   /*tabs*/
   /*#endregion*/
-  /*#endregion*/
   /*#region accountSettings.less*/
+  /*#endregion*/
   /*#endregion*/
   /*#region box.less*/
   /*#endregion*/
@@ -254,9 +254,6 @@ Page Loading
 .theme-light md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
 .theme-light md-input-container:not(.md-input-invalid).md-input-focused label {
   color: #4190b9;
-}
-.theme-light .accountPage-wrapper .fileinput .thumbnail {
-  border: 1px solid #3293f6;
 }
 .theme-light .accountPage-wrapper .section {
   background: #ffffff;

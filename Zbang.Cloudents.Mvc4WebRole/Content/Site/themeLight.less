@@ -88,6 +88,322 @@
 @import "siteColors.less";
 
 .theme-light {
+    .userLetter {
+        color: @textColorWhite;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: @scrollbarColor;
+    }
+    //add btn
+    .add {
+        background: @buttonColorRed;
+
+        svg {
+            fill: @textColorWhite;
+        }
+    }
+    /*#region angularmaterial*/
+    .dd-list {
+        md-content {
+            background: @backgroundColorMenu;
+            color: @textColorWhite;
+        }
+
+        md-option {
+            border-bottom: 1px solid @borderColorBlack;
+
+            &[selected] {
+                color: @textColorBlue;
+
+                &:focus {
+                    color: @textColorBlue;
+                }
+            }
+        }
+    }
+
+
+    md-select:not([disabled]):focus .md-select-value {
+        color: @textColorWhite;
+        border-bottom: 1px solid @borderColorDarkBlue;
+    }
+
+    md-select .md-select-value.md-select-placeholder {
+        color: @textColorWhite;
+    }
+
+    md-select-menu md-option:focus:not([disabled]):not([selected]) {
+        background: @backgroundColorMenu;
+    }
+
+    md-input-container:not(.md-input-invalid).md-input-has-value label {
+        color: @textColorGrey;
+    }
+
+    md-input-container label {
+        color: @textColorLightGrey;
+    }
+
+    .md-select-value .md-select-icon,
+    md-select .md-select-value,
+    md-input-container .md-input,
+    .form-group.form-md-line-input .form-control {
+        color: @buttonColorBlue;
+        border-color: @buttonColorBlue;
+
+        &:focus, &:active {
+            color: @textColorBlue;
+        }
+    }
+
+    md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input,
+    md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+        border-color: @textColorLike;
+    }
+
+    .form-group.form-md-line-input .form-control.edited:not([readonly]) ~ label:after,
+    .form-group.form-md-line-input .form-control.edited:not([readonly]) ~ .form-control-focus:after,
+    .form-group.form-md-line-input .form-control:focus:not([readonly]) ~ label:after,
+    .form-group.form-md-line-input .form-control:focus:not([readonly]) ~ .form-control-focus:after,
+    .form-group.form-md-line-input .form-control.focus:not([readonly]) ~ label:after,
+    .form-group.form-md-line-input .form-control.focus:not([readonly]) ~ .form-control-focus:after {
+        background: @textColorLike;
+    }
+
+    md-input-container .md-input {
+        color: @textColorWhite;
+    }
+
+    md-dialog {
+        color: @textColorBlack;
+    }
+
+    md-menu-item > .md-button span {
+        color: @textColorBlack;
+    }
+
+    md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
+        background: @buttonColorBlue;
+    }
+    /*tabs*/
+    md-tabs {
+        md-tabs-wrapper {
+            background: #323538;
+        }
+
+        .md-tab {
+            color: @textColorGrey;
+
+            &.md-active {
+                color: @textColorWhite;
+            }
+        }
+
+        md-ink-bar {
+            color: @borderColorBlue;
+            background: @borderColorBlue;
+        }
+    }
+    /*#endregion*/
+    .close {
+        &:hover {
+            color: @textColorWhite;
+        }
+
+        svg {
+            fill: @textColorWhite;
+        }
+    }
+
+    .create-box {
+        &:hover {
+            .dashboard-stat2 {
+                border: 2px solid @buttonColorBlue;
+                color: @buttonColorBlue;
+            }
+
+            .plus {
+                svg {
+                    fill: @buttonColorBlue;
+                }
+            }
+        }
+
+        .dashboard-stat2 {
+            border: 2px solid @textColorGrey;
+            color: @textColorGrey;
+        }
+
+        .plus {
+            svg {
+                fill: @textColorGrey;
+            }
+        }
+
+        md-input-container .md-input {
+            color: @textColorWhite;
+            border-color: @borderColorLightGrey;
+        }
+
+        &.create-box-show, &.create-deparment-show {
+            .dashboard-stat2 {
+                border: 2px solid @borderColorLightGrey;
+            }
+        }
+
+        md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+            border-bottom: 1px solid @textColorGrey;
+            color: @textColorGrey;
+        }
+    }
+    
+    .dots-3 {
+        fill: @svgDots;
+    }
+
+    .page-title {
+        svg {
+            fill: @backgroundColorMenu;
+        }
+    }
+
+    .button-Blue {
+        background: @buttonColorBlue !important;
+
+        &:hover {
+            background: @buttonColorHover !important;
+            color: @textColorWhite !important;
+        }
+        /*&:focus {
+        color: inherit;
+    }*/
+    }
+
+    .tab-from-r {
+        & > li {
+            & > a {
+                color: @textColorDarkGrey;
+            }
+
+            .overElement() {
+                color: @textColorWhite;
+            }
+
+            &.active {
+                border-bottom: 3px solid @borderColorBlue;
+            }
+        }
+    }
+
+    .nav-tabs, .tabbable {
+        background: @backgroundColorMenu;
+
+        li {
+            color: @textColorWhite;
+
+            &:hover, &:focus {
+                color: @textColorBlue;
+            }
+
+            &.active, &:active {
+                border-bottom: 3px solid @borderColorBlue;
+                color: @textColorWhite;
+            }
+
+            &.active > a, &.active > a:hover, &.active > a:focus {
+                color: @textColorWhite;
+            }
+
+            & > a {
+                color: @textColorGrey;
+
+                &:hover {
+                    color: @textColorBlue;
+                }
+            }
+        }
+    }
+
+    .ribbon {
+        background-color: @backgroundColorRed;
+        background-image: linear-gradient(to right, rgba(0,0,0,0) 0, rgba(0,0,0,.1) 100%);
+        box-shadow: inset 0 .062em 0 rgba(255,255,255,.6), 0 .125em .25em rgba(0,0,0,.2);
+    }
+
+    .ribbon:before {
+        background-image: linear-gradient(to left, rgba(0,0,0,.2) 0, rgba(0,0,0,0) 100%);
+    }
+
+    .ribbon:after {
+        box-shadow: 0 .062em 0 rgba(255,255,255,.6);
+    }
+    //footer arrow up
+    .scroll-to-top {
+        svg {
+            fill: @borderColorBlue;
+        }
+    }
+    //md-input colors override:
+    md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
+    md-input-container:not(.md-input-invalid).md-input-focused label {
+        color: @textColorLike;
+    }
+     /*#region accountSettings.less*/
+    .accountPage-wrapper {
+        //.profile-content {
+       
+
+        .section {
+            background: @textColorDarkGrey;
+        }
+        //}
+        .ontop {
+            background: @backgroundColorSpitballBlue;
+            color: @textColorWhite;
+        }
+
+        md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+            border-bottom: 1px solid @textColorBlue;
+        }
+
+        .tab-from-r > li {
+            &:hover {
+                > a {
+                    color: @textColorBlue;
+                }
+            }
+
+            &.active {
+                border-bottom: 3px solid @borderColorBlue;
+
+                > a {
+                    color: @textColorWhite;
+                }
+            }
+
+            > a {
+                color: @textColorGrey;
+            }
+        }
+
+        .notification-list {
+            li {
+                border-bottom: 1px solid @borderColorBottomGrey;
+
+                .owner {
+                    color: @textColorGrey;
+                }
+            }
+        }
+    }
+
+    .change-email-dialog {
+        svg {
+            fill: @backgroundColorMenu;
+        }
+    }
+    /*#endregion*/
     .theme();
 
     &.color-ovverride.backgroundColor1 {

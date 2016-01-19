@@ -11,7 +11,7 @@
             {
                 state: 'box',
                 config: {
-                    url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/',
+                    url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/?{invId}',
                     controller: 'BoxController as b',
                     //containerClass: 'boxState',
                     resolve: {
