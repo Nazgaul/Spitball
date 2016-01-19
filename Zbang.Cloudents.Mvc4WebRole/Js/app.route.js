@@ -11,9 +11,7 @@
                     user: [
                         '$q', 'userDetailsFactory', function ($q, userDetails) {
                             //$q https://github.com/angular-ui/ui-router/issues/105
-                            return userDetails.init().then(function () {
-                                console.log('herer');
-                            });
+                            return userDetails.init();
                         }
                     ],
                     //x: ['$q', function ($q) {
