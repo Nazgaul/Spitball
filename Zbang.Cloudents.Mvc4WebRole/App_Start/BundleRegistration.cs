@@ -125,10 +125,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
                         
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
-                       // new JsFileWithCdn("~/scripts/site/bootstrap-hover-dropdown.js"),//changed the menu to angular material
-                       // new JsFileWithCdn("~/scripts/site/jquery.slimscroll.js"),//
                         new JsFileWithCdn("~/scripts/angular.min.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"),
                         
+
                         new JsFileWithCdn("~/scripts/angular-ui-router.js"),
                         new JsFileWithCdn("~/scripts/angular-messages.js"),
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
@@ -258,8 +257,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/megaNumbers.js"),
                         new JsFileWithCdn("~/js/shared/focusMe.js"),
                         new JsFileWithCdn("~/js/shared/userDetails.js"),
-                        //new JsFileWithCdn("~/js/shared/tabDrop.js"),
-                        //new JsFileWithCdn("~/js/shared/showForm.js"),
                         new JsFileWithCdn("~/js/shared/fileReader.js"),
                         new JsFileWithCdn("~/js/shared/animationClass.js"),
                         new JsFileWithCdn("~/js/shared/animationLocation.js"),

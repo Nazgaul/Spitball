@@ -123,6 +123,11 @@
                 console.log(unfoundState.options); // {inherit:false} + default options
             });
 
+        $rootScope.$on('$stateChangeError',
+           function (event, toState, toParams, fromState, fromParams, error) {
+               console.log(event, toState, toParams, fromState, fromParams, error); 
+           });
+
 
     }
 })();

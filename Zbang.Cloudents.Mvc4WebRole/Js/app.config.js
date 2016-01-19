@@ -159,6 +159,7 @@
             //    'dimension3': data.id || null
             //}
         });
+        analyticsProvider.trackUrlParams(true);
         analyticsProvider.setPageEvent('$stateChangeSuccess');
         //AnalyticsProvider.setDomainName('XXX');
     }
