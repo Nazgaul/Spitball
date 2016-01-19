@@ -20,18 +20,18 @@
 .folder-selected .arrow {
   fill: #323538;
 }
-.search-box ::-webkit-input-placeholder {
+.search-box::-webkit-input-placeholder {
   color: #282828;
 }
-.search-box :-moz-placeholder {
+.search-box:-moz-placeholder {
   /* Firefox 18- */
   color: #282828;
 }
-.search-box ::-moz-placeholder {
+.search-box::-moz-placeholder {
   /* Firefox 19+ */
   color: #282828;
 }
-.search-box :-ms-input-placeholder {
+.search-box:-ms-input-placeholder {
   color: #282828;
 }
 .search-box input {
@@ -147,18 +147,18 @@
 .add-comment {
   background: #181c1d;
 }
-.add-comment ::-webkit-input-placeholder {
+.add-comment::-webkit-input-placeholder {
   color: #323538;
 }
-.add-comment :-moz-placeholder {
+.add-comment:-moz-placeholder {
   /* Firefox 18- */
   color: #323538;
 }
-.add-comment ::-moz-placeholder {
+.add-comment::-moz-placeholder {
   /* Firefox 19+ */
   color: #323538;
 }
-.add-comment :-ms-input-placeholder {
+.add-comment:-ms-input-placeholder {
   color: #323538;
 }
 .add-comment .list-inline > li {
@@ -1054,18 +1054,18 @@ body {
 .search {
   background: #181c1d;
 }
-.search ::-webkit-input-placeholder {
+.search::-webkit-input-placeholder {
   color: #888b8e;
 }
-.search :-moz-placeholder {
+.search:-moz-placeholder {
   /* Firefox 18- */
   color: #888b8e;
 }
-.search ::-moz-placeholder {
+.search::-moz-placeholder {
   /* Firefox 19+ */
   color: #888b8e;
 }
-.search :-ms-input-placeholder {
+.search:-ms-input-placeholder {
   color: #888b8e;
 }
 .search em {
@@ -1101,18 +1101,18 @@ body {
 .invite md-content {
   background: #181c1d;
 }
-.invite md-content ::-webkit-input-placeholder {
+.invite md-content::-webkit-input-placeholder {
   color: #888b8e;
 }
-.invite md-content :-moz-placeholder {
+.invite md-content:-moz-placeholder {
   /* Firefox 18- */
   color: #888b8e;
 }
-.invite md-content ::-moz-placeholder {
+.invite md-content::-moz-placeholder {
   /* Firefox 19+ */
   color: #888b8e;
 }
-.invite md-content :-ms-input-placeholder {
+.invite md-content:-ms-input-placeholder {
   color: #888b8e;
 }
 .invite .gmail {
@@ -1148,18 +1148,18 @@ md-chips .md-chips.md-focused {
 .invite md-content {
   background: #181c1d;
 }
-.invite md-content ::-webkit-input-placeholder {
+.invite md-content::-webkit-input-placeholder {
   color: #888b8e;
 }
-.invite md-content :-moz-placeholder {
+.invite md-content:-moz-placeholder {
   /* Firefox 18- */
   color: #888b8e;
 }
-.invite md-content ::-moz-placeholder {
+.invite md-content::-moz-placeholder {
   /* Firefox 19+ */
   color: #888b8e;
 }
-.invite md-content :-ms-input-placeholder {
+.invite md-content:-ms-input-placeholder {
   color: #888b8e;
 }
 .invite .gmail {

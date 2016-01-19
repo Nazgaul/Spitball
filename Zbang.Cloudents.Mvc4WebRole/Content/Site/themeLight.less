@@ -410,28 +410,6 @@
         background: @backgroundColorMenu;
         border-bottom: 5px solid @backgroundColor;
 
-        .logo-search {
-            .search-form {
-                .search-area {
-                    background: @backgroundColor;
-
-                    .text {
-                        color: @textColorWhite;
-                    }
-                }
-            }
-
-            .logo {
-                .logo-default {
-                    fill: #fff;
-                }
-
-                .logo-small {
-                    fill: #fff;
-                }
-            }
-        }
-
         .user-md-menu {
             &:hover {
                 background: @backgroundColorMouseOver;
@@ -529,6 +507,9 @@
         &.text@{name} {
             color: @Color !important;
         }
+        &.input@{name}{
+            .placeHolder(@Color);
+        }
 
         &.svg@{name} {
             fill: @Color !important;
@@ -540,8 +521,6 @@
 
         &.outline@{name} {
             outline-color: @Color !important;
-            background: #29769e;
-            .placeHolder(@borderColorWhite);
         }
 
         &.hoverBackground@{name} {

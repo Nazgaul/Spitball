@@ -307,18 +307,6 @@ Page Loading
   background: #ffffff;
   border-bottom: 5px solid #e9eaed;
 }
-.theme-light .nav-bar .logo-search .search-form .search-area {
-  background: #e9eaed;
-}
-.theme-light .nav-bar .logo-search .search-form .search-area .text {
-  color: #212325;
-}
-.theme-light .nav-bar .logo-search .logo .logo-default {
-  fill: #fff;
-}
-.theme-light .nav-bar .logo-search .logo .logo-small {
-  fill: #fff;
-}
 .theme-light .nav-bar .user-md-menu:hover {
   background: #dadce2;
 }
@@ -373,18 +361,18 @@ Page Loading
 .theme-light .folder-selected .arrow {
   fill: #ffffff;
 }
-.theme-light .search-box ::-webkit-input-placeholder {
+.theme-light .search-box::-webkit-input-placeholder {
   color: #ffffff;
 }
-.theme-light .search-box :-moz-placeholder {
+.theme-light .search-box:-moz-placeholder {
   /* Firefox 18- */
   color: #ffffff;
 }
-.theme-light .search-box ::-moz-placeholder {
+.theme-light .search-box::-moz-placeholder {
   /* Firefox 19+ */
   color: #ffffff;
 }
-.theme-light .search-box :-ms-input-placeholder {
+.theme-light .search-box:-ms-input-placeholder {
   color: #ffffff;
 }
 .theme-light .search-box input {
@@ -500,18 +488,18 @@ Page Loading
 .theme-light .add-comment {
   background: #e9eaed;
 }
-.theme-light .add-comment ::-webkit-input-placeholder {
+.theme-light .add-comment::-webkit-input-placeholder {
   color: #ffffff;
 }
-.theme-light .add-comment :-moz-placeholder {
+.theme-light .add-comment:-moz-placeholder {
   /* Firefox 18- */
   color: #ffffff;
 }
-.theme-light .add-comment ::-moz-placeholder {
+.theme-light .add-comment::-moz-placeholder {
   /* Firefox 19+ */
   color: #ffffff;
 }
-.theme-light .add-comment :-ms-input-placeholder {
+.theme-light .add-comment:-ms-input-placeholder {
   color: #ffffff;
 }
 .theme-light .add-comment .list-inline > li {
@@ -1379,18 +1367,18 @@ Page Loading
 .theme-light .search {
   background: #e9eaed;
 }
-.theme-light .search ::-webkit-input-placeholder {
+.theme-light .search::-webkit-input-placeholder {
   color: #888b8e;
 }
-.theme-light .search :-moz-placeholder {
+.theme-light .search:-moz-placeholder {
   /* Firefox 18- */
   color: #888b8e;
 }
-.theme-light .search ::-moz-placeholder {
+.theme-light .search::-moz-placeholder {
   /* Firefox 19+ */
   color: #888b8e;
 }
-.theme-light .search :-ms-input-placeholder {
+.theme-light .search:-ms-input-placeholder {
   color: #888b8e;
 }
 .theme-light .search em {
@@ -1424,18 +1412,18 @@ Page Loading
 .theme-light .invite md-content {
   background: #e9eaed;
 }
-.theme-light .invite md-content ::-webkit-input-placeholder {
+.theme-light .invite md-content::-webkit-input-placeholder {
   color: #888b8e;
 }
-.theme-light .invite md-content :-moz-placeholder {
+.theme-light .invite md-content:-moz-placeholder {
   /* Firefox 18- */
   color: #888b8e;
 }
-.theme-light .invite md-content ::-moz-placeholder {
+.theme-light .invite md-content::-moz-placeholder {
   /* Firefox 19+ */
   color: #888b8e;
 }
-.theme-light .invite md-content :-ms-input-placeholder {
+.theme-light .invite md-content:-ms-input-placeholder {
   color: #888b8e;
 }
 .theme-light .invite .gmail {
@@ -1469,18 +1457,18 @@ Page Loading
 .theme-light .invite md-content {
   background: #e9eaed;
 }
-.theme-light .invite md-content ::-webkit-input-placeholder {
+.theme-light .invite md-content::-webkit-input-placeholder {
   color: #888b8e;
 }
-.theme-light .invite md-content :-moz-placeholder {
+.theme-light .invite md-content:-moz-placeholder {
   /* Firefox 18- */
   color: #888b8e;
 }
-.theme-light .invite md-content ::-moz-placeholder {
+.theme-light .invite md-content::-moz-placeholder {
   /* Firefox 19+ */
   color: #888b8e;
 }
-.theme-light .invite md-content :-ms-input-placeholder {
+.theme-light .invite md-content:-ms-input-placeholder {
   color: #888b8e;
 }
 .theme-light .invite .gmail {
@@ -1594,6 +1582,20 @@ Page Loading
 .theme-light .color-override.textColor1 {
   color: #e9eaed !important;
 }
+.theme-light .color-override.inputColor1::-webkit-input-placeholder {
+  color: #e9eaed;
+}
+.theme-light .color-override.inputColor1:-moz-placeholder {
+  /* Firefox 18- */
+  color: #e9eaed;
+}
+.theme-light .color-override.inputColor1::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #e9eaed;
+}
+.theme-light .color-override.inputColor1:-ms-input-placeholder {
+  color: #e9eaed;
+}
 .theme-light .color-override.svgColor1 {
   fill: #e9eaed !important;
 }
@@ -1602,21 +1604,6 @@ Page Loading
 }
 .theme-light .color-override.outlineColor1 {
   outline-color: #e9eaed !important;
-  background: #29769e;
-}
-.theme-light .color-override.outlineColor1 ::-webkit-input-placeholder {
-  color: #212325;
-}
-.theme-light .color-override.outlineColor1 :-moz-placeholder {
-  /* Firefox 18- */
-  color: #212325;
-}
-.theme-light .color-override.outlineColor1 ::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #212325;
-}
-.theme-light .color-override.outlineColor1 :-ms-input-placeholder {
-  color: #212325;
 }
 .theme-light .color-override.hoverBackgroundColor1:hover {
   background: #e9eaed !important;
@@ -1630,6 +1617,20 @@ Page Loading
 .theme-light .color-override.textColor2 {
   color: #4190b9 !important;
 }
+.theme-light .color-override.inputColor2::-webkit-input-placeholder {
+  color: #4190b9;
+}
+.theme-light .color-override.inputColor2:-moz-placeholder {
+  /* Firefox 18- */
+  color: #4190b9;
+}
+.theme-light .color-override.inputColor2::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #4190b9;
+}
+.theme-light .color-override.inputColor2:-ms-input-placeholder {
+  color: #4190b9;
+}
 .theme-light .color-override.svgColor2 {
   fill: #4190b9 !important;
 }
@@ -1638,21 +1639,6 @@ Page Loading
 }
 .theme-light .color-override.outlineColor2 {
   outline-color: #4190b9 !important;
-  background: #29769e;
-}
-.theme-light .color-override.outlineColor2 ::-webkit-input-placeholder {
-  color: #212325;
-}
-.theme-light .color-override.outlineColor2 :-moz-placeholder {
-  /* Firefox 18- */
-  color: #212325;
-}
-.theme-light .color-override.outlineColor2 ::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #212325;
-}
-.theme-light .color-override.outlineColor2 :-ms-input-placeholder {
-  color: #212325;
 }
 .theme-light .color-override.hoverBackgroundColor2:hover {
   background: #4190b9 !important;
@@ -1666,6 +1652,20 @@ Page Loading
 .theme-light .color-override.textColor3 {
   color: #ffffff !important;
 }
+.theme-light .color-override.inputColor3::-webkit-input-placeholder {
+  color: #ffffff;
+}
+.theme-light .color-override.inputColor3:-moz-placeholder {
+  /* Firefox 18- */
+  color: #ffffff;
+}
+.theme-light .color-override.inputColor3::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #ffffff;
+}
+.theme-light .color-override.inputColor3:-ms-input-placeholder {
+  color: #ffffff;
+}
 .theme-light .color-override.svgColor3 {
   fill: #ffffff !important;
 }
@@ -1674,21 +1674,6 @@ Page Loading
 }
 .theme-light .color-override.outlineColor3 {
   outline-color: #ffffff !important;
-  background: #29769e;
-}
-.theme-light .color-override.outlineColor3 ::-webkit-input-placeholder {
-  color: #212325;
-}
-.theme-light .color-override.outlineColor3 :-moz-placeholder {
-  /* Firefox 18- */
-  color: #212325;
-}
-.theme-light .color-override.outlineColor3 ::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #212325;
-}
-.theme-light .color-override.outlineColor3 :-ms-input-placeholder {
-  color: #212325;
 }
 .theme-light .color-override.hoverBackgroundColor3:hover {
   background: #ffffff !important;
@@ -1702,6 +1687,20 @@ Page Loading
 .theme-light .color-override.textColor4 {
   color: #29769e !important;
 }
+.theme-light .color-override.inputColor4::-webkit-input-placeholder {
+  color: #29769e;
+}
+.theme-light .color-override.inputColor4:-moz-placeholder {
+  /* Firefox 18- */
+  color: #29769e;
+}
+.theme-light .color-override.inputColor4::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #29769e;
+}
+.theme-light .color-override.inputColor4:-ms-input-placeholder {
+  color: #29769e;
+}
 .theme-light .color-override.svgColor4 {
   fill: #29769e !important;
 }
@@ -1710,21 +1709,6 @@ Page Loading
 }
 .theme-light .color-override.outlineColor4 {
   outline-color: #29769e !important;
-  background: #29769e;
-}
-.theme-light .color-override.outlineColor4 ::-webkit-input-placeholder {
-  color: #212325;
-}
-.theme-light .color-override.outlineColor4 :-moz-placeholder {
-  /* Firefox 18- */
-  color: #212325;
-}
-.theme-light .color-override.outlineColor4 ::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #212325;
-}
-.theme-light .color-override.outlineColor4 :-ms-input-placeholder {
-  color: #212325;
 }
 .theme-light .color-override.hoverBackgroundColor4:hover {
   background: #29769e !important;
@@ -1738,6 +1722,20 @@ Page Loading
 .theme-light .color-override.textColor5 {
   color: #777777 !important;
 }
+.theme-light .color-override.inputColor5::-webkit-input-placeholder {
+  color: #777777;
+}
+.theme-light .color-override.inputColor5:-moz-placeholder {
+  /* Firefox 18- */
+  color: #777777;
+}
+.theme-light .color-override.inputColor5::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #777777;
+}
+.theme-light .color-override.inputColor5:-ms-input-placeholder {
+  color: #777777;
+}
 .theme-light .color-override.svgColor5 {
   fill: #777777 !important;
 }
@@ -1746,21 +1744,6 @@ Page Loading
 }
 .theme-light .color-override.outlineColor5 {
   outline-color: #777777 !important;
-  background: #29769e;
-}
-.theme-light .color-override.outlineColor5 ::-webkit-input-placeholder {
-  color: #212325;
-}
-.theme-light .color-override.outlineColor5 :-moz-placeholder {
-  /* Firefox 18- */
-  color: #212325;
-}
-.theme-light .color-override.outlineColor5 ::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #212325;
-}
-.theme-light .color-override.outlineColor5 :-ms-input-placeholder {
-  color: #212325;
 }
 .theme-light .color-override.hoverBackgroundColor5:hover {
   background: #777777 !important;
@@ -1774,6 +1757,20 @@ Page Loading
 .theme-light .color-override.textColor6 {
   color: #c3c3c3 !important;
 }
+.theme-light .color-override.inputColor6::-webkit-input-placeholder {
+  color: #c3c3c3;
+}
+.theme-light .color-override.inputColor6:-moz-placeholder {
+  /* Firefox 18- */
+  color: #c3c3c3;
+}
+.theme-light .color-override.inputColor6::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #c3c3c3;
+}
+.theme-light .color-override.inputColor6:-ms-input-placeholder {
+  color: #c3c3c3;
+}
 .theme-light .color-override.svgColor6 {
   fill: #c3c3c3 !important;
 }
@@ -1782,21 +1779,6 @@ Page Loading
 }
 .theme-light .color-override.outlineColor6 {
   outline-color: #c3c3c3 !important;
-  background: #29769e;
-}
-.theme-light .color-override.outlineColor6 ::-webkit-input-placeholder {
-  color: #212325;
-}
-.theme-light .color-override.outlineColor6 :-moz-placeholder {
-  /* Firefox 18- */
-  color: #212325;
-}
-.theme-light .color-override.outlineColor6 ::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #212325;
-}
-.theme-light .color-override.outlineColor6 :-ms-input-placeholder {
-  color: #212325;
 }
 .theme-light .color-override.hoverBackgroundColor6:hover {
   background: #c3c3c3 !important;
@@ -1809,6 +1791,20 @@ Page Loading
 }
 .theme-light .color-override.textColor7 {
   color: #212325 !important;
+}
+.theme-light .color-override.inputColor7::-webkit-input-placeholder {
+  color: #212325;
+}
+.theme-light .color-override.inputColor7:-moz-placeholder {
+  /* Firefox 18- */
+  color: #212325;
+}
+.theme-light .color-override.inputColor7::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #212325;
+}
+.theme-light .color-override.inputColor7:-ms-input-placeholder {
+  color: #212325;
 }
 .theme-light .color-override.svgColor7 {
   fill: #212325 !important;
@@ -1831,6 +1827,20 @@ Page Loading
 .theme-light .color-override.textColor8 {
   color: #f5f5f5 !important;
 }
+.theme-light .color-override.inputColor8::-webkit-input-placeholder {
+  color: #f5f5f5;
+}
+.theme-light .color-override.inputColor8:-moz-placeholder {
+  /* Firefox 18- */
+  color: #f5f5f5;
+}
+.theme-light .color-override.inputColor8::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #f5f5f5;
+}
+.theme-light .color-override.inputColor8:-ms-input-placeholder {
+  color: #f5f5f5;
+}
 .theme-light .color-override.svgColor8 {
   fill: #f5f5f5 !important;
 }
@@ -1851,6 +1861,20 @@ Page Loading
 }
 .theme-light .color-override.textColor9 {
   color: #888b8e !important;
+}
+.theme-light .color-override.inputColor9::-webkit-input-placeholder {
+  color: #888b8e;
+}
+.theme-light .color-override.inputColor9:-moz-placeholder {
+  /* Firefox 18- */
+  color: #888b8e;
+}
+.theme-light .color-override.inputColor9::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #888b8e;
+}
+.theme-light .color-override.inputColor9:-ms-input-placeholder {
+  color: #888b8e;
 }
 .theme-light .color-override.svgColor9 {
   fill: #888b8e !important;
@@ -1873,6 +1897,20 @@ Page Loading
 .theme-light .color-override.textColor10 {
   color: #8c99a6 !important;
 }
+.theme-light .color-override.inputColor10::-webkit-input-placeholder {
+  color: #8c99a6;
+}
+.theme-light .color-override.inputColor10:-moz-placeholder {
+  /* Firefox 18- */
+  color: #8c99a6;
+}
+.theme-light .color-override.inputColor10::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #8c99a6;
+}
+.theme-light .color-override.inputColor10:-ms-input-placeholder {
+  color: #8c99a6;
+}
 .theme-light .color-override.svgColor10 {
   fill: #8c99a6 !important;
 }
@@ -1893,6 +1931,20 @@ Page Loading
 }
 .theme-light .color-override.textColor11 {
   color: #26566e !important;
+}
+.theme-light .color-override.inputColor11::-webkit-input-placeholder {
+  color: #26566e;
+}
+.theme-light .color-override.inputColor11:-moz-placeholder {
+  /* Firefox 18- */
+  color: #26566e;
+}
+.theme-light .color-override.inputColor11::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #26566e;
+}
+.theme-light .color-override.inputColor11:-ms-input-placeholder {
+  color: #26566e;
 }
 .theme-light .color-override.svgColor11 {
   fill: #26566e !important;
@@ -1915,6 +1967,20 @@ Page Loading
 .theme-light .color-override.textTransparent {
   color: transparent !important;
 }
+.theme-light .color-override.inputTransparent::-webkit-input-placeholder {
+  color: transparent;
+}
+.theme-light .color-override.inputTransparent:-moz-placeholder {
+  /* Firefox 18- */
+  color: transparent;
+}
+.theme-light .color-override.inputTransparent::-moz-placeholder {
+  /* Firefox 19+ */
+  color: transparent;
+}
+.theme-light .color-override.inputTransparent:-ms-input-placeholder {
+  color: transparent;
+}
 .theme-light .color-override.svgTransparent {
   fill: transparent !important;
 }
@@ -1923,21 +1989,6 @@ Page Loading
 }
 .theme-light .color-override.outlineTransparent {
   outline-color: transparent !important;
-  background: #29769e;
-}
-.theme-light .color-override.outlineTransparent ::-webkit-input-placeholder {
-  color: #212325;
-}
-.theme-light .color-override.outlineTransparent :-moz-placeholder {
-  /* Firefox 18- */
-  color: #212325;
-}
-.theme-light .color-override.outlineTransparent ::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #212325;
-}
-.theme-light .color-override.outlineTransparent :-ms-input-placeholder {
-  color: #212325;
 }
 .theme-light .color-override.hoverBackgroundTransparent:hover {
   background: transparent !important;
