@@ -19,12 +19,12 @@
                 studentId: studentId
             });
         }
-        d.getUniversityByFriends = function (token) {
-            return ajaxservice.get('/library/getuniversitybyfriends/', {
-                token: token
-            });
+        //d.getUniversityByFriends = function (token) {
+        //    return ajaxservice.get('/library/getuniversitybyfriends/', {
+        //        token: token
+        //    });
 
-        }
+        //}
         d.createUniversity = function (name, country) {
             return ajaxservice.post('/library/createuniversity/', {
                 name: name,

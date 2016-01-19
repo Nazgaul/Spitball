@@ -24,14 +24,14 @@
                          from zbox.University u ";
 
 
-        public const string GetUniversityByFriendIds = @"select top(3) u.id as id, u.universityname as name, u.largeimage as image , u.NoOfUsers as NumOfUsers, count(*)
-from zbox.university u join zbox.users u2 on u.id = u2.universityid
-where u2.facebookuserid in  @FriendsIds
-group by u.Id, u.universityname,u.LargeImage,u.NoOfUsers
-order by count(*) desc;";
+//        public const string GetUniversityByFriendIds = @"select top(3) u.id as id, u.universityname as name, u.largeimage as image , u.NoOfUsers as NumOfUsers, count(*)
+//from zbox.university u join zbox.users u2 on u.id = u2.universityid
+//where u2.facebookuserid in  @FriendsIds
+//group by u.Id, u.universityname,u.LargeImage,u.NoOfUsers
+//order by count(*) desc;";
 
-        public const string GetFriendsInUniversitiesByFriendsIds =
-            @"select top 5 universityid as UniversityId , UserImageLarge as Image from zbox.users where facebookuserid in @FriendsIds";
+        //public const string GetFriendsInUniversitiesByFriendsIds =
+        //    @"select top 5 universityid as UniversityId , UserImageLarge as Image from zbox.users where facebookuserid in @FriendsIds";
 
         public const string GetInitialValueOfUniversitiesBaseOnIpAddress =
    @"with country_cte(country) as (

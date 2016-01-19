@@ -73,7 +73,7 @@ namespace Zbang.Zbox.ReadServices
         Task<UserMinProfile> GetUserMinProfileAsync(GetUserMinProfileQuery query);
 
         Task<string> GetLocationByIpAsync(GetCountryByIpQuery query);
-        Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByFriendsIdsAsync(IEnumerable<long> friendsIds);
+        //Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByFriendsIdsAsync(IEnumerable<long> friendsIds);
 
 
         Task<IEnumerable<QuestionDto>> GetQuestionsWithAnswersAsync(GetBoxQuestionsQuery query);

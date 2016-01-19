@@ -329,7 +329,14 @@ md-tabs {
     }
 }
 /*#endregion*/
-
+//if page title have svg its settings
+.page-title {
+    svg {
+        width: 30px;
+        height: 30px;
+         fill: @backgroundColorMenu;
+    }
+}
 .close {
     float: right;
     margin-top: 6px;
@@ -619,14 +626,7 @@ md-tabs {
     width: 20px;
     fill: @svgDots;
 }
-//if page title have svg its settings
-.page-title {
-    svg {
-        width: 30px;
-        height: 30px;
-         fill: @backgroundColorMenu;
-    }
-}
+
  .button-Blue {
         background: @buttonColorBlue !important;
 

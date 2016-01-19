@@ -1,8 +1,8 @@
 ﻿
 (function () {
     angular.module('app').config(config);
-    config.$inject = ['$stateProvider'];
-    function config($stateProvider) {
+    config.$inject = ['$stateProvider', '$urlRouterProvider'];
+    function config($stateProvider, $urlRouterProvider) {
 
         $stateProvider
             .state('root', {
@@ -16,6 +16,7 @@
                 },
                 template: '<div class="page-animation" ui-view animation-class></div>'
             });
+        //$urlRouterProvider.otherwise('/dashboard/');
     }
 })();
 
@@ -26,7 +27,6 @@
     appRun.$inject = ['routerHelper'];
     function appRun(routerHelper) {
         routerHelper.configureStates(getStates());
-
 
         function getStates() {
             return [
@@ -104,27 +104,27 @@
                        templateUrl: '/item/indexpartial/'
                    },
                     {
-                        state: 'searchWithQuery',
-                        config: {
-                            url: '/search/?q',
-                            controller: 'SearchController as s',
-                            data: { animateClass: 'search full-screen' },
-                            reloadOnSearch: false
-                            //onEnter: routerHelper.universityRedirect
-                        },
-                        templateUrl: '/search/indexpartial/'
-                    },
-                    {
                         state: 'search',
                         config: {
                             url: '/search/',
                             controller: 'SearchController as s',
-                            data: { animateClass: 'search full-screen' },
+                            data: { animateClass: 'search' },
                             reloadOnSearch: false
                             //onEnter: routerHelper.universityRedirect
                         },
                         templateUrl: '/search/indexpartial/'
                     },
+                    //{
+                    //    state: 'search',
+                    //    config: {
+                    //        url: '/search/',
+                    //        controller: 'SearchController as s',
+                    //        data: { animateClass: 'search full-screen' },
+                    //        reloadOnSearch: false
+                    //        //onEnter: routerHelper.universityRedirect
+                    //    },
+                    //    templateUrl: '/search/indexpartial/'
+                    //},
                      {
                          state: 'dashboard',
                          config: {

@@ -126,29 +126,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return (long)num;
         }
 
-        [HttpGet]
-        public async Task<JsonResult> GetUniversityByFriends(string token)
-        {
-            if (string.IsNullOrEmpty(token))
-            {
-                return JsonError();
-            }
-            try
-            {
-                var friendsId = await m_FacebookService.Value.GetFacebookUserFriends(token);
-                var facebookFriendData = friendsId as FacebookFriendData[] ?? friendsId.ToArray();
-                var suggestedUniversity =
-                    await ZboxReadService.GetUniversityListByFriendsIdsAsync(facebookFriendData.Select(s => s.Id));
+        //[HttpGet]
+        //public async Task<JsonResult> GetUniversityByFriends(string token)
+        //{
+        //    if (string.IsNullOrEmpty(token))
+        //    {
+        //        return JsonError();
+        //    }
+        //    try
+        //    {
+        //        var friendsId = await m_FacebookService.Value.GetFacebookUserFriends(token);
+        //        var facebookFriendData = friendsId as FacebookFriendData[] ?? friendsId.ToArray();
+        //        var suggestedUniversity =
+        //            await ZboxReadService.GetUniversityListByFriendsIdsAsync(facebookFriendData.Select(s => s.Id));
 
 
-                return JsonOk(suggestedUniversity);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("Library Get friends authentication key=" + token, ex);
-                return JsonError();
-            }
-        }
+        //        return JsonOk(suggestedUniversity);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("Library Get friends authentication key=" + token, ex);
+        //        return JsonError();
+        //    }
+        //}
 
 
 

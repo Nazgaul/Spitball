@@ -8,12 +8,12 @@ namespace Zbang.Zbox.Infrastructure.Search
 {
     public interface IBoxWriteSearchProvider2
     {
-        Task<bool> UpdateData(IEnumerable<BoxSearchDto> boxToUpload, IEnumerable<long> boxToDelete);
+        Task<bool> UpdateDataAsync(IEnumerable<BoxSearchDto> boxToUpload, IEnumerable<long> boxToDelete);
     }
 
     public interface IBoxReadSearchProvider2
     {
-        Task<IEnumerable<SearchBoxes>> SearchBox(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
-        Task<IEnumerable<SearchBoxes>> SearchBox(ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken);
+        Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
+        Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken);
     }
 }

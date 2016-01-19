@@ -154,7 +154,7 @@
     <value>אנא הזן תשובה</value>
   </data>
   <data name="quizCreateNeedQuestionText" xml:space="preserve">
-    <value>אנא הזן שאלות</value>
+    <value>אנא הזן תשובות אפשריות</value>
   </data>
   <data name="unfollowClass" xml:space="preserve">
     <value>האם אתה מעוניין להפסיק לעקוב אחרי קורס זה?</value>
@@ -164,5 +164,14 @@
   </data>
   <data name="universityChooseContinue" xml:space="preserve">
     <value>סיים תהליך מציאת מוסד הלימודים</value>
+  </data>
+  <data name="changeEmailSuccess" xml:space="preserve">
+    <value>כתובת המייל החדשה נשמרה בהצלחה</value>
+  </data>
+  <data name="settingsChangeName" xml:space="preserve">
+    <value>העדכון נשמר בהצלחה</value>
+  </data>
+  <data name="settingsDone" xml:space="preserve">
+    <value>בוצע</value>
   </data>
 </root>

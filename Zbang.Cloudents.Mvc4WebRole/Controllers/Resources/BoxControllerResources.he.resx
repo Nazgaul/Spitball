@@ -135,4 +135,7 @@
   <data name="DashboardController_Create_Problem_with_Create_new_box" xml:space="preserve">
     <value>בעיה ביצירת קופסא חדשה</value>
   </data>
+  <data name="LinkNotFound" xml:space="preserve">
+    <value>הקישור לא נמצא </value>
+  </data>
 </root>

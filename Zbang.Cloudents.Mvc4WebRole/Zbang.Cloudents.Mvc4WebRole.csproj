@@ -2845,6 +2845,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.ar.resx" />
+    <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.en-GB.resx" />
     <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -2853,23 +2854,30 @@
       <LastGenOutput>AccountControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.ru.resx" />
+    <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.ar.resx" />
+    <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.en-GB.resx" />
     <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>BaseControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.ru.resx" />
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.ar.resx" />
+    <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.en-GB.resx" />
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>BoxControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.ru.resx" />
+    <EmbeddedResource Include="Controllers\Resources\HomeControllerResources.ar.resx" />
+    <EmbeddedResource Include="Controllers\Resources\HomeControllerResources.en-GB.resx" />
     <EmbeddedResource Include="Controllers\Resources\HomeControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\HomeControllerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>HomeControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\Resources\HomeControllerResources.ru.resx" />
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.ar.resx" />
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.en-gb.resx" />
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.he.resx" />
@@ -2973,16 +2981,22 @@
       <LastGenOutput>ValidatePasswordResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.ru.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\AccountResource.ar.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\AccountResource.en-GB.resx" />
     <EmbeddedResource Include="Views\Account\Resources\AccountResource.he.resx" />
     <EmbeddedResource Include="Views\Account\Resources\AccountResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AccountResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Account\Resources\AccountResource.ru.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\HomePageResources.ar.resx" />
+    <EmbeddedResource Include="Views\Account\Resources\HomePageResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.he.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HomePageResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Account\Resources\HomePageResources.ru.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomeResources.ar.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomeResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomeResources.he.resx" />

@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
             var query = new SearchQueryMobile(term, User.GetCloudentsUserId(), universityId.Value, page, sizePerPage);
             // Services.Log.Info(String.Format("search boxes query: {0}", query));
-            var retVal = await BoxSearchService2.SearchBox(query, default(CancellationToken)) ?? new List<SearchBoxes>();
+            var retVal = await BoxSearchService2.SearchBoxAsync(query, default(CancellationToken)) ?? new List<SearchBoxes>();
 
             return Request.CreateResponse(retVal.Select(s => new
             {
@@ -96,7 +96,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
             var query = new SearchQueryMobile(term, User.GetCloudentsUserId(), universityId.Value, page, sizePerPage);
             // Services.Log.Info(String.Format("search boxes query: {0}", query));
-            var retVal = await BoxSearchService2.SearchBox(query, default(CancellationToken)) ?? new List<SearchBoxes>();
+            var retVal = await BoxSearchService2.SearchBoxAsync(query, default(CancellationToken)) ?? new List<SearchBoxes>();
 
             return Request.CreateResponse(retVal.Select(s => new
             {

@@ -66,7 +66,7 @@
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
             var name = toState.name;
-            if (name === 'search' || name === 'universityChoose') {
+            if (name === 'universityChoose') {
                 self.hideSearch = true;
             } else {
                 self.hideSearch = false;

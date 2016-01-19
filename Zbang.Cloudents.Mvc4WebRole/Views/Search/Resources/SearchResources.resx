@@ -120,4 +120,7 @@
   <data name="Items" xml:space="preserve">
     <value>Items</value>
   </data>
+  <data name="SearchTitle" xml:space="preserve">
+    <value>Search results</value>
+  </data>
 </root>

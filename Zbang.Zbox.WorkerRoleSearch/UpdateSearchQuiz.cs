@@ -88,7 +88,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     updates.QuizzesToDelete.Count()));
 
                 var isSuccess =
-                    await m_QuizSearchProvider.UpdateData(updates.QuizzesToUpdate, updates.QuizzesToDelete);
+                    await m_QuizSearchProvider.UpdateDataAsync(updates.QuizzesToUpdate, updates.QuizzesToDelete);
                 if (isSuccess)
                 {
                     await m_ZboxWriteService.UpdateSearchQuizDirtyToRegularAsync(

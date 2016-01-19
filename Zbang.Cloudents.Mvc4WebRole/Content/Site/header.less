@@ -3,12 +3,18 @@
 .headerMenu {
     width: 20px;
     height: 20px;
+    fill: @borderColorBottomGrey;
+
+    &:hover {
+        fill: @backgroundColorMouseOver;
+    }
 }
 
 
 .searchIcon {
     width: 15px;
     height: 15px;
+    fill: @textColorWhite;
 }
 
 .headerHelp {
@@ -31,6 +37,7 @@
         width: 20px;
         margin-top: 30px;
         margin-right: 20px;
+        fill: @headerImagesColor;
     }
 
     .navbar-nav .open li {
@@ -45,6 +52,7 @@
 
             svg {
                 margin-top: 0;
+                fill: @backgroundColorWhite;
             }
         }
     }
@@ -55,16 +63,35 @@
         margin-top: 0;
         margin-right: 0;
     }
+
+    .badge-notifcation {
+        background-color: @backgroundColorRed;
+    }
 }
 
 .login, .signin {
+    //TODO: why important here
     display: inline-block !important;
     border-radius: 25px;
     margin-top: 13px;
     //background:#3293f6;
     font-size: 20px;
     text-transform: capitalize;
+    background: @backgroundColorWhite;
+    color: @textColorBlack;
 
+    &:hover {
+        background: @backgroundColorWhite !important;
+    }
+}
+
+.login {
+    background: @backgroundColorSpitballBlue;
+    color: @textColorWhite;
+
+    &:hover {
+        background: @backgroundColorSpitballBlue !important;
+    }
 }
 
 
@@ -74,7 +101,7 @@
 
 
 .md-user-menu {
-
+    background: @backgroundColorMenu;
 
 
     &:before {
@@ -85,6 +112,7 @@
         border-right: 8px solid transparent;
         border-left: 8px solid transparent;
         content: '';
+        border-bottom: 8px solid @backgroundColorMenu;
     }
 
 
@@ -95,6 +123,7 @@
         svg {
             width: 20px;
             height: 20px;
+            fill: @textColorWhite;
         }
 
 
@@ -105,6 +134,9 @@
             width: 180px;
             text-align: left;
 
+            span {
+                color: @textColorWhite;
+            }
         }
 
         md-icon {
@@ -130,6 +162,8 @@
     left: 0;
     height: 85px;
     z-index: 10;
+    background: @backgroundColorMenu;
+    border-bottom: 5px solid @backgroundColor;
 
     .logo-search {
         height: 100%;
@@ -151,11 +185,15 @@
                 }
 
                 .text {
+                    color: @textColorWhite;
+                    background: @backgroundColor;
                     font-size: 15px;
                     height: 40px;
                     line-height: 40px;
                     padding-left: 15px;
                     padding-right: 37px;
+                    border: 0;
+                    .placeHolder(@borderColorWhite);
                 }
             }
         }
@@ -201,6 +239,10 @@
     .user-md-menu {
         display: inline-block;
         padding: 0;
+
+        &:hover {
+            background: @backgroundColorMouseOver;
+        }
 
         .md-ripple-container {
             display: none;
