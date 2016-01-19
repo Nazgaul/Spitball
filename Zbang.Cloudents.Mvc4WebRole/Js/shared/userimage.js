@@ -6,7 +6,7 @@
     function generateImage($compile) {
         "use strict";
         var imageTemplate = '<img alt="" />',
-            letterTemplate = '<span class="userLetter background"></span>',
+            letterTemplate = '<span class="userLetter background color-override textColor1"></span>',
             emptyTemplate = '<img class="userImg" src="/images/user.svg" />';
 
 

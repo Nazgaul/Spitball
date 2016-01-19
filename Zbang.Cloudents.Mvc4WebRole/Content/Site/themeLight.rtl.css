@@ -1,6 +1,4 @@
-﻿/*#region exception colors*/
-/*@exceptionColor5:*/
-/*#endregion*/
+﻿/*#endregion*/
 /*#region general.less*/
 .theme-light {
   /*#region angularmaterial*/
@@ -48,6 +46,41 @@ Page Loading
   /*#region staticPages.less*/
   /*#endregion*/
   /*#region user.less*/
+  /*#endregion*/
+  /*#region ***************  OVERRIDE  ***************/
+  /*
+    .portlet.light {
+        color: @backgroundColor;
+
+        &.leaderboard, &.unibox {
+            background-color: #777777;
+        }
+
+
+        .universityTitle, .user-name, .userLetter, h4 {
+            color: @backgroundColor;
+        }
+
+
+        &.unibox {
+            .universityStats {
+                color: @textColorLightGrey;
+            }
+
+            .universityLink {
+                color: @textColorBlack;
+            }
+        }
+    }
+
+    .page-body md-sidenav {
+        background: transparent;
+    }
+
+    .leaderboard .user-name {
+        color: @textColorBlack;
+    }
+*/
   /*#endregion*/
 }
 .theme-light .userLetter {
@@ -450,9 +483,6 @@ Page Loading
 .theme-light .add-comment .list-inline > li {
   border: 1px solid #3d4348;
 }
-.theme-light .add-comment .new-comment-border {
-  border: 1px solid #5d6063;
-}
 .theme-light .add-comment textarea {
   background: #e9eaed;
 }
@@ -673,6 +703,11 @@ Page Loading
 }
 .theme-light .portlet.light > .portlet-title > .caption {
   color: #212325;
+}
+.theme-light .dashboard-stat2,
+.theme-light .box-cube {
+  outline: 1px solid transparent;
+  background: #ffffff;
 }
 .theme-light .dashboard-stat2 .display .number small {
   color: #212325;
@@ -1580,97 +1615,134 @@ Page Loading
 .theme-light .color-1 {
   color: #4190b9;
 }
-.theme-light.color-ovverride.backgroundColor1 {
+.theme-light.color-override.backgroundColor1 {
   background: #e9eaed !important;
 }
-.theme-light .color-ovverride.backgroundColor1 {
+.theme-light .color-override.backgroundColor1 {
   background: #e9eaed !important;
 }
-.theme-light .color-ovverride.textColor1 {
+.theme-light .color-override.textColor1 {
   color: #e9eaed !important;
 }
-.theme-light .color-ovverride.svgColor1 {
+.theme-light .color-override.svgColor1 {
   fill: #e9eaed !important;
 }
-.theme-light .color-ovverride.hoverBackgroundColor1:hover {
+.theme-light .color-override.borderColor1 {
+  border-color: #e9eaed !important;
+}
+.theme-light .color-override.outlineColor1 {
+  outline-color: #e9eaed !important;
+}
+.theme-light .color-override.hoverBackgroundColor1:hover {
   background: #e9eaed !important;
 }
-.theme-light .color-ovverride.backgroundColor2 {
+.theme-light .color-override.backgroundColor2 {
   background: #4190b9 !important;
 }
-.theme-light .color-ovverride.textColor2 {
+.theme-light .color-override.textColor2 {
   color: #4190b9 !important;
 }
-.theme-light .color-ovverride.svgColor2 {
+.theme-light .color-override.svgColor2 {
   fill: #4190b9 !important;
 }
-.theme-light .color-ovverride.hoverBackgroundColor2:hover {
+.theme-light .color-override.borderColor2 {
+  border-color: #4190b9 !important;
+}
+.theme-light .color-override.outlineColor2 {
+  outline-color: #4190b9 !important;
+}
+.theme-light .color-override.hoverBackgroundColor2:hover {
   background: #4190b9 !important;
 }
-.theme-light .color-ovverride.backgroundColor3 {
+.theme-light .color-override.backgroundColor3 {
   background: #ffffff !important;
 }
-.theme-light .color-ovverride.textColor3 {
+.theme-light .color-override.textColor3 {
   color: #ffffff !important;
 }
-.theme-light .color-ovverride.svgColor3 {
+.theme-light .color-override.svgColor3 {
   fill: #ffffff !important;
 }
-.theme-light .color-ovverride.hoverBackgroundColor3:hover {
+.theme-light .color-override.borderColor3 {
+  border-color: #ffffff !important;
+}
+.theme-light .color-override.outlineColor3 {
+  outline-color: #ffffff !important;
+}
+.theme-light .color-override.hoverBackgroundColor3:hover {
   background: #ffffff !important;
 }
-.theme-light .color-ovverride.backgroundColor4 {
+.theme-light .color-override.backgroundColor4 {
   background: #29769e !important;
 }
-.theme-light .color-ovverride.textColor4 {
+.theme-light .color-override.textColor4 {
   color: #29769e !important;
 }
-.theme-light .color-ovverride.svgColor4 {
+.theme-light .color-override.svgColor4 {
   fill: #29769e !important;
 }
-.theme-light .color-ovverride.hoverBackgroundColor4:hover {
+.theme-light .color-override.borderColor4 {
+  border-color: #29769e !important;
+}
+.theme-light .color-override.outlineColor4 {
+  outline-color: #29769e !important;
+}
+.theme-light .color-override.hoverBackgroundColor4:hover {
   background: #29769e !important;
 }
-.theme-light .color-ovverride.backgroundColor5 {
+.theme-light .color-override.backgroundColor5 {
   background: #777777 !important;
 }
-.theme-light .color-ovverride.textColor5 {
+.theme-light .color-override.textColor5 {
   color: #777777 !important;
 }
-.theme-light .color-ovverride.svgColor5 {
+.theme-light .color-override.svgColor5 {
   fill: #777777 !important;
 }
-.theme-light .color-ovverride.hoverBackgroundColor5:hover {
+.theme-light .color-override.borderColor5 {
+  border-color: #777777 !important;
+}
+.theme-light .color-override.outlineColor5 {
+  outline-color: #777777 !important;
+}
+.theme-light .color-override.hoverBackgroundColor5:hover {
   background: #777777 !important;
 }
-.theme-light .box-cube,
-.theme-light .dashboard-stat2 {
-  box-shadow: 0 0 1px #777777;
+.theme-light .color-override.backgroundColor6 {
+  background: #c3c3c3 !important;
 }
-.theme-light .portlet.light {
-  color: #e9eaed;
+.theme-light .color-override.textColor6 {
+  color: #c3c3c3 !important;
 }
-.theme-light .portlet.light.leaderboard,
-.theme-light .portlet.light.unibox {
-  background-color: #777777;
+.theme-light .color-override.svgColor6 {
+  fill: #c3c3c3 !important;
 }
-.theme-light .portlet.light .universityTitle,
-.theme-light .portlet.light .user-name,
-.theme-light .portlet.light .userLetter,
-.theme-light .portlet.light h4 {
-  color: #e9eaed;
+.theme-light .color-override.borderColor6 {
+  border-color: #c3c3c3 !important;
 }
-.theme-light .portlet.light.unibox .universityStats {
-  color: #c3c3c3;
+.theme-light .color-override.outlineColor6 {
+  outline-color: #c3c3c3 !important;
 }
-.theme-light .portlet.light.unibox .universityLink {
-  color: #ffffff;
+.theme-light .color-override.hoverBackgroundColor6:hover {
+  background: #c3c3c3 !important;
 }
-.theme-light .page-body md-sidenav {
-  background: transparent;
+.theme-light .color-override.backgroundTransparent {
+  background: transparent !important;
 }
-.theme-light .leaderboard .user-name {
-  color: #ffffff;
+.theme-light .color-override.textTransparent {
+  color: transparent !important;
+}
+.theme-light .color-override.svgTransparent {
+  fill: transparent !important;
+}
+.theme-light .color-override.borderTransparent {
+  border-color: transparent !important;
+}
+.theme-light .color-override.outlineTransparent {
+  outline-color: transparent !important;
+}
+.theme-light .color-override.hoverBackgroundTransparent:hover {
+  background: transparent !important;
 }
 .theme-light md-tabs md-tabs-wrapper {
   background: #ffffff;

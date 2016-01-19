@@ -1,20 +1,20 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div class="portlet light unibox" ng-controller="UniversityController as u">
+<div class="portlet light unibox color-override backgroundColor5" ng-controller="UniversityController as u">
     <md-progress-circular ng-if="u.loading" md-mode="indeterminate" class="circle-loading"></md-progress-circular>
     <div class="content clearfix" ng-if="!u.loading">
-        
-        <div class="universityTitle" layout="row" layout-align="center center">
+
+        <div class="universityTitle color-override textColor1" layout="row" layout-align="center center">
             <img class="universityimg img-circle" ng-src="{{::u.info.img}}" alt="univerisy picture" width="70" height="70" />
             <span class="multi-line-ellipsis limit-three">{{::u.info.name}}</span>
         </div>
-        <div class="universityStats">
+        <div class="universityStats  color-override textColor6">
             <div>{{::u.info.numOfBoxes | megaNumber}} @GeneralResources.Classes</div>
             <div>{{::u.info.numOfUsers | megaNumber}} @GeneralResources.Members</div>
             <div>{{::u.info.numOfItems | megaNumber}} @DashboardResource.Files</div>
         </div>
     </div>
-    <a ui-sref="department" class="universityLink text-capitalize button-Blue" ga-track-event="['dashboard', 'browse classes']">@DashboardResource.Browse</a>
+    <a ui-sref="department" class="universityLink text-capitalize button-Blue  color-override textColor3" ga-track-event="['dashboard', 'browse classes']">@DashboardResource.Browse</a>
 </div>
 

@@ -75,14 +75,6 @@
 @progressbarBackgroundColor: #dfe2e9;
 
 
-/*#region exception colors*/
-@Color1: @backgroundColor; // #e9eaed
-@Color2: @svgQuizBald; // #4190b9
-@Color3: @textColorBlack; // #ffffff
-@Color4: #29769e;
-@Color5: #777777;
-@Color6: #c3c3c3;
-/*@exceptionColor5:*/
 
 /*#endregion*/
 @import "siteColors.less";
@@ -257,7 +249,7 @@
             color: @textColorGrey;
         }
     }
-    
+
     .dots-3 {
         fill: @svgDots;
     }
@@ -349,11 +341,9 @@
     md-input-container:not(.md-input-invalid).md-input-focused label {
         color: @textColorLike;
     }
-     /*#region accountSettings.less*/
+    /*#region accountSettings.less*/
     .accountPage-wrapper {
         //.profile-content {
-       
-
         .section {
             background: @textColorDarkGrey;
         }
@@ -405,12 +395,21 @@
     }
     /*#endregion*/
     .theme();
+    /*#region ***************  OVERRIDE  ***************/
+    @Color1: @backgroundColor; // #e9eaed
+    @Color2: @svgQuizBald; // #4190b9
+    @Color3: @textColorBlack; // #ffffff
+    @Color4: #29769e;
+    @Color5: #777777;
+    @Color6: @textColorLightGrey; // #c3c3c3
+    @Transparent: transparent;
 
-    &.color-ovverride.backgroundColor1 {
+
+    &.color-override.backgroundColor1 {
         background: @Color1 !important;
     }
 
-    .color-classes(@name, @Color){
+    .color-classes(@name, @Color) {
         &.background@{name} {
             background: @Color !important;
         }
@@ -423,6 +422,14 @@
             fill: @Color !important;
         }
 
+        &.border@{name} {
+            border-color: @Color !important;
+        }
+
+        &.outline@{name} {
+            outline-color: @Color !important;
+        }
+
         &.hoverBackground@{name} {
             &:hover {
                 background: @Color !important;
@@ -430,19 +437,18 @@
         }
     }
 
-    .color-ovverride {
-            .color-classes(Color1, @Color1);
-            .color-classes(Color2, @Color2);
-            .color-classes(Color3, @Color3);
-            .color-classes(Color4, @Color4);
-            .color-classes(Color5, @Color5);
+    .color-override {
+        .color-classes(Color1, @Color1);
+        .color-classes(Color2, @Color2);
+        .color-classes(Color3, @Color3);
+        .color-classes(Color4, @Color4);
+        .color-classes(Color5, @Color5);
+        .color-classes(Color6, @Color6);
+        .color-classes(Transparent, @Transparent);
     }
 
 
-    .box-cube, .dashboard-stat2 {
-        box-shadow: 0 0 1px #777777;
-    }
-
+/*
     .portlet.light {
         color: @backgroundColor;
 
@@ -474,6 +480,7 @@
     .leaderboard .user-name {
         color: @textColorBlack;
     }
+*/
 
     md-tabs {
         md-tabs-wrapper {
@@ -519,4 +526,5 @@
     .dashboard .portlet md-chips .md-chip {
         background: @textColorLightGrey;
     }
+    /*#endregion*/
 }
