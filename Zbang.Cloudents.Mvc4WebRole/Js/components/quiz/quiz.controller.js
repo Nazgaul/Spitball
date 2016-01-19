@@ -68,8 +68,8 @@
         }
         quizService.getNumberOfSolvers({ quizId: $stateParams.quizId }).then(function (response) {
             q.topUsers = response.users;
-            for (var j = q.topUsers.length; j < 4; j++) {
-                q.topUsers.push({ name: '', image: '/images/site/user_' + j + '.png' });
+            for (var jj = q.topUsers.length; jj < 4; jj++) {
+                q.topUsers.push({ name: '', image: '/images/site/user_' + jj + '.png' });
             }
             q.classmatesCount = response.solversCount;
         });
@@ -79,7 +79,7 @@
 
 
         function start() {
-            if (!user.id) {
+            if (!q.user.id) {
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
             }
@@ -99,7 +99,7 @@
         }
 
         function afraid() {
-            if (!user.id) {
+            if (!q.user.id) {
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
             }
@@ -152,12 +152,12 @@
                     }
                     question = q.questions[i];
 
-                    for (var j = 0; j < question.answers.length; j++) {
-                        if (question.answers[j].id != map.answerId) {
+                    for (var jj = 0; jj < question.answers.length; jj++) {
+                        if (question.answers[jj].id != map.answerId) {
                             continue;
                         }
 
-                        answer = question.answers[j];
+                        answer = question.answers[jj];
                         assignAnswerToQuestion(question, answer);
                     }
                 }
