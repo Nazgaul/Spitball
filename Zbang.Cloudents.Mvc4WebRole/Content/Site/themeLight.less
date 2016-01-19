@@ -168,14 +168,6 @@
         color: @textColorWhite;
     }
 
-    md-dialog {
-        color: @textColorBlack;
-    }
-
-    md-menu-item > .md-button span {
-        color: @textColorBlack;
-    }
-
     md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
         background: @buttonColorBlue;
     }
@@ -249,10 +241,6 @@
             border-bottom: 1px solid @textColorGrey;
             color: @textColorGrey;
         }
-    }
-
-    .dots-3 {
-        fill: @svgDots;
     }
 
     .page-title {
@@ -512,11 +500,25 @@
     @Color4: #29769e;
     @Color5: #777777;
     @Color6: @textColorLightGrey; // #c3c3c3
+    @Color7: @textColorWhite; // #212325
+    @Color8: #f5f5f5;
+    @Color9: @textColorGrey;
+    @Color10: @borderColorLightGrey;
+    @Color11: @buttonColorHover;
     @Transparent: transparent;
-
-
+    /*
+    Usage in HTML:
+    color-override backgroundColor#
+    color-override textColor#
+    color-override svgColor#
+    color-override borderColor#
+    color-override outlineColor#
+    color-override hoverBackgroundColor#
+    color-override hoverSvgColor#
+    */
     &.color-override.backgroundColor1 {
         background: @Color1 !important;
+        color: @Color7;
     }
 
     .color-classes(@name, @Color) {
@@ -547,6 +549,12 @@
                 background: @Color !important;
             }
         }
+
+        &.hoverSvg@{name} {
+            &:hover {
+                fill: @Color !important;
+            }
+        }
     }
 
     .color-override {
@@ -556,44 +564,15 @@
         .color-classes(Color4, @Color4);
         .color-classes(Color5, @Color5);
         .color-classes(Color6, @Color6);
+        .color-classes(Color7, @Color7);
+        .color-classes(Color8, @Color8);
+        .color-classes(Color9, @Color9);
+        .color-classes(Color10, @Color10);
+        .color-classes(Color11, @Color11);
         .color-classes(Transparent, @Transparent);
     }
-
-
-/*
-    .portlet.light {
-        color: @backgroundColor;
-
-        &.leaderboard, &.unibox {
-            background-color: #777777;
-        }
-
-
-        .universityTitle, .user-name, .userLetter, h4 {
-            color: @backgroundColor;
-        }
-
-
-        &.unibox {
-            .universityStats {
-                color: @textColorLightGrey;
-            }
-
-            .universityLink {
-                color: @textColorBlack;
-            }
-        }
-    }
-
-    .page-body md-sidenav {
-        background: transparent;
-    }
-
-    .leaderboard .user-name {
-        color: @textColorBlack;
-    }
-*/
-
+    /*#region TODO*/
+    // TODO: find a better way than leaving this css peace
     md-tabs {
         md-tabs-wrapper {
             background: @textColorBlack;
@@ -603,40 +582,10 @@
             color: #4190b9;
         }
     }
-
-    .dots-3, .page-title svg {
-        fill: @textColorLightGrey;
-    }
-
-    .add-comment .file:hover {
-        fill: #29769e;
-    }
-
-    .add-comment md-input-container .md-input:active, .add-comment md-input-container .md-input:focus,
-    md-menu-item > .md-button span {
-        color: @textColorWhite;
-    }
-
-    .accountPage-wrapper {
-        .ontop {
-            color: #f5f5f5;
-        }
-    }
     // color fixes to be changed to color classes
-    .userPage h4.profile-usertitle-job {
-        color: @textColorGrey;
-    }
-
-    .userPage .points-container * {
-        color: @textColorBlack;
-    }
-
-    .dashboard .portlet {
-        background: @svgQuizBald;
-    }
-
     .dashboard .portlet md-chips .md-chip {
         background: @textColorLightGrey;
     }
+    /*#endregion*/
     /*#endregion*/
 }

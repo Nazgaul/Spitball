@@ -43,7 +43,7 @@
             </a>
             <md-menu ng-if="l.canDelete(dep)">
                 <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['university', 'delete department']">
-                    @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
+                    @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
                 </md-button>
                 <md-menu-content width="1">
                     <md-menu-item>
@@ -55,7 +55,7 @@
             </md-menu>
         </div>
         <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
-        <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" hide-xs ng-class="{'create-deparment-show' : l.createDepartmentOn, 'create-init' : l.createDepartmentShow && l.createClassShow}" class="create-box flex" ng-if="l.createDepartmentShow">
+        <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" hide-xs ng-class="{'create-deparment-show' : l.createDepartmentOn, 'create-init' : l.createDepartmentShow && l.createClassShow}" class="create-box flex " ng-if="l.createDepartmentShow">
             @{ Html.RenderPartial("_CreateDepartment");}
         </div>
         <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" hide-xs ng-class="{'create-box-show' : l.createBoxOn, 'create-init' : l.createDepartmentShow && l.createClassShow}" class="create-box flex" ng-if="l.createClassShow">

@@ -16,7 +16,7 @@
                     </div>
                     <div class="new-comment-border">
                         <md-input-container md-no-float>
-                            <textarea ng-model="f.add.newText" ng-focus="b.closeCollapse()" placeholder="@BoxResources.Whats"></textarea>
+                            <textarea ng-model="f.add.newText" ng-focus="b.closeCollapse()" placeholder="@BoxResources.Whats" class="color-override textColor7"></textarea>
                         </md-input-container>
                         <ul class="list-inline file-upload-area" ng-if=" f.add.files.length">
                             @*<li class="file-upload">
@@ -40,7 +40,7 @@
                         <div class="upload-options" layout="row" layout-wrap layout-align="space-between start">
                             <a user-not-register-popup="click" plupload="f.add.fileUpload.url" ng-click="f.add.upload()"
                                plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks" ga-track-event="['box-new-commnet', 'addFile']">
-                                @Html.Svg(url, "file", new { @class = "file" })
+                                @Html.Svg(url, "file", new { @class = "file color-override hoverSvgColor2" })
                             </a>
                             <button user-not-register-popup="click" type="button" class="google" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()" ga-track-event="['box-new-commnet', 'googleDrive']">
                                 @Html.Svg(url, "googleDrive")
@@ -66,7 +66,7 @@
                         </div>
                         <md-menu ng-if="b.canDelete(post.userId)">
                             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
-                                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
+                                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
                             </md-button>
                             <md-menu-content width="1">
                                 <md-menu-item>
@@ -96,7 +96,7 @@
                             <li ng-repeat="reply in post.answers" class="reply">
                                 <md-menu ng-if="b.canDelete(reply.userId)">
                                     <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
-                                        @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
+                                        @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
                                     </md-button>
                                     <md-menu-content width="1">
                                         <md-menu-item>
@@ -144,7 +144,7 @@
                         <form class="add-comment add-reply" ng-if="post.showFrom" ng-submit="f.add.createReply(post)">
                             <div class="reply-wrapper">
                                 <md-input-container md-no-float>
-                                    <textarea autofocus ng-model="f.add.newReplyText" ng-focus="b.closeCollapse()" placeholder="what's on your mind?"></textarea>
+                                    <textarea autofocus ng-model="f.add.newReplyText" ng-focus="b.closeCollapse()" placeholder="what's on your mind?" class="color-override textColor7"></textarea>
                                 </md-input-container>
                                 <ul class="list-inline">
                                     <li class="file-upload" ng-repeat="file in f.add.files | filter:{postId: post.id}" ng-include="'file-upload.html'">
@@ -154,7 +154,7 @@
                                 <div class="upload-options" layout="row" layout-wrap layout-align="space-between start">
                                     <a plupload="f.add.fileUpload.url" ng-click="f.add.upload(post.id)"
                                        plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks" ga-track-event="['box-feed', 'addFile']">
-                                        @Html.Svg(url, "file", new { @class = "file" })
+                                        @Html.Svg(url, "file", new { @class = "file color-override hoverSvgColor2" })
                                     </a>
                                     <button type="button" class="google" ng-disabled="f.add.googleDisabled" ng-click="f.add.google(post.id)" ga-track-event="['box-feed', 'googleDrive']">
                                         @Html.Svg(url, "googleDrive")
