@@ -10,6 +10,8 @@
   /*#endregion*/
   /*#region box.less*/
   /*#endregion*/
+  /*#region box.less*/
+  /*#endregion*/
   /*#region components-rounded.less*/
   /*#endregion*/
   /*#region dashboard.less*/
@@ -341,6 +343,9 @@ Page Loading
 .theme-light .change-email-dialog svg {
   fill: #ffffff;
 }
+.theme-light .folder-selected .arrow {
+  fill: #ffffff;
+}
 .theme-light .folder-selected .folder-name .folder-name-inner,
 .theme-light .folders .folder-name .folder-name-inner {
   background: #ffffff;
@@ -357,9 +362,6 @@ Page Loading
 }
 .theme-light .folder-selected .dots-3 {
   fill: #e9eaed;
-}
-.theme-light .folder-selected .arrow {
-  fill: #ffffff;
 }
 .theme-light .search-box::-webkit-input-placeholder {
   color: #ffffff;

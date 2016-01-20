@@ -25,8 +25,8 @@
         <md-tab md-on-select="s.changeTab(s.state.item)" md-active="s.tab === s.state.item" ga-track-event="['search', 'search items']">
             <md-tab-label>@BoxResources.Items</md-tab-label>
             <md-tab-body>
-                <div layout="row" layout-padding layout-wrap>
-                    <div flex-gt-lg="20" flex-lg="25" flex-md="33" flex-sm="50" flex-xs="100" ng-repeat="e in s.result" ng-include="'item-template.html'"></div>
+                <div layout="row" layout-padding layout-wrap >
+                    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" flex-xs="100" ng-repeat="e in s.result" ng-include="'item-template.html'"></div>
                 </div>
             </md-tab-body>
         </md-tab>
@@ -34,7 +34,7 @@
             <md-tab-label>@GeneralResources.Quizzes</md-tab-label>
             <md-tab-body>
                 <div layout="row" layout-padding layout-wrap>
-                    <div flex-gt-lg="20" flex-lg="25" flex-md="33" flex-sm="50" flex-xs="100" ng-repeat="e in s.result" ng-include="'quiz-template.html'"></div>
+                    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" flex-xs="100" ng-repeat="e in s.result" ng-include="'quiz-template.html'"></div>
                 </div>
             </md-tab-body>
         </md-tab>

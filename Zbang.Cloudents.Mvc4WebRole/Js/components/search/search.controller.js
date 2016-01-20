@@ -11,14 +11,13 @@
         }
 
 
-        self.tab = self.state.box;
-        self.tabIndex = 0;
+      
 
 
         self.boxes = [];
         self.items = [];
         self.quizzes = [];
-
+        assignTab();
 
 
 
@@ -51,6 +50,16 @@
             if (typeof $location.search().q === 'string') {
                 term = $location.search().q;
             }
+            assignTab();
+            page = 0;
+            needToBringMore = true;
+            doQuery();
+
+
+        }
+        function assignTab() {
+            self.tab = self.state.box;
+            self.tabIndex = 0;
             if (typeof $location.search().t === 'string') {
                 var index = 0;
                 for (var prop in self.state) {
@@ -63,12 +72,8 @@
                     index++;
                 }
             }
-            page = 0;
-            needToBringMore = true;
-            doQuery();
-
-
         }
+
         function changeTab(tab) {
             self.tab = tab;
             $location.search({
@@ -158,32 +163,3 @@
     }
 })();
 
-(function () {
-    angular.module('app.search').controller('SearchTriggerController', searchTriggerController);
-    searchTriggerController.$inject = ['$state', '$rootScope', '$location'];
-
-    function searchTriggerController($state, $rootScope, $location) {
-        var st = this;
-
-        st.search = search;
-        st.change = search;
-
-        st.term = $location.search().q;
-
-        function search(isValid) {
-            console.log($state);
-            if (isValid) {
-                var url = $state.href('search', { q: st.term });
-                url += '?q=' + st.term;
-                $location.url(url);
-                if ($state.current.name === 'search') {
-                    $rootScope.$broadcast('search-query');
-                }
-            }
-        }
-
-        $rootScope.$on('search-close', function() {
-            st.term = '';
-        });
-    }
-})()

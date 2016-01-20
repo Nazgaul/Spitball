@@ -246,6 +246,7 @@ from zbox.userboxrel ub join zbox.box b on ub.boxid = b.boxid and b.isdeleted = 
 where userid in (
 select userid from zbox.userboxrel where boxid = @BoxId)
 and b.boxid <> @BoxId
+and b.university = (select university from zbox.box where boxid = @BoxId)
 and @UserId not in (select ub2.userid from zbox.UserBoxRel ub2 where ub2.BoxId = b.BoxId)
 group by b.boxid, b.BoxName ,b.CourseCode,b.ProfessorName ,
 b.MembersCount,b.ItemCount , b.url

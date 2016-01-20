@@ -311,7 +311,8 @@ md-tabs md-ink-bar {
 .page-title svg {
   width: 30px;
   height: 30px;
-  fill: #323538;
+  fill: #f5f5f5;
+  opacity: .2;
 }
 .close {
   float: right;

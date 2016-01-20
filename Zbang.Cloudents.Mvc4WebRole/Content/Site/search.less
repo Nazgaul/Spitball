@@ -7,6 +7,7 @@
         overflow: hidden;
         padding-bottom: 0;
         display: block;
+        margin: 20px;
 
         .base {
             width: 40%;
@@ -19,8 +20,15 @@
             height: 100%;
             left: 40%;
             top: 0;
-            text-align: justify;
+            // text-align: justify;
             padding-left: 15px;
+            line-height: 16px;
+
+            h5 {
+                margin: 7px 0;
+                font-weight: 700;
+                color: @textColorGrey;
+            }
         }
     }
 
@@ -39,7 +47,8 @@
 
 .no-results {
     text-align: center;
-     @media (min-width: 960px) {
+
+    @media (min-width: 960px) {
         .s-content {
             padding: 0 5%;
         }
@@ -72,7 +81,7 @@
     }
 }
 
-.search-text {
+/*.search-text {
     font-size: 7vw;
     background: transparent;
     border: none;
@@ -84,7 +93,7 @@
     @media (min-width: 960px) {
         padding-left: 5%;
     }
-}
+}*/
 
 //search btn on header
 .search-form {

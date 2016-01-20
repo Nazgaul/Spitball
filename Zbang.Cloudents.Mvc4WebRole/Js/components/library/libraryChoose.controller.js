@@ -1,10 +1,9 @@
 ﻿(function () {
     angular.module('app.library').controller('LibraryChoose', libraryChoose);
 
-    libraryChoose.$inject = ['libraryService', 'userDetailsFactory', '$state', 'countryService',
-        'universitySuggest', 'userDetailsFactory'];
+    libraryChoose.$inject = ['libraryService', '$state', 'countryService', 'userDetailsFactory'];
 
-    function libraryChoose(libraryService, userDetails, $state, countryService, universitySuggest, userDetailsFactory) {
+    function libraryChoose(libraryService,  $state, countryService, userDetailsFactory) {
         var self = this, page = 0;
         self.term = '';
         self.universities = [];
@@ -18,7 +17,7 @@
         self.countries = [];
         self.paging = paging;
         self.code = {}
-        self.code.userName = userDetails.get().name;
+        self.code.userName = userDetailsFactory.get().name;
 
 
         countryService.getCountries(function (iso, country) {
@@ -74,9 +73,9 @@
 
         function assignData(response, needPage) {
 
-            if (!self.term && !needPage) {
-                response = universitySuggest.concat(response);
-            }
+            //if (!self.term && !needPage) {
+            //    response = universitySuggest.concat(response);
+            //}
             var data = [];
             for (var i = 0; i < response.length; i++) {
                 var uni = response[i];
@@ -119,7 +118,7 @@
 
 
         function goToLibrary(universityName, id) {
-            userDetails.setUniversity(universityName, id);
+            userDetailsFactory.setUniversity(universityName, id);
             $state.go('department');
         }
 
