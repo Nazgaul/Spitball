@@ -407,19 +407,14 @@ namespace Zbang.Zbox.ReadServices
             return m_Cache.QueryAsync(m_ReadService.GetDashboardLeaderBoardAsync, query);
         }
 
-
-
-
-
         public Task<UserWithStats> GetUserProfileWithStatsAsync(GetUserWithFriendQuery query)
         {
             return m_ReadService.GetUserProfileWithStatsAsync(query);
         }
 
-
-        //public Theme GetUserTheme(GetUserDetailsQuery query)
-        //{
-        //    return m_ReadService.GetUserTheme(query);
-        //}
+        public Task<ForgotPasswordDto> GetForgotPasswordByEmailAsync(GetUserByEmailQuery query, CancellationToken token)
+        {
+            return m_ReadService.GetForgotPasswordByEmailAsync(query, token);
+        }
     }
 }

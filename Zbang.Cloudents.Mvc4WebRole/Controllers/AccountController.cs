@@ -397,10 +397,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                     m_AuthenticationManager.SignIn(identity);
 
-                    var url = result.UniversityId.HasValue ? Url.Action("Index","Dashboard") : Url.Action("Choose", "Library");
+                    var url = result.UniversityId.HasValue ? Url.Action("Index", "Dashboard") : Url.Action("Choose", "Library");
                     m_CookieHelper.RemoveCookie(Invite.CookieName);
                     return JsonOk(url);
-                    
+
 
                 }
                 foreach (var error in createStatus.Errors)
@@ -646,7 +646,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> ResetPassword([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model)
+        public async Task<JsonResult> ResetPassword([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model, CancellationToken cancellationToken)
         {
 
             if (!ModelState.IsValid)
@@ -655,31 +655,44 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
+                var source = CreateCancellationToken(cancellationToken);
                 var query = new GetUserByEmailQuery(model.Email);
-                //Guid membershipUserId;
                 var tUser = m_UserManager.FindByEmailAsync(model.Email);
-                var tResult = ZboxReadService.GetUserDetailsByEmail(query);
+                var tResult = ZboxReadService.GetForgotPasswordByEmailAsync(query, source.Token);
 
                 await Task.WhenAll(tUser, tResult);
-                if (tUser.Result == null && tResult.Result != null)
+
+                var systemUser = tResult.Result;
+                if (systemUser == null)
                 {
-                    return JsonError(AccountControllerResources.FbRegisterError);
-                }
-                if (tUser.Result == null)
-                {
+                    TraceLog.WriteInfo("Email not exists " + model);
                     return JsonError(AccountControllerResources.EmailDoesNotExists);
                 }
 
-                var user = tUser.Result;
-                //var tResult = ZboxReadService.GetUserDetailsByMembershipId(query);
-                var identitylinkData = await m_UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                if (systemUser.IdentityId.HasValue)
+                {
+                    var user = tUser.Result;
+                    var identitylinkData = await m_UserManager.GeneratePasswordResetTokenAsync(user.Id);
 
-                var data = new ForgotPasswordLinkData(Guid.Parse(user.Id), 1, identitylinkData);
+                    var data = new ForgotPasswordLinkData(Guid.Parse(user.Id), 1, identitylinkData);
 
-                var linkData = EncryptElement(data);
-                await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(linkData, tResult.Result.Name.Split(' ')[0], model.Email, tResult.Result.Culture));
+                    var linkData = EncryptElement(data);
+                    await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(linkData, tResult.Result.FirstName, model.Email, tResult.Result.Culture));
 
-                return JsonOk();
+                    return JsonOk();
+                }
+                if (systemUser.FacebookId.HasValue)
+                {
+                    TraceLog.WriteInfo("facebook user " + model);
+                    return JsonError(AccountControllerResources.FbRegisterError);
+                }
+                if (string.IsNullOrEmpty(systemUser.GoogleId))
+                {
+                    TraceLog.WriteInfo("google user " + model);
+                    return JsonError(AccountControllerResources.GoogleForgotPasswordError);
+                }
+                TraceLog.WriteInfo("Email not exists " + model);
+                return JsonError(AccountControllerResources.EmailDoesNotExists);
 
             }
 
@@ -838,46 +851,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView();
         }
 
-
-        //[HttpPost, ZboxAuthorize]
-        //public JsonResult FirstTime(FirstTime firstTime)
-        //{
-        //    var userid = User.GetUserId();
-        //    var command = new UpdateUserFirstTimeStatusCommand(firstTime, userid);
-        //    ZboxWriteService.UpdateUserFirstTimeStatus(command);
-
-        //    return JsonOk();
-        //}
-
-        //[HttpGet]
-        //[OutputCache(CacheProfile = "PartialCache")]
-        //public ActionResult CongratsPartial()
-        //{
-        //    try
-        //    {
-        //        return PartialView("_Congrats");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("_Congrats", ex);
-        //        return Json(new JsonResponse(false));
-        //    }
-        //}
-
-        //[HttpGet]
-        //[OutputCache(CacheProfile = "PartialCache")]
-        //public ActionResult WelcomeAngularPartial()
-        //{
-        //    try
-        //    {
-        //        return PartialView("_WelcomeAngular");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("_WelcomeAngular", ex);
-        //        return Json(new JsonResponse(false));
-        //    }
-        //}
 
         protected override void Dispose(bool disposing)
         {

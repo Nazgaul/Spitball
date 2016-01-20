@@ -267,10 +267,6 @@ where u.userid = @UserId";
 
         public const string GetUserByMembershipId = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
     u.UserImageLarge as Image, u.Email as Email,
-    u.FirstTimeDashboard as FirstTimeDashboard,
-    u.FirstTimeLibrary as FirstTimeLibrary,
-    u.FirstTimeItem as FirstTimeItem,
-    u.FirstTimeBox as FirstTimeBox, 
     u.UserReputation as Score,
     uu.UniversityName as LibName,
     uu.LargeImage as LibImage,
@@ -281,10 +277,6 @@ where u.userid = @UserId";
 
         public const string GetUserByFacebookId = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
     u.UserImageLarge as Image, u.Email as Email,
-    u.FirstTimeDashboard as FirstTimeDashboard,
-    u.FirstTimeLibrary as FirstTimeLibrary,
-    u.FirstTimeItem as FirstTimeItem,
-    u.FirstTimeBox as FirstTimeBox, 
     u.UserReputation as Score,
     uu.UniversityName as LibName,
     uu.LargeImage as LibImage,
@@ -296,10 +288,6 @@ where u.userid = @UserId";
 
         public const string GetUserByGoogleId = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
     u.UserImageLarge as Image, u.Email as Email,
-    u.FirstTimeDashboard as FirstTimeDashboard,
-    u.FirstTimeLibrary as FirstTimeLibrary,
-    u.FirstTimeItem as FirstTimeItem,
-    u.FirstTimeBox as FirstTimeBox, 
     u.UserReputation as Score,
     uu.UniversityName as LibName,
     uu.LargeImage as LibImage,
@@ -311,10 +299,6 @@ where u.userid = @UserId";
 
         public const string GetUserById = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
     u.UserImageLarge as Image, u.Email as Email,
-    u.FirstTimeDashboard as FirstTimeDashboard,
-    u.FirstTimeLibrary as FirstTimeLibrary,
-    u.FirstTimeItem as FirstTimeItem,
-    u.FirstTimeBox as FirstTimeBox, 
     u.UserReputation as Score,
     uu.UniversityName as LibName,
     uu.LargeImage as LibImage,
@@ -331,10 +315,6 @@ u.UserName as Name,
 u.Culture as Culture, 
     u.UserImageLarge as Image,
     u.Email as Email,
-    u.FirstTimeDashboard as FirstTimeDashboard,
-    u.FirstTimeLibrary as FirstTimeLibrary,
-    u.FirstTimeItem as FirstTimeItem,
-    u.FirstTimeBox as FirstTimeBox, 
     u.UserReputation as Score,
     uu.UniversityName as LibName,
     uu.LargeImage as LibImage,
@@ -343,6 +323,15 @@ u.Culture as Culture,
     from zbox.Users u left join zbox.University uu on u.UniversityId = uu.Id
     where u.Email = @Email
 	and (u.MembershipUserId is not null or u.FacebookUserId is not null or u.GoogleUserId is not null)";
+
+        public const string GetUserDetailsForgotPassword = @"select 
+u.FirstName as FirstName,
+u.Culture as Culture, 
+u.MembershipUserId as IdentityId,
+u.FacebookUserId as FacebookId,
+u.GoogleUserId as GoogleId
+    from zbox.Users u 
+    where u.Email = @Email";
 
 
         public const string GetUserAccountData = @"  select 

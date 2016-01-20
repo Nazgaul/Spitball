@@ -17,8 +17,7 @@ namespace Zbang.Zbox.ReadServices
         Task<LogInUserDto> GetUserDetailsById(GetUserByIdQuery query);
 
 
-        
-
+        Task<ForgotPasswordDto> GetForgotPasswordByEmailAsync(GetUserByEmailQuery query, CancellationToken token);
 
         #endregion
 

@@ -135,4 +135,7 @@
   <data name="UnspecifiedError" xml:space="preserve">
     <value>Whoops, we seem to be experiencing a technical error. Please try again</value>
   </data>
+  <data name="GoogleForgotPasswordError" xml:space="preserve">
+    <value>You have signed up to Spitball using Google. To log in, go to the homepage and click on the Google button</value>
+  </data>
 </root>
