@@ -8,10 +8,11 @@
         -webkit-transition: all .5s ease-in-out;
         transition: all .5s ease-in-out;
         .displayFlex();
+
         .folder-name-inner {
             //background: @backgroundColorMenu;
             padding: 0 6px;
-            width:100%;
+            width: 100%;
         }
 
         .content {
@@ -46,9 +47,10 @@
 
 .folders .folder-name .content {
     //padding: 2px 6px;
-    text-align:center;
+    text-align: center;
+
     div:last-child {
-        margin-top:3px;
+        margin-top: 3px;
     }
 }
 
@@ -87,7 +89,6 @@
     width: 100%;
     display: inline-block;
     //.placeHolder(@textColorBlack);
-
     input {
         //border: 10px solid @backgroundColorMenu;
         border-top-width: 15px;
@@ -103,7 +104,6 @@
         -o-transition: width 0.5s;
         transition: width 0.5s;
         //color: @textColorBlack;
-
         @media (max-width: 600px) {
             width: 100%;
             margin-bottom: 20px;
@@ -119,38 +119,33 @@
 
 
 .folders {
-   // md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
-   //     background: @buttonColorRed;
-   // }
-
+    // md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
+    //     background: @buttonColorRed;
+    // }
     .add-folder {
-       // &:hover {
-       //     .content {
-       //        // border: 1px solid @buttonColorBlue;
-       //
-       //        // svg {
-       //        //     fill: @buttonColorBlue;
-       //        // }
-       //
-       //        // span {
-       //        //     color: @buttonColorBlue;
-       //        // }
-       //     }
-       // }
-
+        // &:hover {
+        //     .content {
+        //        // border: 1px solid @buttonColorBlue;
+        //
+        //        // svg {
+        //        //     fill: @buttonColorBlue;
+        //        // }
+        //
+        //        // span {
+        //        //     color: @buttonColorBlue;
+        //        // }
+        //     }
+        // }
         .content {
             padding: 6px;
             background: none;
-           // border: 1px solid @textColorGrey;
-
-           // svg {
-           //     fill: @textColorGrey;
-           // }
-
-           // span {
-           //     color: @textColorGrey;
-           // }
-
+            // border: 1px solid @textColorGrey;
+            // svg {
+            //     fill: @textColorGrey;
+            // }
+            // span {
+            //     color: @textColorGrey;
+            // }
             button {
                 .displayFlex();
 
@@ -164,7 +159,7 @@
         svg {
             width: 15px;
             height: 15px;
-            vertical-align:middle;
+            vertical-align: middle;
             //fill: @borderColorGrey;
         }
 
@@ -174,7 +169,7 @@
             font-size: 16px;
             line-height: 20px;
             padding-left: 10px;
-            vertical-align:middle;
+            vertical-align: middle;
         }
     }
 }
@@ -202,34 +197,31 @@
 }
 
 .invite-btn {
-   // border: 1px solid @borderColorWhite;
+    // border: 1px solid @borderColorWhite;
     border-radius: 4px;
-   // color: @textColorWhite;
+    // color: @textColorWhite;
     text-transform: uppercase;
     padding: 5px 3vw 3px;
 }
 //add button
 .add-button {
     .aspect-ratio();
-
-   // &:hover {
-   //     .content {
-   //         border: 1px solid @buttonColorBlue;
-   //     }
-   //
-   //
-   //     a, button {
-   //         color: @buttonColorBlue;
-   //     }
-   //
-   //     svg {
-   //         fill: @buttonColorBlue;
-   //     }
-   // }
-
-
+    // &:hover {
+    //     .content {
+    //         border: 1px solid @buttonColorBlue;
+    //     }
+    //
+    //
+    //     a, button {
+    //         color: @buttonColorBlue;
+    //     }
+    //
+    //     svg {
+    //         fill: @buttonColorBlue;
+    //     }
+    // }
     .content {
-       // border: 1px solid @textColorGrey;
+        // border: 1px solid @textColorGrey;
         padding: 15px;
         //TODO: angular flex
         .displayFlex();
@@ -244,12 +236,12 @@
 
     a, button {
         font-size: 18px;
-       // color: @textColorGrey;
+        // color: @textColorGrey;
         text-align: center;
     }
 
     svg {
-      //  fill: @textColorGrey;
+        //  fill: @textColorGrey;
         width: 40px;
         height: 40px;
         display: block;
@@ -520,7 +512,6 @@
 
 .add-comment {
     //.placeHolder(@textColorDarkGrey);
-
     label {
         margin-bottom: 0;
     }
@@ -534,11 +525,11 @@
     }
 
     margin-bottom: 25px;
-   // background: @backgroundColor;
+    // background: @backgroundColor;
     padding: 10px;
 
     .new-comment-border {
-       // border: 1px solid @svgDots;
+        // border: 1px solid @svgDots;
         max-height: 250px;
         overflow: auto;
     }
@@ -546,11 +537,11 @@
     textarea {
         width: 100%;
         border: none;
-       // background: @backgroundColor;
+        // background: @backgroundColor;
         padding-left: 10px;
     }
 
-    
+
 
     md-input-container {
         padding-bottom: 0;
@@ -561,7 +552,7 @@
             color: #fff;
         }
     }
-   
+
     input[type=checkbox] {
         display: none;
 
@@ -571,21 +562,20 @@
                     padding-right: 10px;
                     font-size: 12px;
                     display: inline-block;
-                  //  color: @anonymousColor;
+                    //  color: @anonymousColor;
                 }
             }
-
             //svg {
             //    fill: @anonymousColor;
             //}
         }
     }
-    
+
     svg {
         width: 25px;
         height: 35px;
         vertical-align: middle;
-       // fill: @svgColorGrey;
+        // fill: @svgColorGrey;
     }
 
     .upload-options {
@@ -597,19 +587,17 @@
             padding: 0;
         }
     }
-
-   // .file {
-   //     &:hover {
-   //         fill: @fileColor;
-   //     }
-   // }
-   //
-   // .dropbox {
-   //     &:hover {
-   //         fill: @dropboxColor;
-   //     }
-   // }
-
+    // .file {
+    //     &:hover {
+    //         fill: @fileColor;
+    //     }
+    // }
+    //
+    // .dropbox {
+    //     &:hover {
+    //         fill: @dropboxColor;
+    //     }
+    // }
     .google {
         svg:first-child {
             display: none;
@@ -629,17 +617,14 @@
             }
         }
     }
-
     //.link {
     //    &:hover {
     //        fill: @linkColor;
     //    }
     //}
-
     .anonymous {
         width: 35px;
         height: 35px;
-
         //&:hover {
         //    fill: @anonymousColor;
         //}
@@ -648,16 +633,14 @@
     &.new-post {
         padding: 0;
         position: relative;
-
         //.top img {
         //    background: @borderColorDarkGrey;
         //    border: 3px solid @borderColorDarkGrey;
         //}
-        
         .new-comment-border {
             border: none;
 
-            
+
 
 
             textarea {
@@ -902,6 +885,7 @@
         -webkit-line-clamp: 3;
         line-height: 20px;
     }
+
     .extra {
         position: absolute;
         left: 0;
@@ -1009,7 +993,6 @@
             height: 80px;
             padding: 15px;
             margin: 0 auto 10px;
-
         }
     }
 
@@ -1077,6 +1060,7 @@ md-tabs.box-nav-bar md-tabs-wrapper {
             width: 100%;
             margin-bottom: 8px;
         }
+
         .btn {
             padding: 5px 40px;
             font-size: 18px;
@@ -1099,7 +1083,6 @@ md-tabs.box-nav-bar md-tabs-wrapper {
                 height: 20px;
                 vertical-align: middle;
             }
-
         }
 
 
@@ -1116,7 +1099,6 @@ md-tabs.box-nav-bar md-tabs-wrapper {
             bottom: 0;
             left: 0;
             right: 0;
-
         }
 
         .file-name {
