@@ -144,7 +144,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
                         new JsFileWithCdn("~/bower_components/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc7/angular-material.min.js"),
 
-                       new JsFileWithCdn("~/scripts/ng-infinite-scroll.js"),// 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),
                         
 

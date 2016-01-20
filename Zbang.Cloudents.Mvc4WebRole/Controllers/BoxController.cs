@@ -392,32 +392,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        //[NonAction]
-        //private JsonResult DeleteUserFomBox(long boxId, long userToDeleteId)
-        //{
-        //    try
-        //    {
-        //        var userId = User.GetUserId();
-        //        var command = new DeleteUserFromBoxCommand(userId, userToDeleteId, boxId);
-        //        ZboxWriteService.DeleteUserFromBox(command);
-
-        //        //Check
-        //        return JsonOk();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError(string.Format("DeleteSubscription user: {0} boxid: {1}", User.GetUserId(), boxId), ex);
-        //        return JsonError();
-        //    }
-        //}
-
-
-        //[HttpPost]
-        //[ZboxAuthorize]
-        //public JsonResult RemoveUser(long boxId, long userId)
-        //{
-        //    return DeleteUserFomBox(boxId, userId);
-        //}
+       
         #endregion
 
 
@@ -508,59 +483,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError();
             }
         }
-
-        //[HttpGet]
-        //[OutputCache(CacheProfile = "PartialCache")]
-
-        //public ActionResult UploadPartial()
-        //{
-        //    try
-        //    {
-        //        return PartialView("_UploadDialog");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("_UploadDialog ", ex);
-        //        return JsonError();
-        //    }
-        //}
-
-        //[HttpGet]
-        //[OutputCache(CacheProfile = "PartialCache")]
-
-
-        //public ActionResult UploadLinkPartial()
-        //{
-        //    try
-        //    {
-        //        return PartialView("_UploadAddLink");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("_UploadAddLink", ex);
-        //        return JsonError();
-        //    }
-        //}
-
-
-        //[HttpGet]
-        //[OutputCache(CacheProfile = "PartialCache")]
-        //public ActionResult SocialInvitePartial()
-        //{
-        //    try
-        //    {
-        //        return PartialView("_Invite");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("_Invite", ex);
-        //        return JsonError();
-        //    }
-        //}
-
-
-
-
 
     }
 }

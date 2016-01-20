@@ -1649,6 +1649,7 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\3rdParty\fbShare.png" />
     <Content Include="Images\3rdParty\logo_120_4_google.png" />
     <Content Include="Images\aboutUs\aboutBg.jpg" />
     <Content Include="Images\aboutUs\dean.png" />
@@ -1836,7 +1837,6 @@
     <Content Include="Js\CDNFallback.min.js">
       <DependentUpon>CDNFallback.js</DependentUpon>
     </Content>
-    <Content Include="Js\Logon.js" />
     <Content Include="Js\Web.config" />
     <Content Include="cdn\gzip\Web.config" />
     <Content Include="Content\signin\components-md.less" />
@@ -1887,16 +1887,10 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="robots.txt" />
-    <Content Include="Scripts\angular-cache-2.4.1.js" />
-    <Content Include="Scripts\angular-cookies.js" />
-    <Content Include="Scripts\angular-cookies.min.js" />
     <Content Include="Scripts\angular-countUp.js" />
     <Content Include="Scripts\angular-messages.js" />
     <Content Include="Scripts\angular-messages.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
-    <Content Include="Scripts\angular-route.min.js" />
-    <Content Include="Scripts\angular-sanitize.js" />
-    <Content Include="Scripts\angular-sanitize.min.js" />
     <Content Include="Scripts\angular-srph-infinite-scroll.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
@@ -1907,8 +1901,6 @@
     <Content Include="Scripts\draganddrop.js" />
     <Content Include="Scripts\draganddrop.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="Scripts\angular-sanitize.min.js.map" />
-    <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-messages.min.js.map" />
     <None Include="Scripts\jquery-2.1.4-vsdoc.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
@@ -2661,24 +2653,7 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\plupload2\angular-plupload2.js" />
-    <Content Include="Scripts\Site\bootstrap-hover-dropdown.js" />
-    <Content Include="Scripts\Site\bootstrap-switch.js" />
-    <Content Include="Scripts\Site\bootstrap-tabdrop.js" />
     <Content Include="Scripts\Site\gmaps.js" />
-    <Content Include="Scripts\Site\index3.js" />
-    <Content Include="Scripts\Site\jquery-ui.min.js" />
-    <Content Include="Scripts\Site\jquery.dataTables.min.js" />
-    <Content Include="Scripts\Site\jquery.mixitup.min.js" />
-    <Content Include="Scripts\Site\jquery.slimscroll.js" />
-    <Content Include="Scripts\Site\quick-sidebar.js" />
-    <Content Include="Scripts\Site\table-advanced.js" />
-    <Content Include="Scripts\Site\tasks.js" />
-    <Content Include="Scripts\textAngular\textAngular-rangy.min.js" />
-    <Content Include="Scripts\textAngular\textAngular-sanitize.js" />
-    <Content Include="Scripts\textAngular\textAngular.js" />
-    <Content Include="Scripts\textAngular\textAngularSetup.js" />
-    <Content Include="Scripts\ng-infinite-scroll.js" />
-    <Content Include="Scripts\ng-infinite-scroll.min.js" />
     <Content Include="Scripts\plupload2\angular-plupload.js" />
     <Content Include="Scripts\plupload2\moxie.js" />
     <Content Include="Scripts\plupload2\moxie.min.js" />
