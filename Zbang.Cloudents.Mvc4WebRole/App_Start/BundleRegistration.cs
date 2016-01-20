@@ -220,7 +220,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
                         new JsFileWithCdn("~/js/components/search/search.controller.js"),
+                        new JsFileWithCdn("~/js/components/search/searchTrigger.controller.js"),
                         new JsFileWithCdn("~/js/components/search/search.service.js"),
+                        
 
                         new JsFileWithCdn("~/js/components/leaderboard.controller.js"),
 
