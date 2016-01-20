@@ -17,9 +17,6 @@
 .folder-selected .dots-3 {
   fill: #181c1d;
 }
-.folder-selected .arrow {
-  fill: #323538;
-}
 .search-box::-webkit-input-placeholder {
   color: #282828;
 }

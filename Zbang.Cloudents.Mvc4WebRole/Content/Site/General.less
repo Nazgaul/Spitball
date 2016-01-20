@@ -334,15 +334,19 @@ md-tabs {
     svg {
         width: 30px;
         height: 30px;
-         fill: @backgroundColorMenu;
+        fill: @textColorWhite;
+        opacity: .2;
     }
 }
+
 .close {
     float: right;
     margin-top: 6px;
-     &:hover {
-            color: @textColorWhite;
-        }
+
+    &:hover {
+        color: @textColorWhite;
+    }
+
     svg {
         width: 17px;
         height: 17px;
@@ -356,24 +360,25 @@ md-tabs {
 
 .create-box {
     &:hover {
-            .dashboard-stat2 {
-                border: 2px solid @buttonColorBlue;
-                color: @buttonColorBlue;
-            }
+        .dashboard-stat2 {
+            border: 2px solid @buttonColorBlue;
+            color: @buttonColorBlue;
+        }
 
-            .plus {
-                svg {
-                    fill: @buttonColorBlue;
-                }
+        .plus {
+            svg {
+                fill: @buttonColorBlue;
             }
         }
+    }
+
     .dashboard-stat2 {
         background: transparent;
         padding-bottom: 5px;
         .displayFlex();
         padding-top: 0;
-         border: 2px solid @textColorGrey;
-            color: @textColorGrey;
+        border: 2px solid @textColorGrey;
+        color: @textColorGrey;
 
 
 
@@ -427,7 +432,7 @@ md-tabs {
         svg {
             width: 50px;
             height: 50px;
-             fill: @textColorGrey;
+            fill: @textColorGrey;
         }
     }
 
@@ -446,15 +451,15 @@ md-tabs {
 
     md-input-container .md-input {
         font-size: 18px;
-         color: @textColorWhite;
-            border-color: @borderColorLightGrey;
+        color: @textColorWhite;
+        border-color: @borderColorLightGrey;
     }
 
     &.create-box-show, &.create-deparment-show {
         display: block !important; //override hide-xs
         .dashboard-stat2 {
-                border: 2px solid @borderColorLightGrey;
-            }
+            border: 2px solid @borderColorLightGrey;
+        }
     }
 
     &.create-init {
@@ -464,10 +469,11 @@ md-tabs {
     .btn-primary {
         margin-left: 15px;
     }
+
     md-input-container:not(.md-input-invalid).md-input-focused .md-input {
-            border-bottom: 1px solid @textColorGrey;
-            color: @textColorGrey;
-        }
+        border-bottom: 1px solid @textColorGrey;
+        color: @textColorGrey;
+    }
 }
 
 
@@ -627,17 +633,17 @@ md-tabs {
     fill: @svgDots;
 }
 
- .button-Blue {
-        background: @buttonColorBlue !important;
+.button-Blue {
+    background: @buttonColorBlue !important;
 
-        &:hover {
-            background: @buttonColorHover !important;
-            color: @textColorWhite !important;
-        }
-        /*&:focus {
+    &:hover {
+        background: @buttonColorHover !important;
+        color: @textColorWhite !important;
+    }
+    /*&:focus {
         color: inherit;
     }*/
-    }
+}
 
 
 // moved from components rouned
@@ -668,11 +674,12 @@ md-tabs {
             background: none;
             border: 0;
             margin: 0;
-             color: @textColorWhite;
+            color: @textColorWhite;
         }
 
         &.active {
             border-bottom: 3px solid @borderColorBlue;
+
             & > a {
                 .overElement();
             }
@@ -711,13 +718,13 @@ md-tabs {
         outline: none;
 
         &:hover, &:focus {
-             color: @textColorBlue;
+            color: @textColorBlue;
             background: transparent;
         }
 
         &.active, &:active {
-              border-bottom: 3px solid @borderColorBlue;
-                color: @textColorWhite;
+            border-bottom: 3px solid @borderColorBlue;
+            color: @textColorWhite;
             background: transparent;
             border: 0;
             font-weight: bold;
@@ -734,7 +741,8 @@ md-tabs {
         & > a {
             font-size: 16px;
             border: none;
-             color: @textColorGrey;
+            color: @textColorGrey;
+
             &:hover {
                 border: none;
                 color: @textColorBlue;
@@ -755,7 +763,7 @@ md-tabs {
     color: #fff;
     text-shadow: 0 -.062em 0 rgba(0,0,0,.2);
     white-space: nowrap;
-     background-color: @backgroundColorRed;
+    background-color: @backgroundColorRed;
 }
 
 .ribbon:before,
@@ -813,10 +821,11 @@ md-menu-item {
         fill: @borderColorBlue;
     }
 }
+
 md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
-    md-input-container:not(.md-input-invalid).md-input-focused label {
-        color: @textColorLike;
-    }
+md-input-container:not(.md-input-invalid).md-input-focused label {
+    color: @textColorLike;
+}
 
 //back arrow
 .back-arrow {

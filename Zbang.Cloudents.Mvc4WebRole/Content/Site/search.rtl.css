@@ -4,6 +4,7 @@
   overflow: hidden;
   padding-bottom: 0;
   display: block;
+  margin: 20px;
 }
 .search .item .base,
 .search .quiz .base {
@@ -17,8 +18,14 @@
   height: 100%;
   right: 40%;
   top: 0;
-  text-align: justify;
   padding-right: 15px;
+  line-height: 16px;
+}
+.search .item .extra-details h5,
+.search .quiz .extra-details h5 {
+  margin: 7px 0;
+  font-weight: 700;
+  color: #888b8e;
 }
 .search .quiz .top .first-letter {
   font-size: 10vw;
@@ -71,20 +78,19 @@
   max-width: 700px;
   width: 100%;
 }
-.search-text {
-  font-size: 7vw;
-  background: transparent;
-  border: none;
-  outline: none;
-  line-height: normal;
-  padding-top: 25px;
-  padding-bottom: 25px;
-}
-@media (min-width: 960px) {
-  .search-text {
-    padding-right: 5%;
-  }
-}
+/*.search-text {
+    font-size: 7vw;
+    background: transparent;
+    border: none;
+    outline: none;
+    line-height: normal;
+    padding-top: 25px;
+    padding-bottom: 25px;
+
+    @media (min-width: 960px) {
+        padding-left: 5%;
+    }
+}*/
 .search-form {
   -moz-transition: all linear .5s;
   -o-transition: all linear .5s;
