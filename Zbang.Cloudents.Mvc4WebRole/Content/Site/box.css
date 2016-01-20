@@ -302,6 +302,8 @@
 }
 .feed .reply .content-text {
   margin-left: 50px;
+  -ms-word-break: break-all;
+  word-break: break-all;
 }
 .feed .actions {
   padding-bottom: 10px;
