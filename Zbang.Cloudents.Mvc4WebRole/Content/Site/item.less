@@ -152,16 +152,16 @@
             width: ~"calc(100% - 20px)";
         }
     }
-    /*.comments-section {
-        top: 85px;
-        bottom: 0;
-        position: fixed;
 
-        .menu-icon svg {
+    .comments-section .menu-icon {
+        margin-top: 5px;
+
+        svg {
             width: 20px;
             height: 20px;
         }
-    }*/
+    }
+
     .comments-wrapper, .comments-wrapper md-input-container .md-input {
         color: @textColorBlack;
     }
@@ -173,50 +173,42 @@
     }
 
     .comments-section {
-        min-width: 300px;
-        position: fixed;
-        top: 90px;
-        bottom: 0;
-        width: ~"calc(50% - 400px)";
-
-        md-sidenav {
-            width: 100%;
-            max-width: none;
-
-            @media (max-width: 1400px) {
-                box-shadow: 0 0 30px @borderColorLightGrey;
-            }
-
-            md-content {
-                width: 300px;
-                margin-left: auto;
-            }
+        .md-sidenav-backdrop {
+            display: none;
         }
 
-        > button {
+        > .menu-icon {
             position: fixed;
-            top: 90px;
-        }
-
-        .menu-icon {
-            padding-top: 10px;
+            top: 80px;
+            margin-top: 10px;
         }
     }
 
     .menu-toggler {
         text-align: right;
+        position: fixed;
+        width: 100%;
+        padding: 0 5px;
+        z-index: 1;
+        background: @textColorWhite;
 
-        @media (min-width: 1400px) {
+        @media (min-width: 1500px) {
             display: none;
         }
     }
 
     .comments-wrapper {
+        position: fixed !important;
+        top: 85px;
         background: @textColorWhite;
         width: 300px;
-        /*@media (max-width: 1399px) {
-            box-shadow: 0 5px 40px @borderColorLightGrey;
-        }*/
+
+
+        @media (max-width: 1500px) {
+            box-shadow: -10px 10px 75px @backgroundColorMenu;
+            z-index: 1;
+        }
+
         md-content {
             background-color: @textColorWhite;
         }
@@ -253,6 +245,7 @@
             width: 300px;
             padding: 15px;
             display: inline-block;
+            height: ~"calc(100vh - 120px)";
 
             .user-image {
                 padding-right: 10px;
@@ -317,7 +310,10 @@
     }
 
     .arrows {
-
+        position: fixed;
+        top: 50vh;
+        width: 900px;
+        margin-left: ~"calc(50% - 445px)";
 
         svg {
             width: 40px;
@@ -325,8 +321,7 @@
         }
 
         .arrow {
-            position: fixed;
-            top: ~"calc(50% + 80px)";
+            display: inherit;
             fill: @svgLightGrey;
         }
     }
