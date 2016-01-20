@@ -250,7 +250,11 @@
   position: fixed;
   top: 50vh;
   width: 900px;
-  margin-left: calc(50% - 445px);
+}
+@media (min-width: 890px) {
+  .itemPage .arrows {
+    margin-left: calc(50% - 445px);
+  }
 }
 .itemPage .arrows svg {
   width: 40px;
