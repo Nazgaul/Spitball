@@ -397,11 +397,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                     m_AuthenticationManager.SignIn(identity);
 
-
+                    var url = result.UniversityId.HasValue ? Url.Action("Index","Dashboard") : Url.Action("Choose", "Library");
                     m_CookieHelper.RemoveCookie(Invite.CookieName);
-                    return
-                        JsonOk();
-                    //Url.Action("Choose", "Library", new { returnUrl = CheckIfToLocal(model.ReturnUrl), @new = "true" }));
+                    return JsonOk(url);
+                    
 
                 }
                 foreach (var error in createStatus.Errors)

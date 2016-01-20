@@ -15,7 +15,7 @@
         });
 
         i.myPagingFunction = function () {
-            if (!user.id) {
+            if (!user.id || i.term) {
                 var defer = $q.defer();
                 defer.resolve();
                 return defer.promise;
@@ -179,7 +179,14 @@
                 getItems();
             }
             boxService.filterItem(i.term, boxId, 0).then(function (response) {
-                response = itemThumbnailService.assignValues(response);
+                //response = itemThumbnailService.assignValues(response);
+                angular.forEach(response, function (value) {
+                    value.downloadLink = value.url + 'download/';
+                    var retVal = itemThumbnailService.assignValue(value.source);
+                    value.thumbnail = retVal.thumbnail;
+                    //value.icon = retVal.icon;
+                    value.nameExtension = value.name.replace(/\.[^/.]+$/, "");
+                });
                 i.items = response;
             });
         }
