@@ -183,7 +183,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-               
+
                 var isNew = false;
                 var facebookUserData = await m_FacebookService.Value.FacebookLogIn(model.Token);
                 if (facebookUserData == null)
@@ -401,7 +401,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     m_CookieHelper.RemoveCookie(Invite.CookieName);
                     return
                         JsonOk();
-                            //Url.Action("Choose", "Library", new { returnUrl = CheckIfToLocal(model.ReturnUrl), @new = "true" }));
+                    //Url.Action("Choose", "Library", new { returnUrl = CheckIfToLocal(model.ReturnUrl), @new = "true" }));
 
                 }
                 foreach (var error in createStatus.Errors)

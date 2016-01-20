@@ -28,6 +28,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             HttpCachePolicyBase cache = filterContext.HttpContext.Response.Cache;
             cache.SetCacheability(HttpCacheability.NoCache);
             cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+            cache.SetNoStore();
             base.OnActionExecuting(filterContext);
         }
     }

@@ -9,24 +9,13 @@
             item: 'item',
             quiz: 'quiz',
         }
-
-
-      
-
-
         self.boxes = [];
         self.items = [];
         self.quizzes = [];
         assignTab();
 
-
-
-
-
         $rootScope.$on('search-query', searchElements);
         self.changeTab = changeTab;
-
-
 
         self.back = function () {
             $rootScope.$broadcast('search-close');
