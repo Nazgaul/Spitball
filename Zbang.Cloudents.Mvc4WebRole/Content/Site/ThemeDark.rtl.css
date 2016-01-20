@@ -129,9 +129,6 @@
 .feed .actions svg {
   fill: #888b8e;
 }
-.feed .actions .anonymous-wrapper .anonymous:hover {
-  fill: #d39f10;
-}
 .feed .actions .dropbox:hover {
   fill: #007ee5;
 }
@@ -140,6 +137,9 @@
 }
 .feed .add-reply .reply-wrapper {
   border: 1px solid #5d6063;
+}
+.mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
+  fill: #d39f10;
 }
 .add-comment {
   background: #181c1d;
@@ -201,9 +201,6 @@
 }
 .add-comment .link:hover {
   fill: #64d0ff;
-}
-.add-comment .anonymous:hover {
-  fill: #d39f10;
 }
 .add-comment.new-post .top img {
   background: #323538;
