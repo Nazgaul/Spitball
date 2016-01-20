@@ -1,9 +1,10 @@
 ﻿(function () {
     angular.module('app').controller('AppController', appController);
     appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state',
-        'userDetailsFactory', '$mdToast', '$document', '$mdMenu', 'resManager'];
+        'userDetailsFactory', '$mdToast', '$document', '$mdMenu', 'resManager', 'CacheFactory'];
 
-    function appController($rootScope, $window, $location, h, $state, userDetails, $mdToast, $document, $mdMenu, resManager) {
+    function appController($rootScope, $window, $location, h, $state, userDetails, $mdToast,
+        $document, $mdMenu, resManager, cacheFactory) {
         var self = this;
         $rootScope.$on('$viewContentLoaded', function () {
             var path = $location.path(),
@@ -31,12 +32,16 @@
             $state.go(element.name, element.params);
         }
 
+        self.logOut = logOut;
         self.openMenu = openMenu;
         self.hideSearch = false;
         self.resetForm = resetForm;
         self.showToaster = showToaster;
 
         self.toggleMenu = toggleMenu;
+        function logOut() {
+            cacheFactory.clearAll();
+        }
         function setTheme() {
             self.theme = 'theme-' + userDetails.get().theme;
         }

@@ -88,7 +88,7 @@
                 </md-button>
             </li>
             <li class="logout nav-item">
-                <md-button target="_self" user-not-register-popup="click" href="@Url.Action("logoff","account")">
+                <md-button target="_self" ng-click="app.logOut()" user-not-register-popup="click" href="@Url.Action("logoff","account")">
                     <span class="icon">
                         @Html.Svg(svgUrl, "logOffMenu")
                     </span>
