@@ -1,11 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
-using NHibernate;
 using System;
 using System.Linq;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
-using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
@@ -24,8 +22,7 @@ namespace Zbang.Zbox.ReadServices
             {
                 var retVal = await con.QueryAsync<LogInUserDto>(ViewModel.SqlQueries.Sql.GetUserByFacebookId,
                      new { FacebookUserId = query.FacebookId });
-                var t = retVal.FirstOrDefault();
-                return t;
+                return retVal.FirstOrDefault();
             }
         }
 
@@ -35,8 +32,7 @@ namespace Zbang.Zbox.ReadServices
             {
                 var retVal = await con.QueryAsync<LogInUserDto>(new CommandDefinition(ViewModel.SqlQueries.Sql.GetUserByGoogleId,
                     cancellationToken: cancellationToken, parameters: new { GoogleUserId = query.GoogleId }));
-                var t = retVal.FirstOrDefault();
-                return t;
+                return retVal.FirstOrDefault();
             }
         }
 
@@ -72,12 +68,18 @@ namespace Zbang.Zbox.ReadServices
             {
                 var retVal = await con.QueryAsync<LogInUserDto>(ViewModel.SqlQueries.Sql.GetUserByEmail,
                      new { query.Email });
-                var t = retVal.FirstOrDefault();
-                //if (t == null)
-                //{
-                //    throw new UserNotFoundException();
-                //}
-                return t;
+                return retVal.FirstOrDefault();
+            }
+        }
+
+        public async Task<ForgotPasswordDto> GetForgotPasswordByEmailAsync(GetUserByEmailQuery query,
+            CancellationToken token)
+        {
+            using (var con = await DapperConnection.OpenConnectionAsync(token))
+            {
+                var retVal = await con.QueryAsync<ForgotPasswordDto>(new CommandDefinition(ViewModel.SqlQueries.Sql.GetUserDetailsForgotPassword,
+                   cancellationToken: token, parameters: new { query.Email }));
+                return retVal.FirstOrDefault();
             }
         }
         #endregion

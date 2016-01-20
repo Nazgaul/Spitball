@@ -97,6 +97,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have signed up to Spitball using Google. To log in, go to the homepage and click on the Google button.
+        /// </summary>
+        internal static string GoogleForgotPasswordError {
+            get {
+                return ResourceManager.GetString("GoogleForgotPasswordError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The user name or password provided is incorrect.
         /// </summary>
         internal static string LogonError {
