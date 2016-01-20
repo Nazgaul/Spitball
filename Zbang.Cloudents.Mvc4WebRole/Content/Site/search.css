@@ -1,4 +1,12 @@
-﻿.search .item,
+﻿@media (max-width: 450px) {
+  .search {
+    margin-top: 60px;
+  }
+  .search .page-head {
+    display: none;
+  }
+}
+.search .item,
 .search .quiz {
   position: relative;
   overflow: hidden;

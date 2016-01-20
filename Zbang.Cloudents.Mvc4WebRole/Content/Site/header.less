@@ -12,8 +12,10 @@
 
 
 .searchIcon {
-    width: 15px;
-    height: 15px;
+    max-width: 23px;
+    max-height: 23px;
+    width: 85%;
+    height: 100%;
     fill: @textColorWhite;
 }
 
@@ -169,31 +171,52 @@
         height: 100%;
 
         .search-form {
-            max-width: 250px;
+            max-width: 350px;
             width: 100%;
-            margin: 0 30px;
+            margin: 0 60px;
 
+            @media (max-width: 700px) {
+                margin: 0 15px;
+            }
+
+            @media (max-width: 450px) {
+                position: absolute;
+                top: 83px;
+                left: 0;
+                padding: 10px;
+                margin: 0;
+                max-width: inherit;
+            }
 
 
             .search-area {
                 position: relative;
+                border-radius: 5px;
+                overflow: hidden;
 
                 .search-btn {
                     position: absolute;
-                    right: 15px;
-                    top: 12px;
+                    right: 0;
+                    top: 0;
+                    height: 100%;
+                    line-height: 100%;
+                    background: @buttonColorBlue;
+                    width: 20%;
+                    max-width: 60px;
+                    min-width: 30px;
                 }
 
                 .text {
-                    color: @textColorWhite;
-                    background: @backgroundColor;
+                    background: @textColorWhite;
+                    color: @backgroundColor;
                     font-size: 15px;
-                    height: 40px;
-                    line-height: 40px;
+                    height: 35px;
+                    line-height: 35px;
                     padding-left: 15px;
-                    padding-right: 37px;
+                    padding-right: 20%;
                     border: 0;
-                    .placeHolder(@borderColorWhite);
+                    .placeHolder(@backgroundColor);
+                    width: 100%;
                 }
             }
         }
