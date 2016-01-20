@@ -1,16 +1,4 @@
-﻿.itemPage {
-  /*.comments-section {
-        top: 85px;
-        bottom: 0;
-        position: fixed;
-
-        .menu-icon svg {
-            width: 20px;
-            height: 20px;
-        }
-    }*/
-}
-.itemPage header {
+﻿.itemPage header {
   position: fixed;
 }
 .itemPage header a {
@@ -134,6 +122,13 @@
     width: calc(100% - 20px);
   }
 }
+.itemPage .comments-section .menu-icon {
+  margin-top: 5px;
+}
+.itemPage .comments-section .menu-icon svg {
+  width: 20px;
+  height: 20px;
+}
 .itemPage .comments-wrapper,
 .itemPage .comments-wrapper md-input-container .md-input {
   color: #282828;
@@ -143,47 +138,38 @@
   height: 20px;
   fill: #8c99a6;
 }
-.itemPage .comments-section {
-  min-width: 300px;
+.itemPage .comments-section .md-sidenav-backdrop {
+  display: none;
+}
+.itemPage .comments-section > .menu-icon {
   position: fixed;
-  top: 90px;
-  bottom: 0;
-  width: calc(50% - 400px);
-}
-.itemPage .comments-section md-sidenav {
-  width: 100%;
-  max-width: none;
-}
-@media (max-width: 1400px) {
-  .itemPage .comments-section md-sidenav {
-    box-shadow: 0 0 30px #8c99a6;
-  }
-}
-.itemPage .comments-section md-sidenav md-content {
-  width: 300px;
-  margin-left: auto;
-}
-.itemPage .comments-section > button {
-  position: fixed;
-  top: 90px;
-}
-.itemPage .comments-section .menu-icon {
-  padding-top: 10px;
+  top: 80px;
+  margin-top: 10px;
 }
 .itemPage .menu-toggler {
   text-align: right;
+  position: fixed;
+  width: 100%;
+  padding: 0 5px;
+  z-index: 1;
+  background: #f5f5f5;
 }
-@media (min-width: 1400px) {
+@media (min-width: 1500px) {
   .itemPage .menu-toggler {
     display: none;
   }
 }
 .itemPage .comments-wrapper {
+  position: fixed !important;
+  top: 85px;
   background: #f5f5f5;
   width: 300px;
-  /*@media (max-width: 1399px) {
-            box-shadow: 0 5px 40px @borderColorLightGrey;
-        }*/
+}
+@media (max-width: 1500px) {
+  .itemPage .comments-wrapper {
+    box-shadow: -10px 10px 75px #323538;
+    z-index: 1;
+  }
 }
 .itemPage .comments-wrapper md-content {
   background-color: #f5f5f5;
@@ -212,6 +198,7 @@
   width: 300px;
   padding: 15px;
   display: inline-block;
+  height: calc(100vh - 120px);
 }
 .itemPage .comments-wrapper .comments .user-image {
   padding-right: 10px;
@@ -259,13 +246,18 @@
   padding-top: 10px;
   margin-top: 10px;
 }
+.itemPage .arrows {
+  position: fixed;
+  top: 50vh;
+  width: 900px;
+  margin-left: calc(50% - 445px);
+}
 .itemPage .arrows svg {
   width: 40px;
   height: 40px;
 }
 .itemPage .arrows .arrow {
-  position: fixed;
-  top: calc(50% + 80px);
+  display: inherit;
   fill: #c2c2c2;
 }
 .itemPage .right {

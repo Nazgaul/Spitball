@@ -1031,9 +1031,6 @@ body {
 .side-menu .md-button-toggle .arrow {
   color: darkgray;
 }
-.menu-toggle-list {
-  background: #fff;
-}
 /*#endregion*/
 /*#region profile.less*/
 .profile-userpic img,
