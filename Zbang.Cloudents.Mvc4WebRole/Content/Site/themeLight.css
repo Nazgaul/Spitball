@@ -417,8 +417,8 @@ Page Loading
   background: #006072;
 }
 .theme-light .invite-btn {
-  border: 1px solid #212325;
-  color: #212325;
+  background: #212325;
+  color: #006072;
 }
 .theme-light .add-button:hover .content {
   border: 1px solid #4190b9;

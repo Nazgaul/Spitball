@@ -71,8 +71,8 @@
   background: #006072;
 }
 .invite-btn {
-  border: 1px solid #f5f5f5;
-  color: #f5f5f5;
+  background: #f5f5f5;
+  color: #006072;
 }
 .add-button:hover .content {
   border: 1px solid #4190b9;

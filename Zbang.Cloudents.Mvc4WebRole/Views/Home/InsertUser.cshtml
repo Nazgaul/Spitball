@@ -5,11 +5,21 @@
 }
 <!DOCTYPE html>
 
-<html data-culture="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name">
+<html data-culture="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name" dir="rtl">
 <head>
     <link rel="SHORTCUT ICON" href="@Url.Content("~/favicon.ico")" />
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
     <meta charset="utf-8">
+    <style>
+        .success {
+            display: none;
+        }
+
+        .complete .success {
+            display: block;
+        }
+    </style>
+
 </head>
 <body>
     <!-- Google Tag Manager -->
@@ -18,14 +28,14 @@
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <script>
-(function (w, d, s, l, i) {
-    w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-            new Date().getTime(), event: 'gtm.js'
-    }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-        '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-})(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
     <!-- End Google Tag Manager -->
     <!--[if IE]>
         <script>
@@ -34,71 +44,46 @@
             }
         </script>
     <![endif]-->
-
-    <div class="wrap">
-        @{
-            var url = Url.Action("Index", "Account");
-            if (User != null && User.Identity.IsAuthenticated)
+    <div>
+        <h1>
+            טופס משתמש חדש לספיטבול
+            <br />
+            אגודת הסטודנטים המכללה למינהל
+        </h1>
+        <div style="line-height: 40px;">
+            @using (Html.BeginForm("InsertUser", "home", FormMethod.Post, new { @class = x }))
             {
-                url = Url.Action("Index", "Dashboard");
+                @Html.ValidationSummary(true)
+                @Html.ValidationMessageFor(m => m.FirstName)
+                @Html.LabelFor(m => m.FirstName)
+                @Html.TextBoxFor(m => m.FirstName, null, new { autocomplete = "off" })
+                <br />
+
+                @Html.ValidationMessageFor(m => m.LastName)
+                @Html.LabelFor(m => m.LastName)
+                @Html.TextBoxFor(m => m.LastName, null, new { autocomplete = "off" })
+                <br />
+
+                @Html.ValidationMessageFor(m => m.Id)
+                @Html.LabelFor(m => m.Id)
+                @Html.TextBoxFor(m => m.Id, null, new { autocomplete = "off" })
+                <br />
+                <input type="submit" value="עדכן" class="btn1" id="insert" />
+                <div class="success">הפרטים שהזנת עודכנו בהצלחה!</div>
             }
-        }
-        <header class="siteHeader staticHeader">
-            <input class="checkbox sidebarCb" type="checkbox" id="sidebarCb" />
-            <div class="headerActions rFloat">
-                <label for="sidebarCb" class="headerSettings rFloat">
-                    @Html.Svg("~/Images/Defs.svg", "menu", new { @class = "svg-menu" })
-                </label>
-            </div>
-            <div class="logoWrapper">
-                <a class="siteLogo" href="@url">
-                </a>
-            </div>
-        </header>
-        <div class="staticContent">
-            <div class="insertUser">
-                <h1>
-                    טופס משתמש חדש לSpitball
-                    <br />
-                    אגודת הסטודנטים המכללה למינהל
-                </h1>
-
-                @using (Html.BeginForm("InsertUser", "home", FormMethod.Post, new { @class = x }))
-                {
-                    @Html.ValidationSummary(true)
-                    @Html.ValidationMessageFor(m => m.FirstName)
-                    @Html.LabelFor(m => m.FirstName)
-                    @Html.TextBoxFor(m => m.FirstName, null, new { autocomplete = "off" })
-
-                    @Html.ValidationMessageFor(m => m.LastName)
-                    @Html.LabelFor(m => m.LastName)
-
-                    @Html.TextBoxFor(m => m.LastName, null, new { autocomplete = "off" })
-                    @Html.ValidationMessageFor(m => m.Id)
-                    @Html.LabelFor(m => m.Id)
-
-                    @Html.TextBoxFor(m => m.Id, null, new { autocomplete = "off" })
-
-                    <input type="submit" value="עדכן" class="btn1" id="insert" />
-                    <div class="success">הפרטים שהזנת עודכנו בהצלחה!</div>
-                }
-
-            </div>
         </div>
+
     </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script>
-        //$('#mLoading').hide();
-        //if (location.search.indexOf('complete') > 0) {
-        //$('.insertUser form').addClass('complete');
         window.setTimeout(function () {
-            $('.insertUser form').removeClass('complete');
+            $('form').removeClass('complete');
 
         }, 2000);
         if (window.history && window.history.replaceState) {
             window.history.replaceState(null, '', location.origin + location.pathname);
         }
-        //$this.removeClass('complete');
     </script>
 </body>
 </html>
