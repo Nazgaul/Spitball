@@ -1340,6 +1340,9 @@ Page Loading
 .theme-light .page-sidebar-menu .icon svg {
   fill: #212325;
 }
+.theme-light .page-body md-sidenav {
+  background: #ffffff;
+}
 .theme-light .page-body md-sidenav md-content .md-button {
   color: #212325;
   fill: #212325;
@@ -1349,9 +1352,6 @@ Page Loading
 }
 .theme-light .side-menu .md-button-toggle .arrow {
   color: darkgray;
-}
-.theme-light .menu-toggle-list {
-  background: #fff;
 }
 .theme-light .profile-userpic img,
 .theme-light .profile-userpic span {
