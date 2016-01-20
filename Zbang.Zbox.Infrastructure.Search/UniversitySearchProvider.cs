@@ -112,7 +112,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Select = listOfSelectParams,
             };
             var term = query.Term;
-            if (string.IsNullOrEmpty(term))
+            if (string.IsNullOrEmpty(term))//obsolete
             {
                 searchParametes.ScoringProfile = CountryScoringProfile;
                 searchParametes.ScoringParameters = new[] {"country:" + query.Country};

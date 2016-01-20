@@ -10,22 +10,6 @@
     <link rel="SHORTCUT ICON" href="@Url.Content("~/favicon.ico")" />
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
     <meta charset="utf-8">
-
-    <meta name="title" content="@ViewBag.title" />
-    <meta name="description" content="Join the social studying revolution at Spitball" />
-    @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" || System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
-    {
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
-    }
-    <link rel="image_src" href="@Url.CdnContent("/images/cloudents.png?v=1")" />
-
-    <meta property="fb:app_id" content="450314258355338">
-    <meta property="og:site_name" content="Spitball" />
-    <meta property="og:image" content="@Url.CdnContent("/images/cloudents.png?v=1")" />
-    <meta property="og:title" content="Spitball" />
-    <meta property="og:type" content="website" />
-    <meta id="fb_ShareLink" property="og:url" content="@Request.Url.AbsoluteUri" />
-
 </head>
 <body>
     <!-- Google Tag Manager -->
@@ -104,7 +88,7 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script>
-        $('#mLoading').hide();
+        //$('#mLoading').hide();
         //if (location.search.indexOf('complete') > 0) {
         //$('.insertUser form').addClass('complete');
         window.setTimeout(function () {
@@ -114,7 +98,7 @@
         if (window.history && window.history.replaceState) {
             window.history.replaceState(null, '', location.origin + location.pathname);
         }
-        $this.removeClass('complete');
+        //$this.removeClass('complete');
     </script>
 </body>
 </html>
