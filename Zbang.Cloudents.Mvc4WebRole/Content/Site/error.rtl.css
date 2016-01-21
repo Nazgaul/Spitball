@@ -104,7 +104,9 @@
 .error-500-page {
   text-align: center;
   margin-top: 70px;
-  margin: 0 auto;
+  right: 0;
+  left: 0;
+  position: absolute;
 }
 .error-500-page .text {
   margin-top: -128px;

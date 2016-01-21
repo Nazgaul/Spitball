@@ -464,6 +464,12 @@ md-tabs md-ink-bar {
   font-size: 20px;
   z-index: 5;
 }
+.full-screen header .close {
+  opacity: 0.7;
+}
+.full-screen header .close:hover {
+  opacity: 1;
+}
 .full-screen .full-screen-body {
   margin-top: 80px;
   min-height: calc( 100% - 80px);

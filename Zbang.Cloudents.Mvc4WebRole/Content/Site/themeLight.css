@@ -2001,3 +2001,6 @@ Page Loading
 .theme-light .dashboard .portlet md-chips .md-chip {
   background: #c3c3c3;
 }
+.theme-light .need-follow.box-title h1 {
+  color: #f5f5f5;
+}
