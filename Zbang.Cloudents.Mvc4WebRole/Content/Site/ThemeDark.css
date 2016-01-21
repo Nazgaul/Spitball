@@ -6,7 +6,7 @@
 }
 .folder-selected .folder-name .content,
 .folders .folder-name .content {
-  background: #323538;
+  background: #5d6063;
   border: 1px solid #323538;
   box-shadow: 0 0 2px #181c1d;
 }
@@ -51,6 +51,7 @@
 }
 .folders .add-folder .content {
   border: 1px solid #888b8e;
+  background: none;
 }
 .folders .add-folder .content svg {
   fill: #888b8e;

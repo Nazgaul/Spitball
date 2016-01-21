@@ -352,7 +352,7 @@ Page Loading
 }
 .theme-light .folder-selected .folder-name .content,
 .theme-light .folders .folder-name .content {
-  background: #ffffff;
+  background: #5d6063;
   border: 1px solid #ffffff;
   box-shadow: 0 0 2px #e9eaed;
 }
@@ -397,6 +397,7 @@ Page Loading
 }
 .theme-light .folders .add-folder .content {
   border: 1px solid #888b8e;
+  background: none;
 }
 .theme-light .folders .add-folder .content svg {
   fill: #888b8e;
