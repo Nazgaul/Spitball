@@ -182,7 +182,7 @@
     margin: 0;
     max-height: 50px;
     overflow: hidden;
-    padding: 0px 16px;
+    padding: 0 16px;
     text-align: left;
     text-decoration: none;
     white-space: normal;
@@ -211,7 +211,9 @@
     -webkit-transition-property: max-height;
     -moz-transition: 0.75s cubic-bezier(0.35, 0, 0.25, 1);
     -moz-transition-property: max-height;
+    -o-transition: 0.75s cubic-bezier(0.35, 0, 0.25, 1);
     transition: 0.75s cubic-bezier(0.35, 0, 0.25, 1);
+    -o-transition-property: max-height;
     transition-property: max-height;
 }
 

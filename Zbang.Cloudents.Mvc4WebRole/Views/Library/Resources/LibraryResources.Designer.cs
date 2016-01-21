@@ -160,11 +160,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Instractor.
+        ///   Looks up a localized string similar to instructor.
         /// </summary>
-        public static string Instractor {
+        public static string Instructor {
             get {
-                return ResourceManager.GetString("Instractor", resourceCulture);
+                return ResourceManager.GetString("Instructor", resourceCulture);
             }
         }
         

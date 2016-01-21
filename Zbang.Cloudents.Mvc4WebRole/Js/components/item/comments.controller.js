@@ -54,7 +54,7 @@
                     creationDate: new Date(),
                     id: response,
                     url: c.currUser.url,
-
+                    replies:[],
                     userId: c.currUser.id,
                     userImage: c.currUser.image,
                     userName: c.currUser.name,

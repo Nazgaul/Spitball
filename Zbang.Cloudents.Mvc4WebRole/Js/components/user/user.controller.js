@@ -70,7 +70,12 @@
             }
             self.itemsLoading = true;
             return userService.files($stateParams.userId, itemsPage).then(function (response) {
-                response = itemThumbnailService.assignValues(response);
+                angular.forEach(response, function (value) {
+                    //value.downloadLink = value.url + 'download/';
+                    var retVal = itemThumbnailService.assignValue(value.source);
+                    value.thumbnail = retVal.thumbnail;
+                    value.nameExtension = value.name.replace(/\.[^/.]+$/, "");
+                });
                 self.files = self.files.concat(response);
                 if (response.length) {
                     self.itemsLoading = false;

@@ -6,7 +6,7 @@
 
 <md-sidenav ng-cloak class="main-md-sidenav color-override backgroundColor1" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
     <md-content role="navigation" ng-controller="SideMenu as d">
-        <ul class="side-menu" ng-slimscroll watch-content="true" height="calc(100vh - 90px)" color="#BBB">
+        <ul class="side-menu" ng-slimscroll height="calc(100vh - 90px)" color="#BBB">
             <li class="dashboard nav-item">
                 <md-button user-not-register-popup="click" ng-class="{active: d.isSectionSelected('@Url.Action("Index","Dashboard")')}" @shouldPostBack href="@Url.Action("Index","Dashboard")">
                     <span class="icon">@Html.Svg(svgUrl, "houseMenu")</span>
@@ -14,9 +14,9 @@
                 </md-button>
             </li>
             <li class="expendable nav-item">
-                <md-button class="md-button-toggle" ng-click="d.toggleOpen('courses')">
+                <md-button class="md-button-toggle" ng-click="d.toggleCourses()">
                     <div flex layout="row" layout-align="start center">
-                        <span class="arrow icon" ng-class="{toggled:d.isOpen('courses')}">
+                        <span class="arrow icon" ng-class="{toggled:d.coursesOpen}">
                             @Html.Svg("~/images/site/icons.svg", "sideMenuArrow")
                         </span>
                         <span class="title">
@@ -24,16 +24,16 @@
                         </span>
                     </div>
                 </md-button>
-                <ul ng-show="d.isOpen('courses')" id="side-menu-courses" class="menu-toggle-list">
+                <ul ng-show="d.coursesOpen" id="side-menu-courses" class="menu-toggle-list">
                     <li ng-repeat="box in d.courses track by box.id">
                         <menu-link class="ellipsis" section="box"></menu-link>
                     </li>
                 </ul>
             </li>
             <li class="expendable nav-item">
-                <md-button class="md-button-toggle" ng-click="d.toggleOpen('boxes')">
+                <md-button class="md-button-toggle" ng-click="d.toggleBoxes()">
                     <div flex layout="row" layout-align="start center">
-                        <span class="arrow icon" ng-class="{toggled:d.isOpen('boxes')}">
+                        <span class="arrow icon" ng-class="{toggled:d.boxesOpen}">
                             @Html.Svg("~/images/site/icons.svg", "sideMenuArrow")
                         </span>
                         <span class="title">
@@ -41,7 +41,7 @@
                         </span>
                     </div>
                 </md-button>
-                <ul ng-show="d.isOpen('boxes')" id="side-menu-boxes" class="menu-toggle-list">
+                <ul ng-show="d.boxesOpen" id="side-menu-boxes" class="menu-toggle-list">
                     <li ng-repeat="box in d.privateBoxes track by box.id">
                         <menu-link class="ellipsis" section="box"></menu-link>
                     </li>

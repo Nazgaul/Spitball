@@ -36,7 +36,7 @@
 
             accountService.setAccountDetails(firstName, lastName).then(function () {
                 userDetailsFactory.setName(firstName, lastName);
-                showToast(resManager.get('settingsChangeName'));
+                showToast(resManager.get('settingsChangeName'), 'section-2');
             });
         }
 
@@ -53,7 +53,7 @@
                     fullscreen: $mdMedia('xs')
                 }).then(function () {
                     self.original.email = self.data.email;
-                    showToast(resManager.get('changeEmailSuccess'));
+                    showToast(resManager.get('changeEmailSuccess'),'section-3');
                 }, function () {
                     cancelChangeEmail();
                 });
@@ -86,7 +86,7 @@
                     }
                 },
                 error: function (uploader, error) {
-                    showToast(error.message);
+                    showToast(error.message,'section-1');
                 }
             }
         }
@@ -114,8 +114,8 @@
             });
         }
 
-        function showToast(messae) {
-            $scope.app.showToaster(messae, 'accountPage');
+        function showToast(message,location) {
+            $scope.app.showToaster(message, location);
 
         }
     }

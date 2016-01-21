@@ -12,7 +12,7 @@
  */
 angular.module('jkuri.slimscroll', [])
 
-.directive('ngSlimscroll', ['$document', '$window', '$compile', function($document, $window, $compile) {
+.directive('ngSlimscroll', ['$document', '$window', '$compile',function($document, $window, $compile) {
 	'use strict';
 
 	var setScopeValues = function (scope, element, attrs) {
@@ -305,12 +305,17 @@ angular.module('jkuri.slimscroll', [])
 			            scope.init();
 			        }
 			    );
+
+			    
 			   
 				scope.$on("$destroy", function () {
 				    contentWatcher();
 				    windowWatcher();
 				});
 			}
+			scope.$on('updateScroll', function () {
+			    scope.init();
+			});
 
 			scope.init = function () {
 				//bar.css('top','0');

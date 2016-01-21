@@ -19,7 +19,7 @@
                 <input autocomplete="off" ng-model="l.code" ng-change="createBox.professor.$setValidity('server',true)" />
             </md-input-container>
             <md-input-container flex ng-if="l.secondStep">
-                <label>@LibraryResources.Instractor</label>
+                <label>@LibraryResources.Instructor</label>
                 <input autocomplete="off" ng-model="l.professor" name="professor" ng-change="createBox.professor.$setValidity('server',true)" />
                 <div ng-messages="createBox.professor.$error">
                     <div ng-message="server">{{l.error}}</div>

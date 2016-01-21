@@ -147,8 +147,8 @@
   <data name="EnterCode" xml:space="preserve">
     <value>Enter code</value>
   </data>
-  <data name="Instractor" xml:space="preserve">
-    <value>Instractor</value>
+  <data name="Instructor" xml:space="preserve">
+    <value>instructor</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>Next</value>
