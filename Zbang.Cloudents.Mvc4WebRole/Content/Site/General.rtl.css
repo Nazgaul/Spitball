@@ -120,7 +120,6 @@ textarea,
 }
 .multi-line-ellipsis.limit-two {
   -webkit-line-clamp: 2;
-  height: 56px;
 }
 /*.create {
     background: @color4;

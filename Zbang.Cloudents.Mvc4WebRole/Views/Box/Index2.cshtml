@@ -7,8 +7,8 @@
 </div>
 
 <div class="page-head">
-    <div layout="row" layout-align="space-between center" ng-hide="b.settingsOpen" class="page-title" ng-class="{'need-follow' : b.needFollow}">
-        <h1 flex>{{b.data.name}}</h1>
+    <div layout="row" layout-align="space-between center" ng-hide="b.settingsOpen" class="page-title box-title" ng-class="{'need-follow' : b.needFollow}">
+        <h1 flex class="multi-line-ellipsis limit-two">{{b.data.name}}</h1>
         <button flex="none" ng-if="b.needFollow" type="button" ng-click="b.follow()" class="invite-btn text-capitalize" ga-track-event="['box', 'follow']">@BoxResources.Follow</button>
         <button flex="none" ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" ga-track-event="['box', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "color-override svgColor6" })</button>
     </div>

@@ -96,6 +96,12 @@
     width: 50%;
   }
 }
+.box-title h1 {
+  line-height: 29px;
+  max-height: 58px;
+  -ms-word-break: break-all;
+  word-break: break-all;
+}
 .folders .add-folder .content {
   padding: 6px;
   background: none;

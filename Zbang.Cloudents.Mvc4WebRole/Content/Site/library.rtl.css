@@ -20,7 +20,8 @@
 }
 .library .department .display h3 {
   margin-top: 22px;
-  line-height: initial;
+  height: 58px;
+  line-height: 29px;
 }
 .library .department .display .number {
   height: 100px;
