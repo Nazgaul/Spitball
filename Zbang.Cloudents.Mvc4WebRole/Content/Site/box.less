@@ -559,7 +559,7 @@
         }
         //TODO: should be fix in 1.1 https://github.com/angular/material/pull/6209
         .md-errors-spacer {
-            display:none;
+            display: none;
         }
     }
 
@@ -891,6 +891,7 @@
         -ms-word-break: break-word;
         word-break: break-word;
         margin: 5px;
+        margin-right: 20px;
         -webkit-line-clamp: 3;
         line-height: 20px;
     }
@@ -917,7 +918,16 @@
     position: relative;
 
     .delete {
-        top: 13px;
+        top: 3px;
+        margin: 0;
+        width: inherit;
+        padding: 0;
+        height: inherit;
+
+        svg{
+            fill: @svgQuizArrows;
+            margin-top: 0;
+        }
     }
 }
 
