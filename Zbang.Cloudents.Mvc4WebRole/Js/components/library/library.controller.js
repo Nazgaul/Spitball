@@ -144,11 +144,8 @@
             $mdDialog.show(confirm).then(function () {
                 var index = l.departments.indexOf(department);
                 l.departments.splice(index, 1);
-                libraryService.deleteDepartment(department.id).then(function(response) {
-                    console.log('response',response);
-                });
-                console.log(l.departments.length);
-                l.createClassShow = l.departments.length === 0;
+                libraryService.deleteDepartment(department.id);
+                l.createClassShow = l.departments.length === 0 && nodeId != null;
             });
         }
     }
