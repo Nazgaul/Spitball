@@ -40,7 +40,7 @@
                 d.boxes.splice(index, 1);
             }
         });
-        $rootScope.$on('create-box', function() {
+        $rootScope.$on('refresh-boxes', function () {
             d.boxes = null;
             defer = $q.defer();
         });

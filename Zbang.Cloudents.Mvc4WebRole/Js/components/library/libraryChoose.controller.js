@@ -119,7 +119,8 @@
 
         function goToLibrary(universityName, id) {
             userDetailsFactory.setUniversity(universityName, id);
-            $state.go('department');
+            //bug 5120/
+            $state.go('dashboard');
         }
 
         function checkInArray(arr, id) {

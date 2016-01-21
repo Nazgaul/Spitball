@@ -130,12 +130,15 @@
                 return;
             }
             boxService.follow(boxId);
-            b.needFollow = false;
+            followBox();
         }
 
-        $scope.$on('follow-box', function () {
+        function followBox() {
             b.needFollow = false;
-        });
+            $rootScope.$broadcast('refresh-boxes');
+        }
+
+        $scope.$on('follow-box', followBox);
 
 
     }

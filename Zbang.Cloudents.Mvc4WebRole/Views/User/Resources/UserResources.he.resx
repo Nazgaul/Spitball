@@ -130,7 +130,7 @@
     <value>50 נק' בעבור שאלה</value>
   </data>
   <data name="Creating" xml:space="preserve">
-    <value>300 נק' בעבור יצירת מבחן</value>
+    <value>30 נק' בעבור יצירת מבחן</value>
   </data>
   <data name="Friends" xml:space="preserve">
     <value>חברים</value>
@@ -158,5 +158,8 @@
   </data>
   <data name="Share" xml:space="preserve">
     <value>שתף</value>
+  </data>
+  <data name="PointMenu2" xml:space="preserve">
+    <value>למידה חברתית</value>
   </data>
 </root>

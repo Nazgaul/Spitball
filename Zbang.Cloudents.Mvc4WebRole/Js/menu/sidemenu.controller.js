@@ -24,30 +24,35 @@
 
 
         function toggleCourses() {
-            initOpen();
+            if (!initOpen()) {
+                return;
+            }
             d.coursesOpen = !d.coursesOpen;
             d.boxesOpen = false;
             $timeout(function() {
                 $rootScope.$broadcast('updateScroll');
-            }, 1000);
+            }, 800);
         }
         function toggleBoxes() {
-            initOpen();
+            if (!initOpen()) {
+                return;
+            }
             d.coursesOpen = false;
             d.boxesOpen = !d.boxesOpen;
             $timeout(function () {
                 $rootScope.$broadcast('updateScroll');
-            }, 1000);
+            }, 800);
         }
         function initOpen() {
             if (!userDetails.isAuthenticated()) {
                 $rootScope.$broadcast('show-unregisterd-box');
-                return;
+                return false;
             }
             if (notloaded) {
                 getBoxes();
                 notloaded = false;
             }
+            return true;
         }
         //function isOpen(section) {
         //    return openedSection === section;

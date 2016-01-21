@@ -250,3 +250,4 @@
 /// <reference path="../js/menu/nospace.filter.js" />
 /// <reference path="../js/components/item/comments.controller.js" />
 /// <reference path="../js/components/search/searchtrigger.controller.js" />
+/// <reference path="angular-google-adsense.js" />

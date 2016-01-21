@@ -155,6 +155,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
                         new JsFileWithCdn("~/scripts/draganddrop.js"),
+                        new JsFileWithCdn("~/scripts/angular-google-adsense.js"),
                         new JsFileWithCdn("~/js/polyfills.js"),
 
                         new JsFileWithCdn("~/js/signin/metronic.js"), // takes care of the invite + upload file boxes

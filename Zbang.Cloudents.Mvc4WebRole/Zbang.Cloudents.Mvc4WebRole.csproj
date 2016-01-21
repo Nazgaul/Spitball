@@ -1888,6 +1888,7 @@
     </None>
     <Content Include="robots.txt" />
     <Content Include="Scripts\angular-countUp.js" />
+    <Content Include="Scripts\angular-google-adsense.js" />
     <Content Include="Scripts\angular-messages.js" />
     <Content Include="Scripts\angular-messages.min.js" />
     <Content Include="Scripts\angular-mocks.js" />

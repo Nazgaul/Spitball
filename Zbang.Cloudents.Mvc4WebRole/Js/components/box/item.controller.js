@@ -153,13 +153,7 @@
             }
             return boxService.items(boxId, i.tabSelected.id, page).then(function (response) {
                 //response = itemThumbnailService.assignValues(response);
-                angular.forEach(response, function(value) {
-                    value.downloadLink = value.url + 'download/';
-                    var retVal = itemThumbnailService.assignValue(value.source);
-                    value.thumbnail = retVal.thumbnail;
-                    //value.icon = retVal.icon;
-                    value.nameExtension = value.name.replace(/\.[^/.]+$/, "");
-                });
+                angular.forEach(response, buildItem);
                 if (page > 0) {
                     i.items = i.items.concat(response);
                 } else {
@@ -180,15 +174,17 @@
             }
             boxService.filterItem(i.term, boxId, 0).then(function (response) {
                 //response = itemThumbnailService.assignValues(response);
-                angular.forEach(response, function (value) {
-                    value.downloadLink = value.url + 'download/';
-                    var retVal = itemThumbnailService.assignValue(value.source);
-                    value.thumbnail = retVal.thumbnail;
-                    //value.icon = retVal.icon;
-                    value.nameExtension = value.name.replace(/\.[^/.]+$/, "");
-                });
+                angular.forEach(response, buildItem);
                 i.items = response;
             });
+        }
+
+        function buildItem(value) {
+            value.downloadLink = value.url + 'download/';
+            var retVal = itemThumbnailService.assignValue(value.source);
+            value.thumbnail = retVal.thumbnail;
+            //value.icon = retVal.icon;
+            value.nameExtension = value.name.replace(/\.[^/.]+$/, "");
         }
 
 
@@ -201,10 +197,8 @@
                 return; //not the same tab
             }
             followBox();
-            var item = response.item, retVal = itemThumbnailService.assignValue(item.source);
-
-            item.thumbnail = retVal.thumbnail;
-            item.icon = retVal.icon;
+            var item = response.item;
+            buildItem(item);
             i.items.unshift(item);
         });
         $rootScope.$on('close_upload', function () {
