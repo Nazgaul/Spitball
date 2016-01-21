@@ -482,6 +482,7 @@ md-tabs {
     right: 0;
     left: 0;
     bottom: 0;
+    
     overflow-y: auto;
     height: 100vh;
     width: 100vw;
@@ -500,6 +501,7 @@ md-tabs {
 
 
     header {
+        top:0;
         color: @textColorWhite;
         background-color: @backgroundColorMenu;
         border-bottom: 5px solid @borderColorBlack;
@@ -615,6 +617,13 @@ md-tabs {
 
     &.ng-leave-active {
         display: none;
+    }
+
+    &.itemPage {
+        -moz-transition: none;
+        -o-transition: none;
+        -webkit-transition: none;
+        transition: none;
     }
 }
 

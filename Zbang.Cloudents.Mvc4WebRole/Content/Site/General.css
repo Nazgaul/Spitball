@@ -453,6 +453,7 @@ md-tabs md-ink-bar {
   top: 0;
 }
 .full-screen header {
+  top: 0;
   color: #f5f5f5;
   background-color: #323538;
   border-bottom: 5px solid #282828;
@@ -545,6 +546,12 @@ md-tabs md-ink-bar {
 }
 .page-animation.ng-leave-active {
   display: none;
+}
+.page-animation.itemPage {
+  -moz-transition: none;
+  -o-transition: none;
+  -webkit-transition: none;
+  transition: none;
 }
 .delete {
   position: absolute;

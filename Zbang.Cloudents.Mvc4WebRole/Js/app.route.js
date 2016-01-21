@@ -102,6 +102,7 @@
                                    return itemService.getDetails($stateParams.boxId, $stateParams.itemId);
                                }]
                            },
+                           data: { animateClass: 'full-screen itemPage' }
                        },
                        templateUrl: '/item/indexpartial/'
                    },
