@@ -145,10 +145,10 @@
     <value>Enter class name</value>
   </data>
   <data name="EnterCode" xml:space="preserve">
-    <value>Enter code</value>
+    <value>Course Number (optional)</value>
   </data>
   <data name="Instructor" xml:space="preserve">
-    <value>instructor</value>
+    <value>Instructor (optional)</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>Next</value>

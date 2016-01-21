@@ -3,6 +3,7 @@ Theme Colors
 ***********/
 body {
   height: auto;
+  min-height: calc(100% - 85px);
 }
 /*body.page-md {
     background: #f3f5f9;

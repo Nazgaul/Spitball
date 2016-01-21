@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating a quiz: 300 pts.
+        ///   Looks up a localized string similar to Creating a quiz: 30 pts.
         /// </summary>
         public static string Creating {
             get {
@@ -120,6 +120,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         public static string Likes {
             get {
                 return ResourceManager.GetString("Likes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Study Socially.
+        /// </summary>
+        public static string PointMenu2 {
+            get {
+                return ResourceManager.GetString("PointMenu2", resourceCulture);
             }
         }
         

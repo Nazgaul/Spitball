@@ -13,7 +13,7 @@
             dashboardService.createPrivateBox(self.boxName).then(function (response) {
                 $scope.$parent.d.createBoxOn = false;
                 cancel(myform);
-                $rootScope.$broadcast('create-box');
+                $rootScope.$broadcast('refresh-boxes');
                 $location.url(response.url);
             }, function (response) {
                 myform.name.$setValidity('server', false);

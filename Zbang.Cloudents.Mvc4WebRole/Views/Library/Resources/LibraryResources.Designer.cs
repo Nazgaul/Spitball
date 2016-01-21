@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter code.
+        ///   Looks up a localized string similar to Course Number (optional).
         /// </summary>
         public static string EnterCode {
             get {
@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to instructor.
+        ///   Looks up a localized string similar to Instructor (optional).
         /// </summary>
         public static string Instructor {
             get {
