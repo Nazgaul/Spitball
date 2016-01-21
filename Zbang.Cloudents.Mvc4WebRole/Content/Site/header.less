@@ -179,16 +179,6 @@
                 margin: 0 15px;
             }
 
-            @media (max-width: 450px) {
-                position: absolute;
-                top: 83px;
-                left: 0;
-                padding: 10px;
-                margin: 0;
-                max-width: inherit;
-            }
-
-
             .search-area {
                 position: relative;
                 border-radius: 5px;
@@ -239,7 +229,6 @@
                 height: 30px;
                 width: 60px;
                 fill: #fff;
-                margin-top: 7px;
                 display: none;
 
                 @media (max-width: 600px) {
@@ -292,6 +281,20 @@
         md-icon {
             width: 40px;
             height: 40px;
+        }
+    }
+    
+    &.expand-search {
+        @media (max-width: 450px) {
+
+            .logo-search .logo, .menu-toggler {
+                display: none;
+            }
+
+            .logo-search .search-form {
+                max-width: 100%;
+                margin: 0;
+            }
         }
     }
 }
