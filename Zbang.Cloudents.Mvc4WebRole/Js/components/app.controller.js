@@ -61,6 +61,10 @@
         // var originatorEv;
         function openMenu($mdOpenMenu, ev) {
             //originatorEv = ev;
+            if (!userDetails.isAuthenticated()) {
+                $rootScope.$broadcast('show-unregisterd-box');
+                return;
+            }
             $mdOpenMenu(ev);
         };
 

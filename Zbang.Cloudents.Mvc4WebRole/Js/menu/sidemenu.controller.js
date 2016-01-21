@@ -1,37 +1,45 @@
 ﻿(function () {
     angular.module('app.dashboard').controller('SideMenu', dashboard);
-    dashboard.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope', '$mdSidenav', '$location'];
+    dashboard.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope', '$mdSidenav', '$location', '$timeout'];
 
-    function dashboard(dashboardService, userDetails, $rootScope, $mdSidenav, $location) {
+    function dashboard(dashboardService, userDetails, $rootScope, $mdSidenav, $location, $timeout) {
         var d = this, notloaded = true;
         d.courses = [];
         d.privateBoxes = [];
-        //d.open = open;
-
 
         userDetails.init().then(function () {
             d.userUrl = userDetails.get().url;
         });
 
-        d.isOpen = isOpen;
-        d.toggleOpen = toggleOpen;
+        d.coursesOpen = false;
+        d.boxesOpen = false;
+
+        //d.isOpen = isOpen;
+        //d.toggleOpen = toggleOpen;
         d.isSectionSelected = isSectionSelected;
-        //d.autoFocusContent = false;
+        //var openedSection;
 
-        var openedSection;
-        //d.menu = menu;
+        d.toggleCourses = toggleCourses;
+        d.toggleBoxes = toggleBoxes;
 
-        function isOpen(section) {
-            return openedSection === section;
-            //  return menu.isSectionSelected(section);
+
+        function toggleCourses() {
+            initOpen();
+            d.coursesOpen = !d.coursesOpen;
+            d.boxesOpen = false;
+            $timeout(function() {
+                $rootScope.$broadcast('updateScroll');
+            }, 1000);
         }
-
-        function toggleOpen(section) {
-            if (section === openedSection) {
-                openedSection = null;
-                return;
-            }
-            openedSection = section;
+        function toggleBoxes() {
+            initOpen();
+            d.coursesOpen = false;
+            d.boxesOpen = !d.boxesOpen;
+            $timeout(function () {
+                $rootScope.$broadcast('updateScroll');
+            }, 1000);
+        }
+        function initOpen() {
             if (!userDetails.isAuthenticated()) {
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
@@ -40,13 +48,17 @@
                 getBoxes();
                 notloaded = false;
             }
-            //  menu.toggleSelectSection(section);
         }
+        //function isOpen(section) {
+        //    return openedSection === section;
+        //}
 
-        function isSectionSelected(section) {
-            return $location.url().startsWith(section);
-        }
-        //function open() {
+        //function toggleOpen(section) {
+        //    if (section === openedSection) {
+        //        openedSection = null;
+        //        return;
+        //    }
+        //    openedSection = section;
         //    if (!userDetails.isAuthenticated()) {
         //        $rootScope.$broadcast('show-unregisterd-box');
         //        return;
@@ -56,6 +68,10 @@
         //        notloaded = false;
         //    }
         //}
+
+        function isSectionSelected(section) {
+            return $location.url().startsWith(section);
+        }
 
         function getBoxes() {
             dashboardService.getBoxes().then(function (response2) {

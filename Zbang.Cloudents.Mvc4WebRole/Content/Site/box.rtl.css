@@ -408,6 +408,9 @@
 .add-comment md-input-container .md-input:focus {
   color: #fff;
 }
+.add-comment md-input-container .md-errors-spacer {
+  display: none;
+}
 .add-comment input[type=checkbox] {
   display: none;
 }
@@ -456,7 +459,7 @@
   border: none;
 }
 .add-comment.new-post .new-comment-border textarea {
-  min-height: 65px;
+  min-height: 80px;
   padding: 10px 45px 0 0;
   font-size: 18px;
 }
