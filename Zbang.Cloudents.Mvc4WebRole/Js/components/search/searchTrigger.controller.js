@@ -12,10 +12,10 @@
 
         function search(isValid) {
             if (isValid) {
-                var url = $state.href('searchInfo', { q: st.term });
+                var url = $state.href('searchinfo', { q: st.term });
                 url += '?q=' + st.term;
                 $location.url(url);
-                if ($state.current.name === 'searchInfo') {
+                if ($state.current.name === 'searchinfo') {
                     $rootScope.$broadcast('search-query');
                 }
             }

@@ -105,14 +105,7 @@
                 $rootScope.$broadcast('state-change-start-prevent');
             }
             $rootScope.$broadcast('close-collapse');
-            if (!userDetails.isAuthenticated()) {
-                if (toStateName === 'searchInfo') {
-                    $rootScope.$broadcast('show-unregisterd-box');
-                    $rootScope.$broadcast('state-change-start-prevent');
-                    event.preventDefault();
-                }
-                return;
-            }
+         
             var details = userDetails.get();
             if (details.university.id) {
                 return;

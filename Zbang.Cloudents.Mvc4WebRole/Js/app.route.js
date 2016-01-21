@@ -15,12 +15,6 @@
                             return userDetails.init();
                         }
                     ],
-                    //$q https://github.com/angular-ui/ui-router/issues/105
-                    //temp: ['$q',function($q) {
-                    //    var defer = $q.defer();
-                    //    defer.resolve();
-                    //    return defer.promise;
-                    //}]
                 },
                 template: '<div class="page-animation" ui-view animation-class></div>'
             });
@@ -112,7 +106,7 @@
                        templateUrl: '/item/indexpartial/'
                    },
                     {
-                        state: 'searchInfo',
+                        state: 'searchinfo',
                         config: {
                             url: '/search/',
                             controller: 'SearchController as s',
