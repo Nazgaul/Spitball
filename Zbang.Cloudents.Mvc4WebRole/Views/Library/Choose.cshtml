@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div flex="100" class="flex" ng-if="lc.universities.length">
+        <div flex="100" class="flex" ng-if="lc.term.length > 2">
             <div class="add-uni-btn" ng-click="lc.createUniversity = true" ga-track-event="['universityChoose', 'add new university']">
                 <span>@Html.Svg("~/images/site/icons.svg", "add")</span>
                 <div class="text-capitalize">@LibraryResources.AddSchool</div>
