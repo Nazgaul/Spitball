@@ -16,7 +16,6 @@
 
 //user image letter
 .theme() {
-   
     /*#region box.less*/
     .folder-selected, .folders {
         .folder-name {
@@ -40,7 +39,6 @@
         .dots-3 {
             fill: @backgroundColor;
         }
-               
     }
 
     .search-box {
@@ -194,14 +192,6 @@
                 fill: @textColorGrey;
             }
 
-            .anonymous-wrapper {
-                .anonymous {
-                    &:hover {
-                        fill: @anonymousColor;
-                    }
-                }
-            }
-
 
             .dropbox {
                 &:hover {
@@ -220,6 +210,12 @@
             }
         }
     }
+
+    .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
+        fill: @anonymousColor;
+    }
+
+
 
 
     .add-comment {
@@ -289,12 +285,6 @@
         .link {
             &:hover {
                 fill: @linkColor;
-            }
-        }
-
-        .anonymous {
-            &:hover {
-                fill: @anonymousColor;
             }
         }
 
@@ -674,7 +664,6 @@
         }
     }
     /*#endregion*/
-    
     /*#region layout.less*/
     @media print {
         body {
@@ -1374,7 +1363,6 @@ Page Loading
     .side-menu .md-button-toggle .arrow {
         color: darkgray;
     }
-
     /*#endregion*/
     /*#region profile.less*/
     .profile-userpic img, .profile-userpic span {

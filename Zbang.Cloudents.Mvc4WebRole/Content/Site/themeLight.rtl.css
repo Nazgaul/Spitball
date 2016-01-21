@@ -475,9 +475,6 @@ Page Loading
 .theme-light .feed .actions svg {
   fill: #888b8e;
 }
-.theme-light .feed .actions .anonymous-wrapper .anonymous:hover {
-  fill: #d39f10;
-}
 .theme-light .feed .actions .dropbox:hover {
   fill: #007ee5;
 }
@@ -486,6 +483,9 @@ Page Loading
 }
 .theme-light .feed .add-reply .reply-wrapper {
   border: 1px solid #5d6063;
+}
+.theme-light .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
+  fill: #d39f10;
 }
 .theme-light .add-comment {
   background: #e9eaed;
@@ -547,9 +547,6 @@ Page Loading
 }
 .theme-light .add-comment .link:hover {
   fill: #64d0ff;
-}
-.theme-light .add-comment .anonymous:hover {
-  fill: #d39f10;
 }
 .theme-light .add-comment.new-post .top img {
   background: #ffffff;
