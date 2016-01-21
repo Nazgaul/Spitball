@@ -59,7 +59,7 @@
                     <md-tab-label><h3>@UserResources.Uploads</h3> <div class="number">{{::u.details.numItem | megaNumber}}</div></md-tab-label>
                     <md-tab-body>
                         <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
-                            <div flex-xs="50" flex-xl="15" flex="20" flex-sm="33" flex-md="33" ng-repeat="e in u.files" ng-include="'item-template.html'" class="flex"></div>
+                            <div flex-xs="50" flex-xl="15" flex="20" flex-sm="33" flex-md="33" ng-repeat="e in u.files" ng-include="'item-template.html'" class="flex i-q-wrapper"></div>
                         </div>
                     </md-tab-body>
                 </md-tab>

@@ -35,6 +35,23 @@
                 <div class="content">
                     <img class="img-responsive" ng-src="{{::e.thumbnail}}" width="368" height="520" alt="thumbnail" />
                     <div class="extra" id="drag{{::$index}}">
+                        <md-menu>
+                            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-items', 'deleteFile']">
+                                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
+                            </md-button>
+                            <md-menu-content width="1">
+                                <md-menu-item ng-if="b.canDelete(e.ownerId)">
+                                    <md-button aria-label="delete post" ng-click="i.deleteItem($event,e)" ga-track-event="['box-items', 'didDelete']">
+                                        @GeneralResources.Delete
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button aria-label="download item" ng-href="{{::e.downloadLink}}" ng-click="i.downloadItem()" target="_blank" ga-track-event="['box-items', 'download']">
+                                        @GeneralResources.Download
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
                         <h5 class="multi-line-ellipsis color-override textColor3" ng-bind-html="::e.nameExtension"></h5>
                     </div>
                 </div>
@@ -66,6 +83,18 @@
                         <span class="draft">@IndexResources.Draft</span>
                     </div>
                     <div class="bottom">
+                        <md-menu ng-if="b.canDelete(e.ownerId)">
+                            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-quizzes', 'deleteQuiz']">
+                                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 quiz-dots color-override svgColor6" })
+                            </md-button>
+                            <md-menu-content width="1">
+                                <md-menu-item>
+                                    <md-button aria-label="delete reply" ng-click="q.deleteQuiz($event,e)" ga-track-event="['box-quizzes', 'didDelete']">
+                                        @GeneralResources.Delete
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
                         <span class="name ellipsis" ng-bind-html="::e.name"></span>
                         @Html.Svg(svgUrl, "corner", new { @class = "corner", viewBox = "0 0 70 70" })
                     </div>

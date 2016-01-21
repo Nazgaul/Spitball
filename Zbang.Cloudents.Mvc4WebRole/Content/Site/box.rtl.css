@@ -617,9 +617,8 @@
 }
 .quiz .bottom .corner {
   position: absolute;
-  bottom: -1px;
-  right: -1px ;
-  width: 32%;
+  bottom: 0;
+  right: 0 ;
   height: 40%;
 }
 .quiz .stats {
@@ -701,6 +700,7 @@
   -ms-word-break: break-word;
   word-break: break-word;
   margin: 5px;
+  margin-left: 20px;
   -webkit-line-clamp: 3;
   line-height: 20px;
 }
@@ -721,7 +721,15 @@
   position: relative;
 }
 .i-q-wrapper .delete {
-  top: 13px;
+  top: 3px;
+  margin: 0;
+  width: inherit;
+  padding: 0;
+  height: inherit;
+}
+.i-q-wrapper .delete svg {
+  fill: #c5c5c5;
+  margin-top: 0;
 }
 .item-animate.ng-move,
 .item-animate.ng-enter,

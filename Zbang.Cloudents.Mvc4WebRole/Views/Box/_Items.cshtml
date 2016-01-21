@@ -19,23 +19,6 @@
     </li>
     <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="item-animate i-q-wrapper" ng-repeat="e in i.items track by e.id ">
         <div ui-draggable="true" drag="e" on-drop-success="i.dropToTabSuccess($index)" drag-image-element-id="'drag' + $index" ng-include="'item-template.html'"></div>
-        <md-menu>
-            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-items', 'deleteFile']">
-                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
-            </md-button>
-            <md-menu-content width="1">
-                <md-menu-item ng-if="b.canDelete(e.ownerId)">
-                    <md-button aria-label="delete post" ng-click="i.deleteItem($event,e)" ga-track-event="['box-items', 'didDelete']">
-                        @GeneralResources.Delete
-                    </md-button>
-                </md-menu-item>
-                <md-menu-item>
-                    <md-button aria-label="download item" ng-href="{{::e.downloadLink}}" ng-click="i.downloadItem()" target="_blank" ga-track-event="['box-items', 'download']">
-                        @GeneralResources.Download
-                    </md-button>
-            </md-menu-item>
-        </md-menu-content>
-        </md-menu>
     </li>
 </ul>
 <button type="button" class="add" hide show-xs ng-click="i.openUpload()" ng-show="i.uploadShow" ga-track-event="['box-items', 'addFile']">
