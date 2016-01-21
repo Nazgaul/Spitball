@@ -106,7 +106,7 @@
             }
             $rootScope.$broadcast('close-collapse');
             if (!userDetails.isAuthenticated()) {
-                if (toStateName === 'search') {
+                if (toStateName === 'searchInfo') {
                     $rootScope.$broadcast('show-unregisterd-box');
                     $rootScope.$broadcast('state-change-start-prevent');
                     event.preventDefault();
