@@ -129,6 +129,11 @@
   font-size: 36px;
   color: #000;
 }
+@media (max-width: 450px) {
+  .quizPage .quiz-take-stats .stopwatch {
+    font-size: 7vw;
+  }
+}
 .quizPage .quiz-take-stats .seperator {
   width: 100%;
 }

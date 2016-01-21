@@ -470,7 +470,6 @@
         }
     }
     /*#endregion*/
-
     /*#region box.less*/
     .folder-selected {
         .arrow {
@@ -515,7 +514,8 @@
         &.text@{name} {
             color: @Color !important;
         }
-        &.input@{name}{
+
+        &.input@{name} {
             .placeHolder(@Color);
         }
 
@@ -572,6 +572,11 @@
     // color fixes to be changed to color classes
     .dashboard .portlet md-chips .md-chip {
         background: @textColorLightGrey;
+    }
+
+
+    .need-follow.box-title h1 {
+        color: @Color8;
     }
     /*#endregion*/
     /*#endregion*/

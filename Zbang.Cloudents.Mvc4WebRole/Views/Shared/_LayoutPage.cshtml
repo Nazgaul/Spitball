@@ -51,7 +51,7 @@
         <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
     </div>
 
-    <div class="nav-bar color-override backgroundColor2" layout="row" ng-cloak>
+    <div class="nav-bar color-override backgroundColor2" ng-class="{'expand-search': app.expandSearch}" layout="row" ng-cloak>
         <div class="logo-search" layout="row" layout-align="start center" flex="100">
             <div class="logo">
                 <div class="page-logo">
@@ -63,8 +63,8 @@
             </div>
             <form ng-controller="SearchTriggerController as st" ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger" novalidate @*href="@Url.Action("Index","Search")" @shouldPostBack*@ class="search-form search-form-expanded" ng-hide="app.hideSearch" @*ga-track-event="['header', 'search']"*@>
                 <div class="search-area color-override backgroundColor4">
-                    <input required ng-change="st.change(searchTrigger.$valid)" ng-model="st.term" ng-model-options="{debounce : 300}" type="search" class="text color-override inputColor3 backgroundColor4" user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
-                    <button type="submit" class="search-btn">
+                    <input required ng-change="st.change(searchTrigger.$valid)" ng-focus="app.expandSearch = true" ng-blur="app.expandSearch = false" ng-model="st.term" ng-model-options="{debounce : 300}" type="search" class="text" user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
+                    <button type="submit" class="search-btn color-override backgroundColor11">
                         @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon color-override svgColor3" })
                     </button>
                 </div>

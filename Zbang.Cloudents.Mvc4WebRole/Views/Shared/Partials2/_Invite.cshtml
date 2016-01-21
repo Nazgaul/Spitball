@@ -9,7 +9,7 @@
     </div>
     <div class="body clearfix tabbable-line">
         <div class="clearfix" ng-show="i.inBox">
-            <ul class="nav nav-tabs tab-from-r text-capitalize">
+            <ul class="nav nav-tabs tab-from-r text-capitalize color-override backgroundTransparent">
                 <li class="mail" ng-class="{active: i.inMail}">
                     <a ng-click="i.mail()">@IndexResources.Mail</a>
                 </li>
@@ -48,7 +48,7 @@
                     </md-list-item>
                 </md-list>
                 <button class="btn gmail text-capitalize" ng-click="i.importGoogleContract()" ng-if="!(i.allContacts.length) && i.inMail" type="button" ga-track-event="['invite', 'import gmail']">
-                    @Html.Svg("/images/site/gmail.svg", "gmail")
+                    @Html.Svg("/images/site/icons.svg", "gmail")
                     <span>
                         @IndexResources.GmailContact
                     </span>

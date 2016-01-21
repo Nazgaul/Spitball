@@ -8,14 +8,14 @@
 
                 <a flex="100" flex-gt-xs="50" flex href="{{::l.nodeDetail.parentUrl}}" ga-track-event="['university', 'back arrow']">
                     <h2 layout="row">
-                        <span flex="none" class="arrow back-arrow">@Html.Svg("~/images/site/icons.svg", "arrow")</span>
-                        <span flex class="name ellipsis">
+                        <span flex="none" class="arrow back-arrow">@Html.Svg("~/images/site/icons.svg", "arrow", new { @class = "color-override svgColor5" })</span>
+                        <span flex class="name ellipsis color-override backgroundColor10 ">
                             {{::l.nodeDetail.name}}
                         </span>
                     </h2>
                 </a>
 
-                <button flex="none" type="button" ng-click="l.toggleSettings()" ga-track-event="['university', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings")</button>
+                <button flex="none" type="button" ng-click="l.toggleSettings()" ga-track-event="['university', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "color-override svgColor5" })</button>
             </div>
         </div>
     </div>

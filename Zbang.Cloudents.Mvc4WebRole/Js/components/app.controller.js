@@ -35,6 +35,7 @@
         self.logOut = logOut;
         self.openMenu = openMenu;
         self.hideSearch = false;
+        self.expandSearch = false;
         self.resetForm = resetForm;
         self.showToaster = showToaster;
 

@@ -1,4 +1,5 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{
     ViewBag.Title = "Internal server error";
@@ -10,5 +11,6 @@
         <h2>
             @IndexResources.Oops<br />@IndexResources.WentWrong
         </h2>
+        <a target="_self" href="@Url.Action("Index","Dashboard")" class="text-capitalize">@ErrorResources.Back</a>
     </div>
 </div>
