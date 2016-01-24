@@ -221,8 +221,7 @@
 }
 .feed .items-container {
   white-space: nowrap;
-  margin-right: 47px;
-  margin-left: 15px;
+  margin: 0 47px 10px 15px;
 }
 .feed .items-container ul {
   margin: 0;
@@ -238,7 +237,8 @@
   padding-right: 0;
 }
 .feed .posts-list .actions {
-  margin: 10px 40px 0 0;
+  margin: 20px 40px 0 40px;
+  padding: 10px 0;
 }
 .feed .quiz .top .first-letter {
   font-size: 38px;

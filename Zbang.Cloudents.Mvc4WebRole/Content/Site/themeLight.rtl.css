@@ -57,6 +57,7 @@ Page Loading
     color-override borderColor#
     color-override outlineColor#
     color-override hoverBackgroundColor#
+    color-override hoverTextColor#
     color-override hoverSvgColor#
     */
   /*#region TODO*/
@@ -240,17 +241,6 @@ Page Loading
 .theme-light .nav-tabs li > a:hover,
 .theme-light .tabbable li > a:hover {
   color: #2698d4;
-}
-.theme-light .ribbon {
-  background-color: #db4437;
-  background-image: linear-gradient(to left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.1) 100%);
-  box-shadow: inset 0 0.062em 0 rgba(255, 255, 255, 0.6), 0 0.125em 0.25em rgba(0, 0, 0, 0.2);
-}
-.theme-light .ribbon:before {
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0) 100%);
-}
-.theme-light .ribbon:after {
-  box-shadow: 0 0.062em 0 rgba(255, 255, 255, 0.6);
 }
 .theme-light .scroll-to-top svg {
   fill: #3598dc;
@@ -471,7 +461,8 @@ Page Loading
   color: #2698d4;
 }
 .theme-light .feed .actions {
-  color: #5d6063;
+  color: #2698d4;
+  border-top: 1px solid #ffffff;
 }
 .theme-light .feed .actions svg {
   fill: #888b8e;
@@ -1607,6 +1598,9 @@ Page Loading
 .theme-light .color-override.hoverBackgroundColor1:hover {
   background: #e9eaed !important;
 }
+.theme-light .color-override.hoverTextColor1:hover {
+  color: #e9eaed !important;
+}
 .theme-light .color-override.hoverSvgColor1:hover {
   fill: #e9eaed !important;
 }
@@ -1641,6 +1635,9 @@ Page Loading
 }
 .theme-light .color-override.hoverBackgroundColor2:hover {
   background: #4190b9 !important;
+}
+.theme-light .color-override.hoverTextColor2:hover {
+  color: #4190b9 !important;
 }
 .theme-light .color-override.hoverSvgColor2:hover {
   fill: #4190b9 !important;
@@ -1677,6 +1674,9 @@ Page Loading
 .theme-light .color-override.hoverBackgroundColor3:hover {
   background: #ffffff !important;
 }
+.theme-light .color-override.hoverTextColor3:hover {
+  color: #ffffff !important;
+}
 .theme-light .color-override.hoverSvgColor3:hover {
   fill: #ffffff !important;
 }
@@ -1711,6 +1711,9 @@ Page Loading
 }
 .theme-light .color-override.hoverBackgroundColor4:hover {
   background: #29769e !important;
+}
+.theme-light .color-override.hoverTextColor4:hover {
+  color: #29769e !important;
 }
 .theme-light .color-override.hoverSvgColor4:hover {
   fill: #29769e !important;
@@ -1747,6 +1750,9 @@ Page Loading
 .theme-light .color-override.hoverBackgroundColor5:hover {
   background: #777777 !important;
 }
+.theme-light .color-override.hoverTextColor5:hover {
+  color: #777777 !important;
+}
 .theme-light .color-override.hoverSvgColor5:hover {
   fill: #777777 !important;
 }
@@ -1781,6 +1787,9 @@ Page Loading
 }
 .theme-light .color-override.hoverBackgroundColor6:hover {
   background: #c3c3c3 !important;
+}
+.theme-light .color-override.hoverTextColor6:hover {
+  color: #c3c3c3 !important;
 }
 .theme-light .color-override.hoverSvgColor6:hover {
   fill: #c3c3c3 !important;
@@ -1817,6 +1826,9 @@ Page Loading
 .theme-light .color-override.hoverBackgroundColor7:hover {
   background: #212325 !important;
 }
+.theme-light .color-override.hoverTextColor7:hover {
+  color: #212325 !important;
+}
 .theme-light .color-override.hoverSvgColor7:hover {
   fill: #212325 !important;
 }
@@ -1851,6 +1863,9 @@ Page Loading
 }
 .theme-light .color-override.hoverBackgroundColor8:hover {
   background: #f5f5f5 !important;
+}
+.theme-light .color-override.hoverTextColor8:hover {
+  color: #f5f5f5 !important;
 }
 .theme-light .color-override.hoverSvgColor8:hover {
   fill: #f5f5f5 !important;
@@ -1887,6 +1902,9 @@ Page Loading
 .theme-light .color-override.hoverBackgroundColor9:hover {
   background: #888b8e !important;
 }
+.theme-light .color-override.hoverTextColor9:hover {
+  color: #888b8e !important;
+}
 .theme-light .color-override.hoverSvgColor9:hover {
   fill: #888b8e !important;
 }
@@ -1921,6 +1939,9 @@ Page Loading
 }
 .theme-light .color-override.hoverBackgroundColor10:hover {
   background: #8c99a6 !important;
+}
+.theme-light .color-override.hoverTextColor10:hover {
+  color: #8c99a6 !important;
 }
 .theme-light .color-override.hoverSvgColor10:hover {
   fill: #8c99a6 !important;
@@ -1957,6 +1978,9 @@ Page Loading
 .theme-light .color-override.hoverBackgroundColor11:hover {
   background: #26566e !important;
 }
+.theme-light .color-override.hoverTextColor11:hover {
+  color: #26566e !important;
+}
 .theme-light .color-override.hoverSvgColor11:hover {
   fill: #26566e !important;
 }
@@ -1991,6 +2015,9 @@ Page Loading
 }
 .theme-light .color-override.hoverBackgroundTransparent:hover {
   background: transparent !important;
+}
+.theme-light .color-override.hoverTextTransparent:hover {
+  color: transparent !important;
 }
 .theme-light .color-override.hoverSvgTransparent:hover {
   fill: transparent !important;

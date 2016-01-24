@@ -305,20 +305,6 @@
             }
         }
     }
-
-    .ribbon {
-        background-color: @backgroundColorRed;
-        background-image: linear-gradient(to right, rgba(0,0,0,0) 0, rgba(0,0,0,.1) 100%);
-        box-shadow: inset 0 .062em 0 rgba(255,255,255,.6), 0 .125em .25em rgba(0,0,0,.2);
-    }
-
-    .ribbon:before {
-        background-image: linear-gradient(to left, rgba(0,0,0,.2) 0, rgba(0,0,0,0) 100%);
-    }
-
-    .ribbon:after {
-        box-shadow: 0 .062em 0 rgba(255,255,255,.6);
-    }
     //footer arrow up
     .scroll-to-top {
         svg {
@@ -499,6 +485,7 @@
     color-override borderColor#
     color-override outlineColor#
     color-override hoverBackgroundColor#
+    color-override hoverTextColor#
     color-override hoverSvgColor#
     */
     &.color-override.backgroundColor1 {
@@ -536,7 +523,11 @@
                 background: @Color !important;
             }
         }
-
+        &.hoverText@{name} {
+            &:hover {
+                color: @Color !important;
+            }
+        }
         &.hoverSvg@{name} {
             &:hover {
                 fill: @Color !important;
