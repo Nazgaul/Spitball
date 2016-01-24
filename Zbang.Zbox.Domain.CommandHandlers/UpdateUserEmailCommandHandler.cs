@@ -61,11 +61,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             user.UpdateEmail(email);
             if (user.MembershipId.HasValue)
             {
-                await m_AccountService.ChangeEmail(user.MembershipId.Value, email);
-            }
-            else
-            {
-                throw new ArgumentException(Resources.CommandHandlerResources.CannotChangeEmail);
+                await m_AccountService.ChangeEmailAsync(user.MembershipId.Value, email);
             }
         }
     }

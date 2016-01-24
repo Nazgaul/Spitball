@@ -108,19 +108,19 @@ namespace Zbang.Zbox.Infrastructure.Security
         //    return manager;
         //}
 
-        public async Task<bool> ChangePassword(Guid accountId, string oldPassword, string newPassword)
+        public async Task<bool> ChangePasswordAsync(Guid accountId, string oldPassword, string newPassword)
         {
             var result = await ChangePasswordAsync(accountId.ToString(), oldPassword, newPassword);
             return result.Succeeded;
         }
 
-        public async Task<bool> ChangeEmail(Guid userId, string newEmail)
+        public async Task<bool> ChangeEmailAsync(Guid userId, string newEmail)
         {
             var result = await SetEmailAsync(userId.ToString(), newEmail);
             return result.Succeeded;
         }
 
-        public async Task<Guid?> CreateUser(string email, string password)
+        public async Task<Guid?> CreateUserAsync(string email, string password)
         {
             var user = new ApplicationUser
                 {

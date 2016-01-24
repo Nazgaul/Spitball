@@ -24,7 +24,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("Index2");
         }
 
-        [DonutOutputCache(VaryByParam = "id", Duration = TimeConsts.Hour)]
         [HttpGet]
         public async Task<ActionResult> ProfileStats(long id)
         {
