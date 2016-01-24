@@ -109,7 +109,7 @@
                     {
                         state: 'searchinfo',
                         config: {
-                            url: '/search/',
+                            url: '/search/?q&t',
                             controller: 'SearchController as s',
                             data: { animateClass: 'search' },
                             reloadOnSearch: false,
