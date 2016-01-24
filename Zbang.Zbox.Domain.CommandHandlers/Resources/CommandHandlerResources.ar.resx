@@ -129,7 +129,4 @@
   <data name="EmailTaken" xml:space="preserve">
     <value>هذا البريد الإلكتروني مستخدم</value>
   </data>
-  <data name="UserNotExist" xml:space="preserve">
-    <value>المستخدم غير موجود</value>
-  </data>
 </root>

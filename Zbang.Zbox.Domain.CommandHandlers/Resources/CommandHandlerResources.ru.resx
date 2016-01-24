@@ -129,7 +129,4 @@
   <data name="EmailTaken" xml:space="preserve">
     <value>Этот адрес эл.почты занят</value>
   </data>
-  <data name="UserNotExist" xml:space="preserve">
-    <value>Пользователь не существует</value>
-  </data>
 </root>

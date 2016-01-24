@@ -120,7 +120,4 @@
   <data name="LinkRequired" xml:space="preserve">
     <value>URL required</value>
   </data>
-  <data name="NotValidUrl" xml:space="preserve">
-    <value>Please enter a valid URL</value>
-  </data>
 </root>

@@ -217,7 +217,4 @@
   <data name="WentWrong" xml:space="preserve">
     <value>Something went wrong</value>
   </data>
-  <data name="Search" xml:space="preserve">
-    <value>Search</value>
-  </data>
 </root>

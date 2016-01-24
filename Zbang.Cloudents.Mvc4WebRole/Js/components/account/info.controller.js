@@ -105,7 +105,6 @@
             if (theme == self.data.theme) {
                 return;
             }
-
             accountService.changeTheme(theme).then(function () {
                 userDetailsFactory.setTheme(theme);
                 $scope.app.setTheme();
@@ -130,9 +129,13 @@
         var ic = this;
         ic.cancel = cancel;
         ic.submitCode = submitCode;
-        function submitCode() {
+
+        function submitCode(myform) {
             accountService.submitCode(ic.code).then(function () {
                 $mdDialog.hide();
+            }, function(response) {
+                myform.code.$setValidity('server', false);
+                ic.error = response;
             });
 
         }

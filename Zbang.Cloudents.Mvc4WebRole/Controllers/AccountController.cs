@@ -491,6 +491,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 model.TimeOfExpire = DateTime.UtcNow.AddHours(3);
                 m_CookieHelper.InjectCookie(SessionKey, model);
 
+                TraceLog.WriteInfo("Sending change email with code" + model);
                 await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ChangeEmailData(generatedCode.ToString(CultureInfo.InvariantCulture),
                      model.Email, Thread.CurrentThread.CurrentCulture.Name));
                 return JsonOk(new { code = true });

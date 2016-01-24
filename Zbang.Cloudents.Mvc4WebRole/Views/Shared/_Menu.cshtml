@@ -4,11 +4,11 @@
     var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
 }
 
-<md-sidenav ng-cloak class="main-md-sidenav color-override backgroundColor1" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+<md-sidenav ng-cloak class="main-md-sidenav color-override backgroundColor1" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" close-menu="left">
     <md-content role="navigation" ng-controller="SideMenu as d">
-        <ul class="side-menu" ng-slimscroll height="calc(100vh - 90px)" color="#BBB">
+        <ul class="side-menu" ng-slimscroll height="calc(100vh - 90px)" color="#BBB" user-not-register-popup="click">
             <li class="dashboard nav-item">
-                <md-button user-not-register-popup="click" ng-class="{active: d.isSectionSelected('@Url.Action("Index","Dashboard")')}" @shouldPostBack href="@Url.Action("Index","Dashboard")">
+                <md-button ng-class="{active: d.isSectionSelected('@Url.Action("Index","Dashboard")')}" @shouldPostBack href="@Url.Action("Index","Dashboard")">
                     <span class="icon">@Html.Svg(svgUrl, "houseMenu")</span>
                     @IndexResources.Dashboard
                 </md-button>
@@ -48,7 +48,7 @@
                 </ul>
             </li>
             <li class="uni nav-item">
-                <md-button class="ellipsis" user-not-register-popup="click" ng-class="{active: d.isSectionSelected('@Url.RouteUrl("LibraryDesktop")')}" @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")">
+                <md-button class="ellipsis" ng-class="{active: d.isSectionSelected('@Url.RouteUrl("LibraryDesktop")')}" @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")">
                     <span class="icon">
                         @Html.Svg(svgUrl, "universityMenu")
                     </span>
@@ -56,7 +56,7 @@
                 </md-button>
             </li>
             <li class="user nav-item">
-                <md-button user-not-register-popup="click" ng-class="{active:d.isSectionSelected(d.userUrl)}" @shouldPostBack href="{{::d.userUrl}}">
+                <md-button ng-class="{active:d.isSectionSelected(d.userUrl)}" @shouldPostBack href="{{::d.userUrl}}">
                     <span class="icon">
                         @Html.Svg(svgUrl, "userMenu")
                     </span>
@@ -64,7 +64,7 @@
                 </md-button>
             </li>
             <li class="settings nav-item">
-                <md-button user-not-register-popup="click" ng-class="{active:d.isSectionSelected('@Url.RouteUrl("AccountSettings")')}" @shouldPostBack href="@Url.RouteUrl("AccountSettings")">
+                <md-button ng-class="{active:d.isSectionSelected('@Url.RouteUrl("AccountSettings")')}" @shouldPostBack href="@Url.RouteUrl("AccountSettings")">
                     <span class="icon">
                         @Html.Svg(svgUrl, "settingMenu")
                     </span>
@@ -88,23 +88,13 @@
                 </md-button>
             </li>
             <li class="logout nav-item">
-                <md-button target="_self" ng-click="app.logOut()" user-not-register-popup="click" href="@Url.Action("logoff","account")">
+                <md-button target="_self" ng-click="app.logOut()" href="@Url.Action("logoff","account")">
                     <span class="icon">
                         @Html.Svg(svgUrl, "logOffMenu")
                     </span>
                     @IndexResources.Logout
                 </md-button>
             </li>
-
-
-            @*<li class="parent-list-item">
-                    <menu-toggle section="courses"></menu-toggle>
-                </li>*@
-            @*<li ng-repeat="section in vm.menu.sections" class="parent-list-item"
-                    ng-class="{'parentActive' : vm.isSectionSelected(section)}">
-                    <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
-                    <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
-                </li>*@
         </ul>
     </md-content>
 </md-sidenav>

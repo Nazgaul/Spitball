@@ -104,14 +104,5 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Resources {
                 return ResourceManager.GetString("EmailTaken", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to User does not exist.
-        /// </summary>
-        public static string UserNotExist {
-            get {
-                return ResourceManager.GetString("UserNotExist", resourceCulture);
-            }
-        }
     }
 }

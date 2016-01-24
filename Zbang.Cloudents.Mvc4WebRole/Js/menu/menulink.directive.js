@@ -2,20 +2,6 @@
     'use strict';
 
     angular.module('app')
-        //.run([
-        //    '$templateCache', function($templateCache) {
-        //        $templateCache.put('partials/menu-link.tmpl.html',
-        //            '<md-button ng-class="{\'{{section.icon}}\' : true}" \n' +
-        //            ' ng-click="focusSection()">\n' +
-        //            '  {{section | humanizeDoc}}\n' +
-        //            '  <span  class="md-visually-hidden "\n' +
-        //            '    ng-if="isSelected()">\n' +
-        //            '    current page\n' +
-        //            '  </span>\n' +
-        //            '</md-button>\n' +
-        //            '');
-        //    }
-        //])
         .directive('menuLink', function () {
             return {
                 scope: {

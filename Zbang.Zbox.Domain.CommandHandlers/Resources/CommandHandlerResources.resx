@@ -129,9 +129,6 @@
   <data name="EmailTaken" xml:space="preserve">
     <value>There is a Spitball account already associated with this email address</value>
   </data>
-  <data name="UserNotExist" xml:space="preserve">
-    <value>User does not exist</value>
-  </data>
   <data name="CreateItemTabCommandHandler_Handle_Cannot_have_several_tabs_with_the_same_name" xml:space="preserve">
     <value>Cannot have several tabs with the same name</value>
   </data>
