@@ -91,7 +91,9 @@
 
             });
         }
-
+        $rootScope.$on('close-menu', function () {
+            $mdSidenav('left').close();
+        });
         $rootScope.$on('open-menu', function () {
             $mdSidenav('left').toggle();
         });
