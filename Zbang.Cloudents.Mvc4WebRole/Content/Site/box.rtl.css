@@ -720,6 +720,16 @@
 .i-q-wrapper {
   position: relative;
 }
+.i-q-wrapper > md-menu {
+  position: absolute;
+  left: 15px;
+}
+.i-q-wrapper > md-menu.item-menu {
+  bottom: 90px;
+}
+.i-q-wrapper > md-menu.quiz-menu {
+  top: 42%;
+}
 .i-q-wrapper .delete {
   top: 3px;
   margin: 0;

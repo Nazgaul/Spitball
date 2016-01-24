@@ -917,6 +917,24 @@
 .i-q-wrapper {
     position: relative;
 
+    > md-menu {
+        position: absolute;
+        right: 15px;
+
+        &.item-menu {
+            bottom: 90px;
+        }
+
+        &.quiz-menu {
+            top: 42%;
+        }
+    }
+
+
+
+
+
+
     .delete {
         top: 3px;
         margin: 0;
@@ -924,7 +942,7 @@
         padding: 0;
         height: inherit;
 
-        svg{
+        svg {
             fill: @svgQuizArrows;
             margin-top: 0;
         }
