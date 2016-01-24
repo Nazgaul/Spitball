@@ -1,8 +1,9 @@
 ﻿(function () {
     angular.module('app.search').controller('SearchController', search);
 
-    search.$inject = ['searchService', '$location', 'itemThumbnailService', '$q', '$rootScope', '$scope', 'Analytics'];
-    function search(searchService, $location, itemThumbnailService, $q, $rootScope, $scope, analytics) {
+    search.$inject = ['searchService', 'itemThumbnailService', '$q', '$rootScope', '$scope', 'Analytics',
+        '$stateParams', '$location', '$state'];
+    function search(searchService, itemThumbnailService, $q, $rootScope, $scope, analytics, $stateParams, $location, $state) {
         var self = this, page = 0, needToBringMore = true, term;
         self.state = {
             box: 'box',
@@ -36,10 +37,8 @@
             //        'q': self.term,
             //        't': self.tab
             //    });
-            if (typeof $location.search().q === 'string') {
-                term = $location.search().q;
-            }
-            assignTab();
+            term = $stateParams.q;
+            //assignTab();
             page = 0;
             needToBringMore = true;
             doQuery();
@@ -49,26 +48,22 @@
         function assignTab() {
             self.tab = self.state.box;
             self.tabIndex = 0;
-            if (typeof $location.search().t === 'string') {
-                var index = 0;
-                for (var prop in self.state) {
-                    if (self.state.hasOwnProperty(prop)) {
-                        if (self.state[prop] === $location.search().t) {
-                            self.tab = self.state[prop];
-                            self.tabIndex = index;
-                        }
+            var index = 0;
+            for (var prop in self.state) {
+                if (self.state.hasOwnProperty(prop)) {
+                    if (self.state[prop] === $stateParams.t) {
+                        self.tab = self.state[prop];
+                        self.tabIndex = index;
                     }
-                    index++;
                 }
+                index++;
             }
         }
 
         function changeTab(tab) {
             self.tab = tab;
-            $location.search({
-                'q': $location.search().q,
-                't': self.tab
-            });
+            $state.go('searchinfo', { q: $stateParams.q, t: self.tab });
+
             searchElements();
         }
 
