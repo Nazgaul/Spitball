@@ -155,6 +155,9 @@
 .contactUs-page .social-links .wrapper {
   display: inline-block;
 }
+.aboutUs-page {
+  margin-top: 5px;
+}
 .aboutUs-page .advantages .portlet {
   border-radius: 0;
   text-align: center;
@@ -234,6 +237,9 @@
 .aboutUs-page .team .portlet .desc {
   height: 44px;
   display: block;
+}
+.aboutUs-page .team .portlet .desc span {
+  white-space: pre-wrap;
 }
 .aboutUs-page .team .portlet .photo {
   display: inline-block;

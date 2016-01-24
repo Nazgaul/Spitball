@@ -124,6 +124,199 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CEO
+        ///Co-Founder.
+        /// </summary>
+        public static string AboutUsCEO {
+            get {
+                return ResourceManager.GetString("AboutUsCEO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eidan Apelbaum Ph.D..
+        /// </summary>
+        public static string AboutUsCEOName {
+            get {
+                return ResourceManager.GetString("AboutUsCEOName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CoO
+        ///Co-Founder.
+        /// </summary>
+        public static string AboutUsCoO {
+            get {
+                return ResourceManager.GetString("AboutUsCoO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Matan Libis.
+        /// </summary>
+        public static string AboutUsCoOName {
+            get {
+                return ResourceManager.GetString("AboutUsCoOName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string AboutUsCTO {
+            get {
+                return ResourceManager.GetString("AboutUsCTO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ram Yaari.
+        /// </summary>
+        public static string AboutUsCTOName {
+            get {
+                return ResourceManager.GetString("AboutUsCTOName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spitball is a free online and mobile social studying platform. A community focused on academic activity so you can focus on studying. It is a place to work together on assignments, find the study material you need, test your knowledge or discuss ideas and texts..
+        /// </summary>
+        public static string AboutUsDescriptionA1 {
+            get {
+                return ResourceManager.GetString("AboutUsDescriptionA1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Many students are caught between various online services for collaboration. On one side official virtual learning environments provided by their university, official but often clunky and inflexible. On the other side Facebook –geared for social life, not academic collaboration– where distractions are never far away.
+        ///
+        ///To fill this gap we set out to create a social studying platform that combines the flexibility and social elements of Facebook with the focus on academic work of official virtual learning env [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string AboutUsDescriptionA2 {
+            get {
+                return ResourceManager.GetString("AboutUsDescriptionA2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We want our users to improve academically. We want to facilitate cross-pollination of ideas, the sharing of materials and academic collaboration. We want our users to become better students..
+        /// </summary>
+        public static string AboutUsDescriptionA3 {
+            get {
+                return ResourceManager.GetString("AboutUsDescriptionA3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Spitball platform is developed by a young bunch of specialists in online platforms. Our combined background includes various online platforms such as AVG MultiMi and Yahoo’s client facing applications such as Mail, Messenger, Groups and My Yahoo!.
+        /// </summary>
+        public static string AboutUsDescriptionA4 {
+            get {
+                return ResourceManager.GetString("AboutUsDescriptionA4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What is Spitball?.
+        /// </summary>
+        public static string AboutUsDescriptionQ1 {
+            get {
+                return ResourceManager.GetString("AboutUsDescriptionQ1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The background.
+        /// </summary>
+        public static string AboutUsDescriptionQ2 {
+            get {
+                return ResourceManager.GetString("AboutUsDescriptionQ2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Our mission.
+        /// </summary>
+        public static string AboutUsDescriptionQ3 {
+            get {
+                return ResourceManager.GetString("AboutUsDescriptionQ3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Our company.
+        /// </summary>
+        public static string AboutUsDescriptionQ4 {
+            get {
+                return ResourceManager.GetString("AboutUsDescriptionQ4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Design UX UI.
+        /// </summary>
+        public static string AboutUsDesigner {
+            get {
+                return ResourceManager.GetString("AboutUsDesigner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shlomi Kastoryano.
+        /// </summary>
+        public static string AboutUsDesignerName {
+            get {
+                return ResourceManager.GetString("AboutUsDesignerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make studying a great adventure.
+        /// </summary>
+        public static string AboutUsSubtitle {
+            get {
+                return ResourceManager.GetString("AboutUsSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spitball Team.
+        /// </summary>
+        public static string AboutUsTeamHeader {
+            get {
+                return ResourceManager.GetString("AboutUsTeamHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About Us.
+        /// </summary>
+        public static string AboutUsTitle {
+            get {
+                return ResourceManager.GetString("AboutUsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Web developer.
+        /// </summary>
+        public static string AboutUsWebDev {
+            get {
+                return ResourceManager.GetString("AboutUsWebDev", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Irena Dorfman.
+        /// </summary>
+        public static string AboutUsWebDevName {
+            get {
+                return ResourceManager.GetString("AboutUsWebDevName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spitball Features.
         /// </summary>
         public static string B1 {
