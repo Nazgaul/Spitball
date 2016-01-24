@@ -171,4 +171,7 @@
   <data name="itemsInTab" xml:space="preserve">
     <value>items</value>
   </data>
+  <data name="replyPostPlaceholder" xml:space="preserve">
+    <value>What's on your mind?</value>
+  </data>
 </root>

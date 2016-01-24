@@ -184,6 +184,7 @@
 .add-button button {
   font-size: 18px;
   text-align: center;
+  white-space: nowrap;
 }
 .add-button svg {
   width: 40px;

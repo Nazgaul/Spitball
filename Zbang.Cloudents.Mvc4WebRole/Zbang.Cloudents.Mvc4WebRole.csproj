@@ -3018,8 +3018,8 @@
     <EmbeddedResource Include="Views\Box\Resources\BoxResources.he.resx" />
     <EmbeddedResource Include="Views\Box\Resources\BoxResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>BoxResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>BoxResources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Box\Resources\BoxResources.ru.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResource.ar.resx" />

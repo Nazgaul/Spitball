@@ -178,6 +178,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to What&apos;s on your mind?.
+        /// </summary>
+        public static string replyPostPlaceholder {
+            get {
+                return ResourceManager.GetString("replyPostPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Search {
