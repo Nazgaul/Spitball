@@ -209,7 +209,6 @@
 /// <reference path="../js/shared/ajaxservice.js" />
 /// <reference path="../js/shared/facebook.js" />
 /// <reference path="../js/components/library/countryservice.service.js" />
-/// <reference path="ui-bootstrap-custom-tpls-0.14.3.js" />
 /// <reference path="angular-mocks.js" />
 /// <reference path="angular.min.js" />
 /// <reference path="draganddrop.min.js" />

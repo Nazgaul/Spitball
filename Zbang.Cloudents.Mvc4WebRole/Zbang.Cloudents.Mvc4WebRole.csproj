@@ -2668,8 +2668,6 @@
     <Content Include="Scripts\plupload2\plupload.full.min.js" />
     <Content Include="Scripts\Modernizr.js" />
     <Content Include="Scripts\svg4everybody.js" />
-    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.14.3.js" />
-    <Content Include="Scripts\ui-bootstrap-custom-tpls-0.14.3.min.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\ui-bootstrap-custom-tpls-1.1.0.js" />
     <Content Include="Scripts\ui-bootstrap-custom-tpls-1.1.0.min.js" />

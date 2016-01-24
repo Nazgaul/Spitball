@@ -96,7 +96,7 @@
                 return;
             }
             $mdMenu.hide();
-            $rootScope.$broadcast('open-menu');
+            $rootScope.$broadcast('close-menu');
             var toStateName = toState.name;
             if (fromParams.boxId && toParams.boxId) {
                 if (fromParams.boxId === toParams.boxId && toStateName === 'box' && fromState.name.startsWith('box')) {

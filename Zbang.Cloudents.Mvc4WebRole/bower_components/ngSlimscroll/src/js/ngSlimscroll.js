@@ -255,7 +255,7 @@ angular.module('jkuri.slimscroll', [])
 
 			// mobile
 			element.bind('touchstart', function (e, b) {
-				if (e.touches.length) {
+				if (e.originalEvent.touches.length) {
 					touchDiff = e.touches[0].pageY;
 				}
 			});
@@ -265,14 +265,14 @@ angular.module('jkuri.slimscroll', [])
 					e.preventDefault();
 				}
 
-				if (e.touches.length) {
-					var diff = (touchDiff - e.touches[0].pageY) / scope.touchScrollStep;
+				if (e.originalEvent.touches.length) {
+				    var diff = (touchDiff - e.originalEvent.touches[0].pageY) / scope.touchScrollStep;
 					if (!scope.horizontalScroll) {
 						scope.scrollContent(diff, true);
 					} else {
 						scope.scrollContentHorizontal(diff, true);
 					}
-					touchDiff = e.touches[0].pageY;
+					touchDiff = e.originalEvent.touches[0].pageY;
 				}
 			});
 
