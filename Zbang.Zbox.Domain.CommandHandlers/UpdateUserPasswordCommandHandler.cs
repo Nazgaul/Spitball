@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private async Task ChangeUserPasswordAsync(Guid userid, string currentPassword, string newPassword)
         {
-            var retVal = await m_AccountService.ChangePassword(userid, currentPassword,
+            var retVal = await m_AccountService.ChangePasswordAsync(userid, currentPassword,
                 newPassword);
             if (!retVal)
             {

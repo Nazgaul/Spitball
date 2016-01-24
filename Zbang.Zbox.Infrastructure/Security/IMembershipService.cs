@@ -6,8 +6,8 @@ namespace Zbang.Zbox.Infrastructure.Security
 
     public interface IAccountService
     {
-        Task<bool> ChangePassword(Guid accountId, string oldPassword, string newPassword);
-        Task<Guid?> CreateUser(string email, string password);
-        Task<bool> ChangeEmail(Guid accountId, string newEmail);
+        Task<bool> ChangePasswordAsync(Guid accountId, string oldPassword, string newPassword);
+        Task<Guid?> CreateUserAsync(string email, string password);
+        Task<bool> ChangeEmailAsync(Guid accountId, string newEmail);
     }
 }
