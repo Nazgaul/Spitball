@@ -102,14 +102,14 @@
         }
 
         function changeTheme(theme) {
-            if (theme == userData.theme) {
+            if (theme == self.data.theme) {
                 return;
             }
 
             accountService.changeTheme(theme).then(function () {
                 userDetailsFactory.setTheme(theme);
                 $scope.app.setTheme();
-                userData.theme = theme;
+                self.data.theme = theme;
                 //location.reload(true);
             });
         }

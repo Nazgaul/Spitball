@@ -13,6 +13,7 @@
                 config: {
                     url: '/quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}/',
                     controller: 'QuizController as q',
+                    data: { animateClass: 'full-screen quizPage' },
                     resolve: {
                         data: [
                             'quizService', '$stateParams', function (quizService, $stateParams) {

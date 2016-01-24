@@ -5,7 +5,7 @@
 
 <div class="tab-pane active" id="info">
     <div class="section text-capitalize" layout="row" layout-wrap id="section-1">
-        <div class="fileinput" flex="50">
+        <div class="fileinput" flex="50" flex-xs="100">
             <h2>@AccountResource.Profile</h2>
             <div class="thumbnail">
                 <user-image name="i.data.firstName" image="i.data.image" width="150" height="150" noremove="true"></user-image>
@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <div flex="50">
+        <div flex="50" flex-xs="100">
             <h2>@AccountResource.ChangeTheme</h2>
             <div layout="row" layout-align="space-between center">
                 <button class="theme-section" ng-class="{selected:i.data.theme ==='@Theme.Dark.GetStringValueLowerCase()'}" type="button" ng-click="i.changeTheme('@Theme.Dark.GetStringValueLowerCase()')" ga-track-event="['settings', 'change theme dark']">
@@ -36,7 +36,7 @@
                 <a ui-sref="universityChoose" flex ga-track-event="['settings', 'change university']">@AccountResource.changeUniversityBtn</a>
             </div>
         </div>
-        <md-input-container flex="50">
+        <md-input-container flex="50" flex-xs="100">
             <label>@AccountResource.Lang</label>
             <md-select name="notification" md-on-close="i.changeLanguage()" ng-model="i.data.language" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}" ga-track-event="['settings', 'change language']">
                 @foreach (var lang in Zbang.Zbox.Infrastructure.Culture.Languages.SpitballSupportedCultures)

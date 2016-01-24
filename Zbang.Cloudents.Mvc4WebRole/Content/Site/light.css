@@ -3,7 +3,6 @@ Theme Colors
 ***********/
 body {
   height: auto;
-  min-height: calc(100% - 85px);
 }
 /*body.page-md {
     background: #f3f5f9;
@@ -12,33 +11,42 @@ body {
 Page Header
 ***********/
 /* Header search bar, toggler button & top menu */
-.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle > i {
-  color: #C0CDDC;
+/*.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle > i {
+    color: #C0CDDC;
 }
+
+
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu > li.external > a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
+
+
+
+
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user > .dropdown-toggle > .username {
-  margin-right: 5px;
+    margin-right: 5px;
 }
+
+
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user > .dropdown-menu {
-  width: 195px;
+    width: 195px;
 }
+
+
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu {
-  border: 0;
-}
-@media (max-width: 768px) {
-  .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu {
-    right: 0;
-    left: auto;
-  }
-}
-.page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu.dropdown-menu-default > li a {
-  border-bottom: 0 !important;
-}
-.page-header.navbar .search-form .input-group .form-control::-moz-placeholder {
-  opacity: 1;
-}
+    border: 0;
+
+    @media (max-width: 768px) {
+        right: 0;
+        left: auto;
+    }
+}*/
+/*.page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu.dropdown-menu-default > li a {
+    border-bottom: 0 !important;
+}*/
+/*.page-header.navbar .search-form .input-group .form-control::-moz-placeholder {
+    opacity: 1;
+}*/
 /* Page sidebar */
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a,
 .page-sidebar .page-sidebar-menu > li.active > a {
@@ -107,10 +115,11 @@ Page Footer
     border-bottom: 0;
   }
 }
-@media (max-width: 991px) {
-  /* 991px */
-  .page-header.navbar {
-    padding: 0;
-    /* Top menu */
-  }
-}
+/*@media (max-width: 991px) {
+    .page-header.navbar {
+        padding: 0;
+        
+    }
+
+
+}*/

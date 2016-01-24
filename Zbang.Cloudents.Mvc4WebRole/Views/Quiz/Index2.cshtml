@@ -5,137 +5,135 @@
     const string svgUrl = "~/images/site/quizIcons.svg";
 }
 
-<div class="full-screen quizPage">
-    <header class="color-override backgroundColor2 borderColor8" layout="row" layout-align="space-between center">
-        <div class="fb-like">
-            <button>
-                <div class="content">
-                    @*@Html.Svg("~/images/site/box-icons.svg", "like")
-                        <span class="like-text">
-                            x @GeneralResources.Like
-                        </span>*@
+<header class="color-override backgroundColor2 borderColor8" layout="row" layout-align="space-between center">
+    <div class="fb-like">
+        <button>
+            <div class="content">
+                @*@Html.Svg("~/images/site/box-icons.svg", "like")
+                    <span class="like-text">
+                        x @GeneralResources.Like
+                    </span>*@
+            </div>
+        </button>
+    </div>
+    <div class="ellipsis text-center" id="quiz-top" ng-bind-html="::q.name"></div>
+    <button type="button" ng-click="app.back(q.boxUrl)" class="close" ga-track-event="['quiz', 'close quiz']">@Html.Svg("~/images/site/icons.svg", "close", new { @class = "color-override svgColor8" })</button>
+</header>
+<div md-swipe-left="q.swipeLeft()" md-swipe-right="q.swipeRight()">
+
+    <div class="arrows prev" hide show-gt-sm ng-if="q.state === 2 || q.state === 4">
+        <button type="button" ng-click="q.back()" ng-show="q.index > 0 && q.index < q.questions.length" ga-track-event="['quiz', 'previous question']">
+            @Html.Svg("~/images/site/icons.svg", "arrow")
+        </button>
+    </div>
+    <div class="wrapper">
+        <div ng-if="q.state === 4" class="solveActions">
+            <div layout="row" class="margin-bottom-15">
+                <div class="retake-wrapper" flex-gt-xs="33" flex-xs="100">
+                    <button class="retake" type="button" ng-click="q.retakeQuiz()" ga-track-event="['quiz', 'retake quiz']">@QuizResources.Retake</button>
                 </div>
-            </button>
-        </div>
-        <div class="ellipsis text-center" id="quiz-top" ng-bind-html="::q.name"></div>
-        <button type="button" ng-click="app.back(q.boxUrl)" class="close" ga-track-event="['quiz', 'close quiz']">@Html.Svg("~/images/site/icons.svg", "close", new { @class = "color-override svgColor8" })</button>
-    </header>
-    <div md-swipe-left="q.swipeLeft()" md-swipe-right="q.swipeRight()">
+            </div>
 
-        <div class="arrows prev" hide show-gt-sm ng-if="q.state === 2 || q.state === 4">
-            <button type="button" ng-click="q.back()" ng-show="q.index > 0 && q.index < q.questions.length" ga-track-event="['quiz', 'previous question']">
-                @Html.Svg("~/images/site/icons.svg", "arrow")
-            </button>
-        </div>
-        <div class="wrapper">
-            <div ng-if="q.state === 4" class="solveActions">
-                <div layout="row" class="margin-bottom-15">
-                    <div class="retake-wrapper" flex-gt-xs="33" flex-xs="100">
-                        <button class="retake" type="button" ng-click="q.retakeQuiz()" ga-track-event="['quiz', 'retake quiz']">@QuizResources.Retake</button>
-                    </div>
+            <div layout-wrap layout="row" layout-align="space-between stretch" layoutclass="margin-bottom-15">
+                <div flex-xs="100" class="black-bullet score">
+                    <h5 class="text-capitalize">@QuizResources.Score</h5>
+                    {{q.sheet.score}}
                 </div>
 
-                <div layout-wrap layout="row" layout-align="space-between stretch" layoutclass="margin-bottom-15">
-                    <div flex-xs="100" class="black-bullet score">
-                        <h5 class="text-capitalize">@QuizResources.Score</h5>
-                        {{q.sheet.score}}
-                    </div>
-
-                    <div flex-xs="100" class="black-bullet score-details">
-                        <div class="correct">
-                            @Html.Svg(svgUrl, "correct")
-                            <div class="text">
-                                <h6>@QuizResources.Correct</h6>
-                                {{q.sheet.correct}}
-                            </div>
-                        </div>
-                        <div class="wrong">
-                            <div class="text">
-                                <h6>@QuizResources.Wrong</h6>
-                                {{q.sheet.wrong}}
-
-                            </div>
-                            @Html.Svg(svgUrl, "wrong")
+                <div flex-xs="100" class="black-bullet score-details">
+                    <div class="correct">
+                        @Html.Svg(svgUrl, "correct")
+                        <div class="text">
+                            <h6>@QuizResources.Correct</h6>
+                            {{q.sheet.correct}}
                         </div>
                     </div>
+                    <div class="wrong">
+                        <div class="text">
+                            <h6>@QuizResources.Wrong</h6>
+                            {{q.sheet.wrong}}
 
-                    <div flex-xs="100" class="black-bullet time-taken" layout="row" layout-align="center center">
-                        @Html.Svg(svgUrl, "clock") <span class="text">{{q.sheet.timeTaken}}</span>
+                        </div>
+                        @Html.Svg(svgUrl, "wrong")
                     </div>
                 </div>
 
-            </div>
-            <div layout="row" class="quiz-take-stats" ng-class="{'no-progress': q.state === 1}" ng-show="q.state !== 4">
-                <div flex="none" layout="row" layout-align="start center" class="stop-watch-wrapper">
-                    <stopwatch control="q.timerControl"></stopwatch>
-
-                    <button type="button" class="stopwatch-btn" ng-click=" q.timerControl.toggle()" ng-disabled="q.state === 1">
-                        @Html.Svg(svgUrl, "pause", new { @class = "pause", ng_if = "q.timerControl.isRunning" })
-                        @Html.Svg(svgUrl, "play", new { @class = "play", ng_if = "!q.timerControl.isRunning" })
-                    </button>
-
-                </div>
-                <div flex class="progress-wrapper">
-                    <span class="question-progress">{{q.index + 1}}/{{q.questions.length}}</span>
-                    <md-progress-linear md-mode="determinate" value="{{q.index /(q.questions.length - 1)*100}}"></md-progress-linear>
+                <div flex-xs="100" class="black-bullet time-taken" layout="row" layout-align="center center">
+                    @Html.Svg(svgUrl, "clock") <span class="text">{{q.sheet.timeTaken}}</span>
                 </div>
             </div>
-            <div class="quiz-challenge" ng-if="q.state === 1" ng-include="'quizChallenge.html'"></div>
-            <div class="quiz-wrapper" ng-class="q.isCorrect(q.questions[q.index])" ng-if="q.state === 2 || q.state === 4">
-                <div class="no-answer-element">@QuizResources.NoAnswer</div>
-                <div ng-if="q.index < q.questions.length" ng-include="'quiz-question-template.html'" ng-repeat="question in ::q.questions"></div>
-                <div ng-if="q.state === 4" class="add-discussion">
-                    <form class="clearfix" novalidate name="addDiscussion" ng-submit="q.postComment(q.questions[q.index],addDiscussion)">
-                        <md-input-container md-no-float>
-                            <textarea required placeholder="@QuizResources.WriteComment" name="newComment" ng-model="q.questions[q.index].newComment"></textarea>
-                            <div ng-messages="addDiscussion.newComment.$error">
-                                <div ng-message="required">@GeneralResources.RequiredField</div>
-                            </div>
-                            <button class="btn button-Blue btn-primary pull-right" ng-disabled="!addDiscussion.$valid" type="submit" ga-track-event="['quiz', 'post comment']">@GeneralResources.Post</button>
-                        </md-input-container>
 
-                    </form>
-                    <ol class="list-unstyled feed">
-                        <li class="comment reply color-override backgroundTransparent" ng-repeat="post in q.questions[q.index].comments">
-                            <div>
-                                <div class="top">
-                                    <a href="{{::post.url}}" layout="row" layout-align="start center" class="username" ga-track-event="['quiz', 'go to user page']">
-                                        <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="48" height="48"></user-image>
-                                        <span class="user-name">{{::post.userName}}</span>
-                                    </a>
-                                    <div ng-bind-html="::post.content" class="content-text"></div>
-                                </div>
-                                <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
-                            </div>
+        </div>
+        <div layout="row" class="quiz-take-stats" ng-class="{'no-progress': q.state === 1}" ng-show="q.state !== 4">
+            <div flex="none" layout="row" layout-align="start center" class="stop-watch-wrapper">
+                <stopwatch control="q.timerControl"></stopwatch>
 
-                            <md-menu ng-if="post.userId === q.user.id">
-                                <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['quiz', 'deletePost']">
-                                    @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
-                                </md-button>
-                                <md-menu-content width="1">
-                                    <md-menu-item>
-                                        <md-button aria-label="delete post" ng-click="q.removeComment(q.questions[q.index], post)" ga-track-event="['quiz', 'didDelete']">
-                                            @GeneralResources.Delete
-                                        </md-button>
-                                    </md-menu-item>
-                                </md-menu-content>
-                            </md-menu>
-                        </li>
-                    </ol>
-                </div>
+                <button type="button" class="stopwatch-btn" ng-click=" q.timerControl.toggle()" ng-disabled="q.state === 1">
+                    @Html.Svg(svgUrl, "pause", new { @class = "pause", ng_if = "q.timerControl.isRunning" })
+                    @Html.Svg(svgUrl, "play", new { @class = "play", ng_if = "!q.timerControl.isRunning" })
+                </button>
+
             </div>
-            <div class="quiz-challenge" ng-if="q.state === 3" ng-include="'quizGoodJob.html'">
-
+            <div flex class="progress-wrapper">
+                <span class="question-progress">{{q.index + 1}}/{{q.questions.length}}</span>
+                <md-progress-linear md-mode="determinate" value="{{q.index /(q.questions.length - 1)*100}}"></md-progress-linear>
             </div>
         </div>
-        <div class="arrows next" hide show-gt-sm ng-if="q.state === 2 || q.state === 4">
-            <button type="button" ng-show="(q.state === 2 && q.index < q.questions.length) || (q.state === 4 && q.index < q.questions.length - 1)" ng-click="q.next()" ga-track-event="['quiz', 'next question']">
-                @Html.Svg("~/images/site/icons.svg", "arrow")
-            </button>
+        <div class="quiz-challenge" ng-if="q.state === 1" ng-include="'quizChallenge.html'"></div>
+        <div class="quiz-wrapper" ng-class="q.isCorrect(q.questions[q.index])" ng-if="q.state === 2 || q.state === 4">
+            <div class="no-answer-element">@QuizResources.NoAnswer</div>
+            <div ng-if="q.index < q.questions.length" ng-include="'quiz-question-template.html'" ng-repeat="question in ::q.questions"></div>
+            <div ng-if="q.state === 4" class="add-discussion">
+                <form class="clearfix" novalidate name="addDiscussion" ng-submit="q.postComment(q.questions[q.index],addDiscussion)">
+                    <md-input-container md-no-float>
+                        <textarea required placeholder="@QuizResources.WriteComment" name="newComment" ng-model="q.questions[q.index].newComment"></textarea>
+                        <div ng-messages="addDiscussion.newComment.$error">
+                            <div ng-message="required">@GeneralResources.RequiredField</div>
+                        </div>
+                        <button class="btn button-Blue btn-primary pull-right" ng-disabled="!addDiscussion.$valid" type="submit" ga-track-event="['quiz', 'post comment']">@GeneralResources.Post</button>
+                    </md-input-container>
+
+                </form>
+                <ol class="list-unstyled feed">
+                    <li class="comment reply color-override backgroundTransparent" ng-repeat="post in q.questions[q.index].comments">
+                        <div>
+                            <div class="top">
+                                <a href="{{::post.url}}" layout="row" layout-align="start center" class="username" ga-track-event="['quiz', 'go to user page']">
+                                    <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="48" height="48"></user-image>
+                                    <span class="user-name">{{::post.userName}}</span>
+                                </a>
+                                <div ng-bind-html="::post.content" class="content-text"></div>
+                            </div>
+                            <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
+                        </div>
+
+                        <md-menu ng-if="post.userId === q.user.id">
+                            <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['quiz', 'deletePost']">
+                                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
+                            </md-button>
+                            <md-menu-content width="1">
+                                <md-menu-item>
+                                    <md-button aria-label="delete post" ng-click="q.removeComment(q.questions[q.index], post)" ga-track-event="['quiz', 'didDelete']">
+                                        @GeneralResources.Delete
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="quiz-challenge" ng-if="q.state === 3" ng-include="'quizGoodJob.html'">
+
         </div>
     </div>
-
+    <div class="arrows next" hide show-gt-sm ng-if="q.state === 2 || q.state === 4">
+        <button type="button" ng-show="(q.state === 2 && q.index < q.questions.length) || (q.state === 4 && q.index < q.questions.length - 1)" ng-click="q.next()" ga-track-event="['quiz', 'next question']">
+            @Html.Svg("~/images/site/icons.svg", "arrow")
+        </button>
+    </div>
 </div>
+
 
 
 @{Html.RenderPartial("_QuizChallenge");}
