@@ -333,3 +333,8 @@
 .tooltip-inner {
   max-width: 500px;
 }
+@media (max-width: 600px) {
+  .tooltip-inner {
+    max-width: 60vw;
+  }
+}
