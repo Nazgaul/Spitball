@@ -171,4 +171,7 @@
   <data name="Whats" xml:space="preserve">
     <value>שאלו שאלות או שתפו קבצים</value>
   </data>
+  <data name="replyPostPlaceholder" xml:space="preserve">
+    <value>כתוב תגובה</value>
+  </data>
 </root>
