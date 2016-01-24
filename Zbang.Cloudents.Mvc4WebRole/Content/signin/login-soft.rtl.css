@@ -44,7 +44,7 @@ Login page
   color: #8c99a6;
   float: right;
   font-size: 18px;
-  margin-bottom: 20px;
+  white-space: nowrap;
 }
 .login .content h3 {
   color: #3598dc;
@@ -59,24 +59,21 @@ Login page
   margin-bottom: 0;
 }
 .login .content .forget-password {
+  display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
 .login .content .forget-password p {
   color: #8c99a6;
   font-size: 11px;
-  padding-right: 5%;
-  -ms-flex: 2;
-  -webkit-flex: 2;
-  flex: 2;
   margin: 0;
-  align-self: center;
+  margin-right: 15px;
 }
 .login .content .form-actions-container label {
   color: #8c99a6;
   font-size: 11px;
-}
-.login .content label {
-  padding-left: 20%;
 }
 .login .checker {
   margin-right: -2px;
@@ -198,7 +195,8 @@ Login page
   margin-left: -30px;
 }
 .login .content .form-actions .checkbox-design {
-  display: inline;
+  display: inline-block;
+  width: inherit;
   color: #8c99a6;
 }
 .login .content .form-actions .checkbox-design .remember-me {
