@@ -120,7 +120,4 @@
   <data name="LinkRequired" xml:space="preserve">
     <value>עליך להזין קישור URL</value>
   </data>
-  <data name="NotValidUrl" xml:space="preserve">
-    <value>קישור הURL שהזנת אינו חוקי</value>
-  </data>
 </root>

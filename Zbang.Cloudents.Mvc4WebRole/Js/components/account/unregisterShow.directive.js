@@ -108,11 +108,6 @@
                     element.blur();
                     $rootScope.$broadcast('show-unregisterd-box');
                 });
-                //element.focus(function () {
-                //    element.blur();
-                //    $rootScope.$broadcast('show-unregisterd-box');
-                //});
-
             }
         };
     }

@@ -168,4 +168,7 @@
   <data name="itemsInTab" xml:space="preserve">
     <value>פריטים</value>
   </data>
+  <data name="Whats" xml:space="preserve">
+    <value>שאלו שאלות או שתפו קבצים</value>
+  </data>
 </root>

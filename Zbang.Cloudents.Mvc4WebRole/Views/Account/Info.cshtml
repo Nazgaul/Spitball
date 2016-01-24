@@ -94,10 +94,14 @@
                 <span>@AccountResource.CheckYourEmail</span>
                 <br />@AccountResource.VerificationCode
             </div>
-            <form ng-submit="ic.submitCode()" novalidate name="insertCode">
+            <form ng-submit="ic.submitCode(insertCode)" novalidate name="insertCode">
                 <md-input-container>
                     <label>@AccountResource.EnterVerification</label>
-                    <input type="number" autocomplete="off" required ng-model="ic.code" />
+                    <input type="number" autocomplete="off" required ng-model="ic.code" name="code" ng-change="insertCode.code.$setValidity('server',true)" />
+                    <div ng-messages="insertCode.code.$error" ng-show="insertCode.code.$dirty">
+                        <div ng-message="required">@GeneralResources.RequiredField</div>
+                        <div ng-message="server">{{ic.error}}</div>
+                    </div>
                 </md-input-container>
                 <div class="margin-top-10 text-right">
                     <button type="button" ng-click="ic.cancel()" class="btn-default text-capitalize">@GeneralResources.Cancel</button>

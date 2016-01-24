@@ -48,7 +48,6 @@
     .fileinput {
         .thumbnail {
             background: none;
-            border: none;
             border-radius: 100%;
             position: relative;
             overflow: hidden;
@@ -113,25 +112,30 @@
     .left-flex {
         margin-right: 20px;
     }
+
     md-input-container:not(.md-input-invalid).md-input-focused .md-input {
         border-bottom: 1px solid @textColorBlue;
     }
+
     .tab-from-r > li {
         margin: 0;
 
         &:hover {
             border: none;
+
             > a {
                 color: @textColorBlue;
             }
         }
+
         &.active {
             border-bottom: 3px solid @borderColorBlue;
-        
+
             > a {
                 color: @textColorWhite;
             }
         }
+
         > a {
             color: @textColorGrey;
             font-size: 11px;
@@ -160,6 +164,7 @@
             display: flex;
             padding: 10px 0 10px 5px;
             border-bottom: 1px solid @borderColorBottomGrey;
+
             select {
                 background: #353A3F;
                 align-self: center;
@@ -170,7 +175,7 @@
             }
 
             .owner {
-                 color: @textColorGrey;
+                color: @textColorGrey;
                 font-size: 12px;
                 font-weight: bold;
             }
@@ -212,6 +217,10 @@
         width: 25px;
         height: 25px;
         fill: @backgroundColorMenu;
+    }
+
+    md-input-container .md-input {
+        color: #4190b9;
     }
 
     .content {

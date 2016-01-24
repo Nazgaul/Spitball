@@ -92,10 +92,11 @@
 
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            if (fromState.abstract) {
+            if (!fromState.name) {
                 return;
             }
             $mdMenu.hide();
+            $rootScope.$broadcast('open-menu');
             var toStateName = toState.name;
             if (fromParams.boxId && toParams.boxId) {
                 if (fromParams.boxId === toParams.boxId && toStateName === 'box' && fromState.name.startsWith('box')) {
@@ -108,14 +109,14 @@
                 $rootScope.$broadcast('state-change-start-prevent');
             }
             $rootScope.$broadcast('close-collapse');
-            //if (!userDetails.isAuthenticated()) {
+            if (!userDetails.isAuthenticated()) {
             //    if (!fromState.abstract && toStateName === 'searchinfo') {
             //        $rootScope.$broadcast('show-unregisterd-box');
             //        $rootScope.$broadcast('state-change-start-prevent');
             //        event.preventDefault();
             //    }
-            //    return;
-            //}
+                return;
+            }
             var details = userDetails.get();
             if (details.university.id) {
                 return;
