@@ -53,6 +53,7 @@
                             return $stateParams.boxName;
                         }]
                     },
+                    data: { animateClass: 'full-screen quiz-create' },
                     params: { boxName: null }
                 },
                 templateUrl: '/quiz/createpartial/'

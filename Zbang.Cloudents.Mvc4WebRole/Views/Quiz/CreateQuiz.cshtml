@@ -1,52 +1,50 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using QuizResources = Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources.QuizResources
 
-<div class="full-screen quiz-create" id="quiz-create">
-   
-    <header class="color-override backgroundColor2 borderColor8" layout="row">
-        <div flex class="text-center text-capitalize">@GeneralResources.CreateQuiz</div>
-        <button flex="none" type="button" ng-click="q.openClose()" class="close" ga-track-event="['createQuiz', 'close']">@Html.Svg("~/images/site/icons.svg", "close", new { @class = "color-override svgColor8" })</button>
-    </header>
-    <div class="not-supported" hide-gt-sm show-xs show-sm>
-        <div class="bubble">
-            <div class="error-image">
-                <img src="@Url.CdnContent("~/Images/Site/oops.png")" alt="Oops">
-            </div>
-            <div class="text">
-                @QuizResources.NotSupported
-            </div>
+
+<header class="color-override backgroundColor2 borderColor8" layout="row">
+    <div flex class="text-center text-capitalize">@GeneralResources.CreateQuiz</div>
+    <button flex="none" type="button" ng-click="q.openClose()" class="close" ga-track-event="['createQuiz', 'close']">@Html.Svg("~/images/site/icons.svg", "close", new { @class = "color-override svgColor8" })</button>
+</header>
+<div class="not-supported" hide-gt-sm show-xs show-sm>
+    <div class="bubble">
+        <div class="error-image">
+            <img src="@Url.CdnContent("~/Images/Site/oops.png")" alt="Oops">
+        </div>
+        <div class="text">
+            @QuizResources.NotSupported
         </div>
     </div>
+</div>
 
-    <div class="supported" show-gt-sm hide-xs hide-sm id="quizCreate">
+<div class="supported" show-gt-sm hide-xs hide-sm id="quizCreate">
 
-        <span class="course-name">{{::q.boxName}}</span>
-        <form name="quizName" novalidate>
-            <md-input-container class="quiz-name" md-no-float>
-                <input class="form-control" focus-me="q.quizNameDisabled === false" name="name" ng-disabled="q.quizNameDisabled" type="text" 
-                       placeholder="@QuizResources.EnterQuizName" autofocus required ng-model="q.name" 
-                       ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
-                       ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
-                <button type="button" ng-click="q.quizNameDisabled = false">@Html.Svg("~/images/site/icons.svg", "edit")</button>
-                <div ng-messages="quizName.name.$error">
-                    <div ng-message="required">@GeneralResources.RequiredField</div>
-                </div>
-            </md-input-container>
-        </form>
-
-        <div id="create-question" class="quiz-wrapper" ng-repeat="question in q.questions" ng-include="q.template(question)"></div>
-        
-        <button type="button" class="btn button-Blue btn-primary text-capitalize add-question" ng-click="q.addQuestion()" ga-track-event="['createQuiz', 'add question']">
-            <div layout="row" layout-align="start center">
-                @Html.Svg("~/images/site/icons.svg", "add")
-                <span>@QuizResources.AddQuestion</span>
+    <span class="course-name">{{::q.boxName}}</span>
+    <form name="quizName" novalidate>
+        <md-input-container class="quiz-name" md-no-float>
+            <input class="form-control" focus-me="q.quizNameDisabled === false" name="name" ng-disabled="q.quizNameDisabled" type="text"
+                   placeholder="@QuizResources.EnterQuizName" autofocus required ng-model="q.name"
+                   ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+                   ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
+            <button type="button" ng-click="q.quizNameDisabled = false">@Html.Svg("~/images/site/icons.svg", "edit")</button>
+            <div ng-messages="quizName.name.$error">
+                <div ng-message="required">@GeneralResources.RequiredField</div>
             </div>
-        </button>
-        <button id="quiz-error" type="button" ng-click="q.publish()" ng-disabled="q.submitDisabled" class="btn button-Blue btn-primary text-capitalize pull-right"
-                ga-track-event="['createQuiz', 'publish quiz']">
-            @QuizResources.Publish
-        </button>
-    </div>
+        </md-input-container>
+    </form>
+
+    <div id="create-question" class="quiz-wrapper" ng-repeat="question in q.questions" ng-include="q.template(question)"></div>
+
+    <button type="button" class="btn button-Blue btn-primary text-capitalize add-question" ng-click="q.addQuestion()" ga-track-event="['createQuiz', 'add question']">
+        <div layout="row" layout-align="start center">
+            @Html.Svg("~/images/site/icons.svg", "add")
+            <span>@QuizResources.AddQuestion</span>
+        </div>
+    </button>
+    <button id="quiz-error" type="button" ng-click="q.publish()" ng-disabled="q.submitDisabled" class="btn button-Blue btn-primary text-capitalize pull-right"
+            ga-track-event="['createQuiz', 'publish quiz']">
+        @QuizResources.Publish
+    </button>
 </div>
 
 <script type="text/ng-template" id="create-quiz-question-template.html">

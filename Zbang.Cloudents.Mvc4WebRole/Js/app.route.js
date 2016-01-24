@@ -8,18 +8,13 @@
             .state('root', {
                 abstract: true,
                 resolve: {
+                    
                     user: [
                         '$q', 'userDetailsFactory', function ($q, userDetails) {
                             //$q https://github.com/angular-ui/ui-router/issues/105
                             return userDetails.init();
                         }
                     ],
-                    //$q https://github.com/angular-ui/ui-router/issues/105
-                    temp: ['$q',function($q) {
-                        var defer = $q.defer();
-                        defer.resolve();
-                        return defer.promise;
-                    }]
                 },
                 template: '<div class="page-animation" ui-view animation-class></div>'
             });
@@ -107,16 +102,17 @@
                                    return itemService.getDetails($stateParams.boxId, $stateParams.itemId);
                                }]
                            },
+                           data: { animateClass: 'full-screen itemPage' }
                        },
                        templateUrl: '/item/indexpartial/'
                    },
                     {
-                        state: 'search',
+                        state: 'searchinfo',
                         config: {
-                            url: '/search/',
+                            url: '/search/?q&t',
                             controller: 'SearchController as s',
                             data: { animateClass: 'search' },
-                            reloadOnSearch: false
+                            reloadOnSearch: false,
                             //onEnter: routerHelper.universityRedirect
                         },
                         templateUrl: '/search/indexpartial/'

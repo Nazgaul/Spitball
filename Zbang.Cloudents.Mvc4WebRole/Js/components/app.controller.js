@@ -92,6 +92,9 @@
 
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            if (fromState.abstract) {
+                return;
+            }
             $mdMenu.hide();
             var toStateName = toState.name;
             if (fromParams.boxId && toParams.boxId) {
@@ -105,14 +108,14 @@
                 $rootScope.$broadcast('state-change-start-prevent');
             }
             $rootScope.$broadcast('close-collapse');
-            if (!userDetails.isAuthenticated()) {
-                if (toStateName === 'search') {
-                    $rootScope.$broadcast('show-unregisterd-box');
-                    $rootScope.$broadcast('state-change-start-prevent');
-                    event.preventDefault();
-                }
-                return;
-            }
+            //if (!userDetails.isAuthenticated()) {
+            //    if (!fromState.abstract && toStateName === 'searchinfo') {
+            //        $rootScope.$broadcast('show-unregisterd-box');
+            //        $rootScope.$broadcast('state-change-start-prevent');
+            //        event.preventDefault();
+            //    }
+            //    return;
+            //}
             var details = userDetails.get();
             if (details.university.id) {
                 return;
