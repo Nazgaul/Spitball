@@ -50,7 +50,8 @@
   margin-top: 10px;
   z-index: 10;
 }
-.page-body .main-md-sidenav * {
+.page-body .main-md-sidenav md-content,
+.page-body .main-md-sidenav .side-menu ul {
   background: transparent;
 }
 .page-body .main-md-sidenav md-content .md-button span {
@@ -59,6 +60,9 @@
 .page-body .main-md-sidenav .expendable svg {
   width: 19px;
   height: 19px;
+}
+.page-body .main-md-sidenav .expendable menu-link span:not(.badge) {
+  width: 100%;
 }
 .page-body .main-md-sidenav li.nav-item {
   width: 100%;
@@ -95,7 +99,7 @@
 .side-menu li > button > span:not(.icon),
 .side-menu li > .md-button .title,
 .side-menu li > button .title {
-  margin-left: 35px;
+  margin-left: 17px;
 }
 .side-menu svg {
   width: 20px;
