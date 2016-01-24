@@ -63,7 +63,7 @@
         margin-top: 10px;
         z-index: 10;
 
-        * {
+        md-content, .side-menu ul {
             background: transparent;
         }
 
@@ -76,9 +76,15 @@
             }
         }
 
-        .expendable svg {
-            width: 19px;
-            height: 19px;
+        .expendable {
+            svg {
+                width: 19px;
+                height: 19px;
+            }
+
+            menu-link span:not(.badge) {
+                width: 100%;
+            }
         }
 
         li.nav-item {
@@ -120,7 +126,7 @@
             .displayFlex;
 
             > span:not(.icon), .title {
-                margin-left: 35px;
+                margin-left: 17px;
             }
         }
     }
