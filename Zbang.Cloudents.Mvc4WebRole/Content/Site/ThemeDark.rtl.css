@@ -125,7 +125,8 @@
   color: #2698d4;
 }
 .feed .actions {
-  color: #5d6063;
+  color: #2698d4;
+  border-top: 1px solid #323538;
 }
 .feed .actions svg {
   fill: #888b8e;
