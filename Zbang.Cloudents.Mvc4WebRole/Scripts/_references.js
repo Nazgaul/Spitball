@@ -251,3 +251,4 @@
 /// <reference path="../js/components/item/comments.controller.js" />
 /// <reference path="../js/components/search/searchtrigger.controller.js" />
 /// <reference path="angular-google-adsense.js" />
+/// <reference path="ui-bootstrap-custom-tpls-1.1.0.js" />

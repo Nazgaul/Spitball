@@ -138,4 +138,7 @@
   <data name="GoogleForgotPasswordError" xml:space="preserve">
     <value>You have signed up to Spitball using Google. To log in, go to the homepage and click on the Google button</value>
   </data>
+  <data name="AccountController_PasswordUpdate_Error" xml:space="preserve">
+    <value>something went wrong, try again later</value>
+  </data>
 </root>

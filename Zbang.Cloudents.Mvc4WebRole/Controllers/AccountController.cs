@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using DevTrends.MvcDonutCaching;
@@ -118,7 +117,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError(new { error = AccountControllerResources.FacebookGetDataError });
             }
             var query = new GetUserByGoogleQuery(googleUserData.Id);
-            var isNew = false;
             LogInUserDto user = await ZboxReadService.GetUserDetailsByGoogleIdAsync(query, source.Token);
             if (user == null)
             {
@@ -150,7 +148,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     UniversityData = commandResult.UniversityData,
                     Score = commandResult.User.Reputation
                 };
-                isNew = true;
             }
             m_LanguageCookie.InjectCookie(user.Culture);
             var identity = new ClaimsIdentity(new List<Claim>
@@ -173,8 +170,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             m_AuthenticationManager.SignIn(identity);
             m_CookieHelper.RemoveCookie(Invite.CookieName);
-
-            return JsonOk(new { isnew = isNew, url = Url.Action("Choose", "Library", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }) });
+            var url = user.UniversityId.HasValue
+                   ? Url.Action("Index", "Dashboard")
+                   : Url.Action("Choose", "Library");
+            return JsonOk(url);
         }
 
         [HttpPost]
@@ -183,8 +182,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-
-                var isNew = false;
                 var facebookUserData = await m_FacebookService.Value.FacebookLogIn(model.Token);
                 if (facebookUserData == null)
                 {
@@ -219,7 +216,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         UniversityData = commandResult.UniversityData,
                         Score = commandResult.User.Reputation
                     };
-                    isNew = true;
                 }
                 m_LanguageCookie.InjectCookie(user.Culture);
                 var identity = new ClaimsIdentity(new List<Claim>
@@ -242,7 +238,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 m_AuthenticationManager.SignIn(identity);
                 m_CookieHelper.RemoveCookie(Invite.CookieName);
-                return JsonOk(new { isnew = isNew, url = Url.Action("Choose", "Library", new { returnUrl = CheckIfToLocal(returnUrl), @new = "true" }) });
+                var url = user.UniversityId.HasValue
+                      ? Url.Action("Index", "Dashboard")
+                      : Url.Action("Choose", "Library");
+                return JsonOk(url);
             }
             catch (ArgumentException)
             {
@@ -324,14 +323,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        private string CheckIfToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return returnUrl;
-            }
-            return string.Empty;
-        }
+        //private string CheckIfToLocal(string returnUrl)
+        //{
+        //    if (Url.IsLocalUrl(returnUrl))
+        //    {
+        //        return returnUrl;
+        //    }
+        //    return string.Empty;
+        //}
 
 
 
@@ -687,7 +686,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     TraceLog.WriteInfo("facebook user " + model);
                     return JsonError(AccountControllerResources.FbRegisterError);
                 }
-                if (string.IsNullOrEmpty(systemUser.GoogleId))
+                if (!string.IsNullOrEmpty(systemUser.GoogleId))
                 {
                     TraceLog.WriteInfo("google user " + model);
                     return JsonError(AccountControllerResources.GoogleForgotPasswordError);
@@ -757,7 +756,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 m_AuthenticationManager.SignIn(identity);
                 return RedirectToAction("Index", "Dashboard");
             }
-            ModelState.AddModelError(string.Empty, "something went wrong, try again later");
+            ModelState.AddModelError(string.Empty, AccountControllerResources.AccountController_PasswordUpdate_Error);
             return View(model);
         }
 

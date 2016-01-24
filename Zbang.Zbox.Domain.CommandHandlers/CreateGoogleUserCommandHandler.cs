@@ -36,7 +36,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (user != null && user.Email == command.Email)
             {
                 user.GoogleId = googleCommand.GoogleId;
-                return new CreateFacebookUserCommandResult(user); ;
+                var retVal = new CreateGoogleUserCommandResult(user);
+                if (user.University != null)
+                {
+                    retVal.UniversityData = user.University.UniversityData.Id;
+                    retVal.UniversityId = user.University.Id;
+                }
+                return retVal;
             }
             if (user != null && IsUserRegistered(user))
             {
@@ -63,15 +69,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             user.GoogleId = googleCommand.GoogleId;
 
-            var retVal = new CreateFacebookUserCommandResult(user);
-            UpdateUniversityByBox(command.BoxId, retVal, user);
+            var result = new CreateGoogleUserCommandResult(user);
+            UpdateUniversityByBox(command.BoxId, result, user);
             if (googleCommand.UniversityId.HasValue)
             {
-                UpdateUniversity(googleCommand.UniversityId.Value, retVal, user);
+                UpdateUniversity(googleCommand.UniversityId.Value, result, user);
             }
             GiveReputationAndAssignToBox(command.InviteId, user);
             UserRepository.Save(user);
-            return retVal;
+            return result;
         }
     }
 }

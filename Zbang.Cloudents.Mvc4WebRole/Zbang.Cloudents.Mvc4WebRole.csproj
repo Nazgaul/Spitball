@@ -2671,6 +2671,8 @@
     <Content Include="Scripts\ui-bootstrap-custom-tpls-0.14.3.js" />
     <Content Include="Scripts\ui-bootstrap-custom-tpls-0.14.3.min.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\ui-bootstrap-custom-tpls-1.1.0.js" />
+    <Content Include="Scripts\ui-bootstrap-custom-tpls-1.1.0.min.js" />
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
     <Content Include="Views\Item\Print.cshtml" />
     <Content Include="Web.config">

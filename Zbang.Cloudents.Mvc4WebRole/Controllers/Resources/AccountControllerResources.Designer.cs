@@ -61,6 +61,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to something went wrong, try again later.
+        /// </summary>
+        internal static string AccountController_PasswordUpdate_Error {
+            get {
+                return ResourceManager.GetString("AccountController_PasswordUpdate_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Incorrect code.
         /// </summary>
         internal static string ChangeEmailCodeError {

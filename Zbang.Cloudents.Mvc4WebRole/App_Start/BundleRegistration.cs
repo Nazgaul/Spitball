@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),
                         new JsFileWithCdn("~/scripts/plupload2/angular-plupload2.js"),
 
-                        new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-0.14.3.min.js"),
+                        new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-1.1.0.min.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
                         new JsFileWithCdn("~/scripts/draganddrop.js"),
