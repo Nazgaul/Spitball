@@ -1214,6 +1214,7 @@ md-chips .md-chips.md-focused {
 }
 .aboutUs-page .about-text {
   color: #f5f5f5;
+  background: none;
 }
 .aboutUs-page .team .portlet {
   background: #f5f5f5;
