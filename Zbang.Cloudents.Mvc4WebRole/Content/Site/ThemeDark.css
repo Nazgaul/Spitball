@@ -453,7 +453,7 @@ body {
 /*#endregion*/
 /*#region error.less*/
 .error-page h2 span {
-  color: #323538;
+  color: #888b8e;
 }
 .members-only-page .text h2 {
   color: #4190b9;

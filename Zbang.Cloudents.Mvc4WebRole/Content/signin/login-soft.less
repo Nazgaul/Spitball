@@ -51,7 +51,7 @@ Login page
         color: @borderColorLightGrey;
         float: left;
         font-size: 18px;
-        margin-bottom: 20px;
+        white-space: nowrap;
     }
 
     h3 {
@@ -69,17 +69,15 @@ Login page
     }
 
     .forget-password {
-        display: flex;
+        .displayFlex;
+        align-items: center;
+        margin-bottom: 20px;
 
         p {
             color: @borderColorLightGrey;
             font-size: 11px;
-            padding-left: 5%;
-            -ms-flex: 2;
-            -webkit-flex: 2;
-            flex: 2;
             margin: 0;
-            align-self: center;
+            margin-left: 15px;
         }
     }
 
@@ -87,10 +85,6 @@ Login page
         color: @borderColorLightGrey;
         font-size: 11px;
     }
-}
-
-.login .content label {
-    padding-right: 20%;
 }
 
 .login .checker {
@@ -242,7 +236,8 @@ Login page
     margin-right: -30px;
 
     .checkbox-design {
-        display: inline;
+        display: inline-block;
+        width: inherit;
         color: @borderColorLightGrey;
 
         .remember-me {
@@ -296,7 +291,7 @@ Login page
         }
     }
 
-    .btn-default{
+    .btn-default {
         margin-left: 10px;
     }
 }
