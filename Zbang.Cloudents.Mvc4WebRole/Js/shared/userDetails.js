@@ -46,7 +46,7 @@
                 isAdmin: data.isAdmin,
                 theme: data.theme,
                 university: {
-                    //country: data.universityCountry, // for google analytics
+                    country: data.universityCountry, // for google analytics
                     name: data.universityName, // in library page
                     id: data.universityId
                 }

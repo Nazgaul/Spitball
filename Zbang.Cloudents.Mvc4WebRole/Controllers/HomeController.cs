@@ -163,7 +163,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             ViewBag.Title = "Jobs | Spitball | Study better by working together";
             ViewBag.pageTitle = HomeControllerResources.JobTitle;
-            using (var stream = await m_BlobProvider.Value.GetJobsXml())
+            using (var stream = await m_BlobProvider.Value.GetJobsXmlAsync())
             {
                 var data = XDocument.Load(stream);
                 var model = from category in data.Descendants("category")
@@ -193,6 +193,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToRoutePermanent("Help");
         }
 
+        public async Task<JsonResult> StudentAd()
+        {
+            var str = await m_BlobProvider.Value.GetAdHtmlAsync();
+            return JsonOk(str);
+        }
+
         public async Task<ActionResult> HelpPartial()
         {
             const string viewName = "help2";
@@ -206,7 +212,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                      Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
 
             }
-            using (var stream = await m_BlobProvider.Value.GetFaqQuestion())
+            using (var stream = await m_BlobProvider.Value.GetFaqQuestionAsync())
             {
                 var data = XDocument.Load(stream);
                 model = from category in data.Descendants("category")
