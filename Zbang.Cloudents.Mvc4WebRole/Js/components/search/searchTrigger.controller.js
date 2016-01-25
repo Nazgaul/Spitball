@@ -17,7 +17,7 @@
                 //$location.url(url);
                 $state.go('searchinfo', { q: st.term, t: $stateParams.t });
                 if ($state.current.name === 'searchinfo') {
-                  //  $rootScope.$broadcast('search-query');
+                    $rootScope.$broadcast('search-query');
                 }
             }
         }
