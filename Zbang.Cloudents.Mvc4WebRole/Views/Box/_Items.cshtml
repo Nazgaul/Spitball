@@ -12,7 +12,7 @@
     <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="item-animate add-button "  ng-click="i.openUpload()" ga-track-event="['box-items', 'addFile']">
         <div class="content ">
             <button type="button">
-                @Html.Svg("~/images/site/icons.svg", "add")
+                @Html.Svg("~/images/site/icons.svg", "add", new { @class = "color-override svgColor8" })
                 @BoxResources.UploadFiles
             </button>
         </div>
@@ -39,5 +39,5 @@
     </li>
 </ul>
 <button type="button" class="add" hide show-xs ng-click="i.openUpload()" ng-show="i.uploadShow" ga-track-event="['box-items', 'addFile']">
-    @Html.Svg("~/images/site/icons.svg", "add")
+    @Html.Svg("~/images/site/icons.svg", "add", new { @class = "color-override svgColor8" })
 </button>
