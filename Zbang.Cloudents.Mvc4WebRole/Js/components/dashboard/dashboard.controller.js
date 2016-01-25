@@ -1,10 +1,10 @@
 ﻿(function () {
     angular.module('app.dashboard').controller('Dashboard', dashboard);
     dashboard.$inject = ['dashboardService', '$scope', '$mdDialog', 'boxService', '$rootScope', 'resManager',
-        '$location', '$anchorScroll', '$timeout'];
+        '$anchorScroll', '$timeout'];
 
     function dashboard(dashboardService, $scope, $mdDialog, boxService, $rootScope,
-        resManager, $location, $anchorScroll, $timeout) {
+        resManager, $anchorScroll, $timeout) {
         var d = this;
         d.boxes = [];
         d.inviteOpen = false;
@@ -35,9 +35,9 @@
             d.createBoxOn = true;
             //$location.hash('create');
             $timeout(function() {
-                $anchorScroll.yOffset = 50;
+                $anchorScroll.yOffset = 100;
                 $anchorScroll('create');
-                $location.hash('');
+                //$location.hash('');
             });
         }
 
