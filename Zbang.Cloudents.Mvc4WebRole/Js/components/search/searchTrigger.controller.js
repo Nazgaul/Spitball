@@ -1,14 +1,14 @@
 ﻿(function () {
     angular.module('app.search').controller('SearchTriggerController', searchTriggerController);
-    searchTriggerController.$inject = ['$state', '$rootScope', '$stateParams'];
+    searchTriggerController.$inject = ['$state', '$rootScope', '$stateParams', '$location'];
 
-    function searchTriggerController($state, $rootScope, $stateParams) {
+    function searchTriggerController($state, $rootScope, $stateParams, $location) {
         var st = this;
 
         st.search = search;
         st.change = search;
 
-        st.term = $stateParams.q;
+        st.term = $location.search().q;
 
         function search(isValid) {
             if (isValid) {
