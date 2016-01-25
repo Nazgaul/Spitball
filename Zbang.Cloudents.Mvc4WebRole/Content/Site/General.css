@@ -792,3 +792,6 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 .ads {
   padding: 4px;
 }
+body.menuOpened {
+  overflow: hidden;
+}

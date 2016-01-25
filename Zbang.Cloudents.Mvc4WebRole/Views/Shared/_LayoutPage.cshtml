@@ -31,7 +31,7 @@
         @*@{ Html.RenderAction("Theme", "Home", true);}*@
         <base href="/" />
     </head>
-<body ng-controller="AppController as app" class="{{app.theme}} color-override backgroundColor1 clearfix @errorLayout" @*class="theme-light"*@>
+<body ng-controller="AppController as app" class="{{app.theme}} color-override backgroundColor1 clearfix @errorLayout" ng-class="{menuOpened: app.menuOpened}" @*class="theme-light"*@>
 
     <!-- Google Tag Manager -->
     <noscript>
@@ -52,7 +52,7 @@
         <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
     </div>
 
-    <div class="nav-bar color-override backgroundColor2" ng-class="{'expand-search': app.expandSearch}" layout="row" ng-cloak>
+    <div class="nav-bar color-override backgroundColor2 borderTransparent" ng-class="{'expand-search': app.expandSearch}" layout="row" ng-cloak>
         <div class="logo-search" layout="row" layout-align="start center" flex="100">
             <div class="logo">
                 <div class="page-logo">
