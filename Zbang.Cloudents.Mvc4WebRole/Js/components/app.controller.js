@@ -34,6 +34,7 @@
 
         self.logOut = logOut;
         self.openMenu = openMenu;
+        self.menuOpened = false;
         self.hideSearch = false;
         self.expandSearch = false;
         self.resetForm = resetForm;
@@ -48,6 +49,7 @@
         }
         function toggleMenu() {
             $rootScope.$broadcast('open-menu');
+            self.menuOpened = !self.menuOpened;
         }
 
         function showToaster(text, parentId) {

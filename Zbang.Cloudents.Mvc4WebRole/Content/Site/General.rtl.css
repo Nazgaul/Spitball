@@ -794,3 +794,6 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 .i-student-ad img {
   max-width: 100%;
 }
+body.menuOpened {
+  overflow: hidden;
+}
