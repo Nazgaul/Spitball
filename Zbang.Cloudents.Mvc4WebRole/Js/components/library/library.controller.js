@@ -1,8 +1,10 @@
 ﻿(function () {
     angular.module('app.library').controller('Library', library);
-    library.$inject = ['libraryService', '$stateParams', 'userDetailsFactory', 'nodeData', '$mdDialog', '$location', '$scope', 'resManager'];
+    library.$inject = ['libraryService', '$stateParams', 'userDetailsFactory', 'nodeData', '$mdDialog',
+        '$location', '$scope', 'resManager', '$anchorScroll', '$timeout'];
 
-    function library(libraryService, $stateParams, userDetailsFactory, nodeData, $mdDialog, $location, $scope, resManager) {
+    function library(libraryService, $stateParams, userDetailsFactory, nodeData, $mdDialog,
+        $location, $scope, resManager, $anchorScroll, $timeout) {
         var l = this;
         var nodeId = $stateParams.nodeId;
         l.departments = nodeData.nodes;
@@ -73,10 +75,18 @@
         function openCreateBox() {
             l.settingsOpen = false;
             l.createBoxOn = true;
+            $timeout(function () {
+                $anchorScroll.yOffset = 100;
+                $anchorScroll('createCourse');
+            });
         }
         function openCreateDepartment() {
             l.createDepartmentOn = true;
             l.settingsOpen = false;
+            $timeout(function () {
+                $anchorScroll.yOffset = 100;
+                $anchorScroll('department');
+            });
         }
 
         function createBox(myform) {
