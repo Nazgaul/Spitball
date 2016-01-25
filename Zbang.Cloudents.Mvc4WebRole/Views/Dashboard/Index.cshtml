@@ -26,7 +26,7 @@
             </button>
         </div>
     </div>
-    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="create-box flex" ng-class="{'create-box-show' : d.createBoxOn}">
+    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" hide-xs class="create-box flex" ng-class="{'create-box-show' : d.createBoxOn}">
         @{ Html.RenderPartial("_Create");}
     </div>
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-repeat="e in d.boxes" class="flex">
@@ -52,6 +52,6 @@
     </div>
 </div>
 
-<button type="button" class="add" hide show-xs ng-click="d.createBoxOn = true" ng-hide="d.createBoxOn" ga-track-event="['dashboard', 'createbox', 'plus']">
+<button type="button" class="add" hide show-xs ng-click="d.openCreate() " ng-hide="d.createBoxOn" ga-track-event="['dashboard', 'createbox', 'plus']">
     @Html.Svg("~/images/site/icons.svg", "add", new { @class = "color-override svgColor8" })
 </button>
