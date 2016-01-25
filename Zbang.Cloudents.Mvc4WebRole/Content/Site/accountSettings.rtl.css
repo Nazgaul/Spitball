@@ -54,7 +54,7 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border: 1px solid #3293f6;
+  border: none;
 }
 .accountPage-wrapper .ov-hidden {
   overflow: hidden;
