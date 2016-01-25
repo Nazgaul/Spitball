@@ -1,6 +1,7 @@
 ﻿(function () {
     angular.module('app.box.items').controller('ItemsController', items);
-    items.$inject = ['boxService', '$stateParams', '$rootScope', 'itemThumbnailService', '$mdDialog', '$scope', 'user', '$q', 'resManager'];
+    items.$inject = ['boxService', '$stateParams', '$rootScope', 'itemThumbnailService', '$mdDialog',
+        '$scope', 'user', '$q', 'resManager'];
 
     function items(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog, $scope, user, $q, resManager) {
         var i = this,
