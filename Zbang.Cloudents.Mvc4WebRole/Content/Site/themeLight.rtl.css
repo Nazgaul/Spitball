@@ -2034,3 +2034,6 @@ Page Loading
 .theme-light .need-follow.box-title h1 {
   color: #f5f5f5;
 }
+.theme-light .itemPage header .fb-like.blue svg {
+  fill: #26566e !important;
+}
