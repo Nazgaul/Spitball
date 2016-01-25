@@ -12,7 +12,7 @@
         l.nodeDetail = nodeData.details;
 
         l.universityName = userDetailsFactory.get().university.name;
-
+        l.topTree = nodeId == null;
         l.createDepartmentShow = userDetailsFactory.get().isAdmin && (nodeId == null || l.boxes.length === 0);
         l.createClassShow = l.departments.length === 0 && nodeId != null;
         l.createDepartment = createDepartment;

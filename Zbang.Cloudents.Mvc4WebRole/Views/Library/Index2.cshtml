@@ -61,6 +61,7 @@
         <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" hide-xs ng-class="{'create-box-show' : l.createBoxOn, 'create-init' : l.createDepartmentShow && l.createClassShow}" class="create-box flex" ng-if="l.createClassShow">
             @{ Html.RenderPartial("_CreateCourse");}
         </div>
+        <div ng-controller="adController as ad" ng-show="ad.show && l.topTree" flex="100" flex-gt-md="50" class="i-student-ad flex" ng-bind-html="ad.content"></div>
     </div>
 </div>
 <button type="button" class="add" hide show-xs ng-click="l.createShow()" ng-hide="l.createOn || l.createDepartmentShow && l.createClassShow" ga-track-event="['dashboard', 'createbox', 'plus']">
