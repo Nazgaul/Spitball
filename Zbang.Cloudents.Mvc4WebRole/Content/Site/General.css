@@ -789,6 +789,8 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 .error-layout .page-body {
   margin-left: 0;
 }
+.ads {
+  padding: 4px;
 .i-student-ad img {
   max-width: 100%;
 }
