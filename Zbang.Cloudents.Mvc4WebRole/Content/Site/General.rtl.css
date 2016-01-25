@@ -791,6 +791,13 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 }
 .ads {
   padding: 4px;
+}
+.i-student-ad {
+  padding: 12px;
+}
+.i-student-ad a {
+  display: inline-block;
+}
 .i-student-ad img {
   max-width: 100%;
 }
