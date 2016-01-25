@@ -22,6 +22,7 @@
         }, 1);
         i.details.downloadUrl = $location.url() + 'download/';
         i.details.printUrl = $location.url() + 'print/';
+        i.details.boxUrl = i.details.boxUrl + 'items/';
         getPreview();
 
 
@@ -39,7 +40,7 @@
 
         i.swipeLeft = swipeLeft;
         i.swipeRight = swipeRight;
-
+        
         function getPreview() {
             i.loader = true;
             return itemService.getPreview(i.details.blob, index, itemId, boxid).then(function (data) {

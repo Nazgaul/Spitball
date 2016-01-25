@@ -5,7 +5,6 @@
     const string svgUrl = "~/images/site/icons.svg";
 
     var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
-    var errorLayout = @ViewBag.error == true ? "error-layout" : string.Empty;
 }
 <!DOCTYPE html>
 <!--[if IE]>
@@ -31,7 +30,7 @@
         @*@{ Html.RenderAction("Theme", "Home", true);}*@
         <base href="/" />
     </head>
-<body ng-controller="AppController as app" class="{{app.theme}} color-override backgroundColor1 clearfix @errorLayout" ng-class="{menuOpened: app.menuOpened}" @*class="theme-light"*@>
+<body ng-controller="AppController as app" class="{{app.theme}} color-override backgroundColor1 clearfix" ng-class="{menuOpened: app.menuOpened}" @*class="theme-light"*@>
 
     <!-- Google Tag Manager -->
     <noscript>
@@ -118,9 +117,12 @@
                 @*<button class="btn btn-default" role="button" onclick="window.location='@Url.Action("SignUp", "Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'sign up']">@IndexResources.Signup</button>
                     <button class="btn btn-primary" role="button" onclick="window.location='@Url.Action("SignIn","Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</button>*@
             </div>
-            <button type="button" flex="none" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" ga-track-event="['header', 'open menu']">
-                @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
-            </button>
+            @if (ViewBag.error != true)
+            {
+                <button type="button" flex="none" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" ga-track-event="['header', 'open menu']">
+                    @Html.Svg(svgUrl, "headerMenu", new {@class = "headerMenu"})
+                </button>
+            }
         </div>
     </div>
 
