@@ -96,6 +96,9 @@
         });
         $rootScope.$on('open-menu', function () {
             $mdSidenav('left').toggle();
+            $timeout(function () {
+                $rootScope.$broadcast('updateScroll');
+            });
         });
         $rootScope.$on('remove-box', function (e, arg) {
             arg = parseInt(arg, 10);
