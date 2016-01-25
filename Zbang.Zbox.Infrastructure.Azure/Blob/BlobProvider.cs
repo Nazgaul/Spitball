@@ -549,7 +549,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
 
         #region FAQRegion
-        public async Task<Stream> GetFaqQuestion()
+        public async Task<Stream> GetFaqQuestionAsync()
         {
             try
             {
@@ -561,12 +561,25 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                 return null;
             }
         }
-        public async Task<Stream> GetJobsXml()
+        public async Task<Stream> GetJobsXmlAsync()
         {
             try
             {
                 var blob = m_BlobClient.GetContainerReference(AzureFaqContainer).GetBlockBlobReference("jobs2.xml");
                 return await blob.OpenReadAsync(); // we need async in here
+            }
+            catch (StorageException)
+            {
+                return null;
+            }
+        }
+
+        public async Task<string> GetAdHtmlAsync()
+        {
+            try
+            {
+                var blob = m_BlobClient.GetContainerReference(AzureFaqContainer).GetBlockBlobReference("iStudentAd.html");
+                return await blob.DownloadTextAsync(); 
             }
             catch (StorageException)
             {

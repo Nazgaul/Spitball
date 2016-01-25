@@ -259,7 +259,7 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
             return blob.Uri + queryString;
         }
 
-        public Task<Stream> GetFaqQuestion()
+        public Task<Stream> GetFaqQuestionAsync()
         {
             throw new NotImplementedException();
         }
@@ -325,7 +325,7 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
         }
 
 
-        public Task<Stream> GetJobsXml()
+        public Task<Stream> GetJobsXmlAsync()
         {
             throw new NotImplementedException();
         }
@@ -338,6 +338,12 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
             blob.Properties.ContentType = mimeType;
             blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
             return blob.UploadFromStreamAsync(content, token);
+        }
+
+
+        public Task<string> GetAdHtmlAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

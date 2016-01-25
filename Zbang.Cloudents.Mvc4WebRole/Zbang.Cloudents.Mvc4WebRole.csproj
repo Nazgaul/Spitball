@@ -1746,6 +1746,7 @@
     <Content Include="Js\components\account\password.controller.js" />
     <Content Include="Js\components\account\unregister.controller.js" />
     <Content Include="Js\components\account\unregisterShow.directive.js" />
+    <Content Include="Js\components\ads.controller.js" />
     <Content Include="Js\components\box\box.routes.js" />
     <Content Include="Js\components\contactUs.controller.js" />
     <Content Include="Js\components\dashboard\createBox.controller.js" />
