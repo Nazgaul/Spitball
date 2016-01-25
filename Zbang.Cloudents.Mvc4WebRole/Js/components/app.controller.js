@@ -95,9 +95,13 @@
             if (!fromState.name) {
                 return;
             }
-            $mdMenu.hide();
+            //$mdMenu.hide();
             $rootScope.$broadcast('close-menu');
+            
             var toStateName = toState.name;
+            if (toStateName !== 'searchinfo') {
+                $rootScope.$broadcast('search-close');
+            }
             if (fromParams.boxId && toParams.boxId) {
                 if (fromParams.boxId === toParams.boxId && toStateName === 'box' && fromState.name.startsWith('box')) {
                     event.preventDefault();
