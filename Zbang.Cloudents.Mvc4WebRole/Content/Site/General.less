@@ -482,7 +482,6 @@ md-tabs {
     right: 0;
     left: 0;
     bottom: 0;
-    
     overflow-y: auto;
     height: 100vh;
     width: 100vw;
@@ -501,7 +500,7 @@ md-tabs {
 
 
     header {
-        top:0;
+        top: 0;
         color: @textColorWhite;
         background-color: @backgroundColorMenu;
         border-bottom: 5px solid @borderColorBlack;
@@ -516,7 +515,7 @@ md-tabs {
         .close {
             opacity: 0.7;
 
-            &:hover{
+            &:hover {
                 opacity: 1;
             }
         }
@@ -886,4 +885,14 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 
 #intercom-container, #intercom-launcher {
     z-index: 120;
+}
+
+.error-layout {
+    .menu-toggler {
+        display: none !important;
+    }
+
+    .page-body {
+        margin-left: 0;
+    }
 }

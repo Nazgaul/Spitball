@@ -783,3 +783,9 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 #intercom-launcher {
   z-index: 120;
 }
+.error-layout .menu-toggler {
+  display: none !important;
+}
+.error-layout .page-body {
+  margin-left: 0;
+}

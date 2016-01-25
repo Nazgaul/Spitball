@@ -136,7 +136,7 @@
     <value>הבעלים של תוכן זה מאפשר לצפות בתוכן בהזמנה בלבד</value>
   </data>
   <data name="NotFound" xml:space="preserve">
-    <value>404.0</value>
+    <value>404</value>
   </data>
   <data name="Explorer" xml:space="preserve">
     <value>אקספלורר</value>
