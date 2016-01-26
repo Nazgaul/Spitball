@@ -283,6 +283,11 @@
 .feed .reply .actions {
   margin-top: 0;
 }
+.feed .reply .actions.padding {
+  padding-right: 9px;
+  margin-top: 10px;
+  border: none;
+}
 .feed .reply .c-img {
   border: none;
   top: -7px;
@@ -292,10 +297,6 @@
 }
 .feed .reply .margins {
   margin: 0 0 10px 10px;
-}
-.feed .reply .padding {
-  padding-right: 9px;
-  margin-top: 10px;
 }
 .feed .reply .items-container {
   padding-right: 40px;

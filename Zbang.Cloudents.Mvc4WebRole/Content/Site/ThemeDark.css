@@ -19,17 +19,21 @@
 }
 .search-box::-webkit-input-placeholder {
   color: #282828;
+  opacity: 1;
 }
 .search-box:-moz-placeholder {
   /* Firefox 18- */
   color: #282828;
+  opacity: 1;
 }
 .search-box::-moz-placeholder {
   /* Firefox 19+ */
   color: #282828;
+  opacity: 1;
 }
 .search-box:-ms-input-placeholder {
   color: #282828;
+  opacity: 1;
 }
 .search-box input {
   border: 10px solid #323538;
@@ -148,17 +152,21 @@
 }
 .add-comment::-webkit-input-placeholder {
   color: #323538;
+  opacity: 1;
 }
 .add-comment:-moz-placeholder {
   /* Firefox 18- */
   color: #323538;
+  opacity: 1;
 }
 .add-comment::-moz-placeholder {
   /* Firefox 19+ */
   color: #323538;
+  opacity: 1;
 }
 .add-comment:-ms-input-placeholder {
   color: #323538;
+  opacity: 1;
 }
 .add-comment .list-inline > li {
   border: 1px solid #3d4348;
@@ -1050,17 +1058,21 @@ body {
 }
 .search::-webkit-input-placeholder {
   color: #888b8e;
+  opacity: 1;
 }
 .search:-moz-placeholder {
   /* Firefox 18- */
   color: #888b8e;
+  opacity: 1;
 }
 .search::-moz-placeholder {
   /* Firefox 19+ */
   color: #888b8e;
+  opacity: 1;
 }
 .search:-ms-input-placeholder {
   color: #888b8e;
+  opacity: 1;
 }
 .search em {
   color: #ffa500;
@@ -1097,17 +1109,21 @@ body {
 }
 .invite md-content::-webkit-input-placeholder {
   color: #888b8e;
+  opacity: 1;
 }
 .invite md-content:-moz-placeholder {
   /* Firefox 18- */
   color: #888b8e;
+  opacity: 1;
 }
 .invite md-content::-moz-placeholder {
   /* Firefox 19+ */
   color: #888b8e;
+  opacity: 1;
 }
 .invite md-content:-ms-input-placeholder {
   color: #888b8e;
+  opacity: 1;
 }
 .invite .gmail {
   background: #9e9e9e;
@@ -1144,17 +1160,21 @@ md-chips .md-chips.md-focused {
 }
 .invite md-content::-webkit-input-placeholder {
   color: #888b8e;
+  opacity: 1;
 }
 .invite md-content:-moz-placeholder {
   /* Firefox 18- */
   color: #888b8e;
+  opacity: 1;
 }
 .invite md-content::-moz-placeholder {
   /* Firefox 19+ */
   color: #888b8e;
+  opacity: 1;
 }
 .invite md-content:-ms-input-placeholder {
   color: #888b8e;
+  opacity: 1;
 }
 .invite .gmail {
   background: #9e9e9e;

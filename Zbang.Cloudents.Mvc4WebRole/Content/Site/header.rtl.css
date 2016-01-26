@@ -173,17 +173,21 @@
 }
 .nav-bar .logo-search .search-form .search-area .text::-webkit-input-placeholder {
   color: #181c1d;
+  opacity: 1;
 }
 .nav-bar .logo-search .search-form .search-area .text:-moz-placeholder {
   /* Firefox 18- */
   color: #181c1d;
+  opacity: 1;
 }
 .nav-bar .logo-search .search-form .search-area .text::-moz-placeholder {
   /* Firefox 19+ */
   color: #181c1d;
+  opacity: 1;
 }
 .nav-bar .logo-search .search-form .search-area .text:-ms-input-placeholder {
   color: #181c1d;
+  opacity: 1;
 }
 .nav-bar .logo-search .logo {
   margin: 0 16px;
