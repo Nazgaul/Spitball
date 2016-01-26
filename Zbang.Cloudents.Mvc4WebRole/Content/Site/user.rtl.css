@@ -64,6 +64,12 @@
 .userPage md-tabs {
   padding: 0;
 }
+.userPage md-tabs md-tab-content {
+  margin: 0 -12px;
+}
+.userPage md-tabs md-tab-content .layout-padding > * {
+  padding: 12px;
+}
 .userPage md-tabs .md-tab.md-active {
   font-weight: bold;
 }
