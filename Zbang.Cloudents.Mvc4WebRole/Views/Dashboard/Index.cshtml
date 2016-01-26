@@ -29,7 +29,7 @@
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" hide-xs class="create-box flex" ng-class="{'create-box-show' : d.createBoxOn}">
         @{ Html.RenderPartial("_Create");}
     </div>
-    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-repeat="e in d.boxes" class="flex">
+    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="{{$index > 5 ? 1 : 0}}" ng-repeat="e in d.boxes" class="flex">
         <div class="box-cube color-override outlineColor6">
             <div ng-include="'box-template.html'"></div>
             <div class="updates color-override textColor8" ng-if="e.updates !== 0">{{e.updates}}</div>
@@ -47,10 +47,10 @@
             </md-menu>
         </div>
     </div>
-    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50">
+    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="0">
         <adsense ad-client="ca-pub-1215688692145777" ad-slot="1567632158" inline-style="display:inline-block;width:100%;height:179px"></adsense>
     </div>
-    <div ng-controller="adController as ad" ng-show="ad.show" flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="i-student-ad" ng-bind-html="ad.content"></div>
+    <div ng-controller="adController as ad" ng-show="ad.show" flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="1" class="i-student-ad" ng-bind-html="ad.content"></div>
 </div>
 
 <button type="button" class="add" hide show-xs ng-click="d.openCreate()" ng-hide="d.createBoxOn" ga-track-event="['dashboard', 'createbox', 'plus']">

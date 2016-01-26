@@ -38,14 +38,14 @@
                 <li>@UserResources.UploadItem</li>
                 <li>@UserResources.Answering</li>
                 <li>@UserResources.Asking</li>
-                    <li>@UserResources.Likes</li>
+                <li>@UserResources.Likes</li>
                 <li>@UserResources.ShareFB</li>
             </ul>
         </div>
     </div>
     <div class="profile-content">
         <div class="portlet light">
-       
+
             <md-tabs md-dynamic-height="true">
                 <md-tab md-on-select="u.changeTab(u.state.box)" md-active="u.tab === u.state.box">
                     <md-tab-label><h3>@GeneralResources.Classes</h3> <div class="number">{{::u.details.numClass | megaNumber}}</div></md-tab-label>
@@ -57,9 +57,24 @@
                 </md-tab>
                 <md-tab md-on-select="u.changeTab(u.state.item)" md-active="u.tab === u.state.item">
                     <md-tab-label><h3>@UserResources.Uploads</h3> <div class="number">{{::u.details.numItem | megaNumber}}</div></md-tab-label>
+                    
                     <md-tab-body>
-                        <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
-                            <div flex-xs="50" flex-xl="15" flex="20" flex-sm="33" flex-md="33" ng-repeat="e in u.files" ng-include="'item-template.html'" class="flex i-q-wrapper"></div>
+                        <div layout="row" layout-padding layout-fill layout-wrap srph-infinite-scroll="u.myPagingFunction()">
+                            <div flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="file item-animate i-q-wrapper" ng-repeat="e in u.files">
+                                <div ng-include="'item-template.html'"></div>
+                                <md-menu class="item-menu">
+                                    <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['user-uploads', 'deleteFile']">
+                                        @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
+                                    </md-button>
+                                    <md-menu-content width="1">
+                                        <md-menu-item>
+                                            <md-button aria-label="download item" ng-href="{{::e.downloadLink}}" ng-click="u.downloadItem()" target="_blank" ga-track-event="['user-uploads', 'download']">
+                                                @GeneralResources.Download
+                                            </md-button>
+                                        </md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
+                            </div>
                         </div>
                     </md-tab-body>
                 </md-tab>
@@ -89,7 +104,7 @@
                 </md-tab>
 
             </md-tabs>
-            
+
         </div>
     </div>
 </div>
