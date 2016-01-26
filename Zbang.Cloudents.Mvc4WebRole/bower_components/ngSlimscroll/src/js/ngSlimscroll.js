@@ -256,7 +256,7 @@ angular.module('jkuri.slimscroll', [])
 			// mobile
 			element.bind('touchstart', function (e, b) {
 				if (e.originalEvent.touches.length) {
-					touchDiff = e.touches[0].pageY;
+				    touchDiff = e.originalEvent.touches[0].pageY;
 				}
 			});
 

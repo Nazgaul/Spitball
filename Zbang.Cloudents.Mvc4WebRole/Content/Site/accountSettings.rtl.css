@@ -29,6 +29,7 @@
 }
 .accountPage-wrapper .theme-section {
   text-align: right;
+  margin-bottom: 30px;
 }
 .accountPage-wrapper .theme-section.selected {
   color: #2698D4;
