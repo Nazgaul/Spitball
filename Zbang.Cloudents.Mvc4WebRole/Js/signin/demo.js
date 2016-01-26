@@ -258,19 +258,8 @@ var Demo = function () {
 
         //main function to initiate the theme
         init: function() {
-            // handles style customer tool
             handleTheme(); 
-
-            // handle layout style change
-            //$('.theme-panel .layout-style-option').change(function() {
-            //     setThemeStyle($(this).val());
-            //});
-
-            // set layout style from cookie
-            //if ($.cookie && $.cookie('layout-style-option') === 'rounded') {
-            //    setThemeStyle($.cookie('layout-style-option'));
-            //    $('.theme-panel .layout-style-option').val($.cookie('layout-style-option'));
-            //}            
+   
         }
     };
 
