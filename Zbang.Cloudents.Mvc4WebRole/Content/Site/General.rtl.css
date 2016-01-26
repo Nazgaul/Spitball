@@ -797,6 +797,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 }
 .i-student-ad a {
   display: inline-block;
+  width: 100%;
 }
 .i-student-ad img {
   max-width: 100%;
