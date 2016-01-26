@@ -22,7 +22,7 @@
                     //});
                 }
                 if (!retVal) {
-                    logError(url, data);
+                    logError(url, data, retVal);
                     dfd.reject();
                     return;
                 }
@@ -32,7 +32,6 @@
                 }
 
                 dfd.reject(retVal.payload);
-                //logError(url, data, retVal);
 
             }, function (response) {
                 dfd.reject(response);

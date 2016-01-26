@@ -30,7 +30,7 @@
             </div>
         </div>
         <div flex layout="row" flex-xs="100" layout-align="start center" class="left-flex university">
-            <img src="{{::i.data.universityImage}}" class="uni-image" alt="university logo" width="50" height="50" />
+            <img ng-src="{{::i.data.universityImage}}" class="uni-image" alt="university logo" width="50" height="50" />
             <div layout="column">
                 <span class="uni-name">{{::i.data.university}}</span>
                 <a ui-sref="universityChoose" flex ga-track-event="['settings', 'change university']">@AccountResource.changeUniversityBtn</a>
