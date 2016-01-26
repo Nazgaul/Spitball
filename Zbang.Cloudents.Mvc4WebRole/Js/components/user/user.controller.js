@@ -75,6 +75,7 @@
                     var retVal = itemThumbnailService.assignValue(value.source);
                     value.thumbnail = retVal.thumbnail;
                     value.nameExtension = value.name.replace(/\.[^/.]+$/, "");
+                    value.downloadLink = value.url + 'download/';
                 });
                 self.files = self.files.concat(response);
                 if (response.length) {

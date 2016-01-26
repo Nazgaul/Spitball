@@ -8,10 +8,8 @@
 <div class="members-only-page">
     <img src="@Url.CdnContent("~/Images/Site/membersOnly.png")" alt="Members only">
     <div class="text">
-        <h2>
-            @ErrorResources.NeedPermission
-        </h2>
-        <p>@ErrorResources.PrivateContent</p>
+        <h2>@ErrorResources.NeedPermission</h2>
+        <p class="color-override textColor5">@ErrorResources.PrivateContent</p>
         <a target="_self" href="@Url.Action("Index","Dashboard")" class="text-capitalize">@ErrorResources.Back</a>
     </div>
 </div>

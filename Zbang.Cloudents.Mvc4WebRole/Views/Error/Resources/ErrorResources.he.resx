@@ -130,7 +130,8 @@
     <value>גירסת הדפדפן שלך אינה נתמכת</value>
   </data>
   <data name="NeedPermission" xml:space="preserve">
-    <value>אין לך את ההרשאות המתאימות בשביל לצפות בתוכן זה</value>
+    <value>אין לך את ההרשאות המתאימות
+בשביל לצפות בתוכן זה</value>
   </data>
   <data name="PrivateContent" xml:space="preserve">
     <value>הבעלים של תוכן זה מאפשר לצפות בתוכן בהזמנה בלבד</value>
