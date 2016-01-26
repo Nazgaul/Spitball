@@ -49,7 +49,6 @@
         }
         function toggleMenu() {
             $rootScope.$broadcast('open-menu');
-            self.menuOpened = !self.menuOpened;
         }
 
         function showToaster(text, parentId) {

@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.dashboard').controller('SideMenu', dashboard);
-    dashboard.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope', '$mdSidenav', '$location', '$timeout'];
+    dashboard.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope', '$mdSidenav', '$location', '$timeout', '$scope'];
 
-    function dashboard(dashboardService, userDetails, $rootScope, $mdSidenav, $location, $timeout) {
+    function dashboard(dashboardService, userDetails, $rootScope, $mdSidenav, $location, $timeout, $scope) {
         var d = this, notloaded = true;
         d.courses = [];
         d.privateBoxes = [];
@@ -93,9 +93,12 @@
         }
         $rootScope.$on('close-menu', function () {
             $mdSidenav('left').close();
+            $scope.app.menuOpened = false;
+            self.menuOpened = !self.menuOpened;
         });
         $rootScope.$on('open-menu', function () {
             $mdSidenav('left').toggle();
+            $scope.app.menuOpened = !$scope.app.menuOpened;
         });
         $rootScope.$on('remove-box', function (e, arg) {
             arg = parseInt(arg, 10);

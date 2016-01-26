@@ -102,7 +102,7 @@
 
             @{ Html.RenderPartial("_FlagItem");}
         </div>
-        <div class="arrows" layout="row" layout-align="space-between center">
+        <div class="arrows" layout="row" layout-align="space-between center" hide-xs>
             <a ng-if=" i.details.previous" href="{{i.details.previous}}" hide-xs class="arrow left" ga-track-event="['itemPage', 'previous item']">
             @Html.Svg("~/images/site/icons.svg", "arrow")</a>
             <a ng-if="i.details.next" href="{{i.details.next}}" hide-xs class="arrow right" ga-track-event="['itemPage', 'next item']">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
