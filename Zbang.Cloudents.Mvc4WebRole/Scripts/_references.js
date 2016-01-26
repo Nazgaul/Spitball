@@ -115,7 +115,6 @@
 /// <reference path="../Js/modules/wizard.js" />
 /// <reference path="../Js/shared/colorOnLength.js" />
 /// <reference path="../Js/signin/bootstrap.min.js" />
-/// <reference path="../Js/signin/demo.js" />
 /// <reference path="../Js/signin/layout.js" />
 /// <reference path="../Js/signin/login-soft.js" />
 /// <reference path="../Js/signin/metronic.js" />

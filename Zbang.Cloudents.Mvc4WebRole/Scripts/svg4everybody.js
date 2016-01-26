@@ -5,7 +5,7 @@
 }(this, function() {
     /*! svg4everybody v2.0.0 | github.com/jonathantneal/svg4everybody */
     function embed(svg, g) {
-        console.log(svg, g);
+        console.log(svg, g); // do not remove console.log
         if (g) {
             var viewBox = !svg.getAttribute("viewBox") && g.getAttribute("viewBox"), fragment = document.createDocumentFragment(), clone = g.cloneNode(!0);
             for (viewBox && svg.setAttribute("viewBox", viewBox); clone.childNodes.length; ) {

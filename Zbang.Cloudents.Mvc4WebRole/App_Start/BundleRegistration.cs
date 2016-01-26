@@ -110,7 +110,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/jquery-2.1.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"),
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
-                        new JsFileWithCdn("~/js/signin/demo.js"),
+                        //new JsFileWithCdn("~/js/signin/demo.js"),
                         new JsFileWithCdn("~/js/signin/metronic.js"),
                         new JsFileWithCdn("~/js/signin/layout.js"),
                         new JsFileWithCdn("~/js/signin/login-soft.js"),

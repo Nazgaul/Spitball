@@ -444,7 +444,7 @@
     <Compile Include="Models\UploadFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Views\Account\Resources\AboutUsResources.Designer.cs">
+    <Compile Include="Views\Home\Resources\AboutUsResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AboutUsResources.resx</DependentUpon>
@@ -1823,7 +1823,6 @@
     <Content Include="Js\shared\userimage.js" />
     <Content Include="Js\shared\versionChecker.js" />
     <Content Include="Js\signin\bootstrap.min.js" />
-    <Content Include="Js\signin\demo.js" />
     <Content Include="Js\signin\layout.js" />
     <Content Include="Js\signin\login-soft.js" />
     <Content Include="Js\signin\metronic.js" />
@@ -2963,7 +2962,8 @@
       <LastGenOutput>ValidatePasswordResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.ru.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\AboutUsResources.resx">
+    <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.he.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AboutUsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>

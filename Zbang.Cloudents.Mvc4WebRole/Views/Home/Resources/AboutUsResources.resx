@@ -118,35 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DescriptionA1" xml:space="preserve">
-    <value>Spitball is a free online and mobile social studying platform. A community focused on academic activity so you can focus on studying. It is a place to work together on assignments, find the study material you need, test your knowledge or discuss ideas and texts.</value>
-  </data>
-  <data name="DescriptionA2" xml:space="preserve">
-    <value>Many students are caught between various online services for collaboration. On one side official virtual learning environments provided by their university, official but often clunky and inflexible. On the other side Facebook –geared for social life, not academic collaboration– where distractions are never far away.
+    <value>Spitball is a free online and mobile social studying application. We are a community built around academic activity so you can focus on studying. It is a place for students of any academic level to work together on assignments, find the study material they need, test their knowledge and discuss ideas.
 
-To fill this gap we set out to create a social studying platform that combines the flexibility and social elements of Facebook with the focus on academic work of official virtual learning environments.
+As university students, we found ourselves struggling to find a fast and efficient way to share notes and study together online. Although some schools had official services for doing just that, they were often clunky and inflexible, making it difficult for us to share ideas with students outside of our class. Social sites made it easier to meet and communicate with one another, but they were not designed for academic life (and distractions were always close at hand). 
 
-All Spitball features are specifically designed with students’ needs in mind, integrated as part of a single, easy to use and free social studying platform.</value>
-  </data>
-  <data name="DescriptionA3" xml:space="preserve">
-    <value>We want our users to improve academically. We want to facilitate cross-pollination of ideas, the sharing of materials and academic collaboration. We want our users to become better students.</value>
-  </data>
-  <data name="DescriptionA4" xml:space="preserve">
-    <value>The Spitball platform is developed by a young bunch of specialists in online platforms. Our combined background includes various online platforms such as AVG MultiMi and Yahoo’s client facing applications such as Mail, Messenger, Groups and My Yahoo!</value>
+To fill this gap we set out to create a social studying tool that combines flexibility and a social community with an academic learning environment.
+
+All Spitball features are specifically designed with a student’s needs in mind, integrated as part of a single, easy to use and free social studying platform. Uploading and sharing documents with peers, taking quizzes, browsing thousands of notes from our universal database and creating new courses as needed are all part of the freedom within our application.
+ 
+This freedom has allowed 250,000 students to upload 300,000 documents so far, with no barriers between them and the material they need.  
+ 
+Our aim is to help our users improve academically, who in turn will improve the academic world. We want to facilitate the cross-pollination of ideas, the sharing of materials and collaboration across schools and subjects. We want our users to become better students by linking them to the global learning community.
+ 
+The Spitball platform is developed by a young bunch of specialists in online platforms. Our combined background includes various online platforms such as AVG MultiMi and Yahoo’s client facing applications such as Mail, Messenger, Groups and My Yahoo!</value>
   </data>
   <data name="DescriptionQ1" xml:space="preserve">
     <value>What is Spitball?</value>
   </data>
-  <data name="DescriptionQ2" xml:space="preserve">
-    <value>The background</value>
-  </data>
-  <data name="DescriptionQ3" xml:space="preserve">
-    <value>Our mission</value>
-  </data>
-  <data name="DescriptionQ4" xml:space="preserve">
-    <value>Our company</value>
-  </data>
   <data name="Subtitle" xml:space="preserve">
-    <value>Make studying a great adventure</value>
+    <value>Build by students for students</value>
   </data>
   <data name="TeamCEO" xml:space="preserve">
     <value>CEO
