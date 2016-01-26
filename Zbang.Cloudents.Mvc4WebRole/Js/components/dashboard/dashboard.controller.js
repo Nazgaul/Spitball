@@ -13,7 +13,7 @@
             $scope.$broadcast('open_invite');
         }
 
-
+        
         d.boxes = [];
         dashboardService.getBoxes().then(function (response) {
             d.boxes = d.boxes.concat(response);
@@ -30,7 +30,7 @@
 
         d.deleteBox = deleteBox;
         d.openCreate = openCreate;
-
+        $scope.math = Math;
         function openCreate() {
             d.createBoxOn = true;
             //$location.hash('create');
