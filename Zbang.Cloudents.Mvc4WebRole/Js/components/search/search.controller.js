@@ -37,7 +37,7 @@
             //        'q': self.term,
             //        't': self.tab
             //    });
-            term = $location.search().q;
+            term = $state.params.q;// $location.search().q;
             //assignTab();
             page = 0;
             needToBringMore = true;

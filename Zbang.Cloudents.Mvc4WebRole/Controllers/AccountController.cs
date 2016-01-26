@@ -127,7 +127,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     invId = inv.InviteId;
                 }
-                model.BoxId = GetBoxIdRouteDataFromDifferentUrl(returnUrl);
+                model.BoxId = model.BoxId ?? GetBoxIdRouteDataFromDifferentUrl(returnUrl);
                 var command = new CreateGoogleUserCommand(googleUserData.Email,
                     googleUserData.Id,
                     googleUserData.Picture,
@@ -198,7 +198,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         invId = inv.InviteId;
                     }
-                    model.BoxId = GetBoxIdRouteDataFromDifferentUrl(returnUrl);
+                    model.BoxId = model.BoxId ?? GetBoxIdRouteDataFromDifferentUrl(returnUrl);
                     var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
                          facebookUserData.LargeImage, model.UniversityId,
                         facebookUserData.First_name,
@@ -368,12 +368,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     Email = model.NewEmail
                 };
                 var createStatus = await m_UserManager.CreateAsync(user, model.Password);
-
-                //var createStatus = m_MembershipService.Value.CreateUser(userid, model.Password, model.NewEmail,
-                //    out userProviderKey);
                 if (createStatus.Succeeded)
                 {
-
                     Guid? invId = null;
                     if (inv != null)
                     {
@@ -852,11 +848,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        protected override void Dispose(bool disposing)
-        {
-            m_UserManager.Dispose();
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    m_UserManager.Dispose();
+        //    base.Dispose(disposing);
+        //}
     }
 
 

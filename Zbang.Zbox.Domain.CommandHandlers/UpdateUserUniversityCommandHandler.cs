@@ -58,7 +58,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 //userCode = student.ID;
             }
             message.UniversityId = university.Id;
-            message.UniversityDataId = university.UniversityData.Id;
+            message.UniversityDataId = university.UniversityData == null ? university.Id : university.UniversityData.Id;
             user.UpdateUniversity(university, message.StudentId /*department, message.GroupNumber, message.RegisterNumber*/);
 
             m_UserRepository.Save(user);

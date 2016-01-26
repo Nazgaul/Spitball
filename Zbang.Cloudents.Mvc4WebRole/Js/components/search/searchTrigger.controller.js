@@ -8,7 +8,7 @@
         st.search = search;
         st.change = search;
 
-        st.term = $location.search().q;
+        st.term =  $location.search().q; //$state not yet loaded
 
         function search(isValid) {
             if (isValid) {
