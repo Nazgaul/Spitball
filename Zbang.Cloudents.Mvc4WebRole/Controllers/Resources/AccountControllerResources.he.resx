@@ -138,4 +138,7 @@
   <data name="GoogleForgotPasswordError" xml:space="preserve">
     <value>נרשמת לספיטבול באמצעות גוגל. עליך לחזור לדף הבית ולהתחבר באמצעות גוגל</value>
   </data>
+  <data name="AccountController_PasswordUpdate_Error" xml:space="preserve">
+    <value>אירעה תקלה, נסה מאוחר יותר</value>
+  </data>
 </root>

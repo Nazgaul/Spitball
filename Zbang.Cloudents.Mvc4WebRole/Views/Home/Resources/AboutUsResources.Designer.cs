@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
+namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources.AboutUsResources", typeof(AboutUsResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources.AboutUsResources", typeof(AboutUsResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,40 +61,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spitball is a free online and mobile social studying platform. A community focused on academic activity so you can focus on studying. It is a place to work together on assignments, find the study material you need, test your knowledge or discuss ideas and texts..
+        ///   Looks up a localized string similar to Spitball is a free online and mobile social studying application. We are a community built around academic activity so you can focus on studying. It is a place for students of any academic level to work together on assignments, find the study material they need, test their knowledge and discuss ideas.
+        ///
+        ///As university students, we found ourselves struggling to find a fast and efficient way to share notes and study together online. Although some schools had official services for doing just that, they were of [rest of string was truncated]&quot;;.
         /// </summary>
         public static string DescriptionA1 {
             get {
                 return ResourceManager.GetString("DescriptionA1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Many students are caught between various online services for collaboration. On one side official virtual learning environments provided by their university, official but often clunky and inflexible. On the other side Facebook –geared for social life, not academic collaboration– where distractions are never far away.
-        ///
-        ///To fill this gap we set out to create a social studying platform that combines the flexibility and social elements of Facebook with the focus on academic work of official virtual learning env [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string DescriptionA2 {
-            get {
-                return ResourceManager.GetString("DescriptionA2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to We want our users to improve academically. We want to facilitate cross-pollination of ideas, the sharing of materials and academic collaboration. We want our users to become better students..
-        /// </summary>
-        public static string DescriptionA3 {
-            get {
-                return ResourceManager.GetString("DescriptionA3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The Spitball platform is developed by a young bunch of specialists in online platforms. Our combined background includes various online platforms such as AVG MultiMi and Yahoo’s client facing applications such as Mail, Messenger, Groups and My Yahoo!.
-        /// </summary>
-        public static string DescriptionA4 {
-            get {
-                return ResourceManager.GetString("DescriptionA4", resourceCulture);
             }
         }
         
@@ -108,34 +81,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The background.
-        /// </summary>
-        public static string DescriptionQ2 {
-            get {
-                return ResourceManager.GetString("DescriptionQ2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Our mission.
-        /// </summary>
-        public static string DescriptionQ3 {
-            get {
-                return ResourceManager.GetString("DescriptionQ3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Our company.
-        /// </summary>
-        public static string DescriptionQ4 {
-            get {
-                return ResourceManager.GetString("DescriptionQ4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Make studying a great adventure.
+        ///   Looks up a localized string similar to Build by students for students.
         /// </summary>
         public static string Subtitle {
             get {
