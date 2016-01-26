@@ -12,6 +12,7 @@
                 virtualUrl = absUrl.substring(absUrl.indexOf(path));
             $window.dataLayer.push({ event: 'virtualPageView', virtualUrl: virtualUrl });
             $window.Intercom('update');
+            svg4everybody();
         });
         userDetails.init().then(function() {
             setTheme();
@@ -96,7 +97,7 @@
             if (!fromState.name) {
                 return;
             }
-            //$mdMenu.hide();
+            $mdMenu.hide(); //closes menu
             $rootScope.$broadcast('close-menu');
             
             var toStateName = toState.name;

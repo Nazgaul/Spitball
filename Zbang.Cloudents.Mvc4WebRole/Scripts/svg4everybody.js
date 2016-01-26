@@ -5,7 +5,7 @@
 }(this, function() {
     /*! svg4everybody v2.0.0 | github.com/jonathantneal/svg4everybody */
     function embed(svg, g) {
-        console.log(svg, g); // do not remove console.log
+        //console.log(svg, g); // do not remove console.log
         if (g) {
             var viewBox = !svg.getAttribute("viewBox") && g.getAttribute("viewBox"), fragment = document.createDocumentFragment(), clone = g.cloneNode(!0);
             for (viewBox && svg.setAttribute("viewBox", viewBox); clone.childNodes.length; ) {
@@ -19,8 +19,8 @@
             if (4 === xhr.readyState) {
                 var x = document.createElement("x");
                 x.innerHTML = xhr.responseText, xhr.s.splice(0).map(function (array) {
-                    console.log(array[0]);
-                    console.log("#" + array[1].replace(/(\W)/g, "\\$1"));
+                    //console.log(array[0]);
+                    //console.log("#" + array[1].replace(/(\W)/g, "\\$1"));
                     embed(array[0], x.querySelector("#" + array[1].replace(/(\W)/g, "\\$1")));
                 });
             }
@@ -53,4 +53,4 @@
     }
     return svg4everybody;
 });
-svg4everybody();
+//svg4everybody();

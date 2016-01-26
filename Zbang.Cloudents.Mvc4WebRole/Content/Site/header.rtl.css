@@ -260,7 +260,6 @@
   }
   .nav-bar.expand-search .logo-search .search-form {
     max-width: 100%;
-    margin: 0;
   }
 }
 @media (max-width: 960px) {
