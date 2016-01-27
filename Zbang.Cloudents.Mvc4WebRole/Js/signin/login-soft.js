@@ -402,6 +402,7 @@ var Login = function () {
         },
         initExternalLogin: function () {
             handleExtenalLogin();
+            svg4everybody();
 
         }
     };
