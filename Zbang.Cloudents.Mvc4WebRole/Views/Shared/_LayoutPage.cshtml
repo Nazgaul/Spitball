@@ -3,7 +3,7 @@
 @{
 
     const string svgUrl = "~/images/site/icons.svg";
-
+    ViewBag.error = ViewBag.error ?? false;
     var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
 }
 <!DOCTYPE html>

@@ -50,7 +50,7 @@
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="1">
         <adsense ad-client="ca-pub-1215688692145777" ad-slot="1567632158" inline-style="display:inline-block;width:100%;height:179px"></adsense>
     </div>
-    <div ng-controller="adController as ad" ng-show="ad.show" flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="2" class="i-student-ad" ng-bind-html="ad.content"></div>
+    <div ng-controller="adController as ad" ng-show="ad.show" flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="2" class="i-student-ad" ng-bind-html="ad.content" ga-track-event="['istudentad', 'dashboard']"></div>
 </div>
 
 <button type="button" class="add" hide show-xs ng-click="d.openCreate()" ng-hide="d.createBoxOn" ga-track-event="['dashboard', 'createbox', 'plus']">

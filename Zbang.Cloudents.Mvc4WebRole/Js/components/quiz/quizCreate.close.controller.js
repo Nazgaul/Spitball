@@ -1,14 +1,14 @@
 ﻿(function () {
     angular.module('app.quiz').controller('quizCreateCloseController', popUp);
-    popUp.$inject = ['$modalInstance', 'quizService', 'boxUrl', 'quizId', '$location','$timeout'];
+    popUp.$inject = ['$uibModalInstance', 'quizService', 'boxUrl', 'quizId', '$location', '$timeout'];
 
-    function popUp($modalInstance, quizService, boxUrl, quizId, $location, $timeout) {
+    function popUp($uibModalInstance, quizService, boxUrl, quizId, $location, $timeout) {
         var self = this;
         self.delete = del;
         self.draft = draft;
         
         function draft() {
-            $modalInstance.close();
+            $uibModalInstance.close();
             $timeout(function() {
                 $location.url(boxUrl);
             }, 5);
