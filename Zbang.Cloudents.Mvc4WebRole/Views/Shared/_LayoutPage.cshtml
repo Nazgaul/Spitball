@@ -55,7 +55,7 @@
         <div class="logo-search" layout="row" layout-align="start center" flex="100">
             <div class="logo">
                 <div class="page-logo">
-                    <a ui-sref="dashboard" @shouldPostBack ga-track-event="['header', 'logo']" user-not-register-popup="click">
+                    <a ui-sref="dashboard" @shouldPostBack ga-track-event="['header', 'logo']">
                         @Html.Svg(svgUrl, "logo", new { @class = "logo-default", hide_xs = "" })
                         @Html.Svg(svgUrl, "smallLogo", new { @class = "logo-small", hide = "", show_xs = "" })
                     </a>
