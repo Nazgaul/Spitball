@@ -4,6 +4,7 @@
 
     const string svgUrl = "~/images/site/icons.svg";
     ViewBag.error = ViewBag.error ?? false;
+    var errorClass = ViewBag.error ? "error-layout" : string.Empty;
     var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
 }
 <!DOCTYPE html>
@@ -30,7 +31,7 @@
     @*@{ Html.RenderAction("Theme", "Home", true);}*@
     <base href="/" />
 </head>
-<body ng-controller="AppController as app" class="{{app.theme}} color-override backgroundColor1 clearfix" ng-class="{menuOpened: app.menuOpened}" @*class="theme-light"*@>
+<body ng-controller="AppController as app" class="{{app.theme}} color-override backgroundColor1 clearfix @errorClass" ng-class="{menuOpened: app.menuOpened}" @*class="theme-light"*@>
 
     <!-- Google Tag Manager -->
     <noscript>
