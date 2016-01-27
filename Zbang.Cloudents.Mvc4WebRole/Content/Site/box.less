@@ -745,7 +745,9 @@
         @sizeOfTextMedium: 8vw;
         @sizeOfDraftMedium: @sizeOfTextMedium / 2;
         @sizeOfTextLarge: 3vw;
-        @sizeOfDraftLarge: @sizeOfTextLarge / 2;
+        @sizeOfDraftLarge: @sizeOfTextLarge;
+        @sizeOfTextXL: 3vw;
+        @sizeOfDraftXL: @sizeOfTextXL / 2;
 
 
 
@@ -773,7 +775,7 @@
         .draft {
             text-transform: uppercase;
             width: 100%;
-            font-size: @sizeOfDraftSmall;
+            font-size: @sizeOfDraftSmall*1.5;
 
             @media (min-width: 600px) {
                 font-size: @sizeOfDraftSmall;
@@ -783,8 +785,12 @@
                 font-size: @sizeOfDraftMedium;
             }
 
-            @media (min-width: 1200px) {
+            @media (min-width: 1280px) {
                 font-size: @sizeOfDraftLarge;
+            }
+
+            @media (min-width: 1920px) {
+                font-size: @sizeOfDraftXL;
             }
         }
 

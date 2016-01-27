@@ -2105,3 +2105,6 @@ Page Loading
 .theme-light .itemPage header .fb-like.blue svg {
   fill: #26566e !important;
 }
+.theme-light .library-choose .search-form-wrapper form {
+  border: 1px solid #888b8e;
+}
