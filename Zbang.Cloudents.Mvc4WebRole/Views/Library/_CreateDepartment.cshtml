@@ -9,7 +9,7 @@
         <md-content>
             <md-input-container flex>
                 <label>@LibraryResources.EnterDepName</label>
-                <input autocomplete="off" name="name" required ng-model="l.departmentName" ng-change="createDepartment.name.$setValidity('server',true)" />
+                <input focus-me="l.focusCreateDepartment" autocomplete="off" name="name" required ng-model="l.departmentName" ng-change="createDepartment.name.$setValidity('server',true)" />
                 <div ng-messages="createDepartment.name.$error" ng-show="createDepartment.name.$dirty">
                     <div ng-message="required">@GeneralResources.RequiredField</div>
                     <div ng-message="server">{{l.error}}</div>

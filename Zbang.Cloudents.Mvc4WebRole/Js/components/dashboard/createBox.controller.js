@@ -26,6 +26,7 @@
         function cancel(myform) {
             self.boxName = '';
             $scope.app.resetForm(myform);
+            $scope.d.createBoxFocus = false;
             $scope.d.createBoxOn  = false;
         }
     }

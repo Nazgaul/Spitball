@@ -13,7 +13,7 @@
                 <div layout layout-sm="column">
                     <md-input-container flex>
                         <label>@DashboardResource.EnterGroupName</label>
-                        <input autofocus autocomplete="off" required ng-model="cb.boxName" name="name" ng-change="createBox.name.$setValidity('server',true)">
+                        <input focus-me="d.createBoxFocus" autocomplete="off" required ng-model="cb.boxName" name="name" ng-change="createBox.name.$setValidity('server',true)">
                         <div ng-messages="createBox.name.$error" ng-show="createBox.name.$dirty">
                             <div ng-message="required">@GeneralResources.RequiredField</div>
                             <div ng-message="server">{{cb.error}}</div>

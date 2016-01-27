@@ -1,10 +1,9 @@
 ﻿(function () {
     angular.module('app.dashboard').controller('Dashboard', dashboard);
-    dashboard.$inject = ['dashboardService', '$scope', '$mdDialog', 'boxService', '$rootScope', 'resManager',
-        '$anchorScroll', '$timeout'];
+    dashboard.$inject = ['dashboardService', '$scope', '$mdDialog', 'boxService', '$rootScope', 'resManager'];
 
     function dashboard(dashboardService, $scope, $mdDialog, boxService, $rootScope,
-        resManager, $anchorScroll, $timeout) {
+        resManager) {
         var d = this;
         d.boxes = [];
         d.inviteOpen = false;
@@ -33,12 +32,13 @@
         $scope.math = Math;
         function openCreate() {
             d.createBoxOn = true;
+            d.createBoxFocus = true;
             //$location.hash('create');
-            $timeout(function() {
-                $anchorScroll.yOffset = 100;
-                $anchorScroll('create');
-                //$location.hash('');
-            });
+            //$timeout(function() {
+            //    $anchorScroll.yOffset = 100;
+            //    $anchorScroll('create');
+            //    //$location.hash('');
+            //});
         }
 
         function deleteBox(ev, box) {
