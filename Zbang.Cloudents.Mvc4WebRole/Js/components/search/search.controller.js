@@ -97,7 +97,7 @@
                 } else {
                     self.result = response;
                 }
-                if (!response.length) {
+                if (!response.length && page === 0) {
                     needToBringMore = false;
                     self.noResults = true;
                 }
@@ -117,7 +117,7 @@
                 } else {
                     self.result = response;
                 }
-                if (!response.length) {
+                if (!response.length && page === 0) {
                     needToBringMore = false;
                     self.noResults = true;
                 }
@@ -135,7 +135,7 @@
                 } else {
                     self.result = response;
                 }
-                if (!response.length) {
+                if (!response.length && page === 0) {
                     needToBringMore = false;
                     self.noResults = true;
                 }

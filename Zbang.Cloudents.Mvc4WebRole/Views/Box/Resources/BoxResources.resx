@@ -174,4 +174,7 @@
   <data name="replyPostPlaceholder" xml:space="preserve">
     <value>What's on your mind?</value>
   </data>
+  <data name="RibbonNew" xml:space="preserve">
+    <value>New</value>
+  </data>
 </root>

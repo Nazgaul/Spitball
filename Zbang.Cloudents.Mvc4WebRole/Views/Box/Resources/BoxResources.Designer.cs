@@ -230,5 +230,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
                 return ResourceManager.GetString("Whats", resourceCulture);
             }
         }
+        public static string RibbonNew
+        {
+            get {
+                return ResourceManager.GetString("RibbonNew", resourceCulture);
+            }
+        }
+        
     }
 }
