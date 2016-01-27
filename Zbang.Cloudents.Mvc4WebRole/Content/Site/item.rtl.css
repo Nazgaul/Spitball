@@ -138,6 +138,10 @@
   height: 20px;
   fill: #8c99a6;
 }
+.itemPage .comments-wrapper .menu-toggler {
+  width: 100%;
+  position: absolute;
+}
 .itemPage .comments-section .md-sidenav-backdrop {
   display: none;
 }
@@ -145,6 +149,19 @@
   position: fixed;
   top: 80px;
   margin-top: 10px;
+}
+.itemPage .comments-section .comment-info > span {
+  display: block;
+}
+.itemPage .comments-section .comment-info .date {
+  font-size: 12px;
+  color: #888b8e;
+}
+.itemPage .comments-section .comment-content {
+  margin-top: 10px;
+}
+.itemPage .comments-section .comments-list {
+  width: 270px;
 }
 .itemPage .menu-toggler {
   text-align: left;

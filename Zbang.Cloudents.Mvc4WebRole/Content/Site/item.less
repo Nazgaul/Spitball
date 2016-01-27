@@ -172,6 +172,11 @@
         fill: @borderColorLightGrey;
     }
 
+    .comments-wrapper .menu-toggler {
+        width: 100%;
+        position: absolute;
+    }
+
     .comments-section {
         .md-sidenav-backdrop {
             display: none;
@@ -181,6 +186,25 @@
             position: fixed;
             top: 80px;
             margin-top: 10px;
+        }
+
+        .comment-info {
+            > span {
+                display: block;
+            }
+
+            .date {
+                font-size: 12px;
+                color: @textColorGrey;
+            }
+        }
+
+        .comment-content {
+            margin-top: 10px;
+        }
+
+        .comments-list {
+            width: 270px;
         }
     }
 
