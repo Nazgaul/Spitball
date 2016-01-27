@@ -55,6 +55,13 @@
     .course-nav {
         margin-top: 20px;
 
+        > a {
+            width: 50%;
+            @media (max-width: 600px) {
+                width: ~"calc(100% - 40px)";
+            }
+        }
+
         h2 {
             margin: 0;
         }
