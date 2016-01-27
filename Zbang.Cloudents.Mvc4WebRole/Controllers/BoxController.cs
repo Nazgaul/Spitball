@@ -444,10 +444,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonError(GetErrorFromModelState());
             }
-            var userId = User.GetUserId();
-            var command = new ChangeItemTabNameCommand(model.TabId, model.Name, userId, model.BoxId);
-            ZboxWriteService.RenameBoxItemTab(command);
-            return JsonOk();
+            try
+            {
+                var userId = User.GetUserId();
+                var command = new ChangeItemTabNameCommand(model.TabId, model.Name, userId, model.BoxId);
+                ZboxWriteService.RenameBoxItemTab(command);
+                return JsonOk();
+            }
+            catch (ArgumentException ex)
+            {
+                return JsonError(ex.Message);
+            }
         }
         [HttpPost, ZboxAuthorize]
         public JsonResult DeleteTab(DeleteBoxItemTab model)

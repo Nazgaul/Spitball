@@ -11,6 +11,7 @@ namespace Zbang.Zbox.Domain.DataAccess
             var query = UnitOfWork.CurrentSession.QueryOver<ItemTab>();
             query.Where(b => b.Box.Id == boxId);
             query.Where(b => b.Name == name.Trim().Lower());
+            query.Take(1);
             return query.SingleOrDefault<ItemTab>();
         }
     }

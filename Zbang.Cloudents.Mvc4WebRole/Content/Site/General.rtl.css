@@ -791,6 +791,14 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 }
 .ads {
   padding: 4px;
+  -ms-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+.google-ad {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
 }
 .i-student-ad {
   padding: 12px;

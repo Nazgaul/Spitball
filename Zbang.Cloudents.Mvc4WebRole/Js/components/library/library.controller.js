@@ -32,12 +32,6 @@
 
         function createShow() {
             l.createOn = true;
-            //if (l.createClassShow && l.createDepartmentShow) {
-            //    l.createOn = false;
-            //    l.createBoxOn = true;
-            //    l.createDepartmentOn = true;
-            //    return;l.createBoxOn
-            //}
             if (l.createClassShow) {
                 openCreateBox();
             } 
@@ -46,11 +40,6 @@
             }
             
         }
-        //if (l.createDepartmentShow && l.createClassShow) {
-        //    l.createOn = true;
-        //    l.createDepartmentOn = true;
-        //    l.createBoxOn = true;
-        //}
 
         function renameNode(myform) {
             l.submitDisabled = true;

@@ -1,4 +1,5 @@
 ﻿using System;
+using Zbang.Zbox.Domain.CommandHandlers.Resources;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -39,10 +40,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException("user is not connected to box");
             }
 
-            var boxTabWithSameName = m_ItemTabRepository.GetTabWithTheSameName(message.NewName, message.UserId);
+            var boxTabWithSameName = m_ItemTabRepository.GetTabWithTheSameName(message.NewName, message.BoxId);
             if (boxTabWithSameName != null)
             {
-                throw new ArgumentException("You cannot change to name to already same name");
+                throw new ArgumentException(CommandHandlerResources.CreateItemTabCommandHandler_Handle_Cannot_have_several_tabs_with_the_same_name);
             }
 
             itemTab.ChangeName(message.NewName);

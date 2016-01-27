@@ -100,9 +100,12 @@
         }
 
         function renameTab() {
-            boxService.renameTab(i.tabSelected.id, i.tabNewName, boxId);
-            i.tabSelected.name = i.tabNewName;
-            i.openRenameTab = false;
+            boxService.renameTab(i.tabSelected.id, i.tabNewName, boxId).then(function () {
+                i.tabSelected.name = i.tabNewName;
+                i.openRenameTab = false;
+            }, function (response) {
+                $scope.app.showToaster(response, 'tabSection');
+            });
         }
         function deleteTab(ev) {
             var confirm = $mdDialog.confirm()

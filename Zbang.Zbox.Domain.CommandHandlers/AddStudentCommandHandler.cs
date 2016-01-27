@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public void Handle(AddStudentCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
-            var universityId =  long.Parse(ConfigFetcher.Fetch("StudentUnionToAddId"));
+            const int universityId = 64805; //  long.Parse(ConfigFetcher.Fetch("StudentUnionToAddId"));
            var university = m_UniversityRepository.Load(universityId);
 
             var student = new Student(university, message.Id);

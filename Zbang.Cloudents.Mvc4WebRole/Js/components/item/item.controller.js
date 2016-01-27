@@ -96,6 +96,10 @@
             return defer.promise;
         };
         function renameItem() {
+            if (i.renameText === i.details.name) {
+                i.selectedState = i.state.regular;
+                return;
+            }
             i.submitDisabled = true;
             itemService.renameItem(i.renameText, itemId).then(function (response) {
                 i.details.name = response.name;
