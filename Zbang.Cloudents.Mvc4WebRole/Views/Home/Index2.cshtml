@@ -1,0 +1,47 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources;
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources;
+@using Zbang.Zbox.Infrastructure.Culture;
+@{
+
+    Layout = null;
+    ViewBag.metaDescription = HomePageResources.A4;
+}
+<!doctype html>
+<html>
+<head>
+    @{Html.RenderPartial("_Head");}
+    @Html.Css2("homePage")
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <meta name="google-signin-client_id" content="997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com" />
+</head>
+<body class="homePage">
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-NDZLW7"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
+    <div class="pace-overlay"></div>
+    <div class="page-content">
+        <nav>
+            <div class="logo">
+                <img src="@Url.CdnContent("/Images/HomePage2/logo.png?v=3")" alt="logo">
+            </div>
+            <div class="links">
+                <div class="login"></div>
+                <div class="jobs"></div>
+                <div class="language"></div>
+                <div class="blog"></div>
+            </div>
+        </nav>
+
+    </div>
+</body>
+</html>

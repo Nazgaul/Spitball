@@ -21,7 +21,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                          "~/Content/HomePage/extras.css",
                          "~/Content/HomePage/bootstrap.css",
                          "~/Content/HomePage/theme.css",
-                         "~/Content/HomePage/landing.css"
+                         "~/Content/HomePage/landing.css",
+                         "~/Content/HomePage/homePage.css"
 
                     }
                 },

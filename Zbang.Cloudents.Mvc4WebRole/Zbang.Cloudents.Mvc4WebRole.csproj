@@ -590,6 +590,12 @@
     <Content Include="bower_components\angular-material\angular-material.rtl.rtl.css">
       <DependentUpon>angular-material.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\HomePage\homePage.css">
+      <DependentUpon>homePage.less</DependentUpon>
+    </Content>
+    <Content Include="Content\HomePage\homePage.rtl.css">
+      <DependentUpon>homePage.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\angularWithChanges.css" />
     <Content Include="Content\Site\angularWithChanges.rtl.css">
       <DependentUpon>angularWithChanges.css</DependentUpon>
@@ -1885,6 +1891,7 @@
     <Content Include="Content\Site\themeSelector.png.scss">
       <DependentUpon>themeSelector.png</DependentUpon>
     </Content>
+    <Content Include="Content\HomePage\homePage.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2743,6 +2750,7 @@
     <Content Include="Views\Library\_ChooseCreateUniversity.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Item\_itemComments.cshtml" />
+    <Content Include="Views\Home\Index2.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
