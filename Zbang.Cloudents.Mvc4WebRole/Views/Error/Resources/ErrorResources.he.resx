@@ -148,4 +148,7 @@
   <data name="Chrome" xml:space="preserve">
     <value>כרום</value>
   </data>
+  <data name="BackToHome" xml:space="preserve">
+    <value>חזור אל עמוד הבית</value>
+  </data>
 </root>

@@ -13,7 +13,14 @@
     
     <div class="image">
         <img src="@Url.CdnContent("~/Images/Site/404_image.png")" alt="Page not found">
-        <a target="_self" href="@Url.Action("Index","Dashboard")" class="text-capitalize">@ErrorResources.Back</a>
+        @if (User != null && !User.Identity.IsAuthenticated)
+        {
+            <a target="_self" href="@Url.Action("Index", "Home")" class="text-capitalize">@ErrorResources.BackToHome</a>
+        }
+        else
+        {
+            <a target="_self" href="@Url.Action("Index", "Dashboard")" class="text-capitalize">@ErrorResources.Back</a>
+        }
     </div>
 </div>
 

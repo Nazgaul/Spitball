@@ -10,6 +10,13 @@
     <div class="text">
         <h2>@ErrorResources.NeedPermission</h2>
         <p class="color-override textColor5">@ErrorResources.PrivateContent</p>
-        <a target="_self" href="@Url.Action("Index","Dashboard")" class="text-capitalize">@ErrorResources.Back</a>
+        @if (User != null && !User.Identity.IsAuthenticated)
+        {
+            <a target="_self" href="@Url.Action("Index", "Home")" class="text-capitalize">@ErrorResources.BackToHome</a>
+        }
+        else
+        {
+            <a target="_self" href="@Url.Action("Index", "Dashboard")" class="text-capitalize">@ErrorResources.Back</a>
+        }
     </div>
 </div>

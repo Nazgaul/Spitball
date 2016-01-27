@@ -16,20 +16,20 @@
    <![endif]-->
 <html lang="en" ng-app="app">
 
-    <head>
-        <style>
-            [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-                display: none !important;
-            }
-        </style>
+<head>
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
 
-        @{Html.RenderPartial("_Head");}
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-        @Html.Css2("site4")
-        @*@{ Html.RenderAction("Theme", "Home", true);}*@
-        <base href="/" />
-    </head>
+    @{Html.RenderPartial("_Head");}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    @Html.Css2("site4")
+    @*@{ Html.RenderAction("Theme", "Home", true);}*@
+    <base href="/" />
+</head>
 <body ng-controller="AppController as app" class="{{app.theme}} color-override backgroundColor1 clearfix" ng-class="{menuOpened: app.menuOpened}" @*class="theme-light"*@>
 
     <!-- Google Tag Manager -->
@@ -61,14 +61,17 @@
                     </a>
                 </div>
             </div>
-            <form ng-controller="SearchTriggerController as st" ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger" novalidate @*href="@Url.Action("Index","Search")" @shouldPostBack*@ class="search-form search-form-expanded" ng-hide="app.hideSearch" @*ga-track-event="['header', 'search']"*@>
-                <div class="search-area color-override backgroundColor4">
-                    <input required ng-change="st.change(searchTrigger.$valid)" ng-focus="app.expandSearch = true" ng-blur="app.expandSearch = false" ng-model="st.term" ng-model-options="{debounce : 300}" type="search" class="text" user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
-                    <button type="submit" class="search-btn color-override backgroundColor11">
-                        @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon color-override svgColor3" })
-                    </button>
-                </div>
-            </form>
+            @if (!ViewBag.error)
+            {
+                <form ng-controller="SearchTriggerController as st" ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger" novalidate @*href="@Url.Action("Index","Search")" @shouldPostBack*@ class="search-form search-form-expanded" ng-hide="app.hideSearch" @*ga-track-event="['header', 'search']"*@>
+                    <div class="search-area color-override backgroundColor4">
+                        <input required ng-change="st.change(searchTrigger.$valid)" ng-focus="app.expandSearch = true" ng-blur="app.expandSearch = false" ng-model="st.term" ng-model-options="{debounce : 300}" type="search" class="text" user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
+                        <button type="submit" class="search-btn color-override backgroundColor11">
+                            @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon color-override svgColor3" })
+                        </button>
+                    </div>
+                </form>
+            }
         </div>
         <div layout="row" layout-align="center center" flex="none" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
             <md-menu class="user-md-menu color-override textColor1 hoverBackgroundColor4" ng-if="ud.isLoggedIn" md-offset="-115 80">
@@ -115,13 +118,13 @@
                 <a class="btn btn-default" target="_self" href="@Url.Action("SignUp", "Account", new { returnUrl,invId })" ga-track-event="['header', 'sign up']">@IndexResources.Signup</a>
                 <a class="btn button-Blue btn-primary" target="_self" href="@Url.Action("SignIn", "Account", new { returnUrl, invId })" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
                 @*<button class="btn btn-default" role="button" onclick="window.location='@Url.Action("SignUp", "Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'sign up']">@IndexResources.Signup</button>
-                <button class="btn btn-primary" role="button" onclick="window.location='@Url.Action("SignIn","Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</button>*@
+                    <button class="btn btn-primary" role="button" onclick="window.location='@Url.Action("SignIn","Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</button>*@
             </div>
-            @if (ViewBag.error != true)
+            @if (!ViewBag.error)
             {
-                <button type="button" flex="none" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" ga-track-event="['header', 'open menu']">
-                    @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
-                </button>
+            <button type="button" flex="none" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" ga-track-event="['header', 'open menu']">
+                @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
+            </button>
             }
         </div>
     </div>

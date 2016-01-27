@@ -70,6 +70,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Error.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Return to home page.
+        /// </summary>
+        public static string BackToHome {
+            get {
+                return ResourceManager.GetString("BackToHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chrome.
         /// </summary>
         public static string Chrome {

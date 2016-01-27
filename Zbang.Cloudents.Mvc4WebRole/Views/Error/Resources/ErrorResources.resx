@@ -147,4 +147,7 @@
   <data name="Chrome" xml:space="preserve">
     <value>Chrome</value>
   </data>
+  <data name="BackToHome" xml:space="preserve">
+    <value>Return to home page</value>
+  </data>
 </root>
