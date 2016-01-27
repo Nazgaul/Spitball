@@ -61,6 +61,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Written by.
+        /// </summary>
+        public static string CommentAuthor {
+            get {
+                return ResourceManager.GetString("CommentAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to in .
+        /// </summary>
+        public static string CommentPublishedIn {
+            get {
+                return ResourceManager.GetString("CommentPublishedIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This item might be subject to certain laws and school policies that restrict third-party use of materials prepared by educators. It is your sole responsibility to be aware of and to abide by any such laws or policies that may apply to you. You may access materials solely for your information and your non-commercial, personal use and as intended through the normal functionality of the site and service..
         /// </summary>
         public static string CopyRight {
