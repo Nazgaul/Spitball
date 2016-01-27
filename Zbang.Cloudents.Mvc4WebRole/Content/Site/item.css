@@ -159,6 +159,8 @@
 }
 .itemPage .comments-section .comment-content {
   margin-top: 10px;
+  -ms-word-break: break-all;
+  word-break: break-all;
 }
 .itemPage .comments-section .comments-list {
   width: 270px;
