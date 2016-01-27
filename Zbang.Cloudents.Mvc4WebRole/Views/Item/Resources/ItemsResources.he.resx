@@ -162,4 +162,10 @@
   <data name="CreateComment" xml:space="preserve">
     <value>הוסף תגובה</value>
   </data>
+  <data name="CommentAuthor" xml:space="preserve">
+    <value>נכתב על ידי</value>
+  </data>
+  <data name="CommentPublishedIn" xml:space="preserve">
+    <value>ב</value>
+  </data>
 </root>

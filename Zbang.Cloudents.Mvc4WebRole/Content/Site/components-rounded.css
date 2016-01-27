@@ -2212,43 +2212,56 @@ Customized Bootstrap Buttons
 .btn-default > i[class*="icon-"] {
     color: #8c8c8c;
 }
-
+*/
 .btn-primary {
-    color: #fff;
-    background-color: #428bca;
-    border-color: #357ebd;
+  color: #fff;
+  background-color: #428bca;
+  border-color: #357ebd;
 }
-
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active {
-    color: #fff;
-    background-color: #3379b5;
-    border-color: #2a6496;
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+  color: #fff;
+  background-color: #3379b5;
+  border-color: #2a6496;
 }
-
 .open .btn-primary.dropdown-toggle {
-    color: #fff;
-    background-color: #3379b5;
-    border-color: #2a6496;
+  color: #fff;
+  background-color: #3379b5;
+  border-color: #2a6496;
 }
-
-.btn-primary:active, .btn-primary.active {
-    background-image: none;
-    background-color: #2d6ca2;
+.btn-primary:active,
+.btn-primary.active {
+  background-image: none;
+  background-color: #2d6ca2;
 }
-
-.btn-primary:active:hover, .btn-primary.active:hover {
-    background-color: #3071a9;
+.btn-primary:active:hover,
+.btn-primary.active:hover {
+  background-color: #3071a9;
 }
-
 .open .btn-primary.dropdown-toggle {
-    background-image: none;
+  background-image: none;
 }
-
-.btn-primary.disabled, .btn-primary.disabled:hover, .btn-primary.disabled:focus, .btn-primary.disabled:active, .btn-primary.disabled.active, .btn-primary[disabled], .btn-primary[disabled]:hover, .btn-primary[disabled]:focus, .btn-primary[disabled]:active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary, fieldset[disabled] .btn-primary:hover, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:active, fieldset[disabled] .btn-primary.active {
-    background-color: #428bca;
-    border-color: #357ebd;
+.btn-primary.disabled,
+.btn-primary.disabled:hover,
+.btn-primary.disabled:focus,
+.btn-primary.disabled:active,
+.btn-primary.disabled.active,
+.btn-primary[disabled],
+.btn-primary[disabled]:hover,
+.btn-primary[disabled]:focus,
+.btn-primary[disabled]:active,
+.btn-primary[disabled].active,
+fieldset[disabled] .btn-primary,
+fieldset[disabled] .btn-primary:hover,
+fieldset[disabled] .btn-primary:focus,
+fieldset[disabled] .btn-primary:active,
+fieldset[disabled] .btn-primary.active {
+  background-color: #428bca;
+  border-color: #357ebd;
 }
-
+/*
 .btn-primary .badge {
     color: #428bca;
     background-color: #fff;
