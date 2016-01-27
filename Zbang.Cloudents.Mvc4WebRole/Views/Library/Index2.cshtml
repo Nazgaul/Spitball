@@ -6,16 +6,16 @@
             <h1>{{::l.universityName}}</h1>
             <div class="course-nav" ng-if="l.nodeDetail && !l.settingsOpen" layout="row" layout-align="space-between center">
 
-                <a flex="100" flex-gt-xs="50" flex href="{{::l.nodeDetail.parentUrl}}" ga-track-event="['university', 'back arrow']">
+                <a href="{{::l.nodeDetail.parentUrl}}" ga-track-event="['university', 'back arrow']">
                     <h2 layout="row">
-                        <span flex="none" class="arrow back-arrow">@Html.Svg("~/images/site/icons.svg", "arrow", new { @class = "color-override svgColor5" })</span>
-                        <span flex class="name ellipsis color-override backgroundColor10 ">
+                        <span class="arrow back-arrow">@Html.Svg("~/images/site/icons.svg", "arrow", new { @class = "color-override svgColor5" })</span>
+                        <span class="name ellipsis color-override backgroundColor10 ">
                             {{::l.nodeDetail.name}}
                         </span>
                     </h2>
                 </a>
 
-                <button flex="none" type="button" ng-click="l.toggleSettings()" ga-track-event="['university', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "color-override svgColor5" })</button>
+                <button type="button" ng-click="l.toggleSettings()" ga-track-event="['university', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "color-override svgColor5" })</button>
             </div>
         </div>
     </div>

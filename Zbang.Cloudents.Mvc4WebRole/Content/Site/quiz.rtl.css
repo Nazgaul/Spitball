@@ -46,7 +46,7 @@
   top: 50%;
   height: 30px;
   margin-top: -15px;
-  right: 10px;
+  right: 5px;
 }
 .quizPage .arrows svg {
   width: 30px;
@@ -61,7 +61,7 @@
   transform: rotate(0);
 }
 .quizPage .arrows.next {
-  left: 10px;
+  left: 5px;
   right: auto;
 }
 .quizPage .arrows.next svg {
@@ -75,6 +75,7 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 10px;
+  width: calc(100% - 70px);
 }
 .quizPage .wrapper .retake-wrapper {
   margin: 0 auto;

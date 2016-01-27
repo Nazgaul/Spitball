@@ -38,6 +38,14 @@
 .library .course-nav {
   margin-top: 20px;
 }
+.library .course-nav > a {
+  width: 50%;
+}
+@media (max-width: 600px) {
+  .library .course-nav > a {
+    width: calc(100% - 40px);
+  }
+}
 .library .course-nav h2 {
   margin: 0;
 }
