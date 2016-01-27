@@ -1,11 +1,11 @@
 ﻿(function () {
     angular.module('app.quiz').controller('QuizCreateController', quizCreate);
     quizCreate.$inject = ['quizService', 'draft', 'boxUrl', '$stateParams', '$q', '$location', '$scope',
-        '$uibModal', 'boxName', '$rootScope', 'resManager', '$document'];
+        '$uibModal', 'boxName', '$rootScope', 'resManager'];
 
 
 
-    function quizCreate(quizService, draft, boxUrl, $stateParams, $q, $location, $scope, $uibModal, boxName, $rootScope, resManager, $document) {
+    function quizCreate(quizService, draft, boxUrl, $stateParams, $q, $location, $scope, $uibModal, boxName, $rootScope, resManager) {
         var self = this;
         self.boxUrl = boxUrl;
         draft = draft || {

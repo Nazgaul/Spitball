@@ -90,7 +90,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<ActionResult> Items(long id, int page)
         {
-            var query = new GetUserWithFriendQuery(User.GetUserId(), id, page, 20);
+            var query = new GetUserWithFriendQuery(User.GetUserId(), id, page, 50);
             var result = await ZboxReadService.GetUserItemsActivityAsync(query);
             return JsonOk(result);
         }

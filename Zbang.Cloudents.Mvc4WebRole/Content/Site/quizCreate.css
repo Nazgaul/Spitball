@@ -363,6 +363,9 @@
 .quiz-create-window .buttons {
   margin-top: 20px;
 }
+.quiz-create-window .buttons button:last-child:hover {
+  background-color: #fff;
+}
 .quiz-create-window button {
   width: 25%;
   border-radius: 10px;
