@@ -64,6 +64,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/light.css",//
                         "~/content/site/menu.css",
                         "~/content/site/header.css",
+                        "~/content/jquery.bxslider.css",
+
                         "~/content/site/general.css", // this should be on top
                         "~/content/site/dashboard.css",
                         "~/content/site/box.css",
@@ -158,6 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
                         new JsFileWithCdn("~/scripts/draganddrop.js"),
                         new JsFileWithCdn("~/scripts/angular-google-adsense.js"),
+                        new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/js/polyfills.js"),
 
                         new JsFileWithCdn("~/js/signin/metronic.js"), // takes care of the invite + upload file boxes
@@ -208,6 +211,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/box/members.controller.js"),
                         new JsFileWithCdn("~/js/components/box/box.service.js"),
                         new JsFileWithCdn("~/js/components/box/recommended.controller.js"),
+                        new JsFileWithCdn("~/js/components/box/slideit.directive.js"),
 
                         new JsFileWithCdn("~/js/components/account/account.controller.js"),
                         

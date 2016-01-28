@@ -221,21 +221,31 @@
   font-size: 12px;
 }
 .feed .items-container {
-  white-space: nowrap;
   margin: 0 47px 10px 15px;
+  /*ul {
+            margin: 0;
+        }
+
+        li {
+            width: 119px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+
+            &::first-child {
+                padding-left: 0;
+            }
+        }*/
 }
-.feed .items-container ul {
-  margin: 0;
-}
-.feed .items-container li {
+.feed .items-container .feed-item {
   width: 119px;
+  height: 168px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-.feed .items-container li::first-child {
-  padding-right: 0;
+  display: inline-block;
 }
 .feed .posts-list .actions {
   margin: 20px 40px 0 40px;

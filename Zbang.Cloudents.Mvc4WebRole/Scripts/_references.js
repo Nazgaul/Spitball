@@ -251,3 +251,5 @@
 /// <reference path="../js/components/ads.controller.js" />
 /// <reference path="angular-mocks.js" />
 /// <reference path="angular-messages.min.js" />
+/// <reference path="jquery.bxslider.js" />
+/// <reference path="../js/components/box/slideit.directive.js" />

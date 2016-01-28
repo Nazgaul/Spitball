@@ -32,7 +32,16 @@
                 config: {
                     url: 'feed/',
                     controller: 'FeedController as f',
-                    parent: 'box'
+                    parent: 'box',
+                    //resolve: {
+                    //    feedData: ['boxService', '$stateParams', function (boxService, $stateParams) {
+                    //        boxService.getFeed(boxId, page).then(function (response) {
+                    //            self.data = response;
+                    //            assignData();
+
+                    //        });
+                    //    }]
+                    //}
                 },
                 templateUrl: '/box/feedpartial/'
             }, {
