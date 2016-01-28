@@ -174,4 +174,7 @@
   <data name="replyPostPlaceholder" xml:space="preserve">
     <value>כתוב תגובה</value>
   </data>
+  <data name="NewRibbon" xml:space="preserve">
+    <value>חדש</value>
+  </data>
 </root>

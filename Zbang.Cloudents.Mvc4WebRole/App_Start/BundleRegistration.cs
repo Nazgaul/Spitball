@@ -18,10 +18,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "homePage", new[]
                     {
-                         "~/Content/HomePage/extras.css",
-                         "~/Content/HomePage/bootstrap.css",
-                         "~/Content/HomePage/theme.css",
-                         "~/Content/HomePage/landing.css",
+                         //"~/Content/HomePage/extras.css",
+                         //"~/Content/HomePage/bootstrap.css",
+                         //"~/Content/HomePage/theme.css",
+                         //"~/Content/HomePage/landing.css",
+                         "~/content/site/general.css", // this should be on top
                          "~/Content/HomePage/homePage.css"
 
                     }

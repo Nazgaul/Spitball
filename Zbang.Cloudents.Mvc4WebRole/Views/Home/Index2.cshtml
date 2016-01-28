@@ -28,19 +28,217 @@
             j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
             '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
-    <div class="pace-overlay"></div>
     <div class="page-content">
-        <nav>
-            <div class="logo">
-                <img src="@Url.CdnContent("/Images/HomePage2/logo.png?v=3")" alt="logo">
-            </div>
-            <div class="links">
-                <div class="login"></div>
-                <div class="jobs"></div>
-                <div class="language"></div>
-                <div class="blog"></div>
-            </div>
-        </nav>
+        <header>
+            <nav>
+                <div class="logo">
+                </div>
+                <ul>
+                    <li class="signin">
+                        <a href="@Url.Action("SignIn", "Account", new { universityid = Request.QueryString["universityid"] })">@HomePageResources.A1</a>
+                    </li>
+                    <li class="jobs"><a href="@Url.RouteUrl("Jobs")">@HomePageResources.A2</a></li>
+                    <li class="language">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="">@Html.Svg("/images/homepage2/homePageIcons.svg", "globus", new { @class = "globus" })&nbsp;<span>@Languages.EnglishUsName</span></a>
+                        <ul class="dropdown-menu dropdown-menu-left ">
+                            <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-US" })">@Languages.EnglishUsName</a> </li>
+                            <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-UK" })">@Languages.EnglishGbName</a> </li>
+                            <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "he-IL" })">@Languages.HebrewName</a> </li>
+                        </ul>
+                    </li>
+                    <li class="blog"><a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="home-page-body">
+            <section class="main">
+                <div class="content">
+                    <!--RESOURCE--><h1>@HomePageResources.A4</h1>
+                    <div class="signin-options">
+                        <button type="button" class="login-option facebook">
+                            @Html.Svg("/images/signin/loginoptions.svg", "facebook")
+                            <span>@LogOnResources.ExternalProvider</span>
+                        </button>
+                        <button type="button" class="login-option google">
+                            @Html.Svg("/images/signin/loginoptions.svg", "google")
+                            <span>@LogOnResources.ExternalProvider</span>
+                        </button>
+                        <!--RESOURCE--><a class="login-option signup" href="@Url.Action("SignUp", "Account", new { universityid = Request.QueryString["universityid"] })" target="_self">@HomePageResources.A5</a>
+                    </div>
+                    <div class="statistics">
+                        <!--RESOURCE--><div>180,000 Students</div>
+                        <!--RESOURCE--><div>300,000 Documents</div>
+                        <!--RESOURCE--><div>220,000 Quizzes</div>
+                    </div>
+                </div>
+            </section>
+            <section class="about">
+                <div class="content">
+
+                    <!--RESOURCE--><h1>What is Spitball?</h1>
+                    <div class="description">
+                        <!--RESOURCE--><p>Spitball is a social study app where students from around the world swap notes, meet their classmates, exchange ideas and quiz themselves</p>
+                        <ul>
+                            <!--RESOURCE-->
+                            <li>Meet and message your classmates directly</li>
+                            <!--RESOURCE-->
+                            <li>Check out an unlimited number of other classes and schools at any time</li>
+                            <!--RESOURCE-->
+                            <li>Miss a class? Browse and upload syllabi, course reading and lecture slides</li>
+                            <!--RESOURCE-->
+                            <li>Stressed over exams? Test yourself with thousands of quizzes on your subjects</li>
+                        </ul>
+                    </div>
+                    <div class="video-section">
+                        <div class="video">
+                            <iframe src="https://www.youtube.com/embed/69daYsNqNUA" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="check-us">
+                <h1>Check Us Out</h1>
+                <div class="content">
+                    <div class="boxes">
+                        <a href="#/" class="box">
+                            <h2>Course name</h2>
+                            <div class="course-info">
+                                <div class="lecturer">Lecturer name</div>
+                                <div class="course-num">Course number</div>
+                            </div>
+                            <hr />
+                            <div class="box-info">
+                                <div>X Members</div>
+                                <div>Y items</div>
+                            </div>
+
+                        </a>
+                        <a href="#/" class="box">
+                            <h2>Course name</h2>
+                            <div class="course-info">
+                                <div class="lecturer">Lecturer name</div>
+                                <div class="course-num">Course number</div>
+                            </div>
+                            <hr />
+                            <div class="box-info">
+                                <div>X Members</div>
+                                <div>Y items</div>
+                            </div>
+                        </a>
+                        <a href="#/" class="box">
+                            <h2>Course name</h2>
+                            <div class="course-info">
+                                <div class="lecturer">Lecturer name</div>
+                                <div class="course-num">Course number</div>
+                            </div>
+                            <hr />
+                            <div class="box-info">
+                                <div>X Members</div>
+                                <div>Y items</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="documents">
+                        <a class="item" href="#/">
+                            <div class="base">
+                                <div class="item-ratio">
+                                    <div class="content">
+                                        <img class="img-responsive" width="368" height="520" alt="thumbnail" src="https://az779114.vo.msecnd.net/preview/3308e9ae-580c-4657-98f5-03afe52c0975.doc.jpg?width=300&amp;height=424&amp;mode=crop&amp;scale=both">
+                                        <div class="extra" id="drag1">
+                                            <h5 class="multi-line-ellipsis color-override textColor3">סיכום קורס ניתוח דוחות כספיים</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="extra-details">
+                                <h5>סיכום קורס ניתוח דוחות כספיים</h5>
+                                <span>‏1 ‏שיעור 1 Rbarlev19@gmail.com ‏5 שלבים לעריכת שווי החברה: ‏ניתוח מאקרו ‏ניתוח ענף או עפי פעילות ‏ניתוח חברה‏ ‏שלבים אלו הם שלבים כלכליים ‏ניתוח דוחות כספים ‏–‏ ניתוח פיננסי ‏הערכת שווי ודרוג אשראי ‏–‏ סיכום של שלבים קודמים ‏מתחילים למעלה ויורדים עד</span>
+                            </div>
+                        </a>
+                        <a class="item" href="#/">
+                            <div class="base">
+                                <div class="item-ratio">
+                                    <div class="content">
+                                        <img class="img-responsive" width="368" height="520" alt="thumbnail" src="https://az779114.vo.msecnd.net/preview/3308e9ae-580c-4657-98f5-03afe52c0975.doc.jpg?width=300&amp;height=424&amp;mode=crop&amp;scale=both">
+                                        <div class="extra" id="drag1">
+                                            <h5 class="multi-line-ellipsis color-override textColor3">סיכום קורס ניתוח דוחות כספיים</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="extra-details">
+                                <h5>סיכום קורס ניתוח דוחות כספיים</h5>
+                                <span>‏1 ‏שיעור 1 Rbarlev19@gmail.com ‏5 שלבים לעריכת שווי החברה: ‏ניתוח מאקרו ‏ניתוח ענף או עפי פעילות ‏ניתוח חברה‏ ‏שלבים אלו הם שלבים כלכליים ‏ניתוח דוחות כספים ‏–‏ ניתוח פיננסי ‏הערכת שווי ודרוג אשראי ‏–‏ סיכום של שלבים קודמים ‏מתחילים למעלה ויורדים עד</span>
+                            </div>
+                        </a>
+                        <a class="item" href="#/">
+                            <div class="base">
+                                <div class="item-ratio">
+                                    <div class="content">
+                                        <img class="img-responsive" width="368" height="520" alt="thumbnail" src="https://az779114.vo.msecnd.net/preview/3308e9ae-580c-4657-98f5-03afe52c0975.doc.jpg?width=300&amp;height=424&amp;mode=crop&amp;scale=both">
+                                        <div class="extra" id="drag1">
+                                            <h5 class="multi-line-ellipsis color-override textColor3">סיכום קורס ניתוח דוחות כספיים</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="extra-details">
+                                <h5>סיכום קורס ניתוח דוחות כספיים</h5>
+                                <span>‏1 ‏שיעור 1 Rbarlev19@gmail.com ‏5 שלבים לעריכת שווי החברה: ‏ניתוח מאקרו ‏ניתוח ענף או עפי פעילות ‏ניתוח חברה‏ ‏שלבים אלו הם שלבים כלכליים ‏ניתוח דוחות כספים ‏–‏ ניתוח פיננסי ‏הערכת שווי ודרוג אשראי ‏–‏ סיכום של שלבים קודמים ‏מתחילים למעלה ויורדים עד</span>
+                            </div>
+                        </a>
+                        <a class="item" href="#/">
+                            <div class="base">
+                                <div class="item-ratio">
+                                    <div class="content">
+                                        <img class="img-responsive" width="368" height="520" alt="thumbnail" src="https://az779114.vo.msecnd.net/preview/3308e9ae-580c-4657-98f5-03afe52c0975.doc.jpg?width=300&amp;height=424&amp;mode=crop&amp;scale=both">
+                                        <div class="extra" id="drag1">
+                                            <h5 class="multi-line-ellipsis color-override textColor3">סיכום קורס ניתוח דוחות כספיים</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="extra-details">
+                                <h5>סיכום קורס ניתוח דוחות כספיים</h5>
+                                <span>‏1 ‏שיעור 1 Rbarlev19@gmail.com ‏5 שלבים לעריכת שווי החברה: ‏ניתוח מאקרו ‏ניתוח ענף או עפי פעילות ‏ניתוח חברה‏ ‏שלבים אלו הם שלבים כלכליים ‏ניתוח דוחות כספים ‏–‏ ניתוח פיננסי ‏הערכת שווי ודרוג אשראי ‏–‏ סיכום של שלבים קודמים ‏מתחילים למעלה ויורדים עד</span>
+                            </div>
+                        </a>
+                        <a class="item" href="#/">
+                            <div class="base">
+                                <div class="item-ratio">
+                                    <div class="content">
+                                        <img class="img-responsive" width="368" height="520" alt="thumbnail" src="https://az779114.vo.msecnd.net/preview/3308e9ae-580c-4657-98f5-03afe52c0975.doc.jpg?width=300&amp;height=424&amp;mode=crop&amp;scale=both">
+                                        <div class="extra" id="drag1">
+                                            <h5 class="multi-line-ellipsis color-override textColor3">סיכום קורס ניתוח דוחות כספיים</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="extra-details">
+                                <h5>סיכום קורס ניתוח דוחות כספיים</h5>
+                                <span>‏1 ‏שיעור 1 Rbarlev19@gmail.com ‏5 שלבים לעריכת שווי החברה: ‏ניתוח מאקרו ‏ניתוח ענף או עפי פעילות ‏ניתוח חברה‏ ‏שלבים אלו הם שלבים כלכליים ‏ניתוח דוחות כספים ‏–‏ ניתוח פיננסי ‏הערכת שווי ודרוג אשראי ‏–‏ סיכום של שלבים קודמים ‏מתחילים למעלה ויורדים עד</span>
+                            </div>
+                        </a>
+                        <a class="item" href="#/">
+                            <div class="base">
+                                <div class="item-ratio">
+                                    <div class="content">
+                                        <img class="img-responsive" width="368" height="520" alt="thumbnail" src="https://az779114.vo.msecnd.net/preview/3308e9ae-580c-4657-98f5-03afe52c0975.doc.jpg?width=300&amp;height=424&amp;mode=crop&amp;scale=both">
+                                        <div class="extra" id="drag1">
+                                            <h5 class="multi-line-ellipsis color-override textColor3">סיכום קורס ניתוח דוחות כספיים</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="extra-details">
+                                <h5>סיכום קורס ניתוח דוחות כספיים</h5>
+                                <span>‏1 ‏שיעור 1 Rbarlev19@gmail.com ‏5 שלבים לעריכת שווי החברה: ‏ניתוח מאקרו ‏ניתוח ענף או עפי פעילות ‏ניתוח חברה‏ ‏שלבים אלו הם שלבים כלכליים ‏ניתוח דוחות כספים ‏–‏ ניתוח פיננסי ‏הערכת שווי ודרוג אשראי ‏–‏ סיכום של שלבים קודמים ‏מתחילים למעלה ויורדים עד</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
 
     </div>
 </body>
