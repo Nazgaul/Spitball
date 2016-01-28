@@ -90,10 +90,11 @@
 
                         </div>
                         <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
-                        <div class="actions color-override borderColor9">
-                            @*<button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>*@
-                            <button type="button" class=" text-capitalize margins" ng-click="f.openReply(post)" ga-track-event="['box-feed', 'deletePost']">@BoxResources.Comment</button>
-                            @*<button type="button" class="margins share">@Html.Svg("~/images/site/box-icons.svg", "share")</button>*@
+                        <div>
+                            <div class="actions color-override borderColor9">
+                                @*<button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>*@
+                                <button type="button" class=" text-capitalize margins" ng-click="f.openReply(post)" ga-track-event="['box-feed', 'deletePost']">@BoxResources.Comment</button>
+                                @*<button type="button" class="margins share">@Html.Svg("~/images/site/box-icons.svg", "share")</button>*@
                             <span class="ribbon" ng-if="post.isNew">@BoxResources.RibbonNew</span>
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.answers.length">
@@ -137,9 +138,10 @@
                                     </ul>
                                 </div>
                                 <span class="comment-date">{{::reply.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
-                                <div class="actions padding">
-                                    @*<button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>
-                                        <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>*@
+                                <div>
+                                    <div class="actions padding">
+                                        @*<button type="button" class="text-capitalize like margins">15 @Html.Svg("~/images/site/box-icons.svg", "like")</button>
+                                            <button type="button" class="margins">@Html.Svg("~/images/site/box-icons.svg", "share")</button>*@
                                     <span class="ribbon" ng-if="post.isNew">@BoxResources.RibbonNew</span>
                                 </div>
                             </li>
