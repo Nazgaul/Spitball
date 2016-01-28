@@ -596,6 +596,10 @@
     <Content Include="Content\HomePage\homePage.rtl.css">
       <DependentUpon>homePage.css</DependentUpon>
     </Content>
+    <Content Include="Content\jquery.bxslider.css" />
+    <Content Include="Content\jquery.bxslider.rtl.css">
+      <DependentUpon>jquery.bxslider.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\angularWithChanges.css" />
     <Content Include="Content\Site\angularWithChanges.rtl.css">
       <DependentUpon>angularWithChanges.css</DependentUpon>
@@ -1669,6 +1673,8 @@
     <Content Include="Images\aboutUs\matan.png" />
     <Content Include="Images\aboutUs\ram.png" />
     <Content Include="Images\aboutUs\shlomi.png" />
+    <Content Include="Images\bx_loader.gif" />
+    <Content Include="Images\controls.png" />
     <Content Include="Images\HomePage2\HP_image.png" />
     <Content Include="Images\signin\loginOptions.svg" />
     <Content Include="Images\Site\404_image.png" />
@@ -1754,6 +1760,7 @@
     <Content Include="Js\components\account\unregisterShow.directive.js" />
     <Content Include="Js\components\ads.controller.js" />
     <Content Include="Js\components\box\box.routes.js" />
+    <Content Include="Js\components\box\slideit.directive.js" />
     <Content Include="Js\components\contactUs.controller.js" />
     <Content Include="Js\components\dashboard\createBox.controller.js" />
     <Content Include="Js\components\item\comments.controller.js" />
@@ -2663,6 +2670,7 @@
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.bxslider.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\plupload2\angular-plupload2.js" />
