@@ -126,8 +126,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/jquery-2.1.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
                         
-                        new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
-                        new JsFileWithCdn("~/scripts/angular.min.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"),
+                        //new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
+                        new JsFileWithCdn("~/scripts/angular.min.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"),
                         
 
                         new JsFileWithCdn("~/scripts/angular-ui-router.js"),
@@ -142,9 +142,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngularSetup.js"),
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular.js"),
                         
-                        new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js"),
+                        new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"),
                         new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
-                        new JsFileWithCdn("~/bower_components/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc7/angular-material.min.js"),
+                        new JsFileWithCdn("~/bower_components/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.js"),
 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),
                         
@@ -166,7 +166,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/js/app.js"),
                         new JsFileWithCdn("~/js/app.config.js"),
-                         new JsFileWithCdn("~/js/routerHelperProvider.js"),
+                        new JsFileWithCdn("~/js/routerHelperProvider.js"),
                         new JsFileWithCdn("~/js/app.route.js"),
                        
 
