@@ -310,8 +310,8 @@
 }
 .feed .reply .content-text {
   margin-right: 50px;
-  -ms-word-break: break-all;
-  word-break: break-all;
+  -ms-word-break: break-word;
+  word-break: break-word;
 }
 .feed .actions {
   padding-bottom: 10px;
@@ -345,8 +345,8 @@
   line-height: 22px;
   margin-bottom: 10px;
   margin-left: 15px;
-  -ms-word-break: break-all;
-  word-break: break-all;
+  -ms-word-break: break-word;
+  word-break: break-word;
 }
 .feed .content-text img {
   max-width: 100%;
