@@ -285,13 +285,14 @@
   -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 .homePage .home-page-body section.check-us .content .documents .item {
   position: relative;
   overflow: hidden;
   padding-bottom: 0;
   display: block;
-  width: calc(0%);
+  width: calc(50% - 50px);
 }
 .homePage .home-page-body section.check-us .content .documents .item h5 {
   font-size: 15px;
