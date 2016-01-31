@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddAnnotationCommandHandler.cs" />
-    <Compile Include="AddAnswerToQuestionCommandHandler.cs" />
+    <Compile Include="AddReplyToCommentCommandHandler.cs" />
     <Compile Include="AddFileToBoxCommandHandler.cs" />
     <Compile Include="AddLinkToBoxCommandHandler.cs" />
     <Compile Include="AddNewUpdatesCommandHandler.cs" />
@@ -88,6 +88,8 @@
     <Compile Include="DeleteUserFromBoxCommandHandler.cs" />
     <Compile Include="InviteToSystemCommandHandler.cs" />
     <Compile Include="Ioc\RegisterIoc.cs" />
+    <Compile Include="LikeCommentCommandHandler.cs" />
+    <Compile Include="LikeReplyCommandHandler.cs" />
     <Compile Include="MarkMessagesAsReadCommandHandler.cs" />
     <Compile Include="Quiz\CreateAnswerCommandHandler.cs" />
     <Compile Include="Quiz\CreateDiscussionCommandHandler.cs" />

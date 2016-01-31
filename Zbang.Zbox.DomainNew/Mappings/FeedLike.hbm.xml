@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+  <class name="CommentLike">
+    <id name="Id">
+      <generator class="assigned"></generator>
+    </id>
+    <many-to-one name="Comment" class="Comment" column="CommentId" not-null="true" foreign-key="commentIdCommentLike" unique-key="commentLikeCommentIdOwnerId"/>
+    <many-to-one name="User" class="User" column="OwnerId" not-null="true" foreign-key="ownerIdCommentLike" unique-key="commentLikeCommentIdOwnerId"/>
+    <property name="CreationTime" insert="true" update="false">
+      <column name="CreationTime" not-null="true" sql-type="datetime2(2)"/>
+    </property>
+  </class>
+  
+  <class name="ReplyLike">
+    <id name="Id">
+      <generator class="assigned"></generator>
+    </id>
+    <many-to-one name="Reply" class="CommentReplies" column="ReplyId" not-null="true" foreign-key="replyIdReplyLike" unique-key="replyLikeReplyIdOwnerId"/>
+    <many-to-one name="User" class="User" column="OwnerId" not-null="true" foreign-key="ownerIdReplyLike" unique-key="replyLikeReplyIdOwnerId"/>
+    <property name="CreationTime" insert="true" update="false">
+      <column name="CreationTime" not-null="true" sql-type="datetime2(2)"/>
+    </property>
+  </class>
+</hibernate-mapping>

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
@@ -11,7 +10,6 @@ namespace Zbang.Zbox.Domain
     {
         protected Comment()
         {
-            IsDeleted = false;
         }
         public Comment(User user, string text, Box box, Guid id, IList<Item> items, FeedType feedType)
         {
@@ -52,13 +50,21 @@ namespace Zbang.Zbox.Domain
 
         protected virtual ICollection<Quiz> Quizes { get; set; }
 
-        protected virtual ICollection<CommentReplies> Answers { get; set; }
+        protected virtual ICollection<CommentReplies> Replies { get; set; }
         protected virtual ICollection<Updates> Updates { get; set; }
-
-        public ICollection<CommentReplies> AnswersReadOnly { get { return Answers.ToList().AsReadOnly(); } }
+        protected virtual ICollection<CommentLike> Likes { get; set; }
+        public ICollection<CommentReplies> RepliesReadOnly { get { return Replies.ToList().AsReadOnly(); } }
         public ICollection<Item> ItemsReadOnly { get { return Items.ToList().AsReadOnly(); } }
 
+
+
         public virtual FeedType? FeedType { get; set; }
+
+        public virtual int ReplyCount { get; set; }
+
+        public virtual int LikeCount { get; set; }
+
+        public virtual Guid? LastReplyId { get; set; }
 
         public virtual UserTimeDetails DateTimeUser { get; set; }
 
@@ -87,7 +93,7 @@ namespace Zbang.Zbox.Domain
             return NeedToRemoveComment();
         }
 
-        
+
 
         private bool NeedToRemoveComment()
         {
@@ -100,14 +106,6 @@ namespace Zbang.Zbox.Domain
         {
             Quizes.Remove(quiz);
             return NeedToRemoveComment();
-        }
-
-        public virtual bool IsDeleted { get; set; }
-
-        public void DeleteAssociation()
-        {
-            Updates.Clear();
-
         }
     }
 }

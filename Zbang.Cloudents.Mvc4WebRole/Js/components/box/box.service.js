@@ -49,7 +49,7 @@
             });
         }
         d.deleteItem = function (itemId, boxId) {
-            return ajaxservice.post('/item/Delete/', {
+            return ajaxservice.post('/item/delete/', {
                 itemId: itemId,
                 boxId: boxId
             });
@@ -73,7 +73,7 @@
             return ajaxservice.post('/qna/addcomment/', { content: content, boxId: boxId, files: files, anonymously: anonymously });
         }
         d.deleteComment = function (commentId) {
-            return ajaxservice.post('/qna/deletequestion/', {
+            return ajaxservice.post('/qna/deletecomment/', {
                 questionId: commentId
             });
         }
@@ -86,8 +86,18 @@
             });
         }
         d.deleteReply = function (postId) {
-            return ajaxservice.post('/qna/deleteanswer/', {
+            return ajaxservice.post('/qna/deletereply/', {
                 answerId: postId
+            });
+        }
+        d.likeComment = function (postId) {
+            return ajaxservice.post('/qna/likecomment/', {
+                commentId: postId
+            });
+        }
+        d.likeReply = function (replyId) {
+            return ajaxservice.post('/qna/likereply/', {
+                replyId: replyId
             });
         }
         d.follow = function (boxId) {

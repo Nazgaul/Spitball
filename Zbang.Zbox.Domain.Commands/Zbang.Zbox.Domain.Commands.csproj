@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddAnnotationCommand.cs" />
-    <Compile Include="AddAnswerToQuestionCommand.cs" />
+    <Compile Include="AddReplyToCommentCommand.cs" />
     <Compile Include="AddCommentCommandResult.cs" />
     <Compile Include="AddFileToBoxCommand.cs" />
     <Compile Include="AddFileToBoxCommandResult.cs" />
@@ -100,6 +100,8 @@
     <Compile Include="DeleteUserFromBoxCommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InviteToSystemCommand.cs" />
+    <Compile Include="LikeCommentCommand.cs" />
+    <Compile Include="LikeReplyCommand.cs" />
     <Compile Include="MarkMessagesAsReadCommand.cs" />
     <Compile Include="Quiz\CreateAnswerCommand.cs" />
     <Compile Include="Quiz\CreateDiscussionCommand.cs" />

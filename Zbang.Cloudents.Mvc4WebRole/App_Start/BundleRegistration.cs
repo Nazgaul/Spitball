@@ -30,7 +30,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                   {
                     "signin", new[]
                     {
-                        "~/Content/homepage/bootstrap.css",
+                        "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
                         "~/Content/signin/login-soft.css",
                         "~/Content/signin/components-md.css",
                         "~/Content/signin/plugins-md.css",
@@ -57,7 +57,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/angularWithChanges.css",
                         "~/bower_components/textAngular/dist/textAngular.css",
                         
-                        "~/content/homepage/bootstrap.css",
+                       // "~/content/homepage/bootstrap.css",
+                       "~/content/bootstrap/bootstrap.css",
                         "~/content/site/profile.css",//
                         "~/content/site/components-rounded.css",//
                         "~/content/site/layout.css",//
@@ -113,7 +114,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
                         new JsFileWithCdn("~/scripts/jquery-2.1.4.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"),
-                        new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
+                        //new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
                         //new JsFileWithCdn("~/js/signin/demo.js"),
                         new JsFileWithCdn("~/js/signin/metronic.js"),

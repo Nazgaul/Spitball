@@ -41,7 +41,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var questionId = m_IdGenerator.GetId();
             var command = new AddCommentCommand(User.GetUserId(), model.BoxId, model.Content, questionId, model.Files, model.Anonymously);
-            var details = await ZboxWriteService.AddQuestionAsync(command);
+            var details = await ZboxWriteService.AddCommentAsync(command);
             return JsonOk(details);
         }
 
@@ -61,8 +61,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var answerId = m_IdGenerator.GetId();
-                var command = new AddAnswerToQuestionCommand(User.GetUserId(), model.BoxId, model.Content, answerId, model.CommentId, model.Files);
-                await ZboxWriteService.AddAnswerAsync(command);
+                var command = new AddReplyToCommentCommand(User.GetUserId(), model.BoxId, model.Content, answerId, model.CommentId, model.Files);
+                await ZboxWriteService.AddReplyAsync(command);
                 return JsonOk(answerId);
             }
             catch (Exception ex)
@@ -75,12 +75,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize]
         [HttpPost]
-        public JsonResult DeleteQuestion(Guid questionId)
+        public async Task<JsonResult> DeleteComment(Guid questionId)
         {
             try
             {
                 var command = new DeleteCommentCommand(questionId, User.GetUserId());
-                ZboxWriteService.DeleteComment(command);
+                await ZboxWriteService.DeleteCommentAsync(command);
                 return JsonOk();
             }
             catch (Exception ex)
@@ -91,12 +91,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         [ZboxAuthorize]
         [HttpPost]
-        public JsonResult DeleteAnswer(Guid answerId)
+        public async Task<JsonResult> DeleteReply(Guid answerId)
         {
             try
             {
                 var command = new DeleteReplyCommand(answerId, User.GetUserId());
-                ZboxWriteService.DeleteAnswer(command);
+                await ZboxWriteService.DeleteReplyAsync(command);
                 return JsonOk();
             }
             catch (Exception ex)
@@ -104,6 +104,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError(string.Format("Delete answer answerId {0} userid {1}", answerId, User.GetUserId()), ex);
                 return JsonError();
             }
+        }
+
+        [ZboxAuthorize, HttpPost]
+        public JsonResult LikeComment(Guid commentId)
+        {
+            var command = new LikeCommentCommand(commentId, User.GetUserId());
+            ZboxWriteService.LikeComment(command);
+            return JsonOk();
+        }
+
+        [ZboxAuthorize, HttpPost]
+        public JsonResult LikeReply(Guid replyId)
+        {
+            var command = new LikeReplyCommand(replyId, User.GetUserId());
+            ZboxWriteService.LikeReply(command);
+            return JsonOk();
         }
 
 
@@ -127,7 +143,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         s.Url,
                         s.UserId,
                         s.UserImage,
-                        Files = s.Files.Select(x=> new
+                        Files = s.Files.Select(x => new
                         {
                             x.Source,
                             x.Type,

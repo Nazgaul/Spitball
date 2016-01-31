@@ -99,54 +99,6 @@
 .add-button svg {
   fill: #888b8e;
 }
-.feed .comment-date {
-  color: #5d6063;
-}
-.feed .comment > .top,
-.feed .add-comment > .top {
-  color: #f5f5f5;
-}
-.feed .comment {
-  background: #181c1d;
-}
-.feed .comment .c-img {
-  border: 3px solid #323538;
-}
-.feed .comment .like {
-  color: #4190b9;
-}
-.feed .comment .user-name {
-  color: #2698d4;
-}
-.feed .reply .like {
-  color: #323538;
-}
-.feed .reply .margins:hover {
-  border-color: #5b9cc2;
-  color: #5b9cc2;
-}
-.feed .reply .user-name {
-  color: #2698d4;
-}
-.feed .actions {
-  color: #2698d4;
-  border-top: 1px solid #323538;
-}
-.feed .actions svg {
-  fill: #888b8e;
-}
-.feed .actions .dropbox:hover {
-  fill: #007ee5;
-}
-.feed .replies {
-  border-top: 2px solid #323538;
-}
-.feed .add-reply .reply-wrapper {
-  border: 1px solid #5d6063;
-}
-.mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
-  fill: #d39f10;
-}
 .add-comment {
   background: #181c1d;
 }

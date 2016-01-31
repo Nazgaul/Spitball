@@ -1,4 +1,5 @@
 ﻿@import "variables.less";
+
 .feed {
     font-size: 16px;
     line-height: 1;
@@ -10,17 +11,21 @@
         -webkit-transition: none;
         transition: none;
     }
-    //.like {
-    //    //border-radius: 22px;
-    //    //width: 80px;
-    //}
+
     .ribbon {
         bottom: 1em;
     }
+    .stats {
+        color:@textColorGrey;
+        font-size:13px;
+    }
 
     .comment-date {
-        //color: @svgDots;
+        color: @svgDots;
         font-size: 12px;
+    }
+    .indent {
+        margin-left:50px;
     }
 
     .items-slider {
@@ -36,10 +41,11 @@
             svg {
                 width: @svgSize;
                 height: @svgSize;
-                fill:@textColorGrey;
-            } 
+                fill: @textColorGrey;
+            }
+
             &.disabled {
-                display:none;
+                display: none;
             }
         }
 
@@ -58,9 +64,8 @@
     }
 
     .items-container {
-        //white-space: nowrap;
         margin: 0 50px 10px;
-        //position:relative;
+
         .feed-item {
             width: 119px;
             height: 168px;
@@ -70,27 +75,18 @@
             user-select: none;
             display: inline-block;
         }
-        /*ul {
-            margin: 0;
-        }
-
-        li {
-            width: 119px;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-
-            &::first-child {
-                padding-left: 0;
-            }
-        }*/
     }
 
     .posts-list {
+
         .actions {
-            margin: 20px 40px 0 40px;
+            //color:@textColorBlue;
+            margin: 20px 40px 0;
             padding: 10px 0;
+
+            svg {
+                fill: @textColorBlue;
+            }
         }
     }
 
@@ -106,7 +102,7 @@
             padding-top: 5px;
             padding-bottom: 5px;
             border-radius: 10px 10px 0 0;
-            //color: @textColorWhite;
+            color: @textColorWhite;
             position: absolute;
             top: -15px;
             left: -18px;
@@ -115,17 +111,26 @@
     }
 
     .comment {
-        //background: @backgroundColor;
+        background: @backgroundColor;
         position: relative;
         //overflow: hidden;
         border-radius: 10px;
         margin-bottom: 25px;
-        //.c-img {
-        //    border: 3px solid @borderColorDarkGrey;
-        //}
-        .margins {
-            margin: 0 10px 10px 0;
+
+        .userblock {
+            display: block;
         }
+
+        .c-img {
+            border: 3px solid @borderColorDarkGrey;
+            border-radius: 50px;
+            position: absolute;
+            top: -15px;
+            left: -15px;
+        }
+        //.margins {
+        //    margin: 0 10px 10px 0;
+        //}
         //.like {
         //    // border: 1px solid #5B9CC2;
         //    //background: #4190b9;
@@ -134,14 +139,16 @@
         //    //margin-right: 0;
         //}
         .user-name {
-            // color: @textColorBlue;
+            color: @textColorBlue;
             font-weight: 400;
-            margin-left: 10px;
+            //margin-left: 50px;
+            margin-top: 5px;
+            display: inline-block;
         }
 
-        .comment-date {
+        /*.comment-date {
             margin-left: 47px;
-        }
+        }*/
     }
 
     .reply {
@@ -150,12 +157,12 @@
 
         .actions {
             margin-top: 0;
-
-            &.padding {
-                padding-left: 9px;
-                margin-top: 10px;
-                border: none;
-            }
+            border:none;
+            //&.padding {
+            //    padding-left: 9px;
+            //    margin-top: 10px;
+            //    border: none;
+            //}
         }
 
         .c-img {
@@ -175,38 +182,41 @@
         //    //    color: @textColorHover;
         //    //}
         //}
-        .items-container {
-            padding-left: 40px;
-            margin: 0 5px;
-        }
-
+        //.items-container {
+        //    padding-left: 40px;
+        //    margin: 0 5px;
+        //}
         .user-name {
-            //color: @textColorBlue;
+            color: @textColorBlue;
             font-weight: normal;
         }
 
-        .comment-date {
+        /*.comment-date {
             margin-left: 51px;
-        }
+        }*/
 
-        .content-text {
-            margin-left: 50px;
-            -ms-word-break: break-all;
-            word-break: break-all;
-        }
+        //.content-text {
+            //margin-left: 50px;
+            /*-ms-word-break: break-word;
+            word-break: break-word;*/
+        //}
     }
 
     .actions {
-        //color: @svgDots;
-        padding-bottom: 10px;
+        color: @textColorBlue;
+        border-top: 1px solid @textColorDarkGrey;
+        //padding-bottom: 10px;
         margin-top: 10px;
         font-size: 13px;
-        position: relative;
-
+        position: relative; // this is for ribbon
         svg {
             width: 20px;
             height: 20px;
-            // fill: @textColorGrey;
+            fill: @textColorGrey;
+            vertical-align: middle;
+        }
+
+        span {
             vertical-align: middle;
         }
 
@@ -227,19 +237,19 @@
 
 
         .dropbox {
-            //&:hover {
-            //    fill: @dropboxColor;
-            //}
+            &:hover {
+                fill: @dropboxColor;
+            }
         }
     }
 
     .replies {
-        // border-top: 2px solid @borderColorDarkGrey;
+        border-top: 2px solid @borderColorDarkGrey;
         padding-top: 15px;
     }
 
     .post > .content-text {
-        padding: 38px 0 0 46px;
+        padding: 30px 0 0 50px;
     }
 
     li.post:last-child {
@@ -250,8 +260,8 @@
         line-height: 22px;
         margin-bottom: 10px;
         margin-right: 15px;
-        -ms-word-break: break-all;
-        word-break: break-all;
+        -ms-word-break: break-word;
+        word-break: break-word;
 
         img {
             max-width: 100%;
@@ -261,7 +271,7 @@
     .add-reply {
         // display: none;
         .reply-wrapper {
-            //border: 1px solid @svgDots;
+            border: 1px solid @svgDots;
             margin-bottom: 10px;
 
             textarea {
@@ -269,8 +279,10 @@
             }
         }
     }
-
-    .quiz .quiz-ratio {
+    /*.quiz .quiz-ratio {
         .aspect-ratio(0.8,1);
+    }*/
+    .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
+        fill: @anonymousColor;
     }
 }

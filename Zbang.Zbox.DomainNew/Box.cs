@@ -165,7 +165,7 @@ namespace Zbang.Zbox.Domain
         /// <returns>Users list who their post are deleted</returns>
         public virtual IEnumerable<long> DeleteComment(Comment comment)
         {
-            var usersAffectedByDeleteComment = comment.AnswersReadOnly.Select(s => s.User.Id).Union(new[] { comment.User.Id });
+            var usersAffectedByDeleteComment = comment.RepliesReadOnly.Select(s => s.User.Id).Union(new[] { comment.User.Id });
             Comments.Remove(comment);
             UpdateCommentsCount();
             return usersAffectedByDeleteComment;

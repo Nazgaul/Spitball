@@ -35,12 +35,22 @@
         self.deleteReply = deleteReply;
         self.postItemTemplate = postItemTemplate;
         self.myPagingFunction = myPagingFunction;
+        self.likeComment = likeComment;
+        self.likeReply = likeReply;
 
         boxService.getFeed(boxId, page).then(function (response) {
             self.data = response;
             assignData();
 
         });
+
+        function likeComment(comment) {
+            boxService.likeComment(comment.id);
+        }
+        function likeReply(reply) {
+            boxService.likeReply(reply.id);
+        }
+
         function myPagingFunction() {
             if (!user.id) {
                 var defer = $q.defer();

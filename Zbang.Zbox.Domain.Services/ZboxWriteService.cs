@@ -343,7 +343,7 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
-       
+
 
         #region annotation
         public async Task AddAnnotationAsync(AddAnnotationCommand command)
@@ -387,7 +387,7 @@ namespace Zbang.Zbox.Domain.Services
         #endregion
 
         #region QnA
-        public async Task<AddCommentCommandResult> AddQuestionAsync(AddCommentCommand command)
+        public async Task<AddCommentCommandResult> AddCommentAsync(AddCommentCommand command)
         {
             using (UnitOfWork.Start())
             {
@@ -399,7 +399,7 @@ namespace Zbang.Zbox.Domain.Services
                 return t1.Result;
             }
         }
-        public async Task AddAnswerAsync(AddAnswerToQuestionCommand command)
+        public async Task AddReplyAsync(AddReplyToCommentCommand command)
         {
             using (UnitOfWork.Start())
             {
@@ -413,7 +413,23 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void DeleteComment(DeleteCommentCommand command)
+        public async Task DeleteCommentAsync(DeleteCommentCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                await m_CommandBus.SendAsync(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public async Task DeleteReplyAsync(DeleteReplyCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+               await m_CommandBus.SendAsync(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public void LikeComment(LikeCommentCommand command)
         {
             using (UnitOfWork.Start())
             {
@@ -421,7 +437,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void DeleteAnswer(DeleteReplyCommand command)
+        public void LikeReply(LikeReplyCommand command)
         {
             using (UnitOfWork.Start())
             {
@@ -429,7 +445,6 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-
         #endregion
 
         /// <summary>
