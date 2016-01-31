@@ -590,6 +590,10 @@
     <Content Include="bower_components\angular-material\angular-material.rtl.rtl.css">
       <DependentUpon>angular-material.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Bootstrap\bootstrap.css" />
+    <Content Include="Content\Bootstrap\bootstrap.rtl.css">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
     <Content Include="Content\HomePage\homePage.css">
       <DependentUpon>homePage.less</DependentUpon>
     </Content>
@@ -1906,6 +1910,7 @@
     </Content>
     <Content Include="Content\HomePage\homePage.less" />
     <Content Include="Content\Site\feed.less" />
+    <Content Include="Content\Bootstrap\config.json" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2766,6 +2771,7 @@
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Item\_itemComments.cshtml" />
     <Content Include="Views\Home\Index2.cshtml" />
+    <Content Include="Views\Box\_FeedAddComment.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

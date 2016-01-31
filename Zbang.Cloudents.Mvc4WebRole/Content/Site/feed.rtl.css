@@ -47,21 +47,6 @@
 }
 .feed .items-container {
   margin: 0 50px 10px;
-  /*ul {
-            margin: 0;
-        }
-
-        li {
-            width: 119px;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-
-            &::first-child {
-                padding-left: 0;
-            }
-        }*/
 }
 .feed .items-container .feed-item {
   width: 119px;
@@ -97,12 +82,21 @@
   border-radius: 10px;
   margin-bottom: 25px;
 }
-.feed .comment .margins {
-  margin: 0 0 10px 10px;
+.feed .comment .userblock {
+  display: block;
+}
+.feed .comment .c-img {
+  border: 3px solid #323538;
+  border-radius: 50px;
+  position: absolute;
+  top: -15px;
+  right: -15px;
 }
 .feed .comment .user-name {
   font-weight: 400;
-  margin-right: 10px;
+  margin-right: 50px;
+  margin-top: 5px;
+  display: inline-block;
 }
 .feed .comment .comment-date {
   margin-right: 47px;
@@ -135,8 +129,8 @@
 }
 .feed .reply .content-text {
   margin-right: 50px;
-  -ms-word-break: break-all;
-  word-break: break-all;
+  /*-ms-word-break: break-word;
+            word-break: break-word;*/
 }
 .feed .actions {
   padding-bottom: 10px;
@@ -161,7 +155,7 @@
   padding-top: 15px;
 }
 .feed .post > .content-text {
-  padding: 38px 46px 0 0;
+  padding: 30px 50px 0 0;
 }
 .feed li.post:last-child {
   margin-bottom: 0;
@@ -170,8 +164,8 @@
   line-height: 22px;
   margin-bottom: 10px;
   margin-left: 15px;
-  -ms-word-break: break-all;
-  word-break: break-all;
+  -ms-word-break: break-word;
+  word-break: break-word;
 }
 .feed .content-text img {
   max-width: 100%;

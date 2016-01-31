@@ -57,7 +57,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/angularWithChanges.css",
                         "~/bower_components/textAngular/dist/textAngular.css",
                         
-                        "~/content/homepage/bootstrap.css",
+                       // "~/content/homepage/bootstrap.css",
+                       "~/content/bootstrap/bootstrap.css",
                         "~/content/site/profile.css",//
                         "~/content/site/components-rounded.css",//
                         "~/content/site/layout.css",//
