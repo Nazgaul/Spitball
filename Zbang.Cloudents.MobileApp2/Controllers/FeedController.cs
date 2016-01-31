@@ -131,7 +131,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                     }),
                     s.Content,
                     s.CreationTime,
-                    Files = s.Files.Where(w=> w.Source != null ).Select(v => new
+                    Files = s.Files.Where(w => w.Source != null).Select(v => new
                     {
                         v.Id,
                         v.Name,
@@ -286,7 +286,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var questionId = GuidGenerator.GetId();
             var command = new AddCommentCommand(User.GetCloudentsUserId(),
                 boxId, model.Content, questionId, model.FileIds, model.Anonymously);
-            await ZboxWriteService.AddQuestionAsync(command);
+            await ZboxWriteService.AddCommentAsync(command);
             return Request.CreateResponse(questionId);
         }
 
@@ -306,7 +306,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var questionId = GuidGenerator.GetId();
             var command = new AddCommentCommand(User.GetCloudentsUserId(),
                 boxId, model.Content, questionId, model.FileIds, model.Anonymously);
-            var result = await ZboxWriteService.AddQuestionAsync(command);
+            var result = await ZboxWriteService.AddCommentAsync(command);
             return Request.CreateResponse(new
             {
                 result.CommentId,
@@ -329,28 +329,28 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateBadRequestResponse();
             }
             var answerId = GuidGenerator.GetId();
-            var command = new AddAnswerToQuestionCommand(User.GetCloudentsUserId(), boxId,
+            var command = new AddReplyToCommentCommand(User.GetCloudentsUserId(), boxId,
                 model.Content, answerId, feedId, model.FileIds);
-            await ZboxWriteService.AddAnswerAsync(command);
+            await ZboxWriteService.AddReplyAsync(command);
             return Request.CreateResponse(answerId);
         }
 
 
         [HttpDelete]
         [Route("api/box/{boxId:long}/feed/{feedId:guid}")]
-        public HttpResponseMessage DeleteComment(long boxId, Guid feedId)
+        public async Task<HttpResponseMessage> DeleteComment(long boxId, Guid feedId)
         {
             var command = new DeleteCommentCommand(feedId, User.GetCloudentsUserId());
-            ZboxWriteService.DeleteComment(command);
+            await ZboxWriteService.DeleteCommentAsync(command);
             return Request.CreateResponse();
         }
 
         [HttpDelete]
         [Route("api/box/{boxId:long}/reply/{replyId:guid}")]
-        public HttpResponseMessage DeleteReply(long boxId, Guid replyId)
+        public async Task<HttpResponseMessage> DeleteReply(long boxId, Guid replyId)
         {
             var command = new DeleteReplyCommand(replyId, User.GetCloudentsUserId());
-            ZboxWriteService.DeleteAnswer(command);
+            await ZboxWriteService.DeleteReplyAsync(command);
             return Request.CreateResponse();
         }
 

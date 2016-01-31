@@ -76,8 +76,10 @@
   <ItemGroup>
     <Compile Include="AcademicBoxRepository.cs" />
     <Compile Include="BoxRepository.cs" />
+    <Compile Include="CommentLikeRepository.cs" />
     <Compile Include="IAcademicBoxRepository.cs" />
     <Compile Include="IBoxRepository.cs" />
+    <Compile Include="ICommentLikeRepository.cs" />
     <Compile Include="IInviteRepository.cs" />
     <Compile Include="IItemRateRepository.cs" />
     <Compile Include="IItemRepository.cs" />

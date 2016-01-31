@@ -3,7 +3,7 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class DeleteReplyCommand : ICommand
+    public class DeleteReplyCommand : ICommandAsync
     {
         public DeleteReplyCommand(Guid answerId, long userId)
         {

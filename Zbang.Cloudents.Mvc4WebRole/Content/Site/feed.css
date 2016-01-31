@@ -15,6 +15,10 @@
 .feed .ribbon {
   bottom: 1em;
 }
+.feed .stats {
+  color: #888b8e;
+  font-size: 13px;
+}
 .feed .comment-date {
   color: #5d6063;
   font-size: 12px;

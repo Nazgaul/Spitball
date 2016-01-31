@@ -41,7 +41,7 @@
                             <button type="button" class="items-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                         </div>
 
-                        <div class="indent comment-date">
+                        <div class="indent stats">
                             <span>10 comments &#9642;</span>
                             <span>50 likes</span>
                         </div>
@@ -50,7 +50,7 @@
                                 @Html.Svg("~/images/site/box-icons.svg", "comment", new { @class = "color-override svgColor8" })
                                 <span>@BoxResources.Comment</span>
                             </button>
-                            <button type="button" ga-track-event="['box-feed', 'comment-like-icon']">
+                            <button type="button" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
                                 @Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "color-override svgColor8" })
                                 <span>@GeneralResources.Like</span>
                             </button>

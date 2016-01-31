@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Zbang.Zbox.Infrastructure.Exceptions;
-using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
@@ -57,15 +55,15 @@ namespace Zbang.Zbox.Domain
 
 
 
-        public bool IsDeleted
-        {
-            get;
-            set;
-        }
+        //public bool IsDeleted
+        //{
+        //    get;
+        //    set;
+        //}
 
-        public void DeleteAssociation()
-        {
-            Updates.Clear();
-        }
+        //public void DeleteAssociation()
+        //{
+        //    Updates.Clear();
+        //}
     }
 }

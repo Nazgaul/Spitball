@@ -37,7 +37,6 @@ namespace Zbang.Zbox.Domain.Common
 
         Task SendMessageAsync(SendMessageCommand command);
         Task SubscribeToSharedBoxAsync(SubscribeToSharedBoxCommand command);
-        //void DeleteComment(DeleteCommentCommand command);
         ChangeFileNameCommandResult ChangeFileName(ChangeFileNameCommand command);
 
 
@@ -70,10 +69,11 @@ namespace Zbang.Zbox.Domain.Common
         #endregion
 
         #region QnA
-        Task<AddCommentCommandResult> AddQuestionAsync(AddCommentCommand command);
-        Task AddAnswerAsync(AddAnswerToQuestionCommand command);
-        void DeleteComment(DeleteCommentCommand command);
-        void DeleteAnswer(DeleteReplyCommand command);
+        Task<AddCommentCommandResult> AddCommentAsync(AddCommentCommand command);
+        Task AddReplyAsync(AddReplyToCommentCommand command);
+        Task DeleteCommentAsync(DeleteCommentCommand command);
+        Task DeleteReplyAsync(DeleteReplyCommand command);
+        void LikeComment(LikeCommentCommand command);
         #endregion
 
         Task AddReputationAsync(AddReputationCommand command);
