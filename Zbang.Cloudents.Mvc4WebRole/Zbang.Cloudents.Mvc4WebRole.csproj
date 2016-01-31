@@ -1431,6 +1431,12 @@
     <Content Include="Content\Site\error.rtl.min.css">
       <DependentUpon>error.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\feed.css">
+      <DependentUpon>feed.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\feed.rtl.css">
+      <DependentUpon>feed.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
@@ -1899,6 +1905,7 @@
       <DependentUpon>themeSelector.png</DependentUpon>
     </Content>
     <Content Include="Content\HomePage\homePage.less" />
+    <Content Include="Content\Site\feed.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

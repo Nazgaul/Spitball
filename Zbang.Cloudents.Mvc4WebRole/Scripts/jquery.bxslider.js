@@ -639,16 +639,20 @@
 			slider.controls.next = $('<a class="bx-next" href="">' + slider.settings.nextText + '</a>');
 			slider.controls.prev = $('<a class="bx-prev" href="">' + slider.settings.prevText + '</a>');
 			// bind click actions to the controls
-			slider.controls.next.bind('click', clickNextBind);
-			slider.controls.prev.bind('click', clickPrevBind);
-			// if nextSlector was supplied, populate it
-			if(slider.settings.nextSelector){
-				$(slider.settings.nextSelector).append(slider.controls.next);
+			
+		    // if nextSlector was supplied, populate it
+            //RAM: made some changes in here
+			if (slider.settings.nextSelector) {
+			    slider.controls.next = slider.settings.nextSelector;
+			    //$(slider.settings.nextSelector).append(slider.controls.next);
 			}
 			// if prevSlector was supplied, populate it
-			if(slider.settings.prevSelector){
-				$(slider.settings.prevSelector).append(slider.controls.prev);
+			if (slider.settings.prevSelector) {
+			    slider.controls.prev = slider.settings.prevSelector;
+			    //$(slider.settings.prevSelector).append(slider.controls.prev);
 			}
+			slider.controls.next.bind('click', clickNextBind);
+			slider.controls.prev.bind('click', clickPrevBind);
 			// if no custom selectors were supplied
 			if(!slider.settings.nextSelector && !slider.settings.prevSelector){
 				// add the controls to the DOM

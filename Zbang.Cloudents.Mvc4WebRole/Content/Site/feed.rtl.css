@@ -1,0 +1,200 @@
+﻿.feed {
+  font-size: 16px;
+  line-height: 1;
+}
+.feed .extra {
+  display: none;
+  -moz-transition: none;
+  -o-transition: none;
+  -webkit-transition: none;
+  transition: none;
+}
+.feed .ribbon {
+  bottom: 1em;
+}
+.feed .comment-date {
+  font-size: 12px;
+}
+.feed .items-slider {
+  position: relative;
+}
+.feed .items-slider .items-next,
+.feed .items-slider .items-prev {
+  position: absolute;
+  top: 50%;
+  margin-top: -12.5px;
+}
+.feed .items-slider .items-next svg,
+.feed .items-slider .items-prev svg {
+  width: 25px;
+  height: 25px;
+  fill: #888b8e;
+}
+.feed .items-slider .items-next.disabled,
+.feed .items-slider .items-prev.disabled {
+  display: none;
+}
+.feed .items-slider .items-next {
+  left: 0;
+}
+.feed .items-slider .items-prev {
+  -moz-transform: rotate(180deg) ;
+  -ms-transform: rotate(180deg) ;
+  -o-transform: rotate(180deg) ;
+  -webkit-transform: rotate(180deg) ;
+  transform: rotate(180deg) ;
+  right: 0;
+}
+.feed .items-container {
+  margin: 0 50px 10px;
+  /*ul {
+            margin: 0;
+        }
+
+        li {
+            width: 119px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+
+            &::first-child {
+                padding-left: 0;
+            }
+        }*/
+}
+.feed .items-container .feed-item {
+  width: 119px;
+  height: 168px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: inline-block;
+}
+.feed .posts-list .actions {
+  margin: 20px 40px 0 40px;
+  padding: 10px 0;
+}
+.feed .quiz .top .first-letter {
+  font-size: 38px;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+}
+.feed .comment > .top,
+.feed .add-comment > .top {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 10px 10px 0 0;
+  position: absolute;
+  top: -15px;
+  right: -18px;
+  z-index: 1;
+}
+.feed .comment {
+  position: relative;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+.feed .comment .margins {
+  margin: 0 0 10px 10px;
+}
+.feed .comment .user-name {
+  font-weight: 400;
+  margin-right: 10px;
+}
+.feed .comment .comment-date {
+  margin-right: 47px;
+}
+.feed .reply {
+  position: relative;
+  margin-right: 26px;
+}
+.feed .reply .actions {
+  margin-top: 0;
+}
+.feed .reply .actions.padding {
+  padding-right: 9px;
+  margin-top: 10px;
+  border: none;
+}
+.feed .reply .c-img {
+  border: none;
+  top: -7px;
+}
+.feed .reply .items-container {
+  padding-right: 40px;
+  margin: 0 5px;
+}
+.feed .reply .user-name {
+  font-weight: normal;
+}
+.feed .reply .comment-date {
+  margin-right: 51px;
+}
+.feed .reply .content-text {
+  margin-right: 50px;
+  -ms-word-break: break-all;
+  word-break: break-all;
+}
+.feed .actions {
+  padding-bottom: 10px;
+  margin-top: 10px;
+  font-size: 13px;
+  position: relative;
+}
+.feed .actions svg {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+.feed .actions .anonymous-wrapper .text {
+  display: none;
+}
+.feed .actions .anonymous-wrapper .anonymous {
+  width: 28px;
+  height: 28px;
+  margin-left: 12px;
+}
+.feed .replies {
+  padding-top: 15px;
+}
+.feed .post > .content-text {
+  padding: 38px 46px 0 0;
+}
+.feed li.post:last-child {
+  margin-bottom: 0;
+}
+.feed .content-text {
+  line-height: 22px;
+  margin-bottom: 10px;
+  margin-left: 15px;
+  -ms-word-break: break-all;
+  word-break: break-all;
+}
+.feed .content-text img {
+  max-width: 100%;
+}
+.feed .add-reply .reply-wrapper {
+  margin-bottom: 10px;
+}
+.feed .add-reply .reply-wrapper textarea {
+  padding: 10px;
+}
+.feed .quiz .quiz-ratio {
+  position: relative;
+}
+.feed .quiz .quiz-ratio:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 125%;
+}
+.feed .quiz .quiz-ratio > .content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}

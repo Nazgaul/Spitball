@@ -69,6 +69,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/general.css", // this should be on top
                         "~/content/site/dashboard.css",
                         "~/content/site/box.css",
+                        "~/content/site/feed.css",
                         "~/content/site/user.css",
                         "~/content/site/accountSettings.css",
                         "~/content/site/library.css",
