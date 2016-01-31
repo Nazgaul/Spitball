@@ -95,6 +95,11 @@
                 commentId: postId
             });
         }
+        d.likeReply = function (replyId) {
+            return ajaxservice.post('/qna/likereply/', {
+                replyId: replyId
+            });
+        }
         d.follow = function (boxId) {
             return ajaxservice.post('/share/subscribetobox/', {
                 boxId: boxId

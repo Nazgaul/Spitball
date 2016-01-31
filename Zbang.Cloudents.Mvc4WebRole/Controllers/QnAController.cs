@@ -114,6 +114,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
 
+        [ZboxAuthorize, HttpPost]
+        public JsonResult LikeReply(Guid replyId)
+        {
+            var command = new LikeReplyCommand(replyId, User.GetUserId());
+            ZboxWriteService.LikeReply(command);
+            return JsonOk();
+        }
+
 
         [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), BoxPermission("id")]
         public async Task<JsonResult> Index(long id, int page)

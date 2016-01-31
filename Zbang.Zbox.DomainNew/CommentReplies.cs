@@ -54,6 +54,9 @@ namespace Zbang.Zbox.Domain
         protected virtual ICollection<Updates> Updates { get; set; }
 
 
+        protected virtual ICollection<ReplyLike> Likes { get; set; }
+        public virtual int LikeCount { get; set; }
+
 
         //public bool IsDeleted
         //{

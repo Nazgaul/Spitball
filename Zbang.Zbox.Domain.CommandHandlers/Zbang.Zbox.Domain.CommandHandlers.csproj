@@ -89,6 +89,7 @@
     <Compile Include="InviteToSystemCommandHandler.cs" />
     <Compile Include="Ioc\RegisterIoc.cs" />
     <Compile Include="LikeCommentCommandHandler.cs" />
+    <Compile Include="LikeReplyCommandHandler.cs" />
     <Compile Include="MarkMessagesAsReadCommandHandler.cs" />
     <Compile Include="Quiz\CreateAnswerCommandHandler.cs" />
     <Compile Include="Quiz\CreateDiscussionCommandHandler.cs" />

@@ -36,6 +36,7 @@
         self.postItemTemplate = postItemTemplate;
         self.myPagingFunction = myPagingFunction;
         self.likeComment = likeComment;
+        self.likeReply = likeReply;
 
         boxService.getFeed(boxId, page).then(function (response) {
             self.data = response;
@@ -45,6 +46,9 @@
 
         function likeComment(comment) {
             boxService.likeComment(comment.id);
+        }
+        function likeReply(reply) {
+            boxService.likeReply(reply.id);
         }
 
         function myPagingFunction() {

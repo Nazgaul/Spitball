@@ -78,7 +78,7 @@
                                    
 
                                 </div>
-                                <div ng-bind-html="::reply.content" class=" indent content-text"></div>
+                                <div ng-bind-html="::reply.content" class="indent content-text"></div>
                                 <div class="items-slider" ng-if="reply.files.length">
                                     <button type="button" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                                     <div class="items-container">
@@ -90,7 +90,7 @@
                                 </div>
 
                                 <div class="indent actions">
-                                    <button type="button" ga-track-event="['box-feed', 'comment-like-icon']">
+                                    <button type="button" ng-click="f.likeReply(reply)" ga-track-event="['box-feed', 'comment-like-icon']">
                                         @Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "color-override svgColor8" })
                                         <span>@GeneralResources.Like</span>
                                     </button>

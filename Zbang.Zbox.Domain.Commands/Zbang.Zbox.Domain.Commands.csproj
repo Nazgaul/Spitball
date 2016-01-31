@@ -101,6 +101,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InviteToSystemCommand.cs" />
     <Compile Include="LikeCommentCommand.cs" />
+    <Compile Include="LikeReplyCommand.cs" />
     <Compile Include="MarkMessagesAsReadCommand.cs" />
     <Compile Include="Quiz\CreateAnswerCommand.cs" />
     <Compile Include="Quiz\CreateDiscussionCommand.cs" />

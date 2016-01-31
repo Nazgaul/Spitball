@@ -19,6 +19,7 @@ namespace Zbang.Zbox.Domain.DataAccess
             ioc.RegisterType<IInviteRepository, InviteRepository>();
             ioc.RegisterType<IUpdatesRepository, UpdatesRepository>();
             ioc.RegisterType<ICommentLikeRepository, CommentLikeRepository>();
+            ioc.RegisterType<IReplyLikeRepository, ReplyLikeRepository>();
             //ioc.RegisterType<IQuizRepository, QuizRepository>();
 
             ioc.RegisterType<IItemRepository, ItemRepository>();

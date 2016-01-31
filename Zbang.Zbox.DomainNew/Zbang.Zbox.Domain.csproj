@@ -72,6 +72,7 @@
     <Compile Include="Comment.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ReplyLike.cs" />
     <Compile Include="CommentLike.cs" />
     <Compile Include="CommentReplies.cs">
       <SubType>Code</SubType>
