@@ -8,10 +8,10 @@
     <div class="flex" layout-padding flex="100" flex-md="66" flex-lg="50" flex-gt-lg="50">
         <div class="portlet light">
             <div class="portlet-body feed">
-               @{ Html.RenderPartial("_FeedAddComment");}
+                @{ Html.RenderPartial("_FeedAddComment");}
                 <ol class="list-unstyled posts-list" srph-infinite-scroll="f.myPagingFunction()">
                     <li ng-repeat="post in f.data" class="post comment">
-                        <div @*class="top"*@>
+                        <div class="indent">
                             <a href="{{::post.url}}" user-not-register-popup="click" @*layout="row" layout-align="start center"*@ class="userblock" ga-track-event="['box-feed', 'userNameImage']">
                                 <user-image class="c-img" name="::post.userName" image="::post.userImage" width="54" height="54"></user-image>
                                 <span class="user-name">{{::post.userName}}</span>
@@ -30,7 +30,7 @@
                                 </md-menu-item>
                             </md-menu-content>
                         </md-menu>
-                        <div ng-bind-html="::post.content" class="content-text"></div>
+                        <div ng-bind-html="::post.content" class=" indent content-text"></div>
                         <div class="items-slider" ng-if="post.files.length">
                             <button type="button" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                             <div class="items-container">
@@ -40,15 +40,19 @@
                             </div>
                             <button type="button" class="items-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                         </div>
-                        
-                        <div>
-                            
+
+                        <div class="indent comment-date">
+                            <span>10 comments &#9642;</span>
+                            <span>50 likes</span>
                         </div>
-                        <div class="actions color-override borderColor9 text-capitalize">
-                            <button type="button" ng-click="f.openReply(post)" ga-track-event="['box-feed', 'comment-icons']">@BoxResources.Comment</button>
+                        <div class="indent actions color-override borderColor9 text-capitalize">
+                            <button type="button" ng-click="f.openReply(post)" ga-track-event="['box-feed', 'comment-icons']">
+                                @Html.Svg("~/images/site/box-icons.svg", "comment", new { @class = "color-override svgColor8" })
+                                <span>@BoxResources.Comment</span>
+                            </button>
                             <button type="button" ga-track-event="['box-feed', 'comment-like-icon']">
                                 @Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "color-override svgColor8" })
-                                @GeneralResources.Like
+                                <span>@GeneralResources.Like</span>
                             </button>
                             <span class="ribbon" ng-if="post.isNew">@BoxResources.RibbonNew</span>
                         </div>
@@ -66,14 +70,16 @@
                                         </md-menu-item>
                                     </md-menu-content>
                                 </md-menu>
-                                <div class="top">
+                                <div class="indent" @*class="top"*@>
                                     <a href="{{::reply.url}}" user-not-register-popup="click" layout="row" layout-align="start center" class="username" ga-track-event="['box-feed', 'replyUserNameImg']">
                                         <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
                                         <span class="user-name">{{::reply.userName}}</span>
                                     </a>
-                                    <div ng-bind-html="::reply.content" class="content-text"></div>
+                                   
+
                                 </div>
-                                <div class="items-container" ng-if="reply.files.length">
+                                <div ng-bind-html="::reply.content" class=" indent content-text"></div>
+                                <div class="items-slider" ng-if="reply.files.length">
                                     <button type="button" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                                     <div class="items-container">
                                         <div bx-slider>
@@ -82,8 +88,13 @@
                                     </div>
                                     <button type="button" class="items-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                                 </div>
-                                <span class="comment-date">{{::reply.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
-                                <div class="actions padding">
+
+                                <div class="indent actions">
+                                    <button type="button" ga-track-event="['box-feed', 'comment-like-icon']">
+                                        @Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "color-override svgColor8" })
+                                        <span>@GeneralResources.Like</span>
+                                    </button>
+                                    <span class="comment-date">{{::reply.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
                                     <span class="ribbon" ng-if="post.isNew">@BoxResources.RibbonNew</span>
                                 </div>
                             </li>

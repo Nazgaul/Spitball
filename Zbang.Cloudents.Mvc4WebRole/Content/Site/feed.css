@@ -1,6 +1,9 @@
 ﻿.feed {
   font-size: 16px;
   line-height: 1;
+  /*.quiz .quiz-ratio {
+        .aspect-ratio(0.8,1);
+    }*/
 }
 .feed .extra {
   display: none;
@@ -13,7 +16,11 @@
   bottom: 1em;
 }
 .feed .comment-date {
+  color: #5d6063;
   font-size: 12px;
+}
+.feed .indent {
+  margin-left: 50px;
 }
 .feed .items-slider {
   position: relative;
@@ -58,8 +65,11 @@
   display: inline-block;
 }
 .feed .posts-list .actions {
-  margin: 20px 40px 0 40px;
+  margin: 20px 40px 0;
   padding: 10px 0;
+}
+.feed .posts-list .actions svg {
+  fill: #2698d4;
 }
 .feed .quiz .top .first-letter {
   font-size: 38px;
@@ -72,15 +82,20 @@
   padding-top: 5px;
   padding-bottom: 5px;
   border-radius: 10px 10px 0 0;
+  color: #f5f5f5;
   position: absolute;
   top: -15px;
   left: -18px;
   z-index: 1;
 }
 .feed .comment {
+  background: #181c1d;
   position: relative;
   border-radius: 10px;
   margin-bottom: 25px;
+  /*.comment-date {
+            margin-left: 47px;
+        }*/
 }
 .feed .comment .userblock {
   display: block;
@@ -93,47 +108,35 @@
   left: -15px;
 }
 .feed .comment .user-name {
+  color: #2698d4;
   font-weight: 400;
-  margin-left: 50px;
   margin-top: 5px;
   display: inline-block;
-}
-.feed .comment .comment-date {
-  margin-left: 47px;
 }
 .feed .reply {
   position: relative;
   margin-left: 26px;
+  /*.comment-date {
+            margin-left: 51px;
+        }*/
+  /*-ms-word-break: break-word;
+            word-break: break-word;*/
 }
 .feed .reply .actions {
   margin-top: 0;
-}
-.feed .reply .actions.padding {
-  padding-left: 9px;
-  margin-top: 10px;
   border: none;
 }
 .feed .reply .c-img {
   border: none;
   top: -7px;
 }
-.feed .reply .items-container {
-  padding-left: 40px;
-  margin: 0 5px;
-}
 .feed .reply .user-name {
+  color: #2698d4;
   font-weight: normal;
 }
-.feed .reply .comment-date {
-  margin-left: 51px;
-}
-.feed .reply .content-text {
-  margin-left: 50px;
-  /*-ms-word-break: break-word;
-            word-break: break-word;*/
-}
 .feed .actions {
-  padding-bottom: 10px;
+  color: #2698d4;
+  border-top: 1px solid #323538;
   margin-top: 10px;
   font-size: 13px;
   position: relative;
@@ -141,6 +144,10 @@
 .feed .actions svg {
   width: 20px;
   height: 20px;
+  fill: #888b8e;
+  vertical-align: middle;
+}
+.feed .actions span {
   vertical-align: middle;
 }
 .feed .actions .anonymous-wrapper .text {
@@ -151,7 +158,11 @@
   height: 28px;
   margin-right: 12px;
 }
+.feed .actions .dropbox:hover {
+  fill: #007ee5;
+}
 .feed .replies {
+  border-top: 2px solid #323538;
   padding-top: 15px;
 }
 .feed .post > .content-text {
@@ -171,24 +182,12 @@
   max-width: 100%;
 }
 .feed .add-reply .reply-wrapper {
+  border: 1px solid #5d6063;
   margin-bottom: 10px;
 }
 .feed .add-reply .reply-wrapper textarea {
   padding: 10px;
 }
-.feed .quiz .quiz-ratio {
-  position: relative;
-}
-.feed .quiz .quiz-ratio:before {
-  display: block;
-  content: "";
-  width: 100%;
-  padding-top: 125%;
-}
-.feed .quiz .quiz-ratio > .content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.feed .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
+  fill: #d39f10;
 }

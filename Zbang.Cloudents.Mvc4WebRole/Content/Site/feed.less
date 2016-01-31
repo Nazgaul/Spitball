@@ -17,8 +17,11 @@
     }
 
     .comment-date {
-        //color: @svgDots;
+        color: @svgDots;
         font-size: 12px;
+    }
+    .indent {
+        margin-left:50px;
     }
 
     .items-slider {
@@ -71,9 +74,15 @@
     }
 
     .posts-list {
+
         .actions {
-            margin: 20px 40px 0 40px;
+            //color:@textColorBlue;
+            margin: 20px 40px 0;
             padding: 10px 0;
+
+            svg {
+                fill: @textColorBlue;
+            }
         }
     }
 
@@ -89,7 +98,7 @@
             padding-top: 5px;
             padding-bottom: 5px;
             border-radius: 10px 10px 0 0;
-            //color: @textColorWhite;
+            color: @textColorWhite;
             position: absolute;
             top: -15px;
             left: -18px;
@@ -98,7 +107,7 @@
     }
 
     .comment {
-        //background: @backgroundColor;
+        background: @backgroundColor;
         position: relative;
         //overflow: hidden;
         border-radius: 10px;
@@ -126,16 +135,16 @@
         //    //margin-right: 0;
         //}
         .user-name {
-            // color: @textColorBlue;
+            color: @textColorBlue;
             font-weight: 400;
-            margin-left: 50px;
+            //margin-left: 50px;
             margin-top: 5px;
             display: inline-block;
         }
 
-        .comment-date {
+        /*.comment-date {
             margin-left: 47px;
-        }
+        }*/
     }
 
     .reply {
@@ -144,12 +153,12 @@
 
         .actions {
             margin-top: 0;
-
-            &.padding {
-                padding-left: 9px;
-                margin-top: 10px;
-                border: none;
-            }
+            border:none;
+            //&.padding {
+            //    padding-left: 9px;
+            //    margin-top: 10px;
+            //    border: none;
+            //}
         }
 
         .c-img {
@@ -169,38 +178,41 @@
         //    //    color: @textColorHover;
         //    //}
         //}
-        .items-container {
-            padding-left: 40px;
-            margin: 0 5px;
-        }
-
+        //.items-container {
+        //    padding-left: 40px;
+        //    margin: 0 5px;
+        //}
         .user-name {
-            //color: @textColorBlue;
+            color: @textColorBlue;
             font-weight: normal;
         }
 
-        .comment-date {
+        /*.comment-date {
             margin-left: 51px;
-        }
+        }*/
 
-        .content-text {
-            margin-left: 50px;
+        //.content-text {
+            //margin-left: 50px;
             /*-ms-word-break: break-word;
             word-break: break-word;*/
-        }
+        //}
     }
 
     .actions {
-        //color: @svgDots;
-        padding-bottom: 10px;
+        color: @textColorBlue;
+        border-top: 1px solid @textColorDarkGrey;
+        //padding-bottom: 10px;
         margin-top: 10px;
         font-size: 13px;
-        position: relative;
-
+        position: relative; // this is for ribbon
         svg {
             width: 20px;
             height: 20px;
-            // fill: @textColorGrey;
+            fill: @textColorGrey;
+            vertical-align: middle;
+        }
+
+        span {
             vertical-align: middle;
         }
 
@@ -221,14 +233,14 @@
 
 
         .dropbox {
-            //&:hover {
-            //    fill: @dropboxColor;
-            //}
+            &:hover {
+                fill: @dropboxColor;
+            }
         }
     }
 
     .replies {
-        // border-top: 2px solid @borderColorDarkGrey;
+        border-top: 2px solid @borderColorDarkGrey;
         padding-top: 15px;
     }
 
@@ -255,7 +267,7 @@
     .add-reply {
         // display: none;
         .reply-wrapper {
-            //border: 1px solid @svgDots;
+            border: 1px solid @svgDots;
             margin-bottom: 10px;
 
             textarea {
@@ -263,8 +275,10 @@
             }
         }
     }
-
-    .quiz .quiz-ratio {
+    /*.quiz .quiz-ratio {
         .aspect-ratio(0.8,1);
+    }*/
+    .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
+        fill: @anonymousColor;
     }
 }
