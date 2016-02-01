@@ -155,16 +155,16 @@ namespace Zbang.Zbox.ReadServices
         //    return m_ReadService.GetQuestionsWithAnswersAsync(query);
         //}
 
-        public Task<IEnumerable<QuestionDto>> GetQuestionsWithLastAnswerAsync(GetBoxQuestionsQuery query)
+        public Task<IEnumerable<CommentDto>> GetQuestionsWithLastAnswerAsync(GetBoxQuestionsQuery query)
         {
             return m_ReadService.GetQuestionsWithLastAnswerAsync(query);
         }
-        public Task<IEnumerable<AnswerDto>> GetRepliesAsync(GetCommentRepliesQuery query)
+        public Task<IEnumerable<ReplyDto>> GetRepliesAsync(GetCommentRepliesQuery query)
         {
             return m_ReadService.GetRepliesAsync(query);
         }
 
-        public Task<QuestionDto> GetQuestionAsync(GetQuestionQuery query)
+        public Task<CommentDto> GetQuestionAsync(GetQuestionQuery query)
         {
             return m_ReadService.GetQuestionAsync(query);
         }

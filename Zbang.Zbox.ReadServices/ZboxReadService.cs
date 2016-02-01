@@ -444,7 +444,7 @@ namespace Zbang.Zbox.ReadServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Qna.QuestionDto>> GetQuestionsWithLastAnswerAsync(GetBoxQuestionsQuery query)
+        public async Task<IEnumerable<Qna.CommentDto>> GetQuestionsWithLastAnswerAsync(GetBoxQuestionsQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
@@ -458,8 +458,8 @@ namespace Zbang.Zbox.ReadServices
                 {
                     var sw = new Stopwatch();
                     sw.Start();
-                    var comments = grid.Read<Qna.QuestionDto>().ToList();
-                    var replies = grid.Read<Qna.AnswerDto>().ToDictionary(x => x.QuestionId);
+                    var comments = grid.Read<Qna.CommentDto>().ToList();
+                    var replies = grid.Read<Qna.ReplyDto>().ToDictionary(x => x.QuestionId);
                     var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToLookup(c => c.QuestionId);
 
 
@@ -476,7 +476,7 @@ namespace Zbang.Zbox.ReadServices
                         //comment.Files.AddRange();
                         comment.Files.AddRange(items[comment.Id]);
                         //comment.Files.AddRange(items.Where(w => w.QuestionId.HasValue && w.QuestionId.Value == comment.Id));
-                        Qna.AnswerDto reply;
+                        Qna.ReplyDto reply;
                         // replies[comment.Id];// replies.FirstOrDefault(s => s.QuestionId == comment.Id);
                         if (replies.TryGetValue(comment.Id, out reply))
                         {
@@ -496,7 +496,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<Qna.QuestionDto> GetQuestionAsync(GetQuestionQuery query)
+        public async Task<Qna.CommentDto> GetQuestionAsync(GetQuestionQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
@@ -506,7 +506,7 @@ namespace Zbang.Zbox.ReadServices
                     ),
                     new { query.BoxId, query.QuestionId }))
                 {
-                    var comment = grid.Read<Qna.QuestionDto>().First();
+                    var comment = grid.Read<Qna.CommentDto>().First();
                     comment.Files = grid.Read<Qna.ItemDto>().ToList();
                     return comment;
 
@@ -514,7 +514,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<Qna.AnswerDto>> GetRepliesAsync(GetCommentRepliesQuery query)
+        public async Task<IEnumerable<Qna.ReplyDto>> GetRepliesAsync(GetCommentRepliesQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
@@ -524,12 +524,12 @@ namespace Zbang.Zbox.ReadServices
                     ),
                     new { query.BoxId, query.PageNumber, query.RowsPerPage, query.CommentId }))
                 {
-                    var replies = grid.Read<Qna.AnswerDto>().ToList();
-                    var items = grid.Read<Qna.ItemDto>().ToList();
+                    var replies = grid.Read<Qna.ReplyDto>().ToList();
+                    var items = grid.Read<Qna.ItemDto>().ToLookup(c => c.AnswerId);
 
                     foreach (var reply in replies)
                     {
-                        reply.Files.AddRange(items.Where(w => w.AnswerId.HasValue && w.AnswerId.Value == reply.Id));
+                        reply.Files.AddRange(items[reply.Id]);
                     }
 
                     return replies;

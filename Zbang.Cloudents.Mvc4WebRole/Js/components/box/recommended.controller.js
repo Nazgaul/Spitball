@@ -9,7 +9,7 @@
         if ($stateParams.boxtype.toLowerCase() === 'box') {
             r.isPrivate = true;
         } else {
-            r.boxes = [];
+            //r.boxes = [];
             boxService.getRecommended($stateParams.boxId).then(function (response) {
                 iterateItemAndAssign(response);
             });

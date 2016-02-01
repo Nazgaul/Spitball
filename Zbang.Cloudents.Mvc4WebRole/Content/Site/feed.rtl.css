@@ -5,13 +5,6 @@
         .aspect-ratio(0.8,1);
     }*/
 }
-.feed .extra {
-  display: none;
-  -moz-transition: none;
-  -o-transition: none;
-  -webkit-transition: none;
-  transition: none;
-}
 .feed .ribbon {
   bottom: 1em;
 }

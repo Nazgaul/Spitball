@@ -109,7 +109,7 @@ order by name;";
     ,[Text] as Content
     ,q.CreationTime as creationTime
 	,q.ReplyCount as RepliesCount
-	,q.LikeCount as likes
+	,q.LikeCount as LikesCount
 	FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
     where q.BoxId = @BoxId
     order by q.[updatetime] desc
@@ -146,6 +146,7 @@ order by name;";
       ,u.UserImageLarge as UserImage
       ,u.userid as UserId
       ,a.[Text] as Content
+      ,a.LikeCount as LikesCount
       ,a.QuestionId as questionId
       ,a.CreationTime as creationTime
       FROM [Zbox].[Answer] a join zbox.Question q on a.AnswerId = q.LastReplyId
@@ -199,6 +200,7 @@ select questionid,LastReplyId from zbox.question
       ,u.userid as UserId
       ,[Text] as Content
       ,a.CreationTime as creationTime
+      ,a.LikeCount as LikesCount
       FROM [Zbox].[Answer] a 
 	  join zbox.users u on u.userid = a.userid
 	  where a.questionid = @CommentId

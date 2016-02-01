@@ -10,7 +10,7 @@
             <div class="portlet-body feed">
                 @{ Html.RenderPartial("_FeedAddComment");}
                 <ol class="list-unstyled posts-list" srph-infinite-scroll="f.myPagingFunction()">
-                    <li ng-repeat="post in f.data" class="post comment">
+                    <li ng-repeat="post in f.data track by post.id" class="post comment">
                         <div class="indent">
                             <a href="{{::post.url}}" user-not-register-popup="click" @*layout="row" layout-align="start center"*@ class="userblock" ga-track-event="['box-feed', 'userNameImage']">
                                 <user-image class="c-img" name="::post.userName" image="::post.userImage" width="54" height="54"></user-image>
@@ -35,15 +35,15 @@
                             <button type="button" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                             <div class="items-container">
                                 <div bx-slider>
-                                    <div bx-slider-item class="feed-item" ng-repeat="e in post.files" ng-include="f.postItemTemplate(e)"></div>
+                                    <div bx-slider-item class="feed-item" ng-repeat="e in ::post.files" ng-include="f.postItemTemplate(e)"></div>
                                 </div>
                             </div>
                             <button type="button" class="items-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                         </div>
 
                         <div class="indent stats">
-                            <span>10 comments &#9642;</span>
-                            <span>50 likes</span>
+                            <span>{{post.repliesCount}} comments &#9642;</span>
+                            <span>{{post.likesCount}} likes</span>
                         </div>
                         <div class="indent actions color-override borderColor9 text-capitalize">
                             <button type="button" ng-click="f.openReply(post)" ga-track-event="['box-feed', 'comment-icons']">
@@ -57,7 +57,8 @@
                             <span class="ribbon" ng-if="post.isNew">@BoxResources.RibbonNew</span>
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.replies.length">
-                            <li ng-repeat="reply in post.replies" class="reply">
+
+                            <li ng-repeat="reply in post.replies track by reply.id" class="reply" ng-if="$last || post.showReplies">
                                 <md-menu ng-if="b.canDelete(reply.userId)">
                                     <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
                                         @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
@@ -70,20 +71,18 @@
                                         </md-menu-item>
                                     </md-menu-content>
                                 </md-menu>
-                                <div class="indent" @*class="top"*@>
+                                <div class="indent">
                                     <a href="{{::reply.url}}" user-not-register-popup="click" layout="row" layout-align="start center" class="username" ga-track-event="['box-feed', 'replyUserNameImg']">
                                         <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
                                         <span class="user-name">{{::reply.userName}}</span>
                                     </a>
-
-
                                 </div>
                                 <div ng-bind-html="::reply.content" class="indent content-text"></div>
                                 <div class="items-slider" ng-if="reply.files.length">
                                     <button type="button" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                                     <div class="items-container">
                                         <div bx-slider>
-                                            <div bx-slider-item class="feed-item" ng-repeat="e in post.files" ng-include="f.postItemTemplate(e)"></div>
+                                            <div bx-slider-item class="feed-item" ng-repeat="e in ::post.files track by e.id" ng-include="f.postItemTemplate(e)"></div>
                                         </div>
                                     </div>
                                     <button type="button" class="items-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
@@ -92,7 +91,7 @@
                                 <div class="indent actions">
                                     <button type="button" ng-click="f.likeReply(reply)" ga-track-event="['box-feed', 'comment-like-icon']">
                                         @Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "color-override svgColor8" })
-                                        <span>@GeneralResources.Like</span>
+                                        <span>@GeneralResources.Like {{reply.likesCount}}</span>
                                     </button>
                                     <span class="comment-date">{{::reply.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
                                     <span class="ribbon" ng-if="post.isNew">@BoxResources.RibbonNew</span>
@@ -100,15 +99,13 @@
                             </li>
                         </ol>
 
-                        <form class="add-comment add-reply" ng-if="post.showFrom" ng-submit="f.add.createReply(post)">
-                            <div class="reply-wrapper">
-                                <md-input-container md-no-float>
-                                    <textarea autofocus ng-model="f.add.newReplyText" ng-focus="b.closeCollapse()" placeholder="@BoxResources.replyPostPlaceholder" class="color-override inputColor6 textColor7"></textarea>
-                                </md-input-container>
-                                <ul class="list-inline">
-                                    <li class="file-upload" ng-repeat="file in f.add.files | filter:{postId: post.id}" ng-include="'file-upload.html'">
-                                </ul>
-                            </div>
+                        <form class="add-comment add-reply" ng-if="post.showReplies" ng-submit="f.add.createReply(post)">
+                            <md-input-container md-no-float class="reply-wrapper">
+                                <textarea focus-me="post.focusReply" ng-model="f.add.newReplyText" placeholder="@BoxResources.replyPostPlaceholder" class="color-override inputColor6 textColor7"></textarea>
+                            </md-input-container>
+                            <ul class="list-inline">
+                                <li class="file-upload" ng-repeat="file in f.add.files | filter:{postId: post.id}" ng-include="'file-upload.html'">
+                            </ul>
                             <div layout="row" layout-align="space-between center">
                                 <div class="upload-options" layout="row" layout-wrap layout-align="space-between start">
                                     <a plupload="f.add.fileUpload.url" ng-click="f.add.upload(post.id)"
@@ -150,7 +147,7 @@
 
         <div layout="row" layout-padding layout-wrap layout-align="space-between center" ng-controller="RecommendedController as r" ng-hide="r.isPrivate">
             <div ng-controller="adController as ad" ng-show="ad.show" flex="100" flex-gt-md="50" class="i-student-ad flex" ng-bind-html="ad.content" ga-track-event="['istudentad', 'box']"></div>
-            <div flex="100" flex-gt-md="50" class="flex" ng-repeat="e in r.boxes" ng-include="'box-template.html'"></div>
+            <div flex="100" flex-gt-md="50" class="flex" ng-repeat="e in ::r.boxes track by e.boxId" ng-include="'box-template.html'"></div>
             <div flex="100" flex-gt-md="50" class="flex">
                 <adsense ad-client="ca-pub-1215688692145777" ad-slot="1567632158" inline-style="display:inline-block;width:100%;height:179px"></adsense>
             </div>

@@ -10,6 +10,9 @@
         d.getFeed = function (boxid, page) {
             return ajaxservice.get('/qna/', { id: boxid, page: page });
         };
+        d.getReplies = function(boxid, commentId) {
+            return ajaxservice.get('/qna/replies/', { boxid: boxid, id: commentId});
+        }
         d.leaderBoard = function (boxid) {
             return ajaxservice.get('/box/leaderboard/', { id: boxid });
         }

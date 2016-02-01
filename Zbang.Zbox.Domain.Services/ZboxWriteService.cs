@@ -425,24 +425,26 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-               await m_CommandBus.SendAsync(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void LikeComment(LikeCommentCommand command)
+        public LikeCommentCommandResult LikeComment(LikeCommentCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                var result = m_CommandBus.Dispatch<LikeCommentCommand, LikeCommentCommandResult>(command);
                 UnitOfWork.Current.TransactionalFlush();
+                return result;
             }
         }
-        public void LikeReply(LikeReplyCommand command)
+        public LikeReplyCommandResult LikeReply(LikeReplyCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                var result = m_CommandBus.Dispatch<LikeReplyCommand, LikeReplyCommandResult>(command);
                 UnitOfWork.Current.TransactionalFlush();
+                return result;
             }
         }
         #endregion

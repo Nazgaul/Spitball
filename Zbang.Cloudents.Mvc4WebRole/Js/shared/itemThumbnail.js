@@ -13,12 +13,11 @@
             return 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(name) + '.jpg?width=' + width + '&height=' + height + '&mode=crop&scale=both';
         }
         function assignValues(elements, widthElement, heightElement) {
-
-
             for (var i = 0; i < elements.length; i++) {
-                var retVal = assignValue(elements[i].source, widthElement, heightElement);
-                elements[i].thumbnail = retVal.thumbnail;
-               // elements[i].icon = retVal.icon;
+                if (!elements[i].thumbnail) {
+                    var retVal = assignValue(elements[i].source, widthElement, heightElement);
+                    elements[i].thumbnail = retVal.thumbnail;
+                }
             }
             return elements;
 

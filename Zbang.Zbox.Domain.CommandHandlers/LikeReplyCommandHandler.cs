@@ -7,7 +7,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class LikeReplyCommandHandler : ICommandHandler<LikeReplyCommand>
+    public class LikeReplyCommandHandler : ICommandHandler<LikeReplyCommand, LikeReplyCommandResult>
     {
         private readonly IReplyLikeRepository m_ReplyLikeRepository;
         private readonly IUserRepository m_UserRepository;
@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_GuidGenerator = guidGenerator;
         }
 
-        public void Handle(LikeReplyCommand message)
+        public LikeReplyCommandResult Execute(LikeReplyCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
 
@@ -32,20 +32,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var reply = m_ReplyRepository.Load(message.ReplyId);
             if (replyLike == null)
             {
-            
+
                 reply.LikeCount++;
                 var user = m_UserRepository.Load(message.UserId);
                 replyLike = new ReplyLike(reply, user, m_GuidGenerator.GetId());
 
                 m_ReplyRepository.Save(reply);
                 m_ReplyLikeRepository.Save(replyLike);
-                return;
+                return new LikeReplyCommandResult(true);
             }
 
             reply.LikeCount--;
             m_ReplyRepository.Save(reply);
             m_ReplyLikeRepository.Delete(replyLike);
-
+            return new LikeReplyCommandResult(false);
 
         }
     }

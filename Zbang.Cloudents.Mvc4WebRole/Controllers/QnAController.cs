@@ -110,16 +110,66 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public JsonResult LikeComment(Guid commentId)
         {
             var command = new LikeCommentCommand(commentId, User.GetUserId());
-            ZboxWriteService.LikeComment(command);
-            return JsonOk();
+            var retVal = ZboxWriteService.LikeComment(command);
+            return JsonOk(retVal.Liked);
         }
 
         [ZboxAuthorize, HttpPost]
         public JsonResult LikeReply(Guid replyId)
         {
             var command = new LikeReplyCommand(replyId, User.GetUserId());
-            ZboxWriteService.LikeReply(command);
-            return JsonOk();
+            var retVal = ZboxWriteService.LikeReply(command);
+            return JsonOk(retVal.Liked);
+        }
+
+        [HttpGet, BoxPermission("boxId"), ZboxAuthorize]
+        public async Task<JsonResult> Replies(Guid id, long boxId)
+        {
+            var query = new Zbox.ViewModel.Queries.QnA.GetCommentRepliesQuery(boxId, id);
+            var retVal =
+                  await ZboxReadService.GetRepliesAsync(query);
+            if (IsCrawler())
+            {
+                return JsonOk(retVal.Select(s => new
+                {
+                    s.Content,
+                    s.CreationTime,
+                    s.LikesCount,
+                    Files = s.Files.Select(v => new
+                    {
+                        v.Id,
+                        v.Source,
+                        v.Type,
+                        v.Url,
+                        v.Name
+                    }),
+                    s.Id,
+                    s.Url,
+                    s.UserId,
+                    s.UserImage
+
+                }));
+            }
+            return JsonOk(retVal.Select(s => new
+            {
+                s.Content,
+                s.CreationTime,
+                s.LikesCount,
+                Files = s.Files.Select(v => new
+                {
+                    v.Id,
+                    v.Source,
+                    v.Type,
+                    v.Url,
+                    v.Name
+                }),
+                s.Id,
+                s.Url,
+                s.UserId,
+                s.UserImage,
+                s.UserName
+
+            }));
         }
 
 
@@ -140,6 +190,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         s.Content,
                         s.CreationTime,
                         s.Id,
+                        s.RepliesCount,
+                        s.LikesCount,
                         s.Url,
                         s.UserId,
                         s.UserImage,
@@ -148,7 +200,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             x.Source,
                             x.Type,
                             x.Id,
-                            x.Url
+                            x.Url,
+                            x.Name
                         }),
                         Replies = s.Replies.Select(v =>
                             new
@@ -159,12 +212,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                 v.Url,
                                 v.UserId,
                                 v.UserImage,
+                                v.LikesCount,
                                 Files = v.Files.Select(b => new
                                 {
                                     b.Source,
                                     b.Type,
                                     b.Id,
-                                    b.Url
+                                    b.Url,
+                                    b.Name
                                 })
                             })
 
@@ -180,6 +235,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     s.RepliesCount,
                     s.Url,
                     s.UserId,
+                    s.LikesCount,
                     s.UserImage,
                     s.UserName,
                     Files = s.Files.Select(x => new
@@ -187,7 +243,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         x.Source,
                         x.Type,
                         x.Id,
-                        x.Url
+                        x.Url,
+                        x.Name
                     }),
                     Replies = s.Replies.Select(v =>
 
@@ -199,12 +256,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             v.Url,
                             v.UserId,
                             v.UserImage,
+                            v.LikesCount,
                             Files = v.Files.Select(b => new
                             {
                                 b.Source,
                                 b.Type,
                                 b.Id,
-                                b.Url
+                                b.Url,
+                                b.Name
                             })
                         }
 
