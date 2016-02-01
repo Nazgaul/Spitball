@@ -5,12 +5,18 @@
 
     Layout = null;
     ViewBag.metaDescription = HomePageResources.A4;
+    var socialIconsSvg = "~/images/site/social-icons.svg";
+
+
 }
 <!doctype html>
 <html>
 <head>
     @{Html.RenderPartial("_Head");}
     @Html.Css2("homePage")
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="/Scripts/jquery.bxslider.js"></script>
+    <link href="/Content/jquery.bxslider.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
     <meta name="google-signin-client_id" content="997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com" />
 </head>
@@ -27,7 +33,16 @@
             }); var f = d.getElementsByTagName(s)[0],
             j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
             '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
+        })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');
+
+        $(document).ready(function () {
+            $('.bxslider').bxSlider({
+                auto: true,
+                controls: false,
+
+            });
+        });
+    </script>
     <div class="page-content">
         <header>
             <nav>
@@ -52,8 +67,7 @@
         </header>
         <div class="home-page-body">
             <section class="main">
-                <div class="content">
-                    <!--RESOURCE--><h1>@HomePageResources.A4</h1>
+                    <h1>@HomePageResources.A4</h1>
                     <div class="signin-options">
                         <button type="button" class="login-option facebook">
                             @Html.Svg("/images/signin/loginoptions.svg", "facebook")
@@ -63,30 +77,32 @@
                             @Html.Svg("/images/signin/loginoptions.svg", "google")
                             <span>@LogOnResources.ExternalProvider</span>
                         </button>
-                        <!--RESOURCE--><a class="login-option signup" href="@Url.Action("SignUp", "Account", new { universityid = Request.QueryString["universityid"] })" target="_self">@HomePageResources.A5</a>
+                        <a class="login-option signup" href="@Url.Action("SignUp", "Account", new { universityid = Request.QueryString["universityid"] })" target="_self">@HomePageResources.A5</a>
                     </div>
                     <div class="statistics">
                         <!--RESOURCE--><div>180,000 Students</div>
                         <!--RESOURCE--><div>300,000 Documents</div>
                         <!--RESOURCE--><div>220,000 Quizzes</div>
                     </div>
-                </div>
+                    <div class="social-links">
+                        <div class="wrapper" dir="ltr">
+                            <a target="_blank" href="https://www.facebook.com/cloudents.il">@Html.Svg(socialIconsSvg, "facebook")</a>
+                            <a target="_blank" href="https://twitter.com/SpitballStudy">@Html.Svg(socialIconsSvg, "twitter")</a>
+                            <a target="_blank" href="https://plus.google.com/+Cloudents">@Html.Svg(socialIconsSvg, "google")</a>
+                            <a target="_blank" href="https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg">@Html.Svg(socialIconsSvg, "youtube")</a>
+                            <a target="_blank" href="http://instagram.com/spitballstudy">@Html.Svg(socialIconsSvg, "instagram")</a>
+                        </div>
+                    </div>
             </section>
             <section class="about">
-                <div class="content">
-
-                    <!--RESOURCE--><h1>What is Spitball?</h1>
+                    <h1>@HomePageResources.D1</h1>
                     <div class="description">
-                        <!--RESOURCE--><p>Spitball is a social study app where students from around the world swap notes, meet their classmates, exchange ideas and quiz themselves</p>
+                        <p>@HomePageResources.D2</p>
                         <ul>
-                            <!--RESOURCE-->
-                            <li>Meet and message your classmates directly</li>
-                            <!--RESOURCE-->
-                            <li>Check out an unlimited number of other classes and schools at any time</li>
-                            <!--RESOURCE-->
-                            <li>Miss a class? Browse and upload syllabi, course reading and lecture slides</li>
-                            <!--RESOURCE-->
-                            <li>Stressed over exams? Test yourself with thousands of quizzes on your subjects</li>
+                            <li>@HomePageResources.D3</li>
+                            <li>@HomePageResources.D4</li>
+                            <li>@HomePageResources.D5</li>
+                            <li>@HomePageResources.D6</li>
                         </ul>
                     </div>
                     <div class="video-section">
@@ -94,11 +110,9 @@
                             <iframe src="https://www.youtube.com/embed/69daYsNqNUA" frameborder="0" allowfullscreen></iframe>
                         </div>
                     </div>
-                </div>
             </section>
             <section class="check-us">
-                <h1>Check Us Out</h1>
-                <div class="content">
+                <!--RESOURCE--><h1>@HomePageResources.C1</h1>
                     <div class="boxes">
                         <a href="#/" class="box">
                             <h2>Course name</h2>
@@ -138,106 +152,122 @@
                             </div>
                         </a>
                     </div>
-                    <div class="documents">
-                        <a class="item" href="#/">
-                            <div class="base">
-                                <div class="item-ratio">
-                                    <div class="content">
-                                        <img class="img-responsive" width="368" height="520" alt="thumbnail" src="https://az779114.vo.msecnd.net/preview/3308e9ae-580c-4657-98f5-03afe52c0975.doc.jpg?width=300&amp;height=424&amp;mode=crop&amp;scale=both">
-                                        <div class="extra" id="drag1">
-                                            <h5 class="multi-line-ellipsis color-override textColor3">סיכום קורס ניתוח דוחות כספיים</h5>
-                                        </div>
+            </section>
+            <section class="reviews">
+                    <ul class="bxslider">
+                        @*<li class="review">
+                                <div class="reviwer">
+                                    <img class="user-image" src="~/Images/Site/user_2.png" />
+                                    <div class="user-name"></div>
+                                </div>
+                                <div class="text">
+                                    Spitball is such a great idea! I love the quizzes - such a great way to interactively test my knowledge of the coursework! The chat feed is really helpful if you miss a class or don't understand the material. During my last semester, I feel like all I did was talk about Spitball! It was funny; people actually thought that it was my job.
+                                </div>
+                            </li>*@
+                        <li>
+                            <blockquote>
+                                <div class="reviewer">
+                                    <img src="@Url.CdnContent("/Images/HomePage2/testimonial1.jpg")" class="" alt="user pic" />
+                                    <div class="details">
+                                        <span>@HomePageResources.Testimonial1Person </span>
+                                        <cite title="@HomePageResources.Testimonial1Title">@HomePageResources.Testimonial1Title</cite>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="extra-details">
-                                <h5>סיכום קורס ניתוח דוחות כספיים</h5>
-                                <span>‏1 ‏שיעור 1 Rbarlev19@gmail.com ‏5 שלבים לעריכת שווי החברה: ‏ניתוח מאקרו ‏ניתוח ענף או עפי פעילות ‏ניתוח חברה‏ ‏שלבים אלו הם שלבים כלכליים ‏ניתוח דוחות כספים ‏–‏ ניתוח פיננסי ‏הערכת שווי ודרוג אשראי ‏–‏ סיכום של שלבים קודמים ‏מתחילים למעלה ויורדים עד</span>
-                            </div>
-                        </a>
-                        <a class="item" href="#/">
-                            <div class="base">
-                                <div class="item-ratio">
-                                    <div class="content">
-                                        <img class="img-responsive" width="368" height="520" alt="thumbnail" src="https://az779114.vo.msecnd.net/preview/3308e9ae-580c-4657-98f5-03afe52c0975.doc.jpg?width=300&amp;height=424&amp;mode=crop&amp;scale=both">
-                                        <div class="extra" id="drag1">
-                                            <h5 class="multi-line-ellipsis color-override textColor3">סיכום קורס ניתוח דוחות כספיים</h5>
-                                        </div>
+                                <p class="comment">
+                                    <span>"</span>@HomePageResources.Testimonial1
+                                </p>
+                            </blockquote>
+                        </li>
+                        <li>
+                            <blockquote>
+                                <div class="reviewer">
+                                    <img src="@Url.CdnContent("/Images/HomePage2/testimonial2.jpg")" alt="user pic" />
+                                    <div class="details">
+                                        <span>@HomePageResources.Testimonial2Person</span>
+                                        <cite title="@HomePageResources.Testimonial2Title">@HomePageResources.Testimonial2Title</cite>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="extra-details">
-                                <h5>סיכום קורס ניתוח דוחות כספיים</h5>
-                                <span>‏1 ‏שיעור 1 Rbarlev19@gmail.com ‏5 שלבים לעריכת שווי החברה: ‏ניתוח מאקרו ‏ניתוח ענף או עפי פעילות ‏ניתוח חברה‏ ‏שלבים אלו הם שלבים כלכליים ‏ניתוח דוחות כספים ‏–‏ ניתוח פיננסי ‏הערכת שווי ודרוג אשראי ‏–‏ סיכום של שלבים קודמים ‏מתחילים למעלה ויורדים עד</span>
-                            </div>
-                        </a>
-                        <a class="item" href="#/">
-                            <div class="base">
-                                <div class="item-ratio">
-                                    <div class="content">
-                                        <img class="img-responsive" width="368" height="520" alt="thumbnail" src="https://az779114.vo.msecnd.net/preview/3308e9ae-580c-4657-98f5-03afe52c0975.doc.jpg?width=300&amp;height=424&amp;mode=crop&amp;scale=both">
-                                        <div class="extra" id="drag1">
-                                            <h5 class="multi-line-ellipsis color-override textColor3">סיכום קורס ניתוח דוחות כספיים</h5>
-                                        </div>
+                                <p class="comment">
+                                    <span>"</span>@HomePageResources.Testimonial2
+                                </p>
+                            </blockquote>
+                        </li>
+                        <li>
+                            <blockquote>
+                                <div class="reviewer">
+                                    <img src="@Url.CdnContent("/Images/HomePage2/testimonial3.jpg")" alt="user pic" />
+                                    <div class="details">
+                                        <span>@HomePageResources.Testimonial3Person </span>
+                                        <cite title="@HomePageResources.Testimonial3Title">@HomePageResources.Testimonial3Title</cite>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="extra-details">
-                                <h5>סיכום קורס ניתוח דוחות כספיים</h5>
-                                <span>‏1 ‏שיעור 1 Rbarlev19@gmail.com ‏5 שלבים לעריכת שווי החברה: ‏ניתוח מאקרו ‏ניתוח ענף או עפי פעילות ‏ניתוח חברה‏ ‏שלבים אלו הם שלבים כלכליים ‏ניתוח דוחות כספים ‏–‏ ניתוח פיננסי ‏הערכת שווי ודרוג אשראי ‏–‏ סיכום של שלבים קודמים ‏מתחילים למעלה ויורדים עד</span>
-                            </div>
-                        </a>
-                        <a class="item" href="#/">
-                            <div class="base">
-                                <div class="item-ratio">
-                                    <div class="content">
-                                        <img class="img-responsive" width="368" height="520" alt="thumbnail" src="https://az779114.vo.msecnd.net/preview/3308e9ae-580c-4657-98f5-03afe52c0975.doc.jpg?width=300&amp;height=424&amp;mode=crop&amp;scale=both">
-                                        <div class="extra" id="drag1">
-                                            <h5 class="multi-line-ellipsis color-override textColor3">סיכום קורס ניתוח דוחות כספיים</h5>
-                                        </div>
+                                <p class="comment">
+                                    <span>"</span>@HomePageResources.Testimonial3
+                                </p>
+                            </blockquote>
+                        </li>
+                        <li>
+                            <blockquote>
+                                <div class="reviewer">
+                                    <img src="@Url.CdnContent("/Images/HomePage2/testimonial4.jpg")" alt="user pic" />
+                                    <div class="details">
+                                        <span>@HomePageResources.Testimonial4Person </span>
+                                        <cite title="@HomePageResources.Testimonial4Title">@HomePageResources.Testimonial4Title</cite>
                                     </div>
                                 </div>
+                                <p class="comment">
+                                    <span>"</span>@HomePageResources.Testimonial4
+                                </p>
+                            </blockquote>
+                        </li>
+                    </ul>
+            </section>
+            <footer>
+                <div class="content">
+                    <div class="app">
+                        <h1>@HomePageResources.F1</h1>
+                        <h2>@HomePageResources.F2</h2>
+                        <div class="app-links">
+                            @{
+                                var queryString = string.Empty;
+                                if (!string.IsNullOrEmpty(Request.QueryString["utm_medium"]))
+                                {
+                                    queryString = string.Format("?af_prt=peachmedia&af_siteid={0}&pid={1}&c={2}", Request.QueryString["utm_medium"], Request.QueryString["utm_source"], Request.QueryString["utm_campaign"]);
+                                }
+                            }
+                            <a target="_blank" href="@string.Format("https://app.appsflyer.com/id990911114{0}", queryString)" class="">
+                                <img src="@Url.CdnContent("~/Images/HomePage2/apple.png")" alt="apple" />
+                            </a>
+                            <a target="_blank" href="@string.Format("http://app.appsflyer.com/com.cloudents.zbox2{0}", queryString)" class="">
+                                <img src="@Url.CdnContent("~/Images/HomePage2/google.png")" alt="google" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="links">
+                            <div class="company">
+                                <!--RESOURCE--><h2>Company</h2>
+                                <a href="@Url.RouteUrl("AboutUs")">@HomeResources.AboutCloudents</a>
+                                <a href="@Url.RouteUrl("Jobs")">@SharedResources.Jobs</a>
+                                <a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a>
                             </div>
-                            <div class="extra-details">
-                                <h5>סיכום קורס ניתוח דוחות כספיים</h5>
-                                <span>‏1 ‏שיעור 1 Rbarlev19@gmail.com ‏5 שלבים לעריכת שווי החברה: ‏ניתוח מאקרו ‏ניתוח ענף או עפי פעילות ‏ניתוח חברה‏ ‏שלבים אלו הם שלבים כלכליים ‏ניתוח דוחות כספים ‏–‏ ניתוח פיננסי ‏הערכת שווי ודרוג אשראי ‏–‏ סיכום של שלבים קודמים ‏מתחילים למעלה ויורדים עד</span>
+                            <div class="support">
+                                <!--RESOURCE--><h2>Support</h2>
+                                <a href="@Url.RouteUrl("Privacy")">@FooterResources.PrivacyPolicy</a>
+                                <a href="@Url.RouteUrl("TOS")">@FooterResources.TermsOfService</a>
+                                <a href="@Url.RouteUrl("Help")">@SharedResources.Help</a>
                             </div>
-                        </a>
-                        <a class="item" href="#/">
-                            <div class="base">
-                                <div class="item-ratio">
-                                    <div class="content">
-                                        <img class="img-responsive" width="368" height="520" alt="thumbnail" src="https://az779114.vo.msecnd.net/preview/3308e9ae-580c-4657-98f5-03afe52c0975.doc.jpg?width=300&amp;height=424&amp;mode=crop&amp;scale=both">
-                                        <div class="extra" id="drag1">
-                                            <h5 class="multi-line-ellipsis color-override textColor3">סיכום קורס ניתוח דוחות כספיים</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="extra-details">
-                                <h5>סיכום קורס ניתוח דוחות כספיים</h5>
-                                <span>‏1 ‏שיעור 1 Rbarlev19@gmail.com ‏5 שלבים לעריכת שווי החברה: ‏ניתוח מאקרו ‏ניתוח ענף או עפי פעילות ‏ניתוח חברה‏ ‏שלבים אלו הם שלבים כלכליים ‏ניתוח דוחות כספים ‏–‏ ניתוח פיננסי ‏הערכת שווי ודרוג אשראי ‏–‏ סיכום של שלבים קודמים ‏מתחילים למעלה ויורדים עד</span>
-                            </div>
-                        </a>
-                        <a class="item" href="#/">
-                            <div class="base">
-                                <div class="item-ratio">
-                                    <div class="content">
-                                        <img class="img-responsive" width="368" height="520" alt="thumbnail" src="https://az779114.vo.msecnd.net/preview/3308e9ae-580c-4657-98f5-03afe52c0975.doc.jpg?width=300&amp;height=424&amp;mode=crop&amp;scale=both">
-                                        <div class="extra" id="drag1">
-                                            <h5 class="multi-line-ellipsis color-override textColor3">סיכום קורס ניתוח דוחות כספיים</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="extra-details">
-                                <h5>סיכום קורס ניתוח דוחות כספיים</h5>
-                                <span>‏1 ‏שיעור 1 Rbarlev19@gmail.com ‏5 שלבים לעריכת שווי החברה: ‏ניתוח מאקרו ‏ניתוח ענף או עפי פעילות ‏ניתוח חברה‏ ‏שלבים אלו הם שלבים כלכליים ‏ניתוח דוחות כספים ‏–‏ ניתוח פיננסי ‏הערכת שווי ודרוג אשראי ‏–‏ סיכום של שלבים קודמים ‏מתחילים למעלה ויורדים עד</span>
-                            </div>
-                        </a>
+                        </div>
+                        <div class="social-links" dir="ltr">
+                            <a target="_blank" href="https://www.facebook.com/cloudents.il">@Html.Svg(socialIconsSvg, "facebook")</a>
+                            <a target="_blank" href="https://twitter.com/SpitballStudy">@Html.Svg(socialIconsSvg, "twitter")</a>
+                            <a target="_blank" href="https://plus.google.com/+Cloudents">@Html.Svg(socialIconsSvg, "google")</a>
+                            <a target="_blank" href="https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg">@Html.Svg(socialIconsSvg, "youtube")</a>
+                            <a target="_blank" href="http://instagram.com/spitballstudy">@Html.Svg(socialIconsSvg, "instagram")</a>
+                        </div>
                     </div>
                 </div>
-            </section>
+            </footer>
         </div>
 
     </div>
