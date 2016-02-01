@@ -130,7 +130,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(id, page, 20);
                 var retVal =
-                  await ZboxReadService.GetQuestionsWithAnswersAsync(query);
+                  await ZboxReadService.GetQuestionsWithLastAnswerAsync(query);
                 //removing user name
                 if (IsCrawler())
                 {
@@ -150,22 +150,23 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             x.Id,
                             x.Url
                         }),
-                        Answers = s.Answers.Select(v => new
+                        Reply = new
                         {
-                            v.Content,
-                            v.CreationTime,
-                            v.Id,
-                            v.Url,
-                            v.UserId,
-                            v.UserImage,
-                            Files = v.Files.Select(b => new
+                            s.Reply.Content,
+                            s.Reply.CreationTime,
+                            s.Reply.Id,
+                            s.Reply.Url,
+                            s.Reply.UserId,
+                            s.Reply.UserImage,
+                            Files = s.Reply.Files.Select(b => new
                             {
                                 b.Source,
                                 b.Type,
                                 b.Id,
                                 b.Url
                             })
-                        })
+                        }
+                        
 
                     }));
                 }

@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System.Diagnostics;
+using Dapper;
 using NHibernate;
 using NHibernate.Transform;
 using System;
@@ -11,6 +12,7 @@ using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Query;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.Library;
@@ -405,41 +407,37 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        /// <summary>
-        /// used in desktop and mobile web site
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        public async Task<IEnumerable<Qna.QuestionDto>> GetQuestionsWithAnswersAsync(GetBoxQuestionsQuery query)
-        {
-            using (var con = await DapperConnection.OpenConnectionAsync())
-            {
-                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1} {2} {3}",
-                    Sql.Box.GetBoxQuestion,
-                    Sql.Box.GetBoxAnswers,
-                    Sql.Box.GetBoxQnAItem,
-                    Sql.Box.GetBoxQnaQuiz
-                    ),
-                    new { query.BoxId, query.PageNumber, query.RowsPerPage }))
-                {
-                    var questions = grid.Read<Qna.QuestionDto>().ToList();
-                    var answers = grid.Read<Qna.AnswerDto>().ToList();
-                    var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToList();
+   
+        //public async Task<IEnumerable<Qna.QuestionDto>> GetQuestionsWithAnswersAsync(GetBoxQuestionsQuery query)
+        //{
+        //    using (var con = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1} {2} {3}",
+        //            Sql.Box.GetBoxQuestion,
+        //            Sql.Box.GetBoxAnswers,
+        //            Sql.Box.GetBoxQnAItem,
+        //            Sql.Box.GetBoxQnaQuiz
+        //            ),
+        //            new { query.BoxId, query.PageNumber, query.RowsPerPage }))
+        //        {
+        //            var questions = grid.Read<Qna.QuestionDto>().ToList();
+        //            var answers = grid.Read<Qna.AnswerDto>().ToList();
+        //            var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToList();
 
-                    foreach (var answer in answers)
-                    {
-                        answer.Files.AddRange(items.Where(w => w.AnswerId.HasValue && w.AnswerId.Value == answer.Id));
-                    }
-                    foreach (var question in questions)
-                    {
-                        question.Files.AddRange(items.Where(w => w.QuestionId.HasValue && w.QuestionId.Value == question.Id));
-                        question.Answers.AddRange(answers.Where(s => s.QuestionId == question.Id));
-                    }
+        //            foreach (var answer in answers)
+        //            {
+        //                answer.Files.AddRange(items.Where(w => w.AnswerId.HasValue && w.AnswerId.Value == answer.Id));
+        //            }
+        //            foreach (var question in questions)
+        //            {
+        //                question.Files.AddRange(items.Where(w => w.QuestionId.HasValue && w.QuestionId.Value == question.Id));
+        //                question.Answers.AddRange(answers.Where(s => s.QuestionId == question.Id));
+        //            }
 
-                    return questions;
-                }
-            }
-        }
+        //            return questions;
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// Used in mobile service to retrieve the comment and the last reply
@@ -451,31 +449,47 @@ namespace Zbang.Zbox.ReadServices
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1} {2} {3}",
-                    Sql.Box.GetBoxCommentsForMobile,
-                    Sql.Box.GetLastCommentRepliesForMobile,
-                    Sql.Box.GetBoxItemForCommentInMobile,
-                    Sql.Box.GetBoxQuizFromCommentInMobile
+                    Sql.Box.GetBoxComments,
+                    Sql.Box.GetLastReplyOfComment,
+                    Sql.Box.GetItemsForCommentsAndLastReply,
+                    Sql.Box.GetQuizzesForCommentsAndLastReply
                     ),
                     new { query.BoxId, query.PageNumber, query.RowsPerPage }))
                 {
+                    var sw = new Stopwatch();
+                    sw.Start();
                     var comments = grid.Read<Qna.QuestionDto>().ToList();
-                    var replies = grid.Read<Qna.AnswerDto>().ToList();
-                    var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToList();
+                    var replies = grid.Read<Qna.AnswerDto>().ToDictionary(x => x.QuestionId);
+                    var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToLookup(c => c.QuestionId );
 
+
+                    var replyItems = items[null].ToList();
                     foreach (var reply in replies)
                     {
-                        reply.Files.AddRange(items.Where(w => w.AnswerId.HasValue && w.AnswerId.Value == reply.Id));
+
+                        reply.Value.Files.AddRange(replyItems.Where(w => w.AnswerId == reply.Value.Id));
+                        //reply.Files.AddRange(items.Where(w => w.AnswerId.HasValue && w.AnswerId.Value == reply.Id));
                     }
                     foreach (var comment in comments)
                     {
-                        comment.Files.AddRange(items.Where(w => w.QuestionId.HasValue && w.QuestionId.Value == comment.Id));
-                        var reply = replies.FirstOrDefault(s => s.QuestionId == comment.Id);
-                        if (reply != null)
+                        // var x =  items[comment.Id];
+                        //comment.Files.AddRange();
+                        comment.Files.AddRange(items[comment.Id]);
+                        //comment.Files.AddRange(items.Where(w => w.QuestionId.HasValue && w.QuestionId.Value == comment.Id));
+                        Qna.AnswerDto reply;
+                        // replies[comment.Id];// replies.FirstOrDefault(s => s.QuestionId == comment.Id);
+                        if (replies.TryGetValue(comment.Id, out reply))
                         {
-                            comment.Answers.Add(reply);
+                            comment.Reply = reply;
                         }
+                        //if (reply != null)
+                        //{
+                        //    comment.Answers.Add(reply);
+                        //}
 
                     }
+                    sw.Stop();
+                    TraceLog.WriteInfo("feed " + sw.ElapsedTicks);
 
                     return comments;
                 }

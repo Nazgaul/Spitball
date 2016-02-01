@@ -150,10 +150,10 @@ namespace Zbang.Zbox.ReadServices
               (m_ReadService.GetLocationByIpAsync, query);
         }
 
-        public Task<IEnumerable<QuestionDto>> GetQuestionsWithAnswersAsync(GetBoxQuestionsQuery query)
-        {
-            return m_ReadService.GetQuestionsWithAnswersAsync(query);
-        }
+        //public Task<IEnumerable<QuestionDto>> GetQuestionsWithAnswersAsync(GetBoxQuestionsQuery query)
+        //{
+        //    return m_ReadService.GetQuestionsWithAnswersAsync(query);
+        //}
 
         public Task<IEnumerable<QuestionDto>> GetQuestionsWithLastAnswerAsync(GetBoxQuestionsQuery query)
         {

@@ -3,6 +3,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
 {
     public static class Box
     {
+        //TODO: performance optimization check
         public const string BoxData = @"
 select 
   b.BoxName as Name
@@ -33,95 +34,96 @@ where boxid = @BoxId
 order by name;";
 
 
-        public const string GetBoxQuestion = @"
- SELECT q.[QuestionId] as id
-    ,u.[UserName] as UserName
-	  ,u.UserImageLarge as UserImage
-	  ,u.userid as UserId
-    ,u.Url as Url
-    ,[Text] as Content
-    ,q.CreationTime as creationTime
-    FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
-    where q.BoxId = @BoxId
-    order by q.[QuestionId] desc
-    offset @pageNumber*@rowsperpage ROWS
-	FETCH NEXT @rowsperpage ROWS ONLY;";
+//        public const string GetBoxQuestion = @"
+// SELECT q.[QuestionId] as id
+//    ,u.[UserName] as UserName
+//	  ,u.UserImageLarge as UserImage
+//	  ,u.userid as UserId
+//    ,u.Url as Url
+//    ,[Text] as Content
+//    ,q.CreationTime as creationTime
+//    FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
+//    where q.BoxId = @BoxId
+//    order by q.[QuestionId] desc
+//    offset @pageNumber*@rowsperpage ROWS
+//	FETCH NEXT @rowsperpage ROWS ONLY;";
 
      
 
-        public const string GetBoxAnswers = @"  SELECT a.[AnswerId] as id
-	  ,u.[UserName] as UserName
-      ,u.UserImageLarge as UserImage
-      ,u.userid as UserId
-      ,u.Url as Url
-      ,[Text] as Content
-      ,[QuestionId] as questionId
-      ,a.CreationTime as creationTime
-      FROM [Zbox].[Answer] a join zbox.users u on u.userid = a.userid
-	  where a.boxid = @BoxId
-	  and  a.questionid in 
-            (select questionid from zbox.question where boxid = @boxid 
-	            order by questionid desc
-	            offset @pageNumber*@rowsperpage ROWS
-	            FETCH NEXT @rowsperpage ROWS ONLY)
-	  order by id;";
+//        public const string GetBoxAnswers = @"  SELECT a.[AnswerId] as id
+//	  ,u.[UserName] as UserName
+//      ,u.UserImageLarge as UserImage
+//      ,u.userid as UserId
+//      ,u.Url as Url
+//      ,[Text] as Content
+//      ,[QuestionId] as questionId
+//      ,a.CreationTime as creationTime
+//      FROM [Zbox].[Answer] a join zbox.users u on u.userid = a.userid
+//	  where a.boxid = @BoxId
+//	  and  a.questionid in 
+//            (select questionid from zbox.question where boxid = @boxid 
+//	            order by questionid desc
+//	            offset @pageNumber*@rowsperpage ROWS
+//	            FETCH NEXT @rowsperpage ROWS ONLY)
+//	  order by id;";
 
-        public const string GetBoxQnAItem = @"  select
-    i.itemid as Id,
-    i.Name as Name,
-    i.UserId as OwnerId,
-    i.QuestionId as QuestionId,
-    i.AnswerId as AnswerId,
-    i.Url as Url,
-    i.Discriminator as Type,
-    i.BlobName as Source
-    from zbox.item i
-    where i.IsDeleted = 0
-    and i.BoxId = @BoxId
-    and (QuestionId in  (select questionid from zbox.question where boxid = @boxid 
-	            order by questionid desc
-	            offset @pageNumber*@rowsperpage ROWS
-	            FETCH NEXT @rowsperpage ROWS ONLY)
-				or AnswerId is not null);";
+//        public const string GetBoxQnAItem = @"  select
+//    i.itemid as Id,
+//    i.Name as Name,
+//    i.UserId as OwnerId,
+//    i.QuestionId as QuestionId,
+//    i.AnswerId as AnswerId,
+//    i.Url as Url,
+//    i.Discriminator as Type,
+//    i.BlobName as Source
+//    from zbox.item i
+//    where i.IsDeleted = 0
+//    and i.BoxId = @BoxId
+//    and (QuestionId in  (select questionid from zbox.question where boxid = @boxid 
+//	            order by questionid desc
+//	            offset @pageNumber*@rowsperpage ROWS
+//	            FETCH NEXT @rowsperpage ROWS ONLY)
+//				or AnswerId is not null);";
 
 
-        public const string GetBoxQnaQuiz = @"	select
-    i.Id as Id,
-    i.Name as Name,
-    i.UserId as OwnerId,
-    i.QuestionId as QuestionId,
-    i.Url as Url
-    from zbox.Quiz i
-    where i.Publish = 1
-    and i.isdeleted = 0
-    and i.BoxId = @BoxId
-    and QuestionId in  (select questionid from zbox.question where boxid = @boxid 
-	            order by questionid desc
-	            offset @pageNumber*@rowsperpage ROWS
-	            FETCH NEXT @rowsperpage ROWS ONLY);";
+//        public const string GetBoxQnaQuiz = @"	select
+//    i.Id as Id,
+//    i.Name as Name,
+//    i.UserId as OwnerId,
+//    i.QuestionId as QuestionId,
+//    i.Url as Url
+//    from zbox.Quiz i
+//    where i.Publish = 1
+//    and i.isdeleted = 0
+//    and i.BoxId = @BoxId
+//    and QuestionId in  (select questionid from zbox.question where boxid = @boxid 
+//	            order by questionid desc
+//	            offset @pageNumber*@rowsperpage ROWS
+//	            FETCH NEXT @rowsperpage ROWS ONLY);";
 
-        #region mobileFeed
-        public const string GetBoxCommentsForMobile = @" SELECT q.[QuestionId] as id
+       
+        public const string GetBoxComments = @"SELECT q.[QuestionId] as id
     ,u.[UserName] as UserName
 	  ,u.UserImageLarge as UserImage
 	  ,u.userid as UserId
     ,[Text] as Content
     ,q.CreationTime as creationTime
-	,(select count(*) from zbox.Answer where questionid = q.questionid and boxid = @BoxId) as RepliesCount
-    FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
+	,q.ReplyCount as RepliesCount
+	,q.LikeCount as likes
+	FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
     where q.BoxId = @BoxId
     order by q.[updatetime] desc
     offset @pageNumber*@rowsperpage ROWS
 	FETCH NEXT @rowsperpage ROWS ONLY;";
 
-
+        //used for reply view in mobile app
         public const string GetCommentForMobile = @" SELECT q.[QuestionId] as id
     ,u.[UserName] as UserName
 	  ,u.UserImageLarge as UserImage
 	  ,u.userid as UserId
     ,[Text] as Content
     ,q.CreationTime as creationTime
-	,(select count(*) from zbox.Answer where questionid = q.questionid and boxid = @BoxId) as RepliesCount
+	,q.ReplyCount as RepliesCount
     FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
     where q.QuestionId = @QuestionId;
 ";
@@ -139,29 +141,28 @@ order by name;";
 	and i.QuestionId = @QuestionId  
 ";
 
-        public const string GetLastCommentRepliesForMobile = @"with last_reply as (
-select max([AnswerId]) as 'id', questionid  from [Zbox].[Answer] a 
-where a.boxid = @BoxId 
-	  and  a.questionid in 
-            (select questionid from zbox.question where boxid = @BoxId
-	            order by updatetime desc
-	            offset @pageNumber*@rowsperpage ROWS
-	            FETCH NEXT @rowsperpage ROWS ONLY
-				)
-				group by questionid
-)
-	 SELECT  a.[AnswerId] as id
+        public const string GetLastReplyOfComment = @" SELECT  a.[AnswerId] as id
 	  ,u.[UserName] as UserName
       ,u.UserImageLarge as UserImage
       ,u.userid as UserId
-      ,[Text] as Content
-      ,last_reply.QuestionId as questionId
+      ,a.[Text] as Content
+      ,a.QuestionId as questionId
       ,a.CreationTime as creationTime
-      FROM [Zbox].[Answer] a 
+      FROM [Zbox].[Answer] a join zbox.Question q on a.AnswerId = q.LastReplyId
 	  join zbox.users u on u.userid = a.userid
-	  join last_reply on a.answerid = last_reply.id;";
+	  where q.BoxId = @BoxId
+    order by q.[updatetime] desc
+    offset @pageNumber*@rowsperpage ROWS
+	FETCH NEXT @rowsperpage ROWS ONLY;";
 
-        public const string GetBoxItemForCommentInMobile = @"select
+        public const string GetItemsForCommentsAndLastReply = @"with questions as (
+select questionid,LastReplyId from zbox.question
+ where boxid = @boxid 
+	            order by updatetime desc
+	            offset @pageNumber*@rowsperpage ROWS
+	            FETCH NEXT @rowsperpage ROWS ONLY
+)
+ select
     i.itemid as Id,
     i.Name as Name,
     i.UserId as OwnerId,
@@ -169,35 +170,20 @@ where a.boxid = @BoxId
     i.AnswerId as AnswerId,
     i.Discriminator as Type,
     i.BlobName as Source
-    from zbox.item i
+	
+    from zbox.item i cross apply (select * from questions q
+	             where i.QuestionId = q.QuestionId or (LastReplyId is not null and i.AnswerId = LastReplyId) 
+				
+				) t
     where i.IsDeleted = 0
-    and i.BoxId = @BoxId
-    and (
-		QuestionId in  (select questionid from zbox.question where boxid = @boxid 
-	            order by updatetime desc
-	            offset @pageNumber*@rowsperpage ROWS
-	            FETCH NEXT @rowsperpage ROWS ONLY)
-		or 
-		AnswerId in (
-				select max([AnswerId]) as 'id'  from [Zbox].[Answer] a 
-				where a.boxid = @BoxId
-				and  a.questionid in 
-					(select questionid from zbox.question where boxid = @BoxId 
-					order by updatetime desc
-					offset @pageNumber*@rowsperpage ROWS
-					FETCH NEXT @rowsperpage ROWS ONLY
-				)
-				group by questionid)
-				)";
+    and i.BoxId = @BoxId";
 
-        public const string GetBoxQuizFromCommentInMobile = @"    select
+        public const string GetQuizzesForCommentsAndLastReply = @"    select
     i.Id as Id,
     i.Name as Name,
     i.UserId as OwnerId,
     i.QuestionId as QuestionId,
-    --i.AnswerId as AnswerId,
     'Quiz' as Type
-    --i.BlobName as Source
     from zbox.Quiz i
     where i.IsDeleted = 0
 	and i.Publish = 1
@@ -237,7 +223,7 @@ where a.boxid = @BoxId
 	  order by answerid desc
 	   offset @pageNumber*@rowsperpage ROWS
 	            FETCH NEXT @rowsperpage ROWS ONLY);";
-        #endregion
+      
 
         public const string RecommendedCourses = @"
 select top 3 b.boxid, b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,

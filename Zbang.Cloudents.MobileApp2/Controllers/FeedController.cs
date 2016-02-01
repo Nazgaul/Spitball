@@ -33,71 +33,72 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         // GET api/Feed
         [HttpGet]
         [VersionedRoute("api/box/{boxId:long}/feed", 1)]
-        //[Route("{boxId:long}/feed")]
         public async Task<HttpResponseMessage> Feed(long boxId, int page, int sizePerPage = 20)
         {
-            try
-            {
-                var retVal =
-                  await ZboxReadService.GetQuestionsWithAnswersAsync(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
-                return Request.CreateResponse(retVal.Select(s => new
-                {
-                    Answers = s.Answers.Select(a => new
-                    {
-                        a.Content,
-                        a.CreationTime,
-                        Files = a.Files.Select(v => new
-                        {
-                            v.AnswerId,
-                            v.Id,
-                            v.Name,
-                            v.OwnerId,
-                            v.QuestionId,
-                            v.Source,
-                            Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(v.Source) +
-                                      ".jpg?width=148&height=187&mode=crop",
-                            v.Type,
-                            v.Url,
-                            v.DownloadUrl
-                        }),
-                        a.Id,
-                        a.QuestionId,
-                        a.Url,
-                        a.UserId,
-                        a.UserImage,
-                        a.UserName
-                    }),
-                    s.Content,
-                    s.CreationTime,
-                    Files = s.Files.Select(v => new
-                    {
-                        v.AnswerId,
-                        v.Id,
-                        v.Name,
-                        v.OwnerId,
-                        v.QuestionId,
-                        v.Source,
-                        Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(v.Source) +
-                                  ".jpg?width=148&height=187&mode=crop",
-                        v.Type,
-                        v.Url,
-                        v.DownloadUrl
-                    }),
-                    s.Id,
-                    s.Url,
-                    s.UserId,
-                    s.UserImage,
-                    s.UserName
-                }));
-            }
-            catch (BoxAccessDeniedException)
-            {
-                return Request.CreateUnauthorizedResponse();
-            }
-            catch (BoxDoesntExistException)
-            {
-                return Request.CreateNotFoundResponse();
-            }
+            return await Feed2(boxId, page, sizePerPage);
+            //Services.Log.Info("")
+            //try
+            //{
+            //    var retVal =
+            //      await ZboxReadService.GetQuestionsWithAnswersAsync(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
+            //    return Request.CreateResponse(retVal.Select(s => new
+            //    {
+            //        Answers = s.Answers.Select(a => new
+            //        {
+            //            a.Content,
+            //            a.CreationTime,
+            //            Files = a.Files.Select(v => new
+            //            {
+            //                v.AnswerId,
+            //                v.Id,
+            //                v.Name,
+            //                v.OwnerId,
+            //                v.QuestionId,
+            //                v.Source,
+            //                Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(v.Source) +
+            //                          ".jpg?width=148&height=187&mode=crop",
+            //                v.Type,
+            //                v.Url,
+            //                v.DownloadUrl
+            //            }),
+            //            a.Id,
+            //            a.QuestionId,
+            //            a.Url,
+            //            a.UserId,
+            //            a.UserImage,
+            //            a.UserName
+            //        }),
+            //        s.Content,
+            //        s.CreationTime,
+            //        Files = s.Files.Select(v => new
+            //        {
+            //            v.AnswerId,
+            //            v.Id,
+            //            v.Name,
+            //            v.OwnerId,
+            //            v.QuestionId,
+            //            v.Source,
+            //            Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(v.Source) +
+            //                      ".jpg?width=148&height=187&mode=crop",
+            //            v.Type,
+            //            v.Url,
+            //            v.DownloadUrl
+            //        }),
+            //        s.Id,
+            //        s.Url,
+            //        s.UserId,
+            //        s.UserImage,
+            //        s.UserName
+            //    }));
+            //}
+            //catch (BoxAccessDeniedException)
+            //{
+            //    return Request.CreateUnauthorizedResponse();
+            //}
+            //catch (BoxDoesntExistException)
+            //{
+            //    return Request.CreateNotFoundResponse();
+            //}
         }
 
         [HttpGet, VersionedRoute("api/box/{boxId:long}/feed", 2)]
@@ -110,11 +111,11 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateResponse(retVal.Select(s => new
                 {
                     s.Id,
-                    Answers = s.Answers.Select(x => new
+                    Answers = new[] { new 
                     {
-                        x.Content,
-                        x.CreationTime,
-                        Files = x.Files.Select(z => new
+                        s.Reply.Content,
+                        s.Reply.CreationTime,
+                        Files = s.Reply.Files.Select(z => new
                         {
                             z.Id,
                             z.Name,
@@ -124,11 +125,11 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                             Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(z.Source) +
                                   ".jpg?width=148&height=187&mode=crop"
                         }),
-                        x.Id,
-                        x.UserId,
-                        x.UserImage,
-                        x.UserName
-                    }),
+                        s.Reply.Id,
+                        s.Reply.UserId,
+                        s.Reply.UserImage,
+                        s.Reply.UserName
+                    }},
                     s.Content,
                     s.CreationTime,
                     Files = s.Files.Where(w => w.Source != null).Select(v => new
@@ -174,11 +175,11 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateResponse(retVal.Select(s => new
                 {
                     s.Id,
-                    Answers = s.Answers.Select(x => new
+                    Answers = new[] { new
                     {
-                        x.Content,
-                        x.CreationTime,
-                        Files = x.Files.Select(z => new
+                        s.Reply.Content,
+                        s.Reply.CreationTime,
+                        Files = s.Reply.Files.Select(z => new
                         {
                             z.Id,
                             z.Name,
@@ -188,11 +189,11 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                             Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(z.Source) +
                                   ".jpg?width=148&height=187&mode=crop"
                         }),
-                        x.Id,
-                        x.UserId,
-                        x.UserImage,
-                        x.UserName
-                    }),
+                        s.Reply.Id,
+                        s.Reply.UserId,
+                        s.Reply.UserImage,
+                        s.Reply.UserName
+                    }},
                     s.Content,
                     s.CreationTime,
                     Files = s.Files.Select(v => new

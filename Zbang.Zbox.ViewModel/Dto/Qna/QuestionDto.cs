@@ -8,7 +8,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
         private DateTime m_Date;
         public QuestionDto()
         {
-            Answers = new List<AnswerDto>();
+            //Answers = new List<AnswerDto>();
             Files = new List<ItemDto>();
         }
         public Guid Id { get; set; }
@@ -19,7 +19,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
 
         public string Content { get; set; }
 
-        public List<AnswerDto> Answers { get; set; }
+        public AnswerDto Reply { get; set; }
 
         public List<ItemDto> Files { get; set; }
 
