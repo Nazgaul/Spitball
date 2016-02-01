@@ -16,6 +16,8 @@
     @Html.Css2("homePage")
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="/Scripts/jquery.bxslider.js"></script>
+    <script src="/Scripts/CountUp.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.5/waypoints.min.js"></script>
     <link href="/Content/jquery.bxslider.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
     <meta name="google-signin-client_id" content="997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com" />
@@ -29,32 +31,30 @@
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
                 'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
+                    new Date().getTime(), event: 'gtm.js'
             }); var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');
-
-        $(document).ready(function () {
-            $('.bxslider').bxSlider({
-                auto: true,
-                controls: false,
-
-            });
-        });
     </script>
     <div class="page-content">
         <header>
             <nav>
-                <div class="logo">
+                <div class="navbar-header">
+                    <div class="logo"></div>
+                    <button type="button" class="navbar-toggle collapsed">
+                        <label for="menu-toggle">@Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "headerMenu" })</label>
+                    </button>
                 </div>
+                <input type="checkbox" id="menu-toggle" />
                 <ul>
                     <li class="signin">
                         <a href="@Url.Action("SignIn", "Account", new { universityid = Request.QueryString["universityid"] })">@HomePageResources.A1</a>
                     </li>
                     <li class="jobs"><a href="@Url.RouteUrl("Jobs")">@HomePageResources.A2</a></li>
                     <li class="language">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="">@Html.Svg("/images/homepage2/homePageIcons.svg", "globus", new { @class = "globus" })&nbsp;<span>@Languages.EnglishUsName</span></a>
+                        <input type="checkbox" id="language-menu" />
+                        <label for="language-menu">@Html.Svg("/images/homepage2/homePageIcons.svg", "globus", new { @class = "globus" })&nbsp;<span>@Languages.EnglishUsName</span></label>
                         <ul class="dropdown-menu dropdown-menu-left ">
                             <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-US" })">@Languages.EnglishUsName</a> </li>
                             <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-UK" })">@Languages.EnglishGbName</a> </li>
@@ -67,166 +67,167 @@
         </header>
         <div class="home-page-body">
             <section class="main">
-                    <h1>@HomePageResources.A4</h1>
-                    <div class="signin-options">
-                        <button type="button" class="login-option facebook">
+                <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@HomePageResources.A4</h1>
+                <div class="signin-options">
+                    <button type="button" class="login-option facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                        <div>
                             @Html.Svg("/images/signin/loginoptions.svg", "facebook")
                             <span>@LogOnResources.ExternalProvider</span>
-                        </button>
-                        <button type="button" class="login-option google">
+                        </div>
+                    </button>
+                    <button type="button" class="login-option google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                        <div>
                             @Html.Svg("/images/signin/loginoptions.svg", "google")
                             <span>@LogOnResources.ExternalProvider</span>
-                        </button>
-                        <a class="login-option signup" href="@Url.Action("SignUp", "Account", new { universityid = Request.QueryString["universityid"] })" target="_self">@HomePageResources.A5</a>
-                    </div>
-                    <div class="statistics">
-                        <!--RESOURCE--><div>180,000 Students</div>
-                        <!--RESOURCE--><div>300,000 Documents</div>
-                        <!--RESOURCE--><div>220,000 Quizzes</div>
-                    </div>
-                    <div class="social-links">
-                        <div class="wrapper" dir="ltr">
-                            <a target="_blank" href="https://www.facebook.com/cloudents.il">@Html.Svg(socialIconsSvg, "facebook")</a>
-                            <a target="_blank" href="https://twitter.com/SpitballStudy">@Html.Svg(socialIconsSvg, "twitter")</a>
-                            <a target="_blank" href="https://plus.google.com/+Cloudents">@Html.Svg(socialIconsSvg, "google")</a>
-                            <a target="_blank" href="https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg">@Html.Svg(socialIconsSvg, "youtube")</a>
-                            <a target="_blank" href="http://instagram.com/spitballstudy">@Html.Svg(socialIconsSvg, "instagram")</a>
                         </div>
+                    </button>
+                    <a class="login-option signup os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s" href="@Url.Action("SignUp", "Account", new { universityid = Request.QueryString["universityid"] })" target="_self">@HomePageResources.A5</a>
+                </div>
+                <div class="statistics os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
+                    <h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>
+
+                    <!--RESOURCE--><div id="students"></div>
+                    <!--RESOURCE--><div id="documents"></div>
+                    <!--RESOURCE--><div id="quizzes"></div>
+                </div>
+                <div class="social-links os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.6s">
+                    <div class="wrapper" dir="ltr">
+                        <a target="_blank" href="https://www.facebook.com/cloudents.il">@Html.Svg(socialIconsSvg, "facebook")</a>
+                        <a target="_blank" href="https://twitter.com/SpitballStudy">@Html.Svg(socialIconsSvg, "twitter")</a>
+                        <a target="_blank" href="https://plus.google.com/+Cloudents">@Html.Svg(socialIconsSvg, "google")</a>
+                        <a target="_blank" href="https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg">@Html.Svg(socialIconsSvg, "youtube")</a>
+                        <a target="_blank" href="http://instagram.com/spitballstudy">@Html.Svg(socialIconsSvg, "instagram")</a>
                     </div>
+                </div>
             </section>
             <section class="about">
-                    <h1>@HomePageResources.D1</h1>
-                    <div class="description">
-                        <p>@HomePageResources.D2</p>
+                <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.D1</h1>
+                <div class="description os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                    <p>@HomePageResources.D2</p>
+                    <div class="features">
                         <ul>
-                            <li>@HomePageResources.D3</li>
-                            <li>@HomePageResources.D4</li>
-                            <li>@HomePageResources.D5</li>
-                            <li>@HomePageResources.D6</li>
+                            <li class="os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.1s">@HomePageResources.D3</li>
+                            <li class="os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.3s">@HomePageResources.D4</li>
+                        </ul>
+                        <ul>
+                            <li class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.2s">@HomePageResources.D5</li>
+                            <li class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.4s">@HomePageResources.D6</li>
                         </ul>
                     </div>
-                    <div class="video-section">
-                        <div class="video">
-                            <iframe src="https://www.youtube.com/embed/69daYsNqNUA" frameborder="0" allowfullscreen></iframe>
-                        </div>
+                </div>
+                <div class="video-section os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
+                    <div class="video">
+                        <iframe src="https://www.youtube.com/embed/69daYsNqNUA" frameborder="0" allowfullscreen></iframe>
                     </div>
+                </div>
             </section>
             <section class="check-us">
-                <!--RESOURCE--><h1>@HomePageResources.C1</h1>
-                    <div class="boxes">
-                        <a href="#/" class="box">
-                            <h2>Course name</h2>
-                            <div class="course-info">
-                                <div class="lecturer">Lecturer name</div>
-                                <div class="course-num">Course number</div>
-                            </div>
-                            <hr />
-                            <div class="box-info">
-                                <div>X Members</div>
-                                <div>Y items</div>
-                            </div>
+                <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.C1</h1>
+                <div class="boxes">
+                    <a href="#/" class="box os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
+                        <h2>Course name</h2>
+                        <div class="course-info">
+                            <div class="lecturer">Lecturer name</div>
+                            <div class="course-num">Course number</div>
+                        </div>
+                        <hr />
+                        <div class="box-info">
+                            <div>X Members</div>
+                            <div>Y items</div>
+                        </div>
 
-                        </a>
-                        <a href="#/" class="box">
-                            <h2>Course name</h2>
-                            <div class="course-info">
-                                <div class="lecturer">Lecturer name</div>
-                                <div class="course-num">Course number</div>
-                            </div>
-                            <hr />
-                            <div class="box-info">
-                                <div>X Members</div>
-                                <div>Y items</div>
-                            </div>
-                        </a>
-                        <a href="#/" class="box">
-                            <h2>Course name</h2>
-                            <div class="course-info">
-                                <div class="lecturer">Lecturer name</div>
-                                <div class="course-num">Course number</div>
-                            </div>
-                            <hr />
-                            <div class="box-info">
-                                <div>X Members</div>
-                                <div>Y items</div>
-                            </div>
-                        </a>
-                    </div>
+                    </a>
+                    <a href="#/" class="box os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.2s">
+                        <h2>Course name</h2>
+                        <div class="course-info">
+                            <div class="lecturer">Lecturer name</div>
+                            <div class="course-num">Course number</div>
+                        </div>
+                        <hr />
+                        <div class="box-info">
+                            <div>X Members</div>
+                            <div>Y items</div>
+                        </div>
+                    </a>
+                    <a href="#/" class="box os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                        <h2>Course name</h2>
+                        <div class="course-info">
+                            <div class="lecturer">Lecturer name</div>
+                            <div class="course-num">Course number</div>
+                        </div>
+                        <hr />
+                        <div class="box-info">
+                            <div>X Members</div>
+                            <div>Y items</div>
+                        </div>
+                    </a>
+                </div>
             </section>
             <section class="reviews">
-                    <ul class="bxslider">
-                        @*<li class="review">
-                                <div class="reviwer">
-                                    <img class="user-image" src="~/Images/Site/user_2.png" />
-                                    <div class="user-name"></div>
+                <ul class="bxslider box os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">
+                    <li>
+                        <blockquote>
+                            <div class="reviewer">
+                                <img src="@Url.CdnContent("/Images/HomePage2/testimonial1.jpg")" class="" alt="user pic" />
+                                <div class="details">
+                                    <span>@HomePageResources.Testimonial1Person </span>
+                                    <cite title="@HomePageResources.Testimonial1Title">@HomePageResources.Testimonial1Title</cite>
                                 </div>
-                                <div class="text">
-                                    Spitball is such a great idea! I love the quizzes - such a great way to interactively test my knowledge of the coursework! The chat feed is really helpful if you miss a class or don't understand the material. During my last semester, I feel like all I did was talk about Spitball! It was funny; people actually thought that it was my job.
+                            </div>
+                            <p class="comment">
+                                <span>"</span>@HomePageResources.Testimonial1
+                            </p>
+                        </blockquote>
+                    </li>
+                    <li>
+                        <blockquote>
+                            <div class="reviewer">
+                                <img src="@Url.CdnContent("/Images/HomePage2/testimonial2.jpg")" alt="user pic" />
+                                <div class="details">
+                                    <span>@HomePageResources.Testimonial2Person</span>
+                                    <cite title="@HomePageResources.Testimonial2Title">@HomePageResources.Testimonial2Title</cite>
                                 </div>
-                            </li>*@
-                        <li>
-                            <blockquote>
-                                <div class="reviewer">
-                                    <img src="@Url.CdnContent("/Images/HomePage2/testimonial1.jpg")" class="" alt="user pic" />
-                                    <div class="details">
-                                        <span>@HomePageResources.Testimonial1Person </span>
-                                        <cite title="@HomePageResources.Testimonial1Title">@HomePageResources.Testimonial1Title</cite>
-                                    </div>
+                            </div>
+                            <p class="comment">
+                                <span>"</span>@HomePageResources.Testimonial2
+                            </p>
+                        </blockquote>
+                    </li>
+                    <li>
+                        <blockquote>
+                            <div class="reviewer">
+                                <img src="@Url.CdnContent("/Images/HomePage2/testimonial3.jpg")" alt="user pic" />
+                                <div class="details">
+                                    <span>@HomePageResources.Testimonial3Person </span>
+                                    <cite title="@HomePageResources.Testimonial3Title">@HomePageResources.Testimonial3Title</cite>
                                 </div>
-                                <p class="comment">
-                                    <span>"</span>@HomePageResources.Testimonial1
-                                </p>
-                            </blockquote>
-                        </li>
-                        <li>
-                            <blockquote>
-                                <div class="reviewer">
-                                    <img src="@Url.CdnContent("/Images/HomePage2/testimonial2.jpg")" alt="user pic" />
-                                    <div class="details">
-                                        <span>@HomePageResources.Testimonial2Person</span>
-                                        <cite title="@HomePageResources.Testimonial2Title">@HomePageResources.Testimonial2Title</cite>
-                                    </div>
+                            </div>
+                            <p class="comment">
+                                <span>"</span>@HomePageResources.Testimonial3
+                            </p>
+                        </blockquote>
+                    </li>
+                    <li>
+                        <blockquote>
+                            <div class="reviewer">
+                                <img src="@Url.CdnContent("/Images/HomePage2/testimonial4.jpg")" alt="user pic" />
+                                <div class="details">
+                                    <span>@HomePageResources.Testimonial4Person </span>
+                                    <cite title="@HomePageResources.Testimonial4Title">@HomePageResources.Testimonial4Title</cite>
                                 </div>
-                                <p class="comment">
-                                    <span>"</span>@HomePageResources.Testimonial2
-                                </p>
-                            </blockquote>
-                        </li>
-                        <li>
-                            <blockquote>
-                                <div class="reviewer">
-                                    <img src="@Url.CdnContent("/Images/HomePage2/testimonial3.jpg")" alt="user pic" />
-                                    <div class="details">
-                                        <span>@HomePageResources.Testimonial3Person </span>
-                                        <cite title="@HomePageResources.Testimonial3Title">@HomePageResources.Testimonial3Title</cite>
-                                    </div>
-                                </div>
-                                <p class="comment">
-                                    <span>"</span>@HomePageResources.Testimonial3
-                                </p>
-                            </blockquote>
-                        </li>
-                        <li>
-                            <blockquote>
-                                <div class="reviewer">
-                                    <img src="@Url.CdnContent("/Images/HomePage2/testimonial4.jpg")" alt="user pic" />
-                                    <div class="details">
-                                        <span>@HomePageResources.Testimonial4Person </span>
-                                        <cite title="@HomePageResources.Testimonial4Title">@HomePageResources.Testimonial4Title</cite>
-                                    </div>
-                                </div>
-                                <p class="comment">
-                                    <span>"</span>@HomePageResources.Testimonial4
-                                </p>
-                            </blockquote>
-                        </li>
-                    </ul>
+                            </div>
+                            <p class="comment">
+                                <span>"</span>@HomePageResources.Testimonial4
+                            </p>
+                        </blockquote>
+                    </li>
+                </ul>
             </section>
             <footer>
                 <div class="content">
                     <div class="app">
-                        <h1>@HomePageResources.F1</h1>
-                        <h2>@HomePageResources.F2</h2>
+                        <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.F1</h1>
+                        <h2 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@HomePageResources.F2</h2>
                         <div class="app-links">
                             @{
                                 var queryString = string.Empty;
@@ -235,16 +236,16 @@
                                     queryString = string.Format("?af_prt=peachmedia&af_siteid={0}&pid={1}&c={2}", Request.QueryString["utm_medium"], Request.QueryString["utm_source"], Request.QueryString["utm_campaign"]);
                                 }
                             }
-                            <a target="_blank" href="@string.Format("https://app.appsflyer.com/id990911114{0}", queryString)" class="">
+                            <a target="_blank" href="@string.Format("https://app.appsflyer.com/id990911114{0}", queryString)" class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                                 <img src="@Url.CdnContent("~/Images/HomePage2/apple.png")" alt="apple" />
                             </a>
-                            <a target="_blank" href="@string.Format("http://app.appsflyer.com/com.cloudents.zbox2{0}", queryString)" class="">
+                            <a target="_blank" href="@string.Format("http://app.appsflyer.com/com.cloudents.zbox2{0}", queryString)" class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.4s">
                                 <img src="@Url.CdnContent("~/Images/HomePage2/google.png")" alt="google" />
                             </a>
                         </div>
                     </div>
                     <div class="info">
-                        <div class="links">
+                        <div class="links os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
                             <div class="company">
                                 <!--RESOURCE--><h2>Company</h2>
                                 <a href="@Url.RouteUrl("AboutUs")">@HomeResources.AboutCloudents</a>
@@ -258,7 +259,7 @@
                                 <a href="@Url.RouteUrl("Help")">@SharedResources.Help</a>
                             </div>
                         </div>
-                        <div class="social-links" dir="ltr">
+                        <div class="social-links os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.6s" dir="ltr">
                             <a target="_blank" href="https://www.facebook.com/cloudents.il">@Html.Svg(socialIconsSvg, "facebook")</a>
                             <a target="_blank" href="https://twitter.com/SpitballStudy">@Html.Svg(socialIconsSvg, "twitter")</a>
                             <a target="_blank" href="https://plus.google.com/+Cloudents">@Html.Svg(socialIconsSvg, "google")</a>
@@ -271,5 +272,94 @@
         </div>
 
     </div>
+
+    <script>
+        $('.bxslider').bxSlider({
+            auto: true,
+            controls: false,
+
+        });
+
+        var options = {
+            useEasing: true,
+            useGrouping: true,
+            separator: ',',
+            decimal: '.',
+            prefix: ''
+        };
+
+        var studentsCount = 180000;
+        options.suffix = ' Students';
+        new CountUp("students", 0, studentsCount, 0, 2.5, options).start();;
+
+        var documentsCount = 300000;
+        options.suffix = ' Documents';
+        new CountUp("documents", 0, documentsCount, 0, 2.5, options).start();;
+
+        var quizzesCount = 220000;
+        options.suffix = ' Quizzes';
+        new CountUp("quizzes", 0, quizzesCount, 0, 2.5, options).start();;
+
+
+
+        // Animations
+
+        $('body').waypoint({
+            offset: -200,
+            handler: function (direction) {
+                if (direction === 'down') {
+                    $('.go-top').css('bottom', '12px').css('opacity', '1');
+                }
+                else {
+                    $('.go-top').css('bottom', '-44px').css('opacity', '0');
+                }
+            }
+        });
+
+        // Init On scroll animations
+        function onScrollInit(items, trigger) {
+            console.log('woop4');
+            items.each(function () {
+                console.log('woop5');
+                var osElement = $(this),
+                    osAnimationClass = osElement.attr('data-os-animation'),
+                    osAnimationDelay = osElement.attr('data-os-animation-delay');
+                console.log('woop5');
+                osElement.css({
+                    '-webkit-animation-delay': osAnimationDelay,
+                    '-moz-animation-delay': osAnimationDelay,
+                    'animation-delay': osAnimationDelay
+                });
+
+                var osTrigger = (trigger) ? trigger : osElement;
+
+                osTrigger.waypoint(function () {
+                    osElement.addClass('animated').addClass(osAnimationClass);
+                }, {
+                    triggerOnce: true,
+                    offset: '90%'
+                });
+            });
+        }
+
+        function initialisePageScrollAnimations() {
+            console.log('woop3');
+            onScrollInit($('.os-animation'));
+            //onScrollInit($('.staff-os-animation'), $('.staff-list-container'));
+            //onScrollInit($('.recent-simple-os-animation'), $('.recent-simple-os-container'));
+        }
+
+
+        // if we have page loader on wait for it to finish before init animations
+
+        initialisePageScrollAnimations();
+
+    </script>
+    <script type="text/javascript" src="~/js/CDNFallbackWithoutAngular.js?v=@VersionHelper.CurrentVersion(true)"></script>
+    @Html.Script2("homePage")
+    <script src="https://apis.google.com/js/platform.js" onload="googleLoad()" async defer></script>
+    <script type="text/javascript">
+        Login.initExternalLogin();
+    </script>
 </body>
 </html>

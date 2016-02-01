@@ -253,3 +253,4 @@
 /// <reference path="angular-messages.min.js" />
 /// <reference path="jquery.bxslider.js" />
 /// <reference path="../js/components/box/slideit.directive.js" />
+/// <reference path="countup.js" />
