@@ -111,11 +111,11 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateResponse(retVal.Select(s => new
                 {
                     s.Id,
-                    Answers = new[] { new 
+                    Answers = s.Replies.Select(x => new
                     {
-                        s.Reply.Content,
-                        s.Reply.CreationTime,
-                        Files = s.Reply.Files.Select(z => new
+                        x.Content,
+                        x.CreationTime,
+                        Files = x.Files.Select(z => new
                         {
                             z.Id,
                             z.Name,
@@ -125,11 +125,11 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                             Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(z.Source) +
                                   ".jpg?width=148&height=187&mode=crop"
                         }),
-                        s.Reply.Id,
-                        s.Reply.UserId,
-                        s.Reply.UserImage,
-                        s.Reply.UserName
-                    }},
+                        x.Id,
+                        x.UserId,
+                        x.UserImage,
+                        x.UserName
+                    }),
                     s.Content,
                     s.CreationTime,
                     Files = s.Files.Where(w => w.Source != null).Select(v => new
@@ -175,11 +175,11 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 return Request.CreateResponse(retVal.Select(s => new
                 {
                     s.Id,
-                    Answers = new[] { new
+                    Answers = s.Replies.Select(x=>  new
                     {
-                        s.Reply.Content,
-                        s.Reply.CreationTime,
-                        Files = s.Reply.Files.Select(z => new
+                        x.Content,
+                        x.CreationTime,
+                        Files = x.Files.Select(z => new
                         {
                             z.Id,
                             z.Name,
@@ -189,11 +189,11 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                             Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(z.Source) +
                                   ".jpg?width=148&height=187&mode=crop"
                         }),
-                        s.Reply.Id,
-                        s.Reply.UserId,
-                        s.Reply.UserImage,
-                        s.Reply.UserName
-                    }},
+                        x.Id,
+                        x.UserId,
+                        x.UserImage,
+                        x.UserName
+                    }),
                     s.Content,
                     s.CreationTime,
                     Files = s.Files.Select(v => new

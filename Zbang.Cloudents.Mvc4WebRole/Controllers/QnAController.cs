@@ -150,15 +150,56 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             x.Id,
                             x.Url
                         }),
-                        Reply = new
+                        Replies = s.Replies.Select(v =>
+                            new
+                            {
+                                v.Content,
+                                v.CreationTime,
+                                v.Id,
+                                v.Url,
+                                v.UserId,
+                                v.UserImage,
+                                Files = v.Files.Select(b => new
+                                {
+                                    b.Source,
+                                    b.Type,
+                                    b.Id,
+                                    b.Url
+                                })
+                            })
+
+
+
+                    }));
+                }
+                return JsonOk(retVal.Select(s => new
+                {
+                    s.Content,
+                    s.CreationTime,
+                    s.Id,
+                    s.RepliesCount,
+                    s.Url,
+                    s.UserId,
+                    s.UserImage,
+                    s.UserName,
+                    Files = s.Files.Select(x => new
+                    {
+                        x.Source,
+                        x.Type,
+                        x.Id,
+                        x.Url
+                    }),
+                    Replies = s.Replies.Select(v =>
+
+                        new
                         {
-                            s.Reply.Content,
-                            s.Reply.CreationTime,
-                            s.Reply.Id,
-                            s.Reply.Url,
-                            s.Reply.UserId,
-                            s.Reply.UserImage,
-                            Files = s.Reply.Files.Select(b => new
+                            v.Content,
+                            v.CreationTime,
+                            v.Id,
+                            v.Url,
+                            v.UserId,
+                            v.UserImage,
+                            Files = v.Files.Select(b => new
                             {
                                 b.Source,
                                 b.Type,
@@ -166,11 +207,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                 b.Url
                             })
                         }
-                        
 
-                    }));
-                }
-                return JsonOk(retVal);
+
+                    )
+                }));
             }
             catch (BoxAccessDeniedException)
             {

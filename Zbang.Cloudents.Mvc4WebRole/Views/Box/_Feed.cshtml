@@ -56,8 +56,8 @@
                             </button>
                             <span class="ribbon" ng-if="post.isNew">@BoxResources.RibbonNew</span>
                         </div>
-                        <ol class="list-unstyled replies" ng-if="post.answers.length">
-                            <li ng-repeat="reply in post.answers" class="reply">
+                        <ol class="list-unstyled replies" ng-if="post.replies.length">
+                            <li ng-repeat="reply in post.replies" class="reply">
                                 <md-menu ng-if="b.canDelete(reply.userId)">
                                     <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
                                         @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
@@ -75,7 +75,7 @@
                                         <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
                                         <span class="user-name">{{::reply.userName}}</span>
                                     </a>
-                                   
+
 
                                 </div>
                                 <div ng-bind-html="::reply.content" class="indent content-text"></div>

@@ -407,7 +407,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-   
+
         //public async Task<IEnumerable<Qna.QuestionDto>> GetQuestionsWithAnswersAsync(GetBoxQuestionsQuery query)
         //{
         //    using (var con = await DapperConnection.OpenConnectionAsync())
@@ -460,7 +460,7 @@ namespace Zbang.Zbox.ReadServices
                     sw.Start();
                     var comments = grid.Read<Qna.QuestionDto>().ToList();
                     var replies = grid.Read<Qna.AnswerDto>().ToDictionary(x => x.QuestionId);
-                    var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToLookup(c => c.QuestionId );
+                    var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToLookup(c => c.QuestionId);
 
 
                     var replyItems = items[null].ToList();
@@ -480,7 +480,7 @@ namespace Zbang.Zbox.ReadServices
                         // replies[comment.Id];// replies.FirstOrDefault(s => s.QuestionId == comment.Id);
                         if (replies.TryGetValue(comment.Id, out reply))
                         {
-                            comment.Reply = reply;
+                            comment.Replies.Add(reply);
                         }
                         //if (reply != null)
                         //{
