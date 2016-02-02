@@ -18,13 +18,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "homePage", new[]
                     {
-                         //"~/Content/HomePage/extras.css",
-                         //"~/Content/HomePage/bootstrap.css",
-                         //"~/Content/HomePage/theme.css",
-                         //"~/Content/HomePage/landing.css",
-                         "~/content/site/general.css", // this should be on top
                          "~/Content/HomePage/homePage.css"
-
                     }
                 },
                   {
@@ -100,12 +94,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "homePage", new[]
                     {
-                        new JsFileWithCdn("~/js/homePage/theme.js"),
-                        //new JsFileWithCdn("~/Scripts/browser-deeplink.min.js")
-                        new JsFileWithCdn("~/js/homePage/homeScreen.js"),
+                        new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/js/signin/login-soft.js"),
-                        new JsFileWithCdn("~/scripts/svg4everybody.js")
-
+                        new JsFileWithCdn("~/scripts/svg4everybody.js"),
+                        new JsFileWithCdn("~/Js/HomePage/waypoints.min.js"),
+                        new JsFileWithCdn("~/Scripts/jquery.bxslider.js"),
+                        new JsFileWithCdn("~/Scripts/CountUp.js"),
+                        new JsFileWithCdn("~/Js/HomePage.js")
                     }
                 },
                 {

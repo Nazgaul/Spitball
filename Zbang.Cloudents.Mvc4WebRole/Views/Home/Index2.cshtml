@@ -14,10 +14,6 @@
 <head>
     @{Html.RenderPartial("_Head");}
     @Html.Css2("homePage")
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script src="/Scripts/jquery.bxslider.js"></script>
-    <script src="/Scripts/CountUp.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.5/waypoints.min.js"></script>
     <link href="/Content/jquery.bxslider.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
     <meta name="google-signin-client_id" content="997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com" />
@@ -86,9 +82,9 @@
                 <div class="statistics os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
                     <h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>
 
-                    <!--RESOURCE--><div id="students"></div>
-                    <!--RESOURCE--><div id="documents"></div>
-                    <!--RESOURCE--><div id="quizzes"></div>
+                    <div id="students" data-statistic="@HomePageResources.statsStudents"></div>
+                    <div id="documents" data-statistic="@HomePageResources.statsDocuments"></div>
+                    <div id="quizzes" data-statistic="@HomePageResources.statsQuizzes"></div>
                 </div>
                 <div class="social-links os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.6s">
                     <div class="wrapper" dir="ltr">
@@ -115,11 +111,24 @@
                         </ul>
                     </div>
                 </div>
-                <div class="video-section os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
-                    <div class="video">
-                        <iframe src="https://www.youtube.com/embed/69daYsNqNUA" frameborder="0" allowfullscreen></iframe>
+                @*<div class="video-section os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
+                        <div class="video">
+                            <iframe src="https://www.youtube.com/embed/69daYsNqNUA" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>*@
+                <div class="video-wrapper">
+                    <input type="checkbox" id="showVideo" />
+                    <label id="open-video" for="showVideo">
+                        <img class="video-image os-animation" src="@Url.CdnContent("~/Images/HomePage2/video.png")" alt="Spitball video" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
+                    </label>
+                    <div class="shadowbox os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
+                        <div class="video-section">
+                            <div id="video"></div>
+                        </div>
+                        <label id="close-video" for="showVideo"></label>
                     </div>
                 </div>
+
             </section>
             <section class="check-us">
                 <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.C1</h1>
@@ -168,7 +177,7 @@
                     <li>
                         <blockquote>
                             <div class="reviewer">
-                                <img src="@Url.CdnContent("/Images/HomePage2/testimonial1.jpg")" class="" alt="user pic" />
+                                <div class="user-image"></div>
                                 <div class="details">
                                     <span>@HomePageResources.Testimonial1Person </span>
                                     <cite title="@HomePageResources.Testimonial1Title">@HomePageResources.Testimonial1Title</cite>
@@ -182,7 +191,7 @@
                     <li>
                         <blockquote>
                             <div class="reviewer">
-                                <img src="@Url.CdnContent("/Images/HomePage2/testimonial2.jpg")" alt="user pic" />
+                                <div class="user-image"></div>
                                 <div class="details">
                                     <span>@HomePageResources.Testimonial2Person</span>
                                     <cite title="@HomePageResources.Testimonial2Title">@HomePageResources.Testimonial2Title</cite>
@@ -196,7 +205,7 @@
                     <li>
                         <blockquote>
                             <div class="reviewer">
-                                <img src="@Url.CdnContent("/Images/HomePage2/testimonial3.jpg")" alt="user pic" />
+                                <div class="user-image"></div>
                                 <div class="details">
                                     <span>@HomePageResources.Testimonial3Person </span>
                                     <cite title="@HomePageResources.Testimonial3Title">@HomePageResources.Testimonial3Title</cite>
@@ -210,7 +219,7 @@
                     <li>
                         <blockquote>
                             <div class="reviewer">
-                                <img src="@Url.CdnContent("/Images/HomePage2/testimonial4.jpg")" alt="user pic" />
+                                <div class="user-image"></div>
                                 <div class="details">
                                     <span>@HomePageResources.Testimonial4Person </span>
                                     <cite title="@HomePageResources.Testimonial4Title">@HomePageResources.Testimonial4Title</cite>
@@ -247,13 +256,13 @@
                     <div class="info">
                         <div class="links os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
                             <div class="company">
-                                <!--RESOURCE--><h2>Company</h2>
+                                <h2>@HomePageResources.infoSection1</h2>
                                 <a href="@Url.RouteUrl("AboutUs")">@HomeResources.AboutCloudents</a>
                                 <a href="@Url.RouteUrl("Jobs")">@SharedResources.Jobs</a>
                                 <a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a>
                             </div>
                             <div class="support">
-                                <!--RESOURCE--><h2>Support</h2>
+                                <h2>@HomePageResources.infoSection2</h2>
                                 <a href="@Url.RouteUrl("Privacy")">@FooterResources.PrivacyPolicy</a>
                                 <a href="@Url.RouteUrl("TOS")">@FooterResources.TermsOfService</a>
                                 <a href="@Url.RouteUrl("Help")">@SharedResources.Help</a>
@@ -272,94 +281,29 @@
         </div>
 
     </div>
-
-    <script>
-        $('.bxslider').bxSlider({
-            auto: true,
-            controls: false,
-
-        });
-
-        var options = {
-            useEasing: true,
-            useGrouping: true,
-            separator: ',',
-            decimal: '.',
-            prefix: ''
-        };
-
-        var studentsCount = 180000;
-        options.suffix = ' Students';
-        new CountUp("students", 0, studentsCount, 0, 2.5, options).start();;
-
-        var documentsCount = 300000;
-        options.suffix = ' Documents';
-        new CountUp("documents", 0, documentsCount, 0, 2.5, options).start();;
-
-        var quizzesCount = 220000;
-        options.suffix = ' Quizzes';
-        new CountUp("quizzes", 0, quizzesCount, 0, 2.5, options).start();;
-
-
-
-        // Animations
-
-        $('body').waypoint({
-            offset: -200,
-            handler: function (direction) {
-                if (direction === 'down') {
-                    $('.go-top').css('bottom', '12px').css('opacity', '1');
-                }
-                else {
-                    $('.go-top').css('bottom', '-44px').css('opacity', '0');
-                }
-            }
-        });
-
-        // Init On scroll animations
-        function onScrollInit(items, trigger) {
-            console.log('woop4');
-            items.each(function () {
-                console.log('woop5');
-                var osElement = $(this),
-                    osAnimationClass = osElement.attr('data-os-animation'),
-                    osAnimationDelay = osElement.attr('data-os-animation-delay');
-                console.log('woop5');
-                osElement.css({
-                    '-webkit-animation-delay': osAnimationDelay,
-                    '-moz-animation-delay': osAnimationDelay,
-                    'animation-delay': osAnimationDelay
-                });
-
-                var osTrigger = (trigger) ? trigger : osElement;
-
-                osTrigger.waypoint(function () {
-                    osElement.addClass('animated').addClass(osAnimationClass);
-                }, {
-                    triggerOnce: true,
-                    offset: '90%'
-                });
-            });
-        }
-
-        function initialisePageScrollAnimations() {
-            console.log('woop3');
-            onScrollInit($('.os-animation'));
-            //onScrollInit($('.staff-os-animation'), $('.staff-list-container'));
-            //onScrollInit($('.recent-simple-os-animation'), $('.recent-simple-os-container'));
-        }
-
-
-        // if we have page loader on wait for it to finish before init animations
-
-        initialisePageScrollAnimations();
-
-    </script>
+    <div id="cssCheck"></div>
     <script type="text/javascript" src="~/js/CDNFallbackWithoutAngular.js?v=@VersionHelper.CurrentVersion(true)"></script>
     @Html.Script2("homePage")
     <script src="https://apis.google.com/js/platform.js" onload="googleLoad()" async defer></script>
     <script type="text/javascript">
         Login.initExternalLogin();
     </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('require', 'displayfeatures');
+
+        ga('create', 'UA-9850006-3', {
+            'siteSpeedSampleRate': 70,
+            'cookieDomain': 'spitball.co',
+            'alwaysSendReferrer': true
+        });
+    </script>
+
 </body>
 </html>

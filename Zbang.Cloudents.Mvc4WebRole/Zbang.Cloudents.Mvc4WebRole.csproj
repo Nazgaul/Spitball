@@ -1685,7 +1685,14 @@
     <Content Include="Images\aboutUs\shlomi.png" />
     <Content Include="Images\bx_loader.gif" />
     <Content Include="Images\controls.png" />
-    <Content Include="Images\HomePage2\HP_image.png" />
+    <Content Include="Images\HomePage2\HP_image.jpg" />
+    <Content Include="Images\HomePage2\testimonials.jpg">
+      <DependentUpon>testimonials.sprite</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage2\testimonials.jpg.css">
+      <DependentUpon>testimonials.jpg</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage2\video.png" />
     <Content Include="Images\signin\loginOptions.svg" />
     <Content Include="Images\Site\404_image.png" />
     <Content Include="Images\HomePage2\apple.png" />
@@ -1787,6 +1794,7 @@
     <Content Include="Js\components\search\search.service.js" />
     <Content Include="Js\components\search\searchTrigger.controller.js" />
     <Content Include="Js\components\user\user.routes.js" />
+    <Content Include="Js\homePage\waypoints.min.js" />
     <Content Include="Js\menu\menulink.directive.js" />
     <Content Include="Js\menu\nospace.filter.js" />
     <Content Include="Js\polyfills.js" />
@@ -1834,7 +1842,6 @@
     <Content Include="Js\components\user\userdetails.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
     <Content Include="Js\components\user\user.controller.js" />
-    <Content Include="Js\homePage\homeScreen.js" />
     <Content Include="Js\homePage\theme.js" />
     <Content Include="Js\routerHelperProvider.js" />
     <Content Include="Js\shared\colorOnLength.js" />
@@ -1911,6 +1918,16 @@
     <Content Include="Content\HomePage\homePage.less" />
     <Content Include="Content\Site\feed.less" />
     <Content Include="Content\Bootstrap\config.json" />
+    <Content Include="Images\HomePage2\testimonials.sprite" />
+    <Content Include="Images\HomePage2\testimonials.jpg.map">
+      <DependentUpon>testimonials.jpg</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage2\testimonials.jpg.less">
+      <DependentUpon>testimonials.jpg</DependentUpon>
+    </Content>
+    <Content Include="Images\HomePage2\testimonials.jpg.scss">
+      <DependentUpon>testimonials.jpg</DependentUpon>
+    </Content>
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
