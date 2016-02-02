@@ -119,6 +119,7 @@
     <Compile Include="Dto\Library\UniversitySearchDto.cs" />
     <Compile Include="Dto\Library\UniversityWithCodeDto.cs" />
     <Compile Include="Dto\PagedDto.cs" />
+    <Compile Include="Dto\Qna\LikeDto.cs" />
     <Compile Include="Dto\Qna\ReplyDto.cs" />
     <Compile Include="Dto\Qna\ItemDto.cs" />
     <Compile Include="Dto\Qna\CommentDto.cs" />
@@ -183,6 +184,8 @@
     <Compile Include="Queries\Library\GetUniversityDetailQuery.cs" />
     <Compile Include="Queries\QnA\GetBoxQuestionsQuery.cs" />
     <Compile Include="Queries\QnA\GetCommentRepliesQuery.cs" />
+    <Compile Include="Queries\QnA\GetFeedLikesQuery.cs" />
+    <Compile Include="Queries\QnA\GetQuestionQuery.cs" />
     <Compile Include="Queries\QueryBase.cs" />
     <Compile Include="Queries\GetBoxQuery.cs" />
     <Compile Include="Queries\GetBoxItemsPagedQuery.cs" />
@@ -211,16 +214,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\BoxDto.hbm.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mappings\UserDto.hbm.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mappings\ItemDto.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -254,11 +247,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\Emails.hbm.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mappings\Tab.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

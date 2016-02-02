@@ -10,6 +10,7 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.ViewModel.Queries.QnA;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
@@ -107,18 +108,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize, HttpPost]
-        public JsonResult LikeComment(Guid commentId)
+        public async Task<JsonResult> LikeComment(Guid commentId, long boxId)
         {
-            var command = new LikeCommentCommand(commentId, User.GetUserId());
-            var retVal = ZboxWriteService.LikeComment(command);
+            var command = new LikeCommentCommand(commentId, User.GetUserId(), boxId);
+            var retVal = await ZboxWriteService.LikeCommentAsync(command);
             return JsonOk(retVal.Liked);
         }
 
         [ZboxAuthorize, HttpPost]
-        public JsonResult LikeReply(Guid replyId)
+        public async Task<JsonResult> LikeReply(Guid replyId, long boxId)
         {
-            var command = new LikeReplyCommand(replyId, User.GetUserId());
-            var retVal = ZboxWriteService.LikeReply(command);
+            var command = new LikeReplyCommand(replyId, User.GetUserId(), boxId);
+            var retVal = await ZboxWriteService.LikeReplyAsync(command);
             return JsonOk(retVal.Liked);
         }
 
@@ -282,6 +283,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
+         [HttpGet, BoxPermission("boxId"), ZboxAuthorize]
+        public async Task<JsonResult> CommentLikes(Guid id, long boxId)
+        {
+            var query = new GetFeedLikesQuery(id);
+            var retVal = await ZboxReadService.GetCommentLikesAsync(query);
+            return JsonOk(retVal);
+        }
+
+         [HttpGet, BoxPermission("boxId"), ZboxAuthorize]
+         public async Task<JsonResult> ReplyLikes(Guid id, long boxId)
+        {
+            var query = new GetFeedLikesQuery(id);
+            var retVal = await ZboxReadService.GetReplyLikesAsync(query);
+            return JsonOk(retVal);
+        }
 
     }
 }

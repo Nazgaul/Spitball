@@ -126,32 +126,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return (long)num;
         }
 
-        //[HttpGet]
-        //public async Task<JsonResult> GetUniversityByFriends(string token)
-        //{
-        //    if (string.IsNullOrEmpty(token))
-        //    {
-        //        return JsonError();
-        //    }
-        //    try
-        //    {
-        //        var friendsId = await m_FacebookService.Value.GetFacebookUserFriends(token);
-        //        var facebookFriendData = friendsId as FacebookFriendData[] ?? friendsId.ToArray();
-        //        var suggestedUniversity =
-        //            await ZboxReadService.GetUniversityListByFriendsIdsAsync(facebookFriendData.Select(s => s.Id));
-
-
-        //        return JsonOk(suggestedUniversity);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("Library Get friends authentication key=" + token, ex);
-        //        return JsonError();
-        //    }
-        //}
-
-
-
+        
         [HttpGet]
         public async Task<JsonResult> Nodes(string section)
         {
@@ -311,30 +286,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        //[HttpGet]
-        //[OutputCache(CacheProfile = "PartialCache")]
-
-        //public ActionResult CreateDepartmentPartial()
-        //{
-        //    try
-        //    {
-        //        return PartialView("_CreateLibraryItem");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("_CreateLibraryItem", ex);
-        //        return Json(new JsonResponse(false));
-        //    }
-        //}
-
+       
 
         #endregion
 
-        //[HttpGet]
-        //public PartialViewResult NewUniversity()
-        //{
-        //    return PartialView("_AddSchoolDialog", new CreateUniversity());
-        //}
+      
 
         [HttpPost]
 

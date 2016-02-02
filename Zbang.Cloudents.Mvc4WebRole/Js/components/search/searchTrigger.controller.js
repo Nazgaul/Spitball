@@ -8,13 +8,11 @@
         st.search = search;
         st.change = search;
 
-        st.term =  $location.search().q; //$state not yet loaded
+        st.term = $location.search().q; //$state not yet loaded
 
         function search(isValid) {
+            console.log('here');
             if (isValid) {
-                //var url = $state.href('searchinfo', { q: st.term });
-                //url += '?q=' + st.term;
-                //$location.url(url);
                 $state.go('searchinfo', { q: st.term, t: $stateParams.t });
                 if ($state.current.name === 'searchinfo') {
                     $rootScope.$broadcast('search-query');

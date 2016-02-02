@@ -30,7 +30,7 @@
                 configureStates: configureStates,
                 getStates: getStates,
                 //universityRedirect: universityRedirect
-                //buildUrl: buildUrl
+                buildUrl: buildUrl
             };
 
             return service;

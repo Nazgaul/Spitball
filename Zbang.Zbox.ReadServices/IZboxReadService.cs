@@ -67,7 +67,7 @@ namespace Zbang.Zbox.ReadServices
 
         
 
-        BoxSettingsDto GetBoxSetting(GetBoxQuery query, long userId);
+       // BoxSettingsDto GetBoxSetting(GetBoxQuery query, long userId);
 
         Task<IEnumerable<UserMemberDto>> GetBoxMembersAsync(GetBoxQuery query);
         Task<IEnumerable<long>> GetBoxUsersIdAsync(GetBoxWithUserQuery query);
@@ -75,12 +75,11 @@ namespace Zbang.Zbox.ReadServices
         Task<UserMinProfile> GetUserMinProfileAsync(GetUserMinProfileQuery query);
 
         Task<string> GetLocationByIpAsync(GetCountryByIpQuery query);
-        //Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByFriendsIdsAsync(IEnumerable<long> friendsIds);
-
-
-        //Task<IEnumerable<QuestionDto>> GetQuestionsWithAnswersAsync(GetBoxQuestionsQuery query);
         Task<IEnumerable<CommentDto>> GetQuestionsWithLastAnswerAsync(GetBoxQuestionsQuery query);
         Task<IEnumerable<ReplyDto>> GetRepliesAsync(GetCommentRepliesQuery query);
+
+        Task<IEnumerable<LikeDto>> GetCommentLikesAsync(GetFeedLikesQuery query);
+        Task<IEnumerable<LikeDto>> GetReplyLikesAsync(GetFeedLikesQuery query);
         Task<CommentDto> GetQuestionAsync(GetQuestionQuery query);
         Task<bool> GetInviteAsync(GetInviteDetailQuery query);
 

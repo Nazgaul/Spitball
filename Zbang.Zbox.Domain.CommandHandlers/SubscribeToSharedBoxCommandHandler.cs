@@ -34,40 +34,44 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public async Task HandleAsync(SubscribeToSharedBoxCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
-            var isSubscribed = false;
-            var user = m_UserRepository.Load(command.UserId);
-            var box = m_BoxRepository.Load(command.BoxId);
+           // var user = m_UserRepository.Load(command.UserId);
+            //var box = m_BoxRepository.Load(command.BoxId);
 
-            var userBoxRel = m_UserRepository.GetUserBoxRelationship(user.Id, box.Id);
+            var userBoxRel = m_UserRepository.GetUserBoxRelationship(command.UserId, command.BoxId);
             var type = UserRelationshipType.None;
             if (userBoxRel != null)
             {
                 type = userBoxRel.UserRelationshipType;
             }
+            if (type == UserRelationshipType.Owner || type == UserRelationshipType.Subscribe)
+            {
+                return;
+            }
             if (type == UserRelationshipType.Invite)
             {
-
-                user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
+                var user = m_UserRepository.Load(command.UserId);
+                var box2 = m_BoxRepository.Load(command.BoxId);
+                user.ChangeUserRelationShipToBoxType(box2, UserRelationshipType.Subscribe);
                 m_UserRepository.Save(user);
-                await GiveReputation(userBoxRel);
-                isSubscribed = true;
+                if (userBoxRel != null) await GiveReputation(userBoxRel.Id);
+                box2.CalculateMembers();
+                m_BoxRepository.Save(box2);
             }
-
+            var box = m_BoxRepository.Load(command.BoxId);
             if (type == UserRelationshipType.None && box.PrivacySettings.PrivacySetting == BoxPrivacySettings.AnyoneWithUrl)
             {
+                var user = m_UserRepository.Load(command.UserId);
                 user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
-                isSubscribed = true;
                 m_UserRepository.Save(user);
+                box.CalculateMembers();
+                m_BoxRepository.Save(box);
             }
 
-            if (!isSubscribed) return;
-            box.CalculateMembers();
-            m_BoxRepository.Save(box);
         }
 
-        private async Task GiveReputation(UserBoxRel userBoxRel)
+        private async Task GiveReputation(long userBoxRelId)
         {
-            var invite = m_InviteRepository.GetUserInvite(userBoxRel);
+            var invite = m_InviteRepository.GetUserInvite(userBoxRelId);
             if (invite == null)
                 return;
             if (invite.IsUsed)

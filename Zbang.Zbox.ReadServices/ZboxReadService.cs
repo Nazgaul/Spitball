@@ -526,6 +526,23 @@ select * from usersCount as StudentsCount, itemsCount as DocumentCount, quizzesC
             }
         }
 
+        public async Task<IEnumerable<Qna.LikeDto>> GetReplyLikesAsync(GetFeedLikesQuery query)
+        {
+            using (var con = await DapperConnection.OpenConnectionAsync())
+            {
+                const string sql = "select UserImageLarge as Image ,UserName as Name,Url from zbox.ReplyLike join zbox.Users on OwnerId = userid where replyid = @Id";
+                return await con.QueryAsync<Qna.LikeDto>(sql, new { query.Id });
+            }
+        }
+        public async Task<IEnumerable<Qna.LikeDto>> GetCommentLikesAsync(GetFeedLikesQuery query)
+        {
+            using (var con = await DapperConnection.OpenConnectionAsync())
+            {
+                const string sql = "select UserImageLarge as Image ,UserName as Name,Url from zbox.CommentLike join zbox.Users on OwnerId = userid where CommentId = @Id";
+                return await con.QueryAsync<Qna.LikeDto>(sql, new { query.Id });
+            }
+        }
+
         public async Task<IEnumerable<Qna.ReplyDto>> GetRepliesAsync(GetCommentRepliesQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
@@ -650,7 +667,7 @@ select * from usersCount as StudentsCount, itemsCount as DocumentCount, quizzesC
         }
 
         /// <summary>
-        /// Used in api to ivite to box
+        /// Used in api to private to box
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
@@ -694,45 +711,6 @@ select * from usersCount as StudentsCount, itemsCount as DocumentCount, quizzesC
             }
         }
 
-        //public async Task<bool> GetUniversityNeedCode(long universityId)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        var retVal = await conn.QueryAsync<bool>(Sql.LibraryChoose.GetNeedCode, new
-        //        {
-        //            universityId
-        //        });
-        //        return retVal.FirstOrDefault();
-        //    }
-        //}
-
-        //public async Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByFriendsIdsAsync(IEnumerable<long> friendsIds)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        //we can only use 2100 in statement
-        //        using (var grid = await conn.QueryMultipleAsync(
-        //             string.Format("{0} {1}", Sql.LibraryChoose.GetUniversityByFriendIds,
-        //             Sql.LibraryChoose.GetFriendsInUniversitiesByFriendsIds),
-        //            new { FriendsIds = friendsIds.Take(2099) }
-        //             ))
-        //        {
-        //            var retVal = await grid.ReadAsync<UniversityByPrefixDto>();
-        //            var friends = await grid.ReadAsync<FriendPerUniversityDto>();
-        //            retVal = retVal.Select(s =>
-        //            {
-        //                s.UserImages = friends.Where(w => w.UniversityId == s.Id).Select(s1 => s1.Image);
-        //                return s;
-        //            });
-        //            //retVal = retVal.Select(s =>
-        //            //   {
-        //            //       s.Friends = friends.Where(w => w.UniversityId == s.Id);
-        //            //       return s;
-        //            //   }).ToList();
-        //            return retVal;
-        //        }
-        //    }
-        //}
 
 
         /// <summary>
@@ -771,40 +749,6 @@ select * from usersCount as StudentsCount, itemsCount as DocumentCount, quizzesC
             }
         }
 
-        //public Theme GetUserTheme(GetUserDetailsQuery query)
-        //{
-        //    using (var conn = DapperConnection.OpenConnection())
-        //    {
-        //        var retVal =
-        //                conn.Query<Theme?>(Sql.Sql.UserTheme,
-        //               new { query.UserId });
-        //        var firstResult = retVal.First();
-        //        if (!firstResult.HasValue)
-        //        {
-        //            return Theme.Dark;
-        //        }
-        //        return firstResult.Value;
-        //    }
-        //}
-
-
-        /// <summary>
-        /// Get box settings data for ajax request
-        /// </summary>
-        /// <param name="query"></param>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        public BoxSettingsDto GetBoxSetting(GetBoxQuery query, long userId)
-        {
-            using (UnitOfWork.Start())
-            {
-                IQuery boxSettingQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxSettingsDtoById");
-                boxSettingQuery.SetParameter("Id", query.BoxId);
-                boxSettingQuery.SetParameter("Userid", userId);
-                boxSettingQuery.SetResultTransformer(Transformers.AliasToBean<BoxSettingsDto>());
-                return boxSettingQuery.UniqueResult<BoxSettingsDto>();
-            }
-        }
 
 
         #region Account Settings
@@ -988,19 +932,7 @@ select * from usersCount as StudentsCount, itemsCount as DocumentCount, quizzesC
 
         #endregion
 
-        //#region Admin
-        //public async Task<IEnumerable<User.AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<User.AdminUserDto>(Sql.Admin.UsersInUniversity,
-        //            new
-        //            {
-        //                universityId = query.UniversityId
-        //            });
-        //    }
-        //}
-        //#endregion
+
 
 
 

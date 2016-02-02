@@ -429,19 +429,23 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public LikeCommentCommandResult LikeComment(LikeCommentCommand command)
+        public async Task<LikeCommentCommandResult> LikeCommentAsync(LikeCommentCommand command)
         {
             using (UnitOfWork.Start())
             {
+                var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
+                await m_CommandBus.SendAsync(autoFollowCommand);
                 var result = m_CommandBus.Dispatch<LikeCommentCommand, LikeCommentCommandResult>(command);
                 UnitOfWork.Current.TransactionalFlush();
                 return result;
             }
         }
-        public LikeReplyCommandResult LikeReply(LikeReplyCommand command)
+        public async Task<LikeReplyCommandResult> LikeReplyAsync(LikeReplyCommand command)
         {
             using (UnitOfWork.Start())
             {
+                var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
+                await m_CommandBus.SendAsync(autoFollowCommand);
                 var result = m_CommandBus.Dispatch<LikeReplyCommand, LikeReplyCommandResult>(command);
                 UnitOfWork.Current.TransactionalFlush();
                 return result;

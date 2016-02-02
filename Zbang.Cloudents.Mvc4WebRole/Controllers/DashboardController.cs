@@ -134,36 +134,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }));
         }
 
-        //[HttpGet]
-        //[Route("dashboard/CreateBox")]
-        //[OutputCache(CacheProfile = "PartialCache")]
-        //public ActionResult CreateBox()
-        //{
-        //    try
-        //    {
-        //        return PartialView("_CreateBoxWizard");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("PrivateBoxPartial ", ex);
-        //        return JsonError();
-        //    }
-        //}
-
-        //[HttpGet]
-        //[OutputCache(CacheProfile = "PartialCache")]
-        //public ActionResult SocialInvitePartial()
-        //{
-        //    try
-        //    {
-        //        return PartialView("_Invite");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("_Invite", ex);
-        //        return JsonError();
-        //    }
-        //}
+        
 
     }
 }

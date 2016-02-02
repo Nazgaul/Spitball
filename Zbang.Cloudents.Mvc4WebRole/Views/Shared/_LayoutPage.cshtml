@@ -64,9 +64,18 @@
             </div>
             @if (!ViewBag.error)
             {
-                <form ng-controller="SearchTriggerController as st" ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger" novalidate @*href="@Url.Action("Index","Search")" @shouldPostBack*@ class="search-form search-form-expanded" ng-hide="app.hideSearch" @*ga-track-event="['header', 'search']"*@>
+                <form ng-controller="SearchTriggerController as st" 
+                      ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger" 
+                      novalidate class="search-form search-form-expanded" ng-hide="app.hideSearch">
                     <div class="search-area color-override backgroundColor4">
-                        <input required ng-change="st.change(searchTrigger.$valid)" ng-focus="app.expandSearch = true" ng-blur="app.expandSearch = false" ng-model="st.term" ng-model-options="{debounce : 300}" type="search" class="text" user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
+                        <input required ng-change="st.change(searchTrigger.$valid)" 
+                               ng-focus="app.expandSearch = true" 
+                               ng-blur="app.expandSearch = false" 
+                               ng-model="st.term" 
+                               ng-minlength="2"
+                               ng-model-options="{debounce : 300}" 
+                               type="search" class="text" 
+                               user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
                         <button type="submit" class="search-btn color-override backgroundColor11">
                             @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon color-override svgColor3" })
                         </button>
