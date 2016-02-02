@@ -90,6 +90,9 @@ textarea,
 [role="button"] {
   outline: 0;
 }
+input[type="search"] {
+  box-sizing: border-box;
+}
 .page-body {
   margin-top: 90px;
   padding: 0 10px;

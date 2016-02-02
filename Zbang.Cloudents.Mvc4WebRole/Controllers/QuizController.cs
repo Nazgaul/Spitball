@@ -145,18 +145,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        //TODO: add validation in here
         [HttpGet]
-        //[OutputCache(Duration = TimeConsts.Hour, 
-        //    Location = OutputCacheLocation.Any, VaryByParam = "none",
-        //    VaryByCustom = CustomCacheKeys.Lang)]
         public async Task<ActionResult> NumberOfSolvers(long quizId)
         {
             try
             {
-                //var numberOfSolvers = await ZboxReadService.GetNumberOfSolvers(quizId);
-                //return JsonOk(numberOfSolvers);
-                //return PartialView("_QuizDialog", numberOfSolvers);
                 var query = new GetQuizBestSolvers(quizId, 4);
                 var retVal = await ZboxReadService.GetQuizSolversAsync(query);
                 return JsonOk(new
@@ -175,9 +168,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet]
         [ZboxAuthorize]
-        [OutputCache(CacheProfile = "PartialCache")]
-
-
+        [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult CreateQuiz()
         {
             return PartialView("CreateQuiz");

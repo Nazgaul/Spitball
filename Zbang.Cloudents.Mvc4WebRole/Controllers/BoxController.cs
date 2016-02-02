@@ -491,6 +491,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize, HttpGet]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult LikesDialog()
         {
             return PartialView();

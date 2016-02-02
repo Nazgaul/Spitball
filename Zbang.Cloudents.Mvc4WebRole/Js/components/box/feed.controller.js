@@ -1,10 +1,12 @@
 ﻿(function () {
     angular.module('app.box.feed').controller('FeedController', feed);
     feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
-        'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope', 'resManager', 'CacheFactory', '$q'];
+        'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope',
+        'resManager', 'CacheFactory', '$q', 'routerHelper'];
 
-    function feed(boxService, $stateParams, $timeout, externalUploadProvider, itemThumbnailService, user, userUpdatesService,
-        $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q) {
+    function feed(boxService, $stateParams, $timeout, externalUploadProvider,
+        itemThumbnailService, user, userUpdatesService,
+        $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper) {
         var self = this, boxId = parseInt($stateParams.boxId, 10), page = 0;
 
         self.add = {
@@ -66,7 +68,7 @@
             $mdDialog.show({
                 controller: 'likesController',
                 controllerAs: 'lc',
-                templateUrl: '/box/likesdialog/',
+                templateUrl: routerHelper.buildUrl('/box/likesdialog/'),
                 parent: angular.element(document.body),
                 resolve: {
                     users: func 
