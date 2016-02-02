@@ -76,10 +76,10 @@ namespace Zbang.Zbox.ReadServices
         //Task<IEnumerable<UniversityByPrefixDto>> GetUniversityListByFriendsIdsAsync(IEnumerable<long> friendsIds);
 
 
-        Task<IEnumerable<QuestionDto>> GetQuestionsWithAnswersAsync(GetBoxQuestionsQuery query);
-        Task<IEnumerable<QuestionDto>> GetQuestionsWithLastAnswerAsync(GetBoxQuestionsQuery query);
-        Task<IEnumerable<AnswerDto>> GetRepliesAsync(GetCommentRepliesQuery query);
-        Task<QuestionDto> GetQuestionAsync(GetQuestionQuery query);
+        //Task<IEnumerable<QuestionDto>> GetQuestionsWithAnswersAsync(GetBoxQuestionsQuery query);
+        Task<IEnumerable<CommentDto>> GetQuestionsWithLastAnswerAsync(GetBoxQuestionsQuery query);
+        Task<IEnumerable<ReplyDto>> GetRepliesAsync(GetCommentRepliesQuery query);
+        Task<CommentDto> GetQuestionAsync(GetQuestionQuery query);
         Task<bool> GetInviteAsync(GetInviteDetailQuery query);
 
 

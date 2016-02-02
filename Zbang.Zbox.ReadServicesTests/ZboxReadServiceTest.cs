@@ -400,19 +400,6 @@ namespace Zbang.Zbox.ReadServicesTests
                 Assert.Fail("Expected no exception, but got: " + ex.Message);
             }
         }
-        [TestMethod]
-        public async Task GetQuestions_Query_ReturnResult()
-        {
-            var query = new GetBoxQuestionsQuery(60193);
-            try
-            {
-                var x = await m_ZboxReadService.GetQuestionsWithAnswersAsync(query);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
 
         [TestMethod]
         public void GetUserFriends_Query_ReturnResult()

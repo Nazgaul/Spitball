@@ -118,12 +118,9 @@
     <Compile Include="Dto\Library\UniversitySearchDto.cs" />
     <Compile Include="Dto\Library\UniversityWithCodeDto.cs" />
     <Compile Include="Dto\PagedDto.cs" />
-    <Compile Include="Dto\Qna\AnswerDto.cs" />
-    <Compile Include="Dto\Qna\AnswerToFriendDto.cs" />
-    <Compile Include="Dto\Qna\SideDto.cs" />
+    <Compile Include="Dto\Qna\ReplyDto.cs" />
     <Compile Include="Dto\Qna\ItemDto.cs" />
-    <Compile Include="Dto\Qna\QuestionDto.cs" />
-    <Compile Include="Dto\Qna\QuestionToFriendDto.cs" />
+    <Compile Include="Dto\Qna\CommentDto.cs" />
     <Compile Include="Dto\Search\SearchBoxes.cs" />
     <Compile Include="Dto\Search\SearchDto.cs" />
     <Compile Include="Dto\Search\SearchItems.cs" />
@@ -145,7 +142,6 @@
     <Compile Include="Dto\UserDtos\UserAccountDto.cs" />
     <Compile Include="Dto\UserDtos\UserInviteDto.cs" />
     <Compile Include="Dto\UserDtos\UserMemberDto.cs" />
-    <Compile Include="Dto\UserDtos\UserToFriendActivity.cs" />
     <Compile Include="Dto\UserDtos\UserWithStats.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -7,7 +7,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class LikeCommentCommandHandler : ICommandHandler<LikeCommentCommand>
+    public class LikeCommentCommandHandler : ICommandHandler<LikeCommentCommand, LikeCommentCommandResult>
     {
         private readonly ICommentLikeRepository m_CommentLikeRepository;
         private readonly IUserRepository m_UserRepository;
@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_GuidGenerator = guidGenerator;
         }
 
-        public void Handle(LikeCommentCommand message)
+        public LikeCommentCommandResult Execute(LikeCommentCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
 
@@ -37,13 +37,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
                 m_CommentRepository.Save(comment);
                 m_CommentLikeRepository.Save(commentLike);
-                return;
+                return new LikeCommentCommandResult(true);
             }
 
             comment.LikeCount--;
             m_CommentRepository.Save(comment);
             m_CommentLikeRepository.Delete(commentLike);
-
+            return new LikeCommentCommandResult(false);
 
         }
     }

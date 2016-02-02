@@ -94,8 +94,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandlerAsync<AddReplyToCommentCommand>), typeof(AddReplyToCommentCommandHandler));
             ioc.RegisterType(typeof(ICommandHandlerAsync<DeleteCommentCommand>), typeof(DeleteCommentCommandHandler));
             ioc.RegisterType(typeof(ICommandHandlerAsync<DeleteReplyCommand>), typeof(DeleteReplyCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<LikeCommentCommand>), typeof(LikeCommentCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<LikeReplyCommand>), typeof(LikeReplyCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<LikeCommentCommand, LikeCommentCommandResult>), typeof(LikeCommentCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<LikeReplyCommand, LikeReplyCommandResult>), typeof(LikeReplyCommandHandler));
 
             //message
             ioc.RegisterType(typeof(ICommandHandlerAsync<SendMessageCommand>), typeof(SendMessageCommandHandler));

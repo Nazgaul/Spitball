@@ -73,8 +73,8 @@ namespace Zbang.Zbox.Domain.Common
         Task AddReplyAsync(AddReplyToCommentCommand command);
         Task DeleteCommentAsync(DeleteCommentCommand command);
         Task DeleteReplyAsync(DeleteReplyCommand command);
-        void LikeComment(LikeCommentCommand command);
-        void LikeReply(LikeReplyCommand command);
+        LikeCommentCommandResult LikeComment(LikeCommentCommand command);
+        LikeReplyCommandResult LikeReply(LikeReplyCommand command);
         #endregion
 
         Task AddReputationAsync(AddReputationCommand command);

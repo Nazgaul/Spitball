@@ -14,4 +14,13 @@ namespace Zbang.Zbox.Domain.Commands
         public long UserId { get; private set; }
         public Guid ReplyId { get; private set; }
     }
+    public class LikeReplyCommandResult : ICommandResult
+    {
+        public LikeReplyCommandResult(bool liked)
+        {
+            Liked = liked;
+        }
+
+        public bool Liked { get; private set; }
+    }
 }

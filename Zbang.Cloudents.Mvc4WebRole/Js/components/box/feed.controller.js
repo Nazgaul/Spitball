@@ -45,10 +45,14 @@
         });
 
         function likeComment(comment) {
-            boxService.likeComment(comment.id);
+            boxService.likeComment(comment.id).then(function (response) {
+                response ? comment.likesCount++ : comment.likesCount--;
+            });
         }
         function likeReply(reply) {
-            boxService.likeReply(reply.id);
+            boxService.likeReply(reply.id).then(function(response) {
+                response ? reply.likesCount++ : reply.likesCount--;
+            });
         }
 
         function myPagingFunction() {
@@ -72,17 +76,21 @@
                 var files = self.data[i].files;
                 for (var j = 0; j < files.length; j++) {
                     var item = files[j];
+                    if (item.done) {
+                        continue;
+                    }
                     if (item.type) {
                         var retVal = itemThumbnailService.assignValue(item.source, 100, 141);
                         item.thumbnail = retVal.thumbnail;
+                        item.nameExtension = item.name.replace(/\.[^/.]+$/, "");
                         //item.icon = retVal.icon;
                     } else {
                         item.publish = true;
                     }
+                    item.done = true;
                 }
-                //self.data[i].files = itemThumbnailService.assignValues(self.data[i].files, 100, 125);
-                for (var k = 0; k < self.data[i].answers.length; k++) {
-                    self.data[i].answers[k].files = itemThumbnailService.assignValues(self.data[i].answers[k].files, 100, 141);
+                for (var k = 0; k < self.data[i].replies.length; k++) {
+                    self.data[i].replies[k].files = itemThumbnailService.assignValues(self.data[i].replies[k].files, 100, 141);
                 }
             }
             userUpdatesService.boxUpdates(boxId, function (updates) {
@@ -205,7 +213,8 @@
                 comment.answers.push(newComment);
                 self.add.newReplyText = '';
                 self.add.files = [];
-                comment.showFrom = false;
+                comment.focusReply = false;
+                //comment.showFrom = false;
                 $scope.$emit('follow-box');
             }).finally(function () {
                 self.add.disabled = false;
@@ -293,12 +302,27 @@ userName: "ram y"*/
         self.openReply = openReply;
 
         function openReply(post) {
+            $scope.b.closeCollapse();
             angular.forEach(self.data, function (elem) {
-                elem.showFrom = false;
+                elem.showReplies = false;
             });
-            post.showFrom = true;
+            post.showReplies = true;
             self.add.newReplyText = '';
             self.add.files = [];
+            if (!post.repliesCount) {
+                post.focusReply = true;
+                return;
+            }
+            if (post.repliesCount == post.replies.length) {
+                return;
+            }
+            if (post.repliesCount > 1) {
+                boxService.getReplies(boxId, post.id).then(function (response) {
+                    response.reverse().pop();
+                    post.replies = response.concat(post.replies);
+                });
+            }
+            
         }
         function uploadFile(post) {
             postId = post;
