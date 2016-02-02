@@ -584,12 +584,6 @@
     <Content Include="bower_components\angular-material\angular-material.js" />
     <Content Include="bower_components\angular-material\angular-material.min.css" />
     <Content Include="bower_components\angular-material\angular-material.min.js" />
-    <Content Include="bower_components\angular-material\angular-material.rtl.css">
-      <DependentUpon>angular-material.css</DependentUpon>
-    </Content>
-    <Content Include="bower_components\angular-material\angular-material.rtl.rtl.css">
-      <DependentUpon>angular-material.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\Bootstrap\bootstrap.css" />
     <Content Include="Content\Bootstrap\bootstrap.rtl.css">
       <DependentUpon>bootstrap.css</DependentUpon>
