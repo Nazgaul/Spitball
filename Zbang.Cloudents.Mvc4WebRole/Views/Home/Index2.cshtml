@@ -1,4 +1,5 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources;
+﻿@model Zbang.Zbox.ViewModel.Dto.HomePageDataDto
+@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources;
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources;
 @using Zbang.Zbox.Infrastructure.Culture;
 @{
@@ -63,6 +64,7 @@
         </header>
         <div class="home-page-body">
             <section class="main">
+                @Model.DocumentCount
                 <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@HomePageResources.A4</h1>
                 <div class="signin-options">
                     <button type="button" class="login-option facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">

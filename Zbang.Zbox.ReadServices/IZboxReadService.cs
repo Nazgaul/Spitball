@@ -20,7 +20,9 @@ namespace Zbang.Zbox.ReadServices
 {
     public interface IZboxReadService : IBaseReadService
     {
-        
+        // home page
+        Task<HomePageDataDto> GetHomePageDataAsync();
+
         Task<IEnumerable<BoxDto>> GetUserBoxesOld(GetBoxesQuery query);
         Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query);
 

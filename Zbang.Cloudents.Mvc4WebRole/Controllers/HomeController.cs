@@ -59,7 +59,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //   VaryByCustom = CustomCacheKeys.Lang + ";" +  CustomCacheKeys.Auth,
         //   Duration = TimeConsts.Day,
         //   Location = OutputCacheLocation.Server)]
-        public ActionResult Index(string lang, string invId)
+        public async Task<ActionResult> Index(string lang, string invId)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -80,10 +80,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
             }
 
+            var homeStats = await ZboxReadService.GetHomePageDataAsync();
+
             //ViewBag.title = Views.Account.Resources.HomeResources.Title;
             //ViewBag.metaDescription = Views.Account.Resources.HomeResources.Description;
 
-            return View("Index2");
+            return View("Index2", homeStats);
         }
 
 

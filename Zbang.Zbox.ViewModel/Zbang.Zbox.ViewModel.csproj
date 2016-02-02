@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Dto\ActivityDtos\AnnotationDto.cs" />
     <Compile Include="Dto\ActivityDtos\AnnotationReplyDto.cs" />
+    <Compile Include="Dto\HomePageDataDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxDto2.cs" />
     <Compile Include="Dto\BoxDtos\BoxMetaDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxNotificationDto.cs" />

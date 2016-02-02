@@ -34,7 +34,19 @@ namespace Zbang.Zbox.ReadServices
 {
     public class ZboxReadService : BaseReadService, IZboxReadService, IUniversityWithCode
     {
-
+        public async Task<HomePageDataDto> GetHomePageDataAsync()
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                const string sql = @"with 
+usersCount(users) as (SELECT count(*) as users from [Zbox].[Users]),
+itemsCount(items) as (SELECT count(*) as items from [Zbox].[Item] where IsDeleted = 0),
+quizzesCount(quizzes) as (SELECT count(*) as quizzes from [Zbox].[Quiz] where IsDeleted = 0 and Publish = 1)
+select * from usersCount as StudentsCount, itemsCount as DocumentCount, quizzesCount as QuizzesCount";
+                var retVal = await conn.QueryAsync<HomePageDataDto>(sql);
+                return retVal.FirstOrDefault();
+            }
+        }
 
         /// <summary>
         /// used to get the dashboard and the activity and wall in dashboard
