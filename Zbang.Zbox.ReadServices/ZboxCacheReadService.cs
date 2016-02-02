@@ -123,11 +123,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public BoxSettingsDto GetBoxSetting(GetBoxQuery query, long userId)
-        {
-            return m_ReadService.GetBoxSetting(query, userId);
-        }
-
+        
         public Task<IEnumerable<UserMemberDto>> GetBoxMembersAsync(GetBoxQuery query)
         {
             return m_ReadService.GetBoxMembersAsync(query);
@@ -162,6 +158,16 @@ namespace Zbang.Zbox.ReadServices
         public Task<IEnumerable<ReplyDto>> GetRepliesAsync(GetCommentRepliesQuery query)
         {
             return m_ReadService.GetRepliesAsync(query);
+        }
+
+        public Task<IEnumerable<LikeDto>> GetCommentLikesAsync(GetFeedLikesQuery query)
+        {
+            return m_ReadService.GetCommentLikesAsync(query);
+        }
+
+        public Task<IEnumerable<LikeDto>> GetReplyLikesAsync(GetFeedLikesQuery query)
+        {
+            return m_ReadService.GetReplyLikesAsync(query);
         }
 
         public Task<CommentDto> GetQuestionAsync(GetQuestionQuery query)

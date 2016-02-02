@@ -2768,6 +2768,7 @@
     <Content Include="Views\Item\_itemComments.cshtml" />
     <Content Include="Views\Home\Index2.cshtml" />
     <Content Include="Views\Box\_FeedAddComment.cshtml" />
+    <Content Include="Views\Box\LikesDialog.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

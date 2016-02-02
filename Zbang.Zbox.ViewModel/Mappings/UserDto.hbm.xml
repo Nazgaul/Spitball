@@ -21,26 +21,7 @@
   </sql-query>
 
 
-  <!--account settings-->
-  <!--<query name="GetUserAccountSettings">
-    <![CDATA[
-    select 
-    
-    COALESCE(u.FirstName,u.Name) as FirstName,
-    u.LastName as LastName,
-    
-    u.ImageLarge as Image, 
-    coalesce( v.OrgName , v.UniversityName) as University,
-    v.LargeImage as UniversityPic,
-    u.Email as Email,
-    u.Culture as Language,
-    u.Quota.AllocatedSize as AllocatedSize, u.Quota.UsedSpace as UsedSpace
-    from User u left join u.University v
-    where u.Id = :UserId
-    ]]>
-  </query>-->
-
-  <!--End Account settings-->
+  
   
 
 </hibernate-mapping>

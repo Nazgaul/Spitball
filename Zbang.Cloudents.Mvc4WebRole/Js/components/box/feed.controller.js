@@ -37,20 +37,54 @@
         self.myPagingFunction = myPagingFunction;
         self.likeComment = likeComment;
         self.likeReply = likeReply;
+        self.likeReplyDialog = likeReplyDialog;
+        self.likeCommentDialog = likeCommentDialog;
 
         boxService.getFeed(boxId, page).then(function (response) {
             self.data = response;
             assignData();
 
         });
+        function likeCommentDialog(comment, ev) {
+            if (!comment.likesCount) {
+                return;
+            }
+            showLikes(function () {
+                return boxService.commentLikes(comment.id, boxId);
+            }, ev);
+        }
+        function likeReplyDialog(reply, ev) {
+            if (!reply.likesCount) {
+                return;
+            }
+            showLikes(function() {
+                return boxService.replyLikes(reply.id, boxId);
+            }, ev);
+        }
+
+        function showLikes(func,ev) {
+            $mdDialog.show({
+                controller: 'likesController',
+                controllerAs: 'lc',
+                templateUrl: '/box/likesdialog/',
+                parent: angular.element(document.body),
+                resolve: {
+                    users: func 
+                },
+                targetEvent: ev,
+                clickOutsideToClose: true,
+            });
+        }
 
         function likeComment(comment) {
-            boxService.likeComment(comment.id).then(function (response) {
+            $scope.$emit('follow-box');
+            boxService.likeComment(comment.id, boxId).then(function (response) {
                 response ? comment.likesCount++ : comment.likesCount--;
             });
         }
         function likeReply(reply) {
-            boxService.likeReply(reply.id).then(function(response) {
+            $scope.$emit('follow-box');
+            boxService.likeReply(reply.id, boxId).then(function (response) {
                 response ? reply.likesCount++ : reply.likesCount--;
             });
         }
@@ -291,7 +325,7 @@ userName: "ram y"*/
                 name: link.name,
                 system: link,
                 postId: postId,
-                remove: function() {
+                remove: function () {
                     removeItem(link);
                 }
             });
@@ -303,26 +337,35 @@ userName: "ram y"*/
 
         function openReply(post) {
             $scope.b.closeCollapse();
+            if (post.showReplies) {
+                post.showReplies = false;
+                return;
+            }
             angular.forEach(self.data, function (elem) {
                 elem.showReplies = false;
             });
-            post.showReplies = true;
+
             self.add.newReplyText = '';
             self.add.files = [];
             if (!post.repliesCount) {
                 post.focusReply = true;
+                expandReply();
                 return;
             }
-            if (post.repliesCount == post.replies.length) {
-                return;
-            }
-            if (post.repliesCount > 1) {
+            if (post.repliesCount > 1 && post.repliesCount !== post.replies.length) {
                 boxService.getReplies(boxId, post.id).then(function (response) {
                     response.reverse().pop();
                     post.replies = response.concat(post.replies);
+                    expandReply();
                 });
+            } else {
+                expandReply();
             }
-            
+
+            function expandReply() {
+                post.showReplies = true;
+            }
+
         }
         function uploadFile(post) {
             postId = post;
@@ -350,7 +393,7 @@ userName: "ram y"*/
             var index = self.add.files.indexOf(item);
             self.add.files.splice(index, 1);
         }
-      
+
 
         self.add.fileUpload = {
             url: '/upload/file/',
@@ -432,6 +475,24 @@ userName: "ram y"*/
 
             return d;
         }
+    }
+})();
+
+(function() {
+    angular.module('app.box.feed').controller('likesController', likesController);
+    likesController.$inject = ['$mdDialog', 'users', '$rootScope'];
+    function likesController($mdDialog, users, $rootScope) {
+        var lc = this;
+        lc.users = users;
+        lc.close = close;
+
+        function close() {
+            $mdDialog.hide();
+        }
+
+        $rootScope.$on('$stateChangeStart', function() {
+            $mdDialog.hide();
+        });
     }
 })();
 

@@ -392,7 +392,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-       
+
         #endregion
 
 
@@ -479,10 +479,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userId = User.GetUserId();
             try
             {
-                TraceLog.WriteInfo("delete update boxid " + boxId);
                 var command = new DeleteUpdatesCommand(userId, boxId);
                 ZboxWriteService.DeleteUpdates(command);
-                TraceLog.WriteInfo("delete update boxid return ok " + boxId);
                 return JsonOk();
             }
             catch (Exception ex)
@@ -490,6 +488,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError("delete update boxid " + boxId + " userid" + userId, ex);
                 return JsonError();
             }
+        }
+
+        [ZboxAuthorize, HttpGet]
+        public ActionResult LikesDialog()
+        {
+            return PartialView();
         }
 
     }

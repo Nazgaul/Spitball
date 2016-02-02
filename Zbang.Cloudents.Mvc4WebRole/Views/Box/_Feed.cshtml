@@ -42,15 +42,15 @@
                         </div>
 
                         <div class="indent stats">
-                            <span ng-click="f.openReply(post)">{{post.repliesCount}} comments &#9642;</span>
-                            <span>{{post.likesCount}} likes</span>
+                            <span user-not-register-popup="click" ng-click="f.openReply(post)">{{post.repliesCount}} comments</span>&#9642;
+                            <span user-not-register-popup="click" ng-click="f.likeCommentDialog(post,$event)">{{post.likesCount}} likes</span>
                         </div>
                         <div class="indent actions color-override borderColor9 text-capitalize">
-                            <button type="button" ng-click="f.openReply(post)" ga-track-event="['box-feed', 'comment-icons']">
+                            <button user-not-register-popup="click" type="button" ng-click="f.openReply(post)" ga-track-event="['box-feed', 'comment-icons']">
                                 @Html.Svg("~/images/site/box-icons.svg", "comment", new { @class = "color-override svgColor8" })
                                 <span>@BoxResources.Comment</span>
                             </button>
-                            <button type="button" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
+                            <button user-not-register-popup="click" type="button" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
                                 @Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "color-override svgColor8" })
                                 <span>@GeneralResources.Like</span>
                             </button>
@@ -76,7 +76,7 @@
                                         <span class="user-name">{{::reply.userName}}</span>
                                     </a>
                                 </div>
-                                <div ng-bind-html="::reply.content" class="content-text"></div>
+                                <div ng-bind-html="::reply.content" class="indent content-text"></div>
                                 <div class="items-slider" ng-if="reply.files.length">
                                     <button type="button" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                                     <div class="items-container">
@@ -89,8 +89,12 @@
 
                                 <div class="indent actions">
                                     <button type="button" ng-click="f.likeReply(reply)" ga-track-event="['box-feed', 'comment-like-icon']">
+                                        @GeneralResources.Like
+
+                                    </button>&#9642;
+                                    <button type="button" ng-click="f.likeReplyDialog(reply,$event)">
                                         @Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "color-override svgColor8" })
-                                        <span>@GeneralResources.Like {{reply.likesCount}}</span>
+                                        <span>  {{reply.likesCount}}</span>
                                     </button>
                                     <span class="comment-date">{{::reply.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
                                     <span class="ribbon" ng-if="post.isNew">@BoxResources.RibbonNew</span>

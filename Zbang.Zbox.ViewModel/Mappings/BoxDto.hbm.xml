@@ -19,25 +19,25 @@
     <return-scalar type="Zbang.Zbox.Infrastructure.Enums.BoxPrivacySettings,Zbang.Zbox.Infrastructure" column="PrivacySetting"/>
   </resultset>
 
-  <resultset name="BoxMembers">
+  <!--<resultset name="BoxMembers">
     <return-scalar type="Zbang.Zbox.Infrastructure.Enums.UserRelationshipType,Zbang.Zbox.Infrastructure" column="UserStatus"/>
     <return-scalar type="string" column="Image"/>
     <return-scalar type="string" column="Name"/>
     <return-scalar type="string" column="Url"/>
     
     <return-scalar type="long" column="Id"/>
-  </resultset>
-  <resultset name="boxMeta" >
+  </resultset>-->
+  <!--<resultset name="boxMeta" >
     <return-scalar type="long" column="Id"/>
     <return-scalar type="string" column="Image"/>
     <return-scalar type="string" column="Name"/>
     <return-scalar type="string" column="Url"/>
-  </resultset>
+  </resultset>-->
 
 
 
 
-  <query name="GetBoxSettingsDtoById">
+  <!--<query name="GetBoxSettingsDtoById">
     <![CDATA[
     select b.Id as Id, b.Name as Name, b.PrivacySettings.PrivacySetting as PrivacySetting,
     ub.NotificationSettings as NotificationSetting, ub.UserRelationshipType as UserType
@@ -46,20 +46,13 @@
     and b.IsDeleted = 0  
     and ub.User.Id =:Userid
     ]]>
-  </query>
+  </query>-->
 
 
-  <!--<sql-query name="GetBoxMetaForInvite" read-only="1" resultset-ref="boxMeta">
-    <![CDATA[
-   select b.boxId as Id, b.boxName as Name, b.pictureurl as Image, b.Url as Url
-    from zbox.Box b 
-    where b.boxId = :BoxId
-    and b.IsDeleted = 0  
-    ]]>
-  </sql-query>-->
+
 
   <!--Box Page-->
-  <sql-query name="GetBox" read-only="1" resultset-ref="Box">
+  <!--<sql-query name="GetBox" read-only="1" resultset-ref="Box">
     <![CDATA[
     select b.BoxName as Name,
     b.PrivacySetting as PrivacySetting,
@@ -79,38 +72,17 @@
     where  b.boxId = :BoxId
     and b.IsDeleted = 0  
     ]]>
-  </sql-query>
-
-
-  <!--Notification screen account settings-->
-  <!--<query name="GetUserBoxesNotification" read-only="1">
-    <![CDATA[
-    select b.Id as Id, b.Name as Name, b.Owner.Name as Owner, ub.NotificationSettings as Notifications, b.class as boxType, b.Url as url
-    from Box b join b.UserBoxRelationship ub
-    where b.IsDeleted = 0
-    and ub.UserId = :UserId
-    ]]>
-  </query>-->
-
-
-
-  <!--box page - notification pop up-->
-  <!--<query name="GetBoxNotificationByUser" read-only="1">
-    <![CDATA[
-    select ub.NotificationSettings as Notifications from UserBoxRel ub
-    where ub.UserId = :UserId
-    and ub.BoxId = :BoxId
-    ]]>
-  </query>-->
+  </sql-query>-->
+  
 
 
   <!--box page - used to get all the members of the box in pop up-->
-  <sql-query name="GetBoxMembers" read-only="1" resultset-ref="BoxMembers">
+  <!--<sql-query name="GetBoxMembers" read-only="1" resultset-ref="BoxMembers">
     <![CDATA[
     select u.UserId as Id , u.UserName as Name,u.UserImageLarge as Image , ub.UserType as userStatus, u.url as Url
     from zbox.UserBoxRel ub 
 	    join zbox.users u on ub.UserId =  u.UserId
     where ub.BoxId=:BoxId
     ]]>
-  </sql-query>
+  </sql-query>-->
 </hibernate-mapping>

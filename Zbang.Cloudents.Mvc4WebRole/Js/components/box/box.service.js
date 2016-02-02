@@ -93,14 +93,27 @@
                 answerId: postId
             });
         }
-        d.likeComment = function (postId) {
+        d.likeComment = function (postId, boxId) {
             return ajaxservice.post('/qna/likecomment/', {
-                commentId: postId
+                commentId: postId,
+                boxId: boxId
             });
         }
-        d.likeReply = function (replyId) {
+        d.likeReply = function (replyId, boxId) {
             return ajaxservice.post('/qna/likereply/', {
-                replyId: replyId
+                replyId: replyId, boxId: boxId
+            });
+        }
+        d.commentLikes = function (postId, boxId) {
+            return ajaxservice.get('/qna/commentlikes/', {
+                id: postId,
+                boxId: boxId
+            });
+        }
+        d.replyLikes = function (replyId, boxId) {
+            return ajaxservice.get('/qna/replylikes/', {
+                id: replyId,
+                boxId: boxId
             });
         }
         d.follow = function (boxId) {

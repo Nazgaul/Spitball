@@ -452,19 +452,7 @@ namespace Zbang.Zbox.ReadServicesTests
                 Assert.Fail("Expected no exception, but got: " + ex.Message);
             }
         }
-        [TestMethod]
-        public void GetBoxSetting_Query_ReturnResult()
-        {
-            var query = new GetBoxQuery(1);
-            try
-            {
-                m_ZboxReadService.GetBoxSetting(query, 1);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+       
         [TestMethod]
         public async Task GetUserAccountDetails_Query_ReturnResult()
         {

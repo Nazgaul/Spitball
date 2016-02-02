@@ -1,0 +1,13 @@
+﻿<md-dialog>
+    <md-toolbar>
+        <h2>Spitballers who like this</h2>
+        <md-button ng-click="lc.close()">
+            @Html.Svg("~/images/site/icons.svg", "close", new { @class = "color-override svgColor3" })
+        </md-button>
+    </md-toolbar>
+    <md-dialog-content>
+        <ul class="list-unstyled">
+            <li ng-repeat="e in ::lc.users" ng-include="'user-template.html'"></li>
+        </ul>
+    </md-dialog-content>
+</md-dialog>
