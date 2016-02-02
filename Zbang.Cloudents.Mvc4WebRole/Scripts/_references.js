@@ -140,3 +140,4 @@
 /// <reference path="Site/gmaps.js" />
 /// <reference path="svg4everybody.js" />
 /// <reference path="ui-bootstrap-custom-tpls-1.1.0.js" />
+/// <reference path="countup.js" />

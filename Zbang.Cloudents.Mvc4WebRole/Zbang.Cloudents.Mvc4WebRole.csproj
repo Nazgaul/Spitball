@@ -1924,6 +1924,7 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\browser-deeplink.js" />
     <Content Include="Scripts\browser-deeplink.min.js" />
+    <Content Include="Scripts\CountUp.js" />
     <Content Include="Scripts\draganddrop.js" />
     <Content Include="Scripts\draganddrop.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
