@@ -1,0 +1,27 @@
+﻿/*
+@import this file directly into your existing Scss files to use these mixins
+*/
+@mixin sprite-Images-HomePage2-testimonial1() {
+/* You may have to set 'display: block' */
+	width: 128px;
+	height: 128px;
+	background: url('testimonials.jpg') -1px -1px;
+}
+@mixin sprite-Images-HomePage2-testimonial2() {
+/* You may have to set 'display: block' */
+	width: 128px;
+	height: 128px;
+	background: url('testimonials.jpg') -1px -130px;
+}
+@mixin sprite-Images-HomePage2-testimonial3() {
+/* You may have to set 'display: block' */
+	width: 128px;
+	height: 128px;
+	background: url('testimonials.jpg') -1px -259px;
+}
+@mixin sprite-Images-HomePage2-testimonial4() {
+/* You may have to set 'display: block' */
+	width: 128px;
+	height: 128px;
+	background: url('testimonials.jpg') -1px -388px;
+}

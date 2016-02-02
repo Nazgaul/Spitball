@@ -1,4 +1,7 @@
-﻿.homePage {
+﻿/*
+@import this file directly into your existing Less files to use these mixins
+*/
+.homePage {
   font-family: sans-serif;
 }
 .homePage .page-content header {
@@ -39,6 +42,9 @@
 }
 .homePage .page-content nav .navbar-header .navbar-toggle {
   display: none;
+  background: none;
+  border: none;
+  outline: none;
 }
 .homePage .page-content nav .navbar-header .navbar-toggle svg {
   fill: #f5f5f5;
@@ -69,8 +75,14 @@
   text-decoration: none;
   align-items: center;
   line-height: 40px;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  -webkit-transition: all .3s;
   transition: all .3s;
   -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
 .homePage .page-content nav ul li a:hover,
@@ -321,6 +333,8 @@
 .homePage .home-page-body section.about {
   background: #4190B9;
   color: #f5f5f5;
+  overflow: hidden;
+  padding-bottom: 0;
 }
 .homePage .home-page-body section.about .description {
   font-size: 28px;
@@ -347,20 +361,70 @@
 .homePage .home-page-body section.about .description .features li {
   margin-bottom: 40px;
 }
-.homePage .home-page-body section.about .video-section {
-  max-width: 550px;
+.homePage .home-page-body section.about .video-image {
   margin: 0 auto;
+  padding: 0;
+  border: none;
+  background: none;
+  display: block;
+  cursor: pointer;
+  width: 100%;
+  max-width: 500px;
+  border: 3px solid #fff;
+  box-shadow: 3px 3px 17px rgba(0, 0, 0, 0.7);
 }
-.homePage .home-page-body section.about .video-section .video {
+.homePage .home-page-body section.about .shadowbox {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.7);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 9;
+}
+.homePage .home-page-body section.about #close-video {
+  right: 0;
+  top: 100px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.homePage .home-page-body section.about .video-wrapper {
+  text-align: center;
+  margin-bottom: -7px;
+  margin-top: 15px;
+}
+.homePage .home-page-body section.about #open-video {
+  display: inline-block;
+}
+.homePage .home-page-body section.about #showVideo {
+  display: none;
+}
+.homePage .home-page-body section.about #showVideo:not(:checked) ~ .shadowbox {
+  display: none;
+}
+.homePage .home-page-body section.about .video-section {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: calc(50vh - 240px);
+}
+@media (max-width: 600px) {
+  .homePage .home-page-body section.about .video-section {
+    margin-top: calc(50vh - 25vw);
+  }
+}
+.homePage .home-page-body section.about .video-section #video {
   position: relative;
   padding-bottom: 56.25%;
   padding-top: 30px;
   height: 0;
   overflow: hidden;
+  z-index: 1;
 }
-.homePage .home-page-body section.about .video-section .video iframe,
-.homePage .home-page-body section.about .video-section .video object,
-.homePage .home-page-body section.about .video-section .video embed {
+.homePage .home-page-body section.about .video-section #video iframe,
+.homePage .home-page-body section.about .video-section #video object,
+.homePage .home-page-body section.about .video-section #video embed {
   position: absolute;
   top: 0;
   left: 0;
@@ -472,6 +536,37 @@
   font-family: serif;
   font-style: initial;
   color: #323538;
+}
+.homePage .home-page-body section.reviews li .user-image {
+  width: 128px;
+  height: 128px;
+  border: 1px solid #282828;
+  border-radius: 100%;
+  margin: 0 auto;
+}
+.homePage .home-page-body section.reviews li:nth-child(4n+1) .user-image {
+  /* You may have to set 'display: block' */
+  width: 128px;
+  height: 128px;
+  background: url('../../Images/HomePage2/testimonials.jpg') -1px -388px;
+}
+.homePage .home-page-body section.reviews li:nth-child(4n+2) .user-image {
+  /* You may have to set 'display: block' */
+  width: 128px;
+  height: 128px;
+  background: url('../../Images/HomePage2/testimonials.jpg') -1px -1px;
+}
+.homePage .home-page-body section.reviews li:nth-child(4n+3) .user-image {
+  /* You may have to set 'display: block' */
+  width: 128px;
+  height: 128px;
+  background: url('../../Images/HomePage2/testimonials.jpg') -1px -130px;
+}
+.homePage .home-page-body section.reviews li:nth-child(4n+4) .user-image {
+  /* You may have to set 'display: block' */
+  width: 128px;
+  height: 128px;
+  background: url('../../Images/HomePage2/testimonials.jpg') -1px -259px;
 }
 .homePage .home-page-body footer {
   background: #5d6063;
@@ -706,5 +801,11 @@
 [class*="oxy-agent-"] .staff-os-animation.animated {
   -webkit-animation-name: none !important;
   animation-name: none !important;
+}
+/*#endregion*/
+/*#region cssCheck*/
+#cssCheck {
+  position: absolute;
+  top: -2000px;
 }
 /*#endregion*/
