@@ -7,7 +7,7 @@ namespace Zbang.Zbox.Infrastructure.Security
         public ApplicationDbContext(string connectionString)
             : base(connectionString)
         {
-
+            this.Database.Initialize(false);
         }
 
     }
