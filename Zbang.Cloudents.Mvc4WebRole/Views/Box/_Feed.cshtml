@@ -30,7 +30,7 @@
                                 </md-menu-item>
                             </md-menu-content>
                         </md-menu>
-                        <div ng-bind-html="::post.content" class=" indent content-text"></div>
+                        <div ng-bind-html="::post.content" class="content-text"></div>
                         <div class="items-slider" ng-if="post.files.length">
                             <button type="button" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                             <div class="items-container">
@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="indent stats">
-                            <span>{{post.repliesCount}} comments &#9642;</span>
+                            <span ng-click="f.openReply(post)">{{post.repliesCount}} comments &#9642;</span>
                             <span>{{post.likesCount}} likes</span>
                         </div>
                         <div class="indent actions color-override borderColor9 text-capitalize">
@@ -57,7 +57,6 @@
                             <span class="ribbon" ng-if="post.isNew">@BoxResources.RibbonNew</span>
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.replies.length">
-
                             <li ng-repeat="reply in post.replies track by reply.id" class="reply" ng-if="$last || post.showReplies">
                                 <md-menu ng-if="b.canDelete(reply.userId)">
                                     <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
@@ -77,7 +76,7 @@
                                         <span class="user-name">{{::reply.userName}}</span>
                                     </a>
                                 </div>
-                                <div ng-bind-html="::reply.content" class="indent content-text"></div>
+                                <div ng-bind-html="::reply.content" class="content-text"></div>
                                 <div class="items-slider" ng-if="reply.files.length">
                                     <button type="button" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                                     <div class="items-container">
