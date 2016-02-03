@@ -2787,6 +2787,7 @@
     <Content Include="Views\Home\Index2.cshtml" />
     <Content Include="Views\Box\_FeedAddComment.cshtml" />
     <Content Include="Views\Box\LikesDialog.cshtml" />
+    <Content Include="Views\Item\UploadDialog.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

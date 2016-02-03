@@ -1,107 +1,11 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-
 @{
     const string url = "~/images/site/uploadIcons.svg";
 }
-<div class="margin-bottom-20" ng-cloak uib-collapse="!u.open" ng-controller="Upload as u">
-    <a id="upload"></a>
-    <div class="portlet invite box upload color-override backgroundColor2">
-        <div class="portlet-title">
-            <div class="caption">
-                @IndexResources.UploadFiles
-            </div>
-        </div>
-        <div class="portlet-body form" id="uploadSection">
-            <div class="form-horizontal">
-                <div class="form-body">
-                    <div class="tab-content" flex="100">
 
-                        <div layout-wrap layout="row" class="uploadSection" ng-if="u.uploadStep === 0">
-                            <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25" ng-click="u.uploadStep = 1">
-                                <button type="button">
-                                    <span>
-                                        @Html.Svg(url, "file", new { @class = "color-override svgColor2" })
-                                    </span>
-                                    @IndexResources.UploadFromComputer
-                                </button>
-                            </div>
-                            <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25">
-                                <button type="button" ng-click="u.google()" ng-disabled="!u.googleDriveLoaded">
-                                    <span>
-                                        @Html.Svg(url, "googleDrive")
-                                    </span>
+<div class="margin-bottom-20" ng-cloak uib-collapse="!u.open" expanding="u.uploadOpen()"
+     collapsed="u.uploadCollapsed()" ng-controller="Upload as u" compile-html="u.html">
 
-                                    @IndexResources.UploadFromGoogle
-                                </button>
-                            </div>
-                            <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25">
-                                <button type="button" ng-click="u.dropBox()" ng-disabled="!u.dropBoxLoaded">
-                                    <span>
-                                        @Html.Svg(url, "dropbox", new { @class = "dropbox" })
-                                    </span>
-                                    @IndexResources.UploadFromDropbox
-                                </button>
-                            </div>
-                            <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25" ng-click="u.uploadStep = 4">
-                                <button type="button">
-                                    <span>
-                                        @Html.Svg(url, "link", new { @class = "link" })
-                                    </span>
-                                    @IndexResources.WebLink
-                                </button>
-                            </div>
-                        </div>
-                        <div ng-if="u.uploadStep === 1" id="dropElement" class="text-center">
-                            <div ng-hide="u.files.length">
-                                <div>@IndexResources.DragHere</div>
-                                <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn button-Blue btn-primary upload-button color-override hoverTextColor8" plupload-callbacks="u.fileUpload.callbacks">
-                                    @IndexResources.UploadFiles
-                                </a>
-                            </div>
-                            <h5 ng-if="u.files.length">
-                                <span class="completed">{{u.filesCompleteCount}} @IndexResources.Completed</span> |
-                                <span class="failed">{{u.filesErrorCount}} @IndexResources.UploadFailed</span>
-                            </h5>
-                            <ul class="list-inline file-upload-area">
-                                @*<li class="file-upload">
-                                        <span class="check-mark" ng-if="file.complete">@Html.Svg(url, "checkMark")</span>
-                                        <div class="file" layout="column" layout-align="space-between center">
-                                            <div class="file-name">
-                                                <div class="multi-line-ellipsis limit-three">
-                                                    this is a test
-                                                </div>
-                                                <md-progress-linear class="file-upload-progress" value="50" ng-if="!file.complete" md-mode="determinate">
-                                                </md-progress-linear>
-                                            </div>
-                                            <div class="file-footer">
-                                                <div class="file-size">25kb</div>
-                                                <button type="button" ng-click="file.remove()">@IndexResources.Remove</button>
-                                            </div>
-                                        </div>
-                                    </li>*@
-                                <li class="file-upload" ng-repeat="file in u.files" ng-include="'file-upload.html'">
-                            </ul>
-                        </div>
-                        <div ng-if="u.uploadStep === 4" ng-form="uploadLink">
-                            <form name="uploadLink" novalidate ng-submit="u.uploadLink(uploadLink)">
-                                <md-input-container class="padding">
-                                    <label>@IndexResources.Share</label>
-                                    <input type="text" spellcheck="false" name="link" autocomplete="off" ng-model="u.link"
-                                           autofocus required ng-change="uploadLink.link.$setValidity('server',true)" />
-                                    <div ng-messages="uploadLink.link.$error">
-                                        <div ng-message="required">@GeneralResources.RequiredField</div>
-                                        <div ng-message="server">{{u.error}}</div>
-                                    </div>
-                                </md-input-container>
-                                <input type="submit" class="btn button-Blue btn-primary pull-right" ng-disabled="u.submitFormProcess || !uploadLink.$valid" value="share" />
-                            </form>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="u.closeUpload()">@Html.Svg("~/images/site/icons.svg", "close")</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 <script type="text/ng-template" id="file-upload.html">
     <span class="check-mark" ng-if="file.complete">@Html.Svg(url, "checkMark")</span>

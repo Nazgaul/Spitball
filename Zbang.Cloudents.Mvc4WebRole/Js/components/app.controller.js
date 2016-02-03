@@ -54,11 +54,15 @@
         }
 
         function showToaster(text, parentId) {
+            var element = $document.find('body');
+            if (parentId) {
+                element = $document[0].querySelector('#' + parentId);
+            }
             $mdToast.show(
                   $mdToast.simple()
                   .textContent(text)
                   .position('top')
-                  .parent($document[0].querySelector('#' + parentId))
+                  .parent(element)
                   .hideDelay(2000));
         }
 

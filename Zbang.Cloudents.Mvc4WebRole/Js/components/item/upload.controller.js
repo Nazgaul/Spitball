@@ -1,9 +1,11 @@
 ﻿(function () {
     angular.module('app.upload').controller('Upload', upload);
-    upload.$inject = ['$scope', 'itemService', '$q', '$timeout', '$stateParams', '$rootScope',
-        'externalUploadProvider', '$anchorScroll', 'boxService', 'CacheFactory'];
+    upload.$inject = ['$scope', 'itemService', '$timeout', '$stateParams', '$rootScope',
+        'externalUploadProvider', '$anchorScroll',
+        'boxService', 'CacheFactory', 'resManager', 'ajaxService'];
 
-    function upload($scope, itemService, $q, $timeout, $stateParams, $rootScope, externalUploadProvider,  $anchorScroll, boxService, cacheFactory) {
+    function upload($scope, itemService, $timeout, $stateParams, $rootScope, externalUploadProvider,
+        $anchorScroll, boxService, cacheFactory, resManager, ajaxService) {
         var u = this, tab = null, boxid = $stateParams.boxId;
 
         var uploadChoose = {
@@ -19,7 +21,7 @@
             boxid = $stateParams.boxId;
             $rootScope.$broadcast('close-collapse');
             $anchorScroll.yOffset = 100;
-            $timeout(function() {
+            $timeout(function () {
                 $anchorScroll('upload');
             });
             u.open = true;
@@ -39,15 +41,14 @@
         });
 
         u.closeUpload = closeUpload;
-        //u.dropBoxLoaded = false;
-        //u.googleDriveLoaded = false;
 
         u.google = google;
         u.dropBox = dropBox;
         u.uploadStep = uploadChoose.none;
-        //u.link = 'http://';
         u.submitFormProcess = false;
         u.uploadLink = uploadLink;
+        u.uploadCollapsed = uploadCollapsed;
+        u.uploadOpen = uploadOpen;
 
         function google() {
             externalUploadProvider.google(boxid).then(function (response) {
@@ -67,6 +68,11 @@
 
         function closeUpload() {
             u.open = false;
+
+            $rootScope.$broadcast('close_upload');
+        }
+
+        function uploadCollapsed() {
             u.files = u.files.filter(function (file) {
                 return !file.complete;
             });
@@ -76,10 +82,16 @@
                 u.filesErrorCount = 0;
                 u.uploadStep = uploadChoose.none;
             }
-            $rootScope.$broadcast('close_upload');
         }
 
-
+        function uploadOpen() {
+            if (u.html) {
+                return;
+            }
+            return ajaxService.getHtml('/item/uploaddialog/').then(function (response) {
+                u.html = response;
+            });
+        }
 
 
         //upload 
@@ -114,13 +126,13 @@
             if (file.systemId) {
                 boxService.deleteItem(file.systemId, boxid);
                 $rootScope.$broadcast('item_delete', file.systemId);
-                
+
             }
-            
+
             var index = u.files.indexOf(file);
             u.files.splice(index, 1);
 
-            u.filesCompleteCount = u.files.filter(function(f) {
+            u.filesCompleteCount = u.files.filter(function (f) {
                 return f.complete;
             }).length;
             u.filesErrorCount = u.files.filter(function (f) {
@@ -174,6 +186,11 @@
                         $rootScope.$broadcast('item_upload', obj.payload);
                     }
                 },
+                uploadComplete: function () {
+                    //toasterUploadComplete
+                    $scope.app.showToaster(resManager.get('toasterUploadComplete'));
+                    $timeout(closeUpload, 2000);
+                },
                 error: function (uploader, error) {
                     error.file.error = true;
                     u.filesErrorCount++;
@@ -181,4 +198,26 @@
             }
         }
     }
+})();
+
+(function () {
+    angular.module('app').directive('compileHtml', compileHtml);
+    compileHtml.$inject = ['$sce', '$parse', '$compile'];
+    function compileHtml($sce, $parse, $compile) { 
+            return {
+                link: function(scope, element, attr) {
+                    var parsed = $parse(attr.compileHtml);
+
+                    function getStringValue() {
+                         return (parsed(scope) || '').toString();
+                    }
+
+                    scope.$watch(getStringValue, function(value) {
+                        var el = $compile(parsed(scope) || '')(scope);
+                        element.empty();
+                        element.append(el);
+                    });
+                }
+            };
+        }
 })();

@@ -214,6 +214,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Upload doc.
+        /// </summary>
+        public static string toasterUploadComplete {
+            get {
+                return ResourceManager.GetString("toasterUploadComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Would you like to unfollow this class?.
         /// </summary>
         public static string unfollowClass {
