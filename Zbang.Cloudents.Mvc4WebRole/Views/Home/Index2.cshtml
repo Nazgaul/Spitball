@@ -45,8 +45,11 @@
                 </div>
                 <input type="checkbox" id="menu-toggle" />
                 <ul>
-                    <li class="signin">
-                        <a href="@Url.Action("SignIn", "Account", new { universityid = Request.QueryString["universityid"] })">@HomePageResources.A1</a>
+                    <li id="signin">
+                        <label for="menu-toggle">
+                            <span>@HomePageResources.A1</span>
+                        </label>
+                        @*<a href="@Url.Action("SignIn", "Account", new { universityid = Request.QueryString["universityid"] })">@HomePageResources.A1</a>*@
                     </li>
                     <li class="jobs"><a href="@Url.RouteUrl("Jobs")">@HomePageResources.A2</a></li>
                     <li class="language">
@@ -64,40 +67,203 @@
         </header>
         <div class="home-page-body">
             <section class="main">
-                @Model.DocumentCount
-                <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@HomePageResources.A4</h1>
-                <div class="signin-options">
-                    <button type="button" class="login-option facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                        <div>
-                            @Html.Svg("/images/signin/loginoptions.svg", "facebook")
-                            <span>@LogOnResources.ExternalProvider</span>
-                        </div>
-                    </button>
-                    <button type="button" class="login-option google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                        <div>
-                            @Html.Svg("/images/signin/loginoptions.svg", "google")
-                            <span>@LogOnResources.ExternalProvider</span>
-                        </div>
-                    </button>
-                    <a class="login-option signup os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s" href="@Url.Action("SignUp", "Account", new { universityid = Request.QueryString["universityid"] })" target="_self">@HomePageResources.A5</a>
-                </div>
-                <div class="statistics os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
-                    <h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>
+                <div id="main-wrapper">
+                    @Model.DocumentCount
+                    <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@HomePageResources.A4</h1>
+                    <div class="login-wrapper login">
+                        <div class="wrapper">
+                            <div class="content" style="display:none;">
+                                <form class="login-form" action="" method="post">
+                                    @{ Html.RenderAction("AntiForgeryToken", "Home", true);}
+                                    <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
+                                    <h3 class="form-title">@LogOnResources.LoginToAccount</h3>
 
-                    <div id="students" data-statistic="@HomePageResources.statsStudents"></div>
-                    <div id="documents" data-statistic="@HomePageResources.statsDocuments"></div>
-                    <div id="quizzes" data-statistic="@HomePageResources.statsQuizzes"></div>
-                </div>
-                <div class="social-links os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.6s">
-                    <div class="wrapper" dir="ltr">
-                        <a target="_blank" href="https://www.facebook.com/cloudents.il">@Html.Svg(socialIconsSvg, "facebook")</a>
-                        <a target="_blank" href="https://twitter.com/SpitballStudy">@Html.Svg(socialIconsSvg, "twitter")</a>
-                        <a target="_blank" href="https://plus.google.com/+Cloudents">@Html.Svg(socialIconsSvg, "google")</a>
-                        <a target="_blank" href="https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg">@Html.Svg(socialIconsSvg, "youtube")</a>
-                        <a target="_blank" href="http://instagram.com/spitballstudy">@Html.Svg(socialIconsSvg, "instagram")</a>
+                                    <div id="login_alert_text" class="alert alert-danger display-hide">
+                                        <button class="close" data-close="alert"></button>
+                                        <span></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" required type="email" placeholder="@LogOnResources.Email" name="email" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" required type="password" placeholder="@LogOnResources.Password" name="password" />
+                                    </div>
+                                    <div class="form-actions">
+                                        <div class="checkbox-design">
+                                            @Html.CheckBox("RememberMe", true, new { id = "rememberMe" })
+                                            <label class="remember-me" for="rememberMe"></label>
+                                            <label for="rememberMe">@LogOnResources.RememberMe</label>
+                                        </div>
+
+                                        <button type="submit" class="btn button-Blue btn-primary pull-right">
+                                            @LogOnResources.LogIn
+                                        </button>
+                                    </div>
+                                    <div class="forget-password">
+                                        <h4>@LogOnResources.ForgotYourPassword</h4>
+                                        <p>
+                                            @LogOnResources.NoWorries <span id="forget-password">
+                                                @LogOnResources.Here
+                                            </span>
+                                            @LogOnResources.ToResetPassword.
+                                        </p>
+                                    </div>
+                                    <div class="signin-options">
+                                        <button type="button" class="login-option facebook">
+                                            <div>
+                                                @Html.Svg("/images/signin/loginoptions.svg", "facebook")
+                                                <span>@LogOnResources.ExternalProvider</span>
+                                            </div>
+                                        </button>
+                                        <button type="button" class="login-option google">
+                                            <div>
+                                                @Html.Svg("/images/signin/loginoptions.svg", "google")
+                                                <span>@LogOnResources.ExternalProvider</span>
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <div class="create-account">
+                                        <p>
+                                            @LogOnResources.DontHaveAnAccount&nbsp; <a href="javascript:;" id="register-btn">
+                                                @LogOnResources.CreateAccount
+                                            </a>
+                                        </p>
+                                    </div>
+                                </form>
+
+
+                                <form id="f-forgot-password" class="forgot-password-form" action="" method="post" style="display:none;">
+                                    <h3 class="form-title">
+                                        @LogOnResources.ForgotYourPassword
+                                    </h3>
+                                    <div id="resetPassword_alert_text" class="alert alert-danger display-hide">
+                                        <button class="close" data-close="alert"></button>
+                                        <span></span>
+                                    </div>
+                                    <div class="text">
+                                        <p>@AccountResource.EmailToReset</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" required type="email" placeholder="@LogOnResources.Email" name="email" />
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="reset" class="btn btn-default pull-right cancel">@GeneralResources.Cancel</button>
+                                        <button type="submit" class="btn button-Blue btn-primary pull-right">@LogOnResources.Submit</button>
+                                    </div>
+                                    <div class="create-account"></div>
+                                </form>
+
+                                <div class="check-email-message" style="display:none;">
+                                    <h3 class=" form-title">
+                                        @LogOnResources.CheckEmailTitle
+                                    </h3>
+                                    <div class="text">
+                                        <p>@AccountResource.EmailedPassword<br />@AccountResource.ResetInstructions</p>
+                                        @Html.Svg("/images/Site/icons.svg", "info")
+                                        <p>
+                                            <span class="bold">@AccountResource.DidntReceivedEmail</span><br />
+                                            @AccountResource.CheckEmailSpam<br />
+
+                                            <button id="resendRequest">@AccountResource.AnotherRequest</button>
+                                        </p>
+                                    </div>
+                                    <div class="create-account"></div>
+                                </div>
+
+                                <form class="register-form" action="" method="post">
+                                    @{ Html.RenderAction("AntiForgeryToken", "Home", true);}
+                                    <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
+                                    <h3>@LogOnResources.CreateAccount</h3>
+                                    <div id="register_alert_text" class="alert alert-danger display-hide">
+                                        <button class="close" data-close="alert"></button>
+                                        <span></span>
+                                    </div>
+                                    <div class="form-group first">
+                                        <input class="form-control" type="text" required placeholder="@AccountResource.First" name="firstName" />
+                                    </div>
+                                    <div class="form-group second">
+                                        <input class="form-control" type="text" required placeholder="@SharedResources.LastName" name="lastName" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="email" required placeholder="@SharedResources.Email" name="NewEmail" id="register_email" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="password" required autocomplete="off" placeholder="@LogOnResources.Password" name="Password" />
+                                    </div>
+
+                                    <div class="form-actions-container" layout="row" layout-align="center center">
+                                        <div class="form-group">
+                                            <label>
+                                                @RegisterResources.IAgree
+                                                <a class="tos" target="_blank" href="@Url.Action("TermsOfService", "Home")">&nbsp;@RegisterResources.TermsOfServices</a>&nbsp;@RegisterResources.And&nbsp;<a target="_blank" href="@Url.RouteUrl("Privacy")">@RegisterResources.PrivacyPolicy</a>&nbsp;@RegisterResources.ofZbang
+                                            </label>
+                                        </div>
+
+                                        <div class="form-actions">
+                                            <button type="submit" id="register-submit-btn" class="btn button-Blue btn-primary">
+                                                @LogOnResources.SignUp
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="signin-options">
+                                        <button type="button" class="login-option facebook">
+                                            <div>
+                                                @Html.Svg("/images/signin/loginoptions.svg", "facebook")
+                                                <span>@LogOnResources.ExternalProvider</span>
+                                            </div>
+                                        </button>
+                                        <button type="button" class="login-option google">
+                                            <div>
+                                                @Html.Svg("/images/signin/loginoptions.svg", "google")
+                                                <span>@LogOnResources.ExternalProvider</span>
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <div class="login-account">
+                                        <p>
+                                            @LogOnResources.AlreadyHave&nbsp;<a href="javascript:;" id="login-btn">@SharedResources.SignIn</a>
+                                        </p>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="signin-options">
+                        <button type="button" class="login-option facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                            <div>
+                                @Html.Svg("/images/signin/loginoptions.svg", "facebook")
+                                <span>@LogOnResources.ExternalProvider</span>
+                            </div>
+                        </button>
+                        <button type="button" class="login-option google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                            <div>
+                                @Html.Svg("/images/signin/loginoptions.svg", "google")
+                                <span>@LogOnResources.ExternalProvider</span>
+                            </div>
+                        </button>
+                        <a class="login-option signup os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s" href="@Url.Action("SignUp", "Account", new { universityid = Request.QueryString["universityid"] })" target="_self">@HomePageResources.A5</a>
+                    </div>
+                    <div class="statistics os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
+                        <h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>
+
+                        <div id="students" data-statistic="@HomePageResources.statsStudents"></div>
+                        <div id="documents" data-statistic="@HomePageResources.statsDocuments"></div>
+                        <div id="quizzes" data-statistic="@HomePageResources.statsQuizzes"></div>
+                    </div>
+                    <div class="social-links os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.6s">
+                        <div class="wrapper" dir="ltr">
+                            <a target="_blank" href="https://www.facebook.com/cloudents.il">@Html.Svg(socialIconsSvg, "facebook")</a>
+                            <a target="_blank" href="https://twitter.com/SpitballStudy">@Html.Svg(socialIconsSvg, "twitter")</a>
+                            <a target="_blank" href="https://plus.google.com/+Cloudents">@Html.Svg(socialIconsSvg, "google")</a>
+                            <a target="_blank" href="https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg">@Html.Svg(socialIconsSvg, "youtube")</a>
+                            <a target="_blank" href="http://instagram.com/spitballstudy">@Html.Svg(socialIconsSvg, "instagram")</a>
+                        </div>
                     </div>
                 </div>
+
             </section>
+
             <section class="about">
                 <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.D1</h1>
                 <div class="description os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">
