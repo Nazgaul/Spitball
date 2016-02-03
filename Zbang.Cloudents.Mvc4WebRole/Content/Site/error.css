@@ -2,6 +2,11 @@
   width: 100%;
   margin-top: 100px;
 }
+@media (min-width: 960px) {
+  .error-page {
+    margin-left: -125px;
+  }
+}
 .error-page h2 {
   font-size: 150px;
   font-weight: bold;
@@ -32,6 +37,11 @@
   left: 0;
   right: 0;
   padding-top: 6vh;
+}
+@media (min-width: 960px) {
+  .members-only-page {
+    margin-left: -250px;
+  }
 }
 .members-only-page img {
   max-width: 240px;
