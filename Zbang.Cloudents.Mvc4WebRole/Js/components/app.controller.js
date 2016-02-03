@@ -14,7 +14,7 @@
             $window.Intercom('update');
             svg4everybody();
         });
-        userDetails.init().then(function() {
+        userDetails.init().then(function () {
             setTheme();
         });
 
@@ -36,10 +36,11 @@
         self.logOut = logOut;
         self.openMenu = openMenu;
         self.menuOpened = false;
-        self.hideSearch = false;
         self.expandSearch = false;
         self.resetForm = resetForm;
         self.showToaster = showToaster;
+
+        self.showMenu = false;
 
         self.toggleMenu = toggleMenu;
         function logOut() {
@@ -77,19 +78,9 @@
         }
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-            var name = toState.name;
-            if (name === 'universityChoose') {
-                self.hideSearch = true;
-            } else {
-                self.hideSearch = false;
-            }
-
-
+            self.showMenu = true; // if user comes from university choose need to remove this.
         });
 
-        //$rootScope.$on('viewContentLoaded', function() {
-        //    svg4everybody();
-        //});
 
 
 
@@ -99,7 +90,7 @@
             }
             $mdMenu.hide(); //closes menu
             $rootScope.$broadcast('close-menu');
-            
+
             var toStateName = toState.name;
             if (toStateName !== 'searchinfo') {
                 $rootScope.$broadcast('search-close');
@@ -116,11 +107,6 @@
             }
             $rootScope.$broadcast('close-collapse');
             if (!userDetails.isAuthenticated()) {
-            //    if (!fromState.abstract && toStateName === 'searchinfo') {
-            //        $rootScope.$broadcast('show-unregisterd-box');
-            //        $rootScope.$broadcast('state-change-start-prevent');
-            //        event.preventDefault();
-            //    }
                 return;
             }
             var details = userDetails.get();
@@ -129,25 +115,23 @@
             }
             var userWithNoUniversityState = 'universityChoose';
             if (toStateName !== userWithNoUniversityState) {
-                showToaster(resManager.get('universityChooseContinue'), 'lib-choose');
+                //showToaster(resManager.get('universityChooseContinue'), 'lib-choose');
                 $rootScope.$broadcast('state-change-start-prevent');
                 event.preventDefault();
             }
 
         });
 
-        $rootScope.$on('$stateNotFound',
-            function (event, unfoundState, fromState, fromParams) {
-                console.log(unfoundState.to); // "lazy.state"
-                console.log(unfoundState.toParams); // {a:1, b:2}
-                console.log(unfoundState.options); // {inherit:false} + default options
-            });
+        //$rootScope.$on('$stateNotFound',
+        //    function (event, unfoundState, fromState, fromParams) {
+        //        console.log(unfoundState.to); // "lazy.state"
+        //        console.log(unfoundState.toParams); // {a:1, b:2}
+        //        console.log(unfoundState.options); // {inherit:false} + default options
+        //    });
 
-        $rootScope.$on('$stateChangeError',
-           function (event, toState, toParams, fromState, fromParams, error) {
-               console.log(event, toState, toParams, fromState, fromParams, error); 
-           });
-
-
+        //$rootScope.$on('$stateChangeError',
+        //   function (event, toState, toParams, fromState, fromParams, error) {
+        //       console.log(event, toState, toParams, fromState, fromParams, error);
+        //   });
     }
 })();

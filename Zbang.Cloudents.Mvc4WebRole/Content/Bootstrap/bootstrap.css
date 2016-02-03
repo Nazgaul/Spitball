@@ -1464,10 +1464,10 @@ a.badge:focus {
   float: left !important;
 }
 .hide {
-  display: none !important;
+    display: none;
 }
 .show {
-  display: block !important;
+    display: block;
 }
 .invisible {
   visibility: hidden;

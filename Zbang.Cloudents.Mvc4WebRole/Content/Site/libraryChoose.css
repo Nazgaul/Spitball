@@ -1,4 +1,9 @@
-﻿.library-choose .univeristy {
+﻿@media (min-width: 960px) {
+  .library-choose {
+    margin-left: -250px;
+  }
+}
+.library-choose .univeristy {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;

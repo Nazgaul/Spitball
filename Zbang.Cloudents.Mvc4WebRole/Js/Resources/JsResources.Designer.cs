@@ -221,14 +221,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
                 return ResourceManager.GetString("unfollowClass", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Complete finding your school before navigating.
-        /// </summary>
-        public static string universityChooseContinue {
-            get {
-                return ResourceManager.GetString("universityChooseContinue", resourceCulture);
-            }
-        }
     }
 }

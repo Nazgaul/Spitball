@@ -75,6 +75,7 @@
                 },
                 targetEvent: ev,
                 clickOutsideToClose: true,
+                //fullscreen: true
             });
         }
 

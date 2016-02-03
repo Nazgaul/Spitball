@@ -64,17 +64,17 @@
             </div>
             @if (!ViewBag.error)
             {
-                <form ng-controller="SearchTriggerController as st" 
-                      ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger" 
-                      novalidate class="search-form search-form-expanded" ng-hide="app.hideSearch">
+                <form ng-controller="SearchTriggerController as st"
+                      ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger"
+                      novalidate class="search-form search-form-expanded" ng-if="app.showMenu">
                     <div class="search-area color-override backgroundColor4">
-                        <input required ng-change="st.change(searchTrigger.$valid)" 
-                               ng-focus="app.expandSearch = true" 
-                               ng-blur="app.expandSearch = false" 
-                               ng-model="st.term" 
+                        <input required ng-change="st.change(searchTrigger.$valid)"
+                               ng-focus="app.expandSearch = true"
+                               ng-blur="app.expandSearch = false"
+                               ng-model="st.term"
                                ng-minlength="2"
-                               ng-model-options="{debounce : 300}" 
-                               type="search" class="text" 
+                               ng-model-options="{debounce : 300}"
+                               type="search" class="text"
                                user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
                         <button type="submit" class="search-btn color-override backgroundColor11">
                             @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon color-override svgColor3" })
@@ -86,7 +86,7 @@
         <div layout="row" layout-align="center center" flex="none" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
             <md-menu class="user-md-menu color-override textColor1 hoverBackgroundColor4" ng-if="ud.isLoggedIn" md-offset="-115 80">
                 <!-- Trigger element is a md-button with an icon -->
-                <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="Open sample menu">
+                <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="Open menu">
                     {{ud.name}}
                     <md-icon md-menu-origin>
                         <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39" noremove="true"></user-image>
@@ -127,12 +127,10 @@
             <div class="login-buttons" ng-if="!ud.isLoggedIn">
                 <a class="btn btn-default" target="_self" href="@Url.Action("SignUp", "Account", new { returnUrl,invId })" ga-track-event="['header', 'sign up']">@IndexResources.Signup</a>
                 <a class="btn button-Blue btn-primary" target="_self" href="@Url.Action("SignIn", "Account", new { returnUrl, invId })" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
-                @*<button class="btn btn-default" role="button" onclick="window.location='@Url.Action("SignUp", "Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'sign up']">@IndexResources.Signup</button>
-                    <button class="btn btn-primary" role="button" onclick="window.location='@Url.Action("SignIn","Account")'" ng-if="!ud.isLoggedIn" ga-track-event="['header', 'log in']">@IndexResources.Login</button>*@
             </div>
             @if (!ViewBag.error)
             {
-            <button type="button" flex="none" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" ga-track-event="['header', 'open menu']">
+            <button type="button" ng-if="app.showMenu" flex="none" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" ga-track-event="['header', 'open menu']">
                 @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
             </button>
             }
